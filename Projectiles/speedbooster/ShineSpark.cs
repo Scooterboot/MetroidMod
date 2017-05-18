@@ -50,7 +50,7 @@ namespace MetroidMod.Projectiles.speedbooster
 			{
 				projectile.Kill();
 			}
-			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 255, 216, 0);
+			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 1f, 0.85f, 0);
 			float rotation = (float)Math.Atan2(P.position.Y-P.shadowPos[0].Y, P.position.X-P.shadowPos[0].X);
 			float rotation1 = rotation+((float)Math.PI/2);
 			float rotation2 = rotation-((float)Math.PI/2);
