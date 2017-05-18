@@ -72,7 +72,7 @@ namespace MetroidMod.Projectiles.speedbooster
 					return;
 				}
 			}
-			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 0, 191, 255);
+			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 0, 0.75f, 1f);
 			float rotation = (float)Math.Atan2(P.position.Y-P.shadowPos[0].Y, P.position.X-P.shadowPos[0].X);
 			float rotation1 = rotation+((float)Math.PI/2);
 			float rotation2 = rotation-((float)Math.PI/2);
