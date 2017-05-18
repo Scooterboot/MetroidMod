@@ -1,0 +1,3 @@
+author = Scooterboot9697
+version = 0.1
+displayName = Metroid Mod
