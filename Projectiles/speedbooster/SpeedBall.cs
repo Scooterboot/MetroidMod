@@ -69,7 +69,7 @@ namespace MetroidMod.Projectiles.speedbooster
 					return;
 				}
 			}
-			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 0, 191, 255);
+			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 0, 0.75f, 1f);
 		}
 		/*public override void DamageNPC(NPC npc, int hitDir, ref int damage, ref float knockback, ref bool crit, ref float critMult)
 		{
