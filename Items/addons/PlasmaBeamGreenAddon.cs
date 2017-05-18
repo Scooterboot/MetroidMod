@@ -3,20 +3,20 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.addons
 {
-	public class ChargeBeamAddon : ModItem
+	public class PlasmaBeamGreenAddon : ModItem
 	{
 		public override void SetDefaults()
 		{
-			item.name = "Charge Beam";
+			item.name = "Plasma Beam (Green)";
 			item.width = 10;
 			item.height = 14;
 			item.maxStack = 1;
 			item.toolTip = "Power Beam Addon\n" +
-			"Slot Type: Charge\n" +
-			"Adds Charge Effect\n" + 
-			"~Charge by holding click\n" + 
-			"~Charge shots deal x3 damage, but overheat x2 the normal use\n" + 
-			"Primary A and B combinations are still impossible";
+				"Slot Type: Primary B\n" +
+				"Shots pierce enemies, hitting them multiple times\n" +
+				"+300% damage\n" +
+				"+100% overheat use";
+
 			item.value = 2500;
 			item.rare = 4;
 		}
@@ -25,11 +25,13 @@ namespace MetroidMod.Items.addons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Mana Crystal");
-            recipe.AddIngredient("Fallen Star", 2);
+            recipe.AddIngredient("Cursed Flame", 15);
+            recipe.AddIngredient("Emerald", 5);
+			recipe.AddIngredient("Soul of Light", 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+
 		}
 	}
 }

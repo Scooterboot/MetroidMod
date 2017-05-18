@@ -3,11 +3,11 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.addons
 {
-	public class ChargeBeamAddon : ModItem
+	public class ChargeBeamV2Addon : ModItem
 	{
 		public override void SetDefaults()
 		{
-			item.name = "Charge Beam";
+			item.name = "Charge Beam V2";
 			item.width = 10;
 			item.height = 14;
 			item.maxStack = 1;
@@ -16,7 +16,11 @@ namespace MetroidMod.Items.addons
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
 			"~Charge shots deal x3 damage, but overheat x2 the normal use\n" + 
-			"Primary A and B combinations are still impossible";
+			"Allows Primare A and B combinations\n" + 
+			"Converts Spazer to Wide Beam when slotted in\n" +
+			"Without Spazer, the beam fires 2 shots at once\n" + 
+			"Increases base damage from 7 to 10\n" + 
+			"Increases base overheat use from 4 to 6";
 			item.value = 2500;
 			item.rare = 4;
 		}
@@ -24,10 +28,10 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Mana Crystal");
-            recipe.AddIngredient("Fallen Star", 2);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(null, "ChargeBeamAddon");
+            recipe.AddIngredient("Soul of Might", 10);
+            recipe.AddIngredient("Illegal Gun Parts");
+            recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
