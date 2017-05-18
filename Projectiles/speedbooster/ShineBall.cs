@@ -51,7 +51,7 @@ public override void SetDefaults()
 			{
 				projectile.Kill();
 			}
-			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 255, 216, 0);
+			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 1f, 0.85f, 0);
 		}
 		/*public override void DamageNPC(NPC npc, int hitDir, ref int damage, ref float knockback, ref bool crit, ref float critMult)
 		{
