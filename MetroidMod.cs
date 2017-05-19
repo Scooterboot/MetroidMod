@@ -12,7 +12,6 @@ public class MetroidMod : Mod
 		internal static ModHotKey SpiderBallKey;
 		internal static ModHotKey BoostBallKey;
 		internal static ModHotKey PowerBombKey;
-		//internal static ModHotKey XRayKey;
 		internal static ModHotKey BeamInterfaceKey;
 		internal static ModHotKey SenseMoveKey;
 	public static Mod Instance;
@@ -35,9 +34,8 @@ public class MetroidMod : Mod
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
 			BoostBallKey = RegisterHotKey("Boost Ball", "F");
 			PowerBombKey = RegisterHotKey("Power Bomb", "R");
-			//XRayKey = RegisterHotKey("X-Ray Visor", "F");
 			BeamInterfaceKey = RegisterHotKey("Open Combination Interface", "Q");
-			SenseMoveKey = RegisterHotKey("Use Sense Move", "LeftShift");
+			SenseMoveKey = RegisterHotKey("Use Sense Move", "F");
 		}
 }
 }
