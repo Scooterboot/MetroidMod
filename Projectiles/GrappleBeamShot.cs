@@ -9,7 +9,7 @@ namespace MetroidMod.Projectiles
 {
 	public class GrappleBeamShot : ModProjectile
 	{
-			private float grappleRotation = 0f;
+			//private float grappleRotation = 0f;
 			private bool isHooked;
 			private int grappleSwing = -1;
 			private float maxDist;
@@ -82,6 +82,8 @@ public override bool PreAI()
 		public override void PostAI()
 		{
 			Player owner = Main.player[projectile.owner];
+			MPlayer mp = owner.GetModPlayer<MPlayer>(mod);
+				mp.grappleBeamIsHooked = isHooked;
 			if (owner.dead || (Vector2.Distance(owner.Center, projectile.Center) > 465 && !isHooked) || (Vector2.Distance(owner.Center, projectile.Center) > 525 && isHooked))
 			{
 				projectile.Kill();
@@ -253,7 +255,7 @@ public override bool PreAI()
 						player.mount.Dismount(player);
 					}
 					float targetrotation = (float)Math.Atan2(((projectile.Center.Y-player.Center.Y)*player.direction),((projectile.Center.X-player.Center.X)*player.direction));
-					grappleRotation = targetrotation;
+					mp.grappleRotation = targetrotation;
 					player.wingTime = 0f;
 					player.rocketTime = player.rocketTimeMax;
 					player.rocketDelay = 0;
