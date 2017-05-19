@@ -97,9 +97,10 @@ namespace MetroidMod
 		public bool detect = false;
 		public int sMoveDir = 1;
 		//public Vector2 grappleVect = Vector2.Zero;
-		//public float grappleRotation = 0f;
-		public float maxDist;
+		public float grappleRotation = 0f;
+		//public float maxDist;
 		//public int grapplingBeam = -1;
+		public bool grappleBeamIsHooked = false;
 		#endregion
 		int counter = 0;
 		//SoundEffectInstance concentrationSound;
@@ -132,6 +133,10 @@ namespace MetroidMod
 		//	xrayequipped = false;
 			speedBooster = false;
 			morphBall = false;
+			if (player.ownedProjectileCounts[mod.ProjectileType("GrappleBeamShot")] <= 0)
+			{
+			grappleBeamIsHooked = false;
+			}
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
 			maxOverheat = 100f;
@@ -142,7 +147,7 @@ namespace MetroidMod
 			morphColor.A = 255;
 			morphColorLights = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B >= P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
 			morphColorLights.A = 255;
-			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && P.itemAnimation == 0 && P.releaseHook && P.grapCount == 0 /*&& !GrappleBeamShot.grappleBeam.IsHooked(P)*/ && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
+			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && P.itemAnimation == 0 && P.releaseHook && P.grapCount == 0 && !grappleBeamIsHooked && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
 			//isConcentrating = false;
 			if(!morphBall)
@@ -160,7 +165,7 @@ namespace MetroidMod
 				player.gravity = Player.defaultGravity;
 			}
 			//player.grabRange += (int)(statCharge * 1.6f);
-			if(player.velocity.Y == 0 || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 /*|| GrappleBeamShot.grappleBeam.IsHooked(player)*/)
+			if(player.velocity.Y == 0 || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
 			{
 				statSpaceJumps = maxSpaceJumps;
 			}
@@ -293,7 +298,7 @@ namespace MetroidMod
 				currentMorphColor = morphColor;
 			}
 
-			bool trail = (!player.dead && !player.mount.Active && player.grapCount == 0 /*&& !GrappleBeamShot.grappleBeam.IsHooked(player)*/ && shineDirection == 0 && !shineActive && !ballstate);
+			bool trail = (!player.dead && !player.mount.Active && player.grapCount == 0 && !grappleBeamIsHooked) && shineDirection == 0 && !shineActive && !ballstate);
 			if(trail && ((player.velocity.Y < 0f && player.gravDir == 1) || (player.velocity.Y > 0f && player.gravDir == -1)) && isPowerSuit)
 			{
 				tweak++;
@@ -691,7 +696,7 @@ namespace MetroidMod
 		{
 			//player.noFallDmg = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0)
+			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
 			{
 				mp.spaceJumped = false;
 				mp.canSomersault = false;
@@ -883,6 +888,47 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			}
 		});
 		//public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
+       public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player P = drawInfo.drawPlayer;
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			if (mPlayer.somersault && mPlayer.screwAttack && P.shadow == 0f)
+			{
+				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
+				Texture2D tex2 = mod.GetTexture("Gore/ScrewAttack_Yellow");
+				for(int i = 0; i < 255; i++)
+				{
+					Projectile projectile = Main.projectile[i];
+					if(projectile.active && projectile.owner == P.whoAmI && projectile.type == mod.ProjectileType("ScrewAttackProj"))
+					{
+						SpriteEffects effects = SpriteEffects.None;
+						if (projectile.spriteDirection == -1)
+						{
+							effects = SpriteEffects.FlipHorizontally;
+						}
+						Color alpha = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
+						int num121 = tex.Height / Main.projFrames[projectile.type];
+						int y9 = num121 * projectile.frame;
+						float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
+						spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+						if(mPlayer.screwAttackSpeedEffect > 0)
+						{
+							mPlayer.color21 = alpha;
+							if(mPlayer.screwAttackSpeedEffect <= 30)
+							{
+								mPlayer.color21 = mPlayer.GetAlpha(alpha, ((float)(30-mPlayer.screwAttackSpeedEffect)/30f));
+							}
+							spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), mPlayer.color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+							Texture2D tex3 = mod.GetTexture("Gore/ScrewAttack_YellowPlayerGlow");
+							Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), mPlayer.color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
+						}
+					}
+				}
+			}
+		});
+		//public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
 			MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
@@ -895,6 +941,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					k++;
 					layers.Insert(k + 1, ballLayer);
 					k++;
+					layers.Insert(k + 1, screwAttackLayer);
 				}
 					if (layers[k] == PlayerLayer.Body)
 				{
@@ -1020,7 +1067,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				{
 					P.headRotation = 0f;
 				}
-				/*if(GrappleBeamShot.grappleBeam.IsHooked(P) && P.itemAnimation <= 0)
+				(grappleBeamIsHooked && P.itemAnimation <= 0)
 				{
 					float num11 = grappleRotation * (float)P.direction;
 					P.bodyFrame.Y = P.bodyFrame.Height * 3;
@@ -1131,7 +1178,10 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 		}
         public void MorphBallBasic(Player player)
 		{
-			
+			if (player.grappling[0] >= 0 || grappleBeamIsHooked)
+						{
+							ballstate = false;
+						}
 			if (ballstate)
 			{
 				if(!special && statCharge >= 100)
