@@ -33,7 +33,7 @@ namespace MetroidMod.Items.equipables
             AddTooltip("+20 overheat capacity");
         }
 
-        public override void UpdateEquip(Player player)
+       public override void UpdateEquip(Player player)
         {
             player.rangedDamage += 0.05f;
             player.fireWalk = true;
@@ -51,7 +51,8 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "10% increased ranged damage" + "\r\n"
+            p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n"
+                + "10% increased ranged damage" + "\r\n"
                 + "Free movement in liquid" + "\r\n"
                 + "Immune to lava damage" + "\r\n"
                 + "Default gravity in space" + "\r\n"
@@ -61,13 +62,36 @@ namespace MetroidMod.Items.equipables
             p.rangedDamage += 0.10f;
             p.ignoreWater = true;
             p.lavaImmune = true;
-            p.gravity = 1;
+            p.gravity = 0.4f;
             p.noFallDmg = true;
             p.gills = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
             mp.overheatCost -= 0.35f;
-            mp.enableSenseMove = true;
+            mp.SenseMove(p);
             mp.visorGlow = true;
+            if(!mp.ballstate)
+			{
+				Lighting.AddLight((int)((float)p.Center.X/16f), (int)((float)(p.position.Y+8f)/16f), 0, 0.973f, 0.44f);
+			}
+        }
+         public override void UpdateVanitySet(Player P)
+		{
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			mp.isPowerSuit = true;
+			mp.thrusters = true;
+			if(Main.netMode != 2)
+			{
+				mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
+			}
+			mp.visorGlowColor = new Color(0, 248, 112);
+			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
+			{
+				mp.jet = true;
+			}
+			else if(mp.shineDirection == 0 || mp.shineDirection == 5)
+			{
+				mp.jet = false;
+			}
         }
 
         public override void AddRecipes()
