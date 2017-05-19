@@ -58,7 +58,7 @@ namespace MetroidMod
 		public bool thrusters = false;
 		public bool spaceJump = false;
 		public bool visorGlow = false;
-		public Vector3 visorGlowColor = new Vector3(255, 255, 255);
+		public Color visorGlowColor = new Color(255, 255, 255);
 		public Texture2D thrusterTexture;
 		//public bool xrayequipped = false;
 		public bool speedBooster = false;
@@ -133,7 +133,7 @@ namespace MetroidMod
 			speedBooster = false;
 			morphBall = false;
 			visorGlow = false;
-			visorGlowColor = new Vector3(255, 255, 255);
+			visorGlowColor = new Color(255, 255, 255);
 			maxOverheat = 100f;
 			overheatCost = 1f;
 			specialDmg = 100;
@@ -365,15 +365,15 @@ namespace MetroidMod
 			{
 				num--;
 			}
-			if(visorGlow && !ballstate)
+			/*if(visorGlow && !ballstate)
 			{
                  Vector2 face = new Vector2((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f));
 				Lighting.AddLight(face, (visorGlowColor)*0.375f);
-			}
+			}*/
 			if(jet)
 			{
 				//Color flame = new Color(153, 99, 61);
-				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)player.Center.Y/16f), 153, 99, 61);
+				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)player.Center.Y/16f), 0.6f, 0.38f, 0.24f);
 			}
 			if(somersault)
 			{
@@ -768,11 +768,125 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
                 MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
 				mPlayer.DrawBallTexture(spriteBatch, tex, tex2, tex3, boost, trail, drawPlayer);
 			});
+   public static readonly PlayerLayer thrusterLayer = new PlayerLayer("MetroidMod", "thrusterLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
+			{
+				Mod mod = MetroidMod.Instance;
+				SpriteBatch spriteBatch = Main.spriteBatch;
+				Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			if (mPlayer.thrusters)
+			{
+				if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
+				{
+					if(mPlayer.thrusterTexture != null)
+					{
+						Texture2D tex = mPlayer.thrusterTexture;
+						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawInfo.bodyColor, drawInfo.bodyArmorShader);
+					}
+				}
+			}
+			});
+			            public static readonly PlayerLayer jetLayer = new PlayerLayer("MetroidMod", "jetLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
+			{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			if (mPlayer.jet && !drawPlayer.sandStorm && drawPlayer.shadow == 0f && mPlayer.thrusters)
+			{
+				if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
+				{
+					Texture2D tex = mod.GetTexture("Gore/thrusterFlame");
+					mPlayer.DrawThrusterJet(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyRotation, drawPlayer.bodyPosition);
+				}
+			}
+			});
+			public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
+		{
+			SpriteEffects effects = SpriteEffects.None;
+				if (drawPlayer.direction == -1)
+				{
+					effects = SpriteEffects.FlipHorizontally;
+				}
+				float yfloat = 4f;
+				if (drawPlayer.mount.Active)
+				{
+					yfloat -= drawPlayer.mount._data.yOffset/32 + drawPlayer.mount._data.playerYOffsets[drawPlayer.mount._frame];
+				}
+			DrawData item = new DrawData(tex, new Vector2((float)((int)(drawPlayer.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawPlayer.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + yfloat))) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
+			item.shader = shader;
+			Main.playerDrawData.Add(item);
+		}
+		Rectangle jetFrame;
+		int jetFrameCounter = 1;
+		int currentFrame = 0;
+		public void DrawThrusterJet(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, float rot, Vector2 drawPos)
+		{
+			SpriteEffects effects = SpriteEffects.None;
+				if (drawPlayer.direction == -1)
+				{
+					effects = SpriteEffects.FlipHorizontally;
+				}
+			jetFrame.Width = 40;
+			jetFrame.Height = 56;
+			jetFrame.X = 0;
+			jetFrame.Y = jetFrame.Height*currentFrame;
+			jetFrameCounter++;
+			int frame = 2;
+			if(jetFrameCounter < frame)
+			{
+				currentFrame = 0;
+			}
+			else if(jetFrameCounter < frame * 2)
+			{
+				currentFrame = 1;
+			}
+			else if(jetFrameCounter < frame * 3)
+			{
+				currentFrame = 2;
+			}
+			else if(jetFrameCounter < frame * 4 - 1)
+			{
+				currentFrame = 1;
+			}
+			else
+			{
+				currentFrame = 1;
+				jetFrameCounter = 0;
+			}
+			float whyfloat = 4f;
+			if (drawPlayer.mount.Active)
+			{
+				whyfloat -= drawPlayer.mount._data.yOffset/32 + drawPlayer.mount._data.playerYOffsets[drawPlayer.mount._frame];
+			}
+			Main.playerDrawData.Add(new DrawData(tex, new Vector2((float)((int)(drawPlayer.position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawPlayer.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + whyfloat))) + drawPos + drawInfo.bodyOrigin, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyOrigin, 1f, effects, 0));
+		}
+		public Color GetAlpha(Color newColor, float alphaReduction)
+		{
+			float num = (float)(255) / 255f;
+			if (alphaReduction > 0f)
+			{
+				num *= 1f - alphaReduction;
+			}
+			return Color.Multiply(newColor, num);
+		}
+		public static readonly PlayerLayer visorLayer = new PlayerLayer("MetroidMod", "visorLayer", PlayerLayer.Head, delegate(PlayerDrawInfo drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			if (mPlayer.isPowerSuit && !mPlayer.ballstate)
+			{
+				Texture2D tex = mod.GetTexture("Gore/VisorGlow");
+				mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.position, drawInfo.headOrigin, mPlayer.visorGlowColor, 0);
+			}
+		});
+		//public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
 			MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
 			Player P = player;
-	//	PlayerLayer.Add(list, visorLayer, PlayerLayer.LayerHead, false, false);
 	//		PlayerLayer.Add(list, gunItemLayer, PlayerLayer.LayerHeldItem, false, false);
     			for (int k = 0; k < layers.Count; k++)
 			{
@@ -782,6 +896,20 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					layers.Insert(k + 1, ballLayer);
 					k++;
 				}
+					if (layers[k] == PlayerLayer.Body)
+				{
+					k++;
+					layers.Insert(k + 1, thrusterLayer);
+					k++;
+					layers.Insert(k + 1, jetLayer);
+					k++;
+				}
+				if (layers[k] == PlayerLayer.Head)
+				{
+					k++;
+					layers.Insert(k + 1, visorLayer);
+
+				}
 			}
 			Terraria.Item I = P.inventory[P.selectedItem];
 			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
@@ -789,8 +917,6 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			{
 				PlayerLayer.Add(list, gunLayer, PlayerLayer.LayerArmsFront, false, false);
 			}*/
-	//		PlayerLayer.Add(list, jetLayer, PlayerLayer.LayerBodyBase, true, false);
-	//		PlayerLayer.Add(list, thrusterLayer, PlayerLayer.LayerBodyBase, true, false);
 	//		PlayerLayer.Add(list, screwAttackLayer, PlayerLayer.LayerAccessoryFront, false, false);
 			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
 			if(somersault)
