@@ -20,10 +20,11 @@ namespace MetroidMod.Items.equipables
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
-			item.toolTip = "'Somersault continuously in the air!'\n" + 
-			"Allows somersaulting\n" + 
+			item.toolTip = "Allows the user to run insanely fast\n" + 
+			"Damage enemies while running\n" + 
 			"Allows the user to jump up to 10 times in a row\n" + 
-			"Jumps recharge mid-air";
+			"Jumps recharge mid-air\n" + 
+			"Allows somersaulting";
 			item.value = 40000;
 			item.rare = 7;
 			item.accessory = true;
