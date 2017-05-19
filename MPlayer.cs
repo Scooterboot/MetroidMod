@@ -1492,7 +1492,119 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			}
 		}
         const int TileSize = 16;
-
+public void SenseMove(Player P)
+		{
+				MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+				int dist = 80;
+				if(senseSound)
+				{
+					Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SenseMoveSound"));
+				}
+				//int W = 20;
+				//int H = 48;
+				//Rectangle MB = new Rectangle((int)P.Center.X-W,(int)P.Center.Y-H,(W*2),(H*2));
+				detect = false;
+				for(int k = 0; k < Main.npc.Length; k++)
+				{
+					NPC N = Main.npc[k];
+					if(N.damage > 0 && !N.friendly && N.life > 0 && N.active)
+					{
+						for(int i = 1; i <= dist; i++)
+						{
+							//Rectangle NB = new Rectangle((int)(N.position.X+(N.velocity.X*i)),(int)(N.position.Y+(N.velocity.Y*i)),N.width,N.height);
+							Vector2 npcFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
+							float npcDist = Vector2.Distance(P.Center, npcFuturePos);
+							if((npcDist <= (P.height+N.width) || npcDist <= (P.height+N.height)) && P.velocity.Y == 0f)
+							{
+								if(N.velocity.X != 0f || N.velocity.Y != 0f)
+								{
+									if(N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
+									{
+										detect = true;
+									}
+								}
+							}
+						}
+					}
+				}
+				for(int k = 0; k < Main.projectile.Length; k++)
+				{
+					Projectile Pr = Main.projectile[k];
+					if(Pr.damage > 0 && !Pr.friendly && Pr.hostile && Pr.timeLeft > 0 && Pr.active)
+					{
+						for(int i = 1; i <= dist; i++)
+						{
+							//Rectangle PB = new Rectangle((int)(Pr.position.X+(Pr.velocity.X*i)),(int)(Pr.position.Y+(Pr.velocity.Y*i)),Pr.width,Pr.height);
+							Vector2 projFuturePos = new Vector2(Pr.Center.X+(Pr.velocity.X*i),Pr.Center.Y+(Pr.velocity.Y*i));
+							float projDist = Vector2.Distance(P.Center, projFuturePos);
+							if((projDist <= (P.height+Pr.width) || projDist <= (P.height+Pr.height)) && P.velocity.Y == 0f)
+							{
+								if(Pr.velocity.X != 0f || Pr.velocity.Y != 0f)
+								{
+									if(!Pr.tileCollide || Collision.CanHit(P.position, P.width, P.height, Pr.position, Pr.width, Pr.height))
+									{
+										detect = true;
+									}
+								}
+							}
+						}
+					}
+				}
+				if(detect && !mp.ballstate && !P.mount.Active && P.velocity.Y == 0f)
+				{
+					if(!isSenseMoving)
+					{
+						if(P.controlLeft && MetroidMod.SenseMoveKey.Current)
+						{
+							SMoveEffect = 40;
+							senseSound = true;
+							P.velocity.X = -7f;
+							P.velocity.Y -= 4.5f * P.gravDir;
+							if(P.direction == 1 && P.maxRunSpeed < -P.velocity.X)
+							{
+								sMoveDir = -1;
+							}
+							isSenseMoving = true;
+						}
+						else if(P.controlRight && MetroidMod.SenseMoveKey.Current)
+						{
+							SMoveEffect = 40;
+							senseSound = true;
+							P.velocity.X = 7f;
+							P.velocity.Y -= 4.5f * P.gravDir;
+							if(P.direction == -1 && P.maxRunSpeed < P.velocity.X)
+							{
+								sMoveDir = -1;
+							}
+							isSenseMoving = true;
+						}
+						else
+						{
+							isSenseMoving = false;
+							senseSound = false;
+							sMoveDir = 1;
+						}
+					}
+					else
+					{
+						isSenseMoving = false;
+						senseSound = false;
+					}
+				}
+				else
+				{
+					isSenseMoving = false;
+					senseSound = false;
+				}
+				if(SMoveEffect > 0)
+				{
+					SMoveEffect--;
+				}
+				else
+				{
+					sMoveDir = 1;
+				}
+		}
 		// check if there is a solid tile to the left of the left centre of the player
 		public static bool CheckLeft(Player player)
 		{
