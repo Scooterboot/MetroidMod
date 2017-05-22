@@ -41,24 +41,24 @@ namespace MetroidMod.Items.addons
 		}
 		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale )
 		{
-			//DrawColors(sb, Main.localPlayer);
+			Texture2D tex = mod.GetTexture("Items/addons/HyperBeamAddonColors");
 			drawColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
+			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 		}
 		public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI )
 		{
-			//DrawColors(sb, Main.localPlayer);
+			DrawColors(sb, Main.player[item.owner]);
 			lightColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
 			alphaColor = lightColor;
 		}
-	/*	public void DrawColors(SpriteBatch sb, Player player)
+		public void DrawColors(SpriteBatch sb, Player player)
 		{
 			Texture2D tex = mod.GetTexture("Items/addons/HyperBeamAddonColors");
 			float rotation = item.velocity.X * 0.2f;
 			float num3 = 1f;
 			float num4 = (float)(item.height - tex.Height);
 			float num5 = (float)(item.width / 2 - tex.Width / 2);
-			MPlayer mp = player.GetSubClass<MPlayer>();
-			sb.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num5, item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num4 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), new Color(mp.r, mp.g, mp.b), rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), num3, SpriteEffects.None, 0f);
-		}*/
+			sb.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num5, item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num4 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), num3, SpriteEffects.None, 0f);
+		}
 	}
 }
