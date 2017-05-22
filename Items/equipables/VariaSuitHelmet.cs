@@ -25,7 +25,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 3;
             item.value = 6000;
-            item.defense = 3;
+            item.defense = 8;
             AddTooltip("5% increased ranged damage");
             AddTooltip("+10 overheat capacity");
             AddTooltip("Improved night vision");

@@ -25,7 +25,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 2;
             item.value = 6000;
-            item.defense = 1;
+            item.defense = 6;
             AddTooltip("5% increased ranged damage");
             AddTooltip("+5 overheat capacity");
             AddTooltip("Improved night vision");
@@ -43,7 +43,9 @@ namespace MetroidMod.Items.equipables
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.MeteoriteBar, 20);
-            recipe.AddIngredient(ItemID.Topaz);
+            //recipe.AddIngredient(ItemID.Topaz);
+            recipe.AddIngredient(null, "ChoziteHelmet");
+            recipe.AddIngredient(null, "EnergyShard");
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

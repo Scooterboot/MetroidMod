@@ -25,7 +25,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 3;
             item.value = 9000;
-            item.defense = 6;
+            item.defense = 9;
             AddTooltip("5% increased ranged damage");
             AddTooltip("Immunity to fire blocks");
             AddTooltip("Immunity to chill and freeze effects");
@@ -49,7 +49,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "70% increased underwater breathing";
+            p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "70% increased underwater breathing";
             p.rangedDamage += 0.05f;
             p.breathMax = (int)(p.breathMax * 1.7f);
             p.noFallDmg = true;
