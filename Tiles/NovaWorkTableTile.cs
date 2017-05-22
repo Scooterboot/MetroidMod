@@ -20,13 +20,21 @@ namespace MetroidMod.Tiles
 			AddMapEntry(new Color(170, 255, 93), "Nova Work Table");
 			dustType = 1;
 			disableSmartCursor = true;
+			animationFrameHeight = 54;
 		}
-		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
-		{
-			int uniqueAnimationFrame = Main.tileFrame[Type] + i;
-			uniqueAnimationFrame = uniqueAnimationFrame % 2;
 
-			frameYOffset = uniqueAnimationFrame * animationFrameHeight;
+public override void AnimateTile(ref int frame, ref int frameCounter)
+		{
+			frameCounter++;
+			if (frameCounter > 1)
+			{
+				frameCounter = 0;
+				frame++;
+				if (frame > 1)
+				{
+					frame = 0;
+				}
+			}
 		}
 		public override void NumDust(int i, int j, bool fail, ref int num)
 		{
