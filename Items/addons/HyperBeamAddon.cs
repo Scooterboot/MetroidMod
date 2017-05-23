@@ -26,6 +26,13 @@ namespace MetroidMod.Items.addons
 			"Only activates when the Secondary, Utility, and Primary A and B slots are in use";
 			item.value = 2500;
 			item.rare = 4;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 10;
+			item.useStyle = 1;
+			item.consumable = true;
+			item.createTile = mod.TileType("HyperBeamTile");
 		}
 		public override void AddRecipes()
 		{
