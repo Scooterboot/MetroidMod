@@ -20,6 +20,13 @@ namespace MetroidMod.Items.addons
 			"Cannot be used without the Phazon Suit";
 			item.value = 2500;
 			item.rare = 4;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 10;
+			item.useStyle = 1;
+			item.consumable = true;
+			item.createTile = mod.TileType("PhazonBeamTile");
 		}
 
 		public override void AddRecipes()
