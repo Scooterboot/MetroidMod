@@ -23,6 +23,13 @@ namespace MetroidMod.Items.equipables
 			item.value = 40000;
 			item.rare = 3;
 			item.accessory = true;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 10;
+			item.useStyle = 1;
+			item.consumable = true;
+			item.createTile = mod.TileType("SpaceJumpBootsTile");
 		}
 
 		public override void AddRecipes()
