@@ -760,19 +760,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
                 MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
 				mPlayer.DrawBallTexture(spriteBatch, tex, tex2, tex3, boost, trail, drawPlayer);
 			});
-            public static readonly PlayerLayer thrusterLayer = new PlayerLayer("MetroidMod", "thrusterLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
-			{
-				Mod mod = MetroidMod.Instance;
-                Texture2D tex = mod.GetTexture("Gore/Morphball");
-				Texture2D tex2 = mod.GetTexture("Gore/Morphball_Light");
-				Texture2D tex3 = mod.GetTexture("Gore/Mockball");
-				Texture2D boost = mod.GetTexture("Gore/Boostball");
-				Texture2D trail = mod.GetTexture("Gore/Morphball_Trail");
-                SpriteBatch spriteBatch = Main.spriteBatch;
-                Player drawPlayer = drawInfo.drawPlayer;
-                MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
-				mPlayer.DrawBallTexture(spriteBatch, tex, tex2, tex3, boost, trail, drawPlayer);
-			});
+ 
    public static readonly PlayerLayer thrusterLayer = new PlayerLayer("MetroidMod", "thrusterLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
 			{
 				Mod mod = MetroidMod.Instance;
