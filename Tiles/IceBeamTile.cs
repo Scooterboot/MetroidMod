@@ -24,6 +24,10 @@ namespace MetroidMod.Tiles
 			dustType = 1;
 			disableSmartCursor = true;
 		}
+		public override void RightClick(int i, int j)
+		{
+			WorldGen.KillTile(i, j, false, false, false);
+		}
 public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
