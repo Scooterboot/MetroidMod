@@ -25,6 +25,10 @@ namespace MetroidMod.Tiles
 			disableSmartCursor = true;
 			animationFrameHeight = 18;
 		}
+		public override void RightClick(int i, int j)
+		{
+			WorldGen.KillTile(i, j, false, false, false);
+		}
 		public override void AnimateTile(ref int frame, ref int frameCounter)
 		{
 			frameCounter++;
