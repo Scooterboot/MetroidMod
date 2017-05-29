@@ -27,6 +27,7 @@ namespace MetroidMod.Items.tools
 			item.value = 400000;
 			item.rare = 5;
 			item.channel = true;
+			item.mech = true;
 		}
         public override void AddRecipes()  //How to craft this item
         {
