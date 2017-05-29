@@ -15,7 +15,7 @@ namespace MetroidMod.Tiles
 			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = false;
 			Main.tileTable[Type] = true;
-			Main.tileBlockLight[Type] = true;
+			//Main.tileBlockLight[Type] = true;
 			Main.tileSpelunker[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
@@ -27,6 +27,7 @@ namespace MetroidMod.Tiles
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight; 
 			TileObjectData.addAlternate(1); 
 			TileObjectData.addTile(Type);
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 			AddMapEntry(new Color(90, 90, 90), "Chozo Statue");
 			dustType = 1;
 			disableSmartCursor = true;
