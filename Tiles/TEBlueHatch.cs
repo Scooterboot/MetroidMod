@@ -27,7 +27,7 @@ namespace MetroidMod.Tiles
 				float px = Math.Abs((p.Center.X / 16) - (x +1.5f));
 				float py = Math.Abs((p.Center.Y / 16) - (y +1.5f));
 				
-				if (p.friendly && p.active && px < (2.5f + p.width/32) && py < (1.5f + p.width/32))
+				if (p.aiStyle != 26 && !p.minion && p.friendly && p.active && px < (2.5f + p.width/32) && py < (1.5f + p.width/32))
 				{
 					//Main.NewText("px is " + px);
 					//Main.NewText("py is " + py);
