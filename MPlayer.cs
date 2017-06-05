@@ -303,7 +303,7 @@ namespace MetroidMod
 				currentMorphColor = morphColor;
 			}
 
-			bool trail = (!player.dead && !player.mount.Active && player.grapCount == 0 && !grappleBeamIsHooked) && shineDirection == 0 && !shineActive && !ballstate);
+			bool trail = (!player.dead && !player.mount.Active && player.grapCount == 0 && !grappleBeamIsHooked && shineDirection == 0 && !shineActive && !ballstate);
 			if(trail && ((player.velocity.Y < 0f && player.gravDir == 1) || (player.velocity.Y > 0f && player.gravDir == -1)) && isPowerSuit)
 			{
 				tweak++;
