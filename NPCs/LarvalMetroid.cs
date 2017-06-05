@@ -17,6 +17,7 @@ namespace MetroidMod.NPCs
 		public bool movingUp = false;
 		public bool grappled = false;
 		public bool frozen = false;
+		public bool spawn = false;
 		public override void SetDefaults()
 		{
 			npc.name = "LarvalMetroid";
@@ -45,7 +46,7 @@ namespace MetroidMod.NPCs
 		{
 			return (spawnInfo.player.ZoneCorrupt || spawnInfo.player.ZoneCrimson) && NPC.downedBoss2 ? 0.03f : 0f;
 		}
-		public override int SpawnNPC(int tileX, int tileY)
+		/*public override int SpawnNPC(int tileX, int tileY)
 		{
 			npc.scale = (Main.rand.Next(5, 10) * 0.1f);
 			npc.defense = (int)((float)npc.defense * npc.scale);
@@ -56,8 +57,23 @@ namespace MetroidMod.NPCs
 			npc.npcSlots *= npc.scale;
 			npc.knockBackResist *= 2f - npc.scale;
 			return NPC.NewNPC(tileX * 16 + 8, tileY * 16, npc.type);
+		}*/
+		public override bool PreAI()
+		{
+			if (!spawn)
+			{
+				npc.scale = (Main.rand.Next(5, 10) * 0.1f);
+				npc.defense = (int)((float)npc.defense * npc.scale);
+				npc.damage = (int)((float)npc.damage * npc.scale);
+				npc.life = (int)((float)npc.life * npc.scale);
+				npc.lifeMax = npc.life;
+				npc.value = (float)((int)(npc.value * npc.scale));
+				npc.npcSlots *= npc.scale;
+				npc.knockBackResist *= 2f - npc.scale;
+				spawn = true;
+			}
+			return true;
 		}
-		
 		public override void AI()
 		{
 			frozen = false;
