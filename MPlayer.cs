@@ -1037,14 +1037,14 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			else
 			{
 				
-				float MY = Main.mouseY + Main.screenPosition.Y;
+				/*float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
 				if (P.gravDir == -1f)
 				{
 					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 				}
 				float targetrotation = (float)Math.Atan2((MY-P.Center.Y)*P.direction,(MX-P.Center.X)*P.direction);
-				if(/*(XRayScope.xray.XRayActive(P) && MBase.HeadTracking == "X-Ray") ||*/ (!ballstate && ((P.direction == 1 && MX >= P.Center.X) || (P.direction == -1 && MX <= P.Center.X))))
+				if((XRayScope.xray.XRayActive(P) && MBase.HeadTracking == "X-Ray") || (!ballstate && ((P.direction == 1 && MX >= P.Center.X) || (P.direction == -1 && MX <= P.Center.X))))
 				{
 					P.headRotation = targetrotation * 0.3f;
 					if ((double)P.headRotation < -0.3)
@@ -1059,8 +1059,8 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				else if(!P.merman && !P.dead)
 				{
 					P.headRotation = 0f;
-				}
-				(grappleBeamIsHooked && P.itemAnimation <= 0)
+				}*/
+				if(grappleBeamIsHooked && P.itemAnimation <= 0)
 				{
 					float num11 = grappleRotation * (float)P.direction;
 					P.bodyFrame.Y = P.bodyFrame.Height * 3;
@@ -1080,7 +1080,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 							P.bodyFrame.Y = P.bodyFrame.Height * 2;
 						}
 					}
-				}*/
+				}
 			}
 			/*if(flashActive)
 			{
