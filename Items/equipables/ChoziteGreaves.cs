@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace Terraria_Metroidmod_TmodLoader.Items.equipables
+namespace MetroidMod.Items.equipables
 {
     class ChoziteGreaves : ModItem
     {
