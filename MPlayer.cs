@@ -119,6 +119,11 @@ namespace MetroidMod
 		public double Time = 0;
 		public override void PreUpdate()
 		{
+			UIParameters.oldState = UIParameters.newState;
+            		UIParameters.newState = Keyboard.GetState();
+            		UIParameters.lastMouseState = UIParameters.mouseState;
+            		UIParameters.mouseState = Mouse.GetState();
+			
 			oldPosition = player.position;
 			speedBoosting = false;
 		/*	if(grapplingBeam >= 0 && !Main.projectile[grapplingBeam].active)
