@@ -46,16 +46,6 @@ namespace MetroidMod.Projectiles
 				projectile.oldRot[i] = projectile.rotation;
 			}
 		}
-		
-		int[] npcImmuneTime = new int[Main.maxNPCs];
-		public override bool? CanHitNPC(NPC target)
-		{
-			if(projectile.penetrate != 0 && npcImmuneTime[target.whoAmI] > 0)
-			{
-				return false;
-			}
-			return null;
-		}
 
 		/*public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
@@ -66,12 +56,6 @@ namespace MetroidMod.Projectiles
 		}*/
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			if(((projectile.name.Contains("Plasma") && projectile.name.Contains("Green")) || projectile.name.Contains("Nova")) && projectile.penetrate != 0)
-			{
-				npcImmuneTime[target.whoAmI] = target.immune[projectile.owner];
-				target.immune[projectile.owner] = 0;
-			}
-
 			if(projectile.name.Contains("Plasma") && projectile.name.Contains("Red"))
 			{
 				if(projectile.name.Contains("Ice"))
@@ -98,15 +82,7 @@ namespace MetroidMod.Projectiles
 		}
 
 		public override void PostAI()
-		{
-			if(projectile.numUpdates == 0)
-			{
-				for(int i = 0; i < npcImmuneTime.Length; i++)
-				{
-					npcImmuneTime[i] = Math.Max(npcImmuneTime[i] - 1, 0);
-				}
-			}
-			
+		{			
 			for (int i = projectile.oldPos.Length-1; i > 0; i--)
 			{
 				projectile.oldPos[i] = projectile.oldPos[i - 1];
