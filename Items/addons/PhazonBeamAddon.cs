@@ -32,12 +32,12 @@ namespace MetroidMod.Items.addons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient("Shroomite Bar", 6);
-            recipe.AddIngredient(null, "PurePhazon", 12);
-            recipe.AddIngredient("Soul of Night", 5);
+            		recipe.AddIngredient(null, "PurePhazon", 12);
+            		recipe.AddIngredient("Soul of Night", 5);
 			recipe.AddIngredient("Soul of Sight", 10);
 			recipe.AddIngredient("Soul of Might", 10);
 			recipe.AddIngredient("Soul of Fright", 10);
-            recipe.AddTile(null, "NovaWorkTableTile");
+            		recipe.AddTile(null, "NovaWorkTableTile");
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
