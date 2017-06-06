@@ -22,7 +22,6 @@ namespace MetroidMod.Items.addons
 			"Slot Type: Charge\n" +
 			"'Mother, time to go!'\n" + 
 			"Shots ignore 50% of enemy defense\n" + 
-			"Primary A and B addons will work together\n" + 
 			"Only activates when the Secondary, Utility, and Primary A and B slots are in use";
 			item.value = 2500;
 			item.rare = 4;
@@ -38,11 +37,11 @@ namespace MetroidMod.Items.addons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient("Hallowed Bar", 3);
-            recipe.AddIngredient("Soul of Might", 20);
+            		recipe.AddIngredient("Soul of Might", 20);
 			recipe.AddIngredient("Soul of Sight", 20);
 			recipe.AddIngredient("Soul of Fright", 20);
-            recipe.AddIngredient("Rainbow Gun");
-            recipe.AddTile(TileID.MythrilAnvil);
+            		recipe.AddIngredient("Rainbow Gun");
+            		recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
