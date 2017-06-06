@@ -15,7 +15,6 @@ namespace MetroidMod.Items.addons
 			"Slot Type: Charge\n" +
 			"'It's made of pure Phazon energy!'\n" + 
 			"Shots have a 25% chance of inflicting a Phazon DoT debuff on enemies\n" + 
-			"Primary A and B addons will work together\n" +
 			"Only activates when the Secondary, Utility, and Primary A and B slots are in use\n" +
 			"Cannot be used without the Phazon Suit";
 			item.value = 2500;
