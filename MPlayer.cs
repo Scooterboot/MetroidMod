@@ -30,6 +30,7 @@ namespace MetroidMod
 		public bool special = false;
 		public int cooldownbomb = 0;
 		public int bomb = 0;
+		public int bombDamage = 10;
 		//public int powerbomb = 0;
 		public bool Ibounce = true;
 		public float velY = 0f;
@@ -146,7 +147,8 @@ namespace MetroidMod
 			visorGlowColor = new Color(255, 255, 255);
 			maxOverheat = 100f;
 			overheatCost = 1f;
-			specialDmg = 100;
+			specialDmg = (int)player.rangedDamage * 100;
+			bombDamage = (int)player.rangedDamage * 10;
 			Player P = player;
 			morphColor = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B < P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
 			morphColor.A = 255;
@@ -1178,30 +1180,6 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 						}
 			if (ballstate)
 			{
-				if(!special && statCharge >= 100)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-					bomb = 90;
-					int BombID = mod.ProjectileType("MBBomb");
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,-2,BombID,10,0,player.whoAmI);
-					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3,-4,BombID,10,0,player.whoAmI);
-					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5,BombID,10,0,player.whoAmI);
-					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3,-4,BombID,10,0,player.whoAmI);
-					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,-2,BombID,10,0,player.whoAmI);
-					Main.projectile[a].timeLeft = 60;
-					Main.projectile[b].timeLeft = 60;
-					Main.projectile[c].timeLeft = 60;
-					Main.projectile[d].timeLeft = 60;
-					Main.projectile[e].timeLeft = 60;
-					player.statMana -= 10;
-					player.manaRegenDelay = (int)player.maxRegenDelay;
-					special = true;
-					statCharge = 0;
-				}
-				else
-				{
-					statCharge = 0;
-				}
 				player.noItems = true;
 				player.noFallDmg = true;
 				player.scope = false;
@@ -1233,6 +1211,84 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				if(player.velocity.Y == 0f)
 				{
 					player.runSlowdown *= 0.5f;
+				}
+				if (!special && statCharge >= 100)
+				{
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
+					bomb = 90;
+					int BombID = mod.ProjectileType("MBBomb");
+					if(player.controlLeft)
+					{
+						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-6,-2,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,-3,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4,-4,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3,-5,BombID,bombDamage,0,player.whoAmI);
+						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-2,-6,BombID,bombDamage,0,player.whoAmI);
+						Main.projectile[a].timeLeft = 60;
+						Main.projectile[b].timeLeft = 70;
+						Main.projectile[c].timeLeft = 80;
+						Main.projectile[d].timeLeft = 90;
+						Main.projectile[e].timeLeft = 100;
+					}
+					else if(player.controlRight)
+					{
+						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,6,-2,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,-3,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4,-4,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3,-5,BombID,bombDamage,0,player.whoAmI);
+						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,2,-6,BombID,bombDamage,0,player.whoAmI);
+						Main.projectile[a].timeLeft = 60;
+						Main.projectile[b].timeLeft = 70;
+						Main.projectile[c].timeLeft = 80;
+						Main.projectile[d].timeLeft = 90;
+						Main.projectile[e].timeLeft = 100;
+					}
+					else if(player.controlDown && player.velocity.Y == 0)
+					{
+						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-3,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-6,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8,BombID,bombDamage,0,player.whoAmI);
+						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-10,BombID,bombDamage,0,player.whoAmI);
+						Main.projectile[a].timeLeft = 30;
+						Main.projectile[b].timeLeft = 40;
+						Main.projectile[c].timeLeft = 50;
+						Main.projectile[d].timeLeft = 60;
+						Main.projectile[e].timeLeft = 70;
+					}
+					else if(player.controlDown && player.velocity.Y != 0)
+					{
+						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+8,0,0,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-6,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,3,BombID,bombDamage,0,player.whoAmI);
+						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,3,BombID,bombDamage,0,player.whoAmI);
+						Main.projectile[a].Kill();
+						Main.projectile[b].aiStyle = 0;
+						Main.projectile[b].timeLeft = 30;
+						Main.projectile[c].timeLeft = 30;
+						Main.projectile[d].timeLeft = 30;
+						Main.projectile[e].timeLeft = 30;
+					}
+					else
+					{
+						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,-2,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3,-4,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3,-4,BombID,bombDamage,0,player.whoAmI);
+						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,-2,BombID,bombDamage,0,player.whoAmI);
+						Main.projectile[a].timeLeft = 60;
+						Main.projectile[b].timeLeft = 60;
+						Main.projectile[c].timeLeft = 60;
+						Main.projectile[d].timeLeft = 60;
+						Main.projectile[e].timeLeft = 60;
+					}
+					special = true;
+					statCharge = 0;
+				}
+				else
+				{
+					statCharge = 0;
 				}
 				//Color brightColor = currentMorphColor;
 				//Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/127), (float)(brightColor.G/127), (float)(brightColor.B/127));  
@@ -2971,7 +3027,7 @@ public void SenseMove(Player P)
 					statPBCh = 200;
 					//powerbomb = 180;
 					int PBombID = mod.ProjectileType("PowerBomb");
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,PBombID,25,0,player.whoAmI);
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,PBombID,specialDmg/4,0,player.whoAmI);
 				}
 			}
 			/*if(powerbomb > 0)
