@@ -16,7 +16,6 @@ namespace MetroidMod.Items.addons
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
 			"~Charge shots deal x3 damage, but overheat x2 the normal use\n" + 
-			"Allows Primare A and B combinations\n" + 
 			"Converts Spazer to Wide Beam when slotted in\n" +
 			"Without Spazer, the beam fires 2 shots at once\n" + 
 			"Increases base damage from 7 to 10\n" + 
