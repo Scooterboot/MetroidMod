@@ -16,6 +16,8 @@ namespace MetroidMod.Projectiles.novabeam
 			projectile.height = 16;
 			projectile.scale = 2f;
 			projectile.penetrate = 11;
+			projectile.usesLocalNPCImmunity = true;
+       	 	projectile.localNPCHitCooldown = 10;
 			Main.projFrames[projectile.type] = 2;
 		}
 
