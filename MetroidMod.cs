@@ -23,7 +23,6 @@ public class MetroidMod : Mod
 		internal static ModHotKey SpiderBallKey;
 		internal static ModHotKey BoostBallKey;
 		internal static ModHotKey PowerBombKey;
-		internal static ModHotKey BeamInterfaceKey;
 		internal static ModHotKey SenseMoveKey;
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
 	public static Mod Instance;
@@ -46,7 +45,6 @@ public class MetroidMod : Mod
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
 			BoostBallKey = RegisterHotKey("Boost Ball", "F");
 			PowerBombKey = RegisterHotKey("Power Bomb", "R");
-			BeamInterfaceKey = RegisterHotKey("Open Combination Interface", "Q");
 			SenseMoveKey = RegisterHotKey("Use Sense Move", "F");
 			if (!Main.dedServ)
 			{
