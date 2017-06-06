@@ -16,6 +16,8 @@ namespace MetroidMod.Projectiles.plasmabeamgreenV2
 			projectile.height = 16;
 			projectile.scale = 2f;
 			projectile.penetrate = 9;
+			projectile.usesLocalNPCImmunity = true;
+       	 	projectile.localNPCHitCooldown = 10;
 			Main.projFrames[projectile.type] = 2;
 		}
 
