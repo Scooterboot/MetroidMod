@@ -1008,22 +1008,21 @@ namespace MetroidMod.Items.weapons
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 
-				if(/* !mp.ballstate && !mp.shineActive &&*/ !player.dead && !player.noItems)
+				if(!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 				{
 					if(player.controlUseItem || player.channel)
 					{
-						/*if(mp.statCharge < MPlayer.maxCharge)
+						if(mp.statCharge < MPlayer.maxCharge)
 						{
 							if(mp.SMoveEffect > 0)
 							{
-								mp.statCharge += 15;
+								mp.statCharge = Math.Min(mp.statCharge + 15, MPlayer.maxCharge);
 							}
 							else
 							{
-								mp.statCharge += 1;
+								mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
 							}
-						}*/
-						mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
+						}
 					}
 					else
 					{
@@ -1133,10 +1132,9 @@ namespace MetroidMod.Items.weapons
 		}
 		
 		int selectedItem = 0;
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-			//Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
-            Player player = Main.player[Main.myPlayer];
+        	public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        	{
+			Player player = Main.player[Main.myPlayer];
 			if(player.selectedItem < 10)
 			{
 				selectedItem = player.selectedItem;
@@ -1152,7 +1150,7 @@ namespace MetroidMod.Items.weapons
 					metroidUI.BeamUIOpen = false;
 				}
 			}
-        }
+        	}
 		
 		public override TagCompound Save()
 		{
