@@ -11,8 +11,8 @@ namespace MetroidMod.Buffs
     {
 		public override void SetDefaults()
 		{
-			Main.buffName[Type] = "Phazon!";
-			Main.buffTip[Type] = "Phazon is draining your life away!";
+			DisplayName.SetDefault("Phazon!");
+			Description.SetDefault("Phazon is draining your life away!");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

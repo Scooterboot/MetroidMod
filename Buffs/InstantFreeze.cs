@@ -20,8 +20,8 @@ namespace MetroidMod.Buffs
 		bool isSkeletronArm = false;
 		public override void SetDefaults()
 		{
-			Main.buffName[Type] = "Froze";
-			Main.buffTip[Type] = "'Can't move...'";
+			DisplayName.SetDefault("Froze");
+			Description.SetDefault("'Can't move...'");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}
