@@ -8,14 +8,17 @@ namespace MetroidMod.Projectiles.icebeam
 {
 	public class IceBeamV2ChargeShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Ice Beam V2 Charge Shot");
+			Main.projFrames[projectile.type] = 3;
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Beam V2 Charge Shot";
 			projectile.width = 16;
 			projectile.height = 16;
 			projectile.scale = 2f;
-			Main.projFrames[projectile.type] = 3;
 		}
 
 		public override void AI()

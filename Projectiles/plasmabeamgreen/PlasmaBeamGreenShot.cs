@@ -8,10 +8,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 {
 	public class PlasmaBeamGreenShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Plasma Beam Green Shot");
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Plasma Beam Green Shot";
 			projectile.width = 8;
 			projectile.height = 8;
 			projectile.scale = 2f;
@@ -24,7 +27,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		Color color = MetroidMod.plaGreenColor;
 		public override void AI()
 		{
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
@@ -32,9 +35,9 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			Lighting.AddLight(projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
-			if(projectile.name.Contains("Spazer") || projectile.name.Contains("Wave"))
+			if(projectile.Name.Contains("Spazer") || projectile.Name.Contains("Wave"))
 			{
-				mProjectile.WaveBehavior(projectile, !projectile.name.Contains("Wave"));
+				mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			}
 			
 			if(projectile.numUpdates == 0)
@@ -60,7 +63,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Spazer Plasma Beam Green Shot";
+			projectile.Name = "Spazer Plasma Beam Green Shot";
 			
 			mProjectile.amplitude = 7.5f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
@@ -73,7 +76,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Plasma Beam Green Shot";
+			projectile.Name = "Wave Plasma Beam Green Shot";
 			projectile.tileCollide = false;
 			
 			mProjectile.amplitude = 8f*projectile.scale;
@@ -87,7 +90,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Spazer Plasma Beam Green Shot";
+			projectile.Name = "Wave Spazer Plasma Beam Green Shot";
 			mProjectile.amplitude = 12f*projectile.scale;
 		}
 	}
@@ -97,7 +100,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Plasma Beam Green Shot";
+			projectile.Name = "Ice Plasma Beam Green Shot";
 		}
 	}
 	
@@ -106,7 +109,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Spazer Plasma Beam Green Shot";
+			projectile.Name = "Ice Spazer Plasma Beam Green Shot";
 		}
 	}
 	
@@ -115,7 +118,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Plasma Beam Green Shot";
+			projectile.Name = "Ice Wave Plasma Beam Green Shot";
 		}
 	}
 	
@@ -124,7 +127,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Spazer Plasma Beam Green Shot";
+			projectile.Name = "Ice Wave Spazer Plasma Beam Green Shot";
 		}
 	}
 }

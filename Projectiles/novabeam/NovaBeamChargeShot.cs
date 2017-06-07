@@ -8,24 +8,27 @@ namespace MetroidMod.Projectiles.novabeam
 {
 	public class NovaBeamChargeShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Nova Beam Charge Shot");
+			Main.projFrames[projectile.type] = 2;
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Nova Beam Charge Shot";
 			projectile.width = 16;
 			projectile.height = 16;
 			projectile.scale = 2f;
 			projectile.penetrate = 11;
 			projectile.usesLocalNPCImmunity = true;
        	 	projectile.localNPCHitCooldown = 10;
-			Main.projFrames[projectile.type] = 2;
 		}
 
 		int dustType = 75;
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
@@ -41,9 +44,9 @@ namespace MetroidMod.Projectiles.novabeam
 				projectile.frame = 0;
 			}
 			
-			if(projectile.name.Contains("Spazer") || projectile.name.Contains("Wave"))
+			if(projectile.Name.Contains("Spazer") || projectile.Name.Contains("Wave"))
 			{
-				mProjectile.WaveBehavior(projectile, !projectile.name.Contains("Wave"));
+				mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			}
 			
 			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0, 0, 100, default(Color), projectile.scale);
@@ -72,7 +75,7 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Spazer Nova Beam Charge Shot";
+			projectile.Name = "Spazer Nova Beam Charge Shot";
 			
 			mProjectile.amplitude = 10f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
@@ -85,7 +88,7 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Nova Beam Charge Shot";
+			projectile.Name = "Wave Nova Beam Charge Shot";
 			projectile.tileCollide = false;
 			
 			mProjectile.amplitude = 10f*projectile.scale;
@@ -99,7 +102,7 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Spazer Nova Beam Charge Shot";
+			projectile.Name = "Wave Spazer Nova Beam Charge Shot";
 			mProjectile.amplitude = 14.5f*projectile.scale;
 		}
 	}
@@ -109,7 +112,7 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Nova Beam Charge Shot";
+			projectile.Name = "Ice Nova Beam Charge Shot";
 		}
 	}
 	
@@ -118,7 +121,7 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Spazer Nova Beam Charge Shot";
+			projectile.Name = "Ice Spazer Nova Beam Charge Shot";
 		}
 	}
 	
@@ -127,7 +130,7 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Nova Beam Charge Shot";
+			projectile.Name = "Ice Wave Nova Beam Charge Shot";
 		}
 	}
 	
@@ -136,7 +139,7 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Spazer Nova Beam Charge Shot";
+			projectile.Name = "Ice Wave Spazer Nova Beam Charge Shot";
 		}
 	}
 }

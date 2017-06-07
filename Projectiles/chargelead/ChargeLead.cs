@@ -10,9 +10,12 @@ namespace MetroidMod.Projectiles.chargelead
 {
 	public class ChargeLead : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Charge Attack");
+		}
 		public override void SetDefaults()
 		{
-			projectile.name = "Charge Attack";
 			projectile.width = 16;
 			projectile.height = 16;
 			projectile.aiStyle = -1;
@@ -168,7 +171,7 @@ namespace MetroidMod.Projectiles.chargelead
 			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
 			if(!mp.ballstate)
 			{
-				mp.statCharge = 0;
+			mp.statCharge = 0;
 			}
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
