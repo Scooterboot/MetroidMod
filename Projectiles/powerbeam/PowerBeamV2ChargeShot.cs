@@ -8,14 +8,17 @@ namespace MetroidMod.Projectiles.powerbeam
 {
 	public class PowerBeamV2ChargeShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Beam V2 Charge Shot");
+			Main.projFrames[projectile.type] = 3;
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Power Beam V2 Charge Shot";
 			projectile.width = 16;
 			projectile.height = 16;
 			projectile.scale = 2f;
-			Main.projFrames[projectile.type] = 3;
 		}
 
 		public override void AI()

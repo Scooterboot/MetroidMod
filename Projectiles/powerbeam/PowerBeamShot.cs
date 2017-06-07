@@ -8,10 +8,13 @@ namespace MetroidMod.Projectiles.powerbeam
 {
 	public class PowerBeamShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Beam Shot");
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Power Beam Shot";
 			projectile.width = 8;
 			projectile.height = 8;
 			projectile.scale = 1.5f;
