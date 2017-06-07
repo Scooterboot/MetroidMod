@@ -8,21 +8,24 @@ namespace MetroidMod.Projectiles.plasmabeamred
 {
 	public class PlasmaBeamRedShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Plasma Beam Red Shot");
+			Main.projFrames[projectile.type] = 2;
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Plasma Beam Red Shot";
 			projectile.width = 8;
 			projectile.height = 8;
 			projectile.scale = 2f;
-			Main.projFrames[projectile.type] = 2;
 		}
 
 		int dustType = 6;
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
@@ -38,9 +41,9 @@ namespace MetroidMod.Projectiles.plasmabeamred
 				projectile.frame = 0;
 			}
 			
-			if(projectile.name.Contains("Spazer") || projectile.name.Contains("Wave"))
+			if(projectile.Name.Contains("Spazer") || projectile.Name.Contains("Wave"))
 			{
-				mProjectile.WaveBehavior(projectile, !projectile.name.Contains("Wave"));
+				mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			}
 			
 			if(projectile.numUpdates == 0)
@@ -72,7 +75,7 @@ namespace MetroidMod.Projectiles.plasmabeamred
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Spazer Plasma Beam Red Shot";
+			projectile.Name = "Spazer Plasma Beam Red Shot";
 			
 			mProjectile.amplitude = 7.5f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
@@ -85,7 +88,7 @@ namespace MetroidMod.Projectiles.plasmabeamred
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Plasma Beam Red Shot";
+			projectile.Name = "Wave Plasma Beam Red Shot";
 			projectile.tileCollide = false;
 			
 			mProjectile.amplitude = 8f*projectile.scale;
@@ -99,7 +102,7 @@ namespace MetroidMod.Projectiles.plasmabeamred
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Spazer Plasma Beam Red Shot";
+			projectile.Name = "Wave Spazer Plasma Beam Red Shot";
 			mProjectile.amplitude = 12f*projectile.scale;
 		}
 	}
@@ -109,7 +112,7 @@ namespace MetroidMod.Projectiles.plasmabeamred
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Plasma Beam Red Shot";
+			projectile.Name = "Ice Plasma Beam Red Shot";
 		}
 	}
 	
@@ -118,7 +121,7 @@ namespace MetroidMod.Projectiles.plasmabeamred
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Spazer Plasma Beam Red Shot";
+			projectile.Name = "Ice Spazer Plasma Beam Red Shot";
 		}
 	}
 	
@@ -127,7 +130,7 @@ namespace MetroidMod.Projectiles.plasmabeamred
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Plasma Beam Red Shot";
+			projectile.Name = "Ice Wave Plasma Beam Red Shot";
 		}
 	}
 	
@@ -136,7 +139,7 @@ namespace MetroidMod.Projectiles.plasmabeamred
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Spazer Plasma Beam Red Shot";
+			projectile.Name = "Ice Wave Spazer Plasma Beam Red Shot";
 		}
 	}
 }
