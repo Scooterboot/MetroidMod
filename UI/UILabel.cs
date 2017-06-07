@@ -11,7 +11,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-
 namespace MetroidMod
 {
     public class UILabel : UIObject
@@ -21,8 +20,8 @@ namespace MetroidMod
         public Color borderColor;
         public delegate string GetText();
         public GetText Update;
-        public SpriteFont font;
-        public UILabel(Vector2 pos, SpriteFont font, Vector2 size, Color color, Color borderColour, GetText updateText, UIObject parent = null) : base(pos, size, parent)
+        public ReLogic.Graphics.DynamicSpriteFont font;
+        public UILabel(Vector2 pos, ReLogic.Graphics.DynamicSpriteFont font, Vector2 size, Color color, Color borderColour, GetText updateText, UIObject parent = null) : base(pos, size, parent)
         {
             this.color = color;
             this.borderColor = borderColour;
@@ -44,7 +43,7 @@ namespace MetroidMod
         }
         //Credit to Alina B. On StackOverflow for this code. :)
         //http://stackoverflow.com/questions/15986473/how-do-i-implement-word-wrap
-        public string WrapText(SpriteFont spriteFont, string text, float maxLineWidth)
+        public string WrapText(ReLogic.Graphics.DynamicSpriteFont spriteFont, string text, float maxLineWidth)
         {
             string[] words = text.Split(' ');
             StringBuilder sb = new StringBuilder();

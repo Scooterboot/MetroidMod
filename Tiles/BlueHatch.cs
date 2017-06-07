@@ -30,7 +30,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
-			AddMapEntry(new Color(56, 112, 224), "Blue Hatch");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Blue Hatch");
+			AddMapEntry(new Color(56, 112, 224), name);
 			dustType = 1;
 			//animationFrameHeight = 54;
 		}

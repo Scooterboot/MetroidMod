@@ -18,7 +18,9 @@ namespace MetroidMod.Tiles
 			Main.tileLighted[Type] = true;
 			dustType = 68;
 			drop = mod.ItemType("Phazon");
-			AddMapEntry(new Color(85, 223, 255), "Phazon");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Phazon");
+			AddMapEntry(new Color(85, 223, 255), name);
 		}
 		public override void NumDust(int i, int j, bool fail, ref int num)
 		{

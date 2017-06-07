@@ -19,7 +19,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(172, 172, 172), "Missile Expansion");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Missile Expansion");
+			AddMapEntry(new Color(172, 172, 172), name);
 			drop = mod.ItemType("MissileExpansion");
 			dustType = 1;
 			disableSmartCursor = true;

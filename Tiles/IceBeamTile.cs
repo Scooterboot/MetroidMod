@@ -19,7 +19,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(112, 146, 224), "Ice Beam");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Ice Beam");
+			AddMapEntry(new Color(112, 146, 224), name);
 			drop = mod.ItemType("IceBeamAddon");
 			dustType = 1;
 			disableSmartCursor = true;

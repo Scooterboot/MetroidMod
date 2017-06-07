@@ -28,7 +28,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.addAlternate(1); 
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
-			AddMapEntry(new Color(90, 90, 90), "Chozo Statue");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Chozo Statue");
+			AddMapEntry(new Color(90, 90, 90), name);
 			dustType = 1;
 			disableSmartCursor = true;
 		}

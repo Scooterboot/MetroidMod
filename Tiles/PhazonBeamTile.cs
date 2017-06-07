@@ -19,7 +19,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(72, 192, 248), "Phazon Beam");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Phazon Beam");
+			AddMapEntry(new Color(72, 192, 248), name);
 			drop = mod.ItemType("PhazonBeamAddon");
 			dustType = 1;
 			disableSmartCursor = true;
@@ -28,7 +30,7 @@ namespace MetroidMod.Tiles
 		{
 			WorldGen.KillTile(i, j, false, false, false);
 		}
-		public override void MouseOver(int i, int j)
+public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;

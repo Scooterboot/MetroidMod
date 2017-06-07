@@ -118,38 +118,31 @@ namespace MetroidMod
 		int tweak = 0;
 		int tweak2 = 0;
 		public double Time = 0;
-		public override void PreUpdate()
-		{
-			UIParameters.oldState = UIParameters.newState;
-            		UIParameters.newState = Keyboard.GetState();
-            		UIParameters.lastMouseState = UIParameters.mouseState;
-            		UIParameters.mouseState = Mouse.GetState();
-			
-			oldPosition = player.position;
+		public override void ResetEffects()
+		{			
 			speedBoosting = false;
-		/*	if(grapplingBeam >= 0 && !Main.projectile[grapplingBeam].active)
-			{
-				grapplingBeam = -1;
-			}*/
 			isPowerSuit = false;
 			phazonImmune = false;
 			phazonRegen = 0;
 			thrusters = false;
 			spaceJump = false;
-		//	xrayequipped = false;
 			speedBooster = false;
 			morphBall = false;
-			if (player.ownedProjectileCounts[mod.ProjectileType("GrappleBeamShot")] <= 0)
-			{
-			grappleBeamIsHooked = false;
-			}
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
 			maxOverheat = 100f;
-			overheatCost = 1f;
+			overheatCost = 1f;		
+		}
+		public override void PreUpdate()
+		{
+			UIParameters.oldState = UIParameters.newState;
+            UIParameters.newState = Keyboard.GetState();
+        	UIParameters.lastMouseState = UIParameters.mouseState;
+        	UIParameters.mouseState = Mouse.GetState();
+			Player P = player;
 			specialDmg = (int)player.rangedDamage * 100;
 			bombDamage = (int)player.rangedDamage * 10;
-			Player P = player;
+			oldPosition = player.position;
 			morphColor = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B < P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
 			morphColor.A = 255;
 			morphColorLights = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B >= P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
@@ -162,10 +155,10 @@ namespace MetroidMod
 				player.width = 20;
 				//player.height = 42;
 			}
-		
-		
-		//int soundDelay2 = 42;
-
+			if (player.ownedProjectileCounts[mod.ProjectileType("GrappleBeamShot")] <= 0)
+			{
+			grappleBeamIsHooked = false;
+			}
 			//MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
 			if(shineActive || shineDirection != 0)
 			{
@@ -236,14 +229,7 @@ namespace MetroidMod
 			{
 				extraOverheat = 0;
 			}
-		/*	for (int i = 0; i < player.inventory.Length; i++)
-			{
-				Terraria.Item I = player.inventory[i];
-				if(I.type == mod.ItemType("HyperBeamAddon").type)
-				{
-					I.color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
-				}
-			}*/
+		
 			int colorcount = 17;
 			if (style == 0)
 			{
@@ -292,10 +278,6 @@ namespace MetroidMod
 			{
 				Time = 0;
 			}
-			if(player.statMana < 0)
-			{
-				player.statMana = 0;
-			}
 			if(currentMorphColor2 == Color.White)
 			{
 				currentMorphColor2 = morphColorLights;
@@ -312,7 +294,7 @@ namespace MetroidMod
 				if(tweak > 4)
 				{
 					tweak = 5;
-                     player.armorEffectDrawShadowSubtle = true;
+                     player.armorEffectDrawShadow = true;
 				}
 			}
 			else
@@ -377,7 +359,7 @@ namespace MetroidMod
 			{
 				num--;
 			}
-			/*if(visorGlow && !ballstate)
+		/*	if(visorGlow && !ballstate)
 			{
                  Vector2 face = new Vector2((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f));
 				Lighting.AddLight(face, (visorGlowColor)*0.375f);
@@ -682,8 +664,8 @@ namespace MetroidMod
 				}
 			//}
 		}
-        	const int shinyblock = 700;
-        	public void AddSpaceJumping(Player player)
+        const int shinyblock = 700;
+        public void AddSpaceJumping(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			AddSpaceJump(player);
@@ -699,7 +681,7 @@ namespace MetroidMod
 			}
 			mp.spaceJump = true;
 		}
-        	public void AddSpaceJump(Player player)
+        public void AddSpaceJump(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
@@ -764,8 +746,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
                 MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
 				mPlayer.DrawBallTexture(spriteBatch, tex, tex2, tex3, boost, trail, drawPlayer);
 			});
- 
-   public static readonly PlayerLayer thrusterLayer = new PlayerLayer("MetroidMod", "thrusterLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
+            public static readonly PlayerLayer thrusterLayer = new PlayerLayer("MetroidMod", "thrusterLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
 			{
 				Mod mod = MetroidMod.Instance;
 				SpriteBatch spriteBatch = Main.spriteBatch;
@@ -880,8 +861,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			}
 		});
 		Color color21 = Color.White;
-		//public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
-       public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
+		public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
@@ -957,7 +937,6 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			{
 				PlayerLayer.Add(list, gunLayer, PlayerLayer.LayerArmsFront, false, false);
 			}*/
-	//		PlayerLayer.Add(list, screwAttackLayer, PlayerLayer.LayerAccessoryFront, false, false);
 			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
 			if(somersault)
 			{
@@ -1037,14 +1016,14 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			else
 			{
 				
-				/*float MY = Main.mouseY + Main.screenPosition.Y;
+				float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
 				if (P.gravDir == -1f)
 				{
 					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 				}
 				float targetrotation = (float)Math.Atan2((MY-P.Center.Y)*P.direction,(MX-P.Center.X)*P.direction);
-				if((XRayScope.xray.XRayActive(P) && MBase.HeadTracking == "X-Ray") || (!ballstate && ((P.direction == 1 && MX >= P.Center.X) || (P.direction == -1 && MX <= P.Center.X))))
+				if(/*(XRayScope.xray.XRayActive(P) && MBase.HeadTracking == "X-Ray") ||*/ (!ballstate && ((P.direction == 1 && MX >= P.Center.X) || (P.direction == -1 && MX <= P.Center.X))))
 				{
 					P.headRotation = targetrotation * 0.3f;
 					if ((double)P.headRotation < -0.3)
@@ -1059,7 +1038,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				else if(!P.merman && !P.dead)
 				{
 					P.headRotation = 0f;
-				}*/
+				}
 				if(grappleBeamIsHooked && P.itemAnimation <= 0)
 				{
 					float num11 = grappleRotation * (float)P.direction;
@@ -1169,6 +1148,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			}
 			#endregion*/
 		}
+		
         public void MorphBallBasic(Player player)
 		{
 			if (player.grappling[0] >= 0 || grappleBeamIsHooked)
@@ -1177,6 +1157,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 						}
 			if (ballstate)
 			{
+				
 				player.noItems = true;
 				player.noFallDmg = true;
 				player.scope = false;
@@ -1217,9 +1198,9 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					if(player.controlLeft)
 					{
 						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-6,-2,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,-3,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4,-4,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3,-5,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
 						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-2,-6,BombID,bombDamage,0,player.whoAmI);
 						Main.projectile[a].timeLeft = 60;
 						Main.projectile[b].timeLeft = 70;
@@ -1230,9 +1211,9 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					else if(player.controlRight)
 					{
 						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,6,-2,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,-3,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4,-4,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3,-5,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
 						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,2,-6,BombID,bombDamage,0,player.whoAmI);
 						Main.projectile[a].timeLeft = 60;
 						Main.projectile[b].timeLeft = 70;
@@ -1298,7 +1279,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				{
 					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
 					int BombID = mod.ProjectileType("MBBomb");
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,10,0,player.whoAmI);
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
 					Main.projectile[a].aiStyle = 0;
 				}
 				mouseRight = Main.mouseRight;
@@ -1912,7 +1893,7 @@ public void SenseMove(Player P)
 			player.maxRunSpeed += (speedBuildUp*0.036f);
 			if(mp.speedBoosting)
 			{
-				player.armorEffectDrawShadowSubtle = true;
+				player.armorEffectDrawShadow = true;
 				//MPlayer.jet = true;
 				bool SpeedBoost = false;
 				int SpeedBoostID = mod.ProjectileType("SpeedBoost");
@@ -1979,7 +1960,7 @@ public void SenseMove(Player P)
 				player.controlJump = false;
 				player.releaseJump = true;
 				mp.rotation = 0;
-				player.armorEffectDrawShadowSubtle = true;
+				player.armorEffectDrawShadow = true;
 				shineDeActive++;
 				if(shineDeActive == 2)
 				{
@@ -3123,7 +3104,7 @@ public void SenseMove(Player P)
 				}
 				if(boostEffect > 0)
 				{
-					 player.armorEffectDrawShadowSubtle = true;
+					 player.armorEffectDrawShadow = true;
 					boostEffect--;
 				}
 			}
@@ -3150,7 +3131,7 @@ public void SenseMove(Player P)
 						}
 						if (Main.rand.Next(6) == 0)
 						{
-							int num123 = Dust.NewDust(p.position + p.velocity * (float)Main.rand.Next(6, 10) * 0.1f, p.width, p.height, 31, 0f, 0f, 80, default(Color), 1.4f);
+							int num123 = Dust.NewDust(p.position + p.velocity * (float)Main.rand.Next(6, 10) * 0.1f, p.width, p.height, 31, 0f, 0f, 80, default(Color), 1.5f);
 							Dust expr_5B99_cp_0 = Main.dust[num123];
 							expr_5B99_cp_0.position.X = expr_5B99_cp_0.position.X - 4f;
 							Main.dust[num123].noGravity = true;

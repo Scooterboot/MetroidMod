@@ -5,7 +5,7 @@ using Terraria.ObjectData;
 
 namespace MetroidMod.Tiles
 {
-	public class SerrisTrophyTile : ModTile
+	public class PhantoonTrophyTile : ModTile
 	{
 		public override void SetDefaults()
 		{
@@ -18,13 +18,13 @@ namespace MetroidMod.Tiles
 			dustType = 7;
 			disableSmartCursor = true;
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Serris Trophy");
-			AddMapEntry(new Color(137, 98, 69), name);
+			name.SetDefault("Phantoon Trophy");
+			AddMapEntry(new Color(149, 133, 77), name);
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("SerrisTrophy"));
+			Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("PhantoonTrophy"));
 	
 		}
 	}

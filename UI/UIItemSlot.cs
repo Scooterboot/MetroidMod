@@ -130,7 +130,7 @@ namespace MetroidMod
 			//this.rectangle = new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y);
 			if (!item.IsAir && new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(this.rectangle) && Main.mouseItem.IsAir)
 			{
-				Main.toolTip = item;
+				Main.HoverItem = item;
 				string text = item.AffixName();
 				if (item.stack > 1)
 				{

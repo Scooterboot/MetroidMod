@@ -19,7 +19,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(248, 246, 110), "Charge Beam V2");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Charge Beam V2");
+			AddMapEntry(new Color(248, 246, 110), name);
 			drop = mod.ItemType("ChargeBeamV2Addon");
 			dustType = 1;
 			disableSmartCursor = true;

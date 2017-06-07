@@ -19,7 +19,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			AddMapEntry(new Color(71, 196, 144), "Space Jump Boots");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Space Jump Boots");
+			AddMapEntry(new Color(71, 196, 144), name);
 			drop = mod.ItemType("SpaceJumpBoots");
 			dustType = 1;
 			disableSmartCursor = true;
@@ -28,7 +30,7 @@ namespace MetroidMod.Tiles
 		{
 			WorldGen.KillTile(i, j, false, false, false);
 		}
-		public override void MouseOver(int i, int j)
+public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;

@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -17,7 +19,9 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-			AddMapEntry(new Color(170, 255, 93), "Nova Work Table");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Nova Work Table");
+			AddMapEntry(new Color(170, 255, 93), name);
 			dustType = 1;
 			disableSmartCursor = true;
 			animationFrameHeight = 54;

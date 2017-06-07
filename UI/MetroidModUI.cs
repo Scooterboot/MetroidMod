@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 using Terraria;
@@ -11,6 +15,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.UI;
+using ReLogic.Graphics;
+using ReLogic;
 
 namespace MetroidMod
 {
@@ -63,7 +69,7 @@ namespace MetroidMod
 				beamSlot[i] = new UIItemSlot(new Vector2(10, 10+i*58), panel,
 				delegate(Item item)
 				{
-					return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod && item.toolTip.Contains("Power Beam Addon") && item.toolTip.Contains(tTip)));
+					return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod /*&& item.ToolTip.ToString().Contains("Power Beam Addon") && item.ToolTip.ToString().Contains(tTip)*/));
 				});
 			}
 

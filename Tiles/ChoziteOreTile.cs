@@ -19,7 +19,9 @@ namespace MetroidMod.Tiles
 			Main.tileLighted[Type] = true;
 			dustType = 87;
 			drop = mod.ItemType("ChoziteOre");
-			AddMapEntry(new Color(214, 162, 0), "Chozite Ore");
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Chozite Ore");
+			AddMapEntry(new Color(214, 162, 0), name);
 
 			minPick = 55;
 		}

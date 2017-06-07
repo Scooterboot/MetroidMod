@@ -113,7 +113,7 @@ for (int l = x; l < x + 3; l++)
 			if (Main.netMode == 1)
 			{
 				NetMessage.SendTileSquare(Main.myPlayer, i - 1, j - 1, 3); 
-				NetMessage.SendData(87, -1, -1, "", i - 1, j - 2, Type, 0f, 0, 0, 0);
+				NetMessage.SendData(87, -1, -1, null, i - 1, j - 2, Type, 0f, 0, 0, 0);
 				return -1;
 			}
 			return Place(i - 1, j - 2);

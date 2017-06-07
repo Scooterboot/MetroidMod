@@ -5,9 +5,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Graphics;
+using ReLogic;
 
-namespace MetroidMod
-{
+namespace MetroidMod {
 	public class MetroidMod : Mod
 	{
 		public static Color powColor = new Color(248, 248, 110);
@@ -27,19 +28,19 @@ namespace MetroidMod
 		internal static ModHotKey PowerBombKey;
 		internal static ModHotKey SenseMoveKey;
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
-		public static Mod Instance;
-    		public MetroidMod()
-    		{
-
-       			Properties = new ModProperties()
+			public static Mod Instance;
+			public MetroidMod()
 			{
-				Autoload = true,
-				AutoloadSounds = true,
-				AutoloadGores = true
 
-			};
-		
-    		}
+			Properties = new ModProperties()
+				{
+					Autoload = true,
+					AutoloadSounds = true,
+					AutoloadGores = true
+
+				};
+				
+			}
 		public override void Load()
 		{
 			Instance = this;
@@ -50,7 +51,8 @@ namespace MetroidMod
 			SenseMoveKey = RegisterHotKey("Use Sense Move", "F");
 			if (!Main.dedServ)
 			{
-				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Serris"), ItemType("SerrisMusicBox"), TileType("SerrisMusicBox"));
+		AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Serris"), ItemType("SerrisMusicBox"), TileType("SerrisMusicBox"));
+		AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid"), ItemType("KraidPhantoonMusicBox"), TileType("KraidPhantoonMusicBox"));
 			}
 			for (int k = 1; k <= 7; k++)
 			{

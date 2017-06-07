@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 
 namespace MetroidMod.Tiles
 {
-	class SerrisMusicBox : ModTile
+	class KraidPhantoonMusicBox : ModTile
 	{
 		public override void SetDefaults()
 		{
@@ -25,7 +25,7 @@ namespace MetroidMod.Tiles
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("SerrisMusicBox"));
+			Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("KraidPhantoonMusicBox"));
 		}
 
 		public override void MouseOver(int i, int j)
@@ -33,7 +33,7 @@ namespace MetroidMod.Tiles
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
 			player.showItemIcon = true;
-			player.showItemIcon2 = mod.ItemType("SerrisMusicBox");
+			player.showItemIcon2 = mod.ItemType("KraidPhantoonMusicBox");
 		}
 	}
 }
