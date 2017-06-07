@@ -1124,7 +1124,7 @@ namespace MetroidMod.Items.weapons
 						mp.statCharge = 0;
 					}
 				}
-				else
+				else if(!mp.ballstate)
 				{
 					mp.statCharge = 0;
 				}
