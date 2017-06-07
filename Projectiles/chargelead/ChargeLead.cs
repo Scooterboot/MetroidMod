@@ -166,7 +166,10 @@ namespace MetroidMod.Projectiles.chargelead
 		public override void Kill(int timeLeft)
 		{
 			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
-			mp.statCharge = 0;
+			if(!mp.ballstate)
+			{
+				mp.statCharge = 0;
+			}
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
