@@ -18,16 +18,19 @@ namespace MetroidMod.Items.weapons
 {
 	public class PowerBeam : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Beam");
+			Tooltip.SetDefault("Overheats by 3 points per use\n" +
+				"Select this item in your hotbar and open your inventory to open the Beam Addon UI");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Power Beam";
 			item.damage = 7;
 			item.ranged = true;
 			item.width = 24;
 			item.height = 12;
 			item.scale = 0.8f;
-			item.toolTip = "Overheats by 3 points per use\n" +
-				"Select this item in your hotbar and open your inventory to open the Beam Addon UI";
 			item.useTime = 6;
 			item.useAnimation = 6;
 			item.useStyle = 5;
@@ -44,7 +47,8 @@ namespace MetroidMod.Items.weapons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.DirtBlock);
+			recipe.AddIngredient(null, "ChoziteBar", 8);
+			recipe.AddIngredient(null, "EnergyShard", 3);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -825,7 +829,7 @@ namespace MetroidMod.Items.weapons
 				
 			}
 			
-			if(slot1.type == hy || slot1.type == ph)
+			/*if(slot1.type == hy || slot1.type == ph)
 			{
 				name = slot1.name;
 			}
@@ -861,7 +865,7 @@ namespace MetroidMod.Items.weapons
 				{
 					name = slot2.name;
 				}
-			}
+			}*/
 			
 			float iceDmg = 0f;
 			float waveDmg = 0f;
@@ -919,7 +923,7 @@ namespace MetroidMod.Items.weapons
 			
 			finalDmg = (int)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg));
 			
-			item.name = name;
+			//item.name = name;
 			item.damage = finalDmg;
 			item.useTime = useTime;
 			item.useAnimation = useTime;
@@ -1124,7 +1128,7 @@ namespace MetroidMod.Items.weapons
 						mp.statCharge = 0;
 					}
 				}
-				else if(!mp.ballstate)
+				else if (!mp.ballstate)
 				{
 					mp.statCharge = 0;
 				}

@@ -6,9 +6,12 @@ namespace MetroidMod.Items.tiles
 {
 	public class XRayScopePlaceable : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Placeable X-Ray Scope");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Placeable X-Ray Scope";
 			item.width = 16;
 			item.height = 16;
 			item.maxStack = 999;

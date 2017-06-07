@@ -6,9 +6,12 @@ namespace MetroidMod.Items.tiles
 {
 	public class MorphBallPlaceable : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Placeable Morph Ball");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Placeable Morph Ball";
 			item.width = 16;
 			item.height = 16;
 			item.maxStack = 999;

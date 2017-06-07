@@ -6,15 +6,18 @@ namespace MetroidMod.Items.tiles
 {
 	public class MissileExpansion : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Missile Expansion");
+			Tooltip.SetDefault("A Missile Expansion\n" +
+				"Increase maximum Missiles by 5 with each expansion slotted in\n" +
+				"Stack it up to 50 expansions for +250 maximum Missiles");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Missile Expansion";
 			item.width = 32;
 			item.height = 32;
 			item.maxStack = 50;
-			item.toolTip = "A Missile Expansion\n" +
-				"Increase maximum Missiles by 5 with each expansion slotted in\n" +
-				"Stack it up to 50 expansions for +250 maximum Missiles";
 			item.useTurn = true;
 			item.autoReuse = true;
 			item.useAnimation = 15;

@@ -8,12 +8,13 @@ using Terraria;
 
 namespace MetroidMod.Items.tools
 {
-    public class SerrisBait : ModItem
+    public class EctoplasmicLocator : ModItem
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Serris Bait");
-			Tooltip.SetDefault("Summons Serris");
+			DisplayName.SetDefault("Ectoplasmic Locator");
+			Tooltip.SetDefault("'Gives the location of hidden ectoplasmic beings...'\n" +  
+			"Summons Phantoon at night");
 		}
         public override void SetDefaults()
 		{
@@ -32,29 +33,23 @@ namespace MetroidMod.Items.tools
         public override void AddRecipes()
 		{
 				ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(66, 20);
-			recipe.AddIngredient(ItemID.RottenChunk, 13);
-            recipe.AddIngredient(ItemID.Worm, 5);
-			recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-            recipe = new ModRecipe(mod);
-			recipe.AddIngredient(66, 20);
-			recipe.AddIngredient(ItemID.Vertebrae, 13);
-            recipe.AddIngredient(ItemID.Worm, 5);
+			recipe.AddIngredient(ItemID.Wire, 20);
+			recipe.AddIngredient(ItemID.SuspiciousLookingEye);
+            recipe.AddIngredient(ItemID.Gel, 20);
+			recipe.AddIngredient(ItemID.SoulofNight, 5);
 			recipe.AddTile(TileID.DemonAltar);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
         public override bool CanUseItem(Player player)
 		{
-			return !NPC.AnyNPCs(mod.NPCType("Serris_Head"));
+			return !NPC.AnyNPCs(mod.NPCType("Phantoon")) && !Main.dayTime;
 		}
 		public override bool UseItem(Player player)
 		{
-			NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Serris_Head"));
-             Main.PlaySound(15,(int)player.position.X,(int)player.position.Y,0);
-
+			Main.NewText("Huh, there seems to be a massive amount of ectoplasmic readings coming from... right above me!", 127, 255, 127);
+			NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Phantoon"));
+             Main.PlaySound(4,(int)player.position.X,(int)player.position.Y,10);
 			return true;
 		}
 	}

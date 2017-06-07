@@ -6,9 +6,12 @@ namespace MetroidMod.Items.tiles
 {
 	public class ChozoStatueArm : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Chozo Statue Arm");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Chozo Statue Arm";
 			item.width = 30;
 			item.height = 30;
 			item.maxStack = 99;
@@ -23,7 +26,7 @@ namespace MetroidMod.Items.tiles
 public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Stone Block", 50);
+			recipe.AddIngredient(ItemID.StoneBlock, 50);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

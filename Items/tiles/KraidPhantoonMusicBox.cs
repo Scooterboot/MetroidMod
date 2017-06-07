@@ -2,11 +2,11 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.tiles
 {
-	public class SerrisMusicBox : ModItem
+	public class KraidPhantoonMusicBox : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Music Box (Vs. Serris Remix)");
+			DisplayName.SetDefault("Music Box (Vs. Kraid/Phantoon Remix)");
 			Tooltip.SetDefault("Remix by Skyre Ventes");
 		}
 		public override void SetDefaults()
@@ -17,9 +17,9 @@ namespace MetroidMod.Items.tiles
 			item.useTime = 10;
 			item.autoReuse = true;
 			item.consumable = true;
-			item.createTile = mod.TileType("SerrisMusicBox");
+			item.createTile = mod.TileType("KraidPhantoonMusicBox");
 			item.width = 24;
-			item.height = 24;
+			item.height = 32;
 			item.rare = 8;
 			item.value = 1000;
 			item.accessory = true;

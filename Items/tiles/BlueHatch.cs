@@ -6,13 +6,16 @@ namespace MetroidMod.Items.tiles
 {
 	public class BlueHatch : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Blue Hatch");
+			Tooltip.SetDefault("Opens when hit with any projectile");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Blue Hatch";
 			item.width = 54;
 			item.height = 48;
 			item.maxStack = 999;
-			item.toolTip = "Opens when hit with any projectile";
 			item.useTurn = true;
 			item.autoReuse = true;
 			item.useAnimation = 15;
@@ -24,7 +27,7 @@ namespace MetroidMod.Items.tiles
 public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Sapphire");
+			recipe.AddIngredient(ItemID.Sapphire);
 			recipe.AddRecipeGroup("IronBar", 5);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this, 20);

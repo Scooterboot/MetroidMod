@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.tiles
 {
-	public class ChozoStatue : ModItem
+	public class PhantoonTrophy : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozo Statue");
+			DisplayName.SetDefault("Phantoon Trophy");
 		}
 		public override void SetDefaults()
 		{
@@ -21,16 +21,7 @@ namespace MetroidMod.Items.tiles
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("ChozoStatue");
+			item.createTile = mod.TileType("PhantoonTrophyTile");
 		}
-public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.StoneBlock, 100);
-            recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-
 	}
 }

@@ -6,13 +6,16 @@ namespace MetroidMod.Items.tiles
 {
 	public class Phazon : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Phazon");
+			Tooltip.SetDefault("'Very radioactive.'\n" + "Glows with Phazon energy");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Phazon";
 			item.width = 16;
 			item.height = 16;
 			item.maxStack = 999;
-			item.toolTip = "'Very radioactive.'\n" + "Glows with Phazon energy";
 			item.useTurn = true;
 			item.autoReuse = true;
 			item.useAnimation = 15;
