@@ -18,10 +18,13 @@ namespace MetroidMod.NPCs
 		public bool grappled = false;
 		public bool frozen = false;
 		public bool spawn = false;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Larval Metroid");
+			Main.npcFrameCount[npc.type] = 3;
+		}
 		public override void SetDefaults()
 		{
-			npc.name = "LarvalMetroid";
-			npc.displayName = "Larval Metroid";
 			npc.width = 38;
 			npc.height = 38;
 			npc.damage = 20;
@@ -32,7 +35,6 @@ namespace MetroidMod.NPCs
 			npc.noGravity = true;
 			npc.value = Item.buyPrice(0, 0, 1, 60);
 			npc.knockBackResist = 0.75f;
-			Main.npcFrameCount[npc.type] = 3;
 			npc.frameCounter = 0;
 			npc.aiStyle = -1;
 			npc.npcSlots = 1;
@@ -42,11 +44,11 @@ namespace MetroidMod.NPCs
 			npc.buffImmune[BuffID.OnFire] = true;
 			npc.buffImmune[BuffID.CursedInferno] = true;
 		}
-		public override float CanSpawn(NPCSpawnInfo spawnInfo)
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			return (spawnInfo.player.ZoneCorrupt || spawnInfo.player.ZoneCrimson) && NPC.downedBoss2 ? 0.03f : 0f;
 		}
-		/*public override int SpawnNPC(int tileX, int tileY)
+	/*	public override int SpawnNPC(int tileX, int tileY)
 		{
 			npc.scale = (Main.rand.Next(5, 10) * 0.1f);
 			npc.defense = (int)((float)npc.defense * npc.scale);
@@ -76,6 +78,7 @@ namespace MetroidMod.NPCs
 		}
 		public override void AI()
 		{
+			
 			frozen = false;
 			for (int k = 0; k < 5; k++)
 			{
@@ -169,7 +172,7 @@ namespace MetroidMod.NPCs
 			
 			if (Main.netMode == 2 && npc.whoAmI < 200)
 			{
-				NetMessage.SendData(23, -1, -1, "", npc.whoAmI, 0f, 0f, 0f, 0);
+				NetMessage.SendData(23, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0);
 			}
 		}
 		

@@ -14,10 +14,13 @@ namespace MetroidMod.NPCs.Serris
     {
         bool SpeedBoost = false;
 		int sptDir = 0;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Serris");
+			Main.npcFrameCount[npc.type] = 3;
+		}
 		public override void SetDefaults()
 		{
-			npc.name = "Serris_Tail";
-			npc.displayName = "Serris";
 			npc.width = 46;
 			npc.height = 46;
 			npc.damage = 20;
@@ -32,7 +35,6 @@ namespace MetroidMod.NPCs.Serris
 			npc.lavaImmune = true;
 			npc.noTileCollide = true;
 			npc.behindTiles = true;
-			Main.npcFrameCount[npc.type] = 3;
 			npc.frameCounter = 0;
 			npc.aiStyle = 6;
 			npc.npcSlots = 1;

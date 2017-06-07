@@ -29,10 +29,13 @@ namespace MetroidMod.NPCs.Serris
 		int maxUpdates = 0;
 		int hitDelay2 = 0;
 		//int aiCount = 0;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Serris");
+			Main.npcFrameCount[npc.type] = 5;
+		}
 		public override void SetDefaults()
 		{
-			npc.name = "Serris_Head";
-			npc.displayName = "Serris";
 			npc.width = 70;
 			npc.height = 70;
 			npc.damage = 20;
@@ -47,7 +50,6 @@ namespace MetroidMod.NPCs.Serris
 			npc.lavaImmune = true;
 			npc.noTileCollide = true;
 			npc.behindTiles = true;
-			Main.npcFrameCount[npc.type] = 5;
 			npc.frameCounter = 0;
 			npc.aiStyle = 6;
 			npc.npcSlots = 5;
@@ -101,7 +103,7 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 						{
 							Main.npc[Previous].ai[0] = (float)srs;
 						}
-						NetMessage.SendData(23, -1, -1, "", srs, 0f, 0f, 0f, 0);
+						NetMessage.SendData(23, -1, -1, null, srs, 0f, 0f, 0f, 0);
 						Previous = srs;
 					}
 					TailSpawned = true;
