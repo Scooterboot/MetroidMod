@@ -8,15 +8,18 @@ namespace MetroidMod.Projectiles.wavebeam
 {
 	public class WaveBeamChargeShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Wave Beam Charge Shot");
+			Main.projFrames[projectile.type] = 2;
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Beam Charge Shot";
 			projectile.width = 16;
 			projectile.height = 16;
 			projectile.scale = 2f;
 			projectile.tileCollide = false;
-			Main.projFrames[projectile.type] = 2;
 			
 			mProjectile.amplitude = 10f*projectile.scale;
 			mProjectile.wavesPerSecond = 1f;
@@ -27,7 +30,7 @@ namespace MetroidMod.Projectiles.wavebeam
 		Color color = MetroidMod.waveColor;
 		public override void AI()
 		{
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
@@ -69,7 +72,7 @@ namespace MetroidMod.Projectiles.wavebeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Beam Charge Shot";
+			projectile.Name = "Ice Wave Beam Charge Shot";
 			Main.projFrames[projectile.type] = 1;
 		}
 	}

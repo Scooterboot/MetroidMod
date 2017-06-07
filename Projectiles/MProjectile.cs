@@ -33,7 +33,6 @@ namespace MetroidMod.Projectiles
 			projectile.ignoreWater = true;
 			projectile.ranged = true;
 			projectile.extraUpdates = 2;
-			
 			for(int i = 0; i < projectile.oldPos.Length; i++)
 			{
 				projectile.oldPos[i] = projectile.position;
@@ -49,16 +48,16 @@ namespace MetroidMod.Projectiles
 
 		/*public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			if((projectile.name.Contains("Plasma") && projectile.name.Contains("Red")) || projectile.name.Contains("Nova"))
+			if((projectile.Name.Contains("Plasma") && projectile.Name.Contains("Red")) || projectile.Name.Contains("Nova"))
 			{
 				damage += (int)(((float)target.defense*0.5f) * 0.1f);
 			}
 		}*/
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			if(projectile.name.Contains("Plasma") && projectile.name.Contains("Red"))
+		{	
+			if(projectile.Name.Contains("Plasma") && projectile.Name.Contains("Red"))
 			{
-				if(projectile.name.Contains("Ice"))
+				if(projectile.Name.Contains("Ice"))
 				{
 					target.AddBuff(44,300,true);
 				}
@@ -68,9 +67,9 @@ namespace MetroidMod.Projectiles
 				}
 			}
 			
-			if(projectile.name.Contains("Nova"))
+			if(projectile.Name.Contains("Nova"))
 			{
-				if(projectile.name.Contains("Ice"))
+				if(projectile.Name.Contains("Ice"))
 				{
 					target.AddBuff(44,300,true);
 				}
@@ -82,7 +81,7 @@ namespace MetroidMod.Projectiles
 		}
 
 		public override void PostAI()
-		{			
+		{	
 			for (int i = projectile.oldPos.Length-1; i > 0; i--)
 			{
 				projectile.oldPos[i] = projectile.oldPos[i - 1];
@@ -97,7 +96,7 @@ namespace MetroidMod.Projectiles
 			projectile.oldRot[0] = projectile.rotation;
 		}
 		
-		public override bool NewTileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
 		{
 			width = 0;
 			height = 0;
@@ -168,15 +167,15 @@ namespace MetroidMod.Projectiles
 				if(!P.tileCollide)
 				{
 					waveDepth = 8;
-					if(projectile.name.Contains("Spazer") || projectile.name.Contains("Wide"))
+					if(projectile.Name.Contains("Spazer") || projectile.Name.Contains("Wide"))
 					{
 						waveDepth = 11;
 					}
-					if(projectile.name.Contains("Plasma") || projectile.name.Contains("Nova"))
+					if(projectile.Name.Contains("Plasma") || projectile.Name.Contains("Nova"))
 					{
 						waveDepth = 14;
 					}
-					if(projectile.name.Contains("Charge"))
+					if(projectile.Name.Contains("Charge"))
 					{
 						waveDepth += 2;
 					}
@@ -234,7 +233,7 @@ namespace MetroidMod.Projectiles
 		{
 			Vector2 pos = projectile.position;
 			int freq = 20;
-			if(projectile.name.Contains("Charge"))
+			if(projectile.Name.Contains("Charge"))
 			{
 				freq = 40;
 			}
@@ -245,7 +244,7 @@ namespace MetroidMod.Projectiles
 				Main.dust[dust].noGravity = noGravity;
 			}
 			int sound = mod.GetSoundSlot(SoundType.Custom, "Sounds/BeamImpactSound");
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				sound = mod.GetSoundSlot(SoundType.Custom, "Sounds/IceImpactSound");
 			}
@@ -271,7 +270,7 @@ namespace MetroidMod.Projectiles
 					mpr.diffusionColor = color;
 				}
 				int sound = mod.GetSoundSlot(SoundType.Custom, "Sounds/BeamImpactSound");
-				if(projectile.name.Contains("Ice"))
+				if(projectile.Name.Contains("Ice"))
 				{
 					sound = mod.GetSoundSlot(SoundType.Custom, "Sounds/IceImpactSound");
 				}

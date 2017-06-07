@@ -13,9 +13,13 @@ namespace MetroidMod.Projectiles
 	{
 		bool initialized = false;
 		int init = 0;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Screw Attack");
+			Main.projFrames[projectile.type] = 4;
+		}
 		public override void SetDefaults()
 		{
-				projectile.name = "Screw Attack";
 				projectile.width = 64;
 				projectile.height = 64;
 				projectile.aiStyle = 0;
@@ -26,9 +30,8 @@ namespace MetroidMod.Projectiles
 				projectile.alpha = 255;
 				projectile.tileCollide = false;
 				projectile.ownerHitCheck = true;
-				Main.projFrames[projectile.type] = 4;
 				projectile.usesLocalNPCImmunity = true;
-			projectile.localNPCHitCooldown = 7;
+				projectile.localNPCHitCooldown = 7;
 
 		}
 		public void initialize()

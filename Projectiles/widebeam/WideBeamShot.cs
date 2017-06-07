@@ -8,14 +8,17 @@ namespace MetroidMod.Projectiles.widebeam
 {
 	public class WideBeamShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Wide Beam Shot");
+			Main.projFrames[projectile.type] = 2;
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wide Beam Shot";
 			projectile.width = 8;
 			projectile.height = 8;
 			projectile.scale = 2f;
-			Main.projFrames[projectile.type] = 2;
 			
 			mProjectile.amplitude = 10f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
@@ -27,13 +30,13 @@ namespace MetroidMod.Projectiles.widebeam
 		Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 				color2 = default(Color);
 			}
-			else if(projectile.name.Contains("Wave"))
+			else if(projectile.Name.Contains("Wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor2;
@@ -43,7 +46,7 @@ namespace MetroidMod.Projectiles.widebeam
 			Lighting.AddLight(projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			if(projectile.numUpdates == 0)
 			{
-				if(projectile.name.Contains("Wave"))
+				if(projectile.Name.Contains("Wave"))
 				{
 					projectile.frame++;
 				}
@@ -62,7 +65,7 @@ namespace MetroidMod.Projectiles.widebeam
 				projectile.frame = 0;
 			}
 			
-			mProjectile.WaveBehavior(projectile, !projectile.name.Contains("Wave"));
+			mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			
 			if(projectile.numUpdates == 0)
 			{
@@ -87,7 +90,7 @@ namespace MetroidMod.Projectiles.widebeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Wide Beam Shot";
+			projectile.Name = "Wave Wide Beam Shot";
 			projectile.tileCollide = false;
 			
 			mProjectile.amplitude = 14f*projectile.scale;
@@ -99,7 +102,7 @@ namespace MetroidMod.Projectiles.widebeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wide Beam Shot";
+			projectile.Name = "Ice Wide Beam Shot";
 		}
 	}
 	
@@ -108,7 +111,7 @@ namespace MetroidMod.Projectiles.widebeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Wide Beam Shot";
+			projectile.Name = "Ice Wave Wide Beam Shot";
 		}
 	}
 }

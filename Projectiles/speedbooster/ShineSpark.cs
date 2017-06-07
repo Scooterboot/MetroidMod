@@ -13,9 +13,12 @@ namespace MetroidMod.Projectiles.speedbooster
 	public class ShineSpark : ModProjectile
 	{
 		int ShineSoundStart = 0;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Shine Spark");
+		}
 		public override void SetDefaults()
 		{
-			projectile.name = "Shine Spark";
 			projectile.width = 48;
 			projectile.height = 48;
 			projectile.aiStyle = 0;
@@ -24,8 +27,6 @@ namespace MetroidMod.Projectiles.speedbooster
 			projectile.melee = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 9000;
-	ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
-			ProjectileID.Sets.TrailingMode[projectile.type] = 0;
             projectile.usesLocalNPCImmunity = true;
 			projectile.localNPCHitCooldown = 7;
 			projectile.alpha = 255;

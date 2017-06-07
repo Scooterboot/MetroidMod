@@ -15,9 +15,12 @@ namespace MetroidMod.Projectiles.speedbooster
 	{
 		int SpeedSound = 0;
 		public SoundEffectInstance soundInstance;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Speed Booster");
+		}
 		public override void SetDefaults()
 		{
-			projectile.name = "Speed Booster";
 			projectile.width = 48;
 			projectile.height = 48;
 			projectile.aiStyle = 0;
@@ -26,8 +29,6 @@ namespace MetroidMod.Projectiles.speedbooster
 			projectile.melee = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 9000;
-	ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
-			ProjectileID.Sets.TrailingMode[projectile.type] = 0;
             projectile.usesLocalNPCImmunity = true;
 			projectile.localNPCHitCooldown = 7;
 			projectile.alpha = 255;
@@ -47,7 +48,7 @@ namespace MetroidMod.Projectiles.speedbooster
 			}
 			if(soundInstance != null && SpeedSound == 82)
 			{
-				soundInstance =Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpeedBoosterLoop"));
+				soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpeedBoosterLoop"));
 
 				SpeedSound = 68;
 			}
@@ -72,7 +73,7 @@ namespace MetroidMod.Projectiles.speedbooster
 					return;
 				}
 			}
-			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f), 0, 0.75f, 1f);
+			Lighting.AddLight((int)((float)projectile.Center.X/16f), (int)((float)(projectile.Center.Y)/16f),  0, 0.75f, 1f);
 			float rotation = (float)Math.Atan2(P.position.Y-P.shadowPos[0].Y, P.position.X-P.shadowPos[0].X);
 			float rotation1 = rotation+((float)Math.PI/2);
 			float rotation2 = rotation-((float)Math.PI/2);

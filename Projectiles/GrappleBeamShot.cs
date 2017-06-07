@@ -19,13 +19,14 @@ namespace MetroidMod.Projectiles
 		public override void SetDefaults()
 		{
 				projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
-				projectile.name = "Grapple Beam";
 				projectile.width = 18;
 				projectile.height = 18;
-
-
 		}
 
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Grapple Beam");
+		}
 
 		public override bool? SingleGrappleHook(Player player)
 		{
@@ -265,7 +266,7 @@ public override bool PreAI()
 					player.fallStart = (int)(player.Center.Y / 16f);
 				
 					player.sandStorm = false;
-					MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
+					//MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
 					//mPlayer.statSpaceJumps = mPlayer.maxSpaceJumps;
 					Vector2 v = player.Center - projectile.Center;
 					float dist = Vector2.Distance(player.Center, projectile.Center);

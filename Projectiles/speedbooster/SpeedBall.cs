@@ -15,9 +15,12 @@ namespace MetroidMod.Projectiles.speedbooster
 	{
 		int SpeedSound = 0;
 		public SoundEffectInstance soundInstance;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Mock Ball");
+		}
 		public override void SetDefaults()
 		{
-			projectile.name = "Mock Ball";
 			projectile.width = 18;
 			projectile.height = 18;
 			projectile.aiStyle = 0;
@@ -26,8 +29,6 @@ namespace MetroidMod.Projectiles.speedbooster
 			projectile.melee = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 9000;
-	ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
-			ProjectileID.Sets.TrailingMode[projectile.type] = 0;
             projectile.usesLocalNPCImmunity = true;
 			projectile.localNPCHitCooldown = 7;
 			projectile.alpha = 255;

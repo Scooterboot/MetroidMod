@@ -11,9 +11,12 @@ namespace MetroidMod.Projectiles
 {
 	public class DiffusionBeam : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Diffusion Beam");
+		}
 		public override void SetDefaults()
 		{
-			projectile.name = "Diffusion Beam";
 			projectile.width = 4;
 			projectile.height = 4;
 			projectile.aiStyle = -1;
