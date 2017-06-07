@@ -8,10 +8,13 @@ namespace MetroidMod.Projectiles.spazer
 {
 	public class SpazerChargeShot : MProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Spazer Charge Shot");
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Spazer Charge Shot";
 			projectile.width = 16;
 			projectile.height = 16;
 			projectile.scale = 2f;
@@ -26,12 +29,12 @@ namespace MetroidMod.Projectiles.spazer
 		Color color = MetroidMod.powColor;
 		public override void AI()
 		{
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
-			else if(projectile.name.Contains("Wave"))
+			else if(projectile.Name.Contains("Wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor;
@@ -47,7 +50,7 @@ namespace MetroidMod.Projectiles.spazer
 				projectile.frame = 0;
 			}
 			
-			mProjectile.WaveBehavior(projectile, !projectile.name.Contains("Wave"));
+			mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			
 			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0, 0, 100, default(Color), projectile.scale);
 			Main.dust[dust].noGravity = true;
@@ -69,7 +72,7 @@ namespace MetroidMod.Projectiles.spazer
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Spazer Charge Shot";
+			projectile.Name = "Wave Spazer Charge Shot";
 			projectile.tileCollide = false;
 			
 			mProjectile.amplitude = 16f*projectile.scale;
@@ -82,7 +85,7 @@ namespace MetroidMod.Projectiles.spazer
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Spazer Charge Shot";
+			projectile.Name = "Ice Spazer Charge Shot";
 		}
 	}
 	
@@ -91,7 +94,7 @@ namespace MetroidMod.Projectiles.spazer
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Spazer Charge Shot";
+			projectile.Name = "Ice Wave Spazer Charge Shot";
 		}
 	}
 }
