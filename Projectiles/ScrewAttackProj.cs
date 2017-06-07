@@ -74,7 +74,7 @@ namespace MetroidMod.Projectiles
 				DelayTime = 0;
 			}
 
-			if(P.velocity.Y == 0 || P.velocity.X == 0 || mp.ballstate || P.itemAnimation != 0 || P.controlHook || P.grapCount != 0 || mp.shineDirection != 0 || !mp.somersault)
+			if(!mp.somersault)
 			{
 				projectile.Kill();
 			}
