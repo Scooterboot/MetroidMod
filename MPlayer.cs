@@ -682,8 +682,8 @@ namespace MetroidMod
 				}
 			//}
 		}
-        const int shinyblock = 700;
-        public void AddSpaceJumping(Player player)
+        	const int shinyblock = 700;
+        	public void AddSpaceJumping(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			AddSpaceJump(player);
@@ -699,59 +699,56 @@ namespace MetroidMod
 			}
 			mp.spaceJump = true;
 		}
-        public void AddSpaceJump(Player player)
+        	public void AddSpaceJump(Player player)
 		{
-			//player.noFallDmg = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
 			{
 				mp.spaceJumped = false;
-				mp.canSomersault = false;
-			}
-			else if(!mp.ballstate)
-			{
-				if(player.controlJump && player.releaseJump && !mp.spaceJumped && player.grappling[0] == -1 && player.jump <= 0)
-				{
-					int num167 = player.height;
-					if (player.gravDir == -1f)
-					{
-						num167 = 4;
-					}
-					for (int num168 = 0; num168 < 8; num168++)
-					{
-						int type4 = 6;
-						float scale2 = 2.5f;
-						int alpha2 = 100;
-						if (num168 <= 3)
-						{
-							int num169 = Dust.NewDust(new Vector2(player.position.X - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
-							Main.dust[num169].noGravity = true;
-							Main.dust[num169].velocity.X = Main.dust[num169].velocity.X * 1f - 2f - player.velocity.X * 0.3f;
-							Main.dust[num169].velocity.Y = Main.dust[num169].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-						}
-						else
-						{
-							int num170 = Dust.NewDust(new Vector2(player.position.X + (float)player.width - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
-							Main.dust[num170].noGravity = true;
-							Main.dust[num170].velocity.X = Main.dust[num170].velocity.X * 1f + 2f - player.velocity.X * 0.3f;
-							Main.dust[num170].velocity.Y = Main.dust[num170].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-						}
-					}
-					mp.spaceJumped = true;
-					mp.canSomersault = true;
-					player.jump = Player.jumpHeight;
-					player.velocity.Y = -Player.jumpSpeed * player.gravDir;
-					player.canRocket = false;
-					player.rocketRelease = false;
-				}
-				else if(System.Math.Abs(player.velocity.X) > 4.25f)
+				if(player.velocity.X != 0 || player.sliding)
 				{
 					mp.canSomersault = true;
 				}
-				else if(!mp.spaceJumped)
+				else if(!player.sliding)
 				{
 					mp.canSomersault = false;
 				}
+			}
+			else if(!mp.ballstate && player.controlJump && player.releaseJump && !mp.spaceJumped && player.grappling[0] == -1 && !grappleBeamIsHooked && player.jump <= 0)
+			{
+				int num167 = player.height;
+				if (player.gravDir == -1f)
+				{
+					num167 = 4;
+				}
+				Main.PlaySound(2,(int)player.position.X,(int)player.position.Y,20);
+				for (int num168 = 0; num168 < 8; num168++)
+				{
+					int type4 = 6;
+					float scale2 = 2.5f;
+					int alpha2 = 100;
+					if (num168 <= 3)
+					{
+						int num169 = Dust.NewDust(new Vector2(player.position.X - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+						Main.dust[num169].noGravity = true;
+						Main.dust[num169].velocity.X = Main.dust[num169].velocity.X * 1f - 2f - player.velocity.X * 0.3f;
+						Main.dust[num169].velocity.Y = Main.dust[num169].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+					}
+					else
+					{
+						int num170 = Dust.NewDust(new Vector2(player.position.X + (float)player.width - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+						Main.dust[num170].noGravity = true;
+						Main.dust[num170].velocity.X = Main.dust[num170].velocity.X * 1f + 2f - player.velocity.X * 0.3f;
+						Main.dust[num170].velocity.Y = Main.dust[num170].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+					}
+				}
+				mp.spaceJumped = true;
+				mp.canSomersault = true;
+				player.jump = Player.jumpHeight;
+				player.velocity.Y = -Player.jumpSpeed * player.gravDir;
+				player.canRocket = false;
+				player.rocketRelease = false;
+				player.fallStart = (int)(player.Center.Y / 16f);
 			}
 		}
 public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ballLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
