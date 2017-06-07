@@ -23,7 +23,7 @@ namespace MetroidMod.Items.misc
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("ChoziteBarTile");
-			item.toolTip = "A durable made from Chozite Ore";
+			item.toolTip = "A durable metal made from Chozite Ore";
 			item.value = 100;
 			item.rare = 2;
 		}
