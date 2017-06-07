@@ -7,18 +7,20 @@ namespace MetroidMod.Items.addons
 {
 	public class WaveBeamAddon : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Wave Beam";
-			item.width = 10;
-			item.height = 14;
-			item.maxStack = 1;
-			item.toolTip = "Power Beam Addon\n" +
+			DisplayName.SetDefault("Wave Beam");
+			Tooltip.SetDefault("Power Beam Addon\n" +
 				"Slot Type: Utility\n" +
 				"Shots penetrate terrain by a certain depth\n" +
 				"+50% damage\n" +
-				"+50% overheat use";
-
+				"+50% overheat use");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 10;
+			item.height = 14;
+			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
 			item.useTurn = true;
@@ -33,16 +35,16 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Demonite Bar", 5);
-            recipe.AddIngredient("Amethyst", 10);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+            recipe.AddIngredient(ItemID.DemoniteBar, 5);
+            recipe.AddIngredient(ItemID.Amethyst, 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Crimtane Bar", 5);
-            recipe.AddIngredient("Amethyst", 10);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+            recipe.AddIngredient(ItemID.CrimtaneBar, 5);
+            recipe.AddIngredient(ItemID.Amethyst, 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

@@ -14,17 +14,20 @@ namespace MetroidMod.Items.equipables
 {
 	public class SpaceBooster : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Space Booster";
-			item.width = 20;
-			item.height = 20;
-			item.maxStack = 1;
-			item.toolTip = "Allows the user to run insanely fast\n" + 
+			DisplayName.SetDefault("Space Booster");
+			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
 			"Damage enemies while running\n" + 
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" + 
-			"Allows somersaulting";
+			"Allows somersaulting");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 20;
+			item.height = 20;
+			item.maxStack = 1;
 			item.value = 40000;
 			item.rare = 7;
 			item.accessory = true;

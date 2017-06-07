@@ -5,18 +5,21 @@ namespace MetroidMod.Items.addons
 {
 	public class PhazonBeamAddon : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Phazon Beam";
-			item.width = 10;
-			item.height = 14;
-			item.maxStack = 1;
-			item.toolTip = "Power Beam Addon\n" +
+			DisplayName.SetDefault("Phazon Beam");
+			Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Charge\n" +
 			"'It's made of pure Phazon energy!'\n" + 
 			"Shots have a 25% chance of inflicting a Phazon DoT debuff on enemies\n" + 
 			"Only activates when the Secondary, Utility, and Primary A and B slots are in use\n" +
-			"Cannot be used without the Phazon Suit";
+			"Cannot be used without the Phazon Suit");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 10;
+			item.height = 14;
+			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
 			item.useTurn = true;
@@ -31,12 +34,12 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Shroomite Bar", 6);
+			recipe.AddIngredient(ItemID.ShroomiteBar, 6);
             		recipe.AddIngredient(null, "PurePhazon", 12);
-            		recipe.AddIngredient("Soul of Night", 5);
-			recipe.AddIngredient("Soul of Sight", 10);
-			recipe.AddIngredient("Soul of Might", 10);
-			recipe.AddIngredient("Soul of Fright", 10);
+            		recipe.AddIngredient(ItemID.SoulofNight, 5);
+			recipe.AddIngredient(ItemID.SoulofSight, 10);
+			recipe.AddIngredient(ItemID.SoulofMight, 10);
+			recipe.AddIngredient(ItemID.SoulofFright, 10);
             		recipe.AddTile(null, "NovaWorkTableTile");
 			recipe.SetResult(this);
 			recipe.AddRecipe();

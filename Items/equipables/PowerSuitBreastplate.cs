@@ -10,24 +10,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+[AutoloadEquip(EquipType.Body)]
 	public class PowerSuitBreastplate : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
-        {
-            equips.Add(EquipType.Body);
-            return true;
-        }
-
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Suit Breastplate");
+			Tooltip.SetDefault("5% increased ranged damage\n" + 
+            "+5 overheat capacity");
+		}
         public override void SetDefaults()
         {
-            item.name = "Power Suit Breastplate";
             item.width = 18;
             item.height = 18;
             item.rare = 2;
             item.value = 9000;
-            item.defense = 7;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("+5 overheat capacity");
+            item.defense = 4;
         }
 
         public override void UpdateEquip(Player player)
@@ -37,19 +35,19 @@ namespace MetroidMod.Items.equipables
             mp.maxOverheat += 5;
         }
 
-          public override bool IsArmorSet(Item head, Item body, Item legs)
+        public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return (head.type == mod.ItemType("PowerSuitHelmet") && body.type == mod.ItemType("PowerSuitBreastplate") && legs.type == mod.ItemType("PowerSuitGreaves"));
         }
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" + "10% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "30% increased underwater breathing";
+            player.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + "10% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "30% increased underwater breathing";
             player.breathMax = (int)(player.breathMax * 1.3f);
             player.noFallDmg = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			mp.overheatCost -= 0.10f;
-			mp.SenseMove(player);
+			 mp.SenseMove(player);
 			mp.visorGlow = true;
             if(!mp.ballstate)
 			{
@@ -75,14 +73,11 @@ namespace MetroidMod.Items.equipables
 				mp.jet = false;
 			}
 		}
-		
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.MeteoriteBar, 30);
-            //recipe.AddIngredient(ItemID.Topaz, 2);
             recipe.AddIngredient(null, "ChoziteBreastplate");
-            recipe.AddIngredient(null, "EnergyShard");
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

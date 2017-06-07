@@ -10,26 +10,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+[AutoloadEquip(EquipType.Body)]
 	public class VariaSuitBreastplate : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Varia Suit Breastplate");
+			Tooltip.SetDefault("5% increased ranged damage\n" +
+             "Immunity to fire blocks\n" +
+             "Immunity to chill and freeze effects\n" +
+             "+10 overheat capacity");
+		}
+            public override void SetDefaults()
         {
-            equips.Add(EquipType.Body);
-            return true;
-        }
-
-        public override void SetDefaults()
-        {
-            item.name = "Varia Suit Breastplate";
             item.width = 18;
             item.height = 18;
             item.rare = 3;
             item.value = 9000;
-            item.defense = 9;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("Immunity to fire blocks");
-            AddTooltip("Immunity to chill and freeze effects");
-            AddTooltip("+10 overheat capacity");
+            item.defense = 6;
         }
 
         public override void UpdateEquip(Player player)
@@ -49,7 +47,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "70% increased underwater breathing";
+            p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "70% increased underwater breathing";
             p.rangedDamage += 0.05f;
             p.breathMax = (int)(p.breathMax * 1.7f);
             p.noFallDmg = true;
@@ -81,6 +79,7 @@ namespace MetroidMod.Items.equipables
 				mp.jet = false;
 			}
 		}
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

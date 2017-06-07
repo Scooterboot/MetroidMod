@@ -12,18 +12,21 @@ namespace MetroidMod.Items.equipables
 {
 	public class MorphBallV2 : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Morph Ball V2";
-			item.width = 20;
-			item.height = 20;
-			item.maxStack = 1;
-			item.toolTip = "Normal Morph Ball abilities\n" + 
+			DisplayName.SetDefault("Morph Ball V2");
+			Tooltip.SetDefault("Normal Morph Ball abilities\n" + 
 			 "Upgraded drill feature can mine Hellstone\n" + 
 			"While active:\n" + 
 			 "-Press Spider Ball Key to activate Spider Ball\n" + 
 			 "-Press Power Bomb Key to set off a Power Bomb (20 second cooldown)\n" + 
-			"-Hold Boost Ball Key to charge a Boost Ball";
+			"-Hold Boost Ball Key to charge a Boost Ball");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 20;
+			item.height = 20;
+			item.maxStack = 1;
 			item.value = 60000;
 			item.rare = 4;
 			item.accessory = true;
@@ -33,17 +36,17 @@ namespace MetroidMod.Items.equipables
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "MorphBall");
-			recipe.AddIngredient("Adamantite Bar", 3);
-			recipe.AddIngredient("Wire", 35);
-			recipe.AddIngredient("Soul of Fright", 20);
+			recipe.AddIngredient(ItemID.AdamantiteBar, 3);
+			recipe.AddIngredient(ItemID.Wire, 35);
+			recipe.AddIngredient(ItemID.SoulofFright, 20);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "MorphBall");
-			recipe.AddIngredient("Titanium Bar", 3);
-			recipe.AddIngredient("Wire", 35);
-			recipe.AddIngredient("Soul of Fright", 20);
+			recipe.AddIngredient(ItemID.TitaniumBar, 3);
+			recipe.AddIngredient(ItemID.Wire, 35);
+			recipe.AddIngredient(ItemID.SoulofFright, 20);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 		}

@@ -7,14 +7,13 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.misc
 {
-	public class SerrisBag : ModItem
+	public class PhantoonBag : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Treasure Bag");
 			Tooltip.SetDefault("Right click to open");
 			ItemID.Sets.ItemNoGravity[item.type] = true;
-			Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 8));
 		}
 		public override void SetDefaults()
 		{
@@ -24,7 +23,7 @@ namespace MetroidMod.Items.misc
 			item.height = 24;
 			item.expert = true;
 			item.rare = -12;
-			bossBagNPC = mod.NPCType("Serris_Head");
+			bossBagNPC = mod.NPCType("Phantoon");
 		}
 public override bool CanRightClick()
 		{
@@ -33,18 +32,18 @@ public override bool CanRightClick()
 
 		public override void OpenBossBag(Player player)
 		{
-			player.QuickSpawnItem(mod.ItemType("SerrisCoreX"));
+			player.QuickSpawnItem(mod.ItemType("GravityGel"), Main.rand.Next(35, 66));
 			if (Main.rand.Next(5) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("SerrisTrophy"));
+				player.QuickSpawnItem(mod.ItemType("PhantoonTrophy"));
 			}
 			if (Main.rand.Next(3) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("SerrisMask"));
+				player.QuickSpawnItem(mod.ItemType("PhantoonMask"));
 			}
 			if (Main.rand.Next(2) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("SerrisMusicBox"));
+				player.QuickSpawnItem(mod.ItemType("Kraid_PhantoonMusicBox"));
 			}
 		}
 

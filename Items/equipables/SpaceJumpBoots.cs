@@ -12,14 +12,17 @@ namespace MetroidMod.Items.equipables
 {
 	public class SpaceJumpBoots : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Space Jump Boots");
+			Tooltip.SetDefault("Allows the wearer to double jump\n" + 
+			"Allows somersaulting");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Space Jump Boots";
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
-			item.toolTip = "Allows the wearer to double jump\n" + 
-			"Allows somersaulting";
 			item.value = 40000;
 			item.rare = 3;
 			item.accessory = true;
@@ -35,10 +38,10 @@ namespace MetroidMod.Items.equipables
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 10);
-			recipe.AddIngredient("Fallen Star", 2);
-			recipe.AddIngredient("Diamond", 1);
-			recipe.AddIngredient("Emerald", 2);
+			recipe.AddIngredient(null, "ChoziteBar", 10);
+			recipe.AddIngredient(ItemID.FallenStar, 2);
+			recipe.AddIngredient(ItemID.Diamond, 1);
+			recipe.AddIngredient(ItemID.Emerald, 2);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

@@ -10,30 +10,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+[AutoloadEquip(EquipType.Body)]
 	public class GravitySuitBreastplate : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
-        {
-            equips.Add(EquipType.Body);
-            return true;
-        }
-
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Gravity Suit Breastplate");
+			Tooltip.SetDefault("5% increased ranged damage\n" +
+             "Immune to fire blocks\n" +
+             "Immune to chill and freeze effects\n" +
+             "Immune to knockback\n" +
+             "+20 overheat capacity");
+		}
         public override void SetDefaults()
         {
-            item.name = "Gravity Suit Breastplate";
             item.width = 18;
             item.height = 18;
             item.rare = 4;
             item.value = 30000;
             item.defense = 10;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("Immune to fire blocks");
-            AddTooltip("Immune to chill and freeze effects");
-            AddTooltip("Immune to knockback");
-            AddTooltip("+20 overheat capacity");
         }
 
-       public override void UpdateEquip(Player player)
+        public override void UpdateEquip(Player player)
         {
             player.rangedDamage += 0.05f;
             player.fireWalk = true;
@@ -93,7 +91,6 @@ namespace MetroidMod.Items.equipables
 				mp.jet = false;
 			}
         }
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

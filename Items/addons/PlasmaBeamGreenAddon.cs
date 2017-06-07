@@ -5,18 +5,20 @@ namespace MetroidMod.Items.addons
 {
 	public class PlasmaBeamGreenAddon : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Plasma Beam (Green)";
-			item.width = 10;
-			item.height = 14;
-			item.maxStack = 1;
-			item.toolTip = "Power Beam Addon\n" +
+			DisplayName.SetDefault("Plasma Beam (Green)");
+			Tooltip.SetDefault("Power Beam Addon\n" +
 				"Slot Type: Primary B\n" +
 				"Shots pierce enemies, hitting them multiple times\n" +
 				"+300% damage\n" +
-				"+100% overheat use";
-
+				"+100% overheat use");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 10;
+			item.height = 14;
+			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
 			item.useTurn = true;
@@ -31,10 +33,10 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Cursed Flame", 15);
-            recipe.AddIngredient("Emerald", 5);
-			recipe.AddIngredient("Soul of Light", 10);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+            recipe.AddIngredient(ItemID.CursedFlame, 15);
+            recipe.AddIngredient(ItemID.Emerald, 5);
+			recipe.AddIngredient(ItemID.SoulofLight, 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

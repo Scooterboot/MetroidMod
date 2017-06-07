@@ -10,26 +10,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+[AutoloadEquip(EquipType.Head)]
 	public class GravitySuitHelmet : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Gravity Suit Helmet");
+			Tooltip.SetDefault("5% increased ranged damage\n" + 
+            "+20 overheat capacity\n" + 
+            "Improved night vision\n" + 
+            "Increased jump height");
+		}    public override void SetDefaults()
         {
-            equips.Add(EquipType.Head);
-            return true;
-        }
-
-        public override void SetDefaults()
-        {
-            item.name = "Gravity Suit Helmet";
             item.width = 18;
             item.height = 18;
             item.rare = 4;
             item.value = 6000;
             item.defense = 5;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("+20 overheat capacity");
-            AddTooltip("Improved night vision");
-            AddTooltip("Increased jump height");
         }
 
         public override void UpdateEquip(Player player)

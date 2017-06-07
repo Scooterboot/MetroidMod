@@ -14,16 +14,19 @@ namespace MetroidMod.Items.equipables
 {
 	public class SpaceJump : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Space Jump");
+			Tooltip.SetDefault("'Somersault continuously in the air!'\n" + 
+			"Allows somersaulting\n" + 
+			"Allows the user to jump up to 10 times in a row\n" + 
+			"Jumps recharge mid-air");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Space Jump";
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
-			item.toolTip = "'Somersault continuously in the air!'\n" + 
-			"Allows somersaulting\n" + 
-			"Allows the user to jump up to 10 times in a row\n" + 
-			"Jumps recharge mid-air";
 			item.value = 40000;
 			item.rare = 7;
 			item.accessory = true;
@@ -40,10 +43,9 @@ namespace MetroidMod.Items.equipables
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "SpaceJumpBoots");
-			recipe.AddIngredient("Meteorite Bar", 3);
-			recipe.AddIngredient("Bundle of Balloons");
-			recipe.AddIngredient("Rocket Boots");
-			recipe.AddIngredient("Soul of Flight", 10);
+			recipe.AddIngredient(ItemID.BundleofBalloons);
+			recipe.AddIngredient(ItemID.RocketBoots);
+			recipe.AddIngredient(ItemID.SoulofFlight, 10);
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

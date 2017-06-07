@@ -10,26 +10,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+[AutoloadEquip(EquipType.Legs)]
 	public class VariaSuitGreaves : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
-        {
-            equips.Add(EquipType.Legs);
-            return true;
-        }
-
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Varia Suit Greaves");
+			Tooltip.SetDefault("5% increased ranged damage\n" +
+             "10% increased movement speed\n" +
+             "+10 overheat capacity\n" +
+             "Allows you to slide down walls");
+		}
         public override void SetDefaults()
         {
-            item.name = "Varia Suit Greaves";
             item.width = 18;
             item.height = 18;
             item.rare = 3;
             item.value = 6000;
-            item.defense = 8;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("10% increased movement speed");
-            AddTooltip("+10 overheat capacity");
-            AddTooltip("Allows you to slide down walls");
+            item.defense = 3;
         }
 
         public override void UpdateEquip(Player player)

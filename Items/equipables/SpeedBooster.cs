@@ -13,14 +13,17 @@ namespace MetroidMod.Items.equipables
 {
 	public class SpeedBooster : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Speed Booster");
+			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
+			"Damages enemies while running");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Speed Booster";
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
-			item.toolTip = "Allows the user to run insanely fast\n" + 
-			"Damages enemies while running";
 			item.value = 40000;
 			item.rare = 5;
 			item.accessory = true;
@@ -36,10 +39,10 @@ namespace MetroidMod.Items.equipables
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Hermes Boots");
-			recipe.AddIngredient("Spectre Boots");
+			recipe.AddIngredient(ItemID.HermesBoots);
+			recipe.AddIngredient(ItemID.SpectreBoots);
 			recipe.AddIngredient(null, "SerrisCoreX");
-			recipe.AddIngredient("Emerald", 5);
+			recipe.AddIngredient(ItemID.Emerald, 5);
 			recipe.AddRecipeGroup("IronBar", 5);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

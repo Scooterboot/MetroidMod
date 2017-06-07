@@ -5,13 +5,10 @@ namespace MetroidMod.Items.addons
 {
 	public class ChargeBeamV2Addon : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Charge Beam V2";
-			item.width = 10;
-			item.height = 14;
-			item.maxStack = 1;
-			item.toolTip = "Power Beam Addon\n" +
+			DisplayName.SetDefault("Charge Beam V2");
+			Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Charge\n" +
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
@@ -19,7 +16,13 @@ namespace MetroidMod.Items.addons
 			"Converts Spazer to Wide Beam when slotted in\n" +
 			"Without Spazer, the beam fires 2 shots at once\n" + 
 			"Increases base damage from 7 to 10\n" + 
-			"Increases base overheat use from 4 to 6";
+			"Increases base overheat use from 4 to 6");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 10;
+			item.height = 14;
+			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
 			item.useTurn = true;
@@ -35,8 +38,8 @@ namespace MetroidMod.Items.addons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChargeBeamAddon");
-            recipe.AddIngredient("Soul of Might", 10);
-            recipe.AddIngredient("Illegal Gun Parts");
+            recipe.AddIngredient(ItemID.SoulofMight, 10);
+            recipe.AddIngredient(ItemID.IllegalGunParts);
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

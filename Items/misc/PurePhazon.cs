@@ -10,13 +10,16 @@ namespace MetroidMod.Items.misc
 {
     public class PurePhazon : ModItem
     {
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Pure Phazon");
+			Tooltip.SetDefault("'Highly concentrated Phazon, in its purest form.");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Pure Phazon";
 			item.maxStack = 99;
 			item.width = 16;
 			item.height = 16;
-			item.toolTip = "'Highly concentrated Phazon, in its purest form.";
 			item.value = 10000;
 			item.rare = 1;
 		}

@@ -12,17 +12,20 @@ namespace MetroidMod.Items.equipables
 {
 	public class MorphBall : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Morph Ball";
-			item.width = 20;
-			item.height = 20;
-			item.maxStack = 1;
-			item.toolTip = "Press the morph ball key to roll into a ball\n" + 
+			DisplayName.SetDefault("Morph Ball");
+			Tooltip.SetDefault("Press the morph ball key to roll into a ball\n" + 
 			"While active:\n" + 
 			"-Left Click to initiate a drill feature\n" + 
 			"-Right Click to set off a bomb (Deals 10 damage)\n" + 
-			"Morph Ball's colors are based on your shirt and undershirt colors";
+			"Morph Ball's colors are based on your shirt and undershirt colors");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 20;
+			item.height = 20;
+			item.maxStack = 1;
 			item.value = 40000;
 			item.rare = 2;
 			item.accessory = true;
@@ -31,18 +34,18 @@ namespace MetroidMod.Items.equipables
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 20);
-			recipe.AddIngredient("Diamond", 3);
-			recipe.AddIngredient("Gold Bar", 5);
-			recipe.AddIngredient("Fallen Star", 3);
+			recipe.AddIngredient(null, "ChoziteBar", 20);
+			recipe.AddIngredient(ItemID.Diamond, 3);
+			recipe.AddIngredient(ItemID.GoldBar, 5);
+			recipe.AddIngredient(ItemID.FallenStar, 3);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 20);
-			recipe.AddIngredient("Diamond", 3);
-			recipe.AddIngredient("Platinum Bar", 5);
-			recipe.AddIngredient("Fallen Star", 3);
+			recipe.AddIngredient(null, "ChoziteBar", 20);
+			recipe.AddIngredient(ItemID.Diamond, 3);
+			recipe.AddIngredient(ItemID.PlatinumBar, 5);
+			recipe.AddIngredient(ItemID.FallenStar, 3);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -54,8 +57,7 @@ namespace MetroidMod.Items.equipables
 			mp.MorphBallBasic(player);
 			mp.Drill(player,35);
 		}
-
-		public override Color? GetAlpha(Color lightColor)
+			public override Color? GetAlpha(Color lightColor)
         {
 			Player player = Main.player[item.owner];
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);

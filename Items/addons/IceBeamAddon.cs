@@ -5,13 +5,10 @@ namespace MetroidMod.Items.addons
 {
 	public class IceBeamAddon : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Ice Beam";
-			item.width = 10;
-			item.height = 14;
-			item.maxStack = 1;
-			item.toolTip = "Power Beam Addon\n" +
+			DisplayName.SetDefault("Ice Beam");
+			Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Secondary\n" +
 			"'Mother, time to go!'\n" + 
 			"Shots freeze enemies\n" + 
@@ -23,8 +20,13 @@ namespace MetroidMod.Items.addons
 				"Missile Launcher Addon\n" +
 				"Slot Type: Primary\n" +
 				"Shots freeze enemies instantly\n" +
-				"+50% damage";
-
+				"+50% damage");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 10;
+			item.height = 14;
+			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
 			item.useTurn = true;
@@ -39,16 +41,16 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Snow Block", 25);
-            recipe.AddIngredient("Ice Block", 10);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+            recipe.AddIngredient(ItemID.SnowBlock, 25);
+            recipe.AddIngredient(ItemID.IceBlock, 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Sapphire", 7);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+            recipe.AddIngredient(ItemID.Sapphire, 7);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

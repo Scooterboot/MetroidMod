@@ -10,9 +10,13 @@ namespace MetroidMod.Items.misc
 {
 	public class ChoziteBar : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Chozite Bar");
+			Tooltip.SetDefault("'A durable metal made from Chozite Ore'");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Chozite Bar";
 			item.maxStack = 99;
 			item.width = 16;
 			item.height = 16;
@@ -23,7 +27,6 @@ namespace MetroidMod.Items.misc
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("ChoziteBarTile");
-			item.toolTip = "A durable metal made from Chozite Ore";
 			item.value = 100;
 			item.rare = 2;
 		}

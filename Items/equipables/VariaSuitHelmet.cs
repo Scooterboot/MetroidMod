@@ -10,25 +10,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+[AutoloadEquip(EquipType.Head)]
 	public class VariaSuitHelmet : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
-        {
-            equips.Add(EquipType.Head);
-            return true;
-        }
-
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Varia Suit Helmet");
+			Tooltip.SetDefault("5% increased ranged damage\n" + 
+            "+10 overheat capacity\n" + 
+            "Improved night vision");
+		}
         public override void SetDefaults()
         {
-            item.name = "Varia Suit Helmet";
             item.width = 18;
             item.height = 18;
             item.rare = 3;
             item.value = 6000;
-            item.defense = 8;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("+10 overheat capacity");
-            AddTooltip("Improved night vision");
+            item.defense = 3;
         }
 
         public override void UpdateEquip(Player player)

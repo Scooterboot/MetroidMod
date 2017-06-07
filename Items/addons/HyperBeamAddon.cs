@@ -12,17 +12,20 @@ namespace MetroidMod.Items.addons
 {
     public class HyperBeamAddon : ModItem
     {
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Hyper Beam";
-			item.width = 10;
-			item.height = 14;
-			item.maxStack = 1;
-			item.toolTip = "Power Beam Addon\n" +
+			DisplayName.SetDefault("Hyper Beam");
+			Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Charge\n" +
 			"'Mother, time to go!'\n" + 
 			"Shots ignore 50% of enemy defense\n" + 
-			"Only activates when the Secondary, Utility, and Primary A and B slots are in use";
+			"Only activates when the Secondary, Utility, and Primary A and B slots are in use");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 10;
+			item.height = 14;
+			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
 			item.useTurn = true;
@@ -36,11 +39,11 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Hallowed Bar", 3);
-            		recipe.AddIngredient("Soul of Might", 20);
-			recipe.AddIngredient("Soul of Sight", 20);
-			recipe.AddIngredient("Soul of Fright", 20);
-            		recipe.AddIngredient("Rainbow Gun");
+			recipe.AddIngredient(ItemID.HallowedBar, 3);
+            		recipe.AddIngredient(ItemID.SoulofMight, 20);
+			recipe.AddIngredient(ItemID.SoulofSight, 20);
+			recipe.AddIngredient(ItemID.SoulofFright, 20);
+            		recipe.AddIngredient(ItemID.RainbowGun);
             		recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

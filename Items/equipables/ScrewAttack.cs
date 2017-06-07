@@ -15,16 +15,19 @@ namespace MetroidMod.Items.equipables
 		int screwAttackSpeed = 0;
 		int screwSpeedDelay = 0;
 		int proj = -1;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Screw Attack");
+			Tooltip.SetDefault("Allows the user to double jump\n" + 
+			"Allows somersaulting\n" + 
+			"Damage enemies while someraulting\n" + 
+			"Hold Left/Right and double jump to do a 'boost' ability");
+		}
 		public override void SetDefaults()
 		{
-			item.name = "Screw Attack";
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
-			item.toolTip = "Allows the user to double jump\n" + 
-			"Allows somersaulting\n" + 
-			"Damage enemies while someraulting\n" + 
-			"Hold Left/Right and double jump to do a 'boost' ability";
 			item.value = 40000;
 			item.rare = 7;
 			item.accessory = true;

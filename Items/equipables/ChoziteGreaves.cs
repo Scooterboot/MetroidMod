@@ -6,27 +6,23 @@ using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Items.equipables
 {
+    [AutoloadEquip(EquipType.Legs)]
     class ChoziteGreaves : ModItem
     {
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
-        {
-            equips.Add(EquipType.Legs);
-            return true;
-        }
+    public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Chozite Greaves");
+		}
 
         public override void SetDefaults()
         {
-            item.name = "Chozite Greaves";
             item.width = 18;
             item.height = 18;
-            item.rare = 1;
+            item.rare = 2;
             item.value = 3000;
             item.defense = 4;
         }
 
-        public override void UpdateEquip(Player player)
-        {
-        }
 
         public override void AddRecipes()
         {

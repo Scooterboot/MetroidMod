@@ -10,25 +10,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+[AutoloadEquip(EquipType.Legs)]
 	public class PowerSuitGreaves : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
-        {
-            equips.Add(EquipType.Legs);
-            return true;
-        }
-
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Suit Greaves");
+			Tooltip.SetDefault("5% increased ranged damage\n" + 
+            "+5 overheat capacity\n" +
+            "Allows you to slide down walls");
+		}
         public override void SetDefaults()
         {
-            item.name = "Power Suit Greaves";
             item.width = 18;
             item.height = 18;
             item.rare = 2;
             item.value = 6000;
-            item.defense = 6;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("+5 overheat capacity");
-            AddTooltip("Allows you to slide down walls");
+            item.defense = 2;
         }
 
         public override void UpdateEquip(Player player)
@@ -42,10 +40,8 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.MeteoriteBar, 25);
-            //recipe.AddIngredient(ItemID.Topaz);
             recipe.AddIngredient(null, "ChoziteGreaves");
-            recipe.AddIngredient(null, "EnergyShard");
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

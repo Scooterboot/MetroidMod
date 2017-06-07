@@ -5,19 +5,21 @@ namespace MetroidMod.Items.addons
 {
 	public class PlasmaBeamRedAddon : ModItem
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			item.name = "Plasma Beam (Red)";
-			item.width = 10;
-			item.height = 14;
-			item.maxStack = 1;
-			item.toolTip = "Power Beam Addon\n" +
+			DisplayName.SetDefault("Plasma Beam (Red)");
+			Tooltip.SetDefault("Power Beam Addon\n" +
 				"Slot Type: Primary B\n" +
 				"Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed\n" +
 				"Deals double damage if the enemy is already on Fire/Frost Burned\n" +
 				"+300% damage\n" +
-				"+100% overheat use";
-
+				"+100% overheat use");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 10;
+			item.height = 14;
+			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
 			item.useTurn = true;
@@ -32,10 +34,10 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient("Meteorite Bar", 3);
-            recipe.AddIngredient("Ichor", 15);
-            recipe.AddIngredient("Ruby", 5);
-			recipe.AddIngredient("Soul of Light", 10);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+            recipe.AddIngredient(ItemID.Ichor, 15);
+            recipe.AddIngredient(ItemID.Ruby, 5);
+			recipe.AddIngredient(ItemID.SoulofLight, 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

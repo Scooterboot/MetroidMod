@@ -10,26 +10,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
+    [AutoloadEquip(EquipType.Legs)]
 	public class GravitySuitGreaves : ModItem
 	{
-        public override bool Autoload(ref string name, ref string texture, IList<EquipType> equips)
-        {
-            equips.Add(EquipType.Legs);
-            return true;
-        }
-
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Gravity Suit Greaves");
+			Tooltip.SetDefault("5% increased ranged damage\n" + 
+            "20% increased movement speed\n" + 
+            "+20 overheat capacity\n" + 
+            "Allows you to slide down walls");
+		}
         public override void SetDefaults()
         {
-            item.name = "Gravity Suit Greaves";
             item.width = 18;
             item.height = 18;
             item.rare = 4;
             item.value = 24000;
             item.defense = 6;
-            AddTooltip("5% increased ranged damage");
-            AddTooltip("20% increased movement speed");
-            AddTooltip("+20 overheat capacity");
-            AddTooltip("Allows you to slide down walls");
         }
 
         public override void UpdateEquip(Player player)
