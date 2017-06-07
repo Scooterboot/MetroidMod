@@ -11,7 +11,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Plasma Beam Red V2 Shot";
+			projectile.Name = "Plasma Beam Red V2 Shot";
 			projectile.width = 8;
 			projectile.height = 8;
 			projectile.scale = 2f;
@@ -22,7 +22,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			if(projectile.name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
@@ -41,9 +41,9 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 				}
 			}
 			
-			if(projectile.name.Contains("Wide") || projectile.name.Contains("Wave"))
+			if(projectile.Name.Contains("Wide") || projectile.Name.Contains("Wave"))
 			{
-				mProjectile.WaveBehavior(projectile, !projectile.name.Contains("Wave"));
+				mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			}
 			
 			if(projectile.numUpdates == 0)
@@ -65,7 +65,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
-			if(projectile.name.Contains("Ice") && projectile.name.Contains("Wave"))
+			if(projectile.Name.Contains("Ice") && projectile.Name.Contains("Wave"))
 			{
 				mProjectile.PlasmaDraw(projectile, Main.player[projectile.owner], sb);
 			}
@@ -82,7 +82,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wide Plasma Beam Red V2 Shot";
+			projectile.Name = "Wide Plasma Beam Red V2 Shot";
 			
 			mProjectile.amplitude = 7.5f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
@@ -95,7 +95,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Plasma Beam Red V2 Shot";
+			projectile.Name = "Wave Plasma Beam Red V2 Shot";
 			projectile.tileCollide = false;
 			
 			mProjectile.amplitude = 8f*projectile.scale;
@@ -109,7 +109,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Wave Wide Plasma Beam Red V2 Shot";
+			projectile.Name = "Wave Wide Plasma Beam Red V2 Shot";
 			mProjectile.amplitude = 16f*projectile.scale;
 		}
 	}
@@ -119,7 +119,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Plasma Beam Red V2 Shot";
+			projectile.Name = "Ice Plasma Beam Red V2 Shot";
 		}
 	}
 	
@@ -128,7 +128,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wide Plasma Beam Red V2 Shot";
+			projectile.Name = "Ice Wide Plasma Beam Red V2 Shot";
 		}
 	}
 	
@@ -137,7 +137,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Plasma Beam Red V2 Shot";
+			projectile.Name = "Ice Wave Plasma Beam Red V2 Shot";
 			Main.projFrames[projectile.type] = 1;
 		}
 	}
@@ -147,7 +147,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.name = "Ice Wave Wide Plasma Beam Red V2 Shot";
+			projectile.Name = "Ice Wave Wide Plasma Beam Red V2 Shot";
 			Main.projFrames[projectile.type] = 1;
 		}
 	}
