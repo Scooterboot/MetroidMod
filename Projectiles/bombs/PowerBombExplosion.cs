@@ -11,9 +11,12 @@ namespace MetroidMod.Projectiles.bombs
 {
 	public class PowerBombExplosion : ModProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Bomb Explosion");
+		}
 		public override void SetDefaults()
 		{
-				projectile.name = "Power Bomb Explosion";
 			projectile.width = 1000;
 			projectile.height = 750;
 			projectile.aiStyle = -1;

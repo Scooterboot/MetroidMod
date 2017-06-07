@@ -12,9 +12,13 @@ namespace MetroidMod.Projectiles.bombs
 {
 	public class PowerBomb : ModProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
 		public override void SetDefaults()
 		{
-				projectile.name = "Power Bomb";
 			projectile.width = 10;
 			projectile.height = 10;
 			projectile.aiStyle = 0;
@@ -27,7 +31,6 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.ignoreWater = true;
 			projectile.ranged = true;
 			projectile.light = 0.2f;
-			Main.projFrames[projectile.type] = 6;
 		}
 		public override void AI()
 		{
