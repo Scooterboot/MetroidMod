@@ -925,7 +925,7 @@ namespace MetroidMod.Items.weapons
 			finalDmg = (int)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg));
 			overheat = (int)((float)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat)) * mp.overheatCost);
 			
-			item.name = name;
+			//item.name = name;
 			item.damage = finalDmg;
 			item.useTime = useTime;
 			item.useAnimation = useTime;
