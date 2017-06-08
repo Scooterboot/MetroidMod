@@ -88,6 +88,7 @@ namespace MetroidMod.Items.weapons
 
 		bool isCharge = false;
 		bool isChargeV2 = false;
+		int overheat = 3;
 		public override void UpdateInventory(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
@@ -118,7 +119,7 @@ namespace MetroidMod.Items.weapons
 			
 			string name = "Power Beam";
 			int damage = 7;
-			int overheat = 3;
+			overheat = 3;
 			int useTime = 6;
 			shot = "PowerBeamShot";
 			chargeShot = "PowerBeamChargeShot";
@@ -897,33 +898,34 @@ namespace MetroidMod.Items.weapons
 				if(slot3.type == wa)
 				{
 					waveDmg = 1f;
-					waveHeat = 0.5f;
+					waveHeat = 0.2f;
 				}
 				if(slot4.type == sp)
 				{
 					spazDmg = 0.25f;
-					spazHeat = 0.25f;
+					spazHeat = 0.2f;
 				}
 				if(slot5.type == plR)
 				{
 					plasDmg = 3f;
-					plasHeat = 1f;
+					plasHeat = 0.25f;
 				}
 				else if(slot5.type == plG)
 				{
 					plasDmg = 3f;
-					plasHeat = 1f;
+					plasHeat = 0.25f;
 				}
 				else if(slot5.type == nv)
 				{
 					plasDmg = 5f;
-					plasHeat = 2f;
+					plasHeat = 0.35f;
 				}
 			}
 			
 			finalDmg = (int)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg));
+			overheat = (int)((float)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat)) * mp.overheatCost);
 			
-			//item.name = name;
+			item.name = name;
 			item.damage = finalDmg;
 			item.useTime = useTime;
 			item.useAnimation = useTime;
@@ -931,7 +933,7 @@ namespace MetroidMod.Items.weapons
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/"+shotSound);
 			
 			item.autoReuse = (isCharge);
-			item.channel = (isCharge);
+			//item.channel = (isCharge);
 
 			item.shootSpeed = 8f;
 			item.reuseDelay = 0;
@@ -951,8 +953,11 @@ namespace MetroidMod.Items.weapons
 			dmg = (int)((float)dmg*baseDmg * (1f + iceDmg + waveDmg + spazDmg + plasDmg));
 		}*/
 		
+		int chargeLead = -1;
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+
 			if(isCharge)
 			{
 				int ch = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,mod.ProjectileType("ChargeLead"),damage,knockBack,player.whoAmI);
@@ -970,6 +975,7 @@ namespace MetroidMod.Items.weapons
 				cl.LightColor = lightColor;
 				cl.waveDir = waveDir;
 				cl.IsChargeV2 = isChargeV2;
+				chargeLead = ch;
 			}
 			
 			if(isChargeV2 && shotAmt <= 1)
@@ -1003,6 +1009,9 @@ namespace MetroidMod.Items.weapons
 				}
 			}
 			waveDir *= -1;
+			
+			mp.statOverheat += overheat;
+			mp.overheatDelay = 2;
 			return false;
 		}
 		
@@ -1014,7 +1023,7 @@ namespace MetroidMod.Items.weapons
 
 				if(!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 				{
-					if(player.controlUseItem || player.channel)
+					if(player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 					{
 						if(mp.statCharge < MPlayer.maxCharge)
 						{
@@ -1083,8 +1092,8 @@ namespace MetroidMod.Items.weapons
 							
 							Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));
 							
-							player.itemTime = (item.useTime*3);
-							player.itemAnimation = (item.useAnimation*3);
+							mp.statOverheat += overheat;
+							mp.overheatDelay = 6;
 						}
 						else if(mp.statCharge > 0)
 						{
@@ -1120,15 +1129,15 @@ namespace MetroidMod.Items.weapons
 								}
 								
 								Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+shotSound));
+								
+								mp.statOverheat += overheat;
+								mp.overheatDelay = 2;
 							}
-							
-							player.itemTime = item.useTime;
-							player.itemAnimation = item.useAnimation;
 						}
 						mp.statCharge = 0;
 					}
 				}
-				else if (!mp.ballstate)
+				else if(!mp.ballstate)
 				{
 					mp.statCharge = 0;
 				}
