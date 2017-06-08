@@ -61,11 +61,12 @@ namespace MetroidMod.Items.weapons
 		
 		public override bool CanUseItem(Player player)
 		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			if(player.whoAmI == Main.myPlayer && item.type == Main.mouseItem.type)
 			{
 				return false;
 			}
-			return true;
+			return (mp.statOverheat < mp.maxOverheat);
 		}
 
 		public MetroidModUI metroidUI;
