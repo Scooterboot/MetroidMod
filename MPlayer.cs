@@ -133,12 +133,13 @@ namespace MetroidMod
 			maxOverheat = 100f;
 			overheatCost = 1f;		
 		}
+		float overheatCooldown = 0f;
 		public override void PreUpdate()
 		{
 			UIParameters.oldState = UIParameters.newState;
-            UIParameters.newState = Keyboard.GetState();
-        	UIParameters.lastMouseState = UIParameters.mouseState;
-        	UIParameters.mouseState = Mouse.GetState();
+            		UIParameters.newState = Keyboard.GetState();
+        		UIParameters.lastMouseState = UIParameters.mouseState;
+        		UIParameters.mouseState = Mouse.GetState();
 			Player P = player;
 			specialDmg = (int)player.rangedDamage * 100;
 			bombDamage = (int)player.rangedDamage * 10;
@@ -206,11 +207,17 @@ namespace MetroidMod
 			{
 				if(extraOverheat <= 0 && statCharge <= 0 && shineDirection <= 0 && !shineActive && overheatDelay <= 0)
 				{
-					statOverheat -= 0.5f;
+					statOverheat -= overheatCooldown;
+					overheatCooldown += 0.025f;
+				}
+				else
+				{
+					overheatCooldown = 0f;
 				}
 			}
 			else
 			{
+				overheatCooldown = 0f;
 				statOverheat = 0f;
 			}
 			if(statOverheat > maxOverheat)
