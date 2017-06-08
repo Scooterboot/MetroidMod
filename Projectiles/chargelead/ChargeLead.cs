@@ -146,7 +146,7 @@ namespace MetroidMod.Projectiles.chargelead
 				Main.dust[dust].noGravity = true;
 			}
 			Lighting.AddLight(P.Center, (LightColor.R/255f)*P.scale,(LightColor.G/255f)*P.scale,(LightColor.B/255f)*P.scale);
-			if((O.channel || O.controlUseItem) && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
+			if(O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
 			{
 				if (P.owner == Main.myPlayer)
 				{
@@ -155,6 +155,16 @@ namespace MetroidMod.Projectiles.chargelead
 			}
 			else
 			{
+				if(mp.statCharge >= (MPlayer.maxCharge*0.5))
+				{
+					O.itemTime = (I.useTime*3);
+					O.itemAnimation = (I.useAnimation*3);
+				}
+				else
+				{
+					O.itemTime = I.useTime;
+					O.itemAnimation = I.useAnimation;
+				}
 				if(O.whoAmI == Main.myPlayer)
 				{
 					if(soundInstance != null)
@@ -171,7 +181,7 @@ namespace MetroidMod.Projectiles.chargelead
 			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
 			if(!mp.ballstate)
 			{
-			mp.statCharge = 0;
+				mp.statCharge = 0;
 			}
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
