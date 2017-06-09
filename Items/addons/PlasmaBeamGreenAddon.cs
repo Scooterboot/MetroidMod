@@ -10,7 +10,7 @@ namespace MetroidMod.Items.addons
 			DisplayName.SetDefault("Plasma Beam (Green)");
 			Tooltip.SetDefault("Power Beam Addon\n" +
 				"Slot Type: Primary B\n" +
-				"Shots pierce enemies, hitting them multiple times\n" +
+				"Shots pierce enemies\n" +
 				"+300% damage\n" +
 				"+100% overheat use");
 		}
