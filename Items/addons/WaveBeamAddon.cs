@@ -12,7 +12,7 @@ namespace MetroidMod.Items.addons
 			DisplayName.SetDefault("Wave Beam");
 			Tooltip.SetDefault("Power Beam Addon\n" +
 				"Slot Type: Utility\n" +
-				"Shots penetrate terrain by a certain depth\n" +
+				"Shots penetrate terrain by a limited depth\n" +
 				"+50% damage\n" +
 				"+50% overheat use");
 		}
@@ -30,22 +30,24 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("WaveBeamTile");
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			mItem.addonSlotType = 2;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            recipe.AddIngredient(ItemID.DemoniteBar, 5);
-            recipe.AddIngredient(ItemID.Amethyst, 10);
-            recipe.AddTile(TileID.Anvils);
+            		recipe.AddIngredient(ItemID.DemoniteBar, 5);
+            		recipe.AddIngredient(ItemID.Amethyst, 10);
+            		recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            recipe.AddIngredient(ItemID.CrimtaneBar, 5);
-            recipe.AddIngredient(ItemID.Amethyst, 10);
-            recipe.AddTile(TileID.Anvils);
+		    	recipe.AddIngredient(ItemID.CrimtaneBar, 5);
+		    	recipe.AddIngredient(ItemID.Amethyst, 10);
+		    	recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
