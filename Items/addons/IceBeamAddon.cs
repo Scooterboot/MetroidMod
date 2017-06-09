@@ -10,7 +10,6 @@ namespace MetroidMod.Items.addons
 			DisplayName.SetDefault("Ice Beam");
 			Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Secondary\n" +
-			"'Mother, time to go!'\n" + 
 			"Shots freeze enemies\n" + 
 			"~Each time the enemy is shot, they will become 20% slower\n" + 
 			"~After 5 shots the enemy will become completely frozen\n" + 
@@ -36,22 +35,24 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("IceBeamTile");
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			mItem.addonSlotType = 1;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            recipe.AddIngredient(ItemID.SnowBlock, 25);
-            recipe.AddIngredient(ItemID.IceBlock, 10);
-            recipe.AddTile(TileID.Anvils);
+            		recipe.AddIngredient(ItemID.SnowBlock, 25);
+            		recipe.AddIngredient(ItemID.IceBlock, 10);
+            		recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            recipe.AddIngredient(ItemID.Sapphire, 7);
-            recipe.AddTile(TileID.Anvils);
+            		recipe.AddIngredient(ItemID.Sapphire, 7);
+            		recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
