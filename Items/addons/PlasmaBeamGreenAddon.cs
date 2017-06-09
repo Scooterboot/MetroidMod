@@ -28,16 +28,18 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("PlasmaBeamGreenTile");
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			mItem.addonSlotType = 4;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            recipe.AddIngredient(ItemID.CursedFlame, 15);
-            recipe.AddIngredient(ItemID.Emerald, 5);
+            		recipe.AddIngredient(ItemID.CursedFlame, 15);
+            		recipe.AddIngredient(ItemID.Emerald, 5);
 			recipe.AddIngredient(ItemID.SoulofLight, 10);
-            recipe.AddTile(TileID.Anvils);
+            		recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
