@@ -13,6 +13,7 @@ namespace MetroidMod.Items.addons
 			Tooltip.SetDefault("Power Beam Addon\n" +
 				"Slot Type: Primary A\n" +
 				"Beam fires 3 shots at once, effectively tripling its damage\n" +
+				"+25% damage\n" +
 				"+25% overheat use");
 		}
 		public override void SetDefaults()
@@ -29,15 +30,17 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("SpazerTile");
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			mItem.addonSlotType = 3;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 6);
-            recipe.AddIngredient(ItemID.Topaz, 15);
-            recipe.AddIngredient(ItemID.JungleSpores, 10);
-            recipe.AddTile(TileID.Anvils);
+		    	recipe.AddIngredient(ItemID.Topaz, 15);
+		    	recipe.AddIngredient(ItemID.JungleSpores, 10);
+		    	recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
