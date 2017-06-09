@@ -28,15 +28,17 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("ChargeBeamTile");
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			mItem.addonSlotType = 0;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            recipe.AddIngredient(ItemID.ManaCrystal);
-            recipe.AddIngredient(ItemID.FallenStar, 2);
-            recipe.AddTile(TileID.Anvils);
+            		recipe.AddIngredient(ItemID.ManaCrystal);
+            		recipe.AddIngredient(ItemID.FallenStar, 2);
+            		recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
