@@ -32,15 +32,17 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("ChargeBeamV2Tile");
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			mItem.addonSlotType = 0;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChargeBeamAddon");
-            recipe.AddIngredient(ItemID.SoulofMight, 10);
-            recipe.AddIngredient(ItemID.IllegalGunParts);
-            recipe.AddTile(TileID.MythrilAnvil);
+            		recipe.AddIngredient(ItemID.SoulofMight, 10);
+            		recipe.AddIngredient(ItemID.IllegalGunParts);
+            		recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
