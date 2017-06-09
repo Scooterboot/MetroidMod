@@ -11,7 +11,6 @@ namespace MetroidMod.Items.addons
 			Tooltip.SetDefault("Power Beam Addon\n" +
 				"Slot Type: Primary B\n" +
 				"Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed\n" +
-				"Deals double damage if the enemy is already on Fire/Frost Burned\n" +
 				"+300% damage\n" +
 				"+100% overheat use");
 		}
@@ -29,16 +28,18 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("PlasmaBeamRedTile");
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			mItem.addonSlotType = 4;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            recipe.AddIngredient(ItemID.Ichor, 15);
-            recipe.AddIngredient(ItemID.Ruby, 5);
+            		recipe.AddIngredient(ItemID.Ichor, 15);
+            		recipe.AddIngredient(ItemID.Ruby, 5);
 			recipe.AddIngredient(ItemID.SoulofLight, 10);
-            recipe.AddTile(TileID.Anvils);
+            		recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
