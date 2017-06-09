@@ -25,22 +25,22 @@ namespace MetroidMod
 		public static int beamSlotAmount = 5;
 
 		public bool ShowBeamUIButton = false;
-        public bool BeamUIOpen = false;
+        	public bool BeamUIOpen = false;
 
 		public UIButton beamButton;
-        public UIObject beamUIObj;
+        	public UIObject beamUIObj;
 		public UIItemSlot[] beamSlot = new UIItemSlot[beamSlotAmount];
 		UILabel[] label = new UILabel[beamSlotAmount];
-        public MetroidModUI()
-        {
-            Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+		public MetroidModUI()
+        	{
+            		Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			
 			Player P = Main.player[Main.myPlayer];
 			
 			beamButton = new UIButton(new Vector2(250, 292), new Vector2(44, 44), delegate()
-            {
-                BeamUIOpen = !BeamUIOpen;
-            }, null,
+            		{
+                		BeamUIOpen = !BeamUIOpen;
+            		}, null,
 			mod.GetTexture("Textures/Buttons/BeamUIButton"),
 			mod.GetTexture("Textures/Buttons/BeamUIButton_Hover"),
 			mod.GetTexture("Textures/Buttons/BeamUIButton_Click"));
@@ -49,27 +49,16 @@ namespace MetroidMod
 			
 			for(int i = 0; i < beamSlot.Length; i++)
 			{
-				string tTip = "Slot Type: Charge";
-				if(i == 1)
-				{
-					tTip = "Slot Type: Secondary";
-				}
-				if(i == 2)
-				{
-					tTip = "Slot Type: Utility";
-				}
-				if(i == 3)
-				{
-					tTip = "Slot Type: Primary A";
-				}
-				if(i == 4)
-				{
-					tTip = "Slot Type: Primary B";
-				}
+				int k = i;
 				beamSlot[i] = new UIItemSlot(new Vector2(10, 10+i*58), panel,
 				delegate(Item item)
 				{
-					return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod /*&& item.ToolTip.ToString().Contains("Power Beam Addon") && item.ToolTip.ToString().Contains(tTip)*/));
+					if(item.modItem != null && item.modItem.mod == mod)
+					{
+						MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+						return (item.type <= 0 || mItem.addonSlotType == k);
+					}
+					return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod));
 				});
 			}
 
@@ -103,17 +92,17 @@ namespace MetroidMod
 			{
 				panel.children.Add(beamSlot[i]);
 			}
-            for(int i = 0; i < label.Length; i++)
+            		for(int i = 0; i < label.Length; i++)
 			{
 				panel.children.Add(label[i]);
 			}
 
-            beamUIObj = panel;
-        }
+            		beamUIObj = panel;
+        	}
 		bool labelHide = false;
 		float labelAlpha = 1f;
-        public void Draw(SpriteBatch sb)
-        {
+        	public void Draw(SpriteBatch sb)
+        	{
 			if(Main.playerInventory && Main.player[Main.myPlayer].chest == -1 && Main.npcShop == 0)
 			{
 				beamButton.Draw(sb);
@@ -163,6 +152,6 @@ namespace MetroidMod
 				labelAlpha = 1f;
 				labelHide = false;
 			}
-        }
+        	}
 	}
 }
