@@ -7,6 +7,24 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items
 {
+	public class MGlobalItem : GlobalItem
+	{
+		public int addonSlotType = -1;
+		public override bool InstancePerEntity
+		{
+			get
+			{
+				return true;
+			}
+		}
+		public override bool CloneNewInstances
+		{
+			get
+			{
+				return true;
+			}
+		}
+	}
     public class grab : GlobalItem
     {
         public override void GrabRange(Terraria.Item item, Player player, ref int grabRange)
