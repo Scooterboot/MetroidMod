@@ -21,8 +21,7 @@ namespace MetroidMod.Items.weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Beam");
-			Tooltip.SetDefault("Overheats by 3 points per use\n" +
-				"Select this item in your hotbar and open your inventory to open the Beam Addon UI");
+			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
 		}
 		public override void SetDefaults()
 		{
@@ -71,7 +70,20 @@ namespace MetroidMod.Items.weapons
 
 		public MetroidModUI metroidUI;
 		
+		float iceDmg = 0f;
+		float waveDmg = 0f;
+		float spazDmg = 0f;
+		float plasDmg = 0f;
+
+		float iceHeat = 0f;
+		float waveHeat = 0f;
+		float spazHeat = 0f;
+		float plasHeat = 0f;
+		
 		int finalDmg = 7;
+		
+		int overheat = 4;
+		//string name = "Power Beam";
 		
 		string shot = "PowerBeamShot";
 		string chargeShot = "PowerBeamChargeShot";
@@ -89,7 +101,7 @@ namespace MetroidMod.Items.weapons
 
 		bool isCharge = false;
 		bool isChargeV2 = false;
-		int overheat = 3;
+
 		public override void UpdateInventory(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
@@ -118,9 +130,9 @@ namespace MetroidMod.Items.weapons
 			Item slot4 = metroidUI.beamSlot[3].item;
 			Item slot5 = metroidUI.beamSlot[4].item;
 			
-			string name = "Power Beam";
+			//name = "Power Beam";
 			int damage = 7;
-			overheat = 3;
+			overheat = 4;
 			int useTime = 6;
 			shot = "PowerBeamShot";
 			chargeShot = "PowerBeamChargeShot";
@@ -833,7 +845,7 @@ namespace MetroidMod.Items.weapons
 			
 			/*if(slot1.type == hy || slot1.type == ph)
 			{
-				name = slot1.name;
+				name = slot1.Name;
 			}
 			else
 			{
@@ -845,7 +857,7 @@ namespace MetroidMod.Items.weapons
 					}
 					else
 					{
-						name = slot5.name;
+						name = slot5.Name;
 					}
 				}
 				else if(!slot4.IsAir)
@@ -856,38 +868,38 @@ namespace MetroidMod.Items.weapons
 					}
 					else
 					{
-						name = slot4.name;
+						name = slot4.Name;
 					}
 				}
 				else if(!slot3.IsAir)
 				{
-					name = slot3.name;
+					name = slot3.Name;
 				}
 				else if(!slot2.IsAir)
 				{
-					name = slot2.name;
+					name = slot2.Name;
 				}
 			}*/
 			
-			float iceDmg = 0f;
-			float waveDmg = 0f;
-			float spazDmg = 0f;
-			float plasDmg = 0f;
+			iceDmg = 0f;
+			waveDmg = 0f;
+			spazDmg = 0f;
+			plasDmg = 0f;
 
-			float iceHeat = 0f;
-			float waveHeat = 0f;
-			float spazHeat = 0f;
-			float plasHeat = 0f;
+			iceHeat = 0f;
+			waveHeat = 0f;
+			spazHeat = 0f;
+			plasHeat = 0f;
 
 			if(slot1.type == ch2)
 			{
 				damage = 10;
-				overheat = 5;
+				overheat = 6;
 			}
 			else if(slot1.type != hy && slot1.type != ph)
 			{
 				damage = 7;
-				overheat = 3;
+				overheat = 4;
 			}
 			if(slot1.type != hy && slot1.type != ph)
 			{
@@ -899,32 +911,32 @@ namespace MetroidMod.Items.weapons
 				if(slot3.type == wa)
 				{
 					waveDmg = 1f;
-					waveHeat = 0.2f;
+					waveHeat = 0.5f;
 				}
 				if(slot4.type == sp)
 				{
 					spazDmg = 0.25f;
-					spazHeat = 0.2f;
+					spazHeat = 0.25f;
 				}
 				if(slot5.type == plR)
 				{
 					plasDmg = 3f;
-					plasHeat = 0.25f;
+					plasHeat = 1f;
 				}
 				else if(slot5.type == plG)
 				{
 					plasDmg = 3f;
-					plasHeat = 0.25f;
+					plasHeat = 1f;
 				}
 				else if(slot5.type == nv)
 				{
 					plasDmg = 5f;
-					plasHeat = 0.35f;
+					plasHeat = 1.5f;
 				}
 			}
 			
 			finalDmg = (int)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg));
-			overheat = (int)((float)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat)) * mp.overheatCost);
+			overheat = (int)((float)overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat));
 			
 			//item.name = name;
 			item.damage = finalDmg;
@@ -934,7 +946,6 @@ namespace MetroidMod.Items.weapons
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/"+shotSound);
 			
 			item.autoReuse = (isCharge);
-			//item.channel = (isCharge);
 
 			item.shootSpeed = 8f;
 			item.reuseDelay = 0;
@@ -949,10 +960,64 @@ namespace MetroidMod.Items.weapons
 			item.Prefix(item.prefix);
 		}
 		
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			Player player = Main.player[Main.myPlayer];
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+
+			if(item == Main.HoverItem)
+			{
+				item.modItem.UpdateInventory(player);
+			}
+
+			int chDmg = (int)((float)item.damage*3f * player.rangedDamage);
+			TooltipLine chDmgLine = new TooltipLine(mod, "ChargeDamage", chDmg+" ranged damage (Charge Shot)");
+
+			int oh = (int)((float)overheat*mp.overheatCost);
+			TooltipLine ohLine = new TooltipLine(mod, "Overheat", "Overheats by "+oh+" points per use");
+			int chOh = (int)((float)overheat*2f * mp.overheatCost);
+			TooltipLine chOhLine = new TooltipLine(mod, "ChargeOverheat", "Overheats by "+chOh+" points on Charge Shot");
+
+			for (int k = 0; k < tooltips.Count; k++)
+			{
+				if(tooltips[k].Name == "Damage" && isCharge)
+				{
+					tooltips.Insert(k + 1, chDmgLine);
+				}
+				if(tooltips[k].Name == "Knockback")
+				{
+					tooltips.Insert(k + 1, ohLine);
+					if(isCharge)
+					{
+						tooltips.Insert(k + 2, chOhLine);
+					}
+				}
+				if(tooltips[k].Name == "PrefixDamage")
+				{
+					double num19 = (double)((float)item.damage - (float)finalDmg);
+					num19 = num19 / (double)((float)finalDmg) * 100.0;
+					num19 = Math.Round(num19);
+					if (num19 > 0.0)
+					{
+						tooltips[k].text = "+" + num19 + Lang.tip[39].Value;
+					}
+					else
+					{
+						tooltips[k].text = num19 + Lang.tip[39].Value;
+					}
+				}
+			}
+		}
+		
 		/*public override void GetWeaponDamage(Player P, ref int dmg)
 		{
 			dmg = (int)((float)dmg*baseDmg * (1f + iceDmg + waveDmg + spazDmg + plasDmg));
 		}*/
+		
+		public override ModItem Clone(Item item)
+		{
+			return this;
+		}
 		
 		int chargeLead = -1;
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -1011,7 +1076,7 @@ namespace MetroidMod.Items.weapons
 			}
 			waveDir *= -1;
 			
-			mp.statOverheat += overheat;
+			mp.statOverheat += (int)((float)overheat*mp.overheatCost);
 			mp.overheatDelay = 2;
 			return false;
 		}
@@ -1093,7 +1158,7 @@ namespace MetroidMod.Items.weapons
 							
 							Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));
 							
-							mp.statOverheat += overheat;
+							mp.statOverheat += (int)((float)overheat*2f * mp.overheatCost);
 							mp.overheatDelay = 6;
 						}
 						else if(mp.statCharge > 0)
@@ -1131,7 +1196,7 @@ namespace MetroidMod.Items.weapons
 								
 								Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+shotSound));
 								
-								mp.statOverheat += overheat;
+								mp.statOverheat += (int)((float)overheat*mp.overheatCost);
 								mp.overheatDelay = 2;
 							}
 						}
