@@ -25,31 +25,31 @@ namespace MetroidMod.Items
 			}
 		}
 	}
-    public class grab : GlobalItem
-    {
-        public override void GrabRange(Terraria.Item item, Player player, ref int grabRange)
-        {
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-                grabRange += (int)(mp.statCharge * 1.6f);
-        }
-    }
-  /*  public class armortrail : GlobalItem
-    {
-        public override void ArmorSetShadows(Player player, string set)
-          {
-              MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-              if (mp.tweak > 4)
-              {
-                  longTrail = true;
-              }
-          }
-    }*/
-    public class armorcolor : GlobalItem
-    {
-        public override void DrawArmorColor(EquipType type, int slot, Player P, float shadow, ref Color color,ref int glowMask, ref Color glowMaskColor)
-        {
-            MPlayer mp = P.GetModPlayer<MPlayer>(mod);
-            if(mp.hyperColors > 0 || mp.speedBoosting || mp.shineDirection != 0)
+	public class grab : GlobalItem
+	{
+		public override void GrabRange(Terraria.Item item, Player player, ref int grabRange)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			grabRange += (int)(mp.statCharge * 1.6f);
+		}
+	}
+	/*public class armortrail : GlobalItem
+	{
+		public override void ArmorSetShadows(Player player, string set)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			if (mp.tweak > 4)
+			{
+				longTrail = true;
+			}
+		}
+	}*/
+	public class armorcolor : GlobalItem
+	{
+		public override void DrawArmorColor(EquipType type, int slot, Player P, float shadow, ref Color color,ref int glowMask, ref Color glowMaskColor)
+		{
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			if(mp.hyperColors > 0 || mp.speedBoosting || mp.shineDirection != 0)
 			{
 				if(mp.hyperColors > 0)
 				{
@@ -74,7 +74,7 @@ namespace MetroidMod.Items
 					int dust = Dust.NewDust(new Vector2(P.position.X - P.velocity.X, P.position.Y - 2f - P.velocity.Y), P.width, P.height, dustType, -P.velocity.X * 0.25f, -P.velocity.Y * 0.25f, 100, color, 1.0f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].noLight = true;
-			/*	}
+				/*	}
 				if(P.body > 0)
 				{
 					edi.dyeBody = 31;
@@ -100,8 +100,6 @@ namespace MetroidMod.Items
 					mp.hyperColors--;
 				}
 			}
-        }
-    }
-
-   
+		}
+	}
 }
