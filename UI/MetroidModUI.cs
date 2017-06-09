@@ -18,6 +18,8 @@ using Terraria.UI;
 using ReLogic.Graphics;
 using ReLogic;
 
+using MetroidMod.Items;
+
 namespace MetroidMod
 {
 	public class MetroidModUI
@@ -25,22 +27,22 @@ namespace MetroidMod
 		public static int beamSlotAmount = 5;
 
 		public bool ShowBeamUIButton = false;
-        	public bool BeamUIOpen = false;
+        public bool BeamUIOpen = false;
 
 		public UIButton beamButton;
-        	public UIObject beamUIObj;
+        public UIObject beamUIObj;
 		public UIItemSlot[] beamSlot = new UIItemSlot[beamSlotAmount];
 		UILabel[] label = new UILabel[beamSlotAmount];
 		public MetroidModUI()
-        	{
-            		Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+        {
+            Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			
 			Player P = Main.player[Main.myPlayer];
 			
 			beamButton = new UIButton(new Vector2(250, 292), new Vector2(44, 44), delegate()
-            		{
-                		BeamUIOpen = !BeamUIOpen;
-            		}, null,
+            {
+                BeamUIOpen = !BeamUIOpen;
+            }, null,
 			mod.GetTexture("Textures/Buttons/BeamUIButton"),
 			mod.GetTexture("Textures/Buttons/BeamUIButton_Hover"),
 			mod.GetTexture("Textures/Buttons/BeamUIButton_Click"));
@@ -92,17 +94,17 @@ namespace MetroidMod
 			{
 				panel.children.Add(beamSlot[i]);
 			}
-            		for(int i = 0; i < label.Length; i++)
+            for(int i = 0; i < label.Length; i++)
 			{
 				panel.children.Add(label[i]);
 			}
 
-            		beamUIObj = panel;
-        	}
+            beamUIObj = panel;
+        }
 		bool labelHide = false;
 		float labelAlpha = 1f;
-        	public void Draw(SpriteBatch sb)
-        	{
+        public void Draw(SpriteBatch sb)
+        {
 			if(Main.playerInventory && Main.player[Main.myPlayer].chest == -1 && Main.npcShop == 0)
 			{
 				beamButton.Draw(sb);
@@ -152,6 +154,6 @@ namespace MetroidMod
 				labelAlpha = 1f;
 				labelHide = false;
 			}
-        	}
+        }
 	}
 }
