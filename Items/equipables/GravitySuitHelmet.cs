@@ -1,16 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Head)]
+	[AutoloadEquip(EquipType.Head)]
 	public class GravitySuitHelmet : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -20,13 +15,15 @@ namespace MetroidMod.Items.equipables
             "+20 overheat capacity\n" + 
             "Improved night vision\n" + 
             "Increased jump height");
-		}    public override void SetDefaults()
+		}
+
+		public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
             item.rare = 4;
             item.value = 6000;
-            item.defense = 5;
+            item.defense = 12;
         }
 
         public override void UpdateEquip(Player player)
@@ -41,19 +38,21 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "VariaSuitV2Helmet");
             recipe.AddIngredient(null, "GravityGel", 17);
             recipe.AddIngredient(ItemID.Wire, 8);
             recipe.AddIngredient(ItemID.CursedFlame, 8);
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "VariaSuitV2Helmet");
             recipe.AddIngredient(null, "GravityGel", 17);
             recipe.AddIngredient(ItemID.Wire, 8);
             recipe.AddIngredient(ItemID.Ichor, 8);
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

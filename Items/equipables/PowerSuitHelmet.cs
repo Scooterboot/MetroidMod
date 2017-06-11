@@ -1,16 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Head)]
+	[AutoloadEquip(EquipType.Head)]
 	public class PowerSuitHelmet : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -27,7 +22,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 2;
             item.value = 6000;
-            item.defense = 1;
+            item.defense = 5;
         }
 
         public override void UpdateEquip(Player player)
@@ -41,6 +36,7 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.MeteoriteBar, 5);
             recipe.AddIngredient(null, "ChoziteHelmet");
             recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);

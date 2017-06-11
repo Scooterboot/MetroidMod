@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
@@ -21,13 +17,14 @@ namespace MetroidMod.Items.equipables
              "Immunity to chill and freeze effects\n" +
              "+10 overheat capacity");
 		}
-            public override void SetDefaults()
+
+        public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
             item.rare = 3;
             item.value = 9000;
-            item.defense = 6;
+            item.defense = 8;
         }
 
         public override void UpdateEquip(Player player)
@@ -47,20 +44,21 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "70% increased underwater breathing";
+            p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "55% increased underwater breathing";
             p.rangedDamage += 0.05f;
-            p.breathMax = (int)(p.breathMax * 1.7f);
+            p.breathMax = (int)(p.breathMax * 1.55f);
             p.noFallDmg = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
             mp.overheatCost -= 0.20f;
-             mp.SenseMove(p);
+            mp.SenseMove(p);
             mp.visorGlow = true;
             if(!mp.ballstate)
 			{
 				Lighting.AddLight((int)((float)p.Center.X/16f), (int)((float)(p.position.Y+8f)/16f), 0, 0.973f, 0.44f);
 			}
         }
-       public override void UpdateVanitySet(Player P)
+
+        public override void UpdateVanitySet(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
 			mp.isPowerSuit = true;
@@ -84,7 +82,8 @@ namespace MetroidMod.Items.equipables
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "PowerSuitBreastplate");
-            recipe.AddIngredient(ItemID.HellstoneBar, 30);
+            recipe.AddIngredient(ItemID.HellstoneBar, 20);
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

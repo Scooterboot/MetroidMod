@@ -1,16 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Head)]
+	[AutoloadEquip(EquipType.Head)]
 	public class VariaSuitHelmet : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -26,7 +21,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 3;
             item.value = 6000;
-            item.defense = 3;
+            item.defense = 7;
         }
 
         public override void UpdateEquip(Player player)
@@ -41,7 +36,8 @@ namespace MetroidMod.Items.equipables
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "PowerSuitHelmet");
-            recipe.AddIngredient(ItemID.HellstoneBar, 20);
+            recipe.AddIngredient(ItemID.HellstoneBar, 10);
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

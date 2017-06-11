@@ -23,7 +23,6 @@ namespace MetroidMod.Items.equipables
             item.defense = 4;
         }
 
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

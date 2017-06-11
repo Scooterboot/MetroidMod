@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
@@ -19,13 +15,14 @@ namespace MetroidMod.Items.equipables
 			Tooltip.SetDefault("5% increased ranged damage\n" + 
             "+5 overheat capacity");
 		}
+
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
             item.rare = 2;
             item.value = 9000;
-            item.defense = 4;
+            item.defense = 6;
         }
 
         public override void UpdateEquip(Player player)
@@ -47,13 +44,14 @@ namespace MetroidMod.Items.equipables
             player.noFallDmg = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			mp.overheatCost -= 0.10f;
-			 mp.SenseMove(player);
+			mp.SenseMove(player);
 			mp.visorGlow = true;
             if(!mp.ballstate)
 			{
 				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f), 0, 0.973f, 0.44f);
 			}
         }
+
 		public override void UpdateVanitySet(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
@@ -73,9 +71,11 @@ namespace MetroidMod.Items.equipables
 				mp.jet = false;
 			}
 		}
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.MeteoriteBar, 15);
             recipe.AddIngredient(null, "ChoziteBreastplate");
             recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);

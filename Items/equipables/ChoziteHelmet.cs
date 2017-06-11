@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Items.equipables
 {
@@ -21,9 +20,8 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 2;
             item.value = 3000;
-            item.defense = 4;
+            item.defense = 3;
         }
-
 
         public override void AddRecipes()
         {
