@@ -15,6 +15,7 @@ namespace MetroidMod.Items.equipables
             "+10 overheat capacity\n" + 
             "Improved night vision");
 		}
+
         public override void SetDefaults()
         {
             item.width = 18;

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Body)]
+    [AutoloadEquip(EquipType.Body)]
 	public class VariaSuitBreastplate : ModItem
 	{
 		public override void SetStaticDefaults()
