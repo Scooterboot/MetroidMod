@@ -137,9 +137,9 @@ namespace MetroidMod
 		public override void PreUpdate()
 		{
 			UIParameters.oldState = UIParameters.newState;
-            		UIParameters.newState = Keyboard.GetState();
-        		UIParameters.lastMouseState = UIParameters.mouseState;
-        		UIParameters.mouseState = Mouse.GetState();
+            UIParameters.newState = Keyboard.GetState();
+        	UIParameters.lastMouseState = UIParameters.mouseState;
+        	UIParameters.mouseState = Mouse.GetState();
 			Player P = player;
 			specialDmg = (int)player.rangedDamage * 100;
 			bombDamage = (int)player.rangedDamage * 10;
@@ -158,12 +158,12 @@ namespace MetroidMod
 			}
 			if (player.ownedProjectileCounts[mod.ProjectileType("GrappleBeamShot")] <= 0)
 			{
-			grappleBeamIsHooked = false;
+				grappleBeamIsHooked = false;
 			}
 			//MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
 			if(shineActive || shineDirection != 0)
 			{
-				player.gravity = Player.defaultGravity;
+				player.gravity = 0f;//Player.defaultGravity;
 			}
 			//player.grabRange += (int)(statCharge * 1.6f);
 			if(player.velocity.Y == 0 || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
@@ -236,8 +236,13 @@ namespace MetroidMod
 			{
 				extraOverheat = 0;
 			}
+			
+			if(player.shadow == 0f && hyperColors > 0)
+			{
+				hyperColors--;
+			}
 		
-			int colorcount = 17;
+			int colorcount = 16;//17;
 			if (style == 0)
 			{
 				g += colorcount;
@@ -247,9 +252,9 @@ namespace MetroidMod
 					style++;
 				}
 				r -= colorcount;
-				if (r <= 0)
+				if (r <= 96)//0)
 				{
-					r = 0;
+					r = 96;//0;
 				}
 			}
 			else if (style == 1)
@@ -261,9 +266,9 @@ namespace MetroidMod
 					style++;
 				}
 				g -= colorcount;
-				if (g <= 0)
+				if (g <= 96)//0)
 				{
-					g = 0;
+					g = 96;//0;
 				}
 			}
 			else
@@ -275,9 +280,9 @@ namespace MetroidMod
 					style = 0;
 				}
 				b -= colorcount;
-				if (b <= 0)
+				if (b <= 96)//0)
 				{
-					b = 0;
+					b = 96;//0;
 				}
 			}
 			Time += 1.0;
@@ -301,7 +306,7 @@ namespace MetroidMod
 				if(tweak > 4)
 				{
 					tweak = 5;
-                     player.armorEffectDrawShadow = true;
+                    player.armorEffectDrawShadow = true;
 				}
 			}
 			else
@@ -563,13 +568,13 @@ namespace MetroidMod
         public float ballrot = 0f;
 		public static int oldNumMax = 10;
 		public Vector2[] oldPos = new Vector2[oldNumMax];
-        public void DrawBallTexture(SpriteBatch sb, Texture2D mytex, Texture2D mytex2, Texture2D mytex3, Texture2D boosttex, Texture2D trail, Player drawPlayer)
+        public void DrawBallTexture(SpriteBatch sb, Texture2D mytex, Texture2D mytex2, Texture2D mytex3, Texture2D boosttex, Texture2D trail, Player drawPlayer, PlayerDrawInfo drawInfo)
 		{
 			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
 			//MPlayer mPlayer = drawPlayer.getModPlayer<Mplayer>(mod);
 			//sb.Draw(tex, new Vector2((float)((int)(drawPlayer.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawPlayer.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + 4f))) + drawPos + edi.vector2, new Rectangle?(frame), Color.White, rotation, edi.vector2, 1f, edi.effects, 0f);
-			float thisx = (float)((int)(drawPlayer.position.X + (float)(drawPlayer.width / 2) - Main.screenPosition.X));
-			float thisy = (float)((int)(drawPlayer.position.Y + (float)(drawPlayer.height / 2) - Main.screenPosition.Y));
+			float thisx = (float)((int)(drawInfo.position.X + (float)(drawPlayer.width / 2) - Main.screenPosition.X));
+			float thisy = (float)((int)(drawInfo.position.Y + (float)(drawPlayer.height / 2) - Main.screenPosition.Y));
 			Vector2 ballDims = new Vector2(28f,28f);
 			Vector2 thispos =  new Vector2(thisx,thisy);
 			//int timez = (int)(Main.time%60)/10;
@@ -740,24 +745,121 @@ namespace MetroidMod
 				player.fallStart = (int)(player.Center.Y / 16f);
 			}
 		}
-public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ballLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
+		public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ballLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			Texture2D tex = mod.GetTexture("Gore/Morphball");
+			Texture2D tex2 = mod.GetTexture("Gore/Morphball_Light");
+			Texture2D tex3 = mod.GetTexture("Gore/Mockball");
+			Texture2D boost = mod.GetTexture("Gore/Boostball");
+			Texture2D trail = mod.GetTexture("Gore/Morphball_Trail");
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			mPlayer.DrawBallTexture(spriteBatch, tex, tex2, tex3, boost, trail, drawPlayer, drawInfo);
+		});
+		public static readonly PlayerLayer gunLayer = new PlayerLayer("MetroidMod", "gunLayer", PlayerLayer.Arms, delegate(PlayerDrawInfo drawInfo)
+		{
+			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
+			Mod mod = MetroidMod.Instance;
+			Player P = drawInfo.drawPlayer;
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			Item I = P.inventory[P.selectedItem];
+			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
+			//if ((I.type == ItemDef.byName["MetroidMod:PowerBeam"].type || I.type == ItemDef.byName["MetroidMod:MissileLauncher"].type || I.type == ItemDef.byName["MetroidMod:NovaLaser"].type) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4 || mPlayer.isConcentrating)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
+			if (I.type == mod.ItemType("PowerBeam") && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
-				Mod mod = MetroidMod.Instance;
-                Texture2D tex = mod.GetTexture("Gore/Morphball");
-				Texture2D tex2 = mod.GetTexture("Gore/Morphball_Light");
-				Texture2D tex3 = mod.GetTexture("Gore/Mockball");
-				Texture2D boost = mod.GetTexture("Gore/Boostball");
-				Texture2D trail = mod.GetTexture("Gore/Morphball_Trail");
-                SpriteBatch spriteBatch = Main.spriteBatch;
-                Player drawPlayer = drawInfo.drawPlayer;
-                MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
-				mPlayer.DrawBallTexture(spriteBatch, tex, tex2, tex3, boost, trail, drawPlayer);
-			});
-            public static readonly PlayerLayer thrusterLayer = new PlayerLayer("MetroidMod", "thrusterLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
-			{
-				Mod mod = MetroidMod.Instance;
-				SpriteBatch spriteBatch = Main.spriteBatch;
-				Player drawPlayer = drawInfo.drawPlayer;
+				Texture2D tex = Main.itemTexture[I.type];//I.GetTexture();
+				/*MItem mi = I.GetSubClass<MItem>();
+				if((I.type == ItemDef.byName["MetroidMod:PowerBeam"].type || I.type == ItemDef.byName["MetroidMod:MissileLauncher"].type) && mi.texture != null)
+				{
+					tex = mi.texture;
+					if(MBase.AltBeamSkins && mi.textureAlt != null)
+					{
+						tex = mi.textureAlt;
+					}
+				}*/
+				if(tex != null)
+				{
+					Vector2 origin = new Vector2(12f, (float)((int)(tex.Height/2)));
+					if(P.direction == -1)
+					{
+						origin.X = tex.Width - 12;
+					}
+					Vector2 pos = new Vector2(0f,0f);
+					float rot = 0f;
+					float rotate = 0f;
+					float posX = 0f;
+					float posY = 0f;
+					if(frame == 0)
+					{
+						rotate = 1.3625f;
+						posX = -6.5f;
+						posY = 13f;
+					}
+					/*else if(frame == 1 && mPlayer.isConcentrating)
+					{
+						rotate = -1.75f;
+						posX = -8.5f;
+						posY = -12f;
+					}*/
+					else if(frame == 5)
+					{
+						rotate = -1.75f;
+						posX = -8.75f;
+						posY = -12f;
+					}
+					else if(frame == 6 || frame == 18 || frame == 19 || (frame >= 11 && frame <= 13))
+					{
+						posX = 0f;
+						posY = 5.5f;
+					}
+					else if(frame >= 7 && frame <= 9)
+					{
+						posX = -2f;
+						posY = 3.5f;
+					}
+					else if(frame == 10)
+					{
+						posX = -2f;
+						posY = 5.5f;
+					}
+					else if(frame == 14)
+					{
+						posX = 2f;
+						posY = 3.5f;
+					}
+					else if(frame == 15 || frame == 16)
+					{
+						posX = 4f;
+						posY = 3.5f;
+					}
+					else if(frame == 17)
+					{
+						posX = 2f;
+						posY = 5.5f;
+					}
+					rot = rotate*P.direction*P.gravDir;
+					pos.X += ((float)P.bodyFrame.Width * 0.5f) + posX*P.direction;
+					pos.Y += ((float)P.bodyFrame.Height * 0.5f) + 4f + posY*P.gravDir;
+
+					SpriteEffects effects = SpriteEffects.None;
+					if (P.direction == -1)
+					{
+						effects = SpriteEffects.FlipHorizontally;
+					}
+					Color color = Lighting.GetColor((int)((double)drawInfo.position.X + (double)P.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)P.height * 0.5) / 16);
+
+					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + pos, new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), I.GetAlpha(color), rot, origin, I.scale, effects, 0);
+					Main.playerDrawData.Add(item);
+				}
+			}
+		});
+		public static readonly PlayerLayer thrusterLayer = new PlayerLayer("MetroidMod", "thrusterLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
 			if (mPlayer.thrusters)
 			{
@@ -770,9 +872,9 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					}
 				}
 			}
-			});
-			            public static readonly PlayerLayer jetLayer = new PlayerLayer("MetroidMod", "jetLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
-			{
+		});
+		public static readonly PlayerLayer jetLayer = new PlayerLayer("MetroidMod", "jetLayer", PlayerLayer.Body, delegate(PlayerDrawInfo drawInfo)
+		{
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
@@ -785,20 +887,16 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					mPlayer.DrawThrusterJet(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyRotation, drawPlayer.bodyPosition);
 				}
 			}
-			});
-			public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
+		});
+		public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
 		{
 			SpriteEffects effects = SpriteEffects.None;
-				if (drawPlayer.direction == -1)
-				{
-					effects = SpriteEffects.FlipHorizontally;
-				}
-				float yfloat = 4f;
-				if (drawPlayer.mount.Active)
-				{
-					yfloat -= drawPlayer.mount._data.yOffset/32 + drawPlayer.mount._data.playerYOffsets[drawPlayer.mount._frame];
-				}
-			DrawData item = new DrawData(tex, new Vector2((float)((int)(drawPlayer.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawPlayer.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + yfloat))) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
+			if (drawPlayer.direction == -1)
+			{
+				effects = SpriteEffects.FlipHorizontally;
+			}
+			float yfloat = 4f;
+			DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + yfloat))) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
 			item.shader = shader;
 			Main.playerDrawData.Add(item);
 		}
@@ -808,10 +906,10 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 		public void DrawThrusterJet(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, float rot, Vector2 drawPos)
 		{
 			SpriteEffects effects = SpriteEffects.None;
-				if (drawPlayer.direction == -1)
-				{
-					effects = SpriteEffects.FlipHorizontally;
-				}
+			if (drawPlayer.direction == -1)
+			{
+				effects = SpriteEffects.FlipHorizontally;
+			}
 			jetFrame.Width = 40;
 			jetFrame.Height = 56;
 			jetFrame.X = 0;
@@ -839,12 +937,8 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				currentFrame = 1;
 				jetFrameCounter = 0;
 			}
-			float whyfloat = 4f;
-			if (drawPlayer.mount.Active)
-			{
-				whyfloat -= drawPlayer.mount._data.yOffset/32 + drawPlayer.mount._data.playerYOffsets[drawPlayer.mount._frame];
-			}
-			Main.playerDrawData.Add(new DrawData(tex, new Vector2((float)((int)(drawPlayer.position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawPlayer.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + whyfloat))) + drawPos + drawInfo.bodyOrigin, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyOrigin, 1f, effects, 0));
+			float yfloat = 4f;
+			Main.playerDrawData.Add(new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + yfloat))) + drawPos + drawInfo.bodyOrigin, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyOrigin, 1f, effects, 0));
 		}
 		public Color GetAlpha(Color newColor, float alphaReduction)
 		{
@@ -914,7 +1008,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 			MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
 			Player P = player;
 	//		PlayerLayer.Add(list, gunItemLayer, PlayerLayer.LayerHeldItem, false, false);
-    			for (int k = 0; k < layers.Count; k++)
+    		for (int k = 0; k < layers.Count; k++)
 			{
 				if (layers[k] == PlayerLayer.FrontAcc)
 				{
@@ -923,7 +1017,7 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					k++;
 					layers.Insert(k + 1, screwAttackLayer);
 				}
-					if (layers[k] == PlayerLayer.Body)
+				if (layers[k] == PlayerLayer.Body)
 				{
 					k++;
 					layers.Insert(k + 1, thrusterLayer);
@@ -936,6 +1030,11 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 					k++;
 					layers.Insert(k + 1, visorLayer);
 
+				}
+				if(layers[k] == PlayerLayer.Arms)
+				{
+					k++;
+					layers.Insert(k + 1, gunLayer);
 				}
 			}
 			Terraria.Item I = P.inventory[P.selectedItem];
@@ -956,6 +1055,18 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				{
 					P.wingFrame = 3;
 				}
+			}
+			else if(shineActive && shineDirection == 0 && shineDeActive > 0)
+			{
+				if(shineDeActive < 15)
+				{
+					P.bodyFrame.Y = P.bodyFrame.Height * 5;
+				}
+				else if(shineDeActive <= 30)
+				{
+					P.bodyFrame.Y = P.bodyFrame.Height * 6;
+				}
+				P.legFrame.Y = P.legFrame.Height * 5;
 			}
 			else if(shineDirection == 5)
 			{
@@ -1159,9 +1270,9 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
         public void MorphBallBasic(Player player)
 		{
 			if (player.grappling[0] >= 0 || grappleBeamIsHooked)
-						{
-							ballstate = false;
-						}
+			{
+				ballstate = false;
+			}
 			if (ballstate)
 			{
 				
@@ -1192,7 +1303,10 @@ public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ba
 				player.canCarpet = false;
 				player.spikedBoots = 0;
 				//player.drawAura = false;
-				player.maxFallSpeed += 2.5f;
+				if(player.gravity != 0f)
+				{
+					player.maxFallSpeed += 2.5f;
+				}
 				if(player.velocity.Y == 0f)
 				{
 					player.runSlowdown *= 0.5f;
@@ -1877,6 +1991,34 @@ public void SenseMove(Player P)
 			
 			return false;
 		}
+		public bool CheckFloor(Player player)
+		{
+			float playerBottom = (player.gravDir == 1?player.position.Y + player.height:player.position.Y);
+			float playerCenterX = player.Center.X;
+			
+			// going to look at a tile outside the bounds of the map
+			if (player.position.X + (float)player.width >= Main.rightWorld - (float)(Lighting.offScreenTiles * 16) - 32f)
+			{
+				return true;
+			}
+			
+			// going to look at a tile outside the bounds of the map
+			if (player.position.Y >= Main.bottomWorld - (float)(Lighting.offScreenTiles * 16) - 32f - (float)player.height)
+			{
+				return true;
+			}
+			
+			int TX = (int)(playerCenterX) / TileSize;
+			int TY = (int)(playerBottom + 2) / TileSize;
+			
+			// tile is solid and active
+			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
+			{
+				return true;
+			}
+			
+			return false;
+		}
         
         public void AddSpeedBoost(Player player)
 		{
@@ -1957,8 +2099,10 @@ public void SenseMove(Player P)
 			if(shineActive)
 			{
 				shineSound = 0;
-				player.velocity.Y = -((player.gravity + 1E-06f) * player.gravDir);
-				player.gravity *= 0f;
+				//player.velocity.Y = -((player.gravity + 1E-06f) * player.gravDir);
+				//player.gravity *= 0f;
+				player.gravity = 0f;
+				player.velocity.Y = 0f;
 				player.maxFallSpeed = 0f;
 				player.velocity.X = 0;
 				player.moveSpeed = 0f;
@@ -1969,9 +2113,13 @@ public void SenseMove(Player P)
 				mp.rotation = 0;
 				player.armorEffectDrawShadow = true;
 				shineDeActive++;
-				if(shineDeActive == 2)
+				/*if(shineDeActive == 2)
 				{
-						player.position.Y -= 12f*player.gravDir;
+					player.position.Y -= 12f*player.gravDir;
+				}*/
+				if(((player.gravDir == 1 && CheckFloor(player)) || (player.gravDir == -1 && CheckCeiling(player))) && shineDeActive > 2)
+				{
+					player.position.Y -= 2f*player.gravDir;
 				}
 				if(shineDeActive > 29 && mp.statOverheat < mp.maxOverheat)
 				{
@@ -2011,7 +2159,7 @@ public void SenseMove(Player P)
 			if(shineDirection == 1) //right
 			{
 				player.velocity.X = 20;
-				player.velocity.Y = 0.00001f*player.gravDir;
+				player.velocity.Y = 0f;//0.00001f*player.gravDir;
 				player.gravity *= 0f;
 				player.maxFallSpeed = 0f;
 				player.direction = 1;
@@ -2031,7 +2179,7 @@ public void SenseMove(Player P)
 			if(shineDirection == 3) //left
 			{
 				player.velocity.X = -20;
-				player.velocity.Y = 0.00001f*player.gravDir;
+				player.velocity.Y = 0f;//0.00001f*player.gravDir;
 				player.gravity *= 0f;
 				player.maxFallSpeed = 0f;
 				player.direction = -1;
@@ -3007,8 +3155,9 @@ public void SenseMove(Player P)
 			{
 				if(/*powerbomb == 0 && */statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
 				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-                    Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/PowerBombCharge1"));
+					//Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
+                    //Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/PowerBombCharge1"));
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
 					statPBCh = 200;
 					//powerbomb = 180;
 					int PBombID = mod.ProjectileType("PowerBomb");
