@@ -78,6 +78,10 @@ namespace MetroidMod.Projectiles
 					target.AddBuff(39,300,true);
 				}
 			}
+			if(projectile.Name.Contains("Ice"))
+			{
+				target.AddBuff(mod.BuffType("IceFreeze"),300,true);
+			}
 		}
 
 		public override void PostAI()
