@@ -348,8 +348,13 @@ namespace MetroidMod.Projectiles
 			}
 			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
 		}
-		public void PlasmaDrawTrail(Projectile projectile,Player player, SpriteBatch sb, int amount = 10, float scaleDrop = 0.5f)
+		public void PlasmaDrawTrail(Projectile projectile,Player player, SpriteBatch sb, int amount = 10, float scaleDrop = 0.5f, Color color = default(Color))
 		{
+			Color color2 = Color.White;
+			if(color != default(Color))
+			{
+				color2 = color;
+			}
 			SpriteEffects effects = SpriteEffects.None;
 			if (projectile.spriteDirection == -1)
 			{
@@ -385,13 +390,13 @@ namespace MetroidMod.Projectiles
 			int amt = Math.Min(amount,10);
 			for(int i = amt-1; i > -1; i--)
 			{
-				Color color23 = Color.White;
+				Color color23 = color2;
 				color23 = projectile.GetAlpha(color23);
 				color23 *= (float)(amt - i) / ((float)amt);
 				float scale = MathHelper.Lerp(projectile.scale, projectile.scale*scaleDrop, (float)i / amt);
 				sb.Draw(tex, (projectile.oldPos[i] + new Vector2((float)projectile.width/2,(float)projectile.height/2)) - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), color23, projectile.oldRot[i], new Vector2((float)tex.Width/2f, (float)projectile.height/2f), scale, effects, 0f);
 			}
-			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
+			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(color2), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
 		}
-    }
+	}
 }
