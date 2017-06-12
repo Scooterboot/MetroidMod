@@ -53,7 +53,8 @@ namespace MetroidMod.Items
 			{
 				if(mp.hyperColors > 0)
 				{
-					color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
+					//color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
+					color = new Color(mp.r, mp.g, mp.b, 255);
 				}
 				else if(mp.shineDirection != 0)
 				{
@@ -95,10 +96,6 @@ namespace MetroidMod.Items
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].noLight = true;
 				}*/
-				if(P.shadow == 0f && mp.hyperColors > 0)
-				{
-					mp.hyperColors--;
-				}
 			}
 		}
 	}
