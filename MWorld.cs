@@ -172,13 +172,15 @@ namespace MetroidMod
 			int k = j;
 			while (k < Main.maxTilesY)
 			{
-				if (Main.tile[i, k].active() && Main.tileSolid[(int)Main.tile[i, j].type])
+				if (Main.tile[i, k].active() && Main.tileSolid[(int)Main.tile[i, j].type] && !Main.tile[i, k - 1].active())
 				{
 					int num = k - 1;
 					if (Main.tile[i, num - 1].lava())
 					{
 						return false;
 					}
+					Main.tile[i, k].slope(0);
+					Main.tile[i, k].halfBrick(false);
 					Main.tile[i, num].active(true);
 					Main.tile[i, num].type = (ushort)mod.TileType("MissileExpansionTile");
 					Main.tile[i, num].frameX = 0;
@@ -205,14 +207,16 @@ namespace MetroidMod
 					{
 						return false;
 					}
-					for (int wx = i - 2; wx < i + 3; wx++)
+					for (int wx = i - 1; wx < i + 4; wx++)
 					{
 						for (int wy = k - 4; wy < k; wy++)
 						{
+							WorldGen.KillWall(wx, wy);
+							WorldGen.KillTile(wx, wy);
 							WorldGen.PlaceWall(wx, wy, 5);
 						}
 					}
-					for (int tx = i - 3; tx < i + 4; tx++)
+					for (int tx = i - 2; tx < i + 5; tx++)
 					{
 						Main.tile[tx, k].slope(0);	
 						Main.tile[tx, k].halfBrick(false);
@@ -223,17 +227,26 @@ namespace MetroidMod
 						Main.tile[tx, k - 5].active(true);	
 						Main.tile[tx, k - 5].type = 38;
 					}
-					for (int ty = k - 4; ty < k; ty++)
+					for (int tx2 = i - 1; tx2 < i + 4; tx2++)
 					{
-						Main.tile[i + 3, ty].slope(0);	
-						Main.tile[i + 3, ty].halfBrick(false);
-						Main.tile[i + 3, ty].active(true);	
-						Main.tile[i + 3, ty].type = 38;
+						Main.tile[tx2, k].slope(0);	
+						Main.tile[tx2, k].halfBrick(false);
+						Main.tile[tx2, k].active(true);	
+						Main.tile[tx2, k].type = 38;
+						Main.tile[tx2, k - 6].slope(0);	
+						Main.tile[tx2, k - 6].halfBrick(false);	
+						Main.tile[tx2, k - 6].active(true);	
+						Main.tile[tx2, k - 6].type = 38;
 					}
-					Main.tile[i - 3, k - 4].slope(0);	
-					Main.tile[i - 3, k - 4].halfBrick(false);
-					Main.tile[i - 3, k - 4].active(true);	
-					Main.tile[i - 3, k - 4].type = 38;
+					Main.tile[i - 2, k - 4].slope(0);	
+					Main.tile[i - 2, k - 4].halfBrick(false);
+					Main.tile[i - 2, k - 4].active(true);	
+					Main.tile[i - 2, k - 4].type = 38;
+
+					Main.tile[i + 4, k - 4].slope(0);	
+					Main.tile[i + 4, k - 4].halfBrick(false);
+					Main.tile[i + 4, k - 4].active(true);	
+					Main.tile[i + 4, k - 4].type = 38;
 
 					WorldGen.PlaceObject(i + 2, num, mod.TileType("ChozoStatueNatural"), false, 0, 0, -1, 1);	
 					WorldGen.PlaceObject(i, num, mod.TileType("ChozoStatueArmNatural"), false, 0, 0, -1, 1);
