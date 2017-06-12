@@ -48,8 +48,8 @@ namespace MetroidMod.Projectiles.bombs
 				projectile.damage = 10;
 				projectile.knockBack = 4f;
 			}
-			//float scalez = 0.2f;
-			//Lighting.AddLight((int)((projectile.position.X + (float)(projectile.width / 2)) / 16f), (int)((projectile.position.Y + (float)(projectile.height / 2)) / 16f), scalez, scalez, scalez);  
+			float scalez = 0.2f;
+			Lighting.AddLight(projectile.Center, scalez, scalez, scalez);
 			#region frames
 			projectile.frameCounter++;
 			if (projectile.frameCounter >= (int)((float)projectile.timeLeft/3.75f))
