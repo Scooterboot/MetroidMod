@@ -102,6 +102,7 @@ namespace MetroidMod
 		//public float maxDist;
 		//public int grapplingBeam = -1;
 		public bool grappleBeamIsHooked = false;
+		public float breathMult = 1f;
 		#endregion
 		int counter = 0;
 		//SoundEffectInstance concentrationSound;
@@ -131,7 +132,8 @@ namespace MetroidMod
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
 			maxOverheat = 100f;
-			overheatCost = 1f;		
+			overheatCost = 1f;	
+			breathMult = 1f;
 		}
 		float overheatCooldown = 0f;
 		public override void PreUpdate()
@@ -151,6 +153,7 @@ namespace MetroidMod
 			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && P.itemAnimation == 0 && P.releaseHook && P.grapCount == 0 && !grappleBeamIsHooked && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
 			//isConcentrating = false;
+			player.breathMax = (int)(200 * breathMult);
 			if(!morphBall)
 			{
 				player.width = 20;
@@ -512,6 +515,13 @@ namespace MetroidMod
 				}
 			}
 			return false;
+		}
+		public override void PostUpdateEquips()
+		{
+			if (ballstate)
+			{
+				player.spikedBoots = 0;
+			}
 		}
         public override void PostUpdate()
 		{
@@ -1301,7 +1311,6 @@ namespace MetroidMod
 				player.carpet = false;
 				player.carpetTime = 0;
 				player.canCarpet = false;
-				player.spikedBoots = 0;
 				//player.drawAura = false;
 				if(player.gravity != 0f)
 				{
