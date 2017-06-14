@@ -89,7 +89,7 @@ namespace MetroidMod
 				{
 					progress.Message = "Generating Chozite Ore";
 
-					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 5E-05); k++)
+					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 8E-05); k++)
 					{
 						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), mod.TileType("ChoziteOreTile"), false, 0f, 0f, false, true);
 					}
