@@ -49,9 +49,9 @@ namespace MetroidMod.Items.equipables
         {
             p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "70% increased underwater breathing";
             p.rangedDamage += 0.05f;
-            p.breathMax = (int)(p.breathMax * 1.7f);
             p.noFallDmg = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
+	    mp.breathMult = 1.7f;
             mp.overheatCost -= 0.20f;
              mp.SenseMove(p);
             mp.visorGlow = true;
