@@ -128,7 +128,7 @@ namespace MetroidMod
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05));
 						bool flag = false;
 						int num3 = 0;
-						int rand = Main.rand.Next(10);
+						int rand = Main.rand.Next(12);
 						ushort item = (ushort)mod.TileType("MorphBallTile");
 						if (rand == 1 || rand == 2)
 						{
@@ -145,6 +145,14 @@ namespace MetroidMod
 						else if (rand == 7)
 						{
 							item = (ushort)mod.TileType("SpazerTile");
+						}
+						else if (rand == 8)
+						{
+							item = (ushort)mod.TileType("XRayScopeTile");
+						}
+						else if (rand == 9)
+						{
+							item = (ushort)mod.TileType("SpaceJumpBootsTile");
 						}
 						while (!flag)
 						{
