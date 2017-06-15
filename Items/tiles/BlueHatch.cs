@@ -9,7 +9,7 @@ namespace MetroidMod.Items.tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blue Hatch");
-			Tooltip.SetDefault("Opens when hit with any projectile");
+			Tooltip.SetDefault("Opens when hit with any projectile or right clicked");
 		}
 		public override void SetDefaults()
 		{
