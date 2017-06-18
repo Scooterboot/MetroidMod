@@ -6,61 +6,67 @@ using Terraria.ModLoader;
 namespace MetroidMod.Items.equipables
 {
     [AutoloadEquip(EquipType.Body)]
-    public class PEDSuitBreastplate : ModItem
+    public class PhazonSuitBreastplate : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("PED Suit Breastplate");
+            DisplayName.SetDefault("Phazon Suit Breastplate");
             Tooltip.SetDefault("5% increased ranged damage\n" +
              "Immunity to fire blocks\n" +
              "Immunity to chill and freeze effects\n" +
-             "+20 overheat capacity");
+             "Immune to knockback\n" + 
+             "+25 overheat capacity");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.rare = 5;
-            item.value = 25000;
-            item.defense = 15;
+            item.rare = 7;
+            item.value = 45000;
+            item.defense = 18;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.rangedDamage += 0.05f;
             player.fireWalk = true;
+            player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-            mp.maxOverheat += 20;
+            mp.maxOverheat += 25;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return (head.type == mod.ItemType("PEDSuitHelmet") && body.type == mod.ItemType("PEDSuitBreastplate") && legs.type == mod.ItemType("PEDSuitGreaves"));
+            return (head.type == mod.ItemType("PhazonSuitHelmet") && body.type == mod.ItemType("PhazonSuitBreastplate") && legs.type == mod.ItemType("PhazonSuitGreaves"));
         }
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" +
-                "Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)" + "\r\n" +
-                "5% increased ranged damage" + "\r\n" +
-                "30% decreased overheat use" + "\r\n" +
-                "Negates fall damage" + "\r\n" +
-                "Infinite breath" + "\r\n";
-            p.rangedDamage += 0.05f;
-            p.gills = true;
+            p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n"
+                + "15% increased ranged damage" + "\r\n"
+                + "Free movement in liquid" + "\r\n"
+                + "Immune to lava damage for 7 seconds" + "\r\n"
+                + "Negates fall damage" + "\r\n"
+                + "Infinite breath" + "\r\n"
+                + "35% decreased overheat use" + "\r\n"
+                + "Enables Phazon Beam use";
+            p.rangedDamage += 0.15f;
+            p.ignoreWater = true;
+            p.lavaMax += 420;
             p.noFallDmg = true;
+            p.gills = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
-            mp.overheatCost -= 0.30f;
+            mp.overheatCost -= 0.35f;
             mp.SenseMove(p);
             mp.visorGlow = true;
             if (!mp.ballstate)
             {
                 Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
             }
-            //code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
+            mp.phazonImmune = true;
         }
 
         public override void UpdateVanitySet(Player P)
@@ -86,11 +92,11 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitV2Breastplate");
-            //Phazon biome materials go here
+            recipe.AddIngredient(null, "GravitySuitBreastplate");
+            recipe.AddIngredient(ItemID.SpectreBar, 25);
+            recipe.AddIngredient(null, "PurePhazon", 10);
             recipe.AddIngredient(null, "EnergyTank");
-            //recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(null, "NovaWorkTable");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

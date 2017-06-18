@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,7 +21,7 @@ namespace MetroidMod.Items.equipables
             item.width = 18;
             item.height = 18;
             item.rare = 5;
-            item.value = 20000;
+            item.value = 24000;
             item.defense = 13;
         }
 

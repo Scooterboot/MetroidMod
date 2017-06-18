@@ -22,7 +22,7 @@ namespace MetroidMod.Items.equipables
             item.width = 18;
             item.height = 18;
             item.rare = 5;
-            item.value = 25000;
+            item.value = 30000;
             item.defense = 15;
         }
 
@@ -55,7 +55,7 @@ namespace MetroidMod.Items.equipables
             {
                 Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
             }
-            //code to reduce damage from Dark World goes here: without the Dark Suit, the player take 10 damage per second; with the Dark Suit, the players takes 1 damage per second
+            //code to reduce damage from Dark World goes here: without the Dark Suit, the player takes 10 damage per second; with the Dark Suit, the player takes 1 damage per second
         }
 
         public override void UpdateVanitySet(Player P)

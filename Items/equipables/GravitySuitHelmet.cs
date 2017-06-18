@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Items.equipables
 {
-	[AutoloadEquip(EquipType.Head)]
+    [AutoloadEquip(EquipType.Head)]
 	public class GravitySuitHelmet : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -21,8 +20,8 @@ namespace MetroidMod.Items.equipables
         {
             item.width = 18;
             item.height = 18;
-            item.rare = 4;
-            item.value = 6000;
+            item.rare = 5;
+            item.value = 24000;
             item.defense = 12;
         }
 
