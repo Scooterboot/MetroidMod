@@ -29,7 +29,7 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.usesLocalNPCImmunity = true;
 			projectile.localNPCHitCooldown = 1;
 		}
-		int scaleSize = 1;
+		float scaleSize = 1f;
 		Color colory = Color.Gold;
 		int width = 1000;
 		int height = 750;
@@ -37,27 +37,29 @@ namespace MetroidMod.Projectiles.bombs
 		public override void AI()
 		{
 			colory = Color.Gold;
+			projectile.timeLeft = 60;
 			projectile.frameCounter++;
 			//projectile.penetrateImmuneTime = 0;
+			float speed = 2f;
 			if (projectile.frameCounter < maxDistance)
 			{
-				scaleSize++;
-				colory = Color.Gold;
+				scaleSize += speed;
+				colory = Color.Yellow;
 			}
 			else
 			{
-				scaleSize--;
+				scaleSize -= speed;
 				colory = Color.Black;
 				projectile.damage = 0;
 				for(int i = 0; i < Main.item.Length; i++)
 				{
 					if(Main.item[i].active)
 					{
-						Terraria.Item I = Main.item[i];
+						Item I = Main.item[i];
 						if(projectile.Hitbox.Intersects(I.Hitbox))
 						{
 							float angle = (float)Math.Atan2((projectile.Center.Y-I.Center.Y),(projectile.Center.X-I.Center.X));
-							I.velocity = angle.ToRotationVector2()*4;
+							I.velocity = angle.ToRotationVector2()*8;
 							I.position += I.velocity;
 						}
 					}
@@ -65,10 +67,11 @@ namespace MetroidMod.Projectiles.bombs
 			}
 			if (projectile.frameCounter >= (maxDistance*2))
 			{
-				projectile.frameCounter = 0;
-				projectile.active = false;
-				scaleSize = 1;
+				scaleSize = 1f;
 				colory = Color.Gold;
+				projectile.frameCounter = 0;
+				//projectile.active = false;
+				projectile.Kill();
 			}
 			projectile.scale = scaleSize*0.02f;
 			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
@@ -77,19 +80,8 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.height = (int)((float)height * projectile.scale);
 			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-			/*if (projectile.frameCounter < maxDistance)
-			{
-				for(int i = 0; i < projectile.width; i++)
-				{
-					Lighting.AddLight((int)((projectile.position.X + (1*i)) / 16f), (int)((projectile.Center.Y) / 16f), (float)(colory.R/255), (float)(colory.G/255), (float)(colory.B/255));
-				}
-				for(int j = 0; j < projectile.height; j++)
-				{
-					Lighting.AddLight((int)((projectile.Center.X) / 16f), (int)((projectile.position.Y + (1*j)) / 16f), (float)(colory.R/255), (float)(colory.G/255), (float)(colory.B/255));
-				}
-			}*/
 		}
-		public override bool PreDraw(SpriteBatch sb, Color colory)
+		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
 			Texture2D tex = Main.projectileTexture[projectile.type];
 			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), colory, projectile.rotation, new Vector2(tex.Width/2, tex.Height/2), projectile.scale, SpriteEffects.None, 0f);
@@ -97,7 +89,10 @@ namespace MetroidMod.Projectiles.bombs
 		}
 		public override void ModifyHitNPC(NPC npc, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			damage = (int)((double)damage + (double)npc.defense * 0.5);
+			if(npc.defense < 1000)
+			{
+				damage = (int)((double)damage + (double)npc.defense * 0.5);
+			}
 		}
 	}
 }

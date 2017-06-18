@@ -24,6 +24,7 @@ namespace MetroidMod.Tiles
 			AddMapEntry(new Color(214, 162, 0), name);
 
 			minPick = 55;
+			soundType = 21;
 		}
 		public override void NumDust(int i, int j, bool fail, ref int num)
 		{

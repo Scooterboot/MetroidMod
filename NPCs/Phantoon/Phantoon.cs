@@ -522,7 +522,7 @@ public override void SetDefaults()
 		public void SetLocations()
 		{
 			float UX = npc.position.X + (npc.width - Main.npc[PhantoonUpper].width) * 0.5f;
-			float UY = npc.position.Y - TotalHeight * 0.5f + 2 * npc.scale;
+			float UY = npc.position.Y - TotalHeight * 0.5f + 11 * npc.scale;
 			
 			Main.npc[PhantoonUpper].position.X = UX;
 			Main.npc[PhantoonUpper].position.Y = UY;
@@ -862,7 +862,7 @@ public override void SetDefaults()
 			
 			if (Main.netMode == 0)
 			{
-				Main.NewText("Phantoon " + Lang.misc[16], 175, 75, 255, false);
+				Main.NewText("Phantoon has awoken!", 175, 75, 255, false);
 			}
 			/*else if (Main.netMode == 2)
 			{

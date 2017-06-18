@@ -101,6 +101,9 @@ namespace MetroidMod.Items.weapons
 
 		bool isCharge = false;
 		bool isChargeV2 = false;
+		
+		bool isHyper = false;
+		bool isPhazon = false;
 
 		public override void UpdateInventory(Player P)
 		{
@@ -148,6 +151,8 @@ namespace MetroidMod.Items.weapons
 			
 			isCharge = (slot1.type == ch || slot1.type == ch2);
 			isChargeV2 = (slot1.type == ch2);
+			isHyper = (slot1.type == hy);
+			isPhazon = (slot1.type == ph);
 
 			// Default Combos
 			if(slot1.IsAir || slot1.type == ch)
@@ -835,7 +840,12 @@ namespace MetroidMod.Items.weapons
 			// Hyper
 			else if(slot1.type == hy)
 			{
+				shot = "HyperBeamShot";
+				shotSound = "HyperBeamSound";
+				useTime = 21;
 				
+				damage = 300;
+				overheat = 30;
 			}
 			// Phazon
 			else if(slot1.type == ph)
@@ -945,7 +955,7 @@ namespace MetroidMod.Items.weapons
 			item.shoot = mod.ProjectileType(shot);
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/"+shotSound);
 			
-			item.autoReuse = (isCharge);
+			item.autoReuse = (!slot1.IsAir);//(isCharge);
 
 			item.shootSpeed = 8f;
 			item.reuseDelay = 0;
@@ -1016,7 +1026,17 @@ namespace MetroidMod.Items.weapons
 		
 		public override ModItem Clone(Item item)
 		{
-			return this;
+			ModItem clone = this.NewInstance(item);
+			PowerBeam beamClone = (PowerBeam)clone;
+			if(metroidUI != null)
+			{
+				beamClone.metroidUI = metroidUI;
+			}
+			else
+			{
+				beamClone.metroidUI = new MetroidModUI();
+			}
+			return clone;
 		}
 		
 		int chargeLead = -1;
@@ -1078,6 +1098,11 @@ namespace MetroidMod.Items.weapons
 			
 			mp.statOverheat += (int)((float)overheat*mp.overheatCost);
 			mp.overheatDelay = 2;
+			
+			if(isHyper)
+			{
+				mp.hyperColors = 23;
+			}
 			return false;
 		}
 		
@@ -1211,8 +1236,8 @@ namespace MetroidMod.Items.weapons
 		}
 		
 		int selectedItem = 0;
-        	public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        	{
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
 			Player player = Main.player[Main.myPlayer];
 			if(player.selectedItem < 10)
 			{
@@ -1229,7 +1254,7 @@ namespace MetroidMod.Items.weapons
 					metroidUI.BeamUIOpen = false;
 				}
 			}
-        	}
+        }
 		
 		public override TagCompound Save()
 		{

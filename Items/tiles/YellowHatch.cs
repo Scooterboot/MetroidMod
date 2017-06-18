@@ -4,12 +4,12 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.tiles
 {
-	public class BlueHatch : ModItem
+	public class YellowHatch : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blue Hatch");
-			Tooltip.SetDefault("Opens when hit with any projectile or right clicked");
+			DisplayName.SetDefault("Yellow Hatch");
+			Tooltip.SetDefault("Opens when hit with a power bomb");
 		}
 		public override void SetDefaults()
 		{
@@ -22,12 +22,12 @@ namespace MetroidMod.Items.tiles
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("BlueHatch");
+			item.createTile = mod.TileType("YellowHatch");
 		}
 public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Sapphire);
+			recipe.AddIngredient(ItemID.Topaz);
 			recipe.AddRecipeGroup("IronBar", 5);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this, 20);
