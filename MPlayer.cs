@@ -3,6 +3,7 @@ using Terraria.GameInput;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Graphics.Shaders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,6 @@ namespace MetroidMod
 		public int cooldownbomb = 0;
 		public int bomb = 0;
 		public int bombDamage = 10;
-		//public int powerbomb = 0;
 		public bool Ibounce = true;
 		public float velY = 0f;
 		public bool mouseRight = false;
@@ -61,12 +61,9 @@ namespace MetroidMod
 		public bool visorGlow = false;
 		public Color visorGlowColor = new Color(255, 255, 255);
 		public Texture2D thrusterTexture;
-		//public bool xrayequipped = false;
 		public bool speedBooster = false;
 		int num = 0;
 		int num2 = 0;
-		//public int maxMissiles = 5;
-		//public int statMissiles = 5;
 		public Color morphColor = Color.White;
 		public Color morphColorLights = Color.White;
 		public Vector2 oldPosition;
@@ -85,7 +82,6 @@ namespace MetroidMod
 		float speedBuildUp = 0f;
 		bool shineCharge = false;
 		int shineDeCharge = 0;
-		//int manaDelay = 0;
 		int proj = -1;
 		int shineSound = 0;
 		public bool jet = false;
@@ -104,10 +100,6 @@ namespace MetroidMod
 		public bool grappleBeamIsHooked = false;
 		public float breathMult = 1f;
 		#endregion
-		int counter = 0;
-		//SoundEffectInstance concentrationSound;
-		bool soundPlayed = false;
-		//bool isConcentrating = false;
 		public float maxOverheat = 100f;
 		public float statOverheat = 0f;
 		public float extraOverheat = 0f;
@@ -132,7 +124,7 @@ namespace MetroidMod
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
 			maxOverheat = 100f;
-			overheatCost = 1f;	
+			overheatCost = 1f;
 			breathMult = 1f;
 		}
 		float overheatCooldown = 0f;
@@ -152,7 +144,7 @@ namespace MetroidMod
 			morphColorLights.A = 255;
 			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && P.itemAnimation == 0 && P.releaseHook && P.grapCount == 0 && !grappleBeamIsHooked && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
-			//isConcentrating = false;
+
 			player.breathMax = (int)(200 * breathMult);
 			if(!morphBall)
 			{
@@ -163,12 +155,11 @@ namespace MetroidMod
 			{
 				grappleBeamIsHooked = false;
 			}
-			//MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
-			if(shineActive || shineDirection != 0)
+
+			if(shineActive || shineDirection != 0 || (ballstate && spiderball && CurEdge != Edge.None))
 			{
-				player.gravity = 0f;//Player.defaultGravity;
+				player.gravity = 0f;
 			}
-			//player.grabRange += (int)(statCharge * 1.6f);
 			if(player.velocity.Y == 0 || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
 			{
 				statSpaceJumps = maxSpaceJumps;
@@ -245,7 +236,7 @@ namespace MetroidMod
 				hyperColors--;
 			}
 		
-			int colorcount = 16;//17;
+			int colorcount = 16;
 			if (style == 0)
 			{
 				g += colorcount;
@@ -255,9 +246,9 @@ namespace MetroidMod
 					style++;
 				}
 				r -= colorcount;
-				if (r <= 96)//0)
+				if (r <= 63)
 				{
-					r = 96;//0;
+					r = 63;
 				}
 			}
 			else if (style == 1)
@@ -269,9 +260,9 @@ namespace MetroidMod
 					style++;
 				}
 				g -= colorcount;
-				if (g <= 96)//0)
+				if (g <= 63)
 				{
-					g = 96;//0;
+					g = 63;
 				}
 			}
 			else
@@ -283,9 +274,9 @@ namespace MetroidMod
 					style = 0;
 				}
 				b -= colorcount;
-				if (b <= 96)//0)
+				if (b <= 63)
 				{
-					b = 96;//0;
+					b = 63;
 				}
 			}
 			Time += 1.0;
@@ -317,106 +308,48 @@ namespace MetroidMod
 				tweak = 0;
 			}
 
-			if(speedBooster)
-			{
-				if(player.velocity.X <= -5f && player.controlLeft)
-				{
-					if(player.velocity.Y == 0)
-					{
-						player.jumpSpeedBoost -= (player.velocity.X/5f);
-					}
-					if(player.controlJump)
-					{
-						if(player.velocity.Y == 0 && player.releaseJump)
-						{
-							num = 180;
-						}
-						if(num > 0)
-						{
-							if(!player.slowFall)
-							{
-								player.gravity /= 3f;
-							}
-						}
-					}
-					else
-					{
-						num = 0;
-					}
-				}
-				else if(player.velocity.X >= 5f && player.controlRight)
-				{
-					if(player.velocity.Y == 0)
-					{
-						player.jumpSpeedBoost += (player.velocity.X/5f);
-					}
-					if(player.controlJump)
-					{
-						if(player.velocity.Y == 0 && player.releaseJump)
-						{
-							num = 180;
-						}
-						if(num > 0)
-						{
-							if(!player.slowFall)
-							{
-								player.gravity /= 3f;
-							}
-						}
-					}
-					else
-					{
-						num = 0;
-					}
-				}
-			}
-			if(num > 0)
-			{
-				num--;
-			}
-		/*	if(visorGlow && !ballstate)
-			{
-                 Vector2 face = new Vector2((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f));
-				Lighting.AddLight(face, (visorGlowColor)*0.375f);
-			}*/
 			if(jet)
 			{
-				//Color flame = new Color(153, 99, 61);
 				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)player.Center.Y/16f), 0.6f, 0.38f, 0.24f);
 			}
-			if(somersault)
+			if(!player.mount.Active)
 			{
-				rotation += ((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir);
-				if(rotation > (Math.PI*2))
+				if(somersault)
 				{
-					rotation -= (float)(Math.PI*2);
+					rotation += ((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir);
+					if(rotation > (Math.PI*2))
+					{
+						rotation -= (float)(Math.PI*2);
+					}
+					if(rotation < -(Math.PI*2))
+					{
+						rotation += (float)(Math.PI*2);
+					}
+					player.fullRotation = rotation;
+					player.fullRotationOrigin = player.Center - player.position;
 				}
-				if(rotation < -(Math.PI*2))
+				else if(shineDirection == 2 || shineDirection == 4)
 				{
-					rotation += (float)(Math.PI*2);
+					rotation = 0.1f * player.direction * player.gravDir;
+					player.fullRotation = rotation;
+					player.fullRotationOrigin = player.Center - player.position;
 				}
-				player.fullRotation = rotation;
-				player.fullRotationOrigin = player.Center - player.position;
-			}
-			else if(shineDirection == 2 || shineDirection == 4)
-			{
-				rotation = 0.1f * player.direction * player.gravDir;
-				player.fullRotation = rotation;
-				player.fullRotationOrigin = player.Center - player.position;
-			}
-			else if(shineDirection == 1 || shineDirection == 3)
-			{
-				rotation = (6.28318531f/8f) * player.direction * player.gravDir;
-				player.fullRotation = rotation;
-				player.fullRotationOrigin = player.Center - player.position;
+				else if(shineDirection == 1 || shineDirection == 3)
+				{
+					rotation = ((float)Math.PI/4f) * player.direction * player.gravDir;
+					player.fullRotation = rotation;
+					player.fullRotationOrigin = player.Center - player.position;
+				}
+				else
+				{
+					rotation = 0f;
+					player.fullRotation = 0f;
+				}
 			}
 			else
 			{
 				rotation = 0f;
-				if(player.mount.Type != 6)
-				{
-					player.fullRotation = 0f;
-				}
+				player.fullRotation = 0f;
 			}
 			if(spaceJump && SMoveEffect <= 0)
 			{
@@ -499,8 +432,6 @@ namespace MetroidMod
 						Vector2 vector2;
 						vector2.X = (float)(i * 16);
 						vector2.Y = (float)(j * 16);
-						//int num5 = 0;
-						//int type = (int)Main.tile[i, j].type;
 						int num6 = 16;
 						if (Main.tile[i, j].halfBrick())
 						{
@@ -518,7 +449,7 @@ namespace MetroidMod
 		}
 		public override void PostUpdateEquips()
 		{
-			if (ballstate)
+			if(ballstate)
 			{
 				player.spikedBoots = 0;
 			}
@@ -546,6 +477,64 @@ namespace MetroidMod
 				P.itemLocation.X = P.Center.X - (float)Main.itemTexture[I.type].Width * 0.5f;
 				P.itemLocation.Y = P.Center.Y - (float)Main.itemTexture[I.type].Height * 0.5f;
 			}*/
+			
+			if(speedBooster)
+			{
+				if(player.velocity.X <= -5f && player.controlLeft)
+				{
+					if(player.velocity.Y == 0)
+					{
+						player.jumpSpeedBoost -= (player.velocity.X/5f);
+					}
+					if(player.controlJump)
+					{
+						if(player.velocity.Y == 0 && player.releaseJump)
+						{
+							num = 180;
+						}
+						if(num > 0)
+						{
+							if(!player.slowFall)
+							{
+								player.gravity /= 3f;
+							}
+						}
+					}
+					else
+					{
+						num = 0;
+					}
+				}
+				else if(player.velocity.X >= 5f && player.controlRight)
+				{
+					if(player.velocity.Y == 0)
+					{
+						player.jumpSpeedBoost += (player.velocity.X/5f);
+					}
+					if(player.controlJump)
+					{
+						if(player.velocity.Y == 0 && player.releaseJump)
+						{
+							num = 180;
+						}
+						if(num > 0)
+						{
+							if(!player.slowFall)
+							{
+								player.gravity /= 3f;
+							}
+						}
+					}
+					else
+					{
+						num = 0;
+					}
+				}
+			}
+			if(num > 0)
+			{
+				num--;
+			}
 
 			if(!morphBall)
 			{
@@ -568,7 +557,6 @@ namespace MetroidMod
 				speedBuildUp = 0;
 				shineCharge = false;
 				shineDeCharge = 0;
-				//manaDelay = 0;
 				shineSound = 0;
 				shineDirection = 0;
 				shineDeActive = 0;
@@ -580,16 +568,12 @@ namespace MetroidMod
 		public Vector2[] oldPos = new Vector2[oldNumMax];
         public void DrawBallTexture(SpriteBatch sb, Texture2D mytex, Texture2D mytex2, Texture2D mytex3, Texture2D boosttex, Texture2D trail, Player drawPlayer, PlayerDrawInfo drawInfo)
 		{
-			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
-			//MPlayer mPlayer = drawPlayer.getModPlayer<Mplayer>(mod);
-			//sb.Draw(tex, new Vector2((float)((int)(drawPlayer.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawPlayer.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + 4f))) + drawPos + edi.vector2, new Rectangle?(frame), Color.White, rotation, edi.vector2, 1f, edi.effects, 0f);
 			float thisx = (float)((int)(drawInfo.position.X + (float)(drawPlayer.width / 2) - Main.screenPosition.X));
 			float thisy = (float)((int)(drawInfo.position.Y + (float)(drawPlayer.height / 2) - Main.screenPosition.Y));
 			Vector2 ballDims = new Vector2(28f,28f);
 			Vector2 thispos =  new Vector2(thisx,thisy);
-			//int timez = (int)(Main.time%60)/10;
-			//if(drawPlayer.shadow == 0f)
-			//{
+			if(drawPlayer.shadow == 0f)
+			{
 				int timez = (int)(Time%60)/10;
 				SpriteEffects effects = SpriteEffects.None;
 				if (drawPlayer.direction == -1)
@@ -605,21 +589,30 @@ namespace MetroidMod
 					ballrotoffset += 0.25f*drawPlayer.direction;
 				}
 				else if (drawPlayer.velocity.X < 0f)
+				{
 					ballrotoffset -= 0.2f;
+				}
 				else if ( drawPlayer.velocity.X > 0f)
+				{
 					ballrotoffset += 0.2f;
-				//if(drawPlayer.hitTile > 0)
-				//{
-					if(drawPlayer.velocity.X != 0f)
+				}
+				if(drawPlayer.velocity.X != 0f)
+				{
 					ballrotoffset+= 0.025f*drawPlayer.velocity.X;
-					else
+				}
+				else
+				{
 					ballrotoffset += 0.125f*drawPlayer.direction;
-				//}
+				}
 				ballrot+=ballrotoffset;
 				if(ballrot > (float)(Math.PI)*2)
+				{
 					ballrot -= (float)(Math.PI)*2;
+				}
 				if(ballrot < -(float)(Math.PI)*2)
+				{
 					ballrot += (float)(Math.PI)*2;
+				}
 				Color brightColor = morphColorLights;
 				Color darkColor = Lighting.GetColor((int)((double)drawPlayer.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawPlayer.position.Y + (double)drawPlayer.height * 0.5) / 16, morphColor);
 				currentMorphColor = darkColor;
@@ -632,7 +625,6 @@ namespace MetroidMod
 					oldPos[num46] = oldPos[num46 - 1] - (vect*0.5f);
 				}
 				oldPos[0] = thispos + Main.screenPosition;
-				//oldRot[0] = (float)Math.Atan2((double)drawPlayer.velocity.Y, (double)drawPlayer.velocity.X);
 				if (ballstate && drawPlayer.active && !drawPlayer.dead)
 				{
 					if(drawPlayer.velocity.X != 0 || drawPlayer.velocity.Y != 0)
@@ -684,7 +676,7 @@ namespace MetroidMod
 						sb.Draw(spiderTex, thispos, new Rectangle?(new Rectangle(0,0,spiderTex.Width,spiderTex.Height)), brightColor,ballrot,new Vector2(spiderTex.Width/2,spiderTex.Height/2), scale, effects, 0f);
 					}
 				}
-			//}
+			}
 		}
         const int shinyblock = 700;
         public void AddSpaceJumping(Player player)
@@ -770,14 +762,12 @@ namespace MetroidMod
 		});
 		public static readonly PlayerLayer gunLayer = new PlayerLayer("MetroidMod", "gunLayer", PlayerLayer.Arms, delegate(PlayerDrawInfo drawInfo)
 		{
-			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
 			Mod mod = MetroidMod.Instance;
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
 			Item I = P.inventory[P.selectedItem];
 			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
-			//if ((I.type == ItemDef.byName["MetroidMod:PowerBeam"].type || I.type == ItemDef.byName["MetroidMod:MissileLauncher"].type || I.type == ItemDef.byName["MetroidMod:NovaLaser"].type) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4 || mPlayer.isConcentrating)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
-			if (I.type == mod.ItemType("PowerBeam") && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
+			if ((I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher")) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
 				Texture2D tex = Main.itemTexture[I.type];//I.GetTexture();
 				/*MItem mi = I.GetSubClass<MItem>();
@@ -804,50 +794,44 @@ namespace MetroidMod
 					if(frame == 0)
 					{
 						rotate = 1.3625f;
-						posX = -6.5f;
+						posX = -7f;
 						posY = 13f;
 					}
-					/*else if(frame == 1 && mPlayer.isConcentrating)
-					{
-						rotate = -1.75f;
-						posX = -8.5f;
-						posY = -12f;
-					}*/
 					else if(frame == 5)
 					{
 						rotate = -1.75f;
-						posX = -8.75f;
+						posX = -8f;
 						posY = -12f;
 					}
 					else if(frame == 6 || frame == 18 || frame == 19 || (frame >= 11 && frame <= 13))
 					{
 						posX = 0f;
-						posY = 5.5f;
+						posY = 5f;
 					}
 					else if(frame >= 7 && frame <= 9)
 					{
 						posX = -2f;
-						posY = 3.5f;
+						posY = 3f;
 					}
 					else if(frame == 10)
 					{
 						posX = -2f;
-						posY = 5.5f;
+						posY = 5f;
 					}
 					else if(frame == 14)
 					{
 						posX = 2f;
-						posY = 3.5f;
+						posY = 3f;
 					}
 					else if(frame == 15 || frame == 16)
 					{
 						posX = 4f;
-						posY = 3.5f;
+						posY = 3f;
 					}
 					else if(frame == 17)
 					{
 						posX = 2f;
-						posY = 5.5f;
+						posY = 5f;
 					}
 					rot = rotate*P.direction*P.gravDir;
 					pos.X += ((float)P.bodyFrame.Width * 0.5f) + posX*P.direction;
@@ -860,7 +844,7 @@ namespace MetroidMod
 					}
 					Color color = Lighting.GetColor((int)((double)drawInfo.position.X + (double)P.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)P.height * 0.5) / 16);
 
-					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + pos, new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), I.GetAlpha(color), rot, origin, I.scale, effects, 0);
+					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + new Vector2((float)((int)pos.X),(float)((int)pos.Y)), new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), I.GetAlpha(color), rot, origin, I.scale, effects, 0);
 					Main.playerDrawData.Add(item);
 				}
 			}
@@ -978,7 +962,7 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
-			if (mPlayer.somersault && mPlayer.screwAttack && P.shadow == 0f)
+			if (mPlayer.somersault && mPlayer.screwAttack && P.shadow == 0f && !mPlayer.ballstate)
 			{
 				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
 				Texture2D tex2 = mod.GetTexture("Gore/ScrewAttack_Yellow");
@@ -1012,12 +996,33 @@ namespace MetroidMod
 				}
 			}
 		});
-		//public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
+		public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
+		{
+			Player P = player;
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			
+			if(mPlayer.hyperColors > 0 || mPlayer.speedBoosting || mPlayer.shineDirection != 0)
+			{
+				byte shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(3558);
+				if(P.head > 0 && P.cHead <= 0)
+				{
+					drawInfo.headArmorShader = shader;
+				}
+				if(P.body > 0 && P.cBody <= 0)
+				{
+					drawInfo.bodyArmorShader = shader;
+				}
+				if(P.legs > 0 && P.cLegs <= 0)
+				{
+					drawInfo.legArmorShader = shader;
+				}
+			}
+		}
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
 			MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
 			Player P = player;
-	//		PlayerLayer.Add(list, gunItemLayer, PlayerLayer.LayerHeldItem, false, false);
+
     		for (int k = 0; k < layers.Count; k++)
 			{
 				if (layers[k] == PlayerLayer.FrontAcc)
@@ -1047,17 +1052,8 @@ namespace MetroidMod
 					layers.Insert(k + 1, gunLayer);
 				}
 			}
-			Terraria.Item I = P.inventory[P.selectedItem];
-			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
-	/*	if ((I.type == ItemDef.byName["MetroidMod:PowerBeam"].type || I.type == ItemDef.byName["MetroidMod:MissileLauncher"].type || I.type == ItemDef.byName["MetroidMod:NovaLaser"].type) && P.itemAnimation == 0 && (frame < 1 || frame > 4))
-			{
-				PlayerLayer.Add(list, gunLayer, PlayerLayer.LayerArmsFront, false, false);
-			}*/
-			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
 			if(somersault)
 			{
-				//P.fullRotation = rotation;
-				//P.fullRotationOrigin = P.Center - P.position;
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
 				P.legFrame.Y = P.legFrame.Height * 7;
 				P.wingFrame = 1;
@@ -1099,9 +1095,6 @@ namespace MetroidMod
 			}
 			else if(shineDirection == 2 || shineDirection == 4)
 			{
-				//rotation = 0.1f * P.direction * P.gravDir;
-				//P.fullRotation = rotation;
-				//P.fullRotationOrigin = P.Center - P.position;
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
 				P.legFrame.Y = P.legFrame.Height * 7;
 				if(thrusters)
@@ -1121,9 +1114,6 @@ namespace MetroidMod
 			}
 			else if(shineDirection == 1 || shineDirection == 3)
 			{
-				//rotation = (MBase.degree360/8f) * P.direction * P.gravDir;
-				//P.fullRotation = rotation;
-				//P.fullRotationOrigin = P.Center - P.position;
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
 				P.legFrame.Y = P.legFrame.Height * 7;
 				if(thrusters)
@@ -1225,11 +1215,6 @@ namespace MetroidMod
 				PlayerLayer.MountBack.visible = false;
                 PlayerLayer.HeldItem.visible = false;
                 P.shadow = 0f;
-	///			visorLayer.visible = false;
-	///			gunLayer.visible = false;
-	///			jetLayer.visible = false;
-	///			thrusterLayer.visible = false;
-				//P.drawAura = false;
 			}
 			else
 			{
@@ -1249,32 +1234,11 @@ namespace MetroidMod
 		///			thrusterLayer.visible = true;
 				//}
 			}
-			//TAPI.PlayerLayer.ExtraDrawHeadInfo edhi = PlayerLayer.extraDrawHeadInfo;
 			
 			if(!thrusters)
 			{
 				jet = false;
 			}
-			/*#region test
-			if(Main.GetKeyState((int)Microsoft.Xna.Framework.Input.Keys.G) < 0)
-			{
-				P.bodyFrame.Y = P.bodyFrame.Height*6;
-			}
-			if(Main.GetKeyState((int)Microsoft.Xna.Framework.Input.Keys.Y) < 0)
-			{
-				float MY = Main.mouseY + Main.screenPosition.Y;
-				float MX = Main.mouseX + Main.screenPosition.X;
-				if (P.gravDir == -1f)
-				{
-					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-				}
-				float targetrotation = (float)Math.Atan2((MY-P.Center.Y)*P.direction,(MX-P.Center.X)*P.direction);
-				rotation = targetrotation;
-				P.fullRotation = rotation;
-				P.fullRotationOrigin = P.Center - P.position;
-				P.bodyFrame.Y = P.bodyFrame.Height*6;
-			}
-			#endregion*/
 		}
 		
         public void MorphBallBasic(Player player)
@@ -1311,7 +1275,6 @@ namespace MetroidMod
 				player.carpet = false;
 				player.carpetTime = 0;
 				player.canCarpet = false;
-				//player.drawAura = false;
 				if(player.gravity != 0f)
 				{
 					player.maxFallSpeed += 2.5f;
@@ -1319,6 +1282,7 @@ namespace MetroidMod
 				if(player.velocity.Y == 0f)
 				{
 					player.runSlowdown *= 0.5f;
+					player.moveSpeed += 0.5f;
 				}
 				if (!special && statCharge >= 100)
 				{
@@ -1398,13 +1362,11 @@ namespace MetroidMod
 				{
 					statCharge = 0;
 				}
-				//Color brightColor = currentMorphColor;
-				//Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/127), (float)(brightColor.G/127), (float)(brightColor.B/127));  
 
 				int timez = (int)(Time%60)/10;
 				Color brightColor = currentMorphColor2;
 				Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/(shinyblock/(1+0.1*timez))), (float)(brightColor.G/(shinyblock/(1+0.1*timez))), (float)(brightColor.B/(shinyblock/(1+0.1*timez))));  
-				//bool flag = false;
+
 				if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0)
 				{
 					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
@@ -1479,7 +1441,7 @@ namespace MetroidMod
 											{
 												player.velocity.X += velY;
 												velY = 0f;
-												if(!player.controlLeft)
+												/*if(!player.controlLeft)
 												{
 													if (player.velocity.X < 0f)
 													{
@@ -1501,13 +1463,13 @@ namespace MetroidMod
 													{
 														player.velocity.X = player.velocity.X * 1.1f;
 													}
-												}
+												}*/
 											}
 											else if (Main.tile[i, j].slope() == 2 && (!Main.tile[i - 1, j].active() || !Main.tileSolid[(int)Main.tile[i - 1, j].type]))
 											{
 												player.velocity.X -= velY;
 												velY = 0f;
-												if(!player.controlRight)
+												/*if(!player.controlRight)
 												{
 													if (player.velocity.X > 0f)
 													{
@@ -1529,7 +1491,7 @@ namespace MetroidMod
 													{
 														player.velocity.X = player.velocity.X * 1.1f;
 													}
-												}
+												}*/
 											}
 										}
 										else
@@ -1543,7 +1505,6 @@ namespace MetroidMod
 									}
 									if(dis > 5)
 									{
-										//Ibounce = true;
 										velY = 0f;
 										dis = 0;
 									}
@@ -1650,98 +1611,162 @@ namespace MetroidMod
 			}
 		}
         const int TileSize = 16;
-public void SenseMove(Player P)
+		public void SenseMove(Player P)
 		{
-				MPlayer mp = P.GetModPlayer<MPlayer>(mod);
-				int dist = 80;
-				if(senseSound)
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			int dist = 80;
+			if(senseSound)
+			{
+				Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SenseMoveSound"));
+			}
+			Vector2 right = new Vector2(7f, -4.5f);
+			Vector2 left = new Vector2(-7f, -4.5f);
+			detect = false;
+			float mult = Player.jumpSpeed - (Player.jumpHeight/Player.jumpSpeed) + player.gravity;
+			float threshhold = Player.jumpSpeed*mult;
+			for(int k = 0; k < Main.npc.Length; k++)
+			{
+				NPC N = Main.npc[k];
+				if(N.damage > 0 && !N.friendly && N.life > 0 && N.active)
 				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SenseMoveSound"));
-				}
-				//int W = 20;
-				//int H = 48;
-				//Rectangle MB = new Rectangle((int)P.Center.X-W,(int)P.Center.Y-H,(W*2),(H*2));
-				detect = false;
-				for(int k = 0; k < Main.npc.Length; k++)
-				{
-					NPC N = Main.npc[k];
-					if(N.damage > 0 && !N.friendly && N.life > 0 && N.active)
+					for(int i = 1; i <= dist; i++)
 					{
-						for(int i = 1; i <= dist; i++)
+						Vector2 npcFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
+						float npcDist = Vector2.Distance(P.Center, npcFuturePos);
+						if(npcDist <= (P.height+N.width) || npcDist <= (P.height+N.height))
 						{
-							//Rectangle NB = new Rectangle((int)(N.position.X+(N.velocity.X*i)),(int)(N.position.Y+(N.velocity.Y*i)),N.width,N.height);
-							Vector2 npcFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
-							float npcDist = Vector2.Distance(P.Center, npcFuturePos);
-							if((npcDist <= (P.height+N.width) || npcDist <= (P.height+N.height)) && P.velocity.Y == 0f)
+							if(N.velocity.X != 0f || N.velocity.Y != 0f)
 							{
-								if(N.velocity.X != 0f || N.velocity.Y != 0f)
+								if(N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
 								{
-									if(N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
-									{
-										detect = true;
-									}
+									detect = true;
 								}
 							}
 						}
 					}
-				}
-				for(int k = 0; k < Main.projectile.Length; k++)
-				{
-					Projectile Pr = Main.projectile[k];
-					if(Pr.damage > 0 && !Pr.friendly && Pr.hostile && Pr.timeLeft > 0 && Pr.active)
+					if(detect)
 					{
-						for(int i = 1; i <= dist; i++)
+						if(N.Center.X > P.position.X + P.width)
 						{
-							//Rectangle PB = new Rectangle((int)(Pr.position.X+(Pr.velocity.X*i)),(int)(Pr.position.Y+(Pr.velocity.Y*i)),Pr.width,Pr.height);
-							Vector2 projFuturePos = new Vector2(Pr.Center.X+(Pr.velocity.X*i),Pr.Center.Y+(Pr.velocity.Y*i));
-							float projDist = Vector2.Distance(P.Center, projFuturePos);
-							if((projDist <= (P.height+Pr.width) || projDist <= (P.height+Pr.height)) && P.velocity.Y == 0f)
+							right.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
 							{
-								if(Pr.velocity.X != 0f || Pr.velocity.Y != 0f)
-								{
-									if(!Pr.tileCollide || Collision.CanHit(P.position, P.width, P.height, Pr.position, Pr.width, Pr.height))
-									{
-										detect = true;
-									}
-								}
+								right.X += N.velocity.Y;
+							}
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								right.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								right.Y -= (height/10);
+							}
+						}
+						if(N.Center.X < P.position.X)
+						{
+							left.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
+							{
+								left.X -= N.velocity.Y;
+							}
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								left.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								left.Y -= (height/10);
 							}
 						}
 					}
 				}
-				if(detect && !mp.ballstate && !P.mount.Active && P.velocity.Y == 0f)
+			}
+			for(int k = 0; k < Main.projectile.Length; k++)
+			{
+				Projectile N = Main.projectile[k];
+				if(N.damage > 0 && !N.friendly && N.hostile && N.timeLeft > 0 && N.active)
 				{
-					if(!isSenseMoving)
+					for(int i = 1; i <= dist; i++)
 					{
-						if(P.controlLeft && MetroidMod.SenseMoveKey.Current)
+						Vector2 projFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
+						float projDist = Vector2.Distance(P.Center, projFuturePos);
+						if(projDist <= (P.height+N.width) || projDist <= (P.height+N.height))
 						{
-							SMoveEffect = 40;
-							senseSound = true;
-							P.velocity.X = -7f;
-							P.velocity.Y -= 4.5f * P.gravDir;
-							if(P.direction == 1 && P.maxRunSpeed < -P.velocity.X)
+							if(N.velocity.X != 0f || N.velocity.Y != 0f)
 							{
-								sMoveDir = -1;
+								if(!N.tileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
+								{
+									detect = true;
+								}
 							}
-							isSenseMoving = true;
 						}
-						else if(P.controlRight && MetroidMod.SenseMoveKey.Current)
+					}
+					if(detect)
+					{
+						if(N.Center.X > P.position.X + P.width)
 						{
-							SMoveEffect = 40;
-							senseSound = true;
-							P.velocity.X = 7f;
-							P.velocity.Y -= 4.5f * P.gravDir;
-							if(P.direction == -1 && P.maxRunSpeed < P.velocity.X)
+							right.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
 							{
-								sMoveDir = -1;
+								right.X += N.velocity.Y;
 							}
-							isSenseMoving = true;
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								right.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								right.Y -= (height/10);
+							}
 						}
-						else
+						if(N.Center.X < P.position.X)
 						{
-							isSenseMoving = false;
-							senseSound = false;
-							sMoveDir = 1;
+							left.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
+							{
+								left.X -= N.velocity.Y;
+							}
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								left.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								left.Y -= (height/10);
+							}
 						}
+					}
+				}
+			}
+			right.X = right.X > threshhold ? threshhold : (right.X < -threshhold ? -threshhold : right.X);
+			right.Y = right.Y > threshhold ? threshhold : (right.Y < -threshhold ? -threshhold : right.Y);
+			left.X = left.X > threshhold ? threshhold : (left.X < -threshhold ? -threshhold : left.X);
+			left.Y = left.Y > threshhold ? threshhold : (left.Y < -threshhold ? -threshhold : left.Y);
+			if(detect && !mp.ballstate && !P.mount.Active && P.velocity.Y == 0f)
+			{
+				if(!isSenseMoving)
+				{
+					if(P.controlLeft && MetroidMod.SenseMoveKey.Current)
+					{
+						SMoveEffect = 40;
+						senseSound = true;
+						P.velocity.X = left.X;
+						P.velocity.Y += left.Y * P.gravDir;
+						P.direction = -1;
+						isSenseMoving = true;
+					}
+					else if(P.controlRight && MetroidMod.SenseMoveKey.Current)
+					{
+						SMoveEffect = 40;
+						senseSound = true;
+						P.velocity.X = right.X;
+						P.velocity.Y += right.Y * P.gravDir;
+						P.direction = 1;
+						isSenseMoving = true;
 					}
 					else
 					{
@@ -1754,14 +1779,20 @@ public void SenseMove(Player P)
 					isSenseMoving = false;
 					senseSound = false;
 				}
-				if(SMoveEffect > 0)
-				{
-					SMoveEffect--;
-				}
-				else
-				{
-					sMoveDir = 1;
-				}
+			}
+			else
+			{
+				isSenseMoving = false;
+				senseSound = false;
+			}
+			if(SMoveEffect > 0)
+			{
+				SMoveEffect--;
+			}
+			else
+			{
+				sMoveDir = 1;
+			}
 		}
 		// check if there is a solid tile to the left of the left centre of the player
 		public static bool CheckLeft(Player player)
@@ -2088,7 +2119,6 @@ public void SenseMove(Player P)
 				{
 					shineActive = true;
 					player.mount.Dismount(player);
-					//player.jump = 0;
 					player.gravity = 0f;
 				}
 				else
@@ -2108,8 +2138,6 @@ public void SenseMove(Player P)
 			if(shineActive)
 			{
 				shineSound = 0;
-				//player.velocity.Y = -((player.gravity + 1E-06f) * player.gravDir);
-				//player.gravity *= 0f;
 				player.gravity = 0f;
 				player.velocity.Y = 0f;
 				player.maxFallSpeed = 0f;
@@ -2122,18 +2150,12 @@ public void SenseMove(Player P)
 				mp.rotation = 0;
 				player.armorEffectDrawShadow = true;
 				shineDeActive++;
-				/*if(shineDeActive == 2)
-				{
-					player.position.Y -= 12f*player.gravDir;
-				}*/
 				if(((player.gravDir == 1 && CheckFloor(player)) || (player.gravDir == -1 && CheckCeiling(player))) && shineDeActive > 2)
 				{
 					player.position.Y -= 2f*player.gravDir;
 				}
 				if(shineDeActive > 29 && mp.statOverheat < mp.maxOverheat)
 				{
-					//player.statMana--;
-					//player.manaRegenDelay = (int)player.maxRegenDelay;
 					shineCharge = false;
 					if(player.controlRight && !player.controlUp) //right
 					{
@@ -2168,7 +2190,7 @@ public void SenseMove(Player P)
 			if(shineDirection == 1) //right
 			{
 				player.velocity.X = 20;
-				player.velocity.Y = 0f;//0.00001f*player.gravDir;
+				player.velocity.Y = 0f;
 				player.gravity *= 0f;
 				player.maxFallSpeed = 0f;
 				player.direction = 1;
@@ -2188,7 +2210,7 @@ public void SenseMove(Player P)
 			if(shineDirection == 3) //left
 			{
 				player.velocity.X = -20;
-				player.velocity.Y = 0f;//0.00001f*player.gravDir;
+				player.velocity.Y = 0f;
 				player.gravity *= 0f;
 				player.maxFallSpeed = 0f;
 				player.direction = -1;
@@ -2222,14 +2244,8 @@ public void SenseMove(Player P)
 
 			if(shineDirection != 0)
 			{
-				//manaDelay++;
-				//if(manaDelay > 2)
-				//{
-					//player.statMana--;
-					mp.statOverheat += 0.5f;
-					//manaDelay = 0;
-				//}
-				//player.manaRegenDelay = (int)player.maxRegenDelay;
+				mp.statOverheat += 0.5f;
+
 				shineDeCharge = 300;
 				bool shineSpark = false;
 				int ShineSparkID = mod.ProjectileType("ShineSpark");
@@ -2720,33 +2736,6 @@ public void SenseMove(Player P)
 			
 			return false;
 		}
-		/*public PlayerLayer testLayer = new PlayerLayer.Action("MetroidMod:test", (PlayerLayer layer, Player player, SpriteBatch sb) =>
-		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			//floor
-			mp.testRect[0] = new Rectangle((int)player.position.X,(int)player.position.Y+(int)player.height-1,player.width,2);
-			//ceiling
-			mp.testRect[1] = new Rectangle((int)player.position.X,(int)player.position.Y-1,player.width,2);
-			//left
-			mp.testRect[2] = new Rectangle((int)player.position.X-1,(int)player.position.Y,2,player.height);
-			//right
-			mp.testRect[3] = new Rectangle((int)player.position.X+(int)player.width-1,(int)player.position.Y,2,player.height);
-			//up left
-			mp.testRect2[0] = new Rectangle((int)player.position.X-1,(int)player.position.Y-1,1,1);
-			//up right
-			mp.testRect2[1] = new Rectangle((int)player.position.X+(int)player.width,(int)player.position.Y-1,1,1);
-			//down left
-			mp.testRect2[2] = new Rectangle((int)player.position.X-1,(int)player.position.Y+(int)player.height,1,1);
-			//down right
-			mp.testRect2[3] = new Rectangle((int)player.position.X+(int)player.width,(int)player.position.Y+(int)player.height,1,1);
-			Texture2D tex = MBase.Instance.textures["Gore/TestRectangle"];
-			for(int i = 0; i < 4; i++)
-			{
-				sb.Draw(tex, new Rectangle((int)(mp.testRect[i].X - Main.screenPosition.X), (int)(mp.testRect[i].Y - Main.screenPosition.Y), mp.testRect[i].Width, mp.testRect[i].Height), Color.Orange);
-				sb.Draw(tex, new Rectangle((int)(mp.testRect2[i].X - Main.screenPosition.X), (int)(mp.testRect2[i].Y - Main.screenPosition.Y), mp.testRect2[i].Width, mp.testRect2[i].Height), Color.Blue);
-			}
-			sb.Draw(tex, new Rectangle((int)(player.Hitbox.X - Main.screenPosition.X), (int)(player.Hitbox.Y - Main.screenPosition.Y), player.Hitbox.Width, player.Hitbox.Height), Color.Gray);
-		});*/
 
 		// get the edge the player is currently on
 		public Edge GetEdge(Player player)
@@ -2778,7 +2767,7 @@ public void SenseMove(Player P)
 		{
 
 			// push the player into their edge
-			player.velocity.Y = (2.0f+player.gravity);
+			player.velocity.Y = 2.0f;//(2.0f+player.gravity);
 			player.maxFallSpeed = 0f;
 			
 			// move left
@@ -2852,7 +2841,7 @@ public void SenseMove(Player P)
 		{
 
 			// push the player into their edge
-			player.velocity.Y = -(2.0f+player.gravity);
+			player.velocity.Y = -2.0f;//(2.0f+player.gravity);
 			player.maxFallSpeed = 0f;
 			
 			// move right - upside down, reverse direction, classic spiderball style
@@ -2930,7 +2919,7 @@ public void SenseMove(Player P)
 			// move up
 			if (player.controlLeft)
 			{
-				player.velocity.Y = -(moveSpeed+player.gravity);
+				player.velocity.Y = -moveSpeed;//(moveSpeed+player.gravity);
 			}
 			// move down
 			else if (player.controlRight)
@@ -2940,7 +2929,7 @@ public void SenseMove(Player P)
 			else
 			{
 				// not moving
-				player.velocity.Y = -player.gravity*player.gravDir;
+				player.velocity.Y = 0f;//-player.gravity*player.gravDir;
 				player.maxFallSpeed = 0f;
 			}
 			
@@ -3008,12 +2997,12 @@ public void SenseMove(Player P)
 			// move up
 			else if (player.controlRight)
 			{
-				player.velocity.Y = -(moveSpeed+player.gravity);
+				player.velocity.Y = -moveSpeed;//(moveSpeed+player.gravity);
 			}
 			else
 			{
 				// not moving
-				player.velocity.Y = -player.gravity*player.gravDir;
+				player.velocity.Y = -0f;//player.gravity*player.gravDir;
 				player.maxFallSpeed = 0f;
 			}
 			
@@ -3068,7 +3057,6 @@ public void SenseMove(Player P)
 		}
 		public void SpiderBall(Player player)
 		{
-	
 			if(ballstate)
 			{
 				// switch back/to spiderball if M is pressed
@@ -3131,9 +3119,10 @@ public void SenseMove(Player P)
 						// render player's default movements effortless
 						player.moveSpeed = 0f;
 						player.maxRunSpeed = 0f;
-						//player.gravity = 0f;
+						player.gravity = 0f;
+						player.sloping = false;
 						// disable terraria's step-up feature
-						if (player.velocity.Y == player.gravity && (!player.mount.Active || player.mount.Type != 6))
+						if (player.velocity.Y == player.gravity)
 						{
 							Collision.StepUp(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.waterWalk || player.waterWalk2);
 						}
@@ -3144,7 +3133,7 @@ public void SenseMove(Player P)
 								Collision.StepDown(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.controlUp);
 							}
 						}
-						else if ((player.carpetFrame != -1 || player.velocity.Y >= player.gravity) && !player.controlDown && (!player.mount.Active || player.mount.Type != 6))
+						else if ((player.carpetFrame != -1 || player.velocity.Y >= player.gravity) && !player.controlDown)
 						{
 							Collision.StepDown(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.controlUp);
 						}
@@ -3162,21 +3151,14 @@ public void SenseMove(Player P)
 	
 			if(ballstate)
 			{
-				if(/*powerbomb == 0 && */statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
+				if(statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
 				{
-					//Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-                    //Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/PowerBombCharge1"));
 					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
 					statPBCh = 200;
-					//powerbomb = 180;
 					int PBombID = mod.ProjectileType("PowerBomb");
 					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,PBombID,specialDmg/4,0,player.whoAmI);
 				}
 			}
-			/*if(powerbomb > 0)
-			{
-				powerbomb--;
-			}*/
 		}
 		public void BoostBall(Player player)
 		{
@@ -3286,7 +3268,6 @@ public void SenseMove(Player P)
 			{
 				if (drill > 0 && p.position.X / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetX && (p.position.X + (float)p.width) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetX && p.position.Y / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetY && (p.position.Y + (float)p.height) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetY)
 				{
-					int num165 = 0;
 					if(Main.mouseLeft)
 					{
 						if (p.runSoundDelay <= 0)
@@ -3312,214 +3293,8 @@ public void SenseMove(Player P)
 					{
 						if (cooldownbomb == 0 && Main.mouseLeft)
 						{
-							int tileId = p.hitTile.HitObject(Player.tileTargetX, Player.tileTargetY, 1);
-							if (Main.tileNoFail[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-							{
-								num165 = 100;
-							}
 							if (drill > 0)
 							{
-							/*	if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 203)
-								{
-									num165 += drill / 2;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 48 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 232)
-								{
-									num165 += drill / 4;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 226)
-								{
-									num165 += drill / 4;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 221)
-								{
-									num165 += drill / 2;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 222)
-								{
-									num165 += drill / 3;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 223)
-								{
-									num165 += drill / 4;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 211)
-								{
-									num165 += drill / 5;
-								}
-								else
-								{
-									num165 += drill;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 211 && drill < 200)
-								{
-									num165 = 0;
-								}
-								if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 203) && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117 && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 37 && drill < 50)
-								{
-									num165 = 0;
-								}
-								else if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 22 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 204) && (double)Player.tileTargetY > Main.worldSurface && drill < 55)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 56 && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58 && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 226 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 237) && drill < 210)
-								{
-									num165 = 0;
-								}
-								else if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && drill < 65)
-								{
-									if ((double)Player.tileTargetX < (double)Main.maxTilesX * 0.35 || (double)Player.tileTargetX > (double)Main.maxTilesX * 0.65)
-									{
-										num165 = 0;
-									}
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107 && drill < 100)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108 && drill < 110)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111 && drill < 150)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 221 && drill < 100)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 222 && drill < 110)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 223 && drill < 150)
-								{
-									num165 = 0;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 147 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 40 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 53 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 57 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 59 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 123 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 224)
-								{
-									num165 += drill;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 165 || Main.tileRope[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 199 || Main.tileMoss[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-								{
-									num165 = 100;
-								}
-								if (drill < Main.tileMinPick[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-								{
-									num165 = 0;
-								}
-								if (p.hitTile.AddDamage(tileId, num165, false) >= 100 && (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 2 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 23 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 60 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 70 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 109 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 71 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 199 || Main.tileMoss[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
-								{
-									num165 = 0;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 128 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 269)
-								{
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX == 18 || Main.tile[Player.tileTargetX, Player.tileTargetY].frameX == 54)
-									{
-										Player.tileTargetX--;
-										p.hitTile.UpdatePosition(tileId, Player.tileTargetX, Player.tileTargetY);
-									}
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX >= 100)
-									{
-										num165 = 0;
-										Main.blockMouse = true;
-									}
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 334)
-								{
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY == 0)
-									{
-										Player.tileTargetY++;
-										p.hitTile.UpdatePosition(tileId, Player.tileTargetX, Player.tileTargetY);
-									}
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY == 36)
-									{
-										Player.tileTargetY--;
-										p.hitTile.UpdatePosition(tileId, Player.tileTargetX, Player.tileTargetY);
-									}
-									int num166 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
-									bool flag11 = num166 >= 5000;
-									bool flag12 = false;
-									if (!flag11)
-									{
-										int num167 = num166 / 18;
-										num167 %= 3;
-										Player.tileTargetX -= num167;
-										if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX >= 5000)
-										{
-											flag11 = true;
-										}
-									}
-									if (flag11)
-									{
-										num166 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
-										int num168 = 0;
-										while (num166 >= 5000)
-										{
-											num166 -= 5000;
-											num168++;
-										}
-										if (num168 != 0)
-										{
-											flag12 = true;
-										}
-									}
-									if (flag12)
-									{
-										num165 = 0;
-										Main.blockMouse = true;
-									}
-								}
-								if (p.hitTile.AddDamage(tileId, num165, true) >= 100)
-								{
-									p.hitTile.Clear(tileId);
-									if (Main.netMode == 1 && Main.tile[Player.tileTargetX, Player.tileTargetY].type == 21)
-									{
-										WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-										NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0f);
-										NetMessage.SendData(34, -1, -1, "", 1, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0f);
-									}
-									else
-									{
-										int num169 = Player.tileTargetY;
-										WorldGen.KillTile(Player.tileTargetX, num169, false, false, false);
-										if (Main.netMode == 1)
-										{
-											NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)num169, 0f, 0f);
-										}
-									}
-								}
-								else
-								{
-									WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-									if (Main.netMode == 1)
-									{
-										NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0f);
-									}
-								}
-								if (num165 != 0)
-								{
-									p.hitTile.Prune();
-								}*/
-								//p.itemTime = (int)((float)this.inventory[this.selectedItem].useTime * this.pickSpeed);
                                 p.PickTile(Player.tileTargetX, Player.tileTargetY, drill);
 							}
 							cooldownbomb = 5;
@@ -3536,7 +3311,5 @@ public void SenseMove(Player P)
 				}
 			}
 		}
-
-
     }
 }
