@@ -65,6 +65,13 @@ public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 			Main.spriteBatch.Draw(mod.GetTexture("Tiles/BlueHatchDoor"), new Vector2((i - 1) * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 48, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			return true;
 		}
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.showItemIcon = true;
+			player.showItemIcon2 = mod.ItemType("BlueHatch");
+		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("BlueHatch"));
