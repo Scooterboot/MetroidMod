@@ -65,6 +65,13 @@ namespace MetroidMod.Tiles
 		{
 			num = 1;
 		}
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.showItemIcon = true;
+			player.showItemIcon2 = mod.ItemType("BlueHatch");
+		}
 		public override void RightClick(int i, int j)
 		{
 			HitWire(i, j);
