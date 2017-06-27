@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Graphics;
 using ReLogic;
+using MetroidMod.Items;
 
 namespace MetroidMod {
 	public class MetroidMod : Mod
@@ -28,19 +29,19 @@ namespace MetroidMod {
 		internal static ModHotKey PowerBombKey;
 		internal static ModHotKey SenseMoveKey;
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
-			public static Mod Instance;
-			public MetroidMod()
-			{
+		public static Mod Instance;
+		public MetroidMod()
+		{
 
 			Properties = new ModProperties()
-				{
-					Autoload = true,
-					AutoloadSounds = true,
-					AutoloadGores = true
+			{
+				Autoload = true,
+				AutoloadSounds = true,
+				AutoloadGores = true
 
-				};
-				
-			}
+			};
+			
+		}
 		public override void Load()
 		{
 			Instance = this;
@@ -51,8 +52,8 @@ namespace MetroidMod {
 			SenseMoveKey = RegisterHotKey("Use Sense Move", "F");
 			if (!Main.dedServ)
 			{
-		AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Serris"), ItemType("SerrisMusicBox"), TileType("SerrisMusicBox"));
-		AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid"), ItemType("KraidPhantoonMusicBox"), TileType("KraidPhantoonMusicBox"));
+				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Serris"), ItemType("SerrisMusicBox"), TileType("SerrisMusicBox"));
+				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid"), ItemType("KraidPhantoonMusicBox"), TileType("KraidPhantoonMusicBox"));
 			}
 			for (int k = 1; k <= 7; k++)
 			{
@@ -60,6 +61,7 @@ namespace MetroidMod {
 			}
 		}
 		static int z = 0;
+		float tRot = 0f;
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
@@ -88,6 +90,25 @@ namespace MetroidMod {
 			{
 				z = 0;
 			}
+			
+			if(item.type == mod.ItemType("MissileLauncher"))
+			{
+				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+				if(mi.numSeekerTargets > 0)
+				{
+					tRot += 0.05f;
+					for(int i = 0; i < mi.seekerTarget.Length; i++)
+					{
+						if(mi.seekerTarget[i] > -1)
+						{
+							NPC npc = Main.npc[mi.seekerTarget[i]];
+							Texture2D tTex = mod.GetTexture("Gore/Targeting_retical");
+							Color color = new Color(255, 255, 255, 10);
+							sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tTex.Width, tTex.Height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)tTex.Height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
+						}
+					}
+				}
+			}
 		}
 		public static int chStyle;
 		public static int chR = 255;
@@ -104,7 +125,7 @@ namespace MetroidMod {
 				Texture2D texBar = mod.GetTexture("Gore/ChargeBar"),
 					texBarBorder = mod.GetTexture("Gore/ChargeBarBorder"),
 					texBarBorder2 = mod.GetTexture("Gore/ChargeBarBorder2");
-				if(item.type == mod.ItemType("PowerBeam") /*|| item.type == mod.ItemType("MissileLauncher")*/ || mp.ballstate)
+				if(item.type == mod.ItemType("PowerBeam") || item.type == mod.ItemType("MissileLauncher") || mp.ballstate)
 				{
 					int ch = (int)mp.statCharge, chMax = (int)MPlayer.maxCharge;
 					int pb = (int)mp.statPBCh, pbMax = (int)MPlayer.maxPBCh;
@@ -114,7 +135,6 @@ namespace MetroidMod {
 					float pbpercent = pbMax == 0 ? 0f : 1f*pb/pbMax;
 					int w = (int)(Math.Floor(texBar.Width/2f*chpercent)*2);
 					int w2 = (int)(Math.Floor(texBar.Width/2f*pbpercent)*2);
-					//Color c = chpercent <= .3f ? Color.DeepSkyBlue : (chpercent <= .6f ? Color.Lime : (chpercent < 1f ? Color.Yellow : Color.Gold));
 					Color c = chpercent < 1f ? new Color(chR,chG,chB) : Color.Gold;
 					Color p = pbpercent < 1f ? Color.Crimson : Color.Gray;
 					chStyle = chpercent <= 0f ? 0 : (chpercent <= .5f ? 1 : (chpercent <= .75f ? 2 : (chpercent <= .99f ? 3 : 0)));
@@ -148,20 +168,20 @@ namespace MetroidMod {
 					}
 					sb.Draw(texBarBorder,new Vector2(x,y),new Rectangle(0,0,texBarBorder.Width,texBarBorder.Height),Color.White);
 
-					/*if(item.type == mod.ItemType("MissileLauncher"))
+					if(item.type == mod.ItemType("MissileLauncher"))
 					{
-						MItem mi = item.GetSubClass<MItem>();
-						string text = mi.statMissiles.ToString("000");
+						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+						int num = Math.Min(mi.statMissiles,mi.maxMissiles);
+						string text = num.ToString("000");
 						Vector2 vect = Main.fontMouseText.MeasureString(text);
 						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 						sb.DrawString(Main.fontMouseText, text, new Vector2(x+38-(vect.X/2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-					}*/
+					}
 				}
 				if(item.type == mod.ItemType("PowerBeam") || mp.shineDirection != 0 || mp.shineActive)
 				{
 					Texture2D overheatBar = mod.GetTexture("Gore/OverheatBar"),
 					overheatBorder = mod.GetTexture("Gore/OverheatBorder");
-					//MItem mi = item.GetSubClass<MItem>();
 					int ovh = (int)mp.statOverheat, ovhMax = (int)mp.maxOverheat;
 					float x2 = 22, y2 = 120+z;
 					int times2 = (int)Math.Ceiling(overheatBar.Height/2f);
@@ -262,14 +282,7 @@ namespace MetroidMod {
 					int w = (int)(Math.Floor(texBar.Width/2f*sjpercent)*2);
 					Color s = sjpercent < 1f ? Color.Cyan : Color.SkyBlue;
 					sb.Draw(texBarBorder,new Vector2(x,y),new Rectangle(0,0,texBarBorder.Width,texBarBorder.Height),Color.White);
-					/*for (int i = 0; i < times; i++)
-					{
-						int ww = w-(i*2);
-						if (ww > 0)
-						{*/
-							sb.Draw(texBar,new Vector2(x+2,y+2),new Rectangle(0,0,w,texBar.Height),s);
-						//}
-					//}
+					sb.Draw(texBar,new Vector2(x+2,y+2),new Rectangle(0,0,w,texBar.Height),s);
 				}
 			}
 		}
