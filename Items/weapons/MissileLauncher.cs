@@ -332,11 +332,11 @@ namespace MetroidMod.Items.weapons
 						Vector2 velocity = targetrotation.ToRotationVector2()*item.shootSpeed;
 						float dmgMult = 1f;//(1f+((float)mp.statCharge*0.02f));
 						int damage = (int)((float)item.damage*player.rangedDamage);
-						if(mp.statCharge >= MPlayer.maxCharge)
+						if(mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= 5)
 						{
 							int chargeProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(chargeShot),(int)((float)damage*dmgMult),item.knockBack,player.whoAmI);
 							Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));
-							mi.statMissiles -= 1;
+							mi.statMissiles -= 5;
 						}
 						else if(mp.statCharge > 0)
 						{
