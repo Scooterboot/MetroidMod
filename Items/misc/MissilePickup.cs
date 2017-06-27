@@ -34,6 +34,7 @@ namespace MetroidMod.Items.misc
 					mi.statMissiles += item.stack;
 				}
 			}
+			Main.PlaySound(7,(int)player.position.X,(int)player.position.Y,1);
 			return false;
 		}
 	}
