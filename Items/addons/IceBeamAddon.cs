@@ -37,6 +37,7 @@ namespace MetroidMod.Items.addons
 			item.createTile = mod.TileType("IceBeamTile");
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			mItem.addonSlotType = 1;
+			mItem.missileSlotType = 1;
 		}
 
 		public override void AddRecipes()
