@@ -10,6 +10,16 @@ namespace MetroidMod.Items
 	public class MGlobalItem : GlobalItem
 	{
 		public int addonSlotType = -1;
+
+		public int missileSlotType = -1;
+		public int statMissiles = 5;
+		public int maxMissiles = 5;
+		
+		public int numSeekerTargets = 0;
+		public int[] seekerTarget = new int[5];
+		public int seekerCharge = 0;
+		public static int seekerMaxCharge = 25;
+
 		public override bool InstancePerEntity
 		{
 			get
@@ -53,7 +63,6 @@ namespace MetroidMod.Items
 			{
 				if(mp.hyperColors > 0)
 				{
-					//color = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
 					color = new Color(mp.r, mp.g, mp.b, 255);
 				}
 				else if(mp.shineDirection != 0)
@@ -66,36 +75,12 @@ namespace MetroidMod.Items
 				}
 
 				int dustType = 212;
-				/*if(P.head > 0)
-				{
-					edi.dyeHead = 31;
-				}
-				else
-				{*/
-					int dust = Dust.NewDust(new Vector2(P.position.X - P.velocity.X, P.position.Y - 2f - P.velocity.Y), P.width, P.height, dustType, -P.velocity.X * 0.25f, -P.velocity.Y * 0.25f, 100, color, 1.0f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].noLight = true;
-				/*	}
-				if(P.body > 0)
-				{
-					edi.dyeBody = 31;
-				}
-				else
+				if(P.head <= 0 || P.body <= 0 || P.legs <= 0)
 				{
 					int dust = Dust.NewDust(new Vector2(P.position.X - P.velocity.X, P.position.Y - 2f - P.velocity.Y), P.width, P.height, dustType, -P.velocity.X * 0.25f, -P.velocity.Y * 0.25f, 100, color, 1.0f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].noLight = true;
 				}
-				if(P.legs > 0)
-				{
-					edi.dyeLegs = 31;
-				}
-				else
-				{
-					int dust = Dust.NewDust(new Vector2(P.position.X - P.velocity.X, P.position.Y - 2f - P.velocity.Y), P.width, P.height, dustType, -P.velocity.X * 0.25f, -P.velocity.Y * 0.25f, 100, color, 1.0f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].noLight = true;
-				}*/
 			}
 		}
 	}
