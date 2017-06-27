@@ -22,7 +22,7 @@ namespace MetroidMod
         public DrawInItemSlot drawBack;
         public DrawInItemSlot drawItem;
         public DrawInItemSlot postDrawItem;
-        public bool drawAsNormalItemSlot;
+        public bool drawAsNormalItemSlot = true;
         public int contextForItemSlot;
 
         //Delegates, voids
@@ -74,7 +74,6 @@ namespace MetroidMod
                 position += this.parent.position;
             }
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y);
-            //Main.player[Main.myPlayer].mouseInterface = true;
             if (new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(this.rectangle))
             {
 				Main.player[Main.myPlayer].mouseInterface = true;
@@ -90,8 +89,7 @@ namespace MetroidMod
                     Handle();
                 }
             }
-            //Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
-            if (drawAsNormalItemSlot)
+            /*if (drawAsNormalItemSlot)
             {
                 ItemSlot.Draw(sb, ref this.item, contextForItemSlot, this.position);
             }
@@ -121,35 +119,37 @@ namespace MetroidMod
             if (postDrawItem != null)
             {
                 postDrawItem(sb, this);
-            }
-			//this.DrawItemText();
+            }*/
+			float num = Main.inventoryScale;
+			Main.inventoryScale = 1f;
+			ItemSlot.Draw(sb, ref this.item, contextForItemSlot, new Vector2(this.rectangle.X, this.rectangle.Y));
+			Main.inventoryScale = num;
             base.Draw(sb);
         }
-		public void DrawItemText()
+	public void DrawItemText()
+	{
+		if (!item.IsAir && new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(this.rectangle) && Main.mouseItem.IsAir)
 		{
-			//this.rectangle = new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y);
-			if (!item.IsAir && new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(this.rectangle) && Main.mouseItem.IsAir)
+			Main.HoverItem = item;
+			string text = item.AffixName();
+			if (item.stack > 1)
 			{
-				Main.HoverItem = item;
-				string text = item.AffixName();
-				if (item.stack > 1)
+				object obj = text;
+				text = string.Concat(new object[]
 				{
-					object obj = text;
-					text = string.Concat(new object[]
-					{
-						obj,
-						" (",
-						item.stack,
-						")"
-					});
-				}
-				int rare = item.rare;
-				if (item.expert)
-				{
-					rare = -12;
-				}
-				Main.instance.MouseText(text, rare, 0);
+					obj,
+					" (",
+					item.stack,
+					")"
+				});
 			}
+			int rare = item.rare;
+			if (item.expert)
+			{
+				rare = -12;
+			}
+			Main.instance.MouseText(text, rare, 0);
 		}
+	}
     }
 }
