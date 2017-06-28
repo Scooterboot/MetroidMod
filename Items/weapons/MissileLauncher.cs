@@ -352,6 +352,10 @@ namespace MetroidMod.Items.weapons
 					mp.statCharge = 0;
 				}
 			}
+			else
+			{
+				mp.statCharge = 0;
+			}
 
 			if(targetingDelay > 0)
 			{
@@ -382,7 +386,7 @@ namespace MetroidMod.Items.weapons
 						for(int i = 0; i < Main.maxNPCs; i++)
 						{
 							NPC npc = Main.npc[i];
-							if(npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && Collision.CanHit(player.position, player.width, player.height, npc.position, npc.width, npc.height))
+							if(npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && Collision.CanHit(player.Center, 1, 1, npc.position, npc.width, npc.height))
 							{
 								Rectangle npcRect = new Rectangle((int)npc.position.X,(int)npc.position.Y,npc.width,npc.height);
 								if(mouse.Intersects(npcRect) && mi.seekerTarget[targetNum] <= -1 && (targetingDelay <= 0 || prevTarget != npc.whoAmI) && mi.statMissiles > mi.numSeekerTargets)
@@ -390,7 +394,7 @@ namespace MetroidMod.Items.weapons
 									mi.seekerTarget[targetNum] = npc.whoAmI;
 									prevTarget = mi.seekerTarget[targetNum];
 									targetNum++;
-									if(targetNum >= 5)
+									if(targetNum > 4)
 									{
 										targetNum = 0;
 									}
@@ -404,7 +408,7 @@ namespace MetroidMod.Items.weapons
 						while(mi.seekerTarget[targetNum] > -1 && num > 0)
 						{
 							targetNum++;
-							if(targetNum >= 5)
+							if(targetNum > 4)
 							{
 								targetNum = 0;
 							}
@@ -417,11 +421,11 @@ namespace MetroidMod.Items.weapons
 							if(mi.seekerTarget[i] > -1)
 							{
 								mi.numSeekerTargets++;
-							}
 
-							if(!Main.npc[mi.seekerTarget[i]].active)
-							{
-								mi.seekerTarget[i] = -1;
+								if(!Main.npc[mi.seekerTarget[i]].active)
+								{
+									mi.seekerTarget[i] = -1;
+								}
 							}
 						}
 					}
@@ -430,7 +434,6 @@ namespace MetroidMod.Items.weapons
 				{
 					if(mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
 					{
-						//int chargeProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(chargeShot),damage,item.knockBack,player.whoAmI);
 						for(int i = 0; i < mi.seekerTarget.Length; i++)
 						{
 							if(mi.seekerTarget[i] > -1)
