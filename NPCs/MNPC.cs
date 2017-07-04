@@ -11,9 +11,13 @@ namespace MetroidMod.NPCs
 		public override void NPCLoot(NPC npc)
 		{
 			Player player = Main.player[npc.lastInteraction];
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-            for(int i = 0; i < player.inventory.Length; i++)
-			{
+			if (npc.lastInteraction == 255)
+		    {
+			player = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)];
+		    }
+		    MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+		    for(int i = 0; i < player.inventory.Length; i++)
+				{
 				if(player.inventory[i].type == mod.ItemType("MissileLauncher"))
 				{
                     if (Main.rand.Next(5) <= 1)
