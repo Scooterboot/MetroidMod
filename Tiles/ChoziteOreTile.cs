@@ -23,7 +23,7 @@ namespace MetroidMod.Tiles
 			name.SetDefault("Chozite Ore");
 			AddMapEntry(new Color(214, 162, 0), name);
 
-			minPick = 55;
+			minPick = 50;
 			soundType = 21;
 		}
 		public override void NumDust(int i, int j, bool fail, ref int num)
