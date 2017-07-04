@@ -33,8 +33,6 @@ namespace MetroidMod.Items.equipables
                 + "Allows you to cling to walls";
             player.statDefense += 2;
             player.spikedBoots += 2;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-            mp.SenseMove(player);
         }
 
         public override void AddRecipes()
