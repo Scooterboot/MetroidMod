@@ -17,7 +17,7 @@ namespace MetroidMod.NPCs
 		public bool movingUp = false;
 		public bool grappled = false;
 		public bool frozen = false;
-		public bool spawn = false;
+		private bool metroidSpawn = false;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Larval Metroid");
@@ -62,7 +62,7 @@ namespace MetroidMod.NPCs
 		}*/
 		public override bool PreAI()
 		{
-			if (!spawn)
+			if (!metroidSpawn)
 			{
 				npc.scale = (Main.rand.Next(5, 10) * 0.1f);
 				npc.defense = (int)((float)npc.defense * npc.scale);
@@ -72,7 +72,7 @@ namespace MetroidMod.NPCs
 				npc.value = (float)((int)(npc.value * npc.scale));
 				npc.npcSlots *= npc.scale;
 				npc.knockBackResist *= 2f - npc.scale;
-				spawn = true;
+				metroidSpawn = true;
 			}
 			return true;
 		}
