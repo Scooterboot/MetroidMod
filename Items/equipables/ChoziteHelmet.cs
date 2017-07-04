@@ -21,7 +21,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 2;
             item.value = 3000;
-            item.defense = 4;
+            item.defense = 5;
         }
 
 
