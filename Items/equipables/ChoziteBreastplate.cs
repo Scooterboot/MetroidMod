@@ -29,9 +29,9 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "+2 defense" + "\r\n"
+            player.setBonus = "+3 defense" + "\r\n"
                 + "Allows you to cling to walls";
-            player.statDefense += 2;
+            player.statDefense += 3;
             player.spikedBoots += 2;
         }
 
