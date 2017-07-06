@@ -32,7 +32,10 @@ public override bool CanRightClick()
 		public override void OpenBossBag(Player player)
 		{
 			player.QuickSpawnItem(mod.ItemType("EnergyShard"), Main.rand.Next(25, 51));
-
+				if (Main.rand.Next(2) == 0)
+				{
+					player.QuickSpawnItem(mod.ItemType("RidleyMusicBox"));
+				}
 				if (Main.rand.Next(3) == 0)
 				{
 					player.QuickSpawnItem(mod.ItemType("TorizoMask"));
