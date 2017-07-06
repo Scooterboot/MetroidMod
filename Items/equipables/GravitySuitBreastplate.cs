@@ -69,7 +69,7 @@ namespace MetroidMod.Items.equipables
             mp.visorGlow = true;
             if(!mp.ballstate)
 			{
-				Lighting.AddLight((int)((float)p.Center.X/16f), (int)((float)(p.position.Y+8f)/16f), 0, 0.973f, 0.44f);
+				Lighting.AddLight((int)((float)p.Center.X/16f), (int)((float)(p.position.Y+8f)/16f), 0, 0.973f, 0.71f);
 			}
         }
          public override void UpdateVanitySet(Player P)
@@ -81,7 +81,7 @@ namespace MetroidMod.Items.equipables
 			{
 				mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
 			}
-			mp.visorGlowColor = new Color(0, 248, 112);
+			mp.visorGlowColor = new Color(0, 248, 182);
 			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
 			{
 				mp.jet = true;
