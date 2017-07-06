@@ -45,7 +45,7 @@ namespace MetroidMod.NPCs.Torizo
 			npc.aiStyle = -1;
 			npc.npcSlots = 0;
 			npc.boss = true;
-			music = MusicID.Boss1;
+			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Ridley");
 			bossBag = mod.ItemType("TorizoBag");
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -63,6 +63,10 @@ namespace MetroidMod.NPCs.Torizo
 			else
 			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EnergyShard"), Main.rand.Next(15, 36));
+				if (Main.rand.Next(5) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RidleyMusicBox"));
+				}
 				if (Main.rand.Next(7) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TorizoMask"));
