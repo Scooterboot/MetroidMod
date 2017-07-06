@@ -43,7 +43,7 @@ public override bool CanRightClick()
 			}
 			if (Main.rand.Next(2) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("Kraid_PhantoonMusicBox"));
+				player.QuickSpawnItem(mod.ItemType("KraidPhantoonMusicBox"));
 			}
 		}
 
