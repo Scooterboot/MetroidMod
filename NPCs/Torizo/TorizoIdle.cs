@@ -15,6 +15,7 @@ namespace MetroidMod.NPCs.Torizo
     {
 		private bool active = false;
 		private int ai = 0;
+		private int tp = 7200;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Suspicious Chozo Statue");
@@ -28,7 +29,7 @@ namespace MetroidMod.NPCs.Torizo
 			npc.aiStyle = 7;
 			npc.friendly = true;
 			npc.damage = 0;
-			npc.defense = 100;
+			npc.defense = 9999;
 			npc.dontTakeDamage = true;
 			npc.noGravity = false;
 			npc.noTileCollide = false;
@@ -85,8 +86,12 @@ namespace MetroidMod.NPCs.Torizo
 				npc.direction = -1;
 				npc.life = 250;
 				npc.homeless = false;
-				npc.homeTileX = Main.spawnTileX + 200;
-				npc.homeTileY = Main.spawnTileY + 500;
+				tp++;
+				if (tp > 7200)
+				{
+					npc.position = new Vector2((Main.spawnTileX + 217) * 16, (Main.spawnTileY + 500 - 3) * 16);
+					tp = 0;
+				}
 				if (NPC.AnyNPCs(mod.NPCType("Torizo")))
 				{
 					npc.life = -1;
