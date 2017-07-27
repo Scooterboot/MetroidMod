@@ -97,26 +97,6 @@ namespace MetroidMod
 			}
 			if (PotsIndex != -1)
 			{
-				tasks.Insert(PotsIndex - 3, new PassLegacy("Chozo Ruins", delegate (GenerationProgress progress)
-				{
-					progress.Message = "Building Chozo Ruins";	
-					for (int i = 0; i < 70; i++)
-					{
-						for (int j = 0; j < 30; j++)
-						{
-							WorldGen.KillWall(Main.spawnTileX + 150 + i, Main.spawnTileY + 470 + j);
-							WorldGen.KillTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470 + j);
-							WorldGen.PlaceWall(Main.spawnTileX + 150 + i, Main.spawnTileY + 470 + j, 5);
-						}
-						WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470, TileID.GrayBrick);
-						WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 500, TileID.GrayBrick);	
-					}
-					for (int k = 0; k < 30; k++)
-					{
-						WorldGen.PlaceTile(Main.spawnTileX + 150, Main.spawnTileY + 470 + k, TileID.GrayBrick);
-						WorldGen.PlaceTile(Main.spawnTileX + 220, Main.spawnTileY + 470 + k, TileID.GrayBrick);
-					}
-				}));
 				tasks.Insert(PotsIndex - 2, new PassLegacy("Chozo Statues", delegate (GenerationProgress progress)
 				{
 					progress.Message = "Placing Chozo Statues";
@@ -196,6 +176,30 @@ namespace MetroidMod
 					}
 				}));
 			}
+		}
+		public override void PostWorldGen()
+		{
+			for (int i = 0; i < 69; i++)
+			{
+				for (int j = 0; j < 29; j++)
+				{
+					WorldGen.KillWall(Main.spawnTileX + 151 + i, Main.spawnTileY + 471 + j);
+					WorldGen.KillTile(Main.spawnTileX + 151 + i, Main.spawnTileY + 471 + j);
+					WorldGen.PlaceWall(Main.spawnTileX + 151 + i, Main.spawnTileY + 471 + j, 5);
+				}
+				WorldGen.KillTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470);
+				WorldGen.KillTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 500);
+				WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470, TileID.GrayBrick);
+				WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 500, TileID.GrayBrick);	
+			}				
+			for (int k = 0; k < 30; k++)
+			{
+				WorldGen.KillTile(Main.spawnTileX + 150, Main.spawnTileY + 470 + k);
+				WorldGen.KillTile(Main.spawnTileX + 220, Main.spawnTileY + 470 + k);
+				WorldGen.PlaceTile(Main.spawnTileX + 150, Main.spawnTileY + 470 + k, TileID.GrayBrick);
+				WorldGen.PlaceTile(Main.spawnTileX + 220, Main.spawnTileY + 470 + k, TileID.GrayBrick);
+			}
+			NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
 		}
 		public static bool AddExpansion(int i, int j)
 		{
