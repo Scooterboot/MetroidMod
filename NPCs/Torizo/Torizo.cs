@@ -18,6 +18,7 @@ namespace MetroidMod.NPCs.Torizo
 		float armRot2 = 0;
 		float speed = 1.5f;
 		int slash = 0;
+		int walk = 0;
 		bool jumpBack = false;
 		int beam = 0;
 		Player P = null;
@@ -47,6 +48,21 @@ namespace MetroidMod.NPCs.Torizo
 			npc.boss = true;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Ridley");
 			bossBag = mod.ItemType("TorizoBag");
+		}
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			if (npc.life <= 0 && Main.netMode != 2)
+			{
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore1"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore1"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore2"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore2"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore3"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore4"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore4"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore5"), npc.scale);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoGore5"), npc.scale);
+			}
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -162,6 +178,25 @@ namespace MetroidMod.NPCs.Torizo
 
 			if(!jumpBack && beam <= 0)
 			{
+				if (slash <= 0)
+				{
+					walk += (int)(speed * 1.5f);
+					if (walk <= 110)
+					{
+						armRot = (walk - 55) * npc.direction * 0.0174f;	
+						armRot2 = (walk - 55) * -npc.direction * 0.0174f;			
+					}
+					if (walk > 110 && walk <= 220)
+					{
+						int walk2 = 110 - (walk - 110);
+						armRot = (walk2 - 55) * npc.direction * 0.0174f;	
+						armRot2 = (walk2 - 55) * -npc.direction * 0.0174f;	
+					}
+					if (walk > 220)
+					{
+						walk = 0;
+					}
+				}
 				if (npc.velocity.X == 0)
 				{
 					if (P.position.X+P.width < npc.position.X)
@@ -222,6 +257,7 @@ namespace MetroidMod.NPCs.Torizo
 			#region JumpBack
 			if(jumpBack)
 			{
+				walk = 0;
 				armRot = 36 * npc.direction * 0.0174f;
 				armRot2 = 36 * npc.direction * 0.0174f;
 				if(P.Center.X < npc.Center.X)
@@ -246,6 +282,7 @@ namespace MetroidMod.NPCs.Torizo
 
 			if (slash > 0)
 			{
+				walk = 0;
 				slash++;
 				if (slash <= 20)
 				{
@@ -300,6 +337,7 @@ namespace MetroidMod.NPCs.Torizo
 			}
 			if (beam > 0)
 			{
+				walk = 0;
 				npc.velocity.X = 0;
 				npc.velocity.Y = 0;
 				beam++;

@@ -37,6 +37,13 @@ namespace MetroidMod.NPCs.Torizo
 			npc.aiStyle = -1;
 			npc.npcSlots = 0;
 		}
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			if (npc.life <= 0)
+			{
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TorizoHeadGore"), npc.scale);
+			}
+		}
 		public override void AI()
 		{
 			if(npc.life <= (int)(npc.lifeMax * 0.8f) && npc.life >= (int)(npc.lifeMax * 0.6f))
@@ -74,8 +81,11 @@ namespace MetroidMod.NPCs.Torizo
 			float HY = N.position.Y - npc.height * 0.5f;
 			npc.position.X = HX;
 			npc.position.Y = HY;
-			npc.velocity.X = 0f;
-			npc.velocity.Y = 0f;
+			if (npc.ai[1] % 30 <= 5)
+			{
+				npc.velocity.X = 0;
+				npc.velocity.Y = 0;
+			}
 			npc.ai[1] += 1 + Main.rand.Next(5);
 			if (npc.ai[1] >= bombCool)
 			{
