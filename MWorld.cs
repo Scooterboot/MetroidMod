@@ -94,33 +94,30 @@ namespace MetroidMod
 						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), mod.TileType("ChoziteOreTile"), false, 0f, 0f, false, true);
 					}
 				}));
-				tasks.Insert(PotsIndex + 1, new PassLegacy("Missile Expansions", delegate (GenerationProgress progress)
+			}
+			if (PotsIndex != -1)
+			{
+				tasks.Insert(PotsIndex - 3, new PassLegacy("Chozo Ruins", delegate (GenerationProgress progress)
 				{
-					progress.Message = "Placing Missile Expansions";
-					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05); i++)
+					progress.Message = "Building Chozo Ruins";	
+					for (int i = 0; i < 70; i++)
 					{
-						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05));
-						bool flag = false;
-						int num3 = 0;
-						while (!flag)
+						for (int j = 0; j < 30; j++)
 						{
-							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.worldSurface, Main.maxTilesY - 100)))
-							{
-								flag = true;
-							}
-							else
-							{
-								num3++;
-								if (num3 >= 10000)
-								{
-									flag = true;
-								}
-							}
+							WorldGen.KillWall(Main.spawnTileX + 150 + i, Main.spawnTileY + 470 + j);
+							WorldGen.KillTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470 + j);
+							WorldGen.PlaceWall(Main.spawnTileX + 150 + i, Main.spawnTileY + 470 + j, 5);
 						}
-						
+						WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470, TileID.GrayBrick);
+						WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 500, TileID.GrayBrick);	
+					}
+					for (int k = 0; k < 30; k++)
+					{
+						WorldGen.PlaceTile(Main.spawnTileX + 150, Main.spawnTileY + 470 + k, TileID.GrayBrick);
+						WorldGen.PlaceTile(Main.spawnTileX + 220, Main.spawnTileY + 470 + k, TileID.GrayBrick);
 					}
 				}));
-				tasks.Insert(PotsIndex + 2, new PassLegacy("Chozo Statues", delegate (GenerationProgress progress)
+				tasks.Insert(PotsIndex - 2, new PassLegacy("Chozo Statues", delegate (GenerationProgress progress)
 				{
 					progress.Message = "Placing Chozo Statues";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05); i++)
@@ -138,25 +135,51 @@ namespace MetroidMod
 						{
 							item = (ushort)mod.TileType("IceBeamTile");
 						}
-						else if (rand == 5 || rand == 6)
+						else if (rand == 5)
 						{
 							item = (ushort)mod.TileType("WaveBeamTile");
 						}
-						else if (rand == 7)
+						else if (rand == 6)
 						{
 							item = (ushort)mod.TileType("SpazerTile");
 						}
-						else if (rand == 8)
+						else if (rand == 7)
 						{
 							item = (ushort)mod.TileType("XRayScopeTile");
 						}
-						else if (rand == 9)
+						else if (rand == 8 || rand == 9)
 						{
 							item = (ushort)mod.TileType("SpaceJumpBootsTile");
 						}
 						while (!flag)
 						{
 							if (AddChozoStatue(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)WorldGen.worldSurface, Main.maxTilesY - 100), item))
+							{
+								flag = true;
+							}
+							else
+							{
+								num3++;
+								if (num3 >= 10000)
+								{
+									flag = true;
+								}
+							}
+						}
+						
+					}
+				}));
+				tasks.Insert(PotsIndex - 1, new PassLegacy("Missile Expansions", delegate (GenerationProgress progress)
+				{
+					progress.Message = "Placing Missile Expansions";
+					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05); i++)
+					{
+						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05));
+						bool flag = false;
+						int num3 = 0;
+						while (!flag)
+						{
+							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.worldSurface, Main.maxTilesY - 100)))
 							{
 								flag = true;
 							}
