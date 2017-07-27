@@ -127,6 +127,7 @@ namespace MetroidMod.NPCs.Torizo
 				P = Main.player[npc.target];
 				if (!P.active || P.dead)
 				{
+					NPC.NewNPC((Main.spawnTileX + 217) * 16, (Main.spawnTileY + 500 - 3) * 16, mod.NPCType("TorizoIdle"));
 					npc.active = false;
 				}
 			}
