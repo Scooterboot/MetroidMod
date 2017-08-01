@@ -386,7 +386,7 @@ namespace MetroidMod.Items.weapons
 						for(int i = 0; i < Main.maxNPCs; i++)
 						{
 							NPC npc = Main.npc[i];
-							if(npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && Collision.CanHit(player.Center, 1, 1, npc.position, npc.width, npc.height))
+							if(npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && (Collision.CanHit(player.Center, 1, 1, npc.position, npc.width, npc.height) || npc.noTileCollide))
 							{
 								Rectangle npcRect = new Rectangle((int)npc.position.X,(int)npc.position.Y,npc.width,npc.height);
 								if(mouse.Intersects(npcRect) && mi.seekerTarget[targetNum] <= -1 && (targetingDelay <= 0 || prevTarget != npc.whoAmI) && mi.statMissiles > mi.numSeekerTargets)
