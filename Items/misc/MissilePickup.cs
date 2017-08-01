@@ -35,6 +35,7 @@ namespace MetroidMod.Items.misc
 				}
 			}
 			Main.PlaySound(7,(int)player.position.X,(int)player.position.Y,1);
+			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.White, item.stack, false, false);
 			return false;
 		}
 	}
