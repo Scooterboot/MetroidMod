@@ -26,7 +26,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 3;
             item.value = 6000;
-            item.defense = 3;
+            item.defense = 7;
         }
 
         public override void UpdateEquip(Player player)
