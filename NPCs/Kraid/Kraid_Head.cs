@@ -140,6 +140,15 @@ namespace MetroidMod.NPCs.Kraid
 			{
 				npc.timeLeft = 60;
 			}
+			if (!player.active || player.dead)
+			{
+				npc.TargetClosest(true);
+				player = Main.player[npc.target];
+				if (!player.active || player.dead)
+				{
+					npc.position.Y += 10;
+				}
+			}
 
 			if(Body == null || !Body.active)
 			{
