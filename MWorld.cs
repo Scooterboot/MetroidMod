@@ -24,7 +24,7 @@ namespace MetroidMod
 		{
 			downedTorizo = false;
 			downedSerris = false;
-			downedKraid - false;
+			downedKraid = false;
 			downedPhantoon = false;
 		}
 
