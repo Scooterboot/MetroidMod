@@ -853,7 +853,10 @@ namespace MetroidMod.NPCs.Kraid
 
 			return false;
 		}
-		
+		public override void BossHeadSlot(ref int index)
+		{
+			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.KraidHead + state);
+		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			if (Main.netMode != 2)
