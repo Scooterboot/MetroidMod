@@ -42,14 +42,37 @@ namespace MetroidMod.NPCs.Kraid
 			npc.buffImmune[24] = true;
 			npc.buffImmune[31] = true;
 			npc.buffImmune[39] = true;
-			//bossBag = mod.ItemType("SerrisBag");
+			bossBag = mod.ItemType("KraidBag");
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid");
 		}
-		/*public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
-			npc.lifeMax = (int)(npc.lifeMax * 0.7f * bossLifeScale) + 51;
+			npc.lifeMax = (int)(npc.lifeMax * 0.7f * bossLifeScale) + 1;
 			npc.damage = (int)(npc.damage * 0.7f);
-		}*/
+		}
+		public override void NPCLoot()
+		{
+			MWorld.downedKraid = true;
+			if (Main.expertMode)
+			{
+				npc.DropBossBags();
+			}
+			else
+			{
+				if (Main.rand.Next(5) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("KraidPhantoonMusicBox"));
+				}
+				if (Main.rand.Next(7) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("KraidMask"));
+				}
+				if (Main.rand.Next(10) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("KraidTrophy"));
+				}
+			}
+		}
 
 		int state = 0;
 
