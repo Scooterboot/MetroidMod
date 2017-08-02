@@ -29,6 +29,7 @@ namespace MetroidMod {
 		internal static ModHotKey PowerBombKey;
 		internal static ModHotKey SenseMoveKey;
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
+		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
 		public static Mod Instance;
 		public MetroidMod()
 		{
@@ -56,9 +57,13 @@ namespace MetroidMod {
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid"), ItemType("KraidPhantoonMusicBox"), TileType("KraidPhantoonMusicBox"));
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Ridley"), ItemType("RidleyMusicBox"), TileType("RidleyMusicBox"));
 			}
-			for (int k = 1; k <= 7; k++)
+			for (int s = 1; s <= 7; s++)
 			{
-				AddBossHeadTexture(SerrisHead + k);
+				AddBossHeadTexture(SerrisHead + s);
+			}
+			for (int k = 0; k <= 3; k++)
+			{
+				AddBossHeadTexture(KraidHead + k);
 			}
 		}
 		static int z = 0;
