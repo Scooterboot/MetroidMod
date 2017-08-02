@@ -119,7 +119,7 @@ namespace MetroidMod.NPCs.Kraid
 				{
 					Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/KraidSwipeSound"));
 
-					Vector2 clawPos = npc.Center + new Vector2(-(float)(npc.width/2)*Head.direction,(float)npc.height/2 - 14f);//+new Vector2(48*Head.direction,-36);
+					Vector2 clawPos = npc.Center;
 					float trot = (float)Math.Atan2(player.Center.Y-clawPos.Y,player.Center.X-clawPos.X);
 					float speed = 8f;
 					Vector2 clawVel = new Vector2((float)Math.Cos(trot)*speed,(float)Math.Sin(trot)*speed);
