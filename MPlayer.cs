@@ -1624,6 +1624,7 @@ namespace MetroidMod
 			detect = false;
 			float mult = Player.jumpSpeed - (Player.jumpHeight/Player.jumpSpeed) + player.gravity;
 			float threshhold = Player.jumpSpeed*mult;
+			float minimum = 2.5f;
 			for(int k = 0; k < Main.npc.Length; k++)
 			{
 				NPC N = Main.npc[k];
@@ -1742,10 +1743,14 @@ namespace MetroidMod
 					}
 				}
 			}
-			right.X = right.X > threshhold ? threshhold : (right.X < -threshhold ? -threshhold : right.X);
+			/*right.X = right.X > threshhold ? threshhold : (right.X < -threshhold ? -threshhold : right.X);
 			right.Y = right.Y > threshhold ? threshhold : (right.Y < -threshhold ? -threshhold : right.Y);
 			left.X = left.X > threshhold ? threshhold : (left.X < -threshhold ? -threshhold : left.X);
-			left.Y = left.Y > threshhold ? threshhold : (left.Y < -threshhold ? -threshhold : left.Y);
+			left.Y = left.Y > threshhold ? threshhold : (left.Y < -threshhold ? -threshhold : left.Y);*/
+			right.X =  Math.Abs(right.X) > threshhold ? threshhold : (Math.Abs(right.X) < minimum*3 ? minimum*3 : Math.Abs(right.X));
+			right.Y = right.Y > -minimum ? -minimum : (right.Y < -threshhold ? -threshhold : right.Y);
+			left.X = Math.Abs(left.X) > threshhold ? -threshhold : (Math.Abs(left.X) < minimum*3 ? -minimum*3 : -Math.Abs(left.X));
+			left.Y = left.Y > -minimum ? -minimum : (left.Y < -threshhold ? -threshhold : left.Y);
 			if(detect && !mp.ballstate && !P.mount.Active && P.velocity.Y == 0f)
 			{
 				if(!isSenseMoving)
