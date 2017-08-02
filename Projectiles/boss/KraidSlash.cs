@@ -27,7 +27,10 @@ namespace MetroidMod.Projectiles.boss
 			projectile.extraUpdates = 0;
 			Main.projFrames[projectile.type] = 3;
 		}
-
+		public override void ModifyDamageHitbox(ref Rectangle hitbox)
+		{
+			hitbox = new Rectangle((int)projectile.position.X + (int)(projectile.velocity.X*10), (int)projectile.position.Y + (int)(projectile.velocity.Y*10), projectile.width, projectile.height);
+		}
 		float alpha = 1f;
 		public override void AI()
 		{
