@@ -27,10 +27,7 @@ namespace MetroidMod.Projectiles.boss
 			projectile.extraUpdates = 0;
 			Main.projFrames[projectile.type] = 3;
 		}
-		public override void ModifyDamageHitbox(ref Rectangle hitbox)
-		{
-			hitbox = new Rectangle((int)projectile.position.X + (int)(projectile.velocity.X*10), (int)projectile.position.Y + (int)(projectile.velocity.Y*10), projectile.width, projectile.height);
-		}
+
 		float alpha = 1f;
 		public override void AI()
 		{
@@ -68,7 +65,7 @@ namespace MetroidMod.Projectiles.boss
 			Texture2D tex = Main.projectileTexture[projectile.type];
 			int num108 = tex.Height / Main.projFrames[projectile.type];
 			int y4 = num108 * projectile.frame;
-			sb.Draw(tex, new Vector2((float)((int)(projectile.Center.X - Main.screenPosition.X)), (float)((int)(projectile.Center.Y - Main.screenPosition.Y + projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), projectile.GetAlpha(Color.White)*alpha, projectile.rotation, new Vector2((float)tex.Width/2f, (float)tex.Height/2f), projectile.scale, effects, 0f);
+			sb.Draw(tex, new Vector2((float)((int)(projectile.Center.X - Main.screenPosition.X)), (float)((int)(projectile.Center.Y - Main.screenPosition.Y + projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), projectile.GetAlpha(Color.White)*alpha, projectile.rotation, new Vector2((float)tex.Width/2f, (float)num108/2f), projectile.scale, effects, 0f);
 			return false;
 		}
 	}
