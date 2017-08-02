@@ -18,11 +18,13 @@ namespace MetroidMod
     {
 		public static bool downedTorizo = false;
 		public static bool downedSerris = false;
+		public static bool downedKraid = false;
 		public static bool downedPhantoon = false;
 		public override void Initialize()
 		{
 			downedTorizo = false;
 			downedSerris = false;
+			downedKraid - false;
 			downedPhantoon = false;
 		}
 
@@ -31,6 +33,7 @@ namespace MetroidMod
 			var downed = new List<string>();
 			if (downedTorizo) downed.Add("Torizo");
 			if (downedSerris) downed.Add("Serris");
+			if (downedKraid) downed.Add("Kraid");
 			if (downedPhantoon) downed.Add("Phantoon");
 
 			return new TagCompound {
@@ -43,6 +46,7 @@ namespace MetroidMod
 			var downed = tag.GetList<string>("downed");
 			downedTorizo = downed.Contains("Torizo");
 			downedSerris = downed.Contains("Serris");
+			downedKraid = downed.Contains("Kraid");
 			downedPhantoon = downed.Contains("Phantoon");
 		}
 
@@ -54,7 +58,8 @@ namespace MetroidMod
 				BitsByte flags = reader.ReadByte();
 				downedTorizo = flags[0];
 				downedSerris = flags[1];
-				downedPhantoon = flags[2];
+				downedKraid = flags[2];
+				downedPhantoon = flags[3];
 			}
 			else
 			{
@@ -67,7 +72,8 @@ namespace MetroidMod
 			BitsByte flags = new BitsByte();
 			flags[0] = downedTorizo;
 			flags[1] = downedSerris;
-			flags[2] = downedPhantoon;
+			flags[2] = downedKraid;
+			flags[3] = downedPhantoon;
 			writer.Write(flags);
 
 		}
@@ -77,7 +83,8 @@ namespace MetroidMod
 			BitsByte flags = reader.ReadByte();
 			downedTorizo = flags[0];
 			downedSerris = flags[1];
-			downedPhantoon = flags[2];
+			downedKraid = flags[2];
+			downedPhantoon = flags[3];
 		}
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
