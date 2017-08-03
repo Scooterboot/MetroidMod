@@ -59,7 +59,7 @@ public override void RightClick(int i, int j)
 		{
 			int x = i - (Main.tile[i, j].frameX / 18) % 2;
 			int y = j - (Main.tile[i, j].frameY / 18) % 2;
-			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("MissilePickup"), 255);
+			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("MissilePickup"), 10 + Main.rand.Next(16));
 			if (Wiring.running)
 			{
 				Wiring.SkipWire(x, y);
