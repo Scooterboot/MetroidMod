@@ -186,27 +186,73 @@ namespace MetroidMod
 		}
 		public override void PostWorldGen()
 		{
+			int ruinsX = Main.spawnTileX + 150;
+			int ruinsY = Main.spawnTileY + 470;
 			for (int i = 0; i < 69; i++)
 			{
 				for (int j = 0; j < 29; j++)
 				{
-					WorldGen.KillWall(Main.spawnTileX + 151 + i, Main.spawnTileY + 471 + j);
-					WorldGen.KillTile(Main.spawnTileX + 151 + i, Main.spawnTileY + 471 + j);
-					WorldGen.PlaceWall(Main.spawnTileX + 151 + i, Main.spawnTileY + 471 + j, 5);
+					WorldGen.KillWall(ruinsX + 1 + i, ruinsY + 1 + j);
+					WorldGen.KillTile(ruinsX + 1 + i, ruinsY + 1 + j);
+					WorldGen.PlaceWall(ruinsX + 1 + i, ruinsY + 1 + j, 5);
 				}
-				WorldGen.KillTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470);
-				WorldGen.KillTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 500);
-				WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 470, TileID.GrayBrick);
-				WorldGen.PlaceTile(Main.spawnTileX + 150 + i, Main.spawnTileY + 500, TileID.GrayBrick);	
+				WorldGen.KillTile(ruinsX + i, ruinsY);
+				WorldGen.KillTile(ruinsX + i, ruinsY + 30);
+				WorldGen.PlaceTile(ruinsX + i, ruinsY, TileID.GrayBrick);
+				WorldGen.PlaceTile(ruinsX + i, ruinsY + 30, TileID.GrayBrick);	
 			}				
 			for (int k = 0; k < 30; k++)
 			{
-				WorldGen.KillTile(Main.spawnTileX + 150, Main.spawnTileY + 470 + k);
-				WorldGen.KillTile(Main.spawnTileX + 220, Main.spawnTileY + 470 + k);
-				WorldGen.PlaceTile(Main.spawnTileX + 150, Main.spawnTileY + 470 + k, TileID.GrayBrick);
-				WorldGen.PlaceTile(Main.spawnTileX + 220, Main.spawnTileY + 470 + k, TileID.GrayBrick);
+				WorldGen.KillTile(ruinsX, ruinsY + k);
+				WorldGen.KillTile(ruinsX + 69, ruinsY + k);
+				WorldGen.PlaceTile(ruinsX, ruinsY + k, TileID.GrayBrick);
+				WorldGen.PlaceTile(ruinsX + 69, ruinsY + k, TileID.GrayBrick);
 			}
 			NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
+			SaveRoom(ruinsX - 11, ruinsY + 24);
+			Hatch(ruinsX - 2, ruinsY + 26);
+		}
+		public static void Hatch(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int x = i; x < i + 3; x++)
+			{
+				for (int y = j; y < j + 5; y++)
+				{
+					WorldGen.KillTile(x, y);
+				}
+				WorldGen.PlaceTile(x, j, TileID.GrayBrick);
+				WorldGen.PlaceTile(x, j + 4, TileID.GrayBrick);
+			}
+			WorldGen.PlaceObject(i + 1, j + 3, mod.TileType("BlueHatch"), false, 0, 0, -1, 1);
+		}
+		public static void SaveRoom(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int wx = i + 1; wx < i + 9; wx++)
+			{
+				for (int wy = j + 1; wy < j + 6; wy++)
+				{
+					WorldGen.KillWall(wx, wy);
+					WorldGen.KillTile(wx, wy);
+					WorldGen.PlaceWall(wx, wy, 5);
+				}
+			}
+			for (int x = i; x < i + 10; x++)
+			{
+				WorldGen.KillTile(x, j);
+				WorldGen.KillTile(x, j + 6);
+				WorldGen.PlaceTile(x, j, TileID.GrayBrick);
+				WorldGen.PlaceTile(x, j + 6, TileID.GrayBrick);
+			}
+			for (int y = j + 1; y < j + 5; y++)
+			{
+				WorldGen.KillTile(i, y);
+				WorldGen.KillTile(i + 9, y);
+				WorldGen.PlaceTile(i, y, TileID.GrayBrick);
+				WorldGen.PlaceTile(i + 9, y, TileID.GrayBrick);
+			}
+			WorldGen.PlaceObject(i + 5, j + 5, mod.TileType("SaveStation"), false, 0, 0, -1, 1);	
 		}
 		public static bool AddExpansion(int i, int j)
 		{
