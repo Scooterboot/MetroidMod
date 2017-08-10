@@ -28,11 +28,12 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
+			TileID.Sets.HousingWalls[Type] = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Red Hatch");
 			AddMapEntry(new Color(160, 0, 0), name);
 			dustType = 1;
-		//	animationFrameHeight = 54;
+			adjTiles = new int[]{ TileID.OpenDoor };
 		}
 
 		public override bool Slope(int i, int j)
