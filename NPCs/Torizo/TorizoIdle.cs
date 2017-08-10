@@ -85,11 +85,11 @@ namespace MetroidMod.NPCs.Torizo
 				npc.ai[3] = 0;
 				npc.direction = -1;
 				npc.life = 250;
-				npc.homeless = false;
+				npc.homeless = true;
 				tp++;
 				if (tp > 7200)
 				{
-					npc.position = new Vector2((Main.spawnTileX + 217) * 16, (Main.spawnTileY + 500 - 3) * 16);
+					npc.position = new Vector2((Main.spawnTileX + 216) * 16, (Main.spawnTileY + 497) * 16);
 					tp = 0;
 				}
 				if (NPC.AnyNPCs(mod.NPCType("Torizo")))
