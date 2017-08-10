@@ -17,7 +17,6 @@ namespace MetroidMod.Tiles
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolid[Type] = false;
 			Main.tileLavaDeath[Type] = false;
-			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3); 
 			//TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width - 2, 1);
@@ -28,11 +27,12 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
+			TileID.Sets.HousingWalls[Type] = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Yellow Hatch");
 			AddMapEntry(new Color(248, 232, 56), name);
 			dustType = 1;
-		//	animationFrameHeight = 54;
+			adjTiles = new int[]{ TileID.OpenDoor };
 		}
 
 		public override bool Slope(int i, int j)
