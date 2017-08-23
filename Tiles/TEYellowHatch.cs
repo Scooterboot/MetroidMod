@@ -24,10 +24,10 @@ namespace MetroidMod.Tiles
 				 for (int l = 0; l < 200; l++)
             {
 				Projectile p = Main.projectile[l];
-				float px = Math.Abs((p.Center.X / 16) - (x +1.5f));
+			float px = Math.Abs((p.Center.X / 16) - (x +1.5f));
 				float py = Math.Abs((p.Center.Y / 16) - (y +1.5f));
-				
-				if (p.type == mod.ProjectileType("PowerBombExplosion") && p.friendly && p.active && px < (2.5f + p.width/32) && py < (1.5f + p.width/32))
+				//Rectangle hitbox = new Rectangle(x*16, y*16, (x+3)*16, (y+3)*16);
+				if (p.type == mod.ProjectileType("PowerBombExplosion") && p.friendly && /*p.Hitbox.Intersects(hitbox)*/ px < (2.5f + p.width/32) && py < (2.5f + p.width/32))
 				{
 					//Main.NewText("px is " + px);
 					//Main.NewText("py is " + py);
@@ -54,6 +54,10 @@ namespace MetroidMod.Tiles
 							{
 								Main.tile[l,m].type = (ushort)mod.TileType("YellowHatchOpen");
 							}
+							if (Main.tile[l, m].active() && Main.tile[l, m].type == (ushort)mod.TileType("YellowHatchVertical"))
+							{
+								Main.tile[l,m].type = (ushort)mod.TileType("YellowHatchOpenVertical");
+							}
 						}
 					}
 				}
@@ -70,11 +74,11 @@ for (int l = x; l < x + 3; l++)
 						{
 							Main.tile[l, m] = new Tile();
 						}
-						if (Main.tile[l, m].active() && Main.tile[l, m].type == (ushort)mod.TileType("YellowHatchOpen"))
+						if (Main.tile[l, m].active() && (Main.tile[l, m].type == (ushort)mod.TileType("YellowHatchOpen") || Main.tile[l, m].type == (ushort)mod.TileType("YellowHatchOpenVertical")))
 						{
 							open = true;
 						}
-						if (Main.tile[l, m].active() && Main.tile[l, m].type == (ushort)mod.TileType("YellowHatch"))
+						if (Main.tile[l, m].active() && (Main.tile[l, m].type == (ushort)mod.TileType("YellowHatch") || Main.tile[l, m].type == (ushort)mod.TileType("YellowHatchVertical")))
 						{
 							open = false;
 						}
@@ -96,6 +100,10 @@ for (int l = x; l < x + 3; l++)
 						{
 							Main.tile[l,m].type = (ushort)mod.TileType("YellowHatch");
 						}
+						if (Main.tile[l, m].active() && Main.tile[l, m].type == (ushort)mod.TileType("YellowHatchOpenVertical"))
+						{
+							Main.tile[l,m].type = (ushort)mod.TileType("YellowHatchVertical");
+						}
 					}
 				}
 			}
@@ -104,7 +112,7 @@ for (int l = x; l < x + 3; l++)
 		public override bool ValidTile(int i, int j)
 		{
 			Tile tile = Main.tile[i, j];
-			return tile.active() && (tile.type == mod.TileType("YellowHatch") || tile.type == mod.TileType("YellowHatchOpen")) && tile.frameX == 0 && tile.frameY == 0;
+			return tile.active() && (tile.type == mod.TileType("YellowHatchVertical") ||tile.type == mod.TileType("YellowHatchOpenVertical") || tile.type == mod.TileType("YellowHatch") || tile.type == mod.TileType("YellowHatchOpen")) && tile.frameX == 0 && tile.frameY == 0;
 		}
 
 		public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
