@@ -9,12 +9,12 @@ namespace MetroidMod.Items.tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blue Hatch");
-			Tooltip.SetDefault("Opens when hit with any projectile or right clicked");
+			Tooltip.SetDefault("Opens when hit with any projectile or right clicked\n" + "Right click to place vertically");
 		}
 		public override void SetDefaults()
 		{
-			item.width = 54;
-			item.height = 48;
+			item.width = 40;
+			item.height = 36;
 			item.maxStack = 999;
 			item.useTurn = true;
 			item.autoReuse = true;
@@ -23,6 +23,23 @@ namespace MetroidMod.Items.tiles
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("BlueHatch");
+		}
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player.altFunctionUse == 2)
+			{
+				item.createTile = mod.TileType("BlueHatchVertical");
+			}
+			else
+			{
+				item.createTile = mod.TileType("BlueHatch");
+			}
+			return base.CanUseItem(player);
 		}
 public override void AddRecipes()
 		{
