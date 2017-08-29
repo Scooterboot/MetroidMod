@@ -52,6 +52,8 @@ namespace MetroidMod.Projectiles.chargelead
 			
 			MPlayer mp = O.GetModPlayer<MPlayer>(mod);
 			
+			mp.chargeColor = LightColor;
+			
 			float MY = Main.mouseY + Main.screenPosition.Y;
 			float MX = Main.mouseX + Main.screenPosition.X;
 			if (O.gravDir == -1f)
