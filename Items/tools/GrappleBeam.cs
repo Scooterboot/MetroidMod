@@ -9,13 +9,6 @@ namespace MetroidMod.Items.tools
 {
     public class GrappleBeam : ModItem
     {
-        public override void SetDefaults()
-        {
-            //clone and modify the ones we want to copy
-            item.CloneDefaults(ItemID.AmethystHook);
-            item.shootSpeed = 25f; // how quickly the hook is shot.
-            item.shoot = mod.ProjectileType("GrappleBeamShot");
-        }
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Grappling Beam");
@@ -23,6 +16,19 @@ namespace MetroidMod.Items.tools
             "Press left or right to swing\n" + 
             "Press up or down to ascend or descend the grapple");
 		}
+        public override void SetDefaults()
+        {
+            //clone and modify the ones we want to copy
+            item.CloneDefaults(ItemID.AmethystHook);
+
+			item.width = 20;
+			item.height = 20;
+			item.value = 20000;
+			item.rare = 2;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/GrappleBeamSound");
+			item.shoot = mod.ProjectileType("GrappleBeamShot");
+			item.shootSpeed = 12f;
+        }
         public override void AddRecipes()  //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod); 
