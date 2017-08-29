@@ -9,23 +9,25 @@ namespace MetroidMod.Projectiles
 {
 	public class GrappleBeamShot : ModProjectile
 	{
-			//private float grappleRotation = 0f;
-			private bool isHooked;
-			private int grappleSwing = -1;
-			private float maxDist;
-			private int jump = 0;
-			private int soundDelay = 41;
-			
-		public override void SetDefaults()
-		{
-				projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
-				projectile.width = 18;
-				projectile.height = 18;
-		}
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Grapple Beam");
+		}
+		public override void SetDefaults()
+		{
+			projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
+
+			projectile.width = 18;
+			projectile.height = 18;
+			//projectile.aiStyle = 0;
+			projectile.timeLeft = 3600;
+			projectile.friendly = true;
+			projectile.hostile = false;
+			projectile.tileCollide = false;
+			projectile.penetrate = 1;
+			projectile.ignoreWater = true;
+			projectile.ranged = true;
+			projectile.extraUpdates = 3;
 		}
 
 		public override bool? SingleGrappleHook(Player player)
@@ -37,7 +39,7 @@ namespace MetroidMod.Projectiles
 		// You can also change the projectile likr: Dual Hook, Lunar Hook
 		public override void UseGrapple(Player player, ref int type)
 		{
-			Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/GrappleBeamSound"));
+			//Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/GrappleBeamSound"));
 			int hooksOut = 0;
 			int oldestHookIndex = -1;
 			int oldestHookTimeLeft = 100000;
@@ -76,36 +78,28 @@ namespace MetroidMod.Projectiles
 			speed = 40f;
 		}
 
-public override bool PreAI()
-{
-	return false;
-}
+		private Player owner;
+		private bool isHooked;
+		public override bool PreAI()
+		{
+			owner = Main.player[projectile.owner];
+			return false;
+		}
 		public override void PostAI()
 		{
-			Player owner = Main.player[projectile.owner];
-			MPlayer mp = owner.GetModPlayer<MPlayer>(mod);
-				mp.grappleBeamIsHooked = isHooked;
-			if (owner.dead || (Vector2.Distance(owner.Center, projectile.Center) > 465 && !isHooked) || (Vector2.Distance(owner.Center, projectile.Center) > 525 && isHooked))
+			if (owner.dead || (Vector2.Distance(owner.Center, projectile.Center) > 400 && !isHooked) || (Vector2.Distance(owner.Center, projectile.Center) > 450 && isHooked) || (owner.controlJump && owner.releaseJump))
 			{
 				projectile.Kill();
 				isHooked = false;
 				return;
 			}
-			
-			
-			
-			Terraria.Projectile P = projectile;
-	/*		Vector2 mountedCenter = Main.player[P.owner].MountedCenter;
-			Vector2 vector6 = new Vector2(P.position.X + (float)P.width * 0.5f, P.position.Y + (float)P.height * 0.5f);
-			float num69 = mountedCenter.X - vector6.X;
-			float num70 = mountedCenter.Y - vector6.Y;
-			float num71 = (float)Math.Sqrt((double)(num69 * num69 + num70 * num70));
-			P.rotation = (float)Math.Atan2((double)num70, (double)num69) - 1.57f;
-	*/		if (isHooked)
+			Projectile P = projectile;
+			MPlayer mp = owner.GetModPlayer<MPlayer>(mod);
+			if (isHooked)
 			{
 				P.ai[0] = 2f;
-				projectile.velocity = default(Vector2);
-				projectile.timeLeft = 2;
+				P.velocity = default(Vector2);
+				P.timeLeft = 2;
 				int num124 = (int)(P.position.X / 16f) - 1;
 				int num125 = (int)((P.position.X + (float)P.width) / 16f) + 2;
 				int num126 = (int)(P.position.Y / 16f) - 1;
@@ -150,7 +144,7 @@ public override bool PreAI()
 				}
 				else //if (owner.grapCount < 10)
 				{
-					grappleSwing = P.whoAmI;
+					mp.grapplingBeam = P.whoAmI;
 					//owner.grapCount++;
 				}
 			}
@@ -191,20 +185,25 @@ public override bool PreAI()
 						vector8.Y = (float)(num116 * 16);
 						if (P.position.X + (float)P.width > vector8.X && P.position.X < vector8.X + 16f && P.position.Y + (float)P.height > vector8.Y && P.position.Y < vector8.Y + 16f && Main.tile[num115, num116].nactive() && (Main.tileSolid[(int)Main.tile[num115, num116].type] || Main.tile[num115, num116].type == 314))
 						{
-							maxDist = Vector2.Distance(owner.Center, projectile.Center);
+							Main.PlaySound(SoundLoader.customSoundType, (int)owner.Center.X, (int)owner.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/GrappleLatch"));
+							mp.maxDist = Vector2.Distance(owner.Center, P.Center);
 							//if (owner.grapCount < 10)
 							//{
-								grappleSwing = P.whoAmI;
+								mp.grapplingBeam = P.whoAmI;
 								//owner.grapCount++;
 							//}
 							P.velocity.X = 0f;
 							P.velocity.Y = 0f;
-							Main.PlaySound(0, num115 * 16, num116 * 16, 1, 1f, 0f);
 							isHooked = true;
 							P.position.X = (float)(num115 * 16 + 8 - P.width / 2);
 							P.position.Y = (float)(num116 * 16 + 8 - P.height / 2);
 							P.damage = 0;
 							P.netUpdate = true;
+							if (Main.myPlayer == P.owner)
+							{
+								//NetMessage.SendData(13, -1, -1, "", P.owner, 0f, 0f, 0f, 0f);
+								break;
+							}
 							//Vector2 dif = P.position - owner.position;
 							//float dist = (float)Math.Sqrt (dif.X * dif.X + dif.Y *dif.Y);
 							//mp.maxDist = dist;
@@ -229,164 +228,58 @@ public override bool PreAI()
 				int num121 = 1;
 				for (int num122 = 0; num122 < 1000; num122++)
 				{
+					if (Main.projectile[num122].active && Main.projectile[num122].owner == P.owner && (Main.projectile[num122].type == P.type || Main.projectile[num122].aiStyle == 7))
+					{
 						if (Main.projectile[num122].timeLeft < num119)
 						{
 							num118 = num122;
 							num119 = Main.projectile[num122].timeLeft;
 						}
 						num117++;
+					}
 				}
 				if (num117 > num121)
 				{
 					Main.projectile[num118].Kill();
 				}
 			}
-			int tweak2 = 0;
-			Player player = Main.player[projectile.owner];
-			if(grappleSwing >= 0)
-			{
-				soundDelay++;
-			if (soundDelay > 41)
-			{
-				 Main.PlaySound(SoundLoader.customSoundType, (int)owner.position.X, (int)owner.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/GrappleLoop"));
-				soundDelay = 0;
-			}
-					if (player.mount.Active)
-					{
-						player.mount.Dismount(player);
-					}
-					float targetrotation = (float)Math.Atan2(((projectile.Center.Y-player.Center.Y)*player.direction),((projectile.Center.X-player.Center.X)*player.direction));
-					mp.grappleRotation = targetrotation;
-					player.wingTime = 0f;
-					player.rocketTime = player.rocketTimeMax;
-					player.rocketDelay = 0;
-					player.rocketFrame = false;
-					player.canRocket = false;
-					player.rocketRelease = false;
-					player.fallStart = (int)(player.Center.Y / 16f);
-				
-					player.sandStorm = false;
-					//MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
-					//mPlayer.statSpaceJumps = mPlayer.maxSpaceJumps;
-					Vector2 v = player.Center - projectile.Center;
-					float dist = Vector2.Distance(player.Center, projectile.Center);
-					//owner.velocity = tileCollide;
-					bool up = (player.controlUp);
-					bool down = (player.controlDown && maxDist < 465);
-					//float dif = (dist - maxDist)/maxDist;
-					float ndist = Vector2.Distance(player.Center + player.velocity, projectile.Center);
-					float ddist = ndist - dist;
-					//v /= dist;
-					//owner.velocity -= v * ddist;
-					//v *= maxDist;
-					//owner.position = projectile.position + v;
-					float num4 = projectile.Center.X - player.Center.X;
-					float num5 = projectile.Center.Y - player.Center.Y;
-					float num6 = (float)System.Math.Sqrt((double)(num4 * num4 + num5 * num5));
-					float num7 = ddist+player.gravity;
-					if ((player.controlLeft || player.controlRight) && player.velocity.X < 20f && player.velocity.X > -20f)
-					{
-						player.velocity.X *= 1.025f;
-					}
-					if(up)
-					{
-						num7 = 11;
-						maxDist = dist;
-					}
-					if(down)
-					{
-						num7 = -11;
-						maxDist = dist;
-					}
-					float num8;
-					if (num6 > num7)
-					{
-						num8 = num7 / num6;
-					}
-					else
-					{
-						num8 = 1f;
-					}
-					num4 *= num8;
-					num5 *= num8;
-					Vector2 vect = new Vector2(num4, num5);
-					if(up || down)
-					{
-						player.velocity = vect;
-						tweak2 = 2;
-					}
-					else if (dist >= maxDist)
-					{
-						player.velocity += vect;
-						player.maxRunSpeed = 15f;
-						player.runAcceleration *= 3f;
-
-					}
-					if(tweak2 > 0)
-					{
-						if(!up && !down)
-						{
-							player.velocity *= 0;
-						}
-						tweak2--;
-					}
-					if (player.releaseJump)
-					{
-						jump = 1;
-					}
-						
-						if (player.controlJump && jump >= 1)
-						{
-							projectile.Kill();
-							player.wingTime = (float)player.wingTimeMax;
-							if (!player.controlDown && player.velocity.Y > -Player.jumpSpeed)
-							{
-								player.velocity.Y -= Player.jumpSpeed;
-								player.jump = Player.jumpHeight / 2;
-							}
-							grappleSwing = 0;
-							player.grapCount = 0;
-							return;
-						}
-			}
 		}
-		public override bool PreDrawExtras(SpriteBatch spriteBatch)
+		public override bool PreKill(int timeLeft)
 		{
-			return false;
-		}
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
-		{
-			Vector2 mountedCenter = Main.player[projectile.owner].MountedCenter;
-			Vector2 vector14 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-			float num84 = mountedCenter.X - vector14.X;
-			float num85 = mountedCenter.Y - vector14.Y;
-			float rotation13 = (float)Math.Atan2((double)num85, (double)num84) - 1.57f;
-			bool flag11 = true;
-			while (flag11)
-			{
-				float num86 = (float)Math.Sqrt((double)(num84 * num84 + num85 * num85));
-				if (num86 < 30f)
-				{
-					flag11 = false;
-				}
-				else if (float.IsNaN(num86))
-				{
-					flag11 = false;
-				}
-				else
-				{
-					num86 = 24f / num86;
-					num84 *= num86;
-					num85 *= num86;
-					vector14.X += num84;
-					vector14.Y += num85;
-					num84 = mountedCenter.X - vector14.X;
-					num85 = mountedCenter.Y - vector14.Y;
-					Color color15 = Lighting.GetColor((int)vector14.X / 16, (int)(vector14.Y / 16f));
-					Main.spriteBatch.Draw(mod.GetTexture("Gore/GrappleBeamChain"), new Vector2(vector14.X - Main.screenPosition.X, vector14.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.chain30Texture.Width, Main.chain30Texture.Height)), color15, rotation13, new Vector2((float)Main.chain30Texture.Width * 0.5f, (float)Main.chain30Texture.Height * 0.5f), 1f, SpriteEffects.None, 0f);
-				}
-			}
+			isHooked = false;
 			return true;
+		}
+
+		public override bool PreDraw(SpriteBatch s, Color lightColor)
+		{
+			this.DrawChain(owner.Center, projectile.Center, mod.GetTexture("Gore/GrappleBeamChain"), s);
+			return true;
+		}
+		public void DrawChain(Vector2 start, Vector2 end, Texture2D name, SpriteBatch spriteBatch)
+		{
+			start -= Main.screenPosition;
+			end -= Main.screenPosition;
+
+			int linklength = name.Height;
+			Vector2 chain = end - start;
+
+			float length = (float)chain.Length();
+			int numlinks = (int)Math.Ceiling(length/linklength);
+			Vector2[] links = new Vector2[numlinks];
+			float rotation = (float)Math.Atan2(chain.Y, chain.X);
+
+			for (int i = 0; i < numlinks; i++)
+			{
+				links[i] =start + chain/numlinks * i;
+				Vector2 LR = links[i]+Main.screenPosition;
+
+				Color color = Lighting.GetColor((int)((links[i].X+Main.screenPosition.X)/16), (int)((links[i].Y+Main.screenPosition.Y)/16));
+				spriteBatch.Draw(name,
+				new Rectangle((int)links[i].X, (int)links[i].Y, name.Width, linklength), null,
+				color, rotation+1.57f, new Vector2(name.Width/2f, linklength), SpriteEffects.None, 1f);
+
+				Lighting.AddLight(LR, 229f/255f, 249f/255f, 255f/255f);
+			}
 		}
 	}
 }
