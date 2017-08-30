@@ -1642,6 +1642,7 @@ namespace MetroidMod
 				player.maxRunSpeed = 0f;
 				//player.noItems = true;
 				player.controlUseItem = false;
+				player.controlHook = false;
 				if (Main.myPlayer == player.whoAmI)
 				{
 					player.mount.Dismount(player);
