@@ -6,6 +6,7 @@ using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.Localization;
 using System;
 
 namespace MetroidMod.Tiles
@@ -68,12 +69,12 @@ namespace MetroidMod.Tiles
 			if (player.SpawnX == spawnX && player.SpawnY == spawnY)
 			{
 				player.RemoveSpawn();
-				Main.NewText("Spawn point removed!", 255, 240, 20, false);
+				Main.NewText(Language.GetTextValue("Game.SpawnPointRemoved"), 255, 240, 20, false);
 			}
 			else if (Player.CheckSpawn(spawnX, spawnY))
 			{
 				player.ChangeSpawn(spawnX, spawnY);
-				Main.NewText("Spawn point set!", 255, 240, 20, false);
+				Main.NewText(Language.GetTextValue("Game.SpawnPointSet"), 255, 240, 20, false);
 			}
 		}
 	}
