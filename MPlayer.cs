@@ -1579,7 +1579,7 @@ namespace MetroidMod
 			{
 				speedBuildUp = 0f;
 			}
-			player.maxRunSpeed += (speedBuildUp*0.036f);
+			player.maxRunSpeed += (speedBuildUp*0.06f);
 			if(mp.speedBoosting)
 			{
 				player.armorEffectDrawShadow = true;
