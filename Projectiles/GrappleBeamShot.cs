@@ -255,6 +255,10 @@ namespace MetroidMod.Projectiles
 			this.DrawChain(owner.Center, projectile.Center, mod.GetTexture("Gore/GrappleBeamChain"), s);
 			return true;
 		}
+		public override bool PreDrawExtras(SpriteBatch spriteBatch)
+		{
+			return false;
+		}
 		public void DrawChain(Vector2 start, Vector2 end, Texture2D name, SpriteBatch spriteBatch)
 		{
 			start -= Main.screenPosition;
