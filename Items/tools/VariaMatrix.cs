@@ -28,17 +28,17 @@ namespace MetroidMod.Items.tools
 			item.value = 1000;
 			item.rare = 7;
 		}
-        /*public override void AddRecipes()
+        public override void AddRecipes()
 		{
 				ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Wire, 20);
-			recipe.AddIngredient(ItemID.SuspiciousLookingEye);
-            recipe.AddIngredient(ItemID.Gel, 20);
-			recipe.AddIngredient(ItemID.SoulofNight, 5);
-			recipe.AddTile(TileID.DemonAltar);
+			recipe.AddIngredient(ItemID.HellstoneBar, 5);
+            recipe.AddIngredient(ItemID.SoulofLight, 3);
+			recipe.AddIngredient(ItemID.SoulofNight, 3);
+			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}*/
+		}
         public override bool CanUseItem(Player player)
 		{
 			return !NPC.AnyNPCs(mod.NPCType("Kraid_Head"));
