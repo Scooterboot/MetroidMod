@@ -210,8 +210,11 @@ namespace MetroidMod
 			}
 			NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
 			DeathHall(ruinsX - 58, ruinsY + 24);
-			SaveRoom(ruinsX - 9, ruinsY + 24);
+			Shaft(ruinsX - 82, ruinsY - 22);
 			Hatch(ruinsX - 60, ruinsY + 26);
+			Hatch(ruinsX - 84, ruinsY + 26);
+			VerticalHatch(ruinsX - 73, ruinsY - 24);
+			SaveRoom(ruinsX - 9, ruinsY + 24);	
 		}
 		public static void Hatch(int i, int j)
 		{
@@ -226,6 +229,20 @@ namespace MetroidMod
 				WorldGen.PlaceTile(x, j + 4, TileID.GrayBrick);
 			}
 			WorldGen.PlaceObject(i + 1, j + 3, mod.TileType("BlueHatch"), false, 0, 0, -1, 1);
+		}
+		public static void VerticalHatch(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int x = i; x < i + 5; x++)
+			{
+				for (int y = j; y < j + 3; y++)
+				{
+					WorldGen.KillTile(x, y);	
+					WorldGen.PlaceTile(i, y, TileID.GrayBrick);
+					WorldGen.PlaceTile(i + 4, y, TileID.GrayBrick);
+				}
+			}
+			WorldGen.PlaceObject(i + 2, j + 2, mod.TileType("BlueHatchVertical"), false, 0, 0, -1, 1);
 		}
 		public static void SaveRoom(int i, int j)
 		{
@@ -293,6 +310,44 @@ namespace MetroidMod
 			WorldGen.PlaceTile(i + 1, j + 6, TileID.GrayBrick);
 			WorldGen.PlaceTile(i + 48, j + 6, TileID.GrayBrick);
 		}
+		public static void Shaft(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int wx = i + 1; wx < i + 22; wx++)
+			{
+				for (int wy = j + 1; wy < j + 52; wy++)
+				{
+					WorldGen.KillWall(wx, wy);
+					WorldGen.KillTile(wx, wy);
+					WorldGen.PlaceWall(wx, wy, 5);
+					if (wy - j % 6 == 0)
+					{
+						int platform = 1 + Main.rand.Next(21);
+						WorldGen.PlaceObject(i + platform - 1, wy - 2, 19, false, 11, 0, -1, 1);
+						WorldGen.PlaceObject(i + platform, wy - 2, 19, false, 11, 0, -1, 1);
+						WorldGen.PlaceObject(i + platform + 1, wy - 2, 19, false, 11, 0, -1, 1);
+					}
+				}
+			}
+			for (int x = i; x < i + 23; x++)
+			{
+				WorldGen.KillTile(x, j);
+				WorldGen.KillTile(x, j + 52);
+				WorldGen.PlaceTile(x, j, TileID.GrayBrick);
+				WorldGen.PlaceTile(x, j + 52, TileID.GrayBrick);
+			}
+			for (int y = j + 1; y < j + 53; y++)
+			{
+				WorldGen.KillTile(i, y);
+				WorldGen.KillTile(i + 22, y);
+				WorldGen.PlaceTile(i, y, TileID.GrayBrick);
+				WorldGen.PlaceTile(i + 22, y, TileID.GrayBrick);
+			}
+			WorldGen.PlaceObject(i + 11, j + 5, 19, false, 11, 0, -1, 1);
+			WorldGen.PlaceObject(i + 12, j + 5, 19, false, 11, 0, -1, 1);
+		}
+
+
 		public static bool AddExpansion(int i, int j)
 		{
 			Mod mod = MetroidMod.Instance;
