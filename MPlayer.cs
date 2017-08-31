@@ -1118,7 +1118,8 @@ namespace MetroidMod
 					}
 					Color color = Lighting.GetColor((int)((double)drawInfo.position.X + (double)P.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)P.height * 0.5) / 16);
 
-					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + new Vector2((float)((int)pos.X),(float)((int)pos.Y)), new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), I.GetAlpha(color), rot, origin, I.scale, effects, 0);
+					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + new Vector2((float)((int)pos.X),(float)((int)pos.Y)), new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), drawInfo.middleArmorColor, rot, origin, I.scale, effects, 0);
+					item.shader = drawInfo.bodyArmorShader;
 					Main.playerDrawData.Add(item);
 				}
 			}
@@ -1136,7 +1137,7 @@ namespace MetroidMod
 					if(mPlayer.thrusterTexture != null)
 					{
 						Texture2D tex = mPlayer.thrusterTexture;
-						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawInfo.bodyColor, drawInfo.bodyArmorShader);
+						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawInfo.middleArmorColor, drawInfo.bodyArmorShader);
 					}
 				}
 			}
@@ -1643,12 +1644,19 @@ namespace MetroidMod
 				//player.noItems = true;
 				player.controlUseItem = false;
 				player.controlHook = false;
+				player.controlMount = false;
 				if (Main.myPlayer == player.whoAmI)
 				{
 					player.mount.Dismount(player);
 				}
+				for (int k = 0; k < 1000; k++)
+				{
+					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
+					{
+						Main.projectile[k].Kill();
+					}
+				}
 				player.controlJump = false;
-				player.releaseJump = true;
 				mp.rotation = 0;
 				player.armorEffectDrawShadow = true;
 				if(shineDirection == 0)
@@ -1838,18 +1846,23 @@ namespace MetroidMod
 		}
         public void MorphBallBasic(Player player)
 		{
-			if (player.grappling[0] >= 0 || grapplingBeam >= 0)
-			{
-				ballstate = false;
-			}
 			if (ballstate)
 			{
 				if (Main.myPlayer == player.whoAmI)
 				{
 					player.mount.Dismount(player);
 				}
-				player.noItems = true;
+				for (int k = 0; k < 1000; k++)
+				{
+					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
+					{
+						Main.projectile[k].Kill();
+					}
+				}
+				//player.noItems = true;
 				player.controlUseItem = false;
+				player.controlHook = false;
+				player.controlMount = false;
 				player.noFallDmg = true;
 				player.scope = false;
 				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
