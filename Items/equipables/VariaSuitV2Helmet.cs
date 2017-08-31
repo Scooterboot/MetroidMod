@@ -10,41 +10,38 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-    [AutoloadEquip(EquipType.Legs)]
-	public class GravitySuitGreaves : ModItem
+[AutoloadEquip(EquipType.Head)]
+	public class VariaSuitV2Helmet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity Suit Greaves");
-			Tooltip.SetDefault("8% increased ranged damage\n" + 
-            "20% increased movement speed\n" + 
-            "+20 overheat capacity\n" + 
-            "Allows you to slide down walls");
+			DisplayName.SetDefault("Varia Suit V2 Helmet");
+			Tooltip.SetDefault("7% increased ranged damage\n" + 
+            "+15 overheat capacity\n" + 
+            "Improved night vision");
 		}
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
             item.rare = 4;
-            item.value = 24000;
-            item.defense = 12;
+            item.value = 9000;
+            item.defense = 10;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.08f;
-            player.moveSpeed += 0.20f;
-            player.spikedBoots += 1;
+            player.rangedDamage += 0.07f;
+            player.nightVision = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-            mp.maxOverheat += 20;
+            mp.maxOverheat += 15;
         }
 
         public override void AddRecipes()
         {
-             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitV2Greaves");
-            recipe.AddIngredient(null, "GravityGel", 15);
-            recipe.AddIngredient(ItemID.SoulofSight, 5);
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "VariaSuitHelmet");
+            recipe.AddIngredient(null, "KraidTissue", 16);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

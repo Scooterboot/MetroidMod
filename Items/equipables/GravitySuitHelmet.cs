@@ -16,7 +16,7 @@ namespace MetroidMod.Items.equipables
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit Helmet");
-			Tooltip.SetDefault("5% increased ranged damage\n" + 
+			Tooltip.SetDefault("8% increased ranged damage\n" + 
             "+20 overheat capacity\n" + 
             "Improved night vision\n" + 
             "Increased jump height");
@@ -31,7 +31,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.05f;
+            player.rangedDamage += 0.08f;
             player.nightVision = true;
             player.jumpBoost = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
@@ -40,20 +40,10 @@ namespace MetroidMod.Items.equipables
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "VariaSuitV2Helmet");
             recipe.AddIngredient(null, "GravityGel", 17);
-            recipe.AddIngredient(ItemID.Wire, 8);
-            recipe.AddIngredient(ItemID.CursedFlame, 8);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
-            recipe.AddIngredient(null, "GravityGel", 17);
-            recipe.AddIngredient(ItemID.Wire, 8);
-            recipe.AddIngredient(ItemID.Ichor, 8);
+            recipe.AddIngredient(ItemID.SoulofSight, 5);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

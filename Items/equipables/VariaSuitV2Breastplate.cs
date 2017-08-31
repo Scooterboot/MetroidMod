@@ -11,49 +11,49 @@ using Microsoft.Xna.Framework.Graphics;
 namespace MetroidMod.Items.equipables
 {
 [AutoloadEquip(EquipType.Body)]
-	public class VariaSuitBreastplate : ModItem
+	public class VariaSuitV2Breastplate : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Varia Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+			DisplayName.SetDefault("Varia Suit V2 Breastplate");
+			Tooltip.SetDefault("7% increased ranged damage\n" +
              "Immunity to fire blocks\n" +
              "Immunity to chill and freeze effects\n" +
-             "+10 overheat capacity");
+             "+15 overheat capacity");
 		}
             public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.rare = 3;
-            item.value = 9000;
-            item.defense = 8;
+            item.rare = 4;
+            item.value = 15000;
+            item.defense = 11;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.05f;
+            player.rangedDamage += 0.07f;
             player.fireWalk = true;
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-            mp.maxOverheat += 10;
+            mp.maxOverheat += 15;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return (head.type == mod.ItemType("VariaSuitHelmet") && body.type == mod.ItemType("VariaSuitBreastplate") && legs.type == mod.ItemType("VariaSuitGreaves"));
+            return (head.type == mod.ItemType("VariaSuitV2Helmet") && body.type == mod.ItemType("VariaSuitV2Breastplate") && legs.type == mod.ItemType("VariaSuitV2Greaves"));
         }
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "55% increased underwater breathing";
+            p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "80% increased underwater breathing";
             p.rangedDamage += 0.05f;
             p.noFallDmg = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
-	    mp.breathMult = 1.55f;
+	    mp.breathMult = 1.8f;
             mp.overheatCost -= 0.25f;
-            mp.SenseMove(p);
+             mp.SenseMove(p);
             mp.visorGlow = true;
             if(!mp.ballstate)
 			{
@@ -83,9 +83,9 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "PowerSuitBreastplate");
-            recipe.AddIngredient(ItemID.HellstoneBar, 20);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "KraidTissue", 24);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

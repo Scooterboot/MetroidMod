@@ -16,7 +16,7 @@ namespace MetroidMod.Items.equipables
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+			Tooltip.SetDefault("8% increased ranged damage\n" +
              "Immune to fire blocks\n" +
              "Immune to chill and freeze effects\n" +
              "Immune to knockback\n" +
@@ -33,7 +33,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.05f;
+            player.rangedDamage += 0.08f;
             player.fireWalk = true;
             player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
@@ -56,7 +56,7 @@ namespace MetroidMod.Items.equipables
                 + "Default gravity in space" + "\r\n"
                 + "Negates fall damage" + "\r\n"
                 + "Infinite breath" + "\r\n"
-                + "35% decreased overheat use";
+                + "30% decreased overheat use";
             p.rangedDamage += 0.10f;
             p.ignoreWater = true;
             p.lavaImmune = true;
@@ -64,7 +64,7 @@ namespace MetroidMod.Items.equipables
             p.noFallDmg = true;
             p.gills = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
-            mp.overheatCost -= 0.35f;
+            mp.overheatCost -= 0.30f;
             mp.SenseMove(p);
             mp.visorGlow = true;
             if(!mp.ballstate)
@@ -94,19 +94,9 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "VariaSuitV2Breastplate");
             recipe.AddIngredient(null, "GravityGel", 20);
-            recipe.AddIngredient(ItemID.Wire, 12);
-            recipe.AddIngredient(ItemID.CursedFlame, 12);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
-            recipe.AddIngredient(null, "GravityGel", 20);
-            recipe.AddIngredient(ItemID.Wire, 12);
-            recipe.AddIngredient(ItemID.Ichor, 12);
+            recipe.AddIngredient(ItemID.SoulofSight, 5);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

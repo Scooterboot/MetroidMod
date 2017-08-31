@@ -41,7 +41,7 @@ namespace MetroidMod.Items.equipables
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "PowerSuitHelmet");
-            recipe.AddIngredient(ItemID.HellstoneBar, 20);
+            recipe.AddIngredient(ItemID.HellstoneBar, 10);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

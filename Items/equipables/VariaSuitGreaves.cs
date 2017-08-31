@@ -43,7 +43,7 @@ namespace MetroidMod.Items.equipables
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "PowerSuitGreaves");
-            recipe.AddIngredient(ItemID.HellstoneBar, 25);
+            recipe.AddIngredient(ItemID.HellstoneBar, 15);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
