@@ -12,8 +12,8 @@ namespace MetroidMod.Items.misc
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Heat-Resistant Tissue");
-			Tooltip.SetDefault("'Tissue from Kraid, it could be used to upgrade your suit...'");
+			DisplayName.SetDefault("Large Reptile Tissue");
+			Tooltip.SetDefault("Tough tissue that can be used to upgrade the Varia Suit");
 		}
 		public override void SetDefaults()
 		{
