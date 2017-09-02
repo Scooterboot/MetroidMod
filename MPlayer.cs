@@ -1645,6 +1645,7 @@ namespace MetroidMod
 				player.controlUseItem = false;
 				player.controlHook = false;
 				player.controlMount = false;
+				player.releaseMount = false;
 				if (Main.myPlayer == player.whoAmI)
 				{
 					player.mount.Dismount(player);
@@ -1863,6 +1864,7 @@ namespace MetroidMod
 				player.controlUseItem = false;
 				player.controlHook = false;
 				player.controlMount = false;
+				player.releaseMount = false;
 				player.noFallDmg = true;
 				player.scope = false;
 				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
