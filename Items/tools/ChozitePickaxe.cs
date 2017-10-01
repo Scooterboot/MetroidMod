@@ -24,7 +24,7 @@ namespace MetroidMod.Items.tools
 			item.pick = 60;
 			item.useStyle = 1;
 			item.knockBack = 3;
-			item.value = 2500;
+			item.value = 15000;
 			item.rare = 1;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
