@@ -1,12 +1,15 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
+using System.Text;
+using System.Diagnostics;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace MetroidMod.Items.equipables
 {
@@ -16,15 +19,12 @@ namespace MetroidMod.Items.equipables
 		{
 			DisplayName.SetDefault("Morph Ball");
 			Tooltip.SetDefault("Press the morph ball key to roll into a ball\n" + 
-			"While active:\n" + 
-			"-Left Click to initiate a drill feature\n" + 
-			"-Right Click to set off a bomb (Deals 10 damage)\n" + 
 			"Morph Ball's colors are based on your shirt and undershirt colors");
 		}
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
+			item.width = 28;
+			item.height = 28;
 			item.maxStack = 1;
 			item.value = 40000;
 			item.rare = 2;
@@ -50,32 +50,151 @@ namespace MetroidMod.Items.equipables
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
+		public BallUI ballUI;
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			SpriteBatch spriteBatch = Main.spriteBatch;
+
+			if(ballUI == null)
+			{
+				ballUI = new BallUI();
+			}
+
+
+			int pb = mod.ItemType("PowerBombAddon");
+			int sb = mod.ItemType("SpiderBallAddon");
+			int bb = mod.ItemType("BoostBallAddon");
+
+			Item slotDrill = ballUI.ballSlot[0].item;
+			Item slotBomb = ballUI.ballSlot[1].item;
+			Item slotSpecial = ballUI.ballSlot[2].item;
+			Item slotUtility = ballUI.ballSlot[3].item;
+			Item slotBoost = ballUI.ballSlot[4].item;
+
+
 			mp.morphBall = true;
 			mp.MorphBallBasic(player);
-			mp.Drill(player,35);
+			if (!slotDrill.IsAir)
+			{
+				MGlobalItem drillMItem = slotDrill.GetGlobalItem<MGlobalItem>(mod);
+				mp.Drill(player,drillMItem.drillPower);
+			}
+			if (!slotBomb.IsAir)
+			{
+				MGlobalItem bombMItem = slotBomb.GetGlobalItem<MGlobalItem>(mod);
+				mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
+				mp.Bomb(player);
+			}
+			if (slotSpecial.type == pb)
+			{
+				mp.PowerBomb(player);
+			}
+			if (slotUtility.type == sb)
+			{
+				mp.SpiderBall(player);
+			}
+			else
+			{
+				mp.spiderball = false;
+			}
+			if (slotBoost.type == bb)
+			{
+				mp.BoostBall(player);
+			}
+			else
+			{
+				mp.boostCharge = 0;
+				mp.boostEffect = 0;
+			}
 		}
+
+		public override ModItem Clone(Item item)
+		{
+			ModItem clone = this.NewInstance(item);
+			MorphBall ballClone = (MorphBall)clone;
+			if(ballUI != null)
+			{
+				ballClone.ballUI = ballUI;
+			}
+			else
+			{
+				ballClone.ballUI = new BallUI();
+			}
+			return clone;
+		}
+
 			public override Color? GetAlpha(Color lightColor)
         {
-			Player player = Main.player[item.owner];
+			Player player = Main.player[Main.myPlayer];
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
             return mp.morphItemColor;
         }
+		int equippedItem = 3;
 		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale )
 		{
-			Player player = Main.player[item.owner];
+			Player player = Main.player[Main.myPlayer];
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			itemColor = mp.morphItemColor;
 			drawColor = mp.morphColorLights;
 			Texture2D tex = mod.GetTexture("Items/equipables/MorphBall_Lights");
 			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
+			int e = 3;
+			while (e < 8 + player.extraAccessorySlots)
+			{
+				equippedItem = e;
+				if(ballUI != null)
+				{
+					if(player.armor[equippedItem] == item)
+					{
+						ballUI.Draw(sb);
+						e = 8 + player.extraAccessorySlots;
+					}
+					else
+					{
+						e++;
+						ballUI.BallUIOpen = false;
+					}
+				}
+			}
+		}
+		public override TagCompound Save()
+		{
+			if(ballUI != null)
+			{
+				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+				return new TagCompound
+				{
+					{"ballItem0", ItemIO.Save(ballUI.ballSlot[0].item)},
+					{"ballItem1", ItemIO.Save(ballUI.ballSlot[1].item)},
+					{"ballItem2", ItemIO.Save(ballUI.ballSlot[2].item)},
+					{"ballItem3", ItemIO.Save(ballUI.ballSlot[3].item)},
+					{"ballItem4", ItemIO.Save(ballUI.ballSlot[4].item)}
+				};
+			}
+			return null;
+		}
+		public override void Load(TagCompound tag)
+		{
+			try
+			{
+				if(ballUI == null)
+				{
+					ballUI = new BallUI();
+				}
+				for(int i = 0; i < ballUI.ballSlot.Length ; i++)
+				{
+					Item item = tag.Get<Item>("ballItem"+i);
+					ballUI.ballSlot[i].item = item;
+				}
+			}
+			catch{}
 		}
 public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI )
 		{
-			DrawLights(sb, Main.player[item.owner]);
-			MPlayer mp = Main.player[item.owner].GetModPlayer<MPlayer>(mod);
+			DrawLights(sb, Main.player[Main.myPlayer]);
+			MPlayer mp = Main.player[Main.myPlayer].GetModPlayer<MPlayer>(mod);
 			lightColor = mp.morphColorLights;
 			alphaColor = lightColor;
 		}
@@ -88,18 +207,6 @@ public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alp
 			float num5 = (float)(item.width / 2 - tex.Width / 2);
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			sb.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num5, item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num4 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), mp.morphColorLights, rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), num3, SpriteEffects.None, 0f);
-		}
-		public override bool CanEquipAccessory(Player player, int slot)
-		{
-			 for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
-            {
-                if (player.armor[k].type == mod.ItemType("MorphBallV2"))
-                {
-                    return false;
-                }
-            }
-return true;
-		
 		}
 	}
 }
