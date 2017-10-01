@@ -137,7 +137,6 @@ namespace MetroidMod
 			oldPosition = player.position;
 			Player P = player;
 			specialDmg = (int)player.rangedDamage * 100;
-			bombDamage = (int)player.rangedDamage * 10;
 			morphColor = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B < P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
 			morphColor.A = 255;
 			morphColorLights = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B >= P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
@@ -1119,7 +1118,7 @@ namespace MetroidMod
 					Color color = Lighting.GetColor((int)((double)drawInfo.position.X + (double)P.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)P.height * 0.5) / 16);
 
 					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + new Vector2((float)((int)pos.X),(float)((int)pos.Y)), new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), drawInfo.middleArmorColor, rot, origin, I.scale, effects, 0);
-					item.shader = drawInfo.bodyArmorShader;
+ 					item.shader = drawInfo.bodyArmorShader;
 					Main.playerDrawData.Add(item);
 				}
 			}
@@ -1138,7 +1137,7 @@ namespace MetroidMod
 					{
 						Texture2D tex = mPlayer.thrusterTexture;
 						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawInfo.middleArmorColor, drawInfo.bodyArmorShader);
-					}
+  					}
 				}
 			}
 		});
@@ -1643,20 +1642,19 @@ namespace MetroidMod
 				player.maxRunSpeed = 0f;
 				//player.noItems = true;
 				player.controlUseItem = false;
-				player.controlHook = false;
 				player.controlMount = false;
-				player.releaseMount = false;
+				player.controlHook = false;
 				if (Main.myPlayer == player.whoAmI)
 				{
 					player.mount.Dismount(player);
 				}
 				for (int k = 0; k < 1000; k++)
-				{
-					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
-					{
-						Main.projectile[k].Kill();
-					}
-				}
+ 				{
+ 					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
+ 					{
+ 						Main.projectile[k].Kill();
+ 					}
+ 				}
 				player.controlJump = false;
 				mp.rotation = 0;
 				player.armorEffectDrawShadow = true;
@@ -1845,58 +1843,21 @@ namespace MetroidMod
 			}
 		#endregion
 		}
-        public void MorphBallBasic(Player player)
+		public void Bomb(Player player)
 		{
-			if (ballstate)
+			if(ballstate)
 			{
-				if (Main.myPlayer == player.whoAmI)
+				if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0)
 				{
-					player.mount.Dismount(player);
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
+					int BombID = mod.ProjectileType("MBBomb");
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
+					Main.projectile[a].aiStyle = 0;
 				}
-				for (int k = 0; k < 1000; k++)
+				mouseRight = Main.mouseRight;
+				if(bomb > 0)
 				{
-					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
-					{
-						Main.projectile[k].Kill();
-					}
-				}
-				//player.noItems = true;
-				player.controlUseItem = false;
-				player.controlHook = false;
-				player.controlMount = false;
-				player.releaseMount = false;
-				player.noFallDmg = true;
-				player.scope = false;
-				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
-				player.height = 14;
-				player.position.Y += Player.defaultHeight - player.height;
-				player.doubleJumpCloud = false;
-				player.jumpAgainCloud = false;
-				player.dJumpEffectCloud = false;
-				player.doubleJumpBlizzard = false;
-				player.jumpAgainBlizzard = false;
-				player.dJumpEffectBlizzard = false;
-				player.doubleJumpSandstorm = false;
-				player.jumpAgainSandstorm = false;
-				player.dJumpEffectSandstorm = false;
-				player.doubleJumpFart = false;
-				player.jumpAgainFart = false;
-				player.dJumpEffectFart = false;
-				player.rocketBoots = 0;
-				player.rocketTime = 0;
-				player.wings = 0;
-				player.wingTime = 0;
-				player.carpet = false;
-				player.carpetTime = 0;
-				player.canCarpet = false;
-				if(player.gravity != 0f)
-				{
-					player.maxFallSpeed += 2.5f;
-				}
-				if(player.velocity.Y == 0f)
-				{
-					player.runSlowdown *= 0.5f;
-					player.moveSpeed += 0.5f;
+					bomb--;
 				}
 				if (!special && statCharge >= 100)
 				{
@@ -1932,29 +1893,29 @@ namespace MetroidMod
 					else if(player.controlDown && player.velocity.Y == 0)
 					{
 						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-3,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-6,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5f,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-7,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8.5f,BombID,bombDamage,0,player.whoAmI);
 						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-10,BombID,bombDamage,0,player.whoAmI);
-						Main.projectile[a].timeLeft = 30;
-						Main.projectile[b].timeLeft = 40;
-						Main.projectile[c].timeLeft = 50;
-						Main.projectile[d].timeLeft = 60;
-						Main.projectile[e].timeLeft = 70;
+						Main.projectile[a].timeLeft = 40;
+						Main.projectile[b].timeLeft = 50;
+						Main.projectile[c].timeLeft = 60;
+						Main.projectile[d].timeLeft = 70;
+						Main.projectile[e].timeLeft = 80;
 					}
 					else if(player.controlDown && player.velocity.Y != 0)
 					{
 						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+8,0,0,BombID,bombDamage,0,player.whoAmI);
 						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-6,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,3,BombID,bombDamage,0,player.whoAmI);
-						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,3,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-4.5f,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4,2,BombID,bombDamage,0,player.whoAmI);
+						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4,2,BombID,bombDamage,0,player.whoAmI);
 						Main.projectile[a].Kill();
 						Main.projectile[b].aiStyle = 0;
-						Main.projectile[b].timeLeft = 30;
-						Main.projectile[c].timeLeft = 30;
-						Main.projectile[d].timeLeft = 30;
-						Main.projectile[e].timeLeft = 30;
+						Main.projectile[b].timeLeft = 25;
+						Main.projectile[c].timeLeft = 25;
+						Main.projectile[d].timeLeft = 25;
+						Main.projectile[e].timeLeft = 25;
 					}
 					else
 					{
@@ -1970,30 +1931,68 @@ namespace MetroidMod
 						Main.projectile[e].timeLeft = 60;
 					}
 					special = true;
-					statCharge = 0;
 				}
-				else
+			}
+		}
+        public void MorphBallBasic(Player player)
+		{
+			if (ballstate)
+			{
+				if (Main.myPlayer == player.whoAmI)
 				{
-					statCharge = 0;
+					player.mount.Dismount(player);
 				}
+				for (int k = 0; k < 1000; k++)
+ 				{
+ 					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
+ 					{
+ 						Main.projectile[k].Kill();
+ 					}
+ 				}
+				//player.noItems = true;
+				player.controlHook = false;
+				player.controlMount = false;
+				player.controlUseItem = false;
+				player.noFallDmg = true;
+				player.scope = false;
+				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
+				player.height = 14;
+				player.position.Y += Player.defaultHeight - player.height;
+				player.doubleJumpCloud = false;
+				player.jumpAgainCloud = false;
+				player.dJumpEffectCloud = false;
+				player.doubleJumpBlizzard = false;
+				player.jumpAgainBlizzard = false;
+				player.dJumpEffectBlizzard = false;
+				player.doubleJumpSandstorm = false;
+				player.jumpAgainSandstorm = false;
+				player.dJumpEffectSandstorm = false;
+				player.doubleJumpFart = false;
+				player.jumpAgainFart = false;
+				player.dJumpEffectFart = false;
+				player.rocketBoots = 0;
+				player.rocketTime = 0;
+				player.wings = 0;
+				player.wingTime = 0;
+				player.carpet = false;
+				player.carpetTime = 0;
+				player.canCarpet = false;
+				if(player.gravity != 0f)
+				{
+					player.maxFallSpeed += 2.5f;
+				}
+				if(player.velocity.Y == 0f)
+				{
+					player.runSlowdown *= 0.5f;
+					player.moveSpeed += 0.5f;
+				}
+					statCharge = 0;
 
 				int shinyblock = 700;
 				int timez = (int)(Time%60)/10;
 				Color brightColor = morphColorLights;
 				Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/(shinyblock/(1+0.1*timez))), (float)(brightColor.G/(shinyblock/(1+0.1*timez))), (float)(brightColor.B/(shinyblock/(1+0.1*timez))));  
 
-				if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-					int BombID = mod.ProjectileType("MBBomb");
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].aiStyle = 0;
-				}
-				mouseRight = Main.mouseRight;
-				if(bomb > 0)
-				{
-					bomb--;
-				}
 				if(Ibounce && !player.controlDown)
 				{
 					Vector2 value2 = player.velocity;
@@ -2540,7 +2539,6 @@ namespace MetroidMod
 		//int CFMoment = 0;
 		public void PowerBomb(Player player)
 		{
-	
 			if(ballstate)
 			{
 				if(statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
