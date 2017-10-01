@@ -15,6 +15,10 @@ namespace MetroidMod.Items
 		public int statMissiles = 5;
 		public int maxMissiles = 5;
 		
+		public int ballSlotType = -1;
+		public int bombDamage = -1;
+		public int drillPower = -1;
+
 		public int numSeekerTargets = 0;
 		public int[] seekerTarget = new int[5];
 		public int seekerCharge = 0;
