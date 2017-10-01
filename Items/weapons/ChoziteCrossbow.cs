@@ -25,7 +25,7 @@ namespace MetroidMod.Items.weapons
 			item.useStyle = 5;
 			item.noMelee = true; 
 			item.knockBack = 0;
-			item.value = 1800;
+			item.value = 15000;
 			item.rare = 1;
 			item.UseSound = SoundID.Item5;
 			item.shoot = 3;
