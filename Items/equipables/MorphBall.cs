@@ -131,7 +131,6 @@ namespace MetroidMod.Items.equipables
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
             return mp.morphItemColor;
         }
-		int equippedItem = 3;
 		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale )
 		{
 			Player player = Main.player[Main.myPlayer];
@@ -141,20 +140,22 @@ namespace MetroidMod.Items.equipables
 			Texture2D tex = mod.GetTexture("Items/equipables/MorphBall_Lights");
 			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 			int e = 3;
-			while (e < 8 + player.extraAccessorySlots)
+			for(int i = 3; i < 8 + player.extraAccessorySlots; i++)
 			{
-				equippedItem = e;
 				if(ballUI != null)
 				{
-					if(player.armor[equippedItem] == item)
+					if(player.armor[i] == item)
 					{
 						ballUI.Draw(sb);
-						e = 8 + player.extraAccessorySlots;
+						break;
 					}
 					else
 					{
 						e++;
-						ballUI.BallUIOpen = false;
+						if(e >= 8 + player.extraAccessorySlots)
+						{
+							ballUI.BallUIOpen = false;
+						}
 					}
 				}
 			}
