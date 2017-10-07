@@ -1256,6 +1256,19 @@ namespace MetroidMod.Items.weapons
 			}
         }
 		
+		public static BeamUI TempBeamUI;
+		public override void PreReforge()
+		{
+			if(beamUI != null)
+			{
+				TempBeamUI = beamUI;
+			}
+		}
+		public override void PostReforge()
+		{
+			beamUI = TempBeamUI;
+		}
+		
 		public override TagCompound Save()
 		{
 			if(beamUI != null)
