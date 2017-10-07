@@ -124,7 +124,7 @@ namespace MetroidMod.NPCs.Kraid
 					float speed = 8f;
 					Vector2 clawVel = new Vector2((float)Math.Cos(trot)*speed,(float)Math.Sin(trot)*speed);
 
-					int slash = Projectile.NewProjectile(clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,mod.ProjectileType("KraidSlash"),40,8f);
+					int slash = Projectile.NewProjectile(clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,mod.ProjectileType("KraidSlash"),30,8f);
 					Main.projectile[slash].ai[0] = Head.whoAmI;
 					Main.projectile[slash].spriteDirection = Head.direction;
 				}
