@@ -10,7 +10,7 @@ namespace MetroidMod.Items.equipables
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit Greaves");
-			Tooltip.SetDefault("5% increased ranged damage\n" + 
+			Tooltip.SetDefault("8% increased ranged damage\n" + 
             "20% increased movement speed\n" + 
             "+20 overheat capacity\n" + 
             "Allows you to cling to walls");
@@ -27,7 +27,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.05f;
+            player.rangedDamage += 0.08f;
             player.moveSpeed += 0.20f;
             player.spikedBoots += 2;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);

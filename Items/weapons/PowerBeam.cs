@@ -68,7 +68,7 @@ namespace MetroidMod.Items.weapons
 			return (mp.statOverheat < mp.maxOverheat);
 		}
 
-		public MetroidModUI metroidUI;
+		public BeamUI beamUI;
 		
 		float iceDmg = 0f;
 		float waveDmg = 0f;
@@ -109,9 +109,9 @@ namespace MetroidMod.Items.weapons
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
 
-			if(metroidUI == null)
+			if(beamUI == null)
 			{
-				metroidUI = new MetroidModUI();
+				beamUI = new BeamUI();
 			}
 
 			int ch = mod.ItemType("ChargeBeamAddon");
@@ -127,11 +127,11 @@ namespace MetroidMod.Items.weapons
 			int hy = mod.ItemType("HyperBeamAddon");
 			int ph = mod.ItemType("PhazonBeamAddon");
 			
-			Item slot1 = metroidUI.beamSlot[0].item;
-			Item slot2 = metroidUI.beamSlot[1].item;
-			Item slot3 = metroidUI.beamSlot[2].item;
-			Item slot4 = metroidUI.beamSlot[3].item;
-			Item slot5 = metroidUI.beamSlot[4].item;
+			Item slot1 = beamUI.beamSlot[0].item;
+			Item slot2 = beamUI.beamSlot[1].item;
+			Item slot3 = beamUI.beamSlot[2].item;
+			Item slot4 = beamUI.beamSlot[3].item;
+			Item slot5 = beamUI.beamSlot[4].item;
 			
 			//name = "Power Beam";
 			int damage = 7;
@@ -1028,13 +1028,13 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			PowerBeam beamClone = (PowerBeam)clone;
-			if(metroidUI != null)
+			if(beamUI != null)
 			{
-				beamClone.metroidUI = metroidUI;
+				beamClone.beamUI = beamUI;
 			}
 			else
 			{
-				beamClone.metroidUI = new MetroidModUI();
+				beamClone.beamUI = new BeamUI();
 			}
 			return clone;
 		}
@@ -1243,30 +1243,30 @@ namespace MetroidMod.Items.weapons
 			{
 				selectedItem = player.selectedItem;
 			}
-			if(metroidUI != null)
+			if(beamUI != null)
 			{
 				if(player.inventory[selectedItem] == item)
 				{
-					metroidUI.Draw(spriteBatch);
+					beamUI.Draw(spriteBatch);
 				}
 				else
 				{
-					metroidUI.BeamUIOpen = false;
+					beamUI.BeamUIOpen = false;
 				}
 			}
         }
 		
 		public override TagCompound Save()
 		{
-			if(metroidUI != null)
+			if(beamUI != null)
 			{
 				return new TagCompound
 				{
-					{"beamItem0", ItemIO.Save(metroidUI.beamSlot[0].item)},
-					{"beamItem1", ItemIO.Save(metroidUI.beamSlot[1].item)},
-					{"beamItem2", ItemIO.Save(metroidUI.beamSlot[2].item)},
-					{"beamItem3", ItemIO.Save(metroidUI.beamSlot[3].item)},
-					{"beamItem4", ItemIO.Save(metroidUI.beamSlot[4].item)}
+					{"beamItem0", ItemIO.Save(beamUI.beamSlot[0].item)},
+					{"beamItem1", ItemIO.Save(beamUI.beamSlot[1].item)},
+					{"beamItem2", ItemIO.Save(beamUI.beamSlot[2].item)},
+					{"beamItem3", ItemIO.Save(beamUI.beamSlot[3].item)},
+					{"beamItem4", ItemIO.Save(beamUI.beamSlot[4].item)}
 				};
 			}
 			return null;
@@ -1275,14 +1275,14 @@ namespace MetroidMod.Items.weapons
 		{
 			try
 			{
-				if(metroidUI == null)
+				if(beamUI == null)
 				{
-					metroidUI = new MetroidModUI();
+					beamUI = new BeamUI();
 				}
-				for(int i = 0; i < metroidUI.beamSlot.Length ; i++)
+				for(int i = 0; i < beamUI.beamSlot.Length ; i++)
 				{
 					Item item = tag.Get<Item>("beamItem"+i);
-					metroidUI.beamSlot[i].item = item;
+					beamUI.beamSlot[i].item = item;
 				}
 			}
 			catch{}

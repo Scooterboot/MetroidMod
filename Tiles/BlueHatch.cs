@@ -26,6 +26,7 @@ namespace MetroidMod.Tiles
 			//TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width - 2, 1);
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
+			TileObjectData.newTile.HookCheck = new PlacementHook(mod.GetTileEntity<TEBlueHatch>().Hook_AfterPlacement, -1, 0, true);
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<TEBlueHatch>().Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
@@ -64,6 +65,13 @@ public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 			}
 			Main.spriteBatch.Draw(mod.GetTexture("Tiles/BlueHatchDoor"), new Vector2((i - 1) * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 48, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			return true;
+		}
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.showItemIcon = true;
+			player.showItemIcon2 = mod.ItemType("BlueHatch");
 		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{

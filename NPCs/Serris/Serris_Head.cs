@@ -236,15 +236,15 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 					else if(npc.ai[1] == 200f || npc.ai[1] == 250f)
 					{
 						Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 14);
-						int gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("SerrisXTransGore1"), 1f);
+						int gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore1"), 1f);
 						Main.gore[gore].velocity *= 0.4f;
 						Main.gore[gore].timeLeft = 60;
-						gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("SerrisXTransGore2"), 1f);
+						gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore2"), 1f);
 						Main.gore[gore].velocity *= 0.4f;
 						Main.gore[gore].timeLeft = 60;
 						for (int v = 0; v < 3; v++)
 						{
-							gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("SerrisXTransGore3"), 1f);
+							gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore3"), 1f);
 							Main.gore[gore].velocity *= 0.4f;
 							Main.gore[gore].timeLeft = 60;
 						}
@@ -424,25 +424,25 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 				}
 				if (npc.life <= 0)
 				{
-					int num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("SerrisGore1"), 1f);
+					int num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore1"), 1f);
 					Main.gore[num373].velocity *= 0.4f;
 					Main.gore[num373].timeLeft = 60;
 					Gore gore85 = Main.gore[num373];
 					gore85.velocity.X = gore85.velocity.X + 1f;
 					gore85.velocity.Y = gore85.velocity.Y + 1f;
-					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("SerrisGore1"), 1f);
+					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore2"), 1f);
 					Main.gore[num373].velocity *= 0.4f;
 					Main.gore[num373].timeLeft = 60;
 					Gore gore87 = Main.gore[num373];
 					gore87.velocity.X = gore87.velocity.X - 1f;
 					gore87.velocity.Y = gore87.velocity.Y + 1f;
-					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("SerrisGore1"), 1f);
+					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore3"), 1f);
 					Main.gore[num373].velocity *= 0.4f;
 					Main.gore[num373].timeLeft = 60;
 					Gore gore89 = Main.gore[num373];
 					gore89.velocity.X = gore89.velocity.X + 1f;
 					gore89.velocity.Y = gore89.velocity.Y - 1f;
-					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("SerrisGore1"), 1f);
+					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore4"), 1f);
 					Main.gore[num373].velocity *= 0.4f;
 					Main.gore[num373].timeLeft = 60;
 					Gore gore91 = Main.gore[num373];

@@ -19,7 +19,7 @@ namespace MetroidMod.Items.equipables
             item.height = 18;
             item.rare = 1;
             item.value = 5000;
-            item.defense = 4;
+            item.defense = 6;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

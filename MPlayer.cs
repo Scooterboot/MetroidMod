@@ -3,6 +3,7 @@ using Terraria.GameInput;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Graphics.Shaders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,6 @@ namespace MetroidMod
 		public int cooldownbomb = 0;
 		public int bomb = 0;
 		public int bombDamage = 10;
-		//public int powerbomb = 0;
 		public bool Ibounce = true;
 		public float velY = 0f;
 		public bool mouseRight = false;
@@ -40,14 +40,13 @@ namespace MetroidMod
 		public bool trap = false;
 		public bool executeChange = false;
 	#endregion
-		public Color currentMorphColor = Color.White;
-		public Color currentMorphColor2 = Color.White;
         public Color boostGold = Color.FromNonPremultiplied(255, 255, 0, 6);
         public Color boostYellow = Color.FromNonPremultiplied(255, 215, 0, 6);
 		public bool speedBoosting = false;
 		int powerReChargeDelay = 0;
 		public float statCharge = 0.0f;
 		public static float maxCharge = 100.0f;
+		public Color chargeColor = Color.White;
 		public float statPBCh = 0.0f;
 		public static float maxPBCh = 200.0f;
 		public static float maxSpaceJumps = 120;
@@ -61,14 +60,10 @@ namespace MetroidMod
 		public bool visorGlow = false;
 		public Color visorGlowColor = new Color(255, 255, 255);
 		public Texture2D thrusterTexture;
-		//public bool xrayequipped = false;
 		public bool speedBooster = false;
-		int num = 0;
-		int num2 = 0;
-		//public int maxMissiles = 5;
-		//public int statMissiles = 5;
 		public Color morphColor = Color.White;
 		public Color morphColorLights = Color.White;
+		public Color morphItemColor = Color.White;
 		public Vector2 oldPosition;
 		
 		#region misc
@@ -81,11 +76,9 @@ namespace MetroidMod
 		public int hyperColors = 0;
 		public int shineDirection = 0;
 		public bool shineActive = false;
-		int shineDeActive = 0;
+		int shineDischarge = 0;
 		float speedBuildUp = 0f;
-		bool shineCharge = false;
-		int shineDeCharge = 0;
-		//int manaDelay = 0;
+		public int shineCharge = 0;
 		int proj = -1;
 		int shineSound = 0;
 		public bool jet = false;
@@ -99,15 +92,12 @@ namespace MetroidMod
 		public int sMoveDir = 1;
 		//public Vector2 grappleVect = Vector2.Zero;
 		public float grappleRotation = 0f;
-		//public float maxDist;
-		//public int grapplingBeam = -1;
-		public bool grappleBeamIsHooked = false;
+		public float maxDist;
+		public int grapplingBeam = -1;
+		//int soundDelay2 = 42;
+		//public bool grappleBeamIsHooked = false;
 		public float breathMult = 1f;
 		#endregion
-		int counter = 0;
-		//SoundEffectInstance concentrationSound;
-		bool soundPlayed = false;
-		//bool isConcentrating = false;
 		public float maxOverheat = 100f;
 		public float statOverheat = 0f;
 		public float extraOverheat = 0f;
@@ -117,7 +107,7 @@ namespace MetroidMod
 		public bool phazonImmune = false;
 		public int phazonRegen = 0;
 		int tweak = 0;
-		int tweak2 = 0;
+		bool tweak2 = false;
 		public double Time = 0;
 		public override void ResetEffects()
 		{			
@@ -131,45 +121,39 @@ namespace MetroidMod
 			morphBall = false;
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
+			chargeColor = Color.White;
 			maxOverheat = 100f;
-			overheatCost = 1f;	
+			overheatCost = 1f;
 			breathMult = 1f;
 		}
 		float overheatCooldown = 0f;
+		int itemRotTweak = 0;
 		public override void PreUpdate()
 		{
 			UIParameters.oldState = UIParameters.newState;
             UIParameters.newState = Keyboard.GetState();
         	UIParameters.lastMouseState = UIParameters.mouseState;
         	UIParameters.mouseState = Mouse.GetState();
+			oldPosition = player.position;
 			Player P = player;
 			specialDmg = (int)player.rangedDamage * 100;
-			bombDamage = (int)player.rangedDamage * 10;
-			oldPosition = player.position;
 			morphColor = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B < P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
 			morphColor.A = 255;
 			morphColorLights = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B >= P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
 			morphColorLights.A = 255;
-			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && P.itemAnimation == 0 && P.releaseHook && P.grapCount == 0 && !grappleBeamIsHooked && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
+			morphItemColor = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B < P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
+			morphItemColor.A = 255;
+			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
-			//isConcentrating = false;
+
 			player.breathMax = (int)(200 * breathMult);
 			if(!morphBall)
 			{
 				player.width = 20;
 				//player.height = 42;
 			}
-			if (player.ownedProjectileCounts[mod.ProjectileType("GrappleBeamShot")] <= 0)
-			{
-				grappleBeamIsHooked = false;
-			}
-			//MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
-			if(shineActive || shineDirection != 0)
-			{
-				player.gravity = 0f;//Player.defaultGravity;
-			}
-			//player.grabRange += (int)(statCharge * 1.6f);
-			if(player.velocity.Y == 0 || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
+
+			if(player.velocity.Y == 0 || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grapplingBeam >= 0)
 			{
 				statSpaceJumps = maxSpaceJumps;
 			}
@@ -239,13 +223,8 @@ namespace MetroidMod
 			{
 				extraOverheat = 0;
 			}
-			
-			if(player.shadow == 0f && hyperColors > 0)
-			{
-				hyperColors--;
-			}
 		
-			int colorcount = 16;//17;
+			int colorcount = 16;
 			if (style == 0)
 			{
 				g += colorcount;
@@ -255,9 +234,9 @@ namespace MetroidMod
 					style++;
 				}
 				r -= colorcount;
-				if (r <= 96)//0)
+				if (r <= 63)
 				{
-					r = 96;//0;
+					r = 63;
 				}
 			}
 			else if (style == 1)
@@ -269,9 +248,9 @@ namespace MetroidMod
 					style++;
 				}
 				g -= colorcount;
-				if (g <= 96)//0)
+				if (g <= 63)
 				{
-					g = 96;//0;
+					g = 63;
 				}
 			}
 			else
@@ -283,9 +262,9 @@ namespace MetroidMod
 					style = 0;
 				}
 				b -= colorcount;
-				if (b <= 96)//0)
+				if (b <= 63)
 				{
-					b = 96;//0;
+					b = 63;
 				}
 			}
 			Time += 1.0;
@@ -293,17 +272,9 @@ namespace MetroidMod
 			{
 				Time = 0;
 			}
-			if(currentMorphColor2 == Color.White)
-			{
-				currentMorphColor2 = morphColorLights;
-			}
-			if(currentMorphColor == Color.White)
-			{
-				currentMorphColor = morphColor;
-			}
 
-			bool trail = (!player.dead && !player.mount.Active && player.grapCount == 0 && !grappleBeamIsHooked && shineDirection == 0 && !shineActive && !ballstate);
-			if(trail && ((player.velocity.Y < 0f && player.gravDir == 1) || (player.velocity.Y > 0f && player.gravDir == -1)) && isPowerSuit)
+			bool trail = (!player.dead && !player.mount.Active && player.grapCount == 0 && shineDirection == 0 && !shineActive && !ballstate);
+			if(trail && ((player.controlJump && player.jump > 0 && isPowerSuit) || (grapplingBeam >= 0 && (Math.Abs(player.velocity.X) >= 8.5f || Math.Abs(player.velocity.Y) >= 8.5f)) || (spaceJump && somersault) || SMoveEffect > 0))
 			{
 				tweak++;
 				if(tweak > 4)
@@ -317,106 +288,49 @@ namespace MetroidMod
 				tweak = 0;
 			}
 
-			if(speedBooster)
-			{
-				if(player.velocity.X <= -5f && player.controlLeft)
-				{
-					if(player.velocity.Y == 0)
-					{
-						player.jumpSpeedBoost -= (player.velocity.X/5f);
-					}
-					if(player.controlJump)
-					{
-						if(player.velocity.Y == 0 && player.releaseJump)
-						{
-							num = 180;
-						}
-						if(num > 0)
-						{
-							if(!player.slowFall)
-							{
-								player.gravity /= 3f;
-							}
-						}
-					}
-					else
-					{
-						num = 0;
-					}
-				}
-				else if(player.velocity.X >= 5f && player.controlRight)
-				{
-					if(player.velocity.Y == 0)
-					{
-						player.jumpSpeedBoost += (player.velocity.X/5f);
-					}
-					if(player.controlJump)
-					{
-						if(player.velocity.Y == 0 && player.releaseJump)
-						{
-							num = 180;
-						}
-						if(num > 0)
-						{
-							if(!player.slowFall)
-							{
-								player.gravity /= 3f;
-							}
-						}
-					}
-					else
-					{
-						num = 0;
-					}
-				}
-			}
-			if(num > 0)
-			{
-				num--;
-			}
-		/*	if(visorGlow && !ballstate)
-			{
-                 Vector2 face = new Vector2((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f));
-				Lighting.AddLight(face, (visorGlowColor)*0.375f);
-			}*/
 			if(jet)
 			{
-				//Color flame = new Color(153, 99, 61);
 				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)player.Center.Y/16f), 0.6f, 0.38f, 0.24f);
 			}
-			if(somersault)
+			if(!player.mount.Active)
 			{
-				rotation += ((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir);
-				if(rotation > (Math.PI*2))
+				if(somersault)
 				{
-					rotation -= (float)(Math.PI*2);
+					rotation += ((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir);
+					if(rotation > (Math.PI*2))
+					{
+						rotation -= (float)(Math.PI*2);
+					}
+					if(rotation < -(Math.PI*2))
+					{
+						rotation += (float)(Math.PI*2);
+					}
+					player.fullRotation = rotation;
+					player.fullRotationOrigin = player.Center - player.position;
+					itemRotTweak = 2;
 				}
-				if(rotation < -(Math.PI*2))
+				else if(shineDirection == 2 || shineDirection == 4)
 				{
-					rotation += (float)(Math.PI*2);
+					rotation = 0.1f * player.direction * player.gravDir;
+					player.fullRotation = rotation;
+					player.fullRotationOrigin = player.Center - player.position;
 				}
-				player.fullRotation = rotation;
-				player.fullRotationOrigin = player.Center - player.position;
-			}
-			else if(shineDirection == 2 || shineDirection == 4)
-			{
-				rotation = 0.1f * player.direction * player.gravDir;
-				player.fullRotation = rotation;
-				player.fullRotationOrigin = player.Center - player.position;
-			}
-			else if(shineDirection == 1 || shineDirection == 3)
-			{
-				rotation = (6.28318531f/8f) * player.direction * player.gravDir;
-				player.fullRotation = rotation;
-				player.fullRotationOrigin = player.Center - player.position;
+				else if(shineDirection == 1 || shineDirection == 3)
+				{
+					rotation = ((float)Math.PI/4f) * player.direction * player.gravDir;
+					player.fullRotation = rotation;
+					player.fullRotationOrigin = player.Center - player.position;
+				}
+				else
+				{
+					rotation = 0f;
+					player.fullRotation = 0f;
+				}
 			}
 			else
 			{
 				rotation = 0f;
-				if(player.mount.Type != 6)
-				{
-					player.fullRotation = 0f;
-				}
+				player.fullRotation = 0f;
 			}
 			if(spaceJump && SMoveEffect <= 0)
 			{
@@ -499,8 +413,6 @@ namespace MetroidMod
 						Vector2 vector2;
 						vector2.X = (float)(i * 16);
 						vector2.Y = (float)(j * 16);
-						//int num5 = 0;
-						//int type = (int)Main.tile[i, j].type;
 						int num6 = 16;
 						if (Main.tile[i, j].halfBrick())
 						{
@@ -516,37 +428,257 @@ namespace MetroidMod
 			}
 			return false;
 		}
+		public void GrappleBeamMovement()
+		{
+			if(grapplingBeam >= 0)
+			{
+				Projectile projectile = Main.projectile[grapplingBeam];
+				if(projectile.type == mod.ProjectileType("GrappleBeamShot") && projectile.owner == player.whoAmI && projectile.active)
+				{
+					float targetrotation = (float)Math.Atan2(((projectile.Center.Y-player.Center.Y)*player.direction),((projectile.Center.X-player.Center.X)*player.direction));
+					grappleRotation = targetrotation;
+
+					if (Main.myPlayer == player.whoAmI && player.mount.Active)
+					{
+						player.mount.Dismount(player);
+					}
+					player.canCarpet = true;
+					player.carpetFrame = -1;
+					player.wingFrame = 1;
+					if (player.velocity.Y == 0f || (player.wet && (double)player.velocity.Y > -0.02 && (double)player.velocity.Y < 0.02))
+					{
+						player.wingFrame = 0;
+					}
+					if (player.wings == 4)
+					{
+						player.wingFrame = 3;
+					}
+					if (player.wings == 30)
+					{
+						player.wingFrame = 0;
+					}
+					player.wingTime = (float)player.wingTimeMax;
+					player.rocketTime = player.rocketTimeMax;
+					player.rocketDelay = 0;
+					player.rocketFrame = false;
+					player.canRocket = false;
+					player.rocketRelease = false;
+					player.fallStart = (int)(player.position.Y / 16f);
+
+					Vector2 v = player.Center - projectile.Center;
+					float dist = Vector2.Distance(player.Center, projectile.Center);
+					/*if(soundDelay2 > 41)
+					{
+						Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/GrappleLoop"));
+						soundDelay2 = 0;
+					}
+					soundDelay2++;*/
+					bool up = (player.controlUp);
+					bool down = (player.controlDown && maxDist < 400);
+					float ndist = Vector2.Distance(player.Center + player.velocity, projectile.Center);
+					float ddist = ndist - dist;
+					float distdiff = (dist-maxDist);
+					if(distdiff <= 0f)
+					{
+						distdiff = 0f;
+					}
+					if(distdiff > player.gravity)
+					{
+						distdiff = player.gravity;
+					}
+					float num4 = projectile.Center.X - player.Center.X;
+					float num5 = projectile.Center.Y - player.Center.Y;
+					float num6 = (float)System.Math.Sqrt((double)(num4 * num4 + num5 * num5));
+					float num7 = ddist+player.gravity+distdiff;
+					if(up)
+					{
+						num7 = 11;
+						maxDist = dist;
+					}
+					if(down)
+					{
+						num7 = -11;
+						maxDist = dist;
+					}
+					float num8;
+					if (num6 > num7)
+					{
+						num8 = num7 / num6;
+					}
+					else
+					{
+						num8 = 1f;
+					}
+					num4 *= num8;
+					num5 *= num8;
+					Vector2 vect = new Vector2(num4, num5);
+					if(up || down)
+					{
+						player.velocity = vect;
+						tweak2 = true;
+					}
+					else
+					{
+						if (dist >= maxDist)
+						{
+							player.velocity += vect;
+							player.maxRunSpeed = 15f;
+							player.runAcceleration *= 3f;
+						}
+						if(tweak2)
+						{
+							player.velocity *= 0;
+							tweak2 = false;
+						}
+					}
+
+					if (player.controlJump)
+					{
+						if (player.releaseJump)
+						{
+							if ((player.velocity.Y == 0f || (player.wet && (double)player.velocity.Y > -0.02 && (double)player.velocity.Y < 0.02)) && !player.controlDown)
+							{
+								player.velocity.Y = -Player.jumpSpeed;
+								player.jump = Player.jumpHeight / 2;
+								player.releaseJump = false;
+							}
+							else
+							{
+								player.velocity.Y = player.velocity.Y + 0.01f;
+								player.releaseJump = false;
+							}
+							if (player.doubleJumpCloud)
+							{
+								player.jumpAgainCloud = true;
+							}
+							if (player.doubleJumpSandstorm)
+							{
+								player.jumpAgainSandstorm = true;
+							}
+							if (player.doubleJumpBlizzard)
+							{
+								player.jumpAgainBlizzard = true;
+							}
+							if (player.doubleJumpFart)
+							{
+								player.jumpAgainFart = true;
+							}
+							if (player.doubleJumpSail)
+							{
+								player.jumpAgainSail = true;
+							}
+							if (player.doubleJumpUnicorn)
+							{
+								player.jumpAgainUnicorn = true;
+							}
+
+							grapplingBeam = -1;
+							player.grappling[0] = -1;
+							player.grapCount = 0;
+							for (int k = 0; k < 1000; k++)
+							{
+								if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)//type == projectile.type)
+								{
+									Main.projectile[k].Kill();
+								}
+							}
+							return;
+						}
+					}
+					else
+					{
+						player.releaseJump = true;
+					}
+				}
+			}
+			else
+			{
+				tweak2 = false;
+				//soundDelay2 = 42;
+			}
+		}
+		bool sbFlag = false;
+		public override void PostUpdateMiscEffects()
+		{
+			this.GrappleBeamMovement();
+
+			if(speedBooster)
+			{
+				if(player.controlJump)
+				{
+					if(player.velocity.Y == 0)
+					{
+						sbFlag = true;
+					}
+				}
+				else
+				{
+					sbFlag = false;
+				}
+				if(sbFlag)
+				{
+					if(player.velocity.X <= -4f && player.controlLeft)
+					{
+						player.jumpSpeedBoost += Math.Abs(player.velocity.X/4f);
+					}
+					else if(player.velocity.X >= 4f && player.controlRight)
+					{
+						player.jumpSpeedBoost += Math.Abs(player.velocity.X/4f);
+					}
+				}
+			}
+			else
+			{
+				sbFlag = false;
+			}
+			
+			if(shineActive || shineDirection != 0 || (ballstate && spiderball && CurEdge != Edge.None && CurEdge != Edge.Floor))
+			{
+				//player.gravity = 0f;
+				float num3 = player.gravity;
+				if (player.slowFall)
+				{
+					if (player.controlUp)
+					{
+						num3 = player.gravity / 10f * player.gravDir;
+					}
+					else
+					{
+						num3 = player.gravity / 3f * player.gravDir;
+					}
+				}
+				player.velocity.Y -= num3;
+			}
+		}
 		public override void PostUpdateEquips()
 		{
-			if (ballstate)
+			if(ballstate)
 			{
 				player.spikedBoots = 0;
 			}
 		}
         public override void PostUpdate()
 		{
-			Player P = player;
-			Terraria.Item I = P.inventory[P.selectedItem];
-		/*	if(I.type == mod.ItemType("PowerBeam").type || I.type == mod.ItemType("MissileLauncher").type)
+			if(player.itemAnimation > 0)
 			{
-				MItem mi = I.GetSubClass<MItem>();
-				if(mi.texture != null)
+				if(itemRotTweak > 0)
 				{
-					P.itemLocation.X = P.Center.X - (float)mi.texture.Width * 0.5f;
-					P.itemLocation.Y = P.Center.Y - (float)mi.texture.Height * 0.5f;
-					if(MBase.AltBeamSkins && mi.textureAlt != null)
+					float MY = Main.mouseY + Main.screenPosition.Y;
+					float MX = Main.mouseX + Main.screenPosition.X;
+					if (player.gravDir == -1f)
 					{
-						P.itemLocation.X = P.Center.X - (float)mi.textureAlt.Width * 0.5f;
-						P.itemLocation.Y = P.Center.Y - (float)mi.textureAlt.Height * 0.5f;
+						MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 					}
+					Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+					player.ChangeDir(Math.Sign(MX-oPos.X));
+					player.itemRotation = (float)Math.Atan2((MY-oPos.Y)*player.direction,(MX-oPos.X)*player.direction) - player.fullRotation;
+					itemRotTweak--;
 				}
 			}
-			if(I.type == mod.ItemType("NovaLaser").type)
+			else
 			{
-				P.itemLocation.X = P.Center.X - (float)Main.itemTexture[I.type].Width * 0.5f;
-				P.itemLocation.Y = P.Center.Y - (float)Main.itemTexture[I.type].Height * 0.5f;
-			}*/
-
+				itemRotTweak = 0;
+			}
 			if(!morphBall)
 			{
 				ballstate = false;
@@ -566,195 +698,328 @@ namespace MetroidMod
 			if(!speedBooster)
 			{
 				speedBuildUp = 0;
-				shineCharge = false;
-				shineDeCharge = 0;
-				//manaDelay = 0;
+				shineCharge = 0;
 				shineSound = 0;
 				shineDirection = 0;
-				shineDeActive = 0;
+				shineDischarge = 0;
 				shineActive = false;
 			}
+			grapplingBeam = -1;
 		}
-        public float ballrot = 0f;
-		public static int oldNumMax = 10;
-		public Vector2[] oldPos = new Vector2[oldNumMax];
-        public void DrawBallTexture(SpriteBatch sb, Texture2D mytex, Texture2D mytex2, Texture2D mytex3, Texture2D boosttex, Texture2D trail, Player drawPlayer, PlayerDrawInfo drawInfo)
+		public int psuedoScrewFlash = 0;
+		public int shineChargeFlash = 0;
+		public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
 		{
-			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
-			//MPlayer mPlayer = drawPlayer.getModPlayer<Mplayer>(mod);
-			//sb.Draw(tex, new Vector2((float)((int)(drawPlayer.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawPlayer.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + 4f))) + drawPos + edi.vector2, new Rectangle?(frame), Color.White, rotation, edi.vector2, 1f, edi.effects, 0f);
-			float thisx = (float)((int)(drawInfo.position.X + (float)(drawPlayer.width / 2) - Main.screenPosition.X));
-			float thisy = (float)((int)(drawInfo.position.Y + (float)(drawPlayer.height / 2) - Main.screenPosition.Y));
-			Vector2 ballDims = new Vector2(28f,28f);
-			Vector2 thispos =  new Vector2(thisx,thisy);
-			//int timez = (int)(Main.time%60)/10;
-			//if(drawPlayer.shadow == 0f)
-			//{
-				int timez = (int)(Time%60)/10;
-				SpriteEffects effects = SpriteEffects.None;
-				if (drawPlayer.direction == -1)
-				{
-					effects = SpriteEffects.FlipHorizontally;
-				}
-				float ballrotoffset = 0f;
-				if(drawPlayer.velocity.Y != Vector2.Zero.Y)
-				{
-					if(drawPlayer.velocity.X != 0f)
-					ballrotoffset+= 0.05f*drawPlayer.velocity.X;
-					else
-					ballrotoffset += 0.25f*drawPlayer.direction;
-				}
-				else if (drawPlayer.velocity.X < 0f)
-					ballrotoffset -= 0.2f;
-				else if ( drawPlayer.velocity.X > 0f)
-					ballrotoffset += 0.2f;
-				//if(drawPlayer.hitTile > 0)
-				//{
-					if(drawPlayer.velocity.X != 0f)
-					ballrotoffset+= 0.025f*drawPlayer.velocity.X;
-					else
-					ballrotoffset += 0.125f*drawPlayer.direction;
-				//}
-				ballrot+=ballrotoffset;
-				if(ballrot > (float)(Math.PI)*2)
-					ballrot -= (float)(Math.PI)*2;
-				if(ballrot < -(float)(Math.PI)*2)
-					ballrot += (float)(Math.PI)*2;
-				Color brightColor = morphColorLights;
-				Color darkColor = Lighting.GetColor((int)((double)drawPlayer.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawPlayer.position.Y + (double)drawPlayer.height * 0.5) / 16, morphColor);
-				currentMorphColor = darkColor;
-				currentMorphColor2 = brightColor;
-				float scale = 0.57f;
-				int offset = 4;
-				for (int num46 = oldPos.Length - 1; num46 > 0; num46--)
-				{
-					Vector2 vect = oldPos[1] - oldPos[0];
-					oldPos[num46] = oldPos[num46 - 1] - (vect*0.5f);
-				}
-				oldPos[0] = thispos + Main.screenPosition;
-				//oldRot[0] = (float)Math.Atan2((double)drawPlayer.velocity.Y, (double)drawPlayer.velocity.X);
-				if (ballstate && drawPlayer.active && !drawPlayer.dead)
-				{
-					if(drawPlayer.velocity.X != 0 || drawPlayer.velocity.Y != 0)
-					{
-						for (int num88 = 0; num88 < oldPos.Length; num88++)
-						{
-							Color color23 = brightColor;
-							color23 *= (float)(oldPos.Length - (num88)) / 15f;
-							sb.Draw(trail, oldPos[num88] - Main.screenPosition, new Rectangle?(new Rectangle(0,0,trail.Width, trail.Height)), color23, ballrot, ballDims/2, scale, effects, 0f);
-						}
-					}
-					if(shineDirection != 0)
-					{
-						currentMorphColor = Color.Yellow;
-						sb.Draw(mytex, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), Color.Yellow,ballrot,ballDims/2, scale, effects, 0f);
-						sb.Draw(mytex2, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), brightColor,ballrot,ballDims/2, scale, effects, 0f);
-					}
-					else
-					{
-						if(speedBoosting && shineDirection == 0)
-						{
-							currentMorphColor = new Color(51,70,179);
-							sb.Draw(mytex3, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), Color.White,ballrot,ballDims/2, scale, effects, 0f);
-							sb.Draw(mytex2, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), brightColor,ballrot,ballDims/2, scale, effects, 0f);
-						}
-						else
-						{
-							sb.Draw(mytex, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), darkColor,ballrot,ballDims/2, scale, effects, 0f);
-							sb.Draw(mytex2, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), brightColor,ballrot,ballDims/2, scale, effects, 0f);
-						}
-					}
-					if(boostEffect > 0)
-					{
-						for (int i = 0; i < boostEffect; i++)
-						{
-							sb.Draw(boosttex, thispos, new Rectangle?(new Rectangle(0,0,boosttex.Width,boosttex.Height)), boostGold * 0.5f,ballrot,ballDims/2, scale, effects, 0f);
-						}
-					}
-					else if(boostCharge > 0)
-					{
-						for (int i = 0; i < boostCharge; i++)
-						{
-							sb.Draw(boosttex, thispos, new Rectangle?(new Rectangle(0,0,boosttex.Width,boosttex.Height)), boostYellow * 0.5f,ballrot,ballDims/2, scale, effects, 0f);
-						}
-					}
-					Texture2D spiderTex = mod.GetTexture("Gore/Spiderball");
-					if(spiderball)
-					{
-						sb.Draw(spiderTex, thispos, new Rectangle?(new Rectangle(0,0,spiderTex.Width,spiderTex.Height)), brightColor,ballrot,new Vector2(spiderTex.Width/2,spiderTex.Height/2), scale, effects, 0f);
-					}
-				}
-			//}
-		}
-        const int shinyblock = 700;
-        public void AddSpaceJumping(Player player)
-		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			AddSpaceJump(player);
-			if(mp.statSpaceJumps >= 15 && !mp.ballstate && player.grappling[0] == -1  && mp.spaceJumped && !player.jumpAgainCloud && !player.jumpAgainBlizzard && !player.jumpAgainSandstorm && !player.jumpAgainFart && player.jump == 0 && player.velocity.Y != 0f && player.rocketTime == 0 && player.wingTime == 0f && !player.mount.Active)
+			Player P = player;
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			
+			bool pseudoScrew = (statCharge >= maxCharge && somersault && SMoveEffect <= 0);
+			if(pseudoScrew)
 			{
-				if(player.controlJump && player.releaseJump && player.velocity.Y != 0 && mp.spaceJumped)
+				if(P.shadow == 0f)
 				{
-					player.jump = Player.jumpHeight;
-					player.velocity.Y = -Player.jumpSpeed * player.gravDir;
-					mp.statSpaceJumps -= 15;
-					mp.spaceJumpsRegenDelay = 25;
+					psuedoScrewFlash++;
 				}
 			}
-			mp.spaceJump = true;
+			else
+			{
+				psuedoScrewFlash = 0;
+			}
+			if(shineCharge > 0)
+			{
+				if(P.shadow == 0f)
+				{
+					shineChargeFlash++;
+				}
+			}
+			else
+			{
+				shineChargeFlash = 0;
+			}
+			if(hyperColors > 0 || speedBoosting || shineActive || (pseudoScrew && psuedoScrewFlash >= 3) || (shineCharge > 0 && shineChargeFlash >= 4))
+			{
+				byte shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(3558);
+				if(P.head > 0 && P.cHead <= 0)
+				{
+					drawInfo.headArmorShader = shader;
+				}
+				if(P.body > 0 && P.cBody <= 0)
+				{
+					drawInfo.bodyArmorShader = shader;
+				}
+				if(P.legs > 0 && P.cLegs <= 0)
+				{
+					drawInfo.legArmorShader = shader;
+				}
+
+				if(P.shadow == 0f && hyperColors > 0)
+				{
+					hyperColors--;
+				}
+				if(psuedoScrewFlash >= 9)
+				{
+					psuedoScrewFlash = 0;
+				}
+				if(shineChargeFlash >= 6)
+				{
+					shineChargeFlash = 0;
+				}
+			}
 		}
-        public void AddSpaceJump(Player player)
+        public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grappleBeamIsHooked)
+			MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
+			Player P = player;
+
+    		for (int k = 0; k < layers.Count; k++)
 			{
-				mp.spaceJumped = false;
-				if(player.velocity.X != 0 || player.sliding)
+				if (layers[k] == PlayerLayer.FrontAcc)
 				{
-					mp.canSomersault = true;
+					k++;
+					layers.Insert(k + 1, ballLayer);
+					k++;
+					layers.Insert(k + 1, screwAttackLayer);
 				}
-				else if(!player.sliding)
+				if (layers[k] == PlayerLayer.Body)
 				{
-					mp.canSomersault = false;
+					k++;
+					layers.Insert(k + 1, thrusterLayer);
+					k++;
+					layers.Insert(k + 1, jetLayer);
+					k++;
+				}
+				if (layers[k] == PlayerLayer.Head)
+				{
+					k++;
+					layers.Insert(k + 1, visorLayer);
+
+				}
+				if(layers[k] == PlayerLayer.Arms)
+				{
+					k++;
+					layers.Insert(k + 1, gunLayer);
 				}
 			}
-			else if(!mp.ballstate && player.controlJump && player.releaseJump && !mp.spaceJumped && player.grappling[0] == -1 && !grappleBeamIsHooked && player.jump <= 0)
+			if(somersault)
 			{
-				int num167 = player.height;
-				if (player.gravDir == -1f)
+				P.bodyFrame.Y = P.bodyFrame.Height * 6;
+				P.legFrame.Y = P.legFrame.Height * 7;
+				P.wingFrame = 1;
+				if (P.wings == 4)
 				{
-					num167 = 4;
+					P.wingFrame = 3;
 				}
-				Main.PlaySound(2,(int)player.position.X,(int)player.position.Y,20);
-				for (int num168 = 0; num168 < 8; num168++)
+			}
+			else if(shineActive && shineDirection == 0 && shineDischarge > 0)
+			{
+				if(shineDischarge < 15)
 				{
-					int type4 = 6;
-					float scale2 = 2.5f;
-					int alpha2 = 100;
-					if (num168 <= 3)
+					P.bodyFrame.Y = P.bodyFrame.Height * 5;
+				}
+				else if(shineDischarge <= 30)
+				{
+					P.bodyFrame.Y = P.bodyFrame.Height * 6;
+				}
+				P.legFrame.Y = P.legFrame.Height * 5;
+			}
+			else if(shineDirection == 5)
+			{
+				P.bodyFrame.Y = 0;
+				P.legFrameCounter = 0.0;
+				P.legFrame.Y = 0;
+				if(thrusters)
+				{
+					PlayerLayer.Wings.visible = false;
+					PlayerLayer.BackAcc.visible = false;
+				}
+				else
+				{
+					P.wingFrame = 0;
+					if (P.wings == 4)
 					{
-						int num169 = Dust.NewDust(new Vector2(player.position.X - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
-						Main.dust[num169].noGravity = true;
-						Main.dust[num169].velocity.X = Main.dust[num169].velocity.X * 1f - 2f - player.velocity.X * 0.3f;
-						Main.dust[num169].velocity.Y = Main.dust[num169].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-					}
-					else
-					{
-						int num170 = Dust.NewDust(new Vector2(player.position.X + (float)player.width - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
-						Main.dust[num170].noGravity = true;
-						Main.dust[num170].velocity.X = Main.dust[num170].velocity.X * 1f + 2f - player.velocity.X * 0.3f;
-						Main.dust[num170].velocity.Y = Main.dust[num170].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+						P.wingFrame = 3;
 					}
 				}
-				mp.spaceJumped = true;
-				mp.canSomersault = true;
-				player.jump = Player.jumpHeight;
-				player.velocity.Y = -Player.jumpSpeed * player.gravDir;
-				player.canRocket = false;
-				player.rocketRelease = false;
-				player.fallStart = (int)(player.Center.Y / 16f);
+			}
+			else if(shineDirection == 2 || shineDirection == 4)
+			{
+				P.bodyFrame.Y = P.bodyFrame.Height * 6;
+				P.legFrame.Y = P.legFrame.Height * 7;
+				if(thrusters)
+				{
+					jet = true;
+					PlayerLayer.Wings.visible = false;
+					PlayerLayer.BackAcc.visible = false;
+				}
+				else
+				{
+					P.wingFrame = 2;
+					if (P.wings == 4)
+					{
+						P.wingFrame = 3;
+					}
+				}
+			}
+			else if(shineDirection == 1 || shineDirection == 3)
+			{
+				P.bodyFrame.Y = P.bodyFrame.Height * 6;
+				P.legFrame.Y = P.legFrame.Height * 7;
+				if(thrusters)
+				{
+					jet = true;
+					PlayerLayer.Wings.visible = false;
+					PlayerLayer.BackAcc.visible = false;
+				}
+				else
+				{
+					P.wingFrame = 2;
+					if (P.wings == 4)
+					{
+						P.wingFrame = 3;
+					}
+				}
+			}
+			else
+			{
+				/*float MY = Main.mouseY + Main.screenPosition.Y;
+				float MX = Main.mouseX + Main.screenPosition.X;
+				if (P.gravDir == -1f)
+				{
+					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+				}
+				float targetrotation = (float)Math.Atan2((MY-P.Center.Y)*P.direction,(MX-P.Center.X)*P.direction);
+				if((XRayScope.xray.XRayActive(P) && MBase.HeadTracking == "X-Ray") || (!ballstate && ((P.direction == 1 && MX >= P.Center.X) || (P.direction == -1 && MX <= P.Center.X))))
+				{
+					P.headRotation = targetrotation * 0.3f;
+					if ((double)P.headRotation < -0.3)
+					{
+						P.headRotation = -0.3f;
+					}
+					if ((double)P.headRotation > 0.3)
+					{
+						P.headRotation = 0.3f;
+					}
+				}
+				else if(!P.merman && !P.dead)
+				{
+					P.headRotation = 0f;
+				}*/
+				if(grapplingBeam >= 0 && P.itemAnimation <= 0)
+				{
+					float num11 = grappleRotation * (float)P.direction;
+					P.bodyFrame.Y = P.bodyFrame.Height * 3;
+					if ((double)num11 < -0.75)
+					{
+						P.bodyFrame.Y = P.bodyFrame.Height * 2;
+						if (P.gravDir == -1f)
+						{
+							P.bodyFrame.Y = P.bodyFrame.Height * 4;
+						}
+					}
+					if ((double)num11 > 0.6)
+					{
+						P.bodyFrame.Y = P.bodyFrame.Height * 4;
+						if (P.gravDir == -1f)
+						{
+							P.bodyFrame.Y = P.bodyFrame.Height * 2;
+						}
+					}
+				}
+			}
+			if(ballstate)
+			{
+				PlayerLayer.Arms.visible = false;
+				PlayerLayer.Head.visible = false;
+                PlayerLayer.Face.visible = false;
+                PlayerLayer.Hair.visible = false;
+                PlayerLayer.HairBack.visible = false;
+                PlayerLayer.Skin.visible = false;
+				PlayerLayer.Body.visible = false;
+				PlayerLayer.Legs.visible = false;
+				PlayerLayer.Wings.visible = false;
+				PlayerLayer.BackAcc.visible = false;
+				PlayerLayer.BalloonAcc.visible = false;
+				PlayerLayer.ShoeAcc.visible = false;
+                PlayerLayer.HandOnAcc.visible = false;
+				PlayerLayer.HandOffAcc.visible = false;
+				PlayerLayer.WaistAcc.visible = false;
+				PlayerLayer.NeckAcc.visible = false;
+				PlayerLayer.ShieldAcc.visible = false;
+				//PlayerLayer.FrontAcc.visible = false;
+				PlayerLayer.MountBack.visible = false;
+                PlayerLayer.HeldItem.visible = false;
+                P.shadow = 0f;
+			}
+			else
+			{
+				if(somersault || shineActive)
+				{
+					PlayerLayer.HeldItem.visible = false;
+				}
+				if (thrusters)
+				{
+					if((P.wings == 0 && P.back == -1) || P.velocity.Y == 0f || mPlayer.shineDirection != 0)
+					{
+						PlayerLayer.Wings.visible = false;
+						PlayerLayer.BackAcc.visible = false;
+					}
+				}
+			}
+			
+			if(!thrusters)
+			{
+				jet = false;
 			}
 		}
+
+		public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player P = drawInfo.drawPlayer;
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			if (mPlayer.somersault && mPlayer.screwAttack && P.shadow == 0f && !mPlayer.ballstate)
+			{
+				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
+				Texture2D tex2 = mod.GetTexture("Gore/ScrewAttack_Yellow");
+				for(int i = 0; i < 255; i++)
+				{
+					Projectile projectile = Main.projectile[i];
+					if(projectile.active && projectile.owner == P.whoAmI && projectile.type == mod.ProjectileType("ScrewAttackProj"))
+					{
+						SpriteEffects effects = SpriteEffects.None;
+						if (projectile.spriteDirection == -1)
+						{
+							effects = SpriteEffects.FlipHorizontally;
+						}
+						Color alpha = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
+						int num121 = tex.Height / Main.projFrames[projectile.type];
+						int y9 = num121 * projectile.frame;
+						float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
+						spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+						if(mPlayer.screwAttackSpeedEffect > 0)
+						{
+							Color color21 = alpha * ((float)Math.Min(mPlayer.screwAttackSpeedEffect,30)/30f);
+							spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+							Texture2D tex3 = mod.GetTexture("Gore/ScrewAttack_YellowPlayerGlow");
+							Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
+						}
+					}
+				}
+			}
+		});
+		public static readonly PlayerLayer visorLayer = new PlayerLayer("MetroidMod", "visorLayer", PlayerLayer.Head, delegate(PlayerDrawInfo drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			if (mPlayer.isPowerSuit && !mPlayer.ballstate)
+			{
+				Texture2D tex = mod.GetTexture("Gore/VisorGlow");
+				mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headOrigin, mPlayer.visorGlowColor, 0);
+			}
+		});
 		public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ballLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
@@ -770,14 +1035,12 @@ namespace MetroidMod
 		});
 		public static readonly PlayerLayer gunLayer = new PlayerLayer("MetroidMod", "gunLayer", PlayerLayer.Arms, delegate(PlayerDrawInfo drawInfo)
 		{
-			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
 			Mod mod = MetroidMod.Instance;
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
 			Item I = P.inventory[P.selectedItem];
 			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
-			//if ((I.type == ItemDef.byName["MetroidMod:PowerBeam"].type || I.type == ItemDef.byName["MetroidMod:MissileLauncher"].type || I.type == ItemDef.byName["MetroidMod:NovaLaser"].type) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4 || mPlayer.isConcentrating)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
-			if (I.type == mod.ItemType("PowerBeam") && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
+			if ((I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher")) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
 				Texture2D tex = Main.itemTexture[I.type];//I.GetTexture();
 				/*MItem mi = I.GetSubClass<MItem>();
@@ -804,50 +1067,44 @@ namespace MetroidMod
 					if(frame == 0)
 					{
 						rotate = 1.3625f;
-						posX = -6.5f;
+						posX = -7f;
 						posY = 13f;
 					}
-					/*else if(frame == 1 && mPlayer.isConcentrating)
-					{
-						rotate = -1.75f;
-						posX = -8.5f;
-						posY = -12f;
-					}*/
 					else if(frame == 5)
 					{
 						rotate = -1.75f;
-						posX = -8.75f;
+						posX = -8f;
 						posY = -12f;
 					}
 					else if(frame == 6 || frame == 18 || frame == 19 || (frame >= 11 && frame <= 13))
 					{
 						posX = 0f;
-						posY = 5.5f;
+						posY = 5f;
 					}
 					else if(frame >= 7 && frame <= 9)
 					{
 						posX = -2f;
-						posY = 3.5f;
+						posY = 3f;
 					}
 					else if(frame == 10)
 					{
 						posX = -2f;
-						posY = 5.5f;
+						posY = 5f;
 					}
 					else if(frame == 14)
 					{
 						posX = 2f;
-						posY = 3.5f;
+						posY = 3f;
 					}
 					else if(frame == 15 || frame == 16)
 					{
 						posX = 4f;
-						posY = 3.5f;
+						posY = 3f;
 					}
 					else if(frame == 17)
 					{
 						posX = 2f;
-						posY = 5.5f;
+						posY = 5f;
 					}
 					rot = rotate*P.direction*P.gravDir;
 					pos.X += ((float)P.bodyFrame.Width * 0.5f) + posX*P.direction;
@@ -860,7 +1117,8 @@ namespace MetroidMod
 					}
 					Color color = Lighting.GetColor((int)((double)drawInfo.position.X + (double)P.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)P.height * 0.5) / 16);
 
-					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + pos, new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), I.GetAlpha(color), rot, origin, I.scale, effects, 0);
+					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + new Vector2((float)((int)pos.X),(float)((int)pos.Y)), new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), drawInfo.middleArmorColor, rot, origin, I.scale, effects, 0);
+ 					item.shader = drawInfo.bodyArmorShader;
 					Main.playerDrawData.Add(item);
 				}
 			}
@@ -878,8 +1136,8 @@ namespace MetroidMod
 					if(mPlayer.thrusterTexture != null)
 					{
 						Texture2D tex = mPlayer.thrusterTexture;
-						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawInfo.bodyColor, drawInfo.bodyArmorShader);
-					}
+						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawInfo.middleArmorColor, drawInfo.bodyArmorShader);
+  					}
 				}
 			}
 		});
@@ -905,8 +1163,7 @@ namespace MetroidMod
 			{
 				effects = SpriteEffects.FlipHorizontally;
 			}
-			float yfloat = 4f;
-			DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + yfloat))) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
+			DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + 4f))) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
 			item.shader = shader;
 			Main.playerDrawData.Add(item);
 		}
@@ -950,375 +1207,658 @@ namespace MetroidMod
 			float yfloat = 4f;
 			Main.playerDrawData.Add(new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + yfloat))) + drawPos + drawInfo.bodyOrigin, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyOrigin, 1f, effects, 0));
 		}
-		public Color GetAlpha(Color newColor, float alphaReduction)
+		public float ballrot = 0f;
+		public static int oldNumMax = 10;
+		public Vector2[] oldPos = new Vector2[oldNumMax];
+        public void DrawBallTexture(SpriteBatch sb, Texture2D mytex, Texture2D mytex2, Texture2D mytex3, Texture2D boosttex, Texture2D trail, Player drawPlayer, PlayerDrawInfo drawInfo)
 		{
-			float num = (float)(255) / 255f;
-			if (alphaReduction > 0f)
+			float thisx = (float)((int)(drawInfo.position.X + (float)(drawPlayer.width / 2) - Main.screenPosition.X));
+			float thisy = (float)((int)(drawInfo.position.Y + (float)(drawPlayer.height / 2) - Main.screenPosition.Y));
+			Vector2 ballDims = new Vector2(28f,28f);
+			Vector2 thispos =  new Vector2(thisx,thisy);
+			if(drawPlayer.shadow == 0f)
 			{
-				num *= 1f - alphaReduction;
+				int timez = (int)(Time%60)/10;
+				SpriteEffects effects = SpriteEffects.None;
+				if (drawPlayer.direction == -1)
+				{
+					effects = SpriteEffects.FlipHorizontally;
+				}
+				float ballrotoffset = 0f;
+				if(drawPlayer.velocity.Y != Vector2.Zero.Y)
+				{
+					if(drawPlayer.velocity.X != 0f)
+					ballrotoffset+= 0.05f*drawPlayer.velocity.X;
+					else
+					ballrotoffset += 0.25f*drawPlayer.direction;
+				}
+				else if (drawPlayer.velocity.X < 0f)
+				{
+					ballrotoffset -= 0.2f;
+				}
+				else if ( drawPlayer.velocity.X > 0f)
+				{
+					ballrotoffset += 0.2f;
+				}
+				if(drawPlayer.velocity.X != 0f)
+				{
+					ballrotoffset+= 0.025f*drawPlayer.velocity.X;
+				}
+				else
+				{
+					ballrotoffset += 0.125f*drawPlayer.direction;
+				}
+				ballrot+=ballrotoffset;
+				if(ballrot > (float)(Math.PI)*2)
+				{
+					ballrot -= (float)(Math.PI)*2;
+				}
+				if(ballrot < -(float)(Math.PI)*2)
+				{
+					ballrot += (float)(Math.PI)*2;
+				}
+				Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, morphColor),0f);
+				float scale = 0.57f;
+				int offset = 4;
+				for (int num46 = oldPos.Length - 1; num46 > 0; num46--)
+				{
+					Vector2 vect = oldPos[1] - oldPos[0];
+					oldPos[num46] = oldPos[num46 - 1] - (vect*0.5f);
+				}
+				oldPos[0] = thispos + Main.screenPosition;
+				if (ballstate && drawPlayer.active && !drawPlayer.dead)
+				{
+					if(drawPlayer.velocity.X != 0 || drawPlayer.velocity.Y != 0)
+					{
+						for (int num88 = 0; num88 < oldPos.Length; num88++)
+						{
+							Color color23 = morphColorLights;
+							color23 *= (float)(oldPos.Length - (num88)) / 15f;
+							sb.Draw(trail, oldPos[num88] - Main.screenPosition, new Rectangle?(new Rectangle(0,0,trail.Width, trail.Height)), color23, ballrot, ballDims/2, scale, effects, 0f);
+						}
+					}
+					sb.Draw(mytex, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), mColor,ballrot,ballDims/2, scale, effects, 0f);
+					sb.Draw(mytex2, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), morphColorLights,ballrot,ballDims/2, scale, effects, 0f);
+					if(boostEffect > 0)
+					{
+						for (int i = 0; i < boostEffect; i++)
+						{
+							sb.Draw(boosttex, thispos, new Rectangle?(new Rectangle(0,0,boosttex.Width,boosttex.Height)), boostGold * 0.5f,ballrot,ballDims/2, scale, effects, 0f);
+						}
+					}
+					if(boostCharge > 0)
+					{
+						for (int i = 0; i < boostCharge; i++)
+						{
+							sb.Draw(boosttex, thispos, new Rectangle?(new Rectangle(0,0,boosttex.Width,boosttex.Height)), boostYellow * 0.5f,ballrot,ballDims/2, scale, effects, 0f);
+						}
+					}
+					Texture2D spiderTex = mod.GetTexture("Gore/Spiderball");
+					if(spiderball)
+					{
+						sb.Draw(spiderTex, thispos, new Rectangle?(new Rectangle(0,0,spiderTex.Width,spiderTex.Height)), morphColorLights,ballrot,new Vector2(spiderTex.Width/2,spiderTex.Height/2), scale, effects, 0f);
+					}
+				}
 			}
-			return Color.Multiply(newColor, num);
 		}
-		public static readonly PlayerLayer visorLayer = new PlayerLayer("MetroidMod", "visorLayer", PlayerLayer.Head, delegate(PlayerDrawInfo drawInfo)
-		{
-			Mod mod = MetroidMod.Instance;
-			SpriteBatch spriteBatch = Main.spriteBatch;
-			Player drawPlayer = drawInfo.drawPlayer;
-			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
-			if (mPlayer.isPowerSuit && !mPlayer.ballstate)
-			{
-				Texture2D tex = mod.GetTexture("Gore/VisorGlow");
-				mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headOrigin, mPlayer.visorGlowColor, 0);
-			}
-		});
-		Color color21 = Color.White;
-		public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
-		{
-			Mod mod = MetroidMod.Instance;
-			SpriteBatch spriteBatch = Main.spriteBatch;
-			Player P = drawInfo.drawPlayer;
-			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
-			if (mPlayer.somersault && mPlayer.screwAttack && P.shadow == 0f)
-			{
-				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
-				Texture2D tex2 = mod.GetTexture("Gore/ScrewAttack_Yellow");
-				for(int i = 0; i < 255; i++)
-				{
-					Projectile projectile = Main.projectile[i];
-					if(projectile.active && projectile.owner == P.whoAmI && projectile.type == mod.ProjectileType("ScrewAttackProj"))
-					{
-						SpriteEffects effects = SpriteEffects.None;
-						if (projectile.spriteDirection == -1)
-						{
-							effects = SpriteEffects.FlipHorizontally;
-						}
-						Color alpha = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
-						int num121 = tex.Height / Main.projFrames[projectile.type];
-						int y9 = num121 * projectile.frame;
-						float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
-						spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
-						if(mPlayer.screwAttackSpeedEffect > 0)
-						{
-							mPlayer.color21 = alpha;
-							if(mPlayer.screwAttackSpeedEffect <= 30)
-							{
-								mPlayer.color21 = mPlayer.GetAlpha(alpha, ((float)(30-mPlayer.screwAttackSpeedEffect)/30f));
-							}
-							spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), mPlayer.color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
-							Texture2D tex3 = mod.GetTexture("Gore/ScrewAttack_YellowPlayerGlow");
-							Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), mPlayer.color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
-						}
-					}
-				}
-			}
-		});
-		//public void DrawTexture(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
-        public override void ModifyDrawLayers(List<PlayerLayer> layers)
-		{
-			MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
-			Player P = player;
-	//		PlayerLayer.Add(list, gunItemLayer, PlayerLayer.LayerHeldItem, false, false);
-    		for (int k = 0; k < layers.Count; k++)
-			{
-				if (layers[k] == PlayerLayer.FrontAcc)
-				{
-					k++;
-					layers.Insert(k + 1, ballLayer);
-					k++;
-					layers.Insert(k + 1, screwAttackLayer);
-				}
-				if (layers[k] == PlayerLayer.Body)
-				{
-					k++;
-					layers.Insert(k + 1, thrusterLayer);
-					k++;
-					layers.Insert(k + 1, jetLayer);
-					k++;
-				}
-				if (layers[k] == PlayerLayer.Head)
-				{
-					k++;
-					layers.Insert(k + 1, visorLayer);
 
-				}
-				if(layers[k] == PlayerLayer.Arms)
-				{
-					k++;
-					layers.Insert(k + 1, gunLayer);
-				}
+		public void SenseMove(Player P)
+		{
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			int dist = 80;
+			if(senseSound)
+			{
+				Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SenseMoveSound"));
 			}
-			Terraria.Item I = P.inventory[P.selectedItem];
-			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
-	/*	if ((I.type == ItemDef.byName["MetroidMod:PowerBeam"].type || I.type == ItemDef.byName["MetroidMod:MissileLauncher"].type || I.type == ItemDef.byName["MetroidMod:NovaLaser"].type) && P.itemAnimation == 0 && (frame < 1 || frame > 4))
+			Vector2 right = new Vector2(7f, -4.5f);
+			Vector2 left = new Vector2(-7f, -4.5f);
+			detect = false;
+			float mult = Player.jumpSpeed - (Player.jumpHeight/Player.jumpSpeed) + player.gravity;
+			float threshhold = Player.jumpSpeed*mult;
+			float minimum = 2.5f;
+			for(int k = 0; k < Main.npc.Length; k++)
 			{
-				PlayerLayer.Add(list, gunLayer, PlayerLayer.LayerArmsFront, false, false);
-			}*/
-			//TAPI.PlayerLayer.ExtraDrawInfo edi = PlayerLayer.extraDrawInfo;
-			if(somersault)
-			{
-				//P.fullRotation = rotation;
-				//P.fullRotationOrigin = P.Center - P.position;
-				P.bodyFrame.Y = P.bodyFrame.Height * 6;
-				P.legFrame.Y = P.legFrame.Height * 7;
-				P.wingFrame = 1;
-				if (P.wings == 4)
+				NPC N = Main.npc[k];
+				if(N.damage > 0 && !N.friendly && N.life > 0 && N.active)
 				{
-					P.wingFrame = 3;
-				}
-			}
-			else if(shineActive && shineDirection == 0 && shineDeActive > 0)
-			{
-				if(shineDeActive < 15)
-				{
-					P.bodyFrame.Y = P.bodyFrame.Height * 5;
-				}
-				else if(shineDeActive <= 30)
-				{
-					P.bodyFrame.Y = P.bodyFrame.Height * 6;
-				}
-				P.legFrame.Y = P.legFrame.Height * 5;
-			}
-			else if(shineDirection == 5)
-			{
-				P.bodyFrame.Y = 0;
-				P.legFrameCounter = 0.0;
-				P.legFrame.Y = 0;
-				if(thrusters)
-				{
-					PlayerLayer.Wings.visible = false;
-					PlayerLayer.BackAcc.visible = false;
-				}
-				else
-				{
-					P.wingFrame = 0;
-					if (P.wings == 4)
+					for(int i = 1; i <= dist; i++)
 					{
-						P.wingFrame = 3;
+						Vector2 npcFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
+						float npcDist = Vector2.Distance(P.Center, npcFuturePos);
+						if(npcDist <= (P.height+N.width) || npcDist <= (P.height+N.height))
+						{
+							if(N.velocity.X != 0f || N.velocity.Y != 0f)
+							{
+								if(N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
+								{
+									detect = true;
+								}
+							}
+						}
+					}
+					if(detect)
+					{
+						if(N.Center.X > P.position.X + P.width)
+						{
+							right.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
+							{
+								right.X += N.velocity.Y;
+							}
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								right.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								right.Y -= (height/10);
+							}
+						}
+						if(N.Center.X < P.position.X)
+						{
+							left.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
+							{
+								left.X -= N.velocity.Y;
+							}
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								left.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								left.Y -= (height/10);
+							}
+						}
 					}
 				}
 			}
-			else if(shineDirection == 2 || shineDirection == 4)
+			for(int k = 0; k < Main.projectile.Length; k++)
 			{
-				//rotation = 0.1f * P.direction * P.gravDir;
-				//P.fullRotation = rotation;
-				//P.fullRotationOrigin = P.Center - P.position;
-				P.bodyFrame.Y = P.bodyFrame.Height * 6;
-				P.legFrame.Y = P.legFrame.Height * 7;
-				if(thrusters)
+				Projectile N = Main.projectile[k];
+				if(N.damage > 0 && !N.friendly && N.hostile && N.timeLeft > 0 && N.active)
 				{
-					jet = true;
-					PlayerLayer.Wings.visible = false;
-					PlayerLayer.BackAcc.visible = false;
-				}
-				else
-				{
-					P.wingFrame = 2;
-					if (P.wings == 4)
+					for(int i = 1; i <= dist; i++)
 					{
-						P.wingFrame = 3;
+						Vector2 projFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
+						float projDist = Vector2.Distance(P.Center, projFuturePos);
+						if(projDist <= (P.height+N.width) || projDist <= (P.height+N.height))
+						{
+							if(N.velocity.X != 0f || N.velocity.Y != 0f)
+							{
+								if(!N.tileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
+								{
+									detect = true;
+								}
+							}
+						}
+					}
+					if(detect)
+					{
+						if(N.Center.X > P.position.X + P.width)
+						{
+							right.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
+							{
+								right.X += N.velocity.Y;
+							}
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								right.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								right.Y -= (height/10);
+							}
+						}
+						if(N.Center.X < P.position.X)
+						{
+							left.X -= N.velocity.X;
+							if(N.position.Y + N.height + N.velocity.Y < P.position.Y)
+							{
+								left.X -= N.velocity.Y;
+							}
+							else if(N.position.Y + N.velocity.Y > P.position.Y + P.height)
+							{
+								left.Y += N.velocity.Y;
+							}
+							else
+							{
+								float height = (P.position.Y + P.height) - N.position.Y;
+								left.Y -= (height/10);
+							}
+						}
 					}
 				}
 			}
-			else if(shineDirection == 1 || shineDirection == 3)
+			right.X =  Math.Abs(right.X) > threshhold ? threshhold : (Math.Abs(right.X) < minimum*3 ? minimum*3 : Math.Abs(right.X));
+			right.Y = right.Y > -minimum ? -minimum : (right.Y < -threshhold ? -threshhold : right.Y);
+			left.X = Math.Abs(left.X) > threshhold ? -threshhold : (Math.Abs(left.X) < minimum*3 ? -minimum*3 : -Math.Abs(left.X));
+			left.Y = left.Y > -minimum ? -minimum : (left.Y < -threshhold ? -threshhold : left.Y);
+			if(detect && !mp.ballstate && !P.mount.Active && P.velocity.Y == 0f)
 			{
-				//rotation = (MBase.degree360/8f) * P.direction * P.gravDir;
-				//P.fullRotation = rotation;
-				//P.fullRotationOrigin = P.Center - P.position;
-				P.bodyFrame.Y = P.bodyFrame.Height * 6;
-				P.legFrame.Y = P.legFrame.Height * 7;
-				if(thrusters)
+				if(!isSenseMoving)
 				{
-					jet = true;
-					PlayerLayer.Wings.visible = false;
-					PlayerLayer.BackAcc.visible = false;
+					if(P.controlLeft && MetroidMod.SenseMoveKey.Current)
+					{
+						SMoveEffect = 40;
+						senseSound = true;
+						P.velocity.X = left.X;
+						P.velocity.Y += left.Y * P.gravDir;
+						P.direction = -1;
+						isSenseMoving = true;
+					}
+					else if(P.controlRight && MetroidMod.SenseMoveKey.Current)
+					{
+						SMoveEffect = 40;
+						senseSound = true;
+						P.velocity.X = right.X;
+						P.velocity.Y += right.Y * P.gravDir;
+						P.direction = 1;
+						isSenseMoving = true;
+					}
+					else
+					{
+						isSenseMoving = false;
+						senseSound = false;
+					}
 				}
 				else
 				{
-					P.wingFrame = 2;
-					if (P.wings == 4)
-					{
-						P.wingFrame = 3;
-					}
+					isSenseMoving = false;
+					senseSound = false;
 				}
 			}
 			else
 			{
-				
-				/*float MY = Main.mouseY + Main.screenPosition.Y;
-				float MX = Main.mouseX + Main.screenPosition.X;
-				if (P.gravDir == -1f)
+				isSenseMoving = false;
+				senseSound = false;
+			}
+			if(SMoveEffect > 0)
+			{
+				SMoveEffect--;
+			}
+			else
+			{
+				sMoveDir = 1;
+			}
+		}
+        public void AddSpaceJumping(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			AddSpaceJump(player);
+			if(mp.statSpaceJumps >= 15 && !mp.ballstate && player.grappling[0] == -1  && mp.spaceJumped && !player.jumpAgainCloud && !player.jumpAgainBlizzard && !player.jumpAgainSandstorm && !player.jumpAgainFart && player.jump == 0 && player.velocity.Y != 0f && player.rocketTime == 0 && player.wingTime == 0f && !player.mount.Active)
+			{
+				if(player.controlJump && player.releaseJump && player.velocity.Y != 0 && mp.spaceJumped)
 				{
-					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-				}
-				float targetrotation = (float)Math.Atan2((MY-P.Center.Y)*P.direction,(MX-P.Center.X)*P.direction);
-				if((XRayScope.xray.XRayActive(P) && MBase.HeadTracking == "X-Ray") || (!ballstate && ((P.direction == 1 && MX >= P.Center.X) || (P.direction == -1 && MX <= P.Center.X))))
-				{
-					P.headRotation = targetrotation * 0.3f;
-					if ((double)P.headRotation < -0.3)
-					{
-						P.headRotation = -0.3f;
-					}
-					if ((double)P.headRotation > 0.3)
-					{
-						P.headRotation = 0.3f;
-					}
-				}
-				else if(!P.merman && !P.dead)
-				{
-					P.headRotation = 0f;
-				}*/
-				if(grappleBeamIsHooked && P.itemAnimation <= 0)
-				{
-					float num11 = grappleRotation * (float)P.direction;
-					P.bodyFrame.Y = P.bodyFrame.Height * 3;
-					if ((double)num11 < -0.75)
-					{
-						P.bodyFrame.Y = P.bodyFrame.Height * 2;
-						if (P.gravDir == -1f)
-						{
-							P.bodyFrame.Y = P.bodyFrame.Height * 4;
-						}
-					}
-					if ((double)num11 > 0.6)
-					{
-						P.bodyFrame.Y = P.bodyFrame.Height * 4;
-						if (P.gravDir == -1f)
-						{
-							P.bodyFrame.Y = P.bodyFrame.Height * 2;
-						}
-					}
+					player.jump = Player.jumpHeight;
+					player.velocity.Y = -Player.jumpSpeed * player.gravDir;
+					mp.statSpaceJumps -= 15;
+					mp.spaceJumpsRegenDelay = 25;
 				}
 			}
-			/*if(flashActive)
+			mp.spaceJump = true;
+		}
+        public void AddSpaceJump(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || mp.grapplingBeam >= 0)
 			{
-				P.bodyFrame.Y = P.bodyFrame.Height * 6;
-				P.legFrameCounter = 0.0;
-				P.legFrame.Y = P.legFrame.Height * 7;
-				P.head = -1;
-				P.body = -1;
-				P.legs = -1;
-				gunLayer.visible = false;
-				jetLayer.visible = false;
-				thrusterLayer.visible = false;
-				P.drawAura = true;
-			}*/
+				mp.spaceJumped = false;
+				if(player.velocity.X != 0 || player.sliding)
+				{
+					mp.canSomersault = true;
+				}
+				else if(!player.sliding)
+				{
+					mp.canSomersault = false;
+				}
+			}
+			else if(!mp.ballstate && player.controlJump && player.releaseJump && !mp.spaceJumped && player.grappling[0] == -1 && mp.grapplingBeam <= -1 && player.jump <= 0)
+			{
+				int num167 = player.height;
+				if (player.gravDir == -1f)
+				{
+					num167 = 4;
+				}
+				Main.PlaySound(2,(int)player.position.X,(int)player.position.Y,20);
+				for (int num168 = 0; num168 < 8; num168++)
+				{
+					int type4 = 6;
+					float scale2 = 2.5f;
+					int alpha2 = 100;
+					if (num168 <= 3)
+					{
+						int num169 = Dust.NewDust(new Vector2(player.position.X - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+						Main.dust[num169].noGravity = true;
+						Main.dust[num169].velocity.X = Main.dust[num169].velocity.X * 1f - 2f - player.velocity.X * 0.3f;
+						Main.dust[num169].velocity.Y = Main.dust[num169].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+					}
+					else
+					{
+						int num170 = Dust.NewDust(new Vector2(player.position.X + (float)player.width - 4f, player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+						Main.dust[num170].noGravity = true;
+						Main.dust[num170].velocity.X = Main.dust[num170].velocity.X * 1f + 2f - player.velocity.X * 0.3f;
+						Main.dust[num170].velocity.Y = Main.dust[num170].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+					}
+				}
+				mp.spaceJumped = true;
+				mp.canSomersault = true;
+				player.jump = Player.jumpHeight;
+				player.velocity.Y = -Player.jumpSpeed * player.gravDir;
+				player.canRocket = false;
+				player.rocketRelease = false;
+				player.fallStart = (int)(player.Center.Y / 16f);
+			}
+		}
+		const int TileSize = 16;
+		public bool CheckCollide(float offsetX, float offsetY)
+		{
+			return Collision.SolidCollision(player.position+new Vector2(offsetX,offsetY), player.width, player.height);
+		}
+
+        public void AddSpeedBoost(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			speedBoosting = (Math.Abs(player.velocity.X) >= 6.85f && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
+			if((player.controlRight && player.velocity.X > 0) || (player.controlLeft && player.velocity.X < 0))
+			{
+				if(player.velocity.Y == 0f && speedBuildUp < 135f)
+				{
+					speedBuildUp += 1f;
+				}
+				if(speedBuildUp >= 135f)
+				{
+					speedBuildUp = 135f;
+				}
+			}
+			else if(!speedBoosting)
+			{
+				speedBuildUp = 0f;
+			}
+			player.maxRunSpeed += (speedBuildUp*0.06f);
+			if(mp.speedBoosting)
+			{
+				player.armorEffectDrawShadow = true;
+				//MPlayer.jet = true;
+				bool SpeedBoost = false;
+				int SpeedBoostID = mod.ProjectileType("SpeedBoost");
+				if(mp.ballstate)
+				{
+					SpeedBoostID = mod.ProjectileType("SpeedBall");
+				}
+				foreach(Terraria.Projectile P in Main.projectile)
+				{
+					if(P.active && P.owner==player.whoAmI && P.type == SpeedBoostID)
+					{
+						SpeedBoost = true;
+						break;
+					}
+				}
+				if(!SpeedBoost)
+				{
+					int SpBoost = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,SpeedBoostID,specialDmg,0,player.whoAmI);
+				}
+			}
+		#region shine-spark
+			if(mp.speedBoosting)
+			{
+				if(player.controlDown && player.velocity.Y == 0)
+				{
+					shineCharge = 300;
+					player.velocity.X = 0;
+					speedBuildUp = 0f;
+				}
+			}
+			if(shineCharge > 0)
+			{
+				if(player.controlJump && player.releaseJump && !player.controlRight && !player.controlLeft && mp.statOverheat < mp.maxOverheat)
+				{
+					shineActive = true;
+					player.mount.Dismount(player);
+				}
+				else
+				{
+					Lighting.AddLight(player.Center, 1, 216/255, 0);
+					shineSound++;
+					if(shineSound > 11)
+					{
+						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpeedBoosterLoop"));
+						shineSound = 0;
+					}
+				}
+				shineCharge--;
+			}
+			if(shineActive)
+			{
+				shineSound = 0;
+				player.velocity.Y = 0f;
+				player.maxFallSpeed = 0f;
+				player.velocity.X = 0;
+				player.moveSpeed = 0f;
+				player.maxRunSpeed = 0f;
+				//player.noItems = true;
+				player.controlUseItem = false;
+				player.controlMount = false;
+				player.releaseMount = false;
+				player.controlHook = false;
+				if (Main.myPlayer == player.whoAmI)
+				{
+					player.mount.Dismount(player);
+				}
+				for (int k = 0; k < 1000; k++)
+ 				{
+ 					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
+ 					{
+ 						Main.projectile[k].Kill();
+ 					}
+ 				}
+				player.controlJump = false;
+				mp.rotation = 0;
+				player.armorEffectDrawShadow = true;
+				if(shineDirection == 0)
+				{
+					shineDischarge++;
+					Lighting.AddLight(player.Center, 1, 216/255, 0);
+				}
+				if(CheckCollide(0f,4f*player.gravDir) && shineDischarge > 2)
+				{
+					player.position.Y -= 2f*player.gravDir;
+				}
+				if(shineDischarge >= 30 && mp.statOverheat < mp.maxOverheat)
+				{
+					shineCharge = 0;
+					if(player.controlRight && !player.controlUp) //right
+					{
+						shineDirection = 1;
+					}
+					if(player.controlRight && player.controlUp) //right and up
+					{
+						shineDirection = 2;
+					}
+					if(player.controlLeft && !player.controlUp) //left
+					{
+						shineDirection = 3;
+					}
+					if(player.controlLeft && player.controlUp) //left and up
+					{
+						shineDirection = 4;
+					}
+					if(!player.controlRight && !player.controlLeft) //default direction is up
+					{
+						shineDirection = 5;
+					}
+				}
+				player.fallStart = (int)(player.Center.Y / 16f);
+			}
+
+			if(shineDirection == 1) //right
+			{
+				player.velocity.X = 20;
+				player.velocity.Y = 0f;
+				player.maxFallSpeed = 0f;
+				player.direction = 1;
+				shineDischarge = 0;
+				player.controlLeft = false;
+				player.controlUp = true;
+			}
+			if(shineDirection == 2) //right and up
+			{
+				player.velocity.X = 20;
+				player.velocity.Y = -20f*player.gravDir;
+				player.maxFallSpeed = 0f;
+				player.direction = 1;
+				shineDischarge = 0;
+				player.controlLeft = false;
+			}
+			if(shineDirection == 3) //left
+			{
+				player.velocity.X = -20;
+				player.velocity.Y = 0f;
+				player.maxFallSpeed = 0f;
+				player.direction = -1;
+				shineDischarge = 0;
+				player.controlRight = false;
+				player.controlUp = true;
+			}
+			if(shineDirection == 4) //left and up
+			{
+				player.velocity.X = -20;
+				player.velocity.Y = -20*player.gravDir;
+				player.maxFallSpeed = 0f;
+				player.direction = -1;
+				shineDischarge = 0;
+				player.controlRight = false;
+			}
+			if(shineDirection == 5) //up
+			{
+				player.velocity.X *= 0f;
+				player.velocity.Y = -20*player.gravDir;
+				player.maxFallSpeed = 0f;
+				shineDischarge = 0;
+				if (player.miscCounter % 4 == 0 && !ballstate)
+				{
+					player.direction *= -1;
+				}
+				player.controlLeft = false;
+				player.controlRight = false;
+			}
+
+			if(shineDirection != 0)
+			{
+				mp.statOverheat += 0.5f;
+				shineCharge = 0;
+				bool shineSpark = false;
+				int ShineSparkID = mod.ProjectileType("ShineSpark");
+				if(mp.ballstate)
+				{
+					ShineSparkID = mod.ProjectileType("ShineBall");
+				}
+				foreach(Terraria.Projectile P in Main.projectile)
+				{
+					if(P.active && P.owner==player.whoAmI && P.type == ShineSparkID)
+					{
+						shineSpark = true;
+						break;
+					}
+				}
+				if(!shineSpark)
+				{
+					proj = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,ShineSparkID,specialDmg,0,player.whoAmI);
+				}
+			}
+
+		//cancel shine-spark
+			//stop right movement
+			if(shineDirection == 1 && (CheckCollide(player.velocity.X,0f) || mp.statOverheat >= mp.maxOverheat || 
+			(player.position.X + (float)player.width) > (Main.rightWorld - 640f - 48f)))
+			{
+				shineDirection = 0;
+				shineDischarge = 0;
+				shineActive = false;
+				Main.projectile[proj].Kill();
+				speedBuildUp = 135f;
+				if(mp.statOverheat >= mp.maxOverheat)
+				{
+					mp.statOverheat += 10;
+				}
+			}
+			//stop up and right movement
+			if(shineDirection == 2 && (CheckCollide(player.velocity.X,player.velocity.Y) || CheckCollide(player.velocity.X,0f) || CheckCollide(0f,player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || 
+			(player.position.X + (float)player.width) > (Main.rightWorld - 640f - 48f) || player.position.Y < (Main.topWorld + 640f + 32f)))
+			{
+				shineDirection = 0;
+				shineDischarge = 0;
+				shineActive = false;
+				Main.projectile[proj].Kill();
+				speedBuildUp = 135f;
+				if(mp.statOverheat >= mp.maxOverheat)
+				{
+					mp.statOverheat += 10;
+				}
+			}
+			//stop left movement
+			if(shineDirection == 3 && (CheckCollide(player.velocity.X,0f) || mp.statOverheat >= mp.maxOverheat || 
+			player.position.X < (Main.leftWorld + 640f + 32f)))
+			{
+				shineDirection = 0;
+				shineDischarge = 0;
+				shineActive = false;
+				Main.projectile[proj].Kill();
+				speedBuildUp = 135f;
+				if(mp.statOverheat >= mp.maxOverheat)
+				{
+					mp.statOverheat += 10;
+				}
+			}
+			//stop left and up movement
+			if(shineDirection == 4 && (CheckCollide(player.velocity.X,player.velocity.Y) || CheckCollide(player.velocity.X,0f) || CheckCollide(0f,player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || 
+			player.position.X < (Main.leftWorld + 640f + 32f) || player.position.Y < (Main.topWorld + 640f + 32f)))
+			{
+				shineDirection = 0;
+				shineDischarge = 0;
+				shineActive = false;
+				Main.projectile[proj].Kill();
+				speedBuildUp = 135f;
+				if(mp.statOverheat >= mp.maxOverheat)
+				{
+					mp.statOverheat += 10;
+				}
+			}
+			//stop up movement
+			if(shineDirection == 5 && (CheckCollide(0f,player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || 
+			player.position.Y < (Main.topWorld + 640f + 32f)))
+			{
+				shineDirection = 0;
+				shineDischarge = 0;
+				shineActive = false;
+				Main.projectile[proj].Kill();
+				speedBuildUp = 135f;
+				if(mp.statOverheat >= mp.maxOverheat)
+				{
+					mp.statOverheat += 10;
+				}
+			}
+		#endregion
+		}
+		public void Bomb(Player player)
+		{
 			if(ballstate)
 			{
-				PlayerLayer.Arms.visible = false;
-				PlayerLayer.Head.visible = false;
-                PlayerLayer.Face.visible = false;
-                PlayerLayer.Hair.visible = false;
-                PlayerLayer.HairBack.visible = false;
-                PlayerLayer.Skin.visible = false;
-				PlayerLayer.Body.visible = false;
-				PlayerLayer.Legs.visible = false;
-				PlayerLayer.Wings.visible = false;
-				PlayerLayer.BackAcc.visible = false;
-				PlayerLayer.BalloonAcc.visible = false;
-				PlayerLayer.ShoeAcc.visible = false;
-                PlayerLayer.HandOnAcc.visible = false;
-				PlayerLayer.HandOffAcc.visible = false;
-				PlayerLayer.WaistAcc.visible = false;
-				PlayerLayer.NeckAcc.visible = false;
-				PlayerLayer.ShieldAcc.visible = false;
-				//PlayerLayer.FrontAcc.visible = false;
-				PlayerLayer.MountBack.visible = false;
-                PlayerLayer.HeldItem.visible = false;
-                P.shadow = 0f;
-	///			visorLayer.visible = false;
-	///			gunLayer.visible = false;
-	///			jetLayer.visible = false;
-	///			thrusterLayer.visible = false;
-				//P.drawAura = false;
-			}
-			else
-			{
-				if (thrusters)
+				if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0)
 				{
-					if((P.wings == 0 && P.back == -1) || P.velocity.Y == 0f || mPlayer.shineDirection != 0)
-					{
-						PlayerLayer.Wings.visible = false;
-						PlayerLayer.BackAcc.visible = false;
-					}
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
+					int BombID = mod.ProjectileType("MBBomb");
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
+					Main.projectile[a].aiStyle = 0;
 				}
-				//if(!flashActive)
-				//{
-		///			visorLayer.visible = true;
-		///			gunLayer.visible = true;
-		///			jetLayer.visible = true;
-		///			thrusterLayer.visible = true;
-				//}
-			}
-			//TAPI.PlayerLayer.ExtraDrawHeadInfo edhi = PlayerLayer.extraDrawHeadInfo;
-			
-			if(!thrusters)
-			{
-				jet = false;
-			}
-			/*#region test
-			if(Main.GetKeyState((int)Microsoft.Xna.Framework.Input.Keys.G) < 0)
-			{
-				P.bodyFrame.Y = P.bodyFrame.Height*6;
-			}
-			if(Main.GetKeyState((int)Microsoft.Xna.Framework.Input.Keys.Y) < 0)
-			{
-				float MY = Main.mouseY + Main.screenPosition.Y;
-				float MX = Main.mouseX + Main.screenPosition.X;
-				if (P.gravDir == -1f)
+				mouseRight = Main.mouseRight;
+				if(bomb > 0)
 				{
-					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-				}
-				float targetrotation = (float)Math.Atan2((MY-P.Center.Y)*P.direction,(MX-P.Center.X)*P.direction);
-				rotation = targetrotation;
-				P.fullRotation = rotation;
-				P.fullRotationOrigin = P.Center - P.position;
-				P.bodyFrame.Y = P.bodyFrame.Height*6;
-			}
-			#endregion*/
-		}
-		
-        public void MorphBallBasic(Player player)
-		{
-			if (player.grappling[0] >= 0 || grappleBeamIsHooked)
-			{
-				ballstate = false;
-			}
-			if (ballstate)
-			{
-				
-				player.noItems = true;
-				player.noFallDmg = true;
-				player.scope = false;
-				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
-				player.height = 14;
-				player.position.Y += Player.defaultHeight - player.height;
-				player.doubleJumpCloud = false;
-				player.jumpAgainCloud = false;
-				player.dJumpEffectCloud = false;
-				player.doubleJumpBlizzard = false;
-				player.jumpAgainBlizzard = false;
-				player.dJumpEffectBlizzard = false;
-				player.doubleJumpSandstorm = false;
-				player.jumpAgainSandstorm = false;
-				player.dJumpEffectSandstorm = false;
-				player.doubleJumpFart = false;
-				player.jumpAgainFart = false;
-				player.dJumpEffectFart = false;
-				player.rocketBoots = 0;
-				player.rocketTime = 0;
-				player.wings = 0;
-				player.wingTime = 0;
-				player.carpet = false;
-				player.carpetTime = 0;
-				player.canCarpet = false;
-				//player.drawAura = false;
-				if(player.gravity != 0f)
-				{
-					player.maxFallSpeed += 2.5f;
-				}
-				if(player.velocity.Y == 0f)
-				{
-					player.runSlowdown *= 0.5f;
+					bomb--;
 				}
 				if (!special && statCharge >= 100)
 				{
@@ -1354,29 +1894,29 @@ namespace MetroidMod
 					else if(player.controlDown && player.velocity.Y == 0)
 					{
 						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-3,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-6,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8,BombID,bombDamage,0,player.whoAmI);
+						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5f,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-7,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8.5f,BombID,bombDamage,0,player.whoAmI);
 						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-10,BombID,bombDamage,0,player.whoAmI);
-						Main.projectile[a].timeLeft = 30;
-						Main.projectile[b].timeLeft = 40;
-						Main.projectile[c].timeLeft = 50;
-						Main.projectile[d].timeLeft = 60;
-						Main.projectile[e].timeLeft = 70;
+						Main.projectile[a].timeLeft = 40;
+						Main.projectile[b].timeLeft = 50;
+						Main.projectile[c].timeLeft = 60;
+						Main.projectile[d].timeLeft = 70;
+						Main.projectile[e].timeLeft = 80;
 					}
 					else if(player.controlDown && player.velocity.Y != 0)
 					{
 						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+8,0,0,BombID,bombDamage,0,player.whoAmI);
 						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-6,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,3,BombID,bombDamage,0,player.whoAmI);
-						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,3,BombID,bombDamage,0,player.whoAmI);
+						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-4.5f,BombID,bombDamage,0,player.whoAmI);
+						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4,2,BombID,bombDamage,0,player.whoAmI);
+						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4,2,BombID,bombDamage,0,player.whoAmI);
 						Main.projectile[a].Kill();
 						Main.projectile[b].aiStyle = 0;
-						Main.projectile[b].timeLeft = 30;
-						Main.projectile[c].timeLeft = 30;
-						Main.projectile[d].timeLeft = 30;
-						Main.projectile[e].timeLeft = 30;
+						Main.projectile[b].timeLeft = 25;
+						Main.projectile[c].timeLeft = 25;
+						Main.projectile[d].timeLeft = 25;
+						Main.projectile[e].timeLeft = 25;
 					}
 					else
 					{
@@ -1392,31 +1932,69 @@ namespace MetroidMod
 						Main.projectile[e].timeLeft = 60;
 					}
 					special = true;
-					statCharge = 0;
 				}
-				else
+			}
+		}
+        public void MorphBallBasic(Player player)
+		{
+			if (ballstate)
+			{
+				if (Main.myPlayer == player.whoAmI)
 				{
-					statCharge = 0;
+					player.mount.Dismount(player);
 				}
-				//Color brightColor = currentMorphColor;
-				//Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/127), (float)(brightColor.G/127), (float)(brightColor.B/127));  
+				for (int k = 0; k < 1000; k++)
+ 				{
+ 					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
+ 					{
+ 						Main.projectile[k].Kill();
+ 					}
+ 				}
+				//player.noItems = true;
+				player.controlHook = false;
+				player.controlMount = false;
+				player.releaseMount = false;
+				player.controlUseItem = false;
+				player.noFallDmg = true;
+				player.scope = false;
+				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
+				player.height = 14;
+				player.position.Y += Player.defaultHeight - player.height;
+				player.doubleJumpCloud = false;
+				player.jumpAgainCloud = false;
+				player.dJumpEffectCloud = false;
+				player.doubleJumpBlizzard = false;
+				player.jumpAgainBlizzard = false;
+				player.dJumpEffectBlizzard = false;
+				player.doubleJumpSandstorm = false;
+				player.jumpAgainSandstorm = false;
+				player.dJumpEffectSandstorm = false;
+				player.doubleJumpFart = false;
+				player.jumpAgainFart = false;
+				player.dJumpEffectFart = false;
+				player.rocketBoots = 0;
+				player.rocketTime = 0;
+				player.wings = 0;
+				player.wingTime = 0;
+				player.carpet = false;
+				player.carpetTime = 0;
+				player.canCarpet = false;
+				if(player.gravity != 0f)
+				{
+					player.maxFallSpeed += 2.5f;
+				}
+				if(player.velocity.Y == 0f)
+				{
+					player.runSlowdown *= 0.5f;
+					player.moveSpeed += 0.5f;
+				}
+					statCharge = 0;
 
+				int shinyblock = 700;
 				int timez = (int)(Time%60)/10;
-				Color brightColor = currentMorphColor2;
+				Color brightColor = morphColorLights;
 				Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/(shinyblock/(1+0.1*timez))), (float)(brightColor.G/(shinyblock/(1+0.1*timez))), (float)(brightColor.B/(shinyblock/(1+0.1*timez))));  
-				//bool flag = false;
-				if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-					int BombID = mod.ProjectileType("MBBomb");
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].aiStyle = 0;
-				}
-				mouseRight = Main.mouseRight;
-				if(bomb > 0)
-				{
-					bomb--;
-				}
+
 				if(Ibounce && !player.controlDown)
 				{
 					Vector2 value2 = player.velocity;
@@ -1479,7 +2057,7 @@ namespace MetroidMod
 											{
 												player.velocity.X += velY;
 												velY = 0f;
-												if(!player.controlLeft)
+												/*if(!player.controlLeft)
 												{
 													if (player.velocity.X < 0f)
 													{
@@ -1501,13 +2079,13 @@ namespace MetroidMod
 													{
 														player.velocity.X = player.velocity.X * 1.1f;
 													}
-												}
+												}*/
 											}
 											else if (Main.tile[i, j].slope() == 2 && (!Main.tile[i - 1, j].active() || !Main.tileSolid[(int)Main.tile[i - 1, j].type]))
 											{
 												player.velocity.X -= velY;
 												velY = 0f;
-												if(!player.controlRight)
+												/*if(!player.controlRight)
 												{
 													if (player.velocity.X > 0f)
 													{
@@ -1529,7 +2107,7 @@ namespace MetroidMod
 													{
 														player.velocity.X = player.velocity.X * 1.1f;
 													}
-												}
+												}*/
 											}
 										}
 										else
@@ -1543,7 +2121,6 @@ namespace MetroidMod
 									}
 									if(dis > 5)
 									{
-										//Ibounce = true;
 										velY = 0f;
 										dis = 0;
 									}
@@ -1616,7 +2193,7 @@ namespace MetroidMod
 						}
 						for (int i = 0; i < 25; i++)
 						{
-							int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, currentMorphColor, 2f);
+							int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, morphColor, 2f);
 							Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
 							Main.dust[num].scale *= 1.3f;
 							Main.dust[num].noGravity = true;
@@ -1625,7 +2202,7 @@ namespace MetroidMod
 						}
 						for (int j = 0; j < 15; j++)
 						{
-							int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, currentMorphColor2, 1f);
+							int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, morphColorLights, 1f);
 							Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
 							Main.dust[num].scale *= 1.3f;
 							Main.dust[num].noGravity = true;
@@ -1649,683 +2226,6 @@ namespace MetroidMod
 				trap = false;
 			}
 		}
-        const int TileSize = 16;
-public void SenseMove(Player P)
-		{
-				MPlayer mp = P.GetModPlayer<MPlayer>(mod);
-				int dist = 80;
-				if(senseSound)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SenseMoveSound"));
-				}
-				//int W = 20;
-				//int H = 48;
-				//Rectangle MB = new Rectangle((int)P.Center.X-W,(int)P.Center.Y-H,(W*2),(H*2));
-				detect = false;
-				for(int k = 0; k < Main.npc.Length; k++)
-				{
-					NPC N = Main.npc[k];
-					if(N.damage > 0 && !N.friendly && N.life > 0 && N.active)
-					{
-						for(int i = 1; i <= dist; i++)
-						{
-							//Rectangle NB = new Rectangle((int)(N.position.X+(N.velocity.X*i)),(int)(N.position.Y+(N.velocity.Y*i)),N.width,N.height);
-							Vector2 npcFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
-							float npcDist = Vector2.Distance(P.Center, npcFuturePos);
-							if((npcDist <= (P.height+N.width) || npcDist <= (P.height+N.height)) && P.velocity.Y == 0f)
-							{
-								if(N.velocity.X != 0f || N.velocity.Y != 0f)
-								{
-									if(N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
-									{
-										detect = true;
-									}
-								}
-							}
-						}
-					}
-				}
-				for(int k = 0; k < Main.projectile.Length; k++)
-				{
-					Projectile Pr = Main.projectile[k];
-					if(Pr.damage > 0 && !Pr.friendly && Pr.hostile && Pr.timeLeft > 0 && Pr.active)
-					{
-						for(int i = 1; i <= dist; i++)
-						{
-							//Rectangle PB = new Rectangle((int)(Pr.position.X+(Pr.velocity.X*i)),(int)(Pr.position.Y+(Pr.velocity.Y*i)),Pr.width,Pr.height);
-							Vector2 projFuturePos = new Vector2(Pr.Center.X+(Pr.velocity.X*i),Pr.Center.Y+(Pr.velocity.Y*i));
-							float projDist = Vector2.Distance(P.Center, projFuturePos);
-							if((projDist <= (P.height+Pr.width) || projDist <= (P.height+Pr.height)) && P.velocity.Y == 0f)
-							{
-								if(Pr.velocity.X != 0f || Pr.velocity.Y != 0f)
-								{
-									if(!Pr.tileCollide || Collision.CanHit(P.position, P.width, P.height, Pr.position, Pr.width, Pr.height))
-									{
-										detect = true;
-									}
-								}
-							}
-						}
-					}
-				}
-				if(detect && !mp.ballstate && !P.mount.Active && P.velocity.Y == 0f)
-				{
-					if(!isSenseMoving)
-					{
-						if(P.controlLeft && MetroidMod.SenseMoveKey.Current)
-						{
-							SMoveEffect = 40;
-							senseSound = true;
-							P.velocity.X = -7f;
-							P.velocity.Y -= 4.5f * P.gravDir;
-							if(P.direction == 1 && P.maxRunSpeed < -P.velocity.X)
-							{
-								sMoveDir = -1;
-							}
-							isSenseMoving = true;
-						}
-						else if(P.controlRight && MetroidMod.SenseMoveKey.Current)
-						{
-							SMoveEffect = 40;
-							senseSound = true;
-							P.velocity.X = 7f;
-							P.velocity.Y -= 4.5f * P.gravDir;
-							if(P.direction == -1 && P.maxRunSpeed < P.velocity.X)
-							{
-								sMoveDir = -1;
-							}
-							isSenseMoving = true;
-						}
-						else
-						{
-							isSenseMoving = false;
-							senseSound = false;
-							sMoveDir = 1;
-						}
-					}
-					else
-					{
-						isSenseMoving = false;
-						senseSound = false;
-					}
-				}
-				else
-				{
-					isSenseMoving = false;
-					senseSound = false;
-				}
-				if(SMoveEffect > 0)
-				{
-					SMoveEffect--;
-				}
-				else
-				{
-					sMoveDir = 1;
-				}
-		}
-		// check if there is a solid tile to the left of the left centre of the player
-		public static bool CheckLeft(Player player)
-		{
-			float playerCentreY = player.position.Y + player.height * 0.5f;
-			float playerLeft = player.position.X;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X <= Main.leftWorld + (float)(Lighting.offScreenTiles * 16) + 16f)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerLeft - 1) / TileSize;
-			int TY = (int)playerCentreY / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		public static bool CheckLowerLeft(Player player)
-		{
-			float playerCentreY = player.position.Y + player.height * (0.5f + (0.25f * player.gravDir));
-			float playerLeft = player.position.X;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X <= Main.leftWorld + (float)(Lighting.offScreenTiles * 16) + 16f)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerLeft - 1) / TileSize;
-			int TY = (int)playerCentreY / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		// check if there is a solid tile right of the right centre of the player
-		public static bool CheckRight(Player player)
-		{
-			float playerCentreY = player.position.Y + player.height * 0.5f;
-			float playerRight = player.position.X + player.width;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X + (float)player.width >= Main.rightWorld - (float)(Lighting.offScreenTiles * 16) - 32f)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerRight + 1) / TileSize;
-			int TY = (int)playerCentreY / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		public static bool CheckLowerRight(Player player)
-		{
-			float playerCentreY = player.position.Y + player.height * (0.5f + (0.25f * player.gravDir));
-			float playerRight = player.position.X + player.width;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X + (float)player.width >= Main.rightWorld - (float)(Lighting.offScreenTiles * 16) - 32f)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerRight + 1) / TileSize;
-			int TY = (int)playerCentreY / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		// check if there is solid tile below and left of the player
-		public static bool CheckFloorLeft(Player player)
-		{
-			float playerBottom = (player.gravDir == 1?player.position.Y + player.height:player.position.Y);
-			float playerLeft = player.position.X;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X <= Main.leftWorld + (float)(Lighting.offScreenTiles * 16) + 16f)
-			{
-				return true;
-			}
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.Y >= Main.bottomWorld - (float)(Lighting.offScreenTiles * 16) - 32f - (float)player.height)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerLeft - 2) / TileSize;
-			int TY = (int)(playerBottom + 2) / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		// check if there is solid tile below and right of the player
-		public static bool CheckFloorRight(Player player)
-		{
-			float playerBottom = (player.gravDir == 1?player.position.Y + player.height:player.position.Y);
-			float playerRight = player.position.X + player.width;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X + (float)player.width >= Main.rightWorld - (float)(Lighting.offScreenTiles * 16) - 32f)
-			{
-				return true;
-			}
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.Y >= Main.bottomWorld - (float)(Lighting.offScreenTiles * 16) - 32f - (float)player.height)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerRight + 2) / TileSize;
-			int TY = (int)(playerBottom + 2) / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		// check if there is a solid tile above and left of the player
-		public static bool CheckUpperLeft(Player player)
-		{
-			float playerTop = (player.gravDir == 1?player.position.Y:player.position.Y+player.height);
-			float playerLeft = player.position.X;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X <= Main.leftWorld + (float)(Lighting.offScreenTiles * 16) + 16f)
-			{
-				return true;
-			}
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.Y <= Main.topWorld + (float)(Lighting.offScreenTiles * 16) + 16f)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerLeft - 1) / TileSize;
-			int TY = (int)(playerTop - 1) / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && !Main.tileSolidTop[(int)Main.tile[TX, TY].type] && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		// check if there is solid tile above and right of the player
-		public static bool CheckUpperRight(Player player)
-		{
-			float playerTop = (player.gravDir == 1?player.position.Y:player.position.Y+player.height);
-			float playerRight = player.position.X + player.width;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X + (float)player.width >= Main.rightWorld - (float)(Lighting.offScreenTiles * 16) - 32f)
-			{
-				return true;
-			}
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.Y <= Main.topWorld + (float)(Lighting.offScreenTiles * 16) + 16f)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerRight + 1) / TileSize;
-			int TY = (int)(playerTop - 1) / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && !Main.tileSolidTop[(int)Main.tile[TX, TY].type] && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-
-		// check if there is a solid tile above the top centre of the player
-		public static bool CheckCeiling(Player player)
-		{
-			float playerCentreX = player.position.X + player.width * 0.5f;
-			float playerTop = (player.gravDir == 1?player.position.Y:player.position.Y+player.height);
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.Y <= Main.topWorld + (float)(Lighting.offScreenTiles * 16) + 16f)
-			{
-				return true;
-			}
-			
-			int TX = (int)playerCentreX / TileSize;
-			int TY = (int)(playerTop - 1) / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && !Main.tileSolidTop[(int)Main.tile[TX, TY].type] && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-		public bool CheckFloor(Player player)
-		{
-			float playerBottom = (player.gravDir == 1?player.position.Y + player.height:player.position.Y);
-			float playerCenterX = player.Center.X;
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.X + (float)player.width >= Main.rightWorld - (float)(Lighting.offScreenTiles * 16) - 32f)
-			{
-				return true;
-			}
-			
-			// going to look at a tile outside the bounds of the map
-			if (player.position.Y >= Main.bottomWorld - (float)(Lighting.offScreenTiles * 16) - 32f - (float)player.height)
-			{
-				return true;
-			}
-			
-			int TX = (int)(playerCenterX) / TileSize;
-			int TY = (int)(playerBottom + 2) / TileSize;
-			
-			// tile is solid and active
-			if (Main.tileSolid[(int)Main.tile[TX, TY].type] && (!Main.tileSolidTop[(int)Main.tile[TX, TY].type] || (Main.tile[TX, TY].slope() != 0 && player.gravDir == 1)) && Main.tile[TX, TY].active())
-			{
-				return true;
-			}
-			
-			return false;
-		}
-        
-        public void AddSpeedBoost(Player player)
-		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			speedBoosting = (Math.Abs(player.velocity.X) >= 6.85f && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
-			if((player.controlRight && player.velocity.X > 0) || (player.controlLeft && player.velocity.X < 0))
-			{
-				if(player.velocity.Y == 0f && speedBuildUp < 135f)
-				{
-					speedBuildUp += 1f;
-				}
-				if(speedBuildUp >= 135f)
-				{
-					speedBuildUp = 135f;
-				}
-			}
-			else if(!speedBoosting)
-			{
-				speedBuildUp = 0f;
-			}
-			player.maxRunSpeed += (speedBuildUp*0.036f);
-			if(mp.speedBoosting)
-			{
-				player.armorEffectDrawShadow = true;
-				//MPlayer.jet = true;
-				bool SpeedBoost = false;
-				int SpeedBoostID = mod.ProjectileType("SpeedBoost");
-				if(mp.ballstate)
-				{
-					SpeedBoostID = mod.ProjectileType("SpeedBall");
-				}
-				foreach(Terraria.Projectile P in Main.projectile)
-				{
-					if(P.active && P.owner==player.whoAmI && P.type == SpeedBoostID)
-					{
-						SpeedBoost = true;
-						break;
-					}
-				}
-				if(!SpeedBoost)
-				{
-					int SpBoost = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,SpeedBoostID,specialDmg,0,player.whoAmI);
-				}
-			}
-		#region shine-spark
-			if(mp.speedBoosting)
-			{
-				if(player.controlDown && player.velocity.Y == 0 && !shineCharge)
-				{
-					shineCharge = true;
-					player.velocity.X = 0;
-				}
-			}
-			if(shineCharge)
-			{
-				shineDeCharge++;
-				if(player.controlJump && player.releaseJump && !player.controlRight && !player.controlLeft && mp.statOverheat < mp.maxOverheat)
-				{
-					shineActive = true;
-					player.mount.Dismount(player);
-					//player.jump = 0;
-					player.gravity = 0f;
-				}
-				else
-				{
-					Color color = new Color();
-					int dust = Dust.NewDust(player.position, player.width, player.height, 64, 0, 0, 100, color, 2.0f);
-					Main.dust[dust].noGravity = true;
-					shineSound++;
-					if(shineSound > 11)
-					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpeedBoosterLoop"));
-
-						shineSound = 0;
-					}
-				}
-			}
-			if(shineActive)
-			{
-				shineSound = 0;
-				//player.velocity.Y = -((player.gravity + 1E-06f) * player.gravDir);
-				//player.gravity *= 0f;
-				player.gravity = 0f;
-				player.velocity.Y = 0f;
-				player.maxFallSpeed = 0f;
-				player.velocity.X = 0;
-				player.moveSpeed = 0f;
-				player.maxRunSpeed = 0f;
-				player.noItems = true;
-				player.controlJump = false;
-				player.releaseJump = true;
-				mp.rotation = 0;
-				player.armorEffectDrawShadow = true;
-				shineDeActive++;
-				/*if(shineDeActive == 2)
-				{
-					player.position.Y -= 12f*player.gravDir;
-				}*/
-				if(((player.gravDir == 1 && CheckFloor(player)) || (player.gravDir == -1 && CheckCeiling(player))) && shineDeActive > 2)
-				{
-					player.position.Y -= 2f*player.gravDir;
-				}
-				if(shineDeActive > 29 && mp.statOverheat < mp.maxOverheat)
-				{
-					//player.statMana--;
-					//player.manaRegenDelay = (int)player.maxRegenDelay;
-					shineCharge = false;
-					if(player.controlRight && !player.controlUp) //right
-					{
-						shineDirection = 1;
-					}
-					if(player.controlRight && player.controlUp) //right and up
-					{
-						shineDirection = 2;
-					}
-					if(player.controlLeft && !player.controlUp) //left
-					{
-						shineDirection = 3;
-					}
-					if(player.controlLeft && player.controlUp) //left and up
-					{
-						shineDirection = 4;
-					}
-					if(!player.controlRight && !player.controlLeft) //default direction is up
-					{
-						shineDirection = 5;
-					}
-				}
-			}
-
-			if(shineDeCharge > 299 && !shineActive)
-			{
-				shineCharge = false;
-				shineDeCharge = 0;
-			}
-
-
-			if(shineDirection == 1) //right
-			{
-				player.velocity.X = 20;
-				player.velocity.Y = 0f;//0.00001f*player.gravDir;
-				player.gravity *= 0f;
-				player.maxFallSpeed = 0f;
-				player.direction = 1;
-				shineDeActive = 0;
-				player.controlLeft = false;
-			}
-			if(shineDirection == 2) //right and up
-			{
-				player.velocity.X = 20;
-				player.velocity.Y = -20f*player.gravDir;
-				player.gravity *= 0f;
-				player.maxFallSpeed = 0f;
-				player.direction = 1;
-				shineDeActive = 0;
-				player.controlLeft = false;
-			}
-			if(shineDirection == 3) //left
-			{
-				player.velocity.X = -20;
-				player.velocity.Y = 0f;//0.00001f*player.gravDir;
-				player.gravity *= 0f;
-				player.maxFallSpeed = 0f;
-				player.direction = -1;
-				shineDeActive = 0;
-				player.controlRight = false;
-			}
-			if(shineDirection == 4) //left and up
-			{
-				player.velocity.X = -20;
-				player.velocity.Y = -20*player.gravDir;
-				player.gravity *= 0f;
-				player.maxFallSpeed = 0f;
-				player.direction = -1;
-				shineDeActive = 0;
-				player.controlRight = false;
-			}
-			if(shineDirection == 5) //up
-			{
-				player.velocity.X *= 0f;
-				player.velocity.Y = -20*player.gravDir;
-				player.gravity *= 0f;
-				player.maxFallSpeed = 0f;
-				shineDeActive = 0;
-				if (player.miscCounter % 4 == 0 && !ballstate)
-				{
-					player.direction *= -1;
-				}
-				player.controlLeft = false;
-				player.controlRight = false;
-			}
-
-			if(shineDirection != 0)
-			{
-				//manaDelay++;
-				//if(manaDelay > 2)
-				//{
-					//player.statMana--;
-					mp.statOverheat += 0.5f;
-					//manaDelay = 0;
-				//}
-				//player.manaRegenDelay = (int)player.maxRegenDelay;
-				shineDeCharge = 300;
-				bool shineSpark = false;
-				int ShineSparkID = mod.ProjectileType("ShineSpark");
-				if(mp.ballstate)
-				{
-					ShineSparkID = mod.ProjectileType("ShineBall");
-				}
-				foreach(Terraria.Projectile P in Main.projectile)
-				{
-					if(P.active && P.owner==player.whoAmI && P.type == ShineSparkID)
-					{
-						shineSpark = true;
-						break;
-					}
-				}
-				if(!shineSpark)
-				{
-					proj = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,ShineSparkID,specialDmg,0,player.whoAmI);
-				}
-			}
-
-		//cancel shine-spark
-			//stop right movement
-			if(shineDirection == 1 && (CheckRight(player) || CheckFloorRight(player) || CheckLowerRight(player) || 
-			CheckUpperRight(player) || mp.statOverheat >= mp.maxOverheat || 
-			(player.position.X + (float)player.width) > (Main.rightWorld - 640f - 48f)))
-			{
-				shineDirection = 0;
-				shineDeActive = 0;
-				shineActive = false;
-				Main.projectile[proj].Kill();
-				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
-				{
-					mp.statOverheat += 10;
-				}
-			}
-			//stop up and right movement
-			if(shineDirection == 2 && (CheckCeiling(player) || CheckUpperRight(player) || CheckRight(player) || mp.statOverheat >= mp.maxOverheat || 
-			(player.position.X + (float)player.width) > (Main.rightWorld - 640f - 48f) || player.position.Y < (Main.topWorld + 640f + 32f)))
-			{
-				shineDirection = 0;
-				shineDeActive = 0;
-				shineActive = false;
-				Main.projectile[proj].Kill();
-				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
-				{
-					mp.statOverheat += 10;
-				}
-			}
-			//stop left movement
-			if(shineDirection == 3 && (CheckLeft(player) || CheckFloorLeft(player) || CheckLowerLeft(player) || 
-			CheckUpperLeft(player) || mp.statOverheat >= mp.maxOverheat || 
-			player.position.X < (Main.leftWorld + 640f + 32f)))
-			{
-				shineDirection = 0;
-				shineDeActive = 0;
-				shineActive = false;
-				Main.projectile[proj].Kill();
-				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
-				{
-					mp.statOverheat += 10;
-				}
-			}
-			//stop left and up movement
-			if(shineDirection == 4 && (CheckCeiling(player) || CheckUpperLeft(player) || CheckLeft(player) || mp.statOverheat >= mp.maxOverheat || 
-			player.position.X < (Main.leftWorld + 640f + 32f) || player.position.Y < (Main.topWorld + 640f + 32f)))
-			{
-				shineDirection = 0;
-				shineDeActive = 0;
-				shineActive = false;
-				Main.projectile[proj].Kill();
-				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
-				{
-					mp.statOverheat += 10;
-				}
-			}
-			//stop up movement
-			if(shineDirection == 5 && (CheckCeiling(player) || CheckUpperLeft(player) || CheckUpperRight(player) || mp.statOverheat >= mp.maxOverheat || 
-			player.position.Y < (Main.topWorld + 640f + 32f)))
-			{
-				shineDirection = 0;
-				shineDeActive = 0;
-				shineActive = false;
-				Main.projectile[proj].Kill();
-				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
-				{
-					mp.statOverheat += 10;
-				}
-			}
-		#endregion
-		}
         public enum Edge
 		{
 			Floor,
@@ -2344,426 +2244,22 @@ public void SenseMove(Player P)
 		// size of a tile
 		int TileSizeY = 16;
 
-
-		// check if there is a solid tile below the bottom centre of the player
-		public bool SpiderCheckFloor(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X+1,(int)player.position.Y+(int)player.height-1,player.width-2,2);
-						Rectangle ball = new Rectangle((int)player.position.X,(int)player.position.Y+(int)player.height-1,player.width,2);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		// check if there is a solid tile above the top centre of the player
-		public bool SpiderCheckCeiling(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X+1,(int)player.position.Y-1,player.width-2,2);
-						Rectangle ball = new Rectangle((int)player.position.X,(int)player.position.Y-1,player.width,2);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		// check if there is a solid tile to the left of the left centre of the player
-		public bool SpiderCheckLeft(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X-1,(int)player.position.Y+2,2,player.height-2);
-						Rectangle ball = new Rectangle((int)player.position.X-1,(int)player.position.Y,2,player.height);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		// check if there is a solid tile right of the right centre of the player
-		public bool SpiderCheckRight(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X+(int)player.width-1,(int)player.position.Y+1,2,player.height-2);
-						Rectangle ball = new Rectangle((int)player.position.X+(int)player.width-1,(int)player.position.Y,2,player.height);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		// check if there is a solid tile above and left of the player
-		public bool SpiderCheckCeilingLeft(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X-1,(int)player.position.Y-1,2,2);
-						Rectangle ball = new Rectangle((int)player.position.X-1,(int)player.position.Y-1,1,1);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		// check if there is solid tile above and right of the player
-		public bool SpiderCheckCeilingRight(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X+(int)player.width-1,(int)player.position.Y-1,2,2);
-						Rectangle ball = new Rectangle((int)player.position.X+(int)player.width,(int)player.position.Y-1,1,1);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		// check if there is solid tile below and left of the player
-		public bool SpiderCheckFloorLeft(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X-1,(int)player.position.Y+(int)player.height-1,2,2);
-						Rectangle ball = new Rectangle((int)player.position.X-1,(int)player.position.Y+(int)player.height,1,1);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		// check if there is solid tile below and right of the player
-		public bool SpiderCheckFloorRight(Player player)
-		{
-			int num = (int)((player.position.X) / 16f) - 5;
-			int num2 = (int)((player.position.X + (float)player.width) / 16f) + 5;
-			int num3 = (int)((player.position.Y) / 16f) - 5;
-			int num4 = (int)((player.position.Y + (float)player.height) / 16f) + 5;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if(Main.tile[i, j].active() && Main.tileSolid[Main.tile[i, j].type])
-					{
-						Rectangle tile = new Rectangle((i*16),(j*16),16,16);
-						//Rectangle ball = new Rectangle((int)player.position.X+(int)player.width-1,(int)player.position.Y+(int)player.height-1,2,2);
-						Rectangle ball = new Rectangle((int)player.position.X+(int)player.width,(int)player.position.Y+(int)player.height,1,1);
-						if(Main.tile[i, j].halfBrick())
-						{
-							tile = new Rectangle((i*16),(j*16)+8,16,8);
-						}
-						if(ball.Intersects(tile))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			
-			return false;
-		}
-		/*public PlayerLayer testLayer = new PlayerLayer.Action("MetroidMod:test", (PlayerLayer layer, Player player, SpriteBatch sb) =>
-		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			//floor
-			mp.testRect[0] = new Rectangle((int)player.position.X,(int)player.position.Y+(int)player.height-1,player.width,2);
-			//ceiling
-			mp.testRect[1] = new Rectangle((int)player.position.X,(int)player.position.Y-1,player.width,2);
-			//left
-			mp.testRect[2] = new Rectangle((int)player.position.X-1,(int)player.position.Y,2,player.height);
-			//right
-			mp.testRect[3] = new Rectangle((int)player.position.X+(int)player.width-1,(int)player.position.Y,2,player.height);
-			//up left
-			mp.testRect2[0] = new Rectangle((int)player.position.X-1,(int)player.position.Y-1,1,1);
-			//up right
-			mp.testRect2[1] = new Rectangle((int)player.position.X+(int)player.width,(int)player.position.Y-1,1,1);
-			//down left
-			mp.testRect2[2] = new Rectangle((int)player.position.X-1,(int)player.position.Y+(int)player.height,1,1);
-			//down right
-			mp.testRect2[3] = new Rectangle((int)player.position.X+(int)player.width,(int)player.position.Y+(int)player.height,1,1);
-			Texture2D tex = MBase.Instance.textures["Gore/TestRectangle"];
-			for(int i = 0; i < 4; i++)
-			{
-				sb.Draw(tex, new Rectangle((int)(mp.testRect[i].X - Main.screenPosition.X), (int)(mp.testRect[i].Y - Main.screenPosition.Y), mp.testRect[i].Width, mp.testRect[i].Height), Color.Orange);
-				sb.Draw(tex, new Rectangle((int)(mp.testRect2[i].X - Main.screenPosition.X), (int)(mp.testRect2[i].Y - Main.screenPosition.Y), mp.testRect2[i].Width, mp.testRect2[i].Height), Color.Blue);
-			}
-			sb.Draw(tex, new Rectangle((int)(player.Hitbox.X - Main.screenPosition.X), (int)(player.Hitbox.Y - Main.screenPosition.Y), player.Hitbox.Width, player.Hitbox.Height), Color.Gray);
-		});*/
-
 		// get the edge the player is currently on
 		public Edge GetEdge(Player player)
 		{
-			if (SpiderCheckFloor(player))
+			if (CheckCollide(0f,1f))
 			{
 				return Edge.Floor;
 			}
-			else if (SpiderCheckCeiling(player))
+			else if (CheckCollide(0f,-1f))
 			{
 				return Edge.Ceiling;
 			}
-			else if (SpiderCheckLeft(player))
+			else if (CheckCollide(-1f,0f))
 			{
 				return Edge.Left;
 			}
-			else if (SpiderCheckRight(player))
+			else if (CheckCollide(1f,0f))
 			{
 				return Edge.Right;
 			}
@@ -2771,304 +2267,197 @@ public void SenseMove(Player P)
 			return Edge.None;
 		}
 
-		const float switchSpeed = 2f;
 		const float moveSpeed = 2f;
-		// actions if the player is on the floor
+
 		public void DoFloor(Player player)
 		{
+			//player.velocity.Y = moveSpeed;
+			player.velocity.Y = Math.Min(player.velocity.Y,moveSpeed);
 
-			// push the player into their edge
-			player.velocity.Y = (2.0f+player.gravity);
-			player.maxFallSpeed = 0f;
-			
-			// move left
+			player.velocity.X = 0f;
 			if (player.controlLeft)
 			{
 				player.velocity.X = -moveSpeed;
 			}
-			// move right
 			else if (player.controlRight)
 			{
 				player.velocity.X = moveSpeed;
 			}
-			// not moving
-			else
-			{
-				player.velocity.X = 0f;
-			}
 			
-			// moving left
-			if (player.velocity.X < 0.0f)
+			if(CheckCollide(player.velocity.X,0f))
 			{
-				if (CheckLeft(player))
-				{
-					CurEdge = Edge.Left;
-					return;
-				}
-				
-				// no floor
-				if (!SpiderCheckFloor(player))
-				{
-					// no floor to the right
-					if (!SpiderCheckFloorRight(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Right;
-						player.position.X = (int)player.position.X / TileSize * TileSize;
-						player.position.Y += TileSize - player.height;
-						player.velocity.X = switchSpeed;
-						return;
-					}
-				}
-			}
-			// moving right
-			else if(player.velocity.X > 0.0f)
-			{
-				if (SpiderCheckRight(player))
+				if(player.velocity.X > 0f)
 				{
 					CurEdge = Edge.Right;
 					return;
 				}
-				
-				// no floor
-				if (!SpiderCheckFloor(player))
+				if(player.velocity.X < 0f)
 				{
-					// no floor to the left
-					if (!SpiderCheckFloorLeft(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Left;
-						player.position.X = (int)player.position.X / TileSize * TileSize;
-						player.position.Y += TileSize - player.height;
-						player.velocity.X = -switchSpeed;
-						return;
-					}
+					CurEdge = Edge.Left;
+					return;
+				}
+			}
+			else if(!CheckCollide(0f,1f))
+			{
+				if(CheckCollide(moveSpeed,1f))
+				{
+					CurEdge = Edge.Right;
+					player.position.Y += 2f;
+					player.velocity.X = 0f;
+					player.velocity.Y = moveSpeed;
+					return;
+				}
+				if(CheckCollide(-moveSpeed,1f))
+				{
+					CurEdge = Edge.Left;
+					player.position.Y += 2f;
+					player.velocity.X = 0f;
+					player.velocity.Y = moveSpeed;
+					return;
 				}
 			}
 		}
 
-		// actions if the player is on the ceiling
 		public void DoCeiling(Player player)
 		{
+			player.velocity.Y = -moveSpeed;
 
-			// push the player into their edge
-			player.velocity.Y = -(2.0f+player.gravity);
-			player.maxFallSpeed = 0f;
-			
-			// move right - upside down, reverse direction, classic spiderball style
+			player.velocity.X = 0f;
 			if (player.controlLeft)
 			{
 				player.velocity.X = moveSpeed;
 			}
-			// move left
 			else if (player.controlRight)
 			{
 				player.velocity.X = -moveSpeed;
 			}
-			// not moving
-			else
-			{
-				player.velocity.X = 0f;
-			}
 			
-			// moving left
-			if (player.velocity.X < 0.0f)
+			if(CheckCollide(player.velocity.X,0f))
 			{
-				if (SpiderCheckLeft(player))
-				{
-					CurEdge = Edge.Left;
-					return;
-				}
-				
-				// no ceiling
-				if (!SpiderCheckCeiling(player))
-				{
-					// no ceiling to the right
-					if (!SpiderCheckCeilingRight(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Right;
-						player.position.X = (int)player.position.X / TileSize * TileSize;
-						player.position.Y += player.height - TileSize;
-						player.velocity.X = switchSpeed;
-						return;
-					}
-				}
-			}
-			else if(player.velocity.X > 0.0f)
-			{
-				if (SpiderCheckRight(player))
+				if(player.velocity.X > 0f)
 				{
 					CurEdge = Edge.Right;
 					return;
 				}
-				
-				// no ceiling
-				if (!SpiderCheckCeiling(player))
+				if(player.velocity.X < 0f)
 				{
-					// no ceiling to the left
-					if (!SpiderCheckCeilingLeft(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Left;
-						player.position.X = (int)player.position.X / TileSize * TileSize;
-						player.position.Y += player.height - TileSize;
-						player.velocity.X = -switchSpeed;
-						return;
-					}
+					CurEdge = Edge.Left;
+					return;
+				}
+			}
+			else if(!CheckCollide(0f,-1f))
+			{
+				if(CheckCollide(moveSpeed,-1f))
+				{
+					CurEdge = Edge.Right;
+					player.position.Y -= 2f;
+					player.velocity.X = 0f;
+					return;
+				}
+				if(CheckCollide(-moveSpeed,-1f))
+				{
+					CurEdge = Edge.Left;
+					player.position.Y -= 2f;
+					player.velocity.X = 0f;
+					return;
 				}
 			}
 		}
 
-		// actions if the player is on the left wall
 		public void DoLeft(Player player)
 		{
+			player.velocity.X = -moveSpeed;
 
-			// push the player into their edge
-			player.velocity.X = -2.0f;
-			
-			// move up
+			player.velocity.Y = 0f;
 			if (player.controlLeft)
 			{
-				player.velocity.Y = -(moveSpeed+player.gravity);
+				player.velocity.Y = -moveSpeed;
 			}
-			// move down
 			else if (player.controlRight)
 			{
 				player.velocity.Y = moveSpeed;
 			}
-			else
-			{
-				// not moving
-				player.velocity.Y = -player.gravity*player.gravDir;
-				player.maxFallSpeed = 0f;
-			}
 			
-			// moving up
-			if (player.velocity.Y < 0.0f)
+			if(CheckCollide(0f,player.velocity.Y))
 			{
-				if (SpiderCheckCeiling(player))
-				{
-					CurEdge = Edge.Ceiling;
-					return;
-				}
-				
-				// no wall to the left
-				if (!SpiderCheckLeft(player))
-				{
-					// now wall to the lower left
-					if (!SpiderCheckFloorLeft(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Floor;
-						player.position.Y = (int)player.position.Y / TileSize * TileSize;
-						player.position.X += player.width - TileSize;
-						player.velocity.Y = switchSpeed;
-						return;
-					}
-				}
-			}
-			// moving down
-			else if(player.velocity.Y > 0.0f)
-			{
-				if (SpiderCheckFloor(player))
+				if(player.velocity.Y > 0f)
 				{
 					CurEdge = Edge.Floor;
 					return;
 				}
-			
-				if (!SpiderCheckLeft(player))
+				if(player.velocity.Y < 0f)
 				{
-					// no wall to the upper left
-					if (!SpiderCheckCeilingLeft(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Ceiling;
-						player.position.Y = (int)player.position.Y / TileSize * TileSize;
-						player.position.X += player.width - TileSize;
-						player.velocity.Y = -switchSpeed;
-						return;
-					}
+					CurEdge = Edge.Ceiling;
+					return;
+				}
+			}
+			else if(!CheckCollide(-1f,0f))
+			{
+				if(CheckCollide(-1f,moveSpeed))
+				{
+					CurEdge = Edge.Floor;
+					player.position.X -= 2f;
+					player.velocity.Y = 0f;
+					return;
+				}
+				if(CheckCollide(-1f,-moveSpeed))
+				{
+					CurEdge = Edge.Ceiling;
+					player.position.X -= 2f;
+					player.velocity.Y = 0f;
+					return;
 				}
 			}
 		}
 
-		// actions if the player is on the right wall
 		public void DoRight(Player player)
 		{
+			player.velocity.X = moveSpeed;
 
-			// push the player into their edge
-			player.velocity.X = 2.0f;
-			
-			// move down
+			player.velocity.Y = 0f;
 			if (player.controlLeft)
 			{
 				player.velocity.Y = moveSpeed;
 			}
-			// move up
 			else if (player.controlRight)
 			{
-				player.velocity.Y = -(moveSpeed+player.gravity);
-			}
-			else
-			{
-				// not moving
-				player.velocity.Y = -player.gravity*player.gravDir;
-				player.maxFallSpeed = 0f;
+				player.velocity.Y = -moveSpeed;
 			}
 			
-			// moving up
-			if (player.velocity.Y < 0.0f)
+			if(CheckCollide(0f,player.velocity.Y))
 			{
-				if (SpiderCheckCeiling(player))
-				{
-					CurEdge = Edge.Ceiling;
-					return;
-				}
-				
-				// no wall to the right
-				if (!SpiderCheckRight(player))
-				{
-					// no wall to the lower right
-					if (!SpiderCheckFloorRight(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Floor;
-						player.position.Y = (int)player.position.Y / TileSize * TileSize;
-						player.position.X += TileSize - player.width;
-						player.velocity.Y = switchSpeed;
-						return;
-					}
-				}
-			}
-			// moving down
-			else if(player.velocity.Y > 0.0f)
-			{
-				if (SpiderCheckFloor(player))
+				if(player.velocity.Y > 0f)
 				{
 					CurEdge = Edge.Floor;
 					return;
 				}
-				
-				// no wall to the right
-				if (!SpiderCheckRight(player))
+				if(player.velocity.Y < 0f)
 				{
-					// no wall to the upper right
-					if (!SpiderCheckCeilingRight(player))
-					{
-						// set player to the edge of the cliff edge tile
-						CurEdge = Edge.Ceiling;
-						player.position.Y = (int)player.position.Y / TileSize * TileSize;
-						player.position.X += TileSize - player.width;
-						player.velocity.Y = -switchSpeed;
-						return;
-					}
+					CurEdge = Edge.Ceiling;
+					return;
+				}
+			}
+			else if(!CheckCollide(1f,0f))
+			{
+				if(CheckCollide(1f,moveSpeed))
+				{
+					CurEdge = Edge.Floor;
+					player.position.X += 2f;
+					player.velocity.Y = 0f;
+					return;
+				}
+				if(CheckCollide(1f,-moveSpeed))
+				{
+					CurEdge = Edge.Ceiling;
+					player.position.X += 2f;
+					player.velocity.Y = 0f;
+					return;
 				}
 			}
 		}
+
 		public void SpiderBall(Player player)
 		{
-	
 			if(ballstate)
 			{
 				// switch back/to spiderball if M is pressed
@@ -3119,8 +2508,7 @@ public void SenseMove(Player P)
 					}
 					
 					// if no solid tile is adjacent to the player
-					if (!SpiderCheckFloor(player) && !SpiderCheckCeiling(player) && !SpiderCheckLeft(player) && !SpiderCheckRight(player) &&
-						!SpiderCheckFloorLeft(player) && !SpiderCheckFloorRight(player) && !SpiderCheckCeilingLeft(player) && !SpiderCheckCeilingRight(player))
+					if (!Collision.SolidCollision(player.position-new Vector2(5,5),player.width+10,player.height+10))
 					{
 						CurEdge = Edge.None;
 					}
@@ -3131,23 +2519,17 @@ public void SenseMove(Player P)
 						// render player's default movements effortless
 						player.moveSpeed = 0f;
 						player.maxRunSpeed = 0f;
-						//player.gravity = 0f;
+						player.accRunSpeed = 0f;
 						// disable terraria's step-up feature
-						if (player.velocity.Y == player.gravity && (!player.mount.Active || player.mount.Type != 6))
+						//if(player.stepSpeed == 1f || player.stepSpeed == 2f)
+						/*if((CurEdge == Edge.Left || CurEdge == Edge.Right) && LastEdge == Edge.Floor)
+						{
+							Collision.StepDown(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.waterWalk || player.waterWalk2);
+						}*/
+						/*else if(player.stepSpeed == 1.5f || player.stepSpeed == 2.5f)
 						{
 							Collision.StepUp(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.waterWalk || player.waterWalk2);
-						}
-						if (player.gravDir == -1f)
-						{
-							if ((player.carpetFrame != -1 || player.velocity.Y <= player.gravity) && !player.controlUp)
-							{
-								Collision.StepDown(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.controlUp);
-							}
-						}
-						else if ((player.carpetFrame != -1 || player.velocity.Y >= player.gravity) && !player.controlDown && (!player.mount.Active || player.mount.Type != 6))
-						{
-							Collision.StepDown(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.controlUp);
-						}
+						}*/
 					}
 				}
 				else
@@ -3159,28 +2541,19 @@ public void SenseMove(Player P)
 		//int CFMoment = 0;
 		public void PowerBomb(Player player)
 		{
-	
 			if(ballstate)
 			{
-				if(/*powerbomb == 0 && */statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
+				if(statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
 				{
-					//Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-                    //Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/PowerBombCharge1"));
 					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
 					statPBCh = 200;
-					//powerbomb = 180;
 					int PBombID = mod.ProjectileType("PowerBomb");
 					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,PBombID,specialDmg/4,0,player.whoAmI);
 				}
 			}
-			/*if(powerbomb > 0)
-			{
-				powerbomb--;
-			}*/
 		}
 		public void BoostBall(Player player)
 		{
-	
 			if(ballstate)
 			{
 				if(MetroidMod.BoostBallKey.Current)
@@ -3217,22 +2590,24 @@ public void SenseMove(Player P)
 							if(CurEdge == Edge.Floor)
 							{
 								CurEdge = Edge.None;
-								player.velocity.Y -= 7f;
+								player.velocity.Y -= 9f;
 							}
 							if(CurEdge == Edge.Ceiling)
 							{
 								CurEdge = Edge.None;
-								player.velocity.Y += 7f;
+								player.velocity.Y += 9f;
 							}
 							if(CurEdge == Edge.Left)
 							{
 								CurEdge = Edge.None;
-								player.velocity.X += 7f;
+								player.velocity.X += 9f;
+								player.velocity.Y -= 2f;
 							}
 							if(CurEdge == Edge.Right)
 							{
 								CurEdge = Edge.None;
-								player.velocity.X -= 7f;
+								player.velocity.X -= 9f;
+								player.velocity.Y -= 2f;
 							}
 						}
 						if(!spiderball || CurEdge == Edge.None)
@@ -3269,7 +2644,7 @@ public void SenseMove(Player P)
 				}
 				if(boostEffect > 0)
 				{
-					 player.armorEffectDrawShadow = true;
+					player.armorEffectDrawShadow = true;
 					boostEffect--;
 				}
 			}
@@ -3281,12 +2656,10 @@ public void SenseMove(Player P)
 		}
 		public void Drill(Player p, int drill)
 		{
-			
 			if(ballstate)
 			{
 				if (drill > 0 && p.position.X / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetX && (p.position.X + (float)p.width) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetX && p.position.Y / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetY && (p.position.Y + (float)p.height) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetY)
 				{
-					int num165 = 0;
 					if(Main.mouseLeft)
 					{
 						if (p.runSoundDelay <= 0)
@@ -3312,214 +2685,8 @@ public void SenseMove(Player P)
 					{
 						if (cooldownbomb == 0 && Main.mouseLeft)
 						{
-							int tileId = p.hitTile.HitObject(Player.tileTargetX, Player.tileTargetY, 1);
-							if (Main.tileNoFail[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-							{
-								num165 = 100;
-							}
 							if (drill > 0)
 							{
-							/*	if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 203)
-								{
-									num165 += drill / 2;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 48 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 232)
-								{
-									num165 += drill / 4;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 226)
-								{
-									num165 += drill / 4;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 221)
-								{
-									num165 += drill / 2;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 222)
-								{
-									num165 += drill / 3;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 223)
-								{
-									num165 += drill / 4;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 211)
-								{
-									num165 += drill / 5;
-								}
-								else
-								{
-									num165 += drill;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 211 && drill < 200)
-								{
-									num165 = 0;
-								}
-								if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 203) && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117 && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 37 && drill < 50)
-								{
-									num165 = 0;
-								}
-								else if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 22 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 204) && (double)Player.tileTargetY > Main.worldSurface && drill < 55)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 56 && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58 && drill < 65)
-								{
-									num165 = 0;
-								}
-								else if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 226 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 237) && drill < 210)
-								{
-									num165 = 0;
-								}
-								else if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && drill < 65)
-								{
-									if ((double)Player.tileTargetX < (double)Main.maxTilesX * 0.35 || (double)Player.tileTargetX > (double)Main.maxTilesX * 0.65)
-									{
-										num165 = 0;
-									}
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107 && drill < 100)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108 && drill < 110)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111 && drill < 150)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 221 && drill < 100)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 222 && drill < 110)
-								{
-									num165 = 0;
-								}
-								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 223 && drill < 150)
-								{
-									num165 = 0;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 147 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 40 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 53 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 57 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 59 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 123 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 224)
-								{
-									num165 += drill;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 165 || Main.tileRope[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 199 || Main.tileMoss[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-								{
-									num165 = 100;
-								}
-								if (drill < Main.tileMinPick[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-								{
-									num165 = 0;
-								}
-								if (p.hitTile.AddDamage(tileId, num165, false) >= 100 && (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 2 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 23 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 60 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 70 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 109 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 71 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 199 || Main.tileMoss[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
-								{
-									num165 = 0;
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 128 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 269)
-								{
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX == 18 || Main.tile[Player.tileTargetX, Player.tileTargetY].frameX == 54)
-									{
-										Player.tileTargetX--;
-										p.hitTile.UpdatePosition(tileId, Player.tileTargetX, Player.tileTargetY);
-									}
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX >= 100)
-									{
-										num165 = 0;
-										Main.blockMouse = true;
-									}
-								}
-								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 334)
-								{
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY == 0)
-									{
-										Player.tileTargetY++;
-										p.hitTile.UpdatePosition(tileId, Player.tileTargetX, Player.tileTargetY);
-									}
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY == 36)
-									{
-										Player.tileTargetY--;
-										p.hitTile.UpdatePosition(tileId, Player.tileTargetX, Player.tileTargetY);
-									}
-									int num166 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
-									bool flag11 = num166 >= 5000;
-									bool flag12 = false;
-									if (!flag11)
-									{
-										int num167 = num166 / 18;
-										num167 %= 3;
-										Player.tileTargetX -= num167;
-										if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX >= 5000)
-										{
-											flag11 = true;
-										}
-									}
-									if (flag11)
-									{
-										num166 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameX;
-										int num168 = 0;
-										while (num166 >= 5000)
-										{
-											num166 -= 5000;
-											num168++;
-										}
-										if (num168 != 0)
-										{
-											flag12 = true;
-										}
-									}
-									if (flag12)
-									{
-										num165 = 0;
-										Main.blockMouse = true;
-									}
-								}
-								if (p.hitTile.AddDamage(tileId, num165, true) >= 100)
-								{
-									p.hitTile.Clear(tileId);
-									if (Main.netMode == 1 && Main.tile[Player.tileTargetX, Player.tileTargetY].type == 21)
-									{
-										WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-										NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0f);
-										NetMessage.SendData(34, -1, -1, "", 1, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0f);
-									}
-									else
-									{
-										int num169 = Player.tileTargetY;
-										WorldGen.KillTile(Player.tileTargetX, num169, false, false, false);
-										if (Main.netMode == 1)
-										{
-											NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)num169, 0f, 0f);
-										}
-									}
-								}
-								else
-								{
-									WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-									if (Main.netMode == 1)
-									{
-										NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0f);
-									}
-								}
-								if (num165 != 0)
-								{
-									p.hitTile.Prune();
-								}*/
-								//p.itemTime = (int)((float)this.inventory[this.selectedItem].useTime * this.pickSpeed);
                                 p.PickTile(Player.tileTargetX, Player.tileTargetY, drill);
 							}
 							cooldownbomb = 5;
@@ -3536,7 +2703,5 @@ public void SenseMove(Player P)
 				}
 			}
 		}
-
-
     }
 }

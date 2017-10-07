@@ -17,7 +17,6 @@ namespace MetroidMod.Tiles
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolid[Type] = false;
 			Main.tileLavaDeath[Type] = false;
-			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3); 
 			//TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width - 2, 1);
@@ -28,11 +27,12 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
+			TileID.Sets.HousingWalls[Type] = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
 			dustType = 1;
-		//	animationFrameHeight = 54;
+			adjTiles = new int[]{ TileID.OpenDoor };
 		}
 
 		public override bool Slope(int i, int j)
@@ -64,6 +64,13 @@ namespace MetroidMod.Tiles
 		public override void NumDust(int i, int j, bool fail, ref int num)
 		{
 			num = 1;
+		}
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.showItemIcon = true;
+			player.showItemIcon2 = mod.ItemType("BlueHatch");
 		}
 		public override void RightClick(int i, int j)
 		{

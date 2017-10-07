@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Body)]
-	public class PowerSuitBreastplate : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Power Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" + 
+    [AutoloadEquip(EquipType.Body)]
+    public class PowerSuitBreastplate : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Power Suit Breastplate");
+            Tooltip.SetDefault("5% increased ranged damage\n" +
             "+5 overheat capacity");
 		}
 
@@ -39,17 +39,17 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + "10% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "30% increased underwater breathing";
+            player.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "10% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "30% increased underwater breathing";
             player.noFallDmg = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-	    mp.breathMult = 1.3f;
-			mp.overheatCost -= 0.10f;
-			mp.SenseMove(player);
-			mp.visorGlow = true;
-            if(!mp.ballstate)
-			{
-				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f), 0, 0.973f, 0.44f);
-			}
+            mp.breathMult = 1.3f;
+            mp.overheatCost -= 0.10f;
+            mp.SenseMove(player);
+            mp.visorGlow = true;
+            if (!mp.ballstate)
+            {
+                Lighting.AddLight((int)((float)player.Center.X / 16f), (int)((float)(player.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
+            }
         }
 
 		public override void UpdateVanitySet(Player P)
@@ -82,5 +82,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

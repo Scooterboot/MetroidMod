@@ -43,5 +43,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

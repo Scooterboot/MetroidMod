@@ -44,18 +44,18 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "20% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "55% increased underwater breathing";
+            p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "55% increased underwater breathing";
             p.rangedDamage += 0.05f;
             p.noFallDmg = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
-	    mp.breathMult = 1.7f;
-            mp.overheatCost -= 0.20f;
+            mp.breathMult = 1.55f;
+            mp.overheatCost -= 0.25f;
             mp.SenseMove(p);
             mp.visorGlow = true;
-            if(!mp.ballstate)
-			{
-				Lighting.AddLight((int)((float)p.Center.X/16f), (int)((float)(p.position.Y+8f)/16f), 0, 0.973f, 0.44f);
-			}
+            if (!mp.ballstate)
+            {
+                Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
+            }
         }
 
         public override void UpdateVanitySet(Player P)
@@ -88,5 +88,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

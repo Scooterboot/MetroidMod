@@ -80,7 +80,14 @@ namespace MetroidMod.Projectiles
 			}
 			if(projectile.Name.Contains("Ice"))
 			{
-				target.AddBuff(mod.BuffType("IceFreeze"),300,true);
+				if(projectile.Name.Contains("Missile"))
+				{
+					target.AddBuff(mod.BuffType("InstantFreeze"),300,true);
+				}
+				else
+				{
+					target.AddBuff(mod.BuffType("IceFreeze"),300,true);
+				}
 			}
 		}
 
@@ -106,6 +113,9 @@ namespace MetroidMod.Projectiles
 			height = 0;
 			return true;
 		}
+		
+		public bool seeking = false;
+		public int seekTarget = -1;
 
 		public int waveStyle = 0;
 		public int delay = 0;
@@ -398,5 +408,5 @@ namespace MetroidMod.Projectiles
 			}
 			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(color2), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
 		}
-	}
+    }
 }

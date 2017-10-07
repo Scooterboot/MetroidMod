@@ -29,7 +29,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.05f;
+            player.rangedDamage += 0.08f;
             player.fireWalk = true;
             player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
@@ -45,7 +45,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n"
+            p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n"
                 + "10% increased ranged damage" + "\r\n"
                 + "Free movement in liquid" + "\r\n"
                 + "Immune to lava damage for 7 seconds" + "\r\n"

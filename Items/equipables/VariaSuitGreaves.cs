@@ -15,7 +15,7 @@ namespace MetroidMod.Items.equipables
              "10% increased movement speed\n" +
              "+10 overheat capacity\n" +
              "Allows you to slide down walls");
-		}
+        }
         public override void SetDefaults()
         {
             item.width = 18;
@@ -44,5 +44,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

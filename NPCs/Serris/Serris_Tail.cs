@@ -180,7 +180,7 @@ namespace MetroidMod.NPCs.Serris
 			{
 				if (npc.life <= 0)
 				{
-					int gore = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("SerrisGore3"), 1f);
+					int gore = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisGore3"), 1f);
 					Main.gore[gore].velocity *= 0.4f;
 					Main.gore[gore].timeLeft = 60;
 				}
