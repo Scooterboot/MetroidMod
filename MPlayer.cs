@@ -1643,6 +1643,7 @@ namespace MetroidMod
 				//player.noItems = true;
 				player.controlUseItem = false;
 				player.controlMount = false;
+				player.releaseMount = false;
 				player.controlHook = false;
 				if (Main.myPlayer == player.whoAmI)
 				{
@@ -1952,6 +1953,7 @@ namespace MetroidMod
 				//player.noItems = true;
 				player.controlHook = false;
 				player.controlMount = false;
+				player.releaseMount = false;
 				player.controlUseItem = false;
 				player.noFallDmg = true;
 				player.scope = false;
