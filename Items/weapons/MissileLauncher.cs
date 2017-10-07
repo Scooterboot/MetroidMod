@@ -502,6 +502,27 @@ namespace MetroidMod.Items.weapons
 			}
         }
 		
+		public static MissileUI TempMissileUI;
+		public static int TempStatMissiles;
+		public static int TempMaxMissiles;
+		public override void PreReforge()
+		{
+			if(missileUI != null)
+			{
+				TempMissileUI = missileUI;
+			}
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			TempStatMissiles = mi.statMissiles;
+			TempMaxMissiles = mi.maxMissiles;
+		}
+		public override void PostReforge()
+		{
+			missileUI = TempMissileUI;
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			mi.statMissiles = TempStatMissiles;
+			mi.maxMissiles = TempMaxMissiles;
+		}
+		
 		public override TagCompound Save()
 		{
 			if(missileUI != null)
