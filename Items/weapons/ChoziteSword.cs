@@ -21,7 +21,7 @@ namespace MetroidMod.Items.weapons
 			item.useAnimation = 20;			
 			item.useStyle = 1;			
 			item.knockBack = 4;			
-			item.value = 2000;			
+			item.value = 14000;			
 			item.rare = 1;				
 			item.UseSound = SoundID.Item1;	
 			item.useTurn = true;	

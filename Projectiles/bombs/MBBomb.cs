@@ -21,7 +21,7 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.width = 10;
 			projectile.height = 10;
 			projectile.aiStyle = 14;
-			projectile.timeLeft = 30;
+			projectile.timeLeft = 40;
 			projectile.ownerHitCheck = true;
 			projectile.friendly = true;
 			projectile.hostile = false;
@@ -75,7 +75,7 @@ namespace MetroidMod.Projectiles.bombs
 			//ModPlayer.grappled = false;
 			Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BombExplode"));
 			
-			float Xthreshold = 10f; //max speed
+			float Xthreshold = 8f; //max speed
 			float BombRadius = 50f; //max speed
 			for (int num70 = 0; num70 < 25; num70++)
 			{
@@ -153,7 +153,7 @@ namespace MetroidMod.Projectiles.bombs
 			float num1917 = Vector2.Distance(O.position,projectile.position);
 			if (num1917 < BombRadius)
 			{
-				O.velocity += MyVe1c * (BombRadius - num1917);
+				O.velocity += MyVe1c * BombRadius;
 				MPlayer mp = O.GetModPlayer<MPlayer>(mod);
 				if(mp.spiderball)
 				{

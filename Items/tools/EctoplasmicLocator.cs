@@ -47,7 +47,7 @@ namespace MetroidMod.Items.tools
 		}
 		public override bool UseItem(Player player)
 		{
-			Main.NewText("Huh, there seems to be a massive amount of ectoplasmic readings coming from... right above me!", 127, 255, 127);
+			//Main.NewText("Huh, there seems to be a massive amount of ectoplasmic readings coming from... right above me!", 127, 255, 127);
 			NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Phantoon"));
              Main.PlaySound(4,(int)player.position.X,(int)player.position.Y,10);
 			return true;
