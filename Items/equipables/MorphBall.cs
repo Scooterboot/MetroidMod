@@ -53,9 +53,7 @@ namespace MetroidMod.Items.equipables
 		public BallUI ballUI;
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			SpriteBatch spriteBatch = Main.spriteBatch;
 
 			if(ballUI == null)
 			{
@@ -125,7 +123,7 @@ namespace MetroidMod.Items.equipables
 			return clone;
 		}
 
-			public override Color? GetAlpha(Color lightColor)
+		public override Color? GetAlpha(Color lightColor)
         {
 			Player player = Main.player[Main.myPlayer];
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
@@ -160,6 +158,18 @@ namespace MetroidMod.Items.equipables
 				}
 			}
 		}
+		public static BallUI TempBallUI;
+		public override void PreReforge()
+		{
+			if(ballUI != null)
+			{
+				TempBallUI = ballUI;
+			}
+		}
+		public override void PostReforge()
+		{
+			ballUI = TempBallUI;
+		}
 		public override TagCompound Save()
 		{
 			if(ballUI != null)
@@ -192,7 +202,7 @@ namespace MetroidMod.Items.equipables
 			}
 			catch{}
 		}
-public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI )
+		public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI )
 		{
 			DrawLights(sb, Main.player[Main.myPlayer]);
 			MPlayer mp = Main.player[Main.myPlayer].GetModPlayer<MPlayer>(mod);
