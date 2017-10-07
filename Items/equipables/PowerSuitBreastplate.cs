@@ -10,15 +10,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Body)]
-	public class PowerSuitBreastplate : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Power Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" + 
+    [AutoloadEquip(EquipType.Body)]
+    public class PowerSuitBreastplate : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Power Suit Breastplate");
+            Tooltip.SetDefault("5% increased ranged damage\n" +
             "+5 overheat capacity");
-		}
+        }
         public override void SetDefaults()
         {
             item.width = 18;
@@ -45,34 +45,34 @@ namespace MetroidMod.Items.equipables
             player.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "10% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "30% increased underwater breathing";
             player.noFallDmg = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-	    mp.breathMult = 1.3f;
-			mp.overheatCost -= 0.10f;
-			 mp.SenseMove(player);
-			mp.visorGlow = true;
-            if(!mp.ballstate)
-			{
-				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f), 0, 0.973f, 0.44f);
-			}
+            mp.breathMult = 1.3f;
+            mp.overheatCost -= 0.10f;
+            mp.SenseMove(player);
+            mp.visorGlow = true;
+            if (!mp.ballstate)
+            {
+                Lighting.AddLight((int)((float)player.Center.X / 16f), (int)((float)(player.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
+            }
         }
-		public override void UpdateVanitySet(Player P)
-		{
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
-			mp.isPowerSuit = true;
-			mp.thrusters = true;
-			if(Main.netMode != 2)
-			{
-				mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
-			}
-			mp.visorGlowColor = new Color(0, 248, 112);
-			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
-			{
-				mp.jet = true;
-			}
-			else if(mp.shineDirection == 0 || mp.shineDirection == 5)
-			{
-				mp.jet = false;
-			}
-		}
+        public override void UpdateVanitySet(Player P)
+        {
+            MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+            mp.isPowerSuit = true;
+            mp.thrusters = true;
+            if (Main.netMode != 2)
+            {
+                mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
+            }
+            mp.visorGlowColor = new Color(0, 248, 112);
+            if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
+            {
+                mp.jet = true;
+            }
+            else if (mp.shineDirection == 0 || mp.shineDirection == 5)
+            {
+                mp.jet = false;
+            }
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -82,5 +82,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

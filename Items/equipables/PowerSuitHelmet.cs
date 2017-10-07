@@ -10,16 +10,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Head)]
-	public class PowerSuitHelmet : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Power Suit Helmet");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+    [AutoloadEquip(EquipType.Head)]
+    public class PowerSuitHelmet : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Power Suit Helmet");
+            Tooltip.SetDefault("5% increased ranged damage\n" +
              "+5 overheat capacity\n" +
              "Improved night vision");
-		}
+        }
 
         public override void SetDefaults()
         {
@@ -47,5 +47,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

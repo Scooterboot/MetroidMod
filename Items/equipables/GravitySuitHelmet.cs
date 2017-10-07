@@ -10,17 +10,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Head)]
-	public class GravitySuitHelmet : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Gravity Suit Helmet");
-			Tooltip.SetDefault("8% increased ranged damage\n" + 
-            "+20 overheat capacity\n" + 
-            "Improved night vision\n" + 
+    [AutoloadEquip(EquipType.Head)]
+    public class GravitySuitHelmet : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Gravity Suit Helmet");
+            Tooltip.SetDefault("8% increased ranged damage\n" +
+            "+20 overheat capacity\n" +
+            "Improved night vision\n" +
             "Increased jump height");
-		}    public override void SetDefaults()
+        }
+        public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
@@ -40,7 +41,7 @@ namespace MetroidMod.Items.equipables
 
         public override void AddRecipes()
         {
-             ModRecipe recipe = new ModRecipe(mod);
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitV2Helmet");
             recipe.AddIngredient(null, "GravityGel", 17);
             recipe.AddIngredient(ItemID.SoulofSight, 5);
@@ -48,5 +49,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

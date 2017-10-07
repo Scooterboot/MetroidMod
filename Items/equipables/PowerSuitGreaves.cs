@@ -10,16 +10,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-[AutoloadEquip(EquipType.Legs)]
-	public class PowerSuitGreaves : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Power Suit Greaves");
-			Tooltip.SetDefault("5% increased ranged damage\n" + 
+    [AutoloadEquip(EquipType.Legs)]
+    public class PowerSuitGreaves : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Power Suit Greaves");
+            Tooltip.SetDefault("5% increased ranged damage\n" +
             "+5 overheat capacity\n" +
             "Allows you to slide down walls");
-		}
+        }
         public override void SetDefaults()
         {
             item.width = 18;
@@ -46,5 +46,5 @@ namespace MetroidMod.Items.equipables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }
