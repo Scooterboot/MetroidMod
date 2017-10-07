@@ -30,6 +30,7 @@ namespace MetroidMod {
 		internal static ModHotKey SenseMoveKey;
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
 		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
+		public const string PhantoonHead = "MetroidMod/NPCs/Phantoon/Phantoon_Head_Boss";
 		public static Mod Instance;
 		public MetroidMod()
 		{
@@ -65,6 +66,7 @@ namespace MetroidMod {
 			{
 				AddBossHeadTexture(KraidHead + k);
 			}
+			AddBossHeadTexture(PhantoonHead);
 		}
 		static int z = 0;
 		float tRot = 0f;
