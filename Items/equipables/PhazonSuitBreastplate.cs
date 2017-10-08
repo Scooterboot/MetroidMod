@@ -52,6 +52,7 @@ namespace MetroidMod.Items.equipables
                 + "Negates fall damage" + "\r\n"
                 + "Infinite breath" + "\r\n"
                 + "35% decreased overheat use" + "\r\n"
+                + "Immune to damage from standing on Phazon blocks"
                 + "Enables Phazon Beam use";
             p.rangedDamage += 0.15f;
             p.ignoreWater = true;
