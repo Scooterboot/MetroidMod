@@ -27,7 +27,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.08f;
+            player.rangedDamage += 0.05f;
             player.nightVision = true;
             player.jumpBoost = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);

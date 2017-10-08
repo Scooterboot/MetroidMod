@@ -29,7 +29,7 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.08f;
+            player.rangedDamage += 0.05f;
             player.fireWalk = true;
             player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
