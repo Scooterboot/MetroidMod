@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,7 +47,7 @@ namespace MetroidMod.Items.equipables
             mp.visorGlow = true;
             if (!mp.ballstate)
             {
-                Lighting.AddLight((int)((float)player.Center.X / 16f), (int)((float)(player.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
+                Lighting.AddLight((int)(player.Center.X / 16f), (int)((player.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
             }
         }
 
