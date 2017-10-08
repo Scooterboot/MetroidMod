@@ -49,7 +49,7 @@ namespace MetroidMod.Items.equipables
             p.noFallDmg = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
             mp.breathMult = 1.55f;
-            mp.overheatCost -= 0.25f;
+            mp.overheatCost -= 0.20f;
             mp.SenseMove(p);
             mp.visorGlow = true;
             if (!mp.ballstate)

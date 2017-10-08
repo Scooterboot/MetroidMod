@@ -43,11 +43,11 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "80% increased underwater breathing";
+            p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "80% increased underwater breathing";
             p.rangedDamage += 0.05f;
-            p.breathMax = (int)(p.breathMax * 1.8f);
             p.noFallDmg = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
+            mp.breathMult = 1.8f;
             mp.overheatCost -= 0.25f;
             mp.SenseMove(p);
             mp.visorGlow = true;

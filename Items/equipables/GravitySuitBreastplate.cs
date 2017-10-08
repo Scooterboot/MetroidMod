@@ -49,15 +49,12 @@ namespace MetroidMod.Items.equipables
                 + "10% increased ranged damage" + "\r\n"
                 + "Free movement in liquid" + "\r\n"
                 + "Immune to lava damage for 7 seconds" + "\r\n"
-                //+ "Default gravity in space" + "\r\n"
                 + "Negates fall damage" + "\r\n"
                 + "Infinite breath" + "\r\n"
                 + "30% decreased overheat use";
             p.rangedDamage += 0.10f;
             p.ignoreWater = true;
-            //p.lavaImmune = true;
             p.lavaMax += 420;
-            //p.gravity = 0.4f;
             p.noFallDmg = true;
             p.gills = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
