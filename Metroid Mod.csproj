@@ -143,8 +143,6 @@
     <Content Include="Items\equipables\KraidMask.png" />
     <Content Include="Items\equipables\KraidMask_Head.png" />
     <Content Include="Items\equipables\MorphBall.png" />
-    <Content Include="Items\equipables\MorphBallV2.png" />
-    <Content Include="Items\equipables\MorphBallV2_Lights.png" />
     <Content Include="Items\equipables\MorphBall_Lights.png" />
     <Content Include="Items\equipables\PhantoonMask.png" />
     <Content Include="Items\equipables\PhantoonMask_Head.png" />
@@ -556,7 +554,6 @@
     <Compile Include="Items\equipables\GravitySuitHelmet.cs" />
     <Compile Include="Items\equipables\KraidMask.cs" />
     <Compile Include="Items\equipables\MorphBall.cs" />
-    <Compile Include="Items\equipables\MorphBallV2.cs" />
     <Compile Include="Items\equipables\PEDSuitBreastplate.cs" />
     <Compile Include="Items\equipables\PEDSuitGreaves.cs" />
     <Compile Include="Items\equipables\PEDSuitHelmet.cs" />
