@@ -1,6 +1,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -20,12 +21,14 @@ namespace MetroidMod
 		public static bool downedSerris = false;
 		public static bool downedKraid = false;
 		public static bool downedPhantoon = false;
+		public static bool spawnedPhazonMeteor = false;
 		public override void Initialize()
 		{
 			downedTorizo = false;
 			downedSerris = false;
 			downedKraid = false;
 			downedPhantoon = false;
+			spawnedPhazonMeteor = false;
 		}
 
 		public override TagCompound Save()
@@ -37,7 +40,8 @@ namespace MetroidMod
 			if (downedPhantoon) downed.Add("Phantoon");
 
 			return new TagCompound {
-				{"downed", downed}
+				{"downed", downed},
+				{"spawnedPhazonMeteor", spawnedPhazonMeteor}
 			};
 		}
 
@@ -48,6 +52,7 @@ namespace MetroidMod
 			downedSerris = downed.Contains("Serris");
 			downedKraid = downed.Contains("Kraid");
 			downedPhantoon = downed.Contains("Phantoon");
+			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
 		}
 
 		public override void LoadLegacy(BinaryReader reader)
@@ -60,6 +65,7 @@ namespace MetroidMod
 				downedSerris = flags[1];
 				downedKraid = flags[2];
 				downedPhantoon = flags[3];
+				spawnedPhazonMeteor = flags[4];
 			}
 			else
 			{
@@ -74,6 +80,7 @@ namespace MetroidMod
 			flags[1] = downedSerris;
 			flags[2] = downedKraid;
 			flags[3] = downedPhantoon;
+			flags[4] = spawnedPhazonMeteor;
 			writer.Write(flags);
 
 		}
@@ -85,6 +92,7 @@ namespace MetroidMod
 			downedSerris = flags[1];
 			downedKraid = flags[2];
 			downedPhantoon = flags[3];
+			spawnedPhazonMeteor = flags[4];
 		}
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
@@ -458,6 +466,222 @@ namespace MetroidMod
 				}
 			}
 			return false;
+		}
+
+		public override void PostUpdate()
+		{
+			if(Main.hardMode && !spawnedPhazonMeteor)
+			{
+				DropPhazonMeteor();
+			}
+		}
+		public static void AddPhazon() 
+		{
+			Mod mod = MetroidMod.Instance;
+			int lX = 200;
+			int hX = Main.maxTilesX-200;
+			int lY = (int)Main.worldSurface;
+			int hY = Main.maxTilesY-200;
+			int minSpread = 5;
+			int maxSpread = 8;
+			int minFrequency = 5;
+			int maxFrequency = 8;
+			WorldGen.OreRunner(WorldGen.genRand.Next(lX,hX), WorldGen.genRand.Next(lY,hY), (double)WorldGen.genRand.Next(minSpread,maxSpread+1), WorldGen.genRand.Next(minFrequency,maxFrequency+1), (ushort)mod.TileType("PhazonTile"));
+		}
+		public static void DropPhazonMeteor()
+		{
+			Mod mod = MetroidMod.Instance;
+			bool flag = false;//true;
+			int num = 0;
+			if (Main.netMode == 1)
+			{
+				return;
+			}
+			/*for (int i = 0; i < 255; i++)
+			{
+				if (Main.player[i].active)
+				{
+					flag = false;
+					break;
+				}
+			}*/
+			int num2 = 0;
+			float num3 = (float)(Main.maxTilesX / 4200);
+			int num4 = (int)(400f * num3);
+			for (int j = 5; j < Main.maxTilesX - 5; j++)
+			{
+				int num5 = 5;
+				while ((double)num5 < Main.worldSurface)
+				{
+					if (Main.tile[j, num5].active() && Main.tile[j, num5].type == mod.TileType("PhazonTile"))
+					{
+						num2++;
+						if (num2 > num4)
+						{
+							return;
+						}
+					}
+					num5++;
+				}
+			}
+			while (!flag)
+			{
+				float num6 = (float)Main.maxTilesX * 0.08f;
+				int num7 = Main.rand.Next(50, Main.maxTilesX - 50);
+				while ((float)num7 > (float)Main.spawnTileX - num6 && (float)num7 < (float)Main.spawnTileX + num6)
+				{
+					num7 = Main.rand.Next(50, Main.maxTilesX - 50);
+				}
+				for (int k = Main.rand.Next(100); k < Main.maxTilesY; k++)
+				{
+					if (Main.tile[num7, k].active() && Main.tileSolid[(int)Main.tile[num7, k].type])
+					{
+						flag = phazonMeteor(num7, k);
+						break;
+					}
+				}
+				num++;
+				if (num >= 100)
+				{
+					return;
+				}
+			}
+			spawnedPhazonMeteor = flag;
+		}
+		private static bool phazonMeteor(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			if (i < 50 || i > Main.maxTilesX - 50)
+			{
+				return false;
+			}
+			if (j < 50 || j > Main.maxTilesY - 50)
+			{
+				return false;
+			}
+			if (i < (Main.maxTilesX/2) - 50 ||
+				i < (Main.maxTilesX/2) + 50)
+			{
+				return false;
+			}
+			int num = 25;
+			Rectangle rectangle = new Rectangle((i - num) * 16, (j - num) * 16, num * 2 * 16, num * 2 * 16);
+			for (int k = 0; k < 255; k++)
+			{
+				if (Main.player[k].active)
+				{
+					Rectangle value = new Rectangle((int)(Main.player[k].position.X + (float)(Main.player[k].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[k].position.Y + (float)(Main.player[k].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+					if (rectangle.Intersects(value))
+					{
+						return false;
+					}
+				}
+			}
+			for (int l = 0; l < 200; l++)
+			{
+				if (Main.npc[l].active)
+				{
+					Rectangle value2 = new Rectangle((int)Main.npc[l].position.X, (int)Main.npc[l].position.Y, Main.npc[l].width, Main.npc[l].height);
+					if (rectangle.Intersects(value2))
+					{
+						return false;
+					}
+				}
+			}
+			for (int m = i - num; m < i + num; m++)
+			{
+				for (int n = j - num; n < j + num; n++)
+				{
+					if (Main.tile[m, n].active() && Main.tile[m, n].type == 21)
+					{
+						return false;
+					}
+				}
+			}
+			num = 15;
+			for (int num2 = i - num; num2 < i + num; num2++)
+			{
+				for (int num3 = j - num; num3 < j + num; num3++)
+				{
+					if (num3 > j + Main.rand.Next(-2, 3) - 5 && (double)(Math.Abs(i - num2) + Math.Abs(j - num3)) < (double)num * 1.5 + (double)Main.rand.Next(-5, 5))
+					{
+						if (!Main.tileSolid[(int)Main.tile[num2, num3].type])
+						{
+							Main.tile[num2, num3].active(false);
+						}
+						Main.tile[num2, num3].type = (ushort)mod.TileType("PhazonTile");
+					}
+				}
+			}
+			num = 10;
+			for (int num4 = i - num; num4 < i + num; num4++)
+			{
+				for (int num5 = j - num; num5 < j + num; num5++)
+				{
+					if (num5 > j + Main.rand.Next(-2, 3) - 5 && Math.Abs(i - num4) + Math.Abs(j - num5) < num + Main.rand.Next(-3, 4))
+					{
+						Main.tile[num4, num5].active(false);
+					}
+				}
+			}
+			num = 5;
+			for (int num4 = i - num; num4 < i + num; num4++)
+			{
+				for (int num5 = j + 4 - num; num5 < j + 4 + num; num5++)
+				{
+					if (num5 > j + Main.rand.Next(-2, 3) - 5 && (double)(Math.Abs(i - num4) + Math.Abs(j - num5)) < (double)num * 1.5 + (double)Main.rand.Next(-5, 5))
+					{
+						if (!Main.tileSolid[(int)Main.tile[num4, num5].type])
+						{
+							Main.tile[num4, num5].active(false);
+						}
+						WorldGen.PlaceTile(num4, num5, mod.TileType("PhazonCore"), true, false, -1, 0);
+						WorldGen.SquareTileFrame(num4, num5, true);
+					}
+				}
+			}
+			num = 16;
+			for (int num6 = i - num; num6 < i + num; num6++)
+			{
+				for (int num7 = j - num; num7 < j + num; num7++)
+				{
+					if (Main.tile[num6, num7].type == 5 || Main.tile[num6, num7].type == 32)
+					{
+						WorldGen.KillTile(num6, num7, false, false, false);
+					}
+					WorldGen.SquareTileFrame(num6, num7, true);
+					WorldGen.SquareWallFrame(num6, num7, true);
+				}
+			}
+			num = 23;
+			for (int num8 = i - num; num8 < i + num; num8++)
+			{
+				for (int num9 = j - num; num9 < j + num; num9++)
+				{
+					if (Main.tile[num8, num9].active() && Main.rand.Next(10) == 0 && (double)(Math.Abs(i - num8) + Math.Abs(j - num9)) < (double)num * 1.3)
+					{
+						if (Main.tile[num8, num9].type == 5 || Main.tile[num8, num9].type == 32)
+						{
+							WorldGen.KillTile(num8, num9, false, false, false);
+						}
+						Main.tile[num8, num9].type = (ushort)mod.TileType("PhazonTile");
+						WorldGen.SquareTileFrame(num8, num9, true);
+					}
+				}
+			}
+			if (Main.netMode == 0)
+			{
+				Main.NewText("A Phazon Meteor has landed!", 50, 255, 130);
+			}
+			/*else if (Main.netMode == 2)
+			{
+				NetMessage.SendData(25, -1, -1, "A Phazon Meteor has landed!", 255, 50f, 255f, 130f, 0);
+			}*/
+			if (Main.netMode != 1)
+			{
+				NetMessage.SendTileSquare(-1, i, j, 30);
+			}
+			return true;
 		}
     }
 }
