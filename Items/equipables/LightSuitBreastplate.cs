@@ -14,7 +14,6 @@ namespace MetroidMod.Items.equipables
             Tooltip.SetDefault("5% increased ranged damage\n" +
              "Immune to fire blocks\n" +
              "Immune to chill and freeze effects\n" +
-             "Immune to knockback\n" +
              "+25 overheat capacity");
         }
 
@@ -31,7 +30,6 @@ namespace MetroidMod.Items.equipables
         {
             player.rangedDamage += 0.05f;
             player.fireWalk = true;
-            player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
