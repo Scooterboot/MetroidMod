@@ -45,20 +45,23 @@ namespace MetroidMod.Items.equipables
         {
             p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" +
                 "Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)" + "\r\n" +
-                "5% increased ranged damage" + "\r\n" +
+                "Slightly increased health regen when standing on Phazon" + "\r\n" +
+                "10% increased ranged damage" + "\r\n" +
                 "30% decreased overheat use" + "\r\n" +
                 "Negates fall damage" + "\r\n" +
-                "Infinite breath" + "\r\n";
-            p.rangedDamage += 0.05f;
+                "Infinite breath";
+            p.rangedDamage += 0.1f;
             p.gills = true;
             p.noFallDmg = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
+            mp.phazonImmune = true;
+            mp.phazonRegen = 2;
             mp.overheatCost -= 0.30f;
             mp.SenseMove(p);
             mp.visorGlow = true;
             if (!mp.ballstate)
             {
-                Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
+                Lighting.AddLight((int)(p.Center.X / 16f), (int)((p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
             }
             //code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
         }
