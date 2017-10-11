@@ -23,7 +23,7 @@ namespace MetroidMod.NPCs.Phantoon
 			npc.height = 28;
 			npc.damage = 0;//50;
 			npc.defense = 10;
-			npc.lifeMax = 75;
+			npc.lifeMax = 50;
 			npc.knockBackResist = 0;
 			npc.HitSound = SoundID.NPCHit3;
 			npc.DeathSound = SoundID.NPCDeath3;
@@ -43,7 +43,7 @@ namespace MetroidMod.NPCs.Phantoon
 			npc.noTileCollide = true;
 			npc.noGravity = true;
 		}
-		int damage = 55;
+		int damage = 66;
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			damage *= 2;
@@ -75,7 +75,7 @@ namespace MetroidMod.NPCs.Phantoon
 
 			if(npc.ai[1] == -1) // phantoon spawn animation behavior
 			{
-				
+				npc.active = creator.active;
 				if(npc.ai[3] == 1 || npc.ai[3] == 2)
 				{
 					npc.ai[2] += (float)Math.PI/120;
@@ -216,7 +216,15 @@ namespace MetroidMod.NPCs.Phantoon
 				float targetRot = (float)Math.Atan2(player.Center.Y-npc.Center.Y,player.Center.X-npc.Center.X);
 				if(npc.ai[3] < 30)
 				{
-					npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2])*dist,(float)Math.Sin(npc.ai[2])*dist);
+					if(creator.active)
+					{
+						npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2])*dist,(float)Math.Sin(npc.ai[2])*dist);
+						startPos = creator.Center;
+					}
+					else
+					{
+						npc.Center = startPos + new Vector2((float)Math.Cos(npc.ai[2])*dist,(float)Math.Sin(npc.ai[2])*dist);
+					}
 					
 					if(dist < 120)
 					{
@@ -267,9 +275,12 @@ namespace MetroidMod.NPCs.Phantoon
 				{
 					if(npc.velocity.Length() < 16)
 					{
-						npc.velocity *= 1.05f;
+						npc.velocity *= 1.025f;
+						if(Vector2.Distance(player.Center,npc.Center) <= 600)
+						{
+							npc.velocity += targetRot.ToRotationVector2()*0.5f;
+						}
 					}
-					npc.velocity += targetRot.ToRotationVector2()*0.3f;
 				}
 				
 				npc.frameCounter++;
@@ -332,11 +343,6 @@ namespace MetroidMod.NPCs.Phantoon
 				{
 					npc.frame.Y = 0;
 				}
-			}
-
-			if(npc.ai[1] == 5) // fire "whip" behavior
-			{
-				
 			}
 
 			float num = (255f - npc.alpha) / 255f;
