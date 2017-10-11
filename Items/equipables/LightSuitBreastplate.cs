@@ -91,7 +91,7 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(ItemID.HallowedBar, 25);
             //recipe.AddIngredient(null, "", 10); Dark World material
             recipe.AddIngredient(null, "EnergyTank");
-            recipe.AddTile(null, "NovaWorkTable");
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
