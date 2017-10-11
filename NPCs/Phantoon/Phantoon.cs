@@ -21,9 +21,9 @@ namespace MetroidMod.NPCs.Phantoon
 		{
 			npc.width = 92;
 			npc.height = 180;
-			npc.damage = 0;//50;
-			npc.defense = 30;
-			npc.lifeMax = 15000;//1500;
+			npc.damage = 0;
+			npc.defense = 50;
+			npc.lifeMax = 15000;
 			npc.dontTakeDamage = true;
 			npc.alpha = 255;
 			npc.scale = 1f;
@@ -132,6 +132,8 @@ namespace MetroidMod.NPCs.Phantoon
 		int eyeFrameCounter = 0;
 		
 		int state = 0;
+		
+		bool initialTeleport = false;
 
 		public override void AI()
 		{
@@ -151,28 +153,60 @@ namespace MetroidMod.NPCs.Phantoon
 			}
 			
 			state = 0;
-			if(npc.life < (int)(npc.lifeMax*0.75f))
+			if(npc.life <= (int)(npc.lifeMax*0.8f))
 			{
 				state = 1;
 			}
-			if(npc.life < (int)(npc.lifeMax*0.5f))
+			if(npc.life <= (int)(npc.lifeMax*0.55f))
 			{
 				state = 2;
 			}
-			if(npc.life < (int)(npc.lifeMax*0.25f))
+			if(npc.life <= (int)(npc.lifeMax*0.3f))
 			{
 				state = 3;
 			}
 			
-			int[,] fireBallRand = new int[3,3];
-			fireBallRand[0,0] = 30;
-			fireBallRand[1,0] = 45;
-			fireBallRand[2,0] = 50;
+			int[,] fireBallRand = new int[4,2];
+			fireBallRand[0,0] = 15;
+			fireBallRand[1,0] = 30;
+			fireBallRand[2,0] = 40;
+			fireBallRand[3,0] = 50;
 			
-			fireBallRand[0,1] = 20;//40;
+			fireBallRand[0,1] = 25;
 			fireBallRand[1,1] = 50;
 			
-			fireBallRand[0,2] = 40;
+			fireBallRand[2,1] = 60;
+			
+			if(state == 1)
+			{
+				fireBallRand[2,0] = 45;
+				fireBallRand[3,0] = 60;
+				
+				fireBallRand[0,1] = 30;
+				fireBallRand[1,1] = 60;
+			}
+			
+			if(state == 2)
+			{
+				fireBallRand[2,0] = 50;
+				fireBallRand[3,0] = 70;
+				
+				fireBallRand[0,1] = 40;
+				fireBallRand[1,1] = 70;
+			
+				fireBallRand[2,1] = 75;
+			}
+			
+			if(state == 2)
+			{
+				fireBallRand[2,0] = 55;
+				fireBallRand[3,0] = 80;
+				
+				fireBallRand[0,1] = 50;
+				fireBallRand[1,1] = 80;
+			
+				fireBallRand[2,1] = 75;
+			}
 
 			if(npc.ai[0] < 660) // spawn animation
 			{
@@ -226,7 +260,7 @@ namespace MetroidMod.NPCs.Phantoon
 					if(npc.ai[1] % 20 == 0f) // spawn fireball every 20 frames
 					{
 						int rand = Main.rand.Next(100);
-						if(Vector2.Distance(npc.Center,Main.player[npc.target].Center) >= (400 - 50*state)) // spawn only super and targeting fireballs when too far from the player
+						if(Vector2.Distance(npc.Center,Main.player[npc.target].Center) >= (600 - 100*state)) // spawn only super and targeting fireballs when too far from the player
 						{
 							if(rand < fireBallRand[0,1])
 							{
@@ -271,6 +305,12 @@ namespace MetroidMod.NPCs.Phantoon
 									fb.ai[1] = 1;
 									fb.ai[2] = -((float)Math.PI/2) + (((float)Math.PI/4)*Main.rand.Next(8));
 								}
+							}
+							else if(rand < fireBallRand[3,0])
+							{
+								//spawn super fireball
+								int fire = spawnFireBall(npc.Center.X,npc.Center.Y);
+								Main.npc[fire].ai[1] = 2;
 							}
 						}
 					}
@@ -354,7 +394,7 @@ namespace MetroidMod.NPCs.Phantoon
 						{
 							npc.Center = new Vector2(Main.player[npc.target].Center.X + (100 + Main.rand.Next(101)) * ((Main.rand.Next(2) == 0) ? 1 : -1),Main.player[npc.target].Center.Y - 100 - Main.rand.Next(201));
 							
-							if(Main.rand.Next(100) < fireBallRand[0,2])
+							if(Main.rand.Next(100) < fireBallRand[2,1])
 							{
 								for(int i = 0; i < 8; i++)
 								{
@@ -379,6 +419,7 @@ namespace MetroidMod.NPCs.Phantoon
 									Main.npc[fire].ai[2] = 1 + 5*i;
 								}
 							}
+							initialTeleport = true;
 						}
 						npc.alpha = Math.Max(npc.alpha-25,0);
 						eyeOpen = 1;
@@ -393,53 +434,54 @@ namespace MetroidMod.NPCs.Phantoon
 						}
 					}
 					
-					if(npc.justHit) // change phase after being hit
+					if(npc.justHit && initialTeleport) // change phase after being hit
 					{
 						npc.ai[2] = 2f;
 						npc.ai[3] = 0f;
 						eyeOpen = 2;
+						initialTeleport = false;
 					}
 					
 					// movement
 					npc.velocity.X = npc.velocity.X * 0.9f;
 					if(npc.velocity.X > 0f)
 					{
-						npc.velocity.X -= 0.2f;
-						if (npc.velocity.X > 5f)
+						npc.velocity.X -= 0.25f;
+						if (npc.velocity.X > 4f)
 						{
-							npc.velocity.X = 5f;
+							npc.velocity.X = 4f;
 						}
 					}
 					else if(npc.velocity.X < 0f)
 					{
-						npc.velocity.X += 0.2f;
-						if (npc.velocity.X < -5f)
+						npc.velocity.X += 0.25f;
+						if (npc.velocity.X < -4f)
 						{
-							npc.velocity.X = -5f;
+							npc.velocity.X = -4f;
 						}
 					}
 					npc.velocity.Y = npc.velocity.Y * 0.9f;
 					if(npc.velocity.Y > 0f)
 					{
-						npc.velocity.Y -= 0.2f;
-						if (npc.velocity.Y > 5f)
+						npc.velocity.Y -= 0.25f;
+						if (npc.velocity.Y > 4f)
 						{
-							npc.velocity.Y = 5f;
+							npc.velocity.Y = 4f;
 						}
 					}
 					else if(npc.velocity.Y < 0f)
 					{
-						npc.velocity.Y += 0.2f;
-						if (npc.velocity.Y < -5f)
+						npc.velocity.Y += 0.25f;
+						if (npc.velocity.Y < -4f)
 						{
-							npc.velocity.Y = -5f;
+							npc.velocity.Y = -4f;
 						}
 					}
 				}
 				if(npc.ai[2] == 2f) // eye open - chase player phase
 				{
 					npc.ai[3]++;
-					if(npc.ai[3] >= (1000 - 100*state)) // change back to main phase after enough damage is recieved
+					if(npc.ai[3] >= (1000 - 75*state)) // change back to main phase after enough damage is recieved
 					{
 						eyeOpen = 0;
 						npc.alpha = Math.Min(npc.alpha+10,255);
@@ -456,65 +498,39 @@ namespace MetroidMod.NPCs.Phantoon
 						npc.alpha = Math.Max(npc.alpha-25,0);
 						
 						// movement
+						float speed = 0.2f + 0.05f*state;
 						if (npc.Center.X > Main.player[npc.target].Center.X)
 						{
-							if (npc.velocity.X > 0f)
-							{
-								npc.velocity.X -= 0.19f;
-							}
-							else
-							{
-								npc.velocity.X -= 0.2f;
-								if(npc.velocity.X < -8f)
-								{
-									npc.velocity.X = -8f;
-								}
-							}
+							npc.velocity.X -= speed;
 						}
 						else if (npc.Center.X < Main.player[npc.target].Center.X)
 						{
-							if (npc.velocity.X < 0f)
-							{
-								npc.velocity.X += 0.19f;
-							}
-							else
-							{
-								npc.velocity.X += 0.2f;
-								if(npc.velocity.X > 8f)
-								{
-									npc.velocity.X = 8f;
-								}
-							}
+							npc.velocity.X += speed;
 						}
 						if (npc.Center.Y > Main.player[npc.target].Center.Y)
 						{
-							if (npc.velocity.Y > 0f)
-							{
-								npc.velocity.Y -= 0.19f;
-							}
-							else
-							{
-								npc.velocity.Y -= 0.2f;
-								if(npc.velocity.Y < -8f)
-								{
-									npc.velocity.Y = -8f;
-								}
-							}
+							npc.velocity.Y -= speed;
 						}
 						else if (npc.Center.Y < Main.player[npc.target].Center.Y)
 						{
-							if (npc.velocity.Y < 0f)
-							{
-								npc.velocity.Y += 0.19f;
-							}
-							else
-							{
-								npc.velocity.Y += 0.2f;
-								if(npc.velocity.Y > 8f)
-								{
-									npc.velocity.Y = 8f;
-								}
-							}
+							npc.velocity.Y += speed;
+						}
+						float speedmax = 8f + 2f*state;
+						if(npc.velocity.X < -speedmax)
+						{
+							npc.velocity.X = -speedmax;
+						}
+						if(npc.velocity.X > speedmax)
+						{
+							npc.velocity.X = speedmax;
+						}
+						if(npc.velocity.Y < -speedmax)
+						{
+							npc.velocity.Y = -speedmax;
+						}
+						if(npc.velocity.Y > speedmax)
+						{
+							npc.velocity.Y = speedmax;
 						}
 					}
 				}
