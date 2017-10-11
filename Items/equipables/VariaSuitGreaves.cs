@@ -1,22 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-    [AutoloadEquip(EquipType.Legs)]
-    public class VariaSuitGreaves : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Varia Suit Greaves");
-            Tooltip.SetDefault("5% increased ranged damage\n" +
+	[AutoloadEquip(EquipType.Legs)]
+	public class VariaSuitGreaves : ModItem
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Varia Suit Greaves");
+			Tooltip.SetDefault("5% increased ranged damage\n" +
              "10% increased movement speed\n" +
              "+10 overheat capacity\n" +
              "Allows you to slide down walls");
@@ -44,6 +39,7 @@ namespace MetroidMod.Items.equipables
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "PowerSuitGreaves");
             recipe.AddIngredient(ItemID.HellstoneBar, 15);
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

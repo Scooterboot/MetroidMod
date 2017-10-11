@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
@@ -18,7 +13,8 @@ namespace MetroidMod.Items.equipables
             DisplayName.SetDefault("Power Suit Breastplate");
             Tooltip.SetDefault("5% increased ranged damage\n" +
             "+5 overheat capacity");
-        }
+		}
+
         public override void SetDefaults()
         {
             item.width = 18;
@@ -51,31 +47,34 @@ namespace MetroidMod.Items.equipables
             mp.visorGlow = true;
             if (!mp.ballstate)
             {
-                Lighting.AddLight((int)((float)player.Center.X / 16f), (int)((float)(player.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
+                Lighting.AddLight((int)(player.Center.X / 16f), (int)((player.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
             }
         }
-        public override void UpdateVanitySet(Player P)
-        {
-            MPlayer mp = P.GetModPlayer<MPlayer>(mod);
-            mp.isPowerSuit = true;
-            mp.thrusters = true;
-            if (Main.netMode != 2)
-            {
-                mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
-            }
-            mp.visorGlowColor = new Color(0, 248, 112);
-            if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
-            {
-                mp.jet = true;
-            }
-            else if (mp.shineDirection == 0 || mp.shineDirection == 5)
-            {
-                mp.jet = false;
-            }
-        }
+
+		public override void UpdateVanitySet(Player P)
+		{
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			mp.isPowerSuit = true;
+			mp.thrusters = true;
+			if(Main.netMode != 2)
+			{
+				mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
+			}
+			mp.visorGlowColor = new Color(0, 248, 112);
+			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
+			{
+				mp.jet = true;
+			}
+			else if(mp.shineDirection == 0 || mp.shineDirection == 5)
+			{
+				mp.jet = false;
+			}
+		}
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.MeteoriteBar, 15);
             recipe.AddIngredient(null, "ChoziteBreastplate");
             recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);

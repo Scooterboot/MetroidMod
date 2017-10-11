@@ -17,7 +17,7 @@ namespace MetroidMod.Items.equipables
         {
             item.width = 18;
             item.height = 18;
-            item.rare = 2;
+            item.rare = 1;
             item.value = 5000;
             item.defense = 6;
         }
@@ -29,10 +29,12 @@ namespace MetroidMod.Items.equipables
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "+3 defense" + "\r\n"
-                + "Allows you to cling to walls";
-            player.statDefense += 3;
-            player.spikedBoots += 2;
+            player.setBonus = "+2 defense" + "\r\n"
+                + "Allows you to slide down walls";
+            player.statDefense += 2;
+            player.spikedBoots += 1;
+            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            mp.visorGlow = true;
         }
 
         public override void AddRecipes()

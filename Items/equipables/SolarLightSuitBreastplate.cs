@@ -6,24 +6,24 @@ using Terraria.ModLoader;
 namespace MetroidMod.Items.equipables
 {
     [AutoloadEquip(EquipType.Body)]
-    public class VariaSuitV2Breastplate : ModItem
+    public class SolarLightSuitBreastplate : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Varia Suit V2 Breastplate");
+            DisplayName.SetDefault("Solar Light Suit Breastplate");
             Tooltip.SetDefault("5% increased ranged damage\n" +
-             "Immunity to fire blocks\n" +
-             "Immunity to chill and freeze effects\n" +
-             "+15 overheat capacity");
+             "Immune to fire blocks\n" +
+             "Immune to chill and freeze effects\n" +
+             "+34 overheat capacity");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.rare = 4;
-            item.value = 18000;
-            item.defense = 11;
+            item.rare = 10;
+            item.value = 60000;
+            item.defense = 22;
         }
 
         public override void UpdateEquip(Player player)
@@ -33,22 +33,29 @@ namespace MetroidMod.Items.equipables
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-            mp.maxOverheat += 15;
+            mp.maxOverheat += 34;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return (head.type == mod.ItemType("VariaSuitV2Helmet") && body.type == mod.ItemType("VariaSuitV2Breastplate") && legs.type == mod.ItemType("VariaSuitV2Greaves"));
+            return (head.type == mod.ItemType("SolarLightSuitHelmet") && body.type == mod.ItemType("SolarLightSuitBreastplate") && legs.type == mod.ItemType("SolarLightSuitGreaves"));
         }
 
         public override void UpdateArmorSet(Player p)
         {
-            p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "80% increased underwater breathing";
-            p.rangedDamage += 0.05f;
+            p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n"
+                + "20% increased ranged damage" + "\r\n"
+                + "Negates fall damage" + "\r\n"
+                + "Infinite breath" + "\r\n"
+                + "40% decreased overheat use" + "\r\n"
+                + "Immune to damage from the Dark World" + "\r\n"
+                + "Immune to damage from Dark Water";
+            p.rangedDamage += 0.20f;
             p.noFallDmg = true;
+            p.gills = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
-            mp.breathMult = 1.8f;
-            mp.overheatCost -= 0.25f;
+            //code for protection from Dark World/Dark Water goes here
+            mp.overheatCost -= 0.40f;
             mp.SenseMove(p);
             mp.visorGlow = true;
             if (!mp.ballstate)
@@ -80,22 +87,11 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
-            recipe.AddIngredient(ItemID.MythrilBar, 20);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
+            recipe.AddIngredient(null, "LightSuitBreastplate");
+            recipe.AddIngredient(ItemID.LunarBar, 20);
+            recipe.AddIngredient(ItemID.FragmentSolar, 10);
             recipe.AddIngredient(null, "EnergyTank");
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
-            recipe.AddIngredient(ItemID.OrichalcumBar, 20);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(null, "EnergyTank");
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

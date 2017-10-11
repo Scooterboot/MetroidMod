@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
@@ -16,22 +10,23 @@ namespace MetroidMod.Items.equipables
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Varia Suit V2 Helmet");
-            Tooltip.SetDefault("7% increased ranged damage\n" +
+            Tooltip.SetDefault("5% increased ranged damage\n" +
             "+15 overheat capacity\n" +
             "Improved night vision");
         }
+
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
             item.rare = 4;
-            item.value = 9000;
+            item.value = 12000;
             item.defense = 10;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.07f;
+            player.rangedDamage += 0.05f;
             player.nightVision = true;
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
             mp.maxOverheat += 15;
@@ -40,8 +35,21 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitHelmet");
-            recipe.AddIngredient(null, "KraidTissue", 16);
+            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(ItemID.MythrilBar, 10);
+            //recipe.AddIngredient(ItemID.SoulofLight, 5);
+            //recipe.AddIngredient(ItemID.SoulofNight, 5);
+            recipe.AddIngredient(null, "EnergyTank");
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(ItemID.OrichalcumBar, 10);
+            //recipe.AddIngredient(ItemID.SoulofLight, 5);
+            //recipe.AddIngredient(ItemID.SoulofNight, 5);
+            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

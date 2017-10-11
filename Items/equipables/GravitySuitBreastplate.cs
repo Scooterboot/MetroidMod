@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
@@ -16,24 +11,25 @@ namespace MetroidMod.Items.equipables
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gravity Suit Breastplate");
-            Tooltip.SetDefault("8% increased ranged damage\n" +
+            Tooltip.SetDefault("5% increased ranged damage\n" +
              "Immune to fire blocks\n" +
              "Immune to chill and freeze effects\n" +
              "Immune to knockback\n" +
              "+20 overheat capacity");
         }
+
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.rare = 4;
+            item.rare = 5;
             item.value = 30000;
             item.defense = 15;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += 0.08f;
+            player.rangedDamage += 0.05f;
             player.fireWalk = true;
             player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
@@ -52,26 +48,25 @@ namespace MetroidMod.Items.equipables
             p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n"
                 + "10% increased ranged damage" + "\r\n"
                 + "Free movement in liquid" + "\r\n"
-                + "Immune to lava damage" + "\r\n"
-                + "Default gravity in space" + "\r\n"
+                + "Immune to lava damage for 7 seconds" + "\r\n"
                 + "Negates fall damage" + "\r\n"
                 + "Infinite breath" + "\r\n"
                 + "30% decreased overheat use";
             p.rangedDamage += 0.10f;
             p.ignoreWater = true;
-            p.lavaImmune = true;
-            p.gravity = 0.4f;
+            p.lavaMax += 420;
             p.noFallDmg = true;
             p.gills = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
-            mp.overheatCost -= 0.30f;
+            mp.overheatCost -= 0.3f;
             mp.SenseMove(p);
             mp.visorGlow = true;
             if (!mp.ballstate)
             {
-                Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.71f);
+                Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
             }
         }
+
         public override void UpdateVanitySet(Player P)
         {
             MPlayer mp = P.GetModPlayer<MPlayer>(mod);
@@ -81,7 +76,7 @@ namespace MetroidMod.Items.equipables
             {
                 mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
             }
-            mp.visorGlowColor = new Color(0, 248, 182);
+            mp.visorGlowColor = new Color(0, 248, 112);
             if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
             {
                 mp.jet = true;
@@ -91,12 +86,27 @@ namespace MetroidMod.Items.equipables
                 mp.jet = false;
             }
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitV2Breastplate");
             recipe.AddIngredient(null, "GravityGel", 20);
-            recipe.AddIngredient(ItemID.SoulofSight, 5);
+            /*recipe.AddIngredient(ItemID.Wire, 12);
+            recipe.AddIngredient(ItemID.CursedFlame, 12);*/
+            recipe.AddIngredient(null, "EnergyTank");
+            //recipe.AddIngredient(ItemID.SoulofSight, 5);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "VariaSuitV2Breastplate");
+            recipe.AddIngredient(null, "GravityGel", 20);
+            /*recipe.AddIngredient(ItemID.Wire, 12);
+            recipe.AddIngredient(ItemID.Ichor, 12);*/
+            recipe.AddIngredient(null, "EnergyTank");
+            //recipe.AddIngredient(ItemID.SoulofSight, 5);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -105,6 +105,7 @@ namespace MetroidMod
 		public int overheatDelay = 0;
 		public int specialDmg = 100;
 		public bool phazonImmune = false;
+        public bool hazardShield = false;
 		public int phazonRegen = 0;
 		int tweak = 0;
 		bool tweak2 = false;
@@ -115,6 +116,7 @@ namespace MetroidMod
 			isPowerSuit = false;
 			phazonImmune = false;
 			phazonRegen = 0;
+            hazardShield = false;
 			thrusters = false;
 			spaceJump = false;
 			speedBooster = false;
@@ -380,6 +382,27 @@ namespace MetroidMod
 					player.lifeRegen += phazonRegen;
 				}
 			}
+
+            if (hazardShield)
+            {
+                List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
+
+                for (int k = 0; k < 22; k++)
+                {
+                    int buff = P.buffType[k];
+                    if(debuffList.Contains(buff))
+                    {
+                        if (P.body == mod.ItemType("HazardShieldBreastplate"))
+                        {
+                            P.buffTime[k] = Math.Max(P.buffTime[k] - 1, 0);
+                        }
+                        else if (P.body == mod.ItemType("StardustHazardShieldSuitBreastplate"))
+                        {
+                            P.buffTime[k] = Math.Max(P.buffTime[k] - 2, 0);
+                        }
+                    }
+                }
+            }
 		}
         public static bool TouchTiles(Vector2 Position, int Width, int Height, int tileType)
 		{

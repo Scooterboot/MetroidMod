@@ -1,25 +1,21 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.equipables
 {
-    [AutoloadEquip(EquipType.Legs)]
-    public class PowerSuitGreaves : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Power Suit Greaves");
-            Tooltip.SetDefault("5% increased ranged damage\n" +
+	[AutoloadEquip(EquipType.Legs)]
+	public class PowerSuitGreaves : ModItem
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Suit Greaves");
+			Tooltip.SetDefault("5% increased ranged damage\n" + 
             "+5 overheat capacity\n" +
             "Allows you to slide down walls");
-        }
+		}
+
         public override void SetDefaults()
         {
             item.width = 18;
@@ -40,6 +36,7 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.MeteoriteBar, 10);
             recipe.AddIngredient(null, "ChoziteGreaves");
             recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
