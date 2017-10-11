@@ -41,7 +41,7 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(ItemID.ShroomiteBar, 15);
             //recipe.AddIngredient(null, "", 10);  /TBD
             recipe.AddIngredient(null, "EnergyTank");
-            recipe.AddTile(null, "NovaWorkTable");
+            recipe.AddTile(null, "NovaWorkTableTile");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
