@@ -10,7 +10,7 @@ namespace MetroidMod.Items.equipables
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Solar Light Suit Breastplate");
+            DisplayName.SetDefault("Stardust Hazard Shield Suit Breastplate");
             Tooltip.SetDefault("5% increased ranged damage\n" +
              "Immune to fire blocks\n" +
              "Immune to chill and freeze effects\n" +
