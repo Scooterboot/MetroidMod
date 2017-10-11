@@ -9,7 +9,7 @@ namespace MetroidMod.Items.equipables
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Light Suit Helmet");
+            DisplayName.SetDefault("Vortex Gravity Suit Helmet");
             Tooltip.SetDefault("5% increased ranged damage\n" +
             "+33 overheat capacity\n" +
             "Improved night vision\n" +
