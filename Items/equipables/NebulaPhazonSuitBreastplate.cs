@@ -78,9 +78,9 @@ namespace MetroidMod.Items.equipables
             mp.thrusters = true;
             if (Main.netMode != 2)
             {
-                mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
-            }
-            mp.visorGlowColor = new Color(0, 248, 112);
+                mp.thrusterTexture = mod.GetTexture("Gore/phazonSuit_thrusters");
+			}
+			mp.visorGlowColor = new Color(204, 0, 255);
             if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
             {
                 mp.jet = true;
@@ -90,6 +90,12 @@ namespace MetroidMod.Items.equipables
                 mp.jet = false;
             }
         }
+		
+		public override void ArmorSetShadows(Player player)
+		{
+			player.armorEffectDrawShadowLokis = true;
+			player.armorEffectDrawOutlines = true;
+		}
 
         public override void AddRecipes()
         {
