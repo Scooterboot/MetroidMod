@@ -55,7 +55,7 @@ namespace MetroidMod.Items.equipables
                 + "35% decreased overheat use";
             p.rangedDamage += 0.15f;
             p.ignoreWater = true;
-            p.gravity = 1.0f;
+            p.gravity = Player.defaultGravity;
             p.lavaMax += 840;
             p.noFallDmg = true;
             p.gills = true;
