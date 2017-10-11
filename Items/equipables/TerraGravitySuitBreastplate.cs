@@ -88,6 +88,11 @@ namespace MetroidMod.Items.equipables
                 mp.jet = false;
             }
         }
+		
+		public override void ArmorSetShadows(Player player)
+		{
+			player.armorEffectDrawShadowLokis = true;
+		}
 
         public override void AddRecipes()
         {
