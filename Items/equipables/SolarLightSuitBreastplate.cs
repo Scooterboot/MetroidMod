@@ -91,7 +91,7 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(ItemID.LunarBar, 20);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
             recipe.AddIngredient(null, "EnergyTank");
-            recipe.AddTile(null, "NovaWorkTable"); //this or Ancient Manipulator?
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

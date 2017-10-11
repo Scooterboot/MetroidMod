@@ -98,7 +98,7 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(ItemID.LunarBar, 20);
             recipe.AddIngredient(ItemID.FragmentNebula, 10);
             recipe.AddIngredient(null, "EnergyTank");
-            recipe.AddTile(null, "NovaWorkTable");
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
