@@ -296,7 +296,12 @@ namespace MetroidMod
 			{
 				if(somersault)
 				{
-					rotation += ((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir);
+					float rotMax = (float)Math.PI/8;
+					if(spaceJump && SMoveEffect <= 0)
+					{
+						rotMax = (float)Math.PI/4;
+					}
+					rotation += MathHelper.Clamp((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir,-rotMax,rotMax);
 					if(rotation > (Math.PI*2))
 					{
 						rotation -= (float)(Math.PI*2);
@@ -306,7 +311,7 @@ namespace MetroidMod
 						rotation += (float)(Math.PI*2);
 					}
 					player.fullRotation = rotation;
-					player.fullRotationOrigin = player.Center - player.position;
+					player.fullRotationOrigin = new Vector2((float)player.width/2,(float)player.height*0.55f);
 					itemRotTweak = 2;
 				}
 				else if(shineDirection == 2 || shineDirection == 4)
@@ -995,14 +1000,17 @@ namespace MetroidMod
 						Color alpha = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
 						int num121 = tex.Height / Main.projFrames[projectile.type];
 						int y9 = num121 * projectile.frame;
-						float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
-						spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+						//float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
+						//spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+						spriteBatch.Draw(tex, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0);
 						if(mPlayer.screwAttackSpeedEffect > 0)
 						{
 							Color color21 = alpha * ((float)Math.Min(mPlayer.screwAttackSpeedEffect,30)/30f);
-							spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+							//spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+							spriteBatch.Draw(tex2, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0);
 							Texture2D tex3 = mod.GetTexture("Gore/ScrewAttack_YellowPlayerGlow");
-							Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
+							//Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
+							Main.playerDrawData.Add(new DrawData(tex3, drawInfo.position + (P.Center-P.position) - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0));
 						}
 					}
 				}
