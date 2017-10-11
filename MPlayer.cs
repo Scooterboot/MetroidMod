@@ -298,7 +298,12 @@ namespace MetroidMod
 			{
 				if(somersault)
 				{
-					rotation += ((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir);
+					float rotMax = (float)Math.PI/8;
+					if(spaceJump && SMoveEffect <= 0)
+					{
+						rotMax = (float)Math.PI/4;
+					}
+					rotation += MathHelper.Clamp((rotateCountX + rotateCountY) * player.direction * player.gravDir * sMoveDir,-rotMax,rotMax);
 					if(rotation > (Math.PI*2))
 					{
 						rotation -= (float)(Math.PI*2);
@@ -308,7 +313,7 @@ namespace MetroidMod
 						rotation += (float)(Math.PI*2);
 					}
 					player.fullRotation = rotation;
-					player.fullRotationOrigin = player.Center - player.position;
+					player.fullRotationOrigin = new Vector2((float)player.width/2,(float)player.height*0.55f);
 					itemRotTweak = 2;
 				}
 				else if(shineDirection == 2 || shineDirection == 4)
@@ -739,7 +744,7 @@ namespace MetroidMod
 			bool pseudoScrew = (statCharge >= maxCharge && somersault && SMoveEffect <= 0);
 			if(pseudoScrew)
 			{
-				if(P.shadow == 0f)
+				if(drawInfo.shadow == 0f)
 				{
 					psuedoScrewFlash++;
 				}
@@ -750,7 +755,7 @@ namespace MetroidMod
 			}
 			if(shineCharge > 0)
 			{
-				if(P.shadow == 0f)
+				if(drawInfo.shadow == 0f)
 				{
 					shineChargeFlash++;
 				}
@@ -775,7 +780,7 @@ namespace MetroidMod
 					drawInfo.legArmorShader = shader;
 				}
 
-				if(P.shadow == 0f && hyperColors > 0)
+				if(drawInfo.shadow == 0f && hyperColors > 0)
 				{
 					hyperColors--;
 				}
@@ -971,7 +976,7 @@ namespace MetroidMod
 				//PlayerLayer.FrontAcc.visible = false;
 				PlayerLayer.MountBack.visible = false;
                 PlayerLayer.HeldItem.visible = false;
-                P.shadow = 0f;
+                //P.shadow = 0f;
 			}
 			else
 			{
@@ -1001,7 +1006,7 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
-			if (mPlayer.somersault && mPlayer.screwAttack && P.shadow == 0f && !mPlayer.ballstate)
+			if (mPlayer.somersault && mPlayer.screwAttack && drawInfo.shadow == 0f && !mPlayer.ballstate)
 			{
 				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
 				Texture2D tex2 = mod.GetTexture("Gore/ScrewAttack_Yellow");
@@ -1018,14 +1023,17 @@ namespace MetroidMod
 						Color alpha = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
 						int num121 = tex.Height / Main.projFrames[projectile.type];
 						int y9 = num121 * projectile.frame;
-						float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
-						spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+						//float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
+						//spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+						spriteBatch.Draw(tex, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0);
 						if(mPlayer.screwAttackSpeedEffect > 0)
 						{
 							Color color21 = alpha * ((float)Math.Min(mPlayer.screwAttackSpeedEffect,30)/30f);
-							spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+							//spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
+							spriteBatch.Draw(tex2, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0);
 							Texture2D tex3 = mod.GetTexture("Gore/ScrewAttack_YellowPlayerGlow");
-							Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
+							//Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
+							Main.playerDrawData.Add(new DrawData(tex3, drawInfo.position + (P.Center-P.position) - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0));
 						}
 					}
 				}
@@ -1170,7 +1178,7 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
-			if (mPlayer.jet && !drawPlayer.sandStorm && drawPlayer.shadow == 0f && mPlayer.thrusters)
+			if (mPlayer.jet && !drawPlayer.sandStorm && drawInfo.shadow == 0f && mPlayer.thrusters)
 			{
 				if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
 				{
@@ -1239,7 +1247,7 @@ namespace MetroidMod
 			float thisy = (float)((int)(drawInfo.position.Y + (float)(drawPlayer.height / 2) - Main.screenPosition.Y));
 			Vector2 ballDims = new Vector2(28f,28f);
 			Vector2 thispos =  new Vector2(thisx,thisy);
-			if(drawPlayer.shadow == 0f)
+			if(drawInfo.shadow == 0f)
 			{
 				int timez = (int)(Time%60)/10;
 				SpriteEffects effects = SpriteEffects.None;

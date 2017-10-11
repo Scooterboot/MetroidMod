@@ -106,6 +106,11 @@ namespace MetroidMod.Items.equipables
 				mp.boostCharge = 0;
 				mp.boostEffect = 0;
 			}
+			
+			if(!Main.playerInventory)
+			{
+				ballUI.BallUIOpen = false;
+			}
 		}
 
 		public override ModItem Clone(Item item)

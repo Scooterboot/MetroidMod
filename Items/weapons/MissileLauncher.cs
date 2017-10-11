@@ -199,36 +199,13 @@ namespace MetroidMod.Items.weapons
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			/*Player player = Main.player[Main.myPlayer];
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-
 			if(item == Main.HoverItem)
 			{
-				item.modItem.UpdateInventory(player);
+				item.modItem.UpdateInventory(Main.player[Main.myPlayer]);
 			}
-
-			int chDmg = (int)((float)item.damage*3f * player.rangedDamage);
-			TooltipLine chDmgLine = new TooltipLine(mod, "ChargeDamage", chDmg+" ranged damage (Charge Shot)");
-
-			int oh = (int)((float)overheat*mp.overheatCost);
-			TooltipLine ohLine = new TooltipLine(mod, "Overheat", "Overheats by "+oh+" points per use");
-			int chOh = (int)((float)overheat*2f * mp.overheatCost);
-			TooltipLine chOhLine = new TooltipLine(mod, "ChargeOverheat", "Overheats by "+chOh+" points on Charge Shot");*/
 
 			for (int k = 0; k < tooltips.Count; k++)
 			{
-				/*if(tooltips[k].Name == "Damage" && isCharge)
-				{
-					tooltips.Insert(k + 1, chDmgLine);
-				}
-				if(tooltips[k].Name == "Knockback")
-				{
-					tooltips.Insert(k + 1, ohLine);
-					if(isCharge)
-					{
-						tooltips.Insert(k + 2, chOhLine);
-					}
-				}*/
 				if(tooltips[k].Name == "PrefixDamage")
 				{
 					double num19 = (double)((float)item.damage - (float)finalDmg);

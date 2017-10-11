@@ -14,9 +14,12 @@ namespace MetroidMod.Tiles
 		{
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
+			Main.tileMerge[Type][mod.TileType("PhazonCore")] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = true;
+			soundType = 21;
 			dustType = 68;
+			minPick = 150;//300;
 			drop = mod.ItemType("Phazon");
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Phazon");
@@ -32,6 +35,9 @@ namespace MetroidMod.Tiles
 			g = (223f/255f);
 			b = (255f/255f);
 		}
+		public override bool CanExplode(int i, int j)
+		{
+			return false;
+		}
 	}
 }
-

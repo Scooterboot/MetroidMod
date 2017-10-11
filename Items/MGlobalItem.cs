@@ -68,19 +68,19 @@ namespace MetroidMod.Items
 			{
 				if(mp.hyperColors > 0)
 				{
-					color = new Color(mp.r, mp.g, mp.b, 255);
+					color = P.GetImmuneAlphaPure(new Color(mp.r, mp.g, mp.b, 255),shadow);
 				}
 				else if(pseudoScrew && mp.psuedoScrewFlash >= 3)
 				{
-					color = mp.chargeColor;
+					color = P.GetImmuneAlphaPure(mp.chargeColor,shadow);
 				}
 				else if(mp.shineActive || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
 				{
-					color = new Color(255, 216, 0);
+					color = P.GetImmuneAlphaPure(new Color(255, 216, 0),shadow);
 				}
 				else if(mp.speedBoosting)
 				{
-					color = new Color(0, 170, 255);
+					color = P.GetImmuneAlphaPure(new Color(0, 170, 255),shadow);
 				}
 				mp.morphColor = color;
 
