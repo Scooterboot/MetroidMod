@@ -385,13 +385,17 @@ namespace MetroidMod
 
             if (hazardShield)
             {
+                //build list of all debuffs
                 List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
 
+                //for each buff/debuff the player has...
                 for (int k = 0; k < 22; k++)
                 {
                     int buff = P.buffType[k];
+                    //if it's a debuff
                     if(debuffList.Contains(buff))
                     {
+                        //tick down its timer by 1 or 2 extra ticks
                         if (P.body == mod.ItemType("HazardShieldBreastplate"))
                         {
                             P.buffTime[k] = Math.Max(P.buffTime[k] - 1, 0);
