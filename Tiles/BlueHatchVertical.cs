@@ -26,7 +26,7 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.AnchorLeft = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.AnchorRight = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.HookCheck = new PlacementHook(mod.GetTileEntity<TEBlueHatch>().Hook_AfterPlacement, -1, 0, true);
+			//TileObjectData.newTile.HookCheck = new PlacementHook(mod.GetTileEntity<TEBlueHatch>().Hook_AfterPlacement, -1, 0, true);
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<TEBlueHatch>().Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
