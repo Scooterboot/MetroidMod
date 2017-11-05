@@ -120,44 +120,7 @@ namespace MetroidMod
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05));
 						bool flag = false;
 						int num3 = 0;
-						int rand = Main.rand.Next(15);
-						ushort item = (ushort)mod.TileType("MorphBallTile");
-						if (rand == 1 || rand == 2)
-						{
-							item = (ushort)mod.TileType("ChargeBeamTile");
-						}
-						else if (rand == 3)
-						{
-							item = (ushort)mod.TileType("IceBeamTile");
-						}
-						else if (rand == 4)
-						{
-							item = (ushort)mod.TileType("WaveBeamTile");
-						}
-						else if (rand == 5)
-						{
-							item = (ushort)mod.TileType("SpazerTile");
-						}
-						else if (rand == 6)
-						{
-							item = (ushort)mod.TileType("XRayScopeTile");
-						}
-						else if (rand == 7 || rand == 8)
-						{
-							item = (ushort)mod.TileType("SpaceJumpBootsTile");
-						}
-						else if (rand == 9 || rand == 10)
-						{
-							item = (ushort)mod.TileType("BombTile");
-						}
-						else if (rand == 11)
-						{
-							item = (ushort)mod.TileType("SpiderBallTile");
-						}
-						else if (rand == 12)
-						{
-							item = (ushort)mod.TileType("BoostBallTile");
-						}
+						ushort item = StatueItem();
 						while (!flag)
 						{
 							if (AddChozoStatue(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)WorldGen.worldSurface, Main.maxTilesY - 100), item))
@@ -214,7 +177,10 @@ namespace MetroidMod
 				{
 					WorldGen.KillWall(ruinsX + 1 + i, ruinsY + 1 + j);
 					WorldGen.KillTile(ruinsX + 1 + i, ruinsY + 1 + j);
-					WorldGen.PlaceWall(ruinsX + 1 + i, ruinsY + 1 + j, 5);
+					if (Main.rand.Next(3) < 2)
+					{
+						WorldGen.PlaceWall(ruinsX + 1 + i, ruinsY + 1 + j, 5);
+					}
 				}
 				WorldGen.KillTile(ruinsX + i, ruinsY);
 				WorldGen.KillTile(ruinsX + i, ruinsY + 30);
@@ -231,11 +197,19 @@ namespace MetroidMod
 			NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
 			DeathHall(ruinsX - 58, ruinsY + 24);
 			Shaft(ruinsX - 82, ruinsY - 24);
-			Hatch(ruinsX - 60, ruinsY + 26);
-			Hatch(ruinsX - 84, ruinsY + 26);
 			VerticalHatch(ruinsX - 73, ruinsY - 26);
 			WorldGen.PlaceTile(ruinsX - 71, ruinsY - 19, 19, false, false, -1, 9);
-			SaveRoom(ruinsX - 9, ruinsY + 24);	
+			Hatch(ruinsX - 60, ruinsY + 26);
+			Hall(ruinsX - 123, ruinsY + 21);
+			Hatch(ruinsX - 84, ruinsY + 26);
+			Shaft(ruinsX - 147, ruinsY + 26);
+			Hatch(ruinsX - 125, ruinsY + 26);
+			WorldGen.PlaceTile(ruinsX - 126, ruinsY + 30, 19, false, false, -1, 9);
+			DeathHall(ruinsX - 123, ruinsY + 74);
+			Hatch(ruinsX - 125, ruinsY + 76);
+			ChozoRoom(ruinsX - 72, ruinsY + 71);
+			Hatch(ruinsX - 74, ruinsY + 76);
+			SaveRoom(ruinsX - 9, ruinsY + 24);		
 		}
 		public static void Hatch(int i, int j)
 		{
@@ -297,6 +271,63 @@ namespace MetroidMod
 			WorldGen.PlaceObject(i + 9, j + 5, 10, false, 10, 0, -1, 1);
 			WorldGen.PlaceObject(i + 5, j + 5, mod.TileType("SaveStation"), false, 0, 0, -1, 1);	
 		}
+		public static void ChozoRoom(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int wx = i + 1; wx < i + 29; wx++)
+			{
+				for (int wy = j + 1; wy < j + 10; wy++)
+				{
+					WorldGen.KillWall(wx, wy);
+					WorldGen.KillTile(wx, wy);
+					WorldGen.PlaceWall(wx, wy, 5);
+				}
+			}
+			for (int x = i; x < i + 30; x++)
+			{
+				WorldGen.KillTile(x, j);
+				WorldGen.KillTile(x, j + 10);
+				WorldGen.PlaceTile(x, j, TileID.GrayBrick);
+				WorldGen.PlaceTile(x, j + 10, TileID.GrayBrick);
+			}
+			for (int y = j + 1; y < j + 10; y++)
+			{
+				WorldGen.KillTile(i, y);
+				WorldGen.KillTile(i + 15, y);
+				WorldGen.PlaceTile(i, y, TileID.GrayBrick);
+				WorldGen.PlaceTile(i + 15, y, TileID.GrayBrick);
+				WorldGen.KillTile(i, y);
+				WorldGen.KillTile(i + 29, y);
+				WorldGen.PlaceTile(i, y, TileID.GrayBrick);
+				WorldGen.PlaceTile(i + 29, y, TileID.GrayBrick);
+			}
+			for (int h = i + 16; h < i + 29; h++)
+			{
+				WorldGen.KillTile(h, j + 2);
+				WorldGen.PlaceTile(h, j + 2, TileID.GrayBrick);
+				WorldGen.KillTile(h, j + 4);
+				WorldGen.PlaceTile(h, j + 4, TileID.GrayBrick);
+				WorldGen.KillTile(h, j + 6);
+				WorldGen.PlaceTile(h, j + 6, TileID.GrayBrick);
+				WorldGen.KillTile(h, j + 8);
+				WorldGen.PlaceTile(h, j + 8, TileID.GrayBrick);
+			}
+			WorldGen.KillTile(i + 16, j + 2);
+			WorldGen.KillTile(i + 25, j + 4);
+			WorldGen.KillTile(i + 18, j + 6);
+			WorldGen.KillTile(i + 27, j + 8);
+			WorldGen.PlaceTile(i + 27, j + 1, mod.TileType("MissileExpansionTile"));
+			for (int c = i + 8; c < i + 15; c++)
+			{
+				WorldGen.KillTile(c, j + 8);
+				WorldGen.PlaceTile(c, j + 8, TileID.GrayBrick);
+			}
+			WorldGen.PlaceObject(i + 14, j + 7, mod.TileType("ChozoStatueNatural"), false, 0, 0, -1, 1);	
+			WorldGen.PlaceObject(i + 12, j + 7, mod.TileType("ChozoStatueArmNatural"), false, 0, 0, -1, 1);
+			ushort item = StatueItem();
+			WorldGen.PlaceTile(i + 12, j + 5, item);
+			WorldGen.KillTile(i + 15, j + 9);
+		}
 		public static void DeathHall(int i, int j)
 		{
 			Mod mod = MetroidMod.Instance;
@@ -306,9 +337,14 @@ namespace MetroidMod
 				{
 					WorldGen.KillWall(wx, wy);
 					WorldGen.KillTile(wx, wy);
-					WorldGen.PlaceWall(wx, wy, 5);
+					if (Main.rand.Next(3) < 2)
+					{
+						WorldGen.PlaceWall(wx, wy, 5);
+					}
 				}
 			}
+			WorldGen.PlaceTile(i + 1, j + 6, TileID.GrayBrick);
+			WorldGen.PlaceTile(i + 48, j + 6, TileID.GrayBrick);
 			for (int x = i; x < i + 50; x++)
 			{
 				WorldGen.KillTile(x, j);
@@ -320,6 +356,14 @@ namespace MetroidMod
 				{
 					WorldGen.PlaceTile(x, j + 13, TileID.Spikes);
 				}
+				if ((x - i) % 5 == 0)
+				{
+					WorldGen.PlaceTile(x+2, j + 6, 19, false, false, -1, 9);
+					if (Main.rand.Next(2) == 0)
+					{
+						WorldGen.PlaceTile(x+1+(2*Main.rand.Next(2)), j + 6, 19, false, false, -1, 9);
+					}
+				}
 			}
 			for (int y = j + 1; y < j + 15; y++)
 			{
@@ -328,8 +372,36 @@ namespace MetroidMod
 				WorldGen.PlaceTile(i, y, TileID.GrayBrick);
 				WorldGen.PlaceTile(i + 49, y, TileID.GrayBrick);
 			}
-			WorldGen.PlaceTile(i + 1, j + 6, TileID.GrayBrick);
-			WorldGen.PlaceTile(i + 48, j + 6, TileID.GrayBrick);
+		}
+		public static void Hall(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int wx = i + 1; wx < i + 39; wx++)
+			{
+				for (int wy = j + 1; wy < j + 9; wy++)
+				{
+					WorldGen.KillWall(wx, wy);
+					WorldGen.KillTile(wx, wy);
+					if (Main.rand.Next(3) < 2)
+					{
+						WorldGen.PlaceWall(wx, wy, 5);
+					}
+				}
+			}
+			for (int x = i; x < i + 40; x++)
+			{
+				WorldGen.KillTile(x, j);
+				WorldGen.KillTile(x, j + 9);
+				WorldGen.PlaceTile(x, j, TileID.GrayBrick);
+				WorldGen.PlaceTile(x, j + 9, TileID.GrayBrick);
+			}
+			for (int y = j + 1; y < j + 9; y++)
+			{
+				WorldGen.KillTile(i, y);
+				WorldGen.KillTile(i + 39, y);
+				WorldGen.PlaceTile(i, y, TileID.GrayBrick);
+				WorldGen.PlaceTile(i + 39, y, TileID.GrayBrick);
+			}
 		}
 		public static void Shaft(int i, int j)
 		{
@@ -340,14 +412,17 @@ namespace MetroidMod
 					{		
 						WorldGen.KillWall(wx, wy);
 						WorldGen.KillTile(wx, wy);
-						WorldGen.PlaceWall(wx, wy, 5);
+						if (Main.rand.Next(3) < 2)
+						{
+							WorldGen.PlaceWall(wx, wy, 5);
+						}
 					}
-				if (wy % 5 == 0)
+				if (((wy-1) - j) % 5 == 0)
 				{
 					int platform = 2 + Main.rand.Next(19);
-					WorldGen.PlaceTile(i + platform - 1, wy, 19, false, false, -1, 9);
-					WorldGen.PlaceTile(i + platform, wy, 19, false, false, -1, 9);
-					WorldGen.PlaceTile(i + platform + 1, wy, 19, false, false, -1, 9);
+					WorldGen.PlaceTile(i + platform - 1, wy - 1, 19, false, false, -1, 9);
+					WorldGen.PlaceTile(i + platform, wy - 1, 19, false, false, -1, 9);
+					WorldGen.PlaceTile(i + platform + 1, wy - 1, 19, false, false, -1, 9);
 				}
 			}
 			for (int x = i; x < i + 23; x++)
@@ -395,6 +470,49 @@ namespace MetroidMod
 				}
 			}
 			return false;
+		}
+		public static ushort StatueItem()
+		{
+			Mod mod = MetroidMod.Instance;
+			int rand = Main.rand.Next(15);
+			ushort item = (ushort)mod.TileType("MorphBallTile");
+			if (rand == 1 || rand == 2)
+			{
+				item = (ushort)mod.TileType("ChargeBeamTile");
+			}
+			else if (rand == 3)
+			{
+				item = (ushort)mod.TileType("IceBeamTile");
+			}
+			else if (rand == 4)
+			{
+				item = (ushort)mod.TileType("WaveBeamTile");
+			}
+			else if (rand == 5)
+			{
+				item = (ushort)mod.TileType("SpazerTile");
+			}
+			else if (rand == 6)
+			{
+				item = (ushort)mod.TileType("XRayScopeTile");
+			}
+			else if (rand == 7 || rand == 8)
+			{
+				item = (ushort)mod.TileType("SpaceJumpBootsTile");
+			}
+			else if (rand == 9 || rand == 10)
+			{
+				item = (ushort)mod.TileType("BombTile");
+			}
+			else if (rand == 11)
+			{
+				item = (ushort)mod.TileType("SpiderBallTile");
+			}
+			else if (rand == 12)
+			{
+				item = (ushort)mod.TileType("BoostBallTile");
+			}
+			return item;
 		}
 		public static bool AddChozoStatue(int i, int j, ushort item)
 		{
