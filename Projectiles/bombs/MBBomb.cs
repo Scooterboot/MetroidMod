@@ -33,6 +33,7 @@ namespace MetroidMod.Projectiles.bombs
 		}
 		public override void AI()
 		{
+			Main.player[projectile.owner].heldProj = projectile.whoAmI;
 			if (projectile.owner == Main.myPlayer && projectile.timeLeft <= 3)
 			{
 				projectile.tileCollide = false;
