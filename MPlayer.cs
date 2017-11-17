@@ -793,6 +793,7 @@ namespace MetroidMod
 					shineChargeFlash = 0;
 				}
 			}
+			ballLayer.Draw(ref drawInfo);
 		}
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
@@ -803,31 +804,23 @@ namespace MetroidMod
 			{
 				if (layers[k] == PlayerLayer.FrontAcc)
 				{
-					k++;
-					layers.Insert(k + 1, ballLayer);
-					k++;
 					layers.Insert(k + 1, screwAttackLayer);
 				}
 				if (layers[k] == PlayerLayer.Body)
 				{
-					k++;
 					layers.Insert(k + 1, thrusterLayer);
-					k++;
-					layers.Insert(k + 1, jetLayer);
-					k++;
+					layers.Insert(k + 2, jetLayer);
 				}
 				if (layers[k] == PlayerLayer.Head)
 				{
-					k++;
 					layers.Insert(k + 1, visorLayer);
-
 				}
 				if(layers[k] == PlayerLayer.Arms)
 				{
-					k++;
 					layers.Insert(k + 1, gunLayer);
 				}
 			}
+			layers.Add(ballLayer);
 			if(somersault)
 			{
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
@@ -956,27 +949,33 @@ namespace MetroidMod
 			}
 			if(ballstate)
 			{
-				PlayerLayer.Arms.visible = false;
-				PlayerLayer.Head.visible = false;
-                PlayerLayer.Face.visible = false;
-                PlayerLayer.Hair.visible = false;
-                PlayerLayer.HairBack.visible = false;
-                PlayerLayer.Skin.visible = false;
-				PlayerLayer.Body.visible = false;
-				PlayerLayer.Legs.visible = false;
-				PlayerLayer.Wings.visible = false;
+				PlayerLayer.HairBack.visible = false;
+				PlayerLayer.MountBack.visible = false;
+				PlayerLayer.MiscEffectsBack.visible = false;
 				PlayerLayer.BackAcc.visible = false;
+				PlayerLayer.Wings.visible = false;
 				PlayerLayer.BalloonAcc.visible = false;
+				PlayerLayer.Skin.visible = false;
+				PlayerLayer.Legs.visible = false;
 				PlayerLayer.ShoeAcc.visible = false;
-                PlayerLayer.HandOnAcc.visible = false;
+				PlayerLayer.Body.visible = false;
 				PlayerLayer.HandOffAcc.visible = false;
 				PlayerLayer.WaistAcc.visible = false;
 				PlayerLayer.NeckAcc.visible = false;
+				PlayerLayer.Face.visible = false;
+				PlayerLayer.Hair.visible = false;
+				PlayerLayer.Head.visible = false;
+				PlayerLayer.FaceAcc.visible = false;
+				PlayerLayer.MountFront.visible = false;
 				PlayerLayer.ShieldAcc.visible = false;
-				//PlayerLayer.FrontAcc.visible = false;
-				PlayerLayer.MountBack.visible = false;
-                PlayerLayer.HeldItem.visible = false;
-                //P.shadow = 0f;
+				PlayerLayer.SolarShield.visible = false;
+				PlayerLayer.HeldProjBack.visible = false;
+				PlayerLayer.HeldItem.visible = false;
+				PlayerLayer.Arms.visible = false;
+				PlayerLayer.HandOnAcc.visible = false;
+				PlayerLayer.HeldProjFront.visible = false;
+				PlayerLayer.FrontAcc.visible = false;
+				PlayerLayer.MiscEffectsFront.visible = false;
 			}
 			else
 			{
