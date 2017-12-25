@@ -31,6 +31,7 @@ namespace MetroidMod {
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
 		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
 		public const string PhantoonHead = "MetroidMod/NPCs/Phantoon/Phantoon_Head_Boss";
+		public const string NightmareHead = "MetroidMod/NPCs/Nightmare/Nightmare_Head_Boss";
 		public static Mod Instance;
 		public MetroidMod()
 		{
@@ -67,6 +68,7 @@ namespace MetroidMod {
 				AddBossHeadTexture(KraidHead + k);
 			}
 			AddBossHeadTexture(PhantoonHead);
+			AddBossHeadTexture(NightmareHead);
 		}
 		static int z = 0;
 		float tRot = 0f;
