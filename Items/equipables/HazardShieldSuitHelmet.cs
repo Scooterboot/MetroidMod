@@ -1,4 +1,4 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -34,7 +34,7 @@ namespace MetroidMod.Items.equipables
             mp.maxOverheat += 25;
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "PEDSuitHelmet");
@@ -44,6 +44,6 @@ namespace MetroidMod.Items.equipables
             recipe.AddTile(null, "NovaWorkTableTile");
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
+        }*/
     }
 }
