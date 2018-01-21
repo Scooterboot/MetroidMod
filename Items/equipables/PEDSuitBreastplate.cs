@@ -86,7 +86,7 @@ namespace MetroidMod.Items.equipables
             }
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitV2Breastplate");
@@ -96,6 +96,6 @@ namespace MetroidMod.Items.equipables
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
+        }*/
     }
 }
