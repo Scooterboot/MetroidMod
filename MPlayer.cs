@@ -1630,7 +1630,7 @@ namespace MetroidMod
 				}
 				if(!SpeedBoost)
 				{
-					int SpBoost = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,SpeedBoostID,specialDmg,0,player.whoAmI);
+					int SpBoost = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,SpeedBoostID,specialDmg/2,0,player.whoAmI);
 				}
 			}
 		#region shine-spark
