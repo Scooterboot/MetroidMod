@@ -50,6 +50,7 @@ namespace MetroidMod.Items.equipables
                 + "Free movement in liquid" + "\r\n"
                 + "Default gravity in space" + "\r\n"
                 + "Immune to lava damage for 14 seconds" + "\r\n"
+                + "Immune to Distorted and Amplified Gravity" + "\r\n"
                 + "Negates fall damage" + "\r\n"
                 + "Infinite breath" + "\r\n"
                 + "35% decreased overheat use";
@@ -59,6 +60,8 @@ namespace MetroidMod.Items.equipables
             p.lavaMax += 840;
             p.noFallDmg = true;
             p.gills = true;
+	    p.buffImmune[BuffID.VortexDebuff] = true;
+	    p.buffImmune[mod.BuffType("GravityDebuff")] = true;
             MPlayer mp = p.GetModPlayer<MPlayer>(mod);
             mp.overheatCost -= 0.35f;
             mp.SenseMove(p);
