@@ -86,9 +86,9 @@ namespace MetroidMod.Projectiles.speedbooster
 			int num21 = Dust.NewDust(vect-vel2, 1, 1, 67, vel2.X+vel.X, vel2.Y+vel.Y, 100, default(Color), 2f);
 			Main.dust[num21].noGravity = true;
 		}
-		/*public override void DamageNPC(NPC npc, int hitDir, ref int damage, ref float knockback, ref bool crit, ref float critMult)
+		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			damage = (int)((double)damage + (double)npc.defense * 0.5);
-		}*/
+		    damage += (int)(target.damage * 1.5f);
+		}
 	}
 }
