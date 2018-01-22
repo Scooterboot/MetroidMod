@@ -27,7 +27,7 @@ namespace MetroidMod.Projectiles.speedbooster
 			projectile.melee = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 9000;
-            projectile.usesLocalNPCImmunity = true;
+            		projectile.usesLocalNPCImmunity = true;
 			projectile.localNPCHitCooldown = 7;
 			projectile.alpha = 255;
 		}
@@ -64,9 +64,9 @@ namespace MetroidMod.Projectiles.speedbooster
 			int num21 = Dust.NewDust(vect-vel2, 1, 1, 57, vel2.X+vel.X, vel2.Y+vel.Y, 100, default(Color), 2f);
 			Main.dust[num21].noGravity = true;
 		}
-		/*public override void DamageNPC(NPC npc, int hitDir, ref int damage, ref float knockback, ref bool crit, ref float critMult)
+		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			damage = (int)((double)damage + (double)npc.defense * 0.5);
-		}*/
+		    damage += target.damage * 2;
+		}
 	}
 }
