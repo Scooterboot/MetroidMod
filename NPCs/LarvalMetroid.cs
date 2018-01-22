@@ -48,18 +48,6 @@ namespace MetroidMod.NPCs
 		{
 			return (spawnInfo.player.ZoneCorrupt || spawnInfo.player.ZoneCrimson) && NPC.downedBoss2 ? 0.03f : 0f;
 		}
-	/*	public override int SpawnNPC(int tileX, int tileY)
-		{
-			npc.scale = (Main.rand.Next(5, 10) * 0.1f);
-			npc.defense = (int)((float)npc.defense * npc.scale);
-			npc.damage = (int)((float)npc.damage * npc.scale);
-			npc.life = (int)((float)npc.life * npc.scale);
-			npc.lifeMax = npc.life;
-			npc.value = (float)((int)(npc.value * npc.scale));
-			npc.npcSlots *= npc.scale;
-			npc.knockBackResist *= 2f - npc.scale;
-			return NPC.NewNPC(tileX * 16 + 8, tileY * 16, npc.type);
-		}*/
 		public override bool PreAI()
 		{
 			if (!spawn)
@@ -78,18 +66,7 @@ namespace MetroidMod.NPCs
 		}
 		public override void AI()
 		{
-			
-			frozen = false;
-			for (int k = 0; k < 5; k++)
-			{
-				if (npc.buffType[k] > 0 && npc.buffTime[k] > 0)
-				{
-					if (npc.buffType[k] == mod.BuffType("IceFreeze") || npc.buffType[k] == mod.BuffType("InstantFreeze"))
-					{
-						frozen = true;
-					}
-				}
-			}
+			frozen = npc.GetGlobalNPC<MNPC>(mod).froze;
 			if (grappled)
 			{
 				if (Main.player[npc.target].dead || !Main.player[npc.target].active || frozen)
@@ -156,9 +133,13 @@ namespace MetroidMod.NPCs
 				{
 					grappled = true;
 				}
+                		npc.noGravity = true;
 			}
 			if(frozen)
 			{
+				npc.damage = 0;
+                		npc.frame.Y = 0;
+                		npc.noGravity = false;
 				npc.rotation += npc.velocity.X * 0.1f;
 				if (npc.velocity.Y == 0f)
 				{
