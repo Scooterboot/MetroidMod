@@ -60,7 +60,7 @@ namespace MetroidMod.Items.equipables
 		{
 			 for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
             {
-                if (player.armor[k].type == mod.ItemType("SpeedBooster")  || player.armor[k].type == mod.ItemType("SpaceJump"))
+                if (player.armor[k].type == mod.ItemType("SpeedBooster") || player.armor[k].type == mod.ItemType("SpaceJump") || player.armor[k].type == mod.ItemType("ScrewSpaceBooster") || player.armor[k].type == mod.ItemType("TerraBooster"))
                 {
                     return false;
                 }
