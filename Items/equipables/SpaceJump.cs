@@ -46,7 +46,7 @@ namespace MetroidMod.Items.equipables
 			recipe.AddIngredient(ItemID.BundleofBalloons);
 			recipe.AddIngredient(ItemID.RocketBoots);
 			recipe.AddIngredient(ItemID.SoulofFlight, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
+            		recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -58,15 +58,14 @@ namespace MetroidMod.Items.equipables
 		
 		public override bool CanEquipAccessory(Player player, int slot)
 		{
-			 for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
-            {
-                if (player.armor[k].type == mod.ItemType("SpaceBooster"))
-                {
-                    return false;
-                }
-            }
-return true;
-		
+			for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
+			{
+				if (player.armor[k].type == mod.ItemType("SpaceBooster") || player.armor[k].type == mod.ItemType("ScrewSpaceBooster") || player.armor[k].type == mod.ItemType("TerraBooster"))
+				{
+				    return false;
+				}
+			}
+			return true;
 		}
 	}
 }
