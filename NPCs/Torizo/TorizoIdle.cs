@@ -15,7 +15,9 @@ namespace MetroidMod.NPCs.Torizo
     {
 		private bool active = false;
 		private int ai = 0;
-		private int tp = 7200;
+		private int tp = 300;
+		private bool spawn = false;
+		Point pos = Point.Zero;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Suspicious Chozo Statue");
@@ -78,7 +80,6 @@ namespace MetroidMod.NPCs.Torizo
 			else
 			{
 				npc.velocity.X = 0;
-				npc.velocity.Y = 5;
 				npc.ai[0] = 0;
 				npc.ai[1] = 0;
 				npc.ai[2] = 0;
@@ -87,16 +88,22 @@ namespace MetroidMod.NPCs.Torizo
 				npc.life = 250;
 				npc.homeless = true;
 				tp++;
-				if (tp > 7200)
+				if (tp > 300 && pos != Point.Zero)
 				{
-					npc.position = new Vector2((Main.spawnTileX + 216) * 16, (Main.spawnTileY + 497) * 16);
+                   			npc.position = pos.ToWorldCoordinates() - new Vector2(8, 8);
 					tp = 0;
 				}
-				if (NPC.AnyNPCs(mod.NPCType("Torizo")))
+				if (NPC.AnyNPCs(mod.NPCType("Torizo")) || npc.position.X <= 0 || npc.position.Y <= 0 || npc.position.X >= Main.maxTilesX * 16 || npc.position.Y >= Main.maxTilesY * 16)
 				{
 					npc.life = -1;
 					npc.active = false;
 				}
+			}
+			Vector2 tilepos = new Vector2(npc.position.ToTileCoordinates().X, npc.position.ToTileCoordinates().Y);
+			if (!spawn && (Main.tileSolid[Main.tile[(int)tilepos.X, (int)tilepos.Y + 3].type] && Main.tile[(int)tilepos.X, (int)tilepos.Y + 3].active() || Main.tileSolid[Main.tile[(int)tilepos.X+2, (int)tilepos.Y + 3].type] && Main.tile[(int)tilepos.X+2, (int)tilepos.Y + 3].active() || Main.tileSolid[Main.tile[(int)tilepos.X + 1, (int)tilepos.Y + 3].type] && Main.tile[(int)tilepos.X + 1, (int)tilepos.Y + 3].active()))
+			{
+				pos = npc.position.ToTileCoordinates();
+				spawn = true;
 			}
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
