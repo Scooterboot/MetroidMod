@@ -17,7 +17,7 @@ namespace MetroidMod.Items.equipables
             Tooltip.SetDefault("Allows the user to run insanely fast and extra mobility on ice\n" +
             "Allows somersaulting\n" +
             "Damage enemies while running or somersaulting\n" +
-            "Somersault damage increases with enemy's damage\n" +
+            "Damage increases with enemy's damage\n" +
             "Allows the user to jump up to 10 times in a row\n" +
             "Jumps recharge mid-air\n" +
             "Holding left/right while jumping midair gives a boost\n" + 
