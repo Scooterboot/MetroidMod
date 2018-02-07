@@ -139,11 +139,11 @@ namespace MetroidMod
 			oldPosition = player.position;
 			Player P = player;
 			specialDmg = (int)player.rangedDamage * 100;
-			morphColor = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B < P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
+			morphColor = P.shirtColor;
 			morphColor.A = 255;
-			morphColorLights = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B >= P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
+			morphColorLights = P.underShirtColor;
 			morphColorLights.A = 255;
-			morphItemColor = (P.shirtColor.R+P.shirtColor.G+P.shirtColor.B < P.underShirtColor.R+P.underShirtColor.G+P.underShirtColor.B)?P.shirtColor:P.underShirtColor;
+			morphItemColor = P.shirtColor;
 			morphItemColor.A = 255;
 			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
@@ -1672,6 +1672,7 @@ namespace MetroidMod
 				player.maxRunSpeed = 0f;
 				//player.noItems = true;
 				player.controlUseItem = false;
+                		player.controlUseTile = false;
 				player.controlMount = false;
 				player.releaseMount = false;
 				player.controlHook = false;
@@ -1985,6 +1986,7 @@ namespace MetroidMod
 				player.controlMount = false;
 				player.releaseMount = false;
 				player.controlUseItem = false;
+                		player.controlUseTile = false;
 				player.noFallDmg = true;
 				player.scope = false;
 				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
@@ -2199,9 +2201,13 @@ namespace MetroidMod
 						{
 							Main.tile[pPosX, pPosY - 2] = new Tile();
 						}
+                       				int pPosX2 = (int)((playerposX - 10) / 16);
+                        			int pPosX3 = (int)((playerposX + 10) / 16);
 						bool Inval1 = Main.tile[pPosX, pPosY - 1].active() && Main.tileSolid[(int)Main.tile[pPosX, pPosY - 1].type] && !Main.tileSolidTop[(int)Main.tile[pPosX, pPosY - 1].type];
 						bool Inval2 = Main.tile[pPosX, pPosY - 2].active() && Main.tileSolid[(int)Main.tile[pPosX, pPosY - 2].type] && !Main.tileSolidTop[(int)Main.tile[pPosX, pPosY - 2].type];
-						if (!(Inval1 || Inval2))
+                      				bool Inval3 = Main.tile[pPosX2, pPosY].active() && Main.tileSolid[(int)Main.tile[pPosX2, pPosY].type] && !Main.tileSolidTop[(int)Main.tile[pPosX2, pPosY].type];
+                     				bool Inval4 = Main.tile[pPosX3, pPosY].active() && Main.tileSolid[(int)Main.tile[pPosX3, pPosY].type] && !Main.tileSolidTop[(int)Main.tile[pPosX3, pPosY].type];
+                       				if (!(Inval1 || Inval2 || Inval3 || Inval4))
 						{
 							executeChange = true;
 						}
