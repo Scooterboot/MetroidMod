@@ -80,6 +80,35 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.height = (int)((float)height * projectile.scale);
 			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+			if (projectile.frameCounter == maxDistance)
+			{
+				Rectangle tileRect = new Rectangle((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16), (projectile.width / 16), (projectile.height / 16));
+				for (int x = tileRect.X; x < tileRect.X + tileRect.Width; x++)
+				{
+				    for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)
+				    {
+					if (Main.tile[x, y].active())
+					{
+					    if (Main.tile[x, y].type == (ushort)mod.TileType("YellowHatch"))
+					    {
+						TileLoader.HitWire(x, y, mod.TileType("YellowHatch"));
+					    }
+					    if (Main.tile[x, y].type == (ushort)mod.TileType("YellowHatchVertical"))
+					    {
+						TileLoader.HitWire(x, y, mod.TileType("YellowHatchVertical"));
+					    }
+					    if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
+					    {
+						TileLoader.HitWire(x, y, mod.TileType("BlueHatch"));
+					    }
+					    if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
+					    {
+						TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
+					    }
+					}
+				    }
+				}
+			}
 		}
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
