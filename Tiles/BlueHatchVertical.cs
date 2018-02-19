@@ -26,8 +26,6 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.AnchorLeft = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.AnchorRight = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.LavaDeath = false;
-			//TileObjectData.newTile.HookCheck = new PlacementHook(mod.GetTileEntity<TEBlueHatch>().Hook_AfterPlacement, -1, 0, true);
-			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<TEBlueHatch>().Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
@@ -35,18 +33,7 @@ namespace MetroidMod.Tiles
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
 			dustType = 1;
-			//animationFrameHeight = 54;
 		}
-	/*	public override void AnimateTile(ref int frame, ref int frameCounter)
-		{
-			frameCounter++;
-			if (frameCounter > 1 && frame < 5)
-			{
-				frameCounter = 0;
-				frame++;
-			}
-
-		}*/
 		public override bool Slope(int i, int j)
 		{
 			return false;
@@ -76,7 +63,6 @@ public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("BlueHatch"));
-			mod.GetTileEntity<TEBlueHatch>().Kill(i, j);
 		}
 public override void RightClick(int i, int j)
 		{

@@ -22,11 +22,8 @@ namespace MetroidMod.Tiles
 			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3); 
-			//TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width - 2, 1);
-			//TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width - 2, 1);
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<TEYellowHatch>().Hook_AfterPlacement, -1, 0, false);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
@@ -34,18 +31,7 @@ namespace MetroidMod.Tiles
 			name.SetDefault("Yellow Hatch");
 			AddMapEntry(new Color(248, 232, 56), name);
 			dustType = 1;
-			//animationFrameHeight = 54;
 		}
-	/*	public override void AnimateTile(ref int frame, ref int frameCounter)
-		{
-			frameCounter++;
-			if (frameCounter > 1 && frame < 5)
-			{
-				frameCounter = 0;
-				frame++;
-			}
-
-		}*/
 		public override bool Slope(int i, int j)
 		{
 			return false;
@@ -68,7 +54,6 @@ public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("YellowHatch"));
-			mod.GetTileEntity<TEYellowHatch>().Kill(i, j);
 		}
 		public override void HitWire(int i, int j)
 		{
