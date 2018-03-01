@@ -8,7 +8,7 @@ namespace MetroidMod.Items.addons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Charge Beam");
-			Tooltip.SetDefault("Power Beam Addon\n" +
+			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
