@@ -16,8 +16,8 @@ namespace MetroidMod.Projectiles.novabeam
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.width = 16;
-			projectile.height = 16;
+			projectile.width = 14;
+			projectile.height = 14;
 			projectile.scale = 2f;
 			projectile.penetrate = 11;
 			projectile.usesLocalNPCImmunity = true;
@@ -33,7 +33,6 @@ namespace MetroidMod.Projectiles.novabeam
 				dustType = 135;
 				color = MetroidMod.iceColor;
 			}
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			Lighting.AddLight(projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			if(projectile.numUpdates == 0)
 			{
@@ -44,13 +43,20 @@ namespace MetroidMod.Projectiles.novabeam
 				projectile.frame = 0;
 			}
 			
-			if(projectile.Name.Contains("Spazer") || projectile.Name.Contains("Wave"))
+			if(projectile.Name.Contains("Wide") || projectile.Name.Contains("Wave"))
 			{
 				mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			}
 			
 			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0, 0, 100, default(Color), projectile.scale);
 			Main.dust[dust].noGravity = true;
+			
+			Vector2 velocity = projectile.position - projectile.oldPos[0];
+			if(Vector2.Distance(projectile.position, projectile.position+velocity) < Vector2.Distance(projectile.position,projectile.position+projectile.velocity))
+			{
+				velocity = projectile.velocity;
+			}
+			projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + 1.57f;
 		}
 
 		public override void Kill(int timeLeft)
@@ -65,19 +71,19 @@ namespace MetroidMod.Projectiles.novabeam
 		
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
-			mProjectile.PlasmaDrawTrail(projectile, Main.player[projectile.owner], sb, 10, 0.75f);
+			mProjectile.PlasmaDrawTrail(projectile, Main.player[projectile.owner], sb);
 			return false;
 		}
 	}
 	
-	public class SpazerNovaBeamChargeShot : NovaBeamChargeShot
+	public class WideNovaBeamChargeShot : NovaBeamChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.Name = "Spazer Nova Beam Charge Shot";
+			projectile.Name = "Wide Nova Beam Charge Shot";
 			
-			mProjectile.amplitude = 10f*projectile.scale;
+			mProjectile.amplitude = 14f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 5;
 		}
@@ -91,19 +97,19 @@ namespace MetroidMod.Projectiles.novabeam
 			projectile.Name = "Wave Nova Beam Charge Shot";
 			projectile.tileCollide = false;
 			
-			mProjectile.amplitude = 10f*projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
+			mProjectile.amplitude = 12f*projectile.scale;
+			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 5;
 		}
 	}
 	
-	public class WaveSpazerNovaBeamChargeShot : WaveNovaBeamChargeShot
+	public class WaveWideNovaBeamChargeShot : WaveNovaBeamChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.Name = "Wave Spazer Nova Beam Charge Shot";
-			mProjectile.amplitude = 14.5f*projectile.scale;
+			projectile.Name = "Wave Wide Nova Beam Charge Shot";
+			mProjectile.amplitude = 16f*projectile.scale;
 		}
 	}
 	
@@ -116,12 +122,12 @@ namespace MetroidMod.Projectiles.novabeam
 		}
 	}
 	
-	public class IceSpazerNovaBeamChargeShot : SpazerNovaBeamChargeShot
+	public class IceWideNovaBeamChargeShot : WideNovaBeamChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.Name = "Ice Spazer Nova Beam Charge Shot";
+			projectile.Name = "Ice Wide Nova Beam Charge Shot";
 		}
 	}
 	
@@ -134,12 +140,12 @@ namespace MetroidMod.Projectiles.novabeam
 		}
 	}
 	
-	public class IceWaveSpazerNovaBeamChargeShot : WaveSpazerNovaBeamChargeShot
+	public class IceWaveWideNovaBeamChargeShot : WaveWideNovaBeamChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.Name = "Ice Wave Spazer Nova Beam Charge Shot";
+			projectile.Name = "Ice Wave Wide Nova Beam Charge Shot";
 		}
 	}
 }
