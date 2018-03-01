@@ -10,11 +10,11 @@ namespace MetroidMod.Items.addons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spazer");
-			Tooltip.SetDefault("Power Beam Addon\n" +
+			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Primary A\n" +
 				"Beam fires 3 shots at once, effectively tripling its damage\n" +
-				"+25% damage\n" +
-				"+25% overheat use");
+				string.Format("[c/78BE78:+25% damage]\n") +
+				string.Format("[c/BE7878:+50% overheat use]"));
 		}
 		public override void SetDefaults()
 		{
