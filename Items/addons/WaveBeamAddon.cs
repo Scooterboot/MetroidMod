@@ -10,11 +10,11 @@ namespace MetroidMod.Items.addons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wave Beam");
-			Tooltip.SetDefault("Power Beam Addon\n" +
+			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Utility\n" +
 				"Shots penetrate terrain by a limited depth\n" +
-				"+50% damage\n" +
-				"+50% overheat use");
+				string.Format("[c/78BE78:+50% damage]\n") +
+				string.Format("[c/BE7878:+25% overheat use]"));
 		}
 		public override void SetDefaults()
 		{
