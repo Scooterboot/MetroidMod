@@ -29,19 +29,13 @@ namespace MetroidMod.Projectiles.chargelead
 			projectile.ranged = true;
 		}
 
-		public string Shot = "PowerBeamShot",
-				ChargeShot = "PowerBeamChargeShot",
-				ShotSound = "PowerBeamSound",
-				ChargeShotSound = "PowerBeamChargeSound",
-				ChargeUpSound = "ChargeStartup_Power",
+		public string ChargeUpSound = "ChargeStartup_Power",
 				ChargeTex = "ChargeLead";
-		public int ShotAmt = 1,
-				ChargeShotAmt = 1,
-				DustType = 64,
-				waveDir = -1;
+		public int ChargeShotAmt = 1,
+				DustType = 64;
 		public Color DustColor = default(Color),
 				LightColor = MetroidMod.powColor;
-		public bool IsChargeV2 = false;
+		public bool canPsuedoScrew = false;
 
 		bool soundPlayed = false;
 		SoundEffectInstance soundInstance;
@@ -82,11 +76,11 @@ namespace MetroidMod.Projectiles.chargelead
 			if(mp.somersault)
 			{
 				P.alpha = 255;
-				if(mp.statCharge >= MPlayer.maxCharge && mp.SMoveEffect <= 0)
+				if(canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge && mp.SMoveEffect <= 0)
 				{
 					P.friendly = true;
 					P.damage = damage*3*ChargeShotAmt;
-					mp.overheatDelay = (I.useTime*2);
+					//mp.overheatDelay = (I.useTime*2);
 				}
 				P.position.X = oPos.X-P.width/2;
 				P.position.Y = oPos.Y-P.height/2;
