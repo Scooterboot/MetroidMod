@@ -245,10 +245,6 @@ namespace MetroidMod.Items.weapons
 			{
 				int ch = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,mod.ProjectileType("ChargeLead"),damage,knockBack,player.whoAmI);
 				ChargeLead cl = (ChargeLead)Main.projectile[ch].modProjectile;
-				cl.Shot = shot;
-				cl.ChargeShot = chargeShot;
-				cl.ShotSound = shotSound;
-				cl.ChargeShotSound = chargeShotSound;
 				cl.ChargeUpSound = chargeUpSound;
 				cl.ChargeTex = chargeTex;
 				cl.DustType = dustType;
@@ -482,7 +478,7 @@ namespace MetroidMod.Items.weapons
 		public static MissileUI TempMissileUI;
 		public static int TempStatMissiles;
 		public static int TempMaxMissiles;
-		public override void PreReforge()
+		public override bool NewPreReforge()
 		{
 			if(missileUI != null)
 			{
@@ -491,6 +487,7 @@ namespace MetroidMod.Items.weapons
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
 			TempStatMissiles = mi.statMissiles;
 			TempMaxMissiles = mi.maxMissiles;
+			return true;
 		}
 		public override void PostReforge()
 		{
