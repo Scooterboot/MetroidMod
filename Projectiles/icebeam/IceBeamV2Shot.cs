@@ -11,13 +11,13 @@ namespace MetroidMod.Projectiles.icebeam
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ice Beam V2 Shot");
-			Main.projFrames[projectile.type] = 3;
+			Main.projFrames[projectile.type] = 2;
 		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.width = 8;
-			projectile.height = 8;
+			projectile.width = 13;
+			projectile.height = 13;
 			projectile.scale = 1.5f;
 		}
 
@@ -31,27 +31,12 @@ namespace MetroidMod.Projectiles.icebeam
 			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 59, 0, 0, 100, default(Color), projectile.scale);
 				Main.dust[dust].noGravity = true;
+				
+				projectile.frame++;
 			}
-			
-			Projectile P = projectile;
-			P.frame = 0;
-			for(int i = 0; i < Main.projectile.Length; i++)
+			if(projectile.frame > 1)
 			{
-				if(Main.projectile[i].active && Main.projectile[i].owner == P.owner && Main.projectile[i].type == P.type && Main.projectile[i].whoAmI != P.whoAmI)
-				{
-					Projectile P2 = Main.projectile[i];
-					if(Vector2.Distance(P.position, P2.position) <= 24f)
-					{
-						if(P2.ai[0] == 1f && P.ai[0] == -1f)
-						{
-							P.frame = 1;
-						}
-						else if(P2.ai[0] == -1f && P.ai[0] == 1f)
-						{
-							P.frame = 2;
-						}
-					}
-				}
+				projectile.frame = 0;
 			}
 		}
 		public override void Kill(int timeLeft)
@@ -61,7 +46,6 @@ namespace MetroidMod.Projectiles.icebeam
 		
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
-			//mProjectile.DrawCentered(projectile, sb);
 			mProjectile.PlasmaDraw(projectile, Main.player[projectile.owner], sb);
 			return false;
 		}
