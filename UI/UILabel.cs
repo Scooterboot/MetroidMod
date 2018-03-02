@@ -37,7 +37,7 @@ namespace MetroidMod
             }
             this.rectangle = new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y);
             this.text = this.Update();
-            string text = this.WrapText(this.font, this.text, 430f);
+            string text = this.WrapText(this.font, this.text, this.size.X);
             Utils.DrawBorderStringFourWay(sb, this.font, text, position.X, position.Y, this.color, this.borderColor, default(Vector2));
             base.Draw(sb);
         }

@@ -126,30 +126,30 @@ namespace MetroidMod
 			Main.inventoryScale = num;
             base.Draw(sb);
         }
-	public void DrawItemText()
-	{
-		if (!item.IsAir && new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(this.rectangle) && Main.mouseItem.IsAir)
+		public void DrawItemText()
 		{
-			Main.HoverItem = item;
-			string text = item.AffixName();
-			if (item.stack > 1)
+			if (!item.IsAir && new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(this.rectangle) && Main.mouseItem.IsAir)
 			{
-				object obj = text;
-				text = string.Concat(new object[]
+				Main.HoverItem = item;
+				string text = item.AffixName();
+				if (item.stack > 1)
 				{
-					obj,
-					" (",
-					item.stack,
-					")"
-				});
+					object obj = text;
+					text = string.Concat(new object[]
+					{
+						obj,
+						" (",
+						item.stack,
+						")"
+					});
+				}
+				int rare = item.rare;
+				if (item.expert)
+				{
+					rare = -12;
+				}
+				Main.instance.MouseText(text, rare, 0);
 			}
-			int rare = item.rare;
-			if (item.expert)
-			{
-				rare = -12;
-			}
-			Main.instance.MouseText(text, rare, 0);
 		}
-	}
     }
 }

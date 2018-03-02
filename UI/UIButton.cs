@@ -27,6 +27,7 @@ namespace MetroidMod
             this.textureH = textureH;
             this.textureC = textureC;
         }
+		bool flag = false;
         public override void Draw(SpriteBatch sb)
         {
             Vector2 position = this.position;
@@ -49,22 +50,37 @@ namespace MetroidMod
 				{
 					color = Color.LightGray;
 				}
-                if (UIParameters.mouseState.LeftButton == ButtonState.Pressed && UIParameters.mouseRect.Intersects(new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y)))
-                {
-					if(this.texture != null && this.textureC != null)
+				if(!flag)
+				{
+					if (UIParameters.mouseState.LeftButton == ButtonState.Pressed && UIParameters.mouseRect.Intersects(new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y)))
 					{
-						tex = this.textureC;
+						if(this.texture != null && this.textureC != null)
+						{
+							tex = this.textureC;
+						}
+						else
+						{
+							color = new Color(167, 167, 167, 255);
+						}
 					}
-					else
+					if (UIParameters.LeftMouseClick(new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y)))
 					{
-						color = new Color(167, 167, 167, 255);
+						this.Function();
 					}
-                }
-                if (UIParameters.LeftMouseClick(new Rectangle((int)position.X, (int)position.Y, (int)this.size.X, (int)this.size.Y)))
-                {
-                    this.Function();
-                }
+				}
+				else
+				{
+					if(UIParameters.mouseState.LeftButton != ButtonState.Pressed)
+					{
+						flag = false;
+					}
+				}
             }
+			else
+			{
+				flag = (UIParameters.mouseState.LeftButton == ButtonState.Pressed);
+			}
+			
             if (tex == null)
                 BaseTextureDrawing.DrawRectangleBox(sb, color, Color.Black, this.rectangle, 1);
             else

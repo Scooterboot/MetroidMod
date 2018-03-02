@@ -33,11 +33,15 @@ namespace MetroidMod
         public UIObject beamUIObj;
 		public UIItemSlot[] beamSlot = new UIItemSlot[beamSlotAmount];
 		UILabel[] label = new UILabel[beamSlotAmount];
+		
+		public int comboErrorType = 0;
+		UILabel comboError;
+		
+		UIButton psuedoScrewButton;
+		bool psEnabled = false;
 		public BeamUI()
         {
             Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
-			
-			Player P = Main.player[Main.myPlayer];
 			
 			beamButton = new UIButton(new Vector2(250, 292), new Vector2(44, 44), delegate()
             {
@@ -47,7 +51,7 @@ namespace MetroidMod
 			mod.GetTexture("Textures/Buttons/BeamUIButton_Hover"),
 			mod.GetTexture("Textures/Buttons/BeamUIButton_Click"));
 			
-			UIPanel panel = new UIPanel(new Vector2(250,350), new Vector2(174, 310), null);
+			UIPanel panel = new UIPanel(new Vector2(250,350), new Vector2(174, 304), null);
 			
 			for(int i = 0; i < beamSlot.Length; i++)
 			{
@@ -84,11 +88,24 @@ namespace MetroidMod
 					slotText = "Primary B";
 				}
 				Color color = Color.White;
-				label[i] = new UILabel(new Vector2(68, 24+i*58), Main.fontMouseText, new Vector2(200, 52), color, Color.Black, delegate()
+				label[i] = new UILabel(new Vector2(68, 24+i*58), Main.fontMouseText, new Vector2(250, 52), color, Color.Black, delegate()
 				{
 					return slotText;
 				}, panel);
 			}
+			
+			comboError = new UILabel(new Vector2(184, 68), Main.fontMouseText, new Vector2(1500, 300), Color.Red, Color.Black, delegate()
+			{
+				return "";
+			}, panel);
+			
+			psuedoScrewButton = new UIButton(new Vector2(194, 10), new Vector2(44, 44), delegate()
+            {
+                psEnabled = !psEnabled;
+            }, panel,
+			mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton"),
+			mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton_Hover"),
+			mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton_Click"));
 			
 			for(int i = 0; i < beamSlot.Length; i++)
 			{
@@ -98,14 +115,22 @@ namespace MetroidMod
 			{
 				panel.children.Add(label[i]);
 			}
+			panel.children.Add(comboError);
+			panel.children.Add(psuedoScrewButton);
 
             beamUIObj = panel;
         }
+		
 		bool labelHide = false;
 		float labelAlpha = 1f;
         public void Draw(SpriteBatch sb)
         {
-			if(Main.playerInventory && Main.player[Main.myPlayer].chest == -1 && Main.npcShop == 0)
+			
+			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Player P = Main.player[Main.myPlayer];
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			
+			if(Main.playerInventory && P.chest == -1 && Main.npcShop == 0)
 			{
 				beamButton.Draw(sb);
 				if(BeamUIOpen)
@@ -123,7 +148,49 @@ namespace MetroidMod
 							labelHide = true;
 						}
 					}
+					
+					string errorText = "";
+					if(comboErrorType == 1)
+					{
+						errorText = "Error: Beam version mismatch.\n"+"No Charge type addon detected.\n"+"Only V1 addons will take effect!";
+					}
+					if(comboErrorType == 2)
+					{
+						errorText = "Error: Beam version mismatch.\n"+"V1 Charge type addon detected.\n"+"Only V1 addons will take effect!";
+					}
+					if(comboErrorType == 3)
+					{
+						errorText = "Error: Beam version mismatch.\n"+"No Charge type addon detected.\n"+"Only V2 addons will take effect!";
+					}
+					if(comboErrorType == 4)
+					{
+						errorText = "Error: Beam version mismatch.\n"+"V2 Charge type addon detected.\n"+"Only V2 addons will take effect!";
+					}
+					if(comboErrorType == 5)
+					{
+						errorText = "Error: Beam version mismatch.\n"+"No Charge type addon detected.\n"+"Only V3 addons will take effect!";
+					}
+					if(comboErrorType == 6)
+					{
+						errorText = "Error: Beam version mismatch.\n"+"V3 Charge type addon detected.\n"+"Only V3 addons will take effect!";
+					}
+					comboError.Update = delegate()
+					{
+						return errorText;
+					};
+					comboError.color = new Color((int)((byte)((float)Main.mouseTextColor)),0,0);
 
+					mp.psuedoScrewActive = psEnabled;
+					string psText = "Charge Somersault Attack: Disabled";
+					if(mp.psuedoScrewActive)
+					{
+						psText = "Charge Somersault Attack: Enabled";
+					}
+					if(new Rectangle(Main.mouseX, Main.mouseY, 1, 1).Intersects(psuedoScrewButton.rectangle) && Main.mouseItem.IsAir)
+					{
+						Main.instance.MouseText(psText, 0, 0);
+					}
+					
 					if (labelHide)
 					{
 						labelAlpha -= 0.1f;
@@ -153,6 +220,21 @@ namespace MetroidMod
 				BeamUIOpen = false;
 				labelAlpha = 1f;
 				labelHide = false;
+				
+				psEnabled = mp.psuedoScrewActive;
+			}
+			
+			if(mp.psuedoScrewActive)
+			{
+				psuedoScrewButton.texture = mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton_Enabled");
+				psuedoScrewButton.textureH = mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton_Enabled_Hover");
+				psuedoScrewButton.textureC = mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton_Enabled_Click");
+			}
+			else
+			{
+				psuedoScrewButton.texture = mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton");
+				psuedoScrewButton.textureH = mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton_Hover");
+				psuedoScrewButton.textureC = mod.GetTexture("Textures/Buttons/PsuedoScrewUIButton_Click");
 			}
         }
 	}
