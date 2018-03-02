@@ -46,13 +46,7 @@ namespace MetroidMod.Projectiles
 			}
 		}
 
-		/*public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			if((projectile.Name.Contains("Plasma") && projectile.Name.Contains("Red")) || projectile.Name.Contains("Nova"))
-			{
-				damage += (int)(((float)target.defense*0.5f) * 0.1f);
-			}
-		}*/
+		bool[] npcPrevHit = new bool[Main.maxNPCs];
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{	
 			if(projectile.Name.Contains("Plasma") && projectile.Name.Contains("Red"))
@@ -89,6 +83,21 @@ namespace MetroidMod.Projectiles
 					target.AddBuff(mod.BuffType("IceFreeze"),300,true);
 				}
 			}
+			
+			if(projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189,300,true);
+			}
+			
+			if(projectile.Name.Contains("Stardust"))
+			{
+				target.AddBuff(mod.BuffType("IceFreeze"),300,true);
+			}
+			
+			if(projectile.penetrate > 1)
+			{
+				npcPrevHit[target.whoAmI] = true;
+			}
 		}
 
 		public override void PostAI()
@@ -124,6 +133,7 @@ namespace MetroidMod.Projectiles
 		public float amplitude = 0f;
 		public int waveDepth = 8;
 		float t = 0f;
+		float t2 = 0f;
 		Vector2 pos = new Vector2(0,0);
 		bool initialized = false;
 		void initialize(Projectile P)
@@ -149,6 +159,14 @@ namespace MetroidMod.Projectiles
 				{
 					i = 0;
 				}
+				if(waveStyle == 3)
+				{
+					i = 2;
+				}
+				if(waveStyle == 4)
+				{
+					i = -2;
+				}
 				if(delay <= 0)
 				{
 					if(spaze)
@@ -163,6 +181,11 @@ namespace MetroidMod.Projectiles
 					{
 						t -= (float)Math.PI*2;
 					}
+					
+					if(waveStyle == 3 || waveStyle == 4)
+					{
+						t2 = Math.Min(t2 + increment * wavesPerSecond / 4, (float)Math.PI/2);
+					}
 				}
 				delay = Math.Max(delay - 1, 0);
 				i *= projectile.direction;
@@ -171,6 +194,10 @@ namespace MetroidMod.Projectiles
 					i *= waveDir;
 				}
 				float shift = amplitude * (float)Math.Sin(t) * i;
+				if(!spaze && (waveStyle == 3 || waveStyle == 4))
+				{
+					shift = amplitude * (float)Math.Sin(t - t2) * i;
+				}
 				
 				pos += P.velocity;
 				
@@ -180,18 +207,50 @@ namespace MetroidMod.Projectiles
 				
 				if(!P.tileCollide)
 				{
-					waveDepth = 8;
-					if(projectile.Name.Contains("Spazer") || projectile.Name.Contains("Wide"))
+					waveDepth = 4;
+					if(projectile.Name.Contains("Spazer"))
 					{
-						waveDepth = 11;
+						waveDepth = 6;
 					}
-					if(projectile.Name.Contains("Plasma") || projectile.Name.Contains("Nova"))
+					if(projectile.Name.Contains("Plasma"))
 					{
-						waveDepth = 14;
+						waveDepth = 8;
+					}
+					if(projectile.Name.Contains("V2"))
+					{
+						waveDepth = 6;
+					}
+					if(projectile.Name.Contains("Wide"))
+					{
+						waveDepth = 9;
+					}
+					if(projectile.Name.Contains("Nova"))
+					{
+						waveDepth = 12;
+					}
+					if(projectile.Name.Contains("Nebula"))
+					{
+						waveDepth = 8;
+					}
+					if(projectile.Name.Contains("Vortex"))
+					{
+						waveDepth = 12;
+					}
+					if(projectile.Name.Contains("Solar"))
+					{
+						waveDepth = 16;
 					}
 					if(projectile.Name.Contains("Charge"))
 					{
 						waveDepth += 2;
+						if(projectile.Name.Contains("V2") || projectile.Name.Contains("Wide") || projectile.Name.Contains("Nova"))
+						{
+							waveDepth += 1;
+						}
+						if(projectile.Name.Contains("Nebula"))
+						{
+							waveDepth += 2;
+						}
 					}
 					WaveCollide(P,waveDepth);
 				}
@@ -219,6 +278,50 @@ namespace MetroidMod.Projectiles
 			{
 				P.Kill();
 			}
+		}
+
+		public void HomingBehavior(Projectile P, float accuracy = 11f, float distance = 600f)
+		{
+			float num236 = P.position.X;
+			float num237 = P.position.Y;
+			float num238 = distance;
+			bool flag5 = false;
+			P.ai[0] += 1f;
+			if (P.ai[0] > 10f)
+			{
+				P.ai[0] = 10f;
+				for (int num239 = 0; num239 < 200; num239++)
+				{
+					if (Main.npc[num239].CanBeChasedBy(P, false) && !npcPrevHit[num239])
+					{
+						float num240 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
+						float num241 = Main.npc[num239].position.Y + (float)(Main.npc[num239].height / 2);
+						float num242 = Math.Abs(P.position.X + (float)(P.width / 2) - num240) + Math.Abs(P.position.Y + (float)(P.height / 2) - num241);
+						if (num242 < num238 && Collision.CanHit(P.position, P.width, P.height, Main.npc[num239].position, Main.npc[num239].width, Main.npc[num239].height))
+						{
+							num238 = num242;
+							num236 = num240;
+							num237 = num241;
+							flag5 = true;
+						}
+					}
+				}
+			}
+			if (!flag5)
+			{
+				num236 = P.position.X + (float)(P.width / 2) + P.velocity.X * 100f;
+				num237 = P.position.Y + (float)(P.height / 2) + P.velocity.Y * 100f;
+			}
+			float num243 = 8f;
+			Vector2 vector22 = new Vector2(P.position.X + (float)P.width * 0.5f, P.position.Y + (float)P.height * 0.5f);
+			float num244 = num236 - vector22.X;
+			float num245 = num237 - vector22.Y;
+			float num246 = (float)Math.Sqrt((double)(num244 * num244 + num245 * num245));
+			num246 = num243 / num246;
+			num244 *= num246;
+			num245 *= num246;
+			P.velocity.X = (P.velocity.X * accuracy + num244) / (accuracy + 1f);
+			P.velocity.Y = (P.velocity.Y * accuracy + num245) / (accuracy + 1f);
 		}
 		
 		int dustDelayCounter = 0;
