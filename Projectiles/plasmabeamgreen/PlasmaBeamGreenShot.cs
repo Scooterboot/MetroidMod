@@ -8,6 +8,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 {
 	public class PlasmaBeamGreenShot : MProjectile
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/PlasmaBeamGreenShot";
+			}
+		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Plasma Beam Green Shot");
@@ -15,8 +22,8 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.width = 8;
-			projectile.height = 8;
+			projectile.width = 4;
+			projectile.height = 4;
 			projectile.scale = 2f;
 			projectile.penetrate = 6;
 			projectile.usesLocalNPCImmunity = true;
@@ -60,6 +67,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 	
 	public class SpazerPlasmaBeamGreenShot : PlasmaBeamGreenShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/PlasmaBeamGreenShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -73,6 +87,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 	
 	public class WavePlasmaBeamGreenShot : PlasmaBeamGreenShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/PlasmaBeamGreenShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -87,6 +108,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 	
 	public class WaveSpazerPlasmaBeamGreenShot : WavePlasmaBeamGreenShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/PlasmaBeamGreenShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -97,6 +125,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 	
 	public class IcePlasmaBeamGreenShot : PlasmaBeamGreenShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -106,6 +141,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 	
 	public class IceSpazerPlasmaBeamGreenShot : SpazerPlasmaBeamGreenShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -115,6 +157,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 	
 	public class IceWavePlasmaBeamGreenShot : WavePlasmaBeamGreenShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -124,6 +173,13 @@ namespace MetroidMod.Projectiles.plasmabeamgreen
 	
 	public class IceWaveSpazerPlasmaBeamGreenShot : WaveSpazerPlasmaBeamGreenShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
