@@ -47,8 +47,11 @@ namespace MetroidMod.Projectiles.wavebeam
 			
 			mProjectile.WaveBehavior(projectile);
 			
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0, 0, 100, default(Color), projectile.scale);
-			Main.dust[dust].noGravity = true;
+			if(projectile.numUpdates == 0)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0, 0, 100, default(Color), projectile.scale);
+				Main.dust[dust].noGravity = true;
+			}
 		}
 		public override void Kill(int timeLeft)
 		{
