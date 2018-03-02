@@ -11,7 +11,6 @@ namespace MetroidMod.Projectiles.powerbeam
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Beam V2 Shot");
-			Main.projFrames[projectile.type] = 3;
 		}
 		public override void SetDefaults()
 		{
@@ -32,27 +31,6 @@ namespace MetroidMod.Projectiles.powerbeam
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 64, 0, 0, 100, default(Color), projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			
-			Projectile P = projectile;
-			P.frame = 0;
-			for(int i = 0; i < Main.projectile.Length; i++)
-			{
-				if(Main.projectile[i].active && Main.projectile[i].owner == P.owner && Main.projectile[i].type == P.type && Main.projectile[i].whoAmI != P.whoAmI)
-				{
-					Projectile P2 = Main.projectile[i];
-					if(Vector2.Distance(P.position, P2.position) <= 24f)
-					{
-						if(P2.ai[0] == 1f && P.ai[0] == -1f)
-						{
-							P.frame = 1;
-						}
-						else if(P2.ai[0] == -1f && P.ai[0] == 1f)
-						{
-							P.frame = 2;
-						}
-					}
-				}
-			}
 		}
 		public override void Kill(int timeLeft)
 		{
@@ -61,7 +39,7 @@ namespace MetroidMod.Projectiles.powerbeam
 		
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
-			mProjectile.DrawCentered(projectile, sb);
+			mProjectile.PlasmaDraw(projectile, Main.player[projectile.owner], sb);
 			return false;
 		}
 	}
