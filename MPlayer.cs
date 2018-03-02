@@ -3,6 +3,7 @@ using Terraria.GameInput;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.Graphics.Shaders;
 using System;
 using System.Collections.Generic;
