@@ -21,6 +21,7 @@ namespace MetroidMod {
 		public static Color plaGreenColor2 = new Color(61, 248, 154);
 		public static Color novColor = new Color(50, 255, 1);
 		public static Color wideColor = new Color(255, 210, 255);
+		public static Color lumColor = new Color(209, 255, 250);
 
 
 		internal static ModHotKey MorphBallKey;
