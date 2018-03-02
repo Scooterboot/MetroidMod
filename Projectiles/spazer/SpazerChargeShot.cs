@@ -15,8 +15,8 @@ namespace MetroidMod.Projectiles.spazer
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.width = 16;
-			projectile.height = 16;
+			projectile.width = 8;
+			projectile.height = 8;
 			projectile.scale = 2f;
 			Main.projFrames[projectile.type] = 2;
 			
