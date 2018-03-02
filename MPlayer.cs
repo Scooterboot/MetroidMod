@@ -2739,5 +2739,26 @@ namespace MetroidMod
 				}
 			}
 		}
+		
+		public bool psuedoScrewActive = false;
+		public override TagCompound Save()
+		{
+			return new TagCompound
+			{
+				{"psuedoScrewAttackActive", psuedoScrewActive}
+			};
+		}
+		public override void Load(TagCompound tag)
+		{
+			try
+			{
+				bool flag = tag.GetBool("psuedoScrewAttackActive");
+				if(flag)
+				{
+					psuedoScrewActive = flag;
+				}
+			}
+			catch{}
+		}
     }
 }
