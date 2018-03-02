@@ -72,6 +72,13 @@ namespace MetroidMod.Projectiles.plasmabeamred
 	
 	public class SpazerPlasmaBeamRedShot : PlasmaBeamRedShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamred/PlasmaBeamRedShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -85,6 +92,13 @@ namespace MetroidMod.Projectiles.plasmabeamred
 	
 	public class WavePlasmaBeamRedShot : PlasmaBeamRedShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamred/PlasmaBeamRedShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -99,6 +113,13 @@ namespace MetroidMod.Projectiles.plasmabeamred
 	
 	public class WaveSpazerPlasmaBeamRedShot : WavePlasmaBeamRedShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamred/PlasmaBeamRedShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -109,6 +130,13 @@ namespace MetroidMod.Projectiles.plasmabeamred
 	
 	public class IcePlasmaBeamRedShot : PlasmaBeamRedShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamred/IcePlasmaBeamRedShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -118,6 +146,13 @@ namespace MetroidMod.Projectiles.plasmabeamred
 	
 	public class IceSpazerPlasmaBeamRedShot : SpazerPlasmaBeamRedShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamred/IcePlasmaBeamRedShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -127,6 +162,13 @@ namespace MetroidMod.Projectiles.plasmabeamred
 	
 	public class IceWavePlasmaBeamRedShot : WavePlasmaBeamRedShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamred/IcePlasmaBeamRedShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -136,6 +178,13 @@ namespace MetroidMod.Projectiles.plasmabeamred
 	
 	public class IceWaveSpazerPlasmaBeamRedShot : WaveSpazerPlasmaBeamRedShot
 	{
+		public override string Texture
+		{
+			get
+			{
+				return mod.Name + "/Projectiles/plasmabeamred/IcePlasmaBeamRedShot";
+			}
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
