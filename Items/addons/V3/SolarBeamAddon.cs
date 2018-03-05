@@ -22,13 +22,13 @@ namespace MetroidMod.Items.addons.V3
 			item.maxStack = 1;
 			item.value = 2500;
 			item.rare = 4;
-			/*item.useTurn = true;
+			item.useTurn = true;
 			item.autoReuse = true;
 			item.useAnimation = 15;
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("SolarBeamTile");*/
+			item.createTile = mod.TileType("SolarBeamTile");
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			mItem.addonSlotType = 4;
 		}
