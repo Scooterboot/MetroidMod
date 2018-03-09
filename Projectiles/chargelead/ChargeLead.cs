@@ -66,7 +66,7 @@ namespace MetroidMod.Projectiles.chargelead
 			int width = (I.width/2)-(P.width/2);
 			int height = (I.height/2)-(P.height/2);
 			
-			float dmgMult = (1f+((float)mp.statCharge*0.02f));
+			float dmgMult = (1f+((float)mp.statCharge*0.04f));
 			int damage = (int)((float)I.damage*O.rangedDamage);
 			
 			Vector2 iPos = O.itemLocation;
@@ -76,10 +76,10 @@ namespace MetroidMod.Projectiles.chargelead
 			if(mp.somersault)
 			{
 				P.alpha = 255;
-				if(canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge && mp.SMoveEffect <= 0)
+				if(canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = damage*3*ChargeShotAmt;
+					P.damage = damage*5*ChargeShotAmt;
 					//mp.overheatDelay = (I.useTime*2);
 				}
 				P.position.X = oPos.X-P.width/2;
