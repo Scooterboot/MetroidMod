@@ -1147,14 +1147,7 @@ namespace MetroidMod.Items.weapons
 					{
 						if(mp.statCharge < MPlayer.maxCharge)
 						{
-							if(mp.SMoveEffect > 0)
-							{
-								mp.statCharge = Math.Min(mp.statCharge + 15, MPlayer.maxCharge);
-							}
-							else
-							{
-								mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-							}
+							mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
 						}
 					}
 					else
@@ -1171,7 +1164,7 @@ namespace MetroidMod.Items.weapons
 						
 						Vector2 velocity = targetrotation.ToRotationVector2()*item.shootSpeed;
 
-						float dmgMult = (1f+((float)mp.statCharge*0.02f));
+						float dmgMult = (1f+((float)mp.statCharge*0.04f));
 						int damage = (int)((float)item.damage*player.rangedDamage);
 						
 						int oHeat = (int)((float)overheat*mp.overheatCost);
@@ -1192,7 +1185,7 @@ namespace MetroidMod.Items.weapons
 							//Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));
 							Main.PlaySound(ChargeShotSound,oPos);
 							
-							mp.statOverheat += oHeat*2;
+							mp.statOverheat += oHeat*3;
 							mp.overheatDelay = 6;
 						}
 						else if(mp.statCharge > 0)
