@@ -340,7 +340,7 @@ namespace MetroidMod
 				rotation = 0f;
 				player.fullRotation = 0f;
 			}
-			if(spaceJump && SMoveEffect <= 0)
+			if(spaceJump)
 			{
 				rotateSpeed = 0.2f;
 				rotateSpeed2 = 20f;
@@ -742,7 +742,7 @@ namespace MetroidMod
 			Player P = player;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
 			
-			bool pseudoScrew = (statCharge >= maxCharge && somersault && SMoveEffect <= 0);
+			bool pseudoScrew = (statCharge >= maxCharge && somersault);
 			if(pseudoScrew)
 			{
 				if(drawInfo.shadow == 0f)
@@ -1341,8 +1341,8 @@ namespace MetroidMod
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SenseMoveSound"));
 			}
-			Vector2 right = new Vector2(7f, -4.5f);
-			Vector2 left = new Vector2(-7f, -4.5f);
+			Vector2 right = new Vector2(7.5f, -4.5f);
+			Vector2 left = new Vector2(-7.5f, -4.5f);
 			detect = false;
 			float mult = Player.jumpSpeed - (Player.jumpHeight/Player.jumpSpeed) + player.gravity;
 			float threshhold = Player.jumpSpeed*mult;
@@ -1356,15 +1356,14 @@ namespace MetroidMod
 					{
 						Vector2 npcFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
 						float npcDist = Vector2.Distance(P.Center, npcFuturePos);
-						if(npcDist <= (P.height+N.width) || npcDist <= (P.height+N.height))
+						Vector2 pFuturePos = new Vector2(P.Center.X + (player.controlLeft ? left.X/3 * i: right.X/3 * i), P.Center.Y);
+						float npcDist2 = Vector2.Distance(pFuturePos, npcFuturePos);
+						if (npcDist <= (P.height + N.width) || npcDist <= (P.height + N.height) || npcDist2 <= (P.height + N.width) || npcDist2 <= (P.height + N.height))
 						{
-							if(N.velocity.X != 0f || N.velocity.Y != 0f)
-							{
-								if(N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
-								{
-									detect = true;
-								}
-							}
+						    if (N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
+						    {
+							detect = true;
+						    }
 						}
 					}
 					if(detect)
@@ -1415,15 +1414,15 @@ namespace MetroidMod
 					{
 						Vector2 projFuturePos = new Vector2(N.Center.X+(N.velocity.X*i),N.Center.Y+(N.velocity.Y*i));
 						float projDist = Vector2.Distance(P.Center, projFuturePos);
-						if(projDist <= (P.height+N.width) || projDist <= (P.height+N.height))
+						Vector2 pFuturePos = new Vector2(P.Center.X + (player.controlLeft ? left.X/3 * i : right.X/3 * i), P.Center.Y);
+						float projDist2 = Vector2.Distance(pFuturePos, projFuturePos);
+						if (projDist <= (P.height + N.width) || projDist <= (P.height + N.height) || projDist2 <= (P.height + N.width) || projDist2 <= (P.height + N.height))
 						{
-							if(N.velocity.X != 0f || N.velocity.Y != 0f)
-							{
-								if(!N.tileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
-								{
-									detect = true;
-								}
-							}
+						    if (!N.tileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
+						    {
+							detect = true;
+						    }
+
 						}
 					}
 					if(detect)
@@ -1469,10 +1468,27 @@ namespace MetroidMod
 			right.Y = right.Y > -minimum ? -minimum : (right.Y < -threshhold ? -threshhold : right.Y);
 			left.X = Math.Abs(left.X) > threshhold ? -threshhold : (Math.Abs(left.X) < minimum*3 ? -minimum*3 : -Math.Abs(left.X));
 			left.Y = left.Y > -minimum ? -minimum : (left.Y < -threshhold ? -threshhold : left.Y);
-			if(detect && !mp.ballstate && !P.mount.Active && P.velocity.Y == 0f)
+			if(!mp.ballstate && !P.mount.Active && (P.velocity.Y == 0f || (mp.spaceJumpsRegenDelay < 10 && mp.spaceJump && mp.statSpaceJumps >= 15 && P.velocity.Y*player.gravDir > 0)))
 			{
 				if(!isSenseMoving)
 				{
+				    if ((P.controlLeft || P.controlRight) && MetroidMod.SenseMoveKey.Current && P.velocity.Y != 0)
+				    {
+					if (!detect)
+					{
+					    right.Y = -threshhold * 0.65f;
+					    left.Y = -threshhold * 0.65f;
+					    right.X = threshhold * 0.75f;
+					    left.X = -threshhold * 0.75f;
+					}
+					player.jump = Player.jumpHeight;
+					mp.statSpaceJumps -= 15;
+					mp.spaceJumpsRegenDelay = 25;
+					player.fallStart = (int)(player.Center.Y / 16f);
+					mp.spaceJumped = true;
+					player.canRocket = false;
+					player.rocketRelease = false;
+				    }
 					if(P.controlLeft && MetroidMod.SenseMoveKey.Current)
 					{
 						SMoveEffect = 40;
