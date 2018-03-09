@@ -63,7 +63,7 @@ namespace MetroidMod.Items
 		public override void DrawArmorColor(EquipType type, int slot, Player P, float shadow, ref Color color,ref int glowMask, ref Color glowMaskColor)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
-			bool pseudoScrew = (mp.statCharge >= MPlayer.maxCharge && mp.somersault && mp.SMoveEffect <= 0);
+			bool pseudoScrew = (mp.statCharge >= MPlayer.maxCharge && mp.somersault);
 			if(mp.hyperColors > 0 || mp.speedBoosting || mp.shineActive || (pseudoScrew && mp.psuedoScrewFlash >= 3) || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
 			{
 				if(mp.hyperColors > 0)
