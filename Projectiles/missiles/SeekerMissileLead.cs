@@ -34,6 +34,7 @@ namespace MetroidMod.Projectiles.missiles
 		bool soundPlayed = false;
 		SoundEffectInstance soundInstance;
 		int dustDelay = 0;
+		int negateUseTime = 0;
 		public override void AI()
 		{
 			Projectile P = projectile;
@@ -61,6 +62,11 @@ namespace MetroidMod.Projectiles.missiles
 			int range = I.width+4;
 			int width = (I.width/2)-(P.width/2);
 			int height = (I.height/2)-(P.height/2);
+			
+			if(negateUseTime < I.useTime-2)
+			{
+				negateUseTime++;
+			}
 
 			int damage = (int)((float)I.damage*O.rangedDamage);
 			
@@ -115,13 +121,13 @@ namespace MetroidMod.Projectiles.missiles
 			{
 				if(mi.seekerCharge >= MGlobalItem.seekerMaxCharge)
 				{
-					O.itemTime = (I.useTime*mi.numSeekerTargets);
-					O.itemAnimation = (I.useAnimation*mi.numSeekerTargets);
+					O.itemTime = I.useTime;
+					O.itemAnimation = I.useAnimation;
 				}
 				else
 				{
-					O.itemTime = I.useTime;
-					O.itemAnimation = I.useAnimation;
+					O.itemTime = I.useTime-negateUseTime;
+					O.itemAnimation = I.useAnimation-negateUseTime;
 				}
 				if(O.whoAmI == Main.myPlayer)
 				{
@@ -134,25 +140,12 @@ namespace MetroidMod.Projectiles.missiles
 				P.Kill();
 			}
 		}
-		/*public override void Kill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
-			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
-			if(!mp.ballstate)
-			{
-				mp.statCharge = 0;
-			}
+			Player O = Main.player[projectile.owner];
+			MGlobalItem mi = O.inventory[O.selectedItem].GetGlobalItem<MGlobalItem>(mod);
+			mi.seekerCharge = 0;
 		}
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
-		{
-			Texture2D tex = ModLoader.GetMod(UIParameters.MODNAME).GetTexture("Projectiles/chargelead/"+ChargeTex);
-			SpriteEffects spriteEffects = SpriteEffects.None;
-			if (projectile.spriteDirection == -1)
-			{
-				spriteEffects = SpriteEffects.FlipHorizontally;
-			}
-			Main.spriteBatch.Draw(tex, projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2((float)tex.Width/2, (float)tex.Height/2), projectile.scale, spriteEffects, 0f);
-			return false;
-		}*/
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			mProjectile.DrawCentered(projectile,spriteBatch);
