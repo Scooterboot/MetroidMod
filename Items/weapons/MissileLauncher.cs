@@ -26,13 +26,13 @@ namespace MetroidMod.Items.weapons
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 20;
+			item.damage = 30;
 			item.ranged = true;
 			item.width = 24;
 			item.height = 16;
 			item.scale = 0.8f;
-			item.useTime = 15;
-			item.useAnimation = 15;
+			item.useTime = 9;
+			item.useAnimation = 9;
 			item.useStyle = 5;
 			item.noMelee = true;
 			item.knockBack = 5.5f;
@@ -85,7 +85,7 @@ namespace MetroidMod.Items.weapons
 		
 		int finalDmg = 0;
 		
-		int useTime = 15;
+		int useTime = 9;
 		
 		string shot = "MissileShot";
 		string chargeShot = "DiffusionMissileShot";
@@ -110,7 +110,7 @@ namespace MetroidMod.Items.weapons
 				missileUI = new MissileUI();
 			}
 
-			int ic = mod.ItemType("IceBeamAddon");
+			int ic = mod.ItemType("IceMissileAddon");
 			int sm = mod.ItemType("SuperMissileAddon");
 			int icSm = mod.ItemType("IceSuperMissileAddon");
 			int di = mod.ItemType("DiffusionMissileAddon");
@@ -120,8 +120,8 @@ namespace MetroidMod.Items.weapons
 			Item slot2 = missileUI.missileSlot[1].item;
 			Item exp = missileUI.expansionSlot.item;
 			
-			int damage = 20;
-			useTime = 15;
+			int damage = 30;
+			useTime = 9;
 			shot = "MissileShot";
 			chargeShot = "DiffusionMissileShot";
 			shotSound = "MissileSound";
@@ -145,13 +145,13 @@ namespace MetroidMod.Items.weapons
 			
 			if(slot2.type == sm)
 			{
-				damage = 60;
+				damage = 90;
 				useTime = 18;
 				shot = "SuperMissileShot";
 			}
 			else if(slot2.type == ic)
 			{
-				damage = 30;
+				damage = 45;
 				shot = "IceMissileShot";
 				chargeShot = "IceDiffusionMissileShot";
 				chargeUpSound = "ChargeStartup_Ice";
@@ -161,7 +161,7 @@ namespace MetroidMod.Items.weapons
 			}
 			else if(slot2.type == icSm)
 			{
-				damage = 70;
+				damage = 105;
 				useTime = 18;
 				shot = "IceSuperMissileShot";
 				chargeShot = "IceDiffusionMissileShot";
@@ -258,7 +258,8 @@ namespace MetroidMod.Items.weapons
 		int chargeLead = -1;
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			if(isCharge)
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			if(isCharge && mi.statMissiles >= 5)
 			{
 				int ch = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,mod.ProjectileType("ChargeLead"),damage,knockBack,player.whoAmI);
 				ChargeLead cl = (ChargeLead)Main.projectile[ch].modProjectile;
@@ -278,7 +279,6 @@ namespace MetroidMod.Items.weapons
 			}
 			else
 			{
-				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
 				mi.statMissiles -= 1;
 			}
 			return true;
@@ -299,19 +299,13 @@ namespace MetroidMod.Items.weapons
 					{
 						if(mp.statCharge < MPlayer.maxCharge)
 						{
-							if(mp.SMoveEffect > 0)
-							{
-								mp.statCharge = Math.Min(mp.statCharge + 15, MPlayer.maxCharge);
-							}
-							else
-							{
-								mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-							}
+							mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
 						}
 					}
 					else
 					{
 						Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+						
 						float MY = Main.mouseY + Main.screenPosition.Y;
 						float MX = Main.mouseX + Main.screenPosition.X;
 						if (player.gravDir == -1f)
@@ -319,7 +313,9 @@ namespace MetroidMod.Items.weapons
 							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 						}
 						float targetrotation = (float)Math.Atan2((MY-oPos.Y),(MX-oPos.X));
+						
 						Vector2 velocity = targetrotation.ToRotationVector2()*item.shootSpeed;
+						
 						float dmgMult = 1f;//(1f+((float)mp.statCharge*0.02f));
 						int damage = (int)((float)item.damage*player.rangedDamage);
 						if(mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= 5)
@@ -334,7 +330,10 @@ namespace MetroidMod.Items.weapons
 							Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+shotSound));
 							mi.statMissiles -= 1;
 						}
-						mp.statCharge = 0;
+						if(chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
+						{
+							mp.statCharge = 0;
+						}
 					}
 				}
 				else if(!mp.ballstate)
@@ -446,7 +445,10 @@ namespace MetroidMod.Items.weapons
 
 						mi.statMissiles -= 1;
 					}
-					mi.seekerCharge = 0;
+					if(chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("SeekerMissileLead"))
+					{
+						mi.seekerCharge = 0;
+					}
 					mi.numSeekerTargets = 0;
 					for(int k = 0; k < mi.seekerTarget.Length; k++)
 					{
