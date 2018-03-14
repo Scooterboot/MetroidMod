@@ -14,8 +14,8 @@ namespace MetroidMod.Items.addons.V3
 				"Slot Type: Utility\n" +
 				"Shots penetrate terrain by an extended depth\n" +
 				"Shots home in on enemies\n" +
-				string.Format("[c/78BE78:+125% damage]\n") +
-				string.Format("[c/BE7878:+60% overheat use]"));
+				string.Format("[c/78BE78:+150% damage]\n") +
+				string.Format("[c/BE7878:+100% overheat use]"));
 		}
 		public override void SetDefaults()
 		{

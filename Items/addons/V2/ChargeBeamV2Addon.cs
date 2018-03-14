@@ -12,8 +12,8 @@ namespace MetroidMod.Items.addons.V2
 			"Slot Type: Charge\n" +
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
-			"~Charge shots deal x3 damage, but overheat x2 the normal use\n" + 
-			"Increases base damage from 14 to 21");
+			"~Charge shots deal x5 damage, but overheat x3 the normal use\n" + 
+			"Increases base damage from 14 to 18");
 		}
 		public override void SetDefaults()
 		{

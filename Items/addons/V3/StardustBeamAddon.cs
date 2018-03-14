@@ -14,7 +14,8 @@ namespace MetroidMod.Items.addons.V3
 				"~Each time the enemy is shot, they will become 20% slower\n" + 
 				"~After 5 shots the enemy will become completely frozen\n" + 
 				string.Format("[c/78BE78:+175% damage]\n") +
-				string.Format("[c/BE7878:+50% overheat use]"));
+				string.Format("[c/BE7878:+50% overheat use]") +
+				string.Format("[c/BE7878:-30% speed]"));
 		}
 		public override void SetDefaults()
 		{

@@ -14,7 +14,8 @@ namespace MetroidMod.Items.addons.V2
 				"Slot Type: Primary A\n" +
 				"Beam fires 3 shots at once, effectively tripling its damage\n" +
 				string.Format("[c/78BE78:+50% damage]\n") +
-				string.Format("[c/BE7878:+75% overheat use]"));
+				string.Format("[c/BE7878:+75% overheat use]") +
+				string.Format("[c/78BE78:+15% speed]"));
 		}
 		public override void SetDefaults()
 		{
