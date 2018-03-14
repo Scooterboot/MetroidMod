@@ -31,8 +31,8 @@ namespace MetroidMod.Items.weapons
 			item.width = 24;
 			item.height = 16;
 			item.scale = 0.8f;
-			item.useTime = 10;
-			item.useAnimation = 10;
+			item.useTime = 15;
+			item.useAnimation = 15;
 			item.useStyle = 5;
 			item.noMelee = true;
 			item.knockBack = 5.5f;
@@ -85,6 +85,8 @@ namespace MetroidMod.Items.weapons
 		
 		int finalDmg = 0;
 		
+		int useTime = 15;
+		
 		string shot = "MissileShot";
 		string chargeShot = "DiffusionMissileShot";
 		string shotSound = "MissileSound";
@@ -119,7 +121,7 @@ namespace MetroidMod.Items.weapons
 			Item exp = missileUI.expansionSlot.item;
 			
 			int damage = 20;
-			int useTime = 10;
+			useTime = 15;
 			shot = "MissileShot";
 			chargeShot = "DiffusionMissileShot";
 			shotSound = "MissileSound";
@@ -144,7 +146,7 @@ namespace MetroidMod.Items.weapons
 			if(slot2.type == sm)
 			{
 				damage = 60;
-				useTime = 13;
+				useTime = 18;
 				shot = "SuperMissileShot";
 			}
 			else if(slot2.type == ic)
@@ -160,7 +162,7 @@ namespace MetroidMod.Items.weapons
 			else if(slot2.type == icSm)
 			{
 				damage = 70;
-				useTime = 13;
+				useTime = 18;
 				shot = "IceSuperMissileShot";
 				chargeShot = "IceDiffusionMissileShot";
 				chargeUpSound = "ChargeStartup_Ice";
@@ -218,6 +220,21 @@ namespace MetroidMod.Items.weapons
 					else
 					{
 						tooltips[k].text = num19 + Lang.tip[39].Value;
+					}
+				}
+				if(tooltips[k].Name == "PrefixSpeed")
+				{
+					double num20 = (double)((float)item.useAnimation - (float)useTime);
+					num20 = num20 / (double)((float)useTime) * 100.0;
+					num20 = Math.Round(num20);
+					num20 *= -1.0;
+					if (num20 > 0.0)
+					{
+						tooltips[k].text = "+" + num20 + Lang.tip[40].Value;
+					}
+					else
+					{
+						tooltips[k].text = num20 + Lang.tip[40].Value;
 					}
 				}
 			}
