@@ -12,7 +12,7 @@ namespace MetroidMod.Items.addons.V3
 				"Slot Type: Primary B\n" + 
 				"Shots pierce enemies\n" + 
 				"Shots set enemies ablaze with the Daybroken debuff\n" + 
-				string.Format("[c/78BE78:+175% damage]\n") +
+				string.Format("[c/78BE78:+200% damage]\n") +
 				string.Format("[c/BE7878:+150% overheat use]\n") +
 				string.Format("[c/BE7878:-15% speed]"));
 		}
