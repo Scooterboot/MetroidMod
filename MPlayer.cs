@@ -101,7 +101,6 @@ namespace MetroidMod
 		#endregion
 		public float maxOverheat = 100f;
 		public float statOverheat = 0f;
-		public float extraOverheat = 0f;
 		public float overheatCost = 1f;
 		public int overheatDelay = 0;
 		public int specialDmg = 100;
@@ -195,10 +194,17 @@ namespace MetroidMod
 			}
 			if(statOverheat > 0)
 			{
-				if(extraOverheat <= 0 && statCharge <= 0 && shineDirection <= 0 && !shineActive && overheatDelay <= 0)
+				if(shineDirection <= 0 && !shineActive && overheatDelay <= 0)
 				{
 					statOverheat -= overheatCooldown;
-					overheatCooldown += 0.025f;
+					if(statCharge <= 0)
+					{
+						overheatCooldown += 0.025f;
+					}
+					else if(overheatCooldown < 0.25f)
+					{
+						overheatCooldown += 0.0025f;
+					}
 				}
 				else
 				{
@@ -209,22 +215,6 @@ namespace MetroidMod
 			{
 				overheatCooldown = 0f;
 				statOverheat = 0f;
-			}
-			if(statOverheat > maxOverheat)
-			{
-				extraOverheat = statOverheat - maxOverheat;
-				statOverheat = maxOverheat;
-			}
-			if(extraOverheat > 0)
-			{
-				if(statCharge <= 0 && shineDirection <= 0 && !shineActive && overheatDelay <= 0)
-				{
-					extraOverheat -= 0.5f;
-				}
-			}
-			else
-			{
-				extraOverheat = 0;
 			}
 		
 			int colorcount = 16;
@@ -1259,9 +1249,13 @@ namespace MetroidMod
 				if(drawPlayer.velocity.Y != Vector2.Zero.Y)
 				{
 					if(drawPlayer.velocity.X != 0f)
-					ballrotoffset+= 0.05f*drawPlayer.velocity.X;
+					{
+						ballrotoffset += 0.05f*drawPlayer.velocity.X;
+					}
 					else
-					ballrotoffset += 0.25f*drawPlayer.direction;
+					{
+						ballrotoffset += 0.25f*drawPlayer.direction;
+					}
 				}
 				else if (drawPlayer.velocity.X < 0f)
 				{
@@ -1273,13 +1267,20 @@ namespace MetroidMod
 				}
 				if(drawPlayer.velocity.X != 0f)
 				{
-					ballrotoffset+= 0.025f*drawPlayer.velocity.X;
+					ballrotoffset += 0.025f*drawPlayer.velocity.X;
 				}
 				else
 				{
 					ballrotoffset += 0.125f*drawPlayer.direction;
 				}
-				ballrot+=ballrotoffset;
+				if(spiderball && CurEdge != Edge.None)
+				{
+					ballrot += spiderSpeed*0.085f;
+				}
+				else
+				{
+					ballrot += ballrotoffset;
+				}
 				if(ballrot > (float)(Math.PI)*2)
 				{
 					ballrot -= (float)(Math.PI)*2;
@@ -1327,7 +1328,7 @@ namespace MetroidMod
 					Texture2D spiderTex = mod.GetTexture("Gore/Spiderball");
 					if(spiderball)
 					{
-						sb.Draw(spiderTex, thispos, new Rectangle?(new Rectangle(0,0,spiderTex.Width,spiderTex.Height)), morphColorLights,ballrot,new Vector2(spiderTex.Width/2,spiderTex.Height/2), scale, effects, 0f);
+						sb.Draw(spiderTex, thispos, new Rectangle?(new Rectangle(0,0,spiderTex.Width,spiderTex.Height)), morphColorLights*0.5f,ballrot,new Vector2(spiderTex.Width/2,spiderTex.Height/2), scale, effects, 0f);
 					}
 				}
 			}
@@ -1362,7 +1363,7 @@ namespace MetroidMod
 						{
 						    if (N.noTileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
 						    {
-							detect = true;
+								detect = true;
 						    }
 						}
 					}
@@ -1420,9 +1421,8 @@ namespace MetroidMod
 						{
 						    if (!N.tileCollide || Collision.CanHit(P.position, P.width, P.height, N.position, N.width, N.height))
 						    {
-							detect = true;
+								detect = true;
 						    }
-
 						}
 					}
 					if(detect)
@@ -1474,21 +1474,20 @@ namespace MetroidMod
 				{
 				    if ((P.controlLeft || P.controlRight) && MetroidMod.SenseMoveKey.Current && P.velocity.Y != 0)
 				    {
-					if (!detect)
-					{
-					    right.Y = -threshhold * 0.65f;
-					    left.Y = -threshhold * 0.65f;
-					    right.X = threshhold * 0.75f;
-					    left.X = -threshhold * 0.75f;
+						if (!detect)
+						{
+							right.Y = -threshhold * 0.65f;
+							left.Y = -threshhold * 0.65f;
+							right.X = threshhold * 0.75f;
+							left.X = -threshhold * 0.75f;
+						}
+						player.jump = Player.jumpHeight;
+						mp.statSpaceJumps -= 15;
+						mp.spaceJumpsRegenDelay = 25;
+						player.fallStart = (int)(player.Center.Y / 16f);
+						mp.spaceJumped = true;
+						mp.canSomersault = true;
 					}
-					player.jump = Player.jumpHeight;
-					mp.statSpaceJumps -= 15;
-					mp.spaceJumpsRegenDelay = 25;
-					player.fallStart = (int)(player.Center.Y / 16f);
-					mp.spaceJumped = true;
-					player.canRocket = false;
-					player.rocketRelease = false;
-				    }
 					if(P.controlLeft && MetroidMod.SenseMoveKey.Current)
 					{
 						SMoveEffect = 40;
@@ -1601,10 +1600,72 @@ namespace MetroidMod
 				player.fallStart = (int)(player.Center.Y / 16f);
 			}
 		}
-		const int TileSize = 16;
+		
 		public bool CheckCollide(float offsetX, float offsetY)
 		{
-			return Collision.SolidCollision(player.position+new Vector2(offsetX,offsetY), player.width, player.height);
+			//return Collision.SolidCollision(player.position+new Vector2(offsetX,offsetY), player.width, player.height);
+			Vector2 Position = player.position+new Vector2(offsetX,offsetY);
+			int Width = player.width;
+			int Height = player.height;
+			int num = (int)(Position.X / 16f) - 1;
+			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int num3 = (int)(Position.Y / 16f) - 1;
+			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			num = Utils.Clamp<int>(num, 0, Main.maxTilesX - 1);
+			num2 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
+			num3 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
+			num4 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
+			for (int i = num; i < num2; i++)
+			{
+				for (int j = num3; j < num4; j++)
+				{
+					if (Main.tile[i, j] != null && !Main.tile[i, j].inActive() && Main.tile[i, j].active() && Main.tileSolid[(int)Main.tile[i, j].type] && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+					{
+						Vector2 vector;
+						vector.X = (float)(i * 16);
+						vector.Y = (float)(j * 16);
+						int num5 = 16;
+						if (Main.tile[i, j].halfBrick())
+						{
+							vector.Y += 8f;
+							num5 -= 8;
+						}
+						if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num5)
+						{
+							if(Main.tile[i, j].slope() > 0)
+							{
+								if (Main.tile[i, j].slope() > 2)
+								{
+									if(Main.tile[i, j].slope() == 3 && Position.Y < vector.Y + (float)num5 - Math.Max(Position.X - vector.X, 0f))
+									{
+										return true;
+									}
+									if(Main.tile[i, j].slope() == 4 && Position.Y < vector.Y + (float)num5 - Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
+									{
+										return true;
+									}
+								}
+								else
+								{
+									if(Main.tile[i, j].slope() == 1 && Position.Y + (float)Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
+									{
+										return true;
+									}
+									if(Main.tile[i, j].slope() == 2 && Position.Y + (float)Height > vector.Y + Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
+									{
+										return true;
+									}
+								}
+							}
+							else
+							{
+								return true;
+							}
+						}
+					}
+				}
+			}
+			return false;
 		}
 
         public void AddSpeedBoost(Player player)
@@ -1613,14 +1674,7 @@ namespace MetroidMod
 			speedBoosting = (Math.Abs(player.velocity.X) >= 6.85f && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
 			if((player.controlRight && player.velocity.X > 0) || (player.controlLeft && player.velocity.X < 0))
 			{
-				if(player.velocity.Y == 0f && speedBuildUp < 135f)
-				{
-					speedBuildUp += 1f;
-				}
-				if(speedBuildUp >= 135f)
-				{
-					speedBuildUp = 135f;
-				}
+				speedBuildUp = Math.Min(speedBuildUp + 1f, 135f);
 			}
 			else if(!speedBoosting)
 			{
@@ -1689,7 +1743,7 @@ namespace MetroidMod
 				player.maxRunSpeed = 0f;
 				//player.noItems = true;
 				player.controlUseItem = false;
-                		player.controlUseTile = false;
+				player.controlUseTile = false;
 				player.controlMount = false;
 				player.releaseMount = false;
 				player.controlHook = false;
@@ -1892,6 +1946,9 @@ namespace MetroidMod
 			}
 		#endregion
 		}
+		
+		const int morphSize = 12;
+		
 		public void Bomb(Player player)
 		{
 			if(ballstate)
@@ -2003,11 +2060,11 @@ namespace MetroidMod
 				player.controlMount = false;
 				player.releaseMount = false;
 				player.controlUseItem = false;
-                		player.controlUseTile = false;
+				player.controlUseTile = false;
 				player.noFallDmg = true;
 				player.scope = false;
-				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: 14;
-				player.height = 14;
+				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: morphSize;
+				player.height = morphSize;
 				player.position.Y += Player.defaultHeight - player.height;
 				player.doubleJumpCloud = false;
 				player.jumpAgainCloud = false;
@@ -2204,27 +2261,9 @@ namespace MetroidMod
 				if(!trap)
 				{
 					executeChange = false;
-					if(player.height == 14)
+					if(player.height == morphSize)
 					{
-						float playerposX = player.width/2 + player.position.X;
-						float playerposY = player.height/2 + player.position.Y;
-						int pPosX = (int)(playerposX / 16f);
-						int pPosY = (int)(playerposY / 16f);
-						if (Main.tile[pPosX, pPosY - 1] == null)
-						{
-							Main.tile[pPosX, pPosY - 1] = new Tile();
-						}
-						if (Main.tile[pPosX, pPosY - 2] == null)
-						{
-							Main.tile[pPosX, pPosY - 2] = new Tile();
-						}
-                       				int pPosX2 = (int)((playerposX - 10) / 16);
-                        			int pPosX3 = (int)((playerposX + 10) / 16);
-						bool Inval1 = Main.tile[pPosX, pPosY - 1].active() && Main.tileSolid[(int)Main.tile[pPosX, pPosY - 1].type] && !Main.tileSolidTop[(int)Main.tile[pPosX, pPosY - 1].type];
-						bool Inval2 = Main.tile[pPosX, pPosY - 2].active() && Main.tileSolid[(int)Main.tile[pPosX, pPosY - 2].type] && !Main.tileSolidTop[(int)Main.tile[pPosX, pPosY - 2].type];
-                      				bool Inval3 = Main.tile[pPosX2, pPosY].active() && Main.tileSolid[(int)Main.tile[pPosX2, pPosY].type] && !Main.tileSolidTop[(int)Main.tile[pPosX2, pPosY].type];
-                     				bool Inval4 = Main.tile[pPosX3, pPosY].active() && Main.tileSolid[(int)Main.tile[pPosX3, pPosY].type] && !Main.tileSolidTop[(int)Main.tile[pPosX3, pPosY].type];
-                       				if (!(Inval1 || Inval2 || Inval3 || Inval4))
+						if(!Collision.SolidCollision(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
 						{
 							executeChange = true;
 						}
@@ -2264,12 +2303,12 @@ namespace MetroidMod
 						}
 						ballstate = !ballstate;
 						Vector2 PlayerDims = new Vector2(player.width,player.height);
-						player.width = ballstate?14:20;
-						player.height = ballstate?14:42;
+						player.width = ballstate?morphSize:20;
+						player.height = ballstate?morphSize:42;
 						Vector2 NewDims = new Vector2(player.width,player.height);
 						Vector2 TheDiff = PlayerDims - NewDims;
-						player.position += new Vector2(0,ballstate?14:-14);
-						player.position += TheDiff*0.5f;
+						player.position.X += TheDiff.X*0.5f;
+						player.position.Y += TheDiff.Y;
 					}
 					trap = true;
 				}
@@ -2294,78 +2333,58 @@ namespace MetroidMod
 		// X is pressed
 		static bool KeyX = false;
 
-		// size of a tile
-		int TileSizeY = 16;
-
 		// get the edge the player is currently on
 		public Edge GetEdge(Player player)
 		{
-			if (CheckCollide(0f,1f))
+			if (CheckCollide(0f,1.1f+Math.Sign(player.velocity.Y)))
 			{
 				return Edge.Floor;
 			}
-			else if (CheckCollide(0f,-1f))
+			else if (CheckCollide(0f,-1.1f+Math.Sign(player.velocity.Y)))
 			{
 				return Edge.Ceiling;
 			}
-			else if (CheckCollide(-1f,0f))
+			else if (CheckCollide(-1.1f+Math.Sign(player.velocity.X),0f))
 			{
 				return Edge.Left;
 			}
-			else if (CheckCollide(1f,0f))
+			else if (CheckCollide(1.1f+Math.Sign(player.velocity.X),0f))
 			{
 				return Edge.Right;
 			}
 			
 			return Edge.None;
 		}
-
-		const float moveSpeed = 2f;
+		
+		Vector2 spiderVelocity;
 
 		public void DoFloor(Player player)
 		{
-			//player.velocity.Y = moveSpeed;
-			player.velocity.Y = Math.Min(player.velocity.Y,moveSpeed);
-
-			player.velocity.X = 0f;
-			if (player.controlLeft)
-			{
-				player.velocity.X = -moveSpeed;
-			}
-			else if (player.controlRight)
-			{
-				player.velocity.X = moveSpeed;
-			}
+			SpiderMovement(player);
 			
-			if(CheckCollide(player.velocity.X,0f))
+			if(CheckCollide(spiderVelocity.X,0f))
 			{
-				if(player.velocity.X > 0f)
+				if(spiderVelocity.X > 0f)
 				{
 					CurEdge = Edge.Right;
 					return;
 				}
-				if(player.velocity.X < 0f)
+				if(spiderVelocity.X < 0f)
 				{
 					CurEdge = Edge.Left;
 					return;
 				}
 			}
-			else if(!CheckCollide(0f,1f))
+			else if(!CheckCollide(0f,1f) && CheckCollide(-2f*Math.Sign(spiderVelocity.X),1f))
 			{
-				if(CheckCollide(moveSpeed,1f))
-				{
-					CurEdge = Edge.Right;
-					player.position.Y += 2f;
-					player.velocity.X = 0f;
-					player.velocity.Y = moveSpeed;
-					return;
-				}
-				if(CheckCollide(-moveSpeed,1f))
+				if(spiderVelocity.X > 0f)
 				{
 					CurEdge = Edge.Left;
-					player.position.Y += 2f;
-					player.velocity.X = 0f;
-					player.velocity.Y = moveSpeed;
+					return;
+				}
+				if(spiderVelocity.X < 0f)
+				{
+					CurEdge = Edge.Right;
 					return;
 				}
 			}
@@ -2373,45 +2392,31 @@ namespace MetroidMod
 
 		public void DoCeiling(Player player)
 		{
-			player.velocity.Y = -moveSpeed;
-
-			player.velocity.X = 0f;
-			if (player.controlLeft)
-			{
-				player.velocity.X = moveSpeed;
-			}
-			else if (player.controlRight)
-			{
-				player.velocity.X = -moveSpeed;
-			}
+			SpiderMovement(player);
 			
-			if(CheckCollide(player.velocity.X,0f))
+			if(CheckCollide(spiderVelocity.X,0f))
 			{
-				if(player.velocity.X > 0f)
+				if(spiderVelocity.X > 0f)
 				{
 					CurEdge = Edge.Right;
 					return;
 				}
-				if(player.velocity.X < 0f)
+				if(spiderVelocity.X < 0f)
 				{
 					CurEdge = Edge.Left;
 					return;
 				}
 			}
-			else if(!CheckCollide(0f,-1f))
+			else if(!CheckCollide(0f,-1f) && CheckCollide(-2f*Math.Sign(spiderVelocity.X),-1f))
 			{
-				if(CheckCollide(moveSpeed,-1f))
-				{
-					CurEdge = Edge.Right;
-					player.position.Y -= 2f;
-					player.velocity.X = 0f;
-					return;
-				}
-				if(CheckCollide(-moveSpeed,-1f))
+				if(spiderVelocity.X > 0f)
 				{
 					CurEdge = Edge.Left;
-					player.position.Y -= 2f;
-					player.velocity.X = 0f;
+					return;
+				}
+				if(spiderVelocity.X < 0f)
+				{
+					CurEdge = Edge.Right;
 					return;
 				}
 			}
@@ -2419,45 +2424,31 @@ namespace MetroidMod
 
 		public void DoLeft(Player player)
 		{
-			player.velocity.X = -moveSpeed;
-
-			player.velocity.Y = 0f;
-			if (player.controlLeft)
-			{
-				player.velocity.Y = -moveSpeed;
-			}
-			else if (player.controlRight)
-			{
-				player.velocity.Y = moveSpeed;
-			}
+			SpiderMovement(player);
 			
-			if(CheckCollide(0f,player.velocity.Y))
+			if(CheckCollide(0f,spiderVelocity.Y))
 			{
-				if(player.velocity.Y > 0f)
+				if(spiderVelocity.Y > 0f)
 				{
 					CurEdge = Edge.Floor;
 					return;
 				}
-				if(player.velocity.Y < 0f)
+				if(spiderVelocity.Y < 0f)
 				{
 					CurEdge = Edge.Ceiling;
 					return;
 				}
 			}
-			else if(!CheckCollide(-1f,0f))
+			else if(!CheckCollide(-1f,0f) && CheckCollide(-1f,-2f*Math.Sign(spiderVelocity.Y)))
 			{
-				if(CheckCollide(-1f,moveSpeed))
-				{
-					CurEdge = Edge.Floor;
-					player.position.X -= 2f;
-					player.velocity.Y = 0f;
-					return;
-				}
-				if(CheckCollide(-1f,-moveSpeed))
+				if(spiderVelocity.Y > 0f)
 				{
 					CurEdge = Edge.Ceiling;
-					player.position.X -= 2f;
-					player.velocity.Y = 0f;
+					return;
+				}
+				if(spiderVelocity.Y < 0f)
+				{
+					CurEdge = Edge.Floor;
 					return;
 				}
 			}
@@ -2465,47 +2456,104 @@ namespace MetroidMod
 
 		public void DoRight(Player player)
 		{
-			player.velocity.X = moveSpeed;
-
-			player.velocity.Y = 0f;
-			if (player.controlLeft)
+			SpiderMovement(player);
+			
+			if(CheckCollide(0f,spiderVelocity.Y))
 			{
-				player.velocity.Y = moveSpeed;
+				if(spiderVelocity.Y > 0f)
+				{
+					CurEdge = Edge.Floor;
+					return;
+				}
+				if(spiderVelocity.Y < 0f)
+				{
+					CurEdge = Edge.Ceiling;
+					return;
+				}
 			}
-			else if (player.controlRight)
+			else if(!CheckCollide(1f,0f) && CheckCollide(1f,-2f*Math.Sign(spiderVelocity.Y)))
 			{
-				player.velocity.Y = -moveSpeed;
+				if(spiderVelocity.Y > 0f)
+				{
+					CurEdge = Edge.Ceiling;
+					return;
+				}
+				if(spiderVelocity.Y < 0f)
+				{
+					CurEdge = Edge.Floor;
+					return;
+				}
+			}
+		}
+		
+		float spiderSpeed = 0f;
+		
+		public void SpiderMovement(Player player)
+		{
+			player.velocity = Vector2.Zero;
+			
+			player.position.X = (float)Math.Round(player.position.X * 100f) / 100f;
+			player.position.Y = (float)Math.Round(player.position.Y * 100f) / 100f;
+			
+			if(player.controlLeft)
+			{
+				spiderSpeed = Math.Max(spiderSpeed-0.1f,-2f);
+			}
+			else if(player.controlRight)
+			{
+				spiderSpeed = Math.Min(spiderSpeed+0.1f,2f);
+			}
+			else
+			{
+				if(spiderSpeed > 0)
+				{
+					spiderSpeed = Math.Max(spiderSpeed-0.1f,0f);
+				}
+				if(spiderSpeed < 0)
+				{
+					spiderSpeed = Math.Min(spiderSpeed+0.1f,0f);
+				}
 			}
 			
-			if(CheckCollide(0f,player.velocity.Y))
+			Vector2 velocity = new Vector2(0.1f,0f);
+			Vector2 velocity2 = new Vector2(0f,0.1f);
+			if(CurEdge == Edge.Right)
 			{
-				if(player.velocity.Y > 0f)
-				{
-					CurEdge = Edge.Floor;
-					return;
-				}
-				if(player.velocity.Y < 0f)
-				{
-					CurEdge = Edge.Ceiling;
-					return;
-				}
+				velocity = new Vector2(0f,-0.1f);
+				velocity2 = new Vector2(0.1f,0f);
 			}
-			else if(!CheckCollide(1f,0f))
+			if(CurEdge == Edge.Left)
 			{
-				if(CheckCollide(1f,moveSpeed))
-				{
-					CurEdge = Edge.Floor;
-					player.position.X += 2f;
-					player.velocity.Y = 0f;
-					return;
-				}
-				if(CheckCollide(1f,-moveSpeed))
-				{
-					CurEdge = Edge.Ceiling;
-					player.position.X += 2f;
-					player.velocity.Y = 0f;
-					return;
-				}
+				velocity = new Vector2(0f,0.1f);
+				velocity2 = new Vector2(-0.1f,0f);
+			}
+			if(CurEdge == Edge.Ceiling)
+			{
+				velocity = new Vector2(-0.1f,0f);
+				velocity2 = new Vector2(0f,-0.1f);
+			}
+			velocity *= Math.Sign(spiderSpeed);
+			
+			int num = (int)(Math.Abs(spiderSpeed) * 10f);
+			while(!CheckCollide(velocity.X,velocity.Y) && num > 0)
+			{
+				player.position.X += velocity.X;
+				player.position.Y += velocity.Y;
+				num--;
+			}
+			spiderVelocity = velocity;// * spiderSpeed;
+			
+			int num2 = 10;
+			while(!CheckCollide(velocity2.X,velocity2.Y) && num2 > 0)
+			{
+				player.position.X += velocity2.X;
+				player.position.Y += velocity2.Y;
+				num2--;
+			}
+			
+			if(CheckCollide(0f,0f))
+			{
+				player.position -= velocity2;
 			}
 		}
 
@@ -2573,21 +2621,27 @@ namespace MetroidMod
 						player.moveSpeed = 0f;
 						player.maxRunSpeed = 0f;
 						player.accRunSpeed = 0f;
-						// disable terraria's step-up feature
-						//if(player.stepSpeed == 1f || player.stepSpeed == 2f)
-						/*if((CurEdge == Edge.Left || CurEdge == Edge.Right) && LastEdge == Edge.Floor)
-						{
-							Collision.StepDown(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.waterWalk || player.waterWalk2);
-						}*/
-						/*else if(player.stepSpeed == 1.5f || player.stepSpeed == 2.5f)
-						{
-							Collision.StepUp(ref player.position, ref player.velocity, player.width, player.height, ref player.stepSpeed, ref player.gfxOffY, (int)player.gravDir, player.waterWalk || player.waterWalk2);
-						}*/
+						player.gravity = 0f;
+					}
+					else
+					{
+						spiderVelocity = Vector2.Zero;
+						spiderSpeed = 0f;
 					}
 				}
 				else
 				{
+					spiderVelocity = Vector2.Zero;
+					spiderSpeed = 0f;
 					Ibounce = true;
+				}
+			}
+			else
+			{
+				if(spiderball)
+				{
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+					spiderball = false;
 				}
 			}
 		}
@@ -2638,61 +2692,58 @@ namespace MetroidMod
 					if(boostCharge > 30)
 					{
 						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallSound"));
-						if(spiderball)
+						
+						float mult = (float)boostCharge / 30f;
+						
+						if(spiderball && CurEdge != Edge.None)
 						{
 							if(CurEdge == Edge.Floor)
 							{
-								CurEdge = Edge.None;
 								player.velocity.Y -= 9f;
 							}
 							if(CurEdge == Edge.Ceiling)
 							{
-								CurEdge = Edge.None;
 								player.velocity.Y += 9f;
 							}
 							if(CurEdge == Edge.Left)
 							{
-								CurEdge = Edge.None;
 								player.velocity.X += 9f;
-								player.velocity.Y -= 2f;
+								player.velocity.Y -= 1f;
 							}
 							if(CurEdge == Edge.Right)
 							{
-								CurEdge = Edge.None;
 								player.velocity.X -= 9f;
-								player.velocity.Y -= 2f;
+								player.velocity.Y -= 1f;
 							}
+							player.velocity += spiderVelocity*Math.Abs(spiderSpeed);
+							CurEdge = Edge.None;
 						}
-						if(!spiderball || CurEdge == Edge.None)
+						else
 						{
 							if(player.velocity.X == 0 && player.velocity.Y == 0)
 							{
-								player.velocity.X += 4f * player.direction;
+								player.velocity.X += 4f*mult * player.direction;
 							}
 							if(player.velocity.X > 0)
 							{
-								player.velocity.X += 4f;
+								player.velocity.X += 4f*mult;
 							}
 							if(player.velocity.X < 0)
 							{
-								player.velocity.X -= 4f;
+								player.velocity.X -= 4f*mult;
 							}
 							if(player.velocity.Y > 0)
 							{
-								player.velocity.Y += 4f;
+								player.velocity.Y += 4f*mult;
 							}
 							if(player.velocity.Y < 0)
 							{
-								player.velocity.Y -= 4f;
+								player.velocity.Y -= 4f*mult;
 							}
 						}
 						boostEffect += boostCharge;
-						boostCharge -= 30;
 					}
-					else
-					{
-						boostCharge = 0;
-					}
+					boostCharge = 0;
 					soundDelay = 0;
 				}
 				if(boostEffect > 0)
