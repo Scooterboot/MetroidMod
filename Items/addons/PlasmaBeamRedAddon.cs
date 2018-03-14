@@ -12,7 +12,7 @@ namespace MetroidMod.Items.addons
 				"Slot Type: Primary B\n" +
 				"Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed\n" +
 				string.Format("[c/78BE78:+100% damage]\n") +
-				string.Format("[c/BE7878:+75% overheat use]") +
+				string.Format("[c/BE7878:+75% overheat use]\n") +
 				string.Format("[c/BE7878:-15% speed]"));
 		}
 		public override void SetDefaults()

@@ -13,7 +13,7 @@ namespace MetroidMod.Items.addons.V3
 				"Shots pierce enemies\n" + 
 				"Shots set enemies ablaze with the Daybroken debuff\n" + 
 				string.Format("[c/78BE78:+175% damage]\n") +
-				string.Format("[c/BE7878:+150% overheat use]") +
+				string.Format("[c/BE7878:+150% overheat use]\n") +
 				string.Format("[c/BE7878:-15% speed]"));
 		}
 		public override void SetDefaults()
