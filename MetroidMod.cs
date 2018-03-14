@@ -193,7 +193,7 @@ namespace MetroidMod {
 				{
 					Texture2D overheatBar = mod.GetTexture("Gore/OverheatBar"),
 					overheatBorder = mod.GetTexture("Gore/OverheatBorder");
-					int ovh = (int)mp.statOverheat, ovhMax = (int)mp.maxOverheat;
+					int ovh = (int)Math.Min(mp.statOverheat,mp.maxOverheat), ovhMax = (int)mp.maxOverheat;
 					float x2 = 22, y2 = 120+z;
 					int times2 = (int)Math.Ceiling(overheatBar.Height/2f);
 					float ovhpercent = ovhMax == 0 ? 0f : 1f*ovh/ovhMax;
@@ -212,7 +212,7 @@ namespace MetroidMod {
 							}
 						}
 					}
-					string text = ovh+"/"+ovhMax;
+					string text = (int)Math.Round((double)mp.statOverheat)+"/"+ovhMax;
 					Vector2 vect = Main.fontMouseText.MeasureString(text);
 					Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 					sb.DrawString(Main.fontMouseText, text, new Vector2(x2+2, y2+overheatBorder.Height+2), color, 0f, default(Vector2), 0.75f, SpriteEffects.None, 0f);
