@@ -3,17 +3,15 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.missileaddons
 {
-	public class SeekerMissileAddon : ModItem
+	public class IceMissileAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seeker Missile");
+			DisplayName.SetDefault("Ice Missile");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
-			"Slot Type: Charge\n" +
-			"Fires missiles at multiple targets simultaneously\n" + 
-			"Hold click to lock on to targets, and release to fire\n" + 
-			"Can lock on to a maximum of 5 targets\n" + 
-			"Consumes the appropriate number of missiles");
+			"Slot Type: Primary\n" +
+			"Shots freeze enemies instantly\n" + 
+			string.Format("[c/78BE78:+50% damage]"));
 		}
 		public override void SetDefaults()
 		{
@@ -28,18 +26,25 @@ namespace MetroidMod.Items.missileaddons
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("SeekerMissileTile");*/
+			item.createTile = mod.TileType("IceMissileTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
-			mItem.missileSlotType = 0;
+			mItem.missileSlotType = 1;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-			recipe.AddIngredient(ItemID.ManaCrystal);
-			recipe.AddIngredient(ItemID.FallenStar, 2);
-			recipe.AddTile(TileID.Anvils);
+            		recipe.AddIngredient(ItemID.SnowBlock, 25);
+            		recipe.AddIngredient(ItemID.IceBlock, 10);
+            		recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+            		recipe.AddIngredient(ItemID.Sapphire, 7);
+            		recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

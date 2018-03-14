@@ -8,10 +8,11 @@ namespace MetroidMod.Items.missileaddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Super Missile");
-			Tooltip.SetDefault("Missile Launcher Addon\n" +
+			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Primary\n" +
 			"Shots are more powerful and create a larger explosion\n" + 
-			"+200% damage");
+			string.Format("[c/78BE78:+200% damage]\n") +
+			string.Format("[c/BE7878:-50% speed]"));
 		}
 		public override void SetDefaults()
 		{
@@ -26,7 +27,7 @@ namespace MetroidMod.Items.missileaddons
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("ChargeBeamTile");*/
+			item.createTile = mod.TileType("SuperMissileTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			mItem.missileSlotType = 1;
 		}

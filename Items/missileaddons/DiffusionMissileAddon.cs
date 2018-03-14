@@ -8,7 +8,7 @@ namespace MetroidMod.Items.missileaddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Diffusion Missile");
-			Tooltip.SetDefault("Missile Launcher Addon\n" +
+			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Charge shots diffuse into a large explosion on impact\n" + 
@@ -27,7 +27,7 @@ namespace MetroidMod.Items.missileaddons
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("ChargeBeamTile");*/
+			item.createTile = mod.TileType("DiffusionMissileTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			mItem.missileSlotType = 0;
 		}
