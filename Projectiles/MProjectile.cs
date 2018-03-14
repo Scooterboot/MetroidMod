@@ -381,8 +381,10 @@ namespace MetroidMod.Projectiles
 				{
 					int DiffuseID = mod.ProjectileType("DiffusionBeam");
 					int num54 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (Main.rand.Next(50)-25)*0.1f, (Main.rand.Next(50)-25)*0.1f, DiffuseID,(int)((float)projectile.damage/3f),0.1f,projectile.owner);
-					Main.projectile[num54].tileCollide = projectile.tileCollide;
-					MProjectile mpr = (MProjectile)Main.projectile[num54].modProjectile;
+					Projectile pr = Main.projectile[num54];
+					pr.tileCollide = projectile.tileCollide;
+					pr.Name = projectile.Name;
+					MProjectile mpr = (MProjectile)pr.modProjectile;
 					mpr.diffusionDustType = dustType;
 					mpr.diffusionColor = color;
 				}
