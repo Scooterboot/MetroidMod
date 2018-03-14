@@ -39,6 +39,7 @@ namespace MetroidMod.Projectiles.chargelead
 
 		bool soundPlayed = false;
 		SoundEffectInstance soundInstance;
+		int negateUseTime = 0;
 		public override void AI()
 		{
 			Projectile P = projectile;
@@ -65,6 +66,11 @@ namespace MetroidMod.Projectiles.chargelead
 			int range = I.width+4;
 			int width = (I.width/2)-(P.width/2);
 			int height = (I.height/2)-(P.height/2);
+			
+			if(negateUseTime < I.useTime-2)
+			{
+				negateUseTime++;
+			}
 			
 			float dmgMult = (1f+((float)mp.statCharge*0.04f));
 			int damage = (int)((float)I.damage*O.rangedDamage);
@@ -151,15 +157,15 @@ namespace MetroidMod.Projectiles.chargelead
 			}
 			else
 			{
-				if(mp.statCharge >= (MPlayer.maxCharge*0.5))
-				{
-					O.itemTime = (I.useTime*3);
-					O.itemAnimation = (I.useAnimation*3);
-				}
-				else
+				if(mp.statCharge >= 30)
 				{
 					O.itemTime = I.useTime;
 					O.itemAnimation = I.useAnimation;
+				}
+				else
+				{
+					O.itemTime = I.useTime-negateUseTime;
+					O.itemAnimation = I.useAnimation-negateUseTime;
 				}
 				if(O.whoAmI == Main.myPlayer)
 				{
