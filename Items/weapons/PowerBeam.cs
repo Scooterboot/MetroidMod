@@ -1007,7 +1007,7 @@ namespace MetroidMod.Items.weapons
 					}
 					if(slot5.type == sl)
 					{
-						plasDmg = 1.75f;
+						plasDmg = 2f;
 						plasHeat = 1.5f;
 						plasSpeed = -0.15f;
 					}
