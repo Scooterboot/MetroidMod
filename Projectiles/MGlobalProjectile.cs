@@ -46,8 +46,8 @@ namespace MetroidMod.Projectiles
         {
             if (!projectile.tileCollide && projectile.aiStyle != 26 && !projectile.minion && projectile.damage > 0 && projectile.friendly)
             {
-                int x = (int)(projectile.Center.X / 16);
-                int y = (int)(projectile.Center.Y / 16);
+                int x = (int)MathHelper.Clamp(projectile.Center.X / 16,0,Main.maxTilesX);
+                int y = (int)MathHelper.Clamp(projectile.Center.Y / 16,0,Main.maxTilesY);
                 if (Main.tile[x, y].active())
                 {
                     if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
@@ -68,6 +68,22 @@ namespace MetroidMod.Projectiles
             int tiley = (int)(projectile.position.Y / 16) - 1;
             int tilex2 = (int)((projectile.position.X + projectile.width) / 16) + 1;
             int tiley2 = (int)((projectile.position.Y + projectile.height) / 16) + 1;
+			if (tilex < 0)
+			{
+				tilex = 0;
+			}
+			if (tilex2 > Main.maxTilesX)
+			{
+				tilex2 = Main.maxTilesX;
+			}
+			if (tiley < 0)
+			{
+				tiley = 0;
+			}
+			if (tiley2 > Main.maxTilesY)
+			{
+				tiley2 = Main.maxTilesY;
+			}
             for (int x = tilex; x < tilex2; x++)
             {
                 for (int y = tiley; y < tiley2; y++)
@@ -107,7 +123,6 @@ namespace MetroidMod.Projectiles
                     }
                 }
             }
-
         }
     }
 }
