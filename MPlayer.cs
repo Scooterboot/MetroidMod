@@ -456,6 +456,11 @@ namespace MetroidMod
 				{
 					float targetrotation = (float)Math.Atan2(((projectile.Center.Y-player.Center.Y)*player.direction),((projectile.Center.X-player.Center.X)*player.direction));
 					grappleRotation = targetrotation;
+					if (player.velocity.Y != 0 && player.itemAnimation == 0)
+					{
+						player.fullRotation = grappleRotation + (player.direction*(float)Math.PI/2);
+						player.fullRotationOrigin = player.Center - player.position;
+					}
 
 					if (Main.myPlayer == player.whoAmI && player.mount.Active)
 					{
