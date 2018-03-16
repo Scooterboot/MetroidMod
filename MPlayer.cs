@@ -681,6 +681,16 @@ namespace MetroidMod
 				player.spikedBoots = 0;
 			}
 		}
+		public override void PostUpdateRunSpeeds()
+		{
+			if(spiderball && CurEdge != Edge.None)
+			{
+				player.moveSpeed = 0f;
+				player.maxRunSpeed = 0f;
+				player.accRunSpeed = 0f;
+				player.velocity.X = 0f;
+			}
+		}
         public override void PostUpdate()
 		{
 			if(player.itemAnimation > 0)
@@ -1305,14 +1315,11 @@ namespace MetroidMod
 				oldPos[0] = thispos + Main.screenPosition;
 				if (ballstate && drawPlayer.active && !drawPlayer.dead)
 				{
-					if(drawPlayer.velocity.X != 0 || drawPlayer.velocity.Y != 0)
+					for (int num88 = 0; num88 < oldPos.Length; num88++)
 					{
-						for (int num88 = 0; num88 < oldPos.Length; num88++)
-						{
-							Color color23 = morphColorLights;
-							color23 *= (float)(oldPos.Length - (num88)) / 15f;
-							sb.Draw(trail, oldPos[num88] - Main.screenPosition, new Rectangle?(new Rectangle(0,0,trail.Width, trail.Height)), color23, ballrot, ballDims/2, scale, effects, 0f);
-						}
+						Color color23 = morphColorLights;
+						color23 *= (float)(oldPos.Length - (num88)) / 15f;
+						sb.Draw(trail, oldPos[num88] - Main.screenPosition, new Rectangle?(new Rectangle(0,0,trail.Width, trail.Height)), color23, ballrot, ballDims/2, scale, effects, 0f);
 					}
 					sb.Draw(mytex, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), mColor,ballrot,ballDims/2, scale, effects, 0f);
 					sb.Draw(mytex2, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), morphColorLights,ballrot,ballDims/2, scale, effects, 0f);
@@ -1608,10 +1615,10 @@ namespace MetroidMod
 		
 		public bool CheckCollide(float offsetX, float offsetY)
 		{
-			//return Collision.SolidCollision(player.position+new Vector2(offsetX,offsetY), player.width, player.height);
-			Vector2 Position = player.position+new Vector2(offsetX,offsetY);
-			int Width = player.width;
-			int Height = player.height;
+			return CheckCollide(player.position+new Vector2(offsetX,offsetY), player.width, player.height);
+		}
+		public bool CheckCollide(Vector2 Position, int Width, int Height)
+		{
 			int num = (int)(Position.X / 16f) - 1;
 			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
 			int num3 = (int)(Position.Y / 16f) - 1;
@@ -2068,7 +2075,7 @@ namespace MetroidMod
 				player.controlUseTile = false;
 				player.noFallDmg = true;
 				player.scope = false;
-				player.width = Math.Abs(player.velocity.X) >= 7f ? 20: morphSize;
+				player.width = Math.Abs(player.velocity.X) >= 10f ? 20: morphSize;
 				player.height = morphSize;
 				player.position.Y += Player.defaultHeight - player.height;
 				player.doubleJumpCloud = false;
@@ -2268,7 +2275,7 @@ namespace MetroidMod
 					executeChange = false;
 					if(player.height == morphSize)
 					{
-						if(!Collision.SolidCollision(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
+						if(!CheckCollide(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
 						{
 							executeChange = true;
 						}
@@ -2614,7 +2621,7 @@ namespace MetroidMod
 					}
 					
 					// if no solid tile is adjacent to the player
-					if (!Collision.SolidCollision(player.position-new Vector2(5,5),player.width+10,player.height+10))
+					if (!CheckCollide(player.position-new Vector2(3,3),player.width+6,player.height+6))
 					{
 						CurEdge = Edge.None;
 					}
@@ -2720,7 +2727,6 @@ namespace MetroidMod
 								player.velocity.X -= 9f;
 								player.velocity.Y -= 1f;
 							}
-							player.velocity += spiderVelocity*Math.Abs(spiderSpeed);
 							CurEdge = Edge.None;
 						}
 						else
