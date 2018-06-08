@@ -42,7 +42,7 @@ namespace MetroidMod.NPCs
 		{
 			if (!spawn)
 			{
-				npc.scale = (Main.rand.Next(7, 10) * 0.1f);
+				npc.scale = (Main.rand.Next(6, 11) * 0.1f);
 				npc.defense = (int)((float)npc.defense * npc.scale);
 				npc.damage = (int)((float)npc.damage * npc.scale);
 				npc.life = (int)((float)npc.life * npc.scale);
