@@ -21,8 +21,8 @@ namespace MetroidMod.NPCs
 		}
 		public override void SetDefaults()
 		{
-			npc.width = 60;
-			npc.height = 50;
+			npc.width = 100;
+			npc.height = 78;
 			npc.aiStyle = -1;
 			npc.damage = 10;
 			npc.defense = 0;
