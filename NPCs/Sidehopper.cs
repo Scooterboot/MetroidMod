@@ -21,8 +21,8 @@ namespace MetroidMod.NPCs
 		}
 		public override void SetDefaults()
 		{
-			npc.width = 100;
-			npc.height = 78;
+			npc.width = 60;
+			npc.height = 50;
 			npc.aiStyle = -1;
 			npc.damage = 10;
 			npc.defense = 0;
@@ -42,7 +42,7 @@ namespace MetroidMod.NPCs
 		{
 			if (!spawn)
 			{
-				npc.scale = (Main.rand.Next(6, 11) * 0.1f);
+				npc.scale = (Main.rand.Next(7, 11) * 0.1f);
 				npc.defense = (int)((float)npc.defense * npc.scale);
 				npc.damage = (int)((float)npc.damage * npc.scale);
 				npc.life = (int)((float)npc.life * npc.scale);
