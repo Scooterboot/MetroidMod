@@ -28,7 +28,8 @@ namespace MetroidMod.Items.equipables
 			item.maxStack = 1;
 			item.value = 40000;
 			item.rare = 2;
-			item.accessory = true;
+			//item.accessory = true;
+			item.mountType = mod.MountType("MorphBallMount");
 		}
 
 		public override void AddRecipes()
@@ -53,64 +54,19 @@ namespace MetroidMod.Items.equipables
 		public BallUI ballUI;
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-
 			if(ballUI == null)
 			{
 				ballUI = new BallUI();
 			}
-
-
-			int pb = mod.ItemType("PowerBombAddon");
-			int sb = mod.ItemType("SpiderBallAddon");
-			int bb = mod.ItemType("BoostBallAddon");
-
-			Item slotDrill = ballUI.ballSlot[0].item;
-			Item slotBomb = ballUI.ballSlot[1].item;
-			Item slotSpecial = ballUI.ballSlot[2].item;
-			Item slotUtility = ballUI.ballSlot[3].item;
-			Item slotBoost = ballUI.ballSlot[4].item;
-
-
-			mp.morphBall = true;
-			mp.MorphBallBasic(player);
-			if (!slotDrill.IsAir)
-			{
-				MGlobalItem drillMItem = slotDrill.GetGlobalItem<MGlobalItem>(mod);
-				mp.Drill(player,drillMItem.drillPower);
-			}
-			if (!slotBomb.IsAir)
-			{
-				MGlobalItem bombMItem = slotBomb.GetGlobalItem<MGlobalItem>(mod);
-				mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
-				mp.Bomb(player);
-			}
-			if (slotSpecial.type == pb)
-			{
-				mp.PowerBomb(player);
-			}
-			if (slotUtility.type == sb)
-			{
-				mp.SpiderBall(player);
-			}
-			else
-			{
-				mp.spiderball = false;
-			}
-			if (slotBoost.type == bb)
-			{
-				mp.BoostBall(player);
-			}
-			else
-			{
-				mp.boostCharge = 0;
-				mp.boostEffect = 0;
-			}
 			
-			if(!Main.playerInventory)
+			if(!Main.playerInventory || Main.EquipPage != 2)
 			{
 				ballUI.BallUIOpen = false;
 			}
+		}
+		public override bool CanUseItem(Player player)
+		{
+			return (item == player.miscEquips[3]);
 		}
 
 		public override ModItem Clone(Item item)
@@ -142,7 +98,7 @@ namespace MetroidMod.Items.equipables
 			drawColor = mp.morphColorLights;
 			Texture2D tex = mod.GetTexture("Items/equipables/MorphBall_Lights");
 			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
-			int e = 3;
+			/*int e = 3;
 			for(int i = 3; i < 8 + player.extraAccessorySlots; i++)
 			{
 				if(ballUI != null)
@@ -160,6 +116,17 @@ namespace MetroidMod.Items.equipables
 							ballUI.BallUIOpen = false;
 						}
 					}
+				}
+			}*/
+			if(ballUI != null)
+			{
+				if(player.miscEquips[3] == item && Main.EquipPage == 2)
+				{
+					ballUI.Draw(sb);
+				}
+				else
+				{
+					ballUI.BallUIOpen = false;
 				}
 			}
 		}
