@@ -26,6 +26,7 @@ namespace MetroidMod
 	#region Morph Ball variables
 		public bool morphBall = false;
 		public bool ballstate = false;
+		public const int morphSize = 12;
 		public int boostCharge = 0;
 		public int boostEffect = 0;
 		public bool spiderball = false;
@@ -120,7 +121,10 @@ namespace MetroidMod
 			thrusters = false;
 			spaceJump = false;
 			speedBooster = false;
-			morphBall = false;
+			if(!player.mount.Active || player.mount.Type != mod.MountType("MorphBallMount"))
+			{
+				morphBall = false;
+			}
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
 			chargeColor = Color.White;
@@ -132,6 +136,27 @@ namespace MetroidMod
 		int itemRotTweak = 0;
 		public override void PreUpdate()
 		{
+			ballstate = (player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"));
+			if(ballstate)
+			{
+				if(CheckCollide(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
+				{
+					player.controlMount = false;
+					player.releaseMount = false;
+					mflag = false;
+				}
+			}
+			else
+			{
+				boostCharge = 0;
+				boostEffect = 0;
+				if(spiderball)
+				{
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+					spiderball = false;
+				}
+			}
+			
 			UIParameters.oldState = UIParameters.newState;
             UIParameters.newState = Keyboard.GetState();
         	UIParameters.lastMouseState = UIParameters.mouseState;
@@ -456,11 +481,11 @@ namespace MetroidMod
 				{
 					float targetrotation = (float)Math.Atan2(((projectile.Center.Y-player.Center.Y)*player.direction),((projectile.Center.X-player.Center.X)*player.direction));
 					grappleRotation = targetrotation;
-					if (player.velocity.Y != 0 && player.itemAnimation == 0)
+					/*if (player.velocity.Y != 0 && player.itemAnimation == 0)
 					{
 						player.fullRotation = grappleRotation + (player.direction*(float)Math.PI/2);
 						player.fullRotationOrigin = player.Center - player.position;
-					}
+					}*/
 
 					if (Main.myPlayer == player.whoAmI && player.mount.Active)
 					{
@@ -622,6 +647,55 @@ namespace MetroidMod
 			}
 		}
 		bool sbFlag = false;
+		bool mflag = false;
+		public override void SetControls()
+		{
+			ballstate = (player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"));
+			
+			//morph ball transformation tweaks and effects
+			if((player.miscEquips[3].type == mod.ItemType("MorphBall") || player.mount.Type == mod.MountType("MorphBallMount")) && player.controlMount)
+			{
+				if(mflag)
+				{
+					if(ballstate)
+					{
+						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/MorphIn"));
+					}
+					else
+					{
+						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/MorphOut"));
+					}
+					for (int i = 0; i < 25; i++)
+					{
+						int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, morphColor, 2f);
+						Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
+						Main.dust[num].scale *= 1.3f;
+						Main.dust[num].noGravity = true;
+						Main.dust[num].velocity += player.velocity * 0.8f;
+						Main.dust[num].noLight = true;
+					}
+					for (int j = 0; j < 15; j++)
+					{
+						int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, morphColorLights, 1f);
+						Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
+						Main.dust[num].scale *= 1.3f;
+						Main.dust[num].noGravity = true;
+						Main.dust[num].velocity += player.velocity * 0.8f;
+						Main.dust[num].noLight = true;
+					}
+					int oldWidth = player.width;
+					player.width = ballstate?morphSize:20;
+					int newWidth = player.width;
+					float widthDiff = (float)(oldWidth - newWidth)*0.5f;
+					player.position.X += widthDiff;
+					mflag = false;
+				}
+			}
+			else
+			{
+				mflag = true;
+			}
+		}
 		public override void PostUpdateMiscEffects()
 		{
 			this.GrappleBeamMovement();
@@ -673,6 +747,37 @@ namespace MetroidMod
 				}
 				player.velocity.Y -= num3;
 			}
+			
+			if(player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"))
+			{
+				//temporarily trick the game into thinking the player isn't on a mount so that the player can use their original move speed and jump height
+				player.mount._active = false;
+				ballstate = true;
+				player.jumpAgainCloud = false;
+				player.jumpAgainSandstorm = false;
+				player.jumpAgainBlizzard = false;
+				player.jumpAgainFart = false;
+				player.jumpAgainSail = false;
+				player.jumpAgainUnicorn = false;
+				player.pulley = false;
+				statCharge = 0;
+			}
+			else
+			{
+				ballstate = false;
+			}
+			
+			if(!ballstate)
+			{
+				special = false;
+			}
+		}
+		public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
+		{
+			if(player.miscEquips[3].type == mod.ItemType("MorphBall"))
+			{
+				player.VanillaUpdateAccessory(player.whoAmI, player.miscEquips[3], player.hideMisc[3], ref wallSpeedBuff, ref tileSpeedBuff, ref tileRangeBuff);
+			}
 		}
 		public override void PostUpdateEquips()
 		{
@@ -689,6 +794,12 @@ namespace MetroidMod
 				player.maxRunSpeed = 0f;
 				player.accRunSpeed = 0f;
 				player.velocity.X = 0f;
+			}
+			
+			if(ballstate)
+			{
+				//end morph ball mount trick
+				player.mount._active = true;
 			}
 		}
         public override void PostUpdate()
@@ -1480,7 +1591,7 @@ namespace MetroidMod
 			right.Y = right.Y > -minimum ? -minimum : (right.Y < -threshhold ? -threshhold : right.Y);
 			left.X = Math.Abs(left.X) > threshhold ? -threshhold : (Math.Abs(left.X) < minimum*3 ? -minimum*3 : -Math.Abs(left.X));
 			left.Y = left.Y > -minimum ? -minimum : (left.Y < -threshhold ? -threshhold : left.Y);
-			if(!mp.ballstate && !P.mount.Active && (P.velocity.Y == 0f || (mp.spaceJumpsRegenDelay < 10 && mp.spaceJump && mp.statSpaceJumps >= 15 && P.velocity.Y*player.gravDir > 0)))
+			if(!P.mount.Active && (P.velocity.Y == 0f || (mp.spaceJumpsRegenDelay < 10 && mp.spaceJump && mp.statSpaceJumps >= 15 && P.velocity.Y*player.gravDir > 0)))
 			{
 				if(!isSenseMoving)
 				{
@@ -1548,7 +1659,7 @@ namespace MetroidMod
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			AddSpaceJump(player);
-			if(mp.statSpaceJumps >= 15 && !mp.ballstate && player.grappling[0] == -1  && mp.spaceJumped && !player.jumpAgainCloud && !player.jumpAgainBlizzard && !player.jumpAgainSandstorm && !player.jumpAgainFart && player.jump == 0 && player.velocity.Y != 0f && player.rocketTime == 0 && player.wingTime == 0f && !player.mount.Active)
+			if(mp.statSpaceJumps >= 15 && player.grappling[0] == -1  && mp.spaceJumped && !player.jumpAgainCloud && !player.jumpAgainBlizzard && !player.jumpAgainSandstorm && !player.jumpAgainFart && player.jump == 0 && player.velocity.Y != 0f && player.rocketTime == 0 && player.wingTime == 0f && !player.mount.Active)
 			{
 				if(player.controlJump && player.releaseJump && player.velocity.Y != 0 && mp.spaceJumped)
 				{
@@ -1575,7 +1686,7 @@ namespace MetroidMod
 					mp.canSomersault = false;
 				}
 			}
-			else if(!mp.ballstate && player.controlJump && player.releaseJump && !mp.spaceJumped && player.grappling[0] == -1 && mp.grapplingBeam <= -1 && player.jump <= 0)
+			else if((!player.mount.Active || !player.mount.BlockExtraJumps) && player.controlJump && player.releaseJump && !mp.spaceJumped && player.grappling[0] == -1 && mp.grapplingBeam <= -1 && player.jump <= 0)
 			{
 				int num167 = player.height;
 				if (player.gravDir == -1f)
@@ -1731,7 +1842,10 @@ namespace MetroidMod
 				if(player.controlJump && player.releaseJump && !player.controlRight && !player.controlLeft && mp.statOverheat < mp.maxOverheat)
 				{
 					shineActive = true;
-					player.mount.Dismount(player);
+					if(!ballstate)
+					{
+						player.mount.Dismount(player);
+					}
 				}
 				else
 				{
@@ -1759,7 +1873,8 @@ namespace MetroidMod
 				player.controlMount = false;
 				player.releaseMount = false;
 				player.controlHook = false;
-				if (Main.myPlayer == player.whoAmI)
+				player.stairFall = true;
+				if (Main.myPlayer == player.whoAmI && !ballstate)
 				{
 					player.mount.Dismount(player);
 				}
@@ -1959,375 +2074,243 @@ namespace MetroidMod
 		#endregion
 		}
 		
-		const int morphSize = 12;
-		
 		public void Bomb(Player player)
 		{
-			if(ballstate)
+			if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0 && !player.mouseInterface)
 			{
-				if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0)
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
+				int BombID = mod.ProjectileType("MBBomb");
+				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
+				Main.projectile[a].aiStyle = 0;
+			}
+			mouseRight = Main.mouseRight;
+			if(bomb > 0)
+			{
+				bomb--;
+			}
+			if (!special && statCharge >= 100)
+			{
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
+				bomb = 90;
+				int BombID = mod.ProjectileType("MBBomb");
+				if(player.controlLeft)
 				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-					int BombID = mod.ProjectileType("MBBomb");
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].aiStyle = 0;
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-6,-2,BombID,bombDamage,0,player.whoAmI);
+					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
+					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
+					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
+					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-2,-6,BombID,bombDamage,0,player.whoAmI);
+					Main.projectile[a].timeLeft = 60;
+					Main.projectile[b].timeLeft = 70;
+					Main.projectile[c].timeLeft = 80;
+					Main.projectile[d].timeLeft = 90;
+					Main.projectile[e].timeLeft = 100;
 				}
-				mouseRight = Main.mouseRight;
-				if(bomb > 0)
+				else if(player.controlRight)
 				{
-					bomb--;
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,6,-2,BombID,bombDamage,0,player.whoAmI);
+					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
+					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
+					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
+					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,2,-6,BombID,bombDamage,0,player.whoAmI);
+					Main.projectile[a].timeLeft = 60;
+					Main.projectile[b].timeLeft = 70;
+					Main.projectile[c].timeLeft = 80;
+					Main.projectile[d].timeLeft = 90;
+					Main.projectile[e].timeLeft = 100;
 				}
-				if (!special && statCharge >= 100)
+				else if(player.controlDown && player.velocity.Y == 0)
 				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-					bomb = 90;
-					int BombID = mod.ProjectileType("MBBomb");
-					if(player.controlLeft)
-					{
-						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-6,-2,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
-						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-2,-6,BombID,bombDamage,0,player.whoAmI);
-						Main.projectile[a].timeLeft = 60;
-						Main.projectile[b].timeLeft = 70;
-						Main.projectile[c].timeLeft = 80;
-						Main.projectile[d].timeLeft = 90;
-						Main.projectile[e].timeLeft = 100;
-					}
-					else if(player.controlRight)
-					{
-						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,6,-2,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
-						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,2,-6,BombID,bombDamage,0,player.whoAmI);
-						Main.projectile[a].timeLeft = 60;
-						Main.projectile[b].timeLeft = 70;
-						Main.projectile[c].timeLeft = 80;
-						Main.projectile[d].timeLeft = 90;
-						Main.projectile[e].timeLeft = 100;
-					}
-					else if(player.controlDown && player.velocity.Y == 0)
-					{
-						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5f,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-7,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8.5f,BombID,bombDamage,0,player.whoAmI);
-						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-10,BombID,bombDamage,0,player.whoAmI);
-						Main.projectile[a].timeLeft = 40;
-						Main.projectile[b].timeLeft = 50;
-						Main.projectile[c].timeLeft = 60;
-						Main.projectile[d].timeLeft = 70;
-						Main.projectile[e].timeLeft = 80;
-					}
-					else if(player.controlDown && player.velocity.Y != 0)
-					{
-						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+8,0,0,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-4.5f,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4,2,BombID,bombDamage,0,player.whoAmI);
-						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4,2,BombID,bombDamage,0,player.whoAmI);
-						Main.projectile[a].Kill();
-						Main.projectile[b].aiStyle = 0;
-						Main.projectile[b].timeLeft = 25;
-						Main.projectile[c].timeLeft = 25;
-						Main.projectile[d].timeLeft = 25;
-						Main.projectile[e].timeLeft = 25;
-					}
-					else
-					{
-						int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,-2,BombID,bombDamage,0,player.whoAmI);
-						int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3,-4,BombID,bombDamage,0,player.whoAmI);
-						int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5,BombID,bombDamage,0,player.whoAmI);
-						int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3,-4,BombID,bombDamage,0,player.whoAmI);
-						int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,-2,BombID,bombDamage,0,player.whoAmI);
-						Main.projectile[a].timeLeft = 60;
-						Main.projectile[b].timeLeft = 60;
-						Main.projectile[c].timeLeft = 60;
-						Main.projectile[d].timeLeft = 60;
-						Main.projectile[e].timeLeft = 60;
-					}
-					special = true;
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
+					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5f,BombID,bombDamage,0,player.whoAmI);
+					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-7,BombID,bombDamage,0,player.whoAmI);
+					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8.5f,BombID,bombDamage,0,player.whoAmI);
+					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-10,BombID,bombDamage,0,player.whoAmI);
+					Main.projectile[a].timeLeft = 40;
+					Main.projectile[b].timeLeft = 50;
+					Main.projectile[c].timeLeft = 60;
+					Main.projectile[d].timeLeft = 70;
+					Main.projectile[e].timeLeft = 80;
 				}
+				else if(player.controlDown && player.velocity.Y != 0)
+				{
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+8,0,0,BombID,bombDamage,0,player.whoAmI);
+					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
+					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-4.5f,BombID,bombDamage,0,player.whoAmI);
+					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4,2,BombID,bombDamage,0,player.whoAmI);
+					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4,2,BombID,bombDamage,0,player.whoAmI);
+					Main.projectile[a].Kill();
+					Main.projectile[b].aiStyle = 0;
+					Main.projectile[b].timeLeft = 25;
+					Main.projectile[c].timeLeft = 25;
+					Main.projectile[d].timeLeft = 25;
+					Main.projectile[e].timeLeft = 25;
+				}
+				else
+				{
+					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,-2,BombID,bombDamage,0,player.whoAmI);
+					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3,-4,BombID,bombDamage,0,player.whoAmI);
+					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5,BombID,bombDamage,0,player.whoAmI);
+					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3,-4,BombID,bombDamage,0,player.whoAmI);
+					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,-2,BombID,bombDamage,0,player.whoAmI);
+					Main.projectile[a].timeLeft = 60;
+					Main.projectile[b].timeLeft = 60;
+					Main.projectile[c].timeLeft = 60;
+					Main.projectile[d].timeLeft = 60;
+					Main.projectile[e].timeLeft = 60;
+				}
+				special = true;
 			}
 		}
         public void MorphBallBasic(Player player)
 		{
-			if (ballstate)
+			for (int k = 0; k < 1000; k++)
 			{
-				if (Main.myPlayer == player.whoAmI)
+				if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
 				{
-					player.mount.Dismount(player);
+					Main.projectile[k].Kill();
 				}
-				for (int k = 0; k < 1000; k++)
- 				{
- 					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
- 					{
- 						Main.projectile[k].Kill();
- 					}
- 				}
-				//player.noItems = true;
-				player.controlHook = false;
-				player.controlMount = false;
-				player.releaseMount = false;
-				player.controlUseItem = false;
-				player.controlUseTile = false;
-				player.noFallDmg = true;
-				player.scope = false;
+			}
+			//player.noItems = true;
+			player.controlHook = false;
+			player.controlUseItem = false;
+			player.controlUseTile = false;
+			player.noFallDmg = true;
+			player.scope = false;
+			if(ballstate)
+			{
 				player.width = Math.Abs(player.velocity.X) >= 10f ? 20: morphSize;
-				player.height = morphSize;
-				player.position.Y += Player.defaultHeight - player.height;
-				player.doubleJumpCloud = false;
-				player.jumpAgainCloud = false;
-				player.dJumpEffectCloud = false;
-				player.doubleJumpBlizzard = false;
-				player.jumpAgainBlizzard = false;
-				player.dJumpEffectBlizzard = false;
-				player.doubleJumpSandstorm = false;
-				player.jumpAgainSandstorm = false;
-				player.dJumpEffectSandstorm = false;
-				player.doubleJumpFart = false;
-				player.jumpAgainFart = false;
-				player.dJumpEffectFart = false;
-				player.rocketBoots = 0;
-				player.rocketTime = 0;
-				player.wings = 0;
-				player.wingTime = 0;
-				player.carpet = false;
-				player.carpetTime = 0;
-				player.canCarpet = false;
-				if(player.gravity != 0f)
-				{
-					player.maxFallSpeed += 2.5f;
-				}
-				if(player.velocity.Y == 0f)
-				{
-					player.runSlowdown *= 0.5f;
-					player.moveSpeed += 0.5f;
-				}
-					statCharge = 0;
+				//player.height = morphSize;
+				//player.position.Y += Player.defaultHeight - player.height;
+			}
+			player.doubleJumpCloud = false;
+			player.jumpAgainCloud = false;
+			player.dJumpEffectCloud = false;
+			player.doubleJumpBlizzard = false;
+			player.jumpAgainBlizzard = false;
+			player.dJumpEffectBlizzard = false;
+			player.doubleJumpSandstorm = false;
+			player.jumpAgainSandstorm = false;
+			player.dJumpEffectSandstorm = false;
+			player.doubleJumpFart = false;
+			player.jumpAgainFart = false;
+			player.dJumpEffectFart = false;
+			player.rocketBoots = 0;
+			player.rocketTime = 0;
+			player.wings = 0;
+			player.wingTime = 0;
+			player.carpet = false;
+			player.carpetTime = 0;
+			player.canCarpet = false;
+			if(player.gravity != 0f)
+			{
+				//player.maxFallSpeed += 2.5f;
+			}
+			if(player.velocity.Y == 0f)
+			{
+				player.runSlowdown *= 0.5f;
+				player.moveSpeed += 0.5f;
+			}
 
-				int shinyblock = 700;
-				int timez = (int)(Time%60)/10;
-				Color brightColor = morphColorLights;
-				Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/(shinyblock/(1+0.1*timez))), (float)(brightColor.G/(shinyblock/(1+0.1*timez))), (float)(brightColor.B/(shinyblock/(1+0.1*timez))));  
+			int shinyblock = 700;
+			int timez = (int)(Time%60)/10;
+			Color brightColor = morphColorLights;
+			Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/(shinyblock/(1+0.1*timez))), (float)(brightColor.G/(shinyblock/(1+0.1*timez))), (float)(brightColor.B/(shinyblock/(1+0.1*timez))));  
 
-				if(Ibounce && !player.controlDown)
+			if(Ibounce && !player.controlDown && !player.controlJump)
+			{
+				Vector2 value2 = player.velocity;
+				player.velocity = Collision.TileCollision(player.position, player.velocity, player.width, player.height, false, false);		
+				if (value2 != player.velocity)
 				{
-					Vector2 value2 = player.velocity;
-					player.velocity = Collision.TileCollision(player.position, player.velocity, player.width, player.height, false, false);		
-					if (value2 != player.velocity)
+					if (player.velocity.Y != value2.Y && /*Math.Abs((double)value2.Y)*/value2.Y > 7f)
 					{
-						if (player.velocity.Y != value2.Y && Math.Abs((double)value2.Y) > 7f)
-						{
-							player.velocity.Y = value2.Y * -0.3f;
-						}
+						player.velocity.Y = value2.Y * -0.3f;
 					}
-					player.fallStart = (int)(player.position.Y / 16f);
 				}
-				if(!spiderball)
+				player.fallStart = (int)(player.position.Y / 16f);
+			}
+			if(!spiderball)
+			{
+				int dis = 0;
+				if (player.velocity.Y == 0)
 				{
-					int dis = 0;
-					if (player.velocity.Y == 0)
+					int num2 = (int)(player.position.X / 16f) - 1;
+					int num3 = (int)((player.position.X + (float)player.width) / 16f) + 2;
+					int num4 = (int)(player.position.Y / 16f) - 1;
+					int num5 = (int)((player.position.Y + (float)player.height) / 16f) + 2;
+					if (num2 < 0)
 					{
-						int num2 = (int)(player.position.X / 16f) - 1;
-						int num3 = (int)((player.position.X + (float)player.width) / 16f) + 2;
-						int num4 = (int)(player.position.Y / 16f) - 1;
-						int num5 = (int)((player.position.Y + (float)player.height) / 16f) + 2;
-						if (num2 < 0)
+						num2 = 0;
+					}
+					if (num3 > Main.maxTilesX)
+					{
+						num3 = Main.maxTilesX;
+					}
+					if (num4 < 0)
+					{
+						num4 = 0;
+					}
+					if (num5 > Main.maxTilesY)
+					{
+						num5 = Main.maxTilesY;
+					}
+					for (int i = num2; i < num3; i++)
+					{
+						for (int j = num4; j < num5; j++)
 						{
-							num2 = 0;
-						}
-						if (num3 > Main.maxTilesX)
-						{
-							num3 = Main.maxTilesX;
-						}
-						if (num4 < 0)
-						{
-							num4 = 0;
-						}
-						if (num5 > Main.maxTilesY)
-						{
-							num5 = Main.maxTilesY;
-						}
-						for (int i = num2; i < num3; i++)
-						{
-							for (int j = num4; j < num5; j++)
+							if (Main.tile[i, j] != null && Main.tile[i, j].active() && !Main.tile[i, j].inActive() && (Main.tileSolid[(int)Main.tile[i, j].type] || (Main.tileSolidTop[(int)Main.tile[i, j].type] && Main.tile[i, j].frameY == 0)))
 							{
-								if (Main.tile[i, j] != null && Main.tile[i, j].active() && !Main.tile[i, j].inActive() && (Main.tileSolid[(int)Main.tile[i, j].type] || (Main.tileSolidTop[(int)Main.tile[i, j].type] && Main.tile[i, j].frameY == 0)))
+								Vector2 vector4;
+								vector4.X = (float)(i * 16);
+								vector4.Y = (float)(j * 16);
+								int num6 = 16;
+								if (Main.tile[i, j].halfBrick())
 								{
-									Vector2 vector4;
-									vector4.X = (float)(i * 16);
-									vector4.Y = (float)(j * 16);
-									int num6 = 16;
-									if (Main.tile[i, j].halfBrick())
+									vector4.Y += 8f;
+									num6 -= 8;
+								}
+								if (player.position.X + (float)player.width >= vector4.X && player.position.X <= vector4.X + 16f && player.position.Y + (float)player.height >= vector4.Y && player.position.Y <= vector4.Y + (float)num6)
+								{
+									if(Main.tile[i, j].slope() > 0)
 									{
-										vector4.Y += 8f;
-										num6 -= 8;
-									}
-									if (player.position.X + (float)player.width >= vector4.X && player.position.X <= vector4.X + 16f && player.position.Y + (float)player.height >= vector4.Y && player.position.Y <= vector4.Y + (float)num6)
-									{
-										if(Main.tile[i, j].slope() > 0)
+										if (Main.tile[i, j].slope() == 1 && (!Main.tile[i + 1, j].active() || !Main.tileSolid[(int)Main.tile[i + 1, j].type]))
 										{
-											//flag = true;
-											if (Main.tile[i, j].slope() == 1 && (!Main.tile[i + 1, j].active() || !Main.tileSolid[(int)Main.tile[i + 1, j].type]))
-											{
-												player.velocity.X += velY;
-												velY = 0f;
-												/*if(!player.controlLeft)
-												{
-													if (player.velocity.X < 0f)
-													{
-														player.velocity.X = player.velocity.X * 0.9f;
-													}
-													if (player.velocity.X < 3f)
-													{
-														player.velocity.X = player.velocity.X + 0.2f;
-													}
-													else
-													{
-														player.velocity.X = player.velocity.X + 0.1f;
-													}
-													if (player.velocity.X > 8)
-													{
-														player.velocity.X = 8;
-													}
-													if ((double)player.velocity.X < -0.1 || (double)player.velocity.X > 0.1)
-													{
-														player.velocity.X = player.velocity.X * 1.1f;
-													}
-												}*/
-											}
-											else if (Main.tile[i, j].slope() == 2 && (!Main.tile[i - 1, j].active() || !Main.tileSolid[(int)Main.tile[i - 1, j].type]))
-											{
-												player.velocity.X -= velY;
-												velY = 0f;
-												/*if(!player.controlRight)
-												{
-													if (player.velocity.X > 0f)
-													{
-														player.velocity.X = player.velocity.X * 0.9f;
-													}
-													if (player.velocity.X > -3f)
-													{
-														player.velocity.X = player.velocity.X - 0.2f;
-													}
-													else
-													{
-														player.velocity.X = player.velocity.X - 0.1f;
-													}
-													if (player.velocity.X < -8)
-													{
-														player.velocity.X = -8;
-													}
-													if ((double)player.velocity.X < -0.1 || (double)player.velocity.X > 0.1)
-													{
-														player.velocity.X = player.velocity.X * 1.1f;
-													}
-												}*/
-											}
+											player.velocity.X += velY;
+											velY = 0f;
 										}
-										else
+										else if (Main.tile[i, j].slope() == 2 && (!Main.tile[i - 1, j].active() || !Main.tileSolid[(int)Main.tile[i - 1, j].type]))
 										{
-											dis++;
+											player.velocity.X -= velY;
+											velY = 0f;
 										}
 									}
 									else
 									{
 										dis++;
 									}
-									if(dis > 5)
-									{
-										velY = 0f;
-										dis = 0;
-									}
+								}
+								else
+								{
+									dis++;
+								}
+								if(dis > 5)
+								{
+									velY = 0f;
+									dis = 0;
 								}
 							}
 						}
 					}
-					else if(player.velocity.Y > 0)
-					{
-						velY = player.velocity.Y * 0.75f;
-					}
 				}
-				else
+				else if(player.velocity.Y > 0)
 				{
-					velY = 0f;
-				}
-				/*if(!flag)
-				{
-					player.moveSpeed += 0.5f;
-				}*/
-			}
-			else
-			{
-				if(Math.Abs(player.gravDir) < 0.05)
-				{
-					player.gravDir = 1;
-				}
-				special = false;
-			}
-			if (MetroidMod.MorphBallKey.JustPressed && shineDirection == 0)
-			{
-				if(!trap)
-				{
-					executeChange = false;
-					if(player.height == morphSize)
-					{
-						if(!CheckCollide(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
-						{
-							executeChange = true;
-						}
-					}
-					else
-					{
-						executeChange = true;
-					}
-					if(executeChange)
-					{
-						player.mount.Dismount(player);
-						if(ballstate)
-						{
-							Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/MorphOut"));
-						}
-						else
-						{
-							Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/MorphIn"));
-						}
-						for (int i = 0; i < 25; i++)
-						{
-							int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, morphColor, 2f);
-							Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
-							Main.dust[num].scale *= 1.3f;
-							Main.dust[num].noGravity = true;
-							Main.dust[num].velocity += player.velocity * 0.8f;
-							Main.dust[num].noLight = true;
-						}
-						for (int j = 0; j < 15; j++)
-						{
-							int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 63, 0f, 0f, 100, morphColorLights, 1f);
-							Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
-							Main.dust[num].scale *= 1.3f;
-							Main.dust[num].noGravity = true;
-							Main.dust[num].velocity += player.velocity * 0.8f;
-							Main.dust[num].noLight = true;
-						}
-						ballstate = !ballstate;
-						Vector2 PlayerDims = new Vector2(player.width,player.height);
-						player.width = ballstate?morphSize:20;
-						player.height = ballstate?morphSize:42;
-						Vector2 NewDims = new Vector2(player.width,player.height);
-						Vector2 TheDiff = PlayerDims - NewDims;
-						player.position.X += TheDiff.X*0.5f;
-						player.position.Y += TheDiff.Y;
-					}
-					trap = true;
+					velY = player.velocity.Y * 0.75f;
 				}
 			}
 			else
 			{
-				trap = false;
+				velY = 0f;
 			}
 		}
         public enum Edge
@@ -2571,251 +2554,227 @@ namespace MetroidMod
 
 		public void SpiderBall(Player player)
 		{
-			if(ballstate)
+			// switch back/to spiderball if M is pressed
+			if (MetroidMod.SpiderBallKey.JustPressed && !KeyX)
 			{
-				// switch back/to spiderball if M is pressed
-				if (MetroidMod.SpiderBallKey.JustPressed && !KeyX)
+				CurEdge = Edge.None;
+				spiderball = !spiderball;
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+			}
+			// disable spiderball when jumping
+			if(player.controlJump && player.releaseJump)
+			{
+				CurEdge = Edge.None;
+				spiderball = false;
+			}
+			
+			// update KeyX so spiderball is only toggled once each key press
+			KeyX = MetroidMod.SpiderBallKey.JustPressed;
+	
+			// get current edge
+			Edge LastEdge = CurEdge;
+			
+			if (spiderball) // horizon
+			{
+				Ibounce = false;
+
+				
+				// edge action switch
+				switch (CurEdge)
 				{
-					CurEdge = Edge.None;
-					spiderball = !spiderball;
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-				}
-				// disable spiderball when jumping
-				if(player.controlJump && player.releaseJump)
-				{
-					CurEdge = Edge.None;
-					spiderball = false;
+					case Edge.Floor:
+						DoFloor(player);
+						break;
+					case Edge.Ceiling:
+						DoCeiling(player);
+						break;
+					case Edge.Left:
+						DoLeft(player);
+						break;
+					case Edge.Right:
+						DoRight(player);
+						break;
+					case Edge.None:
+						CurEdge = GetEdge(player);
+						break;
+					default:
+						break;
 				}
 				
-				// update KeyX so spiderball is only toggled once each key press
-				KeyX = MetroidMod.SpiderBallKey.JustPressed;
-		
-				// get current edge
-				Edge LastEdge = CurEdge;
-				
-				if (spiderball) // horizon
+				// if no solid tile is adjacent to the player
+				if (!CheckCollide(player.position-new Vector2(3,3),player.width+6,player.height+6))
 				{
-					Ibounce = false;
+					CurEdge = Edge.None;
+				}
+				// if the edge has changed, display the current edge
 
-					
-					// edge action switch
-					switch (CurEdge)
-					{
-						case Edge.Floor:
-							DoFloor(player);
-							break;
-						case Edge.Ceiling:
-							DoCeiling(player);
-							break;
-						case Edge.Left:
-							DoLeft(player);
-							break;
-						case Edge.Right:
-							DoRight(player);
-							break;
-						case Edge.None:
-							CurEdge = GetEdge(player);
-							break;
-						default:
-							break;
-					}
-					
-					// if no solid tile is adjacent to the player
-					if (!CheckCollide(player.position-new Vector2(3,3),player.width+6,player.height+6))
-					{
-						CurEdge = Edge.None;
-					}
-					// if the edge has changed, display the current edge
-
-					if(CurEdge != Edge.None)
-					{
-						// render player's default movements effortless
-						player.moveSpeed = 0f;
-						player.maxRunSpeed = 0f;
-						player.accRunSpeed = 0f;
-						player.gravity = 0f;
-					}
-					else
-					{
-						spiderVelocity = Vector2.Zero;
-						spiderSpeed = 0f;
-					}
+				if(CurEdge != Edge.None)
+				{
+					// render player's default movements effortless
+					player.moveSpeed = 0f;
+					player.maxRunSpeed = 0f;
+					player.accRunSpeed = 0f;
+					player.gravity = 0f;
+					player.stairFall = true;
 				}
 				else
 				{
 					spiderVelocity = Vector2.Zero;
 					spiderSpeed = 0f;
-					Ibounce = true;
 				}
 			}
 			else
 			{
-				if(spiderball)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-					spiderball = false;
-				}
+				spiderVelocity = Vector2.Zero;
+				spiderSpeed = 0f;
+				Ibounce = true;
 			}
 		}
 		//int CFMoment = 0;
 		public void PowerBomb(Player player)
 		{
-			if(ballstate)
+			if(statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
 			{
-				if(statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
-					statPBCh = 200;
-					int PBombID = mod.ProjectileType("PowerBomb");
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,PBombID,specialDmg/4,0,player.whoAmI);
-				}
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
+				statPBCh = 200;
+				int PBombID = mod.ProjectileType("PowerBomb");
+				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,PBombID,specialDmg/4,0,player.whoAmI);
 			}
 		}
 		public void BoostBall(Player player)
 		{
-			if(ballstate)
+			if(MetroidMod.BoostBallKey.Current)
 			{
-				if(MetroidMod.BoostBallKey.Current)
+				if(boostCharge <= 60)
 				{
-					if(boostCharge <= 60)
-					{
-						boostCharge++;
-					}
-					if(soundDelay <= 0)
-					{
-						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallStartup"));
-					}
-					if(soundDelay >= 306)
-					{
-						soundDelay = 210;
-					}
-					if(soundDelay == 210)
-					{
-						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallLoop"));
-					}
-					soundDelay++;
+					boostCharge++;
 				}
-				else
+				if(soundDelay <= 0)
 				{
-					if(soundInstance != null)
-					{
-						soundInstance.Stop(true);
-					}
-					if(boostCharge > 30)
-					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallSound"));
-						
-						float mult = (float)boostCharge / 30f;
-						
-						if(spiderball && CurEdge != Edge.None)
-						{
-							if(CurEdge == Edge.Floor)
-							{
-								player.velocity.Y -= 9f;
-							}
-							if(CurEdge == Edge.Ceiling)
-							{
-								player.velocity.Y += 9f;
-							}
-							if(CurEdge == Edge.Left)
-							{
-								player.velocity.X += 9f;
-								player.velocity.Y -= 1f;
-							}
-							if(CurEdge == Edge.Right)
-							{
-								player.velocity.X -= 9f;
-								player.velocity.Y -= 1f;
-							}
-							CurEdge = Edge.None;
-						}
-						else
-						{
-							if(player.velocity.X == 0 && player.velocity.Y == 0)
-							{
-								player.velocity.X += 4f*mult * player.direction;
-							}
-							if(player.velocity.X > 0)
-							{
-								player.velocity.X += 4f*mult;
-							}
-							if(player.velocity.X < 0)
-							{
-								player.velocity.X -= 4f*mult;
-							}
-							if(player.velocity.Y > 0)
-							{
-								player.velocity.Y += 4f*mult;
-							}
-							if(player.velocity.Y < 0)
-							{
-								player.velocity.Y -= 4f*mult;
-							}
-						}
-						boostEffect += boostCharge;
-					}
-					boostCharge = 0;
-					soundDelay = 0;
+					soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallStartup"));
 				}
-				if(boostEffect > 0)
+				if(soundDelay >= 306)
 				{
-					player.armorEffectDrawShadow = true;
-					boostEffect--;
+					soundDelay = 210;
 				}
+				if(soundDelay == 210)
+				{
+					soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallLoop"));
+				}
+				soundDelay++;
 			}
 			else
 			{
+				if(soundInstance != null)
+				{
+					soundInstance.Stop(true);
+				}
+				if(boostCharge > 30)
+				{
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallSound"));
+					
+					float mult = (float)boostCharge / 30f;
+					
+					if(spiderball && CurEdge != Edge.None)
+					{
+						if(CurEdge == Edge.Floor)
+						{
+							player.velocity.Y -= 9f;
+						}
+						if(CurEdge == Edge.Ceiling)
+						{
+							player.velocity.Y += 9f;
+						}
+						if(CurEdge == Edge.Left)
+						{
+							player.velocity.X += 9f;
+							player.velocity.Y -= 1f;
+						}
+						if(CurEdge == Edge.Right)
+						{
+							player.velocity.X -= 9f;
+							player.velocity.Y -= 1f;
+						}
+						CurEdge = Edge.None;
+					}
+					else
+					{
+						if(player.velocity.X == 0 && player.velocity.Y == 0)
+						{
+							player.velocity.X += 4f*mult * player.direction;
+						}
+						if(player.velocity.X > 0)
+						{
+							player.velocity.X += 4f*mult;
+						}
+						if(player.velocity.X < 0)
+						{
+							player.velocity.X -= 4f*mult;
+						}
+						if(player.velocity.Y > 0)
+						{
+							player.velocity.Y += 4f*mult;
+						}
+						if(player.velocity.Y < 0)
+						{
+							player.velocity.Y -= 4f*mult;
+						}
+					}
+					boostEffect += boostCharge;
+				}
 				boostCharge = 0;
-				boostEffect = 0;
+				soundDelay = 0;
+			}
+			if(boostEffect > 0)
+			{
+				player.armorEffectDrawShadow = true;
+				boostEffect--;
 			}
 		}
 		public void Drill(Player p, int drill)
 		{
-			if(ballstate)
+			if (!player.mouseInterface && drill > 0 && p.position.X / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetX && (p.position.X + (float)p.width) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetX && p.position.Y / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetY && (p.position.Y + (float)p.height) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetY)
 			{
-				if (drill > 0 && p.position.X / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetX && (p.position.X + (float)p.width) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetX && p.position.Y / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetY && (p.position.Y + (float)p.height) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetY)
+				if(Main.mouseLeft)
 				{
-					if(Main.mouseLeft)
+					if (p.runSoundDelay <= 0)
 					{
-						if (p.runSoundDelay <= 0)
-						{
-							Main.PlaySound(2, (int)p.position.X, (int)p.position.Y, 22);
-							p.runSoundDelay = 30;
-						}
-						if (Main.rand.Next(6) == 0)
-						{
-							int num123 = Dust.NewDust(p.position + p.velocity * (float)Main.rand.Next(6, 10) * 0.1f, p.width, p.height, 31, 0f, 0f, 80, default(Color), 1.5f);
-							Dust expr_5B99_cp_0 = Main.dust[num123];
-							expr_5B99_cp_0.position.X = expr_5B99_cp_0.position.X - 4f;
-							Main.dust[num123].noGravity = true;
-							Main.dust[num123].velocity *= 0.2f;
-							Main.dust[num123].velocity.Y = (float)(-(float)Main.rand.Next(7, 13)) * 0.15f;
-						}
+						Main.PlaySound(2, (int)p.position.X, (int)p.position.Y, 22);
+						p.runSoundDelay = 30;
 					}
-					if (cooldownbomb == 0 && Main.mouseLeft && (!Main.tile[Player.tileTargetX, Player.tileTargetY].active() || (!Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && !Main.tileSolid[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && Main.tile[Player.tileTargetX, Player.tileTargetY].type != 314)))
+					if (Main.rand.Next(6) == 0)
 					{
-						p.poundRelease = false;
-					}
-					if (Main.tile[Player.tileTargetX, Player.tileTargetY].active())
-					{
-						if (cooldownbomb == 0 && Main.mouseLeft)
-						{
-							if (drill > 0)
-							{
-                                p.PickTile(Player.tileTargetX, Player.tileTargetY, drill);
-							}
-							cooldownbomb = 5;
-						}
+						int num123 = Dust.NewDust(p.position + p.velocity * (float)Main.rand.Next(6, 10) * 0.1f, p.width, p.height, 31, 0f, 0f, 80, default(Color), 1.5f);
+						Dust expr_5B99_cp_0 = Main.dust[num123];
+						expr_5B99_cp_0.position.X = expr_5B99_cp_0.position.X - 4f;
+						Main.dust[num123].noGravity = true;
+						Main.dust[num123].velocity *= 0.2f;
+						Main.dust[num123].velocity.Y = (float)(-(float)Main.rand.Next(7, 13)) * 0.15f;
 					}
 				}
-				if(cooldownbomb > 0)
+				if (cooldownbomb == 0 && Main.mouseLeft && (!Main.tile[Player.tileTargetX, Player.tileTargetY].active() || (!Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && !Main.tileSolid[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && Main.tile[Player.tileTargetX, Player.tileTargetY].type != 314)))
 				{
-					if(!Main.mouseLeft)
-					{
-						p.poundRelease = true;
-					}
-					cooldownbomb--;
+					p.poundRelease = false;
 				}
+				if (Main.tile[Player.tileTargetX, Player.tileTargetY].active())
+				{
+					if (cooldownbomb == 0 && Main.mouseLeft)
+					{
+						if (drill > 0)
+						{
+							p.PickTile(Player.tileTargetX, Player.tileTargetY, drill);
+						}
+						cooldownbomb = 5;
+					}
+				}
+			}
+			if(cooldownbomb > 0)
+			{
+				if(!Main.mouseLeft)
+				{
+					p.poundRelease = true;
+				}
+				cooldownbomb--;
 			}
 		}
 		
