@@ -150,11 +150,7 @@ namespace MetroidMod
 			{
 				boostCharge = 0;
 				boostEffect = 0;
-				if(spiderball)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-					spiderball = false;
-				}
+				spiderball = false;
 			}
 			
 			UIParameters.oldState = UIParameters.newState;
@@ -730,7 +726,7 @@ namespace MetroidMod
 				sbFlag = false;
 			}
 			
-			if(shineActive || shineDirection != 0 || (ballstate && spiderball && CurEdge != Edge.None && CurEdge != Edge.Floor))
+			if(shineActive || shineDirection != 0 || (spiderball && CurEdge != Edge.None))
 			{
 				//player.gravity = 0f;
 				float num3 = player.gravity;
@@ -2180,8 +2176,8 @@ namespace MetroidMod
 			if(ballstate)
 			{
 				player.width = Math.Abs(player.velocity.X) >= 10f ? 20: morphSize;
-				//player.height = morphSize;
-				//player.position.Y += Player.defaultHeight - player.height;
+				player.height = morphSize;
+				player.position.Y += Player.defaultHeight - player.height;
 			}
 			player.doubleJumpCloud = false;
 			player.jumpAgainCloud = false;
@@ -2485,10 +2481,11 @@ namespace MetroidMod
 		
 		public void SpiderMovement(Player player)
 		{
-			player.velocity = Vector2.Zero;
+			player.velocity.X = 0f;
+			player.velocity.Y = 1E-05f;
 			
-			player.position.X = (float)Math.Round(player.position.X * 100f) / 100f;
-			player.position.Y = (float)Math.Round(player.position.Y * 100f) / 100f;
+			player.position.X = (float)Math.Round(player.position.X,2);
+			player.position.Y = (float)Math.Round(player.position.Y,2);
 			
 			if(player.controlLeft)
 			{
@@ -2504,7 +2501,7 @@ namespace MetroidMod
 				{
 					spiderSpeed = Math.Max(spiderSpeed-0.1f,0f);
 				}
-				if(spiderSpeed < 0)
+				else
 				{
 					spiderSpeed = Math.Min(spiderSpeed+0.1f,0f);
 				}
