@@ -2176,8 +2176,8 @@ namespace MetroidMod
 			if(ballstate)
 			{
 				player.width = Math.Abs(player.velocity.X) >= 10f ? 20: morphSize;
-				player.height = morphSize;
-				player.position.Y += Player.defaultHeight - player.height;
+				//player.height = morphSize;
+				//player.position.Y += Player.defaultHeight - player.height;
 			}
 			player.doubleJumpCloud = false;
 			player.jumpAgainCloud = false;
