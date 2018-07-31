@@ -326,6 +326,10 @@ namespace MetroidMod
 					}
 					player.fullRotation = rotation;
 					player.fullRotationOrigin = new Vector2((float)player.width/2,(float)player.height*0.55f);
+					if(player.gravDir == -1)
+					{
+						player.fullRotationOrigin.Y = (float)player.height*0.45f;
+					}
 					itemRotTweak = 2;
 				}
 				else if(shineDirection == 2 || shineDirection == 4)
@@ -1132,20 +1136,20 @@ namespace MetroidMod
 						{
 							effects = SpriteEffects.FlipHorizontally;
 						}
+						if (P.gravDir == -1f)
+						{
+							effects |= SpriteEffects.FlipVertically;
+						}
 						Color alpha = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
 						int num121 = tex.Height / Main.projFrames[projectile.type];
 						int y9 = num121 * projectile.frame;
-						//float num100 = (float)(tex.Width - projectile.width) * 0.5f + (float)projectile.width * 0.5f;
-						//spriteBatch.Draw(tex, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
-						spriteBatch.Draw(tex, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0);
+						spriteBatch.Draw(tex, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2((float)(tex.Width / 2), (float)(num121 / 2)), projectile.scale, effects, 0);
 						if(mPlayer.screwAttackSpeedEffect > 0)
 						{
 							Color color21 = alpha * ((float)Math.Min(mPlayer.screwAttackSpeedEffect,30)/30f);
-							//spriteBatch.Draw(tex2, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0);
-							spriteBatch.Draw(tex2, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0);
+							spriteBatch.Draw(tex2, drawInfo.position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2((float)(tex2.Width / 2), (float)(num121 / 2)), projectile.scale, effects, 0);
 							Texture2D tex3 = mod.GetTexture("Gore/ScrewAttack_YellowPlayerGlow");
-							//Main.playerDrawData.Add(new DrawData(tex3, new Vector2(projectile.position.X - Main.screenPosition.X + num100, projectile.position.Y - Main.screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2(num100, (float)(projectile.height / 2)), projectile.scale, effects, 0));
-							Main.playerDrawData.Add(new DrawData(tex3, drawInfo.position + (P.Center-P.position) - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2((float)(projectile.width / 2), (float)(projectile.height / 2)), projectile.scale, effects, 0));
+							Main.playerDrawData.Add(new DrawData(tex3, drawInfo.position + (P.Center-P.position) - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2((float)(tex3.Width / 2), (float)(tex3.Height / 2)), projectile.scale, effects, 0));
 						}
 					}
 				}
@@ -1258,6 +1262,11 @@ namespace MetroidMod
 					{
 						effects = SpriteEffects.FlipHorizontally;
 					}
+					if (P.gravDir == -1f)
+					{
+						effects |= SpriteEffects.FlipVertically;
+						pos.Y -= 2;
+					}
 					Color color = Lighting.GetColor((int)((double)drawInfo.position.X + (double)P.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)P.height * 0.5) / 16);
 
 					DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + new Vector2((float)((int)pos.X),(float)((int)pos.Y)), new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)), drawInfo.middleArmorColor, rot, origin, I.scale, effects, 0);
@@ -1306,6 +1315,10 @@ namespace MetroidMod
 			{
 				effects = SpriteEffects.FlipHorizontally;
 			}
+			if (drawPlayer.gravDir == -1f)
+			{
+				effects |= SpriteEffects.FlipVertically;
+			}
 			DrawData item = new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + 4f))) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
 			item.shader = shader;
 			Main.playerDrawData.Add(item);
@@ -1319,6 +1332,10 @@ namespace MetroidMod
 			if (drawPlayer.direction == -1)
 			{
 				effects = SpriteEffects.FlipHorizontally;
+			}
+			if (drawPlayer.gravDir == -1f)
+			{
+				effects |= SpriteEffects.FlipVertically;
 			}
 			jetFrame.Width = 40;
 			jetFrame.Height = 56;
@@ -1366,6 +1383,10 @@ namespace MetroidMod
 				if (drawPlayer.direction == -1)
 				{
 					effects = SpriteEffects.FlipHorizontally;
+				}
+				if (drawPlayer.gravDir == -1f)
+				{
+					effects |= SpriteEffects.FlipVertically;
 				}
 				float ballrotoffset = 0f;
 				if(drawPlayer.velocity.Y != Vector2.Zero.Y)
