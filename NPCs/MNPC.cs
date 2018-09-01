@@ -105,6 +105,13 @@ namespace MetroidMod.NPCs
 					}
 				}
 			}
+		    if(mp.reserveTanks > 0 && mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)
+		    {
+			if (npc.type != 16 && npc.type != 81 && npc.type != 121 && npc.lifeMax > 1 && npc.damage > 0 && Main.rand.Next(12) == 0)
+			{
+			    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.Heart, 1);
+			}
+		    }
         	}
 	}
 }
