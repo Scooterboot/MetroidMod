@@ -94,4 +94,20 @@ namespace MetroidMod.Items
 			}
 		}
 	}
+
+    public class reservePickup : GlobalItem
+    {
+        public override bool OnPickup(Item item, Player player)
+        {
+            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            if (item.type == ItemID.Heart || item.type == ItemID.CandyApple || item.type == ItemID.CandyCane)
+            {
+                if (mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)
+                {
+                    mp.reserveHearts++;
+                }
+            }
+            return base.OnPickup(item, player);
+        }
+    }
 }
