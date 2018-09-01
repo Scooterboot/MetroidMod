@@ -85,6 +85,7 @@ namespace MetroidMod {
 				DrawChargeBar(sb);
 				DrawSpaceJumpBar(sb);
 			}
+            		DrawReserveHearts(sb);
 
 			if (P.buffType[0] > 0)
 			{
@@ -296,6 +297,83 @@ namespace MetroidMod {
 					sb.Draw(texBar,new Vector2(x+2,y+2),new Rectangle(0,0,w,texBar.Height),s);
 				}
 			}
+		}
+		public void DrawReserveHearts(SpriteBatch sb)
+		{
+		    Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+		    Player P = Main.player[Main.myPlayer];
+		    MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+		    if (mp.reserveTanks > 0)
+		    {
+			Texture2D texHeart = mod.GetTexture("Gore/ReserveHeart");
+			if (P.whoAmI == Main.myPlayer && P.active && !P.dead && !P.ghost)
+			{
+			    float lifePerHeart = 20f;
+			    int num = Main.player[Main.myPlayer].statLifeMax / 20;
+			    int num2 = (Main.player[Main.myPlayer].statLifeMax - 400) / 5;
+			    if (num2 < 0)
+			    {
+				num2 = 0;
+			    }
+			    if (num2 > 0)
+			    {
+				num = Main.player[Main.myPlayer].statLifeMax / (20 + num2 / 4);
+				lifePerHeart = (float)Main.player[Main.myPlayer].statLifeMax / 20f;
+			    }
+			    int num3 = Main.player[Main.myPlayer].statLifeMax2 - Main.player[Main.myPlayer].statLifeMax;
+			    lifePerHeart += (float)(num3 / num);
+			    int num4 = (int)((float)Main.player[Main.myPlayer].statLifeMax2 / lifePerHeart);
+			    if (num4 >= 10)
+			    {
+				num4 = 10;
+			    }
+			    for (int i = 1; i < mp.reserveHearts + 1; i++)
+			    {
+				float num5 = 1f;
+				bool flag = false;
+				int num6;
+				if ((float)Main.player[Main.myPlayer].statLife >= (float)i * lifePerHeart)
+				{
+				    num6 = 255;
+				    if ((float)Main.player[Main.myPlayer].statLife == (float)i * lifePerHeart)
+				    {
+					flag = true;
+				    }
+				}
+				else
+				{
+				    float num7 = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * lifePerHeart) / lifePerHeart;
+				    num6 = (int)(30f + 225f * num7);
+				    if (num6 < 30)
+				    {
+					num6 = 30;
+				    }
+				    num5 = num7 / 4f + 0.75f;
+				    if ((double)num5 < 0.75)
+				    {
+					num5 = 0.75f;
+				    }
+				    if (num7 > 0f)
+				    {
+					flag = true;
+				    }
+				}
+				if (flag)
+				{
+				    num5 += Main.cursorScale - 1f;
+				}
+				int num8 = 0;
+				int num9 = 0;
+				if (i > 10)
+				{
+				    num8 -= 260;
+				    num9 += 26;
+				}
+				int a = (int)((double)((float)num6) * 0.9);
+				Main.spriteBatch.Draw(texHeart, new Vector2((float)(500 + 26 * (i - 1) + num8 + (Main.screenWidth - 800) + Main.heartTexture.Width / 2), 32f + ((float)Main.heartTexture.Height - (float)Main.heartTexture.Height * num5) / 2f + (float)num9 + (float)(Main.heartTexture.Height / 2)), new Rectangle?(new Rectangle(0, 0, texHeart.Width, texHeart.Height)), new Color(num6, num6, num6, a), 0f, new Vector2((float)(texHeart.Width / 2), (float)(texHeart.Height / 2)), num5, SpriteEffects.None, 0f);
+			    }
+			}
+		    }
 		}
 	}
 }
