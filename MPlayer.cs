@@ -106,7 +106,9 @@ namespace MetroidMod
 		public int overheatDelay = 0;
 		public int specialDmg = 100;
 		public bool phazonImmune = false;
-        public bool hazardShield = false;
+        	public bool hazardShield = false;
+        	public int reserveTanks = 0;
+        	public int reserveHearts = 0;
 		public int phazonRegen = 0;
 		int tweak = 0;
 		bool tweak2 = false;
@@ -117,7 +119,8 @@ namespace MetroidMod
 			isPowerSuit = false;
 			phazonImmune = false;
 			phazonRegen = 0;
-            hazardShield = false;
+            		hazardShield = false;
+            		reserveTanks = 0;
 			thrusters = false;
 			spaceJump = false;
 			speedBooster = false;
@@ -850,6 +853,25 @@ namespace MetroidMod
 				shineActive = false;
 			}
 			grapplingBeam = -1;
+		}
+		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		{
+		    if (reserveTanks > 0 && reserveHearts > 0)
+		    {
+			if (player.statLifeMax < reserveHearts * 20)
+			{
+			    player.statLife = (player.statLifeMax / 20) * 20;
+			    reserveHearts -= (player.statLifeMax / 20);
+			}
+			else
+			{
+			    player.statLife = reserveHearts * 20;
+			    reserveHearts = 0;
+			}
+			Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
+			return false;
+		    }
+		    return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
 		}
 		public int psuedoScrewFlash = 0;
 		public int shineChargeFlash = 0;
