@@ -15,7 +15,7 @@ namespace MetroidMod.NPCs.Mobs
          */
 
         public bool spawn = false;
-        private float speed = .75F;
+        internal readonly float speed = .75F;
 
         public override void SetStaticDefaults()
         {
@@ -55,7 +55,7 @@ namespace MetroidMod.NPCs.Mobs
                 npc.TargetClosest(true);
 
                 Player p = Main.player[npc.target];
-                if (Vector2.Distance(p.position, npc.position) <= 32 &&
+                if (Vector2.Distance(p.position, npc.position) <= 160 &&
                     Collision.CanHit(npc.position, npc.width, npc.height, p.position, p.width, p.height) &&
                     npc.velocity.Y == 0)
                 {
@@ -69,7 +69,7 @@ namespace MetroidMod.NPCs.Mobs
             {
                 npc.velocity = Vector2.Zero;                
 
-                if(npc.ai[1]++ >= 60)
+                if(npc.ai[1]++ >= 60 && Main.netMode != 1)
                 {
                     // Fire projectiles.
                     for (int i = 0; i < 5; ++i)
@@ -95,7 +95,7 @@ namespace MetroidMod.NPCs.Mobs
             }
             else if(npc.ai[0] == 0)
             {
-                npc.frameCounter += Math.Abs(npc.velocity.X) / 4;
+                npc.frameCounter += Math.Abs(npc.velocity.X) / 3.5F;
 
                 npc.frameCounter %= (Main.npcFrameCount[npc.type] - 4); // If the frameCounter exceeds the amount of frames available, reset it to 0.
                 int frame = (int)(npc.frameCounter);

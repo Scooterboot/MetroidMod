@@ -28,30 +28,25 @@ namespace MetroidMod.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
-			dustType = 1;
 			adjTiles = new int[]{ TileID.OpenDoor };
 		}
 
-		public override bool Slope(int i, int j)
-		{
-			return false;
-		}
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = 1;
-		}
-		public override void MouseOver(int i, int j)
-		{
-			Player player = Main.LocalPlayer;
-			player.noThrow = 2;
-			player.showItemIcon = true;
-			player.showItemIcon2 = mod.ItemType("BlueHatch");
-		}
-		public override void RightClick(int i, int j)
-		{
-			HitWire(i, j);
-		}
-public override void HitWire(int i, int j)
+        public override bool Slope(int i, int j) { return false; }
+        public override void MouseOver(int i, int j)
+        {
+            Player player = Main.LocalPlayer;
+            player.noThrow = 2;
+            player.showItemIcon = true;
+            player.showItemIcon2 = mod.ItemType("BlueHatch");
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("BlueHatch"));
+        }
+
+        public override void RightClick(int i, int j) { HitWire(i, j); }
+        public override void HitWire(int i, int j)
 		{
 			Main.PlaySound(SoundLoader.customSoundType, i * 16, j * 16,  mod.GetSoundSlot(SoundType.Custom, "Sounds/HatchCloseSound"));
 			int x = i - (Main.tile[i, j].frameX / 18) % 3;
@@ -60,14 +55,14 @@ public override void HitWire(int i, int j)
 			{
 				for (int m = y; m < y + 3; m++)
 				{
-					if (Main.tile[l, m] == null)
-					{
-						Main.tile[l, m] = new Tile();
-					}
+                    if (Main.tile[l, m] == null)
+                    {
+                        Main.tile[l, m] = new Tile();
+                        continue;
+                    }
+
 					if (Main.tile[l, m].active() && Main.tile[l, m].type == Type)
-					{
 						Main.tile[l,m].type = (ushort)mod.TileType("BlueHatch");
-					}
 				}
 			}
 			if (Wiring.running)
@@ -78,12 +73,11 @@ public override void HitWire(int i, int j)
 				Wiring.SkipWire(x + 1, y);
 				Wiring.SkipWire(x + 1, y + 1);
 				Wiring.SkipWire(x + 1, y + 2);
-			}
-			NetMessage.SendTileSquare(-1, x, y + 1, 3);
-		}
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("BlueHatch"));
-		}
+            }
+
+            for (int l = x; l < x + 3; l++)
+                for (int m = y; m < y + 3; m++)
+                    WorldGen.TileFrame(x, y);
+        }
 	}
 }

@@ -88,7 +88,7 @@ namespace MetroidMod.Projectiles
             {
                 for (int y = tiley; y < tiley2; y++)
                 {
-                    if (Main.tile[x, y].active())
+                    if (Main.tile[x, y] != null && Main.tile[x, y].active())
                     {
                         if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
                         {

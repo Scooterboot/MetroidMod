@@ -47,6 +47,8 @@ namespace MetroidMod.NPCs.Mobs
 
         private void SpawnKago(Player player, int damage)
         {
+            if (Main.netMode == 1) return;
+
             // Spawn one Kago per hit.
             NPC kago = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Kago"))];
 
