@@ -1,29 +1,24 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Viola : ModNPC
+    public class Geemer : ModNPC
     {
-        /*
-         * npc.ai[0] & npc.ai[1] = state managers.
-         * npc.ai[2] = animation state (ping-pong).
-         */
         internal readonly float speed = 1.5F;
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 6;
+            Main.npcFrameCount[npc.type] = 5;
         }
         public override void SetDefaults()
         {
-            npc.width = 12; npc.height = 12;
+            npc.width = 22; npc.height = 18;
 
-            /* Temporary NPC values */
             npc.scale = 2;
             npc.damage = 15;
             npc.defense = 5;
@@ -48,12 +43,12 @@ namespace MetroidMod.NPCs.Mobs
                 npc.ai[2] = 1;
             }
 
-            if(npc.ai[1] == 0)
+            if (npc.ai[1] == 0)
             {
                 if (npc.collideY)
                     npc.ai[0] = 2;
 
-                if(!npc.collideY && npc.ai[0] == 2)
+                if (!npc.collideY && npc.ai[0] == 2)
                 {
                     npc.direction = -npc.direction;
                     npc.ai[0] = npc.ai[1] = 1;
@@ -86,22 +81,42 @@ namespace MetroidMod.NPCs.Mobs
 
             npc.velocity.X = npc.direction * speed;
             npc.velocity.Y = npc.directionY * speed;
-
-            Lighting.AddLight(npc.Center, 0, .72F, .77F);
         }
 
         public override void FindFrame(int frameHeight)
         {
-            if (npc.frameCounter++ >= 6)
+            if (npc.frameCounter++ >= 8)
             {
-                npc.frame.Y = npc.frame.Y + (int)(frameHeight * npc.ai[2]);
-
-                if (npc.frame.Y == 5 * frameHeight)
-                    npc.ai[2] = -1;
-                else if (npc.frame.Y == 0)
-                    npc.ai[2] = 1;
-
+                npc.frame.Y = (npc.frame.Y + frameHeight) % (Main.npcFrameCount[npc.type] * frameHeight);
                 npc.frameCounter = 0;
+            }
+
+            // Rotate the NPC correctly (visually).
+            if(npc.direction == 1)
+            {
+                if(npc.directionY == 1)
+                {
+                    npc.rotation = -MathHelper.PiOver2;
+                    npc.visualOffset = new Vector2(6, 0);
+                }
+                else
+                {
+                    npc.rotation = -(float)Math.PI;
+                    npc.visualOffset = new Vector2(0, -6);
+                }
+            }
+            else
+            {
+                if (npc.directionY == 1)
+                {
+                    npc.rotation = 0;
+                    npc.visualOffset = new Vector2(0, 0);
+                }
+                else
+                {
+                    npc.rotation = MathHelper.PiOver2;
+                    npc.visualOffset = new Vector2(-6, 0);
+                }
             }
         }
     }

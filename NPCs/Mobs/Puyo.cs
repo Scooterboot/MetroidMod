@@ -15,14 +15,18 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            /* Temporary NPC values */
-            npc.lifeMax = 20;
             npc.width = 30; npc.height = 8;
-            npc.damage = 5;
+
+            /* Temporary NPC values */
+            npc.scale = 2;
+            npc.damage = 15;
+            npc.defense = 5;
+            npc.lifeMax = 150;
+            npc.aiStyle = -1;
+            npc.knockBackResist = .2F;
 
             npc.HitSound = SoundID.NPCHit1;
-
-            npc.knockBackResist = .2F;
+            npc.DeathSound = SoundID.NPCDeath1;
         }
 
         public bool spawn = false;

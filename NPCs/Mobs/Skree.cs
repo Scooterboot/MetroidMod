@@ -19,6 +19,7 @@ namespace MetroidMod.NPCs.Mobs
             npc.width = 24;
             npc.height = 28;
 
+            /* Temporary NPC values */
             npc.scale = 1.5F;
             npc.damage = 15;
             npc.defense = 5;
@@ -26,8 +27,8 @@ namespace MetroidMod.NPCs.Mobs
             npc.knockBackResist = 0;
 
             npc.npcSlots = .5F;
-            npc.behindTiles = true;
             npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = SoundID.NPCDeath1;
         }
 
         public override void AI()

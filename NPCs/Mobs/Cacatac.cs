@@ -10,8 +10,7 @@ namespace MetroidMod.NPCs.Mobs
     public class Cacatac : ModNPC
     {
         /*
-         * npc.ai[0] = state manager.
-         *  
+         * npc.ai[0] = state manager.  
          */
 
         public bool spawn = false;
@@ -23,12 +22,17 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            /* Temporary NPC values */
-            npc.lifeMax = 20;
             npc.width = 24; npc.height = 34;
-            npc.damage = 20;
 
+            /* Temporary NPC values */
+            npc.damage = 15;
+            npc.defense = 5;
+            npc.lifeMax = 150;
+            npc.aiStyle = -1;
             npc.knockBackResist = 0;
+
+            npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = SoundID.NPCDeath1;
         }
 
         public override bool PreAI()

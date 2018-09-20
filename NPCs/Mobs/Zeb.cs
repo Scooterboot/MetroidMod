@@ -17,6 +17,7 @@ namespace MetroidMod.NPCs.Mobs
         {
             npc.width = 16; npc.height = 14;
 
+            /* Temporary NPC values */
             npc.scale = 2;
             npc.damage = 15;
             npc.defense = 5;
@@ -26,6 +27,7 @@ namespace MetroidMod.NPCs.Mobs
 
             npc.noGravity = true;
             npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = SoundID.NPCDeath1;
         }
 
         public override bool PreAI()

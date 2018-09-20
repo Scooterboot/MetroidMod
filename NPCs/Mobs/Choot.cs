@@ -22,13 +22,18 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            /* Temporary NPC values */
-            npc.lifeMax = 350;
             npc.width = 32; npc.height = 16;
+
+            /* Temporary NPC values */
             npc.damage = 15;
+            npc.defense = 5;
+            npc.lifeMax = 150;
+            npc.aiStyle = -1;
+            npc.knockBackResist = 0;
 
             npc.noGravity = true;
-            npc.knockBackResist = 0;
+            npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = SoundID.NPCDeath1;
         }
 
         public override bool PreAI()
