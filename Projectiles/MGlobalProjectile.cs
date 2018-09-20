@@ -104,9 +104,9 @@ namespace MetroidMod.Projectiles
                             {
                                 TileLoader.HitWire(x, y, mod.TileType("RedHatch"));
                             }
-                            if (Main.tile[x, y].type == (ushort)mod.TileType("RedVertical"))
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("RedHatchVertical"))
                             {
-                                TileLoader.HitWire(x, y, mod.TileType("RedVertical"));
+                                TileLoader.HitWire(x, y, mod.TileType("RedHatchVertical"));
                             }
                             if (projectile.Name.Contains("Super"))
                             {

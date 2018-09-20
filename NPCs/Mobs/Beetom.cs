@@ -25,7 +25,7 @@ namespace MetroidMod.NPCs.Mobs
             npc.scale = 2;
             npc.damage = 15;
             npc.defense = 5;
-            npc.lifeMax = 20;
+            npc.lifeMax = 150;
             npc.aiStyle = -1;
             npc.knockBackResist = 0;
 
@@ -62,7 +62,7 @@ namespace MetroidMod.NPCs.Mobs
                 npc.Center = Main.player[(int)npc.ai[2]].Center;
             }
 
-            return true;
+            return false;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
