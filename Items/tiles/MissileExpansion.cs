@@ -13,6 +13,7 @@ namespace MetroidMod.Items.tiles
 				"Increase maximum Missiles by 5 with each expansion slotted in\n" +
 				"Stack it up to 50 expansions for +250 maximum Missiles");
 		}
+
 		public override void SetDefaults()
 		{
 			item.width = 32;
@@ -27,8 +28,9 @@ namespace MetroidMod.Items.tiles
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("MissileExpansionTile");
-		}
 
-
+            MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+            mItem.missileSlotType = 2;
+        }
 	}
 }

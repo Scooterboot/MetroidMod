@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Text;
-using System.Diagnostics;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,8 +13,28 @@ using Terraria.ModLoader.IO;
 namespace MetroidMod.Items.equipables
 {
 	public class MorphBall : ModItem
-	{
-		public override void SetStaticDefaults()
+    {
+        private Item[] _ballMods;
+        public Item[] ballMods
+        {
+            get
+            {
+                if (_ballMods == null)
+                {
+                    _ballMods = new Item[MetroidMod.ballSlotAmount];
+                    for (int i = 0; i < _ballMods.Length; ++i)
+                    {
+                        _ballMods[i] = new Item();
+                        _ballMods[i].TurnToAir();
+                    }
+                }
+
+                return _ballMods;
+            }
+            set { _ballMods = value; }
+        }
+
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Morph Ball");
 			Tooltip.SetDefault("Press the morph ball key to roll into a ball\n" + 
@@ -51,19 +70,7 @@ namespace MetroidMod.Items.equipables
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-		public BallUI ballUI;
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			if(ballUI == null)
-			{
-				ballUI = new BallUI();
-			}
-			
-			if(!Main.playerInventory || Main.EquipPage != 2)
-			{
-				ballUI.BallUIOpen = false;
-			}
-		}
+
 		public override bool CanUseItem(Player player)
 		{
 			return (item == player.miscEquips[3]);
@@ -73,14 +80,7 @@ namespace MetroidMod.Items.equipables
 		{
 			ModItem clone = this.NewInstance(item);
 			MorphBall ballClone = (MorphBall)clone;
-			if(ballUI != null)
-			{
-				ballClone.ballUI = ballUI;
-			}
-			else
-			{
-				ballClone.ballUI = new BallUI();
-			}
+            ballClone.ballMods = this.ballMods;
 			return clone;
 		}
 
@@ -98,82 +98,35 @@ namespace MetroidMod.Items.equipables
 			drawColor = mp.morphColorLights;
 			Texture2D tex = mod.GetTexture("Items/equipables/MorphBall_Lights");
 			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
-			/*int e = 3;
-			for(int i = 3; i < 8 + player.extraAccessorySlots; i++)
-			{
-				if(ballUI != null)
-				{
-					if(player.armor[i] == item)
-					{
-						ballUI.Draw(sb);
-						break;
-					}
-					else
-					{
-						e++;
-						if(e >= 8 + player.extraAccessorySlots)
-						{
-							ballUI.BallUIOpen = false;
-						}
-					}
-				}
-			}*/
-			if(ballUI != null)
-			{
-				if(player.miscEquips[3] == item && Main.EquipPage == 2)
-				{
-					ballUI.Draw(sb);
-				}
-				else
-				{
-					ballUI.BallUIOpen = false;
-				}
-			}
 		}
-		public static BallUI TempBallUI;
-		public override void PreReforge()
-		{
-			if(ballUI != null)
-			{
-				TempBallUI = ballUI;
-			}
-		}
-		public override void PostReforge()
-		{
-			ballUI = TempBallUI;
-		}
+        public override bool NewPreReforge()
+        {
+            return base.NewPreReforge();
+        }
+
 		public override TagCompound Save()
 		{
-			if(ballUI != null)
-			{
-				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-				return new TagCompound
-				{
-					{"ballItem0", ItemIO.Save(ballUI.ballSlot[0].item)},
-					{"ballItem1", ItemIO.Save(ballUI.ballSlot[1].item)},
-					{"ballItem2", ItemIO.Save(ballUI.ballSlot[2].item)},
-					{"ballItem3", ItemIO.Save(ballUI.ballSlot[3].item)},
-					{"ballItem4", ItemIO.Save(ballUI.ballSlot[4].item)}
-				};
-			}
-			return null;
+            TagCompound tag = new TagCompound();
+            for(int i = 0; i < ballMods.Length; ++i)
+            {
+                tag.Add("ballItem" + i, ItemIO.Save(ballMods[i]));
+            }
+			return tag;
 		}
 		public override void Load(TagCompound tag)
 		{
 			try
-			{
-				if(ballUI == null)
-				{
-					ballUI = new BallUI();
-				}
-				for(int i = 0; i < ballUI.ballSlot.Length ; i++)
-				{
-					Item item = tag.Get<Item>("ballItem"+i);
-					ballUI.ballSlot[i].item = item;
-				}
+            {
+                ballMods = new Item[MetroidMod.ballSlotAmount];
+                for (int i = 0; i< ballMods.Length; ++i)
+                {
+                    Item item = tag.Get<Item>("ballItem" + i);
+                    ballMods[i] = item;
+                }
 			}
 			catch{}
 		}
+
 		public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI )
 		{
 			DrawLights(sb, Main.player[Main.myPlayer]);
@@ -191,5 +144,20 @@ namespace MetroidMod.Items.equipables
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			sb.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num5, item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num4 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), mp.morphColorLights, rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), num3, SpriteEffects.None, 0f);
 		}
-	}
+        
+        public override void NetSend(BinaryWriter writer)
+        {
+            for (int i = 0; i < ballMods.Length; ++i)
+            {
+                writer.WriteItem(ballMods[i]);
+            }
+        }
+        public override void NetRecieve(BinaryReader reader)
+        {
+            for (int i = 0; i < ballMods.Length; ++i)
+            {
+                ballMods[i] = reader.ReadItem();
+            }
+        }
+    }
 }

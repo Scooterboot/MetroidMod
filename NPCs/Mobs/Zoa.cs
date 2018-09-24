@@ -7,19 +7,22 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Skultera : ModNPC
+    public class Zoa : ModNPC
     {
         /*
          * npc.ai[0] = idle/notarget velocity manager.
-         * npc.ai[1] = animation helper.
+         * npc.ai[1] = dash timer.
          */
+
+        internal readonly float dashSpeed = 8;
+
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 9;
+            Main.npcFrameCount[npc.type] = 4;
         }
         public override void SetDefaults()
         {
-            npc.width = 30; npc.height = 28;
+            npc.width = npc.height = 16;
 
             /* Temporary NPC values */
             npc.scale = 2;
@@ -34,29 +37,46 @@ namespace MetroidMod.NPCs.Mobs
             npc.DeathSound = SoundID.NPCDeath1;
         }
 
-        public override void AI()
+        public override bool PreAI()
         {
             if (npc.direction == 0)
                 npc.TargetClosest();
 
-            if(npc.wet)
+            if (npc.wet)
             {
                 bool followPlayer = false;
                 npc.TargetClosest(false);
                 if (Main.player[npc.target].wet && !Main.player[npc.target].dead)
                     followPlayer = true;
 
-                if(followPlayer) // Follow target.
+                if (followPlayer) // Follow target.
                 {
                     npc.TargetClosest(true);
-                    if (npc.direction != npc.oldDirection)
-                        npc.ai[1]++;
+                    
+                    if(npc.ai[1]-- <= -30)
+                    {
+                        Vector2 dashVelocity = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * dashSpeed;
+                        npc.velocity = dashVelocity;
+
+                        // Setup dash dusts.
+                        for(int i = 0; i < 8; ++i)
+                        {
+                            dashVelocity *= .5F;
+                            int newDust = Dust.NewDust(npc.Center, npc.width, npc.height, DustID.BubbleBlock, -dashVelocity.X, -dashVelocity.Y);
+                            Main.dust[newDust].noGravity = true;
+                        }
+
+                        npc.ai[1] = 50;
+                    }
 
                     npc.velocity.X += npc.direction * .15F;
                     npc.velocity.Y += npc.directionY * .15F;
 
-                    npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -5, 5);
-                    npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -3, 3);
+                    if (npc.ai[1] <= 0)
+                    {
+                        npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -5, 5);
+                        npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -3, 3);
+                    }
                 }
                 else // Idle/swim around; no target. 
                 {
@@ -96,7 +116,7 @@ namespace MetroidMod.NPCs.Mobs
                     int npcTilePosX = (int)(npc.position.X + (npc.width / 2)) / 16;
                     int npcTilePosY = (int)(npc.position.Y + (npc.height / 2)) / 16;
 
-                    for (int y = npcTilePosY - 1; y < npcTilePosY + 2; ++y)
+                    for(int y = npcTilePosY - 1; y < npcTilePosY + 2; ++y)
                     {
                         if (Main.tile[npcTilePosX, y] == null)
                             Main.tile[npcTilePosX, y] = new Tile();
@@ -111,7 +131,7 @@ namespace MetroidMod.NPCs.Mobs
             }
             else
             {
-                if(npc.velocity.Y == 0)
+                if (npc.velocity.Y == 0)
                 {
                     npc.velocity.X *= .94F;
                     if (npc.velocity.X > -.2F && npc.velocity.X < .2F)
@@ -125,40 +145,21 @@ namespace MetroidMod.NPCs.Mobs
             }
 
             npc.rotation = npc.velocity.Y * npc.direction * .1F;
-            npc.rotation = MathHelper.Clamp(npc.rotation, -.2F, .2F);
+            npc.rotation = MathHelper.Clamp(npc.rotation, -.3F, .3F);
+            return false;
         }
 
         public override void FindFrame(int frameHeight)
         {
-            if (npc.ai[1] > 0) // NPC is turning (animation).
+            if (npc.ai[1] <= 0 && npc.frameCounter++ >= 4)
             {
-                npc.ai[1]++;
-                if (npc.ai[1] < 3)
-                    npc.frame.Y = 4 * frameHeight;
-                else if (npc.ai[1] < 6)
-                    npc.frame.Y = 5 * frameHeight;
-                else if (npc.ai[1] < 9)
-                    npc.frame.Y = 6 * frameHeight;
-                else if (npc.ai[1] < 12)
-                    npc.frame.Y = 7 * frameHeight;
-                else if (npc.ai[1] < 15)
-                    npc.frame.Y = 8 * frameHeight;
-                else
-                {
-                    npc.ai[1] = 0;
-                    npc.frame.Y = 0;
-                    npc.spriteDirection = npc.direction;
-                }
+                npc.frame.Y = (npc.frame.Y + frameHeight) % (3 * frameHeight);
+                npc.frameCounter = 0;
             }
-            else
-            {
-                if (npc.frameCounter++ >= 6) // NPC is swimming.
-                {
-                    npc.frame.Y = (npc.frame.Y + frameHeight) % (3 * frameHeight);
-                    npc.frameCounter = 0;
-                }
-                npc.spriteDirection = npc.direction;
-            }
+            else if (npc.ai[1] > 0)
+                npc.frame.Y = 3 * frameHeight;
+
+            npc.spriteDirection = -npc.direction;
         }
     }
 }

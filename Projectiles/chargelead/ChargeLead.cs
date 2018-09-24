@@ -43,8 +43,7 @@ namespace MetroidMod.Projectiles.chargelead
 		public override void AI()
 		{
 			Projectile P = projectile;
-			Player O = Main.player[P.owner];
-			
+			Player O = Main.player[P.owner];			
 			MPlayer mp = O.GetModPlayer<MPlayer>(mod);
 			
 			mp.chargeColor = LightColor;
@@ -52,14 +51,19 @@ namespace MetroidMod.Projectiles.chargelead
 			float MY = Main.mouseY + Main.screenPosition.Y;
 			float MX = Main.mouseX + Main.screenPosition.X;
 			if (O.gravDir == -1f)
-			{
 				MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-			}
+
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
-			
-			P.scale = mp.statCharge / MPlayer.maxCharge;
+
+            if (P.owner == O.whoAmI)
+            {
+                P.scale = mp.statCharge / MPlayer.maxCharge;
+                P.ai[0] = P.scale;
+            }
+            else
+                P.scale = P.ai[0];
+
 			float targetrotation = (float)Math.Atan2((MY-oPos.Y),(MX-oPos.X));
-			P.rotation += 0.5f * P.direction;
 			O.itemTime = 2;
 			O.itemAnimation = 2;
 			Item I = O.inventory[O.selectedItem];
@@ -68,9 +72,7 @@ namespace MetroidMod.Projectiles.chargelead
 			int height = (I.height/2)-(P.height/2);
 			
 			if(negateUseTime < I.useTime-2)
-			{
 				negateUseTime++;
-			}
 			
 			float dmgMult = (1f+((float)mp.statCharge*0.04f));
 			int damage = (int)((float)I.damage*O.rangedDamage);
@@ -120,14 +122,10 @@ namespace MetroidMod.Projectiles.chargelead
 			P.height = mp.somersault?60:16;
 			P.position.X -= (float)(P.width / 2);
 			P.position.Y -= (float)(P.height / 2);
-			
-			O.heldProj = P.whoAmI;
-			O.itemRotation = (float)Math.Atan2((MY-oPos.Y)*O.direction,(MX-oPos.X)*O.direction) - O.fullRotation;
 
 			P.position -= P.velocity;
-			P.timeLeft = 60;
-			if(O.whoAmI == Main.myPlayer)
-			{
+			//if(O.whoAmI == Main.myPlayer)
+			//{
 				if(mp.statCharge == 10)
 				{
 					soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+ChargeUpSound));
@@ -141,7 +139,7 @@ namespace MetroidMod.Projectiles.chargelead
 					}
 					soundPlayed = true;
 				}
-			}
+			//}
 			if(mp.statCharge >= MPlayer.maxCharge && !mp.somersault)
 			{
 				int dust = Dust.NewDust(P.position+P.velocity, P.width, P.height, DustType, 0, 0, 100, DustColor, 2.0f);
@@ -153,6 +151,7 @@ namespace MetroidMod.Projectiles.chargelead
 				if (P.owner == Main.myPlayer)
 				{
 					P.velocity = targetrotation.ToRotationVector2()*O.inventory[O.selectedItem].shootSpeed;
+                    P.netUpdate = true;
 				}
 			}
 			else
@@ -170,22 +169,24 @@ namespace MetroidMod.Projectiles.chargelead
 				if(O.whoAmI == Main.myPlayer)
 				{
 					if(soundInstance != null)
-					{
 						soundInstance.Stop(true);
-					}
 					soundPlayed = false;
 				}
 				P.Kill();
-			}
-		}
+            }
+
+            P.timeLeft = 2;
+            O.heldProj = P.whoAmI;
+            O.itemRotation = (float)Math.Atan2(P.velocity.Y * O.direction, P.velocity.X * O.direction) - O.fullRotation;
+        }
+
 		public override void Kill(int timeLeft)
 		{
 			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
 			if(!mp.ballstate)
-			{
 				mp.statCharge = 0;
-			}
 		}
+
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D tex = ModLoader.GetMod(UIParameters.MODNAME).GetTexture("Projectiles/chargelead/"+ChargeTex);

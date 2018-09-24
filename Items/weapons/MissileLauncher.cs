@@ -1,7 +1,6 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,8 +17,29 @@ using MetroidMod.Projectiles.chargelead;
 namespace MetroidMod.Items.weapons
 {
 	public class MissileLauncher : ModItem
-	{
-		public override void SetStaticDefaults()
+    {
+        // Failsaves.
+        private Item[] _missileMods;
+        public Item[] missileMods
+        {
+            get
+            {
+                if (_missileMods == null)
+                {
+                    _missileMods = new Item[MetroidMod.missileSlotAmount];
+                    for (int i = 0; i < _missileMods.Length; ++i)
+                    {
+                        _missileMods[i] = new Item();
+                        _missileMods[i].TurnToAir();
+                    }
+                }
+
+                return _missileMods;
+            }
+            set { _missileMods = value; }
+        }
+
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Missile Launcher");
 			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Missile Addon UI");
@@ -80,8 +100,6 @@ namespace MetroidMod.Items.weapons
 			}
 			return (mi.statMissiles > 0);
 		}
-
-		public MissileUI missileUI;
 		
 		int finalDmg = 0;
 		
@@ -105,20 +123,15 @@ namespace MetroidMod.Items.weapons
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
 
-			if(missileUI == null)
-			{
-				missileUI = new MissileUI();
-			}
-
 			int ic = mod.ItemType("IceMissileAddon");
 			int sm = mod.ItemType("SuperMissileAddon");
 			int icSm = mod.ItemType("IceSuperMissileAddon");
 			int di = mod.ItemType("DiffusionMissileAddon");
 			int se = mod.ItemType("SeekerMissileAddon");
 			
-			Item slot1 = missileUI.missileSlot[0].item;
-			Item slot2 = missileUI.missileSlot[1].item;
-			Item exp = missileUI.expansionSlot.item;
+			Item slot1 = missileMods[0];
+			Item slot2 = missileMods[1];
+			Item exp = missileMods[2];
 			
 			int damage = 30;
 			useTime = 9;
@@ -244,14 +257,8 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			MissileLauncher missileClone = (MissileLauncher)clone;
-			if(missileUI != null)
-			{
-				missileClone.missileUI = missileUI;
-			}
-			else
-			{
-				missileClone.missileUI = new MissileUI();
-			}
+            missileClone.missileMods = this.missileMods;
+
 			return clone;
 		}
 		
@@ -473,44 +480,20 @@ namespace MetroidMod.Items.weapons
 			}
 		}
 		
-		int selectedItem = 0;
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-			Player player = Main.player[Main.myPlayer];
-			if(player.selectedItem < 10)
-			{
-				selectedItem = player.selectedItem;
-			}
-			if(missileUI != null)
-			{
-				if(player.inventory[selectedItem] == item)
-				{
-					missileUI.Draw(spriteBatch);
-				}
-				else
-				{
-					missileUI.MissileUIOpen = false;
-				}
-			}
-        }
-		
-		public static MissileUI TempMissileUI;
-		public static int TempStatMissiles;
-		public static int TempMaxMissiles;
+		Item[] tempMissileMods;
+		int TempStatMissiles;
+		int TempMaxMissiles;
 		public override bool NewPreReforge()
 		{
-			if(missileUI != null)
-			{
-				TempMissileUI = missileUI;
-			}
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+            tempMissileMods = this.missileMods;
+            MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
 			TempStatMissiles = mi.statMissiles;
 			TempMaxMissiles = mi.maxMissiles;
 			return true;
 		}
 		public override void PostReforge()
 		{
-			missileUI = TempMissileUI;
+            this.missileMods = tempMissileMods;
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
 			mi.statMissiles = TempStatMissiles;
 			mi.maxMissiles = TempMaxMissiles;
@@ -518,34 +501,26 @@ namespace MetroidMod.Items.weapons
 		
 		public override TagCompound Save()
 		{
-			if(missileUI != null)
-			{
-				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-				return new TagCompound
-				{
-					{"missileItem0", ItemIO.Save(missileUI.missileSlot[0].item)},
-					{"missileItem1", ItemIO.Save(missileUI.missileSlot[1].item)},
-					{"expansion", ItemIO.Save(missileUI.expansionSlot.item)},
-					{"statMissiles", mi.statMissiles},
-					{"maxMissiles", mi.maxMissiles}
-				};
-			}
-			return null;
+            TagCompound tag = new TagCompound();
+            for (int i = 0; i < missileMods.Length; ++i)
+                tag.Add("missileItem" + i, ItemIO.Save(missileMods[i]));
+
+            MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+            tag.Add("statMissiles", mi.statMissiles);
+            tag.Add("maxMissiles", mi.maxMissiles);
+
+			return tag;
 		}
 		public override void Load(TagCompound tag)
 		{
 			try
-			{
-				if(missileUI == null)
-				{
-					missileUI = new MissileUI();
-				}
-				for(int i = 0; i < missileUI.missileSlot.Length ; i++)
-				{
-					Item item = tag.Get<Item>("missileItem"+i);
-					missileUI.missileSlot[i].item = item;
-				}
-				missileUI.expansionSlot.item = tag.Get<Item>("expansion");
+            {
+                missileMods = new Item[MetroidMod.missileSlotAmount];
+                for (int i = 0; i < missileMods.Length; i++)
+                {
+                    Item item = tag.Get<Item>("missileItem" + i);
+                    missileMods[i] = item;
+                }
 				
 				MGlobalItem mi = this.item.GetGlobalItem<MGlobalItem>(mod);
 				mi.statMissiles = tag.GetInt("statMissiles");
@@ -553,5 +528,20 @@ namespace MetroidMod.Items.weapons
 			}
 			catch{}
 		}
-	}
+
+        public override void NetSend(BinaryWriter writer)
+        {
+            for (int i = 0; i < missileMods.Length; ++i)
+            {
+                writer.WriteItem(missileMods[i]);
+            }
+        }
+        public override void NetRecieve(BinaryReader reader)
+        {
+            for (int i = 0; i < missileMods.Length; ++i)
+            {
+                missileMods[i] = reader.ReadItem();
+            }
+        }
+    }
 }

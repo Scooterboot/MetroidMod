@@ -1,18 +1,28 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using ReLogic.Graphics;
-using ReLogic;
-using MetroidMod.Items;
 
-namespace MetroidMod {
+using Terraria;
+using Terraria.UI;
+using Terraria.ModLoader;
+using ReLogic;
+using ReLogic.Graphics;
+
+using MetroidMod.Items;
+using MetroidMod.NewUI;
+using MetroidMod.Items.weapons;
+
+namespace MetroidMod
+{
 	public class MetroidMod : Mod
-	{
-		public static Color powColor = new Color(248, 248, 110);
+    {
+        internal const int ballSlotAmount = 5;
+        internal const int beamSlotAmount = 5;
+        internal const int missileSlotAmount = 3;
+
+        public static Color powColor = new Color(248, 248, 110);
 		public static Color iceColor = new Color(0, 255, 255);
 		public static Color waveColor = new Color(215, 0, 215);
 		public static Color waveColor2 = new Color(239, 153, 239);
@@ -22,7 +32,6 @@ namespace MetroidMod {
 		public static Color novColor = new Color(50, 255, 1);
 		public static Color wideColor = new Color(255, 210, 255);
 		public static Color lumColor = new Color(209, 255, 250);
-
 
 		internal static ModHotKey MorphBallKey;
 		internal static ModHotKey SpiderBallKey;
@@ -34,18 +43,21 @@ namespace MetroidMod {
 		public const string PhantoonHead = "MetroidMod/NPCs/Phantoon/Phantoon_Head_Boss";
 		public const string NightmareHead = "MetroidMod/NPCs/Nightmare/Nightmare_Head_Boss";
 		public static Mod Instance;
-		public MetroidMod()
-		{
 
-			Properties = new ModProperties()
-			{
-				Autoload = true,
-				AutoloadSounds = true,
-				AutoloadGores = true
+        internal UserInterface pbUserInterface;
+        internal PowerBeamUI powerBeamUI;
 
-			};
-			
-		}
+        internal UserInterface mlUserInterface;
+        internal MissileLauncherUI missileLauncherUI;
+
+        internal UserInterface mbUserInterface;
+        internal MorphBallUI morphBallUI;
+
+        public int selectedItem = 0;
+        public int oldSelectedItem = 0;
+
+        public MetroidMod()	{ }
+
 		public override void Load()
 		{
 			Instance = this;
@@ -70,8 +82,86 @@ namespace MetroidMod {
 			}
 			AddBossHeadTexture(PhantoonHead);
 			AddBossHeadTexture(NightmareHead);
+
+            SetupUI();
 		}
-		static int z = 0;
+
+        private void SetupUI()
+        {
+            if (Main.dedServ) return;
+
+            powerBeamUI = new PowerBeamUI();
+            powerBeamUI.Activate();
+            pbUserInterface = new UserInterface();
+            pbUserInterface.SetState(powerBeamUI);
+
+            missileLauncherUI = new MissileLauncherUI();
+            missileLauncherUI.Activate();
+            mlUserInterface = new UserInterface();
+            mlUserInterface.SetState(missileLauncherUI);
+
+            morphBallUI = new MorphBallUI();
+            morphBallUI.Activate();
+            mbUserInterface = new UserInterface();
+            mbUserInterface.SetState(morphBallUI);
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            Player player = Main.LocalPlayer;
+            if (player.selectedItem < 10)
+            {
+                oldSelectedItem = selectedItem;
+                selectedItem = player.selectedItem;
+            }
+
+            if (pbUserInterface != null && PowerBeamUI.visible)
+                pbUserInterface.Update(gameTime);
+            if (mlUserInterface != null && MissileLauncherUI.visible)
+                mlUserInterface.Update(gameTime);
+            if (mbUserInterface != null && MorphBallUI.visible)
+                mbUserInterface.Update(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            int InventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+            if (InventoryIndex != -1)
+            {
+                layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
+                    "MetroidMod: Power Beam UI",
+                    delegate
+                    {
+                        if(PowerBeamUI.visible)
+                            pbUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
+                layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
+                    "MetroidMod: Missile Launcher UI",
+                    delegate
+                    {
+                        if (MissileLauncherUI.visible)
+                            mlUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
+                layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
+                    "MetroidMod: Morph Ball UI",
+                    delegate
+                    {
+                        if (MorphBallUI.visible)
+                            mbUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
+            }
+        }
+
+        static int z = 0;
 		float tRot = 0f;
 		public override void PostDrawInterface(SpriteBatch sb)
 		{

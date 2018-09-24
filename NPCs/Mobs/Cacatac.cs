@@ -71,9 +71,10 @@ namespace MetroidMod.NPCs.Mobs
             }
             if(npc.ai[0] == 1) // Projectile stage.
             {
-                npc.velocity = Vector2.Zero;                
+                npc.velocity = Vector2.Zero;
+                npc.ai[1]++;
 
-                if(npc.ai[1]++ >= 60 && Main.netMode != 1)
+                if(Main.netMode != 1 && npc.ai[1] >= 60)
                 {
                     // Fire projectiles.
                     for (int i = 0; i < 5; ++i)
@@ -85,6 +86,7 @@ namespace MetroidMod.NPCs.Mobs
 
                     npc.ai[0] = 0;
                     npc.ai[1] = 0;
+                    npc.netUpdate = true;
                 }
             }
 

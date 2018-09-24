@@ -1,13 +1,13 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
 using Terraria.ID;
+using Terraria.UI;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -16,13 +16,42 @@ using MetroidMod.Projectiles.chargelead;
 
 namespace MetroidMod.Items.weapons
 {
-	public class PowerBeam : ModItem
-	{
-		public override void SetStaticDefaults()
+    /*
+     * TODO: 
+     * NETWORKING FINETUNE
+     * IMPLEMENT ERROR MESSAGE WITH MOD MISMATCH: ('comboErrorType')
+     * 
+     */
+    public class PowerBeam : ModItem
+    {
+        // Failsaves.
+        private Item[] _beamMods;
+        public Item[] beamMods
+        {
+            get
+            {
+                if(_beamMods == null)
+                {
+                    _beamMods = new Item[MetroidMod.beamSlotAmount];
+                    for(int i = 0; i < _beamMods.Length; ++i)
+                    {
+                        _beamMods[i] = new Item();
+                        _beamMods[i].TurnToAir();
+                    }
+                }
+
+                return _beamMods;
+            }
+            set { _beamMods = value; }
+        }
+
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Beam");
 			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
-		}
+
+            beamMods = new Item[5];
+        }
 		public override void SetDefaults()
 		{
 			item.damage = 14;
@@ -50,7 +79,7 @@ namespace MetroidMod.Items.weapons
 			recipe.AddIngredient(null, "EnergyShard", 3);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
+        }
 		
 		public override void UseStyle(Player P)
 		{
@@ -67,9 +96,7 @@ namespace MetroidMod.Items.weapons
 			}
 			return (mp.statOverheat < mp.maxOverheat);
 		}
-
-		public BeamUI beamUI;
-		
+        		
 		float iceDmg = 0f;
 		float waveDmg = 0f;
 		float spazDmg = 0f;
@@ -117,11 +144,6 @@ namespace MetroidMod.Items.weapons
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
 
-			if(beamUI == null)
-			{
-				beamUI = new BeamUI();
-			}
-
 			int ch = mod.ItemType("ChargeBeamAddon");
 			int ic = mod.ItemType("IceBeamAddon");
 			int wa = mod.ItemType("WaveBeamAddon");
@@ -144,11 +166,11 @@ namespace MetroidMod.Items.weapons
 			int hy = mod.ItemType("HyperBeamAddon");
 			int ph = mod.ItemType("PhazonBeamAddon");
 			
-			Item slot1 = beamUI.beamSlot[0].item;
-			Item slot2 = beamUI.beamSlot[1].item;
-			Item slot3 = beamUI.beamSlot[2].item;
-			Item slot4 = beamUI.beamSlot[3].item;
-			Item slot5 = beamUI.beamSlot[4].item;
+			Item slot1 = beamMods[0];
+			Item slot2 = beamMods[1];
+			Item slot3 = beamMods[2];
+			Item slot4 = beamMods[3];
+			Item slot5 = beamMods[4];
 			
 			//name = "Power Beam";
 			int damage = 14;
@@ -173,7 +195,7 @@ namespace MetroidMod.Items.weapons
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);
 			
-			beamUI.comboErrorType = 0;
+			//beamUI.comboErrorType = 0;
 
 			// Default Combos
 			if(slot1.type != hy && slot1.type != ph)
@@ -439,11 +461,11 @@ namespace MetroidMod.Items.weapons
 					if(slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv ||
 						slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl)
 					{
-						beamUI.comboErrorType = 1;
+						/*beamUI.comboErrorType = 1;
 						if(slot1.type == ch)
 						{
 							beamUI.comboErrorType = 2;
-						}
+						}*/
 					}
 				}
 				// Charge V2
@@ -633,11 +655,11 @@ namespace MetroidMod.Items.weapons
 					if(slot2.type == ic || slot3.type == wa || slot4.type == sp || slot5.type == plR || slot5.type == plG ||
 						slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl)
 					{
-						beamUI.comboErrorType = 3;
+						/*beamUI.comboErrorType = 3;
 						if(slot1.type == ch2)
 						{
 							beamUI.comboErrorType = 4;
-						}
+						}*/
 					}
 				}
 				// Charge V3
@@ -847,11 +869,11 @@ namespace MetroidMod.Items.weapons
 					if(slot2.type == ic || slot3.type == wa || slot4.type == sp || slot5.type == plR || slot5.type == plG ||
 						slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv)
 					{
-						beamUI.comboErrorType = 5;
+						/*beamUI.comboErrorType = 5;
 						if(slot1.type == ch3)
 						{
 							beamUI.comboErrorType = 6;
-						}
+						}*/
 					}
 				}
 			}
@@ -1125,20 +1147,14 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			PowerBeam beamClone = (PowerBeam)clone;
-			if(beamUI != null)
-			{
-				beamClone.beamUI = beamUI;
-			}
-			else
-			{
-				beamClone.beamUI = new BeamUI();
-			}
+            beamClone.beamMods = this.beamMods;
+
 			return clone;
 		}
 		
 		int chargeLead = -1;
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 
 			if(isCharge)
@@ -1258,72 +1274,56 @@ namespace MetroidMod.Items.weapons
 				}
 			}
 		}
-		
-		int selectedItem = 0;
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-			Player player = Main.player[Main.myPlayer];
-			if(player.selectedItem < 10)
-			{
-				selectedItem = player.selectedItem;
-			}
-			if(beamUI != null)
-			{
-				if(player.inventory[selectedItem] == item)
-				{
-					beamUI.Draw(spriteBatch);
-				}
-				else
-				{
-					beamUI.BeamUIOpen = false;
-				}
-			}
-        }
-		
-		public static BeamUI TempBeamUI;
+
+        Item[] tempBeamMods;
 		public override bool NewPreReforge()
 		{
-			if(beamUI != null)
-			{
-				TempBeamUI = beamUI;
-			}
+            tempBeamMods = this.beamMods;
 			return true;
 		}
 		public override void PostReforge()
 		{
-			beamUI = TempBeamUI;
+            this.beamMods = tempBeamMods;
 		}
-		
-		public override TagCompound Save()
+
+        public override TagCompound Save()
 		{
-			if(beamUI != null)
-			{
-				return new TagCompound
-				{
-					{"beamItem0", ItemIO.Save(beamUI.beamSlot[0].item)},
-					{"beamItem1", ItemIO.Save(beamUI.beamSlot[1].item)},
-					{"beamItem2", ItemIO.Save(beamUI.beamSlot[2].item)},
-					{"beamItem3", ItemIO.Save(beamUI.beamSlot[3].item)},
-					{"beamItem4", ItemIO.Save(beamUI.beamSlot[4].item)}
-				};
-			}
-			return null;
+            TagCompound tag = new TagCompound();
+            for(int i = 0; i < beamMods.Length; ++i)
+            {
+                // Failsave check.
+                if (beamMods[i] == null) beamMods[i] = new Item();
+                tag.Add("beamItem" + i, ItemIO.Save(beamMods[i]));
+            }
+            return tag;
 		}
 		public override void Load(TagCompound tag)
 		{
 			try
 			{
-				if(beamUI == null)
-				{
-					beamUI = new BeamUI();
-				}
-				for(int i = 0; i < beamUI.beamSlot.Length ; i++)
+                beamMods = new Item[MetroidMod.beamSlotAmount];
+				for(int i = 0; i < beamMods.Length ; i++)
 				{
 					Item item = tag.Get<Item>("beamItem"+i);
-					beamUI.beamSlot[i].item = item;
+                    beamMods[i] = item;
 				}
 			}
 			catch{}
 		}
-	}
+
+        public override void NetSend(BinaryWriter writer)
+        {
+            for(int i = 0; i < beamMods.Length; ++i)
+            {
+                writer.WriteItem(beamMods[i]);
+            }
+        }
+        public override void NetRecieve(BinaryReader reader)
+        {
+            for(int i = 0; i < beamMods.Length; ++i)
+            {
+                beamMods[i] = reader.ReadItem();
+            }
+        }
+    }
 }
