@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
 using Terraria.ID;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Scisor : ModNPC
+    public class Zeela : ModNPC
     {
         internal readonly float speed = 1.5F;
 
@@ -18,14 +17,15 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            npc.width = 32; npc.height = 24;
+            npc.width = 20; npc.height = 18;
 
+            /* Temporary NPC values */
             npc.scale = 2;
             npc.damage = 15;
             npc.defense = 5;
-            npc.lifeMax = 20;
+            npc.lifeMax = 150;
             npc.aiStyle = -1;
-            npc.knockBackResist = 0f;
+            npc.knockBackResist = 0;
 
             npc.noGravity = true;
             npc.behindTiles = true;
@@ -33,7 +33,7 @@ namespace MetroidMod.NPCs.Mobs
             npc.DeathSound = SoundID.NPCDeath1;
         }
 
-        public override void AI()
+        public override bool PreAI()
         {
             if (npc.ai[0] == 0)
             {
@@ -81,6 +81,8 @@ namespace MetroidMod.NPCs.Mobs
 
             npc.velocity.X = npc.direction * speed;
             npc.velocity.Y = npc.directionY * speed;
+
+            return false;
         }
 
         public override void FindFrame(int frameHeight)
@@ -97,12 +99,12 @@ namespace MetroidMod.NPCs.Mobs
                 if (npc.directionY == 1)
                 {
                     npc.rotation = -MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(10, 0);
+                    npc.visualOffset = new Vector2(12, 0);
                 }
                 else
                 {
                     npc.rotation = -(float)Math.PI;
-                    npc.visualOffset = new Vector2(0, -8);
+                    npc.visualOffset = new Vector2(0, -6);
                 }
             }
             else
@@ -115,7 +117,7 @@ namespace MetroidMod.NPCs.Mobs
                 else
                 {
                     npc.rotation = MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(-10, 0);
+                    npc.visualOffset = new Vector2(-12, 0);
                 }
             }
         }

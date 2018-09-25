@@ -17,6 +17,15 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MetroidMod
 {
+    public enum Edge
+    {
+        Floor,
+        Ceiling,
+        Left,
+        Right,
+        None
+    }
+
     public class MPlayer : ModPlayer  
     {
         public int style;
@@ -106,9 +115,9 @@ namespace MetroidMod
 		public int overheatDelay = 0;
 		public int specialDmg = 100;
 		public bool phazonImmune = false;
-        	public bool hazardShield = false;
-        	public int reserveTanks = 0;
-        	public int reserveHearts = 0;
+        public bool hazardShield = false;
+        public int reserveTanks = 0;
+        public int reserveHearts = 0;
 		public int phazonRegen = 0;
 		int tweak = 0;
 		bool tweak2 = false;
@@ -806,8 +815,15 @@ namespace MetroidMod
 			}
 		}
         public override void PostUpdate()
-		{
-			if(player.itemAnimation > 0)
+        {
+            for (int i = oldPos.Length - 1; i > 0; i--)
+            {
+                Vector2 vect = oldPos[1] - oldPos[0];
+                oldPos[i] = oldPos[i - 1] - (vect * 0.5f);
+            }
+            oldPos[0] = player.position;
+
+            if (player.itemAnimation > 0)
 			{
 				if(itemRotTweak > 0)
 				{
@@ -932,7 +948,6 @@ namespace MetroidMod
 					shineChargeFlash = 0;
 				}
 			}
-			ballLayer.Draw(ref drawInfo);
 		}
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
@@ -944,22 +959,27 @@ namespace MetroidMod
 				if (layers[k] == PlayerLayer.FrontAcc)
 				{
 					layers.Insert(k + 1, screwAttackLayer);
-				}
+                    screwAttackLayer.visible = true;
+                }
 				if (layers[k] == PlayerLayer.Body)
 				{
 					layers.Insert(k + 1, thrusterLayer);
 					layers.Insert(k + 2, jetLayer);
-				}
+                    thrusterLayer.visible = true;
+                    jetLayer.visible = true;
+                }
 				if (layers[k] == PlayerLayer.Head)
 				{
 					layers.Insert(k + 1, visorLayer);
-				}
+                    visorLayer.visible = true;
+
+                }
 				if(layers[k] == PlayerLayer.Arms)
 				{
 					layers.Insert(k + 1, gunLayer);
-				}
+                    gunLayer.visible = true;
+                }
 			}
-			layers.Add(ballLayer);
 			if(somersault)
 			{
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
@@ -1088,33 +1108,10 @@ namespace MetroidMod
 			}
 			if(ballstate)
 			{
-				PlayerLayer.HairBack.visible = false;
-				PlayerLayer.MountBack.visible = false;
-				PlayerLayer.MiscEffectsBack.visible = false;
-				PlayerLayer.BackAcc.visible = false;
-				PlayerLayer.Wings.visible = false;
-				PlayerLayer.BalloonAcc.visible = false;
-				PlayerLayer.Skin.visible = false;
-				PlayerLayer.Legs.visible = false;
-				PlayerLayer.ShoeAcc.visible = false;
-				PlayerLayer.Body.visible = false;
-				PlayerLayer.HandOffAcc.visible = false;
-				PlayerLayer.WaistAcc.visible = false;
-				PlayerLayer.NeckAcc.visible = false;
-				PlayerLayer.Face.visible = false;
-				PlayerLayer.Hair.visible = false;
-				PlayerLayer.Head.visible = false;
-				PlayerLayer.FaceAcc.visible = false;
-				PlayerLayer.MountFront.visible = false;
-				PlayerLayer.ShieldAcc.visible = false;
-				PlayerLayer.SolarShield.visible = false;
-				PlayerLayer.HeldProjBack.visible = false;
-				PlayerLayer.HeldItem.visible = false;
-				PlayerLayer.Arms.visible = false;
-				PlayerLayer.HandOnAcc.visible = false;
-				PlayerLayer.HeldProjFront.visible = false;
-				PlayerLayer.FrontAcc.visible = false;
-				PlayerLayer.MiscEffectsFront.visible = false;
+                for(int i = 0; i < layers.Count; ++i)
+                    layers[i].visible = false;
+                layers.Add(ballLayer);
+                ballLayer.visible = true;
 			}
 			else
 			{
@@ -1133,12 +1130,10 @@ namespace MetroidMod
 			}
 			
 			if(!thrusters)
-			{
 				jet = false;
-			}
 		}
 
-		public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
+		public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
@@ -1189,19 +1184,100 @@ namespace MetroidMod
 				mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headOrigin, drawPlayer.GetImmuneAlphaPure(mPlayer.visorGlowColor,drawInfo.shadow), 0);
 			}
 		});
-		public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ballLayer", PlayerLayer.FrontAcc, delegate(PlayerDrawInfo drawInfo)
-		{
-			Mod mod = MetroidMod.Instance;
-			Texture2D tex = mod.GetTexture("Gore/Morphball");
-			Texture2D tex2 = mod.GetTexture("Gore/Morphball_Light");
-			Texture2D tex3 = mod.GetTexture("Gore/Mockball");
-			Texture2D boost = mod.GetTexture("Gore/Boostball");
-			Texture2D trail = mod.GetTexture("Gore/Morphball_Trail");
-			SpriteBatch spriteBatch = Main.spriteBatch;
-			Player drawPlayer = drawInfo.drawPlayer;
-			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
-			mPlayer.DrawBallTexture(spriteBatch, tex, tex2, tex3, boost, trail, drawPlayer, drawInfo);
-		});
+		public static readonly PlayerLayer ballLayer = new PlayerLayer("MetroidMod", "ballLayer", delegate(PlayerDrawInfo drawInfo)
+        {
+            Player drawPlayer = drawInfo.drawPlayer;
+
+            if (!drawPlayer.active || drawPlayer.outOfRange || Main.gameMenu) return;
+            
+			Texture2D tex = MetroidMod.Instance.GetTexture("Gore/Morphball");
+			Texture2D tex3 = MetroidMod.Instance.GetTexture("Gore/Mockball");
+			Texture2D boost = MetroidMod.Instance.GetTexture("Gore/Boostball");
+            Texture2D tex2 = MetroidMod.Instance.GetTexture("Gore/Morphball_Light");
+            Texture2D spiderTex = MetroidMod.Instance.GetTexture("Gore/Spiderball");
+            Texture2D trail = MetroidMod.Instance.GetTexture("Gore/Morphball_Trail");
+            MPlayer mp = drawPlayer.GetModPlayer<MPlayer>(MetroidMod.Instance);
+
+            float thisx = (int)(drawInfo.position.X + (drawPlayer.width / 2));
+            float thisy = (int)(drawInfo.position.Y + (drawPlayer.height / 2));
+            Vector2 ballDims = new Vector2(28f, 28f);
+            Vector2 thispos = new Vector2(thisx, thisy) - Main.screenPosition;
+            if (drawInfo.shadow == 0f)
+            {
+                int timez = (int)(Main.time % 60) / 10;
+
+                SpriteEffects effects = SpriteEffects.None;
+                if (drawPlayer.direction == -1)
+                    effects = SpriteEffects.FlipHorizontally;
+                if (drawPlayer.gravDir == -1f)
+                    effects |= SpriteEffects.FlipVertically;
+
+                float ballrotoffset = 0f;
+                if (drawPlayer.velocity.Y != Vector2.Zero.Y)
+                {
+                    if (drawPlayer.velocity.X != 0f)
+                        ballrotoffset += 0.05f * drawPlayer.velocity.X;
+                    else
+                        ballrotoffset += 0.25f * drawPlayer.direction;
+                }
+                else if (drawPlayer.velocity.X < 0f)
+                    ballrotoffset -= 0.2f;
+                else if (drawPlayer.velocity.X > 0f)
+                    ballrotoffset += 0.2f;
+
+                if (drawPlayer.velocity.X != 0f)
+                    ballrotoffset += 0.025f * drawPlayer.velocity.X;
+                else
+                    ballrotoffset += 0.125f * drawPlayer.direction;
+
+                if (mp.spiderball && mp.CurEdge != Edge.None)
+                    mp.ballrot += mp.spiderSpeed * 0.085f;
+                else
+                    mp.ballrot += ballrotoffset;
+
+                Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, mp.morphColor), 0f);
+                float scale = 0.57f;
+                int offset = 4;
+                if (mp.ballstate && drawPlayer.active && !drawPlayer.dead)
+                {
+                    DrawData data;
+                    for (int i = 0; i < mp.oldPos.Length; i++)
+                    {
+                        Color color23 = mp.morphColorLights;
+                        color23 *= (mp.oldPos.Length - (i)) / 15f;
+
+                        Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2(drawPlayer.width / 2, drawPlayer.height / 2);
+
+                        data = new DrawData(trail, drawPos, new Rectangle?(new Rectangle(0, 0, trail.Width, trail.Height)), color23, mp.ballrot, ballDims / 2, scale, effects, 0);
+                        
+                        Main.playerDrawData.Add(data);
+                    }
+
+                    data = new DrawData(tex, thispos, new Rectangle?(new Rectangle(0, ((int)ballDims.Y + offset) * timez, (int)ballDims.X, (int)ballDims.Y)), mColor, mp.ballrot, ballDims / 2, scale, effects, 0);
+                    Main.playerDrawData.Add(data);
+
+                    data = new DrawData(tex2, thispos, new Rectangle?(new Rectangle(0, ((int)ballDims.Y + offset) * timez, (int)ballDims.X, (int)ballDims.Y)), mp.morphColorLights, mp.ballrot, ballDims / 2, scale, effects, 0);
+                    Main.playerDrawData.Add(data);
+                    
+                    for (int i = 0; i < mp.boostEffect; i++)
+                    {
+                        data = new DrawData(boost, thispos, new Rectangle?(new Rectangle(0, 0, boost.Width, boost.Height)), mp.boostGold * 0.5f, mp.ballrot, ballDims / 2, scale, effects, 0);
+                        Main.playerDrawData.Add(data);
+                    }
+                    for (int i = 0; i < mp.boostCharge; i++)
+                    {
+                        data = new DrawData(boost, thispos, new Rectangle?(new Rectangle(0, 0, boost.Width, boost.Height)), mp.boostYellow * 0.5f, mp.ballrot, ballDims / 2, scale, effects, 0);
+                        Main.playerDrawData.Add(data);
+                    }
+
+                    if (mp.spiderball)
+                    {
+                        data = new DrawData(spiderTex, thispos, new Rectangle?(new Rectangle(0, 0, spiderTex.Width, spiderTex.Height)), mp.morphColorLights * 0.5f, mp.ballrot, new Vector2(spiderTex.Width / 2, spiderTex.Height / 2), scale, effects, 0);
+                        Main.playerDrawData.Add(data);
+                    }
+                }
+            }
+        });
 		public static readonly PlayerLayer gunLayer = new PlayerLayer("MetroidMod", "gunLayer", PlayerLayer.Arms, delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
@@ -1221,7 +1297,7 @@ namespace MetroidMod
 						tex = mi.textureAlt;
 					}
 				}*/
-				if(tex != null)
+                    if (tex != null)
 				{
 					Vector2 origin = new Vector2(12f, (float)((int)(tex.Height/2)));
 					if(P.direction == -1)
@@ -1392,111 +1468,8 @@ namespace MetroidMod
 		public float ballrot = 0f;
 		public static int oldNumMax = 10;
 		public Vector2[] oldPos = new Vector2[oldNumMax];
-        public void DrawBallTexture(SpriteBatch sb, Texture2D mytex, Texture2D mytex2, Texture2D mytex3, Texture2D boosttex, Texture2D trail, Player drawPlayer, PlayerDrawInfo drawInfo)
-		{
-			float thisx = (float)((int)(drawInfo.position.X + (float)(drawPlayer.width / 2) - Main.screenPosition.X));
-			float thisy = (float)((int)(drawInfo.position.Y + (float)(drawPlayer.height / 2) - Main.screenPosition.Y));
-			Vector2 ballDims = new Vector2(28f,28f);
-			Vector2 thispos =  new Vector2(thisx,thisy);
-			if(drawInfo.shadow == 0f)
-			{
-				int timez = (int)(Time%60)/10;
-				SpriteEffects effects = SpriteEffects.None;
-				if (drawPlayer.direction == -1)
-				{
-					effects = SpriteEffects.FlipHorizontally;
-				}
-				if (drawPlayer.gravDir == -1f)
-				{
-					effects |= SpriteEffects.FlipVertically;
-				}
-				float ballrotoffset = 0f;
-				if(drawPlayer.velocity.Y != Vector2.Zero.Y)
-				{
-					if(drawPlayer.velocity.X != 0f)
-					{
-						ballrotoffset += 0.05f*drawPlayer.velocity.X;
-					}
-					else
-					{
-						ballrotoffset += 0.25f*drawPlayer.direction;
-					}
-				}
-				else if (drawPlayer.velocity.X < 0f)
-				{
-					ballrotoffset -= 0.2f;
-				}
-				else if ( drawPlayer.velocity.X > 0f)
-				{
-					ballrotoffset += 0.2f;
-				}
-				if(drawPlayer.velocity.X != 0f)
-				{
-					ballrotoffset += 0.025f*drawPlayer.velocity.X;
-				}
-				else
-				{
-					ballrotoffset += 0.125f*drawPlayer.direction;
-				}
-				if(spiderball && CurEdge != Edge.None)
-				{
-					ballrot += spiderSpeed*0.085f;
-				}
-				else
-				{
-					ballrot += ballrotoffset;
-				}
-				if(ballrot > (float)(Math.PI)*2)
-				{
-					ballrot -= (float)(Math.PI)*2;
-				}
-				if(ballrot < -(float)(Math.PI)*2)
-				{
-					ballrot += (float)(Math.PI)*2;
-				}
-				Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, morphColor),0f);
-				float scale = 0.57f;
-				int offset = 4;
-				for (int num46 = oldPos.Length - 1; num46 > 0; num46--)
-				{
-					Vector2 vect = oldPos[1] - oldPos[0];
-					oldPos[num46] = oldPos[num46 - 1] - (vect*0.5f);
-				}
-				oldPos[0] = thispos + Main.screenPosition;
-				if (ballstate && drawPlayer.active && !drawPlayer.dead)
-				{
-					for (int num88 = 0; num88 < oldPos.Length; num88++)
-					{
-						Color color23 = morphColorLights;
-						color23 *= (float)(oldPos.Length - (num88)) / 15f;
-						sb.Draw(trail, oldPos[num88] - Main.screenPosition, new Rectangle?(new Rectangle(0,0,trail.Width, trail.Height)), color23, ballrot, ballDims/2, scale, effects, 0f);
-					}
-					sb.Draw(mytex, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), mColor,ballrot,ballDims/2, scale, effects, 0f);
-					sb.Draw(mytex2, thispos, new Rectangle?(new Rectangle(0,((int)ballDims.Y+offset)*timez,(int)ballDims.X, (int)ballDims.Y)), morphColorLights,ballrot,ballDims/2, scale, effects, 0f);
-					if(boostEffect > 0)
-					{
-						for (int i = 0; i < boostEffect; i++)
-						{
-							sb.Draw(boosttex, thispos, new Rectangle?(new Rectangle(0,0,boosttex.Width,boosttex.Height)), boostGold * 0.5f,ballrot,ballDims/2, scale, effects, 0f);
-						}
-					}
-					if(boostCharge > 0)
-					{
-						for (int i = 0; i < boostCharge; i++)
-						{
-							sb.Draw(boosttex, thispos, new Rectangle?(new Rectangle(0,0,boosttex.Width,boosttex.Height)), boostYellow * 0.5f,ballrot,ballDims/2, scale, effects, 0f);
-						}
-					}
-					Texture2D spiderTex = mod.GetTexture("Gore/Spiderball");
-					if(spiderball)
-					{
-						sb.Draw(spiderTex, thispos, new Rectangle?(new Rectangle(0,0,spiderTex.Width,spiderTex.Height)), morphColorLights*0.5f,ballrot,new Vector2(spiderTex.Width/2,spiderTex.Height/2), scale, effects, 0f);
-					}
-				}
-			}
-		}
 
-		public void SenseMove(Player P)
+        public void SenseMove(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
 			int dist = 80;
@@ -2352,17 +2325,9 @@ namespace MetroidMod
 				velY = 0f;
 			}
 		}
-        public enum Edge
-		{
-			Floor,
-			Ceiling,
-			Left,
-			Right,
-			None
-		}
 
 		// current edge
-		static Edge CurEdge = Edge.None;
+		public Edge CurEdge = Edge.None;
 
 		// X is pressed
 		static bool KeyX = false;
@@ -2594,22 +2559,12 @@ namespace MetroidMod
 
 		public void SpiderBall(Player player)
 		{
-			// switch back/to spiderball if M is pressed
-			if (MetroidMod.SpiderBallKey.JustPressed && !KeyX)
-			{
-				CurEdge = Edge.None;
-				spiderball = !spiderball;
-				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-			}
 			// disable spiderball when jumping
 			if(player.controlJump && player.releaseJump)
 			{
 				CurEdge = Edge.None;
 				spiderball = false;
 			}
-			
-			// update KeyX so spiderball is only toggled once each key press
-			KeyX = MetroidMod.SpiderBallKey.JustPressed;
 	
 			// get current edge
 			Edge LastEdge = CurEdge;
@@ -2683,7 +2638,7 @@ namespace MetroidMod
 		}
 		public void BoostBall(Player player)
 		{
-			if(MetroidMod.BoostBallKey.Current)
+			if(MetroidMod.BoostBallKey.Current && player.whoAmI == Main.myPlayer)
 			{
 				if(boostCharge <= 60)
 				{
@@ -2703,7 +2658,7 @@ namespace MetroidMod
 				}
 				soundDelay++;
 			}
-			else
+			else if(player.whoAmI == Main.myPlayer)
 			{
 				if(soundInstance != null)
 				{
@@ -2838,5 +2793,53 @@ namespace MetroidMod
 			}
 			catch{}
 		}
+
+        /* NETWORK SYNCING. <<<<<< WIP >>>>>> */
+
+        // Using Initialize to make sure every player has his/her own instance.
+        public override void Initialize()
+        {
+            oldPos = new Vector2[oldNumMax];
+
+            spiderball = false;
+
+            statCharge = 0;
+        }
+
+        public override void clientClone(ModPlayer clientClone)
+        {
+            MPlayer clone = clientClone as MPlayer;
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = mod.GetPacket();
+            packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+            packet.Write((byte)player.whoAmI);
+            packet.Write((double)statCharge);
+            packet.Write(spiderball);
+            packet.Write(boostEffect);
+            packet.Write(boostCharge);
+            packet.Send(toWho, fromWho);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            MPlayer mp = clientPlayer as MPlayer;
+            if (mp != null)
+            {
+                if(mp.statCharge != statCharge || mp.spiderball != spiderball || mp.boostEffect != boostEffect || mp.boostCharge != boostCharge)
+                {
+                    ModPacket packet = mod.GetPacket();
+                    packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+                    packet.Write((byte)player.whoAmI);
+                    packet.Write((double)statCharge);
+                    packet.Write(spiderball);
+                    packet.Write(boostEffect);
+                    packet.Write(boostCharge);
+                    packet.Send();
+                }
+            }
+        }
     }
 }

@@ -26,19 +26,22 @@ namespace MetroidMod.Items
 
 		public override bool InstancePerEntity
 		{
-			get
-			{
-				return true;
-			}
+			get	{ return true; }
 		}
 		public override bool CloneNewInstances
 		{
-			get
-			{
-				return true;
-			}
+			get	{ return true; }
 		}
-	}
+
+        public override GlobalItem Clone()
+        {
+            MGlobalItem other = (MGlobalItem)this.MemberwiseClone();
+            other.maxMissiles = maxMissiles;
+            other.statMissiles = statMissiles;
+
+            return other;
+        }
+    }
 	public class grab : GlobalItem
 	{
 		public override void GrabRange(Terraria.Item item, Player player, ref int grabRange)

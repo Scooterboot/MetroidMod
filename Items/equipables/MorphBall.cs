@@ -99,10 +99,6 @@ namespace MetroidMod.Items.equipables
 			Texture2D tex = mod.GetTexture("Items/equipables/MorphBall_Lights");
 			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 		}
-        public override bool NewPreReforge()
-        {
-            return base.NewPreReforge();
-        }
 
 		public override TagCompound Save()
 		{

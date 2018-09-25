@@ -263,7 +263,7 @@ namespace MetroidMod.Projectiles
 			int i = (int)MathHelper.Clamp((P.Center.X) / 16f,0,Main.maxTilesX-1);
 			int j = (int)MathHelper.Clamp((P.Center.Y) / 16f,0,Main.maxTilesY-1);
 
-			if(Main.tile[i,j].active() && Main.tileSolid[Main.tile[i,j].type] && !Main.tileSolidTop[Main.tile[i,j].type])
+			if(Main.tile[i,j] != null && Main.tile[i,j].active() && Main.tileSolid[Main.tile[i,j].type] && !Main.tileSolidTop[Main.tile[i,j].type])
 			{
 				if(P.numUpdates == 0)
 				{

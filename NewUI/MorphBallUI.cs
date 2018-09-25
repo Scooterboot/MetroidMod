@@ -59,7 +59,7 @@ namespace MetroidMod.NewUI
             this.SetPadding(0);
             this.Width.Pixels = panelTexture.Width;
             this.Height.Pixels = panelTexture.Height;
-            this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 160;
+            this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 180;
             this.Top.Pixels = 240;
 
             ballSlots = new MorphBallItemBox[MetroidMod.beamSlotAmount];
@@ -76,6 +76,13 @@ namespace MetroidMod.NewUI
 
             this.Append(new MorphBallFrame());
             this.Append(new MorphBallLines());
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            this.Top.Pixels = 240;
+            if (!Main.mapFullscreen && Main.mapStyle == 1)
+                this.Top.Pixels += 256;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
 using Terraria.ID;
@@ -8,24 +7,25 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Scisor : ModNPC
+    public class Zero : ModNPC
     {
-        internal readonly float speed = 1.5F;
+        internal readonly float[] speeds = new float[6] { .05F, .15F, .25F, .35F, .25F, .15F };
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 4;
+            Main.npcFrameCount[npc.type] = 6;
         }
         public override void SetDefaults()
         {
-            npc.width = 32; npc.height = 24;
+            npc.width = 32; npc.height = 16;
 
+            /* Temporary NPC values */
             npc.scale = 2;
             npc.damage = 15;
             npc.defense = 5;
-            npc.lifeMax = 20;
+            npc.lifeMax = 150;
             npc.aiStyle = -1;
-            npc.knockBackResist = 0f;
+            npc.knockBackResist = 0;
 
             npc.noGravity = true;
             npc.behindTiles = true;
@@ -33,8 +33,9 @@ namespace MetroidMod.NPCs.Mobs
             npc.DeathSound = SoundID.NPCDeath1;
         }
 
-        public override void AI()
+        public override bool PreAI()
         {
+
             if (npc.ai[0] == 0)
             {
                 npc.TargetClosest();
@@ -79,25 +80,23 @@ namespace MetroidMod.NPCs.Mobs
                 }
             }
 
-            npc.velocity.X = npc.direction * speed;
-            npc.velocity.Y = npc.directionY * speed;
+            npc.ai[2] += .06F;
+            npc.velocity = new Vector2(npc.direction, npc.directionY) * speeds[(int)npc.ai[2] % 6];
+
+            return false;
         }
 
         public override void FindFrame(int frameHeight)
         {
-            if (npc.frameCounter++ >= 8)
-            {
-                npc.frame.Y = (npc.frame.Y + frameHeight) % (Main.npcFrameCount[npc.type] * frameHeight);
-                npc.frameCounter = 0;
-            }
-
+            npc.frame.Y = ((int)npc.ai[2] * frameHeight) % (Main.npcFrameCount[npc.type] * frameHeight);
+            
             // Rotate the NPC correctly (visually).
             if (npc.direction == 1)
             {
                 if (npc.directionY == 1)
                 {
                     npc.rotation = -MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(10, 0);
+                    npc.visualOffset = new Vector2(18, 0);
                 }
                 else
                 {
@@ -115,7 +114,7 @@ namespace MetroidMod.NPCs.Mobs
                 else
                 {
                     npc.rotation = MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(-10, 0);
+                    npc.visualOffset = new Vector2(-18, 0);
                 }
             }
         }

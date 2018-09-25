@@ -13,9 +13,15 @@ using ReLogic.Graphics;
 using MetroidMod.Items;
 using MetroidMod.NewUI;
 using MetroidMod.Items.weapons;
+using System.IO;
 
 namespace MetroidMod
 {
+    public enum MetroidMessageType : byte
+    {
+        SyncPlayerStats
+    }
+
 	public class MetroidMod : Mod
     {
         internal const int ballSlotAmount = 5;
@@ -85,6 +91,20 @@ namespace MetroidMod
 
             SetupUI();
 		}
+
+        public override void HotKeyPressed(string name)
+        {
+            if(name == "Spider Ball" && SpiderBallKey.JustPressed)
+            {
+                MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(this);
+                if(mp.ballstate)
+                {
+                    mp.CurEdge = Edge.None;
+                    mp.spiderball = !mp.spiderball;
+                    Main.PlaySound(SoundLoader.customSoundType, (int)mp.player.position.X, (int)mp.player.position.Y, this.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+                }
+            }
+        }
 
         private void SetupUI()
         {
@@ -465,5 +485,40 @@ namespace MetroidMod
 			}
 		    }
 		}
-	}
+
+        /* NETWORK SYNICNG <<<<< WIP >>>>> */
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            MetroidMessageType msgType = (MetroidMessageType)reader.ReadByte();
+            switch(msgType)
+            {
+                case MetroidMessageType.SyncPlayerStats:
+                    byte playerID = reader.ReadByte();
+                    MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>(this);
+                    double statCharge = reader.ReadDouble();
+                    bool spiderBall = reader.ReadBoolean();
+                    int boostEffect = reader.ReadInt32();
+                    int boostCharge = reader.ReadInt32();
+
+                    targetPlayer.statCharge = (float)statCharge;
+                    targetPlayer.spiderball = spiderBall;
+                    targetPlayer.boostEffect = boostEffect;
+                    targetPlayer.boostCharge = boostCharge;
+
+                    if (Main.netMode == 2)
+                    {
+                        ModPacket packet = this.GetPacket();
+                        packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+                        packet.Write(playerID);
+                        packet.Write(statCharge);
+                        packet.Write(spiderBall);
+                        packet.Write(boostEffect);
+                        packet.Write(boostCharge);
+                        packet.Send(-1, whoAmI);
+                    }
+                    break;
+            }
+        }
+    }
 }

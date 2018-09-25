@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,17 +9,17 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Scisor : ModNPC
+    public class Sova : ModNPC
     {
         internal readonly float speed = 1.5F;
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 4;
+            Main.npcFrameCount[npc.type] = 5;
         }
         public override void SetDefaults()
         {
-            npc.width = 32; npc.height = 24;
+            npc.width = 22; npc.height = 18;
 
             npc.scale = 2;
             npc.damage = 15;
@@ -41,6 +42,7 @@ namespace MetroidMod.NPCs.Mobs
                 npc.directionY = 1;
 
                 npc.ai[0] = 1;
+                npc.ai[2] = 1;
             }
 
             if (npc.ai[1] == 0)
@@ -85,7 +87,7 @@ namespace MetroidMod.NPCs.Mobs
 
         public override void FindFrame(int frameHeight)
         {
-            if (npc.frameCounter++ >= 8)
+            if (npc.frameCounter++ >= 4)
             {
                 npc.frame.Y = (npc.frame.Y + frameHeight) % (Main.npcFrameCount[npc.type] * frameHeight);
                 npc.frameCounter = 0;
@@ -97,12 +99,12 @@ namespace MetroidMod.NPCs.Mobs
                 if (npc.directionY == 1)
                 {
                     npc.rotation = -MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(10, 0);
+                    npc.visualOffset = new Vector2(8, 0);
                 }
                 else
                 {
                     npc.rotation = -(float)Math.PI;
-                    npc.visualOffset = new Vector2(0, -8);
+                    npc.visualOffset = new Vector2(0, -6);
                 }
             }
             else
@@ -115,9 +117,11 @@ namespace MetroidMod.NPCs.Mobs
                 else
                 {
                     npc.rotation = MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(-10, 0);
+                    npc.visualOffset = new Vector2(-8, 0);
                 }
             }
+
+            npc.spriteDirection = -npc.direction;
         }
     }
 }

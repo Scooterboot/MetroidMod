@@ -1192,7 +1192,7 @@ namespace MetroidMod.Items.weapons
 		
 		public override void HoldItem(Player player)
 		{
-			if(isCharge)
+			if(isCharge && player.whoAmI == Main.myPlayer)
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 
@@ -1212,9 +1212,8 @@ namespace MetroidMod.Items.weapons
 						float MY = Main.mouseY + Main.screenPosition.Y;
 						float MX = Main.mouseX + Main.screenPosition.X;
 						if (player.gravDir == -1f)
-						{
 							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-						}
+
 						float targetrotation = (float)Math.Atan2((MY-oPos.Y),(MX-oPos.X));
 						
 						Vector2 velocity = targetrotation.ToRotationVector2()*item.shootSpeed;
@@ -1275,17 +1274,6 @@ namespace MetroidMod.Items.weapons
 			}
 		}
 
-        Item[] tempBeamMods;
-		public override bool NewPreReforge()
-		{
-            tempBeamMods = this.beamMods;
-			return true;
-		}
-		public override void PostReforge()
-		{
-            this.beamMods = tempBeamMods;
-		}
-
         public override TagCompound Save()
 		{
             TagCompound tag = new TagCompound();
@@ -1317,6 +1305,7 @@ namespace MetroidMod.Items.weapons
             {
                 writer.WriteItem(beamMods[i]);
             }
+            writer.Write(chargeLead);
         }
         public override void NetRecieve(BinaryReader reader)
         {
@@ -1324,6 +1313,7 @@ namespace MetroidMod.Items.weapons
             {
                 beamMods[i] = reader.ReadItem();
             }
+            chargeLead = reader.ReadInt32();
         }
     }
 }

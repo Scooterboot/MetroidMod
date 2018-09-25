@@ -298,16 +298,14 @@ namespace MetroidMod.Items.weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-			if(isCharge)
+			if(isCharge && player.whoAmI == Main.myPlayer)
 			{
 				if(!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 				{
 					if(player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 					{
 						if(mp.statCharge < MPlayer.maxCharge)
-						{
 							mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-						}
 					}
 					else
 					{
@@ -479,26 +477,7 @@ namespace MetroidMod.Items.weapons
 				targetingDelay = 0;
 			}
 		}
-		
-		Item[] tempMissileMods;
-		int TempStatMissiles;
-		int TempMaxMissiles;
-		public override bool NewPreReforge()
-		{
-            tempMissileMods = this.missileMods;
-            MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-			TempStatMissiles = mi.statMissiles;
-			TempMaxMissiles = mi.maxMissiles;
-			return true;
-		}
-		public override void PostReforge()
-		{
-            this.missileMods = tempMissileMods;
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-			mi.statMissiles = TempStatMissiles;
-			mi.maxMissiles = TempMaxMissiles;
-		}
-		
+				
 		public override TagCompound Save()
 		{
             TagCompound tag = new TagCompound();
@@ -535,6 +514,7 @@ namespace MetroidMod.Items.weapons
             {
                 writer.WriteItem(missileMods[i]);
             }
+            writer.Write(chargeLead);
         }
         public override void NetRecieve(BinaryReader reader)
         {
@@ -542,6 +522,7 @@ namespace MetroidMod.Items.weapons
             {
                 missileMods[i] = reader.ReadItem();
             }
+            chargeLead = reader.ReadInt32();
         }
     }
 }
