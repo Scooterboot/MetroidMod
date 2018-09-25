@@ -19,12 +19,15 @@ using ReLogic.Graphics;
 using ReLogic;
 
 using MetroidMod.Items;
+using MetroidMod.UI;
 
 namespace MetroidMod
 {
 	public class BeamUI
 	{
-		public static int beamSlotAmount = 5;
+		public const int beamSlotAmount = 5;
+
+        public bool visible = false;
 
 		public bool ShowBeamUIButton = false;
         public bool BeamUIOpen = false;
@@ -58,14 +61,17 @@ namespace MetroidMod
 				int k = i;
 				beamSlot[i] = new UIItemSlot(new Vector2(10, 10+i*58), panel,
 				delegate(Item item)
-				{
-					if(item.modItem != null && item.modItem.mod == mod)
-					{
-						MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
-						return (item.type <= 0 || mItem.addonSlotType == k);
-					}
-					return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod));
-				});
+                {
+                    if (item.modItem != null && item.modItem.mod == mod)
+                    {
+                        MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+                        return (item.type <= 0 || mItem.addonSlotType == k);
+                    }
+                    return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod));
+                });
+
+                beamSlot[i].item = new Item();
+                beamSlot[i].item.TurnToAir();
 			}
 
 			for(int i = 0; i < label.Length; i++)
