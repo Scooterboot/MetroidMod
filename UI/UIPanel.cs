@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 
-namespace MetroidMod
+namespace MetroidMod.UI
 {
     public class UIPanel : UIObject
     {
