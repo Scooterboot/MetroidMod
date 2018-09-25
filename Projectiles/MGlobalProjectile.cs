@@ -48,16 +48,12 @@ namespace MetroidMod.Projectiles
             {
                 int x = (int)MathHelper.Clamp(projectile.Center.X / 16,0,Main.maxTilesX);
                 int y = (int)MathHelper.Clamp(projectile.Center.Y / 16,0,Main.maxTilesY);
-                if (Main.tile[x, y].active())
+                if (Main.tile[x, y] != null && Main.tile[x, y].active())
                 {
                     if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
-                    {
                         TileLoader.HitWire(x, y, mod.TileType("BlueHatch"));
-                    }
                     if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
-                    {
                         TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
-                    }
                 }
             }
             return base.PreAI(projectile);
