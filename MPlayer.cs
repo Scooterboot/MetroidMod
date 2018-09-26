@@ -821,7 +821,7 @@ namespace MetroidMod
                 Vector2 vect = oldPos[1] - oldPos[0];
                 oldPos[i] = oldPos[i - 1] - (vect * 0.5f);
             }
-            oldPos[0] = player.position;
+            oldPos[0] = new Vector2((int)player.position.X, (int)player.position.Y);
 
             if (player.itemAnimation > 0)
 			{
@@ -1200,8 +1200,11 @@ namespace MetroidMod
 
             float thisx = (int)(drawInfo.position.X + (drawPlayer.width / 2));
             float thisy = (int)(drawInfo.position.Y + (drawPlayer.height / 2));
+
+            Vector2 ballOffset = new Vector2(0, (MPlayer.morphSize+2));
             Vector2 ballDims = new Vector2(28f, 28f);
-            Vector2 thispos = new Vector2(thisx, thisy) - Main.screenPosition;
+            Vector2 thispos = new Vector2(thisx, thisy) - Main.screenPosition + ballOffset;
+
             if (drawInfo.shadow == 0f)
             {
                 int timez = (int)(Main.time % 60) / 10;
@@ -1246,7 +1249,7 @@ namespace MetroidMod
                         Color color23 = mp.morphColorLights;
                         color23 *= (mp.oldPos.Length - (i)) / 15f;
 
-                        Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2(drawPlayer.width / 2, drawPlayer.height / 2);
+                        Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2((int)(drawPlayer.width / 2), (int)(drawPlayer.height / 2)) + ballOffset;
 
                         data = new DrawData(trail, drawPos, new Rectangle?(new Rectangle(0, 0, trail.Width, trail.Height)), color23, mp.ballrot, ballDims / 2, scale, effects, 0);
                         
@@ -2328,9 +2331,6 @@ namespace MetroidMod
 
 		// current edge
 		public Edge CurEdge = Edge.None;
-
-		// X is pressed
-		static bool KeyX = false;
 
 		// get the edge the player is currently on
 		public Edge GetEdge(Player player)
