@@ -29,33 +29,33 @@ namespace MetroidMod.NPCs
 		{
 		    if (!start)
 		    {
-			oldGravity = npc.noGravity;
-			oldTileCollide = npc.noTileCollide;
-			start = true;
+			    oldGravity = npc.noGravity;
+			    oldTileCollide = npc.noTileCollide;
+			    start = true;
 		    }
 		    if (froze)
 		    {
-			if (speedDecrease <= 0 && npc.type != mod.NPCType("LarvalMetroid"))
-			{
-			    npc.damage = 0;
-			    npc.frame.Y = 0;
-			    npc.velocity.X = 0;
-			    npc.noGravity = false;
-			    npc.noTileCollide = false;
-			    npc.direction = oldDir;
-			    npc.spriteDirection = oldDir;
-			    return false;
-			}
-			else
-			{
-			    oldDir = npc.direction;
-			}
+			    if (speedDecrease <= 0 && npc.type != mod.NPCType("LarvalMetroid") && npc.type != mod.NPCType("Ripper"))
+			    {
+			        npc.damage = 0;
+			        npc.frame.Y = 0;
+			        npc.velocity.X = 0;
+			        npc.noGravity = false;
+			        npc.noTileCollide = false;
+			        npc.direction = oldDir;
+			        npc.spriteDirection = oldDir;
+			        return false;
+			    }
+			    else
+			    {
+			        oldDir = npc.direction;
+			    }
 		    }
 		    else
 		    {
-			speedDecrease = 0.8f;
-			npc.noGravity = oldGravity;
-			npc.noTileCollide = oldTileCollide;
+			    speedDecrease = 0.8f;
+			    npc.noGravity = oldGravity;
+			    npc.noTileCollide = oldTileCollide;
 		    }
 		    return base.PreAI(npc);
 		}
