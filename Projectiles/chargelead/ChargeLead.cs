@@ -31,7 +31,9 @@ namespace MetroidMod.Projectiles.chargelead
         }
 
 		public string ChargeUpSound = "ChargeStartup_Power",
-				ChargeTex = "ChargeLead";
+				ChargeTex = "ChargeLead",
+                ShotSound = "none",
+                ChargeShotSound = "none";
 		public int ChargeShotAmt = 1,
 				DustType = 64;
 		public Color DustColor = default(Color),
@@ -73,19 +75,16 @@ namespace MetroidMod.Projectiles.chargelead
 			else
 				P.alpha = 0;
             
-			if(projectile.owner == Main.myPlayer)
+			if(mp.statCharge == 10)
 			{
-				if(mp.statCharge == 10)
-				{
-					soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+ChargeUpSound));
-				}
-				else if(mp.statCharge >= MPlayer.maxCharge && !soundPlayed)
-				{
-					Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ChargeMax"));
-					if(soundInstance != null)
-						soundInstance.Stop(true);
-					soundPlayed = true;
-				}
+				soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+ChargeUpSound));
+			}
+			else if(mp.statCharge >= MPlayer.maxCharge && !soundPlayed)
+			{
+				Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ChargeMax"));
+				if(soundInstance != null)
+					soundInstance.Stop(true);
+				soundPlayed = true;
 			}
 
 			if(O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
@@ -150,9 +149,18 @@ namespace MetroidMod.Projectiles.chargelead
 		public override void Kill(int timeLeft)
 		{
 			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
-			if(!mp.ballstate)
-				mp.statCharge = 0;
-		}
+
+            if (!mp.ballstate)
+            {
+                // Charged shot sounds played here for network purposes.
+                if (mp.statCharge >= (MPlayer.maxCharge * 0.5) && ChargeShotSound != "none")
+                    Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ChargeShotSound));
+                else if (mp.statCharge >= 30 && ShotSound != "none")
+                    Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ShotSound));
+
+                mp.statCharge = 0;
+            }
+        }
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
@@ -169,11 +177,17 @@ namespace MetroidMod.Projectiles.chargelead
         {
             writer.Write(DustType);
             writer.Write(ChargeTex);
+            writer.Write(ShotSound);
+            writer.Write(ChargeUpSound);
+            writer.Write(ChargeShotSound);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             DustType = reader.ReadInt32();
             ChargeTex = reader.ReadString();
+            ShotSound = reader.ReadString();
+            ChargeUpSound = reader.ReadString();
+            ChargeShotSound = reader.ReadString();
         }
     }
 }

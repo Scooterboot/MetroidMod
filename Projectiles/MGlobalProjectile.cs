@@ -42,6 +42,7 @@ namespace MetroidMod.Projectiles
             }
             return base.OnTileCollide(projectile, oldVelocity);
         }*/
+
         public override bool PreAI(Projectile projectile)
         {
             if (!projectile.tileCollide && projectile.aiStyle != 26 && !projectile.minion && projectile.damage > 0 && projectile.friendly)

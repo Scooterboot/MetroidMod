@@ -18,7 +18,6 @@ namespace MetroidMod.Items.weapons
 {
     /*
      * TODO: 
-     * NETWORKING FINETUNE
      * IMPLEMENT ERROR MESSAGE WITH MOD MISMATCH: ('comboErrorType')
      * 
      */
@@ -1079,9 +1078,7 @@ namespace MetroidMod.Items.weapons
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 
 			if(item == Main.HoverItem)
-			{
 				item.modItem.UpdateInventory(player);
-			}
 
 			int dmg = (int)((float)item.damage*player.rangedDamage);
 			int chDmg = dmg*5;
@@ -1168,8 +1165,12 @@ namespace MetroidMod.Items.weapons
 				cl.DustColor = dustColor;
 				cl.LightColor = lightColor;
 				cl.canPsuedoScrew = mp.psuedoScrewActive;
-				chargeLead = ch;
-			}
+                cl.ShotSound = shotSound;
+                cl.ChargeShotSound = chargeShotSound;
+                cl.projectile.netUpdate = true;
+
+                chargeLead = ch;
+            }
 			
 			for(int i = 0; i < shotAmt; i++)
 			{
@@ -1177,6 +1178,7 @@ namespace MetroidMod.Items.weapons
 				MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
 				mProj.waveStyle = i;
 				mProj.waveDir = waveDir;
+                mProj.projectile.netUpdate = true;
 			}
 			waveDir *= -1;
 			
@@ -1184,9 +1186,8 @@ namespace MetroidMod.Items.weapons
 			mp.overheatDelay = useTime-10;
 			
 			if(isHyper)
-			{
 				mp.hyperColors = 23;
-			}
+
 			return false;
 		}
 		
@@ -1201,9 +1202,7 @@ namespace MetroidMod.Items.weapons
 					if(player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 					{
 						if(mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-						{
 							mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-						}
 					}
 					else
 					{
@@ -1234,10 +1233,10 @@ namespace MetroidMod.Items.weapons
 								mProj.waveStyle = i;
 								mProj.waveDir = waveDir;
 								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge*0.9));
+                                mProj.projectile.netUpdate = true;
 							}
 							
 							//Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));
-							Main.PlaySound(ChargeShotSound,oPos);
 							
 							mp.statOverheat += oHeat*3;
 							mp.overheatDelay = useTime-10;
@@ -1252,26 +1251,22 @@ namespace MetroidMod.Items.weapons
 									MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
 									mProj.waveStyle = i;
 									mProj.waveDir = waveDir;
-								}
-								
-								//Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+shotSound));
-								Main.PlaySound(ShotSound,oPos);
-								
-								mp.statOverheat += oHeat;
+                                    mProj.projectile.netUpdate = true;
+                                }
+
+                                //Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+shotSound));
+                                
+                                mp.statOverheat += oHeat;
 								mp.overheatDelay = useTime-10;
 							}
 						}
 						if(chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
-						{
 							mp.statCharge = 0;
-						}
 					}
 				}
 				else if(!mp.ballstate)
-				{
 					mp.statCharge = 0;
-				}
-			}
+            }
 		}
 
         public override TagCompound Save()
