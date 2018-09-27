@@ -12,15 +12,15 @@ namespace MetroidMod.Projectiles
 {
 	public class GrappleBeamShot : ModProjectile
 	{
-        internal int[] GrappableNPCs;
+        internal int[] GrappableNPCs = new int[]
+            {
+                ModLoader.GetMod("MetroidMod").NPCType("Ripper"),
+                ModLoader.GetMod("MetroidMod").NPCType("Powamp")
+            };
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Grapple Beam");
 
-            GrappableNPCs = new int[]
-            {
-                mod.NPCType("Ripper")
-            };
 		}
 		public override void SetDefaults()
 		{
@@ -154,7 +154,7 @@ namespace MetroidMod.Projectiles
                     {
                         NPC target = Main.npc[(int)projectile.ai[1]];
                         mp.grapplingBeam = P.whoAmI;
-                        projectile.position = target.Center;
+                        projectile.position = target.position + new Vector2(0, target.height / 2);
                         projectile.velocity = Vector2.Zero;
                     }
                     else

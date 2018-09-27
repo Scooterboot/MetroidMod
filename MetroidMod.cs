@@ -62,16 +62,22 @@ namespace MetroidMod
         public int selectedItem = 0;
         public int oldSelectedItem = 0;
 
+        public int[] FrozenStandOnNPCs;
+
         public MetroidMod()	{ }
 
 		public override void Load()
 		{
 			Instance = this;
+
+            FrozenStandOnNPCs = new int[] { this.NPCType("Ripper") };
+
 			MorphBallKey = RegisterHotKey("Morph Ball", "Z");
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
 			BoostBallKey = RegisterHotKey("Boost Ball", "F");
 			PowerBombKey = RegisterHotKey("Power Bomb", "R");
 			SenseMoveKey = RegisterHotKey("Use Sense Move", "F");
+
 			if (!Main.dedServ)
 			{
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Serris"), ItemType("SerrisMusicBox"), TileType("SerrisMusicBox"));
@@ -79,13 +85,10 @@ namespace MetroidMod
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Ridley"), ItemType("RidleyMusicBox"), TileType("RidleyMusicBox"));
 			}
 			for (int s = 1; s <= 7; s++)
-			{
 				AddBossHeadTexture(SerrisHead + s);
-			}
 			for (int k = 0; k <= 3; k++)
-			{
 				AddBossHeadTexture(KraidHead + k);
-			}
+
 			AddBossHeadTexture(PhantoonHead);
 			AddBossHeadTexture(NightmareHead);
 

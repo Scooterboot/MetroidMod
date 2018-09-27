@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +36,7 @@ namespace MetroidMod.NPCs
 		    }
 		    if (froze)
 		    {
-			    if (speedDecrease <= 0 && npc.type != mod.NPCType("LarvalMetroid") && npc.type != mod.NPCType("Ripper"))
+			    if (speedDecrease <= 0 && npc.type != mod.NPCType("LarvalMetroid") && !((MetroidMod)MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type))
 			    {
 			        npc.damage = 0;
 			        npc.frame.Y = 0;
@@ -47,9 +48,7 @@ namespace MetroidMod.NPCs
 			        return false;
 			    }
 			    else
-			    {
 			        oldDir = npc.direction;
-			    }
 		    }
 		    else
 		    {

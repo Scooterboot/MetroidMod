@@ -1,19 +1,21 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
 using Terraria;
-using Terraria.GameInput;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameInput;
 using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Diagnostics;
+
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+
+using MetroidMod.NPCs;
 
 namespace MetroidMod
 {
@@ -26,6 +28,9 @@ namespace MetroidMod
         None
     }
 
+    /* TODO:
+     * Rework the Standing on NPC mechanic to accept a list of NPC types in PreUpdateMovement.
+     */
     public class MPlayer : ModPlayer  
     {
         public int style;
@@ -133,10 +138,10 @@ namespace MetroidMod
 			thrusters = false;
 			spaceJump = false;
 			speedBooster = false;
+
 			if(!player.mount.Active || player.mount.Type != mod.MountType("MorphBallMount"))
-			{
 				morphBall = false;
-			}
+
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
 			chargeColor = Color.White;
@@ -1133,7 +1138,34 @@ namespace MetroidMod
 				jet = false;
 		}
 
-		public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", delegate(PlayerDrawInfo drawInfo)
+        public override void PreUpdateMovement()
+        {
+            // 'Standing on NPC' mechanic. 
+            // Might need some more work, but that's for something in the future.
+            for (int i = 0; i < 200; ++i)
+            {
+                NPC npc = Main.npc[i];
+                if (npc.active && (((MetroidMod)MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type) || npc.type == mod.NPCType("Tripper")))
+                {
+                    MNPC mnpc = npc.GetGlobalNPC<MNPC>();
+                    if (!mnpc.froze && npc.type != mod.NPCType("Tripper")) continue;
+
+                    if (player.position.X + player.width >= npc.position.X && player.position.X <= npc.position.X + npc.width &&
+                        player.position.Y + player.height <= npc.position.Y && player.position.Y + player.velocity.Y + player.height >= npc.position.Y)
+                    {
+                        player.velocity.Y = 0;
+                        player.position = player.oldPosition;
+
+                        if (npc.type == mod.NPCType("Tripper"))
+                        {
+                            player.position.X = player.oldPosition.X + npc.velocity.X;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static readonly PlayerLayer screwAttackLayer = new PlayerLayer("MetroidMod", "screwAttackLayer", delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
@@ -2793,7 +2825,7 @@ namespace MetroidMod
 			}
 			catch{}
 		}
-
+        
         /* NETWORK SYNCING. <<<<<< WIP >>>>>> */
 
         // Using Initialize to make sure every player has his/her own instance.

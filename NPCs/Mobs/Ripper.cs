@@ -21,7 +21,7 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            npc.width = 18; npc.height = 14;
+            npc.width = 18; npc.height = 12;
 
             /* Temporary NPC values */
             npc.scale = 2;
@@ -42,7 +42,11 @@ namespace MetroidMod.NPCs.Mobs
                 npc.direction = 1;
 
             if (npc.GetGlobalNPC<MNPC>(mod).froze)
+            {
                 npc.position = npc.oldPosition;
+                npc.damage = 0;
+                npc.netUpdate = true;
+            }
             else
             {
                 npc.velocity.X = speed * npc.direction;
@@ -56,6 +60,7 @@ namespace MetroidMod.NPCs.Mobs
                 npc.velocity.Y = (float)Math.Sin(npc.ai[1] += .1F) * .5F;
 
                 npc.direction = npc.velocity.X < 0 ? -1 : 1;
+                npc.damage = npc.defDamage;
             }
 
             return false;
@@ -69,7 +74,7 @@ namespace MetroidMod.NPCs.Mobs
                 npc.frameCounter = 0;
             }
 
-            npc.spriteDirection = npc.direction;
+            npc.spriteDirection = -npc.direction;
         }
     }
 }

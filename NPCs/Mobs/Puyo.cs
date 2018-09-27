@@ -15,7 +15,7 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            npc.width = 30; npc.height = 8;
+            npc.width = 16; npc.height = 8;
 
             /* Temporary NPC values */
             npc.scale = 2;
@@ -53,6 +53,12 @@ namespace MetroidMod.NPCs.Mobs
 
         public override void AI()
         {
+            if (npc.GetGlobalNPC<MNPC>(mod).froze)
+            {
+                npc.position = npc.oldPosition;
+                return;
+            }
+
             if (npc.velocity.Y == 0)
             {
                 npc.TargetClosest();
@@ -61,7 +67,14 @@ namespace MetroidMod.NPCs.Mobs
                 if (Vector2.Distance(npc.Center, Main.player[npc.target].Center) <= 80)
                     npc.ai[0]++;
 
-                if(npc.ai[0] >= 120)
+                if (npc.velocity.X != 0)
+                {
+                    npc.velocity.X *= .1F;
+                    if (npc.velocity.X >= -.1F && npc.velocity.X <= .1F)
+                        npc.velocity.X = 0;
+                }
+
+                if (npc.ai[0] >= 120)
                 {
                     npc.velocity.X = Main.rand.Next(4, 8) * npc.direction;
                     npc.velocity.Y = Main.rand.Next(-7, -3);
@@ -75,6 +88,9 @@ namespace MetroidMod.NPCs.Mobs
         public override void FindFrame(int frameHeight)
         {
             npc.visualOffset = new Vector2(60, 0);
+
+            if (npc.GetGlobalNPC<MNPC>(mod).froze) return;
+
             if (npc.velocity.Y == 0)
             {
                 npc.frame.Y = (int)((Math.Round(npc.ai[0] / 10) % 3) * frameHeight);
@@ -91,6 +107,28 @@ namespace MetroidMod.NPCs.Mobs
                 else if (npc.frameCounter < 15)
                     npc.frame.Y = 6 * frameHeight;
             }
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Texture2D texture = Main.npcTexture[npc.type];
+            SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            Vector2 origin = new Vector2((texture.Width / 3) / 2, (texture.Height / Main.npcFrameCount[npc.type]) / 2);
+
+            Vector2 drawPos = npc.Center - Main.screenPosition;
+            drawPos -= new Vector2(texture.Width, (texture.Height / Main.npcFrameCount[npc.type])) * npc.scale / 2;
+            drawPos += origin * npc.scale + new Vector2(0, 2);
+
+            spriteBatch.Draw(texture, drawPos, npc.frame, npc.GetAlpha(drawColor), npc.rotation, origin, npc.scale, effects, 0);
+
+            return false;
+        }
+
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            position.X -= 40;
+            return true;
         }
     }
 }
