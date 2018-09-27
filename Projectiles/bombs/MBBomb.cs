@@ -1,11 +1,8 @@
-using Terraria;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
+using Terraria;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Projectiles.bombs
 {
@@ -31,6 +28,7 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.ranged = true;
 			projectile.light = 0.2f;
 		}
+
 		public override void AI()
 		{
 			Main.player[projectile.owner].heldProj = projectile.whoAmI;
@@ -51,19 +49,16 @@ namespace MetroidMod.Projectiles.bombs
 			}
 			float scalez = 0.2f;
 			Lighting.AddLight(projectile.Center, scalez, scalez, scalez);
+
 			#region frames
-			projectile.frameCounter++;
-			if (projectile.frameCounter >= (int)((float)projectile.timeLeft/3.75f))
+			if (projectile.frameCounter++ >= (int)(projectile.timeLeft / 3.75f))
 			{
-				projectile.frame++;
-				projectile.frameCounter = 0;
-			}
-			if (projectile.frame >= 6)
-			{
-				projectile.frame = 0;
+				projectile.frame = (projectile.frame + 1) % 6;
+                projectile.frameCounter = 0;
 			}
 			#endregion
 		}
+
 		public override void Kill(int timeLeft)
 		{
 			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
@@ -73,111 +68,71 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
 			projectile.active = false;
-			//ModPlayer.grappled = false;
+
 			Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BombExplode"));
 			
 			float Xthreshold = 8f; //max speed
 			float BombRadius = 50f; //max speed
-			for (int num70 = 0; num70 < 25; num70++)
+			for (int i = 0; i < 25; i++)
 			{
-				int num71 = Dust.NewDust(new Vector2(this.projectile.position.X-BombRadius, this.projectile.position.Y-BombRadius), this.projectile.width+(int)BombRadius*2, this.projectile.height+(int)BombRadius*2, 59, 0f, 0f, 100, default(Color), 5f);
-				Main.dust[num71].velocity *= 1.4f;
-				Main.dust[num71].noGravity = true;
-				int num72 = Dust.NewDust(new Vector2(this.projectile.position.X-BombRadius, this.projectile.position.Y-BombRadius), this.projectile.width+(int)BombRadius*2, this.projectile.height+(int)BombRadius*2, 61, 0f, 0f, 100, default(Color), 5f);
-				Main.dust[num72].velocity *= 1.4f;
-				Main.dust[num72].noGravity = true;
+				int newDust = Dust.NewDust(new Vector2(this.projectile.position.X-BombRadius, this.projectile.position.Y-BombRadius), this.projectile.width+(int)BombRadius*2, this.projectile.height+(int)BombRadius*2, 59, 0f, 0f, 100, default(Color), 5f);
+				Main.dust[newDust].velocity *= 1.4f;
+				Main.dust[newDust].noGravity = true;
+
+                newDust = Dust.NewDust(new Vector2(this.projectile.position.X-BombRadius, this.projectile.position.Y-BombRadius), this.projectile.width+(int)BombRadius*2, this.projectile.height+(int)BombRadius*2, 61, 0f, 0f, 100, default(Color), 5f);
+				Main.dust[newDust].velocity *= 1.4f;
+				Main.dust[newDust].noGravity = true;
 			}
 			Rectangle rect = new Rectangle((int)(projectile.position.X-BombRadius), (int)(projectile.position.Y-BombRadius), (int)(projectile.width+BombRadius*2), (int)(projectile.height+BombRadius*2));
-			//MProjectile mpr = projectile.GetSubClass<MProjectile>();
-			//mpr.CreateDamageHitBox(projectile, rect, projectile.damage);
-			foreach (NPC n in Main.npc)
-			if (n.active && !n.friendly && !n.dontTakeDamage && n.type != 488 && !n.boss)
-			{
-				float rotation = (float)Math.Atan2(n.Center.Y - projectile.Center.Y, n.Center.X - projectile.Center.X);
-				Vector2 MyVec = rotation.ToRotationVector2();
-				float num197 = Vector2.Distance(n.position,projectile.position);
-				if (num197 < BombRadius)
-				{
-					n.velocity += MyVec * (BombRadius - num197);
-					//n.StrikeNPC(this.projectile.damage, this.projectile.knockBack, this.projectile.direction, false, false);
-					
-				if (n.velocity.X > Xthreshold)
-				{
-					n.velocity.X = Xthreshold;
-				}
-				if (n.velocity.X < -Xthreshold)
-				{
-					n.velocity.X = -Xthreshold;
-				}
-				if (n.velocity.Y > Xthreshold)
-				{
-					n.velocity.Y = Xthreshold;
-				}
-				if (n.velocity.Y < -Xthreshold)
-				{
-					n.velocity.Y = -Xthreshold;
-				}
-				}
-			}
-			foreach (Player n in Main.player)
-			if (n.active && n.hostile && n.team != Main.player[projectile.owner].team)
-			{
-				float rotation = (float)Math.Atan2(n.Center.Y - projectile.Center.Y, n.Center.X - projectile.Center.X);
-				Vector2 MyVec = rotation.ToRotationVector2();
-				float num197 = Vector2.Distance(n.position,projectile.position);
-				if (num197 < BombRadius)
-				{
-					n.velocity += MyVec * (BombRadius - num197);
-					//n.Hurt((int)projectile.damage, (int)projectile.knockBack,true,false," was slain...",false);
-				
-				if (n.velocity.X > Xthreshold)
-				{
-					n.velocity.X = Xthreshold;
-				}
-				if (n.velocity.X < -Xthreshold)
-				{
-					n.velocity.X = -Xthreshold;
-				}
-				if (n.velocity.Y > Xthreshold)
-				{
-					n.velocity.Y = Xthreshold;
-				}
-				if (n.velocity.Y < -Xthreshold)
-				{
-					n.velocity.Y = -Xthreshold;
-				}
-				}
-			}
-			Player O = Main.player[projectile.owner];
-			float targetrotation = (float)Math.Atan2(O.Center.Y - projectile.Center.Y, O.Center.X - projectile.Center.X);
-			Vector2 MyVe1c = targetrotation.ToRotationVector2();
-			float num1917 = Vector2.Distance(O.position,projectile.position);
-			if (num1917 < BombRadius)
-			{
-				O.velocity += MyVe1c * BombRadius;
-				MPlayer mp = O.GetModPlayer<MPlayer>(mod);
-				if(mp.spiderball)
-				{
-					mp.spiderball = false;
-				}
+            
+            for (int i = 0; i < 200; ++i)
+            {
+                NPC npc = Main.npc[i];
+                if (npc.active && !npc.friendly && !npc.dontTakeDamage && npc.type != 488 && !npc.boss)
+                {
+                    Vector2 direction = npc.position - projectile.position;
+                    float distance = direction.Length();
+                    direction.Normalize();
+                    if (distance < BombRadius)
+                    {
+                        npc.velocity += direction * (BombRadius - distance);
 
-				if (O.velocity.X > Xthreshold)
-				{
-					O.velocity.X = Xthreshold;
-				}
-				if (O.velocity.X < -Xthreshold)
-				{
-					O.velocity.X = -Xthreshold;
-				}
-				if (O.velocity.Y > Xthreshold)
-				{
-					O.velocity.Y = Xthreshold;
-				}
-				if (O.velocity.Y < -Xthreshold)
-				{
-					O.velocity.Y = -Xthreshold;
-				}
-			}
+                        if (npc.velocity.X > Xthreshold)
+                            npc.velocity.X = Xthreshold;
+                        if (npc.velocity.X < -Xthreshold)
+                            npc.velocity.X = -Xthreshold;
+                        if (npc.velocity.Y > Xthreshold)
+                            npc.velocity.Y = Xthreshold;
+                        if (npc.velocity.Y < -Xthreshold)
+                            npc.velocity.Y = -Xthreshold;
+                    }
+                }
+            }
+
+            for (int i = 0; i < 255; ++i)
+            {
+                Player player = Main.player[i];
+                if ((player.active && player.hostile && player.team != Main.player[projectile.owner].team) || player.whoAmI == projectile.owner)
+                {
+                    Vector2 direction = player.Center - projectile.Center;
+                    float distance = direction.Length();
+                    direction.Normalize();
+                    if (distance < BombRadius)
+                    {
+                        player.velocity += direction * (BombRadius - distance);
+                        player.GetModPlayer<MPlayer>(mod).spiderball = false;
+
+                        if (player.velocity.X > Xthreshold)
+                            player.velocity.X = Xthreshold;
+                        if (player.velocity.X < -Xthreshold)
+                            player.velocity.X = -Xthreshold;
+                        if (player.velocity.Y > Xthreshold)
+                            player.velocity.Y = Xthreshold;
+                        if (player.velocity.Y < -Xthreshold)
+                            player.velocity.Y = -Xthreshold;
+                    }
+                }
+            }
 		}
 	}
 }

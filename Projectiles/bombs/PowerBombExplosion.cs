@@ -11,10 +11,6 @@ namespace MetroidMod.Projectiles.bombs
 {
 	public class PowerBombExplosion : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Power Bomb Explosion");
-		}
 		public override void SetDefaults()
 		{
 			projectile.width = 1000;
@@ -35,17 +31,14 @@ namespace MetroidMod.Projectiles.bombs
 		int height = 750;
 		int maxDistance = 55;
 		public override void AI()
-		{
-			colory = Color.Gold;
+        {
+            float speed = 2f;
+            colory = Color.Yellow;
 			projectile.timeLeft = 60;
-			projectile.frameCounter++;
-			//projectile.penetrateImmuneTime = 0;
-			float speed = 2f;
+            projectile.frameCounter++;
+
 			if (projectile.frameCounter < maxDistance)
-			{
 				scaleSize += speed;
-				colory = Color.Yellow;
-			}
 			else
 			{
 				scaleSize -= speed;
@@ -53,15 +46,13 @@ namespace MetroidMod.Projectiles.bombs
 				projectile.damage = 0;
 				for(int i = 0; i < Main.item.Length; i++)
 				{
-					if(Main.item[i].active)
+                    if (!Main.item[i].active) continue;
+
+					Item I = Main.item[i];
+					if(projectile.Hitbox.Intersects(I.Hitbox))
 					{
-						Item I = Main.item[i];
-						if(projectile.Hitbox.Intersects(I.Hitbox))
-						{
-							float angle = (float)Math.Atan2((projectile.Center.Y-I.Center.Y),(projectile.Center.X-I.Center.X));
-							I.velocity = angle.ToRotationVector2()*8;
-							I.position += I.velocity;
-						}
+						I.velocity = Vector2.Normalize(projectile.Center - I.Center) * 8;
+						I.position += I.velocity;
 					}
 				}
 			}
@@ -73,6 +64,7 @@ namespace MetroidMod.Projectiles.bombs
 				//projectile.active = false;
 				projectile.Kill();
 			}
+
 			projectile.scale = scaleSize*0.02f;
 			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
@@ -80,48 +72,41 @@ namespace MetroidMod.Projectiles.bombs
 			projectile.height = (int)((float)height * projectile.scale);
 			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+
 			if (projectile.frameCounter == maxDistance)
 			{
 				Rectangle tileRect = new Rectangle((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16), (projectile.width / 16), (projectile.height / 16));
-				for (int x = tileRect.X; x < tileRect.X + tileRect.Width; x++)
-				{
-				    for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)
-				    {
-					if (Main.tile[x, y].active())
-					{
-					    if (Main.tile[x, y].type == (ushort)mod.TileType("YellowHatch"))
-					    {
-						TileLoader.HitWire(x, y, mod.TileType("YellowHatch"));
-					    }
-					    if (Main.tile[x, y].type == (ushort)mod.TileType("YellowHatchVertical"))
-					    {
-						TileLoader.HitWire(x, y, mod.TileType("YellowHatchVertical"));
-					    }
-					    if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
-					    {
-						TileLoader.HitWire(x, y, mod.TileType("BlueHatch"));
-					    }
-					    if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
-					    {
-						TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
-					    }
-					}
-				    }
-				}
+                for (int x = tileRect.X; x < tileRect.X + tileRect.Width; x++)
+                {
+                    for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)
+                    {
+                        if (Main.tile[x, y] != null && Main.tile[x, y].active())
+                        {
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("YellowHatch"))
+                                TileLoader.HitWire(x, y, mod.TileType("YellowHatch"));
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("YellowHatchVertical"))
+                                TileLoader.HitWire(x, y, mod.TileType("YellowHatchVertical"));
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
+                                TileLoader.HitWire(x, y, mod.TileType("BlueHatch"));
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
+                                TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
+                        }
+                    }
+                }
 			}
-		}
-		public override bool PreDraw(SpriteBatch sb, Color lightColor)
+        }
+
+        public override void ModifyHitNPC(NPC npc, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if (npc.defense < 1000)
+                damage = (int)(damage + npc.defense * 0.5);
+        }
+
+        public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
 			Texture2D tex = Main.projectileTexture[projectile.type];
 			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), colory, projectile.rotation, new Vector2(tex.Width/2, tex.Height/2), projectile.scale, SpriteEffects.None, 0f);
 			return false;
-		}
-		public override void ModifyHitNPC(NPC npc, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			if(npc.defense < 1000)
-			{
-				damage = (int)((double)damage + (double)npc.defense * 0.5);
-			}
 		}
 	}
 }

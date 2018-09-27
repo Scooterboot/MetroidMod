@@ -22,8 +22,8 @@ namespace MetroidMod.Mounts
 			mountData.spawnDust = 299;//63;
 			mountData.spawnDustNoGravity = true;
 			mountData.buff = mod.BuffType("MorphBallMountBuff");
-			
-			mountData.runSpeed = 3f;
+            mountData.heightBoost = -(42 - MPlayer.morphSize);
+            mountData.runSpeed = 3f;
 			mountData.acceleration = 0.08f;
 			mountData.dashSpeed = 3f;
 			

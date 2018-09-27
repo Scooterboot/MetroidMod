@@ -1137,7 +1137,7 @@ namespace MetroidMod
 			if(!thrusters)
 				jet = false;
 		}
-
+        
         public override void PreUpdateMovement()
         {
             // 'Standing on NPC' mechanic. 
@@ -1232,10 +1232,9 @@ namespace MetroidMod
 
             float thisx = (int)(drawInfo.position.X + (drawPlayer.width / 2));
             float thisy = (int)(drawInfo.position.Y + (drawPlayer.height / 2));
-
-            Vector2 ballOffset = new Vector2(0, (MPlayer.morphSize+2));
+            
             Vector2 ballDims = new Vector2(28f, 28f);
-            Vector2 thispos = new Vector2(thisx, thisy) - Main.screenPosition + ballOffset;
+            Vector2 thispos = new Vector2(thisx, thisy) - Main.screenPosition;
 
             if (drawInfo.shadow == 0f)
             {
@@ -1281,7 +1280,7 @@ namespace MetroidMod
                         Color color23 = mp.morphColorLights;
                         color23 *= (mp.oldPos.Length - (i)) / 15f;
 
-                        Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2((int)(drawPlayer.width / 2), (int)(drawPlayer.height / 2)) + ballOffset;
+                        Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2((int)(drawPlayer.width / 2), (int)(drawPlayer.height / 2));
 
                         data = new DrawData(trail, drawPos, new Rectangle?(new Rectangle(0, 0, trail.Width, trail.Height)), color23, mp.ballrot, ballDims / 2, scale, effects, 0);
                         

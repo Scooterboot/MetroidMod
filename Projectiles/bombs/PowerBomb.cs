@@ -36,21 +36,18 @@ namespace MetroidMod.Projectiles.bombs
 		{
 			float scalez = 0.2f;
 			Lighting.AddLight(projectile.Center, scalez, scalez, scalez);
-			projectile.frameCounter++;
-			if (projectile.frameCounter >= (int)((float)projectile.timeLeft/7.5f))
+
+			if (projectile.frameCounter++ >= (int)(projectile.timeLeft / 7.5f))
 			{
-				projectile.frame++;
+				projectile.frame = (projectile.frame + 1) % 6;
 				projectile.frameCounter = 0;
 			}
-			if (projectile.frame >= 6)
-			{
-				projectile.frame = 0;
-			}
 		}
+
 		public override void Kill(int timeLeft)
 		{
 			Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/PowerBombExplode"));
-			int proj = Terraria.Projectile.NewProjectile(projectile.Center.X,projectile.Center.Y,0,0,mod.ProjectileType("PowerBombExplosion"),projectile.damage,3,projectile.owner);
+			int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("PowerBombExplosion"), projectile.damage, 3, projectile.owner);
 		}
 	}
 }

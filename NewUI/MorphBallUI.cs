@@ -83,6 +83,8 @@ namespace MetroidMod.NewUI
             this.Top.Pixels = 240;
             if (!Main.mapFullscreen && Main.mapStyle == 1)
                 this.Top.Pixels += 256;
+
+            base.Update(gameTime);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
