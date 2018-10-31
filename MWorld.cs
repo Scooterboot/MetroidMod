@@ -1,4 +1,5 @@
 
+
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace MetroidMod
 		public static bool downedPhantoon = false;
 		public static bool spawnedPhazonMeteor = false;
 		public static bool downedNightmare = false;
+		public static bool downedOmegaPirate = false;
 		public override void Initialize()
 		{
 			downedTorizo = false;
@@ -32,6 +34,7 @@ namespace MetroidMod
 			downedPhantoon = false;
 			spawnedPhazonMeteor = false;
 			downedNightmare = false;
+			downedOmegaPirate = false;
 		}
 
 		public override TagCompound Save()
@@ -42,6 +45,7 @@ namespace MetroidMod
 			if (downedKraid) downed.Add("Kraid");
 			if (downedPhantoon) downed.Add("Phantoon");
 			if (downedNightmare) downed.Add("Nightmare");
+			if (downedOmegaPirate) downed.Add("OmegaPirate");
 
 			return new TagCompound {
 				{"downed", downed},
@@ -58,6 +62,7 @@ namespace MetroidMod
 			downedPhantoon = downed.Contains("Phantoon");
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
 			downedNightmare = downed.Contains("Nightmare");
+			downedOmegaPirate = downed.Contains("OmegaPirate");
 		}
 
 		public override void LoadLegacy(BinaryReader reader)
@@ -72,6 +77,7 @@ namespace MetroidMod
 				downedPhantoon = flags[3];
 				spawnedPhazonMeteor = flags[4];
 				downedNightmare = flags[5];
+				downedOmegaPirate = flags[6];
 			}
 			else
 			{
@@ -88,6 +94,7 @@ namespace MetroidMod
 			flags[3] = downedPhantoon;
 			flags[4] = spawnedPhazonMeteor;
 			flags[5] = downedNightmare;
+			flags[6] = downedOmegaPirate;
 			writer.Write(flags);
 
 		}
@@ -101,6 +108,7 @@ namespace MetroidMod
 			downedPhantoon = flags[3];
 			spawnedPhazonMeteor = flags[4];
 			downedNightmare = flags[5];
+			downedOmegaPirate = flags[6];
 		}
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
