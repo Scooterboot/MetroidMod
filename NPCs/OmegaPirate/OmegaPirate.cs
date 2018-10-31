@@ -1,0 +1,3228 @@
+using Terraria;
+using Terraria.ID;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.NPCs.OmegaPirate;
+
+namespace MetroidMod.NPCs.OmegaPirate
+{
+    public class OmegaPirate : ModNPC
+    {
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Omega Pirate");
+		}
+
+		int damage = 70;
+		public override void SetDefaults()
+		{
+			npc.width = 62;
+			npc.height = 62;
+			npc.damage = 0;
+			npc.defense = 30;
+			npc.lifeMax = 30000;
+			npc.dontTakeDamage = false;//true;
+			npc.scale = 1f;
+			npc.boss = true;
+			npc.HitSound = SoundID.NPCHit1;
+			npc.DeathSound = SoundID.NPCDeath1;
+			npc.value = Item.buyPrice(0, 0, 7, 0);
+			npc.knockBackResist = 0;
+			npc.lavaImmune = true;
+			npc.noTileCollide = false;
+			npc.noGravity = false;
+			npc.behindTiles = true;
+			npc.buffImmune[20] = true;
+			npc.buffImmune[24] = true;
+			npc.buffImmune[31] = true;
+			npc.buffImmune[39] = true;
+			npc.buffImmune[44] = true;
+			npc.buffImmune[mod.BuffType("PhazonDebuff")] = true;
+			npc.aiStyle = -1;
+			npc.npcSlots = 5;
+			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/OmegaPirate");
+			//bossBag = mod.ItemType("OmegaPirateBag");
+			
+			npc.ai = new float[8];
+		}
+		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		{
+			npc.lifeMax = (int)(npc.lifeMax * 0.75f * bossLifeScale);
+			npc.damage = 0;//(int)(npc.damage * 0.8f);
+			damage = (int)(damage * 2 * 0.8f);
+		}
+		public override void BossLoot(ref string name, ref int potionType)
+		{
+			potionType = ItemID.GreaterHealingPotion;
+		}
+		public override void NPCLoot()
+		{
+			MWorld.downedOmegaPirate = true;
+			/*if (Main.expertMode)
+			{
+				npc.DropBossBags();
+			}
+			else
+			{*/
+				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("[omega pirate drop]"), 1);
+				/*if (Main.rand.Next(5) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OmegaPirateMusicBox"));
+				}
+				if (Main.rand.Next(7) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OmegaPirateMask"));
+				}
+				if (Main.rand.Next(10) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OmegaPirateTrophy"));
+				}
+			}*/
+		}
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			/*if (Main.netMode != 2)
+			{
+				if(currentState > 0)
+				{
+					for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
+					{
+						int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 5, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
+						if (npc.life <= 0 && m % 2 == 0)
+						{
+							Main.dust[dustID].noGravity = true;
+						}
+					}
+				}
+				if (npc.life <= 0)
+				{
+					
+				}
+			}*/
+		}
+		
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			return false;
+		}
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			return false;
+		}
+		
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			if(fullAlpha < 0.1f)
+			{
+				return false;
+			}
+			scale = 1.5f;
+			position = new Vector2(npc.Center.X,npc.position.Y+206);
+			if(npc.life < npc.lifeMax)
+			{
+				return true;
+			}
+			return null;
+		}
+		
+		public override void BossHeadSlot(ref int index)
+		{
+			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.OmegaPirateHead);
+			if(fullAlpha < 0.1f)
+			{
+				index = -1;
+			}
+		}
+		
+		NPC Body,
+		RArmArmor, LArmArmor,
+		RLegArmor, LLegArmor,
+		RCannon, LCannon;
+		NPC[] RArm = new NPC[3],
+		LArm = new NPC[3],
+		RLeg = new NPC[3],
+		LLeg = new NPC[3];
+		
+		Vector2 BodyOffset;
+		Vector2[] BodyPos = new Vector2[2],
+		RArmPos = new Vector2[5],
+		LArmPos = new Vector2[5],
+		RLegPos = new Vector2[6],
+		LLegPos = new Vector2[6],
+		RCannonPos = new Vector2[3],
+		LCannonPos = new Vector2[3],
+		HeadPos = new Vector2[2];
+		
+		float BodyRot, PelvisRot;
+		float[] RArmRot = new float[2],
+		LArmRot = new float[2],
+		RLegRot = new float[3],
+		LLegRot = new float[3],
+		HeadRot = new float[2],
+		RCannonRot = new float[2],
+		LCannonRot = new float[2];
+		
+		float PelvisOffset;
+		Vector2 RArmOffset, LArmOffset;
+		
+		float BodyOffsetRot;
+		float[] RArmOffsetRot = new float[5],
+		LArmOffsetRot = new float[5],
+		RLegOffsetRot = new float[6],
+		LLegOffsetRot = new float[6],
+		RCannonOffsetRot = new float[3],
+		LCannonOffsetRot = new float[3],
+		HeadOffsetRot = new float[2];
+		
+		float BodyDist;
+		float[] RArmDist = new float[5],
+		LArmDist = new float[5],
+		RLegDist = new float[6],
+		LLegDist = new float[6],
+		RCannonDist = new float[3],
+		LCannonDist = new float[3],
+		HeadDist = new float[2];
+		
+		static Vector2[] DefaultBodyPos = { new Vector2(-5,73), new Vector2(11,-61) },
+		DefaultRightArmPos = { new Vector2(-26,-74), new Vector2(-16,26), new Vector2(-3,-5), new Vector2(-3,13), new Vector2(28,58) },
+		DefaultLeftArmPos = { new Vector2(36,-74), new Vector2(-16,26), new Vector2(-3,-5), new Vector2(-3,13), new Vector2(28,58) },
+		DefaultRightLegPos = { new Vector2(-16,2), new Vector2(10,30), new Vector2(-8,40), new Vector2(4,18), new Vector2(-1,19), new Vector2(2,8) },
+		DefaultLeftLegPos = { new Vector2(14,2), new Vector2(10,30), new Vector2(-8,40), new Vector2(4,18), new Vector2(-1,19), new Vector2(2,8) },
+		DefaultRightCannonPos = { new Vector2(-30,-100), new Vector2(-2,-20), new Vector2(10,0) },
+		DefaultLeftCannonPos = { new Vector2(24,-100), new Vector2(2,-20), new Vector2(10,0) },
+		DefaultHeadPos = { new Vector2(28,-86), new Vector2(-14,4) };
+		
+		static Vector2[] AltBodyPos = { new Vector2(0,73), new Vector2(0,-61) },
+		AltRightArmPos = { new Vector2(-51,-74), new Vector2(-16,26), new Vector2(-3,-5), new Vector2(-3,13), new Vector2(-28,58) },
+		AltLeftArmPos = { new Vector2(51,-74), new Vector2(16,26), new Vector2(3,-5), new Vector2(3,13), new Vector2(28,58) },
+		AltRightLegPos = { new Vector2(-16,2), new Vector2(-10,30), new Vector2(-8,40), new Vector2(-4,18), new Vector2(-1,19), new Vector2(-2,8) },
+		AltLeftLegPos = { new Vector2(16,2), new Vector2(10,30), new Vector2(8,40), new Vector2(4,18), new Vector2(1,19), new Vector2(2,8) },
+		AltRightCannonPos = { new Vector2(-26,-100), new Vector2(-2,-20), new Vector2(0,0) },
+		AltLeftCannonPos = { new Vector2(26,-100), new Vector2(2,-20), new Vector2(0,0) },
+		AltHeadPos = { new Vector2(0,-86), new Vector2(-14,4) };
+		
+		Vector2[] CurrentBodyPos = new Vector2[2],
+		CurrentRightArmPos = new Vector2[5],
+		CurrentLeftArmPos = new Vector2[5],
+		CurrentRightLegPos = new Vector2[6],
+		CurrentLeftLegPos = new Vector2[6],
+		CurrentRightCannonPos = new Vector2[3],
+		CurrentLeftCannonPos = new Vector2[3],
+		CurrentHeadPos = new Vector2[2];
+		
+		Vector2 fullScale = new Vector2(1f,1f);
+		
+		void SetPositions()
+		{
+			for(int i = 0; i < 6; i++)
+			{
+				CurrentRightLegPos[i] = DefaultRightLegPos[i];
+				CurrentLeftLegPos[i] = DefaultLeftLegPos[i];
+				if(i < 5)
+				{
+					CurrentRightArmPos[i] = DefaultRightArmPos[i];
+					CurrentLeftArmPos[i] = DefaultLeftArmPos[i];
+				}
+				if(i < 3)
+				{
+					CurrentRightCannonPos[i] = DefaultRightCannonPos[i];
+					CurrentLeftCannonPos[i] = DefaultLeftCannonPos[i];
+				}
+				if(i < 2)
+				{
+					CurrentBodyPos[i] = DefaultBodyPos[i];
+					CurrentHeadPos[i] = DefaultHeadPos[i];
+				}
+			}
+			
+			CurrentRightLegPos[0].X += PelvisOffset;
+			CurrentLeftLegPos[0].X -= PelvisOffset;
+			
+			CurrentRightArmPos[0] += RArmOffset;
+			CurrentLeftArmPos[0] += LArmOffset;
+			
+			
+			BodyOffsetRot = (float)Math.Atan2(CurrentBodyPos[1].Y,CurrentBodyPos[1].X);
+			BodyDist = CurrentBodyPos[1].Length();
+			
+			for(int i = 0; i < 6; i++)
+			{
+				RLegOffsetRot[i] = (float)Math.Atan2(CurrentRightLegPos[i].Y,CurrentRightLegPos[i].X);
+				RLegDist[i] = CurrentRightLegPos[i].Length();
+				
+				LLegOffsetRot[i] = (float)Math.Atan2(CurrentLeftLegPos[i].Y,CurrentLeftLegPos[i].X);
+				LLegDist[i] = CurrentLeftLegPos[i].Length();
+				
+				if(i < 5)
+				{
+					RArmOffsetRot[i] = (float)Math.Atan2(CurrentRightArmPos[i].Y,CurrentRightArmPos[i].X);
+					RArmDist[i] = CurrentRightArmPos[i].Length();
+					
+					LArmOffsetRot[i] = (float)Math.Atan2(CurrentLeftArmPos[i].Y,CurrentLeftArmPos[i].X);
+					LArmDist[i] = CurrentLeftArmPos[i].Length();
+				}
+				if(i < 3)
+				{
+					RCannonOffsetRot[i] = (float)Math.Atan2(CurrentRightCannonPos[i].Y,CurrentRightCannonPos[i].X);
+					RCannonDist[i] = CurrentRightCannonPos[i].Length();
+					
+					LCannonOffsetRot[i] = (float)Math.Atan2(CurrentLeftCannonPos[i].Y,CurrentLeftCannonPos[i].X);
+					LCannonDist[i] = CurrentLeftCannonPos[i].Length();
+				}
+				if(i < 2)
+				{
+					HeadOffsetRot[i] = (float)Math.Atan2(CurrentHeadPos[i].Y,CurrentHeadPos[i].X);
+					HeadDist[i] = CurrentHeadPos[i].Length();
+				}
+			}
+			
+			if(npc.direction == -1)
+			{
+				RArmOffsetRot[0] = (float)Math.Atan2(CurrentLeftArmPos[0].Y,CurrentLeftArmPos[0].X);
+				RArmDist[0] = CurrentLeftArmPos[0].Length();
+				
+				LArmOffsetRot[0] = (float)Math.Atan2(CurrentRightArmPos[0].Y,CurrentRightArmPos[0].X);
+				LArmDist[0] = CurrentRightArmPos[0].Length();
+				
+				RLegOffsetRot[0] = (float)Math.Atan2(CurrentLeftLegPos[0].Y,CurrentLeftLegPos[0].X);
+				RLegDist[0] = CurrentLeftLegPos[0].Length();
+				
+				LLegOffsetRot[0] = (float)Math.Atan2(CurrentRightLegPos[0].Y,CurrentRightLegPos[0].X);
+				LLegDist[0] = CurrentRightLegPos[0].Length();
+				
+				for(int i = 0; i < 2; i++)
+				{
+					RCannonOffsetRot[i] = (float)Math.Atan2(CurrentLeftCannonPos[i].Y,CurrentLeftCannonPos[i].X);
+					RCannonDist[i] = CurrentLeftCannonPos[i].Length();
+					
+					LCannonOffsetRot[i] = (float)Math.Atan2(CurrentRightCannonPos[i].Y,CurrentRightCannonPos[i].X);
+					LCannonDist[i] = CurrentRightCannonPos[i].Length();
+				}
+			}
+			
+			BodyPos[0] = npc.Center + (CurrentBodyPos[0] + BodyOffset) * fullScale;
+			BodyPos[1] = BodyPos[0] + AngleFlip(BodyOffsetRot + BodyRot, npc.direction).ToRotationVector2()*BodyDist * fullScale;
+			
+			RArmPos[0] = BodyPos[0] + AngleFlip(RArmOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*RArmDist[0] * fullScale;
+			RArmPos[1] = RArmPos[0] + AngleFlip(RArmOffsetRot[1] + RArmRot[0], npc.direction).ToRotationVector2()*RArmDist[1] * fullScale;
+			RArmPos[2] = RArmPos[0] + AngleFlip(RArmOffsetRot[2] + RArmRot[0], npc.direction).ToRotationVector2()*RArmDist[2] * fullScale;
+			RArmPos[3] = RArmPos[1] + AngleFlip(RArmOffsetRot[3] + RArmRot[1], npc.direction).ToRotationVector2()*RArmDist[3] * fullScale;
+			RArmPos[4] = RArmPos[1] + AngleFlip(RArmOffsetRot[4] + RArmRot[1], npc.direction).ToRotationVector2()*RArmDist[4] * fullScale;
+			
+			LArmPos[0] = BodyPos[0] + AngleFlip(LArmOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*LArmDist[0] * fullScale;
+			LArmPos[1] = LArmPos[0] + AngleFlip(LArmOffsetRot[1] + LArmRot[0], npc.direction).ToRotationVector2()*LArmDist[1] * fullScale;
+			LArmPos[2] = LArmPos[0] + AngleFlip(LArmOffsetRot[2] + LArmRot[0], npc.direction).ToRotationVector2()*LArmDist[2] * fullScale;
+			LArmPos[3] = LArmPos[1] + AngleFlip(LArmOffsetRot[3] + LArmRot[1], npc.direction).ToRotationVector2()*LArmDist[3] * fullScale;
+			LArmPos[4] = LArmPos[1] + AngleFlip(LArmOffsetRot[4] + LArmRot[1], npc.direction).ToRotationVector2()*LArmDist[4] * fullScale;
+			
+			RLegPos[0] = BodyPos[0] + AngleFlip(RLegOffsetRot[0] + PelvisRot, npc.direction).ToRotationVector2()*RLegDist[0] * fullScale;
+			RLegPos[1] = RLegPos[0] + AngleFlip(RLegOffsetRot[1] + RLegRot[0], npc.direction).ToRotationVector2()*RLegDist[1] * fullScale;
+			RLegPos[2] = RLegPos[1] + AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2] * fullScale;
+			RLegPos[3] = RLegPos[0] + AngleFlip(RLegOffsetRot[3] + RLegRot[0], npc.direction).ToRotationVector2()*RLegDist[3] * fullScale;
+			RLegPos[4] = RLegPos[1] + AngleFlip(RLegOffsetRot[4] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[4] * fullScale;
+			RLegPos[5] = RLegPos[2] + AngleFlip(RLegOffsetRot[5] + RLegRot[2], npc.direction).ToRotationVector2()*RLegDist[5] * fullScale;
+			
+			LLegPos[0] = BodyPos[0] + AngleFlip(LLegOffsetRot[0] + PelvisRot, npc.direction).ToRotationVector2()*LLegDist[0] * fullScale;
+			LLegPos[1] = LLegPos[0] + AngleFlip(LLegOffsetRot[1] + LLegRot[0], npc.direction).ToRotationVector2()*LLegDist[1] * fullScale;
+			LLegPos[2] = LLegPos[1] + AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2] * fullScale;
+			LLegPos[3] = LLegPos[0] + AngleFlip(LLegOffsetRot[3] + LLegRot[0], npc.direction).ToRotationVector2()*LLegDist[3] * fullScale;
+			LLegPos[4] = LLegPos[1] + AngleFlip(LLegOffsetRot[4] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[4] * fullScale;
+			LLegPos[5] = LLegPos[2] + AngleFlip(LLegOffsetRot[5] + LLegRot[2], npc.direction).ToRotationVector2()*LLegDist[5] * fullScale;
+			
+			RCannonPos[0] = BodyPos[0] + AngleFlip(RCannonOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*RCannonDist[0] * fullScale;
+			RCannonPos[1] = RCannonPos[0] + AngleFlip(RCannonOffsetRot[1] + RCannonRot[0], npc.direction).ToRotationVector2()*RCannonDist[1] * fullScale;
+			RCannonPos[2] = RCannonPos[1] + AngleFlip(RCannonOffsetRot[2] + RCannonRot[1], npc.direction).ToRotationVector2()*RCannonDist[2] * fullScale;
+			
+			LCannonPos[0] = BodyPos[0] + AngleFlip(LCannonOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*LCannonDist[0] * fullScale;
+			LCannonPos[1] = LCannonPos[0] + AngleFlip(LCannonOffsetRot[1] + LCannonRot[0], npc.direction).ToRotationVector2()*LCannonDist[1] * fullScale;
+			LCannonPos[2] = LCannonPos[1] + AngleFlip(LCannonOffsetRot[2] + LCannonRot[1], npc.direction).ToRotationVector2()*LCannonDist[2] * fullScale;
+			
+			HeadPos[0] = BodyPos[0] + AngleFlip(HeadOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*HeadDist[0] * fullScale;
+			HeadPos[1] = HeadPos[0] + AngleFlip(HeadOffsetRot[1] + HeadRot[0], npc.direction).ToRotationVector2()*HeadDist[1] * fullScale;
+		}
+		
+		Vector2 cannonTargetPos;
+		float cannonTargetTransition = 0f;
+		
+		bool initialized = false;
+		public override bool PreAI()
+		{
+			npc.noTileCollide = true;
+			npc.noGravity = true;
+			if(!initialized)
+			{
+				npc.TargetClosest(true);
+				npc.netUpdate = true;
+				
+				Player player = Main.player[npc.target];
+				
+				npc.direction = 1;
+				if(Main.rand.Next(2) == 1)
+				{
+					npc.direction = -1;
+				}
+				npc.Center = new Vector2(player.Center.X-150*npc.direction,player.Center.Y-1500);
+				npc.velocity.Y = 0.1f;
+				
+				//npc.ai[0] = 1;
+				//npc.position.Y -= 202;
+				//npc.position.X = MathHelper.Clamp(npc.position.X,player.position.X - 2000,player.position.X + 2000);
+				//npc.position.Y = MathHelper.Clamp(npc.position.Y,player.position.Y - 2000,player.position.Y + 2000);
+				
+				cannonTargetPos = player.Center;
+				
+				SetPositions();
+				
+				int b = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+				Body = Main.npc[b];
+				Body.realLife = npc.whoAmI;
+				Body.ai[0] = npc.whoAmI;
+				Body.Center = BodyPos[1];
+				
+				for(int i = 0; i < 3; i++)
+				{
+					int ra = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					RArm[i] = Main.npc[ra];
+					RArm[i].realLife = npc.whoAmI;
+					RArm[i].ai[0] = npc.whoAmI;
+					RArm[i].ai[1] = 1+i;
+					RArm[i].Center = RArmPos[i+2];
+					
+					int la = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					LArm[i] = Main.npc[la];
+					LArm[i].realLife = npc.whoAmI;
+					LArm[i].ai[0] = npc.whoAmI;
+					LArm[i].ai[1] = 1+i;
+					LArm[i].Center = LArmPos[i+2];
+					
+					int rl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					RLeg[i] = Main.npc[rl];
+					RLeg[i].realLife = npc.whoAmI;
+					RLeg[i].ai[0] = npc.whoAmI;
+					RLeg[i].ai[1] = 4+i;
+					RLeg[i].Center = RLegPos[i+3];
+					
+					int ll = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					LLeg[i] = Main.npc[ll];
+					LLeg[i].realLife = npc.whoAmI;
+					LLeg[i].ai[0] = npc.whoAmI;
+					LLeg[i].ai[1] = 4+i;
+					LLeg[i].Center = LLegPos[i+3];
+				}
+				
+				int cr = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+				RCannon = Main.npc[cr];
+				RCannon.realLife = npc.whoAmI;
+				RCannon.ai[0] = npc.whoAmI;
+				RCannon.ai[1] = 7;
+				RCannon.Center = RCannonPos[2];
+				
+				int cl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+				LCannon = Main.npc[cl];
+				LCannon.realLife = npc.whoAmI;
+				LCannon.ai[0] = npc.whoAmI;
+				LCannon.ai[1] = 7;
+				LCannon.Center = LCannonPos[2];
+				
+				
+				int raa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+				RArmArmor = Main.npc[raa];
+				RArmArmor.ai[0] = npc.whoAmI;
+				RArmArmor.Center = RArmPos[2];
+				
+				int laa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+				LArmArmor = Main.npc[laa];
+				LArmArmor.ai[0] = npc.whoAmI;
+				LArmArmor.Center = LArmPos[2];
+				
+				int rla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+				RLegArmor = Main.npc[rla];
+				RLegArmor.ai[0] = npc.whoAmI;
+				RLegArmor.ai[1] = 1;
+				RLegArmor.Center = RLegPos[3];
+				
+				int lla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+				LLegArmor = Main.npc[lla];
+				LLegArmor.ai[0] = npc.whoAmI;
+				LLegArmor.ai[1] = 1;
+				LLegArmor.Center = LLegPos[3];
+				
+				initialized = true;
+			}
+			return true;
+		}
+		
+		//Spawn animation
+		float[] HeadAnim_Spawn = {0,-20,0};
+		float head_SpawnTransition = 0f;
+		float[] BodyAnim_Spawn = {0,-10,-5};
+		
+		float[][] RArmAnim_Spawn = new float[][]{
+		new float[] {15,10,20},
+		new float[] {-5,10,20}};
+		
+		float[][] LArmAnim_Spawn = new float[][]{
+		new float[] {10, -10,-20},
+		new float[] {-10,-10,-20}};
+		
+		float[][] RLegAnim_Spawn = new float[][]{
+		new float[] {0,-10,-20},
+		new float[] {0,-90,-24},
+		new float[] {0,-70, 15}};
+		
+		float[][] LLegAnim_Spawn = new float[][]{
+		new float[] {0, 95,20},
+		new float[] {0,-15, 0},
+		new float[] {0, 15,15}};
+		
+		float[] BodyOffset_Spawn = {0,50,5};
+		float anim_Spawn = 1f;
+		
+		//Walk animation
+		float[] BodyAnim_Walk = {-5, -2f,0,-2f,  -5, -2f,0,-2f,  -5};
+		float[] RArmAnim_Walk = { 20, 12,0,-12,  -20,-12,0, 12,   20};
+		float[] LArmAnim_Walk = {-20,-12,0, 12,   20, 12,0,-12,  -20};
+		float[] LShAnim_Walk_Absorb = {30,35,40,45,  50,45,40,35, 30};
+		float LArmAnim_Walk_Absorb = 40;
+		float anim_Walk_AbsorbTransition = 0f;
+		
+		float[][] RLegAnim_Walk = new float[][]{
+		new float[] {-20, 20, 50,40,  20,0,-20,-20,  -20},
+		new float[] {-24,-40,-20,10,  0, 0, 0, -12,  -24},
+		new float[] { 15,-5,  5, 30,  15,15,15, 15,   15f}};
+		
+		float[][] LLegAnim_Walk = new float[][]{
+		new float[] {20,0,-20,-20,  -20, 20, 50,40,  20},
+		new float[] {0, 0, 0, -12,  -24,-40,-20,10,  0},
+		new float[] {15,15,15, 15,   15,-5,  5, 30,  15}};
+		
+		float[] legAnim_Walk_Speed = {15,16,8,7, 15,16,8,7};
+		float anim_Walk = 1f;
+		
+		//Jump animation
+		float[] BodyAnim_Jump = {-6,0f,-5f,-15f};
+		
+		float[][] RArmAnim_Jump = new float[][]{
+		new float[] {30f,-20f,10f,15f},
+		new float[] {40f,-25f,15f,25f}};
+		
+		float[][] LArmAnim_Jump = new float[][]{
+		new float[] {-20f,60f,10f,-10f},
+		new float[] {-10f,85f,15f,-10f}};
+		
+		float[][] LArmAnim_Jump_Absorb = new float[][]{
+		new float[] {20f,50f,20f,10f},
+		new float[] {40f,40f,40f,40f}};
+		
+		float[][] RLegAnim_Jump = new float[][]{
+		new float[] {  0f, 45f,-15f,  0f},
+		new float[] {-50f,-20f, -5f,-65f},
+		new float[] { 15f,-20f, -5f,  0f}};
+		
+		float[][] LLegAnim_Jump = new float[][]{
+		new float[] { 50f,-20f,10f, 60f},
+		new float[] {-10f,-10f, 0f,-24f},
+		new float[] { 15f,-10f, 0f, 15f}};
+		
+		float anim_Jump = 1f;
+		float anim_JumpTransition = 0f;
+		
+		//Shockwave attack animation
+		float[] BodyAnim_Shockwave = {-2.5f,-1f,0f,-30,-60};
+		float[] HeadAnim_Shockwave = {    0,  0, 0,-30,-60};
+		
+		float[][] RArmAnim_Shockwave = new float[][]{
+		new float[] {50f,145f,155f,87.5f,20f},
+		new float[] {50f,125f,135f,70.5f,0f}};
+		
+		float[][] LArmAnim_Shockwave = new float[][]{
+		new float[] {50f,145f,155f,77.5f, 0f},
+		new float[] {50f,145f,175f, 105f,35f}};
+		
+		float[][] RLegAnim_Shockwave = new float[][]{
+		new float[] {-20f,-20f,-20f,  -10f,  0f},
+		new float[] {-22f,-18f,-18f,-41.5f,-65f},
+		new float[] { 15f, 15f, 15f,  7.5f,  0f}};
+		
+		float[][] LLegAnim_Shockwave = new float[][]{
+		new float[] {15f,12f,12f,33.5f, 55f},
+		new float[] { 0f, 0f, 0f, -15f,-30f},
+		new float[] {15f,15f,15f,  15f, 15f}};
+		
+		float anim_Shockwave = 1f;
+		float anim_ShockwaveTransition = 0f;
+		float anim_ShockwaveTransition_Head = 0f;
+		
+		//Giant leap attack animation
+		float[] BodyAnim_Leap = {-10f,-3.5f,-1f,0f,-60f};
+		float[] HeadAnim_Leap = {  0f,   0f, 0f,0f,-60f};
+		
+		float[][] RArmAnim_Leap = new float[][]{
+		new float[] {30f,50f,145f,155f,20f},
+		new float[] {40f,50f,125f,135f,0f}};
+		
+		float[][] LArmAnim_Leap = new float[][]{
+		new float[] {-30f,50f,145f,155f,0f},
+		new float[] {-20f,50f,145f,175f,35f}};
+		
+		float[][] RLegAnim_Leap = new float[][]{
+		new float[] {  0f, 45f, 45f,-15f,  0f},
+		new float[] {-65f,-20f,-20f, -5f,-65f},
+		new float[] {  0f,-20f,-20f, -5f,  0f}};
+		
+		float[][] LLegAnim_Leap = new float[][]{
+		new float[] { 62f,-20f,-20f,10f, 55f},
+		new float[] {-20f,-10f,-10f, 0f,-30f},
+		new float[] { 15f,-10f,-10f, 0f, 15f}};
+		
+		float anim_Leap = 1f;
+		float anim_LeapTransition = 0f;
+		float anim_LeapTransition_Head = 0f;
+		
+		//Claw attack animation
+		float[][] ArmAnim_Claw = new float[][]{
+		new float[] {  0,  0,60, 80},
+		new float[] {-10,-20,60,100}};
+		
+		float anim_Claw = 1f;
+		float anim_ClawTransition = 0f;
+		
+		//Cannon attack animation
+		float[] BodyAnim_CannonFire = {0f,5f};
+		
+		float[][] RArmAnim_CannonFire = new float[][]{
+		new float[] {0f,8f},
+		new float[] {10f,15f}};
+		
+		float[][] LArmAnim_CannonFire = new float[][]{
+		new float[] {-10f,-2f},
+		new float[] {10f,15f}};
+		
+		float[][] RLegAnim_CannonFire = new float[][]{
+		new float[] {-20f,-20f},
+		new float[] {-24f,-24f},
+		new float[] {15f,15f}};
+		
+		float[][] LLegAnim_CannonFire = new float[][]{
+		new float[] {20f,20f},
+		new float[] {0f,0f},
+		new float[] {15f,15f}};
+		
+		float[] RCannonAnim_CannonFire = {0f,30f};
+		float[] LCannonAnim_CannonFire = {0f,30f};
+		
+		float anim_CannonFire = 1f;
+		float anim_CannonFireTransition = 0f;
+		
+		float bodyCannonTargetRot = 0f;
+		float rightCannonTRot = 0f;
+		float leftCannonTRot = 0f;
+		
+		bool rCannonRecoil = false;
+		float rCannonRecoilAnim = 0f;
+		bool lCannonRecoil = false;
+		float lCannonRecoilAnim = 0f;
+		
+		bool laserAnim = false;
+		float rLaserAngle = 0f;
+		float lLaserAngle = 0f;
+		float laserAlpha = 0f;
+		float laserFrame = 0f;
+		
+		bool armGlowAnim = false;
+		float armGlowAlpha = 0f;
+		
+		float bodyAlpha = 1f;
+		float fullAlpha = 0f;
+		
+		
+		//Phazon regen phase start animation
+		float[] BodyAnim_PhazonStart = {10f,-10f,-5f,-15f,-5f,0f};
+		float[] HeadAnim_PhazonStart = {10f,-20f,10f,-10f, 0f,0f};
+		
+		float[][] RArmAnim_PhazonStart = new float[][]{
+		new float[] {-10f,10f,-10f, 10f,40f,0f},
+		new float[] {-10f,10f,-20f,-10f,50f,0f}};
+		
+		float[][] LArmAnim_PhazonStart = new float[][]{
+		new float[] {0f,-10f,60f,20f,70, 0f},
+		new float[] {0f,-10f,80f, 0f,60f,0f}};
+		
+		float[][] RLegAnim_PhazonStart = new float[][]{
+		new float[] {-15f,-20f,-15f,-10f,-10f,-20f},
+		new float[] {-23f,-90f,-90f,-90f,-33f,-24f},
+		new float[] { 15f,-60f,-70f,-70f, 15f,15f}};
+		
+		float[][] LLegAnim_PhazonStart = new float[][]{
+		new float[] {15f, 95f, 95f, 95f,30f,20f},
+		new float[] {30f,-12f,-18f,-25f,-5f, 0f},
+		new float[] {15f, 15f, 15f, 15f,15f,15f}};
+		
+		float anim_PhazonStart = 1f;
+		float anim_PhazonStartTransition = 0f;
+		
+		//Phazon armor regeneration animation
+		float[] BodyAnim_PhazonRegen = {0f,5f,4f,7f,-10f,0f};
+		
+		float[][] RArmAnim_PhazonRegen = new float[][]{
+		new float[] {0f,170f,175f, 70f,60f,0f},
+		new float[] {0f,160f,170f,100f,90f,0f}};
+		
+		float[][] LArmAnim_PhazonRegen = new float[][]{
+		new float[] {0f,120f,125f, 70f, 60f,0f},
+		new float[] {0f,130f,125f,160f,150f,0f}};
+		
+		float[][] RLegAnim_PhazonRegen = new float[][]{
+		new float[] {-20f,-20f,-20f,-15f,-20f,-20f},
+		new float[] {-24f,-24f,-24f,-23f,-90f,-24f},
+		new float[] { 15f, 15f, 15f, 15f,-60f, 15f}};
+		
+		float[][] LLegAnim_PhazonRegen = new float[][]{
+		new float[] {20f,20f,20f,15f, 95f,20f},
+		new float[] { 0f, 0f, 0f,30f,-12f, 0f},
+		new float[] {15f,15f,15f,15f, 15f,15f}};
+		
+		float anim_PhazonRegen = 1f;
+		float anim_PhazonRegenTransition = 0f;
+		
+		
+		void SetAnimation(string type, float anim, float transition = 1f)
+		{
+			if(type == "walk")
+			{
+				RArmOffset.X = MathHelper.Lerp(RArmOffset.X,0f,transition);
+				LArmOffset.X = MathHelper.Lerp(LArmOffset.X,0f,transition);
+				
+				float offset = Math.Min(10 * (anim-1)/2, 10);
+				if(anim >= 5)
+				{
+					offset = Math.Max(10 * (2 - (anim-5))/2, 0);
+				}
+				if(npc.direction == -1)
+				{
+					offset = Math.Max(10 * (2 - (anim-1))/2, 0);
+					if(anim >= 5)
+					{
+						offset = Math.Min(10 * (anim-5)/2, 10);
+					}
+				}
+				PelvisOffset = MathHelper.Lerp(PelvisOffset,offset,transition);
+				for(int i = 0; i < 3; i++)
+				{
+					RLegRot[i] = MathHelper.Lerp(RLegRot[i],-(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_Walk[i],anim)),transition);
+					LLegRot[i] = MathHelper.Lerp(LLegRot[i],-(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_Walk[i],anim)),transition);
+				}
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_Walk,anim)),transition);
+				for(int i = 0; i < 2; i++)
+				{
+					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_Walk,anim)),transition);
+					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_Walk,anim)),transition);
+				}
+				RCannonRot[0] = BodyRot;
+				RCannonRot[1] = BodyRot;
+				LCannonRot[0] = BodyRot;
+				LCannonRot[1] = BodyRot;
+			}
+			if(type == "absorb")
+			{
+				float armTargetRot = Vector2Angle(BodyPos[1],Main.player[npc.target].Center,npc.direction);
+				float armrot0 = -(float)ConvertToRadians((double)LerpArray(0f,LShAnim_Walk_Absorb,anim));
+				float armrot1 = -(float)ConvertToRadians((double)LArmAnim_Walk_Absorb);
+				float rot = (armTargetRot * 0.75f) - 0.4f;
+				if(rot > 0.5f)
+				{
+					rot = 0.5f;
+				}
+				armrot0 += rot * 0.8f;
+				armrot1 += rot;
+				
+				LArmRot[0] = MathHelper.Lerp(LArmRot[0], armrot0, transition);
+				LArmRot[1] = MathHelper.Lerp(LArmRot[1], armrot1, transition);
+			}
+			if(type == "jump")
+			{
+				RArmOffset.X = MathHelper.Lerp(RArmOffset.X,0f,transition);
+				LArmOffset.X = MathHelper.Lerp(LArmOffset.X,0f,transition);
+				
+				float offset = Math.Min(10 * (anim-1f), 10);
+				if(anim >= 2)
+				{
+					offset = Math.Max(10 * (1 - (anim-2f)), 0);
+				}
+				if(npc.direction == -1)
+				{
+					offset = Math.Max(10 * (1 - (anim-1f)), 0);
+					if(anim >= 2)
+					{
+						offset = Math.Min(10 * (anim-2f), 10);
+					}
+				}
+				PelvisOffset = MathHelper.Lerp(PelvisOffset,offset,transition);
+				for(int i = 0; i < 3; i++)
+				{
+					RLegRot[i] = MathHelper.Lerp(RLegRot[i],-(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_Jump[i],anim)),transition);
+					LLegRot[i] = MathHelper.Lerp(LLegRot[i],-(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_Jump[i],anim)),transition);
+				}
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_Jump,anim)),transition);
+				for(int i = 0; i < 2; i++)
+				{
+					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_Jump[i],anim)),transition);
+					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_Jump[i],anim)),transition);
+				}
+				RCannonRot[0] = BodyRot;
+				RCannonRot[1] = BodyRot;
+				LCannonRot[0] = BodyRot;
+				LCannonRot[1] = BodyRot;
+			}
+			if(type == "jump absorb")
+			{
+				float armTargetRot = Vector2Angle(BodyPos[1],Main.player[npc.target].Center,npc.direction);
+				float armrot0 = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_Jump_Absorb[0],anim));
+				float armrot1 = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_Jump_Absorb[1],anim));
+				float rot = (armTargetRot * 0.25f) - 0.4f;
+				if(rot > 0.5f)
+				{
+					rot = 0.5f;
+				}
+				armrot0 += rot * 0.8f;
+				armrot1 += rot;
+				
+				LArmRot[0] = MathHelper.Lerp(LArmRot[0], armrot0, transition);
+				LArmRot[1] = MathHelper.Lerp(LArmRot[1], armrot1, transition);
+			}
+			if(type == "shockwave")
+			{
+				PelvisOffset = MathHelper.Lerp(PelvisOffset,0f,transition);
+				
+				float offset = 0f;
+				if(anim >= 3)
+				{
+					offset = 10f * ((anim-3)/2);
+				}
+				RArmOffset.X = MathHelper.Lerp(0f,offset,transition);
+				LArmOffset.X = MathHelper.Lerp(0f,-offset,transition);
+				
+				float[] rlegrot = new float[3];
+				float[] llegrot = new float[3];
+				for(int i = 0; i < 3; i++)
+				{
+					rlegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_Shockwave[i],anim));
+					llegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_Shockwave[i],anim));
+				}
+				float[] rarmrot = new float[2];
+				float[] larmrot = new float[2];
+				for(int i = 0; i < 2; i++)
+				{
+					rarmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_Shockwave[i],anim));
+					larmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_Shockwave[i],anim));
+				}
+				
+				if(npc.direction == 1)
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],rlegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],llegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],rarmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],larmrot[i],transition);
+					}
+				}
+				else
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],llegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],rlegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],larmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],rarmrot[i],transition);
+					}
+				}
+				
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_Shockwave,anim)),transition);
+				RCannonRot[0] = BodyRot;
+				RCannonRot[1] = BodyRot;
+				LCannonRot[0] = BodyRot;
+				LCannonRot[1] = BodyRot;
+			}
+			if(type == "leap")
+			{
+				float offset = 0f;
+				if(anim >= 4)
+				{
+					offset = 10f * (anim-4);
+				}
+				RArmOffset.X = MathHelper.Lerp(0f,offset,transition);
+				LArmOffset.X = MathHelper.Lerp(0f,-offset,transition);
+				
+				float offset2 = Math.Min(10 * (anim-1f), 10);
+				if(anim >= 3)
+				{
+					offset2 = Math.Max(10 * (1 - (anim-3f)), 0);
+				}
+				PelvisOffset = MathHelper.Lerp(PelvisOffset,offset2,transition);
+				float[] rlegrot = new float[3];
+				float[] llegrot = new float[3];
+				for(int i = 0; i < 3; i++)
+				{
+					rlegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_Leap[i],anim));
+					llegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_Leap[i],anim));
+				}
+				float[] rarmrot = new float[2];
+				float[] larmrot = new float[2];
+				for(int i = 0; i < 2; i++)
+				{
+					rarmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_Leap[i],anim));
+					larmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_Leap[i],anim));
+				}
+				
+				if(npc.direction == 1)
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],rlegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],llegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],rarmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],larmrot[i],transition);
+					}
+				}
+				else
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],llegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],rlegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],larmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],rarmrot[i],transition);
+					}
+				}
+				
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_Leap,anim)),transition);
+				RCannonRot[0] = BodyRot;
+				RCannonRot[1] = BodyRot;
+				LCannonRot[0] = BodyRot;
+				LCannonRot[1] = BodyRot;
+			}
+			if(type == "cannon")
+			{
+				PelvisOffset = MathHelper.Lerp(PelvisOffset,0f,transition);
+				RArmOffset.X = MathHelper.Lerp(RArmOffset.X,0f,transition);
+				LArmOffset.X = MathHelper.Lerp(LArmOffset.X,0f,transition);
+				
+				float[] rlegrot = new float[3];
+				float[] llegrot = new float[3];
+				for(int i = 0; i < 3; i++)
+				{
+					rlegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_CannonFire[i],anim));
+					llegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_CannonFire[i],anim));
+				}
+				float[] rarmrot = new float[2];
+				float[] larmrot = new float[2];
+				for(int i = 0; i < 2; i++)
+				{
+					rarmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_CannonFire[i],anim));
+					larmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_CannonFire[i],anim));
+				}
+				float rcannonrot = -(float)ConvertToRadians((double)LerpArray(0f,RCannonAnim_CannonFire,anim));
+				float lcannonrot = -(float)ConvertToRadians((double)LerpArray(0f,LCannonAnim_CannonFire,anim));
+				
+				if(npc.direction == 1)
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],rlegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],llegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],rarmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],larmrot[i],transition);
+					}
+					RCannonRot[0] = rcannonrot;
+					LCannonRot[0] = lcannonrot;
+				}
+				else
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],llegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],rlegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],larmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],rarmrot[i],transition);
+					}
+					RCannonRot[0] = lcannonrot;
+					LCannonRot[0] = rcannonrot;
+				}
+				RCannonRot[1] = 0f;
+				LCannonRot[1] = 0f;
+				
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_CannonFire,anim)),transition);
+			}
+			
+			if(type == "phazon start")
+			{
+				PelvisOffset = MathHelper.Lerp(PelvisOffset,0f,transition);
+				RArmOffset.X = MathHelper.Lerp(RArmOffset.X,0f,transition);
+				LArmOffset.X = MathHelper.Lerp(LArmOffset.X,0f,transition);
+				
+				float[] rlegrot = new float[3];
+				float[] llegrot = new float[3];
+				for(int i = 0; i < 3; i++)
+				{
+					rlegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_PhazonStart[i],anim));
+					llegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_PhazonStart[i],anim));
+				}
+				float[] rarmrot = new float[2];
+				float[] larmrot = new float[2];
+				for(int i = 0; i < 2; i++)
+				{
+					rarmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_PhazonStart[i],anim));
+					larmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_PhazonStart[i],anim));
+				}
+				
+				if(npc.direction == 1)
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],rlegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],llegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],rarmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],larmrot[i],transition);
+					}
+				}
+				else
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],llegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],rlegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],larmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],rarmrot[i],transition);
+					}
+				}
+				
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_PhazonStart,anim)),transition);
+				RCannonRot[0] = BodyRot;
+				RCannonRot[1] = BodyRot;
+				LCannonRot[0] = BodyRot;
+				LCannonRot[1] = BodyRot;
+				HeadRot[0] = MathHelper.Lerp(HeadRot[0],-(float)ConvertToRadians((double)LerpArray(0f,HeadAnim_PhazonStart,anim)),transition);
+			}
+			if(type == "phazon regen")
+			{
+				PelvisOffset = MathHelper.Lerp(PelvisOffset,0f,transition);
+				RArmOffset.X = MathHelper.Lerp(RArmOffset.X,0f,transition);
+				LArmOffset.X = MathHelper.Lerp(LArmOffset.X,0f,transition);
+				
+				float[] rlegrot = new float[3];
+				float[] llegrot = new float[3];
+				for(int i = 0; i < 3; i++)
+				{
+					rlegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_PhazonRegen[i],anim));
+					llegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_PhazonRegen[i],anim));
+				}
+				float[] rarmrot = new float[2];
+				float[] larmrot = new float[2];
+				for(int i = 0; i < 2; i++)
+				{
+					rarmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_PhazonRegen[i],anim));
+					larmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_PhazonRegen[i],anim));
+				}
+				
+				if(npc.direction == 1)
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],rlegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],llegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],rarmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],larmrot[i],transition);
+					}
+				}
+				else
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						RLegRot[i] = MathHelper.Lerp(RLegRot[i],llegrot[i],transition);
+						LLegRot[i] = MathHelper.Lerp(LLegRot[i],rlegrot[i],transition);
+					}
+					for(int i = 0; i < 2; i++)
+					{
+						RArmRot[i] = MathHelper.Lerp(RArmRot[i],larmrot[i],transition);
+						LArmRot[i] = MathHelper.Lerp(LArmRot[i],rarmrot[i],transition);
+					}
+				}
+				
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_PhazonRegen,anim)),transition);
+				RCannonRot[0] = BodyRot;
+				RCannonRot[1] = BodyRot;
+				LCannonRot[0] = BodyRot;
+				LCannonRot[1] = BodyRot;
+				HeadRot[0] = BodyRot;
+			}
+		}
+		void SetBodyOffset()
+		{
+			BodyPos[0] = npc.Center + CurrentBodyPos[0] + BodyOffset;
+			RLegPos[2] = RLegPos[1] + AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2];
+			LLegPos[2] = LLegPos[1] + AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2];
+			if(RLegPos[2].Y >= LLegPos[2].Y)
+			{
+				BodyOffset.Y = 98f - ((RLegPos[2].Y+26f) - BodyPos[0].Y);
+			}
+			else
+			{
+				BodyOffset.Y = 98f - ((LLegPos[2].Y+26f) - BodyPos[0].Y);
+			}
+		}
+		
+		
+		float[] PhazonArmorRegenAlpha = new float[4];
+		
+		
+		float clawGlowAlpha = 0f;
+		int glowNum = 1;
+		float lClawGlowAlpha = 0f;
+		int lGlowNum = -1;
+		float rClawGlowAlpha = 0f;
+		int rGlowNum = -1;
+		
+		NPC AbsorbProj;
+		
+		int addedAbsorbDamage = 0;
+		int absorbDamageMax = 200;
+		
+		int grounded = 0;
+		bool eyeFlame = false;
+		
+		int clawDamage = 60;
+		int shockwaveDamage = 60;
+		int laserDamage = 60;
+		int grenadeDamage = 60;
+		float grenadeSpeed = 13f;
+		float grenadeGravity = 0.25f;
+		int grenadeTimeBeforeGravity = 20;
+		
+		public static Color minGlowColor = new Color(96,200,255,10);
+		public static Color maxGlowColor = new Color(255,220,0,10);
+		
+		public override void AI()
+		{
+			int numH = 202;
+			
+			float xDiff = (Main.player[npc.target].Center.X+Main.player[npc.target].velocity.X) - cannonTargetPos.X;
+			float yDiff = (Main.player[npc.target].Center.Y+Main.player[npc.target].velocity.Y) - cannonTargetPos.Y;
+			cannonTargetPos.X += xDiff*0.1f;
+			cannonTargetPos.Y += yDiff*0.1f;
+			
+			if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 2500f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 2500f)
+			{
+				npc.TargetClosest(true);
+				if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 2500f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 2500f)
+				{
+					// despawn
+					
+					fullAlpha -= 0.2f;
+					if(fullAlpha <= 0f)
+					{
+						npc.alpha = 255;
+						npc.active = false;
+					}
+				}
+			}
+			else
+			{
+				if(npc.ai[0] != 2)
+				{
+					fullAlpha = Math.Min(fullAlpha+0.02f,1f);
+				}
+				
+				// spawn phase
+				if(npc.ai[0] == 0)
+				{
+					//if(grounded > 0)
+					if(npc.velocity.Y == 0f)
+					{
+						npc.ai[1] = 1;
+					}
+					if(npc.ai[1] == 1)
+					{
+						if(anim_Spawn < 2f)
+						{
+							anim_Spawn += 0.2f;
+						}
+						else
+						{
+							npc.ai[2]++;
+							if(npc.ai[2] > 80)
+							{
+								eyeFlame = true;
+								head_SpawnTransition = Math.Min(head_SpawnTransition + 0.05f,1f);
+								cannonTargetTransition = Math.Min(cannonTargetTransition + 0.05f,1f);
+							}
+							if(npc.ai[2] > 120)
+							{
+								anim_Spawn = Math.Min(anim_Spawn + 0.05f,3f);
+								if(anim_Spawn >= 3f)
+								{
+									for(int i = 0; i < npc.ai.Length; i++)
+									{
+										npc.ai[i] = 0;
+									}
+									npc.ai[0] = 1;
+									anim_Walk = 1f;
+									if(npc.direction == -1)
+									{
+										anim_Walk = 5f;
+									}
+									npc.TargetClosest(true);
+									npc.netUpdate = true;
+								}
+							}
+						}
+					}
+					
+					float[] rlegrot = new float[3],
+							llegrot = new float[3],
+							rarmrot = new float[2],
+							larmrot = new float[2];
+					for(int i = 0; i < 3; i++)
+					{
+						rlegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RLegAnim_Spawn[i],anim_Spawn));
+						llegrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LLegAnim_Spawn[i],anim_Spawn));
+					}
+					BodyRot = -(float)ConvertToRadians((double)LerpArray(0f,BodyAnim_Spawn,anim_Spawn));
+					for(int i = 0; i < 2; i++)
+					{
+						rarmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,RArmAnim_Spawn[i],anim_Spawn));
+						larmrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,LArmAnim_Spawn[i],anim_Spawn));
+					}
+					RCannonRot[0] = BodyRot;
+					RCannonRot[1] = BodyRot;
+					LCannonRot[0] = BodyRot;
+					LCannonRot[1] = BodyRot;
+					
+					RLegRot = rlegrot;
+					LLegRot = llegrot;
+					RArmRot = rarmrot;
+					LArmRot = larmrot;
+					if(npc.direction == -1)
+					{
+						RLegRot = llegrot;
+						LLegRot = rlegrot;
+						RArmRot = larmrot;
+						LArmRot = rarmrot;
+					}
+					
+					HeadRot[0] = -(float)ConvertToRadians((double)LerpArray(0f,HeadAnim_Spawn,anim_Spawn));
+					
+					float headrot = Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+					
+					if(head_SpawnTransition > 0)
+					{
+						HeadRot[0] = MathHelper.Lerp(HeadRot[0],headrot,head_SpawnTransition);
+					}
+					
+					BodyOffset.Y = LerpArray(0f,BodyOffset_Spawn,anim_Spawn);
+				}
+				// main phase
+				else if(npc.ai[0] == 1)
+				{
+					npc.damage = damage;
+					
+					// walk, absorb, & attack
+					if(npc.ai[1] == 0)
+					{
+						Player player = Main.player[npc.target];
+						
+						float speed = 0.075f * (1.35f - 0.35f*(npc.life/npc.lifeMax));
+						
+						anim_Walk += speed;
+						if(anim_Walk >= 9)
+						{
+							anim_Walk = 1f;
+						}
+						
+						float moveSpeed = legAnim_Walk_Speed[(int)(anim_Walk-1)] * speed;
+						
+						if(npc.direction == 1 && player.Center.X < npc.position.X)
+						{
+							this.ChangeDir(-1);
+						}
+						if(npc.direction == -1 && player.Center.X > npc.position.X+npc.width)
+						{
+							this.ChangeDir(1);
+						}
+						
+						if(npc.direction == 1)
+						{
+							if (npc.velocity.X < 0f)
+							{
+								npc.velocity.X *= 0.98f;
+							}
+							npc.velocity.X += 0.1f * (speed / 0.075f);
+						}
+						else if(npc.direction == -1)
+						{
+							if (npc.velocity.X > 0f)
+							{
+								npc.velocity.X *= 0.98f;
+							}
+							npc.velocity.X -= 0.1f * (speed / 0.075f);
+						}
+						if (npc.velocity.X > moveSpeed)
+						{
+							npc.velocity.X = moveSpeed;
+						}
+						if (npc.velocity.X < -moveSpeed)
+						{
+							npc.velocity.X = -moveSpeed;
+						}
+						
+						
+						cannonTargetTransition = Math.Min(cannonTargetTransition + 0.05f,1f);
+						
+						HeadRot[0] = Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						
+						SetAnimation("walk", anim_Walk);
+						
+						SetBodyOffset();
+						
+						
+						// Absorb
+						if(npc.ai[2] < 40)
+						{
+							anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
+							npc.ai[2]++;
+						}
+						else
+						{
+							anim_Walk_AbsorbTransition = Math.Min(anim_Walk_AbsorbTransition+0.05f,1f);
+							
+							if(AbsorbProj == null || !AbsorbProj.active)
+							{
+								Vector2 spawnPos = LArmPos[4];
+								int a = NPC.NewNPC((int)spawnPos.X,(int)spawnPos.Y,mod.NPCType("OmegaPirateAbsorbField"),npc.whoAmI);
+								AbsorbProj = Main.npc[a];
+								AbsorbProj.realLife = npc.whoAmI;
+								AbsorbProj.ai[0] = npc.whoAmI;
+								AbsorbProj.Center = spawnPos;
+								if(addedAbsorbDamage > 0)
+								{
+									AbsorbProj.ai[2] = addedAbsorbDamage;
+								}
+								else
+								{
+									addedAbsorbDamage = (int)AbsorbProj.ai[2];
+								}
+							}
+							else
+							{
+								AbsorbProj.Center = LArmPos[4];
+								addedAbsorbDamage = (int)AbsorbProj.ai[2];
+							}
+						}
+						
+						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
+						
+						
+						// Claw Attack
+						if(npc.ai[3] < 30)
+						{
+							if(Math.Abs(player.Center.X - npc.Center.X) < 240 && player.position.Y > npc.position.Y && player.position.Y < npc.position.Y+numH)
+							{
+								npc.ai[3]++;
+							}
+							else
+							{
+								if(npc.ai[3] > 0)
+								{
+									npc.ai[3]--;
+								}
+							}
+							anim_ClawTransition = Math.Max(anim_ClawTransition-0.05f,0f);
+						}
+						else if(npc.ai[3] >= 30 && npc.ai[3] <= 32)
+						{
+							rGlowNum = 3;
+							
+							anim_ClawTransition = Math.Min(anim_ClawTransition+0.05f,1f);
+							anim_Claw = Math.Min(anim_Claw+0.125f,4f);
+							
+							if(anim_Claw >= 1.9f && npc.ai[3] == 30)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)RArmPos[4].X, (int)RArmPos[4].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_SwipeSound"));
+								npc.ai[3] = 31;
+							}
+							
+							if(anim_Claw >= 2.9f && npc.ai[3] <= 31)
+							{
+								Vector2 clawPos = RArmPos[4];
+								float trot = (float)Math.Atan2(player.Center.Y-clawPos.Y,(player.Center.X-clawPos.X)*npc.direction);
+								trot *= 0.9f;
+								if(trot > 1.5f)
+								{
+									trot = 1.5f;
+								}
+								if(trot < -0.5f)
+								{
+									trot = -0.5f;
+								}
+								float clawProjSpeed = 9f;
+								Vector2 clawVel = new Vector2((float)Math.Cos(trot)*npc.direction,(float)Math.Sin(trot))*clawProjSpeed;
+								
+								int slash = Projectile.NewProjectile(clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,mod.ProjectileType("OmegaPirateSlash"),(int)((float)clawDamage/2f),8f);
+								Main.projectile[slash].ai[0] = npc.whoAmI;
+								Main.projectile[slash].spriteDirection = -npc.direction;
+								npc.ai[3] = 32;
+							}
+							
+							if(anim_Claw >= 4f)
+							{
+								npc.ai[3] = 33;
+							}
+						}
+						else if(npc.ai[3] >= 33)
+						{
+							npc.ai[3]++;
+							if(npc.ai[3] > 90)
+							{
+								npc.ai[3] = 0;
+							}
+							anim_ClawTransition = Math.Max(anim_ClawTransition-0.05f,0f);
+						}
+						if(anim_ClawTransition <= 0)
+						{
+							anim_Claw = 1f;
+						}
+						
+						float[] armrot = new float[2];
+						for(int i = 0; i < 2; i++)
+						{
+							armrot[i] = -(float)ConvertToRadians((double)LerpArray(0f,ArmAnim_Claw[i],anim_Claw));
+							
+							RArmRot[i] = MathHelper.Lerp(RArmRot[i],armrot[i],anim_ClawTransition);
+						}
+						
+						// Grenade Cannons
+						if(Math.Abs(player.Center.X - npc.Center.X) >= 200 || player.position.Y+player.height < Body.position.Y+Body.height)
+						{
+							npc.ai[6]++;
+							npc.ai[7]++;
+						}
+						if(npc.ai[6] > 90)
+						{
+							Vector2 grenadeVel = TrajectoryVelocity(RCannonPos[1],cannonTargetPos,grenadeSpeed,grenadeGravity,grenadeTimeBeforeGravity);
+							int nade = Projectile.NewProjectile(RCannonPos[2].X,RCannonPos[2].Y,grenadeVel.X,grenadeVel.Y,mod.ProjectileType("OmegaPirateGrenade"),(int)((float)grenadeDamage/2f),1f);
+							
+							Main.PlaySound(SoundLoader.customSoundType, (int)RCannonPos[2].X, (int)RCannonPos[2].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ElitePirate_CannonFireSound"));
+							rCannonRecoil = true;
+							npc.ai[6] = Main.rand.Next(71);
+						}
+						if(npc.ai[7] > 90)
+						{
+							Vector2 grenadeVel = TrajectoryVelocity(LCannonPos[1],cannonTargetPos,grenadeSpeed,grenadeGravity,grenadeTimeBeforeGravity);
+							int nade = Projectile.NewProjectile(LCannonPos[2].X,LCannonPos[2].Y,grenadeVel.X,grenadeVel.Y,mod.ProjectileType("OmegaPirateGrenade"),(int)((float)grenadeDamage/2f),1f);
+							
+							Main.PlaySound(SoundLoader.customSoundType, (int)LCannonPos[2].X, (int)LCannonPos[2].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ElitePirate_CannonFireSound"));
+							lCannonRecoil = true;
+							npc.ai[7] = Main.rand.Next(71);
+						}
+						
+						// Jump
+						if(Math.Abs(player.Center.X-npc.Center.X) < 750 && player.Center.Y < Body.Center.Y && (player.velocity.Y == 0f || npc.ai[4] >= 1))
+						{
+							npc.ai[4]++;
+						}
+						else
+						{
+							if(npc.ai[4] > 0)
+							{
+								npc.ai[4]--;
+							}
+						}
+						
+						float maxPlayerDist = 900f;
+						
+						if(Math.Abs(player.Center.X-npc.Center.X) >= maxPlayerDist)
+						{
+							npc.ai[5] = Math.Max(npc.ai[5],290);
+						}
+						
+						if(npc.ai[4] > 60)
+						{
+							//npc.TargetClosest(true);
+							npc.netUpdate = true;
+							//jump
+							npc.ai[1] = 1;
+							//npc.ai[2] = 0;
+							npc.ai[3] = 0;
+							npc.ai[4] = 0;
+							npc.ai[5] = Math.Min(npc.ai[5],290);
+							npc.ai[6] = Math.Min(npc.ai[6],60);
+							npc.ai[7] = Math.Min(npc.ai[7],60);
+						}
+						else if(npc.ai[3] < 30 || (npc.ai[3] > 33 && anim_ClawTransition <= 0f))
+						{
+							npc.ai[5]++;
+							if(npc.ai[5] > 300)
+							{
+								//npc.TargetClosest(true);
+								npc.netUpdate = true;
+								
+								if(Math.Abs(player.Center.X-npc.Center.X) < maxPlayerDist)
+								{
+									int num = 0;
+									if(Math.Abs(player.Center.X-npc.Center.X) >= 450)
+									{
+										num = Main.rand.Next((int)Math.Abs(player.Center.X-npc.Center.X)-450);
+									}
+									
+									if(num < 50 && player.Center.Y > Body.position.Y && Math.Abs(player.Center.X-npc.Center.X) < 600)
+									{
+										//shockwave
+										npc.ai[1] = 2;
+									}
+									else
+									{
+										//cannon
+										npc.ai[1] = 3;
+									}
+								}
+								else
+								{
+									// leap
+									npc.ai[1] = 4;
+								}
+								
+								npc.ai[2] = 0;
+								npc.ai[3] = 0;
+								npc.ai[4] = 0;
+								npc.ai[5] = 0;
+								npc.ai[6] = 0;
+								npc.ai[7] = 0;
+							}
+						}
+					}
+					// jump
+					else if(npc.ai[1] == 1)
+					{
+						Player player = Main.player[npc.target];
+						
+						if(npc.ai[3] == 0)
+						{
+							if(npc.velocity.X != 0f)
+							{
+								npc.velocity.X *= 0.98f;
+								npc.velocity.X -= 0.1f * Math.Sign(npc.velocity.X);
+							}
+							if(Math.Abs(npc.velocity.X) <= 0.1f)
+							{
+								npc.velocity.X = 0f;
+							}
+							
+							anim_JumpTransition += 0.04f;
+							if(anim_JumpTransition > 1f)
+							{
+								npc.ai[3] = 1;
+								anim_JumpTransition = 1f;
+							}
+						}
+						if(npc.ai[3] >= 1 && npc.ai[3] <= 2)
+						{
+							if(npc.ai[3] == 1)
+							{
+								npc.velocity.X = MathHelper.Clamp((player.Center.X-npc.Center.X)*0.025f,-10,10);
+								npc.velocity.Y = -20f;
+								npc.ai[3] = 2;
+							}
+							
+							if(anim_Jump < 2f)
+							{
+								anim_Jump = Math.Min(anim_Jump+0.25f,2f);
+							}
+							else if(npc.velocity.Y > 0f)
+							{
+								anim_Jump = Math.Min(anim_Jump+(npc.velocity.Y/50f)+0.005f,3f);
+							}
+							
+							if(npc.velocity.Y == 0f)
+							{
+								npc.ai[3] = 3;
+							}
+							
+							anim_Walk = 1f;
+						}
+						if(npc.ai[3] == 3)
+						{
+							npc.velocity.X = 0f;
+							if(anim_Jump < 3f)
+							{
+								anim_Jump += 0.1f;
+							}
+							anim_Jump = Math.Min(anim_Jump+0.1f,4f);
+							if(anim_Jump >= 4f)
+							{
+								anim_JumpTransition -= 0.05f;
+								if(anim_JumpTransition <= 0f)
+								{
+									anim_JumpTransition = 0f;
+									npc.TargetClosest(true);
+									npc.netUpdate = true;
+									npc.ai[1] = 0;
+									//npc.ai[2] = 0;
+									npc.ai[3] = 0;
+									npc.ai[4] = 0;
+									npc.ai[5] = Math.Min(npc.ai[5],290);
+									npc.ai[6] = Math.Min(npc.ai[6],60);
+									npc.ai[7] = Math.Min(npc.ai[7],60);
+									anim_Jump = 1f;
+								}
+							}
+						}
+						
+						// Absorb
+						if(npc.ai[2] < 40)
+						{
+							anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
+							npc.ai[2]++;
+						}
+						else
+						{
+							anim_Walk_AbsorbTransition = Math.Min(anim_Walk_AbsorbTransition+0.05f,1f);
+							
+							if(AbsorbProj == null || !AbsorbProj.active)
+							{
+								Vector2 spawnPos = LArmPos[4];
+								int a = NPC.NewNPC((int)spawnPos.X,(int)spawnPos.Y,mod.NPCType("OmegaPirateAbsorbField"),npc.whoAmI);
+								AbsorbProj = Main.npc[a];
+								AbsorbProj.realLife = npc.whoAmI;
+								AbsorbProj.ai[0] = npc.whoAmI;
+								AbsorbProj.Center = spawnPos;
+								if(addedAbsorbDamage > 0)
+								{
+									AbsorbProj.ai[2] = addedAbsorbDamage;
+								}
+								else
+								{
+									addedAbsorbDamage = (int)AbsorbProj.ai[2];
+								}
+							}
+							else
+							{
+								AbsorbProj.Center = LArmPos[4];
+								addedAbsorbDamage = (int)AbsorbProj.ai[2];
+							}
+						}
+						
+						cannonTargetTransition = Math.Max(cannonTargetTransition - 0.05f,0f);
+						
+						HeadRot[0] = Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						
+						SetAnimation("walk", anim_Walk);
+						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
+						SetAnimation("jump", anim_Jump,anim_JumpTransition);
+						SetAnimation("jump absorb", anim_Jump,anim_JumpTransition*anim_Walk_AbsorbTransition);
+						
+						SetBodyOffset();
+					}
+					// shockwave attack
+					else if(npc.ai[1] == 2)
+					{
+						if(AbsorbProj != null && AbsorbProj.active)
+						{
+							AbsorbProj.ai[3] = 1;
+							AbsorbProj.Center = LArmPos[4];
+						}
+						
+						if(npc.velocity.X != 0f)
+						{
+							npc.velocity.X *= 0.98f;
+							npc.velocity.X -= 0.1f * Math.Sign(npc.velocity.X);
+						}
+						if(Math.Abs(npc.velocity.X) <= 0.1f)
+						{
+							npc.velocity.X = 0f;
+						}
+						
+						if(npc.ai[2] == 0)
+						{
+							if(anim_ShockwaveTransition <= 0f)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_GroundSlamVoice"));
+							}
+							anim_ShockwaveTransition += 0.075f;
+							if(anim_ShockwaveTransition >= 1f)
+							{
+								anim_ShockwaveTransition = 1f;
+								npc.ai[2] = 1;
+							}
+						}
+						if(npc.ai[2] == 1)
+						{
+							anim_Shockwave += 0.075f;
+							if(anim_Shockwave >= 5f)
+							{
+								anim_Shockwave = 5f;
+								
+								Vector2 shockPos = new Vector2(MathHelper.Lerp(RArmPos[4].X,LArmPos[4].X,0.5f),npc.position.Y+numH);
+								
+								int shock1 = Projectile.NewProjectile(shockPos.X+15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
+								Main.projectile[shock1].ai[0] = 0.5f;
+								Main.projectile[shock1].localAI[0] = 1;
+								Main.projectile[shock1].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
+								Main.projectile[shock1].spriteDirection = 1;
+								int shock2 = Projectile.NewProjectile(shockPos.X-15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
+								Main.projectile[shock2].ai[0] = 0.5f;
+								Main.projectile[shock2].localAI[0] = 1;
+								Main.projectile[shock2].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
+								Main.projectile[shock2].spriteDirection = -1;
+								
+								addedAbsorbDamage = 0;
+								
+								Main.PlaySound(SoundLoader.customSoundType, (int)shockPos.X, (int)shockPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_GroundSlamSound"));
+								Main.PlaySound(SoundLoader.customSoundType, (int)shockPos.X, (int)shockPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ElitePirate_ShockwaveSound"));
+								
+								npc.ai[2] = 2;
+							}
+							else
+							{
+								Color dustColor = Color.Lerp(minGlowColor,maxGlowColor,(float)addedAbsorbDamage/absorbDamageMax);
+								int size = 60;
+								for(int i = 0; i < anim_Shockwave; i++)
+								{
+									int dust1 = Dust.NewDust(RArmPos[4]-new Vector2(size/2,size/2), size, size, 63, 0f, 0f, 100, dustColor, 1f+i);
+									Main.dust[dust1].noGravity = true;
+								}
+								for(int i = 0; i < anim_Shockwave; i++)
+								{
+									int dust2 = Dust.NewDust(LArmPos[4]-new Vector2(size/2,size/2), size, size, 63, 0f, 0f, 100, dustColor, 1f+i);
+									Main.dust[dust2].noGravity = true;
+								}
+								
+								armGlowAnim = true;
+							}
+							anim_Walk = 1f;
+							if(npc.direction == -1)
+							{
+								anim_Walk = 5f;
+							}
+						}
+						if(npc.ai[2] == 2)
+						{
+							anim_ShockwaveTransition -= 0.015f;
+							if(anim_ShockwaveTransition <= 0f)
+							{
+								npc.TargetClosest(true);
+								npc.netUpdate = true;
+								anim_ShockwaveTransition = 0f;
+								npc.ai[1] = 0;
+								npc.ai[2] = 0;
+								npc.ai[3] = 0;
+								npc.ai[4] = 0;
+								npc.ai[5] = Main.rand.Next(251);
+								npc.ai[6] = 0;
+								npc.ai[7] = 0;
+								anim_Shockwave = 1f;
+								anim_ShockwaveTransition_Head = 0f;
+							}
+						}
+						
+						if(anim_Shockwave >= 2f && anim_Shockwave < 5f)
+						{
+							anim_ShockwaveTransition_Head = Math.Min(anim_ShockwaveTransition_Head+0.1f,1f);
+							cannonTargetTransition = Math.Max(cannonTargetTransition - 0.1f,0f);
+						}
+						else
+						{
+							anim_ShockwaveTransition_Head = Math.Max(anim_ShockwaveTransition_Head-0.025f,0f);
+							cannonTargetTransition = Math.Min(cannonTargetTransition+0.0125f,1f);
+						}
+						
+						HeadRot[0] = Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						float hrot = -(float)ConvertToRadians((double)LerpArray(0f,HeadAnim_Shockwave,anim_Shockwave));
+						HeadRot[0] = MathHelper.Lerp(HeadRot[0],hrot,anim_ShockwaveTransition_Head);
+						
+						anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
+						
+						SetAnimation("walk", anim_Walk);
+						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
+						SetAnimation("shockwave", anim_Shockwave, anim_ShockwaveTransition);
+						
+						SetBodyOffset();
+					}
+					// fire cannons
+					else if(npc.ai[1] == 3)
+					{
+						Player player = Main.player[npc.target];
+						if(AbsorbProj != null && AbsorbProj.active)
+						{
+							AbsorbProj.ai[3] = 1;
+							AbsorbProj.Center = LArmPos[4];
+						}
+						
+						if(npc.velocity.X != 0f)
+						{
+							npc.velocity.X *= 0.98f;
+							npc.velocity.X -= 0.1f * Math.Sign(npc.velocity.X);
+						}
+						if(Math.Abs(npc.velocity.X) <= 0.1f)
+						{
+							npc.velocity.X = 0f;
+						}
+						
+						if(npc.direction == 1 && player.Center.X < npc.Center.X)
+						{
+							this.ChangeDir(-1);
+						}
+						if(npc.direction == -1 && player.Center.X > npc.Center.X)
+						{
+							this.ChangeDir(1);
+						}
+						
+						if(npc.ai[2] == 0)
+						{
+							if(anim_CannonFireTransition <= 0f)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_CannonVoice"));
+							}
+							anim_CannonFireTransition += 0.075f;
+							if(anim_CannonFireTransition >= 1f)
+							{
+								npc.ai[2] = 1;
+								anim_CannonFireTransition = 1f;
+							}
+							cannonTargetPos = Vector2.Lerp(cannonTargetPos,player.Center,anim_CannonFireTransition);
+						}
+						int numCh = 50;
+						if(npc.ai[2] == 1)
+						{
+							Vector2 cSoundPos = Vector2.Lerp(RCannonPos[2],LCannonPos[2],0.5f);
+							npc.ai[3]++;
+							
+							if(npc.ai[3] <= numCh)
+							{
+								laserAnim = true;
+								rLaserAngle = Vector2Angle(RCannonPos[2], cannonTargetPos);
+								lLaserAngle = Vector2Angle(LCannonPos[2], cannonTargetPos);
+								
+								Color dustColor = Color.Lerp(minGlowColor,maxGlowColor,(float)addedAbsorbDamage/absorbDamageMax);
+								
+								int size = 20;
+								Vector2 rLaserPos = RCannonPos[2] + rLaserAngle.ToRotationVector2()*17f;
+								for(int i = 0; i < (npc.ai[3]/numCh)*5f; i++)
+								{
+									int dust1 = Dust.NewDust(rLaserPos-new Vector2(size/2,size/2), size, size, 63, 0f, 0f, 100, dustColor, 1f+i);
+									Main.dust[dust1].noGravity = true;
+								}
+								Vector2 lLaserPos = LCannonPos[2] + lLaserAngle.ToRotationVector2()*17f;
+								for(int i = 0; i < (npc.ai[3]/numCh)*5f; i++)
+								{
+									int dust2 = Dust.NewDust(lLaserPos-new Vector2(size/2,size/2), size, size, 63, 0f, 0f, 100, dustColor, 1f+i);
+									Main.dust[dust2].noGravity = true;
+								}
+							}
+							if(npc.ai[3] == 1)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)cSoundPos.X, (int)cSoundPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_CannonChargeSound"));
+							}
+							
+							if(npc.ai[3] == numCh)
+							{
+								Vector2 rLaserPos = RCannonPos[2] + rLaserAngle.ToRotationVector2()*10f;
+								Vector2 rLaserVel = rLaserAngle.ToRotationVector2()*15f;
+								int rLaser = Projectile.NewProjectile(rLaserPos.X,rLaserPos.Y,rLaserVel.X,rLaserVel.Y,mod.ProjectileType("OmegaPirateLaser"),(int)((float)(laserDamage+addedAbsorbDamage)/2f),8f);
+								Main.projectile[rLaser].localAI[0] = (float)addedAbsorbDamage/absorbDamageMax;
+								
+								Vector2 lLaserPos = LCannonPos[2] + lLaserAngle.ToRotationVector2()*10f;
+								Vector2 lLaserVel = lLaserAngle.ToRotationVector2()*15f;
+								int lLaser = Projectile.NewProjectile(lLaserPos.X,lLaserPos.Y,lLaserVel.X,lLaserVel.Y,mod.ProjectileType("OmegaPirateLaser"),(int)((float)(laserDamage+addedAbsorbDamage)/2f),8f);
+								Main.projectile[lLaser].localAI[0] = (float)addedAbsorbDamage/absorbDamageMax;
+								
+								addedAbsorbDamage = 0;
+								
+								Main.PlaySound(SoundLoader.customSoundType, (int)cSoundPos.X, (int)cSoundPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_CannonFireSound"));
+							}
+							if(npc.ai[3] > numCh)
+							{
+								anim_CannonFire = Math.Min(anim_CannonFire+0.375f,2f);
+							}
+							if(anim_CannonFire >= 2f)
+							{
+								npc.ai[2] = 2;
+							}
+							
+							anim_Walk = 1f;
+							if(npc.direction == -1)
+							{
+								anim_Walk = 5f;
+							}
+						}
+						if(npc.ai[2] == 2)
+						{
+							cannonTargetTransition = Math.Min(cannonTargetTransition + 0.05f,1f);
+							
+							anim_CannonFire = Math.Max(anim_CannonFire-0.05f,1f);
+							if(anim_CannonFire <= 1f)
+							{
+								anim_CannonFireTransition = Math.Max(anim_CannonFireTransition-0.1f,0f);
+								if(anim_CannonFireTransition <= 0f)
+								{
+									npc.TargetClosest(true);
+									npc.netUpdate = true;
+									npc.ai[1] = 0;
+									npc.ai[2] = 0;
+									npc.ai[3] = 0;
+									npc.ai[4] = 0;
+									npc.ai[5] = Main.rand.Next(201);
+									npc.ai[6] = 0;
+									npc.ai[7] = 0;
+									anim_CannonFire = 1f;
+									anim_CannonFireTransition = 0f;
+								}
+							}
+						}
+						else
+						{
+							cannonTargetTransition = Math.Max(cannonTargetTransition - 0.075f,0f);
+						}
+						
+						if(npc.ai[2] <= 1 && npc.ai[3] <= numCh)
+						{
+							bodyCannonTargetRot = Vector2Angle(npc.Center, cannonTargetPos, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+							rightCannonTRot = Vector2Angle(RCannonPos[1], cannonTargetPos, npc.direction);
+							leftCannonTRot = Vector2Angle(LCannonPos[1], cannonTargetPos, npc.direction);
+						}
+						
+						anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
+						
+						SetAnimation("walk", anim_Walk);
+						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
+						SetAnimation("cannon", anim_CannonFire, anim_CannonFireTransition);
+						
+						HeadRot[0] = Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						
+						float bTargetRot = MathHelper.Lerp(0f,bodyCannonTargetRot,anim_CannonFireTransition);
+						BodyRot += bTargetRot;
+						RArmRot[0] -= bTargetRot * 0.25f;
+						RArmRot[1] -= bTargetRot * 0.5f;
+						LArmRot[0] -= bTargetRot * 0.25f;
+						LArmRot[1] -= bTargetRot * 0.5f;
+						
+						RCannonRot[0] += rightCannonTRot * 0.75f;
+						RCannonRot[1] += rightCannonTRot;
+						LCannonRot[0] += leftCannonTRot * 0.75f;
+						LCannonRot[1] += leftCannonTRot;
+						
+						SetBodyOffset();
+					}
+					// leap
+					else if(npc.ai[1] == 4)
+					{
+						Player player = Main.player[npc.target];
+						
+						if(AbsorbProj != null && AbsorbProj.active)
+						{
+							AbsorbProj.ai[3] = 1;
+							AbsorbProj.Center = LArmPos[4];
+						}
+						
+						if(npc.ai[2] == 0)
+						{
+							if(npc.velocity.X != 0f)
+							{
+								npc.velocity.X *= 0.98f;
+								npc.velocity.X -= 0.1f * Math.Sign(npc.velocity.X);
+							}
+							if(Math.Abs(npc.velocity.X) <= 0.1f)
+							{
+								npc.velocity.X = 0f;
+							}
+							
+							if(anim_LeapTransition <= 0f)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_LeapVoice"));
+							}
+							anim_LeapTransition += 0.04f;
+							if(anim_LeapTransition > 1f)
+							{
+								anim_LeapTransition = 1f;
+								npc.ai[3]++;
+								if(npc.ai[3] > 30)
+								{
+									npc.ai[2] = 1;
+									npc.ai[3] = 0;
+								}
+							}
+						}
+						if(npc.ai[2] >= 1 && npc.ai[2] <= 2)
+						{
+							if(npc.ai[2] == 1)
+							{
+								Vector2 src = new Vector2(npc.Center.X,npc.position.Y+numH);
+								Vector2 dest = new Vector2(player.Center.X,player.position.Y+player.height);
+								npc.velocity = TrajectoryVelocity(src,dest,25f,0.5f);
+								npc.ai[2] = 2;
+							}
+							
+							if(anim_Leap < 3f)
+							{
+								anim_Leap = Math.Min(anim_Leap+0.25f,3f);
+							}
+							else if(npc.velocity.Y > 0f)
+							{
+								anim_Leap = Math.Min(anim_Leap+(npc.velocity.Y/50f)+0.005f,4f);
+							}
+							
+							if(npc.velocity.Y == 0f)
+							{
+								npc.ai[2] = 3;
+							}
+							
+							anim_Walk = 1f;
+							if(npc.direction == -1)
+							{
+								anim_Walk = 5f;
+							}
+							
+						}
+						if(npc.ai[2] == 3)
+						{
+							npc.velocity.X = 0f;
+							if(anim_Leap < 4f)
+							{
+								anim_Leap += 0.1f;
+							}
+							anim_Leap = Math.Min(anim_Leap+0.1f,5f);
+							if(anim_Leap >= 5f)
+							{
+								Vector2 shockPos = new Vector2(MathHelper.Lerp(RArmPos[4].X,LArmPos[4].X,0.5f),npc.position.Y+numH);
+								
+								int shock1 = Projectile.NewProjectile(shockPos.X+15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
+								Main.projectile[shock1].ai[0] = 0.5f;
+								Main.projectile[shock1].localAI[0] = 1;
+								Main.projectile[shock1].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
+								Main.projectile[shock1].spriteDirection = 1;
+								int shock2 = Projectile.NewProjectile(shockPos.X-15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
+								Main.projectile[shock2].ai[0] = 0.5f;
+								Main.projectile[shock2].localAI[0] = 1;
+								Main.projectile[shock2].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
+								Main.projectile[shock2].spriteDirection = -1;
+								
+								addedAbsorbDamage = 0;
+								
+								Main.PlaySound(SoundLoader.customSoundType, (int)shockPos.X, (int)shockPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_GroundSlamSound"));
+								Main.PlaySound(SoundLoader.customSoundType, (int)shockPos.X, (int)shockPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ElitePirate_ShockwaveSound"));
+								
+								npc.ai[2] = 4;
+							}
+						}
+						if(npc.ai[2] >= 1 && npc.ai[2] <= 3)
+						{
+							Color dustColor = Color.Lerp(minGlowColor,maxGlowColor,(float)addedAbsorbDamage/absorbDamageMax);
+							int size = 60;
+							for(int i = 0; i < anim_Leap; i++)
+							{
+								int dust1 = Dust.NewDust(RArmPos[4]-new Vector2(size/2,size/2), size, size, 63, 0f, 0f, 100, dustColor, 1f+i);
+								Main.dust[dust1].noGravity = true;
+							}
+							for(int i = 0; i < anim_Leap; i++)
+							{
+								int dust2 = Dust.NewDust(LArmPos[4]-new Vector2(size/2,size/2), size, size, 63, 0f, 0f, 100, dustColor, 1f+i);
+								Main.dust[dust2].noGravity = true;
+							}
+							
+							armGlowAnim = true;
+						}
+						if(npc.ai[2] == 4)
+						{
+							anim_LeapTransition -= 0.015f;
+							if(anim_LeapTransition <= 0f)
+							{
+								anim_LeapTransition = 0f;
+								npc.TargetClosest(true);
+								npc.netUpdate = true;
+								npc.ai[1] = 0;
+								npc.ai[2] = 0;
+								npc.ai[3] = 0;
+								npc.ai[4] = 0;
+								npc.ai[5] = Main.rand.Next(201);
+								npc.ai[6] = 0;
+								npc.ai[7] = 0;
+								anim_Leap = 1f;
+							}
+						}
+						
+						if(anim_Leap < 5f)
+						{
+							if(anim_Leap >= 4f)
+							{
+								anim_LeapTransition_Head = Math.Min(anim_LeapTransition_Head+0.1f,1f);
+							}
+							if(anim_Leap >= 2f)
+							{
+								cannonTargetTransition = Math.Max(cannonTargetTransition - 0.1f,0f);
+							}
+						}
+						else
+						{
+							anim_LeapTransition_Head = Math.Max(anim_LeapTransition_Head-0.025f,0f);
+							cannonTargetTransition = Math.Min(cannonTargetTransition+0.0125f,1f);
+						}
+						
+						HeadRot[0] = Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						float hrot = -(float)ConvertToRadians((double)LerpArray(0f,HeadAnim_Leap,anim_Leap));
+						HeadRot[0] = MathHelper.Lerp(HeadRot[0],hrot,anim_LeapTransition_Head);
+						
+						anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
+						
+						SetAnimation("walk", anim_Walk);
+						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
+						SetAnimation("leap", anim_Leap, anim_LeapTransition);
+						
+						SetBodyOffset();
+					}
+					
+					if((RArmArmor == null || !RArmArmor.active) && (LArmArmor == null || !LArmArmor.active) &&
+						(RLegArmor == null || !RLegArmor.active) && (LLegArmor == null || !LLegArmor.active))
+					{
+						for(int i = 0; i < npc.ai.Length; i++)
+						{
+							npc.ai[i] = 0;
+						}
+						npc.ai[0] = 2;
+					}
+				}
+				// phazon regen phase
+				else if(npc.ai[0] == 2)
+				{
+					if(AbsorbProj != null && AbsorbProj.active)
+					{
+						AbsorbProj.ai[3] = 1;
+						AbsorbProj.Center = LArmPos[4];
+					}
+					cannonTargetTransition = Math.Max(cannonTargetTransition - 0.1f,0f);
+					
+					anim_Walk = 1f;
+					anim_Walk_AbsorbTransition = 0f;
+					anim_Jump = 1f;
+					anim_JumpTransition = 0f;
+					anim_Shockwave = 1f;
+					anim_ShockwaveTransition = 0f;
+					anim_ShockwaveTransition_Head = 0f;
+					anim_Leap = 1f;
+					anim_LeapTransition = 0f;
+					anim_LeapTransition_Head = 0f;
+					anim_Claw = 1f;
+					anim_ClawTransition = 0f;
+					anim_CannonFire = 1f;
+					anim_CannonFireTransition = 0f;
+					
+					
+					float moveSpeed = 0;
+					
+					Player player = Main.player[npc.target];
+					
+					// animate into phase
+					if(npc.ai[1] == 0)
+					{
+						if(anim_PhazonStartTransition < 1f)
+						{
+							if(anim_PhazonStartTransition == 0f)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_HurtVoice"+Main.rand.Next(2)));
+							}
+							float animTransSpeed = 0.1f;
+							moveSpeed = -15f * animTransSpeed;
+							
+							anim_PhazonStartTransition = Math.Min(anim_PhazonStartTransition+animTransSpeed,1f);
+						}
+						else
+						{
+							if(npc.ai[2] < 90)
+							{
+								if(anim_PhazonStart < 2f)
+								{
+									float animSpeed = 0.01f + (0.09f * (anim_PhazonStart-1f));
+									anim_PhazonStart = Math.Min(anim_PhazonStart+animSpeed,2f);
+								}
+								else
+								{
+									npc.ai[2]++;
+								}
+							}
+							else
+							{
+								if(anim_PhazonStart < 3f)
+								{
+									if(anim_PhazonStart == 2f)
+									{
+										Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_DamagedVoice"));
+									}
+									float animSpeed = 0.005f + (0.045f * (3f - anim_PhazonStart));
+									anim_PhazonStart = Math.Min(anim_PhazonStart+animSpeed,3f);
+								}
+								else if(anim_PhazonStart < 4f)
+								{
+									anim_PhazonStart = Math.Min(anim_PhazonStart+0.05f,4f);
+								}
+								else if(npc.ai[3] < 120)
+								{
+									if(npc.ai[3] == 0)
+									{
+										Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_TransitionSound"));
+									}
+									npc.ai[3]++;
+									anim_PhazonStart = 4f + npc.ai[3]/120f;
+									if(npc.ai[3] > 10)
+									{
+										float num = npc.ai[3]-10f;
+										if(num % 4 <= 1)
+										{
+											anim_PhazonStart -= Math.Min(0.1f * (num/55f),0.1f);
+										}
+									}
+									if(npc.ai[3] > 30)
+									{
+										bodyAlpha = 1f - (npc.ai[3]-30)/90f;
+									}
+								}
+								else if(anim_PhazonStart < 6f)
+								{
+									anim_PhazonStart = MathHelper.Clamp(anim_PhazonStart+0.025f,5f,6f);
+								}
+								else if(fullScale.X > 0f)
+								{
+									if(fullScale.X == 1f)
+									{
+										Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_Disappear"));
+									}
+									fullScale.X = Math.Max(fullScale.X-0.05f,0f);
+								}
+								else
+								{
+									fullAlpha = 0f;
+									npc.damage = 0;
+									npc.ai[1] = 1;
+									npc.ai[2] = 0;
+									npc.ai[3] = 180+Main.rand.Next(61);
+									npc.ai[4] = 0;
+									anim_PhazonStart = 1f;
+									anim_PhazonStartTransition = 0f;
+								}
+							}
+						}
+						
+						SetAnimation("phazon start", anim_PhazonStart, anim_PhazonStartTransition);
+					}
+					// be invisible
+					else if(npc.ai[1] == 1)
+					{
+						npc.ai[2]++;
+						if(npc.ai[2] >= npc.ai[3])
+						{
+							Vector2 appearPos = new Vector2(player.Center.X-200f+Main.rand.Next(401),player.Center.Y);
+							if(appearPos.X > player.Center.X)
+							{
+								appearPos.X += 400f;
+							}
+							else
+							{
+								appearPos.X -= 400f;
+							}
+							int yNum = 400;
+							while(yNum > 0 && !Collision.SolidCollision(new Vector2(appearPos.X-(npc.width/2),appearPos.Y-numH), npc.width, numH+1))
+							{
+								appearPos.Y += 1f;
+								yNum--;
+							}
+							while(yNum > 0 && Collision.SolidCollision(new Vector2(appearPos.X-(npc.width/2),appearPos.Y-numH), npc.width, numH))
+							{
+								appearPos.Y -= 1f;
+								yNum--;
+							}
+							npc.position.X = appearPos.X-(npc.width/2);
+							npc.position.Y = appearPos.Y-numH;
+							npc.ai[1] = 2;
+							npc.ai[2] = 1;
+							npc.ai[3] = 0;
+							npc.ai[4] = 0;
+							anim_PhazonRegen = 1f;
+							anim_PhazonRegenTransition = 1f;
+							Body.dontTakeDamage = false;
+						}
+						else if(npc.ai[2] < npc.ai[3]-90)
+						{
+							if(npc.ai[4] <= 0 && Main.rand.Next(100) < 60)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y-numH, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_Voice"+Main.rand.Next(2)));
+								npc.ai[4] = 180;
+							}
+						}
+						if(npc.ai[4] > 0)
+						{
+							npc.ai[4]--;
+						}
+					}
+					// appear and regen phazon armor
+					else if(npc.ai[1] == 2)
+					{
+						npc.damage = damage;
+						fullAlpha = 1f;
+						
+						if(npc.ai[3] < npc.lifeMax*0.125f)
+						{
+							npc.direction = 1;
+							if(npc.Center.X > player.Center.X)
+							{
+								npc.direction = -1;
+							}
+							
+							if(anim_PhazonRegen < 2f)
+							{
+								if(fullScale.X < 1f)
+								{
+									if(fullScale.X == 0f)
+									{
+										Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_Appear"));
+									}
+									fullScale.X = Math.Min(fullScale.X+0.05f,1f);
+								}
+								else
+								{
+									anim_PhazonRegen = Math.Min(anim_PhazonRegen+0.075f,2f);
+								}
+							}
+							else
+							{
+								if(anim_PhazonRegen <= 2f)
+								{
+									npc.ai[2] = 1;
+								}
+								if(anim_PhazonRegen >= 3f)
+								{
+									npc.ai[2] = -1;
+								}
+								anim_PhazonRegen = MathHelper.Clamp(anim_PhazonRegen+0.5f*npc.ai[2],2f,3f);
+								
+								float armorRegenSpeed = 0.015f;
+								if(PhazonArmorRegenAlpha[0] < 1f)
+								{
+									if(PhazonArmorRegenAlpha[0] <= 0f)
+									{
+										int rla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+										RLegArmor = Main.npc[rla];
+										RLegArmor.ai[0] = npc.whoAmI;
+										RLegArmor.ai[1] = 1;
+										RLegArmor.Center = RLegPos[3];
+									}
+									PhazonArmorRegenAlpha[0] = Math.Min(PhazonArmorRegenAlpha[0]+armorRegenSpeed,1f);
+								}
+								else if(PhazonArmorRegenAlpha[1] < 1f)
+								{
+									if(PhazonArmorRegenAlpha[1] <= 0f)
+									{
+										int lla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+										LLegArmor = Main.npc[lla];
+										LLegArmor.ai[0] = npc.whoAmI;
+										LLegArmor.ai[1] = 1;
+										LLegArmor.Center = LLegPos[3];
+									}
+									PhazonArmorRegenAlpha[1] = Math.Min(PhazonArmorRegenAlpha[1]+armorRegenSpeed,1f);
+								}
+								else if(PhazonArmorRegenAlpha[2] < 1f)
+								{
+									if(PhazonArmorRegenAlpha[2] <= 0f)
+									{
+										int raa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+										RArmArmor = Main.npc[raa];
+										RArmArmor.ai[0] = npc.whoAmI;
+										RArmArmor.Center = RArmPos[2];
+									}
+									PhazonArmorRegenAlpha[2] = Math.Min(PhazonArmorRegenAlpha[2]+armorRegenSpeed,1f);
+								}
+								else if(PhazonArmorRegenAlpha[3] < 1f)
+								{
+									if(PhazonArmorRegenAlpha[3] <= 0f)
+									{
+										int laa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
+										LArmArmor = Main.npc[laa];
+										LArmArmor.ai[0] = npc.whoAmI;
+										LArmArmor.Center = LArmPos[2];
+									}
+									PhazonArmorRegenAlpha[3] = Math.Min(PhazonArmorRegenAlpha[3]+armorRegenSpeed,1f);
+								}
+								else if(anim_PhazonRegenTransition > 0f)
+								{
+									if(anim_PhazonRegenTransition == 1f)
+									{
+										Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_TransitionSound2"));
+									}
+									anim_PhazonRegenTransition = Math.Max(anim_PhazonRegenTransition-0.025f,0f);
+									bodyAlpha = Math.Min(bodyAlpha+0.025f,1f);
+									Body.dontTakeDamage = true;
+								}
+								else
+								{
+									fullAlpha = 1f;
+									bodyAlpha = 1f;
+									anim_PhazonStart = 1f;
+									anim_PhazonStartTransition = 0f;
+									anim_PhazonRegen = 1f;
+									anim_PhazonRegenTransition = 0f;
+									npc.damage = damage;
+									Body.dontTakeDamage = true;
+									for(int i = 0; i < npc.ai.Length; i++)
+									{
+										npc.ai[i] = 0;
+									}
+									npc.ai[0] = 1;
+									
+									for(int i = 0; i < PhazonArmorRegenAlpha.Length; i++)
+									{
+										PhazonArmorRegenAlpha[i] = 0f;
+									}
+								}
+							}
+						}
+						else
+						{
+							if(anim_PhazonRegen < 3f)
+							{
+								anim_PhazonRegen = 3f;
+							}
+							else if(anim_PhazonRegen < 4f)
+							{
+								if(anim_PhazonRegen == 3f)
+								{
+									Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_HurtVoice"+Main.rand.Next(2)));
+								}
+								float animSpeed = 0.1f;
+								moveSpeed = -15f * animSpeed;
+								anim_PhazonRegen = Math.Min(anim_PhazonRegen+animSpeed,4f);
+							}
+							else if(npc.ai[4] < 20)
+							{
+								if(anim_PhazonRegen < 5f)
+								{
+									float animSpeed = 0.01f + (0.09f * (anim_PhazonRegen-4f));
+									anim_PhazonRegen = Math.Min(anim_PhazonRegen+animSpeed,5f);
+								}
+								else
+								{
+									npc.ai[4]++;
+								}
+							}
+							else if(anim_PhazonRegen < 6)
+							{
+								anim_PhazonRegen = Math.Min(anim_PhazonRegen+0.05f,6f);
+								Body.dontTakeDamage = true;
+							}
+							else if(fullScale.X > 0f)
+							{
+								if(fullScale.X == 1f)
+								{
+									Main.PlaySound(SoundLoader.customSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_Disappear"));
+								}
+								fullScale.X = Math.Max(fullScale.X-0.05f,0f);
+							}
+							else
+							{
+								fullAlpha = 0f;
+								npc.damage = 0;
+								npc.ai[1] = 1;
+								npc.ai[2] = 0;
+								npc.ai[3] = 120+Main.rand.Next(121);
+								npc.ai[4] = 0;
+								anim_PhazonRegen = 1f;
+								anim_PhazonRegenTransition = 0f;
+								npc.damage = 0;
+								Body.dontTakeDamage = true;
+							}
+						}
+						
+						SetAnimation("walk", anim_Walk);
+						SetAnimation("phazon regen", anim_PhazonRegen, anim_PhazonRegenTransition);
+					}
+					
+					if(npc.direction == 1)
+					{
+						if (npc.velocity.X < 0f)
+						{
+							npc.velocity.X *= 0.98f;
+						}
+						npc.velocity.X += 0.1f * moveSpeed;
+					}
+					else if(npc.direction == -1)
+					{
+						if (npc.velocity.X > 0f)
+						{
+							npc.velocity.X *= 0.98f;
+						}
+						npc.velocity.X -= 0.1f * moveSpeed;
+					}
+					if (npc.velocity.X > Math.Abs(moveSpeed))
+					{
+						npc.velocity.X = Math.Abs(moveSpeed);
+					}
+					if (npc.velocity.X < -Math.Abs(moveSpeed))
+					{
+						npc.velocity.X = -Math.Abs(moveSpeed);
+					}
+					
+					SetBodyOffset();
+				}
+			}
+			
+			if(cannonTargetTransition > 0f)
+			{
+				Vector2 RCannonTargetPos = RCannonPos[1] + TrajectoryVelocity(RCannonPos[1],cannonTargetPos,grenadeSpeed,grenadeGravity,grenadeTimeBeforeGravity);
+				Vector2 LCannonTargetPos = LCannonPos[1] + TrajectoryVelocity(LCannonPos[1],cannonTargetPos,grenadeSpeed,grenadeGravity,grenadeTimeBeforeGravity);
+				int rdir = Math.Sign(RCannonTargetPos.X-RCannonPos[1].X);
+				int ldir = Math.Sign(LCannonTargetPos.X-LCannonPos[1].X);
+				float RCannonTargetRot = Vector2Angle(RCannonPos[1], RCannonTargetPos, rdir, 1, 1f, -1.57f+BodyRot, 0.6f+BodyRot);
+				float LCannonTargetRot = Vector2Angle(LCannonPos[1], LCannonTargetPos, ldir, 1, 1f, -1.57f+BodyRot, 0.6f+BodyRot);
+				RCannonRot[0] = MathHelper.Lerp(RCannonRot[0],RCannonTargetRot*0.5f,cannonTargetTransition);
+				RCannonRot[1] = MathHelper.Lerp(RCannonRot[1],RCannonTargetRot,cannonTargetTransition);
+				LCannonRot[0] = MathHelper.Lerp(LCannonRot[0],LCannonTargetRot*0.5f,cannonTargetTransition);
+				LCannonRot[1] = MathHelper.Lerp(LCannonRot[1],LCannonTargetRot,cannonTargetTransition);
+			}
+			if(rCannonRecoil)
+			{
+				rCannonRecoilAnim = Math.Min(rCannonRecoilAnim+0.375f,1f);
+				if(rCannonRecoilAnim >= 1f)
+				{
+					rCannonRecoil = false;
+				}
+			}
+			else
+			{
+				rCannonRecoilAnim = Math.Max(rCannonRecoilAnim-0.05f,0f);
+			}
+			if(rCannonRecoilAnim > 0f)
+			{
+				RCannonRot[0] -= (float)ConvertToRadians((double)MathHelper.Lerp(0f,RCannonAnim_CannonFire[1],rCannonRecoilAnim));
+			}
+			if(lCannonRecoil)
+			{
+				lCannonRecoilAnim = Math.Min(lCannonRecoilAnim+0.375f,1f);
+				if(lCannonRecoilAnim >= 1f)
+				{
+					lCannonRecoil = false;
+				}
+			}
+			else
+			{
+				lCannonRecoilAnim = Math.Max(lCannonRecoilAnim-0.05f,0f);
+			}
+			if(lCannonRecoilAnim > 0f)
+			{
+				LCannonRot[0] -= (float)ConvertToRadians((double)MathHelper.Lerp(0f,LCannonAnim_CannonFire[1],lCannonRecoilAnim));
+			}
+			
+			if(laserAnim)
+			{
+				laserAlpha = Math.Min(laserAlpha+0.02f,1f);
+				laserAnim = false;
+			}
+			else
+			{
+				laserAlpha = Math.Max(laserAlpha-0.1f,0f);
+			}
+			if(laserAlpha > 0f)
+			{
+				laserFrame += 0.33f;
+				if(laserFrame > 1f)
+				{
+					laserFrame = 0f;
+				}
+			}
+			else
+			{
+				laserFrame = 0f;
+			}
+			
+			if(armGlowAnim)
+			{
+				armGlowAlpha = Math.Min(armGlowAlpha+0.02f,1f);
+				armGlowAnim = false;
+			}
+			else
+			{
+				armGlowAlpha = Math.Max(armGlowAlpha-0.1f,0f);
+			}
+			
+			SetPositions();
+			
+			if(bodyAlpha >= 1f)
+			{
+				if(eyeFlame)
+				{
+					Vector2 rEyePos = new Vector2(-1,-7);
+					float rEyeOffsetRot = (float)Math.Atan2(rEyePos.Y,rEyePos.X*npc.direction);
+					float rEyeAngle = rEyeOffsetRot + HeadRot[0]*npc.direction;
+					Vector2 eyeR = HeadPos[0] + rEyeAngle.ToRotationVector2()*rEyePos.Length();
+					
+					Vector2 lEyePos = new Vector2(13,-7);
+					float lEyeOffsetRot = (float)Math.Atan2(lEyePos.Y,lEyePos.X*npc.direction);
+					float lEyeAngle = lEyeOffsetRot + HeadRot[0]*npc.direction;
+					Vector2 eyeL = HeadPos[0] + lEyeAngle.ToRotationVector2()*lEyePos.Length();
+					
+					int dust = Dust.NewDust(eyeR - new Vector2(7,7), 10, 10, 87, npc.velocity.X * 0.3f, npc.velocity.Y * 0.3f, 100, Color.White, 0.8f);
+					Main.dust[dust].noGravity = true;
+					Main.dust[dust].velocity *= 0.3f;
+					Main.dust[dust].velocity.Y -= 1f;
+					
+					dust = Dust.NewDust(eyeL - new Vector2(7,7), 10, 10, 87, npc.velocity.X * 0.3f, npc.velocity.Y * 0.3f, 100, Color.White, 0.8f);
+					Main.dust[dust].noGravity = true;
+					Main.dust[dust].velocity *= 0.3f;
+					Main.dust[dust].velocity.Y -= 1f;
+				}
+			}
+			else
+			{
+				if(fullAlpha > 0f)
+				{
+					float dustScale = 2f-fullScale.X;
+					int dust = Dust.NewDust(Body.Center-new Vector2(Body.width/2,Body.height/2)*fullScale,(int)((float)Body.width*fullScale.X),(int)((float)Body.height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+					Main.dust[dust].noGravity = true;
+					
+					for(int j = 0; j < 3; j++)
+					{
+						dust = Dust.NewDust(RArm[j].Center-new Vector2(RArm[j].width/2,RArm[j].height/2)*fullScale,(int)((float)RArm[j].width*fullScale.X),(int)((float)RArm[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						Main.dust[dust].noGravity = true;
+						dust = Dust.NewDust(LArm[j].Center-new Vector2(LArm[j].width/2,LArm[j].height/2)*fullScale,(int)((float)LArm[j].width*fullScale.X),(int)((float)LArm[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						Main.dust[dust].noGravity = true;
+						dust = Dust.NewDust(RLeg[j].Center-new Vector2(RLeg[j].width/2,RLeg[j].height/2)*fullScale,(int)((float)RLeg[j].width*fullScale.X),(int)((float)RLeg[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						Main.dust[dust].noGravity = true;
+						dust = Dust.NewDust(LLeg[j].Center-new Vector2(LLeg[j].width/2,LLeg[j].height/2)*fullScale,(int)((float)LLeg[j].width*fullScale.X),(int)((float)LLeg[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						Main.dust[dust].noGravity = true;
+					}
+				}
+			}
+			
+			clawGlowAlpha += 0.01f * glowNum;
+			if(clawGlowAlpha > 1.5f)
+			{
+				clawGlowAlpha = 1.5f;
+				glowNum = -1;
+			}
+			if(clawGlowAlpha < -1f)
+			{
+				clawGlowAlpha = -1f;
+				glowNum = 1;
+			}
+			
+			lClawGlowAlpha += 0.05f * lGlowNum;
+			if(lClawGlowAlpha > 1f)
+			{
+				lClawGlowAlpha = 1f;
+				lGlowNum = -1;
+			}
+			if(lClawGlowAlpha <= 0f)
+			{
+				lClawGlowAlpha = 0f;
+			}
+			rClawGlowAlpha += 0.05f * rGlowNum;
+			if(rClawGlowAlpha > 1f)
+			{
+				rClawGlowAlpha = 1f;
+				rGlowNum = -1;
+			}
+			if(rClawGlowAlpha <= 0f)
+			{
+				rClawGlowAlpha = 0f;
+			}
+			
+			
+			if(((npc.position.X < Main.player[npc.target].position.X && npc.position.X+npc.width > Main.player[npc.target].position.X+Main.player[npc.target].width) || (npc.ai[0] == 0 && npc.ai[1] == 0)) && npc.position.Y+numH < Main.player[npc.target].position.Y+Main.player[npc.target].height - 16f)
+			{
+				grounded = Math.Min(grounded+1,15);
+				npc.velocity.Y += 0.5f;
+				if(npc.velocity.Y == 0f)
+				{
+					npc.velocity.Y = 0.1f;
+				}
+			}
+			else
+			{
+				if(Collision.SolidCollision(new Vector2(npc.position.X,npc.position.Y+numH-16f), npc.width, 16))
+				{
+					if (npc.velocity.Y > -4f)
+					{
+						if (npc.velocity.Y > 0f)
+						{
+							npc.velocity.Y = 0f;
+						}
+						if (npc.velocity.Y > -0.2f)
+						{
+							npc.velocity.Y = npc.velocity.Y - 0.025f;
+						}
+						else
+						{
+							npc.velocity.Y = npc.velocity.Y - 0.2f;
+						}
+					}
+				}
+				else
+				{
+					npc.velocity.Y += 0.5f;
+				}
+				
+				if(!Collision.SolidCollision(npc.position, npc.width, numH+1) && npc.velocity.Y == 0f)
+				{
+					npc.velocity.Y = 0.1f;
+				}
+				
+				bool fall = false;
+				if(npc.position.Y+numH < Main.player[npc.target].position.Y && npc.ai[0] <= 1 && (npc.ai[1] <= 1 || npc.ai[1] == 4))
+				{
+					fall = true;
+				}
+				Vector2 velocity = Collision.TileCollision(npc.position,new Vector2(0f,Math.Max(npc.velocity.Y,0f)),npc.width,numH,fall,fall);
+				npc.velocity.Y = Math.Min(velocity.Y,npc.velocity.Y);
+				if(npc.velocity.Y == 0f)
+				{
+					grounded = Math.Min(grounded+1,15);
+				}
+				else
+				{
+					grounded = Math.Max(grounded-1,0);
+				}
+			}
+			if (npc.velocity.Y > 10f)
+			{
+				npc.velocity.Y = 10f;
+			}
+			
+			
+			if(Body != null && Body.active)
+			{
+				Body.Center = BodyPos[1];
+			}
+			else
+			{
+				int b = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+				Body = Main.npc[b];
+				Body.realLife = npc.whoAmI;
+				Body.ai[0] = npc.whoAmI;
+				Body.Center = BodyPos[1];
+			}
+			
+			for(int i = 0; i < 3; i++)
+			{
+				if(RArm[i] != null && RArm[i].active)
+				{
+					RArm[i].Center = RArmPos[i+2];
+				}
+				else
+				{
+					int ra = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					RArm[i] = Main.npc[ra];
+					RArm[i].realLife = npc.whoAmI;
+					RArm[i].ai[0] = npc.whoAmI;
+					RArm[i].ai[1] = 1+i;
+					RArm[i].Center = RArmPos[i+2];
+				}
+				
+				if(LArm[i] != null && LArm[i].active)
+				{
+					LArm[i].Center = LArmPos[i+2];
+				}
+				else
+				{
+					int la = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					LArm[i] = Main.npc[la];
+					LArm[i].realLife = npc.whoAmI;
+					LArm[i].ai[0] = npc.whoAmI;
+					LArm[i].ai[1] = 1+i;
+					LArm[i].Center = LArmPos[i+2];
+				}
+				
+				if(RLeg[i] != null && RLeg[i].active)
+				{
+					RLeg[i].Center = RLegPos[i+3];
+				}
+				else
+				{
+					int rl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					RLeg[i] = Main.npc[rl];
+					RLeg[i].realLife = npc.whoAmI;
+					RLeg[i].ai[0] = npc.whoAmI;
+					RLeg[i].ai[1] = 4+i;
+					RLeg[i].Center = RLegPos[i+3];
+				}
+				
+				if(LLeg[i] != null && LLeg[i].active)
+				{
+					LLeg[i].Center = LLegPos[i+3];
+				}
+				else
+				{
+					int ll = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+					LLeg[i] = Main.npc[ll];
+					LLeg[i].realLife = npc.whoAmI;
+					LLeg[i].ai[0] = npc.whoAmI;
+					LLeg[i].ai[1] = 4+i;
+					LLeg[i].Center = LLegPos[i+3];
+				}
+			}
+			
+			if(RCannon != null && RCannon.active)
+			{
+				RCannon.Center = RCannonPos[2];
+			}
+			else
+			{
+				int cr = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+				RCannon = Main.npc[cr];
+				RCannon.realLife = npc.whoAmI;
+				RCannon.ai[0] = npc.whoAmI;
+				RCannon.ai[1] = 6;
+				RCannon.Center = RCannonPos[2];
+			}
+			if(LCannon != null && LCannon.active)
+			{
+				LCannon.Center = LCannonPos[2];
+			}
+			else
+			{
+				int cl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
+				LCannon = Main.npc[cl];
+				LCannon.realLife = npc.whoAmI;
+				LCannon.ai[0] = npc.whoAmI;
+				LCannon.ai[1] = 6;
+				LCannon.Center = LCannonPos[2];
+			}
+			
+			if(RArmArmor != null && RArmArmor.active)
+			{
+				RArmArmor.Center = RArmPos[2];
+			}
+			
+			if(LArmArmor != null && LArmArmor.active)
+			{
+				LArmArmor.Center = LArmPos[2];
+			}
+			
+			if(RLegArmor != null && RLegArmor.active)
+			{
+				RLegArmor.Center = RLegPos[3];
+			}
+			
+			if(LLegArmor != null && LLegArmor.active)
+			{
+				LLegArmor.Center = LLegPos[3];
+			}
+		}
+		
+		void ChangeDir(int dir)
+		{
+			if(npc.direction == dir)
+			{
+				return;
+			}
+			else
+			{
+				npc.direction = dir;
+			}
+		}
+		
+		static Vector2 TrajectoryVelocity(Vector2 source,Vector2 destination,float speed,float gravity,int timeBeforeGravity = 0)
+		{
+			float tbg = timeBeforeGravity*speed;
+			float x = destination.X - source.X;
+			float y = destination.Y - source.Y - Math.Max(Math.Abs(x)-tbg,0f) * gravity;
+			float angle = (float)Math.Atan2(y,x);
+			
+			return angle.ToRotationVector2()*speed;
+		}
+		
+		static float Vector2Angle(Vector2 Angle1, Vector2 Angle2, int dirX = 1, int dirY = 1, float mult = 1f, float min = 0f, float max = 0f)
+		{
+			float targetAngle = (float)Math.Atan2((Angle2.Y-Angle1.Y)*dirY,(Angle2.X-Angle1.X)*dirX);
+			
+			float angle = targetAngle * mult;
+			if (min < 0f && angle < min)
+			{
+				angle = min;
+			}
+			if (max > 0f && angle > max)
+			{
+				angle = max;
+			}
+			return angle;
+		}
+		
+		static float AngleFlip(float angle, int dir)
+		{
+			float cos = (float)Math.Cos(angle);
+			float sin = (float)Math.Sin(angle);
+			return (float)Math.Atan2(sin,cos*dir);
+		}
+		
+		public static float LerpArray(float value1, float[] value2, float amount)
+		{
+			float result = value1;
+			for(int i = 0; i < value2.Length; i++)
+			{
+				if((i+1) >= amount)
+				{
+					float firstValue = value1;
+					float secondValue = value2[i];
+					if(i > 0)
+					{
+						firstValue = value2[i-1];
+					}
+					float amt = amount-i;
+					result = firstValue + (secondValue-firstValue)*amt;
+					break;
+				}
+			}
+			return result;
+		}
+		
+		public double ConvertToRadians(double angle)
+		{
+			return (Math.PI / 180) * angle;
+		}
+		public double ConvertToDegrees(double angle)
+		{
+			return angle * (180 / Math.PI);
+		}
+		
+		public override bool PreDraw(SpriteBatch sb, Color drawColor)
+		{
+			npc.spriteDirection = npc.direction;
+			SpriteEffects effects = SpriteEffects.None;
+			if (npc.spriteDirection == -1)
+			{
+				effects = SpriteEffects.FlipHorizontally;
+			}
+			
+			Texture2D texCoreHead = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_Head"),
+					texCoreBody = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_Body"),
+					texCoreShoulderR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_ArmShoulderRight"),
+					texCoreShoulderL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_ArmShoulderLeft"),
+					texCoreArmR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_ArmRight"),
+					texCoreArmL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_ArmLeft"),
+					texCoreLegR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_LegRight"),
+					texCoreLegL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_LegLeft"),
+					texCoreLegLowerR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_LegLowerRight"),
+					texCoreLegLowerL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_LegLowerLeft"),
+					texCoreLegFootR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_LegFootRight"),
+					texCoreLegFootL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirateCore_LegFootLeft"),
+					texCoreArmorShoulderR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmShoulderRight_Phazon"),
+					texCoreArmorShoulderL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmShoulderLeft_Phazon"),
+					texCoreArmorLegR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegRight_Phazon"),
+					texCoreArmorLegL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegLeft_Phazon");
+			
+			Color CoreColor = new Color(255,255,255,255)*fullAlpha * (1f - bodyAlpha);
+			Color ArmorColor = new Color(255,255,255,200)*fullAlpha * (1f - bodyAlpha);
+			
+			if(bodyAlpha < 1f)
+			{
+				//left arm
+				DrawLimbTexture(npc,sb,texCoreArmL,LArmPos[1],RArmPos[1],LArmRot[1],RArmRot[1],new Vector2(10,6),CoreColor,CoreColor,fullScale,effects);
+				//left shoulder
+				DrawLimbTexture(npc,sb,texCoreShoulderL,LArmPos[0],RArmPos[0],LArmRot[0],RArmRot[0],new Vector2(30,26),CoreColor,CoreColor,fullScale,effects);
+				//left shoulder armor
+				DrawLimbTexture(npc,sb,texCoreArmorShoulderL,LArmPos[0],RArmPos[0],LArmRot[0],RArmRot[0],new Vector2(32,38),ArmorColor*PhazonArmorRegenAlpha[3],ArmorColor*PhazonArmorRegenAlpha[2],fullScale,effects);
+				
+				//left foot
+				DrawLimbTexture(npc,sb,texCoreLegFootL,LLegPos[2],RLegPos[2],LLegRot[2],RLegRot[2],new Vector2(14,4),CoreColor,CoreColor,fullScale,effects);
+				//left leg lower
+				DrawLimbTexture(npc,sb,texCoreLegLowerL,LLegPos[1],RLegPos[1],LLegRot[1],RLegRot[1],new Vector2(12,6),CoreColor,CoreColor,fullScale,effects);
+				//left leg
+				DrawLimbTexture(npc,sb,texCoreLegL,LLegPos[0],RLegPos[0],LLegRot[0],RLegRot[0],new Vector2(4,6),CoreColor,CoreColor,fullScale,effects);
+				//left leg armor
+				DrawLimbTexture(npc,sb,texCoreArmorLegL,LLegPos[0],RLegPos[0],LLegRot[0],RLegRot[0],new Vector2(14,12),ArmorColor*PhazonArmorRegenAlpha[1],ArmorColor*PhazonArmorRegenAlpha[0],fullScale,effects);
+				
+				//body
+				DrawLimbTexture(npc,sb,texCoreBody,BodyPos[0],BodyPos[0],BodyRot,BodyRot,new Vector2(32,102),CoreColor,CoreColor,fullScale,effects);
+				//head
+				DrawLimbTexture(npc,sb,texCoreHead,HeadPos[0],HeadPos[0],HeadRot[0],HeadRot[0],new Vector2(12,34),CoreColor,CoreColor,fullScale,effects);
+				
+				//right foot
+				DrawLimbTexture(npc,sb,texCoreLegFootR,RLegPos[2],LLegPos[2],RLegRot[2],LLegRot[2],new Vector2(14,4),CoreColor,CoreColor,fullScale,effects);
+				//right leg lower
+				DrawLimbTexture(npc,sb,texCoreLegLowerR,RLegPos[1],LLegPos[1],RLegRot[1],LLegRot[1],new Vector2(12,6),CoreColor,CoreColor,fullScale,effects);
+				//right leg
+				DrawLimbTexture(npc,sb,texCoreLegR,RLegPos[0],LLegPos[0],RLegRot[0],LLegRot[0],new Vector2(4,0),CoreColor,CoreColor,fullScale,effects);
+				//right leg armor
+				DrawLimbTexture(npc,sb,texCoreArmorLegR,RLegPos[0],LLegPos[0],RLegRot[0],LLegRot[0],new Vector2(14,12),ArmorColor*PhazonArmorRegenAlpha[0],ArmorColor*PhazonArmorRegenAlpha[1],fullScale,effects);
+				
+				//right arm
+				DrawLimbTexture(npc,sb,texCoreArmR,RArmPos[1],LArmPos[1],RArmRot[1],LArmRot[1],new Vector2(10,6),CoreColor,CoreColor,fullScale,effects);
+				//right shoulder
+				DrawLimbTexture(npc,sb,texCoreShoulderR,RArmPos[0],LArmPos[0],RArmRot[0],LArmRot[0],new Vector2(30,26),CoreColor,CoreColor,fullScale,effects);
+				//right shoulder armor
+				DrawLimbTexture(npc,sb,texCoreArmorShoulderR,RArmPos[0],LArmPos[0],RArmRot[0],LArmRot[0],new Vector2(32,38),ArmorColor*PhazonArmorRegenAlpha[2],ArmorColor*PhazonArmorRegenAlpha[3],fullScale,effects);
+			}
+			
+			Texture2D texHead = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_Head"),
+					texJaw = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_HeadJaw"),
+					texBody = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_Body"),
+					texCannonArmR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_CannonArmRight"),
+					texCannonArmL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_CannonArmLeft"),
+					texCannonR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_CannonRight"),
+					texCannonL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_CannonLeft"),
+					texCannonR_Glow = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_CannonRight_Glow"),
+					texCannonL_Glow = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_CannonLeft_Glow"),
+					texShoulderR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmShoulderRight"),
+					texShoulderL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmShoulderLeft"),
+					texArmR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmRight"),
+					texArmL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmLeft"),
+					texArmR_Glow = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmRight_Glow"),
+					texArmL_Glow = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmLeft_Glow"),
+					texArmR_Glow2 = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmRight_Glow2"),
+					texArmL_Glow2 = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_ArmLeft_Glow2"),
+					texLegR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegRight"),
+					texLegL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegLeft"),
+					texLegLowerR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegLowerRight"),
+					texLegLowerL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegLowerLeft"),
+					texFootR = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegFootRight"),
+					texFootL = mod.GetTexture("NPCs/OmegaPirate/OmegaPirate_LegFootLeft");
+			
+			float fAlpha = bodyAlpha*fullAlpha;
+			
+			Color rArmColor = npc.GetAlpha(Lighting.GetColor((int)RArmPos[4].X / 16, (int)RArmPos[4].Y / 16)) * fAlpha,
+			lArmColor = npc.GetAlpha(Lighting.GetColor((int)LArmPos[4].X / 16, (int)LArmPos[4].Y / 16)) * fAlpha,
+			lShColor = npc.GetAlpha(Lighting.GetColor((int)LArmPos[0].X / 16, (int)LArmPos[0].Y / 16)) * fAlpha,
+			rShColor = npc.GetAlpha(Lighting.GetColor((int)RArmPos[0].X / 16, (int)RArmPos[0].Y / 16)) * fAlpha,
+			lFootColor = npc.GetAlpha(Lighting.GetColor((int)LLegPos[2].X / 16, (int)LLegPos[2].Y / 16)) * fAlpha,
+			rFootColor = npc.GetAlpha(Lighting.GetColor((int)RLegPos[2].X / 16, (int)RLegPos[2].Y / 16)) * fAlpha,
+			lLLegColor = npc.GetAlpha(Lighting.GetColor((int)LLegPos[4].X / 16, (int)LLegPos[4].Y / 16)) * fAlpha,
+			rLLegColor = npc.GetAlpha(Lighting.GetColor((int)RLegPos[4].X / 16, (int)RLegPos[4].Y / 16)) * fAlpha,
+			lLegColor = npc.GetAlpha(Lighting.GetColor((int)LLegPos[3].X / 16, (int)LLegPos[3].Y / 16)) * fAlpha,
+			rLegColor = npc.GetAlpha(Lighting.GetColor((int)RLegPos[3].X / 16, (int)RLegPos[3].Y / 16)) * fAlpha,
+			lCannonColor = npc.GetAlpha(Lighting.GetColor((int)LCannonPos[2].X / 16, (int)LCannonPos[2].Y / 16)) * fAlpha,
+			rCannonColor = npc.GetAlpha(Lighting.GetColor((int)RCannonPos[2].X / 16, (int)RCannonPos[2].Y / 16)) * fAlpha,
+			bodyColor = npc.GetAlpha(Lighting.GetColor((int)BodyPos[1].X / 16, (int)BodyPos[1].Y / 16)) * fAlpha,
+			headColor = npc.GetAlpha(Lighting.GetColor((int)HeadPos[0].X / 16, (int)HeadPos[0].Y / 16)) * fAlpha;
+			
+			Color rClawGlowColor = new Color(Color.White.R,Color.White.G,Color.White.B,100) * MathHelper.Clamp(clawGlowAlpha+rClawGlowAlpha,0f,1f) * fAlpha;
+			Color lClawGlowColor = new Color(Color.White.R,Color.White.G,Color.White.B,100) * MathHelper.Clamp(clawGlowAlpha+lClawGlowAlpha,0f,1f) * fAlpha;
+			
+			Color glowColor = Color.Lerp(minGlowColor,maxGlowColor,(float)addedAbsorbDamage/absorbDamageMax) * fAlpha;
+			
+			Color laserColor = new Color(242,255,137,100) * laserAlpha * laserFrame * fAlpha;
+			
+			//left shoulder
+			int lShFrame = 0;
+			if(npc.spriteDirection == 1)
+			{
+				if(LArmArmor != null && LArmArmor.active)
+				{
+					lShFrame = 0;
+				}
+				else
+				{
+					lShFrame = 1;
+				}
+			}
+			else
+			{
+				if(RArmArmor != null && RArmArmor.active)
+				{
+					lShFrame = 0;
+				}
+				else
+				{
+					lShFrame = 1;
+				}
+			}
+			DrawLimbTexture(npc,sb,texShoulderL,LArmPos[0],RArmPos[0],LArmRot[0],RArmRot[0],new Vector2(32,39),lShColor,rShColor,fullScale,effects,lShFrame,2);
+			
+			//left arm
+			DrawLimbTexture(npc,sb,texArmL,LArmPos[1],RArmPos[1],LArmRot[1],RArmRot[1],new Vector2(30,22),lArmColor,rArmColor,fullScale,effects);
+			DrawLimbTexture(npc,sb,texArmL_Glow,LArmPos[1],RArmPos[1],LArmRot[1],RArmRot[1],new Vector2(30,22),lClawGlowColor,rClawGlowColor,fullScale,effects);
+			if(armGlowAlpha > 0f)
+			{
+				DrawLimbTexture(npc,sb,texArmL_Glow2,LArmPos[1],RArmPos[1],LArmRot[1],RArmRot[1],new Vector2(30,22),glowColor*armGlowAlpha,glowColor*armGlowAlpha,fullScale,effects);
+			}
+			
+			//left foot
+			DrawLimbTexture(npc,sb,texFootL,LLegPos[2],RLegPos[2],LLegRot[2],RLegRot[2],new Vector2(18,10),lFootColor,rFootColor,fullScale,effects);
+			
+			//left leg lower
+			DrawLimbTexture(npc,sb,texLegLowerL,LLegPos[1],RLegPos[1],LLegRot[1],RLegRot[1],new Vector2(14,6),lLLegColor,rLLegColor,fullScale,effects);
+			
+			//left leg
+			int lLegFrame = 0;
+			if(npc.spriteDirection == 1)
+			{
+				if(LLegArmor != null && LLegArmor.active)
+				{
+					lLegFrame = 0;
+				}
+				else
+				{
+					lLegFrame = 1;
+				}
+			}
+			else
+			{
+				if(RLegArmor != null && RLegArmor.active)
+				{
+					lLegFrame = 0;
+				}
+				else
+				{
+					lLegFrame = 1;
+				}
+			}
+			DrawLimbTexture(npc,sb,texLegL,LLegPos[0],RLegPos[0],LLegRot[0],RLegRot[0],new Vector2(14,13),lLegColor,rLegColor,fullScale,effects,lLegFrame,2);
+			
+			//left cannon arm
+			DrawLimbTexture(npc,sb,texCannonArmL,LCannonPos[0],RCannonPos[0],LCannonRot[0],RCannonRot[0],new Vector2(8,32),bodyColor,bodyColor,fullScale,effects);
+			
+			//left cannon
+			DrawLimbTexture(npc,sb,texCannonL,LCannonPos[1],RCannonPos[1],LCannonRot[1],RCannonRot[1],new Vector2(32,28),lCannonColor,rCannonColor,fullScale,effects);
+			
+			if(laserAlpha > 0f)
+			{
+				DrawLimbTexture(npc,sb,texCannonL_Glow,LCannonPos[1],RCannonPos[1],LCannonRot[1],RCannonRot[1],new Vector2(32,28),glowColor*laserAlpha,glowColor*laserAlpha,fullScale,effects);
+				
+				Vector2 laserPos = LCannonPos[2] + lLaserAngle.ToRotationVector2()*17f;
+				sb.Draw(mod.GetTexture("Gore/Pixel"), laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0,0,3000,2)),laserColor,lLaserAngle,new Vector2(1f,1f),1f,SpriteEffects.None,0f);
+			}
+			
+			//body
+			DrawLimbTexture(npc,sb,texBody,BodyPos[0],BodyPos[0],BodyRot,BodyRot,new Vector2(52,132),bodyColor,bodyColor,fullScale,effects);
+			
+			//head
+			DrawLimbTexture(npc,sb,texHead,HeadPos[0],HeadPos[0],HeadRot[0],HeadRot[0],new Vector2(28,54),headColor,headColor,fullScale,effects);
+			
+			//jaw
+			float jawRot = HeadRot[0] + HeadRot[1];
+			DrawLimbTexture(npc,sb,texJaw,HeadPos[1],HeadPos[1],jawRot,jawRot,new Vector2(4,4),headColor,headColor,fullScale,effects);
+			
+			//right cannon arm
+			DrawLimbTexture(npc,sb,texCannonArmR,RCannonPos[0],LCannonPos[0],RCannonRot[0],LCannonRot[0],new Vector2(12,32),bodyColor,bodyColor,fullScale,effects);
+			
+			//right cannon
+			DrawLimbTexture(npc,sb,texCannonR,RCannonPos[1],LCannonPos[1],RCannonRot[1],LCannonRot[1],new Vector2(32,28),rCannonColor,lCannonColor,fullScale,effects);
+			
+			if(laserAlpha > 0f)
+			{
+				DrawLimbTexture(npc,sb,texCannonR_Glow,RCannonPos[1],LCannonPos[1],RCannonRot[1],LCannonRot[1],new Vector2(32,28),glowColor*laserAlpha,glowColor*laserAlpha,fullScale,effects);
+				
+				Vector2 laserPos = RCannonPos[2] + rLaserAngle.ToRotationVector2()*17f;
+				sb.Draw(mod.GetTexture("Gore/Pixel"), laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0,0,3000,2)),laserColor,rLaserAngle,new Vector2(1f,1f),1f,SpriteEffects.None,0f);
+			}
+			
+			//right foot
+			DrawLimbTexture(npc,sb,texFootR,RLegPos[2],LLegPos[2],RLegRot[2],LLegRot[2],new Vector2(18,10),rFootColor,lFootColor,fullScale,effects);
+			
+			//right leg lower
+			DrawLimbTexture(npc,sb,texLegLowerR,RLegPos[1],LLegPos[1],RLegRot[1],LLegRot[1],new Vector2(14,6),rLLegColor,lLLegColor,fullScale,effects);
+			
+			//right leg
+			int rLegFrame = 0;
+			if(npc.spriteDirection == 1)
+			{
+				if(RLegArmor != null && RLegArmor.active)
+				{
+					rLegFrame = 0;
+				}
+				else
+				{
+					rLegFrame = 1;
+				}
+			}
+			else
+			{
+				if(LLegArmor != null && LLegArmor.active)
+				{
+					rLegFrame = 0;
+				}
+				else
+				{
+					rLegFrame = 1;
+				}
+			}
+			DrawLimbTexture(npc,sb,texLegR,RLegPos[0],LLegPos[0],RLegRot[0],LLegRot[0],new Vector2(14,13),rLegColor,lLegColor,fullScale,effects,rLegFrame,2);
+			
+			//right shoulder
+			int rShFrame = 0;
+			if(npc.spriteDirection == 1)
+			{
+				if(RArmArmor != null && RArmArmor.active)
+				{
+					rShFrame = 0;
+				}
+				else
+				{
+					rShFrame = 1;
+				}
+			}
+			else
+			{
+				if(LArmArmor != null && LArmArmor.active)
+				{
+					rShFrame = 0;
+				}
+				else
+				{
+					rShFrame = 1;
+				}
+			}
+			DrawLimbTexture(npc,sb,texShoulderR,RArmPos[0],LArmPos[0],RArmRot[0],LArmRot[0],new Vector2(32,39),rShColor,lShColor,fullScale,effects,rShFrame,2);
+			
+			//right arm
+			DrawLimbTexture(npc,sb,texArmR,RArmPos[1],LArmPos[1],RArmRot[1],LArmRot[1],new Vector2(30,22),rArmColor,lArmColor,fullScale,effects);
+			DrawLimbTexture(npc,sb,texArmR_Glow,RArmPos[1],LArmPos[1],RArmRot[1],LArmRot[1],new Vector2(30,22),rClawGlowColor,lClawGlowColor,fullScale,effects);
+			if(armGlowAlpha > 0f)
+			{
+				DrawLimbTexture(npc,sb,texArmL_Glow2,RArmPos[1],LArmPos[1],RArmRot[1],LArmRot[1],new Vector2(30,22),glowColor*armGlowAlpha,glowColor*armGlowAlpha,fullScale,effects);
+			}
+			
+			return false;
+		}
+		static void DrawLimbTexture(NPC npc, SpriteBatch sb, Texture2D tex, Vector2 Pos1, Vector2 Pos2, float Rot1, float Rot2, Vector2 Origin, Color color1, Color color2, Vector2 scale, SpriteEffects effects, int frame = 0, int frameCount = 1)
+		{
+			float LimbRot = Rot1;
+			Vector2 LimbDrawPos = Pos1;
+			Vector2 LimbOrigin = Origin;
+			Color LimbColor = color1;
+			int LimbFrameHeight = tex.Height / frameCount;
+			if(npc.spriteDirection == -1)
+			{
+				LimbRot = Rot2;
+				LimbDrawPos = Pos2;
+				LimbOrigin.X = tex.Width - LimbOrigin.X;
+				LimbColor = color2;
+			}
+			sb.Draw(tex, LimbDrawPos - Main.screenPosition, new Rectangle?(new Rectangle(0,frame*LimbFrameHeight,tex.Width,LimbFrameHeight)),LimbColor,LimbRot*npc.spriteDirection,LimbOrigin,scale,effects,0f);
+		}
+	}
+}
