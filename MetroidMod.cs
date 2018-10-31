@@ -48,6 +48,7 @@ namespace MetroidMod
 		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
 		public const string PhantoonHead = "MetroidMod/NPCs/Phantoon/Phantoon_Head_Boss";
 		public const string NightmareHead = "MetroidMod/NPCs/Nightmare/Nightmare_Head_Boss";
+		public const string OmegaPirateHead = "MetroidMod/NPCs/OmegaPirate/OmegaPirate_Head_Boss";
 		public static Mod Instance;
 
         internal UserInterface pbUserInterface;
@@ -91,6 +92,7 @@ namespace MetroidMod
 
 			AddBossHeadTexture(PhantoonHead);
 			AddBossHeadTexture(NightmareHead);
+			AddBossHeadTexture(OmegaPirateHead);
 
             SetupUI();
 		}
