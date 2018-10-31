@@ -87,6 +87,23 @@ namespace MetroidMod.Projectiles.chargelead
 				soundPlayed = true;
 			}
 
+            P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
+            P.rotation += 0.5f * P.direction;
+            P.spriteDirection = P.direction;
+            O.ChangeDir(P.direction);
+            O.itemTime = 2;
+            O.itemAnimation = 2;
+            P.timeLeft = 2;
+            O.heldProj = P.whoAmI;
+            O.itemRotation = (float)Math.Atan2(P.velocity.Y * O.direction, P.velocity.X * O.direction) - O.fullRotation;
+
+            if (mp.statCharge >= MPlayer.maxCharge && !mp.somersault)
+            {
+                int dust = Dust.NewDust(P.position + P.velocity, P.width, P.height, DustType, 0, 0, 100, DustColor, 2.0f);
+                Main.dust[dust].noGravity = true;
+            }
+            Lighting.AddLight(P.Center, (LightColor.R / 255f) * P.scale, (LightColor.G / 255f) * P.scale, (LightColor.B / 255f) * P.scale);
+
 			if(O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
 			{
 				if (P.owner == Main.myPlayer)
@@ -127,23 +144,6 @@ namespace MetroidMod.Projectiles.chargelead
 				}
 				P.Kill();
             }
-
-            P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
-            P.rotation = P.velocity.ToRotation();
-            P.spriteDirection = P.direction;
-            O.ChangeDir(P.direction);
-            O.itemTime = 2;
-            O.itemAnimation = 2;
-            P.timeLeft = 2;
-            O.heldProj = P.whoAmI;
-            O.itemRotation = (float)Math.Atan2(P.velocity.Y * O.direction, P.velocity.X * O.direction) - O.fullRotation;
-
-            if (mp.statCharge >= MPlayer.maxCharge && !mp.somersault)
-            {
-                int dust = Dust.NewDust(P.position + P.velocity, P.width, P.height, DustType, 0, 0, 100, DustColor, 2.0f);
-                Main.dust[dust].noGravity = true;
-            }
-            Lighting.AddLight(P.Center, (LightColor.R / 255f) * P.scale, (LightColor.G / 255f) * P.scale, (LightColor.B / 255f) * P.scale);
         }
 
 		public override void Kill(int timeLeft)
