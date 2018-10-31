@@ -16,41 +16,41 @@ using MetroidMod.Projectiles.chargelead;
 
 namespace MetroidMod.Items.weapons
 {
-    /*
-     * TODO: 
-     * IMPLEMENT ERROR MESSAGE WITH MOD MISMATCH: ('comboErrorType')
-     * 
-     */
-    public class PowerBeam : ModItem
-    {
-        // Failsaves.
-        private Item[] _beamMods;
-        public Item[] beamMods
-        {
-            get
-            {
-                if(_beamMods == null)
-                {
-                    _beamMods = new Item[MetroidMod.beamSlotAmount];
-                    for(int i = 0; i < _beamMods.Length; ++i)
-                    {
-                        _beamMods[i] = new Item();
-                        _beamMods[i].TurnToAir();
-                    }
-                }
+	/*
+	 * TODO: 
+	 * IMPLEMENT ERROR MESSAGE WITH MOD MISMATCH: ('comboErrorType')
+	 * 
+	 */
+	public class PowerBeam : ModItem
+	{
+		// Failsaves.
+		private Item[] _beamMods;
+		public Item[] beamMods
+		{
+			get
+			{
+				if(_beamMods == null)
+				{
+					_beamMods = new Item[MetroidMod.beamSlotAmount];
+					for(int i = 0; i < _beamMods.Length; ++i)
+					{
+						_beamMods[i] = new Item();
+						_beamMods[i].TurnToAir();
+					}
+				}
 
-                return _beamMods;
-            }
-            set { _beamMods = value; }
-        }
+				return _beamMods;
+			}
+			set { _beamMods = value; }
+		}
 
-        public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Beam");
 			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
 
-            beamMods = new Item[5];
-        }
+			beamMods = new Item[5];
+		}
 		public override void SetDefaults()
 		{
 			item.damage = 14;
@@ -78,7 +78,7 @@ namespace MetroidMod.Items.weapons
 			recipe.AddIngredient(null, "EnergyShard", 3);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
+		}
 		
 		public override void UseStyle(Player P)
 		{
@@ -95,7 +95,7 @@ namespace MetroidMod.Items.weapons
 			}
 			return (mp.statOverheat < mp.maxOverheat);
 		}
-        		
+				
 		float iceDmg = 0f;
 		float waveDmg = 0f;
 		float spazDmg = 0f;
@@ -1144,14 +1144,14 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			PowerBeam beamClone = (PowerBeam)clone;
-            beamClone.beamMods = this.beamMods;
+			beamClone.beamMods = this.beamMods;
 
 			return clone;
 		}
 		
 		int chargeLead = -1;
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 
 			if(isCharge)
@@ -1165,12 +1165,12 @@ namespace MetroidMod.Items.weapons
 				cl.DustColor = dustColor;
 				cl.LightColor = lightColor;
 				cl.canPsuedoScrew = mp.psuedoScrewActive;
-                cl.ShotSound = shotSound;
-                cl.ChargeShotSound = chargeShotSound;
-                cl.projectile.netUpdate = true;
+				cl.ShotSound = shotSound;
+				cl.ChargeShotSound = chargeShotSound;
+				cl.projectile.netUpdate = true;
 
-                chargeLead = ch;
-            }
+				chargeLead = ch;
+			}
 			
 			for(int i = 0; i < shotAmt; i++)
 			{
@@ -1178,7 +1178,7 @@ namespace MetroidMod.Items.weapons
 				MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
 				mProj.waveStyle = i;
 				mProj.waveDir = waveDir;
-                mProj.projectile.netUpdate = true;
+				mProj.projectile.netUpdate = true;
 			}
 			waveDir *= -1;
 			
@@ -1202,7 +1202,9 @@ namespace MetroidMod.Items.weapons
 					if(player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 					{
 						if(mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+						{
 							mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
+						}
 					}
 					else
 					{
@@ -1211,7 +1213,9 @@ namespace MetroidMod.Items.weapons
 						float MY = Main.mouseY + Main.screenPosition.Y;
 						float MX = Main.mouseX + Main.screenPosition.X;
 						if (player.gravDir == -1f)
+						{
 							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+						}
 
 						float targetrotation = (float)Math.Atan2((MY-oPos.Y),(MX-oPos.X));
 						
@@ -1233,7 +1237,7 @@ namespace MetroidMod.Items.weapons
 								mProj.waveStyle = i;
 								mProj.waveDir = waveDir;
 								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge*0.9));
-                                mProj.projectile.netUpdate = true;
+								mProj.projectile.netUpdate = true;
 							}
 							
 							//Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));
@@ -1251,64 +1255,68 @@ namespace MetroidMod.Items.weapons
 									MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
 									mProj.waveStyle = i;
 									mProj.waveDir = waveDir;
-                                    mProj.projectile.netUpdate = true;
-                                }
+									mProj.projectile.netUpdate = true;
+								}
 
-                                //Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+shotSound));
-                                
-                                mp.statOverheat += oHeat;
+								//Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+shotSound));
+								
+								mp.statOverheat += oHeat;
 								mp.overheatDelay = useTime-10;
 							}
 						}
 						if(chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
+						{
 							mp.statCharge = 0;
+						}
 					}
 				}
 				else if(!mp.ballstate)
+				{
 					mp.statCharge = 0;
-            }
+				}
+			}
 		}
 
-        public override TagCompound Save()
+		public override TagCompound Save()
 		{
-            TagCompound tag = new TagCompound();
-            for(int i = 0; i < beamMods.Length; ++i)
-            {
-                // Failsave check.
-                if (beamMods[i] == null) beamMods[i] = new Item();
-                tag.Add("beamItem" + i, ItemIO.Save(beamMods[i]));
-            }
-            return tag;
+			TagCompound tag = new TagCompound();
+			for(int i = 0; i < beamMods.Length; ++i)
+			{
+				// Failsave check.
+				if (beamMods[i] == null) beamMods[i] = new Item();
+				tag.Add("beamItem" + i, ItemIO.Save(beamMods[i]));
+			}
+			return tag;
 		}
 		public override void Load(TagCompound tag)
 		{
 			try
 			{
-                beamMods = new Item[MetroidMod.beamSlotAmount];
+				beamMods = new Item[MetroidMod.beamSlotAmount];
 				for(int i = 0; i < beamMods.Length ; i++)
 				{
 					Item item = tag.Get<Item>("beamItem"+i);
-                    beamMods[i] = item;
+					beamMods[i] = item;
 				}
 			}
 			catch{}
 		}
 
-        public override void NetSend(BinaryWriter writer)
-        {
-            for(int i = 0; i < beamMods.Length; ++i)
-            {
-                writer.WriteItem(beamMods[i]);
-            }
-            writer.Write(chargeLead);
-        }
-        public override void NetRecieve(BinaryReader reader)
-        {
-            for(int i = 0; i < beamMods.Length; ++i)
-            {
-                beamMods[i] = reader.ReadItem();
-            }
-            chargeLead = reader.ReadInt32();
-        }
-    }
+		public override void NetSend(BinaryWriter writer)
+		{
+			for(int i = 0; i < beamMods.Length; ++i)
+			{
+				writer.WriteItem(beamMods[i]);
+			}
+			writer.Write(chargeLead);
+		}
+		public override void NetRecieve(BinaryReader reader)
+		{
+			for(int i = 0; i < beamMods.Length; ++i)
+			{
+				beamMods[i] = reader.ReadItem();
+			}
+			chargeLead = reader.ReadInt32();
+		}
+	}
 }
