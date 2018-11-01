@@ -44,21 +44,10 @@ namespace MetroidMod.Tiles
 			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("MissileStation"));
 		}
 
-        public override void RightClick(int i, int j)
+		public override void RightClick(int i, int j)
 		{
-            Player player = Main.LocalPlayer;
-            
-            for(int k = 0; k < player.inventory.Length; ++k)
-            {
-                if(player.inventory[k].type == mod.ItemType("MissileLauncher"))
-                {
-                    MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>(mod);
-                    int requiredAmount = mi.maxMissiles - mi.statMissiles;
-                    mi.statMissiles += requiredAmount;
-                }
-            }
-            Main.PlaySound(7, (int)player.position.X, (int)player.position.Y, 1);
-        }
+			HitWire(i, j);
+		}
 		public override void HitWire(int i, int j)
 		{
 			int x = i - (Main.tile[i, j].frameX / 18) % 2;
