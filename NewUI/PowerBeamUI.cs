@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -78,6 +78,17 @@ namespace MetroidMod.NewUI
             
             this.Append(new PowerBeamFrame());
             this.Append(new PowerBeamLines());
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            this.Top.Pixels = 260;
+            if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+			{
+                this.Top.Pixels += 170;
+			}
+
+            base.Update(gameTime);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
