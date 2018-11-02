@@ -17,29 +17,29 @@ using MetroidMod.Projectiles.chargelead;
 namespace MetroidMod.Items.weapons
 {
 	public class MissileLauncher : ModItem
-    {
-        // Failsaves.
-        private Item[] _missileMods;
-        public Item[] missileMods
-        {
-            get
-            {
-                if (_missileMods == null)
-                {
-                    _missileMods = new Item[MetroidMod.missileSlotAmount];
-                    for (int i = 0; i < _missileMods.Length; ++i)
-                    {
-                        _missileMods[i] = new Item();
-                        _missileMods[i].TurnToAir();
-                    }
-                }
+	{
+		// Failsaves.
+		private Item[] _missileMods;
+		public Item[] missileMods
+		{
+			get
+			{
+				if (_missileMods == null)
+				{
+					_missileMods = new Item[MetroidMod.missileSlotAmount];
+					for (int i = 0; i < _missileMods.Length; ++i)
+					{
+						_missileMods[i] = new Item();
+						_missileMods[i].TurnToAir();
+					}
+				}
 
-                return _missileMods;
-            }
-            set { _missileMods = value; }
-        }
+				return _missileMods;
+			}
+			set { _missileMods = value; }
+		}
 
-        public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Missile Launcher");
 			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Missile Addon UI");
@@ -257,7 +257,7 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			MissileLauncher missileClone = (MissileLauncher)clone;
-            missileClone.missileMods = this.missileMods;
+			missileClone.missileMods = this.missileMods;
 
 			return clone;
 		}
@@ -275,11 +275,11 @@ namespace MetroidMod.Items.weapons
 				cl.DustType = dustType;
 				cl.DustColor = dustColor;
 				cl.LightColor = lightColor;
-                cl.ShotSound = shotSound;
-                cl.ChargeShotSound = chargeShotSound;
-                cl.projectile.netUpdate = true;
+				cl.ShotSound = shotSound;
+				cl.ChargeShotSound = chargeShotSound;
+				cl.projectile.netUpdate = true;
 
-                chargeLead = ch;
+				chargeLead = ch;
 				return false;
 			}
 			else if(isSeeker)
@@ -300,205 +300,214 @@ namespace MetroidMod.Items.weapons
 		int targetNum = 0;
 		public override void HoldItem(Player player)
 		{
-            if (player.whoAmI == Main.myPlayer)
-            {
-                MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-                MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			if (player.whoAmI == Main.myPlayer)
+			{
+				MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
 
-                if (isCharge)
-                {
-                    if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
-                    {
-                        if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
-                        {
-                            if (mp.statCharge < MPlayer.maxCharge)
-                                mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-                        }
-                        else
-                        {
-                            Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+				if (isCharge)
+				{
+					if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
+					{
+						if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
+						{
+							if (mp.statCharge < MPlayer.maxCharge)
+								mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
+						}
+						else
+						{
+							Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 
-                            float MY = Main.mouseY + Main.screenPosition.Y;
-                            float MX = Main.mouseX + Main.screenPosition.X;
-                            if (player.gravDir == -1f)
-                                MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+							float MY = Main.mouseY + Main.screenPosition.Y;
+							float MX = Main.mouseX + Main.screenPosition.X;
+							if (player.gravDir == -1f)
+								MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 
-                            float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
+							float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 
-                            Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
+							Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 
-                            float dmgMult = 1f;//(1f+((float)mp.statCharge*0.02f));
-                            int damage = (int)((float)item.damage * player.rangedDamage);
+							float dmgMult = 1f;//(1f+((float)mp.statCharge*0.02f));
+							int damage = (int)((float)item.damage * player.rangedDamage);
 
-                            if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= 5)
-                            {
-                                int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
-                                mi.statMissiles -= 5;
-                            }
-                            else if (mp.statCharge > 0)
-                            {
-                                int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
-                                mi.statMissiles -= 1;
-                            }
+							if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= 5)
+							{
+								int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
+								mi.statMissiles -= 5;
+							}
+							else if (mp.statCharge > 0)
+							{
+								int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
+								mi.statMissiles -= 1;
+							}
 
-                            if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
-                                mp.statCharge = 0;
-                        }
-                    }
-                    else if (!mp.ballstate)
-                        mp.statCharge = 0;
-                }
-                else
-                    mp.statCharge = 0;
+							if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
+							{
+								mp.statCharge = 0;
+							}
+						}
+					}
+					else if (!mp.ballstate)
+					{
+						mp.statCharge = 0;
+					}
+				}
+				else
+				{
+					mp.statCharge = 0;
+				}
 
-                if (targetingDelay > 0)
-                    targetingDelay--;
+				if (targetingDelay > 0)
+				{
+					targetingDelay--;
+				}
 
-                if (isSeeker && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
-                {
-                    Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-                    float MY = Main.mouseY + Main.screenPosition.Y;
-                    float MX = Main.mouseX + Main.screenPosition.X;
-                    Rectangle mouse = new Rectangle((int)MX - 1, (int)MY - 1, 2, 2);
-                    if (player.gravDir == -1f)
-                    {
-                        MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-                    }
-                    float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
-                    Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
-                    int damage = (int)((float)item.damage * player.rangedDamage);
-                    if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
-                    {
-                        if (mi.seekerCharge < MGlobalItem.seekerMaxCharge)
-                        {
-                            mi.seekerCharge = Math.Min(mi.seekerCharge + 1, MGlobalItem.seekerMaxCharge);
-                        }
-                        else
-                        {
-                            for (int i = 0; i < Main.maxNPCs; i++)
-                            {
-                                NPC npc = Main.npc[i];
-                                if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && (Collision.CanHit(player.Center, 1, 1, npc.position, npc.width, npc.height) || npc.noTileCollide))
-                                {
-                                    Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
-                                    if (mouse.Intersects(npcRect) && mi.seekerTarget[targetNum] <= -1 && (targetingDelay <= 0 || prevTarget != npc.whoAmI) && mi.statMissiles > mi.numSeekerTargets)
-                                    {
-                                        mi.seekerTarget[targetNum] = npc.whoAmI;
-                                        prevTarget = mi.seekerTarget[targetNum];
-                                        targetNum++;
-                                        if (targetNum > 4)
-                                        {
-                                            targetNum = 0;
-                                        }
-                                        targetingDelay = 40;
-                                        Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SeekerLockSound"));
-                                    }
-                                }
-                            }
+				if (isSeeker && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
+				{
+					Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+					float MY = Main.mouseY + Main.screenPosition.Y;
+					float MX = Main.mouseX + Main.screenPosition.X;
+					Rectangle mouse = new Rectangle((int)MX - 1, (int)MY - 1, 2, 2);
+					if (player.gravDir == -1f)
+					{
+						MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+					}
+					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
+					Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
+					int damage = (int)((float)item.damage * player.rangedDamage);
+					if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
+					{
+						if (mi.seekerCharge < MGlobalItem.seekerMaxCharge)
+						{
+							mi.seekerCharge = Math.Min(mi.seekerCharge + 1, MGlobalItem.seekerMaxCharge);
+						}
+						else
+						{
+							for (int i = 0; i < Main.maxNPCs; i++)
+							{
+								NPC npc = Main.npc[i];
+								bool? flag3 = NPCLoader.CanBeHitByProjectile(npc, Main.projectile[chargeLead]);
+								if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && (!flag3.HasValue || flag3.Value))// && (Collision.CanHit(player.Center, 1, 1, npc.position, npc.width, npc.height) || npc.noTileCollide))
+								{
+									Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+									if (mouse.Intersects(npcRect) && mi.seekerTarget[targetNum] <= -1 && (targetingDelay <= 0 || prevTarget != npc.whoAmI) && mi.statMissiles > mi.numSeekerTargets)
+									{
+										mi.seekerTarget[targetNum] = npc.whoAmI;
+										prevTarget = mi.seekerTarget[targetNum];
+										targetNum++;
+										if (targetNum > 4)
+										{
+											targetNum = 0;
+										}
+										targetingDelay = 40;
+										Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SeekerLockSound"));
+									}
+								}
+							}
 
-                            int num = 10;
-                            while (mi.seekerTarget[targetNum] > -1 && num > 0)
-                            {
-                                targetNum++;
-                                if (targetNum > 4)
-                                {
-                                    targetNum = 0;
-                                }
-                                num--;
-                            }
+							int num = 10;
+							while (mi.seekerTarget[targetNum] > -1 && num > 0)
+							{
+								targetNum++;
+								if (targetNum > 4)
+								{
+									targetNum = 0;
+								}
+								num--;
+							}
 
-                            mi.numSeekerTargets = 0;
-                            for (int i = 0; i < mi.seekerTarget.Length; i++)
-                            {
-                                if (mi.seekerTarget[i] > -1)
-                                {
-                                    mi.numSeekerTargets++;
+							mi.numSeekerTargets = 0;
+							for (int i = 0; i < mi.seekerTarget.Length; i++)
+							{
+								if (mi.seekerTarget[i] > -1)
+								{
+									mi.numSeekerTargets++;
 
-                                    if (!Main.npc[mi.seekerTarget[i]].active)
-                                    {
-                                        mi.seekerTarget[i] = -1;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
-                        {
-                            for (int i = 0; i < mi.seekerTarget.Length; i++)
-                            {
-                                if (mi.seekerTarget[i] > -1)
-                                {
-                                    int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
-                                    MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
-                                    mProj.seekTarget = mi.seekerTarget[i];
-                                    mProj.seeking = true;
+									if (!Main.npc[mi.seekerTarget[i]].active)
+									{
+										mi.seekerTarget[i] = -1;
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
+						{
+							for (int i = 0; i < mi.seekerTarget.Length; i++)
+							{
+								if (mi.seekerTarget[i] > -1)
+								{
+									int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
+									MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
+									mProj.seekTarget = mi.seekerTarget[i];
+									mProj.seeking = true;
 
-                                    mi.statMissiles = Math.Max(mi.statMissiles - 1, 0);
-                                }
-                            }
+									mi.statMissiles = Math.Max(mi.statMissiles - 1, 0);
+								}
+							}
 
-                            Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SeekerMissileSound"));
-                        }
-                        else if (mi.seekerCharge > 0)
-                        {
-                            int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
-                            Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + shotSound));
+							Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SeekerMissileSound"));
+						}
+						else if (mi.seekerCharge > 0)
+						{
+							int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
+							Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + shotSound));
 
-                            mi.statMissiles -= 1;
-                        }
-                        if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("SeekerMissileLead"))
-                        {
-                            mi.seekerCharge = 0;
-                        }
-                        mi.numSeekerTargets = 0;
-                        for (int k = 0; k < mi.seekerTarget.Length; k++)
-                        {
-                            mi.seekerTarget[k] = -1;
-                        }
-                        targetNum = 0;
-                        prevTarget = -2;
-                        targetingDelay = 0;
-                    }
-                }
-                else
-                {
-                    mi.seekerCharge = 0;
-                    mi.numSeekerTargets = 0;
-                    for (int k = 0; k < mi.seekerTarget.Length; k++)
-                    {
-                        mi.seekerTarget[k] = -1;
-                    }
-                    targetNum = 0;
-                    prevTarget = -2;
-                    targetingDelay = 0;
-                }
-            }
+							mi.statMissiles -= 1;
+						}
+						if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("SeekerMissileLead"))
+						{
+							mi.seekerCharge = 0;
+						}
+						mi.numSeekerTargets = 0;
+						for (int k = 0; k < mi.seekerTarget.Length; k++)
+						{
+							mi.seekerTarget[k] = -1;
+						}
+						targetNum = 0;
+						prevTarget = -2;
+						targetingDelay = 0;
+					}
+				}
+				else
+				{
+					mi.seekerCharge = 0;
+					mi.numSeekerTargets = 0;
+					for (int k = 0; k < mi.seekerTarget.Length; k++)
+					{
+						mi.seekerTarget[k] = -1;
+					}
+					targetNum = 0;
+					prevTarget = -2;
+					targetingDelay = 0;
+				}
+			}
 		}
 				
 		public override TagCompound Save()
 		{
-            TagCompound tag = new TagCompound();
-            for (int i = 0; i < missileMods.Length; ++i)
-                tag.Add("missileItem" + i, ItemIO.Save(missileMods[i]));
+			TagCompound tag = new TagCompound();
+			for (int i = 0; i < missileMods.Length; ++i)
+				tag.Add("missileItem" + i, ItemIO.Save(missileMods[i]));
 
-            MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-            tag.Add("statMissiles", mi.statMissiles);
-            tag.Add("maxMissiles", mi.maxMissiles);
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			tag.Add("statMissiles", mi.statMissiles);
+			tag.Add("maxMissiles", mi.maxMissiles);
 
 			return tag;
 		}
 		public override void Load(TagCompound tag)
 		{
 			try
-            {
-                missileMods = new Item[MetroidMod.missileSlotAmount];
-                for (int i = 0; i < missileMods.Length; i++)
-                {
-                    Item item = tag.Get<Item>("missileItem" + i);
-                    missileMods[i] = item;
-                }
+			{
+				missileMods = new Item[MetroidMod.missileSlotAmount];
+				for (int i = 0; i < missileMods.Length; i++)
+				{
+					Item item = tag.Get<Item>("missileItem" + i);
+					missileMods[i] = item;
+				}
 				
 				MGlobalItem mi = this.item.GetGlobalItem<MGlobalItem>(mod);
 				mi.statMissiles = tag.GetInt("statMissiles");
@@ -507,21 +516,21 @@ namespace MetroidMod.Items.weapons
 			catch{}
 		}
 
-        public override void NetSend(BinaryWriter writer)
-        {
-            for (int i = 0; i < missileMods.Length; ++i)
-            {
-                writer.WriteItem(missileMods[i]);
-            }
-            writer.Write(chargeLead);
-        }
-        public override void NetRecieve(BinaryReader reader)
-        {
-            for (int i = 0; i < missileMods.Length; ++i)
-            {
-                missileMods[i] = reader.ReadItem();
-            }
-            chargeLead = reader.ReadInt32();
-        }
-    }
+		public override void NetSend(BinaryWriter writer)
+		{
+			for (int i = 0; i < missileMods.Length; ++i)
+			{
+				writer.WriteItem(missileMods[i]);
+			}
+			writer.Write(chargeLead);
+		}
+		public override void NetRecieve(BinaryReader reader)
+		{
+			for (int i = 0; i < missileMods.Length; ++i)
+			{
+				missileMods[i] = reader.ReadItem();
+			}
+			chargeLead = reader.ReadInt32();
+		}
+	}
 }
