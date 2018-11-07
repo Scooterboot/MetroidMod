@@ -17,18 +17,18 @@ using System.IO;
 
 namespace MetroidMod
 {
-    public enum MetroidMessageType : byte
-    {
-        SyncPlayerStats
-    }
+	public enum MetroidMessageType : byte
+	{
+		SyncPlayerStats
+	}
 
 	public class MetroidMod : Mod
-    {
-        internal const int ballSlotAmount = 5;
-        internal const int beamSlotAmount = 5;
-        internal const int missileSlotAmount = 3;
+	{
+		internal const int ballSlotAmount = 5;
+		internal const int beamSlotAmount = 5;
+		internal const int missileSlotAmount = 3;
 
-        public static Color powColor = new Color(248, 248, 110);
+		public static Color powColor = new Color(248, 248, 110);
 		public static Color iceColor = new Color(0, 255, 255);
 		public static Color waveColor = new Color(215, 0, 215);
 		public static Color waveColor2 = new Color(239, 153, 239);
@@ -51,27 +51,27 @@ namespace MetroidMod
 		public const string OmegaPirateHead = "MetroidMod/NPCs/OmegaPirate/OmegaPirate_Head_Boss";
 		public static Mod Instance;
 
-        internal UserInterface pbUserInterface;
-        internal PowerBeamUI powerBeamUI;
+		internal UserInterface pbUserInterface;
+		internal PowerBeamUI powerBeamUI;
 
-        internal UserInterface mlUserInterface;
-        internal MissileLauncherUI missileLauncherUI;
+		internal UserInterface mlUserInterface;
+		internal MissileLauncherUI missileLauncherUI;
 
-        internal UserInterface mbUserInterface;
-        internal MorphBallUI morphBallUI;
+		internal UserInterface mbUserInterface;
+		internal MorphBallUI morphBallUI;
 
-        public int selectedItem = 0;
-        public int oldSelectedItem = 0;
+		public int selectedItem = 0;
+		public int oldSelectedItem = 0;
 
-        public int[] FrozenStandOnNPCs;
+		public int[] FrozenStandOnNPCs;
 
-        public MetroidMod()	{ }
+		public MetroidMod()	{ }
 
 		public override void Load()
 		{
 			Instance = this;
 
-            FrozenStandOnNPCs = new int[] { this.NPCType("Ripper") };
+			FrozenStandOnNPCs = new int[] { this.NPCType("Ripper") };
 
 			MorphBallKey = RegisterHotKey("Morph Ball", "Z");
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
@@ -94,99 +94,99 @@ namespace MetroidMod
 			AddBossHeadTexture(NightmareHead);
 			AddBossHeadTexture(OmegaPirateHead);
 
-            SetupUI();
+			SetupUI();
 		}
 
-        public override void HotKeyPressed(string name)
-        {
-            if(name == "Spider Ball" && SpiderBallKey.JustPressed)
-            {
-                MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(this);
-                if(mp.ballstate)
-                {
-                    mp.CurEdge = Edge.None;
-                    mp.spiderball = !mp.spiderball;
-                    Main.PlaySound(SoundLoader.customSoundType, (int)mp.player.position.X, (int)mp.player.position.Y, this.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-                }
-            }
-        }
+		public override void HotKeyPressed(string name)
+		{
+			if(name == "Spider Ball" && SpiderBallKey.JustPressed)
+			{
+				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(this);
+				if(mp.ballstate)
+				{
+					mp.CurEdge = Edge.None;
+					mp.spiderball = !mp.spiderball;
+					Main.PlaySound(SoundLoader.customSoundType, (int)mp.player.position.X, (int)mp.player.position.Y, this.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+				}
+			}
+		}
 
-        private void SetupUI()
-        {
-            if (Main.dedServ) return;
+		private void SetupUI()
+		{
+			if (Main.dedServ) return;
 
-            powerBeamUI = new PowerBeamUI();
-            powerBeamUI.Activate();
-            pbUserInterface = new UserInterface();
-            pbUserInterface.SetState(powerBeamUI);
+			powerBeamUI = new PowerBeamUI();
+			powerBeamUI.Activate();
+			pbUserInterface = new UserInterface();
+			pbUserInterface.SetState(powerBeamUI);
 
-            missileLauncherUI = new MissileLauncherUI();
-            missileLauncherUI.Activate();
-            mlUserInterface = new UserInterface();
-            mlUserInterface.SetState(missileLauncherUI);
+			missileLauncherUI = new MissileLauncherUI();
+			missileLauncherUI.Activate();
+			mlUserInterface = new UserInterface();
+			mlUserInterface.SetState(missileLauncherUI);
 
-            morphBallUI = new MorphBallUI();
-            morphBallUI.Activate();
-            mbUserInterface = new UserInterface();
-            mbUserInterface.SetState(morphBallUI);
-        }
+			morphBallUI = new MorphBallUI();
+			morphBallUI.Activate();
+			mbUserInterface = new UserInterface();
+			mbUserInterface.SetState(morphBallUI);
+		}
 
-        public override void UpdateUI(GameTime gameTime)
-        {
-            Player player = Main.LocalPlayer;
-            if (player.selectedItem < 10)
-            {
-                oldSelectedItem = selectedItem;
-                selectedItem = player.selectedItem;
-            }
+		public override void UpdateUI(GameTime gameTime)
+		{
+			Player player = Main.LocalPlayer;
+			if (player.selectedItem < 10)
+			{
+				oldSelectedItem = selectedItem;
+				selectedItem = player.selectedItem;
+			}
 
-            if (pbUserInterface != null && PowerBeamUI.visible)
-                pbUserInterface.Update(gameTime);
-            if (mlUserInterface != null && MissileLauncherUI.visible)
-                mlUserInterface.Update(gameTime);
-            if (mbUserInterface != null && MorphBallUI.visible)
-                mbUserInterface.Update(gameTime);
-        }
+			if (pbUserInterface != null && PowerBeamUI.visible)
+				pbUserInterface.Update(gameTime);
+			if (mlUserInterface != null && MissileLauncherUI.visible)
+				mlUserInterface.Update(gameTime);
+			if (mbUserInterface != null && MorphBallUI.visible)
+				mbUserInterface.Update(gameTime);
+		}
 
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-        {
-            int InventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-            if (InventoryIndex != -1)
-            {
-                layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
-                    "MetroidMod: Power Beam UI",
-                    delegate
-                    {
-                        if(PowerBeamUI.visible)
-                            pbUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-                layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
-                    "MetroidMod: Missile Launcher UI",
-                    delegate
-                    {
-                        if (MissileLauncherUI.visible)
-                            mlUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-                layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
-                    "MetroidMod: Morph Ball UI",
-                    delegate
-                    {
-                        if (MorphBallUI.visible)
-                            mbUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-            }
-        }
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		{
+			int InventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+			if (InventoryIndex != -1)
+			{
+				layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Power Beam UI",
+					delegate
+					{
+						if(PowerBeamUI.visible)
+							pbUserInterface.Draw(Main.spriteBatch, new GameTime());
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Missile Launcher UI",
+					delegate
+					{
+						if (MissileLauncherUI.visible)
+							mlUserInterface.Draw(Main.spriteBatch, new GameTime());
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Morph Ball UI",
+					delegate
+					{
+						if (MorphBallUI.visible)
+							mbUserInterface.Draw(Main.spriteBatch, new GameTime());
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+			}
+		}
 
-        static int z = 0;
+		static int z = 0;
 		float tRot = 0f;
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
@@ -200,7 +200,7 @@ namespace MetroidMod
 				DrawChargeBar(sb);
 				DrawSpaceJumpBar(sb);
 			}
-            		DrawReserveHearts(sb);
+					DrawReserveHearts(sb);
 
 			if (P.buffType[0] > 0)
 			{
@@ -415,115 +415,168 @@ namespace MetroidMod
 		}
 		public void DrawReserveHearts(SpriteBatch sb)
 		{
-		    Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
-		    Player P = Main.player[Main.myPlayer];
-		    MPlayer mp = P.GetModPlayer<MPlayer>(mod);
-		    if (mp.reserveTanks > 0)
-		    {
+			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Player P = Main.player[Main.myPlayer];
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			if (mp.reserveTanks > 0)
+			{
 			Texture2D texHeart = mod.GetTexture("Gore/ReserveHeart");
 			if (P.whoAmI == Main.myPlayer && P.active && !P.dead && !P.ghost)
 			{
-			    float lifePerHeart = 20f;
-			    int num = Main.player[Main.myPlayer].statLifeMax / 20;
-			    int num2 = (Main.player[Main.myPlayer].statLifeMax - 400) / 5;
-			    if (num2 < 0)
-			    {
+				float lifePerHeart = 20f;
+				int num = Main.player[Main.myPlayer].statLifeMax / 20;
+				int num2 = (Main.player[Main.myPlayer].statLifeMax - 400) / 5;
+				if (num2 < 0)
+				{
 				num2 = 0;
-			    }
-			    if (num2 > 0)
-			    {
+				}
+				if (num2 > 0)
+				{
 				num = Main.player[Main.myPlayer].statLifeMax / (20 + num2 / 4);
 				lifePerHeart = (float)Main.player[Main.myPlayer].statLifeMax / 20f;
-			    }
-			    int num3 = Main.player[Main.myPlayer].statLifeMax2 - Main.player[Main.myPlayer].statLifeMax;
-			    lifePerHeart += (float)(num3 / num);
-			    int num4 = (int)((float)Main.player[Main.myPlayer].statLifeMax2 / lifePerHeart);
-			    if (num4 >= 10)
-			    {
+				}
+				int num3 = Main.player[Main.myPlayer].statLifeMax2 - Main.player[Main.myPlayer].statLifeMax;
+				lifePerHeart += (float)(num3 / num);
+				int num4 = (int)((float)Main.player[Main.myPlayer].statLifeMax2 / lifePerHeart);
+				if (num4 >= 10)
+				{
 				num4 = 10;
-			    }
-			    for (int i = 1; i < mp.reserveHearts + 1; i++)
-			    {
+				}
+				for (int i = 1; i < mp.reserveHearts + 1; i++)
+				{
 				float num5 = 1f;
 				bool flag = false;
 				int num6;
 				if ((float)Main.player[Main.myPlayer].statLife >= (float)i * lifePerHeart)
 				{
-				    num6 = 255;
-				    if ((float)Main.player[Main.myPlayer].statLife == (float)i * lifePerHeart)
-				    {
+					num6 = 255;
+					if ((float)Main.player[Main.myPlayer].statLife == (float)i * lifePerHeart)
+					{
 					flag = true;
-				    }
+					}
 				}
 				else
 				{
-				    float num7 = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * lifePerHeart) / lifePerHeart;
-				    num6 = (int)(30f + 225f * num7);
-				    if (num6 < 30)
-				    {
+					float num7 = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * lifePerHeart) / lifePerHeart;
+					num6 = (int)(30f + 225f * num7);
+					if (num6 < 30)
+					{
 					num6 = 30;
-				    }
-				    num5 = num7 / 4f + 0.75f;
-				    if ((double)num5 < 0.75)
-				    {
+					}
+					num5 = num7 / 4f + 0.75f;
+					if ((double)num5 < 0.75)
+					{
 					num5 = 0.75f;
-				    }
-				    if (num7 > 0f)
-				    {
+					}
+					if (num7 > 0f)
+					{
 					flag = true;
-				    }
+					}
 				}
 				if (flag)
 				{
-				    num5 += Main.cursorScale - 1f;
+					num5 += Main.cursorScale - 1f;
 				}
 				int num8 = 0;
 				int num9 = 0;
 				if (i > 10)
 				{
-				    num8 -= 260;
-				    num9 += 26;
+					num8 -= 260;
+					num9 += 26;
 				}
 				int a = (int)((double)((float)num6) * 0.9);
 				Main.spriteBatch.Draw(texHeart, new Vector2((float)(500 + 26 * (i - 1) + num8 + (Main.screenWidth - 800) + Main.heartTexture.Width / 2), 32f + ((float)Main.heartTexture.Height - (float)Main.heartTexture.Height * num5) / 2f + (float)num9 + (float)(Main.heartTexture.Height / 2)), new Rectangle?(new Rectangle(0, 0, texHeart.Width, texHeart.Height)), new Color(num6, num6, num6, a), 0f, new Vector2((float)(texHeart.Width / 2), (float)(texHeart.Height / 2)), num5, SpriteEffects.None, 0f);
-			    }
+				}
 			}
-		    }
+			}
 		}
 
-        /* NETWORK SYNICNG <<<<< WIP >>>>> */
+		/* NETWORK SYNICNG <<<<< WIP >>>>> */
 
-        public override void HandlePacket(BinaryReader reader, int whoAmI)
-        {
-            MetroidMessageType msgType = (MetroidMessageType)reader.ReadByte();
-            switch(msgType)
-            {
-                case MetroidMessageType.SyncPlayerStats:
-                    byte playerID = reader.ReadByte();
-                    MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>(this);
-                    double statCharge = reader.ReadDouble();
-                    bool spiderBall = reader.ReadBoolean();
-                    int boostEffect = reader.ReadInt32();
-                    int boostCharge = reader.ReadInt32();
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+			MetroidMessageType msgType = (MetroidMessageType)reader.ReadByte();
+			switch(msgType)
+			{
+				case MetroidMessageType.SyncPlayerStats:
+					byte playerID = reader.ReadByte();
+					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>(this);
+					double statCharge = reader.ReadDouble();
+					bool spiderBall = reader.ReadBoolean();
+					int boostEffect = reader.ReadInt32();
+					int boostCharge = reader.ReadInt32();
 
-                    targetPlayer.statCharge = (float)statCharge;
-                    targetPlayer.spiderball = spiderBall;
-                    targetPlayer.boostEffect = boostEffect;
-                    targetPlayer.boostCharge = boostCharge;
+					targetPlayer.statCharge = (float)statCharge;
+					targetPlayer.spiderball = spiderBall;
+					targetPlayer.boostEffect = boostEffect;
+					targetPlayer.boostCharge = boostCharge;
 
-                    if (Main.netMode == 2)
-                    {
-                        ModPacket packet = this.GetPacket();
-                        packet.Write((byte)MetroidMessageType.SyncPlayerStats);
-                        packet.Write(playerID);
-                        packet.Write(statCharge);
-                        packet.Write(spiderBall);
-                        packet.Write(boostEffect);
-                        packet.Write(boostCharge);
-                        packet.Send(-1, whoAmI);
-                    }
-                    break;
-            }
-        }
-    }
+					if (Main.netMode == 2)
+					{
+						ModPacket packet = this.GetPacket();
+						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+						packet.Write(playerID);
+						packet.Write(statCharge);
+						packet.Write(spiderBall);
+						packet.Write(boostEffect);
+						packet.Write(boostCharge);
+						packet.Send(-1, whoAmI);
+					}
+					break;
+			}
+		}
+		
+		public static float Vector2Angle(Vector2 Angle1, Vector2 Angle2, int dirX = 1, int dirY = 1, float mult = 1f, float min = 0f, float max = 0f)
+		{
+			float targetAngle = (float)Math.Atan2((Angle2.Y-Angle1.Y)*dirY,(Angle2.X-Angle1.X)*dirX);
+			
+			float angle = targetAngle * mult;
+			if (min < 0f && angle < min)
+			{
+				angle = min;
+			}
+			if (max > 0f && angle > max)
+			{
+				angle = max;
+			}
+			return angle;
+		}
+		
+		public static float AngleFlip(float angle, int dir)
+		{
+			float cos = (float)Math.Cos(angle);
+			float sin = (float)Math.Sin(angle);
+			return (float)Math.Atan2(sin,cos*dir);
+		}
+		
+		public static float LerpArray(float value1, float[] value2, float amount)
+		{
+			float result = value1;
+			for(int i = 0; i < value2.Length; i++)
+			{
+				if((i+1) >= amount)
+				{
+					float firstValue = value1;
+					float secondValue = value2[i];
+					if(i > 0)
+					{
+						firstValue = value2[i-1];
+					}
+					float amt = amount-i;
+					result = firstValue + (secondValue-firstValue)*amt;
+					break;
+				}
+			}
+			return result;
+		}
+		
+		public static double ConvertToRadians(double angle)
+		{
+			return (Math.PI / 180) * angle;
+		}
+		public static double ConvertToDegrees(double angle)
+		{
+			return angle * (180 / Math.PI);
+		}
+	}
 }
