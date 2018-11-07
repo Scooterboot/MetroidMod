@@ -9,6 +9,7 @@ namespace MetroidMod.Items.addons
 		{
 			DisplayName.SetDefault("Plasma Beam (Red)");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+				string.Format("[c/FF9696:Power Beam Addon V2]\n") +
 				"Slot Type: Primary B\n" +
 				"Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed\n" +
 				string.Format("[c/78BE78:+100% damage]\n") +
