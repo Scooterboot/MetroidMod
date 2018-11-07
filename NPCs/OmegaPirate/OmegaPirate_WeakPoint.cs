@@ -92,10 +92,6 @@ namespace MetroidMod.NPCs.OmegaPirate
 					Main.dust[dustID].noGravity = true;
 				}
 			}
-			if(npc.life <= 0)
-			{
-				npc.boss = false;
-			}
 		}
 		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
 		{
