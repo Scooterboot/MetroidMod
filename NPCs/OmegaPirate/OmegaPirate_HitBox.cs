@@ -112,11 +112,30 @@ namespace MetroidMod.NPCs.OmegaPirate
 				return;
 			}
 			npc.damage = Base.damage;
-			npc.realLife = Base.whoAmI;
-			/*if(npc.ai[1] == 0f)
+			//npc.realLife = Base.whoAmI;
+			if(npc.ai[1] != 0f)
 			{
-				npc.dontTakeDamage = Base.dontTakeDamage;
-			}*/
+				npc.dontTakeDamage = true;
+			}
+		}
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			return npc.ai[1] == 0f;
+		}
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			return npc.ai[1] == 0f;
+		}
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			if (Main.netMode != 2)
+			{
+				for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
+				{
+					int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 68, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
+					Main.dust[dustID].noGravity = true;
+				}
+			}
 		}
 		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
 		{
