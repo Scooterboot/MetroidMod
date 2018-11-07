@@ -468,7 +468,7 @@ namespace MetroidMod.Items.weapons
 					}
 				}
 				// Charge V2
-				else if(slot1.type != ch3 && (slot1.type == ch2 || slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv))
+				else if(slot1.type != ch3 && (slot1.type == ch2 || slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv || slot5.type == plG || slot5.type == plR))
 				{
 					shot = "PowerBeamV2Shot";
 					chargeShot = "PowerBeamV2ChargeShot";
@@ -509,6 +509,25 @@ namespace MetroidMod.Items.weapons
 									chargeShot = "IceWaveWideNovaBeamChargeShot";
 									shotSound = "IceWaveNovaBeamV2Sound";
 								}
+								// Ice Wave Wide Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "IceWaveWidePlasmaBeamGreenV2Shot";
+									chargeShot = "IceWaveWidePlasmaBeamGreenV2ChargeShot";
+									shotSound = "FinalBeamSound";
+									chargeShotSound = "FinalBeamChargeSound";
+									chargeUpSound = "ChargeStartup_Final";
+								}
+								// Ice Wave Wide Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "IceWaveWidePlasmaBeamRedV2Shot";
+									chargeShot = "IceWaveWidePlasmaBeamRedV2ChargeShot";
+									shotSound = "FinalBeamSound";
+									chargeShotSound = "FinalBeamChargeSound";
+									chargeUpSound = "ChargeStartup_Final";
+									dustType = 135;
+								}
 							}
 							else
 							{
@@ -517,8 +536,22 @@ namespace MetroidMod.Items.weapons
 								{
 									shot = "IceWaveNovaBeamShot";
 									chargeShot = "IceWaveNovaBeamChargeShot";
-									//shotSound = "IceWaveNovaBeamV2Sound";
 									shotAmt = 2;
+								}
+								// Ice Wave Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "IceWavePlasmaBeamGreenV2Shot";
+									chargeShot = "IceWavePlasmaBeamGreenV2ChargeShot";
+									shotAmt = 2;
+								}
+								// Ice Wave Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "IceWavePlasmaBeamRedV2Shot";
+									chargeShot = "IceWavePlasmaBeamRedV2ChargeShot";
+									shotAmt = 2;
+									dustType = 135;
 								}
 							}
 						}
@@ -538,6 +571,19 @@ namespace MetroidMod.Items.weapons
 									shot = "IceWideNovaBeamShot";
 									chargeShot = "IceWideNovaBeamChargeShot";
 								}
+								// Ice Wide Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "IceWidePlasmaBeamGreenV2Shot";
+									chargeShot = "IceWidePlasmaBeamGreenV2ChargeShot";
+								}
+								// Ice Wide Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "IceWidePlasmaBeamRedV2Shot";
+									chargeShot = "IceWidePlasmaBeamRedV2ChargeShot";
+									dustType = 135;
+								}
 							}
 							else
 							{
@@ -546,6 +592,19 @@ namespace MetroidMod.Items.weapons
 								{
 									shot = "IceNovaBeamShot";
 									chargeShot = "IceNovaBeamChargeShot";
+								}
+								// Ice Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "IcePlasmaBeamGreenV2Shot";
+									chargeShot = "IcePlasmaBeamGreenV2ChargeShot";
+								}
+								// Ice Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "IcePlasmaBeamRedV2Shot";
+									chargeShot = "IcePlasmaBeamRedV2ChargeShot";
+									dustType = 135;
 								}
 							}
 						}
@@ -586,6 +645,30 @@ namespace MetroidMod.Items.weapons
 									dustType = 75;
 									lightColor = MetroidMod.novColor;
 								}
+								// Wave Wide Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "WaveWidePlasmaBeamGreenV2Shot";
+									chargeShot = "WaveWidePlasmaBeamGreenV2ChargeShot";
+									shotSound = "WavePlasmaBeamGreenSound";
+									chargeShotSound = "PlasmaBeamGreenChargeSound";
+									chargeUpSound = "ChargeStartup_Power";
+									chargeTex = "ChargeLead_PlasmaGreenV2";
+									dustType = 15;
+									lightColor = MetroidMod.plaGreenColor;
+								}
+								// Wave Wide Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "WaveWidePlasmaBeamRedV2Shot";
+									chargeShot = "WaveWidePlasmaBeamRedV2ChargeShot";
+									shotSound = "PlasmaBeamRedV2Sound";
+									chargeShotSound = "PlasmaBeamRedChargeSound";
+									chargeUpSound = "ChargeStartup_PlasmaRed";
+									chargeTex = "ChargeLead_PlasmaRed";
+									dustType = 6;
+									lightColor = MetroidMod.plaRedColor;
+								}
 							}
 							else
 							{
@@ -600,6 +683,32 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_Nova";
 									dustType = 75;
 									lightColor = MetroidMod.novColor;
+									shotAmt = 2;
+								}
+								// Wave Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "WavePlasmaBeamGreenV2Shot";
+									chargeShot = "WavePlasmaBeamGreenV2ChargeShot";
+									shotSound = "WavePlasmaBeamGreenSound";
+									chargeShotSound = "PlasmaBeamGreenChargeSound";
+									chargeUpSound = "ChargeStartup_Power";
+									chargeTex = "ChargeLead_PlasmaGreenV2";
+									dustType = 15;
+									lightColor = MetroidMod.plaGreenColor;
+									shotAmt = 2;
+								}
+								// Wave Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "WavePlasmaBeamRedV2Shot";
+									chargeShot = "WavePlasmaBeamRedV2ChargeShot";
+									shotSound = "PlasmaBeamRedV2Sound";
+									chargeShotSound = "PlasmaBeamRedChargeSound";
+									chargeUpSound = "ChargeStartup_PlasmaRed";
+									chargeTex = "ChargeLead_PlasmaRed";
+									dustType = 6;
+									lightColor = MetroidMod.plaRedColor;
 									shotAmt = 2;
 								}
 							}
@@ -633,6 +742,31 @@ namespace MetroidMod.Items.weapons
 									lightColor = MetroidMod.novColor;
 									dustColor = default(Color);
 								}
+								// Wide Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "WidePlasmaBeamGreenV2Shot";
+									chargeShot = "WidePlasmaBeamGreenV2ChargeShot";
+									shotSound = "WidePlasmaBeamGreenSound";
+									chargeShotSound = "PlasmaBeamGreenChargeSound";
+									chargeTex = "ChargeLead_PlasmaGreen";
+									dustType = 61;
+									lightColor = MetroidMod.plaGreenColor;
+									dustColor = default(Color);
+								}
+								// Wide Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "WidePlasmaBeamRedV2Shot";
+									chargeShot = "WidePlasmaBeamRedV2ChargeShot";
+									shotSound = "PlasmaBeamRedSound";
+									chargeShotSound = "PlasmaBeamRedChargeSound";
+									chargeUpSound = "ChargeStartup_PlasmaRed";
+									chargeTex = "ChargeLead_PlasmaRed";
+									dustType = 6;
+									lightColor = MetroidMod.plaRedColor;
+									dustColor = default(Color);
+								}
 							}
 							else
 							{
@@ -648,10 +782,33 @@ namespace MetroidMod.Items.weapons
 									dustType = 75;
 									lightColor = MetroidMod.novColor;
 								}
+								// Plasma (Green)
+								if(slot5.type == plG)
+								{
+									shot = "PlasmaBeamGreenV2Shot";
+									chargeShot = "PlasmaBeamGreenV2ChargeShot";
+									shotSound = "PlasmaBeamGreenSound";
+									chargeShotSound = "PlasmaBeamGreenChargeSound";
+									chargeTex = "ChargeLead_PlasmaGreen";
+									dustType = 61;
+									lightColor = MetroidMod.plaGreenColor;
+								}
+								// Plasma (Red)
+								if(slot5.type == plR)
+								{
+									shot = "PlasmaBeamRedV2Shot";
+									chargeShot = "PlasmaBeamRedV2ChargeShot";
+									shotSound = "PlasmaBeamRedSound";
+									chargeShotSound = "PlasmaBeamRedChargeSound";
+									chargeUpSound = "ChargeStartup_PlasmaRed";
+									chargeTex = "ChargeLead_PlasmaRed";
+									dustType = 6;
+									lightColor = MetroidMod.plaRedColor;
+								}
 							}
 						}
 					}
-					if(slot2.type == ic || slot3.type == wa || slot4.type == sp || slot5.type == plR || slot5.type == plG ||
+					if(slot2.type == ic || slot3.type == wa || slot4.type == sp || //slot5.type == plR || slot5.type == plG ||
 						slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl)
 					{
 						/*beamUI.comboErrorType = 3;
@@ -1004,6 +1161,12 @@ namespace MetroidMod.Items.weapons
 					{
 						plasDmg = 1.5f;
 						plasHeat = 1f;
+						plasSpeed = -0.15f;
+					}
+					else if(slot5.type == plR || slot5.type == plG)
+					{
+						plasDmg = 1f;
+						plasHeat = 0.75f;
 						plasSpeed = -0.15f;
 					}
 				}
