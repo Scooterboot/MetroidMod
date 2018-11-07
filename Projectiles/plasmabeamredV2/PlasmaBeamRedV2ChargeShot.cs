@@ -62,7 +62,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
-			if(projectile.Name.Contains("Ice") && projectile.Name.Contains("Wave"))
+			if(projectile.Name.Contains("Ice") && projectile.Name.Contains("Wave") && projectile.Name.Contains("Wide"))
 			{
 				mProjectile.PlasmaDraw(projectile, Main.player[projectile.owner], sb);
 			}
@@ -81,7 +81,7 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 			base.SetDefaults();
 			projectile.Name = "Wide Plasma Beam Red V2 Charge Shot";
 			
-			mProjectile.amplitude = 10f*projectile.scale;
+			mProjectile.amplitude = 14f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 4;
 		}
@@ -135,7 +135,6 @@ namespace MetroidMod.Projectiles.plasmabeamredV2
 		{
 			base.SetDefaults();
 			projectile.Name = "Ice Wave Plasma Beam Red V2 Charge Shot";
-			Main.projFrames[projectile.type] = 1;
 		}
 	}
 	
