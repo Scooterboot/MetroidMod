@@ -79,7 +79,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreenV2
 			base.SetDefaults();
 			projectile.Name = "Wide Plasma Beam Green V2 Charge Shot";
 			
-			mProjectile.amplitude = 10f*projectile.scale;
+			mProjectile.amplitude = 14f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 6;
 		}
@@ -133,7 +133,6 @@ namespace MetroidMod.Projectiles.plasmabeamgreenV2
 		{
 			base.SetDefaults();
 			projectile.Name = "Ice Wave Plasma Beam Green V2 Charge Shot";
-			Main.projFrames[projectile.type] = 1;
 			mProjectile.delay = 3;
 		}
 	}
