@@ -39,6 +39,7 @@ namespace MetroidMod.Projectiles.chargelead
 		public Color DustColor = default(Color),
 				LightColor = MetroidMod.powColor;
 		public bool canPsuedoScrew = false;
+		public bool missile = false;
 
 		bool soundPlayed = false;
 		SoundEffectInstance soundInstance;
@@ -188,11 +189,11 @@ namespace MetroidMod.Projectiles.chargelead
 				if(projectile.penetrate > 0)
 				{
 					// Charged shot sounds played here for network purposes.
-					if (mp.statCharge >= (MPlayer.maxCharge * 0.5) && ChargeShotSound != "none")
+					if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
 					{
 						Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ChargeShotSound));
 					}
-					else if (mp.statCharge >= 30 && ShotSound != "none")
+					else if ((mp.statCharge >= 30 || missile) && ShotSound != "none")
 					{
 						Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ShotSound));
 					}
