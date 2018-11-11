@@ -531,14 +531,14 @@ namespace MetroidMod
 					player.rocketRelease = false;
 					player.fallStart = (int)(player.position.Y / 16f);
 
-					Vector2 v = player.Center - projectile.Center;
+					/*Vector2 v = player.Center - projectile.Center;
 					float dist = Vector2.Distance(player.Center, projectile.Center);
-					/*if(soundDelay2 > 41)
+					if(soundDelay2 > 41)
 					{
 						Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/GrappleLoop"));
 						soundDelay2 = 0;
 					}
-					soundDelay2++;*/
+					soundDelay2++;
 					bool up = (player.controlUp);
 					bool down = (player.controlDown && maxDist < 400);
 					float ndist = Vector2.Distance(player.Center + player.velocity, projectile.Center);
@@ -596,23 +596,72 @@ namespace MetroidMod
 							player.velocity *= 0;
 							tweak2 = false;
 						}
+					}*/
+					
+					Vector2 vel = Vector2.Zero;
+					
+					float maxMaxDist = 400;
+					Vector2 v = player.Center - projectile.Center;
+					float dist = Vector2.Distance(player.Center, projectile.Center);
+					bool up = (player.controlUp);
+					bool down = (player.controlDown && maxDist < maxMaxDist);
+					float reelSpeed = 11f;
+					if (player.honeyWet && !player.ignoreWater)
+					{
+						reelSpeed *= 0.25f;
+					}
+					else if (player.wet && !player.merman && !player.ignoreWater)
+					{
+						reelSpeed *= 0.5f;
+					}
+					if (dist > maxDist || up)
+					{
+						player.maxRunSpeed = 15f;
+						player.runAcceleration *= 3f;
+						player.jump = 0;
+						if(player.velocity.Y == 0f)
+						{
+							player.velocity.Y = 1E-05f;
+						}
+						float reel = 0f;
+						if(up)
+						{
+							reel = Math.Max(-reelSpeed,-dist);
+							maxDist = Math.Min(dist,maxMaxDist);
+						}
+						if(down)
+						{
+							reel = Math.Min(reelSpeed,maxMaxDist-dist);
+							maxDist = Math.Min(dist,maxMaxDist);
+						}
+						float ndist = Vector2.Distance(player.Center + player.velocity, projectile.Center);
+						float ddist = ndist - dist;
+						v /= dist;
+						player.velocity -= v * ddist;
+						v *= (maxDist + reel);
+						vel = (projectile.Center + v) - player.Center;
+						vel = Collision.TileCollision(player.position, vel, player.width, player.height, player.controlDown, false);
+						player.position += vel;
+					}
+					else if(down)
+					{
+						maxDist = Math.Min(maxDist+(reelSpeed/2),maxMaxDist);
 					}
 
 					if (player.controlJump)
 					{
 						if (player.releaseJump)
 						{
-							if ((player.velocity.Y == 0f || (player.wet && (double)player.velocity.Y > -0.02 && (double)player.velocity.Y < 0.02)) && !player.controlDown)
+							if (maxDist <= 20 && !player.controlDown)
 							{
 								player.velocity.Y = -Player.jumpSpeed;
 								player.jump = Player.jumpHeight / 2;
-								player.releaseJump = false;
 							}
 							else
 							{
 								player.velocity.Y = player.velocity.Y + 0.01f;
-								player.releaseJump = false;
 							}
+							player.velocity += vel;
 							if (player.doubleJumpCloud)
 							{
 								player.jumpAgainCloud = true;
@@ -637,6 +686,7 @@ namespace MetroidMod
 							{
 								player.jumpAgainUnicorn = true;
 							}
+							player.releaseJump = false;
 
 							grapplingBeam = -1;
 							player.grappling[0] = -1;
@@ -821,13 +871,6 @@ namespace MetroidMod
 		}
         public override void PostUpdate()
         {
-            for (int i = oldPos.Length - 1; i > 0; i--)
-            {
-                Vector2 vect = oldPos[1] - oldPos[0];
-                oldPos[i] = oldPos[i - 1] - (vect * 0.5f);
-            }
-            oldPos[0] = new Vector2((int)player.position.X, (int)player.position.Y);
-
             if (player.itemAnimation > 0)
 			{
 				if(itemRotTweak > 0)
@@ -900,6 +943,16 @@ namespace MetroidMod
 		{
 			Player P = player;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			
+			if(drawInfo.shadow == 0f)
+			{
+				for (int i = oldPos.Length - 1; i > 0; i--)
+				{
+					Vector2 vect = oldPos[1] - oldPos[0];
+					oldPos[i] = oldPos[i - 1] - (vect * 0.5f);
+				}
+				oldPos[0] = new Vector2((int)drawInfo.position.X, (int)drawInfo.position.Y);
+			}
 			
 			bool pseudoScrew = (statCharge >= maxCharge && somersault);
 			if(pseudoScrew)
@@ -1238,7 +1291,7 @@ namespace MetroidMod
 
             if (drawInfo.shadow == 0f)
             {
-                int timez = (int)(Main.time % 60) / 10;
+                int timez = (int)(mp.Time % 60) / 10;
 
                 SpriteEffects effects = SpriteEffects.None;
                 if (drawPlayer.direction == -1)
@@ -1281,10 +1334,13 @@ namespace MetroidMod
                         color23 *= (mp.oldPos.Length - (i)) / 15f;
 
                         Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2((int)(drawPlayer.width / 2), (int)(drawPlayer.height / 2));
-
-                        data = new DrawData(trail, drawPos, new Rectangle?(new Rectangle(0, 0, trail.Width, trail.Height)), color23, mp.ballrot, ballDims / 2, scale, effects, 0);
-                        
-                        Main.playerDrawData.Add(data);
+						
+						if(drawPos != thispos)
+						{
+							data = new DrawData(trail, drawPos, new Rectangle?(new Rectangle(0, 0, trail.Width, trail.Height)), color23, mp.ballrot, ballDims / 2, scale, effects, 0);
+							
+							Main.playerDrawData.Add(data);
+						}
                     }
 
                     data = new DrawData(tex, thispos, new Rectangle?(new Rectangle(0, ((int)ballDims.Y + offset) * timez, (int)ballDims.X, (int)ballDims.Y)), mColor, mp.ballrot, ballDims / 2, scale, effects, 0);
