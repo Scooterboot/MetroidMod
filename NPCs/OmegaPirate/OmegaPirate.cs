@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using MetroidMod;
 using MetroidMod.NPCs.OmegaPirate;
 
@@ -1219,7 +1220,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 		
 		float[] PhazonArmorRegenAlpha = new float[4];
 		
-		Vector2 PhazonAppearPosition;
+		Vector2 PhazonAppearPosition,
+				PhazonDisappearPosition;
+		SoundEffectInstance PhazonAppearSound;
 		
 		NPC[] DarkPortal = new NPC[4];
 		
@@ -2388,6 +2391,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 									npc.ai[2] = 0;
 									npc.ai[3] = 180+Main.rand.Next(61);
 									npc.ai[4] = 0;
+									npc.ai[5] = 10+Main.rand.Next(30);
 									anim_PhazonStart = 1f;
 									anim_PhazonStartTransition = 0f;
 									npc.dontTakeDamage = true;
@@ -2402,33 +2406,57 @@ namespace MetroidMod.NPCs.OmegaPirate
 					{
 						if(npc.ai[2] == 0)
 						{
-							PhazonAppearPosition = new Vector2(-200f+Main.rand.Next(401),-200f+Main.rand.Next(401));
+							PhazonDisappearPosition = npc.position;
+							int perc = 50;
+							if(player.Center.X > npc.Center.X)
+							{
+								perc = 66;
+							}
+							else
+							{
+								perc = 33;
+							}
+							int xdir = 1;
+							if(Main.rand.Next(100) > perc)
+							{
+								xdir = -1;
+							}
+							PhazonAppearPosition.X = player.Center.X + (400+Main.rand.Next(301))*xdir;
+							PhazonAppearPosition.Y = player.Center.Y-200f+Main.rand.Next(401);
+							int yNum = 400;
+							while(yNum > 0 && !Collision.SolidCollision(new Vector2(PhazonAppearPosition.X-(npc.width/2),PhazonAppearPosition.Y-numH), npc.width, numH+1))
+							{
+								PhazonAppearPosition.Y += 1f;
+								yNum--;
+							}
+							while(yNum > 0 && Collision.SolidCollision(new Vector2(PhazonAppearPosition.X-(npc.width/2),PhazonAppearPosition.Y-numH), npc.width, numH))
+							{
+								PhazonAppearPosition.Y -= 1f;
+								yNum--;
+							}
+						}
+						else
+						{
+							if(PhazonAppearSound != null && PhazonAppearSound.State == SoundState.Playing)
+							{
+								Vector2 vector = new Vector2(Main.screenPosition.X + (float)Main.screenWidth * 0.5f, Main.screenPosition.Y + (float)Main.screenHeight * 0.5f);
+								float pan = (PhazonDisappearPosition.X - vector.X) / ((float)Main.screenWidth * 0.5f);
+								if (pan < -1f)
+								{
+									pan = -1f;
+								}
+								if (pan > 1f)
+								{
+									pan = 1f;
+								}
+								PhazonAppearSound.Pan = pan;
+							}
 						}
 						npc.ai[2]++;
 						if(npc.ai[2] >= npc.ai[3])
 						{
-							Vector2 appearPos = new Vector2(player.Center.X+PhazonAppearPosition.X,player.Center.Y+PhazonAppearPosition.Y);
-							if(appearPos.X > player.Center.X)
-							{
-								appearPos.X += 400f;
-							}
-							else
-							{
-								appearPos.X -= 400f;
-							}
-							int yNum = 400;
-							while(yNum > 0 && !Collision.SolidCollision(new Vector2(appearPos.X-(npc.width/2),appearPos.Y-numH), npc.width, numH+1))
-							{
-								appearPos.Y += 1f;
-								yNum--;
-							}
-							while(yNum > 0 && Collision.SolidCollision(new Vector2(appearPos.X-(npc.width/2),appearPos.Y-numH), npc.width, numH))
-							{
-								appearPos.Y -= 1f;
-								yNum--;
-							}
-							npc.position.X = appearPos.X-(npc.width/2);
-							npc.position.Y = appearPos.Y-numH;
+							npc.position.X = PhazonAppearPosition.X-(npc.width/2);
+							npc.position.Y = PhazonAppearPosition.Y-numH;
 							npc.ai[1] = 2;
 							npc.ai[2] = 1;
 							npc.ai[3] = 0;
@@ -2439,27 +2467,25 @@ namespace MetroidMod.NPCs.OmegaPirate
 							Body.dontTakeDamage = false;
 							npc.dontTakeDamage = false;
 						}
-						else if(npc.ai[2] < npc.ai[3]-90)
+						else
 						{
-							if(npc.ai[4] <= 0 && Main.rand.Next(100) > 60)
+							if(npc.ai[2] > 0)
 							{
-								Vector2 appearPos = new Vector2(player.Center.X+PhazonAppearPosition.X,player.Center.Y);
-								if(appearPos.X > player.Center.X)
+								PhazonDisappearPosition = Vector2.Lerp(npc.position,PhazonAppearPosition-new Vector2(npc.width/2,numH),npc.ai[2] / npc.ai[3]);
+							}
+							if(npc.ai[2] >= npc.ai[5])
+							{
+								if(npc.ai[4] <= 0 && Main.rand.Next(100) > 60)
 								{
-									appearPos.X += 400f;
+									PhazonAppearSound = Main.PlaySound(SoundLoader.customSoundType, (int)PhazonDisappearPosition.X, (int)PhazonDisappearPosition.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_Voice"+Main.rand.Next(2)));
+									npc.ai[4] = 1;//180;
 								}
-								else
-								{
-									appearPos.X -= 400f;
-								}
-								Main.PlaySound(SoundLoader.customSoundType, (int)appearPos.X, (int)appearPos.Y-numH, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirateCore_Voice"+Main.rand.Next(2)));
-								npc.ai[4] = 180;
 							}
 						}
-						if(npc.ai[4] > 0)
+						/*if(npc.ai[4] > 0)
 						{
 							npc.ai[4]--;
-						}
+						}*/
 					}
 					// appear and regen phazon armor
 					else if(npc.ai[1] == 2)
@@ -2529,7 +2555,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 										}
 										int dp = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("Omega_DarkPortal"),npc.whoAmI);
 										DarkPortal[i] = Main.npc[dp];
-										DarkPortal[i].ai[0] = npc.whoAmI;
+										DarkPortal[i].ai[3] = npc.whoAmI;
 										DarkPortal[i].Center = spawnPos;
 									}
 									npc.ai[5] = 1;
@@ -2551,7 +2577,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 										DarkPortal[i].ai[1] = -1;
 										if(RLegArmor != null && RLegArmor.active)
 										{
-											DarkPortal[i].ai[1] = RLegArmor.whoAmI;
+											DarkPortal[i].ai[0] = RLegArmor.position.X + Main.rand.Next(RLegArmor.width);
+											DarkPortal[i].ai[1] = RLegArmor.position.Y + Main.rand.Next(RLegArmor.height);
 										}
 									}
 									PhazonArmorRegenAlpha[0] = Math.Min(PhazonArmorRegenAlpha[0]+armorRegenSpeed,1f);
@@ -2571,7 +2598,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 										DarkPortal[i].ai[1] = -1;
 										if(LLegArmor != null && LLegArmor.active)
 										{
-											DarkPortal[i].ai[1] = LLegArmor.whoAmI;
+											DarkPortal[i].ai[0] = LLegArmor.position.X + Main.rand.Next(LLegArmor.width);
+											DarkPortal[i].ai[1] = LLegArmor.position.Y + Main.rand.Next(LLegArmor.height);
 										}
 									}
 									PhazonArmorRegenAlpha[1] = Math.Min(PhazonArmorRegenAlpha[1]+armorRegenSpeed,1f);
@@ -2590,7 +2618,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 										DarkPortal[i].ai[1] = -1;
 										if(RArmArmor != null && RArmArmor.active)
 										{
-											DarkPortal[i].ai[1] = RArmArmor.whoAmI;
+											DarkPortal[i].ai[0] = RArmArmor.position.X + Main.rand.Next(RArmArmor.width);
+											DarkPortal[i].ai[1] = RArmArmor.position.Y + Main.rand.Next(RArmArmor.height);
 										}
 									}
 									PhazonArmorRegenAlpha[2] = Math.Min(PhazonArmorRegenAlpha[2]+armorRegenSpeed,1f);
@@ -2609,7 +2638,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 										DarkPortal[i].ai[1] = -1;
 										if(LArmArmor != null && LArmArmor.active)
 										{
-											DarkPortal[i].ai[1] = LArmArmor.whoAmI;
+											DarkPortal[i].ai[0] = LArmArmor.position.X + Main.rand.Next(LArmArmor.width);
+											DarkPortal[i].ai[1] = LArmArmor.position.Y + Main.rand.Next(LArmArmor.height);
 										}
 									}
 									PhazonArmorRegenAlpha[3] = Math.Min(PhazonArmorRegenAlpha[3]+armorRegenSpeed,1f);
@@ -2620,7 +2650,6 @@ namespace MetroidMod.NPCs.OmegaPirate
 									{
 										if(DarkPortal[i] != null && DarkPortal[i].active)
 										{
-											DarkPortal[i].ai[1] = -1;
 											DarkPortal[i].ai[2] = 1;
 										}
 									}
@@ -2717,7 +2746,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 								npc.ai[2] = 0;
 								npc.ai[3] = 120+Main.rand.Next(121);
 								npc.ai[4] = 0;
-								npc.ai[5] = 0;
+								npc.ai[5] = 10+Main.rand.Next(30);
 								anim_PhazonRegen = 1f;
 								anim_PhazonRegenTransition = 0f;
 								npc.damage = 0;
@@ -2842,6 +2871,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 						SetBodyOffset(hOffset);
 					}
 				}
+			}
+			
+			if(fullAlpha <= 0f)
+			{
+				npc.GivenName = " ";
+			}
+			else
+			{
+				npc.GivenName = "";
 			}
 			
 			//mouth animations
