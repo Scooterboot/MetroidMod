@@ -31,7 +31,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			//npc.boss = true;
 			npc.damage = 0;
 			npc.defense = 20;
-			npc.lifeMax = 10000;
+			npc.lifeMax = 7000;
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.noGravity = true;
@@ -77,6 +77,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			{
 				npc.dontTakeDamage = false;
 			}
+			npc.GivenName = Base.GivenName;
 		}
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
