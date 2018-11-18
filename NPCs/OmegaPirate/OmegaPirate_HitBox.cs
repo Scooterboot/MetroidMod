@@ -112,11 +112,11 @@ namespace MetroidMod.NPCs.OmegaPirate
 				return;
 			}
 			npc.damage = Base.damage;
-			//npc.realLife = Base.whoAmI;
 			if(npc.ai[1] != 0f)
 			{
 				npc.dontTakeDamage = true;
 			}
+			npc.GivenName = Base.GivenName;
 		}
 		public override bool? CanBeHitByItem(Player player, Item item)
 		{
