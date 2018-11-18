@@ -43,8 +43,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 		{
 			if(!init)
 			{
-				npc.ai[1] = -1;
-				Base = Main.npc[(int)npc.ai[0]];
+				Base = Main.npc[(int)npc.ai[3]];
 				init = true;
 			}
 			return true;
@@ -73,22 +72,17 @@ namespace MetroidMod.NPCs.OmegaPirate
 			
 			npc.rotation += 0.25f;
 			
-			if(npc.ai[1] != -1)
+			if(npc.scale >= 0.5f && npc.ai[2] != 1)
 			{
-				NPC target = Main.npc[(int)npc.ai[1]];
-				
-				if(target != null && target.active && npc.scale >= 0.5f)
+				npc.localAI[0] += 1f;
+				if(npc.localAI[0] > 10f)
 				{
-					npc.localAI[0] += 1f;
-					if(npc.localAI[0] > 10f)
-					{
-						float angle = (float)MetroidMod.ConvertToRadians(Main.rand.Next(360));
-						Vector2 vel = angle.ToRotationVector2() * 15f;
-						int p = Projectile.NewProjectile(npc.Center.X,npc.Center.Y,vel.X,vel.Y,mod.ProjectileType("Omega_PhazonParticle"),0,0f);
-						Main.projectile[p].ai[0] = target.position.X + Main.rand.Next(target.width);
-						Main.projectile[p].ai[1] = target.position.Y + Main.rand.Next(target.height);
-						npc.localAI[0] = 0f;
-					}
+					float angle = (float)MetroidMod.ConvertToRadians(Main.rand.Next(360));
+					Vector2 vel = angle.ToRotationVector2() * 15f;
+					int p = Projectile.NewProjectile(npc.Center.X,npc.Center.Y,vel.X,vel.Y,mod.ProjectileType("Omega_PhazonParticle"),0,0f);
+					Main.projectile[p].ai[0] = npc.ai[0];
+					Main.projectile[p].ai[1] = npc.ai[1];
+					npc.localAI[0] = 0f;
 				}
 			}
 		}
