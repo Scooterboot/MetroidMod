@@ -77,7 +77,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 				npc.localAI[0] += 1f;
 				if(npc.localAI[0] > 10f)
 				{
-					float angle = (float)MetroidMod.ConvertToRadians(Main.rand.Next(360));
+					float angle = (float)Angle.ConvertToRadians(Main.rand.Next(360));
 					Vector2 vel = angle.ToRotationVector2() * 15f;
 					int p = Projectile.NewProjectile(npc.Center.X,npc.Center.Y,vel.X,vel.Y,mod.ProjectileType("Omega_PhazonParticle"),0,0f);
 					Main.projectile[p].ai[0] = npc.ai[0];
