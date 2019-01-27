@@ -112,6 +112,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 				return;
 			}
 			npc.damage = Base.damage;
+			npc.defense = Base.defense;
 			if(npc.ai[1] != 0f)
 			{
 				npc.dontTakeDamage = true;
