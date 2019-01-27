@@ -28,10 +28,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.width = 58;
 			npc.height = 58;
 			npc.scale = 1f;
-			//npc.boss = true;
 			npc.damage = 0;
-			npc.defense = 20;
-			npc.lifeMax = 7000;
+			npc.defense = 10;
+			npc.lifeMax = 5000;
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.noGravity = true;
@@ -71,7 +70,6 @@ namespace MetroidMod.NPCs.OmegaPirate
 				npc.active = false;
 				return;
 			}
-			npc.damage = Base.damage;
 			npc.dontTakeDamage = true;
 			if(Base.ai[0] == 1)
 			{
