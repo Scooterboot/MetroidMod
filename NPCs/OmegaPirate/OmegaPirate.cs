@@ -27,7 +27,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.height = 62;
 			npc.damage = 0;
 			npc.defense = 30;
-			npc.lifeMax = 30000;
+			npc.lifeMax = 20000;
 			npc.dontTakeDamage = false;//true;
 			npc.scale = 1f;
 			npc.boss = true;
@@ -308,44 +308,44 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			
 			BodyPos[0] = npc.Center + (CurrentBodyPos[0] + BodyOffset) * fullScale;
-			BodyPos[1] = BodyPos[0] + MetroidMod.AngleFlip(BodyOffsetRot + BodyRot, npc.direction).ToRotationVector2()*BodyDist * fullScale;
+			BodyPos[1] = BodyPos[0] + Angle.AngleFlip(BodyOffsetRot + BodyRot, npc.direction).ToRotationVector2()*BodyDist * fullScale;
 			
-			RArmPos[0] = BodyPos[0] + MetroidMod.AngleFlip(RArmOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*RArmDist[0] * fullScale;
-			RArmPos[1] = RArmPos[0] + MetroidMod.AngleFlip(RArmOffsetRot[1] + RArmRot[0], npc.direction).ToRotationVector2()*RArmDist[1] * fullScale;
-			RArmPos[2] = RArmPos[0] + MetroidMod.AngleFlip(RArmOffsetRot[2] + RArmRot[0], npc.direction).ToRotationVector2()*RArmDist[2] * fullScale;
-			RArmPos[3] = RArmPos[1] + MetroidMod.AngleFlip(RArmOffsetRot[3] + RArmRot[1], npc.direction).ToRotationVector2()*RArmDist[3] * fullScale;
-			RArmPos[4] = RArmPos[1] + MetroidMod.AngleFlip(RArmOffsetRot[4] + RArmRot[1], npc.direction).ToRotationVector2()*RArmDist[4] * fullScale;
+			RArmPos[0] = BodyPos[0] + Angle.AngleFlip(RArmOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*RArmDist[0] * fullScale;
+			RArmPos[1] = RArmPos[0] + Angle.AngleFlip(RArmOffsetRot[1] + RArmRot[0], npc.direction).ToRotationVector2()*RArmDist[1] * fullScale;
+			RArmPos[2] = RArmPos[0] + Angle.AngleFlip(RArmOffsetRot[2] + RArmRot[0], npc.direction).ToRotationVector2()*RArmDist[2] * fullScale;
+			RArmPos[3] = RArmPos[1] + Angle.AngleFlip(RArmOffsetRot[3] + RArmRot[1], npc.direction).ToRotationVector2()*RArmDist[3] * fullScale;
+			RArmPos[4] = RArmPos[1] + Angle.AngleFlip(RArmOffsetRot[4] + RArmRot[1], npc.direction).ToRotationVector2()*RArmDist[4] * fullScale;
 			
-			LArmPos[0] = BodyPos[0] + MetroidMod.AngleFlip(LArmOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*LArmDist[0] * fullScale;
-			LArmPos[1] = LArmPos[0] + MetroidMod.AngleFlip(LArmOffsetRot[1] + LArmRot[0], npc.direction).ToRotationVector2()*LArmDist[1] * fullScale;
-			LArmPos[2] = LArmPos[0] + MetroidMod.AngleFlip(LArmOffsetRot[2] + LArmRot[0], npc.direction).ToRotationVector2()*LArmDist[2] * fullScale;
-			LArmPos[3] = LArmPos[1] + MetroidMod.AngleFlip(LArmOffsetRot[3] + LArmRot[1], npc.direction).ToRotationVector2()*LArmDist[3] * fullScale;
-			LArmPos[4] = LArmPos[1] + MetroidMod.AngleFlip(LArmOffsetRot[4] + LArmRot[1], npc.direction).ToRotationVector2()*LArmDist[4] * fullScale;
+			LArmPos[0] = BodyPos[0] + Angle.AngleFlip(LArmOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*LArmDist[0] * fullScale;
+			LArmPos[1] = LArmPos[0] + Angle.AngleFlip(LArmOffsetRot[1] + LArmRot[0], npc.direction).ToRotationVector2()*LArmDist[1] * fullScale;
+			LArmPos[2] = LArmPos[0] + Angle.AngleFlip(LArmOffsetRot[2] + LArmRot[0], npc.direction).ToRotationVector2()*LArmDist[2] * fullScale;
+			LArmPos[3] = LArmPos[1] + Angle.AngleFlip(LArmOffsetRot[3] + LArmRot[1], npc.direction).ToRotationVector2()*LArmDist[3] * fullScale;
+			LArmPos[4] = LArmPos[1] + Angle.AngleFlip(LArmOffsetRot[4] + LArmRot[1], npc.direction).ToRotationVector2()*LArmDist[4] * fullScale;
 			
-			RLegPos[0] = BodyPos[0] + MetroidMod.AngleFlip(RLegOffsetRot[0] + PelvisRot, npc.direction).ToRotationVector2()*RLegDist[0] * fullScale;
-			RLegPos[1] = RLegPos[0] + MetroidMod.AngleFlip(RLegOffsetRot[1] + RLegRot[0], npc.direction).ToRotationVector2()*RLegDist[1] * fullScale;
-			RLegPos[2] = RLegPos[1] + MetroidMod.AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2] * fullScale;
-			RLegPos[3] = RLegPos[0] + MetroidMod.AngleFlip(RLegOffsetRot[3] + RLegRot[0], npc.direction).ToRotationVector2()*RLegDist[3] * fullScale;
-			RLegPos[4] = RLegPos[1] + MetroidMod.AngleFlip(RLegOffsetRot[4] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[4] * fullScale;
-			RLegPos[5] = RLegPos[2] + MetroidMod.AngleFlip(RLegOffsetRot[5] + RLegRot[2], npc.direction).ToRotationVector2()*RLegDist[5] * fullScale;
+			RLegPos[0] = BodyPos[0] + Angle.AngleFlip(RLegOffsetRot[0] + PelvisRot, npc.direction).ToRotationVector2()*RLegDist[0] * fullScale;
+			RLegPos[1] = RLegPos[0] + Angle.AngleFlip(RLegOffsetRot[1] + RLegRot[0], npc.direction).ToRotationVector2()*RLegDist[1] * fullScale;
+			RLegPos[2] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2] * fullScale;
+			RLegPos[3] = RLegPos[0] + Angle.AngleFlip(RLegOffsetRot[3] + RLegRot[0], npc.direction).ToRotationVector2()*RLegDist[3] * fullScale;
+			RLegPos[4] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[4] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[4] * fullScale;
+			RLegPos[5] = RLegPos[2] + Angle.AngleFlip(RLegOffsetRot[5] + RLegRot[2], npc.direction).ToRotationVector2()*RLegDist[5] * fullScale;
 			
-			LLegPos[0] = BodyPos[0] + MetroidMod.AngleFlip(LLegOffsetRot[0] + PelvisRot, npc.direction).ToRotationVector2()*LLegDist[0] * fullScale;
-			LLegPos[1] = LLegPos[0] + MetroidMod.AngleFlip(LLegOffsetRot[1] + LLegRot[0], npc.direction).ToRotationVector2()*LLegDist[1] * fullScale;
-			LLegPos[2] = LLegPos[1] + MetroidMod.AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2] * fullScale;
-			LLegPos[3] = LLegPos[0] + MetroidMod.AngleFlip(LLegOffsetRot[3] + LLegRot[0], npc.direction).ToRotationVector2()*LLegDist[3] * fullScale;
-			LLegPos[4] = LLegPos[1] + MetroidMod.AngleFlip(LLegOffsetRot[4] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[4] * fullScale;
-			LLegPos[5] = LLegPos[2] + MetroidMod.AngleFlip(LLegOffsetRot[5] + LLegRot[2], npc.direction).ToRotationVector2()*LLegDist[5] * fullScale;
+			LLegPos[0] = BodyPos[0] + Angle.AngleFlip(LLegOffsetRot[0] + PelvisRot, npc.direction).ToRotationVector2()*LLegDist[0] * fullScale;
+			LLegPos[1] = LLegPos[0] + Angle.AngleFlip(LLegOffsetRot[1] + LLegRot[0], npc.direction).ToRotationVector2()*LLegDist[1] * fullScale;
+			LLegPos[2] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2] * fullScale;
+			LLegPos[3] = LLegPos[0] + Angle.AngleFlip(LLegOffsetRot[3] + LLegRot[0], npc.direction).ToRotationVector2()*LLegDist[3] * fullScale;
+			LLegPos[4] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[4] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[4] * fullScale;
+			LLegPos[5] = LLegPos[2] + Angle.AngleFlip(LLegOffsetRot[5] + LLegRot[2], npc.direction).ToRotationVector2()*LLegDist[5] * fullScale;
 			
-			RCannonPos[0] = BodyPos[0] + MetroidMod.AngleFlip(RCannonOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*RCannonDist[0] * fullScale;
-			RCannonPos[1] = RCannonPos[0] + MetroidMod.AngleFlip(RCannonOffsetRot[1] + RCannonRot[0], npc.direction).ToRotationVector2()*RCannonDist[1] * fullScale;
-			RCannonPos[2] = RCannonPos[1] + MetroidMod.AngleFlip(RCannonOffsetRot[2] + RCannonRot[1], npc.direction).ToRotationVector2()*RCannonDist[2] * fullScale;
+			RCannonPos[0] = BodyPos[0] + Angle.AngleFlip(RCannonOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*RCannonDist[0] * fullScale;
+			RCannonPos[1] = RCannonPos[0] + Angle.AngleFlip(RCannonOffsetRot[1] + RCannonRot[0], npc.direction).ToRotationVector2()*RCannonDist[1] * fullScale;
+			RCannonPos[2] = RCannonPos[1] + Angle.AngleFlip(RCannonOffsetRot[2] + RCannonRot[1], npc.direction).ToRotationVector2()*RCannonDist[2] * fullScale;
 			
-			LCannonPos[0] = BodyPos[0] + MetroidMod.AngleFlip(LCannonOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*LCannonDist[0] * fullScale;
-			LCannonPos[1] = LCannonPos[0] + MetroidMod.AngleFlip(LCannonOffsetRot[1] + LCannonRot[0], npc.direction).ToRotationVector2()*LCannonDist[1] * fullScale;
-			LCannonPos[2] = LCannonPos[1] + MetroidMod.AngleFlip(LCannonOffsetRot[2] + LCannonRot[1], npc.direction).ToRotationVector2()*LCannonDist[2] * fullScale;
+			LCannonPos[0] = BodyPos[0] + Angle.AngleFlip(LCannonOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*LCannonDist[0] * fullScale;
+			LCannonPos[1] = LCannonPos[0] + Angle.AngleFlip(LCannonOffsetRot[1] + LCannonRot[0], npc.direction).ToRotationVector2()*LCannonDist[1] * fullScale;
+			LCannonPos[2] = LCannonPos[1] + Angle.AngleFlip(LCannonOffsetRot[2] + LCannonRot[1], npc.direction).ToRotationVector2()*LCannonDist[2] * fullScale;
 			
-			HeadPos[0] = BodyPos[0] + MetroidMod.AngleFlip(HeadOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*HeadDist[0] * fullScale;
-			HeadPos[1] = HeadPos[0] + MetroidMod.AngleFlip(HeadOffsetRot[1] + HeadRot[0], npc.direction).ToRotationVector2()*HeadDist[1] * fullScale;
+			HeadPos[0] = BodyPos[0] + Angle.AngleFlip(HeadOffsetRot[0] + BodyRot, npc.direction).ToRotationVector2()*HeadDist[0] * fullScale;
+			HeadPos[1] = HeadPos[0] + Angle.AngleFlip(HeadOffsetRot[1] + HeadRot[0], npc.direction).ToRotationVector2()*HeadDist[1] * fullScale;
 		}
 		
 		Vector2 cannonTargetPos;
@@ -759,14 +759,14 @@ namespace MetroidMod.NPCs.OmegaPirate
 				PelvisOffset = MathHelper.Lerp(PelvisOffset,offset,transition);
 				for(int i = 0; i < 3; i++)
 				{
-					RLegRot[i] = MathHelper.Lerp(RLegRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_Walk[i],anim)),transition);
-					LLegRot[i] = MathHelper.Lerp(LLegRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_Walk[i],anim)),transition);
+					RLegRot[i] = MathHelper.Lerp(RLegRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_Walk[i],anim)),transition);
+					LLegRot[i] = MathHelper.Lerp(LLegRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_Walk[i],anim)),transition);
 				}
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_Walk,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_Walk,anim)),transition);
 				for(int i = 0; i < 2; i++)
 				{
-					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_Walk,anim)),transition);
-					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Walk,anim)),transition);
+					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Walk,anim)),transition);
+					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Walk,anim)),transition);
 				}
 				RCannonRot[0] = BodyRot;
 				RCannonRot[1] = BodyRot;
@@ -775,9 +775,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			if(type == "absorb")
 			{
-				float armTargetRot = MetroidMod.Vector2Angle(BodyPos[1],Main.player[npc.target].Center,npc.direction);
-				float armrot0 = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LShAnim_Walk_Absorb,anim));
-				float armrot1 = -(float)MetroidMod.ConvertToRadians((double)LArmAnim_Walk_Absorb);
+				float armTargetRot = Angle.Vector2Angle(BodyPos[1],Main.player[npc.target].Center,npc.direction);
+				float armrot0 = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LShAnim_Walk_Absorb,anim));
+				float armrot1 = -(float)Angle.ConvertToRadians((double)LArmAnim_Walk_Absorb);
 				float rot = (armTargetRot * 0.75f) - 0.4f;
 				if(rot > 0.5f)
 				{
@@ -810,14 +810,14 @@ namespace MetroidMod.NPCs.OmegaPirate
 				PelvisOffset = MathHelper.Lerp(PelvisOffset,offset,transition);
 				for(int i = 0; i < 3; i++)
 				{
-					RLegRot[i] = MathHelper.Lerp(RLegRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_Jump[i],anim)),transition);
-					LLegRot[i] = MathHelper.Lerp(LLegRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_Jump[i],anim)),transition);
+					RLegRot[i] = MathHelper.Lerp(RLegRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_Jump[i],anim)),transition);
+					LLegRot[i] = MathHelper.Lerp(LLegRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_Jump[i],anim)),transition);
 				}
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_Jump,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_Jump,anim)),transition);
 				for(int i = 0; i < 2; i++)
 				{
-					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_Jump[i],anim)),transition);
-					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Jump[i],anim)),transition);
+					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Jump[i],anim)),transition);
+					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Jump[i],anim)),transition);
 				}
 				RCannonRot[0] = BodyRot;
 				RCannonRot[1] = BodyRot;
@@ -826,9 +826,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			if(type == "jump absorb")
 			{
-				float armTargetRot = MetroidMod.Vector2Angle(BodyPos[1],Main.player[npc.target].Center,npc.direction);
-				float armrot0 = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Jump_Absorb[0],anim));
-				float armrot1 = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Jump_Absorb[1],anim));
+				float armTargetRot = Angle.Vector2Angle(BodyPos[1],Main.player[npc.target].Center,npc.direction);
+				float armrot0 = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Jump_Absorb[0],anim));
+				float armrot1 = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Jump_Absorb[1],anim));
 				float rot = (armTargetRot * 0.25f) - 0.4f;
 				if(rot > 0.5f)
 				{
@@ -856,15 +856,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 				float[] llegrot = new float[3];
 				for(int i = 0; i < 3; i++)
 				{
-					rlegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_Shockwave[i],anim));
-					llegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_Shockwave[i],anim));
+					rlegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_Shockwave[i],anim));
+					llegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_Shockwave[i],anim));
 				}
 				float[] rarmrot = new float[2];
 				float[] larmrot = new float[2];
 				for(int i = 0; i < 2; i++)
 				{
-					rarmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_Shockwave[i],anim));
-					larmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Shockwave[i],anim));
+					rarmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Shockwave[i],anim));
+					larmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Shockwave[i],anim));
 				}
 				
 				if(npc.direction == 1)
@@ -894,7 +894,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 					}
 				}
 				
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_Shockwave,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_Shockwave,anim)),transition);
 				RCannonRot[0] = BodyRot;
 				RCannonRot[1] = BodyRot;
 				LCannonRot[0] = BodyRot;
@@ -920,15 +920,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 				float[] llegrot = new float[3];
 				for(int i = 0; i < 3; i++)
 				{
-					rlegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_Leap[i],anim));
-					llegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_Leap[i],anim));
+					rlegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_Leap[i],anim));
+					llegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_Leap[i],anim));
 				}
 				float[] rarmrot = new float[2];
 				float[] larmrot = new float[2];
 				for(int i = 0; i < 2; i++)
 				{
-					rarmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_Leap[i],anim));
-					larmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Leap[i],anim));
+					rarmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Leap[i],anim));
+					larmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Leap[i],anim));
 				}
 				
 				if(npc.direction == 1)
@@ -958,7 +958,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 					}
 				}
 				
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_Leap,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_Leap,anim)),transition);
 				RCannonRot[0] = BodyRot;
 				RCannonRot[1] = BodyRot;
 				LCannonRot[0] = BodyRot;
@@ -974,18 +974,18 @@ namespace MetroidMod.NPCs.OmegaPirate
 				float[] llegrot = new float[3];
 				for(int i = 0; i < 3; i++)
 				{
-					rlegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_CannonFire[i],anim));
-					llegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_CannonFire[i],anim));
+					rlegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_CannonFire[i],anim));
+					llegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_CannonFire[i],anim));
 				}
 				float[] rarmrot = new float[2];
 				float[] larmrot = new float[2];
 				for(int i = 0; i < 2; i++)
 				{
-					rarmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_CannonFire[i],anim));
-					larmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_CannonFire[i],anim));
+					rarmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_CannonFire[i],anim));
+					larmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_CannonFire[i],anim));
 				}
-				float rcannonrot = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RCannonAnim_CannonFire,anim));
-				float lcannonrot = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LCannonAnim_CannonFire,anim));
+				float rcannonrot = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RCannonAnim_CannonFire,anim));
+				float lcannonrot = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LCannonAnim_CannonFire,anim));
 				
 				if(npc.direction == 1)
 				{
@@ -1020,7 +1020,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 				RCannonRot[1] = 0f;
 				LCannonRot[1] = 0f;
 				
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_CannonFire,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_CannonFire,anim)),transition);
 			}
 			
 			if(type == "phazon start")
@@ -1033,15 +1033,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 				float[] llegrot = new float[3];
 				for(int i = 0; i < 3; i++)
 				{
-					rlegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_PhazonStart[i],anim));
-					llegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_PhazonStart[i],anim));
+					rlegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_PhazonStart[i],anim));
+					llegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_PhazonStart[i],anim));
 				}
 				float[] rarmrot = new float[2];
 				float[] larmrot = new float[2];
 				for(int i = 0; i < 2; i++)
 				{
-					rarmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_PhazonStart[i],anim));
-					larmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_PhazonStart[i],anim));
+					rarmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_PhazonStart[i],anim));
+					larmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_PhazonStart[i],anim));
 				}
 				
 				if(npc.direction == 1)
@@ -1071,12 +1071,12 @@ namespace MetroidMod.NPCs.OmegaPirate
 					}
 				}
 				
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_PhazonStart,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_PhazonStart,anim)),transition);
 				RCannonRot[0] = BodyRot;
 				RCannonRot[1] = BodyRot;
 				LCannonRot[0] = BodyRot;
 				LCannonRot[1] = BodyRot;
-				HeadRot[0] = MathHelper.Lerp(HeadRot[0],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,HeadAnim_PhazonStart,anim)),transition);
+				HeadRot[0] = MathHelper.Lerp(HeadRot[0],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,HeadAnim_PhazonStart,anim)),transition);
 			}
 			if(type == "phazon regen")
 			{
@@ -1088,15 +1088,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 				float[] llegrot = new float[3];
 				for(int i = 0; i < 3; i++)
 				{
-					rlegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_PhazonRegen[i],anim));
-					llegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_PhazonRegen[i],anim));
+					rlegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_PhazonRegen[i],anim));
+					llegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_PhazonRegen[i],anim));
 				}
 				float[] rarmrot = new float[2];
 				float[] larmrot = new float[2];
 				for(int i = 0; i < 2; i++)
 				{
-					rarmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_PhazonRegen[i],anim));
-					larmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_PhazonRegen[i],anim));
+					rarmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_PhazonRegen[i],anim));
+					larmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_PhazonRegen[i],anim));
 				}
 				
 				if(npc.direction == 1)
@@ -1126,7 +1126,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 					}
 				}
 				
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_PhazonRegen,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_PhazonRegen,anim)),transition);
 				RCannonRot[0] = BodyRot;
 				RCannonRot[1] = BodyRot;
 				LCannonRot[0] = BodyRot;
@@ -1156,15 +1156,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 				float[] llegrot = new float[3];
 				for(int i = 0; i < 3; i++)
 				{
-					rlegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_Death[i],anim));
-					llegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_Death[i],anim));
+					rlegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_Death[i],anim));
+					llegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_Death[i],anim));
 				}
 				float[] rarmrot = new float[2];
 				float[] larmrot = new float[2];
 				for(int i = 0; i < 2; i++)
 				{
-					rarmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_Death[i],anim));
-					larmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Death[i],anim));
+					rarmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Death[i],anim));
+					larmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Death[i],anim));
 				}
 				
 				if(npc.direction == 1)
@@ -1194,19 +1194,19 @@ namespace MetroidMod.NPCs.OmegaPirate
 					}
 				}
 				
-				BodyRot = MathHelper.Lerp(BodyRot,-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_Death,anim)),transition);
+				BodyRot = MathHelper.Lerp(BodyRot,-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_Death,anim)),transition);
 				RCannonRot[0] = BodyRot;
 				RCannonRot[1] = BodyRot;
 				LCannonRot[0] = BodyRot;
 				LCannonRot[1] = BodyRot;
-				HeadRot[0] = MathHelper.Lerp(HeadRot[0],-(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,HeadAnim_Death,anim)),transition);
+				HeadRot[0] = MathHelper.Lerp(HeadRot[0],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,HeadAnim_Death,anim)),transition);
 			}
 		}
 		void SetBodyOffset(float hOffset = 0f)
 		{
 			BodyPos[0] = npc.Center + CurrentBodyPos[0] + BodyOffset;
-			RLegPos[2] = RLegPos[1] + MetroidMod.AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2];
-			LLegPos[2] = LLegPos[1] + MetroidMod.AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2];
+			RLegPos[2] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2];
+			LLegPos[2] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2];
 			if(RLegPos[2].Y >= LLegPos[2].Y)
 			{
 				BodyOffset.Y = 98f - ((RLegPos[2].Y+26f) - BodyPos[0].Y) + hOffset;
@@ -1242,12 +1242,12 @@ namespace MetroidMod.NPCs.OmegaPirate
 		int grounded = 0;
 		bool eyeFlame = false;
 		
-		int clawDamage = 60;
-		int shockwaveDamage = 60;
-		int laserDamage = 60;
+		int clawDamage = 80;
+		int shockwaveDamage = 120;
+		int laserDamage = 100;
 		int grenadeDamage = 60;
-		float grenadeSpeed = 13f;
-		float grenadeGravity = 0.25f;
+		float grenadeSpeed = 18f;
+		float grenadeGravity = 0.35f;
 		int grenadeTimeBeforeGravity = 20;
 		
 		public static Color minGlowColor = new Color(96,200,255,10);
@@ -1360,14 +1360,14 @@ namespace MetroidMod.NPCs.OmegaPirate
 							larmrot = new float[2];
 					for(int i = 0; i < 3; i++)
 					{
-						rlegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RLegAnim_Spawn[i],anim_Spawn));
-						llegrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LLegAnim_Spawn[i],anim_Spawn));
+						rlegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RLegAnim_Spawn[i],anim_Spawn));
+						llegrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LLegAnim_Spawn[i],anim_Spawn));
 					}
-					BodyRot = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,BodyAnim_Spawn,anim_Spawn));
+					BodyRot = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,BodyAnim_Spawn,anim_Spawn));
 					for(int i = 0; i < 2; i++)
 					{
-						rarmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,RArmAnim_Spawn[i],anim_Spawn));
-						larmrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,LArmAnim_Spawn[i],anim_Spawn));
+						rarmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Spawn[i],anim_Spawn));
+						larmrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Spawn[i],anim_Spawn));
 					}
 					RCannonRot[0] = BodyRot;
 					RCannonRot[1] = BodyRot;
@@ -1386,16 +1386,16 @@ namespace MetroidMod.NPCs.OmegaPirate
 						LArmRot = rarmrot;
 					}
 					
-					HeadRot[0] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,HeadAnim_Spawn,anim_Spawn));
+					HeadRot[0] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,HeadAnim_Spawn,anim_Spawn));
 					
-					float headrot = MetroidMod.Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+					float headrot = Angle.Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
 					
 					if(head_SpawnTransition > 0)
 					{
 						HeadRot[0] = MathHelper.Lerp(HeadRot[0],headrot,head_SpawnTransition);
 					}
 					
-					BodyOffset.Y = MetroidMod.LerpArray(0f,BodyOffset_Spawn,anim_Spawn);
+					BodyOffset.Y = Angle.LerpArray(0f,BodyOffset_Spawn,anim_Spawn);
 				}
 				// main phase
 				else if(npc.ai[0] == 1)
@@ -1454,7 +1454,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						
 						cannonTargetTransition = Math.Min(cannonTargetTransition + 0.05f,1f);
 						
-						HeadRot[0] = MetroidMod.Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						HeadRot[0] = Angle.Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
 						
 						SetAnimation("walk", anim_Walk);
 						
@@ -1571,7 +1571,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						float[] armrot = new float[2];
 						for(int i = 0; i < 2; i++)
 						{
-							armrot[i] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,ArmAnim_Claw[i],anim_Claw));
+							armrot[i] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,ArmAnim_Claw[i],anim_Claw));
 							
 							RArmRot[i] = MathHelper.Lerp(RArmRot[i],armrot[i],anim_ClawTransition);
 						}
@@ -1789,7 +1789,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						
 						cannonTargetTransition = Math.Max(cannonTargetTransition - 0.05f,0f);
 						
-						HeadRot[0] = MetroidMod.Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						HeadRot[0] = Angle.Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
 						
 						SetAnimation("walk", anim_Walk);
 						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
@@ -1914,8 +1914,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 							cannonTargetTransition = Math.Min(cannonTargetTransition+0.0125f,1f);
 						}
 						
-						HeadRot[0] = MetroidMod.Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
-						float hrot = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,HeadAnim_Shockwave,anim_Shockwave));
+						HeadRot[0] = Angle.Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						float hrot = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,HeadAnim_Shockwave,anim_Shockwave));
 						HeadRot[0] = MathHelper.Lerp(HeadRot[0],hrot,anim_ShockwaveTransition_Head);
 						
 						anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
@@ -1979,8 +1979,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 							if(npc.ai[3] <= numCh)
 							{
 								laserAnim = true;
-								rLaserAngle = MetroidMod.Vector2Angle(RCannonPos[2], cannonTargetPos);
-								lLaserAngle = MetroidMod.Vector2Angle(LCannonPos[2], cannonTargetPos);
+								rLaserAngle = Angle.Vector2Angle(RCannonPos[2], cannonTargetPos);
+								lLaserAngle = Angle.Vector2Angle(LCannonPos[2], cannonTargetPos);
 								
 								Color dustColor = Color.Lerp(minGlowColor,maxGlowColor,(float)addedAbsorbDamage/absorbDamageMax);
 								
@@ -2065,9 +2065,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 						
 						if(npc.ai[2] <= 1 && npc.ai[3] <= numCh)
 						{
-							bodyCannonTargetRot = MetroidMod.Vector2Angle(npc.Center, cannonTargetPos, npc.direction, 1, 0.25f, -0.3f, 0.3f);
-							rightCannonTRot = MetroidMod.Vector2Angle(RCannonPos[1], cannonTargetPos, npc.direction);
-							leftCannonTRot = MetroidMod.Vector2Angle(LCannonPos[1], cannonTargetPos, npc.direction);
+							bodyCannonTargetRot = Angle.Vector2Angle(npc.Center, cannonTargetPos, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+							rightCannonTRot = Angle.Vector2Angle(RCannonPos[1], cannonTargetPos, npc.direction);
+							leftCannonTRot = Angle.Vector2Angle(LCannonPos[1], cannonTargetPos, npc.direction);
 						}
 						
 						anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
@@ -2076,7 +2076,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
 						SetAnimation("cannon", anim_CannonFire, anim_CannonFireTransition);
 						
-						HeadRot[0] = MetroidMod.Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						HeadRot[0] = Angle.Vector2Angle(HeadPos[0], player.Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
 						
 						float bTargetRot = MathHelper.Lerp(0f,bodyCannonTargetRot,anim_CannonFireTransition);
 						BodyRot += bTargetRot;
@@ -2249,8 +2249,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 							cannonTargetTransition = Math.Min(cannonTargetTransition+0.0125f,1f);
 						}
 						
-						HeadRot[0] = MetroidMod.Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
-						float hrot = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,HeadAnim_Leap,anim_Leap));
+						HeadRot[0] = Angle.Vector2Angle(HeadPos[0], Main.player[npc.target].Center, npc.direction, 1, 0.25f, -0.3f, 0.3f);
+						float hrot = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,HeadAnim_Leap,anim_Leap));
 						HeadRot[0] = MathHelper.Lerp(HeadRot[0],hrot,anim_LeapTransition_Head);
 						
 						anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
@@ -2493,7 +2493,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						npc.damage = damage;
 						fullAlpha = 1f;
 						
-						if(npc.ai[3] < npc.lifeMax*0.125f)
+						if(npc.ai[3] < npc.lifeMax*0.1f)
 						{
 							npc.direction = 1;
 							if(npc.Center.X > player.Center.X)
@@ -2835,7 +2835,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 							npc.checkDead();
 						}
 					}
-					float moveSpeed = MetroidMod.LerpArray(0f,anim_Death_Speed,anim_Death) * animSpeed;
+					float moveSpeed = Angle.LerpArray(0f,anim_Death_Speed,anim_Death) * animSpeed;
 					
 					if(npc.direction == 1)
 					{
@@ -2865,7 +2865,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 					anim_Death = Math.Min(anim_Death+animSpeed,7f);
 					SetAnimation("death", anim_Death, anim_DeathTransition);
 					
-					float hOffset = MetroidMod.LerpArray(0f,anim_Death_HeightOffset,anim_Death);
+					float hOffset = Angle.LerpArray(0f,anim_Death_HeightOffset,anim_Death);
 					if(anim_Death < 6f)
 					{
 						SetBodyOffset(hOffset);
@@ -2883,7 +2883,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			
 			//mouth animations
-			HeadRot[1] = -(float)MetroidMod.ConvertToRadians((double)DefaultMouthAnim);
+			HeadRot[1] = -(float)Angle.ConvertToRadians((double)DefaultMouthAnim);
 			if(mouthAnim == 1 || mouthAnim == 2 || mouthAnim == 3)
 			{
 				if(anim_MouthShockwave < 7f)
@@ -2898,7 +2898,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						animSpeed = 0.067f;
 					}
 					anim_MouthShockwave = Math.Min(anim_MouthShockwave+animSpeed,7f);
-					HeadRot[1] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,MouthAnim_Shockwave,anim_MouthShockwave));
+					HeadRot[1] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,MouthAnim_Shockwave,anim_MouthShockwave));
 				}
 				else
 				{
@@ -2916,7 +2916,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						animSpeed = 0.15f;
 					}
 					anim_MouthHurt = Math.Min(anim_MouthHurt+animSpeed,7f);
-					HeadRot[1] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,MouthAnim_Hurt,anim_MouthHurt));
+					HeadRot[1] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,MouthAnim_Hurt,anim_MouthHurt));
 				}
 				else
 				{
@@ -2929,7 +2929,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 				if(anim_MouthDamaged < 7f)
 				{
 					anim_MouthDamaged = Math.Min(anim_MouthDamaged+0.094f,7f);
-					HeadRot[1] = -(float)MetroidMod.ConvertToRadians((double)MetroidMod.LerpArray(0f,MouthAnim_Damaged,anim_MouthDamaged));
+					HeadRot[1] = -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,MouthAnim_Damaged,anim_MouthDamaged));
 				}
 				else
 				{
@@ -2944,8 +2944,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 				Vector2 LCannonTargetPos = LCannonPos[1] + TrajectoryVelocity(LCannonPos[1],Main.player[npc.target].Center,grenadeSpeed,grenadeGravity,grenadeTimeBeforeGravity);
 				int rdir = Math.Sign(RCannonTargetPos.X-RCannonPos[1].X);
 				int ldir = Math.Sign(LCannonTargetPos.X-LCannonPos[1].X);
-				float RCannonTargetRot = MetroidMod.Vector2Angle(RCannonPos[1], RCannonTargetPos, rdir, 1, 1f, -1.57f+BodyRot, 0.6f+BodyRot);
-				float LCannonTargetRot = MetroidMod.Vector2Angle(LCannonPos[1], LCannonTargetPos, ldir, 1, 1f, -1.57f+BodyRot, 0.6f+BodyRot);
+				float RCannonTargetRot = Angle.Vector2Angle(RCannonPos[1], RCannonTargetPos, rdir, 1, 1f, -1.57f+BodyRot, 0.6f+BodyRot);
+				float LCannonTargetRot = Angle.Vector2Angle(LCannonPos[1], LCannonTargetPos, ldir, 1, 1f, -1.57f+BodyRot, 0.6f+BodyRot);
 				RCannonRot[0] = MathHelper.Lerp(RCannonRot[0],RCannonTargetRot*0.5f,cannonTargetTransition);
 				RCannonRot[1] = MathHelper.Lerp(RCannonRot[1],RCannonTargetRot,cannonTargetTransition);
 				LCannonRot[0] = MathHelper.Lerp(LCannonRot[0],LCannonTargetRot*0.5f,cannonTargetTransition);
@@ -2965,7 +2965,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			if(rCannonRecoilAnim > 0f)
 			{
-				RCannonRot[0] -= (float)MetroidMod.ConvertToRadians((double)MathHelper.Lerp(0f,RCannonAnim_CannonFire[1],rCannonRecoilAnim));
+				RCannonRot[0] -= (float)Angle.ConvertToRadians((double)MathHelper.Lerp(0f,RCannonAnim_CannonFire[1],rCannonRecoilAnim));
 			}
 			if(lCannonRecoil)
 			{
@@ -2981,7 +2981,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			if(lCannonRecoilAnim > 0f)
 			{
-				LCannonRot[0] -= (float)MetroidMod.ConvertToRadians((double)MathHelper.Lerp(0f,LCannonAnim_CannonFire[1],lCannonRecoilAnim));
+				LCannonRot[0] -= (float)Angle.ConvertToRadians((double)MathHelper.Lerp(0f,LCannonAnim_CannonFire[1],lCannonRecoilAnim));
 			}
 			
 			if(laserAnim)
