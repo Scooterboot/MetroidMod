@@ -41,16 +41,11 @@ namespace MetroidMod.Projectiles.boss
 				projectile.frame = 0;
 			}
 			
-			/*lightningFrame++;
-			if(lightningFrame > 7)
-			{
-				lightningFrame = 0;
-			}*/
 			lightningFrame = Main.rand.Next(8);
 			
 			if(projectile.ai[1] == 0)
 			{
-				scaleY = Math.Min(scaleY+(projectile.ai[0]/5f),projectile.ai[0]);
+				scaleY = Math.Min(scaleY+(projectile.ai[0]/4f),projectile.ai[0]);
 				if(scaleY >= projectile.ai[0])
 				{
 					projectile.ai[1] = 1;
@@ -85,11 +80,11 @@ namespace MetroidMod.Projectiles.boss
 					int shock1 = Projectile.NewProjectile(projectile.Center.X+(30f*projectile.spriteDirection),projectile.Center.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),projectile.damage,8f);
 					if(projectile.localAI[0] > 0)
 					{
-						Main.projectile[shock1].ai[0] = projectile.ai[0] + 0.5f;
+						Main.projectile[shock1].ai[0] = projectile.ai[0] + 0.45f;
 					}
 					else
 					{
-						Main.projectile[shock1].ai[0] = projectile.ai[0] - 0.06f;
+						Main.projectile[shock1].ai[0] = projectile.ai[0] - 0.05f;
 					}
 					Main.projectile[shock1].localAI[0] = projectile.localAI[0];
 					Main.projectile[shock1].localAI[1] = projectile.localAI[1];
@@ -98,12 +93,11 @@ namespace MetroidMod.Projectiles.boss
 			}
 			
 			Color dustColor = Color.Lerp(OmegaPirate.minGlowColor,OmegaPirate.maxGlowColor,projectile.localAI[1]);
-			//for(int i = 0; i < 4; i++)
-			//{
-				int dust1 = Dust.NewDust(new Vector2(projectile.position.X-4,projectile.Center.Y-4), projectile.width+4, 5, 63, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, dustColor, 4f);
-				Main.dust[dust1].noGravity = true;
-				Main.dust[dust1].noLight = true;
-			//}
+			
+			int dust1 = Dust.NewDust(new Vector2(projectile.position.X-4,projectile.Center.Y-4), projectile.width+4, 5, 63, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, dustColor, 4f);
+			Main.dust[dust1].noGravity = true;
+			Main.dust[dust1].noLight = true;
+			
 			for(int i = 0; i < 3; i++)
 			{
 				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 63, 0f, 0f, 100, dustColor, (1f+i)*2f);
