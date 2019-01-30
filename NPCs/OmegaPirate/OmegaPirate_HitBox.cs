@@ -45,8 +45,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.buffImmune[20] = true;
 			npc.buffImmune[24] = true;
 			npc.buffImmune[31] = true;
-			npc.buffImmune[39] = true;
-			npc.buffImmune[44] = true;
+			npc.buffImmune[69] = true;
+			npc.buffImmune[70] = true;
 			npc.buffImmune[mod.BuffType("PhazonDebuff")] = true;
 		}
 		public override bool PreAI()
@@ -113,9 +113,13 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			npc.damage = Base.damage;
 			npc.defense = Base.defense;
-			if(npc.ai[1] != 0f)
+			if(npc.ai[1] != 0f || Base.dontTakeDamage || Base.ai[0] != 2)
 			{
 				npc.dontTakeDamage = true;
+				for(int i = 0; i < npc.buffTime.Length; i++)
+				{
+					npc.buffTime[i] = 0;
+				}
 			}
 			npc.GivenName = Base.GivenName;
 		}
