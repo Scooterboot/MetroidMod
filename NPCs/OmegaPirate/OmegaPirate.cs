@@ -28,7 +28,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.damage = 0;
 			npc.defense = 30;
 			npc.lifeMax = 20000;
-			npc.dontTakeDamage = false;//true;
+			npc.dontTakeDamage = false;
 			npc.scale = 1f;
 			npc.boss = true;
 			npc.HitSound = SoundID.NPCHit1;
@@ -39,12 +39,10 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.noTileCollide = false;
 			npc.noGravity = false;
 			npc.behindTiles = true;
-			npc.buffImmune[20] = true;
-			npc.buffImmune[24] = true;
-			npc.buffImmune[31] = true;
-			npc.buffImmune[39] = true;
-			npc.buffImmune[44] = true;
-			npc.buffImmune[mod.BuffType("PhazonDebuff")] = true;
+			for(int i = 0; i < npc.buffImmune.Length; i++)
+			{
+				npc.buffImmune[i] = true;
+			}
 			npc.aiStyle = -1;
 			npc.npcSlots = 5;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/OmegaPirate");
