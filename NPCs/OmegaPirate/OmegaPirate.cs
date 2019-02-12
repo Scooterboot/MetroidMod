@@ -1202,9 +1202,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 		}
 		void SetBodyOffset(float hOffset = 0f)
 		{
-			BodyPos[0] = npc.Center + CurrentBodyPos[0] + BodyOffset;
-			RLegPos[2] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2];
-			LLegPos[2] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2];
+			BodyPos[0] = npc.Center + (CurrentBodyPos[0] + BodyOffset) * fullScale;
+			RLegPos[2] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], npc.direction).ToRotationVector2()*RLegDist[2] * fullScale;
+			LLegPos[2] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], npc.direction).ToRotationVector2()*LLegDist[2] * fullScale;
 			if(RLegPos[2].Y >= LLegPos[2].Y)
 			{
 				BodyOffset.Y = 98f - ((RLegPos[2].Y+26f) - BodyPos[0].Y) + hOffset;
