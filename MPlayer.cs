@@ -124,6 +124,10 @@ namespace MetroidMod
         public int reserveTanks = 0;
         public int reserveHearts = 0;
 		public int phazonRegen = 0;
+        	public bool powerGrip = false;
+        	public bool isGripping = false;
+        	public int reGripTimer = 0;
+        	public int gripDir = 1;
 		int tweak = 0;
 		bool tweak2 = false;
 		public double Time = 0;
@@ -138,6 +142,7 @@ namespace MetroidMod
 			thrusters = false;
 			spaceJump = false;
 			speedBooster = false;
+			powerGrip = false;
 
 			if(!player.mount.Active || player.mount.Type != mod.MountType("MorphBallMount"))
 				morphBall = false;
@@ -441,7 +446,136 @@ namespace MetroidMod
                     }
                 }
             }
+            GripMovement();
 		}
+
+        public void GripMovement()
+        {
+            gripDir = player.direction;
+            isGripping = false;
+            reGripTimer--;
+            if (reGripTimer <= 0 && powerGrip && !player.mount.Active && ((!player.controlRight && gripDir == -1) || (!player.controlLeft && gripDir == 1)))
+            {
+                bool flag = false;
+                float num = player.position.X;
+                if (gripDir == 1)
+                {
+                    num += (float)player.width;
+                }
+                num += (float)gripDir;
+                float num2 = player.position.Y + 8f;
+                if (player.gravDir < 0f)
+                {
+                    num2 = player.position.Y + (float)player.height - 8f;
+                }
+                num /= 16f;
+                num2 /= 16f;
+                /*
+                //Allow gripping onto non solid tiles
+                if (Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive() && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.Rope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.SilkRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.VineRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.WebRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.Chain && (Main.tile[(int)num, (int)num2 - (int)player.gravDir].inActive() || !Main.tile[(int)num, (int)num2 - (int)player.gravDir].active() || (Main.tile[(int)num, (int)num2 - 1].bottomSlope() && player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].topSlope() && player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num, (int)num2 - (int)player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num, (int)num2 - (int)player.gravDir].type] || (Main.tile[(int)num, (int)num2].halfBrick() && player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].halfBrick() && player.gravDir == -1) || Main.tile[(int)num, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
+                {
+                    flag = true;
+                }
+                float num3 = player.Center.X / 16f;
+                if (Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive() && Main.tile[(int)num3, (int)num2].type != Terraria.ID.TileID.Rope && Main.tile[(int)num3, (int)num2].type != Terraria.ID.TileID.SilkRope && Main.tile[(int)num3, (int)num2].type != Terraria.ID.TileID.VineRope && Main.tile[(int)num3, (int)num2].type != Terraria.ID.TileID.WebRope && Main.tile[(int)num3, (int)num2].type != Terraria.ID.TileID.Chain && (Main.tile[(int)num3, (int)num2 - (int)player.gravDir].inActive() || !Main.tile[(int)num3, (int)num2 - (int)player.gravDir].active() || (Main.tile[(int)num3, (int)num2 - 1].bottomSlope() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].topSlope() && player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || (Main.tile[(int)num3, (int)num2].halfBrick() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].halfBrick() && player.gravDir == -1) || Main.tile[(int)num3, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
+                {
+                    flag = true;
+                }
+                */
+                if (Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive() && Main.tileSolid[Main.tile[(int)num, (int)num2].type] && !Main.tileSolidTop[Main.tile[(int)num, (int)num2].type] && (Main.tile[(int)num, (int)num2 - (int)player.gravDir].inActive() || !Main.tile[(int)num, (int)num2 - (int)player.gravDir].active() || (Main.tile[(int)num, (int)num2 - 1].bottomSlope() && player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].topSlope() && player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num, (int)num2 - (int)player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num, (int)num2 - (int)player.gravDir].type] || (Main.tile[(int)num, (int)num2].halfBrick() && player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].halfBrick() && player.gravDir == -1) || Main.tile[(int)num, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
+                {
+                    flag = true;
+                }
+                float num3 = player.Center.X / 16f;
+                if (Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive() && Main.tileSolid[Main.tile[(int)num3, (int)num2].type] && !Main.tileSolidTop[Main.tile[(int)num3, (int)num2].type] && (Main.tile[(int)num3, (int)num2 - (int)player.gravDir].inActive() || !Main.tile[(int)num3, (int)num2 - (int)player.gravDir].active() || (Main.tile[(int)num3, (int)num2 - 1].bottomSlope() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].topSlope() && player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || (Main.tile[(int)num3, (int)num2].halfBrick() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].halfBrick() && player.gravDir == -1) || Main.tile[(int)num3, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
+                {
+                    flag = true;
+                }
+                if (flag && ((player.velocity.Y > 0f && player.gravDir == 1f) || (player.velocity.Y < player.gravity && player.gravDir == -1f)))
+                {
+                    if (!player.controlDown)
+                    {
+                        reGripTimer = 0;
+                        player.fullRotation = 0;
+                        player.position.Y = ((int)num2 * 16) - 8;
+                        if (player.gravDir == 1 && (Main.tile[(int)num, (int)num2].halfBrick() || Main.tile[(int)num, (int)num2].type == Terraria.ID.TileID.MinecartTrack || Main.tile[(int)num3, (int)num2].halfBrick() || Main.tile[(int)num3, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
+                        {
+                            player.position.Y += 8;
+                        }
+                        if (player.gravDir == -1)
+                        {
+                            player.position.Y -= 12;
+                        }
+                        float grav = player.gravity;
+                        if (player.slowFall)
+                        {
+                            if (player.controlUp)
+                            {
+                                grav = player.gravity / 10f * player.gravDir;
+                            }
+                            else
+                            {
+                                grav = player.gravity / 3f * player.gravDir;
+                            }
+                        }
+                        if (player.velocity.X > 2)
+                        {
+                            player.velocity.X = 2;
+                        }
+                        if (player.velocity.X < -2)
+                        {
+                            player.velocity.X = -2;
+                        }
+                        player.fallStart = (int)(player.position.Y / 16f);
+                        if (player.doubleJumpCloud)
+                        {
+                            player.jumpAgainCloud = true;
+                        }
+                        if (player.doubleJumpSandstorm)
+                        {
+                            player.jumpAgainSandstorm = true;
+                        }
+                        if (player.doubleJumpBlizzard)
+                        {
+                            player.jumpAgainBlizzard = true;
+                        }
+                        if (player.doubleJumpFart)
+                        {
+                            player.jumpAgainFart = true;
+                        }
+                        if (player.doubleJumpSail)
+                        {
+                            player.jumpAgainSail = true;
+                        }
+                        if (player.doubleJumpUnicorn)
+                        {
+                            player.jumpAgainUnicorn = true;
+                        }
+                        if (player.controlJump)
+                        {
+                            player.velocity.Y = -Player.jumpSpeed * player.gravDir;
+                            player.jump = Player.jumpHeight;
+                            canSomersault = true;
+                        }
+                        else if (player.controlUp)
+                        {
+                            player.velocity.Y = -6 * player.gravDir;
+                            reGripTimer = 10;
+                        }
+                        else
+                        {
+                            player.velocity.Y = (-grav + 1E-05f) * player.gravDir;
+                        }
+                    }
+                    isGripping = true;
+                }
+                if (isGripping && player.controlDown)
+                {
+                    isGripping = false;
+                    reGripTimer = 10;
+                }
+            }
+        }
         public static bool TouchTiles(Vector2 Position, int Width, int Height, int tileType)
 		{
 			Vector2 vector = Position;
@@ -1006,6 +1140,28 @@ namespace MetroidMod
 					shineChargeFlash = 0;
 				}
 			}
+			    if (isGripping)
+			    {
+				if (player.position.X % 32 > 16 && player.velocity.X != 0)
+				{
+				    player.bodyFrame.Y = player.bodyFrame.Height * 1;
+				}
+				else
+				{
+				    player.bodyFrame.Y = player.bodyFrame.Height * 2;
+				}
+			    }
+			    if (player.velocity.Y * player.gravDir < 0 && reGripTimer > 0)
+			    {
+				if (reGripTimer > 5)
+				{
+				    player.bodyFrame.Y = player.bodyFrame.Height * 3;
+				}
+				else
+				{
+				    player.bodyFrame.Y = player.bodyFrame.Height * 4;
+				}
+			    }
 		}
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
