@@ -11,7 +11,7 @@ using MetroidMod.Items;
 
 namespace MetroidMod.Tiles
 {
-	public class MissileStation : ModTile
+	public class EnergyStation : ModTile
 	{
 		public override void SetDefaults()
 		{
@@ -27,8 +27,8 @@ namespace MetroidMod.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Missile Station");
-			AddMapEntry(new Color(144, 15, 54), name);
+			name.SetDefault("Energy Station");
+			AddMapEntry(new Color(232, 170, 57), name);
 		}
 
 		public override bool Slope(int i, int j) { return false; }
@@ -42,13 +42,13 @@ namespace MetroidMod.Tiles
             {
                 player.noThrow = 2;
                 player.showItemIcon = true;
-                player.showItemIcon2 = mod.ItemType("MissileStation");
+                player.showItemIcon2 = mod.ItemType("EnergyStation");
             }
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("MissileStation"));
+			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("EnergyStation"));
 		}
 
 		public override void RightClick(int i, int j)
@@ -60,7 +60,7 @@ namespace MetroidMod.Tiles
             Player player = Main.player[Player.FindClosest(worldPos, 16, 16)];
             if (player.Distance(worldPos) < 50)
             {
-                player.AddBuff(mod.BuffType("MissileRecharge"), 2);
+                player.AddBuff(mod.BuffType("EnergyRecharge"), 2);
             }
         }
 		/*public override void HitWire(int i, int j)
