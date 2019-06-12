@@ -120,9 +120,11 @@ namespace MetroidMod
 		public int overheatDelay = 0;
 		public int specialDmg = 100;
 		public bool phazonImmune = false;
-        public bool hazardShield = false;
-        public int reserveTanks = 0;
-        public int reserveHearts = 0;
+		public bool hazardShield = false;
+		public int reserveTanks = 0;
+		public int reserveHearts = 0;
+		public int reserveHearts = 0;
+		public int reserveHeartsValue = 20;
 		public int phazonRegen = 0;
         	public bool powerGrip = false;
         	public bool isGripping = false;
@@ -139,6 +141,7 @@ namespace MetroidMod
 			phazonRegen = 0;
             		hazardShield = false;
             		reserveTanks = 0;
+           		reserveHeartsValue = 20;
 			thrusters = false;
 			spaceJump = false;
 			speedBooster = false;
@@ -1058,12 +1061,12 @@ namespace MetroidMod
 		    {
 			if (player.statLifeMax < reserveHearts * 20)
 			{
-			    player.statLife = (player.statLifeMax / 20) * 20;
-			    reserveHearts -= (player.statLifeMax / 20);
+			    	player.statLife = player.statLifeMax;
+                    		reserveHearts -= (int)Math.Ceiling((double)player.statLifeMax / reserveHeartsValue);
 			}
 			else
 			{
-			    player.statLife = reserveHearts * 20;
+			    player.statLife = reserveHearts * reserveHeartsValue;
 			    reserveHearts = 0;
 			}
 			Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
