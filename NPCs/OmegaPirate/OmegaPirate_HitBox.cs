@@ -123,7 +123,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 				}
 			}
 			npc.GivenName = Base.GivenName;
-			npc.chaseable = npc.dontTakeDamage;
+			npc.chaseable != npc.dontTakeDamage;
 		}
 		public override bool? CanBeHitByItem(Player player, Item item)
 		{
