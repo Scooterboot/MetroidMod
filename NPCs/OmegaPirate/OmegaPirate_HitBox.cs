@@ -24,6 +24,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Omega Pirate");
+			Main.npcFrameCount[npc.type] = 2;
 		}
 		public override void SetDefaults()
 		{
@@ -122,6 +123,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 				}
 			}
 			npc.GivenName = Base.GivenName;
+			npc.chaseable = npc.dontTakeDamage;
 		}
 		public override bool? CanBeHitByItem(Player player, Item item)
 		{

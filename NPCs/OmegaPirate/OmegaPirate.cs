@@ -47,6 +47,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.npcSlots = 5;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/OmegaPirate");
 			//bossBag = mod.ItemType("OmegaPirateBag");
+			npc.chaseable = false;
 			
 			npc.ai = new float[8];
 		}
