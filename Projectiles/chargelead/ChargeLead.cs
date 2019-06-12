@@ -61,7 +61,22 @@ namespace MetroidMod.Projectiles.chargelead
 			float dmgMult = (1f+((float)mp.statCharge*0.04f));
 			int damage = (int)((float)I.damage*O.rangedDamage);
 
-			if(mp.statCharge == 10)
+			P.friendly = false;
+			P.damage = 0;
+			if (mp.somersault)
+			{
+				P.alpha = 255;
+				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
+				{
+					P.friendly = true;
+					P.damage = damage * 5 * ChargeShotAmt;
+					//mp.overheatDelay = (I.useTime*2);
+				}
+			}
+			else
+				P.alpha = 0;
+
+			if (mp.statCharge == 10)
 			{
 				soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+ChargeUpSound));
 			}
@@ -72,11 +87,6 @@ namespace MetroidMod.Projectiles.chargelead
 					soundInstance.Stop(true);
 				soundPlayed = true;
 			}
-			
-			O.itemTime = 2;
-			O.itemAnimation = 2;
-			
-			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
 			if(O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
 			{
@@ -85,18 +95,15 @@ namespace MetroidMod.Projectiles.chargelead
 					float MY = Main.mouseY + Main.screenPosition.Y;
 					float MX = Main.mouseX + Main.screenPosition.X;
 					if (O.gravDir == -1f)
-					{
 						MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-					}
 
+					Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 
 					Vector2 newVelocity = targetrotation.ToRotationVector2() * 26;
 
 					if (newVelocity.X != P.velocity.X || newVelocity.Y != P.velocity.Y)
-					{
 						P.netUpdate = true;
-					}
 
 					P.velocity = newVelocity;
 				}
@@ -121,53 +128,13 @@ namespace MetroidMod.Projectiles.chargelead
 				}
 				P.Kill();
 			}
-			
-			P.friendly = false;
-			P.damage = 0;
-			if(mp.somersault)
-			{
-				P.alpha = 255;
-				if(canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
-				{
-					P.friendly = true;
-					P.damage = damage*5*ChargeShotAmt;
-				}
-				P.position.X = oPos.X-P.width/2;
-				P.position.Y = oPos.Y-P.height/2;
-				P.velocity = Vector2.Zero;
-				if(O.controlLeft)
-				{
-					O.direction = -1;
-				}
-				if(O.controlRight)
-				{
-					O.direction = 1;
-				}
-			}
-			else
-			{
-				P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
-				P.alpha = 0;
-				if(P.velocity.X < 0)
-				{
-					P.direction = -1;
-				}
-				else
-				{
-					P.direction = 1;
-				}
-				P.spriteDirection = P.direction;
-				O.ChangeDir(P.direction);
-			}
-			P.position.X += (float)(P.width / 2);
-			P.position.Y += (float)(P.height / 2);
-			P.width = mp.somersault?50:16;
-			P.height = mp.somersault?60:16;
-			P.position.X -= (float)(P.width / 2);
-			P.position.Y -= (float)(P.height / 2);
 
-			P.rotation += 0.5f * P.direction;
+			P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
+			P.rotation = P.velocity.ToRotation();
 			P.spriteDirection = P.direction;
+			O.ChangeDir(P.direction);
+			O.itemTime = 2;
+			O.itemAnimation = 2;
 			P.timeLeft = 2;
 			O.heldProj = P.whoAmI;
 			O.itemRotation = (float)Math.Atan2(P.velocity.Y * O.direction, P.velocity.X * O.direction) - O.fullRotation;
@@ -186,18 +153,11 @@ namespace MetroidMod.Projectiles.chargelead
 
 			if (!mp.ballstate)
 			{
-				if(projectile.penetrate > 0)
-				{
-					// Charged shot sounds played here for network purposes.
-					if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
-					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ChargeShotSound));
-					}
-					else if ((mp.statCharge >= 30 || missile) && ShotSound != "none")
-					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ShotSound));
-					}
-				}
+				// Charged shot sounds played here for network purposes.
+				if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
+					Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ChargeShotSound));
+				else if ((mp.statCharge >= 30 || missile) && ShotSound != "none")
+					Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ShotSound));
 
 				mp.statCharge = 0;
 			}
