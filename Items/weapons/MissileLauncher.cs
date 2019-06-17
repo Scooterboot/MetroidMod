@@ -297,7 +297,7 @@ namespace MetroidMod.Items.weapons
 		}
 		
 		int targetingDelay = 0;
-		int prevTarget = -2;
+		//int prevTarget = -2;
 		int targetNum = 0;
 		public override void HoldItem(Player player)
 		{
@@ -389,13 +389,21 @@ namespace MetroidMod.Items.weapons
 								NPC npc = Main.npc[i];
 								//bool? flag3 = NPCLoader.CanBeHitByProjectile(npc, Main.projectile[chargeLead]);
 								//if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && (!flag3.HasValue || flag3.Value))// && (Collision.CanHit(player.Center, 1, 1, npc.position, npc.width, npc.height) || npc.noTileCollide))
-								if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && !npc.immortal)
+								if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly)// && !npc.immortal)
 								{
 									Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
-									if (mouse.Intersects(npcRect) && mi.seekerTarget[targetNum] <= -1 && (targetingDelay <= 0 || prevTarget != npc.whoAmI) && mi.statMissiles > mi.numSeekerTargets)
+									bool flag = false;
+									for (int j = 0; j < mi.seekerTarget.Length; j++)
+									{
+										if(mi.seekerTarget[j] == npc.whoAmI)
+										{
+											flag = true;
+										}
+									}
+									if (mouse.Intersects(npcRect) && mi.seekerTarget[targetNum] <= -1 && (targetingDelay <= 0 || !flag /*prevTarget != npc.whoAmI*/) && mi.statMissiles > mi.numSeekerTargets)
 									{
 										mi.seekerTarget[targetNum] = npc.whoAmI;
-										prevTarget = mi.seekerTarget[targetNum];
+										//prevTarget = mi.seekerTarget[targetNum];
 										targetNum++;
 										if (targetNum > 4)
 										{
@@ -469,7 +477,7 @@ namespace MetroidMod.Items.weapons
 							mi.seekerTarget[k] = -1;
 						}
 						targetNum = 0;
-						prevTarget = -2;
+						//prevTarget = -2;
 						targetingDelay = 0;
 					}
 				}
@@ -482,7 +490,7 @@ namespace MetroidMod.Items.weapons
 						mi.seekerTarget[k] = -1;
 					}
 					targetNum = 0;
-					prevTarget = -2;
+					//prevTarget = -2;
 					targetingDelay = 0;
 				}
 			}
