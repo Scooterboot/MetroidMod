@@ -2,42 +2,40 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidMod.Items.tiles
+namespace MetroidMod.Items.equipables
 {
-	public class ReserveTank : ModItem
+	public class ReserveTank2 : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reserve Tank");
-            Tooltip.SetDefault("Stores a heart picked up when at full health\n" + 
-                "Automatically uses the stored heart to save you from death");
+			DisplayName.SetDefault("Reserve Tank MK2");
+            Tooltip.SetDefault("Stores up to 2 hearts picked up when at full health\n" + 
+                "Automatically uses the stored hearts to save you from death");
 		}
 		public override void SetDefaults()
 		{
-			item.width = 32;
+			item.width = 64;
 			item.height = 32;
 			item.maxStack = 1;
 			item.useTurn = true;
-			item.autoReuse = true;
 			item.useAnimation = 15;
-			item.useTime = 10;
+			item.useTime = 15;
 			item.useStyle = 1;
-			item.consumable = true;
-			item.createTile = mod.TileType("ReserveTank");
-			item.rare = 2;
-			item.value = 20000;
+			item.consumable = false;
+			item.rare = 3;
+			item.value = 40000;
             item.accessory = true;
 		}
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-            mp.reserveTanks = 1;
+            mp.reserveTanks = 2;
         }
         public override bool CanEquipAccessory(Player player, int slot)
         {
             for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
             {
-                if (player.armor[k].type == mod.ItemType("ReserveTank2") || player.armor[k].type == mod.ItemType("ReserveTank3") || player.armor[k].type == mod.ItemType("ReserveTank4") || player.armor[k].type == mod.ItemType("ReserveTank5"))
+                if (player.armor[k].type == mod.ItemType("ReserveTank") || player.armor[k].type == mod.ItemType("ReserveTank3") || player.armor[k].type == mod.ItemType("ReserveTank4") || player.armor[k].type == mod.ItemType("ReserveTank5"))
                 {
                     return false;
                 }
@@ -47,9 +45,9 @@ namespace MetroidMod.Items.tiles
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "EnergyTank", 1);
-            recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(null, "ReserveTank", 2);
+            recipe.AddIngredient(ItemID.Bone, 5);
+            recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

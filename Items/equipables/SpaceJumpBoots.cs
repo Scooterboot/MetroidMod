@@ -49,8 +49,18 @@ namespace MetroidMod.Items.equipables
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			mp.AddSpaceJump(player);
+			mp.spaceJumpBoots = true;
 		}
-		
+		public override bool CanEquipAccessory(Player player, int slot)
+		{
+		    for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
+		    {
+				if(k != slot && (player.armor[k].type == mod.ItemType("ScrewAttack") || player.armor[k].type == mod.ItemType("SpaceJump")))
+				{
+					return false;
+				}
+		    }
+		    return true;
+		}
 	}
 }

@@ -1,4 +1,3 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,12 +8,12 @@ namespace MetroidMod.Items.tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Missile Station");
-			Tooltip.SetDefault("Recharges Missiles");
+			Tooltip.SetDefault("Right click the station while standing next to it to recharge your missiles");
 		}
 		public override void SetDefaults()
 		{
-			item.width = 54;
-			item.height = 48;
+			item.width = 30;
+			item.height = 30;
 			item.maxStack = 999;
 			item.useTurn = true;
 			item.autoReuse = true;
