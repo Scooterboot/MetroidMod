@@ -69,10 +69,12 @@ namespace MetroidMod
 		public float statSpaceJumps = maxSpaceJumps;
 		public int spaceJumpsRegenDelay = 0;
 		public int screwAttackSpeedEffect = 0;
-		public bool screwAttack = false;
+		public int screwSpeedDelay = 0;
+		public int screwAttack = 0;
 		public bool isPowerSuit = false;
 		public bool thrusters = false;
 		public bool spaceJump = false;
+		public bool spaceJumpBoots = false;
 		public bool visorGlow = false;
 		public Color visorGlowColor = new Color(255, 255, 255);
 		public Texture2D thrusterTexture;
@@ -82,7 +84,7 @@ namespace MetroidMod
 		public Color morphItemColor = Color.White;
 		public Vector2 oldPosition;
 		
-		#region misc
+	#region misc
 		public bool somersault = false;
 		public float rotation = 0.0f;
 		public float rotateSpeed = 0.05f;
@@ -113,23 +115,22 @@ namespace MetroidMod
 		//int soundDelay2 = 42;
 		//public bool grappleBeamIsHooked = false;
 		public float breathMult = 1f;
-		#endregion
+	#endregion
 		public float maxOverheat = 100f;
 		public float statOverheat = 0f;
 		public float overheatCost = 1f;
 		public int overheatDelay = 0;
 		public int specialDmg = 100;
 		public bool phazonImmune = false;
-		public bool hazardShield = false;
-		public int reserveTanks = 0;
-		public int reserveHearts = 0;
-		public int reserveHearts = 0;
-		public int reserveHeartsValue = 20;
+        public bool hazardShield = false;
+        public int reserveTanks = 0;
+        public int reserveHearts = 0;
+        public int reserveHeartsValue = 20;
 		public int phazonRegen = 0;
-        	public bool powerGrip = false;
-        	public bool isGripping = false;
-        	public int reGripTimer = 0;
-        	public int gripDir = 1;
+		public bool powerGrip = false;
+		public bool isGripping = false;
+		public int reGripTimer = 0;
+		public int gripDir = 1;
 		int tweak = 0;
 		bool tweak2 = false;
 		public double Time = 0;
@@ -139,12 +140,14 @@ namespace MetroidMod
 			isPowerSuit = false;
 			phazonImmune = false;
 			phazonRegen = 0;
-            		hazardShield = false;
-            		reserveTanks = 0;
-           		reserveHeartsValue = 20;
+			hazardShield = false;
+			reserveTanks = 0;
+			reserveHeartsValue = 20;
 			thrusters = false;
 			spaceJump = false;
+			spaceJumpBoots = false;
 			speedBooster = false;
+			screwAttack = 0;
 			powerGrip = false;
 
 			if(!player.mount.Active || player.mount.Type != mod.MountType("MorphBallMount"))
@@ -191,7 +194,7 @@ namespace MetroidMod
 			morphColorLights.A = 255;
 			morphItemColor = P.shirtColor;
 			morphItemColor.A = 255;
-			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 && P.velocity.X != 0 && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
+			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 /*&& P.velocity.X != 0*/ && !player.sliding && !isGripping && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
 
 			player.breathMax = (int)(200 * breathMult);
@@ -449,7 +452,6 @@ namespace MetroidMod
                     }
                 }
             }
-            GripMovement();
 		}
 
         public void GripMovement()
@@ -857,7 +859,7 @@ namespace MetroidMod
 			ballstate = (player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"));
 			
 			//morph ball transformation tweaks and effects
-			if((player.miscEquips[3].type == mod.ItemType("MorphBall") || player.mount.Type == mod.MountType("MorphBallMount")) && player.controlMount)
+			if((player.miscEquips[3].type == mod.ItemType("MorphBall") || player.mount.Type == mod.MountType("MorphBallMount")) && player.controlMount && !shineActive)
 			{
 				if(mflag)
 				{
@@ -902,10 +904,13 @@ namespace MetroidMod
 		}
 		public override void PostUpdateMiscEffects()
 		{
-			this.GrappleBeamMovement();
+			GripMovement();
+			
+			GrappleBeamMovement();
 
 			if(speedBooster)
 			{
+				AddSpeedBoost(player);
 				if(player.controlJump)
 				{
 					if(player.velocity.Y == 0)
@@ -932,6 +937,19 @@ namespace MetroidMod
 			else
 			{
 				sbFlag = false;
+			}
+			
+			if(spaceJumpBoots || spaceJump || screwAttack > 0)
+			{
+				AddSpaceJumpBoots(player);
+				if(spaceJump)
+				{
+					AddSpaceJump(player);
+				}
+				if(screwAttack > 0)
+				{
+					AddScrewAttack(player,screwAttack);
+				}
 			}
 			
 			if(shineActive || shineDirection != 0 || (spiderball && CurEdge != Edge.None))
@@ -1053,25 +1071,34 @@ namespace MetroidMod
 				shineDischarge = 0;
 				shineActive = false;
 			}
+			if(!spaceJumpBoots && !spaceJump)
+			{
+				canSomersault = false;
+			}
+			if(screwAttack <= 0)
+			{
+				screwAttackSpeedEffect = 0;
+				screwSpeedDelay = 0;
+			}
 			grapplingBeam = -1;
 		}
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
 		    if (reserveTanks > 0 && reserveHearts > 0)
 		    {
-			if (player.statLifeMax < reserveHearts * 20)
-			{
-			    	player.statLife = player.statLifeMax;
-                    		reserveHearts -= (int)Math.Ceiling((double)player.statLifeMax / reserveHeartsValue);
+				if (player.statLifeMax < reserveHearts * reserveHeartsValue)
+				{
+					player.statLife = player.statLifeMax;
+					reserveHearts -= (int)Math.Ceiling((double)player.statLifeMax / reserveHeartsValue);
+				}
+				else
+				{
+					player.statLife = reserveHearts * reserveHeartsValue;
+					reserveHearts = 0;
+				}
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
+				return false;
 			}
-			else
-			{
-			    player.statLife = reserveHearts * reserveHeartsValue;
-			    reserveHearts = 0;
-			}
-			Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
-			return false;
-		    }
 		    return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
 		}
 		public int psuedoScrewFlash = 0;
@@ -1143,8 +1170,8 @@ namespace MetroidMod
 					shineChargeFlash = 0;
 				}
 			}
-			    if (isGripping)
-			    {
+			if (isGripping)
+			{
 				if (player.position.X % 32 > 16 && player.velocity.X != 0)
 				{
 				    player.bodyFrame.Y = player.bodyFrame.Height * 1;
@@ -1153,9 +1180,9 @@ namespace MetroidMod
 				{
 				    player.bodyFrame.Y = player.bodyFrame.Height * 2;
 				}
-			    }
-			    if (player.velocity.Y * player.gravDir < 0 && reGripTimer > 0)
-			    {
+			}
+			if (player.velocity.Y * player.gravDir < 0 && reGripTimer > 0)
+			{
 				if (reGripTimer > 5)
 				{
 				    player.bodyFrame.Y = player.bodyFrame.Height * 3;
@@ -1164,7 +1191,7 @@ namespace MetroidMod
 				{
 				    player.bodyFrame.Y = player.bodyFrame.Height * 4;
 				}
-			    }
+			}
 		}
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
@@ -1383,7 +1410,7 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
-			if (mPlayer.somersault && mPlayer.screwAttack && drawInfo.shadow == 0f && !mPlayer.ballstate)
+			if (mPlayer.somersault && mPlayer.screwAttack > 0 && drawInfo.shadow == 0f && !mPlayer.ballstate)
 			{
 				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
 				Texture2D tex2 = mod.GetTexture("Gore/ScrewAttack_Yellow");
@@ -1916,10 +1943,9 @@ namespace MetroidMod
 				sMoveDir = 1;
 			}
 		}
-        public void AddSpaceJumping(Player player)
+        public void AddSpaceJump(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-			AddSpaceJump(player);
 			if(mp.statSpaceJumps >= 15 && player.grappling[0] == -1  && mp.spaceJumped && !player.jumpAgainCloud && !player.jumpAgainBlizzard && !player.jumpAgainSandstorm && !player.jumpAgainFart && player.jump == 0 && player.velocity.Y != 0f && player.rocketTime == 0 && player.wingTime == 0f && !player.mount.Active)
 			{
 				if(player.controlJump && player.releaseJump && player.velocity.Y != 0 && mp.spaceJumped)
@@ -1930,9 +1956,8 @@ namespace MetroidMod
 					mp.spaceJumpsRegenDelay = 25;
 				}
 			}
-			mp.spaceJump = true;
 		}
-        public void AddSpaceJump(Player player)
+        public void AddSpaceJumpBoots(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
 			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || mp.grapplingBeam >= 0)
@@ -1982,6 +2007,84 @@ namespace MetroidMod
 				player.canRocket = false;
 				player.rocketRelease = false;
 				player.fallStart = (int)(player.Center.Y / 16f);
+			}
+			if(mp.spaceJumped)
+			{
+				mp.canSomersault = true;
+			}
+		}
+		int screwProj = -1;
+		public void AddScrewAttack(Player player, int damageMult)
+		{
+			if(somersault)
+			{
+				bool flag = false;
+				player.longInvince = true;
+				int screwAttackID = mod.ProjectileType("ScrewAttackProj");
+				foreach(Projectile P in Main.projectile)
+				{
+					if(P.active && P.owner==player.whoAmI && P.type == screwAttackID)
+					{
+						flag = true;
+						break;
+					}
+				}
+				if(!flag)
+				{
+					screwProj = Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,screwAttackID,specialDmg*damageMult,0,player.whoAmI);
+				}
+			}
+			if(screwSpeedDelay <= 0 && !ballstate && player.grappling[0] == -1 && player.velocity.Y != 0f && !player.mount.Active)
+			{
+				if(player.controlJump && player.releaseJump && System.Math.Abs(player.velocity.X) > 2.5f)
+				{
+					screwSpeedDelay = 20;
+				}
+			}
+			if(screwSpeedDelay > 0)
+			{
+				if(player.jump > 1 && ((player.velocity.Y < 0 && player.gravDir == 1) || (player.velocity.Y > 0 && player.gravDir == -1)) && screwSpeedDelay >= 19 && somersault)
+				{
+					screwAttackSpeedEffect = 60;
+				}
+				screwSpeedDelay--;
+			}
+			if(screwAttackSpeedEffect > 0)
+			{
+				if (player.controlLeft)
+				{
+					if (player.velocity.X < -2 && player.velocity.X > -8*player.moveSpeed)
+					{
+						player.velocity.X -= 0.2f;
+						player.velocity.X -= (float) 0.02+((player.moveSpeed-1f)/10);
+					}
+				}
+				else if (player.controlRight)
+				{
+					if (player.velocity.X > 2 && player.velocity.X < 8*player.moveSpeed)
+					{
+						player.velocity.X += 0.2f;
+						player.velocity.X += (float) 0.02+((player.moveSpeed-1f)/10);
+					}
+				}
+				for(int i = 0; i < (screwAttackSpeedEffect/20); i++)
+				{
+					if(screwProj != -1)
+					{
+						Projectile P = Main.projectile[screwProj];
+						if(P.active && P.owner == player.whoAmI && P.type == mod.ProjectileType("ScrewAttackProj"))
+						{
+							Color color = new Color();
+							int dust = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 57, -player.velocity.X * 0.5f, -player.velocity.Y * 0.5f, 100, color, 2f);
+							Main.dust[dust].noGravity = true;
+							if(i == ((screwAttackSpeedEffect/20)-1) && screwAttackSpeedEffect == 59)
+							{
+								Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/ScrewAttackSpeedSound"));
+							}
+						}
+					}
+				}
+				screwAttackSpeedEffect--;
 			}
 		}
 		
