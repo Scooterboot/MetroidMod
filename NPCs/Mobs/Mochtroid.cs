@@ -22,7 +22,7 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            npc.width = 28; npc.height = 30;
+            npc.width = 28; npc.height = 20;
 
             /* Temporary NPC values */
             npc.scale = 1.5F;

@@ -21,7 +21,7 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            npc.width = 28; npc.height = 20;
+            npc.width = 22; npc.height = 16;
 
             /* Temporary NPC values */
             npc.scale = 2;
@@ -78,6 +78,7 @@ namespace MetroidMod.NPCs.Mobs
                 else
                     npc.frame.Y = 4 * frameHeight;
             }
+			npc.spriteDirection = -npc.direction;
         }
     }
 }

@@ -349,19 +349,13 @@ namespace MetroidMod.Items.weapons
 						}
 					}
 					else if (!mp.ballstate)
-					{
 						mp.statCharge = 0;
-					}
 				}
 				else
-				{
 					mp.statCharge = 0;
-				}
 
 				if (targetingDelay > 0)
-				{
 					targetingDelay--;
-				}
 
 				if (isSeeker && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 				{

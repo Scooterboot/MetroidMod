@@ -27,7 +27,8 @@ namespace MetroidMod.NPCs.Mobs
             npc.knockBackResist = 0;
 
             npc.npcSlots = .5F;
-            npc.HitSound = SoundID.NPCHit1;
+			npc.behindTiles = true;
+			npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
         }
 

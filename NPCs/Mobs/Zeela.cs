@@ -93,33 +93,33 @@ namespace MetroidMod.NPCs.Mobs
                 npc.frameCounter = 0;
             }
 
-            // Rotate the NPC correctly (visually).
-            if (npc.direction == 1)
-            {
-                if (npc.directionY == 1)
-                {
-                    npc.rotation = -MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(12, 0);
-                }
-                else
-                {
-                    npc.rotation = -(float)Math.PI;
-                    npc.visualOffset = new Vector2(0, -6);
-                }
-            }
-            else
-            {
-                if (npc.directionY == 1)
-                {
-                    npc.rotation = 0;
-                    npc.visualOffset = new Vector2(0, 0);
-                }
-                else
-                {
-                    npc.rotation = MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(-12, 0);
-                }
-            }
-        }
+			// Rotate the NPC correctly (visually).
+			if (npc.direction == 1)
+			{
+				if (npc.directionY == 1)
+				{
+					npc.rotation = 0;
+					npc.visualOffset = new Vector2(0, 0);
+				}
+				else
+				{
+					npc.rotation = -MathHelper.PiOver2;
+					npc.visualOffset = new Vector2(4, 0);
+				}
+			}
+			else
+			{
+				if (npc.directionY == 1)
+				{
+					npc.rotation = MathHelper.PiOver2;
+					npc.visualOffset = new Vector2(-4, 0);
+				}
+				else
+				{
+					npc.rotation = (float)Math.PI;
+					npc.visualOffset = new Vector2(0, -6);
+				}
+			}
+		}
     }
 }

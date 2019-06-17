@@ -9,7 +9,7 @@ namespace MetroidMod.Items.equipables
     [AutoloadEquip(EquipType.Legs)]
     class ChoziteGreaves : ModItem
     {
-    public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Greaves");
 		}

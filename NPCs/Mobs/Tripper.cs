@@ -67,12 +67,15 @@ namespace MetroidMod.NPCs.Mobs
         {
             if (npc.direction > 0)
             {
-                if (npc.velocity.X < speed / 3)
-                    npc.frame.Y = 0;
-                else if (npc.velocity.X < (speed / 3) * 2)
-                    npc.frame.Y = frameHeight;
-                else
-                    npc.frame.Y = 2 * frameHeight;
+				if (npc.velocity.X < speed / 3)
+					npc.frame.Y = 0;
+				else if (npc.velocity.X < (speed / 3) * 2)
+					npc.frame.Y = frameHeight;
+				else
+				{
+					npc.frameCounter++;
+					npc.frame.Y = frameHeight * ((npc.frameCounter % 20 < 10) ? 2 : 1);
+				}
             }
             else
             {
@@ -80,9 +83,12 @@ namespace MetroidMod.NPCs.Mobs
                     npc.frame.Y = 0;
                 else if (npc.velocity.X > (-speed / 3) * 2)
                     npc.frame.Y = frameHeight;
-                else
-                    npc.frame.Y = 2 * frameHeight;
-            }
+				else
+				{
+					npc.frameCounter++;
+					npc.frame.Y = frameHeight * ((npc.frameCounter % 20 < 10) ? 2 : 1);
+				}
+			}
 
             npc.spriteDirection = -npc.direction;
         }

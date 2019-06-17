@@ -8,4 +8,6 @@
 /Metroid Mod.csproj
 /.vs/Metroid Mod/v14/.suo
 *.bak
+*.cache
 /Metroid Mod.sln
+.vs*

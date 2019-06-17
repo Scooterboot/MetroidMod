@@ -19,7 +19,8 @@ namespace MetroidMod
 {
 	public enum MetroidMessageType : byte
 	{
-		SyncPlayerStats
+		SyncPlayerStats,
+		PlaySyncedSound
 	}
 
 	public class MetroidMod : Mod
@@ -520,6 +521,23 @@ namespace MetroidMod
 						packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
+						packet.Send(-1, whoAmI);
+					}
+					break;
+
+				case MetroidMessageType.PlaySyncedSound:
+					byte playerID2 = reader.ReadByte();
+					Player targetPlayer2 = Main.player[playerID2];
+					string sound = reader.ReadString();
+
+					Main.PlaySound(GetLegacySoundSlot(SoundType.Custom, "Sounds/" + sound), targetPlayer2.position);
+
+					if (Main.netMode == 2)
+					{
+						ModPacket packet = GetPacket();
+						packet.Write((byte)MetroidMessageType.PlaySyncedSound);
+						packet.Write(playerID2);
+						packet.Write(sound);
 						packet.Send(-1, whoAmI);
 					}
 					break;
