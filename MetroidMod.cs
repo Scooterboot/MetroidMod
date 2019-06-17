@@ -39,7 +39,6 @@ namespace MetroidMod
 		public static Color wideColor = new Color(255, 210, 255);
 		public static Color lumColor = new Color(209, 255, 250);
 
-		internal static ModHotKey MorphBallKey;
 		internal static ModHotKey SpiderBallKey;
 		internal static ModHotKey BoostBallKey;
 		internal static ModHotKey PowerBombKey;
@@ -73,7 +72,6 @@ namespace MetroidMod
 
 			FrozenStandOnNPCs = new int[] { this.NPCType("Ripper") };
 
-			MorphBallKey = RegisterHotKey("Morph Ball", "Z");
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
 			BoostBallKey = RegisterHotKey("Boost Ball", "F");
 			PowerBombKey = RegisterHotKey("Power Bomb", "R");
@@ -150,6 +148,65 @@ namespace MetroidMod
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
+			Player P = Main.player[Main.myPlayer];
+			
+			int TargetIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Entity Health Bars"));
+			if(TargetIndex != -1)
+			{
+				layers.Insert(TargetIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Seeker Targets",
+					delegate
+					{
+						DrawSeekerTargets(Main.spriteBatch);
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+			}
+			
+			int MapIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Map / Minimap"));
+			if(MapIndex != -1)
+			{
+				layers.Insert(MapIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Charge Meter",
+					delegate
+					{
+						if(!Main.playerInventory && Main.npcChatText == "" && P.sign < 0 && !Main.ingameOptionsWindow)
+						{
+							DrawChargeBar(Main.spriteBatch);
+						}
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(MapIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Space Jump Meter",
+					delegate
+					{
+						if(!Main.playerInventory && Main.npcChatText == "" && P.sign < 0 && !Main.ingameOptionsWindow)
+						{
+							DrawSpaceJumpBar(Main.spriteBatch);
+						}
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+			}
+			
+			int ResourceIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+			if(ResourceIndex != -1)
+			{
+				layers.Insert(ResourceIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Reserve Tanks",
+					delegate
+					{
+						DrawReserveHearts(Main.spriteBatch);
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+			}
+			
 			int InventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 			if (InventoryIndex != -1)
 			{
@@ -187,20 +244,12 @@ namespace MetroidMod
 		}
 
 		static int z = 0;
-		float tRot = 0f;
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
 			Item item = P.inventory[P.selectedItem];
-			
-			if(!Main.playerInventory && Main.npcChatText == "" && P.sign < 0 && !Main.ingameOptionsWindow)
-			{
-				DrawChargeBar(sb);
-				DrawSpaceJumpBar(sb);
-			}
-					DrawReserveHearts(sb);
 
 			if (P.buffType[0] > 0)
 			{
@@ -217,6 +266,14 @@ namespace MetroidMod
 			{
 				z = 0;
 			}
+		}
+		float tRot = 0f;
+		public void DrawSeekerTargets(SpriteBatch sb)
+		{
+			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Player P = Main.player[Main.myPlayer];
+			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			Item item = P.inventory[P.selectedItem];
 			
 			if(item.type == mod.ItemType("MissileLauncher"))
 			{
@@ -228,10 +285,32 @@ namespace MetroidMod
 					{
 						if(mi.seekerTarget[i] > -1)
 						{
-							NPC npc = Main.npc[mi.seekerTarget[i]];
-							Texture2D tTex = mod.GetTexture("Gore/Targeting_retical");
-							Color color = new Color(255, 255, 255, 10);
-							sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tTex.Width, tTex.Height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)tTex.Height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
+							int frame = 0;
+							bool flag = true;
+							for(int j = 0; j < mi.seekerTarget.Length; j++)
+							{
+								if(i != j)
+								{
+									if(mi.seekerTarget[i] == mi.seekerTarget[j])
+									{
+										flag = false;
+										frame += 1;
+									}
+								}
+								else
+								{
+									flag = true;
+								}
+							}
+							if(flag)
+							{
+								NPC npc = Main.npc[mi.seekerTarget[i]];
+								Texture2D tTex = mod.GetTexture("Gore/Targeting_retical");
+								Color color = new Color(255, 255, 255, 10);
+								int height = tTex.Height / 5;
+								int yFrame = height*frame;
+								sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
+							}
 						}
 					}
 				}
@@ -419,7 +498,7 @@ namespace MetroidMod
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
 			if (mp.reserveTanks > 0)
-				{
+			{
 				Texture2D texHeart = mod.GetTexture("Gore/ReserveHeart");
 				if (P.whoAmI == Main.myPlayer && P.active && !P.dead && !P.ghost)
 				{
@@ -428,68 +507,68 @@ namespace MetroidMod
 					int num2 = (Main.player[Main.myPlayer].statLifeMax - 400) / 5;
 					if (num2 < 0)
 					{
-					num2 = 0;
+						num2 = 0;
 					}
 					if (num2 > 0)
 					{
-					num = Main.player[Main.myPlayer].statLifeMax / (20 + num2 / 4);
-					lifePerHeart = (float)Main.player[Main.myPlayer].statLifeMax / 20f;
+						num = Main.player[Main.myPlayer].statLifeMax / (20 + num2 / 4);
+						lifePerHeart = (float)Main.player[Main.myPlayer].statLifeMax / 20f;
 					}
 					int num3 = Main.player[Main.myPlayer].statLifeMax2 - Main.player[Main.myPlayer].statLifeMax;
 					lifePerHeart += (float)(num3 / num);
 					int num4 = (int)((float)Main.player[Main.myPlayer].statLifeMax2 / lifePerHeart);
 					if (num4 >= 10)
 					{
-					num4 = 10;
+						num4 = 10;
 					}
 					for (int i = 1; i < mp.reserveHearts + 1; i++)
 					{
-					float num5 = 1f;
-					bool flag = false;
-					int num6;
-					if ((float)Main.player[Main.myPlayer].statLife >= (float)i * lifePerHeart)
-					{
-						num6 = 255;
-						if ((float)Main.player[Main.myPlayer].statLife == (float)i * lifePerHeart)
+						float num5 = 1f;
+						bool flag = false;
+						int num6;
+						if ((float)Main.player[Main.myPlayer].statLife >= (float)i * lifePerHeart)
 						{
-						flag = true;
+							num6 = 255;
+							if ((float)Main.player[Main.myPlayer].statLife == (float)i * lifePerHeart)
+							{
+								flag = true;
+							}
 						}
-					}
-					else
-					{
-						float num7 = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * lifePerHeart) / lifePerHeart;
-						num6 = (int)(30f + 225f * num7);
-						if (num6 < 30)
+						else
 						{
-						num6 = 30;
+							float num7 = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * lifePerHeart) / lifePerHeart;
+							num6 = (int)(30f + 225f * num7);
+							if (num6 < 30)
+							{
+								num6 = 30;
+							}
+							num5 = num7 / 4f + 0.75f;
+							if ((double)num5 < 0.75)
+							{
+								num5 = 0.75f;
+							}
+							if (num7 > 0f)
+							{
+								flag = true;
+							}
 						}
-						num5 = num7 / 4f + 0.75f;
-						if ((double)num5 < 0.75)
+						if (flag)
 						{
-						num5 = 0.75f;
+							num5 += Main.cursorScale - 1f;
 						}
-						if (num7 > 0f)
+						int num8 = 0;
+						int num9 = 0;
+						if (i > 10)
 						{
-						flag = true;
+							num8 -= 260;
+							num9 += 26;
 						}
-					}
-					if (flag)
-					{
-						num5 += Main.cursorScale - 1f;
-					}
-					int num8 = 0;
-					int num9 = 0;
-					if (i > 10)
-					{
-						num8 -= 260;
-						num9 += 26;
-					}
-					int a = (int)((double)((float)num6) * 0.9);
-					if (mp.reserveHeartsValue >= 25)
-					{
-					    texHeart = mod.GetTexture("Gore/ReserveHeart2");
-					}
-					Main.spriteBatch.Draw(texHeart, new Vector2((float)(500 + 26 * (i - 1) + num8 + (Main.screenWidth - 800) + Main.heartTexture.Width / 2), 32f + ((float)Main.heartTexture.Height - (float)Main.heartTexture.Height * num5) / 2f + (float)num9 + (float)(Main.heartTexture.Height / 2)), new Rectangle?(new Rectangle(0, 0, texHeart.Width, texHeart.Height)), new Color(num6, num6, num6, a), 0f, new Vector2((float)(texHeart.Width / 2), (float)(texHeart.Height / 2)), num5, SpriteEffects.None, 0f);
+						int a = (int)((double)((float)num6) * 0.9);
+						if (mp.reserveHeartsValue >= 25)
+						{
+							texHeart = mod.GetTexture("Gore/ReserveHeart2");
+						}
+						Main.spriteBatch.Draw(texHeart, new Vector2((float)(500 + 26 * (i - 1) + num8 + (Main.screenWidth - 800) + Main.heartTexture.Width / 2), 32f + ((float)Main.heartTexture.Height - (float)Main.heartTexture.Height * num5) / 2f + (float)num9 + (float)(Main.heartTexture.Height / 2)), new Rectangle?(new Rectangle(0, 0, texHeart.Width, texHeart.Height)), new Color(num6, num6, num6, a), 0f, new Vector2((float)(texHeart.Width / 2), (float)(texHeart.Height / 2)), num5, SpriteEffects.None, 0f);
 					}
 				}
 			}
@@ -528,59 +607,6 @@ namespace MetroidMod
 					}
 					break;
 			}
-		}
-		
-		public static float Vector2Angle(Vector2 Angle1, Vector2 Angle2, int dirX = 1, int dirY = 1, float mult = 1f, float min = 0f, float max = 0f)
-		{
-			float targetAngle = (float)Math.Atan2((Angle2.Y-Angle1.Y)*dirY,(Angle2.X-Angle1.X)*dirX);
-			
-			float angle = targetAngle * mult;
-			if (min < 0f && angle < min)
-			{
-				angle = min;
-			}
-			if (max > 0f && angle > max)
-			{
-				angle = max;
-			}
-			return angle;
-		}
-		
-		public static float AngleFlip(float angle, int dir)
-		{
-			float cos = (float)Math.Cos(angle);
-			float sin = (float)Math.Sin(angle);
-			return (float)Math.Atan2(sin,cos*dir);
-		}
-		
-		public static float LerpArray(float value1, float[] value2, float amount)
-		{
-			float result = value1;
-			for(int i = 0; i < value2.Length; i++)
-			{
-				if((i+1) >= amount)
-				{
-					float firstValue = value1;
-					float secondValue = value2[i];
-					if(i > 0)
-					{
-						firstValue = value2[i-1];
-					}
-					float amt = amount-i;
-					result = firstValue + (secondValue-firstValue)*amt;
-					break;
-				}
-			}
-			return result;
-		}
-		
-		public static double ConvertToRadians(double angle)
-		{
-			return (Math.PI / 180) * angle;
-		}
-		public static double ConvertToDegrees(double angle)
-		{
-			return angle * (180 / Math.PI);
 		}
 	}
 }
