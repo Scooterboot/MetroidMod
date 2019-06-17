@@ -55,6 +55,7 @@ namespace MetroidMod
 		public SoundEffectInstance soundInstance;
 		public bool trap = false;
 		public bool executeChange = false;
+		int unMorphDir = 0;
 	#endregion
         public Color boostGold = Color.FromNonPremultiplied(255, 255, 0, 6);
         public Color boostYellow = Color.FromNonPremultiplied(255, 215, 0, 6);
@@ -167,15 +168,28 @@ namespace MetroidMod
 			ballstate = (player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"));
 			if(ballstate)
 			{
+				unMorphDir = 0;
 				if(CheckCollide(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
 				{
-					player.controlMount = false;
-					player.releaseMount = false;
-					mflag = false;
+					if(!CheckCollide(player.position-new Vector2((20-morphSize),42-morphSize),20,42))
+					{
+						unMorphDir = -1;
+					}
+					else if(!CheckCollide(player.position-new Vector2(0,42-morphSize),20,42))
+					{
+						unMorphDir = 1;
+					}
+					else
+					{
+						player.controlMount = false;
+						player.releaseMount = false;
+						mflag = false;
+					}
 				}
 			}
 			else
 			{
+				unMorphDir = 0;
 				boostCharge = 0;
 				boostEffect = 0;
 				spiderball = false;
@@ -893,7 +907,19 @@ namespace MetroidMod
 					player.width = ballstate?morphSize:20;
 					int newWidth = player.width;
 					float widthDiff = (float)(oldWidth - newWidth)*0.5f;
-					player.position.X += widthDiff;
+					player.position.X += widthDiff - widthDiff*unMorphDir;
+					
+					rotation = 0f;
+					player.fullRotation = 0f;
+					for(int i = 0; i < oldPos.Length; i++)
+					{
+						oldPos[i] = new Vector2(player.position.X,player.position.Y+player.gfxOffY);
+					}
+					for(int i = 0; i < player.shadowPos.Length; i++)
+					{
+						player.shadowPos[i] = player.position;
+					}
+					
 					mflag = false;
 				}
 			}
