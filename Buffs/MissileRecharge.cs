@@ -22,8 +22,12 @@ namespace MetroidMod.Buffs
                 if (player.inventory[i].type == mod.ItemType("MissileLauncher"))
                 {
                     MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>(mod);
-                    mi.statMissiles++;
                     flag = true;
+					if(mi.statMissiles < mi.maxMissiles)
+					{
+						mi.statMissiles++;
+						break;
+					}
                     if (mi.statMissiles >= mi.maxMissiles)
                     {
                         Main.PlaySound(SoundLoader.customSoundType, player.Center, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
@@ -34,7 +38,8 @@ namespace MetroidMod.Buffs
             if (!flag || player.controlJump || player.controlUseItem)
             {
                 player.DelBuff(buffIndex);
-                buffIndex--;           }
+                buffIndex--;
+			}
             else
             {
                 player.buffTime[buffIndex] = 2;
