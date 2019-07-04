@@ -87,6 +87,7 @@ namespace MetroidMod
 		
 	#region misc
 		public bool somersault = false;
+		public bool disableSomersault = false;
 		public float rotation = 0.0f;
 		public float rotateSpeed = 0.05f;
 		public float rotateSpeed2 = 50f;
@@ -160,6 +161,7 @@ namespace MetroidMod
 			maxOverheat = 100f;
 			overheatCost = 1f;
 			breathMult = 1f;
+			disableSomersault = false;
 		}
 		float overheatCooldown = 0f;
 		int itemRotTweak = 0;
@@ -208,7 +210,7 @@ namespace MetroidMod
 			morphColorLights.A = 255;
 			morphItemColor = P.shirtColor;
 			morphItemColor.A = 255;
-			somersault = (!P.dead && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 /*&& P.velocity.X != 0*/ && !player.sliding && !isGripping && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
+			somersault = (!P.dead && !disableSomersault && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 /*&& P.velocity.X != 0*/ && !player.sliding && !isGripping && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
 
 			player.breathMax = (int)(200 * breathMult);
@@ -435,7 +437,7 @@ namespace MetroidMod
 			{
 				if(TouchTiles(player.position, player.width, player.height, mod.TileType("PhazonTile")))
 				{
-					player.AddBuff(mod.BuffType("PhazonDebuff"), 1, true);
+					player.AddBuff(mod.BuffType("PhazonDebuff"), 2, true);
 				}
 			}
 			else
@@ -2252,7 +2254,7 @@ namespace MetroidMod
 			if(shineActive)
 			{
 				shineSound = 0;
-				player.velocity.Y = 0f;
+				player.velocity.Y = 0;
 				player.maxFallSpeed = 0f;
 				player.velocity.X = 0;
 				player.moveSpeed = 0f;
@@ -2275,7 +2277,7 @@ namespace MetroidMod
  						Main.projectile[k].Kill();
  					}
  				}
-				player.controlJump = false;
+				//player.controlJump = false;
 				mp.rotation = 0;
 				player.armorEffectDrawShadow = true;
 				if(shineDirection == 0)
@@ -2317,12 +2319,12 @@ namespace MetroidMod
 			if(shineDirection == 1) //right
 			{
 				player.velocity.X = 20;
-				player.velocity.Y = 0f;
+				player.velocity.Y = 0;
 				player.maxFallSpeed = 0f;
 				player.direction = 1;
 				shineDischarge = 0;
 				player.controlLeft = false;
-				player.controlUp = true;
+				//player.controlUp = true;
 			}
 			if(shineDirection == 2) //right and up
 			{
@@ -2336,12 +2338,12 @@ namespace MetroidMod
 			if(shineDirection == 3) //left
 			{
 				player.velocity.X = -20;
-				player.velocity.Y = 0f;
+				player.velocity.Y = 0;
 				player.maxFallSpeed = 0f;
 				player.direction = -1;
 				shineDischarge = 0;
 				player.controlRight = false;
-				player.controlUp = true;
+				//player.controlUp = true;
 			}
 			if(shineDirection == 4) //left and up
 			{
@@ -2460,6 +2462,28 @@ namespace MetroidMod
 				{
 					mp.statOverheat += 10;
 				}
+			}
+			
+			//stop any movement
+			if(shineDirection != 0 && player.controlJump && player.releaseJump)
+			{
+				shineDirection = 0;
+				shineDischarge = 0;
+				shineActive = false;
+				Main.projectile[proj].Kill();
+				speedBuildUp = 135f;
+				
+				if(player.velocity.Y >= 0)
+				{
+					player.velocity.Y = 1E-05f;
+					player.jump = 1;
+				}
+				if(player.velocity.X != 0)
+				{
+					mp.canSomersault = true;
+				}
+				
+				player.releaseJump = false;
 			}
 		#endregion
 		}
@@ -2613,12 +2637,12 @@ namespace MetroidMod
 				player.velocity = Collision.TileCollision(player.position, player.velocity, player.width, player.height, false, false);		
 				if (value2 != player.velocity)
 				{
-					if (player.velocity.Y != value2.Y && /*Math.Abs((double)value2.Y)*/value2.Y > 7f)
+					if (player.velocity.Y != value2.Y && value2.Y > 7f)//Math.Abs((double)value2.Y) > 7f)
 					{
 						player.velocity.Y = value2.Y * -0.3f;
 					}
+					player.fallStart = (int)(player.position.Y / 16f);
 				}
-				player.fallStart = (int)(player.position.Y / 16f);
 			}
 			if(!spiderball)
 			{
