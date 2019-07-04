@@ -40,6 +40,7 @@ namespace MetroidMod.Projectiles.chargelead
 				LightColor = MetroidMod.powColor;
 		public bool canPsuedoScrew = false;
 		public bool missile = false;
+		public bool comboSound = false;
 
 		bool soundPlayed = false;
 		SoundEffectInstance soundInstance;
@@ -65,12 +66,24 @@ namespace MetroidMod.Projectiles.chargelead
 			{
 				soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+ChargeUpSound));
 			}
+			else if(comboSound)
+			{
+				if(mp.statCharge >= MPlayer.maxCharge-20 && !soundPlayed)
+				{
+					Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ChargeComboActivate"));
+					soundPlayed = true;
+				}
+			}
 			else if(mp.statCharge >= MPlayer.maxCharge && !soundPlayed)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ChargeMax"));
 				if(soundInstance != null)
 					soundInstance.Stop(true);
 				soundPlayed = true;
+			}
+			if(comboSound)
+			{
+				mp.disableSomersault = true;
 			}
 			
 			O.itemTime = 2;
@@ -184,18 +197,21 @@ namespace MetroidMod.Projectiles.chargelead
 		{
 			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
 
-			if (!mp.ballstate)
+			if (!mp.ballstate && !mp.shineActive)
 			{
 				if(projectile.penetrate > 0)
 				{
 					// Charged shot sounds played here for network purposes.
-					if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
+					if(!comboSound || mp.statCharge < MPlayer.maxCharge)
 					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ChargeShotSound));
-					}
-					else if ((mp.statCharge >= 30 || missile) && ShotSound != "none")
-					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ShotSound));
+						if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
+						{
+							Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ChargeShotSound));
+						}
+						else if ((mp.statCharge >= 30 || missile) && ShotSound != "none")
+						{
+							Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + ShotSound));
+						}
 					}
 				}
 
