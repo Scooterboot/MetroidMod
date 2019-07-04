@@ -117,6 +117,8 @@ namespace MetroidMod.Items.weapons
 
 		bool isCharge = false;
 		bool isSeeker = false;
+		int isHeldCombo = 0;
+		int chargeCost = 5;
 
 		public override void UpdateInventory(Player P)
 		{
@@ -126,7 +128,6 @@ namespace MetroidMod.Items.weapons
 			int ic = mod.ItemType("IceMissileAddon");
 			int sm = mod.ItemType("SuperMissileAddon");
 			int icSm = mod.ItemType("IceSuperMissileAddon");
-			int di = mod.ItemType("DiffusionMissileAddon");
 			int se = mod.ItemType("SeekerMissileAddon");
 			
 			Item slot1 = missileMods[0];
@@ -136,17 +137,19 @@ namespace MetroidMod.Items.weapons
 			int damage = 30;
 			useTime = 9;
 			shot = "MissileShot";
-			chargeShot = "DiffusionMissileShot";
+			chargeShot = "";
 			shotSound = "MissileSound";
-			chargeShotSound = "SuperMissileSound";
-			chargeUpSound = "ChargeStartup_Power";
-			chargeTex = "ChargeLead_PlasmaRed";
-			dustType = 6;
+			chargeShotSound = "";
+			chargeUpSound = "";
+			chargeTex = "";
+			dustType = 0;
 			dustColor = default(Color);
-			lightColor = MetroidMod.plaRedColor;
+			lightColor = Color.White;
 			
 			isSeeker = (slot1.type == se);
 			isCharge = (!slot1.IsAir && !isSeeker);
+			isHeldCombo = 0;
+			chargeCost = 5;
 			
 			mi.maxMissiles = 5 + (5*exp.stack);
 			if(mi.statMissiles > mi.maxMissiles)
@@ -166,24 +169,71 @@ namespace MetroidMod.Items.weapons
 			{
 				damage = 45;
 				shot = "IceMissileShot";
-				chargeShot = "IceDiffusionMissileShot";
-				chargeUpSound = "ChargeStartup_Ice";
-				chargeTex = "ChargeLead_Ice";
-				dustType = 135;
-				lightColor = MetroidMod.iceColor;
 			}
 			else if(slot2.type == icSm)
 			{
 				damage = 105;
 				useTime = 18;
 				shot = "IceSuperMissileShot";
-				chargeShot = "IceDiffusionMissileShot";
-				chargeUpSound = "ChargeStartup_Ice";
-				chargeTex = "ChargeLead_Ice";
-				dustType = 135;
-				lightColor = MetroidMod.iceColor;
 			}
 			
+			int wb = mod.ItemType("WavebusterAddon");
+			int icSp = mod.ItemType("IceSpreaderAddon");
+			int ft = mod.ItemType("FlamethrowerAddon");
+			
+			int di = mod.ItemType("DiffusionMissileAddon");
+			
+			// Charge Combos
+			if(slot1.type == wb)
+			{
+				isHeldCombo = 1;
+				chargeCost = 0;
+				chargeShot = "WavebusterShot";
+				chargeUpSound = "ChargeStartup_Wave";
+				chargeTex = "ChargeLead_WaveV2";
+				dustType = 62;
+				lightColor = MetroidMod.waveColor2;
+			}
+			if(slot1.type == icSp)
+			{
+				chargeShot = "IceSpreaderShot";
+				chargeUpSound = "ChargeStartup_Ice";
+				chargeTex = "ChargeLead_Ice";
+				dustType = 59;
+				lightColor = MetroidMod.iceColor;
+			}
+			if(slot1.type == ft)
+			{
+				isHeldCombo = 2;
+				chargeCost = 0;
+				chargeShot = "FlamethrowerShot";
+				chargeUpSound = "ChargeStartup_PlasmaRed";
+				chargeTex = "ChargeLead_PlasmaRed";
+				dustType = 6;
+				lightColor = MetroidMod.plaRedColor;
+			}
+			
+			if(slot1.type == di)
+			{
+				chargeShot = "DiffusionMissileShot";
+				chargeShotSound = "SuperMissileSound";
+				chargeUpSound = "ChargeStartup_Power";
+				chargeTex = "ChargeLead_PlasmaRed";
+				dustType = 6;
+				lightColor = MetroidMod.plaRedColor;
+				
+				if(slot2.type == ic || slot2.type == icSm)
+				{
+					chargeShot = "IceDiffusionMissileShot";
+					chargeUpSound = "ChargeStartup_Ice";
+					chargeTex = "ChargeLead_Ice";
+					dustType = 135;
+					lightColor = MetroidMod.iceColor;
+				}
+			}
+			
+			
+			isCharge &= (mi.statMissiles >= chargeCost);
 			
 			finalDmg = damage;
 			
@@ -266,7 +316,7 @@ namespace MetroidMod.Items.weapons
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-			if(isCharge && mi.statMissiles >= 5)
+			if(isCharge)
 			{
 				int ch = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,mod.ProjectileType("ChargeLead"),damage,knockBack,player.whoAmI);
 				ChargeLead cl = (ChargeLead)Main.projectile[ch].modProjectile;
@@ -279,6 +329,7 @@ namespace MetroidMod.Items.weapons
 				cl.ChargeShotSound = chargeShotSound;
 				cl.projectile.netUpdate = true;
 				cl.missile = true;
+				cl.comboSound = (isHeldCombo > 0);
 
 				chargeLead = ch;
 				return false;
@@ -296,6 +347,8 @@ namespace MetroidMod.Items.weapons
 			return true;
 		}
 		
+		int comboTime = 0;
+		int comboCostTime = 0;
 		int targetingDelay = 0;
 		//int prevTarget = -2;
 		int targetNum = 0;
@@ -310,52 +363,98 @@ namespace MetroidMod.Items.weapons
 				{
 					if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 					{
+						Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+
+						float MY = Main.mouseY + Main.screenPosition.Y;
+						float MX = Main.mouseX + Main.screenPosition.X;
+						if (player.gravDir == -1f)
+							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+
+						float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
+
+						Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
+
+						float dmgMult = 1f;//(1f+((float)mp.statCharge*0.02f));
+						int damage = (int)((float)item.damage * player.rangedDamage);
+						
 						if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 						{
 							if (mp.statCharge < MPlayer.maxCharge)
+							{
 								mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
+							}
+							if(isHeldCombo > 0)
+							{
+								if(mi.statMissiles > 0)
+								{
+									if(mp.statCharge >= MPlayer.maxCharge)
+									{
+										if(comboTime <= 0)
+										{
+											int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
+											Main.projectile[proj].ai[0] = chargeLead;
+											comboTime = 6;
+										}
+									
+										if(comboCostTime <= 0)
+										{
+											mi.statMissiles -= 1;
+											comboCostTime = 12;
+										}
+										else
+										{
+											comboCostTime--;
+										}
+										
+										if(isHeldCombo == 2 && comboTime > 0)
+										{
+											comboTime--;
+										}
+									}
+								}
+								else
+								{
+									Main.projectile[chargeLead].Kill();
+								}
+							}
 						}
 						else
 						{
-							Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-
-							float MY = Main.mouseY + Main.screenPosition.Y;
-							float MX = Main.mouseX + Main.screenPosition.X;
-							if (player.gravDir == -1f)
-								MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-
-							float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
-
-							Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
-
-							float dmgMult = 1f;//(1f+((float)mp.statCharge*0.02f));
-							int damage = (int)((float)item.damage * player.rangedDamage);
-
-							if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= 5)
+							if(isHeldCombo <= 0 || mp.statCharge < MPlayer.maxCharge)
 							{
-								int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
-								mi.statMissiles -= 5;
-							}
-							else if (mp.statCharge > 0)
-							{
-								int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
-								mi.statMissiles -= 1;
+								if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= chargeCost)
+								{
+									int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
+									mi.statMissiles -= chargeCost;
+								}
+								else if (mp.statCharge > 0)
+								{
+									int shotProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(shot), damage, item.knockBack, player.whoAmI);
+									mi.statMissiles -= 1;
+								}
 							}
 
 							if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
 							{
 								mp.statCharge = 0;
 							}
+							
+							comboTime = 0;
+							comboCostTime = 0;
 						}
 					}
 					else if (!mp.ballstate)
 					{
 						mp.statCharge = 0;
+						comboTime = 0;
+						comboCostTime = 0;
 					}
 				}
 				else
 				{
 					mp.statCharge = 0;
+					comboTime = 0;
+					comboCostTime = 0;
 				}
 
 				if (targetingDelay > 0)
