@@ -114,6 +114,8 @@ namespace MetroidMod.Items.weapons
 		int dustType = 6;
 		Color dustColor = default(Color);
 		Color lightColor = MetroidMod.plaRedColor;
+		
+		float comboKnockBack = 5.5f;
 
 		bool isCharge = false;
 		bool isSeeker = false;
@@ -139,12 +141,14 @@ namespace MetroidMod.Items.weapons
 			shot = "MissileShot";
 			chargeShot = "";
 			shotSound = "MissileSound";
-			chargeShotSound = "";
+			chargeShotSound = "SuperMissileSound";
 			chargeUpSound = "";
 			chargeTex = "";
 			dustType = 0;
 			dustColor = default(Color);
 			lightColor = Color.White;
+			
+			comboKnockBack = item.knockBack;
 			
 			isSeeker = (slot1.type == se);
 			isCharge = (!slot1.IsAir && !isSeeker);
@@ -193,10 +197,13 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_WaveV2";
 				dustType = 62;
 				lightColor = MetroidMod.waveColor2;
+				comboKnockBack = 0f;
 			}
 			if(slot1.type == icSp)
 			{
+				chargeCost = 10;
 				chargeShot = "IceSpreaderShot";
+				chargeShotSound = "IceSpreaderSound";
 				chargeUpSound = "ChargeStartup_Ice";
 				chargeTex = "ChargeLead_Ice";
 				dustType = 59;
@@ -216,7 +223,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == di)
 			{
 				chargeShot = "DiffusionMissileShot";
-				chargeShotSound = "SuperMissileSound";
 				chargeUpSound = "ChargeStartup_Power";
 				chargeTex = "ChargeLead_PlasmaRed";
 				dustType = 6;
@@ -391,9 +397,9 @@ namespace MetroidMod.Items.weapons
 									{
 										if(comboTime <= 0)
 										{
-											int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
+											int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
 											Main.projectile[proj].ai[0] = chargeLead;
-											comboTime = 6;
+											comboTime = 4;
 										}
 									
 										if(comboCostTime <= 0)
