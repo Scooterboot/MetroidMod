@@ -12,7 +12,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Charge shots cover terrain in Ice on impact, freezing enemies\n" + 
-			"~Charge shots cost x5 missiles");
+			"~Charge shots cost 10 missiles");
 		}
 		public override void SetDefaults()
 		{
