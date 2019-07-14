@@ -33,6 +33,12 @@ namespace MetroidMod.Projectiles.missilecombo
 
 		NPC target;
 		
+		float maxRange = 300f;
+		float distance = 300f;
+		float accuracy = 11f;
+		Vector2 oPos;
+		Vector2 mousePos;
+		
 		SoundEffectInstance soundInstance;
 		bool soundPlayed = false;
 		int soundDelay = 0;
@@ -56,20 +62,20 @@ namespace MetroidMod.Projectiles.missilecombo
 				return;
 			}
 			
-			if(projectile.numUpdates == 0)
+			if(P.numUpdates == 0)
 			{
-				projectile.frame++;
+				P.frame++;
 			}
-			if(projectile.frame > 1)
+			if(P.frame > 1)
 			{
-				projectile.frame = 0;
+				P.frame = 0;
 			}
 			
-			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
+			maxRange = 300f;
+			distance = 300f;
+			accuracy = 11f;
 			
-			float maxRange = 300;
-			float distance = 300f;
-			float accuracy = 11f;
+			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			
 			if(Lead != null && Lead.active)
 			{
@@ -77,8 +83,8 @@ namespace MetroidMod.Projectiles.missilecombo
 				{
 					float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
 					Vector2 tilePos = Lead.Center + targetrot.ToRotationVector2() * k;
-					int i = (int)MathHelper.Clamp((tilePos.X) / 16f,0,Main.maxTilesX-1);
-					int j = (int)MathHelper.Clamp((tilePos.Y) / 16f,0,Main.maxTilesY-1);
+					int i = (int)MathHelper.Clamp(tilePos.X / 16,0,Main.maxTilesX-2);
+					int j = (int)MathHelper.Clamp(tilePos.Y / 16,0,Main.maxTilesY-2);
 
 					if(Main.tile[i,j] != null && Main.tile[i,j].active() && Main.tileSolid[Main.tile[i,j].type] && !Main.tileSolidTop[Main.tile[i,j].type])
 					{
@@ -103,32 +109,46 @@ namespace MetroidMod.Projectiles.missilecombo
 				}
 				
 				float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
-
-				Vector2 mousePos = oPos + targetrotation.ToRotationVector2() * Math.Min(Vector2.Distance(oPos,new Vector2(MX,MY)),maxRange);
+				
+				mousePos = oPos + targetrotation.ToRotationVector2() * Math.Min(Vector2.Distance(oPos,new Vector2(MX,MY)),maxRange);
 				
 				for(int i = 0; i < Main.maxNPCs; i++)
 				{
-					if (Main.npc[i].CanBeChasedBy(P, false))
+					if(Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
 					{
 						NPC npc = Main.npc[i];
-						bool flag = (Vector2.Distance(oPos,npc.Center) <= maxRange+distance && Vector2.Distance(npc.Center,mousePos) <= distance);
-						if(target == null || !target.active)
+						Rectangle npcRect = new Rectangle((int)npc.position.X,(int)npc.position.Y,npc.width,npc.height);
+						
+						float point = 0f;
+						if(Vector2.Distance(oPos,npc.Center) < maxRange && 
+						Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
 						{
-							if(flag)
-							{
-								target = npc;
-							}
+							maxRange = Vector2.Distance(oPos,npc.Center);
+							mousePos = oPos + targetrotation.ToRotationVector2() * Math.Min(Vector2.Distance(oPos,new Vector2(MX,MY)),maxRange);
 						}
-						else
+						
+						bool flag = (Vector2.Distance(oPos,npc.Center) <= maxRange+distance && Vector2.Distance(npc.Center,mousePos) <= distance);
+						
+						if (Main.npc[i].CanBeChasedBy(P, false))
 						{
-							if(npc != target && flag && Vector2.Distance(npc.Center,mousePos) < Vector2.Distance(target.Center,mousePos))
+							if(target == null || !target.active)
 							{
-								target = npc;
+								if(flag)
+								{
+									target = npc;
+								}
 							}
-							
-							if(Vector2.Distance(oPos,target.Center) > maxRange+distance || Vector2.Distance(target.Center,mousePos) > distance)
+							else
 							{
-								target = null;
+								if(npc != target && flag && Vector2.Distance(npc.Center,mousePos) < Vector2.Distance(target.Center,mousePos))
+								{
+									target = npc;
+								}
+								
+								if(Vector2.Distance(oPos,target.Center) > maxRange+distance || Vector2.Distance(target.Center,mousePos) > distance)
+								{
+									target = null;
+								}
 							}
 						}
 					}
@@ -136,7 +156,7 @@ namespace MetroidMod.Projectiles.missilecombo
 				
 				if(!setTargetPos)
 				{
-					targetPos = projectile.Center;
+					targetPos = P.Center;
 					setTargetPos = true;
 					return;
 				}
@@ -146,23 +166,20 @@ namespace MetroidMod.Projectiles.missilecombo
 				}
 				else
 				{
-					if(projectile.numUpdates <= 0)
+					if(P.numUpdates <= 0)
 					{
-						targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
+						//targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
+						targetPos = oPos + targetrotation.ToRotationVector2() * maxRange;
+						targetPos.X += Main.rand.Next(-30, 31);
+						targetPos.Y += Main.rand.Next(-30, 31);
 					}
 				}
 				
-				float num243 = Math.Max(8f,Vector2.Distance(targetPos,P.Center) * 0.025f);
-				float num244 = targetPos.X - P.Center.X;
-				float num245 = targetPos.Y - P.Center.Y;
-				float num246 = (float)Math.Sqrt((double)(num244 * num244 + num245 * num245));
-				num246 = num243 / num246;
-				num244 *= num246;
-				num245 *= num246;
-				P.velocity.X = (P.velocity.X * accuracy + num244) / (accuracy + 1f);
-				P.velocity.Y = (P.velocity.Y * accuracy + num245) / (accuracy + 1f);
+				float speed = Math.Max(8f,Vector2.Distance(targetPos,P.Center) * 0.025f);
+				float targetAngle = (float)Math.Atan2((targetPos.Y - P.Center.Y), (targetPos.X - P.Center.X));
+				P.velocity = targetAngle.ToRotationVector2() * speed;
 				
-				if(projectile.numUpdates <= 0)
+				if(P.numUpdates <= 0)
 				{
 					if(soundDelay <= 0)
 					{
@@ -202,11 +219,11 @@ namespace MetroidMod.Projectiles.missilecombo
 				}
 			}
 			
-			if(projectile.numUpdates <= 0)
+			if(P.numUpdates <= 0)
 			{
 				for(int i = 0; i < 3; i++)
 				{
-					ampDest[i] = Main.rand.Next(-60, 61);
+					ampDest[i] = Main.rand.Next(-30, 31);
 				}
 			}
 			
@@ -221,10 +238,6 @@ namespace MetroidMod.Projectiles.missilecombo
 					amp[i] -= 3;
 				}
 			}
-		}
-		public override void Kill(int timeLeft)
-		{
-			
 		}
 
 		public override void CutTiles()
@@ -241,15 +254,11 @@ namespace MetroidMod.Projectiles.missilecombo
 			if(Lead != null && Lead.active)
 			{
 				float point = 0f;
-				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Lead.Center, projectile.Center, projectile.width, ref point);
+				return projHitbox.Intersects(targetHitbox) ||
+					Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Lead.Center, projectile.Center, projectile.width, ref point);
 			}
 			return false;
 		}
-		
-		/*public override Color? GetAlpha(Color lightColor)
-		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 200);
-		}*/
 		
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
@@ -265,10 +274,13 @@ namespace MetroidMod.Projectiles.missilecombo
 			if(Lead != null && Lead.active)
 			{
 				float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
-				float dist = Vector2.Distance(Lead.Center,P.Center);
+				float dist = Math.Max(Vector2.Distance(Lead.Center,P.Center),1);
 				
-				float t = 0;
-				int num = (int)Math.Ceiling(dist/2);
+				double trot = targetrot+Math.PI/2;
+				
+				float shift = 0;
+				int num = (int)Math.Max(Math.Ceiling(dist/8),1);
+				float num4 = num/4;
 				Vector2[] pos = new Vector2[num];
 				for(int i = 0; i < num; i++)
 				{
@@ -277,89 +289,63 @@ namespace MetroidMod.Projectiles.missilecombo
 					{
 						scale *= 0.8f;
 					}
+					
+					if(num4 >= 1)
+					{
+						if(i < num4)
+						{
+							shift = MathHelper.Lerp(0,amp[0],(i / num4));
+						}
+						else if(i < num/2)
+						{
+							shift = MathHelper.Lerp(amp[0],amp[1],((i - num4) / num4));
+						}
+						else if(i < num4*3)
+						{
+							shift = MathHelper.Lerp(amp[1],amp[2],((i - num/2) / num4));
+						}
+						else
+						{
+							shift = MathHelper.Lerp(amp[2],0,((i - num4*3) / num4));
+							scale *= (num4 - (i - num4*3)*0.5f) / num4;
+						}
+					}
+					
 					pos[i] = Lead.Center + targetrot.ToRotationVector2() * (dist/num) * i;
-					
-					float amplitude = 30f;
-					
-					float tdest = 0;
-					float num4 = num/4;
-					if(i < num/4)
-					{
-						tdest = ((float)Math.PI/2) * (amp[0] / 30);
-					}
-					else if(i < num/2)
-					{
-						tdest = ((float)Math.PI/2) * (amp[1] / 30);
-					}
-					else if(i < num4*3)
-					{
-						tdest = ((float)Math.PI/2) * (amp[2] / 30);
-					}
-					else
-					{
-						tdest = 0;
-						scale *= (num4 - (i - num4*3)*0.5f) / num4;
-					}
-					
-					/*if(tdest < -(float)Math.PI)
-					{
-						tdest += (float)Math.PI;
-					}
-					if(tdest >= (float)Math.PI)
-					{
-						tdest -= (float)Math.PI;
-					}*/
-					float incr = (float)Math.PI/dist;
-					
-					if(t < tdest)
-					{
-						t = Math.Min(t + incr, tdest);
-					}
-					else
-					{
-						t = Math.Max(t - incr, tdest);
-					}
-					
-					
-					float shift = amplitude * (float)Math.Sin(t);
-					
-					float trot = targetrot+(float)Math.PI/2;
 					pos[i].X += (float)Math.Cos(trot)*shift;
 					pos[i].Y += (float)Math.Sin(trot)*shift;
 					
+					float rot = (float)Math.Atan2((pos[i].Y - Lead.Center.Y), (pos[i].X - Lead.Center.X)) + (float)Math.PI/2;
 					if(i > 0)
 					{
-						float rot = (float)Math.Atan2((pos[i].Y - pos[i-1].Y), (pos[i].X - pos[i-1].X)) + (float)Math.PI/2;
-						sb.Draw(tex, 
-						pos[i] - Main.screenPosition, 
-						new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), 
-						P.GetAlpha(Color.White), 
-						rot, 
-						new Vector2((float)tex.Width/2f, (float)num108-1), 
-						scale, 
-						SpriteEffects.None, 
-						0f);
-						
-						if(i % Math.Max((numH/2)-1,1) == 0 || i >= num-1)
-						{
-							sb.Draw(tex2,
-							pos[i] - Main.screenPosition,
-							new Rectangle?(new Rectangle(0,numH*Main.rand.Next(4),tex2.Width,numH)),
-							P.GetAlpha(Color.White),
-							rot,
-							new Vector2((float)tex2.Width/2,(float)numH/2),
-							(float)(Main.rand.Next(21)/10),
-							SpriteEffects.None,
-							0f);
-						}
-						
-						Lighting.AddLight(pos[i], (MetroidMod.waveColor2.R / 255f) * P.scale, (MetroidMod.waveColor2.G / 255f) * P.scale, (MetroidMod.waveColor2.B / 255f) * P.scale);
-						
-						if (Main.rand.Next(25) == 0)
-						{
-							Vector2 dPos = pos[i]-new Vector2(tex.Width/2,tex.Width/2);
-							Main.dust[Dust.NewDust(dPos, tex.Width, tex.Width, 62, 0, 0, 100, default(Color), 2f)].noGravity=true;
-						}
+						rot = (float)Math.Atan2((pos[i].Y - pos[i-1].Y), (pos[i].X - pos[i-1].X)) + (float)Math.PI/2;
+					}
+					sb.Draw(tex, 
+					pos[i] - Main.screenPosition, 
+					new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), 
+					P.GetAlpha(Color.White), 
+					rot, 
+					new Vector2((float)tex.Width/2f, (float)num108/2), 
+					new Vector2(scale,1f), 
+					SpriteEffects.None, 
+					0f);
+					
+					sb.Draw(tex2,
+					pos[i] - Main.screenPosition,
+					new Rectangle?(new Rectangle(0,numH*Main.rand.Next(4),tex2.Width,numH)),
+					P.GetAlpha(Color.White),
+					rot,
+					new Vector2((float)tex2.Width/2,(float)numH/2),
+					(float)(Main.rand.Next(21)/10),
+					SpriteEffects.None,
+					0f);
+					
+					Lighting.AddLight(pos[i], (MetroidMod.waveColor2.R / 255f) * P.scale, (MetroidMod.waveColor2.G / 255f) * P.scale, (MetroidMod.waveColor2.B / 255f) * P.scale);
+					
+					if (Main.rand.Next(25) == 0)
+					{
+						Vector2 dPos = pos[i]-new Vector2(tex.Width/2,tex.Width/2);
+						Main.dust[Dust.NewDust(dPos, tex.Width, tex.Width, 62, 0, 0, 100, default(Color), 2f)].noGravity=true;
 					}
 				}
 			}
