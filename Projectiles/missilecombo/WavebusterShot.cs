@@ -33,8 +33,10 @@ namespace MetroidMod.Projectiles.missilecombo
 
 		NPC target;
 		
-		float maxRange = 300f;
-		float distance = 300f;
+		const float Max_Range = 300f;
+		float range = Max_Range;
+		const float Max_Distance = 300f;
+		float distance = Max_Distance;
 		float accuracy = 11f;
 		Vector2 oPos;
 		Vector2 mousePos;
@@ -54,10 +56,6 @@ namespace MetroidMod.Projectiles.missilecombo
 			Lead = Main.projectile[(int)P.ai[0]];
 			if(!Lead.active || Lead.owner != P.owner || Lead.type != mod.ProjectileType("ChargeLead"))
 			{
-				if(soundInstance != null)
-				{
-					soundInstance.Stop(true);
-				}
 				P.Kill();
 				return;
 			}
@@ -71,15 +69,15 @@ namespace MetroidMod.Projectiles.missilecombo
 				P.frame = 0;
 			}
 			
-			maxRange = 300f;
-			distance = 300f;
+			range = Max_Range;
+			distance = Max_Distance;
 			accuracy = 11f;
 			
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			
 			if(Lead != null && Lead.active)
 			{
-				for(int k = 0; k < maxRange; k++)
+				for(int k = 0; k < range; k++)
 				{
 					float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
 					Vector2 tilePos = Lead.Center + targetrot.ToRotationVector2() * k;
@@ -88,29 +86,25 @@ namespace MetroidMod.Projectiles.missilecombo
 
 					if(Main.tile[i,j] != null && Main.tile[i,j].active() && Main.tileSolid[Main.tile[i,j].type] && !Main.tileSolidTop[Main.tile[i,j].type])
 					{
-						maxRange = Math.Max(maxRange-1,1);
+						range = Math.Max(range-1,1);
 						distance = Math.Max(distance-1,1);
 					}
 					else
 					{
-						maxRange = Math.Min(maxRange+1,300);
-						distance = Math.Min(distance+1,300);
+						range = Math.Min(range+1,Max_Range);
+						distance = Math.Min(distance+1,Max_Distance);
 					}
 				}
 			}
 			
 			if (P.owner == Main.myPlayer)
 			{
-				float MY = Main.mouseY + Main.screenPosition.Y;
-				float MX = Main.mouseX + Main.screenPosition.X;
-				if (O.gravDir == -1f)
-				{
-					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-				}
+				P.netUpdate = true;
 				
-				float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
+				Vector2 diff = Main.MouseWorld - oPos;
+				diff.Normalize();
 				
-				mousePos = oPos + targetrotation.ToRotationVector2() * Math.Min(Vector2.Distance(oPos,new Vector2(MX,MY)),maxRange);
+				mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos,Main.MouseWorld),range);
 				
 				for(int i = 0; i < Main.maxNPCs; i++)
 				{
@@ -120,14 +114,14 @@ namespace MetroidMod.Projectiles.missilecombo
 						Rectangle npcRect = new Rectangle((int)npc.position.X,(int)npc.position.Y,npc.width,npc.height);
 						
 						float point = 0f;
-						if(Vector2.Distance(oPos,npc.Center) < maxRange && 
+						if(Vector2.Distance(oPos,npc.Center) < range && 
 						Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
 						{
-							maxRange = Vector2.Distance(oPos,npc.Center);
-							mousePos = oPos + targetrotation.ToRotationVector2() * Math.Min(Vector2.Distance(oPos,new Vector2(MX,MY)),maxRange);
+							range = Vector2.Distance(oPos,npc.Center);
+							mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos,Main.MouseWorld),range);
 						}
 						
-						bool flag = (Vector2.Distance(oPos,npc.Center) <= maxRange+distance && Vector2.Distance(npc.Center,mousePos) <= distance);
+						bool flag = (Vector2.Distance(oPos,npc.Center) <= range+distance && Vector2.Distance(npc.Center,mousePos) <= distance);
 						
 						if (Main.npc[i].CanBeChasedBy(P, false))
 						{
@@ -145,7 +139,7 @@ namespace MetroidMod.Projectiles.missilecombo
 									target = npc;
 								}
 								
-								if(Vector2.Distance(oPos,target.Center) > maxRange+distance || Vector2.Distance(target.Center,mousePos) > distance)
+								if(Vector2.Distance(oPos,target.Center) > range+distance || Vector2.Distance(target.Center,mousePos) > distance)
 								{
 									target = null;
 								}
@@ -169,15 +163,11 @@ namespace MetroidMod.Projectiles.missilecombo
 					if(P.numUpdates <= 0)
 					{
 						//targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
-						targetPos = oPos + targetrotation.ToRotationVector2() * maxRange;
-						targetPos.X += Main.rand.Next(-30, 31);
-						targetPos.Y += Main.rand.Next(-30, 31);
+						targetPos = oPos + diff * range;
+						targetPos.X += (float)Main.rand.Next(-30, 31) * (Vector2.Distance(oPos,P.Center) / Max_Range);
+						targetPos.Y += (float)Main.rand.Next(-30, 31) * (Vector2.Distance(oPos,P.Center) / Max_Range);
 					}
 				}
-				
-				float speed = Math.Max(8f,Vector2.Distance(targetPos,P.Center) * 0.025f);
-				float targetAngle = (float)Math.Atan2((targetPos.Y - P.Center.Y), (targetPos.X - P.Center.X));
-				P.velocity = targetAngle.ToRotationVector2() * speed;
 				
 				if(P.numUpdates <= 0)
 				{
@@ -204,19 +194,19 @@ namespace MetroidMod.Projectiles.missilecombo
 						soundDelay--;
 					}
 				}
-				
-				if(O.controlUseItem)
-				{
-					P.timeLeft = 10;
-				}
-				else
-				{
-					if(soundInstance != null)
-					{
-						soundInstance.Stop(true);
-					}
-					P.Kill();
-				}
+			}
+			
+			float speed = Math.Max(8f,Vector2.Distance(targetPos,P.Center) * 0.025f);
+			float targetAngle = (float)Math.Atan2((targetPos.Y - P.Center.Y), (targetPos.X - P.Center.X));
+			P.velocity = targetAngle.ToRotationVector2() * speed;
+			
+			if(O.controlUseItem)
+			{
+				P.timeLeft = 10;
+			}
+			else
+			{
+				P.Kill();
 			}
 			
 			if(P.numUpdates <= 0)
@@ -237,6 +227,14 @@ namespace MetroidMod.Projectiles.missilecombo
 				{
 					amp[i] -= 3;
 				}
+			}
+		}
+		
+		public override void Kill(int timeLeft)
+		{
+			if(soundInstance != null)
+			{
+				soundInstance.Stop(true);
 			}
 		}
 
@@ -312,8 +310,8 @@ namespace MetroidMod.Projectiles.missilecombo
 					}
 					
 					pos[i] = Lead.Center + targetrot.ToRotationVector2() * (dist/num) * i;
-					pos[i].X += (float)Math.Cos(trot)*shift;
-					pos[i].Y += (float)Math.Sin(trot)*shift;
+					pos[i].X += (float)Math.Cos(trot)*shift * (Vector2.Distance(oPos,P.Center) / Max_Range);
+					pos[i].Y += (float)Math.Sin(trot)*shift * (Vector2.Distance(oPos,P.Center) / Max_Range);
 					
 					float rot = (float)Math.Atan2((pos[i].Y - Lead.Center.Y), (pos[i].X - Lead.Center.X)) + (float)Math.PI/2;
 					if(i > 0)
