@@ -121,6 +121,10 @@ namespace MetroidMod.Items.weapons
 		bool isSeeker = false;
 		int isHeldCombo = 0;
 		int chargeCost = 5;
+		
+		int comboUseTime = 4;
+		int comboCostUseTime = 12;
+		float chargeMult = 1f;
 
 		public override void UpdateInventory(Player P)
 		{
@@ -154,6 +158,11 @@ namespace MetroidMod.Items.weapons
 			isCharge = (!slot1.IsAir && !isSeeker);
 			isHeldCombo = 0;
 			chargeCost = 5;
+			
+			comboUseTime = 4;
+			comboCostUseTime = 12;
+			
+			chargeMult = 1f;
 			
 			mi.maxMissiles = 5 + (5*exp.stack);
 			if(mi.statMissiles > mi.maxMissiles)
@@ -211,9 +220,9 @@ namespace MetroidMod.Items.weapons
 			}
 			if(slot1.type == ft)
 			{
-				isHeldCombo = 2;
+				isHeldCombo = 1;
 				chargeCost = 0;
-				chargeShot = "FlamethrowerShot";
+				chargeShot = "FlamethrowerLead";
 				chargeUpSound = "ChargeStartup_PlasmaRed";
 				chargeTex = "ChargeLead_PlasmaRed";
 				dustType = 6;
@@ -380,7 +389,7 @@ namespace MetroidMod.Items.weapons
 
 						Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 
-						float dmgMult = 1f;//(1f+((float)mp.statCharge*0.02f));
+						float dmgMult = chargeMult;
 						int damage = (int)((float)item.damage * player.rangedDamage);
 						
 						if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
@@ -399,13 +408,13 @@ namespace MetroidMod.Items.weapons
 										{
 											int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
 											Main.projectile[proj].ai[0] = chargeLead;
-											comboTime = 4;
+											comboTime = comboUseTime;
 										}
 									
 										if(comboCostTime <= 0)
 										{
 											mi.statMissiles -= 1;
-											comboCostTime = 12;
+											comboCostTime = comboCostUseTime;
 										}
 										else
 										{
