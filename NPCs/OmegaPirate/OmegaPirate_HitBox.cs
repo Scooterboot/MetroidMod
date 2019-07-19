@@ -142,6 +142,46 @@ namespace MetroidMod.NPCs.OmegaPirate
 					int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 68, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
 					Main.dust[dustID].noGravity = true;
 				}
+				
+				if(npc.life <= 0 && Base.ai[0] == 3)
+				{
+					if(npc.ai[1] == 1f)
+					{
+						int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore1"), 1f);
+						Main.gore[gore].velocity *= 0.4f;
+						Main.gore[gore].timeLeft = 60;
+					}
+					else if(npc.ai[1] == 3f)
+					{
+						int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore3"), 1f);
+						Main.gore[gore].velocity *= 0.4f;
+						Main.gore[gore].timeLeft = 60;
+						gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore4"), 1f);
+						Main.gore[gore].velocity *= 0.4f;
+						Main.gore[gore].timeLeft = 60;
+						gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore5"), 1f);
+						Main.gore[gore].velocity *= 0.4f;
+						Main.gore[gore].timeLeft = 60;
+						gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore6"), 1f);
+						Main.gore[gore].velocity *= 0.4f;
+						Main.gore[gore].timeLeft = 60;
+					}
+					else if(npc.ai[1] == 4f)
+					{
+						int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore2"), 1f);
+						Main.gore[gore].velocity *= 0.4f;
+						Main.gore[gore].timeLeft = 60;
+					}
+					else
+					{
+						for(int i = 0; i < npc.width; i += 10)
+						{
+							int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore"+Main.rand.Next(6,9)), 1f);
+							Main.gore[gore].velocity *= 0.4f;
+							Main.gore[gore].timeLeft = 60;
+						}
+					}
+				}
 			}
 		}
 		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
