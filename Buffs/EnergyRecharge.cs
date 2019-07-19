@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework.Audio;
 using Terraria.ModLoader;
 using Terraria;
 
@@ -12,6 +13,8 @@ namespace MetroidMod.Buffs
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}
+		SoundEffectInstance soundInstance;
+		bool soundPlayed = false;
 		public override void Update(Player player,ref int buffIndex)
         {
             MPlayer mp = player.GetModPlayer<MPlayer>(mod);
@@ -24,6 +27,11 @@ namespace MetroidMod.Buffs
             }
             if (!flag || player.controlJump || player.controlUseItem)
             {
+				if(soundInstance != null)
+				{
+					soundInstance.Stop(true);
+				}
+				soundPlayed = false;
                 player.DelBuff(buffIndex);
                 buffIndex--;
             }
@@ -41,7 +49,12 @@ namespace MetroidMod.Buffs
                     player.velocity.Y *= 0;
                 }
                 player.mount.Dismount(player);
-                Main.PlaySound(10, player.Center);
+                //Main.PlaySound(10, player.Center);
+				if(!soundPlayed)
+				{
+					soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ConcentrationLoop"));
+					soundPlayed = true;
+				}
             }
         }
     }
