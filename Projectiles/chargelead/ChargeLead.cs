@@ -40,7 +40,7 @@ namespace MetroidMod.Projectiles.chargelead
 				LightColor = MetroidMod.powColor;
 		public bool canPsuedoScrew = false;
 		public bool missile = false;
-		public bool comboSound = false;
+		public int comboSound = 0;
 		public bool noSomersault = false;
 		public float extraScale = 0f;
 
@@ -69,7 +69,7 @@ namespace MetroidMod.Projectiles.chargelead
 			{
 				soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+ChargeUpSound));
 			}
-			else if(comboSound)
+			else if(comboSound == 1)
 			{
 				if(mp.statCharge >= MPlayer.maxCharge-20 && !soundPlayed)
 				{
@@ -207,7 +207,7 @@ namespace MetroidMod.Projectiles.chargelead
 				if(projectile.penetrate > 0)
 				{
 					// Charged shot sounds played here for network purposes.
-					if(!comboSound || mp.statCharge < MPlayer.maxCharge)
+					if(comboSound == 0 || mp.statCharge < MPlayer.maxCharge)
 					{
 						if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
 						{
