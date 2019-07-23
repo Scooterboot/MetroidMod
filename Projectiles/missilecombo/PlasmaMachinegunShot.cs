@@ -23,7 +23,7 @@ namespace MetroidMod.Projectiles.missilecombo
 			projectile.usesLocalNPCImmunity = true;
        	 	projectile.localNPCHitCooldown = 4;
 			
-			mProjectile.amplitude = 2f*projectile.scale;
+			mProjectile.amplitude = 4f*projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 1;
 		}
