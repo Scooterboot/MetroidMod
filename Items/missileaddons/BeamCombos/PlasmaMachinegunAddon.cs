@@ -12,7 +12,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Rapidly fires piercing projectiles at full charge\n" + 
-			"~Drains 1 missiles per shot during use");
+			"~Drains 1 missile per shot during use");
 		}
 		public override void SetDefaults()
 		{
