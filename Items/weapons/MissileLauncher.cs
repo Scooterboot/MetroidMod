@@ -121,6 +121,10 @@ namespace MetroidMod.Items.weapons
 		bool isSeeker = false;
 		int isHeldCombo = 0;
 		int chargeCost = 5;
+		bool comboSound = false;
+		bool noSomersault = false;
+		bool useFlameSounds = false;
+		bool isMiniGun = false;
 		
 		int comboUseTime = 4;
 		int comboCostUseTime = 12;
@@ -158,6 +162,10 @@ namespace MetroidMod.Items.weapons
 			isCharge = (!slot1.IsAir && !isSeeker);
 			isHeldCombo = 0;
 			chargeCost = 5;
+			comboSound = false;
+			noSomersault = false;
+			useFlameSounds = false;
+			isMiniGun = false;
 			
 			comboUseTime = 4;
 			comboCostUseTime = 12;
@@ -193,6 +201,7 @@ namespace MetroidMod.Items.weapons
 			int wb = mod.ItemType("WavebusterAddon");
 			int icSp = mod.ItemType("IceSpreaderAddon");
 			int ft = mod.ItemType("FlamethrowerAddon");
+			int pl = mod.ItemType("PlasmaMachinegunAddon");
 			
 			int di = mod.ItemType("DiffusionMissileAddon");
 			
@@ -201,6 +210,8 @@ namespace MetroidMod.Items.weapons
 			{
 				isHeldCombo = 1;
 				chargeCost = 0;
+				comboSound = true;
+				noSomersault = true;
 				chargeShot = "WavebusterShot";
 				chargeUpSound = "ChargeStartup_Wave";
 				chargeTex = "ChargeLead_WaveV2";
@@ -220,13 +231,33 @@ namespace MetroidMod.Items.weapons
 			}
 			if(slot1.type == ft)
 			{
-				isHeldCombo = 1;
+				isHeldCombo = 2;
 				chargeCost = 0;
-				chargeShot = "FlamethrowerLead";
+				comboSound = true;
+				noSomersault = true;
+				useFlameSounds = true;
+				comboCostUseTime = 5;
+				//chargeShot = "FlamethrowerLead";
+				chargeShot = "FlamethrowerShot";
 				chargeUpSound = "ChargeStartup_PlasmaRed";
 				chargeTex = "ChargeLead_PlasmaRed";
 				dustType = 6;
 				lightColor = MetroidMod.plaRedColor;
+			}
+			if(slot1.type == pl)
+			{
+				isHeldCombo = 1;
+				chargeCost = 0;
+				comboCostUseTime = 0;
+				noSomersault = true;
+				isMiniGun = true;
+				//chargeShot = "PlasmaMachinegunLead";
+				chargeShot = "PlasmaMachinegunShot";
+				chargeShotSound = "PlasmaMachinegunSound";
+				chargeUpSound = "ChargeStartup_Power";
+				chargeTex = "ChargeLead_PlasmaGreen";
+				dustType = 61;
+				lightColor = MetroidMod.plaGreenColor;
 			}
 			
 			if(slot1.type == di)
@@ -344,7 +375,8 @@ namespace MetroidMod.Items.weapons
 				cl.ChargeShotSound = chargeShotSound;
 				cl.projectile.netUpdate = true;
 				cl.missile = true;
-				cl.comboSound = (isHeldCombo > 0);
+				cl.comboSound = comboSound;
+				cl.noSomersault = noSomersault;
 
 				chargeLead = ch;
 				return false;
@@ -362,8 +394,11 @@ namespace MetroidMod.Items.weapons
 			return true;
 		}
 		
+		bool initialShot = false;
 		int comboTime = 0;
 		int comboCostTime = 0;
+		int useTimeMax = 20;
+		float scalePlus = 0f;
 		int targetingDelay = 0;
 		//int prevTarget = -2;
 		int targetNum = 0;
@@ -404,26 +439,42 @@ namespace MetroidMod.Items.weapons
 								{
 									if(mp.statCharge >= MPlayer.maxCharge)
 									{
-										if(comboTime <= 0)
+										if(isMiniGun)
 										{
-											int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
-											Main.projectile[proj].ai[0] = chargeLead;
-											comboTime = comboUseTime;
-										}
-									
-										if(comboCostTime <= 0)
-										{
-											mi.statMissiles -= 1;
-											comboCostTime = comboCostUseTime;
+											this.MiniGunShoot(player, item, Main.projectile[chargeLead], mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), comboKnockBack, chargeShotSound);
 										}
 										else
 										{
-											comboCostTime--;
-										}
-										
-										if(isHeldCombo == 2 && comboTime > 0)
-										{
-											comboTime--;
+											if(!initialShot && useFlameSounds)
+											{
+												int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType("FlamethrowerLead"), 0, 0, player.whoAmI);
+												Main.projectile[proj].ai[0] = chargeLead;
+												initialShot = true;
+											}
+											if(comboTime <= 0)
+											{
+												int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
+												Main.projectile[proj].ai[0] = chargeLead;
+												comboTime = comboUseTime;
+											}
+											
+											if(comboCostUseTime > 0)
+											{
+												if(comboCostTime <= 0)
+												{
+													mi.statMissiles -= 1;
+													comboCostTime = comboCostUseTime;
+												}
+												else
+												{
+													comboCostTime--;
+												}
+											}
+											
+											if(isHeldCombo == 2 && comboTime > 0)
+											{
+												comboTime--;
+											}
 										}
 									}
 								}
@@ -456,6 +507,8 @@ namespace MetroidMod.Items.weapons
 							
 							comboTime = 0;
 							comboCostTime = 0;
+							useTimeMax = 20;
+							scalePlus = 0f;
 						}
 					}
 					else if (!mp.ballstate)
@@ -463,6 +516,8 @@ namespace MetroidMod.Items.weapons
 						mp.statCharge = 0;
 						comboTime = 0;
 						comboCostTime = 0;
+						useTimeMax = 20;
+						scalePlus = 0f;
 					}
 				}
 				else
@@ -470,6 +525,8 @@ namespace MetroidMod.Items.weapons
 					mp.statCharge = 0;
 					comboTime = 0;
 					comboCostTime = 0;
+					useTimeMax = 20;
+					scalePlus = 0f;
 				}
 
 				if (targetingDelay > 0)
@@ -609,7 +666,47 @@ namespace MetroidMod.Items.weapons
 				}
 			}
 		}
+		int waveDir = 1;
+		public void MiniGunShoot(Player player, Item item, Projectile Lead, int projType, int damage, float knockBack, string sound)
+		{
+			if(comboTime <= 0)
+			{
+				//Main.PlaySound(SoundID.Item91, oPos);
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/" + sound));
 				
+				float spray = 1f * (scalePlus / 20f);
+				
+				float scaleFactor2 = 14f;
+				float rot = Lead.velocity.ToRotation() + (float)Angle.ConvertToRadians(Main.rand.Next(18)*10) - (float)Math.PI/2f;
+				Vector2 vector3 = Lead.Center + rot.ToRotationVector2() * 7f * spray;
+				Vector2 vector5 = Vector2.Normalize(Lead.velocity) * scaleFactor2;
+				vector5 = vector5.RotatedBy((Main.rand.NextDouble() * 0.12 - 0.06)*spray, default(Vector2));
+				if (float.IsNaN(vector5.X) || float.IsNaN(vector5.Y))
+				{
+					vector5 = -Vector2.UnitY;
+				}
+				int proj = Projectile.NewProjectile(vector3.X, vector3.Y, vector5.X, vector5.Y, projType, damage, knockBack, player.whoAmI, 0f, 0f);
+				Main.projectile[proj].ai[0] = Lead.whoAmI;
+				MProjectile mProj = (MProjectile)Main.projectile[proj].modProjectile;
+				mProj.waveDir = waveDir;
+				
+				waveDir *= -1;
+				
+				comboTime = useTimeMax;
+				useTimeMax = Math.Max(useTimeMax - 2, comboUseTime);
+				
+				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+				mi.statMissiles -= 1;
+			}
+			else
+			{
+				comboTime--;
+			}
+			scalePlus = Math.Min(scalePlus + (2f / useTimeMax), 20f);
+			ChargeLead chLead = (ChargeLead)Lead.modProjectile;
+			chLead.extraScale = 0.3f * (scalePlus / 20f);
+		}
+		
 		public override TagCompound Save()
 		{
 			TagCompound tag = new TagCompound();
