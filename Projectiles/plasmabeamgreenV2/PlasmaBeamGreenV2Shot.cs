@@ -11,6 +11,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreenV2
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Plasma Beam Green V2 Shot");
+			Main.projFrames[projectile.type] = 2;
 		}
 		public override void SetDefaults()
 		{
@@ -94,6 +95,7 @@ namespace MetroidMod.Projectiles.plasmabeamgreenV2
 		{
 			base.SetDefaults();
 			projectile.Name = "Wave Plasma Beam Green V2 Shot";
+			Main.projFrames[projectile.type] = 1;
 			projectile.tileCollide = false;
 			
 			mProjectile.amplitude = 8f*projectile.scale;
