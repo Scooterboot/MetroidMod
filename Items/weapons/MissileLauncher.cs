@@ -121,7 +121,7 @@ namespace MetroidMod.Items.weapons
 		bool isSeeker = false;
 		int isHeldCombo = 0;
 		int chargeCost = 5;
-		bool comboSound = false;
+		int comboSound = 0;
 		bool noSomersault = false;
 		bool useFlameSounds = false;
 		bool isMiniGun = false;
@@ -162,7 +162,7 @@ namespace MetroidMod.Items.weapons
 			isCharge = (!slot1.IsAir && !isSeeker);
 			isHeldCombo = 0;
 			chargeCost = 5;
-			comboSound = false;
+			comboSound = 0;
 			noSomersault = false;
 			useFlameSounds = false;
 			isMiniGun = false;
@@ -210,7 +210,7 @@ namespace MetroidMod.Items.weapons
 			{
 				isHeldCombo = 1;
 				chargeCost = 0;
-				comboSound = true;
+				comboSound = 1;
 				noSomersault = true;
 				chargeShot = "WavebusterShot";
 				chargeUpSound = "ChargeStartup_Wave";
@@ -233,7 +233,7 @@ namespace MetroidMod.Items.weapons
 			{
 				isHeldCombo = 2;
 				chargeCost = 0;
-				comboSound = true;
+				comboSound = 1;
 				noSomersault = true;
 				useFlameSounds = true;
 				comboCostUseTime = 5;
@@ -249,6 +249,7 @@ namespace MetroidMod.Items.weapons
 				isHeldCombo = 1;
 				chargeCost = 0;
 				comboCostUseTime = 0;
+				comboSound = 2;
 				noSomersault = true;
 				isMiniGun = true;
 				//chargeShot = "PlasmaMachinegunLead";
@@ -509,6 +510,7 @@ namespace MetroidMod.Items.weapons
 							comboCostTime = 0;
 							useTimeMax = 20;
 							scalePlus = 0f;
+							initialShot = false;
 						}
 					}
 					else if (!mp.ballstate)
@@ -518,6 +520,7 @@ namespace MetroidMod.Items.weapons
 						comboCostTime = 0;
 						useTimeMax = 20;
 						scalePlus = 0f;
+						initialShot = false;
 					}
 				}
 				else
@@ -527,6 +530,7 @@ namespace MetroidMod.Items.weapons
 					comboCostTime = 0;
 					useTimeMax = 20;
 					scalePlus = 0f;
+					initialShot = false;
 				}
 
 				if (targetingDelay > 0)
