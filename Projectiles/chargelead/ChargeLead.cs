@@ -41,6 +41,8 @@ namespace MetroidMod.Projectiles.chargelead
 		public bool canPsuedoScrew = false;
 		public bool missile = false;
 		public bool comboSound = false;
+		public bool noSomersault = false;
+		public float extraScale = 0f;
 
 		bool soundPlayed = false;
 		SoundEffectInstance soundInstance;
@@ -54,6 +56,7 @@ namespace MetroidMod.Projectiles.chargelead
 			mp.chargeColor = LightColor;
 
 			P.scale = mp.statCharge / MPlayer.maxCharge;
+			P.scale += extraScale;
 			Item I = O.inventory[O.selectedItem];
 			
 			if(negateUseTime < I.useTime-2)
@@ -81,7 +84,7 @@ namespace MetroidMod.Projectiles.chargelead
 					soundInstance.Stop(true);
 				soundPlayed = true;
 			}
-			if(comboSound)
+			if(noSomersault)
 			{
 				mp.disableSomersault = true;
 			}
@@ -171,6 +174,8 @@ namespace MetroidMod.Projectiles.chargelead
 				}
 				P.spriteDirection = P.direction;
 				O.ChangeDir(P.direction);
+				
+				P.position += Vector2.Normalize(P.velocity) * 8f * extraScale;
 			}
 			P.position.X += (float)(P.width / 2);
 			P.position.Y += (float)(P.height / 2);
