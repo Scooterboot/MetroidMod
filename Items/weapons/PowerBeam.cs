@@ -1307,7 +1307,11 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			PowerBeam beamClone = (PowerBeam)clone;
-			beamClone.beamMods = this.beamMods;
+			beamClone.beamMods = new Item[MetroidMod.beamSlotAmount];
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+			{
+				beamClone.beamMods[i] = this.beamMods[i];
+			}
 
 			return clone;
 		}
