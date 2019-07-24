@@ -80,7 +80,12 @@ namespace MetroidMod.Items.equipables
 		{
 			ModItem clone = this.NewInstance(item);
 			MorphBall ballClone = (MorphBall)clone;
-            ballClone.ballMods = this.ballMods;
+			ballClone.ballMods = new Item[MetroidMod.ballSlotAmount];
+			for (int i = 0; i < MetroidMod.ballSlotAmount; ++i)
+			{
+				ballClone.ballMods[i] = this.ballMods[i];
+			}
+
 			return clone;
 		}
 
