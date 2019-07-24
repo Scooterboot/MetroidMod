@@ -54,7 +54,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            panelTexture = ModLoader.GetTexture("MetroidMod/Textures/UI/MorphBall_Border");
+            panelTexture = ModContent.GetTexture("MetroidMod/Textures/UI/MorphBall_Border");
 
             this.SetPadding(0);
             this.Width.Pixels = panelTexture.Width;
@@ -109,7 +109,7 @@ namespace MetroidMod.NewUI
         public delegate bool Condition(Item item);
         public override void OnInitialize()
         {
-            itemBoxTexture = ModLoader.GetTexture("MetroidMod/Textures/UI/ItemBox");
+            itemBoxTexture = ModContent.GetTexture("MetroidMod/Textures/UI/ItemBox");
 
             Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
             this.OnClick += ItemBoxClick;
@@ -240,7 +240,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            morphBallFrame = ModLoader.GetTexture("MetroidMod/Textures/UI/MorphBall_Frame");
+            morphBallFrame = ModContent.GetTexture("MetroidMod/Textures/UI/MorphBall_Frame");
 
             this.Width.Pixels = morphBallFrame.Width;
             this.Height.Pixels = morphBallFrame.Height;
@@ -266,7 +266,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            morphBallLines = ModLoader.GetTexture("MetroidMod/Textures/UI/MorphBall_Lines");
+            morphBallLines = ModContent.GetTexture("MetroidMod/Textures/UI/MorphBall_Lines");
 
             this.Width.Pixels = morphBallLines.Width;
             this.Height.Pixels = morphBallLines.Height;

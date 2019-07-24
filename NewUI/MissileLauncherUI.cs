@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -51,7 +51,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            panelTexture = ModLoader.GetTexture("MetroidMod/Textures/UI/MissileLauncher_Border");
+            panelTexture = ModContent.GetTexture("MetroidMod/Textures/UI/MissileLauncher_Border");
 
             this.SetPadding(0);
             this.Left.Pixels = 160;
@@ -108,7 +108,7 @@ namespace MetroidMod.NewUI
         public delegate bool Condition(Item item);
         public override void OnInitialize()
         {
-            itemBoxTexture = ModLoader.GetTexture("MetroidMod/Textures/UI/ItemBox");
+            itemBoxTexture = ModContent.GetTexture("MetroidMod/Textures/UI/ItemBox");
 
             Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
             this.OnClick += ItemBoxClick;
@@ -267,7 +267,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            missileLauncherFrame = ModLoader.GetTexture("MetroidMod/Textures/UI/MissileLauncher_Frame");
+            missileLauncherFrame = ModContent.GetTexture("MetroidMod/Textures/UI/MissileLauncher_Frame");
 
             this.Width.Pixels = missileLauncherFrame.Width;
             this.Height.Pixels = missileLauncherFrame.Height;
@@ -293,7 +293,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            missileLauncherLines = ModLoader.GetTexture("MetroidMod/Textures/UI/MissileLauncher_Lines");
+            missileLauncherLines = ModContent.GetTexture("MetroidMod/Textures/UI/MissileLauncher_Lines");
 
             this.Width.Pixels = missileLauncherLines.Width;
             this.Height.Pixels = missileLauncherLines.Height;

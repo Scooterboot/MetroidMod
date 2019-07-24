@@ -56,7 +56,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            panelTexture = ModLoader.GetTexture("MetroidMod/Textures/UI/PowerBeam_Border");
+            panelTexture = ModContent.GetTexture("MetroidMod/Textures/UI/PowerBeam_Border");
 
             this.SetPadding(0);
             this.Left.Pixels = 160;
@@ -113,7 +113,7 @@ namespace MetroidMod.NewUI
         public delegate bool Condition(Item item);
         public override void OnInitialize()
         {
-            itemBoxTexture = ModLoader.GetTexture("MetroidMod/Textures/UI/ItemBox");
+            itemBoxTexture = ModContent.GetTexture("MetroidMod/Textures/UI/ItemBox");
 
             Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
             this.OnClick += ItemBoxClick;
@@ -245,7 +245,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            powerBeamFrame = ModLoader.GetTexture("MetroidMod/Textures/UI/PowerBeam_Frame");
+            powerBeamFrame = ModContent.GetTexture("MetroidMod/Textures/UI/PowerBeam_Frame");
 
             this.Width.Pixels = powerBeamFrame.Width;
             this.Height.Pixels = powerBeamFrame.Height;
@@ -271,7 +271,7 @@ namespace MetroidMod.NewUI
 
         public override void OnInitialize()
         {
-            powerBeamLines = ModLoader.GetTexture("MetroidMod/Textures/UI/PowerBeam_Lines");
+            powerBeamLines = ModContent.GetTexture("MetroidMod/Textures/UI/PowerBeam_Lines");
 
             this.Width.Pixels = powerBeamLines.Width;
             this.Height.Pixels = powerBeamLines.Height;
