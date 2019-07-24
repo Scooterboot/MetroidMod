@@ -354,7 +354,11 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			MissileLauncher missileClone = (MissileLauncher)clone;
-			missileClone.missileMods = this.missileMods;
+			missileClone.missileMods = new Item[MetroidMod.missileSlotAmount];
+			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
+			{
+				missileClone.missileMods[i] = this.missileMods[i];
+			}
 
 			return clone;
 		}
