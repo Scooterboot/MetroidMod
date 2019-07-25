@@ -207,6 +207,7 @@ namespace MetroidMod.Items.weapons
 			int sp = mod.ItemType("SpazerComboAddon");
 			int ft = mod.ItemType("FlamethrowerAddon");
 			int pl = mod.ItemType("PlasmaMachinegunAddon");
+			int nv = mod.ItemType("NovaComboAddon");
 			
 			int di = mod.ItemType("DiffusionMissileAddon");
 			
@@ -262,7 +263,7 @@ namespace MetroidMod.Items.weapons
 			}
 			if(slot1.type == pl)
 			{
-				isHeldCombo = 1;
+				isHeldCombo = 2;
 				chargeCost = 0;
 				comboCostUseTime = 0;
 				comboSound = 2;
@@ -275,6 +276,18 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_PlasmaGreen";
 				dustType = 61;
 				lightColor = MetroidMod.plaGreenColor;
+			}
+			if(slot1.type == nv)
+			{
+				isHeldCombo = 1;
+				chargeCost = 0;
+				comboSound = 1;
+				noSomersault = true;
+				chargeShot = "NovaLaserShot";
+				chargeUpSound = "ChargeStartup_Nova";
+				chargeTex = "ChargeLead_Nova";
+				dustType = 75;
+				lightColor = MetroidMod.novColor;
 			}
 			
 			if(slot1.type == di)
