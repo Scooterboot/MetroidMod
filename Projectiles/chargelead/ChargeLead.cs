@@ -43,6 +43,7 @@ namespace MetroidMod.Projectiles.chargelead
 		public int comboSound = 0;
 		public bool noSomersault = false;
 		public float extraScale = 0f;
+		public float aimSpeed = 0f;
 
 		bool soundPlayed = false;
 		SoundEffectInstance soundInstance;
@@ -98,7 +99,7 @@ namespace MetroidMod.Projectiles.chargelead
 			{
 				if (P.owner == Main.myPlayer)
 				{
-					float MY = Main.mouseY + Main.screenPosition.Y;
+					/*float MY = Main.mouseY + Main.screenPosition.Y;
 					float MX = Main.mouseX + Main.screenPosition.X;
 					if (O.gravDir == -1f)
 					{
@@ -107,7 +108,21 @@ namespace MetroidMod.Projectiles.chargelead
 
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 
-					Vector2 newVelocity = targetrotation.ToRotationVector2() * 26;
+					Vector2 newVelocity = targetrotation.ToRotationVector2() * 26;*/
+					
+					Vector2 mousePos = Main.MouseWorld;
+					Vector2 diff = Vector2.Normalize(mousePos - oPos);
+					if (float.IsNaN(diff.X) || float.IsNaN(diff.Y))
+					{
+						diff = -Vector2.UnitY;
+					}
+					
+					if(aimSpeed > 0f && mp.statCharge >= MPlayer.maxCharge)
+					{
+						diff = Vector2.Normalize(Vector2.Lerp(diff, Vector2.Normalize(P.velocity), aimSpeed));
+					}
+					
+					Vector2 newVelocity = diff * 26;
 
 					if (newVelocity.X != P.velocity.X || newVelocity.Y != P.velocity.Y)
 					{
@@ -177,6 +192,7 @@ namespace MetroidMod.Projectiles.chargelead
 				
 				P.position += Vector2.Normalize(P.velocity) * 8f * extraScale;
 			}
+			P.position.Y += O.gfxOffY;
 			P.position.X += (float)(P.width / 2);
 			P.position.Y += (float)(P.height / 2);
 			P.width = mp.somersault?50:16;
