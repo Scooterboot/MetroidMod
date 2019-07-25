@@ -125,6 +125,8 @@ namespace MetroidMod.Items.weapons
 		bool noSomersault = false;
 		bool useFlameSounds = false;
 		bool isMiniGun = false;
+		bool isShotgun = false;
+		int shotgunAmt = 5;
 		
 		int comboUseTime = 4;
 		int comboCostUseTime = 12;
@@ -166,6 +168,8 @@ namespace MetroidMod.Items.weapons
 			noSomersault = false;
 			useFlameSounds = false;
 			isMiniGun = false;
+			isShotgun = false;
+			shotgunAmt = 5;
 			
 			comboUseTime = 4;
 			comboCostUseTime = 12;
@@ -200,6 +204,7 @@ namespace MetroidMod.Items.weapons
 			
 			int wb = mod.ItemType("WavebusterAddon");
 			int icSp = mod.ItemType("IceSpreaderAddon");
+			int sp = mod.ItemType("SpazerComboAddon");
 			int ft = mod.ItemType("FlamethrowerAddon");
 			int pl = mod.ItemType("PlasmaMachinegunAddon");
 			
@@ -228,6 +233,17 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_Ice";
 				dustType = 59;
 				lightColor = MetroidMod.iceColor;
+			}
+			if(slot1.type == sp)
+			{
+				isShotgun = true;
+				chargeCost = 5;
+				chargeShot = shot;//"SpazerShotgunShot";
+				//chargeShotSound = "SpazerChargeSound";
+				chargeUpSound = "ChargeStartup_Power";
+				chargeTex = "ChargeLead_Spazer";
+				dustType = 64;
+				lightColor = MetroidMod.powColor;
 			}
 			if(slot1.type == ft)
 			{
@@ -495,7 +511,25 @@ namespace MetroidMod.Items.weapons
 							{
 								if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= chargeCost)
 								{
-									int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
+									if(isShotgun)
+									{
+										for(int i = 0; i < shotgunAmt; i++)
+										{
+											int k = i - (shotgunAmt/2);
+											Vector2 shotGunVel = Vector2.Normalize(velocity) * (item.shootSpeed + 4f);
+											double rot = Angle.ConvertToRadians(4.0*k);
+											shotGunVel = shotGunVel.RotatedBy(rot, default(Vector2));
+											if (float.IsNaN(shotGunVel.X) || float.IsNaN(shotGunVel.Y))
+											{
+												shotGunVel = -Vector2.UnitY;
+											}
+											int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, shotGunVel.X, shotGunVel.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
+										}
+									}
+									else
+									{
+										int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
+									}
 									mi.statMissiles -= chargeCost;
 								}
 								else if (mp.statCharge > 0)
