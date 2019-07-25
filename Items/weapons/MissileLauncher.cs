@@ -131,6 +131,8 @@ namespace MetroidMod.Items.weapons
 		int comboUseTime = 4;
 		int comboCostUseTime = 12;
 		float chargeMult = 1f;
+		
+		float leadAimSpeed = 0f;
 
 		public override void UpdateInventory(Player P)
 		{
@@ -175,6 +177,8 @@ namespace MetroidMod.Items.weapons
 			comboCostUseTime = 12;
 			
 			chargeMult = 1f;
+			
+			leadAimSpeed = 0f;
 			
 			mi.maxMissiles = 5 + (5*exp.stack);
 			if(mi.statMissiles > mi.maxMissiles)
@@ -283,6 +287,7 @@ namespace MetroidMod.Items.weapons
 				chargeCost = 0;
 				comboSound = 1;
 				noSomersault = true;
+				leadAimSpeed = 0.85f;
 				chargeShot = "NovaLaserShot";
 				chargeUpSound = "ChargeStartup_Nova";
 				chargeTex = "ChargeLead_Nova";
@@ -411,6 +416,7 @@ namespace MetroidMod.Items.weapons
 				cl.missile = true;
 				cl.comboSound = comboSound;
 				cl.noSomersault = noSomersault;
+				cl.aimSpeed = leadAimSpeed;
 
 				chargeLead = ch;
 				return false;
