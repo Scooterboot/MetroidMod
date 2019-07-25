@@ -35,8 +35,6 @@ namespace MetroidMod.Projectiles.missilecombo
 		Projectile Lead;
 		
 		SoundEffectInstance soundInstance;
-		//bool soundPlayed = false;
-		//int soundDelay = 0;
 
 		bool initialize = false;
 		public override void AI()
@@ -44,7 +42,6 @@ namespace MetroidMod.Projectiles.missilecombo
 			Projectile P = projectile;
 			Player O = Main.player[P.owner];
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
-			Vector2 mousePos = Main.MouseWorld;
 			
 			Lead = Main.projectile[(int)P.ai[0]];
 			if(!Lead.active || Lead.owner != P.owner || Lead.type != mod.ProjectileType("ChargeLead") || !O.controlUseItem)
@@ -62,32 +59,12 @@ namespace MetroidMod.Projectiles.missilecombo
 				
 				if (P.owner == Main.myPlayer)
 				{
-					Vector2 diff = mousePos - oPos;
-					diff.Normalize();
-					P.velocity = diff;
-					P.netUpdate = true;
-					
-					/*if(P.numUpdates == 0)
-					{
-						if(soundDelay <= 0)
-						{
-							if(soundInstance != null)
-							{
-								soundInstance.Stop(true);
-							}
-							soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/NovaLaserLoop"));
-							soundDelay = 116;
-						}
-						else
-						{
-							soundDelay--;
-						}
-					}*/
 					if(soundInstance == null || soundInstance.State != SoundState.Playing)
 					{
 						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/NovaLaserLoop"));
 					}
 				}
+				P.velocity = Vector2.Normalize(Lead.velocity);
 				P.Center = oPos;
 				P.timeLeft = 2;
 				P.rotation = P.velocity.ToRotation() - 1.57f;
@@ -198,14 +175,6 @@ namespace MetroidMod.Projectiles.missilecombo
 				
 				float leadDist = Vector2.Distance(oPos,Lead.Center);
 				
-				/*Vector2 pos3 = P.Center + P.velocity * leadDist;
-				sb.Draw(tex, pos3 - Main.screenPosition, 
-				new Rectangle?(new Rectangle(0, tHeight*P.frame, tex.Width, tailHeight)), 
-				P.GetAlpha(Color.White), P.rotation, 
-				new Vector2((float)tex.Width/2f, 0f), 
-				scale, SpriteEffects.None, 0f);
-				
-				leadDist += tailHeight/2;*/
 				for (float i = leadDist; i <= P.ai[1]; i += bodyHeight)
 				{
 					Vector2 pos = P.Center + P.velocity * i;
