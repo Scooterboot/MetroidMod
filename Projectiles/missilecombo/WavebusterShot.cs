@@ -106,6 +106,7 @@ namespace MetroidMod.Projectiles.missilecombo
 				
 				mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos,Main.MouseWorld),range);
 				
+				target = null;
 				for(int i = 0; i < Main.maxNPCs; i++)
 				{
 					if(Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
@@ -160,7 +161,7 @@ namespace MetroidMod.Projectiles.missilecombo
 				}
 				else
 				{
-					if(P.numUpdates <= 0)
+					if(P.numUpdates == 0)
 					{
 						//targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
 						targetPos = oPos + diff * range;
@@ -169,7 +170,7 @@ namespace MetroidMod.Projectiles.missilecombo
 					}
 				}
 				
-				if(P.numUpdates <= 0)
+				if(P.numUpdates == 0)
 				{
 					if(soundDelay <= 0)
 					{
@@ -177,7 +178,7 @@ namespace MetroidMod.Projectiles.missilecombo
 						{
 							soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/WavebusterStart"));
 							soundPlayed = true;
-							soundDelay = 104;
+							soundDelay = 50;
 						}
 						else
 						{
@@ -186,7 +187,7 @@ namespace MetroidMod.Projectiles.missilecombo
 								soundInstance.Stop(true);
 							}
 							soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/WavebusterLoop"));
-							soundDelay = 140;
+							soundDelay = 138;
 						}
 					}
 					else
@@ -209,7 +210,7 @@ namespace MetroidMod.Projectiles.missilecombo
 				P.Kill();
 			}
 			
-			if(P.numUpdates <= 0)
+			if(P.numUpdates == 0)
 			{
 				for(int i = 0; i < 3; i++)
 				{

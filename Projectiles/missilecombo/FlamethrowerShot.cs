@@ -23,7 +23,7 @@ namespace MetroidMod.Projectiles.missilecombo
 			projectile.height = height;
 			projectile.scale = 0.5f;
 			projectile.timeLeft = maxTimeLeft;
-			projectile.penetrate = -1;
+			projectile.penetrate = 40;//-1;
 			//projectile.usesLocalNPCImmunity = true;
        	 	//projectile.localNPCHitCooldown = 20;
 			projectile.extraUpdates = 1;
