@@ -2688,7 +2688,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						}
 						else
 						{
-							Body.dontTakeDamage = true;
+							//Body.dontTakeDamage = true;
 							
 							for(int i = 0; i < DarkPortal.Length; i++)
 							{
@@ -2750,6 +2750,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 								anim_PhazonRegenTransition = 0f;
 								npc.damage = 0;
 								npc.dontTakeDamage = true;
+								Body.dontTakeDamage = true;
 							}
 						}
 						
@@ -2804,6 +2805,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 					//bodyAlpha = Math.Min(bodyAlpha+0.025f,1f);
 					bodyAlpha = Math.Min(bodyAlpha+0.015f,1f);
 					fullAlpha = 1f;
+					fullScale.X = Math.Min(fullScale.X+0.1f,1f);
 					
 					float animSpeed = 0f;
 					if(anim_Death < 2f)
