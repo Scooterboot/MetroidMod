@@ -193,12 +193,15 @@ namespace MetroidMod.Projectiles.missilecombo
 					}
 				}
 				
-				Vector2 pos2 = P.Center + P.velocity * P.ai[1];
-				sb.Draw(tex, pos2 - Main.screenPosition, 
-				new Rectangle?(new Rectangle(0, tailHeight+2+(bodyHeight*bodyFrameCount)+2 + (tHeight*P.frame), tex.Width, headHeight)), 
-				P.GetAlpha(Color.White), P.rotation, 
-				new Vector2((float)tex.Width/2f, headHeight-3), 
-				scale, SpriteEffects.None, 0f);
+				if(P.ai[1] > leadDist+headHeight/2)
+				{
+					Vector2 pos2 = P.Center + P.velocity * P.ai[1];
+					sb.Draw(tex, pos2 - Main.screenPosition, 
+					new Rectangle?(new Rectangle(0, tailHeight+2+(bodyHeight*bodyFrameCount)+2 + (tHeight*P.frame), tex.Width, headHeight)), 
+					P.GetAlpha(Color.White), P.rotation, 
+					new Vector2((float)tex.Width/2f, headHeight-3), 
+					scale, SpriteEffects.None, 0f);
+				}
 			}
 			
 			return false;
