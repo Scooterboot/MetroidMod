@@ -313,6 +313,22 @@ namespace MetroidMod.Items.weapons
 				}
 			}
 			
+			int sl = mod.ItemType("SolarComboAddon");
+			
+			if(slot1.type == sl)
+			{
+				isHeldCombo = 1;
+				chargeCost = 0;
+				comboSound = 1;
+				noSomersault = true;
+				leadAimSpeed = 0.9f;
+				chargeShot = "SolarLaserShot";
+				chargeUpSound = "ChargeStartup_PlasmaRed";
+				chargeTex = "ChargeLead_SolarCombo";
+				dustType = 6;
+				lightColor = MetroidMod.plaRedColor;
+			}
+			
 			
 			isCharge &= (mi.statMissiles >= chargeCost);
 			
