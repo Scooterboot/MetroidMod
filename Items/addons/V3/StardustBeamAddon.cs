@@ -35,22 +35,14 @@ namespace MetroidMod.Items.addons.V3
 			mItem.addonSlotType = 1;
 		}
 
-		/*public override void AddRecipes()
+		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.SnowBlock, 25);
-            		recipe.AddIngredient(ItemID.IceBlock, 10);
-            		recipe.AddTile(TileID.Anvils);
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.FragmentStardust, 18);
+            recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.Sapphire, 7);
-            		recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}*/
+		}
 	}
 }

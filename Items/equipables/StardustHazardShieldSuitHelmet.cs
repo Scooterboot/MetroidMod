@@ -34,16 +34,16 @@ namespace MetroidMod.Items.equipables
             mp.maxOverheat += 33;
         }
 
-        public override void AddRecipes()
+       /* public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "HazardShieldSuitHelmet");
             recipe.AddIngredient(ItemID.LunarBar, 10);
             recipe.AddIngredient(ItemID.FragmentStardust, 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+        */
     }
 }

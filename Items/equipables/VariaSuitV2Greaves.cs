@@ -39,9 +39,7 @@ namespace MetroidMod.Items.equipables
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitBreastplate");
             recipe.AddIngredient(ItemID.MythrilBar, 15);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(null, "EnergyTank");
+            recipe.AddIngredient(null, "KraidTissue", 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -49,9 +47,7 @@ namespace MetroidMod.Items.equipables
             recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitBreastplate");
             recipe.AddIngredient(ItemID.OrichalcumBar, 15);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(null, "EnergyTank");
+            recipe.AddIngredient(null, "KraidTissue", 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

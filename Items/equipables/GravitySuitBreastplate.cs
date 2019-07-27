@@ -92,21 +92,7 @@ namespace MetroidMod.Items.equipables
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitV2Breastplate");
             recipe.AddIngredient(null, "GravityGel", 20);
-            /*recipe.AddIngredient(ItemID.Wire, 12);
-            recipe.AddIngredient(ItemID.CursedFlame, 12);*/
-            recipe.AddIngredient(null, "EnergyTank");
-            //recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitV2Breastplate");
-            recipe.AddIngredient(null, "GravityGel", 20);
-            /*recipe.AddIngredient(ItemID.Wire, 12);
-            recipe.AddIngredient(ItemID.Ichor, 12);*/
-            recipe.AddIngredient(null, "EnergyTank");
-            //recipe.AddIngredient(ItemID.SoulofSight, 5);
+            recipe.AddIngredient(ItemID.HallowedBar, 15);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

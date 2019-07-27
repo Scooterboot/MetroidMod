@@ -35,22 +35,17 @@ namespace MetroidMod.Items.addons.V2
 			mItem.addonSlotType = 1;
 		}
 
-		/*public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.SnowBlock, 25);
-            		recipe.AddIngredient(ItemID.IceBlock, 10);
-            		recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(null, "IceBeamAddon", 1);
+            recipe.AddIngredient(ItemID.BeetleHusk, 10);
+            recipe.AddIngredient(ItemID.FrostCore, 1);
+            recipe.AddIngredient(ItemID.SoulofNight, 10);
+            recipe.AddIngredient(ItemID.Sapphire, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.Sapphire, 7);
-            		recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}*/
+		}
 	}
 }

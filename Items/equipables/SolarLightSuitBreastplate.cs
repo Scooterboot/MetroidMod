@@ -84,16 +84,16 @@ namespace MetroidMod.Items.equipables
             }
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "LightSuitBreastplate");
             recipe.AddIngredient(ItemID.LunarBar, 20);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+        */
     }
 }

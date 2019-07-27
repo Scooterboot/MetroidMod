@@ -35,8 +35,10 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.DirtBlock, 1);
-			//recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ItemID.Topaz, 15);
+            recipe.AddIngredient(ItemID.JungleSpores, 10);
+            recipe.AddIngredient(ItemID.HellstoneBar, 10);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

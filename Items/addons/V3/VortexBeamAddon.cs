@@ -35,16 +35,14 @@ namespace MetroidMod.Items.addons.V3
 			mItem.addonSlotType = 3;
 		}
 
-		/*public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 6);
-		    	recipe.AddIngredient(ItemID.Topaz, 15);
-		    	recipe.AddIngredient(ItemID.JungleSpores, 10);
-		    	recipe.AddTile(TileID.Anvils);
+		    recipe.AddIngredient(ItemID.FragmentVortex, 18);
+            recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-		}*/
+		}
 	}
 }

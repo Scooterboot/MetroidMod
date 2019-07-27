@@ -103,7 +103,6 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(null, "TerraGravitySuitBreastplate");
             recipe.AddIngredient(ItemID.LunarBar, 20);
             recipe.AddIngredient(ItemID.FragmentVortex, 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -40,7 +40,6 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(null, "GravitySuitGreaves");
             recipe.AddIngredient(ItemID.SpectreBar, 20);
             recipe.AddIngredient(null, "PurePhazon", 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(null, "NovaWorkTableTile");
             recipe.SetResult(this);
             recipe.AddRecipe();

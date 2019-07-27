@@ -34,25 +34,13 @@ namespace MetroidMod.Items.addons.V3
 			mItem.addonSlotType = 4;
 		}
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "PlasmaBeamGreenAddon");
-            		recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
-            		recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddIngredient(ItemID.SoulofSight, 5);
-            		recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "PlasmaBeamRedAddon");
-            		recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
-            		recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddIngredient(ItemID.SoulofSight, 5);
-		    	recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.FragmentSolar, 18);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 	}
 }

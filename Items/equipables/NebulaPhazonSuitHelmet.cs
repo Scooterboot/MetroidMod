@@ -40,7 +40,6 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(null, "PhazonSuitHelmet");
             recipe.AddIngredient(ItemID.LunarBar, 10);
             recipe.AddIngredient(ItemID.FragmentNebula, 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();

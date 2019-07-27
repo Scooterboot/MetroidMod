@@ -35,8 +35,10 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.DirtBlock, 1);
-			//recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ItemID.FragmentSolar, 15);
+            recipe.AddIngredient(ItemID.LunarBar, 5);
+            recipe.AddIngredient(ItemID.Ruby, 5);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

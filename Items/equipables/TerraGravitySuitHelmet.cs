@@ -40,7 +40,6 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(null, "GravitySuitHelmet");
             recipe.AddIngredient(ItemID.ChlorophyteBar, 15);
             recipe.AddIngredient(null, "GravityGel", 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
