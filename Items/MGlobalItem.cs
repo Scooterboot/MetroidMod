@@ -83,7 +83,7 @@ namespace MetroidMod.Items
 				}
 				else if(mp.speedBoosting)
 				{
-					color = P.GetImmuneAlphaPure(new Color(0, 170, 255),shadow);
+					color = P.GetImmuneAlphaPure(new Color(0, 200, 255),shadow);
 				}
 				mp.morphColor = color;
 
