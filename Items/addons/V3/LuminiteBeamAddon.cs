@@ -36,10 +36,13 @@ namespace MetroidMod.Items.addons.V3
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChargeBeamAddon");
-            		recipe.AddIngredient(ItemID.SoulofMight, 10);
-            		recipe.AddIngredient(ItemID.IllegalGunParts);
-            		recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(null, "ChargeBeamV2Addon");
+            recipe.AddIngredient(ItemId.LunarBar, 5);
+            recipe.AddIngredient(ItemID.FragmentNebula, 2);
+            recipe.AddIngredient(ItemID.FragmentSolar, 2);
+            recipe.AddIngredient(ItemID.FragmentVortex, 2);
+            recipe.AddIngredient(ItemID.FragmentStardust, 2);
+            recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

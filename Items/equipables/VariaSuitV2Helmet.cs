@@ -35,7 +35,7 @@ namespace MetroidMod.Items.equipables
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "VariaSuitHelmet");
             recipe.AddIngredient(ItemID.MythrilBar, 10);
             recipe.AddIngredient(null, "KraidTissue", 7);
             recipe.AddTile(TileID.MythrilAnvil);
@@ -43,7 +43,7 @@ namespace MetroidMod.Items.equipables
             recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "VariaSuitHelmet");
             recipe.AddIngredient(ItemID.OrichalcumBar, 10);
             recipe.AddIngredient(null, "KraidTissue", 7);
             recipe.AddTile(TileID.MythrilAnvil);
