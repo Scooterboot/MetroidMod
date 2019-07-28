@@ -9,12 +9,14 @@ using Terraria.GameInput;
 using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Capture;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
+using MetroidMod;
 using MetroidMod.NPCs;
 
 namespace MetroidMod
@@ -50,7 +52,7 @@ namespace MetroidMod
 		public int bombDamage = 10;
 		public bool Ibounce = true;
 		public float velY = 0f;
-		public bool mouseRight = false;
+		//public bool mouseRight = false;
 		public int soundDelay = 0;
 		public SoundEffectInstance soundInstance;
 		public bool trap = false;
@@ -210,7 +212,7 @@ namespace MetroidMod
 			morphColorLights.A = 255;
 			morphItemColor = P.shirtColor;
 			morphItemColor.A = 255;
-			somersault = (!P.dead && !disableSomersault && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 /*&& P.velocity.X != 0*/ && !player.sliding && !isGripping && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
+			somersault = (!P.dead && !disableSomersault && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 /*&& P.velocity.X != 0*/ && !P.sliding && !P.pulley && !isGripping && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
 
 			player.breathMax = (int)(200 * breathMult);
@@ -1010,6 +1012,7 @@ namespace MetroidMod
 				player.jumpAgainSail = false;
 				player.jumpAgainUnicorn = false;
 				player.pulley = false;
+				player.ropeCount = 10;
 				statCharge = 0;
 			}
 			else
@@ -1085,7 +1088,7 @@ namespace MetroidMod
 				bomb = 0;
 				Ibounce = true;
 				velY = 0f;
-				mouseRight = false;
+				//mouseRight = false;
 				soundDelay = 0;
 				trap = false;
 				executeChange = false;
@@ -1545,6 +1548,19 @@ namespace MetroidMod
                     for (int i = 0; i < mp.oldPos.Length; i++)
                     {
                         Color color23 = mp.morphColorLights;
+						if(mp.shineActive)// || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
+						{
+                            color23 = new Color(255, 216, 0, 255);
+						}
+						else if(mp.speedBoosting)
+						{
+                            color23 = new Color(0, 200, 255, 255);
+						}
+						if(mp.boostEffect > 0)
+						{
+							Color gold = new Color(255,255,0,255);
+							color23 = Color.Lerp(color23, gold, (float)mp.boostEffect/60f);
+						}
                         color23 *= (mp.oldPos.Length - (i)) / 15f;
 
                         Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2((int)(drawPlayer.width / 2), (int)(drawPlayer.height / 2));
@@ -2116,71 +2132,14 @@ namespace MetroidMod
 			}
 		}
 		
+		// Using these so that I don't have to write out the entire method every time
 		public bool CheckCollide(float offsetX, float offsetY)
 		{
 			return CheckCollide(player.position+new Vector2(offsetX,offsetY), player.width, player.height);
 		}
 		public bool CheckCollide(Vector2 Position, int Width, int Height)
 		{
-			int num = (int)(Position.X / 16f) - 1;
-			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
-			int num3 = (int)(Position.Y / 16f) - 1;
-			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
-			num = Utils.Clamp<int>(num, 0, Main.maxTilesX - 1);
-			num2 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-			num3 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
-			num4 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if (Main.tile[i, j] != null && !Main.tile[i, j].inActive() && Main.tile[i, j].active() && Main.tileSolid[(int)Main.tile[i, j].type] && !Main.tileSolidTop[(int)Main.tile[i, j].type])
-					{
-						Vector2 vector;
-						vector.X = (float)(i * 16);
-						vector.Y = (float)(j * 16);
-						int num5 = 16;
-						if (Main.tile[i, j].halfBrick())
-						{
-							vector.Y += 8f;
-							num5 -= 8;
-						}
-						if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num5)
-						{
-							if(Main.tile[i, j].slope() > 0)
-							{
-								if (Main.tile[i, j].slope() > 2)
-								{
-									if(Main.tile[i, j].slope() == 3 && Position.Y < vector.Y + (float)num5 - Math.Max(Position.X - vector.X, 0f))
-									{
-										return true;
-									}
-									if(Main.tile[i, j].slope() == 4 && Position.Y < vector.Y + (float)num5 - Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
-									{
-										return true;
-									}
-								}
-								else
-								{
-									if(Main.tile[i, j].slope() == 1 && Position.Y + (float)Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
-									{
-										return true;
-									}
-									if(Main.tile[i, j].slope() == 2 && Position.Y + (float)Height > vector.Y + Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
-									{
-										return true;
-									}
-								}
-							}
-							else
-							{
-								return true;
-							}
-						}
-					}
-				}
-			}
-			return false;
+			return CollideMethods.CheckCollide(Position,Width,Height);
 		}
 
         public void AddSpeedBoost(Player player)
@@ -2490,14 +2449,14 @@ namespace MetroidMod
 		
 		public void Bomb(Player player)
 		{
-			if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0 && !player.mouseInterface)
+			if(bomb <= 0 && player.controlUseTile && !player.tileInteractionHappened && player.releaseUseItem && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
 				int BombID = mod.ProjectileType("MBBomb");
 				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
 				Main.projectile[a].aiStyle = 0;
+				bomb = 20;
 			}
-			mouseRight = Main.mouseRight;
 			if(bomb > 0)
 			{
 				bomb--;
@@ -2585,17 +2544,14 @@ namespace MetroidMod
 					Main.projectile[k].Kill();
 				}
 			}
-			//player.noItems = true;
 			player.controlHook = false;
 			player.controlUseItem = false;
-			player.controlUseTile = false;
+			//player.controlUseTile = false;
 			player.noFallDmg = true;
 			player.scope = false;
 			if(ballstate)
 			{
 				player.width = Math.Abs(player.velocity.X) >= 10f ? 20: morphSize;
-				//player.height = morphSize;
-				//player.position.Y += Player.defaultHeight - player.height;
 			}
 			player.doubleJumpCloud = false;
 			player.jumpAgainCloud = false;
@@ -2616,10 +2572,6 @@ namespace MetroidMod
 			player.carpet = false;
 			player.carpetTime = 0;
 			player.canCarpet = false;
-			if(player.gravity != 0f)
-			{
-				//player.maxFallSpeed += 2.5f;
-			}
 			if(player.velocity.Y == 0f)
 			{
 				player.runSlowdown *= 0.5f;
@@ -2631,22 +2583,9 @@ namespace MetroidMod
 			Color brightColor = morphColorLights;
 			Lighting.AddLight((int)((player.Center.X) / 16f), (int)((player.Center.Y) / 16f), (float)(brightColor.R/(shinyblock/(1+0.1*timez))), (float)(brightColor.G/(shinyblock/(1+0.1*timez))), (float)(brightColor.B/(shinyblock/(1+0.1*timez))));  
 
-			if(Ibounce && !player.controlDown && !player.controlJump)
-			{
-				Vector2 value2 = player.velocity;
-				player.velocity = Collision.TileCollision(player.position, player.velocity, player.width, player.height, false, false);		
-				if (value2 != player.velocity)
-				{
-					if (player.velocity.Y != value2.Y && value2.Y > 7f)//Math.Abs((double)value2.Y) > 7f)
-					{
-						player.velocity.Y = value2.Y * -0.3f;
-					}
-					player.fallStart = (int)(player.position.Y / 16f);
-				}
-			}
 			if(!spiderball)
 			{
-				int dis = 0;
+				Ibounce = true;
 				if (player.velocity.Y == 0)
 				{
 					int num2 = (int)(player.position.X / 16f) - 1;
@@ -2691,31 +2630,21 @@ namespace MetroidMod
 										if (Main.tile[i, j].slope() == 1 && (!Main.tile[i + 1, j].active() || !Main.tileSolid[(int)Main.tile[i + 1, j].type]))
 										{
 											player.velocity.X += velY;
-											velY = 0f;
+                                            velY = 0f;
+                                            Ibounce = false;
 										}
 										else if (Main.tile[i, j].slope() == 2 && (!Main.tile[i - 1, j].active() || !Main.tileSolid[(int)Main.tile[i - 1, j].type]))
 										{
 											player.velocity.X -= velY;
-											velY = 0f;
+                                            velY = 0f;
+                                            Ibounce = false;
 										}
 									}
-									else
-									{
-										dis++;
-									}
-								}
-								else
-								{
-									dis++;
-								}
-								if(dis > 5)
-								{
-									velY = 0f;
-									dis = 0;
 								}
 							}
 						}
 					}
+					velY = 0f;
 				}
 				else if(player.velocity.Y > 0)
 				{
@@ -2725,6 +2654,20 @@ namespace MetroidMod
 			else
 			{
 				velY = 0f;
+			}
+			
+			if(Ibounce && !player.controlDown && !player.controlJump)
+			{
+				Vector2 value2 = player.velocity;
+				player.velocity = Collision.TileCollision(player.position, player.velocity, player.width, player.height, false, false);		
+				if (value2 != player.velocity)
+				{
+					if (player.velocity.Y != value2.Y && value2.Y > 7f)//Math.Abs((double)value2.Y) > 7f)
+					{
+						player.velocity.Y = value2.Y * -0.3f;
+					}
+					player.fallStart = (int)(player.position.Y / 16f);
+				}
 			}
 		}
 
@@ -3063,11 +3006,11 @@ namespace MetroidMod
 				{
 					soundInstance.Stop(true);
 				}
-				if(boostCharge > 30)
+				if(boostCharge > 20)
 				{
 					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BoostBallSound"));
 					
-					float mult = (float)boostCharge / 30f;
+					float mult = Math.Max((float)boostCharge / 30f, 1.25f);
 					
 					if(spiderball && CurEdge != Edge.None)
 					{
@@ -3095,23 +3038,17 @@ namespace MetroidMod
 					{
 						if(player.velocity.X == 0 && player.velocity.Y == 0)
 						{
-							player.velocity.X += 4f*mult * player.direction;
+							float maxSpeed = player.maxRunSpeed + player.accRunSpeed + 4f*mult;
+							float speedCap = Math.Max(maxSpeed-Math.Abs(player.velocity.X),0f);
+							player.velocity.X += MathHelper.Clamp(4f*mult*player.direction,-speedCap,speedCap);
 						}
-						if(player.velocity.X > 0)
+						else
 						{
-							player.velocity.X += 4f*mult;
-						}
-						if(player.velocity.X < 0)
-						{
-							player.velocity.X -= 4f*mult;
-						}
-						if(player.velocity.Y > 0)
-						{
-							player.velocity.Y += 4f*mult;
-						}
-						if(player.velocity.Y < 0)
-						{
-							player.velocity.Y -= 4f*mult;
+							Vector2 boostedVel = Vector2.Normalize(player.velocity) * 4f*mult;
+							float maxSpeed = player.maxRunSpeed + player.accRunSpeed + Math.Abs(boostedVel.X);
+							float speedCap = Math.Max(maxSpeed-Math.Abs(player.velocity.X),0f);
+							player.velocity.X += MathHelper.Clamp(boostedVel.X,-speedCap,speedCap);
+							player.velocity.Y += boostedVel.Y;
 						}
 					}
 					boostEffect += boostCharge;
