@@ -85,7 +85,7 @@ namespace MetroidMod.Projectiles.missilecombo
 				for (P.ai[1] = 0f; P.ai[1] <= maxRange; P.ai[1] += 4f)
 				{
 					Vector2 end = oPos + P.velocity * P.ai[1];
-					if (!Collision.CanHit(oPos, 1, 1, end, 1, 1))
+					if(CollideMethods.CheckCollide(end, 0, 0))
 					{
 						P.ai[1] -= 4f;
 						if(num <= 0)
