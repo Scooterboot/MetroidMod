@@ -37,7 +37,7 @@ namespace MetroidMod.Items.addons.V3
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChargeBeamV2Addon");
-            recipe.AddIngredient(ItemId.LunarBar, 5);
+            recipe.AddIngredient(ItemID.LunarBar, 5);
             recipe.AddIngredient(ItemID.FragmentNebula, 2);
             recipe.AddIngredient(ItemID.FragmentSolar, 2);
             recipe.AddIngredient(ItemID.FragmentVortex, 2);
