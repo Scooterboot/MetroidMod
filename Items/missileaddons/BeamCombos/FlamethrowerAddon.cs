@@ -46,7 +46,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
             recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Ruby, 5);
             recipe.AddIngredient(ItemID.Ichor, 15);
-            recipe.AddIngredient(ItemID.AdamantiteBar, 5);
+            recipe.AddIngredient(ItemID.TitaniumBar, 5);
             recipe.AddIngredient(ItemID.SoulofLight, 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
