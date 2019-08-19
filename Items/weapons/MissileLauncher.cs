@@ -313,8 +313,21 @@ namespace MetroidMod.Items.weapons
 				}
 			}
 			
+			int nb = mod.ItemType("NebulaComboAddon");
 			int sl = mod.ItemType("SolarComboAddon");
 			
+			if(slot1.type == nb)
+			{
+				isHeldCombo = 1;
+				chargeCost = 0;
+				comboSound = 1;
+				noSomersault = true;
+				chargeShot = "NebulaComboShot";
+				chargeUpSound = "ChargeStartup_Wave";
+				chargeTex = "ChargeLead_Nebula";
+				dustType = 255;
+				lightColor = MetroidMod.waveColor;
+			}
 			if(slot1.type == sl)
 			{
 				isHeldCombo = 1;
