@@ -11,8 +11,8 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
-			"~Fires a continuous 'something something' at full charge\n" + 
-			"~Drains # missiles per second during use");
+			"~Creates a tethered mass of Nebula energy that lashes at foes when fully charged\n" + 
+			"~Drains 5 missiles per second during use");
 		}
 		public override void SetDefaults()
 		{
