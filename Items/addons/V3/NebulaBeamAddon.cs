@@ -38,7 +38,6 @@ namespace MetroidMod.Items.addons.V3
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "ChoziteBar", 3);
             recipe.AddIngredient(ItemID.FragmentNebula, 18);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
