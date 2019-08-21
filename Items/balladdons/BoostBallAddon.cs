@@ -39,7 +39,7 @@ namespace MetroidMod.Items.balladdons
 			recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
-
+			recipe.AddRecipe();
 		}
 	}
 }
