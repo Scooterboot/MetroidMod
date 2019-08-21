@@ -39,7 +39,7 @@ namespace MetroidMod.Items.balladdons
 			recipe.AddIngredient(ItemID.Cobweb, 150);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
-
+			recipe.AddRecipe();
 		}
 	}
 }
