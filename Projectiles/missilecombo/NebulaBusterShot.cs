@@ -23,6 +23,8 @@ namespace MetroidMod.Projectiles.missilecombo
 			projectile.tileCollide = false;
 			projectile.penetrate = -1;
 			projectile.extraUpdates = 5;
+			projectile.usesLocalNPCImmunity = true;
+			projectile.localNPCHitCooldown = 8*(1+projectile.extraUpdates);
 		}
 		
 		Vector2 targetPos;
@@ -32,7 +34,7 @@ namespace MetroidMod.Projectiles.missilecombo
 
 		NPC target;
 		
-		const float Max_Range = 240f;
+		const float Max_Range = 300f;
 		float range = Max_Range;
 		const float Max_Distance = 60f;
 		float distance = Max_Distance;

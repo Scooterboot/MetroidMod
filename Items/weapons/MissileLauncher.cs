@@ -128,6 +128,8 @@ namespace MetroidMod.Items.weapons
 		bool isShotgun = false;
 		int shotgunAmt = 5;
 		
+		int miniGunCostReduct = 2;
+		
 		int comboUseTime = 4;
 		int comboCostUseTime = 12;
 		float chargeMult = 1f;
@@ -172,6 +174,8 @@ namespace MetroidMod.Items.weapons
 			isMiniGun = false;
 			isShotgun = false;
 			shotgunAmt = 5;
+			
+			miniGunCostReduct = 2;
 			
 			comboUseTime = 4;
 			comboCostUseTime = 12;
@@ -257,7 +261,7 @@ namespace MetroidMod.Items.weapons
 				comboSound = 1;
 				noSomersault = true;
 				useFlameSounds = true;
-				comboCostUseTime = 5;
+				//comboCostUseTime = 5;
 				//chargeShot = "FlamethrowerLead";
 				chargeShot = "FlamethrowerShot";
 				chargeUpSound = "ChargeStartup_PlasmaRed";
@@ -313,9 +317,20 @@ namespace MetroidMod.Items.weapons
 				}
 			}
 			
+			int sd = mod.ItemType("StardustComboAddon");
 			int nb = mod.ItemType("NebulaComboAddon");
 			int sl = mod.ItemType("SolarComboAddon");
 			
+			if(slot1.type == sd)
+			{
+				chargeCost = 10;
+				chargeShot = "StardustComboShot";
+				chargeShotSound = "IceSpreaderSound";
+				chargeUpSound = "ChargeStartup_Ice";
+				chargeTex = "ChargeLead_Stardust";
+				dustType = 87;
+				lightColor = MetroidMod.iceColor;
+			}
 			if(slot1.type == nb)
 			{
 				isHeldCombo = 1;
@@ -595,6 +610,7 @@ namespace MetroidMod.Items.weapons
 							comboTime = 0;
 							comboCostTime = 0;
 							useTimeMax = 20;
+							miniCostNum = 0;
 							scalePlus = 0f;
 							initialShot = false;
 						}
@@ -605,6 +621,7 @@ namespace MetroidMod.Items.weapons
 						comboTime = 0;
 						comboCostTime = 0;
 						useTimeMax = 20;
+						miniCostNum = 0;
 						scalePlus = 0f;
 						initialShot = false;
 					}
@@ -615,6 +632,7 @@ namespace MetroidMod.Items.weapons
 					comboTime = 0;
 					comboCostTime = 0;
 					useTimeMax = 20;
+					miniCostNum = 0;
 					scalePlus = 0f;
 					initialShot = false;
 				}
@@ -757,6 +775,7 @@ namespace MetroidMod.Items.weapons
 			}
 		}
 		int waveDir = 1;
+		int miniCostNum = 0;
 		public void MiniGunShoot(Player player, Item item, Projectile Lead, int projType, int damage, float knockBack, string sound)
 		{
 			if(comboTime <= 0)
@@ -786,7 +805,16 @@ namespace MetroidMod.Items.weapons
 				useTimeMax = Math.Max(useTimeMax - 2, comboUseTime);
 				
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-				mi.statMissiles -= 1;
+				if(miniCostNum == 0)
+				{
+					mi.statMissiles -= 1;
+				}
+				
+				miniCostNum++;
+				if(miniCostNum > miniGunCostReduct)
+				{
+					miniCostNum = 0;
+				}
 			}
 			else
 			{

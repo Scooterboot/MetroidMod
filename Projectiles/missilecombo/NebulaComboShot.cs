@@ -24,8 +24,8 @@ namespace MetroidMod.Projectiles.missilecombo
 			projectile.penetrate = -1;
 			projectile.extraUpdates = 5;
 			projectile.alpha = 255;
-			//projectile.usesLocalNPCImmunity = true;
-			//projectile.localNPCHitCooldown = 8;
+			projectile.usesLocalNPCImmunity = true;
+			projectile.localNPCHitCooldown = 8*(1+projectile.extraUpdates);
 		}
 		
 		bool initialize = false;
@@ -62,7 +62,7 @@ namespace MetroidMod.Projectiles.missilecombo
 			{
 				for(int i = 0; i < buster.Length; i++)
 				{
-					int b = Projectile.NewProjectile(P.Center.X, P.Center.Y, 0f, 0f, mod.ProjectileType("NebulaBusterShot"), P.damage, P.knockBack, P.owner);
+					int b = Projectile.NewProjectile(P.Center.X, P.Center.Y, 0f, 0f, mod.ProjectileType("NebulaBusterShot"), (int)((float)P.damage*0.25f), P.knockBack, P.owner);
 					buster[i] = Main.projectile[b];
 					buster[i].ai[0] = P.whoAmI;
 					buster[i].ai[1] = i;
@@ -281,15 +281,23 @@ namespace MetroidMod.Projectiles.missilecombo
 					diff2 = -Vector2.UnitY;
 				}
 				
+				int k = 1;
 				for(float i = 0f; i < dist; i += 1f + (30f*(i/dist)))
 				{
+					SpriteEffects se = SpriteEffects.None;
+					if (k == -1)
+					{
+						se = SpriteEffects.FlipHorizontally;
+					}
+					
 					Vector2 pos1 = Lead.Center + Vector2.Normalize(Lead.velocity) * i;
 					Vector2 pos2 = Lead.Center + diff2 * i;
 					
 					Vector2 fPos = Vector2.Lerp(pos1,pos2,i/dist) - Main.screenPosition;
 					
 					float rot = ((float)Math.PI*2f / dist) * i;
-					sb.Draw(tex2, fPos, null, alpha4, P.rotation + rot, origin8, MathHelper.Lerp(0.1f,P.scale,(i/dist)), spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
+					sb.Draw(tex2, fPos, null, alpha4, rot + P.rotation*k, origin8, MathHelper.Lerp(0.1f,P.scale,(i/dist)), se, 0f);
+					k *= -1;
 				}
 				
 				Texture2D tex3 = mod.GetTexture("Projectiles/missilecombo/NebulaBusterShot");

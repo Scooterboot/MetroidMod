@@ -11,7 +11,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
-			"~Charge shots cover terrain in Ice on impact, freezing enemies\n" + 
+			"~Charge shots cover terrain in ice on impact, freezing enemies\n" + 
 			"~Charge shots cost 10 missiles");
 		}
 		public override void SetDefaults()
