@@ -3,18 +3,18 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Items.missileaddons.BeamCombos
 {
-	public class StardustComboAddon : ModItem
+	public class VortexComboAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Blizzard");
+			DisplayName.SetDefault("Vortex Storm");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
-			"~Charge shots create 8 Stardust Dragons on impact that spiral outward, covering terrain in ice which freezes foes\n" + 
-			"~Additionally a Stardust Guardian spawns at the center which attacks any enemy caught in the ice\n" + 
-			"~Charge shots cost 10 missiles\n" +
-			"Both the ice and the Guardian last 20 seconds");
+			"~Fires vortexes that orbit the player at full charge\n" + 
+			"~Each vortex fires a blast after 2 seconds\n" + 
+			"~Releasing the charge makes all vortexes immediately fire\n" + 
+			"~Drains 5 missiles per second during use");
 		}
 		public override void SetDefaults()
 		{
@@ -29,7 +29,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("StardustComboAddonTile");*/
+			item.createTile = mod.TileType("VortexComboAddonTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			mItem.missileSlotType = 0;
 		}
@@ -37,10 +37,10 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.FragmentStardust, 15);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ItemID.Ruby, 5);
-			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.AddIngredient(ItemID.Topaz, 15);
+            recipe.AddIngredient(ItemID.JungleSpores, 10);
+            recipe.AddIngredient(ItemID.HellstoneBar, 10);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

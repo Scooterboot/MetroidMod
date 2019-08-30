@@ -126,7 +126,7 @@ namespace MetroidMod.Projectiles.missilecombo
 			{
 				P.rotation -= 0.104719758f * 2f;
 				P.scale = Math.Min(P.scale + 0.05f, 1f);
-				P.alpha = Math.Min(P.alpha - 15, 0);
+				P.alpha = Math.Max(P.alpha - 15, 0);
 			}
 			
 			P.position.X += (float)P.width/2f;
