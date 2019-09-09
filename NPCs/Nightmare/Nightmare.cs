@@ -68,6 +68,13 @@ namespace MetroidMod.NPCs.Nightmare
 			else
 			{*/
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("NightmareCoreX"), 1);
+				int num = Main.rand.Next(10)+15;
+				for(int i = 0; i < num; i++)
+				{
+					float rot = (float)((Math.PI*2)/num)*i;
+					Vector2 pos = npc.position + rot.ToRotationVector2() * 64f;
+					Item.NewItem((int)pos.X, (int)pos.Y, npc.width, npc.height, mod.ItemType("NightmareCoreXFragment"), 1);
+				}
 				/*if (Main.rand.Next(5) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("NightmareMusicBox"));
