@@ -91,7 +91,14 @@ namespace MetroidMod.Projectiles
 			
 			if(projectile.Name.Contains("Stardust"))
 			{
-				target.AddBuff(mod.BuffType("IceFreeze"),300,true);
+				if(projectile.Name.Contains("Missile"))
+				{
+					target.AddBuff(mod.BuffType("InstantFreeze"),300,true);
+				}
+				else
+				{
+					target.AddBuff(mod.BuffType("IceFreeze"),300,true);
+				}
 			}
 			
 			if(projectile.penetrate > 1)

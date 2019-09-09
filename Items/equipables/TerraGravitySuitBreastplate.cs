@@ -101,9 +101,8 @@ namespace MetroidMod.Items.equipables
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "GravitySuitBreastplate");
-            recipe.AddIngredient(null, "NightmareCoreX");
+            recipe.AddIngredient(null, "NightmareCoreXFragment", 20);
             recipe.AddIngredient(ItemID.ChlorophyteBar, 25);
-            recipe.AddIngredient(null, "GravityGel", 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

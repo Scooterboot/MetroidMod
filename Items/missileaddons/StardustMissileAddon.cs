@@ -1,20 +1,19 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidMod.Items.missileaddons.BeamCombos
+namespace MetroidMod.Items.missileaddons
 {
-	public class VortexComboAddon : ModItem
+	public class StardustMissileAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Storm");
+			DisplayName.SetDefault("Stardust Missile");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
-			"Slot Type: Charge\n" +
-			"Hold Click to charge\n" + 
-			"~Fires vortexes that orbit the player at full charge\n" + 
-			"~Each vortex fires a blast after 2 seconds\n" + 
-			"~Releasing the charge makes all vortexes immediately fire\n" + 
-			"~Drains 5 missiles per second during use");
+			"Slot Type: Primary\n" +
+			"Shots are more powerful and create a larger explosion\n" + 
+			"Shots freeze enemies instantly\n" + 
+			string.Format("[c/78BE78:+400% damage]\n") +
+			string.Format("[c/BE7878:-50% speed]"));
 		}
 		public override void SetDefaults()
 		{
@@ -29,18 +28,17 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
-			item.createTile = mod.TileType("VortexComboAddonTile");*/
+			item.createTile = mod.TileType("StardustMissileTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
-			mItem.missileSlotType = 0;
+			mItem.missileSlotType = 1;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.FragmentVortex, 15);
             recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.AddIngredient(ItemID.FragmentStardust, 5);
+            recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

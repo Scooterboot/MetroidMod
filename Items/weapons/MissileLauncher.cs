@@ -150,6 +150,9 @@ namespace MetroidMod.Items.weapons
 			int ic = mod.ItemType("IceMissileAddon");
 			int sm = mod.ItemType("SuperMissileAddon");
 			int icSm = mod.ItemType("IceSuperMissileAddon");
+			int st = mod.ItemType("StardustMissileAddon");
+			int ne = mod.ItemType("NebulaMissileAddon");
+			
 			int se = mod.ItemType("SeekerMissileAddon");
 			
 			Item slot1 = missileMods[0];
@@ -219,6 +222,18 @@ namespace MetroidMod.Items.weapons
 				damage = 105;
 				useTime = 18;
 				shot = "IceSuperMissileShot";
+			}
+			else if(slot2.type == st)
+			{
+				damage = 150;
+				useTime = 18;
+				shot = "StardustMissileShot";
+			}
+			else if(slot2.type == ne)
+			{
+				damage = 150;
+				useTime = 18;
+				shot = "NebulaMissileShot";
 			}
 			
 			int wb = mod.ItemType("WavebusterAddon");
