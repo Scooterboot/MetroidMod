@@ -338,6 +338,22 @@ namespace MetroidMod.Items.weapons
 					dustType = 135;
 					lightColor = MetroidMod.iceColor;
 				}
+				if(slot2.type == st)
+				{
+					chargeShot = "StardustDiffusionMissileShot";
+					chargeUpSound = "ChargeStartup_Ice";
+					chargeTex = "ChargeLead_Stardust";
+					dustType = 87;
+					lightColor = MetroidMod.iceColor;
+				}
+				if(slot2.type == ne)
+				{
+					chargeShot = "NebulaDiffusionMissileShot";
+					chargeUpSound = "ChargeStartup_Wave";
+					chargeTex = "ChargeLead_Nebula";
+					dustType = 255;
+					lightColor = MetroidMod.waveColor;
+				}
 			}
 			
 			int sd = mod.ItemType("StardustComboAddon");

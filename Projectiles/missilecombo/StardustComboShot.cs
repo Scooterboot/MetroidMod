@@ -56,8 +56,8 @@ namespace MetroidMod.Projectiles.missilecombo
 			for(int i = 0; i < 8; i++)
 			{
 				float angle = ((float)Math.PI/4)*i;
-				int num54 = Projectile.NewProjectile(P.Center.X, P.Center.Y, 0f, 0f, mod.ProjectileType("StardustDiffusionShot"),P.damage,P.knockBack,P.owner);
-				StardustDiffusionShot difShot = (StardustDiffusionShot)Main.projectile[num54].modProjectile;
+				int num54 = Projectile.NewProjectile(P.Center.X, P.Center.Y, 0f, 0f, mod.ProjectileType("StardustComboDiffusionShot"),P.damage,P.knockBack,P.owner);
+				StardustComboDiffusionShot difShot = (StardustComboDiffusionShot)Main.projectile[num54].modProjectile;
 				difShot.spin = angle;
 			}
 			

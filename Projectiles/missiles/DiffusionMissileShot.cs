@@ -27,11 +27,26 @@ namespace MetroidMod.Projectiles.missiles
 			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			
 			int dustType = 6;
+			float scale = 2f;
 			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 			}
-			mProjectile.DustLine(projectile.Center-projectile.velocity*0.5f, projectile.velocity, projectile.rotation, 5, 3, dustType, 2f);
+			if(projectile.Name.Contains("Stardust") || projectile.Name.Contains("Nebula"))
+			{
+				dustType = 87;
+				scale = 1f;
+				int dustType2 = 88;
+				if(projectile.Name.Contains("Nebula"))
+				{
+					dustType = 255;
+					scale = 1.5f;
+					dustType2 = 240;//254;
+				}
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType2, 0, 0, 100, default(Color), 2f);
+				Main.dust[dust].noGravity = true;
+			}
+			mProjectile.DustLine(projectile.Center-projectile.velocity*0.5f, projectile.velocity, projectile.rotation, 5, 3, dustType, scale);
 			
 			projectile.ai[0] += 1f;
 			if (projectile.ai[0] > (5f+(float)projectile.extraUpdates) && projectile.extraUpdates < 5)
@@ -42,40 +57,66 @@ namespace MetroidMod.Projectiles.missiles
 		}
 		public override void Kill(int timeLeft)
 		{
-			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-			projectile.width += 32;
-			projectile.height += 32;
-			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+			Projectile P = projectile;
+			P.position.X = P.position.X + (float)(P.width / 2);
+			P.position.Y = P.position.Y + (float)(P.height / 2);
+			P.width += 32;
+			P.height += 32;
+			P.position.X = P.position.X - (float)(P.width / 2);
+			P.position.Y = P.position.Y - (float)(P.height / 2);
 
-			Main.PlaySound(2,(int)projectile.position.X,(int)projectile.position.Y,14);
+			Main.PlaySound(2,(int)P.position.X,(int)P.position.Y,14);
 			
 			int dustType = 6;
-			if(projectile.Name.Contains("Ice"))
+			int dustType2 = 30;
+			float scale = 1f;
+			if(P.Name.Contains("Ice"))
 			{
 				dustType = 135;
 			}
-			for (int num70 = 0; num70 < 15; num70++)
+			if(P.Name.Contains("Stardust"))
 			{
-				int num71 = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0f, 0f, 100, default(Color), 5f);
+				dustType = 88;
+				dustType2 = 87;
+				scale = 0.6f;
+			}
+			if(P.Name.Contains("Nebula"))
+			{
+				dustType = 255;
+				dustType2 = 240;
+				scale = 0.75f;
+			}
+			for (int num70 = 0; num70 < 25f*(2f-scale); num70++)
+			{
+				int num71 = Dust.NewDust(P.position, P.width, P.height, dustType, 0f, 0f, 100, default(Color), 5f*scale);
 				Main.dust[num71].velocity *= 1.4f;
 				Main.dust[num71].noGravity = true;
-				int num72 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 30, 0f, 0f, 100, default(Color), 3f);
+				int num72 = Dust.NewDust(P.position, P.width, P.height, dustType2, 0f, 0f, 100, default(Color), 3f*scale);
 				Main.dust[num72].velocity *= 1.4f;
 				Main.dust[num72].noGravity = true;
 			}
-			projectile.Damage();
+			P.Damage();
 			
 			int difType = mod.ProjectileType("DiffusionShot");
-			if(projectile.Name.Contains("Ice"))
+			int num = 4;
+			if(P.Name.Contains("Ice"))
 			{
 				difType = mod.ProjectileType("IceDiffusionShot");
 			}
-			for(int i = 0; i < 4; i++)
+			if(P.Name.Contains("Stardust"))
 			{
-				float angle = ((float)Math.PI/2)*i;
-				int proj = Projectile.NewProjectile(projectile.Center.X,projectile.Center.Y,0f,0f,difType,projectile.damage,projectile.knockBack,projectile.owner);
+				difType = mod.ProjectileType("StardustDiffusionShot");
+				num = 6;
+			}
+			if(P.Name.Contains("Nebula"))
+			{
+				difType = mod.ProjectileType("NebulaDiffusionShot");
+				num = 5;
+			}
+			for(int i = 0; i < num; i++)
+			{
+				float angle = ((float)(Math.PI*2)/num)*i;
+				int proj = Projectile.NewProjectile(P.Center.X,P.Center.Y,0f,0f,difType,P.damage,P.knockBack,P.owner);
 				DiffusionShot difShot = (DiffusionShot)Main.projectile[proj].modProjectile;
 				difShot.spin = angle;
 			}
@@ -92,6 +133,20 @@ namespace MetroidMod.Projectiles.missiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ice Diffusion Missile Shot");
+		}
+	}
+	public class StardustDiffusionMissileShot : DiffusionMissileShot
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Stardust Diffusion Missile Shot");
+		}
+	}
+	public class NebulaDiffusionMissileShot : DiffusionMissileShot
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Nebula Diffusion Missile Shot");
 		}
 	}
 }

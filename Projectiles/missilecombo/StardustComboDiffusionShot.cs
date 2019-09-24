@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Projectiles.missilecombo
 {
-	public class StardustDiffusionShot : MProjectile
+	public class StardustComboDiffusionShot : MProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -130,17 +130,17 @@ namespace MetroidMod.Projectiles.missilecombo
 				Texture2D tex = Main.projectileTexture[P.type];
 				if(i == segmentPos.Length-1)
 				{
-					tex = mod.GetTexture("Projectiles/missilecombo/StardustDiffusionShot3");
+					tex = mod.GetTexture("Projectiles/missilecombo/StardustComboDiffusionShot3");
 				}
 				else if(i > 0)
 				{
 					if(i % 2 == 0)
 					{
-						tex = mod.GetTexture("Projectiles/missilecombo/StardustDiffusionShot2");
+						tex = mod.GetTexture("Projectiles/missilecombo/StardustComboDiffusionShot2");
 					}
 					else
 					{
-						tex = mod.GetTexture("Projectiles/missilecombo/StardustDiffusionShot1");
+						tex = mod.GetTexture("Projectiles/missilecombo/StardustComboDiffusionShot1");
 					}
 				}
 				Color color = P.GetAlpha(Color.White);
