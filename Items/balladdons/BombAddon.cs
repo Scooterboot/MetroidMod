@@ -11,7 +11,7 @@ namespace MetroidMod.Items.balladdons
 			Tooltip.SetDefault("Morph Ball Addon\n" +
 			"Slot Type: Weapon\n" +
 			"-Right Click to set off a bomb\n" +
-			"-10 ranged damage");
+			"-Bombs deal 10 ranged damage");
 		}
 		public override void SetDefaults()
 		{

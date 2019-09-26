@@ -7,10 +7,12 @@ namespace MetroidMod.Items.balladdons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Bombs");
+			DisplayName.SetDefault("Power Bomb");
 			Tooltip.SetDefault("Morph Ball Addon\n" +
 			"Slot Type: Special\n" +
-			"-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)");
+			"-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)\n" +
+			"-Power Bombs create large explosions that vacuum in items afterwards\n" +
+			"-Power Bombs ignore 50% of enemy defense and can deal ~1400 damage total");
 		}
 		public override void SetDefaults()
 		{
@@ -28,6 +30,7 @@ namespace MetroidMod.Items.balladdons
 			item.createTile = mod.TileType("PowerBombTile");
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
 			mItem.ballSlotType = 2;
+			mItem.powerBombType = mod.ProjectileType("PowerBomb");
 		}
 
 		public override void AddRecipes()
@@ -47,5 +50,4 @@ namespace MetroidMod.Items.balladdons
             recipe.AddRecipe();
         }
     }
-	
 }

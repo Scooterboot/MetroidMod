@@ -18,6 +18,7 @@ namespace MetroidMod.Items
 		public int ballSlotType = -1;
 		public int bombDamage = -1;
 		public int drillPower = -1;
+		public int powerBombType = -1;
 
 		public int numSeekerTargets = 0;
 		public int[] seekerTarget = new int[5];

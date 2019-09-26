@@ -50,4 +50,32 @@ namespace MetroidMod.Projectiles.bombs
 			int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("PowerBombExplosion"), projectile.damage, 3, projectile.owner);
 		}
 	}
+	public class VortexBomb : PowerBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Vortex Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+
+		public override void Kill(int timeLeft)
+		{
+			Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/VortexBombExplode"));
+			int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("VortexBombExplosion"), projectile.damage, 0, projectile.owner);
+		}
+	}
+	public class SolarBomb : PowerBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Solar Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+
+		public override void Kill(int timeLeft)
+		{
+			Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SolarBombExplode"));
+			int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("SolarBombExplosion"), projectile.damage*2, 3, projectile.owner);
+		}
+	}
 }

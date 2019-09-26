@@ -11,10 +11,15 @@ namespace MetroidMod.Projectiles.bombs
 {
 	public class PowerBombExplosion : ModProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Power Bomb");
+		}
 		public override void SetDefaults()
 		{
 			projectile.width = 1000;
 			projectile.height = 750;
+			projectile.scale = 0.02f;
 			projectile.aiStyle = -1;
 			projectile.timeLeft = 200;
 			projectile.friendly = true;
@@ -27,9 +32,9 @@ namespace MetroidMod.Projectiles.bombs
 		}
 		float scaleSize = 1f;
 		Color colory = Color.Gold;
-		int width = 1000;
-		int height = 750;
-		int maxDistance = 55;
+		const int width = 1000;
+		const int height = 750;
+		const int maxDistance = 55;
 		public override void AI()
         {
             float speed = 2f;
@@ -38,7 +43,22 @@ namespace MetroidMod.Projectiles.bombs
             projectile.frameCounter++;
 
 			if (projectile.frameCounter < maxDistance)
+			{
 				scaleSize += speed;
+				
+				int num = (int)(50f*projectile.scale);
+				for(int i = 0; i < num; i++)
+				{
+					float angle = (float)((Math.PI*2)/num)*i;
+					Vector2 position = projectile.Center - new Vector2(10,10);
+					position.X += (float)Math.Cos(angle)*((float)projectile.width/2f);
+					position.Y += (float)Math.Sin(angle)*((float)projectile.height/2f);
+					int num20 = Dust.NewDust(position, 20, 20, 57, 0f, 0f, 100, default(Color), 3f);
+					Dust dust = Main.dust[num20];
+					dust.velocity += Vector2.Normalize(projectile.Center - dust.position) * 5f * projectile.scale;
+					dust.noGravity = true;
+				}
+			}
 			else
 			{
 				scaleSize -= speed;
@@ -51,8 +71,13 @@ namespace MetroidMod.Projectiles.bombs
 					Item I = Main.item[i];
 					if(projectile.Hitbox.Intersects(I.Hitbox))
 					{
-						I.velocity = Vector2.Normalize(projectile.Center - I.Center) * 8;
-						I.position += I.velocity;
+						Vector2 center = new Vector2(projectile.Center.X,projectile.Center.Y-((float)I.height/2f));
+						Vector2 velocity = Vector2.Normalize(center - I.Center) * Math.Min(20f,Vector2.Distance(center,I.Center));
+						if(Vector2.Distance(center,I.Center) > 1f)
+						{
+							I.position += velocity;
+							I.velocity *= 0f;
+						}
 					}
 				}
 			}
@@ -61,7 +86,6 @@ namespace MetroidMod.Projectiles.bombs
 				scaleSize = 1f;
 				colory = Color.Gold;
 				projectile.frameCounter = 0;
-				//projectile.active = false;
 				projectile.Kill();
 			}
 

@@ -56,7 +56,6 @@ namespace MetroidMod.Mounts
 				mBall = null;
 			}
 
-			int pb = mod.ItemType("PowerBombAddon");
 			int sb = mod.ItemType("SpiderBallAddon");
 			int bb = mod.ItemType("BoostBallAddon");
 
@@ -75,9 +74,10 @@ namespace MetroidMod.Mounts
 					mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
 					mp.Bomb(player);
 				}
-				if (mBall.ballMods[2].type == pb)
+				if(!mBall.ballMods[2].IsAir)
 				{
-					mp.PowerBomb(player);
+					MGlobalItem pbMItem = mBall.ballMods[2].GetGlobalItem<MGlobalItem>(mod);
+					mp.PowerBomb(player,pbMItem.powerBombType);
 				}
 
 				if (mBall.ballMods[3].type == sb)

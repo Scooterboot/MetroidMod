@@ -1147,6 +1147,21 @@ namespace MetroidMod
 					oldPos[i] = oldPos[i - 1] - (vect * 0.5f);
 				}
 				oldPos[0] = new Vector2((int)drawInfo.position.X, (int)drawInfo.position.Y);
+				
+				int width = 8;
+				if(Vector2.Distance(oldPos[0],oldPos[1]) > width)
+				{
+					for(int i = 1; i < oldPos.Length; i++)
+					{
+						Vector2 pos = oldPos[i-1] - oldPos[i];
+						float len = pos.Length();
+						
+						len = (len - (float)width) / len;
+						pos.X *= len;
+						pos.Y *= len;
+						oldPos[i] += pos;
+					}
+				}
 			}
 			
 			bool pseudoScrew = (statCharge >= maxCharge && somersault);
@@ -2968,14 +2983,13 @@ namespace MetroidMod
 			}
 		}
 		//int CFMoment = 0;
-		public void PowerBomb(Player player)
+		public void PowerBomb(Player player, int type)
 		{
 			if(statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
 				statPBCh = 200;
-				int PBombID = mod.ProjectileType("PowerBomb");
-				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,PBombID,specialDmg/4,0,player.whoAmI);
+				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,type,specialDmg/4,0,player.whoAmI);
 			}
 		}
 		public void BoostBall(Player player)
