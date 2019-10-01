@@ -1251,7 +1251,7 @@ namespace MetroidMod
 					layers.Insert(k + 1, screwAttackLayer);
                     screwAttackLayer.visible = true;
                 }
-				if (layers[k] == PlayerLayer.Body)
+				if (layers[k] == PlayerLayer.Legs)
 				{
 					layers.Insert(k + 1, thrusterLayer);
 					layers.Insert(k + 2, jetLayer);
