@@ -450,26 +450,61 @@ namespace MetroidMod
 				}
 			}
 
-            if (hazardShield)
-            {
-                List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
+		    if (hazardShield)
+		    {
+			List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
 
-                for (int k = 0; k < 22; k++)
-                {
-                    int buff = P.buffType[k];
-                    if(debuffList.Contains(buff))
-                    {
-                        if (P.body == mod.ItemType("HazardShieldBreastplate"))
-                        {
-                            P.buffTime[k] = Math.Max(P.buffTime[k] - 1, 0);
-                        }
-                        else if (P.body == mod.ItemType("StardustHazardShieldSuitBreastplate"))
-                        {
-                            P.buffTime[k] = Math.Max(P.buffTime[k] - 2, 0);
-                        }
-                    }
-                }
-            }
+			for (int k = 0; k < 22; k++)
+			{
+			    int buff = P.buffType[k];
+			    if(debuffList.Contains(buff))
+			    {
+				if (P.body == mod.ItemType("HazardShieldBreastplate"))
+				{
+				    P.buffTime[k] = Math.Max(P.buffTime[k] - 1, 0);
+				}
+				else if (P.body == mod.ItemType("StardustHazardShieldSuitBreastplate"))
+				{
+				    P.buffTime[k] = Math.Max(P.buffTime[k] - 2, 0);
+				}
+			    }
+			}
+		    }
+		    int x1 = (int)(player.position.X + player.velocity.X - 1) / 16;
+		    int x2 = (int)(player.position.X + player.velocity.X + player.width + 1) / 16;
+		    int j = (int)(player.position.Y + player.height + 1) / 16;
+		    if (x1 < 0)
+		    {
+			x1 = 0;
+		    }
+		    if (x2 > Main.maxTilesX)
+		    {
+			x2 = Main.maxTilesX;
+		    }
+		    if (j < 0)
+		    {
+			j = 0;
+		    }
+		    if (j > Main.maxTilesY)
+		    {
+			j = Main.maxTilesY;
+		    }
+		    for (int i = x1; i <= x2; i++)
+		    {
+			Vector2 pos = new Vector2(i * 16, j * 16);
+			if (MWorld.mBlockType[i, j] == 1 && Main.tile[i, j].active() && !Main.tile[i, j].inActive())
+			{
+			    Wiring.DeActive(i, j);
+			    if (Main.tile[i, j].inActive())
+			    {
+				Main.PlaySound(2, pos, 51);
+				for (int d = 0; d < 4; d++)
+				{
+				    Dust.NewDust(pos, 16, 16, 1);
+				}
+			    }
+			}
+		    }
 		}
 
         public void GripMovement()
@@ -509,11 +544,50 @@ namespace MetroidMod
                 {
                     flag = true;
                 }
+                if (Main.tile[(int)num, (int)num2].type == mod.TileType("GripLedge") && !Main.tile[(int)num, (int)num2].inActive() && Main.tile[(int)num, (int)num2].active())
+                {
+                    flag = true;
+                }
+
+                if (MWorld.mBlockType[(int)num, (int)num2] == 1 && Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive())
+                {
+                    Wiring.DeActive((int)num, (int)num2);
+                    Vector2 pos = new Vector2((int)num * 16, (int)num2 * 16);
+                    if (Main.tile[(int)num, (int)num2].inActive())
+                    {
+                        Main.PlaySound(2, pos, 51);
+                        for (int d = 0; d < 4; d++)
+                        {
+                            Dust.NewDust(pos, 16, 16, 1);
+                        }
+                        flag = false;
+                    }
+                }
                 float num3 = player.Center.X / 16f;
                 if (Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive() && Main.tileSolid[Main.tile[(int)num3, (int)num2].type] && !Main.tileSolidTop[Main.tile[(int)num3, (int)num2].type] && (Main.tile[(int)num3, (int)num2 - (int)player.gravDir].inActive() || !Main.tile[(int)num3, (int)num2 - (int)player.gravDir].active() || (Main.tile[(int)num3, (int)num2 - 1].bottomSlope() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].topSlope() && player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || (Main.tile[(int)num3, (int)num2].halfBrick() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].halfBrick() && player.gravDir == -1) || Main.tile[(int)num3, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
                 {
                     flag = true;
                 }
+                if (Main.tile[(int)num3, (int)num2].type == mod.TileType("GripLedge") && !Main.tile[(int)num3, (int)num2].inActive() && Main.tile[(int)num3, (int)num2].active())
+                {
+                    flag = true;
+                }
+
+                if (MWorld.mBlockType[(int)num3, (int)num2] == 1 && Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive())
+                {
+                    Wiring.DeActive((int)num3, (int)num2);
+                    Vector2 pos = new Vector2((int)num3 * 16, (int)num2 * 16);
+                    if (Main.tile[(int)num3, (int)num2].inActive())
+                    {
+                        Main.PlaySound(2, pos, 51);
+                        for (int d = 0; d < 4; d++)
+                        {
+                            Dust.NewDust(pos, 16, 16, 1);
+                        }
+                        flag = false;
+                    }
+                }
+		
                 if (flag && ((player.velocity.Y > 0f && player.gravDir == 1f) || (player.velocity.Y < player.gravity && player.gravDir == -1f)))
                 {
                     if (!player.controlDown)
