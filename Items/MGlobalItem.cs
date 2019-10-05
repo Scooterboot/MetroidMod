@@ -43,6 +43,28 @@ namespace MetroidMod.Items
             return other;
         }
     }
+	
+    public class BlockBreak : GlobalItem
+    {
+        public override bool UseItem(Item item, Player player)
+        {
+            if (item.type == ItemID.WireCutter)
+            {
+                Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
+                Vector2 pos = new Vector2(Player.tileTargetX * 16, Player.tileTargetY * 16);
+                if (MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] != 0)
+                {
+                    if (MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] == 1)
+                    {
+                        Item.NewItem(pos, mod.ItemType("CrumbleBlock"), 1);
+                    }
+                    MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] = 0;
+                    Main.PlaySound(0, Main.MouseWorld);
+                }
+            }
+            return base.UseItem(item, player);
+        }
+    }
 	public class grab : GlobalItem
 	{
 		public override void GrabRange(Terraria.Item item, Player player, ref int grabRange)
