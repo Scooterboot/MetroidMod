@@ -48,7 +48,7 @@ namespace MetroidMod.Items
     {
         public override bool UseItem(Item item, Player player)
         {
-            if (item.type == ItemID.WireCutter)
+            if (item.type == ItemID.WireCutter && player.controlUseItem)
             {
                 Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
                 Vector2 pos = new Vector2(Player.tileTargetX * 16, Player.tileTargetY * 16);
