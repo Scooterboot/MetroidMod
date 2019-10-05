@@ -29,7 +29,7 @@ namespace MetroidMod.Items.tiles
 		}
         public override bool UseItem(Player player)
         {
-            if (player.itemTime == 0 && player.itemAnimation > 0)
+            if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem)
             {
                 Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
                 Vector2 pos = new Vector2(Player.tileTargetX * 16, Player.tileTargetY * 16);
