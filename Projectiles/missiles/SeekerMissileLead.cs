@@ -42,8 +42,8 @@ namespace MetroidMod.Projectiles.missiles
 			
 			Item I = O.inventory[O.selectedItem];
 			
-			MPlayer mp = O.GetModPlayer<MPlayer>(mod);
-			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>(mod);
+			MPlayer mp = O.GetModPlayer<MPlayer>();
+			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
 			
 			float MY = Main.mouseY + Main.screenPosition.Y;
 			float MX = Main.mouseX + Main.screenPosition.X;
@@ -143,7 +143,7 @@ namespace MetroidMod.Projectiles.missiles
 		public override void Kill(int timeLeft)
 		{
 			Player O = Main.player[projectile.owner];
-			MGlobalItem mi = O.inventory[O.selectedItem].GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mi = O.inventory[O.selectedItem].GetGlobalItem<MGlobalItem>();
 			mi.seekerCharge = 0;
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

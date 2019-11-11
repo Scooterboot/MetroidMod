@@ -30,7 +30,7 @@ namespace MetroidMod.Items.equipables
             player.rangedDamage += 0.05f;
             player.moveSpeed += 0.1f;
             player.spikedBoots += 2;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 20;
         }
 

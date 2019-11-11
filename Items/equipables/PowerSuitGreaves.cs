@@ -29,7 +29,7 @@ namespace MetroidMod.Items.equipables
         {
             player.rangedDamage += 0.05f;
             player.spikedBoots += 1;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 5;
         }
 

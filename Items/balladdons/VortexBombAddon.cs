@@ -28,7 +28,7 @@ namespace MetroidMod.Items.balladdons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("VortexBombTile");*/
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.ballSlotType = 2;
 			mItem.powerBombType = mod.ProjectileType("VortexBomb");
 		}

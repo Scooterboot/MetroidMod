@@ -274,7 +274,7 @@ namespace MetroidMod
 				WorldGen.PlaceTile(ruinsX, ruinsY + k, TileID.GrayBrick);
 				WorldGen.PlaceTile(ruinsX + 69, ruinsY + k, TileID.GrayBrick);
 			}
-			NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
+			//NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
 			DeathHall(ruinsX - 58, ruinsY + 24);
 			Shaft(ruinsX - 82, ruinsY - 24);
 			VerticalHatch(ruinsX - 73, ruinsY - 26);
@@ -668,10 +668,10 @@ namespace MetroidMod
 
 		public override void PostUpdate()
 		{
-			if(Main.hardMode && !spawnedPhazonMeteor)
+			/*if(Main.hardMode && !spawnedPhazonMeteor)
 			{
 				DropPhazonMeteor();
-			}
+			}*/
 		}
 		public static void AddPhazon() 
 		{

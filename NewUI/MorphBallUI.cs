@@ -129,7 +129,7 @@ namespace MetroidMod.NewUI
                 Mod mod = ModLoader.GetMod("MetroidMod");
                 if (addonItem.modItem != null && addonItem.modItem.mod == mod)
                 {
-                    MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>(mod);
+                    MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
                     return (addonItem.type <= 0 || mItem.ballSlotType == this.morphBallSlotType);
                 }
                 return (addonItem.type <= 0 || (addonItem.modItem != null && addonItem.modItem.mod == mod));

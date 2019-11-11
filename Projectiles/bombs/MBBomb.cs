@@ -132,7 +132,7 @@ namespace MetroidMod.Projectiles.bombs
 							}
 						}
                         player.velocity += direction;// * (BombRadius - distance);
-                        player.GetModPlayer<MPlayer>(mod).spiderball = false;
+                        player.GetModPlayer<MPlayer>().spiderball = false;
 
                         if (player.velocity.X > Xthreshold)
                             player.velocity.X = Xthreshold;

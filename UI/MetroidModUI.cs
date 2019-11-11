@@ -64,7 +64,7 @@ namespace MetroidMod
                 {
                     if (item.modItem != null && item.modItem.mod == mod)
                     {
-                        MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+                        MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
                         return (item.type <= 0 || mItem.addonSlotType == k);
                     }
                     return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod));
@@ -134,7 +134,7 @@ namespace MetroidMod
 			
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			
 			if(Main.playerInventory && P.chest == -1 && Main.npcShop == 0)
 			{
@@ -282,7 +282,7 @@ namespace MetroidMod
 				{
 					if(item.modItem != null && item.modItem.mod == mod)
 					{
-						MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+						MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 						return (item.type <= 0 || mItem.missileSlotType == k);
 					}
 					return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod));
@@ -426,7 +426,7 @@ namespace MetroidMod
 				{
 					if(item.modItem != null && item.modItem.mod == mod)
 					{
-						MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+						MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 						return (item.type <= 0 || mItem.ballSlotType == k);
 					}
 					return (item.type <= 0 || (item.modItem != null && item.modItem.mod == mod));

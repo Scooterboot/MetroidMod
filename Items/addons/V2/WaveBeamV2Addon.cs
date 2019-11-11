@@ -13,7 +13,7 @@ namespace MetroidMod.Items.addons.V2
 			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
 				"Slot Type: Utility\n" +
 				"Shots penetrate terrain by an extended depth\n" +
-				string.Format("[c/78BE78:+75% damage]\n") +
+				string.Format("[c/78BE78:+125% damage]\n") +
 				string.Format("[c/BE7878:+75% overheat use]"));
 		}
 		public override void SetDefaults()
@@ -30,8 +30,11 @@ namespace MetroidMod.Items.addons.V2
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("WaveBeamV2Tile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 2;
+			mItem.addonDmg = 1.25f;
+			mItem.addonHeat = 0.75f;
+			mItem.addonSpeed = 0;
 		}
 
 		public override void AddRecipes()

@@ -31,8 +31,11 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("SpazerTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 3;
+			mItem.addonDmg = 0.25f;
+			mItem.addonHeat = 0.5f;
+			mItem.addonSpeed = 0.15f;
 		}
 
 		public override void AddRecipes()

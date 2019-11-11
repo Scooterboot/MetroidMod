@@ -12,7 +12,7 @@ namespace MetroidMod.Items.addons.V2
 			"Slot Type: Primary B\n" + 
 				"Shots pierce enemies\n" + 
 				"Shots set enemies ablaze with Cursed Fire, or Frost Burns them if Ice Beam is installed\n" + 
-				string.Format("[c/78BE78:+150% damage]\n") +
+				string.Format("[c/78BE78:+225% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]\n") +
 				string.Format("[c/BE7878:-15% speed]"));
 		}
@@ -30,8 +30,11 @@ namespace MetroidMod.Items.addons.V2
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("NovaBeamTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 4;
+			mItem.addonDmg = 2.25f;
+			mItem.addonHeat = 1f;
+			mItem.addonSpeed = -0.15f;
 		}
 
 		public override void AddRecipes()

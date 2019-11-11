@@ -13,7 +13,7 @@ namespace MetroidMod.Items.addons.V2
 				"Shots freeze enemies\n" + 
 				"~Each time the enemy is shot, they will become 20% slower\n" + 
 				"~After 5 shots the enemy will become completely frozen\n" + 
-				string.Format("[c/78BE78:+150% damage]\n") +
+				string.Format("[c/78BE78:+225% damage]\n") +
 				string.Format("[c/BE7878:+50% overheat use]\n") +
 				string.Format("[c/BE7878:-30% speed]"));
 		}
@@ -31,8 +31,11 @@ namespace MetroidMod.Items.addons.V2
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("IceBeamV2Tile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 1;
+			mItem.addonDmg = 2.25f;
+			mItem.addonHeat = 0.5f;
+			mItem.addonSpeed = -0.3f;
 		}
 
 		public override void AddRecipes()

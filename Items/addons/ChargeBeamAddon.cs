@@ -12,7 +12,7 @@ namespace MetroidMod.Items.addons
 			"Slot Type: Charge\n" +
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
-			"~Charge shots deal x5 damage, but overheat x3 the normal use");
+			"~Charge shots deal x3 damage, but overheat x2 the normal use");
 		}
 		public override void SetDefaults()
 		{
@@ -28,8 +28,10 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("ChargeBeamTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.addonChargeDmg = 3;
+			mItem.addonChargeHeat = 2;
 		}
 
 		public override void AddRecipes()

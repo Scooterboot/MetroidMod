@@ -49,7 +49,7 @@ namespace MetroidMod.Projectiles.speedbooster
 				soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.position.X, (int)P.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpeedBoosterLoop"));
 				SpeedSound = 68;
 			}
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(!mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
 			{
 				if(soundInstance != null)

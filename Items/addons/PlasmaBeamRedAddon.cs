@@ -30,8 +30,11 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("PlasmaBeamRedTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 4;
+			mItem.addonDmg = 1f;
+			mItem.addonHeat = 0.75f;
+			mItem.addonSpeed = -0.15f;
 		}
 
 		public override void AddRecipes()

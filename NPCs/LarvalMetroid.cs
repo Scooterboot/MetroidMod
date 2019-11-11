@@ -66,7 +66,7 @@ namespace MetroidMod.NPCs
 		}
 		public override void AI()
 		{
-			frozen = npc.GetGlobalNPC<MNPC>(mod).froze;
+			frozen = npc.GetGlobalNPC<MNPC>().froze;
 			if (grappled)
 			{
 				if (Main.player[npc.target].dead || !Main.player[npc.target].active || frozen)

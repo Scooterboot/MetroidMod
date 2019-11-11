@@ -27,7 +27,7 @@ namespace MetroidMod.Items.equipables
         public override void UpdateEquip(Player player)
         {
             player.rangedDamage += 0.05f;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 5;
         }
 
@@ -40,20 +40,16 @@ namespace MetroidMod.Items.equipables
         {
             player.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "10% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "30% increased underwater breathing";
             player.noFallDmg = true;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.breathMult = 1.3f;
             mp.overheatCost -= 0.10f;
             mp.SenseMove(player);
             mp.visorGlow = true;
-            if (!mp.ballstate)
-            {
-                Lighting.AddLight((int)(player.Center.X / 16f), (int)((player.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
-            }
         }
 
 		public override void UpdateVanitySet(Player P)
 		{
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			mp.isPowerSuit = true;
 			mp.thrusters = true;
 			if(Main.netMode != 2)

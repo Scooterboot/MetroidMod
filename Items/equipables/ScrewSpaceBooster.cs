@@ -48,7 +48,7 @@ namespace MetroidMod.Items.equipables
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.speedBooster = true;
             mp.spaceJump = true;
             mp.screwAttack = 1;

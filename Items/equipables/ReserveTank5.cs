@@ -29,7 +29,7 @@ namespace MetroidMod.Items.equipables
 		}
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.reserveTanks = 4;
             mp.reserveHeartsValue = 25;
         }

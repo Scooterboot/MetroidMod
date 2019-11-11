@@ -52,7 +52,7 @@ namespace MetroidMod.Projectiles.chargelead
 		{
 			Projectile P = projectile;
 			Player O = Main.player[P.owner];			
-			MPlayer mp = O.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = O.GetModPlayer<MPlayer>();
 			
 			mp.chargeColor = LightColor;
 
@@ -64,7 +64,7 @@ namespace MetroidMod.Projectiles.chargelead
 				negateUseTime++;
 			
 			float dmgMult = (1f+((float)mp.statCharge*0.04f));
-			int damage = (int)((float)I.damage*O.rangedDamage);
+			int damage = (int)((float)I.damage*O.rangedDamage*O.allDamage);
 
 			if(mp.statCharge == 10)
 			{
@@ -216,7 +216,7 @@ namespace MetroidMod.Projectiles.chargelead
 
 		public override void Kill(int timeLeft)
 		{
-			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>(mod);
+			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>();
 
 			if (!mp.ballstate && !mp.shineActive)
 			{

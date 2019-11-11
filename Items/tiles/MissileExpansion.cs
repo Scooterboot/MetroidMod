@@ -29,7 +29,7 @@ namespace MetroidMod.Items.tiles
 			item.consumable = true;
 			item.createTile = mod.TileType("MissileExpansionTile");
 
-            MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+            MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
             mItem.missileSlotType = 2;
         }
 	}

@@ -65,7 +65,7 @@ namespace MetroidMod.Items.weapons
 			item.shootSpeed = 8f;
 			item.crit = 3;
 			
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			mi.statMissiles = 5;
 			mi.maxMissiles = 5;
 		}
@@ -94,7 +94,7 @@ namespace MetroidMod.Items.weapons
 		
 		public override bool CanUseItem(Player player)
 		{
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			if(player.whoAmI == Main.myPlayer && item.type == Main.mouseItem.type)
 			{
 				return false;
@@ -144,8 +144,8 @@ namespace MetroidMod.Items.weapons
 
 		public override void UpdateInventory(Player P)
 		{
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 
 			int ic = mod.ItemType("IceMissileAddon");
 			int sm = mod.ItemType("SuperMissileAddon");
@@ -503,7 +503,7 @@ namespace MetroidMod.Items.weapons
 		int chargeLead = -1;
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			if(isCharge)
 			{
 				int ch = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,mod.ProjectileType("ChargeLead"),damage,knockBack,player.whoAmI);
@@ -548,8 +548,8 @@ namespace MetroidMod.Items.weapons
 		{
 			if (player.whoAmI == Main.myPlayer)
 			{
-				MPlayer mp = player.GetModPlayer<MPlayer>(mod);
-				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+				MPlayer mp = player.GetModPlayer<MPlayer>();
+				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 
 				if (isCharge)
 				{
@@ -567,7 +567,7 @@ namespace MetroidMod.Items.weapons
 						Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 
 						float dmgMult = chargeMult;
-						int damage = (int)((float)item.damage * player.rangedDamage);
+						int damage = (int)((float)item.damage * player.rangedDamage * player.allDamage);
 						
 						if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 						{
@@ -723,7 +723,7 @@ namespace MetroidMod.Items.weapons
 					}
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 					Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
-					int damage = (int)((float)item.damage * player.rangedDamage);
+					int damage = (int)((float)item.damage * player.rangedDamage * player.allDamage);
 					if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
 					{
 						if (mi.seekerCharge < MGlobalItem.seekerMaxCharge)
@@ -875,7 +875,7 @@ namespace MetroidMod.Items.weapons
 				comboTime = useTimeMax;
 				useTimeMax = Math.Max(useTimeMax - miniRateIncr, comboUseTime);
 				
-				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 				if(miniCostNum == 0)
 				{
 					mi.statMissiles -= 1;
@@ -902,7 +902,7 @@ namespace MetroidMod.Items.weapons
 			for (int i = 0; i < missileMods.Length; ++i)
 				tag.Add("missileItem" + i, ItemIO.Save(missileMods[i]));
 
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			tag.Add("statMissiles", mi.statMissiles);
 			tag.Add("maxMissiles", mi.maxMissiles);
 
@@ -919,7 +919,7 @@ namespace MetroidMod.Items.weapons
 					missileMods[i] = item;
 				}
 				
-				MGlobalItem mi = this.item.GetGlobalItem<MGlobalItem>(mod);
+				MGlobalItem mi = this.item.GetGlobalItem<MGlobalItem>();
 				mi.statMissiles = tag.GetInt("statMissiles");
 				mi.maxMissiles = tag.GetInt("maxMissiles");
 			}

@@ -14,7 +14,7 @@ namespace MetroidMod.Items.addons.V3
 				"Slot Type: Utility\n" +
 				"Shots penetrate terrain by an extended depth\n" +
 				"Shots home in on enemies\n" +
-				string.Format("[c/78BE78:+150% damage]\n") +
+				string.Format("[c/78BE78:+225% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]"));
 		}
 		public override void SetDefaults()
@@ -31,8 +31,11 @@ namespace MetroidMod.Items.addons.V3
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("NebulaBeamTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 2;
+			mItem.addonDmg = 2.25f;
+			mItem.addonHeat = 1f;
+			mItem.addonSpeed = 0;
 		}
 
         public override void AddRecipes()

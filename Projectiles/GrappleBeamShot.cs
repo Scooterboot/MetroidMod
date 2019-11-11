@@ -108,7 +108,7 @@ namespace MetroidMod.Projectiles
 				return;
 			}
 			Projectile P = projectile;
-			MPlayer mp = owner.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = owner.GetModPlayer<MPlayer>();
 			if (isHooked)
 			{
 				P.ai[0] = 2f;
@@ -337,7 +337,7 @@ namespace MetroidMod.Projectiles
 		public override bool PreDraw(SpriteBatch s, Color lightColor)
 		{
 			Projectile P = projectile;
-			MPlayer mp = owner.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = owner.GetModPlayer<MPlayer>();
 			
 			Texture2D tex = mod.GetTexture("Projectiles/GrappleBeamChain2");
 			float dist = Math.Max(Vector2.Distance(owner.Center, projectile.Center),1);

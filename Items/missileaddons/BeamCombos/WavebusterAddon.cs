@@ -28,7 +28,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("WavebusterTile");*/
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
 		}
 

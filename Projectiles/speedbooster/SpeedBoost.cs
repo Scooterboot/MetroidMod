@@ -52,7 +52,7 @@ namespace MetroidMod.Projectiles.speedbooster
 
 				SpeedSound = 68;
 			}
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
 			{
 				if(soundInstance != null)

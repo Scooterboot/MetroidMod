@@ -46,7 +46,7 @@ namespace MetroidMod.Projectiles.speedbooster
 					ShineSoundStart = 6;
 				}
 			}
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(mp.shineDirection == 0 || !mp.shineActive || mp.ballstate)
 			{
 				projectile.Kill();

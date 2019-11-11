@@ -10,6 +10,11 @@ namespace MetroidMod.Items
 	public class MGlobalItem : GlobalItem
 	{
 		public int addonSlotType = -1;
+		public float addonChargeDmg = 1;
+		public float addonChargeHeat = 1;
+		public float addonDmg = 0;
+		public float addonSpeed = 0;
+		public float addonHeat = 0;
 
 		public int missileSlotType = -1;
 		public int statMissiles = 5;
@@ -69,7 +74,7 @@ namespace MetroidMod.Items
 	{
 		public override void GrabRange(Terraria.Item item, Player player, ref int grabRange)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			grabRange += (int)(mp.statCharge * 1.6f);
 		}
 	}
@@ -77,7 +82,7 @@ namespace MetroidMod.Items
 	{
 		public override void ArmorSetShadows(Player player, string set)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if (mp.tweak > 4)
 			{
 				longTrail = true;
@@ -88,7 +93,7 @@ namespace MetroidMod.Items
 	{
 		public override void DrawArmorColor(EquipType type, int slot, Player P, float shadow, ref Color color,ref int glowMask, ref Color glowMaskColor)
 		{
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			bool pseudoScrew = (mp.statCharge >= MPlayer.maxCharge && mp.somersault);
 			if(mp.hyperColors > 0 || mp.speedBoosting || mp.shineActive || (pseudoScrew && mp.psuedoScrewFlash >= 3) || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
 			{
@@ -125,7 +130,7 @@ namespace MetroidMod.Items
     {
         public override bool OnPickup(Item item, Player player)
         {
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             if (item.type == ItemID.Heart || item.type == ItemID.CandyApple || item.type == ItemID.CandyCane)
             {
                 if (mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)

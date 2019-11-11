@@ -348,6 +348,10 @@ namespace MetroidMod
 				tweak = 0;
 			}
 
+			if(visorGlow && !ballstate)
+			{
+				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)(player.position.Y+8f)/16f), ((float)visorGlowColor.R/255)*0.375f,((float)visorGlowColor.G/255)*0.375f,((float)visorGlowColor.B/255)*0.375f);
+			}
 			if(jet)
 			{
 				Lighting.AddLight((int)((float)player.Center.X/16f), (int)((float)player.Center.Y/16f), 0.6f, 0.38f, 0.24f);
@@ -450,7 +454,7 @@ namespace MetroidMod
 				}
 			}
 
-		    if (hazardShield)
+            if (hazardShield)
 		    {
 			List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
 
@@ -1211,7 +1215,7 @@ namespace MetroidMod
 		public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
 		{
 			Player P = player;
-			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			
 			if(drawInfo.shadow == 0f)
 			{
@@ -1315,7 +1319,7 @@ namespace MetroidMod
 		}
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
-			MPlayer mPlayer = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mPlayer = player.GetModPlayer<MPlayer>();
 			Player P = player;
 
     		for (int k = 0; k < layers.Count; k++)
@@ -1329,7 +1333,7 @@ namespace MetroidMod
 				{
 					layers.Insert(k + 1, thrusterLayer);
 					layers.Insert(k + 2, jetLayer);
-                    thrusterLayer.visible = true;
+                    thrusterLayer.visible = false;//true;
                     jetLayer.visible = true;
                 }
 				if (layers[k] == PlayerLayer.Head)
@@ -1529,7 +1533,7 @@ namespace MetroidMod
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player P = drawInfo.drawPlayer;
-			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			if (mPlayer.somersault && mPlayer.screwAttack > 0 && drawInfo.shadow == 0f && !mPlayer.ballstate)
 			{
 				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
@@ -1568,10 +1572,10 @@ namespace MetroidMod
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
-			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			if (mPlayer.isPowerSuit && !mPlayer.ballstate)
 			{
-				Texture2D tex = mod.GetTexture("Gore/VisorGlow");
+				Texture2D tex = mod.GetTexture("Gore/VisorGlowNew");
 				mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headOrigin, drawPlayer.GetImmuneAlphaPure(mPlayer.visorGlowColor,drawInfo.shadow), 0);
 			}
 		});
@@ -1587,7 +1591,7 @@ namespace MetroidMod
             Texture2D tex2 = MetroidMod.Instance.GetTexture("Gore/Morphball_Light");
             Texture2D spiderTex = MetroidMod.Instance.GetTexture("Gore/Spiderball");
             Texture2D trail = MetroidMod.Instance.GetTexture("Gore/Morphball_Trail");
-            MPlayer mp = drawPlayer.GetModPlayer<MPlayer>(MetroidMod.Instance);
+            MPlayer mp = drawPlayer.GetModPlayer<MPlayer>();
 
             float thisx = (int)(drawInfo.position.X + (drawPlayer.width / 2));
             float thisy = (int)(drawInfo.position.Y + (drawPlayer.height / 2));
@@ -1691,7 +1695,7 @@ namespace MetroidMod
 		{
 			Mod mod = MetroidMod.Instance;
 			Player P = drawInfo.drawPlayer;
-			MPlayer mPlayer = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			Item I = P.inventory[P.selectedItem];
 			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
 			if ((I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher")) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
@@ -1787,7 +1791,7 @@ namespace MetroidMod
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
-			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			if (mPlayer.thrusters)
 			{
 				if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
@@ -1805,12 +1809,16 @@ namespace MetroidMod
 			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
-			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>(mod);
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			if (mPlayer.jet && !drawPlayer.sandStorm && drawInfo.shadow == 0f && mPlayer.thrusters)
 			{
 				if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
 				{
-					Texture2D tex = mod.GetTexture("Gore/thrusterFlame");
+					Texture2D tex = mod.GetTexture("Gore/thrusterFlameNew");
+					if(mPlayer.shineDirection != 0)
+					{
+						tex = mod.GetTexture("Gore/thrusterFlameNew_Spark");
+					}
 					mPlayer.DrawThrusterJet(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyRotation, drawPlayer.bodyPosition);
 				}
 			}
@@ -1880,7 +1888,7 @@ namespace MetroidMod
 
         public void SenseMove(Player P)
 		{
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			int dist = 80;
 			if(senseSound)
 			{
@@ -2078,7 +2086,7 @@ namespace MetroidMod
 		}
         public void AddSpaceJump(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if(mp.statSpaceJumps >= 15 && player.grappling[0] == -1  && mp.spaceJumped && !player.jumpAgainCloud && !player.jumpAgainBlizzard && !player.jumpAgainSandstorm && !player.jumpAgainFart && player.jump == 0 && player.velocity.Y != 0f && player.rocketTime == 0 && player.wingTime == 0f && !player.mount.Active)
 			{
 				if(player.controlJump && player.releaseJump && player.velocity.Y != 0 && mp.spaceJumped)
@@ -2092,7 +2100,7 @@ namespace MetroidMod
 		}
         public void AddSpaceJumpBoots(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || mp.grapplingBeam >= 0)
 			{
 				mp.spaceJumped = false;
@@ -2233,7 +2241,7 @@ namespace MetroidMod
 
         public void AddSpeedBoost(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			speedBoosting = (Math.Abs(player.velocity.X) >= 6.85f && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
 			if((player.controlRight && player.velocity.X > 0) || (player.controlLeft && player.velocity.X < 0))
 			{

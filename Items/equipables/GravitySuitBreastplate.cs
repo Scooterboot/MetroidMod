@@ -34,7 +34,7 @@ namespace MetroidMod.Items.equipables
             player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 20;
         }
 
@@ -57,19 +57,15 @@ namespace MetroidMod.Items.equipables
             p.lavaMax += 420;
             p.noFallDmg = true;
             p.gills = true;
-            MPlayer mp = p.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = p.GetModPlayer<MPlayer>();
             mp.overheatCost -= 0.3f;
             mp.SenseMove(p);
             mp.visorGlow = true;
-            if (!mp.ballstate)
-            {
-                Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
-            }
         }
 
         public override void UpdateVanitySet(Player P)
         {
-            MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = P.GetModPlayer<MPlayer>();
             mp.isPowerSuit = true;
             mp.thrusters = true;
             if (Main.netMode != 2)

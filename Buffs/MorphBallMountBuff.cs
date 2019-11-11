@@ -25,7 +25,7 @@ namespace MetroidMod.Buffs
 			}
 			else
 			{
-				player.GetModPlayer<MPlayer>(mod).ballstate = false;
+				player.GetModPlayer<MPlayer>().ballstate = false;
 				player.mount._active = true;
 				player.mount.Dismount(player);
 				player.DelBuff(buffIndex);

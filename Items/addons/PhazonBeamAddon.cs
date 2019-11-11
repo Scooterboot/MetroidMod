@@ -29,7 +29,7 @@ namespace MetroidMod.Items.addons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("PhazonBeamTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 		}
 

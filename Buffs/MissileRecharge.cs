@@ -16,19 +16,27 @@ namespace MetroidMod.Buffs
 		}
 		SoundEffectInstance soundInstance;
 		bool soundPlayed = false;
+		int num = 0;
 		public override void Update(Player player,ref int buffIndex)
         {
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             bool flag = false;
             for (int i = 0; i < player.inventory.Length; i++)
             {
                 if (player.inventory[i].type == mod.ItemType("MissileLauncher"))
                 {
-                    MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>(mod);
+                    MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
                     flag = true;
 					if(mi.statMissiles < mi.maxMissiles)
 					{
 						mi.statMissiles++;
+						num++;
+						int num2 = num;
+						while(num2 > 50)
+						{
+							mi.statMissiles++;
+							num2 -= 50;
+						}
 						break;
 					}
                     else //if (mi.statMissiles >= mi.maxMissiles)
@@ -49,6 +57,7 @@ namespace MetroidMod.Buffs
 				{
 					Main.PlaySound(SoundLoader.customSoundType, player.Center, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
 				}
+				num = 0;
                 player.DelBuff(buffIndex);
                 buffIndex--;
 			}
