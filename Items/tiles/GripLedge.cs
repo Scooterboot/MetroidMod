@@ -27,7 +27,7 @@ namespace MetroidMod.Items.tiles
         
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe();
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "ChoziteBar", 4);
             recipe.AddIngredient(ItemID.Emerald, 3);
             recipe.AddIngredient(ItemID.Topaz, 2);

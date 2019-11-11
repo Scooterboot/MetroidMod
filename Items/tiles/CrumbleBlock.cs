@@ -44,7 +44,7 @@ namespace MetroidMod.Items.tiles
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe();
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Actuator);
             recipe.AddIngredient(ItemID.SandBlock);
             recipe.AddTile(TileID.Anvils);
