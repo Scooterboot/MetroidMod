@@ -1323,7 +1323,7 @@ namespace MetroidMod.Items.weapons
 			if(item == Main.HoverItem)
 				item.modItem.UpdateInventory(player);
 
-			int dmg = (int)((float)item.damage*player.rangedDamage*player.allDamage);
+			int dmg = player.GetWeaponDamage(item);
 			int chDmg = (int)((float)dmg*chargeDmgMult);
 			TooltipLine chDmgLine = new TooltipLine(mod, "ChargeDamage", chDmg+" Charge Shot damage");
 
@@ -1468,9 +1468,8 @@ namespace MetroidMod.Items.weapons
 						
 						Vector2 velocity = targetrotation.ToRotationVector2()*item.shootSpeed;
 
-						//float dmgMult = (1f+((float)mp.statCharge*0.04f));
 						float dmgMult = 1f + ((chargeDmgMult - 1f)/MPlayer.maxCharge) * mp.statCharge;
-						int damage = (int)((float)item.damage*player.rangedDamage*player.allDamage);
+						int damage = player.GetWeaponDamage(item);
 						
 						int oHeat = (int)((float)overheat*mp.overheatCost);
 						

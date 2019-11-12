@@ -68,8 +68,6 @@ namespace MetroidMod.Projectiles.missiles
 				negateUseTime++;
 			}
 
-			int damage = (int)((float)I.damage*O.rangedDamage);
-			
 			Vector2 iPos = O.itemLocation;
 
 			P.friendly = false;

@@ -64,7 +64,8 @@ namespace MetroidMod.Projectiles.chargelead
 				negateUseTime++;
 			
 			float dmgMult = (1f+((float)mp.statCharge*0.04f));
-			int damage = (int)((float)I.damage*O.rangedDamage*O.allDamage);
+			//int damage = (int)((float)I.damage*O.rangedDamage*O.allDamage);
+			int damage = O.GetWeaponDamage(I);
 
 			if(mp.statCharge == 10)
 			{

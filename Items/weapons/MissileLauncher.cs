@@ -567,7 +567,7 @@ namespace MetroidMod.Items.weapons
 						Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 
 						float dmgMult = chargeMult;
-						int damage = (int)((float)item.damage * player.rangedDamage * player.allDamage);
+						int damage = player.GetWeaponDamage(item);
 						
 						if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 						{
@@ -723,7 +723,7 @@ namespace MetroidMod.Items.weapons
 					}
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 					Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
-					int damage = (int)((float)item.damage * player.rangedDamage * player.allDamage);
+					int damage = player.GetWeaponDamage(item);
 					if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
 					{
 						if (mi.seekerCharge < MGlobalItem.seekerMaxCharge)
