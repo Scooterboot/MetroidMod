@@ -37,7 +37,7 @@ namespace MetroidMod.NPCs.Mobs
         {
             if (npc.ai[0] == 0)
             {
-                npc.TargetClosest();
+				npc.direction = 1;
                 npc.directionY = 1;
 
                 npc.ai[0] = 1;

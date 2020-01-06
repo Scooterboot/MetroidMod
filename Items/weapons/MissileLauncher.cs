@@ -98,7 +98,7 @@ namespace MetroidMod.Items.weapons
 			{
 				return false;
 			}
-			return (mi.statMissiles > 0);
+			return (player.whoAmI == Main.myPlayer && mi.statMissiles > 0);
 		}
 		
 		int finalDmg = 0;

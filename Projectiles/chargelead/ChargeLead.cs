@@ -120,12 +120,6 @@ namespace MetroidMod.Projectiles.chargelead
 					O.itemTime = I.useTime-negateUseTime;
 					O.itemAnimation = I.useAnimation-negateUseTime;
 				}
-				if(O.whoAmI == Main.myPlayer)
-				{
-					if(soundInstance != null)
-						soundInstance.Stop(true);
-					soundPlayed = false;
-				}
 				P.Kill();
 			}
 
@@ -161,6 +155,9 @@ namespace MetroidMod.Projectiles.chargelead
 
 				mp.statCharge = 0;
 			}
+			if (soundInstance != null)
+				soundInstance.Stop(true);
+			soundPlayed = false;
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

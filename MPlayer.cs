@@ -1381,6 +1381,7 @@ namespace MetroidMod
         {
             // 'Standing on NPC' mechanic. 
             // Might need some more work, but that's for something in the future.
+			// TODO: THE PLAYER SLIDED OVER THE TOP OF THE TRIPPER WHEN IT CHANGES DIRECTION.
             for (int i = 0; i < 200; ++i)
             {
                 NPC npc = Main.npc[i];
@@ -1395,10 +1396,13 @@ namespace MetroidMod
                         player.velocity.Y = 0;
                         player.position = player.oldPosition;
 
-                        if (npc.type == mod.NPCType("Tripper"))
-                        {
-                            player.position.X = player.oldPosition.X + npc.velocity.X;
-                        }
+						if (npc.type == mod.NPCType("Tripper"))
+						{
+							if ((npc.direction == 1 && npc.velocity.X < 2) || (npc.direction == -1 && npc.velocity.X > -2))
+								player.position.X = player.oldPosition.X + npc.velocity.X + (npc.direction * .08F);
+							else
+								player.position.X = player.oldPosition.X + npc.velocity.X;
+						}
                     }
                 }
             }
@@ -2440,19 +2444,17 @@ namespace MetroidMod
 		
 		public void Bomb(Player player)
 		{
-			if(bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0 && !player.mouseInterface)
+			if(player.whoAmI == Main.myPlayer && bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0 && !player.mouseInterface)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
 				int BombID = mod.ProjectileType("MBBomb");
-				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-				Main.projectile[a].aiStyle = 0;
+				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI, 1, 0);
 			}
 			mouseRight = Main.mouseRight;
 			if(bomb > 0)
-			{
 				bomb--;
-			}
-			if (!special && statCharge >= 100)
+
+			if (player.whoAmI == Main.myPlayer && !special && statCharge >= 100)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
 				bomb = 90;
@@ -2977,7 +2979,7 @@ namespace MetroidMod
 		//int CFMoment = 0;
 		public void PowerBomb(Player player)
 		{
-			if(statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
+			if(player.whoAmI == Main.myPlayer && statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
 				statPBCh = 200;
@@ -3121,7 +3123,20 @@ namespace MetroidMod
 				cooldownbomb--;
 			}
 		}
-		
+
+		public override void ProcessTriggers(TriggersSet triggersSet)
+		{
+			if (MetroidMod.SpiderBallKey.JustPressed)
+			{
+				if (ballstate)
+				{
+					CurEdge = Edge.None;
+					spiderball = !spiderball;
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+				}
+			}
+		}
+
 		public bool psuedoScrewActive = false;
 		public override TagCompound Save()
 		{
@@ -3135,18 +3150,18 @@ namespace MetroidMod
 			try
 			{
 				bool flag = tag.GetBool("psuedoScrewAttackActive");
-				if(flag)
+				if (flag)
 				{
 					psuedoScrewActive = flag;
 				}
 			}
-			catch{}
+			catch { }
 		}
-        
-        /* NETWORK SYNCING. <<<<<< WIP >>>>>> */
 
-        // Using Initialize to make sure every player has his/her own instance.
-        public override void Initialize()
+		/* NETWORK SYNCING. <<<<<< WIP >>>>>> */
+
+		// Using Initialize to make sure every player has his/her own instance.
+		public override void Initialize()
         {
             oldPos = new Vector2[oldNumMax];
 
@@ -3158,6 +3173,12 @@ namespace MetroidMod
         public override void clientClone(ModPlayer clientClone)
         {
             MPlayer clone = clientClone as MPlayer;
+
+			clone.statCharge = statCharge;
+			clone.ballstate = ballstate;
+			clone.spiderball = spiderball;
+			clone.boostEffect = boostEffect;
+			clone.boostCharge = boostCharge;
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -3166,7 +3187,8 @@ namespace MetroidMod
             packet.Write((byte)MetroidMessageType.SyncPlayerStats);
             packet.Write((byte)player.whoAmI);
             packet.Write((double)statCharge);
-            packet.Write(spiderball);
+			packet.Write(ballstate);
+			packet.Write(spiderball);
             packet.Write(boostEffect);
             packet.Write(boostCharge);
             packet.Send(toWho, fromWho);
@@ -3174,21 +3196,22 @@ namespace MetroidMod
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
-            MPlayer mp = clientPlayer as MPlayer;
-            if (mp != null)
-            {
-                if(mp.statCharge != statCharge || mp.spiderball != spiderball || mp.boostEffect != boostEffect || mp.boostCharge != boostCharge)
-                {
-                    ModPacket packet = mod.GetPacket();
-                    packet.Write((byte)MetroidMessageType.SyncPlayerStats);
-                    packet.Write((byte)player.whoAmI);
-                    packet.Write((double)statCharge);
-                    packet.Write(spiderball);
-                    packet.Write(boostEffect);
-                    packet.Write(boostCharge);
-                    packet.Send();
-                }
-            }
-        }
+			MPlayer mp = (MPlayer)clientPlayer;
+			if (mp != null)
+			{
+				if (mp.statCharge != statCharge || mp.spiderball != spiderball || mp.boostEffect != boostEffect || mp.boostCharge != boostCharge)
+				{
+					ModPacket packet = mod.GetPacket();
+					packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+					packet.Write((byte)player.whoAmI);
+					packet.Write((double)statCharge);
+					packet.Write(ballstate);
+					packet.Write(spiderball);
+					packet.Write(boostEffect);
+					packet.Write(boostCharge);
+					packet.Send();
+				}
+			}
+		}
     }
 }

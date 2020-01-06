@@ -145,6 +145,8 @@ namespace MetroidMod.Projectiles
 			if(!initialized)
 			{
 				initialize(P);
+				waveStyle = (int)projectile.ai[1];
+				projectile.ai[1] = 0;
 			}
 			else
 			{
@@ -514,17 +516,5 @@ namespace MetroidMod.Projectiles
 			}
 			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(color2), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
 		}
-
-        /* Networking section */
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(waveDir);
-            writer.Write(waveStyle);
-        }
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            waveDir = reader.ReadInt32();
-            waveStyle = reader.ReadInt32();
-        }
     }
 }

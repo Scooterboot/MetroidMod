@@ -1,10 +1,12 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
+using Terraria.ID;
 using Terraria.UI;
 using Terraria.ModLoader;
 using ReLogic;
@@ -13,12 +15,12 @@ using ReLogic.Graphics;
 using MetroidMod.Items;
 using MetroidMod.NewUI;
 using MetroidMod.Items.weapons;
-using System.IO;
 
 namespace MetroidMod
 {
 	public enum MetroidMessageType : byte
 	{
+		SyncStartPlayerStats,
 		SyncPlayerStats,
 		PlaySyncedSound
 	}
@@ -94,20 +96,6 @@ namespace MetroidMod
 			AddBossHeadTexture(OmegaPirateHead);
 
 			SetupUI();
-		}
-
-		public override void HotKeyPressed(string name)
-		{
-			if(name == "Spider Ball" && SpiderBallKey.JustPressed)
-			{
-				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(this);
-				if(mp.ballstate)
-				{
-					mp.CurEdge = Edge.None;
-					mp.spiderball = !mp.spiderball;
-					Main.PlaySound(SoundLoader.customSoundType, (int)mp.player.position.X, (int)mp.player.position.Y, this.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-				}
-			}
 		}
 
 		private void SetupUI()
@@ -583,28 +571,32 @@ namespace MetroidMod
 			switch(msgType)
 			{
 				case MetroidMessageType.SyncPlayerStats:
+				case MetroidMessageType.SyncStartPlayerStats:
 					byte playerID = reader.ReadByte();
 					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>(this);
 					double statCharge = reader.ReadDouble();
+					bool ballstate = reader.ReadBoolean();
 					bool spiderBall = reader.ReadBoolean();
 					int boostEffect = reader.ReadInt32();
 					int boostCharge = reader.ReadInt32();
 
 					targetPlayer.statCharge = (float)statCharge;
+					targetPlayer.ballstate = ballstate;
 					targetPlayer.spiderball = spiderBall;
 					targetPlayer.boostEffect = boostEffect;
 					targetPlayer.boostCharge = boostCharge;
 
-					if (Main.netMode == 2)
+					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
-						ModPacket packet = this.GetPacket();
+						var packet = GetPacket();
 						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 						packet.Write(playerID);
 						packet.Write(statCharge);
+						packet.Write(ballstate);
 						packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
-						packet.Send(-1, whoAmI);
+						packet.Send(-1, playerID);
 					}
 					break;
 

@@ -38,7 +38,7 @@ namespace MetroidMod.NPCs.Mobs
         {
             if(npc.ai[0] == 0) // Idle/grounded phase.
             {
-                if (npc.ai[2] > 0) npc.ai[2]--;
+                if (npc.localAI[2] > 0) npc.localAI[2]--;
 
                 if(npc.ai[1]++ >= 60)
                 {
@@ -46,22 +46,23 @@ namespace MetroidMod.NPCs.Mobs
 
                     npc.ai[0] = 1;
                     npc.ai[1] = 0;
-                    npc.ai[2] = 0;
+					npc.localAI[1] = 0;
+					npc.localAI[2] = 0;
                     npc.netUpdate = true;
                 }
             }
             else // Jumping/falling phase.
             {
                 if (npc.velocity.Y >= 0)
-                    npc.ai[1]++;
+                    npc.localAI[1]++;
 
                 if(npc.collideY)
                 {
                     npc.velocity.Y = 0;
 
                     npc.ai[0] = 0;
-                    npc.ai[1] = 0;
-                    npc.ai[2] = 8;
+					npc.localAI[1] = 0;
+					npc.localAI[2] = 8;
                     npc.netUpdate = true;
                 }
             }
@@ -75,9 +76,9 @@ namespace MetroidMod.NPCs.Mobs
         {
             if(npc.ai[0] == 0)
             {
-                if (npc.ai[2] > 0)
+                if (npc.localAI[2] > 0)
                 {
-                    if (npc.ai[2] > 4)
+                    if (npc.localAI[2] > 4)
                         npc.frame.Y = 6 * frameHeight;
                     else
                         npc.frame.Y = 5 * frameHeight;
@@ -103,13 +104,13 @@ namespace MetroidMod.NPCs.Mobs
                 }
                 else
                 {
-                    if (npc.ai[1] < 3)
+                    if (npc.localAI[1] < 3)
                         npc.frame.Y = 3 * frameHeight;
-                    else if (npc.ai[1] < 6)
+                    else if (npc.localAI[1] < 6)
                         npc.frame.Y = 4 * frameHeight;
-                    else if (npc.ai[1] < 9)
+                    else if (npc.localAI[1] < 9)
                         npc.frame.Y = 5 * frameHeight;
-                    else if (npc.ai[1] < 12)
+                    else if (npc.localAI[1] < 12)
                         npc.frame.Y = 6 * frameHeight;
                     else
                     {

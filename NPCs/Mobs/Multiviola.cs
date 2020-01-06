@@ -64,12 +64,12 @@ namespace MetroidMod.NPCs.Mobs
         {
             if (npc.frameCounter++ >= 6)
             {
-                npc.frame.Y = npc.frame.Y + (int)(frameHeight * npc.ai[0]);
+                npc.frame.Y = npc.frame.Y + (int)(frameHeight * npc.localAI[0]);
 
                 if (npc.frame.Y == 3 * frameHeight)
-                    npc.ai[0] = -1;
+                    npc.localAI[0] = -1;
                 else if (npc.frame.Y == 0)
-                    npc.ai[0] = 1;
+                    npc.localAI[0] = 1;
 
                 npc.frameCounter = 0;
             }

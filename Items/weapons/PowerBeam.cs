@@ -1333,11 +1333,10 @@ namespace MetroidMod.Items.weapons
 			
 			for(int i = 0; i < shotAmt; i++)
 			{
-				int shotProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,item.shoot,damage,knockBack,player.whoAmI);
+				int shotProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,item.shoot,damage,knockBack,player.whoAmI, 0, i);
 				MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
-				mProj.waveStyle = i;
 				mProj.waveDir = waveDir;
-				mProj.projectile.netUpdate = true;
+				Main.projectile[shotProj].netUpdate = true;
 			}
 			waveDir *= -1;
 			
@@ -1401,9 +1400,8 @@ namespace MetroidMod.Items.weapons
 						{
 							for(int i = 0; i < chargeShotAmt; i++)
 							{
-								int chargeProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(chargeShot),(int)((float)damage*dmgMult),item.knockBack,player.whoAmI);
+								int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI, 0, i);
 								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].modProjectile;
-								mProj.waveStyle = i;
 								mProj.waveDir = waveDir;
 								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge*0.9));
 								mProj.projectile.netUpdate = true;
@@ -1420,9 +1418,8 @@ namespace MetroidMod.Items.weapons
 							{
 								for(int i = 0; i < shotAmt; i++)
 								{
-									int shotProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(shot),damage,item.knockBack,player.whoAmI);
+									int shotProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(shot),damage,item.knockBack,player.whoAmI, 0, i);
 									MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
-									mProj.waveStyle = i;
 									mProj.waveDir = waveDir;
 									mProj.projectile.netUpdate = true;
 								}

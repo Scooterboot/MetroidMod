@@ -46,6 +46,7 @@ namespace MetroidMod.NPCs.Mobs
         {
             this.SpawnKago(Main.player[projectile.owner], damage);
         }
+		// Maybe just use the justHit boolean for kago spawning?
 
         private void SpawnKago(Player player, int damage)
         {
@@ -56,6 +57,7 @@ namespace MetroidMod.NPCs.Mobs
 
             // Assign a random starting velocity to the newly created Kago to give some sort of 'punch-out' effect.
             kago.velocity = new Vector2(Main.rand.Next(6, 12) * player.direction, -2);
+			kago.netUpdate = true;
         }
     }
 }

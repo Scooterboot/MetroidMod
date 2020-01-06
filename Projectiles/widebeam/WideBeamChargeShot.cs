@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -76,6 +77,15 @@ namespace MetroidMod.Projectiles.widebeam
 				mProjectile.PlasmaDrawTrail(projectile,Main.player[projectile.owner], sb, 5, 1f);
 			}
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(this.dustType);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			this.dustType = reader.ReadInt32();
 		}
 	}
 	

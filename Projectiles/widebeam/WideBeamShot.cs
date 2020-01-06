@@ -47,9 +47,7 @@ namespace MetroidMod.Projectiles.widebeam
 			if(projectile.numUpdates == 0)
 			{
 				if(projectile.Name.Contains("Wave"))
-				{
 					projectile.frame++;
-				}
 				else
 				{
 					projectile.frameCounter++;
@@ -61,9 +59,7 @@ namespace MetroidMod.Projectiles.widebeam
 				}
 			}
 			if(projectile.frame > 1)
-			{
 				projectile.frame = 0;
-			}
 			
 			mProjectile.WaveBehavior(projectile, !projectile.Name.Contains("Wave"));
 			
