@@ -33,7 +33,7 @@ namespace MetroidMod.Items.equipables
                 + "Allows you to slide down walls";
             player.statDefense += 2;
             player.spikedBoots += 1;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.visorGlow = true;
         }
 

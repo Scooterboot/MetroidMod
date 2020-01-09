@@ -98,6 +98,23 @@ namespace MetroidMod
 			SetupUI();
 		}
 
+<<<<<<< HEAD
+=======
+		public override void HotKeyPressed(string name)
+		{
+			if(name == "Spider Ball" && SpiderBallKey.JustPressed)
+			{
+				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+				if(mp.ballstate)
+				{
+					mp.CurEdge = Edge.None;
+					mp.spiderball = !mp.spiderball;
+					Main.PlaySound(SoundLoader.customSoundType, (int)mp.player.position.X, (int)mp.player.position.Y, this.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+				}
+			}
+		}
+
+>>>>>>> 2605844050a04211dfa7007c3bbc69353a17d46d
 		private void SetupUI()
 		{
 			if (Main.dedServ) return;
@@ -237,7 +254,7 @@ namespace MetroidMod
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 
 			if (P.buffType[0] > 0)
@@ -261,12 +278,12 @@ namespace MetroidMod
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 			
 			if(item.type == mod.ItemType("MissileLauncher"))
 			{
-				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 				if(mi.numSeekerTargets > 0)
 				{
 					tRot += 0.05f;
@@ -313,7 +330,7 @@ namespace MetroidMod
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 			if (P.whoAmI == Main.myPlayer && P.active && !P.dead && !P.ghost)
 			{
@@ -365,7 +382,7 @@ namespace MetroidMod
 
 					if(item.type == mod.ItemType("MissileLauncher"))
 					{
-						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>(mod);
+						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 						int num = Math.Min(mi.statMissiles,mi.maxMissiles);
 						string text = num.ToString("000");
 						Vector2 vect = Main.fontMouseText.MeasureString(text);
@@ -464,7 +481,7 @@ namespace MetroidMod
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(mp.shineDirection == 0 && mp.spaceJump && mp.spaceJumped && P.velocity.Y != 0 && !mp.ballstate)
 			{
 				Texture2D texBar = mod.GetTexture("Gore/SpaceJumpBar"), texBarBorder = mod.GetTexture("Gore/SpaceJumpBarBorder");
@@ -485,7 +502,7 @@ namespace MetroidMod
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
 			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if (mp.reserveTanks > 0)
 			{
 				Texture2D texHeart = mod.GetTexture("Gore/ReserveHeart");
@@ -573,7 +590,7 @@ namespace MetroidMod
 				case MetroidMessageType.SyncPlayerStats:
 				case MetroidMessageType.SyncStartPlayerStats:
 					byte playerID = reader.ReadByte();
-					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>(this);
+					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>();
 					double statCharge = reader.ReadDouble();
 					bool ballstate = reader.ReadBoolean();
 					bool spiderBall = reader.ReadBoolean();

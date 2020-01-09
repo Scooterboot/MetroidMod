@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -104,7 +104,7 @@ namespace MetroidMod.NPCs.Mobs
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            Texture2D texture = ModLoader.GetTexture("MetroidMod/NPCs/Mobs/Covern_Glowmask");
+            Texture2D texture = ModContent.GetTexture("MetroidMod/NPCs/Mobs/Covern_Glowmask");
             Vector2 drawPos = npc.position - Main.screenPosition;
             Vector2 origin = new Vector2(texture.Width / 2, ((texture.Height / (Main.npcFrameCount[npc.type]-1)) / 2));
             drawPos += origin * npc.scale + new Vector2(0, 2 * npc.scale);

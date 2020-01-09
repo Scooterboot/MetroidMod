@@ -91,7 +91,7 @@ namespace MetroidMod.NPCs
         public override void NPCLoot(NPC npc)
         {
             Player player = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
 
             bool flag = false;
 

@@ -27,11 +27,26 @@ namespace MetroidMod.Projectiles.missiles
 			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			
 			int dustType = 6;
+			float scale = 2f;
 			if(projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 			}
-			mProjectile.DustLine(projectile.Center-projectile.velocity*0.5f, projectile.velocity, projectile.rotation, 5, 3, dustType, 2f);
+			if(projectile.Name.Contains("Stardust") || projectile.Name.Contains("Nebula"))
+			{
+				dustType = 87;
+				scale = 1f;
+				int dustType2 = 88;
+				if(projectile.Name.Contains("Nebula"))
+				{
+					dustType = 255;
+					scale = 1.5f;
+					dustType2 = 240;//254;
+				}
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType2, 0, 0, 100, default(Color), 2f);
+				Main.dust[dust].noGravity = true;
+			}
+			mProjectile.DustLine(projectile.Center-projectile.velocity*0.5f, projectile.velocity, projectile.rotation, 5, 3, dustType, scale);
 			
 			projectile.ai[0] += 1f;
 			if (projectile.ai[0] > (5f+(float)projectile.extraUpdates) && projectile.extraUpdates < 10)
@@ -46,7 +61,7 @@ namespace MetroidMod.Projectiles.missiles
 				float num237 = projectile.position.Y;
 				bool flag5 = false;
 				projectile.ai[1] += 1f;
-				if(projectile.ai[1] > 5f && projectile.numUpdates <= 0)
+				if(projectile.ai[1] > 5f && (projectile.numUpdates <= 0 || (projectile.numUpdates <= 1 && (projectile.Name.Contains("Stardust") || projectile.Name.Contains("Nebula")))))
 				{
 					projectile.ai[1] = 5f;
 					int num239 = mProjectile.seekTarget;
@@ -80,30 +95,55 @@ namespace MetroidMod.Projectiles.missiles
 		}
 		public override void Kill(int timeLeft)
 		{
-			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-			projectile.width += 80;
-			projectile.height += 80;
-			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+			Projectile P = projectile;
+			int size = 80;
+			if(P.Name.Contains("Stardust"))
+			{
+				size = 100;
+			}
+			P.position.X = P.position.X + (float)(P.width / 2);
+			P.position.Y = P.position.Y + (float)(P.height / 2);
+			P.width += size;
+			P.height += size;
+			P.position.X = P.position.X - (float)(P.width / 2);
+			P.position.Y = P.position.Y - (float)(P.height / 2);
 
-			Main.PlaySound(2,(int)projectile.position.X,(int)projectile.position.Y,14);
+			Main.PlaySound(2,(int)P.position.X,(int)P.position.Y,14);
 			
 			int dustType = 6;
-			if(projectile.Name.Contains("Ice"))
+			int dustType2 = 30;
+			float scale = 1f;
+			if(P.Name.Contains("Ice"))
 			{
 				dustType = 135;
 			}
-			for (int num70 = 0; num70 < 25; num70++)
+			if(P.Name.Contains("Stardust"))
 			{
-				int num71 = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0f, 0f, 100, default(Color), 5f);
+				dustType = 88;
+				dustType2 = 87;
+				scale = 0.6f;
+			}
+			if(P.Name.Contains("Nebula"))
+			{
+				dustType = 255;
+				dustType2 = 240;
+				scale = 0.75f;
+			}
+			for (int num70 = 0; num70 < 25f*(2f-scale); num70++)
+			{
+				int num71 = Dust.NewDust(P.position, P.width, P.height, dustType, 0f, 0f, 100, default(Color), 5f*scale);
 				Main.dust[num71].velocity *= 1.4f;
 				Main.dust[num71].noGravity = true;
-				int num72 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 30, 0f, 0f, 100, default(Color), 3f);
+				int num72 = Dust.NewDust(P.position, P.width, P.height, dustType2, 0f, 0f, 100, default(Color), 3f*scale);
 				Main.dust[num72].velocity *= 1.4f;
 				Main.dust[num72].noGravity = true;
 			}
-			projectile.Damage();
+			P.Damage();
+			
+			if(P.Name.Contains("Nebula"))
+			{
+				int n = Projectile.NewProjectile(P.Center.X, P.Center.Y, 0f, 0f, mod.ProjectileType("NebulaMissileImpact"),P.damage,P.knockBack,P.owner);
+			}
 		}
 		
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
@@ -117,6 +157,20 @@ namespace MetroidMod.Projectiles.missiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ice Super Missile Shot");
+		}
+	}
+	public class StardustMissileShot : SuperMissileShot
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Stardust Missile Shot");
+		}
+	}
+	public class NebulaMissileShot : SuperMissileShot
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Nebula Missile Shot");
 		}
 	}
 }

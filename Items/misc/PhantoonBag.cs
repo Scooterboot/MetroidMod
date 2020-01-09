@@ -23,9 +23,16 @@ namespace MetroidMod.Items.misc
 			item.height = 24;
 			item.expert = true;
 			item.rare = -12;
-			bossBagNPC = mod.NPCType("Phantoon");
+			//bossBagNPC = mod.NPCType("Phantoon");
 		}
-public override bool CanRightClick()
+		public override int BossBagNPC
+		{
+			get
+			{
+				return mod.NPCType("Phantoon");
+			}
+		}
+		public override bool CanRightClick()
 		{
 			return true;
 		}

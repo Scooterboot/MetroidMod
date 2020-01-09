@@ -30,7 +30,7 @@ namespace MetroidMod.Items.equipables
             player.rangedDamage += 0.05f;
             player.nightVision = true;
             player.jumpBoost = true;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 33;
         }
 
@@ -40,7 +40,6 @@ namespace MetroidMod.Items.equipables
             recipe.AddIngredient(null, "TerraGravitySuitHelmet");
             recipe.AddIngredient(ItemID.LunarBar, 15);
             recipe.AddIngredient(ItemID.FragmentVortex, 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();

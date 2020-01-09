@@ -45,7 +45,7 @@ namespace MetroidMod.Mounts
 		MorphBall mBall;
 		public override void UpdateEffects(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			
 			if(player.miscEquips[3].type == mod.ItemType("MorphBall"))
 			{
@@ -56,7 +56,6 @@ namespace MetroidMod.Mounts
 				mBall = null;
 			}
 
-			int pb = mod.ItemType("PowerBombAddon");
 			int sb = mod.ItemType("SpiderBallAddon");
 			int bb = mod.ItemType("BoostBallAddon");
 
@@ -66,18 +65,19 @@ namespace MetroidMod.Mounts
 			{
 				if (!mBall.ballMods[0].IsAir)
 				{
-					MGlobalItem drillMItem = mBall.ballMods[0].GetGlobalItem<MGlobalItem>(mod);
+					MGlobalItem drillMItem = mBall.ballMods[0].GetGlobalItem<MGlobalItem>();
 					mp.Drill(player,drillMItem.drillPower);
 				}
 				if (!mBall.ballMods[1].IsAir)
 				{
-					MGlobalItem bombMItem = mBall.ballMods[1].GetGlobalItem<MGlobalItem>(mod);
+					MGlobalItem bombMItem = mBall.ballMods[1].GetGlobalItem<MGlobalItem>();
 					mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
 					mp.Bomb(player);
 				}
-				if (mBall.ballMods[2].type == pb)
+				if(!mBall.ballMods[2].IsAir)
 				{
-					mp.PowerBomb(player);
+					MGlobalItem pbMItem = mBall.ballMods[2].GetGlobalItem<MGlobalItem>();
+					mp.PowerBomb(player,pbMItem.powerBombType);
 				}
 
 				if (mBall.ballMods[3].type == sb)

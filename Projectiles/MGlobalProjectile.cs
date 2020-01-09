@@ -55,8 +55,8 @@ namespace MetroidMod.Projectiles
         {
             if (!projectile.tileCollide && projectile.aiStyle != 26 && !projectile.minion && projectile.damage > 0 && projectile.friendly)
             {
-                int x = (int)MathHelper.Clamp(projectile.Center.X / 16,0,Main.maxTilesX);
-                int y = (int)MathHelper.Clamp(projectile.Center.Y / 16,0,Main.maxTilesY);
+                int x = (int)MathHelper.Clamp(projectile.Center.X / 16,0,Main.maxTilesX-2);
+                int y = (int)MathHelper.Clamp(projectile.Center.Y / 16,0,Main.maxTilesY-2);
                 if (Main.tile[x, y] != null && Main.tile[x, y].active())
                 {
                     if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))

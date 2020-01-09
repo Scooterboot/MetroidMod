@@ -27,7 +27,7 @@ namespace MetroidMod.Items.balladdons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("BoostBallTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.ballSlotType = 4;
 		}
 
@@ -39,7 +39,7 @@ namespace MetroidMod.Items.balladdons
 			recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
-
+			recipe.AddRecipe();
 		}
 	}
 }

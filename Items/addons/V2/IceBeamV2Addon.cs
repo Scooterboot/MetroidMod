@@ -13,7 +13,7 @@ namespace MetroidMod.Items.addons.V2
 				"Shots freeze enemies\n" + 
 				"~Each time the enemy is shot, they will become 20% slower\n" + 
 				"~After 5 shots the enemy will become completely frozen\n" + 
-				string.Format("[c/78BE78:+150% damage]\n") +
+				string.Format("[c/78BE78:+225% damage]\n") +
 				string.Format("[c/BE7878:+50% overheat use]\n") +
 				string.Format("[c/BE7878:-30% speed]"));
 		}
@@ -31,26 +31,24 @@ namespace MetroidMod.Items.addons.V2
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("IceBeamV2Tile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 1;
+			mItem.addonDmg = 2.25f;
+			mItem.addonHeat = 0.5f;
+			mItem.addonSpeed = -0.3f;
 		}
 
-		/*public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.SnowBlock, 25);
-            		recipe.AddIngredient(ItemID.IceBlock, 10);
-            		recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(null, "IceBeamAddon", 1);
+            recipe.AddIngredient(ItemID.BeetleHusk, 10);
+            recipe.AddIngredient(ItemID.FrostCore, 1);
+            recipe.AddIngredient(ItemID.SoulofNight, 10);
+            recipe.AddIngredient(ItemID.Sapphire, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.Sapphire, 7);
-            		recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}*/
+		}
 	}
 }

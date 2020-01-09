@@ -26,5 +26,12 @@ namespace MetroidMod.Items.misc
 			item.value = 10000;
 			item.rare = 5;
 		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "NightmareCoreXFragment", 20);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 	}
 }

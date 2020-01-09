@@ -51,7 +51,7 @@ namespace MetroidMod.Items.equipables
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             player.accRunSpeed = 6.75f;
             player.moveSpeed += 0.2f;
             player.iceSkate = true;

@@ -19,8 +19,8 @@ namespace MetroidMod.Buffs
 
 		public override void Update(NPC N,ref int buffIndex)
 		{
-			N.GetGlobalNPC<NPCs.MNPC>(mod).froze = true;
-			N.GetGlobalNPC<NPCs.MNPC>(mod).speedDecrease = 0;
+			N.GetGlobalNPC<NPCs.MNPC>().froze = true;
+			N.GetGlobalNPC<NPCs.MNPC>().speedDecrease = 0;
 		}
     }
 }

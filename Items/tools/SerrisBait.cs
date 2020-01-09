@@ -53,7 +53,8 @@ namespace MetroidMod.Items.tools
 		public override bool UseItem(Player player)
 		{
 			NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Serris_Head"));
-             Main.PlaySound(15,(int)player.position.X,(int)player.position.Y,0);
+            //Main.PlaySound(15,(int)player.position.X,(int)player.position.Y,0);
+			Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisSummon"));
 
 			return true;
 		}

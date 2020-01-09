@@ -37,7 +37,7 @@ namespace MetroidMod.Projectiles
 		public void initialize()
 		{
 			Player P = Main.player[projectile.owner];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			int dustType = 15;
 			if(mp.screwAttackSpeedEffect > 30)
 			{
@@ -62,7 +62,7 @@ namespace MetroidMod.Projectiles
 			projectile.scale = 0.9f;
 			//projectile.penetrateImmuneTime = 7;
 			Player P = Main.player[projectile.owner];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			projectile.position.X = P.Center.X-projectile.width/2;
 			projectile.position.Y = P.Center.Y-projectile.height/2;
 			projectile.direction = P.direction;
@@ -139,7 +139,7 @@ namespace MetroidMod.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			Player P = Main.player[projectile.owner];
-			MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			int dustType = 15;
 			if(mp.screwAttackSpeedEffect > 30)
 			{

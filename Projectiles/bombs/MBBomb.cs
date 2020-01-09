@@ -157,8 +157,20 @@ namespace MetroidMod.Projectiles.bombs
                     direction.Normalize();
                     if (distance < BombRadius)
                     {
-                        player.velocity += direction * (BombRadius - distance);
-                        player.GetModPlayer<MPlayer>(mod).spiderball = false;
+						direction *= (BombRadius - distance);
+						if(player.whoAmI == projectile.owner)
+						{
+							if(Math.Abs(player.Center.X-projectile.Center.X) <= 2f)
+							{
+								direction.X = 0f;
+							}
+							if(player.Center.Y < projectile.position.Y+projectile.height)
+							{
+								direction.Y = -BombRadius;
+							}
+						}
+                        player.velocity += direction;// * (BombRadius - distance);
+                        player.GetModPlayer<MPlayer>().spiderball = false;
 
                         if (player.velocity.X > Xthreshold)
                             player.velocity.X = Xthreshold;

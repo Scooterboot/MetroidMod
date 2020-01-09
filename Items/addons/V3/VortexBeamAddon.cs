@@ -13,7 +13,7 @@ namespace MetroidMod.Items.addons.V3
 			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
 				"Slot Type: Primary A\n" +
 				"Beam fires 5 shots at once\n" +
-				string.Format("[c/78BE78:+100% damage]\n") +
+				string.Format("[c/78BE78:+150% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]\n") +
 				string.Format("[c/78BE78:+25% speed]"));
 		}
@@ -31,20 +31,21 @@ namespace MetroidMod.Items.addons.V3
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("VortexBeamTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 3;
+			mItem.addonDmg = 1.5f;
+			mItem.addonHeat = 1f;
+			mItem.addonSpeed = 0.25f;
 		}
 
-		/*public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 6);
-		    	recipe.AddIngredient(ItemID.Topaz, 15);
-		    	recipe.AddIngredient(ItemID.JungleSpores, 10);
-		    	recipe.AddTile(TileID.Anvils);
+		    recipe.AddIngredient(ItemID.FragmentVortex, 18);
+            recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-		}*/
+		}
 	}
 }

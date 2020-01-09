@@ -30,7 +30,7 @@ namespace MetroidMod.Items.tiles
 		}
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.reserveTanks = 1;
         }
         public override bool CanEquipAccessory(Player player, int slot)

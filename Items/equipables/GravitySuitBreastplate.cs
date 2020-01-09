@@ -34,7 +34,7 @@ namespace MetroidMod.Items.equipables
             player.noKnockback = true;
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 20;
         }
 
@@ -57,19 +57,15 @@ namespace MetroidMod.Items.equipables
             p.lavaMax += 420;
             p.noFallDmg = true;
             p.gills = true;
-            MPlayer mp = p.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = p.GetModPlayer<MPlayer>();
             mp.overheatCost -= 0.3f;
             mp.SenseMove(p);
             mp.visorGlow = true;
-            if (!mp.ballstate)
-            {
-                Lighting.AddLight((int)((float)p.Center.X / 16f), (int)((float)(p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
-            }
         }
 
         public override void UpdateVanitySet(Player P)
         {
-            MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = P.GetModPlayer<MPlayer>();
             mp.isPowerSuit = true;
             mp.thrusters = true;
             if (Main.netMode != 2)
@@ -92,21 +88,7 @@ namespace MetroidMod.Items.equipables
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitV2Breastplate");
             recipe.AddIngredient(null, "GravityGel", 20);
-            /*recipe.AddIngredient(ItemID.Wire, 12);
-            recipe.AddIngredient(ItemID.CursedFlame, 12);*/
-            recipe.AddIngredient(null, "EnergyTank");
-            //recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitV2Breastplate");
-            recipe.AddIngredient(null, "GravityGel", 20);
-            /*recipe.AddIngredient(ItemID.Wire, 12);
-            recipe.AddIngredient(ItemID.Ichor, 12);*/
-            recipe.AddIngredient(null, "EnergyTank");
-            //recipe.AddIngredient(ItemID.SoulofSight, 5);
+            recipe.AddIngredient(ItemID.HallowedBar, 15);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

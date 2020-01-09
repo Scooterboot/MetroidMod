@@ -30,20 +30,20 @@ namespace MetroidMod.Items.equipables
             player.rangedDamage += 0.05f;
             player.moveSpeed += 0.20f;
             player.spikedBoots += 2;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 33;
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "LightSuitGreaves");
             recipe.AddIngredient(ItemID.LunarBar, 15);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+        */
     }
 }

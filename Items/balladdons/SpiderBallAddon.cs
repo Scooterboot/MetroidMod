@@ -27,7 +27,7 @@ namespace MetroidMod.Items.balladdons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("SpiderBallTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.ballSlotType = 3;
 		}
 
@@ -39,7 +39,7 @@ namespace MetroidMod.Items.balladdons
 			recipe.AddIngredient(ItemID.Cobweb, 150);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
-
+			recipe.AddRecipe();
 		}
 	}
 }

@@ -30,28 +30,24 @@ namespace MetroidMod.Items.equipables
             player.rangedDamage += 0.05f;
             player.moveSpeed += 0.1f;
             player.spikedBoots += 1;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 15;
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "VariaSuitGreaves");
             recipe.AddIngredient(ItemID.MythrilBar, 15);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(null, "EnergyTank");
+            recipe.AddIngredient(null, "KraidTissue", 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "VariaSuitBreastplate");
+            recipe.AddIngredient(null, "VariaSuitGreaves");
             recipe.AddIngredient(ItemID.OrichalcumBar, 15);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(null, "EnergyTank");
+            recipe.AddIngredient(null, "KraidTissue", 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -32,7 +32,7 @@ namespace MetroidMod.Items.equipables
             player.fireWalk = true;
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 25;
         }
 
@@ -54,30 +54,26 @@ namespace MetroidMod.Items.equipables
             p.rangedDamage += 0.15f;
             p.gills = true;
             p.noFallDmg = true;
-            MPlayer mp = p.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = p.GetModPlayer<MPlayer>();
             mp.phazonImmune = true;
             mp.phazonRegen = 4;
             mp.overheatCost -= 0.35f;
             mp.SenseMove(p);
             mp.visorGlow = true;
             mp.hazardShield = true;
-            if (!mp.ballstate)
-            {
-                Lighting.AddLight((int)(p.Center.X / 16f), (int)((p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
-            }
             //code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
         }
 
         public override void UpdateVanitySet(Player P)
         {
-            MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = P.GetModPlayer<MPlayer>();
             mp.isPowerSuit = true;
             mp.thrusters = true;
             if (Main.netMode != 2)
             {
                 mp.thrusterTexture = mod.GetTexture("Gore/powerSuit_thrusters");
             }
-            mp.visorGlowColor = new Color(0, 248, 112);
+            mp.visorGlowColor = new Color(0, 228, 255);
             if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
             {
                 mp.jet = true;

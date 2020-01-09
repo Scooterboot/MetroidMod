@@ -12,8 +12,7 @@ namespace MetroidMod.Items.addons.V3
 			"Slot Type: Charge\n" +
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
-			"~Charge shots deal x5 damage, but overheat x3 the normal use\n" + 
-			"Increases base damage from 14 to 18");
+			"~Charge shots deal x5 damage, but overheat x3 the normal use");
 		}
 		public override void SetDefaults()
 		{
@@ -29,17 +28,22 @@ namespace MetroidMod.Items.addons.V3
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("LuminiteBeamTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.addonChargeDmg = 5;
+			mItem.addonChargeHeat = 3;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChargeBeamAddon");
-            		recipe.AddIngredient(ItemID.SoulofMight, 10);
-            		recipe.AddIngredient(ItemID.IllegalGunParts);
-            		recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(null, "ChargeBeamV2Addon");
+            recipe.AddIngredient(ItemID.LunarBar, 5);
+            recipe.AddIngredient(ItemID.FragmentNebula, 2);
+            recipe.AddIngredient(ItemID.FragmentSolar, 2);
+            recipe.AddIngredient(ItemID.FragmentVortex, 2);
+            recipe.AddIngredient(ItemID.FragmentStardust, 2);
+            recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

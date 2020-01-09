@@ -17,8 +17,20 @@ namespace MetroidMod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.mount.SetMount(mod.MountType<Mounts.MorphBallMount>(), player);
-			player.buffTime[buffIndex] = 10;
+			//player.mount.SetMount(mod.MountType<Mounts.MorphBallMount>(), player);
+			//player.buffTime[buffIndex] = 10;
+			if(player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"))
+			{
+				player.buffTime[buffIndex] = 10;
+			}
+			else
+			{
+				player.GetModPlayer<MPlayer>().ballstate = false;
+				player.mount._active = true;
+				player.mount.Dismount(player);
+				player.DelBuff(buffIndex);
+                buffIndex--;
+			}
 		}
 	}
 }

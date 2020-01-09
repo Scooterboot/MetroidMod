@@ -27,7 +27,7 @@ namespace MetroidMod.Items.missileaddons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("IceMissileTile");*/
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 1;
 		}
 

@@ -25,7 +25,7 @@ namespace MetroidMod.Items.balladdons
 			item.useAnimation = 15;
 			item.useTime = 15;
 			item.useStyle = 1;
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.ballSlotType = 0;
 			mItem.drillPower = 65;
 		}

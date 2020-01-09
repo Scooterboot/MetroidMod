@@ -30,7 +30,7 @@ namespace MetroidMod.Items.equipables
             player.rangedDamage += 0.05f;
             player.moveSpeed += 0.20f;
             player.spikedBoots += 2;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 25;
         }
 
@@ -38,9 +38,8 @@ namespace MetroidMod.Items.equipables
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "GravitySuitGreaves");
+            recipe.AddIngredient(null, "NightmareCoreXFragment", 15);
             recipe.AddIngredient(ItemID.ChlorophyteBar, 20);
-            recipe.AddIngredient(null, "GravityGel", 10);
-            recipe.AddIngredient(null, "EnergyTank");
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -1268,12 +1268,12 @@ namespace MetroidMod.NPCs.OmegaPirate
 				npc.netUpdate = true;
 				return false;
 			}
-			else
+			/*else
 			{
 				float heightdiff = 202-npc.height;
 				npc.position.Y += heightdiff;
 				BodyOffset.Y -= heightdiff;
-			}
+			}*/
 			return true;
 		}
 		
@@ -1286,10 +1286,10 @@ namespace MetroidMod.NPCs.OmegaPirate
 			cannonTargetPos.X += xDiff*0.1f;
 			cannonTargetPos.Y += yDiff*0.1f;
 			
-			if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 2500f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 2500f)
+			if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 3000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 3000f)
 			{
 				npc.TargetClosest(true);
-				if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 2500f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 2500f)
+				if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 3000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 3000f)
 				{
 					// despawn
 					
@@ -1461,7 +1461,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						
 						
 						// Absorb
-						if(npc.ai[2] < 40)
+						if(npc.ai[2] < 60)
 						{
 							anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
 							npc.ai[2]++;
@@ -1649,7 +1649,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 										num = Main.rand.Next((int)Math.Abs(player.Center.X-npc.Center.X)-450);
 									}
 									
-									if(num < 50 && player.Center.Y > Body.position.Y && Math.Abs(player.Center.X-npc.Center.X) < 600)
+									if(num < 50 && player.Center.Y > Body.position.Y-150 && Math.Abs(player.Center.X-npc.Center.X) < 600)
 									{
 										//shockwave
 										npc.ai[1] = 2;
@@ -2688,7 +2688,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 						}
 						else
 						{
-							Body.dontTakeDamage = true;
+							//Body.dontTakeDamage = true;
 							
 							for(int i = 0; i < DarkPortal.Length; i++)
 							{
@@ -2750,6 +2750,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 								anim_PhazonRegenTransition = 0f;
 								npc.damage = 0;
 								npc.dontTakeDamage = true;
+								Body.dontTakeDamage = true;
 							}
 						}
 						
@@ -2801,8 +2802,10 @@ namespace MetroidMod.NPCs.OmegaPirate
 					RLegArmor.active = false;
 					LLegArmor.active = false;
 					
-					bodyAlpha = Math.Min(bodyAlpha+0.025f,1f);
+					//bodyAlpha = Math.Min(bodyAlpha+0.025f,1f);
+					bodyAlpha = Math.Min(bodyAlpha+0.015f,1f);
 					fullAlpha = 1f;
+					fullScale.X = Math.Min(fullScale.X+0.1f,1f);
 					
 					float animSpeed = 0f;
 					if(anim_Death < 2f)
@@ -2812,10 +2815,10 @@ namespace MetroidMod.NPCs.OmegaPirate
 					}
 					else if(anim_Death < 3f)
 					{
-						float a = 0.01f + (0.04f * (anim_Death-2f));
+						float a = 0.01f + (0.02f * (anim_Death-2f));
 						animSpeed = Math.Min(a,3f-anim_Death);
 					}
-					else if(anim_Death < 6f)
+					/*else if(anim_Death < 6f)
 					{
 						if(anim_Death > 3.5f)
 						{
@@ -2823,18 +2826,19 @@ namespace MetroidMod.NPCs.OmegaPirate
 						}
 						float a = 0.005f + (0.02f * (anim_Death-3f));
 						animSpeed = Math.Min(a,6f-anim_Death);
-					}
+					}*/
 					else
 					{
+						eyeFlame = false;
 						npc.ai[2]++;
-						if(npc.ai[2] > 10)
+						if(npc.ai[2] > 60)
 						{
 							npc.life = 0;
 							npc.HitEffect(0, 0);
 							npc.checkDead();
 						}
 					}
-					float moveSpeed = Angle.LerpArray(0f,anim_Death_Speed,anim_Death) * animSpeed;
+					/*float moveSpeed = Angle.LerpArray(0f,anim_Death_Speed,anim_Death) * animSpeed;
 					
 					if(npc.direction == 1)
 					{
@@ -2859,7 +2863,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 					if (npc.velocity.X < -Math.Abs(moveSpeed))
 					{
 						npc.velocity.X = -Math.Abs(moveSpeed);
-					}
+					}*/
+					npc.velocity.X = 0;
 					
 					anim_Death = Math.Min(anim_Death+animSpeed,7f);
 					SetAnimation("death", anim_Death, anim_DeathTransition);

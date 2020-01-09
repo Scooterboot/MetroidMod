@@ -53,7 +53,7 @@ namespace MetroidMod.NPCs.Mobs
 
         public override void AI()
         {
-            if (npc.GetGlobalNPC<MNPC>(mod).froze)
+            if (npc.GetGlobalNPC<MNPC>().froze)
             {
                 npc.position = npc.oldPosition;
                 return;
@@ -89,7 +89,7 @@ namespace MetroidMod.NPCs.Mobs
         {
             npc.visualOffset = new Vector2(60, 0);
 
-            if (npc.GetGlobalNPC<MNPC>(mod).froze) return;
+            if (npc.GetGlobalNPC<MNPC>().froze) return;
 
             if (npc.velocity.Y == 0)
             {

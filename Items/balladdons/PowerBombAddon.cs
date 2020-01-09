@@ -7,10 +7,12 @@ namespace MetroidMod.Items.balladdons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Bombs");
+			DisplayName.SetDefault("Power Bomb");
 			Tooltip.SetDefault("Morph Ball Addon\n" +
 			"Slot Type: Special\n" +
-			"-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)");
+			"-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)\n" +
+			"-Power Bombs create large explosions that vacuum in items afterwards\n" +
+			"-Power Bombs ignore 50% of enemy defense and can deal ~1400 damage total");
 		}
 		public override void SetDefaults()
 		{
@@ -26,25 +28,26 @@ namespace MetroidMod.Items.balladdons
 			item.useStyle = 1;
 			item.consumable = true;
 			item.createTile = mod.TileType("PowerBombTile");
-			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>(mod);
+			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.ballSlotType = 2;
+			mItem.powerBombType = mod.ProjectileType("PowerBomb");
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.AdamantiteBar, 3);
-			recipe.AddIngredient(ItemID.Dynamite, 15);
-			recipe.AddIngredient(ItemID.SoulofFright, 20);
-            recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.AdamantiteBar, 3);
+            recipe.AddIngredient(ItemID.Dynamite, 15);
+            recipe.AddIngredient(ItemID.SoulofFright, 20);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.TitaniumBar, 3);
-			recipe.AddIngredient(ItemID.Dynamite, 15);
-			recipe.AddIngredient(ItemID.SoulofFright, 20);
-            recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-		}
-	}
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.TitaniumBar, 3);
+            recipe.AddIngredient(ItemID.Dynamite, 15);
+            recipe.AddIngredient(ItemID.SoulofFright, 20);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

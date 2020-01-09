@@ -26,6 +26,9 @@ namespace MetroidMod
 		public static bool spawnedPhazonMeteor = false;
 		public static bool downedNightmare = false;
 		public static bool downedOmegaPirate = false;
+		
+        	public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+		
 		public override void Initialize()
 		{
 			downedTorizo = false;
@@ -110,6 +113,67 @@ namespace MetroidMod
 			downedNightmare = flags[5];
 			downedOmegaPirate = flags[6];
 		}
+		
+		public override void PostDrawTiles()
+		{
+		    SpriteBatch spriteBatch = Main.spriteBatch;
+		    Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
+		    if (Main.drawToScreen)
+		    {
+			zero = Vector2.Zero;
+		    }
+		    int x1 = (int)((Main.screenPosition.X) / 16f - 1f);
+		    int x2 = (int)((Main.screenPosition.X + (float)Main.screenWidth) / 16f) + 2;
+		    int y1 = (int)((Main.screenPosition.Y) / 16f - 1f);
+		    int y2 = (int)((Main.screenPosition.Y + (float)Main.screenHeight) / 16f) + 5;
+		    if (x1 < 0)
+		    {
+			x1 = 0;
+		    }
+		    if (x2 > Main.maxTilesX)
+		    {
+			x2 = Main.maxTilesX;
+		    }
+		    if (y1 < 0)
+		    {
+			y1 = 0;
+		    }
+		    if (y2 > Main.maxTilesY)
+		    {
+			y2 = Main.maxTilesY;
+		    }
+		    for (int i = x1; i < x2; i++)
+		    {
+			for (int j = y1; j < y2; j++)
+			{
+			    Tile tile = Main.tile[i, j];
+			    Color color = Lighting.GetColor(i, j);
+			    if (!Main.tile[i, j].active() || Main.tile[i, j].inActive() || !Main.tileSolid[Main.tile[i,j].type])
+			    {
+				color *= 0.5f;
+			    }
+			    bool draw = Terraria.GameContent.UI.WiresUI.Settings.DrawWires;
+			    float scale = 1f; 
+			    Vector2 screenPos = Main.screenPosition;
+			    int xOff = -4 * 16;
+			    int yOff = -4 * 16;
+			    Vector2 drawPos = new Vector2((float)(i * 16 + xOff - (int)screenPos.X), (float)(j * 16 + yOff - (int)screenPos.Y)) + zero;
+
+			    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
+
+			    if (draw)
+			    {
+				if (mBlockType[i, j] == 1)
+				{
+				    spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+				}
+			    }
+
+			    spriteBatch.End();
+			}
+		    }
+		}
+		
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
 			int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
@@ -210,7 +274,7 @@ namespace MetroidMod
 				WorldGen.PlaceTile(ruinsX, ruinsY + k, TileID.GrayBrick);
 				WorldGen.PlaceTile(ruinsX + 69, ruinsY + k, TileID.GrayBrick);
 			}
-			NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
+			//NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
 			DeathHall(ruinsX - 58, ruinsY + 24);
 			Shaft(ruinsX - 82, ruinsY - 24);
 			VerticalHatch(ruinsX - 73, ruinsY - 26);
@@ -604,10 +668,10 @@ namespace MetroidMod
 
 		public override void PostUpdate()
 		{
-			if(Main.hardMode && !spawnedPhazonMeteor)
+			/*if(Main.hardMode && !spawnedPhazonMeteor)
 			{
 				DropPhazonMeteor();
-			}
+			}*/
 		}
 		public static void AddPhazon() 
 		{

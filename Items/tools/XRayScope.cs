@@ -56,7 +56,7 @@ namespace MetroidMod.Items.tools
 		}*/
 		public override bool UseItem(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			//mp.xrayequipped = true;
 			int range = 16;
 			float MY = Main.mouseY + Main.screenPosition.Y;
@@ -89,7 +89,7 @@ namespace MetroidMod.Items.tools
 		}
 	/*	public bool XRayActive(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if(MBase.KeyPressed(MBase.XRayKey) && !mp.ballstate && player.velocity.Y == 0 && player.velocity.X == 0 && player.itemAnimation == 0)
 			{
 				return true;

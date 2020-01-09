@@ -1,49 +1,36 @@
 using Terraria;
+using Terraria.ID;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Terraria.ID;
 using System.Diagnostics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace MetroidMod.NPCs.Serris
 {
     public class Serris_Head : ModNPC
     {
-        bool TailSpawned = false;
-		bool SpeedBoost = false;
-		bool TimeLock = false;
-		int hitDelay = 0;
-		int hitTime = 45;
-		int SoundDelay = 0;
-		int srs = 0;
-		int state = 1;
-		int Previous = 0;
-		public bool isX = false;
-		public bool becameX = false;
-		bool immuneFlash = true;
-		bool TimeLock2 = false;
-		int numUpdates = 0;
-		int maxUpdates = 0;
-		int hitDelay2 = 0;
-		//int aiCount = 0;
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Serris");
-			Main.npcFrameCount[npc.type] = 5;
+			Main.npcFrameCount[npc.type] = 15;
 		}
+		int damage = 20;
+		int speedDamage = 35;//60;
+		int coreDamage = 30;
 		public override void SetDefaults()
 		{
-			npc.width = 70;
-			npc.height = 70;
-			npc.damage = 20;
+			npc.width = 60;
+			npc.height = 60;
+			npc.damage = damage;
 			npc.defense = 28;
-			npc.lifeMax = 1750;
-			npc.dontTakeDamage = true;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath5;
+			npc.lifeMax = 4000;//1750;
+			//npc.dontTakeDamage = true;
+			npc.HitSound = SoundID.NPCHit4;
+			npc.DeathSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/CoreXDeath");
 			npc.noGravity = true;
 			npc.value = Item.buyPrice(0, 0, 7, 0);
 			npc.knockBackResist = 0;
@@ -61,12 +48,40 @@ namespace MetroidMod.NPCs.Serris
 			bossBag = mod.ItemType("SerrisBag");
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Serris");
 		}
-public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			npc.lifeMax = (int)(npc.lifeMax * 0.7f * bossLifeScale) + 51;
-			npc.damage = (int)(npc.damage * 0.7f);
+			damage = (int)(damage * 0.7f);
+			speedDamage = (int)(speedDamage * 0.7f);
+			coreDamage = (int)(coreDamage * 0.7f);
+			npc.damage = damage;
 		}
 		
+		public override int SpawnNPC(int tileX, int tileY)
+		{
+			int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
+			int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+			int num11 = (int)(Main.player[npc.target].position.X / 16f) - spawnRangeX;
+			int num12 = (int)(Main.player[npc.target].position.X / 16f) + spawnRangeX;
+			int num13 = (int)(Main.player[npc.target].position.Y / 16f) - spawnRangeY;
+			int num14 = (int)(Main.player[npc.target].position.Y / 16f) + spawnRangeY;
+
+			return NPC.NewNPC((int)MathHelper.Clamp(tileX,num11,num12) * 16 + 8, (int)MathHelper.Clamp(tileY,num13,num14) * 16, this.npc.type, 0, 0f, 0f, 0f, 0f, 255);
+		}
+		
+		bool tailSpawned = false;
+		bool initialBoost = false;
+		SoundEffectInstance soundInstance;
+		int numUpdates = 0;
+		int maxUpdates = 0;
+		NPC[] body = new NPC[10];
+		int state = 1;
+		float mouthFrame = 0f;
+		int mouthNum = 1;
+		int glowFrame = 0;
+		int glowNum = 1;
+		int glowFrameCounter = 0;
+		float oldRot = 0f;
 		public override void AI()
 		{
 			Player player = Main.player[npc.target];
@@ -74,194 +89,290 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 			{
 				npc.timeLeft = 60;
 			}
-			maxUpdates = 0;
-			if(!becameX)
+			// base phase
+			if(npc.localAI[0] == 0)
 			{
-				if(numUpdates == 0)
+				// handle spawning body segments
+				if(!tailSpawned)
 				{
-					npc.ai[0]++;
-				}
-				if (!TailSpawned)
-				{
-					int body = mod.NPCType("Serris_Body");
-					int tail = mod.NPCType("Serris_Tail");
-					Previous = npc.whoAmI;
-					for (int num36 = 0; num36 < 8; num36++)
+					int prev = npc.whoAmI;
+					for(int i = 0; i < body.Length; i++)
 					{
-						if (num36 >= 0 && num36 < 7)
+						int type = mod.NPCType("Serris_Body");
+						if(i > 6)
 						{
-							srs = NPC.NewNPC((int) npc.position.X+(npc.width/2), (int) npc.position.Y+(npc.height/2), body, npc.whoAmI);
+							type = mod.NPCType("Serris_Tail");
 						}
-						else
+						int srs = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, type, npc.whoAmI);
+						body[i] = Main.npc[srs];
+						body[i].realLife = npc.whoAmI;
+						body[i].ai[2] = (float)npc.whoAmI;
+						body[i].ai[1] = (float)prev;
+						if(i > 7)
 						{
-							srs = NPC.NewNPC((int) npc.position.X+(npc.width/2), (int) npc.position.Y+(npc.height/2), tail, npc.whoAmI);
+							body[i].localAI[0] = 1f;
 						}
-						Main.npc[srs].realLife = npc.whoAmI;
-						Main.npc[srs].ai[2] = (float)npc.whoAmI;
-						Main.npc[srs].ai[1] = (float)Previous;
-						if(Previous != npc.whoAmI)
+						if(prev != npc.whoAmI)
 						{
-							Main.npc[Previous].ai[0] = (float)srs;
+							Main.npc[prev].ai[0] = (float)srs;
 						}
 						NetMessage.SendData(23, -1, -1, null, srs, 0f, 0f, 0f, 0);
-						Previous = srs;
+						prev = srs;
 					}
-					TailSpawned = true;
+					tailSpawned = true;
 				}
-				if(!Main.npc[srs].active && !isX)
+				for(int i = 0; i < body.Length; i++)
 				{
-					TailSpawned = false;
+					if(body[i] == null || !body[i].active)
+					{
+						tailSpawned = false;
+					}
 				}
-				float mult = 1.075f;
-					if(npc.life <= (int)(npc.lifeMax) && npc.life >= (int)(npc.lifeMax * 0.8f))
-					{
-						hitTime = 45;
-						state = 1;
-					}
-					if(npc.life < (int)(npc.lifeMax * 0.8f) && npc.life >= (int)(npc.lifeMax * 0.6f))
-					{
-						hitTime = 35;
-						state = 2;
-					}
-					if(npc.life < (int)(npc.lifeMax * 0.6f))
-					{
-						hitTime = 25;
-						state = 3;
-					}
-					if (Math.Abs(npc.position.X - player.position.X) + Math.Abs(npc.position.Y - player.position.Y) > 2500f)
-					{
-						npc.velocity = npc.DirectionTo(player.Center) * 5;
-					}
-				if(npc.ai[0] <= 1 || npc.ai[0] >= 480)
+				
+				state = 1;
+				if(npc.life < (int)(npc.lifeMax * 0.6f))
 				{
-					SpeedBoost = false;
-					TimeLock = true;
-					SoundDelay = 0;
-					npc.dontTakeDamage = false;
-					npc.damage = 20;
-					Main.npc[srs].damage = 20;
+					state = 3;
 				}
-				else if(npc.ai[0] >= 2)
+				else if(npc.life < (int)(npc.lifeMax * 0.8f))
 				{
-					npc.dontTakeDamage = true;
-					mult = 1.25f;
-					maxUpdates = 1;
-					SpeedBoost = true;
-					state = 4;
-					Lighting.AddLight((int)(npc.Center.X / 16f), (int)(npc.Center.Y / 16f), 2.0f, 2.0f, 2.0f);
-					if(numUpdates == 0)
+					state = 2;
+				}
+				
+				if(numUpdates == 0)
+				{
+					mouthFrame += 0.04f*mouthNum;
+					if(mouthFrame <= 0f)
 					{
-						SoundDelay++;
+						mouthFrame = 0f;
+						mouthNum = 1;
 					}
-					npc.damage = 60;
-					Main.npc[srs].damage = 60;
-					if(SoundDelay > 14)
+					if(mouthFrame >= 1f)
 					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)npc.position.X, (int)npc.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisAccel"));
-						SoundDelay = 0;
+						mouthFrame = 1f;
+						mouthNum = -1;
 					}
-				}
-				npc.position += npc.velocity*mult;
-				if(npc.justHit && hitDelay <= 0)
-				{
-					//TimeLock = false;
-					//npc.ai[0] = 2;
-					hitDelay = 1;
-					Main.PlaySound(15,(int)npc.position.X,(int)npc.position.Y,0);
-				}
-				if(hitDelay > 0)
-				{
-					hitDelay++;
-					npc.position -= npc.velocity*mult;
-				}
 					
-				if (hitDelay >= hitTime)
-				{
-					TimeLock = false;
-					npc.ai[0] = 2;
-					hitDelay = 0;
+					glowFrameCounter++;
+					if(glowFrameCounter > 8)
+					{
+						glowFrame += glowNum;
+						glowFrameCounter = 0;
+					}
+					if(glowFrame <= 0)
+					{
+						glowFrame = 0;
+						glowNum = 1;
+					}
+					if(glowFrame >= 2)
+					{
+						glowFrame = 2;
+						glowNum = -1;
+					}
 				}
-				if(TimeLock)
+				
+				if(npc.life < (int)(npc.lifeMax * 0.5f))
 				{
-					npc.ai[0] = 0;
-				}
-				if ((double)npc.life < (double)npc.lifeMax * 0.5)
-				{
+					mouthFrame = 0f;
+					glowFrame = 1;
+					npc.localAI[0] = 1;
+					npc.localAI[1] = 0;
+					npc.localAI[2] = 0;
+					npc.localAI[3] = 0;
 					npc.aiStyle = -1;
-					npc.width = 70;
-					npc.height = 70;
-					becameX = true;
-					npc.ai[0] = 1f;
-					npc.ai[1] = 0f;
-					npc.ai[2] = 0f;
 					return;
 				}
-			}
-			else if(npc.ai[0] == 1f || npc.ai[0] == 2f)
-			{
-				if (npc.ai[0] == 1f)
+				
+				// normal movement
+				if(npc.localAI[2] == 0)
 				{
-					npc.ai[2] += 0.005f;
-					if ((double)npc.ai[2] > 0.5)
+					npc.damage = damage;
+					//npc.dontTakeDamage = false;
+					npc.chaseable = true;
+					//npc.position += npc.velocity*1.075f;
+					maxUpdates = 1;
+					oldRot = npc.rotation;
+					
+					//initial speed boost
+					if(!initialBoost)
 					{
-						npc.ai[2] = 0.5f;
+						npc.localAI[2] = 1;
+						npc.localAI[3] = 30;
+						npc.TargetClosest(true);
+						initialBoost = true;
+					}
+					
+					// activate speed boost on hit
+					if(npc.justHit)
+					{
+						npc.localAI[2] = 1;
+						npc.TargetClosest(true);
+					}
+				}
+				// stunned movement
+				if(npc.localAI[2] == 1)
+				{
+					mouthNum = 2;
+					
+					npc.position -= npc.velocity;
+					npc.rotation = oldRot;
+					
+					if(npc.localAI[3] == 1)
+					{
+						Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisHurt"));
+					}
+					
+					npc.localAI[3]++;
+					if(npc.localAI[3] > 30)
+					{
+						npc.localAI[2] = 2;
+						npc.localAI[3] = 0;
+					}
+				}
+				// speedboost movement
+				if(npc.localAI[2] == 2)
+				{
+					state = 4;
+					mouthNum = -3;
+					npc.damage = speedDamage;
+					//npc.dontTakeDamage = true;
+					npc.chaseable = false;
+					npc.position += npc.velocity*1.5f;
+					maxUpdates = 1;
+					
+					Lighting.AddLight((int)(npc.Center.X / 16f), (int)(npc.Center.Y / 16f), 2.0f, 2.0f, 2.0f);
+					
+					if(soundInstance == null || soundInstance.State != SoundState.Playing)
+					{
+						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisAccel"));
+					}
+					else
+					{
+						Vector2 screenPos = new Vector2(Main.screenPosition.X + (float)Main.screenWidth * 0.5f, Main.screenPosition.Y + (float)Main.screenHeight * 0.5f);
+						
+						float pan = (npc.Center.X - screenPos.X) / ((float)Main.screenWidth * 0.5f);
+						float numX = Math.Abs(npc.Center.X - screenPos.X);
+						float numY = Math.Abs(npc.Center.Y - screenPos.Y);
+						float numL = (float)Math.Sqrt((double)(numX * numX + numY * numY));
+						float volume = 1f - numL / ((float)Main.screenWidth * 1.5f);
+						
+						if (pan < -1f)
+						{
+							pan = -1f;
+						}
+						if (pan > 1f)
+						{
+							pan = 1f;
+						}
+						if (volume > 1f)
+						{
+							volume = 1f;
+						}
+						if (volume <= 0f)
+						{
+							volume = 0f;
+							soundInstance.Stop(true);
+						}
+						
+						if(soundInstance != null)
+						{
+							soundInstance.Volume = volume;
+							soundInstance.Pan = pan;
+						}
+					}
+					
+					if(numUpdates <= 0)
+					{
+						npc.localAI[3]++;
+					}
+					if(npc.localAI[3] > 480)
+					{
+						npc.localAI[2] = 0;
+						npc.localAI[3] = 0;
+						npc.TargetClosest(true);
 					}
 				}
 				else
 				{
-					npc.ai[2] -= 0.005f;
-					if (npc.ai[2] < 0f)
+					if(soundInstance != null)
 					{
-						npc.ai[2] = 0f;
+						soundInstance.Stop(true);
 					}
 				}
-				npc.dontTakeDamage = true;
-				npc.rotation += npc.ai[2];
-				npc.ai[1] += 1f;
-				if (npc.ai[1] >= 200f)
+			}
+			else
+			{
+				if(soundInstance != null)
 				{
-					if(npc.ai[1] == 200f || npc.ai[1] == 250f)
+					soundInstance.Stop(true);
+				}
+				npc.damage = coreDamage;
+			}
+			
+			// transform phase
+			if(npc.localAI[0] == 1)
+			{
+				npc.aiStyle = -1;
+				for(int i = 0; i < body.Length; i++)
+				{
+					if(body[i] != null && body[i].active)
 					{
-						npc.ai[0] += 1f;
-					}
-					if(npc.ai[1] == 300f)
-					{
-						npc.ai[0] += 1f;
-						npc.ai[1] = 0f;
-					}
-					if (npc.ai[0] == 3f)
-					{
-						npc.ai[2] = 0f;
-					}
-					else if(npc.ai[1] == 200f || npc.ai[1] == 250f)
-					{
-						Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 14);
-						int gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore1"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-						gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore2"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-						for (int v = 0; v < 3; v++)
-						{
-							gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore3"), 1f);
-							Main.gore[gore].velocity *= 0.4f;
-							Main.gore[gore].timeLeft = 60;
-						}
-						for (int num136 = 0; num136 < 20; num136++)
-						{
-							Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f, 0, default(Color), 1f);
-						}
-						//Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
-						isX = true;
-						npc.position.X += (float)(npc.width / 2);
-						npc.position.Y += (float)(npc.height / 2);
-						npc.width = 94;
-						npc.height = 94;
-						npc.position.X -= (float)(npc.width / 2);
-						npc.position.Y -= (float)(npc.height / 2);
+						body[i].life = 0;
+						body[i].HitEffect(0, 10.0);
+						body[i].active = false;
 					}
 				}
+				if(npc.localAI[1] == 0)
+				{
+					Main.PlaySound(SoundID.NPCDeath14,npc.Center);
+				}
+				
+				npc.localAI[2] += 0.01f;
+				if ((double)npc.localAI[2] > 0.5)
+				{
+					npc.localAI[2] = 0.5f;
+				}
+				//npc.dontTakeDamage = true;
+				npc.chaseable = false;
+				npc.rotation += npc.localAI[2];
+				npc.localAI[1] += 1f;
+				if(npc.localAI[1] <= 1f)
+				{
+					Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisDeath"));
+				}
+				if(npc.localAI[1] > 170f)
+				{
+					Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 14);
+					int gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore1"), 1f);
+					Main.gore[gore].velocity *= 0.4f;
+					Main.gore[gore].timeLeft = 60;
+					gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore2"), 1f);
+					Main.gore[gore].velocity *= 0.4f;
+					Main.gore[gore].timeLeft = 60;
+					for (int v = 0; v < 3; v++)
+					{
+						gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore3"), 1f);
+						Main.gore[gore].velocity *= 0.4f;
+						Main.gore[gore].timeLeft = 60;
+					}
+					for (int num136 = 0; num136 < 20; num136++)
+					{
+						Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f, 0, default(Color), 1f);
+					}
+					//Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
+					npc.position.X += (float)(npc.width / 2);
+					npc.position.Y += (float)(npc.height / 2);
+					npc.width = 70;
+					npc.height = 70;
+					npc.position.X -= (float)(npc.width / 2);
+					npc.position.Y -= (float)(npc.height / 2);
+					
+					npc.localAI[0] = 2;
+					npc.localAI[1] = 0;
+					npc.localAI[2] = 0;
+					npc.localAI[3] = 100;
+				}
+				
 				npc.velocity.X = npc.velocity.X * 0.98f;
 				npc.velocity.Y = npc.velocity.Y * 0.98f;
 				if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
@@ -271,71 +382,79 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 				if ((double)npc.velocity.Y > -0.1 && (double)npc.velocity.Y < 0.1)
 				{
 					npc.velocity.Y = 0f;
-					return;
 				}
 			}
-			else
+			// core x phase
+			if(npc.localAI[0] == 2)
 			{
-				if(isX)
+				state = 5;
+				if(npc.life < (int)(npc.lifeMax * 0.1f))
 				{
-					if(npc.life <= (int)(npc.lifeMax * 0.5f) && npc.life >= (int)(npc.lifeMax * 0.3f))
+					state = 7;
+				}
+				else if(npc.life < (int)(npc.lifeMax * 0.3f))
+				{
+					state = 6;
+				}
+				npc.aiStyle = 5;
+				npc.width = 70;
+				npc.height = 70;
+				npc.damage = 30;
+				npc.HitSound = SoundID.NPCHit1;
+				npc.knockBackResist = 0.5f;
+				
+				npc.position += npc.velocity * 1.5f;
+				
+				if(npc.localAI[3] > 0)
+				{
+					//npc.dontTakeDamage = true;
+					npc.chaseable = false;
+					npc.position -= npc.velocity;
+					npc.velocity *= 0f;
+					npc.localAI[3]--;
+				}
+				else
+				{
+					if(npc.localAI[1] == 0)
 					{
-						state = 5;
+						//npc.dontTakeDamage = false;
+						npc.chaseable = true;
+						if(npc.justHit)
+						{
+							npc.localAI[1] = 1;
+							Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/CoreXHurt"));
+							npc.TargetClosest(true);
+						}
 					}
-					if(npc.life < (int)(npc.lifeMax * 0.3f) && npc.life >= (int)(npc.lifeMax * 0.1f))
+					if(npc.localAI[1] == 1)
 					{
-						state = 6;
+						npc.localAI[2]++;
+						if(npc.localAI[2] > 8)
+						{
+							npc.localAI[1] = 2;
+							npc.localAI[2] = 0;
+						}
 					}
-					if(npc.life < (int)(npc.lifeMax * 0.1f))
+					if(npc.localAI[1] == 2)
 					{
-						state = 7;
+						//npc.dontTakeDamage = true;
+						npc.chaseable = false;
+						npc.localAI[2]++;
+						if(npc.localAI[2] > 150)
+						{
+							npc.localAI[1] = 0;
+							npc.localAI[2] = 0;
+							npc.TargetClosest(true);
+						}
 					}
-					npc.aiStyle = 5;
-					npc.width = 70;
-					npc.height = 70;
-					npc.damage = 30;
-					npc.HitSound = SoundID.NPCHit8;
-					npc.DeathSound = SoundID.NPCDeath1;
-					npc.knockBackResist = 0.5f;
-					npc.ai[3]++;
-					npc.position += npc.velocity * 1.5f;
-					if(npc.ai[3] <= 1 || npc.ai[3] >= 150)
-					{
-						immuneFlash = false;
-						npc.dontTakeDamage = false;
-						TimeLock2 = true;
-					}
-					else if(npc.ai[3] >= 2)
-					{
-						immuneFlash = true;
-						npc.dontTakeDamage = true;
-					}
-					if(npc.justHit && hitDelay2 <= 0)
-					{
-						//TimeLock2 = false;
-						//npc.ai[3] = 2;
-						hitDelay2 = 1;
-					}
-					if(hitDelay2 > 0)
-					{
-						hitDelay2++;
-					}
-					if (hitDelay2 >= 15)
-					{
-						TimeLock2 = false;
-						npc.ai[3] = 2;
-						hitDelay2 = 0;
-					}
-					if(TimeLock2)
-					{
-						npc.ai[3] = 0;
-					}
+					
 					if(Main.dayTime && (!Main.player[npc.target].dead || Main.player[npc.target].active))
 					{
 						npc.velocity.Y = npc.velocity.Y + 0.1f;
 					}
 				}
 			}
+			
 			if (npc.active && maxUpdates > 0)
 			{
 				numUpdates--;
@@ -348,22 +467,45 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 					numUpdates = maxUpdates;
 				}
 			}
+			else
+			{
+				numUpdates = 0;
+			}
+			maxUpdates = 0;
 		}
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			return (npc.localAI[0] == 0 && npc.localAI[2] != 2) || (npc.localAI[0] == 2 && npc.localAI[1] != 2);
+		}
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			return (npc.localAI[0] == 0 && npc.localAI[2] != 2) || (npc.localAI[0] == 2 && npc.localAI[1] != 2);
+		}
+		int spriteDir = 1;
 		public override void PostAI()
 		{
-			if(isX)
+			if(npc.localAI[0] == 2)
 			{
 				npc.rotation = 0f;
 			}
 			else
 			{
+				if (npc.velocity.X > 0f)
+				{
+					spriteDir = 1;
+				}
 				if (npc.velocity.X < 0f)
 				{
-					npc.spriteDirection = 1;
+					spriteDir = -1;
 				}
-				else if (npc.velocity.X > 0f)
+				npc.spriteDirection = spriteDir;
+			}
+			
+			if(!npc.active)
+			{
+				if(soundInstance != null)
 				{
-					npc.spriteDirection = -1;
+					soundInstance.Stop(true);
 				}
 			}
 		}
@@ -378,7 +520,7 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
 		{
 			spriteEffects = SpriteEffects.None;
-			if (npc.spriteDirection == -1)
+			if (spriteDir == 1)
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
@@ -414,12 +556,15 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			if (Main.netMode != 2)
 			{
-				for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
+				if(npc.localAI[0] == 2)
 				{
-					int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 5, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
-					if (npc.life <= 0 && m % 2 == 0)
+					for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
 					{
-						Main.dust[dustID].noGravity = true;
+						int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 5, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
+						if (npc.life <= 0 && m % 2 == 0)
+						{
+							Main.dust[dustID].noGravity = true;
+						}
 					}
 				}
 				if (npc.life <= 0)
@@ -448,181 +593,203 @@ public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 					Gore gore91 = Main.gore[num373];
 					gore91.velocity.X = gore91.velocity.X - 1f;
 					gore91.velocity.Y = gore91.velocity.Y - 1f;
+					
+					if(soundInstance != null)
+					{
+						soundInstance.Stop(true);
+					}
 				}
 			}
 		}
-		float xFrame = 0f;
-		int xHeight = 0;
+		
+		int sbFrame = 0;
+		int sbFrameCounter = 0;
+		int coreFrame = 0;
+		int coreFrameCounter = 0;
+		int flashFrame = 0;
+		int flashFrameCounter = 0;
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			Texture2D tex = mod.GetTexture("NPCs/Serris/SerrisCoreX");
-			xHeight = tex.Height;
-			Rectangle rect = new Rectangle(0, (int)xFrame, tex.Width, (tex.Height/8));
-			Vector2 origin = new Vector2((float)(rect.Width/2), (float)(rect.Height/8) / 2);
-			SpriteEffects effects = SpriteEffects.None;
-			if (npc.spriteDirection == -1)
+			if(npc.localAI[0] < 2)
 			{
-				effects = SpriteEffects.FlipHorizontally;
-			}
-			Color buffColor = Lighting.GetColor((int)((double)npc.position.X + (double)npc.width * 0.5) / 16, (int)(((double)npc.position.Y + (double)npc.height * 0.5) / 16.0));
-			Color alpha2 = npc.GetAlpha(buffColor);
-			if (npc.behindTiles)
-			{
-				int num44 = (int)((npc.position.X - 8f) / 16f);
-				int num45 = (int)((npc.position.X + (float)npc.width + 8f) / 16f);
-				int num46 = (int)((npc.position.Y - 8f) / 16f);
-				int num47 = (int)((npc.position.Y + (float)npc.height + 8f) / 16f);
-				for (int m = num44; m <= num45; m++)
+				Texture2D texHead = mod.GetTexture("NPCs/Serris/Serris_Head"),
+					texJaw = mod.GetTexture("NPCs/Serris/Serris_Jaw"),
+					texBody = mod.GetTexture("NPCs/Serris/Serris_Body"),
+					texFins = mod.GetTexture("NPCs/Serris/Serris_Fins"),
+					texTail = mod.GetTexture("NPCs/Serris/Serris_Tail");
+				Vector2 headOrig = new Vector2(34,31),
+					jawOrig1 = new Vector2(30,11),
+					jawOrig2 = new Vector2(34,1),
+					bodyOrig = new Vector2(32,35),
+					finsOrig = new Vector2(52,31),
+					tailOrig = new Vector2(28,29);
+				int headHeight = texHead.Height / 15,
+					jawHeight = texJaw.Height / 5,
+					bodyHeight = texBody.Height / 10,
+					finsHeight = texFins.Height / 15,
+					tailHeight = texTail.Height / 15;
+				SpriteEffects effects = SpriteEffects.None;
+				if (spriteDir == -1)
 				{
-					for (int n = num46; n <= num47; n++)
+					effects = SpriteEffects.FlipVertically;
+					headOrig.Y = headHeight - headOrig.Y;
+					jawOrig1.Y = jawHeight - jawOrig1.Y;
+					jawOrig2.Y = jawHeight - jawOrig2.Y;
+					bodyOrig.Y = bodyHeight - bodyOrig.Y;
+					finsOrig.Y = finsHeight - finsOrig.Y;
+					tailOrig.Y = tailHeight - tailOrig.Y;
+				}
+				int frame = state-1;
+				if(state == 4)
+				{
+					frame = sbFrame+3;
+				}
+				
+				sbFrameCounter++;
+				if(sbFrameCounter > 5)
+				{
+					sbFrame++;
+					sbFrameCounter = 0;
+				}
+				if(sbFrame > 1)
+				{
+					sbFrame = 0;
+				}
+				
+				float headRot = npc.rotation - 1.57f;
+				
+				for(int i = body.Length-1; i >= 0; i--)
+				{
+					if(body[i] != null && body[i].active)
 					{
-						if (Lighting.Brightness(m, n) == 0f)
+						Vector2 bpos = body[i].Center;
+						float bodyRot = body[i].rotation - 1.57f;
+						Color bodyColor = npc.GetAlpha(Lighting.GetColor((int)bpos.X / 16, (int)bpos.Y / 16));
+						if(i > 6)
 						{
-							buffColor = Color.Black;
+							int yFrame = frame * (tailHeight*3);
+							if(i == 8)
+							{
+								yFrame += tailHeight;
+							}
+							if(i == 9)
+							{
+								yFrame += tailHeight*2;
+							}
+							sb.Draw(texTail, bpos - Main.screenPosition, new Rectangle?(new Rectangle(0,yFrame,texTail.Width,tailHeight)), 
+							bodyColor, bodyRot, tailOrig, 1f, effects, 0f);
+						}
+						else
+						{
+							if(i == 0)
+							{
+								for(int j = 0; j < 3; j++)
+								{
+									int finFrame = finsHeight*j + frame*(finsHeight*3);
+									Vector2 finPos = new Vector2(4,-16);
+									float bodyRot2 = body[i+1].rotation - 1.57f;
+									Vector2 finRotPos = bodyRot.ToRotationVector2();
+									if (float.IsNaN(finRotPos.X) || float.IsNaN(finRotPos.Y))
+									{
+										finRotPos = -Vector2.UnitY;
+									}
+									if(j == 0)
+									{
+										finPos = new Vector2(-14,-14);
+										finRotPos = Vector2.Normalize(Vector2.Lerp(finRotPos,bodyRot2.ToRotationVector2(),0.5f));
+									}
+									if(j == 2)
+									{
+										finPos = new Vector2(20,-16);
+										finRotPos = Vector2.Normalize(Vector2.Lerp(finRotPos,headRot.ToRotationVector2(),0.5f));
+									}
+									if(spriteDir == -1)
+									{
+										finPos.Y *= -1;
+									}
+									float finRot = finRotPos.ToRotation();
+									finRot += (((float)Math.PI/16) - ((float)Math.PI/8)*(1f - mouthFrame))*0.5f * spriteDir;
+									float finPosRot = finPos.ToRotation() + bodyRot;
+									Vector2 finalFinPos = body[i].Center + finPosRot.ToRotationVector2() * finPos.Length();
+									sb.Draw(texFins, finalFinPos - Main.screenPosition, new Rectangle?(new Rectangle(0,finFrame,texFins.Width,finsHeight)), 
+									bodyColor, finRot, finsOrig, 1f, effects, 0f);
+								}
+							}
+							int yFrame = frame * (bodyHeight*2);
+							if(i > 1)
+							{
+								yFrame += bodyHeight;
+							}
+							sb.Draw(texBody, bpos - Main.screenPosition, new Rectangle?(new Rectangle(0,yFrame,texBody.Width,bodyHeight)), 
+							bodyColor, bodyRot, bodyOrig, 1f, effects, 0f);
 						}
 					}
 				}
+				
+				Color headColor = npc.GetAlpha(Lighting.GetColor((int)npc.Center.X / 16, (int)npc.Center.Y / 16));
+				Vector2 jawOrig = Vector2.Lerp(jawOrig1,jawOrig2,mouthFrame);
+				int jawFrame = frame * jawHeight;
+				sb.Draw(texJaw, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,jawFrame,texJaw.Width,jawHeight)), 
+				headColor, headRot, jawOrig, 1f, effects, 0f);
+				
+				int headFrame = frame * (headHeight*3);
+				headFrame += headHeight * glowFrame;
+				sb.Draw(texHead, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,headFrame,texHead.Width,headHeight)), 
+				headColor, headRot, headOrig, 1f, effects, 0f);
 			}
-			if(isX)
+			else
 			{
-				sb.Draw(tex, new Vector2(npc.position.X - Main.screenPosition.X + (float)(npc.width/2) - (float)tex.Width / 2f + origin.X, npc.position.Y - Main.screenPosition.Y + (float)npc.height - (float)(tex.Height / 8) + 4f + origin.Y), new Rectangle?(rect), alpha2, 0f, origin, 1f, effects, 0f);
-			}
-			Texture2D tex2 = Main.npcTexture[npc.type];
-			Rectangle rect2 = new Rectangle((int)npc.frame.X, (int)npc.frame.Y, (tex2.Width/3), (tex2.Height/Main.npcFrameCount[npc.type]));
-			Vector2 vector13 = new Vector2((float)((tex2.Width/3) / 2), (float)((tex2.Height/Main.npcFrameCount[npc.type]) / 2));
-			sb.Draw(tex2, new Vector2(npc.position.X - Main.screenPosition.X + (float)(npc.width / 2) - (float)(tex2.Width/3) / 2f + vector13.X, npc.position.Y - Main.screenPosition.Y + (float)npc.height - (float)(tex2.Height / Main.npcFrameCount[npc.type]) + 4f + vector13.Y), new Rectangle?(rect2), alpha2, npc.rotation, vector13, 1f, effects, 0f);
-			return false;
-		}
-		int xCounter = 0;
-		public override void FindFrame(int frameHeight)
-		{
-			int num = 1;
-			if (!Main.dedServ)
-			{
-				num = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type];
-			}
-			int num2 = 1;
-			if (!Main.dedServ)
-			{
-				num2 = xHeight/8;
-			}
-			npc.frameCounter += 1.0 / (double)(1+maxUpdates);
-			xCounter++;
-			if(SpeedBoost && !isX)
-			{
-				if(npc.frameCounter >= 0 && npc.frameCounter < 5)
+				Texture2D texCore = mod.GetTexture("NPCs/Serris/SerrisCoreX"),
+					texShell = mod.GetTexture("NPCs/Serris/SerrisCoreX_Shell");
+				int coreHeight = texCore.Height / 8;
+				int shellHeight = texShell.Height / 4;
+				
+				coreFrameCounter++;
+				if(coreFrameCounter > 5)
 				{
-					npc.frame.Y = num;
+					coreFrame++;
+					coreFrameCounter = 0;
 				}
-				if(npc.frameCounter >= 5 && npc.frameCounter < 10)
+				if(coreFrame >= 8)
 				{
-					npc.frame.Y = num*2;
+					coreFrame = 0;
 				}
-				if(npc.frameCounter >= 10)
+				
+				if(npc.localAI[1] == 2 || npc.localAI[3] > 0)
 				{
-					npc.frameCounter = 0;
-				}
-			}
-			else if(isX)
-			{
-				if(immuneFlash)
-				{
-					if(npc.frameCounter >= 0 && npc.frameCounter < 5)
+					flashFrameCounter++;
+					if(flashFrameCounter > 4)
 					{
-						npc.frame.Y = num*4;
+						flashFrame++;
+						flashFrameCounter = 0;
 					}
-					if(npc.frameCounter >= 5 && npc.frameCounter < 10)
+					if(flashFrame > 1)
 					{
-						npc.frame.Y = num*3;
-					}
-					if(npc.frameCounter >= 10)
-					{
-						npc.frameCounter = 0;
+						flashFrame = 0;
 					}
 				}
 				else
 				{
-					npc.frame.Y = num*3;
+					flashFrame = 0;
+					flashFrameCounter = 0;
 				}
-
-				if (xCounter >= 0 && xCounter < 5)
+				
+				int shellFrame = state-5;
+				if(flashFrame > 0)
 				{
-					xFrame = 0;
+					shellFrame = 3;
 				}
-				if (xCounter >= 5 && xCounter < 10)
-				{
-					xFrame = num2;
-				}
-				if (xCounter >= 10 && xCounter < 15)
-				{
-					xFrame = num2*2;
-				}
-				if (xCounter >= 15 && xCounter < 20)
-				{
-					xFrame = num2*3;
-				}
-				if (xCounter >= 20 && xCounter < 25)
-				{
-					xFrame = num2*4;
-				}
-				if (xCounter >= 25 && xCounter < 30)
-				{
-					xFrame = num2*5;
-				}
-				if (xCounter >= 30 && xCounter < 35)
-				{
-					xFrame = num2*6;
-				}
-				if (xCounter >= 35 && xCounter < 40)
-				{
-					xFrame = num2*7;
-				}
-				if (xCounter >= 40)
-				{
-					xCounter = 0;
-				}
+				
+				Color color = npc.GetAlpha(Lighting.GetColor((int)npc.Center.X / 16, (int)npc.Center.Y / 16));
+				
+				sb.Draw(texCore, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,coreHeight*coreFrame,texCore.Width,coreHeight)), 
+				color, 0f, new Vector2(texCore.Width/2,coreHeight/2), 1f, SpriteEffects.None, 0f);
+				
+				sb.Draw(texShell, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,shellHeight*shellFrame,texShell.Width,shellHeight)), 
+				color, 0f, new Vector2(texShell.Width/2,shellHeight/2), 1f, SpriteEffects.None, 0f);
 			}
-			else
-			{
-				npc.frame.Y = 0;
-				npc.frameCounter = 0;
-			}
-
-			int num3 = 1;
-			if (!Main.dedServ)
-			{
-				num3 = Main.npcTexture[npc.type].Width / 3;
-			}
-			if(isX)
-			{
-				if(npc.life <= (int)(npc.lifeMax * 0.5f) && npc.life >= (int)(npc.lifeMax * 0.3f))
-				{
-					npc.frame.X = 0;
-				}
-				if(npc.life < (int)(npc.lifeMax * 0.3f) && npc.life >= (int)(npc.lifeMax * 0.1f))
-				{
-					npc.frame.X = num3;
-				}
-				if(npc.life < (int)(npc.lifeMax * 0.1f))
-				{
-					npc.frame.X = num3*2;
-				}
-			}
-			else
-			{
-				if(npc.life <= (int)(npc.lifeMax) && npc.life >= (int)(npc.lifeMax * 0.8f))
-				{
-					npc.frame.X = 0;
-				}
-				if(npc.life < (int)(npc.lifeMax * 0.8f) && npc.life >= (int)(npc.lifeMax * 0.6f))
-				{
-					npc.frame.X = num3;
-				}
-				if(npc.life < (int)(npc.lifeMax * 0.6f))
-				{
-					npc.frame.X = num3*2;
-				}
-			}
+			
+			return false;
 		}
     }
 }

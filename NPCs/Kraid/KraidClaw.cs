@@ -46,7 +46,7 @@ namespace MetroidMod.NPCs.Kraid
 		/*public override void NPCLoot()
 		{
 			Player player = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)];
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
 			bool flag = false;
             for(int i = 0; i < player.inventory.Length; i++)
 			{

@@ -32,7 +32,7 @@ namespace MetroidMod.Items.equipables
             player.fireWalk = true;
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            MPlayer mp = player.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.maxOverheat += 15;
         }
 
@@ -46,20 +46,16 @@ namespace MetroidMod.Items.equipables
             p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "80% increased underwater breathing";
             p.rangedDamage += 0.05f;
             p.noFallDmg = true;
-            MPlayer mp = p.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = p.GetModPlayer<MPlayer>();
             mp.breathMult = 1.8f;
             mp.overheatCost -= 0.25f;
             mp.SenseMove(p);
             mp.visorGlow = true;
-            if (!mp.ballstate)
-            {
-                Lighting.AddLight((int)(p.Center.X / 16f), (int)((p.position.Y + 8f) / 16f), 0, 0.973f, 0.44f);
-            }
         }
 
         public override void UpdateVanitySet(Player P)
         {
-            MPlayer mp = P.GetModPlayer<MPlayer>(mod);
+            MPlayer mp = P.GetModPlayer<MPlayer>();
             mp.isPowerSuit = true;
             mp.thrusters = true;
             if (Main.netMode != 2)
@@ -82,9 +78,7 @@ namespace MetroidMod.Items.equipables
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitBreastplate");
             recipe.AddIngredient(ItemID.MythrilBar, 20);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(null, "EnergyTank");
+            recipe.AddIngredient(null, "KraidTissue", 12);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -92,9 +86,7 @@ namespace MetroidMod.Items.equipables
             recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VariaSuitBreastplate");
             recipe.AddIngredient(ItemID.OrichalcumBar, 20);
-            //recipe.AddIngredient(ItemID.SoulofLight, 5);
-            //recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(null, "EnergyTank");
+            recipe.AddIngredient(null, "KraidTissue", 12);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
