@@ -46,7 +46,7 @@ namespace MetroidMod.Projectiles.missilecombo
 		bool soundPlayed = false;
 		int soundDelay = 0;
 		
-		int ampSyncCooldown = 30;
+		int ampSyncCooldown = 20;
 		float[] amp = new float[3];
 		float[] ampDest = new float[3];
 
@@ -149,12 +149,6 @@ namespace MetroidMod.Projectiles.missilecombo
 							}
 						}
 					}
-
-					if (ampSyncCooldown-- <= 0)
-					{
-						ampSyncCooldown = 30;
-						projectile.netUpdate2 = true;
-					}
 				}
 				
 				if(!setTargetPos)
@@ -206,6 +200,12 @@ namespace MetroidMod.Projectiles.missilecombo
 					{
 						ampDest[i] = Main.rand.Next(-30, 31);
 					}
+				}
+
+				if (ampSyncCooldown-- <= 0)
+				{
+					ampSyncCooldown = 20;
+					projectile.netUpdate2 = true;
 				}
 			}
 			

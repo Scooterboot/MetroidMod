@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -102,6 +103,21 @@ namespace MetroidMod.Projectiles.missiles
 		{
 			mProjectile.PlasmaDraw(projectile, Main.player[projectile.owner], sb);
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			base.SendExtraAI(writer);
+
+			writer.Write(mProjectile.seeking);
+			writer.Write(mProjectile.seekTarget);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			base.ReceiveExtraAI(reader);
+
+			mProjectile.seeking = reader.ReadBoolean();
+			mProjectile.seekTarget = reader.ReadInt32();
 		}
 	}
 	public class IceMissileShot : MissileShot
