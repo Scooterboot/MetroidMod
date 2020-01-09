@@ -2554,7 +2554,7 @@ namespace MetroidMod
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
 				int BombID = mod.ProjectileType("MBBomb");
-				int a = Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
+				int a = Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI, 1);
 				Main.projectile[a].aiStyle = 0;
 				bomb = 20;
 			}
