@@ -615,13 +615,12 @@ namespace MetroidMod.NPCs.Phantoon
 		int spawnFireBall(float posX, float posY, bool playSound = true)
 		{
 			if(playSound)
-			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)posX, (int)posY, mod.GetSoundSlot(SoundType.Custom, "Sounds/PhantoonFire"));
-			}
-			int fb = NPC.NewNPC((int)posX,(int)posY,mod.NPCType("PhantoonFireBall"),npc.whoAmI);
+
+			if (Main.netMode == NetmodeID.MultiplayerClient) return (200);
+			int fb = NPC.NewNPC((int)posX,(int)posY,mod.NPCType("PhantoonFireBall"),npc.whoAmI, npc.whoAmI);
 			Main.npc[fb].TargetClosest(true);
 			Main.npc[fb].netUpdate = true;
-			Main.npc[fb].ai[0] = npc.whoAmI;
 			return fb;
 		}
 		

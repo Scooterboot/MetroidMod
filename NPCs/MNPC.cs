@@ -6,8 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs
-{
-	public class MNPC : GlobalNPC 
+{	public class MNPC : GlobalNPC 
 	{
 		public override bool InstancePerEntity
 		{

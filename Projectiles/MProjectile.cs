@@ -72,33 +72,18 @@ namespace MetroidMod.Projectiles
 					target.AddBuff(39,300,true);
 				}
 			}
-			if(projectile.Name.Contains("Ice"))
+			if(projectile.Name.Contains("Ice") || projectile.Name.Contains("Stardust"))
 			{
+				string buffName = "IceFreeze";
 				if(projectile.Name.Contains("Missile"))
-				{
-					target.AddBuff(mod.BuffType("InstantFreeze"),300,true);
-				}
-				else
-				{
-					target.AddBuff(mod.BuffType("IceFreeze"),300,true);
-				}
+					buffName = "InstantFreeze";
+
+				target.AddBuff(mod.BuffType(buffName), 300, false);
 			}
 			
 			if(projectile.Name.Contains("Solar"))
 			{
 				target.AddBuff(189,300,true);
-			}
-			
-			if(projectile.Name.Contains("Stardust"))
-			{
-				if(projectile.Name.Contains("Missile"))
-				{
-					target.AddBuff(mod.BuffType("InstantFreeze"),300,true);
-				}
-				else
-				{
-					target.AddBuff(mod.BuffType("IceFreeze"),300,true);
-				}
 			}
 			
 			if(projectile.penetrate > 1)
@@ -380,24 +365,24 @@ namespace MetroidMod.Projectiles
 		
 		public bool canDiffuse = false;
 
-		public int diffusionDustType = 0;
-		public Color diffusionColor = default(Color);
-
 		public void Diffuse(Projectile projectile, int dustType, Color color = default(Color), bool noGravity = true, float scale = 1f)
 		{
 			if(canDiffuse)
 			{
+				if (projectile.owner != Main.myPlayer) return;
+
+				Vector2 vel = Vector2.Zero;
 				for (int i = 0; i < 30; i++)
 				{
 					int DiffuseID = mod.ProjectileType("DiffusionBeam");
-					int num54 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (Main.rand.Next(50)-25)*0.1f, (Main.rand.Next(50)-25)*0.1f, DiffuseID,(int)((float)projectile.damage/3f),0.1f,projectile.owner);
-					Projectile pr = Main.projectile[num54];
-					pr.tileCollide = projectile.tileCollide;
-					pr.Name = projectile.Name;
-					MProjectile mpr = (MProjectile)pr.modProjectile;
-					mpr.diffusionDustType = dustType;
-					mpr.diffusionColor = color;
+					vel = new Vector2((Main.rand.Next(50) - 25) * 0.1f, (Main.rand.Next(50) - 25) * 0.1f);
+					Projectile p = Main.projectile[Projectile.NewProjectile(projectile.Center, vel, DiffuseID, (int)(projectile.damage / 3f),
+						0.1f, projectile.owner, dustType, (color.R << 16 | color.G << 8 | color.B))];
+					p.tileCollide = projectile.tileCollide;
+					p.Name = projectile.Name;
+					p.netUpdate = true;
 				}
+
 				int sound = mod.GetSoundSlot(SoundType.Custom, "Sounds/BeamImpactSound");
 				if(projectile.Name.Contains("Ice"))
 				{
@@ -523,5 +508,14 @@ namespace MetroidMod.Projectiles
 			}
 			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(color2), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
 		}
-    }
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(canDiffuse);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			canDiffuse = reader.ReadBoolean();
+		}
+	}
 }

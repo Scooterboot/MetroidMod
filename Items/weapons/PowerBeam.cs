@@ -1488,7 +1488,7 @@ namespace MetroidMod.Items.weapons
 								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].modProjectile;
 								mProj.waveDir = waveDir;
 								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge*0.9));
-								mProj.projectile.netUpdate = true;
+								mProj.projectile.netUpdate2 = true;
 							}
 							
 							//Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));

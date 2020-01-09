@@ -56,7 +56,7 @@ namespace MetroidMod.NPCs.Mobs
                 if (npc.velocity.Y >= 0)
                     npc.localAI[1]++;
 
-                if(npc.collideY)
+                if(npc.collideY && npc.oldVelocity.Y >= 0)
                 {
                     npc.velocity.Y = 0;
 

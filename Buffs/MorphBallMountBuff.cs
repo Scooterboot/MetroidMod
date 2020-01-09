@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace MetroidMod.Buffs
 {
@@ -17,20 +18,8 @@ namespace MetroidMod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			//player.mount.SetMount(mod.MountType<Mounts.MorphBallMount>(), player);
-			//player.buffTime[buffIndex] = 10;
-			if(player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"))
-			{
-				player.buffTime[buffIndex] = 10;
-			}
-			else
-			{
-				player.GetModPlayer<MPlayer>().ballstate = false;
-				player.mount._active = true;
-				player.mount.Dismount(player);
-				player.DelBuff(buffIndex);
-                buffIndex--;
-			}
+			player.mount.SetMount(MountType<Mounts.MorphBallMount>(), player);
+			player.buffTime[buffIndex] = 10;
 		}
 	}
 }

@@ -684,7 +684,7 @@ namespace MetroidMod.Items.weapons
 							initialShot = false;
 						}
 					}
-					else if (!mp.ballstate)
+					else if (!mp.ballstate) { 
 						mp.statCharge = 0;
 						comboTime = 0;
 						comboCostTime = 0;
@@ -694,7 +694,7 @@ namespace MetroidMod.Items.weapons
 						initialShot = false;
 					}
 				}
-				else
+				else { 
 					mp.statCharge = 0;
 					comboTime = 0;
 					comboCostTime = 0;

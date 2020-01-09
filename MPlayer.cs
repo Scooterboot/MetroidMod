@@ -1476,7 +1476,7 @@ namespace MetroidMod
 			}
 			if(ballstate)
 			{
-                for(int i = 0; i < layers.Count; ++i)
+				for (int i = 0; i < layers.Count; ++i)
                     layers[i].visible = false;
                 layers.Add(ballLayer);
                 ballLayer.visible = true;
@@ -1639,7 +1639,7 @@ namespace MetroidMod
                 Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, mp.morphColor), 0f);
                 float scale = 0.57f;
                 int offset = 4;
-                if (mp.ballstate && drawPlayer.active && !drawPlayer.dead)
+                if (mp.ballstate && !drawPlayer.dead)
                 {
                     DrawData data;
                     for (int i = 0; i < mp.oldPos.Length; i++)
@@ -2550,24 +2550,14 @@ namespace MetroidMod
 		
 		public void Bomb(Player player)
 		{
-<<<<<<< HEAD
-			if(player.whoAmI == Main.myPlayer && bomb <= 0 && Main.mouseRight && !mouseRight && shineDirection == 0 && !player.mouseInterface)
+			if (player.whoAmI == Main.myPlayer && bomb <= 0 && player.controlUseTile && !player.tileInteractionHappened && player.releaseUseItem && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
 				int BombID = mod.ProjectileType("MBBomb");
-				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI, 1, 0);
-=======
-			if(bomb <= 0 && player.controlUseTile && !player.tileInteractionHappened && player.releaseUseItem && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
-			{
-				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
-				int BombID = mod.ProjectileType("MBBomb");
-				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
+				int a = Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
 				Main.projectile[a].aiStyle = 0;
 				bomb = 20;
->>>>>>> 2605844050a04211dfa7007c3bbc69353a17d46d
 			}
-			if(bomb > 0)
-				bomb--;
 
 			if (player.whoAmI == Main.myPlayer && !special && statCharge >= 100)
 			{
@@ -2576,72 +2566,49 @@ namespace MetroidMod
 				int BombID = mod.ProjectileType("MBBomb");
 				if(player.controlLeft)
 				{
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-6,-2,BombID,bombDamage,0,player.whoAmI);
-					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
-					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
-					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
-					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-2,-6,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].timeLeft = 60;
-					Main.projectile[b].timeLeft = 70;
-					Main.projectile[c].timeLeft = 80;
-					Main.projectile[d].timeLeft = 90;
-					Main.projectile[e].timeLeft = 100;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -6, -2, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -5.5f, -3.5f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 70;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -4.7f, -4.7f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 80;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -3.5f, -5.5f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 90;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -2, -6, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 100;
 				}
 				else if(player.controlRight)
 				{
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,6,-2,BombID,bombDamage,0,player.whoAmI);
-					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5.5f,-3.5f,BombID,bombDamage,0,player.whoAmI);
-					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4.7f,-4.7f,BombID,bombDamage,0,player.whoAmI);
-					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3.5f,-5.5f,BombID,bombDamage,0,player.whoAmI);
-					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,2,-6,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].timeLeft = 60;
-					Main.projectile[b].timeLeft = 70;
-					Main.projectile[c].timeLeft = 80;
-					Main.projectile[d].timeLeft = 90;
-					Main.projectile[e].timeLeft = 100;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 6, -2, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 5.5f, -3.5f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 70;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 4.7f, -4.7f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 80;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 3.5f, -5.5f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 90;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 2, -6, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 100;
 				}
 				else if(player.controlDown && player.velocity.Y == 0)
 				{
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y,0,0,BombID,bombDamage,0,player.whoAmI);
-					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5f,BombID,bombDamage,0,player.whoAmI);
-					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-7,BombID,bombDamage,0,player.whoAmI);
-					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-8.5f,BombID,bombDamage,0,player.whoAmI);
-					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-10,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].timeLeft = 40;
-					Main.projectile[b].timeLeft = 50;
-					Main.projectile[c].timeLeft = 60;
-					Main.projectile[d].timeLeft = 70;
-					Main.projectile[e].timeLeft = 80;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 40;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, -5, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 50;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, -7, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, -8.5f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 70;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, -10, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 80;
 				}
 				else if(player.controlDown && player.velocity.Y != 0)
 				{
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+8,0,0,BombID,bombDamage,0,player.whoAmI);
-					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,BombID,bombDamage,0,player.whoAmI);
-					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-4.5f,BombID,bombDamage,0,player.whoAmI);
-					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,4,2,BombID,bombDamage,0,player.whoAmI);
-					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-4,2,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].Kill();
-					Main.projectile[b].aiStyle = 0;
-					Main.projectile[b].timeLeft = 25;
-					Main.projectile[c].timeLeft = 25;
-					Main.projectile[d].timeLeft = 25;
-					Main.projectile[e].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 2;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, -4.5f, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 4, 2, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -4, 2, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 25;
 				}
 				else
 				{
-					int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-5,-2,BombID,bombDamage,0,player.whoAmI);
-					int b = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,-3,-4,BombID,bombDamage,0,player.whoAmI);
-					int c = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,-5,BombID,bombDamage,0,player.whoAmI);
-					int d = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,3,-4,BombID,bombDamage,0,player.whoAmI);
-					int e = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,5,-2,BombID,bombDamage,0,player.whoAmI);
-					Main.projectile[a].timeLeft = 60;
-					Main.projectile[b].timeLeft = 60;
-					Main.projectile[c].timeLeft = 60;
-					Main.projectile[d].timeLeft = 60;
-					Main.projectile[e].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -5, -2, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, -3, -4, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, -5, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 3, -4, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, 5, -2, BombID, bombDamage, 0, player.whoAmI)].timeLeft = 60;
 				}
 				special = true;
 			}
+
+			if (bomb > 0)
+				bomb--;
 		}
         public void MorphBallBasic(Player player)
 		{
@@ -3015,14 +2982,23 @@ namespace MetroidMod
 				CurEdge = Edge.None;
 				spiderball = false;
 			}
-	
+
+			if (player.whoAmI == Main.myPlayer && MetroidMod.SpiderBallKey.JustPressed)
+			{
+				if (this.ballstate)
+				{
+					this.CurEdge = Edge.None;
+					this.spiderball = !this.spiderball;
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
+				}
+			}
+
 			// get current edge
 			Edge LastEdge = CurEdge;
 			
 			if (spiderball) // horizon
 			{
 				Ibounce = false;
-
 				
 				// edge action switch
 				switch (CurEdge)
@@ -3087,6 +3063,7 @@ namespace MetroidMod
 		}
 		public void BoostBall(Player player)
 		{
+
 			if(MetroidMod.BoostBallKey.Current && player.whoAmI == Main.myPlayer)
 			{
 				if(boostCharge <= 60)
@@ -3216,19 +3193,6 @@ namespace MetroidMod
 			}
 		}
 
-		public override void ProcessTriggers(TriggersSet triggersSet)
-		{
-			if (MetroidMod.SpiderBallKey.JustPressed)
-			{
-				if (ballstate)
-				{
-					CurEdge = Edge.None;
-					spiderball = !spiderball;
-					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-				}
-			}
-		}
-
 		public bool psuedoScrewActive = false;
 		public override TagCompound Save()
 		{
@@ -3260,6 +3224,8 @@ namespace MetroidMod
             spiderball = false;
 
             statCharge = 0;
+			boostCharge = 0;
+			boostEffect = 0;
         }
 
         public override void clientClone(ModPlayer clientClone)
@@ -3267,7 +3233,6 @@ namespace MetroidMod
             MPlayer clone = clientClone as MPlayer;
 
 			clone.statCharge = statCharge;
-			clone.ballstate = ballstate;
 			clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
@@ -3276,10 +3241,9 @@ namespace MetroidMod
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
             ModPacket packet = mod.GetPacket();
-            packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+            packet.Write((byte)MetroidMessageType.SyncStartPlayerStats);
             packet.Write((byte)player.whoAmI);
             packet.Write((double)statCharge);
-			packet.Write(ballstate);
 			packet.Write(spiderball);
             packet.Write(boostEffect);
             packet.Write(boostCharge);
@@ -3288,21 +3252,17 @@ namespace MetroidMod
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
-			MPlayer mp = (MPlayer)clientPlayer;
-			if (mp != null)
+			MPlayer clone = clientPlayer as MPlayer;
+			if (clone.statCharge != statCharge || clone.spiderball != spiderball || clone.boostEffect != boostEffect || clone.boostCharge != boostCharge)
 			{
-				if (mp.statCharge != statCharge || mp.spiderball != spiderball || mp.boostEffect != boostEffect || mp.boostCharge != boostCharge)
-				{
-					ModPacket packet = mod.GetPacket();
-					packet.Write((byte)MetroidMessageType.SyncPlayerStats);
-					packet.Write((byte)player.whoAmI);
-					packet.Write((double)statCharge);
-					packet.Write(ballstate);
-					packet.Write(spiderball);
-					packet.Write(boostEffect);
-					packet.Write(boostCharge);
-					packet.Send();
-				}
+				ModPacket packet = mod.GetPacket();
+				packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+				packet.Write((byte)player.whoAmI);
+				packet.Write((double)statCharge);
+				packet.Write(spiderball);
+				packet.Write(boostEffect);
+				packet.Write(boostCharge);
+				packet.Send();
 			}
 		}
     }

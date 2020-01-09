@@ -98,23 +98,6 @@ namespace MetroidMod
 			SetupUI();
 		}
 
-<<<<<<< HEAD
-=======
-		public override void HotKeyPressed(string name)
-		{
-			if(name == "Spider Ball" && SpiderBallKey.JustPressed)
-			{
-				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-				if(mp.ballstate)
-				{
-					mp.CurEdge = Edge.None;
-					mp.spiderball = !mp.spiderball;
-					Main.PlaySound(SoundLoader.customSoundType, (int)mp.player.position.X, (int)mp.player.position.Y, this.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-				}
-			}
-		}
-
->>>>>>> 2605844050a04211dfa7007c3bbc69353a17d46d
 		private void SetupUI()
 		{
 			if (Main.dedServ) return;
@@ -592,13 +575,11 @@ namespace MetroidMod
 					byte playerID = reader.ReadByte();
 					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>();
 					double statCharge = reader.ReadDouble();
-					bool ballstate = reader.ReadBoolean();
 					bool spiderBall = reader.ReadBoolean();
 					int boostEffect = reader.ReadInt32();
 					int boostCharge = reader.ReadInt32();
 
 					targetPlayer.statCharge = (float)statCharge;
-					targetPlayer.ballstate = ballstate;
 					targetPlayer.spiderball = spiderBall;
 					targetPlayer.boostEffect = boostEffect;
 					targetPlayer.boostCharge = boostCharge;
@@ -609,7 +590,6 @@ namespace MetroidMod
 						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 						packet.Write(playerID);
 						packet.Write(statCharge);
-						packet.Write(ballstate);
 						packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
