@@ -35,13 +35,14 @@ namespace MetroidMod.NPCs.Mobs
 
         public override bool PreAI()
         {
-
             if (npc.ai[0] == 0)
             {
                 npc.TargetClosest();
                 npc.directionY = 1;
+				npc.ai[3] = npc.direction;
 
                 npc.ai[0] = 1;
+				npc.netUpdate = true;
             }
 
             if (npc.ai[1] == 0)
@@ -89,34 +90,34 @@ namespace MetroidMod.NPCs.Mobs
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = ((int)npc.ai[2] * frameHeight) % (Main.npcFrameCount[npc.type] * frameHeight);
-            
-            // Rotate the NPC correctly (visually).
-            if (npc.direction == 1)
-            {
-                if (npc.directionY == 1)
-                {
-                    npc.rotation = -MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(18, 0);
-                }
-                else
-                {
-                    npc.rotation = -(float)Math.PI;
-                    npc.visualOffset = new Vector2(0, -8);
-                }
-            }
-            else
-            {
-                if (npc.directionY == 1)
-                {
-                    npc.rotation = 0;
-                    npc.visualOffset = new Vector2(0, 0);
-                }
-                else
-                {
-                    npc.rotation = MathHelper.PiOver2;
-                    npc.visualOffset = new Vector2(-18, 0);
-                }
-            }
-        }
+
+			// Rotate the NPC correctly (visually).
+			if (npc.direction == npc.ai[3])
+			{
+				if (npc.directionY == 1)
+				{
+					npc.rotation = 0;
+					npc.visualOffset = new Vector2(0, 0);
+				}
+				else
+				{
+					npc.rotation = MathHelper.PiOver2 * -npc.ai[3];
+					npc.visualOffset = new Vector2(20 * npc.ai[3], 0);
+				}
+			}
+			else
+			{
+				if (npc.directionY == 1)
+				{
+					npc.rotation = MathHelper.PiOver2 * npc.ai[3];
+					npc.visualOffset = new Vector2(-20 * npc.ai[3], 0);
+				}
+				else
+				{
+					npc.rotation = (float)Math.PI;
+					npc.visualOffset = new Vector2(0, -8);
+				}
+			}
+		}
     }
 }

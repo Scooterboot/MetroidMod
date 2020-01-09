@@ -244,17 +244,19 @@ namespace MetroidMod.NPCs.Serris
 					
 					if(soundInstance == null || soundInstance.State != SoundState.Playing)
 					{
-						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisAccel"));
+						if (soundInstance == null)
+							soundInstance = mod.GetSound("Sounds/SerrisAccel").CreateInstance();
+						Main.PlaySoundInstance(soundInstance);
 					}
 					else
 					{
-						Vector2 screenPos = new Vector2(Main.screenPosition.X + (float)Main.screenWidth * 0.5f, Main.screenPosition.Y + (float)Main.screenHeight * 0.5f);
+						Vector2 screenPos = new Vector2(Main.screenPosition.X + Main.screenWidth * .5f, Main.screenPosition.Y + Main.screenHeight * .5f);
 						
-						float pan = (npc.Center.X - screenPos.X) / ((float)Main.screenWidth * 0.5f);
+						float pan = (npc.Center.X - screenPos.X) / (Main.screenWidth * .5f);
 						float numX = Math.Abs(npc.Center.X - screenPos.X);
 						float numY = Math.Abs(npc.Center.Y - screenPos.Y);
-						float numL = (float)Math.Sqrt((double)(numX * numX + numY * numY));
-						float volume = 1f - numL / ((float)Main.screenWidth * 1.5f);
+						float numL = (float)Math.Sqrt(numX * numX + numY * numY) + .5f;
+						float volume = 1f - numL / (Main.screenWidth);
 						
 						if (pan < -1f)
 						{
@@ -272,13 +274,9 @@ namespace MetroidMod.NPCs.Serris
 						{
 							volume = 0f;
 							soundInstance.Stop(true);
-						}
-						
-						if(soundInstance != null)
-						{
-							soundInstance.Volume = volume;
-							soundInstance.Pan = pan;
-						}
+						}						
+						soundInstance.Volume = volume * Main.soundVolume;
+						soundInstance.Pan = pan;
 					}
 					
 					if(numUpdates <= 0)

@@ -129,7 +129,6 @@ namespace MetroidMod.NewUI
                 if (addonItem.modItem != null && addonItem.modItem.mod == mod)
                 {
                     MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-                    Main.NewText("LOOKING FOR TYPE: " + this.missileSlotType + " GOT TYPE: " + mItem.missileSlotType, Color.Orange);
                     return (addonItem.type <= 0 || mItem.missileSlotType == this.missileSlotType);
                 }
                 return (addonItem.type <= 0 || (addonItem.modItem != null && addonItem.modItem.mod == mod));

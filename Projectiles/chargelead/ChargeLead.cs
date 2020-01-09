@@ -67,7 +67,22 @@ namespace MetroidMod.Projectiles.chargelead
 			//int damage = (int)((float)I.damage*O.rangedDamage*O.allDamage);
 			int damage = O.GetWeaponDamage(I);
 
-			if(mp.statCharge == 10)
+			P.friendly = false;
+			P.damage = 0;
+			if (mp.somersault)
+			{
+				P.alpha = 255;
+				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
+				{
+					P.friendly = true;
+					P.damage = damage * 5 * ChargeShotAmt;
+					//mp.overheatDelay = (I.useTime*2);
+				}
+			}
+			else
+				P.alpha = 0;
+
+			if (mp.statCharge == 10)
 			{
 				soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)P.Center.X, (int)P.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+ChargeUpSound));
 			}
@@ -103,10 +118,9 @@ namespace MetroidMod.Projectiles.chargelead
 					/*float MY = Main.mouseY + Main.screenPosition.Y;
 					float MX = Main.mouseX + Main.screenPosition.X;
 					if (O.gravDir == -1f)
-					{
 						MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-					}
 
+					Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 
 					Vector2 newVelocity = targetrotation.ToRotationVector2() * 26;*/
@@ -126,9 +140,7 @@ namespace MetroidMod.Projectiles.chargelead
 					Vector2 newVelocity = diff * 26;
 
 					if (newVelocity.X != P.velocity.X || newVelocity.Y != P.velocity.Y)
-					{
 						P.netUpdate = true;
-					}
 
 					P.velocity = newVelocity;
 				}
@@ -144,12 +156,6 @@ namespace MetroidMod.Projectiles.chargelead
 				{
 					O.itemTime = I.useTime-negateUseTime;
 					O.itemAnimation = I.useAnimation-negateUseTime;
-				}
-				if(O.whoAmI == Main.myPlayer)
-				{
-					if(soundInstance != null)
-						soundInstance.Stop(true);
-					soundPlayed = false;
 				}
 				P.Kill();
 			}
@@ -203,6 +209,7 @@ namespace MetroidMod.Projectiles.chargelead
 
 			P.rotation += 0.5f * P.direction;
 			P.spriteDirection = P.direction;
+			O.ChangeDir(P.direction);
 			P.timeLeft = 2;
 			O.heldProj = P.whoAmI;
 			O.itemRotation = (float)Math.Atan2(P.velocity.Y * O.direction, P.velocity.X * O.direction) - O.fullRotation;
@@ -239,6 +246,9 @@ namespace MetroidMod.Projectiles.chargelead
 
 				mp.statCharge = 0;
 			}
+			if (soundInstance != null)
+				soundInstance.Stop(true);
+			soundPlayed = false;
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

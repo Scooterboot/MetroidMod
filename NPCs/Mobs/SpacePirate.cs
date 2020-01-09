@@ -11,11 +11,12 @@ namespace MetroidMod.NPCs.Mobs
     public class SpacePirate : ModNPC
     {
         /*
-         * npc.ai[0] = state manager.
-         * 
-         */
+        ** npc.ai[0] = state manager.
+		*/
         internal readonly float speed = 3;
         internal readonly float acceleration = .5F;
+
+		internal int specialTimer = 0;
 
         public override void SetStaticDefaults()
         {
@@ -33,6 +34,7 @@ namespace MetroidMod.NPCs.Mobs
             npc.aiStyle = -1;
             npc.knockBackResist = 0;
 
+			specialTimer = 0;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
         }
@@ -181,20 +183,20 @@ namespace MetroidMod.NPCs.Mobs
                         //    npc.velocity.Y = -5;
                     }
 
+					specialTimer++;
+
                     // If no jump has been initiated yet.
                     if(npc.velocity.Y == 0)
                     {
                         // TEMPORARY.
-                        if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+                        if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height) &&
+							specialTimer >= 60 && Vector2.Distance(npc.Center, Main.player[npc.target].Center) <= 180)
                         {
-                            if (Main.rand.Next(45) == 0 && Vector2.Distance(npc.Center, Main.player[npc.target].Center) <= 180)
-                            {
-                                npc.ai[0] = 3;
-                            }
-                            else if (Main.rand.Next(45) == 0 && Vector2.Distance(npc.Center, Main.player[npc.target].Center) <= 140)
-                            {
-                                npc.ai[0] = 2;
-                            }
+							if (Main.rand.Next(3) == 0)
+								npc.ai[0] = 2;
+							else
+								npc.ai[0] = 3;
+							specialTimer = 0;
                         }
                     }
                 }
@@ -209,26 +211,27 @@ namespace MetroidMod.NPCs.Mobs
             {
                 // Start the dropkick off with a small jump (almost) straight up.
                 if(npc.ai[2] == 0)
-                {
-                    if (npc.ai[1] == 0)
-                    {
-                        npc.velocity.Y = -10;
-                        npc.velocity.X *= 0;
-                    }
-                    npc.ai[1]++;
-                    npc.velocity.Y *= .98F;
+				{
+					npc.ai[1] = 0;
+					npc.ai[2] = 1;
+					npc.velocity.Y = -14;
+                    npc.velocity.X *= 0;
+				}
+                else if (npc.ai[2] == 1)
+				{
+					npc.velocity.Y *= .95F;
 
-                    if (npc.ai[1] >= 40 || npc.velocity.Y >= 0)
-                    {
-                        npc.TargetClosest();
-                        Vector2 newVelocity = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 7;
-                        npc.velocity = newVelocity;
+					if (npc.ai[1]++ >= 40 || npc.velocity.Y >= 0)
+					{
+						npc.TargetClosest();
+						Vector2 newVelocity = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 10;
+						npc.velocity = newVelocity;
 
-                        npc.ai[1] = 0;
-                        npc.ai[2] = 1;
-                    }
-                }
-                else
+						npc.ai[1] = 0;
+						npc.ai[2] = 2;
+					}
+				}
+				else
                 {
                     if(npc.velocity.Y == 0)
                     {

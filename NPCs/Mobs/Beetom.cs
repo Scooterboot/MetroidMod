@@ -69,8 +69,9 @@ namespace MetroidMod.NPCs.Mobs
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            npc.ai[2] = target.whoAmI;
             npc.ai[0] = 2;
+            npc.ai[2] = target.whoAmI;
+			npc.netUpdate = true;
         }
 
         public override void FindFrame(int frameHeight)

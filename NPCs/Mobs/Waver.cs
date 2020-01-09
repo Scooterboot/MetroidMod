@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,18 +10,18 @@ namespace MetroidMod.NPCs.Mobs
     public class Waver : ModNPC
     {
         /*
-         * npc.ai[0] = animation helper. 
-         * npc.ai[1] = Y turnaround timer.
+         * npc.ai[0] = Y turnaround timer.
          */
-        internal readonly float speed = 4;
+        internal readonly float xSpeed = 4;
+		internal readonly float ySpeed = 3;
 
-        public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 5;
         }
         public override void SetDefaults()
         {
-            npc.width = 28; npc.height = 20;
+            npc.width = 22; npc.height = 16;
 
             /* Temporary NPC values */
             npc.scale = 2;
@@ -46,38 +46,36 @@ namespace MetroidMod.NPCs.Mobs
                 npc.direction *= -1;
                 npc.netUpdate = true;
             }
-            if(npc.collideY || npc.ai[1]++ >= 180)
+            if(npc.collideY || npc.ai[0]++ >= 180)
             {
-                npc.ai[0] = 16;
-                npc.ai[1] = 0;
+				npc.ai[0] = 0;
 
                 npc.directionY *= -1;
                 npc.netUpdate = true;
             }
 
-            if (npc.ai[0] > 0) npc.ai[0]--;
+            npc.velocity.X = npc.direction * xSpeed;
+            npc.velocity.Y = npc.directionY * ySpeed;
 
-            npc.velocity.X = npc.direction * speed;
-            npc.velocity.Y = npc.directionY * speed;
-
-            return false;
+            return (false);
         }
 
         public override void FindFrame(int frameHeight)
         {
-            if (npc.ai[0] <= 0)
-                npc.frame.Y = 0;
-            else
-            {
-                if (npc.ai[0] > 12)
-                    npc.frame.Y = 1 * frameHeight;
-                else if (npc.ai[0] > 8)
-                    npc.frame.Y = 2 * frameHeight;
-                else if (npc.ai[0] > 4)
-                    npc.frame.Y = 3 * frameHeight;
-                else
-                    npc.frame.Y = 4 * frameHeight;
-            }
+			int frameCount;
+
+			npc.frameCounter++;
+			frameCount = Main.npcFrameCount[npc.type];
+			if (npc.frameCounter >= 6)
+			{
+				if (npc.directionY == 1)
+					npc.frame.Y = (npc.frame.Y - frameHeight < 0) ? (frameHeight * (frameCount - 1)) : (npc.frame.Y - frameHeight);
+				else
+					npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * frameCount);
+
+				npc.frameCounter = 0;
+			}
+			npc.spriteDirection = -npc.direction;
         }
-    }
+	}
 }

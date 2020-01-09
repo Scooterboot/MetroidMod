@@ -22,7 +22,7 @@ namespace MetroidMod.NPCs.Mobs
         }
         public override void SetDefaults()
         {
-            npc.width = 28; npc.height = 30;
+            npc.width = 28; npc.height = 20;
 
             /* Temporary NPC values */
             npc.scale = 1.5F;
@@ -107,12 +107,12 @@ namespace MetroidMod.NPCs.Mobs
         {
             if (npc.frameCounter++ >= 6)
             {
-                npc.frame.Y = npc.frame.Y + (int)(frameHeight * npc.ai[0]);
+                npc.frame.Y = npc.frame.Y + (int)(frameHeight * npc.localAI[0]);
 
                 if (npc.frame.Y == 2 * frameHeight)
-                    npc.ai[0] = -1;
+                    npc.localAI[0] = -1;
                 else if (npc.frame.Y == 0)
-                    npc.ai[0] = 1;
+                    npc.localAI[0] = 1;
 
                 npc.frameCounter = 0;
             }

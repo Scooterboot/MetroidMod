@@ -43,9 +43,8 @@ namespace MetroidMod.NPCs.Mobs
 
             if (npc.GetGlobalNPC<MNPC>().froze)
             {
-                npc.position = npc.oldPosition;
                 npc.damage = 0;
-                npc.netUpdate = true;
+                npc.position = npc.oldPosition;
             }
             else
             {

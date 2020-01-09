@@ -1,10 +1,12 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
+using Terraria.ID;
 using Terraria.UI;
 using Terraria.ModLoader;
 using ReLogic;
@@ -13,13 +15,14 @@ using ReLogic.Graphics;
 using MetroidMod.Items;
 using MetroidMod.NewUI;
 using MetroidMod.Items.weapons;
-using System.IO;
 
 namespace MetroidMod
 {
 	public enum MetroidMessageType : byte
 	{
-		SyncPlayerStats
+		SyncStartPlayerStats,
+		SyncPlayerStats,
+		PlaySyncedSound
 	}
 
 	public class MetroidMod : Mod
@@ -93,20 +96,6 @@ namespace MetroidMod
 			AddBossHeadTexture(OmegaPirateHead);
 
 			SetupUI();
-		}
-
-		public override void HotKeyPressed(string name)
-		{
-			if(name == "Spider Ball" && SpiderBallKey.JustPressed)
-			{
-				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-				if(mp.ballstate)
-				{
-					mp.CurEdge = Edge.None;
-					mp.spiderball = !mp.spiderball;
-					Main.PlaySound(SoundLoader.customSoundType, (int)mp.player.position.X, (int)mp.player.position.Y, this.GetSoundSlot(SoundType.Custom, "Sounds/SpiderActivate"));
-				}
-			}
 		}
 
 		private void SetupUI()
@@ -582,6 +571,7 @@ namespace MetroidMod
 			switch(msgType)
 			{
 				case MetroidMessageType.SyncPlayerStats:
+				case MetroidMessageType.SyncStartPlayerStats:
 					byte playerID = reader.ReadByte();
 					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>();
 					double statCharge = reader.ReadDouble();
@@ -594,15 +584,32 @@ namespace MetroidMod
 					targetPlayer.boostEffect = boostEffect;
 					targetPlayer.boostCharge = boostCharge;
 
-					if (Main.netMode == 2)
+					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
-						ModPacket packet = this.GetPacket();
+						var packet = GetPacket();
 						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 						packet.Write(playerID);
 						packet.Write(statCharge);
 						packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
+						packet.Send(-1, playerID);
+					}
+					break;
+
+				case MetroidMessageType.PlaySyncedSound:
+					byte playerID2 = reader.ReadByte();
+					Player targetPlayer2 = Main.player[playerID2];
+					string sound = reader.ReadString();
+
+					Main.PlaySound(GetLegacySoundSlot(SoundType.Custom, "Sounds/" + sound), targetPlayer2.position);
+
+					if (Main.netMode == 2)
+					{
+						ModPacket packet = GetPacket();
+						packet.Write((byte)MetroidMessageType.PlaySyncedSound);
+						packet.Write(playerID2);
+						packet.Write(sound);
 						packet.Send(-1, whoAmI);
 					}
 					break;

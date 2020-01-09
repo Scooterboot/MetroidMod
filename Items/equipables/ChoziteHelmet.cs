@@ -8,7 +8,6 @@ namespace MetroidMod.Items.equipables
     [AutoloadEquip(EquipType.Head)]
     class ChoziteHelmet : ModItem
     {
-
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Helmet");

@@ -99,7 +99,7 @@ namespace MetroidMod.Items.weapons
 			{
 				return false;
 			}
-			return (mi.statMissiles > 0);
+			return (player.whoAmI == Main.myPlayer && mi.statMissiles > 0);
 		}
 		
 		int finalDmg = 0;
@@ -684,8 +684,7 @@ namespace MetroidMod.Items.weapons
 							initialShot = false;
 						}
 					}
-					else if (!mp.ballstate)
-					{
+					else if (!mp.ballstate) { 
 						mp.statCharge = 0;
 						comboTime = 0;
 						comboCostTime = 0;
@@ -695,8 +694,7 @@ namespace MetroidMod.Items.weapons
 						initialShot = false;
 					}
 				}
-				else
-				{
+				else { 
 					mp.statCharge = 0;
 					comboTime = 0;
 					comboCostTime = 0;
@@ -707,9 +705,7 @@ namespace MetroidMod.Items.weapons
 				}
 
 				if (targetingDelay > 0)
-				{
 					targetingDelay--;
-				}
 
 				if (isSeeker && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 				{

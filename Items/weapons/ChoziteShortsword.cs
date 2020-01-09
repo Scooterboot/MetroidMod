@@ -48,6 +48,5 @@ namespace MetroidMod.Items.weapons
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
 	}
 }

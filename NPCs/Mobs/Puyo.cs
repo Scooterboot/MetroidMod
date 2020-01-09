@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -9,13 +10,16 @@ namespace MetroidMod.NPCs.Mobs
 {
     public class Puyo : ModNPC
     {
+		private int newXFrame = -1;
+		private float newScale = -1;
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 9;            
         }
         public override void SetDefaults()
         {
-            npc.width = 16; npc.height = 8;
+            npc.width = 12; npc.height = 6;
 
             /* Temporary NPC values */
             npc.scale = 2;
@@ -27,27 +31,23 @@ namespace MetroidMod.NPCs.Mobs
 
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
+
+			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				newScale = (Main.rand.Next(13, 21) * 0.1f);
+				newXFrame = Main.rand.Next(0, 3) * 30;
+			}
         }
 
         public bool spawn = false;
         public override bool PreAI()
-        {
-            if (!spawn)
-            {
-                npc.scale = (Main.rand.Next(13, 21) * 0.1f);
-                npc.defense = (int)((float)npc.defense * npc.scale);
-                npc.damage = (int)((float)npc.damage * npc.scale);
-                npc.life = (int)((float)npc.life * npc.scale);
-                npc.lifeMax = npc.life;
-                npc.value = (float)((int)(npc.value * npc.scale));
-                npc.npcSlots *= npc.scale;
-                npc.knockBackResist *= 2f - npc.scale;
-
-                npc.frame.Width = 30;
-                npc.frame.X = Main.rand.Next(0, 3) * npc.frame.Width;
-
-                spawn = true;
-            }
+		{
+			if (!spawn && newScale != -1 && newXFrame != -1)
+			{
+				SetStats();
+				spawn = true;
+				npc.netUpdate = true;
+			}
             return true;
         }
 
@@ -118,17 +118,43 @@ namespace MetroidMod.NPCs.Mobs
 
             Vector2 drawPos = npc.Center - Main.screenPosition;
             drawPos -= new Vector2(texture.Width, (texture.Height / Main.npcFrameCount[npc.type])) * npc.scale / 2;
-            drawPos += origin * npc.scale + new Vector2(0, 2);
+            drawPos += origin * npc.scale;
 
             spriteBatch.Draw(texture, drawPos, npc.frame, npc.GetAlpha(drawColor), npc.rotation, origin, npc.scale, effects, 0);
 
             return false;
         }
 
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-        {
-            position.X -= 40;
-            return true;
-        }
-    }
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			position.X -= 45;
+			return (true);
+		}
+
+		private void SetStats()
+		{
+			npc.scale = newScale;
+			npc.defense = (int)(npc.defense * npc.scale);
+			npc.damage = (int)(npc.damage * npc.scale);
+			npc.life = (int)(npc.life * npc.scale);
+			npc.lifeMax = npc.life;
+			npc.value = ((int)(npc.value * npc.scale));
+			npc.npcSlots *= npc.scale;
+			npc.knockBackResist *= 2f - npc.scale;
+
+			npc.frame.Width = 30;
+			npc.frame.X = newXFrame;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(newXFrame);
+			writer.Write((double)newScale);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			newXFrame = reader.ReadInt32();
+			newScale = (float)reader.ReadDouble();
+		}
+	}
 }

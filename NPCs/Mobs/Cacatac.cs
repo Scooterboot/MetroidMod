@@ -71,8 +71,8 @@ namespace MetroidMod.NPCs.Mobs
             }
             if(npc.ai[0] == 1) // Projectile stage.
             {
-                npc.velocity = Vector2.Zero;
                 npc.ai[1]++;
+                npc.velocity = Vector2.Zero;
 
                 if(Main.netMode != 1 && npc.ai[1] >= 60)
                 {
@@ -81,7 +81,7 @@ namespace MetroidMod.NPCs.Mobs
                     {
                         float value = (float)(Math.PI - ((Math.PI / 4) * i));
                         Vector2 v2 = new Vector2((float)Math.Cos(value), -(float)Math.Sin(value));
-                        Projectile.NewProjectile(npc.Center, v2 * 6, mod.ProjectileType("CacatacSpike"), npc.damage, 0, Main.LocalPlayer.whoAmI, 0);
+                        Projectile.NewProjectile(npc.Center, v2 * 6, mod.ProjectileType("CacatacSpike"), npc.damage, 0, Main.myPlayer);
                     }
 
                     npc.ai[0] = 0;
@@ -96,9 +96,7 @@ namespace MetroidMod.NPCs.Mobs
         public override void FindFrame(int frameHeight)
         {
             if(!npc.collideX && !npc.collideY) // NPC is aired.
-            {
                 npc.frame.Y = 7 * frameHeight; // Idle.
-            }
             else if(npc.ai[0] == 0)
             {
                 npc.frameCounter += Math.Abs(npc.velocity.X) / 3.5F;

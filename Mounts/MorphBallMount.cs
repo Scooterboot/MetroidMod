@@ -46,7 +46,7 @@ namespace MetroidMod.Mounts
 		public override void UpdateEffects(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			
+
 			if(player.miscEquips[3].type == mod.ItemType("MorphBall"))
 			{
 				mBall = (MorphBall)player.miscEquips[3].modItem;

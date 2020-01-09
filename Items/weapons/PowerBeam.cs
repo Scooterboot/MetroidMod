@@ -65,7 +65,7 @@ namespace MetroidMod.Items.weapons
 			item.knockBack = 4;
 			item.value = 20000;
 			item.rare = 2;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/PowerBeamSound");
+			//item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/PowerBeamSound");
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("PowerBeamShot");
 			item.shootSpeed = 8f;
@@ -1291,14 +1291,10 @@ namespace MetroidMod.Items.weapons
 			item.useAnimation = useTime;
 			item.shoot = mod.ProjectileType(shot);
 			if(ShotSound == null)
-			{
 				ShotSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/"+shotSound);
-			}
 			if(ChargeShotSound == null)
-			{
 				ChargeShotSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound);
-			}
-			item.UseSound = ShotSound;
+			//item.UseSound = ShotSound;
 			
 			//item.autoReuse = (!slot1.IsAir);//(isCharge);
 
@@ -1421,11 +1417,10 @@ namespace MetroidMod.Items.weapons
 			
 			for(int i = 0; i < shotAmt; i++)
 			{
-				int shotProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,item.shoot,damage,knockBack,player.whoAmI);
+				int shotProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,item.shoot,damage,knockBack,player.whoAmI, 0, i);
 				MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
-				mProj.waveStyle = i;
 				mProj.waveDir = waveDir;
-				mProj.projectile.netUpdate = true;
+				Main.projectile[shotProj].netUpdate = true;
 			}
 			waveDir *= -1;
 			
@@ -1434,6 +1429,20 @@ namespace MetroidMod.Items.weapons
 			
 			if(isHyper)
 				mp.hyperColors = 23;
+
+			/* Sound & Sound Networking */
+			if (Main.netMode != 0 && mp.player.whoAmI == Main.myPlayer)
+			{
+				// Send a packet to have the sound play on all clients.
+				ModPacket packet = mod.GetPacket();
+				packet.Write((byte)MetroidMessageType.PlaySyncedSound);
+				packet.Write((byte)player.whoAmI);
+				packet.Write(shotSound);
+				packet.Send();
+			}
+
+			// Play the shot sound for the local player.
+			Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/" + shotSound), player.position);
 
 			return false;
 		}
@@ -1449,9 +1458,7 @@ namespace MetroidMod.Items.weapons
 					if(player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
 					{
 						if(mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-						{
 							mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-						}
 					}
 					else
 					{
@@ -1460,9 +1467,7 @@ namespace MetroidMod.Items.weapons
 						float MY = Main.mouseY + Main.screenPosition.Y;
 						float MX = Main.mouseX + Main.screenPosition.X;
 						if (player.gravDir == -1f)
-						{
 							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-						}
 
 						float targetrotation = (float)Math.Atan2((MY-oPos.Y),(MX-oPos.X));
 						
@@ -1479,12 +1484,11 @@ namespace MetroidMod.Items.weapons
 						{
 							for(int i = 0; i < chargeShotAmt; i++)
 							{
-								int chargeProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(chargeShot),(int)((float)damage*dmgMult),item.knockBack,player.whoAmI);
+								int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI, 0, i);
 								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].modProjectile;
-								mProj.waveStyle = i;
 								mProj.waveDir = waveDir;
 								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge*0.9));
-								mProj.projectile.netUpdate = true;
+								mProj.projectile.netUpdate2 = true;
 							}
 							
 							//Main.PlaySound(SoundLoader.customSoundType, (int)oPos.X, (int)oPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/"+chargeShotSound));
@@ -1498,9 +1502,8 @@ namespace MetroidMod.Items.weapons
 							{
 								for(int i = 0; i < shotAmt; i++)
 								{
-									int shotProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(shot),damage,item.knockBack,player.whoAmI);
+									int shotProj = Projectile.NewProjectile(oPos.X,oPos.Y,velocity.X,velocity.Y,mod.ProjectileType(shot),damage,item.knockBack,player.whoAmI, 0, i);
 									MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
-									mProj.waveStyle = i;
 									mProj.waveDir = waveDir;
 									mProj.projectile.netUpdate = true;
 								}
@@ -1512,15 +1515,11 @@ namespace MetroidMod.Items.weapons
 							}
 						}
 						if(chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
-						{
 							mp.statCharge = 0;
-						}
 					}
 				}
 				else if(!mp.ballstate)
-				{
 					mp.statCharge = 0;
-				}
 			}
 		}
 
@@ -1552,17 +1551,13 @@ namespace MetroidMod.Items.weapons
 		public override void NetSend(BinaryWriter writer)
 		{
 			for(int i = 0; i < beamMods.Length; ++i)
-			{
 				writer.WriteItem(beamMods[i]);
-			}
 			writer.Write(chargeLead);
 		}
 		public override void NetRecieve(BinaryReader reader)
 		{
 			for(int i = 0; i < beamMods.Length; ++i)
-			{
 				beamMods[i] = reader.ReadItem();
-			}
 			chargeLead = reader.ReadInt32();
 		}
 	}

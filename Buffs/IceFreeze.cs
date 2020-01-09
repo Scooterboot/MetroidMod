@@ -16,10 +16,10 @@ namespace MetroidMod.Buffs
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}
-        
+
 		public override bool ReApply(NPC N, int time, int buffIndex)
 		{
-			if( N.GetGlobalNPC<NPCs.MNPC>().speedDecrease > 0)
+			if (N.GetGlobalNPC<NPCs.MNPC>().speedDecrease > 0)
 				N.GetGlobalNPC<NPCs.MNPC>().speedDecrease -= 0.2f;
 			else
 				N.GetGlobalNPC<NPCs.MNPC>().speedDecrease = 0;

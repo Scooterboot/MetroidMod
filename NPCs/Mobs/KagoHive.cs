@@ -28,6 +28,22 @@ namespace MetroidMod.NPCs.Mobs
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
         }
+		public override bool PreAI()
+		{
+			if (npc.ai[0] == 0)
+				npc.ai[0] = npc.lifeMax;
+
+			if (npc.justHit)
+			{
+				npc.TargetClosest(false);
+
+				this.SpawnKago(Main.player[npc.target], (int)npc.ai[0] - npc.life);
+
+				npc.ai[0] = npc.life;
+			}
+
+			return (true);
+		}
 
         public override void FindFrame(int frameHeight)
         {
@@ -37,16 +53,6 @@ namespace MetroidMod.NPCs.Mobs
                 npc.frameCounter = 0;
             }
         }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            this.SpawnKago(player, damage);
-        }
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            this.SpawnKago(Main.player[projectile.owner], damage);
-        }
-
         private void SpawnKago(Player player, int damage)
         {
             if (Main.netMode == 1) return;
@@ -55,7 +61,8 @@ namespace MetroidMod.NPCs.Mobs
             NPC kago = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Kago"))];
 
             // Assign a random starting velocity to the newly created Kago to give some sort of 'punch-out' effect.
-            kago.velocity = new Vector2(Main.rand.Next(6, 12) * player.direction, -2);
+            kago.velocity = new Vector2(Main.rand.Next(6, 12) * Math.Sign(npc.Center.X - player.Center.X), -2);
+			kago.netUpdate = true;
         }
     }
 }
