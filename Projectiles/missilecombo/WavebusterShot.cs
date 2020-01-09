@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Enums;
+using System.IO;
 
 namespace MetroidMod.Projectiles.missilecombo
 {
@@ -37,7 +38,7 @@ namespace MetroidMod.Projectiles.missilecombo
 		float range = Max_Range;
 		const float Max_Distance = 300f;
 		float distance = Max_Distance;
-		float accuracy = 11f;
+
 		Vector2 oPos;
 		Vector2 mousePos;
 		
@@ -45,8 +46,10 @@ namespace MetroidMod.Projectiles.missilecombo
 		bool soundPlayed = false;
 		int soundDelay = 0;
 		
+		int ampSyncCooldown = 30;
 		float[] amp = new float[3];
 		float[] ampDest = new float[3];
+
 		public override void AI()
 		{
 			
@@ -71,7 +74,6 @@ namespace MetroidMod.Projectiles.missilecombo
 			
 			range = Max_Range;
 			distance = Max_Distance;
-			accuracy = 11f;
 			
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			
@@ -147,6 +149,12 @@ namespace MetroidMod.Projectiles.missilecombo
 							}
 						}
 					}
+
+					if (ampSyncCooldown-- <= 0)
+					{
+						ampSyncCooldown = 30;
+						projectile.netUpdate2 = true;
+					}
 				}
 				
 				if(!setTargetPos)
@@ -194,6 +202,10 @@ namespace MetroidMod.Projectiles.missilecombo
 					{
 						soundDelay--;
 					}
+					for (int i = 0; i < 3; i++)
+					{
+						ampDest[i] = Main.rand.Next(-30, 31);
+					}
 				}
 			}
 			
@@ -209,18 +221,18 @@ namespace MetroidMod.Projectiles.missilecombo
 			{
 				P.Kill();
 			}
-			
-			if(P.numUpdates == 0)
+
+			if (P.numUpdates == 0)
 			{
-				for(int i = 0; i < 3; i++)
+				for (int i = 0; i < 3; i++)
 				{
 					ampDest[i] = Main.rand.Next(-30, 31);
 				}
 			}
-			
-			for(int i = 0; i < 3; i++)
+
+			for (int i = 0; i < 3; i++)
 			{
-				if(amp[i] < ampDest[i])
+				if (amp[i] < ampDest[i])
 				{
 					amp[i] += 3;
 				}
@@ -350,6 +362,15 @@ namespace MetroidMod.Projectiles.missilecombo
 			}
 			
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.WriteVector2(targetPos);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			targetPos = reader.ReadVector2();
 		}
 	}
 }
