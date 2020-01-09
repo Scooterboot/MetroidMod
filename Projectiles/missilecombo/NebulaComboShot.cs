@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Enums;
+using System.IO;
 
 namespace MetroidMod.Projectiles.missilecombo
 {
@@ -31,7 +32,7 @@ namespace MetroidMod.Projectiles.missilecombo
 		bool initialize = false;
 		
 		Projectile Lead;
-		
+
 		Projectile[] buster = new Projectile[4];
 		
 		const float Max_Range = 300f;
@@ -58,7 +59,7 @@ namespace MetroidMod.Projectiles.missilecombo
 				return;
 			}
 			
-			if(!initialize)
+			if(!initialize && P.owner == Main.myPlayer)
 			{
 				for(int i = 0; i < buster.Length; i++)
 				{
@@ -66,9 +67,11 @@ namespace MetroidMod.Projectiles.missilecombo
 					buster[i] = Main.projectile[b];
 					buster[i].ai[0] = P.whoAmI;
 					buster[i].ai[1] = i;
+					buster[i].netUpdate = true;
 				}
 				
 				initialize = true;
+				projectile.netUpdate = true;
 			}
 			
 			range = Max_Range;
@@ -444,6 +447,21 @@ namespace MetroidMod.Projectiles.missilecombo
 			
 			sb.Draw(tex, vector53, null, alpha4, P.rotation, origin8, P.scale, spriteEffects, 0f);
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			if (this.initialize)
+				for (int i = 0; i < this.buster.Length; ++i)
+					writer.Write(this.buster[i].whoAmI);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			for (int i = 0; i < this.buster.Length; ++i)
+				this.buster[i] = Main.projectile[reader.ReadInt32()];
+
+			if (!initialize)
+				initialize = true;
 		}
 	}
 }

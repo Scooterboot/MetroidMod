@@ -794,7 +794,7 @@ namespace MetroidMod.Items.weapons
 									MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
 									mProj.seekTarget = mi.seekerTarget[i];
 									mProj.seeking = true;
-
+									mProj.projectile.netUpdate2 = true;
 									mi.statMissiles = Math.Max(mi.statMissiles - 1, 0);
 								}
 							}
