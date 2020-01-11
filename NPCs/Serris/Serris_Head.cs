@@ -8,27 +8,55 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using System.IO;
 
 namespace MetroidMod.NPCs.Serris
 {
-    public class Serris_Head : ModNPC
-    {
-        public override void SetStaticDefaults()
+    public class Serris_Head : Serris
+	{
+		/* ai[3] and localAI[0] cannot be used. The rest is readily available. */
+
+
+		internal enum SerrisState
+		{
+			JustSpawned = 0,
+			NormalBehaviour = 1,
+			Transforming = 2,
+			CoreXState = 3
+		}
+
+		internal SerrisState ai_state
+		{
+			get { return (SerrisState)((int)npc.ai[0]); }
+			set { npc.ai[0] = (int)value; }
+		}
+		internal float extra_state
+		{
+			get { return npc.ai[1]; }
+			set { npc.ai[1] = value; }
+		}
+
+		int damage = 20;
+		int speedDamage = 35;//60;
+		int coreDamage = 30;
+
+		public override bool Autoload(ref string name)
+		{
+			return (true);
+		}
+
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Serris");
 			Main.npcFrameCount[npc.type] = 15;
 		}
-		int damage = 20;
-		int speedDamage = 35;//60;
-		int coreDamage = 30;
 		public override void SetDefaults()
 		{
 			npc.width = 60;
 			npc.height = 60;
 			npc.damage = damage;
 			npc.defense = 28;
-			npc.lifeMax = 4000;//1750;
-			//npc.dontTakeDamage = true;
+			npc.lifeMax = 4000;
 			npc.HitSound = SoundID.NPCHit4;
 			npc.DeathSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/CoreXDeath");
 			npc.noGravity = true;
@@ -37,8 +65,7 @@ namespace MetroidMod.NPCs.Serris
 			npc.lavaImmune = true;
 			npc.noTileCollide = true;
 			npc.behindTiles = true;
-			npc.frameCounter = 0;
-			npc.aiStyle = 6;
+			npc.aiStyle = -1;
 			npc.npcSlots = 5;
 			npc.boss = true;
 			npc.buffImmune[20] = true;
@@ -66,69 +93,27 @@ namespace MetroidMod.NPCs.Serris
 			int num13 = (int)(Main.player[npc.target].position.Y / 16f) - spawnRangeY;
 			int num14 = (int)(Main.player[npc.target].position.Y / 16f) + spawnRangeY;
 
-			return NPC.NewNPC((int)MathHelper.Clamp(tileX,num11,num12) * 16 + 8, (int)MathHelper.Clamp(tileY,num13,num14) * 16, this.npc.type, 0, 0f, 0f, 0f, 0f, 255);
+			return NPC.NewNPC((int)MathHelper.Clamp(tileX,num11,num12) * 16 + 8, (int)MathHelper.Clamp(tileY,num13,num14) * 16, this.npc.type);
 		}
 		
-		bool tailSpawned = false;
 		bool initialBoost = false;
 		SoundEffectInstance soundInstance;
 		int numUpdates = 0;
 		int maxUpdates = 0;
-		NPC[] body = new NPC[10];
-		int state = 1;
-		float mouthFrame = 0f;
+		public int state = 1;
+		public float mouthFrame = 0f;
 		int mouthNum = 1;
 		int glowFrame = 0;
 		int glowNum = 1;
 		int glowFrameCounter = 0;
 		float oldRot = 0f;
+
 		public override void AI()
 		{
-			Player player = Main.player[npc.target];
-			if (!player.dead)
+			if (ai_state <= SerrisState.NormalBehaviour)
 			{
-				npc.timeLeft = 60;
-			}
-			// base phase
-			if(npc.localAI[0] == 0)
-			{
-				// handle spawning body segments
-				if(!tailSpawned)
-				{
-					int prev = npc.whoAmI;
-					for(int i = 0; i < body.Length; i++)
-					{
-						int type = mod.NPCType("Serris_Body");
-						if(i > 6)
-						{
-							type = mod.NPCType("Serris_Tail");
-						}
-						int srs = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, type, npc.whoAmI);
-						body[i] = Main.npc[srs];
-						body[i].realLife = npc.whoAmI;
-						body[i].ai[2] = (float)npc.whoAmI;
-						body[i].ai[1] = (float)prev;
-						if(i > 7)
-						{
-							body[i].localAI[0] = 1f;
-						}
-						if(prev != npc.whoAmI)
-						{
-							Main.npc[prev].ai[0] = (float)srs;
-						}
-						NetMessage.SendData(23, -1, -1, null, srs, 0f, 0f, 0f, 0);
-						prev = srs;
-					}
-					tailSpawned = true;
-				}
-				for(int i = 0; i < body.Length; i++)
-				{
-					if(body[i] == null || !body[i].active)
-					{
-						tailSpawned = false;
-					}
-				}
-				
+				this.Update_Worm(true);
+
 				state = 1;
 				if(npc.life < (int)(npc.lifeMax * 0.6f))
 				{
@@ -173,44 +158,43 @@ namespace MetroidMod.NPCs.Serris
 				
 				if(npc.life < (int)(npc.lifeMax * 0.5f))
 				{
-					mouthFrame = 0f;
 					glowFrame = 1;
-					npc.localAI[0] = 1;
+					mouthFrame = 0f;
+					extra_state = 0;
 					npc.localAI[1] = 0;
 					npc.localAI[2] = 0;
 					npc.localAI[3] = 0;
-					npc.aiStyle = -1;
+					npc.netUpdate = true;
+					ai_state = SerrisState.Transforming;
 					return;
 				}
 				
 				// normal movement
-				if(npc.localAI[2] == 0)
+				if(extra_state == 0)
 				{
 					npc.damage = damage;
-					//npc.dontTakeDamage = false;
 					npc.chaseable = true;
-					//npc.position += npc.velocity*1.075f;
 					maxUpdates = 1;
 					oldRot = npc.rotation;
 					
 					//initial speed boost
 					if(!initialBoost)
 					{
-						npc.localAI[2] = 1;
+						extra_state = 1;
 						npc.localAI[3] = 30;
-						npc.TargetClosest(true);
 						initialBoost = true;
+						npc.TargetClosest(true);
 					}
 					
 					// activate speed boost on hit
 					if(npc.justHit)
 					{
-						npc.localAI[2] = 1;
+						extra_state = 1;
 						npc.TargetClosest(true);
 					}
 				}
 				// stunned movement
-				if(npc.localAI[2] == 1)
+				if(extra_state == 1)
 				{
 					mouthNum = 2;
 					
@@ -225,58 +209,49 @@ namespace MetroidMod.NPCs.Serris
 					npc.localAI[3]++;
 					if(npc.localAI[3] > 30)
 					{
-						npc.localAI[2] = 2;
+						extra_state = 2;
 						npc.localAI[3] = 0;
 					}
 				}
 				// speedboost movement
-				if(npc.localAI[2] == 2)
+				if(extra_state == 2)
 				{
 					state = 4;
 					mouthNum = -3;
-					npc.damage = speedDamage;
-					//npc.dontTakeDamage = true;
-					npc.chaseable = false;
-					npc.position += npc.velocity*1.5f;
 					maxUpdates = 1;
+					npc.chaseable = false;
+					npc.damage = speedDamage;
+					npc.position += npc.velocity * 1.5f;
 					
 					Lighting.AddLight((int)(npc.Center.X / 16f), (int)(npc.Center.Y / 16f), 2.0f, 2.0f, 2.0f);
-					
-					if(soundInstance == null || soundInstance.State != SoundState.Playing)
+
+					if (Main.netMode != NetmodeID.Server)
 					{
-						if (soundInstance == null)
-							soundInstance = mod.GetSound("Sounds/SerrisAccel").CreateInstance();
-						Main.PlaySoundInstance(soundInstance);
-					}
-					else
-					{
-						Vector2 screenPos = new Vector2(Main.screenPosition.X + Main.screenWidth * .5f, Main.screenPosition.Y + Main.screenHeight * .5f);
-						
-						float pan = (npc.Center.X - screenPos.X) / (Main.screenWidth * .5f);
-						float numX = Math.Abs(npc.Center.X - screenPos.X);
-						float numY = Math.Abs(npc.Center.Y - screenPos.Y);
-						float numL = (float)Math.Sqrt(numX * numX + numY * numY) + .5f;
-						float volume = 1f - numL / (Main.screenWidth);
-						
-						if (pan < -1f)
+						if (soundInstance == null || soundInstance.State != SoundState.Playing)
 						{
-							pan = -1f;
+							if (soundInstance == null)
+								soundInstance = mod.GetSound("Sounds/SerrisAccel").CreateInstance();
+							Main.PlaySoundInstance(soundInstance);
 						}
-						if (pan > 1f)
+						else
 						{
-							pan = 1f;
+							Vector2 screenPos = new Vector2(Main.screenPosition.X + Main.screenWidth * .5f, Main.screenPosition.Y + Main.screenHeight * .5f);
+
+							float pan = (npc.Center.X - screenPos.X) / (Main.screenWidth * .5f);
+							float numX = Math.Abs(npc.Center.X - screenPos.X);
+							float numY = Math.Abs(npc.Center.Y - screenPos.Y);
+							float numL = (float)Math.Sqrt(numX * numX + numY * numY) + .5f;
+							float volume = 1f - numL / (Main.screenWidth);
+
+							pan = MathHelper.Clamp(pan, -1f, 1f);
+							volume = MathHelper.Clamp(volume, 0f, 1f);
+
+							if (volume == 0f)
+								soundInstance.Stop(true);
+
+							soundInstance.Pan = pan;
+							soundInstance.Volume = volume * Main.soundVolume;
 						}
-						if (volume > 1f)
-						{
-							volume = 1f;
-						}
-						if (volume <= 0f)
-						{
-							volume = 0f;
-							soundInstance.Stop(true);
-						}						
-						soundInstance.Volume = volume * Main.soundVolume;
-						soundInstance.Pan = pan;
 					}
 					
 					if(numUpdates <= 0)
@@ -285,105 +260,84 @@ namespace MetroidMod.NPCs.Serris
 					}
 					if(npc.localAI[3] > 480)
 					{
-						npc.localAI[2] = 0;
+						extra_state = 0;
 						npc.localAI[3] = 0;
+						npc.netUpdate = true;
 						npc.TargetClosest(true);
 					}
 				}
-				else
-				{
-					if(soundInstance != null)
-					{
-						soundInstance.Stop(true);
-					}
-				}
+				else if (soundInstance != null)
+					soundInstance.Stop(true);
 			}
 			else
 			{
 				if(soundInstance != null)
-				{
 					soundInstance.Stop(true);
-				}
 				npc.damage = coreDamage;
 			}
 			
-			// transform phase
-			if(npc.localAI[0] == 1)
+			if(ai_state == SerrisState.Transforming)
 			{
-				npc.aiStyle = -1;
-				for(int i = 0; i < body.Length; i++)
-				{
-					if(body[i] != null && body[i].active)
-					{
-						body[i].life = 0;
-						body[i].HitEffect(0, 10.0);
-						body[i].active = false;
-					}
-				}
 				if(npc.localAI[1] == 0)
-				{
 					Main.PlaySound(SoundID.NPCDeath14,npc.Center);
-				}
 				
-				npc.localAI[2] += 0.01f;
-				if ((double)npc.localAI[2] > 0.5)
-				{
-					npc.localAI[2] = 0.5f;
-				}
-				//npc.dontTakeDamage = true;
+				extra_state += 0.01f;
+				if (extra_state > 0.5f)
+					extra_state = 0.5f;
+
 				npc.chaseable = false;
-				npc.rotation += npc.localAI[2];
-				npc.localAI[1] += 1f;
-				if(npc.localAI[1] <= 1f)
-				{
+				npc.rotation += extra_state;
+
+				if(npc.localAI[1]++ <= 1f)
 					Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisDeath"));
-				}
+
 				if(npc.localAI[1] > 170f)
 				{
 					Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 14);
-					int gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore1"), 1f);
-					Main.gore[gore].velocity *= 0.4f;
-					Main.gore[gore].timeLeft = 60;
-					gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore2"), 1f);
-					Main.gore[gore].velocity *= 0.4f;
-					Main.gore[gore].timeLeft = 60;
+
+					Gore newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore1"))];
+					newGore.velocity *= .4f;
+					newGore.timeLeft = 60;
+
+					newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore2"))];
+					newGore.velocity *= .4f;
+					newGore.timeLeft = 60;
+
 					for (int v = 0; v < 3; v++)
 					{
-						gore = Gore.NewGore(npc.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/SerrisXTransGore3"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
+						newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore3"))];
+						newGore.velocity *= .4f;
+						newGore.timeLeft = 60;
 					}
+
 					for (int num136 = 0; num136 < 20; num136++)
 					{
-						Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f, 0, default(Color), 1f);
+						Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
 					}
-					//Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
-					npc.position.X += (float)(npc.width / 2);
-					npc.position.Y += (float)(npc.height / 2);
+
+					npc.position.X += (npc.width / 2);
+					npc.position.Y += (npc.height / 2);
 					npc.width = 70;
 					npc.height = 70;
-					npc.position.X -= (float)(npc.width / 2);
-					npc.position.Y -= (float)(npc.height / 2);
-					
-					npc.localAI[0] = 2;
+					npc.position.X -= (npc.width / 2);
+					npc.position.Y -= (npc.height / 2);
+
+					extra_state = 0;
 					npc.localAI[1] = 0;
-					npc.localAI[2] = 0;
 					npc.localAI[3] = 100;
+					npc.netUpdate = true;
+					ai_state = SerrisState.CoreXState;
 				}
 				
-				npc.velocity.X = npc.velocity.X * 0.98f;
-				npc.velocity.Y = npc.velocity.Y * 0.98f;
-				if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
-				{
+				npc.velocity.X *= 0.98f;
+				npc.velocity.Y *= 0.98f;
+				if (npc.velocity.X > -0.1f && npc.velocity.X < 0.1f)
 					npc.velocity.X = 0f;
-				}
-				if ((double)npc.velocity.Y > -0.1 && (double)npc.velocity.Y < 0.1)
-				{
+				if (npc.velocity.Y > -0.1f && npc.velocity.Y < 0.1f)
 					npc.velocity.Y = 0f;
-				}
 			}
-			// core x phase
-			if(npc.localAI[0] == 2)
+
+			if (ai_state == SerrisState.CoreXState)
 			{
 				state = 5;
 				if(npc.life < (int)(npc.lifeMax * 0.1f))
@@ -405,7 +359,6 @@ namespace MetroidMod.NPCs.Serris
 				
 				if(npc.localAI[3] > 0)
 				{
-					//npc.dontTakeDamage = true;
 					npc.chaseable = false;
 					npc.position -= npc.velocity;
 					npc.velocity *= 0f;
@@ -415,7 +368,6 @@ namespace MetroidMod.NPCs.Serris
 				{
 					if(npc.localAI[1] == 0)
 					{
-						//npc.dontTakeDamage = false;
 						npc.chaseable = true;
 						if(npc.justHit)
 						{
@@ -435,7 +387,6 @@ namespace MetroidMod.NPCs.Serris
 					}
 					if(npc.localAI[1] == 2)
 					{
-						//npc.dontTakeDamage = true;
 						npc.chaseable = false;
 						npc.localAI[2]++;
 						if(npc.localAI[2] > 150)
@@ -447,12 +398,10 @@ namespace MetroidMod.NPCs.Serris
 					}
 					
 					if(Main.dayTime && (!Main.player[npc.target].dead || Main.player[npc.target].active))
-					{
 						npc.velocity.Y = npc.velocity.Y + 0.1f;
-					}
 				}
 			}
-			
+
 			if (npc.active && maxUpdates > 0)
 			{
 				numUpdates--;
@@ -471,136 +420,65 @@ namespace MetroidMod.NPCs.Serris
 			}
 			maxUpdates = 0;
 		}
+
 		public override bool? CanBeHitByItem(Player player, Item item)
 		{
-			return (npc.localAI[0] == 0 && npc.localAI[2] != 2) || (npc.localAI[0] == 2 && npc.localAI[1] != 2);
+			return (ai_state == SerrisState.NormalBehaviour && extra_state != 2) || (ai_state == SerrisState.CoreXState && npc.localAI[1] != 2);
 		}
 		public override bool? CanBeHitByProjectile(Projectile projectile)
 		{
-			return (npc.localAI[0] == 0 && npc.localAI[2] != 2) || (npc.localAI[0] == 2 && npc.localAI[1] != 2);
+			return (ai_state == SerrisState.NormalBehaviour && extra_state != 2) || (ai_state == SerrisState.CoreXState && npc.localAI[1] != 2);
 		}
-		int spriteDir = 1;
+
 		public override void PostAI()
 		{
-			if(npc.localAI[0] == 2)
-			{
+			if(ai_state == SerrisState.CoreXState)
 				npc.rotation = 0f;
-			}
 			else
-			{
-				if (npc.velocity.X > 0f)
-				{
-					spriteDir = 1;
-				}
-				if (npc.velocity.X < 0f)
-				{
-					spriteDir = -1;
-				}
-				npc.spriteDirection = spriteDir;
-			}
+				npc.spriteDirection = Math.Sign(npc.velocity.X);
 			
-			if(!npc.active)
-			{
-				if(soundInstance != null)
-				{
-					soundInstance.Stop(true);
-				}
-			}
+			if(!npc.active && soundInstance != null)
+				soundInstance.Stop(true);
 		}
-		public override void BossHeadSlot(ref int index)
-		{
-			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.SerrisHead + state);
-		}
-		public override void BossHeadRotation(ref float rotation)	
-		{
-			rotation = npc.rotation;
-		}
-		public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
-		{
-			spriteEffects = SpriteEffects.None;
-			if (spriteDir == 1)
-			{
-				spriteEffects = SpriteEffects.FlipHorizontally;
-			}
-		}
-		public override void BossLoot(ref string name, ref int potionType)
-		{
-			potionType = ItemID.HealingPotion;
-		}
-		public override void NPCLoot()
-		{
-			if (Main.expertMode)
-			{
-				npc.DropBossBags();
-			}
-			else
-			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisCoreX"));
-				if (Main.rand.Next(5) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisMusicBox"));
-				}
-				if (Main.rand.Next(7) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisMask"));
-				}
-				if (Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisTrophy"));
-				}
-			}
-		}
+
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (Main.netMode != 2)
+			if(ai_state == SerrisState.CoreXState)
 			{
-				if(npc.localAI[0] == 2)
+				for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
 				{
-					for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
+					int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 5, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
+					if (npc.life <= 0 && m % 2 == 0)
 					{
-						int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 5, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
-						if (npc.life <= 0 && m % 2 == 0)
-						{
-							Main.dust[dustID].noGravity = true;
-						}
+						Main.dust[dustID].noGravity = true;
 					}
 				}
-				if (npc.life <= 0)
-				{
-					int num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore1"), 1f);
-					Main.gore[num373].velocity *= 0.4f;
-					Main.gore[num373].timeLeft = 60;
-					Gore gore85 = Main.gore[num373];
-					gore85.velocity.X = gore85.velocity.X + 1f;
-					gore85.velocity.Y = gore85.velocity.Y + 1f;
-					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore2"), 1f);
-					Main.gore[num373].velocity *= 0.4f;
-					Main.gore[num373].timeLeft = 60;
-					Gore gore87 = Main.gore[num373];
-					gore87.velocity.X = gore87.velocity.X - 1f;
-					gore87.velocity.Y = gore87.velocity.Y + 1f;
-					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore3"), 1f);
-					Main.gore[num373].velocity *= 0.4f;
-					Main.gore[num373].timeLeft = 60;
-					Gore gore89 = Main.gore[num373];
-					gore89.velocity.X = gore89.velocity.X + 1f;
-					gore89.velocity.Y = gore89.velocity.Y - 1f;
-					num373 = Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/SerrisXGore4"), 1f);
-					Main.gore[num373].velocity *= 0.4f;
-					Main.gore[num373].timeLeft = 60;
-					Gore gore91 = Main.gore[num373];
-					gore91.velocity.X = gore91.velocity.X - 1f;
-					gore91.velocity.Y = gore91.velocity.Y - 1f;
+			}
+
+			if (npc.life <= 0)
+			{
+				Gore newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity *.4f, mod.GetGoreSlot("Gores/SerrisXGore1"))];
+				newGore.timeLeft = 60;
+				newGore.velocity += Vector2.One;
+
+				newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore2"))];
+				newGore.timeLeft = 60;
+				newGore.velocity += new Vector2(-1f, 1f);
+
+				newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore3"))];
+				newGore.timeLeft = 60;
+				newGore.velocity += new Vector2(1f, -1f);
+
+				newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore4"))];
+				newGore.timeLeft = 60;
+				newGore.velocity -= Vector2.One;
 					
-					if(soundInstance != null)
-					{
-						soundInstance.Stop(true);
-					}
-				}
+				if(soundInstance != null)
+					soundInstance.Stop(true);
 			}
 		}
 		
-		int sbFrame = 0;
+		public int sbFrame = 0;
 		int sbFrameCounter = 0;
 		int coreFrame = 0;
 		int coreFrameCounter = 0;
@@ -608,40 +486,26 @@ namespace MetroidMod.NPCs.Serris
 		int flashFrameCounter = 0;
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			if(npc.localAI[0] < 2)
+			if(ai_state <= SerrisState.Transforming)
 			{
 				Texture2D texHead = mod.GetTexture("NPCs/Serris/Serris_Head"),
-					texJaw = mod.GetTexture("NPCs/Serris/Serris_Jaw"),
-					texBody = mod.GetTexture("NPCs/Serris/Serris_Body"),
-					texFins = mod.GetTexture("NPCs/Serris/Serris_Fins"),
-					texTail = mod.GetTexture("NPCs/Serris/Serris_Tail");
-				Vector2 headOrig = new Vector2(34,31),
-					jawOrig1 = new Vector2(30,11),
-					jawOrig2 = new Vector2(34,1),
-					bodyOrig = new Vector2(32,35),
-					finsOrig = new Vector2(52,31),
-					tailOrig = new Vector2(28,29);
+					texJaw = mod.GetTexture("NPCs/Serris/Serris_Jaw");
+				Vector2 headOrig = new Vector2(34, 31),
+					jawOrig1 = new Vector2(30, 11),
+					jawOrig2 = new Vector2(34, 1);
 				int headHeight = texHead.Height / 15,
-					jawHeight = texJaw.Height / 5,
-					bodyHeight = texBody.Height / 10,
-					finsHeight = texFins.Height / 15,
-					tailHeight = texTail.Height / 15;
+					jawHeight = texJaw.Height / 5;
 				SpriteEffects effects = SpriteEffects.None;
-				if (spriteDir == -1)
+				if (npc.spriteDirection == -1)
 				{
 					effects = SpriteEffects.FlipVertically;
 					headOrig.Y = headHeight - headOrig.Y;
 					jawOrig1.Y = jawHeight - jawOrig1.Y;
 					jawOrig2.Y = jawHeight - jawOrig2.Y;
-					bodyOrig.Y = bodyHeight - bodyOrig.Y;
-					finsOrig.Y = finsHeight - finsOrig.Y;
-					tailOrig.Y = tailHeight - tailOrig.Y;
 				}
-				int frame = state-1;
+				int frame = state - 1;
 				if(state == 4)
-				{
-					frame = sbFrame+3;
-				}
+					frame = sbFrame + 3;
 				
 				sbFrameCounter++;
 				if(sbFrameCounter > 5)
@@ -655,74 +519,6 @@ namespace MetroidMod.NPCs.Serris
 				}
 				
 				float headRot = npc.rotation - 1.57f;
-				
-				for(int i = body.Length-1; i >= 0; i--)
-				{
-					if(body[i] != null && body[i].active)
-					{
-						Vector2 bpos = body[i].Center;
-						float bodyRot = body[i].rotation - 1.57f;
-						Color bodyColor = npc.GetAlpha(Lighting.GetColor((int)bpos.X / 16, (int)bpos.Y / 16));
-						if(i > 6)
-						{
-							int yFrame = frame * (tailHeight*3);
-							if(i == 8)
-							{
-								yFrame += tailHeight;
-							}
-							if(i == 9)
-							{
-								yFrame += tailHeight*2;
-							}
-							sb.Draw(texTail, bpos - Main.screenPosition, new Rectangle?(new Rectangle(0,yFrame,texTail.Width,tailHeight)), 
-							bodyColor, bodyRot, tailOrig, 1f, effects, 0f);
-						}
-						else
-						{
-							if(i == 0)
-							{
-								for(int j = 0; j < 3; j++)
-								{
-									int finFrame = finsHeight*j + frame*(finsHeight*3);
-									Vector2 finPos = new Vector2(4,-16);
-									float bodyRot2 = body[i+1].rotation - 1.57f;
-									Vector2 finRotPos = bodyRot.ToRotationVector2();
-									if (float.IsNaN(finRotPos.X) || float.IsNaN(finRotPos.Y))
-									{
-										finRotPos = -Vector2.UnitY;
-									}
-									if(j == 0)
-									{
-										finPos = new Vector2(-14,-14);
-										finRotPos = Vector2.Normalize(Vector2.Lerp(finRotPos,bodyRot2.ToRotationVector2(),0.5f));
-									}
-									if(j == 2)
-									{
-										finPos = new Vector2(20,-16);
-										finRotPos = Vector2.Normalize(Vector2.Lerp(finRotPos,headRot.ToRotationVector2(),0.5f));
-									}
-									if(spriteDir == -1)
-									{
-										finPos.Y *= -1;
-									}
-									float finRot = finRotPos.ToRotation();
-									finRot += (((float)Math.PI/16) - ((float)Math.PI/8)*(1f - mouthFrame))*0.5f * spriteDir;
-									float finPosRot = finPos.ToRotation() + bodyRot;
-									Vector2 finalFinPos = body[i].Center + finPosRot.ToRotationVector2() * finPos.Length();
-									sb.Draw(texFins, finalFinPos - Main.screenPosition, new Rectangle?(new Rectangle(0,finFrame,texFins.Width,finsHeight)), 
-									bodyColor, finRot, finsOrig, 1f, effects, 0f);
-								}
-							}
-							int yFrame = frame * (bodyHeight*2);
-							if(i > 1)
-							{
-								yFrame += bodyHeight;
-							}
-							sb.Draw(texBody, bpos - Main.screenPosition, new Rectangle?(new Rectangle(0,yFrame,texBody.Width,bodyHeight)), 
-							bodyColor, bodyRot, bodyOrig, 1f, effects, 0f);
-						}
-					}
-				}
 				
 				Color headColor = npc.GetAlpha(Lighting.GetColor((int)npc.Center.X / 16, (int)npc.Center.Y / 16));
 				Vector2 jawOrig = Vector2.Lerp(jawOrig1,jawOrig2,mouthFrame);
@@ -789,5 +585,48 @@ namespace MetroidMod.NPCs.Serris
 			
 			return false;
 		}
-    }
+
+
+		public override void BossHeadSlot(ref int index)
+		{
+			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.SerrisHead + state);
+		}
+		public override void BossHeadRotation(ref float rotation)
+		{
+			rotation = npc.rotation;
+		}
+		public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
+		{
+			spriteEffects = SpriteEffects.None;
+			if (npc.spriteDirection == 1)
+				spriteEffects = SpriteEffects.FlipHorizontally;
+		}
+		public override void BossLoot(ref string name, ref int potionType)
+		{
+			potionType = ItemID.HealingPotion;
+		}
+		public override void NPCLoot()
+		{
+			if (Main.expertMode)
+			{
+				npc.DropBossBags();
+			}
+			else
+			{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisCoreX"));
+				if (Main.rand.Next(5) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisMusicBox"));
+				}
+				if (Main.rand.Next(7) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisMask"));
+				}
+				if (Main.rand.Next(10) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SerrisTrophy"));
+				}
+			}
+		}
+	}
 }
