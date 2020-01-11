@@ -76,11 +76,8 @@ namespace MetroidMod.NPCs.Kraid
 			}
 		}
 
-		internal int state
-		{
-			get { return 3 - (npc.life * 3 / npc.lifeMax); }
-		}
 
+		int state = 0;
 		bool mouthOpen = false;
 		int moveCounter = 0;
 		int headAnim = 1;
@@ -119,6 +116,13 @@ namespace MetroidMod.NPCs.Kraid
 
 		public override void AI()
 		{
+			if (npc.life < (int)(npc.lifeMax * 0.75f))
+				state = 1;
+			if (npc.life < (int)(npc.lifeMax * 0.5f))
+				state = 2;
+			if (npc.life < (int)(npc.lifeMax * 0.25f))
+				state = 3;
+
 			npc.TargetClosest(true);
 			Player player = Main.player[npc.target];
 			if (!player.dead)
