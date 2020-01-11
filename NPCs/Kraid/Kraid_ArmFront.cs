@@ -128,17 +128,21 @@ namespace MetroidMod.NPCs.Kraid
 				float speed = 4f;
 				Vector2 clawVel = new Vector2((float)Math.Cos(trot)*speed,(float)Math.Sin(trot)*speed);
 
-				for(int i = 0; i < 2; i++)
+				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					int spread = 15;
-					float spreadMult = 0.05f;
-					float vX = clawVel.X+(float)Main.rand.Next(-spread,spread+1) * spreadMult;
-					float vY = clawVel.Y+(float)Main.rand.Next(-spread,spread+1) * spreadMult;
-				 
-					int c = NPC.NewNPC((int)clawPos.X,(int)clawPos.Y,mod.NPCType("KraidClaw"),npc.whoAmI);
-					Main.npc[c].position.Y += (float)Main.npc[c].height/2;
-					Main.npc[c].velocity = new Vector2(vX,vY);
-					Main.npc[c].direction = Head.direction;
+					for (int i = 0; i < 2; i++)
+					{
+						int spread = 15;
+						float spreadMult = 0.05f;
+						float vX = clawVel.X + Main.rand.Next(-spread, spread + 1) * spreadMult;
+						float vY = clawVel.Y + Main.rand.Next(-spread, spread + 1) * spreadMult;
+
+						int c = NPC.NewNPC((int)clawPos.X, (int)clawPos.Y, mod.NPCType("KraidClaw"), npc.whoAmI);
+						Main.npc[c].position.Y += (float)Main.npc[c].height / 2;
+						Main.npc[c].velocity = new Vector2(vX, vY);
+						Main.npc[c].direction = Head.direction;
+						Main.npc[c].netUpdate = true;
+					}
 				}
 			}
 			
