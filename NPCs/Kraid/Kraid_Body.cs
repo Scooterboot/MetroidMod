@@ -73,34 +73,36 @@ namespace MetroidMod.NPCs.Kraid
 			npc.Center = Head.Center + new Vector2(29*Head.direction,223);
 			npc.velocity *= 0f;
 			
-			npc.ai[1]++;
-			if(npc.ai[1] >= 180)
+			if(++npc.ai[1] >= 180 && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int spike1 = Projectile.NewProjectile(npc.Center.X+(126*Head.direction),npc.Center.Y+59,4f*Head.direction,0f,mod.ProjectileType("KraidBellySpike"),npc.damage/2,4f);
-				Main.projectile[spike1].ai[0] = Head.whoAmI;
-				Main.projectile[spike1].ai[1] = Head.target;
-				Main.projectile[spike1].spriteDirection = Head.direction;
-				Main.projectile[spike1].frame = state;
+				int spike = Projectile.NewProjectile(npc.Center.X+(126*Head.direction),npc.Center.Y+59,4f*Head.direction,0f,mod.ProjectileType("KraidBellySpike"),npc.damage/2,4f);
+				Main.projectile[spike].ai[0] = Head.whoAmI;
+				Main.projectile[spike].ai[1] = Head.target;
+				Main.projectile[spike].spriteDirection = Head.direction;
+				Main.projectile[spike].frame = state;
+				Main.projectile[spike].netUpdate = true;
 				npc.ai[1] = 0;
 			}
-			npc.ai[2]++;
-			if(npc.ai[2] >= 300)
+			if(++npc.ai[2] >= 300 && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int spike2 = Projectile.NewProjectile(npc.Center.X+(126*Head.direction),npc.Center.Y-19,4f*Head.direction,0f,mod.ProjectileType("KraidBellySpike"),npc.damage/2,4f);
-				Main.projectile[spike2].ai[0] = Head.whoAmI;
-				Main.projectile[spike2].ai[1] = Head.target;
-				Main.projectile[spike2].spriteDirection = Head.direction;
-				Main.projectile[spike2].frame = state;
+				int spike = Projectile.NewProjectile(npc.Center.X+(126*Head.direction),npc.Center.Y-19,4f*Head.direction,0f,mod.ProjectileType("KraidBellySpike"),npc.damage/2,4f);
+				Main.projectile[spike].ai[0] = Head.whoAmI;
+				Main.projectile[spike].ai[1] = Head.target;
+				Main.projectile[spike].spriteDirection = Head.direction;
+				Main.projectile[spike].frame = state;
+
+				npc.netUpdate = true;
 				npc.ai[2] = Main.rand.Next(state*40,121);
 			}
-			npc.ai[3]++;
-			if(npc.ai[3] >= 420)
+			if(++npc.ai[3] >= 420 && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int spike3 = Projectile.NewProjectile(npc.Center.X+(102*Head.direction),npc.Center.Y-87,4f*Head.direction,0f,mod.ProjectileType("KraidBellySpike"),npc.damage/2,4f);
-				Main.projectile[spike3].ai[0] = Head.whoAmI;
-				Main.projectile[spike3].ai[1] = Head.target;
-				Main.projectile[spike3].spriteDirection = Head.direction;
-				Main.projectile[spike3].frame = state;
+				int spike = Projectile.NewProjectile(npc.Center.X+(102*Head.direction),npc.Center.Y-87,4f*Head.direction,0f,mod.ProjectileType("KraidBellySpike"),npc.damage/2,4f);
+				Main.projectile[spike].ai[0] = Head.whoAmI;
+				Main.projectile[spike].ai[1] = Head.target;
+				Main.projectile[spike].spriteDirection = Head.direction;
+				Main.projectile[spike].frame = state;
+
+				npc.netUpdate = true;
 				npc.ai[3] = Main.rand.Next(state*80,241);
 			}
 

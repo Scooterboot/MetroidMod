@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace MetroidMod.NPCs.Kraid
 {
@@ -75,7 +76,10 @@ namespace MetroidMod.NPCs.Kraid
 			}
 		}
 
-		int state = 0;
+		internal int state
+		{
+			get { return 3 - (npc.life * 3 / npc.lifeMax); }
+		}
 
 		bool mouthOpen = false;
 		int moveCounter = 0;
@@ -84,30 +88,24 @@ namespace MetroidMod.NPCs.Kraid
 		int roarAnim = 1;
 		int direction = 1;
 
-		NPC Body, ArmFront, ArmBack;
+		private int _body, _armFront, _armBack;
+		NPC Body
+		{
+			get { return Main.npc[_body]; }
+		}
+		NPC ArmFront
+		{
+			get { return Main.npc[_armFront]; }
+		}
+		NPC ArmBack
+		{
+			get { return Main.npc[_armBack]; }
+		}
 
 		public override int SpawnNPC(int tileX, int tileY)
 		{
 			npc.direction = 1;
 			npc.spriteDirection = 1;
-
-			int b = NPC.NewNPC((int)(npc.position.X + 29*npc.direction),(int)(npc.position.Y+223),mod.NPCType("Kraid_Body"),npc.whoAmI);
-			Body = Main.npc[b];
-			Body.position += new Vector2(0,(float)Body.height/2);
-			Body.realLife = npc.whoAmI;
-			Body.ai[0] = npc.whoAmI;
-
-			int af = NPC.NewNPC((int)(npc.position.X + 42*npc.direction),(int)(npc.position.Y+131),mod.NPCType("Kraid_ArmFront"),npc.whoAmI);
-			ArmFront = Main.npc[af];
-			ArmFront.position += new Vector2(0,(float)ArmFront.height/2);
-			ArmFront.realLife = npc.whoAmI;
-			ArmFront.ai[0] = npc.whoAmI;
-
-			int ab = NPC.NewNPC((int)(npc.position.X + 234*npc.direction),(int)(npc.position.Y+79),mod.NPCType("Kraid_ArmBack"),npc.whoAmI);
-			ArmBack = Main.npc[ab];
-			ArmBack.position += new Vector2((float)ArmBack.width/2,(float)ArmBack.height);
-			ArmBack.realLife = npc.whoAmI;
-			ArmBack.ai[0] = npc.whoAmI;
 
 			int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
 			int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
@@ -115,26 +113,12 @@ namespace MetroidMod.NPCs.Kraid
 			int num12 = (int)(Main.player[npc.target].position.X / 16f) + spawnRangeX;
 			int num13 = (int)(Main.player[npc.target].position.Y / 16f) - spawnRangeY;
 			int num14 = (int)(Main.player[npc.target].position.Y / 16f) + spawnRangeY;
-
-			return NPC.NewNPC((int)MathHelper.Clamp(tileX,num11,num12) * 16 + 8, (int)MathHelper.Clamp(tileY,num13,num14) * 16, this.npc.type, 0, 0f, 0f, 0f, 0f, 255);
+			Main.NewText("Spawning Kraid!");
+			return NPC.NewNPC((int)MathHelper.Clamp(tileX,num11,num12) * 16 + 8, (int)MathHelper.Clamp(tileY,num13,num14) * 16, npc.type);
 		}
 
 		public override void AI()
 		{
-			state = 0;
-			if(npc.life < (int)(npc.lifeMax*0.75f))
-			{
-				state = 1;
-			}
-			if(npc.life < (int)(npc.lifeMax*0.5f))
-			{
-				state = 2;
-			}
-			if(npc.life < (int)(npc.lifeMax*0.25f))
-			{
-				state = 3;
-			}
-
 			npc.TargetClosest(true);
 			Player player = Main.player[npc.target];
 			if (!player.dead)
@@ -151,30 +135,31 @@ namespace MetroidMod.NPCs.Kraid
 				}
 			}
 
-			if(Body == null || !Body.active)
+			// Just spawned, spawn limbs.
+			if (Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int b = NPC.NewNPC((int)(npc.position.X + 29*npc.direction),(int)(npc.position.Y+223),mod.NPCType("Kraid_Body"),npc.whoAmI);
-				Body = Main.npc[b];
-				Body.position += new Vector2(0,(float)Body.height/2);
-				Body.realLife = npc.whoAmI;
-				Body.ai[0] = npc.whoAmI;
+				if (npc.ai[3] == 0)
+				{					
+					_body = NPC.NewNPC((int)(npc.position.X + 29 * npc.direction), (int)(npc.position.Y + 223), mod.NPCType("Kraid_Body"), npc.whoAmI);
+					Body.position += new Vector2(0, (float)Body.height / 2);
+					Body.realLife = npc.whoAmI;
+					Body.ai[0] = npc.whoAmI;
+
+					_armFront = NPC.NewNPC((int)(npc.position.X + 42 * npc.direction), (int)(npc.position.Y + 131), mod.NPCType("Kraid_ArmFront"), npc.whoAmI);
+					ArmFront.position += new Vector2(0, (float)ArmFront.height / 2);
+					ArmFront.realLife = npc.whoAmI;
+					ArmFront.ai[0] = npc.whoAmI;
+
+					_armBack = NPC.NewNPC((int)(npc.position.X + 234 * npc.direction), (int)(npc.position.Y + 79), mod.NPCType("Kraid_ArmBack"), npc.whoAmI);
+					ArmBack.position += new Vector2((float)ArmBack.width / 2, (float)ArmBack.height);
+					ArmBack.realLife = npc.whoAmI;
+					ArmBack.ai[0] = npc.whoAmI;
+
+					npc.ai[3] = 1;
+					Body.netUpdate = ArmFront.netUpdate = ArmBack.netUpdate = true;
+				}
 			}
-			if(ArmFront == null || !ArmFront.active)
-			{
-				int af = NPC.NewNPC((int)(npc.position.X + 42*npc.direction),(int)(npc.position.Y+131),mod.NPCType("Kraid_ArmFront"),npc.whoAmI);
-				ArmFront = Main.npc[af];
-				ArmFront.position += new Vector2(0,(float)ArmFront.height/2);
-				ArmFront.realLife = npc.whoAmI;
-				ArmFront.ai[0] = npc.whoAmI;
-			}
-			if(ArmBack == null || !ArmBack.active)
-			{
-				int ab = NPC.NewNPC((int)(npc.position.X + 234*npc.direction),(int)(npc.position.Y+79),mod.NPCType("Kraid_ArmBack"),npc.whoAmI);
-				ArmBack = Main.npc[ab];
-				ArmBack.position += new Vector2((float)ArmBack.width/2,(float)ArmBack.height);
-				ArmBack.realLife = npc.whoAmI;
-				ArmBack.ai[0] = npc.whoAmI;
-			}
+
 			npc.ai[1]++;
 			if(npc.ai[1] >= 180 || npc.frameCounter > 0 || npc.frame.Y > 0 || roarCounter > 0 || mouthOpen)
 			{
@@ -302,15 +287,15 @@ namespace MetroidMod.NPCs.Kraid
 			}
 			if(npc.ai[2] > 200)
 			{
-				if(ArmBack.ai[1] <= 0)
+				if(ArmBack != null && ArmBack.ai[1] <= 0)
 				{
 					ArmBack.ai[1]++;
 				}
 				npc.ai[2] = 0;
 			}
 
-			int num897 = 64;
-			Vector2 position3 = new Vector2(Body.position.X, Body.position.Y + (float)Body.height - (float)num897);
+			int heightOffset = 64;
+			Vector2 position3 = new Vector2(Body.position.X, Body.position.Y + Body.height - heightOffset);
 			//if (npc.position.X < player.position.X && npc.position.X + (float)npc.width > player.position.X + (float)player.width && npc.position.Y + (float)npc.height < player.position.Y + (float)player.height - 16f)
 			if(player.position.Y > npc.position.Y+npc.height && Collision.SolidCollision(npc.position, npc.width, npc.height))
 			{
@@ -338,7 +323,7 @@ namespace MetroidMod.NPCs.Kraid
 				for(int i = 0; i < 20; i++)
 				{
 					Vector2 position4 = new Vector2(Body.position.X+((Body.width/20)*i),position3.Y);
-					if(Collision.SolidCollision(position4, Body.width/20, num897))
+					if(Collision.SolidCollision(position4, Body.width/20, heightOffset))
 					{
 						numTiles++;
 					}
@@ -421,13 +406,13 @@ namespace MetroidMod.NPCs.Kraid
 		}
 		public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
 		{
-			damage += (int)((float)(npc.defense*0.95f)*0.5f);
+			damage += (int)(npc.defense * 0.95f * 0.5f);
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			if(mouthOpen && projectile.Center.Y > npc.position.Y && ((npc.direction == 1 && projectile.Center.X >= npc.Center.X) || (npc.direction == -1 && projectile.Center.X <= npc.Center.X)))
 			{
-				damage += (int)((float)(npc.defense*0.95f)*0.5f);
+				damage += (int)(npc.defense * 0.95f * 0.5f);
 			}
 		}
 		
@@ -487,7 +472,6 @@ namespace MetroidMod.NPCs.Kraid
 		Vector2 bLegPos = new Vector2(8f,0f);
 		Vector2 fLegPos = new Vector2(-8f,0f);
 		int currentLeg = 1;
-		int legAnim = 1;
 
 		Vector2 bLegPrevPos = new Vector2(8f,0f);
 		Vector2 fLegPrevPos = new Vector2(-8f,0f);
@@ -631,7 +615,7 @@ namespace MetroidMod.NPCs.Kraid
 				int dust = Dust.NewDust(new Vector2(pos.X-76f,pos.Y), 152, 4, 30, 0, 0, 100, default(Color), 2f);
 				Main.dust[dust].noGravity = true;
 			}
-			Main.PlaySound(2,(int)Body.Center.X,(int)Body.Center.Y,62);
+			Main.PlaySound(2, (int)Body.Center.X, (int)Body.Center.Y,62, .5f);
 
 			fullAnim = 6;
 			fullOffset.Y = 2f;
@@ -700,6 +684,9 @@ namespace MetroidMod.NPCs.Kraid
 				texArmBack = mod.GetTexture("NPCs/Kraid/Kraid_ArmBack_"+state);
 			}
 
+
+			if (Body == null || ArmBack == null || ArmFront == null)
+				return (false);
 
 			Vector2 backArm1Pos = npc.Center + new Vector2(37*npc.direction,40) + (ArmBack.Center-(npc.Center+new Vector2(234*npc.direction,79)))*0.25f;
 			sb.Draw(texArm1,backArm1Pos + fullOffset - Main.screenPosition,new Rectangle?(new Rectangle(0,0,texArm1.Width,texArm1.Height)),alpha2,0f,new Vector2(texArm1.Width/2,texArm1.Height/2),1f,effects,0f);
@@ -860,15 +847,15 @@ namespace MetroidMod.NPCs.Kraid
 						tile7 = Main.tile[m+1,n],
 						tile8 = Main.tile[m+1,n-1],
 						tile9 = Main.tile[m+1,n+1];
-					if (tile1.active() && Main.tileSolid[(int)tile1.type] && !Main.tileSolidTop[(int)tile1.type] &&
-						tile2.active() && Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type] &&
-						tile3.active() && Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type] &&
-						tile4.active() && Main.tileSolid[(int)tile4.type] && !Main.tileSolidTop[(int)tile4.type] &&
-						tile5.active() && Main.tileSolid[(int)tile5.type] && !Main.tileSolidTop[(int)tile5.type] &&
-						tile6.active() && Main.tileSolid[(int)tile6.type] && !Main.tileSolidTop[(int)tile6.type] &&
-						tile7.active() && Main.tileSolid[(int)tile7.type] && !Main.tileSolidTop[(int)tile7.type] &&
-						tile8.active() && Main.tileSolid[(int)tile8.type] && !Main.tileSolidTop[(int)tile8.type] &&
-						tile9.active() && Main.tileSolid[(int)tile9.type] && !Main.tileSolidTop[(int)tile9.type])
+					if (tile1 != null && tile1.active() && Main.tileSolid[(int)tile1.type] && !Main.tileSolidTop[(int)tile1.type] &&
+						tile2 != null && tile2.active() && Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type] &&
+						tile3 != null && tile3.active() && Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type] &&
+						tile4 != null && tile4.active() && Main.tileSolid[(int)tile4.type] && !Main.tileSolidTop[(int)tile4.type] &&
+						tile5 != null && tile5.active() && Main.tileSolid[(int)tile5.type] && !Main.tileSolidTop[(int)tile5.type] &&
+						tile6 != null && tile6.active() && Main.tileSolid[(int)tile6.type] && !Main.tileSolidTop[(int)tile6.type] &&
+						tile7 != null && tile7.active() && Main.tileSolid[(int)tile7.type] && !Main.tileSolidTop[(int)tile7.type] &&
+						tile8 != null && tile8.active() && Main.tileSolid[(int)tile8.type] && !Main.tileSolidTop[(int)tile8.type] &&
+						tile9 != null && tile9.active() && Main.tileSolid[(int)tile9.type] && !Main.tileSolidTop[(int)tile9.type])
 					{
 						sb.Draw(rect,new Rectangle(m*16-(int)Main.screenPosition.X,n*16-(int)Main.screenPosition.Y,16,16),Color.Black);
 					}
@@ -890,6 +877,7 @@ namespace MetroidMod.NPCs.Kraid
 		{
 			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.KraidHead + state);
 		}
+
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			if (Main.netMode != 2)
@@ -902,74 +890,15 @@ namespace MetroidMod.NPCs.Kraid
 						Main.dust[dustID].noGravity = true;
 					}
 				}
+
 				if (npc.life <= 0)
 				{
+					int[] mapped_gore = new int[12] { 4, 5, 7, 9, 0, 8, 3, 2, 1, 4, 5, 6 };
 					for(int i = 0; i < gorePosition.Length; i++)
 					{
-						string goreindex = "Gores/KraidGore1";
-						switch(i)
-						{
-							case 0:
-							{
-								goreindex = "Gores/KraidGore4";
-								break;
-							}
-							case 1:
-							{
-								goreindex = "Gores/KraidGore5";
-								break;
-							}
-							case 2:
-							{
-								goreindex = "Gores/KraidGore7";
-								break;
-							}
-							case 3:
-							{
-								goreindex = "Gores/KraidGore9";
-								break;
-							}
-							case 4:
-							{
-								goreindex = "";
-								break;
-							}
-							case 5:
-							{
-								goreindex = "Gores/KraidGore8";
-								break;
-							}
-							case 6:
-							{
-								goreindex = "Gores/KraidGore3";
-								break;
-							}
-							case 7:
-							{
-								goreindex = "Gores/KraidGore2";
-								break;
-							}
-							case 8:
-							{
-								goreindex = "Gores/KraidGore1";
-								break;
-							}
-							case 9:
-							{
-								goreindex = "Gores/KraidGore4";
-								break;
-							}
-							case 10:
-							{
-								goreindex = "Gores/KraidGore5";
-								break;
-							}
-							case 11:
-							{
-								goreindex = "Gores/KraidGore6";
-								break;
-							}
-						}
+						if (i == 4) continue;
+
+						string goreindex = "Gores/KraidGore" + mapped_gore[i];
 						int gore = Gore.NewGore(gorePosition[i],new Vector2(Main.rand.Next(-5,5),Main.rand.Next(-5,5)),mod.GetGoreSlot(goreindex),1f);
 						Main.gore[gore].timeLeft = 30;
 						Main.gore[gore].rotation = 0;
@@ -988,6 +917,19 @@ namespace MetroidMod.NPCs.Kraid
 					Main.PlaySound(2,(int)npc.position.X,(int)npc.position.Y,14);*/
 				}
 			}
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write((byte)this._body);
+			writer.Write((byte)this._armBack);
+			writer.Write((byte)this._armFront);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			this._body = reader.ReadByte();
+			this._armBack = reader.ReadByte();
+			this._armFront = reader.ReadByte();
 		}
 	}
 }

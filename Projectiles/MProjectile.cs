@@ -53,11 +53,11 @@ namespace MetroidMod.Projectiles
 			{
 				if(projectile.Name.Contains("Ice"))
 				{
-					target.AddBuff(44,300,true);
+					target.AddBuff(44,300);
 				}
 				else
 				{
-					target.AddBuff(24,300,true);
+					target.AddBuff(24,300);
 				}
 			}
 			
@@ -65,11 +65,11 @@ namespace MetroidMod.Projectiles
 			{
 				if(projectile.Name.Contains("Ice"))
 				{
-					target.AddBuff(44,300,true);
+					target.AddBuff(44,300);
 				}
 				else
 				{
-					target.AddBuff(39,300,true);
+					target.AddBuff(39,300);
 				}
 			}
 			if(projectile.Name.Contains("Ice") || projectile.Name.Contains("Stardust"))
@@ -78,12 +78,12 @@ namespace MetroidMod.Projectiles
 				if(projectile.Name.Contains("Missile"))
 					buffName = "InstantFreeze";
 
-				target.AddBuff(mod.BuffType(buffName), 300, false);
+				target.AddBuff(mod.BuffType(buffName), 300);
 			}
 			
 			if(projectile.Name.Contains("Solar"))
 			{
-				target.AddBuff(189,300,true);
+				target.AddBuff(189,300);
 			}
 			
 			if(projectile.penetrate > 1)

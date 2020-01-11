@@ -443,7 +443,7 @@ namespace MetroidMod
 			{
 				if(TouchTiles(player.position, player.width, player.height, mod.TileType("PhazonTile")))
 				{
-					player.AddBuff(mod.BuffType("PhazonDebuff"), 2, true);
+					player.AddBuff(mod.BuffType("PhazonDebuff"), 2);
 				}
 			}
 			else
