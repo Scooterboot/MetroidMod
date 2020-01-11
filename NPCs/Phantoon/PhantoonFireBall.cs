@@ -43,6 +43,7 @@ namespace MetroidMod.NPCs.Phantoon
 			npc.noTileCollide = true;
 			npc.noGravity = true;
 		}
+
 		int damage = 66;
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -58,6 +59,9 @@ namespace MetroidMod.NPCs.Phantoon
 			{
 				startPos = npc.Center;
 				initialized = true;
+
+				// Play the spawn sound for the newly spawned NPC.
+				Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/PhantoonFire"));
 			}
 			return true;
 		}
@@ -70,15 +74,25 @@ namespace MetroidMod.NPCs.Phantoon
 		int timeLeft = 300;
 		public override void AI()
 		{
-			Player player = Main.player[npc.target];
 			NPC creator = Main.npc[(int)npc.ai[0]];
+			Player player = Main.player[npc.target];
 
-			if(npc.ai[1] == -1) // phantoon spawn animation behavior
+			// Phantoon spawn animation behavior
+			if (npc.ai[1] == -1)
 			{
 				npc.active = creator.active;
+
+				// Imported from original Phantoon code.
+				if (creator.ai[0] > 300)
+				{
+					npc.ai[3] = 1;
+					if (creator.ai[0] > 460)
+						npc.ai[3] = 2;
+				}
+
 				if(npc.ai[3] == 1 || npc.ai[3] == 2)
 				{
-					npc.ai[2] += (float)Math.PI/120;
+					npc.ai[2] += (float)Math.PI / 120;
 					
 					if(npc.ai[3] == 2)
 					{
@@ -90,7 +104,7 @@ namespace MetroidMod.NPCs.Phantoon
 					dist = 120;
 				}
 				
-				npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2])*dist,(float)Math.Sin(npc.ai[2])*dist);
+				npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2]) * dist, (float)Math.Sin(npc.ai[2]) * dist);
 				
 				if(dist <= 10f)
 				{
@@ -135,7 +149,8 @@ namespace MetroidMod.NPCs.Phantoon
 				}
 			}
 
-			if(npc.ai[1] == 0) // basic bounce behavior
+			// Basic bounce behavior
+			if (npc.ai[1] == 0)
 			{
 				npc.noTileCollide = false;
 				
@@ -169,11 +184,12 @@ namespace MetroidMod.NPCs.Phantoon
 							}
 							bounceCounter++;
 						}
-						if(bounceCounter > 10)
+						if(bounceCounter > 10 && Main.netMode != NetmodeID.MultiplayerClient)
 						{
-							npc.velocity.X = (10-Main.rand.Next(21))/2;
-							npc.velocity.Y = -(3+Main.rand.Next(4));
 							bounced = true;
+							npc.netUpdate = true;
+							npc.velocity.Y = -(3 + Main.rand.Next(4));
+							npc.velocity.X = (10 - Main.rand.Next(21)) / 2;
 						}
 					}
 					else
@@ -213,17 +229,17 @@ namespace MetroidMod.NPCs.Phantoon
 					currentFrame = 0;
 				}
 
-				float targetRot = (float)Math.Atan2(player.Center.Y-npc.Center.Y,player.Center.X-npc.Center.X);
+				float targetRot = (float)Math.Atan2(player.Center.Y - npc.Center.Y, player.Center.X - npc.Center.X);
 				if(npc.ai[3] < 30)
 				{
 					if(creator.active)
 					{
-						npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2])*dist,(float)Math.Sin(npc.ai[2])*dist);
 						startPos = creator.Center;
+						npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2]) * dist,(float)Math.Sin(npc.ai[2]) * dist);
 					}
 					else
 					{
-						npc.Center = startPos + new Vector2((float)Math.Cos(npc.ai[2])*dist,(float)Math.Sin(npc.ai[2])*dist);
+						npc.Center = startPos + new Vector2((float)Math.Cos(npc.ai[2]) * dist,(float)Math.Sin(npc.ai[2]) * dist);
 					}
 					
 					if(dist < 120)
@@ -245,7 +261,6 @@ namespace MetroidMod.NPCs.Phantoon
 				else
 				{
 					frameSet = 3;
-					//npc.dontTakeDamage = false;
 					npc.damage = damage;
 					//npc.velocity += targetRot.ToRotationVector2()*0.2f;
 				}
@@ -253,30 +268,31 @@ namespace MetroidMod.NPCs.Phantoon
 				npc.frame.Y = currentFrame + frameSet;
 			}
 
-			if(npc.ai[1] == 2) // super fireball
+			// Super fireball
+			if (npc.ai[1] == 2)
 			{
-				npc.dontTakeDamage = false;
 				npc.damage = damage;
-				float targetRot = (float)Math.Atan2(player.Center.Y-npc.Center.Y,player.Center.X-npc.Center.X);
+				npc.dontTakeDamage = false;
+				float targetRot = (float)Math.Atan2(player.Center.Y - npc.Center.Y, player.Center.X - npc.Center.X);
+
 				if(npc.ai[2] == 0f)
 				{
-					for(int i = 0; i < 4; i++)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						int fb = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("PhantoonFireBall"),npc.whoAmI);
-						Main.npc[fb].target = npc.target;
-						Main.npc[fb].ai[0] = npc.whoAmI;
-						Main.npc[fb].ai[1] = 3;
-						Main.npc[fb].ai[2] = (((float)Math.PI/2)*i);
+						for (int i = 0; i < 4; i++)
+						{
+							NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("PhantoonFireBall"), npc.whoAmI, npc.whoAmI, 3, (float)Math.PI / 2 * i);
+						}
 					}
-					npc.velocity = targetRot.ToRotationVector2();
 					npc.ai[2] = 1f;
+					npc.velocity = targetRot.ToRotationVector2();
 				}
 				else
 				{
 					if(npc.velocity.Length() < 16)
 					{
 						npc.velocity *= 1.025f;
-						if(Vector2.Distance(player.Center,npc.Center) <= 600)
+						if(Vector2.Distance(player.Center, npc.Center) <= 600)
 						{
 							npc.velocity += targetRot.ToRotationVector2()*0.5f;
 						}
@@ -295,13 +311,14 @@ namespace MetroidMod.NPCs.Phantoon
 				}
 			}
 
-			if(npc.ai[1] == 3) // super fireball #2
+			// Super fireball #2
+			if (npc.ai[1] == 3)
 			{
 				if(creator.type == npc.type && creator.active && creator.ai[1] == 2)
 				{
-					npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2])*28,(float)Math.Sin(npc.ai[2])*28) - creator.velocity;
+					npc.Center = creator.Center + new Vector2((float)Math.Cos(npc.ai[2]) * 28, (float)Math.Sin(npc.ai[2]) * 28) - creator.velocity;
 					npc.velocity = creator.velocity;
-					npc.ai[2] += (float)Math.PI/60;
+					npc.ai[2] += (float)Math.PI / 60;
 					
 					npc.frameCounter++;
 					if(npc.frameCounter > 4)
@@ -325,16 +342,16 @@ namespace MetroidMod.NPCs.Phantoon
 				}
 			}
 
-			if(npc.ai[1] == 4) // behavior for when phantoon opens his eye
+			// Behavior for when phantoon opens his eye
+			if (npc.ai[1] == 4)
 			{
-				npc.Center = startPos + new Vector2((float)Math.Cos(npc.ai[2])*dist,(float)Math.Sin(npc.ai[2])*dist);
+				npc.Center = startPos + new Vector2((float)Math.Cos(npc.ai[2]) * dist, (float)Math.Sin(npc.ai[2]) * dist);
 				dist += 8f;
 				npc.ai[2] += (float)Math.PI/60;
 				
-				npc.dontTakeDamage = false;
 				npc.damage = damage;
-				npc.frameCounter++;
-				if(npc.frameCounter > 4)
+				npc.dontTakeDamage = false;
+				if(npc.frameCounter++ > 4)
 				{
 					npc.frame.Y++;
 					npc.frameCounter = 0;
@@ -348,10 +365,11 @@ namespace MetroidMod.NPCs.Phantoon
 			float num = (255f - npc.alpha) / 255f;
 			Lighting.AddLight(npc.Center, 0f,0.75f*num,1f*num);
 		}
+
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
 			Texture2D tex = Main.npcTexture[npc.type];
-			int texH = (tex.Height/7);
+			int texH = (tex.Height / 7);
 			sb.Draw(tex,npc.Center - Main.screenPosition,new Rectangle?(new Rectangle(0,texH*npc.frame.Y,tex.Width,texH)),npc.GetAlpha(Color.White),0f,new Vector2(tex.Width/2,texH-(npc.height/2)-1),1f,SpriteEffects.None,0f);
 			return false;
 		}
