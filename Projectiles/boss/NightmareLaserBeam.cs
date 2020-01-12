@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -41,7 +42,8 @@ namespace MetroidMod.Projectiles.boss
 		{
 			NPC Head = Main.npc[(int)projectile.ai[0]];
 			NPC Arm = Main.npc[(int)projectile.ai[1]];
-			if(Head != null && Head.active && Arm != null && Arm.active)
+
+			if (Head != null && Head.active && Arm != null && Arm.active)
 			{
 				laserPos = Arm.Center + new Vector2(17*Head.direction,15);
 				if(Arm.ai[1] == 1)
@@ -71,7 +73,7 @@ namespace MetroidMod.Projectiles.boss
 				projectile.Center = laserPos;
 				projectile.velocity.X = Math.Sign(player.Center.X - projectile.Center.X);
 				projectile.velocity.Y = 0f;
-				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) - (float)(Math.PI/2);
+				projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) - (float)(Math.PI/2);
 				projectile.localAI[1] = distance;
 				
 				if(delay <= 10)
@@ -106,12 +108,9 @@ namespace MetroidMod.Projectiles.boss
 				Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width, DelegateMethods.CastLight);
 			}
 			else
-			{
 				projectile.Kill();
-			}
 		}
 
-		bool drawFlag = false;
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
 			Color color45 = Color.White * ((float)charge / (float)chargeMax);
@@ -149,7 +148,7 @@ namespace MetroidMod.Projectiles.boss
 					value22 += projectile.velocity * (float)rectangle8.Height * projectile.scale;
 				}
 			}
-			
+
 			rectangle8 = new Rectangle(drawWidth, 56, width, 22);
 			sb.Draw(texture2D22, value22 - Main.screenPosition - projectile.velocity, new Rectangle?(rectangle8), color45, projectile.rotation, texture2D22.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
 			return false;
@@ -174,6 +173,15 @@ namespace MetroidMod.Projectiles.boss
 				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width, ref point);
 			}
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write((double)projectile.localAI[0]);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			projectile.localAI[0] = (float)reader.ReadDouble();
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -32,6 +33,7 @@ namespace MetroidMod.Projectiles.boss
 		{
 			NPC Head = Main.npc[(int)projectile.ai[0]];
 			NPC Arm = Main.npc[(int)projectile.ai[1]];
+
 			if(Head != null && Head.active && Arm != null && Arm.active)
 			{
 				laserPos = Arm.Center + new Vector2(17*Head.direction,15);
@@ -59,15 +61,15 @@ namespace MetroidMod.Projectiles.boss
 				projectile.localAI[0]++;
 				if(projectile.localAI[0] < 24)
 				{
-					float targetRot = (float)Math.Atan2(player.Center.Y-projectile.Center.Y,player.Center.X-projectile.Center.X);
-					projectile.velocity = targetRot.ToRotationVector2()*14;
+					float targetRot = (float)Math.Atan2(player.Center.Y - projectile.Center.Y, player.Center.X - projectile.Center.X);
+					projectile.velocity = targetRot.ToRotationVector2() * 14;
 					projectile.Center = laserPos;
 				}
 				else if(projectile.localAI[0] < 25)
 				{
-					Main.PlaySound(SoundID.Item12,projectile.Center);//91);
+					Main.PlaySound(SoundID.Item12,projectile.Center);
 				}
-				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+				projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
 			}
 			else
 			{

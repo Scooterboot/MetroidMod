@@ -47,8 +47,27 @@ namespace MetroidMod.NPCs.Nightmare
 
 		int timeLeft = 300;
 		float rotation = 0f;
+		bool initialized = false;
 		public override void AI()
 		{
+			// Nothing needs to be set, just ported over the visual and audial effects.
+			if (!initialized)
+			{
+				for (int num70 = 0; num70 < 10; num70++)
+				{
+					int num71 = Dust.NewDust(new Vector2(npc.position.X - 12.5f, npc.position.Y - 12.5f), 25, 25, 57, 0f, 0f, 100, default(Color), 3f);
+					Main.dust[num71].velocity *= 1.4f;
+					Main.dust[num71].noGravity = true;
+					int num72 = Dust.NewDust(new Vector2(npc.position.X - 12.5f, npc.position.Y - 12.5f), 25, 25, 62, 0f, 0f, 100, default(Color), 5f);
+					Main.dust[num72].velocity *= 1.4f;
+					Main.dust[num72].noGravity = true;
+				}
+				//Main.PlaySound(SoundLoader.customSoundType, (int)laserPos.X, (int)laserPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/Nightmare_GravityOrbShot"));
+
+				this.initialized = true;
+				Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 8);
+			}
+
 			npc.position.X += npc.width / 2f;
 			npc.position.Y += npc.height / 2f;
 			npc.scale = Math.Min(npc.scale + 0.015f,1f);
