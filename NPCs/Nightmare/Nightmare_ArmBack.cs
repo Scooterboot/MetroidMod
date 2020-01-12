@@ -61,54 +61,51 @@ namespace MetroidMod.NPCs.Nightmare
 			npc.damage = Head.damage;
 			npc.velocity = Head.velocity;
 
-			if (npc.ai[1] >= 1 && npc.ai[1] <= 3)
+			Vector2 laserPos = npc.Center + new Vector2(17 * Head.direction, 15);
+			if (npc.ai[1] == 1)
 			{
-				Vector2 laserPos = npc.Center + new Vector2(17 * Head.direction, 15);
-				if (npc.ai[1] == 1)
+				laserPos = npc.Center + new Vector2(17 * Head.direction, 16);
+			}
+			if (npc.ai[1] == 2)
+			{
+				laserPos = npc.Center + new Vector2(17 * Head.direction, 9);
+			}
+
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				// Spawn laser projectile
+				if (npc.ai[2] == 1)
 				{
-					laserPos = npc.Center + new Vector2(17 * Head.direction, 16);
+					Projectile.NewProjectile(laserPos.X, laserPos.Y, 0f, 0f, mod.ProjectileType("NightmareLaser"), 25, 1f, Main.myPlayer, Head.whoAmI, npc.whoAmI);
+					npc.ai[2] = 0;
 				}
-				if (npc.ai[1] == 2)
+				// Charge laser beams
+				if (npc.ai[2] == 2)
 				{
-					laserPos = npc.Center + new Vector2(17 * Head.direction, 9);
+					_laserBeam = Projectile.NewProjectile(laserPos.X, laserPos.Y, 0f, 0f, mod.ProjectileType("NightmareLaserBeam"), 50, 1f, Main.myPlayer, Head.whoAmI, npc.whoAmI);
+					npc.ai[2] = 0;
+				}
+				// Fire laser beams
+				if (npc.ai[2] == 3)
+				{
+					if (LaserBeam != null && LaserBeam.active)
+					{
+						LaserBeam.localAI[0] = 1;
+						LaserBeam.netUpdate2 = true;
+					}
+					npc.ai[2] = 0;
 				}
 
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				// Spawn gravity orb
+				if (npc.ai[3] == 1)
 				{
-					// Spawn laser projectile
-					if (npc.ai[2] == 1)
-					{
-						Projectile.NewProjectile(laserPos.X, laserPos.Y, 0f, 0f, mod.ProjectileType("NightmareLaser"), 25, 1f, Main.myPlayer, Head.whoAmI, npc.whoAmI);
-						npc.ai[2] = 0;
-					}
-					// Charge laser beams
-					if (npc.ai[2] == 2)
-					{
-						_laserBeam = Projectile.NewProjectile(laserPos.X, laserPos.Y, 0f, 0f, mod.ProjectileType("NightmareLaserBeam"), 50, 1f, Main.myPlayer, Head.whoAmI, npc.whoAmI);
-						npc.ai[2] = 0;
-					}
-					// Fire laser beams
-					if (npc.ai[2] == 3)
-					{
-						if (LaserBeam != null && LaserBeam.active)
-						{
-							LaserBeam.localAI[0] = 1;
-							LaserBeam.netUpdate2 = true;
-						}
-						npc.ai[2] = 0;
-					}
+					NPC gOrb = Main.npc[NPC.NewNPC((int)laserPos.X, (int)laserPos.Y, mod.NPCType("GravityOrb"), npc.whoAmI, Head.whoAmI)];
+					gOrb.position.Y += (float)gOrb.height / 2;
+					gOrb.direction = Head.direction;
+					gOrb.target = Head.target;
+					gOrb.netUpdate = true;
 
-					// Spawn gravity orb
-					if (npc.ai[3] == 1)
-					{
-						NPC gOrb = Main.npc[NPC.NewNPC((int)laserPos.X, (int)laserPos.Y, mod.NPCType("GravityOrb"), npc.whoAmI, Head.whoAmI)];
-						gOrb.position.Y += (float)gOrb.height / 2;
-						gOrb.direction = Head.direction;
-						gOrb.target = Head.target;
-						gOrb.netUpdate = true;
-
-						npc.ai[3] = 0;
-					}
+					npc.ai[3] = 0;
 				}
 			}
 
