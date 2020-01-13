@@ -28,11 +28,13 @@ namespace MetroidMod.Items.tiles
 			item.value = 20000;
             item.accessory = true;
 		}
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.reserveTanks = 1;
         }
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
@@ -44,6 +46,7 @@ namespace MetroidMod.Items.tiles
             }
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

@@ -23,7 +23,8 @@ namespace MetroidMod.Items.tiles
 			item.consumable = true;
 			item.createTile = mod.TileType("ChozoStatueArm");
 		}
-public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.StoneBlock, 50);
@@ -31,6 +32,5 @@ public override void AddRecipes()
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
 	}
 }

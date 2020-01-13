@@ -25,7 +25,8 @@ namespace MetroidMod.Items.tiles
 			item.rare = 2;
 			item.value = 1000;
 		}
-public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "EnergyShard", 4);
@@ -34,6 +35,7 @@ public override void AddRecipes()
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "EnergyShard", 4);
 			recipe.AddIngredient(ItemID.Glass, 10);
