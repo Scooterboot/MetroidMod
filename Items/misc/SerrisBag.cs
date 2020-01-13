@@ -1,9 +1,7 @@
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Items.misc
 {
@@ -24,19 +22,10 @@ namespace MetroidMod.Items.misc
 			item.height = 24;
 			item.expert = true;
 			item.rare = -12;
-			//bossBagNPC = mod.NPCType("Serris_Head");
 		}
-		public override int BossBagNPC
-		{
-			get
-			{
-				return mod.NPCType("Serris_Head");
-			}
-		}
-		public override bool CanRightClick()
-		{
-			return true;
-		}
+
+		public override bool CanRightClick() => true;
+		public override int BossBagNPC => mod.NPCType("Serris_Head");
 
 		public override void OpenBossBag(Player player)
 		{
@@ -54,7 +43,6 @@ namespace MetroidMod.Items.misc
 				player.QuickSpawnItem(mod.ItemType("SerrisMusicBox"));
 			}
 		}
-
 	}
 }
 

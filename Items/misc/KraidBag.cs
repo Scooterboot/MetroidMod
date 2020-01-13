@@ -1,7 +1,3 @@
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -22,19 +18,10 @@ namespace MetroidMod.Items.misc
 			item.height = 24;
 			item.expert = true;
 			item.rare = -12;
-			//bossBagNPC = mod.NPCType("Kraid_Head");
 		}
-		public override int BossBagNPC
-		{
-			get
-			{
-				return mod.NPCType("Kraid_Head");
-			}
-		}
-		public override bool CanRightClick()
-		{
-			return true;
-		}
+
+		public override bool CanRightClick() => true;
+		public override int BossBagNPC => mod.NPCType("Kraid_Head");
 
 		public override void OpenBossBag(Player player)
 		{
