@@ -1,12 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+using Terraria.ModLoader;
+
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.tools
 {
@@ -38,7 +34,8 @@ namespace MetroidMod.Items.tools
 			Reveal(center.X, center.Y);
 			return true;
 		}
-	public static void Reveal(int x, int y)	
+
+		public static void Reveal(int x, int y)	
 		{
 			for (int i = x - 100; i < x + 100; i++)
 			{
@@ -46,7 +43,7 @@ namespace MetroidMod.Items.tools
 				{
 					if (WorldGen.InWorld(i, j))
 					{
-						if (Main.tileSpelunker[(int)Main.tile[i, j].type])
+						if (Main.tileSpelunker[Main.tile[i, j].type])
 						{
 							Main.Map.UpdateLighting(i, j, 200);
 						}

@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +11,6 @@ namespace MetroidMod.Items.tools
 			DisplayName.SetDefault("Chozite Pickaxe");
 			Tooltip.SetDefault("Can mine meteorite");
 		}
-
 		public override void SetDefaults()
 		{
 			item.damage = 8;
@@ -38,6 +36,5 @@ namespace MetroidMod.Items.tools
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
 	}
 }

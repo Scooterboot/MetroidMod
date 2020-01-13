@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +10,6 @@ namespace MetroidMod.Items.tools
 		{
 			DisplayName.SetDefault("Chozite Hamaxe");
 		}
-
 		public override void SetDefaults()
 		{
 			item.damage = 11;

@@ -1,6 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,7 +15,6 @@ namespace MetroidMod.Items.tools
 		}
         public override void SetDefaults()
         {
-            //clone and modify the ones we want to copy
             item.CloneDefaults(ItemID.AmethystHook);
 
 			item.width = 20;
@@ -29,7 +25,8 @@ namespace MetroidMod.Items.tools
 			item.shoot = mod.ProjectileType("GrappleBeamShot");
 			item.shootSpeed = 12f;
         }
-        public override void AddRecipes()  //How to craft this item
+
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod); 
             recipe.AddIngredient(null, "ChoziteBar", 15);
