@@ -11,7 +11,6 @@ namespace MetroidMod.Items.weapons
 			DisplayName.SetDefault("Chozite Shortsword");
 			Tooltip.SetDefault("Right click to do a small jump backwards");
 		}
-
 		public override void SetDefaults()
 		{
 			item.damage = 12;			
@@ -27,10 +26,9 @@ namespace MetroidMod.Items.weapons
 			item.UseSound = SoundID.Item1;	
 			item.useTurn = true;	
 		}
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
+
+		public override bool AltFunctionUse(Player player) => true;
+
 		public override bool UseItem(Player player)
 		{
 			if(player.altFunctionUse == 2 && player.velocity.Y == 0)
@@ -40,6 +38,7 @@ namespace MetroidMod.Items.weapons
 			}
 			return base.UseItem(player);
 		}
+
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
