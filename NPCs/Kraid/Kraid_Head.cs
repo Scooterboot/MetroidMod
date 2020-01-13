@@ -53,7 +53,7 @@ namespace MetroidMod.NPCs.Kraid
 		}
 		public override void NPCLoot()
 		{
-			MWorld.downedKraid = true;
+			MWorld.bossesDown |= MetroidBossDown.downedKraid;
 			if (Main.expertMode)
 			{
 				npc.DropBossBags();

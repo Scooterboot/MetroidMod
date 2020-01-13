@@ -71,7 +71,7 @@ namespace MetroidMod.NPCs.Torizo
 		}
 		public override void NPCLoot()
 		{
-			MWorld.downedTorizo = true;
+			MWorld.bossesDown |= MetroidBossDown.downedTorizo;
 			if (Main.expertMode)
 			{
 				npc.DropBossBags();

@@ -63,7 +63,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 		}
 		public override void NPCLoot()
 		{
-			MWorld.downedOmegaPirate = true;
+			MWorld.bossesDown |= MetroidBossDown.downedOmegaPirate;
 			/*if (Main.expertMode)
 			{
 				npc.DropBossBags();

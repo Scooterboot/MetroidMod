@@ -17,55 +17,42 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod
 {
+	[Flags]
+	public enum MetroidBossDown
+	{
+		downedNone = 0,
+		downedTorizo = 1<<0,
+		downedSerris = 1<<1,
+		downedKraid = 1<<2,
+		downedPhantoon = 1<<3,
+		downedNightmare = 1<<4,
+		downedOmegaPirate = 1<<5
+	}
+
     public class MWorld : ModWorld
     {
-		public static bool downedTorizo = false;
-		public static bool downedSerris = false;
-		public static bool downedKraid = false;
-		public static bool downedPhantoon = false;
+		public static MetroidBossDown bossesDown;
 		public static bool spawnedPhazonMeteor = false;
-		public static bool downedNightmare = false;
-		public static bool downedOmegaPirate = false;
 		
-        	public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+        public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 		
 		public override void Initialize()
 		{
-			downedTorizo = false;
-			downedSerris = false;
-			downedKraid = false;
-			downedPhantoon = false;
-			spawnedPhazonMeteor = false;
-			downedNightmare = false;
-			downedOmegaPirate = false;
+			bossesDown = MetroidBossDown.downedNone;
 		}
 
 		public override TagCompound Save()
 		{
-			var downed = new List<string>();
-			if (downedTorizo) downed.Add("Torizo");
-			if (downedSerris) downed.Add("Serris");
-			if (downedKraid) downed.Add("Kraid");
-			if (downedPhantoon) downed.Add("Phantoon");
-			if (downedNightmare) downed.Add("Nightmare");
-			if (downedOmegaPirate) downed.Add("OmegaPirate");
-
 			return new TagCompound {
-				{"downed", downed},
+				{"downed", (int)bossesDown},
 				{"spawnedPhazonMeteor", spawnedPhazonMeteor}
 			};
 		}
 
 		public override void Load(TagCompound tag)
 		{
-			var downed = tag.GetList<string>("downed");
-			downedTorizo = downed.Contains("Torizo");
-			downedSerris = downed.Contains("Serris");
-			downedKraid = downed.Contains("Kraid");
-			downedPhantoon = downed.Contains("Phantoon");
+			int downed = tag.GetAsInt("downed");
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
-			downedNightmare = downed.Contains("Nightmare");
-			downedOmegaPirate = downed.Contains("OmegaPirate");
 		}
 
 		public override void LoadLegacy(BinaryReader reader)
@@ -74,13 +61,8 @@ namespace MetroidMod
 			if (loadVersion == 0)
 			{
 				BitsByte flags = reader.ReadByte();
-				downedTorizo = flags[0];
-				downedSerris = flags[1];
-				downedKraid = flags[2];
-				downedPhantoon = flags[3];
-				spawnedPhazonMeteor = flags[4];
-				downedNightmare = flags[5];
-				downedOmegaPirate = flags[6];
+				bossesDown = (MetroidBossDown)reader.ReadInt32();
+				spawnedPhazonMeteor = reader.ReadBoolean();
 			}
 			else
 			{
@@ -90,28 +72,14 @@ namespace MetroidMod
 
 		public override void NetSend(BinaryWriter writer)
 		{
-			BitsByte flags = new BitsByte();
-			flags[0] = downedTorizo;
-			flags[1] = downedSerris;
-			flags[2] = downedKraid;
-			flags[3] = downedPhantoon;
-			flags[4] = spawnedPhazonMeteor;
-			flags[5] = downedNightmare;
-			flags[6] = downedOmegaPirate;
-			writer.Write(flags);
-
+			writer.Write((int)bossesDown);
+			writer.Write(spawnedPhazonMeteor);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
-			BitsByte flags = reader.ReadByte();
-			downedTorizo = flags[0];
-			downedSerris = flags[1];
-			downedKraid = flags[2];
-			downedPhantoon = flags[3];
-			spawnedPhazonMeteor = flags[4];
-			downedNightmare = flags[5];
-			downedOmegaPirate = flags[6];
+			bossesDown = (MetroidBossDown)reader.ReadInt32();
+			spawnedPhazonMeteor = reader.ReadBoolean();
 		}
 		
 		public override void PostDrawTiles()

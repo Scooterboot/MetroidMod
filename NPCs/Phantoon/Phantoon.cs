@@ -60,6 +60,7 @@ namespace MetroidMod.NPCs.Phantoon
 		}
 		public override void NPCLoot()
 		{
+			MWorld.bossesDown |= MetroidBossDown.downedPhantoon;
 			if (Main.expertMode)
 			{
 				npc.DropBossBags();
