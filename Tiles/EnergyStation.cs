@@ -1,18 +1,21 @@
 using System;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using MetroidMod.Items;
+
+using MetroidMod.Buffs;
+using static Terraria.ModLoader.ModContent;
 
 namespace MetroidMod.Tiles
 {
 	public class EnergyStation : ModTile
 	{
+		readonly float rightclickRange = 50.0f;
+
 		public override void SetDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
@@ -32,17 +35,14 @@ namespace MetroidMod.Tiles
 		}
 
 		public override bool Slope(int i, int j) { return false; }
+
 		public override void MouseOver(int i, int j)
-        {
-            int x = i - (Main.tile[i, j].frameX / 18) % 2;
-            int y = j - (Main.tile[i, j].frameY / 18) % 2;
-            Vector2 worldPos = new Vector2((x * 16) + 16, (y * 16) + 16);
-            Player player = Main.LocalPlayer;
-            if (player.Distance(worldPos) < 50)
-            {
-                player.noThrow = 2;
-                player.showItemIcon = true;
-                player.showItemIcon2 = mod.ItemType("EnergyStation");
+		{
+			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
+			{
+				Main.LocalPlayer.noThrow = 2;
+				Main.LocalPlayer.showItemIcon = true;
+				Main.LocalPlayer.showItemIcon2 = mod.ItemType("EnergyStation");
             }
 		}
 
@@ -51,30 +51,26 @@ namespace MetroidMod.Tiles
 			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("EnergyStation"));
 		}
 
-		public override void RightClick(int i, int j)
+		public override bool NewRightClick(int i, int j)
 		{
-            //HitWire(i, j);
-            int x = i - (Main.tile[i, j].frameX / 18) % 2;
-            int y = j - (Main.tile[i, j].frameY / 18) % 2;
-            Vector2 worldPos = new Vector2((x * 16) + 16, (y * 16) + 16);
-            Player player = Main.player[Player.FindClosest(worldPos, 16, 16)];
-            if (player.Distance(worldPos) < 50)
-            {
-                player.AddBuff(mod.BuffType("EnergyRecharge"), 2);
-            }
-        }
-		/*public override void HitWire(int i, int j)
-		{
-			int x = i - (Main.tile[i, j].frameX / 18) % 2;
-			int y = j - (Main.tile[i, j].frameY / 18) % 2;
-			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("MissilePickup"), 10 + Main.rand.Next(16));
-			if (Wiring.running)
+			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
 			{
-				Wiring.SkipWire(x, y);
-				Wiring.SkipWire(x, y + 1);
-				Wiring.SkipWire(x + 1, y);
-				Wiring.SkipWire(x + 1, y + 1);
+				Main.LocalPlayer.AddBuff(BuffType<EnergyRecharge>(), 2);
+				return (true);
 			}
-		}*/
+			return (false);
+		}
+
+		Vector2 TileCenter(int x, int y)
+		{
+			Vector2 center = new Vector2(x * 16, y * 16);
+
+			if (Main.tile[x, y].frameX == 0)
+				center.X += 16;
+			if (Main.tile[x, y].frameY == 0)
+				center.Y += 16;
+
+			return center;
+		}
 	}
 }

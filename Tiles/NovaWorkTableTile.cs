@@ -27,7 +27,9 @@ namespace MetroidMod.Tiles
 			animationFrameHeight = 54;
 		}
 
-public override void AnimateTile(ref int frame, ref int frameCounter)
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
+
+		public override void AnimateTile(ref int frame, ref int frameCounter)
 		{
 			frameCounter++;
 			if (frameCounter > 1)
@@ -40,14 +42,10 @@ public override void AnimateTile(ref int frame, ref int frameCounter)
 				}
 			}
 		}
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Terraria.Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("NovaWorkTable"));
+			Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("NovaWorkTable"));
 		}
 	}
 }

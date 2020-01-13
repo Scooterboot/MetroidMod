@@ -15,7 +15,6 @@ namespace MetroidMod.Tiles
 			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = false;
 			Main.tileTable[Type] = true;
-			//Main.tileBlockLight[Type] = true;
 			Main.tileSpelunker[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
@@ -36,10 +35,7 @@ namespace MetroidMod.Tiles
 			mineResist = 4f;
 		}
 
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{

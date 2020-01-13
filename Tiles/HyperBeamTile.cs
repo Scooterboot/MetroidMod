@@ -27,21 +27,27 @@ namespace MetroidMod.Tiles
 			dustType = 1;
 			disableSmartCursor = true;
 		}
-		public override void RightClick(int i, int j)
-		{
-		    WorldGen.KillTile(i, j, false, false, false);
-		    if (Main.netMode == 1 && !Main.tile[i, j].active())
-		    {
-			NetMessage.SendData(17, -1, -1, null, 4, (float)i, (float)j, 0f, 0, 0, 0);
-		    }
-		}
-public override void MouseOver(int i, int j)
+
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
+
+		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
 			player.showItemIcon = true;
-			player.showItemIcon2 = mod.ItemType("HyperBeamAddon");
+			player.showItemIcon2 = drop;
 		}
+
+		public override bool NewRightClick(int i, int j)
+		{
+			WorldGen.KillTile(i, j, false, false, false);
+			if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[i, j].active())
+			{
+				NetMessage.SendData(17, -1, -1, null, 4, (float)i, (float)j, 0f, 0, 0, 0);
+			}
+			return (true);
+		}
+
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			Tile tile = Main.tile[i, j];
@@ -50,14 +56,7 @@ public override void MouseOver(int i, int j)
 			{
 				zero = Vector2.Zero;
 			}
-			int height = 16;
-			Main.spriteBatch.Draw(mod.GetTexture("Tiles/HyperBeamTileColors"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(mod.GetTexture("Tiles/HyperBeamTileColors"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 16), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
-
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
-
 	}
 }

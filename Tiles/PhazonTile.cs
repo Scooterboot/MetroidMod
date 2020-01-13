@@ -25,19 +25,15 @@ namespace MetroidMod.Tiles
 			name.SetDefault("Phazon");
 			AddMapEntry(new Color(85, 223, 255), name);
 		}
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
+
+		public override bool CanExplode(int i, int j) => false;
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
+
 		public override void ModifyLight(int x, int y, ref float r, ref float g, ref float b)
 		{	
 			r = (85f/255f);
 			g = (223f/255f);
 			b = (255f/255f);
-		}
-		public override bool CanExplode(int i, int j)
-		{
-			return false;
 		}
 	}
 }
