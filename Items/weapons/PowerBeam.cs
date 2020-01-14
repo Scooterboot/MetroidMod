@@ -107,7 +107,7 @@ namespace MetroidMod.Items.weapons
 			if (player.altFunctionUse == 2)
 			{
 				// Swap to missile launcher.
-				if (player.itemAnimation == 0)
+				if (player.itemAnimation == 0 && mp.missileLauncherUpgrade)
 				{
 					Item missileLauncher = new Item();
 					missileLauncher.SetDefaults(mod.ItemType("MissileLauncher"));
@@ -1573,7 +1573,7 @@ namespace MetroidMod.Items.weapons
 		public override TagCompound Save()
 		{
 			TagCompound tag = new TagCompound();
-			for(int i = 0; i < beamMods.Length; ++i)
+			for(int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				tag.Add("beamItem" + i, ItemIO.Save(beamMods[i]));
 			}

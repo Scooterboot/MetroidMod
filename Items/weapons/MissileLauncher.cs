@@ -83,22 +83,6 @@ namespace MetroidMod.Items.weapons
 			mi.statMissiles = 5;
 			mi.maxMissiles = 5;
 		}
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 10);
-			recipe.AddIngredient(null, "EnergyTank", 1);
-			recipe.AddIngredient(ItemID.Musket, 1);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-			
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 10);
-			recipe.AddIngredient(null, "EnergyTank", 1);
-			recipe.AddIngredient(ItemID.TheUndertaker, 1);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
 		
 		public override void UseStyle(Player P)
 		{

@@ -138,6 +138,9 @@ namespace MetroidMod
 		int tweak = 0;
 		bool tweak2 = false;
 		public double Time = 0;
+
+		public bool missileLauncherUpgrade = false;
+
 		public override void ResetEffects()
 		{			
 			speedBoosting = false;
@@ -3198,7 +3201,8 @@ namespace MetroidMod
 		{
 			return new TagCompound
 			{
-				{"psuedoScrewAttackActive", psuedoScrewActive}
+				{"psuedoScrewAttackActive", psuedoScrewActive},
+				{"missileLauncherUpgrade", missileLauncherUpgrade }
 			};
 		}
 		public override void Load(TagCompound tag)
@@ -3210,6 +3214,8 @@ namespace MetroidMod
 				{
 					psuedoScrewActive = flag;
 				}
+
+				this.missileLauncherUpgrade = tag.GetBool("missileLauncherUpgrade");
 			}
 			catch { }
 		}
