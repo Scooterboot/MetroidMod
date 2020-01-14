@@ -31,6 +31,7 @@ namespace MetroidMod.Tiles.Hatch
 			name.SetDefault("Green Hatch");
 			AddMapEntry(new Color(0, 160, 0), name);
 			adjTiles = new int[]{ TileID.OpenDoor };
+			minPick = 180;
         }
 
         public override void MouseOver(int i, int j)
