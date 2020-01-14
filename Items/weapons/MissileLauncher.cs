@@ -40,6 +40,20 @@ namespace MetroidMod.Items.weapons
 			set { _missileMods = value; }
 		}
 
+		private int[] _beamModIDs;
+		public int[] beamModIDs
+		{
+			get
+			{
+				if (_beamModIDs == null)
+				{
+					_beamModIDs = new int[MetroidMod.beamSlotAmount] { 0, 0, 0, 0, 0 };
+				}
+				return _beamModIDs;
+			}
+			set { _beamModIDs = value; }
+		}
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Missile Launcher");
@@ -91,11 +105,33 @@ namespace MetroidMod.Items.weapons
 			P.itemLocation.X = P.MountedCenter.X - (float)Main.itemTexture[item.type].Width * 0.5f;
 			P.itemLocation.Y = P.MountedCenter.Y - (float)Main.itemTexture[item.type].Height * 0.5f;
 		}
-		
+
+		public override bool AltFunctionUse(Player player) => true;
 		public override bool CanUseItem(Player player)
 		{
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
-			if(player.whoAmI == Main.myPlayer && item.type == Main.mouseItem.type)
+			if (player.altFunctionUse == 2)
+			{
+				// Swap to Power Beam.
+				if (player.itemAnimation == 0)
+				{
+					Item powerBeam = new Item();
+					powerBeam.SetDefaults(mod.ItemType("PowerBeam"));
+
+					PowerBeam pb = (PowerBeam)powerBeam.modItem;
+
+					for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+						pb.beamMods[i].SetDefaults(this.beamModIDs[i]);
+					for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
+						pb.missileModIDs[i] = this.missileMods[i].type;
+
+					player.reuseDelay = 20;
+					player.inventory[player.selectedItem] = powerBeam;
+					Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y);
+				}
+				return (false);
+			}
+			else if (player.whoAmI == Main.myPlayer && item.type == Main.mouseItem.type)
 			{
 				return false;
 			}
@@ -491,11 +527,12 @@ namespace MetroidMod.Items.weapons
 		{
 			ModItem clone = this.NewInstance(item);
 			MissileLauncher missileClone = (MissileLauncher)clone;
-			missileClone.missileMods = new Item[MetroidMod.missileSlotAmount];
+
 			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-			{
 				missileClone.missileMods[i] = this.missileMods[i];
-			}
+
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+				missileClone.beamModIDs[i] = this.beamModIDs[i];
 
 			return clone;
 		}
@@ -897,6 +934,8 @@ namespace MetroidMod.Items.weapons
 			TagCompound tag = new TagCompound();
 			for (int i = 0; i < missileMods.Length; ++i)
 				tag.Add("missileItem" + i, ItemIO.Save(missileMods[i]));
+			for (int i = 0; i < beamModIDs.Length; ++i)
+				tag.Add("beamItem" + i, beamModIDs[i]);
 
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			tag.Add("statMissiles", mi.statMissiles);
@@ -908,13 +947,14 @@ namespace MetroidMod.Items.weapons
 		{
 			try
 			{
-				missileMods = new Item[MetroidMod.missileSlotAmount];
 				for (int i = 0; i < missileMods.Length; i++)
 				{
 					Item item = tag.Get<Item>("missileItem" + i);
 					missileMods[i] = item;
 				}
-				
+				for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+					beamModIDs[i] = tag.Get<int>("beamItem" + i);
+
 				MGlobalItem mi = this.item.GetGlobalItem<MGlobalItem>();
 				mi.statMissiles = tag.GetInt("statMissiles");
 				mi.maxMissiles = tag.GetInt("maxMissiles");
@@ -928,6 +968,8 @@ namespace MetroidMod.Items.weapons
 			{
 				writer.WriteItem(missileMods[i]);
 			}
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+				writer.Write(beamModIDs[i]);
 			writer.Write(chargeLead);
 		}
 		public override void NetRecieve(BinaryReader reader)
@@ -936,6 +978,8 @@ namespace MetroidMod.Items.weapons
 			{
 				missileMods[i] = reader.ReadItem();
 			}
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+				beamModIDs[i] = reader.ReadInt32();
 			chargeLead = reader.ReadInt32();
 		}
 	}
