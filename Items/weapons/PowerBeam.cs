@@ -100,6 +100,31 @@ namespace MetroidMod.Items.weapons
 			P.itemLocation.Y = P.MountedCenter.Y - (float)Main.itemTexture[item.type].Height * 0.5f;
 		}
 
+		private void SwitchToMissile(Player player)
+		{
+			Item missileLauncher = new Item();
+			missileLauncher.SetDefaults(mod.ItemType("MissileLauncher"));
+
+			MissileLauncher ms = (MissileLauncher)missileLauncher.modItem;
+
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+				ms.beamModIDs[i] = this.beamMods[i].type;
+			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
+			{
+				ms.missileMods[i].SetDefaults(this.missileModIDs[i, 0]);
+				ms.missileMods[i].stack = this.missileModIDs[i, 1];
+			}
+
+			missileLauncher.Prefix(item.prefix);
+			missileLauncher.favorited = item.favorited;
+
+			missileLauncher.GetGlobalItem<MGlobalItem>().statMissiles = item.GetGlobalItem<MGlobalItem>().statMissiles;
+
+			player.inventory[player.selectedItem] = missileLauncher;
+			player.GetModPlayer<MPlayer>().switchDelay = player.GetModPlayer<MPlayer>().defSwitchDelay;
+			Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/BeamSwitch"));
+		}
+
 		public override bool AltFunctionUse(Player player) => true;
 		public override bool CanUseItem(Player player)
 		{
@@ -107,27 +132,8 @@ namespace MetroidMod.Items.weapons
 			if (player.altFunctionUse == 2)
 			{
 				// Swap to missile launcher.
-				if (player.itemAnimation == 0 && mp.missileLauncherUpgrade)
-				{
-					Item missileLauncher = new Item();
-					missileLauncher.SetDefaults(mod.ItemType("MissileLauncher"));
-
-					MissileLauncher ms = (MissileLauncher)missileLauncher.modItem;
-
-					for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
-						ms.beamModIDs[i] = this.beamMods[i].type;
-					for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-					{
-						ms.missileMods[i].SetDefaults(this.missileModIDs[i, 0]);
-						ms.missileMods[i].stack = this.missileModIDs[i, 1];
-					}
-
-					missileLauncher.GetGlobalItem<MGlobalItem>().statMissiles = item.GetGlobalItem<MGlobalItem>().statMissiles;
-
-					player.reuseDelay = 20;
-					player.inventory[player.selectedItem] = missileLauncher;
-					Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y);
-				}
+				if (player.itemAnimation == 0 && mp.missileLauncherUpgrade && mp.switchDelay <= 0)
+					SwitchToMissile(player);
 				return (false);
 			}
 			else if (player.whoAmI == Main.myPlayer && item.type == Main.mouseItem.type)

@@ -90,34 +90,42 @@ namespace MetroidMod.Items.weapons
 			P.itemLocation.Y = P.MountedCenter.Y - (float)Main.itemTexture[item.type].Height * 0.5f;
 		}
 
+		private void SwitchToBeam(Player player)
+		{
+			Item powerBeam = new Item();
+			powerBeam.SetDefaults(mod.ItemType("PowerBeam"));
+
+			PowerBeam pb = (PowerBeam)powerBeam.modItem;
+
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+				pb.beamMods[i].SetDefaults(this.beamModIDs[i]);
+			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
+			{
+				pb.missileModIDs[i, 0] = this.missileMods[i].type;
+				pb.missileModIDs[i, 1] = this.missileMods[i].stack;
+			}
+
+			powerBeam.Prefix(item.prefix);
+			powerBeam.favorited = item.favorited;
+
+			powerBeam.GetGlobalItem<MGlobalItem>().statMissiles = item.GetGlobalItem<MGlobalItem>().statMissiles;
+
+			player.inventory[player.selectedItem] = powerBeam;
+			player.GetModPlayer<MPlayer>().switchDelay = player.GetModPlayer<MPlayer>().defSwitchDelay;
+			Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/BeamSwitch"));
+		}
+
 		public override bool AltFunctionUse(Player player) => true;
 		public override bool CanUseItem(Player player)
 		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+
 			if (player.altFunctionUse == 2)
 			{
 				// Swap to Power Beam.
-				if (player.itemAnimation == 0)
-				{
-					Item powerBeam = new Item();
-					powerBeam.SetDefaults(mod.ItemType("PowerBeam"));
-
-					PowerBeam pb = (PowerBeam)powerBeam.modItem;
-
-					for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
-						pb.beamMods[i].SetDefaults(this.beamModIDs[i]);
-					for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-					{
-						pb.missileModIDs[i, 0] = this.missileMods[i].type;
-						pb.missileModIDs[i, 1] = this.missileMods[i].stack;
-					}
-
-					powerBeam.GetGlobalItem<MGlobalItem>().statMissiles = item.GetGlobalItem<MGlobalItem>().statMissiles;
-
-					player.reuseDelay = 20;
-					player.inventory[player.selectedItem] = powerBeam;
-					Main.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y);
-				}
+				if (player.itemAnimation == 0 && mp.switchDelay <= 0)
+					SwitchToBeam(player);
 				return (false);
 			}
 			else if (player.whoAmI == Main.myPlayer && item.type == Main.mouseItem.type)

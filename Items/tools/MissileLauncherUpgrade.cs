@@ -14,6 +14,8 @@ namespace MetroidMod.Items.tools
 
 			item.useStyle = 4;
 			item.useTime = item.useAnimation = 15;
+
+			item.consumable = true;
 		}
 
 		public override bool CanUseItem(Player player)

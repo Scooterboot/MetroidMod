@@ -139,6 +139,8 @@ namespace MetroidMod
 		bool tweak2 = false;
 		public double Time = 0;
 
+		public int switchDelay = 0;
+		public readonly int defSwitchDelay = 20;
 		public bool missileLauncherUpgrade = false;
 
 		public override void ResetEffects()
@@ -167,6 +169,9 @@ namespace MetroidMod
 			overheatCost = 1f;
 			breathMult = 1f;
 			disableSomersault = false;
+
+			if (switchDelay > 0)
+				switchDelay--;
 		}
 		float overheatCooldown = 0f;
 		int itemRotTweak = 0;
