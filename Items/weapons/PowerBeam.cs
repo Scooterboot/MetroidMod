@@ -44,14 +44,14 @@ namespace MetroidMod.Items.weapons
 			set { _beamMods = value; }
 		}
 
-		private int[] _missileModIDs;
-		public int[] missileModIDs
+		private int[,] _missileModIDs;
+		public int[,] missileModIDs
 		{
 			get
 			{
 				if (_missileModIDs == null)
 				{
-					_missileModIDs = new int[MetroidMod.missileSlotAmount] { 0, 0, 0 };
+					_missileModIDs = new int[MetroidMod.missileSlotAmount, 2] { { 0, 0 }, { 0, 0 }, { 0, 0 } };
 				}
 				return _missileModIDs;
 			}
@@ -117,7 +117,12 @@ namespace MetroidMod.Items.weapons
 					for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 						ms.beamModIDs[i] = this.beamMods[i].type;
 					for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-						ms.missileMods[i].SetDefaults(this.missileModIDs[i]);
+					{
+						ms.missileMods[i].SetDefaults(this.missileModIDs[i, 0]);
+						ms.missileMods[i].stack = this.missileModIDs[i, 1];
+					}
+
+					missileLauncher.GetGlobalItem<MGlobalItem>().statMissiles = item.GetGlobalItem<MGlobalItem>().statMissiles;
 
 					player.reuseDelay = 20;
 					player.inventory[player.selectedItem] = missileLauncher;
@@ -1426,7 +1431,10 @@ namespace MetroidMod.Items.weapons
 			}
 
 			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-				beamClone.missileModIDs[i] = this.missileModIDs[i];
+			{
+				beamClone.missileModIDs[i, 0] = this.missileModIDs[i, 0];
+				beamClone.missileModIDs[i, 1] = this.missileModIDs[i, 1];
+			}
 
 			return clone;
 		}
@@ -1567,12 +1575,17 @@ namespace MetroidMod.Items.weapons
 			TagCompound tag = new TagCompound();
 			for(int i = 0; i < beamMods.Length; ++i)
 			{
-				// Failsave check.
-				if (beamMods[i] == null) beamMods[i] = new Item();
 				tag.Add("beamItem" + i, ItemIO.Save(beamMods[i]));
 			}
-			for (int i = 0; i < missileModIDs.Length; ++i)
-				tag.Add("missileItem" + i, missileModIDs[i]);
+			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
+			{
+				tag.Add("missileItem" + i, missileModIDs[i, 0]);
+				tag.Add("missileStack" + i, missileModIDs[i, 1]);
+			}
+
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			tag.Add("statMissiles", mi.statMissiles);
+			tag.Add("maxMissiles", mi.maxMissiles);
 
 			return tag;
 		}
@@ -1586,9 +1599,15 @@ namespace MetroidMod.Items.weapons
 					Item item = tag.Get<Item>("beamItem"+i);
 					beamMods[i] = item;
 				}
-
 				for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-					missileModIDs[i] = tag.Get<int>("missileItem" + i);
+				{
+					missileModIDs[i, 0] = tag.Get<int>("missileItem" + i);
+					missileModIDs[i, 1] = tag.Get<int>("missileStack" + i);
+				}
+
+				MGlobalItem mi = this.item.GetGlobalItem<MGlobalItem>();
+				mi.statMissiles = tag.GetInt("statMissiles");
+				mi.maxMissiles = tag.GetInt("maxMissiles");
 			}
 			catch{}
 		}
@@ -1598,7 +1617,10 @@ namespace MetroidMod.Items.weapons
 			for (int i = 0; i < beamMods.Length; ++i)
 				writer.WriteItem(beamMods[i]);
 			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-				writer.Write(missileModIDs[i]);
+			{
+				writer.Write(missileModIDs[i, 0]);
+				writer.Write(missileModIDs[i, 1]);
+			}
 			writer.Write(chargeLead);
 		}
 		public override void NetRecieve(BinaryReader reader)
@@ -1606,7 +1628,10 @@ namespace MetroidMod.Items.weapons
 			for (int i = 0; i < beamMods.Length; ++i)
 				beamMods[i] = reader.ReadItem();
 			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-				missileModIDs[i] = reader.ReadInt32();
+			{
+				missileModIDs[i, 0] = reader.ReadInt32();
+				missileModIDs[i, 1] = reader.ReadInt32();
+			}
 			chargeLead = reader.ReadInt32();
 		}
 	}

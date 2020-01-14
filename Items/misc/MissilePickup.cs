@@ -28,7 +28,7 @@ namespace MetroidMod.Items.misc
 		{
 			for(int i = 0; i < player.inventory.Length; i++)
 			{
-				if(player.inventory[i].type == mod.ItemType("MissileLauncher"))
+				if(player.inventory[i].type == mod.ItemType("MissileLauncher") || player.inventory[i].type == mod.ItemType("PowerBeam"))
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					mi.statMissiles += item.stack;

@@ -123,7 +123,12 @@ namespace MetroidMod.Items.weapons
 					for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 						pb.beamMods[i].SetDefaults(this.beamModIDs[i]);
 					for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
-						pb.missileModIDs[i] = this.missileMods[i].type;
+					{
+						pb.missileModIDs[i, 0] = this.missileMods[i].type;
+						pb.missileModIDs[i, 1] = this.missileMods[i].stack;
+					}
+
+					powerBeam.GetGlobalItem<MGlobalItem>().statMissiles = item.GetGlobalItem<MGlobalItem>().statMissiles;
 
 					player.reuseDelay = 20;
 					player.inventory[player.selectedItem] = powerBeam;
