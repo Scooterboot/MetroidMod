@@ -37,24 +37,16 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.npcSlots = 1;
 		}
 
-		bool init = false;
-		NPC Base;
-		public override bool PreAI()
+		NPC Base
 		{
-			if(!init)
-			{
-				Base = Main.npc[(int)npc.ai[3]];
-				init = true;
-			}
-			return true;
+			get { return Main.npc[(int)npc.ai[3]]; }
 		}
 		
 		public override void AI()
 		{
 			if(Base == null || !Base.active)
-			{
 				npc.ai[2] = 1;
-			}
+
 			if(npc.ai[2] == 1)
 			{
 				npc.scale -= 0.05f;
@@ -77,11 +69,12 @@ namespace MetroidMod.NPCs.OmegaPirate
 				npc.localAI[0] += 1f;
 				if(npc.localAI[0] > 10f)
 				{
-					float angle = (float)Angle.ConvertToRadians(Main.rand.Next(360));
-					Vector2 vel = angle.ToRotationVector2() * 15f;
-					int p = Projectile.NewProjectile(npc.Center.X,npc.Center.Y,vel.X,vel.Y,mod.ProjectileType("Omega_PhazonParticle"),0,0f);
-					Main.projectile[p].ai[0] = npc.ai[0];
-					Main.projectile[p].ai[1] = npc.ai[1];
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						float angle = (float)Angle.ConvertToRadians(Main.rand.Next(360));
+						Vector2 vel = angle.ToRotationVector2() * 15f;
+						Projectile.NewProjectile(npc.Center.X, npc.Center.Y, vel.X, vel.Y, mod.ProjectileType("Omega_PhazonParticle"), 0, 0f, Main.myPlayer, npc.ai[0], npc.ai[1]);
+					}
 					npc.localAI[0] = 0f;
 				}
 			}

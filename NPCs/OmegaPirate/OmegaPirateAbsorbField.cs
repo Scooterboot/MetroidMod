@@ -37,27 +37,21 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.localAI = new float[5];
 		}
 
-		//float[] scale = new float[5];
-		bool init = false;
-		NPC Base;
-		public override bool PreAI()
+		NPC Base
 		{
-			if(!init)
-			{
-				Base = Main.npc[(int)npc.ai[0]];
-				init = true;
-			}
-			return true;
+			get { return Main.npc[(int)npc.ai[0]]; }
 		}
+
 		int maxDamage = 200;
 		int soundCounter = 0;
 		bool soundPlayed = false;
 		public override void AI()
 		{
 			if(Base == null || !Base.active)
-			{
 				npc.ai[3] = 1;
-			}
+
+			npc.realLife = Base.whoAmI;
+
 			if(npc.ai[3] == 1)
 			{
 				npc.ai[1] -= 0.05f;
@@ -113,9 +107,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 			
 			npc.scale = 0.5f + ((float)Main.rand.Next(6)/10f) + (npc.ai[2] / 400f);
 			
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < NPC.maxAI; i++)
 			{
-				npc.localAI[i] = (i+2f+(float)Main.rand.Next(10))/10f;
+				npc.localAI[i] = (i + 2f + (float)Main.rand.Next(10)) / 10f;
 			}
 			
 			int dust1 = Dust.NewDust(npc.position, npc.width, npc.height, 87, 0f, 0f, 100, Color.White, (1.5f + (npc.ai[2] / 400f))*npc.ai[1]);
@@ -143,7 +137,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			Color color = new Color(255,255,255,100);
 			sb.Draw(tex, new Vector2((float)((int)(npc.Center.X - Main.screenPosition.X)), (float)((int)(npc.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), color, npc.rotation, new Vector2((float)tex.Width/2f, (float)tex.Height/2f), npc.scale * npc.ai[1], SpriteEffects.None, 0f);
 			
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < NPC.maxAI; i++)
 			{
 				Color color2 = new Color(255,255,255,100);
 				color2 *= ((2f - npc.localAI[i]) / 1.5f);

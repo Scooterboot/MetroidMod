@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using MetroidMod;
 using MetroidMod.NPCs.OmegaPirate;
+using System.IO;
 
 namespace MetroidMod.NPCs.OmegaPirate
 {
@@ -20,7 +21,6 @@ namespace MetroidMod.NPCs.OmegaPirate
 			DisplayName.SetDefault("Omega Pirate");
 		}
 
-		int damage = 70;
 		public override void SetDefaults()
 		{
 			npc.width = 62;
@@ -106,15 +106,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 				}
 			}*/
 		}
-		
-		public override bool? CanBeHitByItem(Player player, Item item)
-		{
-			return false;
-		}
-		public override bool? CanBeHitByProjectile(Projectile projectile)
-		{
-			return false;
-		}
+
+		public override bool? CanBeHitByItem(Player player, Item item) => false;
+		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
 		
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
@@ -140,14 +134,37 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 		}
 		
-		NPC Body,
-		RArmArmor, LArmArmor,
-		RLegArmor, LLegArmor,
-		RCannon, LCannon;
-		NPC[] RArm = new NPC[3],
-		LArm = new NPC[3],
-		RLeg = new NPC[3],
-		LLeg = new NPC[3];
+		int damage = 70;
+
+		int _body,
+			_rArmArmor, _lArmArmor,
+			_rLegArmor, _lLegArmor,
+			_rCannon, _lCannon;
+		NPC Body => Main.npc[_body];
+		NPC RArmArmor => Main.npc[_rArmArmor];
+		NPC LArmArmor => Main.npc[_lArmArmor];
+		NPC RLegArmor => Main.npc[_rLegArmor];
+		NPC LLegArmor => Main.npc[_lLegArmor];
+		NPC RCannon => Main.npc[_rCannon];
+		NPC LCannon => Main.npc[_lCannon];
+
+		int[] _rArm = new int[3],
+			_lArm = new int[3],
+			_rLeg = new int[3],
+			_lLeg = new int[3];
+
+		NPC GetArm(bool left, int i)
+		{
+			if (left)
+				return (Main.npc[_lArm[i]]);
+			return (Main.npc[_rArm[i]]);
+		}
+		NPC GetLeg(bool left, int i)
+		{
+			if (left)
+				return (Main.npc[_lLeg[i]]);
+			return (Main.npc[_rLeg[i]]);
+		}
 		
 		Vector2 BodyOffset;
 		Vector2[] BodyPos = new Vector2[2],
@@ -197,15 +214,6 @@ namespace MetroidMod.NPCs.OmegaPirate
 		DefaultRightCannonPos = { new Vector2(-30,-100), new Vector2(-2,-20), new Vector2(10,0) },
 		DefaultLeftCannonPos = { new Vector2(24,-100), new Vector2(2,-20), new Vector2(10,0) },
 		DefaultHeadPos = { new Vector2(28,-86), new Vector2(-14,4) };
-		
-		static Vector2[] AltBodyPos = { new Vector2(0,73), new Vector2(0,-61) },
-		AltRightArmPos = { new Vector2(-51,-74), new Vector2(-16,26), new Vector2(-3,-5), new Vector2(-3,13), new Vector2(-28,58) },
-		AltLeftArmPos = { new Vector2(51,-74), new Vector2(16,26), new Vector2(3,-5), new Vector2(3,13), new Vector2(28,58) },
-		AltRightLegPos = { new Vector2(-16,2), new Vector2(-10,30), new Vector2(-8,40), new Vector2(-4,18), new Vector2(-1,19), new Vector2(-2,8) },
-		AltLeftLegPos = { new Vector2(16,2), new Vector2(10,30), new Vector2(8,40), new Vector2(4,18), new Vector2(1,19), new Vector2(2,8) },
-		AltRightCannonPos = { new Vector2(-26,-100), new Vector2(-2,-20), new Vector2(0,0) },
-		AltLeftCannonPos = { new Vector2(26,-100), new Vector2(2,-20), new Vector2(0,0) },
-		AltHeadPos = { new Vector2(0,-86), new Vector2(-14,4) };
 		
 		Vector2[] CurrentBodyPos = new Vector2[2],
 		CurrentRightArmPos = new Vector2[5],
@@ -363,96 +371,34 @@ namespace MetroidMod.NPCs.OmegaPirate
 				Player player = Main.player[npc.target];
 				
 				npc.direction = 1;
-				if(Main.rand.Next(2) == 1)
-				{
-					npc.direction = -1;
-				}
-				npc.Center = new Vector2(player.Center.X-150*npc.direction,player.Center.Y-1500);
 				npc.velocity.Y = 0.1f;
-				
-				//npc.ai[0] = 1;
-				//npc.position.Y -= 202;
-				//npc.position.X = MathHelper.Clamp(npc.position.X,player.position.X - 2000,player.position.X + 2000);
-				//npc.position.Y = MathHelper.Clamp(npc.position.Y,player.position.Y - 2000,player.position.Y + 2000);
+				npc.Center = new Vector2(player.Center.X - 150 * npc.direction, player.Center.Y - 1500);
 				
 				cannonTargetPos = player.Center;
 				
 				SetPositions();
-				
-				int b = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-				Body = Main.npc[b];
-				Body.realLife = npc.whoAmI;
-				Body.ai[0] = npc.whoAmI;
-				Body.Center = BodyPos[1];
-				
-				for(int i = 0; i < 3; i++)
+
+				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					int ra = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					RArm[i] = Main.npc[ra];
-					RArm[i].realLife = npc.whoAmI;
-					RArm[i].ai[0] = npc.whoAmI;
-					RArm[i].ai[1] = 1+i;
-					RArm[i].Center = RArmPos[i+2];
+					_body = NPC.NewNPC((int)BodyPos[1].X, (int)BodyPos[1].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI);
+
+					for (int i = 0; i < 3; i++)
+					{
+						_rArm[i] = NPC.NewNPC((int)RArmPos[i + 2].X, (int)RArmPos[i + 2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 1 + i);
+						_lArm[i] = NPC.NewNPC((int)LArmPos[i + 2].X, (int)LArmPos[i + 2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 1 + i);
+						_rLeg[i] = NPC.NewNPC((int)RLegPos[i + 3].X, (int)RLegPos[i + 3].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 4 + i);
+						_lLeg[i] = NPC.NewNPC((int)LLegPos[i + 3].X, (int)LLegPos[i + 3].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 4 + i);
+					}
+
+					_rCannon = NPC.NewNPC((int)RCannonPos[2].X, (int)RCannonPos[2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 7);
+					_lCannon = NPC.NewNPC((int)LCannonPos[2].X, (int)LCannonPos[2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 7);
 					
-					int la = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					LArm[i] = Main.npc[la];
-					LArm[i].realLife = npc.whoAmI;
-					LArm[i].ai[0] = npc.whoAmI;
-					LArm[i].ai[1] = 1+i;
-					LArm[i].Center = LArmPos[i+2];
-					
-					int rl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					RLeg[i] = Main.npc[rl];
-					RLeg[i].realLife = npc.whoAmI;
-					RLeg[i].ai[0] = npc.whoAmI;
-					RLeg[i].ai[1] = 4+i;
-					RLeg[i].Center = RLegPos[i+3];
-					
-					int ll = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					LLeg[i] = Main.npc[ll];
-					LLeg[i].realLife = npc.whoAmI;
-					LLeg[i].ai[0] = npc.whoAmI;
-					LLeg[i].ai[1] = 4+i;
-					LLeg[i].Center = LLegPos[i+3];
+					_rArmArmor = NPC.NewNPC((int)RArmPos[2].X, (int)RArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
+					_lArmArmor = NPC.NewNPC((int)LArmPos[2].X, (int)LArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
+					_rLegArmor = NPC.NewNPC((int)RLegPos[3].X, (int)RLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
+					_lLegArmor = NPC.NewNPC((int)LLegPos[3].X, (int)LLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
 				}
-				
-				int cr = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-				RCannon = Main.npc[cr];
-				RCannon.realLife = npc.whoAmI;
-				RCannon.ai[0] = npc.whoAmI;
-				RCannon.ai[1] = 7;
-				RCannon.Center = RCannonPos[2];
-				
-				int cl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-				LCannon = Main.npc[cl];
-				LCannon.realLife = npc.whoAmI;
-				LCannon.ai[0] = npc.whoAmI;
-				LCannon.ai[1] = 7;
-				LCannon.Center = LCannonPos[2];
-				
-				
-				int raa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-				RArmArmor = Main.npc[raa];
-				RArmArmor.ai[0] = npc.whoAmI;
-				RArmArmor.Center = RArmPos[2];
-				
-				int laa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-				LArmArmor = Main.npc[laa];
-				LArmArmor.ai[0] = npc.whoAmI;
-				LArmArmor.Center = LArmPos[2];
-				
-				int rla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-				RLegArmor = Main.npc[rla];
-				RLegArmor.ai[0] = npc.whoAmI;
-				RLegArmor.ai[1] = 1;
-				RLegArmor.Center = RLegPos[3];
-				
-				int lla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-				LLegArmor = Main.npc[lla];
-				LLegArmor.ai[0] = npc.whoAmI;
-				LLegArmor.ai[1] = 1;
-				LLegArmor.Center = LLegPos[3];
-				
+
 				initialized = true;
 			}
 			return true;
@@ -1262,10 +1208,10 @@ namespace MetroidMod.NPCs.OmegaPirate
 				}
 				npc.ai[0] = 3;
 				npc.damage = 0;
+				npc.netUpdate = true;
 				npc.life = npc.lifeMax;
 				npc.dontTakeDamage = true;
 				Body.dontTakeDamage = true;
-				npc.netUpdate = true;
 				return false;
 			}
 			/*else
@@ -1311,11 +1257,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 				// spawn phase
 				if(npc.ai[0] == 0)
 				{
-					//if(grounded > 0)
 					if(npc.velocity.Y == 0f)
-					{
 						npc.ai[1] = 1;
-					}
+
 					if(npc.ai[1] == 1)
 					{
 						if(anim_Spawn < 2f)
@@ -1328,8 +1272,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 							if(npc.ai[2] > 80)
 							{
 								eyeFlame = true;
-								head_SpawnTransition = Math.Min(head_SpawnTransition + 0.05f,1f);
-								cannonTargetTransition = Math.Min(cannonTargetTransition + 0.05f,1f);
+								head_SpawnTransition = Math.Min(head_SpawnTransition + 0.05f, 1f);
+								cannonTargetTransition = Math.Min(cannonTargetTransition + 0.05f, 1f);
 							}
 							if(npc.ai[2] > 120)
 							{
@@ -1463,39 +1407,39 @@ namespace MetroidMod.NPCs.OmegaPirate
 						// Absorb
 						if(npc.ai[2] < 60)
 						{
-							anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition-0.05f,0f);
+							anim_Walk_AbsorbTransition = Math.Max(anim_Walk_AbsorbTransition - 0.05f, 0f);
 							npc.ai[2]++;
 						}
 						else
 						{
-							anim_Walk_AbsorbTransition = Math.Min(anim_Walk_AbsorbTransition+0.05f,1f);
-							
-							if(AbsorbProj == null || !AbsorbProj.active)
+							anim_Walk_AbsorbTransition = Math.Min(anim_Walk_AbsorbTransition + 0.05f, 1f);
+
+							if (Main.netMode != NetmodeID.MultiplayerClient)
 							{
-								Vector2 spawnPos = LArmPos[4];
-								int a = NPC.NewNPC((int)spawnPos.X,(int)spawnPos.Y,mod.NPCType("OmegaPirateAbsorbField"),npc.whoAmI);
-								AbsorbProj = Main.npc[a];
-								AbsorbProj.realLife = npc.whoAmI;
-								AbsorbProj.ai[0] = npc.whoAmI;
-								AbsorbProj.Center = spawnPos;
-								if(addedAbsorbDamage > 0)
+								if (AbsorbProj == null || !AbsorbProj.active)
 								{
-									AbsorbProj.ai[2] = addedAbsorbDamage;
+									Vector2 spawnPos = LArmPos[4];
+									int a = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType("OmegaPirateAbsorbField"), npc.whoAmI, npc.whoAmI);
+									AbsorbProj = Main.npc[a];
+
+									if (addedAbsorbDamage > 0)
+									{
+										AbsorbProj.ai[2] = addedAbsorbDamage;
+									}
+									else
+									{
+										addedAbsorbDamage = (int)AbsorbProj.ai[2];
+									}
 								}
 								else
 								{
+									AbsorbProj.Center = LArmPos[4];
 									addedAbsorbDamage = (int)AbsorbProj.ai[2];
 								}
+								AbsorbProj.netUpdate = true;
 							}
-							else
-							{
-								AbsorbProj.Center = LArmPos[4];
-								addedAbsorbDamage = (int)AbsorbProj.ai[2];
-							}
-						}
-						
-						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);
-						
+						}						
+						SetAnimation("absorb", anim_Walk, anim_Walk_AbsorbTransition);						
 						
 						// Claw Attack
 						if(npc.ai[3] < 30)
@@ -1761,28 +1705,30 @@ namespace MetroidMod.NPCs.OmegaPirate
 						else
 						{
 							anim_Walk_AbsorbTransition = Math.Min(anim_Walk_AbsorbTransition+0.05f,1f);
-							
-							if(AbsorbProj == null || !AbsorbProj.active)
+
+							if (Main.netMode != NetmodeID.MultiplayerClient)
 							{
-								Vector2 spawnPos = LArmPos[4];
-								int a = NPC.NewNPC((int)spawnPos.X,(int)spawnPos.Y,mod.NPCType("OmegaPirateAbsorbField"),npc.whoAmI);
-								AbsorbProj = Main.npc[a];
-								AbsorbProj.realLife = npc.whoAmI;
-								AbsorbProj.ai[0] = npc.whoAmI;
-								AbsorbProj.Center = spawnPos;
-								if(addedAbsorbDamage > 0)
+								if (AbsorbProj == null || !AbsorbProj.active)
 								{
-									AbsorbProj.ai[2] = addedAbsorbDamage;
+									Vector2 spawnPos = LArmPos[4];
+									int a = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType("OmegaPirateAbsorbField"), npc.whoAmI, npc.whoAmI);
+									AbsorbProj = Main.npc[a];
+
+									if (addedAbsorbDamage > 0)
+									{
+										AbsorbProj.ai[2] = addedAbsorbDamage;
+									}
+									else
+									{
+										addedAbsorbDamage = (int)AbsorbProj.ai[2];
+									}
 								}
 								else
 								{
+									AbsorbProj.Center = LArmPos[4];
 									addedAbsorbDamage = (int)AbsorbProj.ai[2];
 								}
-							}
-							else
-							{
-								AbsorbProj.Center = LArmPos[4];
-								addedAbsorbDamage = (int)AbsorbProj.ai[2];
+								AbsorbProj.netUpdate = true;
 							}
 						}
 						
@@ -1836,22 +1782,23 @@ namespace MetroidMod.NPCs.OmegaPirate
 							if(anim_Shockwave >= 5f)
 							{
 								anim_Shockwave = 5f;
-								
-								Vector2 shockPos = new Vector2(MathHelper.Lerp(RArmPos[4].X,LArmPos[4].X,0.5f),npc.position.Y+numH);
-								
-								int shock1 = Projectile.NewProjectile(shockPos.X+15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
-								Main.projectile[shock1].ai[0] = 0.5f;
-								Main.projectile[shock1].localAI[0] = 1;
-								Main.projectile[shock1].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
-								Main.projectile[shock1].spriteDirection = 1;
-								int shock2 = Projectile.NewProjectile(shockPos.X-15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
-								Main.projectile[shock2].ai[0] = 0.5f;
-								Main.projectile[shock2].localAI[0] = 1;
-								Main.projectile[shock2].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
-								Main.projectile[shock2].spriteDirection = -1;
-								
-								addedAbsorbDamage = 0;
-								
+
+								Vector2 shockPos = new Vector2(MathHelper.Lerp(RArmPos[4].X, LArmPos[4].X, 0.5f), npc.position.Y + numH);
+
+								if (Main.netMode != NetmodeID.MultiplayerClient)
+								{
+									int shock1 = Projectile.NewProjectile(shockPos.X + 15f, shockPos.Y, 0f, 0f, mod.ProjectileType("OmegaPirateShockwave"), (int)((float)(shockwaveDamage + addedAbsorbDamage) / 2f), 8f, Main.myPlayer, .5f);
+									Main.projectile[shock1].localAI[0] = 1;
+									Main.projectile[shock1].localAI[1] = (float)addedAbsorbDamage / absorbDamageMax;
+									Main.projectile[shock1].spriteDirection = 1;
+									int shock2 = Projectile.NewProjectile(shockPos.X - 15f, shockPos.Y, 0f, 0f, mod.ProjectileType("OmegaPirateShockwave"), (int)((float)(shockwaveDamage + addedAbsorbDamage) / 2f), 8f, Main.myPlayer, .5f);
+									Main.projectile[shock2].localAI[0] = 1;
+									Main.projectile[shock2].localAI[1] = (float)addedAbsorbDamage / absorbDamageMax;
+									Main.projectile[shock2].spriteDirection = -1;
+
+									Main.projectile[shock1].netUpdate = Main.projectile[shock2].netUpdate = true;
+									addedAbsorbDamage = 0;
+								}
 								Main.PlaySound(SoundLoader.customSoundType, (int)shockPos.X, (int)shockPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_GroundSlamSound"));
 								Main.PlaySound(SoundLoader.customSoundType, (int)shockPos.X, (int)shockPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/ElitePirate_ShockwaveSound"));
 								
@@ -1929,10 +1876,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 					else if(npc.ai[1] == 3)
 					{
 						Player player = Main.player[npc.target];
-						if(AbsorbProj != null && AbsorbProj.active)
+
+						if (Main.netMode != NetmodeID.MultiplayerClient)
 						{
-							AbsorbProj.ai[3] = 1;
-							AbsorbProj.Center = LArmPos[4];
+							if (AbsorbProj != null && AbsorbProj.active)
+							{
+								AbsorbProj.ai[3] = 1;
+								AbsorbProj.Center = LArmPos[4];
+								AbsorbProj.netUpdate = true;
+							}
 						}
 						
 						if(npc.velocity.X != 0f)
@@ -2004,16 +1956,20 @@ namespace MetroidMod.NPCs.OmegaPirate
 							
 							if(npc.ai[3] == numCh)
 							{
-								Vector2 rLaserPos = RCannonPos[2] + rLaserAngle.ToRotationVector2()*10f;
-								Vector2 rLaserVel = rLaserAngle.ToRotationVector2()*15f;
-								int rLaser = Projectile.NewProjectile(rLaserPos.X,rLaserPos.Y,rLaserVel.X,rLaserVel.Y,mod.ProjectileType("OmegaPirateLaser"),(int)((float)(laserDamage+addedAbsorbDamage)/2f),8f);
-								Main.projectile[rLaser].localAI[0] = (float)addedAbsorbDamage/absorbDamageMax;
-								
-								Vector2 lLaserPos = LCannonPos[2] + lLaserAngle.ToRotationVector2()*10f;
-								Vector2 lLaserVel = lLaserAngle.ToRotationVector2()*15f;
-								int lLaser = Projectile.NewProjectile(lLaserPos.X,lLaserPos.Y,lLaserVel.X,lLaserVel.Y,mod.ProjectileType("OmegaPirateLaser"),(int)((float)(laserDamage+addedAbsorbDamage)/2f),8f);
-								Main.projectile[lLaser].localAI[0] = (float)addedAbsorbDamage/absorbDamageMax;
-								
+								if (Main.netMode != NetmodeID.MultiplayerClient)
+								{
+									Vector2 rLaserPos = RCannonPos[2] + rLaserAngle.ToRotationVector2() * 10f;
+									Vector2 rLaserVel = rLaserAngle.ToRotationVector2() * 15f;
+									int rLaser = Projectile.NewProjectile(rLaserPos.X, rLaserPos.Y, rLaserVel.X, rLaserVel.Y, mod.ProjectileType("OmegaPirateLaser"), (int)((float)(laserDamage + addedAbsorbDamage) / 2f), 8f);
+									Main.projectile[rLaser].localAI[0] = (float)addedAbsorbDamage / absorbDamageMax;
+
+									Vector2 lLaserPos = LCannonPos[2] + lLaserAngle.ToRotationVector2() * 10f;
+									Vector2 lLaserVel = lLaserAngle.ToRotationVector2() * 15f;
+									int lLaser = Projectile.NewProjectile(lLaserPos.X, lLaserPos.Y, lLaserVel.X, lLaserVel.Y, mod.ProjectileType("OmegaPirateLaser"), (int)((float)(laserDamage + addedAbsorbDamage) / 2f), 8f);
+									Main.projectile[lLaser].localAI[0] = (float)addedAbsorbDamage / absorbDamageMax;
+
+									Main.projectile[rLaser].netUpdate = Main.projectile[lLaser].netUpdate = true;
+								}
 								addedAbsorbDamage = 0;
 								
 								Main.PlaySound(SoundLoader.customSoundType, (int)cSoundPos.X, (int)cSoundPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_CannonFireSound"));
@@ -2095,11 +2051,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 					else if(npc.ai[1] == 4)
 					{
 						Player player = Main.player[npc.target];
-						
-						if(AbsorbProj != null && AbsorbProj.active)
+
+						if (Main.netMode != NetmodeID.MultiplayerClient)
 						{
-							AbsorbProj.ai[3] = 1;
-							AbsorbProj.Center = LArmPos[4];
+							if (AbsorbProj != null && AbsorbProj.active)
+							{
+								AbsorbProj.ai[3] = 1;
+								AbsorbProj.Center = LArmPos[4];
+								AbsorbProj.netUpdate = true;
+							}
 						}
 						
 						if(npc.ai[2] == 0)
@@ -2173,18 +2133,20 @@ namespace MetroidMod.NPCs.OmegaPirate
 							if(anim_Leap >= 5f)
 							{
 								Vector2 shockPos = new Vector2(MathHelper.Lerp(RArmPos[4].X,LArmPos[4].X,0.5f),npc.position.Y+numH);
-								
-								int shock1 = Projectile.NewProjectile(shockPos.X+15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
-								Main.projectile[shock1].ai[0] = 0.5f;
-								Main.projectile[shock1].localAI[0] = 1;
-								Main.projectile[shock1].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
-								Main.projectile[shock1].spriteDirection = 1;
-								int shock2 = Projectile.NewProjectile(shockPos.X-15f,shockPos.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),(int)((float)(shockwaveDamage+addedAbsorbDamage)/2f),8f);
-								Main.projectile[shock2].ai[0] = 0.5f;
-								Main.projectile[shock2].localAI[0] = 1;
-								Main.projectile[shock2].localAI[1] = (float)addedAbsorbDamage/absorbDamageMax;
-								Main.projectile[shock2].spriteDirection = -1;
-								
+
+								if (Main.netMode != NetmodeID.MultiplayerClient)
+								{
+									int shock1 = Projectile.NewProjectile(shockPos.X + 15f, shockPos.Y, 0f, 0f, mod.ProjectileType("OmegaPirateShockwave"), (int)((float)(shockwaveDamage + addedAbsorbDamage) / 2f), 8f, Main.myPlayer, .5f);
+									Main.projectile[shock1].localAI[0] = 1;
+									Main.projectile[shock1].localAI[1] = (float)addedAbsorbDamage / absorbDamageMax;
+									Main.projectile[shock1].spriteDirection = 1;
+									int shock2 = Projectile.NewProjectile(shockPos.X - 15f, shockPos.Y, 0f, 0f, mod.ProjectileType("OmegaPirateShockwave"), (int)((float)(shockwaveDamage + addedAbsorbDamage) / 2f), 8f, Main.myPlayer, .5f);
+									Main.projectile[shock2].localAI[0] = 1;
+									Main.projectile[shock2].localAI[1] = (float)addedAbsorbDamage / absorbDamageMax;
+									Main.projectile[shock2].spriteDirection = -1;
+
+									Main.projectile[shock1].netUpdate = Main.projectile[shock2].netUpdate = true;
+								}
 								addedAbsorbDamage = 0;
 								
 								Main.PlaySound(SoundLoader.customSoundType, (int)shockPos.X, (int)shockPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/OmegaPirate_GroundSlamSound"));
@@ -2274,10 +2236,14 @@ namespace MetroidMod.NPCs.OmegaPirate
 				// phazon regen phase
 				else if(npc.ai[0] == 2)
 				{
-					if(AbsorbProj != null && AbsorbProj.active)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						AbsorbProj.ai[3] = 1;
-						AbsorbProj.Center = LArmPos[4];
+						if (AbsorbProj != null && AbsorbProj.active)
+						{
+							AbsorbProj.ai[3] = 1;
+							AbsorbProj.Center = LArmPos[4];
+							AbsorbProj.netUpdate = true;
+						}
 					}
 					cannonTargetTransition = Math.Max(cannonTargetTransition - 0.1f,0f);
 					
@@ -2388,9 +2354,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 									npc.damage = 0;
 									npc.ai[1] = 1;
 									npc.ai[2] = 0;
-									npc.ai[3] = 180+Main.rand.Next(61);
 									npc.ai[4] = 0;
-									npc.ai[5] = 10+Main.rand.Next(30);
+
+									if (Main.netMode != NetmodeID.MultiplayerClient)
+									{
+										npc.netUpdate = true;
+										npc.ai[3] = 180 + Main.rand.Next(61);
+										npc.ai[5] = 10 + Main.rand.Next(30);
+									}
+
 									anim_PhazonStart = 1f;
 									anim_PhazonStartTransition = 0f;
 									npc.dontTakeDamage = true;
@@ -2451,11 +2423,15 @@ namespace MetroidMod.NPCs.OmegaPirate
 								PhazonAppearSound.Pan = pan;
 							}
 						}
-						npc.ai[2]++;
-						if(npc.ai[2] >= npc.ai[3])
+
+						if(npc.ai[2]++ >= npc.ai[3])
 						{
-							npc.position.X = PhazonAppearPosition.X-(npc.width/2);
-							npc.position.Y = PhazonAppearPosition.Y-numH;
+							if (Main.netMode != NetmodeID.MultiplayerClient)
+							{
+								npc.netUpdate = true;
+								npc.position.Y = PhazonAppearPosition.Y - numH;
+								npc.position.X = PhazonAppearPosition.X - (npc.width / 2);
+							}
 							npc.ai[1] = 2;
 							npc.ai[2] = 1;
 							npc.ai[3] = 0;
@@ -2529,33 +2505,35 @@ namespace MetroidMod.NPCs.OmegaPirate
 								
 								if(npc.ai[5] == 0)
 								{
-									for(int i = 0; i < DarkPortal.Length; i++)
+									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										Vector2 spawnPos = npc.Center;
-										if(i == 0)
+										for (int i = 0; i < DarkPortal.Length; i++)
 										{
-											spawnPos.X -= (100+Main.rand.Next(21));
-											spawnPos.Y -= (75+Main.rand.Next(26));
+											Vector2 spawnPos = npc.Center;
+											if (i == 0)
+											{
+												spawnPos.X -= (100 + Main.rand.Next(21));
+												spawnPos.Y -= (75 + Main.rand.Next(26));
+											}
+											if (i == 1)
+											{
+												spawnPos.X += (100 + Main.rand.Next(21));
+												spawnPos.Y -= (75 + Main.rand.Next(26));
+											}
+											if (i == 2)
+											{
+												spawnPos.X -= (75 + Main.rand.Next(26));
+												spawnPos.Y += (100 + Main.rand.Next(21));
+											}
+											if (i == 3)
+											{
+												spawnPos.X += (75 + Main.rand.Next(26));
+												spawnPos.Y += (100 + Main.rand.Next(21));
+											}
+											int dp = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType("Omega_DarkPortal"), npc.whoAmI, 0, 0, 0, npc.whoAmI);
+											DarkPortal[i] = Main.npc[dp];
 										}
-										if(i == 1)
-										{
-											spawnPos.X += (100+Main.rand.Next(21));
-											spawnPos.Y -= (75+Main.rand.Next(26));
-										}
-										if(i == 2)
-										{
-											spawnPos.X -= (75+Main.rand.Next(26));
-											spawnPos.Y += (100+Main.rand.Next(21));
-										}
-										if(i == 3)
-										{
-											spawnPos.X += (75+Main.rand.Next(26));
-											spawnPos.Y += (100+Main.rand.Next(21));
-										}
-										int dp = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("Omega_DarkPortal"),npc.whoAmI);
-										DarkPortal[i] = Main.npc[dp];
-										DarkPortal[i].ai[3] = npc.whoAmI;
-										DarkPortal[i].Center = spawnPos;
+										npc.netUpdate = true;
 									}
 									npc.ai[5] = 1;
 								}
@@ -2563,93 +2541,103 @@ namespace MetroidMod.NPCs.OmegaPirate
 								float armorRegenSpeed = 0.015f;
 								if(PhazonArmorRegenAlpha[0] < 1f)
 								{
-									if(PhazonArmorRegenAlpha[0] <= 0f)
+									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										int rla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-										RLegArmor = Main.npc[rla];
-										RLegArmor.ai[0] = npc.whoAmI;
-										RLegArmor.ai[1] = 1;
-										RLegArmor.Center = RLegPos[3];
-									}
-									for(int i = 0; i < DarkPortal.Length; i++)
-									{
-										DarkPortal[i].ai[1] = -1;
-										if(RLegArmor != null && RLegArmor.active)
+										if (PhazonArmorRegenAlpha[0] <= 0f)
+											_rLegArmor = NPC.NewNPC((int)RLegPos[3].X, (int)RLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
+
+										for (int i = 0; i < DarkPortal.Length; i++)
 										{
-											DarkPortal[i].ai[0] = RLegArmor.position.X + Main.rand.Next(RLegArmor.width);
-											DarkPortal[i].ai[1] = RLegArmor.position.Y + Main.rand.Next(RLegArmor.height);
+											DarkPortal[i].ai[1] = -1;
+											if (RLegArmor != null && RLegArmor.active)
+											{
+												DarkPortal[i].ai[0] = RLegArmor.position.X + Main.rand.Next(RLegArmor.width);
+												DarkPortal[i].ai[1] = RLegArmor.position.Y + Main.rand.Next(RLegArmor.height);
+												DarkPortal[i].netUpdate = true;
+											}
 										}
+										npc.netUpdate = true;
 									}
 									PhazonArmorRegenAlpha[0] = Math.Min(PhazonArmorRegenAlpha[0]+armorRegenSpeed,1f);
 								}
 								else if(PhazonArmorRegenAlpha[1] < 1f)
 								{
-									if(PhazonArmorRegenAlpha[1] <= 0f)
+									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										int lla = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-										LLegArmor = Main.npc[lla];
-										LLegArmor.ai[0] = npc.whoAmI;
-										LLegArmor.ai[1] = 1;
-										LLegArmor.Center = LLegPos[3];
-									}
-									for(int i = 0; i < DarkPortal.Length; i++)
-									{
-										DarkPortal[i].ai[1] = -1;
-										if(LLegArmor != null && LLegArmor.active)
+										if (PhazonArmorRegenAlpha[1] <= 0f)
 										{
-											DarkPortal[i].ai[0] = LLegArmor.position.X + Main.rand.Next(LLegArmor.width);
-											DarkPortal[i].ai[1] = LLegArmor.position.Y + Main.rand.Next(LLegArmor.height);
+											_lLegArmor = NPC.NewNPC((int)LLegPos[3].X, (int)LLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
 										}
+										for (int i = 0; i < DarkPortal.Length; i++)
+										{
+											DarkPortal[i].ai[1] = -1;
+											if (LLegArmor != null && LLegArmor.active)
+											{
+												DarkPortal[i].ai[0] = LLegArmor.position.X + Main.rand.Next(LLegArmor.width);
+												DarkPortal[i].ai[1] = LLegArmor.position.Y + Main.rand.Next(LLegArmor.height);
+												DarkPortal[i].netUpdate = true;
+											}
+										}
+										npc.netUpdate = true;
 									}
 									PhazonArmorRegenAlpha[1] = Math.Min(PhazonArmorRegenAlpha[1]+armorRegenSpeed,1f);
 								}
 								else if(PhazonArmorRegenAlpha[2] < 1f)
 								{
-									if(PhazonArmorRegenAlpha[2] <= 0f)
+									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										int raa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-										RArmArmor = Main.npc[raa];
-										RArmArmor.ai[0] = npc.whoAmI;
-										RArmArmor.Center = RArmPos[2];
-									}
-									for(int i = 0; i < DarkPortal.Length; i++)
-									{
-										DarkPortal[i].ai[1] = -1;
-										if(RArmArmor != null && RArmArmor.active)
+										if (PhazonArmorRegenAlpha[2] <= 0f && Main.netMode != NetmodeID.MultiplayerClient)
 										{
-											DarkPortal[i].ai[0] = RArmArmor.position.X + Main.rand.Next(RArmArmor.width);
-											DarkPortal[i].ai[1] = RArmArmor.position.Y + Main.rand.Next(RArmArmor.height);
+											_rArmArmor = NPC.NewNPC((int)RArmPos[2].X, (int)RArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
 										}
+										for (int i = 0; i < DarkPortal.Length; i++)
+										{
+											DarkPortal[i].ai[1] = -1;
+											if (RArmArmor != null && RArmArmor.active)
+											{
+												DarkPortal[i].ai[0] = RArmArmor.position.X + Main.rand.Next(RArmArmor.width);
+												DarkPortal[i].ai[1] = RArmArmor.position.Y + Main.rand.Next(RArmArmor.height);
+												DarkPortal[i].netUpdate = true;
+											}
+										}
+										npc.netUpdate = true;
 									}
 									PhazonArmorRegenAlpha[2] = Math.Min(PhazonArmorRegenAlpha[2]+armorRegenSpeed,1f);
 								}
 								else if(PhazonArmorRegenAlpha[3] < 1f)
 								{
-									if(PhazonArmorRegenAlpha[3] <= 0f)
+									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										int laa = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_WeakPoint"),npc.whoAmI);
-										LArmArmor = Main.npc[laa];
-										LArmArmor.ai[0] = npc.whoAmI;
-										LArmArmor.Center = LArmPos[2];
-									}
-									for(int i = 0; i < DarkPortal.Length; i++)
-									{
-										DarkPortal[i].ai[1] = -1;
-										if(LArmArmor != null && LArmArmor.active)
+										if (PhazonArmorRegenAlpha[3] <= 0f && Main.netMode != NetmodeID.MultiplayerClient)
 										{
-											DarkPortal[i].ai[0] = LArmArmor.position.X + Main.rand.Next(LArmArmor.width);
-											DarkPortal[i].ai[1] = LArmArmor.position.Y + Main.rand.Next(LArmArmor.height);
+											_lArmArmor = NPC.NewNPC((int)LArmPos[2].X, (int)LArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
 										}
+										for (int i = 0; i < DarkPortal.Length; i++)
+										{
+											DarkPortal[i].ai[1] = -1;
+											if (LArmArmor != null && LArmArmor.active)
+											{
+												DarkPortal[i].ai[0] = LArmArmor.position.X + Main.rand.Next(LArmArmor.width);
+												DarkPortal[i].ai[1] = LArmArmor.position.Y + Main.rand.Next(LArmArmor.height);
+												DarkPortal[i].netUpdate = true;
+											}
+										}
+										npc.netUpdate = true;
 									}
 									PhazonArmorRegenAlpha[3] = Math.Min(PhazonArmorRegenAlpha[3]+armorRegenSpeed,1f);
 								}
 								else
 								{
-									for(int i = 0; i < DarkPortal.Length; i++)
+									// This should be deterministic enough to not have to network it.
+									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
-										if(DarkPortal[i] != null && DarkPortal[i].active)
+										for (int i = 0; i < DarkPortal.Length; i++)
 										{
-											DarkPortal[i].ai[2] = 1;
+											if (DarkPortal[i] != null && DarkPortal[i].active)
+											{
+												DarkPortal[i].ai[2] = 1;
+												DarkPortal[i].netUpdate = true;
+											}
 										}
 									}
 									if(anim_PhazonRegenTransition > 0f)
@@ -2688,14 +2676,16 @@ namespace MetroidMod.NPCs.OmegaPirate
 						}
 						else
 						{
-							//Body.dontTakeDamage = true;
-							
-							for(int i = 0; i < DarkPortal.Length; i++)
+							if (Main.netMode != NetmodeID.MultiplayerClient)
 							{
-								if(DarkPortal[i] != null && DarkPortal[i].active)
+								for (int i = 0; i < DarkPortal.Length; i++)
 								{
-									DarkPortal[i].ai[1] = -1;
-									DarkPortal[i].ai[2] = 1;
+									if (DarkPortal[i] != null && DarkPortal[i].active)
+									{
+										DarkPortal[i].ai[1] = -1;
+										DarkPortal[i].ai[2] = 1;
+										DarkPortal[i].netUpdate = true;
+									}
 								}
 							}
 							
@@ -2788,12 +2778,16 @@ namespace MetroidMod.NPCs.OmegaPirate
 				//death anim
 				else if(npc.ai[0] == 3)
 				{
-					for(int i = 0; i < DarkPortal.Length; i++)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						if(DarkPortal[i] != null && DarkPortal[i].active)
+						for (int i = 0; i < DarkPortal.Length; i++)
 						{
-							DarkPortal[i].ai[1] = -1;
-							DarkPortal[i].ai[2] = 1;
+							if (DarkPortal[i] != null && DarkPortal[i].active)
+							{
+								DarkPortal[i].ai[1] = -1;
+								DarkPortal[i].ai[2] = 1;
+								DarkPortal[i].netUpdate = true;
+							}
 						}
 					}
 					
@@ -2802,10 +2796,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 					RLegArmor.active = false;
 					LLegArmor.active = false;
 					
-					//bodyAlpha = Math.Min(bodyAlpha+0.025f,1f);
-					bodyAlpha = Math.Min(bodyAlpha+0.015f,1f);
+					bodyAlpha = Math.Min(bodyAlpha + 0.015f, 1f);
 					fullAlpha = 1f;
-					fullScale.X = Math.Min(fullScale.X+0.1f,1f);
+					fullScale.X = Math.Min(fullScale.X + 0.1f, 1f);
 					
 					float animSpeed = 0f;
 					if(anim_Death < 2f)
@@ -3057,13 +3050,18 @@ namespace MetroidMod.NPCs.OmegaPirate
 					
 					for(int j = 0; j < 3; j++)
 					{
-						dust = Dust.NewDust(RArm[j].Center-new Vector2(RArm[j].width/2,RArm[j].height/2)*fullScale,(int)((float)RArm[j].width*fullScale.X),(int)((float)RArm[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						NPC RArm = GetArm(false, j),
+							LArm = GetArm(true, j),
+							RLeg = GetLeg(false, j),
+							LLeg = GetLeg(true, j);
+
+						dust = Dust.NewDust(RArm.Center-new Vector2(RArm.width/2,RArm.height/2)*fullScale,(int)((float)RArm.width*fullScale.X),(int)((float)RArm.height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
 						Main.dust[dust].noGravity = true;
-						dust = Dust.NewDust(LArm[j].Center-new Vector2(LArm[j].width/2,LArm[j].height/2)*fullScale,(int)((float)LArm[j].width*fullScale.X),(int)((float)LArm[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						dust = Dust.NewDust(LArm.Center-new Vector2(LArm.width/2,LArm.height/2)*fullScale,(int)((float)LArm.width*fullScale.X),(int)((float)LArm.height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
 						Main.dust[dust].noGravity = true;
-						dust = Dust.NewDust(RLeg[j].Center-new Vector2(RLeg[j].width/2,RLeg[j].height/2)*fullScale,(int)((float)RLeg[j].width*fullScale.X),(int)((float)RLeg[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						dust = Dust.NewDust(RLeg.Center-new Vector2(RLeg.width/2,RLeg.height/2)*fullScale,(int)((float)RLeg.width*fullScale.X),(int)((float)RLeg.height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
 						Main.dust[dust].noGravity = true;
-						dust = Dust.NewDust(LLeg[j].Center-new Vector2(LLeg[j].width/2,LLeg[j].height/2)*fullScale,(int)((float)LLeg[j].width*fullScale.X),(int)((float)LLeg[j].height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
+						dust = Dust.NewDust(LLeg.Center-new Vector2(LLeg.width/2,LLeg.height/2)*fullScale,(int)((float)LLeg.width*fullScale.X),(int)((float)LLeg.height*fullScale.Y),68,0f,0f,100,default(Color),dustScale);
 						Main.dust[dust].noGravity = true;
 					}
 				}
@@ -3165,123 +3163,45 @@ namespace MetroidMod.NPCs.OmegaPirate
 			
 			
 			if(Body != null && Body.active)
-			{
 				Body.Center = BodyPos[1];
-			}
-			else
-			{
-				int b = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-				Body = Main.npc[b];
-				Body.realLife = npc.whoAmI;
-				Body.ai[0] = npc.whoAmI;
-				Body.Center = BodyPos[1];
-			}
 			
 			for(int i = 0; i < 3; i++)
 			{
-				if(RArm[i] != null && RArm[i].active)
-				{
-					RArm[i].Center = RArmPos[i+2];
-				}
-				else
-				{
-					int ra = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					RArm[i] = Main.npc[ra];
-					RArm[i].realLife = npc.whoAmI;
-					RArm[i].ai[0] = npc.whoAmI;
-					RArm[i].ai[1] = 1+i;
-					RArm[i].Center = RArmPos[i+2];
-				}
+				NPC RArm = GetArm(false, i),
+					LArm = GetArm(true, i),
+					RLeg = GetLeg(false, i),
+					LLeg = GetLeg(true, i);
+
+				if (RArm != null && RArm.active)
+					RArm.Center = RArmPos[i+2];
 				
-				if(LArm[i] != null && LArm[i].active)
-				{
-					LArm[i].Center = LArmPos[i+2];
-				}
-				else
-				{
-					int la = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					LArm[i] = Main.npc[la];
-					LArm[i].realLife = npc.whoAmI;
-					LArm[i].ai[0] = npc.whoAmI;
-					LArm[i].ai[1] = 1+i;
-					LArm[i].Center = LArmPos[i+2];
-				}
+				if(LArm != null && LArm.active)
+					LArm.Center = LArmPos[i+2];
 				
-				if(RLeg[i] != null && RLeg[i].active)
-				{
-					RLeg[i].Center = RLegPos[i+3];
-				}
-				else
-				{
-					int rl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					RLeg[i] = Main.npc[rl];
-					RLeg[i].realLife = npc.whoAmI;
-					RLeg[i].ai[0] = npc.whoAmI;
-					RLeg[i].ai[1] = 4+i;
-					RLeg[i].Center = RLegPos[i+3];
-				}
+				if(RLeg != null && RLeg.active)
+					RLeg.Center = RLegPos[i+3];
 				
-				if(LLeg[i] != null && LLeg[i].active)
-				{
-					LLeg[i].Center = LLegPos[i+3];
-				}
-				else
-				{
-					int ll = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-					LLeg[i] = Main.npc[ll];
-					LLeg[i].realLife = npc.whoAmI;
-					LLeg[i].ai[0] = npc.whoAmI;
-					LLeg[i].ai[1] = 4+i;
-					LLeg[i].Center = LLegPos[i+3];
-				}
+				if(LLeg != null && LLeg.active)
+					LLeg.Center = LLegPos[i+3];
 			}
 			
 			if(RCannon != null && RCannon.active)
-			{
 				RCannon.Center = RCannonPos[2];
-			}
-			else
-			{
-				int cr = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-				RCannon = Main.npc[cr];
-				RCannon.realLife = npc.whoAmI;
-				RCannon.ai[0] = npc.whoAmI;
-				RCannon.ai[1] = 6;
-				RCannon.Center = RCannonPos[2];
-			}
+
 			if(LCannon != null && LCannon.active)
-			{
 				LCannon.Center = LCannonPos[2];
-			}
-			else
-			{
-				int cl = NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("OmegaPirate_HitBox"),npc.whoAmI);
-				LCannon = Main.npc[cl];
-				LCannon.realLife = npc.whoAmI;
-				LCannon.ai[0] = npc.whoAmI;
-				LCannon.ai[1] = 6;
-				LCannon.Center = LCannonPos[2];
-			}
 			
 			if(RArmArmor != null && RArmArmor.active)
-			{
 				RArmArmor.Center = RArmPos[2];
-			}
 			
 			if(LArmArmor != null && LArmArmor.active)
-			{
 				LArmArmor.Center = LArmPos[2];
-			}
 			
 			if(RLegArmor != null && RLegArmor.active)
-			{
 				RLegArmor.Center = RLegPos[3];
-			}
 			
 			if(LLegArmor != null && LLegArmor.active)
-			{
 				LLegArmor.Center = LLegPos[3];
-			}
 		}
 		
 		void ChangeDir(int dir)
@@ -3293,6 +3213,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			else
 			{
 				npc.direction = dir;
+				npc.netUpdate = true;
 			}
 		}
 		
@@ -3636,6 +3557,43 @@ namespace MetroidMod.NPCs.OmegaPirate
 				LimbColor = color2;
 			}
 			sb.Draw(tex, LimbDrawPos - Main.screenPosition, new Rectangle?(new Rectangle(0,frame*LimbFrameHeight,tex.Width,LimbFrameHeight)),LimbColor,LimbRot*npc.spriteDirection,LimbOrigin,scale,effects,0f);
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write((byte)_body);
+			writer.Write((byte)_lArmArmor);
+			writer.Write((byte)_rArmArmor);
+			writer.Write((byte)_lLegArmor);
+			writer.Write((byte)_rLegArmor);
+			writer.Write((byte)_rCannon);
+			writer.Write((byte)_lCannon);
+
+			for (int i = 0; i < 3; ++i)
+			{
+				writer.Write((byte)_lArm[i]);
+				writer.Write((byte)_rArm[i]);
+				writer.Write((byte)_lLeg[i]);
+				writer.Write((byte)_rLeg[i]);
+			}
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			_body = reader.ReadByte();
+			_lArmArmor = reader.ReadByte();
+			_rArmArmor = reader.ReadByte();
+			_lLegArmor = reader.ReadByte();
+			_rLegArmor = reader.ReadByte();
+			_rCannon = reader.ReadByte();
+			_lCannon = reader.ReadByte();
+
+			for (int i = 0; i < 3; ++i)
+			{
+				_lArm[i] = reader.ReadByte();
+				_rArm[i] = reader.ReadByte();
+				_lLeg[i] = reader.ReadByte();
+				_rLeg[i] = reader.ReadByte();
+			}
 		}
 	}
 }

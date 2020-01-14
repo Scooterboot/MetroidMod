@@ -14,13 +14,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 {
     public class OmegaPirate_HitBox : ModNPC
     {
-		public override string Texture
-		{
-			get
-			{
-				return mod.Name + "/NPCs/OmegaPirate/OmegaPirate_Body";
-			}
-		}
+		public override string Texture => mod.Name + "/NPCs/OmegaPirate/OmegaPirate_Body";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Omega Pirate");
@@ -50,6 +45,12 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.buffImmune[70] = true;
 			npc.buffImmune[mod.BuffType("PhazonDebuff")] = true;
 		}
+
+		NPC Base
+		{
+			get { return Main.npc[(int)npc.ai[0]]; }
+		}
+
 		public override bool PreAI()
 		{
 			//shoulder
@@ -96,24 +97,22 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			return true;
 		}
-		NPC Base;
+
 		public override void AI()
 		{
-			Base = Main.npc[(int)npc.ai[0]];
-			bool flag = (Base.alpha < 255);
+			bool visible = (Base.alpha < 255);
 			if (!Base.active)
 			{
 				Main.PlaySound(npc.DeathSound,npc.Center);
 				npc.life = 0;
-				if(flag)
-				{
+				if(visible)
 					npc.HitEffect(0, 10.0);
-				}
 				npc.active = false;
 				return;
 			}
 			npc.damage = Base.damage;
 			npc.defense = Base.defense;
+			npc.realLife = Base.whoAmI;
 			if(npc.ai[1] != 0f || Base.dontTakeDamage || Base.ai[0] != 2)
 			{
 				npc.dontTakeDamage = true;
@@ -125,65 +124,56 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.GivenName = Base.GivenName;
 			npc.chaseable = !npc.dontTakeDamage;
 		}
-		public override bool? CanBeHitByItem(Player player, Item item)
-		{
-			return npc.ai[1] == 0f;
-		}
-		public override bool? CanBeHitByProjectile(Projectile projectile)
-		{
-			return npc.ai[1] == 0f;
-		}
+
+		public override bool? CanBeHitByItem(Player player, Item item) => npc.ai[1] == 0f;
+		public override bool? CanBeHitByProjectile(Projectile projectile) => npc.ai[1] == 0f;
+
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (Main.netMode != 2)
+			for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
 			{
-				for (int m = 0; m < (npc.life <= 0 ? 20 : 5); m++)
-				{
-					int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 68, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
-					Main.dust[dustID].noGravity = true;
-				}
+				int dustID = Dust.NewDust(npc.position, npc.width, npc.height, 68, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, npc.life <= 0 && m % 2 == 0 ? 3f : 1f);
+				Main.dust[dustID].noGravity = true;
+			}
 				
-				if(npc.life <= 0 && Base.ai[0] == 3)
+			if(npc.life <= 0 && Base.ai[0] == 3)
+			{
+				Gore newGore;
+				if(npc.ai[1] == 1f)
 				{
-					if(npc.ai[1] == 1f)
+					newGore = Main.gore[Gore.NewGore(npc.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, mod.GetGoreSlot("Gores/OmegaPirateGore1"))];
+					newGore.timeLeft = 60;
+				}
+				else if(npc.ai[1] == 3f)
+				{
+					newGore = Main.gore[Gore.NewGore(npc.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, mod.GetGoreSlot("Gores/OmegaPirateGore3"))];
+					newGore.timeLeft = 60;
+
+					newGore = Main.gore[Gore.NewGore(npc.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, mod.GetGoreSlot("Gores/OmegaPirateGore4"))];
+					newGore.timeLeft = 60;
+
+					newGore = Main.gore[Gore.NewGore(npc.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, mod.GetGoreSlot("Gores/OmegaPirateGore5"))];
+					newGore.timeLeft = 60;
+
+					newGore = Main.gore[Gore.NewGore(npc.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, mod.GetGoreSlot("Gores/OmegaPirateGore6"))];
+					newGore.timeLeft = 60;
+				}
+				else if(npc.ai[1] == 4f)
+				{
+					newGore = Main.gore[Gore.NewGore(npc.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, mod.GetGoreSlot("Gores/OmegaPirateGore2"))];
+					newGore.timeLeft = 60;
+				}
+				else
+				{
+					for(int i = 0; i < npc.width; i += 10)
 					{
-						int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore1"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-					}
-					else if(npc.ai[1] == 3f)
-					{
-						int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore3"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-						gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore4"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-						gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore5"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-						gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore6"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-					}
-					else if(npc.ai[1] == 4f)
-					{
-						int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore2"), 1f);
-						Main.gore[gore].velocity *= 0.4f;
-						Main.gore[gore].timeLeft = 60;
-					}
-					else
-					{
-						for(int i = 0; i < npc.width; i += 10)
-						{
-							int gore = Gore.NewGore(npc.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), mod.GetGoreSlot("Gores/OmegaPirateGore"+Main.rand.Next(6,9)), 1f);
-							Main.gore[gore].velocity *= 0.4f;
-							Main.gore[gore].timeLeft = 60;
-						}
+						newGore = Main.gore[Gore.NewGore(npc.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, mod.GetGoreSlot("Gores/OmegaPirateGore" + Main.rand.Next(6,9)))];
+						newGore.timeLeft = 60;
 					}
 				}
 			}
 		}
+
 		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
 		{
 			if(projectile.penetrate > 0 && projectile.aiStyle != 3)
@@ -195,13 +185,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 				Base.ai[3] += damage;
 			}
 		}
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-		{
-			return false;
-		}
-		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-		{
-			return false;
-		}
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor) => false;
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position) => false;
 	}
 }
