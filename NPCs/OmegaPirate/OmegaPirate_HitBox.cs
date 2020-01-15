@@ -51,6 +51,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 			get { return Main.npc[(int)npc.ai[0]]; }
 		}
 
+		int oldLife = 0;
+		bool initialized = false;
+
 		public override bool PreAI()
 		{
 			//shoulder
@@ -95,6 +98,13 @@ namespace MetroidMod.NPCs.OmegaPirate
 				npc.width = 48;
 				npc.height = 48;
 			}
+
+			if (!initialized)
+			{
+				oldLife = npc.lifeMax;
+				initialized = true;
+			}
+
 			return true;
 		}
 
@@ -123,6 +133,16 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			npc.GivenName = Base.GivenName;
 			npc.chaseable = !npc.dontTakeDamage;
+
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				if (Base != null && Base.active && Base.ai[0] == 2 && Base.ai[1] == 2 && npc.ai[1] == 0f)
+				{
+					oldLife = npc.life;
+					Base.netUpdate2 = true;
+					Base.ai[3] += (oldLife - npc.life);
+				}
+			}
 		}
 
 		public override bool? CanBeHitByItem(Player player, Item item) => npc.ai[1] == 0f;
@@ -179,10 +199,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			if(projectile.penetrate > 0 && projectile.aiStyle != 3)
 			{
 				projectile.penetrate = 0;
-			}
-			if(Base != null && Base.active && Base.ai[0] == 2 && Base.ai[1] == 2 && npc.ai[1] == 0f)
-			{
-				Base.ai[3] += damage;
+				projectile.netUpdate = true;
 			}
 		}
 

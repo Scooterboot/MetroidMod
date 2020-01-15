@@ -363,14 +363,17 @@ namespace MetroidMod.NPCs.OmegaPirate
 		{
 			npc.noTileCollide = true;
 			npc.noGravity = true;
-			if(!initialized)
+			if(!initialized && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				npc.TargetClosest(true);
 				npc.netUpdate = true;
+				npc.TargetClosest(true);
 				
 				Player player = Main.player[npc.target];
 				
 				npc.direction = 1;
+				if (Main.rand.Next(2) == 0)
+					npc.direction = -1;
+
 				npc.velocity.Y = 0.1f;
 				npc.Center = new Vector2(player.Center.X - 150 * npc.direction, player.Center.Y - 1500);
 				
@@ -378,26 +381,23 @@ namespace MetroidMod.NPCs.OmegaPirate
 				
 				SetPositions();
 
-				if (Main.netMode != NetmodeID.MultiplayerClient)
+				_body = NPC.NewNPC((int)BodyPos[1].X, (int)BodyPos[1].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI);
+
+				for (int i = 0; i < 3; i++)
 				{
-					_body = NPC.NewNPC((int)BodyPos[1].X, (int)BodyPos[1].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI);
-
-					for (int i = 0; i < 3; i++)
-					{
-						_rArm[i] = NPC.NewNPC((int)RArmPos[i + 2].X, (int)RArmPos[i + 2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 1 + i);
-						_lArm[i] = NPC.NewNPC((int)LArmPos[i + 2].X, (int)LArmPos[i + 2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 1 + i);
-						_rLeg[i] = NPC.NewNPC((int)RLegPos[i + 3].X, (int)RLegPos[i + 3].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 4 + i);
-						_lLeg[i] = NPC.NewNPC((int)LLegPos[i + 3].X, (int)LLegPos[i + 3].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 4 + i);
-					}
-
-					_rCannon = NPC.NewNPC((int)RCannonPos[2].X, (int)RCannonPos[2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 7);
-					_lCannon = NPC.NewNPC((int)LCannonPos[2].X, (int)LCannonPos[2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 7);
-					
-					_rArmArmor = NPC.NewNPC((int)RArmPos[2].X, (int)RArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
-					_lArmArmor = NPC.NewNPC((int)LArmPos[2].X, (int)LArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
-					_rLegArmor = NPC.NewNPC((int)RLegPos[3].X, (int)RLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
-					_lLegArmor = NPC.NewNPC((int)LLegPos[3].X, (int)LLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
+					_rArm[i] = NPC.NewNPC((int)RArmPos[i + 2].X, (int)RArmPos[i + 2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 1 + i);
+					_lArm[i] = NPC.NewNPC((int)LArmPos[i + 2].X, (int)LArmPos[i + 2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 1 + i);
+					_rLeg[i] = NPC.NewNPC((int)RLegPos[i + 3].X, (int)RLegPos[i + 3].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 4 + i);
+					_lLeg[i] = NPC.NewNPC((int)LLegPos[i + 3].X, (int)LLegPos[i + 3].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 4 + i);
 				}
+
+				_rCannon = NPC.NewNPC((int)RCannonPos[2].X, (int)RCannonPos[2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 7);
+				_lCannon = NPC.NewNPC((int)LCannonPos[2].X, (int)LCannonPos[2].Y, mod.NPCType("OmegaPirate_HitBox"), npc.whoAmI, npc.whoAmI, 7);
+					
+				_rArmArmor = NPC.NewNPC((int)RArmPos[2].X, (int)RArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
+				_lArmArmor = NPC.NewNPC((int)LArmPos[2].X, (int)LArmPos[2].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI);
+				_rLegArmor = NPC.NewNPC((int)RLegPos[3].X, (int)RLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
+				_lLegArmor = NPC.NewNPC((int)LLegPos[3].X, (int)LLegPos[3].Y, mod.NPCType("OmegaPirate_WeakPoint"), npc.whoAmI, npc.whoAmI, 1);
 
 				initialized = true;
 			}
@@ -2729,18 +2729,23 @@ namespace MetroidMod.NPCs.OmegaPirate
 							}
 							else
 							{
-								fullAlpha = 0f;
-								npc.damage = 0;
-								npc.ai[1] = 1;
-								npc.ai[2] = 0;
-								npc.ai[3] = 120+Main.rand.Next(121);
-								npc.ai[4] = 0;
-								npc.ai[5] = 10+Main.rand.Next(30);
-								anim_PhazonRegen = 1f;
-								anim_PhazonRegenTransition = 0f;
-								npc.damage = 0;
-								npc.dontTakeDamage = true;
-								Body.dontTakeDamage = true;
+								if (Main.netMode != NetmodeID.MultiplayerClient)
+								{
+									fullAlpha = 0f;
+									npc.damage = 0;
+									npc.ai[1] = 1;
+									npc.ai[2] = 0;
+									npc.ai[3] = 120 + Main.rand.Next(121);
+									npc.ai[4] = 0;
+									npc.ai[5] = 10 + Main.rand.Next(30);
+									anim_PhazonRegen = 1f;
+									anim_PhazonRegenTransition = 0f;
+									npc.damage = 0;
+									npc.netUpdate = true;
+									Body.netUpdate = true;
+									npc.dontTakeDamage = true;
+									Body.dontTakeDamage = true;
+								}
 							}
 						}
 						
@@ -3593,6 +3598,12 @@ namespace MetroidMod.NPCs.OmegaPirate
 				_rArm[i] = reader.ReadByte();
 				_lLeg[i] = reader.ReadByte();
 				_rLeg[i] = reader.ReadByte();
+			}
+
+			if (!this.initialized)
+			{
+				this.SetPositions();
+				this.initialized = true;
 			}
 		}
 	}

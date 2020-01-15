@@ -97,6 +97,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			if(projectile.penetrate > 0 && projectile.aiStyle != 3)
 			{
 				projectile.penetrate = 0;
+				projectile.netUpdate = true;
 			}
 		}
 	}
