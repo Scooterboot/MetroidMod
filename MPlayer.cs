@@ -2560,7 +2560,7 @@ namespace MetroidMod
 					bombCount++;
 				}
 			}
-			if (player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && player.controlUseTile && !player.tileInteractionHappened && player.releaseUseItem && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
+			if (player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && player.controlUseTile && player.releaseUseTile && !player.tileInteractionHappened && player.releaseUseItem && !player.controlUseItem && !player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayBomb"));
 				int BombID = mod.ProjectileType("MBBomb");
