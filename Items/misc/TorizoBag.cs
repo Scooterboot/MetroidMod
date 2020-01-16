@@ -1,7 +1,3 @@
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -22,38 +18,27 @@ namespace MetroidMod.Items.misc
 			item.height = 24;
 			item.expert = true;
 			item.rare = -12;
-			//bossBagNPC = mod.NPCType("Torizo");
 		}
-		public override int BossBagNPC
-		{
-			get
-			{
-				return mod.NPCType("Torizo");
-			}
-		}
-		public override bool CanRightClick()
-		{
-			return true;
-		}
+
+		public override bool CanRightClick() => true;
+		public override int BossBagNPC => mod.NPCType("Torizo");
 
 		public override void OpenBossBag(Player player)
 		{
 			player.QuickSpawnItem(mod.ItemType("EnergyShard"), Main.rand.Next(25, 51));
-				if (Main.rand.Next(2) == 0)
-				{
-					player.QuickSpawnItem(mod.ItemType("RidleyMusicBox"));
-				}
-				if (Main.rand.Next(3) == 0)
-				{
-					player.QuickSpawnItem(mod.ItemType("TorizoMask"));
-				}
-				if (Main.rand.Next(5) == 0)
-				{
-					player.QuickSpawnItem(mod.ItemType("TorizoTrophy"));
-				}
-				
+			if (Main.rand.Next(2) == 0)
+			{
+				player.QuickSpawnItem(mod.ItemType("RidleyMusicBox"));
+			}
+			if (Main.rand.Next(3) == 0)
+			{
+				player.QuickSpawnItem(mod.ItemType("TorizoMask"));
+			}
+			if (Main.rand.Next(5) == 0)
+			{
+				player.QuickSpawnItem(mod.ItemType("TorizoTrophy"));
+			}				
 		}
-
 	}
 }
 

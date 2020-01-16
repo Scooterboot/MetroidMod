@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace MetroidMod.Items.tools
 {
@@ -27,8 +23,8 @@ namespace MetroidMod.Items.tools
 			item.noMelee = true;
 			item.value = 1000;
 			item.rare = 7;
-
 		}
+
         public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
@@ -40,6 +36,7 @@ namespace MetroidMod.Items.tools
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
+
         public override bool CanUseItem(Player player)
 		{
 			return !NPC.AnyNPCs(mod.NPCType("OmegaPirate"));

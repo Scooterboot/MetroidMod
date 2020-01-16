@@ -1,8 +1,8 @@
-using MetroidMod.Tiles;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
+using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Items.tiles
 {
@@ -27,12 +27,12 @@ namespace MetroidMod.Items.tiles
 			item.rare = 1;
             item.mech = true;
 		}
+
         public override bool UseItem(Player player)
         {
             if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem)
             {
-                Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
-                Vector2 pos = new Vector2(Player.tileTargetX * 16, Player.tileTargetY * 16);
+				Vector2 pos = new Vector2(Player.tileTargetX * 16, Player.tileTargetY * 16);
                 if (MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] == 0)
                 {
                     MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] = 1;
@@ -42,6 +42,7 @@ namespace MetroidMod.Items.tiles
             }
             return base.UseItem(player);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

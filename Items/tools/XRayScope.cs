@@ -1,12 +1,10 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Items.tools
 {
@@ -32,7 +30,8 @@ namespace MetroidMod.Items.tools
 			item.channel = true;
 			item.mech = true;
 		}
-        public override void AddRecipes()  //How to craft this item
+
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod); 
             recipe.AddIngredient(ItemID.CobaltBar, 10);
@@ -41,6 +40,7 @@ namespace MetroidMod.Items.tools
             recipe.AddTile(TileID.Anvils);   
             recipe.SetResult(this);
             recipe.AddRecipe();
+
 			recipe = new ModRecipe(mod); 
             recipe.AddIngredient(ItemID.PalladiumBar, 10);
             recipe.AddIngredient(ItemID.SpelunkerPotion);
@@ -49,11 +49,13 @@ namespace MetroidMod.Items.tools
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
 		/*public static XRayScope xray = new XRayScope();
 		public override void Initialize()
 		{
 			xray = this;
 		}*/
+
 		public override bool UseItem(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -87,6 +89,7 @@ namespace MetroidMod.Items.tools
 			}
 			return true;
 		}
+
 	/*	public bool XRayActive(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

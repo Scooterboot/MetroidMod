@@ -15,7 +15,6 @@ namespace MetroidMod.Tiles
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
-		//	Main.tileBlockLight[Type] = true;
 			Main.tileSpelunker[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX); 
 			TileObjectData.newTile.Height = 3;
@@ -36,17 +35,11 @@ namespace MetroidMod.Tiles
 			disableSmartCursor = true;
 		}
 
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
-
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType("ChozoStatue"));
-		}
-
-	
+		}	
 	}
 }

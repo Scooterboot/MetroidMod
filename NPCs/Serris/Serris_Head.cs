@@ -607,6 +607,7 @@ namespace MetroidMod.NPCs.Serris
 		}
 		public override void NPCLoot()
 		{
+			MWorld.bossesDown |= MetroidBossDown.downedSerris;
 			if (Main.expertMode)
 			{
 				npc.DropBossBags();

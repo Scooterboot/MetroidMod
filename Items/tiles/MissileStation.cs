@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +24,8 @@ namespace MetroidMod.Items.tiles
 			item.consumable = true;
 			item.createTile = mod.TileType("MissileStation");
 		}
-public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "MissileExpansion");
@@ -32,6 +34,5 @@ public override void AddRecipes()
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
 	}
 }

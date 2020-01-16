@@ -24,7 +24,5 @@ namespace MetroidMod.Items.tiles
 			item.createTile = mod.TileType("ChoziteOreTile");
 			item.rare = 2;
 		}
-
-
 	}
 }

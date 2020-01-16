@@ -31,7 +31,7 @@ namespace MetroidMod.Projectiles.boss
 		float alpha = 2f;
 		public override void AI()
 		{
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+			projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
 			
 			projectile.frame++;
 			if(projectile.frame >= 3)
@@ -52,7 +52,7 @@ namespace MetroidMod.Projectiles.boss
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 25);
 		}
 
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
@@ -65,7 +65,7 @@ namespace MetroidMod.Projectiles.boss
 			Texture2D tex = Main.projectileTexture[projectile.type];
 			int num108 = tex.Height / Main.projFrames[projectile.type];
 			int y4 = num108 * projectile.frame;
-			sb.Draw(tex, new Vector2((float)((int)(projectile.Center.X - Main.screenPosition.X)), (float)((int)(projectile.Center.Y - Main.screenPosition.Y + projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), projectile.GetAlpha(Color.White)*Math.Min(alpha,1f), projectile.rotation, new Vector2((float)tex.Width/2f, (float)num108/2f), projectile.scale, effects, 0f);
+			sb.Draw(tex, new Vector2(((int)(projectile.Center.X - Main.screenPosition.X)), ((int)(projectile.Center.Y - Main.screenPosition.Y + projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), projectile.GetAlpha(Color.White)*Math.Min(alpha,1f), projectile.rotation, new Vector2(tex.Width/2f, num108/2f), projectile.scale, effects, 0f);
 			return false;
 		}
 	}

@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +11,6 @@ namespace MetroidMod.Items.weapons
 			DisplayName.SetDefault("Chozite Crossbow");
 			Tooltip.SetDefault("Fires two arrows in rapid succession");
 		}
-
 		public override void SetDefaults()
 		{
 			item.damage = 12;

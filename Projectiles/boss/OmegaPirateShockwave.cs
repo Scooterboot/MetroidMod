@@ -2,8 +2,10 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.NPCs.OmegaPirate;
+using System.IO;
 
 namespace MetroidMod.Projectiles.boss
 {
@@ -12,6 +14,7 @@ namespace MetroidMod.Projectiles.boss
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Omega Pirate");
+			Main.projFrames[projectile.type] = 2;
 		}
 		public override void SetDefaults()
 		{
@@ -25,7 +28,6 @@ namespace MetroidMod.Projectiles.boss
 			projectile.width = 30;
 			projectile.height = 0;
 			projectile.scale = 1f;
-			Main.projFrames[projectile.type] = 2;
 		}
 		
 		int lightningFrame = 0;
@@ -45,7 +47,7 @@ namespace MetroidMod.Projectiles.boss
 			
 			if(projectile.ai[1] == 0)
 			{
-				scaleY = Math.Min(scaleY+(projectile.ai[0]/4f),projectile.ai[0]);
+				scaleY = Math.Min(scaleY+(projectile.ai[0] / 4f), projectile.ai[0]);
 				if(scaleY >= projectile.ai[0])
 				{
 					projectile.ai[1] = 1;
@@ -53,7 +55,7 @@ namespace MetroidMod.Projectiles.boss
 			}
 			if(projectile.ai[1] > 0)
 			{
-				scaleY = Math.Max(scaleY-((projectile.ai[0]+(projectile.ai[1]/10))/100),0f);
+				scaleY = Math.Max(scaleY - ((projectile.ai[0] + (projectile.ai[1] / 10)) / 100), 0f);
 				if(scaleY < 0.1f)
 				{
 					projectile.Kill();
@@ -63,7 +65,7 @@ namespace MetroidMod.Projectiles.boss
 			projectile.position.X += projectile.width / 2f;
 			projectile.position.Y += projectile.height / 2f;
 			projectile.width = 30;
-			projectile.height = (int)((float)(500 * scaleY));
+			projectile.height = (int)(500 * scaleY);
 			projectile.position.X -= projectile.width / 2f;
 			projectile.position.Y -= projectile.height / 2f;
 			
@@ -77,18 +79,22 @@ namespace MetroidMod.Projectiles.boss
 				projectile.ai[1]++;
 				if(projectile.ai[1] == 2)
 				{
-					int shock1 = Projectile.NewProjectile(projectile.Center.X+(30f*projectile.spriteDirection),projectile.Center.Y,0f,0f,mod.ProjectileType("OmegaPirateShockwave"),projectile.damage,8f);
-					if(projectile.localAI[0] > 0)
+					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						Main.projectile[shock1].ai[0] = projectile.ai[0] + 0.45f;
+						int shock1 = Projectile.NewProjectile(projectile.Center.X + (30f * projectile.spriteDirection), projectile.Center.Y, 0f, 0f, mod.ProjectileType("OmegaPirateShockwave"), projectile.damage, 8f);
+						if (projectile.localAI[0] > 0)
+						{
+							Main.projectile[shock1].ai[0] = projectile.ai[0] + 0.45f;
+						}
+						else
+						{
+							Main.projectile[shock1].ai[0] = projectile.ai[0] - 0.05f;
+						}
+						Main.projectile[shock1].localAI[0] = projectile.localAI[0];
+						Main.projectile[shock1].localAI[1] = projectile.localAI[1];
+						Main.projectile[shock1].spriteDirection = projectile.spriteDirection;
+						Main.projectile[shock1].netUpdate = true;
 					}
-					else
-					{
-						Main.projectile[shock1].ai[0] = projectile.ai[0] - 0.05f;
-					}
-					Main.projectile[shock1].localAI[0] = projectile.localAI[0];
-					Main.projectile[shock1].localAI[1] = projectile.localAI[1];
-					Main.projectile[shock1].spriteDirection = projectile.spriteDirection;
 				}
 			}
 			
@@ -129,6 +135,17 @@ namespace MetroidMod.Projectiles.boss
 			sb.Draw(tex, new Vector2((float)((int)(projectile.Center.X - Main.screenPosition.X)), (float)((int)(projectile.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(x4, 0, num108, tex.Height)), projectile.GetAlpha(Color.White)*alpha, projectile.rotation, new Vector2((float)num108/2f, 0f), new Vector2(1f,scaleY)*projectile.scale, effects, 0f);
 			sb.Draw(tex2, new Vector2((float)((int)(projectile.Center.X - Main.screenPosition.X)), (float)((int)(projectile.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(x2, 0, num2, height)), color, projectile.rotation, new Vector2((float)num2/2f, 0f), 0.5f*Math.Max(scaleY,1f)*projectile.scale, effects, 0f);
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write((double)projectile.localAI[0]);
+			writer.Write((double)projectile.localAI[1]);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			projectile.localAI[0] = (float)reader.ReadDouble();
+			projectile.localAI[1] = (float)reader.ReadDouble();
 		}
 	}
 }

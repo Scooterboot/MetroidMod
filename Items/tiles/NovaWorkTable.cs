@@ -24,7 +24,8 @@ namespace MetroidMod.Items.tiles
 			item.consumable = true;
 			item.createTile = mod.TileType("NovaWorkTableTile");
 		}
-public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.TungstenBar, 10);
@@ -34,6 +35,7 @@ public override void AddRecipes()
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.SilverBar, 10);
 			recipe.AddRecipeGroup("IronBar", 5);
@@ -42,6 +44,7 @@ public override void AddRecipes()
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.TungstenBar, 10);
 			recipe.AddRecipeGroup("IronBar", 5);
@@ -50,6 +53,7 @@ public override void AddRecipes()
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.SilverBar, 10);
 			recipe.AddRecipeGroup("IronBar", 5);
@@ -59,6 +63,5 @@ public override void AddRecipes()
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
 	}
 }

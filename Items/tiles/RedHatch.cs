@@ -24,10 +24,8 @@ namespace MetroidMod.Items.tiles
 			item.consumable = true;
 			item.createTile = mod.TileType("RedHatch");
 		}
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
+
+		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool CanUseItem(Player player)
 		{
@@ -41,7 +39,8 @@ namespace MetroidMod.Items.tiles
 			}
 			return base.CanUseItem(player);
 		}
-public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Ruby);
@@ -50,6 +49,5 @@ public override void AddRecipes()
 			recipe.SetResult(this, 20);
 			recipe.AddRecipe();
 		}
-
 	}
 }

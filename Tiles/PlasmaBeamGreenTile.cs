@@ -26,25 +26,25 @@ namespace MetroidMod.Tiles
 			dustType = 1;
 			disableSmartCursor = true;
 		}
-		public override void RightClick(int i, int j)
-		{
-		    WorldGen.KillTile(i, j, false, false, false);
-		    if (Main.netMode == 1 && !Main.tile[i, j].active())
-		    {
-			NetMessage.SendData(17, -1, -1, null, 4, (float)i, (float)j, 0f, 0, 0, 0);
-		    }
-		}
-public override void MouseOver(int i, int j)
+
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
+
+		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
 			player.showItemIcon = true;
-			player.showItemIcon2 = mod.ItemType("PlasmaBeamGreenAddon");
-		}
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
+			player.showItemIcon2 = drop;
 		}
 
+		public override bool NewRightClick(int i, int j)
+		{
+			WorldGen.KillTile(i, j, false, false, false);
+			if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[i, j].active())
+			{
+				NetMessage.SendData(17, -1, -1, null, 4, (float)i, (float)j, 0f, 0, 0, 0);
+			}
+			return (true);
+		}
 	}
 }

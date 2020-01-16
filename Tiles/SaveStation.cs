@@ -35,14 +35,15 @@ namespace MetroidMod.Tiles
 			adjTiles = new int[]{ TileID.Beds };
 			bed = true;
 		}
-		public override bool Slope(int i, int j)
+
+		public override bool Slope(int i, int j) => false;
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = 1;
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			return false;
+			Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType("SaveStation"));
 		}
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = 1;
-		}
+
 		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
@@ -50,11 +51,8 @@ namespace MetroidMod.Tiles
 			player.showItemIcon = true;
 			player.showItemIcon2 = mod.ItemType("SaveStation");
 		}
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType("SaveStation"));
-		}
-		public override void RightClick(int i, int j)
+
+		public override bool NewRightClick(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
 			Tile tile = Main.tile[i, j];
@@ -76,6 +74,7 @@ namespace MetroidMod.Tiles
 				player.ChangeSpawn(spawnX, spawnY);
 				Main.NewText(Language.GetTextValue("Game.SpawnPointSet"), 255, 240, 20, false);
 			}
+			return (true);
 		}
 	}
 }

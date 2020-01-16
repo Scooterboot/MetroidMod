@@ -13,6 +13,8 @@ namespace MetroidMod.Tiles
 {
 	public class MissileStation : ModTile
 	{
+		readonly float rightclickRange = 50.0f;
+
 		public override void SetDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
@@ -32,18 +34,25 @@ namespace MetroidMod.Tiles
 		}
 
 		public override bool Slope(int i, int j) { return false; }
+
 		public override void MouseOver(int i, int j)
-        {
-            int x = i - (Main.tile[i, j].frameX / 18) % 2;
-            int y = j - (Main.tile[i, j].frameY / 18) % 2;
-            Vector2 worldPos = new Vector2((x * 16) + 16, (y * 16) + 16);
-            Player player = Main.LocalPlayer;
-            if (player.Distance(worldPos) < 50)
-            {
-                player.noThrow = 2;
-                player.showItemIcon = true;
-                player.showItemIcon2 = mod.ItemType("MissileStation");
+		{
+			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
+			{
+				Main.LocalPlayer.noThrow = 2;
+				Main.LocalPlayer.showItemIcon = true;
+				Main.LocalPlayer.showItemIcon2 = mod.ItemType("MissileStation");
             }
+		}
+
+		public override bool NewRightClick(int i, int j)
+		{
+			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
+			{
+				Main.LocalPlayer.AddBuff(mod.BuffType("MissileRecharge"), 2);
+				return (true);
+			}
+			return (false);
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
@@ -51,30 +60,16 @@ namespace MetroidMod.Tiles
 			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("MissileStation"));
 		}
 
-		public override void RightClick(int i, int j)
+		Vector2 TileCenter(int x, int y)
 		{
-            //HitWire(i, j);
-            int x = i - (Main.tile[i, j].frameX / 18) % 2;
-            int y = j - (Main.tile[i, j].frameY / 18) % 2;
-            Vector2 worldPos = new Vector2((x * 16) + 16, (y * 16) + 16);
-            Player player = Main.player[Player.FindClosest(worldPos, 16, 16)];
-            if (player.Distance(worldPos) < 50)
-            {
-                player.AddBuff(mod.BuffType("MissileRecharge"), 2);
-            }
-        }
-		/*public override void HitWire(int i, int j)
-		{
-			int x = i - (Main.tile[i, j].frameX / 18) % 2;
-			int y = j - (Main.tile[i, j].frameY / 18) % 2;
-			Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("MissilePickup"), 10 + Main.rand.Next(16));
-			if (Wiring.running)
-			{
-				Wiring.SkipWire(x, y);
-				Wiring.SkipWire(x, y + 1);
-				Wiring.SkipWire(x + 1, y);
-				Wiring.SkipWire(x + 1, y + 1);
-			}
-		}*/
+			Vector2 center = new Vector2(x * 16, y * 16);
+
+			if (Main.tile[x, y].frameX == 0)
+				center.X += 16;
+			if (Main.tile[x, y].frameY == 0)
+				center.Y += 16;
+
+			return center;
+		}
 	}
 }

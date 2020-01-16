@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace MetroidMod.Items.tools
 {
@@ -28,11 +24,11 @@ namespace MetroidMod.Items.tools
 			item.noMelee = true;
 			item.value = 1000;
 			item.rare = 7;
-
 		}
+
         public override void AddRecipes()
 		{
-				ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Wire, 20);
 			recipe.AddIngredient(ItemID.SuspiciousLookingEye);
             recipe.AddIngredient(ItemID.Gel, 20);
@@ -41,6 +37,7 @@ namespace MetroidMod.Items.tools
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
+
         public override bool CanUseItem(Player player)
 		{
 			return !NPC.AnyNPCs(mod.NPCType("Phantoon")) && !Main.dayTime;
@@ -49,7 +46,7 @@ namespace MetroidMod.Items.tools
 		{
 			//Main.NewText("Huh, there seems to be a massive amount of ectoplasmic readings coming from... right above me!", 127, 255, 127);
 			NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Phantoon"));
-             Main.PlaySound(4,(int)player.position.X,(int)player.position.Y,10);
+			Main.PlaySound(4,(int)player.position.X,(int)player.position.Y,10);
 			return true;
 		}
 	}

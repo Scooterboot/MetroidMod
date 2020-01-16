@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using MetroidMod.NPCs.OmegaPirate;
+using System.IO;
 
 namespace MetroidMod.Projectiles.boss
 {
@@ -39,10 +40,16 @@ namespace MetroidMod.Projectiles.boss
 				Main.dust[dust2].velocity *= 1.4f;
 			}
 		}
-		
-		public override bool PreDraw(SpriteBatch sb, Color lightColor)
+
+		public override bool PreDraw(SpriteBatch sb, Color lightColor) => false;
+
+		public override void SendExtraAI(BinaryWriter writer)
 		{
-			return false;
+			writer.Write((double)projectile.localAI[0]);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			projectile.localAI[0] = (float)reader.ReadDouble();
 		}
 	}
 }

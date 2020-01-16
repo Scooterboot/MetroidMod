@@ -23,7 +23,5 @@ namespace MetroidMod.Items.tiles
 			item.consumable = true;
 			item.createTile = mod.TileType("MorphBallTile");
 		}
-
-
 	}
 }

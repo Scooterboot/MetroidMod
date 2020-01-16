@@ -10,7 +10,6 @@ namespace MetroidMod.Items.weapons
 		{
 			DisplayName.SetDefault("Chozite Longsword");
 		}
-
 		public override void SetDefaults()
 		{
 			item.damage = 14;			

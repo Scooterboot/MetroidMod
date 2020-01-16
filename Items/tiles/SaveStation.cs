@@ -24,7 +24,8 @@ namespace MetroidMod.Items.tiles
 			item.consumable = true;
 			item.createTile = mod.TileType("SaveStation");
 		}
-public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteOre");
@@ -33,6 +34,5 @@ public override void AddRecipes()
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
 	}
 }

@@ -15,9 +15,8 @@ namespace MetroidMod.Buffs
 		}
 		SoundEffectInstance soundInstance;
 		bool soundPlayed = false;
-		public override void Update(Player player,ref int buffIndex)
+		public override void Update(Player player, ref int buffIndex)
         {
-            MPlayer mp = player.GetModPlayer<MPlayer>();
             bool flag = true;
             player.statLife++;
             if (player.statLife >= player.statLifeMax)

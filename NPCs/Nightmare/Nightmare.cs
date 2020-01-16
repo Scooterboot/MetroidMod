@@ -61,7 +61,7 @@ namespace MetroidMod.NPCs.Nightmare
 		}
 		public override void NPCLoot()
 		{
-			MWorld.downedNightmare = true;
+			MWorld.bossesDown |= MetroidBossDown.downedNightmare;
 			/*if (Main.expertMode)
 			{
 				npc.DropBossBags();
