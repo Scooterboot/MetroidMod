@@ -138,9 +138,9 @@ namespace MetroidMod.NPCs.OmegaPirate
 			{
 				if (Base != null && Base.active && Base.ai[0] == 2 && Base.ai[1] == 2 && npc.ai[1] == 0f)
 				{
+					Base.ai[3] += (oldLife - npc.life);
 					oldLife = npc.life;
 					Base.netUpdate2 = true;
-					Base.ai[3] += (oldLife - npc.life);
 				}
 			}
 		}
