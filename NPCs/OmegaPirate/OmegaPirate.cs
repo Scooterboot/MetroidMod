@@ -141,10 +141,54 @@ namespace MetroidMod.NPCs.OmegaPirate
 			_rLegArmor, _lLegArmor,
 			_rCannon, _lCannon;
 		NPC Body => Main.npc[_body];
-		NPC RArmArmor => Main.npc[_rArmArmor];
-		NPC LArmArmor => Main.npc[_lArmArmor];
-		NPC RLegArmor => Main.npc[_rLegArmor];
-		NPC LLegArmor => Main.npc[_lLegArmor];
+		//NPC RArmArmor => Main.npc[_rArmArmor];
+		//NPC LArmArmor => Main.npc[_lArmArmor];
+		//NPC RLegArmor => Main.npc[_rLegArmor];
+		//NPC LLegArmor => Main.npc[_lLegArmor];
+		NPC RArmArmor
+		{
+			get
+			{
+				if(Main.npc[_rArmArmor].type == mod.NPCType("OmegaPirate_WeakPoint"))
+				{
+					return Main.npc[_rArmArmor];
+				}
+				return null;
+			}
+		}
+		NPC LArmArmor
+		{
+			get
+			{
+				if(Main.npc[_lArmArmor].type == mod.NPCType("OmegaPirate_WeakPoint"))
+				{
+					return Main.npc[_lArmArmor];
+				}
+				return null;
+			}
+		}
+		NPC RLegArmor
+		{
+			get
+			{
+				if(Main.npc[_rLegArmor].type == mod.NPCType("OmegaPirate_WeakPoint"))
+				{
+					return Main.npc[_rLegArmor];
+				}
+				return null;
+			}
+		}
+		NPC LLegArmor
+		{
+			get
+			{
+				if(Main.npc[_lLegArmor].type == mod.NPCType("OmegaPirate_WeakPoint"))
+				{
+					return Main.npc[_lLegArmor];
+				}
+				return null;
+			}
+		}
 		NPC RCannon => Main.npc[_rCannon];
 		NPC LCannon => Main.npc[_lCannon];
 
@@ -2796,10 +2840,14 @@ namespace MetroidMod.NPCs.OmegaPirate
 						}
 					}
 					
-					RArmArmor.active = false;
-					LArmArmor.active = false;
-					RLegArmor.active = false;
-					LLegArmor.active = false;
+					if(RArmArmor != null && RArmArmor.active)
+						RArmArmor.active = false;
+					if(LArmArmor != null && LArmArmor.active)
+						LArmArmor.active = false;
+					if(RLegArmor != null && RLegArmor.active)
+						RLegArmor.active = false;
+					if(LLegArmor != null && LLegArmor.active)
+						LLegArmor.active = false;
 					
 					bodyAlpha = Math.Min(bodyAlpha + 0.015f, 1f);
 					fullAlpha = 1f;
