@@ -114,12 +114,12 @@ namespace MetroidMod.Tiles
 					}
 					else
 					{
+						Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
 						player.chest = chest;
 						Main.playerInventory = true;
 						Main.recBigList = false;
 						player.chestX = left;
 						player.chestY = top;
-						Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
 					}
 					Recipe.FindRecipes();
 				}
