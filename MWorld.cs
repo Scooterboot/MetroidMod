@@ -1,5 +1,3 @@
-
-
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -242,15 +240,15 @@ namespace MetroidMod
 				dir = -1;
 			}
 			
-			//------
-			if(WorldGen.crimson)
+			//------ debug code
+			/*if(WorldGen.crimson)
 			{
 				dir = -1;
 			}
 			else
 			{
 				dir = 1;
-			}
+			}*/
 			//------
 			
 			int surface = uDesert.Y+uDesert.Height/2;
