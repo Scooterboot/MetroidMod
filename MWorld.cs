@@ -160,7 +160,7 @@ namespace MetroidMod
 			}
 			if (PotsIndex != -1)
 			{
-				tasks.Insert(PotsIndex - 2, new PassLegacy("Chozo Statues", delegate (GenerationProgress progress)
+				tasks.Insert(PotsIndex - 3, new PassLegacy("Chozo Statues", delegate (GenerationProgress progress)
 				{
 					progress.Message = "Placing Chozo Statues";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05); i++)
@@ -187,7 +187,7 @@ namespace MetroidMod
 						
 					}
 				}));
-				tasks.Insert(PotsIndex - 1, new PassLegacy("Missile Expansions", delegate (GenerationProgress progress)
+				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions", delegate (GenerationProgress progress)
 				{
 					progress.Message = "Placing Missile Expansions";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05); i++)
@@ -213,9 +213,684 @@ namespace MetroidMod
 						
 					}
 				}));
+				
+				tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));
 			}
 		}
-		public override void PostWorldGen()
+		
+		private void ChozoRuins(GenerationProgress progress)
+		{
+			Rectangle uDesert = WorldGen.UndergroundDesertLocation;
+			
+			progress.Message = "Chozo Ruins...Determining X Position";
+			
+			int ruinsWidth = WorldGen.genRand.Next(50, 60);
+			int ruinsHeight = WorldGen.genRand.Next(20, 30);
+			
+			int ruinsX = 0;
+			
+			int dir = 1;
+			
+			int center = (int)(uDesert.X+uDesert.Width/2);
+			
+			if(Main.maxTilesX/2 < center)
+			{
+				dir = 1;
+			}
+			else
+			{
+				dir = -1;
+			}
+			
+			//------
+			if(WorldGen.crimson)
+			{
+				dir = -1;
+			}
+			else
+			{
+				dir = 1;
+			}
+			//------
+			
+			int surface = uDesert.Y+uDesert.Height/2;
+			
+			if(dir == 1)
+			{
+				//ruinsX = uDesert.X+uDesert.Width-ruinsWidth - (int)uDesert.Width/8;
+				int numX = uDesert.X+uDesert.Width-ruinsWidth - (int)uDesert.Width/8;
+				while(numX > uDesert.X+uDesert.Width/2+30)
+				{
+					int numY2 = 0;
+					while(numY2 < surface)
+					{
+						if(Main.tile[numX, numY2].active() && Main.tile[numX, numY2].type == TileID.Sand)
+						{
+							break;
+						}
+						numY2++;
+					}
+					if(!Main.tile[numX, numY2-1].active())
+					{
+						break;
+					}
+					numX--;
+				}
+				ruinsX = numX;
+			}
+			else
+			{
+				//ruinsX = uDesert.X + (int)uDesert.Width/8;
+				int numX = uDesert.X+ruinsWidth + (int)uDesert.Width/8;
+				while(numX < uDesert.X+uDesert.Width/2-30)
+				{
+					int numY2 = 0;
+					while(numY2 < surface)
+					{
+						if(Main.tile[numX, numY2].active() && Main.tile[numX, numY2].type == TileID.Sand)
+						{
+							break;
+						}
+						numY2++;
+					}
+					if(!Main.tile[numX, numY2-1].active())
+					{
+						break;
+					}
+					numX++;
+				}
+				ruinsX = numX-ruinsWidth;
+			}
+			
+			progress.Message = "Chozo Ruins...Determining Y Position";
+			
+			int ruinsY = 0;
+			while ((double)ruinsY < surface)
+			{
+				if(Main.tile[ruinsX, ruinsY].active() && (Main.tile[ruinsX, ruinsY].type == TileID.Sand || dir == -1))
+				{
+					break;
+				}
+				ruinsY++;
+			}
+			int numY = 0;
+			while ((double)numY < surface)
+			{
+				if(Main.tile[ruinsX+ruinsWidth, numY].active() && (Main.tile[ruinsX+ruinsWidth, numY].type == TileID.Sand || dir == 1))
+				{
+					break;
+				}
+				numY++;
+			}
+			if(numY > ruinsY)
+			{
+				ruinsY = numY;
+			}
+			
+			progress.Message = "Chozo Ruins...Building Temple";
+			
+			ChozoRuins_Temple(ruinsX, ruinsY-ruinsHeight+2+WorldGen.genRand.Next(3), ruinsWidth, ruinsHeight, dir);
+		}
+		private static void ChozoRuins_Temple(int x, int y, int width, int height, int dir)
+		{
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			Hatch(x, y+height-8);
+			Hatch(x+width-4, y+height-8);
+			
+			for(int i = 0; i < 4; i++)
+			{
+				WorldGen.KillWall(x, y+height-8 + i);
+				WorldGen.PlaceWall(x, y+height-8 + i, WallID.SandstoneBrick);
+				WorldGen.KillWall(x+width-1, y+height-8 + i);
+				WorldGen.PlaceWall(x+width-1, y+height-8 + i, WallID.SandstoneBrick);
+			}
+			
+			for(int i = 0; i < 7; i++)
+			{
+				WorldGen.KillTile(x-1, y+height-15 + i);
+				WorldGen.PlaceTile(x-1, y+height-15 + i, TileID.SandstoneBrick);
+				WorldGen.KillTile(x+width, y+height-15 + i);
+				WorldGen.PlaceTile(x+width, y+height-15 + i, TileID.SandstoneBrick);
+			}
+			Tile.SmoothSlope(x-1, y+height-15, false);
+			Tile.SmoothSlope(x+width, y+height-15, false);
+			
+			for(int j = 0; j < 6; j++)
+			{
+				for(int i = -1-j; i < width+1+j; i++)
+				{
+					int xx = x+i, yy = y+height-4+j;
+					//if(Main.tile[xx, yy].active() || i >= -1 && i <= width)
+					//{
+						if(j != 0 || i < 0 || i >= width)
+						{
+							DestroyChest(xx, yy);
+							WorldGen.KillTile(xx, yy);
+						}
+						WorldGen.PlaceTile(xx, yy, TileID.SandstoneBrick);
+					//}
+				}
+			}
+			
+			int shaftWidth = 24;
+			int shaftX = x+width-4-shaftWidth-WorldGen.genRand.Next(width/6);
+			if(dir == 1)
+			{
+				shaftX = x+4+WorldGen.genRand.Next(width/6);
+			}
+			ChozoRuins_FirstShaft(shaftX, y+height-4, shaftWidth, WorldGen.genRand.Next(50,60), dir);
+		}
+		private static void ChozoRuins_FirstShaft(int x, int y, int width, int height, int dir)
+		{
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			VerticalHatch(x+width/2-2, y);
+			
+			for(int i = -3; i < 3; i++)
+			{
+				WorldGen.PlaceTile(x+width/2+i, y+6, 19, false, false, -1, 17);
+			}
+			for(int j = 11; j < height - 5; j += 5)
+			{
+				for(int i = 0; i < 3; i++)
+				{
+					int platform = x+6 + Main.rand.Next(12);
+					WorldGen.PlaceTile(platform-1, y + j, 19, false, false, -1, 17);
+					WorldGen.PlaceTile(platform, y + j, 19, false, false, -1, 17);
+					WorldGen.PlaceTile(platform+1, y + j, 19, false, false, -1, 17);
+				}
+			}
+			
+			int chestRoomWidth = 20;
+			int chestRoomHeight = 16;
+			int chestRoomX = x+width-4;
+			int chestRoomY = y+height-chestRoomHeight - WorldGen.genRand.Next(height/2);
+			int doorX = chestRoomX;
+			int doorY = chestRoomY+chestRoomHeight/2-2;
+			
+			int numX = doorX-2;
+			if(dir == -1)
+			{
+				chestRoomX = x-chestRoomWidth+4;
+				doorX = x;
+				numX = doorX+4;
+			}
+			int numY = doorY+4;
+			for(int i = 0; i < 2; i++)
+			{
+				for(int j = 0; j < 3; j++)
+				{
+					WorldGen.KillTile(numX + i, numY + j);
+					WorldGen.PlaceTile(numX + i, numY + j, TileID.SandstoneBrick);
+				}
+			}
+			
+			ChozoRuins_ChestRoom(chestRoomX,chestRoomY,chestRoomWidth,chestRoomHeight, ItemID.FlyingCarpet);
+			Hatch(doorX, doorY);
+			
+			int morphHallWidth = WorldGen.genRand.Next(40,50);
+			int morphHallHeight = 22;
+			int morphHallX = x-morphHallWidth+4;
+			int morphHallY = y+WorldGen.genRand.Next(16,24);
+			doorX = x;
+			doorY = morphHallY+morphHallHeight-10;
+			numX = doorX+4;
+			if(dir == -1)
+			{
+				morphHallX = x+width-4;
+				doorX = morphHallX;
+				numX = doorX-2;
+			}
+			numY = doorY+4;
+			for(int i = 0; i < 2; i++)
+			{
+				for(int j = 0; j < 3; j++)
+				{
+					WorldGen.KillTile(numX + i, numY + j);
+					WorldGen.PlaceTile(numX + i, numY + j, TileID.SandstoneBrick);
+				}
+			}
+			
+			ChozoRuins_MorphHall(morphHallX,morphHallY,morphHallWidth,morphHallHeight,dir);
+			Hatch(doorX, doorY);
+			
+			int hallWidth = WorldGen.genRand.Next(50,60);
+			int hallHeight = 16;
+			int hallX = x+width-hallWidth;
+			int hallY = y+height-4;
+			if(dir == -1)
+			{
+				hallX = x;
+			}
+			
+			ChozoRuins_Hall(hallX,hallY,hallWidth,hallHeight,dir);
+			VerticalHatch(x+width/2-2, y+height-4);
+		}
+		private static void ChozoRuins_MorphHall(int x, int y, int width, int height, int dir)
+		{
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			Mod mod = MetroidMod.Instance;
+			
+			for(int j = 0; j < 9; j++)
+			{
+				
+				int k = 0;
+				if(j >= 3)
+				{
+					k = 1;
+				}
+				if(j >= 6)
+				{
+					k = 2;
+				}
+				if(dir == 1)
+				{
+					for(int i = 0; i < 4+k; i++)
+					{
+						WorldGen.KillTile(x+14 + i, y+height-14 + j);
+						WorldGen.PlaceTile(x+14 + i, y+height-14 + j, TileID.SandstoneBrick);
+					}
+				}
+				else
+				{
+					for(int i = -k; i < 4; i++)
+					{
+						WorldGen.KillTile(x+width-18 + i, y+height-14 + j);
+						WorldGen.PlaceTile(x+width-18 + i, y+height-14 + j, TileID.SandstoneBrick);
+					}
+				}
+				
+				if(j < 5)
+				{
+					int numX = x+4;
+					if(dir == -1)
+					{
+						numX = x+width-9;
+					}
+					WorldGen.KillTile(numX + j, y+height-5);
+					WorldGen.PlaceTile(numX + j, y+height-5, TileID.SandstoneBrick);
+					WorldGen.KillTile(numX-dir + j, y+height-6);
+					WorldGen.PlaceTile(numX-dir + j, y+height-6, TileID.SandstoneBrick);
+				}
+			}
+			
+			int statueX = x+5;
+			int statueX2 = statueX+1;
+			if(dir == -1)
+			{
+				statueX = x+width-5;
+				statueX2 = statueX-2;
+			}
+			int statueY = y+height-7;
+			WorldGen.PlaceObject(statueX, statueY, mod.TileType("ChozoStatueNatural"), false, 0, 0, -1, -dir);
+			WorldGen.PlaceObject(statueX2, statueY, mod.TileType("ChozoStatueArmNatural"), false, 0, 0, -1, -dir);
+			
+			WorldGen.PlaceObject(statueX2, statueY-2, mod.TileType("MorphBallTile"));
+		}
+		private static void ChozoRuins_Hall(int x, int y, int width, int height, int dir)
+		{
+			Mod mod = MetroidMod.Instance;
+			
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			for(int i = 0; i < 20; i++)
+			{
+				for(int j = 0; j < 5; j++)
+				{
+					if(j < 2)
+					{
+						WorldGen.PlaceTile(x+width/2-10+i,y+height-6+j, TileID.SandstoneBrick);
+					}
+					if(i > 1 && i < 18)
+					{
+						WorldGen.PlaceTile(x+width/2-10+i,y+4+j, TileID.SandstoneBrick);
+					}
+				}
+			}
+			for(int i = 0; i < 10; i++)
+			{
+				for(int j = 0; j < 4; j++)
+				{
+					if(i <= 0 || j <= 0 || i >= 9 || j >= 3)
+					{
+						WorldGen.KillTile(x+width/2-5+i, y+4+j);
+					}
+					if(i < 2 && j <= 0)
+					{
+						WorldGen.KillTile(x+width/2-1+i, y+8);
+					}
+				}
+			}
+			WorldGen.PlaceObject(x+width/2, y+4, mod.TileType("MissileExpansionTile"));
+			
+			int shaftWidth = 24;
+			int shaftHeight = WorldGen.genRand.Next(70,80);
+			int shaftX = x - shaftWidth + 4;
+			int shaftY = y;
+			int doorX = shaftX+shaftWidth-4;
+			int doorY = y + height/2-2;
+			int numX = doorX-2;
+			if(dir == -1)
+			{
+				shaftX = x + width - 4;
+				doorX = shaftX;
+				numX = doorX+4;
+			}
+			int numY = doorY+4;
+			ChozoRuins_SecondShaft(shaftX,shaftY,shaftWidth,shaftHeight,dir);
+			Hatch(doorX, doorY);
+			for(int i = 0; i < 2; i++)
+			{
+				for(int j = 0; j < 3; j++)
+				{
+					WorldGen.KillTile(numX + i, numY + j);
+					WorldGen.PlaceTile(numX + i, numY + j, TileID.SandstoneBrick);
+				}
+			}
+		}
+		private static void ChozoRuins_SecondShaft(int x, int y, int width, int height, int dir)
+		{
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			for(int j = 11; j < height - 5; j += 5)
+			{
+				for(int i = 0; i < 3; i++)
+				{
+					int platform = x+6 + Main.rand.Next(12);
+					WorldGen.PlaceTile(platform-1, y + j, 19, false, false, -1, 17);
+					WorldGen.PlaceTile(platform, y + j, 19, false, false, -1, 17);
+					WorldGen.PlaceTile(platform+1, y + j, 19, false, false, -1, 17);
+				}
+			}
+			
+			int chestRoomWidth = 20;
+			int chestRoomHeight = 16;
+			int chestRoomX = x-chestRoomWidth+4;
+			int chestRoomY = y + WorldGen.genRand.Next(height/3);
+			int doorX = x;
+			int doorY = chestRoomY+chestRoomHeight/2-2;
+			
+			int numX = doorX+4;
+			if(dir == -1)
+			{
+				chestRoomX = x+width-4;
+				doorX = chestRoomX;
+				numX = doorX-2;
+			}
+			int numY = doorY+4;
+			for(int i = 0; i < 2; i++)
+			{
+				for(int j = 0; j < 3; j++)
+				{
+					WorldGen.KillTile(numX + i, numY + j);
+					WorldGen.PlaceTile(numX + i, numY + j, TileID.SandstoneBrick);
+				}
+			}
+			ChozoRuins_ChestRoom(chestRoomX,chestRoomY,chestRoomWidth,chestRoomHeight, ItemID.SandstorminaBottle);
+			Hatch(doorX,doorY);
+			
+			int saveRoomWidth = 20;
+			int saveRoomHeight = 16;
+			int saveRoomX = x+width-4;
+			int saveRoomY = y+height-saveRoomHeight;
+			doorX = saveRoomX;
+			doorY = saveRoomY+saveRoomHeight/2-2;
+			numX = doorX-2;
+			if(dir == -1)
+			{
+				saveRoomX = x-saveRoomWidth+4;
+				doorX = x;
+				numX = doorX+4;
+			}
+			numY = doorY+4;
+			for(int i = 0; i < 2; i++)
+			{
+				for(int j = 0; j < 3; j++)
+				{
+					WorldGen.KillTile(numX + i, numY + j);
+					WorldGen.PlaceTile(numX + i, numY + j, TileID.SandstoneBrick);
+				}
+			}
+			ChozoRuins_SaveRoom(saveRoomX,saveRoomY);
+			Hatch(doorX,doorY);
+			
+			int bombRoomWidth = 36;
+			int bombRoomHeight = 16;
+			int bombRoomX = x-bombRoomWidth+4;
+			int bombRoomY = y+height-bombRoomHeight;
+			doorX = x;
+			doorY = bombRoomY+bombRoomHeight-10;
+			if(dir == -1)
+			{
+				bombRoomX = x+width-4;
+				doorX = bombRoomX;
+			}
+			ChozoRuins_BombRoom(bombRoomX,bombRoomY,dir);
+			Hatch(doorX,doorY);
+			
+			int bossRoomWidth = 80;
+			int bossRoomHeight = 40;
+			int bossRoomX = saveRoomX+saveRoomWidth-4;
+			int bossRoomY = y+height-bossRoomHeight;
+			doorX = bossRoomX;
+			doorY = bossRoomY+bossRoomHeight-10;
+			if(dir == -1)
+			{
+				bossRoomX = saveRoomX-bossRoomWidth+4;
+				doorX = saveRoomX;
+			}
+			ChozoRuins_BossRoom(bossRoomX,bossRoomY,bossRoomWidth,bossRoomHeight,dir);
+			Hatch(doorX,doorY);
+		}
+		private static void ChozoRuins_BombRoom(int x, int y, int dir)
+		{
+			Mod mod = MetroidMod.Instance;
+			
+			int width = 36;
+			int height = 16;
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			for(int i = 0; i < 4; i++)
+			{
+				for(int j = 0; j < height-9; j++)
+				{
+					WorldGen.PlaceTile(x+width/2-2+i, y+4+j, TileID.SandstoneBrick);
+				}
+				int xx = x+width/2+2+i;
+				if(dir == -1)
+				{
+					xx = x+width/2-6+i;
+				}
+				WorldGen.PlaceTile(xx, y+height-6, TileID.SandstoneBrick);
+			}
+			
+			int statueX = x+width/2+3;
+			int statueX2 = statueX+1;
+			if(dir == -1)
+			{
+				statueX = x+width/2-3;
+				statueX2 = statueX-2;
+			}
+			int statueY = y+height-7;
+			WorldGen.PlaceObject(statueX, statueY, mod.TileType("ChozoStatueNatural"), false, 0, 0, -1, -dir);
+			WorldGen.PlaceObject(statueX2, statueY, mod.TileType("ChozoStatueArmNatural"), false, 0, 0, -1, -dir);
+			
+			WorldGen.PlaceObject(statueX2, statueY-2, mod.TileType("BombTile"));
+			
+			for(int i = 0; i < 5; i++)
+			{
+				int numX = x+4+i;
+				if(dir == -1)
+				{
+					numX = x+width-9+i;
+				}
+				WorldGen.PlaceTile(numX, y+height-5, TileID.SandstoneBrick);
+				WorldGen.PlaceTile(numX-dir, y+height-6, TileID.SandstoneBrick);
+			}
+			statueX = x+5;
+			statueX2 = statueX+1;
+			if(dir == -1)
+			{
+				statueX = x+width-5;
+				statueX2 = statueX-2;
+			}
+			WorldGen.PlaceObject(statueX, statueY, mod.TileType("ChozoStatueNatural"), false, 0, 0, -1, -dir);
+			WorldGen.PlaceObject(statueX2, statueY, mod.TileType("ChozoStatueArmNatural"), false, 0, 0, -1, -dir);
+			
+			WorldGen.PlaceObject(statueX2, statueY-2, mod.TileType("PowerGripTile"));
+		}
+		private static void ChozoRuins_BossRoom(int x, int y, int width, int height, int dir)
+		{
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			int stepsX = x+4;
+			if(dir == -1)
+			{
+				stepsX = x+width-5;
+			}
+			WorldGen.PlaceTile(stepsX, y+height-6, TileID.SandstoneBrick);
+			WorldGen.PlaceTile(stepsX, y+height-5, TileID.SandstoneBrick);
+			WorldGen.PlaceTile(stepsX+dir, y+height-5, TileID.SandstoneBrick);
+			
+			//NPC.NewNPC(8 + (x + width - 6) * 16, (y + height - 4) * 16, mod.NPCType("TorizoIdle"));
+		}
+		
+		private static void ChozoRuins_SaveRoom(int x, int y)
+		{
+			Mod mod = MetroidMod.Instance;
+			
+			int width = 20;
+			int height = 16;
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			for(int i = 0; i < width; i++)
+			{
+				for(int j = 0; j < 2; j++)
+				{
+					WorldGen.PlaceTile(x+i, y+height-6+j, TileID.SandstoneBrick);
+					WorldGen.PlaceTile(x+i, y+4+j, TileID.SandstoneBrick);
+				}
+			}
+			
+			int numX = x+width/2-2;
+			WorldGen.KillTile(numX, y+height-6);
+			WorldGen.KillTile(numX+1, y+height-6);
+			WorldGen.KillTile(numX+2, y+height-6);
+			WorldGen.KillTile(numX+3, y+height-6);
+			Tile.SmoothSlope(numX-1, y+height-6, false);
+			Tile.SmoothSlope(numX+4, y+height-6, false);
+			
+			WorldGen.PlaceObject(numX+2, y+height-6, mod.TileType("SaveStation"), false, 0, 0, -1, 1);
+			
+			WorldGen.KillTile(numX, y+5);
+			WorldGen.KillTile(numX+1, y+5);
+			WorldGen.KillTile(numX+2, y+5);
+			WorldGen.KillTile(numX+3, y+5);
+			Tile.SmoothSlope(numX-1, y+5, false);
+			Tile.SmoothSlope(numX+4, y+5, false);
+			
+			WorldGen.PlaceTile(x+6, y+6, TileID.SandstoneBrick);
+			WorldGen.PlaceTile(x+width-7, y+6, TileID.SandstoneBrick);
+			WorldGen.PlaceObject(x+6, y+7, 10, false, 29, 0, -1, 1);
+			WorldGen.PlaceObject(x+width-7, y+7, 10, false, 29, 0, -1, 1);
+		}
+		
+		private static void ChozoRuins_ChestRoom(int x, int y, int width, int height, int itemType)
+		{
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			
+			for(int j = 0; j < 2; j++)
+			{
+				for(int i = -j; i < 4+j; i++)
+				{
+					int numX = x+width/2-2;
+					WorldGen.KillTile(numX + i, y+height-6 + j);
+					WorldGen.PlaceTile(numX + i, y+height-6 + j, TileID.SandstoneBrick);
+				}
+			}
+			Mod mod = MetroidMod.Instance;
+			int xx = x+width/2;
+			int yy = y+height-7;
+			WorldGen.AddBuriedChest(xx, yy, itemType, false, 1);
+			for (int l = xx-1; l < xx+1; l++)
+			{
+				for (int m = yy-1; m < yy+1; m++)
+				{
+					if (Main.tile[l,m] == null)
+						Main.tile[l,m] = new Tile();
+					Tile tile = Main.tile[l,m];
+					tile.active(true);
+					tile.type = (ushort)mod.TileType("ChozoChest");
+					tile.frameX = (short)((tile.frameX / 18 % 2) * 18);
+					tile.frameY = (short)((tile.frameY / 18 % 2) * 18);
+				}
+			}
+		}
+		
+		private static void BasicStructure(int x, int y, int width, int height, int thickness, int tileType, int wallType)
+		{
+			int thick = thickness;
+			if(thick < 1)
+			{
+				thick = 1;
+			}
+			for(int i = 0; i < width; i++)
+			{
+				for(int j = 0; j < height; j++)
+				{
+					if(i > 0 && i < width-1 && j > 0 && j < height-1)
+					{
+						WorldGen.KillWall(x + i, y + j);
+						WorldGen.PlaceWall(x + i, y + j, wallType);
+					}
+					DestroyChest(x + i, y + j);
+					WorldGen.KillTile(x + i, y + j);
+					
+					if(i < thick || j < thick || i >= width-thick || j >= height-thick)
+					{
+						WorldGen.PlaceTile(x + i, y + j, TileID.SandstoneBrick);
+					}
+				}
+			}
+		}
+		private static void Hatch(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int x = i; x < i + 4; x++)
+			{
+				for (int y = j; y < j + 4; y++)
+				{
+					DestroyChest(x, y);
+					WorldGen.KillTile(x, y);
+				}
+			}
+			WorldGen.PlaceObject(i + 1, j + 2, mod.TileType("BlueHatch"), false, 0, 0, -1, 1);
+		}
+		private static void VerticalHatch(int i, int j)
+		{
+			Mod mod = MetroidMod.Instance;
+			for (int x = i; x < i + 4; x++)
+			{
+				for (int y = j; y < j + 4; y++)
+				{
+					DestroyChest(x, y);
+					WorldGen.KillTile(x, y);
+				}
+			}
+			WorldGen.PlaceObject(i + 1, j + 2, mod.TileType("BlueHatchVertical"), false, 0, 0, -1, 1);
+		}
+		private static void DestroyChest(int x, int y)
+		{
+			if(!Chest.DestroyChest(x, y))
+			{
+				int id = Chest.FindChest(x, y);
+				Chest.DestroyChestDirect(x, y, id);
+			}
+		}
+		
+		/*public override void PostWorldGen()
 		{
 			int ruinsX = Main.spawnTileX + 150;
 			int ruinsY = Main.spawnTileY + 470;
@@ -242,7 +917,7 @@ namespace MetroidMod
 				WorldGen.PlaceTile(ruinsX, ruinsY + k, TileID.GrayBrick);
 				WorldGen.PlaceTile(ruinsX + 69, ruinsY + k, TileID.GrayBrick);
 			}
-			//NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
+			NPC.NewNPC(8 + (Main.spawnTileX + 218) * 16, (Main.spawnTileY + 500) * 16, mod.NPCType("TorizoIdle"));
 			DeathHall(ruinsX - 58, ruinsY + 24);
 			Shaft(ruinsX - 82, ruinsY - 24);
 			VerticalHatch(ruinsX - 73, ruinsY - 26);
@@ -487,8 +1162,7 @@ namespace MetroidMod
 				WorldGen.PlaceTile(i, y, TileID.GrayBrick);
 				WorldGen.PlaceTile(i + 22, y, TileID.GrayBrick);
 			}
-
-		}
+		}*/
 
 
 		public static bool AddExpansion(int i, int j)
