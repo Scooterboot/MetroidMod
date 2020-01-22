@@ -163,7 +163,7 @@ namespace MetroidMod.Projectiles
                             {
                                 TileLoader.HitWire(x, y, mod.TileType("RedHatchVertical"));
                             }
-                            if (projectile.Name.Contains("Super"))
+                            if (projectile.Name.Contains("Super") || projectile.Name.Contains("Nebula") || projectile.Name.Contains("Stardust"))
                             {
                                 if (Main.tile[x, y].type == (ushort)mod.TileType("GreenHatch"))
                                 {
