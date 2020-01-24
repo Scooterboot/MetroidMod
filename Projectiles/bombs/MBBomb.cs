@@ -60,7 +60,7 @@ namespace MetroidMod.Projectiles.bombs
 			{
 				if (projectile.ai[1]++ > 5)
 				{
-					projectile.ai[1] = 5;
+					projectile.ai[1] = 6;
 					if (projectile.velocity.Y == 0F && projectile.velocity.X != 0f)
 					{
 						projectile.velocity.X *= .97f;
@@ -91,12 +91,12 @@ namespace MetroidMod.Projectiles.bombs
 		{
 			if (projectile.ai[0] == 0)
 			{
-				if (projectile.velocity.X != 0)
+				if (projectile.velocity.X != oldVelocity.X)
 					projectile.velocity.X = projectile.velocity.X * -.5f;
-				if (projectile.velocity.Y != 0 && projectile.velocity.Y > 1f)
+				if (projectile.velocity.Y != oldVelocity.X && projectile.velocity.Y > 1f)
 					projectile.velocity.Y = projectile.velocity.Y * -.5f;
 			}
-			return (false);
+			return false;
 		}
 
 		public override void Kill(int timeLeft)
@@ -164,7 +164,7 @@ namespace MetroidMod.Projectiles.bombs
 							{
 								direction.X = 0f;
 							}
-							if(player.Center.Y < projectile.position.Y+projectile.height)
+							if(player.Center.Y < projectile.Center.Y+BombRadius)
 							{
 								direction.Y = -BombRadius;
 							}
