@@ -194,7 +194,6 @@ namespace MetroidMod.Projectiles.chargelead
 				{
 					P.direction = 1;
 				}
-				P.spriteDirection = P.direction;
 				O.ChangeDir(P.direction);
 				
 				P.position += Vector2.Normalize(P.velocity) * 8f * extraScale;
@@ -209,7 +208,6 @@ namespace MetroidMod.Projectiles.chargelead
 
 			P.rotation += 0.5f * P.direction;
 			P.spriteDirection = P.direction;
-			O.ChangeDir(P.direction);
 			P.timeLeft = 2;
 			O.heldProj = P.whoAmI;
 			O.itemRotation = (float)Math.Atan2(P.velocity.Y * O.direction, P.velocity.X * O.direction) - O.fullRotation;
