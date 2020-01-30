@@ -46,6 +46,7 @@ namespace MetroidMod
 		internal static ModHotKey BoostBallKey;
 		internal static ModHotKey PowerBombKey;
 		internal static ModHotKey SenseMoveKey;
+		public const string TorizoHead = "MetroidMod/NPCs/Torizo/Torizo_Head_Boss";
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
 		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
 		public const string PhantoonHead = "MetroidMod/NPCs/Phantoon/Phantoon_Head_Boss";
@@ -91,6 +92,7 @@ namespace MetroidMod
 			for (int k = 0; k <= 3; k++)
 				AddBossHeadTexture(KraidHead + k);
 
+			AddBossHeadTexture(TorizoHead);
 			AddBossHeadTexture(PhantoonHead);
 			AddBossHeadTexture(NightmareHead);
 			AddBossHeadTexture(OmegaPirateHead);
