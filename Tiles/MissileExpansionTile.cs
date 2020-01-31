@@ -50,9 +50,11 @@ namespace MetroidMod.Tiles
 
 		public override void AnimateTile(ref int frame, ref int frameCounter)
 		{
-			if (frameCounter++ > 3)
+			frameCounter++;
+			if (frameCounter > 3)
 			{
-				if (frame++ > 2)
+				frame++;
+				if (frame > 2)
 					frame = 0;
 				frameCounter = 0;
 			}
