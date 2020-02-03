@@ -31,6 +31,7 @@ namespace MetroidMod
     {
 		public static MetroidBossDown bossesDown;
 		public static bool spawnedPhazonMeteor = false;
+		public static Rectangle TorizoRoomLocation = new Rectangle(0,0,80,40);
 		
         public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 		
@@ -43,7 +44,9 @@ namespace MetroidMod
 		{
 			return new TagCompound {
 				{"downed", (int)bossesDown},
-				{"spawnedPhazonMeteor", spawnedPhazonMeteor}
+				{"spawnedPhazonMeteor", spawnedPhazonMeteor},
+				{"TorizoRoomLocation.X", TorizoRoomLocation.X},
+				{"TorizoRoomLocation.Y", TorizoRoomLocation.Y}
 			};
 		}
 
@@ -51,6 +54,12 @@ namespace MetroidMod
 		{
 			int downed = tag.GetAsInt("downed");
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
+			
+			if(tag.HasTag("TorizoRoomLocation.X") && tag.HasTag("TorizoRoomLocation.Y"))
+			{ // this if statement is temporary. once a world has been loaded and saved, all that is needed are the two lines of code below.
+				TorizoRoomLocation.X = tag.GetAsInt("TorizoRoomLocation.X");
+				TorizoRoomLocation.Y = tag.GetAsInt("TorizoRoomLocation.Y");
+			}
 		}
 
 		public override void LoadLegacy(BinaryReader reader)
@@ -61,6 +70,8 @@ namespace MetroidMod
 				BitsByte flags = reader.ReadByte();
 				bossesDown = (MetroidBossDown)reader.ReadInt32();
 				spawnedPhazonMeteor = reader.ReadBoolean();
+				TorizoRoomLocation.X = reader.ReadInt32();
+				TorizoRoomLocation.Y = reader.ReadInt32();
 			}
 			else
 			{
@@ -72,12 +83,16 @@ namespace MetroidMod
 		{
 			writer.Write((int)bossesDown);
 			writer.Write(spawnedPhazonMeteor);
+			writer.Write(TorizoRoomLocation.X);
+			writer.Write(TorizoRoomLocation.Y);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			bossesDown = (MetroidBossDown)reader.ReadInt32();
 			spawnedPhazonMeteor = reader.ReadBoolean();
+			TorizoRoomLocation.X = reader.ReadInt32();
+			TorizoRoomLocation.Y = reader.ReadInt32();
 		}
 		
 		public override void PostDrawTiles()
@@ -753,6 +768,8 @@ namespace MetroidMod
 			WorldGen.PlaceTile(stepsX+dir, y+height-5, TileID.SandstoneBrick);
 			
 			//NPC.NewNPC(8 + (x + width - 6) * 16, (y + height - 4) * 16, mod.NPCType("TorizoIdle"));
+			TorizoRoomLocation.X = x;
+			TorizoRoomLocation.Y = y;
 		}
 		
 		private static void ChozoRuins_SaveRoom(int x, int y)
@@ -1306,12 +1323,37 @@ namespace MetroidMod
 			return false;
 		}
 
+		int spawnCounter = 0;
 		public override void PostUpdate()
 		{
 			/*if(Main.hardMode && !spawnedPhazonMeteor)
 			{
 				DropPhazonMeteor();
 			}*/
+			
+			if(!bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(mod.NPCType("Torizo")) && !NPC.AnyNPCs(mod.NPCType("IdleTorizo")) && TorizoRoomLocation.X > 0 && TorizoRoomLocation.Y > 0)
+			{
+				Rectangle room = TorizoRoomLocation;
+				if(spawnCounter <= 0)
+				{
+					Vector2 pos = new Vector2(room.X+8,room.Y+room.Height-4);
+					if(room.X > Main.maxTilesX/2)
+					{
+						pos.X = (room.X+room.Width-8);
+					}
+					pos *= 16f;
+					
+					NPC.NewNPC((int)pos.X,(int)pos.Y,mod.NPCType("IdleTorizo"));
+				}
+				else
+				{
+					spawnCounter--;
+				}
+			}
+			else
+			{
+				spawnCounter = 300;
+			}
 		}
 		public static void AddPhazon() 
 		{

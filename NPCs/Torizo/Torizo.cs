@@ -307,6 +307,11 @@ namespace MetroidMod.NPCs.Torizo
 					npc.velocity.Y = 0.1f;
 					npc.Center = new Vector2(player.Center.X - 150 * npc.direction, player.Center.Y - 1500);
 				}
+				else
+				{
+					SetAnimation("spawn", anim_Spawn);
+					SetBodyOffset();
+				}
 				
 				SetPositions();
 				
@@ -574,8 +579,6 @@ namespace MetroidMod.NPCs.Torizo
 		
 		float spawnAlpha = 1f;
 		
-		int grounded = 15;
-		
 		public override void AI()
 		{
 			int numH = 117;//164;
@@ -764,7 +767,7 @@ namespace MetroidMod.NPCs.Torizo
 					}
 					else
 					{
-						if(npc.ai[2] > 0)
+						if(npc.ai[2] > 0 && npc.ai[1] == 0f)
 						{
 							npc.ai[2]--;
 						}
@@ -780,18 +783,28 @@ namespace MetroidMod.NPCs.Torizo
 						npc.ai[3] = 0;
 					}
 					
-					if((npc.direction == 1 && player.Center.X < npc.position.X+48) || (npc.direction == -1 && player.Center.X > npc.position.X-48))
+					if(player.position.Y+player.height > npc.position.Y-50)
 					{
-						if(npc.ai[1] == 0)
+						if((npc.direction == 1 && player.Center.X < npc.position.X+48) || (npc.direction == -1 && player.Center.X > npc.position.X-48))
 						{
-							if(Main.rand.Next(2) == 0)
+							if(npc.ai[1] == 0)
 							{
-								npc.ai[1] = -1;
+								if(Main.rand.Next(2) == 0)
+								{
+									npc.ai[1] = -1;
+								}
+								else
+								{
+									npc.ai[1] = 1;
+								}
 							}
-							else
-							{
-								npc.ai[1] = 1;
-							}
+						}
+					}
+					else
+					{
+						if((npc.direction == 1 && player.Center.X < npc.position.X-28) || (npc.direction == -1 && player.Center.X > npc.position.X+28))
+						{
+							ChangeDir(-npc.direction);
 						}
 					}
 					if(npc.ai[1] >= 1)
@@ -854,7 +867,7 @@ namespace MetroidMod.NPCs.Torizo
 						{
 							soundCounter--;
 						}
-						npc.ai[2] = 0;
+						//npc.ai[2] = 0;
 						npc.ai[3] = 0;
 					}
 					else
@@ -979,7 +992,7 @@ namespace MetroidMod.NPCs.Torizo
 							else
 							{
 								npc.velocity.X = MathHelper.Clamp((player.Center.X-npc.Center.X)*0.015f,-7,7);
-								npc.velocity.Y = -12f;
+								npc.velocity.Y = -16f;
 							}
 							npc.ai[2] = 2;
 						}
@@ -1320,9 +1333,18 @@ namespace MetroidMod.NPCs.Torizo
 				glowNum = 1;
 			}
 			
-			if(npc.position.X < Main.player[npc.target].position.X && npc.position.X+npc.width > Main.player[npc.target].position.X+Main.player[npc.target].width && npc.position.Y+numH < Main.player[npc.target].position.Y+Main.player[npc.target].height - 16f)
+			if(npc.ai[0] == 2 && npc.ai[1] == 1 && Body != null && Body.active)
 			{
-				grounded = Math.Min(grounded+1,15);
+				//if((npc.direction == 1 && npc.velocity.X < 0) || (npc.direction == -1 && npc.velocity.X > 0))
+				//{
+					Vector2 velocity = Collision.TileCollision(npc.position-new Vector2(28,47),npc.velocity,56,47+numH);
+					npc.velocity.X = velocity.X;
+				//}
+			}
+			
+			//if(((npc.Center.X-100 < Main.player[npc.target].Center.X && npc.Center.X+100 > Main.player[npc.target].Center.X) || (npc.ai[0] == 0 && npc.ai[1] == 0)) && npc.position.Y+numH < Main.player[npc.target].position.Y+Main.player[npc.target].height - 16f)
+			if(npc.position.Y+numH < Main.player[npc.target].position.Y+Main.player[npc.target].height - 16f && npc.ai[0] <= 2 && (npc.ai[0] != 1 || npc.ai[1] == 0))
+			{
 				npc.velocity.Y += 0.5f;
 				if(npc.velocity.Y == 0f)
 				{
@@ -1331,7 +1353,7 @@ namespace MetroidMod.NPCs.Torizo
 			}
 			else
 			{
-				if(Collision.SolidCollision(new Vector2(npc.position.X,npc.position.Y+numH-16f), npc.width, 16))
+				if(Collision.SolidCollision(new Vector2(npc.position.X,npc.position.Y+numH-16f), npc.width, 16) && npc.position.Y+numH > Main.player[npc.target].position.Y+Main.player[npc.target].height)
 				{
 					if (npc.velocity.Y > -4f)
 					{
@@ -1341,11 +1363,11 @@ namespace MetroidMod.NPCs.Torizo
 						}
 						if (npc.velocity.Y > -0.2f)
 						{
-							npc.velocity.Y = npc.velocity.Y - 0.025f;
+							npc.velocity.Y -= 0.025f;
 						}
 						else
 						{
-							npc.velocity.Y = npc.velocity.Y - 0.2f;
+							npc.velocity.Y -= 0.2f;
 						}
 					}
 				}
@@ -1360,20 +1382,12 @@ namespace MetroidMod.NPCs.Torizo
 				}
 				
 				bool fall = false;
-				if(npc.position.Y+numH < Main.player[npc.target].position.Y)// && npc.ai[0] <= 1 && (npc.ai[1] <= 1 || npc.ai[1] == 4))
+				if(npc.position.Y+numH < Main.player[npc.target].position.Y && npc.ai[0] <= 2 && (npc.ai[0] != 1 || npc.ai[1] == 0))
 				{
 					fall = true;
 				}
 				Vector2 velocity = Collision.TileCollision(npc.position,new Vector2(0f,Math.Max(npc.velocity.Y,0f)),npc.width,numH,fall,fall);
 				npc.velocity.Y = Math.Min(velocity.Y,npc.velocity.Y);
-				if(npc.velocity.Y == 0f)
-				{
-					grounded = Math.Min(grounded+1,15);
-				}
-				else
-				{
-					grounded = Math.Max(grounded-1,0);
-				}
 			}
 			if (npc.velocity.Y > 10f)
 			{
