@@ -1,1 +1,15 @@
-Metroid mod port WIP
+The Metroid Mod is, quite simply, a mod that adds content based on the Metroid franchise.
+
+It adds:
+-A variety of armor sets
+-Multiple new weapons
+-Accessories
+-1 new mount
+-1 new grapple hook with swinging capabilities
+-New materials/items/etc.
+-Many of these items introduce new mechanics
+-New NPCs
+-New Mobs
+-6 new bosses, 5 of which have completely custom AI
+-And much more planned for future updates!
+

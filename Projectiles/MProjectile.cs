@@ -15,7 +15,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Projectiles
 {
-	public class MProjectile : ModProjectile
+	public abstract class MProjectile : ModProjectile
     {
         public MProjectile mProjectile;
 		public MProjectile()

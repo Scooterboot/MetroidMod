@@ -40,14 +40,22 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.CursedFlame, 15);
-            		recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddIngredient(ItemID.SoulofLight, 10);
-            		recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(null, "UnknownPlasmaBeam");
+            recipe.AddIngredient(ItemID.AdamantiteBar, 5);
+            recipe.AddIngredient(ItemID.CursedFlame, 10);
+			recipe.AddIngredient(ItemID.SoulofLight, 5);
+            recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "UnknownPlasmaBeam");
+            recipe.AddIngredient(ItemID.TitaniumBar, 5);
+            recipe.AddIngredient(ItemID.CursedFlame, 10);
+			recipe.AddIngredient(ItemID.SoulofLight, 5);
+            recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

@@ -75,12 +75,13 @@ namespace MetroidMod
 		public int screwSpeedDelay = 0;
 		public int screwAttack = 0;
 		public bool isPowerSuit = false;
+		public bool isLegacySuit = false;
 		public bool thrusters = false;
+		public bool hiJumpBoost = false;
 		public bool spaceJump = false;
 		public bool spaceJumpBoots = false;
 		public bool visorGlow = false;
 		public Color visorGlowColor = new Color(255, 255, 255);
-		public Texture2D thrusterTexture;
 		public bool speedBooster = false;
 		public Color morphColor = Color.White;
 		public Color morphColorLights = Color.White;
@@ -142,12 +143,14 @@ namespace MetroidMod
 		{			
 			speedBoosting = false;
 			isPowerSuit = false;
+			isLegacySuit = false;
 			phazonImmune = false;
 			phazonRegen = 0;
 			hazardShield = false;
 			reserveTanks = 0;
 			reserveHeartsValue = 20;
 			thrusters = false;
+			hiJumpBoost = false;
 			spaceJump = false;
 			spaceJumpBoots = false;
 			speedBooster = false;
@@ -169,36 +172,6 @@ namespace MetroidMod
 		int itemRotTweak = 0;
 		public override void PreUpdate()
 		{
-			ballstate = (player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"));
-			if(ballstate)
-			{
-				unMorphDir = 0;
-				if(CheckCollide(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
-				{
-					if(!CheckCollide(player.position-new Vector2((20-morphSize),42-morphSize),20,42))
-					{
-						unMorphDir = -1;
-					}
-					else if(!CheckCollide(player.position-new Vector2(0,42-morphSize),20,42))
-					{
-						unMorphDir = 1;
-					}
-					else
-					{
-						player.controlMount = false;
-						player.releaseMount = false;
-						mflag = false;
-					}
-				}
-			}
-			else
-			{
-				unMorphDir = 0;
-				boostCharge = 0;
-				boostEffect = 0;
-				spiderball = false;
-			}
-			
 			UIParameters.oldState = UIParameters.newState;
             UIParameters.newState = Keyboard.GetState();
         	UIParameters.lastMouseState = UIParameters.mouseState;
@@ -334,7 +307,7 @@ namespace MetroidMod
 			}
 
 			bool trail = (!player.dead && !player.mount.Active && player.grapCount == 0 && shineDirection == 0 && !shineActive && !ballstate);
-			if(trail && ((player.controlJump && player.jump > 0 && isPowerSuit) || (grapplingBeam >= 0 && (Math.Abs(player.velocity.X) >= 8.5f || Math.Abs(player.velocity.Y) >= 8.5f)) || (spaceJump && somersault) || SMoveEffect > 0))
+			if(trail && ((player.controlJump && player.jump > 0 && (isPowerSuit || isLegacySuit)) || (grapplingBeam >= 0 && (Math.Abs(player.velocity.X) >= 8.5f || Math.Abs(player.velocity.Y) >= 8.5f)) || (spaceJump && somersault) || SMoveEffect > 0))
 			{
 				tweak++;
 				if(tweak > 4)
@@ -456,58 +429,58 @@ namespace MetroidMod
 
             if (hazardShield)
 		    {
-			List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
+				List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
 
-			for (int k = 0; k < 22; k++)
-			{
-			    int buff = P.buffType[k];
-			    if(debuffList.Contains(buff))
-			    {
-				if (P.body == mod.ItemType("HazardShieldBreastplate"))
+				for (int k = 0; k < 22; k++)
 				{
-				    P.buffTime[k] = Math.Max(P.buffTime[k] - 1, 0);
+					int buff = P.buffType[k];
+					if(debuffList.Contains(buff))
+					{
+						if (P.body == mod.ItemType("HazardShieldBreastplate"))
+						{
+							P.buffTime[k] = Math.Max(P.buffTime[k] - 1, 0);
+						}
+						else if (P.body == mod.ItemType("StardustHazardShieldSuitBreastplate"))
+						{
+							P.buffTime[k] = Math.Max(P.buffTime[k] - 2, 0);
+						}
+					}
 				}
-				else if (P.body == mod.ItemType("StardustHazardShieldSuitBreastplate"))
-				{
-				    P.buffTime[k] = Math.Max(P.buffTime[k] - 2, 0);
-				}
-			    }
-			}
 		    }
 		    int x1 = (int)(player.position.X + player.velocity.X - 1) / 16;
 		    int x2 = (int)(player.position.X + player.velocity.X + player.width + 1) / 16;
 		    int j = (int)(player.position.Y + player.height + 1) / 16;
 		    if (x1 < 0)
 		    {
-			x1 = 0;
+				x1 = 0;
 		    }
 		    if (x2 > Main.maxTilesX)
 		    {
-			x2 = Main.maxTilesX;
+				x2 = Main.maxTilesX;
 		    }
 		    if (j < 0)
 		    {
-			j = 0;
+				j = 0;
 		    }
 		    if (j > Main.maxTilesY)
 		    {
-			j = Main.maxTilesY;
+				j = Main.maxTilesY;
 		    }
 		    for (int i = x1; i <= x2; i++)
 		    {
-			Vector2 pos = new Vector2(i * 16, j * 16);
-			if (MWorld.mBlockType[i, j] == 1 && Main.tile[i, j].active() && !Main.tile[i, j].inActive())
-			{
-			    Wiring.DeActive(i, j);
-			    if (Main.tile[i, j].inActive())
-			    {
-				Main.PlaySound(2, pos, 51);
-				for (int d = 0; d < 4; d++)
+				Vector2 pos = new Vector2(i * 16, j * 16);
+				if (MWorld.mBlockType[i, j] == 1 && Main.tile[i, j].active() && !Main.tile[i, j].inActive())
 				{
-				    Dust.NewDust(pos, 16, 16, 1);
+					Wiring.DeActive(i, j);
+					if (Main.tile[i, j].inActive())
+					{
+						Main.PlaySound(2, pos, 51);
+						for (int d = 0; d < 4; d++)
+						{
+							Dust.NewDust(pos, 16, 16, 1);
+						}
+					}
 				}
-			    }
-			}
 		    }
 		}
 
@@ -952,7 +925,33 @@ namespace MetroidMod
 		bool mflag = false;
 		public override void SetControls()
 		{
-			ballstate = (player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"));
+			//ballstate = (player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"));
+			if(player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"))
+			{
+				ballstate = true;
+				unMorphDir = 0;
+				if(CheckCollide(player.position-new Vector2((20-morphSize)/2,42-morphSize),20,42))
+				{
+					if(!CheckCollide(player.position-new Vector2((20-morphSize),42-morphSize),20,42))
+					{
+						unMorphDir = -1;
+					}
+					else if(!CheckCollide(player.position-new Vector2(0,42-morphSize),20,42))
+					{
+						unMorphDir = 1;
+					}
+					else
+					{
+						player.controlMount = false;
+						player.releaseMount = false;
+						mflag = false;
+					}
+				}
+			}
+			else
+			{
+				ballstate = false;
+			}
 			
 			//morph ball transformation tweaks and effects
 			if((player.miscEquips[3].type == mod.ItemType("MorphBall") || player.mount.Type == mod.MountType("MorphBallMount")) && player.controlMount && !shineActive)
@@ -1008,6 +1007,14 @@ namespace MetroidMod
 			else
 			{
 				mflag = true;
+			}
+			
+			if(!ballstate)
+			{
+				unMorphDir = 0;
+				boostCharge = 0;
+				boostEffect = 0;
+				spiderball = false;
 			}
 		}
 		public override void PostUpdateMiscEffects()
@@ -1134,6 +1141,12 @@ namespace MetroidMod
 			}
 			
 			player.altFunctionUse = ballstate ? -1 : 0;
+			
+			if(hiJumpBoost)
+			{
+				Player.jumpHeight += 5;
+				Player.jumpSpeed += 1.5f;
+			}
 		}
         public override void PostUpdate()
         {
@@ -1335,7 +1348,7 @@ namespace MetroidMod
 				{
 					layers.Insert(k + 1, thrusterLayer);
 					layers.Insert(k + 2, jetLayer);
-                    thrusterLayer.visible = false;//true;
+                    thrusterLayer.visible = true;
                     jetLayer.visible = true;
                 }
 				if (layers[k] == PlayerLayer.Head)
@@ -1344,7 +1357,7 @@ namespace MetroidMod
                     visorLayer.visible = true;
 
                 }
-				if(layers[k] == PlayerLayer.Arms)
+				if(layers[k] == PlayerLayer.HandOnAcc)
 				{
 					layers.Insert(k + 1, gunLayer);
                     gunLayer.visible = true;
@@ -1499,7 +1512,8 @@ namespace MetroidMod
 				}
 			}
 			
-			if(!thrusters)
+			//if(!thrusters)
+			if(!isPowerSuit && !isLegacySuit)
 				jet = false;
 		}
         
@@ -1579,9 +1593,9 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
-			if (mPlayer.isPowerSuit && !mPlayer.ballstate)
+			if (mPlayer.isLegacySuit && !mPlayer.ballstate)
 			{
-				Texture2D tex = mod.GetTexture("Gore/VisorGlowNew");
+				Texture2D tex = mod.GetTexture("Gore/VisorGlow");
 				mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headOrigin, drawPlayer.GetImmuneAlphaPure(mPlayer.visorGlowColor,drawInfo.shadow), 0);
 			}
 		});
@@ -1697,7 +1711,7 @@ namespace MetroidMod
                 }
             }
         });
-		public static readonly PlayerLayer gunLayer = new PlayerLayer("MetroidMod", "gunLayer", PlayerLayer.Arms, delegate(PlayerDrawInfo drawInfo)
+		public static readonly PlayerLayer gunLayer = new PlayerLayer("MetroidMod", "gunLayer", PlayerLayer.HandOnAcc, delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
 			Player P = drawInfo.drawPlayer;
@@ -1798,15 +1812,26 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
-			if (mPlayer.thrusters)
+			
+			Item item = null;
+			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir && drawPlayer.armor[1].modItem != null)
 			{
-				if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
+				item = drawPlayer.armor[1];
+			}
+			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir && drawPlayer.armor[11].modItem != null)
+			{
+				item = drawPlayer.armor[11];
+			}
+			if (mPlayer.thrusters && item != null)
+			{
+				string name = item.modItem.Texture + "_Thrusters";
+				if(ModContent.TextureExists(name) && name.Contains("MetroidMod"))
 				{
-					if(mPlayer.thrusterTexture != null)
+					if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
 					{
-						Texture2D tex = mPlayer.thrusterTexture;
+						Texture2D tex = ModContent.GetTexture(name);
 						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawInfo.middleArmorColor, drawInfo.bodyArmorShader);
-  					}
+					}
 				}
 			}
 		});
@@ -1816,7 +1841,7 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
-			if (mPlayer.jet && !drawPlayer.sandStorm && drawInfo.shadow == 0f && mPlayer.thrusters)
+			if (mPlayer.jet && !drawPlayer.sandStorm && drawInfo.shadow == 0f)
 			{
 				if((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
 				{
@@ -1824,6 +1849,10 @@ namespace MetroidMod
 					if(mPlayer.shineDirection != 0)
 					{
 						tex = mod.GetTexture("Gore/thrusterFlameNew_Spark");
+					}
+					if(mPlayer.thrusters)
+					{
+						tex = mod.GetTexture("Gore/thrusterFlame");
 					}
 					mPlayer.DrawThrusterJet(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyRotation, drawPlayer.bodyPosition);
 				}

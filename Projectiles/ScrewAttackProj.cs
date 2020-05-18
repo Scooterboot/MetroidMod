@@ -77,7 +77,7 @@ namespace MetroidMod.Projectiles
 				DelayTime = 0;
 			}
 
-			if(!mp.somersault)
+			if(!mp.somersault || mp.screwAttack <= 0)
 			{
 				projectile.Kill();
 			}

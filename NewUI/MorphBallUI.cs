@@ -10,7 +10,7 @@ using Terraria.GameContent.UI.Elements;
 
 using MetroidMod.Items;
 using MetroidMod.Items.weapons;
-using MetroidMod.Items.equipables;
+using MetroidMod.Items.accessories;
 
 namespace MetroidMod.NewUI
 {

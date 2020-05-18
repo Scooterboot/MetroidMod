@@ -26,6 +26,7 @@ namespace MetroidMod.Items.misc
 		public override void OpenBossBag(Player player)
 		{
 			player.QuickSpawnItem(mod.ItemType("KraidTissue"), Main.rand.Next(35, 66));
+			player.QuickSpawnItem(mod.ItemType("UnknownPlasmaBeam"));
 			if (Main.rand.Next(5) == 0)
 			{
 				player.QuickSpawnItem(mod.ItemType("KraidTrophy"));

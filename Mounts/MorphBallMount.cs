@@ -11,7 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using MetroidMod.Items;
-using MetroidMod.Items.equipables;
+using MetroidMod.Items.accessories;
 
 namespace MetroidMod.Mounts
 {
