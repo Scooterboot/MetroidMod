@@ -52,6 +52,7 @@ namespace MetroidMod
 		public const string PhantoonHead = "MetroidMod/NPCs/Phantoon/Phantoon_Head_Boss";
 		public const string NightmareHead = "MetroidMod/NPCs/Nightmare/Nightmare_Head_Boss";
 		public const string OmegaPirateHead = "MetroidMod/NPCs/OmegaPirate/OmegaPirate_Head_Boss";
+		public const string GoldenTorizoHead = "MetroidMod/NPCs/GoldenTorizo/GoldenTorizo_Head_Boss";
 		public static Mod Instance;
 
 		internal UserInterface pbUserInterface;
@@ -96,6 +97,7 @@ namespace MetroidMod
 			AddBossHeadTexture(PhantoonHead);
 			AddBossHeadTexture(NightmareHead);
 			AddBossHeadTexture(OmegaPirateHead);
+			AddBossHeadTexture(GoldenTorizoHead);
 
 			SetupUI();
 		}
@@ -257,6 +259,26 @@ namespace MetroidMod
 			{
 				z = 0;
 			}
+			
+			// (debug) draw npc hitboxes
+			/*for(int j = 0; j < Main.maxNPCs; j++)
+			{
+				NPC npc = Main.npc[j];
+				if(npc.active && npc.life > 0)
+				{
+					Color color = new Color(0,255,0);
+					if(npc.dontTakeDamage)
+					{
+						color = new Color(255,0,0);
+					}
+					color *= 0.125f;
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),npc.width,npc.height),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),npc.width,1),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),1,npc.height),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y+npc.height-1-Main.screenPosition.Y),npc.width,1),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X+npc.width-1-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),1,npc.height),color);
+				}
+			}*/
 		}
 		float tRot = 0f;
 		public void DrawSeekerTargets(SpriteBatch sb)
@@ -332,7 +354,10 @@ namespace MetroidMod
 					float pbpercent = pbMax == 0 ? 0f : 1f*pb/pbMax;
 					int w = (int)(Math.Floor(texBar.Width/2f*chpercent)*2);
 					int w2 = (int)(Math.Floor(texBar.Width/2f*pbpercent)*2);
-					Color c = chpercent < 1f ? new Color(chR,chG,chB) : Color.Gold;
+					
+					//Color c = chpercent < 1f ? new Color(chR,chG,chB) : Color.Gold;
+					Color c = chpercent < 1f ? MColor.HsvColor(300.0 - chpercent*240,0.5,1.0) : Color.Gold;
+					
 					Color p = pbpercent < 1f ? Color.Crimson : Color.Gray;
 					chStyle = chpercent <= 0f ? 0 : (chpercent <= .5f ? 1 : (chpercent <= .75f ? 2 : (chpercent <= .99f ? 3 : 0)));
 					float offsetX = 2, offsetY = 2;
@@ -462,6 +487,7 @@ namespace MetroidMod
 				}
 			}
 		}
+		
 		public void DrawSpaceJumpBar(SpriteBatch sb)
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
