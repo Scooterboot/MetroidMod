@@ -41,13 +41,13 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 6);
-		    	recipe.AddIngredient(ItemID.Topaz, 15);
-		    	recipe.AddIngredient(ItemID.JungleSpores, 10);
-		    	recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(null, "ChoziteBar", 3);
+			recipe.AddIngredient(ItemID.Stinger, 12);
+			recipe.AddIngredient(ItemID.JungleSpores, 12);
+			recipe.AddIngredient(ItemID.Topaz, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
 		}
 	}
 }

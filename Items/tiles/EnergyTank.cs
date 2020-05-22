@@ -30,16 +30,18 @@ namespace MetroidMod.Items.tiles
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "EnergyShard", 4);
-			recipe.AddIngredient(ItemID.Glass, 10);
-			recipe.AddIngredient(ItemID.DemoniteBar, 2);
+			recipe.AddIngredient(null, "ChoziteBar", 1);
+			recipe.AddIngredient(ItemID.DemoniteBar, 1);
+			recipe.AddIngredient(ItemID.ShadowScale, 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "EnergyShard", 4);
-			recipe.AddIngredient(ItemID.Glass, 10);
-			recipe.AddIngredient(ItemID.CrimtaneBar, 2);
+			recipe.AddIngredient(null, "ChoziteBar", 1);
+			recipe.AddIngredient(ItemID.CrimtaneBar, 1);
+			recipe.AddIngredient(ItemID.TissueSample, 10);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

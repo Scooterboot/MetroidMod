@@ -41,12 +41,35 @@ namespace MetroidMod.Items.addons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HallowedBar, 3);
-            		recipe.AddIngredient(ItemID.SoulofMight, 20);
-			recipe.AddIngredient(ItemID.SoulofSight, 20);
-			recipe.AddIngredient(ItemID.SoulofFright, 20);
-            		recipe.AddIngredient(ItemID.RainbowGun);
-            		recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ItemID.Meowmere);
+			recipe.AddIngredient(ItemID.LunarBar, 5);
+			recipe.AddIngredient(ItemID.FragmentStardust, 10);
+			recipe.AddIngredient(ItemID.FragmentSolar, 10);
+			recipe.AddIngredient(ItemID.FragmentNebula, 10);
+			recipe.AddIngredient(ItemID.FragmentVortex, 10);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.LastPrism);
+			recipe.AddIngredient(ItemID.LunarBar, 5);
+			recipe.AddIngredient(ItemID.FragmentStardust, 10);
+			recipe.AddIngredient(ItemID.FragmentSolar, 10);
+			recipe.AddIngredient(ItemID.FragmentNebula, 10);
+			recipe.AddIngredient(ItemID.FragmentVortex, 10);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.RainbowCrystalStaff);
+			recipe.AddIngredient(ItemID.LunarBar, 5);
+			recipe.AddIngredient(ItemID.FragmentStardust, 10);
+			recipe.AddIngredient(ItemID.FragmentSolar, 10);
+			recipe.AddIngredient(ItemID.FragmentNebula, 10);
+			recipe.AddIngredient(ItemID.FragmentVortex, 10);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

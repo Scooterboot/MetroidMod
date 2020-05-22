@@ -38,9 +38,9 @@ namespace MetroidMod.Items.addons.V2
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChargeBeamAddon");
-            		recipe.AddIngredient(ItemID.SoulofMight, 10);
-            		recipe.AddIngredient(ItemID.IllegalGunParts);
-            		recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ItemID.SoulofSight, 10);
+			recipe.AddIngredient(ItemID.IllegalGunParts);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

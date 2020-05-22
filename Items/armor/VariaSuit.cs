@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -11,10 +12,10 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
+			 "+10 overheat capacity\n" +
 			 "Immunity to fire blocks\n" +
-			 "Immunity to chill and freeze effects\n" +
-			 "+10 overheat capacity");
+			 "Immunity to chill and freeze effects");
 		}
 		public override void SetDefaults()
 		{
@@ -26,7 +27,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.fireWalk = true;
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
@@ -40,11 +42,12 @@ namespace MetroidMod.Items.armor
 		public override void UpdateArmorSet(Player p)
 		{
 			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + 
-						"5% increased ranged damage" + "\r\n" + 
+						"5% increased hunter damage" + "\r\n" + 
 						"25% decreased overheat use" + "\r\n" + 
 						"55% increased underwater breathing" + "\r\n" + 
 						"Negates fall damage";
-			p.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.05f;
+			//p.rangedDamage += 0.05f;
 			p.noFallDmg = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.breathMult = 1.55f;
@@ -68,9 +71,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit Greaves");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "10% increased movement speed\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
 			 "+10 overheat capacity\n" +
+			 "10% increased movement speed\n" +
 			 "Allows you to slide down walls");
 		}
 		public override void SetDefaults()
@@ -83,7 +86,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.moveSpeed += 0.10f;
 			player.spikedBoots += 1;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -105,7 +109,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit Helmet");
-			Tooltip.SetDefault("5% increased ranged damage\n" + 
+			Tooltip.SetDefault("5% increased hunter damage\n" + 
 			"+10 overheat capacity\n" + 
 			"Improved night vision");
 		}
@@ -119,7 +123,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 10;

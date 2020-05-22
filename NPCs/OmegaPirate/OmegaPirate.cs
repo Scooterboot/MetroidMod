@@ -70,7 +70,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			}
 			else
 			{*/
-				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("[omega pirate drop]"), 1);
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PurePhazon"), Main.rand.Next(30, 41));
 				/*if (Main.rand.Next(5) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OmegaPirateMusicBox"));

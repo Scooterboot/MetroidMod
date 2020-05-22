@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -11,10 +12,10 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit V2 Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immunity to fire blocks\n" +
-			 "Immunity to chill and freeze effects\n" +
-			 "+15 overheat capacity");
+			Tooltip.SetDefault("5% increased hunter damage\n" +
+			"+15 overheat capacity\n" +
+			"Immunity to fire blocks\n" +
+			"Immunity to chill and freeze effects");
 		}
 		public override void SetDefaults()
 		{
@@ -26,7 +27,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.fireWalk = true;
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
@@ -39,8 +41,13 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + "5% increased ranged damage" + "\r\n" + "25% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "80% increased underwater breathing";
-			p.rangedDamage += 0.05f;
+			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + 
+						"5% increased hunter damage" + "\r\n" + 
+						"25% decreased overheat use" + "\r\n" + 
+						"80% increased underwater breathing" + "\r\n" + 
+						"Negates fall damage";
+			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.05f;
+			//p.rangedDamage += 0.05f;
 			p.noFallDmg = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.breathMult = 1.8f;
@@ -73,10 +80,10 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit V2 Greaves");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "10% increased movement speed\n" +
-			 "+15 overheat capacity\n" +
-			 "Allows you to slide down walls");
+			Tooltip.SetDefault("5% increased hunter damage\n" +
+			"+15 overheat capacity\n" +
+			"10% increased movement speed\n" +
+			"Allows you to slide down walls");
 		}
 		public override void SetDefaults()
 		{
@@ -88,7 +95,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.moveSpeed += 0.1f;
 			player.spikedBoots += 1;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -119,7 +127,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit V2 Helmet");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
 			"+15 overheat capacity\n" +
 			"Improved night vision");
 		}
@@ -133,7 +141,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 15;
@@ -143,7 +152,7 @@ namespace MetroidMod.Items.armor
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "VariaSuitHelmet");
 			recipe.AddIngredient(ItemID.MythrilBar, 10);
-			recipe.AddIngredient(null, "KraidTissue", 7);
+			recipe.AddIngredient(null, "KraidTissue", 8);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -151,7 +160,7 @@ namespace MetroidMod.Items.armor
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "VariaSuitHelmet");
 			recipe.AddIngredient(ItemID.OrichalcumBar, 10);
-			recipe.AddIngredient(null, "KraidTissue", 7);
+			recipe.AddIngredient(null, "KraidTissue", 8);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

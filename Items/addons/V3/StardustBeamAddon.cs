@@ -41,7 +41,6 @@ namespace MetroidMod.Items.addons.V3
 		public override void AddRecipes()
 		{
             ModRecipe recipe = new ModRecipe(mod);
-            recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.FragmentStardust, 18);
             recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);

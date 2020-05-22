@@ -23,6 +23,5 @@ namespace MetroidMod.Items.misc
 			item.value = 100;
 			item.rare = 2;
 		}
-
 	}
 }

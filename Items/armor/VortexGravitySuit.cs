@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -11,11 +12,11 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vortex Gravity Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immune to fire blocks\n" +
-			 "Immune to chill and freeze effects\n" +
-			 "Immune to knockback\n" +
-			 "+34 overheat capacity");
+			Tooltip.SetDefault("5% increased hunter damage\n" +
+			"+34 overheat capacity\n" +
+			"Immune to fire blocks\n" +
+			"Immune to chill and freeze effects\n" +
+			"Immune to knockback");
 		}
 		public override void SetDefaults()
 		{
@@ -27,7 +28,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.fireWalk = true;
 			player.noKnockback = true;
 			player.buffImmune[BuffID.Chilled] = true;
@@ -41,16 +43,17 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n"
-				+ "20% increased ranged damage" + "\r\n"
-				+ "Free movement in liquid" + "\r\n"
-				+ "Default gravity in space" + "\r\n"
-				+ "Immune to lava damage" + "\r\n"
-				+ "Immune to Distorted and Amplified Gravity" + "\r\n"
-				+ "Negates fall damage" + "\r\n"
-				+ "Infinite breath" + "\r\n"
-				+ "40% decreased overheat use";
-			p.rangedDamage += 0.20f;
+			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + 
+						"20% increased hunter damage" + "\r\n" + 
+						"40% decreased overheat use" + "\r\n" + 
+						"Free movement in liquid" + "\r\n" + 
+						"Grants indefinite lava immunity" + "\r\n" + 
+						"Infinite breath" + "\r\n" + 
+						"Negates fall damage" + "\r\n" + 
+						"Default gravity in space" + "\r\n" + 
+						"Immune to Distorted and Amplified Gravity effects";
+			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.20f;
+			//p.rangedDamage += 0.20f;
 			p.ignoreWater = true;
 			p.gravity = Player.defaultGravity;
 			p.lavaImmune = true;
@@ -76,8 +79,8 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "TerraGravitySuitBreastplate");
-			recipe.AddIngredient(ItemID.LunarBar, 20);
-			recipe.AddIngredient(ItemID.FragmentVortex, 10);
+			recipe.AddIngredient(ItemID.LunarBar, 16);
+			recipe.AddIngredient(ItemID.FragmentVortex, 20);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -89,9 +92,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vortex Gravity Suit Greaves");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			"20% increased movement speed\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
 			"+33 overheat capacity\n" +
+			"20% increased movement speed\n" +
 			"Allows you to cling to walls");
 		}
 		public override void SetDefaults()
@@ -104,7 +107,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.moveSpeed += 0.20f;
 			player.spikedBoots += 2;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -114,8 +118,8 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "TerraGravitySuitGreaves");
-			recipe.AddIngredient(ItemID.LunarBar, 20);
-			recipe.AddIngredient(ItemID.FragmentVortex, 10);
+			recipe.AddIngredient(ItemID.LunarBar, 12);
+			recipe.AddIngredient(ItemID.FragmentVortex, 15);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -127,7 +131,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vortex Gravity Suit Helmet");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
 			"+33 overheat capacity\n" +
 			"Improved night vision");
 		}
@@ -141,7 +145,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 33;
@@ -150,7 +155,7 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "TerraGravitySuitHelmet");
-			recipe.AddIngredient(ItemID.LunarBar, 15);
+			recipe.AddIngredient(ItemID.LunarBar, 8);
 			recipe.AddIngredient(ItemID.FragmentVortex, 10);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);

@@ -42,13 +42,11 @@ namespace MetroidMod.Items.addons.V2
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "SpazerAddon", 1);
-		    recipe.AddIngredient(ItemID.Topaz, 15);
-		    recipe.AddIngredient(ItemID.HallowedBar, 10);
-            recipe.AddIngredient(ItemID.SoulofSight, 5);
+		    recipe.AddIngredient(ItemID.HallowedBar, 8);
+            recipe.AddIngredient(ItemID.SoulofFright, 10);
 		    recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
 		}
 	}
 }

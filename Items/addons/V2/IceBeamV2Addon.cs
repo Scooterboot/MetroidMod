@@ -41,12 +41,11 @@ namespace MetroidMod.Items.addons.V2
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "IceBeamAddon", 1);
-            recipe.AddIngredient(ItemID.BeetleHusk, 10);
-            recipe.AddIngredient(ItemID.FrostCore, 1);
-            recipe.AddIngredient(ItemID.SoulofNight, 10);
-            recipe.AddIngredient(ItemID.Sapphire, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(null, "IceBeamAddon", 1);
+			recipe.AddIngredient(ItemID.SpectreBar, 8);
+			recipe.AddIngredient(ItemID.BeetleHusk, 10);
+			recipe.AddIngredient(null, "FrozenCore", 1);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

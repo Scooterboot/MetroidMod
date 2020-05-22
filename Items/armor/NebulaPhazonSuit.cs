@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -11,11 +12,11 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nebula Phazon Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immunity to fire blocks\n" +
-			 "Immunity to chill and freeze effects\n" +
-			 "Immune to knockback\n" +
-			 "+34 overheat capacity");
+			Tooltip.SetDefault("5% increased hunter damage\n" +
+			"+34 overheat capacity\n" +
+			"Immunity to fire blocks\n" +
+			"Immunity to chill and freeze effects\n" +
+			"Immune to knockback");
 		}
 		public override void SetDefaults()
 		{
@@ -27,7 +28,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.fireWalk = true;
 			player.noKnockback = true;
 			player.buffImmune[BuffID.Chilled] = true;
@@ -41,16 +43,17 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n"
-				+ "20% increased ranged damage" + "\r\n"
-				+ "Free movement in liquid" + "\r\n"
-				+ "Immune to lava damage for 7 seconds" + "\r\n"
-				+ "Negates fall damage" + "\r\n"
-				+ "Infinite breath" + "\r\n"
-				+ "40% decreased overheat use" + "\r\n"
-				+ "Immune to damage from standing on Phazon blocks"
-				+ "Enables Phazon Beam use";
-			p.rangedDamage += 0.20f;
+			p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + 
+						"20% increased hunter damage" + "\r\n" + 
+						"40% decreased overheat use" + "\r\n" + 
+						"Free movement in liquid" + "\r\n" + 
+						"Grants 7 seconds of lava immunity" + "\r\n" + 
+						"Infinite breath" + "\r\n" + 
+						"Negates fall damage" + "\r\n" + 
+						"Immune to damage caused by blue Phazon blocks" + 
+						"Enables Phazon Beam use";
+			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.20f;
+			//p.rangedDamage += 0.20f;
 			p.ignoreWater = true;
 			p.lavaMax += 420;
 			p.noFallDmg = true;
@@ -76,8 +79,8 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "PhazonSuitBreastplate");
-			recipe.AddIngredient(ItemID.LunarBar, 20);
-			recipe.AddIngredient(ItemID.FragmentNebula, 10);
+			recipe.AddIngredient(ItemID.LunarBar, 16);
+			recipe.AddIngredient(ItemID.FragmentNebula, 20);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -89,9 +92,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nebula Phazon Suit Greaves");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			"20% increased movement speed\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
 			"+33 overheat capacity\n" +
+			"20% increased movement speed\n" +
 			"Allows you to cling to walls");
 		}
 		public override void SetDefaults()
@@ -104,7 +107,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.moveSpeed += 0.20f;
 			player.spikedBoots += 2;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -114,8 +118,8 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "PhazonSuitGreaves");
-			recipe.AddIngredient(ItemID.LunarBar, 15);
-			recipe.AddIngredient(ItemID.FragmentNebula, 10);
+			recipe.AddIngredient(ItemID.LunarBar, 12);
+			recipe.AddIngredient(ItemID.FragmentNebula, 15);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -127,7 +131,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nebula Phazon Suit Helmet");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
 			"+33 overheat capacity\n" +
 			"Improved night vision");
 		}
@@ -141,7 +145,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 33;
@@ -150,7 +155,7 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "PhazonSuitHelmet");
-			recipe.AddIngredient(ItemID.LunarBar, 10);
+			recipe.AddIngredient(ItemID.LunarBar, 8);
 			recipe.AddIngredient(ItemID.FragmentNebula, 10);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);

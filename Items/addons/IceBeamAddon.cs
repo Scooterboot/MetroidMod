@@ -42,16 +42,10 @@ namespace MetroidMod.Items.addons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.SnowBlock, 25);
-            		recipe.AddIngredient(ItemID.IceBlock, 10);
-            		recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.Sapphire, 7);
-            		recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.IceBlock, 25);
+			recipe.AddIngredient(ItemID.Bone, 10);
+			recipe.AddIngredient(ItemID.Sapphire, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

@@ -41,19 +41,19 @@ namespace MetroidMod.Items.addons.V2
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "PlasmaBeamGreenAddon");
-            		recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
-            		recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddIngredient(ItemID.SoulofSight, 5);
-            		recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ItemID.ChlorophyteBar, 8);
+			recipe.AddIngredient(ItemID.Emerald);
+			recipe.AddIngredient(ItemID.LihzahrdPowerCell);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "PlasmaBeamRedAddon");
-            		recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
-            		recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddIngredient(ItemID.SoulofSight, 5);
-		    	recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ItemID.ChlorophyteBar, 8);
+			recipe.AddIngredient(ItemID.Emerald);
+			recipe.AddIngredient(ItemID.LihzahrdPowerCell);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

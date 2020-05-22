@@ -23,13 +23,13 @@ namespace MetroidMod.Items.misc
 			item.value = 10000;
 			item.rare = 1;
 		}
-    	public override void AddRecipes()
+    	/*public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "Phazon", 5);
             recipe.AddTile(null, "NovaWorkTableTile");
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
+		}*/
 	}
 }

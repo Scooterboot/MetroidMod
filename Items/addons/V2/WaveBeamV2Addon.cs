@@ -41,9 +41,8 @@ namespace MetroidMod.Items.addons.V2
 		{
 			ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "WaveBeamAddon", 1);
-            recipe.AddIngredient(ItemID.SpectreBar, 5);
-            recipe.AddIngredient(ItemID.Amethyst, 10);
-            recipe.AddIngredient(ItemID.SoulofNight, 10);
+		    recipe.AddIngredient(ItemID.HallowedBar, 8);
+            recipe.AddIngredient(ItemID.SoulofMight, 10);
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

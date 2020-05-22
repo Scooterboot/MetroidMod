@@ -28,37 +28,15 @@ namespace MetroidMod.Items.tiles
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.TungstenBar, 10);
-			recipe.AddRecipeGroup("IronBar", 5);
-			recipe.AddIngredient(ItemID.Emerald, 7);
-			recipe.AddIngredient(ItemID.CursedFlame, 10);
+			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
+			recipe.AddIngredient(ItemID.CursedFlame, 5);
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
+			
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.SilverBar, 10);
-			recipe.AddRecipeGroup("IronBar", 5);
-			recipe.AddIngredient(ItemID.Emerald, 7);
-			recipe.AddIngredient(ItemID.CursedFlame, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.TungstenBar, 10);
-			recipe.AddRecipeGroup("IronBar", 5);
-			recipe.AddIngredient(ItemID.Emerald, 7);
-			recipe.AddIngredient(ItemID.Ichor, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.SilverBar, 10);
-			recipe.AddRecipeGroup("IronBar", 5);
-			recipe.AddIngredient(ItemID.Emerald, 7);
-			recipe.AddIngredient(ItemID.Ichor, 10);
+			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
+			recipe.AddIngredient(ItemID.Ichor, 5);
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

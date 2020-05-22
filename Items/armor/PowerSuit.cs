@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -11,7 +12,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Breastplate");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
+			Tooltip.SetDefault("5% increased hunter damage\n" +
 			"+5 overheat capacity");
 		}
 		public override void SetDefaults()
@@ -24,7 +25,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 5;
 		}
@@ -63,8 +65,16 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBreastplate");
-			recipe.AddIngredient(null, "ChoziteBar", 10);
 			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddIngredient(ItemID.DemoniteBar, 20);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ChoziteBreastplate");
+			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddIngredient(ItemID.CrimtaneBar, 20);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -76,7 +86,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Greaves");
-			Tooltip.SetDefault("5% increased ranged damage\n" + 
+			Tooltip.SetDefault("5% increased hunter damage\n" + 
 			"+5 overheat capacity\n" +
 			"Allows you to slide down walls");
 		}
@@ -90,7 +100,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.spikedBoots += 1;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 5;
@@ -99,8 +110,16 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteGreaves");
-			recipe.AddIngredient(null, "ChoziteBar", 5);
 			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddIngredient(ItemID.DemoniteBar, 15);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ChoziteGreaves");
+			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddIngredient(ItemID.CrimtaneBar, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -112,9 +131,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Helmet");
-			Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "+5 overheat capacity\n" +
-			 "Improved night vision");
+			Tooltip.SetDefault("5% increased hunter damage\n" +
+			"+5 overheat capacity\n" +
+			"Improved night vision");
 		}
 		public override void SetDefaults()
 		{
@@ -126,7 +145,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 5;
@@ -135,8 +155,16 @@ namespace MetroidMod.Items.armor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteHelmet");
-			recipe.AddIngredient(null, "ChoziteBar", 5);
 			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddIngredient(ItemID.DemoniteBar, 10);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ChoziteHelmet");
+			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddIngredient(ItemID.CrimtaneBar, 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

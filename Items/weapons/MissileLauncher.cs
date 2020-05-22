@@ -11,13 +11,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-using MetroidMod.Items;
+using MetroidMod.Items.damageclass;
 using MetroidMod.Projectiles;
 using MetroidMod.Projectiles.chargelead;
 
 namespace MetroidMod.Items.weapons
 {
-	public class MissileLauncher : ModItem
+	public class MissileLauncher : HunterDamageItem//ModItem
 	{
 		// Failsaves.
 		private Item[] _missileMods;
@@ -45,7 +45,8 @@ namespace MetroidMod.Items.weapons
 			DisplayName.SetDefault("Missile Launcher");
 			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Missile Addon UI");
 		}
-		public override void SetDefaults()
+		//public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 30;
 			item.ranged = true;
@@ -75,6 +76,7 @@ namespace MetroidMod.Items.weapons
 			recipe.AddIngredient(null, "ChoziteBar", 10);
 			recipe.AddIngredient(null, "EnergyTank", 1);
 			recipe.AddIngredient(ItemID.Musket, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
@@ -82,6 +84,7 @@ namespace MetroidMod.Items.weapons
 			recipe.AddIngredient(null, "ChoziteBar", 10);
 			recipe.AddIngredient(null, "EnergyTank", 1);
 			recipe.AddIngredient(ItemID.TheUndertaker, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -448,6 +451,8 @@ namespace MetroidMod.Items.weapons
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
+			
 			if(item == Main.HoverItem)
 			{
 				item.modItem.UpdateInventory(Main.player[Main.myPlayer]);

@@ -11,6 +11,7 @@ using Terraria.UI;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
+using MetroidMod.Items.damageclass;
 using MetroidMod.Projectiles;
 using MetroidMod.Projectiles.chargelead;
 
@@ -21,7 +22,7 @@ namespace MetroidMod.Items.weapons
 	 * IMPLEMENT ERROR MESSAGE WITH MOD MISMATCH: ('comboErrorType')
 	 * 
 	 */
-	public class PowerBeam : ModItem
+	public class PowerBeam : HunterDamageItem//ModItem
 	{
 		// Failsaves.
 		private Item[] _beamMods;
@@ -51,10 +52,11 @@ namespace MetroidMod.Items.weapons
 
 			beamMods = new Item[5];
 		}
-		public override void SetDefaults()
+		//public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 14;
-			item.ranged = true;
+			//item.ranged = true;
 			item.width = 24;
 			item.height = 12;
 			item.scale = 0.8f;
@@ -76,6 +78,7 @@ namespace MetroidMod.Items.weapons
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 8);
 			recipe.AddIngredient(null, "EnergyShard", 3);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -1313,6 +1316,8 @@ namespace MetroidMod.Items.weapons
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			base.ModifyTooltips(tooltips);
+			
 			Player player = Main.player[Main.myPlayer];
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 

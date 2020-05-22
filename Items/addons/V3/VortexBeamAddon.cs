@@ -45,7 +45,6 @@ namespace MetroidMod.Items.addons.V3
             recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
 		}
 	}
 }

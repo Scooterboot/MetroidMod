@@ -41,19 +41,19 @@ namespace MetroidMod.Items.addons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-            		recipe.AddIngredient(ItemID.DemoniteBar, 5);
-            		recipe.AddIngredient(ItemID.Amethyst, 10);
-            		recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.DemoniteBar, 8);
+			recipe.AddIngredient(ItemID.Amethyst, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+			
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 3);
-		    	recipe.AddIngredient(ItemID.CrimtaneBar, 5);
-		    	recipe.AddIngredient(ItemID.Amethyst, 10);
-		    	recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.CrimtaneBar, 8);
+			recipe.AddIngredient(ItemID.Amethyst, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-
 		}
 	}
 }

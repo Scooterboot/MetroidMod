@@ -44,7 +44,7 @@ namespace MetroidMod.Items.addons
             recipe.AddIngredient(ItemID.AdamantiteBar, 5);
             recipe.AddIngredient(ItemID.Ichor, 10);
 			recipe.AddIngredient(ItemID.SoulofLight, 5);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
@@ -53,7 +53,7 @@ namespace MetroidMod.Items.addons
             recipe.AddIngredient(ItemID.TitaniumBar, 5);
             recipe.AddIngredient(ItemID.Ichor, 10);
 			recipe.AddIngredient(ItemID.SoulofLight, 5);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
