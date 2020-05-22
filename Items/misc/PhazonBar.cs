@@ -12,7 +12,7 @@ namespace MetroidMod.Items.misc
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pure Phazon");
+			DisplayName.SetDefault("Phazon Bar");
 			Tooltip.SetDefault("'Very radioactive.'\n" + "Glows with Phazon energy");
 		}
 		public override void SetDefaults()
