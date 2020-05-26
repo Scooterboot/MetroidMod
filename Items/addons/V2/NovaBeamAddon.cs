@@ -43,7 +43,7 @@ namespace MetroidMod.Items.addons.V2
 			recipe.AddIngredient(null, "PlasmaBeamGreenAddon");
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 8);
 			recipe.AddIngredient(ItemID.Emerald);
-			recipe.AddIngredient(ItemID.LihzahrdPowerCell);
+			recipe.AddIngredient(ItemID.LunarTabletFragment); // This is actually the "Solar Tablet Fragment" found in Lihzahrd chests
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -52,7 +52,7 @@ namespace MetroidMod.Items.addons.V2
 			recipe.AddIngredient(null, "PlasmaBeamRedAddon");
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 8);
 			recipe.AddIngredient(ItemID.Emerald);
-			recipe.AddIngredient(ItemID.LihzahrdPowerCell);
+			recipe.AddIngredient(ItemID.LunarTabletFragment);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

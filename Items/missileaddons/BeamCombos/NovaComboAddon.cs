@@ -12,7 +12,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Fires a continuous laser beam of Nova energy at full charge\n" + 
-			"~Drains 12 missiles per second during use");
+			"~Drains 5 missiles per second during use");
 		}
 		public override void SetDefaults()
 		{
@@ -36,9 +36,11 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
-            recipe.AddIngredient(ItemID.SpectreBar, 5);
-            recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.AddIngredient(ItemID.Emerald);
+			recipe.AddIngredient(ItemID.LunarTabletFragment);
+			recipe.AddIngredient(ItemID.BeetleHusk, 2);
+			//recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

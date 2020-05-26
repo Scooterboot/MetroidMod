@@ -19,7 +19,7 @@ namespace MetroidMod.Tiles
 			Main.tileLighted[Type] = true;
 			soundType = 21;
 			dustType = 28;
-			minPick = 215;
+			minPick = 1000;//215;
 			//drop = mod.ItemType("Phazon");
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Phazon Core");

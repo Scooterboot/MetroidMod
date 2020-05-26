@@ -35,9 +35,9 @@ namespace MetroidMod.Items.missileaddons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HellstoneBar, 6);
-			recipe.AddIngredient(ItemID.Ruby, 5);
-			recipe.AddIngredient(ItemID.FallenStar, 3);
+			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
+			recipe.AddIngredient(ItemID.Ruby, 1);
+			recipe.AddIngredient(null, "MissileExpansion");
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

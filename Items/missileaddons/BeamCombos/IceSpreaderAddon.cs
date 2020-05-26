@@ -35,9 +35,17 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Sapphire, 10);
-            recipe.AddIngredient(ItemID.FrostCore, 1);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
+			recipe.AddIngredient(ItemID.IceRod);
+			recipe.AddIngredient(ItemID.AdamantiteBar, 10);
+			recipe.AddIngredient(ItemID.Sapphire, 1);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.IceRod);
+			recipe.AddIngredient(ItemID.TitaniumBar, 10);
+			recipe.AddIngredient(ItemID.Sapphire, 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

@@ -38,7 +38,7 @@ namespace MetroidMod.Items.missileaddons
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "SuperMissileAddon");
 			recipe.AddIngredient(null, "IceMissileAddon");
-			recipe.AddIngredient(ItemID.SoulofLight, 5);
+			recipe.AddIngredient(null, "FrozenCore", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

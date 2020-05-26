@@ -36,10 +36,18 @@ namespace MetroidMod.Items.missileaddons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 3);
-			recipe.AddIngredient(ItemID.ManaCrystal);
-			recipe.AddIngredient(ItemID.FallenStar, 2);
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.CobaltBar, 10);
+			recipe.AddIngredient(ItemID.SoulofNight, 1);
+			recipe.AddIngredient(ItemID.SoulofLight, 1);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.PalladiumBar, 10);
+			recipe.AddIngredient(ItemID.SoulofNight, 1);
+			recipe.AddIngredient(ItemID.SoulofLight, 1);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

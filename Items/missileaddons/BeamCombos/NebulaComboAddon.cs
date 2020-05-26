@@ -37,7 +37,6 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.FragmentNebula, 15);
             recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ItemID.Amethyst, 5);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

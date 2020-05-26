@@ -11,7 +11,7 @@ namespace MetroidMod.Items.missileaddons
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Primary\n" +
 			"Shots are more powerful and create a larger explosion\n" + 
-			"Shots create a lingering mass of Nebula energy on impact that continually damages foes\n" + 
+			"Shots create lingering masses of Nebula energy on impact that continually damage foes\n" + 
 			string.Format("[c/78BE78:+400% damage]\n") +
 			string.Format("[c/BE7878:-50% speed]"));
 		}
@@ -36,9 +36,8 @@ namespace MetroidMod.Items.missileaddons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ItemID.FragmentNebula, 5);
-            recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.AddIngredient(ItemID.FragmentNebula, 18);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
