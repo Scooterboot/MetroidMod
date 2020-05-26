@@ -45,7 +45,7 @@ namespace MetroidMod.Items.accessories
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "SpaceJump");
 			recipe.AddIngredient(null, "SpeedBooster");
-            recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

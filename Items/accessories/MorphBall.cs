@@ -13,28 +13,28 @@ using Terraria.ModLoader.IO;
 namespace MetroidMod.Items.accessories
 {
 	public class MorphBall : ModItem
-    {
-        private Item[] _ballMods;
-        public Item[] ballMods
-        {
-            get
-            {
-                if (_ballMods == null)
-                {
-                    _ballMods = new Item[MetroidMod.ballSlotAmount];
-                    for (int i = 0; i < _ballMods.Length; ++i)
-                    {
-                        _ballMods[i] = new Item();
-                        _ballMods[i].TurnToAir();
-                    }
-                }
+	{
+		private Item[] _ballMods;
+		public Item[] ballMods
+		{
+			get
+			{
+				if (_ballMods == null)
+				{
+					_ballMods = new Item[MetroidMod.ballSlotAmount];
+					for (int i = 0; i < _ballMods.Length; ++i)
+					{
+						_ballMods[i] = new Item();
+						_ballMods[i].TurnToAir();
+					}
+				}
 
-                return _ballMods;
-            }
-            set { _ballMods = value; }
-        }
+				return _ballMods;
+			}
+			set { _ballMods = value; }
+		}
 
-        public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Morph Ball");
 			Tooltip.SetDefault("Equip and press the mount key to roll into a ball\n" + 
@@ -54,19 +54,17 @@ namespace MetroidMod.Items.accessories
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 20);
-			recipe.AddIngredient(ItemID.Diamond, 3);
+			recipe.AddIngredient(null, "ChoziteBar", 12);
 			recipe.AddIngredient(ItemID.GoldBar, 5);
-			recipe.AddIngredient(ItemID.FallenStar, 3);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.FallenStar, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 20);
-			recipe.AddIngredient(ItemID.Diamond, 3);
+			recipe.AddIngredient(null, "ChoziteBar", 12);
 			recipe.AddIngredient(ItemID.PlatinumBar, 5);
-			recipe.AddIngredient(ItemID.FallenStar, 3);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.FallenStar, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -90,11 +88,11 @@ namespace MetroidMod.Items.accessories
 		}
 
 		public override Color? GetAlpha(Color lightColor)
-        {
+		{
 			Player player = Main.player[Main.myPlayer];
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-            return mp.morphItemColor;
-        }
+			return mp.morphItemColor;
+		}
 		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale )
 		{
 			Player player = Main.player[Main.myPlayer];
@@ -107,23 +105,23 @@ namespace MetroidMod.Items.accessories
 
 		public override TagCompound Save()
 		{
-            TagCompound tag = new TagCompound();
-            for(int i = 0; i < ballMods.Length; ++i)
-            {
-                tag.Add("ballItem" + i, ItemIO.Save(ballMods[i]));
-            }
+			TagCompound tag = new TagCompound();
+			for(int i = 0; i < ballMods.Length; ++i)
+			{
+				tag.Add("ballItem" + i, ItemIO.Save(ballMods[i]));
+			}
 			return tag;
 		}
 		public override void Load(TagCompound tag)
 		{
 			try
-            {
-                ballMods = new Item[MetroidMod.ballSlotAmount];
-                for (int i = 0; i< ballMods.Length; ++i)
-                {
-                    Item item = tag.Get<Item>("ballItem" + i);
-                    ballMods[i] = item;
-                }
+			{
+				ballMods = new Item[MetroidMod.ballSlotAmount];
+				for (int i = 0; i< ballMods.Length; ++i)
+				{
+					Item item = tag.Get<Item>("ballItem" + i);
+					ballMods[i] = item;
+				}
 			}
 			catch{}
 		}
@@ -145,20 +143,20 @@ namespace MetroidMod.Items.accessories
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			sb.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num5, item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num4 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), mp.morphColorLights, rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), num3, SpriteEffects.None, 0f);
 		}
-        
-        public override void NetSend(BinaryWriter writer)
-        {
-            for (int i = 0; i < ballMods.Length; ++i)
-            {
-                writer.WriteItem(ballMods[i]);
-            }
-        }
-        public override void NetRecieve(BinaryReader reader)
-        {
-            for (int i = 0; i < ballMods.Length; ++i)
-            {
-                ballMods[i] = reader.ReadItem();
-            }
-        }
-    }
+		
+		public override void NetSend(BinaryWriter writer)
+		{
+			for (int i = 0; i < ballMods.Length; ++i)
+			{
+				writer.WriteItem(ballMods[i]);
+			}
+		}
+		public override void NetRecieve(BinaryReader reader)
+		{
+			for (int i = 0; i < ballMods.Length; ++i)
+			{
+				ballMods[i] = reader.ReadItem();
+			}
+		}
+	}
 }

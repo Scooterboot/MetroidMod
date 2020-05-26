@@ -35,19 +35,11 @@ namespace MetroidMod.Items.balladdons
 
 		public override void AddRecipes()
 		{
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.AdamantiteBar, 3);
-            recipe.AddIngredient(ItemID.Dynamite, 15);
-            recipe.AddIngredient(ItemID.SoulofFright, 20);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.TitaniumBar, 3);
-            recipe.AddIngredient(ItemID.Dynamite, 15);
-            recipe.AddIngredient(ItemID.SoulofFright, 20);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-    }
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.FragmentSolar, 18);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 }

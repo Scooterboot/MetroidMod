@@ -34,10 +34,10 @@ namespace MetroidMod.Items.balladdons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Diamond, 2);
 			recipe.AddIngredient(null, "ChoziteBar", 8);
 			recipe.AddIngredient(null, "EnergyTank");
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.Topaz, 2);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

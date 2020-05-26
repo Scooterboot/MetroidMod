@@ -39,10 +39,10 @@ namespace MetroidMod.Items.accessories
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 10);
-			recipe.AddIngredient(ItemID.FallenStar, 2);
-			recipe.AddIngredient(ItemID.Diamond, 1);
-			recipe.AddIngredient(ItemID.Emerald, 2);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(null, "EnergyShard", 3);
+			recipe.AddIngredient(ItemID.Topaz, 1);
+			recipe.AddIngredient(ItemID.Emerald, 1);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

@@ -9,8 +9,8 @@ namespace MetroidMod.Items.accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reserve Tank");
-            Tooltip.SetDefault("Stores a heart picked up when at full health\n" + 
-                "Automatically uses the stored heart to save you from death");
+			Tooltip.SetDefault("Stores a heart picked up when at full health\n" + 
+				"Automatically uses the stored heart to save you from death");
 		}
 		public override void SetDefaults()
 		{
@@ -26,30 +26,30 @@ namespace MetroidMod.Items.accessories
 			item.createTile = mod.TileType("ReserveTank");
 			item.rare = 2;
 			item.value = 20000;
-            item.accessory = true;
+			item.accessory = true;
 		}
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            MPlayer mp = player.GetModPlayer<MPlayer>();
-            mp.reserveTanks = 1;
-        }
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "EnergyTank", 1);
-            recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-    }
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.reserveTanks = 1;
+		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "EnergyTank", 1);
+			recipe.AddIngredient(ItemID.LifeCrystal);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 	public class ReserveTank2 : RTankAccessory
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reserve Tank MK2");
-            Tooltip.SetDefault("Stores up to 2 hearts picked up when at full health\n" + 
-                "Automatically uses the stored hearts to save you from death");
+			Tooltip.SetDefault("Stores up to 2 hearts picked up when at full health\n" + 
+				"Automatically uses the stored hearts to save you from death");
 		}
 		public override void SetDefaults()
 		{
@@ -63,30 +63,30 @@ namespace MetroidMod.Items.accessories
 			item.consumable = false;
 			item.rare = 3;
 			item.value = 40000;
-            item.accessory = true;
+			item.accessory = true;
 		}
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            MPlayer mp = player.GetModPlayer<MPlayer>();
-            mp.reserveTanks = 2;
-        }
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "ReserveTank", 2);
-            recipe.AddIngredient(ItemID.Bone, 5);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-    }
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.reserveTanks = 2;
+		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ReserveTank", 2);
+			recipe.AddIngredient(ItemID.Bone, 5);
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 	public class ReserveTank3 : RTankAccessory
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reserve Tank MK3");
-            Tooltip.SetDefault("Stores up to 3 hearts picked up when at full health\n" + 
-                "Automatically uses the stored hearts to save you from death");
+			Tooltip.SetDefault("Stores up to 3 hearts picked up when at full health\n" + 
+				"Automatically uses the stored hearts to save you from death");
 		}
 		public override void SetDefaults()
 		{
@@ -100,32 +100,32 @@ namespace MetroidMod.Items.accessories
 			item.consumable = false;
 			item.rare = 4;
 			item.value = 60000;
-            item.accessory = true;
+			item.accessory = true;
 		}
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            MPlayer mp = player.GetModPlayer<MPlayer>();
-            mp.reserveTanks = 3;
-        }
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "ReserveTank2", 1);
-            recipe.AddIngredient(null, "ReserveTank", 1);
-            recipe.AddIngredient(ItemID.SoulofLight, 5);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-    }
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.reserveTanks = 3;
+		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ReserveTank2", 1);
+			recipe.AddIngredient(null, "ReserveTank", 1);
+			recipe.AddIngredient(ItemID.SoulofLight, 1);
+			recipe.AddIngredient(ItemID.SoulofNight, 1);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 	public class ReserveTank4 : RTankAccessory
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reserve Tank MK4");
-            Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
-                "Automatically uses the stored hearts to save you from death");
+			Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
+				"Automatically uses the stored hearts to save you from death");
 		}
 		public override void SetDefaults()
 		{
@@ -139,32 +139,32 @@ namespace MetroidMod.Items.accessories
 			item.consumable = false;
 			item.rare = 5;
 			item.value = 80000;
-            item.accessory = true;
+			item.accessory = true;
 		}
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            MPlayer mp = player.GetModPlayer<MPlayer>();
-            mp.reserveTanks = 4;
-        }
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "ReserveTank3", 1);
-            recipe.AddIngredient(null, "ReserveTank", 1);
-            recipe.AddIngredient(ItemID.HallowedBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-    }
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.reserveTanks = 4;
+		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ReserveTank3", 1);
+			recipe.AddIngredient(null, "ReserveTank", 1);
+			recipe.AddIngredient(ItemID.HallowedBar, 5);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 	public class ReserveTank5 : RTankAccessory
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reserve Tank MK5");
-            Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
-                "Automatically uses the stored hearts to save you from death\n" + 
-                "Stored hearts restore 25 health each");
+			Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
+				"Automatically uses the stored hearts to save you from death\n" + 
+				"Stored hearts restore 25 health each");
 		}
 		public override void SetDefaults()
 		{
@@ -178,25 +178,25 @@ namespace MetroidMod.Items.accessories
 			item.consumable = false;
 			item.rare = 6;
 			item.value = 100000;
-            item.accessory = true;
+			item.accessory = true;
 		}
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            MPlayer mp = player.GetModPlayer<MPlayer>();
-            mp.reserveTanks = 4;
-            mp.reserveHeartsValue = 25;
-        }
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "ReserveTank4", 1);
-            recipe.AddIngredient(ItemID.LifeFruit, 1);
-            recipe.AddIngredient(ItemID.Ectoplasm, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-    }
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.reserveTanks = 4;
+			mp.reserveHeartsValue = 25;
+		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "ReserveTank4", 1);
+			recipe.AddIngredient(ItemID.LifeFruit, 1);
+			recipe.AddIngredient(ItemID.ChlorophyteBar, 5);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 	
 	public abstract class RTankAccessory : ModItem
 	{

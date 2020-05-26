@@ -36,7 +36,7 @@ namespace MetroidMod.Items.balladdons.Drills
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 12);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -64,7 +64,7 @@ namespace MetroidMod.Items.balladdons.Drills
 			recipe.AddIngredient(null, "DrillAddon");
 			recipe.AddIngredient(ItemID.DemoniteBar, 5);
 			recipe.AddIngredient(ItemID.ShadowScale, 1);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
@@ -72,7 +72,7 @@ namespace MetroidMod.Items.balladdons.Drills
 			recipe.AddIngredient(null, "DrillAddon");
 			recipe.AddIngredient(ItemID.CrimtaneBar, 5);
 			recipe.AddIngredient(ItemID.TissueSample, 1);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -99,7 +99,7 @@ namespace MetroidMod.Items.balladdons.Drills
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddonMk2");
 			recipe.AddIngredient(ItemID.HellstoneBar, 5);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -126,14 +126,14 @@ namespace MetroidMod.Items.balladdons.Drills
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddonMk3");
 			recipe.AddIngredient(ItemID.CobaltBar, 5);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddonMk3");
 			recipe.AddIngredient(ItemID.PalladiumBar, 5);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -160,14 +160,14 @@ namespace MetroidMod.Items.balladdons.Drills
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddonMkHM1");
 			recipe.AddIngredient(ItemID.MythrilBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddonMkHM1");
 			recipe.AddIngredient(ItemID.OrichalcumBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -193,14 +193,14 @@ namespace MetroidMod.Items.balladdons.Drills
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddonMkHM2");
 			recipe.AddIngredient(ItemID.AdamantiteBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddonMkHM2");
 			recipe.AddIngredient(ItemID.TitaniumBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -230,7 +230,7 @@ namespace MetroidMod.Items.balladdons.Drills
 			recipe.AddIngredient(ItemID.SoulofMight);
 			recipe.AddIngredient(ItemID.SoulofSight);
 			recipe.AddIngredient(ItemID.SoulofFright);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -257,7 +257,7 @@ namespace MetroidMod.Items.balladdons.Drills
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddon_Hallowed");
 			recipe.AddIngredient(ItemID.LihzahrdBrick, 50);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -283,7 +283,7 @@ namespace MetroidMod.Items.balladdons.Drills
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "DrillAddon_Lihzahrd");
 			recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

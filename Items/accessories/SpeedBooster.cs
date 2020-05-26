@@ -17,7 +17,9 @@ namespace MetroidMod.Items.accessories
 		{
 			DisplayName.SetDefault("Speed Booster");
 			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
-			"Damages enemies while running");
+			"Damages enemies while running\n" +
+			"While active, press DOWN to charge a Shine Spark\n" +
+			"Then press JUMP to activate the charge");
 		}
 		public override void SetDefaults()
 		{
@@ -35,16 +37,23 @@ namespace MetroidMod.Items.accessories
 			item.consumable = true;
 			item.createTile = mod.TileType("SpeedBoosterTile");
 		}
-
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HermesBoots);
-			recipe.AddIngredient(ItemID.SpectreBoots);
 			recipe.AddIngredient(null, "SerrisCoreX");
-			recipe.AddIngredient(ItemID.Emerald, 5);
-			recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.HermesBoots);
+			recipe.AddIngredient(ItemID.Emerald, 1);
+			recipe.AddIngredient(ItemID.JungleSpores, 10);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "SerrisCoreX");
+			recipe.AddIngredient(ItemID.FlurryBoots);
+			recipe.AddIngredient(ItemID.Emerald, 1);
+			recipe.AddIngredient(ItemID.JungleSpores, 10);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

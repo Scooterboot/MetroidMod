@@ -37,12 +37,12 @@ namespace MetroidMod.Items.addons.V3
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LunarBar, 5);
-            recipe.AddIngredient(ItemID.FragmentNebula, 2);
-            recipe.AddIngredient(ItemID.FragmentSolar, 2);
-            recipe.AddIngredient(ItemID.FragmentVortex, 2);
-            recipe.AddIngredient(ItemID.FragmentStardust, 2);
-            recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.AddIngredient(ItemID.LunarBar, 5);
+			recipe.AddIngredient(ItemID.FragmentNebula, 2);
+			recipe.AddIngredient(ItemID.FragmentSolar, 2);
+			recipe.AddIngredient(ItemID.FragmentVortex, 2);
+			recipe.AddIngredient(ItemID.FragmentStardust, 2);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

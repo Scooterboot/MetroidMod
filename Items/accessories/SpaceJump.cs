@@ -38,15 +38,13 @@ namespace MetroidMod.Items.accessories
 			item.consumable = true;
 			item.createTile = mod.TileType("SpaceJumpTile");
 		}
-
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "SpaceJumpBoots");
-			recipe.AddIngredient(ItemID.BundleofBalloons);
-			recipe.AddIngredient(ItemID.RocketBoots);
+			recipe.AddIngredient(ItemID.HallowedBar, 10);
 			recipe.AddIngredient(ItemID.SoulofFlight, 10);
-            		recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
