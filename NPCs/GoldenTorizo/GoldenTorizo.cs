@@ -48,7 +48,7 @@ namespace MetroidMod.NPCs.GoldenTorizo
 			npc.aiStyle = -1;
 			npc.npcSlots = 1;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Torizo");
-			//bossBag = mod.ItemType("TorizoBag");
+			bossBag = mod.ItemType("GoldenTorizoBag");
 			npc.chaseable = false;
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -59,14 +59,14 @@ namespace MetroidMod.NPCs.GoldenTorizo
 		public override void NPCLoot()
 		{
 			MWorld.bossesDown |= MetroidBossDown.downedGoldenTorizo;
-			/*if (Main.expertMode)
+			if (Main.expertMode)
 			{
 				npc.DropBossBags();
 			}
 			else
-			{*/
+			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ScrewAttack"));
-			//}
+			}
 		}
 		public override bool? CanBeHitByItem(Player player, Item item) => false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;

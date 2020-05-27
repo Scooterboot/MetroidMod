@@ -79,7 +79,7 @@ namespace MetroidMod
 
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
 			BoostBallKey = RegisterHotKey("Boost Ball", "F");
-			PowerBombKey = RegisterHotKey("Power Bomb", "R");
+			PowerBombKey = RegisterHotKey("Power Bomb", "Z");
 			SenseMoveKey = RegisterHotKey("Use Sense Move", "F");
 
 			if (!Main.dedServ)
@@ -101,6 +101,15 @@ namespace MetroidMod
 
 			SetupUI();
 		}
+		public override void Unload()
+		{
+			SpiderBallKey = null;
+			BoostBallKey = null;
+			PowerBombKey = null;
+			SenseMoveKey = null;
+			
+			Instance = null;
+		}
 
 		private void SetupUI()
 		{
@@ -120,6 +129,59 @@ namespace MetroidMod
 			morphBallUI.Activate();
 			mbUserInterface = new UserInterface();
 			mbUserInterface.SetState(morphBallUI);
+		}
+		
+		public override void PostSetupContent()
+		{
+			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Mod bossChecklist = ModLoader.GetMod("BossCheckList");
+			if(bossChecklist != null)
+			{
+				bossChecklist.Call("AddBoss", 2.1f,
+				new List<int>(){mod.NPCType("Torizo"),mod.NPCType("Torizo_HitBox")}, this, "Torizo",
+				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedTorizo)), mod.ItemType("TorizoSummon"),
+				new List<int>(){mod.ItemType("TorizoTrophy"),mod.ItemType("TorizoMask"), mod.ItemType("RidleyMusicBox")},
+				new List<int>(){mod.ItemType("EnergyShard"),mod.ItemType("TorizoBag")},
+				"Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.");
+				
+				bossChecklist.Call("AddBoss", 5.1f,
+				new List<int>(){mod.NPCType("Serris_Head"),mod.NPCType("Serris_Body"),mod.NPCType("Serris_Tail")}, this, "Serris",
+				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedSerris)), mod.ItemType("SerrisSummon"),
+				new List<int>(){mod.ItemType("SerrisTrophy"),mod.ItemType("SerrisMask"), mod.ItemType("SerrisMusicBox")},
+				new List<int>(){mod.ItemType("SerrisCoreX"),mod.ItemType("SerrisBag")},
+				"Summoning item can only be used at the Ocean.");
+				
+				bossChecklist.Call("AddBoss", 6.1f,
+				new List<int>(){mod.NPCType("Kraid_Head"),mod.NPCType("Kraid_Body"),mod.NPCType("Kraid_ArmBack"),mod.NPCType("Kraid_ArmFront")}, this, "Kraid",
+				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedKraid)), mod.ItemType("KraidSummon"),
+				new List<int>(){mod.ItemType("KraidTrophy"),mod.ItemType("KraidMask"), mod.ItemType("KraidPhantoonMusicBox")},
+				new List<int>(){mod.ItemType("KraidTissue"),mod.ItemType("UnknownPlasmaBeam"),mod.ItemType("KraidBag")});
+				
+				bossChecklist.Call("AddBoss", 6.9f,
+				mod.NPCType("Phantoon"), this, "Phantoon",
+				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedPhantoon)), mod.ItemType("PhantoonSummon"),
+				new List<int>(){mod.ItemType("PhantoonTrophy"),mod.ItemType("PhantoonMask"), mod.ItemType("KraidPhantoonMusicBox")},
+				new List<int>(){mod.ItemType("GravityGel"),mod.ItemType("PhantoonBag")});
+				
+				bossChecklist.Call("AddBoss", 11f,
+				new List<int>(){mod.NPCType("Nightmare"),mod.NPCType("Nightmare_Body"),mod.NPCType("Nightmare_ArmBack"),mod.NPCType("Nightmare_ArmFront")}, this, "Nightmare",
+				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedNightmare)), mod.ItemType("NightmareSummon"),
+				null,//new List<int>(){mod.ItemType("NightmareTrophy"),mod.ItemType("NightmareMask"), mod.ItemType("NightmareMusicBox")},
+				new List<int>(){mod.ItemType("NightmareCoreX"),mod.ItemType("NightmareCoreXFragment"),mod.ItemType("NightmareBag")});
+				
+				bossChecklist.Call("AddBoss", 11f,
+				new List<int>(){mod.NPCType("OmegaPirate"),mod.NPCType("OmegaPirate_HitBox")}, this, "Omega Pirate",
+				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate)), mod.ItemType("OmegaPirateSummon"),
+				null,//new List<int>(){mod.ItemType("OmegaPirateTrophy"),mod.ItemType("OmegaPirateMask"), mod.ItemType("OmegaPirateMusicBox")},
+				new List<int>(){mod.ItemType("PurePhazon"),mod.ItemType("OmegaPirateBag")});
+				
+				bossChecklist.Call("AddBoss", 12f,
+				new List<int>(){mod.NPCType("GoldenTorizo"),mod.NPCType("GoldenTorizo_HitBox")}, this, "Golden Torizo",
+				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo)), mod.ItemType("GoldenTorizoSummon"),
+				null,//new List<int>(){mod.ItemType("GoldenTorizoTrophy"),mod.ItemType("GoldenTorizoMask"), mod.ItemType("RidleyMusicBox")},
+				new List<int>(){mod.ItemType("ScrewAttack"),mod.ItemType("GoldenTorizoBag")},
+				"Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.");
+			}
 		}
 
 		public override void UpdateUI(GameTime gameTime)

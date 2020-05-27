@@ -47,7 +47,7 @@ namespace MetroidMod.NPCs.Nightmare
 			npc.aiStyle = -1;
 			npc.npcSlots = 5;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Nightmare");
-			//bossBag = mod.ItemType("NightmareBag");
+			bossBag = mod.ItemType("NightmareBag");
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -62,12 +62,12 @@ namespace MetroidMod.NPCs.Nightmare
 		public override void NPCLoot()
 		{
 			MWorld.bossesDown |= MetroidBossDown.downedNightmare;
-			/*if (Main.expertMode)
+			if (Main.expertMode)
 			{
 				npc.DropBossBags();
 			}
 			else
-			{*/
+			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("NightmareCoreX"), 1);
 				int num = Main.rand.Next(10)+15;
 				for(int i = 0; i < num; i++)
@@ -87,8 +87,8 @@ namespace MetroidMod.NPCs.Nightmare
 				if (Main.rand.Next(10) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("NightmareTrophy"));
-				}
-			}*/
+				}*/
+			}
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{

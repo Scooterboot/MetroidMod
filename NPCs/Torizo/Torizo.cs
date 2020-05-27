@@ -22,6 +22,7 @@ namespace MetroidMod.NPCs.Torizo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Torizo");
+			Main.npcFrameCount[npc.type] = 2;
 		}
 		public override void SetDefaults()
 		{
@@ -611,12 +612,14 @@ namespace MetroidMod.NPCs.Torizo
 					// drop from sky
 					if(npc.ai[1] == 0)
 					{
-						if(npc.velocity.Y != 0)
+						//if(npc.velocity.Y != 0)
+						if(npc.velocity.Y > 0 && npc.ai[2] == 0)
 						{
 							anim_Spawn = 4f;
 						}
 						else
 						{
+							npc.ai[2] = 1;
 							if(anim_Spawn > 1f)
 							{
 								speed = -0.2f;
@@ -626,6 +629,7 @@ namespace MetroidMod.NPCs.Torizo
 							{
 								anim_Spawn = 1f;
 								npc.ai[1] = 1;
+								npc.ai[2] = 0;
 							}
 						}
 					}

@@ -10,6 +10,6 @@ It adds:
 -Many of these items introduce new mechanics
 -New NPCs
 -New Mobs
--6 new bosses, 5 of which have completely custom AI
+-7 new bosses, 6 of which have almost completely custom AI
 -And much more planned for future updates!
 

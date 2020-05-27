@@ -46,7 +46,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 			npc.aiStyle = -1;
 			npc.npcSlots = 5;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/OmegaPirate");
-			//bossBag = mod.ItemType("OmegaPirateBag");
+			bossBag = mod.ItemType("OmegaPirateBag");
 			npc.chaseable = false;
 			
 			npc.ai = new float[8];
@@ -64,12 +64,12 @@ namespace MetroidMod.NPCs.OmegaPirate
 		public override void NPCLoot()
 		{
 			MWorld.bossesDown |= MetroidBossDown.downedOmegaPirate;
-			/*if (Main.expertMode)
+			if (Main.expertMode)
 			{
 				npc.DropBossBags();
 			}
 			else
-			{*/
+			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PurePhazon"), Main.rand.Next(30, 41));
 				/*if (Main.rand.Next(5) == 0)
 				{
@@ -82,8 +82,8 @@ namespace MetroidMod.NPCs.OmegaPirate
 				if (Main.rand.Next(10) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OmegaPirateTrophy"));
-				}
-			}*/
+				}*/
+			}
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
