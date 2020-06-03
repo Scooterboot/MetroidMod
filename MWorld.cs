@@ -54,13 +54,11 @@ namespace MetroidMod
 		public override void Load(TagCompound tag)
 		{
 			int downed = tag.GetAsInt("downed");
+			bossesDown = (MetroidBossDown)downed;
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
 			
-			if(tag.HasTag("TorizoRoomLocation.X") && tag.HasTag("TorizoRoomLocation.Y"))
-			{ // this if statement is temporary. once a world has been loaded and saved, all that is needed are the two lines of code below.
-				TorizoRoomLocation.X = tag.GetAsInt("TorizoRoomLocation.X");
-				TorizoRoomLocation.Y = tag.GetAsInt("TorizoRoomLocation.Y");
-			}
+			TorizoRoomLocation.X = tag.GetAsInt("TorizoRoomLocation.X");
+			TorizoRoomLocation.Y = tag.GetAsInt("TorizoRoomLocation.Y");
 		}
 
 		public override void LoadLegacy(BinaryReader reader)
