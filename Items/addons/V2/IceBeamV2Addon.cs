@@ -43,7 +43,7 @@ namespace MetroidMod.Items.addons.V2
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "IceBeamAddon", 1);
 			recipe.AddIngredient(ItemID.SpectreBar, 8);
-			recipe.AddIngredient(ItemID.BeetleHusk, 10);
+			recipe.AddIngredient(ItemID.BeetleHusk, 1);
 			recipe.AddIngredient(null, "FrozenCore", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
