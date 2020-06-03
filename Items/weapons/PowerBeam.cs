@@ -96,6 +96,10 @@ namespace MetroidMod.Items.weapons
 			{
 				return false;
 			}
+			if(beamMods[0].type == mod.ItemType("PhazonBeamAddon") && !mp.canUsePhazonBeam)
+			{
+				return false;
+			}
 			return (mp.statOverheat < mp.maxOverheat);
 		}
 		
@@ -120,7 +124,6 @@ namespace MetroidMod.Items.weapons
 		float chargeCost = 2f;
 		
 		int overheat = 4;
-		//string name = "Power Beam";
 		int useTime = 14;
 		
 		string shot = "PowerBeamShot";
@@ -144,6 +147,8 @@ namespace MetroidMod.Items.weapons
 		
 		bool isHyper = false;
 		bool isPhazon = false;
+		
+		public bool comboError1, comboError2, comboError3, comboError4;
 
 		public override void UpdateInventory(Player P)
 		{
@@ -177,7 +182,6 @@ namespace MetroidMod.Items.weapons
 			Item slot4 = beamMods[3];
 			Item slot5 = beamMods[4];
 			
-			//name = "Power Beam";
 			int damage = 14;
 			overheat = 4;
 			useTime = 14;
@@ -200,15 +204,18 @@ namespace MetroidMod.Items.weapons
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);
 			
-			//beamUI.comboErrorType = 0;
+			comboError1 = false;
+			comboError2 = false;
+			comboError3 = false;
+			comboError4 = false;
 			
 			bool chargeV1 = (slot1.type == ch), 
 				chargeV2 = (slot1.type == ch2), 
 				chargeV3 = (slot1.type == ch3);
 			
-			bool addonsV1 = (slot2.type == ic || slot3.type == wa || slot4.type == sp || slot5.type == plG || slot5.type == plR);
+			bool addonsV1 = (slot2.type == ic || slot3.type == wa || slot4.type == sp || ((slot5.type == plG || slot5.type == plR) && !chargeV2 && !chargeV3));
 			bool addonsV2 = (slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv);
-				addonsV2 |= ((slot5.type == plG || slot5.type == plR) && (chargeV2 || chargeV3));
+				addonsV2 |= ((slot5.type == plG || slot5.type == plR) && (chargeV2 || chargeV3) && !addonsV1);
 			bool addonsV3 = (slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl);
 			
 			int versionType = 1;
@@ -483,15 +490,6 @@ namespace MetroidMod.Items.weapons
 								}
 							}
 						}
-					}
-					if(slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv ||
-						slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl)
-					{
-						/*beamUI.comboErrorType = 1;
-						if(slot1.type == ch)
-						{
-							beamUI.comboErrorType = 2;
-						}*/
 					}
 				}
 				// Charge V2
@@ -836,14 +834,18 @@ namespace MetroidMod.Items.weapons
 							}
 						}
 					}
-					if(slot2.type == ic || slot3.type == wa || slot4.type == sp || //slot5.type == plR || slot5.type == plG ||
-						slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl)
+					
+					if(slot2.type == ic)
 					{
-						/*beamUI.comboErrorType = 3;
-						if(slot1.type == ch2)
-						{
-							beamUI.comboErrorType = 4;
-						}*/
+						comboError1 = true;
+					}
+					if(slot3.type == wa)
+					{
+						comboError2 = true;
+					}
+					if(slot4.type == sp)
+					{
+						comboError3 = true;
 					}
 				}
 				// Charge V3
@@ -1060,61 +1062,153 @@ namespace MetroidMod.Items.weapons
 							beamUI.comboErrorType = 6;
 						}*/
 					}
+					
+					if(slot2.type == ic || slot2.type == ic2)
+					{
+						comboError1 = true;
+					}
+					if(slot3.type == wa || slot3.type == wa2)
+					{
+						comboError2 = true;
+					}
+					if(slot4.type == sp || slot4.type == wi)
+					{
+						comboError3 = true;
+					}
+					if(slot5.type == plR || slot5.type == plG || slot5.type == nv)
+					{
+						comboError4 = true;
+					}
 				}
 			}
 			// Hyper
-			else if(slot1.type == hy)
+			else if(isHyper)
 			{
 				shot = "HyperBeamShot";
 				shotSound = "HyperBeamSound";
-				useTime = 20;
+				useTime = 16;//20;
 				
-				damage = 300;
-				overheat = 30;
+				damage = 35;//300;
+				overheat = 7;//30;
+				
+				// Wave / Nebula
+				if(slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
+				{
+					string wave = "Wave";
+					if(slot3.type == nb)
+					{
+						wave = "Nebula";
+					}
+					shot = wave+"HyperBeamShot";
+					
+					// Wave Spazer
+					if(slot4.type == sp || slot4.type == wi || slot4.type == vt)
+					{
+						shot = wave+"SpazerHyperBeamShot";
+						shotAmt = 3;
+						if(slot4.type == vt)
+						{
+							shotAmt = 5;
+						}
+						
+						// Wave Spazer Plasma
+						if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+						{
+							shot = wave+"SpazerPlasmaHyperBeamShot";
+						}
+					}
+					// Wave Plasma
+					else if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+					{
+						shot = wave+"PlasmaHyperBeamShot";
+					}
+				}
+				// Spazer
+				else if(slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					shot = "SpazerHyperBeamShot";
+					shotAmt = 3;
+					if(slot4.type == vt)
+					{
+						shotAmt = 5;
+					}
+					
+					// Spazer Plasma
+					if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+					{
+						shot = "SpazerPlasmaHyperBeamShot";
+					}
+				}
+				// Plasma
+				else if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+				{
+					shot = "PlasmaHyperBeamShot";
+				}
 			}
 			// Phazon
-			else if(slot1.type == ph)
+			else if(isPhazon)
 			{
+				shot = "PhazonBeamShot";
+				shotSound = "PhazonBeamSound";
+				useTime = 6;
 				
+				damage = 6;//56;
+				overheat = 1;//5;
+				
+				// Wave / Nebula
+				if(slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
+				{
+					string wave = "Wave";
+					if(slot3.type == nb)
+					{
+						wave = "Nebula";
+					}
+					shot = wave+"PhazonBeamShot";
+					
+					// Wave Spazer
+					if(slot4.type == sp || slot4.type == wi || slot4.type == vt)
+					{
+						shot = wave+"SpazerPhazonBeamShot";
+						shotAmt = 3;
+						if(slot4.type == vt)
+						{
+							shotAmt = 5;
+						}
+						
+						// Wave Spazer Plasma
+						if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+						{
+							shot = wave+"SpazerPlasmaPhazonBeamShot";
+						}
+					}
+					// Wave Plasma
+					else if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+					{
+						shot = wave+"PlasmaPhazonBeamShot";
+					}
+				}
+				// Spazer
+				else if(slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					shot = "SpazerPhazonBeamShot";
+					shotAmt = 3;
+					if(slot4.type == vt)
+					{
+						shotAmt = 5;
+					}
+					
+					// Spazer Plasma
+					if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+					{
+						shot = "SpazerPlasmaPhazonBeamShot";
+					}
+				}
+				// Plasma
+				else if(slot5.type == plG || slot5.type == nv || slot5.type == sl)
+				{
+					shot = "PlasmaPhazonBeamShot";
+				}
 			}
-			
-			/*if(slot1.type == hy || slot1.type == ph)
-			{
-				name = slot1.Name;
-			}
-			else
-			{
-				if(!slot5.IsAir)
-				{
-					if(slot5.type == plR || slot5.type == plG)
-					{
-						name = "Plasma Beam";
-					}
-					else
-					{
-						name = slot5.Name;
-					}
-				}
-				else if(!slot4.IsAir)
-				{
-					if(slot1.type == ch2 && slot4.type == sp)
-					{
-						name = "Wide Beam";
-					}
-					else
-					{
-						name = slot4.Name;
-					}
-				}
-				else if(!slot3.IsAir)
-				{
-					name = slot3.Name;
-				}
-				else if(!slot2.IsAir)
-				{
-					name = slot2.Name;
-				}
-			}*/
 			
 			iceDmg = 0f;
 			waveDmg = 0f;
@@ -1131,18 +1225,6 @@ namespace MetroidMod.Items.weapons
 			spazSpeed = 0f;
 			plasSpeed = 0f;
 			
-			/*chargeDmgMult = 3f;
-			chargeCost = 2f;
-			if(chargeV2)
-			{
-				chargeDmgMult = 4f;
-				chargeCost = 2.5f;
-			}
-			if(chargeV3)
-			{
-				chargeDmgMult = 5f;
-				chargeCost = 3f;
-			}*/
 			if(!slot1.IsAir)
 			{
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
@@ -1150,107 +1232,8 @@ namespace MetroidMod.Items.weapons
 				chargeCost = mItem.addonChargeHeat;
 			}
 
-			if(!isHyper && !isPhazon)
-			{
-				/*damage = 14;
-				if(chargeV2 || chargeV3)
-				{
-					damage = 18;
-				}
-				
-				if(slot1.type != ch2 && slot1.type != ch3 && (slot1.type == ch || slot2.type == ic || slot3.type == wa || slot4.type == sp || slot5.type == plG || slot5.type == plR))
-				{
-					if(slot2.type == ic)
-					{
-						iceDmg = 0.75f;
-						iceHeat = 0.25f;
-						iceSpeed = -0.3f;
-					}
-					if(slot3.type == wa)
-					{
-						waveDmg = 0.5f;
-						waveHeat = 0.5f;
-					}
-					if(slot4.type == sp)
-					{
-						spazDmg = 0.25f;
-						spazHeat = 0.5f;
-						spazSpeed = 0.15f;
-					}
-					if(slot5.type == plR || slot5.type == plG)
-					{
-						plasDmg = 1f;
-						plasHeat = 0.75f;
-						plasSpeed = -0.15f;
-					}
-				}
-				else if(slot1.type != ch3 && (slot1.type == ch2 || slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv))
-				{
-					if(slot2.type == ic2)
-					{
-						//iceDmg = 1.5f;
-						iceDmg = 2.25f;
-						iceHeat = 0.5f;
-						iceSpeed = -0.3f;
-					}
-					if(slot3.type == wa2)
-					{
-						//waveDmg = 0.75f;
-						waveDmg = 1.25f;
-						waveHeat = 0.75f;
-					}
-					if(slot4.type == wi)
-					{
-						//spazDmg = 0.5f;
-						spazDmg = 1f;
-						spazHeat = 0.75f;
-						spazSpeed = 0.15f;
-					}
-					if(slot5.type == nv)
-					{
-						//plasDmg = 1.5f;
-						plasDmg = 2.25f;
-						plasHeat = 1f;
-						plasSpeed = -0.15f;
-					}
-					else if(slot5.type == plR || slot5.type == plG)
-					{
-						plasDmg = 1f;
-						plasHeat = 0.75f;
-						plasSpeed = -0.15f;
-					}
-				}
-				else if(slot1.type == ch3 || slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl)
-				{
-					if(slot2.type == sd)
-					{
-						//iceDmg = 1.75f;
-						iceDmg = 2.6f;
-						iceHeat = 0.5f;
-						iceSpeed = -0.3f;
-					}
-					if(slot3.type == nb)
-					{
-						//waveDmg = 1.5f;
-						waveDmg = 2.25f;
-						waveHeat = 1f;
-					}
-					if(slot4.type == vt)
-					{
-						//spazDmg = 1f;
-						spazDmg = 1.5f;
-						spazHeat = 1f;
-						spazSpeed = 0.25f;
-					}
-					if(slot5.type == sl)
-					{
-						//plasDmg = 2f;
-						plasDmg = 3f;
-						plasHeat = 1.5f;
-						plasSpeed = -0.15f;
-					}
-				}*/
-				
+			//if(!isHyper && !isPhazon)
+			//{
 				if(!slot2.IsAir)
 				{
 					MGlobalItem mItem = slot2.GetGlobalItem<MGlobalItem>();
@@ -1279,16 +1262,15 @@ namespace MetroidMod.Items.weapons
 					plasHeat = mItem.addonHeat;
 					plasSpeed = mItem.addonSpeed;
 				}
-			}
+			//}
 			
 			finalDmg = (int)Math.Round((double)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg)));
-			overheat = (int)Math.Round((double)((float)overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat)));
+			overheat = (int)Math.Max(Math.Round((double)((float)overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat))), 1);
 			
 			float shotsPerSecond = (60 / useTime) * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
 			
 			useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 			
-			//item.name = name;
 			item.damage = finalDmg;
 			item.useTime = useTime;
 			item.useAnimation = useTime;
@@ -1312,6 +1294,17 @@ namespace MetroidMod.Items.weapons
 			item.rare = 2;
 			
 			item.Prefix(item.prefix);
+			
+			if(isPhazon)
+			{
+				item.useAnimation = 9;
+				item.useTime = 3;
+				item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/PhazonBeamSound");
+			}
+			else
+			{
+				item.UseSound = null;
+			}
 		}
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -1420,20 +1413,40 @@ namespace MetroidMod.Items.weapons
 				chargeLead = ch;
 			}
 			
-			for(int i = 0; i < shotAmt; i++)
+			if(isHyper)
 			{
-				int shotProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,item.shoot,damage,knockBack,player.whoAmI, 0, i);
-				MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
-				mProj.waveDir = waveDir;
-				Main.projectile[shotProj].netUpdate = true;
+				int hyperProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,item.shoot,damage,knockBack,player.whoAmI);
+				
+				if(shotAmt > 1)
+				{
+					for(int i = 0; i < shotAmt; i++)
+					{
+						if(i != 2)
+						{
+							int extraProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,mod.ProjectileType("Extra"+shot),damage,knockBack,player.whoAmI, 0, i);
+							MProjectile mProj = (MProjectile)Main.projectile[extraProj].modProjectile;
+							mProj.waveDir = waveDir;
+							Main.projectile[extraProj].netUpdate = true;
+						}
+					}
+				}
+				
+				mp.hyperColors = 23;
+			}
+			else
+			{
+				for(int i = 0; i < shotAmt; i++)
+				{
+					int shotProj = Projectile.NewProjectile(position.X,position.Y,speedX,speedY,item.shoot,damage,knockBack,player.whoAmI, 0, i);
+					MProjectile mProj = (MProjectile)Main.projectile[shotProj].modProjectile;
+					mProj.waveDir = waveDir;
+					Main.projectile[shotProj].netUpdate = true;
+				}
 			}
 			waveDir *= -1;
 			
 			mp.statOverheat += (int)((float)overheat*mp.overheatCost);
-			mp.overheatDelay = useTime-10;
-			
-			if(isHyper)
-				mp.hyperColors = 23;
+			mp.overheatDelay = Math.Max(useTime-10,2);
 
 			/* Sound & Sound Networking */
 			if (Main.netMode != 0 && mp.player.whoAmI == Main.myPlayer)
@@ -1447,7 +1460,10 @@ namespace MetroidMod.Items.weapons
 			}
 
 			// Play the shot sound for the local player.
-			Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/" + shotSound), player.position);
+			if(!isPhazon)
+			{
+				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/" + shotSound), player.position);
+			}
 
 			return false;
 		}

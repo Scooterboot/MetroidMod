@@ -127,6 +127,7 @@ namespace MetroidMod
 		public int overheatDelay = 0;
 		public int specialDmg = 100;
 		public bool phazonImmune = false;
+		public bool canUsePhazonBeam = false;
         public bool hazardShield = false;
         public int reserveTanks = 0;
         public int reserveHearts = 0;
@@ -146,6 +147,7 @@ namespace MetroidMod
 			isLegacySuit = false;
 			phazonImmune = false;
 			phazonRegen = 0;
+			canUsePhazonBeam = false;
 			hazardShield = false;
 			reserveTanks = 0;
 			reserveHeartsValue = 20;
@@ -1718,7 +1720,7 @@ namespace MetroidMod
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			Item I = P.inventory[P.selectedItem];
 			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
-			if ((I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher")) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
+			if ((I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher") || I.type == mod.ItemType("NovaLaserDrill")) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
 				Texture2D tex = Main.itemTexture[I.type];//I.GetTexture();
 				/*MItem mi = I.GetSubClass<MItem>();
@@ -1730,7 +1732,7 @@ namespace MetroidMod
 						tex = mi.textureAlt;
 					}
 				}*/
-                    if (tex != null)
+				if (tex != null)
 				{
 					Vector2 origin = new Vector2(12f, (float)((int)(tex.Height/2)));
 					if(P.direction == -1)

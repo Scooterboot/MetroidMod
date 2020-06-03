@@ -17,9 +17,11 @@ namespace MetroidMod.Items.addons
 			DisplayName.SetDefault("Hyper Beam");
 			Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Charge\n" +
-			"'Mother, time to go!'\n" + 
-			"Shots ignore 50% of enemy defense\n" + 
-			"Only activates when the Secondary, Utility, and Primary A and B slots are in use");
+			"Increases base damage from 14 to 35, and base overheat use from 4 to 7\n" +
+			"Slightly decreases firerate\n" +
+			"Affected by addons regardless of version\n" + 
+			"Disables freeze and other debuff effects\n" +
+			"'Da babeh'");
 		}
 		public override void SetDefaults()
 		{

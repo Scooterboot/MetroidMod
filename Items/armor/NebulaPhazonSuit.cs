@@ -50,7 +50,7 @@ namespace MetroidMod.Items.armor
 						"Grants 7 seconds of lava immunity" + "\r\n" + 
 						"Infinite breath" + "\r\n" + 
 						"Negates fall damage" + "\r\n" + 
-						"Immune to damage caused by blue Phazon blocks" + 
+						"Immune to damage caused by blue Phazon blocks" + "\r\n" + 
 						"Enables Phazon Beam use";
 			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.20f;
 			//p.rangedDamage += 0.20f;
@@ -63,7 +63,7 @@ namespace MetroidMod.Items.armor
 			mp.SenseMove(p);
 			mp.visorGlow = true;
 			mp.phazonImmune = true;
-			mp.phazonRegen = 4;
+			mp.canUsePhazonBeam = true;
 		}
 		public override void UpdateVanitySet(Player P)
 		{

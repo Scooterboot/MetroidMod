@@ -86,13 +86,13 @@ namespace MetroidMod.Projectiles
 				target.AddBuff(189,300);
 			}
 			
-			if(projectile.penetrate > 1)
+			if(projectile.penetrate != 1)
 			{
 				npcPrevHit[target.whoAmI] = true;
 			}
 		}
         public override void PostAI()
-		{	
+		{
 			for (int i = projectile.oldPos.Length-1; i > 0; i--)
 			{
 				projectile.oldPos[i] = projectile.oldPos[i - 1];
@@ -137,13 +137,13 @@ namespace MetroidMod.Projectiles
 			if(!initialized)
 			{
 				initialize(P);
-				waveStyle = (int)projectile.ai[1];
-				projectile.ai[1] = 0;
+				waveStyle = (int)P.ai[1];
+				P.ai[1] = 0;
 			}
 			else
 			{
 				float increment = ((float)Math.PI*2)/60f;
-				int i = 1;
+				float i = 1;
 				if(waveStyle == 1)
 				{
 					i = -1;
@@ -155,10 +155,18 @@ namespace MetroidMod.Projectiles
 				if(waveStyle == 3)
 				{
 					i = 2;
+					if(P.Name.Contains("Hyper"))
+					{
+						i = 1.5f;
+					}
 				}
 				if(waveStyle == 4)
 				{
 					i = -2;
+					if(P.Name.Contains("Hyper"))
+					{
+						i = -1.5f;
+					}
 				}
 				if(delay <= 0)
 				{
@@ -181,7 +189,7 @@ namespace MetroidMod.Projectiles
 					}
 				}
 				delay = Math.Max(delay - 1, 0);
-				i *= projectile.direction;
+				i *= P.direction;
 				if(!spaze)
 				{
 					i *= waveDir;
@@ -198,49 +206,49 @@ namespace MetroidMod.Projectiles
 				P.position.X = pos.X + (float)Math.Cos(rot+((float)Math.PI/2))*shift;
 				P.position.Y = pos.Y + (float)Math.Sin(rot+((float)Math.PI/2))*shift;
 				
-				if(!P.tileCollide)
+				if(!P.tileCollide && !P.Name.Contains("Hyper"))
 				{
 					waveDepth = 4;
-					if(projectile.Name.Contains("Spazer"))
+					if(P.Name.Contains("Spazer"))
 					{
 						waveDepth = 6;
 					}
-					if(projectile.Name.Contains("Plasma"))
+					if(P.Name.Contains("Plasma"))
 					{
 						waveDepth = 8;
 					}
-					if(projectile.Name.Contains("V2"))
+					if(P.Name.Contains("V2"))
 					{
 						waveDepth = 6;
 					}
-					if(projectile.Name.Contains("Wide"))
+					if(P.Name.Contains("Wide"))
 					{
 						waveDepth = 9;
 					}
-					if(projectile.Name.Contains("Nova"))
+					if(P.Name.Contains("Nova"))
 					{
 						waveDepth = 12;
 					}
-					if(projectile.Name.Contains("Nebula"))
+					if(P.Name.Contains("Nebula"))
 					{
 						waveDepth = 8;
 					}
-					if(projectile.Name.Contains("Vortex"))
+					if(P.Name.Contains("Vortex"))
 					{
 						waveDepth = 12;
 					}
-					if(projectile.Name.Contains("Solar"))
+					if(P.Name.Contains("Solar"))
 					{
 						waveDepth = 16;
 					}
-					if(projectile.Name.Contains("Charge"))
+					if(P.Name.Contains("Charge"))
 					{
 						waveDepth += 2;
-						if(projectile.Name.Contains("V2") || projectile.Name.Contains("Wide") || projectile.Name.Contains("Nova"))
+						if(P.Name.Contains("V2") || P.Name.Contains("Wide") || P.Name.Contains("Nova"))
 						{
 							waveDepth += 1;
 						}
-						if(projectile.Name.Contains("Nebula"))
+						if(P.Name.Contains("Nebula"))
 						{
 							waveDepth += 2;
 						}
@@ -273,7 +281,7 @@ namespace MetroidMod.Projectiles
 			}
 		}
 
-		public void HomingBehavior(Projectile P, float accuracy = 11f, float distance = 600f)
+		public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
 		{
 			float num236 = P.position.X;
 			float num237 = P.position.Y;
@@ -307,7 +315,7 @@ namespace MetroidMod.Projectiles
 				num236 = P.position.X + (float)(P.width / 2) + P.velocity.X * 100f;
 				num237 = P.position.Y + (float)(P.height / 2) + P.velocity.Y * 100f;
 			}
-			float num243 = 8f;
+			float num243 = speed;
 			Vector2 vector22 = new Vector2(P.position.X + (float)P.width * 0.5f, P.position.Y + (float)P.height * 0.5f);
 			float num244 = num236 - vector22.X;
 			float num245 = num237 - vector22.Y;
@@ -371,6 +379,10 @@ namespace MetroidMod.Projectiles
 			{
 				if (projectile.owner != Main.myPlayer) return;
 
+				if(color == default(Color))
+				{
+					color = Color.White;
+				}
 				Vector2 vel = Vector2.Zero;
 				for (int i = 0; i < 30; i++)
 				{
@@ -456,7 +468,7 @@ namespace MetroidMod.Projectiles
 			{
 				height = num108;
 			}
-			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
+			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/projectile.scale/2f), projectile.scale, effects, 0f);
 		}
 		public void PlasmaDrawTrail(Projectile projectile,Player player, SpriteBatch sb, int amount = 10, float scaleDrop = 0.5f, Color color = default(Color))
 		{
@@ -500,13 +512,17 @@ namespace MetroidMod.Projectiles
 			int amt = Math.Min(amount,10);
 			for(int i = amt-1; i > -1; i--)
 			{
+				Vector2 center = projectile.oldPos[i] + new Vector2((float)projectile.width/2,(float)projectile.height/2);
+				float oldDist = MathHelper.Clamp((Vector2.Distance(center,player.Center)+((float)projectile.height/2f))/h,0f,1f);
+				int oldHeight = (int)((float)num108*oldDist);
+				
 				Color color23 = color2;
 				color23 = projectile.GetAlpha(color23);
 				color23 *= (float)(amt - i) / ((float)amt);
 				float scale = MathHelper.Lerp(projectile.scale, projectile.scale*scaleDrop, (float)i / amt);
-				sb.Draw(tex, (projectile.oldPos[i] + new Vector2((float)projectile.width/2,(float)projectile.height/2)) - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), color23, projectile.oldRot[i], new Vector2((float)tex.Width/2f, (float)projectile.height/2f), scale, effects, 0f);
+				sb.Draw(tex, center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, oldHeight)), color23, projectile.oldRot[i], new Vector2((float)tex.Width/2f, (float)projectile.height/projectile.scale/2f), scale, effects, 0f);
 			}
-			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(color2), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/2f), projectile.scale, effects, 0f);
+			sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), projectile.GetAlpha(color2), projectile.rotation, new Vector2((float)tex.Width/2f, (float)projectile.height/projectile.scale/2f), projectile.scale, effects, 0f);
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)

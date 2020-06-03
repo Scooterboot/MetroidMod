@@ -10,10 +10,12 @@ namespace MetroidMod.Items.addons
 			DisplayName.SetDefault("Phazon Beam");
 			Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Charge\n" +
-			"'It's made of pure Phazon energy!'\n" + 
-			"Shots have a 25% chance of inflicting a Phazon DoT debuff on enemies\n" + 
-			"Only activates when the Secondary, Utility, and Primary A and B slots are in use\n" +
-			"Cannot be used without the Phazon Suit");
+			"Decreases base damage from 14 to 6, and base overheat use from 4 to 1\n" +
+			"Dramatically increases firerate\n" +
+			"Affected by addons regardless of version\n" + 
+			"Disables freeze and other debuff effects\n" +
+			"Can only be used while wearing the Phazon Suit\n" +
+			"'It's made of pure Phazon energy!'");
 		}
 		public override void SetDefaults()
 		{
