@@ -3,10 +3,11 @@ using System;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.accessories
 {
-	public class ScrewAttack : ModItem
+	public class ScrewAttack : HunterDamageItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -14,10 +15,13 @@ namespace MetroidMod.Items.accessories
 			Tooltip.SetDefault("Allows the user to double jump\n" + 
 			"Allows somersaulting\n" + 
 			"Damage enemies while someraulting\n" + 
+			"Damage scales off of enemy's contact damage\n" +
 			"Hold Left/Right and double jump to do a 'boost' ability");
 		}
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			item.damage = 100;
+			item.noMelee = true;
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
@@ -36,7 +40,8 @@ namespace MetroidMod.Items.accessories
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJumpBoots = true;
-			mp.screwAttack = Math.Max(1,mp.screwAttack);
+			mp.screwAttack = true;
+			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(item),mp.screwAttackDmg);
 		}
 	}
 }

@@ -1232,37 +1232,34 @@ namespace MetroidMod.Items.weapons
 				chargeCost = mItem.addonChargeHeat;
 			}
 
-			//if(!isHyper && !isPhazon)
-			//{
-				if(!slot2.IsAir)
-				{
-					MGlobalItem mItem = slot2.GetGlobalItem<MGlobalItem>();
-					iceDmg = mItem.addonDmg;
-					iceHeat = mItem.addonHeat;
-					iceSpeed = mItem.addonSpeed;
-				}
-				if(!slot3.IsAir)
-				{
-					MGlobalItem mItem = slot3.GetGlobalItem<MGlobalItem>();
-					waveDmg = mItem.addonDmg;
-					waveHeat = mItem.addonHeat;
-					waveSpeed = mItem.addonSpeed;
-				}
-				if(!slot4.IsAir)
-				{
-					MGlobalItem mItem = slot4.GetGlobalItem<MGlobalItem>();
-					spazDmg = mItem.addonDmg;
-					spazHeat = mItem.addonHeat;
-					spazSpeed = mItem.addonSpeed;
-				}
-				if(!slot5.IsAir)
-				{
-					MGlobalItem mItem = slot5.GetGlobalItem<MGlobalItem>();
-					plasDmg = mItem.addonDmg;
-					plasHeat = mItem.addonHeat;
-					plasSpeed = mItem.addonSpeed;
-				}
-			//}
+			if(!slot2.IsAir)
+			{
+				MGlobalItem mItem = slot2.GetGlobalItem<MGlobalItem>();
+				iceDmg = mItem.addonDmg;
+				iceHeat = mItem.addonHeat;
+				iceSpeed = mItem.addonSpeed;
+			}
+			if(!slot3.IsAir)
+			{
+				MGlobalItem mItem = slot3.GetGlobalItem<MGlobalItem>();
+				waveDmg = mItem.addonDmg;
+				waveHeat = mItem.addonHeat;
+				waveSpeed = mItem.addonSpeed;
+			}
+			if(!slot4.IsAir)
+			{
+				MGlobalItem mItem = slot4.GetGlobalItem<MGlobalItem>();
+				spazDmg = mItem.addonDmg;
+				spazHeat = mItem.addonHeat;
+				spazSpeed = mItem.addonSpeed;
+			}
+			if(!slot5.IsAir)
+			{
+				MGlobalItem mItem = slot5.GetGlobalItem<MGlobalItem>();
+				plasDmg = mItem.addonDmg;
+				plasHeat = mItem.addonHeat;
+				plasSpeed = mItem.addonSpeed;
+			}
 			
 			finalDmg = (int)Math.Round((double)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg)));
 			overheat = (int)Math.Max(Math.Round((double)((float)overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat))), 1);

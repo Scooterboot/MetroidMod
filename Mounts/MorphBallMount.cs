@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using MetroidMod.Items;
+using MetroidMod.Items.damageclass;
 using MetroidMod.Items.accessories;
 
 namespace MetroidMod.Mounts
@@ -71,13 +72,14 @@ namespace MetroidMod.Mounts
 				if (!mBall.ballMods[1].IsAir)
 				{
 					MGlobalItem bombMItem = mBall.ballMods[1].GetGlobalItem<MGlobalItem>();
-					mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
+					//mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
+					mp.bombDamage = player.GetWeaponDamage(mBall.ballMods[1]);
 					mp.Bomb(player);
 				}
 				if(!mBall.ballMods[2].IsAir)
 				{
 					MGlobalItem pbMItem = mBall.ballMods[2].GetGlobalItem<MGlobalItem>();
-					mp.PowerBomb(player,pbMItem.powerBombType);
+					mp.PowerBomb(player,pbMItem.powerBombType,player.GetWeaponDamage(mBall.ballMods[2]));
 				}
 
 				if (mBall.ballMods[3].type == sb)

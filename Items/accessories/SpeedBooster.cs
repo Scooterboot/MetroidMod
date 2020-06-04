@@ -8,21 +8,25 @@ using Terraria.UI;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.accessories
 {
-	public class SpeedBooster : ModItem
+	public class SpeedBooster : HunterDamageItem//ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Speed Booster");
 			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
 			"Damages enemies while running\n" +
+			"Damage scales off of enemy's contact damage\n" +
 			"While active, press DOWN to charge a Shine Spark\n" +
 			"Then press JUMP to activate the charge");
 		}
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			item.damage = 50;
+			item.noMelee = true;
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
@@ -61,6 +65,7 @@ namespace MetroidMod.Items.accessories
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(item),mp.speedBoostDmg);
 		}
 	}
 }

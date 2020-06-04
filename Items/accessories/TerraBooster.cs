@@ -3,10 +3,11 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using System;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.accessories
 {
-	public class TerraBooster : ModItem
+	public class TerraBooster : HunterDamageItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -14,7 +15,7 @@ namespace MetroidMod.Items.accessories
 			Tooltip.SetDefault("Allows the user to run insanely fast and extra mobility on ice\n" +
 			"Allows somersaulting\n" +
 			"Damage enemies while running or somersaulting\n" +
-			"Damage increases with enemy's damage\n" +
+			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" +
 			"Jumps recharge mid-air\n" +
 			"Holding left/right while jumping midair gives a boost\n" + 
@@ -22,8 +23,10 @@ namespace MetroidMod.Items.accessories
 			"Grants immunity to fire blocks and 7 seconds lava immunity\n" +
 			"Increases jump height and prevents fall damage");
 		}
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			item.damage = 150;
+			item.noMelee = true;
 			item.width = 36;
 			item.height = 32;
 			item.maxStack = 1;
@@ -57,8 +60,10 @@ namespace MetroidMod.Items.accessories
 			player.fireWalk = true;
 			player.lavaMax += 420;
 			mp.speedBooster = true;
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(item),mp.speedBoostDmg);
 			mp.spaceJump = true;
-			mp.screwAttack = Math.Max(3,mp.screwAttack);
+			mp.screwAttack = true;
+			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(item),mp.screwAttackDmg);
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;
 		}

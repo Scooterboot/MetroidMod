@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using MetroidMod;
 using MetroidMod.NPCs;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod
 {
@@ -73,7 +74,7 @@ namespace MetroidMod
 		public int spaceJumpsRegenDelay = 0;
 		public int screwAttackSpeedEffect = 0;
 		public int screwSpeedDelay = 0;
-		public int screwAttack = 0;
+		public bool screwAttack = false;
 		public bool isPowerSuit = false;
 		public bool isLegacySuit = false;
 		public bool thrusters = false;
@@ -125,7 +126,9 @@ namespace MetroidMod
 		public float statOverheat = 0f;
 		public float overheatCost = 1f;
 		public int overheatDelay = 0;
-		public int specialDmg = 100;
+		//public int specialDmg = 100;
+		public int speedBoostDmg = 0;
+		public int screwAttackDmg = 0;
 		public bool phazonImmune = false;
 		public bool canUsePhazonBeam = false;
         public bool hazardShield = false;
@@ -156,7 +159,7 @@ namespace MetroidMod
 			spaceJump = false;
 			spaceJumpBoots = false;
 			speedBooster = false;
-			screwAttack = 0;
+			screwAttack = false;
 			powerGrip = false;
 
 			if(!player.mount.Active || player.mount.Type != mod.MountType("MorphBallMount"))
@@ -180,7 +183,7 @@ namespace MetroidMod
         	UIParameters.mouseState = Mouse.GetState();
 			oldPosition = player.position;
 			Player P = player;
-			specialDmg = (int)player.rangedDamage * 100;
+			//specialDmg = (int)player.rangedDamage * 100;
 			morphColor = P.shirtColor;
 			morphColor.A = 255;
 			morphColorLights = P.underShirtColor;
@@ -1027,7 +1030,7 @@ namespace MetroidMod
 
 			if(speedBooster)
 			{
-				AddSpeedBoost(player);
+				AddSpeedBoost(player, speedBoostDmg);
 				if(player.controlJump)
 				{
 					if(player.velocity.Y == 0)
@@ -1056,16 +1059,16 @@ namespace MetroidMod
 				sbFlag = false;
 			}
 			
-			if(spaceJumpBoots || spaceJump || screwAttack > 0)
+			if(spaceJumpBoots || spaceJump || screwAttack)
 			{
 				AddSpaceJumpBoots(player);
 				if(spaceJump)
 				{
 					AddSpaceJump(player);
 				}
-				if(screwAttack > 0)
+				if(screwAttack)
 				{
-					AddScrewAttack(player,screwAttack);
+					AddScrewAttack(player,screwAttackDmg);
 				}
 			}
 			
@@ -1201,7 +1204,7 @@ namespace MetroidMod
 			{
 				canSomersault = false;
 			}
-			if(screwAttack <= 0)
+			if(!screwAttack)
 			{
 				screwAttackSpeedEffect = 0;
 				screwSpeedDelay = 0;
@@ -1556,7 +1559,7 @@ namespace MetroidMod
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
-			if (mPlayer.somersault && mPlayer.screwAttack > 0 && drawInfo.shadow == 0f && !mPlayer.ballstate)
+			if (mPlayer.somersault && mPlayer.screwAttack && drawInfo.shadow == 0f && !mPlayer.ballstate)
 			{
 				Texture2D tex = mod.GetTexture("Projectiles/ScrewAttackProj");
 				Texture2D tex2 = mod.GetTexture("Gore/ScrewAttack_Yellow");
@@ -2192,7 +2195,7 @@ namespace MetroidMod
 			}
 		}
 		int screwProj = -1;
-		public void AddScrewAttack(Player player, int damageMult)
+		public void AddScrewAttack(Player player, int damage)
 		{
 			if(somersault)
 			{
@@ -2209,7 +2212,7 @@ namespace MetroidMod
 				}
 				if(!flag)
 				{
-					screwProj = Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,screwAttackID,specialDmg*damageMult,0,player.whoAmI);
+					screwProj = Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,screwAttackID,damage,0,player.whoAmI);
 				}
 			}
 			if(screwSpeedDelay <= 0 && !ballstate && player.grappling[0] == -1 && player.velocity.Y != 0f && !player.mount.Active)
@@ -2276,7 +2279,7 @@ namespace MetroidMod
 			return CollideMethods.CheckCollide(Position,Width,Height);
 		}
 
-        public void AddSpeedBoost(Player player)
+        public void AddSpeedBoost(Player player, int damage)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			speedBoosting = (Math.Abs(player.velocity.X) >= 6.85f && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
@@ -2309,7 +2312,7 @@ namespace MetroidMod
 				}
 				if(!SpeedBoost)
 				{
-					int SpBoost = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,SpeedBoostID,specialDmg/2,0,player.whoAmI);
+					int SpBoost = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,SpeedBoostID,damage,0,player.whoAmI);
 				}
 			}
 		#region shine-spark
@@ -2481,7 +2484,7 @@ namespace MetroidMod
 				}
 				if(!shineSpark)
 				{
-					proj = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,ShineSparkID,specialDmg,0,player.whoAmI);
+					proj = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,ShineSparkID,damage,0,player.whoAmI);
 				}
 			}
 
@@ -3093,13 +3096,13 @@ namespace MetroidMod
 			}
 		}
 		//int CFMoment = 0;
-		public void PowerBomb(Player player, int type)
+		public void PowerBomb(Player player, int type, int damage)
 		{
 			if(player.whoAmI == Main.myPlayer && statPBCh <= 0 && MetroidMod.PowerBombKey.JustPressed && shineDirection == 0)
 			{
 				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/LayPowerBomb"));
 				statPBCh = 200;
-				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,type,specialDmg/4,0,player.whoAmI);
+				int a = Terraria.Projectile.NewProjectile(player.Center.X,player.Center.Y+4,0,0,type,damage,0,player.whoAmI);
 			}
 		}
 		public void BoostBall(Player player)

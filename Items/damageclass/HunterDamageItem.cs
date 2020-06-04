@@ -48,6 +48,25 @@ namespace MetroidMod.Items.damageclass
 				string damageWord = splitText.Last();
 				tt.text = damageValue + " hunter " + damageWord;
 			}
+			
+			if(item.accessory || item.GetGlobalItem<MGlobalItem>().ballSlotType >= 0)
+			{
+				for (int k = 0; k < tooltips.Count; k++)
+				{
+					if(tooltips[k].Name == "Knockback" && item.knockBack <= 0)
+					{
+						tooltips[k].text = "";
+					}
+					if(tooltips[k].Name == "CritChance" && item.crit <= 0)
+					{
+						tooltips[k].text = "";
+					}
+					if(tooltips[k].Name == "Speed")
+					{
+						tooltips[k].text = "";
+					}
+				}
+			}
 		}
 		
 		// by default, items with custom damage types cannot get prefixes (tml bug or feature?)

@@ -8,23 +8,27 @@ using Terraria.UI;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.accessories
 {
-	public class SpaceBooster : ModItem
+	public class SpaceBooster : HunterDamageItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Space Booster");
 			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
 			"Damage enemies while running\n" + 
+			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" + 
 			"Allows somersaulting\n" +
 			"Increases jump height and prevents fall damage");
 		}
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			item.damage = 75;
+			item.noMelee = true;
 			item.width = 20;
 			item.height = 20;
 			item.maxStack = 1;
@@ -53,6 +57,7 @@ namespace MetroidMod.Items.accessories
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(item),mp.speedBoostDmg);
 			mp.spaceJump = true;
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;
