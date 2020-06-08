@@ -46,6 +46,7 @@ namespace MetroidMod.Items.armor
 			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + 
 						"20% increased hunter damage" + "\r\n" + 
 						"40% decreased overheat use" + "\r\n" + 
+						"40% decreased Missile Charge Combo cost" + "\r\n" + 
 						"Free movement in liquid" + "\r\n" + 
 						"Grants indefinite lava immunity" + "\r\n" + 
 						"Infinite breath" + "\r\n" + 
@@ -63,6 +64,7 @@ namespace MetroidMod.Items.armor
 			p.buffImmune[mod.BuffType("GravityDebuff")] = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.overheatCost -= 0.40f;
+			mp.missileCost -= 0.4f;
 			mp.SenseMove(p);
 			mp.visorGlow = true;
 		}

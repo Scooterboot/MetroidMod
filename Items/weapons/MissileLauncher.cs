@@ -126,6 +126,7 @@ namespace MetroidMod.Items.weapons
 		int isHeldCombo = 0;
 		int chargeCost = 5;
 		int comboSound = 0;
+		float comboDrain = 5f;
 		bool noSomersault = false;
 		bool useFlameSounds = false;
 		bool useVortexSounds = false;
@@ -181,6 +182,7 @@ namespace MetroidMod.Items.weapons
 			isHeldCombo = 0;
 			chargeCost = 5;
 			comboSound = 0;
+			comboDrain = 5f;
 			noSomersault = false;
 			useFlameSounds = false;
 			useVortexSounds = false;
@@ -197,8 +199,6 @@ namespace MetroidMod.Items.weapons
 			comboCostUseTime = 12;
 			comboShotAmt = 1;
 			
-			chargeMult = 1f;
-			
 			leadAimSpeed = 0f;
 			
 			mi.maxMissiles = 5 + (5*exp.stack);
@@ -211,31 +211,22 @@ namespace MetroidMod.Items.weapons
 			
 			if(slot2.type == sm)
 			{
-				damage = 90;
-				useTime = 18;
 				shot = "SuperMissileShot";
 			}
 			else if(slot2.type == ic)
 			{
-				damage = 45;
 				shot = "IceMissileShot";
 			}
 			else if(slot2.type == icSm)
 			{
-				damage = 105;
-				useTime = 18;
 				shot = "IceSuperMissileShot";
 			}
 			else if(slot2.type == st)
 			{
-				damage = 150;
-				useTime = 18;
 				shot = "StardustMissileShot";
 			}
 			else if(slot2.type == ne)
 			{
-				damage = 150;
-				useTime = 18;
 				shot = "NebulaMissileShot";
 			}
 			
@@ -252,7 +243,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == wb)
 			{
 				isHeldCombo = 1;
-				chargeCost = 0;
 				comboSound = 1;
 				noSomersault = true;
 				chargeShot = "WavebusterShot";
@@ -264,7 +254,6 @@ namespace MetroidMod.Items.weapons
 			}
 			if(slot1.type == icSp)
 			{
-				chargeCost = 10;
 				chargeShot = "IceSpreaderShot";
 				chargeShotSound = "IceSpreaderSound";
 				chargeUpSound = "ChargeStartup_Ice";
@@ -275,7 +264,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == sp)
 			{
 				isShotgun = true;
-				chargeCost = 5;
 				chargeShot = shot;
 				chargeUpSound = "ChargeStartup_Power";
 				chargeTex = "ChargeLead_Spazer";
@@ -285,7 +273,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == ft)
 			{
 				isHeldCombo = 2;
-				chargeCost = 0;
 				comboSound = 1;
 				noSomersault = true;
 				useFlameSounds = true;
@@ -298,12 +285,9 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == pl)
 			{
 				isHeldCombo = 2;
-				chargeCost = 0;
-				comboCostUseTime = 0;
 				comboSound = 2;
 				noSomersault = true;
 				isMiniGun = true;
-				//chargeShot = "PlasmaMachinegunLead";
 				chargeShot = "PlasmaMachinegunShot";
 				chargeShotSound = "PlasmaMachinegunSound";
 				chargeUpSound = "ChargeStartup_Power";
@@ -314,7 +298,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == nv)
 			{
 				isHeldCombo = 1;
-				chargeCost = 0;
 				comboSound = 1;
 				noSomersault = true;
 				leadAimSpeed = 0.85f;
@@ -366,7 +349,6 @@ namespace MetroidMod.Items.weapons
 			
 			if(slot1.type == sd)
 			{
-				chargeCost = 10;
 				chargeShot = "StardustComboShot";
 				chargeShotSound = "IceSpreaderSound";
 				chargeUpSound = "ChargeStartup_Ice";
@@ -377,7 +359,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == nb)
 			{
 				isHeldCombo = 1;
-				chargeCost = 0;
 				comboSound = 1;
 				noSomersault = true;
 				chargeShot = "NebulaComboShot";
@@ -389,7 +370,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == vt)
 			{
 				isHeldCombo = 2;
-				chargeCost = 0;
 				comboSound = 2;
 				noSomersault = true;
 				
@@ -408,7 +388,6 @@ namespace MetroidMod.Items.weapons
 			if(slot1.type == sl)
 			{
 				isHeldCombo = 1;
-				chargeCost = 0;
 				comboSound = 1;
 				noSomersault = true;
 				leadAimSpeed = 0.9f;
@@ -419,22 +398,35 @@ namespace MetroidMod.Items.weapons
 				lightColor = MetroidMod.plaRedColor;
 			}
 			
+			if(!slot1.IsAir)
+			{
+				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+				chargeMult = mItem.addonChargeDmg;
+				//chargeCost = (int)((float)mItem.addonMissileCost * mp.missileCost);
+				//comboDrain = (float)mItem.addonMissileDrain * mp.missileCost;
+				chargeCost = mItem.addonMissileCost;
+				comboDrain = mItem.addonMissileDrain;
+			}
+			comboCostUseTime = (int)Math.Round(60.0 / (double)comboDrain);
 			
-			isCharge &= (mi.statMissiles >= chargeCost);
+			float addonDmg = 0f;
+			float addonSpeed = 0f;
+			if(!slot2.IsAir)
+			{
+				MGlobalItem mItem = slot2.GetGlobalItem<MGlobalItem>();
+				addonDmg = mItem.addonDmg;
+				addonSpeed = mItem.addonSpeed;
+			}
+			finalDmg = (int)Math.Round((double)((float)damage * (1f + addonDmg)));
 			
-			finalDmg = damage;
+			float shotsPerSecond = (60f / useTime) * (1f + addonSpeed);
+			useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 			
 			item.damage = finalDmg;
 			item.useTime = useTime;
 			item.useAnimation = useTime;
 			item.shoot = mod.ProjectileType(shot);
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/"+shotSound);
-			if(isCharge || isSeeker)
-			{
-				item.UseSound = null;
-			}
-			
-			item.autoReuse = (isCharge || isSeeker);
+			item.UseSound = null;//mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/"+shotSound);
 
 			item.shootSpeed = 8f;
 			item.reuseDelay = 0;
@@ -453,13 +445,36 @@ namespace MetroidMod.Items.weapons
 		{
 			base.ModifyTooltips(tooltips);
 			
+			Player P = Main.player[Main.myPlayer];
+			MPlayer mp = P.GetModPlayer<MPlayer>();
+			
 			if(item == Main.HoverItem)
 			{
 				item.modItem.UpdateInventory(Main.player[Main.myPlayer]);
 			}
-
+			
+			int cost = (int)((float)chargeCost * mp.missileCost);
+			string ch = "Charge shot consumes "+cost+" missiles";
+			if(isHeldCombo > 0)
+			{
+				ch = "Charge initially costs "+cost+" missiles";
+			}
+			TooltipLine mCost = new TooltipLine(mod, "ChargeMissileCost", ch);
+			
+			float drain = (float)Math.Round(comboDrain * mp.missileCost, 1);
+			TooltipLine mDrain = new TooltipLine(mod, "ChargeMissileDrain", "Drains "+drain+" missiles per second");
+			
 			for (int k = 0; k < tooltips.Count; k++)
 			{
+				if(tooltips[k].Name == "Knockback" && !missileMods[0].IsAir && !isSeeker)
+				{
+					tooltips.Insert(k + 1, mCost);
+					if(isHeldCombo > 0)
+					{
+						tooltips.Insert(k + 2, mDrain);
+					}
+				}
+				
 				if(tooltips[k].Name == "PrefixDamage")
 				{
 					double num19 = (double)((float)item.damage - (float)finalDmg);
@@ -538,6 +553,7 @@ namespace MetroidMod.Items.weapons
 			else
 			{
 				mi.statMissiles -= 1;
+				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/" + shotSound), player.position);
 			}
 			return true;
 		}
@@ -545,7 +561,6 @@ namespace MetroidMod.Items.weapons
 		bool initialShot = false;
 		int comboTime = 0;
 		int comboCostTime = 0;
-		int useTimeMax = 20;
 		float scalePlus = 0f;
 		int targetingDelay = 0;
 		int targetNum = 0;
@@ -555,6 +570,12 @@ namespace MetroidMod.Items.weapons
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>();
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+				
+				int chCost = (int)((float)chargeCost * mp.missileCost);
+				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
+				isCharge &= (mi.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
+				
+				item.autoReuse = (isCharge || isSeeker);
 
 				if (isCharge)
 				{
@@ -592,20 +613,6 @@ namespace MetroidMod.Items.weapons
 										}
 										else
 										{
-											if(!initialShot)
-											{
-												if(useFlameSounds || useVortexSounds)
-												{
-													int type = mod.ProjectileType("FlamethrowerLead");
-													if(useVortexSounds)
-													{
-														type = mod.ProjectileType("VortexComboLead");
-													}
-													int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, type, 0, 0, player.whoAmI);
-													Main.projectile[proj].ai[0] = chargeLead;
-												}
-												initialShot = true;
-											}
 											if(comboTime <= 0)
 											{
 												for(int i = 0; i < comboShotAmt; i++)
@@ -616,22 +623,43 @@ namespace MetroidMod.Items.weapons
 												comboTime = comboUseTime;
 											}
 											
-											if(comboCostUseTime > 0)
-											{
-												if(comboCostTime <= 0)
-												{
-													mi.statMissiles -= 1;
-													comboCostTime = comboCostUseTime;
-												}
-												else
-												{
-													comboCostTime--;
-												}
-											}
-											
 											if(isHeldCombo == 2 && comboTime > 0)
 											{
 												comboTime--;
+											}
+										}
+										
+										if(!initialShot)
+										{
+											if(useFlameSounds || useVortexSounds)
+											{
+												int type = mod.ProjectileType("FlamethrowerLead");
+												if(useVortexSounds)
+												{
+													type = mod.ProjectileType("VortexComboLead");
+												}
+												int proj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, type, 0, 0, player.whoAmI);
+												Main.projectile[proj].ai[0] = chargeLead;
+											}
+											
+											mi.statMissiles = Math.Max(mi.statMissiles-chCost,0);
+											
+											initialShot = true;
+										}
+										
+										if(comboCostUseTime > 0)
+										{
+											//if(comboCostTime <= 0)
+											if(comboCostTime > comboCostUseTime)
+											{
+												mi.statMissiles = Math.Max(mi.statMissiles-1,0);
+												//comboCostTime = comboCostUseTime;
+												comboCostTime = 0;
+											}
+											else
+											{
+												//comboCostTime--;
+												comboCostTime++;
 											}
 										}
 									}
@@ -646,7 +674,7 @@ namespace MetroidMod.Items.weapons
 						{
 							if(isHeldCombo <= 0 || mp.statCharge < MPlayer.maxCharge)
 							{
-								if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= chargeCost)
+								if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= chCost)
 								{
 									if(isShotgun)
 									{
@@ -667,7 +695,7 @@ namespace MetroidMod.Items.weapons
 									{
 										int chargeProj = Projectile.NewProjectile(oPos.X, oPos.Y, velocity.X, velocity.Y, mod.ProjectileType(chargeShot), (int)((float)damage * dmgMult), item.knockBack, player.whoAmI);
 									}
-									mi.statMissiles -= chargeCost;
+									mi.statMissiles -= chCost;
 								}
 								else if (mp.statCharge > 0)
 								{
@@ -683,28 +711,24 @@ namespace MetroidMod.Items.weapons
 							
 							comboTime = 0;
 							comboCostTime = 0;
-							useTimeMax = 20;
-							miniCostNum = 0;
 							scalePlus = 0f;
 							initialShot = false;
 						}
 					}
-					else if (!mp.ballstate) { 
+					else if (!mp.ballstate)
+					{ 
 						mp.statCharge = 0;
 						comboTime = 0;
 						comboCostTime = 0;
-						useTimeMax = 20;
-						miniCostNum = 0;
 						scalePlus = 0f;
 						initialShot = false;
 					}
 				}
-				else { 
+				else
+				{ 
 					mp.statCharge = 0;
 					comboTime = 0;
 					comboCostTime = 0;
-					useTimeMax = 20;
-					miniCostNum = 0;
 					scalePlus = 0f;
 					initialShot = false;
 				}
@@ -840,7 +864,6 @@ namespace MetroidMod.Items.weapons
 			}
 		}
 		int waveDir = 1;
-		int miniCostNum = 0;
 		SoundEffectInstance soundInstance;
 		public void MiniGunShoot(Player player, Item item, Projectile Lead, int projType, int damage, float knockBack, string sound)
 		{
@@ -873,26 +896,13 @@ namespace MetroidMod.Items.weapons
 				
 				waveDir *= -1;
 				
-				comboTime = useTimeMax;
-				useTimeMax = Math.Max(useTimeMax - miniRateIncr, comboUseTime);
-				
-				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
-				if(miniCostNum == 0)
-				{
-					mi.statMissiles -= 1;
-				}
-				
-				miniCostNum++;
-				if(miniCostNum > miniGunCostReduct)
-				{
-					miniCostNum = 0;
-				}
+				comboTime = comboUseTime;
 			}
 			else
 			{
 				comboTime--;
 			}
-			scalePlus = Math.Min(scalePlus + (2f / useTimeMax), 20f);
+			scalePlus = Math.Min(scalePlus + (2f / comboUseTime), 20f);
 			ChargeLead chLead = (ChargeLead)Lead.modProjectile;
 			chLead.extraScale = 0.3f * (scalePlus / 20f);
 		}

@@ -31,6 +31,8 @@ namespace MetroidMod.Items.missileaddons
 			item.createTile = mod.TileType("StardustMissileTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 1;
+			mItem.addonDmg = 4f;
+			mItem.addonSpeed = -0.5f;
 		}
 
 		public override void AddRecipes()

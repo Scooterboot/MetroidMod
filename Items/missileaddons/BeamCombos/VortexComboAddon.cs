@@ -14,7 +14,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			"~Fires vortexes that orbit the player at full charge\n" + 
 			"~Each vortex fires a blast after 2 seconds\n" + 
 			"~Releasing the charge makes all vortexes immediately fire\n" + 
-			"~Drains 5 missiles per second during use");
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
 		}
 		public override void SetDefaults()
 		{
@@ -32,6 +32,9 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			item.createTile = mod.TileType("VortexComboAddonTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
+			mItem.addonChargeDmg = 1f;
+			mItem.addonMissileCost = 10;
+			mItem.addonMissileDrain = 5;
 		}
 
 		public override void AddRecipes()

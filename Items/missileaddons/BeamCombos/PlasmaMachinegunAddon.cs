@@ -12,7 +12,7 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Rapidly fires piercing projectiles at full charge\n" + 
-			"~Drains 1 missile every 3rd shot during use");
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
 		}
 		public override void SetDefaults()
 		{
@@ -30,6 +30,9 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			item.createTile = mod.TileType("PlasmaLaserTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
+			mItem.addonChargeDmg = 1f;
+			mItem.addonMissileCost = 10;
+			mItem.addonMissileDrain = 5;
 		}
 
 		public override void AddRecipes()

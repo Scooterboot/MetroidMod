@@ -11,8 +11,9 @@ namespace MetroidMod.Items.missileaddons
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
-			"~Charge shots diffuse into a large explosion on impact\n" + 
-			"~Charge shots cost x5 missiles");
+			"~Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies\n" + 
+			"~Charge shots and flares deal 3x damage\n" +
+			"~Costs 5 missiles");
 		}
 		public override void SetDefaults()
 		{
@@ -30,6 +31,8 @@ namespace MetroidMod.Items.missileaddons
 			item.createTile = mod.TileType("DiffusionMissileTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
+			mItem.addonChargeDmg = 3f;
+			mItem.addonMissileCost = 5;
 		}
 
 		public override void AddRecipes()

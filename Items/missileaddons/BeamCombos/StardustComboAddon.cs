@@ -32,6 +32,8 @@ namespace MetroidMod.Items.missileaddons.BeamCombos
 			item.createTile = mod.TileType("StardustComboAddonTile");*/
 			MGlobalItem mItem = item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
+			mItem.addonChargeDmg = 1f;
+			mItem.addonMissileCost = 10;
 		}
 
 		public override void AddRecipes()

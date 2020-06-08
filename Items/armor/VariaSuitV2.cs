@@ -44,6 +44,7 @@ namespace MetroidMod.Items.armor
 			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + 
 						"5% increased hunter damage" + "\r\n" + 
 						"25% decreased overheat use" + "\r\n" + 
+						"10% decreased Missile Charge Combo cost" + "\r\n" + 
 						"80% increased underwater breathing" + "\r\n" + 
 						"Negates fall damage";
 			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.05f;
@@ -52,6 +53,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.breathMult = 1.8f;
 			mp.overheatCost -= 0.25f;
+			mp.missileCost -= 0.1f;
 			mp.SenseMove(p);
 			mp.visorGlow = true;
 		}

@@ -126,6 +126,7 @@ namespace MetroidMod
 		public float statOverheat = 0f;
 		public float overheatCost = 1f;
 		public int overheatDelay = 0;
+		public float missileCost = 1f;
 		//public int specialDmg = 100;
 		public int speedBoostDmg = 0;
 		public int screwAttackDmg = 0;
@@ -170,6 +171,7 @@ namespace MetroidMod
 			chargeColor = Color.White;
 			maxOverheat = 100f;
 			overheatCost = 1f;
+			missileCost = 1f;
 			breathMult = 1f;
 			disableSomersault = false;
 		}
