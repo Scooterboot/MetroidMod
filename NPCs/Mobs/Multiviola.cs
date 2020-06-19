@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Multiviola : ModNPC
+    public class Multiviola : MNPC
     {
         /*
          * npc.ai[0] = animation state (ping-pong) & start state.

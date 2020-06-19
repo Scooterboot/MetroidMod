@@ -1534,7 +1534,7 @@ namespace MetroidMod
                 NPC npc = Main.npc[i];
                 if (npc.active && (((MetroidMod)MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type) || npc.type == mod.NPCType("Tripper")))
                 {
-                    MNPC mnpc = npc.GetGlobalNPC<MNPC>();
+                    MGlobalNPC mnpc = npc.GetGlobalNPC<MGlobalNPC>();
                     if (!mnpc.froze && npc.type != mod.NPCType("Tripper")) continue;
 
                     if (player.position.X + player.width >= npc.position.X && player.position.X <= npc.position.X + npc.width &&

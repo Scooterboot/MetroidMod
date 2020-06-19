@@ -16,22 +16,6 @@ namespace MetroidMod.NPCs.Town
 	[AutoloadHead]
 	public class ChozoGhost : ModNPC
 	{
-		/*public override string Texture
-		{
-			get
-			{
-				return "MetroidMod/NPCs/Town/ChozoGhost";
-			}
-		}
-
-		public override string[] AltTextures
-		{
-			get
-			{
-				return new string[] { "MetroidMod/NPCs/ExamplePerson_Alt_1" };
-			}
-		}*/
-
 		public override bool Autoload(ref string name)
 		{
 			name = "ChozoGhost";
@@ -40,8 +24,6 @@ namespace MetroidMod.NPCs.Town
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
-			// DisplayName.SetDefault("Example Person");
 			Main.npcFrameCount[npc.type] = 16;
 			NPCID.Sets.ExtraFramesCount[npc.type] = 9;
 			NPCID.Sets.AttackFrameCount[npc.type] = 4;
@@ -83,30 +65,17 @@ namespace MetroidMod.NPCs.Town
 		{
 			switch (WorldGen.genRand.Next(5))
 			{
-				case 0:
-					return "Grey Voice";
 				case 1:
 					return "Old Bird";
 				case 2:
 					return "Ou-Qua";
 				case 3:
 					return "Dryn";
-				default:
+				case 4:
 					return "De'la";
+				default:
+					return "Grey Voice";
 			}
-		}
-
-		public override void FindFrame(int frameHeight)
-		{
-			/*npc.frame.Width = 40;
-			if (((int)Main.time / 10) % 2 == 0)
-			{
-				npc.frame.X = 40;
-			}
-			else
-			{
-				npc.frame.X = 0;
-			}*/
 		}
 
 		public override string GetChat()
@@ -124,15 +93,13 @@ namespace MetroidMod.NPCs.Town
 				chat.Add(Main.npc[wdoctor].GivenName + " keeps shaking his witchcraft 'things' at me whenever I come near him. Could ask him to stop?", 0.5);
 			}
 			
-			//chat.Add("This message has a weight of 5, meaning it appears 5 times more often.", 5.0);
-			//chat.Add("This message has a weight of 0.1, meaning it appears 10 times as rare.", 0.1);
 			return chat;
 		}
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Language.GetTextValue("LegacyInterface.28");
-			button2 = Language.GetTextValue("LegacyInterface.64");
+			//button2 = Language.GetTextValue("LegacyInterface.64");
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -141,56 +108,59 @@ namespace MetroidMod.NPCs.Town
 			{
 				shop = true;
 			}
-			else
+			/*else
 			{
-				QuestChat(npc);
-			}
+				Main.npcChatText = QuestChat(npc);
+			}*/
 		}
-		void QuestChat(NPC npc)
+		string QuestChat(NPC npc)
 		{
 			Player player = Main.player[Main.myPlayer];
 			
+			string boss2 = "Eater of Worlds";
+			if(WorldGen.crimson)
+			{
+				boss2 = "Brain of Cthulhu";
+			}
+			
 			string chat = 
-			"You have defeated the Torizo, and in doing so, gained my attention. My name is "+npc.GivenName+", and I will aid you in any way I can.\n" + 
-			"With your current materials, you should be able to craft a Power Beam, however, you may want an armor upgrade to go along with it.\n" +
-			"Your next objective is to create a Power Suit. To do so, you will need a set of Chozite Armor and Energy Tanks." +
-			"Use the spoils of the Torizo and the spoils of an evil beast to craft Energy Tanks.\n" +
-			"Return to me once you have defeated the Eater of Worlds or the Brain of Cthulhu and I will further guide you through the process, should you need it." +
-			"\n\n\n" +
-			"Objective: Defeat the Eater of Worlds or Brain of Cthulhu.";
+			"Now that you have defeated the Torizo, your next objective is to create a Power Suit and Power Beam. "+
+			"You should be able to craft a Power Beam with the materials you have now, however a Power Suit will require fully built Energy Tanks.\n"+
+			"Defeat the "+boss2+" and use its spoils to craft Energy Tanks, then return to me for further guidance.\n"+
+			" \n"+
+			"Objective: Defeat the "+boss2;
 			
 			if(NPC.downedBoss2)
 			{
 				chat = "Now that you have defeated the mighty beast, you can now craft Energy Tanks."+
 				"Using these Energy Tanks, you can re-craft Chozite Armor into an adequate Power Suit.\n"+
-				"Speak to me once you have equipped a full Power Suit, and I will guide you to your next objective." +
-				"\n\n\n" +
+				"Speak to me once you have equipped a full Power Suit, and I will guide you to your next objective.\n" +
+				" \n" +
 				"Objective: Craft and equip a Power Suit";
 			}
 			if(player.armor[0].type == mod.ItemType("PowerSuitHelmet") && player.armor[1].type == mod.ItemType("PowerSuitBreastplate") && player.armor[2].type == mod.ItemType("PowerSuitGreaves"))
 			{
 				chat = "With that Power Suit, your potential knows no bounds. But your journey has only just begun.\n"+
-				"If you have not already, I recommend you craft a Power Beam."+
 				"You may also find a variety of Power Beam addons throughout the world, or craft them with a variety of materials.\n"+
-				"Your next objective is to dig deep into the earth until you reach the ferocious Underworld."+
+				"Your next objective is to dig deep into the earth until you reach the ferocious Underworld.\n"+
 				"Pillage its resources to upgrade your Power Suit further." +
-				"\n\n\n" +
+				" \n" +
 				"Objective: Craft a Varia Suit using Hellstone Bars and equip it";
 			}
 			if(player.armor[0].type == mod.ItemType("VariaSuitHelmet") && player.armor[1].type == mod.ItemType("VariaSuitBreastplate") && player.armor[2].type == mod.ItemType("VariaSuitGreaves"))
 			{
 				chat = "You are now ready for your next challenge. Go to the Dungeon and free the old man there of his curse, "+
 				"then you will gain entry to the Dungeon. Many spoils await you inside that will help you on your journey."+
-				"In particular, the bones of the skeletons inside may prove useful." +
-				"\n\n\n" +
+				"In particular, the bones of the skeletons inside may prove useful.\n" +
+				" \n" +
 				"Objective: Defeat Skeletron";
 			}
 			if(NPC.downedBoss3)
 			{
-				chat = "";
+				chat = "[Quest System WIP]";
 			}
 			
-			Main.npcChatText = chat;
+			return chat;
 		}
 
 		public override void SetupShop(Chest shop, ref int nextSlot)
@@ -204,57 +174,51 @@ namespace MetroidMod.NPCs.Town
 				nextSlot++;
 			}
 			
-			/*shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleItem"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("EquipMaterial"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("BossItem"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleWorkbench"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleChair"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleDoor"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleBed"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleChest"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ExamplePickaxe"));
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleHamaxe"));
-			nextSlot++;
-			if (Main.LocalPlayer.GetModPlayer<ExamplePlayer>(mod).ZoneExample)
+			if(Main.hardMode)
 			{
-				shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleWings"));
+				shop.item[nextSlot].SetDefaults(mod.ItemType("PowerBeam"));
 				nextSlot++;
+				shop.item[nextSlot].SetDefaults(mod.ItemType("MissileLauncher"));
+				nextSlot++;
+				
+				if(NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+				{
+					shop.item[nextSlot].SetDefaults(mod.ItemType("VariaSuitV2Helmet"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("VariaSuitV2Breastplate"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("VariaSuitV2Greaves"));
+					nextSlot++;
+				}
+				else if(NPC.downedMechBossAny)
+				{
+					shop.item[nextSlot].SetDefaults(mod.ItemType("VariaSuitHelmet"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("VariaSuitBreastplate"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("VariaSuitGreaves"));
+					nextSlot++;
+				}
+				else
+				{
+					shop.item[nextSlot].SetDefaults(mod.ItemType("PowerSuitHelmet"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("PowerSuitBreastplate"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("PowerSuitGreaves"));
+					nextSlot++;
+				}
+				
+				if(NPC.downedPlantBoss)
+				{
+					shop.item[nextSlot].SetDefaults(mod.ItemType("GravitySuitHelmet"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("GravitySuitBreastplate"));
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(mod.ItemType("GravitySuitGreaves"));
+					nextSlot++;
+				}
 			}
-			if (Main.moonPhase < 2)
-			{
-				shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleSword"));
-				nextSlot++;
-			}
-			else if (Main.moonPhase < 4)
-			{
-				shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleGun"));
-				nextSlot++;
-				shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleBullet"));
-				nextSlot++;
-			}
-			else if (Main.moonPhase < 6)
-			{
-				shop.item[nextSlot].SetDefaults(mod.ItemType("ExampleStaff"));
-				nextSlot++;
-			}
-			else
-			{
-			}
-			// Here is an example of how your npc can sell items from other mods.
-			if (ModLoader.GetLoadedMods().Contains("SummonersAssociation"))
-			{
-				shop.item[nextSlot].SetDefaults(ModLoader.GetMod("SummonersAssociation").ItemType("BloodTalisman"));
-				nextSlot++;
-			}*/
 		}
 
 		/*public override void NPCLoot()

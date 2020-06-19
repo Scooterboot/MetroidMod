@@ -19,10 +19,10 @@ namespace MetroidMod.Buffs
 
 		public override bool ReApply(NPC N, int time, int buffIndex)
 		{
-			if (N.GetGlobalNPC<NPCs.MNPC>().speedDecrease > 0)
-				N.GetGlobalNPC<NPCs.MNPC>().speedDecrease -= 0.2f;
+			if (N.GetGlobalNPC<NPCs.MGlobalNPC>().speedDecrease > 0)
+				N.GetGlobalNPC<NPCs.MGlobalNPC>().speedDecrease -= 0.2f;
 			else
-				N.GetGlobalNPC<NPCs.MNPC>().speedDecrease = 0;
+				N.GetGlobalNPC<NPCs.MGlobalNPC>().speedDecrease = 0;
 
 			int dustID = Dust.NewDust(N.position, N.width, N.height, 59, N.velocity.X * 0.2f, N.velocity.Y * 0.2f, 100, new Color(), 2f);
 
@@ -31,7 +31,7 @@ namespace MetroidMod.Buffs
 
 		public override void Update(NPC N, ref int buffIndex)
 		{
-			N.GetGlobalNPC<NPCs.MNPC>().froze = true;
+			N.GetGlobalNPC<NPCs.MGlobalNPC>().froze = true;
 		}
     }
 }

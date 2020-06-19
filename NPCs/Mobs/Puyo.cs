@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Puyo : ModNPC
+    public class Puyo : MNPC
     {
 		private int newXFrame = -1;
 		private float newScale = -1;
@@ -53,7 +53,7 @@ namespace MetroidMod.NPCs.Mobs
 
         public override void AI()
         {
-            if (npc.GetGlobalNPC<MNPC>().froze)
+            if (npc.GetGlobalNPC<MGlobalNPC>().froze)
             {
                 npc.position = npc.oldPosition;
                 return;
@@ -89,7 +89,7 @@ namespace MetroidMod.NPCs.Mobs
         {
             npc.visualOffset = new Vector2(60, 0);
 
-            if (npc.GetGlobalNPC<MNPC>().froze) return;
+            if (npc.GetGlobalNPC<MGlobalNPC>().froze) return;
 
             if (npc.velocity.Y == 0)
             {

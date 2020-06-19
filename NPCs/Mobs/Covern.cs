@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Covern : ModNPC
+    public class Covern : MNPC
     {
         /*
          * npc.ai[0] = state manager.

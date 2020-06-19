@@ -27,6 +27,17 @@ namespace MetroidMod.Projectiles.hyperbeam
 			projectile.scale = 2f;
 		}
 
+		bool spawned = false;
+		float scale = 0f;
+		public override bool PreAI()
+		{
+			if(!spawned)
+			{
+				scale = projectile.scale;
+				spawned = true;
+			}
+			return true;
+		}
 		public override void AI()
 		{
 			Projectile P = projectile;
@@ -35,6 +46,11 @@ namespace MetroidMod.Projectiles.hyperbeam
 			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + 1.57f;
 			
 			Lighting.AddLight(P.Center, (float)mp.r/255f, (float)mp.g/255f, (float)mp.b/255f);
+			
+			P.localAI[0] = Math.Min(P.localAI[0]+0.075f,1f);
+			P.localAI[1] = Math.Min(P.localAI[1]+0.025f,1f);
+			
+			P.scale = scale * P.localAI[0];
 		}
 		public override bool PreDraw(SpriteBatch sb, Color lightColor)
 		{
@@ -44,7 +60,7 @@ namespace MetroidMod.Projectiles.hyperbeam
 				scale = 1f;
 			}
 			MPlayer mp = Main.player[projectile.owner].GetModPlayer<MPlayer>();
-			mProjectile.PlasmaDrawTrail(projectile,Main.player[projectile.owner],sb,10,scale,new Color(mp.r, mp.g, mp.b, 128));
+			mProjectile.PlasmaDrawTrail(projectile,Main.player[projectile.owner],sb,10,scale*projectile.localAI[0]*projectile.localAI[1],new Color(mp.r, mp.g, mp.b, 128));
 			return false;
 		}
 		public override void Kill(int timeLeft)

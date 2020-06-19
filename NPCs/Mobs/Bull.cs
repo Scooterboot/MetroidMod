@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.NPCs.Mobs
 {
-    public class Bull : ModNPC
+    public class Bull : MNPC
     {
         /*
          * npc.ai[0] = dashing logic. 
