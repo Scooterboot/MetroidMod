@@ -44,7 +44,7 @@ namespace MetroidMod.Items.tiles
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Ruby);
-			recipe.AddRecipeGroup("IronBar", 5);
+			recipe.AddIngredient(ItemID.HellstoneBar, 5);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this, 20);
 			recipe.AddRecipe();

@@ -44,8 +44,8 @@ namespace MetroidMod.Items.tiles
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Topaz);
-			recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemID.LihzahrdBrick, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this, 20);
 			recipe.AddRecipe();
 		}
