@@ -118,7 +118,8 @@ namespace MetroidMod.NewUI
 				smText = smText + "\n" +
 				"When enabled, double tap left or right to dodge\n" +
 				"Gain 1/3 second of invulnerability while dodging\n" +
-				"1 second cooldown";
+				"1 second cooldown\n" +
+				"Only useable when grounded unless Space Jump is equipped";
 				
 				Main.hoverItemName = smText;
 			}
