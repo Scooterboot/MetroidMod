@@ -40,13 +40,19 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" + "5% increased ranged damage" + "\r\n" + "30% decreased overheat use" + "\r\n" + "Negates fall damage" + "\r\n" + "Infinite breath" + "\r\n" + "Reduces damage from the Dark World";
+			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+						"Double tap a direction (when enabled)" + "\r\n" + 
+						"5% increased ranged damage" + "\r\n" + 
+						"30% decreased overheat use" + "\r\n" + 
+						"Negates fall damage" + "\r\n" + 
+						"Infinite breath" + "\r\n" + 
+						"Reduces damage from the Dark World";
 			p.rangedDamage += 0.05f;
 			p.gills = true;
 			p.noFallDmg = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.overheatCost -= 0.30f;
-			mp.SenseMove(p);
+			mp.senseMove = true;
 			mp.visorGlow = true;
 			//code to reduce damage from Dark World goes here: without the Dark Suit, the player takes 10 damage per second; with the Dark Suit, the player takes 1 damage per second
 		}

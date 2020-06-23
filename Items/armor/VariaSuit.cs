@@ -41,7 +41,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + 
+			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+						"Double tap a direction (when enabled)" + "\r\n" + 
 						"5% increased hunter damage" + "\r\n" + 
 						"25% decreased overheat use" + "\r\n" + 
 						"55% increased underwater breathing" + "\r\n" + 
@@ -52,7 +53,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.breathMult = 1.55f;
 			mp.overheatCost -= 0.20f;
-			mp.SenseMove(p);
+			mp.senseMove = true;
 			mp.visorGlow = true;
 		}
 		public override void AddRecipes()

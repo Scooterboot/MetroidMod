@@ -45,7 +45,6 @@ namespace MetroidMod
 		internal static ModHotKey SpiderBallKey;
 		internal static ModHotKey BoostBallKey;
 		internal static ModHotKey PowerBombKey;
-		internal static ModHotKey SenseMoveKey;
 		public const string TorizoHead = "MetroidMod/NPCs/Torizo/Torizo_Head_Boss";
 		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
 		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
@@ -64,6 +63,9 @@ namespace MetroidMod
 		internal UserInterface mbUserInterface;
 		internal MorphBallUI morphBallUI;
 
+		internal UserInterface smUserInterface;
+		internal SenseMoveUI senseMoveUI;
+
 		public int selectedItem = 0;
 		public int oldSelectedItem = 0;
 
@@ -80,7 +82,6 @@ namespace MetroidMod
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
 			BoostBallKey = RegisterHotKey("Boost Ball", "F");
 			PowerBombKey = RegisterHotKey("Power Bomb", "Z");
-			SenseMoveKey = RegisterHotKey("Use Sense Move", "F");
 
 			if (!Main.dedServ)
 			{
@@ -106,7 +107,6 @@ namespace MetroidMod
 			SpiderBallKey = null;
 			BoostBallKey = null;
 			PowerBombKey = null;
-			SenseMoveKey = null;
 			
 			Instance = null;
 		}
@@ -129,6 +129,11 @@ namespace MetroidMod
 			morphBallUI.Activate();
 			mbUserInterface = new UserInterface();
 			mbUserInterface.SetState(morphBallUI);
+
+			senseMoveUI = new SenseMoveUI();
+			senseMoveUI.Activate();
+			smUserInterface = new UserInterface();
+			smUserInterface.SetState(senseMoveUI);
 		}
 		
 		public override void PostSetupContent()
@@ -199,6 +204,8 @@ namespace MetroidMod
 				mlUserInterface.Update(gameTime);
 			if (mbUserInterface != null && MorphBallUI.visible)
 				mbUserInterface.Update(gameTime);
+			if (smUserInterface != null && SenseMoveUI.visible)
+				smUserInterface.Update(gameTime);
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -291,6 +298,16 @@ namespace MetroidMod
 					{
 						if (MorphBallUI.visible)
 							mbUserInterface.Draw(Main.spriteBatch, new GameTime());
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
+					"MetroidMod: Sense Move UI",
+					delegate
+					{
+						if (SenseMoveUI.visible)
+							smUserInterface.Draw(Main.spriteBatch, new GameTime());
 						return true;
 					},
 					InterfaceScaleType.UI)

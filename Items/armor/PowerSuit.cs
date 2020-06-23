@@ -36,7 +36,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n" + 
+			player.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+							"Double tap a direction (when enabled)" + "\r\n" + 
 							"10% decreased overheat use" + "\r\n" + 
 							"30% increased underwater breathing" + "\r\n" + 
 							"Negates fall damage";
@@ -44,7 +45,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.breathMult = 1.3f;
 			mp.overheatCost -= 0.10f;
-			mp.SenseMove(player);
+			mp.senseMove = true;
 			mp.visorGlow = true;
 		}
 		public override void UpdateVanitySet(Player P)
@@ -52,7 +53,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			mp.isPowerSuit = true;
 			mp.visorGlowColor = new Color(0, 248, 112);
-			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1)) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
+			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1) || mp.SMoveEffect > 0) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
 			{
 				mp.jet = true;
 			}

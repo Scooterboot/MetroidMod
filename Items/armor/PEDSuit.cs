@@ -40,7 +40,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Press the Sense Move key while moving near an enemy to dodge in that direction" + "\r\n" +
+			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+				"Double tap a direction (when enabled)" + "\r\n" + 
 				"Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)" + "\r\n" +
 				"Slightly increased health regen when standing on Phazon" + "\r\n" +
 				"10% increased ranged damage" + "\r\n" +
@@ -54,7 +55,7 @@ namespace MetroidMod.Items.armor
 			mp.phazonImmune = true;
 			mp.phazonRegen = 2;
 			mp.overheatCost -= 0.30f;
-			mp.SenseMove(p);
+			mp.senseMove = true;
 			mp.visorGlow = true;
 			//code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
 		}

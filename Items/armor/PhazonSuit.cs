@@ -43,7 +43,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Press the Sense move key while moving near an enemy to dodge in that direction" + "\r\n" + 
+			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+						"Double tap a direction (when enabled)" + "\r\n" + 
 						"15% increased hunter damage" + "\r\n" + 
 						"35% decreased overheat use" + "\r\n" + 
 						"30% decreased Missile Charge Combo cost" + "\r\n" + 
@@ -62,7 +63,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.overheatCost -= 0.35f;
 			mp.missileCost -= 0.3f;
-			mp.SenseMove(p);
+			mp.senseMove = true;
 			mp.visorGlow = true;
 			mp.phazonImmune = true;
 			mp.canUsePhazonBeam = true;

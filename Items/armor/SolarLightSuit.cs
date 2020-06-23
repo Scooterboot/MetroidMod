@@ -40,7 +40,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Hold the Sense move key and left/right while an enemy is moving towards you to dodge" + "\r\n"
+			p.setBonus = "Allows the ability to Sense Move" + "\r\n"
+				+ "Double tap a direction (when enabled)" + "\r\n"
 				+ "20% increased ranged damage" + "\r\n"
 				+ "Negates fall damage" + "\r\n"
 				+ "Infinite breath" + "\r\n"
@@ -53,7 +54,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			//code for protection from Dark World/Dark Water goes here
 			mp.overheatCost -= 0.40f;
-			mp.SenseMove(p);
+			mp.senseMove = true;
 			mp.visorGlow = true;
 		}
 		public override void UpdateVanitySet(Player P)
