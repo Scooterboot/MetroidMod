@@ -69,6 +69,16 @@ namespace MetroidMod.Items.damageclass
 			}
 		}
 		
+		public override bool AllowPrefix(int pre)
+		{
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			if(mi.ballSlotType >= 0 || mi.addonSlotType >= 0 || mi.missileSlotType >= 0)
+			{
+				return false;
+			}
+			return true;
+		}
+		
 		// by default, items with custom damage types cannot get prefixes (tml bug or feature?)
 		// so i'm just gonna manually allow it to use any ranged weapon prefix by literally copy-pasting vanilla code
 		// except... modded prefixes for ranged weapons won't work because internal shenanigans
