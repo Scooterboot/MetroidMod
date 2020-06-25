@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using MetroidMod;
 using MetroidMod.NPCs;
+using MetroidMod.Items;
 using MetroidMod.Items.damageclass;
 
 namespace MetroidMod
@@ -1395,7 +1396,25 @@ namespace MetroidMod
 					layers.Insert(k + 1, gunLayer);
                     gunLayer.visible = true;
                 }
+				if(layers[k] == PlayerLayer.HeldItem)
+				{
+					layers.Insert(k + 1, gunItemLayer);
+					//gunItemLayer.visible = true;
+				}
 			}
+			
+			Item I = P.inventory[P.selectedItem];
+			if (I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher") || I.type == mod.ItemType("NovaLaserDrill"))
+			{
+				gunItemLayer.visible = true;
+				PlayerLayer.HeldItem.visible = false;
+			}
+			else
+			{
+				gunItemLayer.visible = false;
+				PlayerLayer.HeldItem.visible = true;
+			}
+			
 			if(somersault)
 			{
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
@@ -1748,6 +1767,41 @@ namespace MetroidMod
                 }
             }
         });
+		public static readonly PlayerLayer gunItemLayer = new PlayerLayer("MetroidMod", "gunItemLayer", delegate(PlayerDrawInfo drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			Player P = drawInfo.drawPlayer;
+			Item I = P.inventory[P.selectedItem];
+			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
+			if (drawInfo.shadow != 0f || P.frozen || ((P.itemAnimation <= 0 || I.useStyle == 0) && (I.holdStyle <= 0 || P.pulley)) || I.type <= 0 || P.dead || I.noUseGraphic || (P.wet && I.noWet) || mPlayer.somersault)
+			{
+				return;
+			}
+			
+			if (I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher") || I.type == mod.ItemType("NovaLaserDrill"))
+			{
+				Texture2D tex = Main.itemTexture[I.type];
+				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
+				if(mi.itemTexture != null)
+				{
+					tex = mi.itemTexture;
+				}
+				Color currentColor = Lighting.GetColor((int)((double)drawInfo.position.X + (double)P.width * 0.5) / 16, (int)(((double)drawInfo.position.Y + (double)P.height * 0.5) / 16.0));
+				
+				int num80 = 10;
+				Vector2 vector7 = new Vector2(tex.Width / 2, tex.Height / 2);
+				Vector2 vector8 = new Vector2(24f / 2, tex.Height / 2);
+				num80 = (int)vector8.X;
+				vector7.Y = vector8.Y;
+				Vector2 origin4 = new Vector2(-num80, tex.Height / 2);
+				if (P.direction == -1)
+				{
+					origin4 = new Vector2(tex.Width + num80, tex.Height / 2);
+				}
+				DrawData item2 = new DrawData(tex, new Vector2((int)(drawInfo.itemLocation.X - Main.screenPosition.X + vector7.X), (int)(drawInfo.itemLocation.Y - Main.screenPosition.Y + vector7.Y)), new Rectangle(0, 0, tex.Width, tex.Height), I.GetAlpha(currentColor), P.itemRotation, origin4, I.scale, drawInfo.spriteEffects, 0);
+				Main.playerDrawData.Add(item2);
+			}
+		});
 		public static readonly PlayerLayer gunLayer = new PlayerLayer("MetroidMod", "gunLayer", PlayerLayer.HandOnAcc, delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
@@ -1757,22 +1811,19 @@ namespace MetroidMod
 			int frame = (int)(P.bodyFrame.Y/P.bodyFrame.Height);
 			if ((I.type == mod.ItemType("PowerBeam") || I.type == mod.ItemType("MissileLauncher") || I.type == mod.ItemType("NovaLaserDrill")) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
-				Texture2D tex = Main.itemTexture[I.type];//I.GetTexture();
-				/*MItem mi = I.GetSubClass<MItem>();
-				if((I.type == ItemDef.byName["MetroidMod:PowerBeam"].type || I.type == ItemDef.byName["MetroidMod:MissileLauncher"].type) && mi.texture != null)
+				Texture2D tex = Main.itemTexture[I.type];
+				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
+				if(mi.itemTexture != null)
 				{
-					tex = mi.texture;
-					if(MBase.AltBeamSkins && mi.textureAlt != null)
-					{
-						tex = mi.textureAlt;
-					}
-				}*/
+					tex = mi.itemTexture;
+				}
+				
 				if (tex != null)
 				{
-					Vector2 origin = new Vector2(12f, (float)((int)(tex.Height/2)));
+					Vector2 origin = new Vector2(14f, (float)((int)(tex.Height/2)));
 					if(P.direction == -1)
 					{
-						origin.X = tex.Width - 12;
+						origin.X = tex.Width - 14;
 					}
 					Vector2 pos = new Vector2(0f,0f);
 					float rot = 0f;

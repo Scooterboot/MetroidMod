@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -32,6 +33,8 @@ namespace MetroidMod.Items
 		public int[] seekerTarget = new int[5];
 		public int seekerCharge = 0;
 		public static int seekerMaxCharge = 25;
+		
+		public Texture2D itemTexture;
 
 		public override bool InstancePerEntity
 		{

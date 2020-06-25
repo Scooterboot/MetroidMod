@@ -91,8 +91,8 @@ namespace MetroidMod.Items.weapons
 		
 		public override void UseStyle(Player P)
 		{
-			P.itemLocation.X = P.MountedCenter.X - (float)Main.itemTexture[item.type].Width * 0.5f;
-			P.itemLocation.Y = P.MountedCenter.Y - (float)Main.itemTexture[item.type].Height * 0.5f;
+			P.itemLocation.X = P.MountedCenter.X - (float)item.width * 0.5f;
+			P.itemLocation.Y = P.MountedCenter.Y - (float)item.height * 0.5f;
 		}
 		
 		public override bool CanUseItem(Player player)
@@ -145,6 +145,9 @@ namespace MetroidMod.Items.weapons
 		float chargeMult = 1f;
 		
 		float leadAimSpeed = 0f;
+		
+		string altTexture => this.Texture + "_Alt";
+		string texture = "";
 
 		public override void UpdateInventory(Player P)
 		{
@@ -174,6 +177,8 @@ namespace MetroidMod.Items.weapons
 			dustType = 0;
 			dustColor = default(Color);
 			lightColor = Color.White;
+			
+			texture = "";
 			
 			comboKnockBack = item.knockBack;
 			
@@ -251,6 +256,7 @@ namespace MetroidMod.Items.weapons
 				dustType = 62;
 				lightColor = MetroidMod.waveColor2;
 				comboKnockBack = 0f;
+				texture = "Wavebuster_Item";
 			}
 			if(slot1.type == icSp)
 			{
@@ -260,6 +266,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_Ice";
 				dustType = 59;
 				lightColor = MetroidMod.iceColor;
+				texture = "IceSpreader_Item";
 			}
 			if(slot1.type == sp)
 			{
@@ -269,6 +276,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_Spazer";
 				dustType = 64;
 				lightColor = MetroidMod.powColor;
+				texture = "SpazerCombo_Item";
 			}
 			if(slot1.type == ft)
 			{
@@ -281,6 +289,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_PlasmaRed";
 				dustType = 6;
 				lightColor = MetroidMod.plaRedColor;
+				texture = "Flamethrower_Item";
 			}
 			if(slot1.type == pl)
 			{
@@ -294,6 +303,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_PlasmaGreen";
 				dustType = 61;
 				lightColor = MetroidMod.plaGreenColor;
+				texture = "PlasmaMachinegun_Item";
 			}
 			if(slot1.type == nv)
 			{
@@ -306,6 +316,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_Nova";
 				dustType = 75;
 				lightColor = MetroidMod.novColor;
+				texture = "NovaLaser_Item";
 			}
 			
 			if(slot1.type == di)
@@ -315,6 +326,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_PlasmaRed";
 				dustType = 6;
 				lightColor = MetroidMod.plaRedColor;
+				texture = "DiffusionMissile_Item";
 				
 				if(slot2.type == ic || slot2.type == icSm)
 				{
@@ -341,6 +353,10 @@ namespace MetroidMod.Items.weapons
 					lightColor = MetroidMod.waveColor;
 				}
 			}
+			if(isSeeker)
+			{
+				texture = "SeekerMissile_Item";
+			}
 			
 			int sd = mod.ItemType("StardustComboAddon");
 			int nb = mod.ItemType("NebulaComboAddon");
@@ -355,6 +371,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_Stardust";
 				dustType = 87;
 				lightColor = MetroidMod.iceColor;
+				texture = "StardustCombo_Item";
 			}
 			if(slot1.type == nb)
 			{
@@ -366,6 +383,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_Nebula";
 				dustType = 255;
 				lightColor = MetroidMod.waveColor;
+				texture = "NebulaCombo_Item";
 			}
 			if(slot1.type == vt)
 			{
@@ -384,6 +402,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_Vortex";
 				dustType = 229;
 				lightColor = MetroidMod.lumColor;
+				texture = "VortexCombo_Item";
 			}
 			if(slot1.type == sl)
 			{
@@ -396,6 +415,7 @@ namespace MetroidMod.Items.weapons
 				chargeTex = "ChargeLead_SolarCombo";
 				dustType = 6;
 				lightColor = MetroidMod.plaRedColor;
+				texture = "SolarCombo_Item";
 			}
 			
 			if(!slot1.IsAir)
@@ -439,6 +459,59 @@ namespace MetroidMod.Items.weapons
 			item.rare = 2;
 			
 			item.Prefix(item.prefix);
+			
+			
+			if(texture != "")
+			{
+				string alt = "";
+				if(MetroidMod.UseAltWeaponTextures)
+				{
+					alt = "_alt";
+				}
+				mi.itemTexture = mod.GetTexture("Items/weapons/missileTextures"+alt+"/"+texture);
+			}
+			else
+			{
+				if(MetroidMod.UseAltWeaponTextures)
+				{
+					mi.itemTexture = ModContent.GetTexture(altTexture);
+				}
+				else
+				{
+					mi.itemTexture = Main.itemTexture[item.type];
+				}
+			}
+			
+			if(mi.itemTexture != null)
+			{
+				item.width = mi.itemTexture.Width;
+				item.height = mi.itemTexture.Height;
+			}
+		}
+		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+		{
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			Texture2D tex = Main.itemTexture[item.type];
+			if(mi.itemTexture != null)
+			{
+				tex = mi.itemTexture;
+			}
+			float num5 = (float)(item.height - tex.Height);
+			float num6 = (float)(item.width / 2 - tex.Width / 2);
+			sb.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num6, item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num5 + 2f),
+			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), scale, SpriteEffects.None, 0f);
+			return false;
+		}
+		public override bool PreDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			Texture2D tex = Main.itemTexture[item.type];
+			if(mi.itemTexture != null)
+			{
+				tex = mi.itemTexture;
+			}
+			sb.Draw(tex, position, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
+			return false;
 		}
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

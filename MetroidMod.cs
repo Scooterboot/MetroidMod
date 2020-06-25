@@ -30,6 +30,8 @@ namespace MetroidMod
 		internal const int ballSlotAmount = 5;
 		internal const int beamSlotAmount = 5;
 		internal const int missileSlotAmount = 3;
+		
+		public static bool UseAltWeaponTextures;
 
 		public static Color powColor = new Color(248, 248, 110);
 		public static Color iceColor = new Color(0, 255, 255);

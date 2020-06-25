@@ -137,7 +137,7 @@ namespace MetroidMod.Projectiles.chargelead
 						diff = Vector2.Normalize(Vector2.Lerp(diff, Vector2.Normalize(P.velocity), aimSpeed));
 					}
 					
-					Vector2 newVelocity = diff * 26;
+					Vector2 newVelocity = diff * ((30f - 24f*I.scale) + I.scale*I.width);
 
 					if (newVelocity.X != P.velocity.X || newVelocity.Y != P.velocity.Y)
 						P.netUpdate = true;

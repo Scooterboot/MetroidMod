@@ -85,8 +85,8 @@ namespace MetroidMod.Items.weapons
 		
 		public override void UseStyle(Player P)
 		{
-			P.itemLocation.X = P.MountedCenter.X - (float)Main.itemTexture[item.type].Width * 0.5f;
-			P.itemLocation.Y = P.MountedCenter.Y - (float)Main.itemTexture[item.type].Height * 0.5f;
+			P.itemLocation.X = P.MountedCenter.X - (float)item.width * 0.5f;
+			P.itemLocation.Y = P.MountedCenter.Y - (float)item.height * 0.5f;
 		}
 		
 		public override bool CanUseItem(Player player)
@@ -149,6 +149,9 @@ namespace MetroidMod.Items.weapons
 		bool isPhazon = false;
 		
 		public bool comboError1, comboError2, comboError3, comboError4;
+		
+		string altTexture => this.Texture + "_Alt";
+		string texture = "";
 
 		public override void UpdateInventory(Player P)
 		{
@@ -196,6 +199,8 @@ namespace MetroidMod.Items.weapons
 			dustType = 64;
 			dustColor = default(Color);
 			lightColor = MetroidMod.powColor;
+			
+			texture = "";
 			
 			ShotSound = null;
 			ChargeShotSound = null;
@@ -246,6 +251,7 @@ namespace MetroidMod.Items.weapons
 						chargeTex = "ChargeLead_Ice";
 						dustType = 59;
 						lightColor = MetroidMod.iceColor;
+						texture = "IceBeam_Item";
 
 						// Ice Wave
 						if(slot3.type == wa)
@@ -361,6 +367,7 @@ namespace MetroidMod.Items.weapons
 							dustType = 62;
 							lightColor = MetroidMod.waveColor;
 							chargeShotAmt = 2;
+							texture = "WaveBeam_Item";
 
 							// Wave Spazer
 							if(slot4.type == sp)
@@ -382,6 +389,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
 									lightColor = MetroidMod.plaGreenColor;
+									texture = "PlasmaBeamG_Item";
 								}
 								// Wave Spazer Plasma (Red)
 								if(slot5.type == plR)
@@ -394,6 +402,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 							else
@@ -410,6 +419,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 61;
 									lightColor = MetroidMod.plaGreenColor;
 									shotAmt = 2;
+									texture = "PlasmaBeamG_Item";
 								}
 								// Wave Plasma (Red)
 								if(slot5.type == plR)
@@ -423,6 +433,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
 									shotAmt = 2;
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 						}
@@ -438,6 +449,7 @@ namespace MetroidMod.Items.weapons
 								chargeTex = "ChargeLead_Spazer";
 								shotAmt = 3;
 								chargeShotAmt = 3;
+								texture = "Spazer_Item";
 
 								// Spazer Plasma (Green)
 								if(slot5.type == plG)
@@ -449,6 +461,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
 									lightColor = MetroidMod.plaGreenColor;
+									texture = "PlasmaBeamG_Item";
 								}
 								// Spazer Plasma (Red)
 								if(slot5.type == plR)
@@ -461,6 +474,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 							else
@@ -475,6 +489,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
 									lightColor = MetroidMod.plaGreenColor;
+									texture = "PlasmaBeamG_Item";
 								}
 								// Plasma (Red)
 								if(slot5.type == plR)
@@ -487,6 +502,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 						}
@@ -511,6 +527,7 @@ namespace MetroidMod.Items.weapons
 						chargeTex = "ChargeLead_Ice";
 						dustType = 59;
 						lightColor = MetroidMod.iceColor;
+						texture = "IceBeam_Item";
 
 						// Ice Wave V2
 						if(slot3.type == wa2)
@@ -650,6 +667,7 @@ namespace MetroidMod.Items.weapons
 							lightColor = MetroidMod.waveColor2;
 							//shotAmt = 2;
 							chargeShotAmt = 2;
+							texture = "WaveBeam_Item";
 
 							// Wave Wide
 							if(slot4.type == wi)
@@ -670,6 +688,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_Nova";
 									dustType = 75;
 									lightColor = MetroidMod.novColor;
+									texture = "NovaBeam_Item";
 								}
 								// Wave Wide Plasma (Green)
 								if(slot5.type == plG)
@@ -682,6 +701,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaGreenV2";
 									dustType = 15;
 									lightColor = MetroidMod.plaGreenColor;
+									texture = "PlasmaBeamG_Item";
 								}
 								// Wave Wide Plasma (Red)
 								if(slot5.type == plR)
@@ -694,6 +714,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 							else
@@ -710,6 +731,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 75;
 									lightColor = MetroidMod.novColor;
 									shotAmt = 2;
+									texture = "NovaBeam_Item";
 								}
 								// Wave Plasma (Green)
 								if(slot5.type == plG)
@@ -723,6 +745,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 15;
 									lightColor = MetroidMod.plaGreenColor;
 									shotAmt = 2;
+									texture = "PlasmaBeamG_Item";
 								}
 								// Wave Plasma (Red)
 								if(slot5.type == plR)
@@ -736,6 +759,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
 									shotAmt = 2;
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 						}
@@ -754,6 +778,7 @@ namespace MetroidMod.Items.weapons
 								dustColor = MetroidMod.wideColor;
 								shotAmt = 3;
 								chargeShotAmt = 3;
+								texture = "WideBeam_Item";
 
 								// Wide Nova
 								if(slot5.type == nv)
@@ -767,6 +792,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 75;
 									lightColor = MetroidMod.novColor;
 									dustColor = default(Color);
+									texture = "NovaBeam_Item";
 								}
 								// Wide Plasma (Green)
 								if(slot5.type == plG)
@@ -779,6 +805,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 61;
 									lightColor = MetroidMod.plaGreenColor;
 									dustColor = default(Color);
+									texture = "PlasmaBeamG_Item";
 								}
 								// Wide Plasma (Red)
 								if(slot5.type == plR)
@@ -792,6 +819,7 @@ namespace MetroidMod.Items.weapons
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
 									dustColor = default(Color);
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 							else
@@ -807,6 +835,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_Nova";
 									dustType = 75;
 									lightColor = MetroidMod.novColor;
+									texture = "NovaBeam_Item";
 								}
 								// Plasma (Green)
 								if(slot5.type == plG)
@@ -818,6 +847,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
 									lightColor = MetroidMod.plaGreenColor;
+									texture = "PlasmaBeamG_Item";
 								}
 								// Plasma (Red)
 								if(slot5.type == plR)
@@ -830,6 +860,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "PlasmaBeamR_Item";
 								}
 							}
 						}
@@ -873,6 +904,7 @@ namespace MetroidMod.Items.weapons
 						chargeTex = "ChargeLead_Stardust";
 						dustType = 87;
 						lightColor = MetroidMod.iceColor;
+						texture = "StardustBeam_Item";
 						
 						// Stardust Nebula
 						if(slot3.type == nb)
@@ -900,6 +932,7 @@ namespace MetroidMod.Items.weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 							else
@@ -914,6 +947,7 @@ namespace MetroidMod.Items.weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 						}
@@ -937,6 +971,7 @@ namespace MetroidMod.Items.weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 							else
@@ -951,6 +986,7 @@ namespace MetroidMod.Items.weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 						}
@@ -970,6 +1006,7 @@ namespace MetroidMod.Items.weapons
 							lightColor = MetroidMod.waveColor;
 							shotAmt = 2;
 							chargeShotAmt = 2;
+							texture = "NebulaBeam_Item";
 							
 							// Nebula Vortex
 							if(slot4.type == vt)
@@ -991,6 +1028,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 							else
@@ -1006,6 +1044,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 						}
@@ -1021,6 +1060,7 @@ namespace MetroidMod.Items.weapons
 								chargeTex = "ChargeLead_Vortex";
 								shotAmt = 5;
 								chargeShotAmt = 5;
+								texture = "VortexBeam_Item";
 								
 								// Vortex Solar
 								if(slot5.type == sl)
@@ -1033,6 +1073,7 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 							else
@@ -1048,19 +1089,10 @@ namespace MetroidMod.Items.weapons
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
+									texture = "SolarBeam_Item";
 								}
 							}
 						}
-					}
-					
-					if(slot2.type == ic || slot3.type == wa || slot4.type == sp || slot5.type == plR || slot5.type == plG ||
-						slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv)
-					{
-						/*beamUI.comboErrorType = 5;
-						if(slot1.type == ch3)
-						{
-							beamUI.comboErrorType = 6;
-						}*/
 					}
 					
 					if(slot2.type == ic || slot2.type == ic2)
@@ -1086,10 +1118,12 @@ namespace MetroidMod.Items.weapons
 			{
 				shot = "HyperBeamShot";
 				shotSound = "HyperBeamSound";
-				useTime = 16;//20;
+				useTime = 16;
 				
-				damage = 35;//300;
-				overheat = 7;//30;
+				damage = 35;
+				overheat = 7;
+				
+				texture = "HyperBeam_Item";
 				
 				// Wave / Nebula
 				if(slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
@@ -1152,8 +1186,10 @@ namespace MetroidMod.Items.weapons
 				shotSound = "PhazonBeamSound";
 				useTime = 6;
 				
-				damage = 6;//56;
-				overheat = 1;//5;
+				damage = 6;
+				overheat = 1;
+				
+				texture = "PhazonBeam_Item";
 				
 				// Wave / Nebula
 				if(slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
@@ -1302,6 +1338,60 @@ namespace MetroidMod.Items.weapons
 			{
 				item.UseSound = null;
 			}
+			
+			
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			if(texture != "")
+			{
+				string alt = "";
+				if(MetroidMod.UseAltWeaponTextures)
+				{
+					alt = "_alt";
+				}
+				mi.itemTexture = mod.GetTexture("Items/weapons/textures"+alt+"/"+texture);
+			}
+			else
+			{
+				if(MetroidMod.UseAltWeaponTextures)
+				{
+					mi.itemTexture = ModContent.GetTexture(altTexture);
+				}
+				else
+				{
+					mi.itemTexture = Main.itemTexture[item.type];
+				}
+			}
+			
+			if(mi.itemTexture != null)
+			{
+				item.width = mi.itemTexture.Width;
+				item.height = mi.itemTexture.Height;
+			}
+		}
+		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+		{
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			Texture2D tex = Main.itemTexture[item.type];
+			if(mi.itemTexture != null)
+			{
+				tex = mi.itemTexture;
+			}
+			float num5 = (float)(item.height - tex.Height);
+			float num6 = (float)(item.width / 2 - tex.Width / 2);
+			sb.Draw(tex, new Vector2(item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num6, item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num5 + 2f),
+			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), scale, SpriteEffects.None, 0f);
+			return false;
+		}
+		public override bool PreDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			Texture2D tex = Main.itemTexture[item.type];
+			if(mi.itemTexture != null)
+			{
+				tex = mi.itemTexture;
+			}
+			sb.Draw(tex, position, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
+			return false;
 		}
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

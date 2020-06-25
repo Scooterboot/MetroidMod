@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using System.IO;
+using MetroidMod.Items;
 
 namespace MetroidMod.Projectiles
 {
@@ -268,7 +269,13 @@ namespace MetroidMod.Projectiles
 			Texture2D texture2D37 = mod.GetTexture("Projectiles/NovaLaserDrill_Lead");
 			spriteBatch.Draw(texture2D37, vector43 - Main.screenPosition + value49 * 30f, null, alpha7, num280 * (float)Math.PI*2, new Vector2((float)texture2D37.Width / 2f, (float)texture2D37.Height / 2f), 1.5f, spriteEffects, 0f);
 			
-			Texture2D texture2D38 = Main.itemTexture[player.inventory[player.selectedItem].type];
+			Item item = player.inventory[player.selectedItem];
+			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			Texture2D texture2D38 = Main.itemTexture[item.type];
+			if(mi.itemTexture != null)
+			{
+				texture2D38 = mi.itemTexture;
+			}
 			Color color61 = Lighting.GetColor((int)vector43.X / 16, (int)vector43.Y / 16);
 			spriteBatch.Draw(texture2D38, vector43 - Main.screenPosition + value49 * 20f, null, color61, P.rotation + (float)Math.PI / 2f + ((spriteEffects == SpriteEffects.None) ? ((float)Math.PI) : 0f), new Vector2((float)texture2D38.Width / 2f, (float)texture2D38.Height / 2f), player.inventory[player.selectedItem].scale, spriteEffects, 0f);
 			return false;
