@@ -11,11 +11,11 @@ namespace MetroidMod.Items.weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Shortsword");
-			Tooltip.SetDefault("Right click to do a small jump backwards");
+			Tooltip.SetDefault("Right click for a backwards hop");
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 12;			
+			item.damage = 14;			
 			item.melee = true;			
 			item.width = 32;			
 			item.height = 32;
@@ -35,7 +35,7 @@ namespace MetroidMod.Items.weapons
 			if (player.altFunctionUse == 2)
 			{
 				item.useTime = defUseTime * 3;
-				if (player.velocity.Y == 0 && player.itemTime == 0)
+				if (player.itemTime == 0)
 					return (true);
 				return (false);
 			}
@@ -47,8 +47,15 @@ namespace MetroidMod.Items.weapons
 		{
 			if(player.altFunctionUse == 2)
 			{
-				player.velocity.Y = -4f;
-				player.velocity.X = -7f * player.direction;
+                if (player.velocity.Y == 0)
+                {
+				    player.velocity.Y = -4f * player.gravDir;
+				    player.velocity.X = -7f * player.direction;
+                }
+                else
+                {
+				    player.velocity.X = -5.5f * player.direction;
+                }
 				return (true);
 			}
 			return base.UseItem(player);

@@ -16,7 +16,7 @@ namespace MetroidMod.Items.tools
 			item.melee = true;
 			item.width = 36;
 			item.height = 36;
-			item.useTime = 20;
+			item.useTime = 17;
 			item.useAnimation = 20;
 			item.axe = 13;	
 			item.hammer = 65;	
@@ -26,6 +26,7 @@ namespace MetroidMod.Items.tools
 			item.rare = 1;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
+			item.useTurn = true;
 		}
 
 		public override void AddRecipes()

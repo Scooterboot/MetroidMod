@@ -11,3 +11,8 @@
 *.cache
 /Metroid Mod.sln
 .vs*
+/obj/Debug/net45
+/obj
+/Properties
+/MetroidMod.csproj
+/MetroidMod.sln

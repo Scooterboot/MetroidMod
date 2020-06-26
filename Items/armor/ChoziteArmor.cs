@@ -77,7 +77,7 @@ namespace MetroidMod.Items.armor
 			item.height = 18;
 			item.rare = 1;
 			item.value = 3000;
-			item.defense = 3;
+			item.defense = 5;
 		}
 		public override void AddRecipes()
 		{
