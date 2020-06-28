@@ -28,7 +28,7 @@ namespace MetroidMod.Items.boss
 			player.QuickSpawnItem(mod.ItemType("EnergyShard"), Main.rand.Next(25, 51));
 			if (Main.rand.Next(2) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("RidleyMusicBox"));
+				player.QuickSpawnItem(mod.ItemType("TorizoMusicBox"));
 			}
 			if (Main.rand.Next(3) == 0)
 			{

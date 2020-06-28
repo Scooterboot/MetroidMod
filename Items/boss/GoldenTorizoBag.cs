@@ -26,11 +26,11 @@ namespace MetroidMod.Items.boss
 		public override void OpenBossBag(Player player)
 		{
 			player.QuickSpawnItem(mod.ItemType("ScrewAttack"));
-			/*if (Main.rand.Next(2) == 0)
+			if (Main.rand.Next(2) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("RidleyMusicBox"));
+				player.QuickSpawnItem(mod.ItemType("TorizoMusicBox"));
 			}
-			if (Main.rand.Next(3) == 0)
+			/*if (Main.rand.Next(3) == 0)
 			{
 				player.QuickSpawnItem(mod.ItemType("GoldenTorizoMask"));
 			}

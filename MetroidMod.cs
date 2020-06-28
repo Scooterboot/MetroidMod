@@ -90,6 +90,7 @@ namespace MetroidMod
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Serris"), ItemType("SerrisMusicBox"), TileType("SerrisMusicBox"));
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid"), ItemType("KraidPhantoonMusicBox"), TileType("KraidPhantoonMusicBox"));
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Ridley"), ItemType("RidleyMusicBox"), TileType("RidleyMusicBox"));
+				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Torizo"), ItemType("TorizoMusicBox"), TileType("TorizoMusicBox"));
 			}
 			for (int s = 1; s <= 7; s++)
 				AddBossHeadTexture(SerrisHead + s);
@@ -147,7 +148,7 @@ namespace MetroidMod
 				bossChecklist.Call("AddBoss", 2.1f,
 				new List<int>(){mod.NPCType("Torizo"),mod.NPCType("Torizo_HitBox")}, this, "Torizo",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedTorizo)), mod.ItemType("TorizoSummon"),
-				new List<int>(){mod.ItemType("TorizoTrophy"),mod.ItemType("TorizoMask"), mod.ItemType("RidleyMusicBox")},
+				new List<int>(){mod.ItemType("TorizoTrophy"),mod.ItemType("TorizoMask"), mod.ItemType("TorizoMusicBox")},
 				new List<int>(){mod.ItemType("EnergyShard"),mod.ItemType("TorizoBag")},
 				"Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.");
 				
@@ -185,7 +186,7 @@ namespace MetroidMod
 				bossChecklist.Call("AddBoss", 12f,
 				new List<int>(){mod.NPCType("GoldenTorizo"),mod.NPCType("GoldenTorizo_HitBox")}, this, "Golden Torizo",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo)), mod.ItemType("GoldenTorizoSummon"),
-				null,//new List<int>(){mod.ItemType("GoldenTorizoTrophy"),mod.ItemType("GoldenTorizoMask"), mod.ItemType("RidleyMusicBox")},
+				new List<int>(){/*mod.ItemType("GoldenTorizoTrophy"),mod.ItemType("GoldenTorizoMask"),*/ mod.ItemType("TorizoMusicBox")},
 				new List<int>(){mod.ItemType("ScrewAttack"),mod.ItemType("GoldenTorizoBag")},
 				"Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.");
 			}

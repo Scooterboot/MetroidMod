@@ -66,6 +66,10 @@ namespace MetroidMod.NPCs.GoldenTorizo
 			else
 			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ScrewAttack"));
+				if (Main.rand.Next(5) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TorizoMusicBox"));
+				}
 			}
 		}
 		public override bool? CanBeHitByItem(Player player, Item item) => false;
