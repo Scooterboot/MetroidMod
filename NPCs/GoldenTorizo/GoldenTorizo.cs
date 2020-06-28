@@ -30,8 +30,8 @@ namespace MetroidMod.NPCs.GoldenTorizo
 			npc.height = 0;//94;
 			npc.scale = 1f;
 			npc.damage = 50;
-			npc.defense = 40;
-			npc.lifeMax = 32000;
+			npc.defense = 50;
+			npc.lifeMax = 35000;
 			//npc.dontTakeDamage = true;
 			npc.boss = true;
 			npc.HitSound = SoundID.NPCHit4;
@@ -1184,12 +1184,13 @@ namespace MetroidMod.NPCs.GoldenTorizo
 						else
 						{
 							anim_BombTransition = 1f;
-							anim_Bomb = Math.Min(anim_Bomb+0.075f,4f);
+							//anim_Bomb = Math.Min(anim_Bomb+0.075f,4f);
+							anim_Bomb = Math.Min(anim_Bomb+0.1f,4f);
 							
 							if(HeadFrame < 8)
 							{
 								HeadFrameCounter++;
-								if(HeadFrameCounter > 14)
+								if(HeadFrameCounter > 7)
 								{
 									HeadFrame++;
 									HeadFrameCounter = 0;
@@ -1231,7 +1232,7 @@ namespace MetroidMod.NPCs.GoldenTorizo
 							soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)Head.Center.X, (int)Head.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/TorizoHit"));
 						}
 						
-						npc.ai[2]++;
+						npc.ai[2] += 2f;
 						if(npc.ai[2] > 60 || !headFlag)
 						{
 							npc.ai[1] = 2;
@@ -1241,11 +1242,12 @@ namespace MetroidMod.NPCs.GoldenTorizo
 					}
 					if(npc.ai[1] == 2)
 					{
-						anim_Bomb = Math.Max(anim_Bomb-0.075f,1f);
+						//anim_Bomb = Math.Max(anim_Bomb-0.075f,1f);
+						anim_Bomb = Math.Max(anim_Bomb-0.1f,1f);
 						if(HeadFrame > 4)
 						{
 							HeadFrameCounter++;
-							if(HeadFrameCounter > 14)
+							if(HeadFrameCounter > 7)
 							{
 								HeadFrame--;
 								HeadFrameCounter = 0;

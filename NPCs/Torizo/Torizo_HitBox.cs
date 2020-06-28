@@ -42,6 +42,11 @@ namespace MetroidMod.NPCs.Torizo
 			npc.buffImmune[mod.BuffType("IceFreeze")] = true;
 			npc.buffImmune[mod.BuffType("InstantFreeze")] = true;
 		}
+		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		{
+			npc.lifeMax = (int)(npc.lifeMax * 0.7f * bossLifeScale);
+			npc.damage = (int)(npc.damage * 0.7f);
+		}
 		
 		NPC Base
 		{
@@ -128,6 +133,13 @@ namespace MetroidMod.NPCs.Torizo
 		public override bool? CanBeHitByProjectile(Projectile projectile) => (npc.ai[1] <= 1f);
 		
 		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+		{
+			if(npc.ai[1] == 0f)
+			{
+				Base.StrikeNPC((int)(damage*0.25f),0f,Base.direction);
+			}
+		}
+		public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
 		{
 			if(npc.ai[1] == 0f)
 			{

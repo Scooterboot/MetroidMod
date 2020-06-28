@@ -436,16 +436,6 @@ namespace MetroidMod.NPCs.Torizo
 		float anim_BombTransition = 0f;
 		
 		// Claw Attack Animation
-		/*float[][] RArmAnim_Claw = new float[][]{
-		new float[] {-22.5f,45f, 90f, 0f,-22.5f,-22.5f,-22.5f,-22.5f, -22.5f},
-		new float[] { 22.5f,90f,180f,45f, 22.5f, 22.5f, 22.5f, 22.5f,  22.5f},
-		new float[] {    0f,45f,135f, 0f,    0f,    0f,    0f,    0f,     0f}};
-		
-		float[][] LArmAnim_Claw = new float[][]{
-		new float[] {-22.5f,-22.5f,-22.5f,-22.5f,-22.5f,45f, 90f, 0f, -22.5f},
-		new float[] { 22.5f, 22.5f, 22.5f, 22.5f, 22.5f,90f,180f,45f,  22.5f},
-		new float[] {    0f,    0f,    0f,    0f,    0f,45f,135f, 0f,     0f}};*/
-		
 		float[][] RArmAnim_Claw = new float[][]{
 		new float[] {-22.5f,45f, 90f,-45f,-22.5f,-22.5f,-22.5f,-22.5f, -22.5f},
 		new float[] { 22.5f,90f,180f,  0f, 22.5f, 22.5f, 22.5f, 22.5f,  22.5f},
@@ -455,6 +445,16 @@ namespace MetroidMod.NPCs.Torizo
 		new float[] {-22.5f,-22.5f,-22.5f,-22.5f,-22.5f,45f, 90f,-45f, -22.5f},
 		new float[] { 22.5f, 22.5f, 22.5f, 22.5f, 22.5f,90f,180f,  0f,  22.5f},
 		new float[] {    0f,    0f,    0f,    0f,    0f,45f,135f,-45f,     0f}};
+		
+		float[][] RArmAnim_Claw_Low = new float[][]{
+		new float[] {-22.5f,45f, 60f,-45f,-22.5f,-22.5f,-22.5f,-22.5f, -22.5f},
+		new float[] { 22.5f,90f,120f,  0f, 22.5f, 22.5f, 22.5f, 22.5f,  22.5f},
+		new float[] {    0f,45f, 90f,-45f,    0f,    0f,    0f,    0f,     0f}};
+		
+		float[][] LArmAnim_Claw_Low = new float[][]{
+		new float[] {-22.5f,-22.5f,-22.5f,-22.5f,-22.5f,45f, 60f,-45f, -22.5f},
+		new float[] { 22.5f, 22.5f, 22.5f, 22.5f, 22.5f,90f,120f,  0f,  22.5f},
+		new float[] {    0f,    0f,    0f,    0f,    0f,45f, 90f,-45f,     0f}};
 		
 		float anim_Claw = 1f;
 		float anim_ClawTransition = 0f;
@@ -541,6 +541,16 @@ namespace MetroidMod.NPCs.Torizo
 				{
 					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Claw[i],anim)),transition);
 					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Claw[i],anim)),transition);
+				}
+			}
+			if(type == "claw low")
+			{
+				BodyRot = MathHelper.Lerp(BodyRot,0f,transition);
+				HeadRot = MathHelper.Lerp(HeadRot,0f,transition);
+				for(int i = 0; i < 3; i++)
+				{
+					RArmRot[i] = MathHelper.Lerp(RArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,RArmAnim_Claw_Low[i],anim)),transition);
+					LArmRot[i] = MathHelper.Lerp(LArmRot[i],-(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f,LArmAnim_Claw_Low[i],anim)),transition);
 				}
 			}
 		}
@@ -1220,10 +1230,10 @@ namespace MetroidMod.NPCs.Torizo
 							
 							if((anim_Claw > 3.5f && anim_Claw < 4f) || (anim_Claw > 7.5f && anim_Claw < 8f))
 							{
-								if(npc.ai[3] == 0)
+								if(npc.ai[3] > 0)
 								{
 									Vector2 clawPos = BodyPos[0] + new Vector2(32*npc.direction,-10);
-									if(Main.rand.Next(4) == 0 || (player.Center.Y > BodyPos[0].Y && Main.rand.Next(4) > 0))
+									if(npc.ai[3] == 1)
 									{
 										clawPos.X = BodyPos[0].X + 26*npc.direction;
 										clawPos.Y = BodyPos[0].Y + 70;
@@ -1231,12 +1241,22 @@ namespace MetroidMod.NPCs.Torizo
 									Vector2 clawVel = new Vector2(8f*npc.direction,0f);
 									int slash = Projectile.NewProjectile(clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,mod.ProjectileType("TorizoClawBeam"),(int)((float)clawDamage/2f),8f);
 									Main.PlaySound(SoundLoader.customSoundType, (int)clawPos.X, (int)clawPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/TorizoWave"));
-									npc.ai[3] = 1;
+									npc.ai[3] = 0;
 								}
 							}
-							else
+							else if(anim_Claw <= 2f || (anim_Claw >= 5f && anim_Claw <= 6f))
 							{
-								npc.ai[3] = 0;
+								if(npc.ai[3] == 0)
+								{
+									if(Main.rand.Next(4) == 0 || (player.Center.Y > BodyPos[0].Y && Main.rand.Next(4) > 0))
+									{
+										npc.ai[3] = 1;
+									}
+									else
+									{
+										npc.ai[3] = 2;
+									}
+								}
 							}
 						}
 					}
@@ -1271,7 +1291,13 @@ namespace MetroidMod.NPCs.Torizo
 					}
 					
 					SetAnimation("walk", anim_Walk);
-					SetAnimation("claw", anim_Claw, anim_ClawTransition);
+					
+					string claw = "claw";
+					if(npc.ai[3] == 1)
+					{
+						claw = "claw low";
+					}
+					SetAnimation(claw, anim_Claw, anim_ClawTransition);
 					
 					SetBodyOffset();
 				}
