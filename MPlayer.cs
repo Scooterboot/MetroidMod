@@ -972,6 +972,7 @@ namespace MetroidMod
 				{
 					if(ballstate)
 					{
+						unMorphDir = 0;
 						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/MorphIn"));
 					}
 					else
