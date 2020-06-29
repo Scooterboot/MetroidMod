@@ -66,6 +66,7 @@ namespace MetroidMod.NPCs.Torizo
 			else
 			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EnergyShard"), Main.rand.Next(15, 36));
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ChoziteOre"), Main.rand.Next(30, 90));
 				if (Main.rand.Next(5) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TorizoMusicBox"));

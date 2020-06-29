@@ -33,7 +33,7 @@ namespace MetroidMod.Items.misc
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteOre", 4);
+			recipe.AddIngredient(null, "ChoziteOre", 3);
 			recipe.AddTile(TileID.Furnaces);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

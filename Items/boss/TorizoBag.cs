@@ -26,6 +26,7 @@ namespace MetroidMod.Items.boss
 		public override void OpenBossBag(Player player)
 		{
 			player.QuickSpawnItem(mod.ItemType("EnergyShard"), Main.rand.Next(25, 51));
+			player.QuickSpawnItem(mod.ItemType("ChoziteOre"), Main.rand.Next(30, 90));
 			if (Main.rand.Next(2) == 0)
 			{
 				player.QuickSpawnItem(mod.ItemType("TorizoMusicBox"));

@@ -71,11 +71,11 @@ namespace MetroidMod.Items.damageclass
 		
 		public override bool AllowPrefix(int pre)
 		{
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			/*MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			if(mi.ballSlotType >= 0 || mi.addonSlotType >= 0 || mi.missileSlotType >= 0)
 			{
 				return false;
-			}
+			}*/
 			return true;
 		}
 		

@@ -37,6 +37,11 @@ namespace MetroidMod.Items.accessories
             MPlayer mp = player.GetModPlayer<MPlayer>();
             mp.powerGrip = true;
         }
+		public override void UpdateVanity(Player player, EquipType type)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+            mp.powerGrip = true;
+		}
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
