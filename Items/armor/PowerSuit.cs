@@ -12,8 +12,8 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Breastplate");
-			Tooltip.SetDefault("5% increased hunter damage\n" +
-			"+5 overheat capacity");
+			Tooltip.SetDefault("+15 overheat capacity\n" +
+			"10% decreased overheat use");
 		}
 		public override void SetDefaults()
 		{
@@ -25,10 +25,9 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 5;
+			mp.maxOverheat += 15;
+			mp.overheatCost -= 0.10f;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -37,16 +36,9 @@ namespace MetroidMod.Items.armor
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
-							"Double tap a direction (when enabled)" + "\r\n" + 
-							"10% decreased overheat use" + "\r\n" + 
-							"30% increased underwater breathing" + "\r\n" + 
-							"Negates fall damage";
-			player.noFallDmg = true;
+							"Double tap a direction (when enabled)";
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.breathMult = 1.3f;
-			mp.overheatCost -= 0.10f;
 			mp.senseMove = true;
-			mp.visorGlow = true;
 		}
 		public override void UpdateVanitySet(Player P)
 		{
@@ -87,9 +79,8 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Greaves");
-			Tooltip.SetDefault("5% increased hunter damage\n" + 
-			"+5 overheat capacity\n" +
-			"Allows you to slide down walls");
+			Tooltip.SetDefault("Allows you to slide down walls\n" +
+			"Negates fall damage");
 		}
 		public override void SetDefaults()
 		{
@@ -101,11 +92,8 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
 			player.spikedBoots += 1;
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 5;
+			player.noFallDmg = true;
 		}
 		public override void AddRecipes()
 		{
@@ -132,9 +120,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Helmet");
-			Tooltip.SetDefault("5% increased hunter damage\n" +
-			"+5 overheat capacity\n" +
-			"Improved night vision");
+			Tooltip.SetDefault("10% increased hunter damage\n" +
+			"Emits light and grants improved night vision\n" +
+			"30% increased underwater breathing");
 		}
 		public override void SetDefaults()
 		{
@@ -146,11 +134,11 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.10f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 5;
+			mp.breathMult = 1.3f;
+			mp.visorGlow = true;
 		}
 		public override void AddRecipes()
 		{

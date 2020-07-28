@@ -1799,7 +1799,8 @@ namespace MetroidMod
 				{
 					origin4 = new Vector2(tex.Width + num80, tex.Height / 2);
 				}
-				DrawData item2 = new DrawData(tex, new Vector2((int)(drawInfo.itemLocation.X - Main.screenPosition.X + vector7.X), (int)(drawInfo.itemLocation.Y - Main.screenPosition.Y + vector7.Y)), new Rectangle(0, 0, tex.Width, tex.Height), I.GetAlpha(currentColor), P.itemRotation, origin4, I.scale, drawInfo.spriteEffects, 0);
+				DrawData item2 = new DrawData(tex, new Vector2((int)(drawInfo.itemLocation.X - Main.screenPosition.X + vector7.X), (int)(drawInfo.itemLocation.Y - Main.screenPosition.Y + vector7.Y)), new Rectangle(0, 0, tex.Width, tex.Height), /*I.GetAlpha(currentColor)*/drawInfo.middleArmorColor, P.itemRotation, origin4, I.scale, drawInfo.spriteEffects, 0);
+				item2.shader = drawInfo.bodyArmorShader;
 				Main.playerDrawData.Add(item2);
 			}
 		});

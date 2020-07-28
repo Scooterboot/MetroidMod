@@ -56,9 +56,10 @@ namespace MetroidMod.Items.tools
 		}
 		
 		string altTexture => this.Texture + "_Alt";
-		public override void UpdateInventory(Player P)
+		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			Texture2D tex = Main.itemTexture[item.type];
 			if(MetroidMod.UseAltWeaponTextures)
 			{
 				mi.itemTexture = ModContent.GetTexture(altTexture);
@@ -67,11 +68,6 @@ namespace MetroidMod.Items.tools
 			{
 				mi.itemTexture = Main.itemTexture[item.type];
 			}
-		}
-		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-		{
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
-			Texture2D tex = Main.itemTexture[item.type];
 			if(mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;
@@ -86,6 +82,14 @@ namespace MetroidMod.Items.tools
 		{
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			Texture2D tex = Main.itemTexture[item.type];
+			if(MetroidMod.UseAltWeaponTextures)
+			{
+				mi.itemTexture = ModContent.GetTexture(altTexture);
+			}
+			else
+			{
+				mi.itemTexture = Main.itemTexture[item.type];
+			}
 			if(mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;

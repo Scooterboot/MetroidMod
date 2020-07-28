@@ -12,10 +12,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit Breastplate");
-			Tooltip.SetDefault("5% increased hunter damage\n" +
-			"+20 overheat capacity\n" +
-			"Immune to fire blocks\n" +
-			"Immune to chill and freeze effects\n" +
+			Tooltip.SetDefault("+60 overheat capacity\n" +
+			"30% decreased overheat use\n" +
+			"20% decreased Missile Charge Combo cost\n" +
 			"Immune to knockback");
 		}
 		public override void SetDefaults()
@@ -28,41 +27,31 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
-			player.fireWalk = true;
-			player.noKnockback = true;
-			player.buffImmune[BuffID.Chilled] = true;
-			player.buffImmune[BuffID.Frozen] = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 20;
+			mp.maxOverheat += 60;
+			mp.overheatCost -= 0.30f;
+			mp.missileCost -= 0.20f;
+			player.noKnockback = true;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			return (head.type == mod.ItemType("GravitySuitHelmet") && body.type == mod.ItemType("GravitySuitBreastplate") && legs.type == mod.ItemType("GravitySuitGreaves"));
 		}
-		public override void UpdateArmorSet(Player p)
+		public override void UpdateArmorSet(Player player)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+			player.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
 						"Double tap a direction (when enabled)" + "\r\n" + 
-						"10% increased hunter damage" + "\r\n" + 
-						"30% decreased overheat use" + "\r\n" + 
-						"20% decreased Missile Charge Combo cost" + "\r\n" + 
+						"Immunity to fire blocks" + "\r\n" + 
+						"Immunity to chill and freeze effects" + "\r\n" + 
 						"Free movement in liquid" + "\r\n" + 
-						"Grants 7 seconds of lava immunity" + "\r\n" + 
-						"Infinite breath" + "\r\n" + 
-						"Negates fall damage";
-			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.10f;
-			//p.rangedDamage += 0.10f;
-			p.ignoreWater = true;
-			p.lavaMax += 420;
-			p.noFallDmg = true;
-			p.gills = true;
-			MPlayer mp = p.GetModPlayer<MPlayer>();
-			mp.overheatCost -= 0.3f;
-			mp.missileCost -= 0.2f;
+						"Grants 7 seconds of lava immunity";
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.senseMove = true;
-			mp.visorGlow = true;
+			player.fireWalk = true;
+			player.buffImmune[BuffID.Chilled] = true;
+			player.buffImmune[BuffID.Frozen] = true;
+			player.ignoreWater = true;
+			player.lavaMax += 420; // blaze it
 		}
 		public override void AddRecipes()
 		{
@@ -81,10 +70,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit Greaves");
-			Tooltip.SetDefault("5% increased hunter damage\n" + 
-			"+20 overheat capacity\n" + 
-			"10% increased movement speed\n" + 
-			"Allows you to cling to walls");
+			Tooltip.SetDefault("Allows you to cling to walls\n" +
+			"Negates fall damage\n" +
+			"10% increased movement speed");
 		}
 		public override void SetDefaults()
 		{
@@ -96,12 +84,9 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
-			player.moveSpeed += 0.10f;
 			player.spikedBoots += 2;
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 20;
+			player.noFallDmg = true;
+			player.moveSpeed += 0.10f;
 		}
 		public override void AddRecipes()
 		{
@@ -120,9 +105,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit Helmet");
-			Tooltip.SetDefault("5% increased hunter damage\n" + 
-			"+20 overheat capacity\n" + 
-			"Improved night vision");
+			Tooltip.SetDefault("25% increased hunter damage\n" + 
+			"Emits light and grants improved night vision\n" +
+			"Infinite breath underwater");
 		}
 		public override void SetDefaults()
 		{
@@ -134,11 +119,11 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
-			player.nightVision = true;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.25f;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 20;
+			mp.visorGlow = true;
+			player.nightVision = true;
+			player.gills = true;
 		}
 		public override void AddRecipes()
 		{

@@ -1340,7 +1340,7 @@ namespace MetroidMod.Items.weapons
 			}
 			
 			
-			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+			/*MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			if(texture != "")
 			{
 				string alt = "";
@@ -1366,12 +1366,13 @@ namespace MetroidMod.Items.weapons
 			{
 				item.width = mi.itemTexture.Width;
 				item.height = mi.itemTexture.Height;
-			}
+			}*/
 		}
 		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			Texture2D tex = Main.itemTexture[item.type];
+			this.setTexture(mi);
 			if(mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;
@@ -1386,12 +1387,41 @@ namespace MetroidMod.Items.weapons
 		{
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			Texture2D tex = Main.itemTexture[item.type];
+			this.setTexture(mi);
 			if(mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;
 			}
 			sb.Draw(tex, position, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 			return false;
+		}
+		void setTexture(MGlobalItem mi)
+		{
+			if(texture != "")
+			{
+				string alt = "";
+				if(MetroidMod.UseAltWeaponTextures)
+				{
+					alt = "_alt";
+				}
+				mi.itemTexture = mod.GetTexture("Items/weapons/textures"+alt+"/"+texture);
+			}
+			else
+			{
+				if(MetroidMod.UseAltWeaponTextures)
+				{
+					mi.itemTexture = ModContent.GetTexture(altTexture);
+				}
+				else
+				{
+					mi.itemTexture = Main.itemTexture[item.type];
+				}
+			}
+			if(mi.itemTexture != null)
+			{
+				item.width = mi.itemTexture.Width;
+				item.height = mi.itemTexture.Height;
+			}
 		}
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

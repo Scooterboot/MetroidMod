@@ -54,6 +54,12 @@ namespace MetroidMod
 			}
 		}
 		
+		internal static Color glowColor(Color getColor)
+		{
+			System.Drawing.Color color = System.Drawing.Color.FromArgb(getColor.R,getColor.G,getColor.B);
+			return MColor.HsvColor((double)color.GetHue(),(double)color.GetSaturation()*0.5f,1.0);
+		}
+		
 		public static readonly PlayerLayer LegsGlow = new PlayerLayer("MetroidMod", "LegsGlow", PlayerLayer.Legs, delegate(PlayerDrawInfo drawInfo)
 		{
 			Mod mod = MetroidMod.Instance;
@@ -62,21 +68,21 @@ namespace MetroidMod
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			
 			Item item = null;
-			if(drawPlayer.armor[2] != null && !drawPlayer.armor[2].IsAir && drawPlayer.armor[2].modItem != null)
+			if(drawPlayer.armor[2] != null && !drawPlayer.armor[2].IsAir)
 			{
 				item = drawPlayer.armor[2];
 			}
-			if(drawPlayer.armor[12] != null && !drawPlayer.armor[12].IsAir && drawPlayer.armor[12].modItem != null)
+			if(drawPlayer.armor[12] != null && !drawPlayer.armor[12].IsAir)
 			{
 				item = drawPlayer.armor[12];
 			}
-			if(item != null)
+			if(item != null && item.modItem != null)
 			{
 				string name = item.modItem.Texture + "_Legs_Glow";
 				if (ModContent.TextureExists(name) && name.Contains("MetroidMod"))
 				{
 					Texture2D tex = ModContent.GetTexture(name);
-					mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.legFrame, drawPlayer.legRotation, drawPlayer.legPosition, drawInfo.legOrigin, drawPlayer.GetImmuneAlphaPure(Color.White,drawInfo.shadow), 0);
+					mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.legFrame, drawPlayer.legRotation, drawPlayer.legPosition, drawInfo.legOrigin, drawPlayer.GetImmuneAlphaPure(glowColor(drawInfo.lowerArmorColor),drawInfo.shadow), drawInfo.legArmorShader);
 				}
 			}
 		});
@@ -88,15 +94,15 @@ namespace MetroidMod
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			
 			Item item = null;
-			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir && drawPlayer.armor[1].modItem != null)
+			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir)
 			{
 				item = drawPlayer.armor[1];
 			}
-			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir && drawPlayer.armor[11].modItem != null)
+			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir)
 			{
 				item = drawPlayer.armor[11];
 			}
-			if(item != null)
+			if(item != null && item.modItem != null)
 			{
 				string name = item.modItem.Texture + "_Body_Glow";
 				string name2 = item.modItem.Texture + "_FemaleBody_Glow";
@@ -113,7 +119,7 @@ namespace MetroidMod
 					}
 					if(tex != null)
 					{
-						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawPlayer.GetImmuneAlphaPure(Color.White,drawInfo.shadow), 0);
+						mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawPlayer.GetImmuneAlphaPure(glowColor(drawInfo.middleArmorColor),drawInfo.shadow), drawInfo.bodyArmorShader);
 					}
 				}
 			}
@@ -126,21 +132,21 @@ namespace MetroidMod
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			
 			Item item = null;
-			if(drawPlayer.armor[0] != null && !drawPlayer.armor[0].IsAir && drawPlayer.armor[0].modItem != null)
+			if(drawPlayer.armor[0] != null && !drawPlayer.armor[0].IsAir)
 			{
 				item = drawPlayer.armor[0];
 			}
-			if(drawPlayer.armor[10] != null && !drawPlayer.armor[10].IsAir && drawPlayer.armor[10].modItem != null)
+			if(drawPlayer.armor[10] != null && !drawPlayer.armor[10].IsAir)
 			{
 				item = drawPlayer.armor[10];
 			}
-			if(item != null)
+			if(item != null && item.modItem != null)
 			{
 				string name = item.modItem.Texture + "_Head_Glow";
 				if (ModContent.TextureExists(name) && name.Contains("MetroidMod"))
 				{
 					Texture2D tex = ModContent.GetTexture(name);
-					mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headOrigin, drawPlayer.GetImmuneAlphaPure(Color.White,drawInfo.shadow), 0);
+					mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headOrigin, drawPlayer.GetImmuneAlphaPure(glowColor(drawInfo.upperArmorColor),drawInfo.shadow), drawInfo.headArmorShader);
 				}
 			}
 		});
@@ -152,21 +158,21 @@ namespace MetroidMod
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			
 			Item item = null;
-			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir && drawPlayer.armor[1].modItem != null)
+			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir)
 			{
 				item = drawPlayer.armor[1];
 			}
-			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir && drawPlayer.armor[11].modItem != null)
+			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir)
 			{
 				item = drawPlayer.armor[11];
 			}
-			if(item != null)
+			if(item != null && item.modItem != null)
 			{
 				string name = item.modItem.Texture + "_Arms_Glow";
 				if (ModContent.TextureExists(name) && name.Contains("MetroidMod"))
 				{
 					Texture2D tex = ModContent.GetTexture(name);
-					mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawPlayer.GetImmuneAlphaPure(Color.White,drawInfo.shadow), 0);
+					mPlayer.DrawTexture(spriteBatch, drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyOrigin, drawPlayer.GetImmuneAlphaPure(glowColor(drawInfo.middleArmorColor),drawInfo.shadow), drawInfo.bodyArmorShader);
 				}
 			}
 		});

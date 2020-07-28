@@ -55,7 +55,7 @@ namespace MetroidMod.NewUI
 			this.Width.Pixels = buttonTex.Width;
 			this.Height.Pixels = buttonTex.Height;
 			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 200;
-			this.Top.Pixels = 240;
+			this.Top.Pixels = 300;
 			
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
@@ -70,7 +70,7 @@ namespace MetroidMod.NewUI
 			}
 			
 			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 200;
-			this.Top.Pixels = 240;
+			this.Top.Pixels = 300;
 			if (!Main.mapFullscreen && Main.mapStyle == 1)
 			{
 				this.Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);

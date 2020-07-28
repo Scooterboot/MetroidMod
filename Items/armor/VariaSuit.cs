@@ -12,10 +12,8 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit Breastplate");
-			Tooltip.SetDefault("5% increased hunter damage\n" +
-			 "+10 overheat capacity\n" +
-			 "Immunity to fire blocks\n" +
-			 "Immunity to chill and freeze effects");
+			Tooltip.SetDefault("+30 overheat capacity\n" +
+			"20% decreased overheat use");
 		}
 		public override void SetDefaults()
 		{
@@ -27,34 +25,25 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
-			player.fireWalk = true;
-			player.buffImmune[BuffID.Chilled] = true;
-			player.buffImmune[BuffID.Frozen] = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 10;
+			mp.maxOverheat += 30;
+			mp.overheatCost -= 0.20f;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			return (head.type == mod.ItemType("VariaSuitHelmet") && body.type == mod.ItemType("VariaSuitBreastplate") && legs.type == mod.ItemType("VariaSuitGreaves"));
 		}
-		public override void UpdateArmorSet(Player p)
+		public override void UpdateArmorSet(Player player)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+			player.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
 						"Double tap a direction (when enabled)" + "\r\n" + 
-						"5% increased hunter damage" + "\r\n" + 
-						"25% decreased overheat use" + "\r\n" + 
-						"55% increased underwater breathing" + "\r\n" + 
-						"Negates fall damage";
-			HunterDamagePlayer.ModPlayer(p).hunterDamageMult += 0.05f;
-			//p.rangedDamage += 0.05f;
-			p.noFallDmg = true;
-			MPlayer mp = p.GetModPlayer<MPlayer>();
-			mp.breathMult = 1.55f;
-			mp.overheatCost -= 0.20f;
+						"Immunity to fire blocks" + "\r\n" + 
+						"Immunity to chill and freeze effects";
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.senseMove = true;
-			mp.visorGlow = true;
+			player.fireWalk = true;
+			player.buffImmune[BuffID.Chilled] = true;
+			player.buffImmune[BuffID.Frozen] = true;
 		}
 		public override void AddRecipes()
 		{
@@ -72,10 +61,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit Greaves");
-			Tooltip.SetDefault("5% increased hunter damage\n" +
-			 "+10 overheat capacity\n" +
-			 "10% increased movement speed\n" +
-			 "Allows you to slide down walls");
+			Tooltip.SetDefault("Allows you to slide down walls\n" +
+			"Negates fall damage\n" +
+			"10% increased movement speed");
 		}
 		public override void SetDefaults()
 		{
@@ -87,12 +75,9 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
-			player.moveSpeed += 0.10f;
 			player.spikedBoots += 1;
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 10;
+			player.noFallDmg = true;
+			player.moveSpeed += 0.10f;
 		}
 		public override void AddRecipes()
 		{
@@ -110,9 +95,9 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit Helmet");
-			Tooltip.SetDefault("5% increased hunter damage\n" + 
-			"+10 overheat capacity\n" + 
-			"Improved night vision");
+			Tooltip.SetDefault("15% increased hunter damage\n" + 
+			"Emits light and grants improved night vision\n" +
+			"55% increased underwater breathing");
 		}
 		public override void SetDefaults()
 		{
@@ -124,11 +109,12 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.05f;
-			//player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.15f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 10;
+			mp.visorGlow = true;
+			mp.breathMult = 1.55f;
+			
 		}
 		public override void AddRecipes()
 		{

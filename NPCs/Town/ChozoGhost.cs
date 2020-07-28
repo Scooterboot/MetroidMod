@@ -255,7 +255,7 @@ namespace MetroidMod.NPCs.Town
 		int tFrameCounter = 0;
 		int rise = 0;
 		int riseNum = -1;
-		public override void PostAI()
+		public override void FindFrame(int frameHeight)
 		{
 			tFrameCounter++;
 			if(tFrameCounter >= 6)
@@ -281,23 +281,26 @@ namespace MetroidMod.NPCs.Town
 				}
 			}
 			
-			int gFrame = (npc.frame.Y / Main.npcTexture[NPCID.Guide].Height) * Main.npcFrameCount[NPCID.Guide];
-			
-			if(gFrame == 16)
+			if(Main.netMode != 2)
 			{
-				frame = 4;
-			}
-			else if(gFrame == 17)
-			{
-				frame = 8;
-			}
-			else if(gFrame >= 21 && gFrame <= 25)
-			{
-				frame = 12;
-			}
-			else
-			{
-				frame = 0;
+				int gFrame = (npc.frame.Y / Main.npcTexture[NPCID.Guide].Height) * Main.npcFrameCount[NPCID.Guide];
+				
+				if(gFrame == 16)
+				{
+					frame = 4;
+				}
+				else if(gFrame == 17)
+				{
+					frame = 8;
+				}
+				else if(gFrame >= 21 && gFrame <= 25)
+				{
+					frame = 12;
+				}
+				else
+				{
+					frame = 0;
+				}
 			}
 		}
 		

@@ -6,7 +6,7 @@ namespace MetroidMod
 {
 	public struct MColor
 	{
-		//void HsvToRgb(double h, double S, double V, out int r, out int g, out int b)
+		// got this from stackoverflow and modified it only a little bit, so excuse the jank
 		public static Color HsvColor(double h, double S, double V)
 		{
 			double H = h;
@@ -94,16 +94,7 @@ namespace MetroidMod
 					break;
 				}
 			}
-			//r = Clamp((int)(R * 255.0));
-			//g = Clamp((int)(G * 255.0));
-			//b = Clamp((int)(B * 255.0));
 			return new Color((int)(R*255),(int)(G*255),(int)(B*255));
 		}
-		/*static int Clamp(int i)
-		{
-			if (i < 0) return 0;
-			if (i > 255) return 255;
-			return i;
-		}*/
 	}
 }

@@ -804,6 +804,7 @@ namespace MetroidMod.NPCs.Torizo
 						{
 							if(npc.ai[1] == 0)
 							{
+								npc.netUpdate = true;
 								if(Main.rand.Next(2) == 0)
 								{
 									npc.ai[1] = -1;
@@ -1135,6 +1136,7 @@ namespace MetroidMod.NPCs.Torizo
 								NPC bomb = Main.npc[NPC.NewNPC((int)bombPos.X,(int)bombPos.Y,mod.NPCType("OrbBomb"),npc.whoAmI)];
 								bomb.Center = bombPos;
 								bomb.velocity = bombVel;
+								bomb.netUpdate = true;
 							}
 						}
 						if(npc.ai[2] == 10 && headFlag)
@@ -1218,6 +1220,7 @@ namespace MetroidMod.NPCs.Torizo
 							}
 							if(anim_Claw >= 9f)
 							{
+								npc.netUpdate = true;
 								if(Main.rand.Next(6) <= npc.ai[2])
 								{
 									npc.ai[1] = 1;
@@ -1241,8 +1244,10 @@ namespace MetroidMod.NPCs.Torizo
 									}
 									Vector2 clawVel = new Vector2(8f*npc.direction,0f);
 									int slash = Projectile.NewProjectile(clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,mod.ProjectileType("TorizoClawBeam"),(int)((float)clawDamage/2f),8f);
+									Main.projectile[slash].netUpdate = true;
 									Main.PlaySound(SoundLoader.customSoundType, (int)clawPos.X, (int)clawPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/TorizoWave"));
 									npc.ai[3] = 0;
+									npc.netUpdate = true;
 								}
 							}
 							else if(anim_Claw <= 2f || (anim_Claw >= 5f && anim_Claw <= 6f))
@@ -1257,6 +1262,7 @@ namespace MetroidMod.NPCs.Torizo
 									{
 										npc.ai[3] = 2;
 									}
+									npc.netUpdate = true;
 								}
 							}
 						}

@@ -246,56 +246,94 @@ namespace MetroidMod.NPCs
 			}
 			
 			n.noGravity = true;
-			if (n.ai[1] == 0f)
+			
+			bool flag2 = false;
+			if(CollideMethods.CheckCollide(n.position,n.width,n.height))
 			{
-				if (n.collideY)
+				flag2 = true;
+				
+				bool flag3 = false;
+				if(!CollideMethods.CheckCollide(n.position+new Vector2(n.width,0f),1,n.height))
 				{
-					if(n.ai[0] < 2f)
-					{
-						n.ai[0] = 2f;
-					}
+					n.direction = 1;
 				}
-				if (!n.collideY && n.ai[0] >= 2f)
+				else if(!CollideMethods.CheckCollide(n.position+new Vector2(-1f,0f),1,n.height))
 				{
-					n.ai[0] += 1f;
-					if(n.ai[0] > 3f)
-					{
-						n.direction = -n.direction;
-						n.ai[1] = 1f;
-						n.ai[0] = 1f;
-					}
+					n.direction = -1;
 				}
-				if (n.collideX)
+				else
 				{
-					directionY = -directionY;
-					n.ai[1] = 1f;
+					n.direction *= -1;
+					flag3 = true;
+				}
+				
+				if(!CollideMethods.CheckCollide(n.position+new Vector2(0f,n.height),n.width,1))
+				{
+					directionY = 1;
+				}
+				else if(CollideMethods.CheckCollide(n.position+new Vector2(0f,-1f),n.width,1) || flag3)
+				{
+					directionY = -1;
+				}
+				else
+				{
+					directionY *= -1;
 				}
 			}
 			else
 			{
-				if (n.collideX)
+				if (n.ai[1] == 0f)
 				{
-					if(n.ai[0] < 2f)
+					if (n.collideY)
 					{
-						n.ai[0] = 2f;
+						if(n.ai[0] < 2f)
+						{
+							n.ai[0] = 2f;
+						}
 					}
-				}
-				if (!n.collideX && n.ai[0] >= 2f)
-				{
-					n.ai[0] += 1f;
-					if(n.ai[0] > 3f)
+					if (!n.collideY && n.ai[0] >= 2f)
+					{
+						n.ai[0] += 1f;
+						if(n.ai[0] > 3f)
+						{
+							n.direction = -n.direction;
+							n.ai[1] = 1f;
+							n.ai[0] = 1f;
+						}
+					}
+					if (n.collideX)
 					{
 						directionY = -directionY;
-						n.ai[1] = 0f;
-						n.ai[0] = 1f;
+						n.ai[1] = 1f;
 					}
 				}
-				if (n.collideY)
+				else
 				{
-					n.direction = -n.direction;
-					n.ai[1] = 0f;
+					if (n.collideX)
+					{
+						if(n.ai[0] < 2f)
+						{
+							n.ai[0] = 2f;
+						}
+					}
+					if (!n.collideX && n.ai[0] >= 2f)
+					{
+						n.ai[0] += 1f;
+						if(n.ai[0] > 3f)
+						{
+							directionY = -directionY;
+							n.ai[1] = 0f;
+							n.ai[0] = 1f;
+						}
+					}
+					if (n.collideY)
+					{
+						n.direction = -n.direction;
+						n.ai[1] = 0f;
+					}
 				}
 			}
+			
 			if (!flag && useRotation)
 			{
 				float bottom_rot = 0f;
@@ -448,6 +486,10 @@ namespace MetroidMod.NPCs
 			}
 			n.velocity.X = speed2 * (float)n.direction;
 			n.velocity.Y = speed2 * (float)directionY;
+			if(flag2)
+			{
+				n.position += n.velocity;
+			}
 		}
 		public void DrawCrawler(NPC n, SpriteBatch sb)
 		{
