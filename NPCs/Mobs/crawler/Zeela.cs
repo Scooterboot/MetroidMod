@@ -15,10 +15,10 @@ namespace MetroidMod.NPCs.Mobs.crawler
 			Main.npcFrameCount[npc.type] = 5;
 		}
 		
-		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return SpawnCondition.UndergroundJungle.Chance;
-		}*/
+			return SpawnCondition.UndergroundJungle.Chance * 0.25f;
+		}
 		
 		private bool spawn = false;
 		private float newScale = -1;

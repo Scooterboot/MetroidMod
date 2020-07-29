@@ -18,10 +18,10 @@ namespace MetroidMod.NPCs.Mobs.hopper
 			Main.npcFrameCount[npc.type] = 3;
 		}
 		
-		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return SpawnCondition.Underground.Chance + SpawnCondition.Cavern.Chance + SpawnCondition.UndergroundJungle.Chance;
-		}*/
+			return SpawnCondition.Underground.Chance * 0.05f + SpawnCondition.Cavern.Chance * 0.15f + SpawnCondition.UndergroundJungle.Chance * 0.12f;
+		}
 		
 		public override void SetDefaults()
 		{

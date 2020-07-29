@@ -19,6 +19,10 @@ namespace MetroidMod.NPCs.Mobs
         {
             Main.npcFrameCount[npc.type] = 4;
         }
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            return SpawnCondition.Underworld.Chance * 0.15f;
+        }
         public override void SetDefaults()
         {
             npc.width = 12; npc.height = 12;
