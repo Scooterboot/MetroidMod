@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -43,6 +44,7 @@ namespace MetroidMod.NPCs
 					n.velocity *= n.scale;
 					n.ai[1] = 0f;
 					n.ai[0] = 1f;
+					n.netUpdate = true;
 				}
 			}
 			else
@@ -71,6 +73,7 @@ namespace MetroidMod.NPCs
 					directionY = -1;
 				}
 				n.ai[2] = 1f;
+				n.netUpdate = true;
 			}
 			
 			float maxFallSpeed = 10f;
@@ -192,24 +195,25 @@ namespace MetroidMod.NPCs
 				{
 					n.spriteDirection = 1;
 				}
+				n.netUpdate = true;
 			}
 			bool flag = false;
-			if (Main.netMode != 1)
-			{
+			//if (Main.netMode != 1)
+			//{
 				if (!n.collideX && !n.collideY)
 				{
 					n.localAI[3] += 1f;
 					if (n.localAI[3] > 5f)
 					{
 						n.ai[3] = 2f;
-						n.netUpdate = true;
+						//n.netUpdate = true;
 					}
 				}
 				else
 				{
 					n.localAI[3] = 0f;
 				}
-			}
+			//}
 			if (n.ai[3] > 0f)
 			{
 				n.ai[1] = 0f;
@@ -504,6 +508,15 @@ namespace MetroidMod.NPCs
 			}
 			
 			sb.Draw(tex, n.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,n.frame.Y*height,tex.Width,height)),color,rotation,new Vector2(tex.Width/2,height/2 - yOffset),n.scale,effects,0f);
+		}
+		
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write((short)directionY);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			directionY = reader.ReadInt16();
 		}
 		
 		

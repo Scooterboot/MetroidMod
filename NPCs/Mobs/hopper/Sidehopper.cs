@@ -145,7 +145,7 @@ namespace MetroidMod.NPCs.Mobs.hopper
 		{
 			if(Main.hardMode)
 			{
-				return SpawnCondition.Underground.Chance*0.25f + SpawnCondition.Cavern.Chance*0.5f + SpawnCondition.UndergroundJungle.Chance;
+				return SpawnCondition.Underground.Chance * 0.05f + SpawnCondition.Cavern.Chance * 0.15f + SpawnCondition.UndergroundJungle.Chance * 0.12f;
 			}
 			return 0f;
 		}

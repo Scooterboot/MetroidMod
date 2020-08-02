@@ -147,7 +147,7 @@ namespace MetroidMod.NPCs.Mobs.hopper
 		{
 			if(Main.hardMode)
 			{
-				return SpawnCondition.Cavern.Chance * 0.25f + SpawnCondition.Underworld.Chance * 0.5f;
+				return (spawnInfo.spawnTileY > WorldGen.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
 			}
 			return 0f;
 		}

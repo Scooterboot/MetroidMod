@@ -135,7 +135,7 @@ namespace MetroidMod.Projectiles.boss
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 			
-			DrawData value9 = new DrawData(mod.GetTexture("Projectiles/MProjectile"), projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, (int)size, (int)size)), new Color(160,128,160), 0f, new Vector2(size / 2, size / 2), new Vector2(1.5f,1f) * projectile.scale, spriteEffects, 0);
+			DrawData value9 = new DrawData(mod.GetTexture("Projectiles/boss/NightmareGravityField_Blank"), projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, (int)size, (int)size)), new Color(160,128,160), 0f, new Vector2(size / 2, size / 2), new Vector2(1.5f,1f) * projectile.scale, spriteEffects, 0);
 			GameShaders.Misc["ForceField"].UseColor(new Vector3(1f));
 			GameShaders.Misc["ForceField"].Apply(new DrawData?(value9));
 			value9.Draw(spriteBatch);

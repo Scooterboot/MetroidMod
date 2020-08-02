@@ -150,7 +150,6 @@ namespace MetroidMod
 		public double Time = 0;
 		public override void ResetEffects()
 		{			
-			speedBoosting = false;
 			isPowerSuit = false;
 			isLegacySuit = false;
 			phazonImmune = false;
@@ -164,7 +163,10 @@ namespace MetroidMod
 			spaceJump = false;
 			spaceJumpBoots = false;
 			speedBooster = false;
+			speedBoosting = false;
+			speedBoostDmg = 0;
 			screwAttack = false;
+			screwAttackDmg = 0;
 			powerGrip = false;
 			senseMove = false;
 
