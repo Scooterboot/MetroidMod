@@ -73,6 +73,7 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 	[AutoloadEquip(EquipType.Legs)]
 	public class LightSuitGreaves : DarkSuitGreaves
@@ -113,6 +114,7 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 	[AutoloadEquip(EquipType.Head)]
 	public class LightSuitHelmet : DarkSuitHelmet
@@ -151,5 +153,6 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 }

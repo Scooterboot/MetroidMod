@@ -83,7 +83,7 @@ namespace MetroidMod.Items.armor
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity Suit Greaves");
+			DisplayName.SetDefault("Terra Gravity Suit Greaves");
 			Tooltip.SetDefault("Allows you to cling to walls\n" +
 			"Negates fall damage\n" +
 			"20% increased movement speed");

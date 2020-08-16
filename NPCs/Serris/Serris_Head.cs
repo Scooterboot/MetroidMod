@@ -12,8 +12,21 @@ using System.IO;
 
 namespace MetroidMod.NPCs.Serris
 {
+	[AutoloadBossHead]
     public class Serris_Head : Serris
 	{
+		public override string BossHeadTexture => Texture + "_Head_Boss_1";
+		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
+
+		public override bool Autoload(ref string name)
+		{
+			for (int k = 1; k <= 7; k++)
+			{
+				mod.AddBossHeadTexture(SerrisHead + k);
+			}
+			return base.Autoload(ref name);
+		}
+		
 		/* ai[3] and localAI[0] cannot be used. The rest is readily available. */
 
 
@@ -39,11 +52,6 @@ namespace MetroidMod.NPCs.Serris
 		int damage = 20;
 		int speedDamage = 35;//60;
 		int coreDamage = 30;
-
-		public override bool Autoload(ref string name)
-		{
-			return (true);
-		}
 
 		public override void SetStaticDefaults()
 		{
@@ -78,9 +86,9 @@ namespace MetroidMod.NPCs.Serris
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			npc.lifeMax = (int)(npc.lifeMax * 0.7f * bossLifeScale) + 51;
-			damage = (int)(damage * 0.7f);
-			speedDamage = (int)(speedDamage * 0.7f);
-			coreDamage = (int)(coreDamage * 0.7f);
+			damage = (int)(damage * 0.7f * Main.expertDamage);
+			speedDamage = (int)(speedDamage * 0.7f * Main.expertDamage);
+			coreDamage = (int)(coreDamage * 0.7f * Main.expertDamage);
 			npc.damage = damage;
 		}
 		
@@ -351,7 +359,7 @@ namespace MetroidMod.NPCs.Serris
 				npc.aiStyle = 5;
 				npc.width = 70;
 				npc.height = 70;
-				npc.damage = 30;
+				npc.damage = coreDamage;
 				npc.HitSound = SoundID.NPCHit1;
 				npc.knockBackResist = 0.5f;
 				
@@ -589,7 +597,7 @@ namespace MetroidMod.NPCs.Serris
 
 		public override void BossHeadSlot(ref int index)
 		{
-			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.SerrisHead + state);
+			index = ModContent.GetModBossHeadSlot(SerrisHead + state);
 		}
 		public override void BossHeadRotation(ref float rotation)
 		{

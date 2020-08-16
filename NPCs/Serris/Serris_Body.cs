@@ -58,6 +58,7 @@ namespace MetroidMod.NPCs.Serris
 		public override void AI()
 		{
 			Update_Worm();
+			npc.damage = head.damage;
 		}
 
 		public override void HitEffect(int hitDirection, double damage)

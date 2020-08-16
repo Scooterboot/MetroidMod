@@ -108,11 +108,14 @@ namespace MetroidMod.Projectiles.missilecombo
 				{
 					Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/NebulaComboSoundStart"));
 					soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/NebulaComboSoundLoop"));
-					soundInstance.Volume = 0f;
+					if(Main.soundVolume > 0f)
+					{
+						soundInstance.Volume = 0f;
+					}
 				}
-				else if(P.numUpdates == 0)
+				else if(P.numUpdates == 0 && Main.soundVolume > 0f)
 				{
-					soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f, 1f);
+					soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f * Main.soundVolume, 1f * Main.soundVolume);
 				}
 			}
 			

@@ -53,6 +53,22 @@ namespace MetroidMod.Items.accessories
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "HiJumpBoots");
+			recipe.AddIngredient(ItemID.SandstorminaBottle);
+			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "HiJumpBoots");
+			recipe.AddIngredient(ItemID.TsunamiInABottle);
+			recipe.AddIngredient(null, "EnergyTank");
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

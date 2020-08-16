@@ -50,11 +50,14 @@ namespace MetroidMod.Projectiles.missilecombo
 					if(soundInstance == null || soundInstance.State != SoundState.Playing)
 					{
 						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/VortexComboSoundLoop"));
-						soundInstance.Volume = 0f;
+						if(Main.soundVolume > 0f)
+						{
+							soundInstance.Volume = 0f;
+						}
 					}
-					else
+					else if(Main.soundVolume > 0f)
 					{
-						soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f, 1f);
+						soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f * Main.soundVolume, 1f * Main.soundVolume);
 					}
 				}
 				P.timeLeft = 2;

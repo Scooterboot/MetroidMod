@@ -66,13 +66,16 @@ namespace MetroidMod.Projectiles.missilecombo
 					{
 						Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SolarComboSoundStart"));
 						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SolarComboSoundLoop"));
-						soundInstance.Volume = 0f;
+						if(Main.soundVolume > 0f)
+						{
+							soundInstance.Volume = 0f;
+						}
 						soundInstance2 = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/NovaLaserLoop"));
 					}
-					else if(P.numUpdates == 0)
+					else if(P.numUpdates == 0 && Main.soundVolume > 0f)
 					{
-						soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f, 0.75f);
-						soundInstance2.Volume = Math.Min(soundInstance2.Volume + 0.05f, 0.75f);
+						soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f * Main.soundVolume, 0.75f * Main.soundVolume);
+						soundInstance2.Volume = Math.Min(soundInstance2.Volume + 0.05f * Main.soundVolume, 0.75f * Main.soundVolume);
 					}
 				}
 				P.velocity = Vector2.Normalize(Lead.velocity);

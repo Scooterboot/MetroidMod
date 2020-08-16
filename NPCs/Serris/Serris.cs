@@ -9,20 +9,15 @@ using static Terraria.ModLoader.ModContent;
 
 namespace MetroidMod.NPCs.Serris
 {
-	public class Serris : ModNPC
+	public abstract class Serris : ModNPC
 	{
 		int bodyLength = 10;
 
 		protected float defSpeed = 8f;
 		protected float defTurnSpeed = .07f;
 
-		public override bool Autoload(ref string name)
-		{
-			return (false);
-		}
-
 		private bool isTileGround(int x, int y) => Main.tile[x, y] != null && (Main.tile[x, y].nactive() && (Main.tileSolid[Main.tile[x, y].type] || Main.tileSolidTop[Main.tile[x, y].type] && Main.tile[x, y].frameY == 0) || Main.tile[x, y].liquid > 64);
-						
+		
 		protected void Update_Worm(bool head = false)
 		{
 			if (!head && npc.timeLeft < 300)

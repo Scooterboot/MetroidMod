@@ -72,6 +72,7 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 	[AutoloadEquip(EquipType.Legs)]
 	public class DarkSuitGreaves : VariaSuitV2Greaves
@@ -112,6 +113,7 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 	[AutoloadEquip(EquipType.Head)]
 	public class DarkSuitHelmet : VariaSuitV2Helmet
@@ -150,5 +152,6 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 }

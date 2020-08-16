@@ -76,6 +76,7 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 	[AutoloadEquip(EquipType.Legs)]
 	public class StardustHazardShieldSuitGreaves : HazardShieldSuitGreaves
@@ -115,6 +116,7 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 	[AutoloadEquip(EquipType.Head)]
 	public class StardustHazardShieldSuitHelmet : HazardShieldSuitHelmet
@@ -152,5 +154,6 @@ namespace MetroidMod.Items.armor
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
+		public override void AddRecipes() {}
 	}
 }

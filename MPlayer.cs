@@ -1665,7 +1665,7 @@ namespace MetroidMod
             if (!drawPlayer.active || drawPlayer.outOfRange || Main.gameMenu) return;
             
 			Texture2D tex = MetroidMod.Instance.GetTexture("Gore/Morphball");
-			Texture2D tex3 = MetroidMod.Instance.GetTexture("Gore/Mockball");
+			Texture2D tex3 = MetroidMod.Instance.GetTexture("Gore/Morphball_Dye");
 			Texture2D boost = MetroidMod.Instance.GetTexture("Gore/Boostball");
             Texture2D tex2 = MetroidMod.Instance.GetTexture("Gore/Morphball_Light");
             Texture2D spiderTex = MetroidMod.Instance.GetTexture("Gore/Spiderball");
@@ -1711,7 +1711,12 @@ namespace MetroidMod
                 else
                     mp.ballrot += ballrotoffset;
 
-                Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, mp.morphColor), 0f);
+                if(Mount.currentShader > 0)
+				{
+					mp.morphColor = Color.White;
+					tex = tex3;
+				}
+				Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, mp.morphColor), 0f);
                 float scale = 0.57f;
                 int offset = 4;
                 if (mp.ballstate && !drawPlayer.dead)
@@ -1746,6 +1751,8 @@ namespace MetroidMod
                     }
 
                     data = new DrawData(tex, thispos, new Rectangle?(new Rectangle(0, ((int)ballDims.Y + offset) * timez, (int)ballDims.X, (int)ballDims.Y)), mColor, mp.ballrot, ballDims / 2, scale, effects, 0);
+					//data.shader = drawPlayer.mount.currentShader;
+					data.shader = Mount.currentShader;
                     Main.playerDrawData.Add(data);
 
                     data = new DrawData(tex2, thispos, new Rectangle?(new Rectangle(0, ((int)ballDims.Y + offset) * timez, (int)ballDims.X, (int)ballDims.Y)), mp.morphColorLights, mp.ballrot, ballDims / 2, scale, effects, 0);
