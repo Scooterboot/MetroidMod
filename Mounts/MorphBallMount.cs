@@ -74,7 +74,7 @@ namespace MetroidMod.Mounts
 					MGlobalItem bombMItem = mBall.ballMods[1].GetGlobalItem<MGlobalItem>();
 					//mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
 					mp.bombDamage = player.GetWeaponDamage(mBall.ballMods[1]);
-					mp.Bomb(player);
+					mp.Bomb(player, bombMItem.bombType);
 				}
 				if(!mBall.ballMods[2].IsAir)
 				{

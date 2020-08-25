@@ -124,7 +124,28 @@ namespace MetroidMod.NPCs
 			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FrozenCore"), 1);
 			}
-		}
+            if (npc.type == NPCID.GoblinSummoner && Main.rand.NextBool(6))
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShadowflameBombAddon"));
+            }
+            if (npc.type == NPCID.Pumpking && Main.pumpkinMoon && NPC.waveNumber >= 7)
+            {
+                int wave = NPC.waveNumber - 6;
+                if (Main.expertMode)
+                {
+                    wave += 5;
+                }
+                int chance = (int)MathHelper.Max(16 - wave, 1);
+                if (Main.rand.NextBool(chance))
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PumpkinBombAddon"));
+                }
+            }
+            if (npc.type == NPCID.DD2Betsy)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BetsyBombAddon"));
+            }
+        }
 	}
 }
 

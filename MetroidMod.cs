@@ -91,7 +91,9 @@ namespace MetroidMod
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid"), ItemType("KraidPhantoonMusicBox"), TileType("KraidPhantoonMusicBox"));
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Ridley"), ItemType("RidleyMusicBox"), TileType("RidleyMusicBox"));
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Torizo"), ItemType("TorizoMusicBox"), TileType("TorizoMusicBox"));
-			}
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Nightmare"), ItemType("NightmareMusicBox"), TileType("NightmareMusicBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/OmegaPirate"), ItemType("OmegaPirateMusicBox"), TileType("OmegaPirateMusicBox"));
+            }
 			for (int s = 1; s <= 7; s++)
 				AddBossHeadTexture(SerrisHead + s);
 			for (int k = 0; k <= 3; k++)

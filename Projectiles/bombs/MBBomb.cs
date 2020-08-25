@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,8 +26,10 @@ namespace MetroidMod.Projectiles.bombs
 
 			projectile.light = 0.2f;
 			projectile.aiStyle = -1;
-			projectile.penetrate = 1;
-			projectile.timeLeft = 40;
+            projectile.penetrate = -1;
+            projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = -1;
+            projectile.timeLeft = 40;
 
 			projectile.ranged = true;
 			projectile.friendly = true;
@@ -39,7 +41,6 @@ namespace MetroidMod.Projectiles.bombs
 
 		public override void AI()
 		{
-			Main.player[projectile.owner].heldProj = projectile.whoAmI;
 			if (projectile.owner == Main.myPlayer && projectile.timeLeft < 4)
 			{
 				projectile.tileCollide = false;
@@ -52,15 +53,15 @@ namespace MetroidMod.Projectiles.bombs
 				projectile.height = 100;
 				projectile.position.X = projectile.position.X - (projectile.width / 2);
 				projectile.position.Y = projectile.position.Y - (projectile.height / 2);
-				projectile.damage = 10;
+                //projectile.damage = 10;
 				projectile.knockBack = 4f;
 			}
 
 			if (projectile.ai[0] == 0)
 			{
-				if (projectile.ai[1]++ > 5)
+				if (projectile.localAI[0]++ > 5)
 				{
-					projectile.ai[1] = 6;
+					projectile.localAI[0] = 6;
 					if (projectile.velocity.Y == 0F && projectile.velocity.X != 0f)
 					{
 						projectile.velocity.X *= .97f;
@@ -183,6 +184,108 @@ namespace MetroidMod.Projectiles.bombs
                     }
                 }
             }
+            if ((int)projectile.ai[1] == 7) //Crystal
+            {
+                for(int i = 0; i < 3; i++)
+                {
+                    Vector2 vel = Main.rand.NextVector2CircularEdge(5f, 5f);
+                    Projectile.NewProjectile(projectile.Center, vel, ProjectileID.CrystalShard, projectile.damage / 2, 1, projectile.owner);
+                }
+            }
 		}
-	}
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            if (projectile.timeLeft > 3)
+            {
+                projectile.timeLeft = 3;
+            }
+
+            switch ((int)projectile.ai[1])
+            {
+                case 1:
+                    target.AddBuff(BuffID.Poisoned, 600);
+                    break;
+                case 2:
+                    target.AddBuff(BuffID.OnFire, 600);
+                    break;
+                case 3:
+                    target.AddBuff(BuffID.Frostburn, 600);
+                    break;
+                case 4:
+                    target.AddBuff(BuffID.CursedInferno, 600);
+                    break;
+                case 5:
+                    target.AddBuff(BuffID.Ichor, 600);
+                    break;
+                case 6:
+                    target.AddBuff(BuffID.ShadowFlame, 600);
+                    break;
+                case 7: //Crystal
+                    break;
+                case 8:
+                    target.AddBuff(BuffID.Venom, 600);
+                    break;
+                case 9:
+                    target.AddBuff(mod.BuffType("PhazonDebuff"), 600);
+                    break;
+                case 10: //Pumpkin Bomb
+                    Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(target.Center) * 8, ProjectileID.FlamingJack, (int)(damage * 1.5f), knockback + 3, projectile.owner, target.whoAmI);
+                    break;
+                case 11:
+                    target.AddBuff(BuffID.BetsysCurse, 600);
+                    target.AddBuff(BuffID.Oiled, 600);
+                    target.AddBuff(BuffID.OnFire, 600);
+                    break;
+                case 12:
+                    target.AddBuff(BuffID.Daybreak, 600);
+                    break;
+            }
+        }
+        public override bool PreDraw(SpriteBatch sb, Color lightColor)
+        {
+            Texture2D tex = Main.projectileTexture[projectile.type];
+            switch ((int)projectile.ai[1])
+            {
+                case 1:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/PoisonBomb");
+                    break;
+                case 2:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/FireBomb");
+                    break;
+                case 3:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/FrostburnBomb");
+                    break;
+                case 4:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/CursedFlameBomb");
+                    break;
+                case 5:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/IchorBomb");
+                    break;
+                case 6:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/ShadowflameBomb");
+                    break;
+                case 7:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/CrystalBomb");
+                    break;
+                case 8:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/VenomBomb");
+                    break;
+                case 9:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/PhazonBomb");
+                    break;
+                case 10:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/PumpkinBomb");
+                    break;
+                case 11:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/BetsyBomb");
+                    break;
+                case 12:
+                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/SolarFireBomb");
+                    break;
+            }
+            Rectangle? rect = new Rectangle?(new Rectangle(0, projectile.frame * (tex.Height / Main.projFrames[projectile.type]), tex.Width, tex.Height / Main.projFrames[projectile.type]));
+            sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), rect, lightColor, projectile.rotation, new Vector2(tex.Width / 2, (tex.Height / Main.projFrames[projectile.type]) / 2), projectile.scale, SpriteEffects.None, 0f);
+            return false;
+        }
+    }
 }
