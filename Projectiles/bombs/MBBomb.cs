@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,10 +26,10 @@ namespace MetroidMod.Projectiles.bombs
 
 			projectile.light = 0.2f;
 			projectile.aiStyle = -1;
-            projectile.penetrate = -1;
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = -1;
-            projectile.timeLeft = 40;
+			projectile.penetrate = -1;
+			projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = 1;
+			projectile.timeLeft = 40;
 
 			projectile.ranged = true;
 			projectile.friendly = true;
@@ -41,27 +41,11 @@ namespace MetroidMod.Projectiles.bombs
 
 		public override void AI()
 		{
-			if (projectile.owner == Main.myPlayer && projectile.timeLeft < 4)
-			{
-				projectile.tileCollide = false;
-				// Set to transparant. This projectile technically lives as transparant for about 3 frames.
-				projectile.alpha = 255;
-				// change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
-				projectile.position.X = projectile.position.X + (projectile.width / 2);
-				projectile.position.Y = projectile.position.Y + (projectile.height / 2);
-				projectile.width = 100;
-				projectile.height = 100;
-				projectile.position.X = projectile.position.X - (projectile.width / 2);
-				projectile.position.Y = projectile.position.Y - (projectile.height / 2);
-                //projectile.damage = 10;
-				projectile.knockBack = 4f;
-			}
-
 			if (projectile.ai[0] == 0)
 			{
-				if (projectile.localAI[0]++ > 5)
+				if (projectile.ai[1]++ > 5)
 				{
-					projectile.localAI[0] = 6;
+					projectile.ai[1] = 6;
 					if (projectile.velocity.Y == 0F && projectile.velocity.X != 0f)
 					{
 						projectile.velocity.X *= .97f;
@@ -82,7 +66,7 @@ namespace MetroidMod.Projectiles.bombs
 			if (projectile.frameCounter++ >= (int)(projectile.timeLeft / 3.75f))
 			{
 				projectile.frame = (projectile.frame + 1) % 6;
-                projectile.frameCounter = 0;
+				projectile.frameCounter = 0;
 			}
 			Lighting.AddLight(projectile.Center, light_scale, light_scale, light_scale);
 			#endregion
@@ -104,60 +88,47 @@ namespace MetroidMod.Projectiles.bombs
 		{
 			projectile.position.X = projectile.position.X + (projectile.width / 2);
 			projectile.position.Y = projectile.position.Y + (projectile.height / 2);
-			projectile.width = 8;
-			projectile.height = 8;
+			projectile.width = (int)(BombRadius*2f);
+			projectile.height = (int)(BombRadius*2f);
 			projectile.position.X = projectile.position.X - (projectile.width / 2);
 			projectile.position.Y = projectile.position.Y - (projectile.height / 2);
-			projectile.active = false;
 
-			Main.PlaySound(SoundLoader.customSoundType, (int)projectile.position.X, (int)projectile.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BombExplode"));
-
-			for (int i = 0; i < 25; i++)
+			projectile.Damage();
+			
+			for (int i = 0; i < 200; ++i)
 			{
-				int newDust = Dust.NewDust(new Vector2(projectile.position.X-BombRadius, projectile.position.Y-BombRadius), projectile.width+(int)BombRadius*2, projectile.height+(int)BombRadius*2, 59, 0f, 0f, 100, default(Color), 5f);
-				Main.dust[newDust].velocity *= 1.4f;
-				Main.dust[newDust].noGravity = true;
+				NPC npc = Main.npc[i];
+				if (npc.active && !npc.friendly && !npc.dontTakeDamage && npc.type != NPCID.TargetDummy && !npc.boss)
+				{
+					Vector2 direction = npc.Center - projectile.Center;
+					float distance = direction.Length();
+					direction.Normalize();
+					if (distance < BombRadius)
+					{
+						npc.velocity += direction * (BombRadius - distance);
 
-                newDust = Dust.NewDust(new Vector2(projectile.position.X-BombRadius, projectile.position.Y-BombRadius), projectile.width+(int)BombRadius*2, projectile.height+(int)BombRadius*2, 61, 0f, 0f, 100, default(Color), 5f);
-				Main.dust[newDust].velocity *= 1.4f;
-				Main.dust[newDust].noGravity = true;
+						if (npc.velocity.X > Xthreshold)
+							npc.velocity.X = Xthreshold;
+						if (npc.velocity.X < -Xthreshold)
+							npc.velocity.X = -Xthreshold;
+						if (npc.velocity.Y > Xthreshold)
+							npc.velocity.Y = Xthreshold;
+						if (npc.velocity.Y < -Xthreshold)
+							npc.velocity.Y = -Xthreshold;
+					}
+				}
 			}
-			Rectangle rect = new Rectangle((int)(projectile.position.X-BombRadius), (int)(projectile.position.Y-BombRadius), (int)(projectile.width+BombRadius*2), (int)(projectile.height+BombRadius*2));
-            
-            for (int i = 0; i < 200; ++i)
-            {
-                NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && !npc.dontTakeDamage && npc.type != NPCID.TargetDummy && !npc.boss)
-                {
-                    Vector2 direction = npc.position - projectile.position;
-                    float distance = direction.Length();
-                    direction.Normalize();
-                    if (distance < BombRadius)
-                    {
-                        npc.velocity += direction * (BombRadius - distance);
 
-                        if (npc.velocity.X > Xthreshold)
-                            npc.velocity.X = Xthreshold;
-                        if (npc.velocity.X < -Xthreshold)
-                            npc.velocity.X = -Xthreshold;
-                        if (npc.velocity.Y > Xthreshold)
-                            npc.velocity.Y = Xthreshold;
-                        if (npc.velocity.Y < -Xthreshold)
-                            npc.velocity.Y = -Xthreshold;
-                    }
-                }
-            }
-
-            for (int i = 0; i < 255; ++i)
-            {
-                Player player = Main.player[i];
-                if (((player.active && player.hostile && player.team != Main.player[projectile.owner].team) || player.whoAmI == projectile.owner) && !player.dead)
-                {
-                    Vector2 direction = player.Center - projectile.Center;
-                    float distance = direction.Length();
-                    direction.Normalize();
-                    if (distance < BombRadius)
-                    {
+			for (int i = 0; i < 255; ++i)
+			{
+				Player player = Main.player[i];
+				if (player.active && ((player.hostile && player.team != Main.player[projectile.owner].team) || player.whoAmI == projectile.owner) && !player.dead)
+				{
+					Vector2 direction = player.Center - projectile.Center;
+					float distance = direction.Length();
+					direction.Normalize();
+					if (distance < BombRadius)
+					{
 						direction *= (BombRadius - distance);
 						if(player.whoAmI == projectile.owner)
 						{
@@ -165,127 +136,264 @@ namespace MetroidMod.Projectiles.bombs
 							{
 								direction.X = 0f;
 							}
-							if(player.Center.Y < projectile.Center.Y+BombRadius)
-							{
-								direction.Y = -BombRadius;
-							}
+							direction.Y = -BombRadius;
 						}
-                        player.velocity += direction;// * (BombRadius - distance);
-                        player.GetModPlayer<MPlayer>().spiderball = false;
+						player.velocity += direction;// * (BombRadius - distance);
+						player.GetModPlayer<MPlayer>().spiderball = false;
 
-                        if (player.velocity.X > Xthreshold)
-                            player.velocity.X = Xthreshold;
-                        if (player.velocity.X < -Xthreshold)
-                            player.velocity.X = -Xthreshold;
-                        if (player.velocity.Y > Xthreshold)
-                            player.velocity.Y = Xthreshold;
-                        if (player.velocity.Y < -Xthreshold)
-                            player.velocity.Y = -Xthreshold;
-                    }
-                }
-            }
-            if ((int)projectile.ai[1] == 7) //Crystal
-            {
-                for(int i = 0; i < 3; i++)
-                {
-                    Vector2 vel = Main.rand.NextVector2CircularEdge(5f, 5f);
-                    Projectile.NewProjectile(projectile.Center, vel, ProjectileID.CrystalShard, projectile.damage / 2, 1, projectile.owner);
-                }
-            }
+						if (player.velocity.X > Xthreshold)
+							player.velocity.X = Xthreshold;
+						if (player.velocity.X < -Xthreshold)
+							player.velocity.X = -Xthreshold;
+						if (player.velocity.Y > Xthreshold)
+							player.velocity.Y = Xthreshold;
+						if (player.velocity.Y < -Xthreshold)
+							player.velocity.Y = -Xthreshold;
+					}
+				}
+			}
+			
+			Main.PlaySound(SoundLoader.customSoundType, (int)projectile.Center.X, (int)projectile.Center.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/BombExplode"));
+
+			int dustType = 59, dustType2 = 61;
+			float dustScale = 5f, dustScale2 = 5f;
+			if(projectile.type == mod.ProjectileType("PoisonBomb"))
+			{
+				dustType = 0;
+				dustScale = 2f;
+			}
+			if(projectile.type == mod.ProjectileType("FireBomb"))
+			{
+				dustType = 6;
+				dustType2 = 6;
+				dustScale2 = 3f;
+			}
+			if(projectile.type == mod.ProjectileType("FrostburnBomb"))
+			{
+				dustType = 135;
+				dustType2 = 135;
+				dustScale2 = 3f;
+			}
+			if(projectile.type == mod.ProjectileType("CursedFlameBomb"))
+			{
+				dustType = 75;
+				dustType2 = 75;
+				dustScale2 = 3f;
+			}
+			if(projectile.type == mod.ProjectileType("IchorBomb"))
+			{
+				dustType = 169;
+				dustType2 = 170;
+				dustScale = 4f;
+				dustScale2 = 2f;
+			}
+			if(projectile.type == mod.ProjectileType("ShadowflameBomb"))
+			{
+				dustType = 62;
+				dustType2 = 27;
+				dustScale2 = 3f;
+			}
+			if(projectile.type == mod.ProjectileType("CrystalBomb"))
+			{
+				dustType = 70;
+				dustScale = 3f;
+				dustType2 = 70;
+				dustScale2 = 2f;
+				
+				int max = 9;
+				float angle = Main.rand.Next(360 / max);
+				for(int i = 0; i < max; i++)
+				{
+					//Vector2 vel = Main.rand.NextVector2CircularEdge(5f, 5f);
+					float rot = (float)Angle.ConvertToRadians(angle + ((360f / max) * i));
+					Vector2 vel = rot.ToRotationVector2() * 10f;
+					Projectile.NewProjectile(projectile.Center, vel, ProjectileID.CrystalShard, projectile.damage / 2, 1, projectile.owner);
+				}
+			}
+			if(projectile.type == mod.ProjectileType("VenomBomb"))
+			{
+				dustType = 171;
+				dustType2 = 205;
+				dustScale = 2.5f;
+				dustScale2 = 2.5f;
+			}
+			if(projectile.type == mod.ProjectileType("PhazonBomb"))
+			{
+				dustType = 68;
+				dustType2 = 68;
+				dustScale = 3f;
+				dustScale2 = 2f;
+			}
+			if(projectile.type == mod.ProjectileType("PumpkinBomb"))
+			{
+				dustType = 6;
+				dustType2 = 6;
+				
+				int max = 3;
+				float angle = Main.rand.Next(360 / max);
+				for(int i = 0; i < max; i++)
+				{
+					float rot = (float)Angle.ConvertToRadians(angle + ((360f / max) * i));
+					Vector2 vel = rot.ToRotationVector2() * 5f;
+					Projectile proj = Main.projectile[Projectile.NewProjectile(projectile.Center, vel, ProjectileID.JackOLantern, projectile.damage / max, projectile.knockBack + 3, projectile.owner)];
+					proj.timeLeft = 60;
+				}
+			}
+			if(projectile.type == mod.ProjectileType("BetsyBomb"))
+			{
+				dustType = 55;
+				dustType2 = 158;
+				dustScale = 3f;
+				dustScale2 = 3f;
+			}
+			if(projectile.type == mod.ProjectileType("SolarFireBomb"))
+			{
+				dustType = 158;
+				dustType2 = 259;
+				dustScale = 4f;
+				dustScale2 = 2f;
+			}
+			
+			for (int i = 0; i < 25; i++)
+			{
+				int newDust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, 0f, 0f, 100, default(Color), dustScale);
+				Main.dust[newDust].velocity *= 1.4f;
+				Main.dust[newDust].noGravity = true;
+
+				newDust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType2, 0f, 0f, 100, default(Color), dustScale2);
+				Main.dust[newDust].velocity *= 1.4f;
+				Main.dust[newDust].noGravity = true;
+			}
 		}
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            if (projectile.timeLeft > 3)
-            {
-                projectile.timeLeft = 3;
-            }
-
-            switch ((int)projectile.ai[1])
-            {
-                case 1:
-                    target.AddBuff(BuffID.Poisoned, 600);
-                    break;
-                case 2:
-                    target.AddBuff(BuffID.OnFire, 600);
-                    break;
-                case 3:
-                    target.AddBuff(BuffID.Frostburn, 600);
-                    break;
-                case 4:
-                    target.AddBuff(BuffID.CursedInferno, 600);
-                    break;
-                case 5:
-                    target.AddBuff(BuffID.Ichor, 600);
-                    break;
-                case 6:
-                    target.AddBuff(BuffID.ShadowFlame, 600);
-                    break;
-                case 7: //Crystal
-                    break;
-                case 8:
-                    target.AddBuff(BuffID.Venom, 600);
-                    break;
-                case 9:
-                    target.AddBuff(mod.BuffType("PhazonDebuff"), 600);
-                    break;
-                case 10: //Pumpkin Bomb
-                    Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(target.Center) * 8, ProjectileID.FlamingJack, (int)(damage * 1.5f), knockback + 3, projectile.owner, target.whoAmI);
-                    break;
-                case 11:
-                    target.AddBuff(BuffID.BetsysCurse, 600);
-                    target.AddBuff(BuffID.Oiled, 600);
-                    target.AddBuff(BuffID.OnFire, 600);
-                    break;
-                case 12:
-                    target.AddBuff(BuffID.Daybreak, 600);
-                    break;
-            }
-        }
-        public override bool PreDraw(SpriteBatch sb, Color lightColor)
-        {
-            Texture2D tex = Main.projectileTexture[projectile.type];
-            switch ((int)projectile.ai[1])
-            {
-                case 1:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/PoisonBomb");
-                    break;
-                case 2:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/FireBomb");
-                    break;
-                case 3:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/FrostburnBomb");
-                    break;
-                case 4:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/CursedFlameBomb");
-                    break;
-                case 5:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/IchorBomb");
-                    break;
-                case 6:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/ShadowflameBomb");
-                    break;
-                case 7:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/CrystalBomb");
-                    break;
-                case 8:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/VenomBomb");
-                    break;
-                case 9:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/PhazonBomb");
-                    break;
-                case 10:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/PumpkinBomb");
-                    break;
-                case 11:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/BetsyBomb");
-                    break;
-                case 12:
-                    tex = ModContent.GetTexture("MetroidMod/Projectiles/bombs/SolarFireBomb");
-                    break;
-            }
-            Rectangle? rect = new Rectangle?(new Rectangle(0, projectile.frame * (tex.Height / Main.projFrames[projectile.type]), tex.Width, tex.Height / Main.projFrames[projectile.type]));
-            sb.Draw(tex, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), rect, lightColor, projectile.rotation, new Vector2(tex.Width / 2, (tex.Height / Main.projFrames[projectile.type]) / 2), projectile.scale, SpriteEffects.None, 0f);
-            return false;
-        }
-    }
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if(projectile.timeLeft > 0)
+			{
+				projectile.timeLeft = 0;
+			}
+			
+			if(projectile.type == mod.ProjectileType("PoisonBomb"))
+				target.AddBuff(BuffID.Poisoned, 600);
+			if(projectile.type == mod.ProjectileType("FireBomb"))
+				target.AddBuff(BuffID.OnFire, 600);
+			if(projectile.type == mod.ProjectileType("FrostburnBomb"))
+				target.AddBuff(BuffID.Frostburn, 600);
+			if(projectile.type == mod.ProjectileType("CursedFlameBomb"))
+				target.AddBuff(BuffID.CursedInferno, 600);
+			if(projectile.type == mod.ProjectileType("IchorBomb"))
+				target.AddBuff(BuffID.Ichor, 600);
+			if(projectile.type == mod.ProjectileType("ShadowflameBomb"))
+				target.AddBuff(BuffID.ShadowFlame, 600);
+			if(projectile.type == mod.ProjectileType("VenomBomb"))
+				target.AddBuff(BuffID.Venom, 600);
+			if(projectile.type == mod.ProjectileType("PhazonBomb"))
+				target.AddBuff(mod.BuffType("PhazonDebuff"), 600);
+			//if(projectile.type == mod.ProjectileType("PumpkinBomb"))
+			//	Projectile.NewProjectile(projectile.Center, projectile.DirectionTo(target.Center) * 8, ProjectileID.FlamingJack, (int)(damage * 1.5f), knockback + 3, projectile.owner, target.whoAmI);
+			if(projectile.type == mod.ProjectileType("BetsyBomb"))
+			{
+				target.AddBuff(BuffID.BetsysCurse, 600);
+				target.AddBuff(BuffID.Oiled, 600);
+				target.AddBuff(BuffID.OnFire, 600);
+			}
+			if(projectile.type == mod.ProjectileType("SolarFireBomb"))
+				target.AddBuff(BuffID.Daybreak, 600);
+		}
+	}
+	public class PoisonBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Poison Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class FireBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Fire Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class FrostburnBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Frostburn Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class CursedFlameBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Cursed Fire Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class IchorBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Ichor Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class ShadowflameBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Shadowflame Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class CrystalBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Crystal Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class VenomBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Venom Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class PhazonBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Phazon Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class PumpkinBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Pumpkin Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class BetsyBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Betsy Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
+	public class SolarFireBomb : MBBomb
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Solar Fire Morph Ball Bomb");
+			Main.projFrames[projectile.type] = 6;
+		}
+	}
 }

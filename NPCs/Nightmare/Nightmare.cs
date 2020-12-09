@@ -11,6 +11,7 @@ using System.IO;
 
 namespace MetroidMod.NPCs.Nightmare
 {
+	[AutoloadBossHead]
     public class Nightmare : ModNPC
     {
 		public override void SetStaticDefaults()
@@ -124,9 +125,15 @@ namespace MetroidMod.NPCs.Nightmare
 			}
 		}
 		
-		public override void BossHeadSlot(ref int index)
+		/*public override void BossHeadSlot(ref int index)
 		{
 			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.NightmareHead);
+		}*/
+		public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
+		{
+			spriteEffects = SpriteEffects.None;
+			if (npc.spriteDirection == 1)
+				spriteEffects = SpriteEffects.FlipHorizontally;
 		}
 		
 		int direction = 1;

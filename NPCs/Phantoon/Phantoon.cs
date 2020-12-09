@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.NPCs.Phantoon
 {
+	[AutoloadBossHead]
     public class Phantoon : ModNPC
     {
 		public override void SetStaticDefaults()
@@ -100,7 +101,7 @@ namespace MetroidMod.NPCs.Phantoon
 		
 		public override void BossHeadSlot(ref int index)
 		{
-			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.PhantoonHead);
+			index = NPCHeadLoader.GetBossHeadSlot(BossHeadTexture);
 			if(npc.alpha > 192)
 			{
 				index = -1;

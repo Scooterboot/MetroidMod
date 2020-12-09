@@ -11,8 +11,21 @@ using System.IO;
 
 namespace MetroidMod.NPCs.Kraid
 {
+	[AutoloadBossHead]
     public class Kraid_Head : ModNPC
     {
+		public override string BossHeadTexture => Texture + "_Head_Boss_1";
+		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
+
+		public override bool Autoload(ref string name)
+		{
+			for (int k = 0; k <= 3; k++)
+			{
+				mod.AddBossHeadTexture(KraidHead + k);
+			}
+			return base.Autoload(ref name);
+		}
+		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Kraid");
@@ -881,7 +894,7 @@ namespace MetroidMod.NPCs.Kraid
 		}
 		public override void BossHeadSlot(ref int index)
 		{
-			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.KraidHead + state);
+			index = NPCHeadLoader.GetBossHeadSlot(KraidHead + state);
 		}
 
 		public override void HitEffect(int hitDirection, double damage)

@@ -845,11 +845,11 @@ namespace MetroidMod.Items.weapons
 					Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 					float MY = Main.mouseY + Main.screenPosition.Y;
 					float MX = Main.mouseX + Main.screenPosition.X;
-					Rectangle mouse = new Rectangle((int)MX - 1, (int)MY - 1, 2, 2);
 					if (player.gravDir == -1f)
 					{
 						MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 					}
+					Rectangle mouse = new Rectangle((int)MX - 1, (int)MY - 1, 2, 2);
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 					Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 					int damage = player.GetWeaponDamage(item);

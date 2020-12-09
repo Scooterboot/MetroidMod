@@ -14,6 +14,7 @@ using System.IO;
 
 namespace MetroidMod.NPCs.OmegaPirate
 {
+	[AutoloadBossHead]
     public class OmegaPirate : ModNPC
     {
 		public override void SetStaticDefaults()
@@ -127,7 +128,7 @@ namespace MetroidMod.NPCs.OmegaPirate
 		
 		public override void BossHeadSlot(ref int index)
 		{
-			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.OmegaPirateHead);
+			index = NPCHeadLoader.GetBossHeadSlot(BossHeadTexture);
 			if(fullAlpha < 0.1f)
 			{
 				index = -1;

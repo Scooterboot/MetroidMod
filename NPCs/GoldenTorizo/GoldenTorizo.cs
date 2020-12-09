@@ -15,8 +15,10 @@ using MetroidMod;
 
 namespace MetroidMod.NPCs.GoldenTorizo
 {
+	[AutoloadBossHead]
     public class GoldenTorizo : ModNPC
     {
+		public override string BossHeadTexture => mod.Name + "/NPCs/GoldenTorizo/GoldenTorizo_Head_Boss";
 		public override string Texture => mod.Name + "/NPCs/GoldenTorizo/GoldenTorizoBody";
 		
 		public override void SetStaticDefaults()
@@ -95,10 +97,10 @@ namespace MetroidMod.NPCs.GoldenTorizo
 			return null;
 		}
 		
-		public override void BossHeadSlot(ref int index)
+		/*public override void BossHeadSlot(ref int index)
 		{
 			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.GoldenTorizoHead);
-		}
+		}*/
 		
 		int _body, _head, _rHand, _lHand;
 		NPC Body => Main.npc[_body];

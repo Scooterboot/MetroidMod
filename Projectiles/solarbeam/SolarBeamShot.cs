@@ -53,7 +53,8 @@ namespace MetroidMod.Projectiles.solarbeam
 			
 			if(projectile.numUpdates == 0 || !projectile.Name.Contains("Stardust"))
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0, 0, 100, default(Color), projectile.scale);
+				int dType = Utils.SelectRandom<int>(Main.rand, new int[] { 6,158 });
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dType, 0, 0, 100, default(Color), projectile.scale);
 				Main.dust[dust].noGravity = true;
 				if(projectile.Name.Contains("Stardust"))
 				{

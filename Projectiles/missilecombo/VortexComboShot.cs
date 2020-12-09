@@ -27,6 +27,7 @@ namespace MetroidMod.Projectiles.missilecombo
 		}
 		
 		bool initialized = false;
+		bool checkbreak = false;
 		int damage = 0;
 		Vector2 velocity = Vector2.Zero;
 		Projectile Lead;
@@ -65,6 +66,8 @@ namespace MetroidMod.Projectiles.missilecombo
 				
 				//P.timeLeft = 60+Main.rand.Next(61);
 				
+				P.ai[1] = -1;
+				
 				initialized = true;
 				return;
 			}
@@ -73,39 +76,85 @@ namespace MetroidMod.Projectiles.missilecombo
 			{
 				P.netUpdate = true;
 				
-				/*P.ai[1] = -1;
+				Vector2 point = Main.MouseWorld;
+				
+				//P.ai[1] = -1;
 				for(int i = 0; i < Main.maxNPCs; i++)
 				{
 					if(Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
+					//if(Main.npc[i].active && Main.npc[i].CanBeChasedBy(P,false))
 					{
 						NPC npc = Main.npc[i];
 						
-						bool flag = (npc.Distance(Main.MouseWorld) < 1000);
+						bool flag = (npc.Distance(point) < 500 && Collision.CanHit(P.position,P.width,P.height,npc.position,npc.width,npc.height));
 						
-						if(P.ai[1] == -1)
+						int numTarget = 0;
+						if(flag)
 						{
-							if(flag)
+							for(int j = 0; j < Main.maxProjectiles; j++)
 							{
-								P.ai[1] = i;
+								if(Main.projectile[j].active && Main.projectile[j].owner == P.owner && Main.projectile[j].type == P.type)
+								{
+									if(Main.projectile[j].ai[1] == i && j != P.whoAmI)
+									{
+										numTarget++;
+									}
+								}
 							}
 						}
-						else
+						if(numTarget < 5)
 						{
-							if(i != P.ai[1] && flag && npc.Distance(Main.MouseWorld) < Main.npc[(int)P.ai[1]].Distance(Main.MouseWorld))
+							if(P.ai[1] == -1)
 							{
-								P.ai[1] = i;
+								if(flag)
+								{
+									P.ai[1] = i;
+								}
 							}
-							
-							if(Main.npc[(int)P.ai[1]].Distance(Main.MouseWorld) > 1000)
+							else
 							{
-								P.ai[1] = -1;
+								if(!checkbreak && i != P.ai[1] && flag && npc.Distance(point) < Main.npc[(int)P.ai[1]].Distance(point))
+								{
+									P.ai[1] = i;
+								}
 							}
 						}
+						else if(P.ai[1] == -1 && Main.rand.Next(2) == 0 && !checkbreak)
+						{
+							P.ai[1] = i;
+						}
+					}
+					if(i >= Main.maxNPCs-1)
+					{
+						checkbreak = true;
 					}
 				}
 				if(P.ai[1] != -1)
 				{
-					Vector2 diff2 = Main.npc[(int)P.ai[1]].Center - P.Center;
+					if(!Main.npc[(int)P.ai[1]].active)
+					{
+						P.ai[1] = -1;
+						checkbreak = false;
+					}
+					else if(Main.npc[(int)P.ai[1]].Distance(point) > 350)
+					{
+						P.ai[1] = -1;
+						checkbreak = false;
+					}
+					else
+					{
+						Vector2 diff2 = Main.npc[(int)P.ai[1]].Center - P.Center;
+						diff2.Normalize();
+						if (float.IsNaN(diff2.X) || float.IsNaN(diff2.Y))
+						{
+							diff2 = -Vector2.UnitY;
+						}
+						velocity = diff2*speed;
+					}
+				}
+				/*else
+				{
+					Vector2 diff2 = Main.MouseWorld - P.Center;
 					diff2.Normalize();
 					if (float.IsNaN(diff2.X) || float.IsNaN(diff2.Y))
 					{
@@ -113,13 +162,6 @@ namespace MetroidMod.Projectiles.missilecombo
 					}
 					velocity = diff2*speed;
 				}*/
-				Vector2 diff2 = Main.MouseWorld - P.Center;
-				diff2.Normalize();
-				if (float.IsNaN(diff2.X) || float.IsNaN(diff2.Y))
-				{
-					diff2 = -Vector2.UnitY;
-				}
-				velocity = diff2*speed;
 			}
 			
 			Vector2 diff = Lead.Center - P.Center;

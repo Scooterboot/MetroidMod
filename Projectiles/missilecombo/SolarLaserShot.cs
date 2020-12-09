@@ -25,6 +25,8 @@ namespace MetroidMod.Projectiles.missilecombo
 			projectile.tileCollide = false;
 			projectile.penetrate = -1;
 			projectile.extraUpdates = 5;
+			projectile.usesLocalNPCImmunity = true;
+       	 	projectile.localNPCHitCooldown = 10*(1+projectile.extraUpdates);
 		}
 		
 		const float Max_Range = 2200f;
@@ -179,7 +181,7 @@ namespace MetroidMod.Projectiles.missilecombo
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.AddBuff(189,600,true);
-			target.immune[projectile.owner] = 4;
+			//target.immune[projectile.owner] = 4;
 		}
 		
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

@@ -47,13 +47,6 @@ namespace MetroidMod
 		internal static ModHotKey SpiderBallKey;
 		internal static ModHotKey BoostBallKey;
 		internal static ModHotKey PowerBombKey;
-		public const string TorizoHead = "MetroidMod/NPCs/Torizo/Torizo_Head_Boss";
-		public const string SerrisHead = "MetroidMod/NPCs/Serris/Serris_Head_Head_Boss_";
-		public const string KraidHead = "MetroidMod/NPCs/Kraid/Kraid_Head_Head_Boss_";
-		public const string PhantoonHead = "MetroidMod/NPCs/Phantoon/Phantoon_Head_Boss";
-		public const string NightmareHead = "MetroidMod/NPCs/Nightmare/Nightmare_Head_Boss";
-		public const string OmegaPirateHead = "MetroidMod/NPCs/OmegaPirate/OmegaPirate_Head_Boss";
-		public const string GoldenTorizoHead = "MetroidMod/NPCs/GoldenTorizo/GoldenTorizo_Head_Boss";
 		public static Mod Instance;
 
 		internal UserInterface pbUserInterface;
@@ -91,19 +84,9 @@ namespace MetroidMod
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Kraid"), ItemType("KraidPhantoonMusicBox"), TileType("KraidPhantoonMusicBox"));
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Ridley"), ItemType("RidleyMusicBox"), TileType("RidleyMusicBox"));
 				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Torizo"), ItemType("TorizoMusicBox"), TileType("TorizoMusicBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Nightmare"), ItemType("NightmareMusicBox"), TileType("NightmareMusicBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/OmegaPirate"), ItemType("OmegaPirateMusicBox"), TileType("OmegaPirateMusicBox"));
-            }
-			for (int s = 1; s <= 7; s++)
-				AddBossHeadTexture(SerrisHead + s);
-			for (int k = 0; k <= 3; k++)
-				AddBossHeadTexture(KraidHead + k);
-
-			AddBossHeadTexture(TorizoHead);
-			AddBossHeadTexture(PhantoonHead);
-			AddBossHeadTexture(NightmareHead);
-			AddBossHeadTexture(OmegaPirateHead);
-			AddBossHeadTexture(GoldenTorizoHead);
+				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Nightmare"), ItemType("NightmareMusicBox"), TileType("NightmareMusicBox"));
+				AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/OmegaPirate"), ItemType("OmegaPirateMusicBox"), TileType("OmegaPirateMusicBox"));
+			}
 
 			SetupUI();
 		}
@@ -152,45 +135,51 @@ namespace MetroidMod
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedTorizo)), mod.ItemType("TorizoSummon"),
 				new List<int>(){mod.ItemType("TorizoTrophy"),mod.ItemType("TorizoMask"), mod.ItemType("TorizoMusicBox")},
 				new List<int>(){mod.ItemType("EnergyShard"),mod.ItemType("TorizoBag")},
-				"Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.");
+				"Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.",
+				null,"MetroidMod/NPCs/Torizo/Torizo_BossLog");
 				
 				bossChecklist.Call("AddBoss", 5.1f,
 				new List<int>(){mod.NPCType("Serris_Head"),mod.NPCType("Serris_Body"),mod.NPCType("Serris_Tail")}, this, "Serris",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedSerris)), mod.ItemType("SerrisSummon"),
 				new List<int>(){mod.ItemType("SerrisTrophy"),mod.ItemType("SerrisMask"), mod.ItemType("SerrisMusicBox")},
 				new List<int>(){mod.ItemType("SerrisCoreX"),mod.ItemType("SerrisBag")},
-				"Summoning item can only be used at the Ocean.");
+				"Summoning item can only be used at the Ocean.", null, "MetroidMod/NPCs/Serris/Serris_BossLog");
 				
 				bossChecklist.Call("AddBoss", 6.1f,
 				new List<int>(){mod.NPCType("Kraid_Head"),mod.NPCType("Kraid_Body"),mod.NPCType("Kraid_ArmBack"),mod.NPCType("Kraid_ArmFront")}, this, "Kraid",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedKraid)), mod.ItemType("KraidSummon"),
 				new List<int>(){mod.ItemType("KraidTrophy"),mod.ItemType("KraidMask"), mod.ItemType("KraidPhantoonMusicBox")},
-				new List<int>(){mod.ItemType("KraidTissue"),mod.ItemType("UnknownPlasmaBeam"),mod.ItemType("KraidBag")});
+				new List<int>(){mod.ItemType("KraidTissue"),mod.ItemType("UnknownPlasmaBeam"),mod.ItemType("KraidBag")},
+				null, null, "MetroidMod/NPCs/Kraid/Kraid_BossLog");
 				
 				bossChecklist.Call("AddBoss", 6.9f,
 				mod.NPCType("Phantoon"), this, "Phantoon",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedPhantoon)), mod.ItemType("PhantoonSummon"),
 				new List<int>(){mod.ItemType("PhantoonTrophy"),mod.ItemType("PhantoonMask"), mod.ItemType("KraidPhantoonMusicBox")},
-				new List<int>(){mod.ItemType("GravityGel"),mod.ItemType("PhantoonBag")});
+				new List<int>(){mod.ItemType("GravityGel"),mod.ItemType("PhantoonBag")},
+				"Summoning item can only be used at night.", null, "MetroidMod/NPCs/Phantoon/Phantoon");
 				
 				bossChecklist.Call("AddBoss", 11f,
 				new List<int>(){mod.NPCType("Nightmare"),mod.NPCType("Nightmare_Body"),mod.NPCType("Nightmare_ArmBack"),mod.NPCType("Nightmare_ArmFront")}, this, "Nightmare",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedNightmare)), mod.ItemType("NightmareSummon"),
 				null,//new List<int>(){mod.ItemType("NightmareTrophy"),mod.ItemType("NightmareMask"), mod.ItemType("NightmareMusicBox")},
-				new List<int>(){mod.ItemType("NightmareCoreX"),mod.ItemType("NightmareCoreXFragment"),mod.ItemType("NightmareBag")});
+				new List<int>(){mod.ItemType("NightmareCoreX"),mod.ItemType("NightmareCoreXFragment"),mod.ItemType("NightmareBag")},
+				"Summoning item can only be used at night.", null, "MetroidMod/NPCs/Nightmare/Nightmare_BossLog");
 				
 				bossChecklist.Call("AddBoss", 11f,
 				new List<int>(){mod.NPCType("OmegaPirate"),mod.NPCType("OmegaPirate_HitBox")}, this, "Omega Pirate",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate)), mod.ItemType("OmegaPirateSummon"),
 				null,//new List<int>(){mod.ItemType("OmegaPirateTrophy"),mod.ItemType("OmegaPirateMask"), mod.ItemType("OmegaPirateMusicBox")},
-				new List<int>(){mod.ItemType("PurePhazon"),mod.ItemType("OmegaPirateBag")});
+				new List<int>(){mod.ItemType("PurePhazon"),mod.ItemType("OmegaPirateBag")},
+				null,null,"MetroidMod/NPCs/OmegaPirate/OmegaPirate_BossLog");
 				
 				bossChecklist.Call("AddBoss", 12f,
 				new List<int>(){mod.NPCType("GoldenTorizo"),mod.NPCType("GoldenTorizo_HitBox")}, this, "Golden Torizo",
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo)), mod.ItemType("GoldenTorizoSummon"),
 				new List<int>(){/*mod.ItemType("GoldenTorizoTrophy"),mod.ItemType("GoldenTorizoMask"),*/ mod.ItemType("TorizoMusicBox")},
 				new List<int>(){mod.ItemType("ScrewAttack"),mod.ItemType("GoldenTorizoBag")},
-				"Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.");
+				"Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.",
+				null,"MetroidMod/NPCs/GoldenTorizo/GoldenTorizo_BossLog");
 			}
 		}
 
@@ -374,10 +363,10 @@ namespace MetroidMod
 			
 			if(item.type == mod.ItemType("MissileLauncher"))
 			{
+				tRot += 0.05f;
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 				if(mi.numSeekerTargets > 0)
 				{
-					tRot += 0.05f;
 					for(int i = 0; i < mi.seekerTarget.Length; i++)
 					{
 						if(mi.seekerTarget[i] > -1)
@@ -408,6 +397,28 @@ namespace MetroidMod
 								int yFrame = height*frame;
 								sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
 							}
+						}
+					}
+				}
+				
+				for(int i = 0; i < Main.maxNPCs; i++)
+				{
+					if(Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)// && !Main.npc[i].immortal)
+					{
+						bool flag = false;
+						for(int j = 0; j < Main.maxProjectiles; j++)
+						{
+							if(Main.projectile[j].active && Main.projectile[j].type == mod.ProjectileType("VortexComboShot") && Main.projectile[j].owner == P.whoAmI && Main.projectile[j].ai[1] == i)
+							{
+								flag = true;
+							}
+						}
+						if(flag)
+						{
+							NPC npc = Main.npc[i];
+							Texture2D tTex = mod.GetTexture("Gore/Targeting_retical_Vortex");
+							Color color = new Color(255, 255, 255, 10);
+							sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tTex.Width, tTex.Height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)tTex.Height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
 						}
 					}
 				}

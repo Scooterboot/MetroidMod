@@ -26,6 +26,8 @@ namespace MetroidMod.Projectiles.missilecombo
 			projectile.penetrate = -1;
 			projectile.tileCollide = false;
 			projectile.extraUpdates = 1;
+			projectile.usesLocalNPCImmunity = true;
+       	 	projectile.localNPCHitCooldown = 10;
 		}
 		
 		bool initialize = false;
@@ -107,7 +109,7 @@ namespace MetroidMod.Projectiles.missilecombo
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.immune[projectile.owner] = 4;
+			//target.immune[projectile.owner] = 4;
 			target.AddBuff(24,600,true);
 		}
 		

@@ -61,17 +61,15 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddon");
-			recipe.AddIngredient(ItemID.DemoniteBar, 5);
-			recipe.AddIngredient(ItemID.ShadowScale, 1);
+			recipe.AddIngredient(ItemID.DemoniteBar, 12);
+			recipe.AddIngredient(ItemID.ShadowScale, 6);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddon");
-			recipe.AddIngredient(ItemID.CrimtaneBar, 5);
-			recipe.AddIngredient(ItemID.TissueSample, 1);
+			recipe.AddIngredient(ItemID.CrimtaneBar, 12);
+			recipe.AddIngredient(ItemID.TissueSample, 6);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -97,8 +95,7 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMk2");
-			recipe.AddIngredient(ItemID.HellstoneBar, 5);
+			recipe.AddIngredient(ItemID.HellstoneBar, 20);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -124,15 +121,13 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMk3");
-			recipe.AddIngredient(ItemID.CobaltBar, 5);
+			recipe.AddIngredient(ItemID.CobaltBar, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMk3");
-			recipe.AddIngredient(ItemID.PalladiumBar, 5);
+			recipe.AddIngredient(ItemID.PalladiumBar, 18);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -158,15 +153,13 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMkHM1");
-			recipe.AddIngredient(ItemID.MythrilBar, 5);
+			recipe.AddIngredient(ItemID.MythrilBar, 15);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMkHM1");
-			recipe.AddIngredient(ItemID.OrichalcumBar, 5);
+			recipe.AddIngredient(ItemID.OrichalcumBar, 18);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -191,15 +184,13 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMkHM2");
-			recipe.AddIngredient(ItemID.AdamantiteBar, 5);
+			recipe.AddIngredient(ItemID.AdamantiteBar, 18);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMkHM2");
-			recipe.AddIngredient(ItemID.TitaniumBar, 5);
+			recipe.AddIngredient(ItemID.TitaniumBar, 20);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
@@ -225,8 +216,7 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddonMkHM3");
-			recipe.AddIngredient(ItemID.HallowedBar, 5);
+			recipe.AddIngredient(ItemID.HallowedBar, 18);
 			recipe.AddIngredient(ItemID.SoulofMight);
 			recipe.AddIngredient(ItemID.SoulofSight);
 			recipe.AddIngredient(ItemID.SoulofFright);
@@ -255,7 +245,6 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddon_Hallowed");
 			recipe.AddIngredient(ItemID.LihzahrdBrick, 50);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
@@ -281,8 +270,29 @@ namespace MetroidMod.Items.balladdons.Drills
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DrillAddon_Lihzahrd");
-			recipe.AddIngredient(ItemID.LunarBar, 5);
+			recipe.AddIngredient(ItemID.LunarBar, 10);
+			recipe.AddIngredient(ItemID.FragmentNebula, 12);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.LunarBar, 10);
+			recipe.AddIngredient(ItemID.FragmentSolar, 12);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.LunarBar, 10);
+			recipe.AddIngredient(ItemID.FragmentStardust, 12);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+			
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.LunarBar, 10);
+			recipe.AddIngredient(ItemID.FragmentVortex, 12);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
