@@ -34,19 +34,17 @@ namespace MetroidMod.Items.balladdons
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.MythrilBar, 8);
+			recipe.AddIngredient(ItemID.CobaltBar, 8);
 			recipe.AddIngredient(ItemID.Emerald);
-			recipe.AddIngredient(ItemID.UnicornHorn);
-			recipe.AddIngredient(ItemID.SoulofLight, 5);
+			recipe.AddIngredient(ItemID.SpiderFang, 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 			
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.OrichalcumBar, 8);
+			recipe.AddIngredient(ItemID.PalladiumBar, 8);
 			recipe.AddIngredient(ItemID.Emerald);
-			recipe.AddIngredient(ItemID.UnicornHorn);
-			recipe.AddIngredient(ItemID.SoulofLight, 5);
+			recipe.AddIngredient(ItemID.SpiderFang, 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

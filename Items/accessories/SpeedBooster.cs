@@ -45,18 +45,9 @@ namespace MetroidMod.Items.accessories
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "SerrisCoreX");
-			recipe.AddIngredient(ItemID.HermesBoots);
+			recipe.AddIngredient(ItemID.HellstoneBar, 5);
 			recipe.AddIngredient(ItemID.Emerald, 1);
-			recipe.AddIngredient(ItemID.JungleSpores, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-			
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "SerrisCoreX");
-			recipe.AddIngredient(ItemID.FlurryBoots);
-			recipe.AddIngredient(ItemID.Emerald, 1);
-			recipe.AddIngredient(ItemID.JungleSpores, 10);
+			recipe.AddIngredient(ItemID.JungleSpores, 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

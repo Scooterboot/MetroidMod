@@ -130,7 +130,9 @@ namespace MetroidMod.NPCs.Torizo
 						{
 							velocity *= (6f/velocity.Length());
 						}
-						Projectile part = Projectile.NewProjectileDirect(ePos,velocity,mod.ProjectileType("Torizo_EnergyParticle"),0,0f,255,npc.Center.X,npc.Center.Y);
+						int part = Projectile.NewProjectile(ePos,velocity,mod.ProjectileType("Torizo_EnergyParticle"),0,0f,255,npc.Center.X,npc.Center.Y);
+						Main.projectile[part].ai[0] = npc.Center.X;
+						Main.projectile[part].ai[1] = npc.Center.Y;
 					}
 					
 					npc.ai[1] = 1;

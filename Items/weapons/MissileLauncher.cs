@@ -75,15 +75,6 @@ namespace MetroidMod.Items.weapons
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 10);
 			recipe.AddIngredient(null, "EnergyTank", 1);
-			recipe.AddIngredient(ItemID.Musket, 1);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-			
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 10);
-			recipe.AddIngredient(null, "EnergyTank", 1);
-			recipe.AddIngredient(ItemID.TheUndertaker, 1);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

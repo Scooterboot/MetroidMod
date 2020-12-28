@@ -37,8 +37,8 @@ namespace MetroidMod.Items.missileaddons
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteBar", 8);
 			recipe.AddIngredient(ItemID.IceBlock, 25);
-            recipe.AddIngredient(ItemID.Bone, 10);
-            recipe.AddIngredient(ItemID.Sapphire);
+			recipe.AddIngredient(ItemID.Bone, 10);
+			recipe.AddIngredient(ItemID.Sapphire);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

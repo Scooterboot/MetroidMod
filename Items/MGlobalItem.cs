@@ -26,7 +26,7 @@ namespace MetroidMod.Items
 		
 		public int ballSlotType = -1;
 		public int bombDamage = -1;
-        public int bombType = -1;
+		public int bombType = -1;
 		public int drillPower = -1;
 		public int powerBombType = -1;
 

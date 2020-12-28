@@ -31,12 +31,11 @@ namespace MetroidMod.Items.boss
 		{
 			player.QuickSpawnItem(mod.ItemType("NightmareCoreX"));
 			player.QuickSpawnItem(mod.ItemType("NightmareCoreXFragment"), Main.rand.Next(15, 25));
-            if (Main.rand.Next(2) == 0)
-            {
-                player.QuickSpawnItem(mod.ItemType("NightmareMusicBox"));
-            }
-            /*
-			if (Main.rand.Next(3) == 0)
+			if (Main.rand.Next(2) == 0)
+			{
+				player.QuickSpawnItem(mod.ItemType("NightmareMusicBox"));
+			}
+			/*if (Main.rand.Next(3) == 0)
 			{
 				player.QuickSpawnItem(mod.ItemType("NightmareMask"));
 			}
@@ -44,7 +43,7 @@ namespace MetroidMod.Items.boss
 			{
 				player.QuickSpawnItem(mod.ItemType("NightmareTrophy"));
 			}*/
-        }
+		}
 	}
 }
 

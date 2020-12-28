@@ -233,8 +233,6 @@ namespace MetroidMod
 		{
 			Mod mod = MetroidMod.Instance;
 			
-			bool randomItem = false;
-			
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].wall];
 			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35);
 			if (WorldGen.dEnteranceX < Main.maxTilesX/2)
@@ -253,31 +251,42 @@ namespace MetroidMod
 			}
 			else
 			{
-				randomItem = true;
-			}
-			
-			if(randomItem)
-			{
-				int rand = WorldGen.genRand.Next(9);
-				if (rand == 1 || rand == 2)
+				int baseX = Main.maxTilesX / 2;
+				int baseY = (int)WorldGen.rockLayer;
+				float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX/2)) + (Math.Max(j - baseY,0) / (Main.maxTilesY-WorldGen.rockLayer))) / 2;
+				
+				int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist),5));
+				if(rand < 5)
 				{
-					item = (ushort)mod.TileType("ChargeBeamTile");
+					item = (ushort)mod.TileType("SpiderBallTile");
 				}
-				else if (rand == 3)
+				else if(rand < 10)
 				{
-					item = (ushort)mod.TileType("WaveBeamTile");
+					item = (ushort)mod.TileType("XRayScopeTile");
 				}
-				else if (rand == 4 || rand == 5)
+				else if(rand < 20)
 				{
 					item = (ushort)mod.TileType("HiJumpBootsTile");
 				}
-				else if (rand == 6)
+				else if(rand < 30)
+				{
+					item = (ushort)mod.TileType("BoostBallTile");
+				}
+				else if(rand < 40)
+				{
+					item = (ushort)mod.TileType("WaveBeamTile");
+				}
+				else if(rand < 50)
 				{
 					item = (ushort)mod.TileType("BombTile");
 				}
-				else if (rand == 7)
+				else if(rand < 60)
 				{
-					item = (ushort)mod.TileType("BoostBallTile");
+					item = (ushort)mod.TileType("ChargeBeamTile");
+				}
+				else
+				{
+					item = (ushort)mod.TileType("MorphBallTile");
 				}
 			}
 			return item;

@@ -28,12 +28,11 @@ namespace MetroidMod.Items.boss
 		public override void OpenBossBag(Player player)
 		{
 			player.QuickSpawnItem(mod.ItemType("PurePhazon"), Main.rand.Next(30, 41));
-            if (Main.rand.Next(2) == 0)
-            {
-                player.QuickSpawnItem(mod.ItemType("OmegaPirateMusicBox"));
-            }
-            /*
-			if (Main.rand.Next(3) == 0)
+			if (Main.rand.Next(2) == 0)
+			{
+				player.QuickSpawnItem(mod.ItemType("OmegaPirateMusicBox"));
+			}
+			/*if (Main.rand.Next(3) == 0)
 			{
 				player.QuickSpawnItem(mod.ItemType("OmegaPirateMask"));
 			}
@@ -41,7 +40,7 @@ namespace MetroidMod.Items.boss
 			{
 				player.QuickSpawnItem(mod.ItemType("OmegaPirateTrophy"));
 			}*/
-        }
+		}
 	}
 }
 
