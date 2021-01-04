@@ -13,7 +13,8 @@ namespace MetroidMod.Buffs
 		{
 			DisplayName.SetDefault("Morph Ball");
 			Description.SetDefault("Because you apparently can't crawl");
-			
+
+			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
