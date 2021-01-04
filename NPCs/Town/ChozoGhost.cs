@@ -1,69 +1,62 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+#region Using directives
+
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using Terraria.Localization;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+#endregion
 
 namespace MetroidMod.NPCs.Town
 {
 	[AutoloadHead]
 	public class ChozoGhost : ModNPC
 	{
-		public override bool Autoload(ref string name)
-		{
-			name = "ChozoGhost";
-			return mod.Properties.Autoload;
-		}
-
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[npc.type] = 16;
+
 			NPCID.Sets.ExtraFramesCount[npc.type] = 9;
 			NPCID.Sets.AttackFrameCount[npc.type] = 4;
 			NPCID.Sets.DangerDetectRange[npc.type] = 700;
+
 			NPCID.Sets.AttackType[npc.type] = 0;
 			NPCID.Sets.AttackTime[npc.type] = 90;
 			NPCID.Sets.AttackAverageChance[npc.type] = 30;
+
 			NPCID.Sets.HatOffsetY[npc.type] = 4;
 		}
 
 		public override void SetDefaults()
-		{
-			npc.townNPC = true;
-			npc.friendly = true;
+		{			
 			npc.width = 18;
 			npc.height = 40;
-			npc.aiStyle = 7;
+
 			npc.damage = 10;
 			npc.defense = 15;
 			npc.lifeMax = 250;
-			//npc.dontTakeDamage = true;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath1;
 			npc.knockBackResist = 0f;
+
+			npc.townNPC = true;
+			npc.friendly = true;
+
+			npc.aiStyle = 7;
 			animationType = NPCID.Guide;
+
+			npc.HitSound = SoundID.NPCHit1;
+			npc.DeathSound = SoundID.NPCDeath1;			
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
-		{
-			return MWorld.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
-		}
-
-		public override bool CheckConditions(int left, int right, int top, int bottom)
-		{
-			return true;
-		}
+			=> MWorld.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
 
 		public override string TownNPCName()
 		{
-			switch (WorldGen.genRand.Next(5))
+			switch (Main.rand.Next(5))
 			{
 				case 1:
 					return "Old Bird";
@@ -82,9 +75,9 @@ namespace MetroidMod.NPCs.Town
 		{
 			WeightedRandom<string> chat = new WeightedRandom<string>();
 			
-			chat.Add("Greetings, "+Main.player[Main.myPlayer].name+"! How may I aid you?");
+			chat.Add("Greetings, " + Main.LocalPlayer.name + "! How may I aid you?");
 			chat.Add("Please, do not be frightened by my appearance. I may be a ghost, but I am not evil.");
-			chat.Add("We may look different, but inside... we have the same 'heart' as you.");
+			chat.Add("We may look different, but inside... We have the same 'heart' as you.");
 			//chat.Add("Be cautious of my brethren in our ancient ruins, for they may put your mettle to the test.");
 
 			int wdoctor = NPC.FindFirstNPC(NPCID.WitchDoctor);
@@ -257,15 +250,10 @@ namespace MetroidMod.NPCs.Town
 		int riseNum = -1;
 		public override void FindFrame(int frameHeight)
 		{
-			tFrameCounter++;
-			if(tFrameCounter >= 6)
+			if(++tFrameCounter >= 6)
 			{
-				tFrame++;
 				tFrameCounter = 0;
-			}
-			if(tFrame >= 4)
-			{
-				tFrame = 0;
+				tFrame = (tFrame + 1) % 4;
 			}
 			
 			if((tFrame == 0 || tFrame == 2) && tFrameCounter == 0)
@@ -281,8 +269,11 @@ namespace MetroidMod.NPCs.Town
 				}
 			}
 			
-			if(Main.netMode != 2)
+			if(!Main.dedServ)
 			{
+				// 'Loading' the NPC to make sure its texture is properly populated in the Main.npcTexture array.
+				Main.instance.LoadNPC(NPCID.Guide);
+
 				int gFrame = (npc.frame.Y / Main.npcTexture[NPCID.Guide].Height) * Main.npcFrameCount[NPCID.Guide];
 				
 				if(gFrame == 16)
@@ -302,21 +293,21 @@ namespace MetroidMod.NPCs.Town
 					frame = 0;
 				}
 			}
+
+			npc.spriteDirection = npc.direction;
 		}
 		
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			npc.spriteDirection = npc.direction;
-			SpriteEffects spriteEffects = SpriteEffects.None;
-			if(npc.direction == 1)
-			{
-				spriteEffects = SpriteEffects.FlipHorizontally;
-			}
 			Texture2D tex = Main.npcTexture[npc.type];
-			int height = tex.Height / Main.npcFrameCount[npc.type];
-			int cFrame = frame + tFrame;
-			sb.Draw(tex, new Vector2((int)(npc.Center.X - Main.screenPosition.X),(int)(npc.Center.Y + (rise-4) - Main.screenPosition.Y)),new Rectangle?(new Rectangle(0,height*cFrame,tex.Width,height)),npc.GetAlpha(Color.White),npc.rotation,new Vector2(tex.Width/2,height/2),npc.scale,spriteEffects,0f);
-			return false;
+
+			SpriteEffects spriteEffects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			Rectangle drawFrame = tex.Frame(1, Main.npcFrameCount[npc.type], 0, frame + tFrame);
+			Vector2 origin = drawFrame.Size() / 2;
+
+			sb.Draw(tex, new Vector2((int)(npc.Center.X - Main.screenPosition.X), (int)(npc.Center.Y + (rise - 4) - Main.screenPosition.Y)), drawFrame, npc.GetAlpha(Color.White), npc.rotation, origin, npc.scale, spriteEffects, 0f);
+			
+			return (false);
 		}
 	}
 }
