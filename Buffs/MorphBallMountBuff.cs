@@ -1,7 +1,9 @@
-using Microsoft.Xna.Framework;
+#region Using directives
+
 using Terraria;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
+
+#endregion
 
 namespace MetroidMod.Buffs
 {
@@ -11,14 +13,14 @@ namespace MetroidMod.Buffs
 		{
 			DisplayName.SetDefault("Morph Ball");
 			Description.SetDefault("Because you apparently can't crawl");
-			Main.buffNoTimeDisplay[Type] = true;
+			
 			Main.buffNoSave[Type] = true;
-			Main.debuff[Type] = true;
+			Main.buffNoTimeDisplay[Type] = true;
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.mount.SetMount(MountType<Mounts.MorphBallMount>(), player);
+			player.mount.SetMount(ModContent.MountType<Mounts.MorphBallMount>(), player);
 			player.buffTime[buffIndex] = 10;
 		}
 	}
