@@ -57,8 +57,8 @@ namespace MetroidMod
 			bossesDown = (MetroidBossDown)downed;
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
 			
-			TorizoRoomLocation.X = tag.GetAsInt("TorizoRoomLocation.X");
-			TorizoRoomLocation.Y = tag.GetAsInt("TorizoRoomLocation.Y");
+			TorizoRoomLocation.X = tag.Get<int>("TorizoRoomLocation.X");
+			TorizoRoomLocation.Y = tag.Get<int>("TorizoRoomLocation.Y");
 		}
 
 		public override void LoadLegacy(BinaryReader reader)
