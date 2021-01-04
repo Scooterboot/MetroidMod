@@ -1,5 +1,8 @@
 ﻿[Oo]bj
 [Bb]in
+
+.vs/
+
 *.user
 *.suo
 *.[Cc]ache
