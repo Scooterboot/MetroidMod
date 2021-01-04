@@ -1,18 +1,13 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿[Oo]bj
+[Bb]in
 
-/Terraria-Metroidmod_TmodLoader.csproj
-/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-/Metroid Mod.csproj.user
-/Metroid Mod.csproj
-/.vs/Metroid Mod/v14/.suo
+.vs/
+
+*.user
+*.suo
+*.[Cc]ache
 *.bak
-*.cache
-/Metroid Mod.sln
-.vs*
-/obj/Debug/net45
-/obj
-/Properties
-/MetroidMod.csproj
-/MetroidMod.sln
+*.ncb
+*.log
+*.DS_Store
+[Tt]humbs.db
