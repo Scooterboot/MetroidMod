@@ -3191,7 +3191,7 @@ namespace MetroidMod
 				{
 					p.poundRelease = false;
 				}
-				if (Main.tile[Player.tileTargetX, Player.tileTargetY].active())
+				if (Main.tile[Player.tileTargetX, Player.tileTargetY].active() && Main.tile[Player.tileTargetX, Player.tileTargetY].type != 26)
 				{
 					if (cooldownbomb == 0 && Main.mouseLeft)
 					{
