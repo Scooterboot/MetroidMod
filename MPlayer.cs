@@ -1105,7 +1105,7 @@ namespace MetroidMod
 				player.velocity.Y -= num3;
 			}
 			
-			if(player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount"))
+			if(player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount") && player.grappling[0] == -1)
 			{
 				//temporarily trick the game into thinking the player isn't on a mount so that the player can use their original move speed and jump height
 				player.mount._active = false;
