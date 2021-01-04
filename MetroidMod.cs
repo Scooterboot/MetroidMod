@@ -72,6 +72,8 @@ namespace MetroidMod
 		{
 			Instance = this;
 
+			ItemIL.Load();
+
 			FrozenStandOnNPCs = new int[] { this.NPCType("Ripper") };
 
 			SpiderBallKey = RegisterHotKey("Spider Ball", "X");
