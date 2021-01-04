@@ -256,27 +256,27 @@ namespace MetroidMod
 				float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX/2)) + (Math.Max(j - baseY,0) / (Main.maxTilesY-WorldGen.rockLayer))) / 2;
 				
 				int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist),5));
-				if(rand < 5)
+				if(rand < 1)
 				{
 					item = (ushort)mod.TileType("SpiderBallTile");
 				}
-				else if(rand < 10)
+				else if(rand < 3)
 				{
 					item = (ushort)mod.TileType("XRayScopeTile");
 				}
-				else if(rand < 20)
+				else if(rand < 8)
 				{
 					item = (ushort)mod.TileType("HiJumpBootsTile");
 				}
-				else if(rand < 30)
+				else if(rand < 13)
 				{
 					item = (ushort)mod.TileType("BoostBallTile");
 				}
-				else if(rand < 40)
+				else if(rand < 25)
 				{
 					item = (ushort)mod.TileType("WaveBeamTile");
 				}
-				else if(rand < 50)
+				else if(rand < 40)
 				{
 					item = (ushort)mod.TileType("BombTile");
 				}
@@ -351,9 +351,13 @@ namespace MetroidMod
 							{
 								for (int wy = k - 4; wy < k; wy++)
 								{
-									WorldGen.KillWall(wx, wy);
 									WorldGen.KillTile(wx, wy);
-									WorldGen.PlaceWall(wx, wy, 5);
+									
+									if(WorldGen.genRand.Next(4) > 0)
+									{
+										WorldGen.KillWall(wx, wy);
+										WorldGen.PlaceWall(wx, wy, WallID.Cave4Unsafe);
+									}
 								}
 							}
 							for (int tx = i - 2; tx < i + 5; tx++)
@@ -567,7 +571,7 @@ namespace MetroidMod
 		}
 		private static void ChozoRuins_Temple(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			Hatch(x, y+height-8);
 			Hatch(x+width-4, y+height-8);
@@ -617,7 +621,7 @@ namespace MetroidMod
 		}
 		private static void ChozoRuins_FirstShaft(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			VerticalHatch(x+width/2-2, y);
 			
@@ -703,7 +707,7 @@ namespace MetroidMod
 		}
 		private static void ChozoRuins_MorphHall(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			Mod mod = MetroidMod.Instance;
 			
@@ -767,7 +771,7 @@ namespace MetroidMod
 		{
 			Mod mod = MetroidMod.Instance;
 			
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			for(int i = 0; i < 20; i++)
 			{
@@ -826,7 +830,7 @@ namespace MetroidMod
 		}
 		private static void ChozoRuins_SecondShaft(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			for(int j = 11; j < height - 5; j += 5)
 			{
@@ -924,7 +928,7 @@ namespace MetroidMod
 			
 			int width = 36;
 			int height = 16;
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			for(int i = 0; i < 4; i++)
 			{
@@ -977,7 +981,7 @@ namespace MetroidMod
 		}
 		private static void ChozoRuins_BossRoom(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			int stepsX = x+4;
 			if(dir == -1)
@@ -1035,7 +1039,7 @@ namespace MetroidMod
 		
 		private static void ChozoRuins_ChestRoom(int x, int y, int width, int height, int itemType)
 		{
-			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick);
+			BasicStructure(x,y,width,height,4,TileID.SandstoneBrick,WallID.SandstoneBrick,1);
 			
 			for(int j = 0; j < 2; j++)
 			{
@@ -1065,7 +1069,7 @@ namespace MetroidMod
 			}
 		}
 		
-		private static void BasicStructure(int x, int y, int width, int height, int thickness, int tileType, int wallType)
+		private static void BasicStructure(int x, int y, int width, int height, int thickness, int tileType, int wallType, int ruinedWallType = 0, int ruinedWallRand = 6)
 		{
 			int thick = thickness;
 			if(thick < 1)
@@ -1076,10 +1080,20 @@ namespace MetroidMod
 			{
 				for(int j = 0; j < height; j++)
 				{
-					if(i > 0 && i < width-1 && j > 0 && j < height-1)
+					int wallType2 = wallType;
+					int rand = WorldGen.genRand.Next(ruinedWallRand);
+					if(rand == 0 && ruinedWallType >= 1)
+					{
+						wallType2 = -1;
+					}
+					if(rand == 1 && ruinedWallType >= 2)
+					{
+						wallType2 = 0;
+					}
+					if(i > 0 && i < width-1 && j > 0 && j < height-1 && wallType2 >= 0)
 					{
 						WorldGen.KillWall(x + i, y + j);
-						WorldGen.PlaceWall(x + i, y + j, wallType);
+						WorldGen.PlaceWall(x + i, y + j, wallType2);
 					}
 					DestroyChest(x + i, y + j);
 					WorldGen.KillTile(x + i, y + j);
