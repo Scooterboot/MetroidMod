@@ -39,6 +39,10 @@ namespace MetroidMod.NPCs.GoldenTorizo
 		{
 			return false;
 		}
+		public override bool CheckConditions(int left, int right, int top, int bottom)
+		{
+			return false;
+		}
 		
 		Vector2 sAttackPos = new Vector2(32,-31);
 		int sAttackFrame = 0;
@@ -104,40 +108,31 @@ namespace MetroidMod.NPCs.GoldenTorizo
 				if(npc.ai[1] <= 0)
 				{
 					Vector2 ePos = npc.Center + new Vector2(sAttackPos.X*npc.direction,sAttackPos.Y);
-					for (int i = 0; i < 10; i++)
+					if(Main.netMode != 2)
 					{
-						Dust dust = Dust.NewDustDirect(ePos-new Vector2(16,16), 32, 32, 57, 0f, 0f, 100, default(Color), 3f);
-						dust.velocity *= 1.4f;
-						dust.noGravity = true;
-						dust = Dust.NewDustDirect(ePos-new Vector2(16,16), 32, 32, 30, 0f, 0f, 100, default(Color), 3f);
-						dust.velocity *= 1.4f;
-						dust.noGravity = true;
-					}
-					for(int i = 1; i <= 4; i++)
-					{
-						Vector2 velocity = new Vector2(-Main.rand.Next(31),-Main.rand.Next(31)) * 0.2f * 0.4f;
-						if(i % 2 == 0)
+						for (int i = 0; i < 10; i++)
 						{
-							velocity.X *= -1;
+							Dust dust = Dust.NewDustDirect(ePos-new Vector2(16,16), 32, 32, 57, 0f, 0f, 100, default(Color), 3f);
+							dust.velocity *= 1.4f;
+							dust.noGravity = true;
+							dust = Dust.NewDustDirect(ePos-new Vector2(16,16), 32, 32, 30, 0f, 0f, 100, default(Color), 3f);
+							dust.velocity *= 1.4f;
+							dust.noGravity = true;
 						}
-						Gore gore = Gore.NewGoreDirect(ePos, velocity, mod.GetGoreSlot("Gores/TorizoETankGore" + i));
-						gore.velocity.X = velocity.X;
-						gore.timeLeft = 60;
+						for(int i = 1; i <= 4; i++)
+						{
+							Vector2 velocity = new Vector2(-Main.rand.Next(31),-Main.rand.Next(31)) * 0.2f * 0.4f;
+							if(i % 2 == 0)
+							{
+								velocity.X *= -1;
+							}
+							Gore gore = Gore.NewGoreDirect(ePos, velocity, mod.GetGoreSlot("Gores/TorizoETankGore" + i));
+							gore.velocity.X = velocity.X;
+							gore.timeLeft = 60;
+						}
+						Main.PlaySound(2,(int)ePos.X,(int)ePos.Y,14);
 					}
-					Main.PlaySound(2,(int)ePos.X,(int)ePos.Y,14);
 					drawSAttack = false;
-					
-					/*for(int i = 0; i < 6; i++)
-					{
-						Vector2 velocity = new Vector2(Main.rand.Next(12)*npc.direction,-Main.rand.Next(12));
-						if(velocity.Length() < 6f)
-						{
-							velocity *= (6f/velocity.Length());
-						}
-						Projectile part = Projectile.NewProjectileDirect(ePos,velocity,mod.ProjectileType("Torizo_EnergyParticle"),0,0f);
-						part.ai[0] = npc.Center.X;
-						part.ai[1] = npc.Center.Y;
-					}*/
 					
 					npc.ai[1] = 1;
 				}
@@ -153,36 +148,39 @@ namespace MetroidMod.NPCs.GoldenTorizo
 			}
 			if(npc.ai[0] == 2)
 			{
-				for(int i = 9; i >= 0; i--)
+				if(Main.netMode != 2)
 				{
-					Vector2 gPos = npc.Center + gorePos[i];
-					byte goreFrame = 0;
-					if(npc.direction == -1)
+					for(int i = 9; i >= 0; i--)
 					{
-						gPos.X = npc.Center.X - gorePos[i].X;
-						goreFrame = 1;
+						Vector2 gPos = npc.Center + gorePos[i];
+						byte goreFrame = 0;
+						if(npc.direction == -1)
+						{
+							gPos.X = npc.Center.X - gorePos[i].X;
+							goreFrame = 1;
+						}
+						Vector2 velocity = new Vector2(gPos.X-npc.Center.X,gPos.Y-(npc.position.Y+npc.height))*0.02f;
+						
+						int type = mod.GetGoreSlot("Gores/TorizoStatueGore" + (1+i));
+						gPos.X -= Main.goreTexture[type].Width / 2;
+						gPos.Y -= Main.goreTexture[type].Height / 4;
+						Gore gore = Gore.NewGorePerfect(gPos, velocity, type);
+						gore.numFrames = 2;
+						gore.frame = goreFrame;
+						gore.timeLeft = 60;
+						int stype = 0;
+						if(i % 2 == 0)
+						{
+							stype = 21;
+						}
+						Main.PlaySound(stype, (int)gPos.X, (int)gPos.Y, 1, 1f, 0f);
 					}
-					Vector2 velocity = new Vector2(gPos.X-npc.Center.X,gPos.Y-(npc.position.Y+npc.height))*0.02f;
-					
-					int type = mod.GetGoreSlot("Gores/TorizoStatueGore" + (1+i));
-					gPos.X -= Main.goreTexture[type].Width / 2;
-					gPos.Y -= Main.goreTexture[type].Height / 4;
-					Gore gore = Gore.NewGorePerfect(gPos, velocity, type);
-					gore.numFrames = 2;
-					gore.frame = goreFrame;
-					gore.timeLeft = 60;
-					int stype = 0;
-					if(i % 2 == 0)
+					for(int i = 0; i < 35; i++)
 					{
-						stype = 21;
+						Dust dust = Main.dust[Dust.NewDust(npc.position-new Vector2(8,8), npc.width+16, npc.height+16, 30, 0f, 0f, 100, default(Color), 2.5f)];
+						dust.velocity *= 1.4f;
+						dust.noGravity = true;
 					}
-					Main.PlaySound(stype, (int)gPos.X, (int)gPos.Y, 1, 1f, 0f);
-				}
-				for(int i = 0; i < 35; i++)
-				{
-					Dust dust = Main.dust[Dust.NewDust(npc.position-new Vector2(8,8), npc.width+16, npc.height+16, 30, 0f, 0f, 100, default(Color), 2.5f)];
-					dust.velocity *= 1.4f;
-					dust.noGravity = true;
 				}
 				
 				if (!NPC.AnyNPCs(mod.NPCType("GoldenTorizo")))

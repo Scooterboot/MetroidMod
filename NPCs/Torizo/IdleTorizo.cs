@@ -41,6 +41,10 @@ namespace MetroidMod.NPCs.Torizo
 		{
 			return false;
 		}
+		public override bool CheckConditions(int left, int right, int top, int bottom)
+		{
+			return false;
+		}
 		
 		Vector2 eTankPos = new Vector2(32,-32);
 		int eTankFrame = 0;
