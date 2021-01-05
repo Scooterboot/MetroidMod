@@ -1,10 +1,12 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+#region Using directives
 
-using Terraria.ModLoader;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+using Microsoft.Xna.Framework;
+
+#endregion
 
 namespace MetroidMod.Tiles
 {
@@ -13,14 +15,16 @@ namespace MetroidMod.Tiles
 		public override void SetDefaults()
 		{
 			Main.tileSolid[Type] = true;
-			Main.tileMergeDirt[Type] = true;
-			Main.tileMerge[Type][mod.TileType("PhazonCore")] = true;
-			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = true;
-			soundType = 21;
+			Main.tileMergeDirt[Type] = true;
+			Main.tileBlockLight[Type] = true;
+			Main.tileMerge[Type][ModContent.TileType<PhazonCore>()] = true;
+			
 			dustType = 68;
 			minPick = 1000;//215;
-			drop = mod.ItemType("Phazon");
+			soundType = SoundID.Tink;
+			drop = ModContent.ItemType<Items.tiles.Phazon>();
+
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Phazon");
 			AddMapEntry(new Color(85, 223, 255), name);

@@ -1,8 +1,14 @@
+#region Using directives
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
+
+using MetroidMod.Common.Worlds;
+
+#endregion
 
 namespace MetroidMod.Items.tiles
 {
@@ -37,7 +43,7 @@ namespace MetroidMod.Items.tiles
                 {
                     MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] = 1;
                     player.ConsumeItem(item.type);
-                    Main.PlaySound(0, pos);
+                    Main.PlaySound(SoundID.Dig, pos);
                 }
             }
             return base.UseItem(player);

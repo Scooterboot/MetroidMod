@@ -54,7 +54,7 @@ namespace MetroidMod.NPCs.GoldenTorizo
 		public override void AI()
 		{
 			npc.GivenName = "";
-			Rectangle room = MWorld.TorizoRoomLocation;
+			Rectangle room = Common.Worlds.MWorld.TorizoRoomLocation;
 			if(room.X > 0 && room.Y > 0)
 			{
 				Vector2 pos = new Vector2(room.X+8,room.Y+room.Height-4);
