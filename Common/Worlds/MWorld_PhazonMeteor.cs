@@ -88,8 +88,11 @@ namespace MetroidMod.Common.Worlds
 							break;
 						}
 
-						generateSuccessful = TryGeneratePhazonMeteor(genX, genY);
-						break;
+						if(TryGeneratePhazonMeteor(genX, genY))
+						{
+							generateSuccessful = true;
+							break;
+						}
 					}
 					genY++;
 				}
@@ -98,8 +101,11 @@ namespace MetroidMod.Common.Worlds
 					return;
 				}
 			}
-
-			spawnedPhazonMeteor = generateSuccessful;
+			
+			if(generateSuccessful)
+			{
+				spawnedPhazonMeteor = true;
+			}
 		}
 
 		public static bool TryGeneratePhazonMeteor(int genX, int genY)
@@ -188,7 +194,7 @@ namespace MetroidMod.Common.Worlds
 			// Placement of Phazon Core tiles.
 			GeneratePhazonChunkAt(genX, genY + 4, WorldGen.genRand.Next(4, 6), (x, y, margin) =>
 			{
-				if (y > genY + Main.rand.Next(-2, 3) - 9 && (Math.Abs(genX - x) + Math.Abs(genY - 4 - y)) < margin * 1.5 + Main.rand.Next(-5, 5))
+				if (y > genY + Main.rand.Next(-2, 3) - 5 && (Math.Abs(genX - x) + Math.Abs(genY - y)) < margin * 1.5 + Main.rand.Next(-5, 5))
 				{
 					if (!Main.tileSolid[Main.tile[x, y].type])
 					{

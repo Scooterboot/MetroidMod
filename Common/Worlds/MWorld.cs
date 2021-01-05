@@ -1143,13 +1143,19 @@ namespace MetroidMod.Common.Worlds
 			}
 		}
 
+		int meteorSpawnAttempt = 0;
 		int spawnCounter = 0;
 		int spawnCounter2 = 0;
 		public override void PostUpdate()
 		{
-			if(Main.hardMode && NPC.downedPlantBoss && !spawnedPhazonMeteor)
+			if(Main.hardMode && NPC.downedPlantBoss && !spawnedPhazonMeteor && meteorSpawnAttempt <= 0)
 			{
 				DropPhazonMeteor();
+				meteorSpawnAttempt = 3600;
+			}
+			if(meteorSpawnAttempt > 0 && !spawnedPhazonMeteor)
+			{
+				meteorSpawnAttempt--;
 			}
 			
 			if(!bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(mod.NPCType("Torizo")) && !NPC.AnyNPCs(mod.NPCType("IdleTorizo")) && TorizoRoomLocation.X > 0 && TorizoRoomLocation.Y > 0)
