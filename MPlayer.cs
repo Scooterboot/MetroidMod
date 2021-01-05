@@ -437,6 +437,10 @@ namespace MetroidMod
 					player.lifeRegen += phazonRegen;
 				}
 			}
+			if(TouchTiles(player.position, player.width, player.height, mod.TileType("PhazonCore")))
+			{
+				player.AddBuff(mod.BuffType("PhazonDebuff"), 2);
+			}
 
             if (hazardShield)
 		    {
@@ -822,7 +826,7 @@ namespace MetroidMod
 					float maxMaxDist = 400;
 					Vector2 v = player.Center - projectile.Center;
 					float dist = Vector2.Distance(player.Center, projectile.Center);
-					bool up = (player.controlUp);
+					bool up = (player.controlUp && maxDist > 3);
 					bool down = (player.controlDown && maxDist < maxMaxDist);
 					float reelSpeed = 11f;
 					if (player.honeyWet && !player.ignoreWater)
@@ -845,7 +849,7 @@ namespace MetroidMod
 						float reel = 0f;
 						if(up)
 						{
-							reel = Math.Max(-reelSpeed,-dist);
+							reel = Math.Max(-reelSpeed,2-dist);
 							maxDist = Math.Min(dist,maxMaxDist);
 						}
 						if(down)
