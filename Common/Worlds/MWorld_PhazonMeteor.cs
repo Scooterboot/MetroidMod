@@ -41,26 +41,6 @@ namespace MetroidMod.Common.Worlds
 				return;
 			}
 
-			// Check to see if there's not too much Phazon already in the world.
-			// This might be unnecessary/obsolete.
-			int countedAmountOfPhazon = 0;
-			int allowedAmountOfPhazon = (int)(400f * (Main.maxTilesX / 4200f));
-			for (int x = 40; x < Main.maxTilesX - 40; x++)
-			{
-				int y = 5;
-				while (y < Main.worldSurface)
-				{
-					if (Main.tile[x, y].active() && Main.tile[x, y].type == ModContent.TileType<Tiles.PhazonTile>())
-					{
-						if (++countedAmountOfPhazon > allowedAmountOfPhazon)
-						{
-							return;
-						}
-					}
-					y++;
-				}
-			}
-
 			// Check to get a valid position for the generation of a Phazon Meteorite.
 			// There's a certain solid tile treshold (starting at 600, stopping at 100, cancelling the generation), which needs to be met
 			// Before the meteorite is allowed to generate.
