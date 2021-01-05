@@ -6,6 +6,8 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 
+using MetroidMod.Common.Worlds;
+
 namespace MetroidMod.Items
 {
 	public class MGlobalItem : GlobalItem

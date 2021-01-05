@@ -1,19 +1,23 @@
+#region Using directives
+
+using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System;
+
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.World.Generation;
-using Microsoft.Xna.Framework;
-using Terraria.GameContent.Generation;
 using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
+using Terraria.Localization;
+using Terraria.World.Generation;
+using Terraria.GameContent.Generation;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidMod
+#endregion
+
+namespace MetroidMod.Common.Worlds
 {
 	[Flags]
 	public enum MetroidBossDown
@@ -28,10 +32,9 @@ namespace MetroidMod
 		downedGoldenTorizo = 1<<6
 	}
 
-    public class MWorld : ModWorld
+    public partial class MWorld : ModWorld
     {
 		public static MetroidBossDown bossesDown;
-		public static bool spawnedPhazonMeteor = false;
 		public static Rectangle TorizoRoomLocation = new Rectangle(0,0,80,40);
 		
         public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
@@ -1197,299 +1200,6 @@ namespace MetroidMod
 			{
 				spawnCounter2 = 300;
 			}
-		}
-		public static void AddPhazon() 
-		{
-			Mod mod = MetroidMod.Instance;
-			int lX = 200;
-			int hX = Main.maxTilesX-200;
-			int lY = (int)Main.worldSurface;
-			int hY = Main.maxTilesY-200;
-			int minSpread = 5;
-			int maxSpread = 8;
-			int minFrequency = 5;
-			int maxFrequency = 8;
-			WorldGen.OreRunner(WorldGen.genRand.Next(lX,hX), WorldGen.genRand.Next(lY,hY), (double)WorldGen.genRand.Next(minSpread,maxSpread+1), WorldGen.genRand.Next(minFrequency,maxFrequency+1), (ushort)mod.TileType("PhazonTile"));
-		}
-		public static void DropPhazonMeteor()
-		{
-			Mod mod = MetroidMod.Instance;
-			bool flag = false;//true;
-			if (Main.netMode == 1)
-			{
-				return;
-			}
-			/*for (int i = 0; i < 255; i++)
-			{
-				if (Main.player[i].active)
-				{
-					flag = false;
-					break;
-				}
-			}*/
-			int num = 0;
-			float num2 = (float)(Main.maxTilesX / 4200);
-			int num3 = (int)(400f * num2);
-			for (int j = 5; j < Main.maxTilesX - 5; j++)
-			{
-				int num4 = 5;
-				while ((double)num4 < Main.worldSurface)
-				{
-					if (Main.tile[j, num4].active() && Main.tile[j, num4].type == mod.TileType("PhazonTile"))
-					{
-						num++;
-						if (num > num3)
-						{
-							return;
-						}
-					}
-					num4++;
-				}
-			}
-			float num5 = 600f;
-			while (!flag)
-			{
-				float num6 = (float)Main.maxTilesX * 0.08f;
-				int num7 = Main.rand.Next(150, Main.maxTilesX - 150);
-				while ((float)num7 > (float)Main.spawnTileX - num6 && (float)num7 < (float)Main.spawnTileX + num6)
-				{
-					num7 = Main.rand.Next(150, Main.maxTilesX - 150);
-				}
-				int k = (int)(Main.worldSurface * 0.3);
-				while (k < Main.maxTilesY)
-				{
-					if (Main.tile[num7, k].active() && Main.tileSolid[(int)Main.tile[num7, k].type])
-					{
-						int num8 = 0;
-						int num9 = 15;
-						for (int l = num7 - num9; l < num7 + num9; l++)
-						{
-							for (int m = k - num9; m < k + num9; m++)
-							{
-								if (WorldGen.SolidTile(l, m))
-								{
-									num8++;
-									if (Main.tile[l, m].type == 189 || Main.tile[l, m].type == 202)
-									{
-										num8 -= 100;
-									}
-								}
-								else if (Main.tile[l, m].liquid > 0)
-								{
-									num8--;
-								}
-							}
-						}
-						if ((float)num8 < num5)
-						{
-							num5 -= 0.5f;
-							break;
-						}
-						flag = phazonMeteor(num7, k);
-						if (flag)
-						{
-							break;
-						}
-						break;
-					}
-					else
-					{
-						k++;
-					}
-				}
-				if (num5 < 100f)
-				{
-					return;
-				}
-			}
-			spawnedPhazonMeteor = flag;
-		}
-		public static bool phazonMeteor(int i, int j)
-		{
-			Mod mod = MetroidMod.Instance;
-			if (i < 50 || i > Main.maxTilesX - 50)
-			{
-				return false;
-			}
-			if (j < 50 || j > Main.maxTilesY - 50)
-			{
-				return false;
-			}
-			int num = 35;
-			Rectangle rectangle = new Rectangle((i - num) * 16, (j - num) * 16, num * 2 * 16, num * 2 * 16);
-			for (int k = 0; k < 255; k++)
-			{
-				if (Main.player[k].active)
-				{
-					Rectangle value = new Rectangle((int)(Main.player[k].position.X + (float)(Main.player[k].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[k].position.Y + (float)(Main.player[k].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
-					if (rectangle.Intersects(value))
-					{
-						return false;
-					}
-				}
-			}
-			for (int l = 0; l < 200; l++)
-			{
-				if (Main.npc[l].active)
-				{
-					Rectangle value2 = new Rectangle((int)Main.npc[l].position.X, (int)Main.npc[l].position.Y, Main.npc[l].width, Main.npc[l].height);
-					if (rectangle.Intersects(value2))
-					{
-						return false;
-					}
-				}
-			}
-			for (int m = i - num; m < i + num; m++)
-			{
-				for (int n = j - num; n < j + num; n++)
-				{
-					if (Main.tile[m, n].active() && TileID.Sets.BasicChest[(int)Main.tile[m, n].type])
-					{
-						return false;
-					}
-				}
-			}
-			//WorldGen.stopDrops = true;
-			num = WorldGen.genRand.Next(17, 23);
-			for (int num2 = i - num; num2 < i + num; num2++)
-			{
-				for (int num3 = j - num; num3 < j + num; num3++)
-				{
-					if (num3 > j + Main.rand.Next(-2, 3) - 5)
-					{
-						float arg_226_0 = (float)Math.Abs(i - num2);
-						float num4 = (float)Math.Abs(j - num3);
-						if ((double)((float)Math.Sqrt((double)(arg_226_0 * arg_226_0 + num4 * num4))) < (double)num * 0.9 + (double)Main.rand.Next(-4, 5))
-						{
-							if (!Main.tileSolid[(int)Main.tile[num2, num3].type])
-							{
-								Main.tile[num2, num3].active(false);
-							}
-							Main.tile[num2, num3].type = (ushort)mod.TileType("PhazonTile");
-						}
-					}
-				}
-			}
-			num = WorldGen.genRand.Next(8, 14);
-			for (int num5 = i - num; num5 < i + num; num5++)
-			{
-				for (int num6 = j - num; num6 < j + num; num6++)
-				{
-					if (num6 > j + Main.rand.Next(-2, 3) - 4)
-					{
-						float arg_301_0 = (float)Math.Abs(i - num5);
-						float num7 = (float)Math.Abs(j - num6);
-						if ((double)((float)Math.Sqrt((double)(arg_301_0 * arg_301_0 + num7 * num7))) < (double)num * 0.8 + (double)Main.rand.Next(-3, 4))
-						{
-							Main.tile[num5, num6].active(false);
-						}
-					}
-				}
-			}
-			
-			num = WorldGen.genRand.Next(4, 6);
-			for (int num4 = i - num; num4 < i + num; num4++)
-			{
-				for (int num5 = j + 4 - num; num5 < j + 4 + num; num5++)
-				{
-					if (num5 > j + Main.rand.Next(-2, 3) - 5 && (double)(Math.Abs(i - num4) + Math.Abs(j - num5)) < (double)num * 1.5 + (double)Main.rand.Next(-5, 5))
-					{
-						if (!Main.tileSolid[(int)Main.tile[num4, num5].type])
-						{
-							Main.tile[num4, num5].active(false);
-						}
-						WorldGen.PlaceTile(num4, num5, mod.TileType("PhazonCore"), true, false, -1, 0);
-						WorldGen.SquareTileFrame(num4, num5, true);
-					}
-				}
-			}
-			
-			num = WorldGen.genRand.Next(25, 35);
-			for (int num8 = i - num; num8 < i + num; num8++)
-			{
-				for (int num9 = j - num; num9 < j + num; num9++)
-				{
-					float arg_398_0 = (float)Math.Abs(i - num8);
-					float num10 = (float)Math.Abs(j - num9);
-					if ((double)((float)Math.Sqrt((double)(arg_398_0 * arg_398_0 + num10 * num10))) < (double)num * 0.7)
-					{
-						if (Main.tile[num8, num9].type == 5 || Main.tile[num8, num9].type == 32 || Main.tile[num8, num9].type == 352)
-						{
-							WorldGen.KillTile(num8, num9, false, false, false);
-						}
-						Main.tile[num8, num9].liquid = 0;
-					}
-					if (Main.tile[num8, num9].type == mod.TileType("PhazonTile"))
-					{
-						if (!WorldGen.SolidTile(num8 - 1, num9) && !WorldGen.SolidTile(num8 + 1, num9) && !WorldGen.SolidTile(num8, num9 - 1) && !WorldGen.SolidTile(num8, num9 + 1))
-						{
-							Main.tile[num8, num9].active(false);
-						}
-						else if ((Main.tile[num8, num9].halfBrick() || Main.tile[num8 - 1, num9].topSlope()) && !WorldGen.SolidTile(num8, num9 + 1))
-						{
-							Main.tile[num8, num9].active(false);
-						}
-					}
-					WorldGen.SquareTileFrame(num8, num9, true);
-					WorldGen.SquareWallFrame(num8, num9, true);
-				}
-			}
-			num = WorldGen.genRand.Next(23, 32);
-			for (int num11 = i - num; num11 < i + num; num11++)
-			{
-				for (int num12 = j - num; num12 < j + num; num12++)
-				{
-					if (num12 > j + WorldGen.genRand.Next(-3, 4) - 3 && Main.tile[num11, num12].active() && Main.rand.Next(10) == 0)
-					{
-						float arg_57C_0 = (float)Math.Abs(i - num11);
-						float num13 = (float)Math.Abs(j - num12);
-						if ((double)((float)Math.Sqrt((double)(arg_57C_0 * arg_57C_0 + num13 * num13))) < (double)num * 0.8)
-						{
-							if (Main.tile[num11, num12].type == 5 || Main.tile[num11, num12].type == 32 || Main.tile[num11, num12].type == 352)
-							{
-								WorldGen.KillTile(num11, num12, false, false, false);
-							}
-							Main.tile[num11, num12].type = (ushort)mod.TileType("PhazonTile");
-							WorldGen.SquareTileFrame(num11, num12, true);
-						}
-					}
-				}
-			}
-			num = WorldGen.genRand.Next(30, 38);
-			for (int num14 = i - num; num14 < i + num; num14++)
-			{
-				for (int num15 = j - num; num15 < j + num; num15++)
-				{
-					if (num15 > j + WorldGen.genRand.Next(-2, 3) && Main.tile[num14, num15].active() && Main.rand.Next(20) == 0)
-					{
-						float arg_6A4_0 = (float)Math.Abs(i - num14);
-						float num16 = (float)Math.Abs(j - num15);
-						if ((double)((float)Math.Sqrt((double)(arg_6A4_0 * arg_6A4_0 + num16 * num16))) < (double)num * 0.85)
-						{
-							if (Main.tile[num14, num15].type == 5 || Main.tile[num14, num15].type == 32 || Main.tile[num14, num15].type == 352)
-							{
-								WorldGen.KillTile(num14, num15, false, false, false);
-							}
-							Main.tile[num14, num15].type = (ushort)mod.TileType("PhazonTile");
-							WorldGen.SquareTileFrame(num14, num15, true);
-						}
-					}
-				}
-			}
-			//WorldGen.stopDrops = false;
-			if (Main.netMode == 0)
-			{
-				Main.NewText("A Phazon Meteor has landed!", 50, 255, 130, false);
-			}
-			else if (Main.netMode == 2)
-			{
-				NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("A Phazon Meteor has landed!"), new Color(50, 255, 130), -1);
-			}
-			if (Main.netMode != 1)
-			{
-				NetMessage.SendTileSquare(-1, i, j, 40, TileChangeType.None);
-			}
-			return true;
 		}
     }
 }

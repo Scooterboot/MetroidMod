@@ -8,7 +8,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using System.IO;
+
+using MetroidMod.Common.Worlds;
 
 namespace MetroidMod.NPCs.Serris
 {

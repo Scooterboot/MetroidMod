@@ -9,6 +9,8 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using MetroidMod.Common.Worlds;
+
 #endregion
 
 namespace MetroidMod.NPCs.Town

@@ -8,6 +8,8 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using MetroidMod.Common.Worlds;
+
 namespace MetroidMod.NPCs.Phantoon
 {
 	[AutoloadBossHead]

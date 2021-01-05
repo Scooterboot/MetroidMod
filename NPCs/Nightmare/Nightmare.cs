@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
+using MetroidMod.Common.Worlds;
+
 namespace MetroidMod.NPCs.Nightmare
 {
 	[AutoloadBossHead]

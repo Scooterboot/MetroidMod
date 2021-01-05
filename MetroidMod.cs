@@ -14,7 +14,7 @@ using ReLogic.Graphics;
 
 using MetroidMod.Items;
 using MetroidMod.NewUI;
-using MetroidMod.Items.weapons;
+using MetroidMod.Common.Worlds;
 
 namespace MetroidMod
 {

@@ -3,9 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameInput;
 using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
@@ -16,10 +14,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidMod;
 using MetroidMod.NPCs;
 using MetroidMod.Items;
-using MetroidMod.Items.damageclass;
+using MetroidMod.Common.Worlds;
 
 namespace MetroidMod
 {
