@@ -23,7 +23,7 @@ namespace MetroidMod.NPCs.Mobs.metroid
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Larval Metroid");
-			Main.npcFrameCount[npc.type] = 3;
+			Main.npcFrameCount[npc.type] = 4;
 		}
 		public override void SetDefaults()
 		{
@@ -212,7 +212,7 @@ namespace MetroidMod.NPCs.Mobs.metroid
 			{
 				if (!grappled) npc.rotation = npc.velocity.X * 0.1f;
 				npc.frameCounter += 1.0;
-				if (npc.frameCounter >= 8.0)
+				if (npc.frameCounter >= 10.0)
 				{
 					npc.frame.Y = npc.frame.Y + num;
 					npc.frameCounter = 0.0;
