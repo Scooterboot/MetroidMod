@@ -25,7 +25,7 @@ namespace MetroidMod.Tiles.ItemTile.Beam
 			{
 				zero = Vector2.Zero;
 			}
-			Main.spriteBatch.Draw(mod.GetTexture("Tiles/HyperBeamTileColors"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 16), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(mod.GetTexture("Tiles/ItemTile/Beam/HyperBeamTileColors"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 16), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
 	}
 }
