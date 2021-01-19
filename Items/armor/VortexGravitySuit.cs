@@ -14,7 +14,7 @@ namespace MetroidMod.Items.armor
 			DisplayName.SetDefault("Vortex Gravity Suit Breastplate");
 			Tooltip.SetDefault("+100 overheat capacity\n" +
 			"40% decreased overheat use\n" +
-			"40% decreased Missile Charge Combo cost\n" +
+			"25% decreased Missile Charge Combo cost\n" +
 			"Immune to knockback");
 		}
 		public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 100;
 			mp.overheatCost -= 0.40f;
-			mp.missileCost -= 0.40f;
+			mp.missileCost -= 0.25f;
 			player.noKnockback = true;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -120,6 +120,7 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Vortex Gravity Suit Helmet");
 			Tooltip.SetDefault("35% increased hunter damage\n" + 
+			"20% increased hunter critical strike chance\n" + 
 			"Emits light and grants improved night vision\n" +
 			"Infinite breath underwater");
 		}
@@ -134,6 +135,7 @@ namespace MetroidMod.Items.armor
 		public override void UpdateEquip(Player player)
 		{
 			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.35f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 20;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.visorGlow = true;
 			player.nightVision = true;

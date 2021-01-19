@@ -14,7 +14,7 @@ namespace MetroidMod.Items.armor
 			DisplayName.SetDefault("Phazon Suit Breastplate");
 			Tooltip.SetDefault("+75 overheat capacity\n" +
 			"35% decreased overheat use\n" +
-			"30% decreased Missile Charge Combo cost\n" +
+			"20% decreased Missile Charge Combo cost\n" +
 			"Immune to knockback");
 		}
 		public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 75;
 			mp.overheatCost -= 0.35f;
-			mp.missileCost -= 0.30f;
+			mp.missileCost -= 0.20f;
 			player.noKnockback = true;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -119,6 +119,7 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Phazon Suit Helmet");
 			Tooltip.SetDefault("30% increased hunter damage\n" + 
+			"15% increased hunter critical strike chance\n" + 
 			"Emits light and grants improved night vision\n" +
 			"Infinite breath underwater");
 		}
@@ -133,6 +134,7 @@ namespace MetroidMod.Items.armor
 		public override void UpdateEquip(Player player)
 		{
 			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.30f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 15;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.visorGlow = true;
 			player.nightVision = true;

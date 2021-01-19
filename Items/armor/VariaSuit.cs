@@ -13,7 +13,8 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Varia Suit Breastplate");
 			Tooltip.SetDefault("+30 overheat capacity\n" +
-			"20% decreased overheat use");
+			"20% decreased overheat use\n" +
+			"5% decreased Missile Charge Combo cost");
 		}
 		public override void SetDefaults()
 		{
@@ -28,6 +29,7 @@ namespace MetroidMod.Items.armor
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 30;
 			mp.overheatCost -= 0.20f;
+			mp.missileCost -= 0.05f;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -96,6 +98,7 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Varia Suit Helmet");
 			Tooltip.SetDefault("15% increased hunter damage\n" + 
+			"5% increased hunter critical strike chance\n" + 
 			"Emits light and grants improved night vision\n" +
 			"55% increased underwater breathing");
 		}
@@ -110,6 +113,7 @@ namespace MetroidMod.Items.armor
 		public override void UpdateEquip(Player player)
 		{
 			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.15f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 5;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.visorGlow = true;

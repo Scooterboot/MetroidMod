@@ -63,7 +63,7 @@ namespace MetroidMod.Projectiles.missiles
 			int width = (I.width/2)-(P.width/2);
 			int height = (I.height/2)-(P.height/2);
 			
-			if(negateUseTime < I.useTime-2)
+			if(negateUseTime < I.useTime)
 			{
 				negateUseTime++;
 			}

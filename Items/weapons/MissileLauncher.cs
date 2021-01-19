@@ -64,7 +64,7 @@ namespace MetroidMod.Items.weapons
 			item.autoReuse = false;
 			item.shoot = mod.ProjectileType("MissileShot");
 			item.shootSpeed = 8f;
-			item.crit = 3;
+			item.crit = 10;
 			
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			mi.statMissiles = 5;
@@ -413,8 +413,6 @@ namespace MetroidMod.Items.weapons
 			{
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				chargeMult = mItem.addonChargeDmg;
-				//chargeCost = (int)((float)mItem.addonMissileCost * mp.missileCost);
-				//comboDrain = (float)mItem.addonMissileDrain * mp.missileCost;
 				chargeCost = mItem.addonMissileCost;
 				comboDrain = mItem.addonMissileDrain;
 			}
@@ -444,40 +442,12 @@ namespace MetroidMod.Items.weapons
 			item.mana = 0;
 			item.knockBack = 5.5f;
 			item.scale = 0.8f;
-			item.crit = 3;
+			item.crit = 10;
 			item.value = 20000;
 			
 			item.rare = 2;
 			
 			item.Prefix(item.prefix);
-			
-			
-			/*if(texture != "")
-			{
-				string alt = "";
-				if(MetroidMod.UseAltWeaponTextures)
-				{
-					alt = "_alt";
-				}
-				mi.itemTexture = mod.GetTexture("Items/weapons/missileTextures"+alt+"/"+texture);
-			}
-			else
-			{
-				if(MetroidMod.UseAltWeaponTextures)
-				{
-					mi.itemTexture = ModContent.GetTexture(altTexture);
-				}
-				else
-				{
-					mi.itemTexture = Main.itemTexture[item.type];
-				}
-			}
-			
-			if(mi.itemTexture != null)
-			{
-				item.width = mi.itemTexture.Width;
-				item.height = mi.itemTexture.Height;
-			}*/
 		}
 		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
@@ -548,7 +518,7 @@ namespace MetroidMod.Items.weapons
 				item.modItem.UpdateInventory(Main.player[Main.myPlayer]);
 			}
 			
-			int cost = (int)((float)chargeCost * mp.missileCost);
+			int cost = (int)((float)chargeCost * (mp.missileCost+0.001f));
 			string ch = "Charge shot consumes "+cost+" missiles";
 			if(isHeldCombo > 0)
 			{
@@ -556,7 +526,7 @@ namespace MetroidMod.Items.weapons
 			}
 			TooltipLine mCost = new TooltipLine(mod, "ChargeMissileCost", ch);
 			
-			float drain = (float)Math.Round(comboDrain * mp.missileCost, 1);
+			float drain = (float)Math.Round(comboDrain * mp.missileCost, 2);
 			TooltipLine mDrain = new TooltipLine(mod, "ChargeMissileDrain", "Drains "+drain+" missiles per second");
 			
 			for (int k = 0; k < tooltips.Count; k++)
@@ -653,6 +623,11 @@ namespace MetroidMod.Items.weapons
 			return true;
 		}
 		
+		bool leadActive(Player player, int type)
+		{
+			return (chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == type);
+		}
+		
 		bool initialShot = false;
 		int comboTime = 0;
 		int comboCostTime = 0;
@@ -666,7 +641,7 @@ namespace MetroidMod.Items.weapons
 				MPlayer mp = player.GetModPlayer<MPlayer>();
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 				
-				int chCost = (int)((float)chargeCost * mp.missileCost);
+				int chCost = (int)((float)chargeCost * (mp.missileCost+0.001f));
 				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
 				isCharge &= (mi.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
 				
@@ -690,7 +665,8 @@ namespace MetroidMod.Items.weapons
 						float dmgMult = chargeMult;
 						int damage = player.GetWeaponDamage(item);
 						
-						if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
+						//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
+						if(player.controlUseItem && leadActive(player,mod.ProjectileType("ChargeLead")))
 						{
 							if (mp.statCharge < MPlayer.maxCharge)
 							{
@@ -767,6 +743,10 @@ namespace MetroidMod.Items.weapons
 						}
 						else
 						{
+							if(mp.statCharge <= 0 && leadActive(player,mod.ProjectileType("ChargeLead")))
+							{
+								mp.statCharge++;
+							}
 							if(isHeldCombo <= 0 || mp.statCharge < MPlayer.maxCharge)
 							{
 								if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= chCost)
@@ -799,7 +779,7 @@ namespace MetroidMod.Items.weapons
 								}
 							}
 
-							if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("ChargeLead"))
+							if (!leadActive(player,mod.ProjectileType("ChargeLead")))
 							{
 								mp.statCharge = 0;
 							}
@@ -844,7 +824,8 @@ namespace MetroidMod.Items.weapons
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 					Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 					int damage = player.GetWeaponDamage(item);
-					if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
+					//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
+					if(player.controlUseItem && leadActive(player,mod.ProjectileType("SeekerMissileLead")))
 					{
 						if (mi.seekerCharge < MGlobalItem.seekerMaxCharge)
 						{
@@ -866,7 +847,12 @@ namespace MetroidMod.Items.weapons
 											flag = true;
 										}
 									}
-									if (mouse.Intersects(npcRect) && mi.seekerTarget[targetNum] <= -1 && (targetingDelay <= 0 || !flag /*prevTarget != npc.whoAmI*/) && mi.statMissiles > mi.numSeekerTargets)
+									
+									Vector2 delta = new Vector2(MX,MY);
+									delta.X -= MathHelper.Clamp(MX,npcRect.X,npcRect.X+npcRect.Width);
+									delta.Y -= MathHelper.Clamp(MY,npcRect.Y,npcRect.Y+npcRect.Height);
+									bool colFlag = (delta.Length() < 50);
+									if(colFlag && mi.seekerTarget[targetNum] <= -1 && ((targetingDelay <= 0 && mouse.Intersects(npcRect)) || !flag) && mi.statMissiles > mi.numSeekerTargets)
 									{
 										mi.seekerTarget[targetNum] = npc.whoAmI;
 										targetNum++;
@@ -908,6 +894,10 @@ namespace MetroidMod.Items.weapons
 					}
 					else
 					{
+						if(mi.seekerCharge <= 0 && leadActive(player,mod.ProjectileType("SeekerMissileLead")))
+						{
+							mi.seekerCharge++;
+						}
 						if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
 						{
 							for (int i = 0; i < mi.seekerTarget.Length; i++)
@@ -932,7 +922,7 @@ namespace MetroidMod.Items.weapons
 
 							mi.statMissiles -= 1;
 						}
-						if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != mod.ProjectileType("SeekerMissileLead"))
+						if (!leadActive(player,mod.ProjectileType("SeekerMissileLead")))
 						{
 							mi.seekerCharge = 0;
 						}

@@ -71,7 +71,7 @@ namespace MetroidMod
 		public override void Load()
 		{
 			Instance = this;
-
+			
 			ItemIL.Load();
 
 			FrozenStandOnNPCs = new int[] { this.NPCType("Ripper") };
@@ -312,6 +312,8 @@ namespace MetroidMod
 		}
 
 		static int z = 0;
+		//bool coordcheck = false;
+		//List<Vector2> itemCoords = new List<Vector2>();
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
@@ -354,8 +356,52 @@ namespace MetroidMod
 					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X+npc.width-1-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),1,npc.height),color);
 				}
 			}*/
+			
+			// (debug) markers for statue items (performance will tank on world load)
+			/*if(!coordcheck)
+			{
+				for(int i = 0; i < Main.maxTilesX; i++)
+				{
+					for(int j = 0; j < Main.maxTilesY; j++)
+					{
+						if(Main.tile[i,j] != null && Main.tile[i,j].active() && 
+						(Main.tile[i,j].type == mod.TileType("IceBeamTile") || 
+						Main.tile[i,j].type == mod.TileType("SpazerTile") || 
+						Main.tile[i,j].type == mod.TileType("SpiderBallTile") || 
+						Main.tile[i,j].type == mod.TileType("XRayScopeTile") || 
+						Main.tile[i,j].type == mod.TileType("HiJumpBootsTile") || 
+						Main.tile[i,j].type == mod.TileType("BoostBallTile") || 
+						Main.tile[i,j].type == mod.TileType("WaveBeamTile") || 
+						Main.tile[i,j].type == mod.TileType("BombTile") || 
+						Main.tile[i,j].type == mod.TileType("ChargeBeamTile") || 
+						Main.tile[i,j].type == mod.TileType("MorphBallTile")))
+						{
+							itemCoords.Add(new Vector2(i,j));
+						}
+					}
+				}
+				coordcheck = true;
+			}
+			for(int i = 0; i < itemCoords.Count; i++)
+			{
+				Tile tile = Main.tile[(int)itemCoords[i].X,(int)itemCoords[i].Y];
+				if(tile != null && tile.active()
+				{
+					Texture2D tex = Main.tileTexture[tile.type];
+					
+					Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth,Main.screenHeight)/2;
+					
+					Vector2 pos = itemCoords[i] * 16f;
+					float rot = (float)Math.Atan2(pos.Y - screenCenter.Y, pos.X - screenCenter.X);
+					float dist = Math.Min(Vector2.Distance(pos,screenCenter),Main.screenHeight/2 - 32);
+					
+					Vector2 drawPos = screenCenter + rot.ToRotationVector2()*dist - Main.screenPosition;
+					sb.Draw(tex,drawPos,new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)),Color.White,0,new Vector2(tex.Width/2,tex.Height/2), 1f, SpriteEffects.None, 0f);
+				}
+			}*/
 		}
 		float tRot = 0f;
+		float[] tScale = { 1f,1f,1f,1f,1f };
 		public void DrawSeekerTargets(SpriteBatch sb)
 		{
 			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
@@ -383,6 +429,7 @@ namespace MetroidMod
 									{
 										flag = false;
 										frame += 1;
+										tScale[i] = Math.Min(0.5f,tScale[i]);
 									}
 								}
 								else
@@ -392,14 +439,27 @@ namespace MetroidMod
 							}
 							if(flag)
 							{
+								tScale[i] = Math.Max(tScale[i] - 0.1f, 0f);
 								NPC npc = Main.npc[mi.seekerTarget[i]];
 								Texture2D tTex = mod.GetTexture("Gore/Targeting_retical");
-								Color color = new Color(255, 255, 255, 10);
+								Color color = new Color(255, 255, 255, 50);
+								color *= (1f - tScale[i]) * 0.9f;
 								int height = tTex.Height / 5;
 								int yFrame = height*frame;
-								sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
+								sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)height/2f), npc.scale*1.5f * (1f+tScale[i]), SpriteEffects.None, 0f);
 							}
 						}
+						else
+						{
+							tScale[i] = 1f;
+						}
+					}
+				}
+				else
+				{
+					for(int i = 0; i < tScale.Length; i++)
+					{
+						tScale[i] = 1f;
 					}
 				}
 				

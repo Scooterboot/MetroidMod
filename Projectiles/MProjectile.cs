@@ -13,6 +13,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using MetroidMod.Items.damageclass;
+
 namespace MetroidMod.Projectiles
 {
 	public abstract class MProjectile : ModProjectile
@@ -23,6 +25,7 @@ namespace MetroidMod.Projectiles
 			mProjectile = this;
 		}
 		
+		public bool hunter = false;
 		public override void SetDefaults()
 		{
 			projectile.aiStyle = -1;
@@ -31,7 +34,13 @@ namespace MetroidMod.Projectiles
 			projectile.tileCollide = true;
 			projectile.penetrate = 1;
 			projectile.ignoreWater = true;
-			projectile.ranged = true;
+			
+			projectile.melee = false;
+			projectile.ranged = false;
+			projectile.magic = false;
+			projectile.thrown = false;
+			hunter = true;
+			
 			projectile.extraUpdates = 2;
 			for(int i = 0; i < projectile.oldPos.Length; i++)
 			{
@@ -45,6 +54,23 @@ namespace MetroidMod.Projectiles
 				projectile.oldRot[i] = projectile.rotation;
             }
         }
+		
+		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		{
+			Player player = Main.player[projectile.owner];
+			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).hunterCrit+player.inventory[player.selectedItem].crit)
+			{
+				crit = true;
+			}
+		}
+		public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)
+		{
+			Player player = Main.player[projectile.owner];
+			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).hunterCrit+player.inventory[player.selectedItem].crit)
+			{
+				crit = true;
+			}
+		}
 
 		bool[] npcPrevHit = new bool[Main.maxNPCs];
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

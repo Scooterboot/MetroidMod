@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -14,7 +15,7 @@ namespace MetroidMod.Items.damageclass
 		public float hunterDamageAdd;
 		public float hunterDamageMult = 1f;
 		public float hunterKnockback;
-		public int hunterCrit;
+		public int hunterCrit = 4;
 
 		public override void ResetEffects()
 		{
@@ -31,7 +32,20 @@ namespace MetroidMod.Items.damageclass
 			hunterDamageAdd = 0f;
 			hunterDamageMult = 1f;
 			hunterKnockback = 0f;
-			hunterCrit = 0;
+			hunterCrit = 4;
+		}
+		
+		public override void PostUpdateEquips()
+		{
+			// Any time a vanilla accessory or buff simply increases all round crit, it'll now affect hunter damage weapons.
+			// It's not a perfect solution, because if a player has 3 separate items that increase melee, ranged, and magic crit,
+			// hunter crit will be increased also.
+			int critNum = 4+player.inventory[player.selectedItem].crit;
+			if(player.meleeCrit > critNum && player.rangedCrit > critNum && player.magicCrit > critNum)
+			{
+				//picks the lowest, in case a player is specializing in one while still having an all round buff
+				hunterCrit += Math.Min(player.meleeCrit,Math.Min(player.rangedCrit,player.magicCrit))-critNum;
+			}
 		}
 	}
 }

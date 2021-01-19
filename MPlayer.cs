@@ -462,25 +462,9 @@ namespace MetroidMod
 					}
 				}
 		    }
-		    int x1 = (int)(player.position.X + player.velocity.X - 1) / 16;
-		    int x2 = (int)(player.position.X + player.velocity.X + player.width + 1) / 16;
-		    int j = (int)(player.position.Y + player.height + 1) / 16;
-		    if (x1 < 0)
-		    {
-				x1 = 0;
-		    }
-		    if (x2 > Main.maxTilesX)
-		    {
-				x2 = Main.maxTilesX;
-		    }
-		    if (j < 0)
-		    {
-				j = 0;
-		    }
-		    if (j > Main.maxTilesY)
-		    {
-				j = Main.maxTilesY;
-		    }
+		    int x1 = (int)MathHelper.Clamp((player.position.X + player.velocity.X - 1) / 16, 0, Main.maxTilesX-1);
+		    int x2 = (int)MathHelper.Clamp((player.position.X + player.velocity.X + player.width + 1) / 16, 0, Main.maxTilesX-1);
+		    int j = (int)MathHelper.Clamp((player.position.Y + player.height + 1) / 16, 0, Main.maxTilesY-1);
 		    for (int i = x1; i <= x2; i++)
 		    {
 				Vector2 pos = new Vector2(i * 16, j * 16);
@@ -668,26 +652,10 @@ namespace MetroidMod
         public static bool TouchTiles(Vector2 Position, int Width, int Height, int tileType)
 		{
 			Vector2 vector = Position;
-			int num = (int)(Position.X / 16f) - 1;
-			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
-			int num3 = (int)(Position.Y / 16f) - 1;
-			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num2 > Main.maxTilesX)
-			{
-				num2 = Main.maxTilesX;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesY)
-			{
-				num4 = Main.maxTilesY;
-			}
+			int num = (int)MathHelper.Clamp((Position.X / 16f) - 1, 0, Main.maxTilesX-1);
+			int num2 = (int)MathHelper.Clamp(((Position.X + (float)Width) / 16f) + 2, 0, Main.maxTilesX-1);
+			int num3 = (int)MathHelper.Clamp((Position.Y / 16f) - 1, 0, Main.maxTilesY-1);
+			int num4 = (int)MathHelper.Clamp(((Position.Y + (float)Height) / 16f) + 2, 0, Main.maxTilesY-1);
 			for (int i = num; i < num2; i++)
 			{
 				for (int j = num3; j < num4; j++)
@@ -2684,26 +2652,10 @@ namespace MetroidMod
 				Ibounce = true;
 				if (player.velocity.Y == 0)
 				{
-					int num2 = (int)(player.position.X / 16f) - 1;
-					int num3 = (int)((player.position.X + (float)player.width) / 16f) + 2;
-					int num4 = (int)(player.position.Y / 16f) - 1;
-					int num5 = (int)((player.position.Y + (float)player.height) / 16f) + 2;
-					if (num2 < 0)
-					{
-						num2 = 0;
-					}
-					if (num3 > Main.maxTilesX)
-					{
-						num3 = Main.maxTilesX;
-					}
-					if (num4 < 0)
-					{
-						num4 = 0;
-					}
-					if (num5 > Main.maxTilesY)
-					{
-						num5 = Main.maxTilesY;
-					}
+					int num2 = (int)MathHelper.Clamp((player.position.X / 16f) - 1, 0, Main.maxTilesX-1);
+					int num3 = (int)MathHelper.Clamp(((player.position.X + (float)player.width) / 16f) + 2, 0, Main.maxTilesX-1);
+					int num4 = (int)MathHelper.Clamp((player.position.Y / 16f) - 1, 0, Main.maxTilesY-1);
+					int num5 = (int)MathHelper.Clamp(((player.position.Y + (float)player.height) / 16f) + 2, 0, Main.maxTilesY-1);
 					for (int i = num2; i < num3; i++)
 					{
 						for (int j = num4; j < num5; j++)

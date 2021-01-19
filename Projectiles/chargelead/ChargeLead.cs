@@ -27,7 +27,6 @@ namespace MetroidMod.Projectiles.chargelead
 			projectile.tileCollide = false;
 			projectile.penetrate = 1;
 			projectile.ignoreWater = true;
-			projectile.ranged = true;
 		}
 
 		public string ChargeUpSound = "ChargeStartup_Power",
@@ -60,7 +59,7 @@ namespace MetroidMod.Projectiles.chargelead
 			P.scale += extraScale;
 			Item I = O.inventory[O.selectedItem];
 			
-			if(negateUseTime < I.useTime-2)
+			if(negateUseTime < I.useTime)
 				negateUseTime++;
 			
 			float dmgMult = (1f+((float)mp.statCharge*0.04f));

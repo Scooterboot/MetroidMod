@@ -116,6 +116,7 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Varia Suit V2 Helmet");
 			Tooltip.SetDefault("20% increased hunter damage\n" + 
+			"7% increased hunter critical strike chance\n" + 
 			"Emits light and grants improved night vision\n" +
 			"80% increased underwater breathing");
 		}
@@ -130,6 +131,7 @@ namespace MetroidMod.Items.armor
 		public override void UpdateEquip(Player player)
 		{
 			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.20f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 7;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.visorGlow = true;
