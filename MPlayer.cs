@@ -502,8 +502,8 @@ namespace MetroidMod
                 {
                     num2 = player.position.Y + (float)player.height - 8f;
                 }
-                num /= 16f;
-                num2 /= 16f;
+				num = MathHelper.Clamp(num / 16f, 0, Main.maxTilesX-1);
+				num2 = MathHelper.Clamp(num2 / 16f, 0, Main.maxTilesY-1);
                 /*
                 //Allow gripping onto non solid tiles
                 if (Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive() && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.Rope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.SilkRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.VineRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.WebRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.Chain && (Main.tile[(int)num, (int)num2 - (int)player.gravDir].inActive() || !Main.tile[(int)num, (int)num2 - (int)player.gravDir].active() || (Main.tile[(int)num, (int)num2 - 1].bottomSlope() && player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].topSlope() && player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num, (int)num2 - (int)player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num, (int)num2 - (int)player.gravDir].type] || (Main.tile[(int)num, (int)num2].halfBrick() && player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].halfBrick() && player.gravDir == -1) || Main.tile[(int)num, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
