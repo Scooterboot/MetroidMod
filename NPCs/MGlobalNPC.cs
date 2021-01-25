@@ -14,13 +14,12 @@ namespace MetroidMod.NPCs
 			get { return true; }
 		}
 
-		bool start = false;
 		public bool froze = false;
-
-		public bool oldGravity;
-		public bool oldTileCollide;
+		public bool unfroze = true;
+		int oldDmg = 0;
 
 		int oldDir = 1;
+		int oldSprDir = 1;
 		public float speedDecrease = 0.8f;
 
 		public override void SetDefaults(NPC npc)
@@ -42,12 +41,6 @@ namespace MetroidMod.NPCs
 
 		public override bool PreAI(NPC npc)
 		{
-			if (!start)
-			{
-				oldGravity = npc.noGravity;
-				oldTileCollide = npc.noTileCollide;
-				start = true;
-			}
 			if (froze)
 			{
 				if (speedDecrease <= 0 && npc.type != mod.NPCType("LarvalMetroid") && !((MetroidMod)MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type))
@@ -55,20 +48,37 @@ namespace MetroidMod.NPCs
 					npc.damage = 0;
 					npc.frame.Y = 0;
 					npc.velocity.X = 0;
-					npc.noGravity = false;
-					npc.noTileCollide = false;
-					npc.direction = oldDir;
-					npc.spriteDirection = oldDir;
+					if(npc.noGravity)
+					{
+						npc.velocity.Y = 0;
+					}
+					npc.direction = 0;//oldDir;
+					npc.spriteDirection = oldSprDir;
+					unfroze = false;
 					return false;
 				}
 				else
+				{
 					oldDir = npc.direction;
+					oldSprDir = npc.spriteDirection;
+				}
 			}
 			else
 			{
 				speedDecrease = 0.8f;
-				npc.noGravity = oldGravity;
-				npc.noTileCollide = oldTileCollide;
+				if(!unfroze)
+				{
+					npc.TargetClosest(true);
+					npc.direction = oldDir;
+					npc.damage = oldDmg;
+					unfroze = true;
+				}
+				else
+				{
+					oldDmg = npc.damage;
+					oldDir = npc.direction;
+					oldSprDir = npc.spriteDirection;
+				}
 			}
 			return base.PreAI(npc);
 		}
@@ -76,9 +86,9 @@ namespace MetroidMod.NPCs
 		{
 			if (froze && speedDecrease > 0 && npc.type != mod.NPCType("LarvalMetroid") && !((MetroidMod)MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type))
 			{
-				npc.velocity.X = npc.velocity.X * speedDecrease;
+				npc.velocity.X -= npc.velocity.X * (1 - speedDecrease);
 				if (npc.noGravity)
-					npc.velocity.Y = npc.velocity.Y * speedDecrease;
+					npc.velocity.Y -= npc.velocity.Y * (1 - speedDecrease);
 			}
 
 			base.PostAI(npc);

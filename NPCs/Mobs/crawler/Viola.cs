@@ -20,8 +20,6 @@ namespace MetroidMod.NPCs.Mobs.crawler
 			return (spawnInfo.spawnTileY > WorldGen.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + SpawnCondition.Underworld.Chance * 0.15f;
 		}
 		
-		private bool spawn = false;
-		private float speed = 1f;
 		public override void SetDefaults()
 		{
 			npc.width = 24;
@@ -42,17 +40,13 @@ namespace MetroidMod.NPCs.Mobs.crawler
 			npc.lavaImmune = true;
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.CursedInferno] = true;
+			
+			mNPC.crawlSpeed = 1f;
 		}
 		int frameNum = 1;
 		public override bool PreAI()
 		{
-			if (!spawn)
-			{
-				spawn = true;
-				npc.netUpdate = true;
-			}
-			
-			mNPC.CrawlerAI(npc, speed*npc.scale, 1, false);
+			mNPC.CrawlerAI(npc, mNPC.crawlSpeed*npc.scale, 1, false);
 			
 			npc.frameCounter++;
 			if(npc.frameCounter >= 6)
@@ -84,7 +78,7 @@ namespace MetroidMod.NPCs.Mobs.crawler
 		
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			mNPC.DrawCrawler(npc,sb);
+			mNPC.DrawCrawler(npc,sb,drawColor);
 			return false;
 		}
 		

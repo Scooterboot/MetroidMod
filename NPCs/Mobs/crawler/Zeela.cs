@@ -20,9 +20,6 @@ namespace MetroidMod.NPCs.Mobs.crawler
 			return SpawnCondition.UndergroundJungle.Chance * 0.25f;
 		}
 		
-		private bool spawn = false;
-		private float newScale = -1;
-		private float speed = 0.75f;
 		public override void SetDefaults()
 		{
 			npc.width = 28;
@@ -41,45 +38,29 @@ namespace MetroidMod.NPCs.Mobs.crawler
 			npc.noGravity = true;
 			npc.behindTiles = true;
 			
-			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)
-			{
-				newScale = Main.rand.Next(7, 10) * 0.1f;
-				speed = Main.rand.Next(10, 15) * 0.1f;
-			}
+			mNPC.crawlSpeed = 0.75f;
+			
+			SetStats();
 		}
 		private void SetStats()
 		{
-			npc.scale = newScale;
-			int newWidth = (int)((float)npc.width * npc.scale);
-			int newHeight = (int)((float)npc.height * npc.scale);
-			if (newWidth != npc.width)
-			{
-				npc.position.X += (float)(npc.width / 2) - (float)newWidth;
-				npc.width = newWidth;
-			}
-			if (newHeight != npc.height)
-			{
-				npc.position.Y += (float)npc.height - (float)newHeight;
-				npc.height = newHeight;
-			}
+			npc.width = (int)((float)npc.width * npc.scale);
+			npc.height = (int)((float)npc.height * npc.scale);
 			npc.defense = (int)((float)npc.defense * npc.scale);
 			npc.damage = (int)((float)npc.damage * npc.scale);
-			npc.life = (int)((float)npc.life * npc.scale);
-			npc.lifeMax = npc.life;
+			npc.lifeMax = (int)((float)npc.lifeMax * npc.scale);
 			npc.value = (float)((int)(npc.value * npc.scale));
 			npc.npcSlots *= npc.scale;
 			npc.knockBackResist *= 2f - npc.scale;
 		}
 		public override bool PreAI()
 		{
-			if (!spawn && newScale != -1)
+			if(npc.ai[0] == 0)
 			{
-				SetStats();
-				spawn = true;
+				mNPC.crawlSpeed = Main.rand.Next(10, 15) * 0.1f * npc.scale;
 				npc.netUpdate = true;
 			}
-			
-			mNPC.CrawlerAI(npc, speed*npc.scale);
+			mNPC.CrawlerAI(npc, mNPC.crawlSpeed);
 			
 			npc.frameCounter++;
 			if(npc.frameCounter >= 4)
@@ -97,7 +78,7 @@ namespace MetroidMod.NPCs.Mobs.crawler
 		
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			mNPC.DrawCrawler(npc,sb);
+			mNPC.DrawCrawler(npc,sb,drawColor);
 			return false;
 		}
 		
@@ -125,6 +106,24 @@ namespace MetroidMod.NPCs.Mobs.crawler
 					}
 				}
 			}
+		}
+	}
+	public class Zeela_85 : Zeela
+	{
+		public override string Texture => "MetroidMod/NPCs/Mobs/crawler/Zeela";
+		public override void SetDefaults()
+		{
+			npc.scale = 0.85f;
+			base.SetDefaults();
+		}
+	}
+	public class Zeela_75 : Zeela
+	{
+		public override string Texture => "MetroidMod/NPCs/Mobs/crawler/Zeela";
+		public override void SetDefaults()
+		{
+			npc.scale = 0.75f;
+			base.SetDefaults();
 		}
 	}
 }

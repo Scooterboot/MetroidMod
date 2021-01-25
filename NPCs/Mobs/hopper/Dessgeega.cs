@@ -110,7 +110,7 @@ namespace MetroidMod.NPCs.Mobs.hopper
 		}
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			mNPC.DrawHopper(npc,sb);
+			mNPC.DrawHopper(npc,sb,drawColor);
 			return false;
 		}
 		

@@ -67,13 +67,14 @@ namespace MetroidMod.NPCs.Mobs.crawler
 				frameNum = 1;
 			}
 			
-			mNPC.CrawlerAI(npc, speeds[(int)npc.frame.Y], 0, true, true);
+			mNPC.crawlSpeed = speeds[(int)npc.frame.Y];
+			mNPC.CrawlerAI(npc, mNPC.crawlSpeed, 0, true, true);
 
 			return false;
 		}
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			mNPC.DrawCrawler(npc,sb);
+			mNPC.DrawCrawler(npc,sb,drawColor);
 			return false;
 		}
 		

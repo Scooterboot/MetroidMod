@@ -20,8 +20,6 @@ namespace MetroidMod.NPCs.Mobs.crawler
 			return SpawnCondition.Ocean.Chance * 0.1f + SpawnCondition.DesertCave.Chance * 0.1f;
 		}
 		
-		private bool spawn = false;
-		private float speed = 1f;
 		public override void SetDefaults()
 		{
 			npc.width = 44;
@@ -39,16 +37,12 @@ namespace MetroidMod.NPCs.Mobs.crawler
 			//bannerItem = mod.ItemType("ScisorBanner");
 			npc.noGravity = true;
 			npc.behindTiles = true;
+			
+			mNPC.crawlSpeed = 1f;
 		}
 		public override bool PreAI()
 		{
-			if (!spawn)
-			{
-				spawn = true;
-				npc.netUpdate = true;
-			}
-			
-			mNPC.CrawlerAI(npc, speed*npc.scale);
+			mNPC.CrawlerAI(npc,mNPC.crawlSpeed*npc.scale);
 			
 			npc.frameCounter++;
 			if(npc.frameCounter >= 12)
@@ -66,7 +60,7 @@ namespace MetroidMod.NPCs.Mobs.crawler
 		
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
-			mNPC.DrawCrawler(npc,sb);
+			mNPC.DrawCrawler(npc,sb,drawColor);
 			return false;
 		}
 		

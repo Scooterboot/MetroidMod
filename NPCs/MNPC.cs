@@ -140,10 +140,11 @@ namespace MetroidMod.NPCs
 				}
 			}
 		}
-		public void DrawHopper(NPC n, SpriteBatch sb)
+		public void DrawHopper(NPC n, SpriteBatch sb, Color drawColor)
 		{
 			Texture2D tex = Main.npcTexture[n.type];
-			Color color = n.GetAlpha(Lighting.GetColor((int)n.Center.X / 16, (int)n.Center.Y / 16));
+			//Color color = n.GetAlpha(Lighting.GetColor((int)n.Center.X / 16, (int)n.Center.Y / 16));
+			Color color = n.GetAlpha(drawColor);
 			int height = tex.Height / Main.npcFrameCount[n.type];
 			
 			if(directionY == -1)
@@ -158,6 +159,7 @@ namespace MetroidMod.NPCs
 		
 		protected float yOffset = 0f;
 		protected float rotation = 0f;
+		public float crawlSpeed = 0f;
 		public void CrawlerAI(NPC n, float speed, int gravityType = 0, bool useRotation = true, bool fullSpeedOnSlopes = false)
 		{
 			// This AI is based on the vanilla snail AI (because it can crawl on all surfaces)
@@ -495,10 +497,11 @@ namespace MetroidMod.NPCs
 				n.position += n.velocity;
 			}
 		}
-		public void DrawCrawler(NPC n, SpriteBatch sb)
+		public void DrawCrawler(NPC n, SpriteBatch sb, Color drawColor)
 		{
 			Texture2D tex = Main.npcTexture[n.type];
-			Color color = n.GetAlpha(Lighting.GetColor((int)n.Center.X / 16, (int)n.Center.Y / 16));
+			//Color color = n.GetAlpha(Lighting.GetColor((int)n.Center.X / 16, (int)n.Center.Y / 16));
+			Color color = n.GetAlpha(drawColor);
 			int height = tex.Height / Main.npcFrameCount[n.type];
 			
 			SpriteEffects effects = SpriteEffects.None;
@@ -513,10 +516,12 @@ namespace MetroidMod.NPCs
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write((short)directionY);
+			writer.Write(crawlSpeed);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			directionY = reader.ReadInt16();
+			crawlSpeed = reader.ReadSingle();
 		}
 		
 		
