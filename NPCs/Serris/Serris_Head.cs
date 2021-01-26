@@ -283,6 +283,9 @@ namespace MetroidMod.NPCs.Serris
 				if(soundInstance != null)
 					soundInstance.Stop(true);
 				npc.damage = coreDamage;
+				
+				if(npc.timeLeft < 300)
+					npc.timeLeft = 300;
 			}
 			
 			if(ai_state == SerrisState.Transforming)
@@ -304,24 +307,27 @@ namespace MetroidMod.NPCs.Serris
 				{
 					Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 14);
 
-					Gore newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore1"))];
-					newGore.velocity *= .4f;
-					newGore.timeLeft = 60;
-
-					newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore2"))];
-					newGore.velocity *= .4f;
-					newGore.timeLeft = 60;
-
-					for (int v = 0; v < 3; v++)
+					if (Main.netMode != NetmodeID.Server)
 					{
-						newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore3"))];
+						Gore newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore1"))];
 						newGore.velocity *= .4f;
 						newGore.timeLeft = 60;
-					}
 
-					for (int num136 = 0; num136 < 20; num136++)
-					{
-						Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+						newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore2"))];
+						newGore.velocity *= .4f;
+						newGore.timeLeft = 60;
+
+						for (int v = 0; v < 3; v++)
+						{
+							newGore = Main.gore[Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-30, 31) * .2f, Main.rand.Next(-30, 31) * .2f), mod.GetGoreSlot("Gores/SerrisXTransGore3"))];
+							newGore.velocity *= .4f;
+							newGore.timeLeft = 60;
+						}
+
+						for (int num136 = 0; num136 < 20; num136++)
+						{
+							Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+						}
 					}
 
 					npc.position.X += (npc.width / 2);
@@ -466,21 +472,24 @@ namespace MetroidMod.NPCs.Serris
 
 			if (npc.life <= 0)
 			{
-				Gore newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity *.4f, mod.GetGoreSlot("Gores/SerrisXGore1"))];
-				newGore.timeLeft = 60;
-				newGore.velocity += Vector2.One;
+				if (Main.netMode != NetmodeID.Server)
+				{
+					Gore newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity *.4f, mod.GetGoreSlot("Gores/SerrisXGore1"))];
+					newGore.timeLeft = 60;
+					newGore.velocity += Vector2.One;
 
-				newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore2"))];
-				newGore.timeLeft = 60;
-				newGore.velocity += new Vector2(-1f, 1f);
+					newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore2"))];
+					newGore.timeLeft = 60;
+					newGore.velocity += new Vector2(-1f, 1f);
 
-				newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore3"))];
-				newGore.timeLeft = 60;
-				newGore.velocity += new Vector2(1f, -1f);
+					newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore3"))];
+					newGore.timeLeft = 60;
+					newGore.velocity += new Vector2(1f, -1f);
 
-				newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore4"))];
-				newGore.timeLeft = 60;
-				newGore.velocity -= Vector2.One;
+					newGore = Main.gore[Gore.NewGore(npc.position, npc.velocity * .4f, mod.GetGoreSlot("Gores/SerrisXGore4"))];
+					newGore.timeLeft = 60;
+					newGore.velocity -= Vector2.One;
+				}
 					
 				if(soundInstance != null)
 					soundInstance.Stop(true);

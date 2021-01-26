@@ -45,7 +45,7 @@ namespace MetroidMod.NPCs.Serris
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (Main.netMode != 2)
+			if (Main.netMode != NetmodeID.Server)
 			{
 				if (npc.life <= 0)
 				{

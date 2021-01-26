@@ -58,17 +58,20 @@ namespace MetroidMod.NPCs.Serris
 					npc.netUpdate = true;
 				}
 
-				if (!npc.active && Main.netMode == 2)
+				if (!npc.active && Main.netMode == NetmodeID.Server)
 					NetMessage.SendData(28, -1, -1, null, npc.whoAmI, -1f);
 			}
 
-			int tileXMin = (int)MathHelper.Clamp((npc.position.X / 16f) - 1, 0, Main.maxTilesX);
-			int tileXMax = (int)MathHelper.Clamp(((npc.position.X + (float)npc.width) / 16f) + 2, 0, Main.maxTilesX);
-			int tileYMin = (int)MathHelper.Clamp((npc.position.Y / 16f) - 1, 0, Main.maxTilesY);
-			int tileYMax = (int)MathHelper.Clamp(((npc.position.Y + (float)npc.height) / 16f) + 2, 0, Main.maxTilesY);
+			int tileXMin = (int)MathHelper.Clamp((npc.position.X / 16f) - 1, 0, Main.maxTilesX-1);
+			int tileXMax = (int)MathHelper.Clamp(((npc.position.X + (float)npc.width) / 16f) + 2, 0, Main.maxTilesX-1);
+			int tileYMin = (int)MathHelper.Clamp((npc.position.Y / 16f) - 1, 0, Main.maxTilesY-1);
+			int tileYMax = (int)MathHelper.Clamp(((npc.position.Y + (float)npc.height) / 16f) + 2, 0, Main.maxTilesY-1);
+			
+			Vector2 worldBounds = new Vector2(Main.maxTilesX * 16, Main.maxTilesY * 16);
+			bool outOfBounds = (npc.position.X + npc.width < 0 || npc.position.X > worldBounds.X + 16 || npc.position.Y + npc.height < 0 || npc.position.Y > worldBounds.Y + 16);
 
 			// Grounded check to see if the NPC is 'flying' or not.
-			bool inGround = false;
+			bool inGround = outOfBounds;
 			for (int x = tileXMin; x < tileXMax; ++x)
 			{
 				for (int y = tileYMin; y < tileYMax; ++y)

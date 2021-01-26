@@ -53,6 +53,7 @@ namespace MetroidMod.NPCs.Serris
 			npc.frameCounter = 0;
 			npc.aiStyle = -1;
 			npc.npcSlots = 1;
+			npc.boss = true;
 		}
 
 		public override void AI()
@@ -63,7 +64,7 @@ namespace MetroidMod.NPCs.Serris
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (Main.netMode != 2)
+			if (Main.netMode != NetmodeID.Server)
 			{
 				if (npc.life <= 0)
 				{
