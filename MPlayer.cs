@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
@@ -3121,7 +3122,21 @@ namespace MetroidMod
 		}
 		public void Drill(Player p, int drill)
 		{
-			if (!player.mouseInterface && drill > 0 && p.position.X / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetX && (p.position.X + (float)p.width) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetX && p.position.Y / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetY && (p.position.Y + (float)p.height) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetY)
+			bool noBuildFlag = false;
+			for(int i = 0; i < p.buffType.Length; i++)
+			{
+				if(p.buffType[i] == BuffID.NoBuilding && p.buffTime[i] > 0)
+				{
+					noBuildFlag = true;
+					break;
+				}
+			}
+			if(p.noBuilding || noBuildFlag)
+			{
+				return;
+			}
+			
+			if(!player.mouseInterface && drill > 0 && p.position.X / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetX && (p.position.X + (float)p.width) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetX && p.position.Y / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetY && (p.position.Y + (float)p.height) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetY)
 			{
 				if(Main.mouseLeft)
 				{
