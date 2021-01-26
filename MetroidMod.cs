@@ -446,7 +446,11 @@ namespace MetroidMod
 								color *= (1f - tScale[i]) * 0.9f;
 								int height = tTex.Height / 5;
 								int yFrame = height*frame;
-								sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)height/2f), npc.scale*1.5f * (1f+tScale[i]), SpriteEffects.None, 0f);
+								
+								Vector2 pos = Vector2.Transform(npc.Center - Main.screenPosition, Main.GameViewMatrix.ZoomMatrix);
+								pos /= Main.UIScale;
+								
+								sb.Draw(tTex, pos, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)height/2f), npc.scale*1.5f * (1f+tScale[i]), SpriteEffects.None, 0f);
 							}
 						}
 						else
@@ -480,7 +484,11 @@ namespace MetroidMod
 							NPC npc = Main.npc[i];
 							Texture2D tTex = mod.GetTexture("Gore/Targeting_retical_Vortex");
 							Color color = new Color(255, 255, 255, 10);
-							sb.Draw(tTex, npc.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tTex.Width, tTex.Height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)tTex.Height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
+							
+							Vector2 pos = Vector2.Transform(npc.Center - Main.screenPosition, Main.GameViewMatrix.ZoomMatrix);
+							pos /= Main.UIScale;
+							
+							sb.Draw(tTex, pos, new Rectangle?(new Rectangle(0, 0, tTex.Width, tTex.Height)), color, tRot, new Vector2((float)tTex.Width/2f, (float)tTex.Height/2f), npc.scale*1.5f, SpriteEffects.None, 0f);
 						}
 					}
 				}
