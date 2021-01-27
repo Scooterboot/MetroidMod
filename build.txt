@@ -1,4 +1,4 @@
 author = Scooterboot9697, Terratroid, Joost, Eldrazi, Jefftheswift, Begoliah
-version = 2.1.0.2
+version = 2.1.0.3
 displayName = Metroid Mod
 homepage = https://forums.terraria.org/index.php?threads/metroid-mod.101768/
