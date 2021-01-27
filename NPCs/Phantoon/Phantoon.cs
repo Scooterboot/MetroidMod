@@ -20,6 +20,7 @@ namespace MetroidMod.NPCs.Phantoon
 			DisplayName.SetDefault("Phantoon");
 		}
 		int damage = 65;
+		int oldLife = 0;
 		public override void SetDefaults()
 		{
 			npc.width = 92;
@@ -119,10 +120,11 @@ namespace MetroidMod.NPCs.Phantoon
 				npc.netUpdate = true;
 				npc.TargetClosest(true);
 				npc.Center = new Vector2(Main.player[npc.target].Center.X,Main.player[npc.target].Center.Y - 200);
+				oldLife = npc.life;
 			}
 			return true;
 		}
-				
+		
 		int frameNum = 1;
 		
 		int eyeOpen = 0;
@@ -468,6 +470,12 @@ namespace MetroidMod.NPCs.Phantoon
 					}
 					else
 					{
+						if (Main.netMode != NetmodeID.MultiplayerClient)
+						{
+							npc.ai[3] += (oldLife - npc.life) / 2;
+							oldLife = npc.life;
+						}
+						
 						npc.alpha = Math.Max(npc.alpha-25,0);
 						
 						// movement
@@ -589,7 +597,7 @@ namespace MetroidMod.NPCs.Phantoon
 			return NPC.NewNPC((int)posX,(int)posY,mod.NPCType("PhantoonFireBall"), npc.whoAmI, npc.whoAmI, ai1, ai2, ai3, npc.target);
 		}
 		
-		public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+		/*public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
 		{
 			if(npc.ai[2] == 2f)
 			{
@@ -602,7 +610,7 @@ namespace MetroidMod.NPCs.Phantoon
 			{
 				npc.ai[3] += damage / 2;
 			}
-		}
+		}*/
 
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
