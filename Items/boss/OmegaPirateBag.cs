@@ -10,7 +10,6 @@ namespace MetroidMod.Items.boss
 		{
 			DisplayName.SetDefault("Treasure Bag");
 			Tooltip.SetDefault("Right click to open");
-			ItemID.Sets.ItemNoGravity[item.type] = true;
 		}
 		public override void SetDefaults()
 		{
@@ -43,4 +42,3 @@ namespace MetroidMod.Items.boss
 		}
 	}
 }
-
