@@ -253,8 +253,8 @@ namespace MetroidMod.NPCs.Serris
 				npc.position += targetDir;
 				npc.spriteDirection = Math.Sign(targetDir.X);
 
-				if (Main.netMode != NetmodeID.MultiplayerClient)
-				{
+				//if (Main.netMode != NetmodeID.MultiplayerClient)
+				//{
 					// Check if head is alive, active and not in its second stage...
 					NPC headNPC = Main.npc[(int)npc.ai[3]];
 					NPC prevNPC = Main.npc[(int)npc.ai[1]];
@@ -267,7 +267,7 @@ namespace MetroidMod.NPCs.Serris
 						npc.HitEffect(0, 10.0);
 						npc.active = false;
 					}
-				}
+				//}
 			}
 		}
 	}

@@ -42,6 +42,7 @@ namespace MetroidMod.NPCs.Kraid
 			npc.frameCounter = 0;
 			npc.aiStyle = -1;
 			npc.npcSlots = 1;
+			npc.boss = true;
 
 			swipeDestVec[0] = new Vector2(-12f,-10f);
 			swipeDestVec[1] = new Vector2(-22f,-36f);
@@ -64,11 +65,15 @@ namespace MetroidMod.NPCs.Kraid
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)npc.ai[0]];
+			bool despawn = (Head.ai[3] > 1);
 			if (!Head.active)
 			{
 				npc.life = 0;
-				npc.HitEffect(0, 10.0);
 				npc.active = false;
+				if(!despawn)
+				{
+					npc.HitEffect(0, 10.0);
+				}
 				return;
 			}
 

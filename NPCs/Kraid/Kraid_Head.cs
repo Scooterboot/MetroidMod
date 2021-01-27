@@ -153,7 +153,20 @@ namespace MetroidMod.NPCs.Kraid
 				if (!player.active || player.dead)
 				{
 					npc.position.Y += 10;
+					if(npc.ai[3] > 0)
+					{
+						npc.ai[3]++;
+						if(npc.ai[3] > 180)
+						{
+							npc.life = 0;
+							npc.active = false;
+						}
+					}
 				}
+			}
+			else if(npc.ai[3] > 1)
+			{
+				npc.ai[3] = 1;
 			}
 
 			// Just spawned, spawn limbs.
@@ -236,6 +249,26 @@ namespace MetroidMod.NPCs.Kraid
 			}
 
 
+			if(npc.justHit)
+			{
+				if((npc.direction == 1 && player.Center.X >= npc.Center.X) || (npc.direction == -1 && player.Center.X <= npc.Center.X))
+				{
+					if(npc.ai[0] <= 0 && roarCounter <= 0)
+					{
+						npc.ai[0] = 1;
+						npc.netUpdate = true;
+					}
+					if(mouthOpen)
+					{
+						if(ArmBack.ai[1] <= 0 && state > 0)
+						{
+							ArmBack.ai[1]++;
+							ArmBack.netUpdate = true;
+						}
+					}
+				}
+			}
+			
 			bool flag = false;
 			if(npc.ai[0] > 0)
 			{
@@ -391,19 +424,21 @@ namespace MetroidMod.NPCs.Kraid
 			}
 		}
 
-		public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+		/*public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
 		{
 			if((npc.direction == 1 && player.Center.X >= npc.Center.X) || (npc.direction == -1 && player.Center.X <= npc.Center.X))
 			{
 				if(npc.ai[0] <= 0 && roarCounter <= 0)
 				{
 					npc.ai[0] = 1;
+					npc.netUpdate = true;
 				}
 				if(mouthOpen)
 				{
 					if(ArmBack.ai[1] <= 0 && state > 0)
 					{
 						ArmBack.ai[1]++;
+						ArmBack.netUpdate = true;
 					}
 				}
 			}
@@ -415,16 +450,18 @@ namespace MetroidMod.NPCs.Kraid
 				if(npc.ai[0] <= 0 && roarCounter <= 0)
 				{
 					npc.ai[0] = 1;
+					npc.netUpdate = true;
 				}
 				if(mouthOpen && projectile.Center.Y > npc.position.Y)
 				{
 					if(ArmBack.ai[1] <= 0 && state > 0)
 					{
 						ArmBack.ai[1]++;
+						ArmBack.netUpdate = true;
 					}
 				}
 			}
-		}
+		}*/
 		public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
 		{
 			damage += (int)(npc.defense * 0.95f * 0.5f);

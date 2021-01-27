@@ -36,16 +36,21 @@ namespace MetroidMod.NPCs.Kraid
 			npc.frameCounter = 0;
 			npc.aiStyle = -1;
 			npc.npcSlots = 1;
+			npc.boss = true;
 		}
 		int state = 0;
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)npc.ai[0]];
+			bool despawn = (Head.ai[3] > 1);
 			if (!Head.active)
 			{
 				npc.life = 0;
-				npc.HitEffect(0, 10.0);
 				npc.active = false;
+				if(!despawn)
+				{
+					npc.HitEffect(0, 10.0);
+				}
 				return;
 			}
 
