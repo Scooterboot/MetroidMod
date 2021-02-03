@@ -24,6 +24,7 @@ namespace MetroidMod.Items.misc
 			item.value = 100;
 			item.rare = 1;
 		}
+		public override bool ItemSpace(Player player) => true;
 		public override bool OnPickup(Player player)
 		{
 			for(int i = 0; i < player.inventory.Length; i++)
