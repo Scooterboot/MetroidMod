@@ -13,9 +13,10 @@ using MetroidMod.Common.Worlds;
 
 namespace MetroidMod.NPCs.Torizo
 {
-	[AutoloadHead]
+	[AutoloadBossHead]
     public class IdleTorizo : ModNPC
     {
+		public override string BossHeadTexture => mod.Name + "/NPCs/Torizo/IdleTorizo_Head";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("???");
@@ -25,8 +26,6 @@ namespace MetroidMod.NPCs.Torizo
 			npc.width = 96;
 			npc.height = 96;
 			npc.aiStyle = -1;
-			npc.townNPC = true;
-			npc.friendly = true;
 			npc.damage = 0;
 			npc.defense = 0;
 			npc.dontTakeDamage = true;
@@ -36,14 +35,10 @@ namespace MetroidMod.NPCs.Torizo
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.knockBackResist = 0f;
-		}
-		public override bool CanChat()
-		{
-			return false;
-		}
-		public override bool CheckConditions(int left, int right, int top, int bottom)
-		{
-			return false;
+			for(int i = 0; i < npc.ai.Length; i++)
+			{
+				npc.ai[i] = 0.0f;
+			}
 		}
 		
 		Vector2 eTankPos = new Vector2(32,-32);
@@ -56,9 +51,12 @@ namespace MetroidMod.NPCs.Torizo
 		new Vector2(32,-8),new Vector2(-35,-23),new Vector2(-29,14),
 		new Vector2(-19,29),new Vector2(15,27),new Vector2(27,39)};
 		
-		public override void AI()
+		public override bool PreAI()
 		{
-			npc.GivenName = "";
+			return false;
+		}
+		public override void PostAI()
+		{
 			Rectangle room = MWorld.TorizoRoomLocation;
 			if(room.X > 0 && room.Y > 0)
 			{
@@ -74,17 +72,22 @@ namespace MetroidMod.NPCs.Torizo
 				
 				npc.position.X = pos.X-npc.width/2;
 				npc.position.Y = pos.Y-npc.height;
-			}
-			
-			for(int i = 0; i < 255; i++)
-			{
-				Player player = Main.player[i];
-				if(player.active && !player.dead && Vector2.Distance(player.Center,npc.Center) < 200f && 
-					Collision.CanHit(npc.position,npc.width,npc.height,player.position,player.width,player.height) && npc.ai[0] == 0)
+				
+				for(int i = 0; i < 255; i++)
 				{
-					npc.ai[0] = 1;
-					npc.target = player.whoAmI;
+					Player player = Main.player[i];
+					if(player.active && !player.dead && Vector2.Distance(player.Center,npc.Center) < 200f && 
+						Collision.CanHit(npc.position,npc.width,npc.height,player.position,player.width,player.height) && npc.ai[0] == 0)
+					{
+						npc.ai[0] = 1;
+						npc.target = player.whoAmI;
+					}
 				}
+			}
+			else
+			{
+				npc.active = false;
+				return;
 			}
 			
 			eTankFrameCounter++;
@@ -206,17 +209,6 @@ namespace MetroidMod.NPCs.Torizo
 				npc.active = false;
 			}
 		}
-		
-		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
-		{
-			//Tile tile = Main.tile[spawnInfo.spawnTileX, spawnInfo.spawnTileY];
-			//return tile.type == 38 && !NPC.AnyNPCs(mod.NPCType("Torizo")) && !NPC.AnyNPCs(mod.NPCType("TorizoIdle")) && spawnInfo.spawnTileY > Main.spawnTileY + 420 && spawnInfo.spawnTileY < Main.spawnTileY + 550 && spawnInfo.spawnTileX > Main.spawnTileX + 100 && spawnInfo.spawnTileX < Main.spawnTileX + 270 ? 5f : 0f;
-			
-			Rectangle room = MWorld.TorizoRoomLocation;
-			bool rectFlag = (room.X > 0 && room.Y > 0);
-			bool rectFlag2 = (spawnInfo.spawnTileX > room.X && spawnInfo.spawnTileX < room.X+room.Width && spawnInfo.spawnTileY > room.Y && spawnInfo.spawnTileY < room.Y+room.Height);
-			return (!NPC.AnyNPCs(mod.NPCType("Torizo")) && !NPC.AnyNPCs(mod.NPCType("IdleTorizo")) && rectFlag && rectFlag2) ? 5f : 0f;
-		}*/
 		
 		public override bool PreDraw(SpriteBatch sb, Color drawColor)
 		{
