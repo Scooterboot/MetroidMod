@@ -250,7 +250,7 @@ namespace MetroidMod.Projectiles.chargelead
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Texture2D tex = ModLoader.GetMod(UIParameters.MODNAME).GetTexture("Projectiles/chargelead/" + ChargeTex);
+			Texture2D tex = mod.GetTexture("Projectiles/chargelead/" + ChargeTex);
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (projectile.spriteDirection == -1)
 				spriteEffects = SpriteEffects.FlipHorizontally;

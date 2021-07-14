@@ -34,7 +34,7 @@ namespace MetroidMod.NPCs.Town
 		}
 
 		public override void SetDefaults()
-		{			
+		{
 			npc.width = 18;
 			npc.height = 40;
 
@@ -50,7 +50,7 @@ namespace MetroidMod.NPCs.Town
 			animationType = NPCID.Guide;
 
 			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath1;			
+			npc.DeathSound = SoundID.NPCDeath1;	
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
@@ -213,6 +213,20 @@ namespace MetroidMod.NPCs.Town
 					shop.item[nextSlot].SetDefaults(mod.ItemType("GravitySuitGreaves"));
 					nextSlot++;
 				}
+			}
+			
+			shop.item[nextSlot].SetDefaults(mod.ItemType("VanityPack"));
+			nextSlot++;
+			
+			if(MWorld.bossesDown.HasFlag(MetroidBossDown.downedPhantoon))
+			{
+				shop.item[nextSlot].SetDefaults(mod.ItemType("VanityPack_Prime"));
+				nextSlot++;
+			}
+			if(NPC.downedMoonlord)
+			{
+				shop.item[nextSlot].SetDefaults(mod.ItemType("VanityPack_Lunar"));
+				nextSlot++;
 			}
 		}
 

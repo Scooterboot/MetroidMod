@@ -128,7 +128,7 @@ namespace MetroidMod
 		
 		public override void PostSetupContent()
 		{
-			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Mod mod = this;
 			Mod bossChecklist = ModLoader.GetMod("BossCheckList");
 			if(bossChecklist != null)
 			{
@@ -316,7 +316,7 @@ namespace MetroidMod
 		//List<Vector2> itemCoords = new List<Vector2>();
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
-			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Mod mod = this;
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
@@ -404,7 +404,7 @@ namespace MetroidMod
 		float[] tScale = { 1f,1f,1f,1f,1f };
 		public void DrawSeekerTargets(SpriteBatch sb)
 		{
-			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Mod mod = this;
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
@@ -500,7 +500,7 @@ namespace MetroidMod
 		public static int chB = 0;
 		public void DrawChargeBar(SpriteBatch sb)
 		{
-			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Mod mod = this;
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
@@ -655,7 +655,7 @@ namespace MetroidMod
 		
 		public void DrawSpaceJumpBar(SpriteBatch sb)
 		{
-			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Mod mod = this;
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(mp.shineDirection == 0 && mp.spaceJump && mp.spaceJumped && P.velocity.Y != 0 && !mp.ballstate)
@@ -676,7 +676,7 @@ namespace MetroidMod
 		}
 		public void DrawReserveHearts(SpriteBatch sb)
 		{
-			Mod mod = ModLoader.GetMod(UIParameters.MODNAME);
+			Mod mod = this;
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if (mp.reserveTanks > 0)
