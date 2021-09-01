@@ -159,6 +159,14 @@ namespace MetroidMod.Projectiles
                 {
                     if (Main.tile[x, y] != null && Main.tile[x, y].active())
                     {
+                        if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
+                        {
+                            TileLoader.HitWire(x, y, mod.TileType("BlueHatch"));
+                        }
+                        if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
+                        {
+                            TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
+                        }
                         if (projectile.Name.Contains("Screw Attack"))
                         {
                             if (MWorld.mBlockType[x, y] == 3)

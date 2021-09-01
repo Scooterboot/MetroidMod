@@ -38,19 +38,195 @@ namespace MetroidMod.Common.Worlds
 		public static Rectangle TorizoRoomLocation = new Rectangle(0,0,80,40);
 		
         public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+        
+        public static bool[,] hit = new bool[Main.maxTilesX, Main.maxTilesY];
+        public static bool[,] dontRegen = new bool[Main.maxTilesX, Main.maxTilesY];
+        /*
+        * Important! we assume the timers will always be the same length inside one Queue.
+        * Tuple< EndTime, Pos >
+        */
+        public static Queue<Tuple<int, Vector2>> timers = new Queue<Tuple<int, Vector2>>();
+        public static Queue<Tuple<int, Vector2>> nextTick = new Queue<Tuple<int, Vector2>>();
+        public static Queue<Tuple<int, Vector2>> regenTimers = new Queue<Tuple<int, Vector2>>();
+        public static Queue<Tuple<int, Vector2>> quickRegenTimers = new Queue<Tuple<int, Vector2>>();
+        public static int Timer = 0;
+        public static int regenTime = 300;
+        
+        private List<int> weaponBlockItems = new List<int>();
 		
 		public override void Initialize()
 		{
+            weaponBlockItems = new List<int>() {
+                mod.ItemType("CrumbleBlock"),
+                mod.ItemType("CrumbleBlockSpeed"),
+                mod.ItemType("BombBlock"),
+                mod.ItemType("MissileBlock"),
+                mod.ItemType("FakeBlock"),
+                mod.ItemType("BoostBlock"),
+                mod.ItemType("PowerBombBlock"),
+                mod.ItemType("SuperMissileBlock"),
+                mod.ItemType("ScrewAttackBlock"),
+                mod.ItemType("FakeBlockHint"),
+                mod.ItemType("CrumbleBlockSlow"),
+                mod.ItemType("BombBlockChain"),
+                mod.ItemType("ChoziteCutter"),
+                mod.ItemType("ChoziteWrench")
+            };
 			bossesDown = MetroidBossDown.downedNone;
+            mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+            hit = new bool[Main.maxTilesX, Main.maxTilesY];
+            timers = new Queue<Tuple<int, Vector2>>();
+            nextTick = new Queue<Tuple<int, Vector2>>();
+            regenTimers = new Queue<Tuple<int, Vector2>>();
+            quickRegenTimers = new Queue<Tuple<int, Vector2>>();
+            Timer = 0;
 		}
+        
+        public override void PreUpdate()
+        {
+            UpdateTimers();
+            UpdateRegenTimers();
+            Timer++;
+        }
+        
+        public static void AddRegenBlock(int x, int y, bool quick = false)
+        {
+            var pos = new Vector2(x, y);
+            hit[x, y] = true;
+            if(!dontRegen[x, y])
+            {
+                if(quick)
+                    quickRegenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime / 5, pos));
+                else
+                    regenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime, pos));
+            }
+            if (!Main.tile[(int)pos.X, (int)pos.Y].inActive())
+            {
+                Main.PlaySound(2, pos * 16, 51);
+                for (int d = 0; d < 4; d++)
+                {
+                    Dust.NewDust(pos * 16, 16, 16, 1);
+                }
+            }
+            Wiring.DeActive(x, y);
+            if(mBlockType[x, y] == 12)
+            {
+                int left = mBlockType[x - 1, y];
+                int right = mBlockType[x + 1, y];
+                int up = mBlockType[x, y - 1];
+                int down = mBlockType[x, y + 1];
+                if(left == 12 && !Main.tile[x - 1, y].inActive())
+                {
+                    hit[x - 1, y] = true;
+                    nextTick.Enqueue(new Tuple<int,Vector2>((int)(Timer) + 1, new Vector2(x - 1, y)));
+                }
+                if(right == 12 && !Main.tile[x + 1, y].inActive())
+                {
+                    hit[x + 1, y] = true;
+                    nextTick.Enqueue(new Tuple<int,Vector2>((int)(Timer) + 1, new Vector2(x + 1, y)));
+                }
+                if(up == 12 && !Main.tile[x, y - 1].inActive())
+                {
+                    hit[x, y - 1] = true;
+                    nextTick.Enqueue(new Tuple<int,Vector2>((int)(Timer) + 1, new Vector2(x, y - 1)));
+                }
+                if(down == 12 && !Main.tile[x, y + 1].inActive())
+                {
+                    hit[x, y + 1] = true;
+                    nextTick.Enqueue(new Tuple<int,Vector2>((int)(Timer) + 1, new Vector2(x, y + 1)));
+                }
+            }
+        }
+        
+        public void UpdateTimers()
+        {
+            if(nextTick.Count>0)
+            {
+                Tuple<int, Vector2> timer = nextTick.Peek();
+                if(timer.Item1 <= Timer)
+                {
+                    Vector2 pos = timer.Item2;
+                    AddRegenBlock((int)pos.X, (int)pos.Y, MWorld.mBlockType[(int)pos.X, (int)pos.Y] != 12);
+                    var player = Main.player[Main.myPlayer];
+                    MPlayer mp = player.GetModPlayer<MPlayer>();
+                    if(mp.falling){
+                        player.velocity.X = 0;
+                        player.oldVelocity.X = 0;
+                    }
+                    nextTick.Dequeue();
+                    UpdateTimers();
+                }
+            }
+            if(timers.Count>0)
+            {
+                Tuple<int, Vector2> timer = timers.Peek();
+                if(timer.Item1 <= Timer)
+                {
+                    Vector2 pos = timer.Item2;
+                    AddRegenBlock((int)pos.X, (int)pos.Y, true);
+                    var player = Main.player[Main.myPlayer];
+                    MPlayer mp = player.GetModPlayer<MPlayer>();
+                    if(mp.falling){
+                        player.velocity.X = 0;
+                        player.oldVelocity.X = 0;
+                    }
+                    timers.Dequeue();
+                    UpdateTimers();
+                }
+            }
+        }
+        
+        public void UpdateRegenTimers()
+        {
+            if(regenTimers.Count>0)
+            {
+                Tuple<int, Vector2> timer = regenTimers.Peek();
+                if(timer.Item1 <= Timer)
+                {
+                    Vector2 pos = timer.Item2;
+                    Wiring.ReActive((int)pos.X, (int)pos.Y);
+                    regenTimers.Dequeue();
+                    UpdateRegenTimers();
+                }
+            }
+            if(quickRegenTimers.Count>0)
+            {
+                Tuple<int, Vector2> timer = quickRegenTimers.Peek();
+                if(timer.Item1 <= Timer)
+                {
+                    Vector2 pos = timer.Item2;
+                    Wiring.ReActive((int)pos.X, (int)pos.Y);
+                    quickRegenTimers.Dequeue();
+                    UpdateRegenTimers();
+                }
+            }
+        }
 
 		public override TagCompound Save()
 		{
+            List<Vector2> positions = new List<Vector2>();
+            List<ushort> types = new List<ushort>();
+            List<bool> regens = new List<bool>();
+            for(int row = 0; row < Main.maxTilesX; row++)
+            {
+                for(int column = 0; column < Main.maxTilesY; column++)
+                {
+                    if(mBlockType[row,column] > 0)
+                    {
+                        positions.Add(new Vector2(row,column));
+                        types.Add(mBlockType[row,column]);
+                        regens.Add(dontRegen[row, column]);
+                    }
+                }
+            }
 			return new TagCompound {
 				{"downed", (int)bossesDown},
 				{"spawnedPhazonMeteor", spawnedPhazonMeteor},
 				{"TorizoRoomLocation.X", TorizoRoomLocation.X},
-				{"TorizoRoomLocation.Y", TorizoRoomLocation.Y}
+				{"TorizoRoomLocation.Y", TorizoRoomLocation.Y},
+                {"BlockTypePositions", positions},
+                {"BlockTypes", types},
+                {"BlockRegen", regens}
 			};
 		}
 
@@ -62,6 +238,20 @@ namespace MetroidMod.Common.Worlds
 			
 			TorizoRoomLocation.X = tag.Get<int>("TorizoRoomLocation.X");
 			TorizoRoomLocation.Y = tag.Get<int>("TorizoRoomLocation.Y");
+            var positions = tag.GetList<Vector2>("BlockTypePositions");
+            var types = tag.GetList<ushort>("BlockTypes");
+            var regens = tag.GetList<bool>("BlockRegen");
+            for(int i = 0; i < positions.Count; i++)
+            {
+                var pos = positions[i];
+                if(i < types.Count)
+                {
+                    mBlockType[(int)pos.X, (int)pos.Y] = types[i];
+                    if(i < regens.Count)
+                        dontRegen[(int)pos.X, (int)pos.Y] = regens[i];
+                    Wiring.ReActive((int)pos.X, (int)pos.Y);
+                }
+            }
 		}
 
 		public override void LoadLegacy(BinaryReader reader)
@@ -87,6 +277,29 @@ namespace MetroidMod.Common.Worlds
 			writer.Write(spawnedPhazonMeteor);
 			writer.Write(TorizoRoomLocation.X);
 			writer.Write(TorizoRoomLocation.Y);
+            List<Vector2> positions = new List<Vector2>();
+            List<ushort> types = new List<ushort>();
+            var regens = new List<bool>();
+            for(int row = 0; row < Main.maxTilesX; row++)
+            {
+                for(int column = 0; column < Main.maxTilesY; column++)
+                {
+                    if(mBlockType[row,column] > 0)
+                    {
+                        positions.Add(new Vector2(row,column));
+                        types.Add(mBlockType[row,column]);
+                        regens.Add(dontRegen[row,column]);
+                    }
+                }
+            }
+            writer.Write(types.Count);
+            for(int i = 0; i < types.Count; i++)
+            {
+                writer.Write(positions[i].X);
+                writer.Write(positions[i].Y);
+                writer.Write(types[i]);
+                writer.Write(regens[i]);
+            }
 		}
 
 		public override void NetReceive(BinaryReader reader)
@@ -95,6 +308,16 @@ namespace MetroidMod.Common.Worlds
 			spawnedPhazonMeteor = reader.ReadBoolean();
 			TorizoRoomLocation.X = reader.ReadInt32();
 			TorizoRoomLocation.Y = reader.ReadInt32();
+            mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+            dontRegen = new bool[Main.maxTilesX, Main.maxTilesY];
+            var count = reader.ReadInt32();
+            for(int i = 0; i < count; i++)
+            {
+                var x = reader.ReadInt32();
+                var y = reader.ReadInt32();
+                mBlockType[x, y] = (ushort)reader.ReadInt16();
+                dontRegen[x, y] = (bool)reader.ReadBoolean();
+            }
 		}
 		
 		public override void PostDrawTiles()
@@ -127,33 +350,143 @@ namespace MetroidMod.Common.Worlds
 		    }
 		    for (int i = x1; i < x2; i++)
 		    {
-			for (int j = y1; j < y2; j++)
-			{
-			    Tile tile = Main.tile[i, j];
-			    Color color = Lighting.GetColor(i, j);
-			    if (!Main.tile[i, j].active() || Main.tile[i, j].inActive() || !Main.tileSolid[Main.tile[i,j].type])
-			    {
-				color *= 0.5f;
-			    }
-			    bool draw = Terraria.GameContent.UI.WiresUI.Settings.DrawWires;
-			    float scale = 1f; 
-			    Vector2 screenPos = Main.screenPosition;
-			    int xOff = -4 * 16;
-			    int yOff = -4 * 16;
-			    Vector2 drawPos = new Vector2((float)(i * 16 + xOff - (int)screenPos.X), (float)(j * 16 + yOff - (int)screenPos.Y)) + zero;
+                for (int j = y1; j < y2; j++)
+                {
+                    Tile tile = Main.tile[i, j];
+                    Color color = Lighting.GetColor(i, j);
+                    if (!Main.tile[i, j].active() || Main.tile[i, j].inActive() || !Main.tileSolid[Main.tile[i,j].type])
+                    {
+                    color *= 0.5f;
+                    }
+                    bool draw = false;
+                    if(Main.myPlayer < 256 && Main.myPlayer >= 0)
+                        draw = weaponBlockItems.Contains(Main.player[Main.myPlayer].HeldItem.type);
+                    float scale = 1f; 
+                    Vector2 screenPos = Main.screenPosition;
+                    int xOff = -12 * 16;
+                    int yOff = -12 * 16;
+                    Vector2 drawPos = new Vector2((float)(i * 16 + xOff - (int)screenPos.X), (float)(j * 16 + yOff - (int)screenPos.Y)) + zero;
 
-			    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
-			    if (draw)
-			    {
-				if (mBlockType[i, j] == 1)
-				{
-				    spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-				}
-			    }
+                    if (draw)
+                    {
+                        if (dontRegen[i, j])
+                        {
+                            color.B /= 2;
+                            color.G /= 2;
+                        }
+                        if (mBlockType[i, j] == 1)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 2)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 3)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/BombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 4)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/MissileBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 5)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/FakeBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 6)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/BoostBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 7)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/PowerBombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 8)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/SuperMissileBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 9)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/ScrewAttackBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 10)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/FakeBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 11)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 12)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/BombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                    }
+                    if (hit[i, j] && (Main.tile[i, j].active() && !Main.tile[i, j].inActive()))
+                    {
+                        if (mBlockType[i, j] == 1)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 2)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 3)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/BombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 4)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/MissileBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 5)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/FakeBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 6)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/BoostBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 7)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/PowerBombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 8)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/SuperMissileBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 9)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/ScrewAttackBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 10)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/FakeBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 11)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                        if (mBlockType[i, j] == 12)
+                        {
+                            spriteBatch.Draw(mod.GetTexture("Tiles/BombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                    }
+                    else
+                    {
+                        if (mBlockType[i, j] == 10)
+                        {
+                            color = new Color(color.R, color.G, color.B, 64);
+                            spriteBatch.Draw(mod.GetTexture("Tiles/FakeBlockHint"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+                        }
+                    }
 
-			    spriteBatch.End();
-			}
+                    spriteBatch.End();
+                }
 		    }
 		}
 		
