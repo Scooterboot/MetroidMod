@@ -56,6 +56,8 @@ namespace MetroidMod
 		public float breathMult = 1f;
 		public Vector2 oldPosition;
 		
+        public bool falling;
+
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();
@@ -177,20 +179,87 @@ namespace MetroidMod
 			int j = (int)MathHelper.Clamp((player.position.Y + player.height + 1) / 16, 0, Main.maxTilesY-1);
 			for (int i = x1; i <= x2; i++)
 			{
-				Vector2 pos = new Vector2(i * 16, j * 16);
-				if (MWorld.mBlockType[i, j] == 1 && Main.tile[i, j].active() && !Main.tile[i, j].inActive())
-				{
-					Wiring.DeActive(i, j);
-					if (Main.tile[i, j].inActive())
-					{
-						Main.PlaySound(2, pos, 51);
-						for (int d = 0; d < 4; d++)
-						{
-							Dust.NewDust(pos, 16, 16, 1);
-						}
-					}
-				}
+                if(Main.tile[i, j].active() && !Main.tile[i, j].inActive())
+                {
+                    if (MWorld.mBlockType[i, j] == 1) //CrumbleInstant
+                    {
+                        MWorld.AddRegenBlock(i, j, true);
+                        // Enforce SpeedBooster
+                        if(falling){
+                            player.velocity.X = 0;
+                            player.oldVelocity.X = 0;
+                        }
+                    }
+                    if (MWorld.mBlockType[i, j] == 2) //CrumbleSpeed
+                    {
+                        MWorld.nextTick.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 1, new Vector2(i, j)));
+                    }
+                    if (MWorld.mBlockType[i, j] == 11) //CrumbleSlow
+                    {
+                        MWorld.hit[i, j] = true;
+                        MWorld.timers.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 60, new Vector2(i, j)));
+                    }
+                }
 			}
+            #region speedBoost & screwAttack
+			x1 = (int)MathHelper.Clamp((player.position.X + player.velocity.X - 3) / 16, 0, Main.maxTilesX-1);
+			x2 = (int)MathHelper.Clamp((player.position.X + player.velocity.X + player.width + 3) / 16, 0, Main.maxTilesX-1);
+			int y1 = (int)MathHelper.Clamp((player.position.Y + player.velocity.Y - 16) / 16, 0, Main.maxTilesY-1);
+			int y2 = (int)MathHelper.Clamp((player.position.Y + player.velocity.Y + player.height + 3) / 16, 0, Main.maxTilesY-1);
+			for (int i = x1; i <= x2; i++)
+			{
+                for (int k = y1; k <= y2; k++)
+                {
+                    var mp = player.GetModPlayer<MPlayer>();
+                    if(mp.speedBoosting || mp.shineActive)
+                    {
+                        if(Main.tile[i, j].active() && !Main.tile[i, j].inActive())
+                        {
+                            if (MWorld.mBlockType[i, k] == 5) //FakeBlock
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
+                            if (MWorld.mBlockType[i, k] == 6) //BoostBlock
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
+                            if (MWorld.mBlockType[i, k] == 10) //FakeBlockHint
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
+                        }
+                    }
+                    if(mp.somersault && mp.screwAttack)
+                    {
+                        if(Main.tile[i, j].active() && !Main.tile[i, j].inActive())
+                        {
+                            if (MWorld.mBlockType[i, k] == 3) //BombBlock
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
+                            if (MWorld.mBlockType[i, k] == 5) //FakeBlock
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
+                            if (MWorld.mBlockType[i, k] == 9) //ScrewAttackBlock
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
+                            if (MWorld.mBlockType[i, k] == 10) //FakeBlockHint
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            //Is there a better workaround for this?
+            falling = false;
+            if(Math.Sign(player.position.Y - player.oldPosition.Y) == player.gravDir)
+            {
+                falling = true;
+            }
 		}
 		public static bool TouchTiles(Vector2 Position, int Width, int Height, int tileType)
 		{

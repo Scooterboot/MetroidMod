@@ -1,11 +1,15 @@
-using Terraria;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+
+using Terraria;
 using Terraria.ModLoader;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using MetroidMod.Common.Worlds;
 
 namespace MetroidMod.Projectiles.bombs
 {
@@ -115,6 +119,28 @@ namespace MetroidMod.Projectiles.bombs
                                 TileLoader.HitWire(x, y, mod.TileType("BlueHatch"));
                             if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
                                 TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("YellowSwitch"))
+                                Wiring.TripWire(x, y, 1, 1);
+                        }
+                        if (MWorld.mBlockType[x, y] != 0)
+                        {
+                            MWorld.hit[x, y] = true;
+                        }
+                        if (MWorld.mBlockType[x, y] == 3)
+                        {
+                            MWorld.AddRegenBlock(x, y);
+                        }
+                        if (MWorld.mBlockType[x, y] == 5)
+                        {
+                            MWorld.AddRegenBlock(x, y);
+                        }
+                        if (MWorld.mBlockType[x, y] == 7)
+                        {
+                            MWorld.AddRegenBlock(x, y);
+                        }
+                        if (MWorld.mBlockType[x, y] == 10)
+                        {
+                            MWorld.AddRegenBlock(x, y);
                         }
                     }
                 }

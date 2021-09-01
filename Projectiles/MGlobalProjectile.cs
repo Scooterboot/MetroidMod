@@ -13,6 +13,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using MetroidMod.Common.Worlds;
+
 namespace MetroidMod.Projectiles
 {
     public class MGlobalProjectile : GlobalProjectile
@@ -66,6 +68,18 @@ namespace MetroidMod.Projectiles
                     if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
                     {
                         TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
+                    }
+                    if (Main.tile[x, y].type == (ushort)mod.TileType("BlueSwitch"))
+                    {
+                        Wiring.TripWire(x, y, 1, 1);
+                    }
+                    if (MWorld.mBlockType[x, y] == 5)
+                    {
+                        MWorld.AddRegenBlock(x, y);
+                    }
+                    if (MWorld.mBlockType[x, y] == 10)
+                    {
+                        MWorld.AddRegenBlock(x, y);
                     }
                 }
             }
@@ -145,13 +159,54 @@ namespace MetroidMod.Projectiles
                 {
                     if (Main.tile[x, y] != null && Main.tile[x, y].active())
                     {
-                        if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatch"))
+                        if (projectile.Name.Contains("Screw Attack"))
                         {
-                            TileLoader.HitWire(x, y, mod.TileType("BlueHatch"));
+                            if (MWorld.mBlockType[x, y] == 3)
+                            {
+                                MWorld.AddRegenBlock(x, y);
+                            }
+                            if (MWorld.mBlockType[x, y] == 5)
+                            {
+                                MWorld.AddRegenBlock(x, y);
+                            }
+                            if (MWorld.mBlockType[x, y] == 10)
+                            {
+                                MWorld.AddRegenBlock(x, y);
+                            }
+                            if (MWorld.mBlockType[x, y] == 9)
+                            {
+                                MWorld.AddRegenBlock(x, y);
+                            }
                         }
-                        if (Main.tile[x, y].type == (ushort)mod.TileType("BlueHatchVertical"))
+                        else if(!projectile.Name.Contains("Charge Attack"))
                         {
-                            TileLoader.HitWire(x, y, mod.TileType("BlueHatchVertical"));
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("BlueSwitch"))
+                            {
+                                Wiring.TripWire(x, y, 1, 1);
+                            }
+                            if (MWorld.mBlockType[x, y] != 0)
+                            {
+                                MWorld.hit[x, y] = true;
+                            }
+                            if (MWorld.mBlockType[x, y] == 5)
+                            {
+                                MWorld.AddRegenBlock(x, y);
+                            }
+                            if (MWorld.mBlockType[x, y] == 10)
+                            {
+                                MWorld.AddRegenBlock(x, y);
+                            }
+                            if (projectile.Name.Contains("Bomb"))
+                            {
+                                if (MWorld.mBlockType[x, y] == 3)
+                                {
+                                    MWorld.AddRegenBlock(x, y);
+                                }
+                                if (MWorld.mBlockType[x, y] == 12)
+                                {
+                                    MWorld.AddRegenBlock(x, y);
+                                }
+                            }
                         }
                         if (projectile.Name.Contains("Missile"))
                         {
@@ -163,6 +218,14 @@ namespace MetroidMod.Projectiles
                             {
                                 TileLoader.HitWire(x, y, mod.TileType("RedHatchVertical"));
                             }
+                            if (MWorld.mBlockType[x, y] == 4)
+                            {
+                                MWorld.AddRegenBlock(x, y);
+                            }
+                            if (Main.tile[x, y].type == (ushort)mod.TileType("RedSwitch"))
+                            {
+                                Wiring.TripWire(x, y, 1, 1);
+                            }
                             if (projectile.Name.Contains("Super") || projectile.Name.Contains("Nebula") || projectile.Name.Contains("Stardust"))
                             {
                                 if (Main.tile[x, y].type == (ushort)mod.TileType("GreenHatch"))
@@ -172,6 +235,14 @@ namespace MetroidMod.Projectiles
                                 if (Main.tile[x, y].type == (ushort)mod.TileType("GreenHatchVertical"))
                                 {
                                     TileLoader.HitWire(x, y, mod.TileType("GreenHatchVertical"));
+                                }
+                                if (Main.tile[x, y].type == (ushort)mod.TileType("GreenSwitch"))
+                                {
+                                    Wiring.TripWire(x, y, 1, 1);
+                                }
+                                if (MWorld.mBlockType[x, y] == 8)
+                                {
+                                    MWorld.AddRegenBlock(x, y);
                                 }
                             }
                         }
