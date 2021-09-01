@@ -371,20 +371,30 @@ namespace MetroidMod
 				{
 					flag = true;
 				}
-
-				if (MWorld.mBlockType[(int)num, (int)num2] == 1 && Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive())
+                bool crumble = (MWorld.mBlockType[(int)num, (int)num2] == 1 || MWorld.mBlockType[(int)num, (int)num2] == 2 || MWorld.mBlockType[(int)num, (int)num2] == 11);
+				if (crumble && Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive())
 				{
-					Wiring.DeActive((int)num, (int)num2);
-					Vector2 pos = new Vector2((int)num * 16, (int)num2 * 16);
-					if (Main.tile[(int)num, (int)num2].inActive())
-					{
-						Main.PlaySound(2, pos, 51);
-						for (int d = 0; d < 4; d++)
-						{
-							Dust.NewDust(pos, 16, 16, 1);
-						}
-						flag = false;
-					}
+                    if (MWorld.mBlockType[(int)num, (int)num2] == 1) //CrumbleInstant
+                    {
+                        MWorld.AddRegenBlock((int)num, (int)num2, true);
+                        // Enforce SpeedBooster
+                        if(falling){
+                            player.velocity.X = 0;
+                            player.oldVelocity.X = 0;
+                        }
+                        flag = false;
+                    }
+                    if (MWorld.mBlockType[(int)num, (int)num2] == 2) //CrumbleSpeed
+                    {
+                        MWorld.nextTick.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 1, new Vector2((int)num, (int)num2)));
+                        flag = false;
+                    }
+                    if (MWorld.mBlockType[(int)num, (int)num2] == 11) //CrumbleSlow
+                    {
+                        MWorld.hit[(int)num, (int)num2] = true;
+                        MWorld.timers.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 60, new Vector2((int)num, (int)num2)));
+                        flag = false;
+                    }
 				}
 				float num3 = player.Center.X / 16f;
 				if (Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive() && Main.tileSolid[Main.tile[(int)num3, (int)num2].type] && !Main.tileSolidTop[Main.tile[(int)num3, (int)num2].type] && (Main.tile[(int)num3, (int)num2 - (int)player.gravDir].inActive() || !Main.tile[(int)num3, (int)num2 - (int)player.gravDir].active() || (Main.tile[(int)num3, (int)num2 - 1].bottomSlope() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].topSlope() && player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num3, (int)num2 - (int)player.gravDir].type] || (Main.tile[(int)num3, (int)num2].halfBrick() && player.gravDir == 1) || (Main.tile[(int)num3, (int)num2 + 1].halfBrick() && player.gravDir == -1) || Main.tile[(int)num3, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
@@ -396,19 +406,30 @@ namespace MetroidMod
 					flag = true;
 				}
 
-				if (MWorld.mBlockType[(int)num3, (int)num2] == 1 && Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive())
+                crumble = (MWorld.mBlockType[(int)num3, (int)num2] == 1 || MWorld.mBlockType[(int)num3, (int)num2] == 2 || MWorld.mBlockType[(int)num3, (int)num2] == 11);
+				if (crumble && Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive())
 				{
-					Wiring.DeActive((int)num3, (int)num2);
-					Vector2 pos = new Vector2((int)num3 * 16, (int)num2 * 16);
-					if (Main.tile[(int)num3, (int)num2].inActive())
-					{
-						Main.PlaySound(2, pos, 51);
-						for (int d = 0; d < 4; d++)
-						{
-							Dust.NewDust(pos, 16, 16, 1);
-						}
-						flag = false;
-					}
+                    if (MWorld.mBlockType[(int)num3, (int)num2] == 1) //CrumbleInstant
+                    {
+                        MWorld.AddRegenBlock((int)num3, (int)num2, true);
+                        // Enforce SpeedBooster
+                        if(falling){
+                            player.velocity.X = 0;
+                            player.oldVelocity.X = 0;
+                        }
+                        flag = false;
+                    }
+                    if (MWorld.mBlockType[(int)num3, (int)num2] == 2) //CrumbleSpeed
+                    {
+                        MWorld.nextTick.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 1, new Vector2((int)num3, (int)num2)));
+                        flag = false;
+                    }
+                    if (MWorld.mBlockType[(int)num3, (int)num2] == 11) //CrumbleSlow
+                    {
+                        MWorld.hit[(int)num3, (int)num2] = true;
+                        MWorld.timers.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 60, new Vector2((int)num3, (int)num2)));
+                        flag = false;
+                    }
 				}
 		
 				if (flag && ((player.velocity.Y > 0f && player.gravDir == 1f) || (player.velocity.Y < player.gravity && player.gravDir == -1f)))

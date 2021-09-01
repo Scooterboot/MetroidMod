@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
+using MetroidMod.Common.Worlds;
+
 namespace MetroidMod.Items.tools
 {
 	public class ScanPulse : ModItem
@@ -43,6 +45,7 @@ namespace MetroidMod.Items.tools
 				{
 					if (WorldGen.InWorld(i, j))
 					{
+                        MWorld.hit[i, j] = true;
 						if (Main.tileSpelunker[Main.tile[i, j].type])
 						{
 							Main.Map.UpdateLighting(i, j, 200);

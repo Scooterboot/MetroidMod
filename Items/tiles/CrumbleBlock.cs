@@ -17,7 +17,7 @@ namespace MetroidMod.Items.tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Crumble Block (Instant)");
-            Tooltip.SetDefault("Deactivates a tile when a player stands on it \nUse Wire Cutters to break");
+            Tooltip.SetDefault("Deactivates a tile when a player stands on it \nUse Chozite Cutters to break.");
 		}
 		public override void SetDefaults()
 		{
@@ -31,9 +31,9 @@ namespace MetroidMod.Items.tiles
 			item.useStyle = 1;
 			item.consumable = true;
 			item.rare = 1;
-            item.mech = true;
 		}
 
+        // Netsyncing ?
         public override bool UseItem(Player player)
         {
             if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem)
