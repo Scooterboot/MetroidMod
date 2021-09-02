@@ -85,7 +85,12 @@ namespace MetroidMod.Items.tools
 						{
 							player.direction = -1;
 						}
-						Lighting.AddLight((int)((float)lightPos.X/16f), (int)((float)lightPos.Y/16f), 0.75f+(0.25f*i), 0.75f+(0.25f*i), 0.75f+(0.25f*i));
+						float lightMult = 1f;
+						if(Lighting.lightMode == 2 || Lighting.lightMode == 3)
+						{
+							lightMult = 0.1f;
+						}
+						Lighting.AddLight((int)((float)lightPos.X/16f), (int)((float)lightPos.Y/16f), 0.75f+(0.25f*i)*lightMult, 0.75f+(0.25f*i)*lightMult, 0.75f+(0.25f*i)*lightMult);
                         Vector2 tilePos = lightPos / 16f;
                         MWorld.hit[(int)tilePos.X, (int)tilePos.Y] = true;
                         MWorld.hit[(int)tilePos.X - 1, (int)tilePos.Y] = true;
