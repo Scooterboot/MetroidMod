@@ -369,9 +369,10 @@ namespace MetroidMod.Common.Worlds
 
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
-                    if (draw)
+                    bool revealed = (hit[i, j] && (Main.tile[i, j].active() && !Main.tile[i, j].inActive()));
+					if(draw || revealed)
                     {
-                        if (dontRegen[i, j])
+                        if(dontRegen[i, j] && draw)
                         {
                             color.B /= 2;
                             color.G /= 2;
@@ -425,58 +426,7 @@ namespace MetroidMod.Common.Worlds
                             spriteBatch.Draw(mod.GetTexture("Tiles/BombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
                         }
                     }
-                    if (hit[i, j] && (Main.tile[i, j].active() && !Main.tile[i, j].inActive()))
-                    {
-                        if (mBlockType[i, j] == 1)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 2)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 3)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/BombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 4)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/MissileBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 5)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/FakeBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 6)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/BoostBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 7)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/PowerBombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 8)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/SuperMissileBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 9)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/ScrewAttackBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 10)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/FakeBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 11)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/CrumbleBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                        if (mBlockType[i, j] == 12)
-                        {
-                            spriteBatch.Draw(mod.GetTexture("Tiles/BombBlock"), drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-                        }
-                    }
-                    else
+					if(!revealed)
                     {
                         if (mBlockType[i, j] == 10)
                         {

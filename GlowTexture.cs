@@ -76,11 +76,11 @@ namespace MetroidMod
 			int shader = drawInfo.legArmorShader;
 			
 			Item item = null;
-			if(drawPlayer.armor[2] != null && !drawPlayer.armor[2].IsAir)
+			if(drawPlayer.armor[2] != null && !drawPlayer.armor[2].IsAir && drawPlayer.legs == drawPlayer.armor[2].legSlot)
 			{
 				item = drawPlayer.armor[2];
 			}
-			if(drawPlayer.armor[12] != null && !drawPlayer.armor[12].IsAir)
+			if(drawPlayer.armor[12] != null && !drawPlayer.armor[12].IsAir && drawPlayer.legs == drawPlayer.armor[12].legSlot)
 			{
 				item = drawPlayer.armor[12];
 			}
@@ -104,11 +104,11 @@ namespace MetroidMod
 			int shader = drawInfo.bodyArmorShader;
 			
 			Item item = null;
-			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir)
+			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir && drawPlayer.body == drawPlayer.armor[1].bodySlot)
 			{
 				item = drawPlayer.armor[1];
 			}
-			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir)
+			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir && drawPlayer.body == drawPlayer.armor[11].bodySlot)
 			{
 				item = drawPlayer.armor[11];
 			}
@@ -144,11 +144,11 @@ namespace MetroidMod
 			int shader = drawInfo.headArmorShader;
 			
 			Item item = null;
-			if(drawPlayer.armor[0] != null && !drawPlayer.armor[0].IsAir)
+			if(drawPlayer.armor[0] != null && !drawPlayer.armor[0].IsAir && drawPlayer.head == drawPlayer.armor[0].headSlot)
 			{
 				item = drawPlayer.armor[0];
 			}
-			if(drawPlayer.armor[10] != null && !drawPlayer.armor[10].IsAir)
+			if(drawPlayer.armor[10] != null && !drawPlayer.armor[10].IsAir && drawPlayer.head == drawPlayer.armor[10].headSlot)
 			{
 				item = drawPlayer.armor[10];
 			}
@@ -172,11 +172,11 @@ namespace MetroidMod
 			int shader = drawInfo.bodyArmorShader;
 			
 			Item item = null;
-			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir)
+			if(drawPlayer.armor[1] != null && !drawPlayer.armor[1].IsAir && drawPlayer.body == drawPlayer.armor[1].bodySlot)
 			{
 				item = drawPlayer.armor[1];
 			}
-			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir)
+			if(drawPlayer.armor[11] != null && !drawPlayer.armor[11].IsAir && drawPlayer.body == drawPlayer.armor[11].bodySlot)
 			{
 				item = drawPlayer.armor[11];
 			}

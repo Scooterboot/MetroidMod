@@ -42,12 +42,11 @@ namespace MetroidMod.Items.tools
             {
                 if (MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] == 1)
                 {
-                    Mod metroidMod = ModLoader.GetMod("MetroidMod");
-                    Item.NewItem(pos, metroidMod.ItemType("CrumbleBlock"));
+                    Item.NewItem(pos, mod.ItemType("CrumbleBlock"));
                 }
                 if (MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] == 2)
                 {
-                    Item.NewItem(pos, mod.ItemType("CrumbleBlock"));
+                    Item.NewItem(pos, mod.ItemType("CrumbleBlockSpeed"));
                 }
                 if (MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] == 3)
                 {
@@ -91,6 +90,7 @@ namespace MetroidMod.Items.tools
                 }
                 MWorld.mBlockType[Player.tileTargetX, Player.tileTargetY] = 0;
                 MWorld.dontRegen[Player.tileTargetX, Player.tileTargetY] = false;
+				MWorld.hit[Player.tileTargetX, Player.tileTargetY] = false;
                 Main.PlaySound(0, Main.MouseWorld);
             }
             return base.UseItem(player);

@@ -372,7 +372,7 @@ namespace MetroidMod
 					flag = true;
 				}
                 bool crumble = (MWorld.mBlockType[(int)num, (int)num2] == 1 || MWorld.mBlockType[(int)num, (int)num2] == 2 || MWorld.mBlockType[(int)num, (int)num2] == 11);
-				if (crumble && Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive())
+				if (crumble && Math.Sign(player.velocity.Y) == player.gravDir && Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive())
 				{
                     if (MWorld.mBlockType[(int)num, (int)num2] == 1) //CrumbleInstant
                     {
@@ -407,7 +407,7 @@ namespace MetroidMod
 				}
 
                 crumble = (MWorld.mBlockType[(int)num3, (int)num2] == 1 || MWorld.mBlockType[(int)num3, (int)num2] == 2 || MWorld.mBlockType[(int)num3, (int)num2] == 11);
-				if (crumble && Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive())
+				if (crumble && Math.Sign(player.velocity.Y) == player.gravDir && Main.tile[(int)num3, (int)num2].active() && !Main.tile[(int)num3, (int)num2].inActive())
 				{
                     if (MWorld.mBlockType[(int)num3, (int)num2] == 1) //CrumbleInstant
                     {

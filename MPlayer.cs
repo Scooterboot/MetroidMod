@@ -174,8 +174,8 @@ namespace MetroidMod
 					}
 				}
 			}
-			int x1 = (int)MathHelper.Clamp((player.position.X + player.velocity.X - 1) / 16, 0, Main.maxTilesX-1);
-			int x2 = (int)MathHelper.Clamp((player.position.X + player.velocity.X + player.width + 1) / 16, 0, Main.maxTilesX-1);
+			int x1 = (int)MathHelper.Clamp((player.position.X + player.velocity.X) / 16, 0, Main.maxTilesX-1);
+			int x2 = (int)MathHelper.Clamp((player.position.X + player.velocity.X + player.width - 1) / 16, 0, Main.maxTilesX-1);
 			int j = (int)MathHelper.Clamp((player.position.Y + player.height + 1) / 16, 0, Main.maxTilesY-1);
 			for (int i = x1; i <= x2; i++)
 			{
@@ -202,10 +202,12 @@ namespace MetroidMod
                 }
 			}
             #region speedBoost & screwAttack
-			x1 = (int)MathHelper.Clamp((player.position.X + player.velocity.X - 3) / 16, 0, Main.maxTilesX-1);
-			x2 = (int)MathHelper.Clamp((player.position.X + player.velocity.X + player.width + 3) / 16, 0, Main.maxTilesX-1);
-			int y1 = (int)MathHelper.Clamp((player.position.Y + player.velocity.Y - 16) / 16, 0, Main.maxTilesY-1);
-			int y2 = (int)MathHelper.Clamp((player.position.Y + player.velocity.Y + player.height + 3) / 16, 0, Main.maxTilesY-1);
+			int blockCheckWidth = 32;
+			int blockCheckHeight = 48;
+			x1 = (int)MathHelper.Clamp((player.Center.X - blockCheckWidth/2 + Math.Min(player.velocity.X,0)) / 16, 0, Main.maxTilesX-1);
+			x2 = (int)MathHelper.Clamp((player.Center.X + blockCheckWidth/2 + Math.Max(player.velocity.X,0)) / 16, 0, Main.maxTilesX-1);
+			int y1 = (int)MathHelper.Clamp((player.Center.Y - blockCheckHeight/2 + Math.Min(player.velocity.Y,0)) / 16, 0, Main.maxTilesY-1);
+			int y2 = (int)MathHelper.Clamp((player.Center.Y + blockCheckHeight/2 + Math.Max(player.velocity.Y,0)) / 16, 0, Main.maxTilesY-1);
 			for (int i = x1; i <= x2; i++)
 			{
                 for (int k = y1; k <= y2; k++)
@@ -213,8 +215,12 @@ namespace MetroidMod
                     var mp = player.GetModPlayer<MPlayer>();
                     if(mp.speedBoosting || mp.shineActive)
                     {
-                        if(Main.tile[i, j].active() && !Main.tile[i, j].inActive())
+                        if(Main.tile[i, k].active() && !Main.tile[i, k].inActive())
                         {
+							if (MWorld.mBlockType[i, k] == 3) //BombBlock
+                            {
+                                MWorld.AddRegenBlock(i, k);
+                            }
                             if (MWorld.mBlockType[i, k] == 5) //FakeBlock
                             {
                                 MWorld.AddRegenBlock(i, k);
@@ -231,7 +237,7 @@ namespace MetroidMod
                     }
                     if(mp.somersault && mp.screwAttack)
                     {
-                        if(Main.tile[i, j].active() && !Main.tile[i, j].inActive())
+                        if(Main.tile[i, k].active() && !Main.tile[i, k].inActive())
                         {
                             if (MWorld.mBlockType[i, k] == 3) //BombBlock
                             {
