@@ -37,6 +37,8 @@ namespace MetroidMod.Tiles.Hatch
 			AddMapEntry(new Color(248, 232, 56), name);
             adjTiles = new int[] { TileID.ClosedDoor };
 			minPick = 210;
+			
+			otherDoorID = mod.TileType("YellowHatchOpenVertical");
         }
 		
         public override void MouseOver(int i, int j)
@@ -58,16 +60,14 @@ namespace MetroidMod.Tiles.Hatch
 			//return true;
 			return false;
 		}
-		public override void HitWire(int i, int j)
-		{
-			ToggleHatch(i,j,(ushort)mod.TileType("YellowHatchOpenVertical"));
-		}
+        
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
 			r = 0.5f;
 			g = 0.4f;
 			b = 0.05f;
 		}
+        
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             DrawDoor(i,j,spriteBatch,mod.GetTexture("Tiles/Hatch/YellowHatchVerticalDoor"));

@@ -15,7 +15,7 @@ namespace MetroidMod.Tiles.Hatch
 		public override void SetDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
-			Main.tileSolid[Type] = false;
+			Main.tileSolid[Type] = true;
 			Main.tileLavaDeath[Type] = false;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
@@ -32,6 +32,8 @@ namespace MetroidMod.Tiles.Hatch
 			AddMapEntry(new Color(0, 160, 0), name);
 			adjTiles = new int[]{ TileID.OpenDoor };
 			minPick = 150;
+			
+			otherDoorID = mod.TileType("GreenHatch");
         }
 
         public override void MouseOver(int i, int j)
@@ -46,16 +48,7 @@ namespace MetroidMod.Tiles.Hatch
         {
             Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("GreenHatch"));
         }
-
-        public override bool NewRightClick(int i, int j)
-		{
-			HitWire(i, j);
-			return true;
-		}
-		public override void HitWire(int i, int j)
-		{
-			ToggleHatch(i,j,(ushort)mod.TileType("GreenHatch"),true);
-		}
+        
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
 			if(type == Type)
