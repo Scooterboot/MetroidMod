@@ -1,17 +1,23 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using System;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using MetroidMod.Common.Worlds;
 
 namespace MetroidMod.Tiles.Hatch
 {
 	public class BlueHatch : ModTile
 	{
+        public int otherDoorID = 0;
+        
 		public override void SetDefaults()
 		{
 			Main.tileSolid[Type] = true;
@@ -34,9 +40,12 @@ namespace MetroidMod.Tiles.Hatch
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
             adjTiles = new int[]{ TileID.ClosedDoor };
+			
+			otherDoorID = mod.TileType("BlueHatchOpen");
         }
 
         public override bool Slope(int i, int j) { return false; }
+        
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -55,10 +64,13 @@ namespace MetroidMod.Tiles.Hatch
 			HitWire(i, j);
 			return true;
 		}
+        
 		public override void HitWire(int i, int j)
 		{
-			ToggleHatch(i,j,(ushort)mod.TileType("BlueHatchOpen"));
+			ToggleHatch(i, j, (ushort)otherDoorID);
+            MWorld.doorTimers.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 60 * 30, new Vector2(i, j)));
 		}
+        
 		public void ToggleHatch(int i, int j, ushort type, bool isOpen = false)
 		{
 			int x = i - (Main.tile[i, j].frameX / 18) % 4;
@@ -71,6 +83,7 @@ namespace MetroidMod.Tiles.Hatch
 					{
 						if(!Collision.EmptyTile(l, m, true))
 						{
+                            MWorld.nextDoorTimers.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 60, new Vector2(i, j)));
 							return;
 						}
 					}

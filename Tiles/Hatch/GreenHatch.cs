@@ -35,6 +35,8 @@ namespace MetroidMod.Tiles.Hatch
 			AddMapEntry(new Color(0, 160, 0), name);
             adjTiles = new int[] { TileID.ClosedDoor };
 			minPick = 150;
+			
+			otherDoorID = mod.TileType("GreenHatchOpen");
         }
 
         public override void MouseOver(int i, int j)
@@ -56,10 +58,7 @@ namespace MetroidMod.Tiles.Hatch
 			//return true;
 			return false;
 		}
-		public override void HitWire(int i, int j)
-		{
-			ToggleHatch(i,j,(ushort)mod.TileType("GreenHatchOpen"));
-		}
+        
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
 			r = 0.05f;

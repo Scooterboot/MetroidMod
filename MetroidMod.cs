@@ -808,5 +808,29 @@ namespace MetroidMod
 					break;
 			}
 		}
+        
+        public override void PreUpdateEntities()
+        {
+            Main.tileSolid[TileType("BlueHatchOpen")] = false;
+            Main.tileSolid[TileType("BlueHatchOpenVertical")] = false;
+            Main.tileSolid[TileType("RedHatchOpen")] = false;
+            Main.tileSolid[TileType("RedHatchOpenVertical")] = false;
+            Main.tileSolid[TileType("GreenHatchOpen")] = false;
+            Main.tileSolid[TileType("GreenHatchOpenVertical")] = false;
+            Main.tileSolid[TileType("YellowHatchOpen")] = false;
+            Main.tileSolid[TileType("YellowHatchOpenVertical")] = false;
+        }
+        
+        public override void MidUpdateTimeWorld()
+        {
+            Main.tileSolid[TileType("BlueHatchOpen")] = true;
+            Main.tileSolid[TileType("BlueHatchOpenVertical")] = true;
+            Main.tileSolid[TileType("RedHatchOpen")] = true;
+            Main.tileSolid[TileType("RedHatchOpenVertical")] = true;
+            Main.tileSolid[TileType("GreenHatchOpen")] = true;
+            Main.tileSolid[TileType("GreenHatchOpenVertical")] = true;
+            Main.tileSolid[TileType("YellowHatchOpen")] = true;
+            Main.tileSolid[TileType("YellowHatchOpenVertical")] = true;
+        }
 	}
 }

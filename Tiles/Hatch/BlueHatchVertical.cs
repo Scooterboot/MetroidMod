@@ -36,11 +36,10 @@ namespace MetroidMod.Tiles.Hatch
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
             adjTiles = new int[] { TileID.ClosedDoor };
+            
+            otherDoorID = mod.TileType("BlueHatchOpenVertical");
         }
-		public override void HitWire(int i, int j)
-		{
-			ToggleHatch(i,j,(ushort)mod.TileType("BlueHatchOpenVertical"));
-		}
+        
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             DrawDoor(i,j,spriteBatch,mod.GetTexture("Tiles/Hatch/BlueHatchVerticalDoor"));

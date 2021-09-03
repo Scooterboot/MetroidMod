@@ -49,6 +49,10 @@ namespace MetroidMod.Common.Worlds
         public static Queue<Tuple<int, Vector2>> nextTick = new Queue<Tuple<int, Vector2>>();
         public static Queue<Tuple<int, Vector2>> regenTimers = new Queue<Tuple<int, Vector2>>();
         public static Queue<Tuple<int, Vector2>> quickRegenTimers = new Queue<Tuple<int, Vector2>>();
+        
+        public static Queue<Tuple<int, Vector2>> doorTimers = new Queue<Tuple<int, Vector2>>();
+        public static Queue<Tuple<int, Vector2>> nextDoorTimers = new Queue<Tuple<int, Vector2>>();
+        
         public static int Timer = 0;
         public static int regenTime = 300;
         
@@ -184,7 +188,13 @@ namespace MetroidMod.Common.Worlds
                 if(timer.Item1 <= Timer)
                 {
                     Vector2 pos = timer.Item2;
-                    Wiring.ReActive((int)pos.X, (int)pos.Y);
+                    if(!Collision.EmptyTile((int)pos.X, (int)pos.Y, true))
+                    {
+                        quickRegenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime / 5, pos));
+                    }
+                    else{
+                        Wiring.ReActive((int)pos.X, (int)pos.Y);
+                    }
                     regenTimers.Dequeue();
                     UpdateRegenTimers();
                 }
@@ -195,8 +205,54 @@ namespace MetroidMod.Common.Worlds
                 if(timer.Item1 <= Timer)
                 {
                     Vector2 pos = timer.Item2;
-                    Wiring.ReActive((int)pos.X, (int)pos.Y);
+                    if(!Collision.EmptyTile((int)pos.X, (int)pos.Y, true))
+                    {
+                        quickRegenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime / 5, pos));
+                    }
+                    else{
+                        Wiring.ReActive((int)pos.X, (int)pos.Y);
+                    }
                     quickRegenTimers.Dequeue();
+                    UpdateRegenTimers();
+                }
+            }
+            if(doorTimers.Count>0)
+            {
+                Tuple<int, Vector2> timer = doorTimers.Peek();
+                if(timer.Item1 <= Timer)
+                {
+                    Vector2 pos = timer.Item2;
+                    int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].type;
+                    bool open = (hatchtype == (ushort)mod.TileType("BlueHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("RedHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("GreenHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchOpen"));
+                    if(open)
+                    {
+                        Tiles.Hatch.BlueHatch hatch = (TileLoader.GetTile(hatchtype) as Tiles.Hatch.BlueHatch);
+                        hatch.ToggleHatch((int)pos.X, (int)pos.Y,(ushort)hatch.otherDoorID,true);
+                    }
+                    doorTimers.Dequeue();
+                    UpdateRegenTimers();
+                }
+            }
+            if(nextDoorTimers.Count>0)
+            {
+                Tuple<int, Vector2> timer = nextDoorTimers.Peek();
+                if(timer.Item1 <= Timer)
+                {
+                    Vector2 pos = timer.Item2;
+                    int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].type;
+                    bool open = (hatchtype == (ushort)mod.TileType("BlueHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("RedHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("GreenHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchOpen"));
+                    if(open)
+                    {
+                        Tiles.Hatch.BlueHatch hatch = (TileLoader.GetTile(hatchtype) as Tiles.Hatch.BlueHatch);
+                        hatch.ToggleHatch((int)pos.X, (int)pos.Y,(ushort)hatch.otherDoorID,true);
+                    }
+                    nextDoorTimers.Dequeue();
                     UpdateRegenTimers();
                 }
             }
@@ -250,6 +306,22 @@ namespace MetroidMod.Common.Worlds
                     if(i < regens.Count)
                         dontRegen[(int)pos.X, (int)pos.Y] = regens[i];
                     Wiring.ReActive((int)pos.X, (int)pos.Y);
+                }
+            }
+            for(int row = 0; row < Main.maxTilesX; row++)
+            {
+                for(int column = 0; column < Main.maxTilesY; column++)
+                {
+                    int hatchtype = Main.tile[row, column].type;
+                    bool open = (hatchtype == (ushort)mod.TileType("BlueHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("RedHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("GreenHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchOpen"));
+                    if(open)
+                    {
+                        Tiles.Hatch.BlueHatch hatch = (TileLoader.GetTile(hatchtype) as Tiles.Hatch.BlueHatch);
+                        hatch.ToggleHatch(row, column, (ushort)hatch.otherDoorID, true);
+                    }
                 }
             }
 		}
