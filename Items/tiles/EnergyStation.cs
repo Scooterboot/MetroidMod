@@ -9,7 +9,8 @@ namespace MetroidMod.Items.tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Energy Station");
-			Tooltip.SetDefault("Right click the station while standing next to it to recharge your life");
+			Tooltip.SetDefault("Right click the station while standing next to it to recharge your life\n"+
+			"Unobtainable. Intended for adventure map creators.");
 		}
 		public override void SetDefaults()
 		{
