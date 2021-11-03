@@ -70,7 +70,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit Greaves");
-			Tooltip.SetDefault("Allows you to cling to walls\n" +
+			Tooltip.SetDefault("Allows somersaulting\n" +
 			"Negates fall damage\n" +
 			"10% increased movement speed");
 		}
@@ -83,9 +83,9 @@ namespace MetroidMod.Items.armor
 			item.defense = 13;
 		}
 		public override void UpdateEquip(Player player)
-		{
-			player.spikedBoots += 2;
-			player.noFallDmg = true;
+        {
+            player.GetModPlayer<MPlayer>().canSomersault = true;
+            player.noFallDmg = true;
 			player.moveSpeed += 0.10f;
 		}
 		public override void AddRecipes()

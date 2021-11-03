@@ -63,7 +63,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit Greaves");
-			Tooltip.SetDefault("Allows you to slide down walls\n" +
+			Tooltip.SetDefault("Allows somersaulting\n" +
 			"Negates fall damage\n" +
 			"10% increased movement speed");
 		}
@@ -76,9 +76,9 @@ namespace MetroidMod.Items.armor
 			item.defense = 7;
 		}
 		public override void UpdateEquip(Player player)
-		{
-			player.spikedBoots += 1;
-			player.noFallDmg = true;
+        {
+            player.GetModPlayer<MPlayer>().canSomersault = true;
+            player.noFallDmg = true;
 			player.moveSpeed += 0.10f;
 		}
 		public override void AddRecipes()

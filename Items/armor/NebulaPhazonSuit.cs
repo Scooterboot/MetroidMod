@@ -84,7 +84,7 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nebula Phazon Suit Greaves");
-			Tooltip.SetDefault("Allows you to cling to walls\n" +
+			Tooltip.SetDefault("Allows somersaulting\n" +
 			"Negates fall damage\n" +
 			"20% increased movement speed");
 		}
@@ -98,7 +98,7 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.spikedBoots += 2;
+			player.GetModPlayer<MPlayer>().canSomersault = true;
 			player.noFallDmg = true;
 			player.moveSpeed += 0.20f;
 		}

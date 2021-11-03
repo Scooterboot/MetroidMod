@@ -48,6 +48,8 @@ namespace MetroidMod
 		public float rotateCountX = 0.05f;
 		public float rotateCountY = 0.05f;
 		int itemRotTweak = 0;
+
+        public bool canWallJump = false;
 		
 		public bool hiJumpBoost = false;
 		public bool spaceJumpBoots = false;
@@ -72,9 +74,10 @@ namespace MetroidMod
 			
 			speedBooster = false;
 			speedBoosting = false;
-			speedBoostDmg = 0;
+            speedBoostDmg = 0;
 			
 			disableSomersault = false;
+            canSomersault = false;
 			
 			hiJumpBoost = false;
 			spaceJumpBoots = false;
@@ -135,20 +138,33 @@ namespace MetroidMod
 						player.fullRotationOrigin.Y = (float)player.height*0.45f;
 					}
 					itemRotTweak = 2;
-				}
-				else if(shineDirection == 2 || shineDirection == 4)
+
+                }
+				else if(shineDirection == 2 || shineDirection == 4) //right and up or left and up
 				{
 					rotation = 0.05f * player.direction * player.gravDir;
 					player.fullRotation = rotation;
 					player.fullRotationOrigin = player.Center - player.position;
 				}
-				else if(shineDirection == 1 || shineDirection == 3)
+				else if(shineDirection == 1 || shineDirection == 3) //right or left
 				{
 					rotation = ((float)Math.PI/4f) * player.direction * player.gravDir;
 					player.fullRotation = rotation;
 					player.fullRotationOrigin = player.Center - player.position;
 				}
-				else
+				else if (shineDirection == 6 || shineDirection == 7) // right and down or left and down
+                {
+                    rotation = (float)Math.PI / 3f * player.direction * player.gravDir;
+                    player.fullRotation = rotation;
+                    player.fullRotationOrigin = player.Center - player.position;
+                }
+                else if (shineDirection == 8) //down
+                {
+                    rotation = (float)Math.PI * player.gravDir;
+                    player.fullRotation = rotation;
+                    player.fullRotationOrigin = player.Center - player.position;
+                }
+                else //up
 				{
 					rotation = 0f;
 					player.fullRotation = 0f;
@@ -198,8 +214,18 @@ namespace MetroidMod
 		public void PostUpdateMiscEffects_Accessories()
 		{
 			GripMovement();
-			
-			if(speedBooster)
+            int wallJumpDir = 0;
+            bool altJump = false;
+            if (somersault)
+            {
+                CheckWallJump(player, ref wallJumpDir, ref altJump);
+            }
+            else
+            {
+                canWallJump = false;
+            }
+
+            if (speedBooster)
 			{
 				AddSpeedBoost(player, speedBoostDmg);
 				if(player.controlJump)
@@ -229,10 +255,13 @@ namespace MetroidMod
 			{
 				sbFlag = false;
 			}
-			
+            
+            DoWallJump(player, wallJumpDir, altJump);
+
 			if(spaceJumpBoots || spaceJump || screwAttack)
-			{
-				AddSpaceJumpBoots(player);
+            {
+                canSomersault = true;
+                AddSpaceJumpBoots(player);
 				if(spaceJump)
 				{
 					AddSpaceJump(player);
@@ -300,10 +329,6 @@ namespace MetroidMod
 				shineDirection = 0;
 				shineDischarge = 0;
 				shineActive = false;
-			}
-			if(!spaceJumpBoots && !spaceJump)
-			{
-				canSomersault = false;
 			}
 			if(!screwAttack)
 			{
@@ -517,6 +542,75 @@ namespace MetroidMod
 				}
 			}
 		}
+        public void CheckWallJump(Player player, ref int dir, ref bool altJump)
+        {
+            canWallJump = false;
+            altJump = false;
+            dir = player.controlLeft ? -1 : player.controlRight ? 1 : player.direction;
+            if (dir != 0)
+            {
+                float margin = 6 + Math.Abs(player.velocity.X); //Margin of error for Super Style wall jumping
+                float xPos = player.position.X;
+                float xPosAlt = player.position.X + player.width + margin;
+                if (dir == 1)
+                {
+                    xPos += player.width;
+                    xPosAlt = player.position.X - margin;
+                }
+                xPos += dir * Math.Abs(player.velocity.X + 1);
+                float yPos = player.position.Y + (float)player.height - 1;
+                if (player.gravDir < 0f)
+                {
+                    yPos = player.position.Y + 1f;
+                }
+                xPos /= 16f;
+                xPosAlt /= 16f;
+                yPos /= 16f;
+                if (WorldGen.SolidTile((int)xPos, (int)yPos) || WorldGen.SolidTile((int)xPos, (int)yPos - 1))
+                {
+                    canWallJump = true;
+                }
+                if (WorldGen.SolidTile((int)xPosAlt, (int)yPos) || WorldGen.SolidTile((int)xPosAlt, (int)yPos - 1)) //Super Style wall jump
+                {
+                    canWallJump = true;
+                    altJump = true;
+                    if (player.controlLeft || player.controlRight)
+                    {
+                        player.fullRotation = dir * (float)Math.PI / 6;
+                        player.fullRotationOrigin = new Vector2((float)player.width / 2, (float)player.height * 0.55f);
+                        if (player.gravDir == -1)
+                        {
+                            player.fullRotationOrigin.Y = (float)player.height * 0.45f;
+                        }
+                        itemRotTweak = 2;
+                    }
+                }
+            }
+        }
+        public void DoWallJump(Player player, int dir, bool altJump)
+        {
+            if (canWallJump && player.controlJump && player.releaseJump && (player.controlLeft || player.controlRight))
+            {
+                float xSpeed = 3f;  //3 for vanilla wall jump, 6 for restricting single wall jumping
+                if (altJump)
+                {
+                    dir *= -1;
+                    xSpeed = 6;
+                }
+                if (speedBoosting)
+                {
+                    xSpeed = 11;
+                }
+                player.jump = Player.jumpHeight;
+                player.velocity.Y = -Player.jumpSpeed * player.gravDir;
+                player.velocity.X = xSpeed * -dir;
+                player.canRocket = false;
+                player.rocketRelease = false;
+                player.fallStart = (int)(player.Center.Y / 16f);
+                player.autoJump = true;
+                player.justJumped = true;
+            }
+        }
 		public void AddSpaceJump(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -661,190 +755,238 @@ namespace MetroidMod
 				screwAttackSpeedEffect--;
 			}
 		}
-		public void AddSpeedBoost(Player player, int damage)
-		{
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			speedBoosting = (Math.Abs(player.velocity.X) >= 6.85f && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
-			if((player.controlRight && player.velocity.X > 0) || (player.controlLeft && player.velocity.X < 0))
-			{
-				speedBuildUp = Math.Min(speedBuildUp + 1f, 135f);
-			}
-			else if(!speedBoosting)
-			{
-				speedBuildUp = 0f;
-			}
-			player.maxRunSpeed += (speedBuildUp*0.06f);
-			if(mp.speedBoosting)
-			{
-				player.armorEffectDrawShadow = true;
-				//MPlayer.jet = true;
-				bool SpeedBoost = false;
-				int SpeedBoostID = mod.ProjectileType("SpeedBoost");
-				if(mp.ballstate)
-				{
-					SpeedBoostID = mod.ProjectileType("SpeedBall");
-				}
-				foreach(Terraria.Projectile P in Main.projectile)
-				{
-					if(P.active && P.owner==player.whoAmI && P.type == SpeedBoostID)
-					{
-						SpeedBoost = true;
-						break;
-					}
-				}
-				if(!SpeedBoost)
-				{
-					int SpBoost = Terraria.Projectile.NewProjectile(player.position.X+player.width/2,player.position.Y+player.height/2,0,0,SpeedBoostID,damage,0,player.whoAmI);
-				}
-			}
-		#region shine-spark
-			if(mp.speedBoosting)
-			{
-				if(player.controlDown && player.velocity.Y == 0)
-				{
-					shineCharge = 300;
-					player.velocity.X = 0;
-					speedBuildUp = 0f;
-				}
-			}
-			if(shineCharge > 0)
-			{
-				if(player.controlJump && player.releaseJump && !player.controlRight && !player.controlLeft && mp.statOverheat < mp.maxOverheat)
-				{
-					shineActive = true;
-					if(!ballstate)
-					{
-						player.mount.Dismount(player);
-					}
-				}
-				else
-				{
-					Lighting.AddLight(player.Center, 1, 216/255, 0);
-					shineSound++;
-					if(shineSound > 11)
-					{
-						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y,  mod.GetSoundSlot(SoundType.Custom, "Sounds/SpeedBoosterLoop"));
-						shineSound = 0;
-					}
-				}
-				shineCharge--;
-			}
-			if(shineActive)
-			{
-				shineSound = 0;
-				player.velocity.Y = 0;
-				player.maxFallSpeed = 0f;
-				player.velocity.X = 0;
-				player.moveSpeed = 0f;
-				player.maxRunSpeed = 0f;
-				//player.noItems = true;
-				player.controlUseItem = false;
-				player.controlUseTile = false;
-				player.controlMount = false;
-				player.releaseMount = false;
-				player.controlHook = false;
-				player.stairFall = true;
-				if (Main.myPlayer == player.whoAmI && !ballstate)
-				{
-					player.mount.Dismount(player);
-				}
-				for (int k = 0; k < 1000; k++)
-				{
-					if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
-					{
-						Main.projectile[k].Kill();
-					}
-				}
-				//player.controlJump = false;
-				mp.rotation = 0;
-				player.armorEffectDrawShadow = true;
-				if(shineDirection == 0)
-				{
-					shineDischarge++;
-					Lighting.AddLight(player.Center, 1, 216/255, 0);
-				}
-				if(CheckCollide(0f,4f*player.gravDir) && shineDischarge > 2)
-				{
-					player.position.Y -= 2f*player.gravDir;
-				}
-				if(shineDischarge >= 30 && mp.statOverheat < mp.maxOverheat)
-				{
-					shineCharge = 0;
-					if(player.controlRight && !player.controlUp) //right
-					{
-						shineDirection = 1;
-					}
-					if(player.controlRight && player.controlUp) //right and up
-					{
-						shineDirection = 2;
-					}
-					if(player.controlLeft && !player.controlUp) //left
-					{
-						shineDirection = 3;
-					}
-					if(player.controlLeft && player.controlUp) //left and up
-					{
-						shineDirection = 4;
-					}
-					if(!player.controlRight && !player.controlLeft) //default direction is up
-					{
-						shineDirection = 5;
-					}
-				}
-				player.fallStart = (int)(player.Center.Y / 16f);
-			}
+        public void AddSpeedBoost(Player player, int damage)
+        {
+            MPlayer mp = player.GetModPlayer<MPlayer>();
+            speedBoosting = ((Math.Abs(player.velocity.X) >= 6.85f || canWallJump) && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
+            if ((player.controlRight && player.velocity.X > 0) || (player.controlLeft && player.velocity.X < 0))
+            {
+                speedBuildUp = Math.Min(speedBuildUp + 1f, 135f);
+            }
+            else if (!speedBoosting)
+            {
+                speedBuildUp = 0f;
+            }
+            player.maxRunSpeed += (speedBuildUp * 0.06f);
+            if (mp.speedBoosting)
+            {
+                player.armorEffectDrawShadow = true;
+                //MPlayer.jet = true;
+                bool SpeedBoost = false;
+                int SpeedBoostID = mod.ProjectileType("SpeedBoost");
+                if (mp.ballstate)
+                {
+                    SpeedBoostID = mod.ProjectileType("SpeedBall");
+                }
+                foreach (Terraria.Projectile P in Main.projectile)
+                {
+                    if (P.active && P.owner == player.whoAmI && P.type == SpeedBoostID)
+                    {
+                        SpeedBoost = true;
+                        break;
+                    }
+                }
+                if (!SpeedBoost)
+                {
+                    int SpBoost = Terraria.Projectile.NewProjectile(player.position.X + player.width / 2, player.position.Y + player.height / 2, 0, 0, SpeedBoostID, damage, 0, player.whoAmI);
+                }
+            }
+            #region shine-spark
+            if (mp.speedBoosting)
+            {
+                if (player.controlDown && player.velocity.Y == 0)
+                {
+                    shineCharge = 300;
+                    player.velocity.X = 0;
+                    speedBuildUp = 0f;
+                }
+            }
+            if (shineCharge > 0)
+            {
+                if (player.controlJump && player.releaseJump && !player.controlRight && !player.controlLeft && mp.statOverheat < mp.maxOverheat)
+                {
+                    shineActive = true;
+                    if (!ballstate)
+                    {
+                        player.mount.Dismount(player);
+                    }
+                }
+                else
+                {
+                    Lighting.AddLight(player.Center, 1, 216 / 255, 0);
+                    shineSound++;
+                    if (shineSound > 11)
+                    {
+                        Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SpeedBoosterLoop"));
+                        shineSound = 0;
+                    }
+                }
+                shineCharge--;
+            }
+            if (shineActive)
+            {
+                shineSound = 0;
+                player.velocity.Y = 0;
+                player.maxFallSpeed = 0f;
+                player.velocity.X = 0;
+                player.moveSpeed = 0f;
+                player.maxRunSpeed = 0f;
+                //player.noItems = true;
+                player.controlUseItem = false;
+                player.controlUseTile = false;
+                player.controlMount = false;
+                player.releaseMount = false;
+                player.controlHook = false;
+                player.stairFall = true;
+                if (Main.myPlayer == player.whoAmI && !ballstate)
+                {
+                    player.mount.Dismount(player);
+                }
+                for (int k = 0; k < 1000; k++)
+                {
+                    if (Main.projectile[k].active && Main.projectile[k].owner == player.whoAmI && Main.projectile[k].aiStyle == 7)
+                    {
+                        Main.projectile[k].Kill();
+                    }
+                }
+                //player.controlJump = false;
+                mp.rotation = 0;
+                player.armorEffectDrawShadow = true;
+                if (shineDirection == 0)
+                {
+                    shineDischarge++;
+                    Lighting.AddLight(player.Center, 1, 216 / 255, 0);
+                }
+                if (CheckCollide(0f, 4f * player.gravDir) && shineDischarge > 2)
+                {
+                    player.position.Y -= 2f * player.gravDir;
+                }
+                if (shineDischarge >= 30 && mp.statOverheat < mp.maxOverheat)
+                {
+                    shineCharge = 0;
+                    if (player.controlRight && !player.controlUp) //right
+                    {
+                        shineDirection = 1;
+                    }
+                    if (player.controlRight && player.controlUp) //right and up
+                    {
+                        shineDirection = 2;
+                    }
+                    if (player.controlLeft && !player.controlUp) //left
+                    {
+                        shineDirection = 3;
+                    }
+                    if (player.controlLeft && player.controlUp) //left and up
+                    {
+                        shineDirection = 4;
+                    }
+                    if (!player.controlRight && !player.controlLeft && !player.controlDown) //default direction is up
+                    {
+                        shineDirection = 5;
+                    }
+                    if (player.controlRight && player.controlDown) //right and down
+                    {
+                        shineDirection = 6;
+                    }
+                    if (player.controlLeft && player.controlDown) //left and down
+                    {
+                        shineDirection = 7;
+                    }
+                    if (!player.controlRight && !player.controlLeft && player.controlDown) //down
+                    {
+                        shineDirection = 8;
+                    }
+                }
+                player.fallStart = (int)(player.Center.Y / 16f);
+            }
 
-			if(shineDirection == 1) //right
-			{
-				player.velocity.X = 20;
-				player.velocity.Y = 0;
-				player.maxFallSpeed = 0f;
-				player.direction = 1;
-				shineDischarge = 0;
-				player.controlLeft = false;
-				//player.controlUp = true;
-			}
-			if(shineDirection == 2) //right and up
-			{
-				player.velocity.X = 20;
-				player.velocity.Y = -20f*player.gravDir;
-				player.maxFallSpeed = 0f;
-				player.direction = 1;
-				shineDischarge = 0;
-				player.controlLeft = false;
-			}
-			if(shineDirection == 3) //left
-			{
-				player.velocity.X = -20;
-				player.velocity.Y = 0;
-				player.maxFallSpeed = 0f;
-				player.direction = -1;
-				shineDischarge = 0;
-				player.controlRight = false;
-				//player.controlUp = true;
-			}
-			if(shineDirection == 4) //left and up
-			{
-				player.velocity.X = -20;
-				player.velocity.Y = -20*player.gravDir;
-				player.maxFallSpeed = 0f;
-				player.direction = -1;
-				shineDischarge = 0;
-				player.controlRight = false;
-			}
-			if(shineDirection == 5) //up
-			{
-				player.velocity.X *= 0f;
-				player.velocity.Y = -20*player.gravDir;
-				player.maxFallSpeed = 0f;
-				shineDischarge = 0;
-				if (player.miscCounter % 4 == 0 && !ballstate)
-				{
-					player.direction *= -1;
-				}
-				player.controlLeft = false;
-				player.controlRight = false;
-			}
+            switch (shineDirection)
+            {
+                case 1: //right
+                    player.velocity.X = 20;
+                    player.velocity.Y = 0;
+                    player.maxFallSpeed = 0f;
+                    player.direction = 1;
+                    shineDischarge = 0;
+                    player.controlLeft = false;
+                    //player.controlUp = true;
+                    break;
+
+                case 2: //right and up
+                    player.velocity.X = 20;
+                    player.velocity.Y = -20f * player.gravDir;
+                    player.maxFallSpeed = 0f;
+                    player.direction = 1;
+                    shineDischarge = 0;
+                    player.controlLeft = false;
+                    break;
+
+                case 3: //left
+                    player.velocity.X = -20;
+                    player.velocity.Y = 0;
+                    player.maxFallSpeed = 0f;
+                    player.direction = -1;
+                    shineDischarge = 0;
+                    player.controlRight = false;
+                    //player.controlUp = true;
+                    break;
+
+                case 4: //left and up
+                    player.velocity.X = -20;
+                    player.velocity.Y = -20 * player.gravDir;
+                    player.maxFallSpeed = 0f;
+                    player.direction = -1;
+                    shineDischarge = 0;
+                    player.controlRight = false;
+                    break;
+
+                case 5: //up
+                    player.velocity.X = 0;
+                    player.velocity.Y = -20 * player.gravDir;
+                    player.maxFallSpeed = 0f;
+                    shineDischarge = 0;
+                    if (player.miscCounter % 4 == 0 && !ballstate)
+                    {
+                        player.direction *= -1;
+                    }
+                    player.controlLeft = false;
+                    player.controlRight = false;
+                    break;
+
+                case 6: //right and down
+                    player.velocity.X = 20;
+                    player.velocity.Y = 20f * player.gravDir;
+                    player.maxFallSpeed = 20f;
+                    player.direction = 1;
+                    shineDischarge = 0;
+                    player.controlLeft = false;
+                    player.GoingDownWithGrapple = true;
+                    break;
+
+                case 7: //left and down
+                    player.velocity.X = -20;
+                    player.velocity.Y = 20 * player.gravDir;
+                    player.maxFallSpeed = 20f;
+                    player.direction = -1;
+                    shineDischarge = 0;
+                    player.controlRight = false;
+                    player.GoingDownWithGrapple = true;
+                    break;
+
+                case 8: //down
+                    player.velocity.X = 0;
+                    player.velocity.Y = 20 * player.gravDir;
+                    player.maxFallSpeed = 20f;
+                    shineDischarge = 0;
+                    if (player.miscCounter % 4 == 0 && !ballstate)
+                    {
+                        player.direction *= -1;
+                    }
+                    player.controlLeft = false;
+                    player.controlRight = false;
+                    player.GoingDownWithGrapple = true;
+                    break;
+            }
 
 			if(shineDirection != 0)
 			{
@@ -940,10 +1082,52 @@ namespace MetroidMod
 				{
 					mp.statOverheat += 10;
 				}
-			}
-			
-			//stop any movement
-			if(shineDirection != 0 && player.controlJump && player.releaseJump)
+            }
+            //stop down and right movement
+            if (shineDirection == 6 && (CheckCollide(player.velocity.X, player.velocity.Y) || CheckCollide(player.velocity.X, 0f) || CheckCollide(0f, player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+            (player.position.X + (float)player.width) > (Main.rightWorld - 640f - 48f) || (player.position.Y + player.height) > (Main.bottomWorld - 640f - 48f)))
+            {
+                shineDirection = 0;
+                shineDischarge = 0;
+                shineActive = false;
+                Main.projectile[proj].Kill();
+                speedBuildUp = 135f;
+                if (mp.statOverheat >= mp.maxOverheat)
+                {
+                    mp.statOverheat += 10;
+                }
+            }
+            //stop down and left movement
+            if (shineDirection == 7 && (CheckCollide(player.velocity.X, player.velocity.Y) || CheckCollide(player.velocity.X, 0f) || CheckCollide(0f, player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+            player.position.X < (Main.leftWorld + 640f + 32f) || (player.position.Y + player.height) > (Main.bottomWorld - 640f - 48f)))
+            {
+                shineDirection = 0;
+                shineDischarge = 0;
+                shineActive = false;
+                Main.projectile[proj].Kill();
+                speedBuildUp = 135f;
+                if (mp.statOverheat >= mp.maxOverheat)
+                {
+                    mp.statOverheat += 10;
+                }
+            }
+            //stop down movement
+            if (shineDirection == 8 && (CheckCollide(0f, player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+            (player.position.Y + player.height) > (Main.bottomWorld - 640f - 48f)))
+            {
+                shineDirection = 0;
+                shineDischarge = 0;
+                shineActive = false;
+                Main.projectile[proj].Kill();
+                speedBuildUp = 135f;
+                if (mp.statOverheat >= mp.maxOverheat)
+                {
+                    mp.statOverheat += 10;
+                }
+            }
+
+            //stop any movement
+            if (shineDirection != 0 && player.controlJump && player.releaseJump)
 			{
 				shineDirection = 0;
 				shineDischarge = 0;
