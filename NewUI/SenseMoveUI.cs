@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 using Terraria.GameContent.UI.Elements;
 
 using MetroidMod.Items;
@@ -57,7 +56,7 @@ namespace MetroidMod.NewUI
 			this.Height.Pixels = buttonTex.Height;
 			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 200;
 			this.Top.Pixels = 300;
-			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			enabled = MetroidMod.DragableSenseMoveUI;
 			
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
@@ -66,7 +65,7 @@ namespace MetroidMod.NewUI
 		
 		public override void Update(GameTime gameTime)
 		{
-			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			enabled = MetroidMod.DragableSenseMoveUI;
 			if(base.IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;

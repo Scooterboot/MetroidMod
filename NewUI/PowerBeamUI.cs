@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 using Terraria.GameContent.UI.Elements;
 
 using MetroidMod.Items;
@@ -73,7 +72,7 @@ namespace MetroidMod.NewUI
 			this.Top.Pixels = 260;
 			this.Width.Pixels = panelTexture.Width;
 			this.Height.Pixels = panelTexture.Height;
-			enabled = ModContent.GetInstance<MConfig>().DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 
 			beamSlots = new PowerBeamItemBox[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
@@ -93,7 +92,7 @@ namespace MetroidMod.NewUI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = ModContent.GetInstance<MConfig>().DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = 160;
@@ -338,7 +337,7 @@ namespace MetroidMod.NewUI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			
-			enabled = ModContent.GetInstance<MConfig>().DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = 112;
@@ -423,7 +422,7 @@ namespace MetroidMod.NewUI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			
-			enabled = ModContent.GetInstance<MConfig>().DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = 112;

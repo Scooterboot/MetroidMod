@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 using Terraria.GameContent.UI.Elements;
 
 using MetroidMod.Items;
@@ -62,7 +61,7 @@ namespace MetroidMod.NewUI
 			this.Height.Pixels = panelTexture.Height;
 			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 180;
 			this.Top.Pixels = 240;
-			enabled = ModContent.GetInstance<MConfig>().DragableMorphBallUI;
+			enabled = MetroidMod.DragableMorphBallUI;
 
 			ballSlots = new MorphBallItemBox[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
@@ -82,7 +81,7 @@ namespace MetroidMod.NewUI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = ModContent.GetInstance<MConfig>().DragableMorphBallUI;
+			enabled = MetroidMod.DragableMorphBallUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 180;

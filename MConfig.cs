@@ -28,29 +28,53 @@ namespace MetroidMod
 		"Default value: false")]
 		public bool UseAltWeaponTextures;
 		
-		[Label("Draggable power beam ui")]
-		[Tooltip("Allows the power beam UI to be draggable.\n" +
+		[Header("Draggable Power Beam UI")]
+		[Label("Enabled")]
+		[Tooltip("Allows the Power Beam UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragablePowerBeamUI;
 		
-		[Label("Draggable missile launcher ui")]
-		[Tooltip("Allows the missile launcher UI to be draggable.\n" +
+		[Header("Draggable Missile Launcher UI")]
+		[Label("Enabled")]
+		[Tooltip("Allows the Missile Launcher UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableMissileLauncherUI;
 		
-		[Label("Draggable morph ball ui")]
-		[Tooltip("Allows the morph ball UI to be draggable.\n" +
+		[Header("Draggable Morph Ball UI")]
+		[Label("Enabled")]
+		[Tooltip("Allows the Morph Ball UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableMorphBallUI;
 		
-		[Label("Draggable sense move ui")]
-		[Tooltip("Allows the sense move UI to be draggable.\n" +
+		[Header("Draggable Sense Move UI")]
+		[Label("Enabled")]
+		[Tooltip("Allows the Sense Move UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableSenseMoveUI;
 		
 		public override void OnChanged()
 		{
 			MetroidMod.UseAltWeaponTextures = UseAltWeaponTextures;
+			MetroidMod.DragablePowerBeamUI = DragablePowerBeamUI;
+			MetroidMod.DragableMissileLauncherUI = DragableMissileLauncherUI;
+			MetroidMod.DragableMorphBallUI = DragableMorphBallUI;
+			MetroidMod.DragableSenseMoveUI = DragableSenseMoveUI;
+		}
+	}
+	
+	[Label("Client Side Debug")]
+	public class MDebugConfig : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ClientSide;
+		
+		[Label("Draw NPC hitboxes")]
+		[Tooltip("When enabled, draws NPC hitboxes.\n" +
+		"Default value: false")]
+		public bool DrawNPCHitboxes;
+		
+		public override void OnChanged()
+		{
+			MetroidMod.DebugDH = DrawNPCHitboxes;
 		}
 	}
 }

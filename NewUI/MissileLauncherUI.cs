@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 using Terraria.GameContent.UI.Elements;
 
 using MetroidMod.Items;
@@ -59,7 +58,7 @@ namespace MetroidMod.NewUI
             this.Top.Pixels = 260;
             this.Width.Pixels = panelTexture.Width;
             this.Height.Pixels = panelTexture.Height;
-			enabled = ModContent.GetInstance<MConfig>().DragableMissileLauncherUI;
+			enabled = MetroidMod.DragableMissileLauncherUI;
 
             missileSlots = new MissileLauncherItemBox[MetroidMod.missileSlotAmount];
             for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
@@ -79,7 +78,7 @@ namespace MetroidMod.NewUI
 
         public override void Update(GameTime gameTime)
         {
-			enabled = ModContent.GetInstance<MConfig>().DragableMissileLauncherUI;
+			enabled = MetroidMod.DragableMissileLauncherUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = 160;
