@@ -12,9 +12,9 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Solar Light Suit Breastplate");
 			/*Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immune to fire blocks\n" +
-			 "Immune to chill and freeze effects\n" +
-			 "+34 overheat capacity");*/
+			"Immune to fire blocks\n" +
+			"Immune to chill and freeze effects\n" +
+			"+34 overheat capacity");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()
@@ -40,15 +40,15 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n"
-				+ "Double tap a direction (when enabled)" + "\r\n"
-				+ "20% increased ranged damage" + "\r\n"
-				+ "Negates fall damage" + "\r\n"
-				+ "Infinite breath" + "\r\n"
-				+ "40% decreased overheat use" + "\r\n"
-				+ "Immune to damage from the Dark World" + "\r\n"
+			p.setBonus = "Allows the ability to Sense Move" + "\n"
+				+ "Double tap a direction (when enabled)" + "\n"
+				//+ "20% increased ranged damage" + "\n"
+				+ "Negates fall damage" + "\n"
+				+ "Infinite breath" + "\n"
+				+ "40% decreased overheat use" + "\n"
+				+ "Immune to damage from the Dark World" + "\n"
 				+ "Immune to damage from Dark Water";
-			p.rangedDamage += 0.20f;
+			//p.rangedDamage += 0.20f;
 			p.noFallDmg = true;
 			p.gills = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();

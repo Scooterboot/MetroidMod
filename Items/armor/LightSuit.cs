@@ -40,15 +40,15 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n"
-				+ "Double tap a direction (when enabled)" + "\r\n"
-				+ "15% increased ranged damage" + "\r\n"
-				+ "Negates fall damage" + "\r\n"
-				+ "Infinite breath" + "\r\n"
-				+ "35% decreased overheat use" + "\r\n"
-				+ "Immune to damage from the Dark World" + "\r\n"
+			p.setBonus = "Allows the ability to Sense Move" + "\n"
+				+ "Double tap a direction (when enabled)" + "\n"
+				//+ "15% increased ranged damage" + "\n"
+				+ "Negates fall damage" + "\n"
+				+ "Infinite breath" + "\n"
+				+ "35% decreased overheat use" + "\n"
+				+ "Immune to damage from the Dark World" + "\n"
 				+ "Immune to damage from Dark Water";
-			p.rangedDamage += 0.15f;
+			//p.rangedDamage += 0.15f;
 			p.noFallDmg = true;
 			p.gills = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
@@ -122,7 +122,8 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Light Suit Helmet");
-			/*Tooltip.SetDefault("5% increased ranged damage\n" +
+			/*Tooltip.SetDefault("30% increased hunter damage\n" + 
+			"15% increased hunter critical strike chance\n" +
 			"+25 overheat capacity\n" +
 			"Improved night vision");*/
 			Tooltip.SetDefault("You shouldn't have this");
@@ -137,7 +138,9 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.30f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 15;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 25;

@@ -40,15 +40,15 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
-				"Double tap a direction (when enabled)" + "\r\n" + 
-				"Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)" + "\r\n" +
-				"Slightly increased health regen when standing on Phazon" + "\r\n" +
-				"10% increased ranged damage" + "\r\n" +
-				"30% decreased overheat use" + "\r\n" +
-				"Negates fall damage" + "\r\n" +
+			p.setBonus = "Allows the ability to Sense Move" + "\n" + 
+				"Double tap a direction (when enabled)" + "\n" + 
+				"Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)" + "\n" +
+				"Slightly increased health regen when standing on Phazon" + "\n" +
+				//"10% increased ranged damage" + "\n" +
+				"30% decreased overheat use" + "\n" +
+				"Negates fall damage" + "\n" +
 				"Infinite breath";
-			p.rangedDamage += 0.1f;
+			//p.rangedDamage += 0.1f;
 			p.gills = true;
 			p.noFallDmg = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
@@ -124,7 +124,8 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("P.E.D. Suit Helmet");
-			/*Tooltip.SetDefault("5% increased ranged damage\n" +
+			/*Tooltip.SetDefault("25% increased hunter damage\n" + 
+			"10% increased hunter critical strike chance\n" + 
 			"+20 overheat capacity\n" +
 			"Improved night vision");*/
 			Tooltip.SetDefault("You shouldn't have this");
@@ -139,7 +140,9 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.25f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 10;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 20;

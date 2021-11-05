@@ -39,13 +39,13 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
-						"Double tap a direction (when enabled)" + "\r\n" + 
-						"Immunity to fire blocks" + "\r\n" + 
-						"Immunity to chill and freeze effects" + "\r\n" + 
-						"Free movement in liquid" + "\r\n" + 
-						"Grants indefinite lava immunity" + "\r\n" + 
-						"Default gravity in space" + "\r\n" + 
+			player.setBonus = "Allows the ability to Sense Move" + "\n" + 
+						"Double tap a direction (when enabled)" + "\n" + 
+						"Immunity to fire blocks" + "\n" + 
+						"Immunity to chill and freeze effects" + "\n" + 
+						"Free movement in liquid" + "\n" + 
+						"Grants indefinite lava immunity" + "\n" + 
+						"Default gravity in space" + "\n" + 
 						"Immune to Distorted and Amplified Gravity effects";
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.senseMove = true;
