@@ -18,27 +18,34 @@ using Terraria.UI;
 
 namespace MetroidMod
 {
+	[Label("Client Side")]
 	public class MConfig : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		
 		[Label("Toggle alternate weapon textures")]
+		[Tooltip("When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.\n" +
+		"Default value: false")]
 		public bool UseAltWeaponTextures;
 		
 		[Label("Draggable power beam ui")]
-		[DefaultValue(false)]
+		[Tooltip("Allows the power beam UI to be draggable.\n" +
+		"Default value: false")]
 		public bool DragablePowerBeamUI;
 		
 		[Label("Draggable missile launcher ui")]
-		[DefaultValue(false)]
+		[Tooltip("Allows the missile launcher UI to be draggable.\n" +
+		"Default value: false")]
 		public bool DragableMissileLauncherUI;
 		
 		[Label("Draggable morph ball ui")]
-		[DefaultValue(false)]
+		[Tooltip("Allows the morph ball UI to be draggable.\n" +
+		"Default value: false")]
 		public bool DragableMorphBallUI;
 		
 		[Label("Draggable sense move ui")]
-		[DefaultValue(false)]
+		[Tooltip("Allows the sense move UI to be draggable.\n" +
+		"Default value: false")]
 		public bool DragableSenseMoveUI;
 		
 		public override void OnChanged()

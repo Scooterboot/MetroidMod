@@ -10,7 +10,7 @@ using Terraria.UI;
 namespace MetroidMod.NewUI
 {
 	// Pretty much stolen from ExampleMod
-	public class DragableUIPanel : UIPanel
+	public abstract class DragableUIPanel : UIPanel
 	{
 		private Vector2 offset;
 		public bool dragging;

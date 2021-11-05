@@ -93,7 +93,7 @@ namespace MetroidMod.NewUI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			enabled = ModContent.GetInstance<MConfig>().DragablePowerBeamUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = 160;
@@ -338,7 +338,7 @@ namespace MetroidMod.NewUI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			
-			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			enabled = ModContent.GetInstance<MConfig>().DragablePowerBeamUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = 112;
@@ -423,7 +423,7 @@ namespace MetroidMod.NewUI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			
-			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			enabled = ModContent.GetInstance<MConfig>().DragablePowerBeamUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = 112;

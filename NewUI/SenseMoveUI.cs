@@ -66,11 +66,11 @@ namespace MetroidMod.NewUI
 		
 		public override void Update(GameTime gameTime)
 		{
+			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
 			if(base.IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 200;

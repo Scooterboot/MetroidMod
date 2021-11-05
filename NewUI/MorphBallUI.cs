@@ -82,7 +82,7 @@ namespace MetroidMod.NewUI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			enabled = ModContent.GetInstance<MConfig>().DragableMorphBallUI;
 			if (!enabled)
 			{
 				this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 180;
