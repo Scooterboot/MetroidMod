@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using Terraria.GameContent.UI.Elements;
 
 using MetroidMod.Items;
@@ -31,7 +32,7 @@ namespace MetroidMod.NewUI
         }
     }
 
-    public class MissileLauncherPanel : UIPanel
+    public class MissileLauncherPanel : DragableUIPanel
     {
         Texture2D panelTexture;
 
@@ -58,6 +59,7 @@ namespace MetroidMod.NewUI
             this.Top.Pixels = 260;
             this.Width.Pixels = panelTexture.Width;
             this.Height.Pixels = panelTexture.Height;
+			enabled = ModContent.GetInstance<MConfig>().DragableMissileLauncherUI;
 
             missileSlots = new MissileLauncherItemBox[MetroidMod.missileSlotAmount];
             for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
@@ -77,10 +79,15 @@ namespace MetroidMod.NewUI
 
         public override void Update(GameTime gameTime)
         {
-            this.Top.Pixels = 260;
-            if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			if (!enabled)
 			{
-                this.Top.Pixels += 170;
+				this.Left.Pixels = 160;
+				this.Top.Pixels = 260;
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				{
+					this.Top.Pixels += 170;
+				}
 			}
 
             base.Update(gameTime);

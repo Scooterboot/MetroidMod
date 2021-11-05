@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using Terraria.GameContent.UI.Elements;
 
 using MetroidMod.Items;
@@ -32,7 +33,7 @@ namespace MetroidMod.NewUI
 		}
 	}
 
-	public class MorphBallPanel : UIPanel
+	public class MorphBallPanel : DragableUIPanel
 	{
 		Texture2D panelTexture;
 
@@ -61,6 +62,7 @@ namespace MetroidMod.NewUI
 			this.Height.Pixels = panelTexture.Height;
 			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 180;
 			this.Top.Pixels = 240;
+			enabled = ModContent.GetInstance<MConfig>().DragableMorphBallUI;
 
 			ballSlots = new MorphBallItemBox[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
@@ -80,10 +82,14 @@ namespace MetroidMod.NewUI
 
 		public override void Update(GameTime gameTime)
 		{
-			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 180;
-			this.Top.Pixels = 240;
-			if (!Main.mapFullscreen && Main.mapStyle == 1)
-				this.Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);
+			enabled = ModContent.GetInstance<MConfig>().DragableSenseMoveUI;
+			if (!enabled)
+			{
+				this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 180;
+				this.Top.Pixels = 240;
+				if (!Main.mapFullscreen && Main.mapStyle == 1)
+					this.Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);
+			}
 
 			base.Update(gameTime);
 		}

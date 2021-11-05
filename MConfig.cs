@@ -25,6 +25,22 @@ namespace MetroidMod
 		[Label("Toggle alternate weapon textures")]
 		public bool UseAltWeaponTextures;
 		
+		[Label("Draggable power beam ui")]
+		[DefaultValue(false)]
+		public bool DragablePowerBeamUI;
+		
+		[Label("Draggable missile launcher ui")]
+		[DefaultValue(false)]
+		public bool DragableMissileLauncherUI;
+		
+		[Label("Draggable morph ball ui")]
+		[DefaultValue(false)]
+		public bool DragableMorphBallUI;
+		
+		[Label("Draggable sense move ui")]
+		[DefaultValue(false)]
+		public bool DragableSenseMoveUI;
+		
 		public override void OnChanged()
 		{
 			MetroidMod.UseAltWeaponTextures = UseAltWeaponTextures;
