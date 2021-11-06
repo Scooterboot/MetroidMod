@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -15,8 +16,7 @@ namespace MetroidMod.Items.armor
 			"40% decreased overheat use\n" +
 			"25% decreased Missile Charge Combo cost\n" +
 			"Immune to fire blocks\n" +
-			"Immune to chill and freeze effects\n" +
-			"+34 overheat capacity");*/
+			"Immune to chill and freeze effects");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()
@@ -34,7 +34,9 @@ namespace MetroidMod.Items.armor
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 34;
+			mp.maxOverheat += 100;
+			mp.overheatCost -= 0.40f;
+			mp.missileCost -= 0.25f;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -60,7 +62,7 @@ namespace MetroidMod.Items.armor
 			mp.overheatCost -= 0.40f;
 			mp.senseMove = true;
 			mp.visorGlow = true;
-			mp.hazardShield = true;
+			mp.hazardShield = 2;
 			//code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
 		}
 		public override void UpdateVanitySet(Player P)

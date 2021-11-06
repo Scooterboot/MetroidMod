@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {

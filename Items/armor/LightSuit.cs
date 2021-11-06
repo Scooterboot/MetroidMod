@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -12,9 +13,9 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Light Suit Breastplate");
 			/*Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immune to fire blocks\n" +
-			 "Immune to chill and freeze effects\n" +
-			 "+25 overheat capacity");*/
+			"Immune to fire blocks\n" +
+			"Immune to chill and freeze effects\n" +
+			"+25 overheat capacity");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()

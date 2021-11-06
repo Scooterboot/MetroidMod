@@ -53,7 +53,7 @@ namespace MetroidMod
 		internal static ModHotKey PowerBombKey;
 		public static Mod Instance;
 		
-		public bool DebugDH;
+		public static bool DebugDH;
 
 		internal UserInterface pbUserInterface;
 		internal PowerBeamUI powerBeamUI;

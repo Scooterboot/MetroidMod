@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -12,9 +13,9 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("P.E.D. Suit Breastplate");
 			/*Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immunity to fire blocks\n" +
-			 "Immunity to chill and freeze effects\n" +
-			 "+20 overheat capacity");*/
+			"Immunity to fire blocks\n" +
+			"Immunity to chill and freeze effects\n" +
+			"+20 overheat capacity");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()
