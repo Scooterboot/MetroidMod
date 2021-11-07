@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -11,10 +12,11 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Stardust Hazard Shield Suit Breastplate");
-			/*Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immune to fire blocks\n" +
-			 "Immune to chill and freeze effects\n" +
-			 "+34 overheat capacity");*/
+			/*Tooltip.SetDefault("+100 overheat capacity\n" +
+			"40% decreased overheat use\n" +
+			"25% decreased Missile Charge Combo cost\n" +
+			"Immune to fire blocks\n" +
+			"Immune to chill and freeze effects");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()
@@ -32,7 +34,9 @@ namespace MetroidMod.Items.armor
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.maxOverheat += 34;
+			mp.maxOverheat += 100;
+			mp.overheatCost -= 0.40f;
+			mp.missileCost -= 0.25f;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -40,16 +44,16 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n"
-				+ "Double tap a direction (when enabled)" + "\r\n"
-				+ "20% increased ranged damage" + "\r\n"
-				+ "Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120s cooldown)" + "\r\n"
-				+ "Greatly increased health regen when standing on Phazon" + "\r\n"
-				+ "Negates fall damage" + "\r\n"
-				+ "Infinite breath" + "\r\n"
-				+ "40% decreased overheat use" + "\r\n"
+			p.setBonus = "Allows the ability to Sense Move" + "\n"
+				+ "Double tap a direction (when enabled)" + "\n"
+				//+ "20% increased ranged damage" + "\n"
+				+ "Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120s cooldown)" + "\n"
+				+ "Greatly increased health regen when standing on Phazon" + "\n"
+				+ "Negates fall damage" + "\n"
+				+ "Infinite breath" + "\n"
+				+ "40% decreased overheat use" + "\n"
 				+ "Debuffs tick down 3 times as fast";
-			p.rangedDamage += 0.20f;
+			//p.rangedDamage += 0.20f;
 			p.gills = true;
 			p.noFallDmg = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
@@ -58,7 +62,7 @@ namespace MetroidMod.Items.armor
 			mp.overheatCost -= 0.40f;
 			mp.senseMove = true;
 			mp.visorGlow = true;
-			mp.hazardShield = true;
+			mp.hazardShield = 2;
 			//code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
 		}
 		public override void UpdateVanitySet(Player P)

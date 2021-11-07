@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -12,9 +13,9 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Dark Suit Breastplate");
 			/*Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immunity to fire blocks\n" +
-			 "Immunity to chill and freeze effects\n" +
-			 "+20 overheat capacity");*/
+			"Immunity to fire blocks\n" +
+			"Immunity to chill and freeze effects\n" +
+			"+20 overheat capacity");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()
@@ -40,14 +41,14 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
-						"Double tap a direction (when enabled)" + "\r\n" + 
-						"5% increased ranged damage" + "\r\n" + 
-						"30% decreased overheat use" + "\r\n" + 
-						"Negates fall damage" + "\r\n" + 
-						"Infinite breath" + "\r\n" + 
+			p.setBonus = "Allows the ability to Sense Move" + "\n" + 
+						"Double tap a direction (when enabled)" + "\n" + 
+						//"5% increased ranged damage" + "\n" + 
+						"30% decreased overheat use" + "\n" + 
+						"Negates fall damage" + "\n" + 
+						"Infinite breath" + "\n" + 
 						"Reduces damage from the Dark World";
-			p.rangedDamage += 0.05f;
+			//p.rangedDamage += 0.05f;
 			p.gills = true;
 			p.noFallDmg = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
@@ -121,7 +122,8 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dark Suit Helmet");
-			/*Tooltip.SetDefault("5% increased ranged damage\n" +
+			/*Tooltip.SetDefault("25% increased hunter damage\n" + 
+			"10% increased hunter critical strike chance\n" + 
 			"+20 overheat capacity\n" +
 			"Improved night vision");*/
 			Tooltip.SetDefault("You shouldn't have this");
@@ -136,7 +138,9 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.25f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 10;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 20;

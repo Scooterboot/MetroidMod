@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Items.damageclass;
 
 namespace MetroidMod.Items.armor
 {
@@ -12,9 +13,9 @@ namespace MetroidMod.Items.armor
 		{
 			DisplayName.SetDefault("Hazard Shield Suit Breastplate");
 			/*Tooltip.SetDefault("5% increased ranged damage\n" +
-			 "Immune to fire blocks\n" +
-			 "Immune to chill and freeze effects\n" +
-			 "+25 overheat capacity");*/
+			"Immune to fire blocks\n" +
+			"Immune to chill and freeze effects\n" +
+			"+25 overheat capacity");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()
@@ -40,16 +41,16 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player p)
 		{
-			p.setBonus = "Allows the ability to Sense Move" + "\r\n"
-				+ "Double tap a direction (when enabled)" + "\r\n"
-				+ "15% increased ranged damage" + "\r\n"
-				+ "Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120s cooldown)" + "\r\n"
-				+ "Increased health regen when standing on Phazon" + "\r\n"
-				+ "Negates fall damage" + "\r\n"
-				+ "Infinite breath" + "\r\n"
-				+ "35% decreased overheat use" + "\r\n"
+			p.setBonus = "Allows the ability to Sense Move" + "\n"
+				+ "Double tap a direction (when enabled)" + "\n"
+				//+ "15% increased ranged damage" + "\n"
+				+ "Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120s cooldown)" + "\n"
+				+ "Increased health regen when standing on Phazon" + "\n"
+				+ "Negates fall damage" + "\n"
+				+ "Infinite breath" + "\n"
+				+ "35% decreased overheat use" + "\n"
 				+ "Debuffs tick down twice as fast";
-			p.rangedDamage += 0.15f;
+			//p.rangedDamage += 0.15f;
 			p.gills = true;
 			p.noFallDmg = true;
 			MPlayer mp = p.GetModPlayer<MPlayer>();
@@ -58,7 +59,7 @@ namespace MetroidMod.Items.armor
 			mp.overheatCost -= 0.35f;
 			mp.senseMove = true;
 			mp.visorGlow = true;
-			mp.hazardShield = true;
+			mp.hazardShield = 1;
 			//code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
 		}
 		public override void UpdateVanitySet(Player P)
@@ -126,7 +127,8 @@ namespace MetroidMod.Items.armor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hazard Shield Suit Helmet");
-			/*Tooltip.SetDefault("5% increased ranged damage\n" +
+			/*Tooltip.SetDefault("30% increased hunter damage\n" + 
+			"15% increased hunter critical strike chance\n" +
 			"+25 overheat capacity\n" +
 			"Improved night vision");*/
 			Tooltip.SetDefault("You shouldn't have this");
@@ -141,7 +143,9 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.rangedDamage += 0.05f;
+			HunterDamagePlayer.ModPlayer(player).hunterDamageMult += 0.30f;
+			HunterDamagePlayer.ModPlayer(player).hunterCrit += 15;
+			//player.rangedDamage += 0.05f;
 			player.nightVision = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 25;

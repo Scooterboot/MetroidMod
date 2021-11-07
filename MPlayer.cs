@@ -49,7 +49,7 @@ namespace MetroidMod
 		
 		public bool phazonImmune = false;
 		public bool canUsePhazonBeam = false;
-		public bool hazardShield = false;
+		public int hazardShield = 0;
 		public int phazonRegen = 0;
 		
 		public double Time = 0;
@@ -72,7 +72,7 @@ namespace MetroidMod
 			
 			phazonImmune = false;
 			canUsePhazonBeam = false;
-			hazardShield = false;
+			hazardShield = 0;
 			phazonRegen = 0;
 			
 			breathMult = 1f;
@@ -154,7 +154,7 @@ namespace MetroidMod
 				player.AddBuff(mod.BuffType("PhazonDebuff"), 2);
 			}
 
-			if (hazardShield)
+			if (hazardShield > 0)
 			{
 				List<int> debuffList = new List<int>() {20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197};
 
@@ -163,14 +163,15 @@ namespace MetroidMod
 					int buff = P.buffType[k];
 					if(debuffList.Contains(buff))
 					{
-						if (P.body == mod.ItemType("HazardShieldBreastplate"))
+						P.buffTime[k] = Math.Max(P.buffTime[k] - hazardShield, 0);
+						/* if (P.body == mod.ItemType("HazardShieldBreastplate"))
 						{
 							P.buffTime[k] = Math.Max(P.buffTime[k] - 1, 0);
 						}
 						else if (P.body == mod.ItemType("StardustHazardShieldSuitBreastplate"))
 						{
 							P.buffTime[k] = Math.Max(P.buffTime[k] - 2, 0);
-						}
+						} */
 					}
 				}
 			}

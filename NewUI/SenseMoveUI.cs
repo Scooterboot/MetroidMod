@@ -31,7 +31,7 @@ namespace MetroidMod.NewUI
 		}
 	}
 	
-	public class SenseMovePanel : UIPanel
+	public class SenseMovePanel : DragableUIPanel
 	{
 		Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
 		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
@@ -56,6 +56,7 @@ namespace MetroidMod.NewUI
 			this.Height.Pixels = buttonTex.Height;
 			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 200;
 			this.Top.Pixels = 300;
+			enabled = MetroidMod.DragableSenseMoveUI;
 			
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
@@ -64,16 +65,19 @@ namespace MetroidMod.NewUI
 		
 		public override void Update(GameTime gameTime)
 		{
+			enabled = MetroidMod.DragableSenseMoveUI;
 			if(base.IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			
-			this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 200;
-			this.Top.Pixels = 300;
-			if (!Main.mapFullscreen && Main.mapStyle == 1)
+			if (!enabled)
 			{
-				this.Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);
+				this.Left.Pixels = Main.screenWidth - this.Width.Pixels - 200;
+				this.Top.Pixels = 300;
+				if (!Main.mapFullscreen && Main.mapStyle == 1)
+				{
+					this.Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);
+				}
 			}
 
 			base.Update(gameTime);

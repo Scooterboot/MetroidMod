@@ -35,7 +35,7 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Allows the ability to Sense Move" + "\r\n" + 
+			player.setBonus = "Allows the ability to Sense Move" + "\n" + 
 							"Double tap a direction (when enabled)";
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.senseMove = true;

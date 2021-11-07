@@ -43,7 +43,7 @@ namespace MetroidMod.NewUI
 		}
 	}
 
-	public class PowerBeamPanel : UIPanel
+	public class PowerBeamPanel : DragableUIPanel
 	{
 		Texture2D panelTexture;
 
@@ -72,6 +72,7 @@ namespace MetroidMod.NewUI
 			this.Top.Pixels = 260;
 			this.Width.Pixels = panelTexture.Width;
 			this.Height.Pixels = panelTexture.Height;
+			enabled = MetroidMod.DragablePowerBeamUI;
 
 			beamSlots = new PowerBeamItemBox[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
@@ -91,10 +92,15 @@ namespace MetroidMod.NewUI
 
 		public override void Update(GameTime gameTime)
 		{
-			this.Top.Pixels = 260;
-			if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
 			{
-				this.Top.Pixels += 170;
+				this.Left.Pixels = 160;
+				this.Top.Pixels = 260;
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				{
+					this.Top.Pixels += 170;
+				}
 			}
 
 			base.Update(gameTime);
@@ -296,7 +302,7 @@ namespace MetroidMod.NewUI
 	}
 	
 	// Charge Somersault attack toggle button
-	public class PowerBeamScrewAttackButton : UIPanel
+	public class PowerBeamScrewAttackButton : DragableUIPanel
 	{
 		Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
 		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
@@ -331,10 +337,15 @@ namespace MetroidMod.NewUI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			
-			this.Top.Pixels = 274;
-			if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
 			{
-				this.Top.Pixels += 170;
+				this.Left.Pixels = 112;
+				this.Top.Pixels = 274;
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				{
+					this.Top.Pixels += 170;
+				}
 			}
 
 			base.Update(gameTime);
@@ -384,7 +395,7 @@ namespace MetroidMod.NewUI
 	}
 	
 	// Combo Error messages
-	public class ComboError : UIPanel
+	public class ComboError : DragableUIPanel
 	{
 		Texture2D iconTex;
 		
@@ -411,10 +422,15 @@ namespace MetroidMod.NewUI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			
-			this.Top.Pixels = 354;
-			if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
 			{
-				this.Top.Pixels += 170;
+				this.Left.Pixels = 112;
+				this.Top.Pixels = 354;
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				{
+					this.Top.Pixels += 170;
+				}
 			}
 
 			base.Update(gameTime);

@@ -26,7 +26,7 @@ namespace MetroidMod.Items.armor
 		}
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "+2 defense" + "\r\n"
+			player.setBonus = "+2 defense" + "\n"
 				+ "Allows somersaulting";
 			player.statDefense += 2;
             player.GetModPlayer<MPlayer>().canSomersault = true;
