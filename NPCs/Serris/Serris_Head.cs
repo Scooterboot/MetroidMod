@@ -238,9 +238,17 @@ namespace MetroidMod.NPCs.Serris
 					{
 						if (soundInstance == null || soundInstance.State != SoundState.Playing)
 						{
-							if (soundInstance == null)
+							/*if (soundInstance == null)
 								soundInstance = mod.GetSound("Sounds/SerrisAccel").CreateInstance();
-							Main.PlaySoundInstance(soundInstance);
+							Main.PlaySoundInstance(soundInstance);*/
+							if(soundInstance == null)
+							{
+								soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisAccel"));
+							}
+							else
+							{
+								soundInstance.Play();
+							}
 						}
 						else
 						{
