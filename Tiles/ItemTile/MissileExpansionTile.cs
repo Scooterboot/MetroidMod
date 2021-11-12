@@ -13,6 +13,7 @@ namespace MetroidMod.Tiles.ItemTile
 			name.SetDefault("Missile Expansion");
 			AddMapEntry(new Color(132, 4, 20), name);
 			drop = mod.ItemType("MissileExpansion");
+			Main.tileValue[Type] = 805;
 			dustType = 1;
 			animationFrameHeight = 18;
 		}
