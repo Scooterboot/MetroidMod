@@ -297,30 +297,20 @@ namespace MetroidMod
 				}
 				P.legFrame.Y = P.legFrame.Height * 5;
 			}
-			else if(shineDirection == 5)
-			{
-				P.bodyFrame.Y = 0;
-				P.legFrameCounter = 0.0;
-				P.legFrame.Y = 0;
-				if(thrusters)
-				{
-					PlayerLayer.Wings.visible = false;
-					PlayerLayer.BackAcc.visible = false;
-				}
-				else
-				{
-					P.wingFrame = 0;
-					if (P.wings == 4)
-					{
-						P.wingFrame = 3;
-					}
-				}
-			}
-			else if(shineDirection == 2 || shineDirection == 4)
+			else if(shineDirection != 0)
 			{
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
 				P.legFrame.Y = P.legFrame.Height * 7;
-				jet = true;
+				if(shineDirection == 5 || shineDirection == 8)
+				{
+					P.bodyFrame.Y = 0;
+					P.legFrameCounter = 0.0;
+					P.legFrame.Y = 0;
+				}
+				else
+				{
+					jet = true;
+				}
 				if(thrusters)
 				{
 					PlayerLayer.Wings.visible = false;
@@ -333,24 +323,13 @@ namespace MetroidMod
 					{
 						P.wingFrame = 3;
 					}
-				}
-			}
-			else if(shineDirection == 1 || shineDirection == 3)
-			{
-				P.bodyFrame.Y = P.bodyFrame.Height * 6;
-				P.legFrame.Y = P.legFrame.Height * 7;
-				jet = true;
-				if(thrusters)
-				{
-					PlayerLayer.Wings.visible = false;
-					PlayerLayer.BackAcc.visible = false;
-				}
-				else
-				{
-					P.wingFrame = 2;
-					if (P.wings == 4)
+					if(shineDirection == 5 || shineDirection == 8)
 					{
-						P.wingFrame = 3;
+						P.wingFrame = 0;
+						if (P.wings == 4)
+						{
+							P.wingFrame = 3;
+						}
 					}
 				}
 			}

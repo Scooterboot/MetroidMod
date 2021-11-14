@@ -62,6 +62,12 @@ namespace MetroidMod
 		public Color morphColorLights = Color.White;
 		public Color morphItemColor = Color.White;
 		
+		float morphMaxRunSpeed = 3f;
+		float morphAccRunSpeed = 3f;
+		float morphRunAcceleration = 0.08f;
+		int morphJumpHeight = 15;
+		float morphJumpSpeed = 5.01f;
+		
 		public void ResetEffects_MorphBall()
 		{
 			if(!player.mount.Active || player.mount.Type != mod.MountType("MorphBallMount"))
@@ -196,9 +202,13 @@ namespace MetroidMod
 		}
 		public void PostUpdateMiscEffects_MorphBall()
 		{
+			morphMaxRunSpeed = player.maxRunSpeed;
+			morphAccRunSpeed = player.accRunSpeed;
+			morphRunAcceleration = player.runAcceleration;
+			
 			if(player.mount.Active && player.mount.Type == mod.MountType("MorphBallMount") && player.grappling[0] == -1)
 			{
-				//temporarily trick the game into thinking the player isn't on a mount so that the player can use their original move speed and jump height
+				/*//temporarily trick the game into thinking the player isn't on a mount so that the player can use their original move speed and jump height
 				player.mount._active = false;
 				ballstate = true;
 				player.jumpAgainCloud = false;
@@ -209,6 +219,9 @@ namespace MetroidMod
 				player.jumpAgainUnicorn = false;
 				player.pulley = false;
 				player.ropeCount = 10;
+				statCharge = 0;*/
+				
+				ballstate = true;
 				statCharge = 0;
 			}
 			else
@@ -248,7 +261,18 @@ namespace MetroidMod
 			if(ballstate)
 			{
 				//end morph ball mount trick
-				player.mount._active = true;
+				//player.mount._active = true;
+				
+				player.maxRunSpeed = morphMaxRunSpeed;
+				player.accRunSpeed = morphAccRunSpeed;
+				player.runAcceleration = morphRunAcceleration;
+				Player.jumpHeight = morphJumpHeight;
+				Player.jumpSpeed = morphJumpSpeed;
+			}
+			else
+			{
+				morphJumpHeight = Player.jumpHeight;
+				morphJumpSpeed = Player.jumpSpeed;
 			}
 			
 			player.altFunctionUse = ballstate ? -1 : 0;
