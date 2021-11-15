@@ -31,6 +31,7 @@ namespace MetroidMod.NPCs.Town
 			NPCID.Sets.AttackAverageChance[npc.type] = 30;
 
 			NPCID.Sets.HatOffsetY[npc.type] = 4;
+			WorldGen.prioritizedTownNPC = MWorld.bossesDown.HasFlag(MetroidBossDown.downedTorizo) ? npc.type : WorldGen.prioritizedTownNPC;
 		}
 
 		public override void SetDefaults()
