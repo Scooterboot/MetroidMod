@@ -106,7 +106,8 @@ namespace MetroidMod.NPCs.Serris
 		}
 		
 		bool initialBoost = false;
-		SoundEffectInstance soundInstance;
+		//SoundEffectInstance soundInstance;
+		int soundCounter = 0;
 		int numUpdates = 0;
 		int maxUpdates = 0;
 		public int state = 1;
@@ -236,11 +237,8 @@ namespace MetroidMod.NPCs.Serris
 
 					if (Main.netMode != NetmodeID.Server)
 					{
-						if (soundInstance == null || soundInstance.State != SoundState.Playing)
+						/*if (soundInstance == null || soundInstance.State != SoundState.Playing)
 						{
-							/*if (soundInstance == null)
-								soundInstance = mod.GetSound("Sounds/SerrisAccel").CreateInstance();
-							Main.PlaySoundInstance(soundInstance);*/
 							if(soundInstance == null)
 							{
 								soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisAccel"));
@@ -268,6 +266,15 @@ namespace MetroidMod.NPCs.Serris
 
 							soundInstance.Pan = pan;
 							soundInstance.Volume = volume * Main.soundVolume;
+						}*/
+						if(soundCounter <= 0)
+						{
+							Main.PlaySound(SoundLoader.customSoundType, (int)npc.Center.X, (int)npc.Center.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/SerrisAccel"));
+							soundCounter = 21;
+						}
+						else if(numUpdates == 0)
+						{
+							soundCounter--;
 						}
 					}
 					
@@ -283,13 +290,17 @@ namespace MetroidMod.NPCs.Serris
 						npc.TargetClosest(true);
 					}
 				}
-				else if (soundInstance != null)
-					soundInstance.Stop(true);
+				//else if (soundInstance != null)
+				//	soundInstance.Stop(true);
+				else
+				{
+					soundCounter = 0;
+				}
 			}
 			else
 			{
-				if(soundInstance != null)
-					soundInstance.Stop(true);
+				//if(soundInstance != null)
+				//	soundInstance.Stop(true);
 				npc.damage = coreDamage;
 				
 				if(npc.timeLeft < 300)
@@ -460,8 +471,8 @@ namespace MetroidMod.NPCs.Serris
 			else
 				npc.spriteDirection = Math.Sign(npc.velocity.X);
 			
-			if(!npc.active && soundInstance != null)
-				soundInstance.Stop(true);
+			//if(!npc.active && soundInstance != null)
+			//	soundInstance.Stop(true);
 		}
 
 		public override void HitEffect(int hitDirection, double damage)
@@ -499,8 +510,8 @@ namespace MetroidMod.NPCs.Serris
 					newGore.velocity -= Vector2.One;
 				}
 					
-				if(soundInstance != null)
-					soundInstance.Stop(true);
+				//if(soundInstance != null)
+				//	soundInstance.Stop(true);
 			}
 		}
 		
