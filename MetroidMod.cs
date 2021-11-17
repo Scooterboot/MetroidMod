@@ -52,8 +52,6 @@ namespace MetroidMod
 		internal static ModHotKey BoostBallKey;
 		internal static ModHotKey PowerBombKey;
 		public static Mod Instance;
-		
-		public static bool DebugDH;
 
 		internal UserInterface pbUserInterface;
 		internal PowerBeamUI powerBeamUI;
@@ -346,27 +344,24 @@ namespace MetroidMod
 			}
 			
 			// (debug) draw npc hitboxes
-			if (DebugDH)
+			/*for(int j = 0; j < Main.maxNPCs; j++)
 			{
-				for(int j = 0; j < Main.maxNPCs; j++)
+				NPC npc = Main.npc[j];
+				if(npc.active && npc.life > 0)
 				{
-					NPC npc = Main.npc[j];
-					if(npc.active && npc.life > 0)
+					Color color = new Color(0,255,0);
+					if(npc.dontTakeDamage)
 					{
-						Color color = new Color(0,255,0);
-						if(npc.dontTakeDamage)
-						{
-							color = new Color(255,0,0);
-						}
-						color *= 0.125f;
-						sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),npc.width,npc.height),color);
-						sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),npc.width,1),color);
-						sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),1,npc.height),color);
-						sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y+npc.height-1-Main.screenPosition.Y),npc.width,1),color);
-						sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X+npc.width-1-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),1,npc.height),color);
+						color = new Color(255,0,0);
 					}
+					color *= 0.125f;
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),npc.width,npc.height),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),npc.width,1),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),1,npc.height),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X-Main.screenPosition.X),(int)(npc.position.Y+npc.height-1-Main.screenPosition.Y),npc.width,1),color);
+					sb.Draw(mod.GetTexture("Gore/Pixel"),new Rectangle((int)(npc.position.X+npc.width-1-Main.screenPosition.X),(int)(npc.position.Y-Main.screenPosition.Y),1,npc.height),color);
 				}
-			}
+			}*/
 			
 			// (debug) markers for statue items (performance will tank on world load)
 			/*if(!coordcheck)

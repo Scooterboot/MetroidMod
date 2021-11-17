@@ -61,20 +61,4 @@ namespace MetroidMod
 			MetroidMod.DragableSenseMoveUI = DragableSenseMoveUI;
 		}
 	}
-	
-	[Label("Client Side Debug")]
-	public class MDebugConfig : ModConfig
-	{
-		public override ConfigScope Mode => ConfigScope.ClientSide;
-		
-		[Label("Draw NPC hitboxes")]
-		[Tooltip("When enabled, draws NPC hitboxes.\n" +
-		"Default value: false")]
-		public bool DrawNPCHitboxes;
-		
-		public override void OnChanged()
-		{
-			MetroidMod.DebugDH = DrawNPCHitboxes;
-		}
-	}
 }
