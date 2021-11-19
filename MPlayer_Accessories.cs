@@ -86,8 +86,20 @@ namespace MetroidMod
 			screwAttack = false;
 			screwAttackDmg = 0;
 			
-			reserveTanks = 0;
-			reserveHeartsValue = 20;
+			bool flag = false;
+			for(int i = 0; i < player.buffType.Length; i++)
+			{
+				if(player.buffType[i] == mod.BuffType("EnergyRecharge") && player.buffTime[i] > 0)
+				{
+					flag = true;
+					break;
+				}
+			}
+			if(!flag)
+			{
+				reserveTanks = 0;
+				reserveHeartsValue = 20;
+			}
 		}
 		public void PreUpdate_Accessories()
 		{
