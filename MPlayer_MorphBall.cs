@@ -275,7 +275,7 @@ namespace MetroidMod
 				morphJumpSpeed = Player.jumpSpeed;
 			}
 			
-			player.altFunctionUse = ballstate ? -1 : 0;
+			player.altFunctionUse = ballstate ? -1 : player.altFunctionUse;
 		}
 		public void PostUpdate_MorphBall()
 		{
