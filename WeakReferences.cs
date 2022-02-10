@@ -53,13 +53,13 @@ namespace MetroidMod
 				mod.Call("AddSummon", 6.9f, WeakReferences.mod.Name, ModContent.ItemType<PhantoonSummon>(),
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedPhantoon)),
 				1000);
-				mod.Call("AddSummon", 11f, WeakReferences.mod.Name, ModContent.ItemType<NightmareSummon>(),
+				mod.Call("AddSummon", 10.5f, WeakReferences.mod.Name, ModContent.ItemType<NightmareSummon>(),
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedNightmare)),
 				1000);
-				mod.Call("AddSummon", 11f, WeakReferences.mod.Name, ModContent.ItemType<OmegaPirateSummon>(),
+				mod.Call("AddSummon", 10.5f, WeakReferences.mod.Name, ModContent.ItemType<OmegaPirateSummon>(),
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate)),
 				1000);
-				mod.Call("AddSummon", 12f, WeakReferences.mod.Name, ModContent.ItemType<GoldenTorizoSummon>(),
+				mod.Call("AddSummon", 11.5f, WeakReferences.mod.Name, ModContent.ItemType<GoldenTorizoSummon>(),
 				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo)),
 				1000);
 			}
