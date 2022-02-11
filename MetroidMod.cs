@@ -730,7 +730,6 @@ namespace MetroidMod
 					bool spiderBall = reader.ReadBoolean();
 					int boostEffect = reader.ReadInt32();
 					int boostCharge = reader.ReadInt32();
-					MetroidZone zone = (MetroidZone)reader.ReadByte();
 
 					targetPlayer.statCharge = (float)statCharge;
 					targetPlayer.spiderball = spiderBall;
@@ -746,7 +745,6 @@ namespace MetroidMod
 						packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
-						packet.Write((byte)zone);
 						packet.Send(-1, playerID);
 					}
 					break;
