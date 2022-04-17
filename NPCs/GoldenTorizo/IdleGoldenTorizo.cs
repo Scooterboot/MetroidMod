@@ -21,9 +21,12 @@ namespace MetroidMod.NPCs.GoldenTorizo
 		}
 		public override void SetDefaults()
 		{
+			npc.CloneDefaults(NPCID.OldMan);
+			
 			npc.width = 96;
 			npc.height = 96;
 			npc.aiStyle = -1;
+			npc.npcSlots = 0;
 			npc.damage = 0;
 			npc.defense = 0;
 			npc.dontTakeDamage = true;
@@ -33,10 +36,14 @@ namespace MetroidMod.NPCs.GoldenTorizo
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.knockBackResist = 0f;
-			for(int i = 0; i < npc.ai.Length; i++)
+			/*for(int i = 0; i < npc.ai.Length; i++)
 			{
 				npc.ai[i] = 0.0f;
-			}
+			}*/
+		}
+		public override bool CanChat()
+		{
+			return false;
 		}
 		
 		Vector2 sAttackPos = new Vector2(32,-31);
