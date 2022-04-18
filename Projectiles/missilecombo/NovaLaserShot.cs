@@ -63,6 +63,7 @@ namespace MetroidMod.Projectiles.missilecombo
 					if(soundInstance == null || soundInstance.State != SoundState.Playing)
 					{
 						soundInstance = Main.PlaySound(SoundLoader.customSoundType, (int)O.position.X, (int)O.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/NovaLaserLoop"));
+						soundInstance.Volume = Main.soundVolume;
 					}
 				}
 				P.velocity = Vector2.Normalize(Lead.velocity);
