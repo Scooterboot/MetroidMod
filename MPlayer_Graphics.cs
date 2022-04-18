@@ -275,7 +275,7 @@ namespace MetroidMod
 				PlayerLayer.HeldItem.visible = true;
 			}
 			
-			if(somersault)
+			if(somersault || (canWallJump && (player.controlLeft || player.controlRight) && !isGripping && !player.sliding))
 			{
 				P.bodyFrame.Y = P.bodyFrame.Height * 6;
 				P.legFrame.Y = P.legFrame.Height * 7;

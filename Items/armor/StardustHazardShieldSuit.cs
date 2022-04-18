@@ -91,7 +91,7 @@ namespace MetroidMod.Items.armor
 			/*Tooltip.SetDefault("5% increased ranged damage\n" +
 			"20% increased movement speed\n" +
 			"+33 overheat capacity\n" +
-			"Allows somersaulting");*/
+			"Allows somersaulting & wall jumping");*/
 			Tooltip.SetDefault("You shouldn't have this");
 		}
 		public override void SetDefaults()
@@ -106,7 +106,7 @@ namespace MetroidMod.Items.armor
 		{
 			player.rangedDamage += 0.05f;
 			player.moveSpeed += 0.20f;
-			player.GetModPlayer<MPlayer>().canSomersault = true;
+			player.GetModPlayer<MPlayer>().enableWallJump = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 33;
 		}

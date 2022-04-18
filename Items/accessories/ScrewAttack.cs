@@ -13,7 +13,7 @@ namespace MetroidMod.Items.accessories
 		{
 			DisplayName.SetDefault("Screw Attack");
 			Tooltip.SetDefault("Allows the user to double jump\n" + 
-			"Allows somersaulting\n" + 
+			"Allows somersaulting & wall jumping\n" + 
 			"Damage enemies while someraulting\n" + 
 			"Damage scales off of enemy's contact damage\n" +
 			"Hold Left/Right and double jump to do a 'boost' ability");

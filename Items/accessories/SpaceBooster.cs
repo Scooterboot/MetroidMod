@@ -22,7 +22,7 @@ namespace MetroidMod.Items.accessories
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" + 
-			"Allows somersaulting\n" +
+			"Allows somersaulting & wall jumping\n" +
 			"Increases jump height and prevents fall damage");
 		}
 		public override void SafeSetDefaults()

@@ -13,7 +13,7 @@ namespace MetroidMod.Items.accessories
 		{
 			DisplayName.SetDefault("Terra Booster");
 			Tooltip.SetDefault("Allows the user to run insanely fast and extra mobility on ice\n" +
-			"Allows somersaulting\n" +
+			"Allows somersaulting & wall jumping\n" +
 			"Damage enemies while running or somersaulting\n" +
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" +

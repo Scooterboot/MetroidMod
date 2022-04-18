@@ -83,6 +83,10 @@ namespace MetroidMod.NPCs.Torizo
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TorizoTrophy"));
 				}
 			}
+			if(!NPC.AnyNPCs(mod.NPCType("ChozoGhost")))
+			{
+				NPC.NewNPC((int)npc.Center.X,(int)npc.Center.Y,mod.NPCType("ChozoGhost"));
+			}
 		}
 		public override bool? CanBeHitByItem(Player player, Item item) => false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
