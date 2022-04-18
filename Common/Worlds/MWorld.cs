@@ -224,9 +224,13 @@ namespace MetroidMod.Common.Worlds
                     Vector2 pos = timer.Item2;
                     int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].type;
                     bool open = (hatchtype == (ushort)mod.TileType("BlueHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("BlueHatchOpenVertical")
                             || hatchtype == (ushort)mod.TileType("RedHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("RedHatchOpenVertical")
                             || hatchtype == (ushort)mod.TileType("GreenHatchOpen")
-                            || hatchtype == (ushort)mod.TileType("YellowHatchOpen"));
+                            || hatchtype == (ushort)mod.TileType("GreenHatchOpenVertical")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchOpenVertical"));
                     if(open)
                     {
                         Tiles.Hatch.BlueHatch hatch = (TileLoader.GetTile(hatchtype) as Tiles.Hatch.BlueHatch);
@@ -235,6 +239,24 @@ namespace MetroidMod.Common.Worlds
                     doorTimers.Dequeue();
                     UpdateRegenTimers();
                 }
+				else
+				{
+					Vector2 pos = timer.Item2;
+                    int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].type;
+					bool closed = (hatchtype == (ushort)mod.TileType("BlueHatch")
+                            || hatchtype == (ushort)mod.TileType("BlueHatchVertical")
+                            || hatchtype == (ushort)mod.TileType("RedHatch")
+                            || hatchtype == (ushort)mod.TileType("RedHatchVertical")
+                            || hatchtype == (ushort)mod.TileType("GreenHatch")
+                            || hatchtype == (ushort)mod.TileType("GreenHatchVertical")
+                            || hatchtype == (ushort)mod.TileType("YellowHatch")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchVertical"));
+					if(closed)
+					{
+						doorTimers.Dequeue();
+						UpdateRegenTimers();
+					}
+				}
             }
             if(nextDoorTimers.Count>0)
             {
@@ -244,9 +266,13 @@ namespace MetroidMod.Common.Worlds
                     Vector2 pos = timer.Item2;
                     int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].type;
                     bool open = (hatchtype == (ushort)mod.TileType("BlueHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("BlueHatchOpenVertical")
                             || hatchtype == (ushort)mod.TileType("RedHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("RedHatchOpenVertical")
                             || hatchtype == (ushort)mod.TileType("GreenHatchOpen")
-                            || hatchtype == (ushort)mod.TileType("YellowHatchOpen"));
+                            || hatchtype == (ushort)mod.TileType("GreenHatchOpenVertical")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchOpen")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchOpenVertical"));
                     if(open)
                     {
                         Tiles.Hatch.BlueHatch hatch = (TileLoader.GetTile(hatchtype) as Tiles.Hatch.BlueHatch);
@@ -255,6 +281,24 @@ namespace MetroidMod.Common.Worlds
                     nextDoorTimers.Dequeue();
                     UpdateRegenTimers();
                 }
+				else
+				{
+					Vector2 pos = timer.Item2;
+                    int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].type;
+					bool closed = (hatchtype == (ushort)mod.TileType("BlueHatch")
+                            || hatchtype == (ushort)mod.TileType("BlueHatchVertical")
+                            || hatchtype == (ushort)mod.TileType("RedHatch")
+                            || hatchtype == (ushort)mod.TileType("RedHatchVertical")
+                            || hatchtype == (ushort)mod.TileType("GreenHatch")
+                            || hatchtype == (ushort)mod.TileType("GreenHatchVertical")
+                            || hatchtype == (ushort)mod.TileType("YellowHatch")
+                            || hatchtype == (ushort)mod.TileType("YellowHatchVertical"));
+					if(closed)
+					{
+						nextDoorTimers.Dequeue();
+						UpdateRegenTimers();
+					}
+				}
             }
         }
 
