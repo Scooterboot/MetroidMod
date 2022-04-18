@@ -438,7 +438,9 @@ namespace MetroidMod.Common.Worlds
 		
 		public override void PostDrawTiles()
 		{
-		    SpriteBatch spriteBatch = Main.spriteBatch;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+			
 		    Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
 		    if (Main.drawToScreen)
 		    {
@@ -483,7 +485,7 @@ namespace MetroidMod.Common.Worlds
                     int yOff = -12 * 16;
                     Vector2 drawPos = new Vector2((float)(i * 16 + xOff - (int)screenPos.X), (float)(j * 16 + yOff - (int)screenPos.Y)) + zero;
 
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
+                    //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
                     bool revealed = (hit[i, j] && (Main.tile[i, j].active() && !Main.tile[i, j].inActive()));
 					if(draw || revealed)
@@ -551,9 +553,11 @@ namespace MetroidMod.Common.Worlds
                         }
                     }
 
-                    spriteBatch.End();
+                    //spriteBatch.End();
                 }
 		    }
+			
+			spriteBatch.End();
 		}
 		
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
