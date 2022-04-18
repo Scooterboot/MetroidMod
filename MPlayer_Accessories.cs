@@ -49,6 +49,7 @@ namespace MetroidMod
 		public float rotateCountY = 0.05f;
 		int itemRotTweak = 0;
 
+		public bool enableWallJump = false;
         public bool canWallJump = false;
 		
 		public bool hiJumpBoost = false;
@@ -77,7 +78,7 @@ namespace MetroidMod
             speedBoostDmg = 0;
 			
 			disableSomersault = false;
-            canSomersault = false;
+            enableWallJump = false;
 			
 			hiJumpBoost = false;
 			spaceJumpBoots = false;
@@ -228,7 +229,7 @@ namespace MetroidMod
 			GripMovement();
             int wallJumpDir = 0;
             bool altJump = false;
-            if (somersault)
+            if (enableWallJump)
             {
                 CheckWallJump(player, ref wallJumpDir, ref altJump);
             }
@@ -272,7 +273,7 @@ namespace MetroidMod
 
 			if(spaceJumpBoots || spaceJump || screwAttack)
             {
-                canSomersault = true;
+				enableWallJump = true;
                 AddSpaceJumpBoots(player);
 				if(spaceJump)
 				{
@@ -281,6 +282,20 @@ namespace MetroidMod
 				if(screwAttack)
 				{
 					AddScrewAttack(player,screwAttackDmg);
+				}
+			}
+			else if(enableWallJump)
+			{
+				if(player.velocity.Y == 0f || player.sliding || (player.autoJump && player.justJumped) || player.grappling[0] >= 0 || grapplingBeam >= 0)
+				{
+					if(player.velocity.X != 0 || player.sliding)
+					{
+						canSomersault = true;
+					}
+					else if(!player.sliding)
+					{
+						canSomersault = false;
+					}
 				}
 			}
 			
@@ -341,6 +356,10 @@ namespace MetroidMod
 				shineDirection = 0;
 				shineDischarge = 0;
 				shineActive = false;
+			}
+			if(!spaceJumpBoots && !spaceJump && !screwAttack && !enableWallJump)
+			{
+				canSomersault = false;
 			}
 			if(!screwAttack)
 			{
@@ -559,7 +578,7 @@ namespace MetroidMod
             canWallJump = false;
             altJump = false;
             dir = player.controlLeft ? -1 : player.controlRight ? 1 : player.direction;
-            if (dir != 0)
+            if (dir != 0 && player.velocity.Y != 0)
             {
                 float margin = 6 + Math.Abs(player.velocity.X); //Margin of error for Super Style wall jumping
                 float xPos = player.position.X;
@@ -621,6 +640,7 @@ namespace MetroidMod
                 player.fallStart = (int)(player.Center.Y / 16f);
                 player.autoJump = true;
                 player.justJumped = true;
+				canSomersault = true;
             }
         }
 		public void AddSpaceJump(Player player)

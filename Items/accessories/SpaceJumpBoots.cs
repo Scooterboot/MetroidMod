@@ -16,7 +16,7 @@ namespace MetroidMod.Items.accessories
 		{
 			DisplayName.SetDefault("Space Jump Boots");
 			Tooltip.SetDefault("Allows the wearer to double jump\n" + 
-			"Allows somersaulting\n" +
+			"Allows somersaulting & wall jumping\n" +
 			"Increases jump height");
 		}
 		public override void SetDefaults()
