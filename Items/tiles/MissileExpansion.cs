@@ -23,7 +23,7 @@ namespace MetroidMod.Items.tiles
 			item.autoReuse = true;
 			item.useAnimation = 15;
 			item.rare = 4;
-			item.value = 2500;
+			item.value = Item.buyPrice(0,15,0,0);
 			item.useTime = 10;
 			item.useStyle = 1;
 			item.consumable = true;
