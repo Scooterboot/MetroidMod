@@ -251,7 +251,7 @@ namespace MetroidMod
 				player.mount._active = true;
 			}
 			
-			player.altFunctionUse = ballstate ? -1 : player.altFunctionUse;
+			player.altFunctionUse = ballstate ? 1 : player.altFunctionUse;
 		}
 		public void PostUpdate_MorphBall()
 		{
