@@ -1,0 +1,3 @@
+displayName = MetroidModPorted
+author = CI 49
+version = 0.1

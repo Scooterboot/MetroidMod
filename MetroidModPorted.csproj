@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>MetroidModPorted</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Music\" />
+    <Folder Include="Assets\Effects\" />
+    <Folder Include="Assets\Sounds\" />
+    <Folder Include="Assets\Textures\SuitAddons\EnergyTank\" />
+    <Folder Include="Assets\Textures\SuitAddons\HiJumpBoots\" />
+    <Folder Include="Assets\Textures\SuitAddons\SpeedBooster\" />
+    <Folder Include="Assets\Textures\SuitAddons\SpaceJumpBoots\" />
+    <Folder Include="Assets\Textures\SuitAddons\SpaceJump\" />
+    <Folder Include="Assets\Textures\SuitAddons\ScrewAttack\" />
+    <Folder Include="Assets\Textures\SuitAddons\ReserveTank\" />
+    <Folder Include="Assets\Textures\SuitAddons\PowerGrip\" />
+    <Folder Include="Content\Buffs\" />
+    <Folder Include="Content\Items\Miscellaneous\" />
+    <Folder Include="Content\Mounts\" />
+    <Folder Include="Content\Items\Accessories\" />
+    <Folder Include="Content\Suits\" />
+    <Folder Include="Content\NPCs\Mobs\Metroid\" />
+    <Folder Include="Content\NPCs\Mobs\Utility\" />
+    <Folder Include="Content\Projectiles\" />
+  </ItemGroup>
+</Project>
