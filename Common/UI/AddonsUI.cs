@@ -12,51 +12,87 @@ using Terraria.GameContent.UI.Elements;
 using MetroidModPorted.Common.GlobalItems;
 using MetroidModPorted.Common.Players;
 using MetroidModPorted.Content.Items.Weapons;
+using ReLogic.Content;
 
 namespace MetroidModPorted.Common.UI
 {
-	public class AddonsUI : UIState
+	public class SuitAddonsUI : UIState
 	{
-		private SuitUI suitUI;
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().isPowerSuit;
+
+		private SuitAddonsPanel suitAddonsPanel;
 		public override void OnInitialize()
 		{
 			Main.hidePlayerCraftingMenu = true;
-			suitUI = new SuitUI();
-			suitUI.SetPadding(0);
-			suitUI.Top.Pixels = Main.instance.invBottom + 10;
-			suitUI.Left.Pixels = 65;
+			suitAddonsPanel = new SuitAddonsPanel();
+			suitAddonsPanel.SetPadding(0);
+			suitAddonsPanel.Top.Pixels = 300;
+			suitAddonsPanel.Left.Pixels = Main.screenWidth - suitAddonsPanel.Width.Pixels - 200;
 
-			Append(suitUI);
+			suitAddonsPanel.addonSlots = new SuitUIItemBox[SuitAddonSlotID.Count];
+			for (int i = 0; i < SuitAddonSlotID.Count; ++i)
+			{
+				suitAddonsPanel.addonSlots[i] = new SuitUIItemBox();
+				suitAddonsPanel.addonSlots[i].Top.Pixels = suitAddonsPanel.itemBoxPositionValues[i].Y;
+				suitAddonsPanel.addonSlots[i].Left.Pixels = suitAddonsPanel.itemBoxPositionValues[i].X;
+				suitAddonsPanel.addonSlots[i].addonSlotType = i;
+				suitAddonsPanel.addonSlots[i].SetCondition();
+
+				suitAddonsPanel.Append(suitAddonsPanel.addonSlots[i]);
+			}
+
+			Append(suitAddonsPanel);
 		}
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			suitUI.Left.Pixels = 160;
-			suitUI.Top.Pixels = 260;
-			suitUI.Width.Pixels = 256;
-			suitUI.Height.Pixels = 164;
-			if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
+			suitAddonsPanel.Left.Pixels = Main.screenWidth - suitAddonsPanel.Width.Pixels - 200;
+			suitAddonsPanel.Top.Pixels = 300;
+			suitAddonsPanel.Width.Pixels = 256;
+			suitAddonsPanel.Height.Pixels = 324;
+			/*if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
 			{
 				Top.Pixels += 170;
-			}
-			suitUI.Recalculate();
+			}*/
+			suitAddonsPanel.Recalculate();
 		}
 	}
-	public class SuitUI : UIPanel
+
+	public class SuitAddonsPanel : DragableUIPanel
 	{
-		private Texture2D panelTexture;
-		//public Rectangle DrawRectangle => new Rectangle((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
-		public override void OnInitialize()
+		//private Texture2D panelTexture;
+
+		public SuitUIItemBox[] addonSlots;
+
+		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
+
+		public Vector2[] itemBoxPositionValues = new Vector2[SuitAddonSlotID.Count]
+		{
+			new Vector2(98, 254),
+			new Vector2(174, 254),
+			new Vector2(98, 14),
+			new Vector2(174, 14),
+			new Vector2(32, 14),
+			new Vector2(98, 94),
+			new Vector2(32, 94),
+			new Vector2(174, 94),
+			new Vector2(98, 174),
+			new Vector2(32, 174),
+			new Vector2(174, 174)
+		};
+
+		/*public override void OnInitialize()
 		{
 			panelTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/PowerBeam_Border").Value;
 
 			SetPadding(0);
-			//Left.Pixels = 160;
-			//Top.Pixels = 260;
+			Left.Pixels = 160;
+			Top.Pixels = 260;
 			Width.Pixels = panelTexture.Width;
 			Height.Pixels = panelTexture.Height;
-			
-			/*beamSlots = new PowerBeamItemBox[MetroidModPorted.beamSlotAmount];
+			enabled = MetroidModPorted.DragablePowerBeamUI;
+
+			beamSlots = new PowerBeamItemBox[MetroidModPorted.beamSlotAmount];
 			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
 			{
 				beamSlots[i] = new PowerBeamItemBox();
@@ -66,31 +102,38 @@ namespace MetroidModPorted.Common.UI
 				beamSlots[i].SetCondition();
 
 				Append(beamSlots[i]);
-			}*/
-
-			//Append(new PowerBeamFrame());
-			//Append(new PowerBeamLines());
-		}
-		/*public override void Update(GameTime gameTime)
-		{
-			Left.Pixels = 160;
-			Top.Pixels = 260;
-			if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
-			{
-				Top.Pixels += 170;
 			}
-			Recalculate();
+			
+			Append(new PowerBeamFrame());
+			Append(new PowerBeamLines());
 		}*/
+
+		public override void Update(GameTime gameTime)
+		{
+			Width.Pixels = 256;
+			Height.Pixels = 324;
+			enabled = MetroidModPorted.DragableSenseMoveUI;
+			if (!enabled)
+			{
+				Left.Pixels = Main.screenWidth - Width.Pixels - 200; ;
+				Top.Pixels = 300;
+				/*if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
+				{
+					Top.Pixels += 170;
+				}*/
+			}
+
+			base.Update(gameTime);
+		}
 
 		/*protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			base.DrawSelf(spriteBatch);
-			//spriteBatch.Draw(panelTexture, new Rectangle((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels), panelTexture.Bounds, Color.White, MathHelper.ToRadians(90), Vector2.Zero, SpriteEffects.None, 0f);
+			spriteBatch.Draw(panelTexture, DrawRectangle, Color.White);            
 		}*/
 	}
-	public class SuitItemBox : UIPanel
+	public class SuitUIItemBox : UIPanel
 	{
-		private Texture2D itemBoxTexture;
+		//private Texture2D itemBoxTexture;
 
 		public Condition condition;
 
@@ -101,9 +144,9 @@ namespace MetroidModPorted.Common.UI
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			itemBoxTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ItemBox").Value;
+			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ItemBox").Value;
 
-			Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
+			Width.Pixels = 44; Height.Pixels = 44;
 			OnClick += ItemBoxClick;
 		}
 
@@ -122,9 +165,9 @@ namespace MetroidModPorted.Common.UI
 				//Mod mod = ModLoader.GetMod("MetroidModPorted");
 				if (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance)
 				{
-					MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-					ModBeam mBeam = ((BeamItem)addonItem.ModItem).modBeam;
-					return addonItem.type <= ItemID.None || mBeam.AddonSlot == addonSlotType;
+					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
+					ModSuitAddon mSuitAddon = ((SuitAddonItem)addonItem.ModItem).modSuitAddon;
+					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
 				return addonItem.type <= ItemID.None || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance);
@@ -135,25 +178,26 @@ namespace MetroidModPorted.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[(MetroidModPorted.Instance).selectedItem].ModItem as PowerBeam;
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			//PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[(MetroidModPorted.Instance).selectedItem].ModItem as PowerBeam;
 
-			if (powerBeamTarget.BeamMods[addonSlotType] != null && !powerBeamTarget.BeamMods[addonSlotType].IsAir)
+			if (mp.SuitAddons[addonSlotType] != null && !mp.SuitAddons[addonSlotType].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = powerBeamTarget.BeamMods[addonSlotType].Clone();
+					Main.mouseItem = mp.SuitAddons[addonSlotType].Clone();
 
-					powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
+					mp.SuitAddons[addonSlotType].TurnToAir();
 				}
 				else if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 
-					Item tempBoxItem = powerBeamTarget.BeamMods[addonSlotType].Clone();
+					Item tempBoxItem = mp.SuitAddons[addonSlotType].Clone();
 					Item tempMouseItem = Main.mouseItem.Clone();
 
-					powerBeamTarget.BeamMods[addonSlotType] = tempMouseItem;
+					mp.SuitAddons[addonSlotType] = tempMouseItem;
 					Main.mouseItem = tempBoxItem;
 				}
 			}
@@ -162,7 +206,7 @@ namespace MetroidModPorted.Common.UI
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					powerBeamTarget.BeamMods[addonSlotType] = Main.mouseItem.Clone();
+					mp.SuitAddons[addonSlotType] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
 			}
@@ -170,25 +214,29 @@ namespace MetroidModPorted.Common.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].ModItem as PowerBeam;
+			base.DrawSelf(spriteBatch);
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			//Item target = Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem];
+			//if (target == null & target.type != ModContent.ItemType<PowerBeam>()) { return; }
+			//PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 
-			spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
+			//spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 			// Item drawing.
-			if (powerBeamTarget.BeamMods[addonSlotType].IsAir) { return; }
+			//if (powerBeamTarget == null | powerBeamTarget.BeamMods[addonSlotType].IsAir) { return; }
 
-			Color itemColor = powerBeamTarget.BeamMods[addonSlotType].GetAlpha(Color.White);
-			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[powerBeamTarget.BeamMods[addonSlotType].type].Value;
-			CalculatedStyle innerDimensions = base.GetDimensions();
+			Color itemColor = mp.SuitAddons[addonSlotType].GetAlpha(Color.White);
+			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[mp.SuitAddons[addonSlotType].type].Value;
+			CalculatedStyle innerDimensions = GetDimensions();
 
-			if (base.IsMouseHovering)
+			if (IsMouseHovering)
 			{
-				Main.hoverItemName = powerBeamTarget.BeamMods[addonSlotType].Name;
-				Main.HoverItem = powerBeamTarget.BeamMods[addonSlotType].Clone();
+				Main.hoverItemName = mp.SuitAddons[addonSlotType].Name;
+				Main.HoverItem = mp.SuitAddons[addonSlotType].Clone();
 			}
 
-			Rectangle frame = Main.itemAnimations[powerBeamTarget.BeamMods[addonSlotType].type] != null
-						? Main.itemAnimations[powerBeamTarget.BeamMods[addonSlotType].type].GetFrame(itemTexture)
+			Rectangle frame = Main.itemAnimations[mp.SuitAddons[addonSlotType].type] != null
+						? Main.itemAnimations[mp.SuitAddons[addonSlotType].type].GetFrame(itemTexture)
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
@@ -207,7 +255,7 @@ namespace MetroidModPorted.Common.UI
 			//float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, powerBeamTarget.BeamMods[addonSlotType].type);
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, mp.SuitAddons[addonSlotType].type);
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
@@ -217,10 +265,10 @@ namespace MetroidModPorted.Common.UI
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if (powerBeamTarget.BeamMods[addonSlotType].color != default(Color))
+			if (mp.SuitAddons[addonSlotType].color != default(Color))
 			{
-				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
-					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
+																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 			}
 		}
 	}

@@ -10,6 +10,7 @@ namespace MetroidModPorted.Common.Systems
 	{
 		public static MUISystem Instance { get; private set; }
 		internal static UserInterface pbUserInterface;
+		internal static UserInterface suitUserIntrface;
 		//internal static UI.PowerBeamUI powerBeamUI;
 		//internal static UI.AddonsUI addonsUI;
 
@@ -23,6 +24,7 @@ namespace MetroidModPorted.Common.Systems
 		//internal static UI.SenseMoveUI senseMoveUI;
 
 		internal bool isPBInit = false;
+		internal bool isSUInit = false;
 
 		public override void Load()
 		{
@@ -30,6 +32,7 @@ namespace MetroidModPorted.Common.Systems
 			{
 				//addonsUI = new UI.AddonsUI();
 				pbUserInterface = new UserInterface();
+				suitUserIntrface = new UserInterface();
 
 				/*powerBeamUI = new UI.PowerBeamUI();
 				powerBeamUI.Activate();
@@ -56,16 +59,26 @@ namespace MetroidModPorted.Common.Systems
 		public override void Unload()
 		{
 			pbUserInterface = null;
+			suitUserIntrface = null;
 			//powerBeamUI = null;
 			//addonsUI = null;
 		}
 
 		public override void UpdateUI(GameTime gameTime)
 		{
-			if (true && isPBInit == false)
+			if (isSUInit == false)
+			{
+				suitUserIntrface.SetState(new UI.SuitAddonsUI());
+				isSUInit = true;
+			}
+			if (isPBInit == false)
 			{
 				pbUserInterface.SetState(new UI.PowerBeamUI());
 				isPBInit = true;
+			}
+			if (suitUserIntrface != null && UI.SuitAddonsUI.Visible)
+			{
+				suitUserIntrface.Update(gameTime);
 			}
 			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
 			{
@@ -88,6 +101,19 @@ namespace MetroidModPorted.Common.Systems
 						{
 							if (Main.hasFocus) { pbUserInterface.Recalculate(); }
 							pbUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidModPorted: Suit Addons UI",
+					delegate {
+						if (UI.SuitAddonsUI.Visible)
+						{
+							if (Main.hasFocus) { suitUserIntrface.Recalculate(); }
+							suitUserIntrface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
 						return true;

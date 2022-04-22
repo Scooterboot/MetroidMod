@@ -85,10 +85,10 @@ namespace MetroidModPorted.Common
 	{
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			var drawDataInfo = GetData(drawInfo);
-			var drawPlayer = drawInfo.drawPlayer;
-			//var modPlayer = drawPlayer.GetModPlayer<MPlayer>();
-			var effects = SpriteEffects.None;
+			DrawDataInfo drawDataInfo = GetData(drawInfo);
+			Player drawPlayer = drawInfo.drawPlayer;
+			//MPlayer modPlayer = drawPlayer.GetModPlayer<MPlayer>();
+			SpriteEffects effects = SpriteEffects.None;
 
 			if (drawPlayer.direction == -1)
 			{
@@ -100,7 +100,7 @@ namespace MetroidModPorted.Common
 				effects |= SpriteEffects.FlipVertically;
 			}
 
-			var data = new DrawData(
+			DrawData data = new(
 				drawDataInfo.Texture,
 				drawDataInfo.Position,
 				drawDataInfo.Frame,
@@ -123,7 +123,7 @@ namespace MetroidModPorted.Common
 		protected override void Draw(ref PlayerDrawSet drawInfo) {
 			DrawDataInfo drawDataInfo = GetData(drawInfo);
 			Player drawPlayer = drawInfo.drawPlayer;
-			var modPlayer = drawPlayer.GetModPlayer<MPlayer>();
+			//MPlayer modPlayer = drawPlayer.GetModPlayer<MPlayer>();
 			SpriteEffects effects = SpriteEffects.None;
 
 			if (drawPlayer.direction == -1) {
@@ -134,7 +134,7 @@ namespace MetroidModPorted.Common
 				effects |= SpriteEffects.FlipVertically;
 			}
 
-			var data = new DrawData(
+			DrawData data = new(
 				drawDataInfo.Texture,
 				drawDataInfo.Position,
 				drawDataInfo.Frame,
@@ -151,7 +151,7 @@ namespace MetroidModPorted.Common
 
 			GameShaders.Armor.Apply(ShaderId.Value, drawPlayer, data);
 
-			var centerPos = data.position;
+			Vector2 centerPos = data.position;
 
 			for (int i = 0; i < ShaderNumSegments; i++) {
 				data.position = centerPos + GetDrawOffset(i);

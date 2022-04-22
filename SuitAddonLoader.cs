@@ -33,13 +33,13 @@ namespace MetroidModPorted
 		public static int AddonCount => addons.Count;
 
 		public static ModSuitAddon GetAddon(int type) =>
-			addons.TryGetValue(type, out var modSuitAddon) ? modSuitAddon : null;
+			addons.TryGetValue(type, out ModSuitAddon modSuitAddon) ? modSuitAddon : null;
 
 		public static ModSuitAddon GetAddon(string fullName) =>
-			addons.TryGetValue(fullName, out var modSuitAddon) ? modSuitAddon : null;
+			addons.TryGetValue(fullName, out ModSuitAddon modSuitAddon) ? modSuitAddon : null;
 
 		public static ModSuitAddon GetAddon<T>() where T : ModSuitAddon =>
-			addons.TryGetValue(i => i is T, out var modSuitAddon) ? modSuitAddon : null;
+			addons.TryGetValue(i => i is T, out ModSuitAddon modSuitAddon) ? modSuitAddon : null;
 
 		/*public static void OnUpdate(Player player, Item[] items)
 		{

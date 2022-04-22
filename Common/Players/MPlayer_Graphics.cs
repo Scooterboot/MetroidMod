@@ -45,9 +45,9 @@ namespace MetroidModPorted.Common.Players
 		
 		public int psuedoScrewFlash = 0;
 		public int shineChargeFlash = 0;
-		private Rectangle jetFrame;
-		private int jetFrameCounter = 1;
-		private int currentFrame = 0;
+		//private Rectangle jetFrame;
+		//private int jetFrameCounter = 1;
+		//private int currentFrame = 0;
 		
 		public void ResetEffects_Graphics()
 		{
@@ -119,11 +119,6 @@ namespace MetroidModPorted.Common.Players
 			{
 				tweak = 0;
 			}
-		}
-
-		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
-		{
-			base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
 		}
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{
@@ -232,6 +227,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public override void FrameEffects()
 		{
+			// Old code, may restore if the method currently being attempted goes awry.
 			/*if (isPowerSuit)
 			{
 				Player.legs = SuitAddonLoader.GetGreaves(Player);
@@ -832,7 +828,7 @@ namespace MetroidModPorted.Common.Players
 			float yfloat = 4f;
 			Main.PlayerDrawData.Add(new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + yfloat))) + drawPos + drawInfo.bodyOrigin, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyOrigin, 1f, effects, 0));
 		}*/
-		public static void DrawTexture(SpriteBatch sb, PlayerDrawSet drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
+		public static void DrawTexture(PlayerDrawSet drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
 		{
 			SpriteEffects effects = SpriteEffects.None;
 			if (drawPlayer.direction == -1)

@@ -16,8 +16,8 @@ namespace MetroidModPorted.Common
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			Mod mod = MetroidModPorted.Instance;
-			SpriteBatch spriteBatch = Main.spriteBatch;
+			//Mod mod = MetroidModPorted.Instance;
+			//SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
 
@@ -33,11 +33,11 @@ namespace MetroidModPorted.Common
 			if (mPlayer.thrusters && item != null)
 			{
 				string name = item.ModItem.Texture + "_Thrusters";
-				if (ModContent.RequestIfExists<Texture2D>(name, out Asset<Texture2D> tex) && name.Contains("MetroidMod"))
+				if (ModContent.RequestIfExists(name, out Asset<Texture2D> tex) && name.Contains("MetroidModPorted"))
 				{
 					if ((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
 					{
-						MPlayer.DrawTexture(spriteBatch, drawInfo, tex.Value, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawInfo.colorArmorBody, drawInfo.cBody);
+						MPlayer.DrawTexture(drawInfo, tex.Value, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawInfo.colorArmorBody, drawInfo.cBody);
 					}
 				}
 			}

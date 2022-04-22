@@ -96,7 +96,7 @@ namespace MetroidModPorted
 			ArmorIDs.Legs.Sets.HidesBottomSkin[equipSlotLegs] = true;
 		}
 
-		protected sealed override void Register()
+		protected override sealed void Register()
 		{
 			DisplayName = LocalizationLoader.CreateTranslation(Mod, $"SuitAddonName.{Name}");
 			Tooltip = LocalizationLoader.CreateTranslation(Mod, $"SuitAddonTooltip.{Name}");
