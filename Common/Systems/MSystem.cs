@@ -225,7 +225,11 @@ namespace MetroidModPorted.Common.Systems
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 
-			if (P.buffType[0] > 0)
+			for (int i = 0; i < P.buffType.Length; i += 11)
+			{
+				if (P.buffType[i] > 0) { z += 50; }
+			}
+			/*if (P.buffType[0] > 0)
 			{
 				if (P.buffType[11] > 0)
 				{
@@ -239,7 +243,7 @@ namespace MetroidModPorted.Common.Systems
 			else
 			{
 				z = 0;
-			}
+			}*/
 
 			// (debug) draw npc hitboxes
 			if (MetroidModPorted.DebugDH)
