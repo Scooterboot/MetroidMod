@@ -228,6 +228,12 @@ namespace MetroidMod.NPCs.Town
 				shop.item[nextSlot].SetDefaults(mod.ItemType("VanityPack_Lunar"));
 				nextSlot++;
 			}
+			
+			if(Main.hardMode && Main.bloodMoon)
+			{
+				shop.item[nextSlot].SetDefaults(mod.ItemType("MissileExpansion"));
+				nextSlot++;
+			}
 		}
 
 		/*public override void NPCLoot()
