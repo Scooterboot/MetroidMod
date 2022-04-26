@@ -37,6 +37,9 @@ namespace MetroidMod
 		public static bool DragableMorphBallUI;
 		public static bool DragableSenseMoveUI;
 
+		public static bool AutocloseHatchesEnabled;
+		public static int AutocloseHatchesTime;
+
 		public static Color powColor = new Color(248, 248, 110);
 		public static Color iceColor = new Color(0, 255, 255);
 		public static Color waveColor = new Color(215, 0, 215);

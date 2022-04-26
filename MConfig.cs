@@ -77,4 +77,38 @@ namespace MetroidMod
 			MetroidMod.DebugDH = DrawNPCHitboxes;
 		}
 	}
+	[Label("Server Side")]
+	public class MServerConfig : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ServerSide;
+
+		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
+		{
+			if (Main.netMode != NetmodeID.SinglePlayer)
+			{
+				return whoAmI == 0;
+			}
+			return true;
+		}
+
+		[Header("Automatically Closing Hatches")]
+		[Label("Enabled")]
+		[Tooltip("When enabled, hatches will automatically close after a certain period of time.")]
+		[DefaultValue(true)]
+		public bool AutocloseHatchesEnabled;
+
+		[Label("Timer")]
+		[Tooltip("Time before hatches automatically close, in seconds.")]
+		[Range(0, 120)]
+		[Increment(5)]
+		[Slider]
+		[DefaultValue(10)]
+		public int AutocloseHatchesTime;
+
+		public override void OnChanged()
+		{
+			MetroidMod.AutocloseHatchesEnabled = AutocloseHatchesEnabled;
+			MetroidMod.AutocloseHatchesTime = AutocloseHatchesTime;
+		}
+	}
 }

@@ -139,7 +139,7 @@ namespace MetroidMod
 			Mod mod = ModLoader.GetMod("RecipeBrowser");
 			if (mod != null && !Main.dedServ)
 			{
-				mod.Call("AddItemCategory", "Hunter", "Weapons", ModContent.GetTexture("Items/accessories/HunterEmblem"), (Predicate<Item>)delegate (Item item)
+				mod.Call("AddItemCategory", "Hunter", "Weapons", ModContent.GetTexture($"{MetroidMod.Instance.Name}/Textures/PowerBeamRecipeBrowser"), (Predicate<Item>)delegate (Item item)
 				{
 					if (item.damage > 0)
 					{

@@ -68,7 +68,10 @@ namespace MetroidMod.Tiles.Hatch
 		public override void HitWire(int i, int j)
 		{
 			ToggleHatch(i, j, (ushort)otherDoorID,Name.Contains("Open"));
-            MWorld.doorTimers.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 60 * 10, new Vector2(i, j)));
+			if (MetroidMod.AutocloseHatchesEnabled)
+			{
+				MWorld.doorTimers.Enqueue(new Tuple<int, Vector2>((int)(MWorld.Timer) + 60 * MetroidMod.AutocloseHatchesTime, new Vector2(i, j)));
+			}
 		}
         
 		public void ToggleHatch(int i, int j, ushort type, bool isOpen = false)
