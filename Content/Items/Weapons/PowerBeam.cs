@@ -1284,9 +1284,10 @@ namespace MetroidModPorted.Content.Items.Weapons
 				//waveSpeed = mItem.addonSpeed;
 				if (BeamLoader.TryGetValue(BeamLoader.beams, slot3, out ModBeam modBeam))
 				{
-					//waveDmg = modBeam.AddonDamageMult;
-					//waveHeat = modBeam.AddonHeat;
-					//waveSpeed = modBeam.AddonSpeed;
+					waveDmg = modBeam.AddonDamageMult;
+					waveHeat = modBeam.AddonHeat;
+					waveSpeed = modBeam.AddonSpeed;
+					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (((ModUtilityBeam)modBeam).ShotAmount > 1)
 					{
 						shotAmt = ((ModUtilityBeam)modBeam).ShotAmount;
@@ -1316,9 +1317,10 @@ namespace MetroidModPorted.Content.Items.Weapons
 				//spazSpeed = mItem.addonSpeed;
 				if (BeamLoader.TryGetValue(BeamLoader.beams, slot4, out ModBeam modBeam))
 				{
-					//spazDmg = modBeam.AddonDamageMult;
-					//spazHeat = modBeam.AddonHeat;
-					//spazSpeed = modBeam.AddonSpeed;
+					spazDmg = modBeam.AddonDamageMult;
+					spazHeat = modBeam.AddonHeat;
+					spazSpeed = modBeam.AddonSpeed;
+					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (((ModPrimaryABeam)modBeam).ShotAmount > 1)
 					{
 						shotAmt = ((ModPrimaryABeam)modBeam).ShotAmount;
@@ -1339,9 +1341,10 @@ namespace MetroidModPorted.Content.Items.Weapons
 				//iceSpeed = mItem.addonSpeed;
 				if (BeamLoader.TryGetValue(BeamLoader.beams, slot2, out ModBeam modBeam))
 				{
-					//iceDmg = modBeam.AddonDamageMult;
-					//iceHeat = modBeam.AddonHeat;
-					//iceSpeed = modBeam.AddonSpeed;
+					iceDmg = modBeam.AddonDamageMult;
+					iceHeat = modBeam.AddonHeat;
+					iceSpeed = modBeam.AddonSpeed;
+					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (modBeam.PowerBeamTexture != null && modBeam.PowerBeamTexture != "")
 					{
 						texture = modBeam.PowerBeamTexture;
@@ -1357,9 +1360,10 @@ namespace MetroidModPorted.Content.Items.Weapons
 				//plasSpeed = mItem.addonSpeed;
 				if (BeamLoader.TryGetValue(BeamLoader.beams, slot5, out ModBeam modBeam))
 				{
-					//plasDmg = modBeam.AddonDamageMult;
-					//plasHeat = modBeam.AddonHeat;
-					//plasSpeed = modBeam.AddonSpeed;
+					plasDmg = modBeam.AddonDamageMult;
+					plasHeat = modBeam.AddonHeat;
+					plasSpeed = modBeam.AddonSpeed;
+					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (modBeam.PowerBeamTexture != null && modBeam.PowerBeamTexture != "")
 					{
 						texture = modBeam.PowerBeamTexture;

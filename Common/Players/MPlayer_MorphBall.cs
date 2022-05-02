@@ -429,7 +429,7 @@ namespace MetroidModPorted.Common.Players
 			if (Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Player.controlUseTile && Player.releaseUseTile && !Player.tileInteractionHappened && Player.releaseUseItem && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
 			{
 				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/LayBomb"));
-				int a = Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X,Player.Center.Y,0,0,BombID,bombDamage,4f,Player.whoAmI, 1);
+				int a = Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X,Player.Center.Y,0,0,BombID,bombDamage,4f,Player.whoAmI, 1);
 				Main.projectile[a].aiStyle = 0;
 				//bomb = 20;
 			}
@@ -440,43 +440,43 @@ namespace MetroidModPorted.Common.Players
 				bomb = 90;
 				if(Player.controlLeft)
 				{
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -6, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -5.5f, -3.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 70;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -4.7f, -4.7f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 80;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -3.5f, -5.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 90;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -2, -6, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 100;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -6, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -5.5f, -3.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 70;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -4.7f, -4.7f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 80;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -3.5f, -5.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 90;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -2, -6, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 100;
 				}
 				else if(Player.controlRight)
 				{
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 6, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 5.5f, -3.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 70;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 4.7f, -4.7f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 80;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 3.5f, -5.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 90;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 2, -6, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 100;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 6, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 5.5f, -3.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 70;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 4.7f, -4.7f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 80;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 3.5f, -5.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 90;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 2, -6, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 100;
 				}
 				else if(Player.controlDown && Player.velocity.Y == 0)
 				{
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, 0, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 40;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -5, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 50;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -7, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -8.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 70;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -10, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 80;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, 0, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 40;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -5, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 50;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -7, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -8.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 70;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -10, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 80;
 				}
 				else if(Player.controlDown && Player.velocity.Y != 0)
 				{
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, 0, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 2;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, 0, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -4.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 4, 2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -4, 2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, 0, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 2;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, 0, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -4.5f, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 4, 2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -4, 2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 25;
 				}
 				else
 				{
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -5, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -3, -4, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -5, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 3, -4, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
-					Main.projectile[Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 5, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -5, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, -3, -4, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 0, -5, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 3, -4, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
+					Main.projectile[Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y, 5, -2, BombID, bombDamage, 4f, Player.whoAmI)].timeLeft = 60;
 				}
 				special = true;
 			}
@@ -492,7 +492,7 @@ namespace MetroidModPorted.Common.Players
 			{
 				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/LayPowerBomb"));
 				statPBCh = 200;
-				Projectile.NewProjectile(new Player().GetProjectileSource_Accessory(BombItem), Player.Center.X,Player.Center.Y+4,0,0,type,damage,0,Player.whoAmI);
+				Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X,Player.Center.Y+4,0,0,type,damage,0,Player.whoAmI);
 			}
 		}
 		public void Drill(Player p, int drill)

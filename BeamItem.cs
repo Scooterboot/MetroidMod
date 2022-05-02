@@ -31,7 +31,7 @@ namespace MetroidModPorted
 
 		public override void SetDefaults()
 		{
-			Item.maxStack = 99;
+			Item.maxStack = 1;
 			modBeam.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
@@ -42,6 +42,7 @@ namespace MetroidModPorted
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.createTile = modBeam.TileType;
+			Item.GetGlobalItem<Common.GlobalItems.MGlobalItem>().AddonType = AddonType.PowerBeam;
 		}
 
 		public override void HoldItem(Player player)
@@ -56,6 +57,13 @@ namespace MetroidModPorted
 		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
 		{
 			itemGroup = ContentSamples.CreativeHelper.ItemGroup.Accessories;
+		}
+
+		public override ModItem Clone(Item item)
+		{
+			BeamItem obj = (BeamItem)base.Clone(item);
+			obj.modBeam = modBeam;
+			return obj;
 		}
 	}
 }

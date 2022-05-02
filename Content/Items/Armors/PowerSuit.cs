@@ -31,12 +31,6 @@ namespace MetroidModPorted.Content.Items.Armors
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.10f;
 		}
-		public override void UpdateVanity(Player player)
-		{
-			base.UpdateVanity(player);
-			player.body = SuitAddonLoader.GetBreastplate(player);
-			//player.handon = (sbyte)SuitAddonLoader.GetArms(player);
-		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			return head.type == ModContent.ItemType<PowerSuitHelmet>() && body.type == ModContent.ItemType<PowerSuitBreastplate>() && legs.type == ModContent.ItemType<PowerSuitGreaves>();
@@ -48,7 +42,7 @@ namespace MetroidModPorted.Content.Items.Armors
 							//SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.senseMove = true;
-			//SuitAddonLoader.OnUpdateArmorSet(player);
+			SuitAddonLoader.OnUpdateArmorSet(player);
 		}
 		public override void UpdateVanitySet(Player P)
 		{
@@ -63,7 +57,7 @@ namespace MetroidModPorted.Content.Items.Armors
 			{
 				mp.jet = false;
 			}
-			//SuitAddonLoader.OnUpdateVanitySet(P);
+			SuitAddonLoader.OnUpdateVanitySet(P);
 		}
 		public override void AddRecipes()
 		{
@@ -120,11 +114,7 @@ namespace MetroidModPorted.Content.Items.Armors
 			player.GetModPlayer<MPlayer>().canSomersault = true;
 			player.noFallDmg = true;
 		}
-		public override void UpdateVanity(Player player)
-		{
-			base.UpdateVanity(player);
-			player.legs = SuitAddonLoader.GetGreaves(player);
-		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -189,11 +179,6 @@ namespace MetroidModPorted.Content.Items.Armors
 			SuitAddonLoader.DrawHelmetArmorColor(player, ref glowMask, ref glowMaskColor);
 			base.DrawArmorColor(drawPlayer, shadow, ref color, ref glowMask, ref glowMaskColor);
 		}*/
-		public override void UpdateVanity(Player player)
-		{
-			base.UpdateVanity(player);
-			player.head = SuitAddonLoader.GetHelmet(player);
-		}
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

@@ -26,7 +26,6 @@
     <Folder Include="Content\Items\Miscellaneous\" />
     <Folder Include="Content\Mounts\" />
     <Folder Include="Content\Items\Accessories\" />
-    <Folder Include="Content\Suits\" />
     <Folder Include="Content\NPCs\Mobs\Metroid\" />
     <Folder Include="Content\NPCs\Mobs\Utility\" />
     <Folder Include="Content\Projectiles\" />

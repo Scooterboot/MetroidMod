@@ -1046,7 +1046,7 @@ namespace MetroidModPorted.Common.Systems
 					}
 
 					int dir = 1;
-					if (WorldGen.genRand.Next(2) == 0)
+					if (WorldGen.genRand.NextBool(2))
 					{
 						dir = -1;
 					}

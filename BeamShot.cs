@@ -377,7 +377,7 @@ namespace MetroidModPorted
 				{
 					int DiffuseID = ModContent.ProjectileType<DiffusionBeam>();
 					vel = new Vector2((Main.rand.Next(50) - 25) * 0.1f, (Main.rand.Next(50) - 25) * 0.1f);
-					Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetItemSource_FromThis(), projectile.Center, vel, DiffuseID, (int)(projectile.damage / 3f),
+					Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), projectile.Center, vel, DiffuseID, (int)(projectile.damage / 3f),
 						0.1f, projectile.owner, dustType, (color.R << 16 | color.G << 8 | color.B))];
 					p.tileCollide = projectile.tileCollide;
 					p.Name = projectile.Name;

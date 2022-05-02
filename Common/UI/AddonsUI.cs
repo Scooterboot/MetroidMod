@@ -23,7 +23,6 @@ namespace MetroidModPorted.Common.UI
 		private SuitAddonsPanel suitAddonsPanel;
 		public override void OnInitialize()
 		{
-			Main.hidePlayerCraftingMenu = true;
 			suitAddonsPanel = new SuitAddonsPanel();
 			suitAddonsPanel.SetPadding(0);
 			suitAddonsPanel.Top.Pixels = 300;
@@ -46,10 +45,10 @@ namespace MetroidModPorted.Common.UI
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			suitAddonsPanel.Left.Pixels = Main.screenWidth - suitAddonsPanel.Width.Pixels - 200;
+			/*suitAddonsPanel.Left.Pixels = Main.screenWidth - suitAddonsPanel.Width.Pixels - 200;
 			suitAddonsPanel.Top.Pixels = 300;
 			suitAddonsPanel.Width.Pixels = 256;
-			suitAddonsPanel.Height.Pixels = 324;
+			suitAddonsPanel.Height.Pixels = 324;*/
 			/*if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
 			{
 				Top.Pixels += 170;
@@ -68,7 +67,7 @@ namespace MetroidModPorted.Common.UI
 
 		public Vector2[] itemBoxPositionValues = new Vector2[SuitAddonSlotID.Count]
 		{
-			new Vector2(98, 254),
+			new Vector2(32, 254),
 			new Vector2(174, 254),
 			new Vector2(98, 14),
 			new Vector2(174, 14),
@@ -115,7 +114,7 @@ namespace MetroidModPorted.Common.UI
 			enabled = MetroidModPorted.DragableSenseMoveUI;
 			if (!enabled)
 			{
-				Left.Pixels = Main.screenWidth - Width.Pixels - 200; ;
+				Left.Pixels = Main.screenWidth - Width.Pixels - 200;
 				Top.Pixels = 300;
 				/*if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
 				{
@@ -166,6 +165,7 @@ namespace MetroidModPorted.Common.UI
 				if (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
+					if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.Suit) { return false; }
 					ModSuitAddon mSuitAddon = ((SuitAddonItem)addonItem.ModItem).modSuitAddon;
 					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
@@ -224,6 +224,7 @@ namespace MetroidModPorted.Common.UI
 
 			// Item drawing.
 			//if (powerBeamTarget == null | powerBeamTarget.BeamMods[addonSlotType].IsAir) { return; }
+			if (mp.SuitAddons[addonSlotType].IsAir) { return; }
 
 			Color itemColor = mp.SuitAddons[addonSlotType].GetAlpha(Color.White);
 			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[mp.SuitAddons[addonSlotType].type].Value;

@@ -88,7 +88,7 @@ namespace MetroidModPorted
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			Item[] items = mp.SuitAddons;
-			for (int i = SuitAddonSlotID.Suit_Varia; i < SuitAddonSlotID.Misc_Grip; i++)
+			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{
 				Item item = items[i];
 				if (item.type == ItemID.None) { continue; }
@@ -98,150 +98,9 @@ namespace MetroidModPorted
 			}
 		}
 
-		public static int GetHelmet(Player player)
+		public static bool IsVanitySet(int head, int body, int legs)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(ModContent.GetInstance<Content.Items.Armors.PowerSuitHelmet>().Name, EquipType.Head);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Name, EquipType.Head);
-				if (temp != -1)
-				{
-					msaEqu = temp;
-				}
-			}
-
-			return msaEqu;
-		}
-		public static Asset<Texture2D> GetHelmetGlow(PlayerDrawSet info)
-		{
-			string tex = "MetroidModPorted/Content/Items/Armors/PowerSuitHelmet_Head_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureHead;
-				if (temp != "" && temp != null)
-				{
-					tex = temp;
-				}
-			}
-
-			return ModContent.Request<Texture2D>(tex);
-		}
-		/*public static void DrawHelmetArmorColor(Player player, ref int glowMask, ref Color glowMaskColor)
-		{
-
-		}*/
-		public static int GetBreastplate(Player player)
-		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(ModContent.GetInstance<Content.Items.Armors.PowerSuitBreastplate>().Name, EquipType.Body);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Name, EquipType.Body);
-				if (temp != -1)
-				{
-					msaEqu = temp;
-				}
-			}
-
-			return msaEqu;
-		}
-		public static Asset<Texture2D> GetBreastplateGlow(PlayerDrawSet info)
-		{
-			string tex = ModContent.GetInstance<Content.Items.Armors.PowerSuitBreastplate>().Texture+"";//"MetroidModPorted/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureTorso;
-				if (temp != "" && temp != null)
-				{
-					tex = temp;
-				}
-			}
-
-			return ModContent.Request<Texture2D>(tex);
-		}
-		public static int GetArms(Player player)
-		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(ModContent.GetInstance<Content.Items.Armors.PowerSuitBreastplate>().Name, EquipType.Body);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Name, EquipType.Body);
-				if (temp == -1)
-				{
-					msaEqu = temp;
-				}
-			}
-
-			return msaEqu;
-		}
-		public static Asset<Texture2D> GetArmsGlow(PlayerDrawSet info)
-		{
-			string tex = "MetroidModPorted/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureTorso;
-				if (temp != "" && temp != null)
-				{
-					tex = temp;
-				}
-			}
-
-			return ModContent.Request<Texture2D>(tex);
-		}
-		public static int GetGreaves(Player player)
-		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(ModContent.GetInstance<Content.Items.Armors.PowerSuitGreaves>().Name, EquipType.Legs);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Name, EquipType.Legs);
-				if (temp != -1)
-				{
-					msaEqu = temp;
-				}
-			}
-
-			return msaEqu;
-		}
-		public static Asset<Texture2D> GetGreavesGlow(PlayerDrawSet info)
-		{
-			string tex = "MetroidModPorted/Content/Items/Armors/PowerSuitGreaves_Legs_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureLegs;
-				if (temp != "" && temp != null)
-				{
-					tex = temp;
-				}
-			}
-
-			return ModContent.Request<Texture2D>(tex);
-		}
-
-		internal static ModSuitAddon[] GetPowerSuit(Player player)
-		{
-			MPlayer mPlayer = player.GetModPlayer<MPlayer>();
-			Item[] sa = mPlayer.SuitAddons;
-			ModSuitAddon[] msa = new ModSuitAddon[4];
-			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
-			{
-				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Varia] = null; continue; }
-				msa[i - SuitAddonSlotID.Suit_Varia] = ((SuitAddonItem)sa[i].ModItem).modSuitAddon;
-			}
-			return msa;
+			return false;
 		}
 
 		internal static void ReloadTypes(TagCompound unloadedTag)

@@ -204,10 +204,10 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
-				Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
-				Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
-				Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
-				Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
 			}
 		}
 		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)

@@ -36,7 +36,7 @@ namespace MetroidModPorted
             BeamCombination lc = null;
 			if (beamCombinations.Any(l =>
 			{
-				bool @is = l.Is(beam1, beam2, beam3, beam4, beam5, out var beamCombination);
+				bool @is = l.Is(out var beamCombination, beam1, beam2, beam3, beam4, beam5);
 				lc = beamCombination;
 				return @is;
 			}))
@@ -48,26 +48,31 @@ namespace MetroidModPorted
         }
 
         internal static bool ComboContains(int beam1, int beam2, int beam3 = -1, int beam4 = -1, int beam5 = -1) =>
-            beamCombinations.Any(l => l.Is(beam1, beam2, beam3, beam4, beam5, out _));
+            beamCombinations.Any(l => l.Is(out _, beam1, beam2, beam3, beam4, beam5));
         internal static bool TryGetValue<T>(this IList<T> list, Func<T, bool> predict, out T value) =>
             (value = list.FirstOrDefault(predict)) != null;
         internal static bool TryGetValue(this IList<ModBeam> list, int type, out ModBeam modBeam) =>
             list.TryGetValue(i => i.Type == type, out modBeam);
 		internal static bool TryGetValue(this IList<ModBeam> list, Item item, out ModBeam modBeam) =>
-			list.TryGetValue(i => i.Item.Item == item, out modBeam);
+			list.TryGetValue(i => i.Item.Type == item.type, out modBeam);
         internal static bool TryGetValue(this IList<ModBeam> list, string fullName, out ModBeam modBeam) =>
             list.TryGetValue(i => i.FullName == fullName, out modBeam);
 
         public static int BeamCount => beams.Count;
 
         public static ModBeam GetBeam(int type) =>
-            beams.TryGetValue(type, out var modBeam) ? modBeam : null;
+            beams.TryGetValue(type, out ModBeam modBeam) ? modBeam : null;
 
         public static ModBeam GetBeam(string fullName) =>
-            beams.TryGetValue(fullName, out var modBeam) ? modBeam : null;
+            beams.TryGetValue(fullName, out ModBeam modBeam) ? modBeam : null;
 
         public static ModBeam GetBeam<T>() where T : ModBeam =>
-            beams.TryGetValue(i => i is T, out var modBeam) ? modBeam : null;
+            beams.TryGetValue(i => i is T, out ModBeam modBeam) ? modBeam : null;
+
+		internal static void SetupBeamCombinations()
+		{
+
+		}
 
         internal static void OnUpdate()
         {

@@ -9,6 +9,7 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.Localization;
+using Terraria.GameContent.ObjectInteractions;
 
 namespace MetroidModPorted.Content.Tiles
 {
@@ -43,8 +44,8 @@ namespace MetroidModPorted.Content.Tiles
 			ContainerName.SetDefault("Chozodian Chest");//Chest = "Chozodian Chest";
 			ChestDrop = ModContent.ItemType<Items.Tiles.ChozoChest>();
 		}
-		
-		public override bool HasSmartInteract() => true;
+
+		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 		
 		public override void NumDust(int i, int j, bool fail, ref int num) {
 			num = 1;

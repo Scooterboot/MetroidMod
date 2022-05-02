@@ -46,7 +46,7 @@ namespace MetroidModPorted
 		public bool AddOnlyAddonItem { get; set; }
 
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
-		internal bool IsArmor => AddonSlot >= SuitAddonSlotID.Suit_Varia && AddonSlot <= SuitAddonSlotID.Suit_LunarAugment;
+		internal bool IsArmor => ArmorTextureHead != null && ArmorTextureHead != "" && ArmorTextureTorso != null && ArmorTextureTorso != "" && ArmorTextureLegs != null && ArmorTextureLegs != "";
 		public string GetAddonSlotName()
 		{
 			return AddonSlot switch
@@ -74,12 +74,11 @@ namespace MetroidModPorted
 			if (Tile == null) { throw new Exception("WTF happened here? SuitAddonTile is null!"); }
 			Mod.AddContent(Item);
 			Mod.AddContent(Tile);
-
 			if (IsArmor && Main.netMode != NetmodeID.Server)
 			{
-				Mod.AddEquipTexture(new EquipTexture(), Item, EquipType.Head, ArmorTextureHead);
-				Mod.AddEquipTexture(new EquipTexture(), Item, EquipType.Body, ArmorTextureTorso);
-				Mod.AddEquipTexture(new EquipTexture(), Item, EquipType.Legs, ArmorTextureLegs);
+				Mod.AddEquipTexture(Item, EquipType.Head, ArmorTextureHead);
+				Mod.AddEquipTexture(Item, EquipType.Body, ArmorTextureTorso);
+				Mod.AddEquipTexture(Item, EquipType.Legs, ArmorTextureLegs);
 			}
 		}
 
@@ -109,7 +108,7 @@ namespace MetroidModPorted
 				}
 				SuitAddonLoader.addons.Add(this);
 			}
-			//MetroidModPorted.Instance.Logger.Info("Register new Suit Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+			Mod.Logger.Info("Register new Suit Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
 		}
 
 		public override void SetStaticDefaults()

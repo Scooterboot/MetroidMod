@@ -185,11 +185,11 @@ namespace MetroidModPorted.Common
 		public override bool IsHeadLayer => true;
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-			=> drawInfo.drawPlayer.head == SuitAddonLoader.GetHelmet(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
+			=> drawInfo.drawPlayer.head == MPlayer.GetHelmet(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= SuitAddonLoader.GetHelmetGlow(info);
+			_glowTexture ??= MPlayer.GetHelmetGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -210,33 +210,33 @@ namespace MetroidModPorted.Common
 		private static Asset<Texture2D> _glowTexture;
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-			=> drawInfo.drawPlayer.body == SuitAddonLoader.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
+			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= SuitAddonLoader.GetBreastplateGlow(info);
+			_glowTexture ??= MPlayer.GetBreastplateGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Torso);
 	}
-	/*internal class PAArmsGlow : PowerArmorGlowLayer
+	internal class PAArmsGlow : PowerArmorGlowLayer
 	{
 		private static Asset<Texture2D> _glowTexture;
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-			=> drawInfo.drawPlayer.body == SuitAddonLoader.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
+			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= SuitAddonLoader.GetArmsGlow(info);
+			_glowTexture ??= MPlayer.GetArmsGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
 
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.ArmOverItem);
-	}*/
+		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.OffhandAcc);
+	}
 	/*public class PowerArmorGreavesDrawLayer : PlayerDrawLayer
 	{
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Leggings);
@@ -251,11 +251,11 @@ namespace MetroidModPorted.Common
 		private static Asset<Texture2D> _glowTexture;
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-			=> drawInfo.drawPlayer.legs == SuitAddonLoader.GetGreaves(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
+			=> drawInfo.drawPlayer.legs == MPlayer.GetGreaves(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= SuitAddonLoader.GetGreavesGlow(info);
+			_glowTexture ??= MPlayer.GetGreavesGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}

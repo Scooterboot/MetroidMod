@@ -224,17 +224,7 @@ namespace MetroidModPorted.Common.Players
 					Player.bodyFrame.Y = Player.bodyFrame.Height * 4;
 				}
 			}
-		}
-		public override void FrameEffects()
-		{
-			// Old code, may restore if the method currently being attempted goes awry.
-			/*if (isPowerSuit)
-			{
-				Player.legs = SuitAddonLoader.GetGreaves(Player);
-				Player.body = SuitAddonLoader.GetBreastplate(Player);
-				//Player.handon = SuitAddonLoader.GetArms(Player);
-				Player.head = SuitAddonLoader.GetHelmet(Player);
-			}*/
+			ModifyDrawInfo_GetArmors(ref drawInfo);
 		}
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -828,7 +818,7 @@ namespace MetroidModPorted.Common.Players
 			float yfloat = 4f;
 			Main.PlayerDrawData.Add(new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + yfloat))) + drawPos + drawInfo.bodyOrigin, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyOrigin, 1f, effects, 0));
 		}*/
-		public static void DrawTexture(PlayerDrawSet drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
+		public static void DrawTexture(ref PlayerDrawSet drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
 		{
 			SpriteEffects effects = SpriteEffects.None;
 			if (drawPlayer.direction == -1)

@@ -2,7 +2,7 @@
 using Terraria.ID;
 using MetroidModPorted.Common.Players;
 
-namespace MetroidModPorted.Content.SuitAddons
+namespace MetroidModPorted.Content.Suits
 {
 	public class VariaSuitAddon : ModSuitAddon
 	{
@@ -20,6 +20,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		{
 			DisplayName.SetDefault("Varia Suit");
 			Tooltip.SetDefault("Increased resistance to cold temperatures.");
+			AddonSlot = SuitAddonSlotID.Suit_Varia;
 		}
 		public override void SetItemDefaults()
 		{

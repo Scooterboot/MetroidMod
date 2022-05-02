@@ -11,6 +11,7 @@ namespace MetroidModPorted.Common.GlobalItems
 {
 	public class MGlobalItem : GlobalItem
 	{
+		public AddonType AddonType = AddonType.None;
 		public int statMissiles = 5;
 		public int maxMissiles = 5;
 

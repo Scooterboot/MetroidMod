@@ -12,7 +12,7 @@ namespace MetroidModPorted.Common
 {
 	public class ThrustLayer : PlayerDrawLayer
 	{
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.Leggings);
+		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.Torso);
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
@@ -37,7 +37,7 @@ namespace MetroidModPorted.Common
 				{
 					if ((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
 					{
-						MPlayer.DrawTexture(drawInfo, tex.Value, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawInfo.colorArmorBody, drawInfo.cBody);
+						MPlayer.DrawTexture(ref drawInfo, tex.Value, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawInfo.colorArmorBody, drawInfo.cBody);
 					}
 				}
 			}

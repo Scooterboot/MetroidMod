@@ -555,11 +555,11 @@ namespace MetroidModPorted.Content.Items.Weapons
 					num19 = Math.Round(num19);
 					if (num19 > 0.0)
 					{
-						tooltips[k].text = "+" + num19 + Lang.tip[39].Value;
+						tooltips[k].Text = "+" + num19 + Lang.tip[39].Value;
 					}
 					else
 					{
-						tooltips[k].text = num19 + Lang.tip[39].Value;
+						tooltips[k].Text = num19 + Lang.tip[39].Value;
 					}
 				}
 				if (tooltips[k].Name == "PrefixSpeed")
@@ -570,11 +570,11 @@ namespace MetroidModPorted.Content.Items.Weapons
 					num20 *= -1.0;
 					if (num20 > 0.0)
 					{
-						tooltips[k].text = "+" + num20 + Lang.tip[40].Value;
+						tooltips[k].Text = "+" + num20 + Lang.tip[40].Value;
 					}
 					else
 					{
-						tooltips[k].text = num20 + Lang.tip[40].Value;
+						tooltips[k].Text = num20 + Lang.tip[40].Value;
 					}
 				}
 			}

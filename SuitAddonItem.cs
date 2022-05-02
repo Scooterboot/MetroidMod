@@ -30,7 +30,7 @@ namespace MetroidModPorted
 
 		public override void SetDefaults()
 		{
-			Item.maxStack = 99;
+			Item.maxStack = 1;
 			modSuitAddon.SetItemDefaults();
 			modSuitAddon.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;
@@ -39,10 +39,12 @@ namespace MetroidModPorted
 			Item.useTime = 15;
 			Item.width = ModContent.Request<Texture2D>(Texture).Value.Width;
 			Item.height = ModContent.Request<Texture2D>(Texture).Value.Height;
+			Item.accessory = true;
 			Item.canBePlacedInVanityRegardlessOfConditions = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.createTile = modSuitAddon.TileType;
+			Item.GetGlobalItem<Common.GlobalItems.MGlobalItem>().AddonType = AddonType.Suit;
 		}
 
 		public override void HoldItem(Player player)
@@ -61,5 +63,12 @@ namespace MetroidModPorted
 		public override bool IsVanitySet(int head, int body, int legs) => true;
 
 		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup) => itemGroup = ContentSamples.CreativeHelper.ItemGroup.Accessories;
+
+		public override ModItem Clone(Item item)
+		{
+			SuitAddonItem obj = (SuitAddonItem)base.Clone(item);
+			obj.modSuitAddon = modSuitAddon;
+			return obj;
+		}
 	}
 }
