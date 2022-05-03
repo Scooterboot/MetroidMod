@@ -127,7 +127,10 @@ namespace MetroidModPorted
 		public virtual void SetItemDefaults(Item item) { }
 
 		/// <inheritdoc cref="ModItem.UpdateAccessory(Player, bool)"/>
-		public virtual void UpdateAccessory(Player player, bool hideVisual) { }
+		public virtual void UpdateAccessory(Player player, bool hideVisual) { UpdateInventory(player); }
+
+		/// <inheritdoc cref="ModItem.UpdateInventory(Player)"/>
+		public virtual void UpdateInventory(Player player) { }
 
 		/// <inheritdoc cref="ModItem.UpdateArmorSet(Player)"/>
 		public virtual void OnUpdateArmorSet(Player player) { }

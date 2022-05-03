@@ -79,5 +79,10 @@ namespace MetroidModPorted
 		{
 			modSuitAddon.UpdateAccessory(player, hideVisual);
 		}
+
+		public override void UpdateInventory(Player player)
+		{
+			modSuitAddon.UpdateInventory(player);
+		}
 	}
 }

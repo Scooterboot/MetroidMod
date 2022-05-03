@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ID;
 using MetroidModPorted.ID;
@@ -17,7 +16,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			DisplayName.SetDefault("Hi-Jump Boots");
 			Tooltip.SetDefault("Increases jump height\n" +
 			"Stacks with other jump height accessories");
-			AddonSlot = SuitAddonSlotID.Boots_JumpHeight;;
+			AddonSlot = SuitAddonSlotID.Boots_JumpHeight;
 		}
 		public override void SetItemDefaults(Item item)
 		{
