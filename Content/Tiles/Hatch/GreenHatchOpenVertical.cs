@@ -36,28 +36,28 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			MinPick = 150;
 			
 			otherDoorID = ModContent.TileType<GreenHatchVertical>();
-        }
+		}
 
-        public override void MouseOver(int i, int j)
-        {
-            Player player = Main.LocalPlayer;
-            player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ModContent.ItemType<Items.Tiles.GreenHatch>();
-        }
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconID = ModContent.ItemType<Items.Tiles.GreenHatch>();
+		}
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.GreenHatch>());
-        }
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.GreenHatch>());
+		}
 
-        public override bool RightClick(int i, int j)
+		public override bool RightClick(int i, int j)
 		{
 			HitWire(i, j);
 			return true;
 		}
 		
-        public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
+		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
 			if(type == Type)
 			{
@@ -78,9 +78,9 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			}
 		}
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/GreenHatchVerticalDoor").Value);
-            return true;
-        }
+		{
+			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/GreenHatchVerticalDoor").Value);
+			return true;
+		}
 	}
 }

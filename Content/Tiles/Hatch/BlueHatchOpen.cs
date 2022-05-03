@@ -34,7 +34,7 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			
 			otherDoorID = ModContent.TileType<BlueHatch>();
 		}
-        
+		
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
 			if(type == Type)

@@ -35,15 +35,15 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
-            AdjTiles = new int[] { TileID.ClosedDoor };
-            
-            otherDoorID = ModContent.TileType<BlueHatchOpenVertical>();
-        }
-        
+			AdjTiles = new int[] { TileID.ClosedDoor };
+			
+			otherDoorID = ModContent.TileType<BlueHatchOpenVertical>();
+		}
+		
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/BlueHatchVerticalDoor").Value);
+		{
+			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/BlueHatchVerticalDoor").Value);
 			return true;
-        }
-    }
+		}
+	}
 }

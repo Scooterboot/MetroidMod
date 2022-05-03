@@ -34,10 +34,10 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			AddMapEntry(new Color(56, 112, 224), name);
 			//dustType = 1;
 			AdjTiles = new int[]{ TileID.OpenDoor };
-            
-            otherDoorID = ModContent.TileType<BlueHatchVertical>();
+			
+			otherDoorID = ModContent.TileType<BlueHatchVertical>();
 		}
-        
+		
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
 			if(type == Type)
@@ -59,9 +59,9 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			}
 		}
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/BlueHatchVerticalDoor").Value);
+		{
+			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/BlueHatchVerticalDoor").Value);
 			return true;
-        }
+		}
 	}
 }

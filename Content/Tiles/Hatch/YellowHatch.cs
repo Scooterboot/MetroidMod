@@ -33,26 +33,26 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Yellow Hatch");
 			AddMapEntry(new Color(248, 232, 56), name);
-            AdjTiles = new int[] { TileID.ClosedDoor };
+			AdjTiles = new int[] { TileID.ClosedDoor };
 			MinPick = 210;
 			
 			otherDoorID = ModContent.TileType<YellowHatchOpen>();
-        }
+		}
 
 		public override void MouseOver(int i, int j)
-        {
-            Player player = Main.LocalPlayer;
-            player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ModContent.ItemType<Items.Tiles.YellowHatch>();
-        }
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconID = ModContent.ItemType<Items.Tiles.YellowHatch>();
+		}
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.YellowHatch>());
 		}
 
-        public override bool RightClick(int i, int j)
+		public override bool RightClick(int i, int j)
 		{
 			//HitWire(i, j);
 			//return true;
@@ -65,11 +65,11 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			g = 0.4f;
 			b = 0.05f;
 		}
-        
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/YellowHatchDoor").Value);
-            return true;
-        }
-    }
+		
+		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/YellowHatchDoor").Value);
+			return true;
+		}
+	}
 }
