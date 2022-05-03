@@ -7,8 +7,8 @@ using Terraria;
 
 namespace MetroidModPorted.Content.Buffs
 {
-    public class GravityDebuff : ModBuff
-    {
+	public class GravityDebuff : ModBuff
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Amplified Gravity");
@@ -27,5 +27,5 @@ namespace MetroidModPorted.Content.Buffs
 			player.runAcceleration *= 0.5f;
 			player.accRunSpeed *= 0.5f;
 		}
-    }
+	}
 }

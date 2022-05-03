@@ -33,21 +33,21 @@ namespace MetroidModPorted.Content.Tiles
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
 			AdjTiles = new int[]{ TileID.Platforms };
 		}
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
-        {
-            r = 0.32f;
-            g = 0.71f;
-            b = 0.23f;
-        }
-        public override void PostSetDefaults()
+		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			r = 0.32f;
+			g = 0.71f;
+			b = 0.23f;
+		}
+		public override void PostSetDefaults()
 		{
 			Main.tileNoSunLight[Type] = false;
-        }
-        public override void HitWire(int i, int j)
-        {
-            Main.tile[i, j].TileType = (ushort)ModContent.TileType<GripLedgeOff>();
-        }
-        public override void NumDust(int i, int j, bool fail, ref int num)
+		}
+		public override void HitWire(int i, int j)
+		{
+			Main.tile[i, j].TileType = (ushort)ModContent.TileType<GripLedgeOff>();
+		}
+		public override void NumDust(int i, int j, bool fail, ref int num)
 		{
 			num = fail ? 1 : 3;
 		}

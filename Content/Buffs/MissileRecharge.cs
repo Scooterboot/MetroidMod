@@ -8,8 +8,8 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Buffs
 {
-    public class MissileRecharge : ModBuff
-    {
+	public class MissileRecharge : ModBuff
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Recharging Missiles");
@@ -21,15 +21,15 @@ namespace MetroidModPorted.Content.Buffs
 		bool soundPlayed = false;
 		int num = 0;
 		public override void Update(Player player,ref int buffIndex)
-        {
-            MPlayer mp = player.GetModPlayer<MPlayer>();
-            bool flag = false;
-            for (int i = 0; i < player.inventory.Length; i++)
-            {
-                if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>())
-                {
-                    MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
-                    flag = true;
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			bool flag = false;
+			for (int i = 0; i < player.inventory.Length; i++)
+			{
+				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>())
+				{
+					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
+					flag = true;
 					if(mi.statMissiles < mi.maxMissiles)
 					{
 						mi.statMissiles++;
@@ -42,15 +42,15 @@ namespace MetroidModPorted.Content.Buffs
 						}
 						break;
 					}
-                    else //if (mi.statMissiles >= mi.maxMissiles)
-                    {
-                        //Main.PlaySound(SoundLoader.customSoundType, player.Center, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
-                        flag = false;
-                    }
-                }
-            }
-            if (!flag || player.controlJump || player.controlUseItem)
-            {
+					else //if (mi.statMissiles >= mi.maxMissiles)
+					{
+						//Main.PlaySound(SoundLoader.customSoundType, player.Center, mod.GetSoundSlot(SoundType.Custom, "Sounds/MissilesReplenished"));
+						flag = false;
+					}
+				}
+			}
+			if (!flag || player.controlJump || player.controlUseItem)
+			{
 				if(soundInstance != null)
 				{
 					soundInstance.Stop(true);
@@ -61,30 +61,30 @@ namespace MetroidModPorted.Content.Buffs
 					SoundEngine.PlaySound(SoundLoader.CustomSoundType, player.Center, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/MissilesReplenished"));
 				}
 				num = 0;
-                player.DelBuff(buffIndex);
-                buffIndex--;
+				player.DelBuff(buffIndex);
+				buffIndex--;
 			}
-            else
-            {
-                player.buffTime[buffIndex] = 2;
-                player.controlLeft = false;
-                player.controlRight = false;
-                player.controlUp = false;
-                player.controlDown = false;
-                player.controlUseTile = false;
-                player.velocity.X *= 0;
-                if (player.velocity.Y < 0)
-                {
-                    player.velocity.Y *= 0;
-                }
-                player.mount.Dismount(player);
-                //Main.PlaySound(10, player.Center);
+			else
+			{
+				player.buffTime[buffIndex] = 2;
+				player.controlLeft = false;
+				player.controlRight = false;
+				player.controlUp = false;
+				player.controlDown = false;
+				player.controlUseTile = false;
+				player.velocity.X *= 0;
+				if (player.velocity.Y < 0)
+				{
+					player.velocity.Y *= 0;
+				}
+				player.mount.Dismount(player);
+				//Main.PlaySound(10, player.Center);
 				if(!soundPlayed)
 				{
 					soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)player.Center.X, (int)player.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ConcentrationLoop"));
 					soundPlayed = true;
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 }

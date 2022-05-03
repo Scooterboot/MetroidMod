@@ -37,13 +37,13 @@ namespace MetroidModPorted.Content.Tiles
 		public override void PostSetDefaults()
 		{
 			Main.tileNoSunLight[Type] = false;
-        }
-        public override void HitWire(int i, int j)
-        {
-            Main.tile[i, j].TileType = (ushort)ModContent.TileType<GripLedge>();
-        }
+		}
+		public override void HitWire(int i, int j)
+		{
+			Main.tile[i, j].TileType = (ushort)ModContent.TileType<GripLedge>();
+		}
 
-        public override void NumDust(int i, int j, bool fail, ref int num)
+		public override void NumDust(int i, int j, bool fail, ref int num)
 		{
 			num = fail ? 1 : 3;
 		}

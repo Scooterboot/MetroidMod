@@ -21,8 +21,8 @@ namespace MetroidModPorted.Content.Tiles
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = false;
-            Main.tileSolidTop[Type] = true;
-            TileID.Sets.NotReallySolid[Type] = true;
+			Main.tileSolidTop[Type] = true;
+			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2); 
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
@@ -43,7 +43,7 @@ namespace MetroidModPorted.Content.Tiles
 				Main.LocalPlayer.noThrow = 2;
 				Main.LocalPlayer.cursorItemIconEnabled = true;
 				Main.LocalPlayer.cursorItemIconID = ModContent.ItemType<Items.Tiles.MissileStation>();
-            }
+			}
 		}
 
 		public override bool RightClick(int i, int j)

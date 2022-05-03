@@ -17,8 +17,8 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 {
 	public class BlueHatch : ModTile
 	{
-        public int otherDoorID = 0;
-        
+		public int otherDoorID = 0;
+		
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
@@ -40,38 +40,38 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
-            AdjTiles = new int[]{ TileID.ClosedDoor };
+			AdjTiles = new int[]{ TileID.ClosedDoor };
 			
 			otherDoorID = ModContent.TileType<BlueHatchOpen>();
-        }
+		}
 
-        public override bool Slope(int i, int j) { return false; }
-        
-        public override void MouseOver(int i, int j)
-        {
-            Player player = Main.LocalPlayer;
-            player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ModContent.ItemType<Items.Tiles.BlueHatch>();
-        }
+		public override bool Slope(int i, int j) { return false; }
+		
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconID = ModContent.ItemType<Items.Tiles.BlueHatch>();
+		}
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.BlueHatch>());
-        }
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.BlueHatch>());
+		}
 
-        public override bool RightClick(int i, int j)
+		public override bool RightClick(int i, int j)
 		{
 			HitWire(i, j);
 			return true;
 		}
-        
+		
 		public override void HitWire(int i, int j)
 		{
 			ToggleHatch(i, j, (ushort)otherDoorID,Name.Contains("Open"));
-            MSystem.doorTimers.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 60 * 30, new Vector2(i, j)));
+			MSystem.doorTimers.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 60 * 30, new Vector2(i, j)));
 		}
-        
+		
 		public void ToggleHatch(int i, int j, ushort type, bool isOpen = false)
 		{
 			int x = i - (Main.tile[i, j].TileFrameX / 18) % 4;
@@ -84,7 +84,7 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 					{
 						if(!Collision.EmptyTile(l, m, true))
 						{
-                            MSystem.nextDoorTimers.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 60, new Vector2(i, j)));
+							MSystem.nextDoorTimers.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 60, new Vector2(i, j)));
 							return;
 						}
 					}
@@ -146,15 +146,15 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 		}
 		
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/BlueHatchDoor").Value);
+		{
+			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/BlueHatchDoor").Value);
 			return true;
-        }
+		}
 		public static void DrawDoor(int i, int j, SpriteBatch spriteBatch, Texture2D tex)
 		{
 			Tile tile = Main.tile[i, j];
 			
-            short doorHeight = 72;
+			short doorHeight = 72;
 			Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
 			if (Main.drawToScreen)
 			{
@@ -165,5 +165,5 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 				spriteBatch.Draw(tex, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			}
 		}
-    }
+	}
 }

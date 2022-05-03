@@ -7,8 +7,8 @@ using Terraria;
 
 namespace MetroidModPorted.Content.Buffs
 {
-    public class InstantFreeze : ModBuff
-    {
+	public class InstantFreeze : ModBuff
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Froze");
@@ -22,5 +22,5 @@ namespace MetroidModPorted.Content.Buffs
 			N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().froze = true;
 			N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().speedDecrease = 0;
 		}
-    }
+	}
 }

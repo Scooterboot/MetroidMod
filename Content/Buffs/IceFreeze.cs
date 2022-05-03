@@ -8,8 +8,8 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Buffs
 {
-    public class IceFreeze : ModBuff
-    {     
+	public class IceFreeze : ModBuff
+	{     
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Froze");
@@ -34,5 +34,5 @@ namespace MetroidModPorted.Content.Buffs
 		{
 			N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().froze = true;
 		}
-    }
+	}
 }

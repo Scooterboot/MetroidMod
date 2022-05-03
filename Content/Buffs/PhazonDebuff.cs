@@ -8,8 +8,8 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Buffs
 {
-    public class PhazonDebuff : ModBuff
-    {
+	public class PhazonDebuff : ModBuff
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phazon!");
@@ -38,5 +38,5 @@ namespace MetroidModPorted.Content.Buffs
 			int dustID = Dust.NewDust(N.position, N.width, N.height, DustID.BlueCrystalShard, N.velocity.X * 0.2f, N.velocity.Y * 0.2f, 100, new Color(), 2f);
 			Main.dust[dustID].noGravity = true;
 		}
-    }
+	}
 }
