@@ -51,13 +51,18 @@ namespace MetroidModPorted
 		{
 			return AddonSlot switch
 			{
+				SuitAddonSlotID.Tanks_Energy => "Energy Tank",
+				SuitAddonSlotID.Tanks_Reserve => "Reserve Tank",
+				SuitAddonSlotID.Suit_Varia => "Varia",
+				SuitAddonSlotID.Suit_Utility => "Utility",
+				SuitAddonSlotID.Suit_Augment => "Augmentation",
+				SuitAddonSlotID.Suit_LunarAugment => "Secondary Augmentation",
+				SuitAddonSlotID.Misc_Grip => "Hand",
+				SuitAddonSlotID.Misc_Attack => "Attack",
+				SuitAddonSlotID.Boots_JumpHeight => "Boots",
+				SuitAddonSlotID.Boots_Jump => "Jump",
+				SuitAddonSlotID.Boots_Speed => "Speed Augmentation",
 				_ => "Unknown"
-				/*0 => "Charge",
-				1 => "Secondary",
-				2 => "Utility",
-				3 => "Primary A",
-				4 => "Primary B",
-				_ => "Unknown",*/
 			};
 		}
 		public override sealed void SetupContent()
