@@ -127,6 +127,8 @@ namespace MetroidModPorted
 
 		public virtual void OnUpdateVanitySet(Player player) { }
 
+		public virtual void ArmorSetShadows(Player player) { }
+
 		public virtual string GetSetBonusText()
 		{
 			return null;

@@ -43,9 +43,6 @@ namespace MetroidModPorted.Content.Suits
 			mp.visorGlow = true;
 			mp.breathMult = 1.55f;
 		}
-		public override void OnUpdateVanitySet(Player player)
-		{
-		}
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

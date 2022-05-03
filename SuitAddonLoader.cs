@@ -98,6 +98,20 @@ namespace MetroidModPorted
 			}
 		}
 
+		public static void ArmorSetShadows(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			Item[] items = mp.SuitAddons;
+			for (int i = 0; i < SuitAddonSlotID.Count; i++)
+			{
+				Item item = items[i];
+				if (item.type == ItemID.None) { continue; }
+				SuitAddonItem addonItem = (SuitAddonItem)item.ModItem;
+				ModSuitAddon addon = addonItem?.modSuitAddon;
+				addon.ArmorSetShadows(player);
+			}
+		}
+
 		public static bool IsVanitySet(int head, int body, int legs)
 		{
 			return false;

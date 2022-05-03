@@ -44,6 +44,10 @@ namespace MetroidModPorted.Content.Items.Armors
 			mp.senseMove = true;
 			SuitAddonLoader.OnUpdateArmorSet(player);
 		}
+		public override void ArmorSetShadows(Player player)
+		{
+			SuitAddonLoader.ArmorSetShadows(player);
+		}
 		public override void UpdateVanitySet(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>();
