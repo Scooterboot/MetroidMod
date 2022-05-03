@@ -29,5 +29,6 @@
     <Folder Include="Content\NPCs\Mobs\Metroid\" />
     <Folder Include="Content\NPCs\Mobs\Utility\" />
     <Folder Include="Content\Projectiles\" />
+    <Folder Include="ID\" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MetroidModPorted.ID;
+
 namespace MetroidModPorted
 {
 	public abstract class ModMBDrill : ModMBAddon

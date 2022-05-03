@@ -258,7 +258,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			int maxAccessoryIndex = 5 + Main.LocalPlayer.extraAccessorySlots;
 			for (int i = 13; i < 13 + maxAccessoryIndex; i++)
 			{
-				if (Main.LocalPlayer.armor[i].type == Item.type) return false;
+				if (Main.LocalPlayer.armor[i].type == Item.type) { return false; }
 			}
 
 			if (FindDifferentEquippedExclusiveAccessory().accessory != null)

@@ -22,12 +22,12 @@ namespace MetroidModPorted
 		public abstract bool AddOnlyMissileItem { get; }
 
 
-		public sealed override void SetupContent()
+		public override sealed void SetupContent()
 		{
 			//Textures = new Asset<Texture2D>[4];
 			SetStaticDefaults();
 		}
-		protected sealed override void Register()
+		protected override sealed void Register()
 		{
 			if (!AddOnlyMissileItem)
 			{

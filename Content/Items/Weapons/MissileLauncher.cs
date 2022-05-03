@@ -533,10 +533,10 @@ namespace MetroidModPorted.Content.Items.Weapons
 			{
 				ch = "Charge initially costs " + cost + " missiles";
 			}
-			TooltipLine mCost = new TooltipLine(Mod, "ChargeMissileCost", ch);
+			TooltipLine mCost = new(Mod, "ChargeMissileCost", ch);
 
 			float drain = (float)Math.Round(comboDrain * mp.missileCost, 2);
-			TooltipLine mDrain = new TooltipLine(Mod, "ChargeMissileDrain", "Drains " + drain + " missiles per second");
+			TooltipLine mDrain = new(Mod, "ChargeMissileDrain", "Drains " + drain + " missiles per second");
 
 			for (int k = 0; k < tooltips.Count; k++)
 			{

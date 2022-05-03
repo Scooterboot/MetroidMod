@@ -1,4 +1,4 @@
-﻿namespace MetroidModPorted
+﻿namespace MetroidModPorted.ID
 {
 	public class BreakableTileID
 	{

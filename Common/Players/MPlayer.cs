@@ -20,7 +20,7 @@ using MetroidModPorted.Common.GlobalNPCs;
 //using MetroidMod.NPCs;
 //using MetroidMod.Items;
 using MetroidModPorted.Common.Systems;
-//using MetroidMod.Common.Worlds;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted.Common.Players
 {

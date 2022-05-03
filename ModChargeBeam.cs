@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MetroidModPorted.Common.Players;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {

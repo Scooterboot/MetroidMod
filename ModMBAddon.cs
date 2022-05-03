@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {

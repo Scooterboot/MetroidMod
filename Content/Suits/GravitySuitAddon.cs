@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using MetroidModPorted.Common.Players;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted.Content.Suits
 {

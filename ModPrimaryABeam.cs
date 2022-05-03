@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MetroidModPorted.Common.Players;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
@@ -24,7 +25,7 @@ namespace MetroidModPorted
 			AddonSlot = BeamAddonSlotID.PrimaryA;
 		}
 
-		public sealed override bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override sealed bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			return base.OnShoot(player, source, position, velocity, type, damage, knockback);
 		}

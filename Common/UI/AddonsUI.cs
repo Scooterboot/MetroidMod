@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using ReLogic.Content;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.UI;
@@ -12,7 +14,7 @@ using Terraria.GameContent.UI.Elements;
 using MetroidModPorted.Common.GlobalItems;
 using MetroidModPorted.Common.Players;
 using MetroidModPorted.Content.Items.Weapons;
-using ReLogic.Content;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted.Common.UI
 {

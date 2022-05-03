@@ -6,17 +6,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.UI;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using ReLogic;
 using ReLogic.Graphics;
 
 using MetroidModPorted.Content.Items;
 using MetroidModPorted.Common.UI;
-using Terraria.Audio;
 using MetroidModPorted.Common.Players;
-using Terraria.ModLoader.IO;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {

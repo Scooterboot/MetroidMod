@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using MetroidModPorted.Common.Systems;
+using MetroidModPorted.ID;
 
 #endregion
 

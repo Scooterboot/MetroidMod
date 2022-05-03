@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using MetroidModPorted.Common.Systems;
+using MetroidModPorted.ID;
 
 #endregion
 
@@ -40,7 +41,7 @@ namespace MetroidModPorted.Content.Items.Tools
 		public override bool? UseItem(Player Player)
 		{
 			Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
-			Vector2 pos = new Vector2(Player.tileTargetX * 16, Player.tileTargetY * 16);
+			Vector2 pos = new(Player.tileTargetX * 16, Player.tileTargetY * 16);
 			if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] != 0)
 			{
 				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.CrumbleInstant)

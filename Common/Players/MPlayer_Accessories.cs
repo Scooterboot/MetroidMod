@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Graphics;
 //using MetroidMod.NPCs;
 //using MetroidMod.Items;
 using MetroidModPorted.Common.Systems;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted.Common.Players
 {

@@ -8,13 +8,14 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MetroidModPorted.Common.Players;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
 	public abstract class ModPrimaryBBeam : ModBeam
 	{
-		public sealed override float AddonChargeDamage { get; set; } = 0f;
-		public sealed override float AddonChargeHeat { get; set; } = 0f;
+		public override sealed float AddonChargeDamage { get; set; } = 0f;
+		public override sealed float AddonChargeHeat { get; set; } = 0f;
 
 		public override sealed void Load()
 		{
