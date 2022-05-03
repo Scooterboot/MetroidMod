@@ -189,7 +189,7 @@ namespace MetroidModPorted.Common
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= MPlayer.GetHelmetGlow(info);
+			_glowTexture = MPlayer.GetHelmetGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -214,7 +214,7 @@ namespace MetroidModPorted.Common
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= MPlayer.GetBreastplateGlow(info);
+			_glowTexture = MPlayer.GetBreastplateGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -230,7 +230,7 @@ namespace MetroidModPorted.Common
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= MPlayer.GetArmsGlow(info);
+			_glowTexture = MPlayer.GetArmsGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -255,7 +255,7 @@ namespace MetroidModPorted.Common
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture ??= MPlayer.GetGreavesGlow(info);
+			_glowTexture = MPlayer.GetGreavesGlow(info);
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}

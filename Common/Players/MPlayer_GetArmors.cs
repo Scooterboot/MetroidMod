@@ -66,7 +66,7 @@ namespace MetroidModPorted.Common.Players
 				string temp = msa[i].ArmorTextureHead;
 				if (temp != "" && temp != null)
 				{
-					tex = temp;
+					tex = temp + "_Glow";
 				}
 			}
 
@@ -102,7 +102,7 @@ namespace MetroidModPorted.Common.Players
 				string temp = msa[i].ArmorTextureTorso;
 				if (temp != "" && temp != null)
 				{
-					tex = temp;
+					tex = temp + "_Glow";
 				}
 			}
 
@@ -134,7 +134,7 @@ namespace MetroidModPorted.Common.Players
 				string temp = msa[i].ArmorTextureTorso;
 				if (temp != "" && temp != null)
 				{
-					tex = temp;
+					tex = temp + "_Glow";
 				}
 			}
 
@@ -166,7 +166,7 @@ namespace MetroidModPorted.Common.Players
 				string temp = msa[i].ArmorTextureLegs;
 				if (temp != "" && temp != null)
 				{
-					tex = temp;
+					tex = temp + "_Glow";
 				}
 			}
 
