@@ -32,6 +32,7 @@ namespace MetroidModPorted
 		public override void SetDefaults()
 		{
 			Item.maxStack = 1;
+			modBeam.SetItemDefaults(Item);
 			modBeam.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;

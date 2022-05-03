@@ -31,7 +31,7 @@ namespace MetroidModPorted
 		public override void SetDefaults()
 		{
 			Item.maxStack = 1;
-			modSuitAddon.SetItemDefaults();
+			modSuitAddon.SetItemDefaults(Item);
 			modSuitAddon.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
@@ -39,8 +39,6 @@ namespace MetroidModPorted
 			Item.useTime = 15;
 			Item.width = ModContent.Request<Texture2D>(Texture).Value.Width;
 			Item.height = ModContent.Request<Texture2D>(Texture).Value.Height;
-			Item.accessory = true;
-			Item.canBePlacedInVanityRegardlessOfConditions = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.createTile = modSuitAddon.TileType;

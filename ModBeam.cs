@@ -168,10 +168,9 @@ namespace MetroidModPorted
 			base.SetStaticDefaults();
 		}
 
-		public virtual void OnHit(Entity entity)
-		{
+		public virtual void SetItemDefaults(Item item) { }
 
-		}
+		public virtual void OnHit(Entity entity) { }
 
 		public virtual bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

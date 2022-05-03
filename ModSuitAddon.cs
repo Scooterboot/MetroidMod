@@ -121,7 +121,7 @@ namespace MetroidModPorted
 			base.SetStaticDefaults();
 		}
 
-		public virtual void SetItemDefaults() { }
+		public virtual void SetItemDefaults(Item item) { }
 
 		public virtual void OnUpdateArmorSet(Player player) { }
 

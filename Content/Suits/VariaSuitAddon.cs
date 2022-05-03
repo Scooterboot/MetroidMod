@@ -22,10 +22,10 @@ namespace MetroidModPorted.Content.Suits
 			Tooltip.SetDefault("Increased resistance to cold temperatures.");
 			AddonSlot = SuitAddonSlotID.Suit_Varia;
 		}
-		public override void SetItemDefaults()
+		public override void SetItemDefaults(Item item)
 		{
-			Item.Item.value = Terraria.Item.buyPrice(0, 2, 10, 0);
-			Item.Item.rare = ItemRarityID.Orange;
+			item.value = Terraria.Item.buyPrice(0, 2, 10, 0);
+			item.rare = ItemRarityID.Orange;
 		}
 		public override void OnUpdateArmorSet(Player player)
 		{
