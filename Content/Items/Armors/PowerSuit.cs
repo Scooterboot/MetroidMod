@@ -137,11 +137,6 @@ namespace MetroidModPorted.Content.Items.Armors
 			mp.breathMult = 1.3f;
 			mp.visorGlow = true;
 		}
-		/*public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
-		{
-			SuitAddonLoader.DrawHelmetArmorColor(player, ref glowMask, ref glowMaskColor);
-			base.DrawArmorColor(drawPlayer, shadow, ref color, ref glowMask, ref glowMaskColor);
-		}*/
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
