@@ -69,5 +69,10 @@ namespace MetroidModPorted
 			obj.modSuitAddon = modSuitAddon;
 			return obj;
 		}
+
+		public override void AddRecipes()
+		{
+			modSuitAddon.AddRecipes();
+		}
 	}
 }

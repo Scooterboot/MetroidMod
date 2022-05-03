@@ -69,30 +69,9 @@ namespace MetroidModPorted.Content.Items.Armors
 			CreateRecipe(1)
 				.AddIngredient<ChoziteBreastplate>(1)
 				.AddIngredient<Tiles.EnergyTank>(1)
-				.AddIngredient(ItemID.DemoniteBar, 20)
+				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 20)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBreastplate");
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddIngredient(ItemID.DemoniteBar, 20);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-
-			CreateRecipe(1)
-				.AddIngredient<ChoziteBreastplate>(1)
-				.AddIngredient<Tiles.EnergyTank>(1)
-				.AddIngredient(ItemID.CrimtaneBar, 20)
-				.AddTile(TileID.Anvils)
-				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBreastplate");
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddIngredient(ItemID.CrimtaneBar, 20);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 	}
 	[AutoloadEquip(EquipType.Legs)]
@@ -125,30 +104,9 @@ namespace MetroidModPorted.Content.Items.Armors
 			CreateRecipe(1)
 				.AddIngredient<ChoziteGreaves>(1)
 				.AddIngredient<Tiles.EnergyTank>(1)
-				.AddIngredient(ItemID.DemoniteBar, 15)
+				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 15)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteGreaves");
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddIngredient(ItemID.DemoniteBar, 15);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-
-			CreateRecipe(1)
-				.AddIngredient<ChoziteGreaves>(1)
-				.AddIngredient<Tiles.EnergyTank>(1)
-				.AddIngredient(ItemID.CrimtaneBar, 15)
-				.AddTile(TileID.Anvils)
-				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteGreaves");
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddIngredient(ItemID.CrimtaneBar, 15);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 	}
 	[AutoloadEquip(EquipType.Head)]
@@ -189,30 +147,9 @@ namespace MetroidModPorted.Content.Items.Armors
 			CreateRecipe(1)
 				.AddIngredient<ChoziteHelmet>(1)
 				.AddIngredient<Tiles.EnergyTank>(1)
-				.AddIngredient(ItemID.DemoniteBar, 10)
+				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteHelmet");
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddIngredient(ItemID.DemoniteBar, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-
-			CreateRecipe(1)
-				.AddIngredient<ChoziteHelmet>(1)
-				.AddIngredient<Tiles.EnergyTank>(1)
-				.AddIngredient(ItemID.CrimtaneBar, 10)
-				.AddTile(TileID.Anvils)
-				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteHelmet");
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddIngredient(ItemID.CrimtaneBar, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 	}
 }

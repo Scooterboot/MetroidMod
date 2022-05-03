@@ -59,6 +59,9 @@ namespace MetroidModPorted
 		public int[] FrozenStandOnNPCs;
 
 		//public static int beamsRecipeGroupID;
+		public static int EvilBarRecipeGroupID;
+		public static int T2HMBarRecipeGroupID;
+		public static int T3HMBarRecipeGroupID;
 		public static ushort unloadedItemID;
 
 		public override void Load()
@@ -152,8 +155,11 @@ namespace MetroidModPorted
 					break;
 			}
 		}
-		//public override void AddRecipeGroups() =>
-		//beamsRecipeGroupID = RecipeGroup.RegisterGroup("LiquidLib:Buckets",
-		//new RecipeGroup(() => "Any Buckets", ItemID.WaterBucket, ItemID.LavaBucket, ItemID.HoneyBucket) { IconicItemId = ItemID.WaterBucket });
+		public override void AddRecipeGroups()
+		{
+			EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
+			T2HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier2HMBar", new RecipeGroup(() => "Any Tier-2 Hardmode Bar", ItemID.MythrilBar, ItemID.OrichalcumBar) { IconicItemId = ItemID.MythrilBar });
+			T3HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier3HMBar", new RecipeGroup(() => "Any Tier-3 Hardmode Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar) { IconicItemId = ItemID.AdamantiteBar });
+		}
 	}
 }
