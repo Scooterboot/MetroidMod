@@ -80,7 +80,7 @@ namespace MetroidModPorted.Content.Items.Armors
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Greaves");
-			Tooltip.SetDefault("Allows somersaulting\n" +
+			Tooltip.SetDefault("Allows somersaulting & wall jumping\n" +
 			"Negates fall damage");
 
 			SacrificeTotal = 1;
@@ -95,7 +95,7 @@ namespace MetroidModPorted.Content.Items.Armors
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.GetModPlayer<MPlayer>().canSomersault = true;
+			player.GetModPlayer<MPlayer>().EnableWallJump = true;
 			player.noFallDmg = true;
 		}
 

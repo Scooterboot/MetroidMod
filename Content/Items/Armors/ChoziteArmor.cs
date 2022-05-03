@@ -25,9 +25,9 @@ namespace MetroidModPorted.Content.Items.Armors
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "+2 defense" + "\n"
-				+ "Allows somersaulting";
+				+ "Allows somersaulting & wall jumping";
 			player.statDefense += 2;
-			player.GetModPlayer<MPlayer>().canSomersault = true;
+			player.GetModPlayer<MPlayer>().EnableWallJump = true;
 		}
 		public override void AddRecipes()
 		{
