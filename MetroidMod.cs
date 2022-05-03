@@ -37,6 +37,9 @@ namespace MetroidMod
 		public static bool DragableMorphBallUI;
 		public static bool DragableSenseMoveUI;
 
+		public static bool AutocloseHatchesEnabled;
+		public static int AutocloseHatchesTime;
+
 		public static Color powColor = new Color(248, 248, 110);
 		public static Color iceColor = new Color(0, 255, 255);
 		public static Color waveColor = new Color(215, 0, 215);
@@ -134,63 +137,11 @@ namespace MetroidMod
 			smUserInterface.SetState(senseMoveUI);
 		}
 		
+		public override object Call(params object[] args) => ModCalls.Call(args);
+		
 		public override void PostSetupContent()
 		{
-			Mod mod = this;
-			Mod bossChecklist = ModLoader.GetMod("BossCheckList");
-			if(bossChecklist != null)
-			{
-				bossChecklist.Call("AddBoss", 2.1f,
-				new List<int>(){mod.NPCType("Torizo"),mod.NPCType("Torizo_HitBox")}, this, "Torizo",
-				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedTorizo)), mod.ItemType("TorizoSummon"),
-				new List<int>(){mod.ItemType("TorizoTrophy"),mod.ItemType("TorizoMask"), mod.ItemType("TorizoMusicBox")},
-				new List<int>(){mod.ItemType("EnergyShard"),mod.ItemType("TorizoBag")},
-				"Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.",
-				null,"MetroidMod/NPCs/Torizo/Torizo_BossLog");
-				
-				bossChecklist.Call("AddBoss", 5.1f,
-				new List<int>(){mod.NPCType("Serris_Head"),mod.NPCType("Serris_Body"),mod.NPCType("Serris_Tail")}, this, "Serris",
-				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedSerris)), mod.ItemType("SerrisSummon"),
-				new List<int>(){mod.ItemType("SerrisTrophy"),mod.ItemType("SerrisMask"), mod.ItemType("SerrisMusicBox")},
-				new List<int>(){mod.ItemType("SerrisCoreX"),mod.ItemType("SerrisBag")},
-				"Summoning item can only be used at the Ocean.", null, "MetroidMod/NPCs/Serris/Serris_BossLog");
-				
-				bossChecklist.Call("AddBoss", 6.1f,
-				new List<int>(){mod.NPCType("Kraid_Head"),mod.NPCType("Kraid_Body"),mod.NPCType("Kraid_ArmBack"),mod.NPCType("Kraid_ArmFront")}, this, "Kraid",
-				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedKraid)), mod.ItemType("KraidSummon"),
-				new List<int>(){mod.ItemType("KraidTrophy"),mod.ItemType("KraidMask"), mod.ItemType("KraidPhantoonMusicBox")},
-				new List<int>(){mod.ItemType("KraidTissue"),mod.ItemType("UnknownPlasmaBeam"),mod.ItemType("KraidBag")},
-				null, null, "MetroidMod/NPCs/Kraid/Kraid_BossLog");
-				
-				bossChecklist.Call("AddBoss", 6.9f,
-				mod.NPCType("Phantoon"), this, "Phantoon",
-				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedPhantoon)), mod.ItemType("PhantoonSummon"),
-				new List<int>(){mod.ItemType("PhantoonTrophy"),mod.ItemType("PhantoonMask"), mod.ItemType("KraidPhantoonMusicBox")},
-				new List<int>(){mod.ItemType("GravityGel"),mod.ItemType("PhantoonBag")},
-				"Summoning item can only be used at night.", null, "MetroidMod/NPCs/Phantoon/Phantoon");
-				
-				bossChecklist.Call("AddBoss", 11f,
-				new List<int>(){mod.NPCType("Nightmare"),mod.NPCType("Nightmare_Body"),mod.NPCType("Nightmare_ArmBack"),mod.NPCType("Nightmare_ArmFront")}, this, "Nightmare",
-				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedNightmare)), mod.ItemType("NightmareSummon"),
-				null,//new List<int>(){mod.ItemType("NightmareTrophy"),mod.ItemType("NightmareMask"), mod.ItemType("NightmareMusicBox")},
-				new List<int>(){mod.ItemType("NightmareCoreX"),mod.ItemType("NightmareCoreXFragment"),mod.ItemType("NightmareBag")},
-				"Summoning item can only be used at night.", null, "MetroidMod/NPCs/Nightmare/Nightmare_BossLog");
-				
-				bossChecklist.Call("AddBoss", 11f,
-				new List<int>(){mod.NPCType("OmegaPirate"),mod.NPCType("OmegaPirate_HitBox")}, this, "Omega Pirate",
-				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate)), mod.ItemType("OmegaPirateSummon"),
-				null,//new List<int>(){mod.ItemType("OmegaPirateTrophy"),mod.ItemType("OmegaPirateMask"), mod.ItemType("OmegaPirateMusicBox")},
-				new List<int>(){mod.ItemType("PurePhazon"),mod.ItemType("OmegaPirateBag")},
-				null,null,"MetroidMod/NPCs/OmegaPirate/OmegaPirate_BossLog");
-				
-				bossChecklist.Call("AddBoss", 12f,
-				new List<int>(){mod.NPCType("GoldenTorizo"),mod.NPCType("GoldenTorizo_HitBox")}, this, "Golden Torizo",
-				(Func<bool>)(() => MWorld.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo)), mod.ItemType("GoldenTorizoSummon"),
-				new List<int>(){/*mod.ItemType("GoldenTorizoTrophy"),mod.ItemType("GoldenTorizoMask"),*/ mod.ItemType("TorizoMusicBox")},
-				new List<int>(){mod.ItemType("ScrewAttack"),mod.ItemType("GoldenTorizoBag")},
-				"Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.",
-				null,"MetroidMod/NPCs/GoldenTorizo/GoldenTorizo_BossLog");
-			}
+			WeakReferences.PerformModSupport();
 		}
 
 		public override void UpdateUI(GameTime gameTime)
@@ -819,29 +770,29 @@ namespace MetroidMod
 					break;
 			}
 		}
-        
-        public override void PreUpdateEntities()
-        {
-            Main.tileSolid[TileType("BlueHatchOpen")] = false;
-            Main.tileSolid[TileType("BlueHatchOpenVertical")] = false;
-            Main.tileSolid[TileType("RedHatchOpen")] = false;
-            Main.tileSolid[TileType("RedHatchOpenVertical")] = false;
-            Main.tileSolid[TileType("GreenHatchOpen")] = false;
-            Main.tileSolid[TileType("GreenHatchOpenVertical")] = false;
-            Main.tileSolid[TileType("YellowHatchOpen")] = false;
-            Main.tileSolid[TileType("YellowHatchOpenVertical")] = false;
-        }
-        
-        public override void MidUpdateTimeWorld()
-        {
-            Main.tileSolid[TileType("BlueHatchOpen")] = true;
-            Main.tileSolid[TileType("BlueHatchOpenVertical")] = true;
-            Main.tileSolid[TileType("RedHatchOpen")] = true;
-            Main.tileSolid[TileType("RedHatchOpenVertical")] = true;
-            Main.tileSolid[TileType("GreenHatchOpen")] = true;
-            Main.tileSolid[TileType("GreenHatchOpenVertical")] = true;
-            Main.tileSolid[TileType("YellowHatchOpen")] = true;
-            Main.tileSolid[TileType("YellowHatchOpenVertical")] = true;
-        }
+		
+		public override void PreUpdateEntities()
+		{
+			Main.tileSolid[TileType("BlueHatchOpen")] = false;
+			Main.tileSolid[TileType("BlueHatchOpenVertical")] = false;
+			Main.tileSolid[TileType("RedHatchOpen")] = false;
+			Main.tileSolid[TileType("RedHatchOpenVertical")] = false;
+			Main.tileSolid[TileType("GreenHatchOpen")] = false;
+			Main.tileSolid[TileType("GreenHatchOpenVertical")] = false;
+			Main.tileSolid[TileType("YellowHatchOpen")] = false;
+			Main.tileSolid[TileType("YellowHatchOpenVertical")] = false;
+		}
+		
+		public override void MidUpdateTimeWorld()
+		{
+			Main.tileSolid[TileType("BlueHatchOpen")] = true;
+			Main.tileSolid[TileType("BlueHatchOpenVertical")] = true;
+			Main.tileSolid[TileType("RedHatchOpen")] = true;
+			Main.tileSolid[TileType("RedHatchOpenVertical")] = true;
+			Main.tileSolid[TileType("GreenHatchOpen")] = true;
+			Main.tileSolid[TileType("GreenHatchOpenVertical")] = true;
+			Main.tileSolid[TileType("YellowHatchOpen")] = true;
+			Main.tileSolid[TileType("YellowHatchOpenVertical")] = true;
+		}
 	}
 }
