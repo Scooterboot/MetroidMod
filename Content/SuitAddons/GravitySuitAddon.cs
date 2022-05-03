@@ -29,6 +29,7 @@ namespace MetroidModPorted.Content.SuitAddons
 				"Infinite breath underwater\n" +
 				"Immune to knockback");
 			AddonSlot = SuitAddonSlotID.Suit_Utility;
+			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
 		{

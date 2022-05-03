@@ -1,9 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
@@ -11,7 +5,7 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public class HiJumpBoots : ModItem
+	public abstract class HiJumpBoots : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -47,14 +41,6 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient(ItemID.Emerald, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 10);
-			recipe.AddIngredient(null, "EnergyShard", 3);
-			recipe.AddIngredient(ItemID.Topaz, 1);
-			recipe.AddIngredient(ItemID.Emerald, 1);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

@@ -31,6 +31,7 @@ namespace MetroidModPorted.Content.SuitAddons
 				"Immunity to fire blocks" + "\n" +
 				"Immunity to chill and freeze effects");
 			AddonSlot = SuitAddonSlotID.Suit_Varia;
+			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
 		{

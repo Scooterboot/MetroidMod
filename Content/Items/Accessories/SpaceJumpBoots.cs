@@ -39,7 +39,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			//Item.createTile = mod.TileType("SpaceJumpBootsTile");
 		}
 
-		public override void AddRecipes()
+		/*public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
@@ -47,13 +47,6 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient<Tiles.EnergyTank>(1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "HiJumpBoots");
-			recipe.AddIngredient(ItemID.CloudinaBottle);
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
@@ -61,13 +54,6 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient<Tiles.EnergyTank>(1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "HiJumpBoots");
-			recipe.AddIngredient(ItemID.BlizzardinaBottle);
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
@@ -75,13 +61,6 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient<Tiles.EnergyTank>(1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "HiJumpBoots");
-			recipe.AddIngredient(ItemID.SandstorminaBottle);
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
@@ -89,14 +68,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient<Tiles.EnergyTank>(1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "HiJumpBoots");
-			recipe.AddIngredient(ItemID.TsunamiInABottle);
-			recipe.AddIngredient(null, "EnergyTank");
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-		}
+		}*/
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

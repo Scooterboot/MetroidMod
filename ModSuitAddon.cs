@@ -46,6 +46,8 @@ namespace MetroidModPorted
 
 		public bool AddOnlyAddonItem { get; set; }
 
+		public bool ItemNameLiteral { get; set; } = true;
+
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
 		internal bool IsArmor => ArmorTextureHead != null && ArmorTextureHead != "" && ArmorTextureTorso != null && ArmorTextureTorso != "" && ArmorTextureLegs != null && ArmorTextureLegs != "";
 		public string GetAddonSlotName()
@@ -124,10 +126,16 @@ namespace MetroidModPorted
 
 		public virtual void SetItemDefaults(Item item) { }
 
+		/// <inheritdoc cref="ModItem.UpdateAccessory(Player, bool)"/>
+		public virtual void UpdateAccessory(Player player, bool hideVisual) { }
+
+		/// <inheritdoc cref="ModItem.UpdateArmorSet(Player)"/>
 		public virtual void OnUpdateArmorSet(Player player) { }
 
+		/// <inheritdoc cref="ModItem.UpdateVanitySet(Player)"/>
 		public virtual void OnUpdateVanitySet(Player player) { }
 
+		/// <inheritdoc cref="ModItem.ArmorSetShadows(Player)"/>
 		public virtual void ArmorSetShadows(Player player) { }
 
 		public virtual string GetSetBonusText()
@@ -135,6 +143,7 @@ namespace MetroidModPorted
 			return null;
 		}
 
+		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 
 		public Recipe CreateRecipe(int amount = 1) => Item.CreateRecipe(amount);

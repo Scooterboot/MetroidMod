@@ -23,7 +23,7 @@ namespace MetroidModPorted
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault(modSuitAddon.DisplayName.GetDefault() + " Addon");
+			DisplayName.SetDefault(modSuitAddon.DisplayName.GetDefault() + (!modSuitAddon.ItemNameLiteral ? " Addon" : ""));
 			Tooltip.SetDefault(modSuitAddon.AddOnlyAddonItem ? "\nCannot be equipped" + modSuitAddon.Tooltip.GetDefault() : ($"Slot Type: {modSuitAddon.GetAddonSlotName()}\n" + modSuitAddon.Tooltip.GetDefault()));;
 			SacrificeTotal = 1;
 		}
@@ -73,6 +73,11 @@ namespace MetroidModPorted
 		public override void AddRecipes()
 		{
 			modSuitAddon.AddRecipes();
+		}
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			modSuitAddon.UpdateAccessory(player, hideVisual);
 		}
 	}
 }
