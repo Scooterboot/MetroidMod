@@ -1,4 +1,7 @@
-﻿namespace MetroidModPorted.Content.Beams
+﻿using Terraria;
+using Terraria.ID;
+
+namespace MetroidModPorted.Content.Beams
 {
 	public class IceBeam : ModSecondaryBeam
 	{
@@ -22,6 +25,11 @@
 			AddonDamageMult = 0.75f;
 			AddonHeat = 0.25f;
 			AddonSpeed = -0.3f;
+		}
+		public override void SetItemDefaults(Item item)
+		{
+			item.value = Terraria.Item.buyPrice(0, 0, 25, 0);
+			item.rare = ItemRarityID.LightRed;
 		}
 	}
 }

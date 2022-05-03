@@ -14,13 +14,19 @@ namespace MetroidModPorted
 {
 	public abstract class ModSecondaryBeam : ModBeam
 	{
-		public sealed override float AddonChargeDamage { get; set; } = 0f;
-		public sealed override float AddonChargeHeat { get; set; } = 0f;
-
 		public override sealed void Load()
 		{
 			base.Load();
 			AddonSlot = BeamAddonSlotID.Secondary;
+			AddonChargeDamage = 0f;
+			AddonChargeHeat = 0f;
+		}
+
+		internal override sealed void InternalStaticDefaults()
+		{
+			AddonSlot = BeamAddonSlotID.Secondary;
+			AddonChargeDamage = 0f;
+			AddonChargeHeat = 0f;
 		}
 
 		public sealed override bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

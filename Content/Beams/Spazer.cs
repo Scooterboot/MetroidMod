@@ -1,4 +1,7 @@
-﻿namespace MetroidModPorted.Content.Beams
+﻿using Terraria;
+using Terraria.ID;
+
+namespace MetroidModPorted.Content.Beams
 {
 	public class Spazer : ModPrimaryABeam
 	{
@@ -17,13 +20,17 @@
 		public override bool AddOnlyBeamItem => false;
 		public override void SetStaticDefaults()
 		{
-			//Tile = new Content.Tiles.ItemTile.Beam.SpazerTile();
 			DisplayName.SetDefault("Spazer");
 			ShotAmount = 3;
 			AddonVersion = 1;
 			AddonDamageMult = 0.25f;
 			AddonHeat = 0.5f;
 			AddonSpeed = 0.15f;
+		}
+		public override void SetItemDefaults(Item item)
+		{
+			item.value = Terraria.Item.buyPrice(0, 0, 25, 0);
+			item.rare = ItemRarityID.LightRed;
 		}
 	}
 }

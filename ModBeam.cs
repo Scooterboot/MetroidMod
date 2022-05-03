@@ -111,32 +111,35 @@ namespace MetroidModPorted
 		/// <summary>
 		/// Sets the damage multiplier for a charged shot. (CHARGE SLOT ONLY)
 		/// </summary>
-		public virtual float AddonChargeDamage { get; set; } = 1f;
+		public float AddonChargeDamage { get; set; } = 1f;
 		/// <summary>
 		/// Sets a normal damage multiplier (NON-CHARGE SLOT ONLY)
 		/// </summary>
-		public virtual float AddonDamageMult { get; set; } = 0f;
+		public float AddonDamageMult { get; set; } = 0f;
 		/// <summary>
 		/// Sets the heat multiplier for a charged shot (CHARGE SLOT ONLY)
 		/// </summary>
-		public virtual float AddonChargeHeat { get; set; } = 1f;
+		public float AddonChargeHeat { get; set; } = 1f;
 		/// <summary>
 		/// Sets a normal heat multiplier (NON-CHARGE SLOT ONLY)
 		/// </summary>
-		public virtual float AddonHeat { get; set; } = 0f;
+		public float AddonHeat { get; set; } = 0f;
 		/// <summary>
 		/// Sets a normal speed multiplier (NON-CHARGE SLOT ONLY)
 		/// </summary>
-		public virtual float AddonSpeed { get; set; } = 0f;
-		public virtual Color BeamColor { get; set; } = MetroidModPorted.powColor;
-		public virtual int WaveDepth { get; set; } = 4;
+		public float AddonSpeed { get; set; } = 0f;
+		public Color BeamColor { get; set; } = MetroidModPorted.powColor;
+		public int WaveDepth { get; set; } = 4;
 
 		public override sealed void SetupContent()
 		{
 			//Textures = new Asset<Texture2D>[4];
 			SetStaticDefaults();
+			InternalStaticDefaults();
 			Item.SetStaticDefaults();
 		}
+
+		internal virtual void InternalStaticDefaults() { }
 
 		public override void Load()
 		{

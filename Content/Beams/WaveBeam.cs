@@ -1,4 +1,7 @@
-﻿namespace MetroidModPorted.Content.Beams
+﻿using Terraria;
+using Terraria.ID;
+
+namespace MetroidModPorted.Content.Beams
 {
 	public class WaveBeam : ModUtilityBeam
 	{
@@ -23,6 +26,11 @@
 			AddonDamageMult = 0.5f;
 			AddonHeat = 0.5f;
 			AddonSpeed = 0;
+		}
+		public override void SetItemDefaults(Item item)
+		{
+			item.value = Terraria.Item.buyPrice(0, 0, 25, 0);
+			item.rare = ItemRarityID.LightRed;
 		}
 	}
 }

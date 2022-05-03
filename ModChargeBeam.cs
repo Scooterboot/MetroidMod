@@ -22,6 +22,11 @@ namespace MetroidModPorted
 			AddonSlot = BeamAddonSlotID.Charge;
 		}
 
+		internal override sealed void InternalStaticDefaults()
+		{
+			AddonSlot = BeamAddonSlotID.Charge;
+		}
+
 		public override bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			/*MPlayer mp = player.GetModPlayer<MPlayer>();
