@@ -19,7 +19,16 @@ namespace MetroidModPorted.Content.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit");
-			Tooltip.SetDefault("Increased resistance to cold temperatures.");
+			Tooltip.SetDefault("+6 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance\n" +
+				"55% increased underwater breathing\n" +
+				"10% increased movement speed\n" +
+				"Immunity to fire blocks" + "\n" + 
+				"Immunity to chill and freeze effects");
 			AddonSlot = SuitAddonSlotID.Suit_Varia;
 		}
 		public override void SetItemDefaults(Item item)
@@ -34,6 +43,7 @@ namespace MetroidModPorted.Content.Suits
 			player.fireWalk = true;
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
+			player.moveSpeed += 0.10f;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += 5;
