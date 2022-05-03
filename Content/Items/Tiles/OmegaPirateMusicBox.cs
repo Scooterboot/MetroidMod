@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Music Box (Vs. Omega Pirate)");
 			Tooltip.SetDefault("Original composition by Kenji Yamamoto and Kouichi Kyuma");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

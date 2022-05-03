@@ -25,6 +25,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			"Jumps recharge mid-air\n" + 
 			"Allows somersaulting\n" +
 			"Increases jump height and prevents fall damage");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

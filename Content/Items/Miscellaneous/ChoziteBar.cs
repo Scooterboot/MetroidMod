@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 		{
 			DisplayName.SetDefault("Chozite Bar");
 			Tooltip.SetDefault("'A durable metal made from Chozite Ore'");
+
+			SacrificeTotal = 25;
 		}
 		public override void SetDefaults()
 		{

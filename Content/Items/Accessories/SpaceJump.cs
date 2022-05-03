@@ -22,6 +22,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" +
 			"Increases jump height and prevents fall damage");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

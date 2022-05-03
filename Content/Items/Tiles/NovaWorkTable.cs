@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Nova Worktable");
 			Tooltip.SetDefault("Use for crafting Phazon based items");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

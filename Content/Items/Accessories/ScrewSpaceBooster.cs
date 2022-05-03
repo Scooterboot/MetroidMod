@@ -21,6 +21,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			"Jumps recharge mid-air\n" +
 			"Holding left/right while jumping midair gives a boost\n" +
 			"Increases jump height and prevents fall damage");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

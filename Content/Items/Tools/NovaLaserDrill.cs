@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.Tools
 			DisplayName.SetDefault("Nova Laser Drill");
 			//Tooltip.SetDefault("Capable of mining Phazon");
 			Tooltip.SetDefault("This is the only tool that can mine Phazon");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

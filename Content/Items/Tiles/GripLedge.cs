@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Grip Ledge");
             Tooltip.SetDefault("Cannot be stood on. \nCan be gripped to using Power Grip \nCan be toggle on or off with wire");
+
+			SacrificeTotal = 100;
 		}
 		public override void SetDefaults()
 		{

@@ -9,6 +9,8 @@ namespace MetroidModPorted.Content.Items.Tools
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Hamaxe");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -15,6 +15,8 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 			DisplayName.SetDefault("Gravity Gel");
 			Tooltip.SetDefault("'Totally breaking Newton's laws.'");
 			ItemID.Sets.ItemNoGravity[Type] = true;
+
+			SacrificeTotal = 25;
 		}
 		public override void SetDefaults()
 		{

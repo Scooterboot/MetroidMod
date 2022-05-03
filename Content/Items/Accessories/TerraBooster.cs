@@ -23,6 +23,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			"Provides the ability to walk on water and lava\n" + 
 			"Grants immunity to fire blocks and 7 seconds lava immunity\n" +
 			"Increases jump height and prevents fall damage");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

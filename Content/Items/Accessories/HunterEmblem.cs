@@ -12,7 +12,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			DisplayName.SetDefault("Hunter Emblem");
 			Tooltip.SetDefault("15% increased hunter damage");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

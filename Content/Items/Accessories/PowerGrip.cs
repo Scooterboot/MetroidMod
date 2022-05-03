@@ -11,6 +11,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 		{
 			DisplayName.SetDefault("Power Grip");
 			Tooltip.SetDefault("Allows the user to grab onto ledges\n" + "Does not need to be equipped; works while in inventory");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

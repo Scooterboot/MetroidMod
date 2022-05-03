@@ -22,6 +22,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			"Damage scales off of enemy's contact damage\n" +
 			"While active, press DOWN to charge a Shine Spark\n" +
 			"Then press JUMP to activate the charge");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

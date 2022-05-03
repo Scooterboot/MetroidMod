@@ -46,6 +46,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			DisplayName.SetDefault("Missile Launcher");
 			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Missile Addon UI");
+
 			SacrificeTotal = 1;
 		}
 		//public override void SetDefaults()

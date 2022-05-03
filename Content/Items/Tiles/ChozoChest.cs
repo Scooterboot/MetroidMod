@@ -9,6 +9,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozodian Chest");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults() {
 			Item.width = 26;

@@ -9,6 +9,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Energy Tank");
+
+			SacrificeTotal = 10;
 		}
 		public override void SetDefaults()
 		{

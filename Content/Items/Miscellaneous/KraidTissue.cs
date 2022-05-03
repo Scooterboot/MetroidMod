@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 		{
 			DisplayName.SetDefault("Large Reptile Tissue");
 			Tooltip.SetDefault("Tough tissue that can be used to upgrade the Varia Suit");
+
+			SacrificeTotal = 25;
 		}
 		public override void SetDefaults()
 		{

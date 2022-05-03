@@ -19,7 +19,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Tooltip.SetDefault("Increases jump height\n" + 
 			"Stacks with other jump height accessories");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

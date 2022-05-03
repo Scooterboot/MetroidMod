@@ -19,6 +19,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Tooltip.SetDefault("Allows the wearer to double jump\n" + 
 			"Allows somersaulting\n" +
 			"Increases jump height");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

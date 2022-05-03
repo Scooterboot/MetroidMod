@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.Items.Tools
 			Tooltip.SetDefault("'Swingy!'\n" + 
             "Press left or right to swing\n" + 
             "Press up or down to ascend or descend the grapple");
+
+			SacrificeTotal = 1;
 		}
         public override void SetDefaults()
         {

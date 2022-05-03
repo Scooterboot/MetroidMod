@@ -9,6 +9,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Ore");
+
+			SacrificeTotal = 100;
 		}
 		public override void SetDefaults()
 		{

@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Missile Station");
 			Tooltip.SetDefault("Right click the station while standing next to it to recharge your missiles");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

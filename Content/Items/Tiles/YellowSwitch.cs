@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Yellow Switch");
+
+			SacrificeTotal = 5;
 		}
 		public override void SetDefaults()
 		{

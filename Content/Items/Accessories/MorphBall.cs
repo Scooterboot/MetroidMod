@@ -43,7 +43,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Tooltip.SetDefault("Equip and press the mount key to roll into a ball\n" + 
 			"Morph Ball's colors are based on your shirt and undershirt colors");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

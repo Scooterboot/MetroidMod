@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 		{
 			DisplayName.SetDefault("Supercooled Plasma Core");
 			Tooltip.SetDefault("'Strange energy core capable of producing supercooled plasma'");
+
+			SacrificeTotal = 5;
 		}
 		public override void SetDefaults()
 		{

@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Save Station");
 			Tooltip.SetDefault("Sets spawn point");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

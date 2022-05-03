@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.Items.Armors
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -48,6 +50,8 @@ namespace MetroidModPorted.Content.Items.Armors
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -76,6 +80,8 @@ namespace MetroidModPorted.Content.Items.Armors
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Music Box (Vs. Nightmare)");
 			Tooltip.SetDefault("Original composition by Minako Hamano and Akira Fujiwara");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

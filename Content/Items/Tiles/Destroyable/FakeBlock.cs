@@ -19,8 +19,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Fake Block");
             Tooltip.SetDefault("Deactivates a tile when hit by anything. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
-		public ushort placeType = 5;
+		public ushort placeType = BreakableTileID.Fake;
 		public override void SetDefaults()
 		{
 			Item.width = 16;
@@ -66,10 +68,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Fake Block (Transparent)");
             Tooltip.SetDefault("Deactivates a tile when hit by anything. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 10;
+			placeType = BreakableTileID.FakeHint;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -80,10 +84,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Bomb Block");
             Tooltip.SetDefault("Deactivates a tile when hit by a bomb. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 3;
+			placeType = BreakableTileID.Bomb;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -94,10 +100,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Bomb Block (Chain)");
             Tooltip.SetDefault("Deactivates a tile when hit by a bomb. \nTriggers adjacent BombBlocks. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 12;
+			placeType = BreakableTileID.BombChain;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -107,10 +115,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Crumble Block (Instant)");
             Tooltip.SetDefault("Deactivates a tile when a player stands on it \nUse Chozite Cutters to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 1;
+			placeType = BreakableTileID.CrumbleInstant;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -121,10 +131,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Crumble Block (SpeedBoost)");
             Tooltip.SetDefault("Deactivates a tile shortly after a player stands on it \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 2;
+			placeType = BreakableTileID.CrumbleSpeed;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -135,10 +147,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Crumble Block (Delayed)");
             Tooltip.SetDefault("Deactivates a tile shortly after a player stands on it \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 11;
+			placeType = BreakableTileID.CrumbleSlow;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -149,10 +163,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Missile Block");
             Tooltip.SetDefault("Deactivates a tile when hit by a missile. \nUse the Chozite Cutter to break");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 4;
+			placeType = BreakableTileID.Missile;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -163,10 +179,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Super Missile Block");
             Tooltip.SetDefault("Deactivates a tile when hit by a super missile. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 8;
+			placeType = BreakableTileID.SuperMissile;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -177,10 +195,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Power Bomb Block");
             Tooltip.SetDefault("Deactivates a tile when hit by a power bomb. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 7;
+			placeType = BreakableTileID.PowerBomb;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -191,10 +211,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Boost Block");
             Tooltip.SetDefault("Deactivates a tile when run into. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 6;
+			placeType = BreakableTileID.Boost;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}
@@ -205,10 +227,12 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		{
 			DisplayName.SetDefault("Screw Attack Block");
             Tooltip.SetDefault("Deactivates a tile when hit by a screw attack. \nUse the Chozite Cutter to break.");
+
+			SacrificeTotal = 100;
 		}
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-			placeType = 9;
+			placeType = BreakableTileID.ScrewAttack;
 			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
 		}
 	}

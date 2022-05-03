@@ -10,6 +10,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			DisplayName.SetDefault("Chozite Crossbow");
 			Tooltip.SetDefault("Fires two arrows in rapid succession");
+
 			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()

@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			DisplayName.SetDefault("Reserve Tank");
 			Tooltip.SetDefault("Stores a heart picked up when at full health\n" + 
 				"Automatically uses the stored heart to save you from death");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -56,6 +58,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			DisplayName.SetDefault("Reserve Tank MK2");
 			Tooltip.SetDefault("Stores up to 2 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -98,6 +102,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			DisplayName.SetDefault("Reserve Tank MK3");
 			Tooltip.SetDefault("Stores up to 3 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -144,6 +150,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			DisplayName.SetDefault("Reserve Tank MK4");
 			Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -189,6 +197,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death\n" + 
 				"Stored hearts restore 25 health each");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

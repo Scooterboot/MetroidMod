@@ -17,6 +17,8 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 			"Contains gravity altering properties");
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 8));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

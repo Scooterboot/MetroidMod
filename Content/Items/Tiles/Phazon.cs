@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Phazon");
 			Tooltip.SetDefault("'Very radioactive.'\n" + "Glows with Phazon energy");
+
+			SacrificeTotal = 100;
 		}
 		public override void SetDefaults()
 		{

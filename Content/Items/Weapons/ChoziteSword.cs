@@ -10,6 +10,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			DisplayName.SetDefault("Chozite Longsword");
 			Tooltip.SetDefault("Right click for a lunge that deals extra knocback");
+
 			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()

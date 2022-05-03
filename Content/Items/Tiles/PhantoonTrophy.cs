@@ -9,6 +9,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phantoon Trophy");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

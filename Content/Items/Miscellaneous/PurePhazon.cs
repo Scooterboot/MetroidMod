@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 		{
 			DisplayName.SetDefault("Pure Phazon");
 			Tooltip.SetDefault("'Highly concentrated Phazon, in its purest form.");
+
+			SacrificeTotal = 25;
 		}
 		public override void SetDefaults()
 		{

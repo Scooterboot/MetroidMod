@@ -12,6 +12,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			DisplayName.SetDefault("Chozite Shortsword");
 			Tooltip.SetDefault("Right click for a backwards hop");
+
 			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()

@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tools
 		{
 			DisplayName.SetDefault("Chozite Pickaxe");
 			Tooltip.SetDefault("Can mine meteorite");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

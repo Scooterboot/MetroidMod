@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 		{
 			DisplayName.SetDefault("Energy Shard");
 			Tooltip.SetDefault("'It could be used to power something if it were whole'");
+
+			SacrificeTotal = 25;
 		}
 		public override void SetDefaults()
 		{

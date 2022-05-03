@@ -10,6 +10,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		{
 			DisplayName.SetDefault("Green Hatch");
 			Tooltip.SetDefault("Opens when hit with a Super Missile\n" + "Right click to place vertically");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

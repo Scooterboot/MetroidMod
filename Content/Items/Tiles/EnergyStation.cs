@@ -11,6 +11,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 			DisplayName.SetDefault("Energy Station");
 			Tooltip.SetDefault("Right click the station while standing next to it to recharge your life\n"+
 			"Unobtainable. Intended for adventure map creators.");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -20,6 +20,8 @@ namespace MetroidModPorted.Content.Items.Tools
 		{
 			DisplayName.SetDefault("Chozite Cutter");
 			Tooltip.SetDefault("Removes weapon-destructable blocks. \nDoes not break wires.");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

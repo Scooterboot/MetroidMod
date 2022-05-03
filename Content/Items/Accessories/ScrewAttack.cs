@@ -19,6 +19,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 			"Damage enemies while someraulting\n" + 
 			"Damage scales off of enemy's contact damage\n" +
 			"Hold Left/Right and double jump to do a 'boost' ability");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

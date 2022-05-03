@@ -9,6 +9,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Placeable X-Ray Scope");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
