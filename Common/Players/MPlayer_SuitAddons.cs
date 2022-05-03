@@ -29,9 +29,10 @@ namespace MetroidModPorted.Common.Players
 			}
 			set { _suitAddons = value; }
 		}
+		public bool ShouldShowArmorUI = false;
 		public void ResetEffects_SuitAddons()
 		{
-
+			ShouldShowArmorUI = false;
 		}
 		public void PreUpdate_SuitAddons()
 		{

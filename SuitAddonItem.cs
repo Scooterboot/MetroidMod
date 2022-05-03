@@ -39,6 +39,7 @@ namespace MetroidModPorted
 			Item.useTime = 15;
 			Item.width = ModContent.Request<Texture2D>(Texture).Value.Width;
 			Item.height = ModContent.Request<Texture2D>(Texture).Value.Height;
+			Item.vanity = false;
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.createTile = modSuitAddon.TileType;

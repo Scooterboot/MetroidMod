@@ -42,6 +42,7 @@ namespace MetroidModPorted.Content.Items.Armors
 							//SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.senseMove = true;
+			mp.ShouldShowArmorUI = true;
 			SuitAddonLoader.OnUpdateArmorSet(player);
 		}
 		public override void ArmorSetShadows(Player player)

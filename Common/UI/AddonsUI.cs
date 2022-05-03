@@ -18,7 +18,7 @@ namespace MetroidModPorted.Common.UI
 {
 	public class SuitAddonsUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().isPowerSuit;
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowArmorUI;
 
 		private SuitAddonsPanel suitAddonsPanel;
 		public override void OnInitialize()
