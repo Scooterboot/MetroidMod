@@ -241,7 +241,7 @@ namespace MetroidModPorted.Common.UI
 			//spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 			// Item drawing.
-			if (powerBeamTarget == null | powerBeamTarget.BeamMods[addonSlotType].IsAir) { return; }
+			if (powerBeamTarget == null || powerBeamTarget.BeamMods == null || powerBeamTarget.BeamMods[addonSlotType].IsAir) { return; }
 
 			Color itemColor = powerBeamTarget.BeamMods[addonSlotType].GetAlpha(Color.White);
 			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[powerBeamTarget.BeamMods[addonSlotType].type].Value;

@@ -106,6 +106,16 @@ namespace MetroidModPorted.Content.Items.Weapons
 			return mp.statOverheat < mp.maxOverheat && BeamLoader.CanShoot(player, BeamMods);
 		}
 
+		public override void OnResearched(bool fullyResearched)
+		{
+			foreach(Item item in BeamMods)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+			}
+		}
+
 		private float iceDmg = 0f;
 		private float waveDmg = 0f;
 		private float spazDmg = 0f;
@@ -1287,7 +1297,6 @@ namespace MetroidModPorted.Content.Items.Weapons
 					waveDmg = modBeam.AddonDamageMult;
 					waveHeat = modBeam.AddonHeat;
 					waveSpeed = modBeam.AddonSpeed;
-					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (((ModUtilityBeam)modBeam).ShotAmount > 1)
 					{
 						shotAmt = ((ModUtilityBeam)modBeam).ShotAmount;
@@ -1320,7 +1329,6 @@ namespace MetroidModPorted.Content.Items.Weapons
 					spazDmg = modBeam.AddonDamageMult;
 					spazHeat = modBeam.AddonHeat;
 					spazSpeed = modBeam.AddonSpeed;
-					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (((ModPrimaryABeam)modBeam).ShotAmount > 1)
 					{
 						shotAmt = ((ModPrimaryABeam)modBeam).ShotAmount;
@@ -1344,7 +1352,6 @@ namespace MetroidModPorted.Content.Items.Weapons
 					iceDmg = modBeam.AddonDamageMult;
 					iceHeat = modBeam.AddonHeat;
 					iceSpeed = modBeam.AddonSpeed;
-					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (modBeam.PowerBeamTexture != null && modBeam.PowerBeamTexture != "")
 					{
 						texture = modBeam.PowerBeamTexture;
@@ -1363,7 +1370,6 @@ namespace MetroidModPorted.Content.Items.Weapons
 					plasDmg = modBeam.AddonDamageMult;
 					plasHeat = modBeam.AddonHeat;
 					plasSpeed = modBeam.AddonSpeed;
-					MetroidModPorted.Instance.Logger.Info($"SHOULD BE- {modBeam.AddonSlot}");
 					if (modBeam.PowerBeamTexture != null && modBeam.PowerBeamTexture != "")
 					{
 						texture = modBeam.PowerBeamTexture;
@@ -1569,10 +1575,18 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			ModItem clone = base.Clone(item);
 			PowerBeam beamClone = (PowerBeam)clone;
-			beamClone.BeamMods = new Item[MetroidModPorted.beamSlotAmount];
+			beamClone._beamMods = new Item[MetroidModPorted.beamSlotAmount];
 			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
 			{
-				beamClone.BeamMods[i] = BeamMods[i];
+				if (_beamMods[i] == null)
+				{
+					beamClone._beamMods[i] = new Item();
+					beamClone._beamMods[i].TurnToAir();
+				}
+				else
+				{
+					beamClone._beamMods[i] = _beamMods[i];
+				}
 			}
 
 			return clone;
@@ -1773,11 +1787,11 @@ namespace MetroidModPorted.Content.Items.Weapons
 		public override void OnCreate(ItemCreationContext context)
 		{
 			base.OnCreate(context);
-			BeamMods = new Item[5];
-			for (int i = 0; i < BeamMods.Length; ++i)
+			_beamMods = new Item[5];
+			for (int i = 0; i < _beamMods.Length; ++i)
 			{
-				BeamMods[i] = new Item();
-				BeamMods[i].TurnToAir();
+				_beamMods[i] = new Item();
+				_beamMods[i].TurnToAir();
 			}
 		}
 
