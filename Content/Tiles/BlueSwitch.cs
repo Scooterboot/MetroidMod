@@ -8,8 +8,8 @@ using Microsoft.Xna.Framework;
 
 namespace MetroidModPorted.Content.Tiles
 {
-    public class BlueSwitch : ModTile
-    {
+	public class BlueSwitch : ModTile
+	{
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = false;
@@ -26,10 +26,10 @@ namespace MetroidModPorted.Content.Tiles
 			TileObjectData.newAlternate.AnchorRight = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newAlternate.Height, 0);
 			TileObjectData.addAlternate(3);
 			TileObjectData.newAlternate.CopyFrom(TileObjectData.StyleTorch);
-            TileObjectData.newAlternate.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newAlternate.Width, 0);
+			TileObjectData.newAlternate.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newAlternate.Width, 0);
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
 			ItemDrop = ModContent.ItemType<Items.Tiles.BlueSwitch>();
 		}
-    }
+	}
 }

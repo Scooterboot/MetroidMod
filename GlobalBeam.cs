@@ -23,12 +23,12 @@ namespace MetroidModPorted
 		{
 			return true;
 		}
-        protected override sealed void Register()
-        {
-            BeamLoader.globalBeams.Add(this);
-        }
-        public override sealed void SetupContent() => SetStaticDefaults();
+		protected override sealed void Register()
+		{
+			BeamLoader.globalBeams.Add(this);
+		}
+		public override sealed void SetupContent() => SetStaticDefaults();
 
-        public override void SetStaticDefaults() => base.SetStaticDefaults();
+		public override void SetStaticDefaults() => base.SetStaticDefaults();
 	}
 }

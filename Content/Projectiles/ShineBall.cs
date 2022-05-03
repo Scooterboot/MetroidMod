@@ -28,7 +28,7 @@ public override void SetDefaults()
 			Projectile.DamageType = DamageClass.Melee;//Projectile.melee = true;
 			Projectile.penetrate = -1;
 			Projectile.timeLeft = 9000;
-            Projectile.usesLocalNPCImmunity = true;
+			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 7;
 			Projectile.alpha = 255;
 		}
@@ -57,7 +57,7 @@ public override void SetDefaults()
 		}	
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-		    damage += target.damage * 2;
+			damage += target.damage * 2;
 		}
 	}
 }

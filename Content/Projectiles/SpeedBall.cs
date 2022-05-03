@@ -30,7 +30,7 @@ namespace MetroidModPorted.Content.Projectiles
 			Projectile.DamageType = DamageClass.Melee;//Projectile.melee = true;
 			Projectile.penetrate = -1;
 			Projectile.timeLeft = 9000;
-            Projectile.usesLocalNPCImmunity = true;
+			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 7;
 			Projectile.alpha = 255;
 		}
@@ -75,7 +75,7 @@ namespace MetroidModPorted.Content.Projectiles
 		}
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-		    damage += (int)(target.damage * 1.5f);
+			damage += (int)(target.damage * 1.5f);
 		}
 	}
 }

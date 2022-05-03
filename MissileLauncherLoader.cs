@@ -38,23 +38,23 @@ namespace MetroidModPorted
 		public static ModMissileAddon GetMissileAddon<T>() where T : ModMissileAddon =>
 			missileAddons.TryGetValue(i => i is T, out var modMissileAddon) ? modMissileAddon : null;
 
-        internal static void OnUpdate()
-        {
-            /*for (int i = 0; i < wetEntities.Count; i++)
-            {
-                if (!lastWetEntities.Contains(wetEntities[i].entity))
-                {
-                    var (entity, liquidType) = wetEntities[i];
-                    OnOutLiquid(liquidType, entity);
-                    wetEntities.RemoveAt(i);
-                }
-            }
-            lastWetEntities.Clear();*/
-        }
+		internal static void OnUpdate()
+		{
+			/*for (int i = 0; i < wetEntities.Count; i++)
+			{
+				if (!lastWetEntities.Contains(wetEntities[i].entity))
+				{
+					var (entity, liquidType) = wetEntities[i];
+					OnOutLiquid(liquidType, entity);
+					wetEntities.RemoveAt(i);
+				}
+			}
+			lastWetEntities.Clear();*/
+		}
 
-        public static bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            bool flag = true;
+		public static bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			bool flag = true;
 
 			if (missileAddons.TryGetValue(type, out var modMissileAddon))
 			{
@@ -66,7 +66,7 @@ namespace MetroidModPorted
 				flag &= globalMissileAddon.OnShoot(player, source, position, velocity, type, damage, knockback);
 			}
 
-            return flag;
-        }
-    }
+			return flag;
+		}
+	}
 }
