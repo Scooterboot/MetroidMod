@@ -1,4 +1,5 @@
 ﻿TODOs:
+(not in any particular order)
 
  -	Fix player draw layer modifying
  -	Get new textures for:
@@ -24,3 +25,9 @@
  -	Write all of the modded suits in
  -	Change all of the non-suit modded suit addons to be addons instead of accessories
  -	Implement 'Energy Bar' and its UI (use for Energy Tanks other than being a crafting ingredient and a tile)
+ -	Migrate some accessories to suit addons
+	 -	Reserve Tanks
+	 -	Screw Attack
+	 -	Speed Booster
+	 -	Space Jump
+	 -	Space Jump Boots
