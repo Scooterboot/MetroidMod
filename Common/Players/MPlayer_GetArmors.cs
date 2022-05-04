@@ -11,36 +11,43 @@ namespace MetroidModPorted.Common.Players
 {
 	public partial class MPlayer : ModPlayer
 	{
-		/*public override void FrameEffects()
-		{
-			if (isPowerSuit)
-			{
-				Player.legs = GetGreaves(Player);
-				Player.body = GetBreastplate(Player);
-				//Player.handon = GetArms(Player);
-				Player.head = GetHelmet(Player);
-			}
-		}*/
 		private static void ModifyDrawInfo_GetArmors(ref PlayerDrawSet drawInfo)
 		{
-			if (drawInfo.drawPlayer.GetModPlayer<MPlayer>().isPowerSuit)
+			if (drawInfo.drawPlayer.TryGetModPlayer(out MPlayer mp))
 			{
-				drawInfo.drawPlayer.legs = GetGreaves(drawInfo.drawPlayer);
-				drawInfo.drawPlayer.body = GetBreastplate(drawInfo.drawPlayer);
-				//drawInfo.drawPlayer.handon = GetArms(drawInfo.drawPlayer);
-				drawInfo.drawPlayer.head = GetHelmet(drawInfo.drawPlayer);
+				if (mp.ShouldDrawGreaves)
+				{
+					drawInfo.drawPlayer.legs = GetGreaves(drawInfo.drawPlayer);
+				}
+				if (mp.ShouldDrawBreastplate)
+				{
+					drawInfo.drawPlayer.body = GetBreastplate(drawInfo.drawPlayer);
+				}
+				if (mp.ShouldDrawHelmet)
+				{
+					drawInfo.drawPlayer.head = GetHelmet(drawInfo.drawPlayer);
+				}
 			}
 		}
-		/*public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+		public override void UpdateEquips()
 		{
-			if (drawInfo.drawPlayer.GetModPlayer<MPlayer>().isPowerSuit)
+			base.UpdateEquips();
+		}
+		public override void UpdateVisibleVanityAccessories()
+		{
+			if ((Player.armor[0].type == ModContent.ItemType<Content.Items.Armors.PowerSuitHelmet>() && Player.armor[10].IsAir) || Player.armor[10].type == ModContent.ItemType<Content.Items.Armors.PowerSuitHelmet>())
 			{
-				drawInfo.drawPlayer.legs = GetGreaves(drawInfo.drawPlayer);
-				drawInfo.drawPlayer.body = GetBreastplate(drawInfo.drawPlayer);
-				//drawInfo.drawPlayer.handon = GetArms(drawInfo.drawPlayer);
-				drawInfo.drawPlayer.head = GetHelmet(drawInfo.drawPlayer);
+				ShouldDrawHelmet = true;
 			}
-		}*/
+			if ((Player.armor[1].type == ModContent.ItemType<Content.Items.Armors.PowerSuitBreastplate>() && Player.armor[11].IsAir) || Player.armor[11].type == ModContent.ItemType<Content.Items.Armors.PowerSuitBreastplate>())
+			{
+				ShouldDrawBreastplate = true;
+			}
+			if ((Player.armor[2].type == ModContent.ItemType<Content.Items.Armors.PowerSuitGreaves>() && Player.armor[12].IsAir) || Player.armor[12].type == ModContent.ItemType<Content.Items.Armors.PowerSuitGreaves>())
+			{
+				ShouldDrawGreaves = true;
+			}
+		}
 		//MetroidModPorted.Instance.Logger.Debug(result);
 		public static int GetHelmet(Player player)
 		{

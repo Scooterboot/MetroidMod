@@ -31,9 +31,15 @@ namespace MetroidModPorted.Common.Players
 			set { _suitAddons = value; }
 		}
 		public bool ShouldShowArmorUI = false;
+		public bool ShouldDrawHelmet = false;
+		public bool ShouldDrawBreastplate = false;
+		public bool ShouldDrawGreaves = false;
 		public void ResetEffects_SuitAddons()
 		{
 			ShouldShowArmorUI = false;
+			ShouldDrawHelmet = false;
+			ShouldDrawBreastplate = false;
+			ShouldDrawGreaves = false;
 		}
 		public void PreUpdate_SuitAddons()
 		{
