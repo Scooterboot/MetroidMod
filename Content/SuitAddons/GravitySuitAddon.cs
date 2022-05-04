@@ -45,6 +45,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			player.statDefense += 9;
 			player.noKnockback = true;
 			player.ignoreWater = true;
+			player.gills = true;
 			player.lavaMax += 420; // blaze it
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
