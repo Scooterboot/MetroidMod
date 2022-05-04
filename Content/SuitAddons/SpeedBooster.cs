@@ -7,7 +7,7 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.SuitAddons
 {
-	internal class SpeedBooster : ModSuitAddon
+	public class SpeedBooster : ModSuitAddon
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/SpeedBooster/SpeedBoosterItem";
 
@@ -25,6 +25,9 @@ namespace MetroidModPorted.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
+			item.noMelee = true;
+			item.DamageType = ModContent.GetInstance<DamageClasses.HunterDamageClass>();
+			item.damage = 50;
 			item.value = Terraria.Item.buyPrice(0, 4, 0, 0);
 			item.rare = ItemRarityID.Pink;
 			item.accessory = true;

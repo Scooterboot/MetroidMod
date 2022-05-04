@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public class ScrewAttack : ModItem//HunterDamageItem
+	public abstract class ScrewAttack : ModItem//HunterDamageItem
 	{
 		public override void SetStaticDefaults()
 		{
