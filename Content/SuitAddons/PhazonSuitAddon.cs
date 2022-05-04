@@ -16,6 +16,8 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override string ArmorTextureTorso => $"{Mod.Name}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitBreastplate_Body";
 
+		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitBreastplate_Arms_Glow";
+
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitGreaves_Legs";
 
 		public override void SetStaticDefaults()

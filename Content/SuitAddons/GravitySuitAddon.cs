@@ -15,6 +15,8 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override string ArmorTextureTorso => $"{Mod.Name}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitBreastplate_Body";
 
+		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitBreastplate_Arms_Glow";
+
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitGreaves_Legs";
 
 		public override void SetStaticDefaults()

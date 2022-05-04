@@ -128,15 +128,15 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetArmsGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<Content.Items.Armors.PowerSuitBreastplate>().Texture + "_Body_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
+			string tex = ModContent.GetInstance<Content.Items.Armors.PowerSuitBreastplate>().Texture + "_Arms_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureTorso;
+				string temp = msa[i].ArmorTextureArmsGlow;
 				if (temp != "" && temp != null)
 				{
-					tex = temp + "_Glow";
+					tex = temp;
 				}
 			}
 

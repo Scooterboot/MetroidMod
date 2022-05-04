@@ -83,6 +83,7 @@ namespace MetroidModPorted.Common
 	}
 	internal abstract class PowerArmorGlowLayer : PowerArmorDrawLayer
 	{
+		public int shader = -1;
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			DrawDataInfo drawDataInfo = GetData(drawInfo);
@@ -111,73 +112,11 @@ namespace MetroidModPorted.Common
 				effects,
 				0
 			);
+			data.shader = shader;
 
 			drawInfo.DrawDataCache.Add(data);
 		}
 	}
-	internal abstract class PowerArmorShaderLayer : PowerArmorDrawLayer
-	{
-		public const int ShaderNumSegments = 8;
-		public const int ShaderDrawOffset = 2;
-
-		protected override void Draw(ref PlayerDrawSet drawInfo) {
-			DrawDataInfo drawDataInfo = GetData(drawInfo);
-			Player drawPlayer = drawInfo.drawPlayer;
-			//MPlayer modPlayer = drawPlayer.GetModPlayer<MPlayer>();
-			SpriteEffects effects = SpriteEffects.None;
-
-			if (drawPlayer.direction == -1) {
-				effects |= SpriteEffects.FlipHorizontally;
-			}
-
-			if (drawPlayer.gravDir == -1) {
-				effects |= SpriteEffects.FlipVertically;
-			}
-
-			DrawData data = new(
-				drawDataInfo.Texture,
-				drawDataInfo.Position,
-				drawDataInfo.Frame,
-				Color.White * Main.essScale,// * modPlayer.LayerStrength * modPlayer.ShaderStrength,
-				drawDataInfo.Rotation,
-				drawDataInfo.Origin,
-				1f,
-				effects,
-				0);
-
-			BeginShaderBatch(Main.spriteBatch);
-
-			ShaderId ??= GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingRainbowDye);
-
-			GameShaders.Armor.Apply(ShaderId.Value, drawPlayer, data);
-
-			Vector2 centerPos = data.position;
-
-			for (int i = 0; i < ShaderNumSegments; i++) {
-				data.position = centerPos + GetDrawOffset(i);
-				data.Draw(Main.spriteBatch);
-			}
-
-			data.position = centerPos;
-		}
-
-		protected static Vector2 GetDrawOffset(int i) => new Vector2(0, ShaderDrawOffset).RotatedBy((float)i / ShaderNumSegments * MathHelper.TwoPi);
-
-		private static void BeginShaderBatch(SpriteBatch batch) {
-			batch.End();
-			RasterizerState rasterizerState = Main.LocalPlayer.gravDir == 1f ? RasterizerState.CullCounterClockwise : RasterizerState.CullClockwise;
-			batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, rasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
-		}
-	}
-	/*public class PowerArmorHelmetDrawLayer : PlayerDrawLayer
-	{
-		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
-
-		protected override void Draw(ref PlayerDrawSet drawInfo)
-		{
-			//throw new NotImplementedException();
-		}
-	}*/
 	internal class PAHelmetGlow : PowerArmorGlowLayer
 	{
 		private static Asset<Texture2D> _glowTexture;
@@ -190,21 +129,13 @@ namespace MetroidModPorted.Common
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
 			_glowTexture = MPlayer.GetHelmetGlow(info);
+			shader = info.cHead;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 	}
-	/*public class PowerArmorBreastplateDrawLayer : PlayerDrawLayer
-	{
-		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Torso);
-
-		protected override void Draw(ref PlayerDrawSet drawInfo)
-		{
-			//throw new NotImplementedException();
-		}
-	}*/
 	internal class PABreastplateGlow : PowerArmorGlowLayer
 	{
 		private static Asset<Texture2D> _glowTexture;
@@ -215,6 +146,7 @@ namespace MetroidModPorted.Common
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
 			_glowTexture = MPlayer.GetBreastplateGlow(info);
+			shader = info.cBody;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -231,21 +163,13 @@ namespace MetroidModPorted.Common
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
 			_glowTexture = MPlayer.GetArmsGlow(info);
+			shader = info.cBody;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
 
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.OffhandAcc);
+		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.HandOnAcc);
 	}
-	/*public class PowerArmorGreavesDrawLayer : PlayerDrawLayer
-	{
-		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Leggings);
-
-		protected override void Draw(ref PlayerDrawSet drawInfo)
-		{
-			//throw new NotImplementedException();
-		}
-	}*/
 	internal class PAGreavesGlow : PowerArmorGlowLayer
 	{
 		private static Asset<Texture2D> _glowTexture;
@@ -256,6 +180,7 @@ namespace MetroidModPorted.Common
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
 			_glowTexture = MPlayer.GetGreavesGlow(info);
+			shader = info.cLegs;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}

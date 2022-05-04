@@ -41,6 +41,7 @@ namespace MetroidModPorted
 
 		public virtual string ArmorTextureHead { get; set; }
 		public virtual string ArmorTextureTorso { get; set; }
+		public virtual string ArmorTextureArmsGlow { get; set; }
 		public virtual string ArmorTextureLegs { get; set; }
 
 		public abstract string TileTexture { get; }
