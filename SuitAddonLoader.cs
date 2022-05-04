@@ -13,6 +13,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using MetroidModPorted.Default;
 using MetroidModPorted.ID;
 
 using MetroidModPorted.Common.Players;

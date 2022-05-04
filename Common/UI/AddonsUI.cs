@@ -14,6 +14,7 @@ using Terraria.GameContent.UI.Elements;
 using MetroidModPorted.Common.GlobalItems;
 using MetroidModPorted.Common.Players;
 using MetroidModPorted.Content.Items.Weapons;
+using MetroidModPorted.Default;
 using MetroidModPorted.ID;
 
 namespace MetroidModPorted.Common.UI

@@ -17,6 +17,7 @@ using MetroidModPorted.Content.DamageClasses;
 using MetroidModPorted.Content.Projectiles;
 using Terraria.DataStructures;
 using MetroidModPorted.Common.GlobalItems;
+using MetroidModPorted.Default;
 
 namespace MetroidModPorted.Content.Items.Weapons
 {
