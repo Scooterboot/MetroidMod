@@ -12,7 +12,7 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public class SpeedBooster : ModItem
+	public abstract class SpeedBooster : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
