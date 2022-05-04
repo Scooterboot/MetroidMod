@@ -25,9 +25,11 @@ namespace MetroidModPorted.Content.SuitAddons
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
 				"5% increased hunter damage\n" +
-				"7% increased hunter critical strike chance\n" +
+				"3% increased hunter critical strike chance\n" +
 				"Infinite breath underwater\n" +
-				"Immune to knockback");
+				"Immune to knockback\n" +
+				"Free movement in liquid\n" +
+				"Grants 7 seconds of lava immunity");
 			AddonSlot = SuitAddonSlotID.Suit_Utility;
 			ItemNameLiteral = false;
 		}
@@ -39,10 +41,6 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override void OnUpdateArmorSet(Player player)
 		{
 			player.statDefense += 9;
-			player.nightVision = true;
-			player.fireWalk = true;
-			player.buffImmune[BuffID.Chilled] = true;
-			player.buffImmune[BuffID.Frozen] = true;
 			player.noKnockback = true;
 			player.ignoreWater = true;
 			player.lavaMax += 420; // blaze it
@@ -52,7 +50,6 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
-			mp.visorGlow = true;
 		}
 		public override void AddRecipes()
 		{

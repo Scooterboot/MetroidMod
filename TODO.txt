@@ -2,6 +2,7 @@
 (not in any particular order)
 
  -	Fix player draw layer modifying
+	 -	Fix arm glow drawing
  -	Get new textures for:
 	 -	Varia Suit item and tile
 	 -	Varia Suit V2 item and tile
@@ -21,6 +22,7 @@
  -	Finish implementing modded beams
 	 -	MODULAR BEAM COMBINATIONS!
  -	Implement modded missile addons
+ -	Implement morph ball and its draw layer modifying
  -	Implement modded morph ball addons
  -	Write all of the modded suits in
  -	Change all of the non-suit modded suit addons to be addons instead of accessories
