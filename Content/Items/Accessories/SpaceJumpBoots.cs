@@ -11,7 +11,7 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public class SpaceJumpBoots : ModItem
+	public abstract class SpaceJumpBoots : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

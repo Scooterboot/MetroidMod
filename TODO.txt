@@ -30,4 +30,3 @@
 	 -	Screw Attack
 	 -	Speed Booster
 	 -	Space Jump
-	 -	Space Jump Boots

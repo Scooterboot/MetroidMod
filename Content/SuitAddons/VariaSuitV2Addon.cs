@@ -58,7 +58,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<VariaSuitAddon>().ItemType, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<VariaSuitAddon>().Item, 1)
 				.AddRecipeGroup(MetroidModPorted.T2HMBarRecipeGroupID, 45)
 				.AddIngredient<Items.Miscellaneous.KraidTissue>(30)
 				.AddTile(TileID.MythrilAnvil)
