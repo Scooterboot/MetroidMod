@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Projectiles
 {
-	class MissileShot : BeamShot
+	class MissileShot : Default.BeamShot
 	{
 		public override void SetStaticDefaults()
 		{

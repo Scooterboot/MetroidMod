@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace MetroidModPorted.Content.Projectiles
 {
 	[Autoload(true)]
-	class PowerBeamShot : BeamShot
+	class PowerBeamShot : Default.BeamShot
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/PowerBeamShot";
 		public override string Name => "PowerBeamShot";

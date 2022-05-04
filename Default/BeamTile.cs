@@ -1,31 +1,30 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 
-namespace MetroidModPorted
+namespace MetroidModPorted.Default
 {
 	[Autoload(false)]
-	internal class SuitAddonTile : ModTile
+	public class BeamTile : ModTile
 	{
-		public ModSuitAddon modSuitAddon;
+		public ModBeam modBeam;
 
-		public override string Texture => modSuitAddon.TileTexture;
+		public override string Texture => modBeam.TileTexture;
 
-		public override string Name => modSuitAddon.Name + "Tile";
+		public override string Name => modBeam.Name + "Tile";
 
-		public SuitAddonTile(ModSuitAddon modSuitAddon)
+		public BeamTile(ModBeam modBeam)
 		{
-			this.modSuitAddon = modSuitAddon;
+			this.modBeam = modBeam;
 		}
 
 		public override void SetStaticDefaults()
 		{
-			modSuitAddon.TileType = Type;
-			ItemDrop = modSuitAddon.ItemType;
+			modBeam.TileType = Type;
+			ItemDrop = modBeam.ItemType;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileSpelunker[Type] = true;
@@ -36,14 +35,22 @@ namespace MetroidModPorted
 			TileID.Sets.DisableSmartCursor[Type] = true;
 		}
 
-		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
-		public override bool Slope(int i, int j) => false;
+		public override void NumDust(int i, int j, bool fail, ref int num)
+		{
+			num = fail ? 1 : 3;
+		}
+
+		public override bool Slope(int i, int j)
+		{
+			return false;
+		}
+
 		public override void MouseOver(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
 			player.cursorItemIconEnabled = true;
-			player.cursorItemIconID = modSuitAddon.ItemType;
+			player.cursorItemIconID = modBeam.ItemType;
 		}
 		public override bool RightClick(int i, int j)
 		{

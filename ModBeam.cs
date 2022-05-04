@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using MetroidModPorted.Default;
 using MetroidModPorted.ID;
 
 namespace MetroidModPorted
@@ -29,7 +30,7 @@ namespace MetroidModPorted
 		public ModTranslation DisplayName { get; internal set; }
 
 		/// <summary>
-		/// The translations for the display name of this tooltip.
+		/// The translations for the tooltip of this item.
 		/// </summary>
 		public ModTranslation Tooltip { get; internal set; }
 
@@ -133,7 +134,6 @@ namespace MetroidModPorted
 
 		public override sealed void SetupContent()
 		{
-			//Textures = new Asset<Texture2D>[4];
 			SetStaticDefaults();
 			InternalStaticDefaults();
 			Item.SetStaticDefaults();

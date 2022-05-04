@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted
+namespace MetroidModPorted.Default
 {
 	[Autoload(false)]
 	public class BeamItem : ModItem
