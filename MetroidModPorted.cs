@@ -68,6 +68,7 @@ namespace MetroidModPorted
 		public override void Load()
 		{
 			Instance = this;
+			ItemIL.Load();
 			//OnHooks.Load();
 			//ILHooks.Load();
 
@@ -89,6 +90,7 @@ namespace MetroidModPorted
 		public override void Unload()
 		{
 			Instance = null;
+			ItemIL.Unload();
 			//OnHooks.Unload();
 			//ILHooks.Unload();
 			BeamLoader.Unload();
