@@ -12,7 +12,7 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public class SpaceJump : ModItem
+	public abstract class SpaceJump : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -41,7 +41,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			//Item.consumable = true;
 			//Item.createTile = mod.TileType("SpaceJumpTile");
 		}
-		public override void AddRecipes()
+		/*public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<SpaceJumpBoots>(1)
@@ -49,14 +49,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient(ItemID.SoulofFlight, 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "SpaceJumpBoots");
-			recipe.AddIngredient(ItemID.HallowedBar, 10);
-			recipe.AddIngredient(ItemID.SoulofFlight, 10);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-		}
+		}*/
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

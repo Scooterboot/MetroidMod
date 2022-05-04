@@ -29,4 +29,3 @@
 	 -	Reserve Tanks
 	 -	Screw Attack
 	 -	Speed Booster
-	 -	Space Jump
