@@ -85,10 +85,10 @@ namespace MetroidModPorted.Common.UI
 		{
 			new Vector2(32, 254),
 			new Vector2(174, 254),
-			new Vector2(98, 14),
-			new Vector2(174, 14),
-			new Vector2(32, 14),
 			new Vector2(98, 94),
+			new Vector2(98, 14),
+			new Vector2(32, 14),
+			new Vector2(174, 14),
 			new Vector2(32, 94),
 			new Vector2(174, 94),
 			new Vector2(98, 174),
