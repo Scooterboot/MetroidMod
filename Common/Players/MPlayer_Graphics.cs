@@ -45,9 +45,9 @@ namespace MetroidModPorted.Common.Players
 		
 		public int psuedoScrewFlash = 0;
 		public int shineChargeFlash = 0;
-		//private Rectangle jetFrame;
-		//private int jetFrameCounter = 1;
-		//private int currentFrame = 0;
+		private Rectangle jetFrame;
+		private int jetFrameCounter = 1;
+		private int currentFrame = 0;
 		
 		public void ResetEffects_Graphics()
 		{
@@ -224,6 +224,43 @@ namespace MetroidModPorted.Common.Players
 					Player.bodyFrame.Y = Player.bodyFrame.Height * 4;
 				}
 			}
+			if (somersault || (canWallJump && (drawInfo.drawPlayer.controlLeft || drawInfo.drawPlayer.controlRight) && !isGripping && !drawInfo.drawPlayer.sliding))
+			{
+				drawInfo.drawPlayer.bodyFrame.Y = drawInfo.drawPlayer.bodyFrame.Height * 6;
+				drawInfo.drawPlayer.legFrame.Y = drawInfo.drawPlayer.legFrame.Height * 7;
+				drawInfo.drawPlayer.wingFrame = 1;
+				if (drawInfo.drawPlayer.wings == ArmorIDs.Wing.Jetpack)
+				{
+					drawInfo.drawPlayer.wingFrame = 3;
+				}
+			}
+			else if (shineActive && shineDirection == 0 && shineDischarge > 0)
+			{
+				if (shineDischarge < 15)
+				{
+					drawInfo.drawPlayer.bodyFrame.Y = drawInfo.drawPlayer.bodyFrame.Height * 5;
+				}
+				else if (shineDischarge <= 30)
+				{
+					drawInfo.drawPlayer.bodyFrame.Y = drawInfo.drawPlayer.bodyFrame.Height * 6;
+				}
+				drawInfo.drawPlayer.legFrame.Y = drawInfo.drawPlayer.legFrame.Height * 5;
+			}
+			else if (shineDirection != 0)
+			{
+				drawInfo.drawPlayer.bodyFrame.Y = drawInfo.drawPlayer.bodyFrame.Height * 6;
+				drawInfo.drawPlayer.legFrame.Y = drawInfo.drawPlayer.legFrame.Height * 7;
+				if (shineDirection == 5 || shineDirection == 8)
+				{
+					drawInfo.drawPlayer.bodyFrame.Y = 0;
+					drawInfo.drawPlayer.legFrameCounter = 0.0;
+					drawInfo.drawPlayer.legFrame.Y = 0;
+				}
+				else
+				{
+					jet = true;
+				}
+			}
 			ModifyDrawInfo_GetArmors(ref drawInfo);
 		}
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
@@ -234,7 +271,6 @@ namespace MetroidModPorted.Common.Players
 					//layers[i].visible = false;
 				//layers.Add(ballLayer);
 				//ballLayer.visible = true;
-				//drawInfo.DrawDataCache.Clear();
 			}
 			else
 			{
@@ -777,7 +813,7 @@ namespace MetroidModPorted.Common.Players
 			item.shader = shader;
 			Main.PlayerDrawData.Add(item);
 		}*/
-		/*public void DrawThrusterJet(SpriteBatch sb, PlayerDrawInfo drawInfo, Texture2D tex, Player drawPlayer, float rot, Vector2 drawPos)
+		public void DrawThrusterJet(ref PlayerDrawSet drawInfo, Texture2D tex, Player drawPlayer, float rot, Vector2 drawPos)
 		{
 			SpriteEffects effects = SpriteEffects.None;
 			if (drawPlayer.direction == -1)
@@ -816,8 +852,8 @@ namespace MetroidModPorted.Common.Players
 				jetFrameCounter = 0;
 			}
 			float yfloat = 4f;
-			Main.PlayerDrawData.Add(new DrawData(tex, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + yfloat))) + drawPos + drawInfo.bodyOrigin, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyOrigin, 1f, effects, 0));
-		}*/
+			drawInfo.DrawDataCache.Add(new DrawData(tex, new Vector2((float)((int)(drawInfo.Position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + yfloat))) + drawPos + drawInfo.bodyVect, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyVect, 1f, effects, 0));
+		}
 		public static void DrawTexture(ref PlayerDrawSet drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
 		{
 			SpriteEffects effects = SpriteEffects.None;

@@ -12,7 +12,8 @@ namespace MetroidModPorted.Common
 {
 	public class ThrustLayer : PlayerDrawLayer
 	{
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.Torso);
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Leggings);
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<MPlayer>().isPowerSuit || drawInfo.drawPlayer.GetModPlayer<MPlayer>().isLegacySuit;
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
@@ -39,6 +40,33 @@ namespace MetroidModPorted.Common
 					{
 						MPlayer.DrawTexture(ref drawInfo, tex.Value, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawInfo.colorArmorBody, drawInfo.cBody);
 					}
+				}
+			}
+		}
+	}
+	public class JetLayer : PlayerDrawLayer
+	{
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Leggings);
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<MPlayer>().isPowerSuit || drawInfo.drawPlayer.GetModPlayer<MPlayer>().isLegacySuit;
+
+		protected override void Draw(ref PlayerDrawSet drawInfo)
+		{
+			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
+			if (mPlayer.jet && !drawPlayer.sandStorm && drawInfo.shadow == 0f)
+			{
+				if ((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
+				{
+					Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/thrusterFlameNew").Value;
+					if (mPlayer.shineDirection != 0 || mPlayer.SMoveEffect > 15)
+					{
+						tex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/thrusterFlameNew_Spark").Value;
+					}
+					if (mPlayer.thrusters)
+					{
+						tex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/thrusterFlame").Value;
+					}
+					mPlayer.DrawThrusterJet(ref drawInfo, tex, drawPlayer, drawPlayer.bodyRotation, drawPlayer.bodyPosition);
 				}
 			}
 		}
