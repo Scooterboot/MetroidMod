@@ -60,35 +60,15 @@ namespace MetroidModPorted.Content.Items.Accessories
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(12)
-				.AddIngredient(ItemID.GoldBar, 5)
+				.AddRecipeGroup(MetroidModPorted.GoldPlatinumBarRecipeGroupID, 5)
 				.AddIngredient(ItemID.FallenStar, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 12);
-			recipe.AddIngredient(ItemID.GoldBar, 5);
-			recipe.AddIngredient(ItemID.FallenStar, 1);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(12)
-				.AddIngredient(ItemID.PlatinumBar, 5)
-				.AddIngredient(ItemID.FallenStar, 1)
-				.AddTile(TileID.Anvils)
-				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 12);
-			recipe.AddIngredient(ItemID.PlatinumBar, 5);
-			recipe.AddIngredient(ItemID.FallenStar, 1);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 
 		public override bool CanUseItem(Player player)
 		{
-			return (Item == player.miscEquips[3]);
+			return Item == player.miscEquips[3];
 		}
 
 		public override ModItem Clone(Item item)

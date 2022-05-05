@@ -265,6 +265,93 @@ namespace MetroidModPorted.Common.Players
 		}
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
+			Player p = drawInfo.drawPlayer;
+			p.TryGetModPlayer(out MPlayer mPlayer);
+
+			/*if (somersault || (canWallJump && (p.controlLeft || p.controlRight) && !isGripping && !p.sliding))
+			{
+				p.bodyFrame.Y = p.bodyFrame.Height * 6;
+				p.legFrame.Y = p.legFrame.Height * 7;
+				p.wingFrame = 1;
+				if (p.wings == ArmorIDs.Wing.Jetpack)
+				{
+					p.wingFrame = 3;
+				}
+			}
+			else if (shineActive && shineDirection == 0 && shineDischarge > 0)
+			{
+				if (shineDischarge < 15)
+				{
+					p.bodyFrame.Y = p.bodyFrame.Height * 5;
+				}
+				else if (shineDischarge <= 30)
+				{
+					p.bodyFrame.Y = p.bodyFrame.Height * 6;
+				}
+				p.legFrame.Y = p.legFrame.Height * 5;
+			}
+			else if (shineDirection != 0)
+			{
+				p.bodyFrame.Y = p.bodyFrame.Height * 6;
+				p.legFrame.Y = p.legFrame.Height * 7;
+				if (shineDirection == 5 || shineDirection == 8)
+				{
+					p.bodyFrame.Y = 0;
+					p.legFrameCounter = 0.0;
+					p.legFrame.Y = 0;
+				}
+				else
+				{
+					jet = true;
+				}
+				if (thrusters)
+				{
+					p.wings = -1;
+					p.back = -1;
+					//PlayerLayer.Wings.visible = false;
+					//PlayerLayer.BackAcc.visible = false;
+				}
+				else
+				{
+					p.wingFrame = 2;
+					if (p.wings == ArmorIDs.Wing.Jetpack)
+					{
+						p.wingFrame = 3;
+					}
+					if (shineDirection == 5 || shineDirection == 8)
+					{
+						p.wingFrame = 0;
+						if (p.wings == ArmorIDs.Wing.Jetpack)
+						{
+							p.wingFrame = 3;
+						}
+					}
+				}
+			}*/
+			/*else
+			{
+				if (grapplingBeam >= 0 && p.itemAnimation <= 0)
+				{
+					float num11 = grappleRotation * (float)p.direction;
+					p.bodyFrame.Y = p.bodyFrame.Height * 3;
+					if ((double)num11 < -0.75)
+					{
+						p.bodyFrame.Y = p.bodyFrame.Height * 2;
+						if (p.gravDir == -1f)
+						{
+							p.bodyFrame.Y = p.bodyFrame.Height * 4;
+						}
+					}
+					if ((double)num11 > 0.6)
+					{
+						p.bodyFrame.Y = p.bodyFrame.Height * 4;
+						if (p.gravDir == -1f)
+						{
+							p.bodyFrame.Y = p.bodyFrame.Height * 2;
+						}
+					}
+				}
+			}*/
 			if (ballstate)
 			{
 				//for (int i = 0; i < layers.Count; ++i)
@@ -276,14 +363,15 @@ namespace MetroidModPorted.Common.Players
 			{
 				if (somersault || shineActive)
 				{
+					drawInfo.heldItem = null;
 					//PlayerLayer.HeldItem.visible = false;
 				}
 				if (thrusters)
 				{
 					if ((drawInfo.drawPlayer.wings == 0 && drawInfo.drawPlayer.back == -1) || drawInfo.drawPlayer.velocity.Y == 0f || drawInfo.drawPlayer.GetModPlayer<MPlayer>().shineDirection != 0)
 					{
-						//drawInfo.drawPlayer.wings = -1;
-						//drawInfo.drawPlayer.back = -1;
+						drawInfo.drawPlayer.wings = 0;
+						drawInfo.drawPlayer.back = -1;
 						//PlayerLayer.Wings.visible = false;
 						//PlayerLayer.BackAcc.visible = false;
 					}

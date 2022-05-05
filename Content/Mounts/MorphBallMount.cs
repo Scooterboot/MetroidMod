@@ -20,6 +20,7 @@ namespace MetroidModPorted.Content.Mounts
 			MountData.spawnDustNoGravity = true;
 			MountData.buff = ModContent.BuffType<Buffs.MorphBallMountBuff>();
 			MountData.heightBoost = -(42 - MPlayer.morphSize);
+			Mod.Logger.Debug(MountData.heightBoost);
 			MountData.runSpeed = 3f;
 			MountData.acceleration = 0.08f;
 			MountData.dashSpeed = 3f;
@@ -49,7 +50,10 @@ namespace MetroidModPorted.Content.Mounts
 				return;
 			}
 
-			if(player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			player.armorEffectDrawShadowLokis = false;
+			player.armorEffectDrawOutlines = false;
+
+			if (player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
 			{
 				mBall = (MorphBall)player.miscEquips[3].ModItem;
 			}
@@ -88,19 +92,19 @@ namespace MetroidModPorted.Content.Mounts
 					mp.SpiderBall(player);
 				}
 				else
-				{
+				{*/
 					mp.spiderball = false;
-				}*/
+				/*}*/
 
 				/*if (mBall.ballMods[4].type == bb)
 				{
 					mp.BoostBall(player);
 				}
 				else
-				{
+				{*/
 					mp.boostCharge = 0;
 					mp.boostEffect = 0;
-				}*/
+				/*}*/
 			}
 		}
 	}

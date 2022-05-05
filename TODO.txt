@@ -2,7 +2,7 @@
 (not in any particular order)
 
  -	Fix player draw layer modifying
-	 -	Fix arm glow drawing
+	 -	Fix Morph Ball draw layer
  -	Get new textures for:
 	 -	Varia Suit item and tile
 	 -	Varia Suit V2 item and tile
@@ -29,5 +29,4 @@
  -	Implement 'Energy Bar' and its UI (use for Energy Tanks other than being a crafting ingredient and a tile)
  -	Migrate some accessories to suit addons
 	 -	Reserve Tanks
-	 -	Screw Attack
-	 -	Speed Booster
+	 -	Energy Tanks

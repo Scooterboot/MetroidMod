@@ -63,12 +63,6 @@ namespace MetroidModPorted.Common.Players
 		public Color morphColorLights = Color.White;
 		public Color morphItemColor = Color.White;
 		
-		private float morphMaxRunSpeed = 3f;
-		private float morphAccRunSpeed = 3f;
-		private float morphRunAcceleration = 0.08f;
-		private int morphJumpHeight = 15;
-		private float morphJumpSpeed = 5.01f;
-		
 		public void ResetEffects_MorphBall()
 		{
 			if(!Player.mount.Active || Player.mount.Type != ModContent.MountType<Content.Mounts.MorphBallMount>())
@@ -203,26 +197,19 @@ namespace MetroidModPorted.Common.Players
 		}
 		public void PostUpdateMiscEffects_MorphBall()
 		{
-			morphMaxRunSpeed = Player.maxRunSpeed;
-			morphAccRunSpeed = Player.accRunSpeed;
-			morphRunAcceleration = Player.runAcceleration;
-			
 			if(Player.mount.Active && Player.mount.Type == ModContent.MountType<Content.Mounts.MorphBallMount>() && Player.grappling[0] == -1)
 			{
-				/*//temporarily trick the game into thinking the Player isn't on a mount so that the Player can use their original move speed and jump height
+				//temporarily trick the game into thinking the Player isn't on a mount so that the Player can use their original move speed and jump height
 				Player.mount._active = false;
 				ballstate = true;
-				Player.jumpAgainCloud = false;
-				Player.jumpAgainSandstorm = false;
-				Player.jumpAgainBlizzard = false;
-				Player.jumpAgainFart = false;
-				Player.jumpAgainSail = false;
-				Player.jumpAgainUnicorn = false;
+				Player.canJumpAgain_Cloud = false;
+				Player.canJumpAgain_Sandstorm = false;
+				Player.canJumpAgain_Blizzard = false;
+				Player.canJumpAgain_Fart = false;
+				Player.canJumpAgain_Sail = false;
+				Player.canJumpAgain_Unicorn = false;
 				Player.pulley = false;
 				Player.ropeCount = 10;
-				statCharge = 0;*/
-				
-				ballstate = true;
 				statCharge = 0;
 			}
 			else
@@ -262,18 +249,7 @@ namespace MetroidModPorted.Common.Players
 			if(ballstate)
 			{
 				//end morph ball mount trick
-				//Player.mount._active = true;
-				
-				Player.maxRunSpeed = morphMaxRunSpeed;
-				Player.accRunSpeed = morphAccRunSpeed;
-				Player.runAcceleration = morphRunAcceleration;
-				Player.jumpHeight = morphJumpHeight;
-				Player.jumpSpeed = morphJumpSpeed;
-			}
-			else
-			{
-				morphJumpHeight = Player.jumpHeight;
-				morphJumpSpeed = Player.jumpSpeed;
+				Player.mount._active = true;
 			}
 			
 			Player.altFunctionUse = ballstate ? 1 : Player.altFunctionUse;
@@ -800,7 +776,7 @@ namespace MetroidModPorted.Common.Players
 				}
 			}
 		}
-		private float spiderSpeed = 0f;
+		internal float spiderSpeed = 0f;
 		public void SpiderMovement(Player Player)
 		{
 			Player.velocity.X = 0f;

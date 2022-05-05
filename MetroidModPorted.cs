@@ -60,6 +60,7 @@ namespace MetroidModPorted
 		public int[] FrozenStandOnNPCs;
 
 		//public static int beamsRecipeGroupID;
+		public static int GoldPlatinumBarRecipeGroupID;
 		public static int EvilBarRecipeGroupID;
 		public static int T2HMBarRecipeGroupID;
 		public static int T3HMBarRecipeGroupID;
@@ -160,6 +161,7 @@ namespace MetroidModPorted
 		}
 		public override void AddRecipeGroups()
 		{
+			GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
 			EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
 			T2HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier2HMBar", new RecipeGroup(() => "Any Tier-2 Hardmode Bar", ItemID.MythrilBar, ItemID.OrichalcumBar) { IconicItemId = ItemID.MythrilBar });
 			T3HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier3HMBar", new RecipeGroup(() => "Any Tier-3 Hardmode Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar) { IconicItemId = ItemID.AdamantiteBar });
