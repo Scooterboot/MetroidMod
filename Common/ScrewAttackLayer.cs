@@ -11,7 +11,8 @@ namespace MetroidModPorted.Common
 {
 	public class ScrewAttackLayer : PlayerDrawLayer
 	{
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.FrontAccFront);
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.FrontAccFront);
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<MPlayer>().screwAttack && drawInfo.drawPlayer.GetModPlayer<MPlayer>().somersault;
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			Mod mod = MetroidModPorted.Instance;
@@ -20,8 +21,8 @@ namespace MetroidModPorted.Common
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			if (mPlayer.somersault && mPlayer.screwAttack && drawInfo.shadow == 0f && !mPlayer.ballstate)
 			{
-				Texture2D tex = ModContent.Request<Texture2D>("Content/Projectiles/ScrewAttackProj").Value;
-				Texture2D tex2 = ModContent.Request<Texture2D>("Assets/Textures/ScrewAttack_Yellow").Value;
+				Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/ScrewAttackProj").Value;
+				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ScrewAttack_Yellow").Value;
 				for (int i = 0; i < 255; i++)
 				{
 					Projectile projectile = Main.projectile[i];
@@ -44,7 +45,7 @@ namespace MetroidModPorted.Common
 						{
 							Color color21 = alpha * ((float)Math.Min(mPlayer.screwAttackSpeedEffect, 30) / 30f);
 							drawInfo.DrawDataCache.Add(new DrawData(tex2, drawInfo.Position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2((float)(tex2.Width / 2), (float)(num121 / 2)), projectile.scale, effects, 0));
-							Texture2D tex3 = ModContent.Request<Texture2D>("Assets/Textures/ScrewAttack_YellowPlayerGlow").Value;
+							Texture2D tex3 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ScrewAttack_YellowPlayerGlow").Value;
 							drawInfo.DrawDataCache.Add(new DrawData(tex3, drawInfo.Position + (P.Center - P.position) - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2((float)(tex3.Width / 2), (float)(tex3.Height / 2)), projectile.scale, effects, 0));
 						}
 					}

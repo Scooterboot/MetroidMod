@@ -39,5 +39,12 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.screwAttack = true;
 			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item.Item), mp.screwAttackDmg);
 		}
+		public override void OnUpdateArmorSet(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.spaceJumpBoots = true;
+			mp.screwAttack = true;
+			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item.Item), mp.screwAttackDmg);
+		}
 	}
 }
