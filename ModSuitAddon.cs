@@ -52,24 +52,7 @@ namespace MetroidModPorted
 
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
 		internal bool IsArmor => ArmorTextureHead != null && ArmorTextureHead != "" && ArmorTextureTorso != null && ArmorTextureTorso != "" && ArmorTextureLegs != null && ArmorTextureLegs != "";
-		public string GetAddonSlotName()
-		{
-			return AddonSlot switch
-			{
-				SuitAddonSlotID.Tanks_Energy => "Energy Tank",
-				SuitAddonSlotID.Tanks_Reserve => "Reserve Tank",
-				SuitAddonSlotID.Suit_Varia => "Varia",
-				SuitAddonSlotID.Suit_Utility => "Utility",
-				SuitAddonSlotID.Suit_Augment => "Augmentation",
-				SuitAddonSlotID.Suit_LunarAugment => "Secondary Augmentation",
-				SuitAddonSlotID.Misc_Grip => "Hand",
-				SuitAddonSlotID.Misc_Attack => "Attack",
-				SuitAddonSlotID.Boots_JumpHeight => "Boots",
-				SuitAddonSlotID.Boots_Jump => "Jump",
-				SuitAddonSlotID.Boots_Speed => "Speed Augmentation",
-				_ => "Unknown"
-			};
-		}
+		public string GetAddonSlotName() => SuitAddonLoader.GetAddonSlotName(AddonSlot);
 		public override sealed void SetupContent()
 		{
 			SetStaticDefaults();

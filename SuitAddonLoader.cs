@@ -59,6 +59,25 @@ namespace MetroidModPorted
 			}
 		}*/
 
+		public static string GetAddonSlotName(int AddonSlot)
+		{
+			return AddonSlot switch
+			{
+				SuitAddonSlotID.Tanks_Energy => "Energy Tank",
+				SuitAddonSlotID.Tanks_Reserve => "Reserve Tank",
+				SuitAddonSlotID.Suit_Varia => "Varia",
+				SuitAddonSlotID.Suit_Utility => "Utility",
+				SuitAddonSlotID.Suit_Augment => "Augmentation",
+				SuitAddonSlotID.Suit_LunarAugment => "Secondary Augmentation",
+				SuitAddonSlotID.Misc_Grip => "Hand",
+				SuitAddonSlotID.Misc_Attack => "Attack",
+				SuitAddonSlotID.Boots_JumpHeight => "Boots",
+				SuitAddonSlotID.Boots_Jump => "Jump",
+				SuitAddonSlotID.Boots_Speed => "Speed Augmentation",
+				_ => "Unknown"
+			};
+		}
+
 		public static string GetSetBonusText(Player player)
 		{
 			string returnVal = "\n";

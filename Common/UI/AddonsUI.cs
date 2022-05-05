@@ -32,6 +32,7 @@ namespace MetroidModPorted.Common.UI
 			suitAddonsPanel.Left.Pixels = Main.screenWidth - suitAddonsPanel.Width.Pixels - 200;
 
 			suitAddonsPanel.addonSlots = new SuitUIItemBox[SuitAddonSlotID.Count];
+			suitAddonsPanel.textSlots = new UIText[SuitAddonSlotID.Count];
 			for (int i = 0; i < SuitAddonSlotID.Count; ++i)
 			{
 				suitAddonsPanel.addonSlots[i] = new SuitUIItemBox();
@@ -41,6 +42,16 @@ namespace MetroidModPorted.Common.UI
 				suitAddonsPanel.addonSlots[i].SetCondition();
 
 				suitAddonsPanel.Append(suitAddonsPanel.addonSlots[i]);
+
+				suitAddonsPanel.textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
+				suitAddonsPanel.textSlots[i].SetText(SuitAddonLoader.GetAddonSlotName(i));
+				suitAddonsPanel.textSlots[i].Top.Pixels = suitAddonsPanel.itemBoxPositionValues[i].Y + 44;
+				suitAddonsPanel.textSlots[i].IsWrapped = true;
+				suitAddonsPanel.textSlots[i].Left.Pixels = suitAddonsPanel.itemBoxPositionValues[i].X - 22;
+				suitAddonsPanel.textSlots[i].Width.Pixels = 88;
+				suitAddonsPanel.textSlots[i].Height.Pixels = 22;
+
+				suitAddonsPanel.Append(suitAddonsPanel.textSlots[i]);
 			}
 
 			Append(suitAddonsPanel);
@@ -65,6 +76,8 @@ namespace MetroidModPorted.Common.UI
 		//private Texture2D panelTexture;
 
 		public SuitUIItemBox[] addonSlots;
+
+		public UIText[] textSlots;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
