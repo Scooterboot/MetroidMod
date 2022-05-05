@@ -28,7 +28,7 @@ namespace MetroidModPorted.Content.SuitAddons
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
 				"5% increased hunter damage\n" +
-				"5% increased hunter critical strike chance\n" +);
+				"5% increased hunter critical strike chance\n");
 			AddonSlot = SuitAddonSlotID.Suit_LunarAugment;
 			ItemNameLiteral = false;
 		}
