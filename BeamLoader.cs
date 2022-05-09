@@ -12,6 +12,7 @@ using Terraria.GameContent;
 //using Terraria.GameContent.Liquid;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
+using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
@@ -79,6 +80,19 @@ namespace MetroidModPorted
 				if (tile.TileType == addon.TileType) { return true; }
 			}
 			return false;
+		}
+
+		public static string GetAddonSlotName(int AddonSlot)
+		{
+			return AddonSlot switch
+			{
+				BeamAddonSlotID.Charge => "Charge",
+				BeamAddonSlotID.Secondary => "Secondary",
+				BeamAddonSlotID.Utility => "Utility",
+				BeamAddonSlotID.PrimaryA => "Primary A",
+				BeamAddonSlotID.PrimaryB => "Primary B",
+				_ => "Unknown",
+			};
 		}
 
 		internal static void SetupBeamCombinations()

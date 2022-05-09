@@ -83,18 +83,7 @@ namespace MetroidModPorted
 		public virtual string ChargeShotSound { get; set; } = null;
 
 		public int AddonSlot { get; set; } = BeamAddonSlotID.None;
-		public string GetAddonSlotName()
-		{
-			return AddonSlot switch
-			{
-				BeamAddonSlotID.Charge => "Charge",
-				BeamAddonSlotID.Secondary => "Secondary",
-				BeamAddonSlotID.Utility => "Utility",
-				BeamAddonSlotID.PrimaryA => "Primary A",
-				BeamAddonSlotID.PrimaryB => "Primary B",
-				_ => "Unknown",
-			};
-		}
+		public string GetAddonSlotName() => BeamLoader.GetAddonSlotName(AddonSlot);
 		public uint AddonVersion { get; set; } = 0;
 		public string GetAddonVersionName()
 		{
