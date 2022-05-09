@@ -1,1 +1,19 @@
-MetroidModPorted is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+The Metroid Mod is, quite simply, a mod that adds content based on the Metroid franchise.
+
+It adds:
+-A variety of armor sets
+-Multiple new weapons
+-Accessories
+-1 new mount
+-1 new grapple hook with swinging capabilities
+-New materials/items/etc.
+-Many of these items introduce new mechanics
+-New NPCs
+-New Mobs
+-7 new bosses, 6 of which have almost completely custom AI
+-And much more planned for future updates!
+
+Ported to 1.4 by [c/00aaff:Dark Samus 49]!
+
+The 1.4 port adds:
+-Modular suits

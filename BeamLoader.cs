@@ -60,6 +60,9 @@ namespace MetroidModPorted
 
 		public static int BeamCount => beams.Count;
 
+		public static ModBeam GetBeam(Item item) =>
+			beams.TryGetValue(item, out ModBeam modBeam) ? modBeam : null;
+
 		public static ModBeam GetBeam(int type) =>
 			beams.TryGetValue(type, out ModBeam modBeam) ? modBeam : null;
 
@@ -68,6 +71,15 @@ namespace MetroidModPorted
 
 		public static ModBeam GetBeam<T>() where T : ModBeam =>
 			beams.TryGetValue(i => i is T, out ModBeam modBeam) ? modBeam : null;
+
+		public static bool IsABeamTile(Tile tile)
+		{
+			foreach (ModBeam addon in beams)
+			{
+				if (tile.TileType == addon.TileType) { return true; }
+			}
+			return false;
+		}
 
 		internal static void SetupBeamCombinations()
 		{

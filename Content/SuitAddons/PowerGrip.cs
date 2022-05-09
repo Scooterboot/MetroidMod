@@ -31,6 +31,9 @@ namespace MetroidModPorted.Content.SuitAddons
 				.AddIngredient(ItemID.Sapphire, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
+			CreateRecipe(1)
+				.AddIngredient<Items.Accessories.PowerGrip>(1)
+				.Register();
 		}
 		public override void OnUpdateArmorSet(Player player)
 		{

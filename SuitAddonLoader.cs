@@ -37,7 +37,19 @@ namespace MetroidModPorted
 		public static bool TryGetAddon(Item item, out ModSuitAddon modSuitAddon) =>
 			addons.TryGetValue(item, out modSuitAddon);
 
+		public static bool TryGetAddon(int type, out ModSuitAddon modSuitAddon) =>
+			addons.TryGetValue(type, out modSuitAddon);
+
+		public static bool TryGetAddon(string fullName, out ModSuitAddon modSuitAddon) =>
+			addons.TryGetValue(fullName, out modSuitAddon);
+
+		public static bool TryGetAddon<T>(out ModSuitAddon modSuitAddon) where T : ModSuitAddon =>
+			addons.TryGetValue(i => i is T, out modSuitAddon);
+
 		public static int AddonCount => addons.Count;
+
+		public static ModSuitAddon GetAddon(Item item) =>
+			addons.TryGetValue(item, out ModSuitAddon modSuitAddon) ? modSuitAddon : null;
 
 		public static ModSuitAddon GetAddon(int type) =>
 			addons.TryGetValue(type, out ModSuitAddon modSuitAddon) ? modSuitAddon : null;
@@ -47,6 +59,15 @@ namespace MetroidModPorted
 
 		public static ModSuitAddon GetAddon<T>() where T : ModSuitAddon =>
 			addons.TryGetValue(i => i is T, out ModSuitAddon modSuitAddon) ? modSuitAddon : null;
+
+		public static bool IsASuitTile(Tile tile)
+		{
+			foreach(ModSuitAddon addon in addons)
+			{
+				if(tile.TileType == addon.TileType) { return true; }
+			}
+			return false;
+		}
 
 		/*public static void OnUpdate(Player player, Item[] items)
 		{
@@ -101,12 +122,17 @@ namespace MetroidModPorted
 		{
 			MPlayer mPlayer = player.GetModPlayer<MPlayer>();
 			Item[] items = mPlayer.SuitAddons;
-			foreach (Item item in items)
+			ModSuitAddon[] suitAddons = new ModSuitAddon[items.Length];
+			for (int i = 0; i < items.Length; i++)
 			{
-				if (item.type == ItemID.None) { continue; }
-				SuitAddonItem addonItem = (SuitAddonItem)item.ModItem;
-				ModSuitAddon addon = addonItem?.modSuitAddon;
+				if (!TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
+				suitAddons[i] = addon;
+
 				addon.OnUpdateArmorSet(player);
+			}
+			foreach (GlobalSuitAddon gsa in globalAddons)
+			{
+				gsa.OnUpdateArmorSet(MPlayer.GetPowerSuit(player), player);
 			}
 		}
 
@@ -116,11 +142,12 @@ namespace MetroidModPorted
 			Item[] items = mp.SuitAddons;
 			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{
-				Item item = items[i];
-				if (item.type == ItemID.None) { continue; }
-				SuitAddonItem addonItem = (SuitAddonItem)item.ModItem;
-				ModSuitAddon addon = addonItem?.modSuitAddon;
+				if (!TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
 				addon.OnUpdateVanitySet(player);
+			}
+			foreach (GlobalSuitAddon gsa in globalAddons)
+			{
+				gsa.OnUpdateVanitySet(MPlayer.GetPowerSuit(player), player);
 			}
 		}
 
@@ -128,19 +155,18 @@ namespace MetroidModPorted
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			Item[] items = mp.SuitAddons;
-			for (int i = 0; i < SuitAddonSlotID.Count; i++)
+			ModSuitAddon[] suitAddons = new ModSuitAddon[items.Length];
+			for (int i = 0; i < items.Length; i++)
 			{
-				Item item = items[i];
-				if (item.type == ItemID.None) { continue; }
-				SuitAddonItem addonItem = (SuitAddonItem)item.ModItem;
-				ModSuitAddon addon = addonItem?.modSuitAddon;
+				if (!TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
+				suitAddons[i] = addon;
+
 				addon.ArmorSetShadows(player);
 			}
-		}
-
-		public static bool IsVanitySet(int head, int body, int legs)
-		{
-			return false;
+			foreach (GlobalSuitAddon gsa in globalAddons)
+			{
+				gsa.ArmorSetShadows(suitAddons, player);
+			}
 		}
 
 		internal static void ReloadTypes(TagCompound unloadedTag)

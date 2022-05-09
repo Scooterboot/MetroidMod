@@ -109,6 +109,7 @@ namespace MetroidModPorted
 			base.SetStaticDefaults();
 		}
 
+		/// <inheritdoc cref="ModItem.SetDefaults()"/>
 		public virtual void SetItemDefaults(Item item) { }
 
 		/// <inheritdoc cref="ModItem.UpdateAccessory(Player, bool)"/>

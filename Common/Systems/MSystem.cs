@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 using Terraria;
 using Terraria.Audio;
@@ -115,200 +116,6 @@ namespace MetroidModPorted.Common.Systems
 			/*if (pbUserInterface != null && UI.PowerBeamUI.visible)
 			{
 				pbUserInterface.Update(gameTime);
-			}*/
-		}
-
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-		{
-			Player P = Main.player[Main.myPlayer];
-			
-			int TargetIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Entity Health Bars"));
-			if(TargetIndex != -1)
-			{
-				/*layers.Insert(TargetIndex + 1, new LegacyGameInterfaceLayer(
-					"MetroidMod: Seeker Targets",
-					delegate
-					{
-						DrawSeekerTargets(Main.spriteBatch);
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);*/
-			}
-			
-			int MapIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Map / Minimap"));
-			if(MapIndex != -1)
-			{
-				/*layers.Insert(MapIndex + 1, new LegacyGameInterfaceLayer(
-					"MetroidMod: Charge Meter",
-					delegate
-					{
-						if(!Main.playerInventory && Main.npcChatText == "" && P.sign < 0 && !Main.ingameOptionsWindow)
-						{
-							DrawChargeBar(Main.spriteBatch);
-						}
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
-				layers.Insert(MapIndex + 1, new LegacyGameInterfaceLayer(
-					"MetroidMod: Space Jump Meter",
-					delegate
-					{
-						if(!Main.playerInventory && Main.npcChatText == "" && P.sign < 0 && !Main.ingameOptionsWindow)
-						{
-							DrawSpaceJumpBar(Main.spriteBatch);
-						}
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);*/
-			}
-			
-			int ResourceIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
-			if(ResourceIndex != -1)
-			{
-				/*layers.Insert(ResourceIndex + 1, new LegacyGameInterfaceLayer(
-					"MetroidMod: Reserve Tanks",
-					delegate
-					{
-						DrawReserveHearts(Main.spriteBatch);
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);*/
-			}
-			
-			int InventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-			if (InventoryIndex != -1)
-			{
-				/*layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
-					"MetroidMod: Missile Launcher UI",
-					delegate
-					{
-						if (UI.MissileLauncherUI.visible)
-							mlUserInterface.Draw(Main.spriteBatch, new GameTime());
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
-				layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
-					"MetroidMod: Morph Ball UI",
-					delegate
-					{
-						if (UI.MorphBallUI.visible)
-							mbUserInterface.Draw(Main.spriteBatch, new GameTime());
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
-				layers.Insert(InventoryIndex + 1, new LegacyGameInterfaceLayer(
-					"MetroidMod: Sense Move UI",
-					delegate
-					{
-						if (UI.SenseMoveUI.visible)
-							smUserInterface.Draw(Main.spriteBatch, new GameTime());
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);*/
-			}
-		}
-
-		private static int z = 0;
-		//bool coordcheck = false;
-		//List<Vector2> itemCoords = new List<Vector2>();
-		public override void PostDrawInterface(SpriteBatch sb)
-		{
-			Mod mod = Mod;
-			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>();
-			Item item = P.inventory[P.selectedItem];
-
-			for (int i = 0; i < P.buffType.Length; i += 11)
-			{
-				if (P.buffType[i] > 0) { z += 50; }
-			}
-			/*if (P.buffType[0] > 0)
-			{
-				if (P.buffType[11] > 0)
-				{
-					z = 100;
-				}
-				else
-				{
-					z = 50;
-				}
-			}
-			else
-			{
-				z = 0;
-			}*/
-
-			// (debug) draw npc hitboxes
-			if (MetroidModPorted.DebugDH)
-			{
-				for (int j = 0; j < Main.maxNPCs; j++)
-				{
-					NPC npc = Main.npc[j];
-					if (npc.active && npc.life > 0)
-					{
-						Color color = new(0, 255, 0);
-						if (npc.dontTakeDamage)
-						{
-							color = new Color(255, 0, 0);
-						}
-						color *= 0.125f;
-						sb.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel").Value, new Rectangle((int)(npc.position.X - Main.screenPosition.X), (int)(npc.position.Y - Main.screenPosition.Y), npc.width, npc.height), color);
-						sb.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel").Value, new Rectangle((int)(npc.position.X - Main.screenPosition.X), (int)(npc.position.Y - Main.screenPosition.Y), npc.width, 1), color);
-						sb.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel").Value, new Rectangle((int)(npc.position.X - Main.screenPosition.X), (int)(npc.position.Y - Main.screenPosition.Y), 1, npc.height), color);
-						sb.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel").Value, new Rectangle((int)(npc.position.X - Main.screenPosition.X), (int)(npc.position.Y + npc.height - 1 - Main.screenPosition.Y), npc.width, 1), color);
-						sb.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel").Value, new Rectangle((int)(npc.position.X + npc.width - 1 - Main.screenPosition.X), (int)(npc.position.Y - Main.screenPosition.Y), 1, npc.height), color);
-					}
-				}
-			}
-
-			// (debug) markers for statue items (performance will tank on world load)
-			/*if(!coordcheck)
-			{
-				for(int i = 0; i < Main.maxTilesX; i++)
-				{
-					for(int j = 0; j < Main.maxTilesY; j++)
-					{
-						if(Main.tile[i,j] != null && Main.tile[i,j].active() && 
-						(Main.tile[i,j].type == mod.TileType("IceBeamTile") || 
-						Main.tile[i,j].type == mod.TileType("SpazerTile") || 
-						Main.tile[i,j].type == mod.TileType("SpiderBallTile") || 
-						Main.tile[i,j].type == mod.TileType("XRayScopeTile") || 
-						Main.tile[i,j].type == mod.TileType("HiJumpBootsTile") || 
-						Main.tile[i,j].type == mod.TileType("BoostBallTile") || 
-						Main.tile[i,j].type == mod.TileType("WaveBeamTile") || 
-						Main.tile[i,j].type == mod.TileType("BombTile") || 
-						Main.tile[i,j].type == mod.TileType("ChargeBeamTile") || 
-						Main.tile[i,j].type == mod.TileType("MorphBallTile")))
-						{
-							itemCoords.Add(new Vector2(i,j));
-						}
-					}
-				}
-				coordcheck = true;
-			}
-			for(int i = 0; i < itemCoords.Count; i++)
-			{
-				Tile tile = Main.tile[(int)itemCoords[i].X,(int)itemCoords[i].Y];
-				if(tile != null && tile.active()
-				{
-					Texture2D tex = Main.tileTexture[tile.type];
-					
-					Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth,Main.screenHeight)/2;
-					
-					Vector2 pos = itemCoords[i] * 16f;
-					float rot = (float)Math.Atan2(pos.Y - screenCenter.Y, pos.X - screenCenter.X);
-					float dist = Math.Min(Vector2.Distance(pos,screenCenter),Main.screenHeight/2 - 32);
-					
-					Vector2 drawPos = screenCenter + rot.ToRotationVector2()*dist - Main.screenPosition;
-					sb.Draw(tex,drawPos,new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)),Color.White,0,new Vector2(tex.Width/2,tex.Height/2), 1f, SpriteEffects.None, 0f);
-				}
 			}*/
 		}
 		/*public void DrawReserveHearts(SpriteBatch sb)
@@ -811,19 +618,19 @@ namespace MetroidModPorted.Common.Systems
 			int PotsIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Pots"));
 			if (ShiniesIndex != -1)
 			{
-				/*tasks.Insert(ShiniesIndex + 1, new PassLegacy("Chozite Ore", delegate (GenerationProgress progress) {
-					progress.Message = "Generating Chozite Ore";
+				tasks.Insert(ShiniesIndex + 1, new PassLegacy("Chozite Ore", delegate {
+					//progress.Message = "Generating Chozite Ore";
 
 					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 9E-05); k++)
 					{
-						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), mod.TileType("ChoziteOreTile"), false, 0f, 0f, false, true);
+						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), ModContent.TileType<Content.Tiles.ChoziteOreTile>(), false, 0f, 0f, false, true);
 					}
-				}));*/
+				}));
 			}
 			if (PotsIndex != -1)
 			{
-				/*tasks.Insert(PotsIndex - 3, new PassLegacy("Chozo Statues", delegate (GenerationProgress progress) {
-					progress.Message = "Placing Chozo Statues";
+				tasks.Insert(PotsIndex - 3, new PassLegacy("Chozo Statues", delegate {
+					//progress.Message = "Placing Chozo Statues";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05); i++)
 					{
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05));
@@ -847,8 +654,8 @@ namespace MetroidModPorted.Common.Systems
 
 					}
 				}));
-				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions", delegate (GenerationProgress progress) {
-					progress.Message = "Placing Missile Expansions";
+				/*tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions", delegate {
+					//progress.Message = "Placing Missile Expansions";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
 					{
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
@@ -871,9 +678,9 @@ namespace MetroidModPorted.Common.Systems
 						}
 
 					}
-				}));
+				}));*/
 
-				tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));*/
+				/*tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));*/
 			}
 		}
 
@@ -888,14 +695,14 @@ namespace MetroidModPorted.Common.Systems
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8);
 			}
 
-			ushort item;// = (ushort)ModContent.Find<ModTile>("MorphBallTile").Type;
+			ushort item  = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>();
 			if (dungeon)
 			{
-				item = (ushort)ModContent.Find<ModTile>("IceBeamTile").Type;
+				//item = (ushort)ModContent.Find<ModTile>("IceBeamTile").Type;
 			}
 			else if (jungle && WorldGen.genRand.Next(10) <= 5)
 			{
-				item = (ushort)ModContent.Find<ModTile>("SpazerTile").Type;
+				//item = (ushort)ModContent.Find<ModTile>("SpazerTile").Type;
 			}
 			else
 			{
@@ -904,7 +711,30 @@ namespace MetroidModPorted.Common.Systems
 				float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX / 2)) + (Math.Max(j - baseY, 0) / (Main.maxTilesY - WorldGen.rockLayer))) / 2;
 
 				int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist), 5));
-				if (rand < 1)
+				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + BeamLoader.BeamCount + 2];
+				int index = 0;
+				// Okay, the goal is to do weighted random.
+				foreach(ModSuitAddon addon in SuitAddonLoader.addons)
+				{
+					list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.Item.rare);
+				}
+				foreach(ModBeam beam in BeamLoader.beams)
+				{
+					list[index++] = new WeightedChance(() => { item = (ushort)beam.TileType; }, RarityLoader.RarityCount - beam.Item.Item.rare);
+				}
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
+				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
+
+				foreach (var parameter in list)
+				{
+					numericValue -= parameter.Ratio;
+
+					if (!(numericValue <= 0)) { continue; }
+
+					parameter.Func();
+				}
+				/*if (rand < 1)
 				{
 					item = (ushort)ModContent.Find<ModTile>("SpiderBallTile").Type;
 				}
@@ -935,7 +765,7 @@ namespace MetroidModPorted.Common.Systems
 				else
 				{
 					item = (ushort)ModContent.Find<ModTile>("MorphBallTile").Type;
-				}
+				}*/
 			}
 			return item;
 		}
@@ -1091,7 +921,8 @@ namespace MetroidModPorted.Common.Systems
 					Main.tile[i, k].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
 					Main.tile[i, k].Get<TileWallWireStateData>().IsHalfBlock = false;
 					Main.tile[i, num].Get<TileWallWireStateData>().HasTile = true;
-					Main.tile[i, num].Get<TileTypeData>().Type = (ushort)ModContent.Find<Content.Tiles.ItemTile.ItemTile>("MissileExpansionTile").Type;
+					Main.tile[i, num].Get<TileTypeData>().Type = (ushort)ModContent.Find<ModTile>($"MissileExpansionTile").Type;
+
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameX = 0;
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameY = 0;
 					return true;

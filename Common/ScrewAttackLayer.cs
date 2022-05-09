@@ -15,8 +15,6 @@ namespace MetroidModPorted.Common
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<MPlayer>().screwAttack && drawInfo.drawPlayer.GetModPlayer<MPlayer>().somersault;
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			Mod mod = MetroidModPorted.Instance;
-			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			if (mPlayer.somersault && mPlayer.screwAttack && drawInfo.shadow == 0f && !mPlayer.ballstate)

@@ -48,7 +48,7 @@ namespace MetroidModPorted.Common.Players
 				ShouldDrawGreaves = true;
 			}
 		}
-		//MetroidModPorted.Instance.Logger.Debug(result);
+		//Mod.Logger.Debug(result);
 		public static int GetHelmet(Player player)
 		{
 			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(Content.Items.Armors.PowerSuitHelmet), EquipType.Head);

@@ -181,8 +181,7 @@ namespace MetroidModPorted.Common.UI
 				if (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-					if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.Suit) { return false; }
-					ModSuitAddon mSuitAddon = ((SuitAddonItem)addonItem.ModItem).modSuitAddon;
+					if (!SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
 					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}

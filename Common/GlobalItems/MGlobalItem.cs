@@ -15,6 +15,11 @@ namespace MetroidModPorted.Common.GlobalItems
 		public int statMissiles = 5;
 		public int maxMissiles = 5;
 
+		public int numSeekerTargets = 0;
+		public int[] seekerTarget = new int[5];
+		public int seekerCharge = 0;
+		public static int seekerMaxCharge = 25;
+
 		public Texture2D itemTexture;
 
 		public override bool InstancePerEntity

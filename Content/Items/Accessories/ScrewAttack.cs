@@ -9,16 +9,17 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public abstract class ScrewAttack : ModItem//HunterDamageItem
+	public class ScrewAttack : ModItem//HunterDamageItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Screw Attack");
-			Tooltip.SetDefault("Allows the user to double jump\n" + 
+			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			/*"Allows the user to double jump\n" + 
 			"Allows somersaulting\n" + 
 			"Damage enemies while someraulting\n" + 
 			"Damage scales off of enemy's contact damage\n" +
-			"Hold Left/Right and double jump to do a 'boost' ability");
+			"Hold Left/Right and double jump to do a 'boost' ability");*/
 
 			SacrificeTotal = 1;
 		}
@@ -35,11 +36,20 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Item.accessory = true;
 			Item.useTurn = true;
 			Item.autoReuse = true;
+			Item.consumable = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			//Item.consumable = true;
 			//Item.createTile = ModContent.TileType("ScrewAttackTile");
+		}
+
+		public override bool CanRightClick() => true;
+		public override void RightClick(Player player)
+		{
+			var entitySource = player.GetSource_OpenItem(Type);
+
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

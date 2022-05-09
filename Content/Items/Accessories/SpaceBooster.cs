@@ -18,13 +18,14 @@ namespace MetroidModPorted.Content.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Space Booster");
-			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
+			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			/*"Allows the user to run insanely fast\n" + 
 			"Damage enemies while running\n" + 
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" + 
 			"Allows somersaulting\n" +
-			"Increases jump height and prevents fall damage");
+			"Increases jump height and prevents fall damage");*/
 
 			SacrificeTotal = 1;
 		}
@@ -41,6 +42,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Item.accessory = true;
 			Item.useTurn = true;
 			Item.autoReuse = true;
+			Item.consumable = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = 1;
@@ -48,6 +50,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			//Item.createTile = mod.TileType("SpaceBoosterTile");
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -55,12 +58,16 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient<SpeedBooster>(1)
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "SpaceJump");
-			recipe.AddIngredient(null, "SpeedBooster");
-			recipe.AddTile(TileID.TinkerersWorkbench);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+		}
+		*/
+		public override bool CanRightClick() => true;
+		public override void RightClick(Player player)
+		{
+			var entitySource = player.GetSource_OpenItem(Type);
+
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpaceJump>().ItemType);
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpeedBooster>().ItemType);
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

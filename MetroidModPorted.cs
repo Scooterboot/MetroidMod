@@ -40,6 +40,9 @@ namespace MetroidModPorted
 		public static bool DragableMorphBallUI;
 		public static bool DragableSenseMoveUI;
 
+		public static bool AutocloseHatchesEnabled;
+		public static int AutocloseHatchesTime;
+
 		public static Color powColor = new(248, 248, 110);
 		public static Color iceColor = new(0, 255, 255);
 		public static Color waveColor = new(215, 0, 215);
@@ -53,6 +56,7 @@ namespace MetroidModPorted
 		public static MetroidModPorted Instance { get; private set; }
 
 		public static bool DebugDH;
+		public static bool DebugDSI;
 
 		public int selectedItem = 0;
 		public int oldSelectedItem = 0;
@@ -62,6 +66,7 @@ namespace MetroidModPorted
 		//public static int beamsRecipeGroupID;
 		public static int GoldPlatinumBarRecipeGroupID;
 		public static int EvilBarRecipeGroupID;
+		public static int T1HMBarRecipeGroupID;
 		public static int T2HMBarRecipeGroupID;
 		public static int T3HMBarRecipeGroupID;
 		public static ushort unloadedItemID;
@@ -163,6 +168,7 @@ namespace MetroidModPorted
 		{
 			GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
 			EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
+			T1HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier1HMBar", new RecipeGroup(() => "Any Tier-1 Hardmode Bar", ItemID.CobaltBar, ItemID.PalladiumBar) { IconicItemId = ItemID.CobaltBar });
 			T2HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier2HMBar", new RecipeGroup(() => "Any Tier-2 Hardmode Bar", ItemID.MythrilBar, ItemID.OrichalcumBar) { IconicItemId = ItemID.MythrilBar });
 			T3HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier3HMBar", new RecipeGroup(() => "Any Tier-3 Hardmode Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar) { IconicItemId = ItemID.AdamantiteBar });
 		}

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -342,7 +343,7 @@ namespace MetroidModPorted.Content.Projectiles
 			Projectile P = Projectile;
 			MPlayer mp = owner.GetModPlayer<MPlayer>();
 			
-			Texture2D tex = ModContent.Request<Texture2D>("Content/Projectiles/GrappleBeamChain2").Value;
+			Asset<Texture2D> tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/GrappleBeamChain2");
 			float dist = Math.Max(Vector2.Distance(owner.Center, Projectile.Center),1);
 			float maxDist = 400;
 			if(isHooked)
@@ -350,7 +351,7 @@ namespace MetroidModPorted.Content.Projectiles
 				maxDist = Math.Max(mp.maxDist,1);
 			}
 			
-			int numH = tex.Height / 4;
+			int numH = tex.Value.Height / 4;
 			
 			Vector2 chain = Projectile.Center - owner.Center;
 			int linklength = Math.Max(numH-1,1);
@@ -387,30 +388,31 @@ namespace MetroidModPorted.Content.Projectiles
 						pos[i].Y += (float)Math.Sin(rot)*shift;
 						
 						Color color = Color.White;
-						Main.EntitySpriteDraw(tex, pos[i] - Main.screenPosition, new Rectangle?(new Rectangle(0, numH * chainFrame2, tex.Width, numH)), color, rot, new Vector2((float)tex.Width / 2, (float)numH / 2), Projectile.scale, SpriteEffects.None, 0);
+						Main.EntitySpriteDraw(tex.Value, pos[i] - Main.screenPosition, new Rectangle?(new Rectangle(0, numH * chainFrame2, tex.Value.Width, numH)), color, rot, new Vector2((float)tex.Value.Width / 2, (float)numH / 2), Projectile.scale, SpriteEffects.None, 0);
 						//s.Draw(tex,pos[i] - Main.screenPosition,new Rectangle?(new Rectangle(0,numH*chainFrame2,tex.Width,numH)),color,rot,new Vector2((float)tex.Width/2,(float)numH/2),projectile.scale,SpriteEffects.None,0f);
 					}
 				}
 				else
 				{
-					DrawChain(owner.Center, Projectile.Center, ModContent.Request<Texture2D>("Content/Projectiles/GrappleBeamChain").Value, chainFrame, 4);
+					DrawChain(owner.Center, Projectile.Center, ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/GrappleBeamChain"), chainFrame, 4);
 				}
 			}
-			tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;//Main.projectileTexture[P.type];
-			int num = tex.Height / Main.projFrames[Type];
-			Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, num*P.frame, tex.Width, num)), Projectile.GetAlpha(Color.White), 0f, new Vector2((float)tex.Width/2, (float)num/2), Projectile.scale, SpriteEffects.None, 0f);
+			tex = Terraria.GameContent.TextureAssets.Projectile[P.type];//Main.projectileTexture[P.type];
+			int num = tex.Value.Height / Main.projFrames[Type];
+			Main.spriteBatch.Draw(tex.Value, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, num*P.frame, tex.Value.Width, num)), Projectile.GetAlpha(Color.White), 0f, new Vector2((float)tex.Value.Width/2, (float)num/2), Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override bool PreDrawExtras()
 		{
 			return false;
 		}
-		public void DrawChain(Vector2 start, Vector2 end, Texture2D name, int frame = 0, int frameCount = 0)
+		public void DrawChain(Vector2 start, Vector2 end, Asset<Texture2D> name, int frame = 0, int frameCount = 0)
 		{
-			int numH = name.Height;
+			// TODO: Fix this
+			int numH = name.Value.Height;
 			if(frameCount > 0)
 			{
-				numH = name.Height/frameCount;
+				numH = name.Value.Height/frameCount;
 			}
 			
 			start -= Main.screenPosition;
@@ -432,7 +434,7 @@ namespace MetroidModPorted.Content.Projectiles
 				Color color = Lighting.GetColor((int)((links[i].X+Main.screenPosition.X)/16), (int)((links[i].Y+Main.screenPosition.Y)/16));
 				//spriteBatch.Draw(name, new Rectangle((int)links[i].X, (int)links[i].Y, name.Width, linklength), null, color, rotation+1.57f, new Vector2(name.Width/2f, linklength), SpriteEffects.None, 1f);
 				//spriteBatch.Draw(name,links[i],new Rectangle?(new Rectangle(0,numH*frame,name.Width,numH)),color,rotation+1.57f,new Vector2(name.Width/2f,numH/2f),Projectile.scale,SpriteEffects.None,0f);
-				Main.EntitySpriteDraw(name, links[i], new Rectangle?(new Rectangle(0, numH*frame, name.Width, numH)), color, rotation + 1.57f, new Vector2(name.Width / 2f, numH / 2f), Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(name.Value, links[i], new Rectangle?(new Rectangle(0, numH*frame, name.Value.Width, numH)), color, rotation + 1.57f, new Vector2(name.Value.Width / 2f, numH / 2f), Projectile.scale, SpriteEffects.None, 0);
 
 				Lighting.AddLight(LR, 229f/255f, 249f/255f, 255f/255f);
 			}

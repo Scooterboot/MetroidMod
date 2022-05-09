@@ -12,16 +12,17 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public abstract class SpeedBooster : ModItem
+	public class SpeedBooster : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Speed Booster");
-			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
+			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			/*"Allows the user to run insanely fast\n" + 
 			"Damages enemies while running\n" +
 			"Damage scales off of enemy's contact damage\n" +
 			"While active, press DOWN to charge a Shine Spark\n" +
-			"Then press JUMP to activate the charge");
+			"Then press JUMP to activate the charge");*/
 
 			SacrificeTotal = 1;
 		}
@@ -37,12 +38,14 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Item.accessory = true;
 			Item.useTurn = true;
 			Item.autoReuse = true;
+			Item.consumable = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			//Item.consumable = true;
 			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpeedBoosterTile>();
 		}
+		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -52,14 +55,14 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddIngredient(ItemID.JungleSpores, 5)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "SerrisCoreX");
-			recipe.AddIngredient(ItemID.HellstoneBar, 5);
-			recipe.AddIngredient(ItemID.Emerald, 1);
-			recipe.AddIngredient(ItemID.JungleSpores, 5);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+		}
+		*/
+		public override bool CanRightClick() => true;
+		public override void RightClick(Player player)
+		{
+			var entitySource = player.GetSource_OpenItem(Type);
+
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpeedBooster>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

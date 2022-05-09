@@ -30,3 +30,4 @@
  -	Migrate some accessories to suit addons
 	 -	Reserve Tanks
 	 -	Energy Tanks
+ -	Fix Grapple Beam

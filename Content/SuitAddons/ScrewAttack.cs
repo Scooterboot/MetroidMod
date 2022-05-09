@@ -32,6 +32,12 @@ namespace MetroidModPorted.Content.SuitAddons
 			item.rare = ItemRarityID.Pink;
 			item.accessory = true;
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient<Items.Accessories.ScrewAttack>()
+				.Register();
+		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

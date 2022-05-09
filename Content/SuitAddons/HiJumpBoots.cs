@@ -33,6 +33,9 @@ namespace MetroidModPorted.Content.SuitAddons
 				.AddIngredient(ItemID.Emerald, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
+			CreateRecipe(1)
+				.AddIngredient<Items.Accessories.HiJumpBoots>(1)
+				.Register();
 		}
 		public override void OnUpdateArmorSet(Player player)
 		{

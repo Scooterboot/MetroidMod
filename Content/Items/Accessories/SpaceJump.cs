@@ -12,16 +12,17 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Items.Accessories
 {
-	public abstract class SpaceJump : ModItem
+	public class SpaceJump : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Space Jump");
-			Tooltip.SetDefault("'Somersault continuously in the air!'\n" + 
+			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			/*"'Somersault continuously in the air!'\n" + 
 			"Allows somersaulting\n" + 
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" +
-			"Increases jump height and prevents fall damage");
+			"Increases jump height and prevents fall damage");*/
 
 			SacrificeTotal = 1;
 		}
@@ -35,6 +36,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			Item.accessory = true;
 			Item.useTurn = true;
 			Item.autoReuse = true;
+			Item.consumable = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
@@ -50,6 +52,14 @@ namespace MetroidModPorted.Content.Items.Accessories
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}*/
+		public override bool CanRightClick() => true;
+		public override void RightClick(Player player)
+		{
+			var entitySource = player.GetSource_OpenItem(Type);
+
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpaceJump>().ItemType);
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
+		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
