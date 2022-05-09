@@ -724,6 +724,7 @@ namespace MetroidModPorted.Common.Systems
 				}
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
+				Array.Resize(ref list, index);
 				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
 
 				foreach (var parameter in list)
