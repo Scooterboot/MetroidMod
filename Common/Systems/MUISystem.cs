@@ -132,36 +132,39 @@ namespace MetroidModPorted.Common.Systems
 			}
 
 			// (debug) markers for statue items (performance will tank on world load)
-			if(!coordcheck)
+			if (MetroidModPorted.DebugDSI)
 			{
-				for(int i = 0; i < Main.maxTilesX; i++)
+				if (!coordcheck)
 				{
-					for(int j = 0; j < Main.maxTilesY; j++)
+					for (int i = 0; i < Main.maxTilesX; i++)
 					{
-						if (!Main.tile[i,j].HasTile) { continue; }
-						if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) || BeamLoader.IsABeamTile(Main.tile[i, j]))
+						for (int j = 0; j < Main.maxTilesY; j++)
 						{
-							itemCoords.Add(new Vector2(i, j));
+							if (!Main.tile[i, j].HasTile) { continue; }
+							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) || BeamLoader.IsABeamTile(Main.tile[i, j]))
+							{
+								itemCoords.Add(new Vector2(i, j));
+							}
 						}
 					}
+					coordcheck = true;
 				}
-				coordcheck = true;
-			}
-			for(int i = 0; i < itemCoords.Count; i++)
-			{
-				Tile tile = Main.tile[(int)itemCoords[i].X,(int)itemCoords[i].Y];
-				if(tile != null && tile.HasTile)
+				for (int i = 0; i < itemCoords.Count; i++)
 				{
-					Texture2D tex = Terraria.GameContent.TextureAssets.Tile[tile.TileType].Value;
-					
-					Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth,Main.screenHeight)/2;
-					
-					Vector2 pos = itemCoords[i] * 16f;
-					float rot = (float)Math.Atan2(pos.Y - screenCenter.Y, pos.X - screenCenter.X);
-					float dist = Math.Min(Vector2.Distance(pos,screenCenter),Main.screenHeight/2 - 32);
-					
-					Vector2 drawPos = screenCenter + rot.ToRotationVector2()*dist - Main.screenPosition;
-					sb.Draw(tex,drawPos,new Rectangle?(new Rectangle(0,0,tex.Width,tex.Height)),Color.White,0,new Vector2(tex.Width/2,tex.Height/2), 1f, SpriteEffects.None, 0f);
+					Tile tile = Main.tile[(int)itemCoords[i].X, (int)itemCoords[i].Y];
+					if (tile != null && tile.HasTile)
+					{
+						Texture2D tex = Terraria.GameContent.TextureAssets.Tile[tile.TileType].Value;
+
+						Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight) / 2;
+
+						Vector2 pos = itemCoords[i] * 16f;
+						float rot = (float)Math.Atan2(pos.Y - screenCenter.Y, pos.X - screenCenter.X);
+						float dist = Math.Min(Vector2.Distance(pos, screenCenter), Main.screenHeight / 2 - 32);
+
+						Vector2 drawPos = screenCenter + rot.ToRotationVector2() * dist - Main.screenPosition;
+						sb.Draw(tex, drawPos, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), Color.White, 0, new Vector2(tex.Width / 2, tex.Height / 2), 1f, SpriteEffects.None, 0f);
+					}
 				}
 			}
 		}
