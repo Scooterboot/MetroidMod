@@ -708,19 +708,19 @@ namespace MetroidModPorted.Common.Systems
 			{
 				int baseX = Main.maxTilesX / 2;
 				int baseY = (int)WorldGen.rockLayer;
-				float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX / 2)) + (Math.Max(j - baseY, 0) / (Main.maxTilesY - WorldGen.rockLayer))) / 2;
+				//float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX / 2)) + (Math.Max(j - baseY, 0) / (Main.maxTilesY - WorldGen.rockLayer))) / 2;
 
-				int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist), 5));
+				//int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist), 5));
 				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + BeamLoader.BeamCount + 2];
 				int index = 0;
 				// Okay, the goal is to do weighted random.
 				foreach(ModSuitAddon addon in SuitAddonLoader.addons)
 				{
-					list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.Item.rare);
+					if (addon.CanGenerateOnChozoStatue(Main.tile[i, j])) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.Item.rare); }
 				}
 				foreach(ModBeam beam in BeamLoader.beams)
 				{
-					list[index++] = new WeightedChance(() => { item = (ushort)beam.TileType; }, RarityLoader.RarityCount - beam.Item.Item.rare);
+					if (beam.CanGenerateOnChozoStatue(Main.tile[i, j])) { list[index++] = new WeightedChance(() => { item = (ushort)beam.TileType; }, RarityLoader.RarityCount - beam.Item.Item.rare); }
 				}
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);

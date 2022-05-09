@@ -131,6 +131,10 @@ namespace MetroidModPorted
 		public float AddonSpeed { get; set; } = 0f;
 		public Color BeamColor { get; set; } = MetroidModPorted.powColor;
 		public int WaveDepth { get; set; } = 4;
+		/// <summary>
+		/// Determines if the addon can generate on Chozo Statues during world generation.
+		/// </summary>
+		public virtual bool CanGenerateOnChozoStatue(Tile tile) => false;
 
 		public override sealed void SetupContent()
 		{
@@ -185,5 +189,10 @@ namespace MetroidModPorted
 		{
 			return true;
 		}
+
+		/// <inheritdoc cref="ModItem.AddRecipes"/>
+		public virtual void AddRecipes() { }
+
+		public Recipe CreateRecipe(int amount = 1) => Item.CreateRecipe(amount);
 	}
 }

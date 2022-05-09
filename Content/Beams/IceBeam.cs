@@ -31,5 +31,15 @@ namespace MetroidModPorted.Content.Beams
 			item.value = Terraria.Item.buyPrice(0, 0, 25, 0);
 			item.rare = ItemRarityID.LightRed;
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient<Items.Miscellaneous.ChoziteBar>(3)
+				.AddIngredient(ItemID.IceBlock, 25)
+				.AddIngredient(ItemID.Bone, 10)
+				.AddIngredient(ItemID.Sapphire, 1)
+				.AddTile(TileID.Anvils)
+				.Register();
+		}
 	}
 }

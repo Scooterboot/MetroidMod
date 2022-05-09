@@ -53,6 +53,10 @@ namespace MetroidModPorted
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
 		internal bool IsArmor => ArmorTextureHead != null && ArmorTextureHead != "" && ArmorTextureTorso != null && ArmorTextureTorso != "" && ArmorTextureLegs != null && ArmorTextureLegs != "";
 		public string GetAddonSlotName() => SuitAddonLoader.GetAddonSlotName(AddonSlot);
+		/// <summary>
+		/// Determines if the addon can generate on Chozo Statues during world generation.
+		/// </summary>
+		public virtual bool CanGenerateOnChozoStatue(Tile tile) => false;
 		public override sealed void SetupContent()
 		{
 			SetStaticDefaults();
