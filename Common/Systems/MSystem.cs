@@ -733,6 +733,7 @@ namespace MetroidModPorted.Common.Systems
 					if (!(numericValue <= 0)) { continue; }
 
 					parameter.Func();
+					break;
 				}
 				/*if (rand < 1)
 				{
