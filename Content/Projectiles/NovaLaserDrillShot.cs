@@ -266,7 +266,7 @@ namespace MetroidModPorted.Content.Projectiles
 			
 			float num280 = P.localAI[0] / 60f;
 			
-			Texture2D texture2D37 = ModContent.Request<Texture2D>("Assets/Projectiles/NovaLaserDrill_Lead").Value;
+			Texture2D texture2D37 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/NovaLaserDrill_Lead").Value;
 			Main.spriteBatch.Draw(texture2D37, vector43 - Main.screenPosition + value49 * 30f, null, alpha7, num280 * (float)Math.PI*2, new Vector2((float)texture2D37.Width / 2f, (float)texture2D37.Height / 2f), 1.5f, spriteEffects, 0f);
 			
 			Item item = player.inventory[player.selectedItem];
