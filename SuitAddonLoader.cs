@@ -13,6 +13,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using MetroidModPorted.Content.Items.Armors;
 using MetroidModPorted.Default;
 using MetroidModPorted.ID;
 
@@ -95,6 +96,9 @@ namespace MetroidModPorted
 				SuitAddonSlotID.Boots_JumpHeight => "Boots",
 				SuitAddonSlotID.Boots_Jump => "Jump",
 				SuitAddonSlotID.Boots_Speed => "Speed Augmentation",
+				SuitAddonSlotID.Visor_Scan => "Scan Visor",
+				SuitAddonSlotID.Visor_Utility => "Utility Visor",
+				SuitAddonSlotID.Visor_AltVision => "Alt Visor",
 				_ => "Unknown"
 			};
 		}
@@ -102,8 +106,20 @@ namespace MetroidModPorted
 		public static string GetSetBonusText(Player player)
 		{
 			string returnVal = "\n";
-			MPlayer mPlayer = player.GetModPlayer<MPlayer>();
-			Item[] items = mPlayer.SuitAddons;
+			int index = 0;
+			Item[] items = new Item[SuitAddonSlotID.Count];
+			foreach (Item item in (player.armor[0].ModItem as PowerSuitHelmet).SuitAddons)
+			{
+				items[index++] = item;
+			}
+			foreach (Item item in (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons)
+			{
+				items[index++] = item;
+			}
+			foreach (Item item in (player.armor[2].ModItem as PowerSuitGreaves).SuitAddons)
+			{
+				items[index++] = item;
+			}
 			foreach (Item item in items)
 			{
 				if (item.type == ItemID.None) { continue; }
@@ -120,12 +136,24 @@ namespace MetroidModPorted
 
 		public static void OnUpdateArmorSet(Player player)
 		{
-			MPlayer mPlayer = player.GetModPlayer<MPlayer>();
-			Item[] items = mPlayer.SuitAddons;
+			int index = 0;
+			Item[] items = new Item[SuitAddonSlotID.Count];
+			foreach (Item item in (player.armor[0].ModItem as PowerSuitHelmet).SuitAddons)
+			{
+				items[index++] = item;
+			}
+			foreach (Item item in (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons)
+			{
+				items[index++] = item;
+			}
+			foreach (Item item in (player.armor[2].ModItem as PowerSuitGreaves).SuitAddons)
+			{
+				items[index++] = item;
+			}
 			ModSuitAddon[] suitAddons = new ModSuitAddon[items.Length];
 			for (int i = 0; i < items.Length; i++)
 			{
-				if (!TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
+				if (items[i] == null || !TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
 				suitAddons[i] = addon;
 
 				addon.OnUpdateArmorSet(player);
@@ -138,11 +166,10 @@ namespace MetroidModPorted
 
 		public static void OnUpdateVanitySet(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			Item[] items = mp.SuitAddons;
+			Item[] items = (GetBreastplate(player, true).ModItem as PowerSuitBreastplate).SuitAddons;
 			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{
-				if (!TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
+				if (items[i] == null || !TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
 				addon.OnUpdateVanitySet(player);
 			}
 			foreach (GlobalSuitAddon gsa in globalAddons)
@@ -151,14 +178,26 @@ namespace MetroidModPorted
 			}
 		}
 
+		public static Item GetBreastplate(Player player, bool lookingForVanity)
+		{
+			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && (!lookingForVanity || player.armor[11].IsAir))
+			{
+				return player.armor[1];
+			}
+			if (player.armor[11].type == ModContent.ItemType<PowerSuitBreastplate>() && lookingForVanity)
+			{
+				return player.armor[11];
+			}
+			return null;
+		}
+
 		public static void ArmorSetShadows(Player player)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			Item[] items = mp.SuitAddons;
+			Item[] items = (GetBreastplate(player, true).ModItem as PowerSuitBreastplate).SuitAddons;
 			ModSuitAddon[] suitAddons = new ModSuitAddon[items.Length];
 			for (int i = 0; i < items.Length; i++)
 			{
-				if (!TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
+				if (items[i] == null || !TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
 				suitAddons[i] = addon;
 
 				addon.ArmorSetShadows(player);

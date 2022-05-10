@@ -3,6 +3,7 @@
 
  -	Fix player draw layer modifying
 	 -	Fix Morph Ball draw layer
+		 -	Details: As of right now, the ball trail draws incorrectly some of the time.
  -	Get new textures for:
 	 -	Varia Suit item and tile
 	 -	Varia Suit V2 item and tile
@@ -31,3 +32,9 @@
 	 -	Reserve Tanks
 	 -	Energy Tanks
  -	Fix Grapple Beam
+ -	Figure out and implement screen shaders for:
+	 -	X-Ray Visor (implement in Metroid Prime update, make upgrade in Metroid Prime 3: Corruption update)
+	 -	Thermal Visor (implement in Metroid Prime update)
+	 -	Dark Visor (implement in Metroid Prime 2: Echoes update)
+	 -	Echo Visor (implement in Metroid Prime 2: Echoes update)
+	 -	Command Visor (implement in Metroid Prime 3: Corruption update)

@@ -127,7 +127,6 @@ namespace MetroidModPorted
 					targetPlayer.spiderball = spiderBall;
 					targetPlayer.boostEffect = boostEffect;
 					targetPlayer.boostCharge = boostCharge;
-					targetPlayer.SuitAddons = SuitAddons;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{

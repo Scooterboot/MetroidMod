@@ -50,7 +50,19 @@
 		/// Slot for the Speed Booster.
 		/// </summary>
 		public const short Boots_Speed = 10;
+		/// <summary>
+		/// Slot for the Scan Visor.
+		/// </summary>
+		public const short Visor_Scan = 11;
+		/// <summary>
+		/// Slot for the Thermal Visor, the Dark Visor, and the Command Visor.
+		/// </summary>
+		public const short Visor_Utility = 12;
+		/// <summary>
+		/// Slot for the X-Ray Visor and the Echo Visor.
+		/// </summary>
+		public const short Visor_AltVision = 13;
 
-		public const short Count = 11;
+		public const short Count = 14;
 	}
 }

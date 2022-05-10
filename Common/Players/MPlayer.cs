@@ -61,7 +61,7 @@ namespace MetroidModPorted.Common.Players
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();
-			ResetEffects_SuitAddons();
+			ResetEffects_GetArmors();
 			ResetEffects_MorphBall();
 			ResetEffects_Graphics();
 
@@ -84,7 +84,6 @@ namespace MetroidModPorted.Common.Players
 			PreUpdate_Accessories();
 			PreUpdate_MorphBall();
 			PreUpdate_Graphics();
-			PreUpdate_SuitAddons();
 
 			Player P = Player;
 
@@ -333,7 +332,6 @@ namespace MetroidModPorted.Common.Players
 		{
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
-			PostUpdateMiscEffects_SuitAddons();
 
 			if (senseMove && senseMoveEnabled)
 			{
@@ -346,14 +344,12 @@ namespace MetroidModPorted.Common.Players
 		{
 			PostUpdateRunSpeeds_Accessories();
 			PostUpdateRunSpeeds_MorphBall();
-			PostUpdateRunSpeeds_SuitAddons();
 
 		}
 		public override void PostUpdate()
 		{
 			PostUpdate_Accessories();
 			PostUpdate_MorphBall();
-			PostUpdate_SuitAddons();
 
 			grapplingBeam = -1;
 
@@ -624,15 +620,6 @@ namespace MetroidModPorted.Common.Players
 		{
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
 			tag["senseMoveEnabled"] = senseMoveEnabled;
-			for (int i = 0; i < SuitAddons.Length; ++i)
-			{
-				// Failsave check.
-				if (SuitAddons[i] == null)
-				{
-					SuitAddons[i] = new Item();
-				}
-				tag.Add("SuitAddons" + i, ItemIO.Save(SuitAddons[i]));
-			}
 		}
 		public override void LoadData(TagCompound tag)
 		{
@@ -648,13 +635,6 @@ namespace MetroidModPorted.Common.Players
 				if (!flag)
 				{
 					senseMoveEnabled = flag;
-				}
-
-				SuitAddons = new Item[SuitAddonSlotID.Count];
-				for (int i = 0; i < SuitAddons.Length; i++)
-				{
-					Item item = tag.Get<Item>("SuitAddons" + i);
-					SuitAddons[i] = item;
 				}
 			}
 			catch { }
@@ -682,7 +662,6 @@ namespace MetroidModPorted.Common.Players
 			clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
-			clone.SuitAddons = SuitAddons;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -694,10 +673,6 @@ namespace MetroidModPorted.Common.Players
 			packet.Write(spiderball);
 			packet.Write(boostEffect);
 			packet.Write(boostCharge);
-			for (int i = 0; i < SuitAddons.Length; ++i)
-			{
-				ItemIO.Send(SuitAddons[i], packet);
-			}
 			packet.Send(toWho, fromWho);
 		}
 
@@ -713,10 +688,6 @@ namespace MetroidModPorted.Common.Players
 				packet.Write(spiderball);
 				packet.Write(boostEffect);
 				packet.Write(boostCharge);
-				for (int i = 0; i < SuitAddons.Length; ++i)
-				{
-					ItemIO.Send(SuitAddons[i], packet);
-				}
 				packet.Send();
 			}
 		}

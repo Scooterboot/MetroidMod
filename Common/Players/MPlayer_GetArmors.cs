@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidModPorted.Content.Items.Armors;
 using MetroidModPorted.Default;
 using MetroidModPorted.ID;
 
@@ -11,6 +12,23 @@ namespace MetroidModPorted.Common.Players
 {
 	public partial class MPlayer : ModPlayer
 	{
+		public bool ShouldShowArmorUI = false;
+		public bool IsPowerSuitHelmet = false;
+		public bool ShouldDrawHelmet = false;
+		public bool IsPowerSuitBreastplate = false;
+		public bool ShouldDrawBreastplate = false;
+		public bool IsPowerSuitGreaves = false;
+		public bool ShouldDrawGreaves = false;
+		public void ResetEffects_GetArmors()
+		{
+			ShouldShowArmorUI = false;
+			IsPowerSuitHelmet = false;
+			ShouldDrawHelmet = false;
+			IsPowerSuitBreastplate = false;
+			ShouldDrawBreastplate = false;
+			IsPowerSuitGreaves = false;
+			ShouldDrawGreaves = false;
+		}
 		private static void ModifyDrawInfo_GetArmors(ref PlayerDrawSet drawInfo)
 		{
 			if (drawInfo.drawPlayer.TryGetModPlayer(out MPlayer mp))
@@ -29,21 +47,17 @@ namespace MetroidModPorted.Common.Players
 				}
 			}
 		}
-		public override void UpdateEquips()
-		{
-			base.UpdateEquips();
-		}
 		public override void UpdateVisibleVanityAccessories()
 		{
-			if ((Player.armor[0].type == ModContent.ItemType<Content.Items.Armors.PowerSuitHelmet>() && Player.armor[10].IsAir) || Player.armor[10].type == ModContent.ItemType<Content.Items.Armors.PowerSuitHelmet>())
+			if ((Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[10].IsAir) || Player.armor[10].type == ModContent.ItemType<PowerSuitHelmet>())
 			{
 				ShouldDrawHelmet = true;
 			}
-			if ((Player.armor[1].type == ModContent.ItemType<Content.Items.Armors.PowerSuitBreastplate>() && Player.armor[11].IsAir) || Player.armor[11].type == ModContent.ItemType<Content.Items.Armors.PowerSuitBreastplate>())
+			if ((Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && Player.armor[11].IsAir) || Player.armor[11].type == ModContent.ItemType<PowerSuitBreastplate>())
 			{
 				ShouldDrawBreastplate = true;
 			}
-			if ((Player.armor[2].type == ModContent.ItemType<Content.Items.Armors.PowerSuitGreaves>() && Player.armor[12].IsAir) || Player.armor[12].type == ModContent.ItemType<Content.Items.Armors.PowerSuitGreaves>())
+			if ((Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>() && Player.armor[12].IsAir) || Player.armor[12].type == ModContent.ItemType<PowerSuitGreaves>())
 			{
 				ShouldDrawGreaves = true;
 			}
@@ -51,7 +65,7 @@ namespace MetroidModPorted.Common.Players
 		//Mod.Logger.Debug(result);
 		public static int GetHelmet(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(Content.Items.Armors.PowerSuitHelmet), EquipType.Head);
+			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitHelmet), EquipType.Head);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -67,7 +81,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetHelmetGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<Content.Items.Armors.PowerSuitHelmet>().Texture + "_Head_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitHelmet_Head_Glow";
+			string tex = ModContent.GetInstance<PowerSuitHelmet>().Texture + "_Head_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitHelmet_Head_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -87,7 +101,7 @@ namespace MetroidModPorted.Common.Players
 		}*/
 		public static int GetBreastplate(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(Content.Items.Armors.PowerSuitBreastplate), EquipType.Body);
+			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitBreastplate), EquipType.Body);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -103,7 +117,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetBreastplateGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<Content.Items.Armors.PowerSuitBreastplate>().Texture + "_Body_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
+			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Body_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -119,7 +133,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetArms(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(Content.Items.Armors.PowerSuitBreastplate), EquipType.Body);
+			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitBreastplate), EquipType.Body);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -135,7 +149,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetArmsGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<Content.Items.Armors.PowerSuitBreastplate>().Texture + "_Arms_Glow";
+			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Arms_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -151,7 +165,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetGreaves(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(Content.Items.Armors.PowerSuitGreaves), EquipType.Legs);
+			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitGreaves), EquipType.Legs);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -167,7 +181,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetGreavesGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<Content.Items.Armors.PowerSuitGreaves>().Texture + "_Legs_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitGreaves_Legs_Glow";
+			string tex = ModContent.GetInstance<PowerSuitGreaves>().Texture + "_Legs_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitGreaves_Legs_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -185,7 +199,18 @@ namespace MetroidModPorted.Common.Players
 		internal static ModSuitAddon[] GetPowerSuit(Player player)
 		{
 			MPlayer mPlayer = player.GetModPlayer<MPlayer>();
-			Item[] sa = mPlayer.SuitAddons;
+			PowerSuitBreastplate armor;
+			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>())
+			{
+				armor = player.armor[1].ModItem as PowerSuitBreastplate;
+			}
+			else if (player.armor[11].type == ModContent.ItemType<PowerSuitBreastplate>())
+			{
+				armor = player.armor[11].ModItem as PowerSuitBreastplate;
+			}
+			else { return new ModSuitAddon[4] {null, null, null, null}; }
+			Item[] sa = armor.SuitAddons;
+			//Item[] sa = mPlayer.SuitAddons;
 			ModSuitAddon[] msa = new ModSuitAddon[4];
 			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{

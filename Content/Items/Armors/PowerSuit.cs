@@ -3,12 +3,34 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MetroidModPorted.Common.Players;
+using MetroidModPorted.ID;
+using Terraria.ModLoader.IO;
+using System.IO;
 
 namespace MetroidModPorted.Content.Items.Armors
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class PowerSuitBreastplate : ModItem
 	{
+		// Failsaves.
+		private Item[] _suitAddons;
+		public Item[] SuitAddons
+		{
+			get {
+				if (_suitAddons == null)
+				{
+					_suitAddons = new Item[SuitAddonSlotID.Misc_Attack + 1];
+					for (int i = 0; i < _suitAddons.Length; i++)
+					{
+						_suitAddons[i] = new Item();
+						_suitAddons[i].TurnToAir();
+					}
+				}
+
+				return _suitAddons;
+			}
+			set { _suitAddons = value; }
+		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Breastplate");
@@ -30,6 +52,7 @@ namespace MetroidModPorted.Content.Items.Armors
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.10f;
+			mp.IsPowerSuitBreastplate = true;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -73,10 +96,68 @@ namespace MetroidModPorted.Content.Items.Armors
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
+		public override void SaveData(TagCompound tag)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				// Failsave check.
+				if (SuitAddons[i] == null)
+				{
+					SuitAddons[i] = new Item();
+				}
+				tag.Add("SuitAddons" + i, ItemIO.Save(SuitAddons[i]));
+			}
+		}
+		public override void LoadData(TagCompound tag)
+		{
+			try
+			{
+				SuitAddons = new Item[SuitAddonSlotID.Misc_Attack + 1];
+				for (int i = 0; i < SuitAddons.Length; i++)
+				{
+					Item item = tag.Get<Item>("SuitAddons" + i);
+					SuitAddons[i] = item;
+				}
+			}
+			catch { }
+		}
+		public override void NetSend(BinaryWriter writer)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				ItemIO.Send(SuitAddons[i], writer);
+			}
+		}
+		public override void NetReceive(BinaryReader reader)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				SuitAddons[i] = ItemIO.Receive(reader);
+			}
+		}
 	}
 	[AutoloadEquip(EquipType.Legs)]
 	public class PowerSuitGreaves : ModItem
 	{
+		// Failsaves.
+		private Item[] _suitAddons;
+		public Item[] SuitAddons
+		{
+			get {
+				if (_suitAddons == null)
+				{
+					_suitAddons = new Item[SuitAddonSlotID.Boots_Speed - SuitAddonSlotID.Misc_Attack];
+					for (int i = 0; i < _suitAddons.Length; i++)
+					{
+						_suitAddons[i] = new Item();
+						_suitAddons[i].TurnToAir();
+					}
+				}
+
+				return _suitAddons;
+			}
+			set { _suitAddons = value; }
+		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Greaves");
@@ -95,7 +176,9 @@ namespace MetroidModPorted.Content.Items.Armors
 		}
 		public override void UpdateEquip(Player player)
 		{
-			player.GetModPlayer<MPlayer>().EnableWallJump = true;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.EnableWallJump = true;
+			mp.IsPowerSuitGreaves = true;
 			player.noFallDmg = true;
 		}
 
@@ -108,10 +191,68 @@ namespace MetroidModPorted.Content.Items.Armors
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
+		public override void SaveData(TagCompound tag)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				// Failsave check.
+				if (SuitAddons[i] == null)
+				{
+					SuitAddons[i] = new Item();
+				}
+				tag.Add("SuitAddons" + i, ItemIO.Save(SuitAddons[i]));
+			}
+		}
+		public override void LoadData(TagCompound tag)
+		{
+			try
+			{
+				SuitAddons = new Item[SuitAddonSlotID.Boots_Speed - SuitAddonSlotID.Misc_Attack];
+				for (int i = 0; i < SuitAddons.Length; i++)
+				{
+					Item item = tag.Get<Item>("SuitAddons" + i);
+					SuitAddons[i] = item;
+				}
+			}
+			catch { }
+		}
+		public override void NetSend(BinaryWriter writer)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				ItemIO.Send(SuitAddons[i], writer);
+			}
+		}
+		public override void NetReceive(BinaryReader reader)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				SuitAddons[i] = ItemIO.Receive(reader);
+			}
+		}
 	}
 	[AutoloadEquip(EquipType.Head)]
 	public class PowerSuitHelmet : ModItem
 	{
+		// Failsaves.
+		private Item[] _suitAddons;
+		public Item[] SuitAddons
+		{
+			get {
+				if (_suitAddons == null)
+				{
+					_suitAddons = new Item[3];
+					for (int i = 0; i < _suitAddons.Length; i++)
+					{
+						_suitAddons[i] = new Item();
+						_suitAddons[i].TurnToAir();
+					}
+				}
+
+				return _suitAddons;
+			}
+			set { _suitAddons = value; }
+		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Helmet");
@@ -136,6 +277,7 @@ namespace MetroidModPorted.Content.Items.Armors
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.breathMult = 1.3f;
 			mp.visorGlow = true;
+			mp.IsPowerSuitHelmet = true;
 		}
 		public override void AddRecipes()
 		{
@@ -145,6 +287,45 @@ namespace MetroidModPorted.Content.Items.Armors
 				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
+		}
+		public override void SaveData(TagCompound tag)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				// Failsave check.
+				if (SuitAddons[i] == null)
+				{
+					SuitAddons[i] = new Item();
+				}
+				tag.Add("SuitAddons" + i, ItemIO.Save(SuitAddons[i]));
+			}
+		}
+		public override void LoadData(TagCompound tag)
+		{
+			try
+			{
+				SuitAddons = new Item[3];
+				for (int i = 0; i < SuitAddons.Length; i++)
+				{
+					Item item = tag.Get<Item>("SuitAddons" + i);
+					SuitAddons[i] = item;
+				}
+			}
+			catch { }
+		}
+		public override void NetSend(BinaryWriter writer)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				ItemIO.Send(SuitAddons[i], writer);
+			}
+		}
+		public override void NetReceive(BinaryReader reader)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				SuitAddons[i] = ItemIO.Receive(reader);
+			}
 		}
 	}
 }

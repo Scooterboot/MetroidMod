@@ -53,12 +53,15 @@ namespace MetroidModPorted.Common.Systems
 		internal static ModKeybind SpiderBallKey;
 		internal static ModKeybind BoostBallKey;
 		internal static ModKeybind PowerBombKey;
+		internal static ModKeybind VisorUIKey;
 
 		public override void Load()
 		{
 			SpiderBallKey = KeybindLoader.RegisterKeybind(Mod, "Spider Ball", "X");
 			BoostBallKey = KeybindLoader.RegisterKeybind(Mod, "Boost Ball", "F");
 			PowerBombKey = KeybindLoader.RegisterKeybind(Mod, "Power Bomb", "Z");
+			// TODO: (Create and) implement Visor UI
+			VisorUIKey = KeybindLoader.RegisterKeybind(Mod, "Show Visor UI", "V");
 		}
 		public override void Unload()
 		{
@@ -217,7 +220,7 @@ namespace MetroidModPorted.Common.Systems
 			}
 			if (Main.tile[(int)pos.X, (int)pos.Y].HasTile)
 			{
-				SoundEngine.PlaySound(2, pos * 16, 51);
+				SoundEngine.PlaySound(SoundID.Item, pos * 16, 51);
 				for (int d = 0; d < 4; d++)
 				{
 					Dust.NewDust(pos * 16, 16, 16, DustID.Stone);
@@ -727,7 +730,7 @@ namespace MetroidModPorted.Common.Systems
 				Array.Resize(ref list, index);
 				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
 
-				foreach (var parameter in list)
+				foreach (WeightedChance parameter in list)
 				{
 					numericValue -= parameter.Ratio;
 

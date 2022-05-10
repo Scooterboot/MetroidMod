@@ -13,6 +13,7 @@ using Terraria.GameContent.UI.Elements;
 
 using MetroidModPorted.Common.GlobalItems;
 using MetroidModPorted.Common.Players;
+using MetroidModPorted.Content.Items.Armors;
 using MetroidModPorted.Content.Items.Weapons;
 using MetroidModPorted.Default;
 using MetroidModPorted.ID;
@@ -24,6 +25,30 @@ namespace MetroidModPorted.Common.UI
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowArmorUI && Main.EquipPage == 0;
 
 		private SuitAddonsPanel suitAddonsPanel;
+
+		public Vector2[] itemBoxBreastplatePositionValues = new Vector2[SuitAddonSlotID.Misc_Attack + 1]
+		{
+			new Vector2(32, 334),
+			new Vector2(174, 334),
+			new Vector2(98, 174),
+			new Vector2(98, 94),
+			new Vector2(32, 94),
+			new Vector2(174, 94),
+			new Vector2(32, 174),
+			new Vector2(174, 174)
+		};
+		public Vector2[] itemBoxGreavesPositionValues = new Vector2[SuitAddonSlotID.Boots_Speed - SuitAddonSlotID.Misc_Attack]
+		{
+			new Vector2(98, 254),
+			new Vector2(32, 254),
+			new Vector2(174, 254)
+		};
+		public Vector2[] itemBoxHelmetPositionValues = new Vector2[SuitAddonSlotID.Visor_AltVision - SuitAddonSlotID.Boots_Speed]
+		{
+			new Vector2(32, 14),
+			new Vector2(98, 14),
+			new Vector2(174, 14)
+		};
 		public override void OnInitialize()
 		{
 			suitAddonsPanel = new SuitAddonsPanel();
@@ -36,8 +61,27 @@ namespace MetroidModPorted.Common.UI
 			for (int i = 0; i < SuitAddonSlotID.Count; ++i)
 			{
 				suitAddonsPanel.addonSlots[i] = new SuitUIItemBox();
-				suitAddonsPanel.addonSlots[i].Top.Pixels = suitAddonsPanel.itemBoxPositionValues[i].Y;
-				suitAddonsPanel.addonSlots[i].Left.Pixels = suitAddonsPanel.itemBoxPositionValues[i].X;
+				if (i <= SuitAddonSlotID.Misc_Attack)
+				{
+					suitAddonsPanel.addonSlots[i].Top.Pixels = itemBoxBreastplatePositionValues[i].Y;
+					suitAddonsPanel.addonSlots[i].Left.Pixels = itemBoxBreastplatePositionValues[i].X;
+					suitAddonsPanel.addonSlots[i].bodyPart = 1;
+					suitAddonsPanel.addonSlots[i].amtToSubtract = 0;
+				}
+				else if (i <= SuitAddonSlotID.Boots_Speed)
+				{
+					suitAddonsPanel.addonSlots[i].Top.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].Y;
+					suitAddonsPanel.addonSlots[i].Left.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].X;
+					suitAddonsPanel.addonSlots[i].bodyPart = 2;
+					suitAddonsPanel.addonSlots[i].amtToSubtract = SuitAddonSlotID.Boots_JumpHeight;
+				}
+				else
+				{
+					suitAddonsPanel.addonSlots[i].Top.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].Y;
+					suitAddonsPanel.addonSlots[i].Left.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].X;
+					suitAddonsPanel.addonSlots[i].bodyPart = 0;
+					suitAddonsPanel.addonSlots[i].amtToSubtract = SuitAddonSlotID.Visor_Scan;
+				}
 				suitAddonsPanel.addonSlots[i].addonSlotType = i;
 				suitAddonsPanel.addonSlots[i].SetCondition();
 
@@ -45,9 +89,22 @@ namespace MetroidModPorted.Common.UI
 
 				suitAddonsPanel.textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
 				suitAddonsPanel.textSlots[i].SetText(SuitAddonLoader.GetAddonSlotName(i));
-				suitAddonsPanel.textSlots[i].Top.Pixels = suitAddonsPanel.itemBoxPositionValues[i].Y + 44;
+				if (i <= SuitAddonSlotID.Misc_Attack)
+				{
+					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxBreastplatePositionValues[i].Y + 44;
+					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxBreastplatePositionValues[i].X - 22;
+				}
+				else if (i <= SuitAddonSlotID.Boots_Speed)
+				{
+					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].Y + 44;
+					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].X - 22;
+				}
+				else
+				{
+					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].Y + 44;
+					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].X - 22;
+				}
 				suitAddonsPanel.textSlots[i].IsWrapped = true;
-				suitAddonsPanel.textSlots[i].Left.Pixels = suitAddonsPanel.itemBoxPositionValues[i].X - 22;
 				suitAddonsPanel.textSlots[i].Width.Pixels = 88;
 				suitAddonsPanel.textSlots[i].Height.Pixels = 22;
 
@@ -81,21 +138,6 @@ namespace MetroidModPorted.Common.UI
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
-		public Vector2[] itemBoxPositionValues = new Vector2[SuitAddonSlotID.Count]
-		{
-			new Vector2(32, 254),
-			new Vector2(174, 254),
-			new Vector2(98, 94),
-			new Vector2(98, 14),
-			new Vector2(32, 14),
-			new Vector2(174, 14),
-			new Vector2(32, 94),
-			new Vector2(174, 94),
-			new Vector2(98, 174),
-			new Vector2(32, 174),
-			new Vector2(174, 174)
-		};
-
 		/*public override void OnInitialize()
 		{
 			panelTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/PowerBeam_Border").Value;
@@ -126,12 +168,12 @@ namespace MetroidModPorted.Common.UI
 		public override void Update(GameTime gameTime)
 		{
 			Width.Pixels = 256;
-			Height.Pixels = 324;
+			Height.Pixels = 404;
 			enabled = MetroidModPorted.DragableSenseMoveUI;
 			if (!enabled)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 200;
-				Top.Pixels = 300;
+				Top.Pixels = 220;
 				/*if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
 				{
 					Top.Pixels += 170;
@@ -153,6 +195,13 @@ namespace MetroidModPorted.Common.UI
 		public Condition condition;
 
 		public int addonSlotType;
+
+		/// <summary>
+		/// 0 for helmet, 1 for breastplate, 2 for boots.
+		/// </summary>
+		public int bodyPart;
+
+		public int amtToSubtract;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
@@ -181,7 +230,7 @@ namespace MetroidModPorted.Common.UI
 				if (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-					if (!SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
+					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
 					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
@@ -193,26 +242,32 @@ namespace MetroidModPorted.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
-			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-			//PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[(MetroidModPorted.Instance).selectedItem].ModItem as PowerBeam;
+			if (bodyPart == 0) { HelmetClick(evt, e); return; }
+			if (bodyPart == 1) { BreastplateClick(evt, e); return; }
+			if (bodyPart == 2) { GreavesClick(evt, e); return; }
+		}
+		private void HelmetClick(UIMouseEvent evt, UIElement e)
+		{
+			if (Main.LocalPlayer.armor[0].type != ModContent.ItemType<PowerSuitHelmet>()) { return; }
+			PowerSuitHelmet target = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
 
-			if (mp.SuitAddons[addonSlotType] != null && !mp.SuitAddons[addonSlotType].IsAir)
+			if (target.SuitAddons[addonSlotType - amtToSubtract] != null && !target.SuitAddons[addonSlotType - amtToSubtract].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = mp.SuitAddons[addonSlotType].Clone();
+					Main.mouseItem = target.SuitAddons[addonSlotType - amtToSubtract].Clone();
 
-					mp.SuitAddons[addonSlotType].TurnToAir();
+					target.SuitAddons[addonSlotType - amtToSubtract].TurnToAir();
 				}
 				else if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 
-					Item tempBoxItem = mp.SuitAddons[addonSlotType].Clone();
+					Item tempBoxItem = target.SuitAddons[addonSlotType - amtToSubtract].Clone();
 					Item tempMouseItem = Main.mouseItem.Clone();
 
-					mp.SuitAddons[addonSlotType] = tempMouseItem;
+					target.SuitAddons[addonSlotType - amtToSubtract] = tempMouseItem;
 					Main.mouseItem = tempBoxItem;
 				}
 			}
@@ -221,7 +276,77 @@ namespace MetroidModPorted.Common.UI
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					mp.SuitAddons[addonSlotType] = Main.mouseItem.Clone();
+					target.SuitAddons[addonSlotType - amtToSubtract] = Main.mouseItem.Clone();
+					Main.mouseItem.TurnToAir();
+				}
+			}
+		}
+		private void BreastplateClick(UIMouseEvent evt, UIElement e)
+		{
+			if (Main.LocalPlayer.armor[1].type != ModContent.ItemType<PowerSuitBreastplate>()) { return; }
+			PowerSuitBreastplate target = Main.LocalPlayer.armor[1].ModItem as PowerSuitBreastplate;
+
+			if (target.SuitAddons[addonSlotType - amtToSubtract] != null && !target.SuitAddons[addonSlotType - amtToSubtract].IsAir)
+			{
+				if (Main.mouseItem.IsAir)
+				{
+					SoundEngine.PlaySound(SoundID.Grab);
+					Main.mouseItem = target.SuitAddons[addonSlotType - amtToSubtract].Clone();
+
+					target.SuitAddons[addonSlotType - amtToSubtract].TurnToAir();
+				}
+				else if (condition == null || (condition != null && condition(Main.mouseItem)))
+				{
+					SoundEngine.PlaySound(SoundID.Grab);
+
+					Item tempBoxItem = target.SuitAddons[addonSlotType - amtToSubtract].Clone();
+					Item tempMouseItem = Main.mouseItem.Clone();
+
+					target.SuitAddons[addonSlotType - amtToSubtract] = tempMouseItem;
+					Main.mouseItem = tempBoxItem;
+				}
+			}
+			else if (!Main.mouseItem.IsAir)
+			{
+				if (condition == null || (condition != null && condition(Main.mouseItem)))
+				{
+					SoundEngine.PlaySound(SoundID.Grab);
+					target.SuitAddons[addonSlotType - amtToSubtract] = Main.mouseItem.Clone();
+					Main.mouseItem.TurnToAir();
+				}
+			}
+		}
+		private void GreavesClick(UIMouseEvent evt, UIElement e)
+		{
+			if (Main.LocalPlayer.armor[2].type != ModContent.ItemType<PowerSuitGreaves>()) { return; }
+			PowerSuitGreaves target = Main.LocalPlayer.armor[2].ModItem as PowerSuitGreaves;
+
+			if (target.SuitAddons[addonSlotType - amtToSubtract] != null && !target.SuitAddons[addonSlotType - amtToSubtract].IsAir)
+			{
+				if (Main.mouseItem.IsAir)
+				{
+					SoundEngine.PlaySound(SoundID.Grab);
+					Main.mouseItem = target.SuitAddons[addonSlotType - amtToSubtract].Clone();
+
+					target.SuitAddons[addonSlotType - amtToSubtract].TurnToAir();
+				}
+				else if (condition == null || (condition != null && condition(Main.mouseItem)))
+				{
+					SoundEngine.PlaySound(SoundID.Grab);
+
+					Item tempBoxItem = target.SuitAddons[addonSlotType - amtToSubtract].Clone();
+					Item tempMouseItem = Main.mouseItem.Clone();
+
+					target.SuitAddons[addonSlotType - amtToSubtract] = tempMouseItem;
+					Main.mouseItem = tempBoxItem;
+				}
+			}
+			else if (!Main.mouseItem.IsAir)
+			{
+				if (condition == null || (condition != null && condition(Main.mouseItem)))
+				{
+					SoundEngine.PlaySound(SoundID.Grab);
+					target.SuitAddons[addonSlotType - amtToSubtract] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
 			}
@@ -239,20 +364,22 @@ namespace MetroidModPorted.Common.UI
 
 			// Item drawing.
 			//if (powerBeamTarget == null | powerBeamTarget.BeamMods[addonSlotType].IsAir) { return; }
-			if (mp.SuitAddons[addonSlotType].IsAir) { return; }
+			if (Main.LocalPlayer.armor[bodyPart].IsAir) { return; }
+			Item item = GetItem(Main.LocalPlayer.armor[bodyPart]);
+			if (item == null || item.IsAir) { return; }
 
-			Color itemColor = mp.SuitAddons[addonSlotType].GetAlpha(Color.White);
-			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[mp.SuitAddons[addonSlotType].type].Value;
+			Color itemColor = item.GetAlpha(Color.White);
+			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[item.type].Value;
 			CalculatedStyle innerDimensions = GetDimensions();
 
 			if (IsMouseHovering)
 			{
-				Main.hoverItemName = mp.SuitAddons[addonSlotType].Name;
-				Main.HoverItem = mp.SuitAddons[addonSlotType].Clone();
+				Main.hoverItemName = item.Name;
+				Main.HoverItem = item.Clone();
 			}
 
-			Rectangle frame = Main.itemAnimations[mp.SuitAddons[addonSlotType].type] != null
-						? Main.itemAnimations[mp.SuitAddons[addonSlotType].type].GetFrame(itemTexture)
+			Rectangle frame = Main.itemAnimations[item.type] != null
+						? Main.itemAnimations[item.type].GetFrame(itemTexture)
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
@@ -271,7 +398,7 @@ namespace MetroidModPorted.Common.UI
 			//float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, mp.SuitAddons[addonSlotType].type);
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, item.type);
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
@@ -281,11 +408,34 @@ namespace MetroidModPorted.Common.UI
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if (mp.SuitAddons[addonSlotType].color != default(Color))
+			if (item.color != default(Color))
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 			}
+		}
+		private Item GetItem(Item armor)
+		{
+			if (armor.IsAir | armor.ModItem == null) { return null; }
+			if (bodyPart == 1)
+			{
+				if (armor.ModItem is not PowerSuitBreastplate) { return null; }
+				PowerSuitBreastplate breastplate = armor.ModItem as PowerSuitBreastplate;
+				return breastplate.SuitAddons[addonSlotType - amtToSubtract];
+			}
+			else if (bodyPart == 2)
+			{
+				if (armor.ModItem is not PowerSuitGreaves) { return null; }
+				PowerSuitGreaves greaves = armor.ModItem as PowerSuitGreaves;
+				return greaves.SuitAddons[addonSlotType - amtToSubtract];
+			}
+			else if (bodyPart == 0)
+			{
+				if (armor.ModItem is not PowerSuitHelmet) { return null; }
+				PowerSuitHelmet helmet = armor.ModItem as PowerSuitHelmet;
+				return helmet.SuitAddons[addonSlotType - amtToSubtract];
+			}
+			return null;
 		}
 	}
 }
