@@ -394,7 +394,7 @@ namespace MetroidModPorted.Content.Projectiles
 				}
 				else
 				{
-					DrawChain(owner.Center, Projectile.Center, ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/GrappleBeamChain"), chainFrame, 4);
+					DrawChain(owner.Center, Projectile.Center, ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/GrappleBeamChain", AssetRequestMode.ImmediateLoad), chainFrame, 4);
 				}
 			}
 			tex = Terraria.GameContent.TextureAssets.Projectile[P.type];//Main.projectileTexture[P.type];

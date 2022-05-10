@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace MetroidModPorted.Content.Items.Tools
 {
 	// TODO: Fix GrappleBeamShot
-    public abstract class GrappleBeam : ModItem
+    public class GrappleBeam : ModItem
     {
 		public override void SetStaticDefaults()
 		{
