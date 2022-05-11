@@ -21,6 +21,8 @@ namespace MetroidModPorted
 		internal static readonly List<ModMBAddon> addons = new();
 		internal static readonly List<GlobalMBAddon> globalAddons = new();
 
+		public static int BombsRecipeGroupID => MetroidModPorted.MorphBallBombsRecipeGroupID;
+
 		internal static bool TryGetValue(this IList<ModMBAddon> list, int type, out ModMBAddon modMBAddon) =>
 			list.TryGetValue(i => i.Type == type, out modMBAddon);
 		internal static bool TryGetValue(this IList<ModMBAddon> list, string fullName, out ModMBAddon modMBAddon) =>

@@ -64,6 +64,7 @@ namespace MetroidModPorted.Default
 
 		public override void AddRecipes()
 		{
+			RecipeGroup.recipeGroups[MetroidModPorted.MorphBallBombsRecipeGroupID].ValidItems.Add(Type);
 			modMBAddon.AddRecipes();
 		}
 	}

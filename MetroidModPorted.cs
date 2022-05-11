@@ -64,6 +64,7 @@ namespace MetroidModPorted
 		public int[] FrozenStandOnNPCs;
 
 		//public static int beamsRecipeGroupID;
+		public static int MorphBallBombsRecipeGroupID;
 		public static int GoldPlatinumBarRecipeGroupID;
 		public static int EvilBarRecipeGroupID;
 		public static int T1HMBarRecipeGroupID;
@@ -165,6 +166,8 @@ namespace MetroidModPorted
 		}
 		public override void AddRecipeGroups()
 		{
+			MorphBallBombsRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:MorphBallBombs", new RecipeGroup(() => "Any Morph Ball Bombs", MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType) { IconicItemId = MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType });
+
 			GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
 			EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
 			T1HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier1HMBar", new RecipeGroup(() => "Any Tier-1 Hardmode Bar", ItemID.CobaltBar, ItemID.PalladiumBar) { IconicItemId = ItemID.CobaltBar });
