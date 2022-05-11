@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using MetroidModPorted.Default;
 using MetroidModPorted.ID;
 
 namespace MetroidModPorted
@@ -39,28 +40,27 @@ namespace MetroidModPorted
 
 		public abstract string TileTexture { get; }
 
-		public abstract bool AddOnlyAddonItem { get; }
+		public bool AddOnlyAddonItem { get; set; }
+
+		public bool ItemNameLiteral { get; set; } = true;
 
 		public int AddonSlot { get; set; } = MorphBallAddonSlotID.None;
-		public string GetAddonSlotName()
-		{
-			return AddonSlot switch
-			{
-				MorphBallAddonSlotID.Drill => "Drill",
-				MorphBallAddonSlotID.Weapon => "Weapon",
-				MorphBallAddonSlotID.Special => "Special",
-				MorphBallAddonSlotID.Utility => "Utility",
-				MorphBallAddonSlotID.Boost => "Boost",
-				_ => "Unknown"
-			};
-		}
+		public string GetAddonSlotName() => MBAddonLoader.GetAddonSlotName(AddonSlot);
+		/// <summary>
+		/// Determines if the addon can generate on Chozo Statues during world generation.
+		/// </summary>
+		public virtual bool CanGenerateOnChozoStatue(Tile tile) => false;
 
 		public override sealed void SetupContent()
 		{
 			SetStaticDefaults();
+			InternalStaticDefaults();
+			Item.SetStaticDefaults();
 		}
 
-		/*public override void Load()
+		internal virtual void InternalStaticDefaults() { }
+
+		public override void Load()
 		{
 			Item = new MBAddonItem(this);
 			Tile = new MBAddonTile(this);
@@ -68,7 +68,7 @@ namespace MetroidModPorted
 			if (Tile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
 			Mod.AddContent(Item);
 			Mod.AddContent(Tile);
-		}*/
+		}
 		protected override sealed void Register()
 		{
 			DisplayName = LocalizationLoader.CreateTranslation(Mod, $"SuitAddonName.{Name}");
@@ -89,5 +89,16 @@ namespace MetroidModPorted
 		{
 			base.SetStaticDefaults();
 		}
+
+		/// <inheritdoc cref="ModItem.SetDefaults()"/>
+		public virtual void SetItemDefaults(Item item) { }
+
+		/// <inheritdoc cref="ModItem.UpdateEquip(Player)"/>
+		public virtual void UpdateEquip(Player player) { }
+
+		/// <inheritdoc cref="ModItem.AddRecipes"/>
+		public virtual void AddRecipes() { }
+
+		public Recipe CreateRecipe(int amount = 1) => Item.CreateRecipe(amount);
 	}
 }

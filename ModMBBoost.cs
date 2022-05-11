@@ -8,12 +8,11 @@ using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
-	public abstract class ModMBDrill : ModMBAddon
+	public abstract class ModMBBoost : ModMBAddon
 	{
-		public int DrillPower { get; set; } = 0;
-		internal sealed override void InternalStaticDefaults()
+		internal override sealed void InternalStaticDefaults()
 		{
-			AddonSlot = MorphBallAddonSlotID.Drill;
+			AddonSlot = MorphBallAddonSlotID.Boost;
 		}
 	}
 }

@@ -15,6 +15,8 @@ namespace MetroidModPorted.Common
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.FrontAccFront);
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<MPlayer>().morphBall;
 
+		public override bool IsHeadLayer => false;
+
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			Player drawPlayer = drawInfo.drawPlayer;

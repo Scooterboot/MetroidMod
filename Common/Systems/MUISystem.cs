@@ -16,6 +16,7 @@ namespace MetroidModPorted.Common.Systems
 	{
 		public static MUISystem Instance { get; private set; }
 		internal static UserInterface pbUserInterface;
+		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserIntrface;
 		//internal static UI.PowerBeamUI powerBeamUI;
 		//internal static UI.AddonsUI addonsUI;
@@ -23,13 +24,13 @@ namespace MetroidModPorted.Common.Systems
 		//internal static UserInterface mlUserInterface;
 		//internal static UI.MissileLauncherUI missileLauncherUI;
 
-		//internal static UserInterface mbUserInterface;
 		//internal static UI.MorphBallUI morphBallUI;
 
 		//internal static UserInterface smUserInterface;
 		//internal static UI.SenseMoveUI senseMoveUI;
 
 		internal bool isPBInit = false;
+		internal bool isMBInit = false;
 		internal bool isSUInit = false;
 
 		public override void Load()
@@ -38,6 +39,7 @@ namespace MetroidModPorted.Common.Systems
 			{
 				//addonsUI = new UI.AddonsUI();
 				pbUserInterface = new UserInterface();
+				mbUserInterface = new UserInterface();
 				suitUserIntrface = new UserInterface();
 
 				/*powerBeamUI = new UI.PowerBeamUI();
@@ -65,6 +67,7 @@ namespace MetroidModPorted.Common.Systems
 		public override void Unload()
 		{
 			pbUserInterface = null;
+			mbUserInterface = null;
 			suitUserIntrface = null;
 			//powerBeamUI = null;
 			//addonsUI = null;
@@ -77,6 +80,11 @@ namespace MetroidModPorted.Common.Systems
 				suitUserIntrface.SetState(new UI.SuitAddonsUI());
 				isSUInit = true;
 			}
+			if (isMBInit == false)
+			{
+				mbUserInterface.SetState(new UI.MorphBallUI());
+				isMBInit = true;
+			}
 			if (isPBInit == false)
 			{
 				pbUserInterface.SetState(new UI.PowerBeamUI());
@@ -86,6 +94,10 @@ namespace MetroidModPorted.Common.Systems
 			{
 				suitUserIntrface.Update(gameTime);
 			}
+			if (mbUserInterface != null && UI.MorphBallUI.Visible)
+			{
+				mbUserInterface.Update(gameTime);
+			}
 			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
 			{
 				pbUserInterface.Update(gameTime);
@@ -93,8 +105,8 @@ namespace MetroidModPorted.Common.Systems
 		}
 
 		private static int z = 0;
-		bool coordcheck = false;
-		List<Vector2> itemCoords = new List<Vector2>();
+		private bool coordcheck = false;
+		private List<Vector2> itemCoords = new();
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
 			Mod mod = Mod;
@@ -141,7 +153,7 @@ namespace MetroidModPorted.Common.Systems
 						for (int j = 0; j < Main.maxTilesY; j++)
 						{
 							if (!Main.tile[i, j].HasTile) { continue; }
-							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) || BeamLoader.IsABeamTile(Main.tile[i, j]))
+							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) || BeamLoader.IsABeamTile(Main.tile[i, j]) || MBAddonLoader.IsAMorphTile(Main.tile[i, j]))
 							{
 								itemCoords.Add(new Vector2(i, j));
 							}
@@ -234,6 +246,19 @@ namespace MetroidModPorted.Common.Systems
 						{
 							if (Main.hasFocus) { pbUserInterface.Recalculate(); }
 							pbUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidModPorted: Morph Ball UI",
+					delegate {
+						if (UI.MorphBallUI.Visible)
+						{
+							if (Main.hasFocus) { mbUserInterface.Recalculate(); }
+							mbUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
 						return true;

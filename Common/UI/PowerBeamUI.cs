@@ -236,7 +236,7 @@ namespace MetroidModPorted.Common.UI
 		{
 			base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem];
-			if (target == null & target.type != ModContent.ItemType<PowerBeam>()) { return; }
+			if (target == null || target.type != ModContent.ItemType<PowerBeam>()) { return; }
 			PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 
 			//spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));

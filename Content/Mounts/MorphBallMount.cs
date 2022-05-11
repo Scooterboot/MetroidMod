@@ -69,21 +69,25 @@ namespace MetroidModPorted.Content.Mounts
 			mp.MorphBallBasic(player);
 			if(mBall != null)
 			{
+				ModMBAddon modMBAddon;
 				if (!mBall.ballMods[0].IsAir)
 				{
-					MGlobalItem drillMItem = mBall.ballMods[0].GetGlobalItem<MGlobalItem>();
+					//MGlobalItem drillMItem = mBall.ballMods[0].GetGlobalItem<MGlobalItem>();
+					if (MBAddonLoader.TryGetAddon(mBall.ballMods[0], out modMBAddon)) { modMBAddon.UpdateEquip(player); }
 					//mp.Drill(player,drillMItem.drillPower);
 				}
 				if (!mBall.ballMods[1].IsAir)
 				{
-					MGlobalItem bombMItem = mBall.ballMods[1].GetGlobalItem<MGlobalItem>();
+					//MGlobalItem bombMItem = mBall.ballMods[1].GetGlobalItem<MGlobalItem>();
+					if (MBAddonLoader.TryGetAddon(mBall.ballMods[1], out modMBAddon)) { modMBAddon.UpdateEquip(player); }
 					//mp.bombDamage = (int)(player.rangedDamage * bombMItem.bombDamage);
 					mp.bombDamage = player.GetWeaponDamage(mBall.ballMods[1]);
 					//mp.Bomb(player, bombMItem.bombType, mBall.ballMods[1]);
 				}
 				if(!mBall.ballMods[2].IsAir)
 				{
-					MGlobalItem pbMItem = mBall.ballMods[2].GetGlobalItem<MGlobalItem>();
+					//MGlobalItem pbMItem = mBall.ballMods[2].GetGlobalItem<MGlobalItem>();
+					if (MBAddonLoader.TryGetAddon(mBall.ballMods[2], out modMBAddon)) { modMBAddon.UpdateEquip(player); }
 					//mp.PowerBomb(player,pbMItem.powerBombType,player.GetWeaponDamage(mBall.ballMods[2]), mBall.ballMods[2]);
 				}
 
@@ -93,7 +97,14 @@ namespace MetroidModPorted.Content.Mounts
 				}
 				else
 				{*/
-					mp.spiderball = false;
+					if (MBAddonLoader.TryGetAddon(mBall.ballMods[3], out modMBAddon))
+					{
+						modMBAddon.UpdateEquip(player);
+					}
+					else
+					{
+						mp.spiderball = false;
+					}
 				/*}*/
 
 				/*if (mBall.ballMods[4].type == bb)
@@ -102,8 +113,15 @@ namespace MetroidModPorted.Content.Mounts
 				}
 				else
 				{*/
-					mp.boostCharge = 0;
-					mp.boostEffect = 0;
+					if (MBAddonLoader.TryGetAddon(mBall.ballMods[4], out modMBAddon))
+					{
+						modMBAddon.UpdateEquip(player);
+					}
+					else
+					{
+						mp.boostCharge = 0;
+						mp.boostEffect = 0;
+					}
 				/*}*/
 			}
 		}
