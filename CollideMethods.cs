@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 
 namespace MetroidModPorted
 {
@@ -33,29 +34,35 @@ namespace MetroidModPorted
 						}
 						if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num5)
 						{
-							if (Main.tile[i, j].Slope > 0)
+							if (Main.tile[i, j].Slope > SlopeType.Solid)
 							{
-								if (Main.tile[i, j].Slope == Terraria.ID.SlopeType.SlopeUpLeft && Position.Y < vector.Y + (float)num5 - Math.Max(Position.X - vector.X, 0f))
+								if (Main.tile[i, j].Slope > SlopeType.SlopeDownRight)
 								{
-									return true;
+									if (Main.tile[i, j].Slope == SlopeType.SlopeUpLeft && Position.Y < vector.Y + (float)num5 - Math.Max(Position.X - vector.X, 0f))
+									{
+										return true;
+									}
+									if (Main.tile[i, j].Slope == SlopeType.SlopeUpRight && Position.Y < vector.Y + (float)num5 - Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
+									{
+										return true;
+									}
 								}
-								if (Main.tile[i, j].Slope == Terraria.ID.SlopeType.SlopeUpRight && Position.Y < vector.Y + (float)num5 - Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
+								else
 								{
-									return true;
-								}
-								if (Main.tile[i, j].Slope == Terraria.ID.SlopeType.SlopeDownLeft && Position.Y + (float)Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
-								{
-									return true;
-								}
-								if (Main.tile[i, j].Slope == Terraria.ID.SlopeType.SlopeDownRight && Position.Y + (float)Height > vector.Y + Math.Max(vector.X + 16f - (Position.X + (float)Width), 0f))
-								{
-									return true;
+									if (Main.tile[i, j].Slope == SlopeType.SlopeDownLeft && Position.Y + (float)Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
+									{
+										return true;
+									}
+									if (Main.tile[i, j].Slope == SlopeType.SlopeDownRight && Position.Y + (float)Height > vector.Y + Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
+									{
+										return true;
+									}
 								}
 							}
-						}
-						else
-						{
-							return true;
+							else
+							{
+								return true;
+							}
 						}
 					}
 				}
