@@ -81,7 +81,7 @@ namespace MetroidModPorted
 
 		private void SetupDrawing()
 		{
-			if (!IsArmor) { return; }
+			if (Main.netMode == NetmodeID.Server || !IsArmor) { return; }
 			int equipSlotHead = Mod.GetEquipSlot(Item.Name, EquipType.Head);
 			int equipSlotBody = Mod.GetEquipSlot(Item.Name, EquipType.Body);
 			int equipSlotLegs = Mod.GetEquipSlot(Item.Name, EquipType.Legs);
