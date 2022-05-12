@@ -52,11 +52,6 @@ namespace MetroidModPorted.Default
 				player.cursorItemIconID = Type;
 			}
 		}
-
-		public override void ArmorArmGlowMask(Player drawPlayer, float shadow, ref int glowMask, ref Color color)
-		{
-			base.ArmorArmGlowMask(drawPlayer, shadow, ref glowMask, ref color);
-		}
 		public override bool IsVanitySet(int head, int body, int legs) => true;
 
 		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup) => itemGroup = ContentSamples.CreativeHelper.ItemGroup.Accessories;
