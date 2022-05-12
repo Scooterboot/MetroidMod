@@ -26,6 +26,7 @@ namespace MetroidModPorted
 		public int ExplosionProjectileType { get; internal set; }
 		public abstract string ProjectileTexture { get; }
 		public abstract string ExplosionTexture { get; }
+		public virtual string ExplosionSound => $"{MetroidModPorted.Instance.Name}/Assets/Sounds/PowerBombExplode";
 		public float DamageMultiplier { get; set; } = 1;
 		public int Knockback { get; set; } = 3;
 		internal override sealed void InternalStaticDefaults()
@@ -42,8 +43,9 @@ namespace MetroidModPorted
 			Mod.AddContent(Projectile);
 			Mod.AddContent(ExplosionProjectile);
 		}
-		public virtual bool ExplosionAI(ref float speed, ref Color color) { return true; }
-		public virtual void Kill(int timeLeft, ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2) { }
+		public virtual void SetExplosionProjectileDefaults(Projectile proj) { }
+		public virtual bool ExplosionAI(ref float scaleSize, ref float speed, ref Color color) { return true; }
+		public virtual bool Kill(int timeLeft) { return true; }
 		public virtual void OnHitNPC(NPC target, int damage, float knockback, bool crit) { }
 		public virtual bool ExplosionPreDraw(ref Color lightColor) { return true; }
 	}

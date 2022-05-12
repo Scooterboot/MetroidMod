@@ -36,5 +36,14 @@ namespace MetroidModPorted.Content.MorphBallAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item.Item), Item.Item);
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient(ItemID.HallowedBar, 15)
+				.AddIngredient(ItemID.SoulofMight, 10)
+				.AddIngredient(ItemID.SoulofFright, 10)
+				.AddIngredient(ItemID.SoulofSight, 10)
+				.Register();
+		}
 	}
 }

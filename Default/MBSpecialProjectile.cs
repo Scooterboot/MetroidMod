@@ -61,8 +61,9 @@ namespace MetroidModPorted.Default
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.position.X, (int)Projectile.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/PowerBombExplode"));
-			int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, modMBAddon.ExplosionProjectileType, (int)Math.Floor(Projectile.damage*modMBAddon.DamageMultiplier), modMBAddon.Knockback, Projectile.owner);
+			SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.position.X, (int)Projectile.position.Y, SoundLoader.GetSoundSlot(modMBAddon.ExplosionSound));
+			if (!modMBAddon.Kill(timeLeft)) { return; }
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, modMBAddon.ExplosionProjectileType, (int)Math.Floor(Projectile.damage*modMBAddon.DamageMultiplier), modMBAddon.Knockback, Projectile.owner);
 		}
 	}
 }
