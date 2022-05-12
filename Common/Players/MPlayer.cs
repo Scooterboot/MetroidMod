@@ -17,8 +17,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 
 using MetroidModPorted.Common.GlobalNPCs;
-//using MetroidMod.NPCs;
-//using MetroidMod.Items;
+//using MetroidModPorted.Content.NPCs;
+//using MetroidModPorted.Content.Items;
 using MetroidModPorted.Common.Systems;
 using MetroidModPorted.ID;
 

@@ -8,7 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-//using MetroidMod.Items;
+//using MetroidModPorted.Content.Items;
 
 namespace MetroidModPorted.Content.Tiles
 {
@@ -51,9 +51,9 @@ namespace MetroidModPorted.Content.Tiles
 			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
 			{
 				Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.MissileRecharge>(), 2);
-				return (true);
+				return true;
 			}
-			return (false);
+			return false;
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)

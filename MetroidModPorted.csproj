@@ -24,10 +24,13 @@
     <Folder Include="Assets\Textures\SuitAddons\PowerGrip\" />
     <Folder Include="Content\Buffs\" />
     <Folder Include="Content\Items\Miscellaneous\" />
+    <Folder Include="Content\Items\Boss\" />
+    <Folder Include="Content\Items\Vanity\" />
     <Folder Include="Content\Mounts\" />
     <Folder Include="Content\Items\Accessories\" />
     <Folder Include="Content\NPCs\Mobs\Metroid\" />
     <Folder Include="Content\NPCs\Mobs\Utility\" />
+    <Folder Include="Content\NPCs\Town\" />
     <Folder Include="Content\Projectiles\" />
     <Folder Include="ID\" />
   </ItemGroup>

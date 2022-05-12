@@ -16,8 +16,8 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-//using MetroidMod.NPCs;
-//using MetroidMod.Items;
+//using MetroidModPorted.Content.NPCs;
+//using MetroidModPorted.Content.Items;
 using MetroidModPorted.Common.Systems;
 using MetroidModPorted.ID;
 
