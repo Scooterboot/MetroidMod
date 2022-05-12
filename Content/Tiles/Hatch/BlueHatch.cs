@@ -71,7 +71,7 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			ToggleHatch(i, j, (ushort)otherDoorID,Name.Contains("Open"));
 			if (MetroidModPorted.AutocloseHatchesEnabled)
 			{
-				MSystem.doorTimers.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 60 * MetroidModPorted.AutocloseHatchesTime, new Vector2(i, j)));
+				MSystem.doorTimers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60 * MetroidModPorted.AutocloseHatchesTime, new Vector2(i, j)));
 			}
 		}
 		
@@ -99,8 +99,8 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 				{
 					if (Main.tile[l, m] == null)
 						Main.tile[l, m].ResetToType(type);
-					//Main.tile[l, m].active(true);
-					//Main.tile[l, m].type = type;
+					Main.tile[l, m].Get<TileWallWireStateData>().HasTile = true;
+					Main.tile[l, m].Get<TileTypeData>().Type = (ushort)type;
 				}
 			}
 			if (Main.netMode != NetmodeID.MultiplayerClient && Wiring.running)

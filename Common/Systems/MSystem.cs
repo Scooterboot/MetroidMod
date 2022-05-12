@@ -361,10 +361,10 @@ namespace MetroidModPorted.Common.Systems
 				{
 					Vector2 pos = timer.Item2;
 					int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].TileType;
-					bool open = (hatchtype == (ushort)ModContent.TileType < Content.Tiles.Hatch.BlueHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType < Content.Tiles.Hatch.RedHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType < Content.Tiles.Hatch.GreenHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType < Content.Tiles.Hatch.YellowHatchOpen>());
+					bool open = (hatchtype == (ushort)ModContent.TileType<Content.Tiles.Hatch.BlueHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<Content.Tiles.Hatch.RedHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<Content.Tiles.Hatch.GreenHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<Content.Tiles.Hatch.YellowHatchOpen>());
 					if (open)
 					{
 						Content.Tiles.Hatch.BlueHatch hatch = (TileLoader.GetTile(hatchtype) as Content.Tiles.Hatch.BlueHatch);
