@@ -150,7 +150,7 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 		
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>("Content/Tiles/Hatch/BlueHatchDoor").Value);
+			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/BlueHatchDoor").Value);
 			return true;
 		}
 		public static void DrawDoor(int i, int j, SpriteBatch spriteBatch, Texture2D tex)
