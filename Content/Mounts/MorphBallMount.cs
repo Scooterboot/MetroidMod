@@ -20,7 +20,6 @@ namespace MetroidModPorted.Content.Mounts
 			MountData.spawnDustNoGravity = true;
 			MountData.buff = ModContent.BuffType<Buffs.MorphBallMountBuff>();
 			MountData.heightBoost = -(42 - MPlayer.morphSize);
-			Mod.Logger.Debug(MountData.heightBoost);
 			MountData.runSpeed = 3f;
 			MountData.acceleration = 0.08f;
 			MountData.dashSpeed = 3f;
