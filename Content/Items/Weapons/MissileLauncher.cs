@@ -621,15 +621,15 @@ namespace MetroidModPorted.Content.Items.Weapons
 			{
 				ItemIO.Send(MissileMods[i], writer);
 			}
-			writer.Write(chargeLead);
+			//writer.Write(chargeLead);
 		}
-		public override void NetRecieve(BinaryReader reader)
+		public override void NetReceive(BinaryReader reader)
 		{
 			for (int i = 0; i < MissileMods.Length; ++i)
 			{
 				MissileMods[i] = ItemIO.Receive(reader);
 			}
-			chargeLead = reader.ReadInt32();
+			//chargeLead = reader.ReadInt32();
 		}
 	}
 }
