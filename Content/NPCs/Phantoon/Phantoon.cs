@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -72,30 +73,22 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 		{
 			potionType = ItemID.GreaterHealingPotion;
 		}
-		/*public override void NPCLoot()
+		public override void OnKill()
 		{
-			MWorld.bossesDown |= MetroidBossDown.downedPhantoon;
-			if (Main.expertMode)
-			{
-				NPC.DropBossBags();
-			}
-			else
-			{
-				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("GravityGel"), Main.rand.Next(20, 51));
-				if (Main.rand.Next(5) == 0)
-				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("KraidPhantoonMusicBox"));
-				}
-				if (Main.rand.Next(7) == 0)
-				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("PhantoonMask"));
-				}
-				if (Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("PhantoonTrophy"));
-				}
-			}
-		}*/
+			MSystem.bossesDown |= MetroidBossDown.downedPhantoon;
+		}
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.PhantoonBag>()));
+
+			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.GravityGel>(), 1, 20, 51));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.KraidPhantoonMusicBox>(), 6));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.PhantoonMask>(), 8));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.PhantoonTrophy>(), 11));
+
+			npcLoot.Add(notExpertRule);
+		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			if(NPC.life <= 0)
