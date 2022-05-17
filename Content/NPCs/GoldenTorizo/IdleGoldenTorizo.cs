@@ -19,6 +19,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("???");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()
 		{
