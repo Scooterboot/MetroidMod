@@ -6,10 +6,12 @@ using ReLogic.Content;
 
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using Terraria.UI.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Elements;
 
 using MetroidModPorted.Common.GlobalItems;
 using MetroidModPorted.Common.Players;
@@ -111,11 +113,30 @@ namespace MetroidModPorted.Common.UI
 				suitAddonsPanel.Append(suitAddonsPanel.textSlots[i]);
 			}
 
+			suitAddonsPanel.SuitInfoSlots = new UIText[4];
+			for (int i = 0; i < 4; i++)
+			{
+				suitAddonsPanel.SuitInfoSlots[i] = new UIText("0", Main.screenHeight / 1080f);
+				suitAddonsPanel.SuitInfoSlots[i].Top.Pixels = 312 + (44 * (i / 2f));
+				suitAddonsPanel.SuitInfoSlots[i].Left.Pixels = 98 - 22;
+				suitAddonsPanel.SuitInfoSlots[i].IsWrapped = true;
+				suitAddonsPanel.SuitInfoSlots[i].Width.Pixels = 88;
+				suitAddonsPanel.SuitInfoSlots[i].Height.Pixels = 22;
+
+				suitAddonsPanel.Append(suitAddonsPanel.SuitInfoSlots[i]);
+			}
+
+
 			Append(suitAddonsPanel);
 		}
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			suitAddonsPanel.SuitInfoSlots[0].SetText($"Eff: {Math.Floor(mp.EnergyDefenseEfficiency*1000)/10}%");
+			suitAddonsPanel.SuitInfoSlots[1].SetText($"Res: {Math.Floor(mp.EnergyExpenseEfficiency * 1000)/10}%");
+			suitAddonsPanel.SuitInfoSlots[2].SetText($"Tanks: {mp.FilledEnergyTanks}/{mp.EnergyTanks}");
+			suitAddonsPanel.SuitInfoSlots[3].SetText($"Energy: {mp.EnergyRemainder}");
 			/*suitAddonsPanel.Left.Pixels = Main.screenWidth - suitAddonsPanel.Width.Pixels - 200;
 			suitAddonsPanel.Top.Pixels = 300;
 			suitAddonsPanel.Width.Pixels = 256;
@@ -135,6 +156,8 @@ namespace MetroidModPorted.Common.UI
 		public SuitUIItemBox[] addonSlots;
 
 		public UIText[] textSlots;
+
+		public UIText[] SuitInfoSlots;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
@@ -369,7 +392,7 @@ namespace MetroidModPorted.Common.UI
 			if (item == null || item.IsAir) { return; }
 
 			Color itemColor = item.GetAlpha(Color.White);
-			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[item.type].Value;
+			Texture2D itemTexture = TextureAssets.Item[item.type].Value;
 			CalculatedStyle innerDimensions = GetDimensions();
 
 			if (IsMouseHovering)
@@ -412,6 +435,10 @@ namespace MetroidModPorted.Common.UI
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+			}
+			if (item.stack > 1)
+			{
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, item.stack.ToString(), drawPosition + new Vector2(6f, 40f) * Main.inventoryScale, Color.White, 0f, Vector2.Zero, new Vector2(Main.inventoryScale), -1f, Main.inventoryScale);
 			}
 		}
 		private Item GetItem(Item armor)

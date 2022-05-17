@@ -30,6 +30,8 @@ namespace MetroidModPorted.Content.SuitAddons
 				"7% increased hunter critical strike chance\n" +
 				"80% increased underwater breathing\n" +
 				"10% increased movement speed\n" +
+				"20% increased energy barrier efficiency\n" + // Provisional name
+				"37.5% increased energy barrier resilience\n" + // Provisional name
 				"Immunity to fire blocks" + "\n" +
 				"Immunity to chill and freeze effects");
 			AddonSlot = SuitAddonSlotID.Suit_Varia;
@@ -54,8 +56,9 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.maxOverheat += 30;
 			mp.overheatCost -= 0.15f;
 			mp.missileCost -= 0.10f;
-			mp.visorGlow = true;
 			mp.breathMult = 1.8f;
+			mp.EnergyDefenseEfficiency += 0.2f;
+			mp.EnergyExpenseEfficiency += 0.375f;
 		}
 		public override void AddRecipes()
 		{

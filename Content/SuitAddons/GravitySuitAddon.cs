@@ -28,6 +28,8 @@ namespace MetroidModPorted.Content.SuitAddons
 				"5% decreased Missile Charge Combo cost\n" +
 				"5% increased hunter damage\n" +
 				"3% increased hunter critical strike chance\n" +
+				"15% increased energy barrier efficiency\n" + // Provisional name
+				"7.5% increased energy barrier resilience\n" + // Provisional name
 				"Infinite breath underwater\n" +
 				"Immune to knockback\n" +
 				"Free movement in liquid\n" +
@@ -53,6 +55,8 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
+			mp.EnergyDefenseEfficiency += 0.15f;
+			mp.EnergyExpenseEfficiency += 0.075f;
 		}
 		public override void AddRecipes()
 		{

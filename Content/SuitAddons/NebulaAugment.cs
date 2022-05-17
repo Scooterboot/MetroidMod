@@ -28,7 +28,10 @@ namespace MetroidModPorted.Content.SuitAddons
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
 				"5% increased hunter damage\n" +
-				"5% increased hunter critical strike chance\n");
+				"5% increased hunter critical strike chance\n" +
+				"30% increased energy barrier efficiency\n" + // Provisional name
+				"20% increased energy barrier resilience\n" // Provisional name
+				);
 			AddonSlot = SuitAddonSlotID.Suit_LunarAugment;
 			ItemNameLiteral = false;
 		}
@@ -46,6 +49,8 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.maxOverheat += 25;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
+			mp.EnergyDefenseEfficiency += 0.30f;
+			mp.EnergyExpenseEfficiency += 0.20f;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{

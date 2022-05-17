@@ -9,8 +9,11 @@ namespace MetroidModPorted.Content.Items.Boss
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("Right click to open");
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			ItemID.Sets.ItemNoGravity[Item.type] = true;
+
+			ItemID.Sets.BossBag[Type] = true;
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{

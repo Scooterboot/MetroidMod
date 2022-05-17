@@ -78,7 +78,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(10)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

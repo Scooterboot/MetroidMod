@@ -30,6 +30,8 @@ namespace MetroidModPorted.Content.SuitAddons
 				"5% increased hunter damage\n" +
 				"5% increased hunter critical strike chance\n" +
 				"10% increased movement speed\n" +
+				"25% increased energy barrier efficiency\n" + // Provisional name
+				"10% increased energy barrier resilience\n" + // Provisional name
 				"Debuffs tick down twice as fast"*/);
 			AddonSlot = SuitAddonSlotID.Suit_Augment;
 			ItemNameLiteral = false;
@@ -50,6 +52,8 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
+			mp.EnergyDefenseEfficiency += 0.25f;
+			mp.EnergyExpenseEfficiency += 0.10f;
 			mp.hazardShield = 1;
 		}
 		public override void OnUpdateVanitySet(Player player)

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Boss
@@ -8,7 +9,11 @@ namespace MetroidModPorted.Content.Items.Boss
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("Right click to open");
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+
+			ItemID.Sets.BossBag[Type] = true;
+			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{

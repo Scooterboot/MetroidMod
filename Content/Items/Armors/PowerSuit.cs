@@ -91,7 +91,7 @@ namespace MetroidModPorted.Content.Items.Armors
 		{
 			CreateRecipe(1)
 				.AddIngredient<ChoziteBreastplate>(1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 20)
 				.AddTile(TileID.Anvils)
 				.Register();
@@ -186,7 +186,7 @@ namespace MetroidModPorted.Content.Items.Armors
 		{
 			CreateRecipe(1)
 				.AddIngredient<ChoziteGreaves>(1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 15)
 				.AddTile(TileID.Anvils)
 				.Register();
@@ -283,7 +283,7 @@ namespace MetroidModPorted.Content.Items.Armors
 		{
 			CreateRecipe(1)
 				.AddIngredient<ChoziteHelmet>(1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 10)
 				.AddTile(TileID.Anvils)
 				.Register();

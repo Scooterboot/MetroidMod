@@ -10,7 +10,7 @@ namespace MetroidModPorted.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Vanity Pack");
-			Tooltip.SetDefault("Right click to open\n" +
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}\n" +
 			"Contains:\n"+
 			"Ancient Power Suit vanity set\n"+
 			"Ancient Varia Suit vanity set\n"+
@@ -50,7 +50,7 @@ namespace MetroidModPorted.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Vanity Pack - Prime");
-			Tooltip.SetDefault("Right click to open\n" +
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}\n" +
 			"Contains:\n"+
 			"Ancient Gravity Suit vanity set\n"+
 			"Ancient Terra Gravity Suit vanity set\n"+
@@ -78,7 +78,7 @@ namespace MetroidModPorted.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Vanity Pack - Echoes");
-			Tooltip.SetDefault("Right click to open\n" +
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}\n" +
 			"Contains:\n"+
 			"Ancient Dark Suit vanity set\n"+
 			"Ancient Light Suit vanity set");
@@ -101,7 +101,7 @@ namespace MetroidModPorted.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Vanity Pack - Corruption");
-			Tooltip.SetDefault("Right click to open\n" +
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}\n" +
 			"Contains:\n"+
 			"Ancient PED Suit vanity set\n"+
 			"Ancient Hazard Shield Suit vanity set");
@@ -124,7 +124,7 @@ namespace MetroidModPorted.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Vanity Pack - Lunar");
-			Tooltip.SetDefault("Right click to open\n" +
+			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}\n" +
 			"Contains:\n"+
 			"Ancient Vortex Gravity Suit vanity set\n"+
 			"Ancient Nebula Phazon Suit vanity set\n"+

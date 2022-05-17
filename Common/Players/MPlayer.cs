@@ -61,6 +61,7 @@ namespace MetroidModPorted.Common.Players
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();
+			ResetEffects_SuitEnergy();
 			ResetEffects_GetArmors();
 			ResetEffects_MorphBall();
 			ResetEffects_Graphics();
@@ -376,6 +377,7 @@ namespace MetroidModPorted.Common.Players
 			{
 				return false;
 			}
+			PreHurt_SuitEnergy(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
 			return true;
 		}
 
@@ -620,6 +622,7 @@ namespace MetroidModPorted.Common.Players
 		{
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
 			tag["senseMoveEnabled"] = senseMoveEnabled;
+			tag["energy"] = Energy;
 		}
 		public override void LoadData(TagCompound tag)
 		{
@@ -635,6 +638,12 @@ namespace MetroidModPorted.Common.Players
 				if (!flag)
 				{
 					senseMoveEnabled = flag;
+				}
+
+				int energy = tag.GetInt("energy");
+				if (energy > 0)
+				{
+					Energy = energy;
 				}
 			}
 			catch { }
@@ -652,6 +661,8 @@ namespace MetroidModPorted.Common.Players
 			statCharge = 0;
 			boostCharge = 0;
 			boostEffect = 0;
+			EnergyTanks = 0;
+			Energy = 0;
 		}
 
 		public override void clientClone(ModPlayer clientClone)
@@ -662,6 +673,8 @@ namespace MetroidModPorted.Common.Players
 			clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
+			clone.EnergyTanks = EnergyTanks;
+			clone.Energy = Energy;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -673,6 +686,8 @@ namespace MetroidModPorted.Common.Players
 			packet.Write(spiderball);
 			packet.Write(boostEffect);
 			packet.Write(boostCharge);
+			packet.Write(EnergyTanks);
+			packet.Write(Energy);
 			packet.Send(toWho, fromWho);
 		}
 
@@ -688,6 +703,8 @@ namespace MetroidModPorted.Common.Players
 				packet.Write(spiderball);
 				packet.Write(boostEffect);
 				packet.Write(boostCharge);
+				packet.Write(EnergyTanks);
+				packet.Write(Energy);
 				packet.Send();
 			}
 		}

@@ -39,7 +39,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddIngredient(ItemID.LifeCrystal, 1)
 				.AddTile(TileID.Anvils)
 				.Register();

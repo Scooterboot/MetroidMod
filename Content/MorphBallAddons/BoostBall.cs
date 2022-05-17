@@ -34,7 +34,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(8)
-				.AddIngredient<Items.Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddIngredient(ItemID.Topaz, 2)
 				.AddTile(TileID.Anvils)
 				.Register();

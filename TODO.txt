@@ -25,12 +25,9 @@
  -	Implement modded missile addons
  -	Finish implementing morph ball addons
  -	Write all of the modded suits in
- -	Change all of the non-suit modded suit addons to be addons instead of accessories
  -	Implement 'Energy Bar' and its UI (use for Energy Tanks other than being a crafting ingredient and a tile)
  -	Migrate some accessories to suit addons
 	 -	Reserve Tanks
-	 -	Energy Tanks
- -	Fix Grapple Beam
  -	Figure out and implement screen shaders for:
 	 -	X-Ray Visor (implement in Metroid Prime update, make upgrade in Metroid Prime 3: Corruption update)
 	 -	Thermal Visor (implement in Metroid Prime update)
@@ -38,3 +35,4 @@
 	 -	Echo Visor (implement in Metroid Prime 2: Echoes update)
 	 -	Command Visor (implement in Metroid Prime 3: Corruption update)
  -	Fix Solar Bomb and Vortex Bomb
+ -	Fix Serris AI

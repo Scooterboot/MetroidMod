@@ -29,6 +29,8 @@ namespace MetroidModPorted.Content.SuitAddons
 				"5% decreased Missile Charge Combo cost\n" +
 				"5% increased hunter damage\n" +
 				"3% increased hunter critical strike chance\n" +
+				"5% increased energy barrier efficiency\n" + // Provisional name
+				"7.5% increased energy barrier resilience\n" + // Provisional name
 				"Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)\n" +
 				"Slightly increased health regen when standing on Phazon"*/);
 			AddonSlot = SuitAddonSlotID.Suit_Utility;
@@ -50,6 +52,8 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
+			mp.EnergyDefenseEfficiency += 0.05f;
+			mp.EnergyExpenseEfficiency += 0.075f;
 			// code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
 		}
 		public override void OnUpdateVanitySet(Player player)

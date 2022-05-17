@@ -9,6 +9,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Energy Tank");
+			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
 
 			SacrificeTotal = 10;
 		}
@@ -27,40 +28,12 @@ namespace MetroidModPorted.Content.Items.Tiles
 			Item.rare = ItemRarityID.Green;
 			Item.value = 1000;
 		}
-
-		public override void AddRecipes()
+		public override bool CanRightClick() => true;
+		public override void RightClick(Player player)
 		{
-			CreateRecipe(1)
-				.AddIngredient(null, "EnergyShard", 4)
-				.AddIngredient(null, "ChoziteBar", 1)
-				.AddIngredient(ItemID.DemoniteBar, 1)
-				.AddIngredient(ItemID.ShadowScale, 10)
-				.AddTile(TileID.Anvils)
-				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "EnergyShard", 4);
-			recipe.AddIngredient(null, "ChoziteBar", 1);
-			recipe.AddIngredient(ItemID.DemoniteBar, 1);
-			recipe.AddIngredient(ItemID.ShadowScale, 10);
-            recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			var entitySource = player.GetSource_OpenItem(Type);
 
-			CreateRecipe(1)
-				.AddIngredient(null, "EnergyShard", 4)
-				.AddIngredient(null, "ChoziteBar", 1)
-				.AddIngredient(ItemID.CrimtaneBar, 1)
-				.AddIngredient(ItemID.TissueSample, 10)
-				.AddTile(TileID.Anvils)
-				.Register();
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "EnergyShard", 4);
-			recipe.AddIngredient(null, "ChoziteBar", 1);
-			recipe.AddIngredient(ItemID.CrimtaneBar, 1);
-			recipe.AddIngredient(ItemID.TissueSample, 10);
-            recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType);
 		}
 	}
 }
