@@ -70,10 +70,6 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 5;
 			NPC.boss = true;
-			NPC.buffImmune[20] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[31] = true;
-			NPC.buffImmune[39] = true;
 			//BossBag = mod.ItemType("KraidBag");
 			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid");
 		}

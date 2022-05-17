@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,20 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 		{
 			DisplayName.SetDefault("Fire Ball");
 			Main.npcFrameCount[NPC.type] = 7;
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					20,
+					24,
+					31,
+					39,
+					44,
+					ModContent.BuffType<Buffs.PhazonDebuff>()
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 		public override void SetDefaults()
 		{

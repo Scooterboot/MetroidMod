@@ -17,6 +17,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 		{
 			DisplayName.SetDefault("Kraid");
 			Main.npcFrameCount[NPC.type] = 6;
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 
 		Vector2 swipeVec = Vector2.Zero;
