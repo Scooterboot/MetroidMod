@@ -35,8 +35,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 			{
 				SpecificallyImmuneTo = new int[] {
 					ModContent.BuffType<Buffs.IceFreeze>(),
-					ModContent.BuffType<Buffs.InstantFreeze>(),
-					BuffID.Confused
+					ModContent.BuffType<Buffs.InstantFreeze>()
 				}
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);

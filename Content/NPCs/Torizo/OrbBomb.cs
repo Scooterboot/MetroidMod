@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using System;
@@ -19,6 +20,20 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Torizo Orb");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					20,
+					24,
+					31,
+					39,
+					44,
+					ModContent.BuffType<Buffs.PhazonDebuff>()
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 		public override void SetDefaults()
 		{
@@ -35,12 +50,6 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 			NPC.behindTiles = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 0;
-			NPC.buffImmune[20] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[31] = true;
-			NPC.buffImmune[39] = true;
-			NPC.buffImmune[44] = true;
-			//NPC.buffImmune[mod.BuffType("PhazonDebuff")] = true;
 			
 			//NPC.dontTakeDamage = true;
 			//NPC.noTileCollide = true;

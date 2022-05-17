@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,21 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phantoon");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.BossBestiaryPriority.Add(Type);
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					20,
+					24,
+					31,
+					39,
+					44,
+					ModContent.BuffType<Buffs.PhazonDebuff>()
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 		int damage = 65;
 		int oldLife = 0;
@@ -40,12 +56,6 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 			NPC.lavaImmune = true;
 			NPC.noTileCollide = true;
 			NPC.behindTiles = false;
-			/*NPC.buffImmune[20] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[31] = true;
-			NPC.buffImmune[39] = true;
-			NPC.buffImmune[44] = true;
-			NPC.buffImmune[mod.BuffType("PhazonDebuff")] = true;*/
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 5;
 			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid");

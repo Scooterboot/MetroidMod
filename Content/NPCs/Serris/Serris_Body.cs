@@ -29,6 +29,7 @@ namespace MetroidModPorted.Content.NPCs.Serris
 		{
 			DisplayName.SetDefault("Serris");
 			Main.npcFrameCount[NPC.type] = 10;
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()
 		{

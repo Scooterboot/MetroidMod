@@ -21,6 +21,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("???");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()
 		{

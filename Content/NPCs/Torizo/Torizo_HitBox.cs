@@ -22,15 +22,13 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 			DisplayName.SetDefault("Torizo");
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
-			NPCID.Sets.BossBestiaryPriority.Add(Type);
 
 			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
 			{
 				SpecificallyImmuneTo = new int[] {
 					31,
 					ModContent.BuffType<Buffs.IceFreeze>(),
-					ModContent.BuffType<Buffs.InstantFreeze>(),
-					BuffID.Confused
+					ModContent.BuffType<Buffs.InstantFreeze>()
 				}
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);

@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using System;
@@ -60,6 +61,19 @@ namespace MetroidModPorted.Content.NPCs.Serris
 		{
 			DisplayName.SetDefault("Serris");
 			Main.npcFrameCount[NPC.type] = 15;
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.BossBestiaryPriority.Add(Type);
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					20,
+					24,
+					31,
+					39
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 		public override void SetDefaults()
 		{
