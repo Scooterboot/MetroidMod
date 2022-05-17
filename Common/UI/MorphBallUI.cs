@@ -37,6 +37,8 @@ namespace MetroidModPorted.Common.UI
 
 		public MorphBallItemBox[] ballSlots;
 
+		public UIText[] textSlots;
+
 		public Rectangle drawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
 		public Vector2[] itemBoxPositionValues = new Vector2[MetroidModPorted.ballSlotAmount]
@@ -60,6 +62,7 @@ namespace MetroidModPorted.Common.UI
 			enabled = MetroidModPorted.DragableMorphBallUI;
 
 			ballSlots = new MorphBallItemBox[MetroidModPorted.beamSlotAmount];
+			textSlots = new UIText[MetroidModPorted.beamSlotAmount];
 			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
 			{
 				ballSlots[i] = new MorphBallItemBox();
@@ -69,6 +72,16 @@ namespace MetroidModPorted.Common.UI
 				ballSlots[i].SetCondition();
 
 				Append(ballSlots[i]);
+
+				textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
+				textSlots[i].SetText(MBAddonLoader.GetAddonSlotName(i));
+				textSlots[i].Top.Pixels = itemBoxPositionValues[i].Y + 44;
+				textSlots[i].Left.Pixels = itemBoxPositionValues[i].X - 22;
+				textSlots[i].IsWrapped = true;
+				textSlots[i].Width.Pixels = 88;
+				textSlots[i].Height.Pixels = 22;
+
+				Append(textSlots[i]);
 			}
 
 			Append(new MorphBallFrame());
