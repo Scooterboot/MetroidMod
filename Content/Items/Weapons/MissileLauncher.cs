@@ -81,12 +81,6 @@ namespace MetroidModPorted.Content.Items.Weapons
 				.AddIngredient<Tiles.EnergyTank>(1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ChoziteBar", 10);
-			recipe.AddIngredient(null, "EnergyTank", 1);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -592,6 +586,50 @@ namespace MetroidModPorted.Content.Items.Weapons
 			}
 
 			return clone;
+		}
+
+		public override void SaveData(TagCompound tag)
+		{
+			for (int i = 0; i < MissileMods.Length; ++i)
+				tag.Add("missileItem" + i, ItemIO.Save(MissileMods[i]));
+
+			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
+			tag.Add("statMissiles", mi.statMissiles);
+			tag.Add("maxMissiles", mi.maxMissiles);
+		}
+		public override void LoadData(TagCompound tag)
+		{
+			try
+			{
+				MissileMods = new Item[MetroidModPorted.missileSlotAmount];
+				for (int i = 0; i < MissileMods.Length; i++)
+				{
+					Item item = tag.Get<Item>("missileItem" + i);
+					MissileMods[i] = item;
+				}
+
+				MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
+				mi.statMissiles = tag.GetInt("statMissiles");
+				mi.maxMissiles = tag.GetInt("maxMissiles");
+			}
+			catch { }
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			for (int i = 0; i < MissileMods.Length; ++i)
+			{
+				ItemIO.Send(MissileMods[i], writer);
+			}
+			writer.Write(chargeLead);
+		}
+		public override void NetRecieve(BinaryReader reader)
+		{
+			for (int i = 0; i < MissileMods.Length; ++i)
+			{
+				MissileMods[i] = ItemIO.Receive(reader);
+			}
+			chargeLead = reader.ReadInt32();
 		}
 	}
 }
