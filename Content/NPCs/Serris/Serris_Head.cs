@@ -93,12 +93,8 @@ namespace MetroidModPorted.Content.NPCs.Serris
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 5;
 			NPC.boss = true;
-			NPC.buffImmune[20] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[31] = true;
-			NPC.buffImmune[39] = true;
 			//bossBag = mod.ItemType("SerrisBag");
-			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Serris");
+			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Serris"); }
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{

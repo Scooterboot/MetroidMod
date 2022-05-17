@@ -59,7 +59,7 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 			NPC.behindTiles = false;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 5;
-			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid");
+			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid"); }
 			//bossBag = mod.ItemType("PhantoonBag");
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

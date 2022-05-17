@@ -27,8 +27,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 					31,
 					39,
 					44,
-					ModContent.BuffType<Buffs.PhazonDebuff>(),
-					BuffID.Confused
+					ModContent.BuffType<Buffs.PhazonDebuff>()
 				}
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);

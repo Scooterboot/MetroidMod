@@ -71,7 +71,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 			NPC.npcSlots = 5;
 			NPC.boss = true;
 			//BossBag = mod.ItemType("KraidBag");
-			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid");
+			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid"); }
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{

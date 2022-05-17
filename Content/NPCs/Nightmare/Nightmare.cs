@@ -61,7 +61,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 			NPC.behindTiles = false;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 5;
-			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Nightmare");
+			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Nightmare"); }
 			//bossBag = mod.ItemType("NightmareBag");
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

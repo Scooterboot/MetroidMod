@@ -68,7 +68,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			NPC.buffImmune[31] = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
-			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Torizo");
+			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Torizo"); }
 			//BossBag = ModContent.ItemType<Items.Boss.GoldenTorizoBag>();
 			NPC.chaseable = false;
 		}

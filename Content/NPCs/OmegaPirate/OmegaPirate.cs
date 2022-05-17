@@ -66,8 +66,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			}
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 5;
-			Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/OmegaPirate");
-			//bossBag = mod.ItemType("OmegaPirateBag");
+			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/OmegaPirate"); }
 			NPC.chaseable = false;
 			
 			NPC.ai = new float[8];
@@ -1525,7 +1524,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							
 							if(anim_Claw >= 1.9f && NPC.ai[3] == 30)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RArmPos[4].X, (int)RArmPos[4].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_SwipeSound"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RArmPos[4].X, (int)RArmPos[4].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_SwipeSound"));
 								NPC.ai[3] = 31;
 							}
 							
@@ -1589,7 +1588,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							Vector2 grenadeVel = TrajectoryVelocity(RCannonPos[1],Main.player[NPC.target].Center,grenadeSpeed,grenadeGravity,grenadeTimeBeforeGravity);
 							int nade = Projectile.NewProjectile(NPC.GetSource_FromAI(), RCannonPos[2].X,RCannonPos[2].Y,grenadeVel.X,grenadeVel.Y,ModContent.ProjectileType<Projectiles.Boss.OmegaPirateGrenade>(),(int)((float)grenadeDamage/2f),1f);
 							
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RCannonPos[2].X, (int)RCannonPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/ElitePirate_CannonFireSound"));
+							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RCannonPos[2].X, (int)RCannonPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ElitePirate_CannonFireSound"));
 							rCannonRecoil = true;
 							NPC.ai[6] = Main.rand.Next(71);
 						}
@@ -1598,7 +1597,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							Vector2 grenadeVel = TrajectoryVelocity(LCannonPos[1],Main.player[NPC.target].Center,grenadeSpeed,grenadeGravity,grenadeTimeBeforeGravity);
 							int nade = Projectile.NewProjectile(NPC.GetSource_FromAI(), LCannonPos[2].X,LCannonPos[2].Y,grenadeVel.X,grenadeVel.Y,ModContent.ProjectileType<Projectiles.Boss.OmegaPirateGrenade>(),(int)((float)grenadeDamage/2f),1f);
 							
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)LCannonPos[2].X, (int)LCannonPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/ElitePirate_CannonFireSound"));
+							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)LCannonPos[2].X, (int)LCannonPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ElitePirate_CannonFireSound"));
 							lCannonRecoil = true;
 							NPC.ai[7] = Main.rand.Next(71);
 						}
@@ -1825,7 +1824,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 						{
 							if(anim_ShockwaveTransition <= 0f)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_GroundSlamVoice"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_GroundSlamVoice"));
 								mouthAnim = 1;
 							}
 							anim_ShockwaveTransition += 0.075f;
@@ -1858,8 +1857,8 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 									Main.projectile[shock1].netUpdate = Main.projectile[shock2].netUpdate = true;
 									addedAbsorbDamage = 0;
 								}
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_GroundSlamSound"));
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Sounds/ElitePirate_ShockwaveSound"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_GroundSlamSound"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ElitePirate_ShockwaveSound"));
 								
 								NPC.ai[2] = 2;
 							}
@@ -1969,7 +1968,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 						{
 							if(anim_CannonFireTransition <= 0f)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_CannonVoice"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_CannonVoice"));
 								mouthAnim = 2;
 							}
 							anim_CannonFireTransition += 0.075f;
@@ -2010,7 +2009,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							}
 							if(NPC.ai[3] == 1)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)cSoundPos.X, (int)cSoundPos.Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_CannonChargeSound"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)cSoundPos.X, (int)cSoundPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_CannonChargeSound"));
 							}
 							
 							if(NPC.ai[3] == numCh)
@@ -2031,7 +2030,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								}
 								addedAbsorbDamage = 0;
 								
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)cSoundPos.X, (int)cSoundPos.Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_CannonFireSound"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)cSoundPos.X, (int)cSoundPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_CannonFireSound"));
 							}
 							if(NPC.ai[3] > numCh)
 							{
@@ -2135,7 +2134,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							
 							if(anim_LeapTransition <= 0f)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_LeapVoice"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_LeapVoice"));
 								mouthAnim = 3;
 							}
 							anim_LeapTransition += 0.04f;
@@ -2208,8 +2207,8 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								}
 								addedAbsorbDamage = 0;
 								
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_GroundSlamSound"));
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Sounds/ElitePirate_ShockwaveSound"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_GroundSlamSound"));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)shockPos.X, (int)shockPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ElitePirate_ShockwaveSound"));
 								
 								NPC.ai[2] = 4;
 							}
@@ -2336,7 +2335,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							if(anim_PhazonStartTransition == 0f)
 							{
 								int r = Main.rand.Next(2);
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_HurtVoice"+r));
+								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_HurtVoice"+r));
 								mouthAnim = 4+r;
 							}
 							float animTransSpeed = 0.1f;
@@ -2364,7 +2363,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									if(anim_PhazonStart == 2f)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_DamagedVoice"));
+										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_DamagedVoice"));
 										mouthAnim = 7;
 									}
 									float animSpeed = 0.005f + (0.045f * (3f - anim_PhazonStart));
@@ -2378,7 +2377,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									if(NPC.ai[3] == 0)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirateCore_TransitionSound"));
+										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_TransitionSound"));
 									}
 									NPC.ai[3]++;
 									anim_PhazonStart = 4f + NPC.ai[3]/120f;
@@ -2403,7 +2402,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									if(fullScale.X == 1f)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirateCore_Disappear"));
+										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_Disappear"));
 									}
 									fullScale.X = Math.Max(fullScale.X-0.05f,0f);
 								}
@@ -2511,7 +2510,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							{
 								if(NPC.ai[4] <= 0 && Main.rand.Next(100) > 60)
 								{
-									PhazonAppearSound = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)PhazonDisappearPosition.X, (int)PhazonDisappearPosition.Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirateCore_Voice"+Main.rand.Next(2)));
+									PhazonAppearSound = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)PhazonDisappearPosition.X, (int)PhazonDisappearPosition.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_Voice"+Main.rand.Next(2)));
 									NPC.ai[4] = 1;//180;
 								}
 							}
@@ -2541,7 +2540,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									if(fullScale.X == 0f)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirateCore_Appear"));
+										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_Appear"));
 									}
 									fullScale.X = Math.Min(fullScale.X+0.05f,1f);
 								}
@@ -2703,7 +2702,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 									{
 										if(anim_PhazonRegenTransition == 1f)
 										{
-											SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirateCore_TransitionSound2"));
+											SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_TransitionSound2"));
 										}
 										anim_PhazonRegenTransition = Math.Max(anim_PhazonRegenTransition-0.025f,0f);
 										bodyAlpha = Math.Min(bodyAlpha+0.025f,1f);
@@ -2756,7 +2755,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							{
 								if(anim_PhazonRegen == 3f)
 								{
-									SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirate_HurtVoice"+Main.rand.Next(2)));
+									SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_HurtVoice"+Main.rand.Next(2)));
 								}
 								float animSpeed = 0.1f;
 								moveSpeed = -15f * animSpeed;
@@ -2782,7 +2781,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							{
 								if(fullScale.X == 1f)
 								{
-									SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Sounds/OmegaPirateCore_Disappear"));
+									SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_Disappear"));
 								}
 								fullScale.X = Math.Max(fullScale.X-0.05f,0f);
 							}
