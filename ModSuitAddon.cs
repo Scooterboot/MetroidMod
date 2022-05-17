@@ -48,6 +48,8 @@ namespace MetroidModPorted
 
 		public bool AddOnlyAddonItem { get; set; }
 
+		public int SacrificeTotal { get; set; } = 1;
+
 		public bool ItemNameLiteral { get; set; } = true;
 
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
@@ -123,7 +125,7 @@ namespace MetroidModPorted
 		public virtual void UpdateInventory(Player player) { }
 
 		/// <inheritdoc cref="ModItem.UpdateArmorSet(Player)"/>
-		public virtual void OnUpdateArmorSet(Player player) { }
+		public virtual void OnUpdateArmorSet(Player player, int stack) { }
 
 		/// <inheritdoc cref="ModItem.UpdateVanitySet(Player)"/>
 		public virtual void OnUpdateVanitySet(Player player) { }

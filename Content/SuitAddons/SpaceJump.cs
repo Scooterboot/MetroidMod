@@ -44,7 +44,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			//mp.hiJumpBoost = true;
 			player.noFallDmg = true;
 		}
-		public override void OnUpdateArmorSet(Player player)
+		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJump = true;

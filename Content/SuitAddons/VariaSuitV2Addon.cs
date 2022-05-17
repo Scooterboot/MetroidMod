@@ -40,7 +40,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			item.value = Terraria.Item.buyPrice(0, 2, 10, 0);
 			item.rare = ItemRarityID.Orange;
 		}
-		public override void OnUpdateArmorSet(Player player)
+		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			player.statDefense += 15;
 			player.nightVision = true;

@@ -48,7 +48,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			mp.speedBooster = true;
 			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item.Item), mp.speedBoostDmg);
 		}
-		public override void OnUpdateArmorSet(Player player)
+		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;

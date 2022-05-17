@@ -39,7 +39,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			item.value = Terraria.Item.buyPrice(0, 11, 70, 0);
 			item.rare = ItemRarityID.Lime;
 		}
-		public override void OnUpdateArmorSet(Player player)
+		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			player.statDefense += 10;
 			player.moveSpeed += 0.10f;

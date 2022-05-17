@@ -23,7 +23,7 @@ namespace MetroidModPorted.Default
 		{
 			DisplayName.SetDefault(modSuitAddon.DisplayName.GetDefault() + (!modSuitAddon.ItemNameLiteral ? " Addon" : ""));
 			Tooltip.SetDefault(modSuitAddon.AddOnlyAddonItem ? $"Cannot be equipped\n{modSuitAddon.Tooltip.GetDefault()}" : $"Slot Type: {modSuitAddon.GetAddonSlotName()}\n{modSuitAddon.Tooltip.GetDefault()}");
-			SacrificeTotal = 1;
+			SacrificeTotal = modSuitAddon.SacrificeTotal;
 		}
 
 		public override void SetDefaults()

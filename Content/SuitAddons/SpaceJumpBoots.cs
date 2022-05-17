@@ -26,7 +26,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			item.rare = ItemRarityID.Orange;
 			item.accessory = true;
 		}
-		public override void OnUpdateArmorSet(Player player)
+		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJumpBoots = true;

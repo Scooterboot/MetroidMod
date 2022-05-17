@@ -156,7 +156,7 @@ namespace MetroidModPorted
 				if (items[i] == null || !TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
 				suitAddons[i] = addon;
 
-				addon.OnUpdateArmorSet(player);
+				addon.OnUpdateArmorSet(player, items[i].stack);
 			}
 			foreach (GlobalSuitAddon gsa in globalAddons)
 			{

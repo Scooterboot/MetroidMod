@@ -36,7 +36,7 @@ namespace MetroidModPorted.Content.SuitAddons
 				.AddIngredient<Items.Accessories.PowerGrip>(1)
 				.Register();
 		}
-		public override void OnUpdateArmorSet(Player player)
+		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			player.GetModPlayer<Common.Players.MPlayer>().powerGrip = true;
 		}
