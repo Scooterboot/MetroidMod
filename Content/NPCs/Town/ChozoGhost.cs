@@ -3,6 +3,8 @@
 using System.Collections.Generic;
 
 using Terraria;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -38,6 +40,25 @@ namespace MetroidModPorted.Content.NPCs.Town
 			NPCID.Sets.AttackAverageChance[Type] = 30;
 
 			NPCID.Sets.HatOffsetY[Type] = 4;
+
+			NPC.Happiness
+				.SetBiomeAffection<OceanBiome>(AffectionLevel.Love)
+				.SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike)
+				.SetNPCAffection(NPCID.Steampunker, AffectionLevel.Love)
+				.SetNPCAffection(NPCID.Mechanic, AffectionLevel.Love)
+				.SetNPCAffection(NPCID.GoblinTinkerer, AffectionLevel.Like)
+				.SetNPCAffection(NPCID.WitchDoctor, AffectionLevel.Dislike)
+				.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate)
+			;
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
+
+				new FlavorTextBestiaryInfoElement("The Chozo Ghost is the spirit of a long dead Chozo, whose species has disappeared from the cosmos. There are no known Chozo still living. He sells some artifacts of the aforementioned race.")
+			});
 		}
 
 		public override void SetDefaults()
@@ -164,10 +185,10 @@ namespace MetroidModPorted.Content.NPCs.Town
 		{
 			shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Boss.TorizoSummon>());
 			
-			/*if(MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo))
+			if(MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo))
 			{
 				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Boss.GoldenTorizoSummon>());
-			}*/
+			}
 			
 			if(Main.hardMode)
 			{

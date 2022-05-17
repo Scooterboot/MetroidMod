@@ -37,20 +37,6 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Utility
 			NPC.DeathSound = SoundID.NPCDeath1;
 		}
 
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-		{
-			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
-			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
-
-				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("You can grapple onto this with the Grapple Beam! Not sure how that will help movement...")
-			});
-		}
-
 		public override bool PreAI()
 		{
 			if (NPC.direction == 0)

@@ -39,11 +39,11 @@ namespace MetroidModPorted.Content.Items.Boss
 		}*/
 		public override bool CanUseItem(Player player)
 		{
-			return false;//!NPC.AnyNPCs(ModContent.NPCType<NPCs.Torizo.Torizo>());
+			return !NPC.AnyNPCs(ModContent.NPCType<NPCs.Torizo.Torizo>());
 		}
 		public override bool? UseItem(Player player)
 		{
-			//NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Torizo.Torizo>());
+			NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Torizo.Torizo>());
 			SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
 			return true;
 		}

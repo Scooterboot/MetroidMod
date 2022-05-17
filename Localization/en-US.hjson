@@ -1,0 +1,24 @@
+# .hjson files allow comments! Please read https://github.com/tModLoader/tModLoader/blob/1.4/ExampleMod/Localization/en-US.hjson for more information.
+
+Mods: {
+	MetroidModPorted: {
+		TownNPCMood: {
+			ChozoGhost: {
+				Content: I feel alright. How are you?
+				NoHome: I've never felt homeless before... I guess there's a first time for everything.
+				LoveSpace: The aura here is tranquil.
+				FarFromHome: I seem to have lost track of space, could you help me get back home?
+				DislikeCrowded: There are a few too many presences here, the aura is hard to think in.
+				HateCrowded: The aura of this place is so diluted with souls it's driving me insane!
+				LikeBiome: "{BiomeName} is a very nice place to test mods in."
+				LoveBiome: "I love {BiomeName}. It's very peaceful."
+				DislikeBiome: "The unending sands of {BiomeName} reminds me of the times before the raid... I miss those days."
+				HateBiome: "{BiomeName} reeks of malintent to the point it's corrupting."
+				LikeNPC: "{NPCName}'s tech is primitive but useful. I admire his genius."
+				LoveNPC: "{NPCName} seems quite technologically advanced, maybe she can help humanity arise to the golden age we Chozo once had. Hopefully, she learns of the dangers of rejecting religion. We don't want another Bryyo."
+				DislikeNPC: "I don't like the harassive tendencies {NPCName} displays."
+				HateNPC: "{NPCName}'s aura is one of malice and corruption. His very presence is toxic to my being."
+			}
+		}
+	}
+}

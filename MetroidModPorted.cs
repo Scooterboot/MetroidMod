@@ -67,6 +67,7 @@ namespace MetroidModPorted
 		public static int MorphBallBombsRecipeGroupID;
 		public static int GoldPlatinumBarRecipeGroupID;
 		public static int EvilBarRecipeGroupID;
+		public static int EvilHMMaterialRecipeGroupID;
 		public static int T1HMBarRecipeGroupID;
 		public static int T2HMBarRecipeGroupID;
 		public static int T3HMBarRecipeGroupID;
@@ -170,6 +171,7 @@ namespace MetroidModPorted
 
 			GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
 			EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
+			EvilHMMaterialRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:WorldEvilMaterial", new RecipeGroup(() => "Any Hardmode Evil Material", ItemID.CursedFlame, ItemID.Ichor) { IconicItemId = ItemID.CursedFlame });
 			T1HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier1HMBar", new RecipeGroup(() => "Any Tier-1 Hardmode Bar", ItemID.CobaltBar, ItemID.PalladiumBar) { IconicItemId = ItemID.CobaltBar });
 			T2HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier2HMBar", new RecipeGroup(() => "Any Tier-2 Hardmode Bar", ItemID.MythrilBar, ItemID.OrichalcumBar) { IconicItemId = ItemID.MythrilBar });
 			T3HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidModPorted:Tier3HMBar", new RecipeGroup(() => "Any Tier-3 Hardmode Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar) { IconicItemId = ItemID.AdamantiteBar });
