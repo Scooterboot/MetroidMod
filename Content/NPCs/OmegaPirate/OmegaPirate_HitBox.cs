@@ -20,6 +20,20 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 		{
 			DisplayName.SetDefault("Omega Pirate");
 			Main.npcFrameCount[NPC.type] = 2;
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					20,
+					24,
+					31,
+					69,
+					70,
+					ModContent.BuffType<Buffs.PhazonDebuff>()
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 		public override void SetDefaults()
 		{
@@ -38,12 +52,6 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			NPC.noTileCollide = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
-			/*NPC.buffImmune[20] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[31] = true;
-			NPC.buffImmune[69] = true;
-			NPC.buffImmune[70] = true;
-			NPC.buffImmune[mod.BuffType("PhazonDebuff")] = true;*/
 		}
 
 		NPC Base

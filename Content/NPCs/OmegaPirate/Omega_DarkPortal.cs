@@ -17,6 +17,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dark Portal");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()
 		{

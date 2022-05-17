@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,20 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Omega Pirate");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					20,
+					24,
+					31,
+					39,
+					44,
+					ModContent.BuffType<Buffs.PhazonDebuff>()
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 		public override void SetDefaults()
 		{
@@ -38,12 +53,6 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			NPC.knockBackResist = 0;
 			NPC.lavaImmune = true;
 			NPC.noTileCollide = true;
-			/*NPC.buffImmune[20] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[31] = true;
-			NPC.buffImmune[39] = true;
-			NPC.buffImmune[44] = true;
-			NPC.buffImmune[mod.BuffType("PhazonDebuff")] = true;*/
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 		}

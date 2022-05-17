@@ -23,6 +23,23 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Omega Pirate");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.BossBestiaryPriority.Add(Type);
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					20,
+					24,
+					31,
+					39,
+					44,
+					69,
+					70,
+					ModContent.BuffType<Buffs.PhazonDebuff>()
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 
 		public override void SetDefaults()

@@ -18,7 +18,6 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 			DisplayName.SetDefault("Gravity Orb");
 			Main.npcFrameCount[Type] = 4;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
-			NPCID.Sets.BossBestiaryPriority.Add(Type);
 
 			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
 			{

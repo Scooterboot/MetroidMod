@@ -17,6 +17,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nightmare");
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()
 		{
