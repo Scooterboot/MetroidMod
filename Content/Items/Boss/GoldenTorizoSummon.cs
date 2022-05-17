@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.Items.Boss
 		{
 			DisplayName.SetDefault("Inactive Golden Torizo");
 			Tooltip.SetDefault("Summons the Golden Torizo");
+
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{

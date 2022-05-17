@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.Items.Boss
 			DisplayName.SetDefault("Strange Device");
 			Tooltip.SetDefault("'Touching this sends a chill down your spine...'\n" +  
 			"Summons Nightmare at night");
+
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{

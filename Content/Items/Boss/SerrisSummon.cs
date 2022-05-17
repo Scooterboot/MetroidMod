@@ -11,6 +11,8 @@ namespace MetroidModPorted.Content.Items.Boss
 		{
 			DisplayName.SetDefault("Serris Bait");
 			Tooltip.SetDefault("Summons Serris at the ocean");
+
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{

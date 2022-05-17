@@ -11,6 +11,8 @@ namespace MetroidModPorted.Content.Items.Boss
 		{
 			DisplayName.SetDefault("Phazon Reactor Core");
 			Tooltip.SetDefault("Summons the Omega Pirate");
+
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{

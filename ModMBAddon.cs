@@ -42,6 +42,8 @@ namespace MetroidModPorted
 
 		public bool AddOnlyAddonItem { get; set; }
 
+		public int SacrificeTotal { get; set; } = 1;
+
 		public bool ItemNameLiteral { get; set; } = true;
 
 		public int AddonSlot { get; set; } = MorphBallAddonSlotID.None;

@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.Items.Boss
 			DisplayName.SetDefault("Ectoplasmic Locator");
 			Tooltip.SetDefault("'Gives the location of hidden ectoplasmic beings...'\n" +  
 			"Summons Phantoon at night");
+
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{

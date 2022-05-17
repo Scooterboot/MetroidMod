@@ -63,6 +63,8 @@ namespace MetroidModPorted
 
 		public abstract bool AddOnlyBeamItem { get; }
 
+		public int SacrificeTotal { get; set; } = 1;
+
 		public virtual int DustCount { get; set; } = -1;
 
 		public virtual int DustType { get; set; } = -1;

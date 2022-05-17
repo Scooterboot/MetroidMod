@@ -11,6 +11,8 @@ namespace MetroidModPorted.Content.Items.Boss
 		{
 			DisplayName.SetDefault("Variation Matrix");
 			Tooltip.SetDefault("Summons Kraid");
+
+			SacrificeTotal = 3;
 		}
 		public override void SetDefaults()
 		{
