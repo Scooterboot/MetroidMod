@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		public override string ProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PhazonBomb/PhazonBombProjectile";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override bool CanGenerateOnChozoStatue(Tile tile) => true;
 
 		public override void SetStaticDefaults()

@@ -20,6 +20,8 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitGreaves_Legs";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phazon Suit");

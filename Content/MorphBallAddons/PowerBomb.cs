@@ -16,6 +16,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		public override string ExplosionTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PowerBomb/PowerBombExplosion";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Bomb");

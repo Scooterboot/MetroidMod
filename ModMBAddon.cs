@@ -40,7 +40,7 @@ namespace MetroidModPorted
 
 		public abstract string TileTexture { get; }
 
-		public bool AddOnlyAddonItem { get; set; }
+		public abstract bool AddOnlyAddonItem { get; }
 
 		public int SacrificeTotal { get; set; } = 1;
 

@@ -19,6 +19,8 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuitV2/VariaSuitV2Greaves_Legs";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Varia Suit V2");

@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/ScrewAttack/ScrewAttackTile";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Screw Attack");

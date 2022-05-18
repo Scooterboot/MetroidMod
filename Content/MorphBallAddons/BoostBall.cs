@@ -11,6 +11,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/BoostBall/BoostBallTile";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override bool CanGenerateOnChozoStatue(Tile tile) => true;
 
 		public override void SetStaticDefaults()

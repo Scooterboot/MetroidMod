@@ -23,6 +23,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		public override string ExplosionTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombExplosion";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vortex Bomb");

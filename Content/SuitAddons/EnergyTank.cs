@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankTile";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Energy Tank");

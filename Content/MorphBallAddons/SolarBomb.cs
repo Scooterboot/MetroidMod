@@ -25,6 +25,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		public override string ExplosionSound => $"{Mod.Name}/Assets/Sounds/SolarBombExplode";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Solar Bomb");

@@ -11,6 +11,8 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/PowerGrip/PowerGripTile";
 
+		public override bool AddOnlyAddonItem => false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Grip");
