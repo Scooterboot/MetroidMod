@@ -29,7 +29,7 @@ namespace MetroidModPorted.Common
 
 			if (I.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || I.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>())
 			{
-				Texture2D tex = Terraria.GameContent.TextureAssets.Item[I.type].Value;//Main.itemTexture[I.type];
+				Texture2D tex = Terraria.GameContent.TextureAssets.Item[I.type].Value;
 				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
 				if (mi.itemTexture != null)
 				{

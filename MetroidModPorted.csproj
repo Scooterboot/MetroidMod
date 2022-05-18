@@ -32,6 +32,5 @@
     <Folder Include="Content\NPCs\Mobs\Utility\" />
     <Folder Include="Content\NPCs\Town\" />
     <Folder Include="Content\Projectiles\" />
-    <Folder Include="ID\" />
   </ItemGroup>
 </Project>

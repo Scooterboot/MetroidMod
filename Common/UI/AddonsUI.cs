@@ -418,7 +418,7 @@ namespace MetroidModPorted.Common.UI
 				}
 			}
 
-			//float unreflectedScale = drawScale;
+			float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
 			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, item.type);
@@ -438,7 +438,16 @@ namespace MetroidModPorted.Common.UI
 			}
 			if (item.stack > 1)
 			{
-				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, item.stack.ToString(), drawPosition + new Vector2(6f, 40f) * Main.inventoryScale, Color.White, 0f, Vector2.Zero, new Vector2(Main.inventoryScale), -1f, Main.inventoryScale);
+				Utils.DrawBorderStringFourWay(
+					spriteBatch,
+					FontAssets.ItemStack.Value,
+					Math.Min(9999, item.stack).ToString(),
+					innerDimensions.Position().X + 10f,
+					innerDimensions.Position().Y + 26f,
+					Color.White,
+					Color.Black,
+					Vector2.Zero,
+					unreflectedScale * 0.8f);
 			}
 		}
 		private Item GetItem(Item armor)
