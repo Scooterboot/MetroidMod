@@ -29,6 +29,7 @@ namespace MetroidModPorted.Default
 		public override void SetDefaults()
 		{
 			Item.maxStack = 1;
+			modSuitAddon.Item = Item;
 			modSuitAddon.SetItemDefaults(Item);
 			modSuitAddon.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;

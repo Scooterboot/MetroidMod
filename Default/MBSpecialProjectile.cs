@@ -32,7 +32,8 @@ namespace MetroidModPorted.Default
 		}
 		public override void SetDefaults()
 		{
-			explosion = (MBSpecialExplosion)modMBAddon.ExplosionProjectile;
+			explosion = (MBSpecialExplosion)modMBAddon.ModExplosionProjectile;
+			modMBAddon.Projectile = Projectile;
 			modMBAddon.ProjectileType = Type;
 			Projectile.width = 10;
 			Projectile.height = 10;

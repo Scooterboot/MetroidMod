@@ -35,8 +35,8 @@ namespace MetroidModPorted
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.bombDamage = player.GetWeaponDamage(Item.Item);
-			mp.Bomb(player, ProjectileType, Item.Item);
+			mp.bombDamage = player.GetWeaponDamage(Item);
+			mp.Bomb(player, ProjectileType, Item);
 		}
 		public virtual void Kill(int timeLeft, ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2) { }
 		public virtual void OnHitNPC(NPC target, int damage, float knockback, bool crit) { }

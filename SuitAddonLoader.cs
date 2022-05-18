@@ -33,7 +33,7 @@ namespace MetroidModPorted
 		internal static bool TryGetValue(this IList<ModSuitAddon> list, string fullName, out ModSuitAddon modSuitAddon) =>
 			list.TryGetValue(i => i.FullName == fullName, out modSuitAddon);
 		internal static bool TryGetValue(this IList<ModSuitAddon> list, Item item, out ModSuitAddon modSuitAddon) =>
-			list.TryGetValue(i => i.Item.Type == item.type, out modSuitAddon);
+			list.TryGetValue(i => i.ItemType == item.type, out modSuitAddon);
 
 		public static bool TryGetAddon(Item item, out ModSuitAddon modSuitAddon) =>
 			addons.TryGetValue(item, out modSuitAddon);

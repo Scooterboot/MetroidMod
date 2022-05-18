@@ -28,7 +28,7 @@ namespace MetroidModPorted
 		internal static bool TryGetValue(this IList<ModMBAddon> list, string fullName, out ModMBAddon modMBAddon) =>
 			list.TryGetValue(i => i.FullName == fullName, out modMBAddon);
 		internal static bool TryGetValue(this IList<ModMBAddon> list, Item item, out ModMBAddon modMBAddon) =>
-			list.TryGetValue(i => i.Item.Type == item.type, out modMBAddon);
+			list.TryGetValue(i => i.ItemType == item.type, out modMBAddon);
 
 		public static bool TryGetAddon(Item item, out ModMBAddon modMBAddon) =>
 			addons.TryGetValue(item, out modMBAddon);

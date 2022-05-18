@@ -19,11 +19,15 @@ namespace MetroidModPorted
 		/// <summary>
 		/// The <see cref="ModItem"/> this addon controls.
 		/// </summary>
-		public ModItem Item;
+		public ModItem ModItem;
 		/// <summary>
 		/// The <see cref="ModTile"/> this addon controls.
 		/// </summary>
-		public ModTile Tile;
+		public ModTile ModTile;
+		/// <summary>
+		/// The <see cref="Item"/> this addon controls.
+		/// </summary>
+		public Item Item;
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
 
@@ -62,22 +66,22 @@ namespace MetroidModPorted
 		public override sealed void SetupContent()
 		{
 			SetStaticDefaults();
-			Item.SetStaticDefaults();
+			ModItem.SetStaticDefaults();
 			SetupDrawing();
 		}
 		public override void Load()
 		{
-			Item = new SuitAddonItem(this);
-			Tile = new SuitAddonTile(this);
-			if (Item == null) { throw new Exception("WTF happened here? SuitAddonItem is null!"); }
-			if (Tile == null) { throw new Exception("WTF happened here? SuitAddonTile is null!"); }
-			Mod.AddContent(Item);
-			Mod.AddContent(Tile);
+			ModItem = new SuitAddonItem(this);
+			ModTile = new SuitAddonTile(this);
+			if (ModItem == null) { throw new Exception("WTF happened here? SuitAddonItem is null!"); }
+			if (ModTile == null) { throw new Exception("WTF happened here? SuitAddonTile is null!"); }
+			Mod.AddContent(ModItem);
+			Mod.AddContent(ModTile);
 			if (IsArmor && Main.netMode != NetmodeID.Server)
 			{
-				Mod.AddEquipTexture(Item, EquipType.Head, ArmorTextureHead);
-				Mod.AddEquipTexture(Item, EquipType.Body, ArmorTextureTorso);
-				Mod.AddEquipTexture(Item, EquipType.Legs, ArmorTextureLegs);
+				Mod.AddEquipTexture(ModItem, EquipType.Head, ArmorTextureHead);
+				Mod.AddEquipTexture(ModItem, EquipType.Body, ArmorTextureTorso);
+				Mod.AddEquipTexture(ModItem, EquipType.Legs, ArmorTextureLegs);
 			}
 		}
 
@@ -141,6 +145,6 @@ namespace MetroidModPorted
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 
-		public Recipe CreateRecipe(int amount = 1) => Item.CreateRecipe(amount);
+		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
 	}
 }

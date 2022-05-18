@@ -30,7 +30,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			item.noMelee = true;
 			item.DamageType = ModContent.GetInstance<DamageClasses.HunterDamageClass>();
 			item.damage = 50;
-			item.value = Terraria.Item.buyPrice(0, 4, 0, 0);
+			item.value = Item.buyPrice(0, 4, 0, 0);
 			item.rare = ItemRarityID.Pink;
 			item.accessory = true;
 		}
@@ -48,13 +48,13 @@ namespace MetroidModPorted.Content.SuitAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;
-			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item.Item), mp.speedBoostDmg);
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;
-			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item.Item), mp.speedBoostDmg);
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
 		}
 	}
 }

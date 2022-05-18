@@ -12,8 +12,7 @@ using MetroidModPorted.Content.Tiles.Hatch;
 
 namespace MetroidModPorted.Content.MorphBallAddons
 {
-	// TODO: Fix, similar situation to Solar Bomb
-	public abstract class VortexBomb : ModMBSpecial
+	public class VortexBomb : ModMBSpecial
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombItem";
 
@@ -57,9 +56,9 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		private const int width = 640;
 		private const int height = 640;
-		public override bool ExplosionAI(ref float scaleSize, ref float speed_dontUse, ref Color color)
+		public override void ExplosionAI()
 		{
-			Projectile P = Projectile.Projectile;
+			Projectile P = ExplosionProjectile;
 
 			float vacSpeedIncr = 0.05f;
 
@@ -207,12 +206,11 @@ namespace MetroidModPorted.Content.MorphBallAddons
 					}
 				}
 			}
-			return false;
 		}
 
 		public override bool ExplosionPreDraw(ref Color lightColor)
 		{
-			Projectile P = Projectile.Projectile;
+			Projectile P = ExplosionProjectile;
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 			if (P.scale > 0f)
 			{
@@ -223,7 +221,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item.Item), Item.Item);
+			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item), Item);
 		}
 		public override void AddRecipes()
 		{

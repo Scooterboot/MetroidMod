@@ -12,8 +12,7 @@ using MetroidModPorted.Content.Tiles.Hatch;
 
 namespace MetroidModPorted.Content.MorphBallAddons
 {
-	// TODO: Fix this
-	public abstract class SolarBomb : ModMBSpecial
+	public class SolarBomb : ModMBSpecial
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombItem";
 
@@ -51,7 +50,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item.Item), Item.Item);
+			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item), Item);
 		}
 		/*public override bool Kill(int timeLeft)
 		{
@@ -65,9 +64,9 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		private const int width = 640;
 		private const int height = 640;
-		public override bool ExplosionAI(ref float scale_dontUse, ref float speed_dontUse, ref Color color)
+		public override void ExplosionAI()
 		{
-			Projectile P = Projectile.Projectile;
+			Projectile P = ExplosionProjectile;
 
 			P.ai[0]++;
 			if (P.ai[0] > maxDist / 4)
@@ -132,7 +131,6 @@ namespace MetroidModPorted.Content.MorphBallAddons
 				}
 			}
 			scale += 0.04f * speed;
-			Mod.Logger.Debug(scale);
 
 			P.scale = scale;
 			P.position.X += (float)(P.width / 2);
@@ -141,9 +139,6 @@ namespace MetroidModPorted.Content.MorphBallAddons
 			P.height = (int)((float)height * P.scale);
 			P.position.X -= (float)(P.width / 2);
 			P.position.Y -= (float)(P.height / 2);
-
-			Mod.Logger.Debug(P.width);
-			Mod.Logger.Debug(P.height);
 
 			if (P.alpha < 255)
 			{
@@ -195,14 +190,13 @@ namespace MetroidModPorted.Content.MorphBallAddons
 					}
 				}
 			}
-			return false;
 		}
 		public override bool ExplosionPreDraw(ref Color lightColor)
 		{
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
-			Projectile P = Projectile.Projectile;
+			Projectile P = ExplosionProjectile;
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 
 			Main.spriteBatch.Draw(tex, P.Center - Main.screenPosition,

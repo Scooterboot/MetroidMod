@@ -33,7 +33,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<SpaceJumpBoots>().Item, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SpaceJumpBoots>().ItemType, 1)
 				.AddIngredient(ItemID.HallowedBar, 10)
 				.AddIngredient(ItemID.SoulofFlight, 10)
 				.AddTile(TileID.MythrilAnvil)

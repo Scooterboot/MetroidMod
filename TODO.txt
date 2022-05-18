@@ -24,6 +24,7 @@
 	 -	MODULAR BEAM COMBINATIONS!
  -	Implement modded missile addons
  -	Finish implementing morph ball addons
+	 -	DRILLS!
  -	Write all of the modded suits in
  -	Implement 'Energy Bar' and its UI (use for Energy Tanks other than being a crafting ingredient and a tile)
  -	Migrate some accessories to suit addons
@@ -34,5 +35,4 @@
 	 -	Dark Visor (implement in Metroid Prime 2: Echoes update)
 	 -	Echo Visor (implement in Metroid Prime 2: Echoes update)
 	 -	Command Visor (implement in Metroid Prime 3: Corruption update)
- -	Fix Solar Bomb and Vortex Bomb
  -	Fix Serris AI

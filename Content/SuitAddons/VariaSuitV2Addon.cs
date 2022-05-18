@@ -41,7 +41,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.value = Terraria.Item.buyPrice(0, 2, 10, 0);
+			item.value = Item.buyPrice(0, 2, 10, 0);
 			item.rare = ItemRarityID.Orange;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
@@ -65,7 +65,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<VariaSuitAddon>().Item, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<VariaSuitAddon>().ItemType, 1)
 				.AddRecipeGroup(MetroidModPorted.T2HMBarRecipeGroupID, 45)
 				.AddIngredient<Items.Miscellaneous.KraidTissue>(30)
 				.AddTile(TileID.MythrilAnvil)

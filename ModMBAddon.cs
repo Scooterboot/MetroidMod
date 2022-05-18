@@ -18,11 +18,15 @@ namespace MetroidModPorted
 		/// <summary>
 		/// The <see cref="ModItem"/> this addon controls.
 		/// </summary>
-		public ModItem Item;
+		public ModItem ModItem;
 		/// <summary>
 		/// The <see cref="ModTile"/> this addon controls.
 		/// </summary>
-		public ModTile Tile;
+		public ModTile ModTile;
+		/// <summary>
+		/// The <see cref="Item"/> this addon controls.
+		/// </summary>
+		public Item Item;
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
 
@@ -57,19 +61,19 @@ namespace MetroidModPorted
 		{
 			SetStaticDefaults();
 			InternalStaticDefaults();
-			Item.SetStaticDefaults();
+			ModItem.SetStaticDefaults();
 		}
 
 		internal virtual void InternalStaticDefaults() { }
 
 		public override void Load()
 		{
-			Item = new MBAddonItem(this);
-			Tile = new MBAddonTile(this);
-			if (Item == null) { throw new Exception("WTF happened here? MissileAddonItem is null!"); }
-			if (Tile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
-			Mod.AddContent(Item);
-			Mod.AddContent(Tile);
+			ModItem = new MBAddonItem(this);
+			ModTile = new MBAddonTile(this);
+			if (ModItem == null) { throw new Exception("WTF happened here? MissileAddonItem is null!"); }
+			if (ModTile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
+			Mod.AddContent(ModItem);
+			Mod.AddContent(ModTile);
 		}
 		protected override sealed void Register()
 		{
@@ -101,6 +105,6 @@ namespace MetroidModPorted
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 
-		public Recipe CreateRecipe(int amount = 1) => Item.CreateRecipe(amount);
+		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
 	}
 }
