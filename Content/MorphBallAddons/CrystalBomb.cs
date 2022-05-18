@@ -28,7 +28,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetItemDefaults(Item item)
 		{
 			item.damage = 52;
-			item.value = Terraria.Item.buyPrice(0, 3, 0, 0);
+			item.value = Item.buyPrice(0, 3, 0, 0);
 			item.rare = ItemRarityID.LightPurple;
 		}
 
@@ -39,8 +39,6 @@ namespace MetroidModPorted.Content.MorphBallAddons
 			dustType2 = 70;
 			dustScale2 = 2f;
 
-			Projectile projectile = Projectile.Projectile;
-
 			int max = 9;
 			float angle = Main.rand.Next(360 / max);
 			for (int i = 0; i < max; i++)
@@ -48,7 +46,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 				//Vector2 vel = Main.rand.NextVector2CircularEdge(5f, 5f);
 				float rot = (float)Angle.ConvertToRadians(angle + ((360f / max) * i));
 				Vector2 vel = rot.ToRotationVector2() * 10f;
-				Terraria.Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, ProjectileID.CrystalShard, projectile.damage / 2, 1, projectile.owner);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ProjectileID.CrystalShard, Projectile.damage / 2, 1, Projectile.owner);
 			}
 		}
 		public override void AddRecipes()

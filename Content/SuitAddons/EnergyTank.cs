@@ -25,7 +25,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override void SetItemDefaults(Item item)
 		{
 			item.maxStack = 10;
-			item.value = Terraria.Item.buyPrice(0, 0, 10, 0);
+			item.value = Item.buyPrice(0, 0, 10, 0);
 			item.rare = ItemRarityID.Green;
 		}
 		public override void AddRecipes()

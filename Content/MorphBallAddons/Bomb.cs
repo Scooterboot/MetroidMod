@@ -26,7 +26,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetItemDefaults(Item item)
 		{
 			item.damage = 10;
-			item.value = Terraria.Item.buyPrice(0, 0, 25, 0);
+			item.value = Item.buyPrice(0, 0, 25, 0);
 			item.rare = ItemRarityID.Green;
 		}
 		public override void AddRecipes()

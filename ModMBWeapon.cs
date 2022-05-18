@@ -18,7 +18,11 @@ namespace MetroidModPorted
 		/// <summary>
 		/// The <see cref="ModProjectile"/> this addon controls.
 		/// </summary>
-		public ModProjectile Projectile { get; internal set; }
+		public ModProjectile ModProjectile { get; internal set; }
+		/// <summary>
+		/// The <see cref="Projectile"/> this addon controls.
+		/// </summary>
+		public Projectile Projectile { get; internal set; }
 		public int ProjectileType { get; internal set; }
 		public abstract string ProjectileTexture { get; }
 		internal override sealed void InternalStaticDefaults()
@@ -28,9 +32,9 @@ namespace MetroidModPorted
 		public override void Load()
 		{
 			base.Load();
-			Projectile = new MBWeaponProjectile(this);
-			if (Projectile == null) { throw new Exception("WTF happened here? MBWeaponProjectile is null!"); }
-			Mod.AddContent(Projectile);
+			ModProjectile = new MBWeaponProjectile(this);
+			if (ModProjectile == null) { throw new Exception("WTF happened here? MBWeaponProjectile is null!"); }
+			Mod.AddContent(ModProjectile);
 		}
 		public override void UpdateEquip(Player player)
 		{

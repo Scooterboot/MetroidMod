@@ -22,7 +22,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.value = Terraria.Item.buyPrice(0, 1, 0, 0);
+			item.value = Item.buyPrice(0, 1, 0, 0);
 			item.rare = ItemRarityID.Green;
 			item.accessory = true;
 		}

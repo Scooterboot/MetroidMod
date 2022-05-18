@@ -29,7 +29,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetItemDefaults(Item item)
 		{
 			item.damage = 75;
-			item.value = Terraria.Item.buyPrice(0, 5, 0, 0);
+			item.value = Item.buyPrice(0, 5, 0, 0);
 			item.rare = ItemRarityID.Yellow;
 		}
 
@@ -38,23 +38,19 @@ namespace MetroidModPorted.Content.MorphBallAddons
 			dustType = 6;
 			dustType2 = 6;
 
-			Projectile projectile = Projectile.Projectile;
-
 			int max = 3;
 			float angle = Main.rand.Next(360 / max);
 			for (int i = 0; i < max; i++)
 			{
 				float rot = (float)Angle.ConvertToRadians(angle + ((360f / max) * i));
 				Vector2 vel = rot.ToRotationVector2() * 5f;
-				Projectile proj = Main.projectile[Terraria.Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, ProjectileID.JackOLantern, projectile.damage / max, projectile.knockBack + 3, projectile.owner)];
+				Projectile proj = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, ProjectileID.JackOLantern, Projectile.damage / max, Projectile.knockBack + 3, Projectile.owner)];
 				proj.timeLeft = 60;
 			}
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Projectile projectile = Projectile.Projectile;
-
-			// Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.DirectionTo(target.Center) * 8, ProjectileID.FlamingJack, (int)(damage * 1.5f), knockback + 3, projectile.owner, target.whoAmI);
+			// Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.DirectionTo(target.Center) * 8, ProjectileID.FlamingJack, (int)(damage * 1.5f), knockback + 3, Projectile.owner, target.whoAmI);
 		}
 	}
 }

@@ -36,6 +36,7 @@ namespace MetroidModPorted.Default
 		}
 		public override void SetDefaults()
 		{
+			modMBAddon.Projectile = Projectile;
 			modMBAddon.ProjectileType = Type;
 			Projectile.width = 10;
 			Projectile.height = 10;

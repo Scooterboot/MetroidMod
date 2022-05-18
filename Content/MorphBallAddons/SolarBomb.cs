@@ -38,7 +38,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		{
 			item.damage = 25;
 			item.noMelee = true;
-			item.value = Terraria.Item.buyPrice(0, 3, 0, 0);
+			item.value = Item.buyPrice(0, 3, 0, 0);
 			item.rare = ItemRarityID.LightRed;
 		}
 		public override void SetExplosionProjectileDefaults(Projectile proj)
