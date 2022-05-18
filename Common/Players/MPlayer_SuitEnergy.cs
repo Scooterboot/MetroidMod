@@ -73,6 +73,16 @@ namespace MetroidModPorted.Common.Players
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
 			SetMinMax(ref EnergyDefenseEfficiency);
 			SetMinMax(ref EnergyExpenseEfficiency);
+			if (!ShouldShowArmorUI) { return; }
+			if (Energy > 0 && Player.lifeRegen < 0)
+			{
+				//Player.lifeRegen = 0;
+				int oldEnergy = Energy;
+				float damageToSubtractFromEnergy = Math.Min((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f);
+				Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
+				Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
+				if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
+			}
 		}
 		private void SetMinMax(ref float value, float min = 0f, float max = 1f) => value = Math.Min(Math.Max(value, min), max);
 	}
