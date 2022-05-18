@@ -70,7 +70,7 @@ namespace MetroidModPorted.Common.Players
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Item.Name, EquipType.Head);
+				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Head);
 				if (temp != -1)
 				{
 					msaEqu = temp;
@@ -106,7 +106,7 @@ namespace MetroidModPorted.Common.Players
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Item.Name, EquipType.Body);
+				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Body);
 				if (temp != -1)
 				{
 					msaEqu = temp;
@@ -138,7 +138,7 @@ namespace MetroidModPorted.Common.Players
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Item.Name, EquipType.Body);
+				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Body);
 				if (temp == -1)
 				{
 					msaEqu = temp;
@@ -170,7 +170,7 @@ namespace MetroidModPorted.Common.Players
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].Item.Name, EquipType.Legs);
+				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Legs);
 				if (temp != -1)
 				{
 					msaEqu = temp;
@@ -215,7 +215,7 @@ namespace MetroidModPorted.Common.Players
 			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{
 				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Varia] = null; continue; }
-				msa[i - SuitAddonSlotID.Suit_Varia] = ((SuitAddonItem)sa[i].ModItem).modSuitAddon;
+				msa[i - SuitAddonSlotID.Suit_Varia] = SuitAddonLoader.GetAddon(sa[i]);
 			}
 			return msa;
 		}
