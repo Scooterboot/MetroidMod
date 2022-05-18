@@ -20,7 +20,7 @@ namespace MetroidModPorted.Common.UI
 	{
 		public static bool Visible => Main.LocalPlayer.miscEquips[3].type == ModContent.ItemType<MorphBall>() && Main.EquipPage == 2;
 
-		MorphBallPanel morphBallPanel;
+		private MorphBallPanel morphBallPanel;
 
 		public override void OnInitialize()
 		{
@@ -39,7 +39,7 @@ namespace MetroidModPorted.Common.UI
 
 		public UIText[] textSlots;
 
-		public Rectangle drawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
+		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
 		public Vector2[] itemBoxPositionValues = new Vector2[MetroidModPorted.ballSlotAmount]
 		{
@@ -116,7 +116,7 @@ namespace MetroidModPorted.Common.UI
 
 		public int morphBallSlotType;
 
-		public Rectangle drawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
@@ -137,13 +137,13 @@ namespace MetroidModPorted.Common.UI
 		public void SetCondition()
 		{
 			condition = delegate (Item addonItem) {
-				if (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance)
+				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidModPorted.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.MorphBall || !MBAddonLoader.TryGetAddon(addonItem, out ModMBAddon mbAddon)) { return false; }
 					return (addonItem.type <= 0 || mbAddon.AddonSlot == morphBallSlotType);
 				}
-				return (addonItem.type <= 0 || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance));
+				return (addonItem.type <= 0);// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance));
 			};
 		}
 
@@ -245,7 +245,7 @@ namespace MetroidModPorted.Common.UI
 	 */
 	public class MorphBallFrame : UIPanel
 	{
-		Texture2D morphBallFrame;
+		private Texture2D morphBallFrame;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
@@ -268,9 +268,9 @@ namespace MetroidModPorted.Common.UI
 	}
 	public class MorphBallLines : UIPanel
 	{
-		Texture2D morphBallLines;
+		private Texture2D morphBallLines;
 
-		public Rectangle drawRectangle => new Rectangle((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+		public Rectangle DrawRectangle => new Rectangle((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
 		public override void OnInitialize()
 		{
@@ -286,7 +286,7 @@ namespace MetroidModPorted.Common.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(morphBallLines, drawRectangle, Color.White);
+			spriteBatch.Draw(morphBallLines, DrawRectangle, Color.White);
 		}
 	}
 }

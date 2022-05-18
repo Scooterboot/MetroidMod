@@ -183,7 +183,7 @@ namespace MetroidModPorted.Common.UI
 			condition = delegate (Item addonItem)
 			{
 				//Mod mod = ModLoader.GetMod("MetroidModPorted");
-				if (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance)
+				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidModPorted.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.PowerBeam) { return false; }
@@ -191,7 +191,7 @@ namespace MetroidModPorted.Common.UI
 					return addonItem.type <= ItemID.None || mBeam.AddonSlot == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
-				return addonItem.type <= ItemID.None || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance);
+				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance);
 			};
 		}
 

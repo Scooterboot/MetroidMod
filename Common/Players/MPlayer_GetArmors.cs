@@ -62,7 +62,6 @@ namespace MetroidModPorted.Common.Players
 				ShouldDrawGreaves = true;
 			}
 		}
-		//Mod.Logger.Debug(result);
 		public static int GetHelmet(Player player)
 		{
 			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitHelmet), EquipType.Head);
@@ -95,10 +94,6 @@ namespace MetroidModPorted.Common.Players
 
 			return ModContent.Request<Texture2D>(tex);
 		}
-		/*public static void DrawHelmetArmorColor(Player player, ref int glowMask, ref Color glowMaskColor)
-		{
-
-		}*/
 		public static int GetBreastplate(Player player)
 		{
 			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitBreastplate), EquipType.Body);
@@ -198,7 +193,6 @@ namespace MetroidModPorted.Common.Players
 
 		internal static ModSuitAddon[] GetPowerSuit(Player player)
 		{
-			MPlayer mPlayer = player.GetModPlayer<MPlayer>();
 			PowerSuitBreastplate armor;
 			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>())
 			{
@@ -210,7 +204,6 @@ namespace MetroidModPorted.Common.Players
 			}
 			else { return new ModSuitAddon[4] {null, null, null, null}; }
 			Item[] sa = armor.SuitAddons;
-			//Item[] sa = mPlayer.SuitAddons;
 			ModSuitAddon[] msa = new ModSuitAddon[4];
 			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{

@@ -170,7 +170,7 @@ namespace MetroidModPorted.Default
 				}
 			}
 
-			SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.Center.X, (int)Projectile.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/BombExplode"));
+			SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.Center.X, (int)Projectile.Center.Y, SoundLoader.GetSoundSlot(MetroidModPorted.Instance, "Assets/Sounds/BombExplode"));
 
 			int dustType = 59, dustType2 = 61;
 			float dustScale = 5f, dustScale2 = 5f;

@@ -88,7 +88,7 @@ namespace MetroidModPorted
 				}
 				MBAddonLoader.addons.Add(this);
 			}
-			Mod.Logger.Info("Register new Morph Ball Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+			MetroidModPorted.Instance.Logger.Info("Register new Morph Ball Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
 		}
 
 		public override void SetStaticDefaults()

@@ -159,7 +159,7 @@ namespace MetroidModPorted
 				}
 				BeamLoader.beams.Add(this);
 			}
-			Mod.Logger.Info($"Register new Beam: {FullName}, OnlyBeamItem: {AddOnlyBeamItem}");
+			MetroidModPorted.Instance.Logger.Info($"Register new Beam: {FullName}, OnlyBeamItem: {AddOnlyBeamItem}");
 		}
 
 		public override void SetStaticDefaults()

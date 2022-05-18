@@ -54,6 +54,7 @@ namespace MetroidModPorted
 		public static Color wideColor = new(255, 210, 255);
 		public static Color lumColor = new(209, 255, 250);
 		public static MetroidModPorted Instance { get; private set; }
+		public MetroidModPorted() { Instance = this; }
 
 		public static bool DebugDH;
 		public static bool DebugDSI;
@@ -76,7 +77,6 @@ namespace MetroidModPorted
 
 		public override void Load()
 		{
-			Instance = this;
 			ItemIL.Load();
 			//OnHooks.Load();
 			//ILHooks.Load();

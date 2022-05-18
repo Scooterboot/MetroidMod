@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>ExampleMetroidAddonMod</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Music\" />
+    <Folder Include="Assets\Effects\" />
+    <Folder Include="Assets\Textures\" />
+    <Folder Include="Assets\Sounds\" />
+    <Folder Include="Content\Beams\" />
+    <Folder Include="Content\MissileAddons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroidModPorted\MetroidModPorted.csproj" />
+  </ItemGroup>
+</Project>

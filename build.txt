@@ -1,3 +1,9 @@
 displayName = Metroid Mod Ported
 author = Scooterboot9697, Terratroid, Joost, Eldrazi, Jefftheswift, Begoliah, Dark Samus 49
 version = 0.1
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, ExampleMetroidAddonMod\*
+noCompile=false
+hideCode=false
+hideResources=false
+includeSource=true
+includePDB=true

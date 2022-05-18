@@ -250,14 +250,14 @@ namespace MetroidModPorted.Common.UI
 		{
 			condition = delegate (Item addonItem) {
 				//Mod mod = ModLoader.GetMod("MetroidModPorted");
-				if (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance)
+				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidModPorted.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
 					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
-				return addonItem.type <= ItemID.None || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance);
+				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance);
 			};
 		}
 
@@ -378,7 +378,7 @@ namespace MetroidModPorted.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			base.DrawSelf(spriteBatch);
-			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			//MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
 			//Item target = Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem];
 			//if (target == null & target.type != ModContent.ItemType<PowerBeam>()) { return; }
 			//PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
