@@ -60,7 +60,7 @@ namespace MetroidModPorted.Common.GlobalProjectiles
 			return base.PreAI(projectile);
 		}
 		int counter = 0;
-		/*public override void AI(Projectile projectile)
+		public override void AI(Projectile projectile)
 		{
 			float accuracy = 3f;
 			float distance = 250f;
@@ -99,7 +99,7 @@ namespace MetroidModPorted.Common.GlobalProjectiles
 					}
 				}
 			}
-		}*/
+		}
 		public override void Kill(Projectile projectile, int timeLeft)
 		{
 			int tilex = (int)(projectile.position.X / 16) - 1;
