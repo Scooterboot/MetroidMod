@@ -153,7 +153,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 					//Main.PlaySound(4,(int)NPC.position.X,(int)NPC.position.Y,14);
 					
 					int num = (int)NPC.ai[1];
-					string path = "Assets/Textures/Gores/NightmareArmBackGore"+num;
+					string path = "NightmareArmBackGore"+num;
 					int gore = Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(0f,3f), Mod.Find<ModGore>(path).Type, 1f);
 					Main.gore[gore].velocity *= 0.4f;
 					Main.gore[gore].timeLeft = 60;

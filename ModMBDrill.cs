@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using MetroidModPorted.ID;
+﻿using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
@@ -14,6 +8,11 @@ namespace MetroidModPorted
 		internal sealed override void InternalStaticDefaults()
 		{
 			AddonSlot = MorphBallAddonSlotID.Drill;
+		}
+
+		public override void UpdateEquip(Terraria.Player player)
+		{
+			player.GetModPlayer<Common.Players.MPlayer>().Drill(player, DrillPower);
 		}
 	}
 }
