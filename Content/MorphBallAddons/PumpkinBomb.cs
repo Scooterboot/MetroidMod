@@ -21,6 +21,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pumpkin Morph Ball Bombs");
+			ModProjectile.DisplayName.SetDefault("Pumpkin Morph Ball Bomb");
 			Tooltip.SetDefault("-Right click to set off a bomb\n" +
 			"Fires off Jack 'O Lanterns on detonation\n" +
 			"'I took a grenade to the face, dude!'");

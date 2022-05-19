@@ -27,6 +27,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vortex Bomb");
+			ModProjectile.DisplayName.SetDefault("Vortex Bomb");
+			ModExplosionProjectile.DisplayName.SetDefault("Vortex Bomb");
 			Tooltip.SetDefault("-Press the Power Bomb Key to set off a Vortex Bomb (20 second cooldown)\n" +
 			"-Vortex Bombs create massive explosions which vacuum in foes and items\n" +
 			"-Vortex Bombs can deal ~1400 damage total");

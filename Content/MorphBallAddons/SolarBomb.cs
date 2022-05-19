@@ -29,6 +29,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Solar Bomb");
+			ModProjectile.DisplayName.SetDefault("Solar Bomb");
+			ModExplosionProjectile.DisplayName.SetDefault("Solar Bomb");
 			Tooltip.SetDefault("-Press the Power Bomb Key to set off a Solar Bomb (20 second cooldown)\n" +
 			"-Solar Bombs create massive explosions which burn enemies and vacuum in items afterwards\n" +
 			"-Solar Bombs ignore 50% of enemy defense and can deal ~7400 damage total");

@@ -35,7 +35,7 @@ namespace MetroidModPorted.Content.SuitAddons
 				"20% increased energy barrier resilience\n" // Provisional name
 				);
 			AddonSlot = SuitAddonSlotID.Suit_LunarAugment;
-			ItemNameLiteral = false;
+			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
 		{

@@ -19,6 +19,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Frostburn Morph Ball Bombs");
+			ModProjectile.DisplayName.SetDefault("Frostburn Morph Ball Bomb");
 			Tooltip.SetDefault("-Right click to set off a bomb\n" +
 			"Frostburns enemies");
 			ItemNameLiteral = true;

@@ -111,7 +111,7 @@ namespace MetroidModPorted
 				}
 				SuitAddonLoader.addons.Add(this);
 			}
-			Mod.Logger.Info("Register new Suit Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+			MetroidModPorted.Instance.Logger.Info("Register new Suit Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
 		}
 
 		public override void SetStaticDefaults()

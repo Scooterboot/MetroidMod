@@ -27,6 +27,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Bomb");
+			ModProjectile.DisplayName.SetDefault("Power Bomb");
+			ModExplosionProjectile.DisplayName.SetDefault("Power Bomb");
 			Tooltip.SetDefault("-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)\n" +
 			"-Power Bombs create large explosions that vacuum in items afterwards\n" +
 			"-Power Bombs ignore 50% of enemy defense and can deal ~1400 damage total");
