@@ -730,7 +730,7 @@ namespace MetroidModPorted.Common.Systems
 					if (addon.CanGenerateOnChozoStatue(Main.tile[i, j])) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.rare); }
 				}
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
+				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 				Array.Resize(ref list, index);
 				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
 

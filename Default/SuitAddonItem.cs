@@ -47,13 +47,19 @@ namespace MetroidModPorted.Default
 
 		public override void HoldItem(Player player)
 		{
-			if (player.InInteractionRange(Player.tileTargetX, Player.tileTargetY))
+			if (modSuitAddon.ShowTileHover(player))
 			{
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = Type;
 			}
 		}
 		public override bool IsVanitySet(int head, int body, int legs) => true;
+
+		public override bool AltFunctionUse(Player player) => modSuitAddon.AltFunctionUse(player);
+
+		public override bool CanUseItem(Player player) => modSuitAddon.CanUseItem(player);
+
+		public override bool? UseItem(Player player) => modSuitAddon.UseItem(player);
 
 		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup) => itemGroup = ContentSamples.CreativeHelper.ItemGroup.Accessories;
 

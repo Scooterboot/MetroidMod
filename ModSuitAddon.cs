@@ -122,6 +122,8 @@ namespace MetroidModPorted
 		/// <inheritdoc cref="ModItem.SetDefaults()"/>
 		public virtual void SetItemDefaults(Item item) { }
 
+		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY);
+
 		/// <inheritdoc cref="ModItem.UpdateAccessory(Player, bool)"/>
 		public virtual void UpdateAccessory(Player player, bool hideVisual) { UpdateInventory(player); }
 
@@ -136,6 +138,15 @@ namespace MetroidModPorted
 
 		/// <inheritdoc cref="ModItem.ArmorSetShadows(Player)"/>
 		public virtual void ArmorSetShadows(Player player) { }
+
+		/// <inheritdoc cref="ModItem.AltFunctionUse(Player)"/>
+		public virtual bool AltFunctionUse(Player player) { return false; }
+
+		/// <inheritdoc cref="ModItem.CanUseItem(Player)"/>
+		public virtual bool CanUseItem(Player player) { return true; }
+
+		/// <inheritdoc cref="ModItem.UseItem(Player)"/>
+		public virtual bool? UseItem(Player player) { return null; }
 
 		public virtual string GetSetBonusText()
 		{

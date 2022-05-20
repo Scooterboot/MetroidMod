@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Tiles
 {
-	public class XRayScopePlaceable : ModItem
+	/*public class XRayScopePlaceable : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -25,5 +25,5 @@ namespace MetroidModPorted.Content.Items.Tiles
 			//Item.consumable = true;
 			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>();
 		}
-	}
+	}*/
 }

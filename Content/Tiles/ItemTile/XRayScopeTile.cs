@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Tiles.ItemTile
 {
-	public class XRayScopeTile : ItemTile
+	/*public class XRayScopeTile : ItemTile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -15,5 +15,5 @@ namespace MetroidModPorted.Content.Tiles.ItemTile
 			ItemDrop = ModContent.ItemType<Items.Tools.XRayScope>();
 			DustType = 1;
 		}
-	}
+	}*/
 }
