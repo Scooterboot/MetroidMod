@@ -1,7 +1,6 @@
 ﻿using System;
 
 using Terraria;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,6 +17,8 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/XRayScope/XRayScopeItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/XRayScope/XRayScopeTile";
+
+		public override string VisorSelectIcon => $"{Mod.Name}/Assets/Textures/SuitAddons/XRayScope/XRayScopeIcon";
 
 		public override bool AddOnlyAddonItem => false;
 
@@ -84,19 +85,12 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override bool? UseItem(Player player)
 		{
-			//if (player.itemAnimation == 1) { }
 			if (isScope == false) { return base.UseItem(player); }
-			/*if (player.itemAnimation == 1) //Doesn't let the hand return to resting position
-			{
-				player.altFunctionUse = 1;
-				player.controlUseItem = true;
-			}
-			if (PlayerInput.Triggers.JustReleased.MouseRight) //Stops the animation manually
-			{
-				player.altFunctionUse = 0;
-				player.controlUseItem = false;
-				return false;
-			}*/
+			DrawVisor(player);
+			return true;
+		}
+		public override void DrawVisor(Player player)
+		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			//mp.xrayequipped = true;
 			int range = 16;
@@ -137,7 +131,6 @@ namespace MetroidModPorted.Content.SuitAddons
 					}
 				}
 			}
-			return true;
 		}
 	}
 }

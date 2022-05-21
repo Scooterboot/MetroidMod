@@ -4,8 +4,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.ID;
 
 using MetroidModPorted.Common.GlobalItems;
 using MetroidModPorted.Common.Players;
@@ -17,7 +19,8 @@ namespace MetroidModPorted.Common.Systems
 		public static MUISystem Instance { get; private set; }
 		internal static UserInterface pbUserInterface;
 		internal static UserInterface mbUserInterface;
-		internal static UserInterface suitUserIntrface;
+		internal static UserInterface suitUserInterface;
+		internal static UserInterface visorUserInterface;
 		//internal static UI.PowerBeamUI powerBeamUI;
 		//internal static UI.AddonsUI addonsUI;
 
@@ -32,6 +35,7 @@ namespace MetroidModPorted.Common.Systems
 		internal bool isPBInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
+		internal bool isVIInit = false;
 
 		public override void Load()
 		{
@@ -40,7 +44,8 @@ namespace MetroidModPorted.Common.Systems
 				//addonsUI = new UI.AddonsUI();
 				pbUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
-				suitUserIntrface = new UserInterface();
+				suitUserInterface = new UserInterface();
+				visorUserInterface = new UserInterface();
 
 				/*powerBeamUI = new UI.PowerBeamUI();
 				powerBeamUI.Activate();
@@ -68,16 +73,22 @@ namespace MetroidModPorted.Common.Systems
 		{
 			pbUserInterface = null;
 			mbUserInterface = null;
-			suitUserIntrface = null;
+			suitUserInterface = null;
+			visorUserInterface = null;
 			//powerBeamUI = null;
 			//addonsUI = null;
 		}
 
 		public override void UpdateUI(GameTime gameTime)
 		{
+			if (isVIInit == false)
+			{
+				visorUserInterface.SetState(new UI.VisorSelectUI());
+				isVIInit = true;
+			}
 			if (isSUInit == false)
 			{
-				suitUserIntrface.SetState(new UI.SuitAddonsUI());
+				suitUserInterface.SetState(new UI.SuitAddonsUI());
 				isSUInit = true;
 			}
 			if (isMBInit == false)
@@ -90,9 +101,13 @@ namespace MetroidModPorted.Common.Systems
 				pbUserInterface.SetState(new UI.PowerBeamUI());
 				isPBInit = true;
 			}
-			if (suitUserIntrface != null && UI.SuitAddonsUI.Visible)
+			if (visorUserInterface != null && UI.VisorSelectUI.Visible)
 			{
-				suitUserIntrface.Update(gameTime);
+				visorUserInterface.Update(gameTime);
+			}
+			if (suitUserInterface != null && UI.SuitAddonsUI.Visible)
+			{
+				suitUserInterface.Update(gameTime);
 			}
 			if (mbUserInterface != null && UI.MorphBallUI.Visible)
 			{
@@ -178,6 +193,19 @@ namespace MetroidModPorted.Common.Systems
 						sb.Draw(tex, drawPos, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), Color.White, 0, new Vector2(tex.Width / 2, tex.Height / 2), 1f, SpriteEffects.None, 0f);
 					}
 				}
+			}
+			if (Main.netMode != NetmodeID.Server)
+			{
+				if (SuitAddonLoader.TryGetAddon(mp.VisorInUse, out ModSuitAddon addon))
+				{
+					addon.DrawVisor(P);
+				}
+				//Filters.Scene.Activate("FilterName");
+
+				// Updating a filter
+				//Filters.Scene["FilterName"].GetShader().UseProgress(progress);
+
+				//Filters.Scene["FilterName"].Deactivate();
 			}
 		}
 
@@ -270,10 +298,29 @@ namespace MetroidModPorted.Common.Systems
 					delegate {
 						if (UI.SuitAddonsUI.Visible)
 						{
-							if (Main.hasFocus) { suitUserIntrface.Recalculate(); }
-							suitUserIntrface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+							if (Main.hasFocus) { suitUserInterface.Recalculate(); }
+							suitUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidModPorted: Visor Select UI",
+					delegate {
+						if (UI.VisorSelectUI.Visible)
+						{
+							if (MSystem.VisorUIKey.JustPressed)
+							{
+								visorUserInterface.CurrentState.Activate();
+							}
+							visorUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+						if (MSystem.VisorUIKey.JustReleased)
+						{
+							visorUserInterface.CurrentState.Deactivate();
+						}
 						return true;
 					},
 					InterfaceScaleType.UI)

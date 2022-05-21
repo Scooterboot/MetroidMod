@@ -288,6 +288,8 @@ namespace MetroidModPorted.Content.Items.Armors
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
+
+		public override void OnCraft(Recipe recipe) => SuitAddons[0] = SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().Item;
 		public override void SaveData(TagCompound tag)
 		{
 			for (int i = 0; i < SuitAddons.Length; ++i)

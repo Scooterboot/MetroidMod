@@ -43,12 +43,18 @@ namespace MetroidModPorted
 
 		public abstract string ItemTexture { get; }
 
-		public virtual string ArmorTextureHead { get; set; }
-		public virtual string ArmorTextureTorso { get; set; }
-		public virtual string ArmorTextureArmsGlow { get; set; }
-		public virtual string ArmorTextureLegs { get; set; }
+		public virtual string ArmorTextureHead { get; }
+		public virtual string ArmorTextureTorso { get; }
+		public virtual string ArmorTextureArmsGlow { get; }
+		public virtual string ArmorTextureLegs { get; }
 
 		public abstract string TileTexture { get; }
+
+		/// <summary>
+		/// The path to the texture shown for the visor in the visor select. <br />
+		/// Note: This is only used for Visors, such as the X-Ray Scope.
+		/// </summary>
+		public virtual string VisorSelectIcon { get; }
 
 		public abstract bool AddOnlyAddonItem { get; }
 
@@ -147,6 +153,13 @@ namespace MetroidModPorted
 
 		/// <inheritdoc cref="ModItem.UseItem(Player)"/>
 		public virtual bool? UseItem(Player player) { return null; }
+
+		/// <summary>
+		/// Allows you to do things when this visor is equipped and in use. <br />
+		/// Note: This is only called for Visors, such as the X-Ray Scope.
+		/// </summary>
+		/// <param name="player">The player.</param>
+		public virtual void DrawVisor(Player player) { }
 
 		public virtual string GetSetBonusText()
 		{
