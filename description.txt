@@ -17,3 +17,9 @@ Ported to 1.4 by [c/00aaff:Dark Samus 49]!
 
 The 1.4 port adds:
 -Modular suits
+-Modular morph ball addons
+
+Credits:
+Infected Animal, for porting the suits' textures to 1.4.
+Antinous, for the visor ui background texture.
+Nintendo, for the entire Metroid Franchise!

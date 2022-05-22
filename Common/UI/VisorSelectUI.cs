@@ -32,11 +32,18 @@ namespace MetroidModPorted.Common.UI
 
 	public class VisorSelectPanel : UIPanel
 	{
+		private Texture2D BackgroundTex;
 		private Texture2D CombatIcon;
 		private Texture2D ScanIcon;
 		private Texture2D UtilityIcon;
 		private Texture2D AltVisorIcon;
 
+		private Rectangle backgroundRect => new(
+			(int)(Left.Pixels + (Width.Pixels / 2) - (BackgroundTex.Width / 2)),
+			(int)(Top.Pixels + (Height.Pixels / 2) - (BackgroundTex.Height / 2) + 16),
+			BackgroundTex.Width,
+			BackgroundTex.Height
+		);
 		private Rectangle combatRect => new(
 			(int)(Left.Pixels + (Width.Pixels / 2) - (CombatIcon.Width / 2)),
 			(int)(Top.Pixels + (Height.Pixels / 2) - (CombatIcon.Height / 2)),
@@ -45,19 +52,19 @@ namespace MetroidModPorted.Common.UI
 		);
 		private Rectangle scanRect => new(
 			(int)(Left.Pixels + (Width.Pixels / 2) - (ScanIcon.Width / 2)),
-			(int)(Top.Pixels + (Height.Pixels / 2) - (ScanIcon.Height / 2) - new Vector2(144, 73).Length()),
+			(int)(Top.Pixels + (Height.Pixels / 2) - (ScanIcon.Height / 2) - 77),
 			ScanIcon.Width,
 			ScanIcon.Height
 		);
 		private Rectangle utilRect => new(
-			(int)(Left.Pixels + (Width.Pixels / 2) - (UtilityIcon.Width / 2) - 144),
-			(int)(Top.Pixels + (Height.Pixels / 2) - (UtilityIcon.Height / 2) + 73),
+			(int)(Left.Pixels + (Width.Pixels / 2) - (UtilityIcon.Width / 2) - 75),
+			(int)(Top.Pixels + (Height.Pixels / 2) - (UtilityIcon.Height / 2) + 22),
 			UtilityIcon.Width,
 			UtilityIcon.Height
 		);
 		private Rectangle altRect => new(
-			(int)(Left.Pixels + (Width.Pixels / 2) - (AltVisorIcon.Width / 2) + 144),
-			(int)(Top.Pixels + (Height.Pixels / 2) - (AltVisorIcon.Height / 2) + 73),
+			(int)(Left.Pixels + (Width.Pixels / 2) - (AltVisorIcon.Width / 2) + 75),
+			(int)(Top.Pixels + (Height.Pixels / 2) - (AltVisorIcon.Height / 2) + 22),
 			AltVisorIcon.Width,
 			AltVisorIcon.Height
 		);
@@ -66,13 +73,14 @@ namespace MetroidModPorted.Common.UI
 			SetPadding(0);
 			Width.Pixels = 100;
 			Height.Pixels = 100;
+			BackgroundTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/VisorSelectUI", AssetRequestMode.ImmediateLoad).Value;
 			CombatIcon = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/CombatVisorIcon", AssetRequestMode.ImmediateLoad).Value;
 			//base.OnInitialize();
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			//base.DrawSelf(spriteBatch);
+			spriteBatch.Draw(BackgroundTex, backgroundRect, Color.CadetBlue);
 			spriteBatch.Draw(CombatIcon, combatRect, Color.CadetBlue);
 			if (ScanIcon != null)
 			{
@@ -105,6 +113,8 @@ namespace MetroidModPorted.Common.UI
 			if (!Main.LocalPlayer.TryGetModPlayer(out MPlayer mp)) { return; }
 			Vector2 center = new(Left.Pixels + (Width.Pixels / 2), Top.Pixels + (Height.Pixels / 2));
 
+			int oldVisor = mp.VisorInUse;
+
 			if (ContainsPoint(new Vector2(Main.mouseX, Main.mouseY))) // Center
 			{
 				mp.VisorInUse = -1;
@@ -114,11 +124,11 @@ namespace MetroidModPorted.Common.UI
 				ModSuitAddon[] msa = MPlayer.GetVisorAddons(Main.LocalPlayer);
 
 				float rot = (float)Math.Atan2(center.Y - Main.mouseY, center.X - Main.mouseX);
-				if (rot > -Math.PI / 2 && rot < Math.Atan2(81, 186)) // Bottom left hand area
+				if (rot > -Math.PI / 2 && rot < Math.Atan2(45, 45)) // Bottom left hand area
 				{
 					mp.VisorInUse = msa[1] != null ? msa[1].Type : -1;
 				}
-				else if (rot < -Math.PI / 2 || rot > Math.Atan2(81, -186)) // Bottom right hand area
+				else if (rot < -Math.PI / 2 || rot > Math.Atan2(45, -45)) // Bottom right hand area
 				{
 					mp.VisorInUse = msa[2] != null ? msa[2].Type : -1;
 				}
@@ -127,7 +137,7 @@ namespace MetroidModPorted.Common.UI
 					mp.VisorInUse = msa[0] != null ? msa[0].Type : -1;
 				}
 			}
-			SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(MetroidModPorted.Instance, "Assets/Sounds/SwitchVisor" + (mp.VisorInUse == -1 ? "2" : "")));
+			if (mp.VisorInUse != oldVisor) { SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(MetroidModPorted.Instance, "Assets/Sounds/SwitchVisor" + (mp.VisorInUse == -1 ? "2" : ""))); }
 			MetroidModPorted.Instance.Logger.Debug($"Switched visor to Suit Addon type: {mp.VisorInUse}");
 		}
 	}
