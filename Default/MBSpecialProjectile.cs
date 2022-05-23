@@ -22,6 +22,8 @@ namespace MetroidModPorted.Default
 			this.modMBAddon = modMBAddon;
 		}
 
+		public override bool IsCloneable => false;
+
 		public override string Texture => modMBAddon.ProjectileTexture;
 		public override string Name => $"{modMBAddon.Name}Projectile";
 

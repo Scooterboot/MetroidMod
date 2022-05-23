@@ -24,6 +24,8 @@ namespace MetroidModPorted.Default
 		{
 			this.modMBAddon = modMBAddon;
 		}
+
+		public override bool IsCloneable => false;
 		public override string Texture => modMBAddon.ExplosionTexture;
 		public override string Name => $"{modMBAddon.Name}Explosion";
 		public override void SetStaticDefaults()

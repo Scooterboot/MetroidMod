@@ -21,6 +21,8 @@ namespace MetroidModPorted.Default
 			this.modMBAddon = modMBAddon;
 		}
 
+		public override bool IsCloneable => false;
+
 		internal readonly float light_scale = 0.2f;
 
 		internal readonly float Xthreshold = 8f; //max speed

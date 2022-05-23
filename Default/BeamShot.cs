@@ -24,6 +24,8 @@ namespace MetroidModPorted.Default
 			beamShot = this;
 		}
 
+		public override bool IsCloneable => false;
+
 		public override string Texture => beamCombo.projectileTexture;//modBeam.BeamProjectileTexture;
 
 		public override string Name => MMPUtils.ConcatBeamNames(modBeam)+"Shot";//modBeam.Name + "Shot";
