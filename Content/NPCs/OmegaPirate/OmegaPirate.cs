@@ -60,16 +60,18 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			NPC.noTileCollide = false;
 			NPC.noGravity = false;
 			NPC.behindTiles = true;
-			for(int i = 0; i < NPC.buffImmune.Length; i++)
+			for (int i = 0; i < NPC.buffImmune.Length; i++)
 			{
 				NPC.buffImmune[i] = true;
 			}
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 5;
-			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/OmegaPirate"); }
+			if (!Main.dedServ) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/OmegaPirate"); }
 			NPC.chaseable = false;
 			
 			NPC.ai = new float[8];
+
+			NPC.BossBar = ModContent.GetInstance<BossBars.OmegaPirateBossBar>();
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -221,7 +223,20 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 				return (Main.npc[_lLeg[i]]);
 			return (Main.npc[_rLeg[i]]);
 		}
-		
+
+		internal int NPCArmorHP
+		{
+			get
+			{
+				int amt = 0;
+				if (RArmArmor != null && RArmArmor.active) { amt += RArmArmor.life; }
+				if (LArmArmor != null && LArmArmor.active) { amt += LArmArmor.life; }
+				if (RLegArmor != null && RLegArmor.active) { amt += RLegArmor.life; }
+				if (LLegArmor != null && LLegArmor.active) { amt += LLegArmor.life; }
+				return amt;
+			}
+		}
+
 		Vector2 BodyOffset;
 		Vector2[] BodyPos = new Vector2[2],
 		RArmPos = new Vector2[5],
