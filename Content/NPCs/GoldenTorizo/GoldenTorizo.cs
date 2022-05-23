@@ -68,7 +68,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			NPC.buffImmune[31] = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
-			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Torizo"); }
+			if (!Main.dedServ) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Torizo"); }
 			//BossBag = ModContent.ItemType<Items.Boss.GoldenTorizoBag>();
 			NPC.chaseable = false;
 		}
@@ -79,11 +79,10 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 		}
 		public override void BossLoot(ref string name, ref int potionType)
 		{
-			base.BossLoot(ref name, ref potionType);
+			potionType = ItemID.GreaterHealingPotion;
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			base.ModifyNPCLoot(npcLoot);
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.GoldenTorizoBag>()));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
