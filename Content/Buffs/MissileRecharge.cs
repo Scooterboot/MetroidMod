@@ -17,7 +17,7 @@ namespace MetroidModPorted.Content.Buffs
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}
-		SoundEffectInstance soundInstance;
+		ReLogic.Utilities.SlotId soundInstance;
 		bool soundPlayed = false;
 		int num = 0;
 		public override void Update(Player player,ref int buffIndex)
@@ -51,14 +51,14 @@ namespace MetroidModPorted.Content.Buffs
 			}
 			if (!flag || player.controlJump || player.controlUseItem)
 			{
-				if(soundInstance != null)
+				if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{
-					soundInstance.Stop(true);
+					result.Stop();
 				}
 				soundPlayed = false;
 				if(!flag)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, player.Center, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/MissilesReplenished"));
+					SoundEngine.PlaySound(Sounds.Suit.MissilesReplenished, player.Center);
 				}
 				num = 0;
 				player.DelBuff(buffIndex);
@@ -81,7 +81,7 @@ namespace MetroidModPorted.Content.Buffs
 				//Main.PlaySound(10, player.Center);
 				if(!soundPlayed)
 				{
-					soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)player.Center.X, (int)player.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ConcentrationLoop"));
+					soundInstance = SoundEngine.PlaySound(Sounds.Suit.ConcentrationLoop, player.Center);
 					soundPlayed = true;
 				}
 			}

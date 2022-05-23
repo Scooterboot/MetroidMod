@@ -134,7 +134,7 @@ namespace MetroidModPorted.Common.Systems
 			}
 			if (Main.tile[(int)pos.X, (int)pos.Y].HasTile)
 			{
-				SoundEngine.PlaySound(SoundID.Item, pos * 16, 51);
+				SoundEngine.PlaySound(SoundID.Item51, pos * 16);
 				for (int d = 0; d < 4; d++)
 				{
 					Dust.NewDust(pos * 16, 16, 16, DustID.Stone);

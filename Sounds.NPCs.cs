@@ -86,7 +86,27 @@ namespace MetroidModPorted
 
 			};
 
+			public static readonly SoundStyle OmegaPirateCore_TransitionSound = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateCore_TransitionSound")
+			{
+
+			};
+
+			public static readonly SoundStyle OmegaPirateCore_TransitionSound2 = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateCore_TransitionSound2")
+			{
+
+			};
+
+			public static readonly SoundStyle OmegaPirateCore_Voice = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateCore_Voice", 2)
+			{
+
+			};
+
 			public static readonly SoundStyle OmegaPirateCore_Disappear = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateCore_Disappear")
+			{
+
+			};
+
+			public static readonly SoundStyle OmegaPirateCore_Appear = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateCore_Appear")
 			{
 
 			};
@@ -97,6 +117,11 @@ namespace MetroidModPorted
 			};
 
 			public static readonly SoundStyle OmegaPirate_GroundSlamSound = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirate_GroundSlamSound")
+			{
+
+			};
+
+			public static readonly SoundStyle OmegaPirateHurtVoice = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateHurtVoice", 2)
 			{
 
 			};

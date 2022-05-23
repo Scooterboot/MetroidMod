@@ -100,7 +100,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 							Main.dust[newDust].noGravity = true;
 						}
 					}
-					Terraria.Audio.SoundEngine.PlaySound(SoundID.Item,(int)NPC.Center.X,(int)NPC.Center.Y,14);
+					Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14,NPC.Center);
 					
 					NPC.ai[0]++;
 				}

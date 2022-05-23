@@ -97,12 +97,12 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 		public override bool? CanBeHitByItem(Player player, Item item) => false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
 		
-		SoundEffectInstance soundInstance;
+		ReLogic.Utilities.SlotId soundInstance;
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if(Head != null && Head.active && (soundInstance == null || soundInstance.State != SoundState.Playing))
+			if(Head != null && Head.active && (!SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) || !result.IsPlaying))
 			{
-				soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Head.Center.X, (int)Head.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoHit"));
+				soundInstance = SoundEngine.PlaySound(Sounds.NPCs.TorizoHit, Head.Center);
 			}
 		}
 		
@@ -824,7 +824,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 					{
 						if(!stepSoundPlayed)
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RLegPos[2].X, (int)RLegPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoStep"));
+							SoundEngine.PlaySound(Sounds.NPCs.TorizoStep, RLegPos[2]);
 							stepSoundPlayed = true;
 						}
 					}
@@ -832,7 +832,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 					{
 						if(!stepSoundPlayed)
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)LLegPos[2].X, (int)LLegPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoStep"));
+							SoundEngine.PlaySound(Sounds.NPCs.TorizoStep, LLegPos[2]);
 							stepSoundPlayed = true;
 						}
 					}
@@ -923,7 +923,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 										{
 											sndPos = LArmPos[2];
 										}
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)sndPos.X, (int)sndPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoSwipe"));
+										SoundEngine.PlaySound(Sounds.NPCs.TorizoSwipe, sndPos);
 										soundCounter = 4;
 									}
 								}
@@ -1129,7 +1129,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 							
 							if(!screwBoosted)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)BodyPos[0].X, (int)BodyPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ScrewAttackSpeedSound"));
+								SoundEngine.PlaySound(Sounds.Items.Weapons.ScrewAttackSpeed, BodyPos[0]);
 								screwBoostAlpha = 2f;
 								screwBoosted = true;
 							}
@@ -1137,7 +1137,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 						
 						if(NPC.velocity.Y == 0f)
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RLegPos[2].X, (int)RLegPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoStep"));
+							SoundEngine.PlaySound(Sounds.NPCs.TorizoStep, RLegPos[2]);
 							NPC.ai[2] = 3;
 							anim_SpinJump_Spin = 0f;
 							screwAttack = false;
@@ -1257,7 +1257,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 						}
 						if(NPC.ai[2] == 10 && headFlag)
 						{
-							soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Head.Center.X, (int)Head.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoHit"));
+							soundInstance = SoundEngine.PlaySound(Sounds.NPCs.TorizoHit, Head.Center);
 						}
 						
 						NPC.ai[2] += 2f;
@@ -1366,7 +1366,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 									Vector2 clawVel = targetrot.ToRotationVector2() * 12f;
 									int slash = Projectile.NewProjectile(NPC.GetSource_FromAI(),clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,ModContent.ProjectileType<Projectiles.Boss.TorizoClawBeam>(),(int)((float)clawDamage/2f),8f);
 									Main.projectile[slash].tileCollide = false;
-									SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)clawPos.X, (int)clawPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoWave"));
+									SoundEngine.PlaySound(Sounds.NPCs.TorizoWave, clawPos);
 									NPC.ai[3] = 1;
 								}
 							}
@@ -1444,7 +1444,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 				
 				if(screwSoundCounter <= 0)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)BodyPos[0].X, (int)BodyPos[0].Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ScrewAttackSound"));
+					SoundEngine.PlaySound(Sounds.Items.Weapons.ScrewAttack, BodyPos[0]);
 					screwSoundCounter = 16;
 				}
 				else

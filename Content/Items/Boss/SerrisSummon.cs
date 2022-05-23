@@ -45,7 +45,7 @@ namespace MetroidModPorted.Content.Items.Boss
 		public override bool? UseItem(Player player)
 		{
 			NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Serris.Serris_Head>());
-			SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)player.Center.X, (int)player.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SerrisSummon"));
+			SoundEngine.PlaySound(Sounds.Items.SerrisSummon, player.Center);
 			return true;
 		}
 	}

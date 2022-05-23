@@ -107,7 +107,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 				{
 					if(NPC.ai[1] == 1f)
 					{
-						SoundEngine.PlaySound(NPC.DeathSound,NPC.Center);
+						SoundEngine.PlaySound((SoundStyle)NPC.DeathSound,NPC.Center);
 					}
 					NPC.HitEffect(0, 10.0);
 				}

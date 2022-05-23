@@ -36,7 +36,7 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 					mi.statMissiles += Item.stack;
 				}
 			}
-			Terraria.Audio.SoundEngine.PlaySound(7,(int)player.position.X,(int)player.position.Y,1);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab,player.position);
 			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.White, Item.stack, false, false);
 			return false;
 		}

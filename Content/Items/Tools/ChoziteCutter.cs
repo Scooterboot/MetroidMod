@@ -95,7 +95,7 @@ namespace MetroidModPorted.Content.Items.Tools
 				MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] = 0;
 				MSystem.dontRegen[Player.tileTargetX, Player.tileTargetY] = false;
 				MSystem.hit[Player.tileTargetX, Player.tileTargetY] = false;
-				Terraria.Audio.SoundEngine.PlaySound(0, Main.MouseWorld);
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Main.MouseWorld);
 			}
 			return base.UseItem(Player);
 		}

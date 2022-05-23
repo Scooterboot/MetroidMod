@@ -47,7 +47,7 @@ namespace MetroidModPorted.Content.Items.Boss
 		{
 			//Main.NewText("Huh, there seems to be a massive amount of ectoplasmic readings coming from... right above me!", 127, 255, 127);
 			NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Phantoon.Phantoon>());
-			SoundEngine.PlaySound(SoundID.NPCKilled, (int)player.position.X, (int)player.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.NPCDeath10, player.position);
 			return true;
 		}
 	}

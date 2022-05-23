@@ -18,6 +18,11 @@ namespace MetroidModPorted
 		}
 		public static class Items
 		{
+			public static readonly SoundStyle SerrisSummon = new($"{nameof(MetroidModPorted)}/Assets/Sounds/SerrisSummon")
+			{
+
+			};
+
 			public static class Tools
 			{
 				public static readonly SoundStyle GrappleBeamSound = new($"{nameof(MetroidModPorted)}/Assets/Sounds/GrappleBeamSound")

@@ -170,7 +170,7 @@ namespace MetroidModPorted.Default
 				}
 			}
 
-			SoundEngine.PlaySound(new SoundStyle($"{nameof(MetroidModPorted)}/Assets/Sounds/BombExplode"), Projectile.Center);
+			SoundEngine.PlaySound(Sounds.Suit.BombExplode, Projectile.Center);
 
 			int dustType = 59, dustType2 = 61;
 			float dustScale = 5f, dustScale2 = 5f;

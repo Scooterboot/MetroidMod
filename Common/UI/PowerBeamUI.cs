@@ -395,7 +395,7 @@ namespace MetroidModPorted.Common.UI
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
 			
 			mp.psuedoScrewActive = !mp.psuedoScrewActive;
-			SoundEngine.PlaySound(12);
+			SoundEngine.PlaySound(SoundID.MenuTick);
 			clicked = true;
 		}
 		

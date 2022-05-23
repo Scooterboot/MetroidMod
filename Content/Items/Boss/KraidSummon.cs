@@ -45,7 +45,7 @@ namespace MetroidModPorted.Content.Items.Boss
 		public override bool? UseItem(Player player)
 		{
 			NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Kraid.Kraid_Head>());
-			SoundEngine.PlaySound(SoundID.Roar, (int)player.position.X, (int)player.position.Y, 0);
+			SoundEngine.PlaySound(SoundID.Roar, player.position);
 			return true;
 		}
 	}

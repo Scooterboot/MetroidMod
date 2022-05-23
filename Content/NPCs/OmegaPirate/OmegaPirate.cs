@@ -1239,7 +1239,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 		
 		Vector2 PhazonAppearPosition,
 				PhazonDisappearPosition;
-		SoundEffectInstance PhazonAppearSound;
+		ReLogic.Utilities.SlotId PhazonAppearSound;
 		
 		NPC[] DarkPortal = new NPC[4];
 		
@@ -2349,9 +2349,8 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 						{
 							if(anim_PhazonStartTransition == 0f)
 							{
-								int r = Main.rand.Next(2);
-								SoundEngine.PlaySound(new SoundStyle($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirate_HurtVoice{r}"), HeadPos[0]);
-								mouthAnim = 4+r;
+								SoundEngine.PlaySound(Sounds.NPCs.OmegaPirateHurtVoice, HeadPos[0]);
+								mouthAnim = 4+Main.rand.Next(2);
 							}
 							float animTransSpeed = 0.1f;
 							moveSpeed = -15f * animTransSpeed;
@@ -2392,7 +2391,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									if(NPC.ai[3] == 0)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_TransitionSound"));
+										SoundEngine.PlaySound(Sounds.NPCs.OmegaPirateCore_TransitionSound, HeadPos[0]);
 									}
 									NPC.ai[3]++;
 									anim_PhazonStart = 4f + NPC.ai[3]/120f;
@@ -2417,7 +2416,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									if(fullScale.X == 1f)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_Disappear"));
+										SoundEngine.PlaySound(Sounds.NPCs.OmegaPirateCore_Disappear, HeadPos[0]);
 									}
 									fullScale.X = Math.Max(fullScale.X-0.05f,0f);
 								}
@@ -2481,7 +2480,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 						}
 						else
 						{
-							if(PhazonAppearSound != null && PhazonAppearSound.State == SoundState.Playing)
+							if(SoundEngine.TryGetActiveSound(PhazonAppearSound, out ActiveSound result) && result.IsPlaying)
 							{
 								Vector2 vector = new Vector2(Main.screenPosition.X + (float)Main.screenWidth * 0.5f, Main.screenPosition.Y + (float)Main.screenHeight * 0.5f);
 								float pan = (PhazonDisappearPosition.X - vector.X) / ((float)Main.screenWidth * 0.5f);
@@ -2493,7 +2492,8 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									pan = 1f;
 								}
-								PhazonAppearSound.Pan = pan;
+								// TODO: Fix
+								//result.Pan = pan;
 							}
 						}
 
@@ -2525,7 +2525,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							{
 								if(NPC.ai[4] <= 0 && Main.rand.Next(100) > 60)
 								{
-									PhazonAppearSound = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)PhazonDisappearPosition.X, (int)PhazonDisappearPosition.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_Voice"+Main.rand.Next(2)));
+									PhazonAppearSound = SoundEngine.PlaySound(Sounds.NPCs.OmegaPirateCore_Voice, PhazonDisappearPosition);
 									NPC.ai[4] = 1;//180;
 								}
 							}
@@ -2555,7 +2555,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									if(fullScale.X == 0f)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_Appear"));
+										SoundEngine.PlaySound(Sounds.NPCs.OmegaPirateCore_Appear, HeadPos[0]);
 									}
 									fullScale.X = Math.Min(fullScale.X+0.05f,1f);
 								}
@@ -2717,7 +2717,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 									{
 										if(anim_PhazonRegenTransition == 1f)
 										{
-											SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirateCore_TransitionSound2"));
+											SoundEngine.PlaySound(Sounds.NPCs.OmegaPirateCore_TransitionSound2, HeadPos[0]);
 										}
 										anim_PhazonRegenTransition = Math.Max(anim_PhazonRegenTransition-0.025f,0f);
 										bodyAlpha = Math.Min(bodyAlpha+0.025f,1f);
@@ -2770,7 +2770,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 							{
 								if(anim_PhazonRegen == 3f)
 								{
-									SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)HeadPos[0].X, (int)HeadPos[0].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/OmegaPirate_HurtVoice"+Main.rand.Next(2)));
+									SoundEngine.PlaySound(Sounds.NPCs.OmegaPirateHurtVoice, HeadPos[0]);
 								}
 								float animSpeed = 0.1f;
 								moveSpeed = -15f * animSpeed;

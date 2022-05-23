@@ -53,7 +53,7 @@ namespace MetroidModPorted.Common.Players
 		public int boostCharge = 0;
 		public int boostEffect = 0;
 		public int soundDelay = 0;
-		public SoundEffectInstance soundInstance;
+		public ReLogic.Utilities.SlotId soundInstance;
 		
 		public bool spiderball = false;
 		
@@ -138,11 +138,11 @@ namespace MetroidModPorted.Common.Players
 					if(ballstate)
 					{
 						unMorphDir = 0;
-						SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/MorphIn"));
+						SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
 					}
 					else
 					{
-						SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/MorphOut"));
+						SoundEngine.PlaySound(Sounds.Suit.MorphOut, Player.position);
 					}
 					for (int i = 0; i < 25; i++)
 					{
@@ -404,7 +404,7 @@ namespace MetroidModPorted.Common.Players
 			}
 			if (Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Player.controlUseTile && Player.releaseUseTile && !Player.tileInteractionHappened && Player.releaseUseItem && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
 			{
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/LayBomb"));
+				SoundEngine.PlaySound(Sounds.Suit.LayBomb, Player.position);
 				int a = Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X,Player.Center.Y,0,0,BombID,bombDamage,4f,Player.whoAmI, 1);
 				Main.projectile[a].aiStyle = 0;
 				//bomb = 20;
@@ -412,7 +412,7 @@ namespace MetroidModPorted.Common.Players
 
 			if (Player.whoAmI == Main.myPlayer && !special && statCharge >= 100)
 			{
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/LayBomb"));
+				SoundEngine.PlaySound(Sounds.Suit.LayBomb, Player.position);
 				bomb = 90;
 				if(Player.controlLeft)
 				{
@@ -466,7 +466,7 @@ namespace MetroidModPorted.Common.Players
 		{
 			if(Player.whoAmI == Main.myPlayer && statPBCh <= 0 && Systems.MSystem.PowerBombKey.JustPressed && shineDirection == 0)
 			{
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/LayPowerBomb"));
+				SoundEngine.PlaySound(Sounds.Suit.LayPowerBomb, Player.position);
 				statPBCh = 200;
 				Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X,Player.Center.Y+4,0,0,type,damage,0,Player.whoAmI);
 			}
@@ -493,7 +493,7 @@ namespace MetroidModPorted.Common.Players
 				{
 					if (p.runSoundDelay <= 0)
 					{
-						SoundEngine.PlaySound(2, (int)p.position.X, (int)p.position.Y, 22);
+						SoundEngine.PlaySound(SoundID.Item22, p.position);
 						p.runSoundDelay = 30;
 					}
 					if (Main.rand.Next(6) == 0)
@@ -542,7 +542,7 @@ namespace MetroidModPorted.Common.Players
 				}
 				if(soundDelay <= 0)
 				{
-					soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/BoostBallStartup"));
+					soundInstance = SoundEngine.PlaySound(Sounds.Suit.BoostBallStartup, Player.position);
 				}
 				if(soundDelay >= 306)
 				{
@@ -550,19 +550,19 @@ namespace MetroidModPorted.Common.Players
 				}
 				if(soundDelay == 210)
 				{
-					soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/BoostBallLoop"));
+					soundInstance = SoundEngine.PlaySound(Sounds.Suit.BoostBallLoop, Player.position);
 				}
 				soundDelay++;
 			}
 			else if(Player.whoAmI == Main.myPlayer)
 			{
-				if(soundInstance != null)
+				if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{
-					soundInstance.Stop(true);
+					result.Stop();
 				}
 				if(boostCharge > 20)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/BoostBallSound"));
+					SoundEngine.PlaySound(Sounds.Suit.BoostBallSound, Player.position);
 					
 					float mult = Math.Max((float)boostCharge / 30f, 1.25f);
 					
@@ -861,7 +861,7 @@ namespace MetroidModPorted.Common.Players
 				{
 					CurEdge = Edge.None;
 					spiderball = !spiderball;
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SpiderActivate"));
+					SoundEngine.PlaySound(Sounds.Suit.SpiderActivate, Player.position);
 				}
 			}
 
