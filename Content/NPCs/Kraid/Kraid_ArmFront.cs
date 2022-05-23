@@ -128,7 +128,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 			
 			if(swipeFrame == 6f)
 			{
-				Terraria.Audio.SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/KraidSwipeSound"));
+				Terraria.Audio.SoundEngine.PlaySound(Sounds.NPCs.KraidSwipe, NPC.Center);
 				Vector2 clawPos = NPC.Center+new Vector2(48*Head.direction,-36);
 				float trot = (float)Math.Atan2(player.Center.Y-clawPos.Y,player.Center.X-clawPos.X);
 				float speed = 4f;

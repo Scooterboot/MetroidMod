@@ -40,7 +40,7 @@ namespace MetroidModPorted.Content.Projectiles
 			ShineSoundStart++;
 			if(ShineSoundStart > 3 && ShineSoundStart < 5)
 			{
-				Terraria.Audio.SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.position.X, (int)P.position.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ShineSpark"));
+				Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.ShineSpark, P.position);
 				ShineSoundStart = 6;
 				if(ShineSoundStart > 6)
 				{

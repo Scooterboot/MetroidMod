@@ -363,7 +363,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 							Main.dust[num72].velocity *= 1.4f;
 							Main.dust[num72].noGravity = true;
 						}
-						SoundEngine.PlaySound(SoundID.NPCKilled,(int)NPC.position.X,(int)NPC.position.Y,14);
+						SoundEngine.PlaySound(SoundID.NPCDeath14,NPC.position);
 					}
 					currentState = state;
 				}
@@ -374,7 +374,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 					int num = (int)NPC.ai[0] % 60;
 					if(num == 0)
 					{
-						SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/NightmareMove_1"));
+						SoundEngine.PlaySound(Sounds.NPCs.NightmareMove_1, NPC.Center);
 					}
 					
 					float num2 = ((num + 1f) / 60f);
@@ -580,7 +580,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 							NPC.ai[2]++;
 							if(NPC.ai[2] == 1)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/NightmareMove_1"));
+								SoundEngine.PlaySound(Sounds.NPCs.NightmareMove_1, NPC.Center);
 							}
 							NPC.velocity = targetRot.ToRotationVector2() * (Vector2.Distance(NPC.Center,targetPos) / 24);
 						}
@@ -622,7 +622,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 							NPC.ai[2]++;
 							if(NPC.ai[2] == 1)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/NightmareMove_2"));
+								SoundEngine.PlaySound(Sounds.NPCs.NightmareMove_2, NPC.Center);
 							}
 							NPC.velocity = targetRot.ToRotationVector2() * (Vector2.Distance(NPC.Center,targetPos) / 24);
 						}
@@ -679,7 +679,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 							}
 							if(NPC.ai[2] == 10)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Body.Center.X, (int)Body.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/Nightmare_LaserBeam_Charge"));
+								SoundEngine.PlaySound(Sounds.NPCs.Nightmare_LaserBeam_Charge, Body.Center);
 							}
 								
 							// Movement
@@ -745,7 +745,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 							}
 							if(NPC.ai[2] == 200)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Body.Center.X, (int)Body.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/Nightmare_LaserBeam_Fire"));
+								SoundEngine.PlaySound(Sounds.NPCs.Nightmare_LaserBeam_Fire, Body.Center);
 							}
 								
 							if(NPC.ai[2] > 260)
@@ -1017,7 +1017,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 				tailSpinCounterMax = Math.Max(tailSpinCounterMax-0.25f,0f);
 				if(Tail != null && Tail.active && !tailSpinSoundPlayed)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Tail.Center.X, (int)Tail.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/Nightmare_GravityMotor_Start"));
+					SoundEngine.PlaySound(Sounds.NPCs.Nightmare_GravityMotor_Start, Tail.Center);
 					tailSpinSoundPlayed = true;
 				}
 			}

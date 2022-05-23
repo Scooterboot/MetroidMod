@@ -91,7 +91,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			{
 				if(!soundPlayed)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.position.X, (int)NPC.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ElitePirate_AbsorbProjectileSound"));
+					SoundEngine.PlaySound(Sounds.NPCs.ElitePirate_AbsorbProjectileSound, NPC.position);
 					soundPlayed = true;
 				}
 			}
@@ -122,7 +122,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			
 			if(soundCounter <= 0)
 			{
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.position.X, (int)NPC.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ElitePirate_AbsorbSound"));
+				SoundEngine.PlaySound(Sounds.NPCs.ElitePirate_AbsorbSound, NPC.position);
 			}
 			soundCounter++;
 			if(soundCounter > 30)

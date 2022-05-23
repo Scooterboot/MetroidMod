@@ -448,7 +448,7 @@ namespace MetroidModPorted.Common.Players
 
 				if (!mp.senseSound)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.position.X, (int)P.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SenseMoveSound"));
+					SoundEngine.PlaySound(Sounds.Suit.SenseMove, P.position);
 					mp.senseSound = true;
 				}
 			}

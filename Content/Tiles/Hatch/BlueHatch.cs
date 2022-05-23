@@ -112,12 +112,7 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 
 			NetMessage.SendTileSquare(-1, x + 1, y + 1, 4, TileChangeType.None);
 
-			string sound = "Assets/Sounds/HatchOpenSound";
-			if(isOpen)
-			{
-				sound = "Assets/Sounds/HatchCloseSound";
-			}
-			SoundEngine.PlaySound(SoundLoader.CustomSoundType, i * 16, j * 16, SoundLoader.GetSoundSlot(Mod, sound));
+			SoundEngine.PlaySound(isOpen ? Sounds.Tiles.HatchClose : Sounds.Tiles.HatchOpen, new(i * 16, j * 16));
 		}
 		
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

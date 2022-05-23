@@ -231,7 +231,7 @@ namespace MetroidModPorted.Content.Projectiles
 						vector8.Y = y * 16;
 						if (P.position.X + P.width > vector8.X && P.position.X < vector8.X + 16f && P.position.Y + P.height > vector8.Y && P.position.Y < vector8.Y + 16f && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || tile.TileType == 314))
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)owner.Center.X, (int)owner.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/GrappleLatch"));
+							SoundEngine.PlaySound(Sounds.Items.Tools.GrappleLatch, owner.Center);
 							mp.maxDist = Vector2.Distance(owner.Center, P.Center);
 							//if (owner.grapCount < 10)
 							//{
@@ -280,7 +280,7 @@ namespace MetroidModPorted.Content.Projectiles
 							Projectile.velocity *= 0;
 							isHooked = true;
 							Projectile.netUpdate = true;
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)owner.Center.X, (int)owner.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/GrappleLatch"));
+							SoundEngine.PlaySound(Sounds.Items.Tools.GrappleLatch, owner.Center);
 							mp.maxDist = Vector2.Distance(owner.Center, P.Center);
 							mp.grapplingBeam = P.whoAmI;
 							break;

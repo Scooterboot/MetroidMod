@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MetroidModPorted.Content.Projectiles
 	public class SpeedBall : ModProjectile
 	{
 		int SpeedSound = 0;
-		public SoundEffectInstance soundInstance;
+		public ReLogic.Utilities.SlotId soundInstance;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mock Ball");
@@ -43,29 +44,30 @@ namespace MetroidModPorted.Content.Projectiles
 			SpeedSound++;
 			if(SpeedSound == 4)
 			{
-				soundInstance = Terraria.Audio.SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.position.X, (int)P.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SpeedBoosterStartup"));
+				soundInstance = SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position);
 			}
-			if(soundInstance != null && SpeedSound == 82)
+			if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) && SpeedSound == 82)
 			{
-				soundInstance = Terraria.Audio.SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.position.X, (int)P.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SpeedBoosterLoop"));
+				result.Stop();
+				soundInstance = SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position);
 				SpeedSound = 68;
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(!mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
 			{
-				if(soundInstance != null)
+				if(SoundEngine.TryGetActiveSound(soundInstance, out result))
 				{
-					soundInstance.Stop(true);
+					result.Stop();
 				}
 				Projectile.Kill();
 			}
-			foreach(Terraria.Projectile Pr in Main.projectile) if (Pr!= null)
+			foreach(Projectile Pr in Main.projectile) if (Pr!= null)
 			{
 				if(Pr.active && (Pr.type == ModContent.ProjectileType<ShineBall>() || Pr.type == ModContent.ProjectileType<SpeedBoost>()))
 				{
-					if(soundInstance != null)
+					if(SoundEngine.TryGetActiveSound(soundInstance, out result))
 					{
-						soundInstance.Stop(true);
+						result.Stop();
 					}
 					Projectile.Kill();
 					return;

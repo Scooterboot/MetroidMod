@@ -103,7 +103,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 							Main.dust[newDust].noGravity = true;
 						}
 					}
-					SoundEngine.PlaySound(2,(int)NPC.Center.X,(int)NPC.Center.Y,14);
+					SoundEngine.PlaySound(SoundID.Item14,NPC.Center);
 					
 					NPC.ai[0]++;
 				}

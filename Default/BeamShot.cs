@@ -345,12 +345,12 @@ namespace MetroidModPorted.Default
 				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
 				Main.dust[dust].noGravity = noGravity;
 			}
-			int sound = SoundLoader.GetSoundSlot(MetroidModPorted.Instance, "Assets/Sounds/BeamImpactSound");
+			SoundStyle sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/BeamImpactSound");
 			if (projectile.Name.Contains("Ice"))
 			{
-				sound = SoundLoader.GetSoundSlot(MetroidModPorted.Instance, "Assets/Sounds/IceImpactSound");
+				sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/IceImpactSound");
 			}
-			SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)projectile.Center.X, (int)projectile.Center.Y,sound);
+			SoundEngine.PlaySound(sound, projectile.Center);
 		}
 
 		public bool canDiffuse = false;
@@ -377,12 +377,12 @@ namespace MetroidModPorted.Default
 					p.netUpdate = true;
 				}
 
-				int sound = SoundLoader.GetSoundSlot(MetroidModPorted.Instance, "Assets/Sounds/BeamImpactSound");
+				SoundStyle sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/BeamImpactSound");
 				if (projectile.Name.Contains("Ice"))
 				{
-					sound = SoundLoader.GetSoundSlot(MetroidModPorted.Instance, "Assets/Sounds/IceImpactSound");
+					sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/IceImpactSound");
 				}
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)projectile.Center.X, (int)projectile.Center.Y, sound);
+				SoundEngine.PlaySound(sound, projectile.Center);//SoundLoader.CustomSoundType, (int)projectile.Center.X, (int)projectile.Center.Y, sound);
 			}
 			else
 			{

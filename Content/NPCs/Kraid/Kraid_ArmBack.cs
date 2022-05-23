@@ -124,7 +124,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 				}
 				if(swipeFrame == 6f)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/KraidSwipeSound"));
+					SoundEngine.PlaySound(Sounds.NPCs.KraidSwipe, NPC.Center);
 
 					Vector2 clawPos = NPC.Center;
 					float trot = (float)Math.Atan2(player.Center.Y-clawPos.Y,player.Center.X-clawPos.X);

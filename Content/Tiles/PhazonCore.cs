@@ -23,7 +23,7 @@ namespace MetroidModPorted.Content.Tiles
 
 			DustType = 28;
 			MinPick = 1000;//215;
-			SoundType = SoundID.Tink;
+			HitSound = SoundID.Tink;
 
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Phazon Core");
@@ -76,7 +76,7 @@ namespace MetroidModPorted.Content.Tiles
 
 				//Projectile.NewProjectile(new EntitySource_TileBreak(x, y), x * 16, y * 16, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, ModContent.ProjectileType<Projectiles.PhazonExplosion>(), 0, 0.1f, Main.myPlayer);
 
-				SoundEngine.PlaySound(SoundID.Item, x * 16, y * 16, 14);
+				SoundEngine.PlaySound(SoundID.Item14, new(x * 16, y * 16));
 				Main.NewText("Your world has been corrupt with Phazon!", new Color(50, 125, 255));
 
 				int Amount_Of_Spawns = 100 + (int)(Main.maxTilesY * 0.2f);

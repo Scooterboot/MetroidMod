@@ -64,12 +64,12 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetHelmet(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitHelmet), EquipType.Head);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitHelmet), EquipType.Head);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Head);
+				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Head);
 				if (temp != -1)
 				{
 					msaEqu = temp;
@@ -96,12 +96,12 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetBreastplate(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitBreastplate), EquipType.Body);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Body);
+				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Body);
 				if (temp != -1)
 				{
 					msaEqu = temp;
@@ -128,12 +128,12 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetArms(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitBreastplate), EquipType.Body);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Body);
+				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Body);
 				if (temp == -1)
 				{
 					msaEqu = temp;
@@ -160,12 +160,12 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetGreaves(Player player)
 		{
-			int msaEqu = MetroidModPorted.Instance.GetEquipSlot(nameof(PowerSuitGreaves), EquipType.Legs);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitGreaves), EquipType.Legs);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				int temp = msa[i].Mod.GetEquipSlot(msa[i].ModItem.Name, EquipType.Legs);
+				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Legs);
 				if (temp != -1)
 				{
 					msaEqu = temp;

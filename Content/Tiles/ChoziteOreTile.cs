@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Terraria.ModLoader;
 using Terraria;
+using Terraria.ID;
 
 namespace MetroidModPorted.Content.Tiles
 {
@@ -24,7 +25,7 @@ namespace MetroidModPorted.Content.Tiles
 			AddMapEntry(new Color(214, 162, 0), name);
 
 			MinPick = 50;
-			SoundType = 21;
+			HitSound = SoundID.Tink;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;

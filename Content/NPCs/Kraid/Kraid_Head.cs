@@ -59,7 +59,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 			NPC.lifeMax = 6000;
 			NPC.dontTakeDamage = false;
 			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/KraidRoarSound");//SoundID.NPCDeath5;
+			NPC.DeathSound = Sounds.NPCs.KraidRoar;//SoundID.NPCDeath5;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
 			NPC.value = Item.buyPrice(0, 0, 7, 0);
@@ -288,7 +288,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 			this.Roar(flag);
 			if(mouthOpen)
 			{
-				NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/KraidHitSound");
+				NPC.HitSound = Sounds.NPCs.KraidHit;
 			}
 			else
 			{
@@ -494,7 +494,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 				}
 				if(roarCounter == 29)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/KraidRoarSound"));
+					SoundEngine.PlaySound(Sounds.NPCs.KraidRoar, NPC.Center);
 				}
 				if(roarCounter >= 30)
 				{
@@ -676,7 +676,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 				int dust = Dust.NewDust(new Vector2(pos.X-76f,pos.Y), 152, 4, 30, 0, 0, 100, default(Color), 2f);
 				Main.dust[dust].noGravity = true;
 			}
-			SoundEngine.PlaySound(SoundID.Item, (int)Body.Center.X, (int)Body.Center.Y,62, .5f);
+			SoundEngine.PlaySound(SoundID.Item, Body.Center);
 
 			fullAnim = 6;
 			fullOffset.Y = 2f;
@@ -965,7 +965,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 						Main.gore[gore].timeLeft = 30;
 						Main.gore[gore].rotation = 0;
 					}
-					SoundEngine.PlaySound(SoundID.NPCKilled,(int)NPC.position.X,(int)NPC.position.Y,1);
+					SoundEngine.PlaySound(SoundID.NPCDeath1,NPC.position);
 
 					/*for (int num70 = 0; num70 < 25; num70++)
 					{

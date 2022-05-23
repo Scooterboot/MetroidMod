@@ -140,7 +140,7 @@ namespace MetroidModPorted.Content.NPCs.Serris
 						float delay = length / 40f;
 						delay = MathHelper.Clamp(delay, 10f, 20f);
 						NPC.soundDelay = (int)delay;
-						Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.position, 1);
+						Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.position);
 					}
 
 					float absX = Math.Abs(targetDir.X);

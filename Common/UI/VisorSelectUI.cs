@@ -137,7 +137,7 @@ namespace MetroidModPorted.Common.UI
 					mp.VisorInUse = msa[0] != null ? msa[0].Type : -1;
 				}
 			}
-			if (mp.VisorInUse != oldVisor) { SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(MetroidModPorted.Instance, "Assets/Sounds/SwitchVisor" + (mp.VisorInUse == -1 ? "2" : ""))); }
+			if (mp.VisorInUse != oldVisor) { SoundEngine.PlaySound(mp.VisorInUse == -1 ? Sounds.UI.SwitchVisor2 : Sounds.UI.SwitchVisor); }
 			MetroidModPorted.Instance.Logger.Debug($"Switched visor to Suit Addon type: {mp.VisorInUse}");
 		}
 	}

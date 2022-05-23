@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -152,7 +153,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 							Main.dust[dustID].noGravity = true;
 						}
 					}
-					Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCKilled,(int)NPC.position.X,(int)NPC.position.Y,1);
+					SoundEngine.PlaySound(SoundID.NPCDeath1,NPC.position);
 					/*for (int num70 = 0; num70 < 65; num70++)
 					{
 						int num71 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 5f);

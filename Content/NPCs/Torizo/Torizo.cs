@@ -93,12 +93,12 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 		public override bool? CanBeHitByItem(Player player, Item item) => false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
 		
-		SoundEffectInstance soundInstance;
+		ReLogic.Utilities.SlotId soundInstance;
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if(Head != null && Head.active && (soundInstance == null || soundInstance.State != SoundState.Playing))
+			if(Head != null && Head.active && (!SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) || !result.IsPlaying))
 			{
-				soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Head.Center.X, (int)Head.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoHit"));
+				soundInstance = SoundEngine.PlaySound(Sounds.NPCs.TorizoHit, Head.Center);
 			}
 		}
 		
@@ -768,7 +768,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 					{
 						if(!stepSoundPlayed)
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RLegPos[2].X, (int)RLegPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoStep"));
+							SoundEngine.PlaySound(Sounds.NPCs.TorizoStep, RLegPos[2]);
 							stepSoundPlayed = true;
 						}
 					}
@@ -776,7 +776,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 					{
 						if(!stepSoundPlayed)
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)LLegPos[2].X, (int)LLegPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoStep"));
+							SoundEngine.PlaySound(Sounds.NPCs.TorizoStep, LLegPos[2]);
 							stepSoundPlayed = true;
 						}
 					}
@@ -859,7 +859,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 									int slash = Projectile.NewProjectile(entitySource, clawPos.X,clawPos.Y,0f,0f,ModContent.ProjectileType<Projectiles.Boss.TorizoSwipe>(),(int)((float)clawDamage/2f),8f);
 									if(soundCounter <= 0)
 									{
-										SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)clawPos.X, (int)clawPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoSwipe"));
+										SoundEngine.PlaySound(Sounds.NPCs.TorizoSwipe, clawPos);
 										soundCounter = 4;
 									}
 								}
@@ -1043,7 +1043,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 						
 						if(NPC.velocity.Y == 0f)
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)RLegPos[2].X, (int)RLegPos[2].Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoStep"));
+							SoundEngine.PlaySound(Sounds.NPCs.TorizoStep, RLegPos[2]);
 							NPC.ai[2] = 3;
 						}
 						
@@ -1153,7 +1153,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 						}
 						if(NPC.ai[2] == 10 && headFlag)
 						{
-							soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Head.Center.X, (int)Head.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoHit"));
+							soundInstance = SoundEngine.PlaySound(Sounds.NPCs.TorizoHit, Head.Center);
 						}
 						
 						NPC.ai[2]++;
@@ -1258,7 +1258,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 									var entitySource = NPC.GetSource_FromAI();
 									int slash = Projectile.NewProjectile(entitySource, clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,ModContent.ProjectileType<Projectiles.Boss.TorizoClawBeam>(),(int)((float)clawDamage/2f),8f);
 									Main.projectile[slash].netUpdate = true;
-									SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)clawPos.X, (int)clawPos.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/TorizoWave"));
+									SoundEngine.PlaySound(Sounds.NPCs.TorizoWave, clawPos);
 									NPC.ai[3] = 0;
 									NPC.netUpdate = true;
 								}
@@ -1332,7 +1332,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 				BodyFrame = 1;
 				if(!chestExplosion)
 				{
-					SoundEngine.PlaySound(SoundID.Item,(int)BodyPos[0].X,(int)BodyPos[0].Y,14);
+					SoundEngine.PlaySound(SoundID.Item14,BodyPos[0]);
 					
 					Vector2 dustPos = BodyPos[0] + new Vector2(4,5);
 					if(NPC.direction == -1)

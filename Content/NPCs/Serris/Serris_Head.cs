@@ -83,7 +83,7 @@ namespace MetroidModPorted.Content.NPCs.Serris
 			NPC.defense = 28;
 			NPC.lifeMax = 4000;
 			NPC.HitSound = SoundID.NPCHit4;
-			NPC.DeathSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/CoreXDeath");
+			NPC.DeathSound = Sounds.NPCs.CoreXDeath;
 			NPC.noGravity = true;
 			NPC.value = Item.buyPrice(0, 0, 7, 0);
 			NPC.knockBackResist = 0;
@@ -225,7 +225,7 @@ namespace MetroidModPorted.Content.NPCs.Serris
 					
 					if(NPC.localAI[3] == 1)
 					{
-						SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SerrisHurt"));
+						SoundEngine.PlaySound(Sounds.NPCs.SerrisHurt, NPC.Center);
 					}
 					
 					NPC.localAI[3]++;
@@ -281,7 +281,7 @@ namespace MetroidModPorted.Content.NPCs.Serris
 						}*/
 						if(soundCounter <= 0)
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SerrisAccel"));
+							SoundEngine.PlaySound(Sounds.NPCs.SerrisAccel, NPC.Center);
 							soundCounter = 21;
 						}
 						else if(numUpdates == 0)
@@ -332,11 +332,11 @@ namespace MetroidModPorted.Content.NPCs.Serris
 				NPC.rotation += extra_state;
 
 				if(NPC.localAI[1]++ <= 1f)
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SerrisDeath"));
+					SoundEngine.PlaySound(Sounds.NPCs.SerrisDeath, NPC.Center);
 
 				if(NPC.localAI[1] > 170f)
 				{
-					SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 14);
+					SoundEngine.PlaySound(SoundID.Item, NPC.position);
 
 					if (Main.netMode != NetmodeID.Server)
 					{
@@ -419,7 +419,7 @@ namespace MetroidModPorted.Content.NPCs.Serris
 						if(NPC.justHit)
 						{
 							NPC.localAI[1] = 1;
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/CoreXHurt"));
+							SoundEngine.PlaySound(Sounds.NPCs.CoreXHurt, NPC.Center);
 							NPC.TargetClosest(true);
 						}
 					}

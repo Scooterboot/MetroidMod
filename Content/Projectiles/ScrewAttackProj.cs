@@ -73,7 +73,7 @@ namespace MetroidModPorted.Content.Projectiles
 			DelayTime++;
 			if(DelayTime > 16 || !initialSoundPlayed)
 			{
-				Terraria.Audio.SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.position.X, (int)P.position.Y,  SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ScrewAttackSound"));
+				Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.ScrewAttack, P.position);
 				initialSoundPlayed = true;
 				DelayTime = 0;
 			}

@@ -45,7 +45,7 @@ namespace MetroidModPorted.Content.Projectiles.Boss
 		{
 			if (!initialized)
 			{
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, Projectile.Center, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/Nightmare_GravityField_Activate"));
+				SoundEngine.PlaySound(Sounds.NPCs.Nightmare_GravityField_Activate, Projectile.Center);
 
 				for (int num70 = 0; num70 < 15; num70++)
 				{
@@ -68,7 +68,7 @@ namespace MetroidModPorted.Content.Projectiles.Boss
 				Projectile.localAI[1]++;
 				if(Projectile.localAI[1] == 20)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.Center.X, (int)Projectile.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/Nightmare_GravityField_Deactivate"));
+					SoundEngine.PlaySound(Sounds.NPCs.Nightmare_GravityField_Deactivate, Projectile.Center);
 				}
 				num = -1;
 				if(Projectile.scale <= 0f)

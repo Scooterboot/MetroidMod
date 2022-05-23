@@ -85,18 +85,18 @@ namespace MetroidModPorted
 			Mod.AddContent(ModTile);
 			if (IsArmor && Main.netMode != NetmodeID.Server)
 			{
-				Mod.AddEquipTexture(ModItem, EquipType.Head, ArmorTextureHead);
-				Mod.AddEquipTexture(ModItem, EquipType.Body, ArmorTextureTorso);
-				Mod.AddEquipTexture(ModItem, EquipType.Legs, ArmorTextureLegs);
+				EquipLoader.AddEquipTexture(Mod, ArmorTextureHead, EquipType.Head, name: Name);
+				EquipLoader.AddEquipTexture(Mod, ArmorTextureTorso, EquipType.Body, name: Name);
+				EquipLoader.AddEquipTexture(Mod, ArmorTextureLegs, EquipType.Legs, name: Name);
 			}
 		}
 
 		private void SetupDrawing()
 		{
 			if (Main.netMode == NetmodeID.Server || !IsArmor) { return; }
-			int equipSlotHead = Mod.GetEquipSlot(ModItem.Name, EquipType.Head);
-			int equipSlotBody = Mod.GetEquipSlot(ModItem.Name, EquipType.Body);
-			int equipSlotLegs = Mod.GetEquipSlot(ModItem.Name, EquipType.Legs);
+			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
+			int equipSlotBody = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
+			int equipSlotLegs = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs);
 
 			ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = false;
 			ArmorIDs.Body.Sets.HidesTopSkin[equipSlotBody] = true;

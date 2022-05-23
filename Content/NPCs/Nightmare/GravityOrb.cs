@@ -73,7 +73,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 				//Main.PlaySound(SoundLoader.customSoundType, (int)laserPos.X, (int)laserPos.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/Nightmare_GravityOrbShot"));
 
 				this.initialized = true;
-				Terraria.Audio.SoundEngine.PlaySound(2, (int)NPC.position.X, (int)NPC.position.Y, 8);
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, NPC.position);
 			}
 
 			NPC.position.X += NPC.width / 2f;

@@ -156,8 +156,8 @@ namespace MetroidModPorted.Content.Items.Weapons
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
 
-		public LegacySoundStyle ShotSound;
-		public LegacySoundStyle ChargeShotSound;
+		public SoundStyle? ShotSound;
+		public SoundStyle? ChargeShotSound;
 
 		private int waveDir = -1;
 
@@ -1410,11 +1410,11 @@ namespace MetroidModPorted.Content.Items.Weapons
 			Item.shoot = ModContent.Find<ModProjectile>(Mod.Name, shot).Type;
 			if (ShotSound == null)
 			{
-				ShotSound = SoundLoader.GetLegacySoundSlot($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}");
+				ShotSound = new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}");
 			}
 			if (ChargeShotSound == null)
 			{
-				ChargeShotSound = SoundLoader.GetLegacySoundSlot($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}");
+				ChargeShotSound = new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}");
 			}
 			//Item.UseSound = ShotSound;
 
@@ -1436,7 +1436,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			{
 				Item.useAnimation = 9;
 				Item.useTime = 3;
-				Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/PhazonBeamSound");
+				Item.UseSound = new SoundStyle(Mod, "Assets/Sounds/PhazonBeamSound");
 			}
 			else
 			{*/
@@ -1669,7 +1669,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			// Play the shot sound for the local player.
 			//if (!isPhazon)
 			//{
-				SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot($"{shotSoundMod.Name}/{shotSound}"), player.position);
+				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/{shotSound}"), player.position);
 			//}
 
 			return false;
@@ -1723,7 +1723,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 								mProj.Projectile.netUpdate2 = true;
 							}
 
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)oPos.X, (int)oPos.Y, SoundLoader.GetSoundSlot(chargeShotSoundMod, chargeShotSound));
+							SoundEngine.PlaySound(new SoundStyle($"{chargeShotSoundMod}/{chargeShotSound}"), oPos);
 
 							mp.statOverheat += (int)((float)oHeat * chargeCost);
 							mp.overheatDelay = useTime - 10;
@@ -1740,7 +1740,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									mProj.Projectile.netUpdate = true;
 								}
 
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)oPos.X, (int)oPos.Y, SoundLoader.GetSoundSlot(shotSoundMod, shotSound));
+								SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod}/{shotSound}"), oPos);
 
 								mp.statOverheat += oHeat;
 								mp.overheatDelay = useTime - 10;

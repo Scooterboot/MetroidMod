@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -64,7 +65,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			Item.knockBack = 5.5f;
 			Item.value = 20000;
 			Item.rare = ItemRarityID.Green;
-			Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/MissileSound");
+			Item.UseSound = Sounds.Items.Weapons.MissileSound;
 			Item.autoReuse = false;
 			//Item.shoot = ModContent.ProjectileType<MissileShot>();
 			Item.shootSpeed = 8f;

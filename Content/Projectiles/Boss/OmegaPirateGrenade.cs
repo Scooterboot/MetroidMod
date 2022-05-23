@@ -56,7 +56,7 @@ namespace MetroidModPorted.Content.Projectiles.Boss
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
 			//Main.PlaySound(2,(int)Projectile.position.X,(int)Projectile.position.Y,14);
-			SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.position.X, (int)Projectile.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ElitePirate_GrenadeExplodeSound"));
+			SoundEngine.PlaySound(Sounds.NPCs.ElitePirate_GrenadeExplodeSound, Projectile.position);
 			
 			for (int num70 = 0; num70 < 25; num70++)
 			{

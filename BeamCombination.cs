@@ -13,9 +13,9 @@ namespace MetroidModPorted
 		//internal int beam5;
 		internal int projectileType;
 		internal string projectileTexture;
-		internal LegacySoundStyle shotSound;
-		internal LegacySoundStyle chargeUpSound;
-		internal LegacySoundStyle chargeShotSound;
+		internal SoundStyle shotSound;
+		internal SoundStyle chargeUpSound;
+		internal SoundStyle chargeShotSound;
 
 		/// <summary> Set Projectile id for combinations of beams. </summary>
 		public BeamCombination SetProjectileType(int projectileType)
@@ -25,21 +25,21 @@ namespace MetroidModPorted
 		}
 
 		/// <summary> Set shoot sound for combinations of beams. </summary>
-		public BeamCombination SetShotSound(LegacySoundStyle shotSound)
+		public BeamCombination SetShotSound(SoundStyle shotSound)
 		{
 			this.shotSound = shotSound;
 			return this;
 		}
 
 		/// <summary> Set shoot sound for combinations of beams. </summary>
-		public BeamCombination SetChargingSound(LegacySoundStyle chargeUpSound)
+		public BeamCombination SetChargingSound(SoundStyle chargeUpSound)
 		{
 			this.chargeUpSound = chargeUpSound;
 			return this;
 		}
 
 		/// <summary> Set shoot sound for combinations of beams. </summary>
-		public BeamCombination SetChargeShotSound(LegacySoundStyle chargeShotSound)
+		public BeamCombination SetChargeShotSound(SoundStyle chargeShotSound)
 		{
 			this.chargeShotSound = chargeShotSound;
 			return this;

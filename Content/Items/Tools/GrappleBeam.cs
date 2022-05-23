@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
  
@@ -24,7 +25,7 @@ namespace MetroidModPorted.Content.Items.Tools
 			Item.height = 20;
 			Item.value = 20000;
 			Item.rare = ItemRarityID.Green;
-			Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/GrappleBeamSound");
+			Item.UseSound = Sounds.Items.Tools.GrappleBeamSound;
 			Item.shoot = ModContent.ProjectileType<Projectiles.GrappleBeamShot>();
 			Item.shootSpeed = 12f;
         }

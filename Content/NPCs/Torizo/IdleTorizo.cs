@@ -137,7 +137,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 							gore.velocity.X = velocity.X;
 							gore.timeLeft = 60;
 						}
-						SoundEngine.PlaySound(SoundID.Item,(int)ePos.X,(int)ePos.Y,14);
+						SoundEngine.PlaySound(SoundID.Item14,ePos);
 					}
 					drawETank = false;
 					
@@ -189,12 +189,12 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 						gore.numFrames = 2;
 						gore.frame = goreFrame;
 						gore.timeLeft = 60;
-						int stype = 0;
+						SoundStyle stype = SoundID.Dig;
 						if(i % 2 == 0)
 						{
-							stype = 21;
+							stype = SoundID.Tink;
 						}
-						SoundEngine.PlaySound(stype, (int)gPos.X, (int)gPos.Y, 1, 1f, 0f);
+						SoundEngine.PlaySound(stype, gPos);
 					}
 					for(int i = 0; i < 35; i++)
 					{

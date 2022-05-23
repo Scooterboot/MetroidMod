@@ -383,7 +383,7 @@ namespace MetroidModPorted.Common.Players
 					Player.statLife = reserveHearts * reserveHeartsValue;
 					reserveHearts = 0;
 				}
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/MissilesReplenished"));
+				SoundEngine.PlaySound(Sounds.Suit.MissilesReplenished, Player.position);
 				return false;
 			}
 			return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
@@ -693,7 +693,7 @@ namespace MetroidModPorted.Common.Players
 				{
 					num167 = 4;
 				}
-				SoundEngine.PlaySound(2,(int)Player.position.X,(int)Player.position.Y,20);
+				SoundEngine.PlaySound(SoundID.Item20,Player.position);
 				for (int num168 = 0; num168 < 8; num168++)
 				{
 					int type4 = 6;
@@ -793,7 +793,7 @@ namespace MetroidModPorted.Common.Players
 							Main.dust[dust].noGravity = true;
 							if(i == ((screwAttackSpeedEffect/20)-1) && screwAttackSpeedEffect == 59)
 							{
-								SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ScrewAttackSpeedSound"));
+								SoundEngine.PlaySound(Sounds.Items.Weapons.ScrewAttackSpeed, Player.position);
 							}
 						}
 					}
@@ -863,7 +863,7 @@ namespace MetroidModPorted.Common.Players
 					shineSound++;
 					if (shineSound > 11)
 					{
-						SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Player.position.X, (int)Player.position.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/SpeedBoosterLoop"));
+						SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, Player.position);
 						shineSound = 0;
 					}
 				}

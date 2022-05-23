@@ -121,7 +121,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			bool visible = (Base.alpha < 255);
 			if (!Base.active)
 			{
-				Terraria.Audio.SoundEngine.PlaySound(NPC.DeathSound,NPC.Center);
+				Terraria.Audio.SoundEngine.PlaySound((Terraria.Audio.SoundStyle)NPC.DeathSound,NPC.Center);
 				NPC.life = 0;
 				if(visible)
 					NPC.HitEffect(0, 10.0);

@@ -162,7 +162,7 @@ namespace MetroidModPorted
 					Player targetPlayer2 = Main.player[playerID2];
 					string sound = reader.ReadString();
 
-					SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(this, "Assets/Sounds/" + sound), targetPlayer2.position);
+					SoundEngine.PlaySound(new SoundStyle($"{Name}/Assets/Sounds/" + sound), targetPlayer2.position);
 
 					if (Main.netMode == NetmodeID.Server)
 					{

@@ -77,7 +77,7 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 				initialized = true;
 
 				// Play the spawn sound for the newly spawned NPC.
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)NPC.Center.X, (int)NPC.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/PhantoonFire"));
+				SoundEngine.PlaySound(Sounds.NPCs.PhantoonFire, NPC.Center);
 			}
 			return true;
 		}

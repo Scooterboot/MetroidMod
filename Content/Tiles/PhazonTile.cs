@@ -1,6 +1,7 @@
 #region Using directives
 
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,7 +23,7 @@ namespace MetroidModPorted.Content.Tiles
 			
 			DustType = 68;
 			MinPick = 1000;//215;
-			SoundType = SoundID.Tink;
+			HitSound = SoundID.Tink;
 			ItemDrop = ModContent.ItemType<Items.Tiles.Phazon>();
 
 			ModTranslation name = CreateMapEntryName();

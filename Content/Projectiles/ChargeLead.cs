@@ -51,7 +51,7 @@ namespace MetroidModPorted.Content.Projectiles
 		public float aimSpeed = 0f;
 
 		bool soundPlayed = false;
-		SoundEffectInstance soundInstance;
+		ReLogic.Utilities.SlotId soundInstance;
 		int negateUseTime = 0;
 		public override void AI()
 		{
@@ -93,22 +93,22 @@ namespace MetroidModPorted.Content.Projectiles
 
 			if (mp.statCharge == 10)
 			{
-				soundInstance = SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.Center.X, (int)P.Center.Y, SoundLoader.GetSoundSlot(ChargeUpSoundMod, ChargeUpSound));
+				soundInstance = SoundEngine.PlaySound(new SoundStyle($"{ChargeUpSoundMod}/{ChargeUpSound}"), P.Center);
 			}
 			else if(comboSound == 1)
 			{
 				if(mp.statCharge >= MPlayer.maxCharge-20 && !soundPlayed)
 				{
-					SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.Center.X, (int)P.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ChargeComboActivate"));
+					SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeComboActivate, P.Center);
 					soundPlayed = true;
 				}
 			}
 			else if(mp.statCharge >= MPlayer.maxCharge && !soundPlayed)
 			{
-				SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)P.Center.X, (int)P.Center.Y, SoundLoader.GetSoundSlot(Mod, "Assets/Sounds/ChargeMax"));
-				if (soundInstance != null)
+				SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeMax, P.Center);
+				if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{
-					soundInstance.Stop(true);
+					result.Stop();
 				}
 				soundPlayed = true;
 			}
@@ -246,20 +246,20 @@ namespace MetroidModPorted.Content.Projectiles
 					{
 						if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.position.X, (int)Projectile.position.Y, SoundLoader.GetSoundSlot(ChargeShotSoundMod, ChargeShotSound));
+							SoundEngine.PlaySound(new SoundStyle($"{ChargeShotSoundMod}/{ChargeShotSound}"), Projectile.position);
 						}
 						else if ((mp.statCharge >= 30 || missile) && ShotSound != "none")
 						{
-							SoundEngine.PlaySound(SoundLoader.CustomSoundType, (int)Projectile.position.X, (int)Projectile.position.Y, SoundLoader.GetSoundSlot(ShotSoundMod, ShotSound));
+							SoundEngine.PlaySound(new SoundStyle($"{ShotSoundMod}/{ShotSound}"), Projectile.position);
 						}
 					}
 				}
 
 				mp.statCharge = 0;
 			}
-			if (soundInstance != null)
+			if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 			{
-				soundInstance.Stop(true);
+				result.Stop();
 			}
 			soundPlayed = false;
 		}

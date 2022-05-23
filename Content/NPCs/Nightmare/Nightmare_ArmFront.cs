@@ -51,7 +51,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 			bool flag = (Head.alpha < 255);
 			if (!Head.active)
 			{
-				SoundEngine.PlaySound(NPC.DeathSound,NPC.Center);
+				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound,NPC.Center);
 				NPC.life = 0;
 				if(flag)
 				{

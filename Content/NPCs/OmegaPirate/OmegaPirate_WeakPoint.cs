@@ -71,7 +71,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			bool flag = (Base.alpha < 255);
 			if (!Base.active)
 			{
-				SoundEngine.PlaySound(NPC.DeathSound,NPC.Center);
+				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound,NPC.Center);
 				NPC.life = 0;
 				if(flag)
 				{

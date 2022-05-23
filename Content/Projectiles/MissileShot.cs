@@ -80,7 +80,7 @@ namespace MetroidModPorted.Content.Projectiles
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
-			Terraria.Audio.SoundEngine.PlaySound(2,(int)Projectile.position.X,(int)Projectile.position.Y,14);
+			Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
 			
 			int dustType = 6;
 			if(Projectile.Name.Contains("Ice"))
