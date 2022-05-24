@@ -2492,8 +2492,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 								{
 									pan = 1f;
 								}
-								// TODO: Fix
-								//result.Pan = pan;
+								result.Sound.Pan = pan;
 							}
 						}
 
