@@ -212,7 +212,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
 		}
 		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
 		{
-			if (projectile.type == ModContent.Find<ModProjectile>("MBBomb").Type || projectile.type == ModContent.Find<ModProjectile>("Powerbomb").Type)
+			if (projectile.type == ((ModMBWeapon)MBAddonLoader.GetAddon<MorphBallAddons.Bomb>()).ProjectileType || projectile.type == ((ModMBSpecial)MBAddonLoader.GetAddon<MorphBallAddons.PowerBomb>()).ProjectileType)
 			{
 				grappled = false;
 			}
