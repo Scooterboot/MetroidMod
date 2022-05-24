@@ -96,7 +96,7 @@ namespace MetroidModPorted
 
 			};
 
-			public static readonly SoundStyle OmegaPirateCore_Voice = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateCore_Voice", 2)
+			public static readonly SoundStyle OmegaPirateCore_Voice = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateCore_Voice", 0, 2)
 			{
 
 			};
@@ -121,7 +121,7 @@ namespace MetroidModPorted
 
 			};
 
-			public static readonly SoundStyle OmegaPirateHurtVoice = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirateHurtVoice", 2)
+			public static readonly SoundStyle OmegaPirateHurtVoice = new($"{nameof(MetroidModPorted)}/Assets/Sounds/OmegaPirate_HurtVoice", 0, 3)
 			{
 
 			};
