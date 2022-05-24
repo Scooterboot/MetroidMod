@@ -676,7 +676,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 				int dust = Dust.NewDust(new Vector2(pos.X-76f,pos.Y), 152, 4, 30, 0, 0, 100, default(Color), 2f);
 				Main.dust[dust].noGravity = true;
 			}
-			SoundEngine.PlaySound(SoundID.Item, Body.Center);
+			SoundEngine.PlaySound(SoundID.Item1, Body.Center);
 
 			fullAnim = 6;
 			fullOffset.Y = 2f;
