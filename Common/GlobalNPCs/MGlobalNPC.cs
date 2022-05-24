@@ -156,12 +156,12 @@ namespace MetroidModPorted.Common.GlobalNPCs
 			}
 			if (npc.type == NPCID.GoblinSummoner)
 			{
-				//npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("ShadowflameBombAddon").Type, 6));
+				npcLoot.Add(ItemDropRule.Common(MBAddonLoader.GetAddon<Content.MorphBallAddons.ShadowflameBomb>().ItemType, 6));
 				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShadowflameBombAddon"));
 			}
 			if (npc.type == NPCID.Pumpking && Main.pumpkinMoon && NPC.waveNumber >= 7)
 			{
-				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.PumpkingBombDrop(), ModContent.Find<ModItem>("PumpkinBombAddon").Type));
+				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.PumpkingBombDrop(), MBAddonLoader.GetAddon<Content.MorphBallAddons.PumpkinBomb>().ItemType));
 				/*int wave = NPC.waveNumber - 6;
 				if (Main.expertMode)
 				{
@@ -175,7 +175,7 @@ namespace MetroidModPorted.Common.GlobalNPCs
 			}
 			if (npc.type == NPCID.DD2Betsy)
 			{
-				//npcLoot.Add(ItemDropRule.Common(ModContent.Find<ModItem>("BetsyBombAddon").Type));
+				npcLoot.Add(ItemDropRule.Common(MBAddonLoader.GetAddon<Content.MorphBallAddons.BetsyBomb>().ItemType));
 				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BetsyBombAddon"));
 			}
 		}
