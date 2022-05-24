@@ -200,6 +200,18 @@ namespace MetroidModPorted
 			{
 
 			};
+
+			public static readonly SoundStyle TorizoDropletDrip1 = new($"Terraria/Sounds/Drip_", 0, 2, SoundType.Ambient)
+			{
+				Volume = 0.5f,
+				PitchVariance = 0.6f
+			};
+
+			public static readonly SoundStyle TorizoDropletDrip2 = new($"Terraria/Sounds/Drip_2", SoundType.Ambient)
+			{
+				Volume = 0.5f,
+				PitchVariance = 0.6f
+			};
 		}
 	}
 }

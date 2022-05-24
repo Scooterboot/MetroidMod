@@ -65,7 +65,7 @@ namespace MetroidModPorted.Assets.Textures.Gores
 				{
 					gore.frame = 3;
 					gore.frameCounter = 0;
-					SoundEngine.PlaySound(SoundID.Drip, gore.position + new Vector2(8, 8));
+					SoundEngine.PlaySound(Sounds.NPCs.TorizoDropletDrip1, gore.position + new Vector2(8, 8));
 				}
 			}
 			else if (Collision.WetCollision(gore.position + gore.velocity, 16, 14))
@@ -74,7 +74,7 @@ namespace MetroidModPorted.Assets.Textures.Gores
 				{
 					gore.frame = 3;
 					gore.frameCounter = 0;
-					SoundEngine.PlaySound(SoundID.Drip, gore.position + new Vector2(8, 8));
+					SoundEngine.PlaySound(Sounds.NPCs.TorizoDropletDrip2, gore.position + new Vector2(8, 8));
 				}
 				int tileX = (int)(gore.position.X + 8f) / 16;
 				int tileY = (int)(gore.position.Y + 14f) / 16;
