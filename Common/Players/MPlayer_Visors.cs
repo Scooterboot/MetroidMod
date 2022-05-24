@@ -17,6 +17,13 @@ namespace MetroidModPorted.Common.Players
 		/// The Suit Addon ID of the current visor in use. If -1, no visor is in use.
 		/// </summary>
 		public int VisorInUse = -1;
+		/// <summary>
+		/// The scan progress of the current NPC. This is used purely for UI purposes. <br />
+		/// As this value increases, the bestiary entry's info increases,
+		/// and the visual progress bar increases in fill. <br />
+		/// Range: 0 - 1
+		/// </summary>
+		public float ScanProgress = 0f;
 		public bool ShouldShowVisorUI;
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{

@@ -31,6 +31,14 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		private Rectangle scanRect;
 
+		private Asset<Texture2D> barTex;
+
+		private Rectangle barRect;
+
+		private Asset<Texture2D> barBorderTex;
+
+		private Rectangle barBorderRect;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Scan Visor");
@@ -40,6 +48,8 @@ namespace MetroidModPorted.Content.SuitAddons
 			ItemNameLiteral = true;
 
 			ModContent.RequestIfExists($"{Mod.Name}/Assets/Textures/PrimeScan", out scanTex, AssetRequestMode.ImmediateLoad);
+			ModContent.RequestIfExists($"{Mod.Name}/Assets/Textures/SpaceJumpBar", out barTex, AssetRequestMode.ImmediateLoad);
+			ModContent.RequestIfExists($"{Mod.Name}/Assets/Textures/SpaceJumpBarBorder", out barBorderTex, AssetRequestMode.ImmediateLoad);
 		}
 
 		public override void SetItemDefaults(Item item)
@@ -60,14 +70,31 @@ namespace MetroidModPorted.Content.SuitAddons
 
 		public override void DrawVisor(Player player)
 		{
-			if (scanTex == null) { return; }
+			if (scanTex == null || barTex == null || barBorderTex == null || !player.TryGetModPlayer(out MPlayer mp)) { return; }
 			scanRect = new(
 				Main.mouseX - (scanTex.Width() / 2),
 				Main.mouseY - (scanTex.Height() / 2),
 				scanTex.Width(),
 				scanTex.Height()
 			);
+			barBorderRect = new(
+				Main.mouseX - (barBorderTex.Width() / 2),
+				Main.mouseY - (barBorderTex.Width() / 2) + scanRect.Height,
+				barBorderTex.Width(),
+				barBorderTex.Height()
+			);
+			barRect = new(
+				Main.mouseX - (barTex.Width() / 2),
+				Main.mouseY - (barTex.Width() / 2) + scanRect.Height,
+				(int)(Math.Floor(barTex.Width() / 2 * mp.ScanProgress) * 2),
+				barTex.Height()
+			);
 			Main.spriteBatch.Draw(scanTex.Value, scanRect, Color.CadetBlue);
+
+			Main.spriteBatch.Draw(barBorderTex.Value, barBorderRect, Color.White);
+			Main.spriteBatch.Draw(barTex.Value, barRect, Color.CadetBlue);
+
+			// See Common/GlobalNPCs/MGlobalNPC.cs for the functional part of the scan visor
 		}
 	}
 }

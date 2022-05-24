@@ -37,3 +37,5 @@
 	 -	Echo Visor (implement in Metroid Prime 2: Echoes update)
 	 -	Command Visor (implement in Metroid Prime 3: Corruption update)
  -	Fix Serris AI
+ -	Fix waterfall sound playing when exiting world (possibly just a tML bug)
+ -	Make Scan Visor lock onto enemies

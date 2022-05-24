@@ -8,11 +8,11 @@ namespace MetroidModPorted
 		{
 			public static readonly SoundStyle SwitchVisor = new($"{nameof(MetroidModPorted)}/Assets/Sounds/SwitchVisor")
 			{
-
+				Volume = 0.5f
 			};
 			public static readonly SoundStyle SwitchVisor2 = new($"{nameof(MetroidModPorted)}/Assets/Sounds/SwitchVisor2")
 			{
-
+				Volume = 0.5f
 			};
 		}
 	}

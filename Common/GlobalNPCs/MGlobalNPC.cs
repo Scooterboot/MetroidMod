@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -177,6 +179,62 @@ namespace MetroidModPorted.Common.GlobalNPCs
 			{
 				npcLoot.Add(ItemDropRule.Common(MBAddonLoader.GetAddon<Content.MorphBallAddons.BetsyBomb>().ItemType));
 				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BetsyBombAddon"));
+			}
+		}
+
+		int timer = 0;
+		public override void ModifyHoverBoundingBox(NPC npc, ref Rectangle boundingBox)
+		{
+			if (!Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) ||
+				!SuitAddonLoader.TryGetAddon<Content.SuitAddons.ScanVisor>(out ModSuitAddon scanMsa) ||
+				mp.VisorInUse != scanMsa.Type)
+			{
+				return;
+			}
+			mp.ScanProgress = 0f;
+			if (boundingBox.Contains(new Point((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y)))
+			{
+				if (npc.friendly)
+				{
+					if (npc.townNPC)
+					{
+						mp.ScanProgress = 1f;
+						if (!Main.BestiaryTracker.Chats.GetWasChatWith(npc))
+						{
+							mp.ScanProgress = timer / 30f;
+							if (timer >= 30)
+							{
+								Main.BestiaryTracker.Chats.RegisterChatStartWith(npc);
+								timer = 0;
+							}
+						}
+					}
+					else
+					{
+						mp.ScanProgress = 1f;
+						if (!Main.BestiaryTracker.Sights.GetWasNearbyBefore(npc))
+						{
+							mp.ScanProgress = timer / 30f;
+							if (timer >= 30)
+							{
+								Main.BestiaryTracker.Sights.RegisterWasNearby(npc);
+								timer = 0;
+							}
+						}
+					}
+				}
+				else
+				{
+					int killCount = Main.BestiaryTracker.Kills.GetKillCount(npc);
+					int killTotalNeeded = npc.boss ? 1 : 50;
+					mp.ScanProgress = Utils.Clamp(1f * killCount / killTotalNeeded, 0f, 1f);
+					if (killCount < killTotalNeeded && timer >= (killTotalNeeded == 1 ? 60 : 1.2))
+					{
+						Main.BestiaryTracker.Kills.RegisterKill(npc);
+						timer = 0;
+					}
+				}
+				timer++;
 			}
 		}
 	}
