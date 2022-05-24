@@ -65,5 +65,11 @@ namespace MetroidModPorted.Default
 			obj.modBeam = modBeam;
 			return obj;
 		}
+
+		public override ModItem NewInstance(Item entity)
+		{
+			var inst = Clone(entity);
+			return inst;
+		}
 	}
 }

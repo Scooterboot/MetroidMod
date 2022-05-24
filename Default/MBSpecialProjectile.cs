@@ -68,5 +68,18 @@ namespace MetroidModPorted.Default
 			if (!modMBAddon.Kill(timeLeft)) { return; }
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, modMBAddon.ExplosionProjectileType, (int)Math.Floor(Projectile.damage*modMBAddon.DamageMultiplier), modMBAddon.Knockback, Projectile.owner);
 		}
+
+		public override ModProjectile Clone(Projectile newEntity)
+		{
+			var inst = (MBSpecialProjectile)MemberwiseClone();
+			inst.modMBAddon = modMBAddon;
+			return inst;
+		}
+
+		public override ModProjectile NewInstance(Projectile entity)
+		{
+			var inst = Clone(entity);
+			return inst;
+		}
 	}
 }

@@ -70,6 +70,12 @@ namespace MetroidModPorted.Default
 			return obj;
 		}
 
+		public override ModItem NewInstance(Item entity)
+		{
+			var inst = Clone(entity);
+			return inst;
+		}
+
 		public override void AddRecipes()
 		{
 			modSuitAddon.AddRecipes();

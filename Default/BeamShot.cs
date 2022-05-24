@@ -517,5 +517,18 @@ namespace MetroidModPorted.Default
 		{
 			canDiffuse = reader.ReadBoolean();
 		}
+
+		public override ModProjectile Clone(Projectile newEntity)
+		{
+			var inst = (BeamShot)MemberwiseClone();
+			inst.modBeam = modBeam;
+			return inst;
+		}
+
+		public override ModProjectile NewInstance(Projectile entity)
+		{
+			var inst = Clone(entity);
+			return inst;
+		}
 	}
 }

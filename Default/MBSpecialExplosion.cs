@@ -69,5 +69,18 @@ namespace MetroidModPorted.Default
 		{
 			return modMBAddon.ExplosionPreDraw(ref lightColor);
 		}
+
+		public override ModProjectile Clone(Projectile newEntity)
+		{
+			var inst = (MBSpecialExplosion)MemberwiseClone();
+			inst.modMBAddon = modMBAddon;
+			return inst;
+		}
+
+		public override ModProjectile NewInstance(Projectile entity)
+		{
+			var inst = Clone(entity);
+			return inst;
+		}
 	}
 }

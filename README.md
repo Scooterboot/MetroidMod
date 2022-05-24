@@ -2,4 +2,4 @@ This is a WIP attempt to update the Metroid Mod from tModLoader 1.3 to tModLoade
 
 [Link to TODO](./TODO.txt)
 
-As of the current 1.4 preview, the addon system is broken. If someone can fix tML trying to autoload classes that specifically have the Autoload attribute set to false, please do.
+~~As of the current 1.4 preview, the addon system is broken. If someone can fix tML trying to autoload classes that specifically have the Autoload attribute set to false, please do.~~ Fixed.

@@ -321,5 +321,18 @@ namespace MetroidModPorted.Default
 			if (Projectile.type == mod.ProjectileType("SolarFireBomb"))
 				target.AddBuff(BuffID.Daybreak, 600);*/
 		}
+
+		public override ModProjectile Clone(Projectile newEntity)
+		{
+			var inst = (MBWeaponProjectile)MemberwiseClone();
+			inst.modMBAddon = modMBAddon;
+			return inst;
+		}
+
+		public override ModProjectile NewInstance(Projectile entity)
+		{
+			var inst = Clone(entity);
+			return inst;
+		}
 	}
 }
