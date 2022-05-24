@@ -96,7 +96,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
-			mNPC.DrawCrawler(NPC,sb,drawColor);
+			mNPC.DrawCrawler(NPC,sb,screenPos,drawColor);
 			return false;
 		}
 		

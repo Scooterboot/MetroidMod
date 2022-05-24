@@ -140,7 +140,7 @@ namespace MetroidModPorted.Content.NPCs
 				}
 			}
 		}
-		public void DrawHopper(NPC n, SpriteBatch sb, Color drawColor)
+		public void DrawHopper(NPC n, SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
 			Texture2D tex = Terraria.GameContent.TextureAssets.Npc[n.type].Value;//Main.npcTexture[n.type];
 			//Color color = n.GetAlpha(Lighting.GetColor((int)n.Center.X / 16, (int)n.Center.Y / 16));
@@ -149,11 +149,11 @@ namespace MetroidModPorted.Content.NPCs
 			
 			if(directionY == -1)
 			{
-				sb.Draw(tex, new Vector2(n.Center.X, n.position.Y) - Main.screenPosition, new Rectangle?(new Rectangle(0,n.frame.Y*height,tex.Width,height)),color,0f,new Vector2(tex.Width/2,2),n.scale,SpriteEffects.FlipVertically,0f);
+				sb.Draw(tex, new Vector2(n.Center.X, n.position.Y) - screenPos, new Rectangle?(new Rectangle(0,n.frame.Y*height,tex.Width,height)),color,0f,new Vector2(tex.Width/2,2),n.scale,SpriteEffects.FlipVertically,0f);
 			}
 			else
 			{
-				sb.Draw(tex, new Vector2(n.Center.X, n.position.Y+n.height) - Main.screenPosition, new Rectangle?(new Rectangle(0,n.frame.Y*height,tex.Width,height)),color,0f,new Vector2(tex.Width/2,height - 2),n.scale,SpriteEffects.None,0f);
+				sb.Draw(tex, new Vector2(n.Center.X, n.position.Y+n.height) - screenPos, new Rectangle?(new Rectangle(0,n.frame.Y*height,tex.Width,height)),color,0f,new Vector2(tex.Width/2,height - 2),n.scale,SpriteEffects.None,0f);
 			}
 		}
 		
@@ -497,7 +497,7 @@ namespace MetroidModPorted.Content.NPCs
 				n.position += n.velocity;
 			}
 		}
-		public void DrawCrawler(NPC n, SpriteBatch sb, Color drawColor)
+		public void DrawCrawler(NPC n, SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
 			Texture2D tex = Terraria.GameContent.TextureAssets.Npc[n.type].Value;//Main.npcTexture[n.type];
 			//Color color = n.GetAlpha(Lighting.GetColor((int)n.Center.X / 16, (int)n.Center.Y / 16));
@@ -510,7 +510,7 @@ namespace MetroidModPorted.Content.NPCs
 				effects = SpriteEffects.FlipHorizontally;
 			}
 			
-			sb.Draw(tex, n.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,n.frame.Y*height,tex.Width,height)),color,rotation,new Vector2(tex.Width/2,height/2 - yOffset),n.scale,effects,0f);
+			sb.Draw(tex, n.Center - screenPos, new Rectangle?(new Rectangle(0,n.frame.Y*height,tex.Width,height)),color,rotation,new Vector2(tex.Width/2,height/2 - yOffset),n.scale,effects,0f);
 		}
 		
 		public override void SendExtraAI(BinaryWriter writer)

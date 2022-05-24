@@ -27,6 +27,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
 			DisplayName.SetDefault("Larval Metroid");
 			Main.npcFrameCount[Type] = 4;
 		}
+
 		public override void SetDefaults()
 		{
 			NPC.width = 38;
