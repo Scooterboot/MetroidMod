@@ -13,16 +13,19 @@ using MetroidModPorted.Content.DamageClasses;
 namespace MetroidModPorted.Default
 {
 	[Autoload(false)]
+	[CloneByReference]
 	internal class MBSpecialProjectile : ModProjectile
 	{
+		[CloneByReference]
 		public ModMBSpecial modMBAddon;
+		[CloneByReference]
 		public MBSpecialExplosion explosion;
 		public MBSpecialProjectile(ModMBSpecial modMBAddon)
 		{
 			this.modMBAddon = modMBAddon;
 		}
 
-		public override bool IsCloneable => false;
+		protected override bool CloneNewInstances => true;
 
 		public override string Texture => modMBAddon.ProjectileTexture;
 		public override string Name => $"{modMBAddon.Name}Projectile";
@@ -71,14 +74,17 @@ namespace MetroidModPorted.Default
 
 		public override ModProjectile Clone(Projectile newEntity)
 		{
-			var inst = (MBSpecialProjectile)MemberwiseClone();
+			MBSpecialProjectile inst = (MBSpecialProjectile)base.Clone(newEntity);
 			inst.modMBAddon = modMBAddon;
+			inst.explosion = explosion;
 			return inst;
 		}
 
 		public override ModProjectile NewInstance(Projectile entity)
 		{
-			var inst = Clone(entity);
+			MBSpecialProjectile inst = (MBSpecialProjectile)base.NewInstance(entity);
+			inst.modMBAddon = modMBAddon;
+			inst.explosion = explosion;
 			return inst;
 		}
 	}

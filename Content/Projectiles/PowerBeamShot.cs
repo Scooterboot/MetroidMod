@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace MetroidModPorted.Content.Projectiles
 {
@@ -26,12 +27,13 @@ namespace MetroidModPorted.Content.Projectiles
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Color color = MetroidModPorted.powColor;
 			//Color color = modBeam.BeamColor;
-			//Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
+			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			if(Projectile.numUpdates == 0)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 64, 0, 0, 100, default(Color), Projectile.scale);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
 		}

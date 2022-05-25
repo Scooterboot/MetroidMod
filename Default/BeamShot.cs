@@ -16,15 +16,19 @@ namespace MetroidModPorted.Default
 	[Autoload(false)]
 	internal class BeamShot : ModProjectile
 	{
+		[CloneByReference]
 		public ModBeam[] modBeam;
+		[CloneByReference]
 		public BeamCombination beamCombo;
+		[CloneByReference]
 		public BeamShot beamShot;
+
 		public BeamShot()
 		{
 			beamShot = this;
 		}
 
-		public override bool IsCloneable => false;
+		protected override bool CloneNewInstances => true;
 
 		public override string Texture => beamCombo.projectileTexture;//modBeam.BeamProjectileTexture;
 
@@ -399,7 +403,7 @@ namespace MetroidModPorted.Default
 			{
 				effects = SpriteEffects.FlipHorizontally;
 			}
-			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[projectile.ModProjectile.Type].Value;//Main.projectileTexture[projectile.type];
+			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[projectile.type].Value;//Main.projectileTexture[projectile.type];
 			int num108 = tex.Height / Main.projFrames[projectile.type];
 			int y4 = num108 * projectile.frame;
 			Main.EntitySpriteDraw(tex, new Vector2((float)((int)(projectile.Center.X - Main.screenPosition.X)), (float)((int)projectile.Center.Y - Main.screenPosition.Y + projectile.gfxOffY)), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), projectile.scale, effects, 0);
@@ -520,14 +524,19 @@ namespace MetroidModPorted.Default
 
 		public override ModProjectile Clone(Projectile newEntity)
 		{
-			var inst = (BeamShot)MemberwiseClone();
+			var inst = (BeamShot)base.Clone(newEntity);
 			inst.modBeam = modBeam;
+			inst.beamShot = beamShot;
+			inst.canDiffuse = canDiffuse;
 			return inst;
 		}
 
 		public override ModProjectile NewInstance(Projectile entity)
 		{
-			var inst = Clone(entity);
+			BeamShot inst = (BeamShot)base.NewInstance(entity);
+			inst.modBeam = modBeam;
+			inst.beamShot = beamShot;
+			inst.canDiffuse = canDiffuse;
 			return inst;
 		}
 	}

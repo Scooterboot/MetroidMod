@@ -13,15 +13,17 @@ using MetroidModPorted.Content.Projectiles;
 namespace MetroidModPorted.Default
 {
 	[Autoload(false)]
+	[CloneByReference]
 	internal class MBWeaponProjectile : ModProjectile
 	{
+		[CloneByReference]
 		public ModMBWeapon modMBAddon;
 		public MBWeaponProjectile(ModMBWeapon modMBAddon)
 		{
 			this.modMBAddon = modMBAddon;
 		}
 
-		public override bool IsCloneable => false;
+		protected override bool CloneNewInstances => true;
 
 		internal readonly float light_scale = 0.2f;
 
@@ -324,14 +326,15 @@ namespace MetroidModPorted.Default
 
 		public override ModProjectile Clone(Projectile newEntity)
 		{
-			var inst = (MBWeaponProjectile)MemberwiseClone();
+			MBWeaponProjectile inst = (MBWeaponProjectile)base.Clone(newEntity);
 			inst.modMBAddon = modMBAddon;
 			return inst;
 		}
 
 		public override ModProjectile NewInstance(Projectile entity)
 		{
-			var inst = Clone(entity);
+			MBWeaponProjectile inst = (MBWeaponProjectile)base.NewInstance(entity);
+			inst.modMBAddon = modMBAddon;
 			return inst;
 		}
 	}
