@@ -135,6 +135,13 @@ namespace MetroidModPorted.Content.Items.Armors
 				SuitAddons[i] = ItemIO.Receive(reader);
 			}
 		}
+
+		public override ModItem Clone(Item newEntity)
+		{
+			PowerSuitBreastplate obj = (PowerSuitBreastplate)base.Clone(newEntity);
+			obj.SuitAddons = SuitAddons;
+			return obj;
+		}
 	}
 	[AutoloadEquip(EquipType.Legs)]
 	public class PowerSuitGreaves : ModItem
@@ -229,6 +236,13 @@ namespace MetroidModPorted.Content.Items.Armors
 			{
 				SuitAddons[i] = ItemIO.Receive(reader);
 			}
+		}
+
+		public override ModItem Clone(Item newEntity)
+		{
+			PowerSuitBreastplate obj = (PowerSuitBreastplate)base.Clone(newEntity);
+			obj.SuitAddons = SuitAddons;
+			return obj;
 		}
 	}
 	[AutoloadEquip(EquipType.Head)]
@@ -328,6 +342,13 @@ namespace MetroidModPorted.Content.Items.Armors
 			{
 				SuitAddons[i] = ItemIO.Receive(reader);
 			}
+		}
+
+		public override ModItem Clone(Item newEntity)
+		{
+			PowerSuitBreastplate obj = (PowerSuitBreastplate)base.Clone(newEntity);
+			obj.SuitAddons = SuitAddons;
+			return obj;
 		}
 	}
 }
