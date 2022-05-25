@@ -26,10 +26,7 @@ namespace MetroidModPorted.Content.Biomes
 				}
 			}
 		}
-		public override int ChooseFarTexture()
-		{
-			return BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Assets/Textures/Backgrounds/NESCrateriaSurfaceFar");
-		}
+		public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Assets/Textures/Backgrounds/NESCrateriaSurfaceFar");
 
 		private static int SurfaceFrameCounter;
 		private static int SurfaceFrame;
@@ -55,9 +52,6 @@ namespace MetroidModPorted.Content.Biomes
 			}
 		}
 
-		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
-		{
-			return BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Assets/Textures/Backgrounds/NESCrateriaSurfaceClose");
-		}
+		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) => BackgroundTextureLoader.GetBackgroundSlot($"{Mod.Name}/Assets/Textures/Backgrounds/NESCrateriaSurfaceClose");
 	}
 }

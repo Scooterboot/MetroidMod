@@ -23,11 +23,7 @@ namespace MetroidModPorted.Common.GlobalItems
 		public Texture2D itemTexture;
 
 		public override bool InstancePerEntity => true;
-		public override bool IsCloneable => true;
-		/*public override bool CloneNewInstances
-		{
-			get { return true; }
-		}*/
+		protected override bool CloneNewInstances => true;
 
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{
