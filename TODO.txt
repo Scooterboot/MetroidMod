@@ -23,11 +23,9 @@
  -	Finish implementing modded beams
 	 -	MODULAR BEAM COMBINATIONS!
  -	Implement modded missile addons
- -	Finish implementing morph ball addons
-	 -	DRILLS!
  -	Write all of the modded suits in
  -	In the future, dynamic display name generation for missile launcher addon projectiles and power beam addon projectiles.
- -	Implement 'Energy Bar' and its UI (use for Energy Tanks other than being a crafting ingredient and a tile)
+ -	Implement 'Energy Bar' UI (use for Energy Tanks other than being a crafting ingredient and a tile)
  -	Migrate some accessories to suit addons
 	 -	Reserve Tanks
  -	Figure out and implement screen shaders for:
