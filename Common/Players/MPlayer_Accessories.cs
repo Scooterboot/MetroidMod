@@ -834,7 +834,7 @@ namespace MetroidModPorted.Common.Players
 				}
 				if (!SpeedBoost)
 				{
-					Projectile.NewProjectile(new EntitySource_Parent(Player), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, SpeedBoostID, damage, 0, Player.whoAmI);
+					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, SpeedBoostID, damage, 0, Player.whoAmI);
 				}
 			}
 			#region shine-spark
@@ -1054,7 +1054,7 @@ namespace MetroidModPorted.Common.Players
 				}
 				if(!shineSpark)
 				{
-					proj = Terraria.Projectile.NewProjectile(new EntitySource_Parent(Player),Player.position.X+Player.width/2,Player.position.Y+Player.height/2,0,0,ShineSparkID,damage,0,Player.whoAmI);
+					proj = Projectile.NewProjectile(Player.GetSource_FromAI(),Player.position.X+Player.width/2,Player.position.Y+Player.height/2,0,0,ShineSparkID,damage,0,Player.whoAmI);
 				}
 			}
 
