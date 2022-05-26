@@ -12,6 +12,7 @@ using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
+	/*
 	public abstract class ModChargeBeam : ModBeam
 	{
 		public bool IsTraditionalCharge { get; set; } = true;
@@ -29,7 +30,7 @@ namespace MetroidModPorted
 
 		public override bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			/*MPlayer mp = player.GetModPlayer<MPlayer>();
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			int ch = Projectile.NewProjectile(new EntitySource_ByProjectileSourceId(Type), position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), damage, knockback, player.whoAmI);
 			ChargeLead cl = (ChargeLead)Main.projectile[ch].ModProjectile;
 			cl.ChargeUpSound = chargeUpSound;
@@ -43,9 +44,10 @@ namespace MetroidModPorted
 			cl.ChargeShotSound = chargeShotSound;
 			cl.projectile.netUpdate = true;
 
-			chargeLead = ch;*/
+			chargeLead = ch;
 
 			return false;
 		}
 	}
+	*/
 }

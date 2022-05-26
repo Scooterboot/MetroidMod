@@ -18,16 +18,12 @@ namespace MetroidModPorted
 {
 	public static class BeamLoader
 	{
+		/*
 		//internal static readonly List<(Entity entity, int liquidType)> wetEntities = new();
 		//internal static readonly List<Entity> lastWetEntities = new();
 		internal static readonly List<ModBeam> beams = new();
 		internal static readonly List<GlobalBeam> globalBeams = new();
 		internal static readonly List<BeamCombination> beamCombinations = new();
-		/*{
-			new LiquidCollision(0, 1).SetTileType(TileID.Obsidian).SetSound(SoundID.LiquidsWaterLava),
-			new LiquidCollision(0, 2).SetTileType(TileID.HoneyBlock).SetSound(SoundID.LiquidsHoneyWater),
-			new LiquidCollision(1, 2).SetTileType(TileID.CrispyHoneyBlock).SetSound(SoundID.LiquidsHoneyLava),
-		};*/
 		internal static readonly Dictionary<int, string> unloadedBeams = new();
 
 		//public static int BucketsRecipeGroupID => MetroidModPorted.beamsRecipeGroupID;
@@ -81,6 +77,7 @@ namespace MetroidModPorted
 			}
 			return false;
 		}
+		*/
 
 		public static string GetAddonSlotName(int AddonSlot)
 		{
@@ -95,23 +92,10 @@ namespace MetroidModPorted
 			};
 		}
 
+		/*
 		internal static void SetupBeamCombinations()
 		{
 
-		}
-
-		internal static void OnUpdate()
-		{
-			/*for (int i = 0; i < wetEntities.Count; i++)
-			{
-				if (!lastWetEntities.Contains(wetEntities[i].entity))
-				{
-					var (entity, liquidType) = wetEntities[i];
-					OnOutLiquid(liquidType, entity);
-					wetEntities.RemoveAt(i);
-				}
-			}
-			lastWetEntities.Clear();*/
 		}
 
 		public static bool CanShoot(Player player, Item[] addons)
@@ -191,5 +175,6 @@ namespace MetroidModPorted
 			beamCombinations.Clear();
 			unloadedBeams.Clear();
 		}
+		*/
 	}
 }

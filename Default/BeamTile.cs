@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 
 namespace MetroidModPorted.Default
 {
+	/*
 	[Autoload(false)]
 	public class BeamTile : ModTile
 	{
@@ -62,4 +63,5 @@ namespace MetroidModPorted.Default
 			return true;
 		}
 	}
+	*/
 }

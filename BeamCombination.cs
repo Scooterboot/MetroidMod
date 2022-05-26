@@ -3,6 +3,7 @@ using Terraria.Audio;
 
 namespace MetroidModPorted
 {
+	/*
 	public class BeamCombination
 	{
 		internal List<int> beams = new();
@@ -82,4 +83,5 @@ namespace MetroidModPorted
 			return result && count != 0;
 		}
 	}
+	*/
 }

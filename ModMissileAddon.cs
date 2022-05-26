@@ -11,6 +11,7 @@ using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
+	/*
 	public abstract class ModMissileAddon : ModType
 	{
 		public int Type { get; private set; }
@@ -45,7 +46,7 @@ namespace MetroidModPorted
 			//Textures = new Asset<Texture2D>[4];
 			SetStaticDefaults();
 		}
-		/*public override void Load()
+		public override void Load()
 		{
 			Item = new MissileAddonItem(this);
 			Tile = new MissileAddonTile(this);
@@ -53,7 +54,7 @@ namespace MetroidModPorted
 			if (Tile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
 			Mod.AddContent(Item);
 			Mod.AddContent(Tile);
-		}*/
+		}
 		protected override sealed void Register()
 		{
 			DisplayName = LocalizationLoader.CreateTranslation(Mod, $"SuitAddonName.{Name}");
@@ -88,4 +89,5 @@ namespace MetroidModPorted
 			return true;
 		}
 	}
+	*/
 }

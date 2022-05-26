@@ -12,6 +12,7 @@ using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
+	/*
 	public abstract class ModUtilityBeam : ModBeam
 	{
 		public virtual int ShotAmount { get; set; } = 2;
@@ -36,4 +37,5 @@ namespace MetroidModPorted
 			return base.OnShoot(player, source, position, velocity, type, damage, knockback);
 		}
 	}
+	*/
 }

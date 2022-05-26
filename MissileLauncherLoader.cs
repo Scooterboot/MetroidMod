@@ -17,6 +17,7 @@ namespace MetroidModPorted
 {
 	public static class MissileLauncherLoader
 	{
+		/*
 		internal static readonly List<ModMissileAddon> missileAddons = new();
 		internal static readonly List<GlobalMissileAddon> globalMissileAddons = new();
 		//internal static readonly List<BeamCombination> beamCombinations = new();
@@ -38,19 +39,20 @@ namespace MetroidModPorted
 		public static ModMissileAddon GetMissileAddon<T>() where T : ModMissileAddon =>
 			missileAddons.TryGetValue(i => i is T, out var modMissileAddon) ? modMissileAddon : null;
 
-		internal static void OnUpdate()
+		*/
+
+		public static string GetAddonSlotName(int AddonSlot)
 		{
-			/*for (int i = 0; i < wetEntities.Count; i++)
+			return AddonSlot switch
 			{
-				if (!lastWetEntities.Contains(wetEntities[i].entity))
-				{
-					var (entity, liquidType) = wetEntities[i];
-					OnOutLiquid(liquidType, entity);
-					wetEntities.RemoveAt(i);
-				}
-			}
-			lastWetEntities.Clear();*/
+				0 => "Charge",
+				1 => "Primary",
+				2 => "Expansion",
+				_ => "Unknown"
+			};
 		}
+
+		/*
 
 		public static bool OnShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -68,5 +70,6 @@ namespace MetroidModPorted
 
 			return flag;
 		}
+		*/
 	}
 }

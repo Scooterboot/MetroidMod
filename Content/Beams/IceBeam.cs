@@ -3,6 +3,7 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Beams
 {
+	/*
 	public class IceBeam : ModSecondaryBeam
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/Beams/Ice/IceBeamItem";
@@ -42,4 +43,5 @@ namespace MetroidModPorted.Content.Beams
 				.Register();
 		}
 	}
+	*/
 }

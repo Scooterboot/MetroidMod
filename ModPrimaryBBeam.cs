@@ -12,6 +12,7 @@ using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
+	/*
 	public abstract class ModPrimaryBBeam : ModBeam
 	{
 		public override sealed void Load()
@@ -34,4 +35,5 @@ namespace MetroidModPorted
 			return base.OnShoot(player, source, position, velocity, type, damage, knockback);
 		}
 	}
+	*/
 }

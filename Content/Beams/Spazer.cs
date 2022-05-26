@@ -3,6 +3,7 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Beams
 {
+	/*
 	public class Spazer : ModPrimaryABeam
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/Beams/Spazer/SpazerItem";
@@ -44,4 +45,5 @@ namespace MetroidModPorted.Content.Beams
 				.Register();
 		}
 	}
+	*/
 }

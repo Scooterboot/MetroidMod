@@ -3,6 +3,7 @@ using Terraria.ID;
 
 namespace MetroidModPorted.Content.Beams
 {
+	/*
 	public class WaveBeam : ModUtilityBeam
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/Beams/Wave/WaveBeamItem";
@@ -43,4 +44,5 @@ namespace MetroidModPorted.Content.Beams
 				.Register();
 		}
 	}
+	*/
 }

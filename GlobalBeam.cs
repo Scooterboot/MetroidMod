@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted
 {
+	/*
 	public abstract class GlobalBeam : ModType
 	{
 		public virtual bool OnChargeShoot()
@@ -31,4 +32,5 @@ namespace MetroidModPorted
 
 		public override void SetStaticDefaults() => base.SetStaticDefaults();
 	}
+	*/
 }

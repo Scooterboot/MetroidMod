@@ -10,7 +10,7 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Projectiles
 {
-	class ChargeLead : Default.BeamShot
+	class ChargeLead : MProjectile
 	{
 		public override string Texture => $"{Mod.Name}/Assets/Texture/ChargeLead/ChargeLead";
 		public override void SetStaticDefaults()

@@ -8,7 +8,7 @@ using Terraria.ID;
 namespace MetroidModPorted.Content.Projectiles
 {
 	[Autoload(true)]
-	class PowerBeamShot : Default.BeamShot
+	class PowerBeamShot : MProjectile
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/PowerBeamShot";
 		public override string Name => "PowerBeamShot";
@@ -44,7 +44,7 @@ namespace MetroidModPorted.Content.Projectiles
 		
 		public override bool PreDraw(ref Color lightColor)
 		{
-			DrawCentered(Projectile);
+			DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
 	}

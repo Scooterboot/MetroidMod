@@ -11,6 +11,7 @@ using MetroidModPorted.ID;
 
 namespace MetroidModPorted
 {
+	/*
 	public abstract class ModBeam : ModType
 	{
 		public int Type { get; private set; }
@@ -186,4 +187,5 @@ namespace MetroidModPorted
 
 		public Recipe CreateRecipe(int amount = 1) => Item.CreateRecipe(amount);
 	}
+	*/
 }

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Projectiles
 {
-	class MissileShot : Default.BeamShot
+	class MissileShot : MProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -101,7 +101,7 @@ namespace MetroidModPorted.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			PlasmaDraw(Projectile, Main.player[Projectile.owner]);
+			PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
 			return false;
 		}
 

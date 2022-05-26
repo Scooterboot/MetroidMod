@@ -8,7 +8,7 @@ namespace MetroidModPorted
 {
 	class MMPUtils
 	{
-		public static string ConcatBeamNames(params ModBeam[] modBeams)
+		/*public static string ConcatBeamNames(params ModBeam[] modBeams)
 		{
 			string result = "";
 			for (int i = 0; i < modBeams.Length; i++)
@@ -16,6 +16,6 @@ namespace MetroidModPorted
 				result += modBeams[i].Name;//[propertyName];
 			}
 			return result;
-		}
+		}*/
 	}
 }

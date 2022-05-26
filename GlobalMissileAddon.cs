@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted
 {
+	/*
 	public abstract class GlobalMissileAddon : ModType
 	{
 		protected override sealed void Register()
@@ -33,4 +34,5 @@ namespace MetroidModPorted
 			return true;
 		}
 	}
+	*/
 }

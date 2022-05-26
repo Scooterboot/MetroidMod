@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Default
 {
+	/*
 	[Autoload(false)]
 	public class BeamItem : ModItem
 	{
@@ -72,4 +73,5 @@ namespace MetroidModPorted.Default
 			return inst;
 		}
 	}
+	*/
 }

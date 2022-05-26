@@ -13,6 +13,7 @@ using MetroidModPorted.Content.Projectiles;
 
 namespace MetroidModPorted.Default
 {
+	/*
 	[Autoload(false)]
 	internal class BeamShot : ModProjectile
 	{
@@ -240,7 +241,7 @@ namespace MetroidModPorted.Default
 						{
 							waveDepth += 2;
 						}
-					}*/
+					}* /
 					WaveCollide(P, waveDepth);
 				}
 			}
@@ -540,4 +541,5 @@ namespace MetroidModPorted.Default
 			return inst;
 		}
 	}
+	*/
 }
