@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidModPorted.Common.GlobalItems;
 
 namespace MetroidModPorted.Content.Items.Tiles
 {
@@ -28,11 +29,11 @@ namespace MetroidModPorted.Content.Items.Tiles
 			Item.value = 2500;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
-			//Item.consumable = true;
-			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.MissileExpansionTile>();
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.MissileExpansionTile>();
 
-            //Common.GlobalItems.MGlobalItem mItem = Item.GetGlobalItem<Common.GlobalItems.MGlobalItem>();
-            //mItem.missileSlotType = 2;
+            MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+            mItem.missileSlotType = 2;
         }
 	}
 }
