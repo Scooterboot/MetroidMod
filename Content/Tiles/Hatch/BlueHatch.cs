@@ -1,6 +1,7 @@
 using System;
 
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
@@ -10,15 +11,15 @@ using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidMod.Common.Worlds;
+using MetroidModPorted.Common.Systems;
 
-namespace MetroidMod.Tiles.Hatch
+namespace MetroidModPorted.Content.Tiles.Hatch
 {
 	public class BlueHatch : ModTile
 	{
-        public int otherDoorID = 0;
-        
-		public override void SetDefaults()
+		public int otherDoorID = 0;
+
+		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
@@ -33,60 +34,60 @@ namespace MetroidMod.Tiles.Hatch
 			TileObjectData.newTile.Height = 4;
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16, 16 };
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
-            adjTiles = new int[]{ TileID.ClosedDoor };
-			
-			otherDoorID = mod.TileType("BlueHatchOpen");
-        }
+			AdjTiles = new int[] { TileID.ClosedDoor };
 
-        public override bool Slope(int i, int j) { return false; }
-        
-        public override void MouseOver(int i, int j)
-        {
-            Player player = Main.LocalPlayer;
-            player.noThrow = 2;
-            player.showItemIcon = true;
-            player.showItemIcon2 = mod.ItemType("BlueHatch");
-        }
+			otherDoorID = ModContent.TileType<BlueHatchOpen>();
+		}
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("BlueHatch"));
-        }
+		public override bool Slope(int i, int j) { return false; }
 
-        public override bool NewRightClick(int i, int j)
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconID = ModContent.ItemType<Items.Tiles.BlueHatch>();
+		}
+
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.BlueHatch>());
+		}
+
+		public override bool RightClick(int i, int j)
 		{
 			HitWire(i, j);
 			return true;
 		}
-        
+
 		public override void HitWire(int i, int j)
 		{
-			ToggleHatch(i, j, (ushort)otherDoorID,Name.Contains("Open"));
-			if (MetroidMod.AutocloseHatchesEnabled)
+			ToggleHatch(i, j, (ushort)otherDoorID, Name.Contains("Open"));
+			if (MetroidModPorted.AutocloseHatchesEnabled)
 			{
-				MWorld.doorTimers.Enqueue(new Tuple<int, Vector2>((int)(MWorld.Timer) + 60 * MetroidMod.AutocloseHatchesTime, new Vector2(i, j)));
+				MSystem.doorTimers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60 * MetroidModPorted.AutocloseHatchesTime, new Vector2(i, j)));
 			}
 		}
-        
+
 		public void ToggleHatch(int i, int j, ushort type, bool isOpen = false)
 		{
-			int x = i - (Main.tile[i, j].frameX / 18) % 4;
-			int y = j - (Main.tile[i, j].frameY / 18) % 4;
-			if(isOpen)
+			int x = i - (Main.tile[i, j].TileFrameX / 18) % 4;
+			int y = j - (Main.tile[i, j].TileFrameY / 18) % 4;
+			if (isOpen)
 			{
 				for (int l = x; l < x + 4; l++)
 				{
 					for (int m = y; m < y + 4; m++)
 					{
-						if(!Collision.EmptyTile(l, m, true))
+						if (!Collision.EmptyTile(l, m, true))
 						{
-                            MWorld.nextDoorTimers.Enqueue(new Tuple<int,Vector2>((int)(MWorld.Timer) + 60, new Vector2(i, j)));
+							MSystem.nextDoorTimers.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 60, new Vector2(i, j)));
 							return;
 						}
 					}
@@ -97,12 +98,12 @@ namespace MetroidMod.Tiles.Hatch
 				for (int m = y; m < y + 4; m++)
 				{
 					if (Main.tile[l, m] == null)
-						Main.tile[l, m] = new Tile();
-					Main.tile[l, m].active(true);
-					Main.tile[l, m].type = type;
+						Main.tile[l, m].ResetToType(type);
+					Main.tile[l, m].Get<TileWallWireStateData>().HasTile = true;
+					Main.tile[l, m].Get<TileTypeData>().Type = (ushort)type;
 				}
 			}
-			if (Main.netMode != 1 && Wiring.running)
+			if (Main.netMode != NetmodeID.MultiplayerClient && Wiring.running)
 			{
 				for (int ix = x; ix < x + 4; ++ix)
 					for (int iy = y; iy < y + 4; ++iy)
@@ -111,61 +112,56 @@ namespace MetroidMod.Tiles.Hatch
 
 			NetMessage.SendTileSquare(-1, x + 1, y + 1, 4, TileChangeType.None);
 
-			string sound = "Sounds/HatchOpenSound";
-			if(isOpen)
-			{
-				sound = "Sounds/HatchCloseSound";
-			}
-			Main.PlaySound(SoundLoader.customSoundType, i * 16, j * 16, mod.GetSoundSlot(SoundType.Custom, sound));
+			SoundEngine.PlaySound(isOpen ? Sounds.Tiles.HatchClose : Sounds.Tiles.HatchOpen, new(i * 16, j * 16));
 		}
-		
+
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
 			r = 0.05f;
 			g = 0.05f;
 			b = 0.5f;
 		}
-		
+
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
-			if(type == Type)
+			if (type == Type)
 			{
 				short doorHeight = 72;
 				Tile tile = Main.tile[i, j];
-				while(tile.frameY+frameYOffset >= doorHeight)
+				while (tile.TileFrameY + frameYOffset >= doorHeight)
 				{
 					frameYOffset -= doorHeight;
 				}
-				if(tile.frameY >= doorHeight)
+				if (tile.TileFrameY >= doorHeight)
 				{
-					if(tile.frameY >= doorHeight*4)
+					if (tile.TileFrameY >= doorHeight * 4)
 					{
-						tile.frameY -= doorHeight;
+						tile.TileFrameY -= doorHeight;
 					}
-					tile.frameY -= doorHeight;
+					tile.TileFrameY -= doorHeight;
 				}
 			}
 		}
-		
+
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            DrawDoor(i,j,spriteBatch,mod.GetTexture("Tiles/Hatch/BlueHatchDoor"));
+		{
+			DrawDoor(i, j, spriteBatch, ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/BlueHatchDoor").Value);
 			return true;
-        }
+		}
 		public static void DrawDoor(int i, int j, SpriteBatch spriteBatch, Texture2D tex)
 		{
 			Tile tile = Main.tile[i, j];
-			
-            short doorHeight = 72;
+
+			short doorHeight = 72;
 			Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
 			if (Main.drawToScreen)
 			{
 				zero = Vector2.Zero;
 			}
-			if(tile.frameY < doorHeight*4)
+			if (tile.TileFrameY < doorHeight * 4)
 			{
-				spriteBatch.Draw(tex, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(tex, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			}
 		}
-    }
+	}
 }

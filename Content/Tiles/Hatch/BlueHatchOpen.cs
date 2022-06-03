@@ -23,31 +23,31 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 			TileObjectData.newTile.Height = 4;
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16, 16 };
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			TileID.Sets.HousingWalls[Type] = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
-			AdjTiles = new int[]{ TileID.OpenDoor };
-			
+			AdjTiles = new int[] { TileID.OpenDoor };
+
 			otherDoorID = ModContent.TileType<BlueHatch>();
 		}
-		
+
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
-			if(type == Type)
+			if (type == Type)
 			{
 				short doorHeight = 72;
 				Tile tile = Main.tile[i, j];
-				while(tile.TileFrameY+frameYOffset >= doorHeight)
+				while (tile.TileFrameY + frameYOffset >= doorHeight)
 				{
 					frameYOffset -= doorHeight;
 				}
-				if(tile.TileFrameY < doorHeight*4)
+				if (tile.TileFrameY < doorHeight * 4)
 				{
-					if(tile.TileFrameY < doorHeight)
+					if (tile.TileFrameY < doorHeight)
 					{
 						tile.TileFrameY += doorHeight;
 					}
