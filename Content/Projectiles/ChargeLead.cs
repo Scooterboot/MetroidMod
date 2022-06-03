@@ -12,7 +12,7 @@ namespace MetroidModPorted.Content.Projectiles
 {
 	class ChargeLead : MProjectile
 	{
-		public override string Texture => $"{Mod.Name}/Assets/Texture/ChargeLead/ChargeLead";
+		public override string Texture => $"{Mod.Name}/Assets/Textures/ChargeLead/ChargeLead";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Charge Attack");
@@ -31,8 +31,8 @@ namespace MetroidModPorted.Content.Projectiles
 			Projectile.ignoreWater = true;
 		}
 
-		public string ChargeUpSound = "Assets/Sounds/ChargeStartup_Power",
-				ChargeTex = "Assets/Texture/ChargeLead/ChargeLead",
+		public string ChargeUpSound = "ChargeStartup_Power",
+				ChargeTex = "ChargeLead",
 				ShotSound = "none",
 				ChargeShotSound = "none";
 		public Mod ChargeUpSoundMod = MetroidModPorted.Instance,
@@ -93,7 +93,7 @@ namespace MetroidModPorted.Content.Projectiles
 
 			if (mp.statCharge == 10)
 			{
-				soundInstance = SoundEngine.PlaySound(new SoundStyle($"{ChargeUpSoundMod}/{ChargeUpSound}"), P.Center);
+				soundInstance = SoundEngine.PlaySound(new SoundStyle($"{ChargeUpSoundMod.Name}/Assets/Sounds/{ChargeUpSound}"), P.Center);
 			}
 			else if(comboSound == 1)
 			{
@@ -246,11 +246,11 @@ namespace MetroidModPorted.Content.Projectiles
 					{
 						if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
 						{
-							SoundEngine.PlaySound(new SoundStyle($"{ChargeShotSoundMod}/{ChargeShotSound}"), Projectile.position);
+							SoundEngine.PlaySound(new SoundStyle($"{ChargeShotSoundMod.Name}/Assets/Sounds/{ChargeShotSound}"), Projectile.position);
 						}
 						else if ((mp.statCharge >= 30 || missile) && ShotSound != "none")
 						{
-							SoundEngine.PlaySound(new SoundStyle($"{ShotSoundMod}/{ShotSound}"), Projectile.position);
+							SoundEngine.PlaySound(new SoundStyle($"{ShotSoundMod.Name}/Assets/Sounds/{ShotSound}"), Projectile.position);
 						}
 					}
 				}
@@ -267,7 +267,7 @@ namespace MetroidModPorted.Content.Projectiles
 		//public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D tex = ChargeTexMod.Assets.Request<Texture2D>(ChargeTex).Value;
+			Texture2D tex = ChargeTexMod.Assets.Request<Texture2D>($"{ChargeTexMod.Name}/Assets/Textures/ChargeLead/{ChargeTex}").Value;
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (Projectile.spriteDirection == -1)
 			{

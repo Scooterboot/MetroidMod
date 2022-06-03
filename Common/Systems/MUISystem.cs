@@ -168,7 +168,7 @@ namespace MetroidModPorted.Common.Systems
 						for (int j = 0; j < Main.maxTilesY; j++)
 						{
 							if (!Main.tile[i, j].HasTile) { continue; }
-							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) || BeamLoader.IsABeamTile(Main.tile[i, j]) || MBAddonLoader.IsAMorphTile(Main.tile[i, j]))
+							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]))
 							{
 								itemCoords.Add(new Vector2(i, j));
 							}

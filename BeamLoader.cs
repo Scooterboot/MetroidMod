@@ -46,8 +46,10 @@ namespace MetroidModPorted
 
 		internal static bool ComboContains(int beam1, int beam2, int beam3 = -1, int beam4 = -1, int beam5 = -1) =>
 			beamCombinations.Any(l => l.Is(out _, beam1, beam2, beam3, beam4, beam5));
+		*/
 		internal static bool TryGetValue<T>(this IList<T> list, Func<T, bool> predict, out T value) =>
 			(value = list.FirstOrDefault(predict)) != null;
+		/*
 		internal static bool TryGetValue(this IList<ModBeam> list, int type, out ModBeam modBeam) =>
 			list.TryGetValue(i => i.Type == type, out modBeam);
 		internal static bool TryGetValue(this IList<ModBeam> list, Item item, out ModBeam modBeam) =>

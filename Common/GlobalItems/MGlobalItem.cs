@@ -12,6 +12,21 @@ namespace MetroidModPorted.Common.GlobalItems
 	public class MGlobalItem : GlobalItem
 	{
 		public AddonType AddonType = AddonType.None;
+
+		#region Old code, remove later in favor of modularity maybe?
+		public int addonSlotType = -1;
+		public float addonChargeDmg = 1;
+		public float addonChargeHeat = 1;
+		public float addonDmg = 0;
+		public float addonSpeed = 0;
+		public float addonHeat = 0;
+
+		public int missileSlotType = -1;
+
+		public int addonMissileCost = 5;
+		public int addonMissileDrain = 5;
+		#endregion
+
 		public int statMissiles = 5;
 		public int maxMissiles = 5;
 

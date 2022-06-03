@@ -49,7 +49,7 @@ namespace MetroidModPorted.Content.Items.Tools
 
 		public override void AddRecipes()
 		{
-			CreateRecipe()
+			CreateRecipe(1)
 				.AddIngredient(ItemID.Wrench)
 				.AddIngredient<Miscellaneous.ChoziteBar>(5)
 				.AddTile(TileID.Anvils)

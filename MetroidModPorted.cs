@@ -111,7 +111,7 @@ namespace MetroidModPorted
 			ItemIL.Unload();
 			//OnHooks.Unload();
 			//ILHooks.Unload();
-			BeamLoader.Unload();
+			//BeamLoader.Unload();
 			SuitAddonLoader.Unload();
 		}
 
