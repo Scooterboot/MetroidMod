@@ -149,7 +149,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		private Mod chargeShotSoundMod = MetroidModPorted.Instance;
 		private string chargeUpSound = "ChargeStartup_Power";
 		private Mod chargeUpSoundMod = MetroidModPorted.Instance;
-		private string chargeTex = "Assets/Textures/ChargeLead";
+		private string chargeTex = "ChargeLead";
 		private Mod chargeTexMod = MetroidModPorted.Instance;
 		private int dustType = 64;
 		private Color dustColor = default(Color);
@@ -218,7 +218,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			chargeShotSoundMod = MetroidModPorted.Instance;
 			chargeUpSound = "ChargeStartup_Power";
 			chargeUpSoundMod = MetroidModPorted.Instance;
-			chargeTex = "Assets/Textures/ChargeLead/ChargeLead";
+			chargeTex = "ChargeLead";
 			chargeTexMod = MetroidModPorted.Instance;
 			dustType = 64;
 			dustColor = default(Color);
