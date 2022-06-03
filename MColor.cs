@@ -2,7 +2,7 @@ using System;
 
 using Microsoft.Xna.Framework;
 
-namespace MetroidMod
+namespace MetroidModPorted
 {
 	public struct MColor
 	{

@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 using Microsoft.Xna.Framework;
 
-namespace MetroidMod
+namespace MetroidModPorted
 {
 	//imported from Example Mod because it's useful
 	public struct Angle
@@ -53,11 +53,11 @@ namespace MetroidMod
 			}
 			return this.Value >= cLimit.Value || this.Value <= ccLimit.Value;
 		}
-		
+
 		public static float Vector2Angle(Vector2 Angle1, Vector2 Angle2, int dirX = 1, int dirY = 1, float mult = 1f, float min = 0f, float max = 0f)
 		{
-			float targetAngle = (float)Math.Atan2((Angle2.Y-Angle1.Y)*dirY,(Angle2.X-Angle1.X)*dirX);
-			
+			float targetAngle = (float)Math.Atan2((Angle2.Y - Angle1.Y) * dirY, (Angle2.X - Angle1.X) * dirX);
+
 			float angle = targetAngle * mult;
 			if (min < 0f && angle < min)
 			{
@@ -69,35 +69,35 @@ namespace MetroidMod
 			}
 			return angle;
 		}
-		
+
 		public static float AngleFlip(float angle, int dir)
 		{
 			float cos = (float)Math.Cos(angle);
 			float sin = (float)Math.Sin(angle);
-			return (float)Math.Atan2(sin,cos*dir);
+			return (float)Math.Atan2(sin, cos * dir);
 		}
-		
+
 		public static float LerpArray(float value1, float[] value2, float amount)
 		{
 			float result = value1;
-			for(int i = 0; i < value2.Length; i++)
+			for (int i = 0; i < value2.Length; i++)
 			{
-				if((i+1) >= amount)
+				if ((i + 1) >= amount)
 				{
 					float firstValue = value1;
 					float secondValue = value2[i];
-					if(i > 0)
+					if (i > 0)
 					{
-						firstValue = value2[i-1];
+						firstValue = value2[i - 1];
 					}
-					float amt = amount-i;
-					result = firstValue + (secondValue-firstValue)*amt;
+					float amt = amount - i;
+					result = firstValue + (secondValue - firstValue) * amt;
 					break;
 				}
 			}
 			return result;
 		}
-		
+
 		public static double ConvertToRadians(double angle)
 		{
 			return (Math.PI / 180) * angle;
