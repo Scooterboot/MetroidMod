@@ -199,7 +199,8 @@ namespace MetroidModPorted.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[(MetroidModPorted.Instance).selectedItem].ModItem as PowerBeam;
+			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem].ModItem as PowerBeam;
+			if (powerBeamTarget == null || powerBeamTarget.BeamMods == null) { return; }
 
 			if (powerBeamTarget.BeamMods[addonSlotType] != null && !powerBeamTarget.BeamMods[addonSlotType].IsAir)
 			{

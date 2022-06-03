@@ -18,6 +18,7 @@ namespace MetroidModPorted.Common.Systems
 	{
 		public static MUISystem Instance { get; private set; }
 		internal static UserInterface pbUserInterface;
+		internal static UserInterface miUserInterface;
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
 		internal static UserInterface visorUserInterface;
@@ -33,6 +34,7 @@ namespace MetroidModPorted.Common.Systems
 		//internal static UI.SenseMoveUI senseMoveUI;
 
 		internal bool isPBInit = false;
+		internal bool isMIInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
 		internal bool isVIInit = false;
@@ -43,6 +45,7 @@ namespace MetroidModPorted.Common.Systems
 			{
 				//addonsUI = new UI.AddonsUI();
 				pbUserInterface = new UserInterface();
+				miUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
 				visorUserInterface = new UserInterface();
@@ -72,6 +75,7 @@ namespace MetroidModPorted.Common.Systems
 		public override void Unload()
 		{
 			pbUserInterface = null;
+			miUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
 			visorUserInterface = null;
@@ -96,6 +100,11 @@ namespace MetroidModPorted.Common.Systems
 				mbUserInterface.SetState(new UI.MorphBallUI());
 				isMBInit = true;
 			}
+			if (isMIInit == false)
+			{
+				miUserInterface.SetState(new UI.MissileLauncherUI());
+				isMIInit = true;
+			}
 			if (isPBInit == false)
 			{
 				pbUserInterface.SetState(new UI.PowerBeamUI());
@@ -112,6 +121,10 @@ namespace MetroidModPorted.Common.Systems
 			if (mbUserInterface != null && UI.MorphBallUI.Visible)
 			{
 				mbUserInterface.Update(gameTime);
+			}
+			if (miUserInterface != null && UI.MissileLauncherUI.Visible)
+			{
+				pbUserInterface.Update(gameTime);
 			}
 			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
 			{
@@ -274,6 +287,19 @@ namespace MetroidModPorted.Common.Systems
 						{
 							if (Main.hasFocus) { pbUserInterface.Recalculate(); }
 							pbUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidModPorted: Missile Launcher UI",
+					delegate {
+						if (UI.MissileLauncherUI.Visible)// && !Main.recBigList)
+						{
+							if (Main.hasFocus) { miUserInterface.Recalculate(); }
+							miUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
 						return true;
