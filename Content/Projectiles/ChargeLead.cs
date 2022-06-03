@@ -267,7 +267,7 @@ namespace MetroidModPorted.Content.Projectiles
 		//public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D tex = ChargeTexMod.Assets.Request<Texture2D>($"{ChargeTexMod.Name}/Assets/Textures/ChargeLead/{ChargeTex}").Value;
+			Texture2D tex = ChargeTexMod.Assets.Request<Texture2D>($"Assets/Textures/ChargeLead/{ChargeTex}").Value;
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (Projectile.spriteDirection == -1)
 			{
