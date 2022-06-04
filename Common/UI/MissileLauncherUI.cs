@@ -37,7 +37,7 @@ namespace MetroidModPorted.Common.UI
 
 	public class MissileLauncherPanel : DragableUIPanel
 	{
-		Texture2D panelTexture;
+		//Texture2D panelTexture;
 
 		public MissileLauncherItemBox[] missileSlots;
 
@@ -52,7 +52,7 @@ namespace MetroidModPorted.Common.UI
 
 		public override void OnInitialize()
 		{
-			panelTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/MissileLauncher_Border", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			//panelTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/MissileLauncher_Border").Value;
 
 			this.SetPadding(0);
 			this.Left.Pixels = 160;
@@ -107,10 +107,7 @@ namespace MetroidModPorted.Common.UI
 
 		public int missileSlotType;
 
-		public Rectangle DrawRectangle
-		{
-			get { return new Rectangle((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels); }
-		}
+		public Rectangle DrawRectangle => new Rectangle((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
@@ -132,13 +129,13 @@ namespace MetroidModPorted.Common.UI
 		{
 			this.condition = delegate (Item addonItem)
 			{
-				Mod mod = MetroidModPorted.Instance;
-				if (addonItem.ModItem != null && addonItem.ModItem.Mod == mod)
+				//Mod mod = MetroidModPorted.Instance;
+				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == mod)
 				{
 					MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					return addonItem.type <= ItemID.None || mItem.missileSlotType == missileSlotType;
 				}
-				return addonItem.type <= ItemID.None || (addonItem.ModItem != null && addonItem.ModItem.Mod == mod);
+				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == mod);
 			};
 		}
 
@@ -285,10 +282,10 @@ namespace MetroidModPorted.Common.UI
 			this.Left.Pixels = 118;
 		}
 
-		/*protected override void DrawSelf(SpriteBatch spriteBatch)
+		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(missileLauncherFrame, drawRectangle, Color.White);
-		}*/
+		}
 	}
 	public class MissileLauncherLines : UIPanel
 	{
@@ -311,9 +308,9 @@ namespace MetroidModPorted.Common.UI
 			this.Left.Pixels = 0;
 		}
 
-		/*protected override void DrawSelf(SpriteBatch spriteBatch)
+		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(missileLauncherLines, drawRectangle, Color.White);
-		}*/
+		}
 	}
 }

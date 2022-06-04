@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles
+namespace MetroidModPorted.Content.Projectiles.missiles
 {
-	class MissileShot : MProjectile
+	public class MissileShot : MProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -31,9 +31,9 @@ namespace MetroidModPorted.Content.Projectiles
 			{
 				dustType = 135;
 			}
-			DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
+			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
 			
-			if(seeking && seekTarget > -1)
+			if(mProjectile.seeking && mProjectile.seekTarget > -1)
 			{
 				float num236 = Projectile.position.X;
 				float num237 = Projectile.position.Y;
@@ -42,7 +42,7 @@ namespace MetroidModPorted.Content.Projectiles
 				if (Projectile.ai[0] > 5f && Projectile.numUpdates <= 0)
 				{
 					Projectile.ai[0] = 5f;
-					int num239 = seekTarget;
+					int num239 = mProjectile.seekTarget;
 					if(Main.npc[num239].active)
 					{
 						num236 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
@@ -51,7 +51,7 @@ namespace MetroidModPorted.Content.Projectiles
 					}
 					else
 					{
-						seekTarget = -1;
+						mProjectile.seekTarget = -1;
 					}
 				}
 				if (!flag5)
@@ -101,7 +101,7 @@ namespace MetroidModPorted.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
+			mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
 			return false;
 		}
 
@@ -109,15 +109,22 @@ namespace MetroidModPorted.Content.Projectiles
 		{
 			base.SendExtraAI(writer);
 
-			writer.Write(seeking);
-			writer.Write(seekTarget);
+			writer.Write(mProjectile.seeking);
+			writer.Write(mProjectile.seekTarget);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			base.ReceiveExtraAI(reader);
 
-			seeking = reader.ReadBoolean();
-			seekTarget = reader.ReadInt32();
+			mProjectile.seeking = reader.ReadBoolean();
+			mProjectile.seekTarget = reader.ReadInt32();
+		}
+	}
+	public class IceMissileShot : MissileShot
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Ice Missile Shot");
 		}
 	}
 }

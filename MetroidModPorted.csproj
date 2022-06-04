@@ -32,7 +32,6 @@
     <Folder Include="Content\NPCs\Mobs\Metroid\" />
     <Folder Include="Content\NPCs\Mobs\Utility\" />
     <Folder Include="Content\NPCs\Town\" />
-    <Folder Include="Content\Projectiles\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ExampleMetroidAddonMod\**" />

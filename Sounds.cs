@@ -58,6 +58,11 @@ namespace MetroidModPorted
 					IsLooped = true
 				};
 
+				public static readonly SoundStyle SolarComboSoundStart = new($"{nameof(MetroidModPorted)}/Assets/Sounds/SolarComboSoundStart")
+				{
+					
+				};
+
 				public static readonly SoundStyle SolarComboSoundLoop = new($"{nameof(MetroidModPorted)}/Assets/Sounds/SolarComboSoundLoop")
 				{
 					IsLooped = true
@@ -74,6 +79,51 @@ namespace MetroidModPorted
 				};
 
 				public static readonly SoundStyle ChargeComboActivate = new($"{nameof(MetroidModPorted)}/Assets/Sounds/ChargeComboActivate")
+				{
+
+				};
+
+				public static readonly SoundStyle ChargeStartup_Seeker = new($"{nameof(MetroidModPorted)}/Assets/Sounds/ChargeStartup_Seeker")
+				{
+
+				};
+
+				public static readonly SoundStyle SeekerLockSound = new($"{nameof(MetroidModPorted)}/Assets/Sounds/SeekerLockSound")
+				{
+
+				};
+
+				public static readonly SoundStyle SeekerMissileSound = new($"{nameof(MetroidModPorted)}/Assets/Sounds/SeekerMissileSound")
+				{
+
+				};
+
+				public static readonly SoundStyle FlamethrowerStart = new($"{nameof(MetroidModPorted)}/Assets/Sounds/FlamethrowerStart")
+				{
+
+				};
+
+				public static readonly SoundStyle FlamethrowerLoop = new($"{nameof(MetroidModPorted)}/Assets/Sounds/FlamethrowerLoop")
+				{
+
+				};
+
+				public static readonly SoundStyle IceSpreaderImpactSound = new($"{nameof(MetroidModPorted)}/Assets/Sounds/IceSpreaderImpactSound")
+				{
+
+				};
+
+				public static readonly SoundStyle StardustAfterImpactSound = new($"{nameof(MetroidModPorted)}/Assets/Sounds/StardustAfterImpactSound")
+				{
+
+				};
+
+				public static readonly SoundStyle WavebusterStart = new($"{nameof(MetroidModPorted)}/Assets/Sounds/WavebusterStart")
+				{
+
+				};
+
+				public static readonly SoundStyle WavebusterLoop = new($"{nameof(MetroidModPorted)}/Assets/Sounds/WavebusterLoop")
 				{
 
 				};

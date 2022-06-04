@@ -1733,7 +1733,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 							{
 								for (int i = 0; i < shotAmt; i++)
 								{
-									int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
+									int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
 									MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 									mProj.waveDir = waveDir;
 									mProj.Projectile.netUpdate = true;
