@@ -124,7 +124,7 @@ namespace MetroidModPorted.Common.Systems
 			}
 			if (miUserInterface != null && UI.MissileLauncherUI.Visible)
 			{
-				pbUserInterface.Update(gameTime);
+				miUserInterface.Update(gameTime);
 			}
 			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
 			{
