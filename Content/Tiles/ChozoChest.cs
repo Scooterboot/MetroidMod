@@ -25,6 +25,8 @@ namespace MetroidModPorted.Content.Tiles
 			Main.tileNoAttach[Type] = true;
 			Main.tileOreFinderPriority[Type] = 500;
 			TileID.Sets.HasOutlines[Type] = true;
+			TileID.Sets.BasicChest[Type] = true;
+			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
@@ -35,6 +37,7 @@ namespace MetroidModPorted.Content.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
+			ContainerName.SetDefault("Chozodian Chest");
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Chozodian Chest");
 			AddMapEntry(new Color(200, 200, 200), name);
