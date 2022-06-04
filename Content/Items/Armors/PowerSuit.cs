@@ -240,7 +240,7 @@ namespace MetroidModPorted.Content.Items.Armors
 
 		public override ModItem Clone(Item newEntity)
 		{
-			PowerSuitBreastplate obj = (PowerSuitBreastplate)base.Clone(newEntity);
+			PowerSuitGreaves obj = (PowerSuitGreaves)base.Clone(newEntity);
 			obj.SuitAddons = SuitAddons;
 			return obj;
 		}
@@ -346,7 +346,7 @@ namespace MetroidModPorted.Content.Items.Armors
 
 		public override ModItem Clone(Item newEntity)
 		{
-			PowerSuitBreastplate obj = (PowerSuitBreastplate)base.Clone(newEntity);
+			PowerSuitHelmet obj = (PowerSuitHelmet)base.Clone(newEntity);
 			obj.SuitAddons = SuitAddons;
 			return obj;
 		}
