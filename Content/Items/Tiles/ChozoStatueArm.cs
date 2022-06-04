@@ -34,7 +34,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 				.Register();
 			/*ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.StoneBlock, 50);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}

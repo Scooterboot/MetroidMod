@@ -50,7 +50,7 @@ namespace MetroidModPorted.Content.Items.Tools
 			//recipe.AddIngredient(ItemID.Picksaw);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 12);
 			recipe.AddIngredient(ItemID.CursedFlame, 1);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 
@@ -63,7 +63,7 @@ namespace MetroidModPorted.Content.Items.Tools
 			//recipe.AddIngredient(ItemID.Picksaw);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 12);
 			recipe.AddIngredient(ItemID.Ichor, 1);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}

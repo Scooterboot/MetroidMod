@@ -22,7 +22,7 @@ namespace MetroidModPorted.Content.Projectiles.solarbeam
 			Projectile.scale = 2f;
 			Projectile.penetrate = 16;
 			Projectile.usesLocalNPCImmunity = true;
-       	 	Projectile.localNPCHitCooldown = 10;
+			Projectile.localNPCHitCooldown = 10;
 		}
 
 		int dustType = 6;

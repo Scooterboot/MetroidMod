@@ -160,7 +160,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Flying
 			if (!spawnDusts) return;
 
 			Vector2[] dustSides = new Vector2[2] { new Vector2(10, 0), new Vector2(22, 0) };
-			dustSides[0].Y = dustSides[1].Y = NPC.frame.Y == 6 * frameHeight ? 16 : -4;        
+			dustSides[0].Y = dustSides[1].Y = NPC.frame.Y == 6 * frameHeight ? 16 : -4;
 			for(int i = 0; i < dustSides.Length; ++i)
 			{
 				for(int j = 0; j < 5; ++j)

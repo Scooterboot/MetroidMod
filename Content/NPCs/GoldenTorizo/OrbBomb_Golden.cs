@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 {
-    public class OrbBomb_Golden : ModNPC
-    {
+	public class OrbBomb_Golden : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Golden Torizo Orb");

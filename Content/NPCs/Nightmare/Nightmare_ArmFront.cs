@@ -12,8 +12,8 @@ using System.IO;
 
 namespace MetroidModPorted.Content.NPCs.Nightmare
 {
-    public class Nightmare_ArmFront : ModNPC
-    {
+	public class Nightmare_ArmFront : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nightmare");

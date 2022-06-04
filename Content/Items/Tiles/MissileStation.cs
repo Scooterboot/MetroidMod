@@ -37,7 +37,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "MissileExpansion");
 			recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}

@@ -21,7 +21,7 @@ namespace MetroidModPorted.Content.Projectiles.novabeamV2
 			Projectile.scale = 2f;
 			Projectile.penetrate = 8;
 			Projectile.usesLocalNPCImmunity = true;
-       	 	Projectile.localNPCHitCooldown = 10;
+			Projectile.localNPCHitCooldown = 10;
 		}
 
 		int dustType = 75;

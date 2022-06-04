@@ -8,8 +8,8 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Miscellaneous
 {
-    public class PurePhazon : ModItem
-    {
+	public class PurePhazon : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pure Phazon");
@@ -25,11 +25,11 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 			Item.value = 10000;
 			Item.rare = ItemRarityID.Blue;
 		}
-    	/*public override void AddRecipes()
+		/*public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Phazon", 5);
-            recipe.AddTile(null, "NovaWorkTableTile");
+			recipe.AddIngredient(null, "Phazon", 5);
+			recipe.AddTile(null, "NovaWorkTableTile");
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/

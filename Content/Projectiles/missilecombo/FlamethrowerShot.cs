@@ -25,7 +25,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 			Projectile.timeLeft = maxTimeLeft;
 			Projectile.penetrate = 40;//-1;
 			//Projectile.usesLocalNPCImmunity = true;
-       	 	//Projectile.localNPCHitCooldown = 20;
+			//Projectile.localNPCHitCooldown = 20;
 			Projectile.extraUpdates = 1;
 		}
 		

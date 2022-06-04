@@ -17,7 +17,7 @@ using MetroidModPorted.Common.Systems;
 namespace MetroidModPorted.Content.NPCs.Serris
 {
 	[AutoloadBossHead]
-    public class Serris_Head : Serris
+	public class Serris_Head : Serris
 	{
 		public override string BossHeadTexture => Texture + "_Head_Boss_1";
 		public const string SerrisHead = "MetroidModPorted/Content/NPCs/Serris/Serris_Head_Head_Boss_";

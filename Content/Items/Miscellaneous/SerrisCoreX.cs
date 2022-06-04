@@ -8,8 +8,8 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Miscellaneous
 {
-    public class SerrisCoreX : ModItem
-    {
+	public class SerrisCoreX : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Serris Core-X");

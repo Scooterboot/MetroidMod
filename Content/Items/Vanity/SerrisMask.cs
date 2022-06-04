@@ -17,13 +17,13 @@ namespace MetroidModPorted.Content.Items.Vanity
 		{
 			DisplayName.SetDefault("Serris Mask");
 		}
-        public override void SetDefaults()
-        {
-            Item.width = 18;
-            Item.height = 18;
-            Item.rare = ItemRarityID.Green;
-            Item.value = 0;
-            Item.vanity = true;
-        }
+		public override void SetDefaults()
+		{
+			Item.width = 18;
+			Item.height = 18;
+			Item.rare = ItemRarityID.Green;
+			Item.value = 0;
+			Item.vanity = true;
+		}
 	}
 }

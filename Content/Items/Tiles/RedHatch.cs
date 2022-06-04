@@ -52,7 +52,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Ruby);
 			recipe.AddIngredient(ItemID.HellstoneBar, 5);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this, 20);
 			recipe.AddRecipe();*/
 		}

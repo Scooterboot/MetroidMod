@@ -408,7 +408,6 @@ namespace MetroidModPorted.Content.Projectiles
 		}
 		public void DrawChain(Vector2 start, Vector2 end, Asset<Texture2D> name, int frame = 0, int frameCount = 0)
 		{
-			// TODO: Fix this
 			int numH = name.Value.Height;
 			if(frameCount > 0)
 			{

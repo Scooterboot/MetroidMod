@@ -8,8 +8,8 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Miscellaneous
 {
-    public class GravityGel : ModItem
-    {
+	public class GravityGel : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Gel");
@@ -27,6 +27,6 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 			Item.rare = ItemRarityID.Pink;
 			
 		}
-    
+	
 	}
 }

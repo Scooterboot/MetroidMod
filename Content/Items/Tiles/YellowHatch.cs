@@ -52,7 +52,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Topaz);
 			recipe.AddIngredient(ItemID.LihzahrdBrick, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this, 20);
 			recipe.AddRecipe();*/
 		}

@@ -39,8 +39,8 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 			NPC.lavaImmune = true;
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.CursedInferno] = true;
+			NPC.buffImmune[BuffID.OnFire] = true;
+			NPC.buffImmune[BuffID.CursedInferno] = true;
 			
 			mNPC.crawlSpeed = 0.75f;
 			

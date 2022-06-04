@@ -13,8 +13,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.Torizo
 {
-    public class Torizo_HitBox : ModNPC
-    {
+	public class Torizo_HitBox : ModNPC
+	{
 		public override string Texture => Mod.Name + "/Content/NPCs/Torizo/TorizoHand_Front";
 		
 		public override void SetStaticDefaults()

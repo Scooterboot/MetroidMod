@@ -11,8 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.Nightmare
 {
-    public class GravityOrb : ModNPC
-    {
+	public class GravityOrb : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Orb");

@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.Phantoon
 {
-    public class PhantoonFireBall : ModNPC
-    {
+	public class PhantoonFireBall : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fire Ball");

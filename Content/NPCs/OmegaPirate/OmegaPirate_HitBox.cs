@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.OmegaPirate
 {
-    public class OmegaPirate_HitBox : ModNPC
-    {
+	public class OmegaPirate_HitBox : ModNPC
+	{
 		public override string Texture => Mod.Name + "/Content/NPCs/OmegaPirate/OmegaPirate_Body";
 
 		public override void SetStaticDefaults()

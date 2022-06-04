@@ -117,7 +117,7 @@ namespace MetroidModPorted.Content.Projectiles.hyperbeam
 			base.SetDefaults();
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
-       	 	Projectile.localNPCHitCooldown = 10;
+			Projectile.localNPCHitCooldown = 10;
 		}
 	}
 	public class ExtraWaveSpazerHyperBeamShot : ExtraWaveHyperBeamShot

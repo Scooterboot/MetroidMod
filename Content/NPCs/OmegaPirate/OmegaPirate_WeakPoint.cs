@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.OmegaPirate
 {
-    public class OmegaPirate_WeakPoint : ModNPC
-    {
+	public class OmegaPirate_WeakPoint : ModNPC
+	{
 		public override string Texture
 		{
 			get

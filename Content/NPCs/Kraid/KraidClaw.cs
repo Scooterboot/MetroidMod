@@ -10,8 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.Kraid
 {
-    public class KraidClaw : ModNPC
-    {
+	public class KraidClaw : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Kraid");
@@ -47,9 +47,9 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 		/*public override void NPCLoot()
 		{
 			Player player = Main.player[(int)Player.FindClosest(NPC.position, NPC.width, NPC.height)];
-            MPlayer mp = player.GetModPlayer<MPlayer>();
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			bool flag = false;
-            for(int i = 0; i < player.inventory.Length; i++)
+			for(int i = 0; i < player.inventory.Length; i++)
 			{
 				if(player.inventory[i].type == mod.ItemType("MissileLauncher"))
 				{

@@ -9,7 +9,7 @@ using Terraria.ID;
 namespace MetroidModPorted.Content.Buffs
 {
 	public class IceFreeze : ModBuff
-	{     
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Froze");

@@ -26,7 +26,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 5;
 			Projectile.usesLocalNPCImmunity = true;
-       	 	Projectile.localNPCHitCooldown = 10*(1+Projectile.extraUpdates);
+			Projectile.localNPCHitCooldown = 10*(1+Projectile.extraUpdates);
 		}
 		
 		const float Max_Range = 2200f;

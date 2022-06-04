@@ -7,27 +7,27 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.NPCs.Mobs.Bug
 {
-    public class KagoHive : MNPC
-    {
-        public override void SetStaticDefaults()
-        {
-            Main.npcFrameCount[NPC.type] = 5;
-        }
-        public override void SetDefaults()
-        {
-            NPC.width = 32; NPC.height = 32;
+	public class KagoHive : MNPC
+	{
+		public override void SetStaticDefaults()
+		{
+			Main.npcFrameCount[NPC.type] = 5;
+		}
+		public override void SetDefaults()
+		{
+			NPC.width = 32; NPC.height = 32;
 
-            /* Temporary NPC values */
-            NPC.scale = 2;
-            NPC.damage = 15;
-            NPC.defense = 5;
-            NPC.lifeMax = 150;
-            NPC.aiStyle = -1;
-            NPC.knockBackResist = 0;
+			/* Temporary NPC values */
+			NPC.scale = 2;
+			NPC.damage = 15;
+			NPC.defense = 5;
+			NPC.lifeMax = 150;
+			NPC.aiStyle = -1;
+			NPC.knockBackResist = 0;
 
-            NPC.HitSound = SoundID.NPCHit1;
-            NPC.DeathSound = SoundID.NPCDeath1;
-        }
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+		}
 		public override bool PreAI()
 		{
 			if (NPC.ai[0] == 0)
@@ -45,26 +45,26 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Bug
 			return (true);
 		}
 
-        public override void FindFrame(int frameHeight)
-        {
-            if(NPC.frameCounter++ >= 20)
-            {
-                NPC.frame.Y = (NPC.frame.Y + frameHeight) % (Main.npcFrameCount[NPC.type] * frameHeight);
-                NPC.frameCounter = 0;
-            }
-        }
-        private void SpawnKago(Player player, int damage)
-        {
-            if (Main.netMode == NetmodeID.MultiplayerClient) return;
+		public override void FindFrame(int frameHeight)
+		{
+			if(NPC.frameCounter++ >= 20)
+			{
+				NPC.frame.Y = (NPC.frame.Y + frameHeight) % (Main.npcFrameCount[NPC.type] * frameHeight);
+				NPC.frameCounter = 0;
+			}
+		}
+		private void SpawnKago(Player player, int damage)
+		{
+			if (Main.netMode == NetmodeID.MultiplayerClient) return;
 
 			var entitySource = NPC.GetSource_FromAI();
 
-            // Spawn one Kago per hit.
-            NPC kago = Main.npc[NPC.NewNPC(entitySource, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Kago>())];
+			// Spawn one Kago per hit.
+			NPC kago = Main.npc[NPC.NewNPC(entitySource, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Kago>())];
 
-            // Assign a random starting velocity to the newly created Kago to give some sort of 'punch-out' effect.
-            kago.velocity = new Vector2(Main.rand.Next(6, 12) * Math.Sign(NPC.Center.X - player.Center.X), -2);
+			// Assign a random starting velocity to the newly created Kago to give some sort of 'punch-out' effect.
+			kago.velocity = new Vector2(Main.rand.Next(6, 12) * Math.Sign(NPC.Center.X - player.Center.X), -2);
 			kago.netUpdate = true;
-        }
-    }
+		}
+	}
 }

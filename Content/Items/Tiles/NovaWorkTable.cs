@@ -37,7 +37,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
 			recipe.AddIngredient(ItemID.CursedFlame, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 
@@ -49,7 +49,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
 			recipe.AddIngredient(ItemID.Ichor, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}

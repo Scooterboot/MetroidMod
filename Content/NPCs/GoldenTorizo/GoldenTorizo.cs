@@ -18,8 +18,8 @@ using MetroidModPorted.Common.Systems;
 namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 {
 	[AutoloadBossHead]
-    public class GoldenTorizo : ModNPC
-    {
+	public class GoldenTorizo : ModNPC
+	{
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/GoldenTorizo/GoldenTorizo_Head_Boss";
 		public override string Texture => Mod.Name + "/Content/NPCs/GoldenTorizo/GoldenTorizoBody";
 		

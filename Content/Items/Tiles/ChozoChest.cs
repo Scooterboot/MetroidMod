@@ -12,7 +12,8 @@ namespace MetroidModPorted.Content.Items.Tiles
 
 			SacrificeTotal = 1;
 		}
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			Item.width = 26;
 			Item.height = 22;
 			Item.maxStack = 99;
@@ -28,23 +29,10 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(null, "ChoziteOre", 8)
+				.AddIngredient<ChoziteOre>(8)
 				.AddRecipeGroup("IronBar", 2)
 				.AddTile(TileID.WorkBenches)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("ChoziteOre"), 8);
-			recipe.AddIngredient(ItemID.IronBar, 2);
-            recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-
-			/*recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("ChoziteOre"), 8);
-			recipe.AddIngredient(ItemID.LeadBar, 2);
-            recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 	}
 }

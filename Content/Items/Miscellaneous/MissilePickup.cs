@@ -9,8 +9,8 @@ using MetroidModPorted.Common.GlobalItems;
 
 namespace MetroidModPorted.Content.Items.Miscellaneous
 {
-    public class MissilePickup : ModItem
-    {
+	public class MissilePickup : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Missile");

@@ -135,7 +135,7 @@ namespace MetroidModPorted.Content.Projectiles
 		}
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-		    damage += target.damage * 2;
+			damage += target.damage * 2;
 		}
 		public override void Kill(int timeLeft)
 		{

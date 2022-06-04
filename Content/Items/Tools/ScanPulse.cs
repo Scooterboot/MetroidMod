@@ -45,7 +45,7 @@ namespace MetroidModPorted.Content.Items.Tools
 				{
 					if (WorldGen.InWorld(i, j))
 					{
-                        MSystem.hit[i, j] = true;
+						MSystem.hit[i, j] = true;
 						if (Main.tileSpelunker[Main.tile[i, j].TileType])
 						{
 							Main.Map.UpdateLighting(i, j, 200);

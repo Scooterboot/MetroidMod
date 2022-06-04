@@ -12,7 +12,7 @@ using MetroidModPorted.Content.NPCs.OmegaPirate;
 
 namespace MetroidModPorted.Content.NPCs.OmegaPirate
 {
-    public class OmegaPirateAbsorbField : ModNPC
+	public class OmegaPirateAbsorbField : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{

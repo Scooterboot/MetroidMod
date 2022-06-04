@@ -11,8 +11,8 @@ using System.IO;
 
 namespace MetroidModPorted.Content.NPCs.Serris
 {
-    public class Serris_Tail : Serris_Body
-    {
+	public class Serris_Tail : Serris_Body
+	{
 		private int tailType
 		{
 			get { return (int)NPC.ai[2]; }

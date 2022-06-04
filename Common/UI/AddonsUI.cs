@@ -208,7 +208,7 @@ namespace MetroidModPorted.Common.UI
 
 		/*protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(panelTexture, DrawRectangle, Color.White);            
+			spriteBatch.Draw(panelTexture, DrawRectangle, Color.White);
 		}*/
 	}
 	public class SuitUIItemBox : UIPanel

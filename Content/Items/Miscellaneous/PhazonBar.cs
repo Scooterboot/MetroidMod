@@ -8,8 +8,8 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Miscellaneous
 {
-    public class PhazonBar : ModItem
-    {
+	public class PhazonBar : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phazon Bar");
@@ -32,15 +32,15 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.PhazonBarTile>();
 		}
-    	public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient(null, "Phazon", 5)
 				.AddTile(null, "NovaWorkTableTile")
 				.Register();
 			/*ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Phazon", 5);
-            recipe.AddTile(null, "NovaWorkTableTile");
+			recipe.AddIngredient(null, "Phazon", 5);
+			recipe.AddTile(null, "NovaWorkTableTile");
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}

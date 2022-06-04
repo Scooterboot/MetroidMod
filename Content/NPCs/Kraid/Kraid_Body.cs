@@ -11,8 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.Kraid
 {
-    public class Kraid_Body : ModNPC
-    {
+	public class Kraid_Body : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Kraid");

@@ -5,8 +5,8 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Tiles
 {
-    public class RedSwitch : ModItem
-    {
+	public class RedSwitch : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Red Switch");
@@ -26,5 +26,5 @@ namespace MetroidModPorted.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.RedSwitch>();
 		}
-    }
+	}
 }

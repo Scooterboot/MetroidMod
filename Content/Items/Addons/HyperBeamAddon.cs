@@ -11,8 +11,8 @@ using MetroidModPorted.Common.GlobalItems;
 
 namespace MetroidModPorted.Content.Items.Addons
 {
-    public class HyperBeamAddon : ModItem
-    {
+	public class HyperBeamAddon : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hyper Beam");

@@ -11,8 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.Nightmare
 {
-    public class Nightmare_ArmBack : ModNPC
-    {
+	public class Nightmare_ArmBack : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nightmare");

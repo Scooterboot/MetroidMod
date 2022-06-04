@@ -16,7 +16,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs
 
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[Type] = 9;            
+			Main.npcFrameCount[Type] = 9;
 		}
 		public override void SetDefaults()
 		{

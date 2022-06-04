@@ -36,7 +36,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "ChoziteOre");
 			recipe.AddRecipeGroup("IronBar", 4);
-            recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}

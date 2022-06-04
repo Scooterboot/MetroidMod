@@ -20,8 +20,8 @@ using MetroidModPorted.Content.DamageClasses;
 namespace MetroidModPorted.Content.Projectiles
 {
 	public abstract class MProjectile : ModProjectile
-    {
-        public MProjectile mProjectile;
+	{
+		public MProjectile mProjectile;
 		public MProjectile()
 		{
 			mProjectile = this;
@@ -55,8 +55,8 @@ namespace MetroidModPorted.Content.Projectiles
 			for(int i = 0; i < Projectile.oldRot.Length; i++)
 			{
 				Projectile.oldRot[i] = Projectile.rotation;
-            }
-        }
+			}
+		}
 		
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
@@ -120,7 +120,7 @@ namespace MetroidModPorted.Content.Projectiles
 				npcPrevHit[target.whoAmI] = true;
 			}
 		}
-        public override void PostAI()
+		public override void PostAI()
 		{
 			for (int i = Projectile.oldPos.Length-1; i > 0; i--)
 			{
@@ -324,7 +324,7 @@ namespace MetroidModPorted.Content.Projectiles
 				{
 					//bool? flag3 = NPCLoader.CanBeHitByProjectile(Main.npc[num239], P);
 					//if (Main.npc[num239].CanBeChasedBy(P, false) && !npcPrevHit[num239]  && (!flag3.HasValue || flag3.Value))
-                    			if (Main.npc[num239].CanBeChasedBy(P, false) && !npcPrevHit[num239])
+								if (Main.npc[num239].CanBeChasedBy(P, false) && !npcPrevHit[num239])
 					{
 						float num240 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
 						float num241 = Main.npc[num239].position.Y + (float)(Main.npc[num239].height / 2);

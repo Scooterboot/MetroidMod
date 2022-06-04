@@ -52,7 +52,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Emerald);
 			recipe.AddIngredient(ItemID.AdamantiteBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this, 20);
 			recipe.AddRecipe();*/
 
@@ -64,7 +64,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 			/*recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Emerald);
 			recipe.AddIngredient(ItemID.TitaniumBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this, 20);
 			recipe.AddRecipe();*/
 		}

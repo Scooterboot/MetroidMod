@@ -8,8 +8,8 @@ using Terraria.ModLoader;
 
 namespace MetroidModPorted.Content.Items.Miscellaneous
 {
-    public class NightmareCoreXFragment : ModItem
-    {
+	public class NightmareCoreXFragment : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nightmare Core-X Fragment");

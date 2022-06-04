@@ -26,7 +26,7 @@ namespace MetroidModPorted.Content.Projectiles.phazonbeam
 			//Projectile.tileCollide = false;
 			//Projectile.penetrate = -1;
 			//Projectile.usesLocalNPCImmunity = true;
-       	 	//Projectile.localNPCHitCooldown = 4;
+			//Projectile.localNPCHitCooldown = 4;
 		}
 
 		bool initialize = false;
@@ -168,7 +168,7 @@ namespace MetroidModPorted.Content.Projectiles.phazonbeam
 			base.SetDefaults();
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
-       	 	Projectile.localNPCHitCooldown = 4;
+			Projectile.localNPCHitCooldown = 4;
 		}
 	}
 	public class SpazerPlasmaPhazonBeamShot : PlasmaPhazonBeamShot

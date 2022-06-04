@@ -40,7 +40,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Bug
 			{
 				NPC.TargetClosest(true);
 
-				NPC.velocity.X = 0;                
+				NPC.velocity.X = 0;
 
 				if(NPC.ai[1]++ >= 90)
 				{

@@ -12,7 +12,7 @@ using MetroidModPorted.Content.NPCs.OmegaPirate;
 
 namespace MetroidModPorted.Content.NPCs.OmegaPirate
 {
-    public class Omega_DarkPortal : ModNPC
+	public class Omega_DarkPortal : ModNPC
 	{
 		public override void SetStaticDefaults()
 		{

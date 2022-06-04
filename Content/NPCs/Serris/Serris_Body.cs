@@ -10,8 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidModPorted.Content.NPCs.Serris
 {
-    public class Serris_Body : Serris
-    {
+	public class Serris_Body : Serris
+	{
 		protected NPC head
 		{
 			get { return Main.npc[NPC.realLife]; }

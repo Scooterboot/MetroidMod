@@ -5,21 +5,20 @@ using Terraria.ModLoader;
  
 namespace MetroidModPorted.Content.Items.Tools
 {
-	// TODO: Fix GrappleBeamShot
-    public class GrappleBeam : ModItem
-    {
+	public class GrappleBeam : ModItem
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Grappling Beam");
 			Tooltip.SetDefault("'Swingy!'\n" + 
-            "Press left or right to swing\n" + 
-            "Press up or down to ascend or descend the grapple");
+			"Press left or right to swing\n" + 
+			"Press up or down to ascend or descend the grapple");
 
 			SacrificeTotal = 1;
 		}
-        public override void SetDefaults()
-        {
-            Item.CloneDefaults(ItemID.AmethystHook);
+		public override void SetDefaults()
+		{
+			Item.CloneDefaults(ItemID.AmethystHook);
 
 			Item.width = 20;
 			Item.height = 20;
@@ -28,21 +27,21 @@ namespace MetroidModPorted.Content.Items.Tools
 			Item.UseSound = Sounds.Items.Tools.GrappleBeamSound;
 			Item.shoot = ModContent.ProjectileType<Projectiles.GrappleBeamShot>();
 			Item.shootSpeed = 12f;
-        }
+		}
 
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(15)
 				.AddIngredient<Miscellaneous.EnergyShard>(3)
 				.AddTile(TileID.Anvils)
 				.Register();
-            /*ModRecipe recipe = new ModRecipe(mod); 
-            recipe.AddIngredient(null, "ChoziteBar", 15);
-            recipe.AddIngredient(null, "EnergyShard", 3);
-            recipe.AddTile(TileID.Anvils);   
-            recipe.SetResult(this);
-            recipe.AddRecipe();*/
-        }
-    }
+			/*ModRecipe recipe = new ModRecipe(mod); 
+			recipe.AddIngredient(null, "ChoziteBar", 15);
+			recipe.AddIngredient(null, "EnergyShard", 3);
+			recipe.AddTile(TileID.Anvils);   
+			recipe.SetResult(this);
+			recipe.AddRecipe();*/
+		}
+	}
 }
