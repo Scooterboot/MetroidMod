@@ -135,7 +135,7 @@ namespace MetroidModPorted.Common.UI
 			{
 				Left.Pixels = 160;
 				Top.Pixels = Main.instance.invBottom + 10;
-				if (Main.LocalPlayer.chest != -1)// || Main.npcShop != 0)
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
 				{
 					Top.Pixels += 170;
 				}
