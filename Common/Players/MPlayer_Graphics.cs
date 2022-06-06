@@ -125,7 +125,7 @@ namespace MetroidModPorted.Common.Players
 			//Player P = drawInfo.drawPlayer;
 			//MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 
-			if (drawInfo.shadow == 0f)
+			if (drawInfo.shadow == 0f && !drawInfo.headOnlyRender)
 			{
 				for (int i = oldPos.Length - 1; i > 0; i--)
 				{

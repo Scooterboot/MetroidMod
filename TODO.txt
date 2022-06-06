@@ -1,9 +1,6 @@
 ﻿TODOs:
 (not in any particular order)
 
- -	Fix player draw layer modifying
-	 -	Fix Morph Ball draw layer
-		 -	Details: Interestingly, the ball trail draws correctly most of the time, except for when the minimap is open. It draws correctly with the map in the background, but not with the minimap.
  -	Get new textures for:
 	 -	Varia Suit item and tile
 	 -	Varia Suit V2 item and tile
