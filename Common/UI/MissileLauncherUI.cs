@@ -41,6 +41,8 @@ namespace MetroidModPorted.Common.UI
 
 		public MissileLauncherItemBox[] missileSlots;
 
+		public UIText[] textSlots;
+
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
 		public Vector2[] itemBoxPositionValues = new Vector2[MetroidModPorted.missileSlotAmount]
@@ -62,6 +64,7 @@ namespace MetroidModPorted.Common.UI
 			enabled = MetroidModPorted.DragableMissileLauncherUI;
 
 			missileSlots = new MissileLauncherItemBox[MetroidModPorted.missileSlotAmount];
+			textSlots = new UIText[MetroidModPorted.missileSlotAmount];
 			for (int i = 0; i < MetroidModPorted.missileSlotAmount; ++i)
 			{
 				missileSlots[i] = new MissileLauncherItemBox();
@@ -71,6 +74,16 @@ namespace MetroidModPorted.Common.UI
 				missileSlots[i].SetCondition();
 
 				this.Append(missileSlots[i]);
+
+				textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
+				textSlots[i].SetText(MissileLauncherLoader.GetAddonSlotName(i));
+				textSlots[i].Top.Pixels = itemBoxPositionValues[i].Y + 44;
+				textSlots[i].Left.Pixels = itemBoxPositionValues[i].X - 22;
+				textSlots[i].IsWrapped = true;
+				textSlots[i].Width.Pixels = 88;
+				textSlots[i].Height.Pixels = 22;
+
+				Append(textSlots[i]);
 			}
 
 			this.Append(new MissileLauncherFrame());

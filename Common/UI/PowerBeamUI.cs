@@ -36,6 +36,7 @@ namespace MetroidModPorted.Common.UI
 			powerBeamPanel.Left.Pixels = 65;
 
 			powerBeamPanel.beamSlots = new PowerBeamItemBox[MetroidModPorted.beamSlotAmount];
+			powerBeamPanel.textSlots = new UIText[MetroidModPorted.beamSlotAmount];
 			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
 			{
 				powerBeamPanel.beamSlots[i] = new PowerBeamItemBox();
@@ -45,6 +46,16 @@ namespace MetroidModPorted.Common.UI
 				powerBeamPanel.beamSlots[i].SetCondition();
 
 				powerBeamPanel.Append(powerBeamPanel.beamSlots[i]);
+
+				powerBeamPanel.textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
+				powerBeamPanel.textSlots[i].SetText(BeamLoader.GetAddonSlotName(i));
+				powerBeamPanel.textSlots[i].Top.Pixels = powerBeamPanel.itemBoxPositionValues[i].Y + 44;
+				powerBeamPanel.textSlots[i].Left.Pixels = powerBeamPanel.itemBoxPositionValues[i].X - 22;
+				powerBeamPanel.textSlots[i].IsWrapped = true;
+				powerBeamPanel.textSlots[i].Width.Pixels = 88;
+				powerBeamPanel.textSlots[i].Height.Pixels = 22;
+
+				powerBeamPanel.Append(powerBeamPanel.textSlots[i]);
 			}
 
 			powerBeamPanel.Append(new PowerBeamFrame());
@@ -87,6 +98,8 @@ namespace MetroidModPorted.Common.UI
 		//private Texture2D panelTexture;
 
 		public PowerBeamItemBox[] beamSlots;
+
+		public UIText[] textSlots;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
