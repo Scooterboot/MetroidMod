@@ -22,4 +22,5 @@ The 1.4 port adds:
 Credits:
 Infected Animal, for porting the suits' textures to 1.4.
 Antinous, for the visor ui background texture and some suit addon textures.
+Wandering Spider, for some suit addon textures.
 Nintendo, for the entire Metroid Franchise!
