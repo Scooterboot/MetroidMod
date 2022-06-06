@@ -42,6 +42,7 @@ namespace MetroidModPorted.Common.Systems
 
 		internal bool isVisorBGAudioPlaying = false;
 		internal ActiveSound VisorBGAudio;
+		internal int oldVisorID = -1;
 
 		public override void Load()
 		{
@@ -216,11 +217,17 @@ namespace MetroidModPorted.Common.Systems
 				if (SuitAddonLoader.TryGetAddon(mp.VisorInUse, out ModSuitAddon addon))
 				{
 					addon.DrawVisor(P);
+					if (addon.Type != oldVisorID && isVisorBGAudioPlaying)
+					{
+						VisorBGAudio.Sound.Stop(true);
+						isVisorBGAudioPlaying = false;
+					}
 					if (addon.VisorBackgroundNoise != null && !isVisorBGAudioPlaying)
 					{
 						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound((SoundStyle)addon.VisorBackgroundNoise), out VisorBGAudio);
 						isVisorBGAudioPlaying = true;
 					}
+					oldVisorID = addon.Type;
 				}
 				else
 				{
