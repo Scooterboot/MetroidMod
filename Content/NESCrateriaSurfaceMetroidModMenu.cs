@@ -12,8 +12,10 @@ namespace MetroidModPorted.Content
 	public class NESCrateriaSurfaceMetroidModMenu : ModMenu
 	{
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Menu/NESTitle");
-		public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/NESTitle");
+		public override int Music => MusicLoader.GetMusicSlot($"{Mod.Name}/Assets/Music/NESTitle");
 		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<Biomes.NESCrateriaSurfaceBackgroundStyle>();
+		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel");
+		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel");
 
 		public override string DisplayName => "Crateria (Surface, Metroid NES)";
 
@@ -31,10 +33,7 @@ namespace MetroidModPorted.Content
 		}
 		public override void Update(bool isOnTitleScreen)
 		{
-			if (isOnTitleScreen)
-			{
-				Main.SkipToTime(16200, false);
-			}
+			Main.SkipToTime(16200, false);
 			//Main.time = 16200;
 			//Main.dayTime = false;
 		}
