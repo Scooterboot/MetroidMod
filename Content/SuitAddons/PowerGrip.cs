@@ -26,7 +26,7 @@ namespace MetroidModPorted.Content.SuitAddons
 			item.rare = ItemRarityID.Green;
 			item.accessory = true;
 		}
-		public override bool CanGenerateOnChozoStatue(Tile tile) => true;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

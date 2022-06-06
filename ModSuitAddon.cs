@@ -68,7 +68,7 @@ namespace MetroidModPorted
 		/// <summary>
 		/// Determines if the addon can generate on Chozo Statues during world generation.
 		/// </summary>
-		public virtual bool CanGenerateOnChozoStatue(Tile tile) => false;
+		public virtual bool CanGenerateOnChozoStatue(int x, int y) => false;
 		public override sealed void SetupContent()
 		{
 			SetStaticDefaults();

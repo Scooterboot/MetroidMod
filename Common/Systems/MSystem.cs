@@ -617,7 +617,7 @@ namespace MetroidModPorted.Common.Systems
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8);
 			}
 
-			ushort item  = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>();
+			ushort item  = (ushort)ModContent.TileType<MorphBallTile>();
 			if (dungeon)
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
@@ -638,15 +638,15 @@ namespace MetroidModPorted.Common.Systems
 				// Okay, the goal is to do weighted random.
 				foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 				{
-					if (addon.CanGenerateOnChozoStatue(Main.tile[i, j])) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.rare); }
+					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.rare); }
 				}
 				/*foreach(ModBeam beam in BeamLoader.beams)
 				{
-					if (beam.CanGenerateOnChozoStatue(Main.tile[i, j])) { list[index++] = new WeightedChance(() => { item = (ushort)beam.TileType; }, RarityLoader.RarityCount - beam.Item.Item.rare); }
+					if (beam.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)beam.TileType; }, RarityLoader.RarityCount - beam.Item.Item.rare); }
 				}*/
 				foreach (ModMBAddon addon in MBAddonLoader.addons)
 				{
-					if (addon.CanGenerateOnChozoStatue(Main.tile[i, j])) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.rare); }
+					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.rare); }
 				}
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);

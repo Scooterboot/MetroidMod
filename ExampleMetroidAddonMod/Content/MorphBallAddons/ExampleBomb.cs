@@ -31,7 +31,7 @@ namespace ExampleMetroidAddonMod.Content.MorphBallAddons
 
 		// In a nutshell, this asks if the addon can be found on chozo statues
 		// throughout the world.
-		public override bool CanGenerateOnChozoStatue(Tile tile)
+		public override bool CanGenerateOnChozoStatue(int x, int y)
 		{
 			return true;
 		}

@@ -15,7 +15,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(Tile tile) => true;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
 		public override void SetStaticDefaults()
 		{

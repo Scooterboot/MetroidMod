@@ -14,7 +14,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(Tile tile) => true;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || x >= Main.maxTilesX * 0.2 && x <= Main.maxTilesX * 0.35;
 
 		public override void SetStaticDefaults()
 		{
