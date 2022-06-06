@@ -5,12 +5,14 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
+using MetroidModPorted.Common.GlobalNPCs;
 using MetroidModPorted.Common.Systems;
 using MetroidModPorted.Common.Players;
 using MetroidModPorted.ID;
@@ -24,6 +26,8 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/ScanVisor/ScanVisorTile";
 
 		public override string VisorSelectIcon => $"{Mod.Name}/Assets/Textures/SuitAddons/ScanVisor/ScanVisorIcon";
+
+		public override SoundStyle? VisorBackgroundNoise => Sounds.Suit.Visors.ScanVisorBackgroundNoise;
 
 		public override bool AddOnlyAddonItem => false;
 
@@ -94,7 +98,15 @@ namespace MetroidModPorted.Content.SuitAddons
 			Main.spriteBatch.Draw(barBorderTex.Value, barBorderRect, Color.White);
 			Main.spriteBatch.Draw(barTex.Value, barRect, Color.CadetBlue);
 
-			// See Common/GlobalNPCs/MGlobalNPC.cs for the functional part of the scan visor
+			if (ScanVisorGlobalNPC.sound != null && ScanVisorGlobalNPC.sound.IsPlaying && !ScanVisorGlobalNPC.soundShouldPlay)
+			{
+				ScanVisorGlobalNPC.sound.Sound.Stop(true);
+				ScanVisorGlobalNPC.soundIsPlaying = false;
+			}
+
+			ScanVisorGlobalNPC.soundShouldPlay = false;
+
+			// See Common/GlobalNPCs/ScanVisorGlobalNPC.cs for the functional part of the scan visor
 		}
 	}
 }

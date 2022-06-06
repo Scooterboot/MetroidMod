@@ -56,6 +56,12 @@ namespace MetroidModPorted
 		/// </summary>
 		public virtual string VisorSelectIcon { get; }
 
+		/// <summary>
+		/// The Sound to be played when the visor is in use. <br />
+		/// Note: This is only used for Visors, such as the Scan Visor.
+		/// </summary>
+		public virtual SoundStyle? VisorBackgroundNoise => null;
+
 		public abstract bool AddOnlyAddonItem { get; }
 
 		public int SacrificeTotal { get; set; } = 1;

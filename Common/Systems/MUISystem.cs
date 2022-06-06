@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -38,6 +39,9 @@ namespace MetroidModPorted.Common.Systems
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
 		internal bool isVIInit = false;
+
+		internal bool isVisorBGAudioPlaying = false;
+		internal ActiveSound VisorBGAudio;
 
 		public override void Load()
 		{
@@ -212,6 +216,21 @@ namespace MetroidModPorted.Common.Systems
 				if (SuitAddonLoader.TryGetAddon(mp.VisorInUse, out ModSuitAddon addon))
 				{
 					addon.DrawVisor(P);
+					if (addon.VisorBackgroundNoise != null && !isVisorBGAudioPlaying)
+					{
+						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound((SoundStyle)addon.VisorBackgroundNoise), out VisorBGAudio);
+						isVisorBGAudioPlaying = true;
+						Mod.Logger.Debug("the sãûcë");
+					}
+				}
+				else
+				{
+					if (isVisorBGAudioPlaying)
+					{
+						VisorBGAudio.Sound.Stop(true);
+						isVisorBGAudioPlaying = false;
+						Mod.Logger.Debug("not the sãûcë");
+					}
 				}
 				//Filters.Scene.Activate("FilterName");
 

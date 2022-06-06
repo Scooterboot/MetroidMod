@@ -73,10 +73,15 @@ namespace MetroidModPorted
 
 			public static class Visors
 			{
-				/*public static readonly SoundStyle ScanVisorBackgroundNoise = new($"{nameof(MetroidModPorted)}/Assets/Sounds/ScanVisorBackgroundNoise")
+				public static readonly SoundStyle ScanVisorBackgroundNoise = new($"{nameof(MetroidModPorted)}/Assets/Sounds/ScanVisorBackgroundNoise", SoundType.Ambient)
 				{
+					IsLooped = true
+				};
 
-				};*/
+				public static readonly SoundStyle ScanVisorScanning = new($"{nameof(MetroidModPorted)}/Assets/Sounds/ScanVisorScanning")
+				{
+					IsLooped = true
+				};
 			}
 		}
 	}
