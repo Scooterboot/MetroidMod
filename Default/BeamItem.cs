@@ -32,14 +32,14 @@ namespace MetroidModPorted.Default
 		public override void SetDefaults()
 		{
 			Item.maxStack = 1;
+			Item.width = Main.netMode == NetmodeID.Server ? 32 : ModContent.Request<Texture2D>(Texture).Value.Width;
+			Item.height = Main.netMode == NetmodeID.Server ? 32 : ModContent.Request<Texture2D>(Texture).Value.Height;
 			modBeam.SetItemDefaults(Item);
 			modBeam.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
-			Item.width = ModContent.Request<Texture2D>(Texture).Value.Width;
-			Item.height = ModContent.Request<Texture2D>(Texture).Value.Height;
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.createTile = modBeam.TileType;
