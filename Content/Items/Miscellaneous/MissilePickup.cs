@@ -16,6 +16,7 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 			DisplayName.SetDefault("Missile");
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 2));
+			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 		}
 		public override void SetDefaults()
 		{
