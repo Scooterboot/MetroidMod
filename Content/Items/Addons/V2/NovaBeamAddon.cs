@@ -16,6 +16,8 @@ namespace MetroidModPorted.Content.Items.Addons.V2
 				string.Format("[c/78BE78:+225% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]\n") +
 				string.Format("[c/BE7878:-15% speed]"));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

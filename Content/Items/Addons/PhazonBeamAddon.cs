@@ -17,6 +17,8 @@ namespace MetroidModPorted.Content.Items.Addons
 			"Disables freeze and other debuff effects\n" +
 			"Can only be used while wearing the Phazon Suit\n" +
 			"'It's made of pure Phazon energy!'");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

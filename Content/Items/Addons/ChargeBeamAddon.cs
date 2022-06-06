@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.Addons
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
 			"~Charge shots deal x3 damage, but overheat x2 the normal use");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

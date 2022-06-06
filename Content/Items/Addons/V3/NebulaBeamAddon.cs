@@ -17,6 +17,8 @@ namespace MetroidModPorted.Content.Items.Addons.V3
 				"Shots home in on enemies\n" +
 				string.Format("[c/78BE78:+225% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]"));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -16,6 +16,8 @@ namespace MetroidModPorted.Content.Items.Addons
 				"Shots penetrate terrain by a limited depth\n" +
 				string.Format("[c/78BE78:+50% damage]\n") +
 				string.Format("[c/BE7878:+50% overheat use]"));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

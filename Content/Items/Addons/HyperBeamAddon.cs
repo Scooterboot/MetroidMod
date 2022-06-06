@@ -23,6 +23,8 @@ namespace MetroidModPorted.Content.Items.Addons
 			"Affected by addons regardless of version\n" + 
 			"Disables freeze and other debuff effects\n" +
 			"'Da babeh'");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
