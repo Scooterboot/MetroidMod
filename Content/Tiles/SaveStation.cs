@@ -21,6 +21,8 @@ namespace MetroidModPorted.Content.Tiles
 			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileID.Sets.InteractibleByNPCs[Type] = true;
+			TileID.Sets.IsValidSpawnPoint[Type] = true;
+			TileID.Sets.DisableSmartCursor[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX); 
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.Origin = new Point16(1, 2);
