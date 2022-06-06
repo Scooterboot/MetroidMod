@@ -7,24 +7,10 @@
  -	Get new textures for:
 	 -	Varia Suit item and tile
 	 -	Varia Suit V2 item and tile
-	 -	Dark Suit
-	 -	Light Suit
 	 -	Solar Light Suit
 	 -	Gravity Suit item and tile
-	 -	Terra Gravity Suit
-	 -	Vortex Gravity Suit
-	 -	Phazon Suit
-	 -	Nebula Phazon Suit
-	 -	PED Suit
-	 -	Hazard Shield Suit
-	 -	Stardust Hazard Shield Suit
 	 -	tiles for ALL of the Missile Addons
  -	UI Fixes (specifically custom textures)
- -	Finish implementing modded beams
-	 -	MODULAR BEAM COMBINATIONS!
- -	Implement modded missile addons
- -	Write all of the modded suits in
- -	In the future, dynamic display name generation for missile launcher addon projectiles and power beam addon projectiles.
  -	Implement 'Energy Bar' UI (use for Energy Tanks other than being a crafting ingredient and a tile)
  -	Migrate some accessories to suit addons
 	 -	Reserve Tanks
@@ -37,3 +23,4 @@
  -	Fix Serris AI
  -	Fix waterfall sound playing when exiting world (possibly just a tML bug)
  -	Make Scan Visor lock onto enemies
+ -	Fix Energy Pickup alignment

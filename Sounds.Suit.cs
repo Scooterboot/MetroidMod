@@ -21,6 +21,11 @@ namespace MetroidModPorted
 
 			};
 
+			public static readonly SoundStyle EnergyPickup = new($"{nameof(MetroidModPorted)}/Assets/Sounds/EnergyPickupSound")
+			{
+
+			};
+
 			public static readonly SoundStyle MorphIn = new($"{nameof(MetroidModPorted)}/Assets/Sounds/MorphIn")
 			{
 

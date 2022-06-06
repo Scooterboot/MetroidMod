@@ -24,7 +24,6 @@
     <Folder Include="Assets\Textures\SuitAddons\ReserveTank\" />
     <Folder Include="Assets\Textures\SuitAddons\PowerGrip\" />
     <Folder Include="Content\Buffs\" />
-    <Folder Include="Content\Items\Miscellaneous\" />
     <Folder Include="Content\Items\Boss\" />
     <Folder Include="Content\Items\Vanity\" />
     <Folder Include="Content\Mounts\" />
