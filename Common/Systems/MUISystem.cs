@@ -220,7 +220,6 @@ namespace MetroidModPorted.Common.Systems
 					{
 						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound((SoundStyle)addon.VisorBackgroundNoise), out VisorBGAudio);
 						isVisorBGAudioPlaying = true;
-						Mod.Logger.Debug("the sãûcë");
 					}
 				}
 				else
@@ -229,7 +228,6 @@ namespace MetroidModPorted.Common.Systems
 					{
 						VisorBGAudio.Sound.Stop(true);
 						isVisorBGAudioPlaying = false;
-						Mod.Logger.Debug("not the sãûcë");
 					}
 				}
 				//Filters.Scene.Activate("FilterName");
