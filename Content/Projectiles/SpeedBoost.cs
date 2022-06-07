@@ -16,7 +16,8 @@ namespace MetroidModPorted.Content.Projectiles
 	public class SpeedBoost : ModProjectile
 	{
 		private int SpeedSound = 0;
-		public ReLogic.Utilities.SlotId soundInstance;
+		public ActiveSound activeSound;
+		public SoundEffectInstance soundInstance;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Speed Booster");
@@ -45,22 +46,28 @@ namespace MetroidModPorted.Content.Projectiles
 			SpeedSound++;
 			if(SpeedSound == 4)
 			{
-				soundInstance = SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position);
+				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position), out activeSound))
+				{
+					soundInstance = activeSound.Sound;
+				}
 
 			}
-			if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) && SpeedSound == 82)
+			if(soundInstance != null && SpeedSound == 82)
 			{
-				result.Stop();
-				soundInstance = SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position);
+				soundInstance.Stop();
+				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position), out activeSound))
+				{
+					soundInstance = activeSound.Sound;
 
-				SpeedSound = 68;
+					SpeedSound = 68;
+				}
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
 			{
-				if(SoundEngine.TryGetActiveSound(soundInstance, out result))
+				if(soundInstance != null)
 				{
-					result.Stop();
+					soundInstance.Stop(true);
 				}
 				Projectile.Kill();
 			}
@@ -68,9 +75,9 @@ namespace MetroidModPorted.Content.Projectiles
 			{
 				if(Pr.active && (Pr.type == ModContent.ProjectileType<ShineSpark>() || Pr.type == ModContent.ProjectileType<SpeedBall>()))
 				{
-					if(SoundEngine.TryGetActiveSound(soundInstance, out result))
+					if (soundInstance != null)
 					{
-						result.Stop();
+						soundInstance.Stop(true);
 					}
 					Projectile.Kill();
 					return;
@@ -88,6 +95,11 @@ namespace MetroidModPorted.Content.Projectiles
 			Main.dust[num20].noGravity = true;
 			int num21 = Dust.NewDust(vect-vel2, 1, 1, 67, vel2.X+vel.X, vel2.Y+vel.Y, 100, default(Color), 2f);
 			Main.dust[num21].noGravity = true;
+
+			if (activeSound != null)
+			{
+				activeSound.Position = P.Center;
+			}
 		}
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{

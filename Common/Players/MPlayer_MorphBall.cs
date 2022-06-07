@@ -53,7 +53,7 @@ namespace MetroidModPorted.Common.Players
 		public int boostCharge = 0;
 		public int boostEffect = 0;
 		public int soundDelay = 0;
-		public ReLogic.Utilities.SlotId soundInstance;
+		public SoundEffectInstance soundInstance;
 		
 		public bool spiderball = false;
 		
@@ -540,25 +540,25 @@ namespace MetroidModPorted.Common.Players
 				{
 					boostCharge++;
 				}
-				if(soundDelay <= 0)
+				if(soundDelay <= 0 && SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Suit.BoostBallStartup, Player.position), out ActiveSound result))
 				{
-					soundInstance = SoundEngine.PlaySound(Sounds.Suit.BoostBallStartup, Player.position);
+					soundInstance = result.Sound;
 				}
 				if(soundDelay >= 306)
 				{
 					soundDelay = 210;
 				}
-				if(soundDelay == 210)
+				if(soundDelay == 210 && SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Suit.BoostBallLoop, Player.position), out result))
 				{
-					soundInstance = SoundEngine.PlaySound(Sounds.Suit.BoostBallLoop, Player.position);
+					soundInstance = result.Sound;
 				}
 				soundDelay++;
 			}
 			else if(Player.whoAmI == Main.myPlayer)
 			{
-				if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
+				if (soundInstance != null)
 				{
-					result.Stop();
+					soundInstance.Stop(true);
 				}
 				if(boostCharge > 20)
 				{

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace MetroidModPorted.Content.Projectiles
 	public class ShineSpark : ModProjectile
 	{
 		private int ShineSoundStart = 0;
+		public ActiveSound activeSound;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shine Spark");
@@ -40,11 +42,13 @@ namespace MetroidModPorted.Content.Projectiles
 			ShineSoundStart++;
 			if(ShineSoundStart > 3 && ShineSoundStart < 5)
 			{
-				Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.ShineSpark, P.position);
-				ShineSoundStart = 6;
-				if(ShineSoundStart > 6)
+				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShineSpark, P.position), out activeSound))
 				{
 					ShineSoundStart = 6;
+					if (ShineSoundStart > 6)
+					{
+						ShineSoundStart = 6;
+					}
 				}
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();
@@ -64,6 +68,11 @@ namespace MetroidModPorted.Content.Projectiles
 			Main.dust[num20].noGravity = true;
 			int num21 = Dust.NewDust(vect-vel2, 1, 1, 57, vel2.X+vel.X, vel2.Y+vel.Y, 100, default(Color), 2f);
 			Main.dust[num21].noGravity = true;
+
+			if (activeSound != null)
+			{
+				activeSound.Position = P.Center;
+			}
 		}
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{

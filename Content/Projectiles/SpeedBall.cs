@@ -16,7 +16,8 @@ namespace MetroidModPorted.Content.Projectiles
 	public class SpeedBall : ModProjectile
 	{
 		int SpeedSound = 0;
-		public ReLogic.Utilities.SlotId soundInstance;
+		public ActiveSound activeSound;
+		public SoundEffectInstance soundInstance;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mock Ball");
@@ -42,22 +43,26 @@ namespace MetroidModPorted.Content.Projectiles
 			Projectile.position.Y=P.Center.Y-Projectile.height/2;
 			
 			SpeedSound++;
-			if(SpeedSound == 4)
+			if(SpeedSound == 4 && SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position), out activeSound))
 			{
-				soundInstance = SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position);
+				soundInstance = activeSound.Sound;
 			}
-			if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) && SpeedSound == 82)
+			if (soundInstance != null && SpeedSound == 82)
 			{
-				result.Stop();
-				soundInstance = SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position);
-				SpeedSound = 68;
+				soundInstance.Stop();
+				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position), out activeSound))
+				{
+					soundInstance = activeSound.Sound;
+
+					SpeedSound = 68;
+				}
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if(!mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
 			{
-				if(SoundEngine.TryGetActiveSound(soundInstance, out result))
+				if (soundInstance != null)
 				{
-					result.Stop();
+					soundInstance.Stop(true);
 				}
 				Projectile.Kill();
 			}
@@ -65,15 +70,20 @@ namespace MetroidModPorted.Content.Projectiles
 			{
 				if(Pr.active && (Pr.type == ModContent.ProjectileType<ShineBall>() || Pr.type == ModContent.ProjectileType<SpeedBoost>()))
 				{
-					if(SoundEngine.TryGetActiveSound(soundInstance, out result))
+					if (soundInstance != null)
 					{
-						result.Stop();
+						soundInstance.Stop(true);
 					}
 					Projectile.Kill();
 					return;
 				}
 			}
 			Lighting.AddLight((int)((float)Projectile.Center.X/16f), (int)((float)(Projectile.Center.Y)/16f), 0, 0.75f, 1f);
+
+			if (activeSound != null)
+			{
+				activeSound.Position = P.Center;
+			}
 		}
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
