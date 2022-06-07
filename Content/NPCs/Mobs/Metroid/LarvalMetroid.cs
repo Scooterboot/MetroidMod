@@ -52,6 +52,20 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
 			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)
 				newScale = (Main.rand.Next(5, 10) * 0.1f);
 		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
+
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("The newborn stage of a metroid. Larval metroids are capable of growing in size when absorbing living creatures. Try not to let them latch onto you, otherwise you'll lose your life… These creatures are unable to tolerate cold temperatures however. So cool them down and smash them!")
+			});
+		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			if(Main.hardMode || NPC.downedBoss2)
@@ -66,20 +80,6 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
 				return (SpawnCondition.Corruption.Chance + SpawnCondition.Crimson.Chance)*chance1 + SpawnCondition.DungeonNormal.Chance*chance2;
 			}
 			return SpawnCondition.DungeonNormal.Chance*0.5f;
-		}
-
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-		{
-			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
-			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
-
-				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("Latching onto enemies to drain energy is what the Larval Metroid does best.")
-			});
 		}
 
 		public override bool PreAI()

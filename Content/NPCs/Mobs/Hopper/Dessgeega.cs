@@ -40,7 +40,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Hopper
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("Watch out! Dessgeegas jump quite high, and will sometimes latch onto the ceiling.")
+				new FlavorTextBestiaryInfoElement("A creature capable of bouncing on walls. But it is much stronger than the Sidehopper. They are more commonly found in hotter places… As with the Sidehopper, they are able to come in various sizes.")
 			});
 		}
 

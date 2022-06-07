@@ -1,5 +1,6 @@
 using System;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
@@ -44,6 +45,19 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Hopper
 			/* NPC scale networking fix. */
 			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)
 				newScale = (Main.rand.Next(7, 11) * 0.1f);
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
+
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("A creature capable of bouncing on walls. Rather unremarkable but fast at doing so. These creatures seem to be genetically similar to the Dessgeega. They are able to come in various sizes.")
+			});
 		}
 		private void SetStats()
 		{
