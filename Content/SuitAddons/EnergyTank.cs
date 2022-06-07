@@ -34,7 +34,7 @@ namespace MetroidModPorted.Content.SuitAddons
 				.AddIngredient<Items.Miscellaneous.EnergyShard>(4)
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(1)
 				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 1)
-				.AddIngredient(MetroidModPorted.EvilMaterialRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidModPorted.EvilMaterialRecipeGroupID, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
