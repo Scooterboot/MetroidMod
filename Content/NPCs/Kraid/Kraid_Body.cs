@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using Terraria.ModLoader;
+using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -39,6 +40,16 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 			NPC.boss = true;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<Kraid_Head>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("Kraid's Body.")
+			});
 		}
 		int state = 0;
 		public override void AI()

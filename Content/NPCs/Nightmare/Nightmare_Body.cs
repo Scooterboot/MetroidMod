@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.ID;
 using System;
@@ -36,6 +37,16 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 			NPC.frameCounter = 0;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<Nightmare>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("Nightmare's Body.")
+			});
 		}
 		public override void AI()
 		{

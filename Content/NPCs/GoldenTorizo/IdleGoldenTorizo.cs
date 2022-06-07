@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
@@ -42,6 +43,16 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			{
 				NPC.ai[i] = 0.0f;
 			}*/
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<GoldenTorizo>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("Nope, nothing's wrong at all.")
+			});
 		}
 		public override bool CanChat()
 		{

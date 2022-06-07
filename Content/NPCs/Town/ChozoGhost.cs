@@ -57,7 +57,7 @@ namespace MetroidModPorted.Content.NPCs.Town
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
 
-				new FlavorTextBestiaryInfoElement("The Chozo Ghost is the spirit of a long dead Chozo, whose species has disappeared from the cosmos. There are no known Chozo still living. He sells some artifacts of the aforementioned race.")
+				new FlavorTextBestiaryInfoElement("A deceased member of the Gizzard tribe of Chozo who has lingering guilt. They are susceptible to phazon and prefer to avoid it.")
 			});
 		}
 

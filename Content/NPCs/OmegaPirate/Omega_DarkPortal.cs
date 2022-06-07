@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,16 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			NPC.noTileCollide = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<OmegaPirate>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("The Omega Pirate will occasionally slip into an alternate dimension. This portal is used to perform that act.")
+			});
 		}
 
 		NPC Base

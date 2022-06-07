@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,14 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 			NPC.npcSlots = 5;
 			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid"); }
 			//bossBag = mod.ItemType("PhantoonBag");
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("An interdimensional anomaly drawn in by places of great negative emotions. Usually shipwrecks with lingering energy. The creature's only weakness is the eye in its mouth. It is capable of dematerializing at will… It's capable of spawning flaming eyes and rage hands to attack anything that gets in its way! To think that this is only the creature's head… it bears a resemblance to a certain deity…")
+			});
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{

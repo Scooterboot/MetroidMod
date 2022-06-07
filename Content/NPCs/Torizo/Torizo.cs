@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
@@ -63,6 +64,14 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Torizo"); }
 			//bossBag = mod.ItemType("TorizoBag");
 			NPC.chaseable = false;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("An autonomous machine created by the long deceased Gizzard tribe. This one guards the entrance to the Gizzard tribe catacombs. The machine is slow and lumbering, serving as a gatekeeper rather than a guardian. It moves faster however when it's head is destroyed… There seems to be something alive about it…")
+			});
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{

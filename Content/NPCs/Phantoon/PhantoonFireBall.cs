@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,16 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 			NPC.dontTakeDamage = true;
 			NPC.noTileCollide = true;
 			NPC.noGravity = true;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<Phantoon>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("A ball of fire.")
+			});
 		}
 
 		int damage = 66;

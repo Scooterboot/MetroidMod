@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -95,6 +96,14 @@ namespace MetroidModPorted.Content.NPCs.Serris
 			NPC.boss = true;
 			//bossBag = mod.ItemType("SerrisBag");
 			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Serris"); }
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("An invasive species brought by the Gizzard tribe and released into the seas after the tribe's collapse. The creature moves at extremely high speeds and is hard to keep an eye on. Attacking it will cause it to immediately retaliate and rush into you. Be aware of the creature's speed and strike with a charged attack at the head when it's not moving. Sometimes however… a creature isn't what it appears to be…")
+			});
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{

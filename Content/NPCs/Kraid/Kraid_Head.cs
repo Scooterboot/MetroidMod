@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -73,6 +74,14 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 			//BossBag = mod.ItemType("KraidBag");
 			if (Main.netMode != NetmodeID.Server) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Kraid"); }
 		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("This invasive species made its way on this planet after the Gizzard tribe had brought it to the Terrarian Planet to train young warriors. It is extremely bulky and slow, but can shoot projectiles from its stomach. It's hide is almost impenetrable save for even the hottest lava. But these creatures are not indestructible on the inside. Give it a taste of pain when the mouth opens!")
+			});
+		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale) + 1;
@@ -94,6 +103,9 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 		public override void OnKill()
 		{
 			MSystem.bossesDown |= MetroidBossDown.downedKraid;
+			Main.BestiaryTracker.Kills.RegisterKill(ModContent.GetInstance<Kraid_ArmBack>().NPC);
+			Main.BestiaryTracker.Kills.RegisterKill(ModContent.GetInstance<Kraid_ArmFront>().NPC);
+			Main.BestiaryTracker.Kills.RegisterKill(ModContent.GetInstance<Kraid_Body>().NPC);
 		}
 
 

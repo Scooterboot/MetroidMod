@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
@@ -39,13 +40,13 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 
-			/*NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
 			{
-				CustomTexturePath = "ExampleMod/Assets/Textures/Bestiary/MinionBoss_Preview",
+				CustomTexturePath = $"{nameof(MetroidModPorted)}/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog",
 				PortraitScale = 0.6f, // Portrait refers to the full picture when clicking on the icon in the bestiary
 				PortraitPositionYOverride = 0f,
 			};
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);*/
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 		public override void SetDefaults()
 		{
@@ -71,6 +72,14 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			if (!Main.dedServ) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Torizo"); }
 			//BossBag = ModContent.ItemType<Items.Boss.GoldenTorizoBag>();
 			NPC.chaseable = false;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("An enhanced version of the Torizo Statue but with golden armor plating. While this one lacks the spiritual possession, it is far more dangerous than the lumbering machines the Gizzard tribe possess. Its energy waves are much faster and follow any hostile target. The Golden armor plating gives it extraordinary defenses and an energy shield while jumping. Be careful to avoid it if you don't want a nasty end!")
+			});
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{

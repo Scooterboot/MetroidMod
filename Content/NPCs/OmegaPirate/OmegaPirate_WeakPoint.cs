@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 {
 	public class OmegaPirate_WeakPoint : ModNPC
 	{
-		public override string Texture
-		{
-			get
-			{
-				return Mod.Name + "/Content/NPCs/OmegaPirate/OmegaPirate_ArmShoulderRight";
-			}
-		}
+		public override string Texture => $"{Mod.Name}/Content/NPCs/OmegaPirate/OmegaPirate_ArmShoulderRight";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Omega Pirate");
@@ -55,6 +50,16 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			NPC.noTileCollide = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<OmegaPirate>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("An experiment created by the space pirates. It is a hulking monster corrupted by a biomass known as Phazon. It's capable of absorbing projectiles with its hands and firing grenades from a distance. Get too close and it will react by smashing the ground to create an energy wave. Even if you smash its armor the creature will go invisible and attempt to absorb Phazon to repair its defenses.")
+			});
 		}
 		public override bool PreAI()
 		{

@@ -3,6 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,15 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 		}
-		
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("An enhanced version of the Torizo Statue but with golden armor plating. While this one lacks the spiritual possession it is far more dangerous than the lumbering machines the Gizzard tribe possess. Its energy waves are much faster and follow any hostile target. The Golden armor plating gives it extraordinary defenses and an energy shield while jumping. Be careful to avoid it if you don't want a nasty end!\n\nThis is a hitbox. What are you looking at?")
+			});
+		}
+
 		NPC Base
 		{
 			get { return Main.npc[(int)NPC.ai[0]]; }
