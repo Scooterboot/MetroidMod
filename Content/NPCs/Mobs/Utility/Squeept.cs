@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,6 +34,14 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Utility
 
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("A useful step stool when frozen. Found in burning hot places.")
+			});
 		}
 
 		public override bool PreAI()

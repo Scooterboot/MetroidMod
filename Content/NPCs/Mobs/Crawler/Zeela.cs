@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
@@ -42,6 +44,14 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 			mNPC.crawlSpeed = 0.75f;
 			
 			SetStats();
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundJungle,
+				new FlavorTextBestiaryInfoElement("A crab like creature with giant eyes. It's usually found in the jungle.")
+			});
 		}
 		private void SetStats()
 		{

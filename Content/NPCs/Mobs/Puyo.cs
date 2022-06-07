@@ -6,6 +6,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidModPorted.Common.GlobalNPCs;
+using Terraria.GameContent.Bestiary;
+using System.Collections.Generic;
 
 namespace MetroidModPorted.Content.NPCs.Mobs
 {
@@ -38,6 +40,14 @@ namespace MetroidModPorted.Content.NPCs.Mobs
 				newScale = (Main.rand.Next(13, 21) * 0.1f);
 				newXFrame = Main.rand.Next(0, 3) * 30;
 			}
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("A creature that's much like a slime but stretches itself to move rather than jump.")
+			});
 		}
 
 		public bool spawn = false;

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,6 +29,14 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Bug
 
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("A hive that the Kago live in, its inhabitants attack when the hive is endangered.")
+			});
 		}
 		public override bool PreAI()
 		{

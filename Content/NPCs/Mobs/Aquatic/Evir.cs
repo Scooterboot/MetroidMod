@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
@@ -21,14 +22,6 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Aquatic
 		{
 			Main.npcFrameCount[Type] = 4;
 		}
-
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-		{
-			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-
-				new FlavorTextBestiaryInfoElement("This is a native creature from the depths of Zebes. After the crash of the pirates, they managed to adapt to the oceans of this world. They have a hard outer shell, with a weak chest. Hit their belly to hurt them.")
-			});
-		}
 		public override void SetDefaults()
 		{
 			NPC.width = 30; NPC.height = 34;
@@ -44,6 +37,14 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Aquatic
 			NPC.noGravity = true;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("The spawn of a large creature that likes to trap its prey by getting it stuck to itself.")
+			});
 		}
 
 		public override bool PreAI()

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
@@ -43,6 +45,15 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 			NPC.buffImmune[BuffID.CursedInferno] = true;
 			
 			mNPC.crawlSpeed = 1f;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
+				new FlavorTextBestiaryInfoElement("A moving orb with a strange face… Glows in the dark and is useful for light sources.")
+			});
 		}
 		int frameNum = 1;
 		public override bool PreAI()

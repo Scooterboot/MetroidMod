@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
@@ -41,6 +43,15 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 			NPC.behindTiles = true;
 			
 			mNPC.crawlSpeed = 0.5f;
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
+				new FlavorTextBestiaryInfoElement("A spiky hard shell creature that is famous for its namesake uses its shell as a defensive mechanism.")
+			});
 		}
 		public override bool PreAI()
 		{
