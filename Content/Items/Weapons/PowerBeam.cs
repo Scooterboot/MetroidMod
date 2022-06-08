@@ -1431,16 +1431,16 @@ namespace MetroidModPorted.Content.Items.Weapons
 
 			Item.Prefix(Item.prefix);
 
-			/*if (isPhazon)
+			if (isPhazon)
 			{
 				Item.useAnimation = 9;
 				Item.useTime = 3;
-				Item.UseSound = new SoundStyle(Mod, "Assets/Sounds/PhazonBeamSound");
+				Item.UseSound = new SoundStyle($"{Mod}/Assets/Sounds/PhazonBeamSound");
 			}
 			else
-			{*/
+			{
 				Item.UseSound = null;
-			//}
+			}
 		}
 		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
@@ -1499,7 +1499,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			}
 		}
 
-		/*public override void ModifyTooltips(List<TooltipLine> tooltips)
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			base.ModifyTooltips(tooltips);
 
@@ -1541,11 +1541,11 @@ namespace MetroidModPorted.Content.Items.Weapons
 					num19 = Math.Round(num19);
 					if (num19 > 0.0)
 					{
-						tooltips[k].text = "+" + num19 + Lang.tip[39].Value;
+						tooltips[k].Text = "+" + num19 + Lang.tip[39].Value;
 					}
 					else
 					{
-						tooltips[k].text = num19 + Lang.tip[39].Value;
+						tooltips[k].Text = num19 + Lang.tip[39].Value;
 					}
 				}
 				if (tooltips[k].Name == "PrefixSpeed")
@@ -1556,15 +1556,15 @@ namespace MetroidModPorted.Content.Items.Weapons
 					num20 *= -1.0;
 					if (num20 > 0.0)
 					{
-						tooltips[k].text = "+" + num20 + Lang.tip[40].Value;
+						tooltips[k].Text = "+" + num20 + Lang.tip[40].Value;
 					}
 					else
 					{
-						tooltips[k].text = num20 + Lang.tip[40].Value;
+						tooltips[k].Text = num20 + Lang.tip[40].Value;
 					}
 				}
 			}
-		}*/
+		}
 
 		/*public override void GetWeaponDamage(Player P, ref int dmg)
 		{
