@@ -129,16 +129,15 @@ namespace MetroidModPorted
 					bool spiderBall = reader.ReadBoolean();
 					int boostEffect = reader.ReadInt32();
 					int boostCharge = reader.ReadInt32();
-					Item[] SuitAddons = new Item[SuitAddonSlotID.Count];
-					for (int i = 0; i < SuitAddons.Length; ++i)
-					{
-						SuitAddons[i] = ItemIO.Receive(reader);
-					}
+					int energyTanks = reader.ReadInt32();
+					int energy = reader.ReadInt32();
 
 					targetPlayer.statCharge = (float)statCharge;
 					targetPlayer.spiderball = spiderBall;
 					targetPlayer.boostEffect = boostEffect;
 					targetPlayer.boostCharge = boostCharge;
+					targetPlayer.EnergyTanks = energyTanks;
+					targetPlayer.Energy = energy;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
@@ -149,10 +148,8 @@ namespace MetroidModPorted
 						packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
-						for (int i = 0; i < SuitAddons.Length; ++i)
-						{
-							ItemIO.Send(SuitAddons[i], packet);
-						}
+						packet.Write(energyTanks);
+						packet.Write(energy);
 						packet.Send(-1, playerID);
 					}
 					break;
