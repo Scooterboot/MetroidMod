@@ -3,9 +3,7 @@
 
  -	Get new textures for:
 	 -	Varia Suit item and tile
-	 -	Varia Suit V2 item and tile
 	 -	Solar Light Suit
-	 -	Gravity Suit item and tile
 	 -	tiles for ALL of the Missile Addons
  -	UI Fixes (specifically custom textures)
  -	Implement 'Energy Bar' UI (use for Energy Tanks other than being a crafting ingredient and a tile)
