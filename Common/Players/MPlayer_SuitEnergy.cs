@@ -39,6 +39,9 @@ namespace MetroidModPorted.Common.Players
 		/// </summary>
 		public int Energy = 0;
 
+		public int SuitReserves = 0;
+		public int SuitReserveTanks = 0;
+
 		public void ResetEffects_SuitEnergy()
 		{
 			EnergyDefenseEfficiency = 0f;

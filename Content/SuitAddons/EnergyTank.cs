@@ -19,6 +19,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		{
 			DisplayName.SetDefault("Energy Tank");
 			Tooltip.SetDefault("Grants the user an extra tank of energy.");
+			ItemNameLiteral = true;
 			SacrificeTotal = 10;
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;
 		}

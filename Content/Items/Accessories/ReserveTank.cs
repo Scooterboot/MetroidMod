@@ -9,7 +9,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reserve Tank");
+			DisplayName.SetDefault("Life Reserve Tank");
 			Tooltip.SetDefault("Stores a heart picked up when at full health\n" + 
 				"Automatically uses the stored heart to save you from death");
 
@@ -39,23 +39,15 @@ namespace MetroidModPorted.Content.Items.Accessories
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
-				.AddIngredient(ItemID.LifeCrystal, 1)
-				.AddTile(TileID.Anvils)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.ReserveTank>().ItemType, 1)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "EnergyTank", 1);
-			recipe.AddIngredient(ItemID.LifeCrystal);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 	}
 	public class ReserveTank2 : RTankAccessory
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reserve Tank MK2");
+			DisplayName.SetDefault("Life Reserve Tank MK2");
 			Tooltip.SetDefault("Stores up to 2 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death");
 
@@ -99,7 +91,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reserve Tank MK3");
+			DisplayName.SetDefault("Life Reserve Tank MK3");
 			Tooltip.SetDefault("Stores up to 3 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death");
 
@@ -147,7 +139,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reserve Tank MK4");
+			DisplayName.SetDefault("Life Reserve Tank MK4");
 			Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death");
 
@@ -193,7 +185,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reserve Tank MK5");
+			DisplayName.SetDefault("Life Reserve Tank MK5");
 			Tooltip.SetDefault("Stores up to 4 hearts picked up when at full health\n" + 
 				"Automatically uses the stored hearts to save you from death\n" + 
 				"Stored hearts restore 25 health each");
