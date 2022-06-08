@@ -15,6 +15,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons
 			"~Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies\n" + 
 			"~Charge shots and flares deal 3x damage\n" +
 			"~Costs 5 missiles");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 			"Hold Click to charge\n" + 
 			"~Rapidly fires piercing projectiles at full charge\n" + 
 			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

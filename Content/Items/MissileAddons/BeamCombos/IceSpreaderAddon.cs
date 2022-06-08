@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 			"Hold Click to charge\n" + 
 			"~Charge shots cover terrain in ice on impact, freezing enemies\n" + 
 			"~Charge shots cost 10 missiles");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

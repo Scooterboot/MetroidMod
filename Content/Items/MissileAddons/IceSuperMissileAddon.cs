@@ -15,6 +15,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons
 			"Shots freeze enemies instantly\n" + 
 			string.Format("[c/78BE78:+250% damage]\n") +
 			string.Format("[c/BE7878:-50% speed]"));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 			"Hold Click to charge\n" + 
 			"~Creates a tethered mass of Nebula energy that lashes at foes when fully charged\n" + 
 			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

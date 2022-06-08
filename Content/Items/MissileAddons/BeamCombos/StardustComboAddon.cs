@@ -16,6 +16,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 			"~Additionally a Stardust Guardian spawns at the center which attacks any enemy caught in the ice\n" + 
 			"~Charge shots cost 10 missiles\n" +
 			"Both the ice and the Guardian last 20 seconds");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

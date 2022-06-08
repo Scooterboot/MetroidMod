@@ -15,6 +15,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons
 			"Shots create lingering masses of Nebula energy on impact that continually damage foes\n" + 
 			string.Format("[c/78BE78:+400% damage]\n") +
 			string.Format("[c/BE7878:-50% speed]"));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

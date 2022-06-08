@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 			"Hold Click to charge\n" + 
 			"~Fires a spray of 5 missiles\n" + 
 			"~Costs 5 missiles");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

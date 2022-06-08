@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons
 			"Slot Type: Primary\n" +
 			"Shots freeze enemies instantly\n" + 
 			string.Format("[c/78BE78:+50% damage]"));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

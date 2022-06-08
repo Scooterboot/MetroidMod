@@ -14,6 +14,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons
 			"Shots are more powerful and create a larger explosion\n" + 
 			string.Format("[c/78BE78:+200% damage]\n") +
 			string.Format("[c/BE7878:-50% speed]"));
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

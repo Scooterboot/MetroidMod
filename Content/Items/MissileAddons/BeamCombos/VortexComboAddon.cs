@@ -16,6 +16,8 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 			"~Each vortex fires a blast after 2 seconds\n" + 
 			"~Releasing the charge makes all vortexes immediately fire\n" + 
 			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
