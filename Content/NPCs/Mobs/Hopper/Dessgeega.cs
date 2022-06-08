@@ -166,6 +166,16 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Hopper
 		{
 			DisplayName.SetDefault("Large Dessgeega");
 			Main.npcFrameCount[NPC.type] = 3;
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					BuffID.OnFire,
+					BuffID.CursedInferno
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -194,8 +204,6 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Hopper
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 			NPC.lavaImmune = true;
-			NPC.buffImmune[BuffID.OnFire] = true;
-			NPC.buffImmune[BuffID.CursedInferno] = true;
 		}
 		
 		public override bool PreAI()

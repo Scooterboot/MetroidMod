@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,6 +27,17 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
 		{
 			DisplayName.SetDefault("Larval Metroid");
 			Main.npcFrameCount[Type] = 4;
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] {
+					BuffID.Poisoned,
+					BuffID.OnFire,
+					BuffID.CursedInferno
+				}
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 
 		public override void SetDefaults()
@@ -44,9 +56,6 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
 			NPC.npcSlots = 1;
 			//banner = npc.type;
 			//bannerItem = mod.ItemType("MetroidBanner");
-			NPC.buffImmune[BuffID.Poisoned] = true;
-			NPC.buffImmune[BuffID.OnFire] = true;
-			NPC.buffImmune[BuffID.CursedInferno] = true;
 
 			/* NPC scale networking fix. */
 			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)

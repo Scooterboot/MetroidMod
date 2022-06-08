@@ -49,12 +49,6 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 			NPC.behindTiles = false;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 0;
-			/*NPC.buffImmune[20] = true;
-			NPC.buffImmune[24] = true;
-			NPC.buffImmune[31] = true;
-			NPC.buffImmune[39] = true;
-			NPC.buffImmune[44] = true;
-			NPC.buffImmune[mod.BuffType("PhazonDebuff")] = true;*/
 			
 			NPC.dontTakeDamage = true;
 			NPC.noTileCollide = true;

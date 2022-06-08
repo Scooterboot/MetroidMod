@@ -34,6 +34,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
 			{
 				SpecificallyImmuneTo = new int[] {
+					31,
 					ModContent.BuffType<Buffs.IceFreeze>(),
 					ModContent.BuffType<Buffs.InstantFreeze>()
 				}
@@ -66,7 +67,6 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			NPC.noGravity = false;
 			NPC.noTileCollide = false;
 			NPC.behindTiles = true;
-			NPC.buffImmune[31] = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 			if (!Main.dedServ) { Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Torizo"); }

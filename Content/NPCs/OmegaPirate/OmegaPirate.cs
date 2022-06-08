@@ -61,6 +61,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			NPC.noTileCollide = false;
 			NPC.noGravity = false;
 			NPC.behindTiles = true;
+			// is this even needed?
 			for (int i = 0; i < NPC.buffImmune.Length; i++)
 			{
 				NPC.buffImmune[i] = true;
