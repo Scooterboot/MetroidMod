@@ -7,14 +7,12 @@ using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Content.Buffs
 {
-	public class EnergyRecharge : ModBuff
+	public class EnergyRechargeDevtool : ModBuff
 	{
-		// temporary until an actual resprite is done for this
-		public override string Texture => $"{Mod.Name}/Content/Buffs/EnergyRechargeDevtool";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Recharging Suit Energy and Suit Energy reserves");
-			Description.SetDefault("Using energy station, cant move");
+			DisplayName.SetDefault("Recharging Life");
+			Description.SetDefault("Using rejuvination station, cant move");
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}
@@ -23,7 +21,9 @@ namespace MetroidModPorted.Content.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			if ((/*player.statLife >= player.statLifeMax2 && mp.reserveHearts >= mp.reserveTanks && */mp.Energy >= mp.MaxEnergy) || player.controlJump || player.controlUseItem)
+			// should reserve hearts (not reserve tanks, those are different)
+			// still be recharged by this?
+			if ((player.statLife >= player.statLifeMax2 && mp.reserveHearts >= mp.reserveTanks) || player.controlJump || player.controlUseItem)
 			{
 				if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{
@@ -36,17 +36,13 @@ namespace MetroidModPorted.Content.Buffs
 			}
 			else
 			{
-				/*if (player.statLife < player.statLifeMax2)
+				if (player.statLife < player.statLifeMax2)
 				{
 					player.statLife++;
 				}
 				if (mp.reserveHearts < mp.reserveTanks)
 				{
 					mp.reserveHearts++;
-				}*/
-				if (mp.Energy < mp.MaxEnergy)
-				{
-					mp.Energy++;
 				}
 				player.buffTime[buffIndex] = 2;
 				player.controlLeft = false;

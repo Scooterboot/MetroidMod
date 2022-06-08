@@ -9,8 +9,7 @@ namespace MetroidModPorted.Content.Items.Tiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Energy Station");
-			Tooltip.SetDefault("Right click the station while standing next to it to recharge your life\n"+
-			"Unobtainable. Intended for adventure map creators.");
+			Tooltip.SetDefault("Right click the station while standing next to it to recharge your suit's energy.");
 
 			SacrificeTotal = 1;
 		}
@@ -26,6 +25,15 @@ namespace MetroidModPorted.Content.Items.Tiles
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.EnergyStation>();
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
+				.AddRecipeGroup("IronBar", 5)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 	}
 }
