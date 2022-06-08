@@ -30,7 +30,7 @@ namespace MetroidModPorted.Content.Items.Boss
 		public override void OpenBossBag(Player player)
 		{
 			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.KraidTissue>(), Main.rand.Next(35, 66));
-			//player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<UnknownPlasmaBeam>());
+			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.UnknownPlasmaBeam>());
 			if (Main.rand.NextBool(5))
 			{
 				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.KraidTrophy>());
