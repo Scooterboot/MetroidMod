@@ -39,7 +39,7 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		}
 
 		// Netsyncing ?
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem)
 			{
@@ -48,8 +48,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 				{
 					MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] = placeType;
 					Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, pos);
+					return true;
 				}
 			}
+			return false;
 		}
 
 		/*public override void AddRecipes()
@@ -72,10 +74,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.FakeHint;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class BombBlock : FakeBlock
@@ -88,10 +90,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.Bomb;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class BombBlockChain : FakeBlock
@@ -104,10 +106,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.BombChain;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class CrumbleBlock : FakeBlock
@@ -119,10 +121,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.CrumbleInstant;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class CrumbleBlockSpeed : FakeBlock
@@ -135,10 +137,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.CrumbleSpeed;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class CrumbleBlockSlow : FakeBlock
@@ -151,10 +153,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.CrumbleSlow;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class MissileBlock : FakeBlock
@@ -167,10 +169,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.Missile;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class SuperMissileBlock : FakeBlock
@@ -183,10 +185,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.SuperMissile;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class PowerBombBlock : FakeBlock
@@ -199,10 +201,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.PowerBomb;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class BoostBlock : FakeBlock
@@ -215,10 +217,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.Boost;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 	public class ScrewAttackBlock : FakeBlock
@@ -231,10 +233,10 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 
 			SacrificeTotal = 100;
 		}
-		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
+		public override bool? UseItem(Player player)
 		{
 			placeType = BreakableTileID.ScrewAttack;
-			base.UseItemHitbox(player, ref hitbox, ref noHitbox);
+			return base.UseItem(player);
 		}
 	}
 }

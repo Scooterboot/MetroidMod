@@ -473,51 +473,51 @@ namespace MetroidModPorted.Common.Systems
 						}
 						if (mBlockType[i, j] == 1)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 2)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 3)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/BombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/BombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 4)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/MissileBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/MissileBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 5)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/FakeBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/FakeBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 6)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/BoostBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/BoostBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 7)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/PowerBombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/PowerBombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 8)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/SuperMissileBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/SuperMissileBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 9)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/ScrewAttackBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/ScrewAttackBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 10)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/FakeBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/FakeBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 11)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 						if (mBlockType[i, j] == 12)
 						{
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/BombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/BombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 					}
 					if (!revealed)
@@ -525,7 +525,7 @@ namespace MetroidModPorted.Common.Systems
 						if (mBlockType[i, j] == 10)
 						{
 							color = new Color(color.R, color.G, color.B, 64);
-							spriteBatch.Draw(ModContent.Request<Texture2D>("Assets/Textures/Breakable/FakeBlockHint").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/FakeBlockHint").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 						}
 					}
 
