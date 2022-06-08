@@ -88,7 +88,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				float leadDist = Vector2.Distance(oPos,Lead.Center);
 				for(float i = leadDist; i < P.ai[1]; i += P.width)
 				{
-					if (Main.rand.Next(25) == 0)
+					if (Main.rand.NextBool(25))
 					{
 						float k = Math.Min(i, P.ai[1]);
 						Vector2 dPos = (oPos - P.Size/2) + P.velocity * k;
@@ -97,7 +97,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				}
 				
 				Vector2 dustPos = oPos + P.velocity * P.ai[1];
-				float num1 = P.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1.0f : 1.0f) * 1.57f;
+				float num1 = P.velocity.ToRotation() + (Main.rand.NextBool(2) ? 1.0f : -1.0f) * 1.57f;
 				float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
 				Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
 				Dust dust = Main.dust[Dust.NewDust(dustPos, 0, 0, 75, dustVel.X, dustVel.Y, 100, default(Color), 2f)];

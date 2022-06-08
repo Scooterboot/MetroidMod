@@ -37,7 +37,7 @@ namespace MetroidModPorted.Content.NPCs
 				{
 					n.velocity.Y = -maxSpeedY * directionY;
 					n.velocity.X = maxSpeedX * n.direction;
-					if(Main.rand.Next(2) == 0)
+					if(Main.rand.NextBool(2))
 					{
 						n.velocity.Y *= 0.75f;
 					}
@@ -68,7 +68,7 @@ namespace MetroidModPorted.Content.NPCs
 			if(n.ai[2] == 0f)
 			{
 				directionY = 1;
-				if(Main.rand.Next(2) == 0)
+				if(Main.rand.NextBool(2))
 				{
 					directionY = -1;
 				}
@@ -188,7 +188,7 @@ namespace MetroidModPorted.Content.NPCs
 				n.ai[0] = 1f;
 				
 				n.direction = 1;
-				if(Main.rand.Next(2) == 0)
+				if(Main.rand.NextBool(2))
 				{
 					n.direction = -1;
 				}

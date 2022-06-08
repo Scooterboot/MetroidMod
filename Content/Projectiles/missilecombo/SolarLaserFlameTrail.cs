@@ -55,7 +55,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				{
 					int num300 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 6, P.velocity.X * 0.2f, P.velocity.Y * 0.2f, 100, default(Color), 1f);
 					Dust dust3;
-					if(Main.rand.Next(3) != 0)
+					if(!Main.rand.NextBool(3))
 					{
 						Main.dust[num300].noGravity = true;
 						dust3 = Main.dust[num300];

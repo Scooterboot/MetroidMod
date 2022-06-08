@@ -357,7 +357,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 					
 					Lighting.AddLight(pos[i], (MetroidModPorted.waveColor2.R / 255f) * P.scale, (MetroidModPorted.waveColor2.G / 255f) * P.scale, (MetroidModPorted.waveColor2.B / 255f) * P.scale);
 					
-					if (Main.rand.Next(25) == 0)
+					if (Main.rand.NextBool(25))
 					{
 						Vector2 dPos = pos[i]-new Vector2(tex.Width/2,tex.Width/2);
 						Main.dust[Dust.NewDust(dPos, tex.Width, tex.Width, 62, 0, 0, 100, default(Color), 2f)].noGravity=true;

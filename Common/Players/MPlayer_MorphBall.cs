@@ -496,7 +496,7 @@ namespace MetroidModPorted.Common.Players
 						SoundEngine.PlaySound(SoundID.Item22, p.position);
 						p.runSoundDelay = 30;
 					}
-					if (Main.rand.Next(6) == 0)
+					if (Main.rand.NextBool(6))
 					{
 						int num123 = Dust.NewDust(p.position + p.velocity * (float)Main.rand.Next(6, 10) * 0.1f, p.width, p.height, DustID.Smoke, 0f, 0f, 80, default(Color), 1.5f);
 						Dust expr_5B99_cp_0 = Main.dust[num123];

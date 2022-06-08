@@ -117,10 +117,10 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 					if(sPos.X > Main.screenPosition.X-100f && sPos.X < Main.screenPosition.X+Main.screenWidth+100f &&
 						sPos.Y > Main.screenPosition.Y-100f && sPos.Y < Main.screenPosition.Y+Main.screenHeight+100f)
 					{
-						if (Main.rand.Next(50) == 0 && P.ai[1] > leadDist)
+						if (Main.rand.NextBool(50) && P.ai[1] > leadDist)
 						{
 							int numX = 1;
-							if(Main.rand.Next(2) == 0)
+							if(Main.rand.NextBool(2))
 							{
 								numX = -1;
 							}
@@ -133,7 +133,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 							sProj.localAI[1] = (Main.rand.Next(50) + 60) * numX;
 						}
 						
-						if (Main.rand.Next(10) == 0)
+						if (Main.rand.NextBool(10))
 						{
 							float k = Math.Min(i, P.ai[1]);
 							Vector2 dPos = (oPos - (P.Size/2f)*scaleUp) + P.velocity * k;
@@ -144,7 +144,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				
 				Vector2 dustPos = oPos - (P.Size/2f)*scaleUp + P.velocity * P.ai[1];
 				int size = (int)((float)P.width*scaleUp);
-				float num1 = P.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1.0f : 1.0f) * 1.57f;
+				float num1 = P.velocity.ToRotation() + (Main.rand.NextBool(2)? -1.0f : 1.0f) * 1.57f;
 				float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
 				Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
 				Dust dust = Main.dust[Dust.NewDust(dustPos, size, size, 6, dustVel.X, dustVel.Y, 100, default(Color), 4f)];

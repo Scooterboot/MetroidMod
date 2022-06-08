@@ -452,7 +452,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 				Player player = Main.player[NPC.target];
 				
 				NPC.direction = 1;
-				if (Main.rand.Next(2) == 0)
+				if (Main.rand.NextBool(2))
 					NPC.direction = -1;
 
 				NPC.velocity.Y = 0.1f;

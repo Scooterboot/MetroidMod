@@ -33,7 +33,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 			if(!initialize)
 			{
 				//num = Main.rand.Next(16);
-				if(Main.rand.Next(2) == 0)
+				if(Main.rand.NextBool(2))
 				{
 					dir = -1;
 				}

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace MetroidModPorted.Content.Projectiles.missilecombo
 {
@@ -81,7 +82,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				pos.Y *= len;
 				segmentPos[i] += pos;
 				
-				if (Main.rand.Next(30) == 0)
+				if (Main.rand.NextBool(30))
 				{
 					Vector2 dustPos = segmentPos[i] - new Vector2(P.width/2,P.height/2);
 					int num1049 = Dust.NewDust(dustPos, P.width, P.height, 135, 0f, 0f, 0, default(Color), 2f);
@@ -114,9 +115,9 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 			{
 				for (int num70 = 0; num70 < 5; num70++)
 				{
-					int num71 = Dust.NewDust(Projectile.oldPos[i], Projectile.width, Projectile.height, 88, 0f, 0f, 100, default(Color), 4f);
+					int num71 = Dust.NewDust(Projectile.oldPos[i], Projectile.width, Projectile.height, DustID.GemSapphire, 0f, 0f, 100, default(Color), 4f);
 					Main.dust[num71].noGravity = true;
-					num71 = Dust.NewDust(Projectile.oldPos[i], Projectile.width, Projectile.height, 87, 0f, 0f, 100, default(Color), 2f);
+					num71 = Dust.NewDust(Projectile.oldPos[i], Projectile.width, Projectile.height, DustID.GemTopaz, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num71].noGravity = true;
 				}
 			}

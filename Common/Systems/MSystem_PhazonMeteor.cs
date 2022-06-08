@@ -237,7 +237,7 @@ namespace MetroidModPorted.Common.Systems
 			// Second generation spread pass of Phazon Tiles.
 			GeneratePhazonChunkAt(genX, genY, WorldGen.genRand.Next(23, 32), (x, y, margin) =>
 			{
-				if (y > genY + WorldGen.genRand.Next(-3, 4) - 3 && Main.tile[x, y].HasTile && Main.rand.Next(10) == 0)
+				if (y > genY + WorldGen.genRand.Next(-3, 4) - 3 && Main.tile[x, y].HasTile && Main.rand.NextBool(10))
 				{
 					float distance = new Vector2(genX - x, genY - y).Length();
 					if (distance < margin * 0.8f)
@@ -255,7 +255,7 @@ namespace MetroidModPorted.Common.Systems
 			// Third generation spread pass of Phazon Tiles.
 			GeneratePhazonChunkAt(genX, genY, WorldGen.genRand.Next(30, 38), (x, y, margin) =>
 			{
-				if (y > genY + WorldGen.genRand.Next(-2, 3) && Main.tile[x, y].HasTile && Main.rand.Next(20) == 0)
+				if (y > genY + WorldGen.genRand.Next(-2, 3) && Main.tile[x, y].HasTile && Main.rand.NextBool(20))
 				{
 					float distance = new Vector2(genX - x, genY - y).Length();
 					if (distance < margin * 0.85f)

@@ -244,7 +244,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 				{
 					var entitySource = NPC.GetSource_FromAI();
 					NPC.netUpdate = true;
-					int dir = Main.rand.Next(2) == 1 ? -1 : 1;
+					int dir = Main.rand.NextBool(2)? -1 : 1;
 
 					direction = -dir;
 					NPC.direction = direction;

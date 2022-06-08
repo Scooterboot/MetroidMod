@@ -66,7 +66,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 					}
 				}
 				P.spriteDirection = 1;
-				if(Main.rand.Next(2) == 0)
+				if(Main.rand.NextBool(2))
 				{
 					P.spriteDirection = -1;
 				}

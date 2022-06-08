@@ -179,7 +179,7 @@ namespace MetroidModPorted.Content.Projectiles.missiles
 			int num3;
 			for (int num1012 = 0; num1012 < 1; num1012 = num3 + 1)
 			{
-				if (Main.rand.Next(2) == 0)
+				if (Main.rand.NextBool(2))
 				{
 					Vector2 vector141 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
 					Dust dust124 = Main.dust[Dust.NewDust(P.Center - vector141 * 30f, 0, 0, 86, 0f, 0f, 0, default(Color), 1f)];

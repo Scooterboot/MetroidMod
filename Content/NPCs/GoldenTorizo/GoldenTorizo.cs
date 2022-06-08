@@ -324,7 +324,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 				if(NPC.ai[1] == 0)
 				{
 					NPC.direction = 1;
-					if (Main.rand.Next(2) == 0)
+					if (Main.rand.NextBool(2))
 						NPC.direction = -1;
 
 					NPC.velocity.X = 0f;
@@ -879,7 +879,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 						{
 							if(NPC.ai[1] == 0)
 							{
-								if(Main.rand.Next(2) == 0)
+								if(Main.rand.NextBool(2))
 								{
 									NPC.ai[1] = -1;
 								}

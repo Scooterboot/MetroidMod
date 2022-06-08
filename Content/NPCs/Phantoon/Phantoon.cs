@@ -380,7 +380,7 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 						{
 							if (Main.netMode != NetmodeID.MultiplayerClient)
 							{
-								NPC.Center = new Vector2(Main.player[NPC.target].Center.X + (100 + Main.rand.Next(101)) * ((Main.rand.Next(2) == 0) ? 1 : -1), Main.player[NPC.target].Center.Y - 100 - Main.rand.Next(201));
+								NPC.Center = new Vector2(Main.player[NPC.target].Center.X + (100 + Main.rand.Next(101)) * ((Main.rand.NextBool(2)) ? 1 : -1), Main.player[NPC.target].Center.Y - 100 - Main.rand.Next(201));
 
 								if (Main.rand.Next(100) < fireBallRand[2, 1])
 								{

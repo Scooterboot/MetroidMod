@@ -119,7 +119,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 								}
 							}
 						}
-						else if(P.ai[1] == -1 && Main.rand.Next(2) == 0 && !checkbreak)
+						else if(P.ai[1] == -1 && Main.rand.NextBool(2) && !checkbreak)
 						{
 							P.ai[1] = i;
 						}
