@@ -101,10 +101,10 @@ namespace MetroidModPorted.Content.Items.Weapons
 			{
 				return false;
 			}
-			/*if (beamMods[0].type == ModContent.ItemType("PhazonBeamAddon>() && !mp.canUsePhazonBeam)
+			if (BeamMods[0].type == ModContent.ItemType<Addons.PhazonBeamAddon>() && !mp.canUsePhazonBeam)
 			{
 				return false;
-			}*/
+			}
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
 		}
 
