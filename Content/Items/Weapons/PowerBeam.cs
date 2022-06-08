@@ -1435,7 +1435,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			{
 				Item.useAnimation = 9;
 				Item.useTime = 3;
-				Item.UseSound = new SoundStyle($"{Mod}/Assets/Sounds/PhazonBeamSound");
+				Item.UseSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/PhazonBeamSound");
 			}
 			else
 			{
