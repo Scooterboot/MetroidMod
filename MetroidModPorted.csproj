@@ -24,7 +24,7 @@
     <Folder Include="Assets\Textures\SuitAddons\ReserveTank\" />
     <Folder Include="Assets\Textures\SuitAddons\PowerGrip\" />
     <Folder Include="Content\Items\Boss\" />
-    <Folder Include="Content\Items\Vanity\" />
+    <Folder Include="Content\Items\Vanity\Suits\" />
     <Folder Include="Content\Mounts\" />
     <Folder Include="Content\Items\Accessories\" />
     <Folder Include="Content\NPCs\Mobs\Metroid\" />

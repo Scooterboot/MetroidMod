@@ -1,0 +1,61 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using MetroidModPorted.Common.Players;
+
+namespace MetroidModPorted.Content.Items.Vanity.Suits
+{
+	[AutoloadEquip(EquipType.Body)]
+	public class VanityHazardShieldSuitBreastplate : VanityPEDSuitBreastplate
+	{
+		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate";
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Outdated Hazard Shield Suit Breastplate");
+		}
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.rare = ItemRarityID.Lime;
+		}
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return head.type == ModContent.ItemType<VanityHazardShieldSuitHelmet>() && body.type == ModContent.ItemType<VanityHazardShieldSuitBreastplate>() && legs.type == ModContent.ItemType<VanityHazardShieldSuitGreaves>();
+		}
+		public override void UpdateVanitySet(Player P)
+		{
+			base.UpdateVanitySet(P);
+			MPlayer mp = P.GetModPlayer<MPlayer>();
+			mp.visorGlowColor = new Color(0, 228, 255);
+		}
+	}
+	[AutoloadEquip(EquipType.Legs)]
+	public class VanityHazardShieldSuitGreaves : VanityPEDSuitGreaves
+	{
+		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitGreaves";
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Outdated Hazard Shield Suit Greaves");
+		}
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.rare = ItemRarityID.Lime;
+		}
+	}
+	[AutoloadEquip(EquipType.Head)]
+	public class VanityHazardShieldSuitHelmet : VanityPEDSuitHelmet
+	{
+		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitHelmet";
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Outdated Hazard Shield Suit Helmet");
+		}
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Item.rare = ItemRarityID.Lime;
+		}
+	}
+}
