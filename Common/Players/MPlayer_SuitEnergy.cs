@@ -69,7 +69,7 @@ namespace MetroidModPorted.Common.Players
 			float damageToSubtractFromEnergy = Math.Max(damage * (1 - EnergyExpenseEfficiency), 1f);
 			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 			damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
-			if (damage <= 0) { damage = 1; }
+			if (damage < 0) { damage = 0; }
 		}
 		public override void UpdateLifeRegen()
 		{
