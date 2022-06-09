@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
@@ -142,6 +143,16 @@ namespace MetroidModPorted.Content.Items.Armors
 			obj.SuitAddons = SuitAddons;
 			return obj;
 		}
+
+		public override void OnResearched(bool fullyResearched)
+		{
+			foreach (Item item in SuitAddons)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+			}
+		}
 	}
 	[AutoloadEquip(EquipType.Legs)]
 	public class PowerSuitGreaves : ModItem
@@ -244,6 +255,16 @@ namespace MetroidModPorted.Content.Items.Armors
 			obj.SuitAddons = SuitAddons;
 			return obj;
 		}
+
+		public override void OnResearched(bool fullyResearched)
+		{
+			foreach (Item item in SuitAddons)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+			}
+		}
 	}
 	[AutoloadEquip(EquipType.Head)]
 	public class PowerSuitHelmet : ModItem
@@ -303,7 +324,23 @@ namespace MetroidModPorted.Content.Items.Armors
 				.Register();
 		}
 
-		public override void OnCraft(Recipe recipe) => SuitAddons[0] = SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().Item;
+		public override void OnCreate(ItemCreationContext context)
+		{
+			if (context is RecipeCreationContext)
+			{
+				Mod.Logger.Debug("HEY! MAKE DA SCAN VISOR");
+				_suitAddons = new Item[3];
+				for (int i = 0; i < _suitAddons.Length; i++)
+				{
+					_suitAddons[i] = new Item();
+					_suitAddons[i].TurnToAir();
+				}
+				_suitAddons[0] = SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().Item;//new Item();
+				//_suitAddons[0].CloneDefaults(SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().ItemType);
+				Mod.Logger.Debug(_suitAddons[0].createTile);
+			}
+		}
+
 		public override void SaveData(TagCompound tag)
 		{
 			for (int i = 0; i < SuitAddons.Length; ++i)
@@ -349,6 +386,16 @@ namespace MetroidModPorted.Content.Items.Armors
 			PowerSuitHelmet obj = (PowerSuitHelmet)base.Clone(newEntity);
 			obj.SuitAddons = SuitAddons;
 			return obj;
+		}
+
+		public override void OnResearched(bool fullyResearched)
+		{
+			foreach (Item item in SuitAddons)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+			}
 		}
 	}
 }

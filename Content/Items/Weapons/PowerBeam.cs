@@ -1444,7 +1444,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		}
 		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
-			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
+			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem mi)) { return true; }
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;
 			SetTexture(mi);
 			if (mi.itemTexture != null)
@@ -1459,7 +1459,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		}
 		public override bool PreDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
+			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem mi)) { return true; }
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;
 			SetTexture(mi);
 			if (mi.itemTexture != null)
