@@ -41,6 +41,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
+			NPC.BossBar = ModContent.GetInstance<BossBars.BossBarNone>();
 			/*for(int i = 0; i < NPC.ai.Length; i++)
 			{
 				NPC.ai[i] = 0.0f;

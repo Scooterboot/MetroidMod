@@ -2,8 +2,8 @@
 (not in any particular order)
 
  -	Get new textures for:
-	 -	Varia Suit item and tile
 	 -	Solar Light Suit
+	 -	Stardust Hazard Shield Suit
 	 -	tiles for ALL of the Missile Addons
  -	UI Fixes (specifically custom textures)
  -	Implement 'Energy Bar' UI (use for Energy Tanks other than being a crafting ingredient and a tile)
@@ -15,7 +15,11 @@
 	 -	Dark Visor (implement in Metroid Prime 2: Echoes update)
 	 -	Echo Visor (implement in Metroid Prime 2: Echoes update)
 	 -	Command Visor (implement in Metroid Prime 3: Corruption update)
+ -	Fix Torizo AI
  -	Fix Serris AI
+ -	Fix Kraid multiplayer loot bag
+ -	Fix Nightmare Core-X not spawning in multiplayer
+ -	Fix Golden Torizo AI
  -	Fix waterfall/lava bubbling sounds playing when exiting world (possibly just a tML bug)
  -	Make Scan Visor lock onto enemies
  -	Fix Energy Pickup alignment

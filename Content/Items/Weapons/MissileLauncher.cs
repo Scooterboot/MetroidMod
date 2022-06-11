@@ -97,8 +97,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 
 		public override bool CanUseItem(Player player)
 		{
-			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
-			if (player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type)
+			if (!Item.TryGetGlobalItem(out MGlobalItem mi) || player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type)
 			{
 				return false;
 			}
@@ -596,7 +595,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			float speedX = velocity.X;
 			float speedY = velocity.Y;
-			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
+			if (!Item.TryGetGlobalItem(out MGlobalItem mi)) { return true; }
 			if (isCharge)
 			{
 				int ch = Projectile.NewProjectile(source, position.X, position.Y, speedX, speedY, ModContent.ProjectileType<ChargeLead>(), damage, knockBack, player.whoAmI);
@@ -644,10 +643,9 @@ namespace MetroidModPorted.Content.Items.Weapons
 		int targetNum = 0;
 		public override void HoldItem(Player player)
 		{
-			if (player.whoAmI == Main.myPlayer)
+			if (player.whoAmI == Main.myPlayer && Item.TryGetGlobalItem(out MGlobalItem mi))
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>();
-				MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
 
 				int chCost = (int)((float)chargeCost * (mp.missileCost + 0.001f));
 				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
@@ -1011,7 +1009,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 
 		public override ModItem Clone(Item item)
 		{
-			MissileLauncher clone = (MissileLauncher)MemberwiseClone();//this.NewInstance(item);
+			MissileLauncher clone = (MissileLauncher)NewInstance(item);//this.NewInstance(item);
 			//MissileLauncher missileClone = (MissileLauncher)clone;
 			clone._missileMods = new Item[MetroidModPorted.missileSlotAmount];
 			for (int i = 0; i < MetroidModPorted.missileSlotAmount; ++i)
@@ -1036,9 +1034,16 @@ namespace MetroidModPorted.Content.Items.Weapons
 			for (int i = 0; i < MissileMods.Length; ++i)
 				tag.Add("missileItem" + i, ItemIO.Save(MissileMods[i]));
 
-			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
-			tag.Add("statMissiles", mi.statMissiles);
-			tag.Add("maxMissiles", mi.maxMissiles);
+			if (Item.TryGetGlobalItem(out MGlobalItem mi))
+			{
+				tag.Add("statMissiles", mi.statMissiles);
+				tag.Add("maxMissiles", mi.maxMissiles);
+			}
+			else
+			{
+				tag.Add("statMissiles", 0);
+				tag.Add("maxMissiles", 0);
+			}
 		}
 		public override void LoadData(TagCompound tag)
 		{

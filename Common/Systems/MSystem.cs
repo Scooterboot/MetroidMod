@@ -1402,7 +1402,7 @@ namespace MetroidModPorted.Common.Systems
 			WorldGen.PlaceTile(stepsX, y + height - 5, TileID.SandstoneBrick);
 			WorldGen.PlaceTile(stepsX + dir, y + height - 5, TileID.SandstoneBrick);
 
-			//NPC.NewNPC(8 + (x + width - 6) * 16, (y + height - 4) * 16, mod.NPCType("TorizoIdle"));
+			NPC.NewNPC(NPC.GetSource_NaturalSpawn(), 8 + (x + width - 6) * 16, (y + height - 4) * 16, ModContent.NPCType<Content.NPCs.Torizo.IdleTorizo>());
 			TorizoRoomLocation.X = x;
 			TorizoRoomLocation.Y = y;
 		}
