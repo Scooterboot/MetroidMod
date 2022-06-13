@@ -69,7 +69,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 		{
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 				new FlavorTextBestiaryInfoElement("A bio mechanical monstrosity created by a space faring species of humans. It can change it's positioning almost instantly and increase gravity to extreme conditions. If encountered it is best to destroy the gravity generator so avoiding its energy lasers is possible. While mechanical, its organic parts are not fully immune to damage. Blast the faceplate off to get to its true form! Sometimes however… a creature isn't what it appears to be…")
 			});
 		}

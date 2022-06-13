@@ -44,7 +44,6 @@ namespace MetroidModPorted.Content.NPCs.Mobs
 		{
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
 				new FlavorTextBestiaryInfoElement("Despite the name, this has nothing to do with the mammal. It releases poisonous gas to kill nearby victims. But it's usually stationary.")
 			});

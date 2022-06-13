@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
@@ -32,6 +33,16 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 				}
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<Torizo>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			{
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
+				new FlavorTextBestiaryInfoElement("Nothing mysterious at all about this thing.")
+			});
 		}
 		public override void SetDefaults()
 		{

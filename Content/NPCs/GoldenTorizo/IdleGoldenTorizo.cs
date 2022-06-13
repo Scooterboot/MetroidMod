@@ -51,7 +51,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 				new FlavorTextBestiaryInfoElement("Nope, nothing's wrong at all.")
 			});
 		}

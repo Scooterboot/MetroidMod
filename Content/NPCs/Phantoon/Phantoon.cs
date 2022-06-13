@@ -67,7 +67,7 @@ namespace MetroidModPorted.Content.NPCs.Phantoon
 		{
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 				new FlavorTextBestiaryInfoElement("An interdimensional anomaly drawn in by places of great negative emotions. Usually shipwrecks with lingering energy. The creature's only weakness is the eye in its mouth. It is capable of dematerializing at will… It's capable of spawning flaming eyes and rage hands to attack anything that gets in its way! To think that this is only the creature's head… it bears a resemblance to a certain deity…")
 			});
 		}

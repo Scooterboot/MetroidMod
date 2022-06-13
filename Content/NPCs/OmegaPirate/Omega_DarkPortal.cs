@@ -44,7 +44,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
 				new FlavorTextBestiaryInfoElement("The Omega Pirate will occasionally slip into an alternate dimension. This portal is used to perform that act.")
 			});
 		}

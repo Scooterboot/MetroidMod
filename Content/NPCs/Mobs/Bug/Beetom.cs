@@ -39,7 +39,6 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Bug
 		{
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
 				new FlavorTextBestiaryInfoElement("An absolutely foul creature that latches onto its victims and absorbs their energy. But they aren't capable of taking too many hits.")
 			});

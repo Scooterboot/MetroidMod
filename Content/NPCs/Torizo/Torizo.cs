@@ -69,7 +69,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 		{
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
-				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 				new FlavorTextBestiaryInfoElement("An autonomous machine created by the long deceased Gizzard tribe. This one guards the entrance to the Gizzard tribe catacombs. The machine is slow and lumbering, serving as a gatekeeper rather than a guardian. It moves faster however when it's head is destroyed… There seems to be something alive about it…")
 			});
 		}
