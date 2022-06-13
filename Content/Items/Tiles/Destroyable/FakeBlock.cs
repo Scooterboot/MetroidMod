@@ -41,7 +41,7 @@ namespace MetroidModPorted.Content.Items.Tiles.Destroyable
 		// Netsyncing ?
 		public override bool? UseItem(Player player)
 		{
-			if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem)
+			if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem && player.whoAmI == Main.myPlayer)
 			{
 				Vector2 pos = new(Player.tileTargetX * 16, Player.tileTargetY * 16);
 				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.None)
