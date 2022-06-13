@@ -62,6 +62,32 @@ namespace MetroidModPorted.Common.UI
 			suitAddonsPanel.textSlots = new UIText[SuitAddonSlotID.Count];
 			for (int i = 0; i < SuitAddonSlotID.Count; ++i)
 			{
+
+				suitAddonsPanel.textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
+				suitAddonsPanel.textSlots[i].SetText(SuitAddonLoader.GetAddonSlotName(i));
+				if (i <= SuitAddonSlotID.Misc_Attack)
+				{
+					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxBreastplatePositionValues[i].Y + 44;
+					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxBreastplatePositionValues[i].X - 22;
+				}
+				else if (i <= SuitAddonSlotID.Boots_Speed)
+				{
+					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].Y + 44;
+					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].X - 22;
+				}
+				else
+				{
+					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].Y + 44;
+					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].X - 22;
+				}
+				suitAddonsPanel.textSlots[i].IsWrapped = true;
+				suitAddonsPanel.textSlots[i].Width.Pixels = 88;
+				suitAddonsPanel.textSlots[i].Height.Pixels = 22;
+
+				suitAddonsPanel.Append(suitAddonsPanel.textSlots[i]);
+			}
+			for (int i = 0; i < SuitAddonSlotID.Count; ++i)
+			{
 				suitAddonsPanel.addonSlots[i] = new SuitUIItemBox();
 				if (i <= SuitAddonSlotID.Misc_Attack)
 				{
@@ -88,29 +114,6 @@ namespace MetroidModPorted.Common.UI
 				suitAddonsPanel.addonSlots[i].SetCondition();
 
 				suitAddonsPanel.Append(suitAddonsPanel.addonSlots[i]);
-
-				suitAddonsPanel.textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
-				suitAddonsPanel.textSlots[i].SetText(SuitAddonLoader.GetAddonSlotName(i));
-				if (i <= SuitAddonSlotID.Misc_Attack)
-				{
-					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxBreastplatePositionValues[i].Y + 44;
-					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxBreastplatePositionValues[i].X - 22;
-				}
-				else if (i <= SuitAddonSlotID.Boots_Speed)
-				{
-					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].Y + 44;
-					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxGreavesPositionValues[i - SuitAddonSlotID.Boots_JumpHeight].X - 22;
-				}
-				else
-				{
-					suitAddonsPanel.textSlots[i].Top.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].Y + 44;
-					suitAddonsPanel.textSlots[i].Left.Pixels = itemBoxHelmetPositionValues[i - SuitAddonSlotID.Visor_Scan].X - 22;
-				}
-				suitAddonsPanel.textSlots[i].IsWrapped = true;
-				suitAddonsPanel.textSlots[i].Width.Pixels = 88;
-				suitAddonsPanel.textSlots[i].Height.Pixels = 22;
-
-				suitAddonsPanel.Append(suitAddonsPanel.textSlots[i]);
 			}
 
 			suitAddonsPanel.SuitInfoSlots = new UIText[4];
