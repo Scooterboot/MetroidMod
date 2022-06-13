@@ -132,7 +132,7 @@ namespace MetroidModPorted.Common.GlobalNPCs
 			if (npc.type != NPCID.MotherSlime && npc.type != NPCID.CorruptSlime && npc.type != NPCID.Slimer && npc.lifeMax > 1 && npc.damage > 0)
 			{
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 2));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, 2, 6));
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, 5, 25));
 			}
 			/*if (mp.reserveTanks > 0 && mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)
 			{

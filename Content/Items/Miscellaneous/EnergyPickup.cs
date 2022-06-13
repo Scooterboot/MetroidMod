@@ -34,7 +34,7 @@ namespace MetroidModPorted.Content.Items.Miscellaneous
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.Energy += Item.stack;
 			Terraria.Audio.SoundEngine.PlaySound(Sounds.Suit.EnergyPickup, player.position);
-			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.White, Item.stack, false, false);
+			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.Magenta, Item.stack, false, false);
 			return false;
 		}
 	}
