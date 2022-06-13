@@ -27,7 +27,8 @@ namespace MetroidModPorted
 	{
 		SyncStartPlayerStats,
 		SyncPlayerStats,
-		PlaySyncedSound
+		PlaySyncedSound,
+		BestiaryUpdate
 	}
 
 	public class MetroidModPorted : Mod
@@ -167,6 +168,24 @@ namespace MetroidModPorted
 						packet.Write((byte)MetroidMessageType.PlaySyncedSound);
 						packet.Write(playerID2);
 						packet.Write(sound);
+						packet.Send(-1, whoAmI);
+					}
+					break;
+				case MetroidMessageType.BestiaryUpdate:
+					int npcType = reader.ReadInt32();
+					byte hostilityType = reader.ReadByte();
+					NPC npc = new NPC();
+					npc.SetDefaults(npcType);
+					if (hostilityType == 1) { Main.BestiaryTracker.Chats.RegisterChatStartWith(npc); }
+					else if (hostilityType == 2) { Main.BestiaryTracker.Sights.RegisterWasNearby(npc); }
+					else if (hostilityType == 3) { Main.BestiaryTracker.Kills.RegisterKill(npc); }
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						ModPacket packet = GetPacket();
+						packet.Write((byte)MetroidMessageType.BestiaryUpdate);
+						packet.Write(npcType);
+						packet.Write(hostilityType);
 						packet.Send(-1, whoAmI);
 					}
 					break;

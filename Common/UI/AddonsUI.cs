@@ -126,6 +126,8 @@ namespace MetroidModPorted.Common.UI
 				suitAddonsPanel.Append(suitAddonsPanel.SuitInfoSlots[i]);
 			}
 
+			//suitAddonsPanel.OpenReserveMenuButton = new UIImageButton(ModContent.Request<Texture2D>("ModLoader/UI/InfoDisplayPageArrow"));
+
 
 			Append(suitAddonsPanel);
 		}
@@ -158,6 +160,8 @@ namespace MetroidModPorted.Common.UI
 		public UIText[] textSlots;
 
 		public UIText[] SuitInfoSlots;
+
+		//public UIImageButton OpenReserveMenuButton;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
@@ -473,5 +477,16 @@ namespace MetroidModPorted.Common.UI
 			}
 			return null;
 		}
+	}
+	public class ReserveMenu : DragableUIPanel
+	{
+		internal static bool _visible = false;
+		public static bool Visible => SuitAddonsUI.Visible && _visible;
+
+		public UIImage[] reserveBars;
+
+		public UIText[] textSlots;
+
+		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 	}
 }

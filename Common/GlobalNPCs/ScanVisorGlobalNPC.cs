@@ -7,6 +7,7 @@ using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using Terraria.ID;
 using MetroidModPorted.Common.Players;
 
 namespace MetroidModPorted.Common.GlobalNPCs
@@ -52,6 +53,8 @@ namespace MetroidModPorted.Common.GlobalNPCs
 							if (timer >= 30)
 							{
 								Main.BestiaryTracker.Chats.RegisterChatStartWith(npc);
+								SendUpdateBestiary(npc, 1);
+
 								timer = 0;
 								sound.Sound.Stop(true);
 								soundIsPlaying = false;
@@ -68,6 +71,7 @@ namespace MetroidModPorted.Common.GlobalNPCs
 							if (timer >= 30)
 							{
 								Main.BestiaryTracker.Sights.RegisterWasNearby(npc);
+								SendUpdateBestiary(npc, 2);
 								timer = 0;
 								sound.Sound.Stop(true);
 								soundIsPlaying = false;
@@ -84,6 +88,7 @@ namespace MetroidModPorted.Common.GlobalNPCs
 					if (killCount < killTotalNeeded && timer >= (killTotalNeeded == 1 ? 60 : 1.2))
 					{
 						Main.BestiaryTracker.Kills.RegisterKill(npc);
+						SendUpdateBestiary(npc, 3);
 						timer = 0;
 					}
 					if (killCount >= killTotalNeeded)
@@ -101,6 +106,17 @@ namespace MetroidModPorted.Common.GlobalNPCs
 			{
 				SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Suit.Visors.ScanVisorScanning), out sound);
 				soundIsPlaying = true;
+			}
+		}
+		private void SendUpdateBestiary(NPC npc, byte hostilityType)
+		{
+			if (Main.netMode != NetmodeID.SinglePlayer)
+			{
+				ModPacket packet = Mod.GetPacket();
+				packet.Write((byte)MetroidMessageType.BestiaryUpdate);
+				packet.Write(npc.type);
+				packet.Write(hostilityType);
+				packet.Send();
 			}
 		}
 	}
