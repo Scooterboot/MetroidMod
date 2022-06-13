@@ -227,10 +227,10 @@ namespace MetroidModPorted.Content.NPCs.Town
 				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<VanityPack_Lunar>());
 			}
 
-			/*if(Main.hardMode && Main.bloodMoon)
+			if(Main.hardMode && Main.bloodMoon)
 			{
-				shop.item[nextSlot++].SetDefaults(MissileLauncherLoader.GetAddon<MissileExpansion>().ItemType);
-			}*/
+				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Tiles.MissileExpansion>());
+			}
 		}
 
 		private int frame = 0;
@@ -295,7 +295,7 @@ namespace MetroidModPorted.Content.NPCs.Town
 			Rectangle drawFrame = tex.Frame(1, Main.npcFrameCount[NPC.type], 0, frame + tFrame);
 			Vector2 origin = drawFrame.Size() / 2;
 
-			sb.Draw(tex, new Vector2((int)(NPC.Center.X - Main.screenPosition.X), (int)(NPC.Center.Y + (rise - 4) - Main.screenPosition.Y)), drawFrame, NPC.GetAlpha(Color.White), NPC.rotation, origin, NPC.scale, spriteEffects, 0f);
+			sb.Draw(tex, new Vector2((int)(NPC.Center.X - screenPos.X), (int)(NPC.Center.Y + (rise - 4) - screenPos.Y)), drawFrame, NPC.GetAlpha(Color.White), NPC.rotation, origin, NPC.scale, spriteEffects, 0f);
 
 			return false;
 		}
