@@ -134,7 +134,7 @@ namespace MetroidModPorted.Common.UI
 			// TODO: HOW DO I LOAD MODLOADER UI TEXTURES
 			suitAddonsPanel.OpenReserveMenuButton = new UIImageButton(ModContent.Request<Texture2D>(/*"Terraria/ModLoader/UI/InfoDisplayPageArrow"*/$"{nameof(MetroidModPorted)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
 			suitAddonsPanel.OpenReserveMenuButton.Left.Pixels = 100;
-			suitAddonsPanel.OpenReserveMenuButton.Top.Pixels = 356;
+			suitAddonsPanel.OpenReserveMenuButton.Top.Pixels = 334;
 			suitAddonsPanel.OpenReserveMenuButton.OnUpdate += delegate { if (suitAddonsPanel.OpenReserveMenuButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
 			suitAddonsPanel.OpenReserveMenuButton.OnClick += delegate { if (ReserveMenu._visible) { ReserveMenu._visible = false; } else { ReserveMenu._visible = true; } };
 
