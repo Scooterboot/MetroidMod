@@ -377,8 +377,7 @@ namespace MetroidModPorted.Common.Players
 			{
 				return false;
 			}
-			PreHurt_SuitEnergy(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
-			return true;
+			return PreHurt_SuitEnergy(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
 		}
 
 		public void SenseMove(Player P)

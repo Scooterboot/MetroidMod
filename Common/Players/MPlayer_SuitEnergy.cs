@@ -62,14 +62,15 @@ namespace MetroidModPorted.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public void PreHurt_SuitEnergy(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		public bool PreHurt_SuitEnergy(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
-			if (!ShouldShowArmorUI) { return; }
+			if (!ShouldShowArmorUI) { return true; }
 			int oldEnergy = Energy;
 			float damageToSubtractFromEnergy = Math.Max(damage * (1 - EnergyExpenseEfficiency), 1f);
 			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 			damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
-			if (damage < 0) { damage = 0; }
+			if (damage < 0) { damage = 0; return false; }
+			return true;
 		}
 		public override void UpdateLifeRegen()
 		{
