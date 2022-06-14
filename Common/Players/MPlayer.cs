@@ -691,6 +691,8 @@ namespace MetroidModPorted.Common.Players
 			clone.boostCharge = boostCharge;
 			clone.EnergyTanks = EnergyTanks;
 			clone.Energy = Energy;
+			clone.SuitReserveTanks = SuitReserveTanks;
+			clone.SuitReserves = SuitReserves;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -704,6 +706,8 @@ namespace MetroidModPorted.Common.Players
 			packet.Write(boostCharge);
 			packet.Write(EnergyTanks);
 			packet.Write(Energy);
+			packet.Write(SuitReserveTanks);
+			packet.Write(SuitReserves);
 			packet.Send(toWho, fromWho);
 		}
 
@@ -721,6 +725,8 @@ namespace MetroidModPorted.Common.Players
 				packet.Write(boostCharge);
 				packet.Write(EnergyTanks);
 				packet.Write(Energy);
+				packet.Write(SuitReserveTanks);
+				packet.Write(SuitReserves);
 				packet.Send();
 			}
 		}

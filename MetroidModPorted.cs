@@ -132,6 +132,8 @@ namespace MetroidModPorted
 					int boostCharge = reader.ReadInt32();
 					int energyTanks = reader.ReadInt32();
 					int energy = reader.ReadInt32();
+					int reserveTanks = reader.ReadInt32();
+					int reserve = reader.ReadInt32();
 
 					targetPlayer.statCharge = (float)statCharge;
 					targetPlayer.spiderball = spiderBall;
@@ -139,6 +141,8 @@ namespace MetroidModPorted
 					targetPlayer.boostCharge = boostCharge;
 					targetPlayer.EnergyTanks = energyTanks;
 					targetPlayer.Energy = energy;
+					targetPlayer.SuitReserveTanks = reserveTanks;
+					targetPlayer.SuitReserves = reserve;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
@@ -151,6 +155,8 @@ namespace MetroidModPorted
 						packet.Write(boostCharge);
 						packet.Write(energyTanks);
 						packet.Write(energy);
+						packet.Write(reserveTanks);
+						packet.Write(reserve);
 						packet.Send(-1, playerID);
 					}
 					break;
@@ -171,6 +177,7 @@ namespace MetroidModPorted
 						packet.Send(-1, whoAmI);
 					}
 					break;
+
 				case MetroidMessageType.BestiaryUpdate:
 					int npcType = reader.ReadInt32();
 					byte hostilityType = reader.ReadByte();
