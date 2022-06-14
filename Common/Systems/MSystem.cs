@@ -30,6 +30,7 @@ using MetroidModPorted.Content.NPCs.Torizo;
 
 namespace MetroidModPorted.Common.Systems
 {
+	[LegacyName("MWorld")]
 	public partial class MSystem : ModSystem
 	{
 		public static MetroidBossDown bossesDown;

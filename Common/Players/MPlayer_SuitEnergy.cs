@@ -64,12 +64,12 @@ namespace MetroidModPorted.Common.Players
 		}
 		public bool PreHurt_SuitEnergy(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
-			if (!ShouldShowArmorUI) { return true; }
+			if (!ShouldShowArmorUI || Player.immune) { return true; }
 			int oldEnergy = Energy;
 			float damageToSubtractFromEnergy = Math.Max(damage * (1 - EnergyExpenseEfficiency), 1f);
 			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 			damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
-			if (damage < 0) { damage = 0; return false; }
+			if (damage < 0) { damage = 0; }
 			return true;
 		}
 		public override void UpdateLifeRegen()
@@ -77,7 +77,7 @@ namespace MetroidModPorted.Common.Players
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
 			SetMinMax(ref EnergyDefenseEfficiency);
 			SetMinMax(ref EnergyExpenseEfficiency);
-			if (!ShouldShowArmorUI) { return; }
+			if (!ShouldShowArmorUI || Player.immune) { return; }
 			if (Energy > 0 && Player.lifeRegen < 0)
 			{
 				//Player.lifeRegen = 0;
@@ -88,6 +88,6 @@ namespace MetroidModPorted.Common.Players
 				if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
 			}
 		}
-		private void SetMinMax(ref float value, float min = 0f, float max = 1f) => value = Math.Min(Math.Max(value, min), max);
+		private static void SetMinMax(ref float value, float min = 0f, float max = 1f) => value = Math.Min(Math.Max(value, min), max);
 	}
 }

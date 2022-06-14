@@ -21,8 +21,6 @@ namespace MetroidModPorted.Common
 	}
 	internal abstract class PowerArmorDrawLayer : PlayerDrawLayer
 	{
-		protected static int? ShaderId;
-
 		public abstract DrawDataInfo GetData(PlayerDrawSet info);
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.shadow == 0f && !drawInfo.drawPlayer.invis;// && drawInfo.drawPlayer.GetModPlayer<MPlayer>().isPowerSuit;
@@ -84,6 +82,8 @@ namespace MetroidModPorted.Common
 	internal abstract class PowerArmorGlowLayer : PowerArmorDrawLayer
 	{
 		public int shader = -1;
+		public Color color = Color.White;
+
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			DrawDataInfo drawDataInfo = GetData(drawInfo);
@@ -105,7 +105,7 @@ namespace MetroidModPorted.Common
 				drawDataInfo.Texture,
 				drawDataInfo.Position,
 				drawDataInfo.Frame,
-				Color.White * Main.essScale,
+				drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(color, shader), drawInfo.shadow),
 				drawDataInfo.Rotation,
 				drawDataInfo.Origin,
 				1f,
@@ -130,6 +130,7 @@ namespace MetroidModPorted.Common
 		{
 			_glowTexture = MPlayer.GetHelmetGlow(info);
 			shader = info.cHead;
+			color = info.colorArmorHead;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -147,6 +148,7 @@ namespace MetroidModPorted.Common
 		{
 			_glowTexture = MPlayer.GetBreastplateGlow(info);
 			shader = info.cBody;
+			color = info.colorArmorBody;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -164,6 +166,7 @@ namespace MetroidModPorted.Common
 		{
 			_glowTexture = MPlayer.GetArmsGlow(info);
 			shader = info.cBody;
+			color = info.colorArmorBody;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
@@ -181,6 +184,7 @@ namespace MetroidModPorted.Common
 		{
 			_glowTexture = MPlayer.GetGreavesGlow(info);
 			shader = info.cLegs;
+			color = info.colorArmorLegs;
 
 			return GetBodyDrawDataInfo(info, _glowTexture.Value);
 		}
