@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Legacy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Power Suit Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -46,6 +48,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Legacy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Power Suit Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -61,6 +65,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Legacy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Power Suit Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

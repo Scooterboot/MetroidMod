@@ -12,6 +12,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Legacy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Phazon Suit Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -38,6 +40,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Legacy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Phazon Suit Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -51,6 +55,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Legacy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Phazon Suit Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
