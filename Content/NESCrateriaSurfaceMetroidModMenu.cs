@@ -33,7 +33,7 @@ namespace MetroidModPorted.Content
 		}
 		public override void Update(bool isOnTitleScreen)
 		{
-			if (isOnTitleScreen && Main.LocalPlayer == null)
+			if (isOnTitleScreen)
 			{
 				//Main.SkipToTime(16200, false);
 				Main.time = 16200;
