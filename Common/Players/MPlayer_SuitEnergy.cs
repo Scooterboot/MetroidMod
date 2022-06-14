@@ -39,8 +39,19 @@ namespace MetroidModPorted.Common.Players
 		/// </summary>
 		public int Energy = 0;
 
-		public int SuitReserves = 0;
+		/// <summary>
+		/// The number of Reserve Tanks the player has.
+		/// </summary>
 		public int SuitReserveTanks = 0;
+		/// <summary>
+		/// The maximum possible reserve energy the player can have.
+		/// </summary>
+		public int MaxSuitReserves => SuitReserveTanks * 100 + AdditionalMaxReserves;
+		public int AdditionalMaxReserves = 0;
+		/// <summary>
+		/// The amount of energy the player has in reserves.
+		/// </summary>
+		public int SuitReserves = 0;
 
 		public bool SuitReservesAuto = false;
 
@@ -78,6 +89,7 @@ namespace MetroidModPorted.Common.Players
 		public override void UpdateLifeRegen()
 		{
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
+			if (SuitReserves > MaxSuitReserves) { SuitReserves = MaxSuitReserves; }
 			SetMinMax(ref EnergyDefenseEfficiency);
 			SetMinMax(ref EnergyExpenseEfficiency);
 			if (!ShouldShowArmorUI) { return; }
