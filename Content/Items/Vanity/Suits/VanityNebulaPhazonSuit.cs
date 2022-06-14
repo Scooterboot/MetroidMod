@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Nebula Phazon Suit Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -41,6 +43,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Nebula Phazon Suit Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -55,6 +59,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Nebula Phazon Suit Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

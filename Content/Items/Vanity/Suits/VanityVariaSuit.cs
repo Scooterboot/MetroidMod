@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Varia Suit Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -45,6 +47,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Varia Suit Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -59,6 +63,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Varia Suit Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

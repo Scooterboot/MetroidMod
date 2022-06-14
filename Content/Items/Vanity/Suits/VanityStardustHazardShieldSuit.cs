@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Stardust Hazard Shield Suit Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -38,6 +40,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Stardust Hazard Shield Suit Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -52,6 +56,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Stardust Hazard Shield Suit Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{

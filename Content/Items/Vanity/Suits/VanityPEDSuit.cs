@@ -13,6 +13,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated P.E.D. Suit Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -37,6 +39,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated P.E.D. Suit Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -50,6 +54,8 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated P.E.D. Suit Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
