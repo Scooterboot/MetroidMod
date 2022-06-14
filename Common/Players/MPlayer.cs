@@ -625,6 +625,8 @@ namespace MetroidModPorted.Common.Players
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
 			tag["senseMoveEnabled"] = senseMoveEnabled;
 			tag["energy"] = Energy;
+			tag["reserves"] = SuitReserves;
+			tag["reserveAuto"] = SuitReservesAuto;
 		}
 		public override void LoadData(TagCompound tag)
 		{
@@ -646,6 +648,18 @@ namespace MetroidModPorted.Common.Players
 				if (energy > 0)
 				{
 					Energy = energy;
+				}
+
+				energy = tag.GetInt("reserves");
+				if (energy > 0)
+				{
+					SuitReserves = energy;
+				}
+
+				flag = tag.GetBool("reserveAuto");
+				if (flag)
+				{
+					SuitReservesAuto = flag;
 				}
 			}
 			catch { }

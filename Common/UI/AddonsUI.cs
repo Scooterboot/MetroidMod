@@ -147,6 +147,46 @@ namespace MetroidModPorted.Common.UI
 			reserveMenu.Top.Pixels = 300;
 			reserveMenu.Left.Pixels = suitAddonsPanel.Left.Pixels - reserveMenu.Width.Pixels - 100;
 
+			reserveMenu.modeButton = new UIText("0");
+			reserveMenu.modeButton.Top.Pixels = 20;
+			reserveMenu.modeButton.Left.Pixels = 20;
+			reserveMenu.modeButton.SetPadding(0);
+			reserveMenu.modeButton.OnUpdate += delegate { if (reserveMenu.modeButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
+			reserveMenu.modeButton.OnClick += delegate { MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(); if (mp.SuitReservesAuto) { mp.SuitReservesAuto = false; } else { mp.SuitReservesAuto = true; } };
+			reserveMenu.Append(reserveMenu.modeButton);
+
+			reserveMenu.tex = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/ReserveFG", AssetRequestMode.ImmediateLoad);
+			reserveMenu.reserveBars = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/ReserveBG", AssetRequestMode.ImmediateLoad));
+			reserveMenu.reserveBars.Top.Pixels = 60;
+			reserveMenu.reserveBars.Left.Pixels = 20;
+			reserveMenu.reserveBars.OnUpdate += delegate { if (reserveMenu.reserveBars.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
+			reserveMenu.reserveBars.OnClick += delegate
+			{
+				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+				if (mp.SuitReserves < mp.SuitReserveTanks * 100 && mp.Energy >= 100)
+				{
+					mp.SuitReserves += 100;
+					mp.Energy -= 100;
+				}
+			};
+			reserveMenu.reserveBars.OnRightClick += delegate
+			{
+				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+				if (!mp.SuitReservesAuto && mp.SuitReserves >= 100 && mp.Energy <= mp.MaxEnergy - 100)
+				{
+					mp.SuitReserves -= 100;
+					mp.Energy += 100;
+				}
+			};
+			reserveMenu.Append(reserveMenu.reserveBars);
+
+			reserveMenu.reserveAmt = new UIText("0");
+			reserveMenu.reserveAmt.Top.Pixels = 60;
+			reserveMenu.reserveAmt.Left.Pixels = 120;
+			reserveMenu.reserveAmt.SetPadding(0);
+			reserveMenu.reserveAmt.OnUpdate += delegate { if (reserveMenu.reserveAmt.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
+			reserveMenu.Append(reserveMenu.reserveAmt);
+
 			Append(reserveMenu);
 		}
 
@@ -502,16 +542,20 @@ namespace MetroidModPorted.Common.UI
 		internal static bool _visible = false;
 		public static bool Visible => SuitAddonsUI.Visible && _visible;
 
-		public UIImage[] reserveBars;
+		public UIText modeButton;
 
-		public UIText[] textSlots;
+		public UIImageButton reserveBars;
+
+		public UIText reserveAmt;
+
+		internal Asset<Texture2D> tex;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
 		public override void Update(GameTime gameTime)
 		{
-			Width.Pixels = 100;
-			Height.Pixels = 50;
+			Width.Pixels = 200;
+			Height.Pixels = 100;
 			enabled = MetroidModPorted.DragableSenseMoveUI;
 			if (!enabled)
 			{
@@ -523,7 +567,12 @@ namespace MetroidModPorted.Common.UI
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			if (!_visible) { return; }
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			modeButton.SetText($"Mode: {(mp.SuitReservesAuto ? "Auto" : "Manual")}");
+			reserveAmt.SetText($"{mp.SuitReserves}");
 			base.Draw(spriteBatch);
+			spriteBatch.Draw(tex.Value, new Vector2(reserveBars.Width.Pixels + reserveBars.Left.Pixels + Left.Pixels, reserveBars.Height.Pixels + reserveBars.Top.Pixels + Top.Pixels), new Rectangle?(new Rectangle(0, 0, (int)Math.Floor(tex.Width() * (mp.SuitReserves / 400f)), tex.Height())), Color.White, 0f, new Vector2((float)(tex.Width()), (float)(tex.Height())), 1f, SpriteEffects.None, 0f);
+			//spriteBatch.Draw(tex.Value, new Vector2(reserveBars.Left.Pixels + Left.Pixels, reserveBars.Top.Pixels + Top.Pixels), new((int)reserveBars.Left.Pixels + (int)Left.Pixels, (int)reserveBars.Top.Pixels + (int)Top.Pixels, (int)((float)tex.Width() * ((float)mp.SuitReserves / 400f)), tex.Height()), Color.White);
 		}
 	}
 }
