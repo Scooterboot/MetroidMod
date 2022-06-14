@@ -42,6 +42,8 @@ namespace MetroidModPorted.Common.Players
 		public int SuitReserves = 0;
 		public int SuitReserveTanks = 0;
 
+		public bool SuitReservesAuto = false;
+
 		public void ResetEffects_SuitEnergy()
 		{
 			EnergyDefenseEfficiency = 0f;
@@ -58,6 +60,7 @@ namespace MetroidModPorted.Common.Players
 			}
 			if (!flag)
 			{
+				SuitReserveTanks = 0;
 				EnergyTanks = 0;
 				AdditionalMaxEnergy = 0;
 			}
@@ -77,7 +80,18 @@ namespace MetroidModPorted.Common.Players
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
 			SetMinMax(ref EnergyDefenseEfficiency);
 			SetMinMax(ref EnergyExpenseEfficiency);
-			if (!ShouldShowArmorUI || Player.immune) { return; }
+			if (!ShouldShowArmorUI) { return; }
+			if (SuitReservesAuto && Energy <= 0)
+			{
+				Energy += SuitReserves;
+				SuitReserves = 0;
+				while (Energy > MaxEnergy)
+				{
+					SuitReserves += 1;
+					Energy -= 1;
+				}
+			}
+			if (Player.immune) { return; }
 			if (Energy > 0 && Player.lifeRegen < 0)
 			{
 				//Player.lifeRegen = 0;
