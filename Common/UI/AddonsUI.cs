@@ -28,6 +28,8 @@ namespace MetroidModPorted.Common.UI
 
 		private SuitAddonsPanel suitAddonsPanel;
 
+		private ReserveMenu reserveMenu;
+
 		public Vector2[] itemBoxBreastplatePositionValues = new Vector2[SuitAddonSlotID.Misc_Attack + 1]
 		{
 			new Vector2(32, 334),
@@ -116,7 +118,7 @@ namespace MetroidModPorted.Common.UI
 				suitAddonsPanel.Append(suitAddonsPanel.addonSlots[i]);
 			}
 
-			suitAddonsPanel.SuitInfoSlots = new UIText[4];
+			/*suitAddonsPanel.SuitInfoSlots = new UIText[4];
 			for (int i = 0; i < 4; i++)
 			{
 				suitAddonsPanel.SuitInfoSlots[i] = new UIText("0", Main.screenHeight / 1080f);
@@ -127,21 +129,35 @@ namespace MetroidModPorted.Common.UI
 				suitAddonsPanel.SuitInfoSlots[i].Height.Pixels = 22;
 
 				suitAddonsPanel.Append(suitAddonsPanel.SuitInfoSlots[i]);
-			}
+			}*/
 
-			//suitAddonsPanel.OpenReserveMenuButton = new UIImageButton(ModContent.Request<Texture2D>("ModLoader/UI/InfoDisplayPageArrow"));
+			// TODO: HOW DO I LOAD MODLOADER UI TEXTURES
+			suitAddonsPanel.OpenReserveMenuButton = new UIImageButton(ModContent.Request<Texture2D>(/*"Terraria/ModLoader/UI/InfoDisplayPageArrow"*/$"{nameof(MetroidModPorted)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
+			suitAddonsPanel.OpenReserveMenuButton.Left.Pixels = 100;
+			suitAddonsPanel.OpenReserveMenuButton.Top.Pixels = 356;
+			suitAddonsPanel.OpenReserveMenuButton.OnUpdate += delegate { if (suitAddonsPanel.OpenReserveMenuButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
+			suitAddonsPanel.OpenReserveMenuButton.OnClick += delegate { if (ReserveMenu._visible) { ReserveMenu._visible = false; } else { ReserveMenu._visible = true; } };
 
+			suitAddonsPanel.Append(suitAddonsPanel.OpenReserveMenuButton);
 
 			Append(suitAddonsPanel);
+
+			reserveMenu = new ReserveMenu();
+			reserveMenu.SetPadding(0);
+			reserveMenu.Top.Pixels = 300;
+			reserveMenu.Left.Pixels = suitAddonsPanel.Left.Pixels - reserveMenu.Width.Pixels - 100;
+
+			Append(reserveMenu);
 		}
+
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-			suitAddonsPanel.SuitInfoSlots[0].SetText($"Eff: {Math.Floor(mp.EnergyDefenseEfficiency*1000)/10}%");
+			/*suitAddonsPanel.SuitInfoSlots[0].SetText($"Eff: {Math.Floor(mp.EnergyDefenseEfficiency*1000)/10}%");
 			suitAddonsPanel.SuitInfoSlots[1].SetText($"Res: {Math.Floor(mp.EnergyExpenseEfficiency * 1000)/10}%");
 			suitAddonsPanel.SuitInfoSlots[2].SetText($"Tanks: {mp.FilledEnergyTanks}/{mp.EnergyTanks}");
-			suitAddonsPanel.SuitInfoSlots[3].SetText($"Energy: {mp.EnergyRemainder}");
+			suitAddonsPanel.SuitInfoSlots[3].SetText($"Energy: {mp.EnergyRemainder}");*/
 			/*suitAddonsPanel.Left.Pixels = Main.screenWidth - suitAddonsPanel.Width.Pixels - 200;
 			suitAddonsPanel.Top.Pixels = 300;
 			suitAddonsPanel.Width.Pixels = 256;
@@ -164,7 +180,7 @@ namespace MetroidModPorted.Common.UI
 
 		public UIText[] SuitInfoSlots;
 
-		//public UIImageButton OpenReserveMenuButton;
+		public UIImageButton OpenReserveMenuButton;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
@@ -491,5 +507,23 @@ namespace MetroidModPorted.Common.UI
 		public UIText[] textSlots;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
+
+		public override void Update(GameTime gameTime)
+		{
+			Width.Pixels = 100;
+			Height.Pixels = 50;
+			enabled = MetroidModPorted.DragableSenseMoveUI;
+			if (!enabled)
+			{
+				Left.Pixels = Main.screenWidth - 700;
+				Top.Pixels = 220;
+			}
+		}
+
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			if (!_visible) { return; }
+			base.Draw(spriteBatch);
+		}
 	}
 }
