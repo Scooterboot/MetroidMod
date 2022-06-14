@@ -46,7 +46,7 @@ namespace MetroidModPorted.Content.Items.Addons.V2
 			CreateRecipe(1)
 				.AddIngredient<SpazerAddon>(1)
 				.AddIngredient(ItemID.HallowedBar, 8)
-				.AddIngredient(ItemID.SoulofFlight, 10)
+				.AddIngredient(ItemID.SoulofFright, 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
