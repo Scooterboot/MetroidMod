@@ -79,6 +79,8 @@ namespace MetroidModPorted.Common.Players
 			phazonRegen = 0;
 
 			breathMult = 1f;
+
+			HUDColor = Color.LightBlue;
 		}
 		public override void PreUpdate()
 		{
@@ -333,6 +335,7 @@ namespace MetroidModPorted.Common.Players
 		{
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
+			PostUpdateMiscEffects_Visors();
 
 			if (senseMove && senseMoveEnabled)
 			{

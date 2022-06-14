@@ -80,19 +80,20 @@ namespace MetroidModPorted.Common.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(BackgroundTex, backgroundRect, Color.CadetBlue);
-			spriteBatch.Draw(CombatIcon, combatRect, Color.CadetBlue);
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			spriteBatch.Draw(BackgroundTex, backgroundRect, mp.HUDColor);
+			spriteBatch.Draw(CombatIcon, combatRect, mp.HUDColor);
 			if (ScanIcon != null)
 			{
-				spriteBatch.Draw(ScanIcon, scanRect, Color.CadetBlue);
+				spriteBatch.Draw(ScanIcon, scanRect, mp.HUDColor);
 			}
 			if (UtilityIcon != null)
 			{
-				spriteBatch.Draw(UtilityIcon, utilRect, Color.CadetBlue);
+				spriteBatch.Draw(UtilityIcon, utilRect, mp.HUDColor);
 			}
 			if (AltVisorIcon != null)
 			{
-				spriteBatch.Draw(AltVisorIcon, altRect, Color.CadetBlue);
+				spriteBatch.Draw(AltVisorIcon, altRect, mp.HUDColor);
 			}
 		}
 

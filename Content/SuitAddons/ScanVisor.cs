@@ -93,10 +93,10 @@ namespace MetroidModPorted.Content.SuitAddons
 				(int)(Math.Floor(barTex.Width() / 2 * mp.ScanProgress) * 2),
 				barTex.Height()
 			);
-			Main.spriteBatch.Draw(scanTex.Value, scanRect, Color.CadetBlue);
+			Main.spriteBatch.Draw(scanTex.Value, scanRect, mp.HUDColor);
 
 			Main.spriteBatch.Draw(barBorderTex.Value, barBorderRect, Color.White);
-			Main.spriteBatch.Draw(barTex.Value, barRect, Color.CadetBlue);
+			Main.spriteBatch.Draw(barTex.Value, barRect, mp.HUDColor);
 
 			if (ScanVisorGlobalNPC.sound != null && ScanVisorGlobalNPC.sound.IsPlaying && !ScanVisorGlobalNPC.soundShouldPlay)
 			{

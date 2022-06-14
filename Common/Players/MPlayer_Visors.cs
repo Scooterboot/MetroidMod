@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
@@ -25,6 +26,10 @@ namespace MetroidModPorted.Common.Players
 		/// </summary>
 		public float ScanProgress = 0f;
 		public bool ShouldShowVisorUI;
+		/// <summary>
+		/// The color of the mod's Hud elements, including visor select menu.
+		/// </summary>
+		public Color HUDColor = Color.LightBlue;
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
 			if (Systems.MSystem.VisorUIKey.JustPressed)
@@ -34,6 +39,14 @@ namespace MetroidModPorted.Common.Players
 			if (Systems.MSystem.VisorUIKey.JustReleased)
 			{
 				ShouldShowVisorUI = false;
+			}
+		}
+
+		public void PostUpdateMiscEffects_Visors()
+		{
+			if (VisorInUse >= 0)
+			{
+				HUDColor = SuitAddonLoader.GetAddon(VisorInUse).VisorColor;
 			}
 		}
 

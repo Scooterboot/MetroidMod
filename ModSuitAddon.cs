@@ -62,6 +62,12 @@ namespace MetroidModPorted
 		/// </summary>
 		public virtual SoundStyle? VisorBackgroundNoise => null;
 
+		/// <summary>
+		/// The Color to set the hud to when the visor is in use. <br />
+		/// Note: This is only used for Visors.
+		/// </summary>
+		public virtual Color VisorColor { get; } = Color.LightBlue;
+
 		public abstract bool AddOnlyAddonItem { get; }
 
 		public int SacrificeTotal { get; set; } = 1;

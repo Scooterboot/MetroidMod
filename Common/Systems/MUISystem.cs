@@ -776,8 +776,8 @@ namespace MetroidModPorted.Common.Systems
 				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num2}").Value;
 				Vector2 center = new(Main.screenWidth / 2, tex1.Height);
 				center += new Vector2(0, 20);
-				sb.Draw(tex1, center + new Vector2(-100 - tex1.Width * 2 - 16, - tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex1.Width, tex1.Height)), Color.Aqua, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 2f, SpriteEffects.None, 0f);
-				sb.Draw(tex2, center + new Vector2(-100 - tex1.Width - 4, - tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), Color.Aqua, 0f, new Vector2((float)(tex2.Width / 2), (float)(tex2.Height / 2)), 2f, SpriteEffects.None, 0f);
+				sb.Draw(tex1, center + new Vector2(-100 - tex1.Width * 2 - 16, - tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex1.Width, tex1.Height)), mp.HUDColor, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 2f, SpriteEffects.None, 0f);
+				sb.Draw(tex2, center + new Vector2(-100 - tex1.Width - 4, - tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), mp.HUDColor, 0f, new Vector2((float)(tex2.Width / 2), (float)(tex2.Height / 2)), 2f, SpriteEffects.None, 0f);
 
 				// bar
 				Texture2D value = Terraria.GameContent.TextureAssets.MagicPixel.Value;
@@ -788,7 +788,7 @@ namespace MetroidModPorted.Common.Systems
 				Rectangle value2 = new Rectangle(0, 0, 1, 1);
 				sb.Draw(value, destinationRectangle, value2, Color.White * 0.6f);
 				sb.Draw(value, rectangle, value2, Color.Black * 0.6f);
-				sb.Draw(value, destinationRectangle2, value2, Color.Aqua * 0.5f);
+				sb.Draw(value, destinationRectangle2, value2, mp.HUDColor * 0.5f);
 
 				// boxes
 				int totalBoxes = mp.EnergyTanks;
@@ -796,7 +796,7 @@ namespace MetroidModPorted.Common.Systems
 				Texture2D boxTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/Box2").Value;
 				for (int i = 0; i < totalBoxes; i++)
 				{
-					sb.Draw(boxTex, center + new Vector2(-100 + (tex1.Width * i) + 8 + (4 * i), - boxTex.Height / 2), new Rectangle?(new Rectangle(0, 0, boxTex.Width / 2, boxTex.Height / 2)), i < boxCount ? Color.Aqua : Color.DarkSlateGray, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 1.5f, SpriteEffects.None, 0f);
+					sb.Draw(boxTex, center + new Vector2(-100 + (tex1.Width * i) + 8 + (4 * i), - boxTex.Height / 2), new Rectangle?(new Rectangle(0, 0, boxTex.Width / 2, boxTex.Height / 2)), i < boxCount ? mp.HUDColor : Color.DarkSlateGray, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 1.5f, SpriteEffects.None, 0f);
 				}
 			}
 		}
