@@ -363,17 +363,14 @@ namespace MetroidModPorted.Common.Players
 			{
 				if (somersault || shineActive)
 				{
-					drawInfo.heldItem = null;
-					//PlayerLayer.HeldItem.visible = false;
+					PlayerDrawLayers.HeldItem.Hide();
 				}
 				if (thrusters)
 				{
 					if ((drawInfo.drawPlayer.wings == 0 && drawInfo.drawPlayer.back == -1) || drawInfo.drawPlayer.velocity.Y == 0f || drawInfo.drawPlayer.GetModPlayer<MPlayer>().shineDirection != 0)
 					{
-						drawInfo.drawPlayer.wings = 0;
-						drawInfo.drawPlayer.back = -1;
-						//PlayerLayer.Wings.visible = false;
-						//PlayerLayer.BackAcc.visible = false;
+						PlayerDrawLayers.Wings.Hide();
+						PlayerDrawLayers.BackAcc.Hide();
 					}
 				}
 			}
