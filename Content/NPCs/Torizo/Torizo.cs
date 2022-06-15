@@ -1360,23 +1360,26 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 					}
 					chestExplosion = true;
 				}
-				
-				if(dustCounter <= 0)
+
+				if (Main.netMode != NetmodeID.Server)
 				{
-					Vector2 gorePos = BodyPos[0] + new Vector2(6,13);
-					if(NPC.direction == -1)
+					if (dustCounter <= 0)
 					{
-						gorePos.X = BodyPos[0].X - 16;
+						Vector2 gorePos = BodyPos[0] + new Vector2(6, 13);
+						if (NPC.direction == -1)
+						{
+							gorePos.X = BodyPos[0].X - 16;
+						}
+						gorePos.X += Main.rand.Next(10);
+						gorePos.Y += Main.rand.Next(10);
+						Main.gore[Gore.NewGore(NPC.GetSource_FromAI(), gorePos - new Vector2(8, 0), default(Vector2), Mod.Find<ModGore>("TorizoDroplet").Type, 1f)].velocity *= 0f;
+
+						dustCounter = 30 + Main.rand.Next(20);
 					}
-					gorePos.X += Main.rand.Next(10);
-					gorePos.Y += Main.rand.Next(10);
-					Main.gore[Gore.NewGore(NPC.GetSource_FromAI(), gorePos-new Vector2(8,0), default(Vector2), Mod.Find<ModGore>("TorizoDroplet").Type, 1f)].velocity *= 0f;
-					
-					dustCounter = 30+Main.rand.Next(20);
-				}
-				else
-				{
-					dustCounter--;
+					else
+					{
+						dustCounter--;
+					}
 				}
 			}
 			
