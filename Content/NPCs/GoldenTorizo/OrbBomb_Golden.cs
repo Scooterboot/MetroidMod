@@ -122,6 +122,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
+			if (Main.netMode == NetmodeID.Server) { return; }
 			for(int i = 0; i < 15; i++)
 			{
 				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 30, 0f, -(Main.rand.Next(4)/2), 100, Color.White, 1.5f);

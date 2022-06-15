@@ -163,7 +163,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 				Base.HitEffect(hitDirection,damage);
 			}
 			
-			if(NPC.life <= 0)
+			if(NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				Gore newGore;
 				var entitySource = NPC.GetSource_Death();

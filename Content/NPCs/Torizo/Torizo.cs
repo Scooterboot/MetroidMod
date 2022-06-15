@@ -105,7 +105,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 		ReLogic.Utilities.SlotId soundInstance;
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if(Head != null && Head.active && (!SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) || !result.IsPlaying))
+			if(Head != null && Head.active && (!SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) || !result.IsPlaying) && Main.netMode != NetmodeID.Server)
 			{
 				soundInstance = SoundEngine.PlaySound(Sounds.NPCs.TorizoHit, Head.Center);
 			}

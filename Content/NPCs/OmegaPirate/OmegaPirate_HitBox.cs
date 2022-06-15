@@ -169,6 +169,7 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
+			if (Main.netMode == NetmodeID.Server) { return; }
 			for (int m = 0; m < (NPC.life <= 0 ? 20 : 5); m++)
 			{
 				int dustID = Dust.NewDust(NPC.position, NPC.width, NPC.height, 68, NPC.velocity.X * 0.2f, NPC.velocity.Y * 0.2f, 100, Color.White, NPC.life <= 0 && m % 2 == 0 ? 3f : 1f);

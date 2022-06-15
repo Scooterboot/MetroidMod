@@ -105,7 +105,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 		
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (NPC.life <= 0 && Main.netMode != 2)
+			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				for (int i = 0; i < 10; i++)
 				{

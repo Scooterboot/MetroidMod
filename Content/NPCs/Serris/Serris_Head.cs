@@ -499,7 +499,7 @@ namespace MetroidModPorted.Content.NPCs.Serris
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if(ai_state == SerrisState.CoreXState)
+			if(ai_state == SerrisState.CoreXState && Main.netMode != NetmodeID.Server)
 			{
 				for (int m = 0; m < (NPC.life <= 0 ? 20 : 5); m++)
 				{

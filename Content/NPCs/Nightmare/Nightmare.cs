@@ -102,6 +102,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
+			if (Main.netMode == NetmodeID.Server) { return; }
 			if(currentState > 0)
 			{
 				for (int m = 0; m < (NPC.life <= 0 ? 20 : 5); m++)

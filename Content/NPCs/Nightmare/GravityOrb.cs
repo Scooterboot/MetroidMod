@@ -159,6 +159,7 @@ namespace MetroidModPorted.Content.NPCs.Nightmare
 		
 		public override void HitEffect(int hitDirection, double damage)
 		{
+			if (Main.netMode == NetmodeID.Server) { return; }
 			for(int i = 0; i < 10; i++)
 			{
 				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.PurpleTorch, 0f, 0f, 100, Color.White, 3f);

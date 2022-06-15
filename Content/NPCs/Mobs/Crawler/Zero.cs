@@ -92,7 +92,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (NPC.life <= 0 && Main.netMode != 2)
+			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				Gore gore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, RandomVel, Mod.Find<ModGore>("ZeroGore0").Type, NPC.scale);
 				gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width,Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;

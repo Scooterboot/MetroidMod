@@ -953,7 +953,7 @@ namespace MetroidModPorted.Content.NPCs.Kraid
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (Main.netMode != 2)
+			if (Main.netMode != NetmodeID.Server)
 			{
 				for (int m = 0; m < (NPC.life <= 0 ? 20 : 5); m++)
 				{

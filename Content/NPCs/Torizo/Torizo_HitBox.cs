@@ -171,7 +171,7 @@ namespace MetroidModPorted.Content.NPCs.Torizo
 				Base.HitEffect(hitDirection,damage);
 			}
 			
-			if(NPC.life <= 0)
+			if(NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				Gore newGore;
 				if(NPC.ai[1] == 0f)
