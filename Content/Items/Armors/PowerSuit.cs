@@ -65,6 +65,8 @@ namespace MetroidModPorted.Content.Items.Armors
 							"Double tap a direction (when enabled)";// + 
 							//SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.EnergyDefenseEfficiency += 0.1f;
+			mp.EnergyExpenseEfficiency += 0.1f;
 			mp.senseMove = true;
 			mp.ShouldShowArmorUI = true;
 			SuitAddonLoader.OnUpdateArmorSet(player);
