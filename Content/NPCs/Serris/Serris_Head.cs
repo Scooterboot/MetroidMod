@@ -479,11 +479,11 @@ namespace MetroidModPorted.Content.NPCs.Serris
 
 		public override bool? CanBeHitByItem(Player player, Item item)
 		{
-			return (ai_state == SerrisState.NormalBehaviour && extra_state != 2) || (ai_state == SerrisState.CoreXState && NPC.localAI[1] != 2);
+			return ((ai_state == SerrisState.NormalBehaviour && extra_state != 2) || (ai_state == SerrisState.CoreXState && NPC.localAI[1] != 2)) ? null : false;
 		}
 		public override bool? CanBeHitByProjectile(Projectile projectile)
 		{
-			return (ai_state == SerrisState.NormalBehaviour && extra_state != 2) || (ai_state == SerrisState.CoreXState && NPC.localAI[1] != 2);
+			return ((ai_state == SerrisState.NormalBehaviour && extra_state != 2) || (ai_state == SerrisState.CoreXState && NPC.localAI[1] != 2)) ? null : false;
 		}
 
 		public override void PostAI()

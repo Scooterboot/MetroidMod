@@ -164,8 +164,8 @@ namespace MetroidModPorted.Content.NPCs.OmegaPirate
 			}
 		}
 
-		public override bool? CanBeHitByItem(Player player, Item item) => NPC.ai[1] == 0f;
-		public override bool? CanBeHitByProjectile(Projectile projectile) => NPC.ai[1] == 0f;
+		public override bool? CanBeHitByItem(Player player, Item item) => NPC.ai[1] == 0f ? null : false;
+		public override bool? CanBeHitByProjectile(Projectile projectile) => NPC.ai[1] == 0f ? null : false;
 
 		public override void HitEffect(int hitDirection, double damage)
 		{

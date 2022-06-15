@@ -153,8 +153,8 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 			}
 		}
 		
-		public override bool? CanBeHitByItem(Player player, Item item) => (NPC.ai[1] <= 1f);
-		public override bool? CanBeHitByProjectile(Projectile projectile) => (NPC.ai[1] <= 1f);
+		public override bool? CanBeHitByItem(Player player, Item item) => (NPC.ai[1] <= 1f) ? null : false;
+		public override bool? CanBeHitByProjectile(Projectile projectile) => (NPC.ai[1] <= 1f) ? null : false;
 		
 		public override void HitEffect(int hitDirection, double damage)
 		{
