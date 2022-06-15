@@ -65,13 +65,6 @@ namespace MetroidModPorted.Common.UI
 			textSlots = new UIText[MetroidModPorted.beamSlotAmount];
 			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
 			{
-				ballSlots[i] = new MorphBallItemBox();
-				ballSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
-				ballSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
-				ballSlots[i].morphBallSlotType = i;
-				ballSlots[i].SetCondition();
-
-				Append(ballSlots[i]);
 
 				textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
 				textSlots[i].SetText(MBAddonLoader.GetAddonSlotName(i));
@@ -82,6 +75,16 @@ namespace MetroidModPorted.Common.UI
 				textSlots[i].Height.Pixels = 22;
 
 				Append(textSlots[i]);
+			}
+			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
+			{
+				ballSlots[i] = new MorphBallItemBox();
+				ballSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
+				ballSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
+				ballSlots[i].morphBallSlotType = i;
+				ballSlots[i].SetCondition();
+
+				Append(ballSlots[i]);
 			}
 
 			Append(new MorphBallFrame());
