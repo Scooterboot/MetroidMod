@@ -310,7 +310,7 @@ namespace MetroidModPorted.Content.Projectiles.missiles
 			Color color25 = Lighting.GetColor((int)P.Center.X / 16, (int)P.Center.Y / 16);
 			Vector2 pos = P.Center + Vector2.UnitY * P.gfxOffY - Main.screenPosition;
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
-			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Projectiles/missiles/NebulaMissileImpact2").Value;
+			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/missiles/NebulaMissileImpact2").Value;
 			Color alpha4 = P.GetAlpha(color25);
 			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
 			
