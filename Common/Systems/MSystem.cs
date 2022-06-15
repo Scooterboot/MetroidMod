@@ -406,8 +406,8 @@ namespace MetroidModPorted.Common.Systems
 			int count = reader.ReadInt32();
 			for (int i = 0; i < count; i++)
 			{
-				int x = reader.ReadInt32();
-				int y = reader.ReadInt32();
+				int x = (int)reader.ReadSingle();
+				int y = (int)reader.ReadSingle();
 				mBlockType[x, y] = (ushort)reader.ReadInt16();
 				dontRegen[x, y] = (bool)reader.ReadBoolean();
 			}
