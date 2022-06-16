@@ -16,9 +16,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidModPorted;
+using MetroidMod;
 
-namespace MetroidModPorted.Common.Players
+namespace MetroidMod.Common.Players
 {
     public class VanityGlowTexture : ModPlayer  
     {

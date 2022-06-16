@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class SolarLaserFlareShot : MProjectile
 	{
@@ -99,7 +99,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				}
 			}
 			
-			Color color = MetroidModPorted.plaRedColor;
+			Color color = MetroidMod.plaRedColor;
 			Lighting.AddLight(P.Center, color.R/255f,color.G/255f,color.B/255f);
 			if(P.numUpdates == 0)
 			{

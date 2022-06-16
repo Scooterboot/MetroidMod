@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.Mobs
+namespace MetroidMod.Content.Projectiles.Mobs
 {
 	public class SkreeRock : ModProjectile
 	{

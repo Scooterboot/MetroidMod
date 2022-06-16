@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 #endregion
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class PhazonCore : ModTile
 	{

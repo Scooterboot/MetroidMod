@@ -2,7 +2,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	//imported from Example Mod because it's useful
 	public struct Angle

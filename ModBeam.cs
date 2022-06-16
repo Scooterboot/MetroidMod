@@ -6,10 +6,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	/*
 	public abstract class ModBeam : ModType
@@ -121,7 +121,7 @@ namespace MetroidModPorted
 		/// Sets a normal speed multiplier (NON-CHARGE SLOT ONLY)
 		/// </summary>
 		public float AddonSpeed { get; set; } = 0f;
-		public Color BeamColor { get; set; } = MetroidModPorted.powColor;
+		public Color BeamColor { get; set; } = MetroidMod.powColor;
 		public int WaveDepth { get; set; } = 4;
 		/// <summary>
 		/// Determines if the addon can generate on Chozo Statues during world generation.
@@ -160,7 +160,7 @@ namespace MetroidModPorted
 				}
 				BeamLoader.beams.Add(this);
 			}
-			MetroidModPorted.Instance.Logger.Info($"Register new Beam: {FullName}, OnlyBeamItem: {AddOnlyBeamItem}");
+			MetroidMod.Instance.Logger.Info($"Register new Beam: {FullName}, OnlyBeamItem: {AddOnlyBeamItem}");
 		}
 
 		public override void SetStaticDefaults()

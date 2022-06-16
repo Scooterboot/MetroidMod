@@ -1,11 +1,11 @@
-﻿using MetroidModPorted.Common.Systems;
+﻿using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Graphics.Capture;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Biomes
+namespace MetroidMod.Content.Biomes
 {
 	public class NESCrateriaSurfaceBiome : ModBiome
 	{

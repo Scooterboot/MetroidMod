@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.spazer
+namespace MetroidMod.Content.Projectiles.spazer
 {
 	public class SpazerChargeShot : MProjectile
 	{
@@ -26,18 +26,18 @@ namespace MetroidModPorted.Content.Projectiles.spazer
 		}
 
 		int dustType = 64;
-		Color color = MetroidModPorted.powColor;
+		Color color = MetroidMod.powColor;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
-				color = MetroidModPorted.iceColor;
+				color = MetroidMod.iceColor;
 			}
 			else if(Projectile.Name.Contains("Wave"))
 			{
 				dustType = 62;
-				color = MetroidModPorted.waveColor;
+				color = MetroidMod.waveColor;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);

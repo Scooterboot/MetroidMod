@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Accessories
+namespace MetroidMod.Content.Items.Accessories
 {
 	public class PowerGrip : ModItem
 	{

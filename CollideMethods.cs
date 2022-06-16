@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public struct CollideMethods
 	{

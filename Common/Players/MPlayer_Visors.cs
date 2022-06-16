@@ -6,11 +6,11 @@ using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Content.Items.Armors;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Common.Players
+namespace MetroidMod.Common.Players
 {
 	public partial class MPlayer : ModPlayer
 	{

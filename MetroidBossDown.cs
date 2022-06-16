@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	[Flags]
 	public enum MetroidBossDown

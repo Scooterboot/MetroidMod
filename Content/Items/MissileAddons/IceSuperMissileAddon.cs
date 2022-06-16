@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.MissileAddons
+namespace MetroidMod.Content.Items.MissileAddons
 {
 	public class IceSuperMissileAddon : ModItem
 	{

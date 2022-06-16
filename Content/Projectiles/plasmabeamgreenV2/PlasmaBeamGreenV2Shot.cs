@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.plasmabeamgreenV2
+namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 {
 	public class PlasmaBeamGreenV2Shot : MProjectile
 	{
@@ -25,18 +25,18 @@ namespace MetroidModPorted.Content.Projectiles.plasmabeamgreenV2
 		}
 
 		int dustType = 61;
-		Color color = MetroidModPorted.plaGreenColor;
+		Color color = MetroidMod.plaGreenColor;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
-				color = MetroidModPorted.iceColor;
+				color = MetroidMod.iceColor;
 			}
 			else if(Projectile.Name.Contains("Wave"))
 			{
 				dustType = 15;
-				color = MetroidModPorted.plaGreenColor2;
+				color = MetroidMod.plaGreenColor2;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);

@@ -6,11 +6,11 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.DamageClasses;
-using MetroidModPorted.Content.Projectiles;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Projectiles;
 
-namespace MetroidModPorted.Default
+namespace MetroidMod.Default
 {
 	[Autoload(false)]
 	[CloneByReference]

@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.Projectiles;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Projectiles;
 
-namespace MetroidModPorted.Content.Projectiles.missiles
+namespace MetroidMod.Content.Projectiles.missiles
 {
 	public class SeekerMissileLead : MProjectile
 	{

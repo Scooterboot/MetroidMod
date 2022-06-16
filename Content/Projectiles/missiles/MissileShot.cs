@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.missiles
+namespace MetroidMod.Content.Projectiles.missiles
 {
 	public class MissileShot : MProjectile
 	{

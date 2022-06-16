@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidModPorted.Content.NPCs.OmegaPirate;
+using MetroidMod.Content.NPCs.OmegaPirate;
 using System.IO;
 
-namespace MetroidModPorted.Content.Projectiles.Boss
+namespace MetroidMod.Content.Projectiles.Boss
 {
 	public class OmegaPirateLaser : ModProjectile
 	{

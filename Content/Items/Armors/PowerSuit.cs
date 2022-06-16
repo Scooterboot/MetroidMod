@@ -3,12 +3,12 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 using Terraria.ModLoader.IO;
 using System.IO;
 
-namespace MetroidModPorted.Content.Items.Armors
+namespace MetroidMod.Content.Items.Armors
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class PowerSuitBreastplate : ModItem
@@ -95,7 +95,7 @@ namespace MetroidModPorted.Content.Items.Armors
 			CreateRecipe(1)
 				.AddIngredient<ChoziteBreastplate>(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 20)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 20)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -207,7 +207,7 @@ namespace MetroidModPorted.Content.Items.Armors
 			CreateRecipe(1)
 				.AddIngredient<ChoziteGreaves>(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 15)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 15)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -321,7 +321,7 @@ namespace MetroidModPorted.Content.Items.Armors
 			CreateRecipe(1)
 				.AddIngredient<ChoziteHelmet>(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

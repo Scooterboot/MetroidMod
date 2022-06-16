@@ -1,7 +1,7 @@
 ﻿using System;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Common.Systems
+namespace MetroidMod.Common.Systems
 {
 	public class MBiomesSystem : ModSystem
 	{

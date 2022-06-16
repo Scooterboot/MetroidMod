@@ -7,7 +7,7 @@ using Terraria.ModLoader.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Hopper
+namespace MetroidMod.Content.NPCs.Mobs.Hopper
 {
 	public class Sidehopper : MNPC
 	{

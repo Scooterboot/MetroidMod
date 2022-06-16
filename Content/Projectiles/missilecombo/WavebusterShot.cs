@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using Terraria.Enums;
 using System.IO;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class WavebusterShot : MProjectile
 	{
@@ -355,7 +355,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 					SpriteEffects.None,
 					0f);
 					
-					Lighting.AddLight(pos[i], (MetroidModPorted.waveColor2.R / 255f) * P.scale, (MetroidModPorted.waveColor2.G / 255f) * P.scale, (MetroidModPorted.waveColor2.B / 255f) * P.scale);
+					Lighting.AddLight(pos[i], (MetroidMod.waveColor2.R / 255f) * P.scale, (MetroidMod.waveColor2.G / 255f) * P.scale, (MetroidMod.waveColor2.B / 255f) * P.scale);
 					
 					if (Main.rand.NextBool(25))
 					{

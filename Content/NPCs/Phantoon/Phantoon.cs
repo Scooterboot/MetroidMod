@@ -11,9 +11,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.NPCs.Phantoon
+namespace MetroidMod.Content.NPCs.Phantoon
 {
 	[AutoloadBossHead]
 	public class Phantoon : ModNPC

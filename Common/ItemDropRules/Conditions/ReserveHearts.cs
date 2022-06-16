@@ -2,9 +2,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common.ItemDropRules.Conditions
+namespace MetroidMod.Common.ItemDropRules.Conditions
 {
 	public class ReserveHearts : IItemDropRuleCondition
 	{

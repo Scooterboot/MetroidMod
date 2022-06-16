@@ -13,9 +13,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.NPCs.Nightmare
+namespace MetroidMod.Content.NPCs.Nightmare
 {
 	[AutoloadBossHead]
 	public class Nightmare : ModNPC

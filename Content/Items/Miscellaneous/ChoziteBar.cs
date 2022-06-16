@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Miscellaneous
+namespace MetroidMod.Content.Items.Miscellaneous
 {
 	public class ChoziteBar : ModItem
 	{

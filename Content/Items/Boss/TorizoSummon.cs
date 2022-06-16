@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-namespace MetroidModPorted.Content.Items.Boss
+namespace MetroidMod.Content.Items.Boss
 {
 	public class TorizoSummon : ModItem
 	{

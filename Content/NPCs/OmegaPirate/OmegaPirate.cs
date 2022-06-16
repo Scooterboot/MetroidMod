@@ -12,11 +12,11 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using MetroidModPorted;
-using MetroidModPorted.Content.NPCs.OmegaPirate;
+using MetroidMod;
+using MetroidMod.Content.NPCs.OmegaPirate;
 using System.IO;
 
-namespace MetroidModPorted.Content.NPCs.OmegaPirate
+namespace MetroidMod.Content.NPCs.OmegaPirate
 {
 	[AutoloadBossHead]
 	public class OmegaPirate : ModNPC

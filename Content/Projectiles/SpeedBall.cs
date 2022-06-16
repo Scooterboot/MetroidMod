@@ -9,9 +9,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Projectiles
+namespace MetroidMod.Content.Projectiles
 {
 	public class SpeedBall : ModProjectile
 	{

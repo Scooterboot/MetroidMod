@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Tiles.ItemTile.Beam
+namespace MetroidMod.Content.Tiles.ItemTile.Beam
 {
 	public class VortexBeamTile : ItemTile
 	{

@@ -3,11 +3,11 @@ using System;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.DamageClasses;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.DamageClasses;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Items.Accessories
+namespace MetroidMod.Content.Items.Accessories
 {
 	public class ScrewAttack : ModItem//HunterDamageItem
 	{

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
-namespace MetroidModPorted.Content.NPCs.Nightmare
+namespace MetroidMod.Content.NPCs.Nightmare
 {
 	public class Nightmare_ArmFront : ModNPC
 	{

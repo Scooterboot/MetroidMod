@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
-namespace MetroidModPorted.Content.NPCs.Mobs
+namespace MetroidMod.Content.NPCs.Mobs
 {
 	public class Multiviola : MNPC
 	{

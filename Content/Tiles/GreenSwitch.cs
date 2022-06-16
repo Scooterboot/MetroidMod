@@ -6,7 +6,7 @@ using Terraria.ObjectData;
 
 using Microsoft.Xna.Framework;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class GreenSwitch : ModTile
 	{

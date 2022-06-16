@@ -1,4 +1,4 @@
-﻿namespace MetroidModPorted.ID
+﻿namespace MetroidMod.ID
 {
 	public class MorphBallAddonSlotID
 	{

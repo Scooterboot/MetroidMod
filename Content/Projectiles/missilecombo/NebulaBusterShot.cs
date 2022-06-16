@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Enums;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class NebulaBusterShot : MProjectile
 	{

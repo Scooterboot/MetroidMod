@@ -7,7 +7,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.NPCs.Mobs
+namespace MetroidMod.Content.NPCs.Mobs
 {
 	public class Bull : MNPC
 	{

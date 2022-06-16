@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.NPCs.Nightmare
+namespace MetroidMod.Content.NPCs.Nightmare
 {
 	public class Nightmare_ArmBack : ModNPC
 	{

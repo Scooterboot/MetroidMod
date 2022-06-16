@@ -5,10 +5,10 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Miscellaneous
+namespace MetroidMod.Content.Items.Miscellaneous
 {
 	public class EnergyPickup : ModItem
 	{

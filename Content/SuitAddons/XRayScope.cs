@@ -6,11 +6,11 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Systems;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Content.SuitAddons
+namespace MetroidMod.Content.SuitAddons
 {
 	public class XRayScope : ModSuitAddon
 	{
@@ -42,7 +42,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidModPorted.T1HMBarRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 10)
 				.AddIngredient(ItemID.SpelunkerPotion)
 				.AddIngredient(ItemID.GlowingMushroom, 30)
 				.AddTile(TileID.Anvils)

@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Boss
+namespace MetroidMod.Content.Items.Boss
 {
 	public class OmegaPirateSummon : ModItem
 	{
@@ -31,7 +31,7 @@ namespace MetroidModPorted.Content.Items.Boss
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 5)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 5)
 				.AddIngredient<Miscellaneous.PhazonBar>(1)
 				.AddIngredient(ItemID.LunarTabletFragment, 1)
 				.AddTile(TileID.MythrilAnvil)

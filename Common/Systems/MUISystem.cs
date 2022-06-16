@@ -10,10 +10,10 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.ID;
 
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common.Systems
+namespace MetroidMod.Common.Systems
 {
 	internal class MUISystem : ModSystem
 	{
@@ -155,7 +155,7 @@ namespace MetroidModPorted.Common.Systems
 			}
 
 			// (debug) draw npc hitboxes
-			if (MetroidModPorted.DebugDH)
+			if (MetroidMod.DebugDH)
 			{
 				for (int j = 0; j < Main.maxNPCs; j++)
 				{
@@ -178,7 +178,7 @@ namespace MetroidModPorted.Common.Systems
 			}
 
 			// (debug) markers for statue items (performance will tank on world load)
-			if (MetroidModPorted.DebugDSI)
+			if (MetroidMod.DebugDSI)
 			{
 				if (!coordcheck)
 				{
@@ -314,7 +314,7 @@ namespace MetroidModPorted.Common.Systems
 			if (index != -1)
 			{
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Power Beam UI",
+					"MetroidMod: Power Beam UI",
 					delegate {
 						if (UI.PowerBeamUI.Visible)// && !Main.recBigList)
 						{
@@ -327,7 +327,7 @@ namespace MetroidModPorted.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Missile Launcher UI",
+					"MetroidMod: Missile Launcher UI",
 					delegate {
 						if (UI.MissileLauncherUI.Visible)// && !Main.recBigList)
 						{
@@ -340,7 +340,7 @@ namespace MetroidModPorted.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Morph Ball UI",
+					"MetroidMod: Morph Ball UI",
 					delegate {
 						if (UI.MorphBallUI.Visible)
 						{
@@ -353,7 +353,7 @@ namespace MetroidModPorted.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Suit Addons UI",
+					"MetroidMod: Suit Addons UI",
 					delegate {
 						if (UI.SuitAddonsUI.Visible)
 						{
@@ -366,7 +366,7 @@ namespace MetroidModPorted.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Sense Move UI",
+					"MetroidMod: Sense Move UI",
 					delegate {
 						if (UI.SenseMoveUI.Visible)
 						{
@@ -378,7 +378,7 @@ namespace MetroidModPorted.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Visor Select UI",
+					"MetroidMod: Visor Select UI",
 					delegate {
 						if (UI.VisorSelectUI.Visible)
 						{

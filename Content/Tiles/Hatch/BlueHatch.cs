@@ -11,9 +11,9 @@ using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.Tiles.Hatch
+namespace MetroidMod.Content.Tiles.Hatch
 {
 	public class BlueHatch : ModTile
 	{
@@ -69,9 +69,9 @@ namespace MetroidModPorted.Content.Tiles.Hatch
 		public override void HitWire(int i, int j)
 		{
 			ToggleHatch(i, j, (ushort)otherDoorID, Name.Contains("Open"));
-			if (MetroidModPorted.AutocloseHatchesEnabled)
+			if (MetroidMod.AutocloseHatchesEnabled)
 			{
-				MSystem.doorTimers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60 * MetroidModPorted.AutocloseHatchesTime, new Vector2(i, j)));
+				MSystem.doorTimers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60 * MetroidMod.AutocloseHatchesTime, new Vector2(i, j)));
 			}
 		}
 

@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Boss
+namespace MetroidMod.Content.Items.Boss
 {
 	public class SerrisSummon : ModItem
 	{

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.nebulabeam
+namespace MetroidMod.Content.Projectiles.nebulabeam
 {
 	public class NebulaBeamChargeShot : MProjectile
 	{
@@ -27,14 +27,14 @@ namespace MetroidModPorted.Content.Projectiles.nebulabeam
 		}
 
 		int dustType = 255;
-		Color color = MetroidModPorted.waveColor2;
+		Color color = MetroidMod.waveColor2;
 		float scale = 1f;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Stardust"))
 			{
 				dustType = 88;
-				color = MetroidModPorted.iceColor;
+				color = MetroidMod.iceColor;
 				scale = 0.5f;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;

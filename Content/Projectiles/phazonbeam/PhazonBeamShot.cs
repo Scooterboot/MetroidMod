@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.phazonbeam
+namespace MetroidMod.Content.Projectiles.phazonbeam
 {
 	public class PhazonBeamShot : MProjectile
 	{

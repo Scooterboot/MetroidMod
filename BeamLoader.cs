@@ -12,9 +12,9 @@ using Terraria.GameContent;
 //using Terraria.GameContent.Liquid;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
-using MetroidModPorted.ID;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public static class BeamLoader
 	{
@@ -26,7 +26,7 @@ namespace MetroidModPorted
 		internal static readonly List<BeamCombination> beamCombinations = new();
 		internal static readonly Dictionary<int, string> unloadedBeams = new();
 
-		//public static int BucketsRecipeGroupID => MetroidModPorted.beamsRecipeGroupID;
+		//public static int BucketsRecipeGroupID => MetroidMod.beamsRecipeGroupID;
 
 		public static BeamCombination ComboGet(int beam1, int beam2, int beam3 = -1, int beam4 = -1, int beam5 = -1)
 		{

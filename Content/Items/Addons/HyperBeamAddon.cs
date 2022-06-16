@@ -7,9 +7,9 @@ using Terraria.UI;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.Addons
+namespace MetroidMod.Content.Items.Addons
 {
 	public class HyperBeamAddon : ModItem
 	{
@@ -77,7 +77,7 @@ namespace MetroidModPorted.Content.Items.Addons
 		}
 		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale )
 		{
-			Texture2D tex = ModContent.Request<Texture2D>("MetroidModPorted/Content/Items/Addons/HyperBeamAddonColors").Value;
+			Texture2D tex = ModContent.Request<Texture2D>("MetroidMod/Content/Items/Addons/HyperBeamAddonColors").Value;
 			drawColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
 			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 		}
@@ -89,7 +89,7 @@ namespace MetroidModPorted.Content.Items.Addons
 		}
 		public void DrawColors(SpriteBatch sb)//, Player player)
 		{
-			Texture2D tex = ModContent.Request<Texture2D>("MetroidModPorted/Content/Items/Addons/HyperBeamAddonColors").Value;
+			Texture2D tex = ModContent.Request<Texture2D>("MetroidMod/Content/Items/Addons/HyperBeamAddonColors").Value;
 			float rotation = Item.velocity.X * 0.2f;
 			float num3 = 1f;
 			float num4 = (float)(Item.height - tex.Height);

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.Boss
+namespace MetroidMod.Content.Projectiles.Boss
 {
 	public class OmegaPirateGrenade : ModProjectile
 	{

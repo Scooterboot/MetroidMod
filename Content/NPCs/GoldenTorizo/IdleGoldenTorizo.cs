@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.NPCs.GoldenTorizo
+namespace MetroidMod.Content.NPCs.GoldenTorizo
 {
 	[AutoloadBossHead]
 	public class IdleGoldenTorizo : ModNPC

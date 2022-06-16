@@ -6,10 +6,10 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common
+namespace MetroidMod.Common
 {
 	internal class DrawDataInfo
 	{

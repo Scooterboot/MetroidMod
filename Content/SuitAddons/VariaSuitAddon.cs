@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Content.SuitAddons
+namespace MetroidMod.Content.SuitAddons
 {
 	public class VariaSuitAddon : ModSuitAddon
 	{

@@ -5,10 +5,10 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common
+namespace MetroidMod.Common
 {
 	public class ThrustLayer : PlayerDrawLayer
 	{
@@ -17,7 +17,7 @@ namespace MetroidModPorted.Common
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			//Mod mod = MetroidModPorted.Instance;
+			//Mod mod = MetroidMod.Instance;
 			//SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
@@ -34,7 +34,7 @@ namespace MetroidModPorted.Common
 			if (mPlayer.thrusters && item != null)
 			{
 				string name = item.ModItem.Texture + "_Thrusters";
-				if (ModContent.RequestIfExists(name, out Asset<Texture2D> tex) && name.Contains("MetroidModPorted"))
+				if (ModContent.RequestIfExists(name, out Asset<Texture2D> tex) && name.Contains("MetroidMod"))
 				{
 					if ((drawPlayer.wings == 0 && drawPlayer.back == -1) || drawPlayer.velocity.Y == 0f || mPlayer.shineDirection != 0)
 					{

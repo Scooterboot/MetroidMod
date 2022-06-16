@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Hopper
+namespace MetroidMod.Content.NPCs.Mobs.Hopper
 {
 	public class Dessgeega : MNPC
 	{

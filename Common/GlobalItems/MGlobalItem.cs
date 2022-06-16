@@ -5,9 +5,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common.GlobalItems
+namespace MetroidMod.Common.GlobalItems
 {
 	public class MGlobalItem : GlobalItem
 	{

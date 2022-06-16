@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class GripLedgeOff : ModTile
 	{

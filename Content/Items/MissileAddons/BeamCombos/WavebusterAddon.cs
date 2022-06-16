@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
+namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 {
 	public class WavebusterAddon : ModItem
 	{
@@ -41,7 +41,7 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidModPorted.T2HMBarRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidMod.T2HMBarRecipeGroupID, 10)
 				.AddIngredient(ItemID.SoulofNight, 1)
 				.AddIngredient(ItemID.Amethyst, 1)
 				.AddTile(TileID.MythrilAnvil)

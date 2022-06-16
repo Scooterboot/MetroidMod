@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.MorphBallAddons
+namespace MetroidMod.Content.MorphBallAddons
 {
 	public class FrostburnBomb : ModMBWeapon
 	{
@@ -45,7 +45,7 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		{
 			CreateRecipe(1)
 				.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
-				.AddRecipeGroup(MetroidModPorted.T1HMBarRecipeGroupID, 5)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 5)
 				.AddIngredient(ItemID.FrostCore, 1)
 				.AddTile(TileID.Anvils)
 				.Register();

@@ -3,10 +3,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using System;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.DamageClasses;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.DamageClasses;
 
-namespace MetroidModPorted.Content.Items.Accessories
+namespace MetroidMod.Content.Items.Accessories
 {
 	public class ScrewSpaceBooster : ModItem//HunterDamageItem
 	{

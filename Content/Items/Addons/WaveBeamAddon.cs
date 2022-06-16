@@ -2,9 +2,9 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.Addons
+namespace MetroidMod.Content.Items.Addons
 {
 	public class WaveBeamAddon : ModItem
 	{
@@ -44,7 +44,7 @@ namespace MetroidModPorted.Content.Items.Addons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(3)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 8)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 8)
 				.AddIngredient(ItemID.Amethyst, 1)
 				.AddTile(TileID.Anvils)
 				.Register();

@@ -2,9 +2,9 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.Addons.V3
+namespace MetroidMod.Content.Items.Addons.V3
 {
 	public class VortexBeamAddon : ModItem
 	{

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 
-namespace MetroidModPorted.Content.Tiles.ItemTile
+namespace MetroidMod.Content.Tiles.ItemTile
 {
 	public abstract class ItemTile : ModTile
 	{

@@ -7,7 +7,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Aquatic
+namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 {
 	public class Evir : MNPC
 	{

@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Content.DamageClasses;
+using MetroidMod.Content.DamageClasses;
 
-namespace MetroidModPorted.Common.Players
+namespace MetroidMod.Common.Players
 {
 	// This class only really still exists for ease of combining multipliers, so...
 	public class HunterDamagePlayer : ModPlayer

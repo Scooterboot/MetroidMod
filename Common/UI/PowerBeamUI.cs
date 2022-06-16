@@ -9,20 +9,20 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.Items.Weapons;
-using MetroidModPorted.Default;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Default;
 using ReLogic.Content;
 
-namespace MetroidModPorted.Common.UI
+namespace MetroidMod.Common.UI
 {
 	/*
 	 * The whole UI still feels a tad hacky, so it might need to get a bit of revamping here and there.
 	 */
 	public class PowerBeamUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem].type == ModContent.ItemType<PowerBeam>();
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<PowerBeam>();
 
 		private PowerBeamPanel powerBeamPanel;
 		private PowerBeamScrewAttackButton pbsaButton;
@@ -35,9 +35,9 @@ namespace MetroidModPorted.Common.UI
 			powerBeamPanel.Top.Pixels = Main.instance.invBottom + 10;
 			powerBeamPanel.Left.Pixels = 65;
 
-			powerBeamPanel.beamSlots = new PowerBeamItemBox[MetroidModPorted.beamSlotAmount];
-			powerBeamPanel.textSlots = new UIText[MetroidModPorted.beamSlotAmount];
-			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
+			powerBeamPanel.beamSlots = new PowerBeamItemBox[MetroidMod.beamSlotAmount];
+			powerBeamPanel.textSlots = new UIText[MetroidMod.beamSlotAmount];
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				powerBeamPanel.beamSlots[i] = new PowerBeamItemBox();
 				powerBeamPanel.beamSlots[i].Top.Pixels = powerBeamPanel.itemBoxPositionValues[i].Y;
@@ -97,7 +97,7 @@ namespace MetroidModPorted.Common.UI
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
-		public Vector2[] itemBoxPositionValues = new Vector2[MetroidModPorted.beamSlotAmount]
+		public Vector2[] itemBoxPositionValues = new Vector2[MetroidMod.beamSlotAmount]
 		{
 			new Vector2(98, 14),
 			new Vector2(174, 14),
@@ -108,17 +108,17 @@ namespace MetroidModPorted.Common.UI
 
 		/*public override void OnInitialize()
 		{
-			panelTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/PowerBeam_Border").Value;
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerBeam_Border").Value;
 
 			SetPadding(0);
 			Left.Pixels = 160;
 			Top.Pixels = 260;
 			Width.Pixels = panelTexture.Width;
 			Height.Pixels = panelTexture.Height;
-			enabled = MetroidModPorted.DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 
-			beamSlots = new PowerBeamItemBox[MetroidModPorted.beamSlotAmount];
-			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
+			beamSlots = new PowerBeamItemBox[MetroidMod.beamSlotAmount];
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				beamSlots[i] = new PowerBeamItemBox();
 				beamSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
@@ -137,7 +137,7 @@ namespace MetroidModPorted.Common.UI
 		{
 			Width.Pixels = 256;
 			Height.Pixels = 164;
-			enabled = MetroidModPorted.DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 			if (!enabled)
 			{
 				Left.Pixels = 160;
@@ -170,7 +170,7 @@ namespace MetroidModPorted.Common.UI
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ItemBox").Value;
+			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox").Value;
 
 			Width.Pixels = 44; Height.Pixels = 44;
 			OnClick += ItemBoxClick;
@@ -189,8 +189,8 @@ namespace MetroidModPorted.Common.UI
 		{
 			condition = delegate (Item addonItem)
 			{
-				//Mod mod = ModLoader.GetMod("MetroidModPorted");
-				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidModPorted.Instance)
+				//Mod mod = ModLoader.GetMod("MetroidMod");
+				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
 					MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					//if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.PowerBeam) { return false; }
@@ -198,7 +198,7 @@ namespace MetroidModPorted.Common.UI
 					return addonItem.type <= ItemID.None || mItem.addonSlotType == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
-				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance);
+				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance);
 			};
 		}
 
@@ -206,7 +206,7 @@ namespace MetroidModPorted.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem].ModItem as PowerBeam;
+			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			if (powerBeamTarget == null || powerBeamTarget.BeamMods == null) { return; }
 
 			if (powerBeamTarget.BeamMods[addonSlotType] != null && !powerBeamTarget.BeamMods[addonSlotType].IsAir)
@@ -243,7 +243,7 @@ namespace MetroidModPorted.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			base.DrawSelf(spriteBatch);
-			Item target = Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem];
+			Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
 			if (target == null || target.type != ModContent.ItemType<PowerBeam>()) { return; }
 			PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 
@@ -311,7 +311,7 @@ namespace MetroidModPorted.Common.UI
 
 		public override void OnInitialize()
 		{
-			powerBeamFrame = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/PowerBeam_Frame").Value;
+			powerBeamFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerBeam_Frame").Value;
 
 			Width.Pixels = powerBeamFrame.Width;
 			Height.Pixels = powerBeamFrame.Height;
@@ -334,7 +334,7 @@ namespace MetroidModPorted.Common.UI
 
 		public override void OnInitialize()
 		{
-			powerBeamLines = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/PowerBeam_Lines");
+			powerBeamLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerBeam_Lines");
 
 			Width.Pixels = powerBeamLines.Value.Width;
 			Height.Pixels = powerBeamLines.Value.Height;
@@ -363,13 +363,13 @@ namespace MetroidModPorted.Common.UI
 			Left.Pixels = 112;
 			Top.Pixels = 274;
 			
-			buttonTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton", AssetRequestMode.ImmediateLoad).Value;
-			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
-			buttonTex_Click = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Click", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Click", AssetRequestMode.ImmediateLoad).Value;
 			
-			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled", AssetRequestMode.ImmediateLoad).Value;
-			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Hover", AssetRequestMode.ImmediateLoad).Value;
-			buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Click", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Hover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Click", AssetRequestMode.ImmediateLoad).Value;
 			
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
@@ -383,7 +383,7 @@ namespace MetroidModPorted.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidModPorted.DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 			if (!enabled)
 			{
 				Left.Pixels = 112;
@@ -452,7 +452,7 @@ namespace MetroidModPorted.Common.UI
 			Left.Pixels = 420;
 			Top.Pixels = 354;
 			
-			iconTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ComboErrorIcon", AssetRequestMode.ImmediateLoad).Value;
+			iconTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ComboErrorIcon", AssetRequestMode.ImmediateLoad).Value;
 			
 			Width.Pixels = iconTex.Width;
 			Height.Pixels = iconTex.Height;
@@ -465,7 +465,7 @@ namespace MetroidModPorted.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidModPorted.DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 			if (!enabled)
 			{
 				Left.Pixels = 112;
@@ -481,7 +481,7 @@ namespace MetroidModPorted.Common.UI
 		
 		protected override void DrawSelf(SpriteBatch sb)
 		{
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[(MetroidModPorted.Instance).selectedItem].ModItem as PowerBeam;
+			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[(MetroidMod.Instance).selectedItem].ModItem as PowerBeam;
 			if(powerBeamTarget != null && (powerBeamTarget.comboError1 || powerBeamTarget.comboError2 || powerBeamTarget.comboError3 || powerBeamTarget.comboError4))
 			{
 				//MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();

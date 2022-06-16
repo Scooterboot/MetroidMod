@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
+namespace MetroidMod.Content.NPCs.Mobs.Crawler
 {
 	public class Sova : MNPC
 	{
@@ -146,7 +146,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 	}
 	public class Sova_85 : Sova
 	{
-		public override string Texture => "MetroidModPorted/Content/NPCs/Mobs/Crawler/Sova";
+		public override string Texture => "MetroidMod/Content/NPCs/Mobs/Crawler/Sova";
 		public override void SetDefaults()
 		{
 			NPC.scale = 0.85f;
@@ -155,7 +155,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 	}
 	public class Sova_75 : Sova
 	{
-		public override string Texture => "MetroidModPorted/Content/NPCs/Mobs/Crawler/Sova";
+		public override string Texture => "MetroidMod/Content/NPCs/Mobs/Crawler/Sova";
 		public override void SetDefaults()
 		{
 			NPC.scale = 0.75f;

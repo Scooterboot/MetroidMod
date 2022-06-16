@@ -13,13 +13,13 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using MetroidModPorted.Content.Items.Armors;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public static class SuitAddonLoader
 	{

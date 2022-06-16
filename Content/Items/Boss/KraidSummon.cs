@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Boss
+namespace MetroidMod.Content.Items.Boss
 {
 	public class KraidSummon : ModItem
 	{
@@ -32,7 +32,7 @@ namespace MetroidModPorted.Content.Items.Boss
 		{
 			CreateRecipe(1)
 				.AddRecipeGroup(RecipeGroupID.IronBar, 5)
-				.AddRecipeGroup(MetroidModPorted.T1HMBarRecipeGroupID, 1)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 1)
 				.AddIngredient(ItemID.PixieDust, 3)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();

@@ -8,12 +8,12 @@ using Terraria.ModLoader;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
 
-using MetroidModPorted.Content.Items.Weapons;
-using MetroidModPorted.Content.Items.Accessories;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.Items.Accessories;
 
 #endregion
 
-namespace MetroidModPorted.Content.Items
+namespace MetroidMod.Content.Items
 {
 	internal sealed class ItemIL
 	{

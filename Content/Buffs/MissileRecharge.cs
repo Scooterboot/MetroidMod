@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework.Audio;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.Audio;
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
-//using MetroidModPorted.Content.Items;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+//using MetroidMod.Content.Items;
 
-namespace MetroidModPorted.Content.Buffs
+namespace MetroidMod.Content.Buffs
 {
 	public class MissileRecharge : ModBuff
 	{

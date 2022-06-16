@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MetroidModPorted.ID;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public abstract class ModMBBoost : ModMBAddon
 	{

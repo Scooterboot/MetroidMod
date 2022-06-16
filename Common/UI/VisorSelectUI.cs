@@ -12,9 +12,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common.UI
+namespace MetroidMod.Common.UI
 {
 	public class VisorSelectUI : UIState
 	{
@@ -73,8 +73,8 @@ namespace MetroidModPorted.Common.UI
 			SetPadding(0);
 			Width.Pixels = 100;
 			Height.Pixels = 100;
-			BackgroundTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/VisorSelectUI", AssetRequestMode.ImmediateLoad).Value;
-			CombatIcon = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/CombatVisorIcon", AssetRequestMode.ImmediateLoad).Value;
+			BackgroundTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/VisorSelectUI", AssetRequestMode.ImmediateLoad).Value;
+			CombatIcon = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/CombatVisorIcon", AssetRequestMode.ImmediateLoad).Value;
 			//base.OnInitialize();
 		}
 
@@ -139,7 +139,7 @@ namespace MetroidModPorted.Common.UI
 				}
 			}
 			if (mp.VisorInUse != oldVisor) { SoundEngine.PlaySound(mp.VisorInUse == -1 ? Sounds.UI.SwitchVisor2 : Sounds.UI.SwitchVisor); }
-			MetroidModPorted.Instance.Logger.Debug($"Switched visor to Suit Addon type: {mp.VisorInUse}");
+			MetroidMod.Instance.Logger.Debug($"Switched visor to Suit Addon type: {mp.VisorInUse}");
 		}
 	}
 }

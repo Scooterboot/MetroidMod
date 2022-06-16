@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
+namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 {
 	public class VortexComboAddon : ModItem
 	{

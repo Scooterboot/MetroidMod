@@ -5,9 +5,9 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common
+namespace MetroidMod.Common
 {
 	public class ScrewAttackLayer : PlayerDrawLayer
 	{

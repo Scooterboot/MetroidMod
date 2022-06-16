@@ -12,7 +12,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using System.IO;
 
-namespace MetroidModPorted.Content.Projectiles.Boss
+namespace MetroidMod.Content.Projectiles.Boss
 {
 	public class NightmareGravityField : ModProjectile
 	{

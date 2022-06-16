@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class VortexComboLead : MProjectile
 	{

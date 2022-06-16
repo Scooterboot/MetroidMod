@@ -7,7 +7,7 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.EasterEgg
+namespace MetroidMod.Content.Projectiles.EasterEgg
 {
 	public class CrucibleProj : MProjectile
 	{

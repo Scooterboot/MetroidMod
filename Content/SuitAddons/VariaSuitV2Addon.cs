@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Content.SuitAddons
+namespace MetroidMod.Content.SuitAddons
 {
 	public class VariaSuitV2Addon : ModSuitAddon
 	{
@@ -68,7 +68,7 @@ namespace MetroidModPorted.Content.SuitAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<VariaSuitAddon>().ItemType, 1)
-				.AddRecipeGroup(MetroidModPorted.T2HMBarRecipeGroupID, 45)
+				.AddRecipeGroup(MetroidMod.T2HMBarRecipeGroupID, 45)
 				.AddIngredient<Items.Miscellaneous.KraidTissue>(30)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();

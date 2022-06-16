@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.solarbeam
+namespace MetroidMod.Content.Projectiles.solarbeam
 {
 	public class SolarBeamChargeShot : MProjectile
 	{
@@ -26,7 +26,7 @@ namespace MetroidModPorted.Content.Projectiles.solarbeam
 		}
 
 		int dustType = 6;
-		Color color = MetroidModPorted.novColor;
+		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Stardust"))

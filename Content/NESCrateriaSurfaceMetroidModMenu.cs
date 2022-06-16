@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
-//using MetroidModPorted.Backgrounds;
+//using MetroidMod.Backgrounds;
 
-namespace MetroidModPorted.Content
+namespace MetroidMod.Content
 {
 	public class NESCrateriaSurfaceMetroidModMenu : ModMenu
 	{

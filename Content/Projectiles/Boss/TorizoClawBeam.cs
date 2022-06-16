@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.Boss
+namespace MetroidMod.Content.Projectiles.Boss
 {
 	public class TorizoClawBeam : ModProjectile
 	{

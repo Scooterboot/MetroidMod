@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.DataStructures;
 
-namespace MetroidModPorted.Content.BossBars
+namespace MetroidMod.Content.BossBars
 {
 	public class BossBarNone : ModBossBar
 	{

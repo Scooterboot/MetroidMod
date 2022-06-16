@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace MetroidModPorted.Content.Buffs
+namespace MetroidMod.Content.Buffs
 {
 	public class GravityDebuff : ModBuff
 	{

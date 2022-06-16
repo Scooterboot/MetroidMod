@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 
-namespace MetroidModPorted.Content.Items.Boss
+namespace MetroidMod.Content.Items.Boss
 {
 	public class NightmareBag : ModItem
 	{

@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Biomes
+namespace MetroidMod.Content.Biomes
 {
 	public class NESCrateriaSurfaceBackgroundStyle : ModSurfaceBackgroundStyle
 	{

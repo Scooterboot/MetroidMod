@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Beams
+namespace MetroidMod.Content.Beams
 {
 	/*
 	public class Spazer : ModPrimaryABeam

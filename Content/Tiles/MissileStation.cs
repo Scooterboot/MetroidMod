@@ -8,9 +8,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-//using MetroidModPorted.Content.Items;
+//using MetroidMod.Content.Items;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class MissileStation : ModTile
 	{

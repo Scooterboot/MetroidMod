@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public abstract class ModMBSpecial : ModMBAddon
 	{
@@ -34,7 +34,7 @@ namespace MetroidModPorted
 		public int ExplosionProjectileType { get; internal set; }
 		public abstract string ProjectileTexture { get; }
 		public abstract string ExplosionTexture { get; }
-		public virtual string ExplosionSound => $"{MetroidModPorted.Instance.Name}/Assets/Sounds/PowerBombExplode";
+		public virtual string ExplosionSound => $"{MetroidMod.Instance.Name}/Assets/Sounds/PowerBombExplode";
 		public float DamageMultiplier { get; set; } = 1;
 		public int Knockback { get; set; } = 3;
 		internal override sealed void InternalStaticDefaults()

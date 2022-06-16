@@ -2,14 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Vanity.Suits
+namespace MetroidMod.Content.Items.Vanity.Suits
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class VanityHazardShieldSuitBreastplate : VanityPEDSuitBreastplate
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Hazard Shield Suit Breastplate");
@@ -35,7 +35,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Legs)]
 	public class VanityHazardShieldSuitGreaves : VanityPEDSuitGreaves
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitGreaves";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitGreaves";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Hazard Shield Suit Greaves");
@@ -51,7 +51,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Head)]
 	public class VanityHazardShieldSuitHelmet : VanityPEDSuitHelmet
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitHelmet";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitHelmet";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Hazard Shield Suit Helmet");

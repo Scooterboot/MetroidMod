@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.missiles
+namespace MetroidMod.Content.Projectiles.missiles
 {
 	public class DiffusionShot : MProjectile
 	{
@@ -93,16 +93,16 @@ namespace MetroidModPorted.Content.Projectiles.missiles
 				}
 			
 				int dustType = 6;
-				Color color = MetroidModPorted.plaRedColor;
+				Color color = MetroidMod.plaRedColor;
 				if(Projectile.Name.Contains("Ice"))
 				{
 					dustType = 135;
-					color = MetroidModPorted.iceColor;
+					color = MetroidMod.iceColor;
 				}
 				if(Projectile.Name.Contains("Stardust"))
 				{
 					dustType = 88;
-					color = MetroidModPorted.iceColor;
+					color = MetroidMod.iceColor;
 					Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), 1.5f)].noGravity = true;
 				}
 				Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);

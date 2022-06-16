@@ -2,14 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Vanity.Suits
+namespace MetroidMod.Content.Items.Vanity.Suits
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class VanityVariaSuitBreastplate : Legacy.LegacyPowerSuitBreastplate
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitBreastplate";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitBreastplate";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Varia Suit Breastplate");
@@ -43,7 +43,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Legs)]
 	public class VanityVariaSuitGreaves : Legacy.LegacyPowerSuitGreaves
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitGreaves";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitGreaves";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Varia Suit Greaves");
@@ -59,7 +59,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Head)]
 	public class VanityVariaSuitHelmet : Legacy.LegacyPowerSuitHelmet
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitHelmet";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitHelmet";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Varia Suit Helmet");

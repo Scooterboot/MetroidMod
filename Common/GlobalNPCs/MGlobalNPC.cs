@@ -4,10 +4,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
-using MetroidModPorted.Content.Buffs;
-using MetroidModPorted.Content.NPCs.Mobs.Metroid;
+using MetroidMod.Content.Buffs;
+using MetroidMod.Content.NPCs.Mobs.Metroid;
 
-namespace MetroidModPorted.Common.GlobalNPCs
+namespace MetroidMod.Common.GlobalNPCs
 {
 	public class MGlobalNPC : GlobalNPC
 	{
@@ -44,7 +44,7 @@ namespace MetroidModPorted.Common.GlobalNPCs
 		{
 			if (froze)
 			{
-				if (speedDecrease <= 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && !MetroidModPorted.Instance.FrozenStandOnNPCs.Contains(npc.type))
+				if (speedDecrease <= 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && !MetroidMod.Instance.FrozenStandOnNPCs.Contains(npc.type))
 				{
 					npc.damage = 0;
 					npc.frame.Y = 0;
@@ -85,7 +85,7 @@ namespace MetroidModPorted.Common.GlobalNPCs
 		}
 		public override void PostAI(NPC npc)
 		{
-			if (froze && speedDecrease > 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && !MetroidModPorted.Instance.FrozenStandOnNPCs.Contains(npc.type))
+			if (froze && speedDecrease > 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && !MetroidMod.Instance.FrozenStandOnNPCs.Contains(npc.type))
 			{
 				npc.velocity.X -= npc.velocity.X * (1 - speedDecrease);
 				if (npc.noGravity)

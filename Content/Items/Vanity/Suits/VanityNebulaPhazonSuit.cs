@@ -2,14 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Vanity.Suits
+namespace MetroidMod.Content.Items.Vanity.Suits
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class VanityNebulaPhazonSuitBreastplate : VanityPhazonSuitBreastplate
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/NebulaAugment/NebulaAugmentBreastplate";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/NebulaAugment/NebulaAugmentBreastplate";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Nebula Phazon Suit Breastplate");
@@ -39,7 +39,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Legs)]
 	public class VanityNebulaPhazonSuitGreaves : VanityPhazonSuitGreaves
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/NebulaAugment/NebulaAugmentGreaves";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/NebulaAugment/NebulaAugmentGreaves";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Nebula Phazon Suit Greaves");
@@ -55,7 +55,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Head)]
 	public class VanityNebulaPhazonSuitHelmet : VanityPhazonSuitHelmet
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/NebulaAugment/NebulaAugmentHelmet";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/NebulaAugment/NebulaAugmentHelmet";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Nebula Phazon Suit Helmet");

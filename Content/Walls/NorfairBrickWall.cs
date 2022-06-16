@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace MetroidModPorted.Content.Walls
+namespace MetroidMod.Content.Walls
 {
 	public class NorfairBrickWall : ModWall
 	{

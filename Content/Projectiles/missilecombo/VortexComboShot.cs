@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class VortexComboShot : MProjectile
 	{
@@ -172,7 +172,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 			}
 			P.velocity += diff*MathHelper.Lerp(0.1f,1f,Math.Max((Vector2.Distance(Lead.Center,P.Center)-300f)/300f,0f));
 			
-			Color color = MetroidModPorted.lumColor;
+			Color color = MetroidMod.lumColor;
 			Lighting.AddLight(P.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			//if(P.numUpdates == 0)
@@ -203,7 +203,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 			if(velocity != Vector2.Zero)
 			{
 				int v = Projectile.NewProjectile(Projectile.GetSource_Death(), P.Center.X, P.Center.Y, velocity.X, velocity.Y, ModContent.ProjectileType<VortexComboShot2>(), damage, P.knockBack, P.owner);
-				Terraria.Audio.SoundEngine.PlaySound(new($"{nameof(MetroidModPorted)}/Assets/Sounds/WideBeamSound"), P.Center);
+				Terraria.Audio.SoundEngine.PlaySound(new($"{nameof(MetroidMod)}/Assets/Sounds/WideBeamSound"), P.Center);
 			}
 			
 			for (int i = 0; i < 30; i++)

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.NPCs.Serris
+namespace MetroidMod.Content.NPCs.Serris
 {
 	public class Serris_Body : Serris
 	{

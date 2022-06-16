@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class ChoziteOreTile : ModTile
 	{

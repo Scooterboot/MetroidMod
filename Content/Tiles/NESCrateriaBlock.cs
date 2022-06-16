@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class NESCrateriaBlock : ModTile
 	{

@@ -6,10 +6,10 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Systems;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Tools
+namespace MetroidMod.Content.Items.Tools
 {
 	public class XRayScope : ModItem
 	{

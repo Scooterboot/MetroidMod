@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace MetroidModPorted.Content.Items.Vanity.Legacy
+namespace MetroidMod.Content.Items.Vanity.Legacy
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class LegacyVariaSuitV2Breastplate : LegacyVariaSuitBreastplate

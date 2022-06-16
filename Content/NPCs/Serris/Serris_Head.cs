@@ -13,15 +13,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.NPCs.Serris
+namespace MetroidMod.Content.NPCs.Serris
 {
 	[AutoloadBossHead]
 	public class Serris_Head : Serris
 	{
 		public override string BossHeadTexture => Texture + "_Head_Boss_1";
-		public const string SerrisHead = "MetroidModPorted/Content/NPCs/Serris/Serris_Head_Head_Boss_";
+		public const string SerrisHead = "MetroidMod/Content/NPCs/Serris/Serris_Head_Head_Boss_";
 
 		public override void Load()
 		{

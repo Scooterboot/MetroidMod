@@ -2,10 +2,10 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MetroidModPorted.ID;
-using MetroidModPorted.Common.Players;
+using MetroidMod.ID;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.SuitAddons
+namespace MetroidMod.Content.SuitAddons
 {
 	public class EnergyTank : ModSuitAddon
 	{
@@ -34,8 +34,8 @@ namespace MetroidModPorted.Content.SuitAddons
 			CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.EnergyShard>(4)
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(1)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 1)
-				.AddRecipeGroup(MetroidModPorted.EvilMaterialRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 1)
+				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

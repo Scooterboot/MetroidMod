@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ModLoader;
 using ReLogic.Graphics;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class StardustFrozenTerrain : MProjectile
 	{

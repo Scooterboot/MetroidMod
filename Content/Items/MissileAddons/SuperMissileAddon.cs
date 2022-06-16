@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.MissileAddons
+namespace MetroidMod.Content.Items.MissileAddons
 {
 	public class SuperMissileAddon : ModItem
 	{
@@ -40,7 +40,7 @@ namespace MetroidModPorted.Content.Items.MissileAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddRecipeGroup(MetroidModPorted.T2HMBarRecipeGroupID, 8)
+				.AddRecipeGroup(MetroidMod.T2HMBarRecipeGroupID, 8)
 				.AddIngredient(ItemID.SoulofNight, 5)
 				.AddIngredient<Tiles.MissileExpansion>(1)
 				.AddTile(TileID.MythrilAnvil)

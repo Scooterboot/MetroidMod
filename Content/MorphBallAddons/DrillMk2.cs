@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.MorphBallAddons
+namespace MetroidMod.Content.MorphBallAddons
 {
 	public class DrillMk2 : ModMBDrill
 	{
@@ -33,8 +33,8 @@ namespace MetroidModPorted.Content.MorphBallAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 12)
-				.AddRecipeGroup(MetroidModPorted.EvilMaterialRecipeGroupID, 6)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 12)
+				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 6)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

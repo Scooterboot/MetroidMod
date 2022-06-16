@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalNPCs;
+using MetroidMod.Common.GlobalNPCs;
 using Terraria.GameContent.Bestiary;
 using System.Collections.Generic;
 
-namespace MetroidModPorted.Content.NPCs.Mobs
+namespace MetroidMod.Content.NPCs.Mobs
 {
 	public class Puyo : MNPC
 	{

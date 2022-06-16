@@ -13,15 +13,15 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.NPCs.Kraid
+namespace MetroidMod.Content.NPCs.Kraid
 {
 	[AutoloadBossHead]
 	public class Kraid_Head : ModNPC
 	{
 		public override string BossHeadTexture => Texture + "_Head_Boss_1";
-		public const string KraidHead = "MetroidModPorted/Content/NPCs/Kraid/Kraid_Head_Head_Boss_";
+		public const string KraidHead = "MetroidMod/Content/NPCs/Kraid/Kraid_Head_Head_Boss_";
 
 		public override void Load()
 		{

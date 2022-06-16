@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.novabeamV2
+namespace MetroidMod.Content.Projectiles.novabeamV2
 {
 	public class NovaBeamV2ChargeShot : MProjectile
 	{
@@ -25,13 +25,13 @@ namespace MetroidModPorted.Content.Projectiles.novabeamV2
 		}
 
 		int dustType = 75;
-		Color color = MetroidModPorted.novColor;
+		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
-				color = MetroidModPorted.iceColor;
+				color = MetroidMod.iceColor;
 			}
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			if(Projectile.numUpdates == 0)

@@ -8,9 +8,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common.GlobalNPCs
+namespace MetroidMod.Common.GlobalNPCs
 {
 	internal class ScanVisorGlobalNPC : GlobalNPC
 	{

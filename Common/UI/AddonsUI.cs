@@ -13,14 +13,14 @@ using Terraria.UI.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.Items.Armors;
-using MetroidModPorted.Content.Items.Weapons;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Common.UI
+namespace MetroidMod.Common.UI
 {
 	public class SuitAddonsUI : UIState
 	{
@@ -132,7 +132,7 @@ namespace MetroidModPorted.Common.UI
 			}*/
 
 			// TODO: HOW DO I LOAD MODLOADER UI TEXTURES
-			suitAddonsPanel.OpenReserveMenuButton = new UIImageButton(ModContent.Request<Texture2D>(/*"Terraria/ModLoader/UI/InfoDisplayPageArrow"*/$"{nameof(MetroidModPorted)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
+			suitAddonsPanel.OpenReserveMenuButton = new UIImageButton(ModContent.Request<Texture2D>(/*"Terraria/ModLoader/UI/InfoDisplayPageArrow"*/$"{nameof(MetroidMod)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
 			suitAddonsPanel.OpenReserveMenuButton.Left.Pixels = 100;
 			suitAddonsPanel.OpenReserveMenuButton.Top.Pixels = 334;
 			suitAddonsPanel.OpenReserveMenuButton.OnUpdate += delegate { if (suitAddonsPanel.OpenReserveMenuButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
@@ -155,8 +155,8 @@ namespace MetroidModPorted.Common.UI
 			reserveMenu.modeButton.OnClick += delegate { MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(); if (mp.SuitReservesAuto) { mp.SuitReservesAuto = false; } else { mp.SuitReservesAuto = true; } };
 			reserveMenu.Append(reserveMenu.modeButton);
 
-			reserveMenu.tex = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/ReserveFG", AssetRequestMode.ImmediateLoad);
-			reserveMenu.reserveBars = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/ReserveBG", AssetRequestMode.ImmediateLoad));
+			reserveMenu.tex = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/ReserveFG", AssetRequestMode.ImmediateLoad);
+			reserveMenu.reserveBars = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/ReserveBG", AssetRequestMode.ImmediateLoad));
 			reserveMenu.reserveBars.Top.Pixels = 60;
 			reserveMenu.reserveBars.Left.Pixels = 20;
 			reserveMenu.reserveBars.OnUpdate += delegate { if (reserveMenu.reserveBars.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
@@ -226,17 +226,17 @@ namespace MetroidModPorted.Common.UI
 
 		/*public override void OnInitialize()
 		{
-			panelTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/PowerBeam_Border").Value;
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerBeam_Border").Value;
 
 			SetPadding(0);
 			Left.Pixels = 160;
 			Top.Pixels = 260;
 			Width.Pixels = panelTexture.Width;
 			Height.Pixels = panelTexture.Height;
-			enabled = MetroidModPorted.DragablePowerBeamUI;
+			enabled = MetroidMod.DragablePowerBeamUI;
 
-			beamSlots = new PowerBeamItemBox[MetroidModPorted.beamSlotAmount];
-			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
+			beamSlots = new PowerBeamItemBox[MetroidMod.beamSlotAmount];
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				beamSlots[i] = new PowerBeamItemBox();
 				beamSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
@@ -255,7 +255,7 @@ namespace MetroidModPorted.Common.UI
 		{
 			Width.Pixels = 256;
 			Height.Pixels = 404;
-			enabled = MetroidModPorted.DragableSenseMoveUI;
+			enabled = MetroidMod.DragableSenseMoveUI;
 			if (!enabled)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 200;
@@ -294,7 +294,7 @@ namespace MetroidModPorted.Common.UI
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ItemBox").Value;
+			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox").Value;
 
 			Width.Pixels = 44; Height.Pixels = 44;
 			OnClick += ItemBoxClick;
@@ -312,15 +312,15 @@ namespace MetroidModPorted.Common.UI
 		public void SetCondition()
 		{
 			condition = delegate (Item addonItem) {
-				//Mod mod = ModLoader.GetMod("MetroidModPorted");
-				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidModPorted.Instance)
+				//Mod mod = ModLoader.GetMod("MetroidMod");
+				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
 					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
-				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance);
+				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance);
 			};
 		}
 
@@ -442,7 +442,7 @@ namespace MetroidModPorted.Common.UI
 		{
 			base.DrawSelf(spriteBatch);
 			//MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-			//Item target = Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem];
+			//Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
 			//if (target == null & target.type != ModContent.ItemType<PowerBeam>()) { return; }
 			//PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 
@@ -556,7 +556,7 @@ namespace MetroidModPorted.Common.UI
 		{
 			Width.Pixels = 200;
 			Height.Pixels = 100;
-			enabled = MetroidModPorted.DragableSenseMoveUI;
+			enabled = MetroidMod.DragableSenseMoveUI;
 			if (!enabled)
 			{
 				Left.Pixels = Main.screenWidth - 700;

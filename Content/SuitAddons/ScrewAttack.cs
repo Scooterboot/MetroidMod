@@ -2,10 +2,10 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MetroidModPorted.ID;
-using MetroidModPorted.Common.Players;
+using MetroidMod.ID;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.SuitAddons
+namespace MetroidMod.Content.SuitAddons
 {
 	public class ScrewAttack : ModSuitAddon
 	{

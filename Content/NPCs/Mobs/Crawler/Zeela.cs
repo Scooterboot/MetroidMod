@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
+namespace MetroidMod.Content.NPCs.Mobs.Crawler
 {
 	public class Zeela : MNPC
 	{
@@ -122,7 +122,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 	}
 	public class Zeela_85 : Zeela
 	{
-		public override string Texture => "MetroidModPorted/Content/NPCs/Mobs/Crawler/Zeela";
+		public override string Texture => "MetroidMod/Content/NPCs/Mobs/Crawler/Zeela";
 		public override void SetDefaults()
 		{
 			NPC.scale = 0.85f;
@@ -131,7 +131,7 @@ namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
 	}
 	public class Zeela_75 : Zeela
 	{
-		public override string Texture => "MetroidModPorted/Content/NPCs/Mobs/Crawler/Zeela";
+		public override string Texture => "MetroidMod/Content/NPCs/Mobs/Crawler/Zeela";
 		public override void SetDefaults()
 		{
 			NPC.scale = 0.75f;

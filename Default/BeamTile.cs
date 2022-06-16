@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
 
-namespace MetroidModPorted.Default
+namespace MetroidMod.Default
 {
 	/*
 	[Autoload(false)]

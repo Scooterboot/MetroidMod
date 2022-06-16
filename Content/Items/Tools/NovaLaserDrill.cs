@@ -3,9 +3,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.Tools
+namespace MetroidMod.Content.Items.Tools
 {
 	public class NovaLaserDrill : ModItem
 	{
@@ -73,7 +73,7 @@ namespace MetroidModPorted.Content.Items.Tools
 		{
 			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;//Main.itemTexture[Item.type];
-			if(MetroidModPorted.UseAltWeaponTextures)
+			if(MetroidMod.UseAltWeaponTextures)
 			{
 				mi.itemTexture = ModContent.Request<Texture2D>(altTexture).Value;//GetTexture(altTexture);
 			}
@@ -95,7 +95,7 @@ namespace MetroidModPorted.Content.Items.Tools
 		{
 			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;
-			if(MetroidModPorted.UseAltWeaponTextures)
+			if(MetroidMod.UseAltWeaponTextures)
 			{
 				mi.itemTexture = ModContent.Request<Texture2D>(altTexture).Value;
 			}

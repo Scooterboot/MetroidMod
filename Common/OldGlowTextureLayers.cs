@@ -6,10 +6,10 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Common
+namespace MetroidMod.Common
 {
 	internal class OldGlowTextureLayer_Legs : PlayerDrawLayer
 	{
@@ -17,7 +17,7 @@ namespace MetroidModPorted.Common
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 
@@ -35,7 +35,7 @@ namespace MetroidModPorted.Common
 			if (item != null && item.ModItem != null)
 			{
 				string name = item.ModItem.Texture + "_Legs_Glow";
-				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidModPorted"))
+				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidMod"))
 				{
 					Texture2D tex = asset.Value;
 					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawPlayer.legFrame, drawPlayer.legRotation, drawPlayer.legPosition, drawInfo.legVect, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorLegs, shader), drawInfo.shadow), shader);
@@ -50,7 +50,7 @@ namespace MetroidModPorted.Common
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
@@ -70,7 +70,7 @@ namespace MetroidModPorted.Common
 			{
 				string name = item.ModItem.Texture + "_Body_Glow";
 				string name2 = item.ModItem.Texture + "_FemaleBody_Glow";
-				if ((drawPlayer.Male && ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidModPorted")) || (!drawPlayer.Male && ModContent.RequestIfExists(name2, out asset) && name2.Contains("MetroidModPorted")))
+				if ((drawPlayer.Male && ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidMod")) || (!drawPlayer.Male && ModContent.RequestIfExists(name2, out asset) && name2.Contains("MetroidMod")))
 				{
 					Texture2D tex = asset.Value;
 					/*if (drawPlayer.Male)
@@ -96,7 +96,7 @@ namespace MetroidModPorted.Common
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
@@ -115,7 +115,7 @@ namespace MetroidModPorted.Common
 			if (item != null && item.ModItem != null)
 			{
 				string name = item.ModItem.Texture + "_Head_Glow";
-				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidModPorted"))
+				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidMod"))
 				{
 					Texture2D tex = asset.Value;
 					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.headRotation, drawPlayer.bodyPosition, drawInfo.headVect, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorHead, shader), drawInfo.shadow), shader);
@@ -130,7 +130,7 @@ namespace MetroidModPorted.Common
 
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Player drawPlayer = drawInfo.drawPlayer;
 			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
@@ -149,7 +149,7 @@ namespace MetroidModPorted.Common
 			if (item != null && item.ModItem != null)
 			{
 				string name = item.ModItem.Texture + "_Arms_Glow";
-				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidModPorted"))
+				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidMod"))
 				{
 					Texture2D tex = asset.Value;
 					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);

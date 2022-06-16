@@ -2,14 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Vanity.Suits
+namespace MetroidMod.Content.Items.Vanity.Suits
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class VanityPEDSuitBreastplate : VanityVariaSuitV2Breastplate
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/PEDSuit/PEDSuitBreastplate";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PEDSuit/PEDSuitBreastplate";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated P.E.D. Suit Breastplate");
@@ -35,7 +35,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Legs)]
 	public class VanityPEDSuitGreaves : VanityVariaSuitV2Greaves
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/PEDSuit/PEDSuitGreaves";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PEDSuit/PEDSuitGreaves";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated P.E.D. Suit Greaves");

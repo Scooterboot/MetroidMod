@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Projectiles
+namespace MetroidMod.Content.Projectiles
 {
 	class ChargeLead : MProjectile
 	{
@@ -35,14 +35,14 @@ namespace MetroidModPorted.Content.Projectiles
 				ChargeTex = "ChargeLead",
 				ShotSound = "none",
 				ChargeShotSound = "none";
-		public Mod ChargeUpSoundMod = MetroidModPorted.Instance,
-				ChargeTexMod = MetroidModPorted.Instance,
-				ShotSoundMod = MetroidModPorted.Instance,
-				ChargeShotSoundMod = MetroidModPorted.Instance;
+		public Mod ChargeUpSoundMod = MetroidMod.Instance,
+				ChargeTexMod = MetroidMod.Instance,
+				ShotSoundMod = MetroidMod.Instance,
+				ChargeShotSoundMod = MetroidMod.Instance;
 		public int ChargeShotAmt = 1,
 				DustType = 64;
 		public Color DustColor = default(Color),
-				LightColor = MetroidModPorted.powColor;
+				LightColor = MetroidMod.powColor;
 		public bool canPsuedoScrew = false;
 		public bool missile = false;
 		public int comboSound = 0;

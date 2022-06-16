@@ -10,11 +10,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Content.Items.Accessories;
-using MetroidModPorted.Default;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Default;
 
-namespace MetroidModPorted.Common.UI
+namespace MetroidMod.Common.UI
 {
 	public class MorphBallUI : UIState
 	{
@@ -41,7 +41,7 @@ namespace MetroidModPorted.Common.UI
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
-		public Vector2[] itemBoxPositionValues = new Vector2[MetroidModPorted.ballSlotAmount]
+		public Vector2[] itemBoxPositionValues = new Vector2[MetroidMod.ballSlotAmount]
 		{
 			new Vector2(26, 86),
 			new Vector2(182, 86),
@@ -52,18 +52,18 @@ namespace MetroidModPorted.Common.UI
 
 		public override void OnInitialize()
 		{
-			//panelTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/MorphBall_Border", AssetRequestMode.ImmediateLoad).Value;
+			//panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Border", AssetRequestMode.ImmediateLoad).Value;
 
 			SetPadding(0);
 			Width.Pixels = 256;//panelTexture.Width;
 			Height.Pixels = 162;//panelTexture.Height;
 			Left.Pixels = Main.screenWidth - Width.Pixels - 180;
 			Top.Pixels = 240;
-			enabled = MetroidModPorted.DragableMorphBallUI;
+			enabled = MetroidMod.DragableMorphBallUI;
 
-			ballSlots = new MorphBallItemBox[MetroidModPorted.beamSlotAmount];
-			textSlots = new UIText[MetroidModPorted.beamSlotAmount];
-			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
+			ballSlots = new MorphBallItemBox[MetroidMod.beamSlotAmount];
+			textSlots = new UIText[MetroidMod.beamSlotAmount];
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 
 				textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
@@ -76,7 +76,7 @@ namespace MetroidModPorted.Common.UI
 
 				Append(textSlots[i]);
 			}
-			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				ballSlots[i] = new MorphBallItemBox();
 				ballSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
@@ -93,7 +93,7 @@ namespace MetroidModPorted.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidModPorted.DragableMorphBallUI;
+			enabled = MetroidMod.DragableMorphBallUI;
 			if (!enabled)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 180;
@@ -124,7 +124,7 @@ namespace MetroidModPorted.Common.UI
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
+			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = 44; Height.Pixels = 44;//Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
 			OnClick += ItemBoxClick;
@@ -140,13 +140,13 @@ namespace MetroidModPorted.Common.UI
 		public void SetCondition()
 		{
 			condition = delegate (Item addonItem) {
-				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidModPorted.Instance)
+				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.MorphBall || !MBAddonLoader.TryGetAddon(addonItem, out ModMBAddon mbAddon)) { return false; }
 					return (addonItem.type <= 0 || mbAddon.AddonSlot == morphBallSlotType);
 				}
-				return (addonItem.type <= 0);// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidModPorted.Instance));
+				return (addonItem.type <= 0);// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance));
 			};
 		}
 
@@ -254,7 +254,7 @@ namespace MetroidModPorted.Common.UI
 
 		public override void OnInitialize()
 		{
-			morphBallFrame = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/MorphBall_Frame").Value;
+			morphBallFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Frame").Value;
 
 			Width.Pixels = morphBallFrame.Width;
 			Height.Pixels = morphBallFrame.Height;
@@ -277,7 +277,7 @@ namespace MetroidModPorted.Common.UI
 
 		public override void OnInitialize()
 		{
-			morphBallLines = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/MorphBall_Lines").Value;
+			morphBallLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Lines").Value;
 
 			Width.Pixels = morphBallLines.Width;
 			Height.Pixels = morphBallLines.Height;

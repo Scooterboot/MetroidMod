@@ -11,9 +11,9 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Accessories
+namespace MetroidMod.Content.Items.Accessories
 {
 	public class MorphBall : ModItem
 	{
@@ -24,7 +24,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 			{
 				if (_ballMods == null)
 				{
-					_ballMods = new Item[MetroidModPorted.ballSlotAmount];
+					_ballMods = new Item[MetroidMod.ballSlotAmount];
 					for (int i = 0; i < _ballMods.Length; ++i)
 					{
 						_ballMods[i] = new Item();
@@ -60,7 +60,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(12)
-				.AddRecipeGroup(MetroidModPorted.GoldPlatinumBarRecipeGroupID, 5)
+				.AddRecipeGroup(MetroidMod.GoldPlatinumBarRecipeGroupID, 5)
 				.AddIngredient(ItemID.FallenStar, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
@@ -75,8 +75,8 @@ namespace MetroidModPorted.Content.Items.Accessories
 		{
 			ModItem clone = base.Clone(item);
 			MorphBall ballClone = (MorphBall)clone;
-			ballClone.ballMods = new Item[MetroidModPorted.ballSlotAmount];
-			for (int i = 0; i < MetroidModPorted.ballSlotAmount; ++i)
+			ballClone.ballMods = new Item[MetroidMod.ballSlotAmount];
+			for (int i = 0; i < MetroidMod.ballSlotAmount; ++i)
 			{
 				ballClone.ballMods[i] = this.ballMods[i];
 			}
@@ -113,7 +113,7 @@ namespace MetroidModPorted.Content.Items.Accessories
 		{
 			try
 			{
-				ballMods = new Item[MetroidModPorted.ballSlotAmount];
+				ballMods = new Item[MetroidMod.ballSlotAmount];
 				for (int i = 0; i< ballMods.Length; ++i)
 				{
 					Item item = tag.Get<Item>("ballItem" + i);

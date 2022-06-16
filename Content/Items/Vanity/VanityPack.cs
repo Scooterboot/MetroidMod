@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MetroidModPorted.Content.Items.Vanity.Legacy;
+using MetroidMod.Content.Items.Vanity.Legacy;
 
-namespace MetroidModPorted.Content.Items.Vanity
+namespace MetroidMod.Content.Items.Vanity
 {
 	public class VanityPack : ModItem
 	{

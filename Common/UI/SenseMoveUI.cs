@@ -10,11 +10,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.Items;
-using MetroidModPorted.Content.Items.Armors;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items;
+using MetroidMod.Content.Items.Armors;
 
-namespace MetroidModPorted.Common.UI
+namespace MetroidMod.Common.UI
 {
 	public class SenseMoveUI : UIState
 	{
@@ -40,20 +40,20 @@ namespace MetroidModPorted.Common.UI
 
 		public override void OnInitialize()
 		{
-			buttonTex = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/Buttons/SenseMove_UIButton", AssetRequestMode.ImmediateLoad).Value;
-			buttonTex_Hover = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/Buttons/SenseMove_UIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
-			buttonTex_Click = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/Buttons/SenseMove_UIButton_Click", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Buttons/SenseMove_UIButton", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Hover = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Buttons/SenseMove_UIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Click = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Buttons/SenseMove_UIButton_Click", AssetRequestMode.ImmediateLoad).Value;
 
-			buttonTexEnabled = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/Buttons/SenseMoveEnabled_UIButton", AssetRequestMode.ImmediateLoad).Value;
-			buttonTexEnabled_Hover = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/Buttons/SenseMoveEnabled_UIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
-			buttonTexEnabled_Click = ModContent.Request<Texture2D>($"{nameof(MetroidModPorted)}/Assets/Textures/Buttons/SenseMoveEnabled_UIButton_Click", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Buttons/SenseMoveEnabled_UIButton", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Hover = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Buttons/SenseMoveEnabled_UIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Click = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Buttons/SenseMoveEnabled_UIButton_Click", AssetRequestMode.ImmediateLoad).Value;
 
 			this.SetPadding(0);
 			this.Width.Pixels = buttonTex.Width;
 			this.Height.Pixels = buttonTex.Height;
 			this.Left.Pixels = Main.screenWidth - 600;
 			this.Top.Pixels = 300;
-			enabled = MetroidModPorted.DragableSenseMoveUI;
+			enabled = MetroidMod.DragableSenseMoveUI;
 
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
@@ -62,7 +62,7 @@ namespace MetroidModPorted.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidModPorted.DragableSenseMoveUI;
+			enabled = MetroidMod.DragableSenseMoveUI;
 			if (base.IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;

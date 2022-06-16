@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.Addons.V2
+namespace MetroidMod.Content.Items.Addons.V2
 {
 	public class NovaBeamAddon : ModItem
 	{

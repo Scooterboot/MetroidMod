@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Accessories
+namespace MetroidMod.Content.Items.Accessories
 {
 	public class HunterEmblem : ModItem
 	{

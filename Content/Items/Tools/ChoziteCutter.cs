@@ -7,12 +7,12 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
 
 #endregion
 
-namespace MetroidModPorted.Content.Items.Tools
+namespace MetroidMod.Content.Items.Tools
 {
 	public class ChoziteCutter : ModItem
 	{

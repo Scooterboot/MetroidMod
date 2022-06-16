@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
  
-namespace MetroidModPorted.Content.Items.Tools
+namespace MetroidMod.Content.Items.Tools
 {
 	public class GrappleBeam : ModItem
 	{

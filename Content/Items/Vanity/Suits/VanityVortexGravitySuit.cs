@@ -2,14 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Vanity.Suits
+namespace MetroidMod.Content.Items.Vanity.Suits
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class VanityVortexGravitySuitBreastplate : VanityTerraGravitySuitBreastplate
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentBreastplate";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentBreastplate";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Vortex Gravity Suit Breastplate");
@@ -38,7 +38,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Legs)]
 	public class VanityVortexGravitySuitGreaves : VanityTerraGravitySuitGreaves
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentGreaves";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentGreaves";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Vortex Gravity Suit Greaves");
@@ -54,7 +54,7 @@ namespace MetroidModPorted.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Head)]
 	public class VanityVortexGravitySuitHelmet : VanityTerraGravitySuitHelmet
 	{
-		public override string Texture => $"{nameof(MetroidModPorted)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentHelmet";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentHelmet";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outdated Vortex Gravity Suit Helmet");

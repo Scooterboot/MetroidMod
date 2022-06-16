@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Items.Walls
+namespace MetroidMod.Content.Items.Walls
 {
 	public class NorfairBrickWall : ModItem
 	{

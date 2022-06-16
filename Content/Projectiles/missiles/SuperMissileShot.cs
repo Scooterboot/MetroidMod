@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.missiles
+namespace MetroidMod.Content.Projectiles.missiles
 {
 	public class SuperMissileShot : MProjectile
 	{

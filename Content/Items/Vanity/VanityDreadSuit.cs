@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Vanity
+namespace MetroidMod.Content.Items.Vanity
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class VanityDreadSuitBreastplate : ModItem

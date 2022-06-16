@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Content.NPCs.OmegaPirate;
+using MetroidMod.Content.NPCs.OmegaPirate;
 using System.IO;
 
-namespace MetroidModPorted.Content.Projectiles.Boss
+namespace MetroidMod.Content.Projectiles.Boss
 {
 	public class OmegaPirateShockwave : ModProjectile
 	{

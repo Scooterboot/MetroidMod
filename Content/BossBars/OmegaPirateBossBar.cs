@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.BigProgressBar;
-using MetroidModPorted.Content.NPCs.OmegaPirate;
+using MetroidMod.Content.NPCs.OmegaPirate;
 
-namespace MetroidModPorted.Content.BossBars
+namespace MetroidMod.Content.BossBars
 {
 	public class OmegaPirateBossBar : ModBossBar
 	{

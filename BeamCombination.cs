@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria.Audio;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	/*
 	public class BeamCombination

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class StardustComboDiffusionShot : MProjectile
 	{
@@ -64,7 +64,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				P.rotation = vel.ToRotation() + 1.57f;
 			}
 
-			Color color = MetroidModPorted.iceColor;
+			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(P.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			segmentPos[0] = P.Center;

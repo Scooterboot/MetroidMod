@@ -7,7 +7,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Flying
+namespace MetroidMod.Content.NPCs.Mobs.Flying
 {
 	public class Skree : MNPC
 	{

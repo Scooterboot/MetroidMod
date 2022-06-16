@@ -10,7 +10,7 @@ using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.NPCs.Kraid
+namespace MetroidMod.Content.NPCs.Kraid
 {
 	public class Kraid_ArmBack : ModNPC
 	{

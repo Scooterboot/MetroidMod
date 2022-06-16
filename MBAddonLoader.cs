@@ -12,16 +12,16 @@ using Terraria.GameContent;
 //using Terraria.GameContent.Liquid;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
-using MetroidModPorted.ID;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public static class MBAddonLoader
 	{
 		internal static readonly List<ModMBAddon> addons = new();
 		internal static readonly List<GlobalMBAddon> globalAddons = new();
 
-		public static int BombsRecipeGroupID => MetroidModPorted.MorphBallBombsRecipeGroupID;
+		public static int BombsRecipeGroupID => MetroidMod.MorphBallBombsRecipeGroupID;
 
 		internal static bool TryGetValue(this IList<ModMBAddon> list, int type, out ModMBAddon modMBAddon) =>
 			list.TryGetValue(i => i.Type == type, out modMBAddon);

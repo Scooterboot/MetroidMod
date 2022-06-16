@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class VortexComboShot2 : MProjectile
 	{
@@ -24,7 +24,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 		{
 			Projectile P = Projectile;
 			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + 1.57f;
-			Color color = MetroidModPorted.lumColor;
+			Color color = MetroidMod.lumColor;
 			Lighting.AddLight(P.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			if(P.numUpdates == 0)

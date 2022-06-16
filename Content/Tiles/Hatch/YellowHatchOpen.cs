@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using System;
 
-namespace MetroidModPorted.Content.Tiles.Hatch
+namespace MetroidMod.Content.Tiles.Hatch
 {
 	public class YellowHatchOpen : BlueHatch
 	{

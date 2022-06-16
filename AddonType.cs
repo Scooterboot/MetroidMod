@@ -1,4 +1,4 @@
-﻿namespace MetroidModPorted
+﻿namespace MetroidMod
 {
 	public enum AddonType
 	{

@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Tiles
+namespace MetroidMod.Content.Items.Tiles
 {
 	// haha, funi 'Devtool' tag - DS49
 	public class EnergyStationDevtool : ModItem

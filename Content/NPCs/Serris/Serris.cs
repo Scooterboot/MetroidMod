@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 using static Terraria.ModLoader.ModContent;
 
-namespace MetroidModPorted.Content.NPCs.Serris
+namespace MetroidMod.Content.NPCs.Serris
 {
 	public abstract class Serris : ModNPC
 	{

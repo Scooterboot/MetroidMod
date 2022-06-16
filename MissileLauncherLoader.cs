@@ -13,7 +13,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public static class MissileLauncherLoader
 	{

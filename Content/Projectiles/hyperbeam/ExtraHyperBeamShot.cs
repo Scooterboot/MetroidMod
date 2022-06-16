@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Projectiles.hyperbeam
+namespace MetroidMod.Content.Projectiles.hyperbeam
 {
 	public class ExtraHyperBeamShot : MProjectile
 	{

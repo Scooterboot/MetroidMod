@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Tiles.ItemTile
+namespace MetroidMod.Content.Tiles.ItemTile
 {
 	public class MorphBallTile : ItemTile
 	{

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.solarbeam
+namespace MetroidMod.Content.Projectiles.solarbeam
 {
 	public class SolarBeamShot : MProjectile
 	{
@@ -25,7 +25,7 @@ namespace MetroidModPorted.Content.Projectiles.solarbeam
 		}
 
 		int dustType = 6;
-		Color color = MetroidModPorted.plaRedColor;
+		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Stardust"))

@@ -3,14 +3,14 @@
 using Terraria;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.Items;
-using MetroidModPorted.Content.Items.Accessories;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items;
+using MetroidMod.Content.Items.Accessories;
 
 #endregion
 
-namespace MetroidModPorted.Content.Mounts
+namespace MetroidMod.Content.Mounts
 {
 	public class MorphBallMount : ModMount//ModMountData
 	{

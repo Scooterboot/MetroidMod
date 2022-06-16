@@ -8,7 +8,7 @@ using Terraria.UI;
 
 #endregion
 
-namespace MetroidModPorted.Common.UI
+namespace MetroidMod.Common.UI
 {
 	// Pretty much stolen from ExampleMod
 	public abstract class DragableUIPanel : UIPanel

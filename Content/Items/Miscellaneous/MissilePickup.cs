@@ -5,9 +5,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.Miscellaneous
+namespace MetroidMod.Content.Items.Miscellaneous
 {
 	public class MissilePickup : ModItem
 	{

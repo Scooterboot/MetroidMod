@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.DamageClasses
+namespace MetroidMod.Content.DamageClasses
 {
 	public class HunterDamageClass : DamageClass
 	{

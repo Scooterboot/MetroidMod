@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Beams
+namespace MetroidMod.Content.Beams
 {
 	/*
 	public class WaveBeam : ModUtilityBeam
@@ -38,7 +38,7 @@ namespace MetroidModPorted.Content.Beams
 		{
 			CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(3)
-				.AddRecipeGroup(MetroidModPorted.EvilBarRecipeGroupID, 8)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 8)
 				.AddIngredient(ItemID.Amethyst, 10)
 				.AddTile(TileID.Anvils)
 				.Register();

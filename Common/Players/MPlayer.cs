@@ -16,13 +16,13 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 
-using MetroidModPorted.Common.GlobalNPCs;
-//using MetroidModPorted.Content.NPCs;
-//using MetroidModPorted.Content.Items;
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.ID;
+using MetroidMod.Common.GlobalNPCs;
+//using MetroidMod.Content.NPCs;
+//using MetroidMod.Content.Items;
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Common.Players
+namespace MetroidMod.Common.Players
 {
 	public partial class MPlayer
 	{
@@ -305,7 +305,7 @@ namespace MetroidModPorted.Common.Players
 			for (int i = 0; i < 200; ++i)
 			{
 				NPC npc = Main.npc[i];
-				if (npc.active && ((MetroidModPorted.Instance).FrozenStandOnNPCs.Contains(npc.type) || npc.type == ModContent.NPCType<Content.NPCs.Mobs.Utility.Tripper>()))
+				if (npc.active && ((MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type) || npc.type == ModContent.NPCType<Content.NPCs.Mobs.Utility.Tripper>()))
 				{
 					MGlobalNPC mnpc = npc.GetGlobalNPC<MGlobalNPC>();
 					if (!mnpc.froze && npc.type != ModContent.NPCType<Content.NPCs.Mobs.Utility.Tripper>()) { continue; }

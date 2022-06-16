@@ -16,7 +16,7 @@ using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 
-namespace MetroidModPorted.Common.Configs
+namespace MetroidMod.Common.Configs
 {
 	[Label("Client Side")]
 	public class MConfig : ModConfig
@@ -54,11 +54,11 @@ namespace MetroidModPorted.Common.Configs
 		
 		public override void OnChanged()
 		{
-			MetroidModPorted.UseAltWeaponTextures = UseAltWeaponTextures;
-			MetroidModPorted.DragablePowerBeamUI = DragablePowerBeamUI;
-			MetroidModPorted.DragableMissileLauncherUI = DragableMissileLauncherUI;
-			MetroidModPorted.DragableMorphBallUI = DragableMorphBallUI;
-			MetroidModPorted.DragableSenseMoveUI = DragableSenseMoveUI;
+			MetroidMod.UseAltWeaponTextures = UseAltWeaponTextures;
+			MetroidMod.DragablePowerBeamUI = DragablePowerBeamUI;
+			MetroidMod.DragableMissileLauncherUI = DragableMissileLauncherUI;
+			MetroidMod.DragableMorphBallUI = DragableMorphBallUI;
+			MetroidMod.DragableSenseMoveUI = DragableSenseMoveUI;
 		}
 	}
 
@@ -80,8 +80,8 @@ namespace MetroidModPorted.Common.Configs
 
 		public override void OnChanged()
 		{
-			MetroidModPorted.DebugDH = DrawNPCHitboxes;
-			MetroidModPorted.DebugDSI = StatueItemMarkers;
+			MetroidMod.DebugDH = DrawNPCHitboxes;
+			MetroidMod.DebugDSI = StatueItemMarkers;
 		}
 	}
 
@@ -115,8 +115,8 @@ namespace MetroidModPorted.Common.Configs
 
 		public override void OnChanged()
 		{
-			MetroidModPorted.AutocloseHatchesEnabled = AutocloseHatchesEnabled;
-			MetroidModPorted.AutocloseHatchesTime = AutocloseHatchesTime;
+			MetroidMod.AutocloseHatchesEnabled = AutocloseHatchesEnabled;
+			MetroidMod.AutocloseHatchesTime = AutocloseHatchesTime;
 		}
 	}
 }

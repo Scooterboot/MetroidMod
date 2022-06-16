@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.icebeam
+namespace MetroidMod.Content.Projectiles.icebeam
 {
 	public class IceBeamV2Shot : MProjectile
 	{
@@ -24,7 +24,7 @@ namespace MetroidModPorted.Content.Projectiles.icebeam
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Color color = MetroidModPorted.iceColor;
+			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			if(Projectile.numUpdates == 0)

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.Items.Vanity
+namespace MetroidMod.Content.Items.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class PhantoonMask : ModItem

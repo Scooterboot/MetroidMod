@@ -11,9 +11,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.NPCs.Torizo
+namespace MetroidMod.Content.NPCs.Torizo
 {
 	public class OrbBomb : ModNPC
 	{

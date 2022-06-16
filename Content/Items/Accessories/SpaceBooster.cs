@@ -8,10 +8,10 @@ using Terraria.UI;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.DamageClasses;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.DamageClasses;
 
-namespace MetroidModPorted.Content.Items.Accessories
+namespace MetroidMod.Content.Items.Accessories
 {
 	public class SpaceBooster : ModItem
 	{

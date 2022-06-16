@@ -8,9 +8,9 @@ using System.Diagnostics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MetroidModPorted.Content.DamageClasses;
+using MetroidMod.Content.DamageClasses;
 
-namespace MetroidModPorted.Default
+namespace MetroidMod.Default
 {
 	[Autoload(false)]
 	[CloneByReference]

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.widebeam
+namespace MetroidMod.Content.Projectiles.widebeam
 {
 	public class WideBeamChargeShot : MProjectile
 	{
@@ -26,20 +26,20 @@ namespace MetroidModPorted.Content.Projectiles.widebeam
 		}
 
 		int dustType = 63;
-		Color color = MetroidModPorted.wideColor;
-		Color color2 = MetroidModPorted.wideColor;
+		Color color = MetroidMod.wideColor;
+		Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
-				color = MetroidModPorted.iceColor;
+				color = MetroidMod.iceColor;
 				color2 = default(Color);
 			}
 			else if(Projectile.Name.Contains("Wave"))
 			{
 				dustType = 62;
-				color = MetroidModPorted.waveColor2;
+				color = MetroidMod.waveColor2;
 				color2 = default(Color);
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;

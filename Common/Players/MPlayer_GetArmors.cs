@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Content.Items.Armors;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Common.Players
+namespace MetroidMod.Common.Players
 {
 	public partial class MPlayer : ModPlayer
 	{
@@ -64,7 +64,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetHelmet(Player player)
 		{
-			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitHelmet), EquipType.Head);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitHelmet), EquipType.Head);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -80,7 +80,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetHelmetGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<PowerSuitHelmet>().Texture + "_Head_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitHelmet_Head_Glow";
+			string tex = ModContent.GetInstance<PowerSuitHelmet>().Texture + "_Head_Glow";//"MetroidMod/Content/Items/Armors/PowerSuitHelmet_Head_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -96,7 +96,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetBreastplate(Player player)
 		{
-			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -112,7 +112,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetBreastplateGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Body_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
+			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Body_Glow";//"MetroidMod/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -128,7 +128,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetArms(Player player)
 		{
-			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -160,7 +160,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static int GetGreaves(Player player)
 		{
-			int msaEqu = EquipLoader.GetEquipSlot(MetroidModPorted.Instance, nameof(PowerSuitGreaves), EquipType.Legs);
+			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitGreaves), EquipType.Legs);
 			ModSuitAddon[] msa = GetPowerSuit(player);
 			for (int i = 0; i < msa.Length; i++)
 			{
@@ -176,7 +176,7 @@ namespace MetroidModPorted.Common.Players
 		}
 		public static Asset<Texture2D> GetGreavesGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<PowerSuitGreaves>().Texture + "_Legs_Glow";//"MetroidModPorted/Content/Items/Armors/PowerSuitGreaves_Legs_Glow";
+			string tex = ModContent.GetInstance<PowerSuitGreaves>().Texture + "_Legs_Glow";//"MetroidMod/Content/Items/Armors/PowerSuitGreaves_Legs_Glow";
 			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 			for (int i = 0; i < msa.Length; i++)
 			{

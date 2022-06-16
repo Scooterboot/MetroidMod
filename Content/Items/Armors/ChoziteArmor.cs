@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Items.Armors
+namespace MetroidMod.Content.Items.Armors
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class ChoziteBreastplate : ModItem

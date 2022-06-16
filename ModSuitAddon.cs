@@ -7,10 +7,10 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public abstract class ModSuitAddon : ModType
 	{
@@ -129,7 +129,7 @@ namespace MetroidModPorted
 				}
 				SuitAddonLoader.addons.Add(this);
 			}
-			MetroidModPorted.Instance.Logger.Info("Register new Suit Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+			MetroidMod.Instance.Logger.Info("Register new Suit Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
 		}
 
 		public override void SetStaticDefaults()

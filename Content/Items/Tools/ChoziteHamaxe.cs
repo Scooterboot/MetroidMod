@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Tools
+namespace MetroidMod.Content.Items.Tools
 {
 	public class ChoziteHamaxe : ModItem
 	{

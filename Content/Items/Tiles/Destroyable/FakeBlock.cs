@@ -6,12 +6,12 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
 
 #endregion
 
-namespace MetroidModPorted.Content.Items.Tiles.Destroyable
+namespace MetroidMod.Content.Items.Tiles.Destroyable
 {
 	public class FakeBlock : ModItem
 	{

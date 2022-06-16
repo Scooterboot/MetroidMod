@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-//using MetroidModPorted;
-//using MetroidModPorted.Content.Projectiles.missilecombo;
+//using MetroidMod;
+//using MetroidMod.Content.Projectiles.missilecombo;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class StardustComboShot : MProjectile
 	{

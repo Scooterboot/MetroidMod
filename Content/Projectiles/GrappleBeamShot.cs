@@ -9,10 +9,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 using Terraria.Audio;
 
-namespace MetroidModPorted.Content.Projectiles
+namespace MetroidMod.Content.Projectiles
 {
 	public class GrappleBeamShot : ModProjectile
 	{

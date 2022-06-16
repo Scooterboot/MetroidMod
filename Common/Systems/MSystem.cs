@@ -19,17 +19,17 @@ using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.Tiles;
-using MetroidModPorted.Content.Tiles.ItemTile;
-using MetroidModPorted.Content.Tiles.Hatch;
-using MetroidModPorted.Content.Walls;
-using MetroidModPorted.Content.NPCs.GoldenTorizo;
-using MetroidModPorted.Content.NPCs.Torizo;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Tiles;
+using MetroidMod.Content.Tiles.ItemTile;
+using MetroidMod.Content.Tiles.Hatch;
+using MetroidMod.Content.Walls;
+using MetroidMod.Content.NPCs.GoldenTorizo;
+using MetroidMod.Content.NPCs.Torizo;
 
 #endregion
 
-namespace MetroidModPorted.Common.Systems
+namespace MetroidMod.Common.Systems
 {
 	[LegacyName("MWorld")]
 	public partial class MSystem : ModSystem
@@ -119,8 +119,8 @@ namespace MetroidModPorted.Common.Systems
 			Player player = Main.LocalPlayer;
 			if (player.selectedItem < 10)
 			{
-				MetroidModPorted.Instance.oldSelectedItem = MetroidModPorted.Instance.selectedItem;
-				MetroidModPorted.Instance.selectedItem = player.selectedItem;
+				MetroidMod.Instance.oldSelectedItem = MetroidMod.Instance.selectedItem;
+				MetroidMod.Instance.selectedItem = player.selectedItem;
 			}
 		}
 
@@ -610,7 +610,7 @@ namespace MetroidModPorted.Common.Systems
 
 		public static ushort StatueItem(int i, int j)
 		{
-			//Mod mod = MetroidModPorted.Instance;
+			//Mod mod = MetroidMod.Instance;
 
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
 			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35);
@@ -703,7 +703,7 @@ namespace MetroidModPorted.Common.Systems
 		}
 		public static bool AddChozoStatue(int i, int j)
 		{
-			//Mod mod = MetroidModPorted.Instance;
+			//Mod mod = MetroidMod.Instance;
 
 			int k = j;
 			while (k < Main.maxTilesY)
@@ -839,7 +839,7 @@ namespace MetroidModPorted.Common.Systems
 		}
 		public static bool AddExpansion(int i, int j)
 		{
-			//Mod mod = MetroidModPorted.Instance;
+			//Mod mod = MetroidMod.Instance;
 			int k = j;
 			while (k < Main.maxTilesY)
 			{
@@ -1121,7 +1121,7 @@ namespace MetroidModPorted.Common.Systems
 		{
 			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
 
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 
 			for (int j = 0; j < 9; j++)
 			{
@@ -1181,7 +1181,7 @@ namespace MetroidModPorted.Common.Systems
 		}
 		private static void ChozoRuins_Hall(int x, int y, int width, int height, int dir)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 
 			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
 
@@ -1336,7 +1336,7 @@ namespace MetroidModPorted.Common.Systems
 		}
 		private static void ChozoRuins_BombRoom(int x, int y, int dir)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 
 			int width = 36;
 			int height = 16;
@@ -1411,7 +1411,7 @@ namespace MetroidModPorted.Common.Systems
 
 		private static void ChozoRuins_SaveRoom(int x, int y)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 
 			int width = 20;
 			int height = 16;
@@ -1462,7 +1462,7 @@ namespace MetroidModPorted.Common.Systems
 					WorldGen.PlaceTile(numX + i, y + height - 6 + j, ModContent.TileType<ChozoBrick>());
 				}
 			}
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 			int xx = x + width / 2;
 			int yy = y + height - 7;
 			WorldGen.AddBuriedChest(xx, yy, itemType, false, 1);
@@ -1519,7 +1519,7 @@ namespace MetroidModPorted.Common.Systems
 		}
 		private static void Hatch(int i, int j)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 			for (int x = i; x < i + 4; x++)
 			{
 				for (int y = j; y < j + 4; y++)
@@ -1532,7 +1532,7 @@ namespace MetroidModPorted.Common.Systems
 		}
 		private static void VerticalHatch(int i, int j)
 		{
-			Mod mod = MetroidModPorted.Instance;
+			Mod mod = MetroidMod.Instance;
 			for (int x = i; x < i + 4; x++)
 			{
 				for (int y = j; y < j + 4; y++)

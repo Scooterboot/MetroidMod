@@ -11,9 +11,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.NPCs.Torizo
+namespace MetroidMod.Content.NPCs.Torizo
 {
 	[AutoloadBossHead]
 	public class IdleTorizo : ModNPC

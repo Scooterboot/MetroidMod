@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Bestiary;
 
-namespace MetroidModPorted.Content.NPCs.OmegaPirate
+namespace MetroidMod.Content.NPCs.OmegaPirate
 {
 	public class OmegaPirate_HitBox : ModNPC
 	{

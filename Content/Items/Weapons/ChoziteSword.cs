@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Weapons
+namespace MetroidMod.Content.Items.Weapons
 {
 	public class ChoziteSword : ModItem
 	{

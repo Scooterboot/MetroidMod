@@ -8,10 +8,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Content.DamageClasses;
-using MetroidModPorted.Content.Projectiles;
+using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Projectiles;
 
-namespace MetroidModPorted.Default
+namespace MetroidMod.Default
 {
 	/*
 	[Autoload(false)]
@@ -352,10 +352,10 @@ namespace MetroidModPorted.Default
 				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
 				Main.dust[dust].noGravity = noGravity;
 			}
-			SoundStyle sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/BeamImpactSound");
+			SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/BeamImpactSound");
 			if (projectile.Name.Contains("Ice"))
 			{
-				sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/IceImpactSound");
+				sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
 			}
 			SoundEngine.PlaySound(sound, projectile.Center);
 		}
@@ -384,10 +384,10 @@ namespace MetroidModPorted.Default
 					p.netUpdate = true;
 				}
 
-				SoundStyle sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/BeamImpactSound");
+				SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/BeamImpactSound");
 				if (projectile.Name.Contains("Ice"))
 				{
-					sound = new($"{MetroidModPorted.Instance.Name}/Assets/Sounds/IceImpactSound");
+					sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
 				}
 				SoundEngine.PlaySound(sound, projectile.Center);//SoundLoader.CustomSoundType, (int)projectile.Center.X, (int)projectile.Center.Y, sound);
 			}

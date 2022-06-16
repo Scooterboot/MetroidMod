@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
-namespace MetroidModPorted.Content.NPCs.Serris
+namespace MetroidMod.Content.NPCs.Serris
 {
 	public class Serris_Tail : Serris_Body
 	{

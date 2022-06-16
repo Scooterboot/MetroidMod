@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
+namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 {
 	public class IceSpreaderAddon : ModItem
 	{
@@ -41,7 +41,7 @@ namespace MetroidModPorted.Content.Items.MissileAddons.BeamCombos
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.IceRod, 1)
-				.AddRecipeGroup(MetroidModPorted.T3HMBarRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidMod.T3HMBarRecipeGroupID, 10)
 				.AddIngredient(ItemID.Sapphire, 1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();

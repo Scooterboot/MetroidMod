@@ -11,7 +11,7 @@ using Terraria.ObjectData;
 //using MetroidMod.Buffs;
 using static Terraria.ModLoader.ModContent;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class EnergyStation : ModTile
 	{

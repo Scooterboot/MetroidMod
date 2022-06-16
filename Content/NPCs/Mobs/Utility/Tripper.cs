@@ -7,7 +7,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Utility
+namespace MetroidMod.Content.NPCs.Mobs.Utility
 {
 	public class Tripper : MNPC
 	{

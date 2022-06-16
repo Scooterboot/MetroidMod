@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.NPCs
+namespace MetroidMod.Content.NPCs
 {
 	public abstract class MNPC : ModNPC 
 	{

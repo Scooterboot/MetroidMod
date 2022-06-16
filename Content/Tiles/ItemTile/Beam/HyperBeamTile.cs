@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Tiles.ItemTile.Beam
+namespace MetroidMod.Content.Tiles.ItemTile.Beam
 {
 	public class HyperBeamTile : ItemTile
 	{
@@ -25,7 +25,7 @@ namespace MetroidModPorted.Content.Tiles.ItemTile.Beam
 			{
 				zero = Vector2.Zero;
 			}
-			spriteBatch.Draw(ModContent.Request<Texture2D>("MetroidModPorted/Content/Tiles/ItemTile/Beam/HyperBeamTileColors").Value, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(ModContent.Request<Texture2D>("MetroidMod/Content/Tiles/ItemTile/Beam/HyperBeamTileColors").Value, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
 	}
 }

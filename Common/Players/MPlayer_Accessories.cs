@@ -16,12 +16,12 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-//using MetroidModPorted.Content.NPCs;
-//using MetroidModPorted.Content.Items;
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.ID;
+//using MetroidMod.Content.NPCs;
+//using MetroidMod.Content.Items;
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Common.Players
+namespace MetroidMod.Common.Players
 {
 	public partial class MPlayer : ModPlayer  
 	{

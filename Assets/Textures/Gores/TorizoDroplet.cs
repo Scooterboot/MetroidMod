@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Assets.Textures.Gores
+namespace MetroidMod.Assets.Textures.Gores
 {
 	public class TorizoDroplet : ModGore
 	{

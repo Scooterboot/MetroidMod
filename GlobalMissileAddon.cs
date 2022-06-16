@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	/*
 	public abstract class GlobalMissileAddon : ModType

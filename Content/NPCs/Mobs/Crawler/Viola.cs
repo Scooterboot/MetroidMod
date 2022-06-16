@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Crawler
+namespace MetroidMod.Content.NPCs.Mobs.Crawler
 {
 	public class Viola : MNPC
 	{

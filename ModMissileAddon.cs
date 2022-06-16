@@ -6,10 +6,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	/*
 	public abstract class ModMissileAddon : ModType

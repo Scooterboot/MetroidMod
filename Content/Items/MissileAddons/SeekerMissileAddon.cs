@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.MissileAddons
+namespace MetroidMod.Content.Items.MissileAddons
 {
 	public class SeekerMissileAddon : ModItem
 	{
@@ -39,7 +39,7 @@ namespace MetroidModPorted.Content.Items.MissileAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidModPorted.T1HMBarRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 10)
 				.AddIngredient(ItemID.SoulofNight, 1)
 				.AddIngredient(ItemID.SoulofLight, 1)
 				.AddTile(TileID.MythrilAnvil)

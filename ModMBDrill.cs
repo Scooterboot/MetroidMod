@@ -1,6 +1,6 @@
-﻿using MetroidModPorted.ID;
+﻿using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public abstract class ModMBDrill : ModMBAddon
 	{

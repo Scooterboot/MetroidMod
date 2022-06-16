@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.Tiles;
-using MetroidModPorted.Content.Tiles.Hatch;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Systems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Tiles;
+using MetroidMod.Content.Tiles.Hatch;
+using MetroidMod.ID;
 
-namespace MetroidModPorted.Content.MorphBallAddons
+namespace MetroidMod.Content.MorphBallAddons
 {
 	public class PowerBomb : ModMBSpecial
 	{

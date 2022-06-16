@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.powerbeam
+namespace MetroidMod.Content.Projectiles.powerbeam
 {
 	public class PowerBeamChargeShot : MProjectile
 	{
@@ -23,7 +23,7 @@ namespace MetroidModPorted.Content.Projectiles.powerbeam
 
 		public override void AI()
 		{
-			Color color = MetroidModPorted.powColor;
+			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			if(Projectile.numUpdates == 0)
 			{

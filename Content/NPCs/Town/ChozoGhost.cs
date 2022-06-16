@@ -13,16 +13,16 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.Content.SuitAddons;
-using MetroidModPorted.Content.Items.Armors;
-using MetroidModPorted.Content.Items.Vanity;
-using MetroidModPorted.Content.Items.Weapons;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Systems;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.Items.Vanity;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.ID;
 
 #endregion
 
-namespace MetroidModPorted.Content.NPCs.Town
+namespace MetroidMod.Content.NPCs.Town
 {
 	[AutoloadHead]
 	public class ChozoGhost : ModNPC

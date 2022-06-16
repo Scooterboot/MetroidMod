@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.stardustbeam
+namespace MetroidMod.Content.Projectiles.stardustbeam
 {
 	public class StardustBeamChargeShot : MProjectile
 	{
@@ -25,7 +25,7 @@ namespace MetroidModPorted.Content.Projectiles.stardustbeam
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Color color = MetroidModPorted.iceColor;
+			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			if(Projectile.numUpdates == 0)
 			{

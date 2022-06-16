@@ -13,14 +13,14 @@ using Terraria.UI;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.DamageClasses;
-using MetroidModPorted.Content.Projectiles;
-using MetroidModPorted.Content.Projectiles.powerbeam;
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Default;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Projectiles;
+using MetroidMod.Content.Projectiles.powerbeam;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Default;
 
-namespace MetroidModPorted.Content.Items.Weapons
+namespace MetroidMod.Content.Items.Weapons
 {
 	public class PowerBeam : ModItem
 	{
@@ -144,16 +144,16 @@ namespace MetroidModPorted.Content.Items.Weapons
 		private string shot = "PowerBeamShot";
 		private string chargeShot = "PowerBeamChargeShot";
 		private string shotSound = "PowerBeamSound";
-		private Mod shotSoundMod = MetroidModPorted.Instance;
+		private Mod shotSoundMod = MetroidMod.Instance;
 		private string chargeShotSound = "PowerBeamChargeSound";
-		private Mod chargeShotSoundMod = MetroidModPorted.Instance;
+		private Mod chargeShotSoundMod = MetroidMod.Instance;
 		private string chargeUpSound = "ChargeStartup_Power";
-		private Mod chargeUpSoundMod = MetroidModPorted.Instance;
+		private Mod chargeUpSoundMod = MetroidMod.Instance;
 		private string chargeTex = "ChargeLead";
-		private Mod chargeTexMod = MetroidModPorted.Instance;
+		private Mod chargeTexMod = MetroidMod.Instance;
 		private int dustType = 64;
 		private Color dustColor = default(Color);
-		private Color lightColor = MetroidModPorted.powColor;
+		private Color lightColor = MetroidMod.powColor;
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
 
@@ -213,16 +213,16 @@ namespace MetroidModPorted.Content.Items.Weapons
 			shotAmt = 1;
 			chargeShotAmt = 1;
 			shotSound = "PowerBeamSound";
-			shotSoundMod = MetroidModPorted.Instance;
+			shotSoundMod = MetroidMod.Instance;
 			chargeShotSound = "PowerBeamChargeSound";
-			chargeShotSoundMod = MetroidModPorted.Instance;
+			chargeShotSoundMod = MetroidMod.Instance;
 			chargeUpSound = "ChargeStartup_Power";
-			chargeUpSoundMod = MetroidModPorted.Instance;
+			chargeUpSoundMod = MetroidMod.Instance;
 			chargeTex = "ChargeLead";
-			chargeTexMod = MetroidModPorted.Instance;
+			chargeTexMod = MetroidMod.Instance;
 			dustType = 64;
 			dustColor = default(Color);
-			lightColor = MetroidModPorted.powColor;
+			lightColor = MetroidMod.powColor;
 
 			texture = "";
 			//modBeamTextureMod = null;
@@ -275,7 +275,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 						chargeUpSound = "ChargeStartup_Ice";
 						chargeTex = "ChargeLead_Ice";
 						dustType = 59;
-						lightColor = MetroidModPorted.iceColor;
+						lightColor = MetroidMod.iceColor;
 						texture = "IceBeam";
 
 						// Ice Wave
@@ -390,7 +390,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 							chargeUpSound = "ChargeStartup_Wave";
 							chargeTex = "ChargeLead_Wave";
 							dustType = 62;
-							lightColor = MetroidModPorted.waveColor;
+							lightColor = MetroidMod.waveColor;
 							chargeShotAmt = 2;
 							texture = "WaveBeam";
 
@@ -413,7 +413,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Power";
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									texture = "PlasmaBeamG";
 								}
 								// Wave Spazer Plasma (Red)
@@ -426,7 +426,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "PlasmaBeamR";
 								}
 							}
@@ -442,7 +442,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Power";
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									shotAmt = 2;
 									texture = "PlasmaBeamG";
 								}
@@ -456,7 +456,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									shotAmt = 2;
 									texture = "PlasmaBeamR";
 								}
@@ -485,7 +485,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									texture = "PlasmaBeamG";
 								}
 								// Spazer Plasma (Red)
@@ -498,7 +498,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "PlasmaBeamR";
 								}
 							}
@@ -513,7 +513,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									texture = "PlasmaBeamG";
 								}
 								// Plasma (Red)
@@ -526,7 +526,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "PlasmaBeamR";
 								}
 							}
@@ -551,7 +551,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 						chargeUpSound = "ChargeStartup_Ice";
 						chargeTex = "ChargeLead_Ice";
 						dustType = 59;
-						lightColor = MetroidModPorted.iceColor;
+						lightColor = MetroidMod.iceColor;
 						texture = "IceBeam";
 
 						// Ice Wave V2
@@ -689,7 +689,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 							chargeUpSound = "ChargeStartup_Wave";
 							chargeTex = "ChargeLead_WaveV2";
 							dustType = 62;
-							lightColor = MetroidModPorted.waveColor2;
+							lightColor = MetroidMod.waveColor2;
 							//shotAmt = 2;
 							chargeShotAmt = 2;
 							texture = "WaveBeam";
@@ -712,7 +712,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Nova";
 									chargeTex = "ChargeLead_Nova";
 									dustType = 75;
-									lightColor = MetroidModPorted.novColor;
+									lightColor = MetroidMod.novColor;
 									texture = "NovaBeam";
 								}
 								// Wave Wide Plasma (Green)
@@ -725,7 +725,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Power";
 									chargeTex = "ChargeLead_PlasmaGreenV2";
 									dustType = 15;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									texture = "PlasmaBeamG";
 								}
 								// Wave Wide Plasma (Red)
@@ -738,7 +738,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "PlasmaBeamR";
 								}
 							}
@@ -754,7 +754,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Nova";
 									chargeTex = "ChargeLead_Nova";
 									dustType = 75;
-									lightColor = MetroidModPorted.novColor;
+									lightColor = MetroidMod.novColor;
 									shotAmt = 2;
 									texture = "NovaBeam";
 								}
@@ -768,7 +768,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Power";
 									chargeTex = "ChargeLead_PlasmaGreenV2";
 									dustType = 15;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									shotAmt = 2;
 									texture = "PlasmaBeamG";
 								}
@@ -782,7 +782,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									shotAmt = 2;
 									texture = "PlasmaBeamR";
 								}
@@ -799,8 +799,8 @@ namespace MetroidModPorted.Content.Items.Weapons
 								chargeShotSound = "SpazerChargeSound";
 								chargeTex = "ChargeLead_Wide";
 								dustType = 63;
-								lightColor = MetroidModPorted.wideColor;
-								dustColor = MetroidModPorted.wideColor;
+								lightColor = MetroidMod.wideColor;
+								dustColor = MetroidMod.wideColor;
 								shotAmt = 3;
 								chargeShotAmt = 3;
 								texture = "WideBeam";
@@ -815,7 +815,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Nova";
 									chargeTex = "ChargeLead_Nova";
 									dustType = 75;
-									lightColor = MetroidModPorted.novColor;
+									lightColor = MetroidMod.novColor;
 									dustColor = default(Color);
 									texture = "NovaBeam";
 								}
@@ -828,7 +828,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									dustColor = default(Color);
 									texture = "PlasmaBeamG";
 								}
@@ -842,7 +842,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									dustColor = default(Color);
 									texture = "PlasmaBeamR";
 								}
@@ -859,7 +859,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_Nova";
 									chargeTex = "ChargeLead_Nova";
 									dustType = 75;
-									lightColor = MetroidModPorted.novColor;
+									lightColor = MetroidMod.novColor;
 									texture = "NovaBeam";
 								}
 								// Plasma (Green)
@@ -871,7 +871,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
-									lightColor = MetroidModPorted.plaGreenColor;
+									lightColor = MetroidMod.plaGreenColor;
 									texture = "PlasmaBeamG";
 								}
 								// Plasma (Red)
@@ -884,7 +884,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "PlasmaBeamR";
 								}
 							}
@@ -916,7 +916,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 					//chargeUpSound = "ChargeStartup_Ice";
 					chargeTex = "ChargeLead_Luminite";
 					dustType = 229;
-					lightColor = MetroidModPorted.lumColor;
+					lightColor = MetroidMod.lumColor;
 
 					// Stardust
 					if (slot2.type == sd)
@@ -928,7 +928,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 						chargeUpSound = "ChargeStartup_Ice";
 						chargeTex = "ChargeLead_Stardust";
 						dustType = 87;
-						lightColor = MetroidModPorted.iceColor;
+						lightColor = MetroidMod.iceColor;
 						texture = "StardustBeam";
 
 						// Stardust Nebula
@@ -956,7 +956,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -971,7 +971,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -995,7 +995,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -1010,7 +1010,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -1028,7 +1028,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 							chargeUpSound = "ChargeStartup_Wave";
 							chargeTex = "ChargeLead_Nebula";
 							dustType = 255;
-							lightColor = MetroidModPorted.waveColor;
+							lightColor = MetroidMod.waveColor;
 							shotAmt = 2;
 							chargeShotAmt = 2;
 							texture = "NebulaBeam";
@@ -1052,7 +1052,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -1068,7 +1068,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -1097,7 +1097,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -1113,7 +1113,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_Solar";
 									dustType = 6;
-									lightColor = MetroidModPorted.plaRedColor;
+									lightColor = MetroidMod.plaRedColor;
 									texture = "SolarBeam";
 								}
 							}
@@ -1475,7 +1475,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			if (texture != "")
 			{
 				string alt = "";
-				if (MetroidModPorted.UseAltWeaponTextures)
+				if (MetroidMod.UseAltWeaponTextures)
 				{
 					alt = "_alt";
 				}
@@ -1483,7 +1483,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			}
 			else
 			{
-				if (MetroidModPorted.UseAltWeaponTextures)
+				if (MetroidMod.UseAltWeaponTextures)
 				{
 					mi.itemTexture = ModContent.Request<Texture2D>(Texture+"_alt").Value;
 				}
@@ -1575,8 +1575,8 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			ModItem clone = base.Clone(item);
 			PowerBeam beamClone = (PowerBeam)clone;
-			beamClone._beamMods = new Item[MetroidModPorted.beamSlotAmount];
-			for (int i = 0; i < MetroidModPorted.beamSlotAmount; ++i)
+			beamClone._beamMods = new Item[MetroidMod.beamSlotAmount];
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				if (_beamMods == null || _beamMods[i] == null)
 				{
@@ -1774,7 +1774,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			try
 			{
-				BeamMods = new Item[MetroidModPorted.beamSlotAmount];
+				BeamMods = new Item[MetroidMod.beamSlotAmount];
 				for (int i = 0; i < BeamMods.Length; i++)
 				{
 					Item item = tag.Get<Item>("BeamItem" + i);

@@ -5,12 +5,12 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Common.Systems;
-using MetroidModPorted.Content.Tiles;
-using MetroidModPorted.Content.Tiles.Hatch;
+using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
+using MetroidMod.Content.Tiles;
+using MetroidMod.Content.Tiles.Hatch;
 
-namespace MetroidModPorted.Content.MorphBallAddons
+namespace MetroidMod.Content.MorphBallAddons
 {
 	public class SolarBomb : ModMBSpecial
 	{

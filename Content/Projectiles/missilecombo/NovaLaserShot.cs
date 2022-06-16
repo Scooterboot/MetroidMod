@@ -9,7 +9,7 @@ using Terraria.Enums;
 //using MetroidMod;
 //using MetroidMod.Projectiles.chargelead;
 
-namespace MetroidModPorted.Content.Projectiles.missilecombo
+namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class NovaLaserShot : MProjectile
 	{
@@ -105,7 +105,7 @@ namespace MetroidModPorted.Content.Projectiles.missilecombo
 				dust.velocity *= 3f;
 				dust.position = dustPos;
 				
-				Color color = MetroidModPorted.novColor;
+				Color color = MetroidMod.novColor;
 				DelegateMethods.v3_1 = new Vector3(color.R/255f,color.G/255f,color.B/255f);
 				Utils.PlotTileLine(P.Center, P.Center + P.velocity * P.ai[1], 26, DelegateMethods.CastLight);
 				

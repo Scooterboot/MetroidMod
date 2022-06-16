@@ -8,9 +8,9 @@ using Terraria;
 using Terraria.ModLoader;
 using System.IO;
 
-using MetroidModPorted.Content.DamageClasses;
+using MetroidMod.Content.DamageClasses;
 
-namespace MetroidModPorted.Content.Projectiles
+namespace MetroidMod.Content.Projectiles
 {
 	public class DiffusionBeam : ModProjectile
 	{

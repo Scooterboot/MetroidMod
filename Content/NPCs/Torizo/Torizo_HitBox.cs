@@ -12,7 +12,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.NPCs.Torizo
+namespace MetroidMod.Content.NPCs.Torizo
 {
 	public class Torizo_HitBox : ModNPC
 	{

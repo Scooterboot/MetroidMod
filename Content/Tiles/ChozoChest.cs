@@ -11,7 +11,7 @@ using Terraria.Enums;
 using Terraria.Localization;
 using Terraria.GameContent.ObjectInteractions;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class ChozoChest : ModTile
 	{

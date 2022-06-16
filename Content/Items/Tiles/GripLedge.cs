@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Tiles
+namespace MetroidMod.Content.Items.Tiles
 {
 	public class GripLedge : ModItem
 	{

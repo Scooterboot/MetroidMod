@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Boss
+namespace MetroidMod.Content.Items.Boss
 {
 	public class PhantoonSummon : ModItem
 	{
@@ -33,7 +33,7 @@ namespace MetroidModPorted.Content.Items.Boss
 		{
 			CreateRecipe(1)
 				.AddRecipeGroup(RecipeGroupID.IronBar, 5)
-				.AddRecipeGroup(MetroidModPorted.EvilHMMaterialRecipeGroupID, 3)
+				.AddRecipeGroup(MetroidMod.EvilHMMaterialRecipeGroupID, 3)
 				.AddIngredient(ItemID.SoulofNight, 3)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();

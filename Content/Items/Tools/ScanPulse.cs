@@ -4,9 +4,9 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.Items.Tools
+namespace MetroidMod.Content.Items.Tools
 {
 	public class ScanPulse : ModItem
 	{

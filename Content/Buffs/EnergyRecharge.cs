@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.Audio;
 
-using MetroidModPorted.Common.Players;
+using MetroidMod.Common.Players;
 
-namespace MetroidModPorted.Content.Buffs
+namespace MetroidMod.Content.Buffs
 {
 	public class EnergyRecharge : ModBuff
 	{

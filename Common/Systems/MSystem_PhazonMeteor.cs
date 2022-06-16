@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 
 #endregion
 
-namespace MetroidModPorted.Common.Systems
+namespace MetroidMod.Common.Systems
 {
 	public partial class MSystem : ModSystem
 	{

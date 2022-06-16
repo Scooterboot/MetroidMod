@@ -6,10 +6,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public abstract class ModMBAddon : ModType
 	{
@@ -88,7 +88,7 @@ namespace MetroidModPorted
 				}
 				MBAddonLoader.addons.Add(this);
 			}
-			MetroidModPorted.Instance.Logger.Info("Register new Morph Ball Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+			MetroidMod.Instance.Logger.Info("Register new Morph Ball Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
 		}
 
 		public override void SetStaticDefaults()

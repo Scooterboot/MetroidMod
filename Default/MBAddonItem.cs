@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Default
+namespace MetroidMod.Default
 {
 	[Autoload(false)]
 	internal class MBAddonItem : ModItem
@@ -71,7 +71,7 @@ namespace MetroidModPorted.Default
 
 		public override void AddRecipes()
 		{
-			RecipeGroup.recipeGroups[MetroidModPorted.MorphBallBombsRecipeGroupID].ValidItems.Add(Type);
+			RecipeGroup.recipeGroups[MetroidMod.MorphBallBombsRecipeGroupID].ValidItems.Add(Type);
 			modMBAddon.AddRecipes();
 		}
 	}

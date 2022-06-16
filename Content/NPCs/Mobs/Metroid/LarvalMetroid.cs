@@ -12,7 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Metroid
+namespace MetroidMod.Content.NPCs.Mobs.Metroid
 {
 	public class LarvalMetroid : MNPC
 	{

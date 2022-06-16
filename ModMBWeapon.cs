@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Default;
-using MetroidModPorted.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
-namespace MetroidModPorted
+namespace MetroidMod
 {
 	public abstract class ModMBWeapon : ModMBAddon
 	{

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Projectiles.vortexbeam
+namespace MetroidMod.Content.Projectiles.vortexbeam
 {
 	public class VortexBeamChargeShot : MProjectile
 	{
@@ -27,20 +27,20 @@ namespace MetroidModPorted.Content.Projectiles.vortexbeam
 		}
 
 		int dustType = 229;
-		Color color = MetroidModPorted.lumColor;
+		Color color = MetroidMod.lumColor;
 		float scale = 1f;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Stardust"))
 			{
 				dustType = 88;
-				color = MetroidModPorted.iceColor;
+				color = MetroidMod.iceColor;
 				scale = 0.5f;
 			}
 			else if(Projectile.Name.Contains("Nebula"))
 			{
 				dustType = 255;
-				color = MetroidModPorted.waveColor;
+				color = MetroidMod.waveColor;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);

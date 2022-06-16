@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Items.Tiles
+namespace MetroidMod.Content.Items.Tiles
 {
 	public class GreenSwitch : ModItem
 	{

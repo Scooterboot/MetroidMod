@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Common.GlobalItems;
+using MetroidMod.Common.GlobalItems;
 
-namespace MetroidModPorted.Content.Items.Addons
+namespace MetroidMod.Content.Items.Addons
 {
 	public class PlasmaBeamGreenAddon : ModItem
 	{
@@ -44,7 +44,7 @@ namespace MetroidModPorted.Content.Items.Addons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.UnknownPlasmaBeam>(1)
-				.AddRecipeGroup(MetroidModPorted.T3HMBarRecipeGroupID, 5)
+				.AddRecipeGroup(MetroidMod.T3HMBarRecipeGroupID, 5)
 				.AddIngredient(ItemID.CursedFlame, 10)
 				.AddIngredient(ItemID.SoulofLight, 5)
 				.AddTile(TileID.MythrilAnvil)

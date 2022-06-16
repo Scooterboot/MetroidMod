@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.NPCs.Mobs
+namespace MetroidMod.Content.NPCs.Mobs
 {
 	public class Covern : MNPC
 	{

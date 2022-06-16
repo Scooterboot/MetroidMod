@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 
-namespace MetroidModPorted.Content.Buffs
+namespace MetroidMod.Content.Buffs
 {
 	public class IceFreeze : ModBuff
 	{

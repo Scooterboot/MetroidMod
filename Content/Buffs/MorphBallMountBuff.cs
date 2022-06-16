@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 #endregion
 
-namespace MetroidModPorted.Content.Buffs
+namespace MetroidMod.Content.Buffs
 {
 	public class MorphBallMountBuff : ModBuff
 	{

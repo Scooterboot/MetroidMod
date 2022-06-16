@@ -6,9 +6,9 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidModPorted.Content.Projectiles.EasterEgg;
+using MetroidMod.Content.Projectiles.EasterEgg;
 
-namespace MetroidModPorted.Content.Items.EasterEgg
+namespace MetroidMod.Content.Items.EasterEgg
 {
 	public class Crucible : ModItem
 	{

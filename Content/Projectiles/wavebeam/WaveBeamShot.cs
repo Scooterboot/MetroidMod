@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.Projectiles.wavebeam
+namespace MetroidMod.Content.Projectiles.wavebeam
 {
 	public class WaveBeamShot : MProjectile
 	{
@@ -26,13 +26,13 @@ namespace MetroidModPorted.Content.Projectiles.wavebeam
 		}
 
 		int dustType = 62;
-		Color color = MetroidModPorted.waveColor;
+		Color color = MetroidMod.waveColor;
 		public override void AI()
 		{
 			if(Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
-				color = MetroidModPorted.iceColor;
+				color = MetroidMod.iceColor;
 				
 				if(Projectile.numUpdates == 0)
 				{

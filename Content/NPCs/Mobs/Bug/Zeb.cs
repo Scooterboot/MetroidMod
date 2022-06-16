@@ -7,7 +7,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidModPorted.Content.NPCs.Mobs.Bug
+namespace MetroidMod.Content.NPCs.Mobs.Bug
 {
 	public class Zeb : MNPC
 	{

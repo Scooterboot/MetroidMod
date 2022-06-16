@@ -8,10 +8,10 @@ using System.Diagnostics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MetroidModPorted;
-using MetroidModPorted.Content.NPCs.OmegaPirate;
+using MetroidMod;
+using MetroidMod.Content.NPCs.OmegaPirate;
 
-namespace MetroidModPorted.Content.NPCs.OmegaPirate
+namespace MetroidMod.Content.NPCs.OmegaPirate
 {
 	public class Omega_DarkPortal : ModNPC
 	{

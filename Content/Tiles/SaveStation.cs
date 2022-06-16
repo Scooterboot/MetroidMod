@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 using Terraria.Localization;
 using System;
 
-namespace MetroidModPorted.Content.Tiles
+namespace MetroidMod.Content.Tiles
 {
 	public class SaveStation : ModTile
 	{

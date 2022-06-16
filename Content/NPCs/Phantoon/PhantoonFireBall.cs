@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MetroidModPorted.Content.NPCs.Phantoon
+namespace MetroidMod.Content.NPCs.Phantoon
 {
 	public class PhantoonFireBall : ModNPC
 	{

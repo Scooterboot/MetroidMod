@@ -13,9 +13,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Common.GlobalProjectiles
+namespace MetroidMod.Common.GlobalProjectiles
 {
 	public class MGlobalProjectile : GlobalProjectile
 	{

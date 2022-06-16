@@ -14,9 +14,9 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using MetroidModPorted.Common.Systems;
+using MetroidMod.Common.Systems;
 
-namespace MetroidModPorted.Content.NPCs.GoldenTorizo
+namespace MetroidMod.Content.NPCs.GoldenTorizo
 {
 	[AutoloadBossHead]
 	public class GoldenTorizo : ModNPC
@@ -43,7 +43,7 @@ namespace MetroidModPorted.Content.NPCs.GoldenTorizo
 
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
 			{
-				CustomTexturePath = $"{nameof(MetroidModPorted)}/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog",
+				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog",
 				PortraitScale = 0.6f, // Portrait refers to the full picture when clicking on the icon in the bestiary
 				PortraitPositionYOverride = 0f,
 			};

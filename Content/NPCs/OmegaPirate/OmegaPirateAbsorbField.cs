@@ -9,9 +9,9 @@ using System.Diagnostics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MetroidModPorted.Content.NPCs.OmegaPirate;
+using MetroidMod.Content.NPCs.OmegaPirate;
 
-namespace MetroidModPorted.Content.NPCs.OmegaPirate
+namespace MetroidMod.Content.NPCs.OmegaPirate
 {
 	public class OmegaPirateAbsorbField : ModNPC
 	{

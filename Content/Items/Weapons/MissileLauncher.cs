@@ -13,17 +13,17 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-using MetroidModPorted.Common.GlobalItems;
-using MetroidModPorted.Common.Players;
-using MetroidModPorted.Content.DamageClasses;
-using MetroidModPorted.Content.Items.MissileAddons;
-using MetroidModPorted.Content.Items.MissileAddons.BeamCombos;
-using MetroidModPorted.Content.Projectiles;
-using MetroidModPorted.Content.Projectiles.missiles;
-using MetroidModPorted.Content.Projectiles.missilecombo;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Items.MissileAddons;
+using MetroidMod.Content.Items.MissileAddons.BeamCombos;
+using MetroidMod.Content.Projectiles;
+using MetroidMod.Content.Projectiles.missiles;
+using MetroidMod.Content.Projectiles.missilecombo;
 //using MetroidMod.Projectiles.chargelead;
 
-namespace MetroidModPorted.Content.Items.Weapons
+namespace MetroidMod.Content.Items.Weapons
 {
 	public class MissileLauncher : ModItem
 	{
@@ -35,7 +35,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			{
 				if (_missileMods == null)
 				{
-					_missileMods = new Item[MetroidModPorted.missileSlotAmount];
+					_missileMods = new Item[MetroidMod.missileSlotAmount];
 					for (int i = 0; i < _missileMods.Length; ++i)
 					{
 						_missileMods[i] = new Item();
@@ -126,7 +126,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		string chargeTex = "ChargeLead_PlasmaRed";
 		int dustType = 6;
 		Color dustColor = default(Color);
-		Color lightColor = MetroidModPorted.plaRedColor;
+		Color lightColor = MetroidMod.plaRedColor;
 
 		float comboKnockBack = 5.5f;
 
@@ -263,7 +263,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Wave";
 				chargeTex = "ChargeLead_WaveV2";
 				dustType = 62;
-				lightColor = MetroidModPorted.waveColor2;
+				lightColor = MetroidMod.waveColor2;
 				comboKnockBack = 0f;
 				texture = "Wavebuster";
 			}
@@ -274,7 +274,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Ice";
 				chargeTex = "ChargeLead_Ice";
 				dustType = 59;
-				lightColor = MetroidModPorted.iceColor;
+				lightColor = MetroidMod.iceColor;
 				texture = "IceSpreader";
 			}
 			if (slot1.type == sp)
@@ -284,7 +284,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Power";
 				chargeTex = "ChargeLead_Spazer";
 				dustType = 64;
-				lightColor = MetroidModPorted.powColor;
+				lightColor = MetroidMod.powColor;
 				texture = "SpazerCombo";
 			}
 			if (slot1.type == ft)
@@ -297,7 +297,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_PlasmaRed";
 				chargeTex = "ChargeLead_PlasmaRed";
 				dustType = 6;
-				lightColor = MetroidModPorted.plaRedColor;
+				lightColor = MetroidMod.plaRedColor;
 				texture = "Flamethrower";
 			}
 			if (slot1.type == pl)
@@ -311,7 +311,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Power";
 				chargeTex = "ChargeLead_PlasmaGreen";
 				dustType = 61;
-				lightColor = MetroidModPorted.plaGreenColor;
+				lightColor = MetroidMod.plaGreenColor;
 				texture = "PlasmaMachinegun";
 			}
 			if (slot1.type == nv)
@@ -324,7 +324,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Nova";
 				chargeTex = "ChargeLead_Nova";
 				dustType = 75;
-				lightColor = MetroidModPorted.novColor;
+				lightColor = MetroidMod.novColor;
 				texture = "NovaLaser";
 			}
 
@@ -334,7 +334,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Power";
 				chargeTex = "ChargeLead_PlasmaRed";
 				dustType = 6;
-				lightColor = MetroidModPorted.plaRedColor;
+				lightColor = MetroidMod.plaRedColor;
 				texture = "DiffusionMissile";
 
 				if (slot2.type == ic || slot2.type == icSm)
@@ -343,7 +343,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 					chargeUpSound = "ChargeStartup_Ice";
 					chargeTex = "ChargeLead_Ice";
 					dustType = 135;
-					lightColor = MetroidModPorted.iceColor;
+					lightColor = MetroidMod.iceColor;
 				}
 				if (slot2.type == st)
 				{
@@ -351,7 +351,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 					chargeUpSound = "ChargeStartup_Ice";
 					chargeTex = "ChargeLead_Stardust";
 					dustType = 87;
-					lightColor = MetroidModPorted.iceColor;
+					lightColor = MetroidMod.iceColor;
 				}
 				if (slot2.type == ne)
 				{
@@ -359,7 +359,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 					chargeUpSound = "ChargeStartup_Wave";
 					chargeTex = "ChargeLead_Nebula";
 					dustType = 255;
-					lightColor = MetroidModPorted.waveColor;
+					lightColor = MetroidMod.waveColor;
 				}
 			}
 			if (isSeeker)
@@ -379,7 +379,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Ice";
 				chargeTex = "ChargeLead_Stardust";
 				dustType = 87;
-				lightColor = MetroidModPorted.iceColor;
+				lightColor = MetroidMod.iceColor;
 				texture = "StardustCombo";
 			}
 			if (slot1.type == nb)
@@ -391,7 +391,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Wave";
 				chargeTex = "ChargeLead_Nebula";
 				dustType = 255;
-				lightColor = MetroidModPorted.waveColor;
+				lightColor = MetroidMod.waveColor;
 				texture = "NebulaCombo";
 			}
 			if (slot1.type == vt)
@@ -410,7 +410,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_Power";
 				chargeTex = "ChargeLead_Vortex";
 				dustType = 229;
-				lightColor = MetroidModPorted.lumColor;
+				lightColor = MetroidMod.lumColor;
 				texture = "VortexCombo";
 			}
 			if (slot1.type == sl)
@@ -423,7 +423,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 				chargeUpSound = "ChargeStartup_PlasmaRed";
 				chargeTex = "ChargeLead_SolarCombo";
 				dustType = 6;
-				lightColor = MetroidModPorted.plaRedColor;
+				lightColor = MetroidMod.plaRedColor;
 				texture = "SolarCombo";
 			}
 
@@ -499,7 +499,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			if (texture != "")
 			{
 				string alt = "";
-				if (MetroidModPorted.UseAltWeaponTextures)
+				if (MetroidMod.UseAltWeaponTextures)
 				{
 					alt = "_alt";
 				}
@@ -507,7 +507,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 			}
 			else
 			{
-				if (MetroidModPorted.UseAltWeaponTextures)
+				if (MetroidMod.UseAltWeaponTextures)
 				{
 					mi.itemTexture = ModContent.Request<Texture2D>(altTexture).Value;
 				}
@@ -1011,8 +1011,8 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			MissileLauncher clone = (MissileLauncher)NewInstance(item);//this.NewInstance(item);
 			//MissileLauncher missileClone = (MissileLauncher)clone;
-			clone._missileMods = new Item[MetroidModPorted.missileSlotAmount];
-			for (int i = 0; i < MetroidModPorted.missileSlotAmount; ++i)
+			clone._missileMods = new Item[MetroidMod.missileSlotAmount];
+			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
 			{
 				clone.MissileMods[i] = this.MissileMods[i];
 				if (_missileMods == null || _missileMods[i] == null)
@@ -1049,7 +1049,7 @@ namespace MetroidModPorted.Content.Items.Weapons
 		{
 			try
 			{
-				MissileMods = new Item[MetroidModPorted.missileSlotAmount];
+				MissileMods = new Item[MetroidMod.missileSlotAmount];
 				for (int i = 0; i < MissileMods.Length; i++)
 				{
 					Item item = tag.Get<Item>("missileItem" + i);
