@@ -345,7 +345,7 @@ namespace MetroidMod.Content.NPCs.Serris
 
 				if(NPC.localAI[1] > 170f)
 				{
-					SoundEngine.PlaySound(SoundID.Item, NPC.position);
+					SoundEngine.PlaySound(SoundID.Item14, NPC.position);
 
 					if (Main.netMode != NetmodeID.Server)
 					{
