@@ -19,6 +19,6 @@
     <Folder Include="Content\MissileAddons\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetroidModPorted\MetroidModPorted.csproj" />
+    <ProjectReference Include="..\MetroidMod\MetroidMod.csproj" />
   </ItemGroup>
 </Project>

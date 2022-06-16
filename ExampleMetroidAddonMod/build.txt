@@ -1,4 +1,4 @@
 displayName = Example Addon Mod
 author = Dark Samus 49
 version = 0.1
-modReferences = MetroidModPorted
+modReferences = MetroidMod

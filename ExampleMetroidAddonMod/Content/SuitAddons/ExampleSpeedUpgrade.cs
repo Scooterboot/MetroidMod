@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-using MetroidModPorted;
-using MetroidModPorted.ID;
-using static MetroidModPorted.MetroidModPorted;
+using MetroidMod;
+using MetroidMod.ID;
+using static MetroidMod.MetroidMod;
 
 namespace ExampleMetroidAddonMod.Content.SuitAddons
 {

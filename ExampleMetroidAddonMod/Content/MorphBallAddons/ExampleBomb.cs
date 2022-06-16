@@ -5,8 +5,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-using MetroidModPorted;
-using static MetroidModPorted.MetroidModPorted;
+using MetroidMod;
+using static MetroidMod.MetroidMod;
 
 namespace ExampleMetroidAddonMod.Content.MorphBallAddons
 {

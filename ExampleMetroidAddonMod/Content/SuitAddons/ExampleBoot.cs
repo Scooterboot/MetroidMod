@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-using MetroidModPorted;
-using MetroidModPorted.ID;
-using static MetroidModPorted.MetroidModPorted;
+using MetroidMod;
+using MetroidMod.ID;
+using static MetroidMod.MetroidMod;
 
 namespace ExampleMetroidAddonMod.Content.SuitAddons
 {
@@ -48,7 +48,7 @@ namespace ExampleMetroidAddonMod.Content.SuitAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon("MetroidModPorted/HiJumpBoots").ItemType, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon("MetroidMod/HiJumpBoots").ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 			CreateRecipe(1)
