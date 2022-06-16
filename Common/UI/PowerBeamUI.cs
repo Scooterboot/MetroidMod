@@ -25,11 +25,11 @@ namespace MetroidModPorted.Common.UI
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[MetroidModPorted.Instance.selectedItem].type == ModContent.ItemType<PowerBeam>();
 
 		private PowerBeamPanel powerBeamPanel;
-		//private PowerBeamScrewAttackButton pbsaButton;
-		//private ComboError comboError;
+		private PowerBeamScrewAttackButton pbsaButton;
+		private ComboError comboError;
 		public override void OnInitialize()
 		{
-			Main.hidePlayerCraftingMenu = true;
+			base.OnInitialize();
 			powerBeamPanel = new PowerBeamPanel();
 			powerBeamPanel.SetPadding(0);
 			powerBeamPanel.Top.Pixels = Main.instance.invBottom + 10;
@@ -62,10 +62,19 @@ namespace MetroidModPorted.Common.UI
 			powerBeamPanel.Append(new PowerBeamLines());
 
 			Append(powerBeamPanel);
+
+			pbsaButton = new PowerBeamScrewAttackButton();
+			pbsaButton.Initialize();
+			Append(pbsaButton);
+
+			comboError = new ComboError();
+			comboError.Initialize();
+			Append(comboError);
 		}
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+			Main.hidePlayerCraftingMenu = true;
 			/*powerBeamPanel.Left.Pixels = 160;
 			powerBeamPanel.Top.Pixels = Main.instance.invBottom + 10;
 			powerBeamPanel.Width.Pixels = 256;
@@ -76,21 +85,6 @@ namespace MetroidModPorted.Common.UI
 			}*/
 			powerBeamPanel.Recalculate();
 		}
-
-		/*public override void OnInitialize()
-		{
-			powerBeamPanel = new PowerBeamPanel();
-			powerBeamPanel.Initialize();
-			Append(powerBeamPanel);
-			
-			/*pbsaButton = new PowerBeamScrewAttackButton();
-			pbsaButton.Initialize();
-			Append(pbsaButton);*/
-			
-			/*comboError = new ComboError();
-			comboError.Initialize();
-			Append(comboError);
-		}*/
 	}
 
 	public class PowerBeamPanel : DragableUIPanel
@@ -369,13 +363,13 @@ namespace MetroidModPorted.Common.UI
 			Left.Pixels = 112;
 			Top.Pixels = 274;
 			
-			buttonTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton").Value;
-			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Hover").Value;
-			buttonTex_Click = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Click").Value;
+			buttonTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Click = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Click", AssetRequestMode.ImmediateLoad).Value;
 			
-			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled").Value;
-			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Hover").Value;
-			buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Click").Value;
+			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Hover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Click", AssetRequestMode.ImmediateLoad).Value;
 			
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
@@ -458,7 +452,7 @@ namespace MetroidModPorted.Common.UI
 			Left.Pixels = 420;
 			Top.Pixels = 354;
 			
-			iconTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ComboErrorIcon").Value;
+			iconTex = ModContent.Request<Texture2D>("MetroidModPorted/Assets/Textures/UI/ComboErrorIcon", AssetRequestMode.ImmediateLoad).Value;
 			
 			Width.Pixels = iconTex.Width;
 			Height.Pixels = iconTex.Height;

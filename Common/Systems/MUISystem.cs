@@ -23,22 +23,14 @@ namespace MetroidModPorted.Common.Systems
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
 		internal static UserInterface visorUserInterface;
-		//internal static UI.PowerBeamUI powerBeamUI;
-		//internal static UI.AddonsUI addonsUI;
-
-		//internal static UserInterface mlUserInterface;
-		//internal static UI.MissileLauncherUI missileLauncherUI;
-
-		//internal static UI.MorphBallUI morphBallUI;
-
-		//internal static UserInterface smUserInterface;
-		//internal static UI.SenseMoveUI senseMoveUI;
+		internal static UserInterface smUserInterface;
 
 		internal bool isPBInit = false;
 		internal bool isMIInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
 		internal bool isVIInit = false;
+		internal bool isSMInit = false;
 
 		internal bool isVisorBGAudioPlaying = false;
 		internal ActiveSound VisorBGAudio;
@@ -53,6 +45,7 @@ namespace MetroidModPorted.Common.Systems
 				miUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
+				smUserInterface = new UserInterface();
 				visorUserInterface = new UserInterface();
 
 				/*powerBeamUI = new UI.PowerBeamUI();
@@ -83,34 +76,38 @@ namespace MetroidModPorted.Common.Systems
 			miUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
+			smUserInterface = null;
 			visorUserInterface = null;
-			//powerBeamUI = null;
-			//addonsUI = null;
 		}
 
 		public override void UpdateUI(GameTime gameTime)
 		{
-			if (isVIInit == false)
+			if (!isVIInit)
 			{
 				visorUserInterface.SetState(new UI.VisorSelectUI());
 				isVIInit = true;
 			}
-			if (isSUInit == false)
+			if (!isSMInit)
+			{
+				smUserInterface.SetState(new UI.SenseMoveUI());
+				isSMInit = true;
+			}
+			if (!isSUInit)
 			{
 				suitUserInterface.SetState(new UI.SuitAddonsUI());
 				isSUInit = true;
 			}
-			if (isMBInit == false)
+			if (!isMBInit)
 			{
 				mbUserInterface.SetState(new UI.MorphBallUI());
 				isMBInit = true;
 			}
-			if (isMIInit == false)
+			if (!isMIInit)
 			{
 				miUserInterface.SetState(new UI.MissileLauncherUI());
 				isMIInit = true;
 			}
-			if (isPBInit == false)
+			if (!isPBInit)
 			{
 				pbUserInterface.SetState(new UI.PowerBeamUI());
 				isPBInit = true;
@@ -118,6 +115,10 @@ namespace MetroidModPorted.Common.Systems
 			if (visorUserInterface != null && UI.VisorSelectUI.Visible)
 			{
 				visorUserInterface.Update(gameTime);
+			}
+			if (smUserInterface != null && UI.SenseMoveUI.Visible)
+			{
+				smUserInterface.Update(gameTime);
 			}
 			if (suitUserInterface != null && UI.SuitAddonsUI.Visible)
 			{
@@ -365,6 +366,18 @@ namespace MetroidModPorted.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidModPorted: Sense Move UI",
+					delegate {
+						if (UI.SenseMoveUI.Visible)
+						{
+							if (Main.hasFocus) { smUserInterface.Recalculate(); }
+							smUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
 					"MetroidModPorted: Visor Select UI",
 					delegate {
 						if (UI.VisorSelectUI.Visible)
@@ -383,30 +396,6 @@ namespace MetroidModPorted.Common.Systems
 					},
 					InterfaceScaleType.UI)
 				);
-				/*layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Missile Launcher UI",
-					delegate {
-						if (UI.MissileLauncherUI.visible)
-						{
-							if (Main.hasFocus) { mlUserInterface.Recalculate(); }
-							mlUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
-						}
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);*/
-				/*layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidModPorted: Missile Launcher UI",
-					delegate {
-						if (UI.MorphBallUI.visible)
-						{
-							if (Main.hasFocus) { mbUserInterface.Recalculate(); }
-							mbUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
-						}
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);*/
 			}
 		}
 		float tRot = 0f;

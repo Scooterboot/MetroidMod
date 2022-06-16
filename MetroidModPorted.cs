@@ -31,6 +31,7 @@ namespace MetroidModPorted
 		BestiaryUpdate
 	}
 
+	[LegacyName("MetroidMod")]
 	public class MetroidModPorted : Mod
 	{
 		internal const int ballSlotAmount = 5;
