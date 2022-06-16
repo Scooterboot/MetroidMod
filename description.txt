@@ -23,4 +23,5 @@ Credits:
 Infected Animal, for porting the suits' textures to 1.4.
 Antinous, for the visor ui background texture and some suit addon textures.
 Wandering Spider, Klover, MetroidPrime21, Missingno, and Prismatic, for some suit addon textures.
+Vinni, for some tile and wall textures.
 Nintendo, for the entire Metroid Franchise!

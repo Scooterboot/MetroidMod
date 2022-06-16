@@ -13,7 +13,7 @@ namespace MetroidModPorted.Content.Walls
 			DustType = 87;
 			ItemDrop = ModContent.ItemType<Items.Walls.ChozoBrickWall>();
 
-			AddMapEntry(new Color(200, 160, 72));
+			AddMapEntry(new Color(67, 46, 9));
 		}
 	}
 }

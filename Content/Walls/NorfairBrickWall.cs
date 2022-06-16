@@ -13,7 +13,7 @@ namespace MetroidModPorted.Content.Walls
 			DustType = 87;
 			ItemDrop = ModContent.ItemType<Items.Walls.NorfairBrickWall>();
 
-			AddMapEntry(new Color(168, 104, 87));
+			AddMapEntry(new Color(68, 42, 35));
 		}
 	}
 }
