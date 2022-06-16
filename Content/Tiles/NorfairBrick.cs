@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace MetroidModPorted.Content.Tiles
 {
-	public class ChozoBrick : ModTile
+	public class NorfairBrick : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -13,11 +13,11 @@ namespace MetroidModPorted.Content.Tiles
 			Main.tileBlockLight[Type] = true;
 
 			DustType = 87;
-			MinPick = 65;
+			MinPick = 100;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.ChozoBrick>();
+			ItemDrop = ModContent.ItemType<Items.Tiles.NorfairBrick>();
 
-			AddMapEntry(new Color(200, 160, 72));
+			AddMapEntry(new Color(168, 104, 87));
 		}
 	}
 }

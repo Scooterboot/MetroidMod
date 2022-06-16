@@ -25,5 +25,12 @@ namespace MetroidModPorted.Content.Items.Walls
 			Item.consumable = true;
 			Item.createWall = ModContent.WallType<Content.Walls.ChozoBrickWall>();
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(4)
+				.AddIngredient<Tiles.ChozoBrick>(1)
+				.AddTile(TileID.WorkBenches)
+				.Register();
+		}
 	}
 }

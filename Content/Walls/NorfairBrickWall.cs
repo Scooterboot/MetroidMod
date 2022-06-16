@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 
 namespace MetroidModPorted.Content.Walls
 {
-	public class ChozoBrickWall : ModWall
+	public class NorfairBrickWall : ModWall
 	{
 		public override void SetStaticDefaults()
 		{
 			Main.wallHouse[Type] = true;
 
 			DustType = 87;
-			ItemDrop = ModContent.ItemType<Items.Walls.ChozoBrickWall>();
+			ItemDrop = ModContent.ItemType<Items.Walls.NorfairBrickWall>();
 
-			AddMapEntry(new Color(200, 160, 72));
+			AddMapEntry(new Color(168, 104, 87));
 		}
 	}
 }

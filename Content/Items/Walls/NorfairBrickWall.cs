@@ -1,16 +1,16 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ID;
 
-namespace MetroidModPorted.Content.Items.Tiles
+namespace MetroidModPorted.Content.Items.Walls
 {
-	public class ChozoBrick : ModItem
+	public class NorfairBrickWall : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Brick");
+			DisplayName.SetDefault("Norfair Brick Wall");
 
-			SacrificeTotal = 100;
+			SacrificeTotal = 400;
 		}
 		public override void SetDefaults()
 		{
@@ -23,14 +23,13 @@ namespace MetroidModPorted.Content.Items.Tiles
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.ChozoBrick>();
+			Item.createWall = ModContent.WallType<Content.Walls.NorfairBrickWall>();
 		}
 		public override void AddRecipes()
 		{
 			CreateRecipe(4)
-				.AddIngredient<ChoziteOre>(1)
-				.AddIngredient(ItemID.StoneBlock, 5)
-				.AddTile(TileID.Furnaces)
+				.AddIngredient<Tiles.NorfairBrick>(1)
+				.AddTile(TileID.WorkBenches)
 				.Register();
 		}
 	}
