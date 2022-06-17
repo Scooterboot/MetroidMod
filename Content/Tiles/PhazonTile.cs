@@ -17,9 +17,9 @@ namespace MetroidMod.Content.Tiles
 		{
 			Main.tileSolid[Type] = true;
 			Main.tileLighted[Type] = true;
-			Main.tileMergeDirt[Type] = true;
+			//Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			Main.tileMerge[Type][ModContent.TileType<PhazonCore>()] = true;
+			//Main.tileMerge[Type][ModContent.TileType<PhazonCore>()] = true;
 			
 			DustType = 68;
 			MinPick = 1000;//215;
