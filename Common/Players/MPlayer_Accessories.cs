@@ -179,7 +179,7 @@ namespace MetroidMod.Common.Players
 					Player.fullRotation = rotation;
 					Player.fullRotationOrigin = Player.Center - Player.position;
 				}
-				else //up
+				else if (!P.sleeping.isSleeping) //up
 				{
 					rotation = 0f;
 					Player.fullRotation = 0f;
