@@ -13,6 +13,8 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			DisplayName.SetDefault("Dark Hunter's Breastplate");
 			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -47,6 +49,8 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			DisplayName.SetDefault("Dark Hunter's Greaves");
 			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -63,6 +67,8 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			DisplayName.SetDefault("Dark Hunter's Helmet");
 			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
