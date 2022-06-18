@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Blue;
 			Item.vanity = true;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -52,7 +52,7 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Blue;
 			Item.vanity = true;
 		}
 	}
@@ -68,7 +68,7 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Blue;
 			Item.vanity = true;
 		}
 	}
