@@ -23,7 +23,7 @@ namespace MetroidMod.Content.Items.Vanity
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return head.type == ModContent.ItemType<VanityDreadSuitHelmet>() && body.type == ModContent.ItemType<VanityDreadSuitBreastplate>() && legs.type == ModContent.ItemType<VanityDreadSuitGreaves>();
+			return head.type == ModContent.ItemType<DarkSamusHelmet>() && body.type == ModContent.ItemType<DarkSamusBreastplate>() && legs.type == ModContent.ItemType<DarkSamusGreaves>();
 		}
 		public override void UpdateVanitySet(Player P)
 		{
