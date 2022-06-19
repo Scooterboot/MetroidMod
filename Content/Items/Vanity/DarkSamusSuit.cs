@@ -13,19 +13,17 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			DisplayName.SetDefault("Dark Hunter's Breastplate");
 			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
-
-			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Green;
 			Item.vanity = true;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return head.type == ModContent.ItemType<DarkSamusHelmet>() && body.type == ModContent.ItemType<DarkSamusBreastplate>() && legs.type == ModContent.ItemType<DarkSamusGreaves>();
+			return head.type == ModContent.ItemType<VanityDreadSuitHelmet>() && body.type == ModContent.ItemType<VanityDreadSuitBreastplate>() && legs.type == ModContent.ItemType<VanityDreadSuitGreaves>();
 		}
 		public override void UpdateVanitySet(Player P)
 		{
@@ -49,14 +47,12 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			DisplayName.SetDefault("Dark Hunter's Greaves");
 			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
-
-			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Green;
 			Item.vanity = true;
 		}
 	}
@@ -67,14 +63,12 @@ namespace MetroidMod.Content.Items.Vanity
 		{
 			DisplayName.SetDefault("Dark Hunter's Helmet");
 			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
-
-			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Green;
 			Item.vanity = true;
 		}
 	}

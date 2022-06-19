@@ -43,7 +43,6 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			{
 				NPC.ai[i] = 0.0f;
 			}*/
-			NPC.boss = false;
 			NPC.BossBar = ModContent.GetInstance<BossBars.BossBarNone>();
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
