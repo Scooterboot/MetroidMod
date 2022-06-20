@@ -37,7 +37,19 @@ namespace MetroidMod.Content.Items.Boss
 				.AddTile(TileID.DemonAltar)
 				.Register();
 		}
-
+		
+		public override bool ConsumeItem(Player player)
+		{
+			if (Common.Configs.MServerConfig.Instance.enableBossSummonConsumption)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
 		public override bool CanUseItem(Player player)
 		{
 			return !NPC.AnyNPCs(ModContent.NPCType<NPCs.Serris.Serris_Head>()) && player.ZoneBeach;
