@@ -20,16 +20,17 @@ namespace MetroidMod.Common
 		protected override void Draw(ref PlayerDrawSet drawInfo)
 		{
 			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mp = drawPlayer.GetModPlayer<MPlayer>();
 
 			if (!drawPlayer.active || drawPlayer.outOfRange || Main.gameMenu) return;
 
-			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball").Value;
-			Texture2D tex3 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Dye").Value;
+			Texture2D tex = mp.spiderball ? ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Spiderball").Value : ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball").Value;
+			Texture2D tex3 = mp.spiderball ? ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Spiderball_Dye").Value : ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Dye").Value;
 			Texture2D boost = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Boostball").Value;
 			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Light").Value;
 			Texture2D spiderTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Spiderball").Value;
 			Texture2D trail = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Trail").Value;
-			MPlayer mp = drawPlayer.GetModPlayer<MPlayer>();
+
 			drawInfo.DrawDataCache.Clear();
 
 			float thisx = (int)(drawInfo.Position.X + (drawPlayer.width / 2));
