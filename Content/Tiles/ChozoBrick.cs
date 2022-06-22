@@ -10,7 +10,10 @@ namespace MetroidMod.Content.Tiles
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
+			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
+			//Main.tileMerge[Type][TileID.Sand] = true;
+			//Main.tileMerge[TileID.Sand][Type] = true;
 
 			DustType = 87;
 			MinPick = 65;
