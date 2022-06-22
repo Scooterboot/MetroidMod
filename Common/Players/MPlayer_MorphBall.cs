@@ -334,7 +334,7 @@ namespace MetroidMod.Common.Players
 					{
 						for (int j = num4; j < num5; j++)
 						{
-							if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tile[i, j].IsActuated && (Main.tileSolid[(int)Main.tile[i, j].TileType] || (Main.tileSolidTop[(int)Main.tile[i, j].TileType] && Main.tile[i, j].TileFrameY == 0)))
+							if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && (Main.tileSolid[(int)Main.tile[i, j].TileType] || (Main.tileSolidTop[(int)Main.tile[i, j].TileType] && Main.tile[i, j].TileFrameY == 0)))
 							{
 								Vector2 vector4;
 								vector4.X = (float)(i * 16);
