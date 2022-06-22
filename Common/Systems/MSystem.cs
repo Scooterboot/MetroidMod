@@ -263,9 +263,13 @@ namespace MetroidMod.Common.Systems
 					Vector2 pos = timer.Item2;
 					int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].TileType;
 					bool open = (hatchtype == (ushort)ModContent.TileType<BlueHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<BlueHatchOpenVertical>()
 							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpenVertical>()
 							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>());
+							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpenVertical>()
+							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpenVertical>());
 					if (open)
 					{
 						BlueHatch hatch = (TileLoader.GetTile(hatchtype) as BlueHatch);
@@ -283,9 +287,13 @@ namespace MetroidMod.Common.Systems
 					Vector2 pos = timer.Item2;
 					int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].TileType;
 					bool open = (hatchtype == (ushort)ModContent.TileType<BlueHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<BlueHatchOpenVertical>()
 							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpenVertical>()
 							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>());
+							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpenVertical>()
+							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpenVertical>());
 					if (open)
 					{
 						BlueHatch hatch = (TileLoader.GetTile(hatchtype) as BlueHatch);
@@ -353,9 +361,13 @@ namespace MetroidMod.Common.Systems
 				{
 					int hatchtype = Main.tile[row, column].TileType;
 					bool open = (hatchtype == (ushort)ModContent.TileType<BlueHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<BlueHatchOpenVertical>()
 							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpenVertical>()
 							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>());
+							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpenVertical>()
+							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>()
+							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpenVertical>());
 					if (open)
 					{
 						BlueHatch hatch = (TileLoader.GetTile(hatchtype) as BlueHatch);
