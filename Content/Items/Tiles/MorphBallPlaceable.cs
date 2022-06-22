@@ -22,8 +22,8 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
-			//Item.consumable = true;
-			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>();
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>();
 		}
 	}
 }

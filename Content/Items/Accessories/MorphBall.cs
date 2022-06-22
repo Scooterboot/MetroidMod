@@ -84,22 +84,6 @@ namespace MetroidMod.Content.Items.Accessories
 			return clone;
 		}
 
-		public override Color? GetAlpha(Color lightColor)
-		{
-			Player player = Main.player[Main.myPlayer];
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			return mp.morphItemColor;
-		}
-		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale )
-		{
-			Player player = Main.player[Main.myPlayer];
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			itemColor = mp.morphItemColor;
-			drawColor = mp.morphColorLights;
-			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Items/Accessories/MorphBall_Lights").Value;
-			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
-		}
-
 		public override void SaveData(TagCompound tag)
 		{
 			//TagCompound tag = new TagCompound();
