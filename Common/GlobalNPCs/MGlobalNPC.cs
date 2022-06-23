@@ -29,7 +29,7 @@ namespace MetroidMod.Common.GlobalNPCs
 			if (!canFreeze)
 			{
 				// This system needs to be redone. npc.buffImmune no longer controls NPC buff immunity.
-				// Bestiary fuckery needs to be done.
+				// NPCID.Sets.DebuffImmunitySets stuff needs to be done.
 				npc.buffImmune[ModContent.BuffType<IceFreeze>()] = true;
 				npc.buffImmune[ModContent.BuffType<InstantFreeze>()] = true;
 			}
