@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Items.Accessories
 		
 		public override void AddRecipes()
 		{
-			Mod.CreateRecipe(ItemID.AvengerEmblem)
+			Recipe.Create(ItemID.AvengerEmblem)
 				.AddIngredient(Type)
 				.AddIngredient(ItemID.SoulofMight, 5)
 				.AddIngredient(ItemID.SoulofSight, 5)
