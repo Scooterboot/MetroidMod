@@ -46,7 +46,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Green;
 			Item.value = 9000;
-			Item.defense = 6;
+			Item.defense = Common.Configs.MServerConfig.Instance.defensePowerSuitBreastplate;
 		}
 		public override void UpdateEquip(Player player)
 		{
@@ -65,8 +65,8 @@ namespace MetroidMod.Content.Items.Armors
 							"Double tap a direction (when enabled)";// + 
 							//SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnergyDefenseEfficiency += 0.1f;
-			mp.EnergyExpenseEfficiency += 0.1f;
+			mp.EnergyDefenseEfficiency += Common.Configs.MServerConfig.Instance.energyDefenseEfficiency;
+			mp.EnergyExpenseEfficiency += Common.Configs.MServerConfig.Instance.energyExpenseEfficiency;
 			mp.senseMove = true;
 			mp.ShouldShowArmorUI = true;
 			SuitAddonLoader.OnUpdateArmorSet(player);
@@ -192,7 +192,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Green;
 			Item.value = 6000;
-			Item.defense = 5;
+			Item.defense = Common.Configs.MServerConfig.Instance.defensePowerSuitGreaves;
 		}
 		public override void UpdateEquip(Player player)
 		{
@@ -305,7 +305,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Green;
 			Item.value = 6000;
-			Item.defense = 5;
+			Item.defense = Common.Configs.MServerConfig.Instance.defensePowerSuitHelmet;
 		}
 		public override void UpdateEquip(Player player)
 		{
