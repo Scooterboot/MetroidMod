@@ -58,7 +58,7 @@ namespace MetroidMod.Content.Items.Weapons
 		//public override void SetDefaults()
 		public override void SetDefaults()
 		{
-			Item.damage = 30;
+			Item.damage = Common.Configs.MServerConfig.Instance.damageMissileLauncher;
 			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Item.width = 24;
 			Item.height = 16;
@@ -77,8 +77,8 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.crit = 10;
 
 			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
-			mi.statMissiles = 5;
-			mi.maxMissiles = 5;
+			mi.statMissiles = Common.Configs.MServerConfig.Instance.ammoMissileLauncher;
+			mi.maxMissiles = Common.Configs.MServerConfig.Instance.ammoMissileLauncher;
 		}
 		public override void AddRecipes()
 		{
@@ -175,7 +175,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot2 = MissileMods[1];
 			Item exp = MissileMods[2];
 
-			int damage = 30;
+			int damage = Common.Configs.MServerConfig.Instance.damageMissileLauncher;
 			useTime = 9;
 			shot = "MissileShot";
 			chargeShot = "";
@@ -215,7 +215,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			leadAimSpeed = 0f;
 
-			mi.maxMissiles = 5 + (5 * exp.stack);
+			mi.maxMissiles = Common.Configs.MServerConfig.Instance.ammoMissileLauncher + (Common.Configs.MServerConfig.Instance.ammoMissileTank * exp.stack);
 			if (mi.statMissiles > mi.maxMissiles)
 			{
 				mi.statMissiles = mi.maxMissiles;

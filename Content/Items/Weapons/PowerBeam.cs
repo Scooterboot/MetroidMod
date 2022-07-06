@@ -54,12 +54,12 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			Item.damage = 14;
+			Item.damage = Common.Configs.MServerConfig.Instance.damagePowerBeam;
 			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Item.width = 24;
 			Item.height = 12;
 			Item.scale = 0.8f;
-			Item.useTime = 14;
+			Item.useTime = Common.Configs.MServerConfig.Instance.useTimePowerBeam;
 			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
@@ -133,13 +133,13 @@ namespace MetroidMod.Content.Items.Weapons
 		private float spazSpeed = 0f;
 		private float plasSpeed = 0f;
 
-		private int finalDmg = 14;
+		private int finalDmg = Common.Configs.MServerConfig.Instance.damagePowerBeam;
 
-		private float chargeDmgMult = 3f;
+		private float chargeDmgMult = Common.Configs.MServerConfig.Instance.damageChargePowerBeam;
 		private float chargeCost = 2f;
 
-		private int overheat = 4;
-		private int useTime = 14;
+		private int overheat = Common.Configs.MServerConfig.Instance.overheatPowerBeam;
+		private int useTime = Common.Configs.MServerConfig.Instance.useTimePowerBeam;
 
 		private string shot = "PowerBeamShot";
 		private string chargeShot = "PowerBeamChargeShot";
@@ -205,9 +205,9 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot4 = BeamMods[3];
 			Item slot5 = BeamMods[4];
 
-			int damage = 14;
-			overheat = 4;
-			useTime = 14;
+			int damage = Common.Configs.MServerConfig.Instance.damagePowerBeam;
+			overheat = Common.Configs.MServerConfig.Instance.overheatPowerBeam;
+			useTime = Common.Configs.MServerConfig.Instance.useTimePowerBeam;
 			shot = "PowerBeamShot";
 			chargeShot = "PowerBeamChargeShot";
 			shotAmt = 1;
