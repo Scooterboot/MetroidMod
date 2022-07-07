@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = 5000;
-			Item.defense = 6;
+			Item.defense = Common.Configs.MServerConfig.Instance.defenseChoziteBreastplate;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs ) => head.type == ModContent.ItemType<ChoziteHelmet>() && body.type == ModContent.ItemType<ChoziteBreastplate>() && legs.type == ModContent.ItemType<ChoziteGreaves>();
 		public override void UpdateArmorSet(Player player)
@@ -59,7 +59,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = 3000;
-			Item.defense = 4;
+			Item.defense = Common.Configs.MServerConfig.Instance.defenseChoziteGreaves;
 		}
 		public override void AddRecipes()
 		{
@@ -89,7 +89,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = 3000;
-			Item.defense = 5;
+			Item.defense = Common.Configs.MServerConfig.Instance.defenseChoziteHelmet;
 		}
 		public override void AddRecipes()
 		{

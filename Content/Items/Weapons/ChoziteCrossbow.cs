@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			Item.damage = 12;
+			Item.damage = Common.Configs.MServerConfig.Instance.damageChoziteCrossbow;
 			Item.DamageType = DamageClass.Ranged;//Item.ranged = true;
 			Item.width = 52;
 			Item.height = 20;
