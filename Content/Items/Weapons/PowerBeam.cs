@@ -135,7 +135,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private int finalDmg = Common.Configs.MServerConfig.Instance.damagePowerBeam;
 
-		private float chargeDmgMult = Common.Configs.MServerConfig.Instance.damageChargePowerBeam;
+		private float chargeDmgMult = 3f;
 		private float chargeCost = 2f;
 
 		private int overheat = Common.Configs.MServerConfig.Instance.overheatPowerBeam;
@@ -1143,10 +1143,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shot = "HyperBeamShot";
 				shotSound = "HyperBeamSound";
-				useTime = 16;
+				useTime = Common.Configs.MServerConfig.Instance.useTimeHyperBeam;
 
-				damage = 35;
-				overheat = 7;
+				damage = Common.Configs.MServerConfig.Instance.damageHyperBeam;
+				overheat = Common.Configs.MServerConfig.Instance.overheatHyperBeam;
 
 				texture = "HyperBeam";
 
@@ -1209,10 +1209,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shot = "PhazonBeamShot";
 				shotSound = "PhazonBeamSound";
-				useTime = 6;
+				useTime = Common.Configs.MServerConfig.Instance.useTimePhazonBeam;
 
-				damage = 6;
-				overheat = 1;
+				damage = Common.Configs.MServerConfig.Instance.damagePhazonBeam;
+				overheat = Common.Configs.MServerConfig.Instance.overheatPhazonBeam;
 
 				texture = "PhazonBeam";
 
