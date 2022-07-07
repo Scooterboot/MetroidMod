@@ -25,14 +25,20 @@ namespace MetroidMod.Common.Configs
 		
 		public static MServerConfig Instance;
 		
-		[Header("General")]
+	[Header("General")]
 		
-		[Label("Boss Summon Consumption")]
+		[Label("[i:MetroidMod/TorizoSummon] Boss Summon Consumption")]
 		[Tooltip("When enabled, Boss Summon items will be consumed upon usage.")]
 		[DefaultValue(true)]
 		public bool enableBossSummonConsumption;
 		
-		[Header("Automatically Closing Hatches")]
+		//The following isn't done yet.
+		/*[Label("[i:MetroidMod/TorizoBag] Bosses drop addons")]
+		[Tooltip("When enabled, certain Bosses will drop Suit and Beam addons upon death.")]
+		[DefaultValue(false)]
+		public bool enableBossAddonDrops;*/
+		
+	[Header("[i:MetroidMod/BlueHatch] Automatically Closing Hatches")]
 		
 		[Label("Enabled")]
 		[Tooltip("When enabled, hatches will automatically close after a certain period of time.")]
@@ -53,24 +59,98 @@ namespace MetroidMod.Common.Configs
 			MetroidMod.AutocloseHatchesTime = AutocloseHatchesTime;
 		}
 		
-		[Header("Stat Modifiers\n(REQUIRES WORLD RELOAD)")]
+	[Header("[i:MetroidMod/ChoziteBar] Chozite Gear\n(REQUIRES WORLD RELOAD)")]
+		
+		[Label("[i:MetroidMod/ChoziteHelmet] Chozite Helmet Defense")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(5)]
+		public int defenseChoziteHelmet;
+		
+		[Label("[i:MetroidMod/ChoziteBreastplate] Chozite Breastplate Defense")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(6)]
+		public int defenseChoziteBreastplate;
+		
+		[Label("[i:MetroidMod/ChoziteGreaves] Chozite Greaves Defense")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(4)]
+		public int defenseChoziteGreaves;
+		
+		[Label("[i:MetroidMod/ChoziteSword] Chozite Sword Damage")]
+		[Range(1, 30)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(16)]
+		public int damageChoziteSword;
+		
+		[Label("[i:MetroidMod/ChoziteShortsword] Chozite Shortsword Damage")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(14)]
+		public int damageChoziteShortsword;
+		
+		[Label("[i:MetroidMod/ChoziteCrossbow] Chozite Crossbow Damage")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(12)]
+		public int damageChoziteCrossbow;
+		
+	[Header("[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit\n(REQUIRES WORLD RELOAD)")]
+		
+		[Label("[i:MetroidMod/PowerSuitHelmet] Power Suit Helmet Defense")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(5)]
+		public int defensePowerSuitHelmet;
+		
+		[Label("[i:MetroidMod/PowerSuitBreastplate] Power Suit Breastplate Defense")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(6)]
+		public int defensePowerSuitBreastplate;
+		
+		[Label("[i:MetroidMod/PowerSuitGreaves] Power Suit Greaves Defense")]
+		[Range(1, 20)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(5)]
+		public int defensePowerSuitGreaves;
+		
+		[Label("[i:MetroidMod/EnergyTankAddon] Energy Defense Efficiency")]
+		[Range(0.05f, 1f)]
+		[Increment(0.05f)]
+		[Slider]
+		[DefaultValue(0.1f)]
+		public float energyDefenseEfficiency;
+		
+		[Label("[i:MetroidMod/ReserveTankAddon] Energy Expense Efficiency")]
+		[Range(0.05f, 1f)]
+		[Increment(0.05f)]
+		[Slider]
+		[DefaultValue(0.1f)]
+		public float energyExpenseEfficiency;
+		
+	[Header("[i:MetroidMod/PowerBeam] Standard Weapons\n(REQUIRES WORLD RELOAD)")]
 		
 		[Label("[i:MetroidMod/PowerBeam] Power Beam Damage")]
-		[Range(1, 100)]
+		[Range(1, 50)]
 		[Increment(1)]
 		[Slider]
 		[DefaultValue(14)]
 		public int damagePowerBeam;
 		
-		[Label("[i:MetroidMod/PowerBeam][i:MetroidMod/ChargeBeamAddon] Power Beam Charge Damage")]
-		[Range(0.05f, 3f)]
-		[Increment(0.05f)]
-		[Slider]
-		[DefaultValue(3f)]
-		public float damageChargePowerBeam;
-		
 		[Label("[i:MetroidMod/PowerBeam] Power Beam Use Time")]
-		[Range(1, 100)]
+		[Range(1, 60)]
 		[Increment(1)]
 		[Slider]
 		[DefaultValue(14)]
@@ -90,53 +170,69 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(30)]
 		public int damageMissileLauncher;
 		
+		[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(9)]
+		public int useTimeMissileLauncher;
+		
 		[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Starting Ammo")]
-		[Range(1, 100)]
+		[Range(1, 10)]
 		[Increment(1)]
 		[Slider]
 		[DefaultValue(5)]
 		public int ammoMissileLauncher;
 		
 		[Label("[i:MetroidMod/MissileExpansion] Ammo per Missile Tank")]
-		[Range(1, 100)]
+		[Range(1, 10)]
 		[Increment(1)]
 		[Slider]
 		[DefaultValue(5)]
 		public int ammoMissileTank;
 		
-		[Label("[i:MetroidMod/PowerSuitHelmet] Power Suit Helmet Defense")]
+	[Header("[i:MetroidMod/PowerBeam] Special Beams\n(REQUIRES WORLD RELOAD)")]
+		
+		[Label("[i:MetroidMod/HyperBeamAddon] Hyper Beam Damage")]
 		[Range(1, 100)]
 		[Increment(1)]
 		[Slider]
-		[DefaultValue(5)]
-		public int defensePowerSuitHelmet;
+		[DefaultValue(35)]
+		public int damageHyperBeam;
 		
-		[Label("[i:MetroidMod/PowerSuitBreastplate] Power Suit Breastplate Defense")]
+		[Label("[i:MetroidMod/HyperBeamAddon] Hyper Beam Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(16)]
+		public int useTimeHyperBeam;
+		
+		[Label("[i:MetroidMod/HyperBeamAddon] Hyper Beam Overheat")]
+		[Range(1, 100)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(7)]
+		public int overheatHyperBeam;
+		
+		[Label("[i:MetroidMod/PhazonBeamAddon] Phazon Beam Damage")]
 		[Range(1, 100)]
 		[Increment(1)]
 		[Slider]
 		[DefaultValue(6)]
-		public int defensePowerSuitBreastplate;
+		public int damagePhazonBeam;
 		
-		[Label("[i:MetroidMod/PowerSuitGreaves] Power Suit Greaves Defense")]
+		[Label("[i:MetroidMod/PhazonBeamAddon] Phazon Beam Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(6)]
+		public int useTimePhazonBeam;
+		
+		[Label("[i:MetroidMod/PhazonBeamAddon] Hyper Beam Overheat")]
 		[Range(1, 100)]
 		[Increment(1)]
 		[Slider]
-		[DefaultValue(5)]
-		public int defensePowerSuitGreaves;
-		
-		[Label("[i:MetroidMod/EnergyTank] Energy Defense Efficiency")]
-		[Range(0.05f, 1f)]
-		[Increment(0.05f)]
-		[Slider]
-		[DefaultValue(0.1f)]
-		public float energyDefenseEfficiency;
-		
-		[Label("[i:MetroidMod/ReserveTank] Energy Expense Efficiency")]
-		[Range(0.05f, 1f)]
-		[Increment(0.05f)]
-		[Slider]
-		[DefaultValue(0.1f)]
-		public float energyExpenseEfficiency;
+		[DefaultValue(1)]
+		public int overheatPhazonBeam;
 	}
 }
