@@ -54,8 +54,11 @@ namespace MetroidMod.Content.Tiles.Hatch
 
 		public override bool RightClick(int i, int j)
 		{
-			//HitWire(i, j);
-			//return true;
+			if (Main.LocalPlayer.TryGetModPlayer(out Common.Players.MPlayer mp) && mp.GreenKeycard)
+			{
+				HitWire(i, j);
+				return true;
+			}
 			return false;
 		}
 		

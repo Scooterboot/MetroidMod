@@ -6,7 +6,6 @@ using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using System;
 
 namespace MetroidMod.Content.Tiles.Hatch
 {
@@ -54,8 +53,11 @@ namespace MetroidMod.Content.Tiles.Hatch
 
 		public override bool RightClick(int i, int j)
 		{
-			//HitWire(i, j);
-			//return true;
+			if (Main.LocalPlayer.TryGetModPlayer(out Common.Players.MPlayer mp) && mp.RedKeycard)
+			{
+				HitWire(i, j);
+				return true;
+			}
 			return false;
 		}
 		

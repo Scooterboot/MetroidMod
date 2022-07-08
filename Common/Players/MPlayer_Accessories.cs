@@ -70,6 +70,10 @@ namespace MetroidMod.Common.Players
 		public int reserveTanks = 0;
 		public int reserveHearts = 0;
 		public int reserveHeartsValue = 20;
+
+		public bool RedKeycard = false;
+		public bool GreenKeycard = false;
+		public bool YellowKeycard = false;
 		
 		public void ResetEffects_Accessories()
 		{
@@ -103,6 +107,10 @@ namespace MetroidMod.Common.Players
 				reserveTanks = 0;
 				reserveHeartsValue = 20;
 			}
+
+			RedKeycard = false;
+			GreenKeycard = false;
+			YellowKeycard = false;
 		}
 		public void PreUpdate_Accessories()
 		{
