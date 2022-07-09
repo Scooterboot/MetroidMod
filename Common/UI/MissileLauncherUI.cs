@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using ReLogic.Content;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -19,10 +21,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileLauncherUI : UIState
 	{
-		public static bool Visible
-		{
-			get { return Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<MissileLauncher>(); }
-		}
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<MissileLauncher>();
 
 		MissileLauncherPanel missileLauncherPanel;
 
@@ -37,11 +36,11 @@ namespace MetroidMod.Common.UI
 
 	public class MissileLauncherPanel : DragableUIPanel
 	{
-		//Texture2D panelTexture;
+		private Texture2D panelTexture;
 
 		public MissileLauncherItemBox[] missileSlots;
 
-		public UIText[] textSlots;
+		//public UIText[] textSlots;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
@@ -54,17 +53,20 @@ namespace MetroidMod.Common.UI
 
 		public override void OnInitialize()
 		{
-			//panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MissileLauncher_Border").Value;
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MissileLauncher_Border", AssetRequestMode.ImmediateLoad).Value;
 
 			this.SetPadding(0);
 			this.Left.Pixels = 160;
 			this.Top.Pixels = 260;
-			this.Width.Pixels = 256;//panelTexture.Width;
-			this.Height.Pixels = 164;//panelTexture.Height;
+			this.Width.Pixels = panelTexture.Width;
+			this.Height.Pixels = panelTexture.Height;
 			enabled = MetroidMod.DragableMissileLauncherUI;
 
+			this.Append(new MissileLauncherFrame());
+			this.Append(new MissileLauncherLines());
+
 			missileSlots = new MissileLauncherItemBox[MetroidMod.missileSlotAmount];
-			textSlots = new UIText[MetroidMod.missileSlotAmount];
+			//textSlots = new UIText[MetroidMod.missileSlotAmount];
 			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
 			{
 				missileSlots[i] = new MissileLauncherItemBox();
@@ -75,6 +77,7 @@ namespace MetroidMod.Common.UI
 
 				this.Append(missileSlots[i]);
 
+				/*
 				textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
 				textSlots[i].SetText(MissileLauncherLoader.GetAddonSlotName(i));
 				textSlots[i].Top.Pixels = itemBoxPositionValues[i].Y + 44;
@@ -84,10 +87,8 @@ namespace MetroidMod.Common.UI
 				textSlots[i].Height.Pixels = 22;
 
 				Append(textSlots[i]);
+				*/
 			}
-
-			this.Append(new MissileLauncherFrame());
-			this.Append(new MissileLauncherLines());
 		}
 
 		public override void Update(GameTime gameTime)
@@ -106,15 +107,15 @@ namespace MetroidMod.Common.UI
 			base.Update(gameTime);
 		}
 
-		/*protected override void DrawSelf(SpriteBatch spriteBatch)
+		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(panelTexture, DrawRectangle, Color.White);
-		}*/
+		}
 	}
 
 	public class MissileLauncherItemBox : UIPanel
 	{
-		Texture2D itemBoxTexture;
+		private Texture2D itemBoxTexture;
 
 		public Condition condition;
 
@@ -125,9 +126,9 @@ namespace MetroidMod.Common.UI
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
 
-			Width.Pixels = 44; Height.Pixels = 44;//Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
+			Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
 			this.OnClick += ItemBoxClick;
 		}
 
@@ -211,10 +212,10 @@ namespace MetroidMod.Common.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			base.DrawSelf(spriteBatch);
+			//base.DrawSelf(spriteBatch);
 			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
 
-			//spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
+			spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
 
 			// Item drawing.
 			if (missileLauncherTarget.MissileMods[missileSlotType].IsAir) return;
@@ -276,7 +277,7 @@ namespace MetroidMod.Common.UI
 	 */
 	public class MissileLauncherFrame : UIPanel
 	{
-		Texture2D missileLauncherFrame;
+		private Texture2D missileLauncherFrame;
 
 		public Rectangle drawRectangle
 		{
@@ -285,7 +286,7 @@ namespace MetroidMod.Common.UI
 
 		public override void OnInitialize()
 		{
-			missileLauncherFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MissileLauncher_Frame"/*, ReLogic.Content.AssetRequestMode.ImmediateLoad*/).Value;
+			missileLauncherFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MissileLauncher_Frame", AssetRequestMode.ImmediateLoad).Value;
 
 			this.Width.Pixels = missileLauncherFrame.Width;
 			this.Height.Pixels = missileLauncherFrame.Height;
@@ -302,7 +303,7 @@ namespace MetroidMod.Common.UI
 	}
 	public class MissileLauncherLines : UIPanel
 	{
-		Texture2D missileLauncherLines;
+		private Texture2D missileLauncherLines;
 
 		public Rectangle drawRectangle
 		{
@@ -311,7 +312,7 @@ namespace MetroidMod.Common.UI
 
 		public override void OnInitialize()
 		{
-			missileLauncherLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MissileLauncher_Lines"/*, ReLogic.Content.AssetRequestMode.ImmediateLoad*/).Value;
+			missileLauncherLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MissileLauncher_Lines", AssetRequestMode.ImmediateLoad).Value;
 
 			this.Width.Pixels = missileLauncherLines.Width;
 			this.Height.Pixels = missileLauncherLines.Height;
