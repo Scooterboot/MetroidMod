@@ -57,13 +57,13 @@ namespace MetroidMod.Common.UI.SuitAddons
 			PanelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuitHelmet_Border", AssetRequestMode.ImmediateLoad);
 
 			SetPadding(0);
-			Left.Pixels = 160;
-			Top.Pixels = 260;
+			Left.Pixels = Main.screenWidth - PanelTexture.Width() - 250;
+			Top.Pixels = 240;
 			Width.Pixels = PanelTexture.Width();
 			Height.Pixels = PanelTexture.Height();
 
-			//Append(new HelmetAddonsFrame());
-			//Append(new HelmetAddonsLines());
+			Append(new HelmetAddonsFrame());
+			Append(new HelmetAddonsLines());
 
 			addonSlots = new HelmetUIItemBox[3];
 			for(int i = 0; i < addonSlots.Length; i++)
@@ -76,6 +76,31 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 				Append(addonSlots[i]);
 			}
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			enabled = MetroidMod.DragableSenseMoveUI;
+			if (IsMouseHovering)
+			{
+				Main.LocalPlayer.mouseInterface = true;
+			}
+			if (!enabled)
+			{
+				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
+				Top.Pixels = 240;
+				if (!Main.mapFullscreen && Main.mapStyle == 1)
+				{
+					Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);
+				}
+			}
+
+			base.Update(gameTime);
+		}
+
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			spriteBatch.Draw(PanelTexture.Value, DrawRectangle, Color.White);
 		}
 	}
 	public class HelmetUIItemBox : UIPanel
@@ -129,7 +154,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			if (Main.LocalPlayer.armor[0].type != ModContent.ItemType<PowerSuitHelmet>()) { return; }
 			PowerSuitHelmet target = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
 
-			if (target.SuitAddons[addonSlotType] != null && !target.SuitAddons[addonSlotType - 11].IsAir)
+			if (target.SuitAddons[addonSlotType - 11] != null && !target.SuitAddons[addonSlotType - 11].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
@@ -159,6 +184,63 @@ namespace MetroidMod.Common.UI.SuitAddons
 				}
 			}
 		}
+
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			//base.DrawSelf(spriteBatch);
+
+			spriteBatch.Draw(ItemBoxTexture.Value, DrawRectangle, new Color(255, 255, 255));
+
+			// Item drawing.
+			if (Main.LocalPlayer.armor[0].IsAir) { return; }
+			PowerSuitHelmet helmet = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
+
+			Color itemColor = helmet.SuitAddons[addonSlotType - 11].GetAlpha(Color.White);
+			Texture2D itemTexture = TextureAssets.Item[helmet.SuitAddons[addonSlotType - 11].type].Value;
+			CalculatedStyle innerDimensions = GetDimensions();
+
+			if (IsMouseHovering)
+			{
+				Main.hoverItemName = helmet.SuitAddons[addonSlotType - 11].Name;
+				Main.HoverItem = helmet.SuitAddons[addonSlotType - 11].Clone();
+			}
+
+			Rectangle frame = Main.itemAnimations[helmet.SuitAddons[addonSlotType - 11].type] != null
+						? Main.itemAnimations[helmet.SuitAddons[addonSlotType - 11].type].GetFrame(itemTexture)
+						: itemTexture.Frame(1, 1, 0, 0);
+
+			float drawScale = 1f;
+			if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
+			{
+				if (frame.Width > frame.Height)
+				{
+					drawScale = innerDimensions.Width / frame.Width;
+				}
+				else
+				{
+					drawScale = innerDimensions.Width / frame.Height;
+				}
+			}
+
+			//float unreflectedScale = drawScale;
+			Color tmpcolor = Color.White;
+
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, helmet.SuitAddons[addonSlotType - 11].type);
+
+			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
+
+			drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
+			drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+
+			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
+				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+
+			if (helmet.SuitAddons[addonSlotType - 11].color != default(Color))
+			{
+				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
+																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+			}
+		}
 	}
 
 	/*
@@ -178,8 +260,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 			Height.Pixels = FrameTexture.Height();
 
 			// Hardcoded position values.
-			Top.Pixels = 52;
-			Left.Pixels = 118;
+			Top.Pixels = 80;
+			Left.Pixels = 108;
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -207,7 +289,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(LinesTexture, DrawRectangle, Color.White);
+			spriteBatch.Draw(LinesTexture.Value, DrawRectangle, Color.White);
 		}
 	}
 }
