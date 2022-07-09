@@ -36,6 +36,8 @@ namespace MetroidMod.Common.UI
 		Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
 		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
 
+		private byte state = 0;
+
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
 		public override void OnInitialize()
@@ -58,6 +60,7 @@ namespace MetroidMod.Common.UI
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
 			this.OnClick += SMButtonClick;
+			OnRightClick += RightClick;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -88,6 +91,37 @@ namespace MetroidMod.Common.UI
 			mp.senseMoveEnabled = !mp.senseMoveEnabled;
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuTick);
 			clicked = true;
+		}
+
+		private void RightClick(UIMouseEvent evt, UIElement e)
+		{
+			if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
+			{
+				// i swear this is necessary ;-; - DarkSamus49
+				if (state == 0)
+				{
+					mp.ShouldShowHelmetUI = true;
+					state++;
+				}
+				else if (state == 1)
+				{
+					mp.ShouldShowHelmetUI = false;
+					mp.ShouldShowBreastplateUI = true;
+					state++;
+				}
+				else if (state == 2)
+				{
+					mp.ShouldShowBreastplateUI = false;
+					mp.ShouldShowGreavesUI = true;
+					state++;
+				}
+				else if (state == 3)
+				{
+					mp.ShouldShowGreavesUI = false;
+					state = 0;
+				}
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuTick);
+			}
 		}
 
 		protected override void DrawSelf(SpriteBatch sb)
