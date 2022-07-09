@@ -13,10 +13,13 @@ namespace MetroidMod.Common.Players
 	public partial class MPlayer : ModPlayer
 	{
 		public bool ShouldShowArmorUI = false;
+		public bool ShouldShowHelmetUI = false;
 		public bool IsPowerSuitHelmet = false;
 		public bool ShouldDrawHelmet = false;
+		public bool ShouldShowBreastplateUI = false;
 		public bool IsPowerSuitBreastplate = false;
 		public bool ShouldDrawBreastplate = false;
+		public bool ShouldShowGreavesUI = false;
 		public bool IsPowerSuitGreaves = false;
 		public bool ShouldDrawGreaves = false;
 		public void ResetEffects_GetArmors()
