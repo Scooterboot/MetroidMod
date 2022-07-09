@@ -33,7 +33,7 @@ namespace MetroidMod.Common.UI
 
 	public class MorphBallPanel : DragableUIPanel
 	{
-		//Texture2D panelTexture;
+		private Texture2D panelTexture;
 
 		public MorphBallItemBox[] ballSlots;
 
@@ -52,16 +52,20 @@ namespace MetroidMod.Common.UI
 
 		public override void OnInitialize()
 		{
-			//panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Border", AssetRequestMode.ImmediateLoad).Value;
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Border", AssetRequestMode.ImmediateLoad).Value;
 
 			SetPadding(0);
-			Width.Pixels = 256;//panelTexture.Width;
-			Height.Pixels = 162;//panelTexture.Height;
+			Width.Pixels = panelTexture.Width;
+			Height.Pixels = panelTexture.Height;
 			Left.Pixels = Main.screenWidth - Width.Pixels - 180;
 			Top.Pixels = 240;
 			enabled = MetroidMod.DragableMorphBallUI;
 
+			Append(new MorphBallFrame());
+			Append(new MorphBallLines());
+
 			ballSlots = new MorphBallItemBox[MetroidMod.beamSlotAmount];
+			/*
 			textSlots = new UIText[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
@@ -76,6 +80,7 @@ namespace MetroidMod.Common.UI
 
 				Append(textSlots[i]);
 			}
+			*/
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				ballSlots[i] = new MorphBallItemBox();
@@ -86,9 +91,6 @@ namespace MetroidMod.Common.UI
 
 				Append(ballSlots[i]);
 			}
-
-			Append(new MorphBallFrame());
-			Append(new MorphBallLines());
 		}
 
 		public override void Update(GameTime gameTime)
@@ -105,15 +107,15 @@ namespace MetroidMod.Common.UI
 			base.Update(gameTime);
 		}
 
-		/*protected override void DrawSelf(SpriteBatch spriteBatch)
+		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(panelTexture, drawRectangle, Color.White);
-		}*/
+			spriteBatch.Draw(panelTexture, DrawRectangle, Color.White);
+		}
 	}
 
 	public class MorphBallItemBox : UIPanel
 	{
-		//Texture2D itemBoxTexture;
+		private Texture2D itemBoxTexture;
 
 		public Condition condition;
 
@@ -124,9 +126,9 @@ namespace MetroidMod.Common.UI
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
+			itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
 
-			Width.Pixels = 44; Height.Pixels = 44;//Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
+			Width.Pixels = itemBoxTexture.Width; Height.Pixels = itemBoxTexture.Height;
 			OnClick += ItemBoxClick;
 		}
 
@@ -189,12 +191,12 @@ namespace MetroidMod.Common.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			base.DrawSelf(spriteBatch);
+			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.miscEquips[3];
 			if (target == null || target.type != ModContent.ItemType<MorphBall>()) { return; }
 			MorphBall morphBallTarget = (MorphBall)target.ModItem;
 
-			//spriteBatch.Draw(itemBoxTexture, drawRectangle, Color.White);
+			spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
 
 			// Item drawing.
 			if (morphBallTarget == null || morphBallTarget.ballMods == null || morphBallTarget.ballMods[morphBallSlotType].IsAir) { return; }
@@ -254,7 +256,7 @@ namespace MetroidMod.Common.UI
 
 		public override void OnInitialize()
 		{
-			morphBallFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Frame").Value;
+			morphBallFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Frame", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = morphBallFrame.Width;
 			Height.Pixels = morphBallFrame.Height;
@@ -277,7 +279,7 @@ namespace MetroidMod.Common.UI
 
 		public override void OnInitialize()
 		{
-			morphBallLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Lines").Value;
+			morphBallLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/MorphBall_Lines", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = morphBallLines.Width;
 			Height.Pixels = morphBallLines.Height;
