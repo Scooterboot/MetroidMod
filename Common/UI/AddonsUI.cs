@@ -24,7 +24,7 @@ namespace MetroidMod.Common.UI
 {
 	public class SuitAddonsUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowArmorUI && Main.EquipPage == 0;
+		public static bool Visible => false;// Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowArmorUI && Main.EquipPage == 0;
 
 		private SuitAddonsPanel suitAddonsPanel;
 
