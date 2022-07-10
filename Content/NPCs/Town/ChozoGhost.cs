@@ -18,6 +18,7 @@ using MetroidMod.Content.SuitAddons;
 using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Items.Vanity;
 using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.Items.Tools;
 using MetroidMod.ID;
 
 #endregion
@@ -225,6 +226,19 @@ namespace MetroidMod.Content.NPCs.Town
 			if (NPC.downedMoonlord)
 			{
 				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<VanityPack_Lunar>());
+			}
+
+			if (NPC.downedMechBossAny)
+			{
+				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<RedKeycard>());
+			}
+			if (NPC.downedGolemBoss)
+			{
+				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<GreenKeycard>());
+			}
+			if (NPC.downedAncientCultist)
+			{
+				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<YellowKeycard>());
 			}
 
 			if(Main.hardMode && Main.bloodMoon)
