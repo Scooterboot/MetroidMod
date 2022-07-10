@@ -11,7 +11,7 @@ using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Tools
 {
-	public class XRayScope : ModItem
+	public abstract class XRayScope : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
