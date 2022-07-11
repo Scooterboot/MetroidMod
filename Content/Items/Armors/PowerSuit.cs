@@ -197,9 +197,15 @@ namespace MetroidMod.Content.Items.Armors
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnableWallJump = true;
+			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerSuitGreaves)
+			{
+				mp.EnableWallJump = true;
+			}
 			mp.IsPowerSuitGreaves = true;
-			player.noFallDmg = true;
+			if (Common.Configs.MServerConfig.Instance.enableNoFallDamagePowerSuitGreaves)
+			{
+				player.noFallDmg = true;
+			}
 		}
 
 		public override void AddRecipes()
