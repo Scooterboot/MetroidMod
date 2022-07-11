@@ -61,6 +61,11 @@ namespace MetroidMod.Common.Configs
 		
 	[Header("[i:MetroidMod/ChoziteBar] Chozite Gear\n(REQUIRES WORLD RELOAD)")]
 		
+		[Label("[i:MetroidMod/HiJumpBootsAddon] Wall Jump")]
+		[Tooltip("When enabled, a full set of Chozite Armor grants the ability to Wall Jump.")]
+		[DefaultValue(true)]
+		public bool enableWallJumpChoziteArmor;
+		
 		[Label("[i:MetroidMod/ChoziteHelmet] Chozite Helmet Defense")]
 		[Range(1, 20)]
 		[Increment(1)]
@@ -105,6 +110,14 @@ namespace MetroidMod.Common.Configs
 		
 	[Header("[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit\n(REQUIRES WORLD RELOAD)")]
 		
+		[Label("[i:MetroidMod/HiJumpBootsAddon] Wall Jump")]
+		[DefaultValue(true)]
+		public bool enableWallJumpPowerSuitGreaves;
+		
+		[Label("[i:LuckyHorseshoe] Negate Fall Damage")]
+		[DefaultValue(true)]
+		public bool enableNoFallDamagePowerSuitGreaves;
+		
 		[Label("[i:MetroidMod/PowerSuitHelmet] Power Suit Helmet Defense")]
 		[Range(1, 20)]
 		[Increment(1)]
@@ -139,6 +152,19 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(0.1f)]
 		public float energyExpenseEfficiency;
+		
+	[Header("[i:MetroidMod/PowerGripAddon] Suit Addons\n(REQUIRES WORLD RELOAD)")]
+		
+		[Label("[i:MetroidMod/EnergyTankAddon] Energy Tank Stack")]
+		[Range(1, 14)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(10)]
+		public int stackEnergyTank;
+		
+		[Label("[i:MetroidMod/PowerGripAddon][i:MetroidMod/HiJumpBootsAddon] Power Grip grants Wall Jump")]
+		[DefaultValue(false)]
+		public bool enableWallJumpPowerGrip;
 		
 	[Header("[i:MetroidMod/PowerBeam] Standard Weapons\n(REQUIRES WORLD RELOAD)")]
 		
