@@ -29,7 +29,10 @@ namespace MetroidMod.Content.Items.Armors
 			player.setBonus = "+2 defense" + "\n"
 				+ "Allows somersaulting & wall jumping";
 			player.statDefense += 2;
-			player.GetModPlayer<MPlayer>().EnableWallJump = true;
+			if (Common.Configs.MServerConfig.Instance.enableWallJumpChoziteArmor)
+			{
+				player.GetModPlayer<MPlayer>().EnableWallJump = true;
+			}
 		}
 		public override void AddRecipes()
 		{
