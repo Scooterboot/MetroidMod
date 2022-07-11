@@ -2,6 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using MetroidMod.ID;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -40,15 +41,30 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.GetModPlayer<Common.Players.MPlayer>().powerGrip = true;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.powerGrip = true;
+			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			{
+				mp.EnableWallJump = true;
+			}
 		}
 		public override void UpdateInventory(Player player)
 		{
-			player.GetModPlayer<Common.Players.MPlayer>().powerGrip = true;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.powerGrip = true;
+			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			{
+				mp.EnableWallJump = true;
+			}
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<Common.Players.MPlayer>().powerGrip = true;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.powerGrip = true;
+			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			{
+				mp.EnableWallJump = true;
+			}
 		}
 	}
 }
