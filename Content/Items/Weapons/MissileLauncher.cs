@@ -70,7 +70,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.knockBack = 5.5f;
 			Item.value = 20000;
 			Item.rare = ItemRarityID.Green;
-			Item.UseSound = Sounds.Items.Weapons.MissileSound;
+			Item.UseSound = Sounds.Items.Weapons.MissileShoot;
 			Item.autoReuse = false;
 			Item.shoot = ModContent.ProjectileType<MissileShot>();
 			Item.shootSpeed = 8f;
@@ -120,7 +120,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		string shot = "MissileShot";
 		string chargeShot = "DiffusionMissileShot";
-		string shotSound = "MissileSound";
+		string shotSound = "MissileShoot";
 		string chargeShotSound = "SuperMissileSound";
 		string chargeUpSound = "ChargeStartup_Power";
 		string chargeTex = "ChargeLead_PlasmaRed";
@@ -179,7 +179,7 @@ namespace MetroidMod.Content.Items.Weapons
 			useTime = 9;
 			shot = "MissileShot";
 			chargeShot = "";
-			shotSound = "MissileSound";
+			shotSound = "MissileShoot";
 			chargeShotSound = "SuperMissileSound";
 			chargeUpSound = "";
 			chargeTex = "";
@@ -226,22 +226,27 @@ namespace MetroidMod.Content.Items.Weapons
 			if (slot2.type == sm)
 			{
 				shot = "SuperMissileShot";
+				shotSound = "SuperMissileShoot";
 			}
 			else if (slot2.type == ic)
 			{
 				shot = "IceMissileShot";
+				shotSound = "MissileShoot";
 			}
 			else if (slot2.type == icSm)
 			{
 				shot = "IceSuperMissileShot";
+				shotSound = "IceMissileShoot";
 			}
 			else if (slot2.type == st)
 			{
 				shot = "StardustMissileShot";
+				shotSound = "SuperMissileShoot";
 			}
 			else if (slot2.type == ne)
 			{
 				shot = "NebulaMissileShot";
+				shotSound = "SuperMissileShoot";
 			}
 
 			int wb = ModContent.ItemType<WavebusterAddon>();
