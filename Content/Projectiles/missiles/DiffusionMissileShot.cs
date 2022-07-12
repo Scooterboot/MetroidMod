@@ -66,7 +66,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			P.position.X = P.position.X - (float)(P.width / 2);
 			P.position.Y = P.position.Y - (float)(P.height / 2);
 
-			SoundEngine.PlaySound(SoundID.Item14,P.position);
+			//SoundEngine.PlaySound(SoundID.Item14,P.position);
 			
 			int dustType = 6;
 			int dustType2 = 30;
@@ -74,6 +74,11 @@ namespace MetroidMod.Content.Projectiles.missiles
 			if(P.Name.Contains("Ice"))
 			{
 				dustType = 135;
+				SoundEngine.PlaySound(Sounds.Items.Weapons.IceMissileExplode,Projectile.position);
+			}
+			else
+			{
+				SoundEngine.PlaySound(Sounds.Items.Weapons.SuperMissileExplode,Projectile.position);
 			}
 			if(P.Name.Contains("Stardust"))
 			{

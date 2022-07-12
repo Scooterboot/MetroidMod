@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles.missiles
 {
@@ -80,7 +81,8 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
-			Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
+			//Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
+			SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplode,Projectile.position);
 			
 			int dustType = 6;
 			if(Projectile.Name.Contains("Ice"))
