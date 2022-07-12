@@ -27,6 +27,7 @@ Credits:
 -Some suit addon textures.
 -Expanding the Config.
 -Optimizing the Music files.
+-Missile Sound Rework.
 [Wandering Spider, Klover, MetroidPrime21, Missingno, and Prismatic]
 -Some suit addon textures.
 [VinniSauce]
