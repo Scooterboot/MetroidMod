@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Items.Boss
 			DisplayName.SetDefault("Treasure Bag");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			ItemID.Sets.ItemNoGravity[Item.type] = true;
-			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 8));
+			//Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 8));
 
 			ItemID.Sets.BossBag[Type] = true;
 			SacrificeTotal = 3;
