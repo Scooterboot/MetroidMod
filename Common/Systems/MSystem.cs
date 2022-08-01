@@ -154,22 +154,22 @@ namespace MetroidMod.Common.Systems
 				int right = mBlockType[x + 1, y];
 				int up = mBlockType[x, y - 1];
 				int down = mBlockType[x, y + 1];
-				if (left == 12 && Main.tile[x - 1, y].HasTile)
+				if (left == 12 && Main.tile[x - 1, y].HasTile && !Main.tile[x - 1, y].IsActuated)
 				{
 					hit[x - 1, y] = true;
 					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x - 1, y)));
 				}
-				if (right == 12 && Main.tile[x + 1, y].HasTile)
+				if (right == 12 && Main.tile[x + 1, y].HasTile && !Main.tile[x + 1, y].IsActuated)
 				{
 					hit[x + 1, y] = true;
 					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x + 1, y)));
 				}
-				if (up == 12 && Main.tile[x, y - 1].HasTile)
+				if (up == 12 && Main.tile[x, y - 1].HasTile && !Main.tile[x, y - 1].IsActuated)
 				{
 					hit[x, y - 1] = true;
 					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x, y - 1)));
 				}
-				if (down == 12 && Main.tile[x, y + 1].HasTile)
+				if (down == 12 && Main.tile[x, y + 1].HasTile && !Main.tile[x, y + 1].IsActuated)
 				{
 					hit[x, y + 1] = true;
 					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x, y + 1)));

@@ -78,6 +78,36 @@ namespace MetroidMod
 
 				};
 
+				public static readonly SoundStyle MissileShoot = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileShoot")
+				{
+
+				};
+
+				public static readonly SoundStyle MissileExplode = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileExplode")
+				{
+
+				};
+
+				public static readonly SoundStyle SuperMissileShoot = new($"{nameof(MetroidMod)}/Assets/Sounds/SuperMissileShoot")
+				{
+
+				};
+
+				public static readonly SoundStyle SuperMissileExplode = new($"{nameof(MetroidMod)}/Assets/Sounds/SuperMissileExplode")
+				{
+
+				};
+
+				public static readonly SoundStyle IceMissileShoot = new($"{nameof(MetroidMod)}/Assets/Sounds/IceMissileShoot")
+				{
+
+				};
+
+				public static readonly SoundStyle IceMissileExplode = new($"{nameof(MetroidMod)}/Assets/Sounds/IceMissileExplode")
+				{
+
+				};
+
 				public static readonly SoundStyle ChargeComboActivate = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeComboActivate")
 				{
 

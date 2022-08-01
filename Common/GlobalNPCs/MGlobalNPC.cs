@@ -13,6 +13,8 @@ namespace MetroidMod.Common.GlobalNPCs
 	{
 		public override bool InstancePerEntity => true;
 
+		internal bool checkedForFreezability = false;
+
 		public bool froze = false;
 		public bool unfroze = true;
 		private int oldDmg = 0;
@@ -21,20 +23,6 @@ namespace MetroidMod.Common.GlobalNPCs
 		private int oldSprDir = 1;
 		public float speedDecrease = 0.8f;
 
-		public override void SetDefaults(NPC npc)
-		{
-			bool isSkeletronArm = (npc.aiStyle == 12 || (npc.aiStyle >= 33 && npc.aiStyle <= 36));
-			bool canFreeze = !npc.dontTakeDamage && !npc.boss && npc.lifeMax < 3000 && !isSkeletronArm && npc.type != NPCID.SnowmanGangsta && npc.type != NPCID.MisterStabby && npc.type != NPCID.SnowBalla && npc.type != NPCID.None3 && npc.aiStyle != 6 && !npc.buffImmune[44];
-
-			if (!canFreeze)
-			{
-				// This system needs to be redone. npc.buffImmune no longer controls NPC buff immunity.
-				// NPCID.Sets.DebuffImmunitySets stuff needs to be done.
-				npc.buffImmune[ModContent.BuffType<IceFreeze>()] = true;
-				npc.buffImmune[ModContent.BuffType<InstantFreeze>()] = true;
-			}
-		}
-
 		public override void ResetEffects(NPC npc)
 		{
 			froze = false;
@@ -42,6 +30,18 @@ namespace MetroidMod.Common.GlobalNPCs
 
 		public override bool PreAI(NPC npc)
 		{
+			if (!checkedForFreezability)
+			{
+				bool isSkeletronArm = (npc.aiStyle == 12 || (npc.aiStyle >= 33 && npc.aiStyle <= 36));
+				bool canFreeze = !npc.dontTakeDamage && !npc.boss && npc.lifeMax < 3000 && !isSkeletronArm && npc.type != NPCID.SnowmanGangsta && npc.type != NPCID.MisterStabby && npc.type != NPCID.SnowBalla && npc.type != NPCID.None3 && npc.aiStyle != 6 && !npc.buffImmune[44];
+
+				if (!canFreeze)
+				{
+					npc.buffImmune[ModContent.BuffType<IceFreeze>()] = true;
+					npc.buffImmune[ModContent.BuffType<InstantFreeze>()] = true;
+				}
+				checkedForFreezability = true;
+			}
 			if (froze)
 			{
 				if (speedDecrease <= 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && !MetroidMod.Instance.FrozenStandOnNPCs.Contains(npc.type))

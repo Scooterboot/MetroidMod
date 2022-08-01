@@ -18,6 +18,8 @@ namespace MetroidMod.Content.Items.Tools
 		{
 			Item.width = 24;
 			Item.height = 18;
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.buyPrice(0, 10, 0, 0);
 		}
 		public override void UpdateInventory(Player player)
 		{
@@ -48,6 +50,8 @@ namespace MetroidMod.Content.Items.Tools
 		{
 			Item.width = 24;
 			Item.height = 18;
+			Item.rare = ItemRarityID.Lime;
+			Item.value = Item.buyPrice(0, 50, 0, 0);
 		}
 		public override void UpdateInventory(Player player)
 		{
@@ -78,6 +82,8 @@ namespace MetroidMod.Content.Items.Tools
 		{
 			Item.width = 24;
 			Item.height = 18;
+			Item.rare = ItemRarityID.Yellow;
+			Item.value = Item.buyPrice(2, 5, 0, 0);
 		}
 		public override void UpdateInventory(Player player)
 		{
@@ -111,6 +117,8 @@ namespace MetroidMod.Content.Items.Tools
 		{
 			Item.width = 24;
 			Item.height = 18;
+			Item.rare = ItemRarityID.Purple;
+			Item.value = Item.buyPrice(12, 50, 0, 0);
 		}
 		public override void UpdateInventory(Player player)
 		{

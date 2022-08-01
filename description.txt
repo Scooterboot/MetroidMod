@@ -20,9 +20,19 @@ The 1.4 port adds:
 -Modular morph ball addons
 
 Credits:
-Infected Animal, for porting the suits' textures to 1.4.
-Antinous, for the visor ui background texture and some suit addon textures.
-Wandering Spider, Klover, MetroidPrime21, Missingno, and Prismatic, for some suit addon textures.
-VinniSauce, for some tile and wall textures.
-Wandering Spider and VinniSauce for collaborating on revamping most all item and tile textures
-Nintendo, for the entire Metroid Franchise!
+[Infected Animal]
+-Porting the suits' textures to 1.4.
+[Antinous]
+-Visor UI background texture.
+-Some suit addon textures.
+-Expanding the Config.
+-Optimizing the Music files.
+-Missile Sound Rework.
+[Wandering Spider, Klover, MetroidPrime21, Missingno, and Prismatic]
+-Some suit addon textures.
+[VinniSauce]
+-Some tile and wall textures.
+[Wandering Spider and VinniSauce]
+-Collaborating on revamping most all item and tile textures
+
+And Nintendo, for the entire Metroid Franchise!
