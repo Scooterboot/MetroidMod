@@ -11,6 +11,7 @@ namespace MetroidMod.Content.Tiles
 		{
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
+			Main.tileDungeon[Type] = true;
 
 			DustType = 87;
 			MinPick = 205;
