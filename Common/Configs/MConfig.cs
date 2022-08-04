@@ -58,7 +58,14 @@ namespace MetroidMod.Common.Configs
 		[Tooltip("Allows the Sense Move UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableSenseMoveUI;
-		
+
+		[Header("Map Icons")]
+		[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
+		[Tooltip("When enabled, the map will show an icon where Torizo's boss room is.\n" +
+		"Default value: true")]
+		[DefaultValue(true)]
+		public bool showTorizoRoomIcon;
+
 		public override void OnChanged()
 		{
 			MetroidMod.UseAltWeaponTextures = UseAltWeaponTextures;
