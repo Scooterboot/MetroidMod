@@ -24,6 +24,11 @@ namespace MetroidMod.Common.Configs
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		
 		public static MConfig Instance;
+
+		public MConfig()
+		{
+			Instance = this;
+		}
 		
 		[Label("Toggle alternate weapon textures")]
 		[Tooltip("When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.\n" +
@@ -70,6 +75,11 @@ namespace MetroidMod.Common.Configs
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		
 		public static MDebugConfig Instance;
+
+		public MDebugConfig()
+		{
+			Instance = this;
+		}
 		
 		[Label("Draw NPC hitboxes")]
 		[Tooltip("When enabled, draws NPC hitboxes.\n" +

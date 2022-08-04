@@ -24,6 +24,11 @@ namespace MetroidMod.Common.Configs
 		public override ConfigScope Mode => ConfigScope.ServerSide;
 		
 		public static MServerConfig Instance;
+
+		public MServerConfig()
+		{
+			Instance = this;
+		}
 		
 	[Header("General")]
 		
@@ -52,12 +57,6 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(10)]
 		public int AutocloseHatchesTime;
-		
-		public override void OnChanged()
-		{
-			MetroidMod.AutocloseHatchesEnabled = AutocloseHatchesEnabled;
-			MetroidMod.AutocloseHatchesTime = AutocloseHatchesTime;
-		}
 		
 	[Header("[i:MetroidMod/ChoziteBar] Chozite Gear\n(REQUIRES WORLD RELOAD)")]
 		

@@ -19,6 +19,7 @@ using ReLogic.Graphics;
 using MetroidMod.Content.Items;
 using MetroidMod.Common.UI;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Tiles.Hatch;
 using MetroidMod.ID;
 
 namespace MetroidMod
@@ -28,7 +29,8 @@ namespace MetroidMod
 		SyncStartPlayerStats,
 		SyncPlayerStats,
 		PlaySyncedSound,
-		BestiaryUpdate
+		BestiaryUpdate,
+		DoorClickSync
 	}
 
 	[LegacyName("MetroidMod")]
@@ -43,9 +45,6 @@ namespace MetroidMod
 		public static bool DragableMissileLauncherUI;
 		public static bool DragableMorphBallUI;
 		public static bool DragableSenseMoveUI;
-
-		public static bool AutocloseHatchesEnabled;
-		public static int AutocloseHatchesTime;
 
 		public static Color powColor = new(248, 248, 110);
 		public static Color iceColor = new(0, 255, 255);
@@ -194,6 +193,24 @@ namespace MetroidMod
 						packet.Write((byte)MetroidMessageType.BestiaryUpdate);
 						packet.Write(npcType);
 						packet.Write(hostilityType);
+						packet.Send(-1, whoAmI);
+					}
+					break;
+				case MetroidMessageType.DoorClickSync:
+					ushort type = reader.ReadUInt16();
+					int i = reader.ReadInt32();
+					int j = reader.ReadInt32();
+
+					BlueHatch hatch = ModContent.GetModTile(type) as BlueHatch;
+					hatch.HitWire(i, j);
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						ModPacket packet = GetPacket();
+						packet.Write((byte)MetroidMessageType.DoorClickSync);
+						packet.Write(type);
+						packet.Write(i);
+						packet.Write(j);
 						packet.Send(-1, whoAmI);
 					}
 					break;

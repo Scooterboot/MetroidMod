@@ -59,6 +59,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			if (Main.LocalPlayer.TryGetModPlayer(out Common.Players.MPlayer mp) && mp.RedKeycard)
 			{
 				HitWire(i, j);
+				SendRightClick(i, j);
 				return true;
 			}
 			return false;
