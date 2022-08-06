@@ -22,12 +22,22 @@ namespace MetroidMod.Common.Configs
 	public class MServerConfig : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ServerSide;
-		
+
+		internal CanEditServerConfig condition;
+
+		internal delegate bool CanEditServerConfig(ModConfig pendingConfig, int whoAmI, ref string message);
+
+		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message) => condition(pendingConfig, whoAmI, ref message);
+
 		public static MServerConfig Instance;
 
 		public MServerConfig()
 		{
 			Instance = this;
+			condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message)
+			{
+				return whoAmI == 0;
+			};
 		}
 		
 	[Header("General")]
