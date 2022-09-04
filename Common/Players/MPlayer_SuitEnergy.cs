@@ -76,7 +76,7 @@ namespace MetroidMod.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public bool PreHurt_SuitEnergy(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		public bool PreHurt_SuitEnergy(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
 		{
 			if (!ShouldShowArmorUI || Player.immune) { return true; }
 			int oldEnergy = Energy;

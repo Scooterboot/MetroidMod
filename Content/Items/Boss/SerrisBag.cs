@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Content.Items.Boss
 {
@@ -29,23 +30,13 @@ namespace MetroidMod.Content.Items.Boss
 		}
 
 		public override bool CanRightClick() => true;
-		public override int BossBagNPC => ModContent.NPCType<NPCs.Serris.Serris_Head>();
 
-		public override void OpenBossBag(Player player)
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.SerrisCoreX>());
-			if (Main.rand.NextBool(5))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.SerrisTrophy>());
-			}
-			if (Main.rand.NextBool(3))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Vanity.SerrisMask>());
-			}
-			if (Main.rand.NextBool(2))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.SerrisMusicBox>());
-			}
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.SerrisCoreX>(), 1));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.SerrisMusicBox>(), 6));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.SerrisMask>(), 8));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.SerrisTrophy>(), 11));
 		}
 	}
 }

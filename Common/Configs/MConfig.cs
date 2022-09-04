@@ -27,7 +27,6 @@ namespace MetroidMod.Common.Configs
 
 		public MConfig()
 		{
-			Instance = this;
 		}
 		
 		[Label("Toggle alternate weapon textures")]

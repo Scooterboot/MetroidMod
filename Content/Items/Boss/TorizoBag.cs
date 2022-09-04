@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Content.Items.Boss
 {
@@ -26,24 +27,14 @@ namespace MetroidMod.Content.Items.Boss
 		}
 
 		public override bool CanRightClick() => true;
-		public override int BossBagNPC => ModContent.NPCType<NPCs.Torizo.Torizo>();
 
-		public override void OpenBossBag(Player player)
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.EnergyShard>(), Main.rand.Next(25, 51));
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.ChoziteOre>(), Main.rand.Next(30, 90));
-			if (Main.rand.NextBool(2))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.TorizoMusicBox>());
-			}
-			if (Main.rand.NextBool(3))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Vanity.TorizoMask>());
-			}
-			if (Main.rand.NextBool(5))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.TorizoTrophy>());
-			}				
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.EnergyShard>(), 1, 15, 36));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.ChoziteOre>(), 1, 30, 90));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.TorizoMask>(), 8));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoTrophy>(), 11));
 		}
 	}
 }

@@ -216,17 +216,5 @@ namespace MetroidMod
 					break;
 			}
 		}
-		public override void AddRecipeGroups()
-		{
-			MorphBallBombsRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:MorphBallBombs", new RecipeGroup(() => "Any Morph Ball Bombs", MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType) { IconicItemId = MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType });
-
-			GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
-			EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
-			EvilMaterialRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilMaterial", new RecipeGroup(() => "Any Pre-Hardmode Evil Material", ItemID.ShadowScale, ItemID.TissueSample) { IconicItemId = ItemID.ShadowScale });
-			EvilHMMaterialRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilHMMaterial", new RecipeGroup(() => "Any Hardmode Evil Material", ItemID.CursedFlame, ItemID.Ichor) { IconicItemId = ItemID.CursedFlame });
-			T1HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier1HMBar", new RecipeGroup(() => "Any Tier-1 Hardmode Bar", ItemID.CobaltBar, ItemID.PalladiumBar) { IconicItemId = ItemID.CobaltBar });
-			T2HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier2HMBar", new RecipeGroup(() => "Any Tier-2 Hardmode Bar", ItemID.MythrilBar, ItemID.OrichalcumBar) { IconicItemId = ItemID.MythrilBar });
-			T3HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier3HMBar", new RecipeGroup(() => "Any Tier-3 Hardmode Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar) { IconicItemId = ItemID.AdamantiteBar });
-		}
 	}
 }

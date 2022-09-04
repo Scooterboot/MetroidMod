@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = 5000;
-			Item.defense = Common.Configs.MServerConfig.Instance.defenseChoziteBreastplate;
+			Item.defense = Common.Configs.MServerConfig.Instance.chozite.defenseChoziteBreastplate;
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs ) => head.type == ModContent.ItemType<ChoziteHelmet>() && body.type == ModContent.ItemType<ChoziteBreastplate>() && legs.type == ModContent.ItemType<ChoziteGreaves>();
 		public override void UpdateArmorSet(Player player)
@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Items.Armors
 			player.setBonus = "+2 defense" + "\n"
 				+ "Allows somersaulting & wall jumping";
 			player.statDefense += 2;
-			if (Common.Configs.MServerConfig.Instance.enableWallJumpChoziteArmor)
+			if (Common.Configs.MServerConfig.Instance.chozite.enableWallJumpChoziteArmor)
 			{
 				player.GetModPlayer<MPlayer>().EnableWallJump = true;
 			}
@@ -62,7 +62,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = 3000;
-			Item.defense = Common.Configs.MServerConfig.Instance.defenseChoziteGreaves;
+			Item.defense = Common.Configs.MServerConfig.Instance.chozite.defenseChoziteGreaves;
 		}
 		public override void AddRecipes()
 		{
@@ -92,7 +92,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = 3000;
-			Item.defense = Common.Configs.MServerConfig.Instance.defenseChoziteHelmet;
+			Item.defense = Common.Configs.MServerConfig.Instance.chozite.defenseChoziteHelmet;
 		}
 		public override void AddRecipes()
 		{

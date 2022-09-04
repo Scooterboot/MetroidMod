@@ -33,7 +33,6 @@ namespace MetroidMod.Common.Configs
 
 		public MServerConfig()
 		{
-			Instance = this;
 			condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message)
 			{
 				return whoAmI == 0;
@@ -46,7 +45,7 @@ namespace MetroidMod.Common.Configs
 		[Tooltip("When enabled, Boss Summon items will be consumed upon usage.")]
 		[DefaultValue(true)]
 		public bool enableBossSummonConsumption;
-		
+
 		//The following isn't done yet.
 		/*[Label("[i:MetroidMod/TorizoBag] Bosses drop addons")]
 		[Tooltip("When enabled, certain Bosses will drop Suit and Beam addons upon death.")]
