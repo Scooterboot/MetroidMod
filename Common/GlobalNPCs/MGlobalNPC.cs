@@ -103,6 +103,9 @@ namespace MetroidMod.Common.GlobalNPCs
 				drawColor = Lighting.GetColor((int)npc.position.X / 16, (int)npc.position.Y / 16, new Color(0, 144, 255));
 			}
 		}
+
+		public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => target.TryGetModPlayer(out Players.MPlayer mp) && !mp.screwAttack;
+
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
 			//Player player = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
