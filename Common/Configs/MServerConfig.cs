@@ -51,6 +51,11 @@ namespace MetroidMod.Common.Configs
 		[Tooltip("When enabled, certain Bosses will drop Suit and Beam addons upon death.")]
 		[DefaultValue(false)]
 		public bool enableBossAddonDrops;*/
+
+		// TODO: get this working
+		// keep this internal, we do not want this to show up, but we want players to be able to configure a value for this
+		//[DefaultValue(false)]
+		//internal bool veryBrokenHatchControl;
 		
 	[Header("[i:MetroidMod/BlueHatch] Automatically Closing Hatches")]
 		
