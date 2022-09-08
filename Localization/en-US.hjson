@@ -2,6 +2,10 @@
 
 Mods: {
 	MetroidMod: {
+		WorldEvents: {
+			PhazonMeteor: A Phazon Meteor has landed!
+			PhazonCorruption: "{0} has been corrupted with Phazon!"
+		},
 		TownNPCMood: {
 			ChozoGhost: {
 				Content: I feel alright. How are you?

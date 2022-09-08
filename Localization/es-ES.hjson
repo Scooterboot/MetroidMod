@@ -1,0 +1,8 @@
+﻿Mods: {
+	MetroidMod: {
+		WorldEvents: {
+			PhazonMeteor: Un Meteoro del Fazon aterrizó!
+			PhazonCorruption: "Tu mundo está corrupto por Fazon!"
+		}
+	}
+}
