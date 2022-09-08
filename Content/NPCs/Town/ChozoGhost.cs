@@ -44,6 +44,7 @@ namespace MetroidMod.Content.NPCs.Town
 
 			NPC.Happiness
 				.SetBiomeAffection<OceanBiome>(AffectionLevel.Love)
+				.SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
 				.SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike)
 				.SetNPCAffection(NPCID.Steampunker, AffectionLevel.Love)
 				.SetNPCAffection(NPCID.Mechanic, AffectionLevel.Love)

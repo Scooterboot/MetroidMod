@@ -14,7 +14,7 @@ Mods: {
 				FarFromHome: I seem to have lost track of space, could you help me get back home?
 				DislikeCrowded: There are a few too many presences here, the aura is hard to think in.
 				HateCrowded: The aura of this place is so diluted with souls it's driving me insane!
-				LikeBiome: "{BiomeName} is a very nice place to test mods in."
+				LikeBiome: "{BiomeName} is calming."
 				LoveBiome: "I love {BiomeName}. It's very peaceful."
 				DislikeBiome: "The unending sands of {BiomeName} remind me of the times before the raid... I miss those days."
 				HateBiome: "{BiomeName} reeks of malintent to the point it's corrupting."
