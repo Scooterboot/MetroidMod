@@ -1,4 +1,5 @@
-﻿Mods: {
+﻿// TODO: Add spanish localization for Chozo Ghost dialogue.
+Mods: {
 	MetroidMod: {
 		WorldEvents: {
 			PhazonMeteor: Un Meteoro del Fazon aterrizó!

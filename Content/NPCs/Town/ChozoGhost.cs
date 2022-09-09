@@ -102,15 +102,15 @@ namespace MetroidMod.Content.NPCs.Town
 		{
 			WeightedRandom<string> chat = new WeightedRandom<string>();
 
-			chat.Add("Greetings, " + Main.LocalPlayer.name + "! How may I aid you?");
-			chat.Add("Please, do not be frightened by my appearance. I may be a ghost, but I am not evil.");
-			chat.Add("We may look different, but inside... We have the same 'heart' as you.");
-			//chat.Add("Be cautious of my brethren in our ancient ruins, for they may put your mettle to the test.");
+			chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue1", Main.LocalPlayer.name));
+			chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue2"));
+			chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue3"));
+			//chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue4"));
 
 			int wdoctor = NPC.FindFirstNPC(NPCID.WitchDoctor);
 			if (wdoctor >= 0)
 			{
-				chat.Add(Main.npc[wdoctor].GivenName + " keeps shaking his witchcraft 'things' at me whenever I come near him. Could ask him to stop?", 0.5);
+				chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue3", Main.npc[wdoctor].GivenName), 0.5);
 			}
 
 			return chat;
