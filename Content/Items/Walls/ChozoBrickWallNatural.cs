@@ -6,6 +6,7 @@ namespace MetroidMod.Content.Items.Walls
 {
 	public class ChozoBrickWallNatural : ModItem
 	{
+		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/ChozoBrickWall";
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chozite Brick Wall");
