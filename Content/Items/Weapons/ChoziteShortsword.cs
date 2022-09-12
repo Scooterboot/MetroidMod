@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			Item.damage = Common.Configs.MServerConfig.Instance.damageChoziteShortsword;
+			Item.damage = Common.Configs.MServerConfig.Instance.ChoziteSettings.damageChoziteShortsword;
 			Item.DamageType = DamageClass.Melee;//Item.melee = true;
 			Item.width = 32;
 			Item.height = 32;

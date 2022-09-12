@@ -3,6 +3,7 @@
 using System;
 
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
@@ -272,11 +273,11 @@ namespace MetroidMod.Common.Systems
 
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				Main.NewText("A Phazon Meteor has landed!", new Color(50, 255, 130));
+				Main.NewText(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.WorldEvents.PhazonMeteor"), new Color(50, 255, 130));
 			}
 			else if (Main.netMode == NetmodeID.Server)
 			{
-				//NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("A Phazon Meteor has landed!"), new Color(50, 255, 130), -1);
+				ChatHelper.BroadcastChatMessage(NetworkText.FromKey($"Mods.{nameof(MetroidMod)}.WorldEvents.PhazonMeteor"), new Color(50, 255, 130), -1);
 			}
 
 			// Since we are not able to get here if we're in a multiplayer client session, removed the check.

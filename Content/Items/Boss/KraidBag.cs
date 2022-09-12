@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Content.Items.Boss
 {
@@ -25,26 +26,15 @@ namespace MetroidMod.Content.Items.Boss
 		}
 
 		public override bool CanRightClick() => true;
-		public override int BossBagNPC => ModContent.NPCType<NPCs.Kraid.Kraid_Head>();
 
-		public override void OpenBossBag(Player player)
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.KraidTissue>(), Main.rand.Next(35, 66));
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.UnknownPlasmaBeam>());
-			if (Main.rand.NextBool(5))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.KraidTrophy>());
-			}
-			if (Main.rand.NextBool(3))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Vanity.KraidMask>());
-			}
-			if (Main.rand.NextBool(2))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.KraidPhantoonMusicBox>());
-			}
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.KraidTissue>(), 1, 20, 31));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.UnknownPlasmaBeam>()));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.KraidPhantoonMusicBox>(), 6));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.KraidMask>(), 8));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.KraidTrophy>(), 11));
 		}
-
 	}
 }
 

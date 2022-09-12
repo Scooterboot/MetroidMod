@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Content.Items.Boss
 {
@@ -25,23 +26,11 @@ namespace MetroidMod.Content.Items.Boss
 		}
 
 		public override bool CanRightClick() => true;
-		public override int BossBagNPC => ModContent.NPCType<NPCs.GoldenTorizo.GoldenTorizo>();
 
-		public override void OpenBossBag(Player player)
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType);
-			if (Main.rand.NextBool(2))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.TorizoMusicBox>());
-			}
-			/*if (Main.rand.NextBool(3))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Vanity.GoldenTorizoMask>());
-			}
-			if (Main.rand.NextBool(5))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.GoldenTorizoTrophy"));
-			}*/
+			itemLoot.Add(ItemDropRule.Common(SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
 		}
 	}
 }

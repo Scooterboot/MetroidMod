@@ -24,6 +24,10 @@ namespace MetroidMod.Common.Configs
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		
 		public static MConfig Instance;
+
+		public MConfig()
+		{
+		}
 		
 		[Label("Toggle alternate weapon textures")]
 		[Tooltip("When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.\n" +
@@ -53,7 +57,14 @@ namespace MetroidMod.Common.Configs
 		[Tooltip("Allows the Sense Move UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableSenseMoveUI;
-		
+
+		[Header("Map Icons")]
+		[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
+		[Tooltip("When enabled, the map will show an icon where Torizo's boss room is.\n" +
+		"Default value: true")]
+		[DefaultValue(true)]
+		public bool showTorizoRoomIcon;
+
 		public override void OnChanged()
 		{
 			MetroidMod.UseAltWeaponTextures = UseAltWeaponTextures;
@@ -70,6 +81,11 @@ namespace MetroidMod.Common.Configs
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		
 		public static MDebugConfig Instance;
+
+		public MDebugConfig()
+		{
+			Instance = this;
+		}
 		
 		[Label("Draw NPC hitboxes")]
 		[Tooltip("When enabled, draws NPC hitboxes.\n" +

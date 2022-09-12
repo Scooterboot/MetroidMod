@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Content.Items.Boss
 {
@@ -28,24 +29,14 @@ namespace MetroidMod.Content.Items.Boss
 		}
 
 		public override bool CanRightClick() => true;
-		public override int BossBagNPC => ModContent.NPCType<NPCs.Nightmare.Nightmare>();
 
-		public override void OpenBossBag(Player player)
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.NightmareCoreX>());
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.NightmareCoreXFragment>(), Main.rand.Next(15, 25));
-			if (Main.rand.NextBool(2))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.NightmareMusicBox>());
-			}
-			/*if (Main.rand.NextBool(3))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Vanity.NightmareMask>());
-			}
-			if (Main.rand.NextBool(5))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.NightmareTrophy>());
-			}*/
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.NightmareCoreX>(), 1));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.NightmareCoreXFragment>(), 1, 15, 25));
+			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.NightmareMusicBox>(), 6));
+			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.NightmareMask>(), 8));
+			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.NightmareTrophy>(), 11));
 		}
 	}
 }

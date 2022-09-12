@@ -62,16 +62,31 @@ namespace MetroidMod.Content.Tiles.Hatch
 
 		public override bool RightClick(int i, int j)
 		{
-			HitWire(i, j);
-			return true;
+			if (/*Common.Configs.MServerConfig.Instance.veryBrokenHatchControl || */Main.LocalPlayer.controlUseTile)
+			{
+				HitWire(i, j);
+				if (Main.netMode == NetmodeID.MultiplayerClient) { SendRightClick(i, j); }
+				return true;
+			}
+			return false;
+		}
+
+		public void SendRightClick(int i, int j)
+		{
+			ModPacket packet = Mod.GetPacket();
+			packet.Write((byte)MetroidMessageType.DoorClickSync);
+			packet.Write(Type);
+			packet.Write(i);
+			packet.Write(j);
+			packet.Send();
 		}
 
 		public override void HitWire(int i, int j)
 		{
 			ToggleHatch(i, j, (ushort)otherDoorID, Name.Contains("Open"));
-			if (MetroidMod.AutocloseHatchesEnabled)
+			if (Common.Configs.MServerConfig.Instance.AutocloseHatchesEnabled)
 			{
-				MSystem.doorTimers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60 * MetroidMod.AutocloseHatchesTime, new Vector2(i, j)));
+				MSystem.doorTimers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60 * Common.Configs.MServerConfig.Instance.AutocloseHatchesTime, new Vector2(i, j)));
 			}
 		}
 

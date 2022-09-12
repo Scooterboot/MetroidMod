@@ -15,7 +15,6 @@ using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.NPCs.Torizo
 {
-	[AutoloadBossHead]
 	public class IdleTorizo : ModNPC
 	{
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/Torizo/IdleTorizo_Head";

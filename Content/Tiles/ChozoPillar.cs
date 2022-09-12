@@ -11,6 +11,7 @@ namespace MetroidMod.Content.Tiles
 		{
 			TileID.Sets.IsBeam[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
+			Main.tileDungeon[Type] = true;
 
 			DustType = 87;
 			MinPick = 65;

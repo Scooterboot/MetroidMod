@@ -12,6 +12,7 @@ using Terraria.ID;
 
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using Terraria.Map;
 
 namespace MetroidMod.Common.Systems
 {
@@ -475,6 +476,10 @@ namespace MetroidMod.Common.Systems
 					InterfaceScaleType.UI)
 				);
 			}
+		}
+		public override void PreDrawMapIconOverlay(IReadOnlyList<IMapLayer> layers, MapOverlayDrawContext mapOverlayDrawContext)
+		{
+			IdleTorizoMapLayer.Instance.Visible = Configs.MConfig.Instance.showTorizoRoomIcon;
 		}
 		float tRot = 0f;
 		float[] tScale = { 1f, 1f, 1f, 1f, 1f };

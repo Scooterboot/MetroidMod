@@ -2,6 +2,20 @@
 
 Mods: {
 	MetroidMod: {
+		WorldEvents: {
+			PhazonMeteor: A Phazon Meteor has landed!
+			PhazonCorruption: "{0} has been corrupted with Phazon!"
+		},
+		Dialogue: {
+			ChozoGhost: {
+				StandardDialogue1: "Greetings, {0}! How may I aid you?"
+				StandardDialogue2: Please, do not be frightened by my appearance. I may be a ghost, but I am not evil.
+				StandardDialogue3: We may look different, but inside... We have the same 'heart' as you.
+				# StdD4 is unused.
+				StandardDialogue4: Be cautious of my brethren in our ancient ruins, for they may put your mettle to the test.
+				WitchDialogue: "{0} keeps shaking his witchcraft 'things' at me whenever I come near him. Could ask him to stop?"
+			}
+		},
 		TownNPCMood: {
 			ChozoGhost: {
 				Content: I feel alright. How are you?
@@ -10,7 +24,7 @@ Mods: {
 				FarFromHome: I seem to have lost track of space, could you help me get back home?
 				DislikeCrowded: There are a few too many presences here, the aura is hard to think in.
 				HateCrowded: The aura of this place is so diluted with souls it's driving me insane!
-				LikeBiome: "{BiomeName} is a very nice place to test mods in."
+				LikeBiome: "{BiomeName} is calming."
 				LoveBiome: "I love {BiomeName}. It's very peaceful."
 				DislikeBiome: "The unending sands of {BiomeName} remind me of the times before the raid... I miss those days."
 				HateBiome: "{BiomeName} reeks of malintent to the point it's corrupting."

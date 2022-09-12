@@ -78,6 +78,18 @@ namespace MetroidMod.Common.Systems
 			timers.Clear();
 			nextTick.Clear();
 		}
+		public override void AddRecipeGroups()
+		{
+			MetroidMod.MorphBallBombsRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:MorphBallBombs", new RecipeGroup(() => "Any Morph Ball Bombs", MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType) { IconicItemId = MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType });
+
+			MetroidMod.GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
+			MetroidMod.EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
+			MetroidMod.EvilMaterialRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilMaterial", new RecipeGroup(() => "Any Pre-Hardmode Evil Material", ItemID.ShadowScale, ItemID.TissueSample) { IconicItemId = ItemID.ShadowScale });
+			MetroidMod.EvilHMMaterialRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilHMMaterial", new RecipeGroup(() => "Any Hardmode Evil Material", ItemID.CursedFlame, ItemID.Ichor) { IconicItemId = ItemID.CursedFlame });
+			MetroidMod.T1HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier1HMBar", new RecipeGroup(() => "Any Tier-1 Hardmode Bar", ItemID.CobaltBar, ItemID.PalladiumBar) { IconicItemId = ItemID.CobaltBar });
+			MetroidMod.T2HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier2HMBar", new RecipeGroup(() => "Any Tier-2 Hardmode Bar", ItemID.MythrilBar, ItemID.OrichalcumBar) { IconicItemId = ItemID.MythrilBar });
+			MetroidMod.T3HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier3HMBar", new RecipeGroup(() => "Any Tier-3 Hardmode Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar) { IconicItemId = ItemID.AdamantiteBar });
+		}
 
 		public override void OnWorldLoad()
 		{
@@ -666,6 +678,11 @@ namespace MetroidMod.Common.Systems
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>(); }, 60);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamTile>(); }, 12);
+				if (WorldGen.drunkWorldGen)
+				{
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>(); }, 1);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>(); }, 1);
+				}
 				Array.Resize(ref list, index);
 				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
 
@@ -995,7 +1012,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_Temple(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			Hatch(x, y + height - 8);
 			Hatch(x + width - 4, y + height - 8);
@@ -1003,17 +1020,17 @@ namespace MetroidMod.Common.Systems
 			for (int i = 0; i < 4; i++)
 			{
 				WorldGen.KillWall(x, y + height - 8 + i);
-				WorldGen.PlaceWall(x, y + height - 8 + i, ModContent.WallType<ChozoBrickWall>());
+				WorldGen.PlaceWall(x, y + height - 8 + i, ModContent.WallType<ChozoBrickWallNatural>());
 				WorldGen.KillWall(x + width - 1, y + height - 8 + i);
-				WorldGen.PlaceWall(x + width - 1, y + height - 8 + i, ModContent.WallType<ChozoBrickWall>());
+				WorldGen.PlaceWall(x + width - 1, y + height - 8 + i, ModContent.WallType<ChozoBrickWallNatural>());
 			}
 
 			for (int i = 0; i < 7; i++)
 			{
 				WorldGen.KillTile(x - 1, y + height - 15 + i);
-				WorldGen.PlaceTile(x - 1, y + height - 15 + i, ModContent.TileType<ChozoBrick>());
+				WorldGen.PlaceTile(x - 1, y + height - 15 + i, ModContent.TileType<ChozoBrickNatural>());
 				WorldGen.KillTile(x + width, y + height - 15 + i);
-				WorldGen.PlaceTile(x + width, y + height - 15 + i, ModContent.TileType<ChozoBrick>());
+				WorldGen.PlaceTile(x + width, y + height - 15 + i, ModContent.TileType<ChozoBrickNatural>());
 			}
 			Tile.SmoothSlope(x - 1, y + height - 15, false);
 			Tile.SmoothSlope(x + width, y + height - 15, false);
@@ -1030,7 +1047,7 @@ namespace MetroidMod.Common.Systems
 						DestroyChest(xx, yy);
 						WorldGen.KillTile(xx, yy);
 					}
-					WorldGen.PlaceTile(xx, yy, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(xx, yy, ModContent.TileType<ChozoBrickNatural>());
 					//}
 				}
 			}
@@ -1045,7 +1062,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_FirstShaft(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			VerticalHatch(x + width / 2 - 2, y);
 
@@ -1084,7 +1101,7 @@ namespace MetroidMod.Common.Systems
 				for (int j = 0; j < 3; j++)
 				{
 					WorldGen.KillTile(numX + i, numY + j);
-					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 
@@ -1110,7 +1127,7 @@ namespace MetroidMod.Common.Systems
 				for (int j = 0; j < 3; j++)
 				{
 					WorldGen.KillTile(numX + i, numY + j);
-					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 
@@ -1131,7 +1148,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_MorphHall(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			Mod mod = MetroidMod.Instance;
 
@@ -1152,7 +1169,7 @@ namespace MetroidMod.Common.Systems
 					for (int i = 0; i < 4 + k; i++)
 					{
 						WorldGen.KillTile(x + 14 + i, y + height - 14 + j);
-						WorldGen.PlaceTile(x + 14 + i, y + height - 14 + j, ModContent.TileType<ChozoBrick>());
+						WorldGen.PlaceTile(x + 14 + i, y + height - 14 + j, ModContent.TileType<ChozoBrickNatural>());
 					}
 				}
 				else
@@ -1160,7 +1177,7 @@ namespace MetroidMod.Common.Systems
 					for (int i = -k; i < 4; i++)
 					{
 						WorldGen.KillTile(x + width - 18 + i, y + height - 14 + j);
-						WorldGen.PlaceTile(x + width - 18 + i, y + height - 14 + j, ModContent.TileType<ChozoBrick>());
+						WorldGen.PlaceTile(x + width - 18 + i, y + height - 14 + j, ModContent.TileType<ChozoBrickNatural>());
 					}
 				}
 
@@ -1172,9 +1189,9 @@ namespace MetroidMod.Common.Systems
 						numX = x + width - 9;
 					}
 					WorldGen.KillTile(numX + j, y + height - 5);
-					WorldGen.PlaceTile(numX + j, y + height - 5, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX + j, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
 					WorldGen.KillTile(numX - dir + j, y + height - 6);
-					WorldGen.PlaceTile(numX - dir + j, y + height - 6, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX - dir + j, y + height - 6, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 
@@ -1195,7 +1212,7 @@ namespace MetroidMod.Common.Systems
 		{
 			Mod mod = MetroidMod.Instance;
 
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			for (int i = 0; i < 20; i++)
 			{
@@ -1203,11 +1220,11 @@ namespace MetroidMod.Common.Systems
 				{
 					if (j < 2)
 					{
-						WorldGen.PlaceTile(x + width / 2 - 10 + i, y + height - 6 + j, ModContent.TileType<ChozoBrick>());
+						WorldGen.PlaceTile(x + width / 2 - 10 + i, y + height - 6 + j, ModContent.TileType<ChozoBrickNatural>());
 					}
 					if (i > 1 && i < 18)
 					{
-						WorldGen.PlaceTile(x + width / 2 - 10 + i, y + 4 + j, ModContent.TileType<ChozoBrick>());
+						WorldGen.PlaceTile(x + width / 2 - 10 + i, y + 4 + j, ModContent.TileType<ChozoBrickNatural>());
 					}
 				}
 			}
@@ -1248,13 +1265,13 @@ namespace MetroidMod.Common.Systems
 				for (int j = 0; j < 3; j++)
 				{
 					WorldGen.KillTile(numX + i, numY + j);
-					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 		}
 		private static void ChozoRuins_SecondShaft(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			for (int j = 11; j < height - 5; j += 5)
 			{
@@ -1287,7 +1304,7 @@ namespace MetroidMod.Common.Systems
 				for (int j = 0; j < 3; j++)
 				{
 					WorldGen.KillTile(numX + i, numY + j);
-					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 			ChozoRuins_ChestRoom(chestRoomX, chestRoomY, chestRoomWidth, chestRoomHeight, ItemID.SandstorminaBottle);
@@ -1312,7 +1329,7 @@ namespace MetroidMod.Common.Systems
 				for (int j = 0; j < 3; j++)
 				{
 					WorldGen.KillTile(numX + i, numY + j);
-					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX + i, numY + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 			ChozoRuins_SaveRoom(saveRoomX, saveRoomY);
@@ -1352,20 +1369,20 @@ namespace MetroidMod.Common.Systems
 
 			int width = 36;
 			int height = 16;
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < height - 9; j++)
 				{
-					WorldGen.PlaceTile(x + width / 2 - 2 + i, y + 4 + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(x + width / 2 - 2 + i, y + 4 + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 				int xx = x + width / 2 + 2 + i;
 				if (dir == -1)
 				{
 					xx = x + width / 2 - 6 + i;
 				}
-				WorldGen.PlaceTile(xx, y + height - 6, ModContent.TileType<ChozoBrick>());
+				WorldGen.PlaceTile(xx, y + height - 6, ModContent.TileType<ChozoBrickNatural>());
 			}
 
 			int statueX = x + width / 2 + 3;
@@ -1388,8 +1405,8 @@ namespace MetroidMod.Common.Systems
 				{
 					numX = x + width - 9 + i;
 				}
-				WorldGen.PlaceTile(numX, y + height - 5, ModContent.TileType<ChozoBrick>());
-				WorldGen.PlaceTile(numX - dir, y + height - 6, ModContent.TileType<ChozoBrick>());
+				WorldGen.PlaceTile(numX, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
+				WorldGen.PlaceTile(numX - dir, y + height - 6, ModContent.TileType<ChozoBrickNatural>());
 			}
 			statueX = x + 5;
 			statueX2 = statueX + 1;
@@ -1405,16 +1422,16 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_BossRoom(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			int stepsX = x + 4;
 			if (dir == -1)
 			{
 				stepsX = x + width - 5;
 			}
-			WorldGen.PlaceTile(stepsX, y + height - 6, ModContent.TileType<ChozoBrick>());
-			WorldGen.PlaceTile(stepsX, y + height - 5, ModContent.TileType<ChozoBrick>());
-			WorldGen.PlaceTile(stepsX + dir, y + height - 5, ModContent.TileType<ChozoBrick>());
+			WorldGen.PlaceTile(stepsX, y + height - 6, ModContent.TileType<ChozoBrickNatural>());
+			WorldGen.PlaceTile(stepsX, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
+			WorldGen.PlaceTile(stepsX + dir, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
 
 			NPC.NewNPC(NPC.GetSource_NaturalSpawn(), 8 + (x + width - 6) * 16, (y + height - 4) * 16, ModContent.NPCType<Content.NPCs.Torizo.IdleTorizo>());
 			TorizoRoomLocation.X = x;
@@ -1427,14 +1444,14 @@ namespace MetroidMod.Common.Systems
 
 			int width = 20;
 			int height = 16;
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>());
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>());
 
 			for (int i = 0; i < width; i++)
 			{
 				for (int j = 0; j < 2; j++)
 				{
-					WorldGen.PlaceTile(x + i, y + height - 6 + j, ModContent.TileType<ChozoBrick>());
-					WorldGen.PlaceTile(x + i, y + 4 + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(x + i, y + height - 6 + j, ModContent.TileType<ChozoBrickNatural>());
+					WorldGen.PlaceTile(x + i, y + 4 + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 
@@ -1455,15 +1472,15 @@ namespace MetroidMod.Common.Systems
 			Tile.SmoothSlope(numX - 1, y + 5, false);
 			Tile.SmoothSlope(numX + 4, y + 5, false);
 
-			WorldGen.PlaceTile(x + 6, y + 6, ModContent.TileType<ChozoBrick>());
-			WorldGen.PlaceTile(x + width - 7, y + 6, ModContent.TileType<ChozoBrick>());
+			WorldGen.PlaceTile(x + 6, y + 6, ModContent.TileType<ChozoBrickNatural>());
+			WorldGen.PlaceTile(x + width - 7, y + 6, ModContent.TileType<ChozoBrickNatural>());
 			WorldGen.PlaceObject(x + 6, y + 7, 10, false, 29, 0, -1, 1);
 			WorldGen.PlaceObject(x + width - 7, y + 7, 10, false, 29, 0, -1, 1);
 		}
 
 		private static void ChozoRuins_ChestRoom(int x, int y, int width, int height, int itemType)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrick>(), ModContent.WallType<ChozoBrickWall>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
 
 			for (int j = 0; j < 2; j++)
 			{
@@ -1471,7 +1488,7 @@ namespace MetroidMod.Common.Systems
 				{
 					int numX = x + width / 2 - 2;
 					WorldGen.KillTile(numX + i, y + height - 6 + j);
-					WorldGen.PlaceTile(numX + i, y + height - 6 + j, ModContent.TileType<ChozoBrick>());
+					WorldGen.PlaceTile(numX + i, y + height - 6 + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 			Mod mod = MetroidMod.Instance;
@@ -1524,7 +1541,7 @@ namespace MetroidMod.Common.Systems
 
 					if (i < thick || j < thick || i >= width - thick || j >= height - thick)
 					{
-						WorldGen.PlaceTile(x + i, y + j, ModContent.TileType<ChozoBrick>());
+						WorldGen.PlaceTile(x + i, y + j, ModContent.TileType<ChozoBrickNatural>());
 					}
 				}
 			}

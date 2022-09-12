@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.ID;
 
 namespace MetroidMod.Default
 {
@@ -71,7 +72,10 @@ namespace MetroidMod.Default
 
 		public override void AddRecipes()
 		{
-			RecipeGroup.recipeGroups[MetroidMod.MorphBallBombsRecipeGroupID].ValidItems.Add(Type);
+			if (modMBAddon.AddonSlot == MorphBallAddonSlotID.Weapon)
+			{
+				RecipeGroup.recipeGroups[MetroidMod.MorphBallBombsRecipeGroupID].ValidItems.Add(Type);
+			}
 			modMBAddon.AddRecipes();
 		}
 	}

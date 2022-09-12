@@ -18,12 +18,27 @@ using Terraria.UI;
 
 namespace MetroidMod.Common.Configs
 {
+	// NOTE ABOUT SUBPAGES!! [DefaultValue()] does NOT work on values inside of subpages. Use variable = value instead.
 	[Label("Server Side")]
 	public class MServerConfig : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ServerSide;
-		
+
+		internal CanEditServerConfig condition;
+
+		internal delegate bool CanEditServerConfig(ModConfig pendingConfig, int whoAmI, ref string message);
+
+		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message) => condition(pendingConfig, whoAmI, ref message);
+
 		public static MServerConfig Instance;
+
+		public MServerConfig()
+		{
+			condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message)
+			{
+				return whoAmI == 0;
+			};
+		}
 		
 	[Header("General")]
 		
@@ -31,12 +46,17 @@ namespace MetroidMod.Common.Configs
 		[Tooltip("When enabled, Boss Summon items will be consumed upon usage.")]
 		[DefaultValue(true)]
 		public bool enableBossSummonConsumption;
-		
+
 		//The following isn't done yet.
 		/*[Label("[i:MetroidMod/TorizoBag] Bosses drop addons")]
 		[Tooltip("When enabled, certain Bosses will drop Suit and Beam addons upon death.")]
 		[DefaultValue(false)]
 		public bool enableBossAddonDrops;*/
+
+		// TODO: get this working
+		// keep this internal, we do not want this to show up, but we want players to be able to configure a value for this
+		//[DefaultValue(false)]
+		//internal bool veryBrokenHatchControl;
 		
 	[Header("[i:MetroidMod/BlueHatch] Automatically Closing Hatches")]
 		
@@ -52,61 +72,82 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(10)]
 		public int AutocloseHatchesTime;
-		
-		public override void OnChanged()
+
+	[Label("[i:MetroidMod/ChoziteBar] Chozite Gear")]
+
+		public ChoziteSubClass ChoziteSettings = new();
+
+		[SeparatePage]
+		public class ChoziteSubClass
 		{
-			MetroidMod.AutocloseHatchesEnabled = AutocloseHatchesEnabled;
-			MetroidMod.AutocloseHatchesTime = AutocloseHatchesTime;
+			[JsonIgnore]
+			[Label("All of this requires a WORLD RELOAD.")]
+			public bool worldReloadLabel;
+
+			[Label("[i:MetroidMod/HiJumpBootsAddon] Wall Jump")]
+			[Tooltip("When enabled, a full set of Chozite Armor grants the ability to Wall Jump.")]
+			[DefaultValue(true)]
+			public bool enableWallJumpChoziteArmor = true;
+
+			[Label("[i:MetroidMod/ChoziteHelmet] Chozite Helmet Defense")]
+			[Range(1, 20)]
+			[Increment(1)]
+			[Slider]
+			[DefaultValue(5)]
+			public int defenseChoziteHelmet = 5;
+
+			[Label("[i:MetroidMod/ChoziteBreastplate] Chozite Breastplate Defense")]
+			[Range(1, 20)]
+			[Increment(1)]
+			[Slider]
+			[DefaultValue(6)]
+			public int defenseChoziteBreastplate = 6;
+
+			[Label("[i:MetroidMod/ChoziteGreaves] Chozite Greaves Defense")]
+			[Range(1, 20)]
+			[Increment(1)]
+			[Slider]
+			[DefaultValue(4)]
+			public int defenseChoziteGreaves = 4;
+
+			[Label("[i:MetroidMod/ChoziteSword] Chozite Sword Damage")]
+			[Range(1, 30)]
+			[Increment(1)]
+			[Slider]
+			[DefaultValue(16)]
+			public int damageChoziteSword = 16;
+
+			[Label("[i:MetroidMod/ChoziteShortsword] Chozite Shortsword Damage")]
+			[Range(1, 20)]
+			[Increment(1)]
+			[Slider]
+			[DefaultValue(14)]
+			public int damageChoziteShortsword = 14;
+
+			[Label("[i:MetroidMod/ChoziteCrossbow] Chozite Crossbow Damage")]
+			[Range(1, 20)]
+			[Increment(1)]
+			[Slider]
+			[DefaultValue(12)]
+			public int damageChoziteCrossbow = 12;
+
+			public override string ToString()
+			{
+				return $"{enableWallJumpChoziteArmor} {defenseChoziteHelmet} {defenseChoziteBreastplate} {defenseChoziteGreaves} {damageChoziteSword} {damageChoziteShortsword} {damageChoziteCrossbow}";
+			}
+
+			public override bool Equals(object obj)
+			{
+				if (obj is ChoziteSubClass other)
+					return enableWallJumpChoziteArmor == other.enableWallJumpChoziteArmor && defenseChoziteHelmet == other.defenseChoziteHelmet && defenseChoziteBreastplate == other.defenseChoziteBreastplate && defenseChoziteGreaves == other.defenseChoziteGreaves && damageChoziteSword == other.damageChoziteSword && damageChoziteShortsword == other.damageChoziteShortsword && damageChoziteCrossbow == other.damageChoziteCrossbow;
+				return base.Equals(obj);
+			}
+
+			public override int GetHashCode()
+			{
+				return new { enableWallJumpChoziteArmor, defenseChoziteHelmet, defenseChoziteBreastplate, defenseChoziteGreaves, damageChoziteSword, damageChoziteShortsword, damageChoziteCrossbow }.GetHashCode();
+			}
 		}
-		
-	[Header("[i:MetroidMod/ChoziteBar] Chozite Gear\n(REQUIRES WORLD RELOAD)")]
-		
-		[Label("[i:MetroidMod/HiJumpBootsAddon] Wall Jump")]
-		[Tooltip("When enabled, a full set of Chozite Armor grants the ability to Wall Jump.")]
-		[DefaultValue(true)]
-		public bool enableWallJumpChoziteArmor;
-		
-		[Label("[i:MetroidMod/ChoziteHelmet] Chozite Helmet Defense")]
-		[Range(1, 20)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(5)]
-		public int defenseChoziteHelmet;
-		
-		[Label("[i:MetroidMod/ChoziteBreastplate] Chozite Breastplate Defense")]
-		[Range(1, 20)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(6)]
-		public int defenseChoziteBreastplate;
-		
-		[Label("[i:MetroidMod/ChoziteGreaves] Chozite Greaves Defense")]
-		[Range(1, 20)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(4)]
-		public int defenseChoziteGreaves;
-		
-		[Label("[i:MetroidMod/ChoziteSword] Chozite Sword Damage")]
-		[Range(1, 30)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(16)]
-		public int damageChoziteSword;
-		
-		[Label("[i:MetroidMod/ChoziteShortsword] Chozite Shortsword Damage")]
-		[Range(1, 20)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(14)]
-		public int damageChoziteShortsword;
-		
-		[Label("[i:MetroidMod/ChoziteCrossbow] Chozite Crossbow Damage")]
-		[Range(1, 20)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(12)]
-		public int damageChoziteCrossbow;
 		
 	[Header("[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit\n(REQUIRES WORLD RELOAD)")]
 		

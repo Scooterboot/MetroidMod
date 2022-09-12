@@ -2,8 +2,10 @@
 
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
@@ -62,11 +64,12 @@ namespace MetroidMod.Content.Tiles
 								Main.dust[dustID].noGravity = true;
 							}
 							Main.tile[i, j].Get<TileWallWireStateData>().HasTile = false;
-							//Projectile.NewProjectile(new EntitySource_TileBreak(x, y), x * 16, y * 16, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, ModContent.ProjectileType<Projectiles.PhazonExplosion>(), 20, 0.1f, Main.myPlayer);
+							Projectile.NewProjectile(new EntitySource_TileBreak(x, y), x * 16, y * 16, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, ModContent.ProjectileType<Projectiles.PhazonExplosion>(), 20, 0.1f, Main.myPlayer);
 						}
 						WorldGen.SquareTileFrame(i, j);
 					}
 				}
+				NetMessage.SendTileSquare(-1, x - 16, y - 16, 32, 32, TileChangeType.None);
 
 				for (int i = 0; i < 10; i++)
 				{
@@ -74,10 +77,17 @@ namespace MetroidMod.Content.Tiles
 					Main.dust[dustID].noGravity = true;
 				}
 
-				//Projectile.NewProjectile(new EntitySource_TileBreak(x, y), x * 16, y * 16, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, ModContent.ProjectileType<Projectiles.PhazonExplosion>(), 0, 0.1f, Main.myPlayer);
+				Projectile.NewProjectile(new EntitySource_TileBreak(x, y), x * 16, y * 16, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, ModContent.ProjectileType<Projectiles.PhazonExplosion>(), 0, 0.1f, Main.myPlayer);
 
-				SoundEngine.PlaySound(SoundID.Item14, new(x * 16, y * 16));
-				Main.NewText("Your world has been corrupt with Phazon!", new Color(50, 125, 255));
+				if (Main.netMode != NetmodeID.Server)
+				{
+					SoundEngine.PlaySound(SoundID.Item14, new(x * 16, y * 16));
+					Main.NewText(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.WorldEvents.PhazonCorruption", $"{Main.worldName}"), new Color(50, 125, 255));
+				}
+				else
+				{
+					ChatHelper.BroadcastChatMessage(NetworkText.FromKey($"Mods.{nameof(MetroidMod)}.WorldEvents.PhazonCorruption", $"{Main.worldName}"), new Color(50, 125, 255));
+				}
 
 				int Amount_Of_Spawns = 100 + (int)(Main.maxTilesY * 0.2f);
 				for(int i = 0; i < Amount_Of_Spawns; i++)

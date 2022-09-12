@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -25,23 +26,13 @@ namespace MetroidMod.Content.Items.Boss
 		}
 
 		public override bool CanRightClick() => true;
-		public override int BossBagNPC => ModContent.NPCType<NPCs.OmegaPirate.OmegaPirate>();
 
-		public override void OpenBossBag(Player player)
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Miscellaneous.PurePhazon>(), Main.rand.Next(30, 41));
-			if (Main.rand.NextBool(2))
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<Tiles.OmegaPirateMusicBox>());
-			}
-			/*if (Main.rand.Next(3) == 0)
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OmegaPirateMask>());
-			}
-			if (Main.rand.Next(5) == 0)
-			{
-				player.QuickSpawnItem(player.GetSource_OpenItem(Type), ModContent.ItemType<OmegaPirateTrophy>());
-			}*/
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.PurePhazon>(), 1, 30, 41));
+			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.OmegaPirateMusicBox>(), 6));
+			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.OmegaPirateMask>(), 8));
+			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.OmegaPirateTrophy>(), 11));
 		}
 	}
 }

@@ -13,7 +13,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Content.NPCs.GoldenTorizo
 {
-	[AutoloadBossHead]
 	public class IdleGoldenTorizo : ModNPC
 	{
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/GoldenTorizo/IdleGoldenTorizo_Head";
