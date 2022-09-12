@@ -98,27 +98,32 @@ namespace MetroidMod.Common.UI
 			if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
 			{
 				// i swear this is necessary ;-; - DarkSamus49
-				if (state == 0)
+				switch (state)
 				{
-					mp.ShouldShowHelmetUI = true;
-					state++;
-				}
-				else if (state == 1)
-				{
-					mp.ShouldShowHelmetUI = false;
-					mp.ShouldShowBreastplateUI = true;
-					state++;
-				}
-				else if (state == 2)
-				{
-					mp.ShouldShowBreastplateUI = false;
-					mp.ShouldShowGreavesUI = true;
-					state++;
-				}
-				else if (state == 3)
-				{
-					mp.ShouldShowGreavesUI = false;
-					state = 0;
+					case 0:
+						mp.ShouldShowHelmetUI = true;
+						state++;
+						break;
+					case 1:
+						mp.ShouldShowHelmetUI = false;
+						mp.ShouldShowBreastplateUI = true;
+						state++;
+						break;
+					case 2:
+						mp.ShouldShowBreastplateUI = false;
+						mp.ShouldShowGreavesUI = true;
+						state++;
+						break;
+					case 3:
+						mp.ShouldShowGreavesUI = false;
+						state = 0;
+						break;
+					default:
+						mp.ShouldShowHelmetUI = false;
+						mp.ShouldShowBreastplateUI = false;
+						mp.ShouldShowGreavesUI = false;
+						state = 0;
+						break;
 				}
 				Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuTick);
 			}
