@@ -53,7 +53,7 @@ namespace MetroidMod.Common.UI
 			this.SetPadding(0);
 			this.Width.Pixels = buttonTex.Width;
 			this.Height.Pixels = buttonTex.Height;
-			this.Left.Pixels = Main.screenWidth - 600;
+			this.Left.Pixels = Main.screenWidth - Width.Pixels - 200;
 			this.Top.Pixels = 300;
 			enabled = MetroidMod.DragableSenseMoveUI;
 
@@ -72,7 +72,7 @@ namespace MetroidMod.Common.UI
 			}
 			if (!enabled)
 			{
-				this.Left.Pixels = Main.screenWidth - 600;
+				this.Left.Pixels = Main.screenWidth - Width.Pixels - 200;
 				this.Top.Pixels = 300;
 				if (!Main.mapFullscreen && Main.mapStyle == 1)
 				{
