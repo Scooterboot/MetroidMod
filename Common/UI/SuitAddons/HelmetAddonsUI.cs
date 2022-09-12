@@ -80,7 +80,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidMod.DragableSenseMoveUI;
+			enabled = MetroidMod.DragableSuitAddonUIs;
 			if (IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;

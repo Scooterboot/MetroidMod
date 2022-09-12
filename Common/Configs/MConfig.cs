@@ -58,6 +58,12 @@ namespace MetroidMod.Common.Configs
 		"Default value: false")]
 		public bool DragableSenseMoveUI;
 
+		[Header("Draggable Suit Addon UI")]
+		[Label("Enabled")]
+		[Tooltip("Allows the Suit Addon UI panels to be draggable.\n" +
+		"Default value: false")]
+		public bool DragableSuitAddonUIs;
+
 		[Header("Map Icons")]
 		[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
 		[Tooltip("When enabled, the map will show an icon where Torizo's boss room is.\n" +
@@ -72,6 +78,7 @@ namespace MetroidMod.Common.Configs
 			MetroidMod.DragableMissileLauncherUI = DragableMissileLauncherUI;
 			MetroidMod.DragableMorphBallUI = DragableMorphBallUI;
 			MetroidMod.DragableSenseMoveUI = DragableSenseMoveUI;
+			MetroidMod.DragableSuitAddonUIs = DragableSuitAddonUIs;
 		}
 	}
 
