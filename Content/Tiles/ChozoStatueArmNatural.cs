@@ -15,7 +15,6 @@ namespace MetroidMod.Content.Tiles
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = false;
-			Main.tileTable[Type] = true;
 			Main.tileSpelunker[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
