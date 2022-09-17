@@ -9,7 +9,6 @@ namespace MetroidMod.Content.Walls
 		public override void SetStaticDefaults()
 		{
 			Main.wallHouse[Type] = true;
-			Main.wallDungeon[Type] = true;
 
 			DustType = 87;
 			ItemDrop = ModContent.ItemType<Items.Walls.NorfairBrickWall>();

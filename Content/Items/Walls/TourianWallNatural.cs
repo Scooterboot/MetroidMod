@@ -4,12 +4,12 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Items.Walls
 {
-	public class ChozoBrickWallNatural : ModItem
+	public class TourianWallNatural : ModItem
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/ChozoBrickWall";
+		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/TourianWall";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Brick Wall (Natural)");
+			DisplayName.SetDefault("Tourian Wall (Natural)");
 
 			SacrificeTotal = 400;
 		}
@@ -24,7 +24,7 @@ namespace MetroidMod.Content.Items.Walls
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createWall = ModContent.WallType<Content.Walls.ChozoBrickWallNatural>();
+			Item.createWall = ModContent.WallType<Content.Walls.TourianWallNatural>();
 		}
 	}
 }

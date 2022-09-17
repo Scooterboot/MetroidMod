@@ -6,24 +6,23 @@ using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.Tiles
 {
-	public class ChozoBrickNatural : ModTile
+	public class ChozoPillarNatural : ModTile
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Tiles/ChozoBrick";
+		public override string Texture => $"{nameof(MetroidMod)}/Content/Tiles/ChozoPillar";
 		public override void SetStaticDefaults()
 		{
-			Main.tileSolid[Type] = true;
-			Main.tileMergeDirt[Type] = true;
-			Main.tileBlockLight[Type] = true;
-			//Main.tileDungeon[Type] = true;
-			//Main.tileMerge[Type][TileID.Sand] = true;
-			//Main.tileMerge[TileID.Sand][Type] = true;
+			TileID.Sets.IsBeam[Type] = true;
+			TileID.Sets.DrawsWalls[Type] = true;
+			Main.tileDungeon[Type] = true;
 
 			DustType = 87;
 			MinPick = 65;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.ChozoBrick>();
+			ItemDrop = ModContent.ItemType<Items.Tiles.ChozoPillar>();
 
-			AddMapEntry(new Color(200, 160, 72));
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Chozite Pillar");
+			AddMapEntry(new Color(200, 160, 72), name);
 		}
 
 		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);

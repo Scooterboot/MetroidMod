@@ -4,12 +4,13 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Items.Walls
 {
-	public class ChozoBrickWallNatural : ModItem
+	public class NorfairBrickWallNatural : ModItem
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/ChozoBrickWall";
+		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/NorfairBrickWall";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Brick Wall (Natural)");
+			DisplayName.SetDefault("Norfair Brick Wall (Natural)");
+			Tooltip.SetDefault("'Welcome to hell.'");
 
 			SacrificeTotal = 400;
 		}
@@ -24,7 +25,7 @@ namespace MetroidMod.Content.Items.Walls
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createWall = ModContent.WallType<Content.Walls.ChozoBrickWallNatural>();
+			Item.createWall = ModContent.WallType<Content.Walls.NorfairBrickWallNatural>();
 		}
 	}
 }

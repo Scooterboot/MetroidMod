@@ -1,17 +1,17 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace MetroidMod.Content.Items.Walls
+namespace MetroidMod.Content.Items.Tiles
 {
-	public class ChozoBrickWallNatural : ModItem
+	public class ChozoPillarNatural : ModItem
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/ChozoBrickWall";
+		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Tiles/ChozoPillar";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Brick Wall (Natural)");
+			DisplayName.SetDefault("Chozite Pillar (Natural)");
 
-			SacrificeTotal = 400;
+			SacrificeTotal = 100;
 		}
 		public override void SetDefaults()
 		{
@@ -24,7 +24,7 @@ namespace MetroidMod.Content.Items.Walls
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createWall = ModContent.WallType<Content.Walls.ChozoBrickWallNatural>();
+			Item.createTile = ModContent.TileType<Content.Tiles.ChozoPillarNatural>();
 		}
 	}
 }
