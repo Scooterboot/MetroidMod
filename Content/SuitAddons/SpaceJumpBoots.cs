@@ -18,8 +18,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			DisplayName.SetDefault("Space Jump Boots");
 			Tooltip.SetDefault("Allows the wearer to double jump\n" +
-				"Allows somersaulting\n" +
-				"Increases jump height");
+				"Allows somersaulting");
 			AddonSlot = SuitAddonSlotID.Boots_Jump;
 		}
 		public override void SetItemDefaults(Item item)
