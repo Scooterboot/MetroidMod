@@ -48,6 +48,11 @@ namespace MetroidMod.Content.MorphBallAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item), Item);
 		}
+		public override void SetExplosionProjectileDefaults(Projectile proj)
+		{
+			scaleSize = 1f;
+			colory = Color.Gold;
+		}
 
 		private float scaleSize = 1f;
 		private Color colory = Color.Gold;

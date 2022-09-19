@@ -48,6 +48,10 @@ namespace MetroidMod.Content.MorphBallAddons
 			proj.scale = 0.01f;
 			proj.extraUpdates = 3;
 			proj.localNPCHitCooldown = 1 * (1 + proj.extraUpdates);
+			scale = 0.01f;
+			speed = 4f;
+			itemVacSpeed = 5f;
+			npcVacSpeed = 5f;
 		}
 		private float scale = 0.01f;
 		private float speed = 4f;
