@@ -15,6 +15,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Speed Booster");

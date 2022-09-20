@@ -14,6 +14,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
+		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Grip");
@@ -27,7 +29,6 @@ namespace MetroidMod.Content.SuitAddons
 			item.rare = ItemRarityID.Green;
 			item.accessory = true;
 		}
-		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
