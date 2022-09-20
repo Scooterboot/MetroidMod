@@ -24,6 +24,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
+		public override int GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 5;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("X-Ray Scope");

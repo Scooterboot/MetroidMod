@@ -664,7 +664,7 @@ namespace MetroidMod.Common.Systems
 				// Okay, the goal is to do weighted random.
 				foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 				{
-					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.rare); }
+					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, addon.GenerationChance(i, j)); }
 				}
 				/*foreach(ModBeam beam in BeamLoader.beams)
 				{
@@ -672,7 +672,7 @@ namespace MetroidMod.Common.Systems
 				}*/
 				foreach (ModMBAddon addon in MBAddonLoader.addons)
 				{
-					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, RarityLoader.RarityCount - addon.Item.rare); }
+					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, addon.GenerationChance(i, j)); }
 				}
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);

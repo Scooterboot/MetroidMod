@@ -15,6 +15,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
+		public override int GenerationChance(int x, int y) => 35;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hi-Jump Boots");

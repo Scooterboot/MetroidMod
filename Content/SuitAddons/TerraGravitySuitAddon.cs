@@ -24,6 +24,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
+		public override int GenerationChance(int x, int y) => 20;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Terra Gravity Suit");
