@@ -68,7 +68,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient(ItemID.HallowedBar, 54)
-				.AddIngredient<Items.Miscellaneous.GravityGel>(54)
+				.AddIngredient<Items.Miscellaneous.GravityFlare>(54)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

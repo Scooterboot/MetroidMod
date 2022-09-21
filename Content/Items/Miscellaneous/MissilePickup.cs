@@ -15,15 +15,15 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		{
 			DisplayName.SetDefault("Missile");
 			ItemID.Sets.ItemNoGravity[Type] = true;
-			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 2));
+			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 4));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 		}
 		public override void SetDefaults()
 		{
 			Item.maxStack = 255;
-			Item.width = 30;
-			Item.height = 30;
+			Item.width = 20;
+			Item.height = 26;
 			Item.value = 100;
 			Item.rare = ItemRarityID.Blue;
 		}
