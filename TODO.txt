@@ -2,9 +2,8 @@
 (not in any particular order)
 
  -	Get new textures for:
-	 -	Solar Light Suit
 	 -	Stardust Hazard Shield Suit
-	 -	tiles for ALL of the Missile Addons
+ -	Make '1.3 glow' for Solar Augment
  -	UI Fixes (specifically custom textures)
  -	Figure out and implement screen shaders for:
 	 -	X-Ray Visor (implement in Metroid Prime update, make upgrade in Metroid Prime 3: Corruption update)
@@ -16,4 +15,3 @@
  -	Fix Nightmare Core-X not spawning in multiplayer
  -	Fix waterfall/lava bubbling sounds playing when exiting world (possibly just a tML bug)
  -	Make Scan Visor lock onto enemies
- -	Fix Energy Pickup alignment
