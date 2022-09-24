@@ -63,8 +63,8 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.width = 24;
 			Item.height = 16;
 			Item.scale = 0.8f;
-			Item.useTime = 9;
-			Item.useAnimation = 9;
+			Item.useTime = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
+			Item.useAnimation = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
 			Item.knockBack = 5.5f;
@@ -116,7 +116,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		int finalDmg = 0;
 
-		int useTime = 9;
+		int useTime = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
 
 		string shot = "MissileShot";
 		string chargeShot = "DiffusionMissileShot";
@@ -176,7 +176,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item exp = MissileMods[2];
 
 			int damage = Common.Configs.MServerConfig.Instance.damageMissileLauncher;
-			useTime = 9;
+			useTime = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
 			shot = "MissileShot";
 			chargeShot = "";
 			shotSound = "MissileShoot";

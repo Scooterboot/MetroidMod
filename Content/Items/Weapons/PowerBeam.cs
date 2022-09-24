@@ -108,6 +108,8 @@ namespace MetroidMod.Content.Items.Weapons
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
 		}
 
+		public override int ChoosePrefix(UnifiedRandom rand)
+		{
 		public override void OnResearched(bool fullyResearched)
 		{
 			foreach(Item item in BeamMods)
