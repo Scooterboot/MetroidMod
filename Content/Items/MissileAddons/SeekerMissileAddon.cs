@@ -24,14 +24,14 @@ namespace MetroidMod.Content.Items.MissileAddons
 			Item.height = 14;
 			Item.maxStack = 1;
 			Item.value = 2500;
-			Item.rare = 4;
-			/*Item.useTurn = true;
+			Item.rare = ItemRarityID.LightRed;
+			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createTile = mod.TileType("SeekerMissileTile");*/
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.SeekerMissile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
 		}
