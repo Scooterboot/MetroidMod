@@ -36,6 +36,10 @@ Mods: {
 				DislikeNPC: "I don't like the harassive tendencies {NPCName} displays."
 				HateNPC: "{NPCName}'s aura is one of malice and corruption. His very presence is toxic to my being."
 			}
+		},
+		GameTips: {
+			ItemStatueTip: "Addons for the Power Beam, Missile Launcher, Morph Ball, and Power Suit can be found around the world on statues!"
+			MysteriousStatueTip: "There is a mysterious statue in the desert worth checking out..."
 		}
 	}
 }
