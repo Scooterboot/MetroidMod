@@ -6,6 +6,9 @@ Mods: {
 			PhazonMeteor: A Phazon Meteor has landed!
 			PhazonCorruption: "{0} has been corrupted with Phazon!"
 		},
+		BiomeName: {
+			ChozoRuinsBiome: Chozo Ruins
+		},
 		Dialogue: {
 			ChozoGhost: {
 				StandardDialogue1: "Greetings, {0}! How may I aid you?"
