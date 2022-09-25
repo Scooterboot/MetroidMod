@@ -17,7 +17,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
-		public override int GenerationChance(int x, int y) => 30;
+		public override double GenerationChance(int x, int y) => 30;
 
 		public override void SetStaticDefaults()
 		{

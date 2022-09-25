@@ -88,7 +88,7 @@ namespace MetroidMod
 		/// </summary>
 		/// <param name="x">The X location of the tile</param>
 		/// <param name="y">The Y location of the tile</param>
-		public virtual int GenerationChance(int x, int y) { return 0; }
+		public virtual double GenerationChance(int x, int y) { return 0; }
 		public override sealed void SetupContent()
 		{
 			SetStaticDefaults();
