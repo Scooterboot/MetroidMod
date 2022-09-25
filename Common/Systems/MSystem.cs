@@ -855,11 +855,11 @@ namespace MetroidMod.Common.Systems
 					WorldGen.PlaceObject(statueX2, statueY, ModContent.TileType<ChozoStatueArmNatural>(), false, 0, 0, -1, -dir);
 
 					ushort item = StatueItem(statueX2, statueY - 2);
-					Main.tile[statueX2, statueY].Get<TileWallWireStateData>().HasTile = true;
-					Main.tile[statueX2, statueY].Get<TileTypeData>().Type = item;
+					Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().HasTile = true;
+					Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = item;
 
-					Main.tile[statueX2, statueY].Get<TileWallWireStateData>().TileFrameX = 0;
-					Main.tile[statueX2, statueY].Get<TileWallWireStateData>().TileFrameY = 0;
+					Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameX = 0;
+					Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameY = 0;
 
 					return true;
 				}
@@ -1404,11 +1404,11 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceObject(statueX, statueY, ModContent.TileType<ChozoStatueNatural>(), false, 0, 0, -1, -dir);
 			WorldGen.PlaceObject(statueX2, statueY, ModContent.TileType<ChozoStatueArmNatural>(), false, 0, 0, -1, -dir);
 
-			Main.tile[statueX2, statueY].Get<TileWallWireStateData>().HasTile = true;
-			Main.tile[statueX2, statueY].Get<TileTypeData>().Type = (ushort)MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().TileType;
+			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().HasTile = true;
+			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().TileType;
 
-			Main.tile[statueX2, statueY].Get<TileWallWireStateData>().TileFrameX = 0;
-			Main.tile[statueX2, statueY].Get<TileWallWireStateData>().TileFrameY = 0;
+			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameX = 0;
+			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameY = 0;
 			//WorldGen.PlaceObject(statueX2, statueY - 2, MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().TileType);
 
 			for (int i = 0; i < 5; i++)
@@ -1431,11 +1431,11 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceObject(statueX, statueY, ModContent.TileType<ChozoStatueNatural>(), false, 0, 0, -1, -dir);
 			WorldGen.PlaceObject(statueX2, statueY, ModContent.TileType<ChozoStatueArmNatural>(), false, 0, 0, -1, -dir);
 
-			Main.tile[statueX2, statueY].Get<TileWallWireStateData>().HasTile = true;
-			Main.tile[statueX2, statueY].Get<TileTypeData>().Type = (ushort)SuitAddonLoader.GetAddon<Content.SuitAddons.PowerGrip>().TileType;
+			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().HasTile = true;
+			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)SuitAddonLoader.GetAddon<Content.SuitAddons.PowerGrip>().TileType;
 
-			Main.tile[statueX2, statueY].Get<TileWallWireStateData>().TileFrameX = 0;
-			Main.tile[statueX2, statueY].Get<TileWallWireStateData>().TileFrameY = 0;
+			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameX = 0;
+			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameY = 0;
 			//WorldGen.PlaceObject(statueX2, statueY - 2, SuitAddonLoader.GetAddon<Content.SuitAddons.PowerGrip>().TileType);
 		}
 		private static void ChozoRuins_BossRoom(int x, int y, int width, int height, int dir)
