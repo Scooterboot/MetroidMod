@@ -21,6 +21,7 @@ using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
+using Terraria.Localization;
 
 namespace MetroidMod.Common.Players
 {
@@ -35,6 +36,9 @@ namespace MetroidMod.Common.Players
 		public int overheatDelay = 0;
 		private float overheatCooldown = 0f;
 		public float missileCost = 1f;
+
+		public float dangerousPowerMax = 100f;
+		public float dangerousPowerOverheat = 0f;
 
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
@@ -71,6 +75,15 @@ namespace MetroidMod.Common.Players
 			maxOverheat = 100f;
 			overheatCost = 1f;
 			missileCost = 1f;
+
+			for (int i = 0; i < Player.buffType.Length; i++)
+			{
+				if (Player.buffType[i] == ModContent.BuffType<Content.Buffs.DangerousPower>() && Player.buffTime[i] > 0)
+				{
+					dangerousPowerOverheat = 0f;
+					break;
+				}
+			}
 
 			senseMove = false;
 
@@ -332,6 +345,21 @@ namespace MetroidMod.Common.Players
 				}
 			}
 		}
+
+		public override void UpdateBadLifeRegen()
+		{
+			if(dangerousPowerOverheat >= 0.5 * dangerousPowerMax)
+			{
+				Player.lifeRegen = 0;
+				Player.lifeRegenTime = 0;
+				Player.lifeRegen -= (int)((dangerousPowerMax * 0.5f - dangerousPowerOverheat) / (dangerousPowerMax * 0.5f) * 2f);
+			}
+			if(dangerousPowerOverheat == dangerousPowerMax)
+			{
+				Player.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValueWith($"Mods.{nameof(MetroidMod)}.DeathMessages.PowerCorruption", Player.name)), double.MaxValue, 1, false);
+			}
+		}
+
 		public override void PostUpdateMiscEffects()
 		{
 			PostUpdateMiscEffects_Accessories();

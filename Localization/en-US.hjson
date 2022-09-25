@@ -2,12 +2,22 @@
 
 Mods: {
 	MetroidMod: {
+		DeathMessages: {
+			PowerCorruption: "{0} was corrupted by power"
+		},
 		WorldEvents: {
 			PhazonMeteor: A Phazon Meteor has landed!
 			PhazonCorruption: "{0} has been corrupted with Phazon!"
 		},
 		BiomeName: {
 			ChozoRuinsBiome: Chozo Ruins
+		},
+		Prefix: {
+			EnhancedPrefix: Enhanced
+			ExoticPrefix: Exotic
+			FaultyPrefix: Faulty
+			MalfunctioningPrefix: Malfunctioning
+			PrimedPrefix: Primed
 		},
 		Dialogue: {
 			ChozoGhost: {
