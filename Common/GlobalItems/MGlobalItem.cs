@@ -115,4 +115,27 @@ namespace MetroidMod.Common.GlobalItems
 			return base.OnPickup(item, player);
 		}
 	}
+	public class PrimedGlobalItem : GlobalItem
+	{
+		public override bool? UseItem(Item item, Player player)
+		{
+			if (item.prefix == ModContent.PrefixType<Content.Prefixes.PrimedPrefix>())
+			{
+				player.AddBuff(ModContent.BuffType<Content.Buffs.DangerousPower>(), 10 * 60, false);
+			}
+			if (player.TryGetModPlayer(out MPlayer mp) && player.HasBuff<Content.Buffs.DangerousPower>())
+			{
+				mp.dangerousPowerOverheat += 8f;
+			}
+			return base.UseItem(item, player);
+		}
+		public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
+		{
+			if (player.TryGetModPlayer(out MPlayer mp) && player.HasBuff<Content.Buffs.DangerousPower>())
+			{
+				mp.dangerousPowerOverheat += 1f;
+			}
+			base.UseStyle(item, player, heldItemFrame);
+		}
+	}
 }

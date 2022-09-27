@@ -15,11 +15,5 @@ namespace MetroidMod.Content.Prefixes
 			shootSpeedMult = 2f;
 			damageMult = 1.4f;
 		}
-
-		public override void Apply(Item item)
-		{
-			item.buffType = ModContent.BuffType<Buffs.DangerousPower>();
-			item.buffTime = 10 * 60;
-		}
 	}
 }

@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Buffs
 		{
 			if (player.TryGetModPlayer(out MPlayer mp))
 			{
-				mp.dangerousPowerOverheat += player.ItemAnimationActive ? 1.0f : -0.1f;
+				mp.dangerousPowerOverheat += -0.5f;
 			}
 		}
 	}

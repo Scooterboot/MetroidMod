@@ -37,7 +37,7 @@ namespace MetroidMod.Common.Players
 		private float overheatCooldown = 0f;
 		public float missileCost = 1f;
 
-		public float dangerousPowerMax = 100f;
+		public float dangerousPowerMax = 1000f;
 		public float dangerousPowerOverheat = 0f;
 
 		public bool senseMove = false;
@@ -76,13 +76,18 @@ namespace MetroidMod.Common.Players
 			overheatCost = 1f;
 			missileCost = 1f;
 
+			bool flag = false;
 			for (int i = 0; i < Player.buffType.Length; i++)
 			{
 				if (Player.buffType[i] == ModContent.BuffType<Content.Buffs.DangerousPower>() && Player.buffTime[i] > 0)
 				{
-					dangerousPowerOverheat = 0f;
+					flag = true;
 					break;
 				}
+			}
+			if (!flag)
+			{
+				dangerousPowerOverheat = 0f;
 			}
 
 			senseMove = false;
@@ -348,15 +353,15 @@ namespace MetroidMod.Common.Players
 
 		public override void UpdateBadLifeRegen()
 		{
-			if(dangerousPowerOverheat >= 0.5 * dangerousPowerMax)
+			if (dangerousPowerOverheat >= dangerousPowerMax)
+			{
+				Player.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValueWith($"Mods.{nameof(MetroidMod)}.DeathMessages.PowerCorruption", Player.name)), double.MaxValue, 1, false);
+			}
+			else if (dangerousPowerOverheat >= 0.5 * dangerousPowerMax)
 			{
 				Player.lifeRegen = 0;
 				Player.lifeRegenTime = 0;
 				Player.lifeRegen -= (int)((dangerousPowerMax * 0.5f - dangerousPowerOverheat) / (dangerousPowerMax * 0.5f) * 2f);
-			}
-			if(dangerousPowerOverheat == dangerousPowerMax)
-			{
-				Player.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValueWith($"Mods.{nameof(MetroidMod)}.DeathMessages.PowerCorruption", Player.name)), double.MaxValue, 1, false);
 			}
 		}
 
@@ -735,6 +740,7 @@ namespace MetroidMod.Common.Players
 			clone.Energy = Energy;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
+			clone.dangerousPowerOverheat = dangerousPowerOverheat;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -750,6 +756,7 @@ namespace MetroidMod.Common.Players
 			packet.Write(Energy);
 			packet.Write(SuitReserveTanks);
 			packet.Write(SuitReserves);
+			packet.Write(dangerousPowerOverheat);
 			packet.Send(toWho, fromWho);
 		}
 
@@ -769,6 +776,7 @@ namespace MetroidMod.Common.Players
 				packet.Write(Energy);
 				packet.Write(SuitReserveTanks);
 				packet.Write(SuitReserves);
+				packet.Write(dangerousPowerOverheat);
 				packet.Send();
 			}
 		}

@@ -134,6 +134,7 @@ namespace MetroidMod
 					int energy = reader.ReadInt32();
 					int reserveTanks = reader.ReadInt32();
 					int reserve = reader.ReadInt32();
+					float dangerousPowerOverheat = reader.ReadSingle();
 
 					targetPlayer.statCharge = (float)statCharge;
 					targetPlayer.spiderball = spiderBall;
@@ -143,6 +144,7 @@ namespace MetroidMod
 					targetPlayer.Energy = energy;
 					targetPlayer.SuitReserveTanks = reserveTanks;
 					targetPlayer.SuitReserves = reserve;
+					targetPlayer.dangerousPowerOverheat = dangerousPowerOverheat;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
@@ -157,6 +159,7 @@ namespace MetroidMod
 						packet.Write(energy);
 						packet.Write(reserveTanks);
 						packet.Write(reserve);
+						packet.Write(dangerousPowerOverheat);
 						packet.Send(-1, playerID);
 					}
 					break;
