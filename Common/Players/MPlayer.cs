@@ -355,13 +355,13 @@ namespace MetroidMod.Common.Players
 		{
 			if (dangerousPowerOverheat >= dangerousPowerMax)
 			{
-				Player.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValueWith($"Mods.{nameof(MetroidMod)}.DeathMessages.PowerCorruption", Player.name)), double.MaxValue, 1, false);
+				Player.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.DeathMessages.PowerCorruption", $"{Player.name}")), double.MaxValue, 1, false);
 			}
-			else if (dangerousPowerOverheat >= 0.5 * dangerousPowerMax)
+			else if (dangerousPowerOverheat >= 0.5f * dangerousPowerMax)
 			{
 				Player.lifeRegen = 0;
 				Player.lifeRegenTime = 0;
-				Player.lifeRegen -= (int)((dangerousPowerMax * 0.5f - dangerousPowerOverheat) / (dangerousPowerMax * 0.5f) * 2f);
+				Player.lifeRegen -= (int)((dangerousPowerMax * 0.5f + dangerousPowerOverheat) / (dangerousPowerMax * 0.5f) * 40f);
 			}
 		}
 
