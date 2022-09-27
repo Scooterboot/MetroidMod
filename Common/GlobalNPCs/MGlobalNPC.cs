@@ -104,7 +104,7 @@ namespace MetroidMod.Common.GlobalNPCs
 			}
 		}
 
-		public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => target.TryGetModPlayer(out Players.MPlayer mp) && !mp.screwAttack;
+		public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => target.TryGetModPlayer(out Players.MPlayer mp) && !(mp.screwAttack && mp.somersault);
 
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
