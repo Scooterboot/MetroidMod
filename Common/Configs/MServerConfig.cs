@@ -295,7 +295,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(6)]
 		public int useTimePhazonBeam;
 		
-		[Label("[i:MetroidMod/PhazonBeamAddon] Hyper Beam Overheat")]
+		[Label("[i:MetroidMod/PhazonBeamAddon] Phazon Beam Overheat")]
 		[Range(1, 100)]
 		[Increment(1)]
 		[Slider]
