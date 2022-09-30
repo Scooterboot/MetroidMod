@@ -13,6 +13,7 @@ using Terraria.UI.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Armors;
@@ -135,12 +136,12 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidMod.DragableSuitAddonUIs;
+			enabled = MConfig.Instance.BreastplateAddons.enabled;
 			if (IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			if (!enabled)
+			if (!enabled && MConfig.Instance.BreastplateAddons.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
 				Top.Pixels = 240;
@@ -205,6 +206,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
+			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
 
 			if (Main.LocalPlayer.armor[1].type != ModContent.ItemType<PowerSuitBreastplate>()) { return; }
 			PowerSuitBreastplate target = Main.LocalPlayer.armor[1].ModItem as PowerSuitBreastplate;

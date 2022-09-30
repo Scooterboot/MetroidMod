@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
@@ -140,8 +141,8 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = 256;
 			Height.Pixels = 164;
-			enabled = MetroidMod.DragablePowerBeamUI;
-			if (!enabled)
+			enabled = MConfig.Instance.PowerBeam.enabled;
+			if (!enabled && MConfig.Instance.PowerBeam.auto)
 			{
 				Left.Pixels = 160;
 				Top.Pixels = Main.instance.invBottom + 10;
@@ -386,8 +387,8 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidMod.DragablePowerBeamUI;
-			if (!enabled)
+			enabled = MConfig.Instance.PsuedoScrewAttack.enabled;
+			if (!enabled && MConfig.Instance.PsuedoScrewAttack.auto)
 			{
 				Left.Pixels = 112;
 				Top.Pixels = 274;
@@ -468,8 +469,8 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidMod.DragablePowerBeamUI;
-			if (!enabled)
+			enabled = MConfig.Instance.PowerBeamError.enabled;
+			if (!enabled && MConfig.Instance.PowerBeamError.auto)
 			{
 				Left.Pixels = 112;
 				Top.Pixels = 354;

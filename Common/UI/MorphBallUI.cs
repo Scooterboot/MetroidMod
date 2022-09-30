@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Items.Accessories;
 using MetroidMod.Default;
@@ -59,7 +60,6 @@ namespace MetroidMod.Common.UI
 			Height.Pixels = panelTexture.Height;
 			Left.Pixels = Main.screenWidth - Width.Pixels - 180;
 			Top.Pixels = 240;
-			enabled = MetroidMod.DragableMorphBallUI;
 
 			Append(new MorphBallFrame());
 			Append(new MorphBallLines());
@@ -95,8 +95,8 @@ namespace MetroidMod.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidMod.DragableMorphBallUI;
-			if (!enabled)
+			enabled = MConfig.Instance.MorphBall.enabled;
+			if (!enabled && MConfig.Instance.MorphBall.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 180;
 				Top.Pixels = 240;
@@ -156,6 +156,8 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
+			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
+
 			MorphBall morphBallTarget = Main.LocalPlayer.miscEquips[3].ModItem as MorphBall;
 
 			if (morphBallTarget.ballMods[morphBallSlotType] != null && !morphBallTarget.ballMods[morphBallSlotType].IsAir)

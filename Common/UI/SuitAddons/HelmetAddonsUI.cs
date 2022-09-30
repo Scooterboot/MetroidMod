@@ -13,6 +13,7 @@ using Terraria.UI.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Armors;
@@ -80,12 +81,12 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidMod.DragableSuitAddonUIs;
+			enabled = MConfig.Instance.HelmetAddons.enabled;
 			if (IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			if (!enabled)
+			if (!enabled && MConfig.Instance.HelmetAddons.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
 				Top.Pixels = 240;
@@ -150,6 +151,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
+			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
 
 			if (Main.LocalPlayer.armor[0].type != ModContent.ItemType<PowerSuitHelmet>()) { return; }
 			PowerSuitHelmet target = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;

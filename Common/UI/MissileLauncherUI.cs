@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items;
@@ -60,7 +61,6 @@ namespace MetroidMod.Common.UI
 			this.Top.Pixels = 260;
 			this.Width.Pixels = panelTexture.Width;
 			this.Height.Pixels = panelTexture.Height;
-			enabled = MetroidMod.DragableMissileLauncherUI;
 
 			this.Append(new MissileLauncherFrame());
 			this.Append(new MissileLauncherLines());
@@ -93,8 +93,8 @@ namespace MetroidMod.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidMod.DragableMissileLauncherUI;
-			if (!enabled)
+			enabled = MConfig.Instance.MissileLauncher.enabled;
+			if (!enabled && MConfig.Instance.MissileLauncher.auto)
 			{
 				this.Left.Pixels = 160;
 				this.Top.Pixels = 260;
@@ -157,6 +157,8 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
+			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
+
 			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
 			if (missileLauncherTarget == null || missileLauncherTarget.MissileMods == null) { return; }
 

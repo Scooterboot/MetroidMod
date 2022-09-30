@@ -255,7 +255,7 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = 256;
 			Height.Pixels = 404;
-			enabled = MetroidMod.DragableSenseMoveUI;
+			enabled = false;//MetroidMod.DragableSenseMoveUI;
 			if (!enabled)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 200;
@@ -556,7 +556,7 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = 200;
 			Height.Pixels = 100;
-			enabled = MetroidMod.DragableSenseMoveUI;
+			enabled = false;//MetroidMod.DragableSenseMoveUI;
 			if (!enabled)
 			{
 				Left.Pixels = Main.screenWidth - 700;

@@ -41,11 +41,6 @@ namespace MetroidMod
 		internal const int missileSlotAmount = 3;
 
 		public static bool UseAltWeaponTextures;
-		public static bool DragablePowerBeamUI;
-		public static bool DragableMissileLauncherUI;
-		public static bool DragableMorphBallUI;
-		public static bool DragableSenseMoveUI;
-		public static bool DragableSuitAddonUIs;
 
 		public static Color powColor = new(248, 248, 110);
 		public static Color iceColor = new(0, 255, 255);

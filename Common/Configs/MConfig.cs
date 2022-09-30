@@ -15,6 +15,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
+using static MetroidMod.Common.Configs.MServerConfig;
 
 namespace MetroidMod.Common.Configs
 {
@@ -56,39 +57,77 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool energyLowFade;
 
-		[Header("Draggable Power Beam UI")]
-		
-		[Label("Enabled")]
-		[Tooltip("Allows the Power Beam UI to be draggable.\n" +
-		"Default value: false")]
-		public bool DragablePowerBeamUI;
-		
-		[Header("Draggable Missile Launcher UI")]
-		
-		[Label("Enabled")]
-		[Tooltip("Allows the Missile Launcher UI to be draggable.\n" +
-		"Default value: false")]
-		public bool DragableMissileLauncherUI;
-		
-		[Header("Draggable Morph Ball UI")]
-		
-		[Label("Enabled")]
-		[Tooltip("Allows the Morph Ball UI to be draggable.\n" +
-		"Default value: false")]
-		public bool DragableMorphBallUI;
-		
-		[Header("Draggable Sense Move UI")]
-		
-		[Label("Enabled")]
-		[Tooltip("Allows the Sense Move UI to be draggable.\n" +
-		"Default value: false")]
-		public bool DragableSenseMoveUI;
+		[Header("Draggable UI Panels")]
+		[Label("Power Beam")]
+		public DragablePanelPage PowerBeam = new();
+		[Label("Power Beam Error")]
+		public DragablePanelPage PowerBeamError = new();
+		[Label("Missile Launcher")]
+		public DragablePanelPage MissileLauncher = new();
+		[Label("Morph Ball")]
+		public DragablePanelPage MorphBall = new();
+		[Label("Sense Move")]
+		public DragablePanelPage SenseMove = new();
+		[Label("Helmet Addons")]
+		public DragablePanelPage HelmetAddons = new();
+		[Label("Breastplate Addons")]
+		public DragablePanelPage BreastplateAddons = new();
+		[Label("Greaves Addons")]
+		public DragablePanelPage GreavesAddons = new();
+		[Label("Reserves Menu")]
+		public DragablePanelPage Reserves = new();
+		[Label("Charge Somersault (Psuedo Screw Attack)")]
+		public DragablePanelPage PsuedoScrewAttack = new();
 
-		[Header("Draggable Suit Addon UI")]
-		[Label("Enabled")]
-		[Tooltip("Allows the Suit Addon UI panels to be draggable.\n" +
-		"Default value: false")]
-		public bool DragableSuitAddonUIs;
+		[SeparatePage]
+		public class DragablePanelPage
+		{
+			public DragablePanelPage()
+			{
+
+			}
+
+			[Label("Enabled")]
+			[Tooltip("Allows the UI to be draggable.\n" +
+			"Default value: false")]
+			[DefaultValue(false)]
+			public bool enabled = false;
+
+			[Label("Automatically move the UI")]
+			[Tooltip("Automatically moves the UI according to other UI elements.\n" +
+			"Default value: true")]
+			[DefaultValue(true)]
+			public bool auto = true;
+
+			[Header("Location and Placement")]
+
+			[Label("Measure X from the left")]
+			[Tooltip("Measure X Displacement from the left side of the screen.\n" +
+			"Default value: true")]
+			public bool fromLeft = true;
+			[Label("X Displacement")]
+			public float locationX;
+			[Label("Measure Y from the top")]
+			[Tooltip("Measure Y Displacement from the top side of the screen.\n" +
+			"Default value: true")]
+			public bool fromTop = true;
+			[Label("Y Displacement")]
+			public float locationY;
+
+			public override string ToString()
+			{
+				return $"{enabled} {auto} {fromLeft} {locationX} {fromTop} {locationY}";
+			}
+
+			public override bool Equals(object obj)
+			{
+				if (obj is DragablePanelPage other)
+					return enabled == other.enabled && auto == other.auto && locationX == other.locationX && locationY == other.locationY;
+				return base.Equals(obj);
+			}
+
+			public override int GetHashCode() => new { enabled, auto, locationX, locationY }.GetHashCode();
+		}
 
 		[Header("Map Icons")]
 		
@@ -101,11 +140,6 @@ namespace MetroidMod.Common.Configs
 		public override void OnChanged()
 		{
 			MetroidMod.UseAltWeaponTextures = UseAltWeaponTextures;
-			MetroidMod.DragablePowerBeamUI = DragablePowerBeamUI;
-			MetroidMod.DragableMissileLauncherUI = DragableMissileLauncherUI;
-			MetroidMod.DragableMorphBallUI = DragableMorphBallUI;
-			MetroidMod.DragableSenseMoveUI = DragableSenseMoveUI;
-			MetroidMod.DragableSuitAddonUIs = DragableSuitAddonUIs;
 		}
 	}
 
