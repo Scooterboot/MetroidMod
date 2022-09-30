@@ -21,6 +21,10 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
+
+		public override double GenerationChance(int x, int y) => 20;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gravity Suit");
@@ -64,7 +68,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient(ItemID.HallowedBar, 54)
-				.AddIngredient<Items.Miscellaneous.GravityGel>(54)
+				.AddIngredient<Items.Miscellaneous.GravityFlare>(54)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

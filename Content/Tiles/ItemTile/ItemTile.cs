@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
-			Main.tileBlockLight[Type] = true;
 			Main.tileSpelunker[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);

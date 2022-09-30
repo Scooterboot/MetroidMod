@@ -26,6 +26,11 @@ namespace MetroidMod
 
 			};
 
+			public static readonly SoundStyle EnergyLow = new($"{nameof(MetroidMod)}/Assets/Sounds/EnergyLow")
+			{
+
+			};
+
 			public static readonly SoundStyle MorphIn = new($"{nameof(MetroidMod)}/Assets/Sounds/MorphIn")
 			{
 

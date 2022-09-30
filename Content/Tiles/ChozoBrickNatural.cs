@@ -26,18 +26,8 @@ namespace MetroidMod.Content.Tiles
 			AddMapEntry(new Color(200, 160, 72));
 		}
 
-		public override bool CanExplode(int i, int j)
-		{
-			return MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
-		}
+		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
 
-		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-		{
-			if (!MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !WorldGen.generatingWorld)
-			{
-				fail = true;
-			}
-			base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
-		}
+		public override bool CanKillTile(int i, int j, ref bool blockDamaged) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld;
 	}
 }

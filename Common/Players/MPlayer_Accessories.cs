@@ -753,7 +753,7 @@ namespace MetroidMod.Common.Players
 				}
 				if(!flag)
 				{
-					screwProj = Projectile.NewProjectile(new EntitySource_Parent(Player), Player.position.X+Player.width/2,Player.position.Y+Player.height/2,0,0,screwAttackID,damage,0,Player.whoAmI);
+					screwProj = Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X+Player.width/2,Player.position.Y+Player.height/2,0,0,screwAttackID,damage,0,Player.whoAmI);
 				}
 			}
 			if(screwSpeedDelay <= 0 && !ballstate && Player.grappling[0] == -1 && Player.velocity.Y != 0f && !Player.mount.Active)

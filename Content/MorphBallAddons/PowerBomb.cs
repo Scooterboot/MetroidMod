@@ -26,6 +26,8 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
+		public override double GenerationChance(int x, int y) => 20;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Bomb");
@@ -47,6 +49,11 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item), Item);
+		}
+		public override void SetExplosionProjectileDefaults(Projectile proj)
+		{
+			scaleSize = 1f;
+			colory = Color.Gold;
 		}
 
 		private float scaleSize = 1f;

@@ -15,6 +15,10 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
+
+		public override double GenerationChance(int x, int y) => 20;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Energy Tank");
@@ -42,7 +46,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnergyTanks = stack;
+			mp.EnergyTanks = Math.Min(stack, Common.Configs.MServerConfig.Instance.stackEnergyTank);
 		}
 	}
 }

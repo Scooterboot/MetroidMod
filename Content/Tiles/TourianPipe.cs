@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Tiles
 			Main.tileDungeon[Type] = true;
 
 			DustType = 87;
-			MinPick = 205;
+			MinPick = 65;
 			HitSound = SoundID.Tink;
 			ItemDrop = ModContent.ItemType<Items.Tiles.TourianPipe>();
 

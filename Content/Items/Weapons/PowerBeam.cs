@@ -19,6 +19,7 @@ using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Projectiles.powerbeam;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Default;
+using Terraria.Utilities;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -106,6 +107,30 @@ namespace MetroidMod.Content.Items.Weapons
 				return false;
 			}
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
+		}
+
+		public override int ChoosePrefix(UnifiedRandom rand)
+		{
+			int output = Item.prefix;
+			switch (rand.Next(14))
+			{
+				case 0: output = 36; break;
+				case 1: output = 37; break;
+				case 2: output = 38; break;
+				case 3: output = 53; break;
+				case 4: output = 54; break;
+				case 5: output = 55; break;
+				case 6: output = 39; break;
+				case 7: output = 40; break;
+				case 8: output = 56; break;
+				case 9: output = 41; break;
+				case 10: output = 57; break;
+				case 11: output = 59; break;
+				case 12: output = 60; break;
+				case 13: output = 61; break;
+			}
+			PrefixLoader.Roll(Item, ref output, 14, rand, new PrefixCategory[] { PrefixCategory.AnyWeapon, PrefixCategory.Custom });
+			return output;
 		}
 
 		public override void OnResearched(bool fullyResearched)

@@ -48,6 +48,9 @@ namespace MetroidMod.Content.MorphBallAddons
 			proj.width = 640;
 			proj.height = 640;
 			proj.scale = 0.01f;
+			scale = 0.01f;
+			speed = 4f;
+			vacAlpha = 0f;
 		}
 		public override void UpdateEquip(Player player)
 		{

@@ -57,6 +57,7 @@ namespace MetroidMod.Common.Players
 		public Vector2 oldPosition;
 
 		public bool falling;
+		public int energyLowTimer = 0;
 
 		public override void ResetEffects()
 		{
@@ -343,6 +344,19 @@ namespace MetroidMod.Common.Players
 			}
 
 			GrappleBeamMovement();
+			
+			if (Energy <= 30 && ShouldShowArmorUI == true)
+			{
+				energyLowTimer--;
+				if (energyLowTimer <= 0)
+				{
+					energyLowTimer = Common.Configs.MConfig.Instance.energyLowInterval;
+					if (Common.Configs.MConfig.Instance.energyLow)
+					{
+						SoundEngine.PlaySound(Sounds.Suit.EnergyLow, Player.position);
+					}
+				}
+			}
 		}
 		public override void PostUpdateRunSpeeds()
 		{

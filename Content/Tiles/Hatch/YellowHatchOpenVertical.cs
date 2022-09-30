@@ -54,7 +54,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 		public override bool RightClick(int i, int j)
 		{
 			HitWire(i, j);
-			SendRightClick(i, j);
+			if (Main.netMode == NetmodeID.MultiplayerClient) { SendRightClick(i, j); }
 			return true;
 		}
 

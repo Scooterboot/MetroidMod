@@ -14,12 +14,15 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
+
+		public override double GenerationChance(int x, int y) => 20;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Space Jump Boots");
 			Tooltip.SetDefault("Allows the wearer to double jump\n" +
-				"Allows somersaulting\n" +
-				"Increases jump height");
+				"Allows somersaulting");
 			AddonSlot = SuitAddonSlotID.Boots_Jump;
 		}
 		public override void SetItemDefaults(Item item)

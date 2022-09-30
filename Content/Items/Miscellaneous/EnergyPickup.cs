@@ -16,15 +16,15 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		{
 			DisplayName.SetDefault("Energy");
 			ItemID.Sets.ItemNoGravity[Type] = true;
-			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(20, 3));
+			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(20, 6));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 		}
 		public override void SetDefaults()
 		{
 			Item.maxStack = 255;
-			Item.width = 30;
-			Item.height = 30;
+			Item.width = 20;
+			Item.height = 20;
 			Item.value = 100;
 			Item.rare = ItemRarityID.Blue;
 		}
