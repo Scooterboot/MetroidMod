@@ -36,6 +36,12 @@ namespace MetroidMod.Common.Configs
 		"Default value: false")]
 		public bool UseAltWeaponTextures;
 
+		[Label("[i:MetroidMod/EnergyTankAddon] Energy Hit Sound")]
+		[Tooltip("When enabled, a custom sound will play when Suit Energy receives damage.\n" +
+		"Default value: true")]
+		[DefaultValue(true)]
+		public bool energyHit;
+
 		[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert")]
 		[Tooltip("When enabled, a beep will be heard when Suit Energy is low.\n" +
 		"Default value: true")]
