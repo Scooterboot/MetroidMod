@@ -28,6 +28,7 @@ Credits:
 -Expanding the Config.
 -Optimizing the Music files.
 -Missile Sound Rework.
+-Implementing Low Energy Alert and Energy Hit code.
 [Wandering Spider, Klover, MetroidPrime21, Missingno, and Prismatic]
 -Some suit addon textures.
 [VinniSauce]

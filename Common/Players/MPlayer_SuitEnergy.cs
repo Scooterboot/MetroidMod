@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -84,6 +85,11 @@ namespace MetroidMod.Common.Players
 			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 			damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
 			if (damage < 0) { damage = 0; }
+			if (Common.Configs.MConfig.Instance.energyHit && Energy > 0)
+			{
+				playSound = false;
+				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
+			}
 			return true;
 		}
 		public override void UpdateLifeRegen()
