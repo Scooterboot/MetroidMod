@@ -18,6 +18,7 @@ using Terraria.UI;
 
 namespace MetroidMod.Common.Configs
 {
+	[LegacyName("MConfig")]
 	[Label("Client Side")]
 	public class MConfigClient : ModConfig
 	{
