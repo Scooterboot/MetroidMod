@@ -350,8 +350,8 @@ namespace MetroidMod.Common.Players
 				energyLowTimer--;
 				if (energyLowTimer <= 0)
 				{
-					energyLowTimer = Common.Configs.MConfig.Instance.energyLowInterval;
-					if (Common.Configs.MConfig.Instance.energyLow)
+					energyLowTimer = Common.Configs.MConfigClient.Instance.energyLowInterval;
+					if (Common.Configs.MConfigClient.Instance.energyLow)
 					{
 						SoundEngine.PlaySound(Sounds.Suit.EnergyLow, Player.position);
 					}
