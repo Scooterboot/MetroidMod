@@ -46,7 +46,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.powerGrip = true;
-			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
 			}
@@ -55,7 +55,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.powerGrip = true;
-			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
 			}
@@ -64,7 +64,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.powerGrip = true;
-			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
 			}
