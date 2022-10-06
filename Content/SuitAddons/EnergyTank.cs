@@ -24,12 +24,12 @@ namespace MetroidMod.Content.SuitAddons
 			DisplayName.SetDefault("Energy Tank");
 			Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
-			SacrificeTotal = Common.Configs.MServerConfig.Instance.stackEnergyTank;
+			SacrificeTotal = Common.Configs.MConfigItems.Instance.stackEnergyTank;
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.maxStack = Common.Configs.MServerConfig.Instance.stackEnergyTank;
+			item.maxStack = Common.Configs.MConfigItems.Instance.stackEnergyTank;
 			item.value = Item.buyPrice(0, 0, 10, 0);
 			item.rare = ItemRarityID.Green;
 		}
@@ -46,7 +46,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnergyTanks = Math.Min(stack, Common.Configs.MServerConfig.Instance.stackEnergyTank);
+			mp.EnergyTanks = Math.Min(stack, Common.Configs.MConfigItems.Instance.stackEnergyTank);
 		}
 	}
 }

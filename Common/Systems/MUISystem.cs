@@ -401,7 +401,7 @@ namespace MetroidMod.Common.Systems
 		}
 		public override void PreDrawMapIconOverlay(IReadOnlyList<IMapLayer> layers, MapOverlayDrawContext mapOverlayDrawContext)
 		{
-			IdleTorizoMapLayer.Instance.Visible = Configs.MConfig.Instance.showTorizoRoomIcon;
+			IdleTorizoMapLayer.Instance.Visible = Configs.MConfigClient.Instance.showTorizoRoomIcon;
 		}
 		float tRot = 0f;
 		float[] tScale = { 1f, 1f, 1f, 1f, 1f };

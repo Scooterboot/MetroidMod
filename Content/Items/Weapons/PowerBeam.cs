@@ -55,12 +55,12 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			Item.damage = Common.Configs.MServerConfig.Instance.damagePowerBeam;
+			Item.damage = Common.Configs.MConfigItems.Instance.damagePowerBeam;
 			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Item.width = 24;
 			Item.height = 12;
 			Item.scale = 0.8f;
-			Item.useTime = Common.Configs.MServerConfig.Instance.useTimePowerBeam;
+			Item.useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
 			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
@@ -158,13 +158,13 @@ namespace MetroidMod.Content.Items.Weapons
 		private float spazSpeed = 0f;
 		private float plasSpeed = 0f;
 
-		private int finalDmg = Common.Configs.MServerConfig.Instance.damagePowerBeam;
+		private int finalDmg = Common.Configs.MConfigItems.Instance.damagePowerBeam;
 
 		private float chargeDmgMult = 3f;
 		private float chargeCost = 2f;
 
-		private int overheat = Common.Configs.MServerConfig.Instance.overheatPowerBeam;
-		private int useTime = Common.Configs.MServerConfig.Instance.useTimePowerBeam;
+		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
+		private int useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
 
 		private string shot = "PowerBeamShot";
 		private string chargeShot = "PowerBeamChargeShot";
@@ -230,9 +230,9 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot4 = BeamMods[3];
 			Item slot5 = BeamMods[4];
 
-			int damage = Common.Configs.MServerConfig.Instance.damagePowerBeam;
-			overheat = Common.Configs.MServerConfig.Instance.overheatPowerBeam;
-			useTime = Common.Configs.MServerConfig.Instance.useTimePowerBeam;
+			int damage = Common.Configs.MConfigItems.Instance.damagePowerBeam;
+			overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
+			useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
 			shot = "PowerBeamShot";
 			chargeShot = "PowerBeamChargeShot";
 			shotAmt = 1;
@@ -1168,10 +1168,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shot = "HyperBeamShot";
 				shotSound = "HyperBeamSound";
-				useTime = Common.Configs.MServerConfig.Instance.useTimeHyperBeam;
+				useTime = Common.Configs.MConfigItems.Instance.useTimeHyperBeam;
 
-				damage = Common.Configs.MServerConfig.Instance.damageHyperBeam;
-				overheat = Common.Configs.MServerConfig.Instance.overheatHyperBeam;
+				damage = Common.Configs.MConfigItems.Instance.damageHyperBeam;
+				overheat = Common.Configs.MConfigItems.Instance.overheatHyperBeam;
 
 				texture = "HyperBeam";
 
@@ -1234,10 +1234,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shot = "PhazonBeamShot";
 				shotSound = "PhazonBeamSound";
-				useTime = Common.Configs.MServerConfig.Instance.useTimePhazonBeam;
+				useTime = Common.Configs.MConfigItems.Instance.useTimePhazonBeam;
 
-				damage = Common.Configs.MServerConfig.Instance.damagePhazonBeam;
-				overheat = Common.Configs.MServerConfig.Instance.overheatPhazonBeam;
+				damage = Common.Configs.MConfigItems.Instance.damagePhazonBeam;
+				overheat = Common.Configs.MConfigItems.Instance.overheatPhazonBeam;
 
 				texture = "PhazonBeam";
 

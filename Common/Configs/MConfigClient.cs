@@ -19,13 +19,13 @@ using Terraria.UI;
 namespace MetroidMod.Common.Configs
 {
 	[Label("Client Side")]
-	public class MConfig : ModConfig
+	public class MConfigClient : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		
-		public static MConfig Instance;
+		public static MConfigClient Instance;
 
-		public MConfig()
+		public MConfigClient()
 		{
 		}
 		
@@ -109,13 +109,13 @@ namespace MetroidMod.Common.Configs
 	}
 
 	[Label("Client Side Debug")]
-	public class MDebugConfig : ModConfig
+	public class MConfigClientDebug : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		
-		public static MDebugConfig Instance;
+		public static MConfigClientDebug Instance;
 
-		public MDebugConfig()
+		public MConfigClientDebug()
 		{
 			Instance = this;
 		}
