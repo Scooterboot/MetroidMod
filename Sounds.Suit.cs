@@ -92,6 +92,11 @@ namespace MetroidMod
 				{
 					IsLooped = true
 				};
+
+				public static readonly SoundStyle DarkVisorBackgroundNoise = new($"{nameof(MetroidMod)}/Assets/Sounds/DarkVisorBackgroundNoise", SoundType.Ambient)
+				{
+					IsLooped = true
+				};
 			}
 		}
 	}
