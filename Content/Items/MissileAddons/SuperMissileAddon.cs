@@ -33,8 +33,8 @@ namespace MetroidMod.Content.Items.MissileAddons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.SuperMissile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 1;
-			mItem.addonDmg = 2f;
-			mItem.addonSpeed = -0.5f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageSuperMissile;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedSuperMissile;
 		}
 
 		public override void AddRecipes()

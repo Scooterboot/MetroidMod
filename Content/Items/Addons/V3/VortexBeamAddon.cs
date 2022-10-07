@@ -36,9 +36,9 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.VortexBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 3;
-			mItem.addonDmg = 1.5f;
-			mItem.addonHeat = 1f;
-			mItem.addonSpeed = 0.25f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVortexBeam;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVortexBeam;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedVortexBeam;
 		}
 
 		public override void AddRecipes()
