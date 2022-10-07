@@ -82,7 +82,7 @@ namespace MetroidMod.Content.Items.Armors
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Helmet");
+			DisplayName.SetDefault("Chozite Warmask");
 
 			SacrificeTotal = 1;
 		}

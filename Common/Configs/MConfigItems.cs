@@ -47,7 +47,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(true)]
 		public bool enableWallJumpChoziteArmor = true;
 
-		[Label("[i:MetroidMod/ChoziteHelmet] Chozite Helmet Defense")]
+		[Label("[i:MetroidMod/ChoziteHelmet] Chozite Warmask Defense")]
 		[Range(1, 10)]
 		[Increment(1)]
 		[Slider]
