@@ -34,8 +34,8 @@ namespace MetroidMod.Content.Items.MissileAddons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustMissile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 1;
-			mItem.addonDmg = 4f;
-			mItem.addonSpeed = -0.5f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageStardustMissile;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedStardustMissile;
 		}
 
 		public override void AddRecipes()

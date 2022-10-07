@@ -34,8 +34,8 @@ namespace MetroidMod.Content.Items.MissileAddons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaMissile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 1;
-			mItem.addonDmg = 4f;
-			mItem.addonSpeed = -0.5f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageNebulaMissile;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedNebulaMissile;
 		}
 
 		public override void AddRecipes()

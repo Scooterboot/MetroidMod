@@ -19,7 +19,7 @@ using Terraria.UI;
 namespace MetroidMod.Common.Configs
 {
 	[LegacyName("MConfig")]
-	[Label("Client Side")]
+	[Label("Client Config")]
 	public class MConfigClient : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;

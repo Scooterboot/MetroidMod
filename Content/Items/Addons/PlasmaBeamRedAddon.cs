@@ -35,9 +35,9 @@ namespace MetroidMod.Content.Items.Addons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamRedTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 4;
-			mItem.addonDmg = 1f;
-			mItem.addonHeat = 0.75f;
-			mItem.addonSpeed = -0.15f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damagePlasmaBeamRed;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatPlasmaBeamRed;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedPlasmaBeamRed;
 		}
 
 		public override void AddRecipes()
