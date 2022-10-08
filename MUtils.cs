@@ -26,7 +26,7 @@ namespace MetroidMod
 		{
 			for (int i = 0; i < Main.npc.Length; i++)
 			{
-				if (Main.npc[i].boss && Main.npc[i].type != ModContent.NPCType<IdleTorizo>() && Main.npc[i].type != ModContent.NPCType<IdleGoldenTorizo>())
+				if (Main.npc[i].boss && Main.npc[i].active && Main.npc[i].type != ModContent.NPCType<IdleTorizo>() && Main.npc[i].type != ModContent.NPCType<IdleGoldenTorizo>())
 				{
 					return true;
 				}
