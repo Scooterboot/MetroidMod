@@ -139,6 +139,17 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
+		public override bool PreReforge()
+		{
+			foreach (Item item in MissileMods)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+			}
+			return base.PreReforge();
+		}
+
 		int finalDmg = 0;
 
 		int useTime = Common.Configs.MConfigItems.Instance.useTimeMissileLauncher;

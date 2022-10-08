@@ -143,6 +143,17 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
+		public override bool PreReforge()
+		{
+			foreach (Item item in BeamMods)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+			}
+			return base.PreReforge();
+		}
+
 		private float iceDmg = 0f;
 		private float waveDmg = 0f;
 		private float spazDmg = 0f;
