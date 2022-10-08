@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroidMod.Content.NPCs.GoldenTorizo;
+using MetroidMod.Content.NPCs.Torizo;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace MetroidMod
 {
@@ -23,7 +26,7 @@ namespace MetroidMod
 		{
 			for (int i = 0; i < Main.npc.Length; i++)
 			{
-				if (Main.npc[i].boss)
+				if (Main.npc[i].boss && Main.npc[i].type != ModContent.NPCType<IdleTorizo>() && Main.npc[i].type != ModContent.NPCType<IdleGoldenTorizo>())
 				{
 					return true;
 				}
