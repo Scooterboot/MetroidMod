@@ -57,7 +57,14 @@ namespace MetroidMod.Common.Configs
 		// keep this internal, we do not want this to show up, but we want players to be able to configure a value for this
 		//[DefaultValue(false)]
 		//internal bool veryBrokenHatchControl;
-		
+
+	[Header("[i:3611] Old movement tech")]
+
+		[Label("[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots")]
+		[Tooltip("Enables a small, niche movement tech that has not been named.")]
+		[DefaultValue(false)]
+		public bool spaceJumpRocketBoots;
+
 	[Header("[i:MetroidMod/BlueHatch] Automatically Closing Hatches")]
 		
 		[Label("Enabled")]

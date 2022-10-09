@@ -45,7 +45,7 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.rocketTimeMax = 0;
+			if (!Common.Configs.MConfigMain.Instance.spaceJumpRocketBoots) { player.rocketTimeMax = 0; }
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJump = true;
 			//mp.hiJumpBoost = true;
@@ -53,7 +53,7 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.rocketTimeMax = 0;
+			if (!Common.Configs.MConfigMain.Instance.spaceJumpRocketBoots) { player.rocketTimeMax = 0; }
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJump = true;
 			//mp.hiJumpBoost = true;
