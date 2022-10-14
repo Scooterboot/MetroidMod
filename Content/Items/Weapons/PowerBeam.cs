@@ -151,6 +151,7 @@ namespace MetroidMod.Content.Items.Weapons
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
 				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
 			}
+			BeamMods = new Item[5];
 			return base.PreReforge();
 		}
 
