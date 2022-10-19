@@ -33,5 +33,8 @@ namespace MetroidMod
 			}
 			return false;
 		}
+
+		public static bool CalamityActive() => ModLoader.TryGetMod("CalamityMod", out _);
+		public static bool CalamityMod(out Mod calamityMod) => ModLoader.TryGetMod("CalamityMod", out calamityMod);
 	}
 }

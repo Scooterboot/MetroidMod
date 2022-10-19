@@ -44,7 +44,7 @@ namespace MetroidMod.Content.Items.Addons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.UnknownPlasmaBeam>(1)
-				.AddRecipeGroup(MetroidMod.T3HMBarRecipeGroupID, 5)
+				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
 				.AddIngredient(ItemID.Ichor, 10)
 				.AddIngredient(ItemID.SoulofLight, 5)
 				.AddTile(TileID.MythrilAnvil)
