@@ -9,7 +9,7 @@ namespace MetroidMod.Content.Items.Tiles
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Tiles/ChozoBrick";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Brick");
+			DisplayName.SetDefault("Chozite Brick (Natural)");
 
 			SacrificeTotal = 100;
 		}
