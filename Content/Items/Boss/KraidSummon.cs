@@ -34,7 +34,7 @@ namespace MetroidMod.Content.Items.Boss
 				.AddRecipeGroup(RecipeGroupID.IronBar, 5)
 				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 1)
 				.AddIngredient(ItemID.PixieDust, 3)
-				.AddTile(TileID.MythrilAnvil)
+				.AddTile(MUtils.CalamityActive() ? TileID.Anvils : TileID.MythrilAnvil)
 				.Register();
 		}
 		
