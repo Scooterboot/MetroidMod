@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Buffs
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Recharging Suit Energy and Suit Energy reserves");
-			Description.SetDefault("Using energy station, cant move");
+			Description.SetDefault("Using energy station, can't move");
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}
