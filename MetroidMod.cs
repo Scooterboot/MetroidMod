@@ -69,6 +69,7 @@ namespace MetroidMod
 
 		//public static int beamsRecipeGroupID;
 		public static int MorphBallBombsRecipeGroupID;
+		public static int T1PHMBarRecipeGroupID;
 		public static int GoldPlatinumBarRecipeGroupID;
 		public static int EvilBarRecipeGroupID;
 		public static int EvilMaterialRecipeGroupID;

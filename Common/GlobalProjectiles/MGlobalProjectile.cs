@@ -14,6 +14,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using MetroidMod.Common.Systems;
+using MetroidMod.Content.Buffs;
+using MetroidMod.Content.Projectiles.Paralyzer;
 
 namespace MetroidMod.Common.GlobalProjectiles
 {
@@ -180,6 +182,13 @@ namespace MetroidMod.Common.GlobalProjectiles
 									MSystem.AddRegenBlock(x, y);
 								}
 								if (MSystem.mBlockType[x, y] == 12)
+								{
+									MSystem.AddRegenBlock(x, y);
+								}
+							}
+							if (projectile.type == ModContent.ProjectileType<ParalyzerShot>())
+							{
+								if (MSystem.mBlockType[x, y] == 3 || MSystem.mBlockType[x, y] == 12)
 								{
 									MSystem.AddRegenBlock(x, y);
 								}

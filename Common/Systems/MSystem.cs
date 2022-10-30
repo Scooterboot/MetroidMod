@@ -82,6 +82,7 @@ namespace MetroidMod.Common.Systems
 		{
 			MetroidMod.MorphBallBombsRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:MorphBallBombs", new RecipeGroup(() => "Any Morph Ball Bombs", MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType) { IconicItemId = MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType });
 
+			MetroidMod.T1PHMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier1PHMBar", new RecipeGroup(() => "Any Copper-Tier Bar", ItemID.CopperBar, ItemID.TinBar) { IconicItemId = ItemID.CopperBar });
 			MetroidMod.GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
 			MetroidMod.EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
 			MetroidMod.EvilMaterialRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilMaterial", new RecipeGroup(() => "Any Pre-Hardmode Evil Material", ItemID.ShadowScale, ItemID.TissueSample) { IconicItemId = ItemID.ShadowScale });
