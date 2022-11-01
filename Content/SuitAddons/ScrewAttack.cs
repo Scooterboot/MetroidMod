@@ -31,6 +31,8 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
+			item.width = 15;
+			item.height = 16;
 			item.noMelee = true;
 			item.DamageType = ModContent.GetInstance<DamageClasses.HunterDamageClass>();
 			item.damage = 100;

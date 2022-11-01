@@ -29,6 +29,8 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
+			item.width = 16;
+			item.height = 11;
 			item.maxStack = Common.Configs.MConfigItems.Instance.stackEnergyTank;
 			item.value = Item.buyPrice(0, 0, 10, 0);
 			item.rare = ItemRarityID.Green;

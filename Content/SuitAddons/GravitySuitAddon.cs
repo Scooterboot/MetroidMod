@@ -45,6 +45,8 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
+			item.width = 16;
+			item.height = 16;
 			item.value = Item.buyPrice(0, 7, 80, 0);
 			item.rare = ItemRarityID.Pink;
 		}
