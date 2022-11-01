@@ -123,6 +123,15 @@ namespace MetroidMod
 			ArmorIDs.Body.Sets.HidesArms[equipSlotBody] = true;
 			ArmorIDs.Legs.Sets.HidesBottomSkin[equipSlotLegs] = true;
 		}
+		public override void Unload()
+		{
+			ModItem.Unload();
+			ModTile.Unload();
+			ModItem = null;
+			ModTile = null;
+			Item = null;
+			base.Unload();
+		}
 
 		protected override sealed void Register()
 		{

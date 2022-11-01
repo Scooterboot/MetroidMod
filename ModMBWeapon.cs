@@ -36,6 +36,13 @@ namespace MetroidMod
 			if (ModProjectile == null) { throw new Exception("WTF happened here? MBWeaponProjectile is null!"); }
 			Mod.AddContent(ModProjectile);
 		}
+		public override void Unload()
+		{
+			ModProjectile.Unload();
+			ModProjectile = null;
+			Projectile = null;
+			base.Unload();
+		}
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

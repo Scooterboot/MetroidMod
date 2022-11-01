@@ -51,6 +51,16 @@ namespace MetroidMod
 			Mod.AddContent(ModProjectile);
 			Mod.AddContent(ModExplosionProjectile);
 		}
+		public override void Unload()
+		{
+			ModProjectile.Unload();
+			ModExplosionProjectile.Unload();
+			ModProjectile = null;
+			ModExplosionProjectile = null;
+			Projectile = null;
+			ExplosionProjectile = null;
+			base.Unload();
+		}
 		public virtual void SetExplosionProjectileDefaults(Projectile proj) { }
 		public virtual void ExplosionAI() { }
 		public virtual bool Kill(int timeLeft) { return true; }

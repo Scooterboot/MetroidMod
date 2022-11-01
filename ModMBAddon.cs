@@ -83,6 +83,15 @@ namespace MetroidMod
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
 		}
+		public override void Unload()
+		{
+			ModItem.Unload();
+			ModTile.Unload();
+			ModItem = null;
+			ModTile = null;
+			Item = null;
+			base.Unload();
+		}
 		protected override sealed void Register()
 		{
 			DisplayName = LocalizationLoader.CreateTranslation(Mod, $"SuitAddonName.{Name}");
