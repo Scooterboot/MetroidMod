@@ -23,7 +23,7 @@ namespace MetroidMod.Default
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault() + (!modMBAddon.ItemNameLiteral ? " Addon" : ""));
-			Tooltip.SetDefault(modMBAddon.AddOnlyAddonItem ? $"Cannot be equipped\n{modMBAddon.Tooltip.GetDefault()}" : string.Format('[c/9696FF:Morph Ball Addon]') + $"\nSlot Type: {modMBAddon.GetAddonSlotName()}\n{modMBAddon.Tooltip.GetDefault()}");
+			Tooltip.SetDefault(modMBAddon.AddOnlyAddonItem ? $"Cannot be equipped\n{modMBAddon.Tooltip.GetDefault()}" : string.Format("[c/9696FF:Morph Ball Addon]") + $"\nSlot Type: {modMBAddon.GetAddonSlotName()}\n{modMBAddon.Tooltip.GetDefault()}");
 			SacrificeTotal = modMBAddon.SacrificeTotal;
 		}
 
