@@ -38,7 +38,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The amount of energy the player has.
 		/// </summary>
-		public int Energy = 0;
+		public int Energy = 99;
 
 		/// <summary>
 		/// The number of Reserve Tanks the player has.
@@ -91,6 +91,10 @@ namespace MetroidMod.Common.Players
 				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
 			}
 			return true;
+		}
+		public override void OnRespawn(Player player)
+		{
+			if (player.TryMetroidPlayer(out MPlayer mp)) mp.Energy = 99;
 		}
 		public override void UpdateLifeRegen()
 		{
