@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.SpazerCombo>();
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.NovaCombo>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
 			mItem.addonChargeDmg = 1f;
