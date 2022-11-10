@@ -74,7 +74,7 @@ namespace MetroidMod.Content.Items.Weapons
 			if (mp.statParalyzerCharge >= mp.maxParalyzerCharge)
 			{
 				mProj.doParalyzerStun = true;
-				mProj.paralyzerStunAmount = 3;
+				mProj.paralyzerStunAmount = 1.8f;
 			}
 			Main.projectile[shotProj].netUpdate = true;
 			mp.statParalyzerCharge = 0f;

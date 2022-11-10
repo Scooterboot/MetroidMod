@@ -60,7 +60,7 @@ namespace MetroidMod.Content.Projectiles
 		}
 
 		public bool doParalyzerStun = false;
-		public int paralyzerStunAmount = 0;
+		public float paralyzerStunAmount = 0;
 		
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
@@ -71,7 +71,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			if (doParalyzerStun)
 			{
-				target.AddBuff(ModContent.BuffType<ParalyzerStun>(), paralyzerStunAmount * 60);
+				target.AddBuff(ModContent.BuffType<ParalyzerStun>(), (int)Math.Floor(paralyzerStunAmount * 60));
 			}
 		}
 		public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)

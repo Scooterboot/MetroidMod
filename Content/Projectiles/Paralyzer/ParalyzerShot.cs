@@ -38,11 +38,6 @@ namespace MetroidMod.Content.Projectiles.Paralyzer
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			target.AddBuff(ModContent.BuffType<ParalyzerStun>(), 4 * 60);
-		}
-
 		public override void Kill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
