@@ -596,6 +596,33 @@ namespace MetroidMod.Common.Systems
 					Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 					sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x2 + 2, y2 + overheatBorder.Height + 2), color, 0f, default(Vector2), 0.75f, SpriteEffects.None, 0f);
 				}
+				if (item.type == ModContent.ItemType<Content.Items.Weapons.CopperParalyzer>() || item.type == ModContent.ItemType<Content.Items.Weapons.Paralyzer>())
+				{
+					Texture2D overheatBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBar").Value,
+					overheatBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBorder").Value;
+					int ovh = (int)Math.Min(mp.statParalyzerCharge, mp.maxParalyzerCharge), ovhMax = (int)mp.maxParalyzerCharge;
+					float x2 = 22, y2 = 78 + z;
+					int times2 = (int)Math.Ceiling(overheatBar.Height / 2f);
+					float ovhpercent = ovhMax == 0 ? 0f : 1f * ovh / ovhMax;
+					int wo = (int)(Math.Floor(overheatBar.Width * ovhpercent));
+					Color o = ovhpercent < 1f ? Color.HotPink : Main.DiscoColor;
+					sb.Draw(overheatBorder, new Vector2(x2, y2), new Rectangle(0, 0, overheatBorder.Width, overheatBorder.Height), Color.White);
+					if (ovh > 0)
+					{
+						for (int i = 0; i < times2; i++)
+						{
+							int ww = wo - (i * 2);
+							if (ww > 0 && ovh <= ovhMax)
+							{
+								sb.Draw(overheatBar, new Vector2(x2 + 6, y2 + 2 + i * 2), new Rectangle(0, i * 2, ww, 2), o);
+							}
+						}
+					}
+					string text = (int)Math.Round((double)mp.statParalyzerCharge) + "/" + ovhMax;
+					Vector2 vect = Terraria.GameContent.FontAssets.MouseText.Value.MeasureString(text);
+					Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
+					sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x2 + 2, y2 + overheatBorder.Height + 2), color, 0f, default(Vector2), 0.75f, SpriteEffects.None, 0f);
+				}
 				int num4 = (int)((float)30 % 255);
 				if (chStyle == 1)
 				{

@@ -54,6 +54,35 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.crit = 3;
 		}
 
+		public override void UpdateInventory(Player player)
+		{
+			if (player.inventory[player.selectedItem].type == Item.type && player.TryMetroidPlayer(out MPlayer mp) && mp.statParalyzerCharge < mp.maxParalyzerCharge)
+			{
+				mp.statParalyzerCharge += 1f;
+			}
+		}
+
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			MPlayer mp = player.MetroidPlayer();
+			damage = (int)Math.Floor(damage * mp.statParalyzerCharge / mp.maxParalyzerCharge);
+		}
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			MPlayer mp = player.MetroidPlayer();
+			int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0);
+			MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+			if (mp.statParalyzerCharge >= mp.maxParalyzerCharge)
+			{
+				mProj.doParalyzerStun = true;
+				mProj.paralyzerStunAmount = 3;
+			}
+			Main.projectile[shotProj].netUpdate = true;
+			mp.statParalyzerCharge = 0f;
+			return false;
+		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

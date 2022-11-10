@@ -35,6 +35,8 @@ namespace MetroidMod.Common.Players
 		public int overheatDelay = 0;
 		private float overheatCooldown = 0f;
 		public float missileCost = 1f;
+		public float maxParalyzerCharge = 100f;
+		public float statParalyzerCharge = 0f;
 
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
@@ -71,6 +73,7 @@ namespace MetroidMod.Common.Players
 			maxOverheat = 100f;
 			overheatCost = 1f;
 			missileCost = 1f;
+			maxParalyzerCharge = 100f;
 
 			senseMove = false;
 
@@ -108,6 +111,10 @@ namespace MetroidMod.Common.Players
 			if (statCharge >= maxCharge)
 			{
 				statCharge = maxCharge;
+			}
+			if (statParalyzerCharge >= maxParalyzerCharge)
+			{
+				statParalyzerCharge = maxParalyzerCharge;
 			}
 			if (overheatDelay > 0)
 			{
