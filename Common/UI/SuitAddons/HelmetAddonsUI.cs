@@ -81,12 +81,12 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MConfig.Instance.HelmetAddons.enabled;
+			enabled = MConfigClient.Instance.HelmetAddons.enabled;
 			if (IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			if (!enabled && MConfig.Instance.HelmetAddons.auto)
+			if (!enabled && MConfigClient.Instance.HelmetAddons.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
 				Top.Pixels = 240;

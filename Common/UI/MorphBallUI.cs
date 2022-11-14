@@ -95,8 +95,8 @@ namespace MetroidMod.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MConfig.Instance.MorphBall.enabled;
-			if (!enabled && MConfig.Instance.MorphBall.auto)
+			enabled = MConfigClient.Instance.MorphBall.enabled;
+			if (!enabled && MConfigClient.Instance.MorphBall.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 180;
 				Top.Pixels = 240;

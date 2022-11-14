@@ -65,12 +65,12 @@ namespace MetroidMod.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MConfig.Instance.SenseMove.enabled;
+			enabled = MConfigClient.Instance.SenseMove.enabled;
 			if (base.IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			if (!enabled && MConfig.Instance.SenseMove.auto)
+			if (!enabled && MConfigClient.Instance.SenseMove.auto)
 			{
 				this.Left.Pixels = Main.screenWidth - Width.Pixels - 200;
 				this.Top.Pixels = 300;

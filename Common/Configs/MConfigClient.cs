@@ -15,7 +15,6 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
-using static MetroidMod.Common.Configs.MServerConfig;
 
 namespace MetroidMod.Common.Configs
 {

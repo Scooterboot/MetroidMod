@@ -136,12 +136,12 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MConfig.Instance.BreastplateAddons.enabled;
+			enabled = MConfigClient.Instance.BreastplateAddons.enabled;
 			if (IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			if (!enabled && MConfig.Instance.BreastplateAddons.auto)
+			if (!enabled && MConfigClient.Instance.BreastplateAddons.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
 				Top.Pixels = 240;

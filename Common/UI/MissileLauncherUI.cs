@@ -93,8 +93,8 @@ namespace MetroidMod.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MConfig.Instance.MissileLauncher.enabled;
-			if (!enabled && MConfig.Instance.MissileLauncher.auto)
+			enabled = MConfigClient.Instance.MissileLauncher.enabled;
+			if (!enabled && MConfigClient.Instance.MissileLauncher.auto)
 			{
 				this.Left.Pixels = 160;
 				this.Top.Pixels = 260;

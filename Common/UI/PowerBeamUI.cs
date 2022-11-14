@@ -141,8 +141,8 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = 256;
 			Height.Pixels = 164;
-			enabled = MConfig.Instance.PowerBeam.enabled;
-			if (!enabled && MConfig.Instance.PowerBeam.auto)
+			enabled = MConfigClient.Instance.PowerBeam.enabled;
+			if (!enabled && MConfigClient.Instance.PowerBeam.auto)
 			{
 				Left.Pixels = 160;
 				Top.Pixels = Main.instance.invBottom + 10;
@@ -387,8 +387,8 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MConfig.Instance.PsuedoScrewAttack.enabled;
-			if (!enabled && MConfig.Instance.PsuedoScrewAttack.auto)
+			enabled = MConfigClient.Instance.PsuedoScrewAttack.enabled;
+			if (!enabled && MConfigClient.Instance.PsuedoScrewAttack.auto)
 			{
 				Left.Pixels = 112;
 				Top.Pixels = 274;
@@ -469,8 +469,8 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MConfig.Instance.PowerBeamError.enabled;
-			if (!enabled && MConfig.Instance.PowerBeamError.auto)
+			enabled = MConfigClient.Instance.PowerBeamError.enabled;
+			if (!enabled && MConfigClient.Instance.PowerBeamError.auto)
 			{
 				Left.Pixels = 112;
 				Top.Pixels = 354;

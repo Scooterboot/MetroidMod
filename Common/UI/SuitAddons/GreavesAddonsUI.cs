@@ -81,12 +81,12 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MConfig.Instance.GreavesAddons.enabled;
+			enabled = MConfigClient.Instance.GreavesAddons.enabled;
 			if (IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			if (!enabled && MConfig.Instance.GreavesAddons.auto)
+			if (!enabled && MConfigClient.Instance.GreavesAddons.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
 				Top.Pixels = 240;
