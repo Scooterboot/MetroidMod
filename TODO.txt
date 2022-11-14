@@ -15,3 +15,4 @@
  -	Fix Nightmare Core-X not spawning in multiplayer
  -	Fix waterfall/lava bubbling sounds playing when exiting world (possibly just a tML bug)
  -	Make Scan Visor lock onto enemies
+ -	Sprites for things relating to the Chozo Ruins 'biome'

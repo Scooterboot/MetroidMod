@@ -21,11 +21,14 @@ using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
+using MetroidMod.Content.Biomes;
 
 namespace MetroidMod.Common.Players
 {
 	public partial class MPlayer
 	{
+		public bool ZoneChozoRuins => ModContent.GetInstance<ChozoRuinsBiome>().IsBiomeActive(Player);
+
 		public float statCharge = 0.0f;
 		public static float maxCharge = 100.0f;
 
