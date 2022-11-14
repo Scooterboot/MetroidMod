@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Buffs
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Recharging Missiles");
-			Description.SetDefault("Using missile station, cant move");
+			Description.SetDefault("Using missile station, can't move");
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

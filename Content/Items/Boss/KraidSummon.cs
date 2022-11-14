@@ -34,13 +34,13 @@ namespace MetroidMod.Content.Items.Boss
 				.AddRecipeGroup(RecipeGroupID.IronBar, 5)
 				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 1)
 				.AddIngredient(ItemID.PixieDust, 3)
-				.AddTile(TileID.MythrilAnvil)
+				.AddTile(MUtils.CalamityActive() ? TileID.Anvils : TileID.MythrilAnvil)
 				.Register();
 		}
 		
 		public override bool ConsumeItem(Player player)
 		{
-			if (Common.Configs.MServerConfig.Instance.enableBossSummonConsumption)
+			if (Common.Configs.MConfigMain.Instance.enableBossSummonConsumption)
 			{
 				return true;
 			}

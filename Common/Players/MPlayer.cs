@@ -21,11 +21,14 @@ using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
+using MetroidMod.Content.Biomes;
 
 namespace MetroidMod.Common.Players
 {
 	public partial class MPlayer
 	{
+		public bool ZoneChozoRuins => ModContent.GetInstance<ChozoRuinsBiome>().IsBiomeActive(Player);
+
 		public float statCharge = 0.0f;
 		public static float maxCharge = 100.0f;
 
@@ -35,6 +38,8 @@ namespace MetroidMod.Common.Players
 		public int overheatDelay = 0;
 		private float overheatCooldown = 0f;
 		public float missileCost = 1f;
+		public float maxParalyzerCharge = 100f;
+		public float statParalyzerCharge = 0f;
 
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
@@ -71,6 +76,7 @@ namespace MetroidMod.Common.Players
 			maxOverheat = 100f;
 			overheatCost = 1f;
 			missileCost = 1f;
+			maxParalyzerCharge = 100f;
 
 			senseMove = false;
 
@@ -82,6 +88,20 @@ namespace MetroidMod.Common.Players
 			breathMult = 1f;
 
 			HUDColor = Color.LightBlue;
+
+			switch (Player.name.ToLower())
+			{
+				case "ed the terrarian":
+				case "ed": // challenge name, tributary to a beta tester who broke my sanity for around 2 hours - DarkSamus49
+					Player.statLifeMax2 /= 5;
+					Player.statManaMax2 /= 4;
+					Player.velocity.X /= 4f;
+					Player.velocity.Y += Player.controlJump | Player.velocity.Y <= 0 ? 0 : 16f;
+					Player.maxFallSpeed = 10000f;
+					break;
+				default:
+					break;
+			}
 		}
 		public override void PreUpdate()
 		{
@@ -94,6 +114,10 @@ namespace MetroidMod.Common.Players
 			if (statCharge >= maxCharge)
 			{
 				statCharge = maxCharge;
+			}
+			if (statParalyzerCharge >= maxParalyzerCharge)
+			{
+				statParalyzerCharge = maxParalyzerCharge;
 			}
 			if (overheatDelay > 0)
 			{
@@ -350,8 +374,8 @@ namespace MetroidMod.Common.Players
 				energyLowTimer--;
 				if (energyLowTimer <= 0)
 				{
-					energyLowTimer = Common.Configs.MConfig.Instance.energyLowInterval;
-					if (Common.Configs.MConfig.Instance.energyLow)
+					energyLowTimer = Common.Configs.MConfigClient.Instance.energyLowInterval;
+					if (Common.Configs.MConfigClient.Instance.energyLow)
 					{
 						SoundEngine.PlaySound(Sounds.Suit.EnergyLow, Player.position);
 					}

@@ -15,6 +15,8 @@ namespace MetroidMod.Common.GlobalNPCs
 
 		internal bool checkedForFreezability = false;
 
+		public bool stunned = false;
+		public bool unstunned = true;
 		public bool froze = false;
 		public bool unfroze = true;
 		private int oldDmg = 0;
@@ -26,6 +28,7 @@ namespace MetroidMod.Common.GlobalNPCs
 		public override void ResetEffects(NPC npc)
 		{
 			froze = false;
+			stunned = false;
 		}
 
 		public override bool PreAI(NPC npc)
@@ -39,10 +42,11 @@ namespace MetroidMod.Common.GlobalNPCs
 				{
 					npc.buffImmune[ModContent.BuffType<IceFreeze>()] = true;
 					npc.buffImmune[ModContent.BuffType<InstantFreeze>()] = true;
+					npc.buffImmune[ModContent.BuffType<ParalyzerStun>()] = true;
 				}
 				checkedForFreezability = true;
 			}
-			if (froze)
+			if (froze || stunned)
 			{
 				if (speedDecrease <= 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && !MetroidMod.Instance.FrozenStandOnNPCs.Contains(npc.type))
 				{
@@ -101,6 +105,10 @@ namespace MetroidMod.Common.GlobalNPCs
 			if (froze)
 			{
 				drawColor = Lighting.GetColor((int)npc.position.X / 16, (int)npc.position.Y / 16, new Color(0, 144, 255));
+			}
+			if (stunned)
+			{
+				drawColor = Lighting.GetColor((int)npc.position.X / 16, (int)npc.position.Y / 16, new Color(255, 255, 0));
 			}
 		}
 

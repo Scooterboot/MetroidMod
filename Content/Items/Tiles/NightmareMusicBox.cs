@@ -22,6 +22,7 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.NightmareMusicBox>();
+			Item.canBePlacedInVanityRegardlessOfConditions = true;
 			Item.width = 24;
 			Item.height = 32;
 			Item.rare = ItemRarityID.Yellow;

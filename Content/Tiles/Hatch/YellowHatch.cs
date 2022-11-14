@@ -54,7 +54,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 
 		public override bool RightClick(int i, int j)
 		{
-			if (/*Common.Configs.MServerConfig.Instance.veryBrokenHatchControl || */Main.LocalPlayer.controlUseTile)
+			if (/*Common.Configs.MConfigMain.Instance.veryBrokenHatchControl || */Main.LocalPlayer.controlUseTile)
 			{
 				if (Main.LocalPlayer.TryGetModPlayer(out Common.Players.MPlayer mp) && mp.YellowKeycard)
 				{

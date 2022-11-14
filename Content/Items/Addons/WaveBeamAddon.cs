@@ -35,9 +35,9 @@ namespace MetroidMod.Content.Items.Addons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 2;
-			mItem.addonDmg = 0.5f;
-			mItem.addonHeat = 0.5f;
-			mItem.addonSpeed = 0;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageWaveBeam;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatWaveBeam;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedWaveBeam;
 		}
 
 		public override void AddRecipes()

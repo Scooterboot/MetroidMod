@@ -59,13 +59,13 @@ namespace MetroidMod.Content.Items.Weapons
 		//public override void SetDefaults()
 		public override void SetDefaults()
 		{
-			Item.damage = Common.Configs.MServerConfig.Instance.damageMissileLauncher;
+			Item.damage = Common.Configs.MConfigItems.Instance.damageMissileLauncher;
 			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Item.width = 24;
 			Item.height = 16;
 			Item.scale = 0.8f;
-			Item.useTime = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
-			Item.useAnimation = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
+			Item.useTime = Common.Configs.MConfigItems.Instance.useTimeMissileLauncher;
+			Item.useAnimation = Common.Configs.MConfigItems.Instance.useTimeMissileLauncher;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
 			Item.knockBack = 5.5f;
@@ -78,8 +78,8 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.crit = 10;
 
 			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
-			mi.statMissiles = Common.Configs.MServerConfig.Instance.ammoMissileLauncher;
-			mi.maxMissiles = Common.Configs.MServerConfig.Instance.ammoMissileLauncher;
+			mi.statMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher;
+			mi.maxMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher;
 		}
 		public override void AddRecipes()
 		{
@@ -139,9 +139,21 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
+		public override bool PreReforge()
+		{
+			foreach (Item item in MissileMods)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+			}
+			MissileMods = new Item[5];
+			return base.PreReforge();
+		}
+
 		int finalDmg = 0;
 
-		int useTime = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
+		int useTime = Common.Configs.MConfigItems.Instance.useTimeMissileLauncher;
 
 		string shot = "MissileShot";
 		string chargeShot = "DiffusionMissileShot";
@@ -200,8 +212,8 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot2 = MissileMods[1];
 			Item exp = MissileMods[2];
 
-			int damage = Common.Configs.MServerConfig.Instance.damageMissileLauncher;
-			useTime = Common.Configs.MServerConfig.Instance.useTimeMissileLauncher;
+			int damage = Common.Configs.MConfigItems.Instance.damageMissileLauncher;
+			useTime = Common.Configs.MConfigItems.Instance.useTimeMissileLauncher;
 			shot = "MissileShot";
 			chargeShot = "";
 			shotSound = "MissileShoot";
@@ -240,7 +252,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			leadAimSpeed = 0f;
 
-			mi.maxMissiles = Common.Configs.MServerConfig.Instance.ammoMissileLauncher + (Common.Configs.MServerConfig.Instance.ammoMissileTank * exp.stack);
+			mi.maxMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher + (Common.Configs.MConfigItems.Instance.ammoMissileTank * exp.stack);
 			if (mi.statMissiles > mi.maxMissiles)
 			{
 				mi.statMissiles = mi.maxMissiles;

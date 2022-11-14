@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -37,7 +38,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The amount of energy the player has.
 		/// </summary>
-		public int Energy = 0;
+		public int Energy = 99;
 
 		/// <summary>
 		/// The number of Reserve Tanks the player has.
@@ -84,7 +85,16 @@ namespace MetroidMod.Common.Players
 			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 			damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
 			if (damage < 0) { damage = 0; }
+			if (Common.Configs.MConfigClient.Instance.energyHit && Energy > 0)
+			{
+				playSound = false;
+				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
+			}
 			return true;
+		}
+		public override void OnRespawn(Player player)
+		{
+			if (player.TryMetroidPlayer(out MPlayer mp)) mp.Energy = 99;
 		}
 		public override void UpdateLifeRegen()
 		{

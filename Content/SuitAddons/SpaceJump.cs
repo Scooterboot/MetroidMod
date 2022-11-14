@@ -30,6 +30,8 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
+			item.width = 16;
+			item.height = 16;
 			item.value = Item.buyPrice(0, 4, 0, 0);
 			item.rare = ItemRarityID.Lime;
 			item.accessory = true;
@@ -45,6 +47,7 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			if (!Common.Configs.MConfigMain.Instance.spaceJumpRocketBoots) { player.rocketTimeMax = 0; }
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJump = true;
 			//mp.hiJumpBoost = true;
@@ -52,6 +55,7 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
+			if (!Common.Configs.MConfigMain.Instance.spaceJumpRocketBoots) { player.rocketTimeMax = 0; }
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJump = true;
 			//mp.hiJumpBoost = true;

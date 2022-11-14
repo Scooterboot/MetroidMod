@@ -26,6 +26,11 @@ namespace MetroidMod
 
 			};
 
+			public static readonly SoundStyle EnergyHit = new($"{nameof(MetroidMod)}/Assets/Sounds/EnergyHit_", 0, 2)
+			{
+				PitchVariance = 0.5f
+			};
+
 			public static readonly SoundStyle EnergyLow = new($"{nameof(MetroidMod)}/Assets/Sounds/EnergyLow")
 			{
 
@@ -84,6 +89,11 @@ namespace MetroidMod
 				};
 
 				public static readonly SoundStyle ScanVisorScanning = new($"{nameof(MetroidMod)}/Assets/Sounds/ScanVisorScanning")
+				{
+					IsLooped = true
+				};
+
+				public static readonly SoundStyle DarkVisorBackgroundNoise = new($"{nameof(MetroidMod)}/Assets/Sounds/DarkVisorBackgroundNoise", SoundType.Ambient)
 				{
 					IsLooped = true
 				};

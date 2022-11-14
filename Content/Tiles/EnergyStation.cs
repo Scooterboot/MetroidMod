@@ -54,7 +54,7 @@ namespace MetroidMod.Content.Tiles
 
 		public override bool RightClick(int i, int j)
 		{
-			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
+			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange && !MUtils.AnyBossesActive())
 			{
 				Main.LocalPlayer.AddBuff(BuffType<Buffs.EnergyRecharge>(), 2);
 				return (true);

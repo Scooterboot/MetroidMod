@@ -182,8 +182,8 @@ namespace MetroidMod
 				"Weapons",
 				(Predicate<Item>)((Item item) => item.damage > 0 && item.DamageType.CountsAsClass<HunterDamageClass>())
 			);
-			// TODO: Make MServerConfig only accept client changes if player is admin
-			//Common.Configs.MServerConfig.Instance.condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message) { return (bool)herosMod.Call("HasPermission", whoAmI, ""); };
+			// TODO: Make MConfigClientMain only accept client changes if player is admin
+			//Common.Configs.MConfigClientMain.Instance.condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message) { return (bool)herosMod.Call("HasPermission", whoAmI, ""); };
 			// TODO: Add extension for infinite energy and infinite overheat
 			/*
 			herosMod.Call("AddPermission",

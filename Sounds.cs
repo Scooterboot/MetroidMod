@@ -187,6 +187,11 @@ namespace MetroidMod
 				{
 
 				};
+
+				public static readonly SoundStyle Paralyzer = new($"{nameof(MetroidMod)}/Assets/Sounds/Paralyzer")
+				{
+
+				};
 			}
 		}
 	}

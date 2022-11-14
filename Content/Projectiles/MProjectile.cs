@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Buffs;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -57,6 +58,9 @@ namespace MetroidMod.Content.Projectiles
 				Projectile.oldRot[i] = Projectile.rotation;
 			}
 		}
+
+		public bool doParalyzerStun = false;
+		public float paralyzerStunAmount = 0;
 		
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
@@ -64,6 +68,10 @@ namespace MetroidMod.Content.Projectiles
 			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit+player.inventory[player.selectedItem].crit)
 			{
 				crit = true;
+			}
+			if (doParalyzerStun)
+			{
+				target.AddBuff(ModContent.BuffType<ParalyzerStun>(), (int)Math.Floor(paralyzerStunAmount * 60));
 			}
 		}
 		public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)

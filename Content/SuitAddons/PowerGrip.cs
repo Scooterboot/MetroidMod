@@ -27,6 +27,8 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
+			item.width = 11;
+			item.height = 15;
 			item.value = Item.buyPrice(0, 1, 0, 0);
 			item.rare = ItemRarityID.Green;
 			item.accessory = true;
@@ -46,7 +48,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.powerGrip = true;
-			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
 			}
@@ -55,7 +57,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.powerGrip = true;
-			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
 			}
@@ -64,7 +66,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.powerGrip = true;
-			if (Common.Configs.MServerConfig.Instance.enableWallJumpPowerGrip)
+			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
 			}

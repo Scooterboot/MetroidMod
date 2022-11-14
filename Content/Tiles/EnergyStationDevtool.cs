@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Tiles
 
 		public override void MouseOver(int i, int j)
 		{
-			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
+			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange && !MUtils.AnyBossesActive())
 			{
 				Main.LocalPlayer.noThrow = 2;
 				Main.LocalPlayer.cursorItemIconEnabled = true;

@@ -65,6 +65,7 @@ namespace MetroidMod
 
 		//public static int beamsRecipeGroupID;
 		public static int MorphBallBombsRecipeGroupID;
+		public static int T1PHMBarRecipeGroupID;
 		public static int GoldPlatinumBarRecipeGroupID;
 		public static int EvilBarRecipeGroupID;
 		public static int EvilMaterialRecipeGroupID;
@@ -92,6 +93,8 @@ namespace MetroidMod
 				MusicLoader.AddMusicBox(this, MusicLoader.GetMusicSlot(this, "Assets/Music/Torizo"), ModContent.ItemType<Content.Items.Tiles.TorizoMusicBox>(), ModContent.TileType<Content.Tiles.TorizoMusicBox>());
 				MusicLoader.AddMusicBox(this, MusicLoader.GetMusicSlot(this, "Assets/Music/Nightmare"), ModContent.ItemType<Content.Items.Tiles.NightmareMusicBox>(), ModContent.TileType<Content.Tiles.NightmareMusicBox>());
 				MusicLoader.AddMusicBox(this, MusicLoader.GetMusicSlot(this, "Assets/Music/OmegaPirate"), ModContent.ItemType<Content.Items.Tiles.OmegaPirateMusicBox>(), ModContent.TileType<Content.Tiles.OmegaPirateMusicBox>());
+				MusicLoader.AddMusicBox(this, MusicLoader.GetMusicSlot(this, "Assets/Music/ChozoRuinsActive"), ModContent.ItemType<Content.Items.Tiles.ChozoRuinsActiveMusicBox>(), ModContent.TileType<Content.Tiles.ChozoRuinsActiveMusicBox>());
+				MusicLoader.AddMusicBox(this, MusicLoader.GetMusicSlot(this, "Assets/Music/ChozoRuinsInactive"), ModContent.ItemType<Content.Items.Tiles.ChozoRuinsInactiveMusicBox>(), ModContent.TileType<Content.Tiles.ChozoRuinsInactiveMusicBox>());
 			}
 
 			/*if (Main.netMode != NetmodeID.Server)
@@ -110,6 +113,7 @@ namespace MetroidMod
 			//ILHooks.Unload();
 			//BeamLoader.Unload();
 			SuitAddonLoader.Unload();
+			MBAddonLoader.Unload();
 		}
 
 		/* NETWORK SYNICNG <<<<< WIP >>>>> */

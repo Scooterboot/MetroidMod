@@ -35,16 +35,16 @@ namespace MetroidMod.Content.Items.Addons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamGreenTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 4;
-			mItem.addonDmg = 1f;
-			mItem.addonHeat = 0.75f;
-			mItem.addonSpeed = -0.15f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damagePlasmaBeamGreen;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatPlasmaBeamGreen;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedPlasmaBeamGreen;
 		}
 
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.UnknownPlasmaBeam>(1)
-				.AddRecipeGroup(MetroidMod.T3HMBarRecipeGroupID, 5)
+				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
 				.AddIngredient(ItemID.CursedFlame, 10)
 				.AddIngredient(ItemID.SoulofLight, 5)
 				.AddTile(TileID.MythrilAnvil)
