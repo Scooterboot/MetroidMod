@@ -76,5 +76,11 @@ namespace MetroidMod
 				_ => "Unknown"
 			};
 		}
+
+		internal static void Unload()
+		{
+			addons.Clear();
+			globalAddons.Clear();
+		}
 	}
 }

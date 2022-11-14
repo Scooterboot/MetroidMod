@@ -117,6 +117,7 @@ namespace MetroidMod
 			//ILHooks.Unload();
 			//BeamLoader.Unload();
 			SuitAddonLoader.Unload();
+			MBAddonLoader.Unload();
 		}
 
 		/* NETWORK SYNICNG <<<<< WIP >>>>> */
