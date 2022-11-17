@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.NPCs.Mobs.Metroid;
+using System;
 
 namespace MetroidMod.Common.GlobalNPCs
 {
@@ -143,7 +144,14 @@ namespace MetroidMod.Common.GlobalNPCs
 			if (npc.type != NPCID.MotherSlime && npc.type != NPCID.CorruptSlime && npc.type != NPCID.Slimer && npc.lifeMax > 1 && npc.damage > 0)
 			{
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 2));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, 5, 25));
+				if (npc.boss)
+				{
+					npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, Math.Min(5 * npc.lifeMax / 10, 255), Math.Min(25 * npc.lifeMax / 10, 255)));
+				}
+				else
+				{
+					npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, 5, 25));
+				}
 			}
 			/*if (mp.reserveTanks > 0 && mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)
 			{
