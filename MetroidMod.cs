@@ -33,7 +33,7 @@ namespace MetroidMod
 		DoorClickSync
 	}
 
-	[LegacyName("MetroidMod")]
+	[LegacyName("MetroidModPorted")]
 	public class MetroidMod : Mod
 	{
 		internal const int ballSlotAmount = 5;
