@@ -146,7 +146,7 @@ namespace MetroidMod.Common.GlobalNPCs
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 2));
 				if (npc.boss)
 				{
-					npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, Math.Min(5 * npc.lifeMax / 10, 255), Math.Min(25 * npc.lifeMax / 10, 255)));
+					npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, (int)Math.Min(5f * (float)npc.lifeMax / 10f, 255f), (int)Math.Min(25f * (float)npc.lifeMax / 10f, 255f)));
 				}
 				else
 				{
