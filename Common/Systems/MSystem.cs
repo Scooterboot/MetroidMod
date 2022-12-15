@@ -1560,7 +1560,7 @@ namespace MetroidMod.Common.Systems
 
 					if (i < thick || j < thick || i >= width - thick || j >= height - thick)
 					{
-						WorldGen.PlaceTile(x + i, y + j, ModContent.TileType<ChozoBrickNatural>());
+						WorldGen.PlaceTile(x + i, y + j, tileType);
 					}
 				}
 			}
