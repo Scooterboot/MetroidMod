@@ -146,11 +146,11 @@ namespace MetroidMod.Common.GlobalNPCs
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 2));
 				if (npc.boss)
 				{
-					npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, (int)Math.Min(5f * (float)npc.lifeMax / 10f, 255f), (int)Math.Min(25f * (float)npc.lifeMax / 10f, 255f)));
+					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, (int)Math.Min(5f * (float)npc.lifeMax / 10f, 255f), (int)Math.Min(25f * (float)npc.lifeMax / 10f, 255f)));
 				}
 				else
 				{
-					npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, 5, 25));
+					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, 5, 25));
 				}
 			}
 			/*if (mp.reserveTanks > 0 && mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)

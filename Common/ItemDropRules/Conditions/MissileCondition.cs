@@ -19,11 +19,7 @@ namespace MetroidMod.Common.ItemDropRules.Conditions
 					break;
 				}
 			}
-			if (flag)
-			{
-				return true;
-			}
-			return false;
+			return flag;
 		}
 
 		public bool CanShowItemDropInUI() => false;
