@@ -84,7 +84,30 @@ namespace MetroidMod.Common.Players
 			float damageToSubtractFromEnergy = Math.Max(damage * (1 - EnergyExpenseEfficiency), 1f);
 			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 			damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
-			if (damage < 0) { damage = 0; }
+			if (damage <= 0)
+			{
+				damage = 0;
+				#region cooldown code (stolen from tML source code)
+				switch (cooldownCounter)
+				{
+					case -1:
+						{
+							Player.immune = true;
+							Player.immuneTime = pvp ? 8 : (Player.longInvince ? 40 : 20);
+							break;
+						}
+					case 0:
+							Player.hurtCooldowns[cooldownCounter] = (Player.longInvince ? 40 : 20);
+						break;
+					case 1:
+					case 3:
+					case 4:
+							Player.hurtCooldowns[cooldownCounter] = (Player.longInvince ? 40 : 20);
+						break;
+				}
+				#endregion
+				customDamage = true;
+			}
 			if (Common.Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
 				playSound = false;
