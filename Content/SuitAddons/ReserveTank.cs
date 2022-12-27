@@ -22,8 +22,8 @@ namespace MetroidMod.Content.SuitAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reserve Tank");
-			Tooltip.SetDefault("Stores a heart picked up when at full health\n" +
-				"Automatically uses the stored heart to save you from death");
+			// TODO: Write a better tooltip. I'm tired. - DarkSamus49
+			Tooltip.SetDefault("Can store a spare tank of energy.");
 			ItemNameLiteral = true;
 			SacrificeTotal = 4;
 			AddonSlot = SuitAddonSlotID.Tanks_Reserve;
