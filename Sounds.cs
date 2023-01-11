@@ -192,7 +192,146 @@ namespace MetroidMod
 				{
 
 				};
-			}
+
+                public static readonly SoundStyle HomingMissileShoot = new($"{nameof(MetroidMod)}/Assets/Sounds/HomingMissileShoot")
+                {
+
+                };
+
+                public static readonly SoundStyle ChargeStartup_HomingMissile = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeStartup_HomingMissile")
+                {
+
+                };
+
+                public static readonly SoundStyle MissileShootHunters = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileShootHunters")
+                {
+
+                };
+
+                public static readonly SoundStyle MissileExplodeHunters = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileExplodeHunters")
+                {
+
+                };
+
+                public static readonly SoundStyle VoltDriverShot = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverSound")
+				{
+
+				};
+
+				public static readonly SoundStyle VoltDriverImpactSound = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverImpactSound")
+				{
+
+				};
+
+				public static readonly SoundStyle VoltDriverChargeSound = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverChargeSound")
+				{
+
+				};
+				public static readonly SoundStyle VoltDriverCharge = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverCharge")
+				{
+
+				};
+
+				public static readonly SoundStyle VoltDriverChargeImpactSound = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverChargeImpactSound")
+				{
+
+				};
+
+				public static readonly SoundStyle JudicatorSound = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorSound")
+				{
+
+				};
+
+				public static readonly SoundStyle JudicatorImpactSound = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorImpactSound")
+				{
+
+				};
+
+				public static readonly SoundStyle JudicatorChargeSound = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorChargeSound")
+				{
+
+				};
+
+				public static readonly SoundStyle JudicatorAffinityChargeSound = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorAffinityChargeSound")
+				{
+
+				};
+
+				public static readonly SoundStyle ChargeStartup_JudicatorAffinity = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeStartup_JudicatorAffinity")
+				{
+
+				};
+				
+				public static readonly SoundStyle JudicatorAffinityChargeShot = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorAffinityChargeShot")
+				{
+
+				};
+
+				public static readonly SoundStyle BattleHammerSound = new($"{nameof(MetroidMod)}/Assets/Sounds/BattleHammerSound")
+				{
+
+				};
+
+				public static readonly SoundStyle BattleHammerAffinitySound = new($"{nameof(MetroidMod)}/Assets/Sounds/BattleHammerAffinitySound")
+				{
+
+				};
+
+				public static readonly SoundStyle BattleHammerImpactSound = new($"{nameof(MetroidMod)}/Assets/Sounds/BattleHammerImpactSound")
+				{
+
+				};
+
+				public static readonly SoundStyle MagMaulSound = new($"{nameof(MetroidMod)}/Assets/Sounds/MagMaulSound")
+				{
+
+				};
+
+				public static readonly SoundStyle MagMaulExplode = new($"{nameof(MetroidMod)}/Assets/Sounds/MagMaulExplode")
+				{
+
+				};
+
+				public static readonly SoundStyle ChargeStartup_MagMaul = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeStartup_MagMaul")
+				{
+
+				};
+
+				public static readonly SoundStyle ImperialistSound = new($"{nameof(MetroidMod)}/Assets/Sounds/ImperialistSound")
+				{
+
+				};
+
+				public static readonly SoundStyle ShockCoilSound = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilSound")
+				{
+
+				};
+
+				public static readonly SoundStyle ShockCoilAffinity1 = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilAffinity1")
+				{
+
+				};
+
+				public static readonly SoundStyle ShockCoilAffinity2 = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilAffinity2")
+				{
+
+				};
+
+                public static readonly SoundStyle ShockCoilStartupSound = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilStartupSound")
+                {
+
+                };
+
+                public static readonly SoundStyle OmegaCannonShot = new($"{nameof(MetroidMod)}/Assets/Sounds/OmegaCannonShot")
+                {
+
+                };
+                
+				public static readonly SoundStyle ShockCoilLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilLoad")
+                {
+
+                };
+            }
 		}
 	}
 }
