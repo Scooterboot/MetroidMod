@@ -89,13 +89,7 @@ namespace MetroidMod.Content.Items.Weapons
 			recipe.AddRecipe();*/
 		}
 
-		public override void UseStyle(Player P, Rectangle heldItemFrame)
-		{
-			P.itemLocation.X = P.MountedCenter.X - (float)Item.width * 0.5f;
-			P.itemLocation.Y = P.MountedCenter.Y - (float)Item.height * 0.5f;
-		}
-
-		public override bool CanUseItem(Player player)
+        public override bool CanUseItem(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if (player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type)
@@ -159,16 +153,19 @@ namespace MetroidMod.Content.Items.Weapons
 		private float waveDmg = 0f;
 		private float spazDmg = 0f;
 		private float plasDmg = 0f;
+		private float hunterDmg = 0f;
 
 		private float iceHeat = 0f;
 		private float waveHeat = 0f;
 		private float spazHeat = 0f;
 		private float plasHeat = 0f;
+		private float hunterHeat = 0f;
 
 		private float iceSpeed = 0f;
 		private float waveSpeed = 0f;
 		private float spazSpeed = 0f;
 		private float plasSpeed = 0f;
+		private float hunterSpeed = 0f;
 
 		private int finalDmg = Common.Configs.MConfigItems.Instance.damagePowerBeam;
 
@@ -199,8 +196,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private int waveDir = -1;
 
+		private bool isImp = false;
 		private bool isCharge = false;
-
 		private bool isHyper = false;
 		private bool isPhazon = false;
 
@@ -235,6 +232,14 @@ namespace MetroidMod.Content.Items.Weapons
 
 			int hy = ModContent.ItemType<Addons.HyperBeamAddon>();
 			int ph = ModContent.ItemType<Addons.PhazonBeamAddon>();
+
+			int vd = ModContent.ItemType<Addons.Hunters.VoltDriverAddon>();
+			int jd = ModContent.ItemType<Addons.Hunters.JudicatorAddon>();
+			int bh = ModContent.ItemType<Addons.Hunters.BattleHammerAddon>();
+			int mm = ModContent.ItemType<Addons.Hunters.MagMaulAddon>();
+			int imp = ModContent.ItemType<Addons.Hunters.ImperialistAddon>();
+			int sc = ModContent.ItemType<Addons.Hunters.ShockCoilAddon>();
+			int oc = ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>();
 
 			Item slot1 = BeamMods[0];
 			Item slot2 = BeamMods[1];
@@ -1175,6 +1180,237 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 				}
 			}
+			if (slot1.type == vd)
+			{
+				isCharge= true;
+				shot = "VoltDriverShot";
+				chargeShot = "VoltDriverChargeShot";
+				shotSound = "VoltDriverSound";
+				chargeShotSound = "VoltDriverChargeSound";
+				chargeUpSound = "VoltDriverCharge";
+				texture = "VoltDriver";
+				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
+				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+
+				if (!slot2.IsAir)
+				{
+					comboError1 = true;
+				}
+				if(!slot3.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot5.IsAir)
+				{
+					comboError4 = true;
+				}
+                if (slot4.type == sp || slot4.type == wi)
+                {
+                    shot = "SpazerVoltDriverShot";
+                    chargeShot = "SpazerVoltDriverChargeShot";
+                }
+                if (slot4.type == vt)
+                {
+                    shot = "VortexVoltDriverShot";
+                    chargeShot = "VortexVoltDriverChargeShot";
+                }
+            }
+			if (slot1.type == jd)
+			{
+				isCharge= true;
+				shot = "JudicatorShot";
+				chargeShot = "JudicatorChargeShot";
+				shotSound = "JudicatorSound";
+				chargeShotSound = "JudicatorChargeSound";
+				chargeUpSound = "ChargeStartup_JudicatorAffinity";
+				texture = "Judicator";
+                chargeTex = "ChargeLead_Ice";
+                useTime = 15;
+				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
+				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+
+				if (!slot2.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot3.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot5.IsAir)
+				{
+					comboError4 = true;
+				}
+                if (slot4.type == sp || slot4.type == wi)
+                {
+                    shot = "SpazerJudicatorShot";
+                    chargeShot = "SpazerJudicatorChargeShot";
+                }
+                if (slot4.type == vt)
+                {
+                    shot = "VortexJudicatorShot";
+                    chargeShot = "VortexJudicatorChargeShot";
+                }
+            }
+
+			if (slot1.type == bh)
+			{
+				shot = "BattleHammerShot";
+				shotSound = "BattleHammerAffinitySound";
+				texture = "BattleHammer";
+                MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+				useTime = 15;
+
+				if (!slot2.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot3.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot5.IsAir)
+				{
+					comboError4 = true;
+				}
+                if (slot4.type == sp || slot4.type == wi)
+                {
+					shot = "SpazerBattleHammerShot";
+
+                }
+                if (slot4.type == vt)
+                {
+					shot = "VortexBattleHammerShot";
+
+                }
+            }
+
+			if (slot1.type == imp)
+			{
+				shot = "ImperialistShot";
+				shotSound = "ImperialistSound";
+				texture = "Imperialist";
+				useTime = 60;
+				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+
+				if (!slot2.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot3.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot5.IsAir)
+				{
+					comboError4 = true;
+				}
+                if (slot4.type == sp || slot4.type == wi)
+                {
+                    shot = "SpazerImperialistShot";
+                }
+                if (slot4.type == vt)
+                {
+                    shot = "VortexImperialistShot";
+                }
+            }
+
+			if (slot1.type == mm)
+			{
+				isCharge = true;
+				shot = "MagMaulShot";
+				chargeShot = "MagMaulChargeShot";
+				shotSound = "MagMaulSound";
+				chargeShotSound = "MagMaulChargeSound";
+				chargeUpSound = "ChargeStartup_MagMaul";
+				texture = "MagMaul";
+                chargeTex = "ChargeLead_PlasmaRed";
+                MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
+				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+				useTime = 20;
+
+				if (!slot2.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot3.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot5.IsAir)
+				{
+					comboError4 = true;
+				}
+                if (slot4.type == sp || slot4.type == wi)
+                {
+                    shot = "SpazerMagMaulShot";
+                    chargeShot = "SpazerMagMaulChargeShot";
+                }
+                if (slot4.type == vt)
+                {
+                    shot = "VortexMagMaulShot";
+                    chargeShot = "VortexMagMaulChargeShot";
+                }
+            }
+			if (slot1.type == sc)
+			{
+				isCharge = true;
+				shot = "ShockCoilShot";
+				shotSound = "ShockCoilAffinity1";
+				texture = "ShockCoil";
+                chargeUpSound = "ShockCoilStartupSound";
+                chargeShotSound = "ShockCoilLoad";
+                chargeShot = "ShockCoilShot";
+                chargeTex = "ChargeLead_Stardust";
+                MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+                mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
+                mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+
+                if (!slot2.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot3.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot5.IsAir)
+				{
+					comboError4 = true;
+				}
+			}
+			if (slot1.type == oc)
+			{
+				shot = "OmegaCannonShot";
+				shotSound = "OmegaCannonShotSound";
+				texture = "OmegaCannon";
+				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+				useTime = 60;
+
+				if (!slot2.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot3.IsAir)
+				{
+					comboError1 = true;
+				}
+				if (!slot5.IsAir)
+				{
+					comboError4 = true;
+				}
+                if (slot4.type == sp || slot4.type == wi)
+                {
+                    shot = "SpazerOmegaCannonShot";
+                }
+                if (slot4.type == vt)
+                {
+                    shot = "VortexOmegaCannonShot";
+                }
+            }
 			// Hyper
 			else if (isHyper)
 			{
@@ -1312,16 +1548,19 @@ namespace MetroidMod.Content.Items.Weapons
 			waveDmg = 0f;
 			spazDmg = 0f;
 			plasDmg = 0f;
+			hunterDmg= 0f;
 
 			iceHeat = 0f;
 			waveHeat = 0f;
 			spazHeat = 0f;
 			plasHeat = 0f;
+			hunterHeat = 0f;
 
 			iceSpeed = 0f;
 			waveSpeed = 0f;
 			spazSpeed = 0f;
 			plasSpeed = 0f;
+			hunterSpeed= 0f;
 
 			if (!slot3.IsAir)
 			{
@@ -1355,6 +1594,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 				}*/
 			}
+
 			if (!slot4.IsAir)
 			{
 				MGlobalItem mItem = slot4.GetGlobalItem<MGlobalItem>();
@@ -1420,6 +1660,9 @@ namespace MetroidMod.Content.Items.Weapons
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				chargeDmgMult = mItem.addonChargeDmg;
 				chargeCost = mItem.addonChargeHeat;
+				hunterDmg = mItem.addonDmg;
+				hunterHeat = mItem.addonHeat;
+				hunterSpeed = mItem.addonSpeed;
 				/*if (BeamLoader.TryGetValue(BeamLoader.beams, slot1, out ModBeam modBeam))
 				{
 					//isCharge = ((ModChargeBeam)modBeam).IsTraditionalCharge;
@@ -1433,10 +1676,10 @@ namespace MetroidMod.Content.Items.Weapons
 				}*/
 			}
 
-			finalDmg = (int)Math.Round((double)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg)));
-			overheat = (int)Math.Max(Math.Round((double)((float)overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat))), 1);
+			finalDmg = (int)Math.Round((double)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg + hunterDmg)));
+			overheat = (int)Math.Max(Math.Round((double)((float)overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 1);
 
-			float shotsPerSecond = (60 / useTime) * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
+			float shotsPerSecond = (60 / useTime) * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed + hunterSpeed);
 
 			useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 
@@ -1628,12 +1871,12 @@ namespace MetroidMod.Content.Items.Weapons
 
 			return clone;
 		}
+			
 
 		int chargeLead = -1;
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-
 			if (isCharge)
 			{
 				int ch = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), damage, knockback, player.whoAmI);
@@ -1848,5 +2091,5 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			chargeLead = reader.ReadInt32();
 		}
-	}
+    }
 }

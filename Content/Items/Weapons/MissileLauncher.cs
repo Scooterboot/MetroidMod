@@ -292,8 +292,9 @@ namespace MetroidMod.Content.Items.Weapons
 			int ft = ModContent.ItemType<FlamethrowerAddon>();
 			int pl = ModContent.ItemType<PlasmaMachinegunAddon>();
 			int nv = ModContent.ItemType<NovaComboAddon>();
+            int hm = ModContent.ItemType<HomingMissileAddon>();
 
-			int di = ModContent.ItemType<DiffusionMissileAddon>();
+            int di = ModContent.ItemType<DiffusionMissileAddon>();
 
 			// Charge Combos
 			if (slot1.type == wb)
@@ -309,7 +310,17 @@ namespace MetroidMod.Content.Items.Weapons
 				comboKnockBack = 0f;
 				texture = "Wavebuster";
 			}
-			if (slot1.type == icSp)
+            if (slot1.type == hm)
+            {
+                chargeShot = "HomingMissileShot";
+                chargeUpSound = "ChargeStartup_HomingMissile";
+                chargeShotSound = "HomingMissileShoot";
+                chargeTex = "ChargeLead_Spazer";
+                dustType = 64;
+                lightColor = MetroidMod.powColor;
+                texture = "SpazerCombo";
+            }
+            if (slot1.type == icSp)
 			{
 				chargeShot = "IceSpreaderShot";
 				chargeShotSound = "IceSpreaderSound";
