@@ -111,14 +111,14 @@ namespace MetroidMod.Content.Items.Accessories
 		{
 			for (int i = 0; i < ballMods.Length; ++i)
 			{
-				writer.Write7BitEncodedInt(ballMods[i].type);
+				ItemIO.Send(ballMods[i], writer);
 			}
 		}
 		public override void NetReceive(BinaryReader reader)
 		{
 			for (int i = 0; i < ballMods.Length; ++i)
 			{
-				ballMods[i].type = reader.ReadInt32();//.CloneDefaults(reader.ReadInt32());
+				ballMods[i] = ItemIO.Receive(reader);
 			}
 		}
 	}

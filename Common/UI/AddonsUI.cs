@@ -30,6 +30,9 @@ namespace MetroidMod.Common.UI
 
 		private ReserveMenu reserveMenu;
 
+		private bool reserveHoldingLClick;
+		private bool reserveHoldingRClick;
+
 		public Vector2[] itemBoxBreastplatePositionValues = new Vector2[SuitAddonSlotID.Misc_Attack + 1]
 		{
 			new Vector2(32, 334),
@@ -160,24 +163,10 @@ namespace MetroidMod.Common.UI
 			reserveMenu.reserveBars.Top.Pixels = 60;
 			reserveMenu.reserveBars.Left.Pixels = 20;
 			reserveMenu.reserveBars.OnUpdate += delegate { if (reserveMenu.reserveBars.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
-			reserveMenu.reserveBars.OnClick += delegate
-			{
-				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-				if (mp.SuitReserves < mp.SuitReserveTanks * 100 && mp.Energy >= 100)
-				{
-					mp.SuitReserves += 100;
-					mp.Energy -= 100;
-				}
-			};
-			reserveMenu.reserveBars.OnRightClick += delegate
-			{
-				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-				if (!mp.SuitReservesAuto && mp.SuitReserves >= 100 && mp.Energy <= mp.MaxEnergy - 100)
-				{
-					mp.SuitReserves -= 100;
-					mp.Energy += 100;
-				}
-			};
+			reserveMenu.reserveBars.OnMouseDown += delegate { reserveHoldingLClick = true; };
+			reserveMenu.reserveBars.OnMouseUp += delegate { reserveHoldingLClick = false; };
+			reserveMenu.reserveBars.OnRightMouseDown += delegate { reserveHoldingRClick = true; };
+			reserveMenu.reserveBars.OnRightMouseUp += delegate { reserveHoldingRClick = false; };
 			reserveMenu.Append(reserveMenu.reserveBars);
 
 			reserveMenu.reserveAmt = new UIText("0");
@@ -206,6 +195,22 @@ namespace MetroidMod.Common.UI
 			{
 				Top.Pixels += 170;
 			}*/
+			if (reserveHoldingLClick)
+			{
+				if (mp.SuitReserves < mp.SuitReserveTanks * 100 && mp.Energy >= 1)
+				{
+					mp.SuitReserves += 1;
+					mp.Energy -= 1;
+				}
+			}
+			if (reserveHoldingRClick)
+			{
+				if (!mp.SuitReservesAuto && mp.SuitReserves >= 1 && mp.Energy <= mp.MaxEnergy - 1)
+				{
+					mp.SuitReserves -= 1;
+					mp.Energy += 1;
+				}
+			}
 			suitAddonsPanel.Recalculate();
 		}
 	}

@@ -35,10 +35,10 @@ namespace MetroidMod
 			DoHEROsModSupport();
 		}
 
-		private Action<SpriteBatch, Rectangle, Color> BossChecklistRect(string tex) => (SpriteBatch sb, Rectangle rect, Color color) =>
+		private Action<SpriteBatch, Rectangle, Color> BossChecklistRect(string tex, float mult = 1f) => (SpriteBatch sb, Rectangle rect, Color color) =>
 			{
 				Texture2D texture = ModContent.Request<Texture2D>(tex).Value;
-				Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+				Rectangle centered = new(rect.X + (rect.Width / 2) - (int)Math.Floor(texture.Width * mult / 2f), rect.Y + (rect.Height / 2) - (int)Math.Floor(texture.Height * mult / 2f), (int)Math.Floor(texture.Width * mult), (int)Math.Floor(texture.Height * mult));
 				sb.Draw(texture, centered, color);
 			};
 
@@ -84,7 +84,7 @@ namespace MetroidMod
 				new List<int>() { ModContent.ItemType<KraidTrophy>(), ModContent.ItemType<KraidMask>(), ModContent.ItemType<KraidPhantoonMusicBox>() },
 				ModContent.ItemType<KraidSummon>(),
 				null,
-				null, BossChecklistRect("MetroidMod/Content/NPCs/Kraid/Kraid_BossLog")
+				null, BossChecklistRect("MetroidMod/Content/NPCs/Kraid/Kraid_BossLog", 0.5f)
 			);
 			bossChecklist.Call("AddBoss",
 				Mod,

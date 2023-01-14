@@ -320,48 +320,48 @@ namespace MetroidMod.Content.Projectiles
 
 		public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
 		{
-			float num236 = P.position.X;
-			float num237 = P.position.Y;
-			float num238 = distance;
-			bool flag5 = false;
+			float homeX = P.position.X;
+			float homeY = P.position.Y;
+			float dist = distance;
+			bool flag = false;
 			P.ai[0] += 1f;
 			if (P.ai[0] > 10f)
 			{
 				P.ai[0] = 10f;
-				for (int num239 = 0; num239 < 200; num239++)
+				for (int i = 0; i < 200; i++)
 				{
-					//bool? flag3 = NPCLoader.CanBeHitByProjectile(Main.npc[num239], P);
-					//if (Main.npc[num239].CanBeChasedBy(P, false) && !npcPrevHit[num239]  && (!flag3.HasValue || flag3.Value))
-								if (Main.npc[num239].CanBeChasedBy(P, false) && !npcPrevHit[num239])
+					//bool? flag3 = NPCLoader.CanBeHitByProjectile(Main.npc[i], P);
+					//if (Main.npc[i].CanBeChasedBy(P, false) && !npcPrevHit[i]  && (!flag3.HasValue || flag3.Value))
+					if (Main.npc[i].CanBeChasedBy(P, false) && !npcPrevHit[i])
 					{
-						float num240 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
-						float num241 = Main.npc[num239].position.Y + (float)(Main.npc[num239].height / 2);
-						float num242 = Math.Abs(P.position.X + (float)(P.width / 2) - num240) + Math.Abs(P.position.Y + (float)(P.height / 2) - num241);
-						if (num242 < num238 && Collision.CanHit(P.position, P.width, P.height, Main.npc[num239].position, Main.npc[num239].width, Main.npc[num239].height))
+						float centerX = Main.npc[i].position.X + (float)(Main.npc[i].width / 2);
+						float centerY = Main.npc[i].position.Y + (float)(Main.npc[i].height / 2);
+						float val = Math.Abs(P.position.X + (float)(P.width / 2) - centerX) + Math.Abs(P.position.Y + (float)(P.height / 2) - centerY);
+						if (val < dist && Collision.CanHit(P.position, P.width, P.height, Main.npc[i].position, Main.npc[i].width, Main.npc[i].height))
 						{
-							num238 = num242;
-							num236 = num240;
-							num237 = num241;
-							flag5 = true;
+							dist = val;
+							homeX = centerX;
+							homeY = centerY;
+							flag = true;
 						}
 					}
 				}
 			}
-			if (!flag5)
+			if (!flag)
 			{
-				num236 = P.position.X + (float)(P.width / 2) + P.velocity.X * 100f;
-				num237 = P.position.Y + (float)(P.height / 2) + P.velocity.Y * 100f;
+				homeX = P.position.X + (float)(P.width / 2) + P.velocity.X * 100f;
+				homeY = P.position.Y + (float)(P.height / 2) + P.velocity.Y * 100f;
 			}
-			float num243 = speed;
-			Vector2 vector22 = new Vector2(P.position.X + (float)P.width * 0.5f, P.position.Y + (float)P.height * 0.5f);
-			float num244 = num236 - vector22.X;
-			float num245 = num237 - vector22.Y;
-			float num246 = (float)Math.Sqrt((double)(num244 * num244 + num245 * num245));
-			num246 = num243 / num246;
-			num244 *= num246;
-			num245 *= num246;
-			P.velocity.X = (P.velocity.X * accuracy + num244) / (accuracy + 1f);
-			P.velocity.Y = (P.velocity.Y * accuracy + num245) / (accuracy + 1f);
+			float homeSpeed = speed;
+			Vector2 projCenter = new Vector2(P.position.X + (float)P.width * 0.5f, P.position.Y + (float)P.height * 0.5f);
+			float xDist = homeX - projCenter.X;
+			float yDist = homeY - projCenter.Y;
+			float combinedDist = (float)Math.Sqrt((double)(xDist * xDist + yDist * yDist));
+			combinedDist = homeSpeed / combinedDist;
+			xDist *= combinedDist;
+			yDist *= combinedDist;
+			P.velocity.X = (P.velocity.X * accuracy + xDist) / (accuracy + 1f);
+			P.velocity.Y = (P.velocity.Y * accuracy + yDist) / (accuracy + 1f);
 		}
 		
 		int dustDelayCounter = 0;

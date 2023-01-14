@@ -72,7 +72,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("The newborn stage of a metroid. Larval metroids are capable of growing in size when absorbing living creatures. Try not to let them latch onto you, otherwise you'll lose your life… These creatures are unable to tolerate cold temperatures however. So cool them down and smash them!")
+				new FlavorTextBestiaryInfoElement("The newborn stage of a metroid. Larval metroids are capable of growing in size when absorbing living creatures. Try not to let them latch onto you, otherwise you'll lose your life... These creatures are unable to tolerate cold temperatures however. So cool them down and smash them!")
 			});
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)

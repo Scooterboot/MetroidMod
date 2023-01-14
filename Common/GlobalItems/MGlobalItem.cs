@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 using MetroidMod.Common.Players;
 
 namespace MetroidMod.Common.GlobalItems
@@ -113,6 +112,40 @@ namespace MetroidMod.Common.GlobalItems
 				}
 			}
 			return base.OnPickup(item, player);
+		}
+	}
+	public class BossBagAdditions : GlobalItem
+	{
+		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+		{
+			if (ItemID.Sets.BossBag[item.type] && !ItemID.Sets.PreHardmodeLikeBossBag[item.type])
+			{
+				LeadingConditionRule expertRule = new LeadingConditionRule(new Conditions.IsExpert());
+
+				// arbitrary "288" because that's the chance each vanilla dev set has altogether
+				IItemDropRule DarkHunterSet = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.DarkSamusHelmet>(), 288));
+				DarkHunterSet.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.DarkSamusBreastplate>(), 1));
+				DarkHunterSet.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.DarkSamusGreaves>(), 1));
+				/*var EzloHat = */
+				expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.EzloHat>(), 288));
+				IItemDropRule DreadSuit = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityDreadSuitHelmet>(), 288));
+				DreadSuit.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityDreadSuitBreastplate>(), 1));
+				DreadSuit.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityDreadSuitGreaves>(), 1));
+				IItemDropRule DreadVaria = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityVariaDreadSuitHelmet>(), 288));
+				DreadVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityVariaDreadSuitBreastplate>(), 1));
+				DreadVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityVariaDreadSuitGreaves>(), 1));
+				IItemDropRule DreadGravity = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitHelmet>(), 288));
+				DreadGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitBreastplate>(), 1));
+				DreadGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitGreaves>(), 1));
+				IItemDropRule Retro = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitHelmet>(), 288));
+				Retro.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitBreastplate>(), 1));
+				Retro.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitGreaves>(), 1));
+				IItemDropRule RetroVaria = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroVariaSuitHelmet>(), 288));
+				RetroVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroVariaSuitBreastplate>(), 1));
+				RetroVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroVariaSuitGreaves>(), 1));
+
+				itemLoot.Add(expertRule);
+			}
 		}
 	}
 }

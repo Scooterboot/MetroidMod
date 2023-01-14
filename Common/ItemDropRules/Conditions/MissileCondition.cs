@@ -1,6 +1,4 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Common.ItemDropRules.Conditions
@@ -19,11 +17,7 @@ namespace MetroidMod.Common.ItemDropRules.Conditions
 					break;
 				}
 			}
-			if (flag)
-			{
-				return true;
-			}
-			return false;
+			return flag;
 		}
 
 		public bool CanShowItemDropInUI() => false;
