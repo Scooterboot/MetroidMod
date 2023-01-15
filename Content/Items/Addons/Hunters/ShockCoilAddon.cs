@@ -13,12 +13,12 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			DisplayName.SetDefault("ShockCoil");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
-				"Fires a short range electric charge that slowly heals\n" +
-                "Circuit fails on contact with tiles\n" +
+				"Fires a short range electric charge that heals and restores energy\n" +
                 string.Format("[c/78BE78:+10% damage]\n") +
 				string.Format("[c/78BE78:+50% speed]\n") +
-                string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]\n") +
-                string.Format("[c/BE7878:Incompatible Calamitymod (for some reason)]\n"));
+				string.Format("[c/BE7878:+300% overheat use]\n") +
+				string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]\n") +
+                string.Format("[c/BE7878:Probably still bugged]\n"));
 
 			SacrificeTotal = 1;
 		}
@@ -40,6 +40,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.addonSlotType = 0;
 			mItem.addonDmg = .1f;
 			mItem.addonSpeed = .5f;
+			mItem.addonHeat = 3f;
 		}
         public override void AddRecipes()
         {

@@ -10,12 +10,12 @@ using System.IO;
 using MetroidMod.Common.Players;
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
-	public class ShockCoilShot2 : MProjectile
+	public class ShockCoilChargeShot : MProjectile
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("ShockCoil Shot2");
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
         {
@@ -35,9 +35,9 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
         NPC target;
 
-        const float Max_Range = 200f;
+        const float Max_Range = 300f;
         float range = Max_Range;
-        const float Max_Distance = 200f;
+        const float Max_Distance = 300f;
         float distance = Max_Distance;
 
         Vector2 oPos;
@@ -58,11 +58,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
             Player O = Main.player[P.owner];
 
             Lead = Main.projectile[(int)P.ai[0]];
-            if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>())
-            {
-                P.Kill();
-                return;
-            }
+
 
             if (P.numUpdates == 0)
             {
@@ -283,8 +279,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
             int num108 = tex.Height / Main.projFrames[P.type];
             int y4 = num108 * P.frame;
 
-            Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/ShockCoil/ShockCoilShot2").Value;
-            int numH = tex2.Height / 4;
 
             if (Lead != null && Lead.active)
             {
@@ -345,15 +339,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                     SpriteEffects.None,
                     0f);
 
-                    sb.Draw(tex2,
-                    pos[i] - Main.screenPosition,
-                    new Rectangle?(new Rectangle(0, numH * Main.rand.Next(4), tex2.Width, numH)),
-                    P.GetAlpha(Color.White),
-                    rot,
-                    new Vector2((float)tex2.Width / 2, (float)numH / 2),
-                    (float)(Main.rand.Next(21) / 10),
-                    SpriteEffects.None,
-                    0f);
 
                     Lighting.AddLight(pos[i], (MetroidMod.waveColor2.R / 255f) * P.scale, (MetroidMod.waveColor2.G / 255f) * P.scale, (MetroidMod.waveColor2.B / 255f) * P.scale);
 
@@ -371,17 +356,17 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         {
             targetPos = reader.ReadVector2();
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			Player p = Main.player[Projectile.owner];
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			int healingAmount = damage / 20;
-			p.statLife += healingAmount;
-			p.HealEffect(healingAmount, true);
+            p.statLife += healingAmount;
+            p.HealEffect(healingAmount, true);
 			mp.Energy += damage / 5;
-			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
-		}
-	}
+			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity2, Projectile.position);
+        }
+    }
 }
 
 
