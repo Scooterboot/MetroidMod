@@ -196,7 +196,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private int waveDir = -1;
 
-		private bool isImp = false;
 		private bool isCharge = false;
 		private bool isHyper = false;
 		private bool isPhazon = false;
@@ -1357,19 +1356,16 @@ namespace MetroidMod.Content.Items.Weapons
             }
 			if (slot1.type == sc)
 			{
-				isCharge = true;
 				shot = "ShockCoilShot";
 				shotSound = "ShockCoilAffinity1";
 				texture = "ShockCoil";
                 chargeUpSound = "ShockCoilStartupSound";
                 chargeShotSound = "ShockCoilLoad";
-                chargeShot = "ShockCoilShot";
+                chargeShot = "ShockCoilChargeShot";
                 chargeTex = "ChargeLead_Stardust";
                 MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-                mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-                mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
 
-                if (!slot2.IsAir)
+				if (!slot2.IsAir)
 				{
 					comboError1 = true;
 				}
@@ -1898,7 +1894,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 				chargeLead = ch;
 			}
-
 			if (isHyper)
 			{
 				int hyperProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI);
