@@ -35,10 +35,6 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 110, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
-            {
-                mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-            }
         }
 		
 		public override void Kill(int timeLeft)
@@ -63,28 +59,4 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			return false;
 		}
 	}
-    public class SpazerBattleHammerShot : BattleHammerShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer BattleHammer Shot";
-
-            mProjectile.amplitude = 20f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class VortexBattleHammerShot : BattleHammerShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex BattleHammer Shot";
-
-            mProjectile.amplitude = 20f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
 }

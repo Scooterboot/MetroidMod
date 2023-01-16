@@ -35,10 +35,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 286, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
-            {
-                mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-            }
         }
 		
 		public override void Kill(int timeLeft)
@@ -62,28 +58,4 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			return false;
 		}
 	}
-    public class VortexMagMaulShot : MagMaulShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex MagMaul Shot";
-
-            mProjectile.amplitude = 15f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class SpazerMagMaulShot : MagMaulShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer MagMaul Shot";
-
-            mProjectile.amplitude = 15f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
 }
