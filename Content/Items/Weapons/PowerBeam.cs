@@ -1245,7 +1245,15 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError4 = true;
 				}
-            }
+				if (slot4.type == sp || slot4.type == wi)
+				{
+					chargeShot = "SpazerJudicatorChargeShot";
+				}
+				if (slot4.type == vt)
+				{
+					chargeShot = "VortexJudicatorChargeShot";
+				}
+			}
 
 			if (slot1.type == bh)
 			{
@@ -1328,7 +1336,15 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError4 = true;
 				}
-            }
+				if (slot4.type == sp || slot4.type == wi)
+				{
+					chargeShot = "SpazerMagMaulChargeShot";
+				}
+				if (slot4.type == vt)
+				{
+					chargeShot = "VortexMagMaulChargeShot";
+				}
+			}
 			if (slot1.type == sc)
 			{
 				isShock = true;
