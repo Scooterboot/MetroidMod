@@ -196,6 +196,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private int waveDir = -1;
 
+		private bool isSpray = false;
+		private bool isShock = false;
 		private bool isCharge = false;
 		private bool isHyper = false;
 		private bool isPhazon = false;
@@ -1217,7 +1219,8 @@ namespace MetroidMod.Content.Items.Weapons
             }
 			if (slot1.type == jd)
 			{
-				isCharge= true;
+				isSpray = true;
+				isCharge = true;
 				shot = "JudicatorShot";
 				chargeShot = "JudicatorChargeShot";
 				shotSound = "JudicatorSound";
@@ -1242,20 +1245,11 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerJudicatorShot";
-                    chargeShot = "SpazerJudicatorChargeShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexJudicatorShot";
-                    chargeShot = "VortexJudicatorChargeShot";
-                }
             }
 
 			if (slot1.type == bh)
 			{
+				isSpray = true;
 				shot = "BattleHammerShot";
 				shotSound = "BattleHammerAffinitySound";
 				texture = "BattleHammer";
@@ -1274,16 +1268,6 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-					shot = "SpazerBattleHammerShot";
-
-                }
-                if (slot4.type == vt)
-                {
-					shot = "VortexBattleHammerShot";
-
-                }
             }
 
 			if (slot1.type == imp)
@@ -1318,6 +1302,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (slot1.type == mm)
 			{
+				isSpray = true;
 				isCharge = true;
 				shot = "MagMaulShot";
 				chargeShot = "MagMaulChargeShot";
@@ -1343,21 +1328,12 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerMagMaulShot";
-                    chargeShot = "SpazerMagMaulChargeShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexMagMaulShot";
-                    chargeShot = "VortexMagMaulChargeShot";
-                }
             }
 			if (slot1.type == sc)
 			{
+				isShock = true;
 				shot = "ShockCoilShot";
-				shotSound = "ShockCoilAffinity1";
+				shotSound = "ShockCoilStartupSound";
 				texture = "ShockCoil";
                 chargeUpSound = "ShockCoilStartupSound";
                 chargeShotSound = "ShockCoilLoad";
@@ -1398,14 +1374,6 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerOmegaCannonShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexOmegaCannonShot";
-                }
             }
 			// Hyper
 			else if (isHyper)
@@ -1873,7 +1841,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			if (isCharge)
+			if (isCharge || isShock)
 			{
 				int ch = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), damage, knockback, player.whoAmI);
 				ChargeLead cl = (ChargeLead)Main.projectile[ch].ModProjectile;
@@ -1914,6 +1882,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				mp.hyperColors = 23;
 			}
+
 			else
 			{
 				for (int i = 0; i < shotAmt; i++)
@@ -1922,6 +1891,14 @@ namespace MetroidMod.Content.Items.Weapons
 					MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 					mProj.waveDir = waveDir;
 					Main.projectile[shotProj].netUpdate = true;
+				}
+				if (isSpray && shotAmt > 1)
+				{
+					for (int i = 0; i < shotAmt - 1; i++)
+					{
+						Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+						Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+					}
 				}
 			}
 			waveDir *= -1;
@@ -1948,7 +1925,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 			return false;
 		}
-
 		public override void HoldItem(Player player)
 		{
 			if (isCharge && player.whoAmI == Main.myPlayer)

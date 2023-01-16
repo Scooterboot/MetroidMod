@@ -71,28 +71,4 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			return false;
 		}
 	}
-    public class SpazerOmegaCannonShot : OmegaCannonShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer Omega Cannon Shot";
-
-            mProjectile.amplitude = 25f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class VortexOmegaCannonShot : OmegaCannonShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex Omega Cannon Shot";
-
-            mProjectile.amplitude = 25f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
 }

@@ -35,10 +35,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
-            {
-                mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-            }
         }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -85,28 +81,4 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			return false;
 		}
 	}
-    public class SpazerJudicatorChargeShot : JudicatorChargeShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer Judicator Charge Shot";
-
-            mProjectile.amplitude = 25f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class VortexJudicatorChargeShot : JudicatorChargeShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex Judicator Charge Shot";
-
-            mProjectile.amplitude = 25f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
 }
