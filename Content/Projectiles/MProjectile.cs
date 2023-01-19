@@ -150,7 +150,7 @@ namespace MetroidMod.Content.Projectiles
 			height = 0;
 			return true;
 		}
-		
+		public bool homing = false;
 		public bool seeking = false;
 		public int seekTarget = -1;
 
