@@ -100,7 +100,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                     }
                 }
             }
-            if (P.owner == Main.myPlayer)
+            if (P.owner == Main.myPlayer && !O.dead)
             {
                 P.netUpdate = true;
 
@@ -188,7 +188,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						{
 							SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity2, O.position), out ActiveSound result);
 							soundInstance = result.Sound;
-							soundDelay = 50;
+							soundDelay = 40;
 						}
 
 						else
@@ -199,7 +199,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                             }
                             SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
                             soundInstance = result.Sound;
-                            soundDelay = 50;
+                            soundDelay = 40;
                         }
                     }
                     else
@@ -294,7 +294,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
             int y4 = num108 * P.frame;
 
 
-            if (p.controlUseItem)
+            if (p.controlUseItem && !p.dead)
             {
 				float targetrot = (float)Math.Atan2((P.Center.Y - p.Center.Y), (P.Center.X - p.Center.X));
                 float dist = Math.Max(Vector2.Distance(p.Center, P.Center), 1);
