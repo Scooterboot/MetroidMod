@@ -16,8 +16,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Shots explode\n" +
 				string.Format("[c/78BE78:+25% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]\n") +
-				string.Format("[c/BE7878:-50% speed]\n") +
-                string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]"));
+				string.Format("[c/BE7878:-40% speed]\n") +
+                string.Format("[c/BE7878:Incompatible with wave or green plasma effects]"));
 
             SacrificeTotal = 1;
 		}
@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.addonSlotType = 0;
 			mItem.addonDmg = .25f;
 			mItem.addonHeat = 1.0f;
-			mItem.addonSpeed = -0.5f;
+			mItem.addonSpeed = -0.4f;
 		}
 
 

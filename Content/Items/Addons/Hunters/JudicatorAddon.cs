@@ -17,8 +17,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Charge shots spray a freezing blast\n" +
 				string.Format("[c/78BE78:+25% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
-				string.Format("[c/BE7878:-55% speed]\n") +
-                string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]"));
+				string.Format("[c/BE7878:-55% speed]\n"));
 
             SacrificeTotal = 1;
 		}

@@ -27,6 +27,18 @@ namespace MetroidMod.Content.Projectiles.Judicator
 
 		public override void AI()
 		{
+			if (Projectile.Name.Contains("Green"))
+			{
+				Projectile.penetrate = 6;
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				Projectile.penetrate = 8;
+			}
+			if (Projectile.Name.Contains("Solar"))
+			{
+				Projectile.penetrate = 12;
+			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
@@ -79,6 +91,62 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
+		}
+	}
+	public class PlasmaGreenJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Green Judicator Shot";
+		}
+	}
+	public class NovaJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nova Judicator Shot";
+		}
+	}
+	public class IceSolarJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Solar Judicator Shot";
+		}
+	}
+	public class IcePlasmaGreenJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Green Judicator Shot";
+		}
+	}
+	public class IceNovaJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Nova Judicator Shot";
+		}
+	}
+	public class IceJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Judicator Shot";
+		}
+	}
+	public class SolarJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Solar Judicator Shot";
 		}
 	}
 }

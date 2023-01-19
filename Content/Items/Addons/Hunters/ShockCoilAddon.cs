@@ -16,8 +16,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Fires a short range electric charge that heals and restores energy when fully charged\n" +
 				"Overheats and charges on enemy damage\n" +
 				string.Format("[c/78BE78:+10% damage]\n") +
-				string.Format("[c/BE7878:+300% overheat use]\n") +
-				string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]\n") +
 				string.Format("[c/BE7878:Probably still bugged]\n"));
 
 			SacrificeTotal = 1;
@@ -39,7 +37,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.addonDmg = .1f;
-			mItem.addonHeat = 3f;
 		}
 		public override void AddRecipes()
 		{
