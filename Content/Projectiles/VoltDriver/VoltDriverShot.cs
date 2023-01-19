@@ -25,6 +25,22 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void AI()
 		{
+			if (Projectile.Name.Contains("Wave"))
+			{
+				Projectile.tileCollide = false;
+			}
+			if (Projectile.Name.Contains("Green"))
+			{
+				Projectile.penetrate = 6;
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				Projectile.penetrate = 8;
+			}
+			if (Projectile.Name.Contains("Solar"))
+			{
+				Projectile.penetrate = 12;
+			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
@@ -39,7 +55,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			{
 				Projectile.frame = 0;
 			}
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
+            if (Projectile.Name.Contains("Spazer"))
             {
                 mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
             }
@@ -56,28 +72,156 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			return false;
 		}
 	}
-    public class VortexVoltDriverShot : VoltDriverShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex Volt Driver Shot";
-
-            mProjectile.amplitude = 15f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class SpazerVoltDriverShot : VoltDriverShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer Volt Driver Shot";
-
-            mProjectile.amplitude = 15f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
+	public class PlasmaGreenVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Green VoltDriver Shot";
+		}
+	}
+	public class PlasmaGreenWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Green Wave VoltDriver Shot";
+		}
+	}
+	public class PlasmaGreenIceVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Green Ice VoltDriver Shot";
+		}
+	}
+	public class PlasmaGreenIceWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Green Ice Wave VoltDriver Shot";
+		}
+	}
+	public class WaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave VoltDriver Shot";
+		}
+	}
+	public class IceVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice VoltDriver Shot";
+		}
+	}
+	public class IceWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave VoltDriver Shot";
+		}
+	}
+	public class PlasmaRedVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red VoltDriver Shot";
+		}
+	}
+	public class PlasmaRedWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Wave VoltDriver Shot";
+		}
+	}
+	public class PlasmaRedIceVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Ice VoltDriver Shot";
+		}
+	}
+	public class PlasmaRedIceWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Ice Wave VoltDriver Shot";
+		}
+	}
+	public class NovaVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red VoltDriver Shot";
+		}
+	}
+	public class NovaWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Wave VoltDriver Shot";
+		}
+	}
+	public class NovaIceVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Ice VoltDriver Shot";
+		}
+	}
+	public class NovaIceWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Ice Wave VoltDriver Shot";
+		}
+	}
+	public class SolarVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red VoltDriver Shot";
+		}
+	}
+	public class SolarWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Wave VoltDriver Shot";
+		}
+	}
+	public class SolarIceVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Ice VoltDriver Shot";
+		}
+	}
+	public class SolarIceWaveVoltDriverShot : VoltDriverShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red Ice Wave VoltDriver Shot";
+		}
+	}
 }

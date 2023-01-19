@@ -222,6 +222,10 @@ namespace MetroidMod
 				{
 
 				};
+				public static readonly SoundStyle VoltDriverDaze = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverDaze")
+				{
+
+				};
 
 				public static readonly SoundStyle VoltDriverChargeSound = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverChargeSound")
 				{
@@ -243,6 +247,10 @@ namespace MetroidMod
 				};
 
 				public static readonly SoundStyle JudicatorImpactSound = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorImpactSound")
+				{
+
+				};
+				public static readonly SoundStyle JudicatorFreeze = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorFreeze")
 				{
 
 				};

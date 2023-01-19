@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles.Judicator
 {
@@ -95,6 +96,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 										{
 											if(freezeDelay[i] <= 0)
 											{
+												SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorFreeze, Projectile.position);
 												npc.AddBuff(ModContent.BuffType<Buffs.IceFreeze>(),600,true);
 												npc.AddBuff(44, 300);
 												freezeDelay[i] = 20;

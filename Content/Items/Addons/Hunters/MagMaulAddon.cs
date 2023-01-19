@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/78BE78:+30% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
-                string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]"));
+                string.Format("[c/BE7878:Incompatible with wave or ice effects]"));
 
             SacrificeTotal = 1;
 		}

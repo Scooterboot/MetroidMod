@@ -14,11 +14,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				"Charge shots home, explode, and confuse\n" +
-				string.Format("[c/78BE78:+15% damage]\n") +
+				string.Format("[c/78BE78:+10% damage]\n") +
                 string.Format("[c/BE7878:-10% speed]\n") +
                 string.Format("[c/BE7878:+100% overheat use]\n") +
-				string.Format("[c/BE7878:+10% noise]\n") +
-				string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]"));
+				string.Format("[c/BE7878:+10% noise]\n"));
 
 			SacrificeTotal = 1;
 		}
@@ -38,7 +37,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = .15f;
+			mItem.addonDmg = .1f;
 			mItem.addonHeat = 1f;
             mItem.addonSpeed = -.1f;
         }
