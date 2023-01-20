@@ -25,11 +25,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
-			{
-				Projectile.tileCollide = false;
-				mProjectile.WaveBehavior(Projectile);
-			}
 			if (Projectile.Name.Contains("Green"))
 			{
 				Projectile.penetrate = 6;
@@ -41,6 +36,15 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			if (Projectile.Name.Contains("Solar"))
 			{
 				Projectile.penetrate = 12;
+			}
+			if (Projectile.Name.Contains("Wave"))
+			{
+				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
+			}
+			if (Projectile.Name.Contains("Nebula"))
+			{
+				Projectile.tileCollide = false;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
@@ -619,6 +623,13 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Solar VoltDriver Shot";
+		}
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
 		}
 	}
 }

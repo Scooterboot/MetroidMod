@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
@@ -18,8 +17,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			base.SetDefaults();
 			Projectile.width = 32;
 			Projectile.height = 32;
-			Projectile.scale = 1f;
-
+			Projectile.scale = 1.5f;
 		}
 
 		public override void AI()
@@ -52,10 +50,10 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 			int dustType = 271;
-			int shootSpeed = 80;
+			int shootSpeed = 70;
 			int distance = 0;
 			int accuracy = 0;
-			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
+			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 20, dustType, 2f);
 			mProjectile.HomingBehavior(Projectile, shootSpeed, distance, accuracy);
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
@@ -69,15 +67,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
-			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 4);
 			return false;
-		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			if (Projectile.Name.Contains("Ice"))
-			{
-				target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(), 300, true);
-			}
 		}
 	}
 	public class IceImperialistShot : ImperialistShot

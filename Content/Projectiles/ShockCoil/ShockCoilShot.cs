@@ -60,14 +60,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			Lead = Main.projectile[(int)P.ai[0]];
 
-			if (Projectile.Name.Contains("Wave"))
+			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
 			{
 				Projectile.tileCollide = false;
-			}
-
-			if (Projectile.Name.Contains("Nebula"))
-			{
-				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
 			}
 			if (P.numUpdates == 0)
             {
@@ -398,7 +394,42 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mp.Energy += damage / 15;
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
+			if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(24, 300);
+				}
+			}
+
+			if (Projectile.Name.Contains("Nova"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(39, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			{
+				string buffName = "IceFreeze";
+
+				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
+			}
+
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
 		}
+
 	}
 	public class IceShockCoilShot : ShockCoilShot
 	{

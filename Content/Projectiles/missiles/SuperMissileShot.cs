@@ -94,6 +94,10 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Projectile.velocity.X = (Projectile.velocity.X * 11f + num244) / 12f;
 				Projectile.velocity.Y = (Projectile.velocity.Y * 11f + num245) / 12f;
 			}
+			if (mProjectile.homing)
+			{
+				mProjectile.HomingBehavior(Projectile);
+			}
 		}
 		public override void Kill(int timeLeft)
 		{
@@ -111,7 +115,12 @@ namespace MetroidMod.Content.Projectiles.missiles
 			P.position.Y = P.position.Y - (float)(P.height / 2);
 
 			//SoundEngine.PlaySound(SoundID.Item14,P.position);
-			
+
+			if (mProjectile.homing)
+			{
+				mProjectile.HomingBehavior(Projectile);
+				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
+			}
 			int dustType = 6;
 			int dustType2 = 30;
 			float scale = 1f;
