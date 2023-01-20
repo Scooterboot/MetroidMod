@@ -1509,7 +1509,7 @@ namespace MetroidMod.Content.Items.Weapons
 							if (slot4.type == wi)
 							{
 								shot = "WideVoltDriverShot";
-								chargeShot = "WideBeamVoltDriverChargeShot";
+								chargeShot = "WideVoltDriverChargeShot";
 
 								if (slot5.type == nv)
 								{
@@ -1915,7 +1915,6 @@ namespace MetroidMod.Content.Items.Weapons
 							if (slot4.type == sp)
 							{
 								shot = "SpazerImperialistShot";
-								chargeShot = "SpazerImperialistChargeShot";
 
 								if (slot5.type == plG)
 								{
@@ -2162,7 +2161,6 @@ namespace MetroidMod.Content.Items.Weapons
 							if (slot3.type == nb)
 							{
 								shot = "NebulaImperialistShot";
-								chargeShot = "NebulaImperialistChargeShot";
 
 								if (slot4.type == vt)
 								{
