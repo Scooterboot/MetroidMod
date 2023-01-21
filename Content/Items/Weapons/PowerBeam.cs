@@ -273,6 +273,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ShotSound = null;
 			ChargeShotSound = null;
 
+			isSpray = false;
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);

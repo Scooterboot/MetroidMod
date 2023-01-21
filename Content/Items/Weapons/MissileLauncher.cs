@@ -239,6 +239,7 @@ namespace MetroidMod.Content.Items.Weapons
 			useFlameSounds = false;
 			useVortexSounds = false;
 
+			isHoming = false;
 			isShotgun = false;
 			shotgunAmt = 5;
 
