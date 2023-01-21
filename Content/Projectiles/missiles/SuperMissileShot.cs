@@ -115,6 +115,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			P.position.Y = P.position.Y - (float)(P.height / 2);
 
 			//SoundEngine.PlaySound(SoundID.Item14,P.position);
+
 			if (mProjectile.homing)
 			{
 				mProjectile.HomingBehavior(Projectile);

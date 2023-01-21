@@ -87,6 +87,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 			//Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplode,Projectile.position);
+
 			if (mProjectile.homing)
 			{
 				mProjectile.HomingBehavior(Projectile);

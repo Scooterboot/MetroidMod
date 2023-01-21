@@ -167,6 +167,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		float comboKnockBack = 5.5f;
 
+		bool isHoming = false;
 		bool isCharge = false;
 		bool isSeeker = false;
 		int isHeldCombo = 0;
@@ -177,7 +178,6 @@ namespace MetroidMod.Content.Items.Weapons
 		bool useFlameSounds = false;
 		bool useVortexSounds = false;
 
-		bool isHoming = false;
 		bool isShotgun = false;
 		int shotgunAmt = 5;
 
@@ -313,8 +313,8 @@ namespace MetroidMod.Content.Items.Weapons
 			}
             if (slot1.type == hm)
             {
-				chargeShot = shot;
 				isHoming = true;
+				chargeShot = shot;
                 chargeUpSound = "ChargeStartup_HomingMissile";
                 chargeShotSound = "HomingMissileShoot";
                 chargeTex = "ChargeLead_Spazer";

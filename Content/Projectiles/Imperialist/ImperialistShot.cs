@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
@@ -18,16 +17,11 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			base.SetDefaults();
 			Projectile.width = 32;
 			Projectile.height = 32;
-			Projectile.scale = 2f;
-
+			Projectile.scale = 1.5f;
 		}
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Wave"))
-			{
-				Projectile.tileCollide = false;
-			}
 			if (Projectile.Name.Contains("Green"))
 			{
 				Projectile.penetrate = 6;
@@ -40,27 +34,29 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			{
 				Projectile.penetrate = 12;
 			}
-			if (Projectile.Name.Contains("Spazer"))
+			if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Vortex"))
 			{
+				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 				mProjectile.amplitude = 5f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
+			}
+			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
+			{
+				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 			int dustType = 271;
-			int shootSpeed = 80;
+			int shootSpeed = 70;
 			int distance = 0;
 			int accuracy = 0;
-			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
+			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 20, dustType, 2f);
 			mProjectile.HomingBehavior(Projectile, shootSpeed, distance, accuracy);
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
-			if (Projectile.Name.Contains("Spazer"))
-			{
-				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-			}
 		}
 
 		public override void Kill(int timeLeft)
@@ -72,29 +68,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			if (Projectile.Name.Contains("Ice"))
-			{
-				target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(), 300, true);
-			}
-		}
-	}
-    public class SpazerImperialistShot : ImperialistShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer Imperialist Shot";
-        }
-    }
-	public class WaveImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Imperialist Shot";
 		}
 	}
 	public class IceImperialistShot : ImperialistShot
@@ -113,12 +86,156 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Ice Wave Imperialist Shot";
 		}
 	}
-	public class SpazerWaveIceImperialistShot : ImperialistShot
+	public class IceWaveSpazerImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Spazer Wave Ice Imperialist Shot";
+			Projectile.Name = "Ice Wave Spazer Imperialist Shot";
+		}
+	}
+	public class IceWaveSpazerPlasmaGreenImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Spazer Plasma Green Imperialist Shot";
+		}
+	}
+	public class IceWaveSpazerPlasmaRedImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Spazer Plasma Red Imperialist Shot";
+		}
+	}
+	public class IceWavePlasmaGreenImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Plasma Green Imperialist Shot";
+		}
+	}
+	public class IceWavePlasmaRedImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Plasma Red Imperialist Shot";
+		}
+	}
+	public class IceSpazerImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Spazer Imperialist Shot";
+		}
+	}
+	public class IceSpazerPlasmaGreenImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Spazer Plasma Green Imperialist Shot";
+		}
+	}
+	public class IceSpazerPlasmaRedImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Spazer Plasma Red Imperialist Shot";
+		}
+	}
+	public class IcePlasmaGreenImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Green Imperialist Shot";
+		}
+	}
+	public class IcePlasmaRedImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Red Imperialist Shot";
+		}
+	}
+	public class WaveImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Imperialist Shot";
+		}
+	}
+	public class WaveSpazerImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Spazer Imperialist Shot";
+		}
+	}
+	public class WaveSpazerPlasmaGreenImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Spazer Plasma Green Imperialist Shot";
+		}
+	}
+	public class WaveSpazerPlasmaRedImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Spazer Plasma Red Imperialist Shot";
+		}
+	}
+	public class WavePlasmaGreenImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Plasma Green Imperialist Shot";
+		}
+	}
+	public class WavePlasmaRedImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Plasma Red Imperialist Shot";
+		}
+	}
+	public class SpazerImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Spazer Imperialist Shot";
+		}
+	}
+	public class SpazerPlasmaGreenImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Spazer Plasma Green Imperialist Shot";
+		}
+	}
+	public class SpazerPlasmaRedImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Spazer Plasma Red Imperialist Shot";
 		}
 	}
 	public class PlasmaGreenImperialistShot : ImperialistShot
@@ -126,63 +243,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Green Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenSpazerImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Spazer Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenSpazerWaveImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Spazer Wave Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenWaveImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Wave Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenIceWaveSpazerImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Ice Wave Spazer Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenIceWaveImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Ice Wave Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenIceSpazerImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Ice Spazer Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenIceImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Ice Imperialist Shot";
+			Projectile.Name = "Plasma Red Imperialist Shot";
 		}
 	}
 	public class PlasmaRedImperialistShot : ImperialistShot
@@ -193,60 +254,228 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Plasma Red Imperialist Shot";
 		}
 	}
-	public class PlasmaRedSpazerImperialistShot : ImperialistShot
+	public class IceV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Spazer Imperialist Shot";
+			Projectile.Name = "Ice V2 Imperialist Shot";
 		}
 	}
-	public class PlasmaRedSpazerWaveImperialistShot : ImperialistShot
+	public class IceWaveV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Spazer Wave Imperialist Shot";
+			Projectile.Name = "Ice Wave V2 Imperialist Shot";
 		}
 	}
-	public class PlasmaRedWaveImperialistShot : ImperialistShot
+	public class IceWaveWideImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Wave Imperialist Shot";
+			Projectile.Name = "Ice Wave Wide Imperialist Shot";
 		}
 	}
-	public class PlasmaRedIceWaveSpazerImperialistShot : ImperialistShot
+	public class IceWaveWideNovaImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Ice Wave Spazer Imperialist Shot";
+			Projectile.Name = "Ice Wave Wide Nova Imperialist Shot";
 		}
 	}
-	public class PlasmaRedIceWaveImperialistShot : ImperialistShot
+	public class IceWaveWidePlasmaGreenV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Ice Wave Imperialist Shot";
+			Projectile.Name = "Ice Wave Wide Plasma Green V2 Imperialist Shot";
 		}
 	}
-	public class PlasmaRedIceSpazerImperialistShot : ImperialistShot
+	public class IceWaveWidePlasmaRedV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Ice Spazer Imperialist Shot";
+			Projectile.Name = "Ice Wave Wide Plasma Red V2 Imperialist Shot";
 		}
 	}
-	public class PlasmaRedIceImperialistShot : ImperialistShot
+	public class IceWaveNovaImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Ice Imperialist Shot";
+			Projectile.Name = "Ice Wave Nova Imperialist Shot";
+		}
+	}
+	public class IceWavePlasmaGreenV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Plasma Green V2 Imperialist Shot";
+		}
+	}
+	public class IceWavePlasmaRedV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Plasma Red V2 Imperialist Shot";
+		}
+	}
+	public class IceWideImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wide Imperialist Shot";
+		}
+	}
+	public class IceWideNovaImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wide Nova Imperialist Shot";
+		}
+	}
+	public class IceWidePlasmaGreenV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wide Plasma Green V2 Imperialist Shot";
+		}
+	}
+	public class IceWidePlasmaRedV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wide Plasma Red V2 Imperialist Shot";
+		}
+	}
+	public class IceNovaImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Nova Imperialist Shot";
+		}
+	}
+	public class IcePlasmaGreenV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Green V2 Imperialist Shot";
+		}
+	}
+	public class IcePlasmaRedV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Red V2 Imperialist Shot";
+		}
+	}
+	public class WaveWideImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Wide Imperialist Shot";
+		}
+	}
+	public class WaveV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave V2 Imperialist Shot";
+		}
+	}
+	public class WaveWideNovaImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Wide Nova Imperialist Shot";
+		}
+	}
+	public class WaveWidePlasmaGreenV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Wide Plasma Green V2 Imperialist Shot";
+		}
+	}
+	public class WaveWidePlasmaRedV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Wide Plasma Red V2 Imperialist Shot";
+		}
+	}
+	public class WaveNovaImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Nova Imperialist Shot";
+		}
+	}
+	public class WavePlasmaGreenV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Plasma Green V2 Imperialist Shot";
+		}
+	}
+	public class WavePlasmaRedV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Plasma Red V2 Imperialist Shot";
+		}
+	}
+	public class WideImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wide Imperialist Shot";
+		}
+	}
+	public class WideNovaImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wide Nova Imperialist Shot";
+		}
+	}
+	public class WidePlasmaGreenV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wide Plasma Green V2 Imperialist Shot";
+		}
+	}
+	public class WidePlasmaRedV2ImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wide Plasma Red V2 Imperialist Shot";
 		}
 	}
 	public class NovaImperialistShot : ImperialistShot
@@ -257,60 +486,132 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Nova Imperialist Shot";
 		}
 	}
-	public class NovaSpazerImperialistShot : ImperialistShot
+	public class PlasmaGreenV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Spazer Imperialist Shot";
+			Projectile.Name = "Plasma Green V2 Imperialist Shot";
 		}
 	}
-	public class NovaSpazerWaveImperialistShot : ImperialistShot
+	public class PlasmaRedV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Spazer Wave Imperialist Shot";
+			Projectile.Name = "Plasma Red V2 Imperialist Shot";
 		}
 	}
-	public class NovaWaveImperialistShot : ImperialistShot
+	public class StardustImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Wave Imperialist Shot";
+			Projectile.Name = "Stardust Imperialist Shot";
 		}
 	}
-	public class NovaIceWaveSpazerImperialistShot : ImperialistShot
+	public class StardustNebulaImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Ice Wave Spazer Imperialist Shot";
+			Projectile.Name = "Stardust Nebula Imperialist Shot";
 		}
 	}
-	public class NovaIceWaveImperialistShot : ImperialistShot
+	public class StardustNebulaVortexImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Ice Wave Imperialist Shot";
+			Projectile.Name = "Stardust Nebula Vortex Imperialist Shot";
 		}
 	}
-	public class NovaIceSpazerImperialistShot : ImperialistShot
+	public class StardustNebulaVortexSolarImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Ice Spazer Imperialist Shot";
+			Projectile.Name = "Stardust Nebula Vortex Solar Imperialist Shot";
 		}
 	}
-	public class NovaIceImperialistShot : ImperialistShot
+	public class StardustNebulaSolarImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Ice Imperialist Shot";
+			Projectile.Name = "Stardust Nebula Solar Imperialist Shot";
+		}
+	}
+	public class StardustVortexImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Vortex Imperialist Shot";
+		}
+	}
+	public class StardustVortexSolarImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Vortex Solar Imperialist Shot";
+		}
+	}
+	public class StardustSolarImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Solar Imperialist Shot";
+		}
+	}
+	public class NebulaImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Imperialist Shot";
+		}
+	}
+	public class NebulaVortexImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Vortex Imperialist Shot";
+		}
+	}
+	public class NebulaVortexSolarImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Vortex Solar Imperialist Shot";
+		}
+	}
+	public class NebulaSolarImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Solar Imperialist Shot";
+		}
+	}
+	public class VortexImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Vortex Imperialist Shot";
+		}
+	}
+	public class VortexSolarImperialistShot : ImperialistShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Vortex Solar Imperialist Shot";
 		}
 	}
 	public class SolarImperialistShot : ImperialistShot
@@ -321,60 +622,5 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Solar Imperialist Shot";
 		}
 	}
-	public class SolarSpazerImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Spazer Imperialist Shot";
-		}
-	}
-	public class SolarSpazerWaveImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Spazer Wave Imperialist Shot";
-		}
-	}
-	public class SolarWaveImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Wave Imperialist Shot";
-		}
-	}
-	public class SolarIceWaveSpazerImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Ice Wave Spazer Imperialist Shot";
-		}
-	}
-	public class SolarIceWaveImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Ice Wave Imperialist Shot";
-		}
-	}
-	public class SolarIceSpazerImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Ice Spazer Imperialist Shot";
-		}
-	}
-	public class SolarIceImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Ice Imperialist Shot";
-		}
-	}
 }
+

@@ -36,9 +36,9 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
         NPC target;
 
-        const float Max_Range = 200f;
+        const float Max_Range = 300f;
         float range = Max_Range;
-        const float Max_Distance = 200f;
+        const float Max_Distance = 300f;
         float distance = Max_Distance;
 
         Vector2 oPos;
@@ -60,11 +60,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			Lead = Main.projectile[(int)P.ai[0]];
 
-			if (Projectile.Name.Contains("Wave"))
+			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
 			{
 				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
 			}
-
 			if (P.numUpdates == 0)
             {
                 P.frame++;
@@ -394,15 +394,42 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mp.Energy += damage / 15;
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
+			if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(24, 300);
+				}
+			}
+
+			if (Projectile.Name.Contains("Nova"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(39, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			{
+				string buffName = "IceFreeze";
+
+				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
+			}
+
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
 		}
-	}
-	public class WaveShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave ShockCoil Shot";
-		}
+
 	}
 	public class IceShockCoilShot : ShockCoilShot
 	{
@@ -420,68 +447,36 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Projectile.Name = "Ice Wave ShockCoil Shot";
 		}
 	}
-	public class NovaIceShockCoilShot : ShockCoilShot
+	public class IceWavePlasmaRedShockCoilShot : ShockCoilShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Ice ShockCoil Shot";
+			Projectile.Name = "Ice Wave Plasma Red ShockCoil Shot";
 		}
 	}
-	public class SolarIceShockCoilShot : ShockCoilShot
+	public class IcePlasmaRedShockCoilShot : ShockCoilShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Solar Ice ShockCoil Shot";
+			Projectile.Name = "Ice Plasma Red ShockCoil Shot";
 		}
 	}
-	public class NovaIceWaveShockCoilShot : ShockCoilShot
+	public class WaveShockCoilShot : ShockCoilShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Nova Ice Wave ShockCoil Shot";
+			Projectile.Name = "Wave ShockCoil Shot";
 		}
 	}
-	public class SolarIceWaveShockCoilShot : ShockCoilShot
+	public class WavePlasmaRedShockCoilShot : ShockCoilShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Solar Ice Wave ShockCoil Shot";
-		}
-	}
-	public class NovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nova ShockCoil Shot";
-		}
-	}
-	public class NovaWaveShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nova Wave ShockCoil Shot";
-		}
-	}
-	public class SolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar ShockCoil Shot";
-		}
-	}
-	public class SolarWaveShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Wave ShockCoil Shot";
+			Projectile.Name = "Wave Plasma Red ShockCoil Shot";
 		}
 	}
 	public class PlasmaRedShockCoilShot : ShockCoilShot
@@ -492,30 +487,148 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Projectile.Name = "Plasma Red ShockCoil Shot";
 		}
 	}
-	public class PlasmaRedIceShockCoilShot : ShockCoilShot
+	public class IceV2ShockCoilShot : ShockCoilShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Ice ShockCoil Shot";
+			Projectile.Name = "Ice V2 ShockCoil Shot";
 		}
 	}
-	public class PlasmaRedWaveShockCoilShot : ShockCoilShot
+	public class IceWaveV2ShockCoilShot : ShockCoilShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Wave ShockCoil Shot";
+			Projectile.Name = "Ice Wave V2 ShockCoil Shot";
 		}
 	}
-	public class PlasmaRedIceWaveShockCoilShot : ShockCoilShot
+	public class IceWaveNovaShockCoilShot : ShockCoilShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red Ice Wave ShockCoil Shot";
+			Projectile.Name = "Ice Wave Nova ShockCoil Shot";
+		}
+	}
+	public class IceWavePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class IceNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Nova ShockCoil Shot";
+		}
+	}
+	public class IcePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class WaveV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave V2 ShockCoil Shot";
+		}
+	}
+	public class WaveNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Nova ShockCoil Shot";
+		}
+	}
+	public class WavePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class NovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nova ShockCoil Shot";
+		}
+	}
+	public class PlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class StardustShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust ShockCoil Shot";
+		}
+	}
+	public class StardustNebulaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Nebula ShockCoil Shot";
+		}
+	}
+	public class StardustNebulaSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Nebula Solar ShockCoil Shot";
+		}
+	}
+	public class StardustSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Solar ShockCoil Shot";
+		}
+	}
+	public class NebulaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula ShockCoil Shot";
+		}
+	}
+	public class NebulaSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Solar ShockCoil Shot";
+		}
+	}
+	public class SolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Solar ShockCoil Shot";
 		}
 	}
 }
-
-
