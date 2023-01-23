@@ -85,7 +85,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
             oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-            if (O.controlUseItem)
+            /*if (Lead != null && Lead.active)
             {
                 for (int k = 0; k < range; k++)
                 {
@@ -105,7 +105,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                         distance = Math.Min(distance + 1, Max_Distance);
                     }
                 }
-            }
+            }*/
             if (P.owner == Main.myPlayer && !O.dead)
             {
                 P.netUpdate = true;
@@ -392,6 +392,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.statOverheat += ((int)((float)overheat * mp.overheatCost));
 			//mp.overheatDelay = 10;
+
+			Projectile.localNPCHitCooldown = useTime * 7;
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				mp.statCharge = Math.Min(mp.statCharge + 7, MPlayer.maxCharge);
