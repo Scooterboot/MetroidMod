@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			DisplayName.SetDefault("Imperialist");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
-				string.Format("[c/78BE78:3X damage]\n") +
+				string.Format("[c/78BE78:+200% damage]\n") +
 				string.Format("[c/BE7878:+500% overheat use]\n") +
 				string.Format("[c/BE7878:Massive speed reduction]\n"));
 

@@ -13,10 +13,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			DisplayName.SetDefault("OmegaCannon");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
-				string.Format("[c/78BE78:Massive damage]\n") +
-				string.Format("[c/BE7878:Massive overheat use]\n") +
+				string.Format("[c/78BE78:+900% damage]\n") +
+				string.Format("[c/BE7878:+1000% overheat use]\n") +
 				string.Format("[c/BE7878:Slow as the DMV]\n") +
-                string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]"));
+                string.Format("[c/BE7878:Incompatible with wave or green plasma effects]"));
 
             SacrificeTotal = 1;
 		}
