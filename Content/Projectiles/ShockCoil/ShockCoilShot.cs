@@ -9,6 +9,7 @@ using Terraria.Enums;
 using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Projectiles;
+using MetroidMod.Common.GlobalItems;
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
 	public class ShockCoilShot : MProjectile
@@ -27,9 +28,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
             Projectile.scale = 1f;
 			Projectile.penetrate = -1;
             Projectile.extraUpdates = 5;
+			Projectile.usesLocalNPCImmunity = true;
 		}
 
-        Vector2 targetPos;
+		Vector2 targetPos;
         bool setTargetPos = false;
 
         Projectile Lead;
@@ -51,6 +53,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		int ampSyncCooldown = 20;
         float[] amp = new float[3];
         float[] ampDest = new float[3];
+		int useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
 
 		public override void AI()
         {
@@ -79,7 +82,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
             oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-            if (Lead != null && Lead.active)
+            /*if (Lead != null && Lead.active)
             {
                 for (int k = 0; k < range; k++)
                 {
@@ -99,7 +102,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                         distance = Math.Min(distance + 1, Max_Distance);
                     }
                 }
-            }
+            }*/
             if (P.owner == Main.myPlayer && !O.dead)
             {
                 P.netUpdate = true;
@@ -225,7 +228,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			if (O.controlUseItem)
 			{
-				P.timeLeft = 15;
+				P.timeLeft = 5;
 			}
 			else
 			{
@@ -382,6 +385,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			mp.statOverheat += ((int)((float)overheat * mp.overheatCost));
+			Projectile.localNPCHitCooldown = useTime * 7;
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				mp.statCharge = Math.Min(mp.statCharge + 7, MPlayer.maxCharge);
