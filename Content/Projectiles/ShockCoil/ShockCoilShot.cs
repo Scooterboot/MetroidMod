@@ -271,7 +271,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (p.controlUseItem)
 			{
 				DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-				Utils.PlotTileLine(Lead.Center, Projectile.Center, (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
+				Utils.PlotTileLine(p.Center, Projectile.Center, (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
 			}
 		}
 
