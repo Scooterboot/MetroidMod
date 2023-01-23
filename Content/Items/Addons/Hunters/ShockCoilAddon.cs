@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Slot Type: Charge\n" +
 				"Fires a short range electric charge that heals and restores energy when fully charged\n" +
 				"Overheats and charges on enemy damage\n" +
-				string.Format("[c/78BE78:+10% damage]\n") +
+				//string.Format("[c/78BE78:+10% damage]\n") +
 				string.Format("[c/BE7878:Incompatible with green plasma effect]\n") +
 				string.Format("[c/BE7878:Probably still bugged]\n"));
 
@@ -37,7 +37,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = .1f;
+			//mItem.addonDmg = .1f;
 		}
 		public override void AddRecipes()
 		{
