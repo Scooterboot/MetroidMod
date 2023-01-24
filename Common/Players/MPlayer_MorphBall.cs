@@ -474,7 +474,15 @@ namespace MetroidMod.Common.Players
 		public void Drill(Player p, int drill)
 		{
 			bool noBuildFlag = false;
-			for(int i = 0; i < p.buffType.Length; i++)
+			if (p.HeldItem.pick > 0 && ballstate && p.HeldItem.Name != "Nova Laser Drill")
+			{
+				//drill = p.HeldItem.pick;
+				if (Main.mouseLeft && !Player.mouseInterface)
+				{
+					p.controlUseItem = true;
+				}
+			}
+			for (int i = 0; i < p.buffType.Length; i++)
 			{
 				if(p.buffType[i] == BuffID.NoBuilding && p.buffTime[i] > 0)
 				{
