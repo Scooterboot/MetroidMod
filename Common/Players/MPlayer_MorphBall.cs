@@ -476,7 +476,7 @@ namespace MetroidMod.Common.Players
 			bool noBuildFlag = false;
 			if (p.HeldItem.pick > 0 && ballstate && p.HeldItem.Name != "Nova Laser Drill")
 			{
-				//drill = p.HeldItem.pick;
+				p.HeldItem.axe = p.HeldItem.pick;
 				if (Main.mouseLeft && !Player.mouseInterface)
 				{
 					p.controlUseItem = true;
@@ -522,10 +522,10 @@ namespace MetroidMod.Common.Players
 				{
 					if (cooldownbomb == 0 && Main.mouseLeft)
 					{
-						if (drill > 0)
+						/*if (drill > 0)
 						{
 							p.PickTile(Player.tileTargetX, Player.tileTargetY, drill);
-						}
+						}*/
 						cooldownbomb = 5;
 					}
 				}
