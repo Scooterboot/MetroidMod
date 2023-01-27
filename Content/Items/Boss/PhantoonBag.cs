@@ -9,7 +9,7 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag");
+			DisplayName.SetDefault("Treasure Bag (Phantoon)");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 			ItemID.Sets.ItemNoGravity[Item.type] = true;
 

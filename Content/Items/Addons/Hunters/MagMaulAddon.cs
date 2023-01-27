@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Slot Type: Charge\n" +
 				"Shots bounce and roll\n" +
 				"Charge shots explode and ignite\n" +
-				string.Format("[c/78BE78:+30% damage]\n") +
+				string.Format("[c/78BE78:+10% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
                 string.Format("[c/BE7878:Incompatible with wave or ice effects]"));
@@ -38,7 +38,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = 0.30f;
+			mItem.addonDmg = 0.10f;
 			mItem.addonHeat = 1.25f;
 			mItem.addonSpeed = -.45f;
 		}
