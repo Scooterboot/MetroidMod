@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Slot Type: Charge\n" +
 				"Shots bounce and roll\n" +
 				"Charge shots explode and ignite\n" +
-				string.Format("[c/78BE78:+10% damage]\n") +se]\n") +
+				string.Format("[c/78BE78:+10% damage]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
                 string.Format("[c/BE7878:Incompatible with wave or ice effects]"));
 
