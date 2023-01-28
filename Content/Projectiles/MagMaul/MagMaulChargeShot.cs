@@ -82,10 +82,14 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public class SpazerMagMaulChargeShot : MagMaulChargeShot
 		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
 			public override void SetDefaults()
 			{
 				base.SetDefaults();
-				Projectile.Name = "Spazer MagMaul Charge Shot";
 
 				mProjectile.amplitude = 15f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
@@ -94,34 +98,39 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public class NovaMagMaulChargeShot : MagMaulChargeShot
 		{
-			public override void SetDefaults()
+			public override void SetStaticDefaults()
 			{
-				base.SetDefaults();
-				Projectile.Name = "Nova MagMaul Charge Shot";
+				DisplayName.SetDefault("Nova MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
 			}
 		}
 		public class SolarMagMaulChargeShot : MagMaulChargeShot
 		{
-			public override void SetDefaults()
+			public override void SetStaticDefaults()
 			{
-				base.SetDefaults();
-				Projectile.Name = "Solar MagMaul Charge Shot";
+				DisplayName.SetDefault("Solar MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
 			}
 		}
 		public class PlasmaGreenMagMaulChargeShot : MagMaulChargeShot
 		{
-			public override void SetDefaults()
+			public override void SetStaticDefaults()
 			{
-				base.SetDefaults();
-				Projectile.Name = "Plasma Green MagMaul Charge Shot";
+				DisplayName.SetDefault("Plasma Green MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
 			}
 		}
 		public class NovaSpazerMagMaulChargeShot : MagMaulChargeShot
 		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Nova Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
 			public override void SetDefaults()
 			{
 				base.SetDefaults();
-				Projectile.Name = "Nova Spazer MagMaul Charge Shot";
+
 				mProjectile.amplitude = 15f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
 				mProjectile.delay = 4;
@@ -129,10 +138,15 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public class SolarSpazerMagMaulChargeShot : MagMaulChargeShot
 		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Solar Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
 			public override void SetDefaults()
 			{
 				base.SetDefaults();
-				Projectile.Name = "Solar Spazer MagMaul Charge Shot";
+
 				mProjectile.amplitude = 15f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
 				mProjectile.delay = 4;
@@ -140,10 +154,15 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public class PlasmaGreenSpazerMagMaulChargeShot : MagMaulChargeShot
 		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Plasma Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
 			public override void SetDefaults()
 			{
 				base.SetDefaults();
-				Projectile.Name = "Plasma Spazer MagMaul Charge Shot";
+
 				mProjectile.amplitude = 15f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
 				mProjectile.delay = 4;
@@ -151,10 +170,15 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public class PlasmaRedSpazerMagMaulChargeShot : MagMaulChargeShot
 		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Plasma Red Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
 			public override void SetDefaults()
 			{
 				base.SetDefaults();
-				Projectile.Name = "Plasma Red Spazer MagMaul Charge Shot";
+
 				mProjectile.amplitude = 15f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
 				mProjectile.delay = 4;
@@ -162,10 +186,10 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public class PlasmaRedMagMaulChargeShot : MagMaulChargeShot
 		{
-			public override void SetDefaults()
+			public override void SetStaticDefaults()
 			{
-				base.SetDefaults();
-				Projectile.Name = "Plasma Red MagMaul Charge Shot";
+				DisplayName.SetDefault("Plasma Red MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
 			}
 		}
 	}
