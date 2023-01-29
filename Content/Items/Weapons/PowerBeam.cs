@@ -1718,7 +1718,10 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "BattleHammer";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 15;
-
+				if (!slot3.IsAir)
+				{
+					comboError2 = true;
+				}
 				if (slot5.type == plR)
 				{
 					shot = "PlasmaRedBattleHammerShot";
