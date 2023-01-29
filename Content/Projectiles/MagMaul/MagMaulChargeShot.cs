@@ -25,18 +25,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				Projectile.penetrate = 12;
-			}
 			//annoyingly, "if (Projectile.Name.Contains("Spazer"))" doesnt work for charge shots' amplitutde
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
@@ -79,6 +67,14 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.AddBuff(24, 600);
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				target.AddBuff(39, 300);
+			}
 		}
 		public class SpazerMagMaulChargeShot : MagMaulChargeShot
 		{
@@ -112,14 +108,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 				Main.projFrames[Projectile.type] = 2;
 			}
 		}
-		public class PlasmaGreenMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Plasma Green MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-		}
 		public class NovaSpazerMagMaulChargeShot : MagMaulChargeShot
 		{
 			public override void SetStaticDefaults()
@@ -141,22 +129,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			public override void SetStaticDefaults()
 			{
 				DisplayName.SetDefault("Solar Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class PlasmaGreenSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Plasma Spazer MagMaul Charge Shot");
 				Main.projFrames[Projectile.type] = 2;
 			}
 			public override void SetDefaults()
