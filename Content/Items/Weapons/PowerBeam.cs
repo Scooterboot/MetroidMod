@@ -1659,7 +1659,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				if (!slot3.IsAir)
 				{
-					comboError1 = true;
+					comboError2 = true;
 				}
 				if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
 				{
@@ -1718,6 +1718,10 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "BattleHammer";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 15;
+				if (!slot4.IsAir)
+				{
+					comboError3 = true;
+				}
 
 				if (slot5.type == plR)
 				{
