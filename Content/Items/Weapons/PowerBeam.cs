@@ -1718,6 +1718,10 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "BattleHammer";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 15;
+				if (!slot3.IsAir)
+				{
+					comboError2 = true;
+				}
 
 				if (slot5.type == plR)
 				{
@@ -2161,15 +2165,14 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError2 = true;
 				}
+				if (slot5.type == plG)
+				{
+					comboError4 = true;
+				}
 				if (slot5.type == plR)
 				{
 					shot = "PlasmaRedMagMaulShot";
 					chargeShot = "PlasmaRedMagMaulChargeShot";
-				}
-				if (slot5.type == plG)
-				{
-					shot = "PlasmaGreenMagMaulShot";
-					chargeShot = "PlasmaGreenMagMaulChargeShot";
 				}
 				if (slot5.type == nv)
 				{
