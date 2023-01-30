@@ -396,7 +396,7 @@ namespace MetroidMod.Content.Items.Weapons
 								// Ice Spazer Plasma (Red)
 								if (slot5.type == plR)
 								{
-									shot = "IceSpazerPlasmaBeamRedShot";
+									shot = "";
 									chargeShot = "IceSpazerPlasmaBeamRedChargeShot";
 									shotSound = "IceComboSound";
 									dustType = 135;
@@ -1446,7 +1446,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plR)
 							{
-								shot = "IcePlasmaRedVoltDriverV2Shot";
+								shot = "IcePlasmaRedV2VoltDriverShot";
 								chargeShot = "IcePlasmaRedV2VoltDriverChargeShot";
 							}
 						}
@@ -1536,7 +1536,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plR)
 							{
-								shot = "PlasmaRedV2Shot";
+								shot = "PlasmaRedV2VoltDriverShot";
 								chargeShot = "PlasmaRedV2VoltDriverChargeShot";
 							}
 						}
