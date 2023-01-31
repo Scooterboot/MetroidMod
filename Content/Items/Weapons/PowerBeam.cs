@@ -1446,7 +1446,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plR)
 							{
-								shot = "IcePlasmaRedVoltDriverV2Shot";
+								shot = "IcePlasmaRedV2VoltDriverShot";
 								chargeShot = "IcePlasmaRedV2VoltDriverChargeShot";
 							}
 						}
@@ -1536,7 +1536,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plR)
 							{
-								shot = "PlasmaRedV2Shot";
+								shot = "PlasmaRedV2VoltDriverShot";
 								chargeShot = "PlasmaRedV2VoltDriverChargeShot";
 							}
 						}
@@ -1718,11 +1718,14 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "BattleHammer";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 15;
+				if (!slot3.IsAir)
+				{
+					comboError2 = true;
+				}
 				if (!slot4.IsAir)
 				{
 					comboError3 = true;
 				}
-
 				if (slot5.type == plR)
 				{
 					shot = "PlasmaRedBattleHammerShot";
