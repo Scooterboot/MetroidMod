@@ -396,7 +396,7 @@ namespace MetroidMod.Content.Items.Weapons
 								// Ice Spazer Plasma (Red)
 								if (slot5.type == plR)
 								{
-									shot = "";
+									shot = "IceSpazerPlasmaBeamRedShot";
 									chargeShot = "IceSpazerPlasmaBeamRedChargeShot";
 									shotSound = "IceComboSound";
 									dustType = 135;
