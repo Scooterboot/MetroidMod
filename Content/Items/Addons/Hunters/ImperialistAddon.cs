@@ -13,8 +13,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			DisplayName.SetDefault("Imperialist");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
-				string.Format("[c/78BE78:+200% damage]\n") +
-				string.Format("[c/BE7878:+500% overheat use]\n") +
+				string.Format("[c/78BE78:+300% damage]\n") +
+				string.Format("[c/BE7878:+400% overheat use]\n") +
 				string.Format("[c/BE7878:Massive speed reduction]\n"));
 
             SacrificeTotal = 1;
@@ -35,8 +35,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = 3f;
-			mItem.addonHeat = 5f;
+			mItem.addonDmg = 4f;
+			mItem.addonHeat = 4f;
 			mItem.addonSpeed = -.25f;
 		}
 

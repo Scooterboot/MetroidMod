@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 			int dustType = 271;
-			int shootSpeed = 70;
+			int shootSpeed = 60;
 			int distance = 0;
 			int accuracy = 0;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 20, dustType, 2f);

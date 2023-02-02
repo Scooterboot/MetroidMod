@@ -1722,10 +1722,6 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					comboError2 = true;
 				}
-				if (!slot4.IsAir)
-				{
-					comboError3 = true;
-				}
 				if (slot5.type == plR)
 				{
 					shot = "PlasmaRedBattleHammerShot";
