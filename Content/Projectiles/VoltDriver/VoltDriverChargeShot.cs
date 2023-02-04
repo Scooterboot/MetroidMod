@@ -20,10 +20,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.width = 32;
 			Projectile.height = 32;
 			Projectile.scale = 1f;
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
-
 		}
 
 		public override void AI()
@@ -47,8 +43,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			{
 				Projectile.penetrate = 12;
 			}
-			//annoyingly, "if (Projectile.Name.Contains("Spazer"))" doesnt work for charge shots' amplitutde
-			//more annoyingly, vortex shots' amplitude doesnt work at all
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
             if (Projectile.numUpdates == 0)
