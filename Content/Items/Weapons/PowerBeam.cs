@@ -2123,7 +2123,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (slot1.type == mm)
 			{
-				isSpray = true;
 				isCharge = true;
 				shot = "MagMaulShot";
 				chargeShot = "MagMaulChargeShot";
@@ -2136,7 +2135,10 @@ namespace MetroidMod.Content.Items.Weapons
 				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
 				useTime = 20;
-
+				if(slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					isSpray= true;
+				}
 				if (!slot2.IsAir)
 				{
 					comboError1 = true;
@@ -3039,19 +3041,22 @@ namespace MetroidMod.Content.Items.Weapons
 
 			else
 			{
-				for (int i = 0; i < shotAmt; i++)
+				if (!isSpray)
 				{
-					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, i);
-					MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-					mProj.waveDir = waveDir;
-					Main.projectile[shotProj].netUpdate = true;
+					for (int i = 0; i < shotAmt; i++)
+					{
+						int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, i);
+						MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+						mProj.waveDir = waveDir;
+						Main.projectile[shotProj].netUpdate = true;
+					}
 				}
 				if (isSpray && shotAmt > 1)
 				{
-					for (int i = 0; i < shotAmt - 1; i++)
+					for (int i = 0; i < shotAmt; i++)
 					{
 						Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
-						Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+						Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI, 0, i);
 					}
 				}
 			}
@@ -3139,11 +3144,13 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
 								Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), oPos, newVelocity, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), player.whoAmI, 0, i);
+								mp.statOverheat += (int)((float)oHeat * chargeCost);
+								mp.overheatDelay = useTime - 10;
 							}
 						}
 						else if (mp.statCharge > 0)
 						{
-							if (mp.statCharge >= 30)
+							if (mp.statCharge >= 30 && mp.statCharge <= (MPlayer.maxCharge * 0.5))
 							{
 								for (int i = 0; i < shotAmt; i++)
 								{
