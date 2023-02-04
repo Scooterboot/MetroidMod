@@ -26,18 +26,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				Projectile.penetrate = 12;
-			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
@@ -84,14 +72,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			base.SetDefaults();
 			Projectile.Name = "Solar MagMaul Shot";
-		}
-	}
-	public class PlasmaGreenMagMaulShot : MagMaulShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green MagMaul Shot";
 		}
 	}
 	public class PlasmaRedMagMaulShot : MagMaulShot

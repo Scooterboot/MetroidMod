@@ -25,19 +25,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				Projectile.penetrate = 12;
-			}
-			//annoyingly, "if (Projectile.Name.Contains("Spazer"))" doesnt work for charge shots' amplitutde
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Projectile.numUpdates == 0)
@@ -51,10 +38,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			}
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 286, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
-			if (Projectile.Name.Contains("Spazer"))
-			{
-				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-			}
 		}
 		public override void Kill(int timeLeft)
 		{
@@ -80,22 +63,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			target.AddBuff(24, 600);
 		}
-		public class SpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
 		public class NovaMagMaulChargeShot : MagMaulChargeShot
 		{
 			public override void SetStaticDefaults()
@@ -110,78 +77,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			{
 				DisplayName.SetDefault("Solar MagMaul Charge Shot");
 				Main.projFrames[Projectile.type] = 2;
-			}
-		}
-		public class PlasmaGreenMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Plasma Green MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-		}
-		public class NovaSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Nova Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class SolarSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Solar Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class PlasmaGreenSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Plasma Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class PlasmaRedSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Plasma Red Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
 			}
 		}
 		public class PlasmaRedMagMaulChargeShot : MagMaulChargeShot
