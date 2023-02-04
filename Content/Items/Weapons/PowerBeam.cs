@@ -1184,7 +1184,6 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (slot1.type == vd)
 			{
-				isSpray = true;
 				isCharge = true;
 				shot = "VoltDriverShot";
 				chargeShot = "VoltDriverChargeShot";
@@ -1196,7 +1195,10 @@ namespace MetroidMod.Content.Items.Weapons
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
-
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					isSpray = true;
+				}
 				if (slot2.type == ic)
 				{
 					shot = "IceVoltDriverShot";
@@ -1643,7 +1645,6 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (slot1.type == jd)
 			{
-				isSpray = true;
 				isCharge = true;
 				shot = "JudicatorShot";
 				chargeShot = "JudicatorChargeShot";
@@ -1656,7 +1657,10 @@ namespace MetroidMod.Content.Items.Weapons
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
-
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					isSpray = true;
+				}
 				if (!slot3.IsAir)
 				{
 					comboError1 = true;
@@ -1696,13 +1700,15 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (slot1.type == bh)
 			{
-				isSpray = true;
 				shot = "BattleHammerShot";
 				shotSound = "BattleHammerAffinitySound";
 				texture = "BattleHammer";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 15;
-
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					isSpray = true;
+				}
 				if (slot5.type == plR)
 				{
 					shot = "PlasmaRedBattleHammerShot";
@@ -2486,13 +2492,15 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (slot1.type == oc)
 			{
-				isSpray = true;
 				shot = "OmegaCannonShot";
 				shotSound = "OmegaCannonShotSound";
 				texture = "OmegaCannon";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 60;
-
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					isSpray = true;
+				}
 				if (!slot3.IsAir)
 				{
 					comboError2 = true;
