@@ -87,54 +87,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 				Main.projFrames[Projectile.type] = 2;
 			}
 		}
-		public class NovaSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Nova Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class SolarSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Solar Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class PlasmaRedSpazerMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Plasma Red Spazer MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-
-				mProjectile.amplitude = 15f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
 		public class PlasmaRedMagMaulChargeShot : MagMaulChargeShot
 		{
 			public override void SetStaticDefaults()
