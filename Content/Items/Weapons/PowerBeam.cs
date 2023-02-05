@@ -1449,7 +1449,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plR)
 							{
-								shot = "IcePlasmaRedVoltDriverV2Shot";
+								shot = "IcePlasmaRedV2VoltDriverShot";
 								chargeShot = "IcePlasmaRedV2VoltDriverChargeShot";
 							}
 						}
@@ -1539,7 +1539,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plR)
 							{
-								shot = "PlasmaRedV2Shot";
+								shot = "PlasmaRedV2VoltDriverShot";
 								chargeShot = "PlasmaRedV2VoltDriverChargeShot";
 							}
 						}
@@ -1664,7 +1664,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				if (!slot3.IsAir)
 				{
-					comboError1 = true;
+					comboError2 = true;
 				}
 				if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
 				{

@@ -28,6 +28,7 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addAlternate(1); 
 			TileObjectData.addTile(Type);
 			ModTranslation name = CreateMapEntryName();
+			Main.tileOreFinderPriority[Type] = 806;
 			name.SetDefault("Chozo Statue");
 			AddMapEntry(new Color(90, 90, 90), name);
 			DustType = 1;

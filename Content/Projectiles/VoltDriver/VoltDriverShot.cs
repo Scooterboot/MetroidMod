@@ -129,7 +129,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Ice Wave Plasma Red VoltDriver Shot";
 		}
 	}
-	public class IceSpazerDriverShot : VoltDriverShot
+	public class IceSpazerVoltDriverShot : VoltDriverShot
 	{
 		public override void SetDefaults()
 		{
@@ -246,7 +246,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.Name = "Plasma Red VoltDriver Shot";
+			Projectile.Name = "Plasma Green VoltDriver Shot";
 		}
 	}
 	public class PlasmaRedVoltDriverShot : VoltDriverShot

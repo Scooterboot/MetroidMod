@@ -62,6 +62,14 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.AddBuff(24, 600);
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				target.AddBuff(39, 300);
+			}
 		}
 		public class NovaMagMaulChargeShot : MagMaulChargeShot
 		{
@@ -77,6 +85,54 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			{
 				DisplayName.SetDefault("Solar MagMaul Charge Shot");
 				Main.projFrames[Projectile.type] = 2;
+			}
+		}
+		public class NovaSpazerMagMaulChargeShot : MagMaulChargeShot
+		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Nova Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+
+				mProjectile.amplitude = 15f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
+				mProjectile.delay = 4;
+			}
+		}
+		public class SolarSpazerMagMaulChargeShot : MagMaulChargeShot
+		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Solar Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+
+				mProjectile.amplitude = 15f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
+				mProjectile.delay = 4;
+			}
+		}
+		public class PlasmaRedSpazerMagMaulChargeShot : MagMaulChargeShot
+		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Plasma Red Spazer MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+
+				mProjectile.amplitude = 15f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
+				mProjectile.delay = 4;
 			}
 		}
 		public class PlasmaRedMagMaulChargeShot : MagMaulChargeShot

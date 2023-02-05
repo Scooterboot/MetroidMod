@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Charge shots explode and ignite\n" +
 				string.Format("[c/78BE78:+10% damage]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
-                string.Format("[c/BE7878:Incompatible with wave or ice effects]"));
+                string.Format("[c/BE7878:Incompatible with wave, ice, or green plasma effects]"));
 
             SacrificeTotal = 1;
 		}
