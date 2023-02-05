@@ -36,7 +36,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			{
 				Projectile.penetrate = 12;
 			}
-			//annoyingly, "if (Projectile.Name.Contains("Spazer"))" doesnt work for charge shots' amplitutde
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
@@ -46,18 +45,11 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			if (Projectile.Name.Contains("Spazer"))
-			{
-				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (Projectile.penetrate <= 0)
-			{
-				Projectile.Kill();
-			}
+			Projectile.Kill();
 			return false;
 		}
 		public override void Kill(int timeLeft)
@@ -79,13 +71,11 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
 			int ft = Projectile.NewProjectile(entitySource, pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<JudicatorFreeze>(), 0, 0f, P.owner);
 			Projectile.Damage();
-
-			Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorAffinityChargeShot, P.Center);
-			Projectile.NewProjectile(entitySource, pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<JudicatorShot>(), 0, 0f, P.owner);
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
+			SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorFreeze, Projectile.position);
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(), 300, true);
 			target.AddBuff(44, 300);
 		}
@@ -94,55 +84,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-		public class SpazerJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Spazer Judicator Charge Shot";
-
-				mProjectile.amplitude = 25f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class SpazerNovaJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Spazer Nova Judicator Charge Shot";
-
-				mProjectile.amplitude = 25f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class SpazerPlasmaGreenJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Spazer Plasma Green Judicator Charge Shot";
-
-				mProjectile.amplitude = 25f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-			}
-		}
-		public class SpazerSolarJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Spazer Solar Judicator Charge Shot";
-
-				mProjectile.amplitude = 25f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-				Projectile.penetrate = 12;
-			}
 		}
 		public class NovaJudicatorChargeShot : JudicatorChargeShot
 		{
