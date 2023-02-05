@@ -274,6 +274,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ChargeShotSound = null;
 
 			isSpray = false;
+			isShock = false;
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);
@@ -1708,6 +1709,10 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 				{
 					isSpray = true;
+				}
+				if (!slot3.IsAir)
+				{
+					comboError1 = true;
 				}
 				if (slot5.type == plR)
 				{
