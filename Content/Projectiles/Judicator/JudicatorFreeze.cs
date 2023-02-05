@@ -96,7 +96,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 										{
 											if(freezeDelay[i] <= 0)
 											{
-												SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorFreeze, Projectile.position);
 												npc.AddBuff(ModContent.BuffType<Buffs.IceFreeze>(),600,true);
 												npc.AddBuff(44, 300);
 												freezeDelay[i] = 20;

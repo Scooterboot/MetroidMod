@@ -20,15 +20,16 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.width = 32;
 			Projectile.height = 32;
 			Projectile.scale = 1f;
-
-        }
+		}
 
 		public override void AI()
 		{
+			int shootSpeed = 2;
 			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
+				mProjectile.HomingBehavior(Projectile, shootSpeed);
 			}
 			if (Projectile.Name.Contains("Green"))
 			{
@@ -42,7 +43,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			{
 				Projectile.penetrate = 12;
 			}
-			//annoyingly, "if (Projectile.Name.Contains("Spazer"))" doesnt work for charge shots' amplitutde
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
             if (Projectile.numUpdates == 0)
@@ -55,20 +55,10 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 				Projectile.frame = 0;
 			}
 			int dustType = 269;
-			int shootSpeed = 2;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
 			mProjectile.HomingBehavior(Projectile, shootSpeed);
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
-			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
-			{
-				Projectile.tileCollide = false;
-				mProjectile.WaveBehavior(Projectile);
-			}
-			if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Vortex"))
-			{
-				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-			}
 		}
 
 		public override void Kill(int timeLeft)
@@ -93,7 +83,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
 			target.AddBuff (31, 180);
 		}
@@ -120,9 +109,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Spazer VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWaveSpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -131,9 +117,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Spazer Plasma Green VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWaveSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -142,9 +125,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Spazer Plasma Red VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWavePlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -169,9 +149,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceSpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -180,9 +157,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Plasma Green VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -191,9 +165,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Plasma Red VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IcePlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -226,9 +197,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Spazer VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WaveSpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -237,9 +205,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Spazer Plasma Green VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WaveSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -248,9 +213,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Spazer Plasma Red VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WavePlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -275,9 +237,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Spazer VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class SpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -286,9 +245,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Spazer Plasma Green VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class SpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -297,9 +253,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Spazer Plasma Red VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class PlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
@@ -332,9 +285,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Wide VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWaveWideNovaVoltDriverChargeShot : VoltDriverChargeShot
@@ -343,9 +293,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Wide Nova VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWaveWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -354,9 +301,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Wide Plasma Green V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWaveWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -365,9 +309,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Wide Plasma Red V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWaveNovaVoltDriverChargeShot : VoltDriverChargeShot
@@ -400,9 +341,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wide VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWideNovaVoltDriverChargeShot : VoltDriverChargeShot
@@ -411,9 +349,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wide Nova VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -422,9 +357,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wide Plasma Green V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -433,9 +365,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wide Plasma Red V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class IceNovaVoltDriverChargeShot : VoltDriverChargeShot
@@ -468,9 +397,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Wide VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WaveV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -487,9 +413,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Wide Nova VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WaveWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -498,9 +421,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Wide Plasma Green V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WaveWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -509,9 +429,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Wide Plasma Red V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WaveNovaVoltDriverChargeShot : VoltDriverChargeShot
@@ -544,9 +461,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WideNovaVoltDriverChargeShot : VoltDriverChargeShot
@@ -555,9 +469,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide Nova VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -566,9 +477,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide Plasma Green V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class WidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -577,9 +485,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide Plasma Red V2 VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class NovaVoltDriverChargeShot : VoltDriverChargeShot
@@ -628,9 +533,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Nebula Vortex VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class StardustNebulaVortexSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -639,9 +541,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Nebula Vortex Solar VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class StardustNebulaSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -650,9 +549,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Nebula Solar VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class StardustVortexVoltDriverChargeShot : VoltDriverChargeShot
@@ -661,9 +557,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Vortex VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class StardustVortexSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -672,9 +565,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Vortex Solar VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class StardustSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -699,9 +589,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nebula Vortex VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class NebulaVortexSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -710,9 +597,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nebula Vortex Solar VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class NebulaSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -729,9 +613,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Vortex VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class VortexSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -740,9 +621,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Vortex Solar VoltDriver Charge Shot";
-			mProjectile.amplitude = 25f * Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 4;
 		}
 	}
 	public class SolarVoltDriverChargeShot : VoltDriverChargeShot
