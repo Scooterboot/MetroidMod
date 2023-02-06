@@ -3157,20 +3157,32 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
 								Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), oPos, newVelocity, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), player.whoAmI, 0, i);
-								mp.statOverheat += (int)((float)oHeat * chargeCost);
-								mp.overheatDelay = useTime - 10;
 							}
+							mp.statOverheat += (int)((float)oHeat * chargeCost);
+							mp.overheatDelay = useTime - 10;
 						}
 						else if (mp.statCharge > 0)
 						{
 							if (mp.statCharge >= 30 && mp.statCharge <= (MPlayer.maxCharge * 0.5))
 							{
-								for (int i = 0; i < shotAmt; i++)
+								if (!isSpray)
+								{ 
+									for (int i = 0; i < shotAmt; i++)
+									{
+										int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
+										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+										mProj.waveDir = waveDir;
+										mProj.Projectile.netUpdate = true;
+									}
+								}
+								if (isSpray)
 								{
-									int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
-									MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-									mProj.waveDir = waveDir;
-									mProj.Projectile.netUpdate = true;
+									for (int i = 0; i < shotAmt; i++)
+									{
+										Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
+										Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), oPos, newVelocity, Mod.Find<ModProjectile>(shot).Type, (int)((float)damage * dmgMult), player.whoAmI, 0, i);
+									}
+
 								}
 
 								SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
