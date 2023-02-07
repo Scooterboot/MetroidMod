@@ -15,9 +15,11 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 32;
+			Projectile.width = 8;
 			Projectile.height = 32;
 			Projectile.scale = 1.5f;
+			Projectile.extraUpdates = 60;
+			Projectile.tileCollide = true;
 		}
 
 		public override void AI()
@@ -37,26 +39,25 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Vortex"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-				mProjectile.amplitude = 5f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
+				mProjectile.amplitude = 15f * Projectile.scale;
+				mProjectile.delay = 0;
 			}
 			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
+				mProjectile.wavesPerSecond = 0f;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
-			int dustType = 271;
-			int shootSpeed = 60;
-			int distance = 0;
-			int accuracy = 0;
+			int dustType = 235;
+			Main.dust[dustType].noGravity = true;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 20, dustType, 2f);
-			mProjectile.HomingBehavior(Projectile, shootSpeed, distance, accuracy);
-			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
-			Main.dust[dust].noGravity = true;
+			/*int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
+			int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
+			Main.dust[dust2].noGravity = true;*/
 		}
 
 		public override void Kill(int timeLeft)

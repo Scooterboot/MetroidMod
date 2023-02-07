@@ -3156,7 +3156,10 @@ namespace MetroidMod.Content.Items.Weapons
 							for (int i = 0; i < chargeShotAmt; i++)
 							{
 								Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
-								Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), oPos, newVelocity, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), player.whoAmI, 0, i);
+								int chargeProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, newVelocity.X, newVelocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
+								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
+								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9));
+								mProj.Projectile.netUpdate2 = true;
 							}
 							mp.statOverheat += (int)((float)oHeat * chargeCost);
 							mp.overheatDelay = useTime - 10;
@@ -3175,12 +3178,14 @@ namespace MetroidMod.Content.Items.Weapons
 										mProj.Projectile.netUpdate = true;
 									}
 								}
-								if (isSpray)
+								if (isSpray && shotAmt > 1)
 								{
 									for (int i = 0; i < shotAmt; i++)
 									{
-										Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
-										Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), oPos, newVelocity, Mod.Find<ModProjectile>(shot).Type, (int)((float)damage * dmgMult), player.whoAmI, 0, i);
+										Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+										int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, newVelocity.X, newVelocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
+										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+										mProj.Projectile.netUpdate = true;
 									}
 
 								}

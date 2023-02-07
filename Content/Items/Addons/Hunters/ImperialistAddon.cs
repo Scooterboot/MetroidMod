@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				string.Format("[c/78BE78:+300% damage]\n") +
-				string.Format("[c/BE7878:+400% overheat use]\n") +
+				string.Format("[c/BE7878:+500% overheat use]\n") +
 				string.Format("[c/BE7878:Massive speed reduction]\n"));
 
             SacrificeTotal = 1;
@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.addonDmg = 4f;
-			mItem.addonHeat = 4f;
+			mItem.addonHeat = 5f;
 			mItem.addonSpeed = -.25f;
 		}
 
