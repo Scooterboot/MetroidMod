@@ -11,6 +11,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Imperialist Shot");
+			Main.projFrames[Projectile.type] = 5;
 		}
 		public override void SetDefaults()
 		{
@@ -24,7 +25,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Green"))
+			/*if (Projectile.Name.Contains("Green"))
 			{
 				Projectile.penetrate = 6;
 			}
@@ -35,7 +36,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			if (Projectile.Name.Contains("Solar"))
 			{
 				Projectile.penetrate = 12;
-			}
+			}*/
 			if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Vortex"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
@@ -59,7 +60,41 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust2].noGravity = true;*/
 		}
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (Projectile.Name.Contains("Plasma"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(24, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(39, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			{
+				string buffName = "IceFreeze";
+				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
+			}
 
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
+		}
 		public override void Kill(int timeLeft)
 		{
 			int dustType = 64;
@@ -95,28 +130,12 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Ice Wave Spazer Imperialist Shot";
 		}
 	}
-	public class IceWaveSpazerPlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Spazer Plasma Green Imperialist Shot";
-		}
-	}
 	public class IceWaveSpazerPlasmaRedImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Spazer Plasma Red Imperialist Shot";
-		}
-	}
-	public class IceWavePlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Plasma Green Imperialist Shot";
 		}
 	}
 	public class IceWavePlasmaRedImperialistShot : ImperialistShot
@@ -135,28 +154,12 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Ice Spazer Imperialist Shot";
 		}
 	}
-	public class IceSpazerPlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Spazer Plasma Green Imperialist Shot";
-		}
-	}
 	public class IceSpazerPlasmaRedImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Plasma Red Imperialist Shot";
-		}
-	}
-	public class IcePlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Green Imperialist Shot";
 		}
 	}
 	public class IcePlasmaRedImperialistShot : ImperialistShot
@@ -183,28 +186,12 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Wave Spazer Imperialist Shot";
 		}
 	}
-	public class WaveSpazerPlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Spazer Plasma Green Imperialist Shot";
-		}
-	}
 	public class WaveSpazerPlasmaRedImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Spazer Plasma Red Imperialist Shot";
-		}
-	}
-	public class WavePlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Plasma Green Imperialist Shot";
 		}
 	}
 	public class WavePlasmaRedImperialistShot : ImperialistShot
@@ -223,28 +210,12 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Spazer Imperialist Shot";
 		}
 	}
-	public class SpazerPlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Spazer Plasma Green Imperialist Shot";
-		}
-	}
 	public class SpazerPlasmaRedImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Spazer Plasma Red Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Red Imperialist Shot";
 		}
 	}
 	public class PlasmaRedImperialistShot : ImperialistShot
@@ -287,14 +258,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Ice Wave Wide Nova Imperialist Shot";
 		}
 	}
-	public class IceWaveWidePlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Wide Plasma Green V2 Imperialist Shot";
-		}
-	}
 	public class IceWaveWidePlasmaRedV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
@@ -309,14 +272,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Nova Imperialist Shot";
-		}
-	}
-	public class IceWavePlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Plasma Green V2 Imperialist Shot";
 		}
 	}
 	public class IceWavePlasmaRedV2ImperialistShot : ImperialistShot
@@ -343,14 +298,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Ice Wide Nova Imperialist Shot";
 		}
 	}
-	public class IceWidePlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wide Plasma Green V2 Imperialist Shot";
-		}
-	}
 	public class IceWidePlasmaRedV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
@@ -365,14 +312,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Nova Imperialist Shot";
-		}
-	}
-	public class IcePlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Green V2 Imperialist Shot";
 		}
 	}
 	public class IcePlasmaRedV2ImperialistShot : ImperialistShot
@@ -407,14 +346,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Wave Wide Nova Imperialist Shot";
 		}
 	}
-	public class WaveWidePlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Wide Plasma Green V2 Imperialist Shot";
-		}
-	}
 	public class WaveWidePlasmaRedV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
@@ -429,14 +360,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Nova Imperialist Shot";
-		}
-	}
-	public class WavePlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Plasma Green V2 Imperialist Shot";
 		}
 	}
 	public class WavePlasmaRedV2ImperialistShot : ImperialistShot
@@ -463,14 +386,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.Name = "Wide Nova Imperialist Shot";
 		}
 	}
-	public class WidePlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wide Plasma Green V2 Imperialist Shot";
-		}
-	}
 	public class WidePlasmaRedV2ImperialistShot : ImperialistShot
 	{
 		public override void SetDefaults()
@@ -485,14 +400,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nova Imperialist Shot";
-		}
-	}
-	public class PlasmaGreenV2ImperialistShot : ImperialistShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green V2 Imperialist Shot";
 		}
 	}
 	public class PlasmaRedV2ImperialistShot : ImperialistShot

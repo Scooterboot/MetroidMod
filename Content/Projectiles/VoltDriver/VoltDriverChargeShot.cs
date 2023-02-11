@@ -31,18 +31,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 				mProjectile.WaveBehavior(Projectile);
 				mProjectile.HomingBehavior(Projectile, shootSpeed);
 			}
-			if (Projectile.Name.Contains("Green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				Projectile.penetrate = 12;
-			}
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
             if (Projectile.numUpdates == 0)
@@ -66,8 +54,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			int dustType = 269;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-			Projectile.width += 250;
-			Projectile.height += 250;
+			Projectile.width += 125;
+			Projectile.height += 125;
 			Projectile.scale = 5f;
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
@@ -111,28 +99,12 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Ice Wave Spazer VoltDriver Charge Shot";
 		}
 	}
-	public class IceWaveSpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Spazer Plasma Green VoltDriver Charge Shot";
-		}
-	}
 	public class IceWaveSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Spazer Plasma Red VoltDriver Charge Shot";
-		}
-	}
-	public class IceWavePlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Plasma Green VoltDriver Charge Shot";
 		}
 	}
 	public class IceWavePlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -151,28 +123,12 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Ice Spazer VoltDriver Charge Shot";
 		}
 	}
-	public class IceSpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Spazer Plasma Green VoltDriver Charge Shot";
-		}
-	}
 	public class IceSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Plasma Red VoltDriver Charge Shot";
-		}
-	}
-	public class IcePlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Green VoltDriver Charge Shot";
 		}
 	}
 	public class IcePlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -199,28 +155,12 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Wave Spazer VoltDriver Charge Shot";
 		}
 	}
-	public class WaveSpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Spazer Plasma Green VoltDriver Charge Shot";
-		}
-	}
 	public class WaveSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Spazer Plasma Red VoltDriver Charge Shot";
-		}
-	}
-	public class WavePlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Plasma Green VoltDriver Charge Shot";
 		}
 	}
 	public class WavePlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -239,28 +179,12 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Spazer VoltDriver Charge Shot";
 		}
 	}
-	public class SpazerPlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Spazer Plasma Green VoltDriver Charge Shot";
-		}
-	}
 	public class SpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Spazer Plasma Red VoltDriver Charge Shot";
-		}
-	}
-	public class PlasmaGreenVoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Red VoltDriver Charge Shot";
 		}
 	}
 	public class IceV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -295,14 +219,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Ice Wave Wide Nova VoltDriver Charge Shot";
 		}
 	}
-	public class IceWaveWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Wide Plasma Green V2 VoltDriver Charge Shot";
-		}
-	}
 	public class IceWaveWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
@@ -317,14 +233,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Nova VoltDriver Charge Shot";
-		}
-	}
-	public class IceWavePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Plasma Green V2 VoltDriver Charge Shot";
 		}
 	}
 	public class IceWavePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -351,14 +259,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Ice Wide Nova VoltDriver Charge Shot";
 		}
 	}
-	public class IceWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wide Plasma Green V2 VoltDriver Charge Shot";
-		}
-	}
 	public class IceWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
@@ -373,14 +273,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Nova VoltDriver Charge Shot";
-		}
-	}
-	public class IcePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Green V2 VoltDriver Charge Shot";
 		}
 	}
 	public class IcePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -415,14 +307,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Wave Wide Nova VoltDriver Charge Shot";
 		}
 	}
-	public class WaveWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Wide Plasma Green V2 VoltDriver Charge Shot";
-		}
-	}
 	public class WaveWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
@@ -437,14 +321,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Nova VoltDriver Charge Shot";
-		}
-	}
-	public class WavePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Plasma Green V2 VoltDriver Charge Shot";
 		}
 	}
 	public class WavePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -471,14 +347,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.Name = "Wide Nova VoltDriver Charge Shot";
 		}
 	}
-	public class WidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wide Plasma Green V2 VoltDriver Charge Shot";
-		}
-	}
 	public class WidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
 	{
 		public override void SetDefaults()
@@ -493,14 +361,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nova VoltDriver Charge Shot";
-		}
-	}
-	public class PlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green V2 VoltDriver Charge Shot";
 		}
 	}
 	public class PlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot

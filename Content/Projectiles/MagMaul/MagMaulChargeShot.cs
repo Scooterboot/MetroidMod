@@ -44,8 +44,8 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			int dustType = 286;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-			Projectile.width += 250;
-			Projectile.height += 250;
+			Projectile.width += 125;
+			Projectile.height += 125;
 			Projectile.scale = 5f;
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);

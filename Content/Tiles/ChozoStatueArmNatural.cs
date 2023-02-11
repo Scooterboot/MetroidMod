@@ -12,6 +12,9 @@ namespace MetroidMod.Content.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+			TileObjectData.newTile.LavaDeath = false;
+			Main.tileObsidianKill[Type] = false;
+			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = false;

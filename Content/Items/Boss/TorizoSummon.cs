@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Items.Boss
 			Item.useAnimation = 45;
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.noMelee = true;
-			Item.value = 1000;
+			Item.value = 10000;
 			Item.rare = ItemRarityID.Green;
 		}
 		/*public override void AddRecipes()
