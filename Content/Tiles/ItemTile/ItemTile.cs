@@ -16,9 +16,12 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Main.tileSpelunker[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 			TileID.Sets.DisableSmartCursor[Type] = true;
+			Main.tileLavaDeath[Type] = false;
+			Main.tileObsidianKill[Type] = false;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;

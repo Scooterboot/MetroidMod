@@ -24,18 +24,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Plasma"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				Projectile.penetrate = 12;
-			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
@@ -92,16 +80,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				base.SetDefaults();
 				Projectile.Name = "Nova Judicator Charge Shot";
 				Projectile.penetrate = 8;
-
-			}
-		}
-		public class PlasmaGreenJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Plasma Green Judicator Charge Shot";
-				Projectile.penetrate = 6;
 
 			}
 		}

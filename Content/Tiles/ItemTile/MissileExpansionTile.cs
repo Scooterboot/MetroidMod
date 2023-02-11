@@ -8,7 +8,11 @@ namespace MetroidMod.Content.Tiles.ItemTile
 	{
 		public override void SetStaticDefaults()
 		{
-			base.SetStaticDefaults();
+			//base.SetStaticDefaults();
+			Main.tileBlockLight[Type] = true;
+			Main.tileSpelunker[Type] = true;
+			Main.tileFrameImportant[Type] = true;
+			Main.tileNoAttach[Type] = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Missile Expansion");
 			AddMapEntry(new Color(132, 4, 20), name);
@@ -16,6 +20,8 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Main.tileOreFinderPriority[Type] = 805;
 			DustType = 1;
 			AnimationFrameHeight = 18;
+			Main.tileLavaDeath[Type] = false;
+			Main.tileObsidianKill[Type] = false;
 		}
 
 		public override void AnimateTile(ref int frame, ref int frameCounter)

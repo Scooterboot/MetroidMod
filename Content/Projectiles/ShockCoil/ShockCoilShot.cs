@@ -434,7 +434,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				iceSpeed = 1.3F;
 				string buffName = "IceFreeze";
 				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
-				Projectile.localNPCHitCooldown = (int)Math.Round((double)(useTime * 7) * 1.3);
+				//Projectile.localNPCHitCooldown = (int)Math.Round((double)(useTime * 7) * 1.3);
 			}
 
 			if (Projectile.Name.Contains("Solar"))
