@@ -15,7 +15,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
-		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 3;
+		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 15;
 
 		public override void SetStaticDefaults()
 		{
@@ -35,9 +35,9 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
-				.AddIngredient(ItemID.Emerald, 1)
-				.AddIngredient(ItemID.SpiderFang, 5)
+				.AddIngredient(null, "ChoziteBar", 12)
+				.AddIngredient(ItemID.Emerald, 15)
+				.AddIngredient(ItemID.Silk, 50)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
