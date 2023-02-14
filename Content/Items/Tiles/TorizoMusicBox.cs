@@ -8,8 +8,8 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Music Box (Torizo - 'Cave Dweller' Ridley Remix)");
-			Tooltip.SetDefault("Remix by Prophetik");
+			DisplayName.SetDefault("Music Box (Vs. Torizo)");
+			Tooltip.SetDefault("Remix by Paradoxx Productions");
 
 			SacrificeTotal = 1;
 		}
