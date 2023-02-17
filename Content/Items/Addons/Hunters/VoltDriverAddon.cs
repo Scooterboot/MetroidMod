@@ -17,6 +17,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/78BE78:+10% damage]\n") +
                 string.Format("[c/BE7878:-10% speed]\n") +
                 string.Format("[c/BE7878:+100% overheat use]\n") +
+				string.Format("[c/BE7878:Cannot pierce enemies]\n") +
 				string.Format("[c/BE7878:+10% noise]\n"));
 
 			SacrificeTotal = 1;

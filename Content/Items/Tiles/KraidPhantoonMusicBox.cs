@@ -8,8 +8,8 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Music Box (Vs. Kraid/Phantoon Remix)");
-			Tooltip.SetDefault("Remix by Skyre Ventes");
+			DisplayName.SetDefault("Music Box (Vs. Kraid/Phantoon)");
+			Tooltip.SetDefault("Original track by Paradoxx Productions");
 
 			SacrificeTotal = 1;
 		}

@@ -27,18 +27,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 
 		public override void AI()
 		{
-			if (Projectile.Name.Contains("Green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				Projectile.penetrate = 12;
-			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
@@ -92,13 +80,36 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
-	}
-	public class PlasmaGreenJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Judicator Shot";
+			if (Projectile.Name.Contains("Plasma"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(39, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Ice"))
+			{
+				string buffName = "IceFreeze";
+				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
+			}
+
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
 		}
 	}
 	public class NovaJudicatorShot : JudicatorShot
@@ -115,14 +126,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Solar Judicator Shot";
-		}
-	}
-	public class IcePlasmaGreenJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Green Judicator Shot";
 		}
 	}
 	public class IceNovaJudicatorShot : JudicatorShot
