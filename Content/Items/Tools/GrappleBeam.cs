@@ -36,12 +36,9 @@ namespace MetroidMod.Content.Items.Tools
 				.AddIngredient<Miscellaneous.EnergyShard>(3)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod); 
-			recipe.AddIngredient(null, "ChoziteBar", 15);
-			recipe.AddIngredient(null, "EnergyShard", 3);
-			recipe.AddTile(TileID.Anvils);   
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			CreateRecipe(1)
+				.AddIngredient<Tiles.GrappleBeamPlaceable>(1)
+				.Register();
 		}
 	}
 }
