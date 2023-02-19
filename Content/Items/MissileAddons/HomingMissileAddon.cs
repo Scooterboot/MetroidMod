@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Items.MissileAddons
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Fires a homing missile\n" +
-			"Costs 2 Missiles");
+			"~Costs 2 Missiles");
 
 			SacrificeTotal = 1;
 		}

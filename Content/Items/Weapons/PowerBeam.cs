@@ -196,7 +196,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private int waveDir = -1;
 
-		private bool isImp = false;
+		private bool isSpray = false;
+		private bool isShock = false;
 		private bool isCharge = false;
 		private bool isHyper = false;
 		private bool isPhazon = false;
@@ -272,6 +273,8 @@ namespace MetroidMod.Content.Items.Weapons
 			ShotSound = null;
 			ChargeShotSound = null;
 
+			isSpray = false;
+			isShock = false;
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);
@@ -1182,43 +1185,374 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (slot1.type == vd)
 			{
-				isCharge= true;
+				isCharge = true;
 				shot = "VoltDriverShot";
 				chargeShot = "VoltDriverChargeShot";
 				shotSound = "VoltDriverSound";
 				chargeShotSound = "VoltDriverChargeSound";
 				chargeUpSound = "VoltDriverCharge";
 				texture = "VoltDriver";
+				chargeTex = "ChargeLead_Spazer";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
-
-				if (!slot2.IsAir)
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 				{
-					comboError1 = true;
+					isSpray = true;
 				}
-				if(!slot3.IsAir)
-				{
-					comboError1 = true;
-				}
-				if (!slot5.IsAir)
+				if (slot5.type == plG)
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerVoltDriverShot";
-                    chargeShot = "SpazerVoltDriverChargeShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexVoltDriverShot";
-                    chargeShot = "VortexVoltDriverChargeShot";
-                }
-            }
+				if (slot2.type == ic)
+				{
+					shot = "IceVoltDriverShot";
+					chargeShot = "IceVoltDriverChargeShot";
+
+					if (slot3.type == wa)
+					{
+						shot = "IceWaveVoltDriverShot";
+						chargeShot = "IceWaveVoltDriverChargeShot";
+
+
+						if (slot4.type == sp)
+						{
+							shot = "IceWaveSpazerVoltDriverShot";
+							chargeShot = "IceWaveSpazerVoltDriverChargeShot";
+							if (slot5.type == plR)
+							{
+								shot = "IceWaveSpazerPlasmaRedVoltDriverShot";
+								chargeShot = "IceWaveSpazerPlasmaRedVoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == plR)
+							{
+								shot = "IceWavePlasmaRedVoltDriverShot";
+								chargeShot = "IceWavePlasmaRedVoltDriverChargeShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == sp)
+						{
+							shot = "IceSpazerVoltDriverShot";
+							chargeShot = "IceSpazerVoltDriverChargeShot";
+							if (slot5.type == plR)
+							{
+								shot = "IceSpazerPlasmaRedVoltDriverShot";
+								chargeShot = "IceSpazerPlasmaRedVoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == plR)
+							{
+								shot = "IcePlasmaRedVoltDriverShot";
+								chargeShot = "IcePlasmaRedVoltDriverChargeShot";
+							}
+						}
+					}
+				}
+				else
+				{
+
+					if (slot3.type == wa)
+					{
+						shot = "WaveVoltDriverShot";
+						chargeShot = "WaveVoltDriverChargeShot";
+
+						if (slot4.type == sp)
+						{
+							shot = "WaveSpazerVoltDriverShot";
+							chargeShot = "WaveSpazerVoltDriverChargeShot";
+							if (slot5.type == plR)
+							{
+								shot = "WaveSpazerPlasmaRedVoltDriverShot";
+								chargeShot = "WaveSpazerPlasmaRedVoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaRedVoltDriverShot";
+								chargeShot = "WavePlasmaRedVoltDriverChargeShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == sp)
+						{
+							shot = "SpazerVoltDriverShot";
+							chargeShot = "SpazerVoltDriverChargeShot";
+							if (slot5.type == plR)
+							{
+								shot = "SpazerPlasmaRedVoltDriverShot";
+								chargeShot = "SpazerPlasmaRedVoltDriverChargeShot";
+							}
+						}
+						else
+						{
+
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaRedVoltDriverShot";
+								chargeShot = "PlasmaRedVoltDriverChargeShot";
+							}
+						}
+					}
+				}
+
+				if (slot2.type == ic2)
+				{
+					shot = "IceV2VoltDriverShot";
+					chargeShot = "IceV2VoltDriverChargeShot";
+
+					if (slot3.type == wa2)
+					{
+						shot = "IceWaveV2VoltDriverShot";
+						chargeShot = "IceWaveV2VoltDriverChargeShot";
+
+
+						if (slot4.type == wi)
+						{
+							shot = "IceWaveWideVoltDriverShot";
+							chargeShot = "IceWaveWideVoltDriverChargeShot";
+
+							if (slot5.type == nv)
+							{
+								shot = "IceWaveWideNovaVoltDriverShot";
+								chargeShot = "IceWaveWideNovaVoltDriverChargeShot"; ;
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWaveWidePlasmaRedV2VoltDriverShot";
+								chargeShot = "IceWaveWidePlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "IceWaveNovaVoltDriverShot";
+								chargeShot = "IceWaveNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWavePlasmaRedV2VoltDriverShot";
+								chargeShot = "IceWavePlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+					}
+					else
+					{
+						if (slot4.type == wi)
+						{
+							shot = "IceWideVoltDriverShot";
+							chargeShot = "IceWideVoltDriverChargeShot";
+							if (slot5.type == nv)
+							{
+								shot = "IceWideNovaVoltDriverShot";
+								chargeShot = "IceWideNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWidePlasmaRedV2VoltDriverShot";
+								chargeShot = "IceWidePlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "IceNovaVoltDriverShot";
+								chargeShot = "IceNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IcePlasmaRedV2VoltDriverShot";
+								chargeShot = "IcePlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+					}
+				}
+				else
+				{
+					if (slot3.type == wa2)
+					{
+						shot = "WaveV2VoltDriverShot";
+						chargeShot = "WaveV2VoltDriverChargeShot";
+						if (slot4.type == wi)
+						{
+							shot = "WaveWideVoltDriverShot";
+							chargeShot = "WaveWideVoltDriverChargeShot";
+							if (slot5.type == nv)
+							{
+								shot = "WaveWideNovaVoltDriverShot";
+								chargeShot = "WaveWideNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WaveWidePlasmaRedV2VoltDriverShot";
+								chargeShot = "WaveWidePlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "WaveNovaVoltDriverShot";
+								chargeShot = "WaveNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaRedV2VoltDriverShot";
+								chargeShot = "WavePlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == wi)
+						{
+							shot = "WideVoltDriverShot";
+							chargeShot = "WideVoltDriverChargeShot";
+
+							if (slot5.type == nv)
+							{
+								shot = "WideNovaVoltDriverShot";
+								chargeShot = "WideNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WidePlasmaRedV2VoltDriverShot";
+								chargeShot = "WidePlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "NovaVoltDriverShot";
+								chargeShot = "NovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaRedV2VoltDriverShot";
+								chargeShot = "PlasmaRedV2VoltDriverChargeShot";
+							}
+						}
+					}
+				}
+
+				if (slot2.type == sd)
+				{
+					shot = "StardustVoltDriverShot";
+					chargeShot = "StardustVoltDriverChargeShot";
+					if (slot3.type == nb)
+					{
+						shot = "StardustNebulaVoltDriverShot";
+						chargeShot = "StardustNebulaVoltDriverChargeShot";
+						if (slot4.type == vt)
+						{
+							shot = "StardustNebulaVortexVoltDriverShot";
+							chargeShot = "StardustNebulaVortexVoltDriverChargeShot";
+							if (slot5.type == sl)
+							{
+								shot = "StardustNebulaVortexSolarVoltDriverShot";
+								chargeShot = "StardustNebulaVortexSolarVoltDriverChargeShot";
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "StardustNebulaSolarVoltDriverShot";
+									chargeShot = "StardustNebulaSolarVoltDriverChargeShot";
+								}
+							}
+						}
+						else
+						{
+							if (slot4.type == vt)
+							{
+								shot = "StardustVortexVoltDriverShot";
+								chargeShot = "StardustVortexVoltDriverChargeShot";
+								if (slot5.type == sl)
+								{
+									shot = "StardustVortexSolarVoltDriverShot";
+									chargeShot = "StardustVortexSolarVoltDriverChargeShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "StardustSolarVoltDriverShot";
+									chargeShot = "StardustSolarVoltDriverChargeShot";
+								}
+							}
+						}
+					}
+					else
+					{
+						if (slot3.type == nb)
+						{
+							shot = "NebulaVoltDriverShot";
+							chargeShot = "NebulaVoltDriverChargeShot";
+
+							if (slot4.type == vt)
+							{
+								shot = "NebulaVortexVoltDriverShot";
+								chargeShot = "NebulaVortexVoltDriverChargeShot";
+								if (slot5.type == sl)
+								{
+									shot = "NebulaVortexSolarVoltDriverShot";
+									chargeShot = "NebulaVortexSolarVoltDriverChargeShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "NebulaSolarVoltDriverShot";
+									chargeShot = "NebulaSolarVoltDriverChargeShot";
+								}
+							}
+						}
+						else
+						{
+							if (slot4.type == vt)
+							{
+								shot = "VortexVoltDriverShot";
+								chargeShot = "VortexVoltDriverChargeShot";
+								if (slot5.type == sl)
+								{
+									shot = "VortexSolarVoltDriverShot";
+									chargeShot = "VortexSolarVoltDriverChargeShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "SolarVoltDriverShot";
+									chargeShot = "SolarVoltDriverChargeShot";
+								}
+							}
+						}
+					}
+				}
+			}
 			if (slot1.type == jd)
 			{
-				isCharge= true;
+				isCharge = true;
 				shot = "JudicatorShot";
 				chargeShot = "JudicatorChargeShot";
 				shotSound = "JudicatorSound";
@@ -1230,62 +1564,90 @@ namespace MetroidMod.Content.Items.Weapons
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
-
-				if (!slot2.IsAir)
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 				{
-					comboError1 = true;
+					isSpray = true;
 				}
-				if (!slot3.IsAir)
-				{
-					comboError1 = true;
-				}
-				if (!slot5.IsAir)
+				if (slot5.type == plG)
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerJudicatorShot";
-                    chargeShot = "SpazerJudicatorChargeShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexJudicatorShot";
-                    chargeShot = "VortexJudicatorChargeShot";
-                }
-            }
+				if (!slot3.IsAir)
+				{
+					comboError2 = true;
+				}
+				if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
+				{
+					shot = "IceJudicatorShot";
+					if (slot5.type == nv)
+					{
+						shot = "IceNovaJudicatorShot";
+					}
+					if (slot5.type == sl)
+					{
+						shot = "IceSolarJudicatorShot";
+					}
+				}
+				if (slot5.type == nv)
+				{
+					shot = "NovaJudicatorShot";
+					chargeShot = "NovaJudicatorChargeShot";
+				}
+				if (slot5.type == sl)
+				{
+					shot = "SolarJudicatorShot";
+					chargeShot = "SolarJudicatorChargeShot";
+				}
+			}
 
 			if (slot1.type == bh)
 			{
 				shot = "BattleHammerShot";
 				shotSound = "BattleHammerAffinitySound";
 				texture = "BattleHammer";
-                MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 15;
-
-				if (!slot2.IsAir)
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 				{
-					comboError1 = true;
+					isSpray = true;
 				}
 				if (!slot3.IsAir)
 				{
 					comboError1 = true;
 				}
-				if (!slot5.IsAir)
+				if (slot5.type == plR)
+				{
+					shot = "PlasmaRedBattleHammerShot";
+					if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+					{
+						shot = "IcePlasmaRedBattleHammerShot";
+					}
+				}
+				if (slot5.type == nv)
+				{
+					shot = "NovaBattleHammerShot";
+					if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+					{
+						shot = "IceNovaBattleHammerShot";
+					}
+				}
+				if (slot5.type == sl)
+				{
+					shot = "SolarBattleHammerShot";
+					if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+					{
+						shot = "IceSolarBattleHammerShot";
+					}
+				}
+				if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+				{
+					shot = "IceBattleHammerShot";
+				}
+				if (slot5.type == plG)
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-					shot = "SpazerBattleHammerShot";
-
-                }
-                if (slot4.type == vt)
-                {
-					shot = "VortexBattleHammerShot";
-
-                }
-            }
+			}
 
 			if (slot1.type == imp)
 			{
@@ -1295,27 +1657,300 @@ namespace MetroidMod.Content.Items.Weapons
 				useTime = 60;
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 
-				if (!slot2.IsAir)
-				{
-					comboError1 = true;
-				}
-				if (!slot3.IsAir)
-				{
-					comboError1 = true;
-				}
-				if (!slot5.IsAir)
+				if (slot5.type == plG)
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerImperialistShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexImperialistShot";
-                }
-            }
+				if (slot2.type == ic)
+				{
+					shot = "IceImperialistShot";
+
+					if (slot3.type == wa)
+					{
+						shot = "IceWaveImperialistShot";
+						if (slot4.type == sp)
+						{
+							shot = "IceWaveSpazerImperialistShot";
+							if (slot5.type == plR)
+							{
+								shot = "IceWaveSpazerPlasmaRedImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == plR)
+							{
+								shot = "IceWavePlasmaRedImperialistShot";
+							}
+						}
+					}
+					else
+					{
+						if (slot4.type == sp)
+						{
+							shot = "IceSpazerImperialistShot";
+
+							if (slot5.type == plR)
+							{
+								shot = "IceSpazerPlasmaRedImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == plR)
+							{
+								shot = "IcePlasmaRedImperialistShot";
+							}
+						}
+					}
+				}
+				else
+				{
+
+					if (slot3.type == wa)
+					{
+						shot = "WaveImperialistShot";
+
+						if (slot4.type == sp)
+						{
+							shot = "WaveSpazerImperialistShot";
+							if (slot5.type == plR)
+							{
+								shot = "WaveSpazerPlasmaRedImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaRedImperialistShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == sp)
+						{
+							shot = "SpazerImperialistShot";
+							if (slot5.type == plR)
+							{
+								shot = "SpazerPlasmaRedImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaRedImperialistShot";
+							}
+						}
+					}
+				}
+
+				if (slot2.type == ic2)
+				{
+					shot = "IceV2ImperialistShot";
+
+					if (slot3.type == wa2)
+					{
+						shot = "IceWaveV2ImperialistShot";
+
+
+						if (slot4.type == wi)
+						{
+							shot = "IceWaveWideImperialistShot";
+
+							if (slot5.type == nv)
+							{
+								shot = "IceWaveWideNovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWaveWidePlasmaRedV2ImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "IceWaveNovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWavePlasmaRedV2ImperialistShot";
+							}
+						}
+					}
+					else
+					{
+						if (slot4.type == wi)
+						{
+							shot = "IceWideImperialistShot";
+							if (slot5.type == nv)
+							{
+								shot = "IceWideNovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWidePlasmaRedV2ImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "IceNovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IcePlasmaRedImperialistV2Shot";
+							}
+						}
+					}
+				}
+				else
+				{
+					if (slot3.type == wa2)
+					{
+						shot = "WaveV2ImperialistShot";
+						if (slot4.type == wi)
+						{
+							shot = "WaveWideImperialistShot";
+							if (slot5.type == nv)
+							{
+								shot = "WaveWideNovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WaveWidePlasmaRedV2ImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "WaveNovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaRedV2ImperialistShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == wi)
+						{
+							shot = "WideImperialistShot";
+
+							if (slot5.type == nv)
+							{
+								shot = "WideNovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WidePlasmaRedV2ImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "NovaImperialistShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaRedV2ImperialistShot";
+							}
+						}
+					}
+				}
+
+				if (slot2.type == sd)
+				{
+					shot = "StardustImperialistShot";
+					if (slot3.type == nb)
+					{
+						shot = "StardustNebulaImperialistShot";
+						if (slot4.type == vt)
+						{
+							shot = "StardustNebulaVortexImperialistShot";
+							if (slot5.type == sl)
+							{
+								shot = "StardustNebulaVortexSolarImperialistShot";
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "StardustNebulaSolarImperialistShot";
+								}
+							}
+						}
+						else
+						{
+							if (slot4.type == vt)
+							{
+								shot = "StardustVortexImperialistShot";
+								if (slot5.type == sl)
+								{
+									shot = "StardustVortexSolarImperialistShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "StardustSolarImperialistShot";
+								}
+							}
+						}
+					}
+					else
+					{
+						if (slot3.type == nb)
+						{
+							shot = "NebulaImperialistShot";
+
+							if (slot4.type == vt)
+							{
+								shot = "NebulaVortexImperialistShot";
+								if (slot5.type == sl)
+								{
+									shot = "NebulaVortexSolarImperialistShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "NebulaSolarImperialistShot";
+								}
+							}
+						}
+						else
+						{
+							if (slot4.type == vt)
+							{
+								shot = "VortexImperialistShot";
+								if (slot5.type == sl)
+								{
+									shot = "VortexSolarImperialistShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "SolarImperialistShot";
+								}
+							}
+						}
+					}
+				}
+			}
 
 			if (slot1.type == mm)
 			{
@@ -1331,53 +1966,351 @@ namespace MetroidMod.Content.Items.Weapons
 				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
 				useTime = 20;
-
+				if(slot4.type == sp || slot4.type == wi || slot4.type == vt)
+				{
+					isSpray= true;
+				}
 				if (!slot2.IsAir)
 				{
 					comboError1 = true;
 				}
 				if (!slot3.IsAir)
 				{
-					comboError1 = true;
+					comboError2 = true;
 				}
-				if (!slot5.IsAir)
+				if (slot5.type == plG)
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerMagMaulShot";
-                    chargeShot = "SpazerMagMaulChargeShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexMagMaulShot";
-                    chargeShot = "VortexMagMaulChargeShot";
-                }
-            }
+				if (slot5.type == plR)
+				{
+					shot = "PlasmaRedMagMaulShot";
+					chargeShot = "PlasmaRedMagMaulChargeShot";
+				}
+				if (slot5.type == nv)
+				{
+					shot = "NovaMagMaulShot";
+					chargeShot = "NovaMagMaulChargeShot";
+				}
+				if (slot5.type == sl)
+				{
+					shot = "SolarMagMaulShot";
+					chargeShot = "SolarMagMaulChargeShot";
+				}
+			}
 			if (slot1.type == sc)
 			{
-				isCharge = true;
+				isShock = true;
 				shot = "ShockCoilShot";
-				shotSound = "ShockCoilAffinity1";
+				shotSound = "ShockCoilStartupSound";
 				texture = "ShockCoil";
-                chargeUpSound = "ShockCoilStartupSound";
-                chargeShotSound = "ShockCoilLoad";
-                chargeShot = "ShockCoilShot";
-                chargeTex = "ChargeLead_Stardust";
-                MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-                mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-                mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+				chargeUpSound = "ShockCoilStartupSound";
+				chargeShotSound = "ShockCoilLoad";
+				chargeShot = "ShockCoilChargeShot";
+				chargeTex = "ChargeLead_Stardust";
+				Item.knockBack = 0;
+				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 
-                if (!slot2.IsAir)
+				if (slot2.type == ic)
 				{
-					comboError1 = true;
+					shot = "IceShockCoilShot";
+
+					if (slot3.type == wa)
+					{
+						shot = "IceWaveShockCoilShot";
+
+						if (slot4.type == sp)
+						{
+							shot = "IceWaveSpazerShockCoilShot";
+
+							if (slot5.type == plR)
+							{
+								shot = "IceWaveSpazerPlasmaRedShockCoilShot";
+							}
+						}
+						else
+						{
+
+							if (slot5.type == plR)
+							{
+								shot = "IceWavePlasmaRedShockCoilShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == sp)
+						{
+							shot = "IceSpazerShockCoilShot";
+
+							if (slot5.type == plR)
+							{
+								shot = "IceSpazerPlasmaRedShockCoilShot";
+							}
+						}
+						else
+						{
+
+							if (slot5.type == plR)
+							{
+								shot = "IcePlasmaRedShockCoilShot";
+							}
+						}
+					}
 				}
-				if (!slot3.IsAir)
+				else
 				{
-					comboError1 = true;
+
+					if (slot3.type == wa)
+					{
+						shot = "WaveShockCoilShot";
+
+						if (slot4.type == sp)
+						{
+							shot = "WaveSpazerShockCoilShot";
+
+							if (slot5.type == plR)
+							{
+								shot = "WaveSpazerPlasmaRedShockCoilShot";
+							}
+						}
+						else
+						{
+
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaRedShockCoilShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == sp)
+						{
+							shot = "SpazerShockCoilShot";
+
+							if (slot5.type == plR)
+							{
+								shot = "SpazerPlasmaRedShockCoilShot";
+							}
+						}
+						else
+						{
+
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaRedShockCoilShot";
+							}
+						}
+					}
 				}
-				if (!slot5.IsAir)
+
+				if (slot2.type == ic2)
+				{
+					shot = "IceV2ShockCoilShot";
+
+					if (slot3.type == wa2)
+					{
+						shot = "IceWaveV2ShockCoilShot";
+
+
+						if (slot4.type == wi)
+						{
+							shot = "IceWaveWideShockCoilShot";
+
+							if (slot5.type == nv)
+							{
+								shot = "IceWaveWideNovaShockCoilShot";
+							}
+
+							if (slot5.type == plR)
+							{
+								shot = "IceWaveWidePlasmaRedV2ShockCoilShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "IceWaveNovaShockCoilShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWavePlasmaRedV2ShockCoilShot";
+							}
+						}
+					}
+					else
+					{
+						if (slot4.type == wi)
+						{
+							shot = "IceWideShockCoilShot";
+							if (slot5.type == nv)
+							{
+								shot = "IceWideNovaShockCoilShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IceWidePlasmaRedV2ShockCoilShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "IceNovaShockCoilShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "IcePlasmaRedShockCoilV2Shot";
+							}
+						}
+					}
+				}
+				else
+				{
+					if (slot3.type == wa2)
+					{
+						shot = "WaveV2ShockCoilShot";
+						if (slot4.type == wi)
+						{
+							shot = "WaveWideShockCoilShot";
+							if (slot5.type == nv)
+							{
+								shot = "WaveWideNovaShockCoilShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WaveWidePlasmaRedV2ShockCoilShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "WaveNovaShockCoilShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaRedV2ShockCoilShot";
+							}
+						}
+					}
+					else
+					{
+
+						if (slot4.type == wi)
+						{
+							shot = "WideShockCoilShot";
+
+							if (slot5.type == nv)
+							{
+								shot = "WideNovaShockCoilShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "WidePlasmaRedV2ShockCoilShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == nv)
+							{
+								shot = "NovaShockCoilShot";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaRedV2ShockCoilShot";
+							}
+						}
+					}
+				}
+
+				if (slot2.type == sd)
+				{
+					shot = "StardustShockCoilShot";
+					if (slot3.type == nb)
+					{
+						shot = "StardustNebulaShockCoilShot";
+						if (slot4.type == vt)
+						{
+							shot = "StardustNebulaVortexShockCoilShot";
+							if (slot5.type == sl)
+							{
+								shot = "StardustNebulaVortexSolarShockCoilShot";
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "StardustNebulaSolarShockCoilShot";
+								}
+							}
+						}
+						else
+						{
+							if (slot4.type == vt)
+							{
+								shot = "StardustVortexShockCoilShot";
+								if (slot5.type == sl)
+								{
+									shot = "StardustVortexSolarShockCoilShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "StardustSolarShockCoilShot";
+								}
+							}
+						}
+					}
+					else
+					{
+						if (slot3.type == nb)
+						{
+							shot = "NebulaShockCoilShot";
+
+							if (slot4.type == vt)
+							{
+								shot = "NebulaVortexShockCoilShot";
+								if (slot5.type == sl)
+								{
+									shot = "NebulaVortexSolarShockCoilShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "NebulaSolarShockCoilShot";
+								}
+							}
+						}
+						else
+						{
+							if (slot4.type == vt)
+							{
+								shot = "VortexShockCoilShot";
+								if (slot5.type == sl)
+								{
+									shot = "VortexSolarShockCoilShot";
+								}
+							}
+							else
+							{
+								if (slot5.type == sl)
+								{
+									shot = "SolarShockCoilShot";
+								}
+							}
+						}
+					}
+				}
+				if (slot5.type == plG)
 				{
 					comboError4 = true;
 				}
@@ -1389,27 +2322,47 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "OmegaCannon";
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				useTime = 60;
-
-				if (!slot2.IsAir)
+				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 				{
-					comboError1 = true;
+					isSpray = true;
 				}
 				if (!slot3.IsAir)
 				{
-					comboError1 = true;
+					comboError2 = true;
 				}
-				if (!slot5.IsAir)
+				if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
+				{
+					shot = "IceOmegaCannonShot";
+					if (slot5.type == plR)
+					{
+						shot = "IcePlasmaRedOmegaCannonShot";
+					}
+					if (slot5.type == nv)
+					{
+						shot = "IceNovaOmegaCannonShot";
+					}
+					if (slot5.type == sl)
+					{
+						shot = "IceSolarOmegaCannonShot";
+					}
+				}
+				if (slot5.type == plR)
+				{
+					shot = "PlasmaRedOmegaCannonShot";
+				}
+				if (slot5.type == nv)
+				{
+					shot = "NovaOmegaCannonShot";
+				}
+				if (slot5.type == sl)
+				{
+					shot = "SolarOmegaCannonShot";
+				}
+
+				if (slot5.type == plG)
 				{
 					comboError4 = true;
 				}
-                if (slot4.type == sp || slot4.type == wi)
-                {
-                    shot = "SpazerOmegaCannonShot";
-                }
-                if (slot4.type == vt)
-                {
-                    shot = "VortexOmegaCannonShot";
-                }
             }
 			// Hyper
 			else if (isHyper)
@@ -1877,7 +2830,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			if (isCharge)
+			if (isCharge || isShock)
 			{
 				int ch = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), damage, knockback, player.whoAmI);
 				ChargeLead cl = (ChargeLead)Main.projectile[ch].ModProjectile;
@@ -1898,7 +2851,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 				chargeLead = ch;
 			}
-
 			if (isHyper)
 			{
 				int hyperProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI);
@@ -1919,14 +2871,26 @@ namespace MetroidMod.Content.Items.Weapons
 
 				mp.hyperColors = 23;
 			}
+
 			else
 			{
-				for (int i = 0; i < shotAmt; i++)
+				if (!isSpray)
 				{
-					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, i);
-					MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-					mProj.waveDir = waveDir;
-					Main.projectile[shotProj].netUpdate = true;
+					for (int i = 0; i < shotAmt; i++)
+					{
+						int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, i);
+						MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+						mProj.waveDir = waveDir;
+						Main.projectile[shotProj].netUpdate = true;
+					}
+				}
+				if (isSpray && shotAmt > 1)
+				{
+					for (int i = 0; i < shotAmt; i++)
+					{
+						Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+						Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI, 0, i);
+					}
 				}
 			}
 			waveDir *= -1;
@@ -1953,7 +2917,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 			return false;
 		}
-
 		public override void HoldItem(Player player)
 		{
 			if (isCharge && player.whoAmI == Main.myPlayer)
@@ -1991,7 +2954,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 						double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
-						if (mp.statCharge >= (MPlayer.maxCharge * 0.5))
+						if (mp.statCharge >= (MPlayer.maxCharge * 0.5) && !isSpray)
 						{
 							for (int i = 0; i < chargeShotAmt; i++)
 							{
@@ -2001,22 +2964,50 @@ namespace MetroidMod.Content.Items.Weapons
 								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9));
 								mProj.Projectile.netUpdate2 = true;
 							}
+							
 
 							SoundEngine.PlaySound(new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}"), oPos);
 
 							mp.statOverheat += (int)((float)oHeat * chargeCost);
 							mp.overheatDelay = useTime - 10;
 						}
+						if (isSpray && chargeShotAmt > 1 && mp.statCharge >= (MPlayer.maxCharge * 0.5))
+						{
+							for (int i = 0; i < chargeShotAmt; i++)
+							{
+								Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
+								int chargeProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, newVelocity.X, newVelocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
+								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
+								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9));
+								mProj.Projectile.netUpdate2 = true;
+							}
+							mp.statOverheat += (int)((float)oHeat * chargeCost);
+							mp.overheatDelay = useTime - 10;
+						}
 						else if (mp.statCharge > 0)
 						{
-							if (mp.statCharge >= 30)
+							if (mp.statCharge >= 30 && mp.statCharge <= (MPlayer.maxCharge * 0.5))
 							{
-								for (int i = 0; i < shotAmt; i++)
+								if (!isSpray)
+								{ 
+									for (int i = 0; i < shotAmt; i++)
+									{
+										int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
+										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+										mProj.waveDir = waveDir;
+										mProj.Projectile.netUpdate = true;
+									}
+								}
+								if (isSpray && shotAmt > 1)
 								{
-									int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
-									MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-									mProj.waveDir = waveDir;
-									mProj.Projectile.netUpdate = true;
+									for (int i = 0; i < shotAmt; i++)
+									{
+										Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+										int shotProj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, newVelocity.X, newVelocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
+										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+										mProj.Projectile.netUpdate = true;
+									}
+
 								}
 
 								SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);

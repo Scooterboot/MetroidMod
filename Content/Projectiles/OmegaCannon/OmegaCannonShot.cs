@@ -38,10 +38,6 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
             {
                 Projectile.frame = 0;
             }
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
-            {
-                mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-            }
             int dustType = 64;
             int shootSpeed = 2;
             int accuracy = 60;
@@ -71,28 +67,60 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			return false;
 		}
 	}
-    public class SpazerOmegaCannonShot : OmegaCannonShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer Omega Cannon Shot";
-
-            mProjectile.amplitude = 25f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class VortexOmegaCannonShot : OmegaCannonShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex Omega Cannon Shot";
-
-            mProjectile.amplitude = 25f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
+	public class IceOmegaCannonShot : OmegaCannonShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice OmegaCannon Shot";
+		}
+	}
+	public class IceNovaOmegaCannonShot : OmegaCannonShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Nova OmegaCannon Shot";
+		}
+	}
+	public class IcePlasmaRedOmegaCannonShot : OmegaCannonShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Red OmegaCannon Shot";
+		}
+	}
+	public class IceSolarOmegaCannonShot : OmegaCannonShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Solar OmegaCannon Shot";
+		}
+	}
+	public class NovaOmegaCannonShot : OmegaCannonShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nova OmegaCannon Shot";
+		}
+	}
+	public class PlasmaRedOmegaCannonShot : OmegaCannonShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red OmegaCannon Shot";
+		}
+	}
+	public class SolarOmegaCannonShot : OmegaCannonShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Solar OmegaCannon Shot";
+		}
+	}
 }

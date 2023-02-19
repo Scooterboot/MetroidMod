@@ -167,6 +167,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		float comboKnockBack = 5.5f;
 
+		bool isHoming = false;
 		bool isCharge = false;
 		bool isSeeker = false;
 		int isHeldCombo = 0;
@@ -238,6 +239,7 @@ namespace MetroidMod.Content.Items.Weapons
 			useFlameSounds = false;
 			useVortexSounds = false;
 
+			isHoming = false;
 			isShotgun = false;
 			shotgunAmt = 5;
 
@@ -312,7 +314,8 @@ namespace MetroidMod.Content.Items.Weapons
 			}
             if (slot1.type == hm)
             {
-                chargeShot = "HomingMissileShot";
+				isHoming = true;
+				chargeShot = shot;
                 chargeUpSound = "ChargeStartup_HomingMissile";
                 chargeShotSound = "HomingMissileShoot";
                 chargeTex = "ChargeLead_Spazer";
@@ -826,6 +829,15 @@ namespace MetroidMod.Content.Items.Weapons
 											}
 											int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, shotGunVel.X, shotGunVel.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
 										}
+									}
+									if (isHoming)
+									{
+										var entitySource = Item.GetSource_ItemUse(Item);
+										int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
+										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+										mProj.homing = true;
+										mProj.Projectile.netUpdate2 = true;
+										mi.statMissiles = Math.Max(mi.statMissiles - 1, 0);
 									}
 									else
 									{

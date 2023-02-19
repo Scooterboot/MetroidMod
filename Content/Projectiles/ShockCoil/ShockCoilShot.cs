@@ -7,14 +7,21 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.Enums;
 using System.IO;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Projectiles;
+using MetroidMod.Common.GlobalItems;
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
-	public class ShockCoilShot2 : MProjectile
+	public class ShockCoilShot : MProjectile
 	{
+		private float iceSpeed = 0f;
+		private float spazSpeed = 0f;
+		private float plasSpeed = 0f;
+		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("ShockCoil Shot2");
-            Main.projFrames[Projectile.type] = 3;
+			DisplayName.SetDefault("ShockCoil Shot");
+            Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
         {
@@ -22,12 +29,12 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
             Projectile.width = 8;
             Projectile.height = 8;
             Projectile.scale = 1f;
-            Projectile.tileCollide = true;
-            Projectile.penetrate = -1;
+			Projectile.penetrate = -1;
             Projectile.extraUpdates = 5;
-        }
+			Projectile.usesLocalNPCImmunity = true;
+		}
 
-        Vector2 targetPos;
+		Vector2 targetPos;
         bool setTargetPos = false;
 
         Projectile Lead;
@@ -46,24 +53,25 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         bool soundPlayed = false;
         int soundDelay = 30;
 
-        int ampSyncCooldown = 20;
+		int ampSyncCooldown = 20;
         float[] amp = new float[3];
         float[] ampDest = new float[3];
+		int useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
 
-        public override void AI()
+		public override void AI()
         {
-
-            Projectile P = Projectile;
+			Projectile P = Projectile;
             Player O = Main.player[P.owner];
+			MPlayer mp = O.GetModPlayer<MPlayer>();
 
-            Lead = Main.projectile[(int)P.ai[0]];
-            if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>())
-            {
-                P.Kill();
-                return;
-            }
+			Lead = Main.projectile[(int)P.ai[0]];
 
-            if (P.numUpdates == 0)
+			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
+			{
+				Projectile.tileCollide = false;
+				//mProjectile.WaveBehavior(Projectile);
+			}
+			if (P.numUpdates == 0)
             {
                 P.frame++;
             }
@@ -77,12 +85,12 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
             oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-            if (Lead != null && Lead.active)
+            /*if (Lead != null && Lead.active)
             {
                 for (int k = 0; k < range; k++)
                 {
-                    float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
-                    Vector2 tilePos = Lead.Center + targetrot.ToRotationVector2() * k;
+                    float targetrot = (float)Math.Atan2((P.Center.Y - O.Center.Y), (P.Center.X - O.Center.X));
+                    Vector2 tilePos = O.Center + targetrot.ToRotationVector2() * k;
                     int i = (int)MathHelper.Clamp(tilePos.X / 16, 0, Main.maxTilesX - 2);
                     int j = (int)MathHelper.Clamp(tilePos.Y / 16, 0, Main.maxTilesY - 2);
 
@@ -97,9 +105,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                         distance = Math.Min(distance + 1, Max_Distance);
                     }
                 }
-            }
-
-            if (P.owner == Main.myPlayer)
+            }*/
+            if (P.owner == Main.myPlayer && !O.dead)
             {
                 P.netUpdate = true;
 
@@ -167,8 +174,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                     {
                         //targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
                         targetPos = oPos + diff * range;
-                        targetPos.X += (float)Main.rand.Next(-30, 31) * (Vector2.Distance(oPos, P.Center) / Max_Range);
-                        targetPos.Y += (float)Main.rand.Next(-30, 31) * (Vector2.Distance(oPos, P.Center) / Max_Range);
+                        targetPos.X += (float)Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
+                        targetPos.Y += (float)Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
                     }
                 }
 
@@ -181,9 +188,16 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                             SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
                             soundInstance = result.Sound;
                             soundPlayed = true;
-                            soundDelay = 52;
+                            soundDelay = 50;
                         }
-                        else
+						if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+						{
+							SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity2, O.position), out ActiveSound result);
+							soundInstance = result.Sound;
+							soundDelay = 40;
+						}
+
+						else
                         {
                             if (soundInstance != null)
                             {
@@ -191,7 +205,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                             }
                             SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
                             soundInstance = result.Sound;
-                            soundDelay = 52;
+                            soundDelay = 40;
                         }
                     }
                     else
@@ -200,7 +214,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                     }
                     for (int i = 0; i < 3; i++)
                     {
-                        ampDest[i] = Main.rand.Next(-30, 31);
+                        ampDest[i] = Main.rand.Next(-15, 16);
                     }
                 }
 
@@ -211,25 +225,25 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                 }
             }
 
-            float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.025f);
+            float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
             float targetAngle = (float)Math.Atan2((targetPos.Y - P.Center.Y), (targetPos.X - P.Center.X));
             P.velocity = targetAngle.ToRotationVector2() * speed;
 
-            if (O.controlUseItem)
-            {
-                P.timeLeft = 10;
-            }
-            else
-            {
-                P.Kill();
-            }
+			if (O.controlUseItem)
+			{
+				P.timeLeft = 5;
+			}
+			else
+			{
+				P.Kill();
+			}
 
-            if (P.numUpdates == 0)
+			if (P.numUpdates == 0)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    ampDest[i] = Main.rand.Next(-30, 31);
-                }
+                    ampDest[i] = Main.rand.Next(-15, 16);
+				}
             }
 
             for (int i = 0; i < 3; i++)
@@ -243,52 +257,53 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                     amp[i] -= 3;
                 }
             }
-        }
+			if (mp.statOverheat > mp.maxOverheat || (mp.statCharge == MPlayer.maxCharge && mp.statOverheat == mp.maxOverheat))
+			{
+				P.Kill();
+				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad, Projectile.position);
+			}
 
-        public override void Kill(int timeLeft)
-        {
-            if (soundInstance != null)
-            {
-                soundInstance.Stop(true);
-            }
-        }
+		}
 
-        public override void CutTiles()
-        {
-            if (Lead != null && Lead.active)
-            {
-                DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-                Utils.PlotTileLine(Lead.Center, Projectile.Center, (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
-            }
-        }
+		public override void CutTiles()
+		{
+			Player p = Main.player[Projectile.owner];
+			if (p.controlUseItem)
+			{
+				DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
+				Utils.PlotTileLine(p.Center, Projectile.Center, (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
+			}
+		}
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            if (Lead != null && Lead.active)
-            {
-                float point = 0f;
-                return projHitbox.Intersects(targetHitbox) ||
-                    Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Lead.Center, Projectile.Center, Projectile.width, ref point);
-            }
-            return false;
-        }
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		{
+			Player p = Main.player[Projectile.owner];
+			if (p.controlUseItem)
+			{
+				float point = 0f;
+				return projHitbox.Intersects(targetHitbox) ||
+					Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), p.Center, Projectile.Center, Projectile.width, ref point);
+			}
+			return false;
+		}
 
-        public override bool PreDraw(ref Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
         {
             SpriteBatch sb = Main.spriteBatch;
             Projectile P = Projectile;
+			Color color = MetroidMod.powColor;
+			Player p = Main.player[Projectile.owner];
+			MPlayer mp = p.GetModPlayer<MPlayer>();
 
-            Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
+			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
             int num108 = tex.Height / Main.projFrames[P.type];
             int y4 = num108 * P.frame;
 
-            Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/ShockCoil/ShockCoilShot2").Value;
-            int numH = tex2.Height / 4;
 
-            if (Lead != null && Lead.active)
+            if (p.controlUseItem && !p.dead)
             {
-                float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
-                float dist = Math.Max(Vector2.Distance(Lead.Center, P.Center), 1);
+				float targetrot = (float)Math.Atan2((P.Center.Y - p.Center.Y), (P.Center.X - p.Center.X));
+                float dist = Math.Max(Vector2.Distance(p.Center, P.Center), 1);
 
                 double trot = targetrot + Math.PI / 2;
 
@@ -325,11 +340,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                         }
                     }
 
-                    pos[i] = Lead.Center + targetrot.ToRotationVector2() * (dist / num) * i;
+                    pos[i] = p.Center + targetrot.ToRotationVector2() * (dist / num) * i;
                     pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
                     pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
 
-                    float rot = (float)Math.Atan2((pos[i].Y - Lead.Center.Y), (pos[i].X - Lead.Center.X)) + (float)Math.PI / 2;
+                    float rot = (float)Math.Atan2((pos[i].Y - p.Center.Y), (pos[i].X - p.Center.X)) + (float)Math.PI / 2;
                     if (i > 0)
                     {
                         rot = (float)Math.Atan2((pos[i].Y - pos[i - 1].Y), (pos[i].X - pos[i - 1].X)) + (float)Math.PI / 2;
@@ -344,25 +359,23 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                     SpriteEffects.None,
                     0f);
 
-                    sb.Draw(tex2,
-                    pos[i] - Main.screenPosition,
-                    new Rectangle?(new Rectangle(0, numH * Main.rand.Next(4), tex2.Width, numH)),
-                    P.GetAlpha(Color.White),
-                    rot,
-                    new Vector2((float)tex2.Width / 2, (float)numH / 2),
-                    (float)(Main.rand.Next(21) / 10),
-                    SpriteEffects.None,
-                    0f);
 
-                    Lighting.AddLight(pos[i], (MetroidMod.waveColor2.R / 255f) * P.scale, (MetroidMod.waveColor2.G / 255f) * P.scale, (MetroidMod.waveColor2.B / 255f) * P.scale);
+					Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
-                }
+				}
             }
 
             return false;
         }
 
-        public override void SendExtraAI(BinaryWriter writer)
+		public override void Kill(int timeLeft)
+		{
+			if (soundInstance != null)
+			{
+				soundInstance.Stop(true);
+			}
+		}
+		public override void SendExtraAI(BinaryWriter writer)
         {
             writer.WriteVector2(targetPos);
         }
@@ -370,15 +383,501 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         {
             targetPos = reader.ReadVector2();
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            Player p = Main.player[Projectile.owner];
-            int healingAmount = damage / 20;
-            p.statLife += healingAmount;
-            p.HealEffect(healingAmount, true);
-            SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
-        }
-    }
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			iceSpeed = 1f;
+			spazSpeed = 1f;
+			plasSpeed = 1f;
+			Player p = Main.player[Projectile.owner];
+			MPlayer mp = p.GetModPlayer<MPlayer>();
+			mp.statOverheat += ((int)((float)overheat * mp.overheatCost));
+			//mp.overheatDelay = 10;
+
+			Projectile.localNPCHitCooldown = useTime * 7;
+			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+			{
+				mp.statCharge = Math.Min(mp.statCharge + 7, MPlayer.maxCharge);
+			}
+			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+			{
+				int healingAmount = Math.Min(damage / 14, 10);
+				p.statLife += healingAmount;
+				p.HealEffect(healingAmount, true);
+				mp.Energy += Math.Min(damage / 14, 10);
+			}
+			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
+			if (Projectile.Name.Contains("Plasma"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(24, 300);
+				}
+			}
+
+			if (Projectile.Name.Contains("Nova"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(39, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			{
+				iceSpeed = 1.3F;
+				string buffName = "IceFreeze";
+				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
+				//Projectile.localNPCHitCooldown = (int)Math.Round((double)(useTime * 7) * 1.3);
+			}
+
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
+			if (Projectile.Name.Contains("Plasma") || (Projectile.Name.Contains("Solar")) || (Projectile.Name.Contains("Nova")))
+			{
+				plasSpeed = 1.15F;
+			}
+			if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wide"))
+			{
+				spazSpeed = .85F;
+			}
+			if (Projectile.Name.Contains("Vortex"))
+			{
+				spazSpeed = .75F;
+			}
+			Projectile.localNPCHitCooldown = (int)Math.Round((double)(useTime * 7) * iceSpeed * spazSpeed * plasSpeed);
+		}
+	}
+	public class IceShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice ShockCoil Shot";
+		}
+	}
+	public class IceWaveShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave ShockCoil Shot";
+		}
+	}
+	public class IceWaveSpazerShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Spazer ShockCoil Shot";
+		}
+	}
+	public class IceWaveSpazerPlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Spazer Plasma Red ShockCoil Shot";
+		}
+	}
+	public class IceWavePlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Plasma Red ShockCoil Shot";
+		}
+	}
+	public class IceSpazerShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Spazer ShockCoil Shot";
+		}
+	}
+	public class IceSpazerPlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Spazer Plasma Red ShockCoil Shot";
+		}
+	}
+	public class IcePlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Red ShockCoil Shot";
+		}
+	}
+	public class WaveShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave ShockCoil Shot";
+		}
+	}
+	public class WaveSpazerShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Spazer ShockCoil Shot";
+		}
+	}
+	public class WaveSpazerPlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Spazer Plasma Red ShockCoil Shot";
+		}
+	}
+	public class WavePlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Plasma Red ShockCoil Shot";
+		}
+	}
+	public class SpazerShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Spazer ShockCoil Shot";
+		}
+	}
+	public class SpazerPlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Spazer Plasma Red ShockCoil Shot";
+		}
+	}
+	public class PlasmaRedShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red ShockCoil Shot";
+		}
+	}
+	public class IceV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice V2 ShockCoil Shot";
+		}
+	}
+	public class IceWaveV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave V2 ShockCoil Shot";
+		}
+	}
+	public class IceWaveWideShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Wide ShockCoil Shot";
+		}
+	}
+	public class IceWaveWideNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Wide Nova ShockCoil Shot";
+		}
+	}
+	public class IceWaveWidePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Wide Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class IceWaveNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Nova ShockCoil Shot";
+		}
+	}
+	public class IceWavePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wave Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class IceWideShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wide ShockCoil Shot";
+		}
+	}
+	public class IceWideNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wide Nova ShockCoil Shot";
+		}
+	}
+	public class IceWidePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Wide Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class IceNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Nova ShockCoil Shot";
+		}
+	}
+	public class IcePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class WaveWideShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Wide ShockCoil Shot";
+		}
+	}
+	public class WaveV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave V2 ShockCoil Shot";
+		}
+	}
+	public class WaveWideNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Wide Nova ShockCoil Shot";
+		}
+	}
+	public class WaveWidePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Wide Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class WaveNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Nova ShockCoil Shot";
+		}
+	}
+	public class WavePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wave Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class WideShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wide ShockCoil Shot";
+		}
+	}
+	public class WideNovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wide Nova ShockCoil Shot";
+		}
+	}
+	public class WidePlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Wide Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class NovaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nova ShockCoil Shot";
+		}
+	}
+	public class PlasmaRedV2ShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Plasma Red V2 ShockCoil Shot";
+		}
+	}
+	public class StardustShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust ShockCoil Shot";
+		}
+	}
+	public class StardustNebulaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Nebula ShockCoil Shot";
+		}
+	}
+	public class StardustNebulaVortexShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Nebula Vortex ShockCoil Shot";
+		}
+	}
+	public class StardustNebulaVortexSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Nebula Vortex Solar ShockCoil Shot";
+		}
+	}
+	public class StardustNebulaSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Nebula Solar ShockCoil Shot";
+		}
+	}
+	public class StardustVortexShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Vortex ShockCoil Shot";
+		}
+	}
+	public class StardustVortexSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Vortex Solar ShockCoil Shot";
+		}
+	}
+	public class StardustSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Stardust Solar ShockCoil Shot";
+		}
+	}
+	public class NebulaShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula ShockCoil Shot";
+		}
+	}
+	public class NebulaVortexShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Vortex ShockCoil Shot";
+		}
+	}
+	public class NebulaVortexSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Vortex Solar ShockCoil Shot";
+		}
+	}
+	public class NebulaSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nebula Solar ShockCoil Shot";
+		}
+	}
+	public class VortexShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Vortex ShockCoil Shot";
+		}
+	}
+	public class VortexSolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Vortex Solar ShockCoil Shot";
+		}
+	}
+	public class SolarShockCoilShot : ShockCoilShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Solar ShockCoil Shot";
+		}
+	}
 }
-
-

@@ -1,4 +1,4 @@
-using System; 
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,12 +13,11 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			DisplayName.SetDefault("ShockCoil");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
-				"Fires a short range electric charge that slowly heals\n" +
-                "Circuit fails on contact with tiles\n" +
-                string.Format("[c/78BE78:+10% damage]\n") +
-				string.Format("[c/78BE78:+50% speed]\n") +
-                string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]\n") +
-                string.Format("[c/BE7878:Incompatible Calamitymod (for some reason)]\n"));
+				"Fires a short range electric charge that heals and restores energy when fully charged\n" +
+				"Overheats and charges on enemy damage\n" +
+				//string.Format("[c/78BE78:+10% damage]\n") +
+				string.Format("[c/BE7878:Incompatible with green plasma effect]\n") +
+				string.Format("[c/BE7878:Probably still bugged]\n"));
 
 			SacrificeTotal = 1;
 		}
@@ -38,18 +37,18 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = .1f;
-			mItem.addonSpeed = .5f;
+			//mItem.addonDmg = .1f;
 		}
-        public override void AddRecipes()
-        {
-            CreateRecipe(1)
-                .AddIngredient<MissileAddons.BeamCombos.WavebusterAddon>(1)
-                .AddIngredient<Miscellaneous.EnergyShard>(30)
-                .AddIngredient(ItemID.FallenStar, 30)
-                .AddIngredient(ItemID.Sapphire, 30)
-                .AddTile(TileID.Hellforge)
-                .Register();
-        }
-    }
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient<MissileAddons.BeamCombos.WavebusterAddon>(1)
+				.AddIngredient<Miscellaneous.EnergyShard>(30)
+				.AddIngredient(ItemID.FallenStar, 30)
+				.AddIngredient(ItemID.Sapphire, 30)
+				.AddTile(TileID.Hellforge)
+				.Register();
+		}
+	}
 }
+

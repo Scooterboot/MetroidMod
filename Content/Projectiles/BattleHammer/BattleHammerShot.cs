@@ -35,10 +35,6 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 110, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
-            {
-                mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-            }
         }
 		
 		public override void Kill(int timeLeft)
@@ -62,29 +58,61 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
+		public class SolarBattleHammerShot : BattleHammerShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Solar BattleHammer Shot";
+			}
+		}
+		public class IceSolarBattleHammerShot : BattleHammerShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Ice Solar BattleHammer Shot";
+			}
+		}
+		public class NovaBattleHammerShot : BattleHammerShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Nova BattleHammer Shot";
+			}
+		}
+		public class IceBattleHammerShot : BattleHammerShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Ice BattleHammer Shot";
+			}
+		}
+		public class IceNovaBattleHammerShot : BattleHammerShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Ice Nova BattleHammer Shot";
+			}
+		}
+		public class IcePlasmaRedBattleHammerShot : BattleHammerShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Ice Plasma Red BattleHammer Shot";
+			}
+		}
+		public class PlasmaRedBattleHammerShot : BattleHammerShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Plasma Red BattleHammer Shot";
+			}
+		}
 	}
-    public class SpazerBattleHammerShot : BattleHammerShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer BattleHammer Shot";
-
-            mProjectile.amplitude = 20f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class VortexBattleHammerShot : BattleHammerShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex BattleHammer Shot";
-
-            mProjectile.amplitude = 20f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
 }

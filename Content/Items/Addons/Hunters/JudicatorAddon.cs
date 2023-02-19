@@ -15,10 +15,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Slot Type: Charge\n" +
 				"Shots bounce\n" +
 				"Charge shots spray a freezing blast\n" +
-				string.Format("[c/78BE78:+25% damage]\n") +
+				string.Format("[c/78BE78:+15% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
-				string.Format("[c/BE7878:-55% speed]\n") +
-                string.Format("[c/BE7878:Incompatible with ice, wave, or plasma effects]"));
+				string.Format("[c/BE7878:Cannot pierce walls or enemies]\n") +
+				string.Format("[c/BE7878:-55% speed]\n"));
 
             SacrificeTotal = 1;
 		}
@@ -38,7 +38,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = .25f;
+			mItem.addonDmg = .15f;
 			mItem.addonHeat = 1.25f;
 			mItem.addonSpeed = -.55f;
 		}

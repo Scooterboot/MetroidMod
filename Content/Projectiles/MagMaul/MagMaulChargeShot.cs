@@ -21,35 +21,31 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			Projectile.height = 20;
 			Projectile.scale = 1.5f;
 			Projectile.aiStyle = 1;
-        }
+		}
 
 		public override void AI()
 		{
 			Color color = MetroidMod.powColor;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-            if (Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Projectile.numUpdates == 0)
 			{
-				Projectile.rotation += 0.5f*Projectile.direction;
+				Projectile.rotation += 0.5f * Projectile.direction;
 				Projectile.frame++;
 			}
-			if(Projectile.frame > 1)
+			if (Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
-			}			
+			}
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 286, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
-            {
-                mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-            }
-        }
+		}
 		public override void Kill(int timeLeft)
 		{
 			int dustType = 286;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-			Projectile.width += 250;
-			Projectile.height += 250;
+			Projectile.width += 125;
+			Projectile.height += 125;
 			Projectile.scale = 5f;
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
@@ -66,30 +62,38 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.AddBuff(24, 600);
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				target.AddBuff(39, 300);
+			}
+		}
+		public class NovaMagMaulChargeShot : MagMaulChargeShot
+		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Nova MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
+		}
+		public class SolarMagMaulChargeShot : MagMaulChargeShot
+		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Solar MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
+		}
+		public class PlasmaRedMagMaulChargeShot : MagMaulChargeShot
+		{
+			public override void SetStaticDefaults()
+			{
+				DisplayName.SetDefault("Plasma Red MagMaul Charge Shot");
+				Main.projFrames[Projectile.type] = 2;
+			}
 		}
 	}
-    public class VortexMagMaulChargeShot : MagMaulChargeShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex MagMaul Charge Shot";
-
-            mProjectile.amplitude = 15f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class SpazerMagMaulChargeShot : MagMaulChargeShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex MagMaul Charge Shot";
-
-            mProjectile.amplitude = 15f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
 }

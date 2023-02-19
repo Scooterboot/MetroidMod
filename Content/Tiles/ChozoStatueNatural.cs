@@ -13,6 +13,9 @@ namespace MetroidMod.Content.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+			TileObjectData.newTile.LavaDeath = false;
+			Main.tileObsidianKill[Type] = false;
+			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
 			Main.tileSpelunker[Type] = true;
@@ -28,6 +31,7 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addAlternate(1); 
 			TileObjectData.addTile(Type);
 			ModTranslation name = CreateMapEntryName();
+			Main.tileOreFinderPriority[Type] = 806;
 			name.SetDefault("Chozo Statue");
 			AddMapEntry(new Color(90, 90, 90), name);
 			DustType = 1;

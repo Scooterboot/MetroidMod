@@ -36,10 +36,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-            if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Vortex"))
-            {
-                mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-            }
         }
 		
 
@@ -84,29 +80,76 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (Projectile.Name.Contains("Plasma"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Nova"))
+			{
+				if (Projectile.Name.Contains("Ice"))
+				{
+					target.AddBuff(44, 300);
+				}
+				else
+				{
+					target.AddBuff(39, 300);
+				}
+			}
+			if (Projectile.Name.Contains("Ice"))
+			{
+				string buffName = "IceFreeze";
+				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
+			}
+
+			if (Projectile.Name.Contains("Solar"))
+			{
+				target.AddBuff(189, 300);
+			}
+		}
 	}
-    public class SpazerJudicatorShot : JudicatorShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Spazer Judicator Shot";
-
-            mProjectile.amplitude = 10f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
-    public class VortexJudicatorShot : JudicatorShot
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.Name = "Vortex Judicator Shot";
-
-            mProjectile.amplitude = 10f * Projectile.scale;
-            mProjectile.wavesPerSecond = 1f;
-            mProjectile.delay = 4;
-        }
-    }
+	public class NovaJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Nova Judicator Shot";
+		}
+	}
+	public class IceSolarJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Solar Judicator Shot";
+		}
+	}
+	public class IceNovaJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Nova Judicator Shot";
+		}
+	}
+	public class IceJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Ice Judicator Shot";
+		}
+	}
+	public class SolarJudicatorShot : JudicatorShot
+	{
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.Name = "Solar Judicator Shot";
+		}
+	}
 }
