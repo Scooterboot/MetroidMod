@@ -29,59 +29,12 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public BreastplateAddonsPanel panel;
 
-		public ReserveMenu reserveMenu;
-
 		public override void OnInitialize()
 		{
 			panel = new BreastplateAddonsPanel();
 			panel.Initialize();
 
 			Append(panel);
-
-			reserveMenu = new ReserveMenu();
-			reserveMenu.SetPadding(0);
-			reserveMenu.Top.Pixels = 300;
-			reserveMenu.Left.Pixels = panel.Left.Pixels - reserveMenu.Width.Pixels - 100;
-
-			reserveMenu.modeButton = new UIText("0");
-			reserveMenu.modeButton.Top.Pixels = 20;
-			reserveMenu.modeButton.Left.Pixels = 20;
-			reserveMenu.modeButton.SetPadding(0);
-			reserveMenu.modeButton.OnUpdate += delegate { if (reserveMenu.modeButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
-			reserveMenu.modeButton.OnClick += delegate { MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(); if (mp.SuitReservesAuto) { mp.SuitReservesAuto = false; } else { mp.SuitReservesAuto = true; } };
-			reserveMenu.Append(reserveMenu.modeButton);
-
-			reserveMenu.tex = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/ReserveFG", AssetRequestMode.ImmediateLoad);
-			reserveMenu.reserveBars = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/ReserveBG", AssetRequestMode.ImmediateLoad));
-			reserveMenu.reserveBars.Top.Pixels = 60;
-			reserveMenu.reserveBars.Left.Pixels = 20;
-			reserveMenu.reserveBars.OnUpdate += delegate { if (reserveMenu.reserveBars.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
-			reserveMenu.reserveBars.OnClick += delegate {
-				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-				if (mp.SuitReserves < mp.SuitReserveTanks * 100 && mp.Energy >= 100)
-				{
-					mp.SuitReserves += 100;
-					mp.Energy -= 100;
-				}
-			};
-			reserveMenu.reserveBars.OnRightClick += delegate {
-				MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-				if (!mp.SuitReservesAuto && mp.SuitReserves >= 100 && mp.Energy <= mp.MaxEnergy - 100)
-				{
-					mp.SuitReserves -= 100;
-					mp.Energy += 100;
-				}
-			};
-			reserveMenu.Append(reserveMenu.reserveBars);
-
-			reserveMenu.reserveAmt = new UIText("0");
-			reserveMenu.reserveAmt.Top.Pixels = 60;
-			reserveMenu.reserveAmt.Left.Pixels = 120;
-			reserveMenu.reserveAmt.SetPadding(0);
-			reserveMenu.reserveAmt.OnUpdate += delegate { if (reserveMenu.reserveAmt.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
-			reserveMenu.Append(reserveMenu.reserveAmt);
-
-			Append(reserveMenu);
 		}
 	}
 

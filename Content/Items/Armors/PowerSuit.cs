@@ -62,7 +62,8 @@ namespace MetroidMod.Content.Items.Armors
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "Allows the ability to Sense Move" + "\n" +
-							"Double tap a direction (when enabled)";// + 
+							"Double tap a direction (when enabled)" + "\n" +
+							"Right click the Sense Move button to access Addon Menu";// + 
 							//SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.EnergyDefenseEfficiency += Common.Configs.MConfigItems.Instance.energyDefenseEfficiency;

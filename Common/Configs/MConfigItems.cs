@@ -128,7 +128,21 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(10)]
 		public int stackEnergyTank;
-		
+
+		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack")]
+		[Range(1, 10)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(4)]
+		public int stackReserveTank;
+
+		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity")]
+		[Range(20, 200)]
+		[Increment(20)]
+		[Slider]
+		[DefaultValue(100)]
+		public int reserveTankStoreCount;
+
 		[Label("[i:MetroidMod/PowerGripAddon][i:MetroidMod/HiJumpBootsAddon] Power Grip grants Wall Jump")]
 		[DefaultValue(false)]
 		public bool enableWallJumpPowerGrip;

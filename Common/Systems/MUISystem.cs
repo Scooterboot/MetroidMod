@@ -26,9 +26,11 @@ namespace MetroidMod.Common.Systems
 		internal static UserInterface helmetUserInterface;
 		internal static UserInterface breastplateUserInterface;
 		internal static UserInterface greavesUserInterface;
+		internal static UserInterface reserveUserInterface;
 		internal static UserInterface visorUserInterface;
 		internal static UserInterface smUserInterface;
 
+		// bri'ish innit?
 		internal bool isPBInit = false;
 		internal bool isMIInit = false;
 		internal bool isMBInit = false;
@@ -36,6 +38,7 @@ namespace MetroidMod.Common.Systems
 		internal bool isHELMInit = false;
 		internal bool isBREAInit = false;
 		internal bool isGREAInit = false;
+		internal bool isRESInit = false;
 		internal bool isVIInit = false;
 		internal bool isSMInit = false;
 
@@ -55,6 +58,7 @@ namespace MetroidMod.Common.Systems
 				helmetUserInterface = new UserInterface();
 				breastplateUserInterface = new UserInterface();
 				greavesUserInterface = new UserInterface();
+				reserveUserInterface = new UserInterface();
 				smUserInterface = new UserInterface();
 				visorUserInterface = new UserInterface();
 
@@ -89,6 +93,7 @@ namespace MetroidMod.Common.Systems
 			helmetUserInterface = null;
 			breastplateUserInterface = null;
 			greavesUserInterface = null;
+			reserveUserInterface = null;
 			smUserInterface = null;
 			visorUserInterface = null;
 		}
@@ -105,6 +110,11 @@ namespace MetroidMod.Common.Systems
 				smUserInterface.SetState(new UI.SenseMoveUI());
 				isSMInit = true;
 			}
+			if (!isRESInit)
+			{
+				reserveUserInterface.SetState(new UI.SuitAddons.ReserveUI());
+				isRESInit = true;
+			}
 			if (!isGREAInit)
 			{
 				greavesUserInterface.SetState(new UI.SuitAddons.GreavesAddonsUI());
@@ -119,11 +129,6 @@ namespace MetroidMod.Common.Systems
 			{
 				helmetUserInterface.SetState(new UI.SuitAddons.HelmetAddonsUI());
 				isHELMInit = true;
-			}
-			if (!isSUInit)
-			{
-				suitUserInterface.SetState(new UI.SuitAddonsUI());
-				isSUInit = true;
 			}
 			if (!isMBInit)
 			{
@@ -148,6 +153,10 @@ namespace MetroidMod.Common.Systems
 			{
 				smUserInterface.Update(gameTime);
 			}
+			if (reserveUserInterface != null && UI.SuitAddons.ReserveUI.Visible)
+			{
+				reserveUserInterface.Update(gameTime);
+			}
 			if (greavesUserInterface != null && UI.SuitAddons.GreavesAddonsUI.Visible)
 			{
 				greavesUserInterface.Update(gameTime);
@@ -159,10 +168,6 @@ namespace MetroidMod.Common.Systems
 			if (helmetUserInterface != null && UI.SuitAddons.HelmetAddonsUI.Visible)
 			{
 				helmetUserInterface.Update(gameTime);
-			}
-			if (suitUserInterface != null && UI.SuitAddonsUI.Visible)
-			{
-				suitUserInterface.Update(gameTime);
 			}
 			if (mbUserInterface != null && UI.MorphBallUI.Visible)
 			{
@@ -432,12 +437,12 @@ namespace MetroidMod.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidMod: Suit Addons UI",
+					"MetroidMod: Reserve UI",
 					delegate {
-						if (UI.SuitAddonsUI.Visible)
+						if (UI.SuitAddons.ReserveUI.Visible)
 						{
-							if (Main.hasFocus) { suitUserInterface.Recalculate(); }
-							suitUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+							if (Main.hasFocus) { reserveUserInterface.Recalculate(); }
+							reserveUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
 						return true;
