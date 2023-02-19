@@ -47,7 +47,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The maximum possible reserve energy the player can have.
 		/// </summary>
-		public int MaxSuitReserves => SuitReserveTanks * 100 + AdditionalMaxReserves;
+		public int MaxSuitReserves => SuitReserveTanks * Configs.MConfigItems.Instance.reserveTankStoreCount + AdditionalMaxReserves;
 		public int AdditionalMaxReserves = 0;
 		/// <summary>
 		/// The amount of energy the player has in reserves.
