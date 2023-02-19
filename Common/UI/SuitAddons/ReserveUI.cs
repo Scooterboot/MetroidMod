@@ -56,23 +56,25 @@ namespace MetroidMod.Common.UI.SuitAddons
 		private bool reserveHoldingRClick;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
-		public Rectangle ModeAddRectangle => new((int)(DrawRectangle.Width * 12.0 / 136.0), (int)(DrawRectangle.Height * 16.0 / 86.0), (int)(DrawRectangle.Width * 110.0 / 136.0),(int)(DrawRectangle.Height * 10.0 / 86.0));
+		public Rectangle ModeAddRectangle => new((int)(DrawRectangle.Width * 28.0 / 168.0), (int)(DrawRectangle.Height * 16.0 / 86.0), (int)(DrawRectangle.Width * 110.0 / 168.0),(int)(DrawRectangle.Height * 10.0 / 86.0));
 
 		public Rectangle GetNumRect(int i)
 		{
 			return i switch
 			{
-				0 => new((int)(DrawRectangle.Width * 16.0 / 136.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 136.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				1 => new((int)(DrawRectangle.Width * 32.0 / 136.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 136.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				2 => new((int)(DrawRectangle.Width * 48.0 / 136.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 136.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				3 => new((int)(DrawRectangle.Width * 72.0 / 136.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 136.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				4 => new((int)(DrawRectangle.Width * 88.0 / 136.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 136.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				5 => new((int)(DrawRectangle.Width * 104.0 / 136.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 136.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				0 => new((int)(DrawRectangle.Width * 16.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				1 => new((int)(DrawRectangle.Width * 32.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				2 => new((int)(DrawRectangle.Width * 48.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				3 => new((int)(DrawRectangle.Width * 64.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				4 => new((int)(DrawRectangle.Width * 88.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				5 => new((int)(DrawRectangle.Width * 104.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				6 => new((int)(DrawRectangle.Width * 120.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				7 => new((int)(DrawRectangle.Width * 136.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
 				_ => new(),
 			};
 		}
 
-		public Rectangle NumButtonRect => new((int)(DrawRectangle.Width * 16.0 / 136.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 102.0 / 136.0), (int)(DrawRectangle.Height * 14.0 / 86.0));
+		public Rectangle NumButtonRect => new((int)(DrawRectangle.Width * 16.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 134.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0));
 
 		public override void OnInitialize()
 		{
@@ -172,7 +174,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			int tanks = mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount;
 			int filled = mp.SuitReserves;
 			// make leading zeros
-			string e = $"{filled:D3}{tanks:D3}";
+			string e = $"{filled:D4}{tanks:D4}";
 			for(int i = 0; i < e.Length; i++)
 			{
 				Rectangle rect = GetNumRect(i);
