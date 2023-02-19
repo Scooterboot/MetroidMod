@@ -17,6 +17,14 @@ using MetroidMod.Common.Configs;
 
 namespace MetroidMod.Common.UI
 {
+	public enum SuitAddonUIState : byte
+	{
+		None = 0,
+		Helmet = 1,
+		Breastplate = 2,
+		Greaves = 3,
+		Reserves = 4,
+	}
 	public class SenseMoveUI : UIState
 	{
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().senseMove && Main.EquipPage == 0;
@@ -37,7 +45,7 @@ namespace MetroidMod.Common.UI
 		Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
 		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
 
-		private byte state = 0;
+		private SuitAddonUIState state = 0;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
@@ -100,29 +108,41 @@ namespace MetroidMod.Common.UI
 				// i swear this is necessary ;-; - DarkSamus49
 				switch (state)
 				{
-					case 0:
-						mp.ShouldShowHelmetUI = true;
-						state++;
-						break;
-					case 1:
+					default:
+					case SuitAddonUIState.Reserves:
 						mp.ShouldShowHelmetUI = false;
-						mp.ShouldShowBreastplateUI = true;
-						state++;
+						mp.ShouldShowBreastplateUI = false;
+						mp.ShouldShowGreavesUI = false;
+						mp.ShouldShowReserveUI = false;
+						state = SuitAddonUIState.None;
 						break;
-					case 2:
+					case SuitAddonUIState.Greaves:
+						mp.ShouldShowHelmetUI = false;
+						mp.ShouldShowBreastplateUI = false;
+						mp.ShouldShowGreavesUI = false;
+						mp.ShouldShowReserveUI = true;
+						state = SuitAddonUIState.Reserves;
+						break;
+					case SuitAddonUIState.Breastplate:
+						mp.ShouldShowHelmetUI = false;
 						mp.ShouldShowBreastplateUI = false;
 						mp.ShouldShowGreavesUI = true;
-						state++;
+						mp.ShouldShowReserveUI = false;
+						state = SuitAddonUIState.Greaves;
 						break;
-					case 3:
-						mp.ShouldShowGreavesUI = false;
-						state = 0;
-						break;
-					default:
+					case SuitAddonUIState.Helmet:
 						mp.ShouldShowHelmetUI = false;
+						mp.ShouldShowBreastplateUI = true;
+						mp.ShouldShowGreavesUI = false;
+						mp.ShouldShowReserveUI = false;
+						state = SuitAddonUIState.Breastplate;
+						break;
+					case SuitAddonUIState.None:
+						mp.ShouldShowHelmetUI = true;
 						mp.ShouldShowBreastplateUI = false;
 						mp.ShouldShowGreavesUI = false;
-						state = 0;
+						mp.ShouldShowReserveUI = false;
+						state = SuitAddonUIState.Helmet;
 						break;
 				}
 				Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuTick);

@@ -22,6 +22,7 @@ namespace MetroidMod.Common.Players
 		public bool ShouldShowGreavesUI = false;
 		public bool IsPowerSuitGreaves = false;
 		public bool ShouldDrawGreaves = false;
+		public bool ShouldShowReserveUI = false;
 		public void ResetEffects_GetArmors()
 		{
 			ShouldShowArmorUI = false;
