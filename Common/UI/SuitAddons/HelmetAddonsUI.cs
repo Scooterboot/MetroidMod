@@ -47,8 +47,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 		public Vector2[] itemBoxPositionValues = new Vector2[3]
 		{
 			new Vector2(32, 14),
-			new Vector2(98, 14),
-			new Vector2(174, 14)
+			new Vector2(174, 14),
+			new Vector2(98, 14)
 		};
 
 		public HelmetUIItemBox[] addonSlots;
