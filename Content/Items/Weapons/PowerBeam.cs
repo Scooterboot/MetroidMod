@@ -3007,7 +3007,6 @@ namespace MetroidMod.Content.Items.Weapons
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 										mProj.Projectile.netUpdate = true;
 									}
-
 								}
 
 								SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
