@@ -179,7 +179,8 @@ namespace MetroidMod.Common.GlobalNPCs
 				npcLoot.Add(ItemDropRule.Common(MBAddonLoader.GetAddon<Content.MorphBallAddons.ShadowflameBomb>().ItemType, 6));
 				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShadowflameBombAddon"));
 			}
-			if (npc.type == NPCID.Pumpking && Main.pumpkinMoon && NPC.waveNumber >= 7)
+			//if (npc.type == NPCID.Pumpking && Main.pumpkinMoon && NPC.waveNumber >= 7)
+			if (npc.type == NPCID.Pumpking)
 			{
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.PumpkingBombDrop(), MBAddonLoader.GetAddon<Content.MorphBallAddons.PumpkinBomb>().ItemType));
 				/*int wave = NPC.waveNumber - 6;
