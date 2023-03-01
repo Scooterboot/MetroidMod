@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Charge shots spray a freezing blast\n" +
 				string.Format("[c/78BE78:+15% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
-				string.Format("[c/BE7878:Cannot pierce walls or enemies]\n") +
+				string.Format("[c/BE7878:Cannot pierce walls]\n") +
 				string.Format("[c/BE7878:-55% speed]\n"));
 
             SacrificeTotal = 1;
