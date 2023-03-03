@@ -83,12 +83,23 @@ namespace MetroidMod.Content.Projectiles.Judicator
 
 			}
 		}
+		public class PlasmaGreenJudicatorChargeShot : JudicatorChargeShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Plasma Green Judicator Charge Shot";
+				Projectile.penetrate = 6;
+
+			}
+		}
 		public class SolarJudicatorChargeShot : JudicatorChargeShot
 		{
 			public override void SetDefaults()
 			{
 				base.SetDefaults();
 				Projectile.Name = "Solar Judicator Charge Shot";
+				Projectile.penetrate = 12;
 
 			}
 		}
