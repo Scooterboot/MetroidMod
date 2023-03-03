@@ -17,14 +17,6 @@ using MetroidMod.Common.Configs;
 
 namespace MetroidMod.Common.UI
 {
-	public enum SuitAddonUIState : byte
-	{
-		None = 0,
-		Helmet = 1,
-		Breastplate = 2,
-		Greaves = 3,
-		Reserves = 4,
-	}
 	public class SenseMoveUI : UIState
 	{
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().senseMove && Main.EquipPage == 0;
@@ -45,8 +37,6 @@ namespace MetroidMod.Common.UI
 		Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
 		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
 
-		private SuitAddonUIState state = 0;
-
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
 		public override void OnInitialize()
@@ -62,13 +52,12 @@ namespace MetroidMod.Common.UI
 			this.SetPadding(0);
 			this.Width.Pixels = buttonTex.Width;
 			this.Height.Pixels = buttonTex.Height;
-			this.Left.Pixels = Main.screenWidth - Width.Pixels - 200;
+			this.Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 240 : 200);
 			this.Top.Pixels = 300;
 
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
 			this.OnClick += SMButtonClick;
-			OnRightClick += RightClick;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -80,7 +69,7 @@ namespace MetroidMod.Common.UI
 			}
 			if (!enabled && MConfigClient.Instance.SenseMove.auto)
 			{
-				this.Left.Pixels = Main.screenWidth - Width.Pixels - 200;
+				this.Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 240 : 200);
 				this.Top.Pixels = 300;
 				if (!Main.mapFullscreen && Main.mapStyle == 1)
 				{
@@ -99,54 +88,6 @@ namespace MetroidMod.Common.UI
 			mp.senseMoveEnabled = !mp.senseMoveEnabled;
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuTick);
 			clicked = true;
-		}
-
-		private void RightClick(UIMouseEvent evt, UIElement e)
-		{
-			if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
-			{
-				// i swear this is necessary ;-; - DarkSamus49
-				switch (state)
-				{
-					default:
-					case SuitAddonUIState.Reserves:
-						mp.ShouldShowHelmetUI = false;
-						mp.ShouldShowBreastplateUI = false;
-						mp.ShouldShowGreavesUI = false;
-						mp.ShouldShowReserveUI = false;
-						state = SuitAddonUIState.None;
-						break;
-					case SuitAddonUIState.Greaves:
-						mp.ShouldShowHelmetUI = false;
-						mp.ShouldShowBreastplateUI = false;
-						mp.ShouldShowGreavesUI = false;
-						mp.ShouldShowReserveUI = true;
-						state = SuitAddonUIState.Reserves;
-						break;
-					case SuitAddonUIState.Breastplate:
-						mp.ShouldShowHelmetUI = false;
-						mp.ShouldShowBreastplateUI = false;
-						mp.ShouldShowGreavesUI = true;
-						mp.ShouldShowReserveUI = false;
-						state = SuitAddonUIState.Greaves;
-						break;
-					case SuitAddonUIState.Helmet:
-						mp.ShouldShowHelmetUI = false;
-						mp.ShouldShowBreastplateUI = true;
-						mp.ShouldShowGreavesUI = false;
-						mp.ShouldShowReserveUI = false;
-						state = SuitAddonUIState.Breastplate;
-						break;
-					case SuitAddonUIState.None:
-						mp.ShouldShowHelmetUI = true;
-						mp.ShouldShowBreastplateUI = false;
-						mp.ShouldShowGreavesUI = false;
-						mp.ShouldShowReserveUI = false;
-						state = SuitAddonUIState.Helmet;
-						break;
-				}
-				Terraria.Audio.SoundEngine.PlaySound(SoundID.MenuTick);
-			}
 		}
 
 		protected override void DrawSelf(SpriteBatch sb)

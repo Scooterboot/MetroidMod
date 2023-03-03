@@ -25,7 +25,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 {
 	public class HelmetAddonsUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.ShouldShowHelmetUI && Main.EquipPage == 0;
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.SuitAddonUIState == SuitAddonUIState.Helmet && Main.EquipPage == 0;
 
 		public HelmetAddonsPanel panel;
 
@@ -58,8 +58,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 			PanelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuitHelmet_Border", AssetRequestMode.ImmediateLoad);
 
 			SetPadding(0);
-			Left.Pixels = Main.screenWidth - PanelTexture.Width() - 250;
-			Top.Pixels = 240;
+			Left.Pixels = Main.screenWidth - PanelTexture.Width() - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
+			Top.Pixels = 210;
 			Width.Pixels = PanelTexture.Width();
 			Height.Pixels = PanelTexture.Height();
 
@@ -88,8 +88,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 			}
 			if (!enabled && MConfigClient.Instance.HelmetAddons.auto)
 			{
-				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
-				Top.Pixels = 240;
+				Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
+				Top.Pixels = 210;
 				if (!Main.mapFullscreen && Main.mapStyle == 1)
 				{
 					Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);

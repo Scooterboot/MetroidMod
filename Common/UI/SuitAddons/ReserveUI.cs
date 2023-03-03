@@ -26,7 +26,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 {
 	public class ReserveUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.ShouldShowReserveUI && Main.EquipPage == 0;
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.SuitAddonUIState == SuitAddonUIState.Reserves && Main.EquipPage == 0;
 
 		public ReservePanel panel;
 
@@ -87,8 +87,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 			}
 
 			SetPadding(0);
-			Left.Pixels = Main.screenWidth - PanelTexture.Width() - 250;
-			Top.Pixels = 280;
+			Left.Pixels = Main.screenWidth - PanelTexture.Width() - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
+			Top.Pixels = 250;
 			Width.Pixels = PanelTexture.Width();
 			Height.Pixels = PanelTexture.Height();
 
@@ -138,8 +138,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 			}
 			if (!enabled && MConfigClient.Instance.Reserves.auto)
 			{
-				Left.Pixels = Main.screenWidth - Width.Pixels - 250;
-				Top.Pixels = 280;
+				Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
+				Top.Pixels = 250;
 				if (!Main.mapFullscreen && Main.mapStyle == 1)
 				{
 					Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);

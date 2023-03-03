@@ -10,19 +10,24 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Common.Players
 {
+	public enum SuitAddonUIState : byte
+	{
+		None = 0,
+		Helmet = 1,
+		Breastplate = 2,
+		Greaves = 3,
+		Reserves = 4,
+	}
 	public partial class MPlayer : ModPlayer
 	{
 		public bool ShouldShowArmorUI = false;
-		public bool ShouldShowHelmetUI = false;
 		public bool IsPowerSuitHelmet = false;
 		public bool ShouldDrawHelmet = false;
-		public bool ShouldShowBreastplateUI = false;
 		public bool IsPowerSuitBreastplate = false;
 		public bool ShouldDrawBreastplate = false;
-		public bool ShouldShowGreavesUI = false;
 		public bool IsPowerSuitGreaves = false;
 		public bool ShouldDrawGreaves = false;
-		public bool ShouldShowReserveUI = false;
+		public SuitAddonUIState SuitAddonUIState = SuitAddonUIState.None;
 		public void ResetEffects_GetArmors()
 		{
 			ShouldShowArmorUI = false;

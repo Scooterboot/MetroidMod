@@ -130,6 +130,11 @@ namespace MetroidMod.Common.Systems
 				helmetUserInterface.SetState(new UI.SuitAddons.HelmetAddonsUI());
 				isHELMInit = true;
 			}
+			if (!isSUInit)
+			{
+				suitUserInterface.SetState(new UI.SuitAddonUI());
+				isSUInit = true;
+			}
 			if (!isMBInit)
 			{
 				mbUserInterface.SetState(new UI.MorphBallUI());
@@ -168,6 +173,10 @@ namespace MetroidMod.Common.Systems
 			if (helmetUserInterface != null && UI.SuitAddons.HelmetAddonsUI.Visible)
 			{
 				helmetUserInterface.Update(gameTime);
+			}
+			if (suitUserInterface != null && UI.SuitAddonUI.Visible)
+			{
+				suitUserInterface.Update(gameTime);
 			}
 			if (mbUserInterface != null && UI.MorphBallUI.Visible)
 			{
@@ -445,6 +454,18 @@ namespace MetroidMod.Common.Systems
 							reserveUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Suit Addon UI",
+					delegate {
+						if (UI.SuitAddonUI.Visible)
+						{
+							if (Main.hasFocus) { smUserInterface.Recalculate(); }
+							suitUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
 						return true;
 					},
 					InterfaceScaleType.UI)

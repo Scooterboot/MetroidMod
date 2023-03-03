@@ -61,6 +61,8 @@ namespace MetroidMod.Common.Configs
 		public DragablePanelPage MorphBall = new();
 		[Label("Sense Move")]
 		public DragablePanelPage SenseMove = new();
+		[Label("Suit Menu")]
+		public DragablePanelPage SuitMenu = new();
 		[Label("Helmet Addons")]
 		public DragablePanelPage HelmetAddons = new();
 		[Label("Breastplate Addons")]
