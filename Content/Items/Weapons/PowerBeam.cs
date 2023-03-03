@@ -1200,10 +1200,6 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					isSpray = true;
 				}
-				if (slot5.type == plG)
-				{
-					comboError4 = true;
-				}
 				if (slot2.type == ic)
 				{
 					shot = "IceVoltDriverShot";
@@ -1219,6 +1215,14 @@ namespace MetroidMod.Content.Items.Weapons
 						{
 							shot = "IceWaveSpazerVoltDriverShot";
 							chargeShot = "IceWaveSpazerVoltDriverChargeShot";
+
+
+							if (slot5.type == plG)
+							{
+								shot = "IceWaveSpazerPlasmaGreenVoltDriverShot";
+								chargeShot = "IceWaveSpazerPlasmaGreenVoltDriverChargeShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IceWaveSpazerPlasmaRedVoltDriverShot";
@@ -1227,6 +1231,13 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "IceWavePlasmaGreenVoltDriverShot";
+								chargeShot = "IceWavePlasmaGreenChargeVoltDriverShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IceWavePlasmaRedVoltDriverShot";
@@ -1241,6 +1252,13 @@ namespace MetroidMod.Content.Items.Weapons
 						{
 							shot = "IceSpazerVoltDriverShot";
 							chargeShot = "IceSpazerVoltDriverChargeShot";
+
+							if (slot5.type == plG)
+							{
+								shot = "IceSpazerPlasmaGreenVoltDriverShot";
+								chargeShot = "IceSpazerPlasmaGreenVoltDriverChargeShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IceSpazerPlasmaRedVoltDriverShot";
@@ -1249,6 +1267,13 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "IcePlasmaGreenVoltDriverShot";
+								chargeShot = "IcePlasmaGreenVoltDriverChargeShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IcePlasmaRedVoltDriverShot";
@@ -1269,6 +1294,13 @@ namespace MetroidMod.Content.Items.Weapons
 						{
 							shot = "WaveSpazerVoltDriverShot";
 							chargeShot = "WaveSpazerVoltDriverChargeShot";
+
+							if (slot5.type == plG)
+							{
+								shot = "WaveSpazerPlasmaGreenVoltDriverShot";
+								chargeShot = "WaveSpazerPlasmaGreenVoltDriverChargeShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "WaveSpazerPlasmaRedVoltDriverShot";
@@ -1277,6 +1309,13 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "WavePlasmaGreenVoltDriverShot";
+								chargeShot = "WavePlasmaGreenVoltDriverChargeShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "WavePlasmaRedVoltDriverShot";
@@ -1291,6 +1330,13 @@ namespace MetroidMod.Content.Items.Weapons
 						{
 							shot = "SpazerVoltDriverShot";
 							chargeShot = "SpazerVoltDriverChargeShot";
+
+							if (slot5.type == plG)
+							{
+								shot = "SpazerPlasmaGreenVoltDriverShot";
+								chargeShot = "SpazerPlasmaGreenVoltDriverChargeShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "SpazerPlasmaRedVoltDriverShot";
@@ -1299,6 +1345,12 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "PlasmaGreenVoltDriverShot";
+								chargeShot = "PlasmaGreenVoltDriverChargeShot";
+							}
 
 							if (slot5.type == plR)
 							{
@@ -1330,6 +1382,12 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "IceWaveWideNovaVoltDriverShot";
 								chargeShot = "IceWaveWideNovaVoltDriverChargeShot"; ;
 							}
+							if (slot5.type == plG)
+							{
+								shot = "IceWaveWidePlasmaGreenV2VoltDriverShot";
+								chargeShot = "IceWaveWidePlasmaGreenV2VoltDriverChargeShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IceWaveWidePlasmaRedV2VoltDriverShot";
@@ -1342,6 +1400,11 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceWaveNovaVoltDriverShot";
 								chargeShot = "IceWaveNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "IceWavePlasmaGreenV2VoltDriverShot";
+								chargeShot = "IceWavePlasmaGreenV2VoltDriverChargeShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1361,6 +1424,11 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "IceWideNovaVoltDriverShot";
 								chargeShot = "IceWideNovaVoltDriverChargeShot";
 							}
+							if (slot5.type == plG)
+							{
+								shot = "IceWidePlasmaGreenVoltDriverV2Shot";
+								chargeShot = "IceWidePlasmaGreenV2VoltDriverChargeShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "IceWidePlasmaRedV2VoltDriverShot";
@@ -1373,6 +1441,11 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceNovaVoltDriverShot";
 								chargeShot = "IceNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "IcePlasmaGreenV2VoltDriverShot";
+								chargeShot = "IcePlasmaGreenV2VoltDriverChargeShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1397,6 +1470,11 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "WaveWideNovaVoltDriverShot";
 								chargeShot = "WaveWideNovaVoltDriverChargeShot";
 							}
+							if (slot5.type == plG)
+							{
+								shot = "WaveWidePlasmaGreenV2VoltDriverShot";
+								chargeShot = "WaveWidePlasmaGreenV2VoltDriverChargeShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "WaveWidePlasmaRedV2VoltDriverShot";
@@ -1409,6 +1487,11 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "WaveNovaVoltDriverShot";
 								chargeShot = "WaveNovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "WavePlasmaGreenV2VoltDriverShot";
+								chargeShot = "WavePlasmaGreenV2VoltDriverChargeShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1430,6 +1513,12 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "WideNovaVoltDriverShot";
 								chargeShot = "WideNovaVoltDriverChargeShot";
 							}
+							if (slot5.type == plG)
+							{
+								shot = "WidePlasmaGreenV2VoltDriverShot";
+								chargeShot = "WidePlasmaGreenV2VoltDriverChargeShot";
+
+							}
 							if (slot5.type == plR)
 							{
 								shot = "WidePlasmaRedV2VoltDriverShot";
@@ -1442,6 +1531,11 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "NovaVoltDriverShot";
 								chargeShot = "NovaVoltDriverChargeShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "PlasmaGreenV2VoltDriverShot";
+								chargeShot = "PlasmaGreenV2VoltDriverChargeShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1559,18 +1653,14 @@ namespace MetroidMod.Content.Items.Weapons
 				chargeShotSound = "JudicatorChargeSound";
 				chargeUpSound = "ChargeStartup_JudicatorAffinity";
 				texture = "Judicator";
-                chargeTex = "ChargeLead_Ice";
-                useTime = 15;
+				chargeTex = "ChargeLead_Ice";
+				useTime = 15;
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 				mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 				mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
 				if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 				{
 					isSpray = true;
-				}
-				if (slot5.type == plG)
-				{
-					comboError4 = true;
 				}
 				if (!slot3.IsAir)
 				{
@@ -1587,6 +1677,10 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						shot = "IceSolarJudicatorShot";
 					}
+					if (slot5.type == plG)
+					{
+						shot = "IcePlasmaGreenJudicatorShot";
+					}
 				}
 				if (slot5.type == nv)
 				{
@@ -1597,6 +1691,11 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					shot = "SolarJudicatorShot";
 					chargeShot = "SolarJudicatorChargeShot";
+				}
+				if (slot5.type == plG)
+				{
+					shot = "PlasmaGreenJudicatorShot";
+					chargeShot = "PlasmaGreenJudicatorChargeShot";
 				}
 			}
 
@@ -1657,10 +1756,6 @@ namespace MetroidMod.Content.Items.Weapons
 				useTime = 60;
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 
-				if (slot5.type == plG)
-				{
-					comboError4 = true;
-				}
 				if (slot2.type == ic)
 				{
 					shot = "IceImperialistShot";
@@ -1668,9 +1763,18 @@ namespace MetroidMod.Content.Items.Weapons
 					if (slot3.type == wa)
 					{
 						shot = "IceWaveImperialistShot";
+
+
 						if (slot4.type == sp)
 						{
 							shot = "IceWaveSpazerImperialistShot";
+
+
+							if (slot5.type == plG)
+							{
+								shot = "IceWaveSpazerPlasmaGreenImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IceWaveSpazerPlasmaRedImperialistShot";
@@ -1678,6 +1782,12 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "IceWavePlasmaGreenImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IceWavePlasmaRedImperialistShot";
@@ -1686,9 +1796,15 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					else
 					{
+
 						if (slot4.type == sp)
 						{
 							shot = "IceSpazerImperialistShot";
+
+							if (slot5.type == plG)
+							{
+								shot = "IceSpazerPlasmaGreenImperialistShot";
+							}
 
 							if (slot5.type == plR)
 							{
@@ -1697,6 +1813,12 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "IcePlasmaGreenImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IcePlasmaRedImperialistShot";
@@ -1714,6 +1836,12 @@ namespace MetroidMod.Content.Items.Weapons
 						if (slot4.type == sp)
 						{
 							shot = "WaveSpazerImperialistShot";
+
+							if (slot5.type == plG)
+							{
+								shot = "WaveSpazerPlasmaGreenImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "WaveSpazerPlasmaRedImperialistShot";
@@ -1721,6 +1849,12 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "WavePlasmaGreenImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "WavePlasmaRedImperialistShot";
@@ -1733,6 +1867,12 @@ namespace MetroidMod.Content.Items.Weapons
 						if (slot4.type == sp)
 						{
 							shot = "SpazerImperialistShot";
+
+							if (slot5.type == plG)
+							{
+								shot = "SpazerPlasmaGreenImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "SpazerPlasmaRedImperialistShot";
@@ -1740,6 +1880,12 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
+
+							if (slot5.type == plG)
+							{
+								shot = "PlasmaGreenImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "PlasmaRedImperialistShot";
@@ -1765,6 +1911,11 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceWaveWideNovaImperialistShot";
 							}
+							if (slot5.type == plG)
+							{
+								shot = "IceWaveWidePlasmaGreenV2ImperialistShot";
+							}
+
 							if (slot5.type == plR)
 							{
 								shot = "IceWaveWidePlasmaRedV2ImperialistShot";
@@ -1775,6 +1926,10 @@ namespace MetroidMod.Content.Items.Weapons
 							if (slot5.type == nv)
 							{
 								shot = "IceWaveNovaImperialistShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "IceWavePlasmaGreenV2ImperialistShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1791,6 +1946,10 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceWideNovaImperialistShot";
 							}
+							if (slot5.type == plG)
+							{
+								shot = "IceWidePlasmaGreenImperialistV2Shot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "IceWidePlasmaRedV2ImperialistShot";
@@ -1801,6 +1960,10 @@ namespace MetroidMod.Content.Items.Weapons
 							if (slot5.type == nv)
 							{
 								shot = "IceNovaImperialistShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "IcePlasmaGreenV2ImperialistShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1821,6 +1984,10 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "WaveWideNovaImperialistShot";
 							}
+							if (slot5.type == plG)
+							{
+								shot = "WaveWidePlasmaGreenV2ImperialistShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "WaveWidePlasmaRedV2ImperialistShot";
@@ -1831,6 +1998,10 @@ namespace MetroidMod.Content.Items.Weapons
 							if (slot5.type == nv)
 							{
 								shot = "WaveNovaImperialistShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "WavePlasmaGreenV2ImperialistShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1849,6 +2020,11 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "WideNovaImperialistShot";
 							}
+							if (slot5.type == plG)
+							{
+								shot = "WidePlasmaGreenV2ImperialistShot";
+
+							}
 							if (slot5.type == plR)
 							{
 								shot = "WidePlasmaRedV2ImperialistShot";
@@ -1859,6 +2035,10 @@ namespace MetroidMod.Content.Items.Weapons
 							if (slot5.type == nv)
 							{
 								shot = "NovaImperialistShot";
+							}
+							if (slot5.type == plG)
+							{
+								shot = "PlasmaGreenV2ImperialistShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1951,7 +2131,6 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 				}
 			}
-
 			if (slot1.type == mm)
 			{
 				isCharge = true;
@@ -3007,7 +3186,6 @@ namespace MetroidMod.Content.Items.Weapons
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 										mProj.Projectile.netUpdate = true;
 									}
-
 								}
 
 								SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
