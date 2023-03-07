@@ -14,7 +14,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || x >= Main.maxTilesX * 0.2 && x <= Main.maxTilesX * 0.35;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || x >= Main.maxTilesX * 0.2 && x <= Main.maxTilesX * 0.35 && y <= Main.UnderworldLayer;
 
 		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 15;
 
@@ -28,7 +28,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.damage = 16;
+			item.damage = 21;
 			item.value = Item.buyPrice(0, 0, 50, 0);
 			item.rare = ItemRarityID.Green;
 		}
