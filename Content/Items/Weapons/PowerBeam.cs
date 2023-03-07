@@ -1563,82 +1563,81 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "StardustNebulaVortexSolarVoltDriverShot";
 								chargeShot = "StardustNebulaVortexSolarVoltDriverChargeShot";
 							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarVoltDriverShot";
-									chargeShot = "StardustNebulaSolarVoltDriverChargeShot";
-								}
-							}
 						}
 						else
 						{
-							if (slot4.type == vt)
+							if (slot5.type == sl)
 							{
-								shot = "StardustVortexVoltDriverShot";
-								chargeShot = "StardustVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarVoltDriverShot";
-									chargeShot = "StardustVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarVoltDriverShot";
-									chargeShot = "StardustSolarVoltDriverChargeShot";
-								}
+								shot = "StardustNebulaSolarVoltDriverShot";
+								chargeShot = "StardustNebulaSolarVoltDriverChargeShot";
 							}
 						}
 					}
 					else
 					{
-						if (slot3.type == nb)
+						if (slot4.type == vt)
 						{
-							shot = "NebulaVoltDriverShot";
-							chargeShot = "NebulaVoltDriverChargeShot";
-
-							if (slot4.type == vt)
+							shot = "StardustVortexVoltDriverShot";
+							chargeShot = "StardustVortexVoltDriverChargeShot";
+							if (slot5.type == sl)
 							{
-								shot = "NebulaVortexVoltDriverShot";
-								chargeShot = "NebulaVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarVoltDriverShot";
-									chargeShot = "NebulaVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarVoltDriverShot";
-									chargeShot = "NebulaSolarVoltDriverChargeShot";
-								}
+								shot = "StardustVortexSolarVoltDriverShot";
+								chargeShot = "StardustVortexSolarVoltDriverChargeShot";
 							}
 						}
 						else
 						{
-							if (slot4.type == vt)
+							if (slot5.type == sl)
 							{
-								shot = "VortexVoltDriverShot";
-								chargeShot = "VortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarVoltDriverShot";
-									chargeShot = "VortexSolarVoltDriverChargeShot";
-								}
+								shot = "StardustSolarVoltDriverShot";
+								chargeShot = "StardustSolarVoltDriverChargeShot";
 							}
-							else
+						}
+					}
+				}
+				else
+				{
+					if (slot3.type == nb)
+					{
+						shot = "NebulaVoltDriverShot";
+						chargeShot = "NebulaVoltDriverChargeShot";
+						if (slot4.type == vt)
+						{
+							shot = "NebulaVortexVoltDriverShot";
+							chargeShot = "NebulaVortexVoltDriverChargeShot";
+							if (slot5.type == sl)
 							{
-								if (slot5.type == sl)
-								{
-									shot = "SolarVoltDriverShot";
-									chargeShot = "SolarVoltDriverChargeShot";
-								}
+								shot = "NebulaVortexSolarVoltDriverShot";
+								chargeShot = "NebulaVortexSolarVoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == sl)
+							{
+								shot = "NebulaSolarVoltDriverShot";
+								chargeShot = "NebulaSolarVoltDriverChargeShot";
+							}
+						}
+					}
+					else
+					{
+						if (slot4.type == vt)
+						{
+							shot = "VortexVoltDriverShot";
+							chargeShot = "VortexVoltDriverChargeShot";
+							if (slot5.type == sl)
+							{
+								shot = "VortexSolarVoltDriverShot";
+								chargeShot = "VortexSolarVoltDriverChargeShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == sl)
+							{
+								shot = "SolarVoltDriverShot";
+								chargeShot = "SolarVoltDriverChargeShot";
 							}
 						}
 					}
@@ -1712,12 +1711,12 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				if (!slot3.IsAir)
 				{
-					comboError1 = true;
+					comboError2 = true;
 				}
 				if (slot5.type == plR)
 				{
 					shot = "PlasmaRedBattleHammerShot";
-					if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
 					{
 						shot = "IcePlasmaRedBattleHammerShot";
 					}
@@ -1725,7 +1724,7 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot5.type == nv)
 				{
 					shot = "NovaBattleHammerShot";
-					if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
 					{
 						shot = "IceNovaBattleHammerShot";
 					}
@@ -1733,12 +1732,12 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot5.type == sl)
 				{
 					shot = "SolarBattleHammerShot";
-					if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
 					{
 						shot = "IceSolarBattleHammerShot";
 					}
 				}
-				if (slot2.type == ic || slot3.type == ic2 || slot3.type == sd)
+				if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
 				{
 					shot = "IceBattleHammerShot";
 				}
@@ -1785,12 +1784,12 @@ namespace MetroidMod.Content.Items.Weapons
 
 							if (slot5.type == plG)
 							{
-								shot = "IceWavePlasmaGreenImperialistShot";
+								shot = "IceWaveV2PlasmaGreenImperialistShot";
 							}
 
 							if (slot5.type == plR)
 							{
-								shot = "IceWavePlasmaRedImperialistShot";
+								shot = "IceWaveV2PlasmaRedImperialistShot";
 							}
 						}
 					}
@@ -1948,7 +1947,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plG)
 							{
-								shot = "IceWidePlasmaGreenImperialistV2Shot";
+								shot = "IceWidePlasmaGreenV2ImperialistShot";
 							}
 							if (slot5.type == plR)
 							{
@@ -1967,7 +1966,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (slot5.type == plR)
 							{
-								shot = "IcePlasmaRedImperialistV2Shot";
+								shot = "IcePlasmaRedV2ImperialistShot";
 							}
 						}
 					}
@@ -2061,71 +2060,70 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "StardustNebulaVortexSolarImperialistShot";
 							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarImperialistShot";
-								}
-							}
 						}
 						else
 						{
-							if (slot4.type == vt)
+							if (slot5.type == sl)
 							{
-								shot = "StardustVortexImperialistShot";
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarImperialistShot";
-								}
+								shot = "StardustNebulaSolarImperialistShot";
 							}
 						}
 					}
 					else
 					{
-						if (slot3.type == nb)
+						if (slot4.type == vt)
 						{
-							shot = "NebulaImperialistShot";
-
-							if (slot4.type == vt)
+							shot = "StardustVortexImperialistShot";
+							if (slot5.type == sl)
 							{
-								shot = "NebulaVortexImperialistShot";
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarImperialistShot";
-								}
+								shot = "StardustVortexSolarImperialistShot";
 							}
 						}
 						else
 						{
-							if (slot4.type == vt)
+							if (slot5.type == sl)
 							{
-								shot = "VortexImperialistShot";
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarImperialistShot";
-								}
+								shot = "StardustSolarImperialistShot";
 							}
-							else
+						}
+					}
+				}
+				else
+				{
+					if (slot3.type == nb)
+					{
+						shot = "NebulaImperialistShot";
+						if (slot4.type == vt)
+						{
+							shot = "NebulaVortexImperialistShot";
+							if (slot5.type == sl)
 							{
-								if (slot5.type == sl)
-								{
-									shot = "SolarImperialistShot";
-								}
+								shot = "NebulaVortexSolarImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == sl)
+							{
+								shot = "NebulaSolarImperialistShot";
+							}
+						}
+					}
+					else
+					{
+						if (slot4.type == vt)
+						{
+							shot = "VortexImperialistShot";
+							if (slot5.type == sl)
+							{
+								shot = "VortexSolarImperialistShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == sl)
+							{
+								shot = "SolarImperialistShot";
 							}
 						}
 					}
@@ -2190,18 +2188,23 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.knockBack = 0;
 				MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 
+				if (slot5.type == plG)
+				{
+					comboError4 = true;
+				}
 				if (slot2.type == ic)
 				{
 					shot = "IceShockCoilShot";
-
 					if (slot3.type == wa)
 					{
 						shot = "IceWaveShockCoilShot";
-
 						if (slot4.type == sp)
 						{
 							shot = "IceWaveSpazerShockCoilShot";
-
+							if (slot5.type == plG)
+							{
+								shot = "IceWaveSpazerPlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "IceWaveSpazerPlasmaRedShockCoilShot";
@@ -2209,7 +2212,10 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
-
+							if (slot5.type == plG)
+							{
+								shot = "IceWavePlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "IceWavePlasmaRedShockCoilShot";
@@ -2218,11 +2224,13 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					else
 					{
-
 						if (slot4.type == sp)
 						{
 							shot = "IceSpazerShockCoilShot";
-
+							if (slot5.type == plG)
+							{
+								shot = "IceSpazerPlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "IceSpazerPlasmaRedShockCoilShot";
@@ -2230,7 +2238,10 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
-
+							if (slot5.type == plG)
+							{
+								shot = "IcePlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "IcePlasmaRedShockCoilShot";
@@ -2240,15 +2251,16 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				else
 				{
-
 					if (slot3.type == wa)
 					{
 						shot = "WaveShockCoilShot";
-
 						if (slot4.type == sp)
 						{
 							shot = "WaveSpazerShockCoilShot";
-
+							if (slot5.type == plG)
+							{
+								shot = "WaveSpazerPlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "WaveSpazerPlasmaRedShockCoilShot";
@@ -2256,7 +2268,10 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
-
+							if (slot5.type == plG)
+							{
+								shot = "WavePlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "WavePlasmaRedShockCoilShot";
@@ -2265,11 +2280,13 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					else
 					{
-
 						if (slot4.type == sp)
 						{
 							shot = "SpazerShockCoilShot";
-
+							if (slot5.type == plG)
+							{
+								shot = "SpazerPlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "SpazerPlasmaRedShockCoilShot";
@@ -2277,10 +2294,14 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
-
+							if (slot5.type == plG)
+							{
+								shot = "PlasmaRedShockCoilShot";
+							}
 							if (slot5.type == plR)
 							{
 								shot = "PlasmaRedShockCoilShot";
+
 							}
 						}
 					}
@@ -2420,78 +2441,73 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "StardustNebulaVortexSolarShockCoilShot";
 							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarShockCoilShot";
-								}
-							}
 						}
 						else
 						{
-							if (slot4.type == vt)
+							if (slot5.type == sl)
 							{
-								shot = "StardustVortexShockCoilShot";
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarShockCoilShot";
-								}
+								shot = "StardustNebulaSolarShockCoilShot";
 							}
 						}
 					}
 					else
 					{
-						if (slot3.type == nb)
+						if (slot4.type == vt)
 						{
-							shot = "NebulaShockCoilShot";
-
-							if (slot4.type == vt)
+							shot = "StardustVortexShockCoilShot";
+							if (slot5.type == sl)
 							{
-								shot = "NebulaVortexShockCoilShot";
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarShockCoilShot";
-								}
+								shot = "StardustVortexSolarShockCoilShot";
 							}
 						}
 						else
 						{
-							if (slot4.type == vt)
+							if (slot5.type == sl)
 							{
-								shot = "VortexShockCoilShot";
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "SolarShockCoilShot";
-								}
+								shot = "StardustSolarShockCoilShot";
 							}
 						}
 					}
 				}
-				if (slot5.type == plG)
+				else
 				{
-					comboError4 = true;
+					if (slot3.type == nb)
+					{
+						shot = "NebulaShockCoilShot";
+						if (slot4.type == vt)
+						{
+							shot = "NebulaVortexShockCoilShot";
+							if (slot5.type == sl)
+							{
+								shot = "NebulaVortexSolarShockCoilShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == sl)
+							{
+								shot = "NebulaSolarShockCoilShot";
+							}
+						}
+					}
+					else
+					{
+						if (slot4.type == vt)
+						{
+							shot = "VortexShockCoilShot";
+							if (slot5.type == sl)
+							{
+								shot = "VortexSolarShockCoilShot";
+							}
+						}
+						else
+						{
+							if (slot5.type == sl)
+							{
+								shot = "SolarShockCoilShot";
+							}
+						}
+					}
 				}
 			}
 			if (slot1.type == oc)

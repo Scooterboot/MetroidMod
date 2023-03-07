@@ -19,8 +19,8 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.width = 10;
 			Projectile.height = 22;
 			Projectile.scale = 1f;
-			Projectile.penetrate = 1;
-			Projectile.aiStyle = 0;
+			//Projectile.penetrate = 1;
+			//Projectile.aiStyle = 0;
 			Projectile.timeLeft = 90;
 
         }
