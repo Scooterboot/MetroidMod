@@ -137,7 +137,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Spazer Plasma Green VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IceWaveSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -154,7 +154,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Plasma Green VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IceWavePlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -179,7 +179,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Plasma Green VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IceSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -196,7 +196,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Plasma Green VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IcePlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -229,7 +229,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Spazer Plasma Green VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class WaveSpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -246,7 +246,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Plasma Green VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class WavePlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -271,7 +271,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Spazer Plasma Green VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class SpazerPlasmaRedVoltDriverChargeShot : VoltDriverChargeShot
@@ -288,7 +288,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Plasma Red VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IceV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -321,7 +321,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Wide Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class IceWaveWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -330,7 +330,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Wide Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IceWaveWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -347,7 +347,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class IceWavePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -356,7 +356,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IceWavePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -381,7 +381,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wide Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class IceWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -390,7 +390,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wide Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IceWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -407,7 +407,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class IcePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -416,7 +416,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class IcePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -449,7 +449,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Wide Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class WaveWidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -458,7 +458,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Wide Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class WaveWidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -475,7 +475,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class WavePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -484,7 +484,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class WavePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -509,7 +509,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class WidePlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -518,7 +518,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class WidePlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -535,7 +535,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nova VoltDriver Charge Shot";
-			Projectile.penetrate = 8;
+			//Projectile.penetrate = 8;
 		}
 	}
 	public class PlasmaGreenV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -544,7 +544,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Plasma Green V2 VoltDriver Charge Shot";
-			Projectile.penetrate = 6;
+			//Projectile.penetrate = 6;
 		}
 	}
 	public class PlasmaRedV2VoltDriverChargeShot : VoltDriverChargeShot
@@ -585,7 +585,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Nebula Vortex Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 	public class StardustNebulaSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -594,7 +594,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Nebula Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 	public class StardustVortexVoltDriverChargeShot : VoltDriverChargeShot
@@ -611,7 +611,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Vortex Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 	public class StardustSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -620,7 +620,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 	public class NebulaVoltDriverChargeShot : VoltDriverChargeShot
@@ -645,7 +645,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nebula Vortex Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 	public class NebulaSolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -654,7 +654,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nebula Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 	public class VortexVoltDriverChargeShot : VoltDriverChargeShot
@@ -671,7 +671,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Vortex Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 	public class SolarVoltDriverChargeShot : VoltDriverChargeShot
@@ -680,7 +680,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			base.SetDefaults();
 			Projectile.Name = "Solar VoltDriver Charge Shot";
-			Projectile.penetrate = 12;
+			//Projectile.penetrate = 12;
 		}
 	}
 }
