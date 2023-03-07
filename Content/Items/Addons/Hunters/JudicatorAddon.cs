@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/78BE78:+15% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
 				string.Format("[c/BE7878:Cannot pierce walls]\n") +
-				string.Format("[c/BE7878:-55% speed]\n"));
+				string.Format("[c/BE7878:-45% speed]\n"));
 
             SacrificeTotal = 1;
 		}
@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.width = 10;
 			Item.height = 14;
 			Item.maxStack = 1;
-			Item.value = 2500;
+			Item.value = 50000;
 			Item.rare = ItemRarityID.LightRed;
 			Item.useTurn = true;
 			Item.autoReuse = true;
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.addonSlotType = 0;
 			mItem.addonDmg = .15f;
 			mItem.addonHeat = 1.25f;
-			mItem.addonSpeed = -.55f;
+			mItem.addonSpeed = -.45f;
 		}
 
 

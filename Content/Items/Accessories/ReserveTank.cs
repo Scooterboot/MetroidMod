@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Items.Accessories
 			Tooltip.SetDefault("Stores a heart picked up when at full health\n" + 
 				"Automatically uses the stored heart to save you from death");
 
-			SacrificeTotal = 1;
+			SacrificeTotal = 4;
 		}
 		public override void SetDefaults()
 		{
@@ -28,7 +28,7 @@ namespace MetroidMod.Content.Items.Accessories
 			//Item.consumable = true;
 			//Item.createTile = mod.TileType("ReserveTank");
 			Item.rare = ItemRarityID.Green;
-			Item.value = 20000;
+			Item.value = 50000;
 			Item.accessory = true;
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)

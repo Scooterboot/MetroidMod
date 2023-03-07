@@ -24,7 +24,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.width = 10;
 			Item.height = 14;
 			Item.maxStack = 1;
-			Item.value = 2500;
+			Item.value = 50000;
 			Item.rare = ItemRarityID.LightRed;
 			Item.useTurn = true;
 			Item.autoReuse = true;
