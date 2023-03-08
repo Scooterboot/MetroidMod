@@ -17,7 +17,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
-		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 10;
+		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 20;
 
 		public override void SetStaticDefaults()
 		{
@@ -33,7 +33,7 @@ namespace MetroidMod.Content.SuitAddons
 			item.width = 16;
 			item.height = 11;
 			item.maxStack = Common.Configs.MConfigItems.Instance.stackReserveTank;
-			item.value = Item.buyPrice(0, 2, 0, 0);
+			item.value = Item.buyPrice(0, 5, 0, 0);
 			item.rare = ItemRarityID.Green;
 		}
 		public override void AddRecipes()

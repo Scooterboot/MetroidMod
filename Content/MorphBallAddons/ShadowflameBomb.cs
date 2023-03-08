@@ -28,7 +28,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.damage = 44;
+			item.damage = 59;
 			item.value = Item.buyPrice(0, 2, 0, 0);
 			item.rare = ItemRarityID.Pink;
 		}

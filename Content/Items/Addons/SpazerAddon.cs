@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Items.Addons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spazer");
+			DisplayName.SetDefault("Spazer Beam");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Primary A\n" +
 				"Beam fires 3 shots at once, effectively tripling its damage\n" +
@@ -25,7 +25,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.width = 10;
 			Item.height = 14;
 			Item.maxStack = 1;
-			Item.value = 2500;
+			Item.value = 50000;
 			Item.rare = ItemRarityID.LightRed;
 			Item.useTurn = true;
 			Item.autoReuse = true;

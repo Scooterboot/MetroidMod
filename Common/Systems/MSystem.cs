@@ -638,7 +638,7 @@ namespace MetroidMod.Common.Systems
 			//Mod mod = MetroidMod.Instance;
 
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
-			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35);
+			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35 && j <= Main.UnderworldLayer);
 			if (WorldGen.dEnteranceX < Main.maxTilesX / 2)
 			{
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8);
