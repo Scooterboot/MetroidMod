@@ -575,11 +575,13 @@ namespace MetroidMod.Common.Players
 							Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
 							Player.jump = Player.jumpHeight;
 							canSomersault = true;
+							SoundEngine.PlaySound(Sounds.Suit.GripClimb, Player.position);
 						}
 						else if (Player.controlUp)
 						{
 							Player.velocity.Y = -6 * Player.gravDir;
 							reGripTimer = 10;
+							SoundEngine.PlaySound(Sounds.Suit.GripClimb, Player.position);
 						}
 						else
 						{
@@ -654,6 +656,7 @@ namespace MetroidMod.Common.Players
 				{
 					xSpeed = 11;
 				}
+				SoundEngine.PlaySound(Sounds.Suit.WallJump, Player.position);
 				Player.jump = Player.jumpHeight;
 				Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
 				Player.velocity.X = xSpeed * -dir;
