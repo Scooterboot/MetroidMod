@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 using ReLogic.Content;
@@ -82,7 +83,9 @@ namespace MetroidMod.Common.UI
 			{
 				if (mp.SuitAddonUIState < SuitAddonUIState.Reserves)
 				{
-					mp.SuitAddonUIState += 1;
+					if (Main.keyState.IsKeyDown(Keys.LeftShift))	{	mp.SuitAddonUIState -= 1;	}
+					else {	mp.SuitAddonUIState += 1;	}
+					if (Main.keyState.IsKeyDown(Keys.LeftControl))	{	mp.SuitAddonUIState = SuitAddonUIState.None;	}
 				}
 				else
 				{
