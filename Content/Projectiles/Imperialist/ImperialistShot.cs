@@ -20,34 +20,24 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.height = 32;
 			Projectile.scale = 1.5f;
 			Projectile.extraUpdates = 60;
-			Projectile.tileCollide = true;
+
+			mProjectile.amplitude = 5f * Projectile.scale;
+			mProjectile.wavesPerSecond = 1f;
+			mProjectile.delay = 1;
 		}
 
 		public override void AI()
 		{
-			/*if (Projectile.Name.Contains("Green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				Projectile.penetrate = 12;
-			}*/
-			if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Vortex"))
+			/*if (Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Vortex"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 				mProjectile.amplitude = 15f * Projectile.scale;
 				mProjectile.delay = 0;
-			}
+			}*/
+			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
 			{
 				Projectile.tileCollide = false;
-				mProjectile.WaveBehavior(Projectile);
-				mProjectile.wavesPerSecond = 0f;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
@@ -56,9 +46,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			int dustType = 235;
 			Main.dust[dustType].noGravity = true;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 20, dustType, 2f);
-			/*int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
-			int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 271, 0, 0, 100, default(Color), Projectile.scale);
-			Main.dust[dust2].noGravity = true;*/
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
