@@ -12,6 +12,8 @@ namespace MetroidMod.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("'Dread' Suit Breastplate");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -45,6 +47,8 @@ namespace MetroidMod.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("'Dread' Suit Greaves");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -60,6 +64,8 @@ namespace MetroidMod.Content.Items.Vanity
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("'Dread' Suit Helmet");
+
+			SacrificeTotal = 1;
 		}
 		public override void SetDefaults()
 		{
