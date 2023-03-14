@@ -241,7 +241,10 @@ namespace MetroidMod.Common.Players
 			bool altJump = false;
 			if (EnableWallJump)
 			{
-				CheckWallJump(Player, ref wallJumpDir, ref altJump);
+				if (!Player.mount.Active || Player.mount.Active && Common.Configs.MConfigMain.Instance.enableMorphBallWallJump)
+				{
+					CheckWallJump(Player, ref wallJumpDir, ref altJump);
+				}
 			}
 			else
 			{

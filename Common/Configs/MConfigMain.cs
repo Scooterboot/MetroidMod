@@ -51,6 +51,11 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool spaceJumpRocketBoots;
 
+		[Label("[i:MetroidMod/HiJumpBootsAddon] Wall-Jump while in Morph Ball")]
+		[Tooltip("Once again will you be able to hop from wall to wall as a little ball.")]
+		[DefaultValue(false)]
+		public bool enableMorphBallWallJump;
+
 	[Header("[i:MetroidMod/BlueHatch] Automatically Closing Hatches")]
 		
 		[Label("Enabled")]
