@@ -12,8 +12,8 @@ namespace MetroidMod.Content.Items.MissileAddons
 			DisplayName.SetDefault("Homing Missile");
 			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
-			"Fires a homing missile\n" +
-			"~Costs 2 Missiles");
+			"Fires a double-damage homing missile\n" +
+			"Costs 1 Missile");
 
 			SacrificeTotal = 1;
 		}
@@ -34,7 +34,7 @@ namespace MetroidMod.Content.Items.MissileAddons
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
 			mItem.addonChargeDmg = 2f;
-			mItem.addonMissileCost = 2;
+			mItem.addonMissileCost = 1;
 		}
 
 		public override void AddRecipes()
