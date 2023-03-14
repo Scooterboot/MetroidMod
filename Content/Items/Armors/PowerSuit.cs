@@ -206,10 +206,6 @@ namespace MetroidMod.Content.Items.Armors
 			{
 				player.noFallDmg = true;
 			}
-			if (player.mount.Active)
-			{
-				mp.EnableWallJump = false;
-			}
 		}
 
 		public override void AddRecipes()
