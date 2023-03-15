@@ -83,6 +83,16 @@ namespace MetroidMod.Content.Projectiles.Judicator
 
 			}
 		}
+		public class IceNovaJudicatorChargeShot : JudicatorChargeShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Ice Nova Judicator Charge Shot";
+				Projectile.penetrate = 8;
+
+			}
+		}
 		public class PlasmaGreenJudicatorChargeShot : JudicatorChargeShot
 		{
 			public override void SetDefaults()
@@ -99,6 +109,26 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			{
 				base.SetDefaults();
 				Projectile.Name = "Solar Judicator Charge Shot";
+				Projectile.penetrate = 12;
+
+			}
+		}
+		public class IcePlasmaGreenJudicatorChargeShot : JudicatorChargeShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Ice Solar Judicator Charge Shot";
+				Projectile.penetrate = 12;
+
+			}
+		}
+		public class IceSolarJudicatorChargeShot : JudicatorChargeShot
+		{
+			public override void SetDefaults()
+			{
+				base.SetDefaults();
+				Projectile.Name = "Ice Solar Judicator Charge Shot";
 				Projectile.penetrate = 12;
 
 			}

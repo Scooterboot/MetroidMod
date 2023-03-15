@@ -22,8 +22,9 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			//Projectile.penetrate = 1;
 			//Projectile.aiStyle = 0;
 			Projectile.timeLeft = 90;
-
-        }
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 10;
+		}
 
 		public override void AI()
 		{
@@ -79,37 +80,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			if (Projectile.Name.Contains("Plasma"))
-			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(39, 300);
-				}
-			}
-			if (Projectile.Name.Contains("Ice"))
-			{
-				string buffName = "IceFreeze";
-				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
-			}
-
-			if (Projectile.Name.Contains("Solar"))
-			{
-				target.AddBuff(189, 300);
-			}
 		}
 	}
 	public class PlasmaGreenJudicatorShot : JudicatorShot
