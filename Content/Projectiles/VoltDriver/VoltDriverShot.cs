@@ -21,6 +21,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.height = 22;
 			Projectile.scale = 0.75f;
 			Projectile.damage = 15;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 10;
 		}
 
 		public override void AI()

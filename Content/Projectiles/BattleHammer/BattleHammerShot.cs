@@ -19,9 +19,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			Projectile.width = 8;
 			Projectile.height = 8;
 			Projectile.scale = .5f;
-			Projectile.penetrate = 1;
 			Projectile.aiStyle = 1;
-
         }
 
 		public override void AI()
@@ -52,7 +50,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
 			Projectile.Damage();
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		/*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			if (Projectile.Name.Contains("Red"))
 			{
@@ -86,7 +84,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			{
 				target.AddBuff(189, 300);
 			}
-		}
+		}*/
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
