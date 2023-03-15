@@ -236,6 +236,13 @@ namespace MetroidMod.Common.Players
 		private bool sbFlag = false;
 		public void PostUpdateMiscEffects_Accessories()
 		{
+			Player player = Main.LocalPlayer;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			//	These kinds of checks might be pretty messy, I think, so I think I'll consider reforming them later when I can think clearly.
+			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbNoPowerSuit && !mp.IsPowerSuitBreastplate)
+			{
+				mp.powerGrip = true;
+			}
 			GripMovement();
 			int wallJumpDir = 0;
 			bool altJump = false;

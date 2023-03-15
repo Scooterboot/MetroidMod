@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿//using System.Collections.Generic; //	This is for ModifyTooltips.
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using MetroidMod.ID;
@@ -21,10 +22,23 @@ namespace MetroidMod.Content.SuitAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Grip");
-			Tooltip.SetDefault("Allows the user to grab onto ledges\n" +
-				"Does not need to be equipped; works while in inventory");
+			Tooltip.SetDefault("Allows the user to grab onto ledges\nDoes not need to be equipped; works while in inventory");
 			AddonSlot = SuitAddonSlotID.Misc_Grip;
 		}
+		//	This will be made possible later on.
+		/*public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			TooltipLine LedgeClimb = new TooltipLine(Mod, "LedgeClimb", $"Allows the user to grab onto ledges");
+			TooltipLine WallJump = new TooltipLine(Mod, "WallJump", $"Allows the user to wall-jump");
+			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerGrip)
+			{
+				tooltips.Add(LedgeClimb);
+			}
+			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
+			{
+				tooltips.Add(WallJump);
+			}
+		}*/
 		public override void SetItemDefaults(Item item)
 		{
 			item.width = 11;
@@ -47,7 +61,10 @@ namespace MetroidMod.Content.SuitAddons
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.powerGrip = true;
+			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerGrip)
+			{
+				mp.powerGrip = true;
+			}
 			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
@@ -56,7 +73,10 @@ namespace MetroidMod.Content.SuitAddons
 		public override void UpdateInventory(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.powerGrip = true;
+			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerGrip)
+			{
+				mp.powerGrip = true;
+			}
 			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;
@@ -65,7 +85,10 @@ namespace MetroidMod.Content.SuitAddons
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.powerGrip = true;
+			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerGrip)
+			{
+				mp.powerGrip = true;
+			}
 			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerGrip)
 			{
 				mp.EnableWallJump = true;

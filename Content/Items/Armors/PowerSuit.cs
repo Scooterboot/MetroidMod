@@ -54,6 +54,10 @@ namespace MetroidMod.Content.Items.Armors
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.10f;
 			mp.IsPowerSuitBreastplate = true;
+			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerSuitBreastplate)
+			{
+				mp.powerGrip = true;
+			}
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -197,11 +201,11 @@ namespace MetroidMod.Content.Items.Armors
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.IsPowerSuitGreaves = true;
 			if (Common.Configs.MConfigItems.Instance.enableWallJumpPowerSuitGreaves)
 			{
 				mp.EnableWallJump = true;
 			}
-			mp.IsPowerSuitGreaves = true;
 			if (Common.Configs.MConfigItems.Instance.enableNoFallDamagePowerSuitGreaves)
 			{
 				player.noFallDmg = true;
