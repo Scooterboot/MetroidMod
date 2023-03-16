@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			base.SetDefaults();
 			Projectile.width = 8;
-			Projectile.height = 8;
+			Projectile.height = 32;
 			Projectile.scale = 1.5f;
 			Projectile.extraUpdates = 60;
 			Projectile.usesLocalNPCImmunity = true;
@@ -39,6 +39,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			{
 				mProjectile.WaveBehavior(Projectile);
 				Projectile.tileCollide = false;
+				mProjectile.amplitude = 5f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
+				mProjectile.delay = 1;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
