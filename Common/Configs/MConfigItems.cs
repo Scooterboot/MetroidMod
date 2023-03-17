@@ -154,7 +154,7 @@ namespace MetroidMod.Common.Configs
 		[Range(1, 50)]
 		[Increment(1)]
 		[Slider]
-		[DefaultValue(8)]
+		[DefaultValue(10)]
 		public int damagePowerBeam;
 		
 		[Label("[i:MetroidMod/PowerBeam] Power Beam Use Time")]
