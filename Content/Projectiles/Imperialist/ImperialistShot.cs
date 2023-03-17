@@ -19,9 +19,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.width = 8;
 			Projectile.height = 32;
 			Projectile.scale = 1.5f;
-			Projectile.extraUpdates = 60;
+			Projectile.extraUpdates = 30;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
+			Projectile.localNPCHitCooldown = 4;
 			mProjectile.wavesPerSecond = 1f;
 		}
 
