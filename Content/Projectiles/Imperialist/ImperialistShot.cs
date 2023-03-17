@@ -51,7 +51,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Main.dust[dustType].noGravity = true;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 20, dustType, 2f);
 		}
-		bool[] npcPrevHit = new bool[Main.maxNPCs];
 		public override void Kill(int timeLeft)
 		{
 			int dustType = 64;
