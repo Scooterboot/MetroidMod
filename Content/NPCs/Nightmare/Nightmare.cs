@@ -40,12 +40,12 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
 
-		int damage = 50;
+		int damage = 100;//50;
 		public override void SetDefaults()
 		{
 			NPC.width = 80;
 			NPC.height = 80;
-			NPC.damage = 0;//50;
+			NPC.damage = 100;//50;
 			NPC.defense = 40;
 			NPC.lifeMax = 30000;
 			NPC.dontTakeDamage = false;

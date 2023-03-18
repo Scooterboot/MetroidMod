@@ -38,7 +38,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		{
 			NPC.width = 28;
 			NPC.height = 28;
-			NPC.damage = 0;//50;
+			NPC.damage = 250;
 			NPC.defense = 10;
 			NPC.lifeMax = 50;
 			NPC.knockBackResist = 0;

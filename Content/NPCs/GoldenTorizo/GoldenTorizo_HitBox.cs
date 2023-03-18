@@ -39,7 +39,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			NPC.width = 68;
 			NPC.height = 62;
 			NPC.scale = 1f;
-			NPC.damage = 50;
+			NPC.damage = 250;
 			NPC.defense = 40;
 			NPC.lifeMax = 32000;
 			NPC.dontTakeDamage = true;
