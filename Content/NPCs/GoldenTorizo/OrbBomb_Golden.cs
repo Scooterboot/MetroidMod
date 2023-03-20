@@ -36,7 +36,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		{
 			NPC.width = 26;
 			NPC.height = 26;
-			NPC.damage = 250;//0;
+			NPC.damage = 0;
 			NPC.defense = 0;
 			NPC.lifeMax = 5;
 			NPC.knockBackResist = 0;
@@ -53,7 +53,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			NPC.noGravity = true;
 		}
 
-		int damage = 240;//30;//60;
+		int damage = 120;//30;//60;
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			damage *= 2;
