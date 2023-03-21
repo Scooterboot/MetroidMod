@@ -204,6 +204,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private bool isHunter = false;
 
 		public bool comboError1, comboError2, comboError3, comboError4;
+		bool noSomersault = false;
 
 		private string altTexture => texture + "_alt";
 		private string texture = "";
@@ -304,7 +305,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				versionType = 2;
 			}
-
+			noSomersault = false;
 
 			// Default Combos
 			if (!isHyper && !isPhazon && !isHunter)
@@ -2054,6 +2055,7 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot1.type == sc)
 				{
 					isShock = true;
+					noSomersault = true;
 					shot = "ShockCoilShot";
 					shotSound = "ShockCoilStartupSound";
 					texture = "ShockCoil";
