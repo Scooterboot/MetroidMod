@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				"Fires a short range electric charge that heals and restores energy when fully charged\n" +
 				"Overheats and charges on enemy damage\n" +
 				//string.Format("[c/78BE78:+10% damage]\n") +
-				string.Format("[c/BE7878:Incompatible with green plasma effect]\n") +
+				string.Format("[c/BE7878:Cannot pierce enemies]\n") +
 				string.Format("[c/BE7878:Probably still bugged]\n"));
 
 			SacrificeTotal = 1;

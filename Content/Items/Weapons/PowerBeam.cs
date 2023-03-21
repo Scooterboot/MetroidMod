@@ -202,6 +202,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private bool isHyper = false;
 		private bool isPhazon = false;
 		private bool isHunter = false;
+		bool Stealth = false;
 
 		public bool comboError1, comboError2, comboError3, comboError4;
 		bool noSomersault = false;
@@ -274,9 +275,10 @@ namespace MetroidMod.Content.Items.Weapons
 
 			ShotSound = null;
 			ChargeShotSound = null;
-
+			noSomersault = false;
 			isSpray = false;
 			isShock = false;
+			Stealth = false;
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);
@@ -305,7 +307,6 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				versionType = 2;
 			}
-			noSomersault = false;
 
 			// Default Combos
 			if (!isHyper && !isPhazon && !isHunter)
@@ -1797,6 +1798,7 @@ namespace MetroidMod.Content.Items.Weapons
 					shotSound = "ImperialistSound";
 					texture = "Imperialist";
 					useTime = 60;
+					Stealth = true;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					if (slot4.type == sp || slot4.type == wi)
 					{
@@ -2943,6 +2945,22 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					mp.statCharge = 0;
 				}
+			}
+			if (Stealth)
+			{
+				//int stealthTimer = 500;
+				player.scope = true;
+				player.shroomiteStealth = true;
+				player.stealth = 400f;
+				if (player.controlUseItem)
+				{
+					player.shroomiteStealth = false;
+					player.stealth = 0f;
+				}
+				/*if (player.stealth < stealthTimer)
+				{
+					player.stealth += 1;
+				}*/ //why doesnt this work as a fade effect timer?
 			}
 		}
 
