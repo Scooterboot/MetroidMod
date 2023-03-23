@@ -38,7 +38,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		{
 			NPC.width = 28;
 			NPC.height = 28;
-			NPC.damage = 0;//50;
+			NPC.damage = 0;
 			NPC.defense = 10;
 			NPC.lifeMax = 50;
 			NPC.knockBackResist = 0;
@@ -65,7 +65,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			});
 		}
 
-		int damage = 66;
+		int damage = 132;
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			damage *= 2;

@@ -37,7 +37,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
-		int damage = 65;
+		int damage = 130;//65;
 		int oldLife = 0;
 		public override void SetDefaults()
 		{
