@@ -17,6 +17,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		private float iceSpeed = 0f;
 		private float spazSpeed = 0f;
 		private float plasSpeed = 0f;
+		private float shots = 0f;
 		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
 		public override void SetStaticDefaults()
 		{
@@ -260,7 +261,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (mp.statOverheat > mp.maxOverheat || (mp.statCharge == MPlayer.maxCharge && mp.statOverheat == mp.maxOverheat))
 			{
 				P.Kill();
-				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad, Projectile.position);
+				//SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad, Projectile.position);
 			}
 
 		}
@@ -385,25 +386,37 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         }
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			iceSpeed = 1.3f;
-			spazSpeed = .85f;
-			plasSpeed = 1.15f;
+			iceSpeed = 1f;
+			spazSpeed = 1f;
+			plasSpeed = 1f;
+			shots = 1f;
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
-			mp.statOverheat += ((int)((float)overheat * mp.overheatCost));
-			//mp.overheatDelay = 10;
+			
 
-			Projectile.localNPCHitCooldown = useTime * 7;
+			if (Projectile.Name.Contains("Vortex"))
+			{
+				shots = 5f;
+				spazSpeed = .75f;
+			}
+			if (Projectile.Name.Contains("Spazer"))
+			{
+				shots = 3f;
+				spazSpeed = 1.15f;
+			}
+			//mp.overheatDelay = 5;
+			mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
-				mp.statCharge = Math.Min(mp.statCharge + 7, MPlayer.maxCharge);
+				mp.statCharge += 7 / shots;
+				//mp.statCharge = Math.Min(((mp.statCharge + 7) / shots), MPlayer.maxCharge);
 			}
 			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
-				int healingAmount = Math.Min(damage / 14, 10);
+				int healingAmount = Math.Min(damage / 20, 5);
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);
-				mp.Energy += Math.Min(damage / 14, 10);
+				mp.Energy += Math.Min(damage / 20, 5);
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 			if (Projectile.Name.Contains("Plasma"))
@@ -431,15 +444,17 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
 			{
 				string buffName = "IceFreeze";
+				iceSpeed = 1.3f;
 				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
 			}
 			if (Projectile.Name.Contains("Solar"))
 			{
 				target.AddBuff(189, 300);
+				plasSpeed = 1.15f;
 			}
-			if (Projectile.Name.Contains("Vortex"))
+			if (Projectile.Name.Contains("Plasma"))
 			{
-				spazSpeed = .75F;
+				plasSpeed = 1.15f;
 			}
 			Projectile.localNPCHitCooldown = (int)Math.Round((double)(useTime * 7) * iceSpeed * spazSpeed * plasSpeed);
 		}

@@ -2951,12 +2951,12 @@ namespace MetroidMod.Content.Items.Weapons
 				//int stealthTimer = 500;
 				player.scope = true;
 				player.shroomiteStealth = true;
-				player.stealth = 450f;
+				player.stealth += 500;
 				player.aggro -= 600;
 				if (player.controlUseItem)
 				{
 					player.shroomiteStealth = false;
-					player.stealth = 0f;
+					player.stealth -= 500f;
 					player.aggro += 600;
 				}
 				/*if (player.stealth < stealthTimer)
