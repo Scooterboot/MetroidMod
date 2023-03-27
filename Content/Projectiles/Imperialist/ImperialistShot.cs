@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using MetroidMod.Content;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
@@ -47,14 +48,14 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
-			int dustType = 235;
+			int dustType = ModContent.DustType<Content.Dusts.ImperialistDust>();
 			Main.dust[dustType].noGravity = true;
-			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 20, dustType, 2f);
+			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 15, dustType, 2f);
 		}
-		public override void Kill(int timeLeft)
+		/*public override void Kill(int timeLeft)
 		{
 			int dustType = 64;
-		}
+		}*/
 
 		public override bool PreDraw(ref Color lightColor)
 		{
