@@ -40,26 +40,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.Kill();
 			return false;
 		}
-		public override void Kill(int timeLeft)
-		{
-			Projectile P = Projectile;
-
-			for (int num70 = 0; num70 < 25; num70++)
-			{
-				int num71 = Dust.NewDust(P.position, P.width, P.height, 135, 0f, 0f, 100, default(Color), 5f);
-				Main.dust[num71].velocity *= 1.4f;
-				Main.dust[num71].noGravity = true;
-			}
-
-			var entitySource = Projectile.GetSource_Death();
-
-
-			int x = (int)MathHelper.Clamp(P.Center.X / 16, 0, Main.maxTilesX - 2);
-			int y = (int)MathHelper.Clamp(P.Center.Y / 16, 0, Main.maxTilesY - 2);
-			Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
-			int ft = Projectile.NewProjectile(entitySource, pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<JudicatorFreeze>(), 0, 0f, P.owner);
-			Projectile.Damage();
-		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
