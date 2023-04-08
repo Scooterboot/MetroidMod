@@ -404,11 +404,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				shots = 3f;
 				spazSpeed = 1.15f;
 			}
-			//mp.overheatDelay = 5;
-			mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
+			//mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
-				mp.statCharge += 7 / shots;
+				mp.statCharge += 10 / shots;
 				//mp.statCharge = Math.Min(((mp.statCharge + 7) / shots), MPlayer.maxCharge);
 			}
 			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)

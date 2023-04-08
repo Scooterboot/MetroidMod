@@ -166,6 +166,8 @@ namespace MetroidMod.Content.Items.Weapons
 		private float spazSpeed = 0f;
 		private float plasSpeed = 0f;
 		private float hunterSpeed = 0f;
+		private float cooldown = 0f;
+		private float stealth = 0f;
 
 		private int finalDmg = Common.Configs.MConfigItems.Instance.damagePowerBeam;
 
@@ -2791,7 +2793,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 				mp.hyperColors = 23;
 			}
-
 			else
 			{
 				if (!isSpray)
@@ -2839,9 +2840,10 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void HoldItem(Player player)
 		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			int oHeat = (int)((float)overheat * mp.overheatCost);
 			if (isCharge && player.whoAmI == Main.myPlayer)
 			{
-				MPlayer mp = player.GetModPlayer<MPlayer>();
 
 				if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 				{
@@ -2870,7 +2872,7 @@ namespace MetroidMod.Content.Items.Weapons
 						float dmgMult = 1f + ((chargeDmgMult - 1f) / MPlayer.maxCharge) * mp.statCharge;
 						int damage = player.GetWeaponDamage(Item);
 
-						int oHeat = (int)((float)overheat * mp.overheatCost);
+						
 
 						double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
@@ -2946,23 +2948,32 @@ namespace MetroidMod.Content.Items.Weapons
 					mp.statCharge = 0;
 				}
 			}
+			if (isShock && player.controlUseItem && mp.statOverheat < mp.maxOverheat && mp.statCharge >= MPlayer.maxCharge)
+			{
+				//cooldown = useTime;
+				cooldown--;
+				mp.overheatDelay = (int)cooldown / 3;
+				if (cooldown <= 0)
+				{
+					mp.statOverheat += oHeat - 1;
+					cooldown = useTime;
+				}
+			}
 			if (Stealth)
 			{
-				//int stealthTimer = 500;
 				player.scope = true;
 				player.shroomiteStealth = true;
-				player.stealth += 500;
-				player.aggro -= 600;
+				if(stealth < 500f)
+				{
+					stealth += 2;
+				}
+				player.stealth -= stealth / 500;
+				player.aggro = (int)stealth * -1;
 				if (player.controlUseItem)
 				{
 					player.shroomiteStealth = false;
-					player.stealth -= 500f;
-					player.aggro += 600;
+					stealth = 0f;
 				}
-				/*if (player.stealth < stealthTimer)
-				{
-					player.stealth += 1;
-				}*/ //why doesnt this work as a fade effect timer?
 			}
 		}
 
