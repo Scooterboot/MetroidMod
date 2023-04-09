@@ -502,7 +502,7 @@ namespace MetroidMod.Common.Players
 			if (grapplingBeam >= 0)
 			{
 				Projectile projectile = Main.projectile[grapplingBeam];
-				if (projectile.type == ModContent.ProjectileType<Content.Projectiles.GrappleBeamShot>() && projectile.owner == Player.whoAmI && projectile.active)
+				if ((projectile.type == ModContent.ProjectileType<Content.Projectiles.GrappleBeamShot>() || projectile.type == ModContent.ProjectileType<Content.Projectiles.GrappleBeamPlusShot>()) && projectile.owner == Player.whoAmI && projectile.active)
 				{
 					float targetrotation = (float)Math.Atan2(((projectile.Center.Y - Player.Center.Y) * Player.direction), ((projectile.Center.X - Player.Center.X) * Player.direction));
 					grappleRotation = targetrotation;
