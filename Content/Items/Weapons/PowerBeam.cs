@@ -2968,7 +2968,7 @@ namespace MetroidMod.Content.Items.Weapons
 					stealth += 2;
 				}
 				player.stealth -= stealth / 500;
-				player.aggro = (int)stealth * -1;
+				player.aggro -= (int)stealth;
 				if (player.controlUseItem)
 				{
 					player.shroomiteStealth = false;
