@@ -833,7 +833,7 @@ namespace MetroidMod.Content.Items.Weapons
 									if (isHoming)
 									{
 										var entitySource = Item.GetSource_ItemUse(Item);
-										int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
+										int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage * 2, Item.knockBack, player.whoAmI);
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 										mProj.homing = true;
 										mProj.Projectile.netUpdate2 = true;

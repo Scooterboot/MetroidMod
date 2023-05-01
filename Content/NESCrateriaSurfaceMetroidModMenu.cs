@@ -12,7 +12,7 @@ namespace MetroidMod.Content
 	public class NESCrateriaSurfaceMetroidModMenu : ModMenu
 	{
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Menu/NESTitle");
-		public override int Music => MusicLoader.GetMusicSlot($"{Mod.Name}/Assets/Music/NESTitle");
+		public override int Music => MusicLoader.GetMusicSlot($"{Mod.Name}/Assets/Music/Title");
 		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<Biomes.NESCrateriaSurfaceBackgroundStyle>();
 		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel");
 		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel");

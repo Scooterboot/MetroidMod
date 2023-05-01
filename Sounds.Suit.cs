@@ -6,6 +6,27 @@ namespace MetroidMod
 	{
 		public static class Suit
 		{
+			public static readonly SoundStyle WallJump = new($"{nameof(MetroidMod)}/Assets/Sounds/WallJump")
+			{
+				Volume = 0.25f,
+				PitchVariance = 0.15f,
+				MaxInstances = 4
+			};
+
+			public static readonly SoundStyle GripHang = new($"{nameof(MetroidMod)}/Assets/Sounds/GripHang")
+			{
+				Volume = 0.25f,
+				PitchVariance = 0.15f,
+				MaxInstances = 4
+			};
+
+			public static readonly SoundStyle GripClimb = new($"{nameof(MetroidMod)}/Assets/Sounds/GripClimb")
+			{
+				Volume = 0.25f,
+				PitchVariance = 0.15f,
+				MaxInstances = 4
+			};
+
 			public static readonly SoundStyle SenseMove = new($"{nameof(MetroidMod)}/Assets/Sounds/SenseMoveSound")
 			{
 

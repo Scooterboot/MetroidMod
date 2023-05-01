@@ -236,12 +236,22 @@ namespace MetroidMod.Common.Players
 		private bool sbFlag = false;
 		public void PostUpdateMiscEffects_Accessories()
 		{
+			Player player = Main.LocalPlayer;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			//	These kinds of checks might be pretty messy, I think, so I think I'll consider reforming them later when I can think clearly.
+			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbNoPowerSuit && !mp.IsPowerSuitBreastplate)
+			{
+				mp.powerGrip = true;
+			}
 			GripMovement();
 			int wallJumpDir = 0;
 			bool altJump = false;
 			if (EnableWallJump)
 			{
-				CheckWallJump(Player, ref wallJumpDir, ref altJump);
+				if (!Player.mount.Active || Player.mount.Active && Common.Configs.MConfigMain.Instance.enableMorphBallWallJump)
+				{
+					CheckWallJump(Player, ref wallJumpDir, ref altJump);
+				}
 			}
 			else
 			{
@@ -575,11 +585,13 @@ namespace MetroidMod.Common.Players
 							Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
 							Player.jump = Player.jumpHeight;
 							canSomersault = true;
+							SoundEngine.PlaySound(Sounds.Suit.GripClimb, Player.position);
 						}
 						else if (Player.controlUp)
 						{
 							Player.velocity.Y = -6 * Player.gravDir;
 							reGripTimer = 10;
+							SoundEngine.PlaySound(Sounds.Suit.GripClimb, Player.position);
 						}
 						else
 						{
@@ -654,6 +666,7 @@ namespace MetroidMod.Common.Players
 				{
 					xSpeed = 11;
 				}
+				SoundEngine.PlaySound(Sounds.Suit.WallJump, Player.position);
 				Player.jump = Player.jumpHeight;
 				Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
 				Player.velocity.X = xSpeed * -dir;
@@ -957,7 +970,7 @@ namespace MetroidMod.Common.Players
 			switch (shineDirection)
 			{
 				case 1: //right
-					Player.velocity.X = 20;
+					Player.velocity.X = 7 * Player.accRunSpeed;
 					Player.velocity.Y = 0;
 					Player.maxFallSpeed = 0f;
 					Player.direction = 1;
@@ -967,8 +980,8 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 2: //right and up
-					Player.velocity.X = 20;
-					Player.velocity.Y = -20f * Player.gravDir;
+					Player.velocity.X = 7 * Player.accRunSpeed;
+					Player.velocity.Y = -7 * Player.accRunSpeed * Player.gravDir;
 					Player.maxFallSpeed = 0f;
 					Player.direction = 1;
 					shineDischarge = 0;
@@ -976,7 +989,7 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 3: //left
-					Player.velocity.X = -20;
+					Player.velocity.X = -7 * Player.accRunSpeed;
 					Player.velocity.Y = 0;
 					Player.maxFallSpeed = 0f;
 					Player.direction = -1;
@@ -986,8 +999,8 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 4: //left and up
-					Player.velocity.X = -20;
-					Player.velocity.Y = -20 * Player.gravDir;
+					Player.velocity.X = -7 * Player.accRunSpeed;
+					Player.velocity.Y = -7 * Player.accRunSpeed * Player.gravDir;
 					Player.maxFallSpeed = 0f;
 					Player.direction = -1;
 					shineDischarge = 0;
@@ -996,7 +1009,7 @@ namespace MetroidMod.Common.Players
 
 				case 5: //up
 					Player.velocity.X = 0;
-					Player.velocity.Y = -20 * Player.gravDir;
+					Player.velocity.Y = -7 * Player.accRunSpeed * Player.gravDir;
 					Player.maxFallSpeed = 0f;
 					shineDischarge = 0;
 					if (Player.miscCounter % 4 == 0 && !ballstate)
@@ -1008,9 +1021,9 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 6: //right and down
-					Player.velocity.X = 20;
-					Player.velocity.Y = 20f * Player.gravDir;
-					Player.maxFallSpeed = 20f;
+					Player.velocity.X = 7 * Player.accRunSpeed;
+					Player.velocity.Y = 7 * Player.accRunSpeed * Player.gravDir;
+					Player.maxFallSpeed = 7 * Player.accRunSpeed;
 					Player.direction = 1;
 					shineDischarge = 0;
 					Player.controlLeft = false;
@@ -1018,9 +1031,9 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 7: //left and down
-					Player.velocity.X = -20;
-					Player.velocity.Y = 20 * Player.gravDir;
-					Player.maxFallSpeed = 20f;
+					Player.velocity.X = -7 * Player.accRunSpeed;
+					Player.velocity.Y = 7 * Player.accRunSpeed * Player.gravDir;
+					Player.maxFallSpeed = 7 * Player.accRunSpeed;
 					Player.direction = -1;
 					shineDischarge = 0;
 					Player.controlRight = false;
@@ -1029,8 +1042,8 @@ namespace MetroidMod.Common.Players
 
 				case 8: //down
 					Player.velocity.X = 0;
-					Player.velocity.Y = 20 * Player.gravDir;
-					Player.maxFallSpeed = 20f;
+					Player.velocity.Y = 7 *Player.accRunSpeed * Player.gravDir;
+					Player.maxFallSpeed = 7 * Player.accRunSpeed;
 					shineDischarge = 0;
 					if (Player.miscCounter % 4 == 0 && !ballstate)
 					{

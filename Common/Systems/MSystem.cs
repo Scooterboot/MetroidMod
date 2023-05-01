@@ -1258,7 +1258,13 @@ namespace MetroidMod.Common.Systems
 					}
 				}
 			}
-			WorldGen.PlaceObject(x + width / 2, y + 4, ModContent.TileType<MissileExpansionTile>());
+			//WorldGen.PlaceObject(x + width / 2, y + 4, ModContent.TileType<MissileExpansionTile>());
+			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
+			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().IsHalfBlock = false;
+			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().HasTile = true;
+			Main.tile[x + width / 2, y + 4].Get<TileTypeData>().Type = (ushort)ModContent.TileType<MissileExpansionTile>();
+			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().TileFrameX = 0;
+			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().TileFrameY = 0;
 
 			int shaftWidth = 24;
 			int shaftHeight = WorldGen.genRand.Next(70, 80);

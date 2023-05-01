@@ -44,12 +44,17 @@ namespace MetroidMod.Common.Configs
 		//[DefaultValue(false)]
 		//internal bool veryBrokenHatchControl;
 
-	[Header("[i:3611] Old movement tech")]
+	[Header("[i:3611] Tech Preservation")]
 
 		[Label("[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots")]
 		[Tooltip("Enables a small, niche movement tech that has not been named.")]
 		[DefaultValue(false)]
 		public bool spaceJumpRocketBoots;
+
+		[Label("[i:MetroidMod/HiJumpBootsAddon] Wall-Jump while in Morph Ball")]
+		[Tooltip("By default, you cannot Wall-Jump while in Morph Ball.\nIf this option is on, and you can Wall-Jump, then you will be able to do so while morphed.")]
+		[DefaultValue(false)]
+		public bool enableMorphBallWallJump;
 
 	[Header("[i:MetroidMod/BlueHatch] Automatically Closing Hatches")]
 		

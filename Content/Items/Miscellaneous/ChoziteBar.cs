@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		}
 		public override void SetDefaults()
 		{
-			Item.maxStack = 99;
+			Item.maxStack = 999;
 			Item.width = 16;
 			Item.height = 16;
 			Item.useTurn = true;

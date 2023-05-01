@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/78BE78:+900% damage]\n") +
 				string.Format("[c/BE7878:+1000% overheat use]\n") +
 				string.Format("[c/BE7878:Slow as the DMV]\n") +
-                string.Format("[c/BE7878:Incompatible with wave or green plasma effects]"));
+                string.Format("[c/BE7878:Cannot Pierce walls or enemies]"));
 
             SacrificeTotal = 1;
 		}

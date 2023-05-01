@@ -77,7 +77,13 @@ namespace MetroidMod.Common.Configs
 		
 	[Header("[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit")]
 		
+		[Label("[i:MetroidMod/PowerGripAddon] Ledge Climb")]
+		[Tooltip("When enabled, the Power Suit's Breastplate grants Ledge Climb.")]
+		[DefaultValue(false)]
+		public bool enableLedgeClimbPowerSuitBreastplate;
+		
 		[Label("[i:MetroidMod/HiJumpBootsAddon] Wall Jump")]
+		[Tooltip("When enabled, the Power Suit's Greaves grant Wall-Jump.")]
 		[DefaultValue(true)]
 		public bool enableWallJumpPowerSuitGreaves;
 		
@@ -142,10 +148,19 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(100)]
 		public int reserveTankStoreCount;
-
+		
+		[Label("[i:MetroidMod/PowerGripAddon] Ledge Climb without Power Suit")]
+		[Tooltip("When enabled, lacking the Power Suit Breastplate will automatically grant you Ledge Climb,\njust like in Metroid: Zero Mission.")]
+		[DefaultValue(false)]
+		public bool enableLedgeClimbNoPowerSuit;
+		
 		[Label("[i:MetroidMod/PowerGripAddon][i:MetroidMod/HiJumpBootsAddon] Power Grip grants Wall Jump")]
 		[DefaultValue(false)]
 		public bool enableWallJumpPowerGrip;
+		
+		[Label("[i:MetroidMod/PowerGripAddon] Power Grip grants Ledge Climb")]
+		[DefaultValue(true)]
+		public bool enableLedgeClimbPowerGrip;
 		
 	[Header("[i:MetroidMod/PowerBeam] Standard Weapons")]
 		
@@ -153,7 +168,7 @@ namespace MetroidMod.Common.Configs
 		[Range(1, 50)]
 		[Increment(1)]
 		[Slider]
-		[DefaultValue(14)]
+		[DefaultValue(10)]
 		public int damagePowerBeam;
 		
 		[Label("[i:MetroidMod/PowerBeam] Power Beam Use Time")]
@@ -181,7 +196,7 @@ namespace MetroidMod.Common.Configs
 		[Range(5, 60)]
 		[Increment(1)]
 		[Slider]
-		[DefaultValue(9)]
+		[DefaultValue(27)]
 		public int useTimeMissileLauncher;
 		
 		[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Starting Ammo")]

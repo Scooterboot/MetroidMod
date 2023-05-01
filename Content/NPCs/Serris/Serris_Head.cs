@@ -54,9 +54,9 @@ namespace MetroidMod.Content.NPCs.Serris
 			set { NPC.ai[1] = value; }
 		}
 
-		int damage = 20;
-		int speedDamage = 35;//60;
-		int coreDamage = 30;
+		int damage = 40;//20
+		int speedDamage = 120;//60;//35
+		int coreDamage = 60;//30
 
 		public override void SetStaticDefaults()
 		{
