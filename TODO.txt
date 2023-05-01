@@ -16,3 +16,5 @@
  -	Fix Nightmare Core-X not spawning in multiplayer
  -	Make Scan Visor lock onto enemies
  -	Sprites for things relating to the Chozo Ruins 'biome'
+ -	Make a new Mod Menu that isn't explicitly based on NEStroid to fit the new music
+	 -	For reference purposes, the new music is stated to be vaguely based on Super Metroid
