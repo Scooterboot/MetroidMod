@@ -53,6 +53,8 @@ namespace MetroidMod.Content.SuitAddons
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += 3;
 			mp.phazonImmune = true;
 			mp.phazonRegen += 2;
+			// workaround for Hazard Shield being applied earlier than PED Suit causing hazard shield buffing PED to not work
+			if (mp.hazardShield > 0) { mp.phazonRegen += 2; }
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;

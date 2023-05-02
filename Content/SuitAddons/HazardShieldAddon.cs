@@ -66,10 +66,6 @@ namespace MetroidMod.Content.SuitAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.15f;
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += 12;
-			if (mp.phazonRegen > 0)
-			{
-				mp.phazonRegen += 2;
-			}
 			mp.maxOverheat += 45;
 			mp.overheatCost -= 0.2f;
 			mp.missileCost -= 0.15f;
