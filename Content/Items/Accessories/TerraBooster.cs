@@ -13,8 +13,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Terra Booster");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
-			/*"Allows the user to run insanely fast and extra mobility on ice\n" +
+			Tooltip.SetDefault("Allows the user to run insanely fast and extra mobility on ice\n" +
 			"Allows somersaulting\n" +
 			"Damage enemies while running or somersaulting\n" +
 			"Damage scales off of enemy's contact damage\n" +
@@ -23,7 +22,7 @@ namespace MetroidMod.Content.Items.Accessories
 			"Holding left/right while jumping midair gives a boost\n" + 
 			"Provides the ability to walk on water and lava\n" + 
 			"Grants immunity to fire blocks and 7 seconds lava immunity\n" +
-			"Increases jump height and prevents fall damage");*/
+			"Increases jump height and prevents fall damage");
 
 			SacrificeTotal = 1;
 		}
@@ -46,26 +45,14 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
 
-		/*
 		public override void AddRecipes()
 		{
+			// TODO: include soaring insignia?
 			CreateRecipe(1)
 				.AddIngredient<ScrewSpaceBooster>(1)
 				.AddIngredient(ItemID.TerrasparkBoots, 1)
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
-		}
-		*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, ItemID.TerrasparkBoots);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpaceJump>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpeedBooster>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

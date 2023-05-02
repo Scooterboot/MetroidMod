@@ -17,12 +17,11 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Space Jump");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
-			/*"'Somersault continuously in the air!'\n" + 
+			Tooltip.SetDefault("'Somersault continuously in the air!'\n" + 
 			"Allows somersaulting\n" + 
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" +
-			"Increases jump height and prevents fall damage");*/
+			"Increases jump height and prevents fall damage");
 
 			SacrificeTotal = 1;
 		}
@@ -40,10 +39,10 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
-			//Item.consumable = true;
-			//Item.createTile = mod.TileType("SpaceJumpTile");
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpaceJumpTile>();
 		}
-		/*public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<SpaceJumpBoots>(1)
@@ -51,14 +50,6 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient(ItemID.SoulofFlight, 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
-		}*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpaceJump>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

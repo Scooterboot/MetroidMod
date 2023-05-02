@@ -10,9 +10,8 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hi-Jump Boots");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
-			/*"Increases jump height\n" + 
-			"Stacks with other jump height accessories");*/
+			Tooltip.SetDefault("Increases jump height\n" + 
+			"Stacks with other jump height accessories");
 
 			SacrificeTotal = 1;
 		}
@@ -30,10 +29,9 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.HiJumpBootsTile>();
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.HiJumpBootsTile>();
 		}
 
-		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -43,14 +41,6 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient(ItemID.Emerald, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
-		*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

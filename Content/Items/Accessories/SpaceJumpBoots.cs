@@ -16,10 +16,9 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Space Jump Boots");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
-			/*"Allows the wearer to double jump\n" + 
+			Tooltip.SetDefault("Allows the wearer to double jump\n" + 
 			"Allows somersaulting\n" +
-			"Increases jump height");*/
+			"Increases jump height");
 
 			SacrificeTotal = 1;
 		}
@@ -37,11 +36,10 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
-			//Item.consumable = true;
-			//Item.createTile = mod.TileType("SpaceJumpBootsTile");
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpaceJumpBootsTile>();
 		}
-
-		/*public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
@@ -70,14 +68,6 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient<Tiles.EnergyTank>(1)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpaceJumpBoots>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
