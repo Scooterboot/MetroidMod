@@ -161,10 +161,16 @@ namespace MetroidMod.Common.Configs
 		"Default value: false")]
 		public bool StatueItemMarkers;
 
+		[Label("Display debug values")]
+		[Tooltip("When enabled, displays certain debug values.\n" +
+		"Default value: false")]
+		public bool DisplayDebugValues;
+
 		public override void OnChanged()
 		{
 			MetroidMod.DebugDH = DrawNPCHitboxes;
 			MetroidMod.DebugDSI = StatueItemMarkers;
+			MetroidMod.DisplayDebugValues = DisplayDebugValues;
 		}
 	}
 }
