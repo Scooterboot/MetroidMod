@@ -75,6 +75,8 @@ namespace MetroidMod
 		public static int T3HMBarRecipeGroupID;
 		public static ushort unloadedItemID;
 
+		public static List<int> hazardShieldDebuffList = new() { 20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197 };
+
 		public override void Load()
 		{
 			ItemIL.Load();
@@ -115,6 +117,30 @@ namespace MetroidMod
 			SuitAddonLoader.Unload();
 			MBAddonLoader.Unload();
 		}
+
+		#region Calls
+		public override object Call(params object[] args)
+		{
+			// Make absolutely, 100% certain that we have arguments.
+			if (args is null) { throw new ArgumentNullException(nameof(args), "Arguments cannot be null!"); }
+			if (args.Length == 0) { throw new ArgumentException("Arguments cannot be empty!"); }
+
+			// Take first argument and treat it like a command.
+			if (args[0] is string content)
+			{
+				switch (content.ToLower())
+				{
+					// AddHazardShieldDebuff: Makes the Hazard Shield more effective against debuff id stored in args[1]
+					case "addhazardshielddebuff":
+						if (args[1] is int id) { hazardShieldDebuffList.Add(id); return true; }
+						else { throw new Exception($"Expected an argument of type int when adding to Hazard Shield debuff list, but got type {args[1].GetType().Name} instead."); }
+				}
+			}
+
+			// Arguments didn't match any commands? Just return false.
+			return false;
+		}
+		#endregion
 
 		/* NETWORK SYNICNG <<<<< WIP >>>>> */
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
