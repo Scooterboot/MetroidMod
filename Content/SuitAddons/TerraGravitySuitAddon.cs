@@ -29,19 +29,22 @@ namespace MetroidMod.Content.SuitAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Terra Gravity Suit");
-			Tooltip.SetDefault("+10 defense\n" +
-				"+15 overheat capacity\n" +
-				"5% decreased overheat use\n" +
-				"5% decreased Missile Charge Combo cost\n" +
-				"5% increased hunter damage\n" +
-				"5% increased hunter critical strike chance\n" +
+			Tooltip.SetDefault("+19 defense\n" +
+				"+30 overheat capacity\n" +
+				"10% decreased overheat use\n" +
+				"10% decreased Missile Charge Combo cost\n" +
+				"10% increased hunter damage\n" +
+				"8% increased hunter critical strike chance\n" +
 				"10% increased movement speed\n" +
-				"15% increased energy barrier efficiency\n" + // Provisional name
-				"10% increased energy barrier resilience\n" + // Provisional name
-				"Grants 7 seconds of lava immunity\n" +
+				"30% increased energy barrier efficiency\n" + // Provisional name
+				"17.5% increased energy barrier resilience\n" + // Provisional name
+				"Infinite breath underwater\n" +
+				"Immune to knockback\n" +
+				"Free movement in liquid\n" +
+				"Grants 14 seconds of lava immunity\n" +
 				"Default gravity in space\n" +
 				"Immune to Distorted and Amplified Gravity effects");
-			AddonSlot = SuitAddonSlotID.Suit_Augment;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
@@ -53,20 +56,23 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.statDefense += 10;
+			player.statDefense += 19;
+			player.noKnockback = true;
+			player.ignoreWater = true;
+			player.gills = true;
 			player.moveSpeed += 0.10f;
-			player.lavaMax += 420;
+			player.lavaMax += 840;
 			player.gravity = Player.defaultGravity;
 			player.buffImmune[BuffID.VortexDebuff] = true;
 			player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.GravityDebuff>()] = true;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
-			HunterDamagePlayer.ModPlayer(player).HunterCrit += 5;
-			mp.maxOverheat += 15;
-			mp.overheatCost -= 0.05f;
-			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.15f;
-			mp.EnergyExpenseEfficiency += 0.10f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.1f;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += 8;
+			mp.maxOverheat += 30;
+			mp.overheatCost -= 0.1f;
+			mp.missileCost -= 0.1f;
+			mp.EnergyDefenseEfficiency += 0.3f;
+			mp.EnergyExpenseEfficiency += 0.175f;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{
@@ -81,6 +87,7 @@ namespace MetroidMod.Content.SuitAddons
 			CreateRecipe(1)
 				.AddIngredient(ItemID.ChlorophyteBar, 60)
 				.AddIngredient<Items.Miscellaneous.NightmareCoreXFragment>(45)
+				.AddSuitAddon<GravitySuitAddon>(1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

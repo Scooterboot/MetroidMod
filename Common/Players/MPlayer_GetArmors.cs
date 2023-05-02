@@ -211,13 +211,13 @@ namespace MetroidMod.Common.Players
 			{
 				armor = player.armor[11].ModItem as PowerSuitBreastplate;
 			}
-			else { return new ModSuitAddon[4] {null, null, null, null}; }
+			else { return new ModSuitAddon[2] {null, null}; }
 			Item[] sa = armor.SuitAddons;
-			ModSuitAddon[] msa = new ModSuitAddon[4];
-			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
+			ModSuitAddon[] msa = new ModSuitAddon[2];
+			for (int i = SuitAddonSlotID.Suit_Barrier; i <= SuitAddonSlotID.Suit_Primary; i++)
 			{
-				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Varia] = null; continue; }
-				msa[i - SuitAddonSlotID.Suit_Varia] = SuitAddonLoader.GetAddon(sa[i]);
+				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Barrier] = null; continue; }
+				msa[i - SuitAddonSlotID.Suit_Barrier] = SuitAddonLoader.GetAddon(sa[i]);
 			}
 			return msa;
 		}

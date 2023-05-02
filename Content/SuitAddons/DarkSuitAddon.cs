@@ -34,7 +34,7 @@ namespace MetroidMod.Content.SuitAddons
 				"15% increased energy barrier efficiency\n" + // Provisional name
 				"7.5% increased energy barrier resilience\n" + // Provisional name
 				"Reduces damage from the Dark World"*/);
-			AddonSlot = SuitAddonSlotID.Suit_Utility;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)

@@ -87,10 +87,8 @@ namespace MetroidMod
 			{
 				SuitAddonSlotID.Tanks_Energy => "Energy Tank",
 				SuitAddonSlotID.Tanks_Reserve => "Reserve Tank",
-				SuitAddonSlotID.Suit_Varia => "Varia",
-				SuitAddonSlotID.Suit_Utility => "Utility",
-				SuitAddonSlotID.Suit_Augment => "Augmentation",
-				SuitAddonSlotID.Suit_LunarAugment => "Secondary Augmentation",
+				SuitAddonSlotID.Suit_Barrier => "Barrier",
+				SuitAddonSlotID.Suit_Primary => "Primary",
 				SuitAddonSlotID.Misc_Grip => "Hand",
 				SuitAddonSlotID.Misc_Attack => "Attack",
 				SuitAddonSlotID.Boots_JumpHeight => "Boots",
@@ -167,7 +165,7 @@ namespace MetroidMod
 		public static void OnUpdateVanitySet(Player player)
 		{
 			Item[] items = (GetBreastplate(player, true).ModItem as PowerSuitBreastplate).SuitAddons;
-			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
+			for (int i = SuitAddonSlotID.Suit_Barrier; i <= SuitAddonSlotID.Suit_Primary; i++)
 			{
 				if (items[i] == null || !TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
 				addon.OnUpdateVanitySet(player);

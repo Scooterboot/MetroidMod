@@ -29,18 +29,18 @@ namespace MetroidMod.Content.SuitAddons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Solar Augment");
-			Tooltip.SetDefault("You shouldn't have this."/*"+10 defense\n" +
-				"+25 overheat capacity\n" +
-				"5% decreased overheat use\n" +
-				"5% decreased Missile Charge Combo cost\n" +
-				"5% increased hunter damage\n" +
-				"5% increased hunter critical strike chance\n" +
-				"20% increased energy barrier efficiency\n" + // Provisional name
-				"15% increased energy barrier resilience\n" + // Provisional name
+			Tooltip.SetDefault("You shouldn't have this."/*"+29 defense\n" +
+				"+55 overheat capacity\n" +
+				"15% decreased overheat use\n" +
+				"15% decreased Missile Charge Combo cost\n" +
+				"15% increased hunter damage\n" +
+				"13% increased hunter critical strike chance\n" +
+				"60% increased energy barrier efficiency\n" + // Provisional name
+				"32.5% increased energy barrier resilience\n" + // Provisional name
 				"Immune to damage from the Dark World\n" +
 				"Immune to damage from Dark Water"*/
 				);
-			AddonSlot = SuitAddonSlotID.Suit_LunarAugment;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -59,8 +59,8 @@ namespace MetroidMod.Content.SuitAddons
 			mp.maxOverheat += 25;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.20f;
-			mp.EnergyExpenseEfficiency += 0.15f;
+			mp.EnergyDefenseEfficiency += 0.60f;
+			mp.EnergyExpenseEfficiency += 0.325f;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{
@@ -77,6 +77,7 @@ namespace MetroidMod.Content.SuitAddons
 			CreateRecipe(1)
 				.AddIngredient(ItemID.LunarBar, 36)
 				.AddIngredient(ItemID.FragmentSolar, 45)
+				.AddSuitAddon<LightSuitAddon>(1)
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}

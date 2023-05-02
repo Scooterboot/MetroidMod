@@ -72,7 +72,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				addonSlots[i] = new GreavesUIItemBox();
 				addonSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
 				addonSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
-				addonSlots[i].addonSlotType = i + 8;
+				addonSlots[i].addonSlotType = i + 6;
 				addonSlots[i].SetCondition();
 
 				Append(addonSlots[i]);
@@ -156,23 +156,23 @@ namespace MetroidMod.Common.UI.SuitAddons
 			if (Main.LocalPlayer.armor[2].type != ModContent.ItemType<PowerSuitGreaves>()) { return; }
 			PowerSuitGreaves target = Main.LocalPlayer.armor[2].ModItem as PowerSuitGreaves;
 
-			if (target.SuitAddons[addonSlotType - 8] != null && !target.SuitAddons[addonSlotType - 8].IsAir)
+			if (target.SuitAddons[addonSlotType - 6] != null && !target.SuitAddons[addonSlotType - 6].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = target.SuitAddons[addonSlotType - 8].Clone();
+					Main.mouseItem = target.SuitAddons[addonSlotType - 6].Clone();
 
-					target.SuitAddons[addonSlotType - 8].TurnToAir();
+					target.SuitAddons[addonSlotType - 6].TurnToAir();
 				}
 				else if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 
-					Item tempBoxItem = target.SuitAddons[addonSlotType - 8].Clone();
+					Item tempBoxItem = target.SuitAddons[addonSlotType - 6].Clone();
 					Item tempMouseItem = Main.mouseItem.Clone();
 
-					target.SuitAddons[addonSlotType - 8] = tempMouseItem;
+					target.SuitAddons[addonSlotType - 6] = tempMouseItem;
 					Main.mouseItem = tempBoxItem;
 				}
 			}
@@ -181,7 +181,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					target.SuitAddons[addonSlotType - 8] = Main.mouseItem.Clone();
+					target.SuitAddons[addonSlotType - 6] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
 			}
@@ -197,18 +197,18 @@ namespace MetroidMod.Common.UI.SuitAddons
 			if (Main.LocalPlayer.armor[2].IsAir) { return; }
 			PowerSuitGreaves greaves = Main.LocalPlayer.armor[2].ModItem as PowerSuitGreaves;
 
-			Color itemColor = greaves.SuitAddons[addonSlotType - 8].GetAlpha(Color.White);
-			Texture2D itemTexture = TextureAssets.Item[greaves.SuitAddons[addonSlotType - 8].type].Value;
+			Color itemColor = greaves.SuitAddons[addonSlotType - 6].GetAlpha(Color.White);
+			Texture2D itemTexture = TextureAssets.Item[greaves.SuitAddons[addonSlotType - 6].type].Value;
 			CalculatedStyle innerDimensions = GetDimensions();
 
 			if (IsMouseHovering)
 			{
-				Main.hoverItemName = greaves.SuitAddons[addonSlotType - 8].Name;
-				Main.HoverItem = greaves.SuitAddons[addonSlotType - 8].Clone();
+				Main.hoverItemName = greaves.SuitAddons[addonSlotType - 6].Name;
+				Main.HoverItem = greaves.SuitAddons[addonSlotType - 6].Clone();
 			}
 
-			Rectangle frame = Main.itemAnimations[greaves.SuitAddons[addonSlotType - 8].type] != null
-						? Main.itemAnimations[greaves.SuitAddons[addonSlotType - 8].type].GetFrame(itemTexture)
+			Rectangle frame = Main.itemAnimations[greaves.SuitAddons[addonSlotType - 6].type] != null
+						? Main.itemAnimations[greaves.SuitAddons[addonSlotType - 6].type].GetFrame(itemTexture)
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
@@ -227,7 +227,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			//float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, greaves.SuitAddons[addonSlotType - 8].type);
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, greaves.SuitAddons[addonSlotType - 6].type);
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
@@ -237,7 +237,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if (greaves.SuitAddons[addonSlotType - 8].color != default(Color))
+			if (greaves.SuitAddons[addonSlotType - 6].color != default(Color))
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);

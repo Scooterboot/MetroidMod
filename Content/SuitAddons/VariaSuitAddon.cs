@@ -40,7 +40,7 @@ namespace MetroidMod.Content.SuitAddons
 				"20% increased energy barrier resilience\n" + // Provisional name
 				"Immunity to fire blocks" + "\n" + 
 				"Immunity to chill and freeze effects");
-			AddonSlot = SuitAddonSlotID.Suit_Varia;
+			AddonSlot = SuitAddonSlotID.Suit_Barrier;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)

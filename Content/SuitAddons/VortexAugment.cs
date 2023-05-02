@@ -37,7 +37,7 @@ namespace MetroidMod.Content.SuitAddons
 				"30% increased energy barrier efficiency\n" + // Provisional name
 				"20% increased energy barrier resilience\n" // Provisional name
 				);
-			AddonSlot = SuitAddonSlotID.Suit_LunarAugment;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -72,6 +72,7 @@ namespace MetroidMod.Content.SuitAddons
 			CreateRecipe(1)
 				.AddIngredient(ItemID.LunarBar, 36)
 				.AddIngredient(ItemID.FragmentVortex, 45)
+				.AddSuitAddon<TerraGravitySuitAddon>(1)
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}

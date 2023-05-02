@@ -44,19 +44,14 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
-		public Vector2[] itemBoxPositionValues = new Vector2[8]
+		public Vector2[] itemBoxPositionValues = new Vector2[6]
 		{
-			//new Vector2(32, 14),
-			//new Vector2(98, 14),
-			//new Vector2(174, 14)
-			new Vector2(32, 174),
-			new Vector2(174, 174),
-			new Vector2(98, 14),
-			new Vector2(98, 174),
-			new Vector2(32, 14),
-			new Vector2(174, 14),
-			new Vector2(32, 94),
-			new Vector2(174, 94)
+			new Vector2(32, 174), // Energy
+			new Vector2(174, 174), // Reserve
+			new Vector2(32, 14), // Barrier
+			new Vector2(174, 14), // Primary
+			new Vector2(32, 94), // Hand
+			new Vector2(174, 94) // Attack
 		};
 
 		public BreastplateUIItemBox[] addonSlots;
@@ -74,7 +69,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			Append(new BreastplateAddonsFrame());
 			Append(new BreastplateAddonsLines());
 
-			addonSlots = new BreastplateUIItemBox[8];
+			addonSlots = new BreastplateUIItemBox[6];
 			for (int i = 0; i < addonSlots.Length; i++)
 			{
 				addonSlots[i] = new BreastplateUIItemBox();

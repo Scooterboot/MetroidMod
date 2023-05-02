@@ -40,7 +40,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Immune to knockback\n" +
 				"Free movement in liquid\n" +
 				"Grants 7 seconds of lava immunity");
-			AddonSlot = SuitAddonSlotID.Suit_Utility;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)

@@ -22,6 +22,10 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Common.UI
 {
+	/// <summary>
+	/// Obsolete class, no longer in use. Only here for reference. This was the class that initialized the old "Suit Addon Menu" without any custom graphics.
+	/// </summary>
+	[Obsolete]
 	public class SuitAddonsUI : UIState
 	{
 		public static bool Visible => false;// Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowArmorUI && Main.EquipPage == 0;
@@ -33,7 +37,7 @@ namespace MetroidMod.Common.UI
 		private bool reserveHoldingLClick;
 		private bool reserveHoldingRClick;
 
-		public Vector2[] itemBoxBreastplatePositionValues = new Vector2[SuitAddonSlotID.Misc_Attack + 1]
+		public Vector2[] itemBoxBreastplatePositionValues = new Vector2[SuitAddonSlotID.Misc_Attack + 2 + 1]
 		{
 			new Vector2(32, 334),
 			new Vector2(174, 334),
@@ -215,6 +219,10 @@ namespace MetroidMod.Common.UI
 		}
 	}
 
+	/// <summary>
+	/// Obsolete class, no longer in use. Only here for reference. This was the background panel the <see cref="SuitAddonsUI"/> used.
+	/// </summary>
+	[Obsolete]
 	public class SuitAddonsPanel : DragableUIPanel
 	{
 		//private Texture2D panelTexture;
@@ -279,6 +287,11 @@ namespace MetroidMod.Common.UI
 			spriteBatch.Draw(panelTexture, DrawRectangle, Color.White);
 		}*/
 	}
+
+	/// <summary>
+	/// Obsolete class, no longer in use. Only here for reference. This was an item box that <see cref="SuitAddonsUI"/> and <see cref="SuitAddonsPanel"/> used.
+	/// </summary>
+	[Obsolete]
 	public class SuitUIItemBox : UIPanel
 	{
 		//private Texture2D itemBoxTexture;
@@ -542,6 +555,11 @@ namespace MetroidMod.Common.UI
 			return null;
 		}
 	}
+
+	/// <summary>
+	/// Obsolete class, no longer in use. Only here for reference. This was the reserve tank menu the <see cref="SuitAddonsUI"/> used.
+	/// </summary>
+	[Obsolete]
 	public class ReserveMenu : DragableUIPanel
 	{
 		internal static bool _visible = false;
