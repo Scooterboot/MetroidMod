@@ -437,7 +437,7 @@ namespace MetroidMod.Common.Systems
 					delegate {
 						if (UI.SuitAddonUI.Visible)
 						{
-							if (Main.hasFocus) { smUserInterface.Recalculate(); }
+							if (Main.hasFocus) { suitUserInterface.Recalculate(); }
 							suitUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 						return true;
