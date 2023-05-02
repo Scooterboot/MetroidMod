@@ -1446,7 +1446,7 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceObject(statueX2, statueY, ModContent.TileType<ChozoStatueArmNatural>(), false, 0, 0, -1, -dir);
 
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().HasTile = true;
-			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)SuitAddonLoader.GetAddon<Content.SuitAddons.PowerGrip>().TileType;
+			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)ModContent.TileType<Content.Tiles.ItemTile.PowerGripTile>();
 
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameX = 0;
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameY = 0;

@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Items.Boss
 
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			itemLoot.Add(ItemDropRule.Common(SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accessories.ScrewAttack>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
 		}
 	}

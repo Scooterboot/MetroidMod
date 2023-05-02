@@ -89,11 +89,6 @@ namespace MetroidMod
 				SuitAddonSlotID.Tanks_Reserve => "Reserve Tank",
 				SuitAddonSlotID.Suit_Barrier => "Barrier",
 				SuitAddonSlotID.Suit_Primary => "Primary",
-				SuitAddonSlotID.Misc_Grip => "Hand",
-				SuitAddonSlotID.Misc_Attack => "Attack",
-				SuitAddonSlotID.Boots_JumpHeight => "Boots",
-				SuitAddonSlotID.Boots_Jump => "Jump",
-				SuitAddonSlotID.Boots_Speed => "Speed Augmentation",
 				SuitAddonSlotID.Visor_Scan => "Scan Visor",
 				SuitAddonSlotID.Visor_Utility => "Utility Visor",
 				SuitAddonSlotID.Visor_AltVision => "Alt Visor",
@@ -111,10 +106,6 @@ namespace MetroidMod
 				items[index++] = item;
 			}
 			foreach (Item item in (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons)
-			{
-				items[index++] = item;
-			}
-			foreach (Item item in (player.armor[2].ModItem as PowerSuitGreaves).SuitAddons)
 			{
 				items[index++] = item;
 			}
@@ -141,10 +132,6 @@ namespace MetroidMod
 				items[index++] = item;
 			}
 			foreach (Item item in (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons)
-			{
-				items[index++] = item;
-			}
-			foreach (Item item in (player.armor[2].ModItem as PowerSuitGreaves).SuitAddons)
 			{
 				items[index++] = item;
 			}

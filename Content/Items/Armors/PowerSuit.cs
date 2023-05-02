@@ -20,7 +20,7 @@ namespace MetroidMod.Content.Items.Armors
 			get {
 				if (_suitAddons == null)
 				{
-					_suitAddons = new Item[SuitAddonSlotID.Misc_Attack + 1];
+					_suitAddons = new Item[SuitAddonSlotID.Suit_Primary + 1];
 					for (int i = 0; i < _suitAddons.Length; i++)
 					{
 						_suitAddons[i] = new Item();
@@ -120,7 +120,7 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			try
 			{
-				SuitAddons = new Item[SuitAddonSlotID.Misc_Attack + 1];
+				SuitAddons = new Item[SuitAddonSlotID.Suit_Primary + 1];
 				for (int i = 0; i < SuitAddons.Length; i++)
 				{
 					Item item = tag.Get<Item>("SuitAddons" + i);
@@ -164,25 +164,6 @@ namespace MetroidMod.Content.Items.Armors
 	[AutoloadEquip(EquipType.Legs)]
 	public class PowerSuitGreaves : ModItem
 	{
-		// Failsaves.
-		private Item[] _suitAddons;
-		public Item[] SuitAddons
-		{
-			get {
-				if (_suitAddons == null)
-				{
-					_suitAddons = new Item[SuitAddonSlotID.Boots_Speed - SuitAddonSlotID.Misc_Attack];
-					for (int i = 0; i < _suitAddons.Length; i++)
-					{
-						_suitAddons[i] = new Item();
-						_suitAddons[i].TurnToAir();
-					}
-				}
-
-				return _suitAddons;
-			}
-			set { _suitAddons = value; }
-		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Power Suit Greaves");
@@ -221,62 +202,6 @@ namespace MetroidMod.Content.Items.Armors
 				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 15)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
-		public override void SaveData(TagCompound tag)
-		{
-			for (int i = 0; i < SuitAddons.Length; ++i)
-			{
-				// Failsave check.
-				if (SuitAddons[i] == null)
-				{
-					SuitAddons[i] = new Item();
-				}
-				tag.Add("SuitAddons" + i, ItemIO.Save(SuitAddons[i]));
-			}
-		}
-		public override void LoadData(TagCompound tag)
-		{
-			try
-			{
-				SuitAddons = new Item[SuitAddonSlotID.Boots_Speed - SuitAddonSlotID.Misc_Attack];
-				for (int i = 0; i < SuitAddons.Length; i++)
-				{
-					Item item = tag.Get<Item>("SuitAddons" + i);
-					SuitAddons[i] = item;
-				}
-			}
-			catch { }
-		}
-		public override void NetSend(BinaryWriter writer)
-		{
-			for (int i = 0; i < SuitAddons.Length; ++i)
-			{
-				ItemIO.Send(SuitAddons[i], writer);
-			}
-		}
-		public override void NetReceive(BinaryReader reader)
-		{
-			for (int i = 0; i < SuitAddons.Length; ++i)
-			{
-				SuitAddons[i] = ItemIO.Receive(reader);
-			}
-		}
-
-		public override ModItem Clone(Item newEntity)
-		{
-			PowerSuitGreaves obj = (PowerSuitGreaves)base.Clone(newEntity);
-			obj.SuitAddons = SuitAddons;
-			return obj;
-		}
-
-		public override void OnResearched(bool fullyResearched)
-		{
-			foreach (Item item in SuitAddons)
-			{
-				if (item == null || item.IsAir) { continue; }
-				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
-			}
 		}
 	}
 	[AutoloadEquip(EquipType.Head)]

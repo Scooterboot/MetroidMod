@@ -40,6 +40,7 @@
 		/// Slot for Gravity, Phazon, etc. suits.
 		/// </summary>
 		public const short Suit_Primary = 3;
+		/* Old, still here for reference
 		/// <summary>
 		/// Slot for the Power Grip.
 		/// </summary>
@@ -60,19 +61,20 @@
 		/// Slot for the Speed Booster.
 		/// </summary>
 		public const short Boots_Speed = 8;
+		*/
 		/// <summary>
 		/// Slot for the Scan Visor.
 		/// </summary>
-		public const short Visor_Scan = 9;
+		public const short Visor_Scan = 4;
 		/// <summary>
 		/// Slot for the Thermal Visor, the Dark Visor, and the Command Visor.
 		/// </summary>
-		public const short Visor_Utility = 10;
+		public const short Visor_Utility = 5;
 		/// <summary>
 		/// Slot for the X-Ray Visor and the Echo Visor.
 		/// </summary>
-		public const short Visor_AltVision = 11;
+		public const short Visor_AltVision = 6;
 
-		public const short Count = 12;
+		public const short Count = 7;
 	}
 }
