@@ -2,6 +2,7 @@
 using Terraria.ID;
 using MetroidMod.Common.Players;
 using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -65,6 +66,10 @@ namespace MetroidMod.Content.SuitAddons
 			mp.missileCost -= 0.05f;
 			mp.EnergyDefenseEfficiency += 0.15f;
 			mp.EnergyExpenseEfficiency += 0.075f;
+		}
+		public override void OnUpdateVanitySet(Player player)
+		{
+			player.GetModPlayer<MPlayer>().visorGlowColor = new Color(0, 248, 112);
 		}
 		public override void AddRecipes()
 		{
