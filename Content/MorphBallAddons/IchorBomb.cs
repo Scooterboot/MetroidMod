@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ichor Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Ichor Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Decreases enemy defense");
+			// DisplayName.SetDefault("Ichor Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Ichor Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Decreases enemy defense"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

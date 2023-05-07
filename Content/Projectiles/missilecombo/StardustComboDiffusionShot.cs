@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Dragon");
+			// DisplayName.SetDefault("Stardust Dragon");
 		}
 		
 		bool initialised = false;
@@ -104,7 +104,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			return null;
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(),600,true);
 		}

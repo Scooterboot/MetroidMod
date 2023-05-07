@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seeker Missile Lead");
+			// DisplayName.SetDefault("Seeker Missile Lead");
 		}
 		public override void SetDefaults()
 		{

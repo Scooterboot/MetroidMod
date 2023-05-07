@@ -9,9 +9,9 @@ namespace MetroidMod.Content.Items.Tiles
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Tiles/TourianPipeAccent";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tourian Accent Pipe (Natural)");
+			// DisplayName.SetDefault("Tourian Accent Pipe (Natural)");
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
 		{

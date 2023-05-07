@@ -8,9 +8,9 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Brinstone");
+			// DisplayName.SetDefault("Brinstone");
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
 		{

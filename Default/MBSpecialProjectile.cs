@@ -32,7 +32,7 @@ namespace MetroidMod.Default
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault());
+			// DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault());
 			Main.projFrames[Type] = 6;
 		}
 		public override void SetDefaults()

@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Biomes
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crateria (Surface, Metroid NES)");
+			// DisplayName.SetDefault("Crateria (Surface, Metroid NES)");
 		}
 
 		public override bool IsBiomeActive(Player player)

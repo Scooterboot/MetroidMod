@@ -19,9 +19,9 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spider Ball");
-			Tooltip.SetDefault("-Press the Spider Ball Key to activate Spider Ball\n" +
-			"-Allows you to climb on walls and ceilings");
+			// DisplayName.SetDefault("Spider Ball");
+			/* Tooltip.SetDefault("-Press the Spider Ball Key to activate Spider Ball\n" +
+			"-Allows you to climb on walls and ceilings"); */
 		}
 		public override void SetItemDefaults(Item item)
 		{

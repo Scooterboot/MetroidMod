@@ -15,16 +15,16 @@ namespace MetroidMod.Content.Items.Addons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hyper Beam");
-			Tooltip.SetDefault("Power Beam Addon\n" +
+			// DisplayName.SetDefault("Hyper Beam");
+			/* Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Charge\n" +
 			"Increases base damage from 14 to 35, and base overheat use from 4 to 7\n" +
 			"Slightly decreases firerate\n" +
 			"Affected by addons regardless of version\n" + 
 			"Disables freeze and other debuff effects\n" +
-			"'Da babeh'");
+			"'Da babeh'"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -13,8 +13,8 @@ namespace MetroidMod.Content.Buffs
 		public override string Texture => $"{Mod.Name}/Content/Buffs/EnergyRechargeDevtool";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Recharging Suit Energy and Suit Energy reserves");
-			Description.SetDefault("Using energy station, can't move");
+			// DisplayName.SetDefault("Recharging Suit Energy and Suit Energy reserves");
+			// Description.SetDefault("Using energy station, can't move");
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

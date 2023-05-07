@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Green Hatch");
-			Tooltip.SetDefault("Opens when hit with a Super Missile\n" + "Right click to place vertically");
+			// DisplayName.SetDefault("Green Hatch");
+			// Tooltip.SetDefault("Opens when hit with a Super Missile\n" + "Right click to place vertically");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

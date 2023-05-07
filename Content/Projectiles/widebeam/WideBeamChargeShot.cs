@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wide Beam Charge Shot");
+			// DisplayName.SetDefault("Wide Beam Charge Shot");
 		}
 		public override void SetDefaults()
 		{

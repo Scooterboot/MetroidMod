@@ -12,10 +12,10 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Bar");
-			Tooltip.SetDefault("'A durable metal made from Chozite Ore'");
+			// DisplayName.SetDefault("Chozite Bar");
+			// Tooltip.SetDefault("'A durable metal made from Chozite Ore'");
 
-			SacrificeTotal = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 		public override void SetDefaults()
 		{

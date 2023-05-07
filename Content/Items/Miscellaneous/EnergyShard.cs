@@ -12,10 +12,10 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Energy Shard");
-			Tooltip.SetDefault("'It could be used to power something if it were whole'");
+			// DisplayName.SetDefault("Energy Shard");
+			// Tooltip.SetDefault("'It could be used to power something if it were whole'");
 
-			SacrificeTotal = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 		public override void SetDefaults()
 		{

@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Beam Charge Shot");
+			// DisplayName.SetDefault("Nebula Beam Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

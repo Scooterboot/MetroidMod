@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("'Retro' Varia Suit Breastplate");
+			// DisplayName.SetDefault("'Retro' Varia Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -46,9 +46,9 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("'Retro' Varia Suit Greaves");
+			// DisplayName.SetDefault("'Retro' Varia Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -63,9 +63,9 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("'Retro' Varia Suit Helmet");
+			// DisplayName.SetDefault("'Retro' Varia Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Pickaxe");
-			Tooltip.SetDefault("Can mine meteorite");
+			// DisplayName.SetDefault("Chozite Pickaxe");
+			// Tooltip.SetDefault("Can mine meteorite");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

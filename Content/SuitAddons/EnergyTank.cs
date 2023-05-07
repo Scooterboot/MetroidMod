@@ -21,8 +21,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Energy Tank");
-			Tooltip.SetDefault("Grants the user an extra tank of energy.");
+			// DisplayName.SetDefault("Energy Tank");
+			// Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
 			SacrificeTotal = Common.Configs.MConfigItems.Instance.stackEnergyTank;
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;

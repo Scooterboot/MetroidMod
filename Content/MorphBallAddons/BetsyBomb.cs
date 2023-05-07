@@ -22,10 +22,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Betsy Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Betsy Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Explodes in defense reducing miasma that also sets enemies on fire");
+			// DisplayName.SetDefault("Betsy Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Betsy Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Explodes in defense reducing miasma that also sets enemies on fire"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

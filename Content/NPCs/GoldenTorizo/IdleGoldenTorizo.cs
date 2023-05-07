@@ -18,7 +18,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/GoldenTorizo/IdleGoldenTorizo_Head";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("???");
+			// DisplayName.SetDefault("???");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()

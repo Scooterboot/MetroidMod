@@ -83,7 +83,7 @@ namespace MetroidMod.Content.NPCs.Town
 			NPC.DeathSound = SoundID.NPCDeath1;
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+		public override bool CanTownNPCSpawn(int numTownNPCs)/* tModPorter Suggestion: Copy the implementation of NPC.SpawnAllowed_Merchant in vanilla if you to count money, and be sure to set a flag when unlocked, so you don't count every tick. */
 			=> MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
 
 
@@ -122,7 +122,7 @@ namespace MetroidMod.Content.NPCs.Town
 			//button2 = Language.GetTextValue("LegacyInterface.64");
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton)
 			{
@@ -183,7 +183,7 @@ namespace MetroidMod.Content.NPCs.Town
 			return chat;
 		}
 
-		public override void SetupShop(Chest shop, ref int nextSlot)
+		public override void ModifyActiveShop(string shopName, Item[] items)
 		{
 			shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Boss.TorizoSummon>());
 

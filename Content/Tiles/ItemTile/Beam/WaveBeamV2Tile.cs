@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Beam
@@ -9,8 +10,8 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Wave Beam V2");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Wave Beam V2");
 			AddMapEntry(new Color(255, 126, 255), name);
 			ItemDrop = ModContent.ItemType<Items.Addons.V2.WaveBeamV2Addon>();
 			DustType = 1;

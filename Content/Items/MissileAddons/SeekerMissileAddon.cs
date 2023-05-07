@@ -8,15 +8,15 @@ namespace MetroidMod.Content.Items.MissileAddons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seeker Missile");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Seeker Missile");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Fires missiles at multiple targets simultaneously\n" + 
 			"Hold click to lock on to targets, and release to fire\n" + 
 			"Can lock on to a maximum of 5 targets\n" + 
-			"Consumes the appropriate number of missiles");
+			"Consumes the appropriate number of missiles"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

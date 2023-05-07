@@ -9,10 +9,10 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Grip");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");//"Allows the user to grab onto ledges\n" + "Does not need to be equipped; works while in inventory");
+			// DisplayName.SetDefault("Power Grip");
+			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");//"Allows the user to grab onto ledges\n" + "Does not need to be equipped; works while in inventory");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

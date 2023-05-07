@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Judicator Shot");
+			// DisplayName.SetDefault("Judicator Shot");
 		}
 		public override void SetDefaults()
 		{

@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.icebeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Beam Shot");
+			// DisplayName.SetDefault("Ice Beam Shot");
 		}
 		public override void SetDefaults()
 		{

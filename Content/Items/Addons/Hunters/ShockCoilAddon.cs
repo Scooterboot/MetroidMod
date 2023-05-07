@@ -10,16 +10,17 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("ShockCoil");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("ShockCoil");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				"Fires a short range electric charge that heals and restores energy when fully charged\n" +
 				"Charges on enemy damage and overheats when fully charged\n" +
 				//string.Format("[c/78BE78:+10% damage]\n") +
 				string.Format("[c/BE7878:Cannot pierce enemies]\n") +
-				string.Format("[c/BE7878:Probably still bugged]\n"));
+				string.Format("[c/BE7878:Cannot pseudo-screw]\n") +
+				string.Format("[c/BE7878:Probably still bugged]\n")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

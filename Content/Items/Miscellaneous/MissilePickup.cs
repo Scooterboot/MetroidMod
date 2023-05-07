@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Missile");
+			// DisplayName.SetDefault("Missile");
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 4));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;

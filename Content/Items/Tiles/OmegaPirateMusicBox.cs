@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Music Box (Vs. Omega Pirate)");
-			Tooltip.SetDefault("Remix by Paradoxx Productions");
+			// DisplayName.SetDefault("Music Box (Vs. Omega Pirate)");
+			// Tooltip.SetDefault("Remix by Paradoxx Productions");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -22,7 +22,7 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.OmegaPirateMusicBox>();
-			Item.canBePlacedInVanityRegardlessOfConditions = true;
+			Item.hasVanityEffects = true;
 			Item.width = 24;
 			Item.height = 32;
 			Item.rare = ItemRarityID.Yellow;

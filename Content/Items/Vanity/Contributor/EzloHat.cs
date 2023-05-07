@@ -10,8 +10,8 @@ namespace MetroidMod.Content.Items.Vanity.Contributor
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ezlo Hat");
-			Tooltip.SetDefault("Wandering Spider's contributor vanity item");
+			// DisplayName.SetDefault("Ezlo Hat");
+			// Tooltip.SetDefault("Wandering Spider's contributor vanity item");
 
 			if (!Main.dedServ)
 			{

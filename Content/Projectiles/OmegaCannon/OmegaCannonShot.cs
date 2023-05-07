@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Cannon Shot");
+			// DisplayName.SetDefault("Omega Cannon Shot");
             Main.projFrames[Projectile.type] = 2;
 
         }

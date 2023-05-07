@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Phazon Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Inflicts enemies with Phazon radiation poisoning");
+			// DisplayName.SetDefault("Phazon Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Phazon Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Inflicts enemies with Phazon radiation poisoning"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

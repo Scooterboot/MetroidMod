@@ -7,6 +7,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
+using Terraria.WorldBuilding;
 
 namespace MetroidMod.Content.NPCs.Mobs.Hopper
 {
@@ -17,7 +18,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dessgeega");
+			// DisplayName.SetDefault("Dessgeega");
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -46,7 +47,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return (spawnInfo.SpawnTileY > WorldGen.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
+			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
 		}
 		
 		public override void SetDefaults()
@@ -139,7 +140,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		}
 		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
@@ -164,7 +165,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Large Dessgeega");
+			// DisplayName.SetDefault("Large Dessgeega");
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -182,7 +183,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		{
 			if(Main.hardMode)
 			{
-				return (spawnInfo.SpawnTileY > WorldGen.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
+				return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
 			}
 			return 0f;
 		}
@@ -217,7 +218,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		}
 		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{

@@ -9,9 +9,9 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blue Switch");
+			// DisplayName.SetDefault("Blue Switch");
 
-			SacrificeTotal = 5;
+			Item.ResearchUnlockCount = 5;
 		}
 		public override void SetDefaults()
 		{

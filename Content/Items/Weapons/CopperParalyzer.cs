@@ -19,10 +19,10 @@ namespace MetroidMod.Content.Items.Weapons
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Weapons/Paralyzer";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Paralyzer");
-			Tooltip.SetDefault("Resembles Chozo sidearm");
+			// DisplayName.SetDefault("Paralyzer");
+			// Tooltip.SetDefault("Resembles Chozo sidearm");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

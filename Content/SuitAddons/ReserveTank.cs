@@ -21,9 +21,9 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reserve Tank");
+			// DisplayName.SetDefault("Reserve Tank");
 			// TODO: Write a better tooltip. I'm tired. - DarkSamus49
-			Tooltip.SetDefault("Can store a spare tank of energy.");
+			// Tooltip.SetDefault("Can store a spare tank of energy.");
 			ItemNameLiteral = true;
 			SacrificeTotal = 4;
 			AddonSlot = SuitAddonSlotID.Tanks_Reserve;

@@ -10,15 +10,15 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Imperialist");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("Imperialist");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				string.Format("[c/78BE78:+500% damage]\n") +
 				string.Format("[c/78BE78:Adds scope and stealth]\n") +
 				string.Format("[c/BE7878:+500% overheat use]\n") +
-				string.Format("[c/BE7878:Massive speed reduction]\n"));
+				string.Format("[c/BE7878:Massive speed reduction]\n")); */
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

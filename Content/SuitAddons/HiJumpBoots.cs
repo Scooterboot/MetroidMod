@@ -19,9 +19,9 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hi-Jump Boots");
-			Tooltip.SetDefault("Increases jump height\n" +
-			"Stacks with other jump height accessories");
+			// DisplayName.SetDefault("Hi-Jump Boots");
+			/* Tooltip.SetDefault("Increases jump height\n" +
+			"Stacks with other jump height accessories"); */
 			AddonSlot = SuitAddonSlotID.Boots_JumpHeight;
 		}
 		public override void SetItemDefaults(Item item)

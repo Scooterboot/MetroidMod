@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spazer Charge Shot");
+			// DisplayName.SetDefault("Spazer Charge Shot");
 		}
 		public override void SetDefaults()
 		{

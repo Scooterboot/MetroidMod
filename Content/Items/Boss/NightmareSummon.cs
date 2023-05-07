@@ -9,11 +9,11 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Strange Device");
-			Tooltip.SetDefault("'Touching this sends a chill down your spine...'\n" +  
-			"Summons Nightmare at night");
+			// DisplayName.SetDefault("Strange Device");
+			/* Tooltip.SetDefault("'Touching this sends a chill down your spine...'\n" +  
+			"Summons Nightmare at night"); */
 
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{

@@ -21,12 +21,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Speed Booster");
-			Tooltip.SetDefault("Allows the user to run insanely fast\n" +
+			// DisplayName.SetDefault("Speed Booster");
+			/* Tooltip.SetDefault("Allows the user to run insanely fast\n" +
 				"Damages enemies while running\n" +
 				"Damage scales off of enemy's contact damage\n" +
 				"While active, press DOWN to charge a Shine Spark\n" +
-				"Then press JUMP to activate the charge");
+				"Then press JUMP to activate the charge"); */
 			AddonSlot = SuitAddonSlotID.Boots_Speed;
 		}
 		public override void SetItemDefaults(Item item)

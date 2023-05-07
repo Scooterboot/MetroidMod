@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Hazard Shield Suit Breastplate");
+			// DisplayName.SetDefault("Ancient Hazard Shield Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -37,9 +37,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Hazard Shield Suit Greaves");
+			// DisplayName.SetDefault("Ancient Hazard Shield Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -52,9 +52,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Hazard Shield Suit Helmet");
+			// DisplayName.SetDefault("Ancient Hazard Shield Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

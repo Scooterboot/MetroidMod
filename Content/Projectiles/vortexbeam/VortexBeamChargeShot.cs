@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Beam Charge Shot");
+			// DisplayName.SetDefault("Vortex Beam Charge Shot");
 		}
 		public override void SetDefaults()
 		{

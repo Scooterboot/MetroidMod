@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("MagMaul Charge Shot");
+			// DisplayName.SetDefault("MagMaul Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()
@@ -59,7 +59,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(24, 600);
 			if (Projectile.Name.Contains("Solar"))
@@ -75,7 +75,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			public override void SetStaticDefaults()
 			{
-				DisplayName.SetDefault("Nova MagMaul Charge Shot");
+				// DisplayName.SetDefault("Nova MagMaul Charge Shot");
 				Main.projFrames[Projectile.type] = 2;
 			}
 		}
@@ -83,7 +83,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			public override void SetStaticDefaults()
 			{
-				DisplayName.SetDefault("Solar MagMaul Charge Shot");
+				// DisplayName.SetDefault("Solar MagMaul Charge Shot");
 				Main.projFrames[Projectile.type] = 2;
 			}
 		}
@@ -91,7 +91,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			public override void SetStaticDefaults()
 			{
-				DisplayName.SetDefault("Plasma Red MagMaul Charge Shot");
+				// DisplayName.SetDefault("Plasma Red MagMaul Charge Shot");
 				Main.projFrames[Projectile.type] = 2;
 			}
 		}

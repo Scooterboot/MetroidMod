@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/PlasmaBeamGreenShot";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Beam Green Shot");
+			// DisplayName.SetDefault("Plasma Beam Green Shot");
 		}
 		public override void SetDefaults()
 		{

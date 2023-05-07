@@ -10,15 +10,15 @@ namespace MetroidMod.Content.Items.Addons.V3
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Beam");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+			// DisplayName.SetDefault("Nebula Beam");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
 				"Slot Type: Utility\n" +
 				"Shots penetrate terrain by an extended depth\n" +
 				"Shots home in on enemies\n" +
 				string.Format("[c/78BE78:+225% damage]\n") +
-				string.Format("[c/BE7878:+100% overheat use]"));
+				string.Format("[c/BE7878:+100% overheat use]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

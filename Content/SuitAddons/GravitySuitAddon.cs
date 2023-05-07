@@ -27,8 +27,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity Suit");
-			Tooltip.SetDefault("+9 defense\n" +
+			// DisplayName.SetDefault("Gravity Suit");
+			/* Tooltip.SetDefault("+9 defense\n" +
 				"+15 overheat capacity\n" +
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
@@ -39,7 +39,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Infinite breath underwater\n" +
 				"Immune to knockback\n" +
 				"Free movement in liquid\n" +
-				"Grants 7 seconds of lava immunity");
+				"Grants 7 seconds of lava immunity"); */
 			AddonSlot = SuitAddonSlotID.Suit_Utility;
 			ItemNameLiteral = false;
 		}

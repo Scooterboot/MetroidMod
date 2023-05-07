@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Judicator Freeze");
+			// DisplayName.SetDefault("Judicator Freeze");
 		}
 		
 		int size = 42;

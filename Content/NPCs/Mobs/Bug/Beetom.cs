@@ -77,7 +77,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			return false;
 		}
 
-		public override void OnHitPlayer(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
 			NPC.ai[0] = 2;
 			NPC.ai[2] = target.whoAmI;

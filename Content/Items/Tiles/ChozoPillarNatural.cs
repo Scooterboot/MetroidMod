@@ -9,9 +9,9 @@ namespace MetroidMod.Content.Items.Tiles
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Tiles/ChozoPillar";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Pillar (Natural)");
+			// DisplayName.SetDefault("Chozite Pillar (Natural)");
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
 		{

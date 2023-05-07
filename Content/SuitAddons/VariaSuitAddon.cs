@@ -27,8 +27,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Varia Suit");
-			Tooltip.SetDefault("+6 defense\n" +
+			// DisplayName.SetDefault("Varia Suit");
+			/* Tooltip.SetDefault("+6 defense\n" +
 				"+15 overheat capacity\n" +
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
@@ -39,7 +39,7 @@ namespace MetroidMod.Content.SuitAddons
 				"10% increased energy barrier efficiency\n" + // Provisional name
 				"20% increased energy barrier resilience\n" + // Provisional name
 				"Immunity to fire blocks" + "\n" + 
-				"Immunity to chill and freeze effects");
+				"Immunity to chill and freeze effects"); */
 			AddonSlot = SuitAddonSlotID.Suit_Varia;
 			ItemNameLiteral = false;
 		}

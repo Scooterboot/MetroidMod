@@ -9,10 +9,10 @@ namespace MetroidMod.Content.Items.Walls
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/NorfairBrickWall";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Norfair Brick Wall (Natural)");
-			Tooltip.SetDefault("'Welcome to hell.'");
+			// DisplayName.SetDefault("Norfair Brick Wall (Natural)");
+			// Tooltip.SetDefault("'Welcome to hell.'");
 
-			SacrificeTotal = 400;
+			Item.ResearchUnlockCount = 400;
 		}
 		public override void SetDefaults()
 		{

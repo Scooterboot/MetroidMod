@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Beam Charge Shot");
+			// DisplayName.SetDefault("Solar Beam Charge Shot");
 			Main.projFrames[Type] = 2;
 		}
 		public override void SetDefaults()

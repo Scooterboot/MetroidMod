@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Beam
@@ -9,8 +10,8 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Nebula Beam");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Nebula Beam");
 			AddMapEntry(new Color(254, 126, 229), name);
 			ItemDrop = ModContent.ItemType<Items.Addons.V3.NebulaBeamAddon>();
 			DustType = 1;

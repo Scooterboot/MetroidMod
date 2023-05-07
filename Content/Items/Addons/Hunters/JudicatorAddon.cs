@@ -10,17 +10,17 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Judicator");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("Judicator");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				"Shots bounce\n" +
 				"Charge shots spray a freezing blast\n" +
 				string.Format("[c/78BE78:+45% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
-				string.Format("[c/BE7878:Cannot pierce walls]\n"));
+				string.Format("[c/BE7878:Cannot pierce walls]\n")); */
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

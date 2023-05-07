@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using System;
@@ -30,8 +31,8 @@ namespace MetroidMod.Content.Tiles.Hatch
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Green Hatch");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Green Hatch");
 			AddMapEntry(new Color(0, 160, 0), name);
 			AdjTiles = new int[] { TileID.ClosedDoor };
 			MinPick = 150;

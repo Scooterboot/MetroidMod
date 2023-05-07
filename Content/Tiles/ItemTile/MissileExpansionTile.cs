@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile
@@ -13,8 +14,8 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Main.tileSpelunker[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Missile Expansion");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Missile Expansion");
 			AddMapEntry(new Color(132, 4, 20), name);
 			ItemDrop = ModContent.ItemType<Items.Tiles.MissileExpansion>();
 			Main.tileOreFinderPriority[Type] = 805;

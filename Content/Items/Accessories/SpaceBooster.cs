@@ -17,8 +17,8 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Space Booster");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			// DisplayName.SetDefault("Space Booster");
+			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
 			/*"Allows the user to run insanely fast\n" + 
 			"Damage enemies while running\n" + 
 			"Damage scales off of enemy's contact damage\n" +
@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Items.Accessories
 			"Allows somersaulting\n" +
 			"Increases jump height and prevents fall damage");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

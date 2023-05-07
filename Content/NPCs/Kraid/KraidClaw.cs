@@ -15,7 +15,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Kraid");
+			// DisplayName.SetDefault("Kraid");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 

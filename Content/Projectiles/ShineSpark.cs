@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Projectiles
 		public ActiveSound activeSound;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shine Spark");
+			// DisplayName.SetDefault("Shine Spark");
 		}
 		public override void SetDefaults()
 		{
@@ -74,7 +74,7 @@ namespace MetroidMod.Content.Projectiles
 				activeSound.Position = P.Center;
 			}
 		}
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			damage += target.damage * 2;
 		}

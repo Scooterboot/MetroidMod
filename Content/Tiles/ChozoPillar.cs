@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
@@ -18,8 +19,8 @@ namespace MetroidMod.Content.Tiles
 			HitSound = SoundID.Tink;
 			ItemDrop = ModContent.ItemType<Items.Tiles.ChozoPillar>();
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Chozite Pillar");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Chozite Pillar");
 			AddMapEntry(new Color(200, 160, 72), name);
 		}
 	}

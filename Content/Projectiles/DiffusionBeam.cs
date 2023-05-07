@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Diffusion Beam");
+			// DisplayName.SetDefault("Diffusion Beam");
 		}
 		public override void SetDefaults()
 		{

@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Beam Charge Shot");
+			// DisplayName.SetDefault("Wave Beam Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

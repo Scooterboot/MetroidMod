@@ -12,14 +12,14 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Serris Core-X");
-			Tooltip.SetDefault("Soft and squishy\n" + 
-			"Seems to react to kinetic energy, and amplifies it");
+			// DisplayName.SetDefault("Serris Core-X");
+			/* Tooltip.SetDefault("Soft and squishy\n" + 
+			"Seems to react to kinetic energy, and amplifies it"); */
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 8));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Missile
@@ -9,8 +10,8 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Missile Array");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Missile Array");
 			AddMapEntry(new Color(207, 167, 73), name);
 			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.SpazerComboAddon>();
 			DustType = 1;

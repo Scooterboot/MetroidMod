@@ -19,10 +19,10 @@ namespace MetroidMod.Content.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Paralyzer");
-			Tooltip.SetDefault("'A gift of the Chozo'");
+			// DisplayName.SetDefault("Paralyzer");
+			// Tooltip.SetDefault("'A gift of the Chozo'");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()

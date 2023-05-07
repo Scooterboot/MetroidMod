@@ -37,15 +37,15 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Chozodian Chest");
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Chozodian Chest");
+			ContainerName/* tModPorter Note: Removed. Override DefaultContainerName instead */.SetDefault("Chozodian Chest");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Chozodian Chest");
 			AddMapEntry(new Color(200, 200, 200), name);
 			DustType = 87;
 			TileID.Sets.DisableSmartCursor[Type] = true;//DisableSmartCursor = true;
 			AdjTiles = new int[] { TileID.Containers };
-			ContainerName.SetDefault("Chozodian Chest");//Chest = "Chozodian Chest";
-			ChestDrop = ModContent.ItemType<Items.Tiles.ChozoChest>();
+			ContainerName/* tModPorter Note: Removed. Override DefaultContainerName instead */.SetDefault("Chozodian Chest");//Chest = "Chozodian Chest";
+			ItemDrop = ModContent.ItemType<Items.Tiles.ChozoChest>();
 		}
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Tiles
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ChestDrop);
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ItemDrop);
 			Chest.DestroyChest(i, j);
 		}
 
@@ -157,7 +157,7 @@ namespace MetroidMod.Content.Tiles
 				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Chozodian Chest";
 				if (player.cursorItemIconText == "Chozodian Chest")
 				{
-					player.cursorItemIconID = ChestDrop;
+					player.cursorItemIconID = ItemDrop;
 					player.cursorItemIconText = "";
 				}
 			}

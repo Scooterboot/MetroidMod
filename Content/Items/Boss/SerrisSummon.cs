@@ -9,10 +9,10 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Serris Bait");
-			Tooltip.SetDefault("Summons Serris at the ocean");
+			// DisplayName.SetDefault("Serris Bait");
+			// Tooltip.SetDefault("Summons Serris at the ocean");
 
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{

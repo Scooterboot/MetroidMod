@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -31,8 +32,8 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addAlternate(1); 
 			TileObjectData.addTile(Type);
 			Main.tileOreFinderPriority[Type] = 806;
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Chozo Statue");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Chozo Statue");
 			AddMapEntry(new Color(90, 90, 90), name);
 			DustType = 1;
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;

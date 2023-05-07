@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Kraid Mask");
+			// DisplayName.SetDefault("Kraid Mask");
 		}
 		public override void SetDefaults()
 		{

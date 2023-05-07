@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Localization;
 
 using Terraria.ModLoader;
 using Terraria;
@@ -20,8 +21,8 @@ namespace MetroidMod.Content.Tiles
 			Main.tileLighted[Type] = true;
 			DustType = 87;
 			ItemDrop = ModContent.ItemType<Items.Tiles.ChoziteOre>();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Chozite Ore");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Chozite Ore");
 			AddMapEntry(new Color(214, 162, 0), name);
 
 			MinPick = 50;

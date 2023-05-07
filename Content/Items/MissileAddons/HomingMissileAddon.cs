@@ -9,13 +9,13 @@ namespace MetroidMod.Content.Items.MissileAddons
 		public override void SetStaticDefaults()
 		{
 
-			DisplayName.SetDefault("Homing Missile");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Homing Missile");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Fires a double-damage homing missile\n" +
-			"Costs 1 Missile");
+			"Costs 1 Missile"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

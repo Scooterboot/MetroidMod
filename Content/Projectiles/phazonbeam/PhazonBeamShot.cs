@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/phazonbeam/PhazonBeamShot";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Beam Shot");
+			// DisplayName.SetDefault("Phazon Beam Shot");
 		}
 		int maxTime = 60;
 		public override void SetDefaults()
@@ -142,7 +142,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Phazon Beam Shot");
+			// DisplayName.SetDefault("Wave Phazon Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -154,14 +154,14 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spazer Phazon Beam Shot");
+			// DisplayName.SetDefault("Spazer Phazon Beam Shot");
 		}
 	}
 	public class PlasmaPhazonBeamShot : PhazonBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Phazon Beam Shot");
+			// DisplayName.SetDefault("Plasma Phazon Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -175,21 +175,21 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spazer Plasma Phazon Beam Shot");
+			// DisplayName.SetDefault("Spazer Plasma Phazon Beam Shot");
 		}
 	}
 	public class WaveSpazerPhazonBeamShot : WavePhazonBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Spazer Phazon Beam Shot");
+			// DisplayName.SetDefault("Wave Spazer Phazon Beam Shot");
 		}
 	}
 	public class WavePlasmaPhazonBeamShot : PlasmaPhazonBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Plasma Phazon Beam Shot");
+			// DisplayName.SetDefault("Wave Plasma Phazon Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -201,7 +201,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Spazer Plasma Phazon Beam Shot");
+			// DisplayName.SetDefault("Wave Spazer Plasma Phazon Beam Shot");
 		}
 	}
 	
@@ -209,28 +209,28 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Phazon Beam Shot");
+			// DisplayName.SetDefault("Nebula Phazon Beam Shot");
 		}
 	}
 	public class NebulaSpazerPhazonBeamShot : WaveSpazerPhazonBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Spazer Phazon Beam Shot");
+			// DisplayName.SetDefault("Nebula Spazer Phazon Beam Shot");
 		}
 	}
 	public class NebulaPlasmaPhazonBeamShot : WavePlasmaPhazonBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Plasma Phazon Beam Shot");
+			// DisplayName.SetDefault("Nebula Plasma Phazon Beam Shot");
 		}
 	}
 	public class NebulaSpazerPlasmaPhazonBeamShot : WaveSpazerPlasmaPhazonBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Spazer Plasma Phazon Beam Shot");
+			// DisplayName.SetDefault("Nebula Spazer Plasma Phazon Beam Shot");
 		}
 	}
 }

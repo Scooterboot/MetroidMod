@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Judicator Charge Shot");
+			// DisplayName.SetDefault("Judicator Charge Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorFreeze, Projectile.position);
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(), 300, true);

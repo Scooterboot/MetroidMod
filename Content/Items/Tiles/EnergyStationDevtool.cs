@@ -9,11 +9,11 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rejuvination Station");
-			Tooltip.SetDefault("Right click the station while standing next to it to recharge your life\n" +
-			"Unobtainable. Intended for adventure map creators and/or developers.");
+			// DisplayName.SetDefault("Rejuvination Station");
+			/* Tooltip.SetDefault("Right click the station while standing next to it to recharge your life\n" +
+			"Unobtainable. Intended for adventure map creators and/or developers."); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

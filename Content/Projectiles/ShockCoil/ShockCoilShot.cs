@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("ShockCoil Shot");
+			// DisplayName.SetDefault("ShockCoil Shot");
             Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -384,7 +384,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         {
             targetPos = reader.ReadVector2();
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			iceSpeed = 1f;
 			spazSpeed = 1f;

@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Poison Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Poison Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Poisons foes");
+			// DisplayName.SetDefault("Poison Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Poison Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Poisons foes"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

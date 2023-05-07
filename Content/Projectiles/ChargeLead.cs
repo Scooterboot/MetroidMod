@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Projectiles
 		public override string Texture => $"{Mod.Name}/Assets/Textures/ChargeLead/ChargeLead";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Charge Attack");
+			// DisplayName.SetDefault("Charge Attack");
 		}
 		public override void SetDefaults()
 		{

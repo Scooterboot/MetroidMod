@@ -12,14 +12,14 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nightmare Core-X Fragment");
-			Tooltip.SetDefault("Soft and squishy\n" + 
-			"Contains gravity altering properties");
+			// DisplayName.SetDefault("Nightmare Core-X Fragment");
+			/* Tooltip.SetDefault("Soft and squishy\n" + 
+			"Contains gravity altering properties"); */
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 6));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
-			SacrificeTotal = 20;
+			Item.ResearchUnlockCount = 20;
 		}
 		public override void SetDefaults()
 		{

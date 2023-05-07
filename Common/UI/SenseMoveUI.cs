@@ -57,7 +57,7 @@ namespace MetroidMod.Common.UI
 
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
-			this.OnClick += SMButtonClick;
+			this.OnLeftClick += SMButtonClick;
 		}
 
 		public override void Update(GameTime gameTime)

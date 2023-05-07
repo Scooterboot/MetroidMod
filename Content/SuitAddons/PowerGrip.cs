@@ -21,8 +21,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Grip");
-			Tooltip.SetDefault("Allows the user to grab onto ledges\nDoes not need to be equipped; works while in inventory");
+			// DisplayName.SetDefault("Power Grip");
+			// Tooltip.SetDefault("Allows the user to grab onto ledges\nDoes not need to be equipped; works while in inventory");
 			AddonSlot = SuitAddonSlotID.Misc_Grip;
 		}
 		//	This will be made possible later on.

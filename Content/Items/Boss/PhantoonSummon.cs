@@ -9,11 +9,11 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ectoplasmic Locator");
-			Tooltip.SetDefault("'Gives the location of hidden ectoplasmic beings...'\n" +  
-			"Summons Phantoon at night");
+			// DisplayName.SetDefault("Ectoplasmic Locator");
+			/* Tooltip.SetDefault("'Gives the location of hidden ectoplasmic beings...'\n" +  
+			"Summons Phantoon at night"); */
 
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{

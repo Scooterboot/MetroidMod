@@ -12,8 +12,8 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scan Pulse");
-			Tooltip.SetDefault("Reveals the map around you");
+			// DisplayName.SetDefault("Scan Pulse");
+			// Tooltip.SetDefault("Reveals the map around you");
 		}
 		public override void SetDefaults()
 		{

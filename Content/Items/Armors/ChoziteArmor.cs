@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Armors
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Breastplate");
+			// DisplayName.SetDefault("Chozite Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -52,9 +52,9 @@ namespace MetroidMod.Content.Items.Armors
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Greaves");
+			// DisplayName.SetDefault("Chozite Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -82,9 +82,9 @@ namespace MetroidMod.Content.Items.Armors
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Warmask");
+			// DisplayName.SetDefault("Chozite Warmask");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

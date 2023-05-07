@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Combo Lead");
+			// DisplayName.SetDefault("Vortex Combo Lead");
 		}
 		public override void SetDefaults()
 		{

@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Energy");
+			// DisplayName.SetDefault("Energy");
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(20, 6));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;

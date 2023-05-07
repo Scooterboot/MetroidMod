@@ -10,16 +10,16 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("VoltDriver");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("VoltDriver");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				"Charge shots home, explode, and confuse\n" +
 				string.Format("[c/78BE78:+10% damage]\n") +
                 string.Format("[c/BE7878:-10% speed]\n") +
                 string.Format("[c/BE7878:+100% overheat use]\n") +
-				string.Format("[c/BE7878:+10% noise]\n"));
+				string.Format("[c/BE7878:+10% noise]\n")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

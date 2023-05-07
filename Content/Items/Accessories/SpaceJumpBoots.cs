@@ -15,13 +15,13 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Space Jump Boots");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			// DisplayName.SetDefault("Space Jump Boots");
+			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
 			/*"Allows the wearer to double jump\n" + 
 			"Allows somersaulting\n" +
 			"Increases jump height");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

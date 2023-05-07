@@ -16,15 +16,15 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Speed Booster");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			// DisplayName.SetDefault("Speed Booster");
+			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
 			/*"Allows the user to run insanely fast\n" + 
 			"Damages enemies while running\n" +
 			"Damage scales off of enemy's contact damage\n" +
 			"While active, press DOWN to charge a Shine Spark\n" +
 			"Then press JUMP to activate the charge");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

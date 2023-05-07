@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Kraid");
+			// DisplayName.SetDefault("Kraid");
 		}
 		public override void SetDefaults()
 		{

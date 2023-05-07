@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Particle");
+			// DisplayName.SetDefault("Phazon Particle");
 		}
 		public override void SetDefaults()
 		{

@@ -60,7 +60,7 @@ namespace MetroidMod.Content.NPCs.Serris
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Serris");
+			// DisplayName.SetDefault("Serris");
 			Main.npcFrameCount[NPC.type] = 15;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
@@ -105,7 +105,7 @@ namespace MetroidMod.Content.NPCs.Serris
 				new FlavorTextBestiaryInfoElement("An invasive species brought by the Gizzard tribe and released into the seas after the tribe's collapse. The creature moves at extremely high speeds and is hard to keep an eye on. Attacking it will cause it to immediately retaliate and rush into you. Be aware of the creature's speed and strike with a charged attack at the head when it's not moving. Sometimes however... a creature isn't what it appears to be...")
 			});
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale) + 51;
 			//damage = (int)(damage * 0.7f * Main.expertDamage);
@@ -497,7 +497,7 @@ namespace MetroidMod.Content.NPCs.Serris
 			//	soundInstance.Stop(true);
 		}
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if(ai_state == SerrisState.CoreXState && Main.netMode != NetmodeID.Server)
 			{

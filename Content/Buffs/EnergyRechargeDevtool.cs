@@ -11,8 +11,8 @@ namespace MetroidMod.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Recharging Life");
-			Description.SetDefault("Using rejuvination station, can't move");
+			// DisplayName.SetDefault("Recharging Life");
+			// Description.SetDefault("Using rejuvination station, can't move");
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

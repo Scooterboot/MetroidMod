@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Volt Driver Charge Shot");
+			// DisplayName.SetDefault("Volt Driver Charge Shot");
 			Main.projFrames[Projectile.type] = 4;
 		}
 		public override void SetDefaults()
@@ -69,7 +69,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Projectile.Name.Contains("Red"))
 			{

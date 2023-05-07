@@ -10,17 +10,17 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("MagMaul");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("MagMaul");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				"Shots bounce and roll\n" +
 				"Charge shots explode and ignite\n" +
 				string.Format("[c/78BE78:+45% damage]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
-				string.Format("[c/BE7878:Cannot freeze or pierce]"));
+				string.Format("[c/BE7878:Cannot freeze or pierce]")); */
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Combo Shot");
+			// DisplayName.SetDefault("Stardust Combo Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -85,7 +85,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			SoundEngine.PlaySound(Sounds.Items.Weapons.StardustAfterImpactSound, P.Center);
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(),300,true);
 		}

@@ -11,10 +11,10 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dark Hunter's Breastplate");
-			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
+			// DisplayName.SetDefault("Dark Hunter's Breastplate");
+			// Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -47,10 +47,10 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dark Hunter's Greaves");
-			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
+			// DisplayName.SetDefault("Dark Hunter's Greaves");
+			// Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -65,10 +65,10 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dark Hunter's Helmet");
-			Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
+			// DisplayName.SetDefault("Dark Hunter's Helmet");
+			// Tooltip.SetDefault("'Great for impersonating a dark warrior!'");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

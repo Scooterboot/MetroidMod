@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Imperialist Shot");
+			// DisplayName.SetDefault("Imperialist Shot");
 			Main.projFrames[Projectile.type] = 5;
 		}
 		public override void SetDefaults()

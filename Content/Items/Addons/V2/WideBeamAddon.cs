@@ -10,15 +10,15 @@ namespace MetroidMod.Content.Items.Addons.V2
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wide Beam");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+			// DisplayName.SetDefault("Wide Beam");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
 				"Slot Type: Primary A\n" +
 				"Beam fires 3 shots at once, effectively tripling its damage\n" +
 				string.Format("[c/78BE78:+100% damage]\n") +
 				string.Format("[c/BE7878:+75% overheat use]\n") +
-				string.Format("[c/78BE78:+15% speed]"));
+				string.Format("[c/78BE78:+15% speed]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Spreader Shot");
+			// DisplayName.SetDefault("Ice Spreader Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.IceSpreaderImpactSound, P.Center);
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(),300,true);
 		}

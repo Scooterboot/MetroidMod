@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using MetroidMod.Default;
 using MetroidMod.ID;
@@ -34,12 +35,12 @@ namespace MetroidMod
 		/// <summary>
 		/// The translations for the display name of this item.
 		/// </summary>
-		public ModTranslation DisplayName { get; internal set; }
+		public LocalizedText DisplayName { get; internal set; }
 
 		/// <summary>
 		/// The translations for the tooltip of this item.
 		/// </summary>
-		public ModTranslation Tooltip { get; internal set; }
+		public LocalizedText Tooltip { get; internal set; }
 
 		public abstract string ItemTexture { get; }
 
@@ -135,8 +136,8 @@ namespace MetroidMod
 
 		protected override sealed void Register()
 		{
-			DisplayName = LocalizationLoader.CreateTranslation(Mod, $"SuitAddonName.{Name}");
-			Tooltip = LocalizationLoader.CreateTranslation(Mod, $"SuitAddonTooltip.{Name}");
+			DisplayName = Language.GetOrRegister(Mod, $"SuitAddonName.{Name}");
+			Tooltip = Language.GetOrRegister(Mod, $"SuitAddonTooltip.{Name}");
 			if (!AddOnlyAddonItem)
 			{
 				Type = SuitAddonLoader.AddonCount;

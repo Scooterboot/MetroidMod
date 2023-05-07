@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.stardustbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Beam Shot");
+			// DisplayName.SetDefault("Stardust Beam Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

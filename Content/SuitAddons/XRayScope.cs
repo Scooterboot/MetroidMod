@@ -28,8 +28,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("X-Ray Scope");
-			Tooltip.SetDefault("Projects a wide ray of light if you are standing still");
+			// DisplayName.SetDefault("X-Ray Scope");
+			// Tooltip.SetDefault("Projects a wide ray of light if you are standing still");
 
 			AddonSlot = SuitAddonSlotID.Visor_AltVision;
 			ItemNameLiteral = true;

@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Fire Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Solar Fire Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Burns foes with the fury of the sun");
+			// DisplayName.SetDefault("Solar Fire Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Solar Fire Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Burns foes with the fury of the sun"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

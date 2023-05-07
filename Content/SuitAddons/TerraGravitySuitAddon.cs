@@ -28,8 +28,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Gravity Suit");
-			Tooltip.SetDefault("+10 defense\n" +
+			// DisplayName.SetDefault("Terra Gravity Suit");
+			/* Tooltip.SetDefault("+10 defense\n" +
 				"+15 overheat capacity\n" +
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.SuitAddons
 				"10% increased energy barrier resilience\n" + // Provisional name
 				"Grants 7 seconds of lava immunity\n" +
 				"Default gravity in space\n" +
-				"Immune to Distorted and Amplified Gravity effects");
+				"Immune to Distorted and Amplified Gravity effects"); */
 			AddonSlot = SuitAddonSlotID.Suit_Augment;
 			ItemNameLiteral = false;
 		}

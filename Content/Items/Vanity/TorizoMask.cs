@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torizo Mask");
+			// DisplayName.SetDefault("Torizo Mask");
 		}
 		public override void SetDefaults()
 		{

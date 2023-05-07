@@ -12,10 +12,10 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pure Phazon");
-			Tooltip.SetDefault("'Highly concentrated Phazon, in its purest form.");
+			// DisplayName.SetDefault("Pure Phazon");
+			// Tooltip.SetDefault("'Highly concentrated Phazon, in its purest form.");
 
-			SacrificeTotal = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 		public override void SetDefaults()
 		{

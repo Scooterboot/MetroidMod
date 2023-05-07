@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Beam V2 Charge Shot");
+			// DisplayName.SetDefault("Nova Beam V2 Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

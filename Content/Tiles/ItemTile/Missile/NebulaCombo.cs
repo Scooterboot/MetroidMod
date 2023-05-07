@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Missile
@@ -9,8 +10,8 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Nebula Singularity");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Nebula Singularity");
 			AddMapEntry(new Color(96, 29, 133), name);
 			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.NebulaComboAddon>();
 			DustType = 1;

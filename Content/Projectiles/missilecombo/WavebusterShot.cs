@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wavebuster Shot");
+			// DisplayName.SetDefault("Wavebuster Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

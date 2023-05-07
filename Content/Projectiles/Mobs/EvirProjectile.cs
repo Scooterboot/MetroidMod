@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.Mobs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Evir Spike");
+			// DisplayName.SetDefault("Evir Spike");
 		}
 		public override void SetDefaults()
 		{

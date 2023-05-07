@@ -12,10 +12,10 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Large Reptile Tissue");
-			Tooltip.SetDefault("Tough tissue that can be used to upgrade the Varia Suit");
+			// DisplayName.SetDefault("Large Reptile Tissue");
+			// Tooltip.SetDefault("Tough tissue that can be used to upgrade the Varia Suit");
 
-			SacrificeTotal = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 		public override void SetDefaults()
 		{

@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/hyperbeam/ExtraHyperBeamShot";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hyper Beam Shot");
+			// DisplayName.SetDefault("Hyper Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -79,7 +79,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Hyper Beam Shot");
+			// DisplayName.SetDefault("Wave Hyper Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -95,7 +95,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spazer Hyper Beam Shot");
+			// DisplayName.SetDefault("Spazer Hyper Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -110,7 +110,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Hyper Beam Shot");
+			// DisplayName.SetDefault("Plasma Hyper Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -124,14 +124,14 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Spazer Hyper Beam Shot");
+			// DisplayName.SetDefault("Wave Spazer Hyper Beam Shot");
 		}
 	}
 	public class ExtraWavePlasmaHyperBeamShot : ExtraPlasmaHyperBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Plasma Hyper Beam Shot");
+			// DisplayName.SetDefault("Wave Plasma Hyper Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -147,7 +147,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spazer Plasma Hyper Beam Shot");
+			// DisplayName.SetDefault("Spazer Plasma Hyper Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -162,7 +162,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Spazer Plasma Hyper Beam Shot");
+			// DisplayName.SetDefault("Wave Spazer Plasma Hyper Beam Shot");
 		}
 	}
 	
@@ -170,28 +170,28 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Hyper Beam Shot");
+			// DisplayName.SetDefault("Nebula Hyper Beam Shot");
 		}
 	}
 	public class ExtraNebulaSpazerHyperBeamShot : ExtraWaveSpazerHyperBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Spazer Hyper Beam Shot");
+			// DisplayName.SetDefault("Nebula Spazer Hyper Beam Shot");
 		}
 	}
 	public class ExtraNebulaPlasmaHyperBeamShot : ExtraWavePlasmaHyperBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Plasma Hyper Beam Shot");
+			// DisplayName.SetDefault("Nebula Plasma Hyper Beam Shot");
 		}
 	}
 	public class ExtraNebulaSpazerPlasmaHyperBeamShot : ExtraWaveSpazerPlasmaHyperBeamShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Spazer Plasma Hyper Beam Shot");
+			// DisplayName.SetDefault("Nebula Spazer Plasma Hyper Beam Shot");
 		}
 	}
 }

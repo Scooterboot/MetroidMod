@@ -23,8 +23,9 @@ namespace MetroidMod.Content.Projectiles
 		};
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grapple Beam");
+			// DisplayName.SetDefault("Grapple Beam");
 			Main.projFrames[Type] = 2;
+			ProjectileID.Sets.SingleGrappleHook[Type] = true;
 		}
 		int chainFrame = 0;
 		int chainFrame2 = 0;
@@ -45,11 +46,6 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.ignoreWater = true;
 			Projectile.DamageType = ModContent.GetInstance<DamageClasses.HunterDamageClass>();//Projectile.ranged = true;
 			Projectile.extraUpdates = 3;
-		}
-
-		public override bool? SingleGrappleHook(Player player)
-		{
-			return true;
 		}
 
 		// Use player to kill oldest hook. For hooks that kill the oldest when shot, not when the newest latches on: Like SkeletronHand

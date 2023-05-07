@@ -17,18 +17,18 @@ namespace MetroidMod.Common.UI
 		public bool dragging;
 		public bool enabled;
 
-		public override void MouseDown(UIMouseEvent evt)
+		public override void LeftMouseDown(UIMouseEvent evt)
 		{
-			base.MouseDown(evt);
+			base.LeftMouseDown(evt);
 			if (enabled && base.Elements.All((UIElement x) => !x.IsMouseHovering))
 			{
 				DragStart(evt);
 			}
 		}
 
-		public override void MouseUp(UIMouseEvent evt)
+		public override void LeftMouseUp(UIMouseEvent evt)
 		{
-			base.MouseUp(evt);
+			base.LeftMouseUp(evt);
 			if (enabled)
 			{
 				DragEnd(evt);

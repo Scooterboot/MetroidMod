@@ -16,7 +16,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity Orb");
+			// DisplayName.SetDefault("Gravity Orb");
 			Main.npcFrameCount[Type] = 4;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -157,7 +157,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			return false;
 		}
 		
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
 			for(int i = 0; i < 10; i++)

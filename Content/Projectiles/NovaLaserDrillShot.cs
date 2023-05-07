@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Laser Drill");
+			// DisplayName.SetDefault("Nova Laser Drill");
 		}
 		public override void SetDefaults()
 		{

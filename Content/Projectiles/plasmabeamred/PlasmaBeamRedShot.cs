@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Beam Red Shot");
+			// DisplayName.SetDefault("Plasma Beam Red Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

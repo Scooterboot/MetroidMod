@@ -139,7 +139,7 @@ namespace MetroidMod.Common.UI
 			suitAddonsPanel.OpenReserveMenuButton.Left.Pixels = 100;
 			suitAddonsPanel.OpenReserveMenuButton.Top.Pixels = 334;
 			suitAddonsPanel.OpenReserveMenuButton.OnUpdate += delegate { if (suitAddonsPanel.OpenReserveMenuButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
-			suitAddonsPanel.OpenReserveMenuButton.OnClick += delegate { if (ReserveMenu._visible) { ReserveMenu._visible = false; } else { ReserveMenu._visible = true; } };
+			suitAddonsPanel.OpenReserveMenuButton.OnLeftClick += delegate { if (ReserveMenu._visible) { ReserveMenu._visible = false; } else { ReserveMenu._visible = true; } };
 
 			suitAddonsPanel.Append(suitAddonsPanel.OpenReserveMenuButton);
 
@@ -155,7 +155,7 @@ namespace MetroidMod.Common.UI
 			reserveMenu.modeButton.Left.Pixels = 20;
 			reserveMenu.modeButton.SetPadding(0);
 			reserveMenu.modeButton.OnUpdate += delegate { if (reserveMenu.modeButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
-			reserveMenu.modeButton.OnClick += delegate { MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(); if (mp.SuitReservesAuto) { mp.SuitReservesAuto = false; } else { mp.SuitReservesAuto = true; } };
+			reserveMenu.modeButton.OnLeftClick += delegate { MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>(); if (mp.SuitReservesAuto) { mp.SuitReservesAuto = false; } else { mp.SuitReservesAuto = true; } };
 			reserveMenu.Append(reserveMenu.modeButton);
 
 			reserveMenu.tex = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/ReserveFG", AssetRequestMode.ImmediateLoad);
@@ -163,8 +163,8 @@ namespace MetroidMod.Common.UI
 			reserveMenu.reserveBars.Top.Pixels = 60;
 			reserveMenu.reserveBars.Left.Pixels = 20;
 			reserveMenu.reserveBars.OnUpdate += delegate { if (reserveMenu.reserveBars.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
-			reserveMenu.reserveBars.OnMouseDown += delegate { reserveHoldingLClick = true; };
-			reserveMenu.reserveBars.OnMouseUp += delegate { reserveHoldingLClick = false; };
+			reserveMenu.reserveBars.OnLeftMouseDown += delegate { reserveHoldingLClick = true; };
+			reserveMenu.reserveBars.OnLeftMouseUp += delegate { reserveHoldingLClick = false; };
 			reserveMenu.reserveBars.OnRightMouseDown += delegate { reserveHoldingRClick = true; };
 			reserveMenu.reserveBars.OnRightMouseUp += delegate { reserveHoldingRClick = false; };
 			reserveMenu.Append(reserveMenu.reserveBars);
@@ -302,7 +302,7 @@ namespace MetroidMod.Common.UI
 			//itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox").Value;
 
 			Width.Pixels = 44; Height.Pixels = 44;
-			OnClick += ItemBoxClick;
+			OnLeftClick += ItemBoxClick;
 		}
 
 		public override void Update(GameTime gameTime)

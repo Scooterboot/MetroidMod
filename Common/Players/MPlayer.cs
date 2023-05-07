@@ -412,7 +412,7 @@ namespace MetroidMod.Common.Players
 				dashTime++;
 			}
 		}
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
 		{
 			if (SMoveEffect > 0)
 			{
@@ -719,7 +719,7 @@ namespace MetroidMod.Common.Players
 			Energy = 0;
 		}
 
-		public override void clientClone(ModPlayer clientClone)
+		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
 		{
 			MPlayer clone = clientClone as MPlayer;
 

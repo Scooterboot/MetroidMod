@@ -12,8 +12,8 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Space Boosted Screw Attack");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			// DisplayName.SetDefault("Space Boosted Screw Attack");
+			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
 			/*"Allows the user to run insanely fast\n" +
 			"Allows somersaulting\n" +
 			"Damage enemies while running or somersaulting\n" +
@@ -23,7 +23,7 @@ namespace MetroidMod.Content.Items.Accessories
 			"Holding left/right while jumping midair gives a boost\n" +
 			"Increases jump height and prevents fall damage");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

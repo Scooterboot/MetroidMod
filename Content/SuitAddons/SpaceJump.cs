@@ -20,12 +20,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Space Jump");
-			Tooltip.SetDefault("'Somersault continuously in the air!'\n" +
+			// DisplayName.SetDefault("Space Jump");
+			/* Tooltip.SetDefault("'Somersault continuously in the air!'\n" +
 				"Allows somersaulting\n" +
 				"Allows the user to jump up to 10 times in a row\n" +
 				"Jumps recharge mid-air\n" +
-				"Increases jump height and prevents fall damage");
+				"Increases jump height and prevents fall damage"); */
 			AddonSlot = SuitAddonSlotID.Boots_Jump;
 		}
 		public override void SetItemDefaults(Item item)

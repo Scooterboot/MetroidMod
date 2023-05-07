@@ -12,8 +12,8 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Booster");
-			Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			// DisplayName.SetDefault("Terra Booster");
+			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
 			/*"Allows the user to run insanely fast and extra mobility on ice\n" +
 			"Allows somersaulting\n" +
 			"Damage enemies while running or somersaulting\n" +
@@ -25,7 +25,7 @@ namespace MetroidMod.Content.Items.Accessories
 			"Grants immunity to fire blocks and 7 seconds lava immunity\n" +
 			"Increases jump height and prevents fall damage");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

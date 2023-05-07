@@ -13,8 +13,8 @@ namespace MetroidMod.Content.Buffs
 		public override string Texture => $"Terraria/Images/Buff_{BuffID.BetsysCurse}";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stunned");
-			Description.SetDefault("How did you get this???");
+			// DisplayName.SetDefault("Stunned");
+			// Description.SetDefault("How did you get this???");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

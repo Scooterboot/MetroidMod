@@ -8,15 +8,15 @@ namespace MetroidMod.Content.Items.MissileAddons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Diffusion Missile");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Diffusion Missile");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies\n" + 
 			"~Charge shots and flares deal 3x damage\n" +
-			"~Costs 5 missiles");
+			"~Costs 5 missiles"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

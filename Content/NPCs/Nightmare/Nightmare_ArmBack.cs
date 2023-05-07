@@ -16,7 +16,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nightmare");
+			// DisplayName.SetDefault("Nightmare");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()
@@ -146,7 +146,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				}
 			}
 		}
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode != NetmodeID.Server)
 			{

@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Missile Shot");
+			// DisplayName.SetDefault("Nebula Missile Shot");
 		}
 		public override void SetDefaults()
 		{

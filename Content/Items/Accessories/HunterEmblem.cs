@@ -9,10 +9,10 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hunter Emblem");
-			Tooltip.SetDefault("15% increased hunter damage");
+			// DisplayName.SetDefault("Hunter Emblem");
+			// Tooltip.SetDefault("15% increased hunter damage");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

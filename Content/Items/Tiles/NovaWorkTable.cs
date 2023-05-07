@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Worktable");
-			Tooltip.SetDefault("Use for crafting Phazon based items");
+			// DisplayName.SetDefault("Nova Worktable");
+			// Tooltip.SetDefault("Use for crafting Phazon based items");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

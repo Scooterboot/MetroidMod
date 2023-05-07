@@ -20,7 +20,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Golden Torizo");
+			// DisplayName.SetDefault("Golden Torizo");
 			Main.npcFrameCount[Type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -144,7 +144,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			NPC.realLife = Base.whoAmI;
 		}
 		
-		public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
 			GoldenTorizo mNpc = (GoldenTorizo)Base.ModNPC;
 			if(mNpc.screwAttack)
@@ -156,7 +156,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		public override bool? CanBeHitByItem(Player player, Item item) => (NPC.ai[1] <= 1f) ? null : false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => (NPC.ai[1] <= 1f) ? null : false;
 		
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if(NPC.ai[1] <= 1f)
 			{

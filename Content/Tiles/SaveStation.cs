@@ -30,8 +30,8 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Save Station");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Save Station");
 			AddMapEntry(new Color(65, 62, 91), name);
 			DustType = 1;
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;

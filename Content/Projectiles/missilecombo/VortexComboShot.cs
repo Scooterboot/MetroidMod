@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Combo Shot");
+			// DisplayName.SetDefault("Vortex Combo Shot");
 			//Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

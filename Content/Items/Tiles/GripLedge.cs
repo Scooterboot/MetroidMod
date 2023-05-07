@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grip Ledge");
-			Tooltip.SetDefault("Cannot be stood on. \nCan be gripped to using Power Grip \nCan be toggle on or off with wire");
+			// DisplayName.SetDefault("Grip Ledge");
+			// Tooltip.SetDefault("Cannot be stood on. \nCan be gripped to using Power Grip \nCan be toggle on or off with wire");
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
 		{

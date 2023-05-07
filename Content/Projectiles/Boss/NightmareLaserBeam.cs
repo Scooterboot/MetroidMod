@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nightmare");
+			// DisplayName.SetDefault("Nightmare");
 		}
 		public override void SetDefaults()
 		{

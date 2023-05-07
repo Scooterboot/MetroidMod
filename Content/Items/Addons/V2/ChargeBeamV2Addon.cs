@@ -8,14 +8,14 @@ namespace MetroidMod.Content.Items.Addons.V2
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Charge Beam V2");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+			// DisplayName.SetDefault("Charge Beam V2");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
 			"Slot Type: Charge\n" +
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
-			"~Charge shots deal x4 damage, but overheat x2.5 the normal use");
+			"~Charge shots deal x4 damage, but overheat x2.5 the normal use"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

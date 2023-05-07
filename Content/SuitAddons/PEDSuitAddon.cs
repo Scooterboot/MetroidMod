@@ -24,8 +24,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("PED Suit");
-			Tooltip.SetDefault("You shouldn't have this."/*"+9 defense\n" +
+			// DisplayName.SetDefault("PED Suit");
+			/* Tooltip.SetDefault("You shouldn't have this."/*"+9 defense\n" +
 				"+15 overheat capacity\n" +
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
@@ -34,7 +34,7 @@ namespace MetroidMod.Content.SuitAddons
 				"5% increased energy barrier efficiency\n" + // Provisional name
 				"7.5% increased energy barrier resilience\n" + // Provisional name
 				"Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)\n" +
-				"Slightly increased health regen when standing on Phazon"*/);
+				"Slightly increased health regen when standing on Phazon"); */
 			AddonSlot = SuitAddonSlotID.Suit_Utility;
 			ItemNameLiteral = false;
 		}

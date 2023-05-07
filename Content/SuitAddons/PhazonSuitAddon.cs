@@ -28,8 +28,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Suit");
-			Tooltip.SetDefault("+10 defense\n" +
+			// DisplayName.SetDefault("Phazon Suit");
+			/* Tooltip.SetDefault("+10 defense\n" +
 				"+15 overheat capacity\n" +
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
@@ -39,7 +39,7 @@ namespace MetroidMod.Content.SuitAddons
 				"15% increased energy barrier efficiency\n" + // Provisional name
 				"10% increased energy barrier resilience\n" + // Provisional name
 				"Immune to damage caused by blue Phazon blocks\n" +
-				"Enables Phazon Beam use");
+				"Enables Phazon Beam use"); */
 			AddonSlot = SuitAddonSlotID.Suit_Augment;
 			ItemNameLiteral = false;
 		}

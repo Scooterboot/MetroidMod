@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Machinegun Shot");
+			// DisplayName.SetDefault("Plasma Machinegun Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

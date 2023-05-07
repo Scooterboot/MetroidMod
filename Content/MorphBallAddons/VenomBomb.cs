@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Venom Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Venom Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Inflicts enemies with Acid Venom");
+			// DisplayName.SetDefault("Venom Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Venom Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Inflicts enemies with Acid Venom"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

@@ -12,12 +12,12 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Bar");
-			Tooltip.SetDefault("'Very radioactive.'\n" + "Glows with Phazon energy");
+			// DisplayName.SetDefault("Phazon Bar");
+			// Tooltip.SetDefault("'Very radioactive.'\n" + "Glows with Phazon energy");
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(20, 6));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
-			SacrificeTotal = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 		public override void SetDefaults()
 		{

@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Supernova Flare Shot");
+			// DisplayName.SetDefault("Supernova Flare Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

@@ -26,7 +26,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Golden Torizo");
+			// DisplayName.SetDefault("Golden Torizo");
 			Main.npcFrameCount[Type] = 2;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
@@ -81,7 +81,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 				new FlavorTextBestiaryInfoElement("An enhanced version of the Torizo Statue but with golden armor plating. While this one lacks the spiritual possession, it is far more dangerous than the lumbering machines the Gizzard tribe possess. Its energy waves are much faster and follow any hostile target. The Golden armor plating gives it extraordinary defenses and an energy shield while jumping. Be careful to avoid it if you don't want a nasty end!")
 			});
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale);
 			NPC.damage = (int)(NPC.damage * 0.7f);
@@ -107,7 +107,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
 		
 		ReLogic.Utilities.SlotId soundInstance;
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if(Head != null && Head.active && (!SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) || !result.IsPlaying) && Main.netMode != NetmodeID.Server)
 			{

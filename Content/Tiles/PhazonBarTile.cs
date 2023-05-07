@@ -25,7 +25,7 @@ namespace MetroidMod.Content.Tiles
 			AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.MetalBar")); // localized text for "Metal Bar"
 		}
 
-		public override bool Drop(int i, int j)
+		public override bool CanDrop(int i, int j)/* tModPorter Note: Removed. Use CanDrop to decide if an item should drop. Use GetItemDrops to decide which item drops. Item drops based on placeStyle are handled automatically now, so this method might be able to be removed altogether. */
 		{
 			Tile t = Main.tile[i, j];
 			int style = t.TileFrameX / 18;

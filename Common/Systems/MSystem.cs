@@ -561,7 +561,7 @@ namespace MetroidMod.Common.Systems
 			}
 		}
 
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
 			int PotsIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Pots"));
@@ -572,7 +572,7 @@ namespace MetroidMod.Common.Systems
 
 					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 9E-05); k++)
 					{
-						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), ModContent.TileType<Content.Tiles.ChoziteOreTile>(), false, 0f, 0f, false, true);
+						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), ModContent.TileType<Content.Tiles.ChoziteOreTile>(), false, 0f, 0f, false, true);
 					}
 				}));
 			}
@@ -587,7 +587,7 @@ namespace MetroidMod.Common.Systems
 						int num3 = 0;
 						while (!flag)
 						{
-							if (AddChozoStatue(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 100)))
+							if (AddChozoStatue(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 							{
 								flag = true;
 							}
@@ -612,7 +612,7 @@ namespace MetroidMod.Common.Systems
 						int num3 = 0;
 						while (!flag)
 						{
-							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 100)))
+							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 							{
 								flag = true;
 							}
@@ -639,7 +639,7 @@ namespace MetroidMod.Common.Systems
 
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
 			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35 && j <= Main.UnderworldLayer);
-			if (WorldGen.dEnteranceX < Main.maxTilesX / 2)
+			if (GenVars.dEnteranceX < Main.maxTilesX / 2)
 			{
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8);
 			}
@@ -656,7 +656,7 @@ namespace MetroidMod.Common.Systems
 			else
 			{
 				int baseX = Main.maxTilesX / 2;
-				int baseY = (int)WorldGen.rockLayer;
+				int baseY = (int)GenVars.rockLayer;
 				//float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX / 2)) + (Math.Max(j - baseY, 0) / (Main.maxTilesY - WorldGen.rockLayer))) / 2;
 
 				//int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist), 5));
@@ -911,7 +911,7 @@ namespace MetroidMod.Common.Systems
 
 		private void ChozoRuins(GenerationProgress progress, GameConfiguration configuration)
 		{
-			Rectangle uDesert = WorldGen.UndergroundDesertLocation;
+			Rectangle uDesert = GenVars.UndergroundDesertLocation;
 
 			progress.Message = "Chozo Ruins...Determining X Position";
 

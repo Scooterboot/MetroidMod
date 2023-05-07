@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity 'Dread' Suit Breastplate");
+			// DisplayName.SetDefault("Gravity 'Dread' Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -46,9 +46,9 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity 'Dread' Suit Greaves");
+			// DisplayName.SetDefault("Gravity 'Dread' Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -64,9 +64,9 @@ namespace MetroidMod.Content.Items.Vanity
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Vanity/VanityDreadSuitHelmet";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity 'Dread' Suit Helmet");
+			// DisplayName.SetDefault("Gravity 'Dread' Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

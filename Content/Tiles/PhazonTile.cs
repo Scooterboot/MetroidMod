@@ -3,6 +3,7 @@
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
@@ -26,8 +27,8 @@ namespace MetroidMod.Content.Tiles
 			HitSound = SoundID.Tink;
 			ItemDrop = ModContent.ItemType<Items.Tiles.Phazon>();
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Phazon");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Phazon");
 			AddMapEntry(new Color(85, 223, 255), name);
 		}
 

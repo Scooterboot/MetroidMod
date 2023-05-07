@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.icebeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Beam V2 Charge Shot");
+			// DisplayName.SetDefault("Ice Beam V2 Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

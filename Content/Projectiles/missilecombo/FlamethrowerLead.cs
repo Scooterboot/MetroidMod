@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flamethrower Lead");
+			// DisplayName.SetDefault("Flamethrower Lead");
 		}
 		public override void SetDefaults()
 		{

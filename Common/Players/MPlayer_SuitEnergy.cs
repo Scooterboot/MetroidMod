@@ -115,9 +115,9 @@ namespace MetroidMod.Common.Players
 			}
 			return true;
 		}
-		public override void OnRespawn(Player player)
+		public override void OnRespawn()
 		{
-			if (player.TryMetroidPlayer(out MPlayer mp)) mp.Energy = 99;
+			if (Player.TryMetroidPlayer(out MPlayer mp)) mp.Energy = 99;
 		}
 		public override void UpdateLifeRegen()
 		{

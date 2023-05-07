@@ -11,8 +11,8 @@ namespace MetroidMod.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Morph Ball");
-			Description.SetDefault("Because you apparently can't crawl");
+			// DisplayName.SetDefault("Morph Ball");
+			// Description.SetDefault("Because you apparently can't crawl");
 
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;

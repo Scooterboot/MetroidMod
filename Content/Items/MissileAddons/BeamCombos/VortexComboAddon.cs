@@ -8,16 +8,16 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Storm");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Vortex Storm");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Fires vortexes that orbit the player at full charge\n" + 
 			"~Each vortex fires a blast after 2 seconds\n" + 
 			"~Releasing the charge makes all vortexes immediately fire\n" + 
-			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

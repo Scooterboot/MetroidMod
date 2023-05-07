@@ -12,7 +12,7 @@ namespace MetroidMod.Content.DamageClasses
 	{
 		public override void SetStaticDefaults()
 		{
-			ClassName.SetDefault("hunter damage");
+			// DisplayName.SetDefault("hunter damage");
 		}
 		public override bool GetEffectInheritance(DamageClass damageClass)
 		{

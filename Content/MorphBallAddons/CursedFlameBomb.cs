@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cursed Fire Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Cursed Fire Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Burns enemies with Cursed Flames");
+			// DisplayName.SetDefault("Cursed Fire Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Cursed Fire Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Burns enemies with Cursed Flames"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Overgrowth Vines");
-			Tooltip.SetDefault("'What happened to Brinstar?'");
+			// DisplayName.SetDefault("Overgrowth Vines");
+			// Tooltip.SetDefault("'What happened to Brinstar?'");
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
 		{

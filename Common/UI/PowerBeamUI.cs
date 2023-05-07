@@ -176,7 +176,7 @@ namespace MetroidMod.Common.UI
 			itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = 44; Height.Pixels = 44;
-			OnClick += ItemBoxClick;
+			OnLeftClick += ItemBoxClick;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -376,7 +376,7 @@ namespace MetroidMod.Common.UI
 			
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
-			OnClick += SAButtonClick;
+			OnLeftClick += SAButtonClick;
 		}
 		
 		public override void Update(GameTime gameTime)

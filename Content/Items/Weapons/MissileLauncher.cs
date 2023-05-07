@@ -51,10 +51,10 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Missile Launcher");
-			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Missile Addon UI");
+			// DisplayName.SetDefault("Missile Launcher");
+			// Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Missile Addon UI");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		//public override void SetDefaults()
 		public override void SetDefaults()
@@ -135,17 +135,17 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
 
-		public override bool PreReforge()
+		public override void PreReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
 			foreach (Item item in MissileMods)
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 			MissileMods = new Item[5];
 			return base.PreReforge();

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -19,8 +20,8 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addTile(Type);
 			DustType = 7;
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Phantoon Trophy");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Phantoon Trophy");
 			AddMapEntry(new Color(149, 133, 77), name);
 		}
 

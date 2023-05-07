@@ -62,7 +62,7 @@ namespace MetroidMod.Content.Projectiles
 		public bool doParalyzerStun = false;
 		public float paralyzerStunAmount = 0;
 		
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			Player player = Main.player[Projectile.owner];
 			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit+player.inventory[player.selectedItem].crit)
@@ -74,7 +74,7 @@ namespace MetroidMod.Content.Projectiles
 				target.AddBuff(ModContent.BuffType<ParalyzerStun>(), (int)Math.Floor(paralyzerStunAmount * 60));
 			}
 		}
-		public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)
+		public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)/* tModPorter Note: Removed. Use ModifyHitPlayer and check modifiers.PvP */
 		{
 			Player player = Main.player[Projectile.owner];
 			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit+player.inventory[player.selectedItem].crit)
@@ -84,7 +84,7 @@ namespace MetroidMod.Content.Projectiles
 		}
 
 		bool[] npcPrevHit = new bool[Main.maxNPCs];
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			if(Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red"))
 			{

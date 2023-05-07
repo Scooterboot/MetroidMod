@@ -20,7 +20,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torizo");
+			// DisplayName.SetDefault("Torizo");
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -62,7 +62,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale);
 			NPC.damage = (int)(NPC.damage * 0.7f);
@@ -149,14 +149,14 @@ namespace MetroidMod.Content.NPCs.Torizo
 		public override bool? CanBeHitByItem(Player player, Item item) => (NPC.ai[1] <= 1f) ? null : false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => (NPC.ai[1] <= 1f) ? null : false;
 		
-		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
 			if(NPC.ai[1] == 0f)
 			{
 				Base.StrikeNPC((int)(damage*0.25f),0f,Base.direction);
 			}
 		}
-		public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
 			if(NPC.ai[1] == 0f)
 			{
@@ -164,7 +164,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			}
 		}
 		
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if(NPC.ai[1] <= 1f)
 			{

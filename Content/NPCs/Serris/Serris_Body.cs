@@ -28,7 +28,7 @@ namespace MetroidMod.Content.NPCs.Serris
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Serris");
+			// DisplayName.SetDefault("Serris");
 			Main.npcFrameCount[NPC.type] = 10;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
@@ -69,7 +69,7 @@ namespace MetroidMod.Content.NPCs.Serris
 			NPC.damage = head.damage;
 		}
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode != NetmodeID.Server)
 			{

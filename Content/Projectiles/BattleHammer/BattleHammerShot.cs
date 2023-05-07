@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("BattleHammer Shot");
+			// DisplayName.SetDefault("BattleHammer Shot");
 		}
 		public override void SetDefaults()
 		{

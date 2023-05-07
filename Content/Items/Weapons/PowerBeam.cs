@@ -47,9 +47,9 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Beam");
-			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
-			SacrificeTotal = 1;
+			// DisplayName.SetDefault("Power Beam");
+			// Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
+			Item.ResearchUnlockCount = 1;
 
 			BeamMods = new Item[5];
 		}
@@ -133,17 +133,17 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
 
-		public override bool PreReforge()
+		public override void PreReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
 			foreach (Item item in BeamMods)
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 			BeamMods = new Item[5];
 			return base.PreReforge();
@@ -3003,9 +3003,9 @@ namespace MetroidMod.Content.Items.Weapons
 			catch { }
 		}
 
-		public override void OnCreate(ItemCreationContext context)
+		public override void OnCreated(ItemCreationContext context)
 		{
-			base.OnCreate(context);
+			base.OnCreated(context);
 			_beamMods = new Item[5];
 			for (int i = 0; i < _beamMods.Length; ++i)
 			{

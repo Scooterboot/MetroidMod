@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Fire Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Sets enemies on fire");
+			// DisplayName.SetDefault("Fire Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Fire Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Sets enemies on fire"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

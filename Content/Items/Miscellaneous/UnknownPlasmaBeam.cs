@@ -12,12 +12,12 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Unknown Item");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("Unknown Item");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Primary B\n" +
-				string.Format("[c/BE7878:Error: Addon is damaged and requires repairing before it can be installed.]"));
+				string.Format("[c/BE7878:Error: Addon is damaged and requires repairing before it can be installed.]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

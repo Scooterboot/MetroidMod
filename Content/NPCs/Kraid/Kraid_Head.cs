@@ -34,7 +34,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Kraid");
+			// DisplayName.SetDefault("Kraid");
 			Main.npcFrameCount[Type] = 6;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
@@ -82,7 +82,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				new FlavorTextBestiaryInfoElement("This invasive species made its way on this planet after the Gizzard tribe had brought it to the Terrarian Planet to train young warriors. It is extremely bulky and slow, but can shoot projectiles from its stomach. It's hide is almost impenetrable save for even the hottest lava. But these creatures are not indestructible on the inside. Give it a taste of pain when the mouth opens!")
 			});
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale) + 1;
 			NPC.damage = (int)(NPC.damage * 0.7f);
@@ -477,11 +477,11 @@ namespace MetroidMod.Content.NPCs.Kraid
 				}
 			}
 		}*/
-		public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
 			damage += (int)(NPC.defense * 0.95f * 0.5f);
 		}
-		public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
 			if(mouthOpen && projectile.Center.Y > NPC.position.Y && ((NPC.direction == 1 && projectile.Center.X >= NPC.Center.X) || (NPC.direction == -1 && projectile.Center.X <= NPC.Center.X)))
 			{
@@ -951,7 +951,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			index = NPCHeadLoader.GetBossHeadSlot(KraidHead + state);
 		}
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode != NetmodeID.Server)
 			{
