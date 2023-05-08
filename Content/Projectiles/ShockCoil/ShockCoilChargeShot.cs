@@ -371,10 +371,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mp.statOverheat = 0;
 				mp.statOverheat += ((int)((float)overheat * mp.overheatCost) * 2);
 				mp.overheatDelay = 10;
-				int healingAmount = damage / 15;
+				int healingAmount = damageDone / 15;
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);
-				mp.Energy += damage / 15;
+				mp.Energy += damageDone / 15;
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 		}

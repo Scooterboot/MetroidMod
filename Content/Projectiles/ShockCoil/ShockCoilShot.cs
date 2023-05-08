@@ -412,10 +412,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
-				int healingAmount = Math.Min(damage / 20, 5);
+				int healingAmount = Math.Min(damageDone / 20, 5);
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);
-				mp.Energy += Math.Min(damage / 20, 5);
+				mp.Energy += Math.Min(damageDone / 20, 5);
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 			if (Projectile.Name.Contains("Plasma"))

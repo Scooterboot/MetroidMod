@@ -71,7 +71,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			if (Item.useStyle == 3)
 			{
-				knockBack *= 1.5f;
+				Item.knockBack *= 1.5f;
 			}
 		}
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
