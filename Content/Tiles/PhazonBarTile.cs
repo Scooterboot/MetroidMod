@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Tiles
 			{
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemType<Items.Miscellaneous.PhazonBar>());
 			}
-			return base.Drop(i, j);
+			return true;
 		}
 	}
 }

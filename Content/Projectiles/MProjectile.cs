@@ -67,19 +67,19 @@ namespace MetroidMod.Content.Projectiles
 			Player player = Main.player[Projectile.owner];
 			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit+player.inventory[player.selectedItem].crit)
 			{
-				crit = true;
+				modifiers.CritDamage += 1f;
 			}
 			if (doParalyzerStun)
 			{
 				target.AddBuff(ModContent.BuffType<ParalyzerStun>(), (int)Math.Floor(paralyzerStunAmount * 60));
 			}
 		}
-		public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)/* tModPorter Note: Removed. Use ModifyHitPlayer and check modifiers.PvP */
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)/* tModPorter Note: Removed. Use ModifyHitPlayer and check modifiers.PvP */
 		{
 			Player player = Main.player[Projectile.owner];
 			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit+player.inventory[player.selectedItem].crit)
 			{
-				crit = true;
+				modifiers.FinalDamage += 1f;
 			}
 		}
 

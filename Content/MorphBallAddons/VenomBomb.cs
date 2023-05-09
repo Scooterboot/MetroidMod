@@ -40,7 +40,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustScale = 2.5f;
 			dustScale2 = 2.5f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.Venom, 600);
 		}

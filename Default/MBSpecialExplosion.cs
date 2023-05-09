@@ -60,12 +60,12 @@ namespace MetroidMod.Default
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (npc.defense < 1000) { damage = (int)(damage + npc.defense * 0.5); }
+			if (target.defense < 1000) { modifiers.FinalDamage = (int)(damage + target.defense * 0.5); }
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			modMBAddon.OnHitNPC(target, damage, knockback, crit);
+			modMBAddon.OnHitNPC(target, damageDone, 1f, true);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

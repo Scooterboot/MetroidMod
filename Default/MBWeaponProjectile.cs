@@ -294,7 +294,7 @@ namespace MetroidMod.Default
 				Projectile.timeLeft = 0;
 			}
 
-			modMBAddon.OnHitNPC(target, damage, knockback, crit);
+			modMBAddon.OnHitNPC(target, hit, damageDone);
 
 			/*if (Projectile.type == mod.ProjectileType("PoisonBomb"))
 				target.AddBuff(BuffID.Poisoned, 600);
