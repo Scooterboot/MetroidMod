@@ -28,6 +28,7 @@ namespace MetroidMod.Content.NPCs.Town
 	[AutoloadHead]
 	public class ChozoGhost : ModNPC
 	{
+		public const string ShopName = "Chozo Shop";
 		public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[Type] = 16;
@@ -122,16 +123,12 @@ namespace MetroidMod.Content.NPCs.Town
 			//button2 = Language.GetTextValue("LegacyInterface.64");
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+		public override void OnChatButtonClicked(bool firstButton, ref string shop)
 		{
 			if (firstButton)
 			{
-				shop = true;
+				shop = ShopName; // Opens the shop
 			}
-			/*else
-			{
-				Main.npcChatText = QuestChat(npc);
-			}*/
 		}
 		string QuestChat(NPC npc)
 		{
@@ -183,68 +180,69 @@ namespace MetroidMod.Content.NPCs.Town
 			return chat;
 		}
 
-		public override void ModifyActiveShop(string shopName, Item[] items)
+		public override void AddShops()
 		{
-			shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Boss.TorizoSummon>());
+			var npcShop = new NPCShop(Type, ShopName)
+			.Add(ModContent.ItemType<Items.Boss.TorizoSummon>());
 
 			if (MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo))
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Boss.GoldenTorizoSummon>());
+				npcShop.Add(ModContent.ItemType<Items.Boss.GoldenTorizoSummon>());
 			}
 
 			if (Main.hardMode)
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<PowerBeam>());
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<MissileLauncher>());
+				npcShop.Add(ModContent.ItemType<PowerBeam>());
+				npcShop.Add(ModContent.ItemType<MissileLauncher>());
 
 				if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 				{
-					shop.item[nextSlot++].SetDefaults(SuitAddonLoader.GetAddon<VariaSuitV2Addon>().ItemType);
+					npcShop.Add(SuitAddonLoader.GetAddon<VariaSuitV2Addon>().ItemType);
 				}
 				else if (NPC.downedMechBossAny)
 				{
-					shop.item[nextSlot++].SetDefaults(SuitAddonLoader.GetAddon<VariaSuitAddon>().ItemType);
+					npcShop.Add(SuitAddonLoader.GetAddon<VariaSuitAddon>().ItemType);
 				}
 				else
 				{
-					shop.item[nextSlot++].SetDefaults(ModContent.ItemType<PowerSuitHelmet>());
-					shop.item[nextSlot++].SetDefaults(ModContent.ItemType<PowerSuitBreastplate>());
-					shop.item[nextSlot++].SetDefaults(ModContent.ItemType<PowerSuitGreaves>());
+					npcShop.Add(ModContent.ItemType<PowerSuitHelmet>());
+					npcShop.Add(ModContent.ItemType<PowerSuitBreastplate>());
+					npcShop.Add(ModContent.ItemType<PowerSuitGreaves>());
 				}
 
 				if (NPC.downedPlantBoss)
 				{
-					shop.item[nextSlot++].SetDefaults(SuitAddonLoader.GetAddon<GravitySuitAddon>().ItemType);
+					npcShop.Add(SuitAddonLoader.GetAddon<GravitySuitAddon>().ItemType);
 				}
 			}
 
-			shop.item[nextSlot++].SetDefaults(ModContent.ItemType<VanityPack>());
+			npcShop.Add(ModContent.ItemType<VanityPack>());
 
 			if (MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon))
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<VanityPack_Prime>());
+				npcShop.Add(ModContent.ItemType<VanityPack_Prime>());
 			}
 			if (NPC.downedMoonlord)
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<VanityPack_Lunar>());
+				npcShop.Add(ModContent.ItemType<VanityPack_Lunar>());
 			}
 
 			if (NPC.downedMechBossAny)
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<RedKeycard>());
+				npcShop.Add(ModContent.ItemType<RedKeycard>());
 			}
 			if (NPC.downedGolemBoss)
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<GreenKeycard>());
+				npcShop.Add(ModContent.ItemType<GreenKeycard>());
 			}
 			if (NPC.downedAncientCultist)
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<YellowKeycard>());
+				npcShop.Add(ModContent.ItemType<YellowKeycard>());
 			}
 
 			if(Main.hardMode && Main.bloodMoon)
 			{
-				shop.item[nextSlot++].SetDefaults(ModContent.ItemType<Items.Tiles.MissileExpansion>());
+				npcShop.Add(ModContent.ItemType<Items.Tiles.MissileExpansion>());
 			}
 		}
 
