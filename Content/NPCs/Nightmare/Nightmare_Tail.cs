@@ -136,14 +136,14 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		{
 			if(NPC.ai[2] == 0)
 			{
-				damage = (int)(damage * 0.1f);
+				modifiers.FinalDamage /= (int)(item.damage * 10f);
 			}
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
 			if(NPC.ai[2] == 0)
 			{
-				damage = (int)(damage * 0.1f);
+				modifiers.FinalDamage /= (int)(projectile.damage * 10f);
 			}
 		}
 		

@@ -107,7 +107,7 @@ namespace MetroidMod.Content.NPCs.Serris
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale) + 51;
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance) + 51;
 			//damage = (int)(damage * 0.7f * Main.expertDamage);
 			//speedDamage = (int)(speedDamage * 0.7f * Main.expertDamage);
 			//coreDamage = (int)(coreDamage * 0.7f * Main.expertDamage);

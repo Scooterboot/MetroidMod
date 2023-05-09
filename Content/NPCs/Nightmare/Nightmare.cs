@@ -75,7 +75,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
 			NPC.damage = 0;//(int)(NPC.damage * 0.8f);
 			damage = (int)(damage * 2 * 0.8f);
 		}

@@ -65,7 +65,7 @@ public override void SetDefaults()
 		}	
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			damage += target.damage * 2;
+			modifiers.FinalDamage += target.damage * 2;
 		}
 	}
 }

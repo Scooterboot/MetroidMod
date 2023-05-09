@@ -64,7 +64,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 
@@ -153,14 +153,14 @@ namespace MetroidMod.Content.NPCs.Torizo
 		{
 			if(NPC.ai[1] == 0f)
 			{
-				Base.StrikeNPC((int)(damage*0.25f),0f,Base.direction);
+				Base.StrikeNPC(hit);
 			}
 		}
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
 			if(NPC.ai[1] == 0f)
 			{
-				Base.StrikeNPC((int)(damage*0.25f),0f,Base.direction);
+				Base.StrikeNPC(hit);
 			}
 		}
 		
@@ -168,7 +168,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		{
 			if(NPC.ai[1] <= 1f)
 			{
-				Base.HitEffect(hitDirection,damage);
+				Base.HitEffect(hit);
 			}
 			
 			if(NPC.life <= 0 && Main.netMode != NetmodeID.Server)

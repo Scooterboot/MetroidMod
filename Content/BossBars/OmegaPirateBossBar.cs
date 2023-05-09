@@ -30,12 +30,12 @@ namespace MetroidMod.Content.BossBars
 
 			bossHeadIndex = npc.GetBossHeadTextureIndex();
 
-			lifePercent = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
+			life = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
 
 			if (npc.ModNPC is OmegaPirate body1)
 			{
-				lifePercent = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
-				shieldPercent = Utils.Clamp((float)body1.NPCArmorHP / 20000f, 0f, 1f);
+				life = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
+				shield = Utils.Clamp((float)body1.NPCArmorHP / 20000f, 0f, 1f);
 			}
 
 			return true;

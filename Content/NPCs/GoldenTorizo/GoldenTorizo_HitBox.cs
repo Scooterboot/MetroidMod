@@ -149,7 +149,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			GoldenTorizo mNpc = (GoldenTorizo)Base.ModNPC;
 			if(mNpc.screwAttack)
 			{
-				damage *= 2;
+				modifiers.FinalDamage *= 2;
 			}
 		}
 		
@@ -160,7 +160,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		{
 			if(NPC.ai[1] <= 1f)
 			{
-				Base.HitEffect(hitDirection,damage);
+				Base.HitEffect(hit);
 			}
 			
 			if(NPC.life <= 0 && Main.netMode != NetmodeID.Server)

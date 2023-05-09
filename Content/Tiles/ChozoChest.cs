@@ -37,14 +37,12 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			ContainerName/* tModPorter Note: Removed. Override DefaultContainerName instead */.SetDefault("Chozodian Chest");
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Chozodian Chest");
 			AddMapEntry(new Color(200, 200, 200), name);
 			DustType = 87;
 			TileID.Sets.DisableSmartCursor[Type] = true;//DisableSmartCursor = true;
 			AdjTiles = new int[] { TileID.Containers };
-			ContainerName/* tModPorter Note: Removed. Override DefaultContainerName instead */.SetDefault("Chozodian Chest");//Chest = "Chozodian Chest";
 			ItemDrop = ModContent.ItemType<Items.Tiles.ChozoChest>();
 		}
 
@@ -53,7 +51,11 @@ namespace MetroidMod.Content.Tiles
 		public override void NumDust(int i, int j, bool fail, ref int num) {
 			num = 1;
 		}
-
+		public override LocalizedText DefaultContainerName(int frameX, int frameY)
+		{
+			int option = frameX / 36;
+			return this.GetLocalization("MapEntry" + option);
+		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ItemDrop);
 			Chest.DestroyChest(i, j);

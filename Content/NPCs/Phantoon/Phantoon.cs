@@ -73,7 +73,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale + 1);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance + 1);
 			NPC.damage = 0;//(int)(NPC.damage * 0.7f);
 			damage *= 2;
 			damage = (int)(damage * 0.7f);
@@ -109,9 +109,9 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					newDust.noGravity = true;
 				}
 				var entitySource = NPC.GetSource_Death();
-				Gore.NewGore(entitySource, new Vector2(NPC.position.X, NPC.position.Y - 10f), new Vector2(hitDirection, 0f) *.3f, 61, NPC.scale);
-				Gore.NewGore(entitySource, new Vector2(NPC.position.X, NPC.position.Y + (NPC.height / 2) - 15f), new Vector2(hitDirection, 0f) * .3f, 62, NPC.scale);
-				Gore.NewGore(entitySource, new Vector2(NPC.position.X, NPC.position.Y + NPC.height - 20f), new Vector2(hitDirection, 0f) * .3f, 63, NPC.scale);
+				Gore.NewGore(entitySource, new Vector2(NPC.position.X, NPC.position.Y - 10f), new Vector2(/*hitDirection,*/ 0f) *.3f, 61, NPC.scale);
+				Gore.NewGore(entitySource, new Vector2(NPC.position.X, NPC.position.Y + (NPC.height / 2) - 15f), new Vector2(0f) * .3f, 62, NPC.scale);
+				Gore.NewGore(entitySource, new Vector2(NPC.position.X, NPC.position.Y + NPC.height - 20f), new Vector2(0f) * .3f, 63, NPC.scale);
 			}
 		}
 		

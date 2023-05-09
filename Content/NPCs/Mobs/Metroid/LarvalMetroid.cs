@@ -202,14 +202,14 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				player.knockbackResist = 0f;
 			}
 		}*/
-		public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+		/*public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
 			if (frozen && damage >= 20)
 			{
 				damage = (int)((double)(damage * (2 - (double)NPC.scale)) + (double)NPC.defense * 0.5);
 			}
 			return true;
-		}
+		}*/
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
