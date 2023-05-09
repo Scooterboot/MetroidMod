@@ -348,7 +348,7 @@ namespace MetroidMod.Content.Items.Armors
 					_suitAddons[i].TurnToAir();
 				}
 				_suitAddons[0] = SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().ModItem.Item.Clone();
-				Mod.Logger.Debug(_suitAddons[0].ModItem.DisplayName.GetDefault());
+				//Mod.Logger.Debug(_suitAddons[0].ModItem.DisplayName.GetDefault());
 			}
 		}
 

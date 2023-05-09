@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.ID;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Default
 {
@@ -48,7 +49,7 @@ namespace MetroidMod.Default
 
 		public override void HoldItem(Player player)
 		{
-			if (player.InInteractionRange(Player.tileTargetX, Player.tileTargetY))
+			if (player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default))
 			{
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = Type;

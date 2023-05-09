@@ -123,7 +123,7 @@ namespace MetroidMod.Content.Items.Weapons
 				case 12: output = 60; break;
 				case 13: output = 61; break;
 			}
-			PrefixLoader.Roll(Item, ref output, 14, rand, new PrefixCategory[] { PrefixCategory.AnyWeapon, PrefixCategory.Custom });
+			//PrefixLoader.Roll(Item, ref output, 14, rand, new PrefixCategory[] { PrefixCategory.AnyWeapon, PrefixCategory.Custom });
 			return output;
 		}
 
@@ -137,7 +137,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
-		public override void PreReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
+		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
 			foreach (Item item in BeamMods)
 			{
@@ -146,7 +146,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 			BeamMods = new Item[5];
-			return base.PreReforge();
+			return base.CanReforge();
 		}
 
 		private float iceDmg = 0f;

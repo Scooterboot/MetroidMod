@@ -158,7 +158,7 @@ namespace MetroidMod
 		/// <inheritdoc cref="ModItem.SetDefaults()"/>
 		public virtual void SetItemDefaults(Item item) { }
 
-		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY);
+		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);
 
 		/// <inheritdoc cref="ModItem.UpdateAccessory(Player, bool)"/>
 		public virtual void UpdateAccessory(Player player, bool hideVisual) { UpdateInventory(player); }

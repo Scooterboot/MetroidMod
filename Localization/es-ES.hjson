@@ -1,9 +1,2567 @@
-﻿// TODO: Add spanish localization for Chozo Ghost dialogue.
+# .hjson files allow comments! Please read https://github.com/tModLoader/tModLoader/blob/1.4/ExampleMod/Localization/en-US.hjson for more information.
+
 Mods: {
 	MetroidMod: {
 		WorldEvents: {
 			PhazonMeteor: Un Meteoro del Fazon aterrizó!
-			PhazonCorruption: "Tu mundo está corrupto por Fazon!"
+			PhazonCorruption: Tu mundo está corrupto por Fazon!
+		}
+
+		// BiomeName.ChozoRuinsBiome: Chozo Ruins
+
+		Dialogue: {
+			ChozoGhost: {
+				// StandardDialogue1: Greetings, {0}! How may I aid you?
+				// StandardDialogue2: Please, do not be frightened by my appearance. I may be a ghost, but I am not evil.
+				// StandardDialogue3: We may look different, but inside... We have the same 'heart' as you.
+				# StdD4 is unused.
+				// StandardDialogue4: Be cautious of my brethren in our ancient ruins, for they may put your mettle to the test.
+				// WitchDialogue: "{0} keeps shaking his witchcraft 'things' at me whenever I come near him. Could ask him to stop?"
+			}
+		}
+
+		TownNPCMood: {
+			ChozoGhost: {
+				// Content: I feel alright. How are you?
+				// NoHome: I've never felt homeless before... I guess there's a first time for everything.
+				// LoveSpace: The aura here is tranquil.
+				// FarFromHome: I seem to have lost track of space, could you help me get back home?
+				// DislikeCrowded: There are a few too many presences here, the aura is hard to think in.
+				// HateCrowded: The aura of this place is so diluted with souls it's driving me insane!
+				// LikeBiome: "{BiomeName} is calming."
+				// LoveBiome: I love {BiomeName}. It's very peaceful.
+				// DislikeBiome: The unending sands of {BiomeName} remind me of the times before the raid... I miss those days.
+				// HateBiome: "{BiomeName} reeks of malintent to the point it's corrupting."
+				// LikeNPC: "{NPCName}'s tech is primitive but useful. I admire his genius."
+				// LoveNPC: "{NPCName} seems quite technologically advanced, maybe she can help humanity arise to the golden age we Chozo once had. Hopefully, she learns of the dangers of rejecting religion. We don't want another Bryyo."
+				// DislikeNPC: I don't like the harassive tendencies {NPCName} displays.
+				// HateNPC: "{NPCName}'s aura is one of malice and corruption. His very presence is toxic to my being."
+			}
+		}
+
+		GameTips: {
+			// ItemStatueTip: Addons for the Power Beam, Missile Launcher, Morph Ball, and Power Suit can be found around the world on statues!
+			// MysteriousStatueTip: There is a mysterious statue in the desert worth checking out...
+		}
+
+		Keybinds: {
+			// "Spider Ball.DisplayName": Spider  Ball
+			// "Boost Ball.DisplayName": Boost  Ball
+			// "Power Bomb.DisplayName": Power  Bomb
+			// "Show Visor UI.DisplayName": Show  Visor  U I
+		}
+
+		SuitAddonName: {
+			// BetsyBomb: Mods.MetroidMod.SuitAddonName.BetsyBomb
+			// Bomb: Mods.MetroidMod.SuitAddonName.Bomb
+			// BoostBall: Mods.MetroidMod.SuitAddonName.BoostBall
+			// CrystalBomb: Mods.MetroidMod.SuitAddonName.CrystalBomb
+			// CursedFlameBomb: Mods.MetroidMod.SuitAddonName.CursedFlameBomb
+			// Drill: Mods.MetroidMod.SuitAddonName.Drill
+			// FireBomb: Mods.MetroidMod.SuitAddonName.FireBomb
+			// FrostburnBomb: Mods.MetroidMod.SuitAddonName.FrostburnBomb
+			// IchorBomb: Mods.MetroidMod.SuitAddonName.IchorBomb
+			// PhazonBomb: Mods.MetroidMod.SuitAddonName.PhazonBomb
+			// PoisonBomb: Mods.MetroidMod.SuitAddonName.PoisonBomb
+			// PowerBomb: Mods.MetroidMod.SuitAddonName.PowerBomb
+			// PumpkinBomb: Mods.MetroidMod.SuitAddonName.PumpkinBomb
+			// ShadowflameBomb: Mods.MetroidMod.SuitAddonName.ShadowflameBomb
+			// SolarBomb: Mods.MetroidMod.SuitAddonName.SolarBomb
+			// SolarFireBomb: Mods.MetroidMod.SuitAddonName.SolarFireBomb
+			// SpiderBall: Mods.MetroidMod.SuitAddonName.SpiderBall
+			// VenomBomb: Mods.MetroidMod.SuitAddonName.VenomBomb
+			// VortexBomb: Mods.MetroidMod.SuitAddonName.VortexBomb
+			// DarkSuitAddon: Mods.MetroidMod.SuitAddonName.DarkSuitAddon
+			// EnergyTank: Mods.MetroidMod.SuitAddonName.EnergyTank
+			// GravitySuitAddon: Mods.MetroidMod.SuitAddonName.GravitySuitAddon
+			// HazardShieldAddon: Mods.MetroidMod.SuitAddonName.HazardShieldAddon
+			// HiJumpBoots: Mods.MetroidMod.SuitAddonName.HiJumpBoots
+			// LightSuitAddon: Mods.MetroidMod.SuitAddonName.LightSuitAddon
+			// NebulaAugment: Mods.MetroidMod.SuitAddonName.NebulaAugment
+			// PEDSuitAddon: Mods.MetroidMod.SuitAddonName.PEDSuitAddon
+			// PhazonSuitAddon: Mods.MetroidMod.SuitAddonName.PhazonSuitAddon
+			// PowerGrip: Mods.MetroidMod.SuitAddonName.PowerGrip
+			// ReserveTank: Mods.MetroidMod.SuitAddonName.ReserveTank
+			// ScanVisor: Mods.MetroidMod.SuitAddonName.ScanVisor
+			// ScrewAttack: Mods.MetroidMod.SuitAddonName.ScrewAttack
+			// SolarAugment: Mods.MetroidMod.SuitAddonName.SolarAugment
+			// SpaceJump: Mods.MetroidMod.SuitAddonName.SpaceJump
+			// SpaceJumpBoots: Mods.MetroidMod.SuitAddonName.SpaceJumpBoots
+			// SpeedBooster: Mods.MetroidMod.SuitAddonName.SpeedBooster
+			// TerraGravitySuitAddon: Mods.MetroidMod.SuitAddonName.TerraGravitySuitAddon
+			// VariaSuitAddon: Mods.MetroidMod.SuitAddonName.VariaSuitAddon
+			// VariaSuitV2Addon: Mods.MetroidMod.SuitAddonName.VariaSuitV2Addon
+			// VortexAugment: Mods.MetroidMod.SuitAddonName.VortexAugment
+			// XRayScope: Mods.MetroidMod.SuitAddonName.XRayScope
+		}
+
+		SuitAddonTooltip: {
+			// BetsyBomb: Mods.MetroidMod.SuitAddonTooltip.BetsyBomb
+			// Bomb: Mods.MetroidMod.SuitAddonTooltip.Bomb
+			// BoostBall: Mods.MetroidMod.SuitAddonTooltip.BoostBall
+			// CrystalBomb: Mods.MetroidMod.SuitAddonTooltip.CrystalBomb
+			// CursedFlameBomb: Mods.MetroidMod.SuitAddonTooltip.CursedFlameBomb
+			// Drill: Mods.MetroidMod.SuitAddonTooltip.Drill
+			// FireBomb: Mods.MetroidMod.SuitAddonTooltip.FireBomb
+			// FrostburnBomb: Mods.MetroidMod.SuitAddonTooltip.FrostburnBomb
+			// IchorBomb: Mods.MetroidMod.SuitAddonTooltip.IchorBomb
+			// PhazonBomb: Mods.MetroidMod.SuitAddonTooltip.PhazonBomb
+			// PoisonBomb: Mods.MetroidMod.SuitAddonTooltip.PoisonBomb
+			// PowerBomb: Mods.MetroidMod.SuitAddonTooltip.PowerBomb
+			// PumpkinBomb: Mods.MetroidMod.SuitAddonTooltip.PumpkinBomb
+			// ShadowflameBomb: Mods.MetroidMod.SuitAddonTooltip.ShadowflameBomb
+			// SolarBomb: Mods.MetroidMod.SuitAddonTooltip.SolarBomb
+			// SolarFireBomb: Mods.MetroidMod.SuitAddonTooltip.SolarFireBomb
+			// SpiderBall: Mods.MetroidMod.SuitAddonTooltip.SpiderBall
+			// VenomBomb: Mods.MetroidMod.SuitAddonTooltip.VenomBomb
+			// VortexBomb: Mods.MetroidMod.SuitAddonTooltip.VortexBomb
+			// DarkSuitAddon: Mods.MetroidMod.SuitAddonTooltip.DarkSuitAddon
+			// EnergyTank: Mods.MetroidMod.SuitAddonTooltip.EnergyTank
+			// GravitySuitAddon: Mods.MetroidMod.SuitAddonTooltip.GravitySuitAddon
+			// HazardShieldAddon: Mods.MetroidMod.SuitAddonTooltip.HazardShieldAddon
+			// HiJumpBoots: Mods.MetroidMod.SuitAddonTooltip.HiJumpBoots
+			// LightSuitAddon: Mods.MetroidMod.SuitAddonTooltip.LightSuitAddon
+			// NebulaAugment: Mods.MetroidMod.SuitAddonTooltip.NebulaAugment
+			// PEDSuitAddon: Mods.MetroidMod.SuitAddonTooltip.PEDSuitAddon
+			// PhazonSuitAddon: Mods.MetroidMod.SuitAddonTooltip.PhazonSuitAddon
+			// PowerGrip: Mods.MetroidMod.SuitAddonTooltip.PowerGrip
+			// ReserveTank: Mods.MetroidMod.SuitAddonTooltip.ReserveTank
+			// ScanVisor: Mods.MetroidMod.SuitAddonTooltip.ScanVisor
+			// ScrewAttack: Mods.MetroidMod.SuitAddonTooltip.ScrewAttack
+			// SolarAugment: Mods.MetroidMod.SuitAddonTooltip.SolarAugment
+			// SpaceJump: Mods.MetroidMod.SuitAddonTooltip.SpaceJump
+			// SpaceJumpBoots: Mods.MetroidMod.SuitAddonTooltip.SpaceJumpBoots
+			// SpeedBooster: Mods.MetroidMod.SuitAddonTooltip.SpeedBooster
+			// TerraGravitySuitAddon: Mods.MetroidMod.SuitAddonTooltip.TerraGravitySuitAddon
+			// VariaSuitAddon: Mods.MetroidMod.SuitAddonTooltip.VariaSuitAddon
+			// VariaSuitV2Addon: Mods.MetroidMod.SuitAddonTooltip.VariaSuitV2Addon
+			// VortexAugment: Mods.MetroidMod.SuitAddonTooltip.VortexAugment
+			// XRayScope: Mods.MetroidMod.SuitAddonTooltip.XRayScope
+		}
+
+		Biomes: {
+			// ChozoRuinsBiome.DisplayName: Chozo Ruins Biome
+			// NESCrateriaSurfaceBiome.DisplayName: N E S Crateria Surface Biome
+		}
+
+		Tiles: {
+			// ChoziteBarTile.MapEntry: Chozite Bar Tile
+			// ChoziteOreTile.MapEntry: Chozite Ore Tile
+			// ChozoChest.MapEntry: Chozo Chest
+			// ChozoPillar.MapEntry: Chozo Pillar
+			// ChozoPillarNatural.MapEntry: Chozo Pillar Natural
+			// ChozoRuinsActiveMusicBox.MapEntry: Chozo Ruins Active Music Box
+			// ChozoRuinsInactiveMusicBox.MapEntry: Chozo Ruins Inactive Music Box
+			// ChozoStatue.MapEntry: Chozo Statue
+			// ChozoStatueArm.MapEntry: Chozo Statue Arm
+			// ChozoStatueArmNatural.MapEntry: Chozo Statue Arm Natural
+			// ChozoStatueNatural.MapEntry: Chozo Statue Natural
+			// EnergyStation.MapEntry: Energy Station
+			// EnergyStationDevtool.MapEntry: Energy Station Devtool
+			// BlueHatch.MapEntry: Blue Hatch
+			// BlueHatchOpen.MapEntry: Blue Hatch Open
+			// BlueHatchOpenVertical.MapEntry: Blue Hatch Open Vertical
+			// BlueHatchVertical.MapEntry: Blue Hatch Vertical
+			// GreenHatch.MapEntry: Green Hatch
+			// GreenHatchOpen.MapEntry: Green Hatch Open
+			// GreenHatchOpenVertical.MapEntry: Green Hatch Open Vertical
+			// GreenHatchVertical.MapEntry: Green Hatch Vertical
+			// RedHatch.MapEntry: Red Hatch
+			// RedHatchOpen.MapEntry: Red Hatch Open
+			// RedHatchOpenVertical.MapEntry: Red Hatch Open Vertical
+			// RedHatchVertical.MapEntry: Red Hatch Vertical
+			// YellowHatch.MapEntry: Yellow Hatch
+			// YellowHatchOpen.MapEntry: Yellow Hatch Open
+			// YellowHatchOpenVertical.MapEntry: Yellow Hatch Open Vertical
+			// YellowHatchVertical.MapEntry: Yellow Hatch Vertical
+			// ChargeBeamTile.MapEntry: Charge Beam Tile
+			// ChargeBeamV2Tile.MapEntry: Charge Beam V2 Tile
+			// BattleHammerTile.MapEntry: Battle Hammer Tile
+			// ImperialistTile.MapEntry: Imperialist Tile
+			// JudicatorTile.MapEntry: Judicator Tile
+			// MagMaulTile.MapEntry: Mag Maul Tile
+			// OmegaCannonTile.MapEntry: Omega Cannon Tile
+			// ShockCoilTile.MapEntry: Shock Coil Tile
+			// VoltDriverTile.MapEntry: Volt Driver Tile
+			// HyperBeamTile.MapEntry: Hyper Beam Tile
+			// IceBeamTile.MapEntry: Ice Beam Tile
+			// IceBeamV2Tile.MapEntry: Ice Beam V2 Tile
+			// LuminiteBeamTile.MapEntry: Luminite Beam Tile
+			// NebulaBeamTile.MapEntry: Nebula Beam Tile
+			// NovaBeamTile.MapEntry: Nova Beam Tile
+			// PhazonBeamTile.MapEntry: Phazon Beam Tile
+			// PlasmaBeamGreenTile.MapEntry: Plasma Beam Green Tile
+			// PlasmaBeamRedTile.MapEntry: Plasma Beam Red Tile
+			// SolarBeamTile.MapEntry: Solar Beam Tile
+			// SpazerTile.MapEntry: Spazer Tile
+			// StardustBeamTile.MapEntry: Stardust Beam Tile
+			// VortexBeamTile.MapEntry: Vortex Beam Tile
+			// WaveBeamTile.MapEntry: Wave Beam Tile
+			// WaveBeamV2Tile.MapEntry: Wave Beam V2 Tile
+			// WideBeamTile.MapEntry: Wide Beam Tile
+			// GrappleBeamPlusTile.MapEntry: Grapple Beam Plus Tile
+			// GrappleBeamTile.MapEntry: Grapple Beam Tile
+			// DiffusionMissile.MapEntry: Diffusion Missile
+			// Flamethrower.MapEntry: Flamethrower
+			// HomingMissile.MapEntry: Homing Missile
+			// IceMissile.MapEntry: Ice Missile
+			// IceSpreader.MapEntry: Ice Spreader
+			// IceSuperMissile.MapEntry: Ice Super Missile
+			// NebulaCombo.MapEntry: Nebula Combo
+			// NebulaMissile.MapEntry: Nebula Missile
+			// NovaCombo.MapEntry: Nova Combo
+			// PlasmaMachinegun.MapEntry: Plasma Machinegun
+			// SeekerMissile.MapEntry: Seeker Missile
+			// SolarCombo.MapEntry: Solar Combo
+			// SpazerCombo.MapEntry: Spazer Combo
+			// StardustCombo.MapEntry: Stardust Combo
+			// StardustMissile.MapEntry: Stardust Missile
+			// SuperMissile.MapEntry: Super Missile
+			// VortexCombo.MapEntry: Vortex Combo
+			// Wavebuster.MapEntry: Wavebuster
+			// MissileExpansionTile.MapEntry: Missile Expansion Tile
+			// MorphBallTile.MapEntry: Morph Ball Tile
+			// KraidPhantoonMusicBox.MapEntry: Kraid Phantoon Music Box
+			// KraidTrophyTile.MapEntry: Kraid Trophy Tile
+			// MissileStation.MapEntry: Missile Station
+			// NightmareMusicBox.MapEntry: Nightmare Music Box
+			// NovaWorkTableTile.MapEntry: Nova Work Table Tile
+			// OmegaPirateMusicBox.MapEntry: Omega Pirate Music Box
+			// PhantoonTrophyTile.MapEntry: Phantoon Trophy Tile
+			// PhazonCore.MapEntry: Phazon Core
+			// PhazonTile.MapEntry: Phazon Tile
+			// RidleyMusicBox.MapEntry: Ridley Music Box
+			// SaveStation.MapEntry: Save Station
+			// SerrisMusicBox.MapEntry: Serris Music Box
+			// SerrisTrophyTile.MapEntry: Serris Trophy Tile
+			// TorizoMusicBox.MapEntry: Torizo Music Box
+			// TorizoTrophyTile.MapEntry: Torizo Trophy Tile
+			// ZeroHusk.MapEntry: Zero Husk
+		}
+
+		Buffs: {
+			EnergyRecharge: {
+				// DisplayName: Energy Recharge
+				// Description: Mods.MetroidMod.Buffs.EnergyRecharge.Description
+			}
+
+			EnergyRechargeDevtool: {
+				// DisplayName: Energy Recharge Devtool
+				// Description: Mods.MetroidMod.Buffs.EnergyRechargeDevtool.Description
+			}
+
+			GravityDebuff: {
+				// DisplayName: Gravity Debuff
+				// Description: Mods.MetroidMod.Buffs.GravityDebuff.Description
+			}
+
+			IceFreeze: {
+				// DisplayName: Ice Freeze
+				// Description: Mods.MetroidMod.Buffs.IceFreeze.Description
+			}
+
+			InstantFreeze: {
+				// DisplayName: Instant Freeze
+				// Description: Mods.MetroidMod.Buffs.InstantFreeze.Description
+			}
+
+			MissileRecharge: {
+				// DisplayName: Missile Recharge
+				// Description: Mods.MetroidMod.Buffs.MissileRecharge.Description
+			}
+
+			MorphBallMountBuff: {
+				// DisplayName: Morph Ball Mount Buff
+				// Description: Mods.MetroidMod.Buffs.MorphBallMountBuff.Description
+			}
+
+			ParalyzerStun: {
+				// DisplayName: Paralyzer Stun
+				// Description: Mods.MetroidMod.Buffs.ParalyzerStun.Description
+			}
+
+			PhazonDebuff: {
+				// DisplayName: Phazon Debuff
+				// Description: Mods.MetroidMod.Buffs.PhazonDebuff.Description
+			}
+		}
+
+		Items: {
+			HiJumpBoots: {
+				// DisplayName: Hi Jump Boots
+				// Tooltip: ""
+			}
+
+			HunterEmblem: {
+				// DisplayName: Hunter Emblem
+				// Tooltip: ""
+			}
+
+			MorphBall: {
+				// DisplayName: Morph Ball
+				// Tooltip: ""
+			}
+
+			PowerGrip: {
+				// DisplayName: Power Grip
+				// Tooltip: ""
+			}
+
+			ReserveTank: {
+				// DisplayName: Reserve Tank
+				// Tooltip: ""
+			}
+
+			ReserveTank2: {
+				// DisplayName: Reserve Tank2
+				// Tooltip: ""
+			}
+
+			ReserveTank3: {
+				// DisplayName: Reserve Tank3
+				// Tooltip: ""
+			}
+
+			ReserveTank4: {
+				// DisplayName: Reserve Tank4
+				// Tooltip: ""
+			}
+
+			ReserveTank5: {
+				// DisplayName: Reserve Tank5
+				// Tooltip: ""
+			}
+
+			ScrewAttack: {
+				// DisplayName: Screw Attack
+				// Tooltip: ""
+			}
+
+			ScrewSpaceBooster: {
+				// DisplayName: Screw Space Booster
+				// Tooltip: ""
+			}
+
+			SpaceBooster: {
+				// DisplayName: Space Booster
+				// Tooltip: ""
+			}
+
+			SpaceJump: {
+				// DisplayName: Space Jump
+				// Tooltip: ""
+			}
+
+			SpaceJumpBoots: {
+				// DisplayName: Space Jump Boots
+				// Tooltip: ""
+			}
+
+			SpeedBooster: {
+				// DisplayName: Speed Booster
+				// Tooltip: ""
+			}
+
+			TerraBooster: {
+				// DisplayName: Terra Booster
+				// Tooltip: ""
+			}
+
+			ChargeBeamAddon: {
+				// DisplayName: Charge Beam Addon
+				// Tooltip: ""
+			}
+
+			BattleHammerAddon: {
+				// DisplayName: Battle Hammer Addon
+				// Tooltip: ""
+			}
+
+			ImperialistAddon: {
+				// DisplayName: Imperialist Addon
+				// Tooltip: ""
+			}
+
+			JudicatorAddon: {
+				// DisplayName: Judicator Addon
+				// Tooltip: ""
+			}
+
+			MagMaulAddon: {
+				// DisplayName: Mag Maul Addon
+				// Tooltip: ""
+			}
+
+			OmegaCannonAddon: {
+				// DisplayName: Omega Cannon Addon
+				// Tooltip: ""
+			}
+
+			ShockCoilAddon: {
+				// DisplayName: Shock Coil Addon
+				// Tooltip: ""
+			}
+
+			VoltDriverAddon: {
+				// DisplayName: Volt Driver Addon
+				// Tooltip: ""
+			}
+
+			HyperBeamAddon: {
+				// DisplayName: Hyper Beam Addon
+				// Tooltip: ""
+			}
+
+			IceBeamAddon: {
+				// DisplayName: Ice Beam Addon
+				// Tooltip: ""
+			}
+
+			PhazonBeamAddon: {
+				// DisplayName: Phazon Beam Addon
+				// Tooltip: ""
+			}
+
+			PlasmaBeamGreenAddon: {
+				// DisplayName: Plasma Beam Green Addon
+				// Tooltip: ""
+			}
+
+			PlasmaBeamRedAddon: {
+				// DisplayName: Plasma Beam Red Addon
+				// Tooltip: ""
+			}
+
+			SpazerAddon: {
+				// DisplayName: Spazer Addon
+				// Tooltip: ""
+			}
+
+			ChargeBeamV2Addon: {
+				// DisplayName: Charge Beam V2 Addon
+				// Tooltip: ""
+			}
+
+			IceBeamV2Addon: {
+				// DisplayName: Ice Beam V2 Addon
+				// Tooltip: ""
+			}
+
+			NovaBeamAddon: {
+				// DisplayName: Nova Beam Addon
+				// Tooltip: ""
+			}
+
+			WaveBeamV2Addon: {
+				// DisplayName: Wave Beam V2 Addon
+				// Tooltip: ""
+			}
+
+			WideBeamAddon: {
+				// DisplayName: Wide Beam Addon
+				// Tooltip: ""
+			}
+
+			LuminiteBeamAddon: {
+				// DisplayName: Luminite Beam Addon
+				// Tooltip: ""
+			}
+
+			NebulaBeamAddon: {
+				// DisplayName: Nebula Beam Addon
+				// Tooltip: ""
+			}
+
+			SolarBeamAddon: {
+				// DisplayName: Solar Beam Addon
+				// Tooltip: ""
+			}
+
+			StardustBeamAddon: {
+				// DisplayName: Stardust Beam Addon
+				// Tooltip: ""
+			}
+
+			VortexBeamAddon: {
+				// DisplayName: Vortex Beam Addon
+				// Tooltip: ""
+			}
+
+			WaveBeamAddon: {
+				// DisplayName: Wave Beam Addon
+				// Tooltip: ""
+			}
+
+			ChoziteBreastplate: {
+				// DisplayName: Chozite Breastplate
+				// Tooltip: ""
+			}
+
+			ChoziteGreaves: {
+				// DisplayName: Chozite Greaves
+				// Tooltip: ""
+			}
+
+			ChoziteHelmet: {
+				// DisplayName: Chozite Helmet
+				// Tooltip: ""
+			}
+
+			PowerSuitBreastplate: {
+				// DisplayName: Power Suit Breastplate
+				// Tooltip: ""
+			}
+
+			PowerSuitGreaves: {
+				// DisplayName: Power Suit Greaves
+				// Tooltip: ""
+			}
+
+			PowerSuitHelmet: {
+				// DisplayName: Power Suit Helmet
+				// Tooltip: ""
+			}
+
+			GoldenTorizoBag: {
+				// DisplayName: Golden Torizo Bag
+				// Tooltip: ""
+			}
+
+			GoldenTorizoSummon: {
+				// DisplayName: Golden Torizo Summon
+				// Tooltip: ""
+			}
+
+			KraidBag: {
+				// DisplayName: Kraid Bag
+				// Tooltip: ""
+			}
+
+			KraidSummon: {
+				// DisplayName: Kraid Summon
+				// Tooltip: ""
+			}
+
+			NightmareBag: {
+				// DisplayName: Nightmare Bag
+				// Tooltip: ""
+			}
+
+			NightmareSummon: {
+				// DisplayName: Nightmare Summon
+				// Tooltip: ""
+			}
+
+			OmegaPirateBag: {
+				// DisplayName: Omega Pirate Bag
+				// Tooltip: ""
+			}
+
+			OmegaPirateSummon: {
+				// DisplayName: Omega Pirate Summon
+				// Tooltip: ""
+			}
+
+			PhantoonBag: {
+				// DisplayName: Phantoon Bag
+				// Tooltip: ""
+			}
+
+			PhantoonSummon: {
+				// DisplayName: Phantoon Summon
+				// Tooltip: ""
+			}
+
+			SerrisBag: {
+				// DisplayName: Serris Bag
+				// Tooltip: ""
+			}
+
+			SerrisSummon: {
+				// DisplayName: Serris Summon
+				// Tooltip: ""
+			}
+
+			TorizoBag: {
+				// DisplayName: Torizo Bag
+				// Tooltip: ""
+			}
+
+			TorizoSummon: {
+				// DisplayName: Torizo Summon
+				// Tooltip: ""
+			}
+
+			Crucible: {
+				// DisplayName: Crucible
+				// Tooltip: ""
+			}
+
+			ChoziteBar: {
+				// DisplayName: Chozite Bar
+				// Tooltip: ""
+			}
+
+			EnergyPickup: {
+				// DisplayName: Energy Pickup
+				// Tooltip: ""
+			}
+
+			EnergyShard: {
+				// DisplayName: Energy Shard
+				// Tooltip: ""
+			}
+
+			FrozenCore: {
+				// DisplayName: Frozen Core
+				// Tooltip: ""
+			}
+
+			GravityFlare: {
+				// DisplayName: Gravity Flare
+				// Tooltip: ""
+			}
+
+			KraidTissue: {
+				// DisplayName: Kraid Tissue
+				// Tooltip: ""
+			}
+
+			MissilePickup: {
+				// DisplayName: Missile Pickup
+				// Tooltip: ""
+			}
+
+			NightmareCoreX: {
+				// DisplayName: Nightmare Core X
+				// Tooltip: ""
+			}
+
+			NightmareCoreXFragment: {
+				// DisplayName: Nightmare Core X Fragment
+				// Tooltip: ""
+			}
+
+			PhazonBar: {
+				// DisplayName: Phazon Bar
+				// Tooltip: ""
+			}
+
+			Phazon: {
+				// DisplayName: Phazon
+				// Tooltip: ""
+			}
+
+			PurePhazon: {
+				// DisplayName: Pure Phazon
+				// Tooltip: ""
+			}
+
+			SerrisCoreX: {
+				// DisplayName: Serris Core X
+				// Tooltip: ""
+			}
+
+			UnknownPlasmaBeam: {
+				// DisplayName: Unknown Plasma Beam
+				// Tooltip: ""
+			}
+
+			FlamethrowerAddon: {
+				// DisplayName: Flamethrower Addon
+				// Tooltip: ""
+			}
+
+			IceSpreaderAddon: {
+				// DisplayName: Ice Spreader Addon
+				// Tooltip: ""
+			}
+
+			NebulaComboAddon: {
+				// DisplayName: Nebula Combo Addon
+				// Tooltip: ""
+			}
+
+			NovaComboAddon: {
+				// DisplayName: Nova Combo Addon
+				// Tooltip: ""
+			}
+
+			PlasmaMachinegunAddon: {
+				// DisplayName: Plasma Machinegun Addon
+				// Tooltip: ""
+			}
+
+			SolarComboAddon: {
+				// DisplayName: Solar Combo Addon
+				// Tooltip: ""
+			}
+
+			SpazerComboAddon: {
+				// DisplayName: Spazer Combo Addon
+				// Tooltip: ""
+			}
+
+			StardustComboAddon: {
+				// DisplayName: Stardust Combo Addon
+				// Tooltip: ""
+			}
+
+			VortexComboAddon: {
+				// DisplayName: Vortex Combo Addon
+				// Tooltip: ""
+			}
+
+			WavebusterAddon: {
+				// DisplayName: Wavebuster Addon
+				// Tooltip: ""
+			}
+
+			DiffusionMissileAddon: {
+				// DisplayName: Diffusion Missile Addon
+				// Tooltip: ""
+			}
+
+			HomingMissileAddon: {
+				// DisplayName: Homing Missile Addon
+				// Tooltip: ""
+			}
+
+			IceMissileAddon: {
+				// DisplayName: Ice Missile Addon
+				// Tooltip: ""
+			}
+
+			IceSuperMissileAddon: {
+				// DisplayName: Ice Super Missile Addon
+				// Tooltip: ""
+			}
+
+			NebulaMissileAddon: {
+				// DisplayName: Nebula Missile Addon
+				// Tooltip: ""
+			}
+
+			SeekerMissileAddon: {
+				// DisplayName: Seeker Missile Addon
+				// Tooltip: ""
+			}
+
+			StardustMissileAddon: {
+				// DisplayName: Stardust Missile Addon
+				// Tooltip: ""
+			}
+
+			SuperMissileAddon: {
+				// DisplayName: Super Missile Addon
+				// Tooltip: ""
+			}
+
+			ArcticPlating: {
+				// DisplayName: Arctic Plating
+				// Tooltip: ""
+			}
+
+			BlueHatch: {
+				// DisplayName: Blue Hatch
+				// Tooltip: ""
+			}
+
+			BlueSwitch: {
+				// DisplayName: Blue Switch
+				// Tooltip: ""
+			}
+
+			BrinstoneTile: {
+				// DisplayName: Brinstone Tile
+				// Tooltip: ""
+			}
+
+			ChoziteOre: {
+				// DisplayName: Chozite Ore
+				// Tooltip: ""
+			}
+
+			ChozoBrick: {
+				// DisplayName: Chozo Brick
+				// Tooltip: ""
+			}
+
+			ChozoBrickNatural: {
+				// DisplayName: Chozo Brick Natural
+				// Tooltip: ""
+			}
+
+			ChozoChest: {
+				// DisplayName: Chozo Chest
+				// Tooltip: ""
+			}
+
+			ChozoPillar: {
+				// DisplayName: Chozo Pillar
+				// Tooltip: ""
+			}
+
+			ChozoPillarNatural: {
+				// DisplayName: Chozo Pillar Natural
+				// Tooltip: ""
+			}
+
+			ChozoRuinsActiveMusicBox: {
+				// DisplayName: Chozo Ruins Active Music Box
+				// Tooltip: ""
+			}
+
+			ChozoRuinsInactiveMusicBox: {
+				// DisplayName: Chozo Ruins Inactive Music Box
+				// Tooltip: ""
+			}
+
+			ChozoStatue: {
+				// DisplayName: Chozo Statue
+				// Tooltip: ""
+			}
+
+			ChozoStatueArm: {
+				// DisplayName: Chozo Statue Arm
+				// Tooltip: ""
+			}
+
+			BombBlock: {
+				// DisplayName: Bomb Block
+				// Tooltip: ""
+			}
+
+			BombBlockChain: {
+				// DisplayName: Bomb Block Chain
+				// Tooltip: ""
+			}
+
+			BoostBlock: {
+				// DisplayName: Boost Block
+				// Tooltip: ""
+			}
+
+			CrumbleBlock: {
+				// DisplayName: Crumble Block
+				// Tooltip: ""
+			}
+
+			CrumbleBlockSlow: {
+				// DisplayName: Crumble Block Slow
+				// Tooltip: ""
+			}
+
+			CrumbleBlockSpeed: {
+				// DisplayName: Crumble Block Speed
+				// Tooltip: ""
+			}
+
+			FakeBlock: {
+				// DisplayName: Fake Block
+				// Tooltip: ""
+			}
+
+			FakeBlockHint: {
+				// DisplayName: Fake Block Hint
+				// Tooltip: ""
+			}
+
+			MissileBlock: {
+				// DisplayName: Missile Block
+				// Tooltip: ""
+			}
+
+			PowerBombBlock: {
+				// DisplayName: Power Bomb Block
+				// Tooltip: ""
+			}
+
+			ScrewAttackBlock: {
+				// DisplayName: Screw Attack Block
+				// Tooltip: ""
+			}
+
+			SuperMissileBlock: {
+				// DisplayName: Super Missile Block
+				// Tooltip: ""
+			}
+
+			EnergyStation: {
+				// DisplayName: Energy Station
+				// Tooltip: ""
+			}
+
+			EnergyStationDevtool: {
+				// DisplayName: Energy Station Devtool
+				// Tooltip: ""
+			}
+
+			EnergyTank: {
+				// DisplayName: Energy Tank
+				// Tooltip: ""
+			}
+
+			ExtraArcticPlating: {
+				// DisplayName: Extra Arctic Plating
+				// Tooltip: ""
+			}
+
+			GrappleBeamPlaceable: {
+				// DisplayName: Grapple Beam Placeable
+				// Tooltip: ""
+			}
+
+			GrappleBeamPlusPlaceable: {
+				// DisplayName: Grapple Beam Plus Placeable
+				// Tooltip: ""
+			}
+
+			GrappleBeamPlus: {
+				// DisplayName: Grapple Beam Plus
+				// Tooltip: ""
+			}
+
+			GrappleBeam: {
+				// DisplayName: Grapple Beam
+				// Tooltip: ""
+			}
+
+			GrappleTile: {
+				// DisplayName: Grapple Tile
+				// Tooltip: ""
+			}
+
+			GreenBrinstarRootsTile: {
+				// DisplayName: Green Brinstar Roots Tile
+				// Tooltip: ""
+			}
+
+			GreenHatch: {
+				// DisplayName: Green Hatch
+				// Tooltip: ""
+			}
+
+			GreenSwitch: {
+				// DisplayName: Green Switch
+				// Tooltip: ""
+			}
+
+			GripLedge: {
+				// DisplayName: Grip Ledge
+				// Tooltip: ""
+			}
+
+			ItemPedestalTile: {
+				// DisplayName: Item Pedestal Tile
+				// Tooltip: ""
+			}
+
+			ItemRoomTile: {
+				// DisplayName: Item Room Tile
+				// Tooltip: ""
+			}
+
+			KraidPhantoonMusicBox: {
+				// DisplayName: Kraid Phantoon Music Box
+				// Tooltip: ""
+			}
+
+			KraidTrophy: {
+				// DisplayName: Kraid Trophy
+				// Tooltip: ""
+			}
+
+			MissileExpansion: {
+				// DisplayName: Missile Expansion
+				// Tooltip: ""
+			}
+
+			MissileStation: {
+				// DisplayName: Missile Station
+				// Tooltip: ""
+			}
+
+			MorphBallPlaceable: {
+				// DisplayName: Morph Ball Placeable
+				// Tooltip: ""
+			}
+
+			NightmareMusicBox: {
+				// DisplayName: Nightmare Music Box
+				// Tooltip: ""
+			}
+
+			NorfairBrick: {
+				// DisplayName: Norfair Brick
+				// Tooltip: ""
+			}
+
+			NorfairBrickNatural: {
+				// DisplayName: Norfair Brick Natural
+				// Tooltip: ""
+			}
+
+			NorfairBubbleSM: {
+				// DisplayName: Norfair Bubble S M
+				// Tooltip: ""
+			}
+
+			NorfairBubbleZM: {
+				// DisplayName: Norfair Bubble Z M
+				// Tooltip: ""
+			}
+
+			NovaWorkTable: {
+				// DisplayName: Nova Work Table
+				// Tooltip: ""
+			}
+
+			OmegaPirateMusicBox: {
+				// DisplayName: Omega Pirate Music Box
+				// Tooltip: ""
+			}
+
+			PhantoonTrophy: {
+				// DisplayName: Phantoon Trophy
+				// Tooltip: ""
+			}
+
+			RedBrinstone: {
+				// DisplayName: Red Brinstone
+				// Tooltip: ""
+			}
+
+			RedHatch: {
+				// DisplayName: Red Hatch
+				// Tooltip: ""
+			}
+
+			RedSwitch: {
+				// DisplayName: Red Switch
+				// Tooltip: ""
+			}
+
+			RidleyMusicBox: {
+				// DisplayName: Ridley Music Box
+				// Tooltip: ""
+			}
+
+			SaveStation: {
+				// DisplayName: Save Station
+				// Tooltip: ""
+			}
+
+			SerrisMusicBox: {
+				// DisplayName: Serris Music Box
+				// Tooltip: ""
+			}
+
+			SerrisTrophy: {
+				// DisplayName: Serris Trophy
+				// Tooltip: ""
+			}
+
+			TanglevineTile: {
+				// DisplayName: Tanglevine Tile
+				// Tooltip: ""
+			}
+
+			TorizoMusicBox: {
+				// DisplayName: Torizo Music Box
+				// Tooltip: ""
+			}
+
+			TorizoTrophy: {
+				// DisplayName: Torizo Trophy
+				// Tooltip: ""
+			}
+
+			TourianPipe: {
+				// DisplayName: Tourian Pipe
+				// Tooltip: ""
+			}
+
+			TourianPipeAccent: {
+				// DisplayName: Tourian Pipe Accent
+				// Tooltip: ""
+			}
+
+			TourianPipeAccentNatural: {
+				// DisplayName: Tourian Pipe Accent Natural
+				// Tooltip: ""
+			}
+
+			TourianPipeNatural: {
+				// DisplayName: Tourian Pipe Natural
+				// Tooltip: ""
+			}
+
+			YellowHatch: {
+				// DisplayName: Yellow Hatch
+				// Tooltip: ""
+			}
+
+			YellowSwitch: {
+				// DisplayName: Yellow Switch
+				// Tooltip: ""
+			}
+
+			ChoziteCutter: {
+				// DisplayName: Chozite Cutter
+				// Tooltip: ""
+			}
+
+			ChoziteHamaxe: {
+				// DisplayName: Chozite Hamaxe
+				// Tooltip: ""
+			}
+
+			ChozitePickaxe: {
+				// DisplayName: Chozite Pickaxe
+				// Tooltip: ""
+			}
+
+			ChoziteWrench: {
+				// DisplayName: Chozite Wrench
+				// Tooltip: ""
+			}
+
+			GreenKeycard: {
+				// DisplayName: Green Keycard
+				// Tooltip: ""
+			}
+
+			NovaLaserDrill: {
+				// DisplayName: Nova Laser Drill
+				// Tooltip: ""
+			}
+
+			OmniKeycard: {
+				// DisplayName: Omni Keycard
+				// Tooltip: ""
+			}
+
+			RedKeycard: {
+				// DisplayName: Red Keycard
+				// Tooltip: ""
+			}
+
+			ScanPulse: {
+				// DisplayName: Scan Pulse
+				// Tooltip: ""
+			}
+
+			YellowKeycard: {
+				// DisplayName: Yellow Keycard
+				// Tooltip: ""
+			}
+
+			EzloHat: {
+				// DisplayName: Ezlo Hat
+				// Tooltip: ""
+			}
+
+			EzloHatHair: {
+				// DisplayName: Ezlo Hat Hair
+				// Tooltip: ""
+			}
+
+			DarkSamusBreastplate: {
+				// DisplayName: Dark Samus Breastplate
+				// Tooltip: ""
+			}
+
+			DarkSamusGreaves: {
+				// DisplayName: Dark Samus Greaves
+				// Tooltip: ""
+			}
+
+			DarkSamusHelmet: {
+				// DisplayName: Dark Samus Helmet
+				// Tooltip: ""
+			}
+
+			KraidMask: {
+				// DisplayName: Kraid Mask
+				// Tooltip: ""
+			}
+
+			LegacyDarkSuitBreastplate: {
+				// DisplayName: Legacy Dark Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyDarkSuitGreaves: {
+				// DisplayName: Legacy Dark Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyDarkSuitHelmet: {
+				// DisplayName: Legacy Dark Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyGravitySuitBreastplate: {
+				// DisplayName: Legacy Gravity Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyGravitySuitGreaves: {
+				// DisplayName: Legacy Gravity Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyGravitySuitHelmet: {
+				// DisplayName: Legacy Gravity Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyHazardShieldSuitBreastplate: {
+				// DisplayName: Legacy Hazard Shield Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyHazardShieldSuitGreaves: {
+				// DisplayName: Legacy Hazard Shield Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyHazardShieldSuitHelmet: {
+				// DisplayName: Legacy Hazard Shield Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyLightSuitBreastplate: {
+				// DisplayName: Legacy Light Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyLightSuitGreaves: {
+				// DisplayName: Legacy Light Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyLightSuitHelmet: {
+				// DisplayName: Legacy Light Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyNebulaPhazonSuitBreastplate: {
+				// DisplayName: Legacy Nebula Phazon Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyNebulaPhazonSuitGreaves: {
+				// DisplayName: Legacy Nebula Phazon Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyNebulaPhazonSuitHelmet: {
+				// DisplayName: Legacy Nebula Phazon Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyPEDSuitBreastplate: {
+				// DisplayName: Legacy P E D Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyPEDSuitGreaves: {
+				// DisplayName: Legacy P E D Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyPEDSuitHelmet: {
+				// DisplayName: Legacy P E D Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyPhazonSuitBreastplate: {
+				// DisplayName: Legacy Phazon Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyPhazonSuitGreaves: {
+				// DisplayName: Legacy Phazon Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyPhazonSuitHelmet: {
+				// DisplayName: Legacy Phazon Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyPowerSuitBreastplate: {
+				// DisplayName: Legacy Power Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyPowerSuitGreaves: {
+				// DisplayName: Legacy Power Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyPowerSuitHelmet: {
+				// DisplayName: Legacy Power Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacySolarLightSuitBreastplate: {
+				// DisplayName: Legacy Solar Light Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacySolarLightSuitGreaves: {
+				// DisplayName: Legacy Solar Light Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacySolarLightSuitHelmet: {
+				// DisplayName: Legacy Solar Light Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyStardustHazardShieldSuitBreastplate: {
+				// DisplayName: Legacy Stardust Hazard Shield Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyStardustHazardShieldSuitGreaves: {
+				// DisplayName: Legacy Stardust Hazard Shield Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyStardustHazardShieldSuitHelmet: {
+				// DisplayName: Legacy Stardust Hazard Shield Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyTerraGravitySuitBreastplate: {
+				// DisplayName: Legacy Terra Gravity Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyTerraGravitySuitGreaves: {
+				// DisplayName: Legacy Terra Gravity Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyTerraGravitySuitHelmet: {
+				// DisplayName: Legacy Terra Gravity Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyVariaSuitBreastplate: {
+				// DisplayName: Legacy Varia Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyVariaSuitGreaves: {
+				// DisplayName: Legacy Varia Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyVariaSuitHelmet: {
+				// DisplayName: Legacy Varia Suit Helmet
+				// Tooltip: ""
+			}
+
+			LegacyVariaSuitV2Breastplate: {
+				// DisplayName: Legacy Varia Suit V2 Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyVariaSuitV2Greaves: {
+				// DisplayName: Legacy Varia Suit V2 Greaves
+				// Tooltip: ""
+			}
+
+			LegacyVariaSuitV2Helmet: {
+				// DisplayName: Legacy Varia Suit V2 Helmet
+				// Tooltip: ""
+			}
+
+			LegacyVortexGravitySuitBreastplate: {
+				// DisplayName: Legacy Vortex Gravity Suit Breastplate
+				// Tooltip: ""
+			}
+
+			LegacyVortexGravitySuitGreaves: {
+				// DisplayName: Legacy Vortex Gravity Suit Greaves
+				// Tooltip: ""
+			}
+
+			LegacyVortexGravitySuitHelmet: {
+				// DisplayName: Legacy Vortex Gravity Suit Helmet
+				// Tooltip: ""
+			}
+
+			PhantoonMask: {
+				// DisplayName: Phantoon Mask
+				// Tooltip: ""
+			}
+
+			RetroSuitBreastplate: {
+				// DisplayName: Retro Suit Breastplate
+				// Tooltip: ""
+			}
+
+			RetroSuitGreaves: {
+				// DisplayName: Retro Suit Greaves
+				// Tooltip: ""
+			}
+
+			RetroSuitHelmet: {
+				// DisplayName: Retro Suit Helmet
+				// Tooltip: ""
+			}
+
+			RetroVariaSuitBreastplate: {
+				// DisplayName: Retro Varia Suit Breastplate
+				// Tooltip: ""
+			}
+
+			RetroVariaSuitGreaves: {
+				// DisplayName: Retro Varia Suit Greaves
+				// Tooltip: ""
+			}
+
+			RetroVariaSuitHelmet: {
+				// DisplayName: Retro Varia Suit Helmet
+				// Tooltip: ""
+			}
+
+			SerrisMask: {
+				// DisplayName: Serris Mask
+				// Tooltip: ""
+			}
+
+			VanityDarkSuitBreastplate: {
+				// DisplayName: Vanity Dark Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityDarkSuitGreaves: {
+				// DisplayName: Vanity Dark Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityDarkSuitHelmet: {
+				// DisplayName: Vanity Dark Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityGravitySuitBreastplate: {
+				// DisplayName: Vanity Gravity Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityGravitySuitGreaves: {
+				// DisplayName: Vanity Gravity Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityGravitySuitHelmet: {
+				// DisplayName: Vanity Gravity Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityHazardShieldSuitBreastplate: {
+				// DisplayName: Vanity Hazard Shield Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityHazardShieldSuitGreaves: {
+				// DisplayName: Vanity Hazard Shield Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityHazardShieldSuitHelmet: {
+				// DisplayName: Vanity Hazard Shield Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityLightSuitBreastplate: {
+				// DisplayName: Vanity Light Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityLightSuitGreaves: {
+				// DisplayName: Vanity Light Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityLightSuitHelmet: {
+				// DisplayName: Vanity Light Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityNebulaPhazonSuitBreastplate: {
+				// DisplayName: Vanity Nebula Phazon Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityNebulaPhazonSuitGreaves: {
+				// DisplayName: Vanity Nebula Phazon Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityNebulaPhazonSuitHelmet: {
+				// DisplayName: Vanity Nebula Phazon Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityPEDSuitBreastplate: {
+				// DisplayName: Vanity P E D Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityPEDSuitGreaves: {
+				// DisplayName: Vanity P E D Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityPEDSuitHelmet: {
+				// DisplayName: Vanity P E D Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityPhazonSuitBreastplate: {
+				// DisplayName: Vanity Phazon Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityPhazonSuitGreaves: {
+				// DisplayName: Vanity Phazon Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityPhazonSuitHelmet: {
+				// DisplayName: Vanity Phazon Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityTerraGravitySuitBreastplate: {
+				// DisplayName: Vanity Terra Gravity Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityTerraGravitySuitGreaves: {
+				// DisplayName: Vanity Terra Gravity Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityTerraGravitySuitHelmet: {
+				// DisplayName: Vanity Terra Gravity Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityVariaSuitBreastplate: {
+				// DisplayName: Vanity Varia Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityVariaSuitGreaves: {
+				// DisplayName: Vanity Varia Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityVariaSuitHelmet: {
+				// DisplayName: Vanity Varia Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityVariaSuitV2Breastplate: {
+				// DisplayName: Vanity Varia Suit V2 Breastplate
+				// Tooltip: ""
+			}
+
+			VanityVariaSuitV2Greaves: {
+				// DisplayName: Vanity Varia Suit V2 Greaves
+				// Tooltip: ""
+			}
+
+			VanityVariaSuitV2Helmet: {
+				// DisplayName: Vanity Varia Suit V2 Helmet
+				// Tooltip: ""
+			}
+
+			VanityVortexGravitySuitBreastplate: {
+				// DisplayName: Vanity Vortex Gravity Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityVortexGravitySuitGreaves: {
+				// DisplayName: Vanity Vortex Gravity Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityVortexGravitySuitHelmet: {
+				// DisplayName: Vanity Vortex Gravity Suit Helmet
+				// Tooltip: ""
+			}
+
+			TorizoMask: {
+				// DisplayName: Torizo Mask
+				// Tooltip: ""
+			}
+
+			VanityDreadSuitBreastplate: {
+				// DisplayName: Vanity Dread Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityDreadSuitGreaves: {
+				// DisplayName: Vanity Dread Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityDreadSuitHelmet: {
+				// DisplayName: Vanity Dread Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityGravityDreadSuitBreastplate: {
+				// DisplayName: Vanity Gravity Dread Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityGravityDreadSuitGreaves: {
+				// DisplayName: Vanity Gravity Dread Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityGravityDreadSuitHelmet: {
+				// DisplayName: Vanity Gravity Dread Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityPack: {
+				// DisplayName: Vanity Pack
+				// Tooltip: ""
+			}
+
+			VanityPack_Corruption: {
+				// DisplayName: Vanity Pack_ Corruption
+				// Tooltip: ""
+			}
+
+			VanityPack_Echoes: {
+				// DisplayName: Vanity Pack_ Echoes
+				// Tooltip: ""
+			}
+
+			VanityPack_Lunar: {
+				// DisplayName: Vanity Pack_ Lunar
+				// Tooltip: ""
+			}
+
+			VanityPack_Prime: {
+				// DisplayName: Vanity Pack_ Prime
+				// Tooltip: ""
+			}
+
+			VanityVariaDreadSuitBreastplate: {
+				// DisplayName: Vanity Varia Dread Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityVariaDreadSuitGreaves: {
+				// DisplayName: Vanity Varia Dread Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityVariaDreadSuitHelmet: {
+				// DisplayName: Vanity Varia Dread Suit Helmet
+				// Tooltip: ""
+			}
+
+			ChozoBrickWall: {
+				// DisplayName: Chozo Brick Wall
+				// Tooltip: ""
+			}
+
+			ChozoBrickWallNatural: {
+				// DisplayName: Chozo Brick Wall Natural
+				// Tooltip: ""
+			}
+
+			NorfairBrickWall: {
+				// DisplayName: Norfair Brick Wall
+				// Tooltip: ""
+			}
+
+			NorfairBrickWallNatural: {
+				// DisplayName: Norfair Brick Wall Natural
+				// Tooltip: ""
+			}
+
+			TourianWall: {
+				// DisplayName: Tourian Wall
+				// Tooltip: ""
+			}
+
+			TourianWallNatural: {
+				// DisplayName: Tourian Wall Natural
+				// Tooltip: ""
+			}
+
+			ChoziteCrossbow: {
+				// DisplayName: Chozite Crossbow
+				// Tooltip: ""
+			}
+
+			ChoziteShortsword: {
+				// DisplayName: Chozite Shortsword
+				// Tooltip: ""
+			}
+
+			ChoziteSword: {
+				// DisplayName: Chozite Sword
+				// Tooltip: ""
+			}
+
+			CopperParalyzer: {
+				// DisplayName: Copper Paralyzer
+				// Tooltip: ""
+			}
+
+			MissileLauncher: {
+				// DisplayName: Missile Launcher
+				// Tooltip: ""
+			}
+
+			Paralyzer: {
+				// DisplayName: Paralyzer
+				// Tooltip: ""
+			}
+
+			PowerBeam: {
+				// DisplayName: Power Beam
+				// Tooltip: ""
+			}
+
+			BetsyBombAddon: {
+				// DisplayName: Betsy Bomb Addon
+				// Tooltip: ""
+			}
+
+			BombAddon: {
+				// DisplayName: Bomb Addon
+				// Tooltip: ""
+			}
+
+			BoostBallAddon: {
+				// DisplayName: Boost Ball Addon
+				// Tooltip: ""
+			}
+
+			CrystalBombAddon: {
+				// DisplayName: Crystal Bomb Addon
+				// Tooltip: ""
+			}
+
+			CursedFlameBombAddon: {
+				// DisplayName: Cursed Flame Bomb Addon
+				// Tooltip: ""
+			}
+
+			DrillAddon: {
+				// DisplayName: Drill Addon
+				// Tooltip: ""
+			}
+
+			FireBombAddon: {
+				// DisplayName: Fire Bomb Addon
+				// Tooltip: ""
+			}
+
+			FrostburnBombAddon: {
+				// DisplayName: Frostburn Bomb Addon
+				// Tooltip: ""
+			}
+
+			IchorBombAddon: {
+				// DisplayName: Ichor Bomb Addon
+				// Tooltip: ""
+			}
+
+			PhazonBombAddon: {
+				// DisplayName: Phazon Bomb Addon
+				// Tooltip: ""
+			}
+
+			PoisonBombAddon: {
+				// DisplayName: Poison Bomb Addon
+				// Tooltip: ""
+			}
+
+			PowerBombAddon: {
+				// DisplayName: Power Bomb Addon
+				// Tooltip: ""
+			}
+
+			PumpkinBombAddon: {
+				// DisplayName: Pumpkin Bomb Addon
+				// Tooltip: ""
+			}
+
+			ShadowflameBombAddon: {
+				// DisplayName: Shadowflame Bomb Addon
+				// Tooltip: ""
+			}
+
+			SolarBombAddon: {
+				// DisplayName: Solar Bomb Addon
+				// Tooltip: ""
+			}
+
+			SolarFireBombAddon: {
+				// DisplayName: Solar Fire Bomb Addon
+				// Tooltip: ""
+			}
+
+			SpiderBallAddon: {
+				// DisplayName: Spider Ball Addon
+				// Tooltip: ""
+			}
+
+			VenomBombAddon: {
+				// DisplayName: Venom Bomb Addon
+				// Tooltip: ""
+			}
+
+			VortexBombAddon: {
+				// DisplayName: Vortex Bomb Addon
+				// Tooltip: ""
+			}
+
+			DarkSuitAddonAddon: {
+				// DisplayName: Dark Suit Addon Addon
+				// Tooltip: ""
+			}
+
+			EnergyTankAddon: {
+				// DisplayName: Energy Tank Addon
+				// Tooltip: ""
+			}
+
+			GravitySuitAddonAddon: {
+				// DisplayName: Gravity Suit Addon Addon
+				// Tooltip: ""
+			}
+
+			HazardShieldAddonAddon: {
+				// DisplayName: Hazard Shield Addon Addon
+				// Tooltip: ""
+			}
+
+			HiJumpBootsAddon: {
+				// DisplayName: Hi Jump Boots Addon
+				// Tooltip: ""
+			}
+
+			LightSuitAddonAddon: {
+				// DisplayName: Light Suit Addon Addon
+				// Tooltip: ""
+			}
+
+			NebulaAugmentAddon: {
+				// DisplayName: Nebula Augment Addon
+				// Tooltip: ""
+			}
+
+			PEDSuitAddonAddon: {
+				// DisplayName: P E D Suit Addon Addon
+				// Tooltip: ""
+			}
+
+			PhazonSuitAddonAddon: {
+				// DisplayName: Phazon Suit Addon Addon
+				// Tooltip: ""
+			}
+
+			PowerGripAddon: {
+				// DisplayName: Power Grip Addon
+				// Tooltip: ""
+			}
+
+			ReserveTankAddon: {
+				// DisplayName: Reserve Tank Addon
+				// Tooltip: ""
+			}
+
+			ScanVisorAddon: {
+				// DisplayName: Scan Visor Addon
+				// Tooltip: ""
+			}
+
+			ScrewAttackAddon: {
+				// DisplayName: Screw Attack Addon
+				// Tooltip: ""
+			}
+
+			SolarAugmentAddon: {
+				// DisplayName: Solar Augment Addon
+				// Tooltip: ""
+			}
+
+			SpaceJumpAddon: {
+				// DisplayName: Space Jump Addon
+				// Tooltip: ""
+			}
+
+			SpaceJumpBootsAddon: {
+				// DisplayName: Space Jump Boots Addon
+				// Tooltip: ""
+			}
+
+			SpeedBoosterAddon: {
+				// DisplayName: Speed Booster Addon
+				// Tooltip: ""
+			}
+
+			TerraGravitySuitAddonAddon: {
+				// DisplayName: Terra Gravity Suit Addon Addon
+				// Tooltip: ""
+			}
+
+			VariaSuitAddonAddon: {
+				// DisplayName: Varia Suit Addon Addon
+				// Tooltip: ""
+			}
+
+			VariaSuitV2AddonAddon: {
+				// DisplayName: Varia Suit V2 Addon Addon
+				// Tooltip: ""
+			}
+
+			VortexAugmentAddon: {
+				// DisplayName: Vortex Augment Addon
+				// Tooltip: ""
+			}
+
+			XRayScopeAddon: {
+				// DisplayName: X Ray Scope Addon
+				// Tooltip: ""
+			}
+		}
+
+		NPCs: {
+			// GoldenTorizo.DisplayName: Golden Torizo
+			// GoldenTorizo_HitBox.DisplayName: Golden Torizo_ Hit Box
+			// IdleGoldenTorizo.DisplayName: Idle Golden Torizo
+			// OrbBomb_Golden.DisplayName: Orb Bomb_ Golden
+			// OrbBomb.DisplayName: Orb Bomb
+			// Kraid_ArmBack.DisplayName: Kraid_ Arm Back
+			// Kraid_ArmFront.DisplayName: Kraid_ Arm Front
+			// Kraid_Body.DisplayName: Kraid_ Body
+			// Kraid_Head.DisplayName: Kraid_ Head
+			// KraidClaw.DisplayName: Kraid Claw
+			// Evir.DisplayName: Evir
+			// Skultera.DisplayName: Skultera
+			// Zoa.DisplayName: Zoa
+			// Beetom.DisplayName: Beetom
+			// Cacatac.DisplayName: Cacatac
+			// Kago.DisplayName: Kago
+			// KagoHive.DisplayName: Kago Hive
+			// Zeb.DisplayName: Zeb
+			// Zebbo.DisplayName: Zebbo
+			// Bull.DisplayName: Bull
+			// Covern.DisplayName: Covern
+			// Geemer.DisplayName: Geemer
+			// Geemer_75.DisplayName: Geemer_75
+			// Geemer_85.DisplayName: Geemer_85
+			// Owtch.DisplayName: Owtch
+			// Scisor.DisplayName: Scisor
+			// Sova.DisplayName: Sova
+			// Sova_75.DisplayName: Sova_75
+			// Sova_85.DisplayName: Sova_85
+			// Viola.DisplayName: Viola
+			// Zeela.DisplayName: Zeela
+			// Zeela_75.DisplayName: Zeela_75
+			// Zeela_85.DisplayName: Zeela_85
+			// Zero.DisplayName: Zero
+			// Choot.DisplayName: Choot
+			// Geruta.DisplayName: Geruta
+			// Metaree.DisplayName: Metaree
+			// Reo.DisplayName: Reo
+			// Skree.DisplayName: Skree
+			// Waver.DisplayName: Waver
+			// Dessgeega.DisplayName: Dessgeega
+			// Dessgeega_Large.DisplayName: Dessgeega_ Large
+			// Sidehopper.DisplayName: Sidehopper
+			// Sidehopper_Large.DisplayName: Sidehopper_ Large
+			// LarvalMetroid.DisplayName: Larval Metroid
+			// Mochtroid.DisplayName: Mochtroid
+			// Multiviola.DisplayName: Multiviola
+			// SpacePirate.DisplayName: Space Pirate
+			// Puyo.DisplayName: Puyo
+			// Powamp.DisplayName: Powamp
+			// Ripper.DisplayName: Ripper
+			// Squeept.DisplayName: Squeept
+			// Tripper.DisplayName: Tripper
+			// GravityOrb.DisplayName: Gravity Orb
+			// Nightmare.DisplayName: Nightmare
+			// Nightmare_ArmBack.DisplayName: Nightmare_ Arm Back
+			// Nightmare_ArmFront.DisplayName: Nightmare_ Arm Front
+			// Nightmare_Body.DisplayName: Nightmare_ Body
+			// Nightmare_Tail.DisplayName: Nightmare_ Tail
+			// Omega_DarkPortal.DisplayName: Omega_ Dark Portal
+			// OmegaPirate.DisplayName: Omega Pirate
+			// OmegaPirate_HitBox.DisplayName: Omega Pirate_ Hit Box
+			// OmegaPirate_WeakPoint.DisplayName: Omega Pirate_ Weak Point
+			// OmegaPirateAbsorbField.DisplayName: Omega Pirate Absorb Field
+			// Phantoon.DisplayName: Phantoon
+			// PhantoonFireBall.DisplayName: Phantoon Fire Ball
+			// Serris_Body.DisplayName: Serris_ Body
+			// Serris_Head.DisplayName: Serris_ Head
+			// Serris_Tail.DisplayName: Serris_ Tail
+			// IdleTorizo.DisplayName: Idle Torizo
+			// Torizo.DisplayName: Torizo
+			// Torizo_HitBox.DisplayName: Torizo_ Hit Box
+			// ChozoGhost.DisplayName: Chozo Ghost
+		}
+
+		Projectiles: {
+			// BetsyBombProjectile.DisplayName: Betsy Bomb Projectile
+			// BombProjectile.DisplayName: Bomb Projectile
+			// CrystalBombProjectile.DisplayName: Crystal Bomb Projectile
+			// CursedFlameBombProjectile.DisplayName: Cursed Flame Bomb Projectile
+			// FireBombProjectile.DisplayName: Fire Bomb Projectile
+			// FrostburnBombProjectile.DisplayName: Frostburn Bomb Projectile
+			// IchorBombProjectile.DisplayName: Ichor Bomb Projectile
+			// PhazonBombProjectile.DisplayName: Phazon Bomb Projectile
+			// PoisonBombProjectile.DisplayName: Poison Bomb Projectile
+			// PowerBombProjectile.DisplayName: Power Bomb Projectile
+			// PowerBombExplosion.DisplayName: Power Bomb Explosion
+			// PumpkinBombProjectile.DisplayName: Pumpkin Bomb Projectile
+			// ShadowflameBombProjectile.DisplayName: Shadowflame Bomb Projectile
+			// SolarBombProjectile.DisplayName: Solar Bomb Projectile
+			// SolarBombExplosion.DisplayName: Solar Bomb Explosion
+			// SolarFireBombProjectile.DisplayName: Solar Fire Bomb Projectile
+			// VenomBombProjectile.DisplayName: Venom Bomb Projectile
+			// VortexBombProjectile.DisplayName: Vortex Bomb Projectile
+			// VortexBombExplosion.DisplayName: Vortex Bomb Explosion
+			// BattleHammerShot.DisplayName: Battle Hammer Shot
+			// IceBattleHammerShot.DisplayName: Ice Battle Hammer Shot
+			// IceNovaBattleHammerShot.DisplayName: Ice Nova Battle Hammer Shot
+			// IcePlasmaRedBattleHammerShot.DisplayName: Ice Plasma Red Battle Hammer Shot
+			// IceSolarBattleHammerShot.DisplayName: Ice Solar Battle Hammer Shot
+			// NovaBattleHammerShot.DisplayName: Nova Battle Hammer Shot
+			// PlasmaRedBattleHammerShot.DisplayName: Plasma Red Battle Hammer Shot
+			// SolarBattleHammerShot.DisplayName: Solar Battle Hammer Shot
+			// KraidBellySpike.DisplayName: Kraid Belly Spike
+			// KraidSlash.DisplayName: Kraid Slash
+			// NightmareGravityField.DisplayName: Nightmare Gravity Field
+			// NightmareLaser.DisplayName: Nightmare Laser
+			// NightmareLaserBeam.DisplayName: Nightmare Laser Beam
+			// Omega_PhazonParticle.DisplayName: Omega_ Phazon Particle
+			// OmegaPirateGrenade.DisplayName: Omega Pirate Grenade
+			// OmegaPirateLaser.DisplayName: Omega Pirate Laser
+			// OmegaPirateShockwave.DisplayName: Omega Pirate Shockwave
+			// OmegaPirateSlash.DisplayName: Omega Pirate Slash
+			// Torizo_EnergyParticle.DisplayName: Torizo_ Energy Particle
+			// TorizoClawBeam.DisplayName: Torizo Claw Beam
+			// TorizoSwipe.DisplayName: Torizo Swipe
+			// ChargeLead.DisplayName: Charge Lead
+			// DiffusionBeam.DisplayName: Diffusion Beam
+			// CrucibleProj.DisplayName: Crucible Proj
+			// GrappleBeamPlusShot.DisplayName: Grapple Beam Plus Shot
+			// GrappleBeamShot.DisplayName: Grapple Beam Shot
+			// ExtraHyperBeamShot.DisplayName: Extra Hyper Beam Shot
+			// ExtraNebulaHyperBeamShot.DisplayName: Extra Nebula Hyper Beam Shot
+			// ExtraNebulaPlasmaHyperBeamShot.DisplayName: Extra Nebula Plasma Hyper Beam Shot
+			// ExtraNebulaSpazerHyperBeamShot.DisplayName: Extra Nebula Spazer Hyper Beam Shot
+			// ExtraNebulaSpazerPlasmaHyperBeamShot.DisplayName: Extra Nebula Spazer Plasma Hyper Beam Shot
+			// ExtraPlasmaHyperBeamShot.DisplayName: Extra Plasma Hyper Beam Shot
+			// ExtraSpazerHyperBeamShot.DisplayName: Extra Spazer Hyper Beam Shot
+			// ExtraSpazerPlasmaHyperBeamShot.DisplayName: Extra Spazer Plasma Hyper Beam Shot
+			// ExtraWaveHyperBeamShot.DisplayName: Extra Wave Hyper Beam Shot
+			// ExtraWavePlasmaHyperBeamShot.DisplayName: Extra Wave Plasma Hyper Beam Shot
+			// ExtraWaveSpazerHyperBeamShot.DisplayName: Extra Wave Spazer Hyper Beam Shot
+			// ExtraWaveSpazerPlasmaHyperBeamShot.DisplayName: Extra Wave Spazer Plasma Hyper Beam Shot
+			// HyperBeamShot.DisplayName: Hyper Beam Shot
+			// NebulaHyperBeamShot.DisplayName: Nebula Hyper Beam Shot
+			// NebulaPlasmaHyperBeamShot.DisplayName: Nebula Plasma Hyper Beam Shot
+			// NebulaSpazerHyperBeamShot.DisplayName: Nebula Spazer Hyper Beam Shot
+			// NebulaSpazerPlasmaHyperBeamShot.DisplayName: Nebula Spazer Plasma Hyper Beam Shot
+			// PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam Shot
+			// SpazerHyperBeamShot.DisplayName: Spazer Hyper Beam Shot
+			// SpazerPlasmaHyperBeamShot.DisplayName: Spazer Plasma Hyper Beam Shot
+			// WaveHyperBeamShot.DisplayName: Wave Hyper Beam Shot
+			// WavePlasmaHyperBeamShot.DisplayName: Wave Plasma Hyper Beam Shot
+			// WaveSpazerHyperBeamShot.DisplayName: Wave Spazer Hyper Beam Shot
+			// WaveSpazerPlasmaHyperBeamShot.DisplayName: Wave Spazer Plasma Hyper Beam Shot
+			// IceBeamChargeShot.DisplayName: Ice Beam Charge Shot
+			// IceBeamShot.DisplayName: Ice Beam Shot
+			// IceBeamV2ChargeShot.DisplayName: Ice Beam V2 Charge Shot
+			// IceBeamV2Shot.DisplayName: Ice Beam V2 Shot
+			// IceImperialistShot.DisplayName: Ice Imperialist Shot
+			// IceNovaImperialistShot.DisplayName: Ice Nova Imperialist Shot
+			// IcePlasmaGreenImperialistShot.DisplayName: Ice Plasma Green Imperialist Shot
+			// IcePlasmaRedImperialistShot.DisplayName: Ice Plasma Red Imperialist Shot
+			// IceSpazerImperialistShot.DisplayName: Ice Spazer Imperialist Shot
+			// IceSpazerPlasmaGreenImperialistShot.DisplayName: Ice Spazer Plasma Green Imperialist Shot
+			// IceSpazerPlasmaRedImperialistShot.DisplayName: Ice Spazer Plasma Red Imperialist Shot
+			// IceWaveImperialistShot.DisplayName: Ice Wave Imperialist Shot
+			// IceWaveNovaImperialistShot.DisplayName: Ice Wave Nova Imperialist Shot
+			// IceWavePlasmaGreenImperialistShot.DisplayName: Ice Wave Plasma Green Imperialist Shot
+			// IceWavePlasmaRedImperialistShot.DisplayName: Ice Wave Plasma Red Imperialist Shot
+			// IceWaveSpazerImperialistShot.DisplayName: Ice Wave Spazer Imperialist Shot
+			// IceWaveSpazerPlasmaGreenImperialistShot.DisplayName: Ice Wave Spazer Plasma Green Imperialist Shot
+			// IceWaveSpazerPlasmaRedImperialistShot.DisplayName: Ice Wave Spazer Plasma Red Imperialist Shot
+			// IceWaveWideImperialistShot.DisplayName: Ice Wave Wide Imperialist Shot
+			// IceWaveWideNovaImperialistShot.DisplayName: Ice Wave Wide Nova Imperialist Shot
+			// IceWideNovaImperialistShot.DisplayName: Ice Wide Nova Imperialist Shot
+			// ImperialistShot.DisplayName: Imperialist Shot
+			// NebulaSolarImperialistShot.DisplayName: Nebula Solar Imperialist Shot
+			// NebulaVortexSolarImperialistShot.DisplayName: Nebula Vortex Solar Imperialist Shot
+			// NovaImperialistShot.DisplayName: Nova Imperialist Shot
+			// PlasmaGreenImperialistShot.DisplayName: Plasma Green Imperialist Shot
+			// PlasmaRedImperialistShot.DisplayName: Plasma Red Imperialist Shot
+			// SolarImperialistShot.DisplayName: Solar Imperialist Shot
+			// SpazerImperialistShot.DisplayName: Spazer Imperialist Shot
+			// SpazerPlasmaGreenImperialistShot.DisplayName: Spazer Plasma Green Imperialist Shot
+			// SpazerPlasmaRedImperialistShot.DisplayName: Spazer Plasma Red Imperialist Shot
+			// StardustNebulaSolarImperialistShot.DisplayName: Stardust Nebula Solar Imperialist Shot
+			// StardustNebulaVortexSolarImperialistShot.DisplayName: Stardust Nebula Vortex Solar Imperialist Shot
+			// StardustSolarImperialistShot.DisplayName: Stardust Solar Imperialist Shot
+			// StardustVortexSolarImperialistShot.DisplayName: Stardust Vortex Solar Imperialist Shot
+			// VortexSolarImperialistShot.DisplayName: Vortex Solar Imperialist Shot
+			// WaveImperialistShot.DisplayName: Wave Imperialist Shot
+			// WaveNovaImperialistShot.DisplayName: Wave Nova Imperialist Shot
+			// WavePlasmaGreenImperialistShot.DisplayName: Wave Plasma Green Imperialist Shot
+			// WavePlasmaRedImperialistShot.DisplayName: Wave Plasma Red Imperialist Shot
+			// WaveSpazerImperialistShot.DisplayName: Wave Spazer Imperialist Shot
+			// WaveSpazerPlasmaGreenImperialistShot.DisplayName: Wave Spazer Plasma Green Imperialist Shot
+			// WaveSpazerPlasmaRedImperialistShot.DisplayName: Wave Spazer Plasma Red Imperialist Shot
+			// WaveWideNovaImperialistShot.DisplayName: Wave Wide Nova Imperialist Shot
+			// WideNovaImperialistShot.DisplayName: Wide Nova Imperialist Shot
+			// IceJudicatorShot.DisplayName: Ice Judicator Shot
+			// IceNovaJudicatorShot.DisplayName: Ice Nova Judicator Shot
+			// IcePlasmaGreenJudicatorShot.DisplayName: Ice Plasma Green Judicator Shot
+			// IceSolarJudicatorShot.DisplayName: Ice Solar Judicator Shot
+			// JudicatorChargeShot.DisplayName: Judicator Charge Shot
+			// IceNovaJudicatorChargeShot.DisplayName: Ice Nova Judicator Charge Shot
+			// IcePlasmaGreenJudicatorChargeShot.DisplayName: Ice Plasma Green Judicator Charge Shot
+			// IceSolarJudicatorChargeShot.DisplayName: Ice Solar Judicator Charge Shot
+			// NovaJudicatorChargeShot.DisplayName: Nova Judicator Charge Shot
+			// PlasmaGreenJudicatorChargeShot.DisplayName: Plasma Green Judicator Charge Shot
+			// SolarJudicatorChargeShot.DisplayName: Solar Judicator Charge Shot
+			// JudicatorFreeze.DisplayName: Judicator Freeze
+			// JudicatorShot.DisplayName: Judicator Shot
+			// NovaJudicatorShot.DisplayName: Nova Judicator Shot
+			// PlasmaGreenJudicatorShot.DisplayName: Plasma Green Judicator Shot
+			// SolarJudicatorShot.DisplayName: Solar Judicator Shot
+			// LuminiteBeamChargeShot.DisplayName: Luminite Beam Charge Shot
+			// LuminiteBeamShot.DisplayName: Luminite Beam Shot
+			// MagMaulChargeShot.DisplayName: Mag Maul Charge Shot
+			// NovaMagMaulChargeShot.DisplayName: Nova Mag Maul Charge Shot
+			// PlasmaRedMagMaulChargeShot.DisplayName: Plasma Red Mag Maul Charge Shot
+			// SolarMagMaulChargeShot.DisplayName: Solar Mag Maul Charge Shot
+			// MagMaulShot.DisplayName: Mag Maul Shot
+			// NovaMagMaulShot.DisplayName: Nova Mag Maul Shot
+			// PlasmaRedMagMaulShot.DisplayName: Plasma Red Mag Maul Shot
+			// SolarMagMaulShot.DisplayName: Solar Mag Maul Shot
+			// FlamethrowerLead.DisplayName: Flamethrower Lead
+			// FlamethrowerShot.DisplayName: Flamethrower Shot
+			// IceSpreaderDiffusionShot.DisplayName: Ice Spreader Diffusion Shot
+			// IceSpreaderFrozenTerrain.DisplayName: Ice Spreader Frozen Terrain
+			// IceSpreaderShot.DisplayName: Ice Spreader Shot
+			// NebulaBusterShot.DisplayName: Nebula Buster Shot
+			// NebulaComboShot.DisplayName: Nebula Combo Shot
+			// NovaLaserShot.DisplayName: Nova Laser Shot
+			// PlasmaMachinegunShot.DisplayName: Plasma Machinegun Shot
+			// SolarLaserFlameTrail.DisplayName: Solar Laser Flame Trail
+			// SolarLaserFlareShot.DisplayName: Solar Laser Flare Shot
+			// SolarLaserShot.DisplayName: Solar Laser Shot
+			// StardustComboDiffusionShot.DisplayName: Stardust Combo Diffusion Shot
+			// StardustComboGuardian.DisplayName: Stardust Combo Guardian
+			// StardustComboShot.DisplayName: Stardust Combo Shot
+			// StardustFrozenTerrain.DisplayName: Stardust Frozen Terrain
+			// VortexComboLead.DisplayName: Vortex Combo Lead
+			// VortexComboShot.DisplayName: Vortex Combo Shot
+			// VortexComboShot2.DisplayName: Vortex Combo Shot2
+			// WavebusterShot.DisplayName: Wavebuster Shot
+			// DiffusionMissileShot.DisplayName: Diffusion Missile Shot
+			// DiffusionShot.DisplayName: Diffusion Shot
+			// IceDiffusionMissileShot.DisplayName: Ice Diffusion Missile Shot
+			// IceDiffusionShot.DisplayName: Ice Diffusion Shot
+			// IceMissileShot.DisplayName: Ice Missile Shot
+			// IceSuperMissileShot.DisplayName: Ice Super Missile Shot
+			// MissileShot.DisplayName: Missile Shot
+			// NebulaDiffusionMissileShot.DisplayName: Nebula Diffusion Missile Shot
+			// NebulaDiffusionShot.DisplayName: Nebula Diffusion Shot
+			// NebulaMissileImpact.DisplayName: Nebula Missile Impact
+			// NebulaMissileShot.DisplayName: Nebula Missile Shot
+			// SeekerMissileLead.DisplayName: Seeker Missile Lead
+			// StardustDiffusionMissileShot.DisplayName: Stardust Diffusion Missile Shot
+			// StardustDiffusionShot.DisplayName: Stardust Diffusion Shot
+			// StardustMissileShot.DisplayName: Stardust Missile Shot
+			// SuperMissileShot.DisplayName: Super Missile Shot
+			// CacatacSpike.DisplayName: Cacatac Spike
+			// EvirProjectile.DisplayName: Evir Projectile
+			// MetareeRock.DisplayName: Metaree Rock
+			// SkreeRock.DisplayName: Skree Rock
+			// SpacePirateClaw.DisplayName: Space Pirate Claw
+			// NebulaBeamChargeShot.DisplayName: Nebula Beam Charge Shot
+			// NebulaBeamShot.DisplayName: Nebula Beam Shot
+			// StardustNebulaBeamChargeShot.DisplayName: Stardust Nebula Beam Charge Shot
+			// StardustNebulaBeamShot.DisplayName: Stardust Nebula Beam Shot
+			// IceNovaBeamChargeShot.DisplayName: Ice Nova Beam Charge Shot
+			// IceNovaBeamShot.DisplayName: Ice Nova Beam Shot
+			// IceWaveNovaBeamChargeShot.DisplayName: Ice Wave Nova Beam Charge Shot
+			// IceWaveNovaBeamShot.DisplayName: Ice Wave Nova Beam Shot
+			// IceWaveWideNovaBeamChargeShot.DisplayName: Ice Wave Wide Nova Beam Charge Shot
+			// IceWaveWideNovaBeamShot.DisplayName: Ice Wave Wide Nova Beam Shot
+			// IceWideNovaBeamChargeShot.DisplayName: Ice Wide Nova Beam Charge Shot
+			// IceWideNovaBeamShot.DisplayName: Ice Wide Nova Beam Shot
+			// NovaBeamChargeShot.DisplayName: Nova Beam Charge Shot
+			// NovaBeamShot.DisplayName: Nova Beam Shot
+			// WaveNovaBeamChargeShot.DisplayName: Wave Nova Beam Charge Shot
+			// WaveNovaBeamShot.DisplayName: Wave Nova Beam Shot
+			// WaveWideNovaBeamChargeShot.DisplayName: Wave Wide Nova Beam Charge Shot
+			// WaveWideNovaBeamShot.DisplayName: Wave Wide Nova Beam Shot
+			// WideNovaBeamChargeShot.DisplayName: Wide Nova Beam Charge Shot
+			// WideNovaBeamShot.DisplayName: Wide Nova Beam Shot
+			// IceNovaBeamV2ChargeShot.DisplayName: Ice Nova Beam V2 Charge Shot
+			// IceNovaBeamV2Shot.DisplayName: Ice Nova Beam V2 Shot
+			// IceWaveNovaBeamV2ChargeShot.DisplayName: Ice Wave Nova Beam V2 Charge Shot
+			// IceWaveNovaBeamV2Shot.DisplayName: Ice Wave Nova Beam V2 Shot
+			// IceWaveWideNovaBeamV2ChargeShot.DisplayName: Ice Wave Wide Nova Beam V2 Charge Shot
+			// IceWaveWideNovaBeamV2Shot.DisplayName: Ice Wave Wide Nova Beam V2 Shot
+			// IceWideNovaBeamV2ChargeShot.DisplayName: Ice Wide Nova Beam V2 Charge Shot
+			// IceWideNovaBeamV2Shot.DisplayName: Ice Wide Nova Beam V2 Shot
+			// NovaBeamV2ChargeShot.DisplayName: Nova Beam V2 Charge Shot
+			// NovaBeamV2Shot.DisplayName: Nova Beam V2 Shot
+			// WaveNovaBeamV2ChargeShot.DisplayName: Wave Nova Beam V2 Charge Shot
+			// WaveNovaBeamV2Shot.DisplayName: Wave Nova Beam V2 Shot
+			// WaveWideNovaBeamV2ChargeShot.DisplayName: Wave Wide Nova Beam V2 Charge Shot
+			// WaveWideNovaBeamV2Shot.DisplayName: Wave Wide Nova Beam V2 Shot
+			// WideNovaBeamV2ChargeShot.DisplayName: Wide Nova Beam V2 Charge Shot
+			// WideNovaBeamV2Shot.DisplayName: Wide Nova Beam V2 Shot
+			// NovaLaserDrillShot.DisplayName: Nova Laser Drill Shot
+			// IceNovaOmegaCannonShot.DisplayName: Ice Nova Omega Cannon Shot
+			// IceOmegaCannonShot.DisplayName: Ice Omega Cannon Shot
+			// IcePlasmaRedOmegaCannonShot.DisplayName: Ice Plasma Red Omega Cannon Shot
+			// IceSolarOmegaCannonShot.DisplayName: Ice Solar Omega Cannon Shot
+			// NovaOmegaCannonShot.DisplayName: Nova Omega Cannon Shot
+			// OmegaCannonShot.DisplayName: Omega Cannon Shot
+			// PlasmaRedOmegaCannonShot.DisplayName: Plasma Red Omega Cannon Shot
+			// SolarOmegaCannonShot.DisplayName: Solar Omega Cannon Shot
+			// ParalyzerShot.DisplayName: Paralyzer Shot
+			// NebulaPhazonBeamShot.DisplayName: Nebula Phazon Beam Shot
+			// NebulaPlasmaPhazonBeamShot.DisplayName: Nebula Plasma Phazon Beam Shot
+			// NebulaSpazerPhazonBeamShot.DisplayName: Nebula Spazer Phazon Beam Shot
+			// NebulaSpazerPlasmaPhazonBeamShot.DisplayName: Nebula Spazer Plasma Phazon Beam Shot
+			// PhazonBeamShot.DisplayName: Phazon Beam Shot
+			// PlasmaPhazonBeamShot.DisplayName: Plasma Phazon Beam Shot
+			// SpazerPhazonBeamShot.DisplayName: Spazer Phazon Beam Shot
+			// SpazerPlasmaPhazonBeamShot.DisplayName: Spazer Plasma Phazon Beam Shot
+			// WavePhazonBeamShot.DisplayName: Wave Phazon Beam Shot
+			// WavePlasmaPhazonBeamShot.DisplayName: Wave Plasma Phazon Beam Shot
+			// WaveSpazerPhazonBeamShot.DisplayName: Wave Spazer Phazon Beam Shot
+			// WaveSpazerPlasmaPhazonBeamShot.DisplayName: Wave Spazer Plasma Phazon Beam Shot
+			// PhazonExplosion.DisplayName: Phazon Explosion
+			// IcePlasmaBeamGreenChargeShot.DisplayName: Ice Plasma Beam Green Charge Shot
+			// IcePlasmaBeamGreenShot.DisplayName: Ice Plasma Beam Green Shot
+			// IceSpazerPlasmaBeamGreenChargeShot.DisplayName: Ice Spazer Plasma Beam Green Charge Shot
+			// IceSpazerPlasmaBeamGreenShot.DisplayName: Ice Spazer Plasma Beam Green Shot
+			// IceWavePlasmaBeamGreenChargeShot.DisplayName: Ice Wave Plasma Beam Green Charge Shot
+			// IceWavePlasmaBeamGreenShot.DisplayName: Ice Wave Plasma Beam Green Shot
+			// IceWaveSpazerPlasmaBeamGreenChargeShot.DisplayName: Ice Wave Spazer Plasma Beam Green Charge Shot
+			// IceWaveSpazerPlasmaBeamGreenShot.DisplayName: Ice Wave Spazer Plasma Beam Green Shot
+			// PlasmaBeamGreenChargeShot.DisplayName: Plasma Beam Green Charge Shot
+			// PlasmaBeamGreenShot.DisplayName: Plasma Beam Green Shot
+			// SpazerPlasmaBeamGreenChargeShot.DisplayName: Spazer Plasma Beam Green Charge Shot
+			// SpazerPlasmaBeamGreenShot.DisplayName: Spazer Plasma Beam Green Shot
+			// WavePlasmaBeamGreenChargeShot.DisplayName: Wave Plasma Beam Green Charge Shot
+			// WavePlasmaBeamGreenShot.DisplayName: Wave Plasma Beam Green Shot
+			// WaveSpazerPlasmaBeamGreenChargeShot.DisplayName: Wave Spazer Plasma Beam Green Charge Shot
+			// WaveSpazerPlasmaBeamGreenShot.DisplayName: Wave Spazer Plasma Beam Green Shot
+			// IcePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Plasma Beam Green V2 Charge Shot
+			// IcePlasmaBeamGreenV2Shot.DisplayName: Ice Plasma Beam Green V2 Shot
+			// IceWavePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Wave Plasma Beam Green V2 Charge Shot
+			// IceWavePlasmaBeamGreenV2Shot.DisplayName: Ice Wave Plasma Beam Green V2 Shot
+			// IceWaveWidePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Wave Wide Plasma Beam Green V2 Charge Shot
+			// IceWaveWidePlasmaBeamGreenV2Shot.DisplayName: Ice Wave Wide Plasma Beam Green V2 Shot
+			// IceWidePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Wide Plasma Beam Green V2 Charge Shot
+			// IceWidePlasmaBeamGreenV2Shot.DisplayName: Ice Wide Plasma Beam Green V2 Shot
+			// PlasmaBeamGreenV2ChargeShot.DisplayName: Plasma Beam Green V2 Charge Shot
+			// PlasmaBeamGreenV2Shot.DisplayName: Plasma Beam Green V2 Shot
+			// WavePlasmaBeamGreenV2ChargeShot.DisplayName: Wave Plasma Beam Green V2 Charge Shot
+			// WavePlasmaBeamGreenV2Shot.DisplayName: Wave Plasma Beam Green V2 Shot
+			// WaveWidePlasmaBeamGreenV2ChargeShot.DisplayName: Wave Wide Plasma Beam Green V2 Charge Shot
+			// WaveWidePlasmaBeamGreenV2Shot.DisplayName: Wave Wide Plasma Beam Green V2 Shot
+			// WidePlasmaBeamGreenV2ChargeShot.DisplayName: Wide Plasma Beam Green V2 Charge Shot
+			// WidePlasmaBeamGreenV2Shot.DisplayName: Wide Plasma Beam Green V2 Shot
+			// IcePlasmaBeamRedChargeShot.DisplayName: Ice Plasma Beam Red Charge Shot
+			// IcePlasmaBeamRedShot.DisplayName: Ice Plasma Beam Red Shot
+			// IceSpazerPlasmaBeamRedChargeShot.DisplayName: Ice Spazer Plasma Beam Red Charge Shot
+			// IceSpazerPlasmaBeamRedShot.DisplayName: Ice Spazer Plasma Beam Red Shot
+			// IceWavePlasmaBeamRedChargeShot.DisplayName: Ice Wave Plasma Beam Red Charge Shot
+			// IceWavePlasmaBeamRedShot.DisplayName: Ice Wave Plasma Beam Red Shot
+			// IceWaveSpazerPlasmaBeamRedChargeShot.DisplayName: Ice Wave Spazer Plasma Beam Red Charge Shot
+			// IceWaveSpazerPlasmaBeamRedShot.DisplayName: Ice Wave Spazer Plasma Beam Red Shot
+			// PlasmaBeamRedChargeShot.DisplayName: Plasma Beam Red Charge Shot
+			// PlasmaBeamRedShot.DisplayName: Plasma Beam Red Shot
+			// SpazerPlasmaBeamRedChargeShot.DisplayName: Spazer Plasma Beam Red Charge Shot
+			// SpazerPlasmaBeamRedShot.DisplayName: Spazer Plasma Beam Red Shot
+			// WavePlasmaBeamRedChargeShot.DisplayName: Wave Plasma Beam Red Charge Shot
+			// WavePlasmaBeamRedShot.DisplayName: Wave Plasma Beam Red Shot
+			// WaveSpazerPlasmaBeamRedChargeShot.DisplayName: Wave Spazer Plasma Beam Red Charge Shot
+			// WaveSpazerPlasmaBeamRedShot.DisplayName: Wave Spazer Plasma Beam Red Shot
+			// IcePlasmaBeamRedV2ChargeShot.DisplayName: Ice Plasma Beam Red V2 Charge Shot
+			// IcePlasmaBeamRedV2Shot.DisplayName: Ice Plasma Beam Red V2 Shot
+			// IceWavePlasmaBeamRedV2ChargeShot.DisplayName: Ice Wave Plasma Beam Red V2 Charge Shot
+			// IceWavePlasmaBeamRedV2Shot.DisplayName: Ice Wave Plasma Beam Red V2 Shot
+			// IceWaveWidePlasmaBeamRedV2ChargeShot.DisplayName: Ice Wave Wide Plasma Beam Red V2 Charge Shot
+			// IceWaveWidePlasmaBeamRedV2Shot.DisplayName: Ice Wave Wide Plasma Beam Red V2 Shot
+			// IceWidePlasmaBeamRedV2ChargeShot.DisplayName: Ice Wide Plasma Beam Red V2 Charge Shot
+			// IceWidePlasmaBeamRedV2Shot.DisplayName: Ice Wide Plasma Beam Red V2 Shot
+			// PlasmaBeamRedV2ChargeShot.DisplayName: Plasma Beam Red V2 Charge Shot
+			// PlasmaBeamRedV2Shot.DisplayName: Plasma Beam Red V2 Shot
+			// WavePlasmaBeamRedV2ChargeShot.DisplayName: Wave Plasma Beam Red V2 Charge Shot
+			// WavePlasmaBeamRedV2Shot.DisplayName: Wave Plasma Beam Red V2 Shot
+			// WaveWidePlasmaBeamRedV2ChargeShot.DisplayName: Wave Wide Plasma Beam Red V2 Charge Shot
+			// WaveWidePlasmaBeamRedV2Shot.DisplayName: Wave Wide Plasma Beam Red V2 Shot
+			// WidePlasmaBeamRedV2ChargeShot.DisplayName: Wide Plasma Beam Red V2 Charge Shot
+			// WidePlasmaBeamRedV2Shot.DisplayName: Wide Plasma Beam Red V2 Shot
+			// PowerBeamChargeShot.DisplayName: Power Beam Charge Shot
+			// PowerBeamShot.DisplayName: Power Beam Shot
+			// PowerBeamV2ChargeShot.DisplayName: Power Beam V2 Charge Shot
+			// PowerBeamV2Shot.DisplayName: Power Beam V2 Shot
+			// ScrewAttackProj.DisplayName: Screw Attack Proj
+			// ShineBall.DisplayName: Shine Ball
+			// ShineSpark.DisplayName: Shine Spark
+			// IceNovaShockCoilShot.DisplayName: Ice Nova Shock Coil Shot
+			// IcePlasmaRedShockCoilShot.DisplayName: Ice Plasma Red Shock Coil Shot
+			// IceShockCoilShot.DisplayName: Ice Shock Coil Shot
+			// IceSpazerPlasmaRedShockCoilShot.DisplayName: Ice Spazer Plasma Red Shock Coil Shot
+			// IceSpazerShockCoilShot.DisplayName: Ice Spazer Shock Coil Shot
+			// IceWaveNovaShockCoilShot.DisplayName: Ice Wave Nova Shock Coil Shot
+			// IceWavePlasmaRedShockCoilShot.DisplayName: Ice Wave Plasma Red Shock Coil Shot
+			// IceWaveShockCoilShot.DisplayName: Ice Wave Shock Coil Shot
+			// IceWaveSpazerPlasmaRedShockCoilShot.DisplayName: Ice Wave Spazer Plasma Red Shock Coil Shot
+			// IceWaveSpazerShockCoilShot.DisplayName: Ice Wave Spazer Shock Coil Shot
+			// IceWaveWideNovaShockCoilShot.DisplayName: Ice Wave Wide Nova Shock Coil Shot
+			// IceWideNovaShockCoilShot.DisplayName: Ice Wide Nova Shock Coil Shot
+			// NebulaSolarShockCoilShot.DisplayName: Nebula Solar Shock Coil Shot
+			// NebulaVortexSolarShockCoilShot.DisplayName: Nebula Vortex Solar Shock Coil Shot
+			// NovaShockCoilShot.DisplayName: Nova Shock Coil Shot
+			// PlasmaRedShockCoilShot.DisplayName: Plasma Red Shock Coil Shot
+			// ShockCoilChargeShot.DisplayName: Shock Coil Charge Shot
+			// ShockCoilShot.DisplayName: Shock Coil Shot
+			// SolarShockCoilShot.DisplayName: Solar Shock Coil Shot
+			// SpazerPlasmaRedShockCoilShot.DisplayName: Spazer Plasma Red Shock Coil Shot
+			// SpazerShockCoilShot.DisplayName: Spazer Shock Coil Shot
+			// StardustNebulaSolarShockCoilShot.DisplayName: Stardust Nebula Solar Shock Coil Shot
+			// StardustNebulaVortexShockCoilShot.DisplayName: Stardust Nebula Vortex Shock Coil Shot
+			// StardustNebulaVortexSolarShockCoilShot.DisplayName: Stardust Nebula Vortex Solar Shock Coil Shot
+			// StardustSolarShockCoilShot.DisplayName: Stardust Solar Shock Coil Shot
+			// StardustVortexSolarShockCoilShot.DisplayName: Stardust Vortex Solar Shock Coil Shot
+			// VortexSolarShockCoilShot.DisplayName: Vortex Solar Shock Coil Shot
+			// WaveNovaShockCoilShot.DisplayName: Wave Nova Shock Coil Shot
+			// WavePlasmaRedShockCoilShot.DisplayName: Wave Plasma Red Shock Coil Shot
+			// WaveShockCoilShot.DisplayName: Wave Shock Coil Shot
+			// WaveSpazerPlasmaRedShockCoilShot.DisplayName: Wave Spazer Plasma Red Shock Coil Shot
+			// WaveSpazerShockCoilShot.DisplayName: Wave Spazer Shock Coil Shot
+			// WaveWideNovaShockCoilShot.DisplayName: Wave Wide Nova Shock Coil Shot
+			// WaveWideShockCoilShot.DisplayName: Wave Wide Shock Coil Shot
+			// WideNovaShockCoilShot.DisplayName: Wide Nova Shock Coil Shot
+			// NebulaSolarBeamChargeShot.DisplayName: Nebula Solar Beam Charge Shot
+			// NebulaSolarBeamShot.DisplayName: Nebula Solar Beam Shot
+			// NebulaVortexSolarBeamChargeShot.DisplayName: Nebula Vortex Solar Beam Charge Shot
+			// NebulaVortexSolarBeamShot.DisplayName: Nebula Vortex Solar Beam Shot
+			// SolarBeamChargeShot.DisplayName: Solar Beam Charge Shot
+			// SolarBeamShot.DisplayName: Solar Beam Shot
+			// StardustNebulaSolarBeamChargeShot.DisplayName: Stardust Nebula Solar Beam Charge Shot
+			// StardustNebulaSolarBeamShot.DisplayName: Stardust Nebula Solar Beam Shot
+			// StardustNebulaVortexSolarBeamChargeShot.DisplayName: Stardust Nebula Vortex Solar Beam Charge Shot
+			// StardustNebulaVortexSolarBeamShot.DisplayName: Stardust Nebula Vortex Solar Beam Shot
+			// StardustSolarBeamChargeShot.DisplayName: Stardust Solar Beam Charge Shot
+			// StardustSolarBeamShot.DisplayName: Stardust Solar Beam Shot
+			// StardustVortexSolarBeamChargeShot.DisplayName: Stardust Vortex Solar Beam Charge Shot
+			// StardustVortexSolarBeamShot.DisplayName: Stardust Vortex Solar Beam Shot
+			// VortexSolarBeamChargeShot.DisplayName: Vortex Solar Beam Charge Shot
+			// VortexSolarBeamShot.DisplayName: Vortex Solar Beam Shot
+			// IceSpazerChargeShot.DisplayName: Ice Spazer Charge Shot
+			// IceSpazerShot.DisplayName: Ice Spazer Shot
+			// IceWaveSpazerChargeShot.DisplayName: Ice Wave Spazer Charge Shot
+			// IceWaveSpazerShot.DisplayName: Ice Wave Spazer Shot
+			// SpazerChargeShot.DisplayName: Spazer Charge Shot
+			// SpazerShot.DisplayName: Spazer Shot
+			// WaveSpazerChargeShot.DisplayName: Wave Spazer Charge Shot
+			// WaveSpazerShot.DisplayName: Wave Spazer Shot
+			// SpeedBall.DisplayName: Speed Ball
+			// SpeedBoost.DisplayName: Speed Boost
+			// StardustBeamChargeShot.DisplayName: Stardust Beam Charge Shot
+			// StardustBeamShot.DisplayName: Stardust Beam Shot
+			// IceNovaVoltDriverChargeShot.DisplayName: Ice Nova Volt Driver Charge Shot
+			// IceNovaVoltDriverShot.DisplayName: Ice Nova Volt Driver Shot
+			// IcePlasmaGreenV2VoltDriverChargeShot.DisplayName: Ice Plasma Green V2 Volt Driver Charge Shot
+			// IcePlasmaGreenV2VoltDriverShot.DisplayName: Ice Plasma Green V2 Volt Driver Shot
+			// IcePlasmaGreenVoltDriverChargeShot.DisplayName: Ice Plasma Green Volt Driver Charge Shot
+			// IcePlasmaGreenVoltDriverShot.DisplayName: Ice Plasma Green Volt Driver Shot
+			// IcePlasmaRedV2VoltDriverChargeShot.DisplayName: Ice Plasma Red V2 Volt Driver Charge Shot
+			// IcePlasmaRedV2VoltDriverShot.DisplayName: Ice Plasma Red V2 Volt Driver Shot
+			// IcePlasmaRedVoltDriverChargeShot.DisplayName: Ice Plasma Red Volt Driver Charge Shot
+			// IcePlasmaRedVoltDriverShot.DisplayName: Ice Plasma Red Volt Driver Shot
+			// IceSpazerPlasmaGreenVoltDriverChargeShot.DisplayName: Ice Spazer Plasma Green Volt Driver Charge Shot
+			// IceSpazerPlasmaGreenVoltDriverShot.DisplayName: Ice Spazer Plasma Green Volt Driver Shot
+			// IceSpazerPlasmaRedVoltDriverChargeShot.DisplayName: Ice Spazer Plasma Red Volt Driver Charge Shot
+			// IceSpazerPlasmaRedVoltDriverShot.DisplayName: Ice Spazer Plasma Red Volt Driver Shot
+			// IceSpazerVoltDriverChargeShot.DisplayName: Ice Spazer Volt Driver Charge Shot
+			// IceSpazerVoltDriverShot.DisplayName: Ice Spazer Volt Driver Shot
+			// IceV2VoltDriverChargeShot.DisplayName: Ice V2 Volt Driver Charge Shot
+			// IceV2VoltDriverShot.DisplayName: Ice V2 Volt Driver Shot
+			// IceVoltDriverChargeShot.DisplayName: Ice Volt Driver Charge Shot
+			// IceVoltDriverShot.DisplayName: Ice Volt Driver Shot
+			// IceWaveNovaVoltDriverChargeShot.DisplayName: Ice Wave Nova Volt Driver Charge Shot
+			// IceWaveNovaVoltDriverShot.DisplayName: Ice Wave Nova Volt Driver Shot
+			// IceWavePlasmaGreenV2VoltDriverChargeShot.DisplayName: Ice Wave Plasma Green V2 Volt Driver Charge Shot
+			// IceWavePlasmaGreenV2VoltDriverShot.DisplayName: Ice Wave Plasma Green V2 Volt Driver Shot
+			// IceWavePlasmaGreenVoltDriverChargeShot.DisplayName: Ice Wave Plasma Green Volt Driver Charge Shot
+			// IceWavePlasmaGreenVoltDriverShot.DisplayName: Ice Wave Plasma Green Volt Driver Shot
+			// IceWavePlasmaRedV2VoltDriverChargeShot.DisplayName: Ice Wave Plasma Red V2 Volt Driver Charge Shot
+			// IceWavePlasmaRedV2VoltDriverShot.DisplayName: Ice Wave Plasma Red V2 Volt Driver Shot
+			// IceWavePlasmaRedVoltDriverChargeShot.DisplayName: Ice Wave Plasma Red Volt Driver Charge Shot
+			// IceWavePlasmaRedVoltDriverShot.DisplayName: Ice Wave Plasma Red Volt Driver Shot
+			// IceWaveSpazerPlasmaGreenVoltDriverChargeShot.DisplayName: Ice Wave Spazer Plasma Green Volt Driver Charge Shot
+			// IceWaveSpazerPlasmaGreenVoltDriverShot.DisplayName: Ice Wave Spazer Plasma Green Volt Driver Shot
+			// IceWaveSpazerPlasmaRedVoltDriverChargeShot.DisplayName: Ice Wave Spazer Plasma Red Volt Driver Charge Shot
+			// IceWaveSpazerPlasmaRedVoltDriverShot.DisplayName: Ice Wave Spazer Plasma Red Volt Driver Shot
+			// IceWaveSpazerVoltDriverChargeShot.DisplayName: Ice Wave Spazer Volt Driver Charge Shot
+			// IceWaveSpazerVoltDriverShot.DisplayName: Ice Wave Spazer Volt Driver Shot
+			// IceWaveV2VoltDriverChargeShot.DisplayName: Ice Wave V2 Volt Driver Charge Shot
+			// IceWaveV2VoltDriverShot.DisplayName: Ice Wave V2 Volt Driver Shot
+			// IceWaveVoltDriverChargeShot.DisplayName: Ice Wave Volt Driver Charge Shot
+			// IceWaveVoltDriverShot.DisplayName: Ice Wave Volt Driver Shot
+			// IceWaveWideNovaVoltDriverChargeShot.DisplayName: Ice Wave Wide Nova Volt Driver Charge Shot
+			// IceWaveWideNovaVoltDriverShot.DisplayName: Ice Wave Wide Nova Volt Driver Shot
+			// IceWaveWidePlasmaGreenV2VoltDriverChargeShot.DisplayName: Ice Wave Wide Plasma Green V2 Volt Driver Charge Shot
+			// IceWaveWidePlasmaGreenV2VoltDriverShot.DisplayName: Ice Wave Wide Plasma Green V2 Volt Driver Shot
+			// IceWaveWidePlasmaRedV2VoltDriverChargeShot.DisplayName: Ice Wave Wide Plasma Red V2 Volt Driver Charge Shot
+			// IceWaveWidePlasmaRedV2VoltDriverShot.DisplayName: Ice Wave Wide Plasma Red V2 Volt Driver Shot
+			// IceWaveWideVoltDriverChargeShot.DisplayName: Ice Wave Wide Volt Driver Charge Shot
+			// IceWaveWideVoltDriverShot.DisplayName: Ice Wave Wide Volt Driver Shot
+			// IceWideNovaVoltDriverChargeShot.DisplayName: Ice Wide Nova Volt Driver Charge Shot
+			// IceWideNovaVoltDriverShot.DisplayName: Ice Wide Nova Volt Driver Shot
+			// IceWidePlasmaGreenV2VoltDriverChargeShot.DisplayName: Ice Wide Plasma Green V2 Volt Driver Charge Shot
+			// IceWidePlasmaGreenV2VoltDriverShot.DisplayName: Ice Wide Plasma Green V2 Volt Driver Shot
+			// IceWidePlasmaRedV2VoltDriverChargeShot.DisplayName: Ice Wide Plasma Red V2 Volt Driver Charge Shot
+			// IceWidePlasmaRedV2VoltDriverShot.DisplayName: Ice Wide Plasma Red V2 Volt Driver Shot
+			// IceWideVoltDriverChargeShot.DisplayName: Ice Wide Volt Driver Charge Shot
+			// IceWideVoltDriverShot.DisplayName: Ice Wide Volt Driver Shot
+			// NebulaSolarVoltDriverChargeShot.DisplayName: Nebula Solar Volt Driver Charge Shot
+			// NebulaSolarVoltDriverShot.DisplayName: Nebula Solar Volt Driver Shot
+			// NebulaVoltDriverChargeShot.DisplayName: Nebula Volt Driver Charge Shot
+			// NebulaVoltDriverShot.DisplayName: Nebula Volt Driver Shot
+			// NebulaVortexSolarVoltDriverChargeShot.DisplayName: Nebula Vortex Solar Volt Driver Charge Shot
+			// NebulaVortexSolarVoltDriverShot.DisplayName: Nebula Vortex Solar Volt Driver Shot
+			// NebulaVortexVoltDriverChargeShot.DisplayName: Nebula Vortex Volt Driver Charge Shot
+			// NebulaVortexVoltDriverShot.DisplayName: Nebula Vortex Volt Driver Shot
+			// NovaVoltDriverChargeShot.DisplayName: Nova Volt Driver Charge Shot
+			// NovaVoltDriverShot.DisplayName: Nova Volt Driver Shot
+			// PlasmaGreenV2VoltDriverChargeShot.DisplayName: Plasma Green V2 Volt Driver Charge Shot
+			// PlasmaGreenV2VoltDriverShot.DisplayName: Plasma Green V2 Volt Driver Shot
+			// PlasmaGreenVoltDriverChargeShot.DisplayName: Plasma Green Volt Driver Charge Shot
+			// PlasmaGreenVoltDriverShot.DisplayName: Plasma Green Volt Driver Shot
+			// PlasmaRedV2VoltDriverChargeShot.DisplayName: Plasma Red V2 Volt Driver Charge Shot
+			// PlasmaRedV2VoltDriverShot.DisplayName: Plasma Red V2 Volt Driver Shot
+			// PlasmaRedVoltDriverShot.DisplayName: Plasma Red Volt Driver Shot
+			// SolarVoltDriverChargeShot.DisplayName: Solar Volt Driver Charge Shot
+			// SolarVoltDriverShot.DisplayName: Solar Volt Driver Shot
+			// SpazerPlasmaGreenVoltDriverChargeShot.DisplayName: Spazer Plasma Green Volt Driver Charge Shot
+			// SpazerPlasmaGreenVoltDriverShot.DisplayName: Spazer Plasma Green Volt Driver Shot
+			// SpazerPlasmaRedVoltDriverChargeShot.DisplayName: Spazer Plasma Red Volt Driver Charge Shot
+			// SpazerPlasmaRedVoltDriverShot.DisplayName: Spazer Plasma Red Volt Driver Shot
+			// SpazerVoltDriverChargeShot.DisplayName: Spazer Volt Driver Charge Shot
+			// SpazerVoltDriverShot.DisplayName: Spazer Volt Driver Shot
+			// StardustNebulaSolarVoltDriverChargeShot.DisplayName: Stardust Nebula Solar Volt Driver Charge Shot
+			// StardustNebulaSolarVoltDriverShot.DisplayName: Stardust Nebula Solar Volt Driver Shot
+			// StardustNebulaVoltDriverChargeShot.DisplayName: Stardust Nebula Volt Driver Charge Shot
+			// StardustNebulaVoltDriverShot.DisplayName: Stardust Nebula Volt Driver Shot
+			// StardustNebulaVortexSolarVoltDriverChargeShot.DisplayName: Stardust Nebula Vortex Solar Volt Driver Charge Shot
+			// StardustNebulaVortexSolarVoltDriverShot.DisplayName: Stardust Nebula Vortex Solar Volt Driver Shot
+			// StardustNebulaVortexVoltDriverChargeShot.DisplayName: Stardust Nebula Vortex Volt Driver Charge Shot
+			// StardustNebulaVortexVoltDriverShot.DisplayName: Stardust Nebula Vortex Volt Driver Shot
+			// StardustSolarVoltDriverChargeShot.DisplayName: Stardust Solar Volt Driver Charge Shot
+			// StardustSolarVoltDriverShot.DisplayName: Stardust Solar Volt Driver Shot
+			// StardustVoltDriverChargeShot.DisplayName: Stardust Volt Driver Charge Shot
+			// StardustVoltDriverShot.DisplayName: Stardust Volt Driver Shot
+			// StardustVortexSolarVoltDriverChargeShot.DisplayName: Stardust Vortex Solar Volt Driver Charge Shot
+			// StardustVortexSolarVoltDriverShot.DisplayName: Stardust Vortex Solar Volt Driver Shot
+			// StardustVortexVoltDriverChargeShot.DisplayName: Stardust Vortex Volt Driver Charge Shot
+			// StardustVortexVoltDriverShot.DisplayName: Stardust Vortex Volt Driver Shot
+			// VoltDriverChargeShot.DisplayName: Volt Driver Charge Shot
+			// VoltDriverShot.DisplayName: Volt Driver Shot
+			// VortexSolarVoltDriverChargeShot.DisplayName: Vortex Solar Volt Driver Charge Shot
+			// VortexSolarVoltDriverShot.DisplayName: Vortex Solar Volt Driver Shot
+			// VortexVoltDriverChargeShot.DisplayName: Vortex Volt Driver Charge Shot
+			// VortexVoltDriverShot.DisplayName: Vortex Volt Driver Shot
+			// WaveNovaVoltDriverChargeShot.DisplayName: Wave Nova Volt Driver Charge Shot
+			// WaveNovaVoltDriverShot.DisplayName: Wave Nova Volt Driver Shot
+			// WavePlasmaGreenV2VoltDriverChargeShot.DisplayName: Wave Plasma Green V2 Volt Driver Charge Shot
+			// WavePlasmaGreenV2VoltDriverShot.DisplayName: Wave Plasma Green V2 Volt Driver Shot
+			// WavePlasmaGreenVoltDriverChargeShot.DisplayName: Wave Plasma Green Volt Driver Charge Shot
+			// WavePlasmaGreenVoltDriverShot.DisplayName: Wave Plasma Green Volt Driver Shot
+			// WavePlasmaRedV2VoltDriverChargeShot.DisplayName: Wave Plasma Red V2 Volt Driver Charge Shot
+			// WavePlasmaRedV2VoltDriverShot.DisplayName: Wave Plasma Red V2 Volt Driver Shot
+			// WavePlasmaRedVoltDriverChargeShot.DisplayName: Wave Plasma Red Volt Driver Charge Shot
+			// WavePlasmaRedVoltDriverShot.DisplayName: Wave Plasma Red Volt Driver Shot
+			// WaveSpazerPlasmaGreenVoltDriverChargeShot.DisplayName: Wave Spazer Plasma Green Volt Driver Charge Shot
+			// WaveSpazerPlasmaGreenVoltDriverShot.DisplayName: Wave Spazer Plasma Green Volt Driver Shot
+			// WaveSpazerPlasmaRedVoltDriverChargeShot.DisplayName: Wave Spazer Plasma Red Volt Driver Charge Shot
+			// WaveSpazerPlasmaRedVoltDriverShot.DisplayName: Wave Spazer Plasma Red Volt Driver Shot
+			// WaveSpazerVoltDriverChargeShot.DisplayName: Wave Spazer Volt Driver Charge Shot
+			// WaveSpazerVoltDriverShot.DisplayName: Wave Spazer Volt Driver Shot
+			// WaveV2VoltDriverChargeShot.DisplayName: Wave V2 Volt Driver Charge Shot
+			// WaveV2VoltDriverShot.DisplayName: Wave V2 Volt Driver Shot
+			// WaveVoltDriverChargeShot.DisplayName: Wave Volt Driver Charge Shot
+			// WaveVoltDriverShot.DisplayName: Wave Volt Driver Shot
+			// WaveWideNovaVoltDriverChargeShot.DisplayName: Wave Wide Nova Volt Driver Charge Shot
+			// WaveWideNovaVoltDriverShot.DisplayName: Wave Wide Nova Volt Driver Shot
+			// WaveWidePlasmaGreenV2VoltDriverChargeShot.DisplayName: Wave Wide Plasma Green V2 Volt Driver Charge Shot
+			// WaveWidePlasmaGreenV2VoltDriverShot.DisplayName: Wave Wide Plasma Green V2 Volt Driver Shot
+			// WaveWidePlasmaRedV2VoltDriverChargeShot.DisplayName: Wave Wide Plasma Red V2 Volt Driver Charge Shot
+			// WaveWidePlasmaRedV2VoltDriverShot.DisplayName: Wave Wide Plasma Red V2 Volt Driver Shot
+			// WaveWideVoltDriverChargeShot.DisplayName: Wave Wide Volt Driver Charge Shot
+			// WaveWideVoltDriverShot.DisplayName: Wave Wide Volt Driver Shot
+			// WideNovaVoltDriverChargeShot.DisplayName: Wide Nova Volt Driver Charge Shot
+			// WideNovaVoltDriverShot.DisplayName: Wide Nova Volt Driver Shot
+			// WidePlasmaGreenV2VoltDriverChargeShot.DisplayName: Wide Plasma Green V2 Volt Driver Charge Shot
+			// WidePlasmaGreenV2VoltDriverShot.DisplayName: Wide Plasma Green V2 Volt Driver Shot
+			// WidePlasmaRedV2VoltDriverChargeShot.DisplayName: Wide Plasma Red V2 Volt Driver Charge Shot
+			// WidePlasmaRedV2VoltDriverShot.DisplayName: Wide Plasma Red V2 Volt Driver Shot
+			// WideVoltDriverChargeShot.DisplayName: Wide Volt Driver Charge Shot
+			// WideVoltDriverShot.DisplayName: Wide Volt Driver Shot
+			// NebulaVortexBeamChargeShot.DisplayName: Nebula Vortex Beam Charge Shot
+			// NebulaVortexBeamShot.DisplayName: Nebula Vortex Beam Shot
+			// StardustNebulaVortexBeamChargeShot.DisplayName: Stardust Nebula Vortex Beam Charge Shot
+			// StardustNebulaVortexBeamShot.DisplayName: Stardust Nebula Vortex Beam Shot
+			// StardustVortexBeamChargeShot.DisplayName: Stardust Vortex Beam Charge Shot
+			// StardustVortexBeamShot.DisplayName: Stardust Vortex Beam Shot
+			// VortexBeamChargeShot.DisplayName: Vortex Beam Charge Shot
+			// VortexBeamShot.DisplayName: Vortex Beam Shot
+			// IceWaveBeamChargeShot.DisplayName: Ice Wave Beam Charge Shot
+			// IceWaveBeamShot.DisplayName: Ice Wave Beam Shot
+			// IceWaveBeamV2ChargeShot.DisplayName: Ice Wave Beam V2 Charge Shot
+			// IceWaveBeamV2Shot.DisplayName: Ice Wave Beam V2 Shot
+			// WaveBeamChargeShot.DisplayName: Wave Beam Charge Shot
+			// WaveBeamShot.DisplayName: Wave Beam Shot
+			// WaveBeamV2ChargeShot.DisplayName: Wave Beam V2 Charge Shot
+			// WaveBeamV2Shot.DisplayName: Wave Beam V2 Shot
+			// IceWaveWideBeamChargeShot.DisplayName: Ice Wave Wide Beam Charge Shot
+			// IceWaveWideBeamShot.DisplayName: Ice Wave Wide Beam Shot
+			// IceWideBeamChargeShot.DisplayName: Ice Wide Beam Charge Shot
+			// IceWideBeamShot.DisplayName: Ice Wide Beam Shot
+			// WaveWideBeamChargeShot.DisplayName: Wave Wide Beam Charge Shot
+			// WaveWideBeamShot.DisplayName: Wave Wide Beam Shot
+			// WideBeamChargeShot.DisplayName: Wide Beam Charge Shot
+			// WideBeamShot.DisplayName: Wide Beam Shot
 		}
 	}
 }
