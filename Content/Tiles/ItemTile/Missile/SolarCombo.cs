@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Supernova");
 			AddMapEntry(new Color(184, 124, 75), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.SolarComboAddon>();
 			DustType = 1;
 		}
 	}

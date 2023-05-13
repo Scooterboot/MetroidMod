@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Nova Laser");
 			AddMapEntry(new Color(159, 228, 66), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.NovaComboAddon>();
 			DustType = 1;
 		}
 	}

@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Charge Beam");
 			AddMapEntry(new Color(104, 104, 128), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.ChargeBeamAddon>();
 			DustType = 1;
 		}
 	}

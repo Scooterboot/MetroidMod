@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Vortex Storm");
 			AddMapEntry(new Color(38, 148, 144), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.VortexComboAddon>();
 			DustType = 1;
 		}
 	}

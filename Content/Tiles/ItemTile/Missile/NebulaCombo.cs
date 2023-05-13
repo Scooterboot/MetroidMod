@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Nebula Singularity");
 			AddMapEntry(new Color(96, 29, 133), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.NebulaComboAddon>();
 			DustType = 1;
 		}
 	}

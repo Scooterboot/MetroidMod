@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Wide Beam");
 			AddMapEntry(new Color(247, 132, 227), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.V2.WideBeamAddon>();
 			DustType = 1;
 		}
 	}

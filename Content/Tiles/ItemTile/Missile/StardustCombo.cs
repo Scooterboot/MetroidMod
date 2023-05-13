@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Stardust Blizzard");
 			AddMapEntry(new Color(54, 71, 122), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.StardustComboAddon>();
 			DustType = 1;
 		}
 	}

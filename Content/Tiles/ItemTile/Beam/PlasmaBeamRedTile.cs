@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Plasma Beam (Red)");
 			AddMapEntry(new Color(216, 0, 0), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.PlasmaBeamRedAddon>();
 			DustType = 1;
 		}
 	}

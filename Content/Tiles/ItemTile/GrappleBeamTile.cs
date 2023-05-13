@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Grapple Beam");
 			AddMapEntry(new Color(121, 221, 139), name);
-			ItemDrop = ModContent.ItemType<Items.Tools.GrappleBeam>();
 			DustType = 1;
 		}
 	}

@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Morph Ball");
 			AddMapEntry(new Color(250, 85, 34), name);
-			ItemDrop = ModContent.ItemType<Items.Accessories.MorphBall>();
 			DustType = 1;
 		}
 	}

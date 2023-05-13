@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Ice Beam V2");
 			AddMapEntry(new Color(72, 192, 248), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.V2.IceBeamV2Addon>();
 			DustType = 1;
 		}
 	}

@@ -17,7 +17,6 @@ namespace MetroidMod.Content.Tiles
 			DustType = 87;
 			MinPick = 65;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.GrappleTile>();
 
 			AddMapEntry(new Color(187, 187, 206));
 		}

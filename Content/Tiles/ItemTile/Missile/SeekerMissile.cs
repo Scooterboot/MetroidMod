@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Seeker Missile");
 			AddMapEntry(new Color(173, 0, 82), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.SeekerMissileAddon>();
 			DustType = 1;
 		}
 	}

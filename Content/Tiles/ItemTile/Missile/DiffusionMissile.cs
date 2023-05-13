@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Diffusion Missile");
 			AddMapEntry(new Color(255, 0, 90), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.DiffusionMissileAddon>();
 			DustType = 1;
 		}
 	}

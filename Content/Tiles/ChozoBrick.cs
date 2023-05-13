@@ -19,7 +19,6 @@ namespace MetroidMod.Content.Tiles
 			DustType = 87;
 			MinPick = 65;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.ChozoBrick>();
 
 			AddMapEntry(new Color(200, 160, 72));
 		}

@@ -25,7 +25,6 @@ namespace MetroidMod.Content.Tiles
 			DustType = 68;
 			MinPick = 1000;//215;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.Phazon>();
 
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Phazon");

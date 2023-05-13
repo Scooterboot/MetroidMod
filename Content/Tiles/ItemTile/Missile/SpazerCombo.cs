@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Missile Array");
 			AddMapEntry(new Color(207, 167, 73), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.SpazerComboAddon>();
 			DustType = 1;
 		}
 	}

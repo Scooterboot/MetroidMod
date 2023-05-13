@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Nova Beam");
 			AddMapEntry(new Color(1, 235, 15), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.V2.NovaBeamAddon>();
 			DustType = 1;
 		}
 	}

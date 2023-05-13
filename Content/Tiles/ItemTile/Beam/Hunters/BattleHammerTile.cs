@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam.Hunters
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("BattleHammer");
 			AddMapEntry(new Color(255, 126, 255), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.Hunters.BattleHammerAddon>();
 			DustType = 1;
 		}
 	}

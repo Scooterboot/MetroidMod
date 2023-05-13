@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Phazon Beam");
 			AddMapEntry(new Color(72, 192, 248), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.PhazonBeamAddon>();
 			DustType = 1;
 		}
 	}

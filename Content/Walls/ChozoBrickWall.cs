@@ -11,7 +11,6 @@ namespace MetroidMod.Content.Walls
 			Main.wallHouse[Type] = true;
 
 			DustType = 87;
-			ItemDrop = ModContent.ItemType<Items.Walls.ChozoBrickWall>();
 
 			AddMapEntry(new Color(67, 46, 9));
 		}

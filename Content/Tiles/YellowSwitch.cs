@@ -29,7 +29,6 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newAlternate.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newAlternate.Width, 0);
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
-			ItemDrop = ModContent.ItemType<Items.Tiles.YellowSwitch>();
 		}
 	}
 }

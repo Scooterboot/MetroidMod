@@ -11,7 +11,6 @@ namespace MetroidMod.Content.Walls
 		public override void SetStaticDefaults()
 		{
 			DustType = 87;
-			ItemDrop = ModContent.ItemType<Items.Walls.NorfairBrickWall>();
 
 			AddMapEntry(new Color(68, 42, 35));
 		}

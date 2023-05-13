@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Homing Missile");
 			AddMapEntry(new Color(173, 0, 82), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.HomingMissileAddon>();
 			DustType = 1;
 		}
 	}

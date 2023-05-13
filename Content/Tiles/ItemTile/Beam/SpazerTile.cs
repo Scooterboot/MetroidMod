@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Spazer");
 			AddMapEntry(new Color(248, 176, 0), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.SpazerAddon>();
 			DustType = 1;
 		}
 	}

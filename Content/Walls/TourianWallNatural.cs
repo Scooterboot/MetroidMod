@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Walls
 		public override void SetStaticDefaults()
 		{
 			DustType = 87;
-			ItemDrop = ModContent.ItemType<Items.Walls.TourianWall>();
+			//ItemDrop= ModContent.ItemType<Items.Walls.TourianWall>();
 
 			AddMapEntry(new Color(39, 48, 63));
 		}

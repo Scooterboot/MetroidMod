@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Nebula Beam");
 			AddMapEntry(new Color(254, 126, 229), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.V3.NebulaBeamAddon>();
 			DustType = 1;
 		}
 	}

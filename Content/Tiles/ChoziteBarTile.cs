@@ -23,7 +23,6 @@ namespace MetroidMod.Content.Tiles
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Chozite Bar");
 			AddMapEntry(new Color(214, 162, 0), name);
-			ItemDrop = ModContent.ItemType<Items.Miscellaneous.ChoziteBar>();
 			DustType = 87;
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
 		}

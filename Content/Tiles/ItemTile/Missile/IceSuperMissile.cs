@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Ice Super Missile");
 			AddMapEntry(new Color(42, 120, 213), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.IceSuperMissileAddon>();
 			DustType = 1;
 		}
 	}

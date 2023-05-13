@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Solar Beam");
 			AddMapEntry(new Color(254, 158, 35), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.V3.SolarBeamAddon>();
 			DustType = 1;
 		}
 	}

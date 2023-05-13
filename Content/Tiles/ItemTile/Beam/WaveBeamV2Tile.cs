@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Wave Beam V2");
 			AddMapEntry(new Color(255, 126, 255), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.V2.WaveBeamV2Addon>();
 			DustType = 1;
 		}
 	}

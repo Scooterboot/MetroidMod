@@ -182,8 +182,8 @@ namespace MetroidMod.Content.NPCs.Town
 
 		public override void AddShops()
 		{
-			var npcShop = new NPCShop(Type, ShopName)
-			.Add(ModContent.ItemType<Items.Boss.TorizoSummon>());
+			var npcShop = new NPCShop(Type, ShopName);
+			npcShop.Add(ModContent.ItemType<Items.Boss.TorizoSummon>());
 
 			if (MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo))
 			{

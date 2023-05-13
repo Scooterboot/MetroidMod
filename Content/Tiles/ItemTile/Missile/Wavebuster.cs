@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Wavebuster");
 			AddMapEntry(new Color(92, 58, 156), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.WavebusterAddon>();
 			DustType = 1;
 		}
 	}

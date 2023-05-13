@@ -17,7 +17,6 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Missile Expansion");
 			AddMapEntry(new Color(132, 4, 20), name);
-			ItemDrop = ModContent.ItemType<Items.Tiles.MissileExpansion>();
 			Main.tileOreFinderPriority[Type] = 805;
 			DustType = 1;
 			AnimationFrameHeight = 18;

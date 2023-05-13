@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Flamethrower");
 			AddMapEntry(new Color(243, 162, 63), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.BeamCombos.FlamethrowerAddon>();
 			DustType = 1;
 		}
 	}

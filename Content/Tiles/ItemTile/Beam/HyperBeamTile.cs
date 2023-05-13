@@ -14,7 +14,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Hyper Beam");
 			AddMapEntry(new Color(247, 0, 98), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.HyperBeamAddon>();
 			DustType = 1;
 		}
 

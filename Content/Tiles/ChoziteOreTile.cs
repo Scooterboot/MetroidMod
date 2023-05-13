@@ -20,7 +20,6 @@ namespace MetroidMod.Content.Tiles
 			Main.tileSpelunker[Type] = true;
 			Main.tileLighted[Type] = true;
 			DustType = 87;
-			ItemDrop = ModContent.ItemType<Items.Tiles.ChoziteOre>();
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Chozite Ore");
 			AddMapEntry(new Color(214, 162, 0), name);

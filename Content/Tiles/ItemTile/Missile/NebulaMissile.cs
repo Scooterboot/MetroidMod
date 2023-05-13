@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Nebula Missile");
 			AddMapEntry(new Color(166, 50, 150), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.NebulaMissileAddon>();
 			DustType = 1;
 		}
 	}

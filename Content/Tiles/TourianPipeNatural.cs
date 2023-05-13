@@ -18,7 +18,6 @@ namespace MetroidMod.Content.Tiles
 			DustType = 87;
 			MinPick = 205;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.TourianPipe>();
 
 			AddMapEntry(new Color(149, 149, 174));
 		}
