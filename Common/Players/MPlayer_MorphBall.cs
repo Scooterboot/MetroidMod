@@ -473,14 +473,12 @@ namespace MetroidMod.Common.Players
 		}
 		public void Drill(Player p, int drill)
 		{
+			var drills = p.GetBestPickaxe();
 			bool noBuildFlag = false;
-			if (p.HeldItem.pick > 0 && p.HeldItem.Name != "Nova Laser Drill" /*|| p.HeldItem.axe > 0 || p.HeldItem.hammer > 0*/)
+			if (Main.mouseLeft && !Player.mouseInterface)
 			{
-				if (Main.mouseLeft && !Player.mouseInterface)
-				{
-					drill = p.HeldItem.pick;
-					//p.controlUseItem = true;
-				}
+				drill = drills.pick;
+				//p.controlUseItem = true;
 			}
 			for (int i = 0; i < p.buffType.Length; i++)
 			{
@@ -526,7 +524,7 @@ namespace MetroidMod.Common.Players
 						{
 							p.PickTile(Player.tileTargetX, Player.tileTargetY, drill);
 						}
-						cooldownbomb = (500/drill);
+						cooldownbomb = (int)(drills.useTime * p.pickSpeed);
 					}
 				}
 			}
