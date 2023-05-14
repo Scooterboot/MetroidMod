@@ -244,6 +244,7 @@ namespace MetroidMod.Content.NPCs.Town
 			{
 				npcShop.Add(ModContent.ItemType<Items.Tiles.MissileExpansion>());
 			}
+			npcShop.Register();
 		}
 
 		private int frame = 0;

@@ -77,16 +77,18 @@ namespace MetroidMod.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public bool PreHurt_SuitEnergy(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, /*ref PlayerDeathReason damageSource,*/ ref int cooldownCounter) //needs complete rewrite
+		public bool PreHurt_SuitEnergy(Player.HurtInfo info) //needs complete rewrite
 		{
 			if (!ShouldShowArmorUI || Player.immune) { return true; }
+			int cooldownCounter = 0;
+			bool pvp = info.PvP;
 			int oldEnergy = Energy;
-			float damageToSubtractFromEnergy = Math.Max(damage * (1 - EnergyExpenseEfficiency), 1f);
+			float damageToSubtractFromEnergy = Math.Max(info.Damage * (1 - EnergyExpenseEfficiency), 1f);
 			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
-			damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
-			if (damage <= 0)
+			info.Damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
+			if (info.Damage <= 0)
 			{
-				damage = 0;
+				info.Damage = 0;
 				#region cooldown code (stolen from tML source code)
 				switch (cooldownCounter)
 				{
@@ -106,11 +108,11 @@ namespace MetroidMod.Common.Players
 						break;
 				}
 				#endregion
-				customDamage = true;
+				//customDamage = true;
 			}
 			if (Common.Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
-				playSound = false;
+				//playSound = false;
 				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
 			}
 			return true;

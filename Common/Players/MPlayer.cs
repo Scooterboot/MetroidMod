@@ -22,6 +22,7 @@ using MetroidMod.Common.GlobalNPCs;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using MetroidMod.Content.Biomes;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetroidMod.Common.Players
 {
@@ -412,25 +413,17 @@ namespace MetroidMod.Common.Players
 				dashTime++;
 			}
 		}
-		public override bool ConsumableDodge(Player.HurtInfo info)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
+		public override bool ConsumableDodge(Player.HurtInfo info)//tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage
 		{
-			bool pvp = false;
-			bool quiet = true;
-			int damage = 0;
-			int hitDirection = 0;
-			bool crit = false;
-			bool customDamage = false;
-			bool playSound = false;
-			bool genGore = false;
-			//PlayerDeathReason damageSource;
-			int cooldownCounter = 0;
-
 			if (SMoveEffect > 0)
 			{
 				return true;
 			}
-			//return true;
-			return PreHurt_SuitEnergy(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, /*ref damageSource,*/ ref cooldownCounter);
+			if (info.Damage > 0)
+			{
+				return PreHurt_SuitEnergy(info) & false;
+			}
+			return false;
 		}
 
 		public void SenseMove(Player P)

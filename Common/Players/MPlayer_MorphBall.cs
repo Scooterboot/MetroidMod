@@ -474,7 +474,7 @@ namespace MetroidMod.Common.Players
 		}
 		public void Drill(Player p, int drill)
 		{
-			var drills = p.GetBestPickaxe();
+			Item drills = p.GetBestPickaxe();
 			bool noBuildFlag = false;
 			if (Main.mouseLeft && !Player.mouseInterface)
 			{
