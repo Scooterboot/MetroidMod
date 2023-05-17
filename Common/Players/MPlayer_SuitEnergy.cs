@@ -77,7 +77,7 @@ namespace MetroidMod.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public bool PreHurt_SuitEnergy(Player.HurtInfo info) //needs complete rewrite
+		public bool PreHurt_SuitEnergy(Player.HurtInfo info)
 		{
 			if (!ShouldShowArmorUI || Player.immune) { return true; }
 			int cooldownCounter = 0;
@@ -130,8 +130,8 @@ namespace MetroidMod.Common.Players
 			if (!ShouldShowArmorUI) { return; }
 			if (SuitReservesAuto && Energy <= 0)
 			{
-				Energy += SuitReserves;
-				SuitReserves = 0;
+				Energy += Math.Min(SuitReserves, MaxEnergy);
+				SuitReserves -= Math.Min(SuitReserves, MaxEnergy);
 				while (Energy > MaxEnergy)
 				{
 					SuitReserves += 1;

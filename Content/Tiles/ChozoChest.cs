@@ -53,7 +53,7 @@ namespace MetroidMod.Content.Tiles
 		public override LocalizedText DefaultContainerName(int frameX, int frameY)
 		{
 			int option = frameX / 36;
-			return this.GetLocalization("MapEntry" + option);
+			return CreateMapEntryName();
 		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
 			Chest.DestroyChest(i, j);

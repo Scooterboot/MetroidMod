@@ -140,22 +140,22 @@ Mods: {
 		}
 
 		Biomes: {
-			// ChozoRuinsBiome.DisplayName: Chozo Ruins Biome
-			// NESCrateriaSurfaceBiome.DisplayName: N E S Crateria Surface Biome
+			// ChozoRuinsBiome.DisplayName: Chozo Ruins
+			// NESCrateriaSurfaceBiome.DisplayName: N E S Crateria Surface
 		}
 
 		Tiles: {
 			// ChoziteBarTile.MapEntry: Chozite Bar Tile
 			// ChoziteOreTile.MapEntry: Chozite Ore Tile
-			// ChozoChest.MapEntry: Chozo Chest
+			// ChozoChest.MapEntry: Chozodian Chest
 			// ChozoPillar.MapEntry: Chozo Pillar
 			// ChozoPillarNatural.MapEntry: Chozo Pillar Natural
 			// ChozoRuinsActiveMusicBox.MapEntry: Chozo Ruins Active Music Box
 			// ChozoRuinsInactiveMusicBox.MapEntry: Chozo Ruins Inactive Music Box
 			// ChozoStatue.MapEntry: Chozo Statue
-			// ChozoStatueArm.MapEntry: Chozo Statue Arm
-			// ChozoStatueArmNatural.MapEntry: Chozo Statue Arm Natural
-			// ChozoStatueNatural.MapEntry: Chozo Statue Natural
+			// ChozoStatueArm.MapEntry: Chozo Statue
+			// ChozoStatueArmNatural.MapEntry: Chozo Statue
+			// ChozoStatueNatural.MapEntry: Chozo Statue
 			// EnergyStation.MapEntry: Energy Station
 			// EnergyStationDevtool.MapEntry: Energy Station Devtool
 			// BlueHatch.MapEntry: Blue Hatch
@@ -174,33 +174,33 @@ Mods: {
 			// YellowHatchOpen.MapEntry: Yellow Hatch Open
 			// YellowHatchOpenVertical.MapEntry: Yellow Hatch Open Vertical
 			// YellowHatchVertical.MapEntry: Yellow Hatch Vertical
-			// ChargeBeamTile.MapEntry: Charge Beam Tile
-			// ChargeBeamV2Tile.MapEntry: Charge Beam V2 Tile
-			// BattleHammerTile.MapEntry: Battle Hammer Tile
-			// ImperialistTile.MapEntry: Imperialist Tile
-			// JudicatorTile.MapEntry: Judicator Tile
-			// MagMaulTile.MapEntry: Mag Maul Tile
-			// OmegaCannonTile.MapEntry: Omega Cannon Tile
-			// ShockCoilTile.MapEntry: Shock Coil Tile
-			// VoltDriverTile.MapEntry: Volt Driver Tile
-			// HyperBeamTile.MapEntry: Hyper Beam Tile
-			// IceBeamTile.MapEntry: Ice Beam Tile
-			// IceBeamV2Tile.MapEntry: Ice Beam V2 Tile
-			// LuminiteBeamTile.MapEntry: Luminite Beam Tile
-			// NebulaBeamTile.MapEntry: Nebula Beam Tile
-			// NovaBeamTile.MapEntry: Nova Beam Tile
-			// PhazonBeamTile.MapEntry: Phazon Beam Tile
-			// PlasmaBeamGreenTile.MapEntry: Plasma Beam Green Tile
-			// PlasmaBeamRedTile.MapEntry: Plasma Beam Red Tile
-			// SolarBeamTile.MapEntry: Solar Beam Tile
-			// SpazerTile.MapEntry: Spazer Tile
-			// StardustBeamTile.MapEntry: Stardust Beam Tile
-			// VortexBeamTile.MapEntry: Vortex Beam Tile
+			// ChargeBeamTile.MapEntry: Charge Beam
+			// ChargeBeamV2Tile.MapEntry: Charge Beam V2
+			// BattleHammerTile.MapEntry: Battle Hammer
+			// ImperialistTile.MapEntry: Imperialist
+			// JudicatorTile.MapEntry: Judicator
+			// MagMaulTile.MapEntry: Mag Maul
+			// OmegaCannonTile.MapEntry: Omega Cannon
+			// ShockCoilTile.MapEntry: Shock Coil
+			// VoltDriverTile.MapEntry: Volt Driver
+			// HyperBeamTile.MapEntry: Hyper Beam
+			// IceBeamTile.MapEntry: Ice Beam
+			// IceBeamV2Tile.MapEntry: Ice Beam V2
+			// LuminiteBeamTile.MapEntry: Luminite Beam
+			// NebulaBeamTile.MapEntry: Nebula Beam
+			// NovaBeamTile.MapEntry: Nova Beam
+			// PhazonBeamTile.MapEntry: Phazon Beam
+			// PlasmaBeamGreenTile.MapEntry: Plasma Beam Green
+			// PlasmaBeamRedTile.MapEntry: Plasma Beam Red
+			// SolarBeamTile.MapEntry: Solar Beam
+			// SpazerTile.MapEntry: Spazer
+			// StardustBeamTile.MapEntry: Stardust Beam
+			// VortexBeamTile.MapEntry: Vortex Beam
 			// WaveBeamTile.MapEntry: Wave Beam Tile
-			// WaveBeamV2Tile.MapEntry: Wave Beam V2 Tile
-			// WideBeamTile.MapEntry: Wide Beam Tile
-			// GrappleBeamPlusTile.MapEntry: Grapple Beam Plus Tile
-			// GrappleBeamTile.MapEntry: Grapple Beam Tile
+			// WaveBeamV2Tile.MapEntry: Wave Beam V2
+			// WideBeamTile.MapEntry: Wide Beam
+			// GrappleBeamPlusTile.MapEntry: Grapple Beam
+			// GrappleBeamTile.MapEntry: Grapple Beam
 			// DiffusionMissile.MapEntry: Diffusion Missile
 			// Flamethrower.MapEntry: Flamethrower
 			// HomingMissile.MapEntry: Homing Missile
@@ -219,35 +219,35 @@ Mods: {
 			// SuperMissile.MapEntry: Super Missile
 			// VortexCombo.MapEntry: Vortex Combo
 			// Wavebuster.MapEntry: Wavebuster
-			// MissileExpansionTile.MapEntry: Missile Expansion Tile
-			// MorphBallTile.MapEntry: Morph Ball Tile
+			// MissileExpansionTile.MapEntry: Missile Expansion
+			// MorphBallTile.MapEntry: Morph Ball
 			// KraidPhantoonMusicBox.MapEntry: Kraid Phantoon Music Box
-			// KraidTrophyTile.MapEntry: Kraid Trophy Tile
+			// KraidTrophyTile.MapEntry: Kraid Trophy
 			// MissileStation.MapEntry: Missile Station
 			// NightmareMusicBox.MapEntry: Nightmare Music Box
-			// NovaWorkTableTile.MapEntry: Nova Work Table Tile
+			// NovaWorkTableTile.MapEntry: Nova Work Table
 			// OmegaPirateMusicBox.MapEntry: Omega Pirate Music Box
-			// PhantoonTrophyTile.MapEntry: Phantoon Trophy Tile
+			// PhantoonTrophyTile.MapEntry: Phantoon Trophy
 			// PhazonCore.MapEntry: Phazon Core
 			// PhazonTile.MapEntry: Phazon Tile
 			// RidleyMusicBox.MapEntry: Ridley Music Box
 			// SaveStation.MapEntry: Save Station
 			// SerrisMusicBox.MapEntry: Serris Music Box
-			// SerrisTrophyTile.MapEntry: Serris Trophy Tile
+			// SerrisTrophyTile.MapEntry: Serris Trophy
 			// TorizoMusicBox.MapEntry: Torizo Music Box
-			// TorizoTrophyTile.MapEntry: Torizo Trophy Tile
+			// TorizoTrophyTile.MapEntry: Torizo Trophy
 			// ZeroHusk.MapEntry: Zero Husk
 		}
 
 		Buffs: {
 			EnergyRecharge: {
-				// DisplayName: Energy Recharge
-				// Description: Mods.MetroidMod.Buffs.EnergyRecharge.Description
+				// DisplayName: Recharging Suit Energy and Suit Energy reserves
+				// Description: Using energy station, can't move
 			}
 
 			EnergyRechargeDevtool: {
-				// DisplayName: Energy Recharge Devtool
-				// Description: Mods.MetroidMod.Buffs.EnergyRechargeDevtool.Description
+				// DisplayName: Recharging Life
+				// Description: Using rejuvination station, can't move
 			}
 
 			GravityDebuff: {
@@ -308,28 +308,48 @@ Mods: {
 			}
 
 			ReserveTank: {
-				// DisplayName: Reserve Tank
-				// Tooltip: ""
+				// DisplayName: Life Reserve Tank
+				/* Tooltip:
+					'''
+					Stores a heart picked up when at full health
+					Automatically uses the stored heart to save you from death
+					''' */
 			}
 
 			ReserveTank2: {
-				// DisplayName: Reserve Tank2
-				// Tooltip: ""
+				// DisplayName: Life Reserve Tank MK2
+				/* Tooltip:
+					'''
+					Stores up to 2 hearts picked up when at full health
+					Automatically uses the stored hearts to save you from death
+					''' */
 			}
 
 			ReserveTank3: {
-				// DisplayName: Reserve Tank3
-				// Tooltip: ""
+				// DisplayName: Life Reserve Tank MK3
+				/* Tooltip:
+					'''
+					Stores up to 3 hearts picked up when at full health
+					Automatically uses the stored hearts to save you from death
+					''' */
 			}
 
 			ReserveTank4: {
-				// DisplayName: Reserve Tank4
-				// Tooltip: ""
+				// DisplayName: Life Reserve Tank MK4
+				/* Tooltip:
+					'''
+					Stores up to 4 hearts picked up when at full health
+					Automatically uses the stored hearts to save you from death
+					''' */
 			}
 
 			ReserveTank5: {
-				// DisplayName: Reserve Tank5
-				// Tooltip: ""
+				// DisplayName: Life Reserve Tank MK5
+				/* Tooltip:
+					'''
+					Stores up to 5 hearts picked up when at full health
+					Automatically uses the stored hearts to save you from death
+					''' */
 			}
 
 			ScrewAttack: {
@@ -793,7 +813,7 @@ Mods: {
 			}
 
 			ChozoChest: {
-				// DisplayName: Chozo Chest
+				// DisplayName: Chozodian Chest
 				// Tooltip: ""
 			}
 
@@ -1971,17 +1991,17 @@ Mods: {
 			// Bull.DisplayName: Bull
 			// Covern.DisplayName: Covern
 			// Geemer.DisplayName: Geemer
-			// Geemer_75.DisplayName: Geemer_75
-			// Geemer_85.DisplayName: Geemer_85
+			// Geemer_75.DisplayName: Geemer
+			// Geemer_85.DisplayName: Geemer
 			// Owtch.DisplayName: Owtch
 			// Scisor.DisplayName: Scisor
 			// Sova.DisplayName: Sova
-			// Sova_75.DisplayName: Sova_75
-			// Sova_85.DisplayName: Sova_85
+			// Sova_75.DisplayName: Sova
+			// Sova_85.DisplayName: Sova
 			// Viola.DisplayName: Viola
 			// Zeela.DisplayName: Zeela
-			// Zeela_75.DisplayName: Zeela_75
-			// Zeela_85.DisplayName: Zeela_85
+			// Zeela_75.DisplayName: Zeela
+			// Zeela_85.DisplayName: Zeela
 			// Zero.DisplayName: Zero
 			// Choot.DisplayName: Choot
 			// Geruta.DisplayName: Geruta
@@ -1990,9 +2010,9 @@ Mods: {
 			// Skree.DisplayName: Skree
 			// Waver.DisplayName: Waver
 			// Dessgeega.DisplayName: Dessgeega
-			// Dessgeega_Large.DisplayName: Dessgeega_ Large
+			// Dessgeega_Large.DisplayName: Large_ Dessgeega
 			// Sidehopper.DisplayName: Sidehopper
-			// Sidehopper_Large.DisplayName: Sidehopper_ Large
+			// Sidehopper_Large.DisplayName: Large_Sidehopper
 			// LarvalMetroid.DisplayName: Larval Metroid
 			// Mochtroid.DisplayName: Mochtroid
 			// Multiviola.DisplayName: Multiviola

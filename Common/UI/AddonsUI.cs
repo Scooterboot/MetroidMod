@@ -197,10 +197,10 @@ namespace MetroidMod.Common.UI
 			}*/
 			if (reserveHoldingLClick)
 			{
-				if (mp.SuitReserves < mp.SuitReserveTanks * 100 && mp.Energy >= 1)
+				if (mp.SuitReserves < mp.SuitReserveTanks * 100 && mp.Energy >= 3)
 				{
-					mp.SuitReserves += 1;
-					mp.Energy -= 1;
+					mp.SuitReserves += 2;
+					mp.Energy -= 2;
 				}
 			}
 			if (reserveHoldingRClick)

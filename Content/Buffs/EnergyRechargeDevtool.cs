@@ -23,6 +23,7 @@ namespace MetroidMod.Content.Buffs
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			// should reserve hearts (not reserve tanks, those are different)
 			// still be recharged by this?
+			//yes -Dr
 			if ((player.statLife >= player.statLifeMax2 && mp.reserveHearts >= mp.reserveTanks) || player.controlJump || player.controlUseItem)
 			{
 				if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
