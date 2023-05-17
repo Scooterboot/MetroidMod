@@ -289,22 +289,24 @@ Mods: {
 		Items: {
 			HiJumpBoots: {
 				DisplayName: Hi Jump Boots
-				Tooltip: ""
+				Tooltip: "Increases jump height\n" + 
+			"Stacks with other jump height accessories"
 			}
 
 			HunterEmblem: {
 				DisplayName: Hunter Emblem
-				Tooltip: ""
+				Tooltip: "15% increased hunter damage"
 			}
 
 			MorphBall: {
 				DisplayName: Morph Ball
-				Tooltip: ""
+				Tooltip: "Equip and press the mount key to roll into a ball\n" + 
+			"Morph Ball's colors are based on your shirt and undershirt colors"
 			}
 
 			PowerGrip: {
 				DisplayName: Power Grip
-				Tooltip: ""
+				Tooltip: "Allows the user to grab onto ledges\n" + "Does not need to be equipped; works while in inventory"
 			}
 
 			ReserveTank: {
@@ -354,162 +356,338 @@ Mods: {
 
 			ScrewAttack: {
 				DisplayName: Screw Attack
-				Tooltip: ""
+				Tooltip: "Allows the user to double jump\n" + 
+			"Allows somersaulting\n" + 
+			"Damage enemies while someraulting\n" + 
+			"Damage scales off of enemy's contact damage\n" +
+			"Hold Left/Right and double jump to do a 'boost' ability"
 			}
 
 			ScrewSpaceBooster: {
 				DisplayName: Screw Space Booster
-				Tooltip: ""
+				Tooltip: "Allows the user to run insanely fast\n" +
+			"Allows somersaulting\n" +
+			"Damage enemies while running or somersaulting\n" +
+			"Damage scales off of enemy's contact damage\n" +
+			"Allows the user to jump up to 10 times in a row\n" +
+			"Jumps recharge mid-air\n" +
+			"Holding left/right while jumping midair gives a boost\n" +
+			"Increases jump height and prevents fall damage"
 			}
 
 			SpaceBooster: {
 				DisplayName: Space Booster
-				Tooltip: ""
+				Tooltip: "Allows the user to run insanely fast\n" + 
+			"Damage enemies while running\n" + 
+			"Damage scales off of enemy's contact damage\n" +
+			"Allows the user to jump up to 10 times in a row\n" + 
+			"Jumps recharge mid-air\n" + 
+			"Allows somersaulting\n" +
+			"Increases jump height and prevents fall damage"
 			}
 
 			SpaceJump: {
 				DisplayName: Space Jump
-				Tooltip: ""
+				Tooltip: "'Somersault continuously in the air!'\n" + 
+			"Allows somersaulting\n" + 
+			"Allows the user to jump up to 10 times in a row\n" + 
+			"Jumps recharge mid-air\n" +
+			"Increases jump height and prevents fall damage"
 			}
 
 			SpaceJumpBoots: {
 				DisplayName: Space Jump Boots
-				Tooltip: ""
+				Tooltip: "Allows the wearer to double jump\n" + 
+			"Allows somersaulting\n" +
+			"Increases jump height"
 			}
 
 			SpeedBooster: {
 				DisplayName: Speed Booster
-				Tooltip: ""
+				Tooltip: "Allows the user to run insanely fast\n" + 
+			"Damages enemies while running\n" +
+			"Damage scales off of enemy's contact damage\n" +
+			"While active, press DOWN to charge a Shine Spark\n" +
+			"Then press JUMP to activate the charge"
 			}
 
 			TerraBooster: {
 				DisplayName: Terra Booster
-				Tooltip: ""
+				Tooltip: "Allows the user to run insanely fast and extra mobility on ice\n" +
+			"Allows somersaulting\n" +
+			"Damage enemies while running or somersaulting\n" +
+			"Damage scales off of enemy's contact damage\n" +
+			"Allows the user to jump up to 10 times in a row\n" +
+			"Jumps recharge mid-air\n" +
+			"Holding left/right while jumping midair gives a boost\n" + 
+			"Provides the ability to walk on water and lava\n" + 
+			"Grants immunity to fire blocks and 7 seconds lava immunity\n" +
+			"Increases jump height and prevents fall damage"
 			}
 
 			ChargeBeamAddon: {
-				DisplayName: Charge Beam Addon
-				Tooltip: ""
+				DisplayName: Charge Beam
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Adds Charge Effect\n" + 
+			"~Charge by holding click\n" + 
+			"~Charge shots deal x3 damage, but overheat x2 the normal use"
 			}
 
 			BattleHammerAddon: {
-				DisplayName: Battle Hammer Addon
-				Tooltip: ""
+				DisplayName: Battle Hammer
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Charge\n" +
+				"Shots explode\n" +
+				string.Format("[c/BE7878:+100% overheat use]\n") +
+				string.Format("[c/BE7878:-40% speed]\n") +
+                string.Format("[c/BE7878:Cannot pierce walls or enemies]"
 			}
 
 			ImperialistAddon: {
-				DisplayName: Imperialist Addon
-				Tooltip: ""
+				DisplayName: Imperialist
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Charge\n" +
+				string.Format("[c/78BE78:+500% damage]\n") +
+				string.Format("[c/78BE78:Adds scope and stealth]\n") +
+				string.Format("[c/BE7878:+500% overheat use]\n") +
+				string.Format("[c/BE7878:Massive speed reduction]"
 			}
 
 			JudicatorAddon: {
-				DisplayName: Judicator Addon
-				Tooltip: ""
+				DisplayName: Judicator
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Charge\n" +
+				"Shots bounce\n" +
+				"Charge shots spray a freezing blast\n" +
+				string.Format("[c/78BE78:+45% damage]\n") +
+				string.Format("[c/BE7878:+125% overheat use]\n") +
+				string.Format("[c/BE7878:-45% speed]\n") +
+				string.Format("[c/BE7878:Cannot pierce walls]"
 			}
 
 			MagMaulAddon: {
-				DisplayName: Mag Maul Addon
-				Tooltip: ""
+				DisplayName: Mag Maul
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Charge\n" +
+				"Shots bounce and roll\n" +
+				"Charge shots explode and ignite\n" +
+				string.Format("[c/78BE78:+45% damage]\n") +
+				string.Format("[c/BE7878:-45% speed]\n") +
+				string.Format("[c/BE7878:+125% overheat use]\n") +
+				string.Format("[c/BE7878:Cannot freeze or pierce]"
 			}
 
 			OmegaCannonAddon: {
-				DisplayName: Omega Cannon Addon
-				Tooltip: ""
+				DisplayName: Omega Cannon
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Charge\n" +
+				string.Format("[c/78BE78:+900% damage]\n") +
+				string.Format("[c/BE7878:+1000% overheat use]\n") +
+				string.Format("[c/BE7878:Slow as the DMV]\n") +
+                string.Format("[c/BE7878:Cannot Pierce walls or enemies]"
 			}
 
 			ShockCoilAddon: {
-				DisplayName: Shock Coil Addon
-				Tooltip: ""
+				DisplayName: Shock Coil
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Charge\n" +
+				"Fires a short range electric charge that heals and restores energy when fully charged\n" +
+				"Charges on enemy damage and overheats when fully charged\n" +
+				//string.Format("[c/78BE78:+10% damage]\n") +
+				string.Format("[c/BE7878:Cannot pierce enemies]\n") +
+				string.Format("[c/BE7878:Cannot pseudo-screw]\n") +
+				string.Format("[c/BE7878:Probably still bugged]"
 			}
 
 			VoltDriverAddon: {
-				DisplayName: Volt Driver Addon
-				Tooltip: ""
+				DisplayName: Volt Driver
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Charge\n" +
+				"Charge shots home, explode, and confuse\n" +
+				string.Format("[c/78BE78:+10% damage]\n") +
+                string.Format("[c/BE7878:-10% speed]\n") +
+                string.Format("[c/BE7878:+100% overheat use]\n") +
+				string.Format("[c/BE7878:+10% noise]"
 			}
 
 			HyperBeamAddon: {
-				DisplayName: Hyper Beam Addon
-				Tooltip: ""
+				DisplayName: Hyper Beam
+				Tooltip: "Power Beam Addon\n" +
+			"Slot Type: Charge\n" +
+			"Increases base damage from 14 to 35, and base overheat use from 4 to 7\n" +
+			"Slightly decreases firerate\n" +
+			"Affected by addons regardless of version\n" + 
+			"Disables freeze and other debuff effects\n" +
+			"'Da babeh'"
 			}
 
 			IceBeamAddon: {
-				DisplayName: Ice Beam Addon
-				Tooltip: ""
+				DisplayName: Ice Beam
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Secondary\n" +
+				"Shots freeze enemies\n" + 
+				"~Each time the enemy is shot, they will become 20% slower\n" + 
+				"~After 5 shots the enemy will become completely frozen\n" + 
+				string.Format("[c/78BE78:+75% damage]\n") +
+				string.Format("[c/BE7878:+25% overheat use]\n") +
+				string.Format("[c/BE7878:-30% speed]"
 			}
 
 			PhazonBeamAddon: {
-				DisplayName: Phazon Beam Addon
-				Tooltip: ""
+				DisplayName: Phazon Beam
+				Tooltip: "Power Beam Addon\n" +
+			"Slot Type: Charge\n" +
+			"Decreases base damage from 14 to 6, and base overheat use from 4 to 1\n" +
+			"Dramatically increases firerate\n" +
+			"Affected by addons regardless of version\n" + 
+			"Disables freeze and other debuff effects\n" +
+			"Can only be used while wearing the Phazon Suit\n" +
+			"'It's made of pure Phazon energy!'"
 			}
 
 			PlasmaBeamGreenAddon: {
-				DisplayName: Plasma Beam Green Addon
-				Tooltip: ""
+				DisplayName: Plasma Beam Green
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+				"Slot Type: Primary B\n" +
+				"Shots pierce enemies\n" +
+				string.Format("[c/78BE78:+100% damage]\n") +
+				string.Format("[c/BE7878:+75% overheat use]\n") +
+				string.Format("[c/BE7878:-15% speed]"
 			}
 
 			PlasmaBeamRedAddon: {
-				DisplayName: Plasma Beam Red Addon
-				Tooltip: ""
+				DisplayName: Plasma Beam Red
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+				"Slot Type: Primary B\n" +
+				"Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed\n" +
+				string.Format("[c/78BE78:+100% damage]\n") +
+				string.Format("[c/BE7878:+75% overheat use]\n") +
+				string.Format("[c/BE7878:-15% speed]"
 			}
 
 			SpazerAddon: {
-				DisplayName: Spazer Addon
-				Tooltip: ""
+				DisplayName: Spazer Beam
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Primary A\n" +
+				"Beam fires 3 shots at once, effectively tripling its damage\n" +
+				string.Format("[c/78BE78:+25% damage]\n") +
+				string.Format("[c/BE7878:+50% overheat use]\n") +
+				string.Format("[c/78BE78:+15% speed]"
 			}
 
 			ChargeBeamV2Addon: {
-				DisplayName: Charge Beam V2 Addon
-				Tooltip: ""
+				DisplayName: Charge Beam V2
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+			"Slot Type: Charge\n" +
+			"Adds Charge Effect\n" + 
+			"~Charge by holding click\n" + 
+			"~Charge shots deal x4 damage, but overheat x2.5 the normal use"
 			}
 
 			IceBeamV2Addon: {
-				DisplayName: Ice Beam V2 Addon
-				Tooltip: ""
+				DisplayName: Ice Beam V2
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+				"Slot Type: Secondary\n" +
+				"Shots freeze enemies\n" + 
+				"~Each time the enemy is shot, they will become 20% slower\n" + 
+				"~After 5 shots the enemy will become completely frozen\n" + 
+				string.Format("[c/78BE78:+225% damage]\n") +
+				string.Format("[c/BE7878:+50% overheat use]\n") +
+				string.Format("[c/BE7878:-30% speed]"
 			}
 
 			NovaBeamAddon: {
-				DisplayName: Nova Beam Addon
-				Tooltip: ""
+				DisplayName: Nova Beam
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+			"Slot Type: Primary B\n" + 
+				"Shots pierce enemies\n" + 
+				"Shots set enemies ablaze with Cursed Fire, or Frost Burns them if Ice Beam is installed\n" + 
+				string.Format("[c/78BE78:+225% damage]\n") +
+				string.Format("[c/BE7878:+100% overheat use]\n") +
+				string.Format("[c/BE7878:-15% speed]"
 			}
 
 			WaveBeamV2Addon: {
-				DisplayName: Wave Beam V2 Addon
-				Tooltip: ""
+				DisplayName: Wave Beam V2
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+				"Slot Type: Utility\n" +
+				"Shots penetrate terrain by an extended depth\n" +
+				string.Format("[c/78BE78:+125% damage]\n") +
+				string.Format("[c/BE7878:+75% overheat use]"
 			}
 
 			WideBeamAddon: {
-				DisplayName: Wide Beam Addon
-				Tooltip: ""
+				DisplayName: Wide Beam
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+				"Slot Type: Primary A\n" +
+				"Beam fires 3 shots at once, effectively tripling its damage\n" +
+				string.Format("[c/78BE78:+100% damage]\n") +
+				string.Format("[c/BE7878:+75% overheat use]\n") +
+				string.Format("[c/78BE78:+15% speed]"
 			}
 
 			LuminiteBeamAddon: {
-				DisplayName: Luminite Beam Addon
-				Tooltip: ""
+				DisplayName: Luminite Beam
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+			"Slot Type: Charge\n" +
+			"Adds Charge Effect\n" + 
+			"~Charge by holding click\n" + 
+			"~Charge shots deal x5 damage, but overheat x3 the normal use"
 			}
 
 			NebulaBeamAddon: {
-				DisplayName: Nebula Beam Addon
-				Tooltip: ""
+				DisplayName: Nebula Beam
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+				"Slot Type: Utility\n" +
+				"Shots penetrate terrain by an extended depth\n" +
+				"Shots home in on enemies\n" +
+				string.Format("[c/78BE78:+225% damage]\n") +
+				string.Format("[c/BE7878:+100% overheat use"
 			}
 
 			SolarBeamAddon: {
-				DisplayName: Solar Beam Addon
-				Tooltip: ""
+				DisplayName: Solar Beam
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+				"Slot Type: Primary B\n" + 
+				"Shots pierce enemies\n" + 
+				"Shots set enemies ablaze with the Daybroken debuff\n" + 
+				string.Format("[c/78BE78:+300% damage]\n") +
+				string.Format("[c/BE7878:+150% overheat use]\n") +
+				string.Format("[c/BE7878:-15% speed]"
 			}
 
 			StardustBeamAddon: {
-				DisplayName: Stardust Beam Addon
-				Tooltip: ""
+				DisplayName: Stardust Beam
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+				"Slot Type: Secondary\n" +
+				"Shots freeze enemies\n" + 
+				"~Each time the enemy is shot, they will become 20% slower\n" + 
+				"~After 5 shots the enemy will become completely frozen\n" + 
+				string.Format("[c/78BE78:+260% damage]\n") +
+				string.Format("[c/BE7878:+50% overheat use]\n") +
+				string.Format("[c/BE7878:-30% speed]"
 			}
 
 			VortexBeamAddon: {
-				DisplayName: Vortex Beam Addon
-				Tooltip: ""
+				DisplayName: Vortex Beam
+				Tooltip: "string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+				"Slot Type: Primary A\n" +
+				"Beam fires 5 shots at once\n" +
+				string.Format("[c/78BE78:+150% damage]\n") +
+				string.Format("[c/BE7878:+100% overheat use]\n") +
+				string.Format("[c/78BE78:+25% speed]"
 			}
 
 			WaveBeamAddon: {
-				DisplayName: Wave Beam Addon
-				Tooltip: ""
+				DisplayName: Wave Beam
+				Tooltip: "string.Format("[c/9696FF:Power Beam Addon]\n") +
+				"Slot Type: Utility\n" +
+				"Shots penetrate terrain by a limited depth\n" +
+				string.Format("[c/78BE78:+50% damage]\n") +
+				string.Format("[c/BE7878:+50% overheat use]"
 			}
 
 			ChoziteBreastplate: {
@@ -529,17 +707,21 @@ Mods: {
 
 			PowerSuitBreastplate: {
 				DisplayName: Power Suit Breastplate
-				Tooltip: ""
+				Tooltip: "+15 overheat capacity\n" +
+			"10% decreased overheat use"
 			}
 
 			PowerSuitGreaves: {
 				DisplayName: Power Suit Greaves
-				Tooltip: ""
+				Tooltip: "Allows somersaulting & wall jumping\n" +
+			"Negates fall damage"
 			}
 
 			PowerSuitHelmet: {
 				DisplayName: Power Suit Helmet
-				Tooltip: ""
+				Tooltip: "10% increased hunter damage\n" +
+			"Emits light and grants improved night vision\n" +
+			"30% increased underwater breathing"
 			}
 
 			GoldenTorizoBag: {
@@ -614,7 +796,8 @@ Mods: {
 
 			Crucible: {
 				DisplayName: Crucible
-				Tooltip: ""
+				Tooltip: "A hellish blade of unknown origin.\n" +
+			"'Rip and Tear until it is done.'"
 			}
 
 			ChoziteBar: {
@@ -688,93 +871,172 @@ Mods: {
 			}
 
 			FlamethrowerAddon: {
-				DisplayName: Flamethrower Addon
-				Tooltip: ""
+				DisplayName: Flamethrower
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Fires a constant stream of fire at full charge\n" + 
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"
 			}
 
 			IceSpreaderAddon: {
-				DisplayName: Ice Spreader Addon
-				Tooltip: ""
+				DisplayName: Ice Spreader
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Charge shots cover terrain in ice on impact, freezing enemies\n" + 
+			"~Charge shots cost 10 missiles"
 			}
 
 			NebulaComboAddon: {
-				DisplayName: Nebula Combo Addon
-				Tooltip: ""
+				DisplayName: Nebula Combo
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Creates a tethered mass of Nebula energy that lashes at foes when fully charged\n" + 
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"
 			}
 
 			NovaComboAddon: {
-				DisplayName: Nova Combo Addon
-				Tooltip: ""
+				DisplayName: Nova Combo
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Fires a continuous laser beam of Nova energy at full charge\n" + 
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"
 			}
 
 			PlasmaMachinegunAddon: {
-				DisplayName: Plasma Machinegun Addon
-				Tooltip: ""
+				DisplayName: Plasma Machinegun
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Rapidly fires piercing projectiles at full charge\n" + 
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"
 			}
 
 			SolarComboAddon: {
-				DisplayName: Solar Combo Addon
-				Tooltip: ""
+				DisplayName: Solar Combo
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Fires a continuous laser beam of Solar energy at full charge\n" + 
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"
 			}
 
 			SpazerComboAddon: {
-				DisplayName: Spazer Combo Addon
-				Tooltip: ""
+				DisplayName: Spazer Combo
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Fires a spray of 5 missiles\n" + 
+			"~Costs 5 missiles"
 			}
 
 			StardustComboAddon: {
-				DisplayName: Stardust Combo Addon
-				Tooltip: ""
+				DisplayName: Stardust Combo
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Charge shots create 8 Stardust Dragons on impact that spiral outward, covering terrain in ice which freezes foes\n" + 
+			"~Additionally a Stardust Guardian spawns at the center which attacks any enemy caught in the ice\n" + 
+			"~Charge shots cost 10 missiles\n" +
+			"Both the ice and the Guardian last 20 seconds"
 			}
 
 			VortexComboAddon: {
-				DisplayName: Vortex Combo Addon
-				Tooltip: ""
+				DisplayName: Vortex Combo
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Fires vortexes that orbit the player at full charge\n" + 
+			"~Each vortex fires a blast after 2 seconds\n" + 
+			"~Releasing the charge makes all vortexes immediately fire\n" + 
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"
 			}
 
 			WavebusterAddon: {
-				DisplayName: Wavebuster Addon
-				Tooltip: ""
+				DisplayName: Wavebuster
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Fires a constant stream of electricity at full charge\n" + 
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"
 			}
 
 			DiffusionMissileAddon: {
-				DisplayName: Diffusion Missile Addon
-				Tooltip: ""
+				DisplayName: Diffusion Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Hold Click to charge\n" + 
+			"~Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies\n" + 
+			"~Charge shots and flares deal 3x damage\n" +
+			"~Costs 5 missiles"
 			}
 
 			HomingMissileAddon: {
-				DisplayName: Homing Missile Addon
-				Tooltip: ""
+				DisplayName: Homing Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Fires a double-damage homing missile\n" +
+			"Costs 1 Missile"
 			}
 
 			IceMissileAddon: {
-				DisplayName: Ice Missile Addon
-				Tooltip: ""
+				DisplayName: Ice Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Primary\n" +
+			"Shots freeze enemies instantly\n" + 
+			string.Format("[c/78BE78:+50% damage]"
 			}
 
 			IceSuperMissileAddon: {
-				DisplayName: Ice Super Missile Addon
-				Tooltip: ""
+				DisplayName: Ice Super Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Primary\n" +
+			"Shots are more powerful and create a larger explosion\n" + 
+			"Shots freeze enemies instantly\n" + 
+			string.Format("[c/78BE78:+250% damage]\n") +
+			string.Format("[c/BE7878:-50% speed]"
 			}
 
 			NebulaMissileAddon: {
-				DisplayName: Nebula Missile Addon
-				Tooltip: ""
+				DisplayName: Nebula Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Primary\n" +
+			"Shots are more powerful and create a larger explosion\n" + 
+			"Shots create lingering masses of Nebula energy on impact that continually damage foes\n" + 
+			string.Format("[c/78BE78:+400% damage]\n") +
+			string.Format("[c/BE7878:-50% speed]"
 			}
 
 			SeekerMissileAddon: {
-				DisplayName: Seeker Missile Addon
-				Tooltip: ""
+				DisplayName: Seeker Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Charge\n" +
+			"Fires missiles at multiple targets simultaneously\n" + 
+			"Hold click to lock on to targets, and release to fire\n" + 
+			"Can lock on to a maximum of 5 targets\n" + 
+			"Consumes the appropriate number of missiles"
 			}
 
 			StardustMissileAddon: {
-				DisplayName: Stardust Missile Addon
-				Tooltip: ""
+				DisplayName: Stardust Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Primary\n" +
+			"Shots are more powerful and create a larger explosion\n" + 
+			"Shots freeze enemies instantly\n" + 
+			string.Format("[c/78BE78:+400% damage]\n") +
+			string.Format("[c/BE7878:-50% speed]"
 			}
 
 			SuperMissileAddon: {
-				DisplayName: Super Missile Addon
-				Tooltip: ""
+				DisplayName: Super Missile
+				Tooltip: "string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			"Slot Type: Primary\n" +
+			"Shots are more powerful and create a larger explosion\n" + 
+			string.Format("[c/78BE78:+200% damage]\n") +
+			string.Format("[c/BE7878:-50% speed]"
 			}
 
 			ArcticPlating: {
@@ -1729,242 +1991,384 @@ Mods: {
 
 			ChoziteCrossbow: {
 				DisplayName: Chozite Crossbow
-				Tooltip: ""
+				Tooltip: "Fires two arrows in rapid succession"
 			}
 
 			ChoziteShortsword: {
 				DisplayName: Chozite Shortsword
-				Tooltip: ""
+				Tooltip: "Right click for a backwards hop"
 			}
 
 			ChoziteSword: {
 				DisplayName: Chozite Sword
-				Tooltip: ""
+				Tooltip: "Right click for a lunge that deals extra knocback"
 			}
 
 			CopperParalyzer: {
 				DisplayName: Copper Paralyzer
-				Tooltip: ""
+				Tooltip: "Resembles Chozo sidearm"
 			}
 
 			MissileLauncher: {
 				DisplayName: Missile Launcher
-				Tooltip: ""
+				Tooltip: "Select this item in your hotbar and open your inventory to open the Missile Addon UI"
 			}
 
 			Paralyzer: {
 				DisplayName: Paralyzer
-				Tooltip: ""
+				Tooltip: "'A gift of the Chozo'"
 			}
 
 			PowerBeam: {
 				DisplayName: Power Beam
-				Tooltip: ""
+				Tooltip: "Select this item in your hotbar and open your inventory to open the Beam Addon UI"
 			}
 
 			BetsyBombAddon: {
-				DisplayName: Betsy Bomb Addon
-				Tooltip: ""
+				DisplayName: Betsy Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Explodes in defense reducing miasma that also sets enemies on fire"
 			}
 
 			BombAddon: {
-				DisplayName: Bomb Addon
-				Tooltip: ""
+				DisplayName: Morph Ball Bombs
+				Tooltip: "-Right Click to set off a bomb"
 			}
 
 			BoostBallAddon: {
-				DisplayName: Boost Ball Addon
-				Tooltip: ""
+				DisplayName: Boost Ball
+				Tooltip: "-Hold Boost Ball Key to charge a speed boost\n" +
+			"-Release the key to accelerate in the direction you are moving"
 			}
 
 			CrystalBombAddon: {
-				DisplayName: Crystal Bomb Addon
-				Tooltip: ""
+				DisplayName: Crystal Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Fires off Crystal shards on detonation"
 			}
 
 			CursedFlameBombAddon: {
-				DisplayName: Cursed Flame Bomb Addon
-				Tooltip: ""
+				DisplayName: Cursed Flame Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Burns enemies with Cursed Flames"
 			}
 
 			DrillAddon: {
-				DisplayName: Drill Addon
-				Tooltip: ""
+				DisplayName: Drill
+				Tooltip: "~Left Click while morphed to drill\n" +
+			"uses held pickaxe/drill\n" +
+			//"~60% pickaxe power\n" +
+			//"Can mine Meteorite\n" +
+			string.Format("[c/78BE78:Requires Morph Ball to use]"
 			}
 
 			FireBombAddon: {
-				DisplayName: Fire Bomb Addon
-				Tooltip: ""
+				DisplayName: Fire Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Sets enemies on fire"
 			}
 
 			FrostburnBombAddon: {
-				DisplayName: Frostburn Bomb Addon
-				Tooltip: ""
+				DisplayName: Frostburn Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Frostburns enemies"
 			}
 
 			IchorBombAddon: {
-				DisplayName: Ichor Bomb Addon
-				Tooltip: ""
+				DisplayName: Ichor Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Decreases enemy defense"
 			}
 
 			PhazonBombAddon: {
-				DisplayName: Phazon Bomb Addon
-				Tooltip: ""
+				DisplayName: Phazon Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Inflicts enemies with Phazon radiation poisoning"
 			}
 
 			PoisonBombAddon: {
-				DisplayName: Poison Bomb Addon
-				Tooltip: ""
+				DisplayName: Poison Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Poisons foes"
 			}
 
 			PowerBombAddon: {
-				DisplayName: Power Bomb Addon
-				Tooltip: ""
+				DisplayName: Power Bomb
+				Tooltip: "-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)\n" +
+			"-Power Bombs create large explosions that vacuum in items afterwards\n" +
+			"-Power Bombs ignore 50% of enemy defense and can deal ~1400 damage total"
 			}
 
 			PumpkinBombAddon: {
-				DisplayName: Pumpkin Bomb Addon
-				Tooltip: ""
+				DisplayName: Pumpkin Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Fires off Jack 'O Lanterns on detonation\n" +
+			"'I took a grenade to the face, dude!'"
 			}
 
 			ShadowflameBombAddon: {
-				DisplayName: Shadowflame Bomb Addon
-				Tooltip: ""
+				DisplayName: Shadowflame Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Inflicts enemies with Shadowflame"
 			}
 
 			SolarBombAddon: {
-				DisplayName: Solar Bomb Addon
-				Tooltip: ""
+				DisplayName: Solar Bomb
+				Tooltip: "-Press the Power Bomb Key to set off a Solar Bomb (20 second cooldown)\n" +
+			"-Solar Bombs create massive explosions which burn enemies and vacuum in items afterwards\n" +
+			"-Solar Bombs ignore 50% of enemy defense and can deal ~7400 damage total"
 			}
 
 			SolarFireBombAddon: {
-				DisplayName: Solar Fire Bomb Addon
-				Tooltip: ""
+				DisplayName: Solar Fire Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Burns foes with the fury of the sun"
 			}
 
 			SpiderBallAddon: {
-				DisplayName: Spider Ball Addon
-				Tooltip: ""
+				DisplayName: Spider Ball
+				Tooltip: "-Press the Spider Ball Key to activate Spider Ball\n" +
+			"-Allows you to climb on walls and ceilings"
 			}
 
 			VenomBombAddon: {
-				DisplayName: Venom Bomb Addon
-				Tooltip: ""
+				DisplayName: Venom Morph Ball Bombs
+				Tooltip: "-Right click to set off a bomb\n" +
+			"Inflicts enemies with Acid Venom"
 			}
 
 			VortexBombAddon: {
-				DisplayName: Vortex Bomb Addon
-				Tooltip: ""
+				DisplayName: Vortex Bomb
+				Tooltip: "-Press the Power Bomb Key to set off a Vortex Bomb (20 second cooldown)\n" +
+			"-Vortex Bombs create massive explosions which vacuum in foes and items\n" +
+			"-Vortex Bombs can deal ~1400 damage total"
 			}
 
 			DarkSuitAddonAddon: {
-				DisplayName: Dark Suit Addon Addon
-				Tooltip: ""
+				DisplayName: Dark Suit
+				Tooltip: "You shouldn't have this."/*"+9 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"3% increased hunter critical strike chance\n" +
+				"15% increased energy barrier efficiency\n" + // Provisional name
+				"7.5% increased energy barrier resilience\n" + // Provisional name
+				"Reduces damage from the Dark World"
 			}
 
 			EnergyTankAddon: {
-				DisplayName: Energy Tank Addon
-				Tooltip: ""
+				DisplayName: Energy Tank
+				Tooltip: "Grants the user an extra tank of energy"
 			}
 
 			GravitySuitAddonAddon: {
-				DisplayName: Gravity Suit Addon Addon
-				Tooltip: ""
+				DisplayName: Gravity Suit
+				Tooltip: "+9 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"3% increased hunter critical strike chance\n" +
+				"15% increased energy barrier efficiency\n" + // Provisional name
+				"7.5% increased energy barrier resilience\n" + // Provisional name
+				"Infinite breath underwater\n" +
+				"Immune to knockback\n" +
+				"Free movement in liquid\n" +
+				"Grants 7 seconds of lava immunity"
 			}
 
 			HazardShieldAddonAddon: {
-				DisplayName: Hazard Shield Addon Addon
-				Tooltip: ""
+				DisplayName: Hazard Shield
+				Tooltip: "You shouldn't have this."/*"+10 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance\n" +
+				"10% increased movement speed\n" +
+				"25% increased energy barrier efficiency\n" + // Provisional name
+				"10% increased energy barrier resilience\n" + // Provisional name
+				"Debuffs tick down twice as fast"
 			}
 
 			HiJumpBootsAddon: {
-				DisplayName: Hi Jump Boots Addon
-				Tooltip: ""
+				DisplayName: Hi Jump Boots
+				Tooltip: "Increases jump height\n" +
+			"Stacks with other jump height accessories"
 			}
 
 			LightSuitAddonAddon: {
-				DisplayName: Light Suit Addon Addon
-				Tooltip: ""
+				DisplayName: Light Suit
+				Tooltip: "You shouldn't have this."/*"+10 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance\n" +
+				"10% increased movement speed\n" +
+				"25% increased energy barrier efficiency\n" + // Provisional name
+				"10% increased energy barrier resilience\n" + // Provisional name
+				"Immune to damage from the Dark World\n" +
+				"Immune to damage from Dark Water"
 			}
 
 			NebulaAugmentAddon: {
-				DisplayName: Nebula Augment Addon
-				Tooltip: ""
+				DisplayName: Nebula Augment
+				Tooltip: "+10 defense\n" +
+				"+25 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance"
 			}
 
 			PEDSuitAddonAddon: {
-				DisplayName: P E D Suit Addon Addon
-				Tooltip: ""
+				DisplayName: P E D Suit
+				Tooltip: "You shouldn't have this."/*"+9 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"3% increased hunter critical strike chance\n" +
+				"5% increased energy barrier efficiency\n" + // Provisional name
+				"7.5% increased energy barrier resilience\n" + // Provisional name
+				"Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)\n" +
+				"Slightly increased health regen when standing on Phazon"
 			}
 
 			PhazonSuitAddonAddon: {
-				DisplayName: Phazon Suit Addon Addon
-				Tooltip: ""
+				DisplayName: Phazon Suit
+				Tooltip: "+10 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance\n" +
+				"10% increased movement speed\n" +
+				"15% increased energy barrier efficiency\n" + // Provisional name
+				"10% increased energy barrier resilience\n" + // Provisional name
+				"Immune to damage caused by blue Phazon blocks\n" +
+				"Enables Phazon Beam use"
 			}
 
 			PowerGripAddon: {
-				DisplayName: Power Grip Addon
-				Tooltip: ""
+				DisplayName: Power Grip
+				Tooltip: "Allows the user to grab onto ledges\nDoes not need to be equipped; works while in inventory"
 			}
 
 			ReserveTankAddon: {
-				DisplayName: Reserve Tank Addon
-				Tooltip: ""
+				DisplayName: Reserve Tank
+				Tooltip: "Can store a spare tank of energy"
 			}
 
 			ScanVisorAddon: {
-				DisplayName: Scan Visor Addon
-				Tooltip: ""
+				DisplayName: Scan Visor
+				Tooltip: "Fills in the Bestiary entries of npcs you look at"
 			}
 
 			ScrewAttackAddon: {
-				DisplayName: Screw Attack Addon
-				Tooltip: ""
+				DisplayName: Screw Attack
+				Tooltip: "Allows the user to double jump\n" +
+				"Allows somersaulting\n" +
+				"Damage enemies while someraulting\n" +
+				"Damage scales off of enemy's contact damage\n" +
+				"Hold Left/Right and double jump to do a 'boost' ability"
 			}
 
 			SolarAugmentAddon: {
-				DisplayName: Solar Augment Addon
-				Tooltip: ""
+				DisplayName: Solar Augment
+				Tooltip: "You shouldn't have this."/*"+10 defense\n" +
+				"+25 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance\n" +
+				"20% increased energy barrier efficiency\n" + // Provisional name
+				"15% increased energy barrier resilience\n" + // Provisional name
+				"Immune to damage from the Dark World\n" +
+				"Immune to damage from Dark Water"
 			}
 
 			SpaceJumpAddon: {
-				DisplayName: Space Jump Addon
-				Tooltip: ""
+				DisplayName: Space Jump
+				Tooltip: "'Somersault continuously in the air!'\n" +
+				"Allows somersaulting\n" +
+				"Allows the user to jump up to 10 times in a row\n" +
+				"Jumps recharge mid-air\n" +
+				"Increases jump height and prevents fall damage"
 			}
 
 			SpaceJumpBootsAddon: {
-				DisplayName: Space Jump Boots Addon
-				Tooltip: ""
+				DisplayName: Space Jump Boots
+				Tooltip: "Allows the wearer to double jump\n" +
+				"Allows somersaulting"
 			}
 
 			SpeedBoosterAddon: {
-				DisplayName: Speed Booster Addon
-				Tooltip: ""
+				DisplayName: Speed Booster
+				Tooltip: "Allows the user to run insanely fast\n" +
+				"Damages enemies while running\n" +
+				"Damage scales off of enemy's contact damage\n" +
+				"While active, press DOWN to charge a Shine Spark\n" +
+				"Then press JUMP to activate the charge"
 			}
 
 			TerraGravitySuitAddonAddon: {
-				DisplayName: Terra Gravity Suit Addon Addon
-				Tooltip: ""
+				DisplayName: Terra Gravity Suit
+				Tooltip: "+10 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance\n" +
+				"10% increased movement speed\n" +
+				"15% increased energy barrier efficiency\n" + // Provisional name
+				"10% increased energy barrier resilience\n" + // Provisional name
+				"Grants 7 seconds of lava immunity\n" +
+				"Default gravity in space\n" +
+				"Immune to Distorted and Amplified Gravity effects"
 			}
 
 			VariaSuitAddonAddon: {
-				DisplayName: Varia Suit Addon Addon
-				Tooltip: ""
+				DisplayName: Varia Suit
+				Tooltip: "+6 defense\n" +
+				"+15 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance\n" +
+				"55% increased underwater breathing\n" +
+				"10% increased movement speed\n" +
+				"10% increased energy barrier efficiency\n" + // Provisional name
+				"20% increased energy barrier resilience\n" + // Provisional name
+				"Immunity to fire blocks" + "\n" + 
+				"Immunity to chill and freeze effects"
 			}
 
 			VariaSuitV2AddonAddon: {
-				DisplayName: Varia Suit V2 Addon Addon
-				Tooltip: ""
+				DisplayName: Varia Suit V2
+				Tooltip: "10 defense\n" +
+				"+25 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance"
 			}
 
 			VortexAugmentAddon: {
-				DisplayName: Vortex Augment Addon
-				Tooltip: ""
+				DisplayName: Vortex Augment
+				Tooltip: "+10 defense\n" +
+				"+25 overheat capacity\n" +
+				"5% decreased overheat use\n" +
+				"5% decreased Missile Charge Combo cost\n" +
+				"5% increased hunter damage\n" +
+				"5% increased hunter critical strike chance"
 			}
 
 			XRayScopeAddon: {
-				DisplayName: X Ray Scope Addon
-				Tooltip: ""
+				DisplayName: X Ray Scope
+				Tooltip: "Projects a wide ray of light if you are standing still"
 			}
 		}
 
