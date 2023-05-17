@@ -368,9 +368,9 @@ Mods: {
 				DisplayName: Screw Attack
 				Tooltip:
 					'''
-					Allows the user to double jump 
-					Allows somersaulting 
-					Damage enemies while someraulting 
+					Allows the user to double jump
+					Allows somersaulting
+					Damage enemies while someraulting
 					Damage scales off of enemy's contact damage
 					Hold Left/Right and double jump to do a 'boost' ability
 					'''
@@ -395,11 +395,11 @@ Mods: {
 				DisplayName: Space Booster
 				Tooltip:
 					'''
-					Allows the user to run insanely fast 
-					Damage enemies while running 
+					Allows the user to run insanely fast
+					Damage enemies while running
 					Damage scales off of enemy's contact damage
-					Allows the user to jump up to 10 times in a row 
-					Jumps recharge mid-air 
+					Allows the user to jump up to 10 times in a row
+					Jumps recharge mid-air
 					Allows somersaulting
 					Increases jump height and prevents fall damage
 					'''
@@ -409,9 +409,9 @@ Mods: {
 				DisplayName: Space Jump
 				Tooltip:
 					'''
-					'Somersault continuously in the air!' 
-					Allows somersaulting 
-					Allows the user to jump up to 10 times in a row 
+					'Somersault continuously in the air!'
+					Allows somersaulting
+					Allows the user to jump up to 10 times in a row
 					Jumps recharge mid-air
 					Increases jump height and prevents fall damage
 					'''
@@ -421,7 +421,7 @@ Mods: {
 				DisplayName: Space Jump Boots
 				Tooltip:
 					'''
-					Allows the wearer to double jump 
+					Allows the wearer to double jump
 					Allows somersaulting
 					Increases jump height
 					'''
@@ -431,7 +431,7 @@ Mods: {
 				DisplayName: Speed Booster
 				Tooltip:
 					'''
-					Allows the user to run insanely fast 
+					Allows the user to run insanely fast
 					Damages enemies while running
 					Damage scales off of enemy's contact damage
 					While active, press DOWN to charge a Shine Spark
@@ -449,8 +449,8 @@ Mods: {
 					Damage scales off of enemy's contact damage
 					Allows the user to jump up to 10 times in a row
 					Jumps recharge mid-air
-					Holding left/right while jumping midair gives a boost 
-					Provides the ability to walk on water and lava 
+					Holding left/right while jumping midair gives a boost
+					Provides the ability to walk on water and lava
 					Grants immunity to fire blocks and 7 seconds lava immunity
 					Increases jump height and prevents fall damage
 					'''
@@ -460,24 +460,24 @@ Mods: {
 				DisplayName: Charge Beam
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
-					Adds Charge Effect 
-					Charge by holding click 
-					Charge shots deal x3 damage, but overheat x2 the normal use
+					Adds Charge Effect
+					~Charge by holding click
+					~Charge shots deal x3 damage, but overheat x2 the normal use
 					'''
 			}
 
 			BattleHammerAddon: {
-				DisplayName: BattleHammer
+				DisplayName: Battle Hammer
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
 					Shots explode
-					[c/BE7878:+100% overheat use]
-					[c/BE7878:-40% speed]
-					[c/BE7878:Cannot pierce walls or enemies]
+					string.Format([c/BE7878:+100% overheat use])
+					string.Format([c/BE7878:-40% speed])
+					            string.Format([c/BE7878:Cannot pierce walls or enemies]
 					'''
 			}
 
@@ -485,12 +485,12 @@ Mods: {
 				DisplayName: Imperialist
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
-					[c/78BE78:+500% damage]
-					[c/78BE78:Adds scope and stealth]
-					[c/BE7878:+500% overheat use]
-					[c/BE7878:Massive speed reduction]
+					string.Format([c/78BE78:+500% damage])
+					string.Format([c/78BE78:Adds scope and stealth])
+					string.Format([c/BE7878:+500% overheat use])
+					string.Format([c/BE7878:Massive speed reduction]
 					'''
 			}
 
@@ -498,14 +498,14 @@ Mods: {
 				DisplayName: Judicator
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
 					Shots bounce
 					Charge shots spray a freezing blast
-					[c/78BE78:+45% damage]
-					[c/BE7878:+125% overheat use]
-					[c/BE7878:-45% speed]
-					[c/BE7878:Cannot pierce walls]
+					string.Format([c/78BE78:+45% damage])
+					string.Format([c/BE7878:+125% overheat use])
+					string.Format([c/BE7878:-45% speed])
+					string.Format([c/BE7878:Cannot pierce walls]
 					'''
 			}
 
@@ -513,14 +513,14 @@ Mods: {
 				DisplayName: Mag Maul
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
 					Shots bounce and roll
 					Charge shots explode and ignite
-					[c/78BE78:+45% damage]
-					[c/BE7878:-45% speed]
-					[c/BE7878:+125% overheat use]
-					[c/BE7878:Cannot freeze or pierce]
+					string.Format([c/78BE78:+45% damage])
+					string.Format([c/BE7878:-45% speed])
+					string.Format([c/BE7878:+125% overheat use])
+					string.Format([c/BE7878:Cannot freeze or pierce]
 					'''
 			}
 
@@ -528,12 +528,12 @@ Mods: {
 				DisplayName: Omega Cannon
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
-					[c/78BE78:+900% damage]
-					[c/BE7878:+1000% overheat use]
-					[c/BE7878:Slow as the DMV]
-					[c/BE7878:Cannot Pierce walls or enemies]
+					string.Format([c/78BE78:+900% damage])
+					string.Format([c/BE7878:+1000% overheat use])
+					string.Format([c/BE7878:Slow as the DMV])
+					            string.Format([c/BE7878:Cannot Pierce walls or enemies]
 					'''
 			}
 
@@ -541,13 +541,14 @@ Mods: {
 				DisplayName: Shock Coil
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
 					Fires a short range electric charge that heals and restores energy when fully charged
 					Charges on enemy damage and overheats when fully charged
-					[c/BE7878:Cannot pierce enemies]
-					[c/BE7878:Cannot pseudo-screw]
-					[c/BE7878:Probably still bugged]
+					//string.Format([c/78BE78:+10% damage])
+					string.Format([c/BE7878:Cannot pierce enemies])
+					string.Format([c/BE7878:Cannot pseudo-screw])
+					string.Format([c/BE7878:Probably still bugged]
 					'''
 			}
 
@@ -555,13 +556,13 @@ Mods: {
 				DisplayName: Volt Driver
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Charge
 					Charge shots home, explode, and confuse
-					[c/78BE78:+10% damage]
-					[c/BE7878:-10% speed]
-					[c/BE7878:+100% overheat use]
-					[c/BE7878:+10% noise]
+					string.Format([c/78BE78:+10% damage])
+					            string.Format([c/BE7878:-10% speed])
+					            string.Format([c/BE7878:+100% overheat use])
+					string.Format([c/BE7878:+10% noise]
 					'''
 			}
 
@@ -583,14 +584,14 @@ Mods: {
 				DisplayName: Ice Beam
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Secondary
-					Shots freeze enemies
-					Each time the enemy is shot, they will become 20% slower
-					After 5 shots the enemy will become completely frozen
-					[c/78BE78:+75% damage]
-					[c/BE7878:+25% overheat use]
-					[c/BE7878:-30% speed]
+					Shots freeze enemies 
+					~Each time the enemy is shot, they will become 20% slower 
+					~After 5 shots the enemy will become completely frozen 
+					string.Format([c/78BE78:+75% damage])
+					string.Format([c/BE7878:+25% overheat use])
+					string.Format([c/BE7878:-30% speed]
 					'''
 			}
 
@@ -602,10 +603,10 @@ Mods: {
 					Slot Type: Charge
 					Decreases base damage from 14 to 6, and base overheat use from 4 to 1
 					Dramatically increases firerate
-					Affected by addons regardless of version 
+					Affected by addons regardless of version
 					Disables freeze and other debuff effects
 					Can only be used while wearing the Phazon Suit
-					'It's made of pure Phazon energy!
+					'It's made of pure Phazon energy!'
 					'''
 			}
 
@@ -613,13 +614,13 @@ Mods: {
 				DisplayName: Plasma Beam Green
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
-					[c/FF9696:Power Beam Addon V2]
+					string.Format([c/9696FF:Power Beam Addon])
+					string.Format([c/FF9696:Power Beam Addon V2])
 					Slot Type: Primary B
 					Shots pierce enemies
-					[c/78BE78:+100% damage]
-					[c/BE7878:+75% overheat use]
-					[c/BE7878:-15% speed]
+					string.Format([c/78BE78:+100% damage])
+					string.Format([c/BE7878:+75% overheat use])
+					string.Format([c/BE7878:-15% speed]
 					'''
 			}
 
@@ -627,13 +628,13 @@ Mods: {
 				DisplayName: Plasma Beam Red
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
-					[c/FF9696:Power Beam Addon V2]
+					string.Format([c/9696FF:Power Beam Addon])
+					string.Format([c/FF9696:Power Beam Addon V2])
 					Slot Type: Primary B
 					Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed
-					[c/78BE78:+100% damage]
-					[c/BE7878:+75% overheat use]
-					[c/BE7878:-15% speed]
+					string.Format([c/78BE78:+100% damage])
+					string.Format([c/BE7878:+75% overheat use])
+					string.Format([c/BE7878:-15% speed]
 					'''
 			}
 
@@ -641,12 +642,12 @@ Mods: {
 				DisplayName: Spazer Beam
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Primary A
 					Beam fires 3 shots at once, effectively tripling its damage
-					[c/78BE78:+25% damage]
-					[c/BE7878:+50% overheat use]
-					[c/78BE78:+15% speed]
+					string.Format([c/78BE78:+25% damage])
+					string.Format([c/BE7878:+50% overheat use])
+					string.Format([c/78BE78:+15% speed]
 					'''
 			}
 
@@ -654,11 +655,11 @@ Mods: {
 				DisplayName: Charge Beam V2
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V2]
+					string.Format([c/FF9696:Power Beam Addon V2])
 					Slot Type: Charge
 					Adds Charge Effect
-					Charge by holding click
-					Charge shots deal x4 damage, but overheat x2.5 the normal use
+					~Charge by holding click
+					~Charge shots deal x4 damage, but overheat x2.5 the normal use
 					'''
 			}
 
@@ -666,14 +667,14 @@ Mods: {
 				DisplayName: Ice Beam V2
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V2]
+					string.Format([c/FF9696:Power Beam Addon V2])
 					Slot Type: Secondary
 					Shots freeze enemies 
-					Each time the enemy is shot, they will become 20% slower 
-					After 5 shots the enemy will become completely frozen 
-					[c/78BE78:+225% damage]
-					[c/BE7878:+50% overheat use]
-					[c/BE7878:-30% speed]
+					~Each time the enemy is shot, they will become 20% slower 
+					~After 5 shots the enemy will become completely frozen 
+					string.Format([c/78BE78:+225% damage])
+					string.Format([c/BE7878:+50% overheat use])
+					string.Format([c/BE7878:-30% speed]
 					'''
 			}
 
@@ -681,13 +682,13 @@ Mods: {
 				DisplayName: Nova Beam
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V2]
+					string.Format([c/FF9696:Power Beam Addon V2])
 					Slot Type: Primary B 
 					Shots pierce enemies 
 					Shots set enemies ablaze with Cursed Fire, or Frost Burns them if Ice Beam is installed 
-					[c/78BE78:+225% damage]
-					[c/BE7878:+100% overheat use]
-					[c/BE7878:-15% speed]
+					string.Format([c/78BE78:+225% damage])
+					string.Format([c/BE7878:+100% overheat use])
+					string.Format([c/BE7878:-15% speed]
 					'''
 			}
 
@@ -695,11 +696,11 @@ Mods: {
 				DisplayName: Wave Beam V2
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V2]
+					string.Format([c/FF9696:Power Beam Addon V2])
 					Slot Type: Utility
 					Shots penetrate terrain by an extended depth
-					[c/78BE78:+125% damage]
-					[c/BE7878:+75% overheat use]
+					string.Format([c/78BE78:+125% damage])
+					string.Format([c/BE7878:+75% overheat use]
 					'''
 			}
 
@@ -707,12 +708,12 @@ Mods: {
 				DisplayName: Wide Beam
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V2]
+					string.Format([c/FF9696:Power Beam Addon V2])
 					Slot Type: Primary A
 					Beam fires 3 shots at once, effectively tripling its damage
-					[c/78BE78:+100% damage]
-					[c/BE7878:+75% overheat use]
-					[c/78BE78:+15% speed]
+					string.Format([c/78BE78:+100% damage])
+					string.Format([c/BE7878:+75% overheat use])
+					string.Format([c/78BE78:+15% speed]
 					'''
 			}
 
@@ -720,11 +721,11 @@ Mods: {
 				DisplayName: Luminite Beam
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V3]
+					string.Format([c/FF9696:Power Beam Addon V3])
 					Slot Type: Charge
-					Adds Charge Effect 
-					Charge by holding click 
-					Charge shots deal x5 damage, but overheat x3 the normal use
+					Adds Charge Effect
+					~Charge by holding click
+					~Charge shots deal x5 damage, but overheat x3 the normal use
 					'''
 			}
 
@@ -732,12 +733,12 @@ Mods: {
 				DisplayName: Nebula Beam
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V3]
+					string.Format([c/FF9696:Power Beam Addon V3])
 					Slot Type: Utility
 					Shots penetrate terrain by an extended depth
 					Shots home in on enemies
-					[c/78BE78:+225% damage]
-					[c/BE7878:+100% overheat use]
+					string.Format([c/78BE78:+225% damage])
+					string.Format([c/BE7878:+100% overheat use
 					'''
 			}
 
@@ -745,13 +746,13 @@ Mods: {
 				DisplayName: Solar Beam
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V3]
+					string.Format([c/FF9696:Power Beam Addon V3])
 					Slot Type: Primary B 
 					Shots pierce enemies 
 					Shots set enemies ablaze with the Daybroken debuff 
-					[c/78BE78:+300% damage]
-					[c/BE7878:+150% overheat use]
-					[c/BE7878:-15% speed]
+					string.Format([c/78BE78:+300% damage])
+					string.Format([c/BE7878:+150% overheat use])
+					string.Format([c/BE7878:-15% speed]
 					'''
 			}
 
@@ -759,14 +760,14 @@ Mods: {
 				DisplayName: Stardust Beam
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V3]
+					string.Format([c/FF9696:Power Beam Addon V3])
 					Slot Type: Secondary
 					Shots freeze enemies 
-					Each time the enemy is shot, they will become 20% slower 
-					After 5 shots the enemy will become completely frozen 
-					[c/78BE78:+260% damage]
-					[c/BE7878:+50% overheat use]
-					[c/BE7878:-30% speed]
+					~Each time the enemy is shot, they will become 20% slower 
+					~After 5 shots the enemy will become completely frozen 
+					string.Format([c/78BE78:+260% damage])
+					string.Format([c/BE7878:+50% overheat use])
+					string.Format([c/BE7878:-30% speed]
 					'''
 			}
 
@@ -774,12 +775,12 @@ Mods: {
 				DisplayName: Vortex Beam
 				Tooltip:
 					'''
-					[c/FF9696:Power Beam Addon V3]
+					string.Format([c/FF9696:Power Beam Addon V3])
 					Slot Type: Primary A
 					Beam fires 5 shots at once
-					[c/78BE78:+150% damage]
-					[c/BE7878:+100% overheat use]
-					[c/78BE78:+25% speed]
+					string.Format([c/78BE78:+150% damage])
+					string.Format([c/BE7878:+100% overheat use])
+					string.Format([c/78BE78:+25% speed]
 					'''
 			}
 
@@ -787,11 +788,11 @@ Mods: {
 				DisplayName: Wave Beam
 				Tooltip:
 					'''
-					[c/9696FF:Power Beam Addon]
+					string.Format([c/9696FF:Power Beam Addon])
 					Slot Type: Utility
 					Shots penetrate terrain by a limited depth
-					[c/78BE78:+50% damage]
-					[c/BE7878:+50% overheat use]
+					string.Format([c/78BE78:+50% damage])
+					string.Format([c/BE7878:+50% overheat use]
 					'''
 			}
 
@@ -814,8 +815,8 @@ Mods: {
 				DisplayName: Power Suit Breastplate
 				Tooltip:
 					'''
-					"+15 overheat capacity"
-					"10% decreased overheat use"
+					+15 overheat capacity
+					10% decreased overheat use
 					'''
 			}
 
@@ -823,8 +824,8 @@ Mods: {
 				DisplayName: Power Suit Greaves
 				Tooltip:
 					'''
-					"Allows somersaulting & wall jumping"
-					"Negates fall damage"
+					Allows somersaulting & wall jumping
+					Negates fall damage
 					'''
 			}
 
@@ -991,11 +992,11 @@ Mods: {
 				DisplayName: Flamethrower
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Fires a constant stream of fire at full charge 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Hold Click to charge
+					~Fires a constant stream of fire at full charge
+					~Initially costs 10 missiles, then drains 5 missiles per second during use
 					'''
 			}
 
@@ -1003,11 +1004,11 @@ Mods: {
 				DisplayName: Ice Spreader
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Charge shots cover terrain in ice on impact, freezing enemies 
-					Charge shots cost 10 missiles
+					Hold Click to charge
+					~Charge shots cover terrain in ice on impact, freezing enemies
+					~Charge shots cost 10 missiles
 					'''
 			}
 
@@ -1015,11 +1016,11 @@ Mods: {
 				DisplayName: Nebula Combo
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Creates a tethered mass of Nebula energy that lashes at foes when fully charged 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Hold Click to charge
+					~Creates a tethered mass of Nebula energy that lashes at foes when fully charged
+					~Initially costs 10 missiles, then drains 5 missiles per second during use
 					'''
 			}
 
@@ -1027,11 +1028,11 @@ Mods: {
 				DisplayName: Nova Combo
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Fires a continuous laser beam of Nova energy at full charge 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Hold Click to charge
+					~Fires a continuous laser beam of Nova energy at full charge
+					~Initially costs 10 missiles, then drains 5 missiles per second during use
 					'''
 			}
 
@@ -1039,11 +1040,11 @@ Mods: {
 				DisplayName: Plasma Machinegun
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Rapidly fires piercing projectiles at full charge 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Hold Click to charge
+					~Rapidly fires piercing projectiles at full charge
+					~Initially costs 10 missiles, then drains 5 missiles per second during use
 					'''
 			}
 
@@ -1051,11 +1052,11 @@ Mods: {
 				DisplayName: Solar Combo
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Fires a continuous laser beam of Solar energy at full charge 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Hold Click to charge
+					~Fires a continuous laser beam of Solar energy at full charge
+					~Initially costs 10 missiles, then drains 5 missiles per second during use
 					'''
 			}
 
@@ -1063,11 +1064,11 @@ Mods: {
 				DisplayName: Spazer Combo
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Fires a spray of 5 missiles 
-					Costs 5 missiles
+					Hold Click to charge
+					~Fires a spray of 5 missiles
+					~Costs 5 missiles
 					'''
 			}
 
@@ -1075,12 +1076,12 @@ Mods: {
 				DisplayName: Stardust Combo
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Charge shots create 8 Stardust Dragons on impact that spiral outward, covering terrain in ice which freezes foes 
-					Additionally a Stardust Guardian spawns at the center which attacks any enemy caught in the ice 
-					Charge shots cost 10 missiles
+					Hold Click to charge
+					~Charge shots create 8 Stardust Dragons on impact that spiral outward, covering terrain in ice which freezes foes
+					~Additionally a Stardust Guardian spawns at the center which attacks any enemy caught in the ice
+					~Charge shots cost 10 missiles
 					Both the ice and the Guardian last 20 seconds
 					'''
 			}
@@ -1089,13 +1090,13 @@ Mods: {
 				DisplayName: Vortex Combo
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Fires vortexes that orbit the player at full charge 
-					Each vortex fires a blast after 2 seconds 
-					Releasing the charge makes all vortexes immediately fire 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Hold Click to charge
+					~Fires vortexes that orbit the player at full charge
+					~Each vortex fires a blast after 2 seconds
+					~Releasing the charge makes all vortexes immediately fire
+					~Initially costs 10 missiles, then drains 5 missiles per second during use
 					'''
 			}
 
@@ -1103,11 +1104,11 @@ Mods: {
 				DisplayName: Wavebuster
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Fires a constant stream of electricity at full charge 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Hold Click to charge
+					~Fires a constant stream of electricity at full charge
+					~Initially costs 10 missiles, then drains 5 missiles per second during use
 					'''
 			}
 
@@ -1115,12 +1116,12 @@ Mods: {
 				DisplayName: Diffusion Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Hold Click to charge 
-					Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies 
-					Charge shots and flares deal 3x damage
-					Costs 5 missiles
+					Hold Click to charge
+					~Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies
+					~Charge shots and flares deal 3x damage
+					~Costs 5 missiles
 					'''
 			}
 
@@ -1128,7 +1129,7 @@ Mods: {
 				DisplayName: Homing Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
 					Fires a double-damage homing missile
 					Costs 1 Missile
@@ -1139,10 +1140,10 @@ Mods: {
 				DisplayName: Ice Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Primary
 					Shots freeze enemies instantly 
-					[c/78BE78:+50% damage]
+					string.Format([c/78BE78:+50% damage]
 					'''
 			}
 
@@ -1150,12 +1151,12 @@ Mods: {
 				DisplayName: Ice Super Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Primary
-					Shots are more powerful and create a larger explosion 
+					Shots are more powerful and create a larger explosion
 					Shots freeze enemies instantly 
-					[c/78BE78:+250% damage]
-					[c/BE7878:-50% speed]
+					string.Format([c/78BE78:+250% damage])
+					string.Format([c/BE7878:-50% speed]
 					'''
 			}
 
@@ -1163,12 +1164,12 @@ Mods: {
 				DisplayName: Nebula Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Primary
-					Shots are more powerful and create a larger explosion 
+					Shots are more powerful and create a larger explosion
 					Shots create lingering masses of Nebula energy on impact that continually damage foes 
-					[c/78BE78:+400% damage]
-					[c/BE7878:-50% speed]
+					string.Format([c/78BE78:+400% damage])
+					string.Format([c/BE7878:-50% speed]
 					'''
 			}
 
@@ -1176,11 +1177,11 @@ Mods: {
 				DisplayName: Seeker Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Charge
-					Fires missiles at multiple targets simultaneously 
-					Hold click to lock on to targets, and release to fire 
-					Can lock on to a maximum of 5 targets 
+					Fires missiles at multiple targets simultaneously
+					Hold click to lock on to targets, and release to fire
+					Can lock on to a maximum of 5 targets
 					Consumes the appropriate number of missiles
 					'''
 			}
@@ -1189,12 +1190,12 @@ Mods: {
 				DisplayName: Stardust Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Primary
-					Shots are more powerful and create a larger explosion 
-					Shots freeze enemies instantly
-					[c/78BE78:+400% damage]
-					[c/BE7878:-50% speed]
+					Shots are more powerful and create a larger explosion
+					Shots freeze enemies instantly 
+					string.Format([c/78BE78:+400% damage])
+					string.Format([c/BE7878:-50% speed]
 					'''
 			}
 
@@ -1202,11 +1203,11 @@ Mods: {
 				DisplayName: Super Missile
 				Tooltip:
 					'''
-					[c/9696FF:Missile Launcher Addon]
+					string.Format([c/9696FF:Missile Launcher Addon])
 					Slot Type: Primary
-					Shots are more powerful and create a larger explosion
-					[c/78BE78:+200% damage]
-					[c/BE7878:-50% speed]
+					Shots are more powerful and create a larger explosion 
+					string.Format([c/78BE78:+200% damage])
+					string.Format([c/BE7878:-50% speed]
 					'''
 			}
 
@@ -2241,8 +2242,10 @@ Mods: {
 				Tooltip:
 					'''
 					~Left Click while morphed to drill
-					uses best pickaxe/drill
-					[c/78BE78:Requires Morph Ball to use]
+					uses held pickaxe/drill
+					//~60% pickaxe power
+					//Can mine Meteorite
+					string.Format([c/78BE78:Requires Morph Ball to use]
 					'''
 			}
 
@@ -2307,7 +2310,7 @@ Mods: {
 					'''
 					-Right click to set off a bomb
 					Fires off Jack 'O Lanterns on detonation
-					"I took a grenade to the face, dude!"
+					'I took a grenade to the face, dude!'
 					'''
 			}
 
@@ -2501,11 +2504,7 @@ Mods: {
 
 			PowerGripAddon: {
 				DisplayName: Power Grip
-				Tooltip:
-					'''
-					Allows the user to grab onto ledges
-					Does not need to be equipped; works while in inventory
-					'''
+				Tooltip: Allows the user to grab onto ledgesDoes not need to be equipped; works while in inventory
 			}
 
 			ReserveTankAddon: {
@@ -2613,7 +2612,7 @@ Mods: {
 					10% increased movement speed
 					10% increased energy barrier efficiency // Provisional name
 					20% increased energy barrier resilience // Provisional name
-					Immunity to fire blocks
+					Immunity to fire blocks  
 					Immunity to chill and freeze effects
 					'''
 			}
