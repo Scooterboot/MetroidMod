@@ -251,13 +251,13 @@ Mods: {
 			}
 
 			GravityDebuff: {
-				DisplayName: Gravity Debuff
-				Description: Mods.MetroidMod.Buffs.GravityDebuff.Description
+				DisplayName: Amplified Gravity
+				Description: Your local gravity is amplified, causing you to move more slowly and heavily
 			}
 
 			IceFreeze: {
-				DisplayName: Ice Freeze
-				Description: Mods.MetroidMod.Buffs.IceFreeze.Description
+				DisplayName: Froze
+				Description: You Got Ice Beam'd!
 			}
 
 			InstantFreeze: {

@@ -2770,6 +2770,7 @@ namespace MetroidMod.Content.Items.Weapons
 				cl.ChargeShotSound = chargeShotSound;
 				cl.ChargeShotSoundMod = chargeShotSoundMod;
 				cl.Projectile.netUpdate = true;
+				cl.noSomersault = noSomersault;
 
 				chargeLead = ch;
 			}

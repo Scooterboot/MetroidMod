@@ -37,7 +37,6 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 		
 		public override void Kill(int timeLeft)
 		{
-			int dustType = 107;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
 			Projectile.width += 125;
@@ -50,41 +49,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
 			Projectile.Damage();
 		}
-		/*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			if (Projectile.Name.Contains("Red"))
-			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(24, 300);
-				}
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(39, 300);
-				}
-			}
-			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
-			{
-				string buffName = "IceFreeze";
-				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
-			}
 
-			if (Projectile.Name.Contains("Solar"))
-			{
-				target.AddBuff(189, 300);
-			}
-		}*/
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

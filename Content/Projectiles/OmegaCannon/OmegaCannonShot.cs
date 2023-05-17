@@ -49,7 +49,6 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
         }
 		public override void Kill(int timeLeft)
 		{
-			int dustType = 64;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
 			Projectile.width += 2500;

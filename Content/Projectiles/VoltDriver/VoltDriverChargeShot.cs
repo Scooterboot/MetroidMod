@@ -51,12 +51,11 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void Kill(int timeLeft)
 		{
-			int dustType = 269;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
 			Projectile.width += 125;
 			Projectile.height += 125;
-			Projectile.scale = 5f;
+			Projectile.scale = 3f;
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 			mProjectile.Diffuse(Projectile, 269);
