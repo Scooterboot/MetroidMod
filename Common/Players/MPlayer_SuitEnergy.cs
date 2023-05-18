@@ -128,8 +128,8 @@ namespace MetroidMod.Common.Players
 			if (!ShouldShowArmorUI) { return; }
 			if (SuitReservesAuto && Energy <= 0)
 			{
-				Energy += SuitReserves;
-				SuitReserves = 0;
+				Energy += Math.Min(SuitReserves, MaxEnergy);
+				SuitReserves -= Math.Min(SuitReserves, MaxEnergy);
 				while (Energy > MaxEnergy)
 				{
 					SuitReserves += 1;

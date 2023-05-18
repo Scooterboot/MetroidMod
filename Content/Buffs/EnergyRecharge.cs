@@ -39,14 +39,14 @@ namespace MetroidMod.Content.Buffs
 				/*if (player.statLife < player.statLifeMax2)
 				{
 					player.statLife++;
-				}
+				}*/
 				if (mp.reserveHearts < mp.reserveTanks)
 				{
 					mp.reserveHearts++;
-				}*/
+				}
 				if (mp.Energy < mp.MaxEnergy)
 				{
-					mp.Energy++;
+					mp.Energy+=3;
 				}
 				player.buffTime[buffIndex] = 2;
 				player.controlLeft = false;
