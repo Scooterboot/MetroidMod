@@ -16,7 +16,7 @@ Mods: {
 				// StandardDialogue3: We may look different, but inside... We have the same 'heart' as you.
 				# StdD4 is unused.
 				// StandardDialogue4: Be cautious of my brethren in our ancient ruins, for they may put your mettle to the test.
-				// WitchDialogue: "{0} keeps shaking his witchcraft 'things' at me whenever I come near him. Could ask him to stop?"
+				// WitchDialogue: "{0} keeps shaking his witchcraft 'things' at me whenever I come near him. Could you ask him to stop?"
 			}
 		}
 
@@ -839,7 +839,7 @@ Mods: {
 			}
 
 			GoldenTorizoBag: {
-				// DisplayName: Golden Torizo Bag
+				// DisplayName: Treasure Bag (Golden Torizo)
 				// Tooltip: ""
 			}
 
@@ -849,57 +849,57 @@ Mods: {
 			}
 
 			KraidBag: {
-				// DisplayName: Kraid Bag
+				// DisplayName: Treasure Bag (Kraid)
 				// Tooltip: ""
 			}
 
 			KraidSummon: {
-				// DisplayName: Kraid Summon
+				// DisplayName: Variation Matrix
 				// Tooltip: ""
 			}
 
 			NightmareBag: {
-				// DisplayName: Nightmare Bag
+				// DisplayName: Treasure Bag (Nightmare)
 				// Tooltip: ""
 			}
 
 			NightmareSummon: {
-				// DisplayName: Nightmare Summon
+				// DisplayName: Strange Device
 				// Tooltip: ""
 			}
 
 			OmegaPirateBag: {
-				// DisplayName: Omega Pirate Bag
+				// DisplayName: Treasure Bag (Omega Pirate)
 				// Tooltip: ""
 			}
 
 			OmegaPirateSummon: {
-				// DisplayName: Omega Pirate Summon
+				// DisplayName: Phazon Reactor Core
 				// Tooltip: ""
 			}
 
 			PhantoonBag: {
-				// DisplayName: Phantoon Bag
+				// DisplayName: Treasure Bag (Phantoon)
 				// Tooltip: ""
 			}
 
 			PhantoonSummon: {
-				// DisplayName: Phantoon Summon
+				// DisplayName: Ectoplasmic Locator
 				// Tooltip: ""
 			}
 
 			SerrisBag: {
-				// DisplayName: Serris Bag
+				// DisplayName: Treasure Bag (Serris)
 				// Tooltip: ""
 			}
 
 			SerrisSummon: {
-				// DisplayName: Serris Summon
+				// DisplayName: Serris Bait
 				// Tooltip: ""
 			}
 
 			TorizoBag: {
-				// DisplayName: Torizo Bag
+				// DisplayName: Treasure Bag (Torizo)
 				// Tooltip: ""
 			}
 
@@ -1261,13 +1261,13 @@ Mods: {
 			}
 
 			ChozoRuinsActiveMusicBox: {
-				// DisplayName: Chozo Ruins Active Music Box
-				// Tooltip: ""
+				// DisplayName: Music Box (Chozo Ruins)
+				// Tooltip: Remix by Paradoxx Productions
 			}
 
 			ChozoRuinsInactiveMusicBox: {
-				// DisplayName: Chozo Ruins Inactive Music Box
-				// Tooltip: ""
+				// DisplayName: Music Box (Chozo Ruins)
+				// Tooltip: Remix by Paradoxx Productions
 			}
 
 			ChozoStatue: {
@@ -1416,8 +1416,8 @@ Mods: {
 			}
 
 			KraidPhantoonMusicBox: {
-				// DisplayName: Kraid Phantoon Music Box
-				// Tooltip: ""
+				// DisplayName: Music Box (Kraid/Phantoon)
+				// Tooltip: Remix by Paradoxx Productions
 			}
 
 			KraidTrophy: {
@@ -1441,8 +1441,8 @@ Mods: {
 			}
 
 			NightmareMusicBox: {
-				// DisplayName: Nightmare Music Box
-				// Tooltip: ""
+				// DisplayName: Music Box (Nightmare)
+				// Tooltip: Remix by Paradoxx Productions
 			}
 
 			NorfairBrick: {
@@ -1471,8 +1471,8 @@ Mods: {
 			}
 
 			OmegaPirateMusicBox: {
-				// DisplayName: Omega Pirate Music Box
-				// Tooltip: ""
+				// DisplayName: Music Box (Omega Pirate)
+				// Tooltip: Remix by Paradoxx Productions
 			}
 
 			PhantoonTrophy: {
@@ -1506,8 +1506,8 @@ Mods: {
 			}
 
 			SerrisMusicBox: {
-				// DisplayName: Serris Music Box
-				// Tooltip: ""
+				// DisplayName: Music Box (Serris)
+				// Tooltip: Remix by Paradoxx Productions
 			}
 
 			SerrisTrophy: {
@@ -1521,8 +1521,8 @@ Mods: {
 			}
 
 			TorizoMusicBox: {
-				// DisplayName: Torizo Music Box
-				// Tooltip: ""
+				// DisplayName: Music Box (Torizo)
+				// Tooltip: Remix by Paradoxx Productions
 			}
 
 			TorizoTrophy: {
@@ -2515,7 +2515,7 @@ Mods: {
 
 			ScanVisorAddon: {
 				// DisplayName: Scan Visor
-				// Tooltip: Fills in the Bestiary entries of npcs you look at
+				// Tooltip: Fills in the Bestiary entries of NPCs you look at
 			}
 
 			ScrewAttackAddon: {
@@ -2652,15 +2652,15 @@ Mods: {
 
 		NPCs: {
 			// GoldenTorizo.DisplayName: Golden Torizo
-			// GoldenTorizo_HitBox.DisplayName: Golden Torizo_ Hit Box
-			// IdleGoldenTorizo.DisplayName: Idle Golden Torizo
-			// OrbBomb_Golden.DisplayName: Orb Bomb_ Golden
+			// GoldenTorizo_HitBox.DisplayName: Golden Torizo
+			// IdleGoldenTorizo.DisplayName: ???
+			// OrbBomb_Golden.DisplayName: Orb Bomb
 			// OrbBomb.DisplayName: Orb Bomb
-			// Kraid_ArmBack.DisplayName: Kraid_ Arm Back
-			// Kraid_ArmFront.DisplayName: Kraid_ Arm Front
-			// Kraid_Body.DisplayName: Kraid_ Body
-			// Kraid_Head.DisplayName: Kraid_ Head
-			// KraidClaw.DisplayName: Kraid Claw
+			// Kraid_ArmBack.DisplayName: Kraid
+			// Kraid_ArmFront.DisplayName: Kraid
+			// Kraid_Body.DisplayName: Kraid
+			// Kraid_Head.DisplayName: Kraid
+			// KraidClaw.DisplayName: Kraid
 			// Evir.DisplayName: Evir
 			// Skultera.DisplayName: Skultera
 			// Zoa.DisplayName: Zoa
@@ -2692,9 +2692,9 @@ Mods: {
 			// Skree.DisplayName: Skree
 			// Waver.DisplayName: Waver
 			// Dessgeega.DisplayName: Dessgeega
-			// Dessgeega_Large.DisplayName: Large_ Dessgeega
+			// Dessgeega_Large.DisplayName: Large Dessgeega
 			// Sidehopper.DisplayName: Sidehopper
-			// Sidehopper_Large.DisplayName: Large_Sidehopper
+			// Sidehopper_Large.DisplayName: Large Sidehopper
 			// LarvalMetroid.DisplayName: Larval Metroid
 			// Mochtroid.DisplayName: Mochtroid
 			// Multiviola.DisplayName: Multiviola
@@ -2706,23 +2706,23 @@ Mods: {
 			// Tripper.DisplayName: Tripper
 			// GravityOrb.DisplayName: Gravity Orb
 			// Nightmare.DisplayName: Nightmare
-			// Nightmare_ArmBack.DisplayName: Nightmare_ Arm Back
-			// Nightmare_ArmFront.DisplayName: Nightmare_ Arm Front
-			// Nightmare_Body.DisplayName: Nightmare_ Body
-			// Nightmare_Tail.DisplayName: Nightmare_ Tail
-			// Omega_DarkPortal.DisplayName: Omega_ Dark Portal
+			// Nightmare_ArmBack.DisplayName: Nightmare
+			// Nightmare_ArmFront.DisplayName: Nightmare
+			// Nightmare_Body.DisplayName: Nightmare
+			// Nightmare_Tail.DisplayName: Nightmare
+			// Omega_DarkPortal.DisplayName: Omega Pirate
 			// OmegaPirate.DisplayName: Omega Pirate
-			// OmegaPirate_HitBox.DisplayName: Omega Pirate_ Hit Box
-			// OmegaPirate_WeakPoint.DisplayName: Omega Pirate_ Weak Point
-			// OmegaPirateAbsorbField.DisplayName: Omega Pirate Absorb Field
+			// OmegaPirate_HitBox.DisplayName: Omega Pirate
+			// OmegaPirate_WeakPoint.DisplayName: Omega Pirate
+			// OmegaPirateAbsorbField.DisplayName: Omega Pirate
 			// Phantoon.DisplayName: Phantoon
-			// PhantoonFireBall.DisplayName: Phantoon Fire Ball
-			// Serris_Body.DisplayName: Serris_ Body
-			// Serris_Head.DisplayName: Serris_ Head
-			// Serris_Tail.DisplayName: Serris_ Tail
-			// IdleTorizo.DisplayName: Idle Torizo
+			// PhantoonFireBall.DisplayName: Fire Ball
+			// Serris_Body.DisplayName: Serris
+			// Serris_Head.DisplayName: Serris
+			// Serris_Tail.DisplayName: Serris
+			// IdleTorizo.DisplayName: ???
 			// Torizo.DisplayName: Torizo
-			// Torizo_HitBox.DisplayName: Torizo_ Hit Box
+			// Torizo_HitBox.DisplayName: Torizo
 			// ChozoGhost.DisplayName: Chozo Ghost
 		}
 

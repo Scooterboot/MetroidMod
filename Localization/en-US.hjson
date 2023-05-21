@@ -1262,12 +1262,12 @@ Mods: {
 
 			ChozoRuinsActiveMusicBox: {
 				DisplayName: Music Box (Chozo Ruins)
-				Tooltip: "Remix by Paradoxx Productions"
+				Tooltip: Remix by Paradoxx Productions
 			}
 
 			ChozoRuinsInactiveMusicBox: {
 				DisplayName: Music Box (Chozo Ruins)
-				Tooltip: "Remix by Paradoxx Productions"
+				Tooltip: Remix by Paradoxx Productions
 			}
 
 			ChozoStatue: {
@@ -1417,7 +1417,7 @@ Mods: {
 
 			KraidPhantoonMusicBox: {
 				DisplayName: Music Box (Kraid/Phantoon)
-				Tooltip: "Remix by Paradoxx Productions"
+				Tooltip: Remix by Paradoxx Productions
 			}
 
 			KraidTrophy: {
@@ -1442,7 +1442,7 @@ Mods: {
 
 			NightmareMusicBox: {
 				DisplayName: Music Box (Nightmare)
-				Tooltip: "Remix by Paradoxx Productions"
+				Tooltip: Remix by Paradoxx Productions
 			}
 
 			NorfairBrick: {
@@ -1472,7 +1472,7 @@ Mods: {
 
 			OmegaPirateMusicBox: {
 				DisplayName: Music Box (Omega Pirate)
-				Tooltip: "Remix by Paradoxx Productions"
+				Tooltip: Remix by Paradoxx Productions
 			}
 
 			PhantoonTrophy: {
@@ -1507,7 +1507,7 @@ Mods: {
 
 			SerrisMusicBox: {
 				DisplayName: Music Box (Serris)
-				Tooltip: "Remix by Paradoxx Productions"
+				Tooltip: Remix by Paradoxx Productions
 			}
 
 			SerrisTrophy: {
@@ -1522,7 +1522,7 @@ Mods: {
 
 			TorizoMusicBox: {
 				DisplayName: Music Box (Torizo)
-				Tooltip: "Remix by Paradoxx Productions"
+				Tooltip: Remix by Paradoxx Productions
 			}
 
 			TorizoTrophy: {
