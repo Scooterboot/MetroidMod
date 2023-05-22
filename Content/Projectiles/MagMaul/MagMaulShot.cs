@@ -39,7 +39,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		
 		public override void Kill(int timeLeft)
 		{
-			int dustType = 286;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
 			Projectile.width += 50;
@@ -56,30 +55,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-	}
-	public class NovaMagMaulShot : MagMaulShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nova MagMaul Shot";
-		}
-	}
-	public class SolarMagMaulShot : MagMaulShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar MagMaul Shot";
-		}
-	}
-	public class PlasmaRedMagMaulShot : MagMaulShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Red MagMaul Shot";
 		}
 	}
 }

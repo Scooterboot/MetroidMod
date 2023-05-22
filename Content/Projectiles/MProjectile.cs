@@ -86,9 +86,9 @@ namespace MetroidMod.Content.Projectiles
 		bool[] npcPrevHit = new bool[Main.maxNPCs];
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
-			if(Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red"))
+			if(Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red") || Items.Weapons.PowerBeam.shooty.Contains("plasmared"))
 			{
-				if(Projectile.Name.Contains("Ice"))
+				if(Projectile.Name.Contains("Ice") || Items.Weapons.PowerBeam.shooty.Contains("ice"))
 				{
 					target.AddBuff(44,300);
 				}
@@ -98,9 +98,9 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}
 			
-			if(Projectile.Name.Contains("Nova"))
+			if(Projectile.Name.Contains("Nova") || Items.Weapons.PowerBeam.shooty.Contains("nova"))
 			{
-				if(Projectile.Name.Contains("Ice"))
+				if(Projectile.Name.Contains("Ice") || Items.Weapons.PowerBeam.shooty.Contains("ice"))
 				{
 					target.AddBuff(44,300);
 				}
@@ -109,7 +109,7 @@ namespace MetroidMod.Content.Projectiles
 					target.AddBuff(39,300);
 				}
 			}
-			if(Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			if(Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust") || Items.Weapons.PowerBeam.shooty.Contains("ice") || Items.Weapons.PowerBeam.shooty.Contains("stardust"))
 			{
 				string buffName = "IceFreeze";
 				if(Projectile.Name.Contains("Missile"))
@@ -118,7 +118,7 @@ namespace MetroidMod.Content.Projectiles
 				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
 			}
 			
-			if(Projectile.Name.Contains("Solar"))
+			if(Projectile.Name.Contains("Solar") || Items.Weapons.PowerBeam.shooty.Contains("solar"))
 			{
 				target.AddBuff(189,300);
 			}
@@ -247,46 +247,46 @@ namespace MetroidMod.Content.Projectiles
 				if(!P.tileCollide && !P.Name.Contains("Hyper"))
 				{
 					waveDepth = 4;
-					if(P.Name.Contains("Spazer"))
+					if(P.Name.Contains("Spazer") || Items.Weapons.PowerBeam.shooty.Contains("spaze"))
 					{
 						waveDepth = 6;
 					}
-					if(P.Name.Contains("Plasma"))
+					if(P.Name.Contains("Plasma") || Items.Weapons.PowerBeam.shooty.Contains("plasma"))
 					{
 						waveDepth = 8;
 					}
-					if(P.Name.Contains("V2"))
+					if(P.Name.Contains("V2") || Items.Weapons.PowerBeam.shooty.Contains("V2"))
 					{
 						waveDepth = 6;
 					}
-					if(P.Name.Contains("Wide"))
+					if(P.Name.Contains("Wide") || Items.Weapons.PowerBeam.shooty.Contains("wide"))
 					{
 						waveDepth = 9;
 					}
-					if(P.Name.Contains("Nova"))
+					if(P.Name.Contains("Nova") || Items.Weapons.PowerBeam.shooty.Contains("nova"))
 					{
 						waveDepth = 12;
 					}
-					if(P.Name.Contains("Nebula"))
+					if(P.Name.Contains("Nebula") || Items.Weapons.PowerBeam.shooty.Contains("nebula"))
 					{
 						waveDepth = 8;
 					}
-					if(P.Name.Contains("Vortex"))
+					if(P.Name.Contains("Vortex") || Items.Weapons.PowerBeam.shooty.Contains("vortex"))
 					{
 						waveDepth = 12;
 					}
-					if(P.Name.Contains("Solar"))
+					if(P.Name.Contains("Solar") || Items.Weapons.PowerBeam.shooty.Contains("solar"))
 					{
 						waveDepth = 16;
 					}
 					if(P.Name.Contains("Charge"))
 					{
 						waveDepth += 2;
-						if(P.Name.Contains("V2") || P.Name.Contains("Wide") || P.Name.Contains("Nova"))
+						if(P.Name.Contains("V2") || P.Name.Contains("Wide") || P.Name.Contains("Nova") || Items.Weapons.PowerBeam.shooty.Contains("V2") || Items.Weapons.PowerBeam.shooty.Contains("wide") || Items.Weapons.PowerBeam.shooty.Contains("nova"))
 						{
 							waveDepth += 1;
 						}
-						if(P.Name.Contains("Nebula"))
+						if(P.Name.Contains("Nebula") || Items.Weapons.PowerBeam.shooty.Contains("nebula"))
 						{
 							waveDepth += 2;
 						}

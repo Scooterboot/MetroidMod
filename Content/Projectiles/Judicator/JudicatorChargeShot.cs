@@ -20,6 +20,18 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.height = 8;
 			Projectile.scale = 2f;
 			Projectile.timeLeft = 60;
+			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
+			{
+				Projectile.penetrate = 6;
+			}
+			if (Items.Weapons.PowerBeam.shooty.Contains("nova"))
+			{
+				Projectile.penetrate = 8;
+			}
+			if (Items.Weapons.PowerBeam.shooty.Contains("solar"))
+			{
+				Projectile.penetrate = 12;
+			}
 		}
 
 		public override void AI()
@@ -52,66 +64,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-		public class NovaJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Nova Judicator Charge Shot";
-				Projectile.penetrate = 8;
-
-			}
-		}
-		public class IceNovaJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Ice Nova Judicator Charge Shot";
-				Projectile.penetrate = 8;
-
-			}
-		}
-		public class PlasmaGreenJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Plasma Green Judicator Charge Shot";
-				Projectile.penetrate = 6;
-
-			}
-		}
-		public class SolarJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Solar Judicator Charge Shot";
-				Projectile.penetrate = 12;
-
-			}
-		}
-		public class IcePlasmaGreenJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Ice Solar Judicator Charge Shot";
-				Projectile.penetrate = 12;
-
-			}
-		}
-		public class IceSolarJudicatorChargeShot : JudicatorChargeShot
-		{
-			public override void SetDefaults()
-			{
-				base.SetDefaults();
-				Projectile.Name = "Ice Solar Judicator Charge Shot";
-				Projectile.penetrate = 12;
-
-			}
 		}
 	}
 }

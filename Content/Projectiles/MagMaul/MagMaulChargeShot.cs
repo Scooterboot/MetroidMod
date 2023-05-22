@@ -61,38 +61,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(24, 600);
-			if (Projectile.Name.Contains("Solar"))
-			{
-				target.AddBuff(189, 300);
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				target.AddBuff(39, 300);
-			}
-		}
-		public class NovaMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				// DisplayName.SetDefault("Nova MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-		}
-		public class SolarMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				// DisplayName.SetDefault("Solar MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-		}
-		public class PlasmaRedMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				// DisplayName.SetDefault("Plasma Red MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
 		}
 	}
 }

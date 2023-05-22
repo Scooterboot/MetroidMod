@@ -192,6 +192,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private Color lightColor = MetroidMod.powColor;
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
+		public static string shooty = "";
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
@@ -1191,6 +1192,68 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else if (isHunter)
 			{
+				if (slot4.type == sp || slot4.type == wi)
+				{
+					shotAmt = 3;
+					chargeShotAmt = 3;
+				}
+				if (slot4.type == vt)
+				{
+					shotAmt = 5;
+					chargeShotAmt = 5;
+				}
+				if (slot4.type == sp)
+				{
+					shooty += "spaze";
+				}
+				if (slot4.type == wi)
+				{
+					shooty += "wide";
+				}
+				if (slot4.type == vt)
+				{
+					shooty += "vortex";
+				}
+				if (slot3.type == wa)
+				{
+					shooty += "wave";
+				}
+				if (slot3.type == wa2)
+				{
+					shooty += "waveV2";
+				}
+				if (slot3.type == nb)
+				{
+					shooty += "nebula";
+				}
+				if (slot5.type == plR)
+				{
+					shooty += "plasmared";
+				}
+				if (slot5.type == plG)
+				{
+					shooty += "plasmagreen";
+				}
+				if (slot5.type == nv)
+				{
+					shooty += "nova";
+				}
+				if (slot5.type == sl)
+				{
+					shooty += "solar";
+				}
+				if (slot2.type == ic && slot1.type != mm)
+				{
+					shooty += "ice";
+				}
+				if (slot2.type == ic2 && slot1.type != mm)
+				{
+					shooty += "iceV2";
+				}
+				if (slot2.type == sd && slot1.type != mm)
+				{
+					shooty += "stardust";
+				}
 				if (slot1.type == vd)
 				{
 					isCharge = true;
@@ -1204,459 +1267,9 @@ namespace MetroidMod.Content.Items.Weapons
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
-					if (slot4.type == sp || slot4.type == wi)
+					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
-						shotAmt = 3;
-						chargeShotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
-						chargeShotAmt = 5;
-					}
-					if (slot2.type == ic)
-					{
-						shot = "IceVoltDriverShot";
-						chargeShot = "IceVoltDriverChargeShot";
-
-						if (slot3.type == wa)
-						{
-							shot = "IceWaveVoltDriverShot";
-							chargeShot = "IceWaveVoltDriverChargeShot";
-
-
-							if (slot4.type == sp)
-							{
-								shot = "IceWaveSpazerVoltDriverShot";
-								chargeShot = "IceWaveSpazerVoltDriverChargeShot";
-
-
-								if (slot5.type == plG)
-								{
-									shot = "IceWaveSpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "IceWaveSpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveSpazerPlasmaRedVoltDriverShot";
-									chargeShot = "IceWaveSpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "IceWavePlasmaGreenVoltDriverShot";
-									chargeShot = "IceWavePlasmaGreenChargeVoltDriverShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedVoltDriverShot";
-									chargeShot = "IceWavePlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-
-							if (slot4.type == sp)
-							{
-								shot = "IceSpazerVoltDriverShot";
-								chargeShot = "IceSpazerVoltDriverChargeShot";
-
-								if (slot5.type == plG)
-								{
-									shot = "IceSpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "IceSpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaRedVoltDriverShot";
-									chargeShot = "IceSpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaGreenVoltDriverShot";
-									chargeShot = "IcePlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedVoltDriverShot";
-									chargeShot = "IcePlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-					}
-					else
-					{
-
-						if (slot3.type == wa)
-						{
-							shot = "WaveVoltDriverShot";
-							chargeShot = "WaveVoltDriverChargeShot";
-
-							if (slot4.type == sp)
-							{
-								shot = "WaveSpazerVoltDriverShot";
-								chargeShot = "WaveSpazerVoltDriverChargeShot";
-
-								if (slot5.type == plG)
-								{
-									shot = "WaveSpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "WaveSpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WaveSpazerPlasmaRedVoltDriverShot";
-									chargeShot = "WaveSpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaGreenVoltDriverShot";
-									chargeShot = "WavePlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedVoltDriverShot";
-									chargeShot = "WavePlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-
-							if (slot4.type == sp)
-							{
-								shot = "SpazerVoltDriverShot";
-								chargeShot = "SpazerVoltDriverChargeShot";
-
-								if (slot5.type == plG)
-								{
-									shot = "SpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "SpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "SpazerPlasmaRedVoltDriverShot";
-									chargeShot = "SpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaGreenVoltDriverShot";
-									chargeShot = "PlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedVoltDriverShot";
-									chargeShot = "PlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-					}
-
-					if (slot2.type == ic2)
-					{
-						shot = "IceV2VoltDriverShot";
-						chargeShot = "IceV2VoltDriverChargeShot";
-
-						if (slot3.type == wa2)
-						{
-							shot = "IceWaveV2VoltDriverShot";
-							chargeShot = "IceWaveV2VoltDriverChargeShot";
-
-
-							if (slot4.type == wi)
-							{
-								shot = "IceWaveWideVoltDriverShot";
-								chargeShot = "IceWaveWideVoltDriverChargeShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveWideNovaVoltDriverShot";
-									chargeShot = "IceWaveWideNovaVoltDriverChargeShot"; ;
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWaveWidePlasmaGreenV2VoltDriverShot";
-									chargeShot = "IceWaveWidePlasmaGreenV2VoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveWidePlasmaRedV2VoltDriverShot";
-									chargeShot = "IceWaveWidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaVoltDriverShot";
-									chargeShot = "IceWaveNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWavePlasmaGreenV2VoltDriverShot";
-									chargeShot = "IceWavePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedV2VoltDriverShot";
-									chargeShot = "IceWavePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == wi)
-							{
-								shot = "IceWideVoltDriverShot";
-								chargeShot = "IceWideVoltDriverChargeShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWideNovaVoltDriverShot";
-									chargeShot = "IceWideNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWidePlasmaGreenVoltDriverV2Shot";
-									chargeShot = "IceWidePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWidePlasmaRedV2VoltDriverShot";
-									chargeShot = "IceWidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceNovaVoltDriverShot";
-									chargeShot = "IceNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaGreenV2VoltDriverShot";
-									chargeShot = "IcePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedV2VoltDriverShot";
-									chargeShot = "IcePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == wa2)
-						{
-							shot = "WaveV2VoltDriverShot";
-							chargeShot = "WaveV2VoltDriverChargeShot";
-							if (slot4.type == wi)
-							{
-								shot = "WaveWideVoltDriverShot";
-								chargeShot = "WaveWideVoltDriverChargeShot";
-								if (slot5.type == nv)
-								{
-									shot = "WaveWideNovaVoltDriverShot";
-									chargeShot = "WaveWideNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WaveWidePlasmaGreenV2VoltDriverShot";
-									chargeShot = "WaveWidePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WaveWidePlasmaRedV2VoltDriverShot";
-									chargeShot = "WaveWidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaVoltDriverShot";
-									chargeShot = "WaveNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaGreenV2VoltDriverShot";
-									chargeShot = "WavePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedV2VoltDriverShot";
-									chargeShot = "WavePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-
-							if (slot4.type == wi)
-							{
-								shot = "WideVoltDriverShot";
-								chargeShot = "WideVoltDriverChargeShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "WideNovaVoltDriverShot";
-									chargeShot = "WideNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WidePlasmaGreenV2VoltDriverShot";
-									chargeShot = "WidePlasmaGreenV2VoltDriverChargeShot";
-
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WidePlasmaRedV2VoltDriverShot";
-									chargeShot = "WidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "NovaVoltDriverShot";
-									chargeShot = "NovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaGreenV2VoltDriverShot";
-									chargeShot = "PlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedV2VoltDriverShot";
-									chargeShot = "PlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-					}
-
-					if (slot2.type == sd)
-					{
-						shot = "StardustVoltDriverShot";
-						chargeShot = "StardustVoltDriverChargeShot";
-						if (slot3.type == nb)
-						{
-							shot = "StardustNebulaVoltDriverShot";
-							chargeShot = "StardustNebulaVoltDriverChargeShot";
-							if (slot4.type == vt)
-							{
-								shot = "StardustNebulaVortexVoltDriverShot";
-								chargeShot = "StardustNebulaVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarVoltDriverShot";
-									chargeShot = "StardustNebulaVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarVoltDriverShot";
-									chargeShot = "StardustNebulaSolarVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == vt)
-							{
-								shot = "StardustVortexVoltDriverShot";
-								chargeShot = "StardustVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarVoltDriverShot";
-									chargeShot = "StardustVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarVoltDriverShot";
-									chargeShot = "StardustSolarVoltDriverChargeShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == nb)
-						{
-							shot = "NebulaVoltDriverShot";
-							chargeShot = "NebulaVoltDriverChargeShot";
-							if (slot4.type == vt)
-							{
-								shot = "NebulaVortexVoltDriverShot";
-								chargeShot = "NebulaVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarVoltDriverShot";
-									chargeShot = "NebulaVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarVoltDriverShot";
-									chargeShot = "NebulaSolarVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == vt)
-							{
-								shot = "VortexVoltDriverShot";
-								chargeShot = "VortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarVoltDriverShot";
-									chargeShot = "VortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "SolarVoltDriverShot";
-									chargeShot = "SolarVoltDriverChargeShot";
-								}
-							}
-						}
 					}
 				}
 				if (slot1.type == jd)
@@ -1681,55 +1294,6 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						comboError2 = true;
 					}
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						isSpray = true;
-						shotAmt = 3;
-						chargeShotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
-						chargeShotAmt = 5;
-					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceJudicatorShot";
-						if (slot5.type == nv)
-						{
-							shot = "IceNovaJudicatorShot";
-							chargeShot = "IceNovaJudicatorChargeShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "IceSolarJudicatorShot";
-							chargeShot = "IceSolarJudicatorChargeShot";
-						}
-						if (slot5.type == plG)
-						{
-							shot = "IcePlasmaGreenJudicatorShot";
-							chargeShot = "IcePlasmaGreenJudicatorChargeShot";
-						}
-					}
-					else
-					{
-						if (slot5.type == nv)
-						{
-							shot = "NovaJudicatorShot";
-							chargeShot = "NovaJudicatorChargeShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "SolarJudicatorShot";
-							chargeShot = "SolarJudicatorChargeShot";
-						}
-						if (slot5.type == plG)
-						{
-							shot = "PlasmaGreenJudicatorShot";
-							chargeShot = "PlasmaGreenJudicatorChargeShot";
-						}
-					}
 				}
 
 				if (slot1.type == bh)
@@ -1743,50 +1307,10 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						isSpray = true;
 					}
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
 					if (!slot3.IsAir)
 					{
 						comboError2 = true;
 					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceBattleHammerShot";
-						if (slot5.type == plR)
-						{
-							shot = "IcePlasmaRedBattleHammerShot";
-						}
-						if (slot5.type == nv)
-						{
-							shot = "IceNovaBattleHammerShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "IceSolarBattleHammerShot";
-						}
-					}
-					else
-					{
-						if (slot5.type == plR)
-						{
-							shot = "PlasmaRedBattleHammerShot";
-						}
-						if (slot5.type == nv)
-						{
-							shot = "NovaBattleHammerShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "SolarBattleHammerShot";
-						}
-					}
-					
 					
 					if (slot5.type == plG)
 					{
@@ -1801,206 +1325,7 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "Imperialist";
 					useTime = 60;
 					Stealth = true;
-					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
-
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceImperialistShot";
-
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "IceWaveImperialistShot";
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceWaveSpazerImperialistShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveWideNovaImperialistShot";
-								}
-
-								if (slot5.type == plG)
-								{
-									shot = "IceWaveSpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveSpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarImperialistShot";
-								}
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWavePlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedImperialistShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceSpazerImperialistShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWideNovaImperialistShot";
-								}
-
-								if (slot5.type == plG)
-								{
-									shot = "IceSpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarImperialistShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "WaveImperialistShot";
-
-							if (slot4.type == sp)
-							{
-								shot = "WaveSpazerImperialistShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "WaveWideNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WaveSpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WaveSpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarImperialistShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "SpazerImperialistShot";
-								if (slot5.type == nv)
-								{
-									shot = "WideNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "SpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "SpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "NovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "SolarImperialistShot";
-								}
-							}
-						}
-					}
+					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();			
 				}
 				if (slot1.type == mm)
 				{
@@ -2016,17 +1341,9 @@ namespace MetroidMod.Content.Items.Weapons
 					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
 					useTime = 20;
-					if (slot4.type == sp || slot4.type == wi)
+					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
-						shotAmt = 3;
-						chargeShotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
-						chargeShotAmt = 5;
 					}
 					if (!slot2.IsAir)
 					{
@@ -2039,21 +1356,6 @@ namespace MetroidMod.Content.Items.Weapons
 					if (slot5.type == plG)
 					{
 						comboError4 = true;
-					}
-					if (slot5.type == plR)
-					{
-						shot = "PlasmaRedMagMaulShot";
-						chargeShot = "PlasmaRedMagMaulChargeShot";
-					}
-					if (slot5.type == nv)
-					{
-						shot = "NovaMagMaulShot";
-						chargeShot = "NovaMagMaulChargeShot";
-					}
-					if (slot5.type == sl)
-					{
-						shot = "SolarMagMaulShot";
-						chargeShot = "SolarMagMaulChargeShot";
 					}
 				}
 				if (slot1.type == sc)
@@ -2069,165 +1371,9 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Stardust";
 					Item.knockBack = 0;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
 					if (slot5.type == plG)
 					{
 						comboError4 = true;
-					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceShockCoilShot";
-
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "IceWaveShockCoilShot";
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceWaveSpazerShockCoilShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveWideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveSpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarShockCoilShot";
-								}
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedShockCoilShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceSpazerShockCoilShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarShockCoilShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "WaveShockCoilShot";
-
-							if (slot4.type == sp)
-							{
-								shot = "WaveSpazerShockCoilShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "WaveWideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WaveSpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarShockCoilShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "SpazerShockCoilShot";
-								if (slot5.type == nv)
-								{
-									shot = "WideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "SpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "NovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "SolarShockCoilShot";
-								}
-							}
-						}
 					}
 				}
 				if (slot1.type == oc)
@@ -2237,52 +1383,13 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "OmegaCannon";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					useTime = 60;
-					if (slot4.type == sp || slot4.type == wi)
+					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
 					}
 					if (!slot3.IsAir)
 					{
 						comboError2 = true;
-					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceOmegaCannonShot";
-						if (slot5.type == plR)
-						{
-							shot = "IcePlasmaRedOmegaCannonShot";
-						}
-						if (slot5.type == nv)
-						{
-							shot = "IceNovaOmegaCannonShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "IceSolarOmegaCannonShot";
-						}
-					}
-					if (slot5.type == plR)
-					{
-						shot = "PlasmaRedOmegaCannonShot";
-					}
-					if (slot5.type == nv)
-					{
-						shot = "NovaOmegaCannonShot";
-					}
-					if (slot5.type == sl)
-					{
-						shot = "SolarOmegaCannonShot";
-					}
-
-					if (slot5.type == plG)
-					{
-						comboError4 = true;
 					}
 				}
 			}

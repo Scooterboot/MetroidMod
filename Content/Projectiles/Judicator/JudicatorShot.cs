@@ -24,6 +24,18 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.timeLeft = 90;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
+			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
+			{
+				Projectile.penetrate = 6;
+			}
+			if (Items.Weapons.PowerBeam.shooty.Contains("nova"))
+			{
+				Projectile.penetrate = 8;
+			}
+			if (Items.Weapons.PowerBeam.shooty.Contains("solar"))
+			{
+				Projectile.penetrate = 12;
+			}
 		}
 
 		public override void AI()
@@ -80,68 +92,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-	}
-	public class PlasmaGreenJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Green Judicator Shot";
-			Projectile.penetrate = 6;
-		}
-	}
-	public class NovaJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nova Judicator Shot";
-			Projectile.penetrate = 8;
-		}
-	}
-	public class IceSolarJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Solar Judicator Shot";
-			Projectile.penetrate = 12;
-		}
-	}
-	public class IcePlasmaGreenJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Green Judicator Shot";
-			Projectile.penetrate = 6;
-		}
-	}
-	public class IceNovaJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Nova Judicator Shot";
-			Projectile.penetrate = 8;
-		}
-	}
-	public class IceJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Judicator Shot";
-		}
-	}
-	public class SolarJudicatorShot : JudicatorShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar Judicator Shot";
-			Projectile.penetrate = 12;
 		}
 	}
 }
