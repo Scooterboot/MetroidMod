@@ -247,7 +247,7 @@ namespace MetroidMod.Content.Projectiles
 				if(!P.tileCollide && !P.Name.Contains("Hyper"))
 				{
 					waveDepth = 4;
-					if(P.Name.Contains("Spazer") || Items.Weapons.PowerBeam.shooty.Contains("spaze"))
+					if(P.Name.Contains("Spazer") || Items.Weapons.PowerBeam.shooty.Contains("spazer"))
 					{
 						waveDepth = 6;
 					}

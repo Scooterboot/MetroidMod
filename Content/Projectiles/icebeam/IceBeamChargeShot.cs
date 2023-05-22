@@ -18,6 +18,12 @@ namespace MetroidMod.Content.Projectiles.icebeam
 			Projectile.width = 16;
 			Projectile.height = 16;
 			Projectile.scale = 2f;
+			if (Items.Weapons.PowerBeam.shooty.Contains("wave"))
+			{
+				mProjectile.amplitude = 10f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
+				mProjectile.delay = 4;
+			}
 		}
 
 		public override void AI()
@@ -29,7 +35,11 @@ namespace MetroidMod.Content.Projectiles.icebeam
 			{
 				Projectile.rotation += 0.5f*Projectile.direction;
 			}
-			
+			if (Items.Weapons.PowerBeam.shooty.Contains("wave"))
+			{
+				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
+			}
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 59, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}

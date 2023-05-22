@@ -72,27 +72,6 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));
 		}
 	}
-	
-	
-	public class WaveHyperBeamShot : HyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Wave Hyper Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.tileCollide = false;
-		}
-	}
-	public class SpazerHyperBeamShot : HyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Spazer Hyper Beam Shot");
-		}
-	}
 	public class PlasmaHyperBeamShot : HyperBeamShot
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/hyperbeam/PlasmaHyperBeamShot";

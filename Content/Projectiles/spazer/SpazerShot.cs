@@ -8,6 +8,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 {
 	public class SpazerShot : MProjectile
 	{
+		public string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Spazer Shot");
@@ -28,12 +29,12 @@ namespace MetroidMod.Content.Projectiles.spazer
 		Color color = MetroidMod.powColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
-			else if(Projectile.Name.Contains("Wave"))
+			else if(S.Contains("wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor;
@@ -68,7 +69,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 			base.SetDefaults();
 			Projectile.Name = "Wave Spazer Shot";
 			Projectile.tileCollide = false;
-			
+
 			mProjectile.amplitude = 12f*Projectile.scale;
 			mProjectile.wavesPerSecond = 1f;
 		}
@@ -80,15 +81,13 @@ namespace MetroidMod.Content.Projectiles.spazer
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Shot";
-		}
-	}
-	
-	public class IceWaveSpazerShot : WaveSpazerShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Spazer Shot";
+			if (S.Contains("wave"))
+			{
+				Projectile.tileCollide = false;
+				Projectile.Name += "Wave";
+				mProjectile.amplitude = 12f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
+			}
 		}
 	}
 }

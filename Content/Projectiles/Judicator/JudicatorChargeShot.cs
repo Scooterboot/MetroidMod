@@ -22,15 +22,15 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.timeLeft = 60;
 			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
 			{
-				Projectile.penetrate = 6;
+				Projectile.penetrate = 9;
 			}
 			if (Items.Weapons.PowerBeam.shooty.Contains("nova"))
 			{
-				Projectile.penetrate = 8;
+				Projectile.penetrate = 11;
 			}
 			if (Items.Weapons.PowerBeam.shooty.Contains("solar"))
 			{
-				Projectile.penetrate = 12;
+				Projectile.penetrate = 16;
 			}
 		}
 

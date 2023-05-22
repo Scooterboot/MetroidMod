@@ -9,6 +9,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 	public class PlasmaBeamGreenChargeShot : MProjectile
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/PlasmaBeamGreenChargeShot";
+		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Plasma Beam Green Charge Shot");
@@ -23,33 +24,51 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 			Projectile.penetrate = 9;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
+
+			mProjectile.wavesPerSecond = 1f;
+			mProjectile.delay = 12;
 		}
 
 		int dustType = 61;
 		Color color = MetroidMod.plaGreenColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			if(Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Projectile.numUpdates == 0)
 			{
 				Projectile.frame++;
 			}
-			if(Projectile.frame > 1)
+			if (Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
-			
-			if(Projectile.Name.Contains("Spazer") || Projectile.Name.Contains("Wave"))
+			if (S.Contains("wave"))
 			{
+				Projectile.Name += "Wave";
+				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			
+			if (!S.Contains("spazer") && S.Contains("wave"))
+			{
+				mProjectile.amplitude = 10f * Projectile.scale;
+			}
+			if (S.Contains("spazer") && !S.Contains("wave"))
+			{
+				mProjectile.amplitude = 10f * Projectile.scale;
+				mProjectile.wavesPerSecond = 2f;
+				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
+			}
+			if (S.Contains("spazer") && S.Contains("wave"))
+			{
+				mProjectile.amplitude = 14.5f * Projectile.scale;
+			}
+
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
@@ -65,46 +84,6 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 		}
 	}
 	
-	public class SpazerPlasmaBeamGreenChargeShot : PlasmaBeamGreenChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/PlasmaBeamGreenChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Spazer Plasma Beam Green Charge Shot";
-			
-			mProjectile.amplitude = 10f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 12;
-		}
-	}
-	
-	public class WavePlasmaBeamGreenChargeShot : PlasmaBeamGreenChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/PlasmaBeamGreenChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Plasma Beam Green Charge Shot";
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 10f*Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
-			mProjectile.delay = 12;
-		}
-	}
-	
-	public class WaveSpazerPlasmaBeamGreenChargeShot : WavePlasmaBeamGreenChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/PlasmaBeamGreenChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Spazer Plasma Beam Green Charge Shot";
-			mProjectile.amplitude = 14.5f*Projectile.scale;
-		}
-	}
-	
 	public class IcePlasmaBeamGreenChargeShot : PlasmaBeamGreenChargeShot
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenChargeShot";
@@ -115,33 +94,4 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 		}
 	}
 	
-	public class IceSpazerPlasmaBeamGreenChargeShot : SpazerPlasmaBeamGreenChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Spazer Plasma Beam Green Charge Shot";
-		}
-	}
-	
-	public class IceWavePlasmaBeamGreenChargeShot : WavePlasmaBeamGreenChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Plasma Beam Green Charge Shot";
-		}
-	}
-	
-	public class IceWaveSpazerPlasmaBeamGreenChargeShot : WaveSpazerPlasmaBeamGreenChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Spazer Plasma Beam Green Charge Shot";
-		}
-	}
 }

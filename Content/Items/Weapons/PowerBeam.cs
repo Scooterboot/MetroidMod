@@ -325,7 +325,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (slot4.type == sp)
 			{
-				shooty += "spaze";
+				shooty += "spazer";
 			}
 			if (slot4.type == wi)
 			{
@@ -390,104 +390,54 @@ namespace MetroidMod.Content.Items.Weapons
 						lightColor = MetroidMod.iceColor;
 						texture = "IceBeam";
 
-						// Ice Wave
 						if (slot3.type == wa)
 						{
-							shot = "IceWaveBeamShot";
-							chargeShot = "IceWaveBeamChargeShot";
 							chargeShotAmt = 2;
 
-							// Ice Wave Spazer
-							if (slot4.type == sp)
+							if (slot5.type == plG)
 							{
-								shot = "IceWaveSpazerShot";
-								chargeShot = "IceWaveSpazerChargeShot";
-								shotSound = "IceComboSound";
-								shotAmt = 3;
-								chargeShotAmt = 3;
-
-								// Ice Wave Spazer Plasma (Green)
-								if (slot5.type == plG)
+								if (shooty.Contains("spazer"))
 								{
-									shot = "IceWaveSpazerPlasmaBeamGreenShot";
-									chargeShot = "IceWaveSpazerPlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
+									shotAmt = 3;
+									chargeShotAmt = 3;
 								}
-								// Ice Wave Spazer Plasma (Red)
-								if (slot5.type == plR)
+								else
 								{
-									shot = "IceWaveSpazerPlasmaBeamRedShot";
-									chargeShot = "IceWaveSpazerPlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									dustType = 135;
+									shotAmt = 2;
 								}
 							}
-							else
+							if (slot5.type == plR)
 							{
-								// Ice Wave Plasma (Green)
-								if (slot5.type == plG)
+								if (shooty.Contains("spazer"))
 								{
-									shot = "IceWavePlasmaBeamGreenShot";
-									chargeShot = "IceWavePlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
+									shotAmt = 3;
+									chargeShotAmt = 3;
+								}
+								else
+								{
 									shotAmt = 2;
 								}
-								// Ice Wave Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaBeamRedShot";
-									chargeShot = "IceWavePlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									shotAmt = 2;
-									dustType = 135;
-								}
+								dustType = 135;
 							}
 						}
-						else
+						if (slot4.type == sp)
 						{
-							// Ice Spazer
-							if (slot4.type == sp)
-							{
-								shot = "IceSpazerShot";
-								chargeShot = "IceSpazerChargeShot";
-								shotSound = "IceComboSound";
-								shotAmt = 3;
-								chargeShotAmt = 3;
-
-								// Ice Spazer Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "IceSpazerPlasmaBeamGreenShot";
-									chargeShot = "IceSpazerPlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
-								}
-								// Ice Spazer Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaBeamRedShot";
-									chargeShot = "IceSpazerPlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									dustType = 135;
-								}
-							}
-							else
-							{
-								// Ice Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaBeamGreenShot";
-									chargeShot = "IcePlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
-								}
-								// Ice Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaBeamRedShot";
-									chargeShot = "IcePlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									dustType = 135;
-								}
-							}
+							shot = "IceSpazerShot";
+							chargeShot = "IceSpazerChargeShot";
+							shotSound = "IceComboSound";
+							chargeShotAmt = 3;
+						}
+						if (slot5.type == plG)
+						{
+							shot = "IcePlasmaBeamGreenShot";
+							chargeShot = "IcePlasmaBeamGreenChargeShot";
+						}
+						// Ice Plasma (Red)
+						if (slot5.type == plR)
+						{
+							shot = "IcePlasmaBeamRedShot";
+							chargeShot = "IcePlasmaBeamRedChargeShot";
+							dustType = 135;
 						}
 					}
 					else
@@ -512,14 +462,13 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "WaveSpazerShot";
 								chargeShot = "WaveSpazerChargeShot";
 								shotSound = "SpazerSound";
-								shotAmt = 3;
 								chargeShotAmt = 3;
 
 								// Wave Spazer Plasma (Green)
 								if (slot5.type == plG)
 								{
-									shot = "WaveSpazerPlasmaBeamGreenShot";
-									chargeShot = "WaveSpazerPlasmaBeamGreenChargeShot";
+									shot = "PlasmaBeamGreenShot";
+									chargeShot = "PlasmaBeamGreenChargeShot";
 									shotSound = "PlasmaBeamGreenSound";
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeUpSound = "ChargeStartup_Power";
@@ -528,11 +477,10 @@ namespace MetroidMod.Content.Items.Weapons
 									lightColor = MetroidMod.plaGreenColor;
 									texture = "PlasmaBeamG";
 								}
-								// Wave Spazer Plasma (Red)
 								if (slot5.type == plR)
 								{
-									shot = "WaveSpazerPlasmaBeamRedShot";
-									chargeShot = "WaveSpazerPlasmaBeamRedChargeShot";
+									shot = "PlasmaBeamRedShot";
+									chargeShot = "PlasmaBeamRedChargeShot";
 									shotSound = "PlasmaBeamRedSound";
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";
@@ -544,32 +492,28 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							else
 							{
-								// Wave Plasma (Green)
 								if (slot5.type == plG)
 								{
-									shot = "WavePlasmaBeamGreenShot";
-									chargeShot = "WavePlasmaBeamGreenChargeShot";
+									shot = "PlasmaBeamGreenShot";
+									chargeShot = "PlasmaBeamGreenChargeShot";
 									shotSound = "PlasmaBeamGreenSound";
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeUpSound = "ChargeStartup_Power";
 									chargeTex = "ChargeLead_PlasmaGreen";
 									dustType = 61;
 									lightColor = MetroidMod.plaGreenColor;
-									shotAmt = 2;
 									texture = "PlasmaBeamG";
 								}
-								// Wave Plasma (Red)
 								if (slot5.type == plR)
 								{
-									shot = "WavePlasmaBeamRedShot";
-									chargeShot = "WavePlasmaBeamRedChargeShot";
+									shot = "PlasmaBeamRedShot";
+									chargeShot = "PlasmaBeamRedChargeShot";
 									shotSound = "PlasmaBeamRedSound";
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";
 									chargeTex = "ChargeLead_PlasmaRed";
 									dustType = 6;
 									lightColor = MetroidMod.plaRedColor;
-									shotAmt = 2;
 									texture = "PlasmaBeamR";
 								}
 							}
@@ -591,8 +535,8 @@ namespace MetroidMod.Content.Items.Weapons
 								// Spazer Plasma (Green)
 								if (slot5.type == plG)
 								{
-									shot = "SpazerPlasmaBeamGreenShot";
-									chargeShot = "SpazerPlasmaBeamGreenChargeShot";
+									shot = "PlasmaBeamGreenShot";
+									chargeShot = "PlasmaBeamGreenChargeShot";
 									shotSound = "PlasmaBeamGreenSound";
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeTex = "ChargeLead_PlasmaGreen";
@@ -603,8 +547,8 @@ namespace MetroidMod.Content.Items.Weapons
 								// Spazer Plasma (Red)
 								if (slot5.type == plR)
 								{
-									shot = "SpazerPlasmaBeamRedShot";
-									chargeShot = "SpazerPlasmaBeamRedChargeShot";
+									shot = "PlasmaBeamRedShot";
+									chargeShot = "PlasmaBeamRedChargeShot";
 									shotSound = "PlasmaBeamRedSound";
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";

@@ -24,13 +24,18 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 			mProjectile.amplitude = 10f*Projectile.scale;
 			mProjectile.wavesPerSecond = 1f;
 			mProjectile.delay = 4;
+			if (Items.Weapons.PowerBeam.shooty.Contains("ice"))
+			{
+				Main.projFrames[Projectile.type] = 1;
+			}
 		}
 
 		int dustType = 62;
 		Color color = MetroidMod.waveColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
@@ -64,16 +69,6 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-	}
-	
-	public class IceWaveBeamChargeShot : WaveBeamChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Beam Charge Shot";
-			Main.projFrames[Projectile.type] = 1;
 		}
 	}
 }
