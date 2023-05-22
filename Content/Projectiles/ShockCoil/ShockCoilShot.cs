@@ -393,17 +393,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			
-
-			if (Projectile.Name.Contains("Vortex"))
-			{
-				shots = 5f;
-				spazSpeed = .75f;
-			}
-			if (Projectile.Name.Contains("Spazer"))
-			{
-				shots = 3f;
-				spazSpeed = 1.15f;
-			}
 			//mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
@@ -418,42 +407,23 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mp.Energy += Math.Min(damageDone / 20, 5);
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
-			if (Projectile.Name.Contains("Plasma"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("vortex"))
 			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(24, 300);
-				}
+				shots = 5f;
+				spazSpeed = .75f;
 			}
-			if (Projectile.Name.Contains("Nova"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("spaze") || Items.Weapons.PowerBeam.shooty.Contains("wide"))
 			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(39, 300);
-				}
+				shots = 3f;
+				spazSpeed = .85f;
 			}
-			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("plasma") || Items.Weapons.PowerBeam.shooty.Contains("solar"))
 			{
-				string buffName = "IceFreeze";
-				iceSpeed = 1.3f;
-				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				target.AddBuff(189, 300);
 				plasSpeed = 1.15f;
 			}
-			if (Projectile.Name.Contains("Plasma"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("ice") || Items.Weapons.PowerBeam.shooty.Contains("stardust"))
 			{
-				plasSpeed = 1.15f;
+				iceSpeed = 1.25f;
 			}
 			Projectile.localNPCHitCooldown = (int)Math.Round((double)(useTime * 7) * iceSpeed * spazSpeed * plasSpeed);
 		}

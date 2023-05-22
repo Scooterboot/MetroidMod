@@ -20,6 +20,7 @@ using MetroidMod.Content.Projectiles.powerbeam;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Default;
 using Terraria.Utilities;
+using MetroidMod.Content.Projectiles.hyperbeam;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -274,6 +275,7 @@ namespace MetroidMod.Content.Items.Weapons
 			lightColor = MetroidMod.powColor;
 
 			texture = "";
+			shooty = "";
 			//modBeamTextureMod = null;
 
 			ShotSound = null;
@@ -310,7 +312,65 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				versionType = 2;
 			}
-
+			if (slot4.type == sp || slot4.type == wi)
+			{
+				shotAmt = 3;
+				chargeShotAmt = 3;
+			}
+			if (slot4.type == vt)
+			{
+				shooty += "vortex";
+				shotAmt = 5;
+				chargeShotAmt = 5;
+			}
+			if (slot4.type == sp)
+			{
+				shooty += "spaze";
+			}
+			if (slot4.type == wi)
+			{
+				shooty += "wide";
+			}
+			if (slot3.type == wa)
+			{
+				shooty += "wave";
+			}
+			if (slot3.type == wa2)
+			{
+				shooty += "waveV2";
+			}
+			if (slot3.type == nb)
+			{
+				shooty += "nebula";
+			}
+			if (slot5.type == plR)
+			{
+				shooty += "plasmared";
+			}
+			if (slot5.type == plG)
+			{
+				shooty += "plasmagreen";
+			}
+			if (slot5.type == nv)
+			{
+				shooty += "nova";
+			}
+			if (slot5.type == sl)
+			{
+				shooty += "solar";
+			}
+			if (slot2.type == ic && slot1.type != mm)
+			{
+				shooty += "ice";
+			}
+			if (slot2.type == ic2 && slot1.type != mm)
+			{
+				shooty += "iceV2";
+			}
+			if (slot2.type == sd && slot1.type != mm)
+			{
+				shooty += "stardust";
+			}
 			// Default Combos
 			if (!isHyper && !isPhazon && !isHunter)
 			{
@@ -1192,68 +1252,6 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else if (isHunter)
 			{
-				if (slot4.type == sp || slot4.type == wi)
-				{
-					shotAmt = 3;
-					chargeShotAmt = 3;
-				}
-				if (slot4.type == vt)
-				{
-					shotAmt = 5;
-					chargeShotAmt = 5;
-				}
-				if (slot4.type == sp)
-				{
-					shooty += "spaze";
-				}
-				if (slot4.type == wi)
-				{
-					shooty += "wide";
-				}
-				if (slot4.type == vt)
-				{
-					shooty += "vortex";
-				}
-				if (slot3.type == wa)
-				{
-					shooty += "wave";
-				}
-				if (slot3.type == wa2)
-				{
-					shooty += "waveV2";
-				}
-				if (slot3.type == nb)
-				{
-					shooty += "nebula";
-				}
-				if (slot5.type == plR)
-				{
-					shooty += "plasmared";
-				}
-				if (slot5.type == plG)
-				{
-					shooty += "plasmagreen";
-				}
-				if (slot5.type == nv)
-				{
-					shooty += "nova";
-				}
-				if (slot5.type == sl)
-				{
-					shooty += "solar";
-				}
-				if (slot2.type == ic && slot1.type != mm)
-				{
-					shooty += "ice";
-				}
-				if (slot2.type == ic2 && slot1.type != mm)
-				{
-					shooty += "iceV2";
-				}
-				if (slot2.type == sd && slot1.type != mm)
-				{
-					shooty += "stardust";
-				}
 				if (slot1.type == vd)
 				{
 					isCharge = true;
@@ -1406,55 +1404,7 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "HyperBeam";
 
 				// Wave / Nebula
-				if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-				{
-					string wave = "Wave";
-					if (slot3.type == nb)
-					{
-						wave = "Nebula";
-					}
-					shot = wave + "HyperBeamShot";
-
-					// Wave Spazer
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-					{
-						shot = wave + "SpazerHyperBeamShot";
-						shotAmt = 3;
-						if (slot4.type == vt)
-						{
-							shotAmt = 5;
-						}
-
-						// Wave Spazer Plasma
-						if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-						{
-							shot = wave + "SpazerPlasmaHyperBeamShot";
-						}
-					}
-					// Wave Plasma
-					else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = wave + "PlasmaHyperBeamShot";
-					}
-				}
-				// Spazer
-				else if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-				{
-					shot = "SpazerHyperBeamShot";
-					shotAmt = 3;
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
-
-					// Spazer Plasma
-					if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = "SpazerPlasmaHyperBeamShot";
-					}
-				}
-				// Plasma
-				else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
+				if(shooty.Contains("plasmagreen") || shooty.Contains("nova") || shooty.Contains("solar"))
 				{
 					shot = "PlasmaHyperBeamShot";
 				}
@@ -1470,60 +1420,6 @@ namespace MetroidMod.Content.Items.Weapons
 				overheat = Common.Configs.MConfigItems.Instance.overheatPhazonBeam;
 
 				texture = "PhazonBeam";
-
-				// Wave / Nebula
-				if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-				{
-					string wave = "Wave";
-					if (slot3.type == nb)
-					{
-						wave = "Nebula";
-					}
-					shot = wave + "PhazonBeamShot";
-
-					// Wave Spazer
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-					{
-						shot = wave + "SpazerPhazonBeamShot";
-						shotAmt = 3;
-						if (slot4.type == vt)
-						{
-							shotAmt = 5;
-						}
-
-						// Wave Spazer Plasma
-						if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-						{
-							shot = wave + "SpazerPlasmaPhazonBeamShot";
-						}
-					}
-					// Wave Plasma
-					else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = wave + "PlasmaPhazonBeamShot";
-					}
-				}
-				// Spazer
-				else if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-				{
-					shot = "SpazerPhazonBeamShot";
-					shotAmt = 3;
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
-
-					// Spazer Plasma
-					if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = "SpazerPlasmaPhazonBeamShot";
-					}
-				}
-				// Plasma
-				else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-				{
-					shot = "PlasmaPhazonBeamShot";
-				}
 			}
 
 			iceDmg = 0f;
@@ -1891,7 +1787,7 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						if (i != 2)
 						{
-							int extraProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Extra" + shot).Type, damage, knockback, player.whoAmI, 0, i);
+							int extraProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ExtraHyperBeamShot>(), damage, knockback, player.whoAmI, 0, i);
 							MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
 							mProj.waveDir = waveDir;
 							Main.projectile[extraProj].netUpdate = true;
@@ -2073,11 +1969,11 @@ namespace MetroidMod.Content.Items.Weapons
 				player.shroomiteStealth = true;
 				if(stealth < 500f)
 				{
-					stealth += 2;
+					stealth += 4;
 				}
 				player.stealth -= stealth / 500;
 				player.aggro -= (int)stealth;
-				if (player.controlUseItem)
+				if (player.controlUseItem || player.velocity.X != 0 || player.velocity.Y != 0)
 				{
 					player.shroomiteStealth = false;
 					stealth = 0f;

@@ -35,12 +35,13 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		public override void AI()
 		{
 			Projectile P = Projectile;
+			string S = Items.Weapons.PowerBeam.shooty;
 			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + 1.57f;
 			
-			bool isWave = (P.Name.Contains("Wave") || P.Name.Contains("Nebula")),
-			isSpazer = P.Name.Contains("Spazer"),
-			isPlasma = P.Name.Contains("Plasma"),
-			isNebula = P.Name.Contains("Nebula");
+			bool isWave = (S.Contains("wave") || S.Contains("nebula")),
+			isSpazer = S.Contains("spazer") || S.Contains("wide") || S.Contains("vortex"),
+			isPlasma = S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar"),
+			isNebula = S.Contains("nebula");
 			
 			if(!initialize)
 			{
@@ -75,6 +76,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 			float mult = 0.005f;
 			if(isWave)
 			{
+				Projectile.tileCollide = false;
 				mult = 0.015f;
 				if(isSpazer)
 				{
@@ -87,6 +89,12 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 			if(isNebula)
 			{
 				mProjectile.HomingBehavior(P,speed);
+			}
+			if (isPlasma)
+			{
+				Projectile.penetrate = -1;
+				Projectile.usesLocalNPCImmunity = true;
+				Projectile.localNPCHitCooldown = 4;
 			}
 		}
 		
@@ -136,101 +144,6 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		{
 			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
 			return false;
-		}
-	}
-	public class WavePhazonBeamShot : PhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Wave Phazon Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.tileCollide = false;
-		}
-	}
-	public class SpazerPhazonBeamShot : PhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Spazer Phazon Beam Shot");
-		}
-	}
-	public class PlasmaPhazonBeamShot : PhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Plasma Phazon Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.penetrate = -1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 4;
-		}
-	}
-	public class SpazerPlasmaPhazonBeamShot : PlasmaPhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Spazer Plasma Phazon Beam Shot");
-		}
-	}
-	public class WaveSpazerPhazonBeamShot : WavePhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Wave Spazer Phazon Beam Shot");
-		}
-	}
-	public class WavePlasmaPhazonBeamShot : PlasmaPhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Wave Plasma Phazon Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.tileCollide = false;
-		}
-	}
-	public class WaveSpazerPlasmaPhazonBeamShot : WavePlasmaPhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Wave Spazer Plasma Phazon Beam Shot");
-		}
-	}
-	
-	public class NebulaPhazonBeamShot : WavePhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Nebula Phazon Beam Shot");
-		}
-	}
-	public class NebulaSpazerPhazonBeamShot : WaveSpazerPhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Nebula Spazer Phazon Beam Shot");
-		}
-	}
-	public class NebulaPlasmaPhazonBeamShot : WavePlasmaPhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Nebula Plasma Phazon Beam Shot");
-		}
-	}
-	public class NebulaSpazerPlasmaPhazonBeamShot : WaveSpazerPlasmaPhazonBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Nebula Spazer Plasma Phazon Beam Shot");
 		}
 	}
 }

@@ -40,17 +40,17 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 		public override void AI()
 		{
-			if (Items.Weapons.PowerBeam.shooty.Contains("spaze"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("spaze") || Items.Weapons.PowerBeam.shooty.Contains("vortex"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 				mProjectile.amplitude = 5f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 1;
+				//mProjectile.wavesPerSecond = 1f;
+				//mProjectile.delay = 1;
 			}
-			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			if (Items.Weapons.PowerBeam.shooty.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
@@ -60,10 +60,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Main.dust[dustType].noGravity = true;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 15, dustType, 2f);
 		}
-		/*public override void Kill(int timeLeft)
-		{
-			int dustType = 64;
-		}*/
 
 		public override bool PreDraw(ref Color lightColor)
 		{

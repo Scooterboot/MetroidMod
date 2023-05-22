@@ -69,38 +69,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (Projectile.Name.Contains("Red"))
-			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(24, 300);
-				}
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(39, 300);
-				}
-			}
-			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
-			{
-				string buffName = "IceFreeze";
-				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
-			}
-
-			if (Projectile.Name.Contains("Solar"))
-			{
-				target.AddBuff(189, 300);
-			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
 			target.AddBuff(31, 180);
 		}
