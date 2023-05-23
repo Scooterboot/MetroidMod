@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 			}
 			
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Nebula"));
-			if (S.Contains("Nebula"))
+			if (S.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 

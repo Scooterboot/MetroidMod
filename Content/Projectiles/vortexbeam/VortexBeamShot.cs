@@ -45,7 +45,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Nebula"));
-			if(S.Contains("Nebula"))
+			if(S.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 

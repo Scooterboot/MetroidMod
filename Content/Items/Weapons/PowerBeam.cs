@@ -513,7 +513,6 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceWaveWideBeamShot";
 								chargeShot = "IceWaveWideBeamChargeShot";
-								shotAmt = 3;
 								chargeShotAmt = 3;
 
 								// Ice Wave Wide Nova
@@ -545,26 +544,24 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							else
 							{
+								shotAmt = 2;
 								// Ice Wave Nova
 								if (slot5.type == nv)
 								{
 									shot = "IceWaveNovaBeamShot";
 									chargeShot = "IceWaveNovaBeamChargeShot";
-									shotAmt = 2;
 								}
 								// Ice Wave Plasma (Green)
 								if (slot5.type == plG)
 								{
 									shot = "IceWavePlasmaBeamGreenV2Shot";
 									chargeShot = "IceWavePlasmaBeamGreenV2ChargeShot";
-									shotAmt = 2;
 								}
 								// Ice Wave Plasma (Red)
 								if (slot5.type == plR)
 								{
 									shot = "IceWavePlasmaBeamRedV2Shot";
 									chargeShot = "IceWavePlasmaBeamRedV2ChargeShot";
-									shotAmt = 2;
 									dustType = 135;
 								}
 							}
@@ -572,19 +569,12 @@ namespace MetroidMod.Content.Items.Weapons
 						else
 						{
 							// Ice Wide
-							if (slot4.type == wi)
+							if (slot4.type == wi && slot5.type != nv)
 							{
 								shot = "IceWideBeamShot";
 								chargeShot = "IceWideBeamChargeShot";
-								shotAmt = 3;
 								chargeShotAmt = 3;
 
-								// Ice Wide Nova
-								if (slot5.type == nv)
-								{
-									shot = "IceNovaBeamShot";
-									chargeShot = "IceNovaBeamChargeShot";
-								}
 								// Ice Wide Plasma (Green)
 								if (slot5.type == plG)
 								{
@@ -599,14 +589,17 @@ namespace MetroidMod.Content.Items.Weapons
 									dustType = 135;
 								}
 							}
+							if (slot5.type == nv)
+							{
+								shot = "IceNovaBeamShot";
+								chargeShot = "IceNovaBeamChargeShot";
+								if(slot4.type == wi)
+								{
+									chargeShotAmt = 3;
+								}
+							}
 							else
 							{
-								// Ice Nova
-								if (slot5.type == nv)
-								{
-									shot = "IceNovaBeamShot";
-									chargeShot = "IceNovaBeamChargeShot";
-								}
 								// Ice Plasma (Green)
 								if (slot5.type == plG)
 								{
