@@ -93,7 +93,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 
 	public class IcePlasmaBeamRedShot : PlasmaBeamRedShot
 	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamred/IcePlasmaBeamRedShot";
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/IceWaveBeamV2Shot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

@@ -91,6 +91,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 	
 	public class WaveWideBeamChargeShot : WideBeamChargeShot
 	{
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/WaveBeamV2ChargeShot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -113,6 +114,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 	
 	public class IceWaveWideBeamChargeShot : WaveWideBeamChargeShot
 	{
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/IceWaveBeamV2ChargeShot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

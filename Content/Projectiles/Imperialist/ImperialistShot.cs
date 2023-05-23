@@ -40,7 +40,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 		public override void AI()
 		{
-			if (Items.Weapons.PowerBeam.shooty.Contains("spaze") || Items.Weapons.PowerBeam.shooty.Contains("vortex"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("spaze") || Items.Weapons.PowerBeam.shooty.Contains("vortex") || Items.Weapons.PowerBeam.shooty.Contains("wide"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 				mProjectile.amplitude = 5f * Projectile.scale;

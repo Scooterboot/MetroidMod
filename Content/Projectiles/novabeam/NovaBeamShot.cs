@@ -22,13 +22,17 @@ namespace MetroidMod.Content.Projectiles.novabeam
 			Projectile.penetrate = 8;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
+
+			mProjectile.wavesPerSecond = 2f;
+			mProjectile.delay = 4;
 		}
 
 		int dustType = 75;
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
@@ -42,13 +46,29 @@ namespace MetroidMod.Content.Projectiles.novabeam
 			{
 				Projectile.frame = 0;
 			}
-			
-			if(Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Wave"))
+
+			if (S.Contains("wave"))
+			{
+				Projectile.tileCollide = false;
+			}
+			if (S.Contains("wide") || (S.Contains("wave")))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			
-			if(Projectile.numUpdates == 0)
+			if (S.Contains("wide") && !S.Contains("wave"))
+			{
+				mProjectile.amplitude = 8f * Projectile.scale;
+			}
+			if (S.Contains("wave") && !S.Contains("wide"))
+			{
+				mProjectile.amplitude = 10f * Projectile.scale;
+			}
+			if (S.Contains("wave") && S.Contains("wide"))
+			{
+				mProjectile.amplitude = 16f * Projectile.scale;
+			}
+
+			if (Projectile.numUpdates == 0)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
@@ -79,40 +99,12 @@ namespace MetroidMod.Content.Projectiles.novabeam
 		}
 	}
 	
-	public class WideNovaBeamShot : NovaBeamShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wide Nova Beam Shot";
-			
-			mProjectile.amplitude = 10f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 4;
-		}
-	}
-	
 	public class WaveNovaBeamShot : NovaBeamShot
 	{
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Nova Beam Shot";
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 8f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 4;
-		}
-	}
-	
-	public class WaveWideNovaBeamShot : WaveNovaBeamShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Wide Nova Beam Shot";
-			mProjectile.amplitude = 16f*Projectile.scale;
 		}
 	}
 	
@@ -125,15 +117,6 @@ namespace MetroidMod.Content.Projectiles.novabeam
 		}
 	}
 	
-	public class IceWideNovaBeamShot : WideNovaBeamShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wide Nova Beam Shot";
-		}
-	}
-	
 	public class IceWaveNovaBeamShot : WaveNovaBeamShot
 	{
 		public override void SetDefaults()
@@ -143,7 +126,7 @@ namespace MetroidMod.Content.Projectiles.novabeam
 		}
 	}
 	
-	public class IceWaveWideNovaBeamShot : WaveWideNovaBeamShot
+	public class IceWaveWideNovaBeamShot : WaveNovaBeamShot
 	{
 		public override void SetDefaults()
 		{

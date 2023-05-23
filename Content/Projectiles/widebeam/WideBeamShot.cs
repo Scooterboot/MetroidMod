@@ -59,8 +59,10 @@ namespace MetroidMod.Content.Projectiles.widebeam
 				}
 			}
 			if(Projectile.frame > 1)
+			{
 				Projectile.frame = 0;
-			
+			}
+
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			
 			if(Projectile.numUpdates == 0)
@@ -83,6 +85,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 	
 	public class WaveWideBeamShot : WideBeamShot
 	{
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/WaveBeamV2Shot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -104,6 +107,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 	
 	public class IceWaveWideBeamShot : WaveWideBeamShot
 	{
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/IceWaveBeamV2Shot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

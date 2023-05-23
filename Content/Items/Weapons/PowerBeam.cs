@@ -692,8 +692,8 @@ namespace MetroidMod.Content.Items.Weapons
 								// Ice Wide Nova
 								if (slot5.type == nv)
 								{
-									shot = "IceWideNovaBeamShot";
-									chargeShot = "IceWideNovaBeamChargeShot";
+									shot = "IceNovaBeamShot";
+									chargeShot = "IceNovaBeamChargeShot";
 								}
 								// Ice Wide Plasma (Green)
 								if (slot5.type == plG)
@@ -761,8 +761,8 @@ namespace MetroidMod.Content.Items.Weapons
 								// Wave Wide Nova
 								if (slot5.type == nv)
 								{
-									shot = "WaveWideNovaBeamShot";
-									chargeShot = "WaveWideNovaBeamChargeShot";
+									shot = "WaveNovaBeamShot";
+									chargeShot = "WaveNovaBeamChargeShot";
 									shotSound = "NovaBeamSound";
 									chargeShotSound = "NovaBeamChargeSound";
 									chargeUpSound = "ChargeStartup_Nova";
@@ -774,8 +774,8 @@ namespace MetroidMod.Content.Items.Weapons
 								// Wave Wide Plasma (Green)
 								if (slot5.type == plG)
 								{
-									shot = "WaveWidePlasmaBeamGreenV2Shot";
-									chargeShot = "WaveWidePlasmaBeamGreenV2ChargeShot";
+									shot = "WavePlasmaBeamGreenV2Shot";
+									chargeShot = "WavePlasmaBeamGreenV2ChargeShot";
 									shotSound = "WavePlasmaBeamGreenSound";
 									chargeShotSound = "PlasmaBeamGreenChargeSound";
 									chargeUpSound = "ChargeStartup_Power";
@@ -787,8 +787,8 @@ namespace MetroidMod.Content.Items.Weapons
 								// Wave Wide Plasma (Red)
 								if (slot5.type == plR)
 								{
-									shot = "WaveWidePlasmaBeamRedV2Shot";
-									chargeShot = "WaveWidePlasmaBeamRedV2ChargeShot";
+									shot = "WavePlasmaBeamRedV2Shot";
+									chargeShot = "WavePlasmaBeamRedV2ChargeShot";
 									shotSound = "PlasmaBeamRedV2Sound";
 									chargeShotSound = "PlasmaBeamRedChargeSound";
 									chargeUpSound = "ChargeStartup_PlasmaRed";
@@ -864,8 +864,8 @@ namespace MetroidMod.Content.Items.Weapons
 								// Wide Nova
 								if (slot5.type == nv)
 								{
-									shot = "WideNovaBeamShot";
-									chargeShot = "WideNovaBeamChargeShot";
+									shot = "NovaBeamShot";
+									chargeShot = "NovaBeamChargeShot";
 									shotSound = "NovaBeamSound";
 									chargeShotSound = "NovaBeamChargeSound";
 									chargeUpSound = "ChargeStartup_Nova";
