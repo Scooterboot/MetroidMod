@@ -32,12 +32,12 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 		public override void AI()
 		{
 			string S = Items.Weapons.PowerBeam.shooty;
-			if (Projectile.Name.Contains("Ice"))
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
-			else if(Projectile.Name.Contains("Wave"))
+			else if(S.Contains("wave"))
 			{
 				dustType = 15;
 				color = MetroidMod.plaGreenColor2;

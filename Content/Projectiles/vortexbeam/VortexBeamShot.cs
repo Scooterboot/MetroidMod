@@ -29,13 +29,14 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		float scale = 1f;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Stardust"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("stardust"))
 			{
 				dustType = 88;
 				color = MetroidMod.iceColor;
 				scale = 0.5f;
 			}
-			else if(Projectile.Name.Contains("Nebula"))
+			else if(S.Contains("nebula"))
 			{
 				dustType = 255;
 				color = MetroidMod.waveColor;
@@ -44,16 +45,19 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Nebula"));
-			if(Projectile.Name.Contains("Nebula"))
+			if(S.Contains("Nebula"))
 			{
+				Projectile.tileCollide = false;
+
+				mProjectile.amplitude = 10f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
 				mProjectile.HomingBehavior(Projectile);
 			}
-			
-			if(Projectile.numUpdates == 0)
+			if (Projectile.numUpdates == 0)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale*0.5f);
 				Main.dust[dust].noGravity = true;
-				if(Projectile.Name.Contains("Stardust"))
+				if(S.Contains("stardust"))
 				{
 					dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), Projectile.scale);
 					Main.dust[dust].noGravity = true;
@@ -78,10 +82,6 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nebula Vortex Beam Shot";
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 10f*Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
 		}
 	}
 	
@@ -91,15 +91,6 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Vortex Beam Shot";
-		}
-	}
-	
-	public class StardustNebulaVortexBeamShot : NebulaVortexBeamShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Vortex Beam Shot";
 		}
 	}
 }

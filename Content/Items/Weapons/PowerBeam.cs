@@ -393,32 +393,6 @@ namespace MetroidMod.Content.Items.Weapons
 						if (slot3.type == wa)
 						{
 							chargeShotAmt = 2;
-
-							if (slot5.type == plG)
-							{
-								if (shooty.Contains("spazer"))
-								{
-									shotAmt = 3;
-									chargeShotAmt = 3;
-								}
-								else
-								{
-									shotAmt = 2;
-								}
-							}
-							if (slot5.type == plR)
-							{
-								if (shooty.Contains("spazer"))
-								{
-									shotAmt = 3;
-									chargeShotAmt = 3;
-								}
-								else
-								{
-									shotAmt = 2;
-								}
-								dustType = 135;
-							}
 						}
 						if (slot4.type == sp)
 						{
@@ -443,7 +417,7 @@ namespace MetroidMod.Content.Items.Weapons
 					else
 					{
 						// Wave
-						if (slot3.type == wa)
+						if (slot3.type == wa && slot5.IsAir)
 						{
 							shot = "WaveBeamShot";
 							chargeShot = "WaveBeamChargeShot";
@@ -463,65 +437,12 @@ namespace MetroidMod.Content.Items.Weapons
 								chargeShot = "WaveSpazerChargeShot";
 								shotSound = "SpazerSound";
 								chargeShotAmt = 3;
-
-								// Wave Spazer Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaBeamGreenShot";
-									chargeShot = "PlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaBeamRedShot";
-									chargeShot = "PlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
-							}
-							else
-							{
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaBeamGreenShot";
-									chargeShot = "PlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaBeamRedShot";
-									chargeShot = "PlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
 							}
 						}
 						else
 						{
 							// Spazer
-							if (slot4.type == sp)
+							if (slot4.type == sp && slot5.IsAir)
 							{
 								shot = "SpazerShot";
 								chargeShot = "SpazerChargeShot";
@@ -531,60 +452,29 @@ namespace MetroidMod.Content.Items.Weapons
 								shotAmt = 3;
 								chargeShotAmt = 3;
 								texture = "Spazer";
-
-								// Spazer Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaBeamGreenShot";
-									chargeShot = "PlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								// Spazer Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaBeamRedShot";
-									chargeShot = "PlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
 							}
-							else
+							if (slot5.type == plG)
 							{
-								// Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaBeamGreenShot";
-									chargeShot = "PlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								// Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaBeamRedShot";
-									chargeShot = "PlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
+								shot = "PlasmaBeamGreenShot";
+								chargeShot = "PlasmaBeamGreenChargeShot";
+								shotSound = "PlasmaBeamGreenSound";
+								chargeShotSound = "PlasmaBeamGreenChargeSound";
+								chargeTex = "ChargeLead_PlasmaGreen";
+								dustType = 61;
+								lightColor = MetroidMod.plaGreenColor;
+								texture = "PlasmaBeamG";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaBeamRedShot";
+								chargeShot = "PlasmaBeamRedChargeShot";
+								shotSound = "PlasmaBeamRedSound";
+								chargeShotSound = "PlasmaBeamRedChargeSound";
+								chargeUpSound = "ChargeStartup_PlasmaRed";
+								chargeTex = "ChargeLead_PlasmaRed";
+								dustType = 6;
+								lightColor = MetroidMod.plaRedColor;
+								texture = "PlasmaBeamR";
 							}
 						}
 					}
@@ -747,107 +637,66 @@ namespace MetroidMod.Content.Items.Weapons
 							dustType = 62;
 							lightColor = MetroidMod.waveColor2;
 							//shotAmt = 2;
-							chargeShotAmt = 2;
 							texture = "WaveBeam";
-
-							// Wave Wide
-							if (slot4.type == wi)
+							if (shooty.Contains("wide"))
 							{
-								shot = "WaveWideBeamShot";
-								chargeShot = "WaveWideBeamChargeShot";
 								shotAmt = 3;
 								chargeShotAmt = 3;
-
-								// Wave Wide Nova
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaBeamShot";
-									chargeShot = "WaveNovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									texture = "NovaBeam";
-								}
-								// Wave Wide Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaBeamGreenV2Shot";
-									chargeShot = "WavePlasmaBeamGreenV2ChargeShot";
-									shotSound = "WavePlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreenV2";
-									dustType = 15;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								// Wave Wide Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaBeamRedV2Shot";
-									chargeShot = "WavePlasmaBeamRedV2ChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
 							}
 							else
 							{
-								// Wave Nova
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaBeamShot";
-									chargeShot = "WaveNovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									shotAmt = 2;
-									texture = "NovaBeam";
-								}
-								// Wave Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaBeamGreenV2Shot";
-									chargeShot = "WavePlasmaBeamGreenV2ChargeShot";
-									shotSound = "WavePlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreenV2";
-									dustType = 15;
-									lightColor = MetroidMod.plaGreenColor;
-									shotAmt = 2;
-									texture = "PlasmaBeamG";
-								}
-								// Wave Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaBeamRedV2Shot";
-									chargeShot = "WavePlasmaBeamRedV2ChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									shotAmt = 2;
-									texture = "PlasmaBeamR";
-								}
+								shotAmt = 2;
+								chargeShotAmt = 2;
+							}
+							// Wave Wide
+							if (slot4.type == wi && slot5.IsAir)
+							{
+								shot = "WaveWideBeamShot";
+								chargeShot = "WaveWideBeamChargeShot";
+							}
+							if (slot5.type == nv)
+							{
+								shot = "WaveNovaBeamShot";
+								chargeShot = "WaveNovaBeamChargeShot";
+								shotSound = "NovaBeamSound";
+								chargeShotSound = "NovaBeamChargeSound";
+								chargeUpSound = "ChargeStartup_Nova";
+								chargeTex = "ChargeLead_Nova";
+								dustType = 75;
+								lightColor = MetroidMod.novColor;
+								texture = "NovaBeam";
+							}
+							// Wave Plasma (Green)
+							if (slot5.type == plG)
+							{
+								shot = "WavePlasmaBeamGreenV2Shot";
+								chargeShot = "WavePlasmaBeamGreenV2ChargeShot";
+								shotSound = "WavePlasmaBeamGreenSound";
+								chargeShotSound = "PlasmaBeamGreenChargeSound";
+								chargeUpSound = "ChargeStartup_Power";
+								chargeTex = "ChargeLead_PlasmaGreenV2";
+								dustType = 15;
+								lightColor = MetroidMod.plaGreenColor;
+								texture = "PlasmaBeamG";
+							}
+							// Wave Plasma (Red)
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaBeamRedV2Shot";
+								chargeShot = "WavePlasmaBeamRedV2ChargeShot";
+								shotSound = "PlasmaBeamRedV2Sound";
+								chargeShotSound = "PlasmaBeamRedChargeSound";
+								chargeUpSound = "ChargeStartup_PlasmaRed";
+								chargeTex = "ChargeLead_PlasmaRed";
+								dustType = 6;
+								lightColor = MetroidMod.plaRedColor;
+								texture = "PlasmaBeamR";
 							}
 						}
 						else
 						{
 							// Wide
-							if (slot4.type == wi)
+							if (slot4.type == wi && slot5.type != nv)
 							{
 								shot = "WideBeamShot";
 								chargeShot = "WideBeamChargeShot";
@@ -861,21 +710,6 @@ namespace MetroidMod.Content.Items.Weapons
 								chargeShotAmt = 3;
 								texture = "WideBeam";
 
-								// Wide Nova
-								if (slot5.type == nv)
-								{
-									shot = "NovaBeamShot";
-									chargeShot = "NovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									dustColor = default(Color);
-									texture = "NovaBeam";
-								}
-								// Wide Plasma (Green)
 								if (slot5.type == plG)
 								{
 									shot = "WidePlasmaBeamGreenV2Shot";
@@ -903,21 +737,21 @@ namespace MetroidMod.Content.Items.Weapons
 									texture = "PlasmaBeamR";
 								}
 							}
+							if (slot5.type == nv)
+							{
+								shot = "NovaBeamShot";
+								chargeShot = "NovaBeamChargeShot";
+								shotSound = "NovaBeamSound";
+								chargeShotSound = "NovaBeamChargeSound";
+								chargeUpSound = "ChargeStartup_Nova";
+								chargeTex = "ChargeLead_Nova";
+								dustType = 75;
+								lightColor = MetroidMod.novColor;
+								dustColor = default(Color);
+								texture = "NovaBeam";
+							}
 							else
 							{
-								// Nova
-								if (slot5.type == nv)
-								{
-									shot = "NovaBeamShot";
-									chargeShot = "NovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									texture = "NovaBeam";
-								}
 								// Plasma (Green)
 								if (slot5.type == plG)
 								{
@@ -975,7 +809,7 @@ namespace MetroidMod.Content.Items.Weapons
 					lightColor = MetroidMod.lumColor;
 
 					// Stardust
-					if (slot2.type == sd)
+					if (slot2.type == sd && slot5.IsAir)
 					{
 						shot = "StardustBeamShot";
 						chargeShot = "StardustBeamChargeShot";
@@ -988,88 +822,40 @@ namespace MetroidMod.Content.Items.Weapons
 						texture = "StardustBeam";
 
 						// Stardust Nebula
-						if (slot3.type == nb)
+						if (slot4.type == vt)
 						{
-							shot = "StardustNebulaBeamShot";
-							chargeShot = "StardustNebulaBeamChargeShot";
-							shotAmt = 2;
-							chargeShotAmt = 2;
-
-							// Stardust Nebula Vortex
-							if (slot4.type == vt)
-							{
-								shot = "StardustNebulaVortexBeamShot";
-								chargeShot = "StardustNebulaVortexBeamChargeShot";
-								shotAmt = 5;
-								chargeShotAmt = 5;
-
-								// Stardust Nebula Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarBeamShot";
-									chargeShot = "StardustNebulaVortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Stardust Nebula Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarBeamShot";
-									chargeShot = "StardustNebulaSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
+							shot = "StardustVortexBeamShot";
+							chargeShot = "StardustVortexBeamChargeShot";
 						}
-						else
-						{
-							// Stardust Vortex
-							if (slot4.type == vt)
-							{
-								shot = "StardustVortexBeamShot";
-								chargeShot = "StardustVortexBeamChargeShot";
-								shotAmt = 5;
-								chargeShotAmt = 5;
+					}
+					if (slot3.type == nb)
+					{
+						shotAmt = 2;
+						chargeShotAmt = 2;
 
-								// Stardust Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarBeamShot";
-									chargeShot = "StardustVortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Stardust Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarBeamShot";
-									chargeShot = "StardustSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
+						// Stardust Nebula Vortex
+						if (slot4.type == vt)
+						{
+							shotAmt = 5;
+							chargeShotAmt = 5;
+						}
+					}
+					if (slot5.type == sl)
+					{
+						shot = "SolarBeamShot";
+						chargeShot = "SolarBeamChargeShot";
+						shotSound = "PlasmaBeamRedV2Sound";
+						chargeShotSound = "PlasmaBeamRedChargeSound";
+						chargeUpSound = "ChargeStartup_PlasmaRed";
+						chargeTex = "ChargeLead_Solar";
+						dustType = 6;
+						lightColor = MetroidMod.plaRedColor;
+						texture = "SolarBeam";
+
+						if (slot4.type == vt)
+						{
+							shot = "VortexSolarBeamShot";
+							chargeShot = "VortexSolarBeamChargeShot";
 						}
 					}
 					else
@@ -1098,35 +884,6 @@ namespace MetroidMod.Content.Items.Weapons
 								shotAmt = 5;
 								chargeShotAmt = 5;
 
-								// Nebula Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarBeamShot";
-									chargeShot = "NebulaVortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Nebula Solar
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarBeamShot";
-									chargeShot = "NebulaSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
 							}
 						}
 						else
@@ -1143,35 +900,6 @@ namespace MetroidMod.Content.Items.Weapons
 								chargeShotAmt = 5;
 								texture = "VortexBeam";
 
-								// Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarBeamShot";
-									chargeShot = "VortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Solar
-								if (slot5.type == sl)
-								{
-									shot = "SolarBeamShot";
-									chargeShot = "SolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
 							}
 						}
 					}

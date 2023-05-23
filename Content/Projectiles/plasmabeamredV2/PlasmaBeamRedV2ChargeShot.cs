@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 		public override void AI()
 		{
 			string S = Items.Weapons.PowerBeam.shooty;
-			if (Projectile.Name.Contains("Ice"))
+			if (S.Contains("ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;

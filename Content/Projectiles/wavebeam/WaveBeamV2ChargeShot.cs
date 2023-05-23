@@ -30,7 +30,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		Color color = MetroidMod.waveColor2;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;

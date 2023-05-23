@@ -8,6 +8,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 {
 	public class WideBeamShot : MProjectile
 	{
+		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Wide Beam Shot");
@@ -30,13 +31,13 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			if(S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 				color2 = default(Color);
 			}
-			else if(Projectile.Name.Contains("Wave"))
+			else if(S.Contains("wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor2;
@@ -46,7 +47,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			if(Projectile.numUpdates == 0)
 			{
-				if(Projectile.Name.Contains("Wave"))
+				if(S.Contains("wave"))
 					Projectile.frame++;
 				else
 				{

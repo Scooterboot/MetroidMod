@@ -8,6 +8,8 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 {
 	public class NebulaBeamShot : MProjectile
 	{
+		string S = Items.Weapons.PowerBeam.shooty;
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/WaveBeamV2Shot";
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Nebula Beam Shot");
@@ -31,7 +33,7 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 		float scale = 0.75f;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Stardust"))
+			if(S.Contains("stardust"))
 			{
 				dustType = 88;
 				color = MetroidMod.iceColor;
@@ -59,7 +61,7 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale*scale);
 				Main.dust[dust].noGravity = true;
-				if(Projectile.Name.Contains("Stardust"))
+				if(S.Contains("stardust"))
 				{
 					dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), Projectile.scale);
 					Main.dust[dust].noGravity = true;
@@ -75,15 +77,6 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-	}
-	
-	public class StardustNebulaBeamShot : NebulaBeamShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Beam Shot";
 		}
 	}
 }

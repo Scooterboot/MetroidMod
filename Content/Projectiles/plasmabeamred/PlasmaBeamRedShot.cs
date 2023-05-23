@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			if(S.Contains("ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
