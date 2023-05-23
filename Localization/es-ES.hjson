@@ -2781,20 +2781,20 @@ Mods: {
 				// DisplayName: Chozo Ghost
 
 				TownNPCMood: {
-					// Content: I am content.
-					// NoHome: I hate not having a home.
-					// FarFromHome: I am too far from home.
-					// LoveSpace: I love having so much space.
-					// DislikeCrowded: I dislike how crowded I am.
-					// HateCrowded: I hate how crowded I am.
-					// LoveBiome: I love {BiomeName}.
-					// LikeBiome: I like {BiomeName}.
-					// DislikeBiome: I dislike {BiomeName}.
-					// HateBiome: I hate {BiomeName}.
-					// LoveNPC: I love {NPCName}.
-					// LikeNPC: I like {NPCName}.
-					// DislikeNPC: I dislike {NPCName}.
-					// HateNPC: I hate {NPCName}.
+					// Content: I feel alright. How are you?
+					// NoHome: I've never felt homeless before... I guess there's a first time for everything.
+					// LoveSpace: The aura here is tranquil.
+					// FarFromHome: I seem to have lost track of space, could you help me get back home?
+					// DislikeCrowded: There are a few too many presences here, the aura is hard to think in.
+					// HateCrowded: The aura of this place is so diluted with souls it's driving me insane!
+					// LikeBiome: "{BiomeName} is calming."
+					// LoveBiome: I love {BiomeName}. It's very peaceful.
+					// DislikeBiome: I feel uneasy. The unending sands of {BiomeName} remind me of the times before the raid... I miss those days.
+					// HateBiome: "{BiomeName} reeks of malintent to the point it's corrupting."
+					// LikeNPC: "{NPCName}'s tech is primitive but useful. I admire his genius."
+					// LoveNPC: "{NPCName} seems quite technologically advanced, maybe she can help humanity arise to the golden age we Chozo once had. Hopefully, she learns of the dangers of rejecting religion. We don't want another Bryyo."
+					// DislikeNPC: I don't like the harassive tendencies {NPCName} displays.
+					// HateNPC: "{NPCName}'s aura is one of malice and corruption. His very presence is toxic to my being."
 					// LikeNPC_Princess: I like {NPCName}.
 					// Princess_LovesNPC: I like {NPCName}.
 				}
