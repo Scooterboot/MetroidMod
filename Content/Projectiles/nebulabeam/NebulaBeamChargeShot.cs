@@ -6,7 +6,6 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.nebulabeam
 {
-	string S = Items.Weapons.PowerBeam.shooty;
 	public class NebulaBeamChargeShot : MProjectile
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/WaveBeamV2ChargeShot";
@@ -33,7 +32,8 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 		float scale = 1f;
 		public override void AI()
 		{
-			if(S.Contains("stardust"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("stardust"))
 			{
 				dustType = 88;
 				color = MetroidMod.iceColor;

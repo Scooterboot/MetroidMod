@@ -8,7 +8,6 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 {
 	public class NebulaBeamShot : MProjectile
 	{
-		string S = Items.Weapons.PowerBeam.shooty;
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/WaveBeamV2Shot";
 		public override void SetStaticDefaults()
 		{
@@ -33,7 +32,8 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 		float scale = 0.75f;
 		public override void AI()
 		{
-			if(S.Contains("stardust"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("stardust"))
 			{
 				dustType = 88;
 				color = MetroidMod.iceColor;
