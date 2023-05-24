@@ -3,6 +3,9 @@ using Terraria;
 using Terraria.ID;
 using MetroidMod.Common.Players;
 using MetroidMod.ID;
+using MetroidMod.Content;
+using MetroidMod.Content.Items.Weapons;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -40,6 +43,7 @@ namespace MetroidMod.Content.SuitAddons
 				"10% increased energy barrier resilience\n" + // Provisional name
 				"Immune to damage caused by blue Phazon blocks\n" +
 				"Enables Phazon Beam use"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<TerraGravitySuitAddon>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Augment;
 			ItemNameLiteral = false;
 		}

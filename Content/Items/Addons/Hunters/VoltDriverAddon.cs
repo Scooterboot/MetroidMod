@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.SuitAddons;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -18,6 +19,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
                 string.Format("[c/BE7878:-10% speed]\n") +
                 string.Format("[c/BE7878:+100% overheat use]\n") +
 				string.Format("[c/BE7878:+10% noise]\n")); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<MagMaulAddon>();
 
 			Item.ResearchUnlockCount = 1;
 		}

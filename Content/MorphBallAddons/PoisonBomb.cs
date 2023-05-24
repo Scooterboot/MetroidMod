@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
@@ -15,8 +16,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || x >= Main.maxTilesX * 0.2 && x <= Main.maxTilesX * 0.35 && y < Main.UnderworldLayer || x >= Main.maxTilesX * 0.65 && y <= Main.maxTilesX * 0.8 && y < Main.UnderworldLayer && (GenVars.dEnteranceX < Main.maxTilesX / 2);
-
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || ((x >= GenVars.jungleOriginX && x <= GenVars.JungleX) || (x <= GenVars.jungleOriginX + GenVars.jungleMaxX - GenVars.jungleMinX) || x == GenVars.JungleX) && y < Main.UnderworldLayer;
 		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 15;
 
 		public override void SetStaticDefaults()

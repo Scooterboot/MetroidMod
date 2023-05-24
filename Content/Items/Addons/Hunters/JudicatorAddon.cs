@@ -19,8 +19,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/BE7878:+125% overheat use]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
 				string.Format("[c/BE7878:Cannot pierce walls]\n")); */
-
-            Item.ResearchUnlockCount = 1;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShockCoilAddon>();
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -17,8 +17,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/BE7878:+100% overheat use]\n") +
 				string.Format("[c/BE7878:-40% speed]\n") +
                 string.Format("[c/BE7878:Cannot pierce walls or enemies]")); */
-
-            Item.ResearchUnlockCount = 1;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<VoltDriverAddon>();
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

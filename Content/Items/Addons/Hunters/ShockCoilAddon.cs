@@ -19,6 +19,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/BE7878:Cannot pierce enemies]\n") +
 				string.Format("[c/BE7878:Cannot pseudo-screw]\n") +
 				string.Format("[c/BE7878:Probably still bugged]\n")); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<BattleHammerAddon>();
 
 			Item.ResearchUnlockCount = 1;
 		}

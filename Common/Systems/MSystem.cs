@@ -637,19 +637,20 @@ namespace MetroidMod.Common.Systems
 		{
 			//Mod mod = MetroidMod.Instance;
 
+			int range = GenVars.jungleMaxX - GenVars.jungleMinX;
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
-			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35 && j < Main.UnderworldLayer);
-			if (GenVars.dEnteranceX < Main.maxTilesX / 2)
+			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || (i <= GenVars.jungleOriginX + range) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
+			/*if (GenVars.dEnteranceX < Main.maxTilesX / 2)
 			{
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8 && j < Main.UnderworldLayer);
-			}
+			}*/
 
 			ushort item  = (ushort)ModContent.TileType<MorphBallTile>();
 			if (dungeon)
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
 			}
-			else if (jungle && WorldGen.genRand.Next(10) <= 5)
+			if (jungle && WorldGen.genRand.Next(10) <= 5)
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
 			}

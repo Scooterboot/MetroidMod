@@ -41,6 +41,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Grants 7 seconds of lava immunity\n" +
 				"Default gravity in space\n" +
 				"Immune to Distorted and Amplified Gravity effects"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Augment;
 			ItemNameLiteral = false;
 		}

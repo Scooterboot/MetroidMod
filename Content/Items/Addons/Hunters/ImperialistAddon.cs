@@ -17,8 +17,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/78BE78:Adds scope and stealth]\n") +
 				string.Format("[c/BE7878:+500% overheat use]\n") +
 				string.Format("[c/BE7878:Massive speed reduction]\n")); */
-
-            Item.ResearchUnlockCount = 1;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<JudicatorAddon>();
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

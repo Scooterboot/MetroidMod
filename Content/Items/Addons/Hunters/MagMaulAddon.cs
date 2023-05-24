@@ -19,8 +19,9 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/BE7878:-45% speed]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
 				string.Format("[c/BE7878:Cannot freeze or pierce]")); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ImperialistAddon>();
 
-            Item.ResearchUnlockCount = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
