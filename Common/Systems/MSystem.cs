@@ -638,10 +638,10 @@ namespace MetroidMod.Common.Systems
 			//Mod mod = MetroidMod.Instance;
 
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
-			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35 && j <= Main.UnderworldLayer);
+			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35 && j < Main.UnderworldLayer);
 			if (GenVars.dEnteranceX < Main.maxTilesX / 2)
 			{
-				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8);
+				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8 && j < Main.UnderworldLayer);
 			}
 
 			ushort item  = (ushort)ModContent.TileType<MorphBallTile>();
@@ -675,12 +675,12 @@ namespace MetroidMod.Common.Systems
 				{
 					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, addon.GenerationChance(i, j)); }
 				}
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.BattleHammerTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>(); }, RarityLoader.RarityCount - 3);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.BattleHammerTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>(); }, 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>(); }, 32);
@@ -690,37 +690,37 @@ namespace MetroidMod.Common.Systems
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>(); }, 1);
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>(); }, 1);
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.OmegaCannonTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.GrappleBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamV2Tile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamV2Tile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.LuminiteBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.NebulaBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.NovaBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamGreenTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamRedTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SolarBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.StardustBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.VortexBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamV2Tile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WideBeamTile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.DiffusionMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.Flamethrower>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.HomingMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceSpreader>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceSuperMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaCombo>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NovaCombo>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.PlasmaMachinegun>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SeekerMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SolarCombo>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SpazerCombo>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustCombo>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SuperMissile>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.VortexCombo>(); }, 1);
-					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.Wavebuster>(); }, 1);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.GrappleBeamTile>(); }, 10);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamV2Tile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamV2Tile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.LuminiteBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.NebulaBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.NovaBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamGreenTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamRedTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SolarBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.StardustBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.VortexBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamV2Tile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WideBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.DiffusionMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.Flamethrower>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.HomingMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceSpreader>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceSuperMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NovaCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.PlasmaMachinegun>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SeekerMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SolarCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SpazerCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SuperMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.VortexCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.Wavebuster>(); }, 4);
 				}
 				Array.Resize(ref list, index);
 				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
