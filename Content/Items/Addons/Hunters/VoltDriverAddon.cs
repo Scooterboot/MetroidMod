@@ -51,9 +51,11 @@ namespace MetroidMod.Content.Items.Addons.Hunters
                 .AddIngredient<Miscellaneous.ChoziteBar>(30)
                 .AddIngredient<Miscellaneous.EnergyShard>(30)
                 .AddIngredient(ItemID.CelestialMagnet, 1)
-                .AddIngredient(ItemID.Topaz, 30)
+				.AddIngredient(ItemID.SpaceGun, 1)
+				.AddIngredient(ItemID.Topaz, 30)
                 .AddIngredient(ItemID.Wire, 100)
-                .AddTile(TileID.Anvils)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
+				.AddTile(TileID.Anvils)
 				.Register();
         }
 	}

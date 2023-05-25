@@ -44,7 +44,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
         public override void AddRecipes()
         {
 			CreateRecipe(1)
-                .AddIngredient<Miscellaneous.ChoziteBar>(30)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
+				.AddIngredient<Miscellaneous.ChoziteBar>(30)
                 .AddIngredient<Miscellaneous.EnergyShard>(30)
                 .AddIngredient(ItemID.MeteoriteBar, 30)
                 .AddIngredient(ItemID.Emerald, 30)

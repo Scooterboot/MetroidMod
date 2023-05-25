@@ -44,23 +44,33 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 
         public override void AddRecipes()
         {
-            CreateRecipe(1)
-                .AddIngredient<Miscellaneous.ChoziteBar>(30)
-                .AddIngredient<Miscellaneous.EnergyShard>(30)
-                .AddIngredient(ItemID.ZapinatorGray, 1)
-                .AddIngredient(ItemID.SoulofFright, 20)
-                .AddIngredient(ItemID.Ruby, 20)
-                .AddTile(TileID.Hellforge)
-                .Register();
+			/*CreateRecipe(1)
+				.AddIngredient<Miscellaneous.ChoziteBar>(30)
+				.AddIngredient<Miscellaneous.EnergyShard>(30)
+				.AddIngredient(ItemID.ZapinatorGray, 1)
+				.AddIngredient(ItemID.SoulofFright, 20)
+				.AddIngredient(ItemID.Ruby, 20)
+				.AddTile(TileID.Hellforge)
+				.Register();
+
+			CreateRecipe(1)
+				.AddIngredient<Miscellaneous.ChoziteBar>(30)
+				.AddIngredient<Miscellaneous.EnergyShard>(30)
+				.AddIngredient(ItemID.ZapinatorOrange, 1)
+				.AddIngredient(ItemID.SoulofFright, 20)
+				.AddIngredient(ItemID.Ruby, 20)
+				.AddTile(TileID.Hellforge)
+				.Register();*/
 			
 			CreateRecipe(1)
-                .AddIngredient<Miscellaneous.ChoziteBar>(30)
-                .AddIngredient<Miscellaneous.EnergyShard>(30)
-                .AddIngredient(ItemID.ZapinatorOrange, 1)
-                .AddIngredient(ItemID.SoulofFright, 20)
-                .AddIngredient(ItemID.Ruby, 20)
-                .AddTile(TileID.Hellforge)
-                .Register();
-        }
-    }
+				.AddIngredient<Miscellaneous.ChoziteBar>(30)
+				.AddIngredient<Miscellaneous.EnergyShard>(30)
+				.AddIngredient(ItemID.LaserRifle, 1)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
+				.AddIngredient(ItemID.Ruby, 20)
+				.AddTile(TileID.Hellforge)
+				.Register();
+
+		}
+	}
 }

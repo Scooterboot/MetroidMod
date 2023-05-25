@@ -5,6 +5,7 @@ using Terraria.ModLoader.Config;
 namespace MetroidMod.Common.Configs
 {
 	// NOTE ABOUT SUBPAGES!! [DefaultValue()] does NOT work on values inside of subpages. Use variable = value instead.
+	//TODO: add configs for hunter weapons
 	[Label("Items Config")]
 	public class MConfigItems : ModConfig
 	{

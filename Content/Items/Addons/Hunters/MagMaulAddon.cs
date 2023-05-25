@@ -53,7 +53,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
                 .AddIngredient(ItemID.HellstoneBar, 30)
                 .AddIngredient(ItemID.FallenStar, 30)
                 .AddIngredient(ItemID.Amber, 30)
-                .AddTile(TileID.Hellforge)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
+				.AddTile(TileID.Hellforge)
                 .Register();
         }
     }

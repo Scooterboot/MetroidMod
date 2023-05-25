@@ -48,9 +48,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				.AddIngredient<Miscellaneous.EnergyShard>(30)
 				.AddIngredient(ItemID.FallenStar, 30)
 				.AddIngredient(ItemID.Sapphire, 30)
+				.AddIngredient(ItemID.Buggy, 1)
+				//.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
 				.AddTile(TileID.Hellforge)
 				.Register();
 		}
 	}
 }
-
