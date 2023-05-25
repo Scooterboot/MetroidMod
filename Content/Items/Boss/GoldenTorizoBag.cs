@@ -31,6 +31,7 @@ namespace MetroidMod.Content.Items.Boss
 		{
 			itemLoot.Add(ItemDropRule.Common(SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.EnergyShard>(), 1, 60, 144));
 		}
 	}
 }

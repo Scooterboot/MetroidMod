@@ -40,7 +40,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.addonDmg = .1f;
-			mItem.addonHeat = 1f;
+			mItem.addonHeat = .5f;
             mItem.addonSpeed = -.1f;
         }
 	

@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Addons.Hunters;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -23,7 +24,7 @@ namespace MetroidMod.Content.Items.Addons
 			"Affected by addons regardless of version\n" + 
 			"Disables freeze and other debuff effects\n" +
 			"'Da babeh'"); */
-
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PhazonBeamAddon>();
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()

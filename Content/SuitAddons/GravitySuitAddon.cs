@@ -55,7 +55,6 @@ namespace MetroidMod.Content.SuitAddons
 			player.statDefense += 9;
 			player.noKnockback = true;
 			player.ignoreWater = true;
-			player.gills = true;
 			player.lavaMax += 420; // blaze it
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
@@ -63,8 +62,13 @@ namespace MetroidMod.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
+			mp.breathMult = 2;
 			mp.EnergyDefenseEfficiency += 0.15f;
 			mp.EnergyExpenseEfficiency += 0.075f;
+			if (!WorldGen.everythingWorldGen)
+			{
+				player.gills = false;
+			}
 		}
 		public override void AddRecipes()
 		{

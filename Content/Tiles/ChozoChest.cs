@@ -154,7 +154,9 @@ namespace MetroidMod.Content.Tiles
 			}
 			else
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Chozodian Chest";
+				string defaultName = TileLoader.DefaultContainerName(tile.TileType, tile.TileFrameX, tile.TileFrameY); // This gets the ContainerName text for the currently selected language
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : defaultName;
+				player.cursorItemIconID = ModContent.ItemType<Items.Tiles.ChozoChest>();
 				if (player.cursorItemIconText == "Chozodian Chest")
 				{
 					player.cursorItemIconText = "";

@@ -44,7 +44,7 @@ namespace MetroidMod.Common.Configs
 		//[DefaultValue(false)]
 		//internal bool veryBrokenHatchControl;
 
-	[Header("[i:3611] Tech Preservation")]
+	[Header("[i:3611]TechPreservation")]
 
 		[Label("[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots")]
 		[Tooltip("Enables a small, niche movement tech that has not been named.")]
@@ -56,7 +56,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool enableMorphBallWallJump;
 
-	[Header("[i:MetroidMod/BlueHatch] Automatically Closing Hatches")]
+	[Header("[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches")]
 		
 		[Label("Enabled")]
 		[Tooltip("When enabled, hatches will automatically close after a certain period of time.")]

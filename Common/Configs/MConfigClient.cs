@@ -50,35 +50,35 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool energyLowFade;
 
-		[Header("Draggable Power Beam UI")]
+		[Header("DraggablePowerBeamUI")]
 		
 		[Label("Enabled")]
 		[Tooltip("Allows the Power Beam UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragablePowerBeamUI;
 		
-		[Header("Draggable Missile Launcher UI")]
+		[Header("DraggableMissileLauncherUI")]
 		
 		[Label("Enabled")]
 		[Tooltip("Allows the Missile Launcher UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableMissileLauncherUI;
 		
-		[Header("Draggable Morph Ball UI")]
+		[Header("DraggableMorphBallUI")]
 		
 		[Label("Enabled")]
 		[Tooltip("Allows the Morph Ball UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableMorphBallUI;
 		
-		[Header("Draggable Sense Move UI")]
+		[Header("DraggableSenseMoveUI")]
 		
 		[Label("Enabled")]
 		[Tooltip("Allows the Sense Move UI to be draggable.\n" +
 		"Default value: false")]
 		public bool DragableSenseMoveUI;
 
-		[Header("Map Icons")]
+		[Header("MapIcons")]
 		
 		[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
 		[Tooltip("When enabled, the map will show an icon where Torizo's boss room is.\n" +

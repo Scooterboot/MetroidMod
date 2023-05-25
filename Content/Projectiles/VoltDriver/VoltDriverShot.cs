@@ -23,6 +23,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.damage = 15;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
+			Projectile.extraUpdates = 3;
 			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
 			{
 				Projectile.penetrate = 6;

@@ -1,6 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Addons.Hunters;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -16,7 +17,7 @@ namespace MetroidMod.Content.Items.Addons
 				string.Format("[c/78BE78:+100% damage]\n") +
 				string.Format("[c/BE7878:+75% overheat use]\n") +
 				string.Format("[c/BE7878:-15% speed]")); */
-
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PlasmaBeamRedAddon>();
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()

@@ -30,7 +30,7 @@ Mods: {
 				// HateCrowded: The aura of this place is so diluted with souls it's driving me insane!
 				// LikeBiome: "{BiomeName} is calming."
 				// LoveBiome: I love {BiomeName}. It's very peaceful.
-				// DislikeBiome: The unending sands of {BiomeName} remind me of the times before the raid... I miss those days.
+				// DislikeBiome: I am uneasy.  The unending sands of {BiomeName} remind me of the times before the raid... I miss those days.
 				// HateBiome: "{BiomeName} reeks of malintent to the point it's corrupting."
 				// LikeNPC: "{NPCName}'s tech is primitive but useful. I admire his genius."
 				// LoveNPC: "{NPCName} seems quite technologically advanced, maybe she can help humanity arise to the golden age we Chozo once had. Hopefully, she learns of the dangers of rejecting religion. We don't want another Bryyo."
@@ -214,17 +214,17 @@ Mods: {
 			// IceMissile.MapEntry: Ice Missile
 			// IceSpreader.MapEntry: Ice Spreader
 			// IceSuperMissile.MapEntry: Ice Super Missile
-			// NebulaCombo.MapEntry: Nebula Combo
+			// NebulaCombo.MapEntry: Nebula Singlarity
 			// NebulaMissile.MapEntry: Nebula Missile
-			// NovaCombo.MapEntry: Nova Combo
+			// NovaCombo.MapEntry: Nova Laser
 			// PlasmaMachinegun.MapEntry: Plasma Machinegun
 			// SeekerMissile.MapEntry: Seeker Missile
-			// SolarCombo.MapEntry: Solar Combo
-			// SpazerCombo.MapEntry: Spazer Combo
-			// StardustCombo.MapEntry: Stardust Combo
+			// SolarCombo.MapEntry: Solar Flare
+			// SpazerCombo.MapEntry: Missile Array
+			// StardustCombo.MapEntry: Stardust Blizzard
 			// StardustMissile.MapEntry: Stardust Missile
 			// SuperMissile.MapEntry: Super Missile
-			// VortexCombo.MapEntry: Vortex Combo
+			// VortexCombo.MapEntry: Vortex Storm
 			// Wavebuster.MapEntry: Wavebuster
 			// MissileExpansionTile.MapEntry: Missile Expansion
 			// MorphBallTile.MapEntry: Morph Ball
@@ -482,7 +482,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Shots explode
-					[c/BE7878:+100% overheat use]
+					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
 					''' */
@@ -496,7 +496,7 @@ Mods: {
 					Slot Type: Charge
 					[c/78BE78:+500% damage]
 					[c/78BE78:Adds scope and stealth]
-					[c/BE7878:+500% overheat use]
+					[c/BE7878:+250% overheat use]
 					[c/BE7878:Massive speed reduction]
 					''' */
 			}
@@ -510,7 +510,7 @@ Mods: {
 					Shots bounce
 					Charge shots spray a freezing blast
 					[c/78BE78:+45% damage]
-					[c/BE7878:+125% overheat use]
+					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
 					[c/BE7878:Cannot pierce walls]
 					''' */
@@ -526,7 +526,7 @@ Mods: {
 					Charge shots explode and ignite
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
-					[c/BE7878:+125% overheat use]
+					[c/BE7878:+75% overheat use]
 					[c/BE7878:Cannot freeze or pierce]
 					''' */
 			}
@@ -567,7 +567,7 @@ Mods: {
 					Charge shots home, explode, and confuse
 					[c/78BE78:+10% damage]
 					[c/BE7878:-10% speed]
-					[c/BE7878:+100% overheat use]
+					[c/BE7878:+50% overheat use]
 					[c/BE7878:+10% noise]
 					''' */
 			}
@@ -3339,6 +3339,644 @@ Mods: {
 			// WaveWideBeamShot.DisplayName: Wave Wide Beam Shot
 			// WideBeamChargeShot.DisplayName: Wide Beam Charge Shot
 			// WideBeamShot.DisplayName: Wide Beam Shot
+		}
+
+		Configs: {
+			MConfigClient: {
+				// DisplayName: Client Config
+
+				Headers: {
+					// General: General
+					// Draggable_Power_Beam_UI: Draggable Power Beam UI
+					// Draggable_Missile_Launcher_UI: Draggable Missile Launcher UI
+					// Draggable_Morph_Ball_UI: Draggable Morph Ball UI
+					// Draggable_Sense_Move_UI: Draggable Sense Move UI
+					// Map_Icons: Map Icons
+					// MapIcons: Map Icons
+					// DraggableSenseMoveUI: Draggable Sense Move UI
+					// DraggableMorphBallUI: Draggable Morph Ball UI
+					// DraggableMissileLauncherUI: Draggable Missile Launcher UI
+					// DraggablePowerBeamUI: Draggable Power Beam UI
+				}
+
+				UseAltWeaponTextures: {
+					// Label: Toggle alternate weapon textures
+					/* Tooltip:
+						'''
+						When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.
+						Default value: false
+						''' */
+				}
+
+				energyHit: {
+					// Label: "[i:MetroidMod/EnergyTankAddon] Energy Hit Sound"
+					/* Tooltip:
+						'''
+						When enabled, a custom sound will play when Suit Energy receives damage.
+						Default value: true
+						''' */
+				}
+
+				energyLow: {
+					// Label: "[i:MetroidMod/EnergyTankAddon] Low Energy Alert"
+					/* Tooltip:
+						'''
+						When enabled, a beep will be heard when Suit Energy is low.
+						Default value: true
+						''' */
+				}
+
+				energyLowInterval: {
+					// Label: "[i:MetroidMod/EnergyTankAddon] Low Energy Alert Interval"
+					/* Tooltip:
+						'''
+						The interval between Low Energy beeps.
+						[Default: 20]
+						''' */
+				}
+
+				energyLowFade: {
+					// Label: "[i:MetroidMod/EnergyTankAddon] Low Energy Alert Fade"
+					/* Tooltip:
+						'''
+						When enabled, a fading, non-looping beep will be heard when Suit Energy is low.
+						Default value: false
+						(WORK IN PROGRESS)
+						''' */
+				}
+
+				DragablePowerBeamUI: {
+					// Label: Enabled
+					/* Tooltip:
+						'''
+						Allows the Power Beam UI to be draggable.
+						Default value: false
+						''' */
+				}
+
+				DragableMissileLauncherUI: {
+					// Label: Enabled
+					/* Tooltip:
+						'''
+						Allows the Missile Launcher UI to be draggable.
+						Default value: false
+						''' */
+				}
+
+				DragableMorphBallUI: {
+					// Label: Enabled
+					/* Tooltip:
+						'''
+						Allows the Morph Ball UI to be draggable.
+						Default value: false
+						''' */
+				}
+
+				DragableSenseMoveUI: {
+					// Label: Enabled
+					/* Tooltip:
+						'''
+						Allows the Sense Move UI to be draggable.
+						Default value: false
+						''' */
+				}
+
+				showTorizoRoomIcon: {
+					// Label: "[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map"
+					/* Tooltip:
+						'''
+						When enabled, the map will show an icon where Torizo's boss room is.
+						Default value: true
+						''' */
+				}
+			}
+
+			MConfigClientDebug: {
+				// DisplayName: Client Side Debug
+
+				DrawNPCHitboxes: {
+					// Label: Draw NPC hitboxes
+					/* Tooltip:
+						'''
+						When enabled, draws NPC hitboxes.
+						Default value: false
+						''' */
+				}
+
+				StatueItemMarkers: {
+					// Label: Markers for statue items
+					/* Tooltip:
+						'''
+						When enabled, draws markers for statue items
+						Note: Performance will tank on world load
+						Default value: false
+						''' */
+				}
+			}
+
+			MConfigItems: {
+				// DisplayName: Items Config
+
+				Headers: {
+					// "[i:MetroidMod/ChoziteBar]Chozite_Gear": "[i: Metroid Mod/ Chozite Bar] Chozite Gear"
+					// "[i:MetroidMod/VariaSuitV2AddonAddon]PowerSuit": "[i: Metroid Mod/ Varia Suit V2 Addon Addon] Power Suit"
+					// "[i:MetroidMod/PowerGripAddon]Suit_Addons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons"
+					// "[i:MetroidMod/PowerBeam]Standard_Weapons": "[i: Metroid Mod/ Power Beam] Standard Weapons"
+					// "[i:MetroidMod/PowerBeam]Special_Beams": "[i: Metroid Mod/ Power Beam] Special Beams"
+					// "[i:MetroidMod/PowerBeam]PowerBeam_V2_Addons": "[i: Metroid Mod/ Power Beam] Power Beam V2 Addons"
+					// "[i:MetroidMod/PowerBeam]PowerBeam_V3_Addons": "[i: Metroid Mod/ Power Beam] Power Beam V3 Addons"
+					// "[i:MetroidMod/MissileLauncher]MissileLauncher_Addons": "[i: Metroid Mod/ Missile Launcher] Missile Launcher Addons"
+					// "[i:MetroidMod/PowerBeam]PowerBeam_V1_Addons": "[i: Metroid Mod/ Power Beam] Power Beam V1 Addons"
+					// "[i:MetroidMod/PowerBeam]PowerBeamV3Addons": "[i: Metroid Mod/ Power Beam] Power Beam V3 Addons"
+					// "[i:MetroidMod/PowerBeam]PowerBeamV2Addons": "[i: Metroid Mod/ Power Beam] Power Beam V2 Addons"
+					// "[i:MetroidMod/PowerBeam]PowerBeamV1Addons": "[i: Metroid Mod/ Power Beam] Power Beam V1 Addons"
+					// "[i:MetroidMod/PowerBeam]SpecialBeams": "[i: Metroid Mod/ Power Beam] Special Beams"
+					// "[i:MetroidMod/PowerBeam]StandardWeapons": "[i: Metroid Mod/ Power Beam] Standard Weapons"
+					// "[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons"
+					// "[i:MetroidMod/ChoziteBar]ChoziteGear": "[i: Metroid Mod/ Chozite Bar] Chozite Gear"
+					// "[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i: Metroid Mod/ Missile Launcher] Missile Launcher Addons"
+				}
+
+				enableWallJumpChoziteArmor: {
+					// Label: "[i:MetroidMod/HiJumpBootsAddon] Wall Jump"
+					// Tooltip: When enabled, a full set of Chozite Armor grants the ability to Wall Jump.
+				}
+
+				defenseChoziteHelmet: {
+					// Label: "[i:MetroidMod/ChoziteHelmet] Chozite Warmask Defense"
+					// Tooltip: ""
+				}
+
+				defenseChoziteBreastplate: {
+					// Label: "[i:MetroidMod/ChoziteBreastplate] Chozite Breastplate Defense"
+					// Tooltip: ""
+				}
+
+				defenseChoziteGreaves: {
+					// Label: "[i:MetroidMod/ChoziteGreaves] Chozite Greaves Defense"
+					// Tooltip: ""
+				}
+
+				damageChoziteSword: {
+					// Label: "[i:MetroidMod/ChoziteSword] Chozite Sword Damage"
+					// Tooltip: ""
+				}
+
+				damageChoziteShortsword: {
+					// Label: "[i:MetroidMod/ChoziteShortsword] Chozite Shortsword Damage"
+					// Tooltip: ""
+				}
+
+				damageChoziteCrossbow: {
+					// Label: "[i:MetroidMod/ChoziteCrossbow] Chozite Crossbow Damage"
+					// Tooltip: ""
+				}
+
+				enableLedgeClimbPowerSuitBreastplate: {
+					// Label: "[i:MetroidMod/PowerGripAddon] Ledge Climb"
+					// Tooltip: When enabled, the Power Suit's Breastplate grants Ledge Climb.
+				}
+
+				enableWallJumpPowerSuitGreaves: {
+					// Label: "[i:MetroidMod/HiJumpBootsAddon] Wall Jump"
+					// Tooltip: When enabled, the Power Suit's Greaves grant Wall-Jump.
+				}
+
+				enableNoFallDamagePowerSuitGreaves: {
+					// Label: "[i:LuckyHorseshoe] Negate Fall Damage"
+					// Tooltip: ""
+				}
+
+				defensePowerSuitHelmet: {
+					// Label: "[i:MetroidMod/PowerSuitHelmet] Power Suit Helmet Defense"
+					// Tooltip: ""
+				}
+
+				defensePowerSuitBreastplate: {
+					// Label: "[i:MetroidMod/PowerSuitBreastplate] Power Suit Breastplate Defense"
+					// Tooltip: ""
+				}
+
+				defensePowerSuitGreaves: {
+					// Label: "[i:MetroidMod/PowerSuitGreaves] Power Suit Greaves Defense"
+					// Tooltip: ""
+				}
+
+				energyDefenseEfficiency: {
+					// Label: "[i:MetroidMod/EnergyTankAddon] Energy Defense Efficiency"
+					// Tooltip: ""
+				}
+
+				energyExpenseEfficiency: {
+					// Label: "[i:MetroidMod/ReserveTankAddon] Energy Expense Efficiency"
+					// Tooltip: ""
+				}
+
+				stackEnergyTank: {
+					// Label: "[i:MetroidMod/EnergyTankAddon] Energy Tank Stack"
+					// Tooltip: ""
+				}
+
+				enableLedgeClimbNoPowerSuit: {
+					// Label: "[i:MetroidMod/PowerGripAddon] Ledge Climb without Power Suit"
+					/* Tooltip:
+						'''
+						When enabled, lacking the Power Suit Breastplate will automatically grant you Ledge Climb,
+						just like in Metroid: Zero Mission.
+						''' */
+				}
+
+				enableWallJumpPowerGrip: {
+					// Label: "[i:MetroidMod/PowerGripAddon][i:MetroidMod/HiJumpBootsAddon] Power Grip grants Wall Jump"
+					// Tooltip: ""
+				}
+
+				enableLedgeClimbPowerGrip: {
+					// Label: "[i:MetroidMod/PowerGripAddon] Power Grip grants Ledge Climb"
+					// Tooltip: ""
+				}
+
+				damagePowerBeam: {
+					// Label: "[i:MetroidMod/PowerBeam] Power Beam Damage"
+					// Tooltip: ""
+				}
+
+				useTimePowerBeam: {
+					// Label: "[i:MetroidMod/PowerBeam] Power Beam Use Time"
+					// Tooltip: ""
+				}
+
+				overheatPowerBeam: {
+					// Label: "[i:MetroidMod/PowerBeam] Power Beam Overheat"
+					// Tooltip: ""
+				}
+
+				damageMissileLauncher: {
+					// Label: "[i:MetroidMod/MissileLauncher] Missile Launcher Damage"
+					// Tooltip: ""
+				}
+
+				useTimeMissileLauncher: {
+					// Label: "[i:MetroidMod/MissileLauncher] Missile Launcher Use Time"
+					// Tooltip: ""
+				}
+
+				ammoMissileLauncher: {
+					// Label: "[i:MetroidMod/MissileLauncher] Missile Launcher Starting Ammo"
+					// Tooltip: ""
+				}
+
+				ammoMissileTank: {
+					// Label: "[i:MetroidMod/MissileExpansion] Ammo per Missile Tank"
+					// Tooltip: ""
+				}
+
+				damagePlasmaBeamRed: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/PlasmaBeamRedAddon] Plasma Beam (Red) Damage Multiplier"
+				}
+
+				overheatPlasmaBeamRed: {
+					// Label: "[i:MetroidMod/PlasmaBeamRedAddon] Plasma Beam (Red) Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				speedPlasmaBeamRed: {
+					// Label: "[i:MetroidMod/PlasmaBeamRedAddon] Plasma Beam (Red) Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageChargeBeamV2: {
+					// Label: "[i:MetroidMod/ChargeBeamV2Addon] Charge Beam V2 Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				damageChargeBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/ChargeBeamAddon] Charge Beam Damage Multiplier"
+				}
+
+				overheatChargeBeamV2: {
+					// Label: "[i:MetroidMod/ChargeBeamV2Addon] Charge Beam V2 Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatChargeBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/ChargeBeamAddon] Charge Beam Overheat Multiplier"
+				}
+
+				damageWideBeam: {
+					// Label: "[i:MetroidMod/WideBeamAddon] Wide Beam Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatWideBeam: {
+					// Label: "[i:MetroidMod/WideBeamAddon] Wide Beam Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				speedWideBeam: {
+					// Label: "[i:MetroidMod/WideBeamAddon] Wide Beam Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageIceBeamV2: {
+					// Label: "[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				damageIceBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/IceBeamAddon] Ice Beam Damage Multiplier"
+				}
+
+				overheatIceBeamV2: {
+					// Label: "[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatIceBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/IceBeamAddon] Ice Beam Overheat Multiplier"
+				}
+
+				speedIceBeamV2: {
+					// Label: "[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				speedIceBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/IceBeamAddon] Ice Beam Speed Multiplier"
+				}
+
+				damageWaveBeamV2: {
+					// Label: "[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				damageWaveBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/WaveBeamAddon] Wave Beam Damage Multiplier"
+				}
+
+				overheatWaveBeamV2: {
+					// Label: "[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatWaveBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/WaveBeamAddon] Wave Beam Overheat Multiplier"
+				}
+
+				speedWaveBeamV2: {
+					// Label: "[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				speedWaveBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/WaveBeamAddon] Wave Beam Speed Multiplier"
+				}
+
+				damageNovaBeam: {
+					// Label: "[i:MetroidMod/NovaBeamAddon] Nova Beam Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatNovaBeam: {
+					// Label: "[i:MetroidMod/NovaBeamAddon] Nova Beam Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				speedNovaBeam: {
+					// Label: "[i:MetroidMod/NovaBeamAddon] Nova Beam Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageLuminiteBeam: {
+					// Label: "[i:MetroidMod/LuminiteBeamAddon] Luminite Beam Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatLuminiteBeam: {
+					// Label: "[i:MetroidMod/LuminiteBeamAddon] Luminite Beam Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				damageNebulaBeam: {
+					// Label: "[i:MetroidMod/NebulaBeamAddon] Nebula Beam Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatNebulaBeam: {
+					// Label: "[i:MetroidMod/NebulaBeamAddon] Nebula Beam Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				speedNebulaBeam: {
+					// Label: "[i:MetroidMod/NebulaBeamAddon] Nebula Beam Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageSolarBeam: {
+					// Label: "[i:MetroidMod/SolarBeamAddon] Solar Beam Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatSolarBeam: {
+					// Label: "[i:MetroidMod/SolarBeamAddon] Solar Beam Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				speedSolarBeam: {
+					// Label: "[i:MetroidMod/SolarBeamAddon] Solar Beam Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageStardustBeam: {
+					// Label: "[i:MetroidMod/StardustBeamAddon] Stardust Beam Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatStardustBeam: {
+					// Label: "[i:MetroidMod/StardustBeamAddon] Stardust Beam Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				speedStardustBeam: {
+					// Label: "[i:MetroidMod/StardustBeamAddon] Stardust Beam Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageVortexBeam: {
+					// Label: "[i:MetroidMod/VortexBeamAddon] Vortex Beam Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatVortexBeam: {
+					// Label: "[i:MetroidMod/VortexBeamAddon] Vortex Beam Overheat Multiplier"
+					// Tooltip: ""
+				}
+
+				speedVortexBeam: {
+					// Label: "[i:MetroidMod/VortexBeamAddon] Vortex Beam Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageIceMissile: {
+					// Label: "[i:MetroidMod/IceMissileAddon] Ice Missile Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				speedIceMissile: {
+					// Label: "[i:MetroidMod/IceMissileAddon] Ice Missile Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageSuperMissile: {
+					// Label: "[i:MetroidMod/SuperMissileAddon] Super Missile Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				speedSuperMissile: {
+					// Label: "[i:MetroidMod/SuperMissileAddon] Super Missile Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageIceSuperMissile: {
+					// Label: "[i:MetroidMod/IceSuperMissileAddon] Ice Super Missile Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				speedIceSuperMissile: {
+					// Label: "[i:MetroidMod/IceSuperMissileAddon] Ice Super Missile Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageNebulaMissile: {
+					// Label: "[i:MetroidMod/NebulaMissileAddon] Nebula Missile Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				speedNebulaMissile: {
+					// Label: "[i:MetroidMod/NebulaMissileAddon] Nebula Missile Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				damageStardustMissile: {
+					// Label: "[i:MetroidMod/StardustMissileAddon] Stardust Missile Damage Multiplier"
+					// Tooltip: ""
+				}
+
+				speedStardustMissile: {
+					// Label: "[i:MetroidMod/StardustMissileAddon] Stardust Missile Speed Multiplier"
+					// Tooltip: ""
+				}
+
+				overheatPhazonBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/PhazonBeamAddon] Phazon Beam Overheat"
+				}
+
+				useTimePhazonBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/PhazonBeamAddon] Phazon Beam Use Time"
+				}
+
+				damagePhazonBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/PhazonBeamAddon] Phazon Beam Damage"
+				}
+
+				overheatHyperBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/HyperBeamAddon] Hyper Beam Overheat"
+				}
+
+				useTimeHyperBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/HyperBeamAddon] Hyper Beam Use Time"
+				}
+
+				damageHyperBeam: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/HyperBeamAddon] Hyper Beam Damage"
+				}
+
+				speedPlasmaBeamGreen: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/PlasmaBeamGreenAddon] Plasma Beam (Green) Speed Multiplier"
+				}
+
+				overheatPlasmaBeamGreen: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/PlasmaBeamGreenAddon] Plasma Beam (Green) Overheat Multiplier"
+				}
+
+				damagePlasmaBeamGreen: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/PlasmaBeamGreenAddon] Plasma Beam (Green) Damage Multiplier"
+				}
+
+				speedSpazer: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/SpazerAddon] Spazer Speed Multiplier"
+				}
+
+				overheatSpazer: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/SpazerAddon] Spazer Overheat Multiplier"
+				}
+
+				damageSpazer: {
+					// Tooltip: ""
+					// Label: "[i:MetroidMod/SpazerAddon] Spazer Damage Multiplier"
+				}
+			}
+
+			MConfigMain: {
+				// DisplayName: Main Config
+
+				Headers: {
+					// General: General
+					// "[i:3611]Tech_Preservation": "[i:3611] Tech Preservation"
+					// "[i:MetroidMod/BlueHatch]Automatically_Closing_Hatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
+					// "[i:3611]TechPreservation": "[i:3611] Tech Preservation"
+					// "[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
+				}
+
+				enableBossSummonConsumption: {
+					// Label: "[i:MetroidMod/TorizoSummon] Boss Summon Consumption"
+					// Tooltip: When enabled, Boss Summon items will be consumed upon usage.
+				}
+
+				spaceJumpRocketBoots: {
+					// Label: "[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots"
+					// Tooltip: Enables a small, niche movement tech that has not been named.
+				}
+
+				enableMorphBallWallJump: {
+					// Label: "[i:MetroidMod/HiJumpBootsAddon] Wall-Jump while in Morph Ball"
+					/* Tooltip:
+						'''
+						By default, you cannot Wall-Jump while in Morph Ball.
+						If this option is on, and you can Wall-Jump, then you will be able to do so while morphed.
+						''' */
+				}
+
+				AutocloseHatchesEnabled: {
+					// Label: Enabled
+					// Tooltip: When enabled, hatches will automatically close after a certain period of time.
+				}
+
+				AutocloseHatchesTime: {
+					// Label: Timer
+					// Tooltip: Time before hatches automatically close, in seconds.
+				}
+			}
 		}
 	}
 }

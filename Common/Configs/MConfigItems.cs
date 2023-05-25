@@ -26,7 +26,7 @@ namespace MetroidMod.Common.Configs
 			};
 		}
 
-	[Header("[i:MetroidMod/ChoziteBar] Chozite Gear")]
+	[Header("[i:MetroidMod/ChoziteBar]ChoziteGear")]
 
 		[Label("[i:MetroidMod/HiJumpBootsAddon] Wall Jump")]
 		[Tooltip("When enabled, a full set of Chozite Armor grants the ability to Wall Jump.")]
@@ -75,7 +75,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(12)]
 		public int damageChoziteCrossbow = 12;
 		
-	[Header("[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit")]
+	[Header("[i:MetroidMod/VariaSuitV2AddonAddon]PowerSuit")]
 		
 		[Label("[i:MetroidMod/PowerGripAddon] Ledge Climb")]
 		[Tooltip("When enabled, the Power Suit's Breastplate grants Ledge Climb.")]
@@ -126,7 +126,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(0.1f)]
 		public float energyExpenseEfficiency;
 		
-	[Header("[i:MetroidMod/PowerGripAddon] Suit Addons")]
+	[Header("[i:MetroidMod/PowerGripAddon]SuitAddons")]
 		
 		[Label("[i:MetroidMod/EnergyTankAddon] Energy Tank Stack")]
 		[Range(1, 14)]
@@ -148,7 +148,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(true)]
 		public bool enableLedgeClimbPowerGrip;
 		
-	[Header("[i:MetroidMod/PowerBeam] Standard Weapons")]
+	[Header("[i:MetroidMod/PowerBeam]StandardWeapons")]
 		
 		[Label("[i:MetroidMod/PowerBeam] Power Beam Damage")]
 		[Range(1, 50)]
@@ -199,7 +199,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(5)]
 		public int ammoMissileTank;
 		
-	[Header("[i:MetroidMod/PowerBeam] Special Beams")]
+	[Header("[i:MetroidMod/PowerBeam]SpecialBeams")]
 		
 		[Label("[i:MetroidMod/HyperBeamAddon] Hyper Beam Damage")]
 		[Range(1, 100)]
@@ -243,7 +243,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(1)]
 		public int overheatPhazonBeam;
 		
-	[Header("[i:MetroidMod/PowerBeam] Power Beam V1 Addons")]
+	[Header("[i:MetroidMod/PowerBeam]PowerBeamV1Addons")]
 		
 		[Label("[i:MetroidMod/ChargeBeamAddon] Charge Beam Damage Multiplier")]
 		[Range(1f, 4f)]
@@ -364,7 +364,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(-0.15f)]
 		public float speedPlasmaBeamRed;
 		
-	[Header("[i:MetroidMod/PowerBeam] Power Beam V2 Addons")]
+	[Header("[i:MetroidMod/PowerBeam]PowerBeamV2Addons")]
 		
 		[Label("[i:MetroidMod/ChargeBeamV2Addon] Charge Beam V2 Damage Multiplier")]
 		[Range(1f, 4f)]
@@ -464,7 +464,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(-0.15f)]
 		public float speedNovaBeam;
 		
-	[Header("[i:MetroidMod/PowerBeam] Power Beam V3 Addons")]
+	[Header("[i:MetroidMod/PowerBeam]PowerBeamV3Addons")]
 		
 		[Label("[i:MetroidMod/LuminiteBeamAddon] Luminite Beam Damage Multiplier")]
 		[Range(1f, 5f)]
@@ -564,7 +564,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(0.25f)]
 		public float speedVortexBeam;
 		
-	[Header("[i:MetroidMod/MissileLauncher] Missile Launcher Addons")]
+	[Header("[i:MetroidMod/MissileLauncher]MissileLauncherAddons")]
 		
 		[Label("[i:MetroidMod/IceMissileAddon] Ice Missile Damage Multiplier")]
 		[Range(-0.5f, 4f)]

@@ -1,6 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Addons.Hunters;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -17,7 +18,7 @@ namespace MetroidMod.Content.Items.Addons
 			"Disables freeze and other debuff effects\n" +
 			"Can only be used while wearing the Phazon Suit\n" +
 			"'It's made of pure Phazon energy!'"); */
-
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<HyperBeamAddon>();
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
