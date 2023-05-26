@@ -650,7 +650,7 @@ namespace MetroidMod.Common.Systems
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
 			}
-			if (jungle && WorldGen.genRand.Next(10) <= 5)
+			if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen )
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
 			}
@@ -722,6 +722,10 @@ namespace MetroidMod.Common.Systems
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SuperMissile>(); }, 4);
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.VortexCombo>(); }, 4);
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.Wavebuster>(); }, 4);
+				}
+				if (WorldGen.everythingWorldGen)
+				{
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>(); }, 4);
 				}
 				Array.Resize(ref list, index);
 				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
