@@ -1019,7 +1019,7 @@ Mods: {
 			}
 
 			NebulaComboAddon: {
-				// DisplayName: Nebula Combo
+				// DisplayName: Nebula Singularity
 				/* Tooltip:
 					'''
 					[c/9696FF:Missile Launcher Addon]
@@ -1031,7 +1031,7 @@ Mods: {
 			}
 
 			NovaComboAddon: {
-				// DisplayName: Nova Combo
+				// DisplayName: Nova Laser
 				/* Tooltip:
 					'''
 					[c/9696FF:Missile Launcher Addon]
@@ -1055,7 +1055,7 @@ Mods: {
 			}
 
 			SolarComboAddon: {
-				// DisplayName: Solar Combo
+				// DisplayName: Solar Flare
 				/* Tooltip:
 					'''
 					[c/9696FF:Missile Launcher Addon]
@@ -1067,7 +1067,7 @@ Mods: {
 			}
 
 			SpazerComboAddon: {
-				// DisplayName: Spazer Combo
+				// DisplayName: Missile Array
 				/* Tooltip:
 					'''
 					[c/9696FF:Missile Launcher Addon]
@@ -1079,7 +1079,7 @@ Mods: {
 			}
 
 			StardustComboAddon: {
-				// DisplayName: Stardust Combo
+				// DisplayName: Stardust Blizard
 				/* Tooltip:
 					'''
 					[c/9696FF:Missile Launcher Addon]
@@ -1093,7 +1093,7 @@ Mods: {
 			}
 
 			VortexComboAddon: {
-				// DisplayName: Vortex Combo
+				// DisplayName: Vortex Storm
 				/* Tooltip:
 					'''
 					[c/9696FF:Missile Launcher Addon]
