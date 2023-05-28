@@ -38,9 +38,9 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = .45f;
-			mItem.addonHeat = .75f;
-			mItem.addonSpeed = -.45f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageJudicator;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatJudicator;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedJudicator;
 		}
 
 

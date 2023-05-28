@@ -68,6 +68,7 @@ namespace MetroidMod
 		public int[] FrozenStandOnNPCs;
 
 		//public static int beamsRecipeGroupID;
+		public static int PreHMhooksRecipeID;
 		public static int MorphBallBombsRecipeGroupID;
 		public static int T1PHMBarRecipeGroupID;
 		public static int GoldPlatinumBarRecipeGroupID;

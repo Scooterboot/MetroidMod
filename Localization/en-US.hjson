@@ -300,6 +300,7 @@ Mods: {
 					'''
 					Increases jump height
 					Stacks with other jump height accessories
+					Does not stack with frog leg
 					'''
 			}
 
@@ -2436,7 +2437,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases jump height
-					Stacks with other jump height accessories
+					Does not stack with other jump accessories
 					'''
 			}
 
@@ -2622,6 +2623,7 @@ Mods: {
 					20% increased energy barrier resilience // Provisional name
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
+					Reduced damage from touching lava
 					'''
 			}
 
@@ -2629,12 +2631,19 @@ Mods: {
 				DisplayName: Varia Suit V2
 				Tooltip:
 					'''
-					10 defense
-					+25 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
+					+15 defense
+					+30 overheat capacity
+					15% decreased overheat use
+					10% decreased Missile Charge Combo cost
+					10% increased hunter damage
+					7% increased hunter critical strike chance
+					80% increased underwater breathing
+					10% increased movement speed
+					20% increased energy barrier efficiency // Provisional name
+					37.5% increased energy barrier resilience // Provisional name
+					Immunity to fire blocks
+					Immunity to chill and freeze effects
+					Reduced damage from touching lava
 					'''
 			}
 
@@ -3478,23 +3487,24 @@ Mods: {
 				DisplayName: Items Config
 
 				Headers: {
-					"[i:MetroidMod/ChoziteBar]Chozite_Gear": "[i: Metroid Mod/ Chozite Bar] Chozite Gear"
-					"[i:MetroidMod/VariaSuitV2AddonAddon]PowerSuit": "[i: Metroid Mod/ Varia Suit V2 Addon Addon] Power Suit"
-					"[i:MetroidMod/PowerGripAddon]Suit_Addons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons"
-					"[i:MetroidMod/PowerBeam]Standard_Weapons": "[i: Metroid Mod/ Power Beam] Standard Weapons"
-					"[i:MetroidMod/PowerBeam]Special_Beams": "[i: Metroid Mod/ Power Beam] Special Beams"
-					"[i:MetroidMod/PowerBeam]PowerBeam_V2_Addons": "[i: Metroid Mod/ Power Beam] Power Beam V2 Addons"
-					"[i:MetroidMod/PowerBeam]PowerBeam_V3_Addons": "[i: Metroid Mod/ Power Beam] Power Beam V3 Addons"
-					"[i:MetroidMod/MissileLauncher]MissileLauncher_Addons": "[i: Metroid Mod/ Missile Launcher] Missile Launcher Addons"
-					"[i:MetroidMod/PowerBeam]PowerBeam_V1_Addons": "[i: Metroid Mod/ Power Beam] Power Beam V1 Addons"
-					"[i:MetroidMod/PowerBeam]PowerBeamV3Addons": "[i: Metroid Mod/ Power Beam] Power Beam V3 Addons"
-					"[i:MetroidMod/PowerBeam]PowerBeamV2Addons": "[i: Metroid Mod/ Power Beam] Power Beam V2 Addons"
-					"[i:MetroidMod/PowerBeam]PowerBeamV1Addons": "[i: Metroid Mod/ Power Beam] Power Beam V1 Addons"
-					"[i:MetroidMod/PowerBeam]SpecialBeams": "[i: Metroid Mod/ Power Beam] Special Beams"
-					"[i:MetroidMod/PowerBeam]StandardWeapons": "[i: Metroid Mod/ Power Beam] Standard Weapons"
-					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons"
-					"[i:MetroidMod/ChoziteBar]ChoziteGear": "[i: Metroid Mod/ Chozite Bar] Chozite Gear"
-					"[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i: Metroid Mod/ Missile Launcher] Missile Launcher Addons"
+					"[i:MetroidMod/ChoziteBar]Chozite_Gear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
+					"[i:MetroidMod/VariaSuitV2AddonAddon]PowerSuit": "[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit"
+					"[i:MetroidMod/PowerGripAddon]Suit_Addons": "[i:MetroidMod/PowerGripAddon] Suit Addons"
+					"[i:MetroidMod/PowerBeam]Standard_Weapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
+					"[i:MetroidMod/PowerBeam]Special_Beams": "[i:MetroidMod/PowerBeam] Special Beams"
+					"[i:MetroidMod/PowerBeam]PowerBeam_V2_Addons": "[i:MetroidMod/PowerBeam] Power Beam V2 Addons"
+					"[i:MetroidMod/PowerBeam]PowerBeam_V3_Addons": "[i:MetroidMod/PowerBeam] Power Beam V3 Addons"
+					"[i:MetroidMod/MissileLauncher]MissileLauncher_Addons": "[i:Metroid Mod/MissileLauncher] Missile Launcher Addons"
+					"[i:MetroidMod/PowerBeam]PowerBeam_V1_Addons": "[i:MetroidMod/PowerBeam] Power Beam V1 Addons"
+					"[i:MetroidMod/PowerBeam]PowerBeamV3Addons": "[i:MetroidMod/PowerBeam] Power Beam V3 Addons"
+					"[i:MetroidMod/PowerBeam]PowerBeamV2Addons": "[i:MetroidMod/PowerBeam] Power Beam V2 Addons"
+					"[i:MetroidMod/PowerBeam]PowerBeamV1Addons": "[i:MetroidMod/PowerBeam] Power Beam V1 Addons"
+					"[i:MetroidMod/PowerBeam]SpecialBeams": "[i:MetroidMod/PowerBeam] Special Beams"
+					"[i:MetroidMod/PowerBeam]StandardWeapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
+					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i:MetroidMod/PowerGripAddon] Suit Addons"
+					"[i:MetroidMod/ChoziteBar]ChoziteGear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
+					"[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i:MetroidMod/MissileLauncher] Missile Launcher Addons"
+					"[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons": "[i:MetroidMod/PowerBeam] Power Beam Hunters Addons"
 				}
 
 				enableWallJumpChoziteArmor: {
@@ -3934,6 +3944,136 @@ Mods: {
 				damageSpazer: {
 					Tooltip: ""
 					Label: "[i:MetroidMod/SpazerAddon] Spazer Damage Multiplier"
+				}
+
+				damageVoltDriver: {
+					Label: "[i:MetroidMod/VoltDriverAddon] VoltDriver Damage Multiplier"
+					Tooltip: ""
+				}
+
+				speedVoltDriver: {
+					Label: "[i:MetroidMod/VoltDriverAddon] VoltDriver Speed Multiplier"
+					Tooltip: ""
+				}
+
+				damageVoltDriverCharge: {
+					Label: "[i:MetroidMod/VoltDriverAddon] VoltDriver Charge Damage Multiplier"
+					Tooltip: ""
+				}
+
+				overheatVoltDriver: {
+					Label: "[i:MetroidMod/VoltDriverAddon] VoltDriver Overheat Multiplier"
+					Tooltip: ""
+				}
+
+				overheatVoltDriverCharge: {
+					Label: "[i:MetroidMod/VoltDriverAddon] VoltDriver Charge Overheat Multiplier"
+					Tooltip: ""
+				}
+
+				damageMagMaul: {
+					Label: "[i:MetroidMod/MagMaulAddon] MagMaul Damage Modifier"
+					Tooltip: ""
+				}
+
+				speedMagMaul: {
+					Label: "[i:MetroidMod/MagMaulAddon] MagMaul Speed Multiplier"
+					Tooltip: ""
+				}
+
+				damageMagMaulCharge: {
+					Label: "[i:MetroidMod/MagMaulAddon] MagMaul Charge Damage Multiplier"
+					Tooltip: ""
+				}
+
+				overheatMagMaul: {
+					Label: "[i:MetroidMod/MagMaulAddon] MagMaul Overheat Modifer"
+					Tooltip: ""
+				}
+
+				overheatMagMaulCharge: {
+					Label: "[i:MetroidMod/MagMaulAddon] MagMaul Charge Overheat Multiplier"
+					Tooltip: ""
+				}
+
+				damageImperialist: {
+					Label: "[i:MetroidMod/ImperialistAddon] Imperialist Damage Modifier"
+					Tooltip: ""
+				}
+
+				speedImperialist: {
+					Label: "[i:MetroidMod/ImperialistAddon] Imperialist Speed Multiplier"
+					Tooltip: ""
+				}
+
+				overheatImperialist: {
+					Label: "[i:MetroidMod/ImperialistAddon] Imperialist Overheat Modifer"
+					Tooltip: ""
+				}
+
+				damageJudicator: {
+					Label: "[i:MetroidMod/JudicatorAddon] Judicator Damage Modifier"
+					Tooltip: ""
+				}
+
+				speedJudicator: {
+					Label: "[i:MetroidMod/JudicatorAddon] Judicator Speed Multiplier"
+					Tooltip: ""
+				}
+
+				damageJudicatorCharge: {
+					Label: "[i:MetroidMod/JudicatorAddon] Judicator Charge Damage Multiplier"
+					Tooltip: ""
+				}
+
+				overheatJudicator: {
+					Label: "[i:MetroidMod/JudicatorAddon] Judicator Overheat Modifer"
+					Tooltip: ""
+				}
+
+				overheatJudicatorCharge: {
+					Label: "[i:MetroidMod/JudicatorAddon] Judicator Charge Overheat Multiplier"
+					Tooltip: ""
+				}
+
+				damageShockCoil: {
+					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier"
+					Tooltip: ""
+				}
+
+				damageBattleHammer: {
+					Label: "[i:MetroidMod/BattleHammerAddon] BattleHammer Damage Modifier"
+					Tooltip: ""
+				}
+
+				speedBattleHammer: {
+					Label: "[i:MetroidMod/BattleHammerAddon] BattleHammer Speed Multiplier"
+					Tooltip: ""
+				}
+
+				overheatBattleHammer: {
+					Label: "[i:MetroidMod/BattleHammerAddon] BattleHammer Overheat Modifer"
+					Tooltip: ""
+				}
+
+				damageOmegaCannon: {
+					Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Damage Modifier"
+					Tooltip: ""
+				}
+
+				speedOmegaCannon: {
+					Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Speed Multiplier"
+					Tooltip: ""
+				}
+
+				overheatOmegaCannon: {
+					Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Overheat Modifer"
+					Tooltip: ""
+				}
+
+				heatShockCoil: {
+					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Heat Modifier"
+					Tooltip: ""
 				}
 			}
 

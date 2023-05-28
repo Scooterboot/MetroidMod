@@ -39,9 +39,9 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = 0.45f;
-			mItem.addonHeat = .75f;
-			mItem.addonSpeed = -.45f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageMagMaul;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatMagMaul;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedMagMaul;
 		}
 
 

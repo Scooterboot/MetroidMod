@@ -55,6 +55,7 @@ namespace MetroidMod.Content.SuitAddons
 			player.statDefense += 15;
 			player.nightVision = true;
 			player.fireWalk = true;
+			player.lavaRose = true;
 			player.buffImmune[BuffID.OnFire] = true;
 			player.buffImmune[BuffID.Burning] = true;
 			player.buffImmune[BuffID.Chilled] = true;

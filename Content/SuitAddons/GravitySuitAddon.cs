@@ -67,7 +67,7 @@ namespace MetroidMod.Content.SuitAddons
 			mp.EnergyExpenseEfficiency += 0.075f;
 			if (!WorldGen.everythingWorldGen)
 			{
-				player.gills = false;
+				player.gills = true;
 			}
 		}
 		public override void AddRecipes()

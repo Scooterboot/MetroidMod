@@ -55,6 +55,7 @@ namespace MetroidMod.Content.SuitAddons
 			player.statDefense += 6;
 			player.nightVision = true;
 			player.fireWalk = true;
+			player.lavaRose = true;
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
 			player.moveSpeed += 0.10f;

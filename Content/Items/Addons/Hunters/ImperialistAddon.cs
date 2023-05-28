@@ -36,9 +36,9 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = 5f;
-			mItem.addonHeat = 2.5f;
-			mItem.addonSpeed = -.35f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageImperialist;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatImperialist;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedImperialist;
 		}
 
 

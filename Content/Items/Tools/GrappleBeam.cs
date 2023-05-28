@@ -1,3 +1,4 @@
+using MetroidMod.Content.MorphBallAddons;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -13,6 +14,7 @@ namespace MetroidMod.Content.Items.Tools
 			/* Tooltip.SetDefault("'Swingy!'\n" + 
 			"Press left or right to swing\n" + 
 			"Press up or down to ascend or descend the grapple"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = MBAddonLoader.GetAddon<SpiderBall>().ItemType;
 
 			Item.ResearchUnlockCount = 1;
 		}

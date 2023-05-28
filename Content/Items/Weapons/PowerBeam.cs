@@ -928,8 +928,8 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "VoltDriver";
 					chargeTex = "ChargeLead_Spazer";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageVoltDriverCharge;
+					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriverCharge;
 					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
@@ -947,8 +947,8 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Ice";
 					useTime = 15;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageJudicatorCharge;
+					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatJudicatorCharge;
 					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
@@ -1001,8 +1001,8 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "MagMaul";
 					chargeTex = "ChargeLead_PlasmaRed";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageMagMaulCharge;
+					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatMagMaulCharge;
 					useTime = 20;
 					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
@@ -1053,6 +1053,10 @@ namespace MetroidMod.Content.Items.Weapons
 					if (!slot3.IsAir)
 					{
 						comboError2 = true;
+					}
+					if (slot5.type == plG)
+					{
+						comboError4 = true;
 					}
 				}
 			}

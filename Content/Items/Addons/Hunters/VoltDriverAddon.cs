@@ -39,10 +39,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = .1f;
-			mItem.addonHeat = .5f;
-            mItem.addonSpeed = -.1f;
-        }
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVoltDriver;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriver;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedVoltDriver;
+		}
 	
 
 		public override void AddRecipes()

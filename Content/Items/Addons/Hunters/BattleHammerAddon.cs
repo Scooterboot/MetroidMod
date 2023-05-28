@@ -36,8 +36,9 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.BattleHammerTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonHeat = .5f;
-			mItem.addonSpeed = -0.4f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageBattleHammer;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatBattleHammer;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedBattleHammer;
 		}
 
 

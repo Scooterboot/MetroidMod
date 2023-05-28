@@ -564,8 +564,192 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(0.25f)]
 		public float speedVortexBeam;
-		
-	[Header("[i:MetroidMod/MissileLauncher]MissileLauncherAddons")]
+
+	[Header("[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons")]
+
+		[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Damage Modifier")]
+		[Range(0f, 2f)]
+		[Increment(0.1f)]
+		[Slider]
+		[DefaultValue(.1f)]
+		public float damageVoltDriver;
+
+		[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Speed Multiplier")]
+		[Range(-1f, 2f)]
+		[Increment(0.1f)]
+		[Slider]
+		[DefaultValue(-.1f)]
+		public float speedVoltDriver;
+
+		[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Charge Damage Multiplier")]
+		[Range(1f, 5f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(3f)]
+		public float damageVoltDriverCharge;
+
+		[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Overheat Modifer")]
+		[Range(0f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(0.5f)]
+		public float overheatVoltDriver;
+
+		[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Charge Overheat Multiplier")]
+		[Range(0f, 5f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(3f)]
+		public float overheatVoltDriverCharge;
+
+		[Label("[i:MetroidMod/MagMaulAddon] MagMaul Damage Modifier")]
+		[Range(0f, 2f)]
+		[Increment(0.05f)]
+		[Slider]
+		[DefaultValue(.45f)]
+		public float damageMagMaul;
+
+		[Label("[i:MetroidMod/MagMaulAddon] MagMaul Speed Multiplier")]
+		[Range(-.45f, 2f)]
+		[Increment(0.1f)]
+		[Slider]
+		[DefaultValue(-.45f)]
+		public float speedMagMaul;
+
+		[Label("[i:MetroidMod/MagMaulAddon] MagMaul Charge Damage Multiplier")]
+		[Range(1f, 5f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(3f)]
+		public float damageMagMaulCharge;
+
+		[Label("[i:MetroidMod/MagMaulAddon] MagMaul Overheat Modifer")]
+		[Range(0f, 2f)]
+		[Increment(0.05f)]
+		[Slider]
+		[DefaultValue(.75f)]
+		public float overheatMagMaul;
+
+		[Label("[i:MetroidMod/MagMaulAddon] MagMaul Charge Overheat Multiplier")]
+		[Range(0f, 5f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(3f)]
+		public float overheatMagMaulCharge;
+
+		[Label("[i:MetroidMod/ImperialistAddon] Imperialist Damage Modifier")]
+		[Range(0f, 10f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(5f)]
+		public float damageImperialist;
+
+		[Label("[i:MetroidMod/ImperialistAddon] Imperialist Speed Multiplier")]
+		[Range(-.35f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(-.35f)]
+		public float speedImperialist;
+
+		[Label("[i:MetroidMod/ImperialistAddon] Imperialist Overheat Modifer")]
+		[Range(0f, 3f)]
+		[Increment(0.05f)]
+		[Slider]
+		[DefaultValue(2.5f)]
+		public float overheatImperialist;
+
+		[Label("[i:MetroidMod/JudicatorAddon] Judicator Damage Modifier")]
+		[Range(0f, 2f)]
+		[Increment(0.05f)]
+		[Slider]
+		[DefaultValue(.45f)]
+		public float damageJudicator;
+
+		[Label("[i:MetroidMod/JudicatorAddon] Judicator Speed Multiplier")]
+		[Range(-.45f, 2f)]
+		[Increment(0.05f)]
+		[Slider]
+		[DefaultValue(-.45f)]
+		public float speedJudicator;
+
+		[Label("[i:MetroidMod/JudicatorAddon] Judicator Charge Damage Multiplier")]
+		[Range(1f, 5f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(3f)]
+		public float damageJudicatorCharge;
+
+		[Label("[i:MetroidMod/JudicatorAddon] Judicator Overheat Modifer")]
+		[Range(0f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(.75f)]
+		public float overheatJudicator;
+
+		[Label("[i:MetroidMod/JudicatorAddon] Judicator Charge Overheat Multiplier")]
+		[Range(0f, 5f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(3f)]
+		public float overheatJudicatorCharge;
+
+		[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
+		[Range(-1f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(0f)]
+		public float damageShockCoil;
+
+		[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Heat Modifier")]
+		[Range(-1f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(0f)]
+		public float heatShockCoil;
+
+		[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Damage Modifier")]
+		[Range(-1f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(0f)]
+		public float damageBattleHammer;
+
+		[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Speed Multiplier")]
+		[Range(-.45f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(-.45f)]
+		public float speedBattleHammer;
+
+		[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Overheat Modifer")]
+		[Range(0f, 3f)]
+		[Increment(0.1f)]
+		[Slider]
+		[DefaultValue(.5f)]
+		public float overheatBattleHammer;
+
+		[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Damage Modifier")]
+		[Range(0f, 200f)]
+		[Increment(10f)]
+		[Slider]
+		[DefaultValue(100f)]
+		public float damageOmegaCannon;
+
+		[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Speed Multiplier")]
+		[Range(-.45f, 2f)]
+		[Increment(0.5f)]
+		[Slider]
+		[DefaultValue(-.45f)]
+		public float speedOmegaCannon;
+
+		[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Overheat Modifer")]
+		[Range(0f, 20f)]
+		[Increment(1f)]
+		[Slider]
+		[DefaultValue(10f)]
+		public float overheatOmegaCannon;
+
+		[Header("[i:MetroidMod/MissileLauncher]MissileLauncherAddons")]
 		
 		[Label("[i:MetroidMod/IceMissileAddon] Ice Missile Damage Multiplier")]
 		[Range(-0.5f, 4f)]

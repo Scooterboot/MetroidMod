@@ -2,6 +2,9 @@
 using Terraria.ID;
 using MetroidMod.Common.Players;
 using MetroidMod.ID;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.Content.Items.Tools;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
@@ -22,6 +25,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			// DisplayName.SetDefault("Spider Ball");
 			/* Tooltip.SetDefault("-Press the Spider Ball Key to activate Spider Ball\n" +
 			"-Allows you to climb on walls and ceilings"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GrappleBeam>();
 		}
 		public override void SetItemDefaults(Item item)
 		{
@@ -36,7 +40,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient(null, "ChoziteBar", 12)
-				.AddIngredient(ItemID.Emerald, 15)
+				.AddIngredient(MetroidMod.PreHMhooksRecipeID, 1)
 				.AddIngredient(ItemID.Silk, 50)
 				.AddTile(TileID.Anvils)
 				.Register();

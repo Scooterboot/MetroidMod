@@ -39,7 +39,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			//mItem.addonDmg = .1f;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageShockCoil;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.heatShockCoil;
 		}
 		public override void AddRecipes()
 		{
