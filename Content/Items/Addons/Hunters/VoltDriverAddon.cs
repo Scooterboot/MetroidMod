@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.SuitAddons;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -39,6 +40,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.VoltDriver;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVoltDriver;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriver;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedVoltDriver;

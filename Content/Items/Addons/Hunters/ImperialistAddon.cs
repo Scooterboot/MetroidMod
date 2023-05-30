@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -36,6 +37,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.Imperialist;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageImperialist;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatImperialist;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedImperialist;

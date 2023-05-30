@@ -2,6 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Items.Addons.Hunters;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -37,6 +38,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.PhazonBeam;
 		}
 
 		public override void AddRecipes()

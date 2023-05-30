@@ -1,6 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V3
 {
@@ -33,6 +34,7 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.LuminiteBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.Charge;
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageLuminiteBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatLuminiteBeam;
 		}

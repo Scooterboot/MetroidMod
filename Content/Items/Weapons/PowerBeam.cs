@@ -28,6 +28,7 @@ namespace MetroidMod.Content.Items.Weapons
 	{
 		// Failsaves.
 		private Item[] _beamMods;
+		private Item[] _beamchangeMods;
 		public Item[] BeamMods
 		{
 			get
@@ -46,6 +47,24 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			set { _beamMods = value; }
 		}
+		public Item[] BeamChange
+		{
+			get 
+			{
+				if (_beamchangeMods == null)
+				{
+					_beamchangeMods = new Item[10];
+					for (int i = 0; i < _beamchangeMods.Length; ++i)
+					{
+						_beamchangeMods[i] = new Item();
+						_beamchangeMods[i].TurnToAir();
+					}
+				}
+
+				return _beamchangeMods;
+			}
+			set { _beamchangeMods = value; }
+		}
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Power Beam");
@@ -53,6 +72,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.ResearchUnlockCount = 1;
 
 			BeamMods = new Item[5];
+			BeamChange = new Item[10];
 		}
 		public override void SetDefaults()
 		{
@@ -254,6 +274,18 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot3 = BeamMods[2];
 			Item slot4 = BeamMods[3];
 			Item slot5 = BeamMods[4];
+
+			/*Item changeslot0 = BeamChange[0];
+			Item changeslot1 = BeamChange[1];
+			Item changeslot2 = BeamChange[2];
+			Item changeslot3 = BeamChange[3];
+			Item changeslot4 = BeamChange[4];
+			Item changeslot5 = BeamChange[5];
+			Item changeslot6 = BeamChange[6];
+			Item changeslot7 = BeamChange[7];
+			Item changeslot8 = BeamChange[8];
+			Item changeslot9 = BeamChange[9];*/
+
 
 			int damage = Common.Configs.MConfigItems.Instance.damagePowerBeam;
 			overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
@@ -1403,6 +1435,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ModItem clone = base.Clone(item);
 			PowerBeam beamClone = (PowerBeam)clone;
 			beamClone._beamMods = new Item[MetroidMod.beamSlotAmount];
+			beamClone._beamchangeMods = new Item[MetroidMod.beamChangeSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				if (_beamMods == null || _beamMods[i] == null)
@@ -1413,6 +1446,18 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					beamClone._beamMods[i] = _beamMods[i];
+				}
+			}
+			for (int i = 0; i < MetroidMod.beamChangeSlotAmount; ++i)
+			{
+				if (_beamchangeMods == null || _beamchangeMods[i] == null)
+				{
+					beamClone._beamchangeMods[i] = new Item();
+					beamClone._beamchangeMods[i].TurnToAir();
+				}
+				else
+				{
+					beamClone._beamchangeMods[i] = _beamchangeMods[i];
 				}
 			}
 
@@ -1661,6 +1706,15 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				tag.Add("BeamItem" + i, ItemIO.Save(BeamMods[i]));
 			}
+			for (int i = 0; i < BeamChange.Length; ++i)
+			{
+				// Failsave check.
+				if (BeamChange[i] == null)
+				{
+					BeamChange[i] = new Item();
+				}
+				tag.Add("BeamChange" + i, ItemIO.Save(BeamChange[i]));
+			}
 		}
 		public override void LoadData(TagCompound tag)
 		{
@@ -1672,6 +1726,12 @@ namespace MetroidMod.Content.Items.Weapons
 					Item item = tag.Get<Item>("BeamItem" + i);
 					BeamMods[i] = item;
 				}
+				BeamChange = new Item[MetroidMod.beamChangeSlotAmount];
+				for (int i = 0; i < BeamChange.Length; i++)
+				{
+					Item item = tag.Get<Item>("BeamChange" + i);
+					BeamChange[i] = item;
+				}
 			}
 			catch { }
 		}
@@ -1680,10 +1740,16 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			base.OnCreated(context);
 			_beamMods = new Item[5];
+			_beamchangeMods = new Item[10];
 			for (int i = 0; i < _beamMods.Length; ++i)
 			{
 				_beamMods[i] = new Item();
 				_beamMods[i].TurnToAir();
+			}
+			for (int i = 0; i < _beamchangeMods.Length; ++i)
+			{
+				_beamchangeMods[i] = new Item();
+				_beamchangeMods[i].TurnToAir();
 			}
 		}
 
@@ -1693,6 +1759,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				ItemIO.Send(BeamMods[i], writer);
 			}
+			for (int i = 0; i < BeamChange.Length; ++i)
+			{
+				ItemIO.Send(BeamChange[i], writer);
+			}
 			writer.Write(chargeLead);
 		}
 		public override void NetReceive(BinaryReader reader)
@@ -1700,6 +1770,10 @@ namespace MetroidMod.Content.Items.Weapons
 			for (int i = 0; i < BeamMods.Length; ++i)
 			{
 				BeamMods[i] = ItemIO.Receive(reader);
+			}
+			for (int i = 0; i < BeamChange.Length; ++i)
+			{
+				BeamChange[i] = ItemIO.Receive(reader);
 			}
 			chargeLead = reader.ReadInt32();
 		}

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -36,6 +37,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.OmegaCannonTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.OmegaCannon;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageOmegaCannon;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatOmegaCannon;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedOmegaCannon;
