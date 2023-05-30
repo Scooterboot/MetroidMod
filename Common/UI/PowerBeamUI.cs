@@ -14,6 +14,10 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Default;
 using ReLogic.Content;
+using MetroidMod.Content.Items.Addons.Hunters;
+using MetroidMod.Content.Items.Addons;
+using MetroidMod.Content.Items.Addons.V2;
+using MetroidMod.Content.Items.Addons.V3;
 
 namespace MetroidMod.Common.UI
 {
@@ -205,7 +209,52 @@ namespace MetroidMod.Common.UI
 			{
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
-					SoundEngine.PlaySound(SoundID.Grab);
+					//SoundEngine.PlaySound(SoundID.Grab);
+					
+					if(Main.mouseItem.type == ModContent.ItemType<OmegaCannonAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.OmegaCannonLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<BattleHammerAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<VoltDriverAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<MagMaulAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<ImperialistAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ImperialistLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<JudicatorAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<ShockCoilAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<ShockCoilAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<VoltDriverAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<ChargeBeamAddon>() || Main.mouseItem.type == ModContent.ItemType<ChargeBeamV2Addon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<LuminiteBeamAddon>() || Main.mouseItem.type == ModContent.ItemType<HyperBeamAddon>() || Main.mouseItem.type == ModContent.ItemType<PhazonBeamAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
+					}
 					powerBeamTarget.BeamMods[addonSlotType] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}

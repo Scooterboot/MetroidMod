@@ -345,7 +345,7 @@ namespace MetroidMod
 
 				};
 
-				public static readonly SoundStyle BattleHammerLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/BattleHammerLoad")
+				public static readonly SoundStyle BattleHammerLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/BattleHammerLoadFake")
 				{
 
 				};
@@ -365,7 +365,7 @@ namespace MetroidMod
 
 				};
 
-				public static readonly SoundStyle MaMaulLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/MagMaulLoad")
+				public static readonly SoundStyle MagMaulLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/MagMaulLoad")
 				{
 
 				};
