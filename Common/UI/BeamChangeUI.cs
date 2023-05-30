@@ -29,9 +29,25 @@ namespace MetroidMod.Common.UI
 		public BeamChangePanel panel;
 		public override void OnInitialize()
 		{
+			base.OnInitialize();
 			panel = new BeamChangePanel();
 			panel.Initialize();
+			panel.addonSlots = new BeamUIItemBox[MetroidMod.beamChangeSlotAmount];
+			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+			{
+				panel.addonSlots[i] = new BeamUIItemBox();
+				panel.addonSlots[i].Top.Pixels = panel.itemBoxPositionValues[i].Y;
+				panel.addonSlots[i].Left.Pixels = panel.itemBoxPositionValues[i].X;
+				panel.addonSlots[i].beamSlotType = i;
+				panel.addonSlots[i].SetCondition();
 
+				panel.Append(panel.addonSlots[i]);
+			}
+			panel.Charge1 = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
+			panel.Charge1.Left.Pixels = 100;
+			panel.Charge1.Top.Pixels = 0;
+			/*suitAddonsPanel.OpenReserveMenuButton.OnUpdate += delegate { if (suitAddonsPanel.OpenReserveMenuButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
+			suitAddonsPanel.OpenReserveMenuButton.OnLeftClick += delegate { if (ReserveMenu._visible) { ReserveMenu._visible = false; } else { ReserveMenu._visible = true; } };*/
 			Append(panel);
 		}
 	}
@@ -46,29 +62,43 @@ namespace MetroidMod.Common.UI
 
 		public UIText[] BeamInfoSlots;
 
-		public UIImageButton OpenReserveMenuButton;
+		public UIImageButton Charge1;
+		public UIImageButton Charge2;
+		public UIImageButton Luminite;
+		public UIImageButton VoltDriver;
+		public UIImageButton MagMaul;
+		public UIImageButton Imperialist;
+		public UIImageButton Judicator;
+		public UIImageButton ShockCoil;
+		public UIImageButton Battlehammer;
+		public UIImageButton OmegaCannon;
+		public UIImageButton Phazon;
+		public UIImageButton HyperBeam;
+
+		private bool Charge1Active = false;
+
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
-		public Vector2[] itemBoxPositionValues = new Vector2[10]
+		public Vector2[] itemBoxPositionValues = new Vector2[MetroidMod.beamChangeSlotAmount]
 		{
-			new Vector2(100, 0), //32,334
-			new Vector2(81, 59), //174, 334
-			new Vector2(31, 95), //98,174
-			new Vector2(-31, 95), //98,94
-			new Vector2(-81, 59), //32,94
-			new Vector2(-100, 0), //174,94
-			new Vector2(-81, -59), //32,174
-			new Vector2(-31, -95), //174,174
-			new Vector2(31, -95), //98,254
-			new Vector2(81, -59) //32,254
+			new Vector2(200, 100), //32,334
+			new Vector2(181, 159), //174, 334
+			new Vector2(131, 195), //98,174
+			new Vector2(69, 195), //98,94
+			new Vector2(19, 159), //32,94
+			new Vector2(0, 100), //174,94
+			new Vector2(19, 41), //32,174
+			new Vector2(69, 5), //174,174
+			new Vector2(131, 5), //98,254
+			new Vector2(181, 41) //32,254
 		};
 		public override void OnInitialize()
 		{
-			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Side", AssetRequestMode.ImmediateLoad); //the "background.stupid"
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/bepis", AssetRequestMode.ImmediateLoad); //the "background.stupid"
 			SetPadding(0);
-			Top.Pixels = Main.screenHeight / 2;
-			Left.Pixels = Main.screenWidth / 2;
+			Top.Pixels = Main.instance.invBottom + 174;
+			Left.Pixels = 160;
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
 
@@ -78,34 +108,57 @@ namespace MetroidMod.Common.UI
 				addonSlots[i] = new BeamUIItemBox();
 				addonSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
 				addonSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
-				addonSlots[i].addonSlotType = i;
+				addonSlots[i].beamSlotType = i;
 				addonSlots[i].SetCondition();
 
 				Append(addonSlots[i]);
 			}
+			/*Charge1 = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
+			Charge1.Left.Pixels = 100;
+			Charge1.Top.Pixels = 0;
+			//Charge1.OnMouseOver = 
+			Charge1.OnLeftClick += delegate { SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail); };
+			Append(Charge1);*/
 		}
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(panelTexture.Value, DrawRectangle, Color.White);
 		}
+		public override void Update(GameTime gameTime)
+		{
+			Width.Pixels = panelTexture.Width();
+			Height.Pixels = panelTexture.Height();
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
+			{
+				Left.Pixels = 160;
+				Top.Pixels = Main.instance.invBottom + 174;
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				{
+					Top.Pixels += 170;
+				}
+			}
+
+			base.Update(gameTime);
+		}
 	}
 	public class BeamUIItemBox : UIPanel
 	{
-		private Asset<Texture2D> ItemBoxTexture;
-
-		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+		private Texture2D itemBoxTexture;
 
 		public Condition condition;
 
-		public int addonSlotType;
+		public int beamSlotType;
+
+		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			ItemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad);
+			itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = 44; Height.Pixels = 44;
-			//OnClick += ItemBoxClick;
+			OnLeftClick += ItemBoxClick;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -123,9 +176,10 @@ namespace MetroidMod.Common.UI
 				//Mod mod = ModLoader.GetMod("MetroidMod");
 				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
-					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
-					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
+					MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
+					//if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.PowerBeam) { return false; }
+					//ModBeam mBeam = ((BeamItem)addonItem.ModItem).modBeam;
+					return addonItem.type <= ItemID.None || mItem.beamSlotType == beamSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
 				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance);
@@ -136,28 +190,26 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented?
-			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
+			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
 
-			if (Main.LocalPlayer.armor[1].type != ModContent.ItemType<PowerSuitBreastplate>()) { return; }
-			PowerSuitBreastplate target = Main.LocalPlayer.armor[1].ModItem as PowerSuitBreastplate;
-
-			if (target.SuitAddons[addonSlotType] != null && !target.SuitAddons[addonSlotType].IsAir)
+			if (powerBeamTarget.BeamChange[beamSlotType] != null && !powerBeamTarget.BeamChange[beamSlotType].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = target.SuitAddons[addonSlotType].Clone();
+					Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
 
-					target.SuitAddons[addonSlotType].TurnToAir();
+					powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
 				}
 				else if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 
-					Item tempBoxItem = target.SuitAddons[addonSlotType].Clone();
+					Item tempBoxItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
 					Item tempMouseItem = Main.mouseItem.Clone();
 
-					target.SuitAddons[addonSlotType] = tempMouseItem;
+					powerBeamTarget.BeamChange[beamSlotType] = tempMouseItem;
 					Main.mouseItem = tempBoxItem;
 				}
 			}
@@ -166,7 +218,7 @@ namespace MetroidMod.Common.UI
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					target.SuitAddons[addonSlotType] = Main.mouseItem.Clone();
+					powerBeamTarget.BeamChange[beamSlotType] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
 			}
@@ -175,25 +227,27 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
+			Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
+			if (target == null || target.type != ModContent.ItemType<PowerBeam>()) { return; }
+			PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 
-			spriteBatch.Draw(ItemBoxTexture.Value, DrawRectangle, new Color(255, 255, 255));
+			spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 			// Item drawing.
-			if (Main.LocalPlayer.armor[1].IsAir) { return; }
-			PowerSuitBreastplate breastplate = Main.LocalPlayer.armor[1].ModItem as PowerSuitBreastplate;
+			if (powerBeamTarget == null || powerBeamTarget.BeamChange == null || powerBeamTarget.BeamChange[beamSlotType].IsAir) { return; }
 
-			Color itemColor = breastplate.SuitAddons[addonSlotType].GetAlpha(Color.White);
-			Texture2D itemTexture = TextureAssets.Item[breastplate.SuitAddons[addonSlotType].type].Value;
+			Color itemColor = powerBeamTarget.BeamChange[beamSlotType].GetAlpha(Color.White);
+			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[powerBeamTarget.BeamChange[beamSlotType].type].Value;
 			CalculatedStyle innerDimensions = GetDimensions();
 
 			if (IsMouseHovering)
 			{
-				Main.hoverItemName = breastplate.SuitAddons[addonSlotType].Name;
-				Main.HoverItem = breastplate.SuitAddons[addonSlotType].Clone();
+				Main.hoverItemName = powerBeamTarget.BeamChange[beamSlotType].Name;
+				Main.HoverItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
 			}
 
-			Rectangle frame = Main.itemAnimations[breastplate.SuitAddons[addonSlotType].type] != null
-						? Main.itemAnimations[breastplate.SuitAddons[addonSlotType].type].GetFrame(itemTexture)
+			Rectangle frame = Main.itemAnimations[powerBeamTarget.BeamChange[beamSlotType].type] != null
+						? Main.itemAnimations[powerBeamTarget.BeamChange[beamSlotType].type].GetFrame(itemTexture)
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
@@ -209,10 +263,10 @@ namespace MetroidMod.Common.UI
 				}
 			}
 
-			float unreflectedScale = drawScale;
+			//float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, breastplate.SuitAddons[addonSlotType].type);
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, powerBeamTarget.BeamChange[beamSlotType].type);
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
@@ -222,24 +276,10 @@ namespace MetroidMod.Common.UI
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if (breastplate.SuitAddons[addonSlotType].color != default(Color))
+			if (powerBeamTarget.BeamChange[beamSlotType].color != default(Color))
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
-			}
-
-			if (breastplate.SuitAddons[addonSlotType].stack > 1)
-			{
-				Utils.DrawBorderStringFourWay(
-					spriteBatch,
-					FontAssets.ItemStack.Value,
-					Math.Min(9999, breastplate.SuitAddons[addonSlotType].stack).ToString(),
-					innerDimensions.Position().X + 10f,
-					innerDimensions.Position().Y + 26f,
-					Color.White,
-					Color.Black,
-					Vector2.Zero,
-					unreflectedScale * 0.8f);
 			}
 		}
 	}
