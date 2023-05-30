@@ -254,7 +254,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (mp.statOverheat > mp.maxOverheat)
 			{
 				P.Kill();
-				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad, Projectile.position);
+				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilReload, Projectile.position);
 			}
 
 		}

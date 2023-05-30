@@ -1029,7 +1029,7 @@ namespace MetroidMod.Content.Items.Weapons
 					shotSound = "ShockCoilStartupSound";
 					texture = "ShockCoil";
 					chargeUpSound = "ShockCoilStartupSound";
-					chargeShotSound = "ShockCoilLoad";
+					chargeShotSound = "ShockCoilReload";
 					chargeShot = "ShockCoilChargeShot";
 					chargeTex = "ChargeLead_Stardust";
 					Item.knockBack = 0;

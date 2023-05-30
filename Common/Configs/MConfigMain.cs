@@ -47,7 +47,7 @@ namespace MetroidMod.Common.Configs
 	[Header("[i:3611]TechPreservation")]
 
 		[Label("[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots")]
-		[Tooltip("Enables a small, niche movement tech that has not been named.")]
+		[Tooltip("Enables a small, niche movement tech that has not been named. It's pronounced 'nitch' not 'neesh' -Dr")]
 		[DefaultValue(false)]
 		public bool spaceJumpRocketBoots;
 

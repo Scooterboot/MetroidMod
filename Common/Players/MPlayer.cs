@@ -663,6 +663,7 @@ namespace MetroidMod.Common.Players
 		}
 
 		public bool psuedoScrewActive = false;
+		public bool beamChangeActive = false;
 		public override void SaveData(TagCompound tag)
 		{
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;

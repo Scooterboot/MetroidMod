@@ -14,6 +14,7 @@ namespace MetroidMod.Common.GlobalItems
 
 		#region Old code, remove later in favor of modularity maybe?
 		public int addonSlotType = -1;
+		public int beamSlotType = -1;
 		public float addonChargeDmg = 1;
 		public float addonChargeHeat = 1;
 		public float addonDmg = 0;

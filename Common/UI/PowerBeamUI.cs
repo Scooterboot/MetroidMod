@@ -26,6 +26,7 @@ namespace MetroidMod.Common.UI
 
 		private PowerBeamPanel powerBeamPanel;
 		private PowerBeamScrewAttackButton pbsaButton;
+		private PowerBeamChangeButton bcButton;
 		private ComboError comboError;
 		public override void OnInitialize()
 		{
@@ -73,6 +74,10 @@ namespace MetroidMod.Common.UI
 			comboError = new ComboError();
 			comboError.Initialize();
 			Append(comboError);
+
+			bcButton = new PowerBeamChangeButton();
+			bcButton.Initialize();
+			Append(bcButton);
 		}
 		public override void Update(GameTime gameTime)
 		{
@@ -442,7 +447,100 @@ namespace MetroidMod.Common.UI
 			sb.Draw(tex, DrawRectangle, Color.White);
 		}
 	}
-	
+	public class PowerBeamChangeButton : DragableUIPanel
+	{
+		private Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
+		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
+
+		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+
+		public override void OnInitialize()
+		{
+			Left.Pixels = 112;
+			Top.Pixels = 374; //274
+
+			buttonTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOff", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOn", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+
+			Width.Pixels = 44; //buttonTex.Width
+			Height.Pixels = 44;
+			OnLeftClick += BCButtonClick;
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			if (IsMouseHovering)
+			{
+				Main.LocalPlayer.mouseInterface = true;
+			}
+
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
+			{
+				Left.Pixels = 112; //112
+				Top.Pixels = 374;
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				{
+					Top.Pixels += 170;
+				}
+			}
+
+			base.Update(gameTime);
+		}
+
+		private bool clicked = false;
+		private void BCButtonClick(UIMouseEvent evt, UIElement e)
+		{
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+
+			mp.beamChangeActive = !mp.beamChangeActive;
+			//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+			clicked = true;
+			if (mp.beamChangeActive)
+			{
+				SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
+			}
+			if (!mp.beamChangeActive)
+			{
+				SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+			}
+		}
+
+		protected override void DrawSelf(SpriteBatch sb)
+		{
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+
+			Texture2D tex = buttonTex, texH = buttonTex_Hover, texC = buttonTex_Click;
+			if (mp.beamChangeActive)
+			{
+				tex = buttonTexEnabled;
+				texH = buttonTexEnabled_Hover;
+				texC = buttonTexEnabled_Click;
+			}
+
+			if (IsMouseHovering)
+			{
+				tex = texH;
+				if (clicked)
+				{
+					tex = texC;
+					clicked = false;
+				}
+
+				string psText = "Beam Interface: Disabled";
+				if (mp.beamChangeActive)
+				{
+					psText = "Beam Interface: Enabled";
+				}
+				Main.hoverItemName = psText;
+			}
+
+			sb.Draw(tex, DrawRectangle, Color.White);
+		}
+	}
+
 	// Combo Error messages
 	public class ComboError : DragableUIPanel
 	{
