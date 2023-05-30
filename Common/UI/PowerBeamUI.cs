@@ -31,39 +31,7 @@ namespace MetroidMod.Common.UI
 		{
 			base.OnInitialize();
 			powerBeamPanel = new PowerBeamPanel();
-			powerBeamPanel.SetPadding(0);
-			powerBeamPanel.Top.Pixels = Main.instance.invBottom + 10;
-			powerBeamPanel.Left.Pixels = 65;
-			powerBeamPanel.panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerBeam_Border", AssetRequestMode.ImmediateLoad).Value;
-
-			powerBeamPanel.Append(new PowerBeamFrame());
-			powerBeamPanel.Append(new PowerBeamLines());
-
-			powerBeamPanel.beamSlots = new PowerBeamItemBox[MetroidMod.beamSlotAmount];
-			//powerBeamPanel.textSlots = new UIText[MetroidMod.beamSlotAmount];
-			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
-			{
-				powerBeamPanel.beamSlots[i] = new PowerBeamItemBox();
-				powerBeamPanel.beamSlots[i].Top.Pixels = powerBeamPanel.itemBoxPositionValues[i].Y;
-				powerBeamPanel.beamSlots[i].Left.Pixels = powerBeamPanel.itemBoxPositionValues[i].X;
-				powerBeamPanel.beamSlots[i].addonSlotType = i;
-				powerBeamPanel.beamSlots[i].SetCondition();
-
-				powerBeamPanel.Append(powerBeamPanel.beamSlots[i]);
-
-				/*
-				powerBeamPanel.textSlots[i] = new UIText("0", Main.screenHeight / 1080f);
-				powerBeamPanel.textSlots[i].SetText(BeamLoader.GetAddonSlotName(i));
-				powerBeamPanel.textSlots[i].Top.Pixels = powerBeamPanel.itemBoxPositionValues[i].Y + 44;
-				powerBeamPanel.textSlots[i].Left.Pixels = powerBeamPanel.itemBoxPositionValues[i].X - 22;
-				powerBeamPanel.textSlots[i].IsWrapped = true;
-				powerBeamPanel.textSlots[i].Width.Pixels = 88;
-				powerBeamPanel.textSlots[i].Height.Pixels = 22;
-
-				powerBeamPanel.Append(powerBeamPanel.textSlots[i]);
-				*/
-			}
-
+			powerBeamPanel.Initialize();
 			Append(powerBeamPanel);
 
 			pbsaButton = new PowerBeamScrewAttackButton();
@@ -109,16 +77,15 @@ namespace MetroidMod.Common.UI
 			new Vector2(174, 94)
 		};
 
-		/*public override void OnInitialize()
+		public override void OnInitialize()
 		{
-			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerBeam_Border").Value;
-
 			SetPadding(0);
-			Left.Pixels = 160;
-			Top.Pixels = 260;
-			Width.Pixels = panelTexture.Width;
-			Height.Pixels = panelTexture.Height;
-			enabled = MetroidMod.DragablePowerBeamUI;
+			Top.Pixels = Main.instance.invBottom + 10;
+			Left.Pixels = 65;
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerBeam_Border", AssetRequestMode.ImmediateLoad).Value;
+
+			Append(new PowerBeamFrame());
+			Append(new PowerBeamLines());
 
 			beamSlots = new PowerBeamItemBox[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
@@ -131,10 +98,7 @@ namespace MetroidMod.Common.UI
 
 				Append(beamSlots[i]);
 			}
-			
-			Append(new PowerBeamFrame());
-			Append(new PowerBeamLines());
-		}*/
+		}
 
 		public override void Update(GameTime gameTime)
 		{
