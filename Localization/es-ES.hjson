@@ -1380,7 +1380,7 @@ Mods: {
 
 			GrappleBeamPlus: {
 				// DisplayName: Grapple Beam Plus
-				// Tooltip: ""
+				// Tooltip: Only attaces to special tiles
 			}
 
 			GrappleBeam: {
