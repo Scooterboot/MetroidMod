@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Items.MissileAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(12)
-				.AddIngredient<Tiles.MissileExpansion>(1)
+				.AddIngredient<Addons.ChargeBeamAddon>(1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
