@@ -188,7 +188,7 @@ namespace MetroidMod.Common.UI
 		// Clicking functionality.
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
-			// No failsafe. Should maybe be implemented?
+			//TODO No failsafe. Should maybe be implemented?
 			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
 
@@ -207,7 +207,7 @@ namespace MetroidMod.Common.UI
 					}
 				}
 				//activate
-				if (Main.mouseItem.IsAir && !Main.mouseMiddle)
+				if (Main.mouseItem.IsAir && !Main.mouseMiddle) //this can be cleaner
 				{
 					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<OmegaCannonAddon>())
 					{

@@ -183,11 +183,13 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
+			// How do I get BeamChange[beamSlotType] to not equal 0? --Dr
 			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			if (powerBeamTarget == null || powerBeamTarget.BeamMods == null) { return; }
 
 			if (powerBeamTarget.BeamMods[addonSlotType] != null && !powerBeamTarget.BeamMods[addonSlotType].IsAir && addonSlotType != 0)
 			{
+				//pickup
 				if (Main.mouseItem.IsAir)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
@@ -206,6 +208,7 @@ namespace MetroidMod.Common.UI
 					Main.mouseItem = tempBoxItem;
 				}
 			}
+			//place
 			else if(!Main.mouseItem.IsAir && addonSlotType != 0)
 			{
 				if (condition == null || (condition != null && condition(Main.mouseItem)))

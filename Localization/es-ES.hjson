@@ -474,6 +474,7 @@ Mods: {
 					Adds Charge Effect 
 					Charge by holding click 
 					Charge shots deal x3 damage, but overheat x2 the normal use
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
@@ -487,6 +488,7 @@ Mods: {
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
@@ -500,6 +502,7 @@ Mods: {
 					[c/78BE78:Adds scope and stealth]
 					[c/BE7878:+250% overheat use]
 					[c/BE7878:Massive speed reduction]
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
@@ -515,11 +518,12 @@ Mods: {
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
 					[c/BE7878:Cannot pierce walls]
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
 			MagMaulAddon: {
-				// DisplayName: Mag Maul
+				// DisplayName: MagMaul
 				/* Tooltip:
 					'''
 					[c/9696FF:Power Beam Addon]
@@ -530,6 +534,7 @@ Mods: {
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:Cannot freeze or pierce]
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
@@ -543,11 +548,12 @@ Mods: {
 					[c/BE7878:+1000% overheat use]
 					[c/BE7878:Slow as the DMV]
 					[c/BE7878:Cannot Pierce walls or enemies]
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
 			ShockCoilAddon: {
-				// DisplayName: Shock Coil
+				// DisplayName: ShockCoil
 				/* Tooltip:
 					'''
 					[c/9696FF:Power Beam Addon]
@@ -557,11 +563,12 @@ Mods: {
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
 					[c/BE7878:Probably still bugged]
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
 			VoltDriverAddon: {
-				// DisplayName: Volt Driver
+				// DisplayName: VoltDriver
 				/* Tooltip:
 					'''
 					[c/9696FF:Power Beam Addon]
@@ -571,6 +578,7 @@ Mods: {
 					[c/BE7878:-10% speed]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:+10% noise]
+					Place in the beam array and click to activate, middle click + click to remove
 					''' */
 			}
 
@@ -584,6 +592,7 @@ Mods: {
 					Slightly decreases firerate
 					Affected by addons regardless of version
 					Disables freeze and other debuff effects
+					Place in the beam array and click to activate, middle click + click to remove
 					'Da babeh'
 					''' */
 			}
@@ -614,6 +623,7 @@ Mods: {
 					Affected by addons regardless of version 
 					Disables freeze and other debuff effects
 					Can only be used while wearing the Phazon Suit
+					Place in the beam array and click to activate, middle click + click to remove
 					'It's made of pure Phazon energy!
 					''' */
 			}
