@@ -8,6 +8,7 @@ Mods: {
 		}
 
 		// BiomeName.ChozoRuinsBiome: Chozo Ruins
+		// DamageClasses.HunterDamageClass.DisplayName: Hunter Damage
 
 		Dialogue: {
 			ChozoGhost: {
