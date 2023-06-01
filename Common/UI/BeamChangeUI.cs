@@ -19,6 +19,10 @@ using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Default;
 using MetroidMod.ID;
+using MetroidMod.Content.Items.Addons.Hunters;
+using MetroidMod.Content.Items.Addons.V2;
+using MetroidMod.Content.Items.Addons.V3;
+using MetroidMod.Content.Items.Addons;
 
 namespace MetroidMod.Common.UI
 {
@@ -32,7 +36,7 @@ namespace MetroidMod.Common.UI
 			base.OnInitialize();
 			panel = new BeamChangePanel();
 			panel.Initialize();
-			panel.addonSlots = new BeamUIItemBox[MetroidMod.beamChangeSlotAmount];
+			/*panel.addonSlots = new BeamUIItemBox[MetroidMod.beamChangeSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				panel.addonSlots[i] = new BeamUIItemBox();
@@ -45,7 +49,7 @@ namespace MetroidMod.Common.UI
 			}
 			panel.Charge1 = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
 			panel.Charge1.Left.Pixels = 100;
-			panel.Charge1.Top.Pixels = 0;
+			panel.Charge1.Top.Pixels = 0;*/
 			/*suitAddonsPanel.OpenReserveMenuButton.OnUpdate += delegate { if (suitAddonsPanel.OpenReserveMenuButton.IsMouseHovering) { Main.LocalPlayer.mouseInterface = true; } };
 			suitAddonsPanel.OpenReserveMenuButton.OnLeftClick += delegate { if (ReserveMenu._visible) { ReserveMenu._visible = false; } else { ReserveMenu._visible = true; } };*/
 			Append(panel);
@@ -113,12 +117,6 @@ namespace MetroidMod.Common.UI
 
 				Append(addonSlots[i]);
 			}
-			/*Charge1 = new UIImageButton(ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Assets/Textures/Spiderball", AssetRequestMode.ImmediateLoad));
-			Charge1.Left.Pixels = 100;
-			Charge1.Top.Pixels = 0;
-			//Charge1.OnMouseOver = 
-			Charge1.OnLeftClick += delegate { SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail); };
-			Append(Charge1);*/
 		}
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
@@ -149,6 +147,7 @@ namespace MetroidMod.Common.UI
 		public Condition condition;
 
 		public int beamSlotType;
+		public int addonSlotType;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 
@@ -195,15 +194,73 @@ namespace MetroidMod.Common.UI
 
 			if (powerBeamTarget.BeamChange[beamSlotType] != null && !powerBeamTarget.BeamChange[beamSlotType].IsAir)
 			{
-				if (Main.mouseItem.IsAir)
+				//pickup
+				if (Main.mouseItem.IsAir && Main.mouseMiddle)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 					Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
 
 					powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
+					if(Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
+					{
+						powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
+					}
 				}
-				else if (condition == null || (condition != null && condition(Main.mouseItem)))
+				//activate
+				if (Main.mouseItem.IsAir && !Main.mouseMiddle)
 				{
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<OmegaCannonAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.OmegaCannonLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<BattleHammerAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<MagMaulAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ImperialistAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ImperialistLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<JudicatorAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ShockCoilAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ShockCoilAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<HyperBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<PhazonBeamAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
+					}
+					//Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
+
+					//powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
+					powerBeamTarget.BeamMods[addonSlotType] = powerBeamTarget.BeamChange[beamSlotType].Clone();
+				}
+				/*else if (condition == null || (condition != null && condition(Main.mouseItem)))
+				{
+
 					SoundEngine.PlaySound(SoundID.Grab);
 
 					Item tempBoxItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
@@ -211,13 +268,13 @@ namespace MetroidMod.Common.UI
 
 					powerBeamTarget.BeamChange[beamSlotType] = tempMouseItem;
 					Main.mouseItem = tempBoxItem;
-				}
+				}*/
 			}
-			else if (!Main.mouseItem.IsAir)
+			else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))
 			{
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
-					SoundEngine.PlaySound(SoundID.Grab);
+					//SoundEngine.PlaySound(SoundID.Grab);
 					powerBeamTarget.BeamChange[beamSlotType] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
