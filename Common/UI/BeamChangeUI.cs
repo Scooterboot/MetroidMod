@@ -237,19 +237,15 @@ namespace MetroidMod.Common.UI
 					{
 						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
 					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ShockCoilAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
-					}
 					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
 					{
 						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
 					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>())
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
 					{
 						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
 					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<HyperBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<PhazonBeamAddon>())
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<HyperBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<PhazonBeamAddon>())
 					{
 						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
 					}
