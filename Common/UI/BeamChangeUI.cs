@@ -195,7 +195,7 @@ namespace MetroidMod.Common.UI
 			if (powerBeamTarget.BeamChange[beamSlotType] != null && !powerBeamTarget.BeamChange[beamSlotType].IsAir)
 			{
 				//pickup
-				if (Main.mouseItem.IsAir && Main.mouseMiddle)
+				if (Main.mouseItem.IsAir && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 					Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
@@ -207,7 +207,7 @@ namespace MetroidMod.Common.UI
 					}
 				}
 				//activate
-				if (Main.mouseItem.IsAir && !Main.mouseMiddle) //this can be cleaner
+				if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift)) //this can be cleaner
 				{
 					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<OmegaCannonAddon>())
 					{
