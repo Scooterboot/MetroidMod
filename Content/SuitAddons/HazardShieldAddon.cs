@@ -42,7 +42,7 @@ namespace MetroidMod.Content.SuitAddons
 				"47.5% increased energy barrier resilience\n" + // Provisional name
 				"Immunity to fire blocks" + "\n" +
 				"Immunity to chill and freeze effects"
-				"Debuffs tick down twice as fast"*/);
+				"Debuffs tick down twice as fast");*/
 			AddonSlot = SuitAddonSlotID.Suit_Barrier;
 			ItemNameLiteral = false;
 		}
