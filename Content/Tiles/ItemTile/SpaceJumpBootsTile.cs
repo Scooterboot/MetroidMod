@@ -8,10 +8,8 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Space Jump Boots");
-			AddMapEntry(new Color(74, 140, 188), name);
-			ItemDrop = ModContent.ItemType<Items.Accessories.SpaceJumpBoots>();
+			AddMapEntry(new Color(74, 140, 188));
+			//ItemDrop = ModContent.ItemType<Items.Accessories.SpaceJumpBoots>();
 			DustType = 1;
 		}
 	}

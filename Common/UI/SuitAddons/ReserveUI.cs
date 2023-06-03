@@ -104,7 +104,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 					Main.LocalPlayer.mouseInterface = true;
 				}
 			};
-			modeButton.OnClick += delegate
+			modeButton.OnLeftClick += delegate
 			{
 				Main.LocalPlayer.MetroidPlayer().SuitReservesAuto = !Main.LocalPlayer.MetroidPlayer().SuitReservesAuto;
 			};
@@ -121,8 +121,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 					Main.LocalPlayer.mouseInterface = true;
 				}
 			};
-			reserveAmt.OnMouseDown += delegate { reserveHoldingLClick = true; };
-			reserveAmt.OnMouseUp += delegate { reserveHoldingLClick = false; };
+			reserveAmt.OnLeftMouseDown += delegate { reserveHoldingLClick = true; };
+			reserveAmt.OnLeftMouseUp += delegate { reserveHoldingLClick = false; };
 			reserveAmt.OnRightMouseDown += delegate { reserveHoldingRClick = true; };
 			reserveAmt.OnRightMouseUp += delegate { reserveHoldingRClick = false; };
 			Append(reserveAmt);

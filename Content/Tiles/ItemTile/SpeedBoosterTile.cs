@@ -8,10 +8,8 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Speed Booster");
-			AddMapEntry(new Color(98, 174, 129), name);
-			ItemDrop = ModContent.ItemType<Items.Accessories.SpeedBooster>();
+			AddMapEntry(new Color(98, 174, 129));
+			//ItemDrop = ModContent.ItemType<Items.Accessories.SpeedBooster>();
 			DustType = 1;
 		}
 	}

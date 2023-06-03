@@ -111,7 +111,7 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
-			enabled = MetroidMod.DragablePowerBeamUI;
+			enabled = Configs.MConfigClient.Instance.PowerBeam.enabled;
 			if (!enabled)
 			{
 				Left.Pixels = 160;
