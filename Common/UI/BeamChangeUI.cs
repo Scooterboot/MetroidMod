@@ -66,21 +66,6 @@ namespace MetroidMod.Common.UI
 
 		public UIText[] BeamInfoSlots;
 
-		public UIImageButton Charge1;
-		public UIImageButton Charge2;
-		public UIImageButton Luminite;
-		public UIImageButton VoltDriver;
-		public UIImageButton MagMaul;
-		public UIImageButton Imperialist;
-		public UIImageButton Judicator;
-		public UIImageButton ShockCoil;
-		public UIImageButton Battlehammer;
-		public UIImageButton OmegaCannon;
-		public UIImageButton Phazon;
-		public UIImageButton HyperBeam;
-
-		private bool Charge1Active = false;
-
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
