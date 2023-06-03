@@ -8,14 +8,14 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Spreader");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Ice Spreader");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Charge shots cover terrain in ice on impact, freezing enemies\n" + 
-			"~Charge shots cost 10 missiles");
+			"~Charge shots cost 10 missiles"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

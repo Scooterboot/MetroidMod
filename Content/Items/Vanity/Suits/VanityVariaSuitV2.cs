@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VariaSuitV2/VariaSuitV2Breastplate";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Varia Suit V2 Breastplate");
+			// DisplayName.SetDefault("Outdated Varia Suit V2 Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -31,9 +31,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VariaSuitV2/VariaSuitV2Greaves";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Varia Suit V2 Greaves");
+			// DisplayName.SetDefault("Outdated Varia Suit V2 Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -47,9 +47,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VariaSuitV2/VariaSuitV2Helmet";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Varia Suit V2 Helmet");
+			// DisplayName.SetDefault("Outdated Varia Suit V2 Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

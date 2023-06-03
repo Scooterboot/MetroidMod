@@ -9,16 +9,16 @@ namespace MetroidMod.Content.Items.Tiles
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Tiles/NorfairBrick";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Norfair Brick (Natural)");
-			Tooltip.SetDefault("'Welcome to hell.'");
+			// DisplayName.SetDefault("Norfair Brick (Natural)");
+			// Tooltip.SetDefault("'Welcome to hell.'");
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 16;
 			Item.height = 16;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

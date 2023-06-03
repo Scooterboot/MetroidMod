@@ -16,7 +16,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Golden Torizo Orb");
+			// DisplayName.SetDefault("Golden Torizo Orb");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
 			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
@@ -54,7 +54,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		}
 
 		int damage = 120;//30;//60;
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			damage *= 2;
 		}
@@ -122,7 +122,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 				NPC.ai[0] = 1;
 			}
 		}
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
 			for(int i = 0; i < 15; i++)

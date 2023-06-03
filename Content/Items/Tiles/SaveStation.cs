@@ -8,16 +8,16 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Save Station");
-			Tooltip.SetDefault("Sets spawn point");
+			// DisplayName.SetDefault("Save Station");
+			// Tooltip.SetDefault("Sets spawn point");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 22;
 			Item.height = 38;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

@@ -37,15 +37,12 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			ContainerName.SetDefault("Chozodian Chest");
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Chozodian Chest");
+			LocalizedText name = CreateMapEntryName();
+			//name.SetDefault("Chozodian Chest");
 			AddMapEntry(new Color(200, 200, 200), name);
 			DustType = 87;
 			TileID.Sets.DisableSmartCursor[Type] = true;//DisableSmartCursor = true;
 			AdjTiles = new int[] { TileID.Containers };
-			ContainerName.SetDefault("Chozodian Chest");//Chest = "Chozodian Chest";
-			ChestDrop = ModContent.ItemType<Items.Tiles.ChozoChest>();
 		}
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
@@ -53,9 +50,12 @@ namespace MetroidMod.Content.Tiles
 		public override void NumDust(int i, int j, bool fail, ref int num) {
 			num = 1;
 		}
-
+		public override LocalizedText DefaultContainerName(int frameX, int frameY)
+		{
+			int option = frameX / 36;
+			return CreateMapEntryName();
+		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ChestDrop);
 			Chest.DestroyChest(i, j);
 		}
 
@@ -154,10 +154,11 @@ namespace MetroidMod.Content.Tiles
 			}
 			else
 			{
-				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Chozodian Chest";
+				string defaultName = TileLoader.DefaultContainerName(tile.TileType, tile.TileFrameX, tile.TileFrameY); // This gets the ContainerName text for the currently selected language
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : defaultName;
+				player.cursorItemIconID = ModContent.ItemType<Items.Tiles.ChozoChest>();
 				if (player.cursorItemIconText == "Chozodian Chest")
 				{
-					player.cursorItemIconID = ChestDrop;
 					player.cursorItemIconText = "";
 				}
 			}

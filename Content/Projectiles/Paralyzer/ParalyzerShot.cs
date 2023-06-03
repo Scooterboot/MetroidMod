@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.Paralyzer
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Projectiles/spazer/SpazerShot";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Paralyzer Blast");
+			// DisplayName.SetDefault("Paralyzer Blast");
 		}
 
 		public override void SetDefaults()

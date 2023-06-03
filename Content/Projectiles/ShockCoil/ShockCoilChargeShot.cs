@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("ShockCoil Charge Shot");
+			// DisplayName.SetDefault("ShockCoil Charge Shot");
             Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -254,7 +254,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (mp.statOverheat > mp.maxOverheat)
 			{
 				P.Kill();
-				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad, Projectile.position);
+				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilReload, Projectile.position);
 			}
 
 		}
@@ -356,7 +356,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         {
             targetPos = reader.ReadVector2();
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
@@ -371,10 +371,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mp.statOverheat = 0;
 				mp.statOverheat += ((int)((float)overheat * mp.overheatCost) * 2);
 				mp.overheatDelay = 10;
-				int healingAmount = damage / 15;
+				int healingAmount = damageDone / 15;
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);
-				mp.Energy += damage / 15;
+				mp.Energy += damageDone / 15;
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 		}

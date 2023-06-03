@@ -17,16 +17,16 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Space Booster");
-			Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
-			"Damage enemies while running\n" + 
+			//DisplayName.SetDefault("Space Booster");
+			//Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
+			/*"Damage enemies while running\n" + 
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" + 
 			"Allows somersaulting\n" +
-			"Increases jump height and prevents fall damage");
+			"Increases jump height and prevents fall damage");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

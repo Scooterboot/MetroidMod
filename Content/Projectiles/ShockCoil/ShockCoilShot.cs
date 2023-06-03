@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("ShockCoil Shot");
+			// DisplayName.SetDefault("ShockCoil Shot");
             Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -261,7 +261,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (mp.statOverheat > mp.maxOverheat || (mp.statCharge == MPlayer.maxCharge && mp.statOverheat == mp.maxOverheat))
 			{
 				P.Kill();
-				//SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad, Projectile.position);
+				//SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilReload, Projectile.position);
 			}
 
 		}
@@ -384,7 +384,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         {
             targetPos = reader.ReadVector2();
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			iceSpeed = 1f;
 			spazSpeed = 1f;
@@ -393,17 +393,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
 			
-
-			if (Projectile.Name.Contains("Vortex"))
-			{
-				shots = 5f;
-				spazSpeed = .75f;
-			}
-			if (Projectile.Name.Contains("Spazer"))
-			{
-				shots = 3f;
-				spazSpeed = 1.15f;
-			}
 			//mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
@@ -412,314 +401,31 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
-				int healingAmount = Math.Min(damage / 20, 5);
+				int healingAmount = Math.Min(damageDone / 20, 5);
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);
-				mp.Energy += Math.Min(damage / 20, 5);
+				mp.Energy += Math.Min(damageDone / 20, 5);
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
-			if (Projectile.Name.Contains("Plasma"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("vortex"))
 			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(24, 300);
-				}
+				shots = 5f;
+				spazSpeed = .75f;
 			}
-			if (Projectile.Name.Contains("Nova"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("spaze") || Items.Weapons.PowerBeam.shooty.Contains("wide"))
 			{
-				if (Projectile.Name.Contains("Ice"))
-				{
-					target.AddBuff(44, 300);
-				}
-				else
-				{
-					target.AddBuff(39, 300);
-				}
+				shots = 3f;
+				spazSpeed = .85f;
 			}
-			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("plasma") || Items.Weapons.PowerBeam.shooty.Contains("solar"))
 			{
-				string buffName = "IceFreeze";
-				iceSpeed = 1.3f;
-				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
-			}
-			if (Projectile.Name.Contains("Solar"))
-			{
-				target.AddBuff(189, 300);
 				plasSpeed = 1.15f;
 			}
-			if (Projectile.Name.Contains("Plasma"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("ice") || Items.Weapons.PowerBeam.shooty.Contains("stardust"))
 			{
-				plasSpeed = 1.15f;
+				iceSpeed = 1.25f;
 			}
 			Projectile.localNPCHitCooldown = (int)Math.Round((double)(useTime * 7) * iceSpeed * spazSpeed * plasSpeed);
-		}
-	}
-	public class IceShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice ShockCoil Shot";
-		}
-	}
-	public class IceWaveShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave ShockCoil Shot";
-		}
-	}
-	public class IceWaveSpazerShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Spazer ShockCoil Shot";
-		}
-	}
-	public class IceWaveSpazerPlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Spazer Plasma Red ShockCoil Shot";
-		}
-	}
-	public class IceWavePlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Plasma Red ShockCoil Shot";
-		}
-	}
-	public class IceSpazerShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Spazer ShockCoil Shot";
-		}
-	}
-	public class IceSpazerPlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Spazer Plasma Red ShockCoil Shot";
-		}
-	}
-	public class IcePlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Red ShockCoil Shot";
-		}
-	}
-	public class WaveShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave ShockCoil Shot";
-		}
-	}
-	public class WaveSpazerShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Spazer ShockCoil Shot";
-		}
-	}
-	public class WaveSpazerPlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Spazer Plasma Red ShockCoil Shot";
-		}
-	}
-	public class WavePlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Plasma Red ShockCoil Shot";
-		}
-	}
-	public class SpazerShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Spazer ShockCoil Shot";
-		}
-	}
-	public class SpazerPlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Spazer Plasma Red ShockCoil Shot";
-		}
-	}
-	public class PlasmaRedShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Red ShockCoil Shot";
-		}
-	}
-	public class IceWaveWideNovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Wide Nova ShockCoil Shot";
-		}
-	}
-	public class IceWaveNovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Nova ShockCoil Shot";
-		}
-	}
-	public class IceWideNovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wide Nova ShockCoil Shot";
-		}
-	}
-	public class IceNovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Nova ShockCoil Shot";
-		}
-	}
-	public class WaveWideShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Wide ShockCoil Shot";
-		}
-	}
-	public class WaveWideNovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Wide Nova ShockCoil Shot";
-		}
-	}
-	public class WaveNovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Nova ShockCoil Shot";
-		}
-	}
-	public class WideNovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wide Nova ShockCoil Shot";
-		}
-	}
-	public class NovaShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nova ShockCoil Shot";
-		}
-	}
-	public class StardustNebulaVortexShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Vortex ShockCoil Shot";
-		}
-	}
-	public class StardustNebulaVortexSolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Vortex Solar ShockCoil Shot";
-		}
-	}
-	public class StardustNebulaSolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Solar ShockCoil Shot";
-		}
-	}
-	public class StardustVortexSolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Vortex Solar ShockCoil Shot";
-		}
-	}
-	public class StardustSolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Solar ShockCoil Shot";
-		}
-	}
-	public class NebulaVortexSolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nebula Vortex Solar ShockCoil Shot";
-		}
-	}
-	public class NebulaSolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nebula Solar ShockCoil Shot";
-		}
-	}
-	public class VortexSolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Vortex Solar ShockCoil Shot";
-		}
-	}
-	public class SolarShockCoilShot : ShockCoilShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar ShockCoil Shot";
 		}
 	}
 }

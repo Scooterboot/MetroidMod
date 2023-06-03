@@ -24,12 +24,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => false;//WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Augment");
-			Tooltip.SetDefault("You shouldn't have this."/*"+29 defense\n" +
+			// DisplayName.SetDefault("Solar Augment");
+			/* Tooltip.SetDefault("You shouldn't have this."/*"+29 defense\n" +
 				"+55 overheat capacity\n" +
 				"15% decreased overheat use\n" +
 				"15% decreased Missile Charge Combo cost\n" +
@@ -38,8 +38,8 @@ namespace MetroidMod.Content.SuitAddons
 				"60% increased energy barrier efficiency\n" + // Provisional name
 				"32.5% increased energy barrier resilience\n" + // Provisional name
 				"Immune to damage from the Dark World\n" +
-				"Immune to damage from Dark Water"*/
-				);
+				"Immune to damage from Dark Water"
+				); */
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
 		}

@@ -8,9 +8,9 @@ namespace MetroidMod.Content.Items.Walls
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tourian Wall");
+			// DisplayName.SetDefault("Tourian Wall");
 
-			SacrificeTotal = 400;
+			Item.ResearchUnlockCount = 400;
 		}
 		public override void SetDefaults()
 		{

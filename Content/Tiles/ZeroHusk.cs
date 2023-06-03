@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Enums;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -29,8 +30,8 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16 };
 			TileObjectData.addTile(Type);
 			
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Zero Husk");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Zero Husk");
 			AddMapEntry(new Color(180, 180, 180), name);
 		}
 	}

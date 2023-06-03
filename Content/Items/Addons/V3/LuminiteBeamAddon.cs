@@ -1,6 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V3
 {
@@ -8,14 +9,14 @@ namespace MetroidMod.Content.Items.Addons.V3
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Luminite Beam");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+			// DisplayName.SetDefault("Luminite Beam");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
 			"Slot Type: Charge\n" +
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
-			"~Charge shots deal x5 damage, but overheat x3 the normal use");
+			"~Charge shots deal x5 damage, but overheat x3 the normal use"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -33,6 +34,7 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.LuminiteBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.Charge;
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageLuminiteBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatLuminiteBeam;
 		}

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -10,17 +11,17 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Judicator");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("Judicator");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				"Shots bounce\n" +
 				"Charge shots spray a freezing blast\n" +
 				string.Format("[c/78BE78:+45% damage]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
-				string.Format("[c/BE7878:Cannot pierce walls]\n"));
-
-            SacrificeTotal = 1;
+				string.Format("[c/BE7878:Cannot pierce walls]\n")); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShockCoilAddon>();
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -38,9 +39,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = .45f;
-			mItem.addonHeat = 1.25f;
-			mItem.addonSpeed = -.45f;
+			mItem.beamSlotType = BeamChangeSlotID.Judicator;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageJudicator;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatJudicator;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedJudicator;
 		}
 
 

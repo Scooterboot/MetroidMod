@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using System;
@@ -29,8 +30,8 @@ namespace MetroidMod.Content.Tiles.Hatch
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			TileID.Sets.HousingWalls[Type] = true;
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Blue Hatch");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
 			//dustType = 1;
 			AdjTiles = new int[]{ TileID.OpenDoor };

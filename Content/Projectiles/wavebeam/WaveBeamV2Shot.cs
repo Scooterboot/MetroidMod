@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Beam V2 Shot");
+			// DisplayName.SetDefault("Wave Beam V2 Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()
@@ -30,7 +30,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		Color color = MetroidMod.waveColor2;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;

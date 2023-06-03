@@ -9,10 +9,10 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Variation Matrix");
-			Tooltip.SetDefault("Summons Kraid");
+			// DisplayName.SetDefault("Variation Matrix");
+			// Tooltip.SetDefault("Summons Kraid");
 
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{

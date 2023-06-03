@@ -24,7 +24,7 @@ namespace MetroidMod.Default
 		public override void SetStaticDefaults()
 		{
 			modMBAddon.TileType = Type;
-			ItemDrop = modMBAddon.ItemType;
+			//ItemDrop= modMBAddon.ItemType;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileSpelunker[Type] = true;

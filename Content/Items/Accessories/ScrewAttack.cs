@@ -13,14 +13,14 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Screw Attack");
-			Tooltip.SetDefault("Allows the user to double jump\n" + 
-			"Allows somersaulting\n" + 
+			//DisplayName.SetDefault("Screw Attack");
+			//Tooltip.SetDefault("Allows the user to double jump\n" + 
+			/*"Allows somersaulting\n" + 
 			"Damage enemies while someraulting\n" + 
 			"Damage scales off of enemy's contact damage\n" +
-			"Hold Left/Right and double jump to do a 'boost' ability");
+			"Hold Left/Right and double jump to do a 'boost' ability");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -8,16 +8,16 @@ namespace MetroidMod.Content.Items.Addons.V3
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Beam");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+			// DisplayName.SetDefault("Solar Beam");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
 				"Slot Type: Primary B\n" + 
 				"Shots pierce enemies\n" + 
 				"Shots set enemies ablaze with the Daybroken debuff\n" + 
 				string.Format("[c/78BE78:+300% damage]\n") +
 				string.Format("[c/BE7878:+150% overheat use]\n") +
-				string.Format("[c/BE7878:-15% speed]"));
+				string.Format("[c/BE7878:-15% speed]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

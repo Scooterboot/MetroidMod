@@ -16,14 +16,14 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ichor Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Ichor Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Decreases enemy defense");
+			// DisplayName.SetDefault("Ichor Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Ichor Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Decreases enemy defense"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustScale = 4f;
 			dustScale2 = 2f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.Ichor, 600);
 		}

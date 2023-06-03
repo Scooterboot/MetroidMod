@@ -9,13 +9,13 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grappling Beam");
-			Tooltip.SetDefault("'Swingy!'\n" + 
+			// DisplayName.SetDefault("Grappling Beam");
+			/* Tooltip.SetDefault("'Swingy!'\n" + 
 			"Press left or right to swing\n" + 
 			"Press up or down to ascend or descend the grapple\n" +
-			"Will only attach to specific tiles");
+			"Will only attach to specific tiles"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -12,8 +12,8 @@ namespace MetroidMod.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Froze");
-			Description.SetDefault("You Got Ice Beam'd!");
+			// DisplayName.SetDefault("Froze");
+			// Description.SetDefault("You Got Ice Beam'd!");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

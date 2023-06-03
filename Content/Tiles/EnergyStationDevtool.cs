@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -30,8 +31,8 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Energy Station");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Energy Station");
 			AddMapEntry(new Color(232, 170, 57), name);
 		}
 

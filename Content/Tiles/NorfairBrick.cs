@@ -16,7 +16,6 @@ namespace MetroidMod.Content.Tiles
 			DustType = 87;
 			MinPick = 100;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.NorfairBrick>();
 
 			AddMapEntry(new Color(168, 104, 87));
 		}

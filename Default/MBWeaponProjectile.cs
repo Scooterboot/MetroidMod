@@ -35,7 +35,7 @@ namespace MetroidMod.Default
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault());
+			// DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault());
 			Main.projFrames[Type] = 6;
 		}
 		public override void SetDefaults()
@@ -287,14 +287,14 @@ namespace MetroidMod.Default
 				Main.dust[newDust].noGravity = true;
 			}
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Projectile.timeLeft > 0)
 			{
 				Projectile.timeLeft = 0;
 			}
 
-			modMBAddon.OnHitNPC(target, damage, knockback, crit);
+			modMBAddon.OnHitNPC(target, hit, damageDone);
 
 			/*if (Projectile.type == mod.ProjectileType("PoisonBomb"))
 				target.AddBuff(BuffID.Poisoned, 600);

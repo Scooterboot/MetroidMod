@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -10,15 +11,15 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("OmegaCannon");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("OmegaCannon");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				string.Format("[c/78BE78:+900% damage]\n") +
 				string.Format("[c/BE7878:+1000% overheat use]\n") +
 				string.Format("[c/BE7878:Slow as the DMV]\n") +
-                string.Format("[c/BE7878:Cannot Pierce walls or enemies]"));
+                string.Format("[c/BE7878:Cannot Pierce walls or enemies]")); */
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -36,9 +37,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.OmegaCannonTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = 100f;
-			mItem.addonHeat = 10f;
-			mItem.addonSpeed = -.45f;
+			mItem.beamSlotType = BeamChangeSlotID.OmegaCannon;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageOmegaCannon;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatOmegaCannon;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedOmegaCannon;
 		}
 	
 

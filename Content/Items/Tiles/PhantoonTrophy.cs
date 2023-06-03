@@ -8,15 +8,15 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phantoon Trophy");
+			// DisplayName.SetDefault("Phantoon Trophy");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 30;
 			Item.height = 30;
-			Item.maxStack = 99;
+			Item.maxStack = 999;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

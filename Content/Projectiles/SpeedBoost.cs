@@ -20,7 +20,7 @@ namespace MetroidMod.Content.Projectiles
 		public SoundEffectInstance soundInstance;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Speed Booster");
+			// DisplayName.SetDefault("Speed Booster");
 		}
 		public override void SetDefaults()
 		{
@@ -101,9 +101,9 @@ namespace MetroidMod.Content.Projectiles
 				activeSound.Position = P.Center;
 			}
 		}
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			damage += (int)(target.damage * 1.5f);
+			modifiers.FinalDamage.Flat = (int)(target.damage * 1.5f);
 		}
 	}
 }

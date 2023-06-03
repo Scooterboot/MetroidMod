@@ -10,14 +10,14 @@ namespace MetroidMod.Content.Items.Addons.V2
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave Beam V2");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+			// DisplayName.SetDefault("Wave Beam V2");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
 				"Slot Type: Utility\n" +
 				"Shots penetrate terrain by an extended depth\n" +
 				string.Format("[c/78BE78:+125% damage]\n") +
-				string.Format("[c/BE7878:+75% overheat use]"));
+				string.Format("[c/BE7878:+75% overheat use]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

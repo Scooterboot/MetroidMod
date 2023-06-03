@@ -15,7 +15,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sova");
+			// DisplayName.SetDefault("Sova");
 			Main.npcFrameCount[Type] = 5;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -120,7 +120,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 		}
 		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{

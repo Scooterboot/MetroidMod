@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Pirate");
+			// DisplayName.SetDefault("Omega Pirate");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

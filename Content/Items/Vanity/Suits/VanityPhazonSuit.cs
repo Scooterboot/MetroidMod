@@ -12,9 +12,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitBreastplate";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Phazon Suit Breastplate");
+			// DisplayName.SetDefault("Outdated Phazon Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -41,9 +41,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitGreaves";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Phazon Suit Greaves");
+			// DisplayName.SetDefault("Outdated Phazon Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -57,9 +57,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitHelmet";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Phazon Suit Helmet");
+			// DisplayName.SetDefault("Outdated Phazon Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Supernova Shot");
+			// DisplayName.SetDefault("Supernova Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()
@@ -181,7 +181,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Utils.PlotTileLine(P.Center, P.Center + P.velocity * (P.ai[1] + 4f), ((float)P.width + 16f) * scaleUp, DelegateMethods.CutTiles);
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(189,600,true);
 			//target.immune[Projectile.owner] = 4;

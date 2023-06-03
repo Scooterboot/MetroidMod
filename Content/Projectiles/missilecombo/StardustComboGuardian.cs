@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Guardian");
+			// DisplayName.SetDefault("Stardust Guardian");
 			Main.projFrames[Projectile.type] = 12;
 		}
 		public override void SetDefaults()

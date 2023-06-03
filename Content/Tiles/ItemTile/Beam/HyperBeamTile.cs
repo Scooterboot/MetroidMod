@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Beam
@@ -10,10 +11,9 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Hyper Beam");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Hyper Beam");
 			AddMapEntry(new Color(247, 0, 98), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.HyperBeamAddon>();
 			DustType = 1;
 		}
 

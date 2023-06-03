@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Beam Charge Shot");
+			// DisplayName.SetDefault("Vortex Beam Charge Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -31,13 +31,14 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		float scale = 1f;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Stardust"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("stardust"))
 			{
 				dustType = 88;
 				color = MetroidMod.iceColor;
 				scale = 0.5f;
 			}
-			else if(Projectile.Name.Contains("Nebula"))
+			else if(S.Contains("nebula"))
 			{
 				dustType = 255;
 				color = MetroidMod.waveColor;
@@ -54,14 +55,18 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 			}
 			
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Nebula"));
-			if(Projectile.Name.Contains("Nebula"))
+			if (S.Contains("nebula"))
 			{
+				Projectile.tileCollide = false;
+
+				mProjectile.amplitude = 14f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1f;
 				mProjectile.HomingBehavior(Projectile);
 			}
-			
+
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale*scale);
 			Main.dust[dust].noGravity = true;
-			if(Projectile.Name.Contains("Stardust"))
+			if(S.Contains("stardust"))
 			{
 				dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
@@ -85,10 +90,6 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		{
 			base.SetDefaults();
 			Projectile.Name = "Nebula Vortex Beam Charge Shot";
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 14f*Projectile.scale;
-			mProjectile.wavesPerSecond = 1f;
 		}
 	}
 	
@@ -98,15 +99,6 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		{
 			base.SetDefaults();
 			Projectile.Name = "Stardust Vortex Beam Charge Shot";
-		}
-	}
-	
-	public class StardustNebulaVortexBeamChargeShot : NebulaVortexBeamChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Vortex Beam Charge Shot";
 		}
 	}
 }

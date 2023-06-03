@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Super Missile Shot");
+			// DisplayName.SetDefault("Super Missile Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -173,21 +173,21 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Super Missile Shot");
+			// DisplayName.SetDefault("Ice Super Missile Shot");
 		}
 	}
 	public class StardustMissileShot : SuperMissileShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Missile Shot");
+			// DisplayName.SetDefault("Stardust Missile Shot");
 		}
 	}
 	public class NebulaMissileShot : SuperMissileShot
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Missile Shot");
+			// DisplayName.SetDefault("Nebula Missile Shot");
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Pirate");
+			// DisplayName.SetDefault("Omega Pirate");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
 
@@ -83,9 +83,9 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				new FlavorTextBestiaryInfoElement("An experiment created by the space pirates. It is a hulking monster corrupted by a biomass known as Phazon. It's capable of absorbing projectiles with its hands and firing grenades from a distance. Get too close and it will react by smashing the ground to create an energy wave. Even if you smash its armor, the creature will go invisible and attempt to absorb Phazon to repair its defenses.")
 			});
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
 			NPC.damage = 0;//(int)(NPC.damage * 0.8f);
 			damage = (int)(damage * 2 * 0.8f);
 		}
@@ -109,7 +109,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			Common.Systems.MSystem.bossesDown |= MetroidBossDown.downedOmegaPirate;
 		}
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			/*if (Main.netMode != 2)
 			{

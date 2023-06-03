@@ -26,16 +26,16 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Bomb");
-			ModProjectile.DisplayName.SetDefault("Power Bomb");
-			ModExplosionProjectile.DisplayName.SetDefault("Power Bomb");
-			Tooltip.SetDefault("-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)\n" +
+			// DisplayName.SetDefault("Power Bomb");
+			// ModProjectile.DisplayName.SetDefault("Power Bomb");
+			// ModExplosionProjectile.DisplayName.SetDefault("Power Bomb");
+			/* Tooltip.SetDefault("-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)\n" +
 			"-Power Bombs create large explosions that vacuum in items afterwards\n" +
-			"-Power Bombs ignore 50% of enemy defense and can deal ~1400 damage total");
+			"-Power Bombs ignore 50% of enemy defense and can deal ~1400 damage total"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

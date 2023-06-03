@@ -27,8 +27,8 @@ namespace MetroidMod.Content.Tiles
 			MinPick = 1000;//215;
 			HitSound = SoundID.Tink;
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Phazon Core");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Phazon Core");
 			AddMapEntry(new Color(255, 65, 0), name);
 		}
 

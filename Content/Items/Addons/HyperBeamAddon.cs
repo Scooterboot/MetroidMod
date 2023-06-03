@@ -8,6 +8,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Addons.Hunters;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -15,16 +17,16 @@ namespace MetroidMod.Content.Items.Addons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hyper Beam");
-			Tooltip.SetDefault("Power Beam Addon\n" +
+			// DisplayName.SetDefault("Hyper Beam");
+			/* Tooltip.SetDefault("Power Beam Addon\n" +
 			"Slot Type: Charge\n" +
 			"Increases base damage from 14 to 35, and base overheat use from 4 to 7\n" +
 			"Slightly decreases firerate\n" +
 			"Affected by addons regardless of version\n" + 
 			"Disables freeze and other debuff effects\n" +
-			"'Da babeh'");
-
-			SacrificeTotal = 1;
+			"'Da babeh'"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PhazonBeamAddon>();
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -42,6 +44,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.HyperBeam;
 		}
 		public override void AddRecipes()
 		{

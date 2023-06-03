@@ -17,7 +17,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nightmare");
+			// DisplayName.SetDefault("Nightmare");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()
@@ -132,22 +132,22 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			}
 		}
 		
-		public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
 			if(NPC.ai[2] == 0)
 			{
-				damage = (int)(damage * 0.1f);
+				modifiers.FinalDamage /= (int)(item.damage * 10f);
 			}
 		}
-		public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
 			if(NPC.ai[2] == 0)
 			{
-				damage = (int)(damage * 0.1f);
+				modifiers.FinalDamage /= (int)(projectile.damage * 10f);
 			}
 		}
 		
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{

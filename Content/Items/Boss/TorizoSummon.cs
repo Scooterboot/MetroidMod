@@ -11,10 +11,10 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Inactive Torizo");
-			Tooltip.SetDefault("Summons the Torizo");
+			// DisplayName.SetDefault("Inactive Torizo");
+			// Tooltip.SetDefault("Summons the Torizo");
 
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{

@@ -19,9 +19,9 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Boost Ball");
-			Tooltip.SetDefault("-Hold Boost Ball Key to charge a speed boost\n" +
-			"-Release the key to accelerate in the direction you are moving");
+			// DisplayName.SetDefault("Boost Ball");
+			/* Tooltip.SetDefault("-Hold Boost Ball Key to charge a speed boost\n" +
+			"-Release the key to accelerate in the direction you are moving"); */
 		}
 		public override void SetItemDefaults(Item item)
 		{

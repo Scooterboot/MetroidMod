@@ -15,8 +15,8 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("X-Ray Scope");
-			Tooltip.SetDefault("Projects a wide ray of light if you are standing still");
+			// DisplayName.SetDefault("X-Ray Scope");
+			// Tooltip.SetDefault("Projects a wide ray of light if you are standing still");
 		}
 		public override void SetDefaults()
 		{

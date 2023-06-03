@@ -12,9 +12,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentBreastplate";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Vortex Gravity Suit Breastplate");
+			// DisplayName.SetDefault("Outdated Vortex Gravity Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -41,9 +41,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentGreaves";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Vortex Gravity Suit Greaves");
+			// DisplayName.SetDefault("Outdated Vortex Gravity Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -57,9 +57,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentHelmet";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Vortex Gravity Suit Helmet");
+			// DisplayName.SetDefault("Outdated Vortex Gravity Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

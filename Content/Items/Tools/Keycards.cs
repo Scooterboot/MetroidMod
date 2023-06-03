@@ -9,10 +9,10 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Red Keycard");
-			Tooltip.SetDefault("Allows opening red hatches by right clicking");
+			// DisplayName.SetDefault("Red Keycard");
+			// Tooltip.SetDefault("Allows opening red hatches by right clicking");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -41,10 +41,10 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Green Keycard");
-			Tooltip.SetDefault("Allows opening green hatches by right clicking");
+			// DisplayName.SetDefault("Green Keycard");
+			// Tooltip.SetDefault("Allows opening green hatches by right clicking");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -73,10 +73,10 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Yellow Keycard");
-			Tooltip.SetDefault("Allows opening yellow hatches by right clicking");
+			// DisplayName.SetDefault("Yellow Keycard");
+			// Tooltip.SetDefault("Allows opening yellow hatches by right clicking");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -105,13 +105,13 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omni Keycard");
-			Tooltip.SetDefault("Allows opening all hatches by right clicking\n" +
-				"'Luckily, you didn't create a MasterCard.'");
+			// DisplayName.SetDefault("Omni Keycard");
+			/* Tooltip.SetDefault("Allows opening all hatches by right clicking\n" +
+				"'Luckily, you didn't create a MasterCard.'"); */
 			// Reference to SCP: Containment Breach, wherein the process of
 			// creating an Omni Card could result in a MasterCard.
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

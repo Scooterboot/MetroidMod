@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon");
+			// DisplayName.SetDefault("Phazon");
 		}
 		public override void SetDefaults()
 		{

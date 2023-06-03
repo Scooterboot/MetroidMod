@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.powerbeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Beam Shot");
+			// DisplayName.SetDefault("Power Beam Shot");
 		}
 		public override void SetDefaults()
 		{

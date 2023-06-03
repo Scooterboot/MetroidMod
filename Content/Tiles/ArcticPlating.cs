@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Tiles
 			DustType = 87;
 			MinPick = 65;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.ArcticPlating>();
+			//ItemDrop= ModContent.ItemType<Items.Tiles.ArcticPlating>();
 
 			AddMapEntry(new Color(140, 189, 189));
 		}

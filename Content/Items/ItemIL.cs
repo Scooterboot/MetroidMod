@@ -19,13 +19,13 @@ namespace MetroidMod.Content.Items
 	{
 		public static void Load()
 		{
-			IL.Terraria.Player.ItemFitsItemFrame += ItemFitsItemFrame_DisableForMetroidItems;
+			Terraria.IL_Player.ItemFitsItemFrame += ItemFitsItemFrame_DisableForMetroidItems;
 			//IL.Terraria.UI.ItemSlot.PickItemMovementAction += PickItemMovementAction_NoSuitAddons;
 		}
 
 		public static void Unload()
 		{
-			IL.Terraria.Player.ItemFitsItemFrame -= ItemFitsItemFrame_DisableForMetroidItems;
+			Terraria.IL_Player.ItemFitsItemFrame -= ItemFitsItemFrame_DisableForMetroidItems;
 			//IL.Terraria.UI.ItemSlot.PickItemMovementAction -= PickItemMovementAction_NoSuitAddons;
 		}
 

@@ -11,8 +11,8 @@ namespace MetroidMod.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Amplified Gravity");
-			Description.SetDefault("Your local gravity is amplified, causing you to move more slowly and heavily");
+			// DisplayName.SetDefault("Amplified Gravity");
+			// Description.SetDefault("Your local gravity is amplified, causing you to move more slowly and heavily");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

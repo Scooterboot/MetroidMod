@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitBreastplate";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Gravity Suit Breastplate");
+			// DisplayName.SetDefault("Outdated Gravity Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -31,9 +31,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitGreaves";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Gravity Suit Greaves");
+			// DisplayName.SetDefault("Outdated Gravity Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -47,9 +47,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitHelmet";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Gravity Suit Helmet");
+			// DisplayName.SetDefault("Outdated Gravity Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

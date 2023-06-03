@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -10,15 +11,15 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Imperialist");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("Imperialist");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				string.Format("[c/78BE78:+500% damage]\n") +
 				string.Format("[c/78BE78:Adds scope and stealth]\n") +
 				string.Format("[c/BE7878:+500% overheat use]\n") +
-				string.Format("[c/BE7878:Massive speed reduction]\n"));
-
-            SacrificeTotal = 1;
+				string.Format("[c/BE7878:Massive speed reduction]\n")); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<JudicatorAddon>();
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -36,31 +37,42 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = 5f;
-			mItem.addonHeat = 5f;
-			mItem.addonSpeed = -.35f;
+			mItem.beamSlotType = BeamChangeSlotID.Imperialist;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageImperialist;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatImperialist;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedImperialist;
 		}
 
 
         public override void AddRecipes()
         {
-            CreateRecipe(1)
-                .AddIngredient<Miscellaneous.ChoziteBar>(30)
-                .AddIngredient<Miscellaneous.EnergyShard>(30)
-                .AddIngredient(ItemID.ZapinatorGray, 1)
-                .AddIngredient(ItemID.SoulofFright, 20)
-                .AddIngredient(ItemID.Ruby, 20)
-                .AddTile(TileID.Hellforge)
-                .Register();
+			/*CreateRecipe(1)
+				.AddIngredient<Miscellaneous.ChoziteBar>(30)
+				.AddIngredient<Miscellaneous.EnergyShard>(30)
+				.AddIngredient(ItemID.ZapinatorGray, 1)
+				.AddIngredient(ItemID.SoulofFright, 20)
+				.AddIngredient(ItemID.Ruby, 20)
+				.AddTile(TileID.Hellforge)
+				.Register();
+
+			CreateRecipe(1)
+				.AddIngredient<Miscellaneous.ChoziteBar>(30)
+				.AddIngredient<Miscellaneous.EnergyShard>(30)
+				.AddIngredient(ItemID.ZapinatorOrange, 1)
+				.AddIngredient(ItemID.SoulofFright, 20)
+				.AddIngredient(ItemID.Ruby, 20)
+				.AddTile(TileID.Hellforge)
+				.Register();*/
 			
 			CreateRecipe(1)
-                .AddIngredient<Miscellaneous.ChoziteBar>(30)
-                .AddIngredient<Miscellaneous.EnergyShard>(30)
-                .AddIngredient(ItemID.ZapinatorOrange, 1)
-                .AddIngredient(ItemID.SoulofFright, 20)
-                .AddIngredient(ItemID.Ruby, 20)
-                .AddTile(TileID.Hellforge)
-                .Register();
-        }
-    }
+				.AddIngredient<Miscellaneous.ChoziteBar>(30)
+				.AddIngredient<Miscellaneous.EnergyShard>(30)
+				.AddIngredient(ItemID.LaserRifle, 1)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
+				.AddIngredient(ItemID.Ruby, 20)
+				.AddTile(TileID.Hellforge)
+				.Register();
+
+		}
+	}
 }

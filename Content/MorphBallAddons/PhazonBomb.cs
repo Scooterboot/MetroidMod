@@ -16,14 +16,14 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Phazon Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Inflicts enemies with Phazon radiation poisoning");
+			// DisplayName.SetDefault("Phazon Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Phazon Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Inflicts enemies with Phazon radiation poisoning"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustScale = 3f;
 			dustScale2 = 2f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<Buffs.PhazonDebuff>(), 600);
 		}

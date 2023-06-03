@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Projectiles
 		private int Init = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Screw Attack");
+			// DisplayName.SetDefault("Screw Attack");
 			Main.projFrames[Projectile.type] = 4;
 		}
 		public override void SetDefaults()
@@ -133,9 +133,9 @@ namespace MetroidMod.Content.Projectiles
 				Init = 3;
 			}
 		}
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			damage += target.damage * 2;
+			modifiers.FinalDamage.Flat = target.damage * 2;
 		}
 		public override void Kill(int timeLeft)
 		{

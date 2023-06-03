@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Cannon Shot");
+			// DisplayName.SetDefault("Omega Cannon Shot");
             Main.projFrames[Projectile.type] = 2;
 
         }
@@ -49,7 +49,6 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
         }
 		public override void Kill(int timeLeft)
 		{
-			int dustType = 64;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
 			Projectile.width += 2500;
@@ -65,62 +64,6 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
-		}
-	}
-	public class IceOmegaCannonShot : OmegaCannonShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice OmegaCannon Shot";
-		}
-	}
-	public class IceNovaOmegaCannonShot : OmegaCannonShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Nova OmegaCannon Shot";
-		}
-	}
-	public class IcePlasmaRedOmegaCannonShot : OmegaCannonShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Plasma Red OmegaCannon Shot";
-		}
-	}
-	public class IceSolarOmegaCannonShot : OmegaCannonShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Solar OmegaCannon Shot";
-		}
-	}
-	public class NovaOmegaCannonShot : OmegaCannonShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nova OmegaCannon Shot";
-		}
-	}
-	public class PlasmaRedOmegaCannonShot : OmegaCannonShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Plasma Red OmegaCannon Shot";
-		}
-	}
-	public class SolarOmegaCannonShot : OmegaCannonShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Solar OmegaCannon Shot";
 		}
 	}
 }

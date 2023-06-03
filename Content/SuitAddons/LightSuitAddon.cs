@@ -24,8 +24,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Light Suit");
-			Tooltip.SetDefault("You shouldn't have this."/*"+19 defense\n" +
+			// DisplayName.SetDefault("Light Suit");
+			/* Tooltip.SetDefault("You shouldn't have this."/*"+19 defense\n" +
 				"+30 overheat capacity\n" +
 				"10% decreased overheat use\n" +
 				"10% decreased Missile Charge Combo cost\n" +
@@ -35,7 +35,7 @@ namespace MetroidMod.Content.SuitAddons
 				"40% increased energy barrier efficiency\n" + // Provisional name
 				"17.5% increased energy barrier resilience\n" + // Provisional name
 				"Immune to damage from the Dark World\n" +
-				"Immune to damage from Dark Water"*/);
+				"Immune to damage from Dark Water"); */
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}

@@ -12,14 +12,14 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Supercooled Plasma Core");
-			Tooltip.SetDefault("'Strange energy core capable of producing supercooled plasma'");
+			// DisplayName.SetDefault("Supercooled Plasma Core");
+			// Tooltip.SetDefault("'Strange energy core capable of producing supercooled plasma'");
 
-			SacrificeTotal = 5;
+			Item.ResearchUnlockCount = 5;
 		}
 		public override void SetDefaults()
 		{
-			Item.maxStack = 99;
+			Item.maxStack = 9999;
 			Item.width = 18;
 			Item.height = 16;
 			Item.value = 100;

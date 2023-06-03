@@ -9,9 +9,10 @@ namespace MetroidMod.Content.Projectiles.widebeam
 {
 	public class WideBeamChargeShot : MProjectile
 	{
+		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wide Beam Charge Shot");
+			// DisplayName.SetDefault("Wide Beam Charge Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -30,13 +31,14 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 				color2 = default(Color);
 			}
-			else if(Projectile.Name.Contains("Wave"))
+			else if(S.Contains("wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor2;
@@ -68,7 +70,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if(Projectile.Name.Contains("Wave"))
+			if(S.Contains("wave"))
 			{
 				mProjectile.PlasmaDraw(Projectile,Main.player[Projectile.owner], Main.spriteBatch);
 			}
@@ -91,6 +93,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 	
 	public class WaveWideBeamChargeShot : WideBeamChargeShot
 	{
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/WaveBeamV2ChargeShot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -113,6 +116,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 	
 	public class IceWaveWideBeamChargeShot : WaveWideBeamChargeShot
 	{
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/wavebeam/IceWaveBeamV2ChargeShot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

@@ -16,14 +16,14 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadowflame Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Shadowflame Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Inflicts enemies with Shadowflame");
+			// DisplayName.SetDefault("Shadowflame Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Shadowflame Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Inflicts enemies with Shadowflame"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -39,7 +39,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustType2 = DustID.Shadowflame;
 			dustScale2 = 3f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.ShadowFlame, 600);
 		}

@@ -85,7 +85,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			}
 		}
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{

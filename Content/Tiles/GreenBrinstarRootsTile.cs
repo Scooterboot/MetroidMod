@@ -18,7 +18,6 @@ namespace MetroidMod.Content.Tiles
 			DustType = DustID.Grass;
 			MinPick = 65;
 			HitSound = SoundID.Grass;
-			ItemDrop = ModContent.ItemType<Items.Tiles.GreenBrinstarRootsTile>();
 
 			AddMapEntry(new Color(43, 74, 36));
 		}

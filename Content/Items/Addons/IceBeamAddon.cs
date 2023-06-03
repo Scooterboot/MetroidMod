@@ -8,17 +8,17 @@ namespace MetroidMod.Content.Items.Addons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Beam");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("Ice Beam");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Secondary\n" +
 				"Shots freeze enemies\n" + 
 				"~Each time the enemy is shot, they will become 20% slower\n" + 
 				"~After 5 shots the enemy will become completely frozen\n" + 
 				string.Format("[c/78BE78:+75% damage]\n") +
 				string.Format("[c/BE7878:+25% overheat use]\n") +
-				string.Format("[c/BE7878:-30% speed]"));
+				string.Format("[c/BE7878:-30% speed]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

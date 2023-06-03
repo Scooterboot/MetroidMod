@@ -12,9 +12,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitBreastplate";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Terra Gravity Suit Breastplate");
+			// DisplayName.SetDefault("Outdated Terra Gravity Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -41,9 +41,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitGreaves";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Terra Gravity Suit Greaves");
+			// DisplayName.SetDefault("Outdated Terra Gravity Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -57,9 +57,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitHelmet";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Terra Gravity Suit Helmet");
+			// DisplayName.SetDefault("Outdated Terra Gravity Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

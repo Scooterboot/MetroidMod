@@ -8,16 +8,16 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blue Hatch");
-			Tooltip.SetDefault("Opens when hit with any projectile or right clicked\n" + "Right click to place vertically");
+			// DisplayName.SetDefault("Blue Hatch");
+			// Tooltip.SetDefault("Opens when hit with any projectile or right clicked\n" + "Right click to place vertically");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 40;
 			Item.height = 36;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

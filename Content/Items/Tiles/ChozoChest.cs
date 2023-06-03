@@ -8,15 +8,15 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozodian Chest");
+			// DisplayName.SetDefault("Chozodian Chest");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 26;
 			Item.height = 22;
-			Item.maxStack = 99;
+			Item.maxStack = 9999;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

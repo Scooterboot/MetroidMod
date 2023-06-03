@@ -19,7 +19,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Pirate");
+			// DisplayName.SetDefault("Omega Pirate");
 			Main.npcFrameCount[NPC.type] = 2;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -167,7 +167,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		public override bool? CanBeHitByItem(Player player, Item item) => NPC.ai[1] == 0f ? null : false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => NPC.ai[1] == 0f ? null : false;
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
 			for (int m = 0; m < (NPC.life <= 0 ? 20 : 5); m++)
@@ -215,7 +215,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			}
 		}
 
-		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
 			if(projectile.penetrate > 0 && projectile.aiStyle != 3)
 			{

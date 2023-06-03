@@ -17,7 +17,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Ball");
+			// DisplayName.SetDefault("Fire Ball");
 			Main.npcFrameCount[NPC.type] = 7;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -66,7 +66,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		}
 
 		int damage = 132;
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			damage *= 2;
 		}
@@ -396,7 +396,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			return false;
 		}
 		
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
 			for(int i = 0; i < 15; i++)

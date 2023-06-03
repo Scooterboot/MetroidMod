@@ -9,9 +9,9 @@ namespace MetroidMod.Content.Items.Walls
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/TourianWall";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tourian Wall (Natural)");
+			// DisplayName.SetDefault("Tourian Wall (Natural)");
 
-			SacrificeTotal = 400;
+			Item.ResearchUnlockCount = 400;
 		}
 		public override void SetDefaults()
 		{

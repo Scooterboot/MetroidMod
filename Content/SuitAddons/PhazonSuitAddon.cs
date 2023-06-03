@@ -3,6 +3,9 @@ using Terraria;
 using Terraria.ID;
 using MetroidMod.Common.Players;
 using MetroidMod.ID;
+using MetroidMod.Content;
+using MetroidMod.Content.Items.Weapons;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -24,12 +27,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Suit");
-			Tooltip.SetDefault("+19 defense\n" +
+			// DisplayName.SetDefault("Phazon Suit");
+			/* Tooltip.SetDefault("+19 defense\n" +
 				"+30 overheat capacity\n" +
 				"10% decreased overheat use\n" +
 				"10% decreased Missile Charge Combo cost\n" +
@@ -43,7 +46,8 @@ namespace MetroidMod.Content.SuitAddons
 				"Free movement in liquid\n" +
 				"Grants 7 seconds of lava immunity\n" +
 				"Immune to damage caused by blue Phazon blocks\n" +
-				"Enables Phazon Beam use");
+				"Enables Phazon Beam use"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<TerraGravitySuitAddon>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}

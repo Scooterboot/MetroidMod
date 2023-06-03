@@ -10,15 +10,15 @@ namespace MetroidMod.Content.Items.Addons.V3
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Beam");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
+			// DisplayName.SetDefault("Vortex Beam");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V3]\n") +
 				"Slot Type: Primary A\n" +
 				"Beam fires 5 shots at once\n" +
 				string.Format("[c/78BE78:+150% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]\n") +
-				string.Format("[c/78BE78:+25% speed]"));
+				string.Format("[c/78BE78:+25% speed]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

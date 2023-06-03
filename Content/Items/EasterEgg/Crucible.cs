@@ -14,11 +14,11 @@ namespace MetroidMod.Content.Items.EasterEgg
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slayer's Crucible");
-			Tooltip.SetDefault("A hellish blade of unknown origin.\n" +
-			"'Rip and Tear until it is done.'");
+			// DisplayName.SetDefault("Slayer's Crucible");
+			/* Tooltip.SetDefault("A hellish blade of unknown origin.\n" +
+			"'Rip and Tear until it is done.'"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()

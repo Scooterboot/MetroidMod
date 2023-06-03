@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -10,17 +11,18 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("MagMaul");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("MagMaul");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				"Slot Type: Charge\n" +
 				"Shots bounce and roll\n" +
 				"Charge shots explode and ignite\n" +
 				string.Format("[c/78BE78:+45% damage]\n") +
 				string.Format("[c/BE7878:-45% speed]\n") +
 				string.Format("[c/BE7878:+125% overheat use]\n") +
-				string.Format("[c/BE7878:Cannot freeze or pierce]"));
+				string.Format("[c/BE7878:Cannot freeze or pierce]")); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ImperialistAddon>();
 
-            SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -38,9 +40,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonDmg = 0.45f;
-			mItem.addonHeat = 1.25f;
-			mItem.addonSpeed = -.45f;
+			mItem.beamSlotType = BeamChangeSlotID.MagMaul;
+			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageMagMaul;
+			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatMagMaul;
+			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedMagMaul;
 		}
 
 
@@ -52,7 +55,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
                 .AddIngredient(ItemID.HellstoneBar, 30)
                 .AddIngredient(ItemID.FallenStar, 30)
                 .AddIngredient(ItemID.Amber, 30)
-                .AddTile(TileID.Hellforge)
+				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
+				.AddTile(TileID.Hellforge)
                 .Register();
         }
     }

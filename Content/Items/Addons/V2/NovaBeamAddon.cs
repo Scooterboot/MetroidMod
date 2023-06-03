@@ -8,16 +8,16 @@ namespace MetroidMod.Content.Items.Addons.V2
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Beam");
-			Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
+			// DisplayName.SetDefault("Nova Beam");
+			/* Tooltip.SetDefault(string.Format("[c/FF9696:Power Beam Addon V2]\n") +
 			"Slot Type: Primary B\n" + 
 				"Shots pierce enemies\n" + 
 				"Shots set enemies ablaze with Cursed Fire, or Frost Burns them if Ice Beam is installed\n" + 
 				string.Format("[c/78BE78:+225% damage]\n") +
 				string.Format("[c/BE7878:+100% overheat use]\n") +
-				string.Format("[c/BE7878:-15% speed]"));
+				string.Format("[c/BE7878:-15% speed]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

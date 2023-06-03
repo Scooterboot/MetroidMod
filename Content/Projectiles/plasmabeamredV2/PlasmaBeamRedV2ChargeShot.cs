@@ -16,13 +16,17 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			Projectile.height = 16;
 			Projectile.scale = 2f;
 			Main.projFrames[Projectile.type] = 2;
+
+			mProjectile.wavesPerSecond = 2f;
+			mProjectile.delay = 4;
 		}
 
 		int dustType = 6;
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (S.Contains("ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
@@ -40,10 +44,26 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 					Projectile.frame = 0;
 				}
 			}
-			
-			if(Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Wave"))
+
+			if (S.Contains("wave"))
+			{
+				Projectile.tileCollide = false;
+			}
+			if (S.Contains("wide") || (S.Contains("wave")))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
+			}
+			if (S.Contains("wide") && !S.Contains("wave"))
+			{
+				mProjectile.amplitude = 14f * Projectile.scale;
+			}
+			if (S.Contains("wave") && !S.Contains("wide"))
+			{
+				mProjectile.amplitude = 12f * Projectile.scale;
+			}
+			if (S.Contains("wave") && S.Contains("wide"))
+			{
+				mProjectile.amplitude = 16f * Projectile.scale;
 			}
 
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale);
@@ -80,10 +100,6 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide Plasma Beam Red V2 Charge Shot";
-			
-			mProjectile.amplitude = 14f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 4;
 		}
 	}
 	
@@ -93,21 +109,6 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Plasma Beam Red V2 Charge Shot";
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 12f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 4;
-		}
-	}
-	
-	public class WaveWidePlasmaBeamRedV2ChargeShot : WavePlasmaBeamRedV2ChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Wide Plasma Beam Red V2 Charge Shot";
-			mProjectile.amplitude = 16f*Projectile.scale;
 		}
 	}
 	
@@ -138,7 +139,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 		}
 	}
 	
-	public class IceWaveWidePlasmaBeamRedV2ChargeShot : WaveWidePlasmaBeamRedV2ChargeShot
+	public class IceWaveWidePlasmaBeamRedV2ChargeShot : WavePlasmaBeamRedV2ChargeShot
 	{
 		public override void SetDefaults()
 		{

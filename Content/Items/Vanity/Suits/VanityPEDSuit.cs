@@ -12,9 +12,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PEDSuit/PEDSuitBreastplate";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated P.E.D. Suit Breastplate");
+			// DisplayName.SetDefault("Outdated P.E.D. Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -38,9 +38,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PEDSuit/PEDSuitGreaves";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated P.E.D. Suit Greaves");
+			// DisplayName.SetDefault("Outdated P.E.D. Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -53,9 +53,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated P.E.D. Suit Helmet");
+			// DisplayName.SetDefault("Outdated P.E.D. Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

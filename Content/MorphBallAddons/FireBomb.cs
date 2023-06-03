@@ -20,10 +20,10 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Fire Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Sets enemies on fire");
+			// DisplayName.SetDefault("Fire Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Fire Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Sets enemies on fire"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -39,7 +39,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustType2 = DustID.Torch;
 			dustScale2 = 3f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.OnFire, 600);
 		}

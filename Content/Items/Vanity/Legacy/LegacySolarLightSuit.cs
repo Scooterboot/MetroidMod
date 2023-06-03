@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Solar Light Suit Breastplate");
+			// DisplayName.SetDefault("Ancient Solar Light Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -37,9 +37,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Solar Light Suit Greaves");
+			// DisplayName.SetDefault("Ancient Solar Light Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -52,9 +52,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Solar Light Suit Helmet");
+			// DisplayName.SetDefault("Ancient Solar Light Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

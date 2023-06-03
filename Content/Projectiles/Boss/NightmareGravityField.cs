@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity Field");
+			// DisplayName.SetDefault("Gravity Field");
 		}
 		public override void SetDefaults()
 		{

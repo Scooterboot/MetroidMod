@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Crossbow");
-			Tooltip.SetDefault("Fires two arrows in rapid succession");
+			// DisplayName.SetDefault("Chozite Crossbow");
+			// Tooltip.SetDefault("Fires two arrows in rapid succession");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

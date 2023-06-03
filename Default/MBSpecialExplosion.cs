@@ -33,7 +33,7 @@ namespace MetroidMod.Default
 		public override string Name => $"{modMBAddon.Name}Explosion";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault());
+			// DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault());
 		}
 		public override void SetDefaults()
 		{
@@ -58,14 +58,14 @@ namespace MetroidMod.Default
 			modMBAddon.ExplosionAI();
 		}
 
-		public override void ModifyHitNPC(NPC npc, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (npc.defense < 1000) { damage = (int)(damage + npc.defense * 0.5); }
+			if (target.defense < 1000) { modifiers.FinalDamage += target.defense / 2; }
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			modMBAddon.OnHitNPC(target, damage, knockback, crit);
+			modMBAddon.OnHitNPC(target, damageDone, 1f, true);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

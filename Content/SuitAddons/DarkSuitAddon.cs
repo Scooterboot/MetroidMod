@@ -24,7 +24,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dark Suit");
+			/*DisplayName.SetDefault("Dark Suit");
 			Tooltip.SetDefault("You shouldn't have this."/*"+9 defense\n" +
 				"+15 overheat capacity\n" +
 				"5% decreased overheat use\n" +
@@ -33,7 +33,7 @@ namespace MetroidMod.Content.SuitAddons
 				"3% increased hunter critical strike chance\n" +
 				"15% increased energy barrier efficiency\n" + // Provisional name
 				"7.5% increased energy barrier resilience\n" + // Provisional name
-				"Reduces damage from the Dark World"*/);
+				"Reduces damage from the Dark World");*/
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}

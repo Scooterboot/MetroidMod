@@ -50,7 +50,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool energyLowFade;
 
-		[Header("Draggable UI Panels")]
+		[Header("DraggableUIPanels")]
 		[Label("Power Beam")]
 		public DragablePanelPage PowerBeam = new();
 		[Label("Power Beam Error")]
@@ -124,7 +124,7 @@ namespace MetroidMod.Common.Configs
 			public override int GetHashCode() => new { enabled, auto, locationX, locationY }.GetHashCode();
 		}
 
-		[Header("Map Icons")]
+		[Header("MapIcons")]
 		
 		[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
 		[Tooltip("When enabled, the map will show an icon where Torizo's boss room is.\n" +

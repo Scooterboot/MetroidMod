@@ -334,12 +334,67 @@ namespace MetroidMod
                 {
 
                 };
-                
-				public static readonly SoundStyle ShockCoilLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilLoad")
-                {
 
-                };
-            }
+				public static readonly SoundStyle ShockCoilLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilLoad")
+				{
+
+				};
+
+				public static readonly SoundStyle ShockCoilReload = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilReload")
+				{
+
+				};
+
+				public static readonly SoundStyle BattleHammerLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/BattleHammerLoadFake")
+				{
+
+				};
+
+				public static readonly SoundStyle ChargeBeamLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeBeamLoad")
+				{
+
+				};
+
+				public static readonly SoundStyle ImperialistLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/ImperialistLoad")
+				{
+
+				};
+
+				public static readonly SoundStyle JudicatorLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorLoad")
+				{
+
+				};
+
+				public static readonly SoundStyle MagMaulLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/MagMaulLoad")
+				{
+
+				};
+
+				public static readonly SoundStyle OmegaCannonLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/OmegaCannonLoad")
+				{
+
+				};
+
+				public static readonly SoundStyle VoltDriverLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverLoad")
+				{
+
+				};
+
+				public static readonly SoundStyle BeamSelect = new($"{nameof(MetroidMod)}/Assets/Sounds/BeamSelect")
+				{
+
+				};
+
+				public static readonly SoundStyle BeamSelectFail = new($"{nameof(MetroidMod)}/Assets/Sounds/BeamSelectFail")
+				{
+
+				};
+
+				public static readonly SoundStyle BeamAquired = new($"{nameof(MetroidMod)}/Assets/Sounds/BeamAquired")
+				{
+
+				};
+			}
 		}
 	}
 }

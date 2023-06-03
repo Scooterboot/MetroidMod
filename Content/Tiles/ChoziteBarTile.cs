@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
@@ -19,10 +20,9 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Chozite Bar");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Chozite Bar");
 			AddMapEntry(new Color(214, 162, 0), name);
-			ItemDrop = ModContent.ItemType<Items.Miscellaneous.ChoziteBar>();
 			DustType = 87;
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
 		}

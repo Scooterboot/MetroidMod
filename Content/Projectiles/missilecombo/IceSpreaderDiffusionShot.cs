@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Spreader Shot");
+			// DisplayName.SetDefault("Ice Spreader Shot");
 		}
 		
 		bool initialised = false;
@@ -65,7 +65,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			}
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(),600,true);
 		}

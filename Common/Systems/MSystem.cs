@@ -80,8 +80,8 @@ namespace MetroidMod.Common.Systems
 		}
 		public override void AddRecipeGroups()
 		{
-			MetroidMod.MorphBallBombsRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:MorphBallBombs", new RecipeGroup(() => "Any Morph Ball Bombs", MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType) { IconicItemId = MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType });
-
+			MetroidMod.MorphBallBombsRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:MorphBallBombs", new RecipeGroup(() => "Any Morph Ball Bombs", MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.BetsyBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.CrystalBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.CursedFlameBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.FireBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.FrostburnBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.IchorBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.PhazonBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.PoisonBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.PumpkinBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.ShadowflameBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.SolarFireBomb>().ItemType, MBAddonLoader.GetAddon<Content.MorphBallAddons.VenomBomb>().ItemType) { IconicItemId = MBAddonLoader.GetAddon<Content.MorphBallAddons.Bomb>().ItemType });
+			MetroidMod.PreHMhooksRecipeID = RecipeGroup.RegisterGroup("MetroidMod:PreHMHooks", new RecipeGroup(() => "Any Pre-Hardmode Hook", ItemID.Hook, ItemID.GrapplingHook, ItemID.SapphireHook, ItemID.TopazHook, ItemID.EmeraldHook, ItemID.SlimeHook, ItemID.RubyHook, ItemID.DiamondHook, ItemID.SquirrelHook, ItemID.AmberHook, ItemID.WebSlinger, ItemID.SkeletronHand, ItemID.FishHook, ItemID.IvyWhip, ItemID.BatHook, ItemID.CandyCaneHook) { IconicItemId = ItemID.GrapplingHook });
 			MetroidMod.T1PHMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier1PHMBar", new RecipeGroup(() => "Any Copper-Tier Bar", ItemID.CopperBar, ItemID.TinBar) { IconicItemId = ItemID.CopperBar });
 			MetroidMod.GoldPlatinumBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:GoldPlatinumBar", new RecipeGroup(() => "Any Gold-Tier Bar", ItemID.GoldBar, ItemID.PlatinumBar) { IconicItemId = ItemID.GoldBar });
 			MetroidMod.EvilBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:WorldEvilBar", new RecipeGroup(() => "Any Evil Bar", ItemID.DemoniteBar, ItemID.CrimtaneBar) { IconicItemId = ItemID.DemoniteBar });
@@ -561,7 +561,7 @@ namespace MetroidMod.Common.Systems
 			}
 		}
 
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
 			int PotsIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Pots"));
@@ -572,7 +572,7 @@ namespace MetroidMod.Common.Systems
 
 					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 9E-05); k++)
 					{
-						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), ModContent.TileType<Content.Tiles.ChoziteOreTile>(), false, 0f, 0f, false, true);
+						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), ModContent.TileType<Content.Tiles.ChoziteOreTile>(), false, 0f, 0f, false, true);
 					}
 				}));
 			}
@@ -587,7 +587,7 @@ namespace MetroidMod.Common.Systems
 						int num3 = 0;
 						while (!flag)
 						{
-							if (AddChozoStatue(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 100)))
+							if (AddChozoStatue(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 							{
 								flag = true;
 							}
@@ -612,7 +612,7 @@ namespace MetroidMod.Common.Systems
 						int num3 = 0;
 						while (!flag)
 						{
-							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 100)))
+							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 							{
 								flag = true;
 							}
@@ -637,30 +637,31 @@ namespace MetroidMod.Common.Systems
 		{
 			//Mod mod = MetroidMod.Instance;
 
+			int range = GenVars.jungleMaxX - GenVars.jungleMinX;
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
-			bool jungle = (i >= Main.maxTilesX * 0.2 && i <= Main.maxTilesX * 0.35 && j <= Main.UnderworldLayer);
-			if (WorldGen.dEnteranceX < Main.maxTilesX / 2)
+			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || (i <= GenVars.jungleOriginX + range) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
+			/*if (GenVars.dEnteranceX < Main.maxTilesX / 2)
 			{
-				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8);
-			}
+				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8 && j < Main.UnderworldLayer);
+			}*/
 
 			ushort item  = (ushort)ModContent.TileType<MorphBallTile>();
 			if (dungeon)
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
 			}
-			else if (jungle && WorldGen.genRand.Next(10) <= 5)
+			if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
 			}
 			else
 			{
 				int baseX = Main.maxTilesX / 2;
-				int baseY = (int)WorldGen.rockLayer;
+				int baseY = (int)GenVars.rockLayer;
 				//float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX / 2)) + (Math.Max(j - baseY, 0) / (Main.maxTilesY - WorldGen.rockLayer))) / 2;
 
 				//int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist), 5));
-				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 3];
+				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 32];
 				int index = 0;
 				// Okay, the goal is to do weighted random.
 				foreach (ModSuitAddon addon in SuitAddonLoader.addons)
@@ -675,12 +676,12 @@ namespace MetroidMod.Common.Systems
 				{
 					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, addon.GenerationChance(i, j)); }
 				}
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.BattleHammerTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>(); }, RarityLoader.RarityCount - 3);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>(); }, RarityLoader.RarityCount - 3);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.BattleHammerTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>(); }, 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>(); }, 32);
@@ -689,8 +690,43 @@ namespace MetroidMod.Common.Systems
 				{
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>(); }, 1);
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>(); }, 1);
-                    list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.OmegaCannonTile>(); }, 1);
-                }
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.OmegaCannonTile>(); }, 1);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.GrappleBeamTile>(); }, 10);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamV2Tile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamV2Tile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.LuminiteBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.NebulaBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.NovaBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamGreenTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamRedTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SolarBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.StardustBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.VortexBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamV2Tile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WideBeamTile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.DiffusionMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.Flamethrower>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.HomingMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceSpreader>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.IceSuperMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.NovaCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.PlasmaMachinegun>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SeekerMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SolarCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SpazerCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.SuperMissile>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.VortexCombo>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Missile.Wavebuster>(); }, 4);
+				}
+				if (WorldGen.everythingWorldGen || WorldGen.notTheBees)
+				{
+					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>(); }, 4);
+				}
 				Array.Resize(ref list, index);
 				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
 
@@ -911,7 +947,7 @@ namespace MetroidMod.Common.Systems
 
 		private void ChozoRuins(GenerationProgress progress, GameConfiguration configuration)
 		{
-			Rectangle uDesert = WorldGen.UndergroundDesertLocation;
+			Rectangle uDesert = GenVars.UndergroundDesertLocation;
 
 			progress.Message = "Chozo Ruins...Determining X Position";
 

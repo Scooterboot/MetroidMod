@@ -29,8 +29,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hazard Shield");
-			Tooltip.SetDefault("You shouldn't have this."/*"+25 defense\n" +
+			// DisplayName.SetDefault("Hazard Shield");
+			/* Tooltip.SetDefault("You shouldn't have this."/*"+25 defense\n" +
 				"+45 overheat capacity\n" +
 				"20% decreased overheat use\n" +
 				"15% decreased Missile Charge Combo cost\n" +

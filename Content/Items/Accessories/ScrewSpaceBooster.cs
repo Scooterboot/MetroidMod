@@ -12,17 +12,17 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Space Boosted Screw Attack");
-			Tooltip.SetDefault("Allows the user to run insanely fast\n" +
-			"Allows somersaulting\n" +
+			//DisplayName.SetDefault("Space Boosted Screw Attack");
+			//Tooltip.SetDefault("Allows the user to run insanely fast\n" +
+			/*"Allows somersaulting\n" +
 			"Damage enemies while running or somersaulting\n" +
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" +
 			"Jumps recharge mid-air\n" +
 			"Holding left/right while jumping midair gives a boost\n" +
-			"Increases jump height and prevents fall damage");
+			"Increases jump height and prevents fall damage");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

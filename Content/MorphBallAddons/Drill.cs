@@ -15,12 +15,12 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Morph Ball Drill");
-			Tooltip.SetDefault("~Left Click while morphed to drill\n" +
+			// DisplayName.SetDefault("Morph Ball Drill");
+			/* Tooltip.SetDefault("~Left Click while morphed to drill\n" +
 			"uses held pickaxe/drill\n" +
 			//"~60% pickaxe power\n" +
 			//"Can mine Meteorite\n" +
-			string.Format("[c/78BE78:Requires Morph Ball to use]"));
+			string.Format("[c/78BE78:Requires Morph Ball to use]")); */
 			DrillPower = 1;
 
 			ItemNameLiteral = true;

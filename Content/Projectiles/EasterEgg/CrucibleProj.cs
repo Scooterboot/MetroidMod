@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Projectiles.EasterEgg
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crucible Shot");
+			// DisplayName.SetDefault("Crucible Shot");
 		}
 		public override void SetDefaults()
 		{

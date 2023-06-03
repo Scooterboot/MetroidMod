@@ -12,9 +12,9 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Booster");
-			Tooltip.SetDefault("Allows the user to run insanely fast and extra mobility on ice\n" +
-			"Allows somersaulting\n" +
+			//DisplayName.SetDefault("Terra Booster");
+			//Tooltip.SetDefault("Allows the user to run insanely fast and extra mobility on ice\n" +
+			/*"Allows somersaulting\n" +
 			"Damage enemies while running or somersaulting\n" +
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" +
@@ -22,9 +22,9 @@ namespace MetroidMod.Content.Items.Accessories
 			"Holding left/right while jumping midair gives a boost\n" + 
 			"Provides the ability to walk on water and lava\n" + 
 			"Grants immunity to fire blocks and 7 seconds lava immunity\n" +
-			"Increases jump height and prevents fall damage");
+			"Increases jump height and prevents fall damage");*/
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

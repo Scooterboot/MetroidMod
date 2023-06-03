@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Vanity
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phantoon Mask");
+			// DisplayName.SetDefault("Phantoon Mask");
 		}
 		public override void SetDefaults()
 		{

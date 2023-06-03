@@ -17,10 +17,10 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Wrench");
-			Tooltip.SetDefault("Toggles regeneration of weapon-destructable blocks. \nBlocks with disabled regeneration will have a red tint.");
+			// DisplayName.SetDefault("Chozite Wrench");
+			// Tooltip.SetDefault("Toggles regeneration of weapon-destructable blocks. \nBlocks with disabled regeneration will have a red tint.");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

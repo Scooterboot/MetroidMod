@@ -9,11 +9,11 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hi-Jump Boots");
-			Tooltip.SetDefault("Increases jump height\n" + 
-			"Stacks with other jump height accessories");
+			//DisplayName.SetDefault("Hi-Jump Boots");
+			//Tooltip.SetDefault("Increases jump height\n" + 
+			//"Stacks with other jump height accessories");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

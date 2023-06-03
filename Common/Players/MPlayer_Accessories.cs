@@ -244,6 +244,7 @@ namespace MetroidMod.Common.Players
 				mp.powerGrip = true;
 			}
 			GripMovement();
+			canWallJump = false;
 			int wallJumpDir = 0;
 			bool altJump = false;
 			if (EnableWallJump)
@@ -252,10 +253,6 @@ namespace MetroidMod.Common.Players
 				{
 					CheckWallJump(Player, ref wallJumpDir, ref altJump);
 				}
-			}
-			else
-			{
-				canWallJump = false;
 			}
 
 			if (speedBooster)

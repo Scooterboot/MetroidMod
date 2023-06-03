@@ -8,10 +8,10 @@ namespace MetroidMod.Content.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Longsword");
-			Tooltip.SetDefault("Right click for a lunge that deals extra knocback");
+			// DisplayName.SetDefault("Chozite Longsword");
+			// Tooltip.SetDefault("Right click for a lunge that deals extra knocback");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -32,18 +32,21 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override bool CanUseItem(Player player)
 		{
-			if (player.altFunctionUse == 2)
+			Item.useTime = 20;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useAnimation = 20;
+			Item.knockBack = 5;
+			if (player.altFunctionUse == 2 && !Main.mouseLeft)
 			{
-				Item.useTime = 30;	
+				Item.useTime = 30;
+				Item.knockBack = 8;
 				Item.useStyle = ItemUseStyleID.Thrust;
 				if (player.itemTime == 0)
 				{
 					return true;
 				}
 				return false;
-			}
-			Item.useTime = 20;	
-			Item.useStyle = ItemUseStyleID.Swing;			
+			}		
 			return true;
 		}
 
@@ -67,21 +70,21 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			return base.UseItem(player);
 		}
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-		{
+		//public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
+		/*{
 			if (Item.useStyle == 3)
 			{
-				knockBack *= 1.5f;
+				Item.knockBack = 8;
 			}
-		}
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+		}*/
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Item.useStyle == ItemUseStyleID.Thrust && player.velocity.X * player.direction > 0)
 			{
 				player.velocity.X *= -1;
 			}
 		}
-		public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+		public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
 		{
 			if (Item.useStyle == ItemUseStyleID.Thrust && player.velocity.X * player.direction > 0)
 			{

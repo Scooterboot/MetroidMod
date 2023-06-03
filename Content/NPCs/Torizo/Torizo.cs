@@ -27,7 +27,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torizo");
+			// DisplayName.SetDefault("Torizo");
 			Main.npcFrameCount[Type] = 2;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
@@ -73,9 +73,9 @@ namespace MetroidMod.Content.NPCs.Torizo
 				new FlavorTextBestiaryInfoElement("An autonomous machine created by the long deceased Gizzard tribe. This one guards the entrance to the Gizzard tribe catacombs. The machine is slow and lumbering, serving as a gatekeeper rather than a guardian. It moves faster however when it's head is destroyed... There seems to be something alive about it...")
 			});
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -103,7 +103,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
 		
 		ReLogic.Utilities.SlotId soundInstance;
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if(Head != null && Head.active && (!SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) || !result.IsPlaying) && Main.netMode != NetmodeID.Server)
 			{

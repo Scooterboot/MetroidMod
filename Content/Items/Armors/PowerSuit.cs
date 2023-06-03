@@ -34,11 +34,11 @@ namespace MetroidMod.Content.Items.Armors
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Suit Breastplate");
-			Tooltip.SetDefault("+15 overheat capacity\n" +
-			"10% decreased overheat use");
+			// DisplayName.SetDefault("Power Suit Breastplate");
+			/* Tooltip.SetDefault("+15 overheat capacity\n" +
+			"10% decreased overheat use"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -157,7 +157,7 @@ namespace MetroidMod.Content.Items.Armors
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
 	}
@@ -166,11 +166,11 @@ namespace MetroidMod.Content.Items.Armors
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Suit Greaves");
-			Tooltip.SetDefault("Allows somersaulting & wall jumping\n" +
-			"Negates fall damage");
+			// DisplayName.SetDefault("Power Suit Greaves");
+			/* Tooltip.SetDefault("Allows somersaulting & wall jumping\n" +
+			"Negates fall damage"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -228,12 +228,12 @@ namespace MetroidMod.Content.Items.Armors
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Suit Helmet");
-			Tooltip.SetDefault("10% increased hunter damage\n" +
+			// DisplayName.SetDefault("Power Suit Helmet");
+			/* Tooltip.SetDefault("10% increased hunter damage\n" +
 			"Emits light and grants improved night vision\n" +
-			"30% increased underwater breathing");
+			"30% increased underwater breathing"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -262,9 +262,9 @@ namespace MetroidMod.Content.Items.Armors
 				.Register();
 		}
 
-		public override void OnCreate(ItemCreationContext context)
+		public override void OnCreated(ItemCreationContext context)
 		{
-			if (context is RecipeCreationContext)
+			if (context is RecipeItemCreationContext)
 			{
 				Mod.Logger.Debug("HEY! MAKE DA SCAN VISOR");
 				_suitAddons = new Item[3];
@@ -274,7 +274,7 @@ namespace MetroidMod.Content.Items.Armors
 					_suitAddons[i].TurnToAir();
 				}
 				_suitAddons[0] = SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().ModItem.Item.Clone();
-				Mod.Logger.Debug(_suitAddons[0].ModItem.DisplayName.GetDefault());
+				//Mod.Logger.Debug(_suitAddons[0].ModItem.DisplayName.GetDefault());
 			}
 		}
 
@@ -331,7 +331,7 @@ namespace MetroidMod.Content.Items.Armors
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
 	}

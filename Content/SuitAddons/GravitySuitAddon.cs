@@ -24,12 +24,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity Suit");
-			Tooltip.SetDefault("+9 defense\n" +
+			// DisplayName.SetDefault("Gravity Suit");
+			/* Tooltip.SetDefault("+9 defense\n" +
 				"+15 overheat capacity\n" +
 				"5% decreased overheat use\n" +
 				"5% decreased Missile Charge Combo cost\n" +
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Infinite breath underwater\n" +
 				"Immune to knockback\n" +
 				"Free movement in liquid\n" +
-				"Grants 7 seconds of lava immunity");
+				"Grants 7 seconds of lava immunity"); */
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}
@@ -56,7 +56,6 @@ namespace MetroidMod.Content.SuitAddons
 			player.statDefense += 9;
 			player.noKnockback = true;
 			player.ignoreWater = true;
-			player.gills = true;
 			player.lavaMax += 420; // blaze it
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
@@ -64,8 +63,13 @@ namespace MetroidMod.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
+			mp.breathMult = 2;
 			mp.EnergyDefenseEfficiency += 0.15f;
 			mp.EnergyExpenseEfficiency += 0.075f;
+			if (!WorldGen.everythingWorldGen)
+			{
+				player.gills = false;
+			}
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{

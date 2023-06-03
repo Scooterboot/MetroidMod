@@ -31,7 +31,6 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
 			player.cursorItemIconEnabled = true;
-			player.cursorItemIconID = ItemDrop;
 		}
 
 		public override bool RightClick(int i, int j)

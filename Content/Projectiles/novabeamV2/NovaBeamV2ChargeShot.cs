@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Beam V2 Charge Shot");
+			// DisplayName.SetDefault("Nova Beam V2 Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()
@@ -22,13 +22,17 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			Projectile.penetrate = 11;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
+
+			mProjectile.wavesPerSecond = 2f;
+			mProjectile.delay = 5;
 		}
 
 		int dustType = 75;
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Ice"))
+			string S = Items.Weapons.PowerBeam.shooty;
+			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
@@ -42,12 +46,28 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			{
 				Projectile.frame = 0;
 			}
-			
-			if(Projectile.Name.Contains("Wide") || Projectile.Name.Contains("Wave"))
+
+			if (S.Contains("wave"))
+			{
+				Projectile.tileCollide = false;
+			}
+			if (S.Contains("wide") || (S.Contains("wave")))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			
+			if (S.Contains("wide") && !S.Contains("wave"))
+			{
+				mProjectile.amplitude = 10f * Projectile.scale;
+			}
+			if (S.Contains("wave") && !S.Contains("wide"))
+			{
+				mProjectile.amplitude = 12f * Projectile.scale;
+			}
+			if (S.Contains("wave") && S.Contains("wide"))
+			{
+				mProjectile.amplitude = 16f * Projectile.scale;
+			}
+
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 			
@@ -83,14 +103,11 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 	
 	public class WideNovaBeamV2ChargeShot : NovaBeamV2ChargeShot
 	{
+		public override string Texture => $"{Mod.Name}/Content/Projectiles/novabeamV2/WaveNovaBeamV2ChargeShot";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wide Nova Beam V2 Charge Shot";
-			
-			mProjectile.amplitude = 10f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 5;
 		}
 	}
 	
@@ -100,21 +117,6 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 		{
 			base.SetDefaults();
 			Projectile.Name = "Wave Nova Beam V2 Charge Shot";
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 12f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 5;
-		}
-	}
-	
-	public class WaveWideNovaBeamV2ChargeShot : WaveNovaBeamV2ChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Wave Wide Nova Beam V2 Charge Shot";
-			mProjectile.amplitude = 16f*Projectile.scale;
 		}
 	}
 	
@@ -142,15 +144,6 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Wave Nova Beam V2 Charge Shot";
-		}
-	}
-	
-	public class IceWaveWideNovaBeamV2ChargeShot : WaveWideNovaBeamV2ChargeShot
-	{
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Ice Wave Wide Nova Beam V2 Charge Shot";
 		}
 	}
 }

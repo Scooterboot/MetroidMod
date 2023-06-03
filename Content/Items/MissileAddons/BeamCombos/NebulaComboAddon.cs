@@ -8,14 +8,14 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Singularity");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Nebula Singularity");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Creates a tethered mass of Nebula energy that lashes at foes when fully charged\n" + 
-			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

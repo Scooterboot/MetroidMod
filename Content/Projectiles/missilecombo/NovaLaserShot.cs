@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Laser Shot");
+			// DisplayName.SetDefault("Nova Laser Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()
@@ -135,7 +135,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Utils.PlotTileLine(P.Center, P.Center + P.velocity * (P.ai[1] + 4f), (P.width + 16) * P.scale, DelegateMethods.CutTiles);
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(39,600,true);
 			target.immune[Projectile.owner] = 4;

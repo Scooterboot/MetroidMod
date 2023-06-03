@@ -17,7 +17,6 @@ namespace MetroidMod.Content.Tiles
 			DustType = DustID.Grass;
 			MinPick = 100;
 			HitSound = SoundID.Drip;
-			ItemDrop = ModContent.ItemType<Items.Tiles.NorfairBubbleSM>();
 
 			AddMapEntry(new Color(13, 88, 33));
 		}

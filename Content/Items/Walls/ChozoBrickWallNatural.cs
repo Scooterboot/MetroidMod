@@ -9,9 +9,9 @@ namespace MetroidMod.Content.Items.Walls
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Walls/ChozoBrickWall";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chozite Brick Wall (Natural)");
+			// DisplayName.SetDefault("Chozite Brick Wall (Natural)");
 
-			SacrificeTotal = 400;
+			Item.ResearchUnlockCount = 400;
 		}
 		public override void SetDefaults()
 		{

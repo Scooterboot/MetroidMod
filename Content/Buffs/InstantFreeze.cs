@@ -11,8 +11,8 @@ namespace MetroidMod.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Froze");
-			Description.SetDefault("'Can't move...'");
+			// DisplayName.SetDefault("Froze");
+			// Description.SetDefault("'Can't move...'");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

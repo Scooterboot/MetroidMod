@@ -8,15 +8,15 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Classic Bubble");
+			// DisplayName.SetDefault("Classic Bubble");
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 16;
 			Item.height = 16;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

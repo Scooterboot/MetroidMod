@@ -9,12 +9,12 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag (Torizo)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+			// DisplayName.SetDefault("Treasure Bag (Torizo)");
+			// Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 
 			ItemID.Sets.BossBag[Type] = true;
 			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{

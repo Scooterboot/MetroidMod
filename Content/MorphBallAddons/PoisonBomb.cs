@@ -1,6 +1,8 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
@@ -14,16 +16,15 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || x >= Main.maxTilesX * 0.2 && x <= Main.maxTilesX * 0.35 && y <= Main.UnderworldLayer;
-
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || ((x >= GenVars.jungleOriginX && x <= GenVars.JungleX) || (x <= GenVars.jungleOriginX + GenVars.jungleMaxX - GenVars.jungleMinX) || x == GenVars.JungleX) && y < Main.UnderworldLayer;
 		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 15;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Poison Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Poison Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Poisons foes");
+			// DisplayName.SetDefault("Poison Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Poison Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Poisons foes"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -38,7 +39,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustType = DustID.Dirt;
 			dustScale = 2f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.Poisoned, 600);
 		}

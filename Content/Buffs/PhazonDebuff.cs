@@ -12,8 +12,8 @@ namespace MetroidMod.Content.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon!");
-			Description.SetDefault("Phazon is draining your life away!");
+			// DisplayName.SetDefault("Phazon!");
+			// Description.SetDefault("Phazon is draining your life away!");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

@@ -38,6 +38,7 @@ namespace MetroidMod
 	{
 		internal const int ballSlotAmount = 5;
 		internal const int beamSlotAmount = 5;
+		internal const int beamChangeSlotAmount = 10;
 		internal const int missileSlotAmount = 3;
 
 		public static bool UseAltWeaponTextures;
@@ -65,6 +66,7 @@ namespace MetroidMod
 		public int[] FrozenStandOnNPCs;
 
 		//public static int beamsRecipeGroupID;
+		public static int PreHMhooksRecipeID;
 		public static int MorphBallBombsRecipeGroupID;
 		public static int T1PHMBarRecipeGroupID;
 		public static int GoldPlatinumBarRecipeGroupID;

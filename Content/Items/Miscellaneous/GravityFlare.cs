@@ -13,17 +13,17 @@ namespace MetroidMod.Content.Items.Miscellaneous
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gravity Flare");
-			Tooltip.SetDefault("'Totally breaking Newton's laws.'");
+			// DisplayName.SetDefault("Gravity Flare");
+			// Tooltip.SetDefault("'Totally breaking Newton's laws.'");
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(10, 2));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
-			SacrificeTotal = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 		public override void SetDefaults()
 		{
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.width = 16;
 			Item.height = 16;
 			Item.value = 10000;

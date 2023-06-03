@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Beam
@@ -9,10 +10,9 @@ namespace MetroidMod.Content.Tiles.ItemTile.Beam
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Ice Beam V2");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Ice Beam V2");
 			AddMapEntry(new Color(72, 192, 248), name);
-			ItemDrop = ModContent.ItemType<Items.Addons.V2.IceBeamV2Addon>();
 			DustType = 1;
 		}
 	}

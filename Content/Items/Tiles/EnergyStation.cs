@@ -8,16 +8,16 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Energy Station");
-			Tooltip.SetDefault("Right click the station while standing next to it to recharge your suit's energy.");
+			// DisplayName.SetDefault("Energy Station");
+			// Tooltip.SetDefault("Right click the station while standing next to it to recharge your suit's energy.");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
 			Item.width = 30;
 			Item.height = 30;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

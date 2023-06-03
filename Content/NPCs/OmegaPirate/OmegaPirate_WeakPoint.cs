@@ -18,7 +18,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		public override string Texture => $"{Mod.Name}/Content/NPCs/OmegaPirate/OmegaPirate_ArmShoulderRight";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Pirate");
+			// DisplayName.SetDefault("Omega Pirate");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
 			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
@@ -96,7 +96,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			return false;
 		}
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode != NetmodeID.Server)
 			{
@@ -107,7 +107,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				}
 			}
 		}
-		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
 			if(projectile.penetrate > 0 && projectile.aiStyle != 3)
 			{

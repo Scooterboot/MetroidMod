@@ -22,7 +22,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nightmare");
+			// DisplayName.SetDefault("Nightmare");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
 
@@ -73,9 +73,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				new FlavorTextBestiaryInfoElement("A bio mechanical monstrosity created by a space faring species of humans. It can change it's positioning almost instantly and increase gravity to extreme conditions. If encountered it is best to destroy the gravity generator so avoiding its energy lasers is possible. While mechanical, its organic parts are not fully immune to damage. Blast the faceplate off to get to its true form! Sometimes however... a creature isn't what it appears to be...")
 			});
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
 			NPC.damage = 0;//(int)(NPC.damage * 0.8f);
 			damage = (int)(damage * 2 * 0.8f);
 		}
@@ -100,7 +100,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 			npcLoot.Add(notExpertRule);
 		}
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
 			if(currentState > 0)

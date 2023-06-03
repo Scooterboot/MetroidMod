@@ -10,9 +10,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Varia Suit V2 Breastplate");
+			// DisplayName.SetDefault("Ancient Varia Suit V2 Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -29,9 +29,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Varia Suit V2 Greaves");
+			// DisplayName.SetDefault("Ancient Varia Suit V2 Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -44,9 +44,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Varia Suit V2 Helmet");
+			// DisplayName.SetDefault("Ancient Varia Suit V2 Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

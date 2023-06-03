@@ -24,12 +24,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Gravity Suit");
-			Tooltip.SetDefault("+19 defense\n" +
+			// DisplayName.SetDefault("Terra Gravity Suit");
+			/* Tooltip.SetDefault("+19 defense\n" +
 				"+30 overheat capacity\n" +
 				"10% decreased overheat use\n" +
 				"10% decreased Missile Charge Combo cost\n" +
@@ -43,7 +43,8 @@ namespace MetroidMod.Content.SuitAddons
 				"Free movement in liquid\n" +
 				"Grants 14 seconds of lava immunity\n" +
 				"Default gravity in space\n" +
-				"Immune to Distorted and Amplified Gravity effects");
+				"Immune to Distorted and Amplified Gravity effects"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}

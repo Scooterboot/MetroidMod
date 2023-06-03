@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Diffusion Shot");
+			// DisplayName.SetDefault("Diffusion Shot");
 		}
 		
 		bool initialised = false;
@@ -138,7 +138,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Diffusion Shot");
+			// DisplayName.SetDefault("Ice Diffusion Shot");
 		}
 	}
 	public class StardustDiffusionShot : DiffusionShot
@@ -146,7 +146,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/missiles/IceDiffusionShot";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Diffusion Shot");
+			// DisplayName.SetDefault("Stardust Diffusion Shot");
 		}
 	}
 	public class NebulaDiffusionShot : DiffusionShot
@@ -154,7 +154,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/missiles/NebulaMissileImpact";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Diffusion Shot");
+			// DisplayName.SetDefault("Nebula Diffusion Shot");
 		}
 		public override void SetDefaults()
 		{

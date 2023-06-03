@@ -17,12 +17,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Energy Tank");
-			Tooltip.SetDefault("Grants the user an extra tank of energy.");
+			// DisplayName.SetDefault("Energy Tank");
+			// Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
 			SacrificeTotal = Common.Configs.MConfigItems.Instance.stackEnergyTank;
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;

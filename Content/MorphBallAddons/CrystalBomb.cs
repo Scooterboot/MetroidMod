@@ -18,14 +18,14 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crystal Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Crystal Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Fires off Crystal shards on detonation");
+			// DisplayName.SetDefault("Crystal Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Crystal Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Fires off Crystal shards on detonation"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

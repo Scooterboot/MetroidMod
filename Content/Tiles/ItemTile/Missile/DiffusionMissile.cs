@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Missile
@@ -9,10 +10,9 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Diffusion Missile");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Diffusion Missile");
 			AddMapEntry(new Color(255, 0, 90), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.DiffusionMissileAddon>();
 			DustType = 1;
 		}
 	}

@@ -3,6 +3,7 @@
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
@@ -24,10 +25,9 @@ namespace MetroidMod.Content.Tiles
 			DustType = 68;
 			MinPick = 1000;//215;
 			HitSound = SoundID.Tink;
-			ItemDrop = ModContent.ItemType<Items.Tiles.Phazon>();
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Phazon");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Phazon");
 			AddMapEntry(new Color(85, 223, 255), name);
 		}
 

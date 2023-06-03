@@ -16,7 +16,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sidehopper");
+			// DisplayName.SetDefault("Sidehopper");
 			Main.npcFrameCount[Type] = 3;
 		}
 		
@@ -127,7 +127,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		}
 		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
@@ -153,7 +153,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Large Sidehopper");
+			// DisplayName.SetDefault("Large Sidehopper");
 			Main.npcFrameCount[Type] = 3;
 		}
 		
@@ -195,7 +195,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		}
 		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{

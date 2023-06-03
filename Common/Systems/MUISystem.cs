@@ -20,6 +20,7 @@ namespace MetroidMod.Common.Systems
 	{
 		public static MUISystem Instance { get; private set; }
 		internal static UserInterface pbUserInterface;
+		internal static UserInterface bcUserInterface;
 		internal static UserInterface miUserInterface;
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
@@ -31,6 +32,7 @@ namespace MetroidMod.Common.Systems
 
 		// bri'ish innit?
 		internal bool isPBInit = false;
+		internal bool isBCInit = false;
 		internal bool isMIInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
@@ -50,6 +52,7 @@ namespace MetroidMod.Common.Systems
 			{
 				//addonsUI = new UI.AddonsUI();
 				pbUserInterface = new UserInterface();
+				bcUserInterface = new UserInterface();
 				miUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
@@ -84,6 +87,7 @@ namespace MetroidMod.Common.Systems
 		public override void Unload()
 		{
 			pbUserInterface = null;
+			bcUserInterface = null;
 			miUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
@@ -141,6 +145,11 @@ namespace MetroidMod.Common.Systems
 				pbUserInterface.SetState(new UI.PowerBeamUI());
 				isPBInit = true;
 			}
+			if (!isBCInit)
+			{
+				bcUserInterface.SetState(new UI.BeamChangeUI());
+				isBCInit = true;
+			}
 			if (visorUserInterface != null && UI.VisorSelectUI.Visible)
 			{
 				visorUserInterface.Update(gameTime);
@@ -176,6 +185,10 @@ namespace MetroidMod.Common.Systems
 			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
 			{
 				pbUserInterface.Update(gameTime);
+			}
+			if (bcUserInterface != null && UI.BeamChangeUI.Visible)
+			{
+				bcUserInterface.Update(gameTime);
 			}
 		}
 
@@ -361,6 +374,19 @@ namespace MetroidMod.Common.Systems
 						{
 							if (Main.hasFocus) { pbUserInterface.Recalculate(); }
 							pbUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Beam Change UI",
+					delegate {
+						if (UI.BeamChangeUI.Visible)// && !Main.recBigList)
+						{
+							if (Main.hasFocus) { bcUserInterface.Recalculate(); }
+							bcUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
 						return true;

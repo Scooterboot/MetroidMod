@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Missile
@@ -9,10 +10,9 @@ namespace MetroidMod.Content.Tiles.ItemTile.Missile
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Seeker Missile");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Seeker Missile");
 			AddMapEntry(new Color(173, 0, 82), name);
-			ItemDrop = ModContent.ItemType<Items.MissileAddons.SeekerMissileAddon>();
 			DustType = 1;
 		}
 	}

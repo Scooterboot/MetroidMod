@@ -17,7 +17,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Absorb Field");
+			// DisplayName.SetDefault("Absorb Field");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 		}
 		public override void SetDefaults()

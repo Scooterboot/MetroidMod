@@ -16,14 +16,14 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 1;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Fire Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Solar Fire Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Burns foes with the fury of the sun");
+			// DisplayName.SetDefault("Solar Fire Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Solar Fire Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Burns foes with the fury of the sun"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustScale = 4f;
 			dustScale2 = 2f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.Daybreak, 600);
 		}

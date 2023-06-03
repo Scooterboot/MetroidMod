@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/hyperbeam/ExtraHyperBeamShot";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hyper Beam Shot");
+			// DisplayName.SetDefault("Hyper Beam Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -20,6 +20,9 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			Projectile.width = 8;
 			Projectile.height = 8;
 			Projectile.scale = 1f;
+			mProjectile.amplitude = 10f * Projectile.scale * 2f;
+			mProjectile.wavesPerSecond = 2f;
+			mProjectile.delay = 3;
 		}
 
 		bool initialized = false;
@@ -27,14 +30,15 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		public override void AI()
 		{
 			Projectile P = Projectile;
+			string S = Items.Weapons.PowerBeam.shooty;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
-			
-			bool isWave = (P.Name.Contains("Wave") || P.Name.Contains("Nebula")),
-			isSpazer = P.Name.Contains("Spazer"),
-			isPlasma = P.Name.Contains("Plasma"),
-			isNebula = P.Name.Contains("Nebula");
-			
-			if(!initialized)
+
+			bool isWave = (S.Contains("wave") || S.Contains("nebula")),
+			isSpazer = S.Contains("spazer") || S.Contains("wide") || S.Contains("vortex"),
+			isPlasma = S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar"),
+			isNebula = S.Contains("nebula");
+
+			if (!initialized)
 			{
 				speed = P.velocity.Length();
 				initialized = true;
@@ -51,7 +55,16 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 					mProjectile.HomingBehavior(P,speed);
 				}
 			}
-			
+			if (isPlasma)
+			{
+				Projectile.penetrate = -1;
+				Projectile.usesLocalNPCImmunity = true;
+				Projectile.localNPCHitCooldown = 10;
+			}
+			if (isWave)
+			{
+				Projectile.tileCollide = false;
+			}
 			Lighting.AddLight(P.Center, (float)mp.r/255f, (float)mp.g/255f, (float)mp.b/255f);
 			
 			Vector2 velocity = Projectile.position - Projectile.oldPos[0];
@@ -71,127 +84,6 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));
-		}
-	}
-	
-	
-	public class ExtraWaveHyperBeamShot : ExtraHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Wave Hyper Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 10f*Projectile.scale * 2f;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 3;
-		}
-	}
-	public class ExtraSpazerHyperBeamShot : ExtraHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Spazer Hyper Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			
-			mProjectile.amplitude = 10f*Projectile.scale * 2f;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 3;
-		}
-	}
-	public class ExtraPlasmaHyperBeamShot : ExtraHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Plasma Hyper Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.penetrate = -1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
-		}
-	}
-	public class ExtraWaveSpazerHyperBeamShot : ExtraWaveHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Wave Spazer Hyper Beam Shot");
-		}
-	}
-	public class ExtraWavePlasmaHyperBeamShot : ExtraPlasmaHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Wave Plasma Hyper Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 10f*Projectile.scale * 2f;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 3;
-		}
-	}
-	public class ExtraSpazerPlasmaHyperBeamShot : ExtraPlasmaHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Spazer Plasma Hyper Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			
-			mProjectile.amplitude = 10f*Projectile.scale * 2f;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 3;
-		}
-	}
-	public class ExtraWaveSpazerPlasmaHyperBeamShot : ExtraWavePlasmaHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Wave Spazer Plasma Hyper Beam Shot");
-		}
-	}
-	
-	public class ExtraNebulaHyperBeamShot : ExtraWaveHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Nebula Hyper Beam Shot");
-		}
-	}
-	public class ExtraNebulaSpazerHyperBeamShot : ExtraWaveSpazerHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Nebula Spazer Hyper Beam Shot");
-		}
-	}
-	public class ExtraNebulaPlasmaHyperBeamShot : ExtraWavePlasmaHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Nebula Plasma Hyper Beam Shot");
-		}
-	}
-	public class ExtraNebulaSpazerPlasmaHyperBeamShot : ExtraWaveSpazerPlasmaHyperBeamShot
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Nebula Spazer Plasma Hyper Beam Shot");
 		}
 	}
 }

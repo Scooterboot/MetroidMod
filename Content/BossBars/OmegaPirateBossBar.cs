@@ -22,7 +22,7 @@ namespace MetroidMod.Content.BossBars
 			return null;
 		}
 
-		public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float lifePercent, ref float shieldPercent)
+		public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float life, ref float lifeMax, ref float shield, ref float shieldMax)/* tModPorter Note: life and shield current and max values are now separate to allow for hp/shield number text draw */
 		{
 			NPC npc = Main.npc[info.npcIndexToAimAt];
 			if (!npc.active)
@@ -30,12 +30,12 @@ namespace MetroidMod.Content.BossBars
 
 			bossHeadIndex = npc.GetBossHeadTextureIndex();
 
-			lifePercent = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
+			life = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
 
 			if (npc.ModNPC is OmegaPirate body1)
 			{
-				lifePercent = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
-				shieldPercent = Utils.Clamp((float)body1.NPCArmorHP / 20000f, 0f, 1f);
+				life = Utils.Clamp(npc.life / (float)npc.lifeMax, 0f, 1f);
+				shield = Utils.Clamp((float)body1.NPCArmorHP / 20000f, 0f, 1f);
 			}
 
 			return true;

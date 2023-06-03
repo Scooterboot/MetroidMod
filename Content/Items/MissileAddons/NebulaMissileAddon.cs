@@ -8,15 +8,15 @@ namespace MetroidMod.Content.Items.MissileAddons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Missile");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Nebula Missile");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Primary\n" +
 			"Shots are more powerful and create a larger explosion\n" + 
 			"Shots create lingering masses of Nebula energy on impact that continually damage foes\n" + 
 			string.Format("[c/78BE78:+400% damage]\n") +
-			string.Format("[c/BE7878:-50% speed]"));
+			string.Format("[c/BE7878:-50% speed]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

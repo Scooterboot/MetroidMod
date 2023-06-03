@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Terra Gravity Suit Breastplate");
+			// DisplayName.SetDefault("Ancient Terra Gravity Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -39,9 +39,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Terra Gravity Suit Greaves");
+			// DisplayName.SetDefault("Ancient Terra Gravity Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -54,9 +54,9 @@ namespace MetroidMod.Content.Items.Vanity.Legacy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Terra Gravity Suit Helmet");
+			// DisplayName.SetDefault("Ancient Terra Gravity Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

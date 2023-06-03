@@ -9,9 +9,10 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 {
 	public class SolarBeamChargeShot : MProjectile
 	{
+		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Beam Charge Shot");
+			// DisplayName.SetDefault("Solar Beam Charge Shot");
 			Main.projFrames[Type] = 2;
 		}
 		public override void SetDefaults()
@@ -23,6 +24,9 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 			Projectile.penetrate = 16;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
+
+			mProjectile.wavesPerSecond = 1.5f;
+			mProjectile.delay = 4;
 		}
 
 		int dustType = 6;
@@ -42,20 +46,35 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 			{
 				Projectile.frame = 0;
 			}
-			
-			if(Projectile.Name.Contains("Vortex") || Projectile.Name.Contains("Nebula"))
+
+			if (S.Contains("nebula"))
 			{
-				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Nebula"));
-			}
-			if(Projectile.Name.Contains("Nebula"))
-			{
+				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
 				mProjectile.HomingBehavior(Projectile);
+				//mProjectile.amplitude = 8f * Projectile.scale;
 			}
-			
+			if (!S.Contains("vortex") && S.Contains("nebula"))
+			{
+				mProjectile.amplitude = 12f * Projectile.scale;
+				mProjectile.wavesPerSecond = 2f;
+			}
+			if (S.Contains("vortex") && !S.Contains("nebula"))
+			{
+				mProjectile.amplitude = 10f * Projectile.scale;
+				mProjectile.wavesPerSecond = 2f;
+				mProjectile.WaveBehavior(Projectile, !S.Contains("nebula"));
+			}
+			if (S.Contains("vortex") && S.Contains("nebula"))
+			{
+				mProjectile.amplitude = 16f * Projectile.scale;
+				mProjectile.wavesPerSecond = 1.5f;
+			}
+
 			int dType = Utils.SelectRandom<int>(Main.rand, new int[] { 6,158 });
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dType, 0, 0, 100, default(Color), Projectile.scale*2);
 			Main.dust[dust].noGravity = true;
-			if(Projectile.Name.Contains("Stardust"))
+			if(S.Contains("stardust"))
 			{
 				dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
@@ -93,77 +112,6 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 		{
 			base.SetDefaults();
 			Projectile.Name = "Vortex Solar Beam Charge Shot";
-			
-			mProjectile.amplitude = 10f*Projectile.scale;
-			mProjectile.wavesPerSecond = 1.5f;
-			mProjectile.delay = 4;
-		}
-	}
-	
-	public class NebulaSolarBeamChargeShot : SolarBeamChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/solarbeam/SolarBeamChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nebula Solar Beam Charge Shot";
-			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 12f*Projectile.scale;
-			mProjectile.wavesPerSecond = 2f;
-			mProjectile.delay = 4;
-		}
-	}
-	
-	public class NebulaVortexSolarBeamChargeShot : NebulaSolarBeamChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/solarbeam/VortexSolarBeamChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Nebula Vortex Solar Beam Charge Shot";
-			mProjectile.amplitude = 16f*Projectile.scale;
-			mProjectile.wavesPerSecond = 1.5f;
-		}
-	}
-	
-	public class StardustSolarBeamChargeShot : SolarBeamChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/solarbeam/SolarBeamChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Solar Beam Charge Shot";
-		}
-	}
-	
-	public class StardustVortexSolarBeamChargeShot : VortexSolarBeamChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/solarbeam/VortexSolarBeamChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Vortex Solar Beam Charge Shot";
-		}
-	}
-	
-	public class StardustNebulaSolarBeamChargeShot : NebulaSolarBeamChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/solarbeam/SolarBeamChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Solar Beam Charge Shot";
-		}
-	}
-	
-	public class StardustNebulaVortexSolarBeamChargeShot : NebulaVortexSolarBeamChargeShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/solarbeam/VortexSolarBeamChargeShot";
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.Name = "Stardust Nebula Vortex Solar Beam Charge Shot";
 		}
 	}
 }

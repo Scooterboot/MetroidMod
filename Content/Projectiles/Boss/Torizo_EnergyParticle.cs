@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Energy Tank Particle");
+			// DisplayName.SetDefault("Energy Tank Particle");
 		}
 		public override void SetDefaults()
 		{

@@ -45,8 +45,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scan Visor");
-			Tooltip.SetDefault("Fills in the Bestiary entries of npcs you look at.");
+			// DisplayName.SetDefault("Scan Visor");
+			// Tooltip.SetDefault("Fills in the Bestiary entries of npcs you look at.");
 
 			AddonSlot = SuitAddonSlotID.Visor_Scan;
 			ItemNameLiteral = true;

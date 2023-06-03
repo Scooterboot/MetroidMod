@@ -12,9 +12,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Hazard Shield Suit Breastplate");
+			// DisplayName.SetDefault("Outdated Hazard Shield Suit Breastplate");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -38,9 +38,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitGreaves";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Hazard Shield Suit Greaves");
+			// DisplayName.SetDefault("Outdated Hazard Shield Suit Greaves");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -54,9 +54,9 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitHelmet";
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outdated Hazard Shield Suit Helmet");
+			// DisplayName.SetDefault("Outdated Hazard Shield Suit Helmet");
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

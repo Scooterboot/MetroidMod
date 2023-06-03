@@ -114,7 +114,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				if (!Main.player[i].active || Main.player[i].dead) continue;
 
 				if(Main.player[i].getRect().Intersects(collisionRect) &&
-					Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason("could not get away"), 5, 0, false, false, false, 0) != 0)
+					Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason("could not get away"), 5, 0, false, false, 0, false) != 0)
 				{
 					Main.player[i].hurtCooldowns[0] = 15;
 				}

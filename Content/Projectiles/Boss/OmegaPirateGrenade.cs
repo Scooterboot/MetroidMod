@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Pirate");
+			// DisplayName.SetDefault("Omega Pirate");
 		}
 		public override void SetDefaults()
 		{
@@ -42,7 +42,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				Main.dust[dust2].noGravity = true;
 			}
 		}
-		public override void OnHitPlayer(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			Projectile.penetrate--;
 		}

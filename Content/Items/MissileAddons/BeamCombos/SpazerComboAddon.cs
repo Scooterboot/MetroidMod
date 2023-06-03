@@ -8,14 +8,14 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Missile Array");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Missile Array");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Fires a spray of 5 missiles\n" + 
-			"~Costs 5 missiles");
+			"~Costs 5 missiles"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

@@ -18,14 +18,14 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Betsy Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Betsy Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Explodes in defense reducing miasma that also sets enemies on fire");
+			// DisplayName.SetDefault("Betsy Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Betsy Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			"Explodes in defense reducing miasma that also sets enemies on fire"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -42,7 +42,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			dustScale = 3f;
 			dustScale2 = 3f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.BetsysCurse, 600);
 			target.AddBuff(BuffID.Oiled, 600);

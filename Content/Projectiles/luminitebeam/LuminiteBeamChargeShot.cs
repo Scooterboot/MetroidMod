@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.luminitebeam
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Luminite Beam Charge Shot");
+			// DisplayName.SetDefault("Luminite Beam Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()

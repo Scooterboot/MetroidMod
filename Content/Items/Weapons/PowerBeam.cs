@@ -20,6 +20,7 @@ using MetroidMod.Content.Projectiles.powerbeam;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Default;
 using Terraria.Utilities;
+using MetroidMod.Content.Projectiles.hyperbeam;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -27,6 +28,7 @@ namespace MetroidMod.Content.Items.Weapons
 	{
 		// Failsaves.
 		private Item[] _beamMods;
+		private Item[] _beamchangeMods;
 		public Item[] BeamMods
 		{
 			get
@@ -45,13 +47,32 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			set { _beamMods = value; }
 		}
+		public Item[] BeamChange
+		{
+			get 
+			{
+				if (_beamchangeMods == null)
+				{
+					_beamchangeMods = new Item[10];
+					for (int i = 0; i < _beamchangeMods.Length; ++i)
+					{
+						_beamchangeMods[i] = new Item();
+						_beamchangeMods[i].TurnToAir();
+					}
+				}
+
+				return _beamchangeMods;
+			}
+			set { _beamchangeMods = value; }
+		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Power Beam");
-			Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
-			SacrificeTotal = 1;
+			// DisplayName.SetDefault("Power Beam");
+			// Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
+			Item.ResearchUnlockCount = 1;
 
 			BeamMods = new Item[5];
+			BeamChange = new Item[10];
 		}
 		public override void SetDefaults()
 		{
@@ -123,7 +144,7 @@ namespace MetroidMod.Content.Items.Weapons
 				case 12: output = 60; break;
 				case 13: output = 61; break;
 			}
-			PrefixLoader.Roll(Item, ref output, 14, rand, new PrefixCategory[] { PrefixCategory.AnyWeapon, PrefixCategory.Custom });
+			//PrefixLoader.Roll(Item, ref output, 14, rand, new PrefixCategory[] { PrefixCategory.AnyWeapon, PrefixCategory.Custom });
 			return output;
 		}
 
@@ -133,20 +154,20 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
 
-		public override bool PreReforge()
+		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
 			foreach (Item item in BeamMods)
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnClonedItem(itemSource_OpenItem, item, item.stack);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 			BeamMods = new Item[5];
-			return base.PreReforge();
+			return base.CanReforge();
 		}
 
 		private float iceDmg = 0f;
@@ -192,6 +213,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private Color lightColor = MetroidMod.powColor;
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
+		public static string shooty = "";
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
@@ -253,6 +275,18 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot4 = BeamMods[3];
 			Item slot5 = BeamMods[4];
 
+			/*Item changeslot0 = BeamChange[0];
+			Item changeslot1 = BeamChange[1];
+			Item changeslot2 = BeamChange[2];
+			Item changeslot3 = BeamChange[3];
+			Item changeslot4 = BeamChange[4];
+			Item changeslot5 = BeamChange[5];
+			Item changeslot6 = BeamChange[6];
+			Item changeslot7 = BeamChange[7];
+			Item changeslot8 = BeamChange[8];
+			Item changeslot9 = BeamChange[9];*/
+
+
 			int damage = Common.Configs.MConfigItems.Instance.damagePowerBeam;
 			overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
 			useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
@@ -273,6 +307,7 @@ namespace MetroidMod.Content.Items.Weapons
 			lightColor = MetroidMod.powColor;
 
 			texture = "";
+			shooty = "";
 			//modBeamTextureMod = null;
 
 			ShotSound = null;
@@ -309,7 +344,65 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				versionType = 2;
 			}
-
+			if (slot4.type == sp || slot4.type == wi)
+			{
+				shotAmt = 3;
+				chargeShotAmt = 3;
+			}
+			if (slot4.type == vt)
+			{
+				shooty += "vortex";
+				shotAmt = 5;
+				chargeShotAmt = 5;
+			}
+			if (slot4.type == sp)
+			{
+				shooty += "spazer";
+			}
+			if (slot4.type == wi)
+			{
+				shooty += "wide";
+			}
+			if (slot3.type == wa)
+			{
+				shooty += "wave";
+			}
+			if (slot3.type == wa2)
+			{
+				shooty += "waveV2";
+			}
+			if (slot3.type == nb)
+			{
+				shooty += "nebula";
+			}
+			if (slot5.type == plR)
+			{
+				shooty += "plasmared";
+			}
+			if (slot5.type == plG)
+			{
+				shooty += "plasmagreen";
+			}
+			if (slot5.type == nv)
+			{
+				shooty += "nova";
+			}
+			if (slot5.type == sl)
+			{
+				shooty += "solar";
+			}
+			if (slot2.type == ic && slot1.type != mm)
+			{
+				shooty += "ice";
+			}
+			if (slot2.type == ic2 && slot1.type != mm)
+			{
+				shooty += "iceV2";
+			}
+			if (slot2.type == sd && slot1.type != mm)
+			{
+				shooty += "stardust";
+			}
 			// Default Combos
 			if (!isHyper && !isPhazon && !isHunter)
 			{
@@ -329,110 +422,34 @@ namespace MetroidMod.Content.Items.Weapons
 						lightColor = MetroidMod.iceColor;
 						texture = "IceBeam";
 
-						// Ice Wave
 						if (slot3.type == wa)
 						{
-							shot = "IceWaveBeamShot";
-							chargeShot = "IceWaveBeamChargeShot";
 							chargeShotAmt = 2;
-
-							// Ice Wave Spazer
-							if (slot4.type == sp)
-							{
-								shot = "IceWaveSpazerShot";
-								chargeShot = "IceWaveSpazerChargeShot";
-								shotSound = "IceComboSound";
-								shotAmt = 3;
-								chargeShotAmt = 3;
-
-								// Ice Wave Spazer Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "IceWaveSpazerPlasmaBeamGreenShot";
-									chargeShot = "IceWaveSpazerPlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
-								}
-								// Ice Wave Spazer Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveSpazerPlasmaBeamRedShot";
-									chargeShot = "IceWaveSpazerPlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									dustType = 135;
-								}
-							}
-							else
-							{
-								// Ice Wave Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "IceWavePlasmaBeamGreenShot";
-									chargeShot = "IceWavePlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
-									shotAmt = 2;
-								}
-								// Ice Wave Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaBeamRedShot";
-									chargeShot = "IceWavePlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									shotAmt = 2;
-									dustType = 135;
-								}
-							}
 						}
-						else
+						if (slot4.type == sp)
 						{
-							// Ice Spazer
-							if (slot4.type == sp)
-							{
-								shot = "IceSpazerShot";
-								chargeShot = "IceSpazerChargeShot";
-								shotSound = "IceComboSound";
-								shotAmt = 3;
-								chargeShotAmt = 3;
-
-								// Ice Spazer Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "IceSpazerPlasmaBeamGreenShot";
-									chargeShot = "IceSpazerPlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
-								}
-								// Ice Spazer Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaBeamRedShot";
-									chargeShot = "IceSpazerPlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									dustType = 135;
-								}
-							}
-							else
-							{
-								// Ice Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaBeamGreenShot";
-									chargeShot = "IcePlasmaBeamGreenChargeShot";
-									shotSound = "IceComboSound";
-								}
-								// Ice Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaBeamRedShot";
-									chargeShot = "IcePlasmaBeamRedChargeShot";
-									shotSound = "IceComboSound";
-									dustType = 135;
-								}
-							}
+							shot = "IceSpazerShot";
+							chargeShot = "IceSpazerChargeShot";
+							shotSound = "IceComboSound";
+							chargeShotAmt = 3;
+						}
+						if (slot5.type == plG)
+						{
+							shot = "IcePlasmaBeamGreenShot";
+							chargeShot = "IcePlasmaBeamGreenChargeShot";
+						}
+						// Ice Plasma (Red)
+						if (slot5.type == plR)
+						{
+							shot = "IcePlasmaBeamRedShot";
+							chargeShot = "IcePlasmaBeamRedChargeShot";
+							dustType = 135;
 						}
 					}
 					else
 					{
 						// Wave
-						if (slot3.type == wa)
+						if (slot3.type == wa && slot5.IsAir)
 						{
 							shot = "WaveBeamShot";
 							chargeShot = "WaveBeamChargeShot";
@@ -451,72 +468,13 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "WaveSpazerShot";
 								chargeShot = "WaveSpazerChargeShot";
 								shotSound = "SpazerSound";
-								shotAmt = 3;
 								chargeShotAmt = 3;
-
-								// Wave Spazer Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "WaveSpazerPlasmaBeamGreenShot";
-									chargeShot = "WaveSpazerPlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								// Wave Spazer Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "WaveSpazerPlasmaBeamRedShot";
-									chargeShot = "WaveSpazerPlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
-							}
-							else
-							{
-								// Wave Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaBeamGreenShot";
-									chargeShot = "WavePlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									shotAmt = 2;
-									texture = "PlasmaBeamG";
-								}
-								// Wave Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaBeamRedShot";
-									chargeShot = "WavePlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									shotAmt = 2;
-									texture = "PlasmaBeamR";
-								}
 							}
 						}
 						else
 						{
 							// Spazer
-							if (slot4.type == sp)
+							if (slot4.type == sp && slot5.IsAir)
 							{
 								shot = "SpazerShot";
 								chargeShot = "SpazerChargeShot";
@@ -526,60 +484,29 @@ namespace MetroidMod.Content.Items.Weapons
 								shotAmt = 3;
 								chargeShotAmt = 3;
 								texture = "Spazer";
-
-								// Spazer Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "SpazerPlasmaBeamGreenShot";
-									chargeShot = "SpazerPlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								// Spazer Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "SpazerPlasmaBeamRedShot";
-									chargeShot = "SpazerPlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
 							}
-							else
+							if (slot5.type == plG)
 							{
-								// Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaBeamGreenShot";
-									chargeShot = "PlasmaBeamGreenChargeShot";
-									shotSound = "PlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeTex = "ChargeLead_PlasmaGreen";
-									dustType = 61;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								// Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaBeamRedShot";
-									chargeShot = "PlasmaBeamRedChargeShot";
-									shotSound = "PlasmaBeamRedSound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
+								shot = "PlasmaBeamGreenShot";
+								chargeShot = "PlasmaBeamGreenChargeShot";
+								shotSound = "PlasmaBeamGreenSound";
+								chargeShotSound = "PlasmaBeamGreenChargeSound";
+								chargeTex = "ChargeLead_PlasmaGreen";
+								dustType = 61;
+								lightColor = MetroidMod.plaGreenColor;
+								texture = "PlasmaBeamG";
+							}
+							if (slot5.type == plR)
+							{
+								shot = "PlasmaBeamRedShot";
+								chargeShot = "PlasmaBeamRedChargeShot";
+								shotSound = "PlasmaBeamRedSound";
+								chargeShotSound = "PlasmaBeamRedChargeSound";
+								chargeUpSound = "ChargeStartup_PlasmaRed";
+								chargeTex = "ChargeLead_PlasmaRed";
+								dustType = 6;
+								lightColor = MetroidMod.plaRedColor;
+								texture = "PlasmaBeamR";
 							}
 						}
 					}
@@ -618,7 +545,6 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceWaveWideBeamShot";
 								chargeShot = "IceWaveWideBeamChargeShot";
-								shotAmt = 3;
 								chargeShotAmt = 3;
 
 								// Ice Wave Wide Nova
@@ -650,26 +576,24 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							else
 							{
+								shotAmt = 2;
 								// Ice Wave Nova
 								if (slot5.type == nv)
 								{
 									shot = "IceWaveNovaBeamShot";
 									chargeShot = "IceWaveNovaBeamChargeShot";
-									shotAmt = 2;
 								}
 								// Ice Wave Plasma (Green)
 								if (slot5.type == plG)
 								{
 									shot = "IceWavePlasmaBeamGreenV2Shot";
 									chargeShot = "IceWavePlasmaBeamGreenV2ChargeShot";
-									shotAmt = 2;
 								}
 								// Ice Wave Plasma (Red)
 								if (slot5.type == plR)
 								{
 									shot = "IceWavePlasmaBeamRedV2Shot";
 									chargeShot = "IceWavePlasmaBeamRedV2ChargeShot";
-									shotAmt = 2;
 									dustType = 135;
 								}
 							}
@@ -677,19 +601,12 @@ namespace MetroidMod.Content.Items.Weapons
 						else
 						{
 							// Ice Wide
-							if (slot4.type == wi)
+							if (slot4.type == wi && slot5.type != nv)
 							{
 								shot = "IceWideBeamShot";
 								chargeShot = "IceWideBeamChargeShot";
-								shotAmt = 3;
 								chargeShotAmt = 3;
 
-								// Ice Wide Nova
-								if (slot5.type == nv)
-								{
-									shot = "IceWideNovaBeamShot";
-									chargeShot = "IceWideNovaBeamChargeShot";
-								}
 								// Ice Wide Plasma (Green)
 								if (slot5.type == plG)
 								{
@@ -704,14 +621,17 @@ namespace MetroidMod.Content.Items.Weapons
 									dustType = 135;
 								}
 							}
+							if (slot5.type == nv)
+							{
+								shot = "IceNovaBeamShot";
+								chargeShot = "IceNovaBeamChargeShot";
+								if(slot4.type == wi)
+								{
+									chargeShotAmt = 3;
+								}
+							}
 							else
 							{
-								// Ice Nova
-								if (slot5.type == nv)
-								{
-									shot = "IceNovaBeamShot";
-									chargeShot = "IceNovaBeamChargeShot";
-								}
 								// Ice Plasma (Green)
 								if (slot5.type == plG)
 								{
@@ -742,107 +662,66 @@ namespace MetroidMod.Content.Items.Weapons
 							dustType = 62;
 							lightColor = MetroidMod.waveColor2;
 							//shotAmt = 2;
-							chargeShotAmt = 2;
 							texture = "WaveBeam";
-
-							// Wave Wide
-							if (slot4.type == wi)
+							if (shooty.Contains("wide"))
 							{
-								shot = "WaveWideBeamShot";
-								chargeShot = "WaveWideBeamChargeShot";
 								shotAmt = 3;
 								chargeShotAmt = 3;
-
-								// Wave Wide Nova
-								if (slot5.type == nv)
-								{
-									shot = "WaveWideNovaBeamShot";
-									chargeShot = "WaveWideNovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									texture = "NovaBeam";
-								}
-								// Wave Wide Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "WaveWidePlasmaBeamGreenV2Shot";
-									chargeShot = "WaveWidePlasmaBeamGreenV2ChargeShot";
-									shotSound = "WavePlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreenV2";
-									dustType = 15;
-									lightColor = MetroidMod.plaGreenColor;
-									texture = "PlasmaBeamG";
-								}
-								// Wave Wide Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "WaveWidePlasmaBeamRedV2Shot";
-									chargeShot = "WaveWidePlasmaBeamRedV2ChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "PlasmaBeamR";
-								}
 							}
 							else
 							{
-								// Wave Nova
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaBeamShot";
-									chargeShot = "WaveNovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									shotAmt = 2;
-									texture = "NovaBeam";
-								}
-								// Wave Plasma (Green)
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaBeamGreenV2Shot";
-									chargeShot = "WavePlasmaBeamGreenV2ChargeShot";
-									shotSound = "WavePlasmaBeamGreenSound";
-									chargeShotSound = "PlasmaBeamGreenChargeSound";
-									chargeUpSound = "ChargeStartup_Power";
-									chargeTex = "ChargeLead_PlasmaGreenV2";
-									dustType = 15;
-									lightColor = MetroidMod.plaGreenColor;
-									shotAmt = 2;
-									texture = "PlasmaBeamG";
-								}
-								// Wave Plasma (Red)
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaBeamRedV2Shot";
-									chargeShot = "WavePlasmaBeamRedV2ChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_PlasmaRed";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									shotAmt = 2;
-									texture = "PlasmaBeamR";
-								}
+								shotAmt = 2;
+								chargeShotAmt = 2;
+							}
+							// Wave Wide
+							if (slot4.type == wi && slot5.IsAir)
+							{
+								shot = "WaveWideBeamShot";
+								chargeShot = "WaveWideBeamChargeShot";
+							}
+							if (slot5.type == nv)
+							{
+								shot = "WaveNovaBeamShot";
+								chargeShot = "WaveNovaBeamChargeShot";
+								shotSound = "NovaBeamSound";
+								chargeShotSound = "NovaBeamChargeSound";
+								chargeUpSound = "ChargeStartup_Nova";
+								chargeTex = "ChargeLead_Nova";
+								dustType = 75;
+								lightColor = MetroidMod.novColor;
+								texture = "NovaBeam";
+							}
+							// Wave Plasma (Green)
+							if (slot5.type == plG)
+							{
+								shot = "WavePlasmaBeamGreenV2Shot";
+								chargeShot = "WavePlasmaBeamGreenV2ChargeShot";
+								shotSound = "WavePlasmaBeamGreenSound";
+								chargeShotSound = "PlasmaBeamGreenChargeSound";
+								chargeUpSound = "ChargeStartup_Power";
+								chargeTex = "ChargeLead_PlasmaGreenV2";
+								dustType = 15;
+								lightColor = MetroidMod.plaGreenColor;
+								texture = "PlasmaBeamG";
+							}
+							// Wave Plasma (Red)
+							if (slot5.type == plR)
+							{
+								shot = "WavePlasmaBeamRedV2Shot";
+								chargeShot = "WavePlasmaBeamRedV2ChargeShot";
+								shotSound = "PlasmaBeamRedV2Sound";
+								chargeShotSound = "PlasmaBeamRedChargeSound";
+								chargeUpSound = "ChargeStartup_PlasmaRed";
+								chargeTex = "ChargeLead_PlasmaRed";
+								dustType = 6;
+								lightColor = MetroidMod.plaRedColor;
+								texture = "PlasmaBeamR";
 							}
 						}
 						else
 						{
 							// Wide
-							if (slot4.type == wi)
+							if (slot4.type == wi && slot5.type != nv)
 							{
 								shot = "WideBeamShot";
 								chargeShot = "WideBeamChargeShot";
@@ -856,21 +735,6 @@ namespace MetroidMod.Content.Items.Weapons
 								chargeShotAmt = 3;
 								texture = "WideBeam";
 
-								// Wide Nova
-								if (slot5.type == nv)
-								{
-									shot = "WideNovaBeamShot";
-									chargeShot = "WideNovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									dustColor = default(Color);
-									texture = "NovaBeam";
-								}
-								// Wide Plasma (Green)
 								if (slot5.type == plG)
 								{
 									shot = "WidePlasmaBeamGreenV2Shot";
@@ -898,21 +762,21 @@ namespace MetroidMod.Content.Items.Weapons
 									texture = "PlasmaBeamR";
 								}
 							}
+							if (slot5.type == nv)
+							{
+								shot = "NovaBeamShot";
+								chargeShot = "NovaBeamChargeShot";
+								shotSound = "NovaBeamSound";
+								chargeShotSound = "NovaBeamChargeSound";
+								chargeUpSound = "ChargeStartup_Nova";
+								chargeTex = "ChargeLead_Nova";
+								dustType = 75;
+								lightColor = MetroidMod.novColor;
+								dustColor = default(Color);
+								texture = "NovaBeam";
+							}
 							else
 							{
-								// Nova
-								if (slot5.type == nv)
-								{
-									shot = "NovaBeamShot";
-									chargeShot = "NovaBeamChargeShot";
-									shotSound = "NovaBeamSound";
-									chargeShotSound = "NovaBeamChargeSound";
-									chargeUpSound = "ChargeStartup_Nova";
-									chargeTex = "ChargeLead_Nova";
-									dustType = 75;
-									lightColor = MetroidMod.novColor;
-									texture = "NovaBeam";
-								}
 								// Plasma (Green)
 								if (slot5.type == plG)
 								{
@@ -970,7 +834,7 @@ namespace MetroidMod.Content.Items.Weapons
 					lightColor = MetroidMod.lumColor;
 
 					// Stardust
-					if (slot2.type == sd)
+					if (slot2.type == sd && slot5.IsAir)
 					{
 						shot = "StardustBeamShot";
 						chargeShot = "StardustBeamChargeShot";
@@ -983,88 +847,40 @@ namespace MetroidMod.Content.Items.Weapons
 						texture = "StardustBeam";
 
 						// Stardust Nebula
-						if (slot3.type == nb)
+						if (slot4.type == vt)
 						{
-							shot = "StardustNebulaBeamShot";
-							chargeShot = "StardustNebulaBeamChargeShot";
-							shotAmt = 2;
-							chargeShotAmt = 2;
-
-							// Stardust Nebula Vortex
-							if (slot4.type == vt)
-							{
-								shot = "StardustNebulaVortexBeamShot";
-								chargeShot = "StardustNebulaVortexBeamChargeShot";
-								shotAmt = 5;
-								chargeShotAmt = 5;
-
-								// Stardust Nebula Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarBeamShot";
-									chargeShot = "StardustNebulaVortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Stardust Nebula Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarBeamShot";
-									chargeShot = "StardustNebulaSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
+							shot = "StardustVortexBeamShot";
+							chargeShot = "StardustVortexBeamChargeShot";
 						}
-						else
-						{
-							// Stardust Vortex
-							if (slot4.type == vt)
-							{
-								shot = "StardustVortexBeamShot";
-								chargeShot = "StardustVortexBeamChargeShot";
-								shotAmt = 5;
-								chargeShotAmt = 5;
+					}
+					if (slot3.type == nb)
+					{
+						shotAmt = 2;
+						chargeShotAmt = 2;
 
-								// Stardust Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarBeamShot";
-									chargeShot = "StardustVortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Stardust Solar
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarBeamShot";
-									chargeShot = "StardustSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
+						// Stardust Nebula Vortex
+						if (slot4.type == vt)
+						{
+							shotAmt = 5;
+							chargeShotAmt = 5;
+						}
+					}
+					if (slot5.type == sl)
+					{
+						shot = "SolarBeamShot";
+						chargeShot = "SolarBeamChargeShot";
+						shotSound = "PlasmaBeamRedV2Sound";
+						chargeShotSound = "PlasmaBeamRedChargeSound";
+						chargeUpSound = "ChargeStartup_PlasmaRed";
+						chargeTex = "ChargeLead_Solar";
+						dustType = 6;
+						lightColor = MetroidMod.plaRedColor;
+						texture = "SolarBeam";
+
+						if (slot4.type == vt)
+						{
+							shot = "VortexSolarBeamShot";
+							chargeShot = "VortexSolarBeamChargeShot";
 						}
 					}
 					else
@@ -1093,35 +909,6 @@ namespace MetroidMod.Content.Items.Weapons
 								shotAmt = 5;
 								chargeShotAmt = 5;
 
-								// Nebula Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarBeamShot";
-									chargeShot = "NebulaVortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Nebula Solar
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarBeamShot";
-									chargeShot = "NebulaSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
 							}
 						}
 						else
@@ -1138,35 +925,6 @@ namespace MetroidMod.Content.Items.Weapons
 								chargeShotAmt = 5;
 								texture = "VortexBeam";
 
-								// Vortex Solar
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarBeamShot";
-									chargeShot = "VortexSolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
-							}
-							else
-							{
-								// Solar
-								if (slot5.type == sl)
-								{
-									shot = "SolarBeamShot";
-									chargeShot = "SolarBeamChargeShot";
-									shotSound = "PlasmaBeamRedV2Sound";
-									chargeShotSound = "PlasmaBeamRedChargeSound";
-									chargeUpSound = "ChargeStartup_PlasmaRed";
-									chargeTex = "ChargeLead_Solar";
-									dustType = 6;
-									lightColor = MetroidMod.plaRedColor;
-									texture = "SolarBeam";
-								}
 							}
 						}
 					}
@@ -1202,461 +960,11 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "VoltDriver";
 					chargeTex = "ChargeLead_Spazer";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
-					if (slot4.type == sp || slot4.type == wi)
+					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageVoltDriverCharge;
+					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriverCharge;
+					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
-						shotAmt = 3;
-						chargeShotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
-						chargeShotAmt = 5;
-					}
-					if (slot2.type == ic)
-					{
-						shot = "IceVoltDriverShot";
-						chargeShot = "IceVoltDriverChargeShot";
-
-						if (slot3.type == wa)
-						{
-							shot = "IceWaveVoltDriverShot";
-							chargeShot = "IceWaveVoltDriverChargeShot";
-
-
-							if (slot4.type == sp)
-							{
-								shot = "IceWaveSpazerVoltDriverShot";
-								chargeShot = "IceWaveSpazerVoltDriverChargeShot";
-
-
-								if (slot5.type == plG)
-								{
-									shot = "IceWaveSpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "IceWaveSpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveSpazerPlasmaRedVoltDriverShot";
-									chargeShot = "IceWaveSpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "IceWavePlasmaGreenVoltDriverShot";
-									chargeShot = "IceWavePlasmaGreenChargeVoltDriverShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedVoltDriverShot";
-									chargeShot = "IceWavePlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-
-							if (slot4.type == sp)
-							{
-								shot = "IceSpazerVoltDriverShot";
-								chargeShot = "IceSpazerVoltDriverChargeShot";
-
-								if (slot5.type == plG)
-								{
-									shot = "IceSpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "IceSpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaRedVoltDriverShot";
-									chargeShot = "IceSpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaGreenVoltDriverShot";
-									chargeShot = "IcePlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedVoltDriverShot";
-									chargeShot = "IcePlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-					}
-					else
-					{
-
-						if (slot3.type == wa)
-						{
-							shot = "WaveVoltDriverShot";
-							chargeShot = "WaveVoltDriverChargeShot";
-
-							if (slot4.type == sp)
-							{
-								shot = "WaveSpazerVoltDriverShot";
-								chargeShot = "WaveSpazerVoltDriverChargeShot";
-
-								if (slot5.type == plG)
-								{
-									shot = "WaveSpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "WaveSpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WaveSpazerPlasmaRedVoltDriverShot";
-									chargeShot = "WaveSpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaGreenVoltDriverShot";
-									chargeShot = "WavePlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedVoltDriverShot";
-									chargeShot = "WavePlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-
-							if (slot4.type == sp)
-							{
-								shot = "SpazerVoltDriverShot";
-								chargeShot = "SpazerVoltDriverChargeShot";
-
-								if (slot5.type == plG)
-								{
-									shot = "SpazerPlasmaGreenVoltDriverShot";
-									chargeShot = "SpazerPlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "SpazerPlasmaRedVoltDriverShot";
-									chargeShot = "SpazerPlasmaRedVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaGreenVoltDriverShot";
-									chargeShot = "PlasmaGreenVoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedVoltDriverShot";
-									chargeShot = "PlasmaRedVoltDriverChargeShot";
-								}
-							}
-						}
-					}
-
-					if (slot2.type == ic2)
-					{
-						shot = "IceV2VoltDriverShot";
-						chargeShot = "IceV2VoltDriverChargeShot";
-
-						if (slot3.type == wa2)
-						{
-							shot = "IceWaveV2VoltDriverShot";
-							chargeShot = "IceWaveV2VoltDriverChargeShot";
-
-
-							if (slot4.type == wi)
-							{
-								shot = "IceWaveWideVoltDriverShot";
-								chargeShot = "IceWaveWideVoltDriverChargeShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveWideNovaVoltDriverShot";
-									chargeShot = "IceWaveWideNovaVoltDriverChargeShot"; ;
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWaveWidePlasmaGreenV2VoltDriverShot";
-									chargeShot = "IceWaveWidePlasmaGreenV2VoltDriverChargeShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveWidePlasmaRedV2VoltDriverShot";
-									chargeShot = "IceWaveWidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaVoltDriverShot";
-									chargeShot = "IceWaveNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWavePlasmaGreenV2VoltDriverShot";
-									chargeShot = "IceWavePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedV2VoltDriverShot";
-									chargeShot = "IceWavePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == wi)
-							{
-								shot = "IceWideVoltDriverShot";
-								chargeShot = "IceWideVoltDriverChargeShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWideNovaVoltDriverShot";
-									chargeShot = "IceWideNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWidePlasmaGreenVoltDriverV2Shot";
-									chargeShot = "IceWidePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWidePlasmaRedV2VoltDriverShot";
-									chargeShot = "IceWidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceNovaVoltDriverShot";
-									chargeShot = "IceNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaGreenV2VoltDriverShot";
-									chargeShot = "IcePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedV2VoltDriverShot";
-									chargeShot = "IcePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == wa2)
-						{
-							shot = "WaveV2VoltDriverShot";
-							chargeShot = "WaveV2VoltDriverChargeShot";
-							if (slot4.type == wi)
-							{
-								shot = "WaveWideVoltDriverShot";
-								chargeShot = "WaveWideVoltDriverChargeShot";
-								if (slot5.type == nv)
-								{
-									shot = "WaveWideNovaVoltDriverShot";
-									chargeShot = "WaveWideNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WaveWidePlasmaGreenV2VoltDriverShot";
-									chargeShot = "WaveWidePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WaveWidePlasmaRedV2VoltDriverShot";
-									chargeShot = "WaveWidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaVoltDriverShot";
-									chargeShot = "WaveNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaGreenV2VoltDriverShot";
-									chargeShot = "WavePlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedV2VoltDriverShot";
-									chargeShot = "WavePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-
-							if (slot4.type == wi)
-							{
-								shot = "WideVoltDriverShot";
-								chargeShot = "WideVoltDriverChargeShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "WideNovaVoltDriverShot";
-									chargeShot = "WideNovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WidePlasmaGreenV2VoltDriverShot";
-									chargeShot = "WidePlasmaGreenV2VoltDriverChargeShot";
-
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WidePlasmaRedV2VoltDriverShot";
-									chargeShot = "WidePlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "NovaVoltDriverShot";
-									chargeShot = "NovaVoltDriverChargeShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaGreenV2VoltDriverShot";
-									chargeShot = "PlasmaGreenV2VoltDriverChargeShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedV2VoltDriverShot";
-									chargeShot = "PlasmaRedV2VoltDriverChargeShot";
-								}
-							}
-						}
-					}
-
-					if (slot2.type == sd)
-					{
-						shot = "StardustVoltDriverShot";
-						chargeShot = "StardustVoltDriverChargeShot";
-						if (slot3.type == nb)
-						{
-							shot = "StardustNebulaVoltDriverShot";
-							chargeShot = "StardustNebulaVoltDriverChargeShot";
-							if (slot4.type == vt)
-							{
-								shot = "StardustNebulaVortexVoltDriverShot";
-								chargeShot = "StardustNebulaVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarVoltDriverShot";
-									chargeShot = "StardustNebulaVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarVoltDriverShot";
-									chargeShot = "StardustNebulaSolarVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == vt)
-							{
-								shot = "StardustVortexVoltDriverShot";
-								chargeShot = "StardustVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarVoltDriverShot";
-									chargeShot = "StardustVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarVoltDriverShot";
-									chargeShot = "StardustSolarVoltDriverChargeShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == nb)
-						{
-							shot = "NebulaVoltDriverShot";
-							chargeShot = "NebulaVoltDriverChargeShot";
-							if (slot4.type == vt)
-							{
-								shot = "NebulaVortexVoltDriverShot";
-								chargeShot = "NebulaVortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarVoltDriverShot";
-									chargeShot = "NebulaVortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarVoltDriverShot";
-									chargeShot = "NebulaSolarVoltDriverChargeShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == vt)
-							{
-								shot = "VortexVoltDriverShot";
-								chargeShot = "VortexVoltDriverChargeShot";
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarVoltDriverShot";
-									chargeShot = "VortexSolarVoltDriverChargeShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "SolarVoltDriverShot";
-									chargeShot = "SolarVoltDriverChargeShot";
-								}
-							}
-						}
 					}
 				}
 				if (slot1.type == jd)
@@ -1671,8 +979,8 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Ice";
 					useTime = 15;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageJudicatorCharge;
+					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatJudicatorCharge;
 					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
@@ -1680,55 +988,6 @@ namespace MetroidMod.Content.Items.Weapons
 					if (!slot3.IsAir)
 					{
 						comboError2 = true;
-					}
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						isSpray = true;
-						shotAmt = 3;
-						chargeShotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
-						chargeShotAmt = 5;
-					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceJudicatorShot";
-						if (slot5.type == nv)
-						{
-							shot = "IceNovaJudicatorShot";
-							chargeShot = "IceNovaJudicatorChargeShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "IceSolarJudicatorShot";
-							chargeShot = "IceSolarJudicatorChargeShot";
-						}
-						if (slot5.type == plG)
-						{
-							shot = "IcePlasmaGreenJudicatorShot";
-							chargeShot = "IcePlasmaGreenJudicatorChargeShot";
-						}
-					}
-					else
-					{
-						if (slot5.type == nv)
-						{
-							shot = "NovaJudicatorShot";
-							chargeShot = "NovaJudicatorChargeShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "SolarJudicatorShot";
-							chargeShot = "SolarJudicatorChargeShot";
-						}
-						if (slot5.type == plG)
-						{
-							shot = "PlasmaGreenJudicatorShot";
-							chargeShot = "PlasmaGreenJudicatorChargeShot";
-						}
 					}
 				}
 
@@ -1743,50 +1002,10 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						isSpray = true;
 					}
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
 					if (!slot3.IsAir)
 					{
 						comboError2 = true;
 					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceBattleHammerShot";
-						if (slot5.type == plR)
-						{
-							shot = "IcePlasmaRedBattleHammerShot";
-						}
-						if (slot5.type == nv)
-						{
-							shot = "IceNovaBattleHammerShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "IceSolarBattleHammerShot";
-						}
-					}
-					else
-					{
-						if (slot5.type == plR)
-						{
-							shot = "PlasmaRedBattleHammerShot";
-						}
-						if (slot5.type == nv)
-						{
-							shot = "NovaBattleHammerShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "SolarBattleHammerShot";
-						}
-					}
-					
 					
 					if (slot5.type == plG)
 					{
@@ -1801,206 +1020,7 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "Imperialist";
 					useTime = 60;
 					Stealth = true;
-					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
-
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceImperialistShot";
-
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "IceWaveImperialistShot";
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceWaveSpazerImperialistShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveWideNovaImperialistShot";
-								}
-
-								if (slot5.type == plG)
-								{
-									shot = "IceWaveSpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveSpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarImperialistShot";
-								}
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IceWavePlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedImperialistShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceSpazerImperialistShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWideNovaImperialistShot";
-								}
-
-								if (slot5.type == plG)
-								{
-									shot = "IceSpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "IcePlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarImperialistShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "WaveImperialistShot";
-
-							if (slot4.type == sp)
-							{
-								shot = "WaveSpazerImperialistShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "WaveWideNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WaveSpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WaveSpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "WavePlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarImperialistShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "SpazerImperialistShot";
-								if (slot5.type == nv)
-								{
-									shot = "WideNovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "SpazerPlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "SpazerPlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarImperialistShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "NovaImperialistShot";
-								}
-								if (slot5.type == plG)
-								{
-									shot = "PlasmaGreenImperialistShot";
-								}
-
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedImperialistShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "SolarImperialistShot";
-								}
-							}
-						}
-					}
+					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();			
 				}
 				if (slot1.type == mm)
 				{
@@ -2013,20 +1033,12 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "MagMaul";
 					chargeTex = "ChargeLead_PlasmaRed";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageMagMaulCharge;
+					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatMagMaulCharge;
 					useTime = 20;
-					if (slot4.type == sp || slot4.type == wi)
+					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
-						shotAmt = 3;
-						chargeShotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
-						chargeShotAmt = 5;
 					}
 					if (!slot2.IsAir)
 					{
@@ -2040,21 +1052,6 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						comboError4 = true;
 					}
-					if (slot5.type == plR)
-					{
-						shot = "PlasmaRedMagMaulShot";
-						chargeShot = "PlasmaRedMagMaulChargeShot";
-					}
-					if (slot5.type == nv)
-					{
-						shot = "NovaMagMaulShot";
-						chargeShot = "NovaMagMaulChargeShot";
-					}
-					if (slot5.type == sl)
-					{
-						shot = "SolarMagMaulShot";
-						chargeShot = "SolarMagMaulChargeShot";
-					}
 				}
 				if (slot1.type == sc)
 				{
@@ -2064,170 +1061,14 @@ namespace MetroidMod.Content.Items.Weapons
 					shotSound = "ShockCoilStartupSound";
 					texture = "ShockCoil";
 					chargeUpSound = "ShockCoilStartupSound";
-					chargeShotSound = "ShockCoilLoad";
+					chargeShotSound = "ShockCoilReload";
 					chargeShot = "ShockCoilChargeShot";
 					chargeTex = "ChargeLead_Stardust";
 					Item.knockBack = 0;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					if (slot4.type == sp || slot4.type == wi)
-					{
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
 					if (slot5.type == plG)
 					{
 						comboError4 = true;
-					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceShockCoilShot";
-
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "IceWaveShockCoilShot";
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceWaveSpazerShockCoilShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveWideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWaveSpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == sl)
-								{
-									shot = "StardustNebulaSolarShockCoilShot";
-								}
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceWavePlasmaRedShockCoilShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "IceSpazerShockCoilShot";
-								if (slot5.type == nv)
-								{
-									shot = "IceWideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IceSpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "IceWaveNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "IcePlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "StardustSolarShockCoilShot";
-								}
-							}
-						}
-					}
-					else
-					{
-						if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-						{
-							shot = "WaveShockCoilShot";
-
-							if (slot4.type == sp)
-							{
-								shot = "WaveSpazerShockCoilShot";
-
-								if (slot5.type == nv)
-								{
-									shot = "WaveWideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WaveSpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaVortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "WaveNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "WavePlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "NebulaSolarShockCoilShot";
-								}
-							}
-						}
-						else
-						{
-							if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-							{
-								shot = "SpazerShockCoilShot";
-								if (slot5.type == nv)
-								{
-									shot = "WideNovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "SpazerPlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "VortexSolarShockCoilShot";
-								}
-							}
-							else
-							{
-								if (slot5.type == nv)
-								{
-									shot = "NovaShockCoilShot";
-								}
-								if (slot5.type == plR)
-								{
-									shot = "PlasmaRedShockCoilShot";
-								}
-								if (slot5.type == sl)
-								{
-									shot = "SolarShockCoilShot";
-								}
-							}
-						}
 					}
 				}
 				if (slot1.type == oc)
@@ -2237,49 +1078,14 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "OmegaCannon";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					useTime = 60;
-					if (slot4.type == sp || slot4.type == wi)
+					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
 						isSpray = true;
-						shotAmt = 3;
-					}
-					if (slot4.type == vt)
-					{
-						isSpray = true;
-						shotAmt = 5;
 					}
 					if (!slot3.IsAir)
 					{
 						comboError2 = true;
 					}
-					if (slot2.type == ic || slot2.type == ic2 || slot2.type == sd)
-					{
-						shot = "IceOmegaCannonShot";
-						if (slot5.type == plR)
-						{
-							shot = "IcePlasmaRedOmegaCannonShot";
-						}
-						if (slot5.type == nv)
-						{
-							shot = "IceNovaOmegaCannonShot";
-						}
-						if (slot5.type == sl)
-						{
-							shot = "IceSolarOmegaCannonShot";
-						}
-					}
-					if (slot5.type == plR)
-					{
-						shot = "PlasmaRedOmegaCannonShot";
-					}
-					if (slot5.type == nv)
-					{
-						shot = "NovaOmegaCannonShot";
-					}
-					if (slot5.type == sl)
-					{
-						shot = "SolarOmegaCannonShot";
-					}
-
 					if (slot5.type == plG)
 					{
 						comboError4 = true;
@@ -2299,55 +1105,7 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "HyperBeam";
 
 				// Wave / Nebula
-				if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-				{
-					string wave = "Wave";
-					if (slot3.type == nb)
-					{
-						wave = "Nebula";
-					}
-					shot = wave + "HyperBeamShot";
-
-					// Wave Spazer
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-					{
-						shot = wave + "SpazerHyperBeamShot";
-						shotAmt = 3;
-						if (slot4.type == vt)
-						{
-							shotAmt = 5;
-						}
-
-						// Wave Spazer Plasma
-						if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-						{
-							shot = wave + "SpazerPlasmaHyperBeamShot";
-						}
-					}
-					// Wave Plasma
-					else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = wave + "PlasmaHyperBeamShot";
-					}
-				}
-				// Spazer
-				else if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-				{
-					shot = "SpazerHyperBeamShot";
-					shotAmt = 3;
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
-
-					// Spazer Plasma
-					if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = "SpazerPlasmaHyperBeamShot";
-					}
-				}
-				// Plasma
-				else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
+				if(shooty.Contains("plasmagreen") || shooty.Contains("nova") || shooty.Contains("solar"))
 				{
 					shot = "PlasmaHyperBeamShot";
 				}
@@ -2363,60 +1121,6 @@ namespace MetroidMod.Content.Items.Weapons
 				overheat = Common.Configs.MConfigItems.Instance.overheatPhazonBeam;
 
 				texture = "PhazonBeam";
-
-				// Wave / Nebula
-				if (slot3.type == wa || slot3.type == wa2 || slot3.type == nb)
-				{
-					string wave = "Wave";
-					if (slot3.type == nb)
-					{
-						wave = "Nebula";
-					}
-					shot = wave + "PhazonBeamShot";
-
-					// Wave Spazer
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-					{
-						shot = wave + "SpazerPhazonBeamShot";
-						shotAmt = 3;
-						if (slot4.type == vt)
-						{
-							shotAmt = 5;
-						}
-
-						// Wave Spazer Plasma
-						if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-						{
-							shot = wave + "SpazerPlasmaPhazonBeamShot";
-						}
-					}
-					// Wave Plasma
-					else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = wave + "PlasmaPhazonBeamShot";
-					}
-				}
-				// Spazer
-				else if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
-				{
-					shot = "SpazerPhazonBeamShot";
-					shotAmt = 3;
-					if (slot4.type == vt)
-					{
-						shotAmt = 5;
-					}
-
-					// Spazer Plasma
-					if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-					{
-						shot = "SpazerPlasmaPhazonBeamShot";
-					}
-				}
-				// Plasma
-				else if (slot5.type == plG || slot5.type == nv || slot5.type == sl)
-				{
-					shot = "PlasmaPhazonBeamShot";
-				}
 			}
 
 			iceDmg = 0f;
@@ -2731,6 +1435,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ModItem clone = base.Clone(item);
 			PowerBeam beamClone = (PowerBeam)clone;
 			beamClone._beamMods = new Item[MetroidMod.beamSlotAmount];
+			beamClone._beamchangeMods = new Item[MetroidMod.beamChangeSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
 			{
 				if (_beamMods == null || _beamMods[i] == null)
@@ -2741,6 +1446,18 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					beamClone._beamMods[i] = _beamMods[i];
+				}
+			}
+			for (int i = 0; i < MetroidMod.beamChangeSlotAmount; ++i)
+			{
+				if (_beamchangeMods == null || _beamchangeMods[i] == null)
+				{
+					beamClone._beamchangeMods[i] = new Item();
+					beamClone._beamchangeMods[i].TurnToAir();
+				}
+				else
+				{
+					beamClone._beamchangeMods[i] = _beamchangeMods[i];
 				}
 			}
 
@@ -2770,6 +1487,7 @@ namespace MetroidMod.Content.Items.Weapons
 				cl.ChargeShotSound = chargeShotSound;
 				cl.ChargeShotSoundMod = chargeShotSoundMod;
 				cl.Projectile.netUpdate = true;
+				cl.noSomersault = noSomersault;
 
 				chargeLead = ch;
 			}
@@ -2783,7 +1501,7 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						if (i != 2)
 						{
-							int extraProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>("Extra" + shot).Type, damage, knockback, player.whoAmI, 0, i);
+							int extraProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ExtraHyperBeamShot>(), damage, knockback, player.whoAmI, 0, i);
 							MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
 							mProj.waveDir = waveDir;
 							Main.projectile[extraProj].netUpdate = true;
@@ -2965,11 +1683,11 @@ namespace MetroidMod.Content.Items.Weapons
 				player.shroomiteStealth = true;
 				if(stealth < 500f)
 				{
-					stealth += 2;
+					stealth += 4;
 				}
 				player.stealth -= stealth / 500;
 				player.aggro -= (int)stealth;
-				if (player.controlUseItem)
+				if (player.controlUseItem || player.velocity.X != 0 || player.velocity.Y != 0)
 				{
 					player.shroomiteStealth = false;
 					stealth = 0f;
@@ -2988,6 +1706,15 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				tag.Add("BeamItem" + i, ItemIO.Save(BeamMods[i]));
 			}
+			for (int i = 0; i < BeamChange.Length; ++i)
+			{
+				// Failsave check.
+				if (BeamChange[i] == null)
+				{
+					BeamChange[i] = new Item();
+				}
+				tag.Add("BeamChange" + i, ItemIO.Save(BeamChange[i]));
+			}
 		}
 		public override void LoadData(TagCompound tag)
 		{
@@ -2999,18 +1726,30 @@ namespace MetroidMod.Content.Items.Weapons
 					Item item = tag.Get<Item>("BeamItem" + i);
 					BeamMods[i] = item;
 				}
+				BeamChange = new Item[MetroidMod.beamChangeSlotAmount];
+				for (int i = 0; i < BeamChange.Length; i++)
+				{
+					Item item = tag.Get<Item>("BeamChange" + i);
+					BeamChange[i] = item;
+				}
 			}
 			catch { }
 		}
 
-		public override void OnCreate(ItemCreationContext context)
+		public override void OnCreated(ItemCreationContext context)
 		{
-			base.OnCreate(context);
+			base.OnCreated(context);
 			_beamMods = new Item[5];
+			_beamchangeMods = new Item[10];
 			for (int i = 0; i < _beamMods.Length; ++i)
 			{
 				_beamMods[i] = new Item();
 				_beamMods[i].TurnToAir();
+			}
+			for (int i = 0; i < _beamchangeMods.Length; ++i)
+			{
+				_beamchangeMods[i] = new Item();
+				_beamchangeMods[i].TurnToAir();
 			}
 		}
 
@@ -3020,6 +1759,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				ItemIO.Send(BeamMods[i], writer);
 			}
+			for (int i = 0; i < BeamChange.Length; ++i)
+			{
+				ItemIO.Send(BeamChange[i], writer);
+			}
 			writer.Write(chargeLead);
 		}
 		public override void NetReceive(BinaryReader reader)
@@ -3027,6 +1770,10 @@ namespace MetroidMod.Content.Items.Weapons
 			for (int i = 0; i < BeamMods.Length; ++i)
 			{
 				BeamMods[i] = ItemIO.Receive(reader);
+			}
+			for (int i = 0; i < BeamChange.Length; ++i)
+			{
+				BeamChange[i] = ItemIO.Receive(reader);
 			}
 			chargeLead = reader.ReadInt32();
 		}

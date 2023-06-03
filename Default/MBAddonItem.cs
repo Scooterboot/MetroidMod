@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.ID;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Default
 {
@@ -22,9 +23,9 @@ namespace MetroidMod.Default
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault() + (!modMBAddon.ItemNameLiteral ? " Addon" : ""));
-			Tooltip.SetDefault(modMBAddon.AddOnlyAddonItem ? $"Cannot be equipped\n{modMBAddon.Tooltip.GetDefault()}" : string.Format("[c/9696FF:Morph Ball Addon]") + $"\nSlot Type: {modMBAddon.GetAddonSlotName()}\n{modMBAddon.Tooltip.GetDefault()}");
-			SacrificeTotal = modMBAddon.SacrificeTotal;
+			// DisplayName.SetDefault(modMBAddon.DisplayName.GetDefault() + (!modMBAddon.ItemNameLiteral ? " Addon" : ""));
+			// Tooltip.SetDefault(modMBAddon.AddOnlyAddonItem ? $"Cannot be equipped\n{modMBAddon.Tooltip.GetDefault()}" : string.Format("[c/9696FF:Morph Ball Addon]") + $"\nSlot Type: {modMBAddon.GetAddonSlotName()}\n{modMBAddon.Tooltip.GetDefault()}");
+			Item.ResearchUnlockCount = modMBAddon.SacrificeTotal;
 		}
 
 		public override void SetDefaults()
@@ -48,7 +49,7 @@ namespace MetroidMod.Default
 
 		public override void HoldItem(Player player)
 		{
-			if (player.InInteractionRange(Player.tileTargetX, Player.tileTargetY))
+			if (player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default))
 			{
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = Type;

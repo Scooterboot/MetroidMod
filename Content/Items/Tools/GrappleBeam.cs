@@ -1,3 +1,4 @@
+using MetroidMod.Content.MorphBallAddons;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -9,12 +10,13 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grappling Beam");
-			Tooltip.SetDefault("'Swingy!'\n" + 
+			// DisplayName.SetDefault("Grappling Beam");
+			/* Tooltip.SetDefault("'Swingy!'\n" + 
 			"Press left or right to swing\n" + 
-			"Press up or down to ascend or descend the grapple");
+			"Press up or down to ascend or descend the grapple"); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = MBAddonLoader.GetAddon<SpiderBall>().ItemType;
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

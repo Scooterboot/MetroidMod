@@ -29,7 +29,6 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AddMapEntry(new Color(39, 76, 39));
-			ItemDrop = ModContent.ItemType<Items.Tiles.GripLedge>();
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
 			AdjTiles = new int[]{ TileID.Platforms };
 		}

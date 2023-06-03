@@ -8,6 +8,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
+using Terraria.WorldBuilding;
 
 namespace MetroidMod.Content.NPCs.Mobs.Crawler
 {
@@ -15,7 +16,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Viola");
+			// DisplayName.SetDefault("Viola");
 			Main.npcFrameCount[Type] = 6;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -31,7 +32,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return (spawnInfo.SpawnTileY > WorldGen.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + SpawnCondition.Underworld.Chance * 0.15f;
+			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + SpawnCondition.Underworld.Chance * 0.15f;
 		}
 		
 		public override void SetDefaults()
@@ -103,7 +104,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			return false;
 		}
 		
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{

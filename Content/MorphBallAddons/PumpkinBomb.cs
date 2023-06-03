@@ -18,15 +18,15 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 4;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pumpkin Morph Ball Bombs");
-			ModProjectile.DisplayName.SetDefault("Pumpkin Morph Ball Bomb");
-			Tooltip.SetDefault("-Right click to set off a bomb\n" +
+			// DisplayName.SetDefault("Pumpkin Morph Ball Bombs");
+			// ModProjectile.DisplayName.SetDefault("Pumpkin Morph Ball Bomb");
+			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
 			"Fires off Jack 'O Lanterns on detonation\n" +
-			"'I took a grenade to the face, dude!'");
+			"'I took a grenade to the face, dude!'"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -51,7 +51,7 @@ namespace MetroidMod.Content.MorphBallAddons
 				proj.timeLeft = 60;
 			}
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			// Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.DirectionTo(target.Center) * 8, ProjectileID.FlamingJack, (int)(damage * 1.5f), knockback + 3, Projectile.owner, target.whoAmI);
 		}

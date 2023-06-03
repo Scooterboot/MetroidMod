@@ -8,14 +8,14 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flamethrower");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
+			// DisplayName.SetDefault("Flamethrower");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Missile Launcher Addon]\n") +
 			"Slot Type: Charge\n" +
 			"Hold Click to charge\n" + 
 			"~Fires a constant stream of fire at full charge\n" + 
-			"~Initially costs 10 missiles, then drains 5 missiles per second during use");
+			"~Initially costs 10 missiles, then drains 5 missiles per second during use"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

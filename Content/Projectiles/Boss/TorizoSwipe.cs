@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torizo Swipe");
+			// DisplayName.SetDefault("Torizo Swipe");
 		}
 		public override void SetDefaults()
 		{

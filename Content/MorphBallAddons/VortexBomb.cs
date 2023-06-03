@@ -24,14 +24,17 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
+
+		public override double GenerationChance(int x, int y) => 1;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vortex Bomb");
-			ModProjectile.DisplayName.SetDefault("Vortex Bomb");
-			ModExplosionProjectile.DisplayName.SetDefault("Vortex Bomb");
-			Tooltip.SetDefault("-Press the Power Bomb Key to set off a Vortex Bomb (20 second cooldown)\n" +
+			// DisplayName.SetDefault("Vortex Bomb");
+			// ModProjectile.DisplayName.SetDefault("Vortex Bomb");
+			// ModExplosionProjectile.DisplayName.SetDefault("Vortex Bomb");
+			/* Tooltip.SetDefault("-Press the Power Bomb Key to set off a Vortex Bomb (20 second cooldown)\n" +
 			"-Vortex Bombs create massive explosions which vacuum in foes and items\n" +
-			"-Vortex Bombs can deal ~1400 damage total");
+			"-Vortex Bombs can deal ~1400 damage total"); */
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)

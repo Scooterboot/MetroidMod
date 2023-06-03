@@ -22,6 +22,7 @@ using MetroidMod.Common.GlobalNPCs;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using MetroidMod.Content.Biomes;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetroidMod.Common.Players
 {
@@ -410,13 +411,17 @@ namespace MetroidMod.Common.Players
 				dashTime++;
 			}
 		}
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+		public override bool ConsumableDodge(Player.HurtInfo info)//tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage
 		{
 			if (SMoveEffect > 0)
 			{
-				return false;
+				return true;
 			}
-			return PreHurt_SuitEnergy(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+			if (info.Damage > 0)
+			{
+				return PreHurt_SuitEnergy(info) & false;
+			}
+			return false;
 		}
 
 		public void SenseMove(Player P)
@@ -656,6 +661,7 @@ namespace MetroidMod.Common.Players
 		}
 
 		public bool psuedoScrewActive = false;
+		public bool beamChangeActive = false;
 		public override void SaveData(TagCompound tag)
 		{
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
@@ -717,7 +723,7 @@ namespace MetroidMod.Common.Players
 			Energy = 0;
 		}
 
-		public override void clientClone(ModPlayer clientClone)
+		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
 		{
 			MPlayer clone = clientClone as MPlayer;
 

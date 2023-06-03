@@ -9,11 +9,11 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag (Golden Torizo)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+			// DisplayName.SetDefault("Treasure Bag (Golden Torizo)");
+			// Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 
 			ItemID.Sets.BossBag[Type] = true;
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{
@@ -31,6 +31,7 @@ namespace MetroidMod.Content.Items.Boss
 		{
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accessories.ScrewAttack>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.EnergyShard>(), 1, 60, 144));
 		}
 	}
 }

@@ -11,12 +11,12 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Laser Drill");
+			// DisplayName.SetDefault("Nova Laser Drill");
 			//Tooltip.SetDefault("Capable of mining Phazon");
-			Tooltip.SetDefault(string.Format("This is the only tool that can mine phazon\n") +
-			string.Format("[c/BE7878:Cannot be used in morph ball]"));
+			/* Tooltip.SetDefault(string.Format("This is the only tool that can mine phazon\n") +
+			string.Format("[c/BE7878:Cannot be used in morph ball]")); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

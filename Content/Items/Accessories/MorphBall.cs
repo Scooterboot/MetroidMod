@@ -39,11 +39,11 @@ namespace MetroidMod.Content.Items.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Morph Ball");
-			Tooltip.SetDefault("Equip and press the mount key to roll into a ball\n" + 
-			"Morph Ball's colors are based on your shirt and undershirt colors");
+			// DisplayName.SetDefault("Morph Ball");
+			/* Tooltip.SetDefault("Equip and press the mount key to roll into a ball\n" + 
+			"Morph Ball's colors are based on your shirt and undershirt colors"); */
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

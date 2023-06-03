@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("MagMaul Charge Shot");
+			// DisplayName.SetDefault("MagMaul Charge Shot");
 			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()
@@ -41,12 +41,11 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public override void Kill(int timeLeft)
 		{
-			int dustType = 286;
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
 			Projectile.width += 125;
 			Projectile.height += 125;
-			Projectile.scale = 5f;
+			Projectile.scale = 3f;
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 			mProjectile.Diffuse(Projectile, 286);
@@ -59,41 +58,9 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(24, 600);
-			if (Projectile.Name.Contains("Solar"))
-			{
-				target.AddBuff(189, 300);
-			}
-			if (Projectile.Name.Contains("Nova"))
-			{
-				target.AddBuff(39, 300);
-			}
-		}
-		public class NovaMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Nova MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-		}
-		public class SolarMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Solar MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
-		}
-		public class PlasmaRedMagMaulChargeShot : MagMaulChargeShot
-		{
-			public override void SetStaticDefaults()
-			{
-				DisplayName.SetDefault("Plasma Red MagMaul Charge Shot");
-				Main.projFrames[Projectile.type] = 2;
-			}
 		}
 	}
 }

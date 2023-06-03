@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Terrain");
+			// DisplayName.SetDefault("Stardust Terrain");
 		}
 		
 		int size = 42;

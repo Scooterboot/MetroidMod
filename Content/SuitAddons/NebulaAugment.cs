@@ -24,12 +24,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
 
-		public override double GenerationChance(int x, int y) => 20;
+		public override double GenerationChance(int x, int y) => 1;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nebula Augment");
-			Tooltip.SetDefault("+29 defense\n" +
+			// DisplayName.SetDefault("Nebula Augment");
+			/* Tooltip.SetDefault("+29 defense\n" +
 				"+55 overheat capacity\n" +
 				"15% decreased overheat use\n" +
 				"15% decreased Missile Charge Combo cost\n" +
@@ -43,7 +43,8 @@ namespace MetroidMod.Content.SuitAddons
 				"Free movement in liquid\n" +
 				"Grants 7 seconds of lava immunity\n" +
 				"Immune to damage caused by blue Phazon blocks\n" +
-				"Enables Phazon Beam use");
+				"Enables Phazon Beam use");*/
+			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<VortexAugment>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
 		}

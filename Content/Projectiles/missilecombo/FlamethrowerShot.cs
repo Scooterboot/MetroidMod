@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flamethrower Shot");
+			// DisplayName.SetDefault("Flamethrower Shot");
 			Main.projFrames[Projectile.type] = 9;
 		}
 		int maxTimeLeft = 60;
@@ -147,7 +147,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			return false;
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.immune[Projectile.owner] = 4;
 			target.AddBuff(24,600,true);

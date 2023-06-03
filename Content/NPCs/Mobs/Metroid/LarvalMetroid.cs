@@ -25,7 +25,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Larval Metroid");
+			// DisplayName.SetDefault("Larval Metroid");
 			Main.npcFrameCount[Type] = 4;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -202,15 +202,15 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				player.knockbackResist = 0f;
 			}
 		}*/
-		public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+		/*public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
 		{
 			if (frozen && damage >= 20)
 			{
 				damage = (int)((double)(damage * (2 - (double)NPC.scale)) + (double)NPC.defense * 0.5);
 			}
 			return true;
-		}
-		public override void HitEffect(int hitDirection, double damage)
+		}*/
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
@@ -220,7 +220,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
 			}
 		}
-		public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
 			if (projectile.type == ((ModMBWeapon)MBAddonLoader.GetAddon<MorphBallAddons.Bomb>()).ProjectileType || projectile.type == ((ModMBSpecial)MBAddonLoader.GetAddon<MorphBallAddons.PowerBomb>()).ProjectileType)
 			{

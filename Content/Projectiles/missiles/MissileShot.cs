@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Missile Shot");
+			// DisplayName.SetDefault("Missile Shot");
 		}
 		public override void SetDefaults()
 		{
@@ -135,7 +135,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Missile Shot");
+			// DisplayName.SetDefault("Ice Missile Shot");
 		}
 	}
 }

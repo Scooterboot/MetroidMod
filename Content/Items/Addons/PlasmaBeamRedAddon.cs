@@ -1,6 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Addons.Hunters;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -8,16 +9,16 @@ namespace MetroidMod.Content.Items.Addons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasma Beam (Red)");
-			Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
+			// DisplayName.SetDefault("Plasma Beam (Red)");
+			/* Tooltip.SetDefault(string.Format("[c/9696FF:Power Beam Addon]\n") +
 				string.Format("[c/FF9696:Power Beam Addon V2]\n") +
 				"Slot Type: Primary B\n" +
 				"Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed\n" +
 				string.Format("[c/78BE78:+100% damage]\n") +
 				string.Format("[c/BE7878:+75% overheat use]\n") +
-				string.Format("[c/BE7878:-15% speed]"));
-
-			SacrificeTotal = 1;
+				string.Format("[c/BE7878:-15% speed]")); */
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PlasmaBeamGreenAddon>();
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

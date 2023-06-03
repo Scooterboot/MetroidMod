@@ -9,10 +9,10 @@ namespace MetroidMod.Content.Items.Boss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phazon Reactor Core");
-			Tooltip.SetDefault("Summons the Omega Pirate");
+			// DisplayName.SetDefault("Phazon Reactor Core");
+			// Tooltip.SetDefault("Summons the Omega Pirate");
 
-			SacrificeTotal = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 		public override void SetDefaults()
 		{
