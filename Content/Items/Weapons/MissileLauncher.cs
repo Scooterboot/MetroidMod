@@ -748,7 +748,7 @@ namespace MetroidMod.Content.Items.Weapons
 										{
 											if (comboTime <= 0)
 											{
-												var entitySource = Item.GetSource_ItemUse(Item);
+												var entitySource = player.GetSource_ItemUse(Item);
 												for (int i = 0; i < comboShotAmt; i++)
 												{
 													int proj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
@@ -772,7 +772,7 @@ namespace MetroidMod.Content.Items.Weapons
 												{
 													type = ModContent.ProjectileType<VortexComboLead>();
 												}
-												int proj = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, type, 0, 0, player.whoAmI);
+												int proj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, type, 0, 0, player.whoAmI);
 												Main.projectile[proj].ai[0] = chargeLead;
 											}
 
@@ -816,7 +816,7 @@ namespace MetroidMod.Content.Items.Weapons
 								{
 									if (isShotgun)
 									{
-										var entitySource = Item.GetSource_ItemUse(Item);
+										var entitySource = player.GetSource_ItemUse(Item);
 										for (int i = 0; i < shotgunAmt; i++)
 										{
 											int k = i - (shotgunAmt / 2);
@@ -832,7 +832,7 @@ namespace MetroidMod.Content.Items.Weapons
 									}
 									if (isHoming)
 									{
-										var entitySource = Item.GetSource_ItemUse(Item);
+										var entitySource = player.GetSource_ItemUse(Item);
 										int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage * 2, Item.knockBack, player.whoAmI);
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 										mProj.homing = true;
@@ -841,14 +841,14 @@ namespace MetroidMod.Content.Items.Weapons
 									}
 									else
 									{
-										var entitySource = Item.GetSource_ItemUse(Item);
+										var entitySource = player.GetSource_ItemUse(Item);
 										int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
 									}
 									mi.statMissiles -= chCost;
 								}
 								else if (mp.statCharge > 0)
 								{
-									var entitySource = Item.GetSource_ItemUse(Item);
+									var entitySource = player.GetSource_ItemUse(Item);
 									int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
 									mi.statMissiles -= 1;
 								}
@@ -975,7 +975,7 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
 						{
-							var entitySource = Item.GetSource_ItemUse(Item);
+							var entitySource = player.GetSource_ItemUse(Item);
 							for (int i = 0; i < mi.seekerTarget.Length; i++)
 							{
 								if (mi.seekerTarget[i] > -1)
@@ -993,7 +993,7 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else if (mi.seekerCharge > 0)
 						{
-							var entitySource = Item.GetSource_ItemUse(Item);
+							var entitySource = player.GetSource_ItemUse(Item);
 							int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
 							SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
 
