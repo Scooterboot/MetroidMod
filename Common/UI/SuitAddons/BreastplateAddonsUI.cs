@@ -46,8 +46,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public Vector2[] itemBoxPositionValues = new Vector2[4]
 		{
-			new Vector2(32, 174), // Energy
-			new Vector2(174, 174), // Reserve
+			new Vector2(32, 94), // Energy
+			new Vector2(174, 94), // Reserve
 			new Vector2(32, 14), // Barrier
 			new Vector2(174, 14) // Primary
 		};
