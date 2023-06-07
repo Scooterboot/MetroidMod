@@ -94,7 +94,7 @@ namespace MetroidMod.Common.Configs
 			[DefaultValue(true)]
 			public bool auto = true;
 
-			[Header("Location and Placement")]
+			[Header("LocationAndPlacement")]
 
 			/*[Label("Measure X from the left")]
 			[Tooltip("Measure X Displacement from the left side of the screen.\n" +
