@@ -3035,6 +3035,7 @@ Mods: {
 					DraggableMorphBallUI: Draggable Morph Ball UI
 					DraggableMissileLauncherUI: Draggable Missile Launcher UI
 					DraggablePowerBeamUI: Draggable Power Beam UI
+					DraggableUIPanels: Draggable Panels UI
 				}
 
 				UseAltWeaponTextures: {
@@ -3127,6 +3128,61 @@ Mods: {
 						Default value: true
 						'''
 				}
+
+				PowerBeam: {
+					Label: Power Beam
+					Tooltip: ""
+				}
+
+				PowerBeamError: {
+					Label: Power Beam Error
+					Tooltip: ""
+				}
+
+				MissileLauncher: {
+					Label: Missile Launcher
+					Tooltip: ""
+				}
+
+				MorphBall: {
+					Label: Morph Ball
+					Tooltip: ""
+				}
+
+				SenseMove: {
+					Label: Sense Move
+					Tooltip: ""
+				}
+
+				SuitMenu: {
+					Label: Suit Menu
+					Tooltip: ""
+				}
+
+				HelmetAddons: {
+					Label: Helmet Addons
+					Tooltip: ""
+				}
+
+				BreastplateAddons: {
+					Label: Breastplate Addons
+					Tooltip: ""
+				}
+
+				GreavesAddons: {
+					Label: Greaves Addons
+					Tooltip: ""
+				}
+
+				Reserves: {
+					Label: Reserves
+					Tooltip: ""
+				}
+
+				PsuedoScrewAttack: {
+					Label: Psuedo Screw Attack
+					Tooltip: ""
+				}
 			}
 
 			MConfigClientDebug: {
@@ -3150,6 +3206,11 @@ Mods: {
 						Default value: false
 						'''
 				}
+
+				DisplayDebugValues: {
+					Label: Display Debug Values
+					Tooltip: ""
+				}
 			}
 
 			MConfigItems: {
@@ -3158,7 +3219,7 @@ Mods: {
 				Headers: {
 					"[i:MetroidMod/ChoziteBar]Chozite_Gear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					"[i:MetroidMod/VariaSuitV2AddonAddon]PowerSuit": "[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit"
-					"[i:MetroidMod/PowerGripAddon]Suit_Addons": "[i:MetroidMod/PowerGripAddon] Suit Addons"
+					"[i:MetroidMod/PowerGrip]Suit_Addons": "[i:MetroidMod/PowerGrip] Suit Addons"
 					"[i:MetroidMod/PowerBeam]Standard_Weapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
 					"[i:MetroidMod/PowerBeam]Special_Beams": "[i:MetroidMod/PowerBeam] Special Beams"
 					"[i:MetroidMod/PowerBeam]PowerBeam_V2_Addons": "[i:MetroidMod/PowerBeam] Power Beam V2 Addons"
@@ -3170,14 +3231,15 @@ Mods: {
 					"[i:MetroidMod/PowerBeam]PowerBeamV1Addons": "[i:MetroidMod/PowerBeam] Power Beam V1 Addons"
 					"[i:MetroidMod/PowerBeam]SpecialBeams": "[i:MetroidMod/PowerBeam] Special Beams"
 					"[i:MetroidMod/PowerBeam]StandardWeapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
-					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i:MetroidMod/PowerGripAddon] Suit Addons"
+					"[i:MetroidMod/PowerGrip]SuitAddons": "[i:MetroidMod/PowerGrip] Suit Addons"
 					"[i:MetroidMod/ChoziteBar]ChoziteGear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					"[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i:MetroidMod/MissileLauncher] Missile Launcher Addons"
 					"[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons": "[i:MetroidMod/PowerBeam] Power Beam Hunters Addons"
+					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons Header"
 				}
 
 				enableWallJumpChoziteArmor: {
-					Label: "[i:MetroidMod/HiJumpBootsAddon] Wall Jump"
+					Label: "[i:MetroidMod/HiJumpBoots] Wall Jump"
 					Tooltip: When enabled, a full set of Chozite Armor grants the ability to Wall Jump.
 				}
 
@@ -3212,12 +3274,12 @@ Mods: {
 				}
 
 				enableLedgeClimbPowerSuitBreastplate: {
-					Label: "[i:MetroidMod/PowerGripAddon] Ledge Climb"
+					Label: "[i:MetroidMod/PowerGrip] Ledge Climb"
 					Tooltip: When enabled, the Power Suit's Breastplate grants Ledge Climb.
 				}
 
 				enableWallJumpPowerSuitGreaves: {
-					Label: "[i:MetroidMod/HiJumpBootsAddon] Wall Jump"
+					Label: "[i:MetroidMod/HiJumpBoots] Wall Jump"
 					Tooltip: When enabled, the Power Suit's Greaves grant Wall-Jump.
 				}
 
@@ -3257,7 +3319,7 @@ Mods: {
 				}
 
 				enableLedgeClimbNoPowerSuit: {
-					Label: "[i:MetroidMod/PowerGripAddon] Ledge Climb without Power Suit"
+					Label: "[i:MetroidMod/PowerGrip] Ledge Climb without Power Suit"
 					Tooltip:
 						'''
 						When enabled, lacking the Power Suit Breastplate will automatically grant you Ledge Climb,
@@ -3266,12 +3328,12 @@ Mods: {
 				}
 
 				enableWallJumpPowerGrip: {
-					Label: "[i:MetroidMod/PowerGripAddon][i:MetroidMod/HiJumpBootsAddon] Power Grip grants Wall Jump"
+					Label: "[i:MetroidMod/PowerGrip][i:MetroidMod/HiJumpBoots] Power Grip grants Wall Jump"
 					Tooltip: ""
 				}
 
 				enableLedgeClimbPowerGrip: {
-					Label: "[i:MetroidMod/PowerGripAddon] Power Grip grants Ledge Climb"
+					Label: "[i:MetroidMod/PowerGrip] Power Grip grants Ledge Climb"
 					Tooltip: ""
 				}
 
@@ -3744,6 +3806,16 @@ Mods: {
 					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Heat Modifier"
 					Tooltip: ""
 				}
+
+				stackReserveTank: {
+					Label: "[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack"
+					Tooltip: ""
+				}
+
+				reserveTankStoreCount: {
+					Label: "[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity"
+					Tooltip: ""
+				}
 			}
 
 			MConfigMain: {
@@ -3768,7 +3840,7 @@ Mods: {
 				}
 
 				enableMorphBallWallJump: {
-					Label: "[i:MetroidMod/HiJumpBootsAddon] Wall-Jump while in Morph Ball"
+					Label: "[i:MetroidMod/HiJumpBoots] Wall-Jump while in Morph Ball"
 					Tooltip:
 						'''
 						By default, you cannot Wall-Jump while in Morph Ball.
@@ -3784,6 +3856,58 @@ Mods: {
 				AutocloseHatchesTime: {
 					Label: Timer
 					Tooltip: Time before hatches automatically close, in seconds.
+				}
+			}
+
+			DragablePanelPage: {
+				Tooltip: ""
+
+				enabled: {
+					Label: Enabled
+					Tooltip:
+						'''
+						Allows the UI to be draggable.
+						Default value: false
+						'''
+				}
+
+				auto: {
+					Label: Automatically move the UI
+					Tooltip:
+						'''
+						Automatically moves the UI according to other UI elements.
+						Default value: true
+						'''
+				}
+
+				Headers.LocationAndPlacement: Location and Placement
+
+				fromLeft: {
+					Label: Measure X from the left
+					Tooltip:
+						'''
+						Measure X Displacement from the left side of the screen.
+						Default value: true
+						'''
+				}
+
+				locationX: {
+					Label: X Displacement
+					Tooltip: ""
+				}
+
+				fromTop: {
+					Label: Measure Y from the top
+					Tooltip:
+						'''
+						Measure Y Displacement from the top side of the screen.
+						Default value: true
+						'''
+				}
+
+				locationY: {
+					Label: Y Displacement
+					Tooltip: ""
 				}
 			}
 		}
