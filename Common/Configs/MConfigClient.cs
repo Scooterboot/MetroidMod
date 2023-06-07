@@ -6,7 +6,7 @@ using Terraria.ModLoader.Config;
 namespace MetroidMod.Common.Configs
 {
 	[LegacyName("MConfig")]
-	[Label("Client Config")]
+	//[Label("Client Config")]
 	public class MConfigClient : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
@@ -19,59 +19,59 @@ namespace MetroidMod.Common.Configs
 		
 		[Header("General")]
 		
-		[Label("Toggle alternate weapon textures")]
+		/*[Label("Toggle alternate weapon textures")]
 		[Tooltip("When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.\n" +
-		"Default value: false")]
+		"Default value: false")]*/
 		public bool UseAltWeaponTextures;
 
-		[Label("[i:MetroidMod/EnergyTankAddon] Energy Hit Sound")]
+		/*[Label("[i:MetroidMod/EnergyTankAddon] Energy Hit Sound")]
 		[Tooltip("When enabled, a custom sound will play when Suit Energy receives damage.\n" +
-		"Default value: true")]
+		"Default value: true")]*/
 		[DefaultValue(true)]
 		public bool energyHit;
 
-		[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert")]
+		/*[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert")]
 		[Tooltip("When enabled, a beep will be heard when Suit Energy is low.\n" +
 		"Default value: true")]
-		[DefaultValue(true)]
+		[DefaultValue(true)]*/
 		public bool energyLow;
 
-        [Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Interval")]
-        [Tooltip("The interval between Low Energy beeps.\n[Default: 20]")]
+        /*[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Interval")]
+        [Tooltip("The interval between Low Energy beeps.\n[Default: 20]")]*/
         [Slider]
         [DefaultValue(20)]
         [Range(5, 200)]
         [Increment(5)]
         public int energyLowInterval;
 
-		[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Fade")]
+		/*[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Fade")]
 		[Tooltip("When enabled, a fading, non-looping beep will be heard when Suit Energy is low.\n" +
-		"Default value: false\n" + "(WORK IN PROGRESS)")]
+		"Default value: false\n" + "(WORK IN PROGRESS)")]*/
 		[DefaultValue(false)]
 		public bool energyLowFade;
 
 		[Header("DraggableUIPanels")]
-		[Label("Power Beam")]
+		//[Label("Power Beam")]
 		public DragablePanelPage PowerBeam = new();
-		[Label("Power Beam Error")]
+		//[Label("Power Beam Error")]
 		public DragablePanelPage PowerBeamError = new();
-		[Label("Missile Launcher")]
+		//[Label("Missile Launcher")]
 		public DragablePanelPage MissileLauncher = new();
-		[Label("Morph Ball")]
+		//[Label("Morph Ball")]
 		public DragablePanelPage MorphBall = new();
-		[Label("Sense Move")]
+		//[Label("Sense Move")]
 		public DragablePanelPage SenseMove = new();
-		[Label("Suit Menu")]
+		//[Label("Suit Menu")]
 		public DragablePanelPage SuitMenu = new();
-		[Label("Helmet Addons")]
+		//[Label("Helmet Addons")]
 		public DragablePanelPage HelmetAddons = new();
-		[Label("Breastplate Addons")]
+		//[Label("Breastplate Addons")]
 		public DragablePanelPage BreastplateAddons = new();
-		[Label("Greaves Addons")]
+		//[Label("Greaves Addons")]
 		public DragablePanelPage GreavesAddons = new();
-		[Label("Reserves Menu")]
+		//[Label("Reserves Menu")]
 		public DragablePanelPage Reserves = new();
-		[Label("Charge Somersault (Psuedo Screw Attack)")]
+		//[Label("Charge Somersault (Psuedo Screw Attack)")]
 		public DragablePanelPage PsuedoScrewAttack = new();
 
 		[SeparatePage]
@@ -82,31 +82,31 @@ namespace MetroidMod.Common.Configs
 
 			}
 
-			[Label("Enabled")]
+			/*[Label("Enabled")]
 			[Tooltip("Allows the UI to be draggable.\n" +
-			"Default value: false")]
+			"Default value: false")]*/
 			[DefaultValue(false)]
 			public bool enabled = false;
 
-			[Label("Automatically move the UI")]
+			/*[Label("Automatically move the UI")]
 			[Tooltip("Automatically moves the UI according to other UI elements.\n" +
-			"Default value: true")]
+			"Default value: true")]*/
 			[DefaultValue(true)]
 			public bool auto = true;
 
 			[Header("Location and Placement")]
 
-			[Label("Measure X from the left")]
+			/*[Label("Measure X from the left")]
 			[Tooltip("Measure X Displacement from the left side of the screen.\n" +
-			"Default value: true")]
+			"Default value: true")]*/
 			public bool fromLeft = true;
-			[Label("X Displacement")]
+			//[Label("X Displacement")]
 			public float locationX;
-			[Label("Measure Y from the top")]
+			/*[Label("Measure Y from the top")]
 			[Tooltip("Measure Y Displacement from the top side of the screen.\n" +
-			"Default value: true")]
+			"Default value: true")]*/
 			public bool fromTop = true;
-			[Label("Y Displacement")]
+			//[Label("Y Displacement")]
 			public float locationY;
 
 			public override string ToString()
@@ -126,9 +126,9 @@ namespace MetroidMod.Common.Configs
 
 		[Header("MapIcons")]
 		
-		[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
+		/*[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
 		[Tooltip("When enabled, the map will show an icon where Torizo's boss room is.\n" +
-		"Default value: true")]
+		"Default value: true")]*/
 		[DefaultValue(true)]
 		public bool showTorizoRoomIcon;
 
@@ -138,7 +138,7 @@ namespace MetroidMod.Common.Configs
 		}
 	}
 
-	[Label("Client Side Debug")]
+	//[Label("Client Side Debug")]
 	public class MConfigClientDebug : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
@@ -150,20 +150,20 @@ namespace MetroidMod.Common.Configs
 			Instance = this;
 		}
 		
-		[Label("Draw NPC hitboxes")]
+		/*[Label("Draw NPC hitboxes")]
 		[Tooltip("When enabled, draws NPC hitboxes.\n" +
-		"Default value: false")]
+		"Default value: false")]*/
 		public bool DrawNPCHitboxes;
 
-		[Label("Markers for statue items")]
+		/*[Label("Markers for statue items")]
 		[Tooltip("When enabled, draws markers for statue items\n" +
 		"Note: Performance will tank on world load\n" +
-		"Default value: false")]
+		"Default value: false")]*/
 		public bool StatueItemMarkers;
 
-		[Label("Display debug values")]
+		/*[Label("Display debug values")]
 		[Tooltip("When enabled, displays certain debug values.\n" +
-		"Default value: false")]
+		"Default value: false")]*/
 		public bool DisplayDebugValues;
 
 		public override void OnChanged()
