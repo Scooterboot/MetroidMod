@@ -35,5 +35,11 @@ Credits:
 -Some tile and wall textures.
 [Wandering Spider and VinniSauce]
 -Collaborating on revamping most all item and tile textures
+[DrMetroid]
+Metroid Prime Hunters content and 1.4.4.9 port
+[Whiteserpent]
+Bestiary
+[Paradoxx Productions]
+New music tracks
 
 And Nintendo, for the entire Metroid Franchise!
