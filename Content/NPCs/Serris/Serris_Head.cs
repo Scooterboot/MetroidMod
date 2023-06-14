@@ -75,6 +75,15 @@ namespace MetroidMod.Content.NPCs.Serris
 				}
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+
+			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			{ // Influences how the NPC looks in the Bestiary
+				CustomTexturePath = "MetroidMod/Content/NPCs/Serris/Serris_BossLog", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+				Position = new Vector2(0f, -40f), // icon
+				PortraitPositionXOverride = 0f, // portrait view
+				PortraitPositionYOverride = -24f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 		}
 		public override void SetDefaults()
 		{
