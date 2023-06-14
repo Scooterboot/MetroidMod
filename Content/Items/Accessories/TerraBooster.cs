@@ -53,6 +53,11 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient(ItemID.TerrasparkBoots, 1)
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
+			CreateRecipe(1)
+				.AddIngredient<ScrewSpaceBooster>(1)
+				.AddIngredient(ItemID.FrostsparkBoots, 1)
+				.AddIngredient(ItemID.LavaWaders, 1)
+				.Register();
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
@@ -70,6 +75,61 @@ namespace MetroidMod.Content.Items.Accessories
 			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item),mp.screwAttackDmg);
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;
+		}
+	}
+
+	public class TerraBoosterV2 : ModItem
+	{
+		public override string Texture => $"{Mod.Name}/Content/Items/Accessories/TerraBooster";
+		public override void SetStaticDefaults()
+		{
+			Item.ResearchUnlockCount = 1;
+		}
+
+		public override void SetDefaults()
+		{
+			Item.damage = 150;
+			Item.noMelee = true;
+			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
+			Item.width = 36;
+			Item.height = 32;
+			Item.maxStack = 1;
+			Item.value = 250000;
+			Item.rare = ItemRarityID.Cyan;
+			Item.accessory = true;
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.consumable = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+		}
+
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			player.accRunSpeed = 6.75f;
+			player.moveSpeed += 0.2f;
+			player.iceSkate = true;
+			player.waterWalk = true;
+			player.fireWalk = true;
+			player.lavaMax += 420;
+			mp.speedBooster = true;
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
+			mp.spaceJump = true;
+			mp.screwAttack = true;
+			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item), mp.screwAttackDmg);
+			mp.hiJumpBoost = true;
+			player.noFallDmg = true;
+			player.empressBrooch = true;
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient<TerraBooster>(1)
+				.AddIngredient(ItemID.EmpressFlightBooster, 1)
+				.Register();
 		}
 	}
 }

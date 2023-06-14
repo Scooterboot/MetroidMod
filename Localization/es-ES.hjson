@@ -2665,6 +2665,11 @@ Mods: {
 				// DisplayName: X Ray Scope
 				// Tooltip: Projects a wide ray of light if you are standing still
 			}
+
+			TerraBoosterV2: {
+				// DisplayName: Terra Booster V2
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

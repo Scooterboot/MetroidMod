@@ -2665,6 +2665,25 @@ Mods: {
 				DisplayName: X Ray Scope
 				Tooltip: Projects a wide ray of light if you are standing still
 			}
+
+			TerraBoosterV2: {
+				DisplayName: Terra Booster V2
+				Tooltip:
+					'''
+					Allows the user to run insanely fast and extra mobility on ice
+					Allows somersaulting
+					Damage enemies while running or somersaulting
+					Damage scales off of enemy's contact damage
+					Allows the user to jump up to 10 times in a row
+					Jumps recharge mid-air
+					Holding left/right while jumping midair gives a boost 
+					Provides the ability to walk on water and lava 
+					Grants immunity to fire blocks and 7 seconds lava immunity
+					Increases jump height and prevents fall damage
+					Grants infinite wing and rocket boot flight
+					Increases flight and jump mobility
+					'''
+			}
 		}
 
 		NPCs: {
