@@ -12,6 +12,8 @@ using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("SpeedBoosterAddon")]
 	public class SpeedBooster : ModItem
 	{
 		public override void SetStaticDefaults()

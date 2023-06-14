@@ -11,6 +11,8 @@ using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("SpaceJumpBootsAddon")]
 	public class SpaceJumpBoots : ModItem
 	{
 		public override void SetStaticDefaults()

@@ -5,6 +5,8 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("HiJumpBootsAddon")]
 	public class HiJumpBoots : ModItem
 	{
 		public override void SetStaticDefaults()

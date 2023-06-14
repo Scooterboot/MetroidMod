@@ -5,6 +5,8 @@ using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("PowerGripAddon")]
 	public class PowerGrip : ModItem
 	{
 		public override void SetStaticDefaults()

@@ -9,6 +9,8 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("ScrewAttackAddon")]
 	public class ScrewAttack : ModItem//HunterDamageItem
 	{
 		public override void SetStaticDefaults()

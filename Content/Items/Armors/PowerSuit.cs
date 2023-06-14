@@ -58,6 +58,25 @@ namespace MetroidMod.Content.Items.Armors
 			{
 				mp.powerGrip = true;
 			}
+			#region Handle old data
+			if (SuitAddons.Length > SuitAddonSlotID.Suit_Primary + 1)
+			{
+				if (!SuitAddons[4].IsAir)
+				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[4], SuitAddons[4].stack); SuitAddons[4].TurnToAir(true); }
+				if (!SuitAddons[5].IsAir)
+				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[5], SuitAddons[5].stack); SuitAddons[5].TurnToAir(true); }
+				if (!SuitAddons[6].IsAir)
+				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[6], SuitAddons[6].stack); SuitAddons[6].TurnToAir(true); }
+				if (!SuitAddons[7].IsAir)
+				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[7], SuitAddons[7].stack); SuitAddons[7].TurnToAir(true); }
+				Item[] items = new Item[4];
+				for (int i = 0; i < items.Length; i++)
+				{
+					items[i] = SuitAddons[i];
+				}
+				SuitAddons = items;
+			}
+			#endregion
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -120,8 +139,40 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			try
 			{
-				SuitAddons = new Item[SuitAddonSlotID.Suit_Primary + 1];
-				for (int i = 0; i < SuitAddons.Length; i++)
+				if (tag.ContainsKey("SuitAddons4"))
+				{
+					LoadLegacyData(tag);
+				}
+				else
+				{
+					SuitAddons = new Item[SuitAddonSlotID.Suit_Primary + 1];
+					for (int i = 0; i < SuitAddons.Length; i++)
+					{
+						Item item = tag.Get<Item>("SuitAddons" + i);
+						SuitAddons[i] = item;
+					}
+				}
+			}
+			catch { }
+		}
+		/// <summary>
+		/// Loads (and readies) pre-rework save data. The pre-rework save data in question follows a format such that:<br/>
+		/// 0 = Reserve Tanks<br/>
+		/// 1 = Energy Tanks<br/>
+		/// 2 = Varia/Varia V2<br/>
+		/// 3 = Gravity/Dark/PED<br/>
+		/// 4 = Light/Terra Gravity/Phazon/Hazard Shield<br/>
+		/// 5 = Lunar<br/>
+		/// </summary>
+		/// <param name="tag">The TagCompound to load data from.</param>
+		public void LoadLegacyData(TagCompound tag)
+		{
+			try
+			{
+				SuitAddons = new Item[8];
+				// varia and gravity are fine as-is, they'll just go into "Barrier" and "Primary" respectively
+				// however we'll want to spit out IDs 4 through 7
+				for (int i = 0; i < 8; i++)
 				{
 					Item item = tag.Get<Item>("SuitAddons" + i);
 					SuitAddons[i] = item;
@@ -164,6 +215,28 @@ namespace MetroidMod.Content.Items.Armors
 	[AutoloadEquip(EquipType.Legs)]
 	public class PowerSuitGreaves : ModItem
 	{
+		// Failsaves.
+		private Item[] _suitAddons;
+		/// <summary>
+		/// HEY! This is just here for pre-rework addon formats. These will only be spat out.
+		/// </summary>
+		public Item[] SuitAddons
+		{
+			get {
+				if (_suitAddons == null)
+				{
+					_suitAddons = new Item[3];
+					for (int i = 0; i < _suitAddons.Length; i++)
+					{
+						_suitAddons[i] = new Item();
+						_suitAddons[i].TurnToAir();
+					}
+				}
+
+				return _suitAddons;
+			}
+			set { _suitAddons = value; }
+		}
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Power Suit Greaves");
@@ -192,6 +265,17 @@ namespace MetroidMod.Content.Items.Armors
 			{
 				player.noFallDmg = true;
 			}
+			#region Old data handling
+			if (SuitAddons != null && SuitAddons.Length > 0)
+			{
+				if (!SuitAddons[0].IsAir)
+				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[0], SuitAddons[0].stack); SuitAddons[0].TurnToAir(true); }
+				if (!SuitAddons[1].IsAir)
+				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[1], SuitAddons[1].stack); SuitAddons[1].TurnToAir(true); }
+				if (!SuitAddons[2].IsAir)
+				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[2], SuitAddons[2].stack); SuitAddons[2].TurnToAir(true); }
+			}
+			#endregion
 		}
 
 		public override void AddRecipes()
@@ -202,6 +286,21 @@ namespace MetroidMod.Content.Items.Armors
 				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 15)
 				.AddTile(TileID.Anvils)
 				.Register();
+		}
+		// no corresponding SaveData because we're attempting loading legacy data
+		public override void LoadData(TagCompound tag)
+		{
+			try
+			{
+				if (!tag.ContainsKey("SuitAddons0")) { return; }
+				// load pre-rework data since it's there
+				for (int i = 0; i < 3; i++)
+				{
+					Item item = tag.Get<Item>("SuitAddons" + i);
+					SuitAddons[i] = item;
+				}
+			}
+			catch { }
 		}
 	}
 	[AutoloadEquip(EquipType.Head)]
