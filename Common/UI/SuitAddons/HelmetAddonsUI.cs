@@ -72,7 +72,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				addonSlots[i] = new HelmetUIItemBox();
 				addonSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
 				addonSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
-				addonSlots[i].addonSlotType = i + 9;
+				addonSlots[i].addonSlotType = i + 4;
 				addonSlots[i].SetCondition();
 
 				Append(addonSlots[i]);
@@ -156,23 +156,23 @@ namespace MetroidMod.Common.UI.SuitAddons
 			if (Main.LocalPlayer.armor[0].type != ModContent.ItemType<PowerSuitHelmet>()) { return; }
 			PowerSuitHelmet target = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
 
-			if (target.SuitAddons[addonSlotType - 9] != null && !target.SuitAddons[addonSlotType - 9].IsAir)
+			if (target.SuitAddons[addonSlotType - 4] != null && !target.SuitAddons[addonSlotType - 4].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = target.SuitAddons[addonSlotType - 9].Clone();
+					Main.mouseItem = target.SuitAddons[addonSlotType - 4].Clone();
 
-					target.SuitAddons[addonSlotType - 9].TurnToAir();
+					target.SuitAddons[addonSlotType - 4].TurnToAir();
 				}
 				else if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 
-					Item tempBoxItem = target.SuitAddons[addonSlotType - 9].Clone();
+					Item tempBoxItem = target.SuitAddons[addonSlotType - 4].Clone();
 					Item tempMouseItem = Main.mouseItem.Clone();
 
-					target.SuitAddons[addonSlotType - 9] = tempMouseItem;
+					target.SuitAddons[addonSlotType - 4] = tempMouseItem;
 					Main.mouseItem = tempBoxItem;
 				}
 			}
@@ -181,7 +181,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					target.SuitAddons[addonSlotType - 9] = Main.mouseItem.Clone();
+					target.SuitAddons[addonSlotType - 4] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
 			}
@@ -197,18 +197,18 @@ namespace MetroidMod.Common.UI.SuitAddons
 			if (Main.LocalPlayer.armor[0].IsAir) { return; }
 			PowerSuitHelmet helmet = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
 
-			Color itemColor = helmet.SuitAddons[addonSlotType - 9].GetAlpha(Color.White);
-			Texture2D itemTexture = TextureAssets.Item[helmet.SuitAddons[addonSlotType - 9].type].Value;
+			Color itemColor = helmet.SuitAddons[addonSlotType - 4].GetAlpha(Color.White);
+			Texture2D itemTexture = TextureAssets.Item[helmet.SuitAddons[addonSlotType - 4].type].Value;
 			CalculatedStyle innerDimensions = GetDimensions();
 
 			if (IsMouseHovering)
 			{
-				Main.hoverItemName = helmet.SuitAddons[addonSlotType - 9].Name;
-				Main.HoverItem = helmet.SuitAddons[addonSlotType - 9].Clone();
+				Main.hoverItemName = helmet.SuitAddons[addonSlotType - 4].Name;
+				Main.HoverItem = helmet.SuitAddons[addonSlotType - 4].Clone();
 			}
 
-			Rectangle frame = Main.itemAnimations[helmet.SuitAddons[addonSlotType - 9].type] != null
-						? Main.itemAnimations[helmet.SuitAddons[addonSlotType - 9].type].GetFrame(itemTexture)
+			Rectangle frame = Main.itemAnimations[helmet.SuitAddons[addonSlotType - 4].type] != null
+						? Main.itemAnimations[helmet.SuitAddons[addonSlotType - 4].type].GetFrame(itemTexture)
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
@@ -227,7 +227,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			//float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, helmet.SuitAddons[addonSlotType - 9].type);
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, helmet.SuitAddons[addonSlotType - 4].type);
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
@@ -237,7 +237,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if (helmet.SuitAddons[addonSlotType - 9].color != default(Color))
+			if (helmet.SuitAddons[addonSlotType - 4].color != default(Color))
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
