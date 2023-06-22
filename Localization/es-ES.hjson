@@ -3785,6 +3785,11 @@ Mods: {
 					// Label: Timer
 					// Tooltip: Time before hatches automatically close, in seconds.
 				}
+
+				drunkWorldHasDrunkStatues: {
+					// Label: Drunk World has drunk Chozo Statues
+					// Tooltip: When enabled, Chozo Statues can have any suit addon or morph ball addon.
+				}
 			}
 		}
 	}
