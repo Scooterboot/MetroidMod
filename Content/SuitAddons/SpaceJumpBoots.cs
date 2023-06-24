@@ -50,28 +50,28 @@ namespace MetroidMod.Content.SuitAddons
 			CreateRecipe(1)
 				//.AddIngredient(SuitAddonLoader.GetAddon<HiJumpBoots>().Item, 1)
 				.AddIngredient(ItemID.CloudinaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				//.AddIngredient(SuitAddonLoader.GetAddon<HiJumpBoots>().Item, 1)
 				.AddIngredient(ItemID.BlizzardinaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				//.AddIngredient(SuitAddonLoader.GetAddon<HiJumpBoots>().Item, 1)
 				.AddIngredient(ItemID.SandstorminaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				//.AddIngredient(SuitAddonLoader.GetAddon<HiJumpBoots>().Item, 1)
 				.AddIngredient(ItemID.TsunamiInABottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
