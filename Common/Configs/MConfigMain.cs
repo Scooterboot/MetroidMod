@@ -33,6 +33,9 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(true)]
 		public bool enableBossSummonConsumption;
 
+		[DefaultValue(false)]
+		public bool drunkWorldHasDrunkStatues;
+
 		//The following isn't done yet.
 		/*//[Label("[i:MetroidMod/TorizoBag] Bosses drop addons")]
 		//[Tooltip("When enabled, certain Bosses will drop Suit and Beam addons upon death.")]

@@ -47,7 +47,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				//mProjectile.wavesPerSecond = 1f;
 				//mProjectile.delay = 1;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("wave"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("wave") || Items.Weapons.PowerBeam.shooty.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
