@@ -59,7 +59,10 @@ namespace MetroidMod.Content.SuitAddons
 			player.statDefense += 29;
 			player.noKnockback = true;
 			player.ignoreWater = true;
-			player.gills = true;
+			if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
+			{
+				player.gills = true;
+			}
 			player.moveSpeed += 0.10f;
 			player.lavaMax += 840;
 			player.gravity = Player.defaultGravity;
