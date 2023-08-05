@@ -8,6 +8,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.SuitAddons;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -46,28 +47,28 @@ namespace MetroidMod.Content.Items.Accessories
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.CloudinaBottle, 1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.BlizzardinaBottle, 1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.SandstorminaBottle, 1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.TsunamiInABottle, 1)
-				.AddIngredient<Tiles.EnergyTank>(1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
