@@ -10,6 +10,8 @@ using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Weapons;
+
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
 	public class ShockCoilShot : MProjectile
@@ -67,7 +69,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			Lead = Main.projectile[(int)P.ai[0]];
 
-			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("nebula") || Items.Weapons.PowerBeam.shooty.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 				//mProjectile.WaveBehavior(Projectile);
@@ -265,7 +267,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 
 		}
-
 		public override void CutTiles()
 		{
 			Player p = Main.player[Projectile.owner];
@@ -294,10 +295,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
             Projectile P = Projectile;
 			Color color = MetroidMod.powColor;
 			Player p = Main.player[Projectile.owner];
-			MPlayer mp = p.GetModPlayer<MPlayer>();
-
+			Vector2 oPos = p.RotatedRelativePoint(p.MountedCenter, true, true);
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
-            int num108 = tex.Height / Main.projFrames[P.type];
+			MPlayer mp = p.GetModPlayer<MPlayer>();
+			int num108 = tex.Height / Main.projFrames[P.type];
             int y4 = num108 * P.frame;
 
 
@@ -341,7 +342,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                         }
                     }
 
-                    pos[i] = p.Center + targetrot.ToRotationVector2() * (dist / num) * i;
+					pos[i] = oPos + targetrot.ToRotationVector2() * (dist / num) * i;
                     pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
                     pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
 
