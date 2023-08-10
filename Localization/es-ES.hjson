@@ -2668,7 +2668,11 @@ Mods: {
 		}
 
 		NPCs: {
-			// GoldenTorizo.DisplayName: Golden Torizo
+			GoldenTorizo: {
+				// DisplayName: Golden Torizo
+				// BossChecklistIntegration.SpawnInfo: Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.
+			}
+
 			// GoldenTorizo_HitBox.DisplayName: Golden Torizo
 
 			IdleGoldenTorizo: {
@@ -2699,7 +2703,12 @@ Mods: {
 			// Kraid_ArmBack.DisplayName: Kraid
 			// Kraid_ArmFront.DisplayName: Kraid
 			// Kraid_Body.DisplayName: Kraid
-			// Kraid_Head.DisplayName: Kraid
+
+			Kraid_Head: {
+				// DisplayName: Kraid
+				// BossChecklistIntegration.SpawnInfo: Spawn conditions unknown
+			}
+
 			// KraidClaw.DisplayName: Kraid
 			// Evir.DisplayName: Evir
 			// Skultera.DisplayName: Skultera
@@ -2745,20 +2754,40 @@ Mods: {
 			// Squeept.DisplayName: Squeept
 			// Tripper.DisplayName: Tripper
 			// GravityOrb.DisplayName: Gravity Orb
-			// Nightmare.DisplayName: Nightmare
+
+			Nightmare: {
+				// DisplayName: Nightmare
+				// BossChecklistIntegration.SpawnInfo: Summoning item can only be used at night.
+			}
+
 			// Nightmare_ArmBack.DisplayName: Nightmare
 			// Nightmare_ArmFront.DisplayName: Nightmare
 			// Nightmare_Body.DisplayName: Nightmare
 			// Nightmare_Tail.DisplayName: Nightmare
 			// Omega_DarkPortal.DisplayName: Omega Pirate
-			// OmegaPirate.DisplayName: Omega Pirate
+
+			OmegaPirate: {
+				// DisplayName: Omega Pirate
+				// BossChecklistIntegration.SpawnInfo: Spawn conditions unknown
+			}
+
 			// OmegaPirate_HitBox.DisplayName: Omega Pirate
 			// OmegaPirate_WeakPoint.DisplayName: Omega Pirate
 			// OmegaPirateAbsorbField.DisplayName: Omega Pirate
-			// Phantoon.DisplayName: Phantoon
+
+			Phantoon: {
+				// DisplayName: Phantoon
+				// BossChecklistIntegration.SpawnInfo: Summoning item can only be used at night.
+			}
+
 			// PhantoonFireBall.DisplayName: Fire Ball
 			// Serris_Body.DisplayName: Serris
-			// Serris_Head.DisplayName: Serris
+
+			Serris_Head: {
+				// DisplayName: Serris
+				// BossChecklistIntegration.SpawnInfo: Summoning item can only be used at the Ocean.
+			}
+
 			// Serris_Tail.DisplayName: Serris
 
 			IdleTorizo: {
@@ -2784,7 +2813,11 @@ Mods: {
 				}
 			}
 
-			// Torizo.DisplayName: Torizo
+			Torizo: {
+				// DisplayName: Torizo
+				// BossChecklistIntegration.SpawnInfo: Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.
+			}
+
 			// Torizo_HitBox.DisplayName: Torizo
 
 			ChozoGhost: {

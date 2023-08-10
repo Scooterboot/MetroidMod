@@ -50,89 +50,96 @@ namespace MetroidMod
 				return;
 			}
 			Mod.Logger.Info("Doing Boss Checklist compatibility");
-			bossChecklist.Call("AddBoss",
+			bossChecklist.Call("LogBoss",
 				Mod,
 				"Torizo",
-				new List<int>() { ModContent.NPCType<Torizo>(), ModContent.NPCType<Torizo_HitBox>() },
 				2.1f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo),
-				() => true,
-				new List<int>() { ModContent.ItemType<TorizoTrophy>(), ModContent.ItemType<TorizoMask>(), ModContent.ItemType<TorizoMusicBox>() },
-				ModContent.ItemType<TorizoSummon>(),
-				"Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.",
-				null, BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Torizo_BossLog")
+				new List<int>() { ModContent.NPCType<Torizo>(), ModContent.NPCType<Torizo_HitBox>() },
+				new Dictionary<string, object>()
+				{
+					["spawnItems"] = ModContent.ItemType<TorizoSummon>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<TorizoTrophy>(), ModContent.ItemType<TorizoMask>(), ModContent.ItemType<TorizoMusicBox>() },
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Torizo_BossLog")
+				}
 			);
-			bossChecklist.Call("AddBoss",
+			bossChecklist.Call("LogBoss",
 				Mod,
 				"Serris",
-				new List<int>() { ModContent.NPCType<Serris_Head>(), ModContent.NPCType<Serris_Body>(), ModContent.NPCType<Serris_Tail>() },
 				5.1f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedSerris),
-				() => true,
-				new List<int>() { ModContent.ItemType<SerrisTrophy>(), ModContent.ItemType<SerrisMask>(), ModContent.ItemType<SerrisMusicBox>() },
-				ModContent.ItemType<SerrisSummon>(),
-				"Summoning item can only be used at the Ocean.",
-				null, BossChecklistRect("MetroidMod/Content/NPCs/Serris/Serris_BossLog")
+				new List<int>() { ModContent.NPCType<Serris_Head>(), ModContent.NPCType<Serris_Body>(), ModContent.NPCType<Serris_Tail>() },
+				new Dictionary<string, object>()
+				{
+					["spawnItems"] = ModContent.ItemType<SerrisSummon>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<SerrisTrophy>(), ModContent.ItemType<SerrisMask>(), ModContent.ItemType<SerrisMusicBox>() },
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Serris_BossLog")
+				}
 			);
-			bossChecklist.Call("AddBoss",
+			bossChecklist.Call("LogBoss",
 				Mod,
 				"Kraid",
-				new List<int>() { ModContent.NPCType<Kraid_Head>(), ModContent.NPCType<Kraid_Body>(), ModContent.NPCType<Kraid_ArmFront>(), ModContent.NPCType<Kraid_ArmBack>() },
 				8.1f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid),
-				() => true,
-				new List<int>() { ModContent.ItemType<KraidTrophy>(), ModContent.ItemType<KraidMask>(), ModContent.ItemType<KraidPhantoonMusicBox>() },
-				ModContent.ItemType<KraidSummon>(),
-				null,
-				null, BossChecklistRect("MetroidMod/Content/NPCs/Kraid/Kraid_BossLog", 0.5f)
+				new List<int>() { ModContent.NPCType<Kraid_Head>(), ModContent.NPCType<Kraid_Body>(), ModContent.NPCType<Kraid_ArmFront>(), ModContent.NPCType<Kraid_ArmBack>() },
+				new Dictionary<string, object>()
+				{
+					["spawnItems"] = ModContent.ItemType<KraidSummon>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<KraidTrophy>(), ModContent.ItemType<KraidMask>(), ModContent.ItemType<KraidPhantoonMusicBox>() },
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Kraid_BossLog", 0.5f)
+				}
 			);
-			bossChecklist.Call("AddBoss",
+			bossChecklist.Call("LogBoss",
 				Mod,
 				"Phantoon",
-				ModContent.NPCType<Phantoon>(),
 				8.9f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon),
-				() => true,
-				new List<int>() { ModContent.ItemType<PhantoonTrophy>(), ModContent.ItemType<PhantoonMask>(), ModContent.ItemType<KraidPhantoonMusicBox>() },
-				ModContent.ItemType<PhantoonSummon>(),
-				"Summoning item can only be used at night.",
-				null, BossChecklistRect("MetroidMod/Content/NPCs/Phantoon/Phantoon")
+				ModContent.NPCType<Phantoon>(),
+				new Dictionary<string, object>()
+				{
+					["spawnItems"] = ModContent.ItemType<PhantoonSummon>(),
+					["collectibles"] = new List<int>() { ModContent.ItemType<PhantoonTrophy>(), ModContent.ItemType<PhantoonMask>(), ModContent.ItemType<KraidPhantoonMusicBox>() },
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Phantoon")
+				}
 			);
-			bossChecklist.Call("AddBoss",
+			bossChecklist.Call("LogBoss",
 				Mod,
 				"Nightmare",
-				new List<int>() { ModContent.NPCType<Nightmare>(), ModContent.NPCType<Nightmare_Body>(), ModContent.NPCType<Nightmare_ArmFront>(), ModContent.NPCType<Nightmare_ArmBack>() },
 				13f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare),
-				() => true,
-				new List<int>() { /*ModContent.ItemType<NightmareTrophy>(), ModContent.ItemType<NightmareMask>(),*/ ModContent.ItemType<NightmareMusicBox>() },
-				ModContent.ItemType<NightmareSummon>(),
-				"Summoning item can only be used at night.",
-				null, BossChecklistRect("MetroidMod/Content/NPCs/Nightmare/Nightmare_BossLog")
+				new List<int>() { ModContent.NPCType<Nightmare>(), ModContent.NPCType<Nightmare_Body>(), ModContent.NPCType<Nightmare_ArmFront>(), ModContent.NPCType<Nightmare_ArmBack>() },
+				new Dictionary<string, object>()
+				{
+					["spawnItems"] = ModContent.ItemType<NightmareSummon>(),
+					["collectibles"] = new List<int>() { /*ModContent.ItemType<NightmareTrophy>(), ModContent.ItemType<NightmareMask>(),*/ ModContent.ItemType<NightmareMusicBox>() },
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Nightmare_BossLog")
+				}
 			);
-			bossChecklist.Call("AddBoss",
+			bossChecklist.Call("LogBoss",
 				Mod,
 				"Omega Pirate",
-				new List<int>() { ModContent.NPCType<OmegaPirate>(), ModContent.NPCType<OmegaPirate_HitBox>() },
 				13f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate),
-				() => true,
-				new List<int>() { /*ModContent.ItemType<OmegaPirateTrophy>(), ModContent.ItemType<OmegaPirateMask>(),*/ ModContent.ItemType<OmegaPirateMusicBox>() },
-				ModContent.ItemType<OmegaPirateSummon>(),
-				null,
-				null, BossChecklistRect("MetroidMod/Content/NPCs/OmegaPirate/OmegaPirate_BossLog")
+				new List<int>() { ModContent.NPCType<OmegaPirate>(), ModContent.NPCType<OmegaPirate_HitBox>() },
+				new Dictionary<string, object>()
+				{
+					["spawnItems"] = ModContent.ItemType<OmegaPirateSummon>(),
+					["collectibles"] = new List<int>() { /*ModContent.ItemType<OmegaPirateTrophy>(), ModContent.ItemType<OmegaPirateMask>(),*/ ModContent.ItemType<OmegaPirateMusicBox>() },
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/OmegaPirate_BossLog")
+				}
 			);
-			bossChecklist.Call("AddBoss",
+			bossChecklist.Call("LogBoss",
 				Mod,
 				"Golden Torizo",
-				new List<int>() { ModContent.NPCType<GoldenTorizo>(), ModContent.NPCType<GoldenTorizo_HitBox>() },
 				15f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo),
-				() => true,
-				new List<int>() { /*ModContent.ItemType<GoldenTorizoTrophy>(), ModContent.ItemType<GoldenTorizoMask>(),*/ ModContent.ItemType<TorizoMusicBox>() },
-				ModContent.ItemType<GoldenTorizoSummon>(),
-				"Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.",
-				null, BossChecklistRect("MetroidMod/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog")
+				new List<int>() { ModContent.NPCType<GoldenTorizo>(), ModContent.NPCType<GoldenTorizo_HitBox>() },
+				new Dictionary<string, object>()
+				{
+					["spawnItems"] = ModContent.ItemType<SerrisSummon>(),
+					["collectibles"] = new List<int>() { /*ModContent.ItemType<GoldenTorizoTrophy>(), ModContent.ItemType<GoldenTorizoMask>(),*/ ModContent.ItemType<TorizoMusicBox>() },
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/GoldenTorizo_BossLog")
+				}
 			);
 		}
 
