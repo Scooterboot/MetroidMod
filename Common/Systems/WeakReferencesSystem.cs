@@ -22,6 +22,7 @@ using MetroidMod.Content.NPCs.Phantoon;
 using MetroidMod.Content.NPCs.Serris;
 using MetroidMod.Content.NPCs.Torizo;
 using MetroidMod.Content.NPCs.Town;
+using Terraria.Localization;
 
 namespace MetroidMod
 {
@@ -33,6 +34,7 @@ namespace MetroidMod
 			DoCensusModSupport();
 			DoRecipeBrowserSupport();
 			DoHEROsModSupport();
+			DoMusicDisplaySupport();
 		}
 
 		private Action<SpriteBatch, Rectangle, Color> BossChecklistRect(string tex, float mult = 1f) => (SpriteBatch sb, Rectangle rect, Color color) =>
@@ -203,6 +205,71 @@ namespace MetroidMod
 
 			);
 			*/
+		}
+
+		private void DoMusicDisplaySupport()
+		{
+			if (!ModLoader.TryGetMod("MusicDisplay", out Mod musdisp) || musdisp == null)
+			{
+				Mod.Logger.Info("Music Display is not loaded.");
+				return;
+			}
+			Mod.Logger.Info("Doing Music Display compatibility");
+
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/ChozoRuinsActive"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.ChozoRuinsActive.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.ChozoRuinsActive.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/ChozoRuinsInactive"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.ChozoRuinsInactive.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.ChozoRuinsInactive.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/Kraid"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Kraid.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Kraid.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/Nightmare"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Nightmare.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Nightmare.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/OmegaPirate"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.OmegaPirate.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.OmegaPirate.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/Ridley"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Ridley.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Ridley.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/Serris"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Serris.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Serris.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/Title"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Title.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Title.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
+			musdisp.Call("AddMusic",
+				(short)MusicLoader.GetMusicSlot("MetroidMod/Assets/Music/Torizo"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Torizo.Name"),
+				Language.GetText("Mods.MetroidMod.BGMInfo.Torizo.Author"),
+				Language.GetText("Mods.MetroidMod.ModName")
+				);
 		}
 	}
 }

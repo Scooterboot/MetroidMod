@@ -3855,5 +3855,52 @@ Mods: {
 				}
 			}
 		}
+
+		BGMInfo: {
+			ChozoRuinsActive: {
+				// Name: Active Chozo Ruins
+				// Author: Paradoxx Productions
+			}
+
+			ChozoRuinsInactive: {
+				// Name: Inactive Chozo Ruins
+				// Author: Paradoxx Productions
+			}
+
+			Kraid: {
+				// Name: Kraid/Phantoon Theme
+				// Author: Paradoxx Productions
+			}
+
+			Nightmare: {
+				// Name: Nightmare Theme
+				// Author: Paradoxx Productions
+			}
+
+			OmegaPirate: {
+				// Name: Omega Pirate Theme
+				// Author: Paradoxx Productions
+			}
+
+			Ridley: {
+				// Name: "[c/aa0000:UNKNOWN]"
+				// Author: "[c/aa0000:UNKNOWN]"
+			}
+
+			Serris: {
+				// Name: Serris Theme
+				// Author: Paradoxx Productions
+			}
+
+			Title: {
+				// Name: Main Menu
+				// Author: Paradoxx Productions
+			}
+
+			Torizo: {
+				// Name: Torizo Theme
+				// Author: Paradoxx Productions
+			}
+		}
 	}
 }
