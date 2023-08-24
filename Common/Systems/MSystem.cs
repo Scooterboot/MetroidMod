@@ -1512,7 +1512,7 @@ namespace MetroidMod.Common.Systems
 
 			int width = 20;
 			int height = 16;
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>());
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWall>());
 
 			for (int i = 0; i < width; i++)
 			{
