@@ -2,6 +2,8 @@
 
 Mods: {
 	MetroidMod: {
+		ModName: Metroid Mod
+
 		WorldEvents: {
 			PhazonMeteor: A Phazon Meteor has landed!
 			PhazonCorruption: "{0} has been corrupted with Phazon!"
@@ -2670,7 +2672,11 @@ Mods: {
 		NPCs: {
 			GoldenTorizo: {
 				DisplayName: Golden Torizo
-				BossChecklistIntegration.SpawnInfo: Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.
+
+				BossChecklistIntegration: {
+					SpawnInfo: Guaranteed spawn in the Chozo Ruins after the Golem has been defeated. Upon defeat, the Chozo Ghost will sell you its summoning item.
+					EntryName: Golden Torizo
+				}
 			}
 
 			GoldenTorizo_HitBox.DisplayName: Golden Torizo
@@ -2706,7 +2712,11 @@ Mods: {
 
 			Kraid_Head: {
 				DisplayName: Kraid
-				BossChecklistIntegration.SpawnInfo: Spawn conditions unknown
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use [i:MetroidMod/KraidSummon].
+					EntryName: Kraid
+				}
 			}
 
 			KraidClaw.DisplayName: Kraid
@@ -2757,7 +2767,11 @@ Mods: {
 
 			Nightmare: {
 				DisplayName: Nightmare
-				BossChecklistIntegration.SpawnInfo: Summoning item can only be used at night.
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use [i:MetroidMod/NightmareSummon] at night.
+					EntryName: Nightmare
+				}
 			}
 
 			Nightmare_ArmBack.DisplayName: Nightmare
@@ -2768,7 +2782,11 @@ Mods: {
 
 			OmegaPirate: {
 				DisplayName: Omega Pirate
-				BossChecklistIntegration.SpawnInfo: Spawn conditions unknown
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use [i:MetroidMod/OmegaPirateSummon].
+					EntryName: Omega Pirate
+				}
 			}
 
 			OmegaPirate_HitBox.DisplayName: Omega Pirate
@@ -2777,7 +2795,11 @@ Mods: {
 
 			Phantoon: {
 				DisplayName: Phantoon
-				BossChecklistIntegration.SpawnInfo: Summoning item can only be used at night.
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use [i:MetroidMod/PhantoonSummon] at night.
+					EntryName: Phantoon
+				}
 			}
 
 			PhantoonFireBall.DisplayName: Fire Ball
@@ -2785,7 +2807,11 @@ Mods: {
 
 			Serris_Head: {
 				DisplayName: Serris
-				BossChecklistIntegration.SpawnInfo: Summoning item can only be used at the Ocean.
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use [i:MetroidMod/SerrisSummon] at the Ocean.
+					EntryName: Serris
+				}
 			}
 
 			Serris_Tail.DisplayName: Serris
@@ -2815,7 +2841,11 @@ Mods: {
 
 			Torizo: {
 				DisplayName: Torizo
-				BossChecklistIntegration.SpawnInfo: Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.
+
+				BossChecklistIntegration: {
+					SpawnInfo: Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.
+					EntryName: Torizo
+				}
 			}
 
 			Torizo_HitBox.DisplayName: Torizo

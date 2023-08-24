@@ -73,7 +73,7 @@ namespace MetroidMod
 				{
 					["spawnItems"] = ModContent.ItemType<SerrisSummon>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<SerrisTrophy>(), ModContent.ItemType<SerrisMask>(), ModContent.ItemType<SerrisMusicBox>() },
-					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Serris_BossLog")
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Serris/Serris_BossLog")
 				}
 			);
 			bossChecklist.Call("LogBoss",
@@ -86,7 +86,7 @@ namespace MetroidMod
 				{
 					["spawnItems"] = ModContent.ItemType<KraidSummon>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<KraidTrophy>(), ModContent.ItemType<KraidMask>(), ModContent.ItemType<KraidPhantoonMusicBox>() },
-					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Kraid_BossLog", 0.5f)
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Kraid/Kraid_BossLog", 0.5f)
 				}
 			);
 			bossChecklist.Call("LogBoss",
@@ -99,7 +99,7 @@ namespace MetroidMod
 				{
 					["spawnItems"] = ModContent.ItemType<PhantoonSummon>(),
 					["collectibles"] = new List<int>() { ModContent.ItemType<PhantoonTrophy>(), ModContent.ItemType<PhantoonMask>(), ModContent.ItemType<KraidPhantoonMusicBox>() },
-					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Phantoon")
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Phantoon/Phantoon")
 				}
 			);
 			bossChecklist.Call("LogBoss",
@@ -112,12 +112,12 @@ namespace MetroidMod
 				{
 					["spawnItems"] = ModContent.ItemType<NightmareSummon>(),
 					["collectibles"] = new List<int>() { /*ModContent.ItemType<NightmareTrophy>(), ModContent.ItemType<NightmareMask>(),*/ ModContent.ItemType<NightmareMusicBox>() },
-					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Nightmare_BossLog")
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Nightmare/Nightmare_BossLog")
 				}
 			);
 			bossChecklist.Call("LogBoss",
 				Mod,
-				"Omega Pirate",
+				"OmegaPirate",
 				13f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate),
 				new List<int>() { ModContent.NPCType<OmegaPirate>(), ModContent.NPCType<OmegaPirate_HitBox>() },
@@ -125,12 +125,12 @@ namespace MetroidMod
 				{
 					["spawnItems"] = ModContent.ItemType<OmegaPirateSummon>(),
 					["collectibles"] = new List<int>() { /*ModContent.ItemType<OmegaPirateTrophy>(), ModContent.ItemType<OmegaPirateMask>(),*/ ModContent.ItemType<OmegaPirateMusicBox>() },
-					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/OmegaPirate_BossLog")
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/OmegaPirate/OmegaPirate_BossLog")
 				}
 			);
 			bossChecklist.Call("LogBoss",
 				Mod,
-				"Golden Torizo",
+				"GoldenTorizo",
 				15f,
 				() => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo),
 				new List<int>() { ModContent.NPCType<GoldenTorizo>(), ModContent.NPCType<GoldenTorizo_HitBox>() },
@@ -138,7 +138,7 @@ namespace MetroidMod
 				{
 					["spawnItems"] = ModContent.ItemType<SerrisSummon>(),
 					["collectibles"] = new List<int>() { /*ModContent.ItemType<GoldenTorizoTrophy>(), ModContent.ItemType<GoldenTorizoMask>(),*/ ModContent.ItemType<TorizoMusicBox>() },
-					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/GoldenTorizo_BossLog")
+					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog")
 				}
 			);
 		}
