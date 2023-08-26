@@ -139,7 +139,7 @@ namespace MetroidMod.Common.UI
 		public delegate bool Condition(Item item);
 		public override void OnInitialize()
 		{
-			itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
+			itemBoxTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/BeamBorder", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = 44; Height.Pixels = 44;
 			OnLeftClick += ItemBoxClick;
