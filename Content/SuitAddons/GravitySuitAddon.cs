@@ -65,9 +65,9 @@ namespace MetroidMod.Content.SuitAddons
 			mp.breathMult = 2;
 			mp.EnergyDefenseEfficiency += 0.15f;
 			mp.EnergyExpenseEfficiency += 0.075f;
-			if (!WorldGen.everythingWorldGen)
+			if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
 			{
-				player.gills = false;
+				player.gills = true;
 			}
 		}
 		public override void AddRecipes()
