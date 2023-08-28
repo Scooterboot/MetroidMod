@@ -34,6 +34,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			NPC.damage = 0;
 			NPC.defense = 0;
 			NPC.dontTakeDamage = true;
+			NPC.lavaImmune = true; // for those weird cases where there's lava in the temple
 			NPC.noGravity = false;
 			NPC.noTileCollide = false;
 			NPC.lifeMax = 250;
