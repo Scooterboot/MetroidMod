@@ -2107,22 +2107,22 @@ Mods: {
 			}
 
 			VanityPack_Corruption: {
-				DisplayName: Vanity Pack_ Corruption
+				DisplayName: Vanity Pack: Corruption
 				Tooltip: ""
 			}
 
 			VanityPack_Echoes: {
-				DisplayName: Vanity Pack_ Echoes
+				DisplayName: Vanity Pack: Echoes
 				Tooltip: ""
 			}
 
 			VanityPack_Lunar: {
-				DisplayName: Vanity Pack_ Lunar
+				DisplayName: Vanity Pack: Lunar
 				Tooltip: ""
 			}
 
 			VanityPack_Prime: {
-				DisplayName: Vanity Pack_ Prime
+				DisplayName: Vanity Pack: Prime
 				Tooltip: ""
 			}
 

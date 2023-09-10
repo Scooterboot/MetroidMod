@@ -183,67 +183,24 @@ namespace MetroidMod.Content.NPCs.Town
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, ShopName);
+			Condition Gold = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo));
+			Condition Phantoon = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon));
 			npcShop.Add(ModContent.ItemType<Items.Boss.TorizoSummon>());
-
-			if (MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo))
-			{
-				npcShop.Add(ModContent.ItemType<Items.Boss.GoldenTorizoSummon>());
-			}
-
-			if (Main.hardMode)
-			{
-				npcShop.Add(ModContent.ItemType<PowerBeam>());
-				npcShop.Add(ModContent.ItemType<MissileLauncher>());
-
-				if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-				{
-					npcShop.Add(SuitAddonLoader.GetAddon<VariaSuitV2Addon>().ItemType);
-				}
-				else if (NPC.downedMechBossAny)
-				{
-					npcShop.Add(SuitAddonLoader.GetAddon<VariaSuitAddon>().ItemType);
-				}
-				else
-				{
-					npcShop.Add(ModContent.ItemType<PowerSuitHelmet>());
-					npcShop.Add(ModContent.ItemType<PowerSuitBreastplate>());
-					npcShop.Add(ModContent.ItemType<PowerSuitGreaves>());
-				}
-
-				if (NPC.downedPlantBoss)
-				{
-					npcShop.Add(SuitAddonLoader.GetAddon<GravitySuitAddon>().ItemType);
-				}
-			}
-
 			npcShop.Add(ModContent.ItemType<VanityPack>());
-
-			if (MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon))
-			{
-				npcShop.Add(ModContent.ItemType<VanityPack_Prime>());
-			}
-			if (NPC.downedMoonlord)
-			{
-				npcShop.Add(ModContent.ItemType<VanityPack_Lunar>());
-			}
-
-			if (NPC.downedMechBossAny)
-			{
-				npcShop.Add(ModContent.ItemType<RedKeycard>());
-			}
-			if (NPC.downedGolemBoss)
-			{
-				npcShop.Add(ModContent.ItemType<GreenKeycard>());
-			}
-			if (NPC.downedAncientCultist)
-			{
-				npcShop.Add(ModContent.ItemType<YellowKeycard>());
-			}
-
-			if(Main.hardMode && Main.bloodMoon)
-			{
-				npcShop.Add(ModContent.ItemType<Items.Tiles.MissileExpansion>());
-			}
+			npcShop.Add<PowerBeam>(Condition.Hardmode);
+			npcShop.Add<MissileLauncher>(Condition.Hardmode);
+			npcShop.Add(ModContent.ItemType<PowerSuitHelmet>(), Condition.Hardmode);
+			npcShop.Add(ModContent.ItemType<PowerSuitBreastplate>(), Condition.Hardmode);
+			npcShop.Add(ModContent.ItemType<PowerSuitGreaves>(), Condition.Hardmode);
+			npcShop.Add(ModContent.ItemType<Items.Tiles.MissileExpansion>(), Condition.Hardmode, Condition.BloodMoon);
+			npcShop.Add(ModContent.ItemType<RedKeycard>(), Condition.DownedMechBossAny);
+			npcShop.Add(SuitAddonLoader.GetAddon<VariaSuitV2Addon>().ItemType, Condition.DownedMechBossAll);
+			npcShop.Add(ModContent.ItemType<VanityPack_Prime>(), Phantoon);
+			npcShop.Add(SuitAddonLoader.GetAddon<GravitySuitAddon>().ItemType, Condition.DownedPlantera);
+			npcShop.Add(ModContent.ItemType<GreenKeycard>(), Condition.DownedGolem);
+			npcShop.Add(ModContent.ItemType<Items.Boss.GoldenTorizoSummon>(), Gold);
+			npcShop.Add(ModContent.ItemType<GreenKeycard>(), Condition.DownedCultist);
+			npcShop.Add(ModContent.ItemType<VanityPack_Lunar>(), Condition.DownedMoonLord);
 			npcShop.Register();
 		}
 
