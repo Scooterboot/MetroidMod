@@ -40,7 +40,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient(null, "ChoziteBar", 12)
-				.AddIngredient(MetroidMod.PreHMhooksRecipeID, 1)
+				.AddRecipeGroup(MetroidMod.PreHMhooksRecipeID, 1)
 				.AddIngredient(ItemID.Silk, 50)
 				.AddTile(TileID.Anvils)
 				.Register();

@@ -20,6 +20,9 @@ using Microsoft.Xna.Framework.Graphics;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
+using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Content.Projectiles;
+using MetroidMod.Content.Mounts;
 
 namespace MetroidMod.Common.Players
 {
@@ -602,6 +605,28 @@ namespace MetroidMod.Common.Players
 					isGripping = false;
 					reGripTimer = 10;
 				}
+			}
+			if (isGripping && Player.controlRight && gripDir >=1 && Player.controlUp && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			{
+				var ball = ModContent.MountType<MorphBallMount>();
+				Player.QuickMount();
+				//Player.mount.SetMount(ball, Player);
+				isGripping = false;
+				reGripTimer = 10;
+				Player.position.X += 16f * gripDir;
+				Player.position.Y -= 32f;
+				SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
+			}
+			if (isGripping && Player.controlLeft && gripDir <= -1 && Player.controlUp && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			{
+				var ball = ModContent.MountType<MorphBallMount>();
+				Player.QuickMount();
+				//Player.mount.SetMount(ball, Player);
+				isGripping = false;
+				reGripTimer = 10;
+				Player.position.X += 16f * gripDir;
+				Player.position.Y -= 32f;
+				SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
 			}
 		}
 		public void CheckWallJump(Player Player, ref int dir, ref bool altJump)

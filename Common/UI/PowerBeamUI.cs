@@ -139,6 +139,7 @@ namespace MetroidMod.Common.UI
 		private Texture2D itemBoxTexture;
 		
 		public Condition condition;
+		public Condition condition2;
 
 		public int addonSlotType;
 		public int beamSlotType;
@@ -188,15 +189,11 @@ namespace MetroidMod.Common.UI
 			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			if (powerBeamTarget == null || powerBeamTarget.BeamMods == null) { return; }
 
-			if (powerBeamTarget.BeamMods[addonSlotType] != null && !powerBeamTarget.BeamMods[addonSlotType].IsAir /*&& addonSlotType != 0*/)
+			if (powerBeamTarget.BeamMods[addonSlotType] != null && !powerBeamTarget.BeamMods[addonSlotType].IsAir)
 			{
 				//pickup
 				if (Main.mouseItem.IsAir)
 				{
-					/*if (powerBeamTarget.BeamChange[beamSlotType] != null)
-					{
-						powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
-					}*/
 					if (powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
 					{
 						powerBeamTarget.BeamChange[0].TurnToAir();
@@ -253,7 +250,7 @@ namespace MetroidMod.Common.UI
 				}
 			}
 			//place
-			else if(!Main.mouseItem.IsAir /*&& addonSlotType != 0*/)
+			else if(!Main.mouseItem.IsAir)
 			{
 				if (condition == null || (condition != null && condition(Main.mouseItem) ))
 				{

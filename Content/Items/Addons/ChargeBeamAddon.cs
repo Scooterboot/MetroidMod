@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Items.Addons
 			"Adds Charge Effect\n" + 
 			"~Charge by holding click\n" + 
 			"~Charge shots deal x3 damage, but overheat x2 the normal use"); */
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.TileType<Content.Tiles.ItemTile.MissileExpansionTile>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<Items.Tiles.MissileExpansion>();
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()

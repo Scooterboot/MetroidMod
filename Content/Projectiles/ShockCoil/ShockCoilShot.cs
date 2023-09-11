@@ -10,6 +10,9 @@ using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Weapons;
+using System.Collections.Generic;
+
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
 	public class ShockCoilShot : MProjectile
@@ -40,7 +43,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
         Projectile Lead;
 
-        NPC target;
+		NPC target;
 
         const float Max_Range = 300f;
         float range = Max_Range;
@@ -67,7 +70,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			Lead = Main.projectile[(int)P.ai[0]];
 
-			if (Projectile.Name.Contains("Wave") || Projectile.Name.Contains("Nebula"))
+			if (Items.Weapons.PowerBeam.shooty.Contains("nebula") || Items.Weapons.PowerBeam.shooty.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 				//mProjectile.WaveBehavior(Projectile);
@@ -86,12 +89,12 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
             oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-            /*if (Lead != null && Lead.active)
+            if (Lead != null && Lead.active && Lead.type == ModContent.ProjectileType<ChargeLead>())
             {
                 for (int k = 0; k < range; k++)
                 {
-                    float targetrot = (float)Math.Atan2((P.Center.Y - O.Center.Y), (P.Center.X - O.Center.X));
-                    Vector2 tilePos = O.Center + targetrot.ToRotationVector2() * k;
+                    float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
+                    Vector2 tilePos = Lead.Center + targetrot.ToRotationVector2() * k;
                     int i = (int)MathHelper.Clamp(tilePos.X / 16, 0, Main.maxTilesX - 2);
                     int j = (int)MathHelper.Clamp(tilePos.Y / 16, 0, Main.maxTilesY - 2);
 
@@ -106,7 +109,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                         distance = Math.Min(distance + 1, Max_Distance);
                     }
                 }
-            }*/
+            }
             if (P.owner == Main.myPlayer && !O.dead)
             {
                 P.netUpdate = true;
@@ -265,7 +268,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 
 		}
-
 		public override void CutTiles()
 		{
 			Player p = Main.player[Projectile.owner];
@@ -283,91 +285,94 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			{
 				float point = 0f;
 				return projHitbox.Intersects(targetHitbox) ||
-					Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), p.Center, Projectile.Center, Projectile.width, ref point);
+					Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Lead.Center, Projectile.Center, Projectile.width, ref point);
 			}
 			return false;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
-        {
-            SpriteBatch sb = Main.spriteBatch;
-            Projectile P = Projectile;
+		{
+			SpriteBatch sb = Main.spriteBatch;
+			Projectile P = Projectile;
 			Color color = MetroidMod.powColor;
 			Player p = Main.player[Projectile.owner];
-			MPlayer mp = p.GetModPlayer<MPlayer>();
-
+			Vector2 oPos = p.RotatedRelativePoint(p.MountedCenter, true, true);
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
-            int num108 = tex.Height / Main.projFrames[P.type];
-            int y4 = num108 * P.frame;
+			int num108 = tex.Height / Main.projFrames[P.type];
+			int y4 = num108 * P.frame;
+			Vector2 org = Lead.Center;
 
+			if (p.controlUseItem && !p.dead)
+			{
+				if (Lead.type != ModContent.ProjectileType<ChargeLead>()) //exists so the shockcoil doesnt draw off the grapple beam or Calamity's bubbles. yes, it's ugly
+				{
+					org = p.Center;
+				}
 
-            if (p.controlUseItem && !p.dead)
-            {
-				float targetrot = (float)Math.Atan2((P.Center.Y - p.Center.Y), (P.Center.X - p.Center.X));
-                float dist = Math.Max(Vector2.Distance(p.Center, P.Center), 1);
+				float targetrot = (float)Math.Atan2((P.Center.Y - org.Y), (P.Center.X - org.X));
+				float dist = Math.Max(Vector2.Distance(org, P.Center), 1);
 
-                double trot = targetrot + Math.PI / 2;
+				double trot = targetrot + Math.PI / 2;
 
-                float shift = 0;
-                int num = (int)Math.Max(Math.Ceiling(dist / 8), 1);
-                float num4 = num / 4;
-                Vector2[] pos = new Vector2[num];
-                for (int i = 0; i < num; i++)
-                {
-                    float scale = P.scale;
-                    if (P.frame == 0)
-                    {
-                        scale *= 0.8f;
-                    }
+				float shift = 0;
+				int num = (int)Math.Max(Math.Ceiling(dist / 8), 1);
+				float num4 = num / 4;
+				Vector2[] pos = new Vector2[num];
+				for (int i = 0; i < num; i++)
+				{
+					float scale = P.scale;
+					if (P.frame == 0)
+					{
+						scale *= 0.8f;
+					}
 
-                    if (num4 >= 1)
-                    {
-                        if (i < num4)
-                        {
-                            shift = MathHelper.Lerp(0, amp[0], (i / num4));
-                        }
-                        else if (i < num / 2)
-                        {
-                            shift = MathHelper.Lerp(amp[0], amp[1], ((i - num4) / num4));
-                        }
-                        else if (i < num4 * 3)
-                        {
-                            shift = MathHelper.Lerp(amp[1], amp[2], ((i - num / 2) / num4));
-                        }
-                        else
-                        {
-                            shift = MathHelper.Lerp(amp[2], 0, ((i - num4 * 3) / num4));
-                            scale *= (num4 - (i - num4 * 3) * 0.5f) / num4;
-                        }
-                    }
+					if (num4 >= 1)
+					{
+						if (i < num4)
+						{
+							shift = MathHelper.Lerp(0, amp[0], (i / num4));
+						}
+						else if (i < num / 2)
+						{
+							shift = MathHelper.Lerp(amp[0], amp[1], ((i - num4) / num4));
+						}
+						else if (i < num4 * 3)
+						{
+							shift = MathHelper.Lerp(amp[1], amp[2], ((i - num / 2) / num4));
+						}
+						else
+						{
+							shift = MathHelper.Lerp(amp[2], 0, ((i - num4 * 3) / num4));
+							scale *= (num4 - (i - num4 * 3) * 0.5f) / num4;
+						}
+					}
 
-                    pos[i] = p.Center + targetrot.ToRotationVector2() * (dist / num) * i;
-                    pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
-                    pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
+					pos[i] = org + targetrot.ToRotationVector2() * (dist / num) * i;
+					pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
+					pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
 
-                    float rot = (float)Math.Atan2((pos[i].Y - p.Center.Y), (pos[i].X - p.Center.X)) + (float)Math.PI / 2;
-                    if (i > 0)
-                    {
-                        rot = (float)Math.Atan2((pos[i].Y - pos[i - 1].Y), (pos[i].X - pos[i - 1].X)) + (float)Math.PI / 2;
-                    }
-                    sb.Draw(tex,
-                    pos[i] - Main.screenPosition,
-                    new Rectangle?(new Rectangle(0, y4, tex.Width, num108)),
-                    P.GetAlpha(Color.White),
-                    rot,
-                    new Vector2((float)tex.Width / 2f, (float)num108 / 2),
-                    new Vector2(scale, 1f),
-                    SpriteEffects.None,
-                    0f);
+					float rot = (float)Math.Atan2((pos[i].Y - org.Y), (pos[i].X - org.X)) + (float)Math.PI / 2;
+					if (i > 0)
+					{
+						rot = (float)Math.Atan2((pos[i].Y - pos[i - 1].Y), (pos[i].X - pos[i - 1].X)) + (float)Math.PI / 2;
+					}
+					sb.Draw(tex,
+					pos[i] - Main.screenPosition,
+					new Rectangle?(new Rectangle(0, y4, tex.Width, num108)),
+					P.GetAlpha(Color.White),
+					rot,
+					new Vector2((float)tex.Width / 2f, (float)num108 / 2),
+					new Vector2(scale, 1f),
+					SpriteEffects.None,
+					0f);
 
 
 					Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 				}
-            }
-
-            return false;
-        }
+			}
+			return false;
+		}
 
 		public override void Kill(int timeLeft)
 		{

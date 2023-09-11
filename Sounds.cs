@@ -27,7 +27,7 @@ namespace MetroidMod
 			{
 				public static readonly SoundStyle GrappleBeamSound = new($"{nameof(MetroidMod)}/Assets/Sounds/GrappleBeamSound")
 				{
-
+					MaxInstances = 12
 				};
 
 				public static readonly SoundStyle GrappleLatch = new($"{nameof(MetroidMod)}/Assets/Sounds/GrappleLatch")
@@ -40,7 +40,7 @@ namespace MetroidMod
 			{
 				public static readonly SoundStyle PowerBeamSound = new($"{nameof(MetroidMod)}/Assets/Sounds/PowerBeamSound")
 				{
-
+					MaxInstances = 12
 				};
 
 				public static readonly SoundStyle NebulaComboSoundLoop = new($"{nameof(MetroidMod)}/Assets/Sounds/NebulaComboSoundLoop")
@@ -55,6 +55,7 @@ namespace MetroidMod
 
 				public static readonly SoundStyle PhazonBeamSound = new($"{nameof(MetroidMod)}/Assets/Sounds/PhazonBeamSound")
 				{
+					MaxInstances = 12,
 					IsLooped = true
 				};
 
