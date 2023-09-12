@@ -277,12 +277,12 @@ Mods: {
 
 			MissileRecharge: {
 				DisplayName: Missile Recharge
-				Description: Mods.MetroidMod.Buffs.MissileRecharge.Description
+				Description: Using missile station, can't move
 			}
 
 			MorphBallMountBuff: {
 				DisplayName: Morph Ball Mount Buff
-				Description: Mods.MetroidMod.Buffs.MorphBallMountBuff.Description
+				Description: Because you apparently can't crawl
 			}
 
 			ParalyzerStun: {
@@ -292,7 +292,7 @@ Mods: {
 
 			PhazonDebuff: {
 				DisplayName: Phazon Debuff
-				Description: Mods.MetroidMod.Buffs.PhazonDebuff.Description
+				Description: Phazon is draining your life away!
 			}
 		}
 
