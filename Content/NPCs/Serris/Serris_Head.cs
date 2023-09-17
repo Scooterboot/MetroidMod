@@ -90,8 +90,8 @@ namespace MetroidMod.Content.NPCs.Serris
 			NPC.width = 60;
 			NPC.height = 60;
 			NPC.damage = damage;
-			NPC.defense = 28;
-			NPC.lifeMax = 4000;
+			NPC.defense = 21; //28
+			NPC.lifeMax = 3000; //4000
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = Sounds.NPCs.CoreXDeath;
 			NPC.noGravity = true;
