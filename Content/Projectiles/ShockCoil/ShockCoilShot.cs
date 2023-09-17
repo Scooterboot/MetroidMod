@@ -119,7 +119,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
                 mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
 
-                target = null;
+				target = null;
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     if (Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
@@ -155,7 +155,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
                                 if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
                                 {
-                                    target = null;
+									target = null;
                                 }
                             }
                         }
@@ -164,7 +164,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
                 if (!setTargetPos)
                 {
-                    targetPos = P.Center;
+					targetPos = P.Center;
                     setTargetPos = true;
                     return;
                 }
@@ -176,8 +176,9 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
                 {
                     if (P.numUpdates == 0)
                     {
-                        //targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
-                        targetPos = oPos + diff * range;
+						mp.statCharge = 0;
+						//targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
+						targetPos = oPos + diff * range;
                         targetPos.X += (float)Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
                         targetPos.Y += (float)Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
                     }
@@ -397,7 +398,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			shots = 1f;
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
-			
+
 			//mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{

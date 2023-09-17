@@ -193,7 +193,7 @@ namespace MetroidMod.Common.UI
 				//pickup
 				if (Main.mouseItem.IsAir)
 				{
-					if (powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
+					if (powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
 					{
 						powerBeamTarget.BeamChange[0].TurnToAir();
 					}
