@@ -34,7 +34,7 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.LuminiteBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.beamSlotType = BeamChangeSlotID.Charge;
+			mItem.beamSlotType = BeamChangeSlotID.Luminite;
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageLuminiteBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatLuminiteBeam;
 		}

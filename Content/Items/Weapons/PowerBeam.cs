@@ -214,6 +214,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
 		public static string shooty = "";
+		private PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
@@ -274,17 +275,6 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot3 = BeamMods[2];
 			Item slot4 = BeamMods[3];
 			Item slot5 = BeamMods[4];
-
-			/*Item changeslot0 = BeamChange[0];
-			Item changeslot1 = BeamChange[1];
-			Item changeslot2 = BeamChange[2];
-			Item changeslot3 = BeamChange[3];
-			Item changeslot4 = BeamChange[4];
-			Item changeslot5 = BeamChange[5];
-			Item changeslot6 = BeamChange[6];
-			Item changeslot7 = BeamChange[7];
-			Item changeslot8 = BeamChange[8];
-			Item changeslot9 = BeamChange[9];*/
 
 
 			int damage = Common.Configs.MConfigItems.Instance.damagePowerBeam;
@@ -402,6 +392,10 @@ namespace MetroidMod.Content.Items.Weapons
 			if (slot2.type == sd && slot1.type != mm)
 			{
 				shooty += "stardust";
+			}
+			if (P.HeldItem.ModItem != held)
+			{
+				shooty = "";
 			}
 			// Default Combos
 			if (!isHyper && !isPhazon && !isHunter)

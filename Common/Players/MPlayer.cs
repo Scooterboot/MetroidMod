@@ -65,6 +65,8 @@ namespace MetroidMod.Common.Players
 		public bool falling;
 		public int energyLowTimer = 0;
 
+		public static string shotty = "";
+
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();

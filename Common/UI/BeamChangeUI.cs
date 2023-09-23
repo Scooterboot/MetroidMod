@@ -80,7 +80,9 @@ namespace MetroidMod.Common.UI
 			new Vector2(19, 41), //32,174
 			new Vector2(69, 5), //174,174
 			new Vector2(131, 5), //98,254
-			new Vector2(181, 41) //32,254
+			new Vector2(181, 41), //32,254
+			new Vector2(69, 100), //32,254
+			new Vector2(131, 100) //32,254
 		};
 		public override void OnInitialize()
 		{
@@ -91,7 +93,7 @@ namespace MetroidMod.Common.UI
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
 
-			addonSlots = new BeamUIItemBox[10];
+			addonSlots = new BeamUIItemBox[12];
 			for (int i = 0; i < BeamChangeSlotID.Count; ++i)
 			{
 				addonSlots[i] = new BeamUIItemBox();
@@ -234,22 +236,8 @@ namespace MetroidMod.Common.UI
 					{
 						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
 					}
-					//Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
-
-					//powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
 					powerBeamTarget.BeamMods[addonSlotType] = powerBeamTarget.BeamChange[beamSlotType].Clone();
 				}
-				/*else if (condition == null || (condition != null && condition(Main.mouseItem)))
-				{
-
-					SoundEngine.PlaySound(SoundID.Grab);
-
-					Item tempBoxItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
-					Item tempMouseItem = Main.mouseItem.Clone();
-
-					powerBeamTarget.BeamChange[beamSlotType] = tempMouseItem;
-					Main.mouseItem = tempBoxItem;
-				}*/
 			}
 			else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))
 			{
