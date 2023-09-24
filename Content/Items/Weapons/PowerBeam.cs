@@ -54,7 +54,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				if (_beamchangeMods == null)
 				{
-					_beamchangeMods = new Item[10];
+					_beamchangeMods = new Item[12];
 					for (int i = 0; i < _beamchangeMods.Length; ++i)
 					{
 						_beamchangeMods[i] = new Item();
@@ -1524,8 +1524,6 @@ namespace MetroidMod.Content.Items.Weapons
 			if (slot4.type == vt)
 			{
 				shooty += "vortex";
-				shotAmt = 5;
-				chargeShotAmt = 5;
 			}
 			if (slot4.type == sp)
 			{
@@ -1575,6 +1573,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shooty += "stardust";
 			}
+			shooty.ToString();
 			if (isCharge && player.whoAmI == Main.myPlayer)
 			{
 
