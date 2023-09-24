@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.Judicator
 {
@@ -20,15 +21,17 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.height = 8;
 			Projectile.scale = 2f;
 			Projectile.timeLeft = 60;
-			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
+			Player player = Main.player[Projectile.owner];
+			string shooty = PowerBeam.SetCondition(player);
+			if (shooty.Contains("green"))
 			{
 				Projectile.penetrate = 9;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("nova"))
+			if (shooty.Contains("nova"))
 			{
 				Projectile.penetrate = 11;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("solar"))
+			if (shooty.Contains("solar"))
 			{
 				Projectile.penetrate = 16;
 			}

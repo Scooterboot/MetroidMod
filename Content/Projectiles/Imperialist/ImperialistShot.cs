@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using MetroidMod.Content;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
@@ -24,15 +25,17 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 4;
 			mProjectile.wavesPerSecond = 1f;
-			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
+			Player player = Main.player[Projectile.owner];
+			string shooty = PowerBeam.SetCondition(player);
+			if (shooty.Contains("green"))
 			{
 				Projectile.penetrate = 6;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("nova"))
+			if (shooty.Contains("nova"))
 			{
 				Projectile.penetrate = 8;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("solar"))
+			if (shooty.Contains("solar"))
 			{
 				Projectile.penetrate = 12;
 			}
@@ -40,14 +43,16 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 		public override void AI()
 		{
-			if (Items.Weapons.PowerBeam.shooty.Contains("spaze") || Items.Weapons.PowerBeam.shooty.Contains("vortex") || Items.Weapons.PowerBeam.shooty.Contains("wide"))
+			Player player = Main.player[Projectile.owner];
+			string shooty = PowerBeam.SetCondition(player);
+			if (shooty.Contains("spaze") || shooty.Contains("vortex") || shooty.Contains("wide"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 				mProjectile.amplitude = 5f * Projectile.scale;
 				//mProjectile.wavesPerSecond = 1f;
 				//mProjectile.delay = 1;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("wave") || Items.Weapons.PowerBeam.shooty.Contains("nebula"))
+			if (shooty.Contains("wave") || shooty.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));

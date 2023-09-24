@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.hyperbeam
 {
@@ -35,9 +36,10 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		}
 		public override void AI()
 		{
-			string S = Items.Weapons.PowerBeam.shooty;
 			Projectile P = Projectile;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 
 			bool isWave = (S.Contains("wave") || S.Contains("nebula"));
 

@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -8,7 +9,6 @@ namespace MetroidMod.Content.Projectiles.widebeam
 {
 	public class WideBeamShot : MProjectile
 	{
-		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Wide Beam Shot");
@@ -31,7 +31,9 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
-			if(S.Contains("ice"))
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
+			if (S.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;

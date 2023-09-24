@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -8,7 +9,6 @@ namespace MetroidMod.Content.Projectiles.spazer
 {
 	public class SpazerShot : MProjectile
 	{
-		public string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Spazer Shot");
@@ -29,6 +29,8 @@ namespace MetroidMod.Content.Projectiles.spazer
 		Color color = MetroidMod.powColor;
 		public override void AI()
 		{
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 			if (S.Contains("ice"))
 			{
 				dustType = 59;
@@ -81,6 +83,8 @@ namespace MetroidMod.Content.Projectiles.spazer
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Shot";
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 			if (S.Contains("wave"))
 			{
 				Projectile.tileCollide = false;

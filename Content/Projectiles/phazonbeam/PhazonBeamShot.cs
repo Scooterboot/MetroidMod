@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.phazonbeam
 {
@@ -35,7 +36,8 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			string S = Items.Weapons.PowerBeam.shooty;
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + 1.57f;
 			
 			bool isWave = (S.Contains("wave") || S.Contains("nebula")),

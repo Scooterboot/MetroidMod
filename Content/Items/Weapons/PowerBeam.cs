@@ -21,6 +21,7 @@ using MetroidMod.Common.GlobalItems;
 using MetroidMod.Default;
 using Terraria.Utilities;
 using MetroidMod.Content.Projectiles.hyperbeam;
+using System.Security.AccessControl;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -213,7 +214,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private Color lightColor = MetroidMod.powColor;
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
-		public static string shooty = "";
+		private static string shooty = "";
 		private PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 
 		public SoundStyle? ShotSound;
@@ -235,6 +236,10 @@ namespace MetroidMod.Content.Items.Weapons
 		private string altTexture => texture + "_alt";
 		private string texture = "";
 		//Mod modBeamTextureMod = null;
+		public static string SetCondition(Player p)
+		{
+			return shooty;
+		}
 
 		public override void UpdateInventory(Player P)
 		{
@@ -339,64 +344,7 @@ namespace MetroidMod.Content.Items.Weapons
 				shotAmt = 3;
 				chargeShotAmt = 3;
 			}
-			if (slot4.type == vt)
-			{
-				shooty += "vortex";
-				shotAmt = 5;
-				chargeShotAmt = 5;
-			}
-			if (slot4.type == sp)
-			{
-				shooty += "spazer";
-			}
-			if (slot4.type == wi)
-			{
-				shooty += "wide";
-			}
-			if (slot3.type == wa)
-			{
-				shooty += "wave";
-			}
-			if (slot3.type == wa2)
-			{
-				shooty += "waveV2";
-			}
-			if (slot3.type == nb)
-			{
-				shooty += "nebula";
-			}
-			if (slot5.type == plR)
-			{
-				shooty += "plasmared";
-			}
-			if (slot5.type == plG)
-			{
-				shooty += "plasmagreen";
-			}
-			if (slot5.type == nv)
-			{
-				shooty += "nova";
-			}
-			if (slot5.type == sl)
-			{
-				shooty += "solar";
-			}
-			if (slot2.type == ic && slot1.type != mm)
-			{
-				shooty += "ice";
-			}
-			if (slot2.type == ic2 && slot1.type != mm)
-			{
-				shooty += "iceV2";
-			}
-			if (slot2.type == sd && slot1.type != mm)
-			{
-				shooty += "stardust";
-			}
-			if (P.HeldItem.ModItem != held)
-			{
-				shooty = "";
-			}
+
 			// Default Combos
 			if (!isHyper && !isPhazon && !isHunter)
 			{
@@ -1552,8 +1500,81 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void HoldItem(Player player)
 		{
+			Item slot1 = BeamMods[0];
+			Item slot2 = BeamMods[1];
+			Item slot3 = BeamMods[2];
+			Item slot4 = BeamMods[3];
+			Item slot5 = BeamMods[4];
+			int ic = ModContent.ItemType<Addons.IceBeamAddon>();
+			int wa = ModContent.ItemType<Addons.WaveBeamAddon>();
+			int sp = ModContent.ItemType<Addons.SpazerAddon>();
+			int plR = ModContent.ItemType<Addons.PlasmaBeamRedAddon>();
+			int plG = ModContent.ItemType<Addons.PlasmaBeamGreenAddon>();
+			int ic2 = ModContent.ItemType<Addons.V2.IceBeamV2Addon>();
+			int wa2 = ModContent.ItemType<Addons.V2.WaveBeamV2Addon>();
+			int wi = ModContent.ItemType<Addons.V2.WideBeamAddon>();
+			int nv = ModContent.ItemType<Addons.V2.NovaBeamAddon>();
+			int sd = ModContent.ItemType<Addons.V3.StardustBeamAddon>();
+			int nb = ModContent.ItemType<Addons.V3.NebulaBeamAddon>();
+			int vt = ModContent.ItemType<Addons.V3.VortexBeamAddon>();
+			int sl = ModContent.ItemType<Addons.V3.SolarBeamAddon>();
+			int mm = ModContent.ItemType<Addons.Hunters.MagMaulAddon>();
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			int oHeat = (int)((float)overheat * mp.overheatCost);
+			if (slot4.type == vt)
+			{
+				shooty += "vortex";
+				shotAmt = 5;
+				chargeShotAmt = 5;
+			}
+			if (slot4.type == sp)
+			{
+				shooty += "spazer";
+			}
+			if (slot4.type == wi)
+			{
+				shooty += "wide";
+			}
+			if (slot3.type == wa)
+			{
+				shooty += "wave";
+			}
+			if (slot3.type == wa2)
+			{
+				shooty += "waveV2";
+			}
+			if (slot3.type == nb)
+			{
+				shooty += "nebula";
+			}
+			if (slot5.type == plR)
+			{
+				shooty += "plasmared";
+			}
+			if (slot5.type == plG)
+			{
+				shooty += "plasmagreen";
+			}
+			if (slot5.type == nv)
+			{
+				shooty += "nova";
+			}
+			if (slot5.type == sl)
+			{
+				shooty += "solar";
+			}
+			if (slot2.type == ic && slot1.type != mm)
+			{
+				shooty += "ice";
+			}
+			if (slot2.type == ic2 && slot1.type != mm)
+			{
+				shooty += "iceV2";
+			}
+			if (slot2.type == sd && slot1.type != mm)
+			{
+				shooty += "stardust";
+			}
 			if (isCharge && player.whoAmI == Main.myPlayer)
 			{
 

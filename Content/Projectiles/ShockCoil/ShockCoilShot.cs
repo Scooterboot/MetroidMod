@@ -67,10 +67,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Projectile P = Projectile;
             Player O = Main.player[P.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
+			string S = PowerBeam.SetCondition(O);
 
 			Lead = Main.projectile[(int)P.ai[0]];
 
-			if (Items.Weapons.PowerBeam.shooty.Contains("nebula") || Items.Weapons.PowerBeam.shooty.Contains("wave"))
+			if (S.Contains("nebula") || S.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 				//mProjectile.WaveBehavior(Projectile);
@@ -398,6 +399,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			shots = 1f;
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
+			string S = PowerBeam.SetCondition(p);
 
 			//mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
@@ -413,21 +415,21 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mp.Energy += Math.Min(damageDone / 20, 5);
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
-			if (Items.Weapons.PowerBeam.shooty.Contains("vortex"))
+			if (S.Contains("vortex"))
 			{
 				shots = 5f;
 				spazSpeed = .75f;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("spaze") || Items.Weapons.PowerBeam.shooty.Contains("wide"))
+			if (S.Contains("spaze") || S.Contains("wide"))
 			{
 				shots = 3f;
 				spazSpeed = .85f;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("plasma") || Items.Weapons.PowerBeam.shooty.Contains("solar"))
+			if (S.Contains("plasma") || S.Contains("solar"))
 			{
 				plasSpeed = 1.15f;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("ice") || Items.Weapons.PowerBeam.shooty.Contains("stardust"))
+			if (S.Contains("ice") || S.Contains("stardust"))
 			{
 				iceSpeed = 1.25f;
 			}

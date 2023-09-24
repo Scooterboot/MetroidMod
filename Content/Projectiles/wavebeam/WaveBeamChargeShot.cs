@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -15,6 +16,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		}
 		public override void SetDefaults()
 		{
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 			base.SetDefaults();
 			Projectile.width = 16;
 			Projectile.height = 16;
@@ -24,7 +27,7 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 			mProjectile.amplitude = 10f*Projectile.scale;
 			mProjectile.wavesPerSecond = 1f;
 			mProjectile.delay = 4;
-			if (Items.Weapons.PowerBeam.shooty.Contains("ice"))
+			if (S.Contains("ice"))
 			{
 				Main.projFrames[Projectile.type] = 1;
 			}
@@ -34,7 +37,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		Color color = MetroidMod.waveColor;
 		public override void AI()
 		{
-			string S = Items.Weapons.PowerBeam.shooty;
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 			if (S.Contains("ice"))
 			{
 				dustType = 59;

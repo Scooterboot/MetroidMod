@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.vortexbeam
 {
@@ -31,7 +32,8 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		float scale = 1f;
 		public override void AI()
 		{
-			string S = Items.Weapons.PowerBeam.shooty;
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 			if (S.Contains("stardust"))
 			{
 				dustType = 88;

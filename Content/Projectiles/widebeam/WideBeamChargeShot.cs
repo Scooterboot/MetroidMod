@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -9,7 +10,6 @@ namespace MetroidMod.Content.Projectiles.widebeam
 {
 	public class WideBeamChargeShot : MProjectile
 	{
-		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Wide Beam Charge Shot");
@@ -31,7 +31,8 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
-			string S = Items.Weapons.PowerBeam.shooty;
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
 			if (S.Contains("ice"))
 			{
 				dustType = 59;
@@ -70,7 +71,9 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if(S.Contains("wave"))
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
+			if (S.Contains("wave"))
 			{
 				mProjectile.PlasmaDraw(Projectile,Main.player[Projectile.owner], Main.spriteBatch);
 			}

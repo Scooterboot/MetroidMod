@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -8,7 +9,6 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 {
 	public class PlasmaBeamRedShot : MProjectile
 	{
-		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Plasma Beam Red Shot");
@@ -29,7 +29,9 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			if(S.Contains("ice"))
+			Player player = Main.player[Projectile.owner];
+			string S = PowerBeam.SetCondition(player);
+			if (S.Contains("ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
