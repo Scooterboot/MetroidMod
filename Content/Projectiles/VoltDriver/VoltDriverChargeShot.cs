@@ -25,8 +25,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			string S = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 			int shootSpeed = 2;
 			if (S.Contains("wave") || S.Contains("nebula"))
 			{

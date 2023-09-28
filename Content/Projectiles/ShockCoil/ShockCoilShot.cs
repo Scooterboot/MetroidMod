@@ -67,7 +67,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Projectile P = Projectile;
             Player O = Main.player[P.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			string S = PowerBeam.SetCondition(O);
+			string S  = PowerBeam.SetCondition();
 
 			Lead = Main.projectile[(int)P.ai[0]];
 
@@ -399,7 +399,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			shots = 1f;
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
-			string S = PowerBeam.SetCondition(p);
+			string S  = PowerBeam.SetCondition();
 
 			//mp.statOverheat += Math.Max(((int)((float)overheat * mp.overheatCost) / shots), 6 / shots);
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)

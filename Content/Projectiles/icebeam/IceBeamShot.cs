@@ -15,13 +15,13 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		}
 		public override void SetDefaults()
 		{
-			Player player = Main.player[Projectile.owner];
-			string shooty = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 			base.SetDefaults();
 			Projectile.width = 8;
 			Projectile.height = 8;
 			Projectile.scale = 1.5f;
-			if (shooty.Contains("wave"))
+			if (S.Contains("wave"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
@@ -31,12 +31,12 @@ namespace MetroidMod.Content.Projectiles.icebeam
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			string shooty = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 
-			if (shooty.Contains("wave"))
+			if (S.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);

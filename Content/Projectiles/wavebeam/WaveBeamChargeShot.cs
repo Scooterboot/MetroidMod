@@ -16,8 +16,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		}
 		public override void SetDefaults()
 		{
-			Player player = Main.player[Projectile.owner];
-			string S = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 			base.SetDefaults();
 			Projectile.width = 16;
 			Projectile.height = 16;
@@ -37,8 +37,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		Color color = MetroidMod.waveColor;
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			string S = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 			if (S.Contains("ice"))
 			{
 				dustType = 59;

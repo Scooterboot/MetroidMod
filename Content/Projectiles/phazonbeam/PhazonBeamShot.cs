@@ -36,8 +36,8 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			Player player = Main.player[Projectile.owner];
-			string S = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + 1.57f;
 			
 			bool isWave = (S.Contains("wave") || S.Contains("nebula")),

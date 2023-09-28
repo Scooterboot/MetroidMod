@@ -32,8 +32,8 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			string S = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;

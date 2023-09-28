@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Tiles
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<Items.Tiles.NightmareMusicBox>());
+			new EntitySource_TileBreak(i, j); //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<Items.Tiles.NightmareMusicBox>());
 		}
 
 		public override void MouseOver(int i, int j)

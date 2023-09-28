@@ -25,17 +25,17 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.timeLeft = 90;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
-			Player player = Main.player[Projectile.owner];
-			string shooty = PowerBeam.SetCondition(player);
-			if (shooty.Contains("green"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 6;
 			}
-			if (shooty.Contains("nova"))
+			if (S.Contains("nova"))
 			{
 				Projectile.penetrate = 8;
 			}
-			if (shooty.Contains("solar"))
+			if (S.Contains("solar"))
 			{
 				Projectile.penetrate = 12;
 			}

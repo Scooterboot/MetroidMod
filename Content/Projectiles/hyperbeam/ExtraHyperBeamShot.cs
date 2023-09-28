@@ -32,8 +32,8 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		{
 			Projectile P = Projectile;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
-			Player player = Main.player[Projectile.owner];
-			string S = PowerBeam.SetCondition(player);
+			
+			string S  = PowerBeam.SetCondition();
 
 			bool isWave = (S.Contains("wave") || S.Contains("nebula")),
 			isSpazer = S.Contains("spazer") || S.Contains("wide") || S.Contains("vortex"),

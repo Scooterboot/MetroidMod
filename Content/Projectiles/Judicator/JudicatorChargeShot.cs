@@ -21,17 +21,17 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.height = 8;
 			Projectile.scale = 2f;
 			Projectile.timeLeft = 60;
-			Player player = Main.player[Projectile.owner];
-			string shooty = PowerBeam.SetCondition(player);
-			if (shooty.Contains("green"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 9;
 			}
-			if (shooty.Contains("nova"))
+			if (S.Contains("nova"))
 			{
 				Projectile.penetrate = 11;
 			}
-			if (shooty.Contains("solar"))
+			if (S.Contains("solar"))
 			{
 				Projectile.penetrate = 16;
 			}

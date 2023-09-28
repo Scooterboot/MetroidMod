@@ -25,17 +25,17 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 4;
 			mProjectile.wavesPerSecond = 1f;
-			Player player = Main.player[Projectile.owner];
-			string shooty = PowerBeam.SetCondition(player);
-			if (shooty.Contains("green"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 6;
 			}
-			if (shooty.Contains("nova"))
+			if (S.Contains("nova"))
 			{
 				Projectile.penetrate = 8;
 			}
-			if (shooty.Contains("solar"))
+			if (S.Contains("solar"))
 			{
 				Projectile.penetrate = 12;
 			}
@@ -43,16 +43,16 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			string shooty = PowerBeam.SetCondition(player);
-			if (shooty.Contains("spaze") || shooty.Contains("vortex") || shooty.Contains("wide"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (S.Contains("spaze") || S.Contains("vortex") || S.Contains("wide"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 				mProjectile.amplitude = 5f * Projectile.scale;
 				//mProjectile.wavesPerSecond = 1f;
 				//mProjectile.delay = 1;
 			}
-			if (shooty.Contains("wave") || shooty.Contains("nebula"))
+			if (S.Contains("wave") || S.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));

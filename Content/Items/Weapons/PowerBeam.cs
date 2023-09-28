@@ -22,6 +22,7 @@ using MetroidMod.Default;
 using Terraria.Utilities;
 using MetroidMod.Content.Projectiles.hyperbeam;
 using System.Security.AccessControl;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -214,8 +215,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private Color lightColor = MetroidMod.powColor;
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
-		private static string shooty = "";
-		private PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+		private string shooty = "";
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
@@ -236,9 +236,14 @@ namespace MetroidMod.Content.Items.Weapons
 		private string altTexture => texture + "_alt";
 		private string texture = "";
 		//Mod modBeamTextureMod = null;
-		public static string SetCondition(Player p)
+		public static string SetCondition()
 		{
-			return shooty;
+			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			if (held == null)
+			{
+				return "";
+			}
+			return held.shooty;
 		}
 
 		public override void UpdateInventory(Player P)
@@ -303,6 +308,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			texture = "";
 			shooty = "";
+			string S = shooty;
 			//modBeamTextureMod = null;
 
 			ShotSound = null;
@@ -605,7 +611,7 @@ namespace MetroidMod.Content.Items.Weapons
 							lightColor = MetroidMod.waveColor2;
 							//shotAmt = 2;
 							texture = "WaveBeam";
-							if (shooty.Contains("wide"))
+							if (slot4.type == wi)
 							{
 								shotAmt = 3;
 								chargeShotAmt = 3;
@@ -939,6 +945,7 @@ namespace MetroidMod.Content.Items.Weapons
 					shotSound = "BattleHammerAffinitySound";
 					texture = "BattleHammer";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+					Item.knockBack = 8;
 					useTime = 15;
 					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
 					{
@@ -1047,7 +1054,7 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "HyperBeam";
 
 				// Wave / Nebula
-				if(shooty.Contains("plasmagreen") || shooty.Contains("nova") || shooty.Contains("solar"))
+				if(S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar"))
 				{
 					shot = "PlasmaHyperBeamShot";
 				}
@@ -1521,55 +1528,55 @@ namespace MetroidMod.Content.Items.Weapons
 			int mm = ModContent.ItemType<Addons.Hunters.MagMaulAddon>();
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			int oHeat = (int)((float)overheat * mp.overheatCost);
-			if (slot4.type == vt)
+			if (slot4.type == vt && comboError3 != true)
 			{
 				shooty += "vortex";
 			}
-			if (slot4.type == sp)
+			if (slot4.type == sp && comboError3 != true)
 			{
 				shooty += "spazer";
 			}
-			if (slot4.type == wi)
+			if (slot4.type == wi && comboError3 != true)
 			{
 				shooty += "wide";
 			}
-			if (slot3.type == wa)
+			if (slot3.type == wa && comboError2 != true)
 			{
 				shooty += "wave";
 			}
-			if (slot3.type == wa2)
+			if (slot3.type == wa2 && comboError2 != true)
 			{
 				shooty += "waveV2";
 			}
-			if (slot3.type == nb)
+			if (slot3.type == nb && comboError2 != true)
 			{
 				shooty += "nebula";
 			}
-			if (slot5.type == plR)
+			if (slot5.type == plR && comboError4 != true)
 			{
 				shooty += "plasmared";
 			}
-			if (slot5.type == plG)
+			if (slot5.type == plG && comboError4 != true)
 			{
 				shooty += "plasmagreen";
 			}
-			if (slot5.type == nv)
+			if (slot5.type == nv && comboError4 != true)
 			{
 				shooty += "nova";
 			}
-			if (slot5.type == sl)
+			if (slot5.type == sl && comboError4 != true)
 			{
 				shooty += "solar";
 			}
-			if (slot2.type == ic && slot1.type != mm)
+			if (slot2.type == ic && comboError1 != true)
 			{
 				shooty += "ice";
 			}
-			if (slot2.type == ic2 && slot1.type != mm)
+			if (slot2.type == ic2 && comboError1 != true)
 			{
 				shooty += "iceV2";
 			}
-			if (slot2.type == sd && slot1.type != mm)
+			if (slot2.type == sd && comboError1 != true)
 			{
 				shooty += "stardust";
 			}
@@ -1754,7 +1761,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			base.OnCreated(context);
 			_beamMods = new Item[5];
-			_beamchangeMods = new Item[10];
+			_beamchangeMods = new Item[12];
 			for (int i = 0; i < _beamMods.Length; ++i)
 			{
 				_beamMods[i] = new Item();
