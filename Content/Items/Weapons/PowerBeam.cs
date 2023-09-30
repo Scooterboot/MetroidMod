@@ -345,11 +345,6 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				versionType = 2;
 			}
-			if (slot4.type == sp || slot4.type == wi)
-			{
-				shotAmt = 3;
-				chargeShotAmt = 3;
-			}
 
 			// Default Combos
 			if (!isHyper && !isPhazon && !isHunter)
@@ -897,6 +892,16 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else if (isHunter)
 			{
+				if (slot4.type == sp || slot4.type == wi)
+				{
+					shotAmt = 3;
+					chargeShotAmt = 3;
+				}
+				if (slot4.type == vt)
+				{
+					shotAmt = 5;
+					chargeShotAmt = 5;
+				}
 				if (slot1.type == vd)
 				{
 					isCharge = true;
@@ -968,8 +973,7 @@ namespace MetroidMod.Content.Items.Weapons
 					shotSound = "ImperialistSound";
 					texture = "Imperialist";
 					useTime = 60;
-					Stealth = true;
-					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();			
+					Stealth = true;		
 				}
 				if (slot1.type == mm)
 				{
