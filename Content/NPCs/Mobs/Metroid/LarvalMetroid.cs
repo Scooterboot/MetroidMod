@@ -29,15 +29,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			Main.npcFrameCount[Type] = 4;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					BuffID.Poisoned,
-					BuffID.OnFire,
-					BuffID.CursedInferno
-				}
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
 		}
 
 		public override void SetDefaults()

@@ -24,12 +24,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 			Main.npcFrameCount[NPC.type] = 4;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					BuffID.OnFire
-				}
-			};
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{

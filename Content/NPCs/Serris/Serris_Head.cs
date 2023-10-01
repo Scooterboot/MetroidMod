@@ -65,18 +65,12 @@ namespace MetroidMod.Content.NPCs.Serris
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					20,
-					24,
-					31,
-					39
-				}
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][31] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][39] = true;
 
-			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{ // Influences how the NPC looks in the Bestiary
 				CustomTexturePath = "MetroidMod/Content/NPCs/Serris/Serris_BossLog", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
 				Position = new Vector2(0f, -40f), // icon
