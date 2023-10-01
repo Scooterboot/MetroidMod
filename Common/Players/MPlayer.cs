@@ -603,6 +603,7 @@ namespace MetroidMod.Common.Players
 								Player.velocity.Y = Player.velocity.Y + 0.01f;
 							}
 							Player.velocity += vel;
+							/*
 							if (Player.hasJumpOption_Cloud)
 							{
 								Player.canJumpAgain_Cloud = true;
@@ -639,6 +640,8 @@ namespace MetroidMod.Common.Players
 							{
 								Player.canJumpAgain_WallOfFleshGoat = true;
 							}
+							*/
+							Player.blockExtraJumps = false;
 							Player.releaseJump = false;
 
 							grapplingBeam = -1;

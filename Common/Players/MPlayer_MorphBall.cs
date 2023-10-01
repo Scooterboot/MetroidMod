@@ -203,12 +203,15 @@ namespace MetroidMod.Common.Players
 				//temporarily trick the game into thinking the Player isn't on a mount so that the Player can use their original move speed and jump height
 				Player.mount._active = false;
 				ballstate = true;
+				/*
 				Player.canJumpAgain_Cloud = false;
 				Player.canJumpAgain_Sandstorm = false;
 				Player.canJumpAgain_Blizzard = false;
 				Player.canJumpAgain_Fart = false;
 				Player.canJumpAgain_Sail = false;
 				Player.canJumpAgain_Unicorn = false;
+				*/
+				Player.blockExtraJumps = true;
 				Player.pulley = false;
 				Player.ropeCount = 10;
 				statCharge = 0;
@@ -292,6 +295,7 @@ namespace MetroidMod.Common.Players
 			{
 				Player.width = Math.Abs(Player.velocity.X) >= 10f ? 20: morphSize;
 			}
+			/*
 			Player.hasJumpOption_Cloud = false;
 			Player.canJumpAgain_Cloud = false;
 			Player.isPerformingJump_Cloud = false;
@@ -304,6 +308,8 @@ namespace MetroidMod.Common.Players
 			Player.hasJumpOption_Fart = false;
 			Player.canJumpAgain_Fart = false;
 			Player.isPerformingJump_Fart = false;
+			*/
+			Player.blockExtraJumps = true;
 			Player.rocketBoots = 0;
 			Player.rocketTime = 0;
 			Player.wings = 0;

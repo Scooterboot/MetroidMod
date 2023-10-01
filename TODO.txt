@@ -17,3 +17,4 @@
  -	Sprites for things relating to the Chozo Ruins 'biome' (for use in the Bestiary)
  -	Make a new Mod Menu that isn't explicitly based on NEStroid to fit the new music
 	 -	For reference purposes, the new music is stated to be vaguely based on Super Metroid
+ -	Make Space Jump Boots conform to the new jump loader
