@@ -374,6 +374,7 @@ namespace MetroidMod.Content.Items.Weapons
 							shot = "IceSpazerShot";
 							chargeShot = "IceSpazerChargeShot";
 							shotSound = "IceComboSound";
+							shotAmt = 3;
 							chargeShotAmt = 3;
 						}
 						if (slot5.type == plG)
@@ -411,6 +412,7 @@ namespace MetroidMod.Content.Items.Weapons
 								shot = "WaveSpazerShot";
 								chargeShot = "WaveSpazerChargeShot";
 								shotSound = "SpazerSound";
+								shotAmt = 3;
 								chargeShotAmt = 3;
 							}
 						}
@@ -1712,6 +1714,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				player.stealth -= stealth / 500;
 				player.aggro -= (int)stealth;
+				Item.damage *= 1 + ((int)stealth / 500);
 				if (player.controlUseItem || player.velocity.X != 0 || player.velocity.Y != 0)
 				{
 					player.shroomiteStealth = false;
