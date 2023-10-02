@@ -219,6 +219,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
+		public static Vector2 Where;
 
 		private int waveDir = -1;
 
@@ -490,6 +491,7 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceWaveWideBeamShot";
 								chargeShot = "IceWaveWideBeamChargeShot";
+								shotAmt = 3;
 								chargeShotAmt = 3;
 
 								// Ice Wave Wide Nova
@@ -572,6 +574,7 @@ namespace MetroidMod.Content.Items.Weapons
 								chargeShot = "IceNovaBeamChargeShot";
 								if(slot4.type == wi)
 								{
+									shotAmt = 3;
 									chargeShotAmt = 3;
 								}
 							}
@@ -1421,9 +1424,14 @@ namespace MetroidMod.Content.Items.Weapons
 			
 
 		int chargeLead = -1;
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
+			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			if (isCharge || isShock)
 			{
 				int ch = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), damage, knockback, player.whoAmI);
@@ -1507,6 +1515,11 @@ namespace MetroidMod.Content.Items.Weapons
 			if (!isPhazon)
 			{
 				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), player.position);
+			}
+			if (Stealth)
+			{
+				Where.X += oPos.X;
+				Where.Y += oPos.Y;
 			}
 
 			return false;
