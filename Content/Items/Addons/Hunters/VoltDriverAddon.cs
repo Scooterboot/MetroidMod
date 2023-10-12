@@ -43,7 +43,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.beamSlotType = BeamChangeSlotID.VoltDriver;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVoltDriver;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriver;
-			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedVoltDriver;
 		}
 	
 

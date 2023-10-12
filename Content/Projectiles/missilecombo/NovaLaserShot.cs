@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.Enums;
+using System.IO;
 //using MetroidMod;
 //using MetroidMod.Projectiles.chargelead;
 
@@ -28,7 +29,11 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 5;
 		}
-		
+		private float BeamLength
+		{
+			get => Projectile.localAI[1];
+			set => Projectile.localAI[1] = value;
+		}
 		const float Max_Range = 2200f;
 		float maxRange = 0f;
 		
@@ -121,13 +126,15 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				ChargeLead chLead = (ChargeLead)Lead.ModProjectile;
 				chLead.extraScale = 0.75f * scaleUp;
 			}
+			P.netUpdate = true;
 		}
 
 		public override bool ShouldUpdatePosition()
 		{
 			return false;
 		}
-
+		public override void SendExtraAI(BinaryWriter writer) => writer.Write(BeamLength);
+		public override void ReceiveExtraAI(BinaryReader reader) => BeamLength = reader.ReadSingle();
 		public override void CutTiles()
 		{
 			Projectile P = Projectile;

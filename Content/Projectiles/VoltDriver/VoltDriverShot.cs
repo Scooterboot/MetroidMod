@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 

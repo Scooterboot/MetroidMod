@@ -18,6 +18,8 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.Projectiles.ShockCoil;
+using MetroidMod.Content.Projectiles.Imperialist;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -67,7 +69,6 @@ namespace MetroidMod.Content.Projectiles
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			Player player = Main.player[Projectile.owner];
-			string shooty = PowerBeam.SetCondition();
 			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit+player.inventory[player.selectedItem].crit)
 			{
 				modifiers.CritDamage += 1f;
@@ -241,9 +242,10 @@ namespace MetroidMod.Content.Projectiles
 				{
 					shift = amplitude * (float)Math.Sin(t - t2) * i;
 				}
-				
-				pos += P.velocity;
-				
+				if(P.type != ModContent.ProjectileType<ImperialistShot>())
+				{
+					pos += P.velocity;
+				}
 				float rot = (float)Math.Atan2((P.velocity.Y),(P.velocity.X));
 				P.position.X = pos.X + (float)Math.Cos(rot+((float)Math.PI/2))*shift;
 				P.position.Y = pos.Y + (float)Math.Sin(rot+((float)Math.PI/2))*shift;
@@ -318,7 +320,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				d--;
 			}
-			if(d >= depth)
+			if(d >= depth && P.type != ModContent.ProjectileType<ShockCoilShot>() && P.type != ModContent.ProjectileType<ImperialistShot>())
 			{
 				P.Kill();
 			}
@@ -394,6 +396,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public void DustyDeath(Projectile Projectile, int dustType, bool noGravity = true, float scale = 1f, Color color = default(Color))
 		{
+			string S = PowerBeam.SetCondition();
 			Vector2 pos = Projectile.position;
 			int freq = 20;
 			if(Projectile.Name.Contains("Charge"))
@@ -407,7 +410,7 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].noGravity = noGravity;
 			}
 			SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/BeamImpactSound");
-			if(Projectile.Name.Contains("Ice"))
+			if(Projectile.Name.Contains("Ice") || S.Contains("ice"))
 			{
 				sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
 			}
@@ -418,7 +421,8 @@ namespace MetroidMod.Content.Projectiles
 
 		public void Diffuse(Projectile Projectile, int dustType, Color color = default(Color), bool noGravity = true, float scale = 1f)
 		{
-			if(canDiffuse)
+			string S = PowerBeam.SetCondition();
+			if (canDiffuse)
 			{
 				if (Projectile.owner != Main.myPlayer) return;
 
@@ -440,7 +444,7 @@ namespace MetroidMod.Content.Projectiles
 				}
 
 				SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/BeamImpactSound");
-				if(Projectile.Name.Contains("Ice"))
+				if (Projectile.Name.Contains("Ice") || S.Contains("ice"))
 				{
 					sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
 				}

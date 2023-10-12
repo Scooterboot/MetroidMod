@@ -409,7 +409,7 @@ namespace MetroidMod.Common.Players
 					bombCount++;
 				}
 			}
-			if (Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Player.controlUseTile && Player.releaseUseTile && !Player.tileInteractionHappened && Player.releaseUseItem && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
+			if (Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Systems.MSystem.BombKey.JustPressed) //(Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Player.controlUseTile && Player.releaseUseTile && !Player.tileInteractionHappened && Player.releaseUseItem && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine) ||
 			{
 				SoundEngine.PlaySound(Sounds.Suit.LayBomb, Player.position);
 				int a = Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X,Player.Center.Y,0,0,BombID,bombDamage,4f,Player.whoAmI, 1);

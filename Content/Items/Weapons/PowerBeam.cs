@@ -23,6 +23,7 @@ using Terraria.Utilities;
 using MetroidMod.Content.Projectiles.hyperbeam;
 using System.Security.AccessControl;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MetroidMod.Common.Configs;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -78,12 +79,12 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			Item.damage = Common.Configs.MConfigItems.Instance.damagePowerBeam;
+			Item.damage = MConfigItems.Instance.damagePowerBeam;
 			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Item.width = 24;
 			Item.height = 12;
 			Item.scale = 0.8f;
-			Item.useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
+			Item.useTime = MConfigItems.Instance.useTimePowerBeam;
 			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
@@ -188,17 +189,16 @@ namespace MetroidMod.Content.Items.Weapons
 		private float waveSpeed = 0f;
 		private float spazSpeed = 0f;
 		private float plasSpeed = 0f;
-		private float hunterSpeed = 0f;
 		private float cooldown = 0f;
-		private float stealth = 0f;
+		public float impStealth = 0f;
 
-		private int finalDmg = Common.Configs.MConfigItems.Instance.damagePowerBeam;
+		private int finalDmg = MConfigItems.Instance.damagePowerBeam;
 
 		private float chargeDmgMult = 3f;
 		private float chargeCost = 2f;
 
-		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
-		private int useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
+		private int overheat = MConfigItems.Instance.overheatPowerBeam;
+		private double useTime = MConfigItems.Instance.useTimePowerBeam;
 
 		private string shot = "PowerBeamShot";
 		private string chargeShot = "PowerBeamChargeShot";
@@ -216,14 +216,15 @@ namespace MetroidMod.Content.Items.Weapons
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
 		private string shooty = "";
+		public static int shotsy;
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
-		public static Vector2 Where;
 
 		private int waveDir = -1;
 
 		private bool isSpray = false;
+		private bool isChargeSpray = false;
 		private bool isShock = false;
 		private bool isCharge = false;
 		private bool isHyper = false;
@@ -249,7 +250,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override void UpdateInventory(Player P)
 		{
-			//MPlayer mp = P.GetModPlayer<MPlayer>();
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 
 			int ch = ModContent.ItemType<Addons.ChargeBeamAddon>();
 			int ic = ModContent.ItemType<Addons.IceBeamAddon>();
@@ -288,9 +289,9 @@ namespace MetroidMod.Content.Items.Weapons
 			Item slot5 = BeamMods[4];
 
 
-			int damage = Common.Configs.MConfigItems.Instance.damagePowerBeam;
-			overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
-			useTime = Common.Configs.MConfigItems.Instance.useTimePowerBeam;
+			int damage = MConfigItems.Instance.damagePowerBeam;
+			overheat = MConfigItems.Instance.overheatPowerBeam;
+			useTime = MConfigItems.Instance.useTimePowerBeam;
 			shot = "PowerBeamShot";
 			chargeShot = "PowerBeamChargeShot";
 			shotAmt = 1;
@@ -897,15 +898,71 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else if (isHunter)
 			{
-				if (slot4.type == sp || slot4.type == wi)
+				if(versionType == 1)
 				{
-					shotAmt = 3;
-					chargeShotAmt = 3;
+					if (slot3.type == wa && slot5.IsAir && slot4.type != sp)
+					{
+						chargeShotAmt = 2;
+					}
+					if (slot4.type == sp)
+					{
+						shotAmt = 3;
+						chargeShotAmt = 3;
+					}
 				}
-				if (slot4.type == vt)
+				if(versionType == 3)
 				{
-					shotAmt = 5;
-					chargeShotAmt = 5;
+					if (slot3.type == nb && slot4.type != vt)
+					{
+						shotAmt = 2;
+						chargeShotAmt = 2;
+					}
+					if (slot4.type == vt)
+					{
+						shotAmt = 5;
+						chargeShotAmt = 5;
+					}
+					if (slot2.type == ic || slot2.type == ic2)
+					{
+						comboError1 = true;
+					}
+					if (slot3.type == wa || slot3.type == wa2)
+					{
+						comboError2 = true;
+					}
+					if (slot4.type == sp || slot4.type == wi)
+					{
+						comboError3 = true;
+					}
+					if (slot5.type == plR || slot5.type == plG || slot5.type == nv)
+					{
+						comboError4 = true;
+					}
+				}
+				if(versionType == 2)
+				{
+					if (slot2.type == ic)
+					{
+						comboError1 = true;
+					}
+					if (slot3.type == wa)
+					{
+						comboError2 = true;
+					}
+					if (slot4.type == sp)
+					{
+						comboError3 = true;
+					}
+					if (slot4.type != wi && slot3.type == wa2)
+					{
+						shotAmt = 2;
+						chargeShotAmt = 2;
+					}
+					if(slot4.type == wi)
+					{
+						shotAmt = 3;
+						chargeShotAmt = 3;
+					}
 				}
 				if (slot1.type == vd)
 				{
@@ -918,11 +975,16 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "VoltDriver";
 					chargeTex = "ChargeLead_Spazer";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageVoltDriverCharge;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriverCharge;
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+					mItem.addonChargeDmg = MConfigItems.Instance.damageVoltDriverCharge;
+					mItem.addonChargeHeat = MConfigItems.Instance.overheatVoltDriverCharge;
+					useTime = MConfigItems.Instance.useTimeVoltDriver;
+					if (shotAmt > 1)
 					{
 						isSpray = true;
+					}
+					if (chargeShotAmt > 1)
+					{
+						isChargeSpray = true;
 					}
 				}
 				if (slot1.type == jd)
@@ -935,13 +997,17 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeUpSound = "ChargeStartup_JudicatorAffinity";
 					texture = "Judicator";
 					chargeTex = "ChargeLead_Ice";
-					useTime = 15;
+					useTime = MConfigItems.Instance.useTimeJudicator;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageJudicatorCharge;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatJudicatorCharge;
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+					mItem.addonChargeDmg = MConfigItems.Instance.damageJudicatorCharge;
+					mItem.addonChargeHeat =	MConfigItems.Instance.overheatJudicatorCharge;
+					if (shotAmt > 1)
 					{
 						isSpray = true;
+					}
+					if (chargeShotAmt > 1)
+					{
+						isChargeSpray = true;
 					}
 					if (!slot3.IsAir)
 					{
@@ -954,10 +1020,9 @@ namespace MetroidMod.Content.Items.Weapons
 					shot = "BattleHammerShot";
 					shotSound = "BattleHammerAffinitySound";
 					texture = "BattleHammer";
-					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					Item.knockBack = 8;
-					useTime = 15;
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+					Item.knockBack *= 2;
+					useTime = MConfigItems.Instance.useTimeBattleHammer;
+					if (shotAmt > 1)
 					{
 						isSpray = true;
 					}
@@ -977,8 +1042,8 @@ namespace MetroidMod.Content.Items.Weapons
 					shot = "ImperialistShot";
 					shotSound = "ImperialistSound";
 					texture = "Imperialist";
-					useTime = 60;
-					Stealth = true;		
+					useTime = MConfigItems.Instance.useTimeImperialist;
+					Stealth = true;
 				}
 				if (slot1.type == mm)
 				{
@@ -991,12 +1056,16 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "MagMaul";
 					chargeTex = "ChargeLead_PlasmaRed";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageMagMaulCharge;
-					mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatMagMaulCharge;
-					useTime = 20;
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+					mItem.addonChargeDmg = MConfigItems.Instance.damageMagMaulCharge;
+					mItem.addonChargeHeat = MConfigItems.Instance.overheatMagMaulCharge;
+					useTime = MConfigItems.Instance.useTimeMagMaul;
+					if (shotAmt > 1)
 					{
 						isSpray = true;
+					}
+					if (chargeShotAmt > 1)
+					{
+						isChargeSpray = true;
 					}
 					if (!slot2.IsAir)
 					{
@@ -1022,8 +1091,8 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeShotSound = "ShockCoilReload";
 					chargeShot = "ShockCoilChargeShot";
 					chargeTex = "ChargeLead_Stardust";
-					Item.knockBack = 0;
-					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
+					Item.knockBack *= 0;
+					useTime = MConfigItems.Instance.useTimeShockCoil;
 					if (slot5.type == plG)
 					{
 						comboError4 = true;
@@ -1034,9 +1103,8 @@ namespace MetroidMod.Content.Items.Weapons
 					shot = "OmegaCannonShot";
 					shotSound = "OmegaCannonShotSound";
 					texture = "OmegaCannon";
-					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					useTime = 60;
-					if (slot4.type == sp || slot4.type == wi || slot4.type == vt)
+					useTime = MConfigItems.Instance.useTimeOmegaCannon;
+					if (shotAmt > 1)
 					{
 						isSpray = true;
 					}
@@ -1055,10 +1123,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shot = "HyperBeamShot";
 				shotSound = "HyperBeamSound";
-				useTime = Common.Configs.MConfigItems.Instance.useTimeHyperBeam;
+				useTime = MConfigItems.Instance.useTimeHyperBeam;
 
-				damage = Common.Configs.MConfigItems.Instance.damageHyperBeam;
-				overheat = Common.Configs.MConfigItems.Instance.overheatHyperBeam;
+				damage = MConfigItems.Instance.damageHyperBeam;
+				overheat = MConfigItems.Instance.overheatHyperBeam;
 
 				texture = "HyperBeam";
 
@@ -1073,10 +1141,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shot = "PhazonBeamShot";
 				shotSound = "PhazonBeamSound";
-				useTime = Common.Configs.MConfigItems.Instance.useTimePhazonBeam;
+				useTime = MConfigItems.Instance.useTimePhazonBeam;
 
-				damage = Common.Configs.MConfigItems.Instance.damagePhazonBeam;
-				overheat = Common.Configs.MConfigItems.Instance.overheatPhazonBeam;
+				damage = MConfigItems.Instance.damagePhazonBeam;
+				overheat = MConfigItems.Instance.overheatPhazonBeam;
 
 				texture = "PhazonBeam";
 			}
@@ -1097,7 +1165,6 @@ namespace MetroidMod.Content.Items.Weapons
 			waveSpeed = 0f;
 			spazSpeed = 0f;
 			plasSpeed = 0f;
-			hunterSpeed= 0f;
 
 			if (!slot3.IsAir)
 			{
@@ -1199,7 +1266,6 @@ namespace MetroidMod.Content.Items.Weapons
 				chargeCost = mItem.addonChargeHeat;
 				hunterDmg = mItem.addonDmg;
 				hunterHeat = mItem.addonHeat;
-				hunterSpeed = mItem.addonSpeed;
 				/*if (BeamLoader.TryGetValue(BeamLoader.beams, slot1, out ModBeam modBeam))
 				{
 					//isCharge = ((ModChargeBeam)modBeam).IsTraditionalCharge;
@@ -1213,16 +1279,16 @@ namespace MetroidMod.Content.Items.Weapons
 				}*/
 			}
 
-			finalDmg = (int)Math.Round((double)((float)damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg + hunterDmg)));
-			overheat = (int)Math.Max(Math.Round((double)((float)overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 1);
+			finalDmg = (int)Math.Round((double)(damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg + hunterDmg)));
+			overheat = (int)Math.Max(Math.Round((double)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 1);
 
-			float shotsPerSecond = (60 / useTime) * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed + hunterSpeed);
+			double shotsPerSecond = 60 / useTime * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
 
 			useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 
 			Item.damage = finalDmg;
-			Item.useTime = useTime;
-			Item.useAnimation = useTime;
+			Item.useTime = (int)useTime;
+			Item.useAnimation = (int)useTime;
 			Item.shoot = ModContent.Find<ModProjectile>(Mod.Name, shot).Type;
 			if (ShotSound == null)
 			{
@@ -1236,7 +1302,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			//Item.autoReuse = (!slot1.IsAir);//(isCharge);
 
-			Item.shootSpeed = 8f;
+			Item.shootSpeed = slot1.type == oc ? 2f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
 			Item.knockBack = 4f;
@@ -1453,6 +1519,10 @@ namespace MetroidMod.Content.Items.Weapons
 				cl.noSomersault = noSomersault;
 
 				chargeLead = ch;
+				if (isShock)
+				{
+					cl.extraScale = .1f;
+				}
 			}
 			if (isHyper)
 			{
@@ -1498,7 +1568,7 @@ namespace MetroidMod.Content.Items.Weapons
 			waveDir *= -1;
 
 			mp.statOverheat += (int)((float)overheat * mp.overheatCost);
-			mp.overheatDelay = Math.Max(useTime - 10, 2);
+			mp.overheatDelay = (int)Math.Max(useTime - 10, 2);
 
 			/* Sound & Sound Networking */
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
@@ -1516,16 +1586,12 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), player.position);
 			}
-			if (Stealth)
-			{
-				Where.X += oPos.X;
-				Where.Y += oPos.Y;
-			}
 
 			return false;
 		}
 		public override void HoldItem(Player player)
 		{
+			shotsy = shotAmt;
 			Item slot1 = BeamMods[0];
 			Item slot2 = BeamMods[1];
 			Item slot3 = BeamMods[2];
@@ -1599,7 +1665,18 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				shooty += "stardust";
 			}
+			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			shooty.ToString();
+			float MY = Main.mouseY + Main.screenPosition.Y;
+			float MX = Main.mouseX + Main.screenPosition.X;
+			if (player.gravDir == -1f)
+			{
+				MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
+			}
+
+			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
+			int damage = player.GetWeaponDamage(Item);
+			Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
 			if (isCharge && player.whoAmI == Main.myPlayer)
 			{
 
@@ -1614,31 +1691,15 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					else
 					{
-						Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 
-						float MY = Main.mouseY + Main.screenPosition.Y;
-						float MX = Main.mouseX + Main.screenPosition.X;
-						if (player.gravDir == -1f)
-						{
-							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-						}
-
-						float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
-
-						Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
-
-						float dmgMult = 1f + ((chargeDmgMult - 1f) / MPlayer.maxCharge) * mp.statCharge;
-						int damage = player.GetWeaponDamage(Item);
-
-						
-
+						float dmgMult = 1f + (chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge;
 						double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
-						if (mp.statCharge >= (MPlayer.maxCharge * 0.5) && !isSpray)
+						if (mp.statCharge >= (MPlayer.maxCharge * 0.5) && !isChargeSpray)
 						{
 							for (int i = 0; i < chargeShotAmt; i++)
 							{
-								int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
+								int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
 								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 								mProj.waveDir = waveDir;
 								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9));
@@ -1648,10 +1709,10 @@ namespace MetroidMod.Content.Items.Weapons
 
 							SoundEngine.PlaySound(new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}"), oPos);
 
-							mp.statOverheat += (int)((float)oHeat * chargeCost);
-							mp.overheatDelay = useTime - 10;
+							mp.statOverheat += (int)(oHeat * chargeCost);
+							mp.overheatDelay = (int)useTime - 10;
 						}
-						if (isSpray && chargeShotAmt > 1 && mp.statCharge >= (MPlayer.maxCharge * 0.5))
+						if (isChargeSpray && chargeShotAmt > 1 && mp.statCharge >= (MPlayer.maxCharge * 0.5))
 						{
 							for (int i = 0; i < chargeShotAmt; i++)
 							{
@@ -1662,7 +1723,7 @@ namespace MetroidMod.Content.Items.Weapons
 								mProj.Projectile.netUpdate2 = true;
 							}
 							mp.statOverheat += (int)((float)oHeat * chargeCost);
-							mp.overheatDelay = useTime - 10;
+							mp.overheatDelay = (int)useTime - 10;
 						}
 						else if (mp.statCharge > 0)
 						{
@@ -1692,7 +1753,7 @@ namespace MetroidMod.Content.Items.Weapons
 								SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
 
 								mp.statOverheat += oHeat;
-								mp.overheatDelay = useTime - 10;
+								mp.overheatDelay = (int)useTime - 10;
 							}
 						}
 						if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != ModContent.ProjectileType<ChargeLead>())
@@ -1708,30 +1769,29 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (isShock && player.controlUseItem && mp.statOverheat < mp.maxOverheat && mp.statCharge >= MPlayer.maxCharge)
 			{
-				//cooldown = useTime;
 				cooldown--;
 				mp.overheatDelay = (int)cooldown / 3;
 				if (cooldown <= 0)
 				{
 					mp.statOverheat += oHeat - 1;
-					cooldown = useTime;
+					cooldown = (int)useTime;
 				}
 			}
 			if (Stealth)
 			{
 				player.scope = true;
 				player.shroomiteStealth = true;
-				if(stealth < 500f)
+				if(impStealth < 125f)
 				{
-					stealth += 4;
+					impStealth++;
 				}
-				player.stealth -= stealth / 500;
-				player.aggro -= (int)stealth;
-				Item.damage *= 1 + ((int)stealth / 500);
-				if (player.controlUseItem || player.velocity.X != 0 || player.velocity.Y != 0)
+				//Item.damage *= (int)(1f + (mp.impStealth / 125f));
+				player.stealth -= (impStealth / 125f);
+				player.aggro -= (int)(impStealth * 4f);
+				if (player.velocity != Vector2.Zero)
 				{
 					player.shroomiteStealth = false;
-					stealth = 0f;
+					impStealth = 0f;
 				}
 			}
 		}

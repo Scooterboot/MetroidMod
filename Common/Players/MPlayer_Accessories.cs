@@ -609,7 +609,7 @@ namespace MetroidMod.Common.Players
 					reGripTimer = 10;
 				}
 			}
-			if (isGripping && Player.controlRight && gripDir >=1 && Player.controlUp && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			if (isGripping && Player.controlRight && gripDir >=1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
 			{
 				var ball = ModContent.MountType<MorphBallMount>();
 				Player.QuickMount();
@@ -620,7 +620,7 @@ namespace MetroidMod.Common.Players
 				Player.position.Y -= 32f;
 				SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
 			}
-			if (isGripping && Player.controlLeft && gripDir <= -1 && Player.controlUp && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			if (isGripping && Player.controlLeft && gripDir <= -1 && Player.releaseLeft && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
 			{
 				var ball = ModContent.MountType<MorphBallMount>();
 				Player.QuickMount();

@@ -41,16 +41,20 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public override void Kill(int timeLeft)
 		{
-			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-			Projectile.width += 125;
-			Projectile.height += 125;
-			Projectile.scale = 3f;
-			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
-			mProjectile.Diffuse(Projectile, 286);
+			if(mProjectile.canDiffuse)
+			{
+				Projectile.width += 125;
+				Projectile.height += 125;
+				Projectile.scale = 3f;
+				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
+				Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+				Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+				//mProjectile.Diffuse(Projectile, 286);
+				Projectile.Damage();
+			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
-			Projectile.Damage();
+			mProjectile.DustyDeath(Projectile, 286);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

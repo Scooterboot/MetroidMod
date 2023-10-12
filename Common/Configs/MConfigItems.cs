@@ -574,12 +574,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(.1f)]
 		public float damageVoltDriver;
 
-		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Speed Multiplier")]
-		[Range(-1f, 2f)]
-		[Increment(0.1f)]
+		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
 		[Slider]
-		[DefaultValue(-.1f)]
-		public float speedVoltDriver;
+		[DefaultValue(17)]
+		public int useTimeVoltDriver;
 
 		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Charge Damage Multiplier")]
 		[Range(1f, 5f)]
@@ -609,12 +609,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(.45f)]
 		public float damageMagMaul;
 
-		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Speed Multiplier")]
-		[Range(-.45f, 2f)]
-		[Increment(0.1f)]
+		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
 		[Slider]
-		[DefaultValue(-.45f)]
-		public float speedMagMaul;
+		[DefaultValue(36)]
+		public int useTimeMagMaul;
 
 		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Charge Damage Multiplier")]
 		[Range(1f, 5f)]
@@ -644,12 +644,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(5f)]
 		public float damageImperialist;
 
-		//[Label("[i:MetroidMod/ImperialistAddon] Imperialist Speed Multiplier")]
-		[Range(-.35f, 2f)]
-		[Increment(0.5f)]
+		//[Label("[i:MetroidMod/ImperialistAddon] Imperialist Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
 		[Slider]
-		[DefaultValue(-.35f)]
-		public float speedImperialist;
+		[DefaultValue(92)]
+		public int useTimeImperialist;
 
 		//[Label("[i:MetroidMod/ImperialistAddon] Imperialist Overheat Modifer")]
 		[Range(0f, 3f)]
@@ -665,12 +665,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(.45f)]
 		public float damageJudicator;
 
-		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Speed Multiplier")]
-		[Range(-.45f, 2f)]
-		[Increment(0.05f)]
+		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
 		[Slider]
-		[DefaultValue(-.45f)]
-		public float speedJudicator;
+		[DefaultValue(27)]
+		public int useTimeJudicator;
 
 		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Charge Damage Multiplier")]
 		[Range(1f, 5f)]
@@ -694,11 +694,32 @@ namespace MetroidMod.Common.Configs
 		public float overheatJudicatorCharge;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
-		[Range(-1f, 2f)]
+		[Range(-0.9f, 2f)]
+		[Increment(0.1f)]
+		[Slider]
+		[DefaultValue(-0.5f)]
+		public float damageShockCoil;
+
+		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
+		[Range(.1f, 1f)]
+		[Increment(0.1f)]
+		[Slider]
+		[DefaultValue(0.5f)]
+		public float minSpeedShockCoil;
+
+		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
+		[Range(1f, 5f)]
 		[Increment(0.5f)]
 		[Slider]
-		[DefaultValue(0f)]
-		public float damageShockCoil;
+		[DefaultValue(4.0f)]
+		public float maxSpeedShockCoil;
+
+		//[Label("[i:MetroidMod/JudicatorAddon] ShockCoil Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(14)]
+		public int useTimeShockCoil;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Heat Modifier")]
 		[Range(-1f, 2f)]
@@ -708,18 +729,18 @@ namespace MetroidMod.Common.Configs
 		public float heatShockCoil;
 
 		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Damage Modifier")]
-		[Range(-1f, 2f)]
+		[Range(-0.5f, 2f)]
 		[Increment(0.5f)]
 		[Slider]
 		[DefaultValue(0f)]
 		public float damageBattleHammer;
 
-		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Speed Multiplier")]
-		[Range(-.45f, 2f)]
-		[Increment(0.5f)]
+		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Use Time")]
+		[Range(1, 60)]
+		[Increment(1)]
 		[Slider]
-		[DefaultValue(-.45f)]
-		public float speedBattleHammer;
+		[DefaultValue(27)]
+		public int useTimeBattleHammer;
 
 		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Overheat Modifer")]
 		[Range(0f, 3f)]
@@ -735,12 +756,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(100f)]
 		public float damageOmegaCannon;
 
-		//[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Speed Multiplier")]
-		[Range(-.45f, 2f)]
-		[Increment(0.5f)]
+		//[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Use Time")]
+		[Range(1, 125)]
+		[Increment(1)]
 		[Slider]
-		[DefaultValue(-.45f)]
-		public float speedOmegaCannon;
+		[DefaultValue(109)]
+		public int useTimeOmegaCannon;
 
 		//[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Overheat Modifer")]
 		[Range(0f, 20f)]

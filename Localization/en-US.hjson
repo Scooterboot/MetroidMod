@@ -52,6 +52,7 @@ Mods: {
 			"Boost Ball.DisplayName": Boost  Ball
 			"Power Bomb.DisplayName": Power  Bomb
 			"Show Visor UI.DisplayName": Show  Visor  U I
+			"Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
 		}
 
 		SuitAddonName: {
@@ -513,10 +514,10 @@ Mods: {
 					Slot Type: Charge
 					Shots bounce
 					Charge shots spray a freezing blast
+					Can shadowfreeze, but otherwise cannot pierce tiles
 					[c/78BE78:+45% damage]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
-					[c/BE7878:Cannot pierce walls]
 					'''
 			}
 
@@ -554,8 +555,11 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Fires a short range electric charge that heals and restores energy when fully charged
+					Fires a short range electric charge that restores energy when fully charged
 					Charges on enemy damage and overheats when fully charged
+					Range depends on addons
+					Builds speed and charge when attacking an enemy
+					[c/BE7878:No knockback]
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
 					[c/BE7878:Probably still bugged]
@@ -3805,6 +3809,51 @@ Mods: {
 
 				heatShockCoil: {
 					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Heat Modifier"
+					Tooltip: ""
+				}
+
+				useTimeVoltDriver: {
+					Label: use Time Volt Driver
+					Tooltip: ""
+				}
+
+				useTimeMagMaul: {
+					Label: use Time Mag Maul
+					Tooltip: ""
+				}
+
+				useTimeImperialist: {
+					Label: use Time Imperialist
+					Tooltip: ""
+				}
+
+				useTimeJudicator: {
+					Label: use Time Judicator
+					Tooltip: ""
+				}
+
+				useTimeShockCoil: {
+					Label: use Time Shock Coil
+					Tooltip: ""
+				}
+
+				useTimeBattleHammer: {
+					Label: use Time Battle Hammer
+					Tooltip: ""
+				}
+
+				useTimeOmegaCannon: {
+					Label: use Time Omega Cannon
+					Tooltip: ""
+				}
+
+				minSpeedShockCoil: {
+					Label: min Speed Shock Coil
+					Tooltip: ""
+				}
+
+				maxSpeedShockCoil: {
+					Label: max Speed Shock Coil
 					Tooltip: ""
 				}
 			}
