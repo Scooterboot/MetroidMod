@@ -95,47 +95,12 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			}
 			return false;
 		}
-		private int GetDepth()
+		private int GetDepth(MProjectile mp)
 		{
 			string S = PowerBeam.SetCondition();
 			if (S.Contains("wave") || S.Contains("nebula"))
 			{
-				if (S.Contains("spazer"))
-				{
-					return waveDepth = 6;
-				}
-				if (S.Contains("plasma"))
-				{
-					return waveDepth = 8;
-				}
-				if (S.Contains("V2"))
-				{
-					return waveDepth = 6;
-				}
-				if (S.Contains("wide"))
-				{
-					return waveDepth = 9;
-				}
-				if (S.Contains("nova"))
-				{
-					return waveDepth = 12;
-				}
-				if (S.Contains("nebula"))
-				{
-					return waveDepth = 8;
-				}
-				if (S.Contains("vortex"))
-				{
-					return waveDepth = 12;
-				}
-				if (S.Contains("solar"))
-				{
-					return waveDepth = 16;
-				}
-				else
-				{
-					return waveDepth = 4;
-				}
+				return mp.waveDepth;
 			}
 			return 0;
 		}
@@ -150,6 +115,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			{
 				mProjectile.WaveBehavior(P, true);
 			}
+			MProjectile meep = mProjectile;
 			Texture2D texture = TextureAssets.Projectile[P.type].Value;
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
@@ -161,7 +127,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			for (P.ai[1] = 0f; P.ai[1] <= Max_Range; P.ai[1] += 4f)
 			{
 				Vector2 end = P.Center + P.velocity * P.ai[1];
-				Vector2 trueEnd = end + P.velocity * GetDepth() * P.ai[1] * 16f;
+				Vector2 trueEnd = end + P.velocity * GetDepth(meep) * P.ai[1] * 16f;
 				if (CollideMethods.CheckCollide(trueEnd, 0, 0))
 				{
 					P.ai[1] -= 4f;

@@ -1302,7 +1302,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			//Item.autoReuse = (!slot1.IsAir);//(isCharge);
 
-			Item.shootSpeed = slot1.type == oc ? 2f : 8f;
+			Item.shootSpeed = slot1.type == oc ? 2f : slot1.type == vd ? 11f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
 			Item.knockBack = 4f;

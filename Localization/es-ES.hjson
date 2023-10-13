@@ -2214,14 +2214,14 @@ Mods: {
 				// DisplayName: Betsy Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Explodes in defense reducing miasma that also sets enemies on fire
 					''' */
 			}
 
 			BombAddon: {
 				// DisplayName: Morph Ball Bombs
-				// Tooltip: -Right Click to set off a bomb
+				// Tooltip: -Press the bomb keybind to set off a bomb
 			}
 
 			BoostBallAddon: {
@@ -2237,7 +2237,7 @@ Mods: {
 				// DisplayName: Crystal Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Fires off Crystal shards on detonation
 					''' */
 			}
@@ -2246,7 +2246,7 @@ Mods: {
 				// DisplayName: Cursed Flame Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Burns enemies with Cursed Flames
 					''' */
 			}
@@ -2265,7 +2265,7 @@ Mods: {
 				// DisplayName: Fire Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Sets enemies on fire
 					''' */
 			}
@@ -2274,7 +2274,7 @@ Mods: {
 				// DisplayName: Frostburn Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Frostburns enemies
 					''' */
 			}
@@ -2283,7 +2283,7 @@ Mods: {
 				// DisplayName: Ichor Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Decreases enemy defense
 					''' */
 			}
@@ -2292,7 +2292,7 @@ Mods: {
 				// DisplayName: Phazon Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Inflicts enemies with Phazon radiation poisoning
 					''' */
 			}
@@ -2301,7 +2301,7 @@ Mods: {
 				// DisplayName: Poison Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Poisons foes
 					''' */
 			}
@@ -2320,7 +2320,7 @@ Mods: {
 				// DisplayName: Pumpkin Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Fires off Jack 'O Lanterns on detonation
 					"I took a grenade to the face, dude!"
 					''' */
@@ -2330,7 +2330,7 @@ Mods: {
 				// DisplayName: Shadowflame Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Inflicts enemies with Shadowflame
 					''' */
 			}
@@ -2349,7 +2349,7 @@ Mods: {
 				// DisplayName: Solar Fire Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Burns foes with the fury of the sun
 					''' */
 			}
@@ -2367,7 +2367,7 @@ Mods: {
 				// DisplayName: Venom Morph Ball Bombs
 				/* Tooltip:
 					'''
-					-Right click to set off a bomb
+					-Press the bomb keybind to set off a bomb
 					Inflicts enemies with Acid Venom
 					''' */
 			}
