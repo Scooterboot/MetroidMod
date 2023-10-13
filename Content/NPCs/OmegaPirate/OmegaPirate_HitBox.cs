@@ -23,18 +23,12 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			Main.npcFrameCount[NPC.type] = 2;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					20,
-					24,
-					31,
-					69,
-					70,
-					ModContent.BuffType<Buffs.PhazonDebuff>()
-				}
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][31] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][69] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][70] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.PhazonDebuff>()] = true;
 		}
 		public override void SetDefaults()
 		{

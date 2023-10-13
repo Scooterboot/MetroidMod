@@ -26,18 +26,12 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					20,
-					24,
-					31,
-					39,
-					44,
-					ModContent.BuffType<Buffs.PhazonDebuff>()
-				}
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][31] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][39] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][44] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.PhazonDebuff>()] = true;
 		}
 
 		int damage = 100;//50;

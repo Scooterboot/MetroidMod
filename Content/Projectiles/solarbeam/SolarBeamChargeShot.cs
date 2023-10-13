@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.solarbeam
 {
 	public class SolarBeamChargeShot : MProjectile
 	{
-		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Solar Beam Charge Shot");
@@ -33,7 +33,9 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			if(Projectile.Name.Contains("Stardust"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (Projectile.Name.Contains("Stardust"))
 			{
 				dustType = 87;
 			}

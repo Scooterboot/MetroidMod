@@ -20,14 +20,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			Main.npcFrameCount[Type] = 6;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					BuffID.OnFire,
-					BuffID.CursedInferno
-				}
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
 		}
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)

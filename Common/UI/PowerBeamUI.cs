@@ -194,7 +194,7 @@ namespace MetroidMod.Common.UI
 				//pickup
 				if (Main.mouseItem.IsAir)
 				{
-					if (powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
+					if (powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<ChargeBeamAddon>())
 					{
 						powerBeamTarget.BeamChange[0].TurnToAir();
 					}
@@ -234,9 +234,18 @@ namespace MetroidMod.Common.UI
 					{
 						powerBeamTarget.BeamChange[9].TurnToAir();
 					}
+					if (powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>())
+					{
+						powerBeamTarget.BeamChange[10].TurnToAir();
+					}
+					if (powerBeamTarget.BeamMods[addonSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
+					{
+						powerBeamTarget.BeamChange[11].TurnToAir();
+					}
 					Main.mouseItem = powerBeamTarget.BeamMods[addonSlotType].Clone();
 
 					powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
+					//powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
 				}
 				else if(condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
 				{
@@ -254,7 +263,7 @@ namespace MetroidMod.Common.UI
 			{
 				if (condition == null || (condition != null && condition(Main.mouseItem) ))
 				{
-					if (Main.mouseItem.type == ModContent.ItemType<ChargeBeamAddon>() || Main.mouseItem.type == ModContent.ItemType<ChargeBeamV2Addon>() || Main.mouseItem.type == ModContent.ItemType<LuminiteBeamAddon>())
+					if (Main.mouseItem.type == ModContent.ItemType<ChargeBeamAddon>())
 					{
 						powerBeamTarget.BeamChange[0] = Main.mouseItem.Clone();
 						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
@@ -303,6 +312,16 @@ namespace MetroidMod.Common.UI
 					{
 						powerBeamTarget.BeamChange[9] = Main.mouseItem.Clone();
 						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
+					}
+					if(Main.mouseItem.type == ModContent.ItemType<ChargeBeamV2Addon>())
+					{
+						powerBeamTarget.BeamChange[10] = Main.mouseItem.Clone();
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
+					}
+					if(Main.mouseItem.type == ModContent.ItemType<LuminiteBeamAddon>())
+					{
+						powerBeamTarget.BeamChange[11] = Main.mouseItem.Clone();
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
 					}
 					SoundEngine.PlaySound(SoundID.Grab);
 					powerBeamTarget.BeamMods[addonSlotType] = Main.mouseItem.Clone();

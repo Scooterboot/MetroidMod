@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,7 +33,8 @@ namespace MetroidMod.Content.Projectiles.novabeam
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			string S = Items.Weapons.PowerBeam.shooty;
+			
+			string S  = PowerBeam.SetCondition();
 			if (S.Contains("ice"))
 			{
 				dustType = 135;

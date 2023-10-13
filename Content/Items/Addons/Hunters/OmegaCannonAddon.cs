@@ -40,7 +40,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.beamSlotType = BeamChangeSlotID.OmegaCannon;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageOmegaCannon;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatOmegaCannon;
-			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedOmegaCannon;
 		}
 	
 

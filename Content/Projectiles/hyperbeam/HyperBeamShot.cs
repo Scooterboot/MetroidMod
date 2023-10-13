@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.hyperbeam
 {
@@ -35,11 +36,13 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		}
 		public override void AI()
 		{
-			string S = Items.Weapons.PowerBeam.shooty;
 			Projectile P = Projectile;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
+			string S  = PowerBeam.SetCondition();
 
-			bool isWave = (S.Contains("wave") || S.Contains("nebula"));
+			bool isWave = S.Contains("wave") || S.Contains("nebula"),
+			isSpazer = S.Contains("spazer") || S.Contains("wide") || S.Contains("vortex"),
+			isPlasma = S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar");
 
 			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + 1.57f;
 			
@@ -53,6 +56,16 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			if (isWave)
 			{
 				Projectile.tileCollide = false;
+			}
+			if (isPlasma)
+			{
+				Projectile.penetrate = -1;
+				Projectile.usesLocalNPCImmunity = true;
+				Projectile.localNPCHitCooldown = 10;
+			}
+			if (isSpazer || isWave)
+			{
+				mProjectile.WaveBehavior(Projectile, !isWave);
 			}
 		}
 		public override bool PreDraw(ref Color lightColor)

@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -31,7 +32,8 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			string S = Items.Weapons.PowerBeam.shooty;
+			
+			string S  = PowerBeam.SetCondition();
 			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;

@@ -42,7 +42,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.beamSlotType = BeamChangeSlotID.Judicator;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageJudicator;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatJudicator;
-			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedJudicator;
 		}
 
 

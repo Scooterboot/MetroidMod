@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -14,11 +15,13 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		}
 		public override void SetDefaults()
 		{
+			
+			string S  = PowerBeam.SetCondition();
 			base.SetDefaults();
 			Projectile.width = 16;
 			Projectile.height = 16;
 			Projectile.scale = 2f;
-			if (Items.Weapons.PowerBeam.shooty.Contains("wave"))
+			if (S.Contains("wave"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
@@ -31,11 +34,12 @@ namespace MetroidMod.Content.Projectiles.icebeam
 			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
-			if(Projectile.numUpdates == 0)
+			string S  = PowerBeam.SetCondition();
+			if (Projectile.numUpdates == 0)
 			{
 				Projectile.rotation += 0.5f*Projectile.direction;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("wave"))
+			if (S.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);

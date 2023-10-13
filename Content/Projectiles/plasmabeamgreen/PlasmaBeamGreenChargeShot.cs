@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -9,7 +10,6 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 	public class PlasmaBeamGreenChargeShot : MProjectile
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/PlasmaBeamGreenChargeShot";
-		string S = Items.Weapons.PowerBeam.shooty;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Plasma Beam Green Charge Shot");
@@ -33,6 +33,8 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 		Color color = MetroidMod.plaGreenColor;
 		public override void AI()
 		{
+			
+			string S  = PowerBeam.SetCondition();
 			if (S.Contains("ice"))
 			{
 				dustType = 59;

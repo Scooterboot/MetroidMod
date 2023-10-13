@@ -544,6 +544,7 @@ namespace MetroidMod.Common.Players
 							Player.velocity.X = -2;
 						}
 						Player.fallStart = (int)(Player.position.Y / 16f);
+						/*
 						if (Player.hasJumpOption_Cloud)
 						{
 							Player.canJumpAgain_Cloud = true;
@@ -580,6 +581,8 @@ namespace MetroidMod.Common.Players
 						{
 							Player.canJumpAgain_Santank = true;
 						}
+						*/
+						Player.blockExtraJumps = false;
 						if (Player.controlJump)
 						{
 							Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
@@ -606,7 +609,7 @@ namespace MetroidMod.Common.Players
 					reGripTimer = 10;
 				}
 			}
-			if (isGripping && Player.controlRight && gripDir >=1 && Player.controlUp && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			if (isGripping && Player.controlRight && gripDir >=1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
 			{
 				var ball = ModContent.MountType<MorphBallMount>();
 				Player.QuickMount();
@@ -617,7 +620,7 @@ namespace MetroidMod.Common.Players
 				Player.position.Y -= 32f;
 				SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
 			}
-			if (isGripping && Player.controlLeft && gripDir <= -1 && Player.controlUp && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			if (isGripping && Player.controlLeft && gripDir <= -1 && Player.releaseLeft && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
 			{
 				var ball = ModContent.MountType<MorphBallMount>();
 				Player.QuickMount();
@@ -703,7 +706,7 @@ namespace MetroidMod.Common.Players
 		public static void AddSpaceJump(Player Player)
 		{
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
-			if(mp.statSpaceJumps >= 15 && Player.grappling[0] == -1  && mp.spaceJumped && !Player.canJumpAgain_Cloud && !Player.canJumpAgain_Blizzard && !Player.canJumpAgain_Sandstorm && !Player.canJumpAgain_Fart && Player.jump == 0 && Player.velocity.Y != 0f && Player.rocketTime == 0 && Player.wingTime == 0f && !Player.mount.Active)
+			if(mp.statSpaceJumps >= 15 && Player.grappling[0] == -1  && mp.spaceJumped && !Player.GetJumpState(ExtraJump.CloudInABottle).Active && !Player.GetJumpState(ExtraJump.BlizzardInABottle).Active && !Player.GetJumpState(ExtraJump.SandstormInABottle).Active && !Player.GetJumpState(ExtraJump.FartInAJar).Active && Player.jump == 0 && Player.velocity.Y != 0f && Player.rocketTime == 0 && Player.wingTime == 0f && !Player.mount.Active)
 			{
 				if(Player.controlJump && Player.releaseJump && Player.velocity.Y != 0 && mp.spaceJumped)
 				{

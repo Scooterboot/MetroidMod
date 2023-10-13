@@ -24,7 +24,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 
@@ -37,17 +37,16 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 		
 		public override void Kill(int timeLeft)
 		{
-			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-			Projectile.width += 125;
-			Projectile.height += 125;
+			Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
+			Projectile.width += 126;
+			Projectile.height += 126;
 			Projectile.scale = 5f;
-			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
+			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
-			Projectile.Damage();
 		}
 
 		public override bool PreDraw(ref Color lightColor)

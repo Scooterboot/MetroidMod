@@ -62,6 +62,7 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind BoostBallKey;
 		internal static ModKeybind PowerBombKey;
 		internal static ModKeybind VisorUIKey;
+		internal static ModKeybind BombKey;
 
 		public override void Load()
 		{
@@ -69,6 +70,7 @@ namespace MetroidMod.Common.Systems
 			BoostBallKey = KeybindLoader.RegisterKeybind(Mod, "Boost Ball", "F");
 			PowerBombKey = KeybindLoader.RegisterKeybind(Mod, "Power Bomb", "Z");
 			VisorUIKey = KeybindLoader.RegisterKeybind(Mod, "Show Visor UI", "V");
+			BombKey = KeybindLoader.RegisterKeybind(Mod, "Morph Ball Bomb", "C");
 		}
 		public override void Unload()
 		{
@@ -637,9 +639,8 @@ namespace MetroidMod.Common.Systems
 		{
 			//Mod mod = MetroidMod.Instance;
 
-			int range = GenVars.jungleMaxX - GenVars.jungleMinX;
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
-			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || (i <= GenVars.jungleOriginX + range) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
+			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
 			/*if (GenVars.dEnteranceX < Main.maxTilesX / 2)
 			{
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8 && j < Main.UnderworldLayer);
@@ -650,7 +651,7 @@ namespace MetroidMod.Common.Systems
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
 			}
-			if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
+			else if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
 			}

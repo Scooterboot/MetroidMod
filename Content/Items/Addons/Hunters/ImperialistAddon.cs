@@ -40,7 +40,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.beamSlotType = BeamChangeSlotID.Imperialist;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageImperialist;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatImperialist;
-			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedImperialist;
 		}
 
 

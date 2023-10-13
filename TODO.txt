@@ -19,3 +19,5 @@
 	 -	For reference purposes, the new music is stated to be vaguely based on Super Metroid
  -	Balance the new addon system (somehow)
  -	Figure out how to make Hazard Shield shoulderpads draw on primary suits
+ -	Make Space Jump Boots conform to the new jump loader
+

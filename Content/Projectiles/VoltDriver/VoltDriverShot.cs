@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.VoltDriver
 {
@@ -16,6 +17,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void SetDefaults()
 		{
+			
+			string S  = PowerBeam.SetCondition();
 			base.SetDefaults();
 			Projectile.width = 22;
 			Projectile.height = 22;
@@ -23,16 +26,16 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.damage = 15;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
-			Projectile.extraUpdates = 3;
-			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
+			//Projectile.extraUpdates = 3;
+			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 6;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("nova"))
+			if (S.Contains("nova"))
 			{
 				Projectile.penetrate = 8;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("solar"))
+			if (S.Contains("solar"))
 			{
 				Projectile.penetrate = 12;
 			}
@@ -40,12 +43,14 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void AI()
 		{
-			if (Items.Weapons.PowerBeam.shooty.Contains("wave") || Items.Weapons.PowerBeam.shooty.Contains("nebula"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (S.Contains("wave") || S.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.Judicator
 {
@@ -18,21 +19,23 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			base.SetDefaults();
 			Projectile.width = 10;
 			Projectile.height = 22;
-			Projectile.scale = 1f;
+			Projectile.scale = .5f;
 			//Projectile.penetrate = 1;
 			//Projectile.aiStyle = 0;
 			Projectile.timeLeft = 90;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
-			if (Items.Weapons.PowerBeam.shooty.Contains("green"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 6;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("nova"))
+			if (S.Contains("nova"))
 			{
 				Projectile.penetrate = 8;
 			}
-			if (Items.Weapons.PowerBeam.shooty.Contains("solar"))
+			if (S.Contains("solar"))
 			{
 				Projectile.penetrate = 12;
 			}
@@ -40,7 +43,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 

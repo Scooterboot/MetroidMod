@@ -7,7 +7,7 @@
 		/// </summary>
 		public const short None = -1;
 		/// <summary>
-		/// Slot for the Charge Beam, Charge V2, and Luminite Beam.
+		/// Slot for the Charge Beam.
 		/// </summary>
 		public const short Charge = 0;
 		/// <summary>
@@ -46,7 +46,15 @@
 		/// Slot for the Phazon Beam.
 		/// </summary>
 		public const short PhazonBeam = 9;
+		/// <summary>
+		/// Slot for ChargeV2.
+		/// </summary>
+		public const short ChargeV2 = 10;
+		/// <summary>
+		/// Slot for Luminite.
+		/// </summary>
+		public const short Luminite = 11;
 
-		public const short Count = 10;
+		public const short Count = 12;
 	}
 }

@@ -203,12 +203,15 @@ namespace MetroidMod.Common.Players
 				//temporarily trick the game into thinking the Player isn't on a mount so that the Player can use their original move speed and jump height
 				Player.mount._active = false;
 				ballstate = true;
+				/*
 				Player.canJumpAgain_Cloud = false;
 				Player.canJumpAgain_Sandstorm = false;
 				Player.canJumpAgain_Blizzard = false;
 				Player.canJumpAgain_Fart = false;
 				Player.canJumpAgain_Sail = false;
 				Player.canJumpAgain_Unicorn = false;
+				*/
+				Player.blockExtraJumps = true;
 				Player.pulley = false;
 				Player.ropeCount = 10;
 				statCharge = 0;
@@ -292,6 +295,7 @@ namespace MetroidMod.Common.Players
 			{
 				Player.width = Math.Abs(Player.velocity.X) >= 10f ? 20: morphSize;
 			}
+			/*
 			Player.hasJumpOption_Cloud = false;
 			Player.canJumpAgain_Cloud = false;
 			Player.isPerformingJump_Cloud = false;
@@ -304,6 +308,8 @@ namespace MetroidMod.Common.Players
 			Player.hasJumpOption_Fart = false;
 			Player.canJumpAgain_Fart = false;
 			Player.isPerformingJump_Fart = false;
+			*/
+			Player.blockExtraJumps = true;
 			Player.rocketBoots = 0;
 			Player.rocketTime = 0;
 			Player.wings = 0;
@@ -403,7 +409,7 @@ namespace MetroidMod.Common.Players
 					bombCount++;
 				}
 			}
-			if (Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Player.controlUseTile && Player.releaseUseTile && !Player.tileInteractionHappened && Player.releaseUseItem && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine)
+			if (Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Systems.MSystem.BombKey.JustPressed) //(Player.whoAmI == Main.myPlayer && bomb <= 0 && bombCount < 3 && Player.controlUseTile && Player.releaseUseTile && !Player.tileInteractionHappened && Player.releaseUseItem && !Player.controlUseItem && !Player.mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine) ||
 			{
 				SoundEngine.PlaySound(Sounds.Suit.LayBomb, Player.position);
 				int a = Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X,Player.Center.Y,0,0,BombID,bombDamage,4f,Player.whoAmI, 1);
@@ -794,40 +800,40 @@ namespace MetroidMod.Common.Players
 			
 			if(Player.controlLeft)
 			{
-				spiderSpeed = Math.Max(spiderSpeed-0.15f,-2f);
+				spiderSpeed = Math.Max(spiderSpeed-0.125f,-2f);
 			}
 			else if(Player.controlRight)
 			{
-				spiderSpeed = Math.Min(spiderSpeed+0.15f,2f);
+				spiderSpeed = Math.Min(spiderSpeed+0.125f,2f);
 			}
 			else
 			{
 				if(spiderSpeed > 0)
 				{
-					spiderSpeed = Math.Max(spiderSpeed-0.15f,0f);
+					spiderSpeed = Math.Max(spiderSpeed-0.125f,0f);
 				}
 				else
 				{
-					spiderSpeed = Math.Min(spiderSpeed+0.15f,0f);
+					spiderSpeed = Math.Min(spiderSpeed+0.125f,0f);
 				}
 			}
 			
-			Vector2 velocity = new(0.15f,0f);
-			Vector2 velocity2 = new(0f,0.15f);
+			Vector2 velocity = new(0.125f,0f);
+			Vector2 velocity2 = new(0f,0.125f);
 			if(CurEdge == Edge.Right)
 			{
-				velocity = new(0f,-0.15f);
-				velocity2 = new(0.15f,0f);
+				velocity = new(0f,-0.125f);
+				velocity2 = new(0.125f,0f);
 			}
 			if(CurEdge == Edge.Left)
 			{
-				velocity = new Vector2(0f,0.15f);
-				velocity2 = new Vector2(-0.15f,0f);
+				velocity = new Vector2(0f,0.125f);
+				velocity2 = new Vector2(-0.125f,0f);
 			}
 			if(CurEdge == Edge.Ceiling)
 			{
-				velocity = new Vector2(-0.15f,0f);
-				velocity2 = new Vector2(0f,-0.15f);
+				velocity = new Vector2(-0.125f,0f);
+				velocity2 = new Vector2(0f,-0.125f);
 			}
 			velocity *= Math.Sign(spiderSpeed);
 			

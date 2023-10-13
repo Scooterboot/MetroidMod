@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.VoltDriver
 {
@@ -24,8 +25,10 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void AI()
 		{
+			
+			string S  = PowerBeam.SetCondition();
 			int shootSpeed = 2;
-			if (Items.Weapons.PowerBeam.shooty.Contains("wave") || Items.Weapons.PowerBeam.shooty.Contains("nebula"))
+			if (S.Contains("wave") || S.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
@@ -50,16 +53,20 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void Kill(int timeLeft)
 		{
-			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-			Projectile.width += 125;
-			Projectile.height += 125;
-			Projectile.scale = 3f;
-			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
-			mProjectile.Diffuse(Projectile, 269);
+			if (mProjectile.canDiffuse)
+			{
+				Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+				Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+				Projectile.width += 125;
+				Projectile.height += 125;
+				Projectile.scale = 3f;
+				Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+				Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
+				mProjectile.Diffuse(Projectile, 269);
+				Projectile.Damage();
+			}
+			mProjectile.DustyDeath(Projectile, 269);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);
-			Projectile.Damage();
 		}
 		
 		public override bool PreDraw(ref Color lightColor)
