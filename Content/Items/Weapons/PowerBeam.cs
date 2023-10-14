@@ -1020,7 +1020,6 @@ namespace MetroidMod.Content.Items.Weapons
 					shot = "BattleHammerShot";
 					shotSound = "BattleHammerAffinitySound";
 					texture = "BattleHammer";
-					Item.knockBack *= 2;
 					useTime = MConfigItems.Instance.useTimeBattleHammer;
 					if (shotAmt > 1)
 					{
@@ -1305,7 +1304,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.shootSpeed = slot1.type == oc ? 2f : slot1.type == vd ? 11f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
-			Item.knockBack = 4f;
+			Item.knockBack = slot1.type == bh ? 8f : 4f;
 			Item.scale = 0.8f;
 			Item.crit = 3;
 			Item.value = 20000;
