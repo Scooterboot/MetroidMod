@@ -248,6 +248,7 @@ Mods: {
 			TorizoMusicBox.MapEntry: Torizo Music Box
 			TorizoTrophyTile.MapEntry: Torizo Trophy
 			ZeroHusk.MapEntry: Zero Husk
+			ChozoStatueOrb.MapEntry: Chozo Statue Orb
 		}
 
 		Buffs: {
@@ -2688,6 +2689,11 @@ Mods: {
 				DisplayName: X Ray Scope
 				Slot: AltVisor
 				Tooltip: Projects a wide ray of light if you are standing still
+			}
+
+			ChozoStatueOrb: {
+				DisplayName: Chozo Statue Orb
+				Tooltip: ""
 			}
 		}
 

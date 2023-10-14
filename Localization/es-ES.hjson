@@ -248,6 +248,7 @@ Mods: {
 			// TorizoMusicBox.MapEntry: Torizo Music Box
 			// TorizoTrophyTile.MapEntry: Torizo Trophy
 			// ZeroHusk.MapEntry: Zero Husk
+			// ChozoStatueOrb.MapEntry: Chozo Statue Orb
 		}
 
 		Buffs: {
@@ -426,6 +427,7 @@ Mods: {
 					Allows the user to jump up to 10 times in a row 
 					Jumps recharge mid-air
 					Increases jump height and prevents fall damage
+					Slot: Jump
 					''' */
 			}
 
@@ -436,6 +438,7 @@ Mods: {
 					Allows the wearer to double jump 
 					Allows somersaulting
 					Increases jump height
+					Slot: Jump
 					''' */
 			}
 
@@ -486,7 +489,8 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Shots explode
+					[c/78BE78:Shots Explode]
+					[c/78BE78:+50% knockback]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
@@ -2419,6 +2423,7 @@ Mods: {
 					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
+					Slot: Utility
 					''' */
 			}
 
@@ -2445,6 +2450,7 @@ Mods: {
 					'''
 					Increases jump height
 					Does not stack with other jump accessories
+					Slot: Boots
 					''' */
 			}
 
@@ -2476,6 +2482,7 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					5% increased hunter critical strike chance
+					Slot: Secondary Augmentatio      n
 					''' */
 			}
 
@@ -2510,6 +2517,7 @@ Mods: {
 					15% increased energy barrier efficiency // Provisional name
 					10% increased energy barrier resilience // Provisional name
 					Immune to damage caused by blue Phazon blocks
+					Slot: Augmentatio      n
 					Enables Phazon Beam use
 					''' */
 			}
@@ -2520,6 +2528,7 @@ Mods: {
 					'''
 					Allows the user to grab onto ledges
 					Does not need to be equipped; works while in inventory
+					Slot: Hand
 					''' */
 			}
 
@@ -2542,6 +2551,7 @@ Mods: {
 					Damage enemies while someraulting
 					Damage scales off of enemy's contact damage
 					Hold Left/Right and double jump to do a 'boost' ability
+					Slot: Attack
 					''' */
 			}
 
@@ -2571,6 +2581,7 @@ Mods: {
 					Allows the user to jump up to 10 times in a row
 					Jumps recharge mid-air
 					Increases jump height and prevents fall damage
+					Slot: Jump
 					''' */
 			}
 
@@ -2580,6 +2591,8 @@ Mods: {
 					'''
 					Allows the wearer to double jump
 					Allows somersaulting
+					Slot: Jump
+					"WHATARETHOOSE"
 					''' */
 			}
 
@@ -2592,6 +2605,7 @@ Mods: {
 					Damage scales off of enemy's contact damage
 					While active, press DOWN to charge a Shine Spark
 					Then press JUMP to activate the charge
+					Slot: Speed Augmentatio       n
 					''' */
 			}
 
@@ -2610,6 +2624,7 @@ Mods: {
 					10% increased energy barrier resilience // Provisional name
 					Grants 7 seconds of lava immunity
 					Default gravity in space
+					Slot: Augmentatio      n
 					Immune to Distorted and Amplified Gravity effects
 					''' */
 			}
@@ -2631,6 +2646,7 @@ Mods: {
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
+					Slot: Varia
 					''' */
 			}
 
@@ -2651,6 +2667,7 @@ Mods: {
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
+					Slot: Varia
 					''' */
 			}
 
@@ -2664,12 +2681,19 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					5% increased hunter critical strike chance
+					Slot: Secondary Augmenatio     n
 					''' */
 			}
 
 			XRayScopeAddon: {
 				// DisplayName: X Ray Scope
+				// Slot: AltVisor
 				// Tooltip: Projects a wide ray of light if you are standing still
+			}
+
+			ChozoStatueOrb: {
+				// DisplayName: Chozo Statue Orb
+				// Tooltip: ""
 			}
 		}
 

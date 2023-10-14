@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Tiles
 			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
-			Main.tileSpelunker[Type] = true;
+			//Main.tileSpelunker[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX); 
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 18 };
@@ -32,7 +32,7 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addAlternate(1); 
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
-			Main.tileOreFinderPriority[Type] = 806;
+			//Main.tileOreFinderPriority[Type] = 806;
 			// name.SetDefault("Chozo Statue");
 			AddMapEntry(new Color(90, 90, 90), name);
 			DustType = 1;
