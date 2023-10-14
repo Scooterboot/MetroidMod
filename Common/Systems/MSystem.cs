@@ -26,6 +26,17 @@ using MetroidMod.Content.Tiles.Hatch;
 using MetroidMod.Content.Walls;
 using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Torizo;
+using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Content.Items.Addons.Hunters;
+using MetroidMod.Content.Items.Addons;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.Content.Items.Tools;
+using MetroidMod.Content.Items.Addons.V2;
+using MetroidMod.Content.Items.Addons.V3;
+using MetroidMod.Content.Items.MissileAddons;
+using MetroidMod.Content.Tiles.ItemTile.Missile;
+using MetroidMod.Content.Items.MissileAddons.BeamCombos;
+
 
 #endregion
 
@@ -634,6 +645,103 @@ namespace MetroidMod.Common.Systems
 				tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));
 			}
 		}
+		public static int OrbItem(int i, int j)
+		{
+			//Mod mod = MetroidMod.Instance;
+
+			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
+			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
+
+			int item = ModContent.ItemType<MorphBall>();
+			if (dungeon)
+			{
+				item = ModContent.ItemType<IceBeamAddon>();
+			}
+			else if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
+			{
+				item = ModContent.ItemType<SpazerAddon>();
+			}
+			else
+			{
+				int baseX = Main.maxTilesX / 2;
+				int baseY = (int)GenVars.rockLayer;
+				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 32];
+				int index = 0;
+				// Okay, the goal is to do weighted random.
+				foreach (ModSuitAddon addon in SuitAddonLoader.addons)
+				{
+					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.ItemType; }, addon.GenerationChance(i, j)); }
+				}
+				foreach (ModMBAddon addon in MBAddonLoader.addons)
+				{
+					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.ItemType; }, addon.GenerationChance(i, j)); }
+				}
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ShockCoilAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<MagMaulAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<BattleHammerAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<VoltDriverAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ImperialistAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<JudicatorAddon>(); }, 4);
+				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
+				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ChargeBeamAddon>(); }, 32);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamAddon>(); }, 24);
+				if (WorldGen.drunkWorldGen && Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+				{
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamAddon>(); }, 1);
+					list[index++] = new WeightedChance(() => { item = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType; }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<OmegaCannonAddon>(); }, 1);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<GrappleBeam>(); }, 10);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ChargeBeamV2Addon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceBeamV2Addon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<LuminiteBeamAddon>(); }, 1);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaBeamAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NovaBeamAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaBeamGreenAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaBeamRedAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SolarBeamAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustBeamAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<VortexBeamAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamV2Addon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WideBeamAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<DiffusionMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<FlamethrowerAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<HomingMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceSpreaderAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceSuperMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaComboAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NovaComboAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaMachinegunAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SeekerMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SolarComboAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpazerComboAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustComboAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SuperMissileAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<VortexComboAddon>(); }, 4);
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WavebusterAddon>(); }, 4);
+				}
+				if (WorldGen.everythingWorldGen || WorldGen.notTheBees)
+				{
+					list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpazerAddon>(); }, 4);
+				}
+				Array.Resize(ref list, index);
+				double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
+
+				foreach (WeightedChance parameter in list)
+				{
+					numericValue -= parameter.Ratio;
+
+					if (!(numericValue <= 0)) { continue; }
+
+					parameter.Func();
+					break;
+				}
+			}
+			return item;
+		}
 
 		public static ushort StatueItem(int i, int j)
 		{
@@ -646,7 +754,7 @@ namespace MetroidMod.Common.Systems
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8 && j < Main.UnderworldLayer);
 			}*/
 
-			ushort item  = (ushort)ModContent.TileType<MorphBallTile>();
+			ushort item  = (ushort)ModContent.TileType<ChozoStatueOrb>();
 			if (dungeon)
 			{
 				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
@@ -773,7 +881,7 @@ namespace MetroidMod.Common.Systems
 					item = (ushort)ModContent.Find<ModTile>("MorphBallTile").Type;
 				}*/
 			}
-			return item;
+			return (ushort)ModContent.TileType<ChozoStatueOrb>();
 		}
 		public static bool AddChozoStatue(int i, int j)
 		{
