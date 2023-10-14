@@ -687,7 +687,7 @@ namespace MetroidMod.Common.Systems
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>(); }, 32);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamTile>(); }, 24);
-				if (WorldGen.drunkWorldGen)
+				if (WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 				{
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>(); }, 1);
 					list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>(); }, 1);
