@@ -217,6 +217,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private int chargeShotAmt = 1;
 		private string shooty = "";
 		public static int shotsy;
+		public static int shocky = 1;
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
@@ -907,6 +908,7 @@ namespace MetroidMod.Content.Items.Weapons
 					if (slot4.type == sp)
 					{
 						shotAmt = 3;
+						shocky = 3;
 						chargeShotAmt = 3;
 					}
 				}
@@ -915,11 +917,13 @@ namespace MetroidMod.Content.Items.Weapons
 					if (slot3.type == nb && slot4.type != vt)
 					{
 						shotAmt = 2;
+						shocky = 2;
 						chargeShotAmt = 2;
 					}
 					if (slot4.type == vt)
 					{
 						shotAmt = 5;
+						shocky = 5;
 						chargeShotAmt = 5;
 					}
 					if (slot2.type == ic || slot2.type == ic2)
@@ -956,11 +960,13 @@ namespace MetroidMod.Content.Items.Weapons
 					if (slot4.type != wi && slot3.type == wa2)
 					{
 						shotAmt = 2;
+						shocky = 2;
 						chargeShotAmt = 2;
 					}
 					if(slot4.type == wi)
 					{
 						shotAmt = 3;
+						shocky = 5;
 						chargeShotAmt = 3;
 					}
 				}
@@ -1092,6 +1098,7 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Stardust";
 					Item.knockBack *= 0;
 					useTime = MConfigItems.Instance.useTimeShockCoil;
+					shotAmt = 1;
 					if (slot5.type == plG)
 					{
 						comboError4 = true;

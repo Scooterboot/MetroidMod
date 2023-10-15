@@ -3900,7 +3900,7 @@ Mods: {
 
 				spaceJumpRocketBoots: {
 					Label: "[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots"
-					Tooltip: Enables a small, niche movement tech that has not been named.
+					Tooltip: Enables a small, niche movement tech that has not been named. It's pronounced 'nitch' not 'neesh' -Dr
 				}
 
 				enableMorphBallWallJump: {

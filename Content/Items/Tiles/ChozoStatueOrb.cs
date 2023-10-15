@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using static MetroidMod.Sounds;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Content.Items.Tiles
 {
@@ -20,11 +22,12 @@ namespace MetroidMod.Content.Items.Tiles
 		public override void SetDefaults()
 		{
 			Item.width = 32;
-			Item.height = 32;
+			Item.height = 134;
 			Item.maxStack = 50;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
+			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
 			Item.rare = ItemRarityID.LightRed;
 			Item.value = 50000;
 			Item.useTime = 10;
