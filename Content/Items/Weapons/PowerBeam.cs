@@ -1096,7 +1096,6 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeShotSound = "ShockCoilReload";
 					chargeShot = "ShockCoilChargeShot";
 					chargeTex = "ChargeLead_Stardust";
-					Item.knockBack *= 0;
 					useTime = MConfigItems.Instance.useTimeShockCoil;
 					shotAmt = 1;
 					if (slot5.type == plG)
@@ -1311,7 +1310,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.shootSpeed = slot1.type == oc ? 2f : slot1.type == vd ? 11f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
-			Item.knockBack = slot1.type == bh ? 8f : 4f;
+			Item.knockBack = slot1.type == bh ? 8f : slot1.type == sc? 0f : 4f;
 			Item.scale = 0.8f;
 			Item.crit = 3;
 			Item.value = 20000;
@@ -1794,7 +1793,7 @@ namespace MetroidMod.Content.Items.Weapons
 				//Item.damage *= (int)(1f + (mp.impStealth / 125f));
 				player.stealth -= (impStealth / 125f);
 				player.aggro -= (int)(impStealth * 4f);
-				if (player.velocity != Vector2.Zero)
+				if (player.velocity != Vector2.Zero || player.controlUseItem)
 				{
 					player.shroomiteStealth = false;
 					impStealth = 0f;

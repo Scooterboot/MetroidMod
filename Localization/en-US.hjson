@@ -5,7 +5,7 @@ Mods: {
 		ModName: Metroid Mod
 
 		WorldEvents: {
-			PhazonMeteor: A Phazon Meteor has landed!
+			PhazonMeteor: A Leviathan has landed!
 			PhazonCorruption: "{0} has been corrupted with Phazon!"
 		}
 
@@ -490,7 +490,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					[c/78BE78:Shots Explode]
-					[c/78BE78:+50% knockback]
+					[c/78BE78:+100% knockback]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
