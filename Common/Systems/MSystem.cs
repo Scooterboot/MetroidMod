@@ -1766,7 +1766,7 @@ namespace MetroidMod.Common.Systems
 			if (Main.hardMode && NPC.downedPlantBoss && !spawnedPhazonMeteor && meteorSpawnAttempt <= 0)
 			{
 				DropPhazonMeteor();
-				meteorSpawnAttempt = 3600;
+				meteorSpawnAttempt = Main.maxTilesX;
 			}
 			if (meteorSpawnAttempt > 0 && !spawnedPhazonMeteor)
 			{
