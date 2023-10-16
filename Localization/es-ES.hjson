@@ -864,7 +864,7 @@ Mods: {
 
 			GoldenTorizoSummon: {
 				// DisplayName: Golden Torizo Summon
-				// Tooltip: ""
+				// Tooltip: Summons Gold Torizo in the Chozo Temple.
 			}
 
 			KraidBag: {
@@ -874,7 +874,7 @@ Mods: {
 
 			KraidSummon: {
 				// DisplayName: Variation Matrix
-				// Tooltip: ""
+				// Tooltip: Summons Kraid
 			}
 
 			NightmareBag: {
@@ -884,7 +884,7 @@ Mods: {
 
 			NightmareSummon: {
 				// DisplayName: Strange Device
-				// Tooltip: ""
+				// Tooltip: Summons Nightmare at night
 			}
 
 			OmegaPirateBag: {
@@ -904,7 +904,7 @@ Mods: {
 
 			PhantoonSummon: {
 				// DisplayName: Ectoplasmic Locator
-				// Tooltip: ""
+				// Tooltip: Summons Phantoon at night
 			}
 
 			SerrisBag: {
@@ -924,7 +924,7 @@ Mods: {
 
 			TorizoSummon: {
 				// DisplayName: Torizo Summon
-				// Tooltip: ""
+				// Tooltip: Summons Torizo in the Chozo Temple
 			}
 
 			Crucible: {
@@ -2871,7 +2871,7 @@ Mods: {
 				// DisplayName: Torizo
 
 				BossChecklistIntegration: {
-					// SpawnInfo: Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item.
+					// SpawnInfo: Guaranteed spawn in the Chozo Ruins found in the Desert. Upon defeat, a Chozo Ghost town NPC will move in, allowing you to purchase its summoning item, along with more items as you progress.
 					// EntryName: Torizo
 				}
 			}

@@ -75,7 +75,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.ResearchUnlockCount = 1;
 
 			BeamMods = new Item[5];
-			BeamChange = new Item[10];
+			BeamChange = new Item[12];
 		}
 		public override void SetDefaults()
 		{
@@ -88,7 +88,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.useAnimation = 14;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
-			Item.knockBack = 4;
+			Item.knockBack = 4f;
 			Item.value = 20000;
 			Item.rare = ItemRarityID.Green;
 			//Item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/PowerBeamSound");
@@ -159,6 +159,19 @@ namespace MetroidMod.Content.Items.Weapons
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
+			foreach (Item item in BeamChange)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
+			}
+		}
+		public override bool AltFunctionUse(Player player)
+		{
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.noMelee = false;
+			Item.knockBack = Math.Max(4f, Item.knockBack * 2);
+			return true;
 		}
 
 		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
@@ -170,8 +183,19 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 			BeamMods = new Item[5];
+			foreach (Item item in BeamChange)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
+			}
+			BeamChange = new Item[12];
 			return base.CanReforge();
 		}
+		/*public override bool RangedPrefix()
+		{
+			return true;
+		}*/
 
 		private float iceDmg = 0f;
 		private float waveDmg = 0f;
@@ -783,6 +807,11 @@ namespace MetroidMod.Content.Items.Weapons
 					dustType = 229;
 					lightColor = MetroidMod.lumColor;
 
+					if (slot4.type == vt)
+					{
+						shotAmt = 5;
+						chargeShotAmt = 5;
+					}
 					// Stardust
 					if (slot2.type == sd && slot5.IsAir)
 					{
@@ -803,17 +832,12 @@ namespace MetroidMod.Content.Items.Weapons
 							chargeShot = "StardustVortexBeamChargeShot";
 						}
 					}
-					if (slot3.type == nb)
+					if (slot3.type == nb && slot4.type != vt)
 					{
 						shotAmt = 2;
 						chargeShotAmt = 2;
 
 						// Stardust Nebula Vortex
-						if (slot4.type == vt)
-						{
-							shotAmt = 5;
-							chargeShotAmt = 5;
-						}
 					}
 					if (slot5.type == sl)
 					{
@@ -1126,6 +1150,63 @@ namespace MetroidMod.Content.Items.Weapons
 			// Hyper
 			else if (isHyper)
 			{
+				if (versionType == 1)
+				{
+					if (slot4.type == sp)
+					{
+						shotAmt = 3;
+					}
+				}
+				if (versionType == 3)
+				{
+					if (slot3.type == nb && slot4.type != vt)
+					{
+						shotAmt = 2;
+					}
+					if (slot4.type == vt)
+					{
+						shotAmt = 5;
+					}
+					if (slot2.type == ic || slot2.type == ic2)
+					{
+						comboError1 = true;
+					}
+					if (slot3.type == wa || slot3.type == wa2)
+					{
+						comboError2 = true;
+					}
+					if (slot4.type == sp || slot4.type == wi)
+					{
+						comboError3 = true;
+					}
+					if (slot5.type == plR || slot5.type == plG || slot5.type == nv)
+					{
+						comboError4 = true;
+					}
+				}
+				if (versionType == 2)
+				{
+					if (slot2.type == ic)
+					{
+						comboError1 = true;
+					}
+					if (slot3.type == wa)
+					{
+						comboError2 = true;
+					}
+					if (slot4.type == sp)
+					{
+						comboError3 = true;
+					}
+					if (slot4.type != wi && slot3.type == wa2)
+					{
+						shotAmt = 2;
+					}
+					if (slot4.type == wi)
+					{
+						shotAmt = 3;
+					}
+				}
 				shot = "HyperBeamShot";
 				shotSound = "HyperBeamSound";
 				useTime = MConfigItems.Instance.useTimeHyperBeam;
@@ -1144,6 +1225,63 @@ namespace MetroidMod.Content.Items.Weapons
 			// Phazon
 			else if (isPhazon)
 			{
+				if (versionType == 1)
+				{
+					if (slot4.type == sp)
+					{
+						shotAmt = 3;
+					}
+				}
+				if (versionType == 3)
+				{
+					if (slot3.type == nb && slot4.type != vt)
+					{
+						shotAmt = 2;
+					}
+					if (slot4.type == vt)
+					{
+						shotAmt = 5;
+					}
+					if (slot2.type == ic || slot2.type == ic2)
+					{
+						comboError1 = true;
+					}
+					if (slot3.type == wa || slot3.type == wa2)
+					{
+						comboError2 = true;
+					}
+					if (slot4.type == sp || slot4.type == wi)
+					{
+						comboError3 = true;
+					}
+					if (slot5.type == plR || slot5.type == plG || slot5.type == nv)
+					{
+						comboError4 = true;
+					}
+				}
+				if (versionType == 2)
+				{
+					if (slot2.type == ic)
+					{
+						comboError1 = true;
+					}
+					if (slot3.type == wa)
+					{
+						comboError2 = true;
+					}
+					if (slot4.type == sp)
+					{
+						comboError3 = true;
+					}
+					if (slot4.type != wi && slot3.type == wa2)
+					{
+						shotAmt = 2;
+					}
+					if (slot4.type == wi)
+					{
+						shotAmt = 3;
+					}
+				}
 				shot = "PhazonBeamShot";
 				shotSound = "PhazonBeamSound";
 				useTime = MConfigItems.Instance.useTimePhazonBeam;
