@@ -1334,7 +1334,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.shootSpeed = slot1.type == oc ? 2f : slot1.type == vd ? 11f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
-			Item.knockBack = slot1.type == bh ? 8f : slot1.type == sc? 0f : 4f;
+			Item.knockBack = slot1.type == bh ? 6f : slot1.type == sc? 0f : 4f;
 			Item.scale = 0.8f;
 			Item.crit = 3;
 			Item.value = 20000;
@@ -1814,7 +1814,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					impStealth++;
 				}
-				//Item.damage *= (int)(1f + (mp.impStealth / 125f));
+				//Item.damage *= (int)(1f + (impStealth / 125f));
 				player.stealth -= (impStealth / 125f);
 				player.aggro -= (int)(impStealth * 4f);
 				if (player.velocity != Vector2.Zero || player.controlUseItem)
