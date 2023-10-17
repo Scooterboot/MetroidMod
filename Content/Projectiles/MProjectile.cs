@@ -246,6 +246,7 @@ namespace MetroidMod.Content.Projectiles
 				if (P.type == ModContent.ProjectileType<ImperialistShot>())
 				{
 					pos -= P.velocity;
+					P.netUpdate = true;
 				}
 				float rot = (float)Math.Atan2((P.velocity.Y),(P.velocity.X));
 				P.position.X = pos.X + (float)Math.Cos(rot+((float)Math.PI/2))*shift;

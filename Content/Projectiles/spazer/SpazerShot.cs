@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
-			else if(S.Contains("wave"))
+			else if(S.Contains("wave") || Projectile.Name.Contains("Wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor;

@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 {
 	public class ShockCoilShot : MProjectile
 	{
-		private int shots = PowerBeam.shotsy;
+		private int shots = PowerBeam.shocky;
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 12;
@@ -71,17 +71,21 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			P.knockBack = 0;
 
 			Lead = Main.projectile[O.heldProj];
-
+			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			if (P.numUpdates == 0)
             {
                 P.frame++;
 			}
-            if (P.frame > 12)
+            if (P.frame >= 12)
             {
                 P.frame = 0;
             }
 			//range = Math.Min(GetDepth(meep), Max_Range);
 			//distance = Math.Min(GetDepth(meep), Max_Distance);
+			if (!S.Contains("wave") && !S.Contains("nebula"))
+			{
+				P.stopsDealingDamageAfterPenetrateHits = true;
+			}
 			mProjectile.WaveBehavior(P);
 			range = GetDepth(meep) * 16;
             distance = GetDepth(meep) * 16;
@@ -93,7 +97,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				if (P.owner == Main.myPlayer && !O.dead)
 				{
 					P.netUpdate = true;
-
 					Vector2 diff = Main.MouseWorld - oPos;
 					diff.Normalize();
 
@@ -134,6 +137,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 									if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
 									{
 										target = npc;
+										mp.statCharge = 0;
 									}
 
 									if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
@@ -365,11 +369,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			double minDamage = MConfigItems.Instance.minSpeedShockCoil;
-			double maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
-			double ranges = maxDamage - minDamage;
+			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
+			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
+			float ranges = maxDamage - minDamage;
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
-
+			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			mp.statOverheat += (int)mp.overheatCost / shots;
 			/*if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
@@ -388,7 +392,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			{
 				foreach(NPC G in Main.npc)
 				{
-					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / shots / (double)damaage);
+					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / (double)damaage);
+					Projectile.localNPCHitCooldown = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 				}
 			}
 		}

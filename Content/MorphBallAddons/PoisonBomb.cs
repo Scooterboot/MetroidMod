@@ -16,8 +16,8 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen || ((x >= GenVars.jungleOriginX && x <= GenVars.JungleX) || x == GenVars.JungleX) && y < Main.UnderworldLayer || WorldGen.everythingWorldGen;
-		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen ? 20 : 15;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || ((x >= GenVars.jungleOriginX && x <= GenVars.JungleX) || x == GenVars.JungleX) && y < Main.UnderworldLayer || WorldGen.everythingWorldGen;
+		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
 
 		public override void SetStaticDefaults()
 		{
