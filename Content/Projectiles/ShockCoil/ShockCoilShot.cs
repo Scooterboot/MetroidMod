@@ -97,7 +97,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				if (P.owner == Main.myPlayer && !O.dead)
 				{
 					P.netUpdate = true;
-
 					Vector2 diff = Main.MouseWorld - oPos;
 					diff.Normalize();
 
@@ -216,6 +215,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (ampSyncCooldown-- <= 0)
 					{
 						ampSyncCooldown = 20;
+						Projectile.netUpdate2 = true;
 					}
 					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);

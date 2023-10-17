@@ -72,6 +72,10 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		public override bool ShouldUpdatePosition()
 		{
+			if (PowerBeam.shotsy > 1)
+			{
+				return true;
+			}
 			return false;
 		}
 		public override void SendExtraAI(BinaryWriter writer) => writer.Write(BeamLength);
