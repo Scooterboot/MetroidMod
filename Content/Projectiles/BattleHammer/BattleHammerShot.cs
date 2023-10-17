@@ -20,8 +20,8 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			Projectile.height = 8;
 			Projectile.scale = .5f;
 			Projectile.aiStyle = 1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 1;
+			//Projectile.usesLocalNPCImmunity = true;
+			//Projectile.localNPCHitCooldown = 1;
 		}
 
 		public override void AI()
