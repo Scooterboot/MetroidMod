@@ -166,13 +166,13 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
-		public override bool AltFunctionUse(Player player)
+		/*public override bool AltFunctionUse(Player player)
 		{
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.noMelee = false;
 			Item.knockBack = Math.Max(4f, Item.knockBack * 2);
 			return true;
-		}
+		}*/
 
 		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{

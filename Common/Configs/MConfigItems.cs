@@ -730,9 +730,9 @@ namespace MetroidMod.Common.Configs
 
 		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Damage Modifier")]
 		[Range(-0.5f, 2f)]
-		[Increment(0.5f)]
+		[Increment(0.25f)]
 		[Slider]
-		[DefaultValue(0f)]
+		[DefaultValue(0.25f)]
 		public float damageBattleHammer;
 
 		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Use Time")]
