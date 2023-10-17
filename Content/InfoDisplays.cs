@@ -13,7 +13,7 @@ namespace MetroidMod.Content
 
 		public override bool Active() => MetroidMod.DisplayDebugValues;
 
-		public override string DisplayValue(ref Color _)
+		public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
 		{
 			float efficiency = Main.LocalPlayer.MetroidPlayer().EnergyDefenseEfficiency * 100f;
 			return $"Barrier Efficiency: {efficiency:F2}";
@@ -28,7 +28,7 @@ namespace MetroidMod.Content
 
 		public override bool Active() => MetroidMod.DisplayDebugValues;
 
-		public override string DisplayValue(ref Color _)
+		public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
 		{
 			float efficiency = Main.LocalPlayer.MetroidPlayer().EnergyExpenseEfficiency * 100f;
 			return $"Barrier Resilliency: {efficiency:F2}";
