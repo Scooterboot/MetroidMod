@@ -46,8 +46,10 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
-			Projectile.Damage(); //battlehammer double hits on direct hit
-			/*foreach (NPC target in Main.npc)
+			Projectile.Damage(); //battlehammer double hits on direct(ish) hit
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
+			foreach (NPC target in Main.npc)
 			{
 				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
 				{
@@ -55,7 +57,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 					Projectile.usesLocalNPCImmunity = true;
 					Projectile.localNPCHitCooldown = 1;
 				}
-			}*/
+			}
 		}
 
 		public override bool PreDraw(ref Color lightColor)
