@@ -21,6 +21,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.width = 32;
 			Projectile.height = 32;
 			Projectile.scale = 1f;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
 		}
 
 		public override void AI()
@@ -55,15 +57,24 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			if (mProjectile.canDiffuse)
 			{
-				Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-				Projectile.width += 125;
-				Projectile.height += 125;
+				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
+				Projectile.width += 37;
+				Projectile.height += 37;
 				Projectile.scale = 3f;
-				Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
+				Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+				Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 				mProjectile.Diffuse(Projectile, 269);
 				Projectile.Damage();
+				foreach (NPC target in Main.npc)
+				{
+					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+					{
+						Projectile.Damage();
+						Projectile.usesLocalNPCImmunity = true;
+						Projectile.localNPCHitCooldown = 1;
+					}
+				}
 			}
 			mProjectile.DustyDeath(Projectile, 269);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);

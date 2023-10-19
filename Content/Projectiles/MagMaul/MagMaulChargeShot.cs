@@ -21,6 +21,8 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			Projectile.height = 20;
 			Projectile.scale = 1.5f;
 			Projectile.aiStyle = 1;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
 		}
 
 		public override void AI()
@@ -43,8 +45,8 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			if(mProjectile.canDiffuse)
 			{
-				Projectile.width += 125;
-				Projectile.height += 125;
+				Projectile.width += 79;
+				Projectile.height += 79;
 				Projectile.scale = 3f;
 				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
 				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
@@ -52,6 +54,15 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 				Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 				//mProjectile.Diffuse(Projectile, 286);
 				Projectile.Damage();
+				foreach (NPC target in Main.npc)
+				{
+					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+					{
+						Projectile.Damage();
+						Projectile.usesLocalNPCImmunity = true;
+						Projectile.localNPCHitCooldown = 1;
+					}
+				}
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
 			mProjectile.DustyDeath(Projectile, 286);

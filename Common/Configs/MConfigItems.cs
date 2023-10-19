@@ -645,15 +645,15 @@ namespace MetroidMod.Common.Configs
 		public float damageImperialist;
 
 		//[Label("[i:MetroidMod/ImperialistAddon] Imperialist Use Time")]
-		[Range(1f, 60f)]
+		[Range(1f, 100f)]
 		[Increment(1f)]
 		[Slider]
 		[DefaultValue(92f)]
 		public float useTimeImperialist;
 
 		//[Label("[i:MetroidMod/ImperialistAddon] Imperialist Overheat Modifer")]
-		[Range(0f, 3f)]
-		[Increment(0.05f)]
+		[Range(0f, 5f)]
+		[Increment(0.5f)]
 		[Slider]
 		[DefaultValue(2.5f)]
 		public float overheatImperialist;
@@ -681,7 +681,7 @@ namespace MetroidMod.Common.Configs
 
 		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Overheat Modifer")]
 		[Range(0f, 2f)]
-		[Increment(0.5f)]
+		[Increment(0.05f)]
 		[Slider]
 		[DefaultValue(.75f)]
 		public float overheatJudicator;
@@ -697,14 +697,14 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.9f, 2f)]
 		[Increment(0.1f)]
 		[Slider]
-		[DefaultValue(-0.5f)]
+		[DefaultValue(0f)]
 		public float damageShockCoil;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
 		[Range(.1f, 1f)]
 		[Increment(0.1f)]
 		[Slider]
-		[DefaultValue(0.3f)]
+		[DefaultValue(0.5f)]
 		public float minSpeedShockCoil;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
@@ -714,7 +714,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(3.0f)]
 		public float maxSpeedShockCoil;
 
-		//[Label("[i:MetroidMod/JudicatorAddon] ShockCoil Use Time")]
+		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Use Time")]
 		[Range(1f, 60f)]
 		[Increment(1f)]
 		[Slider]

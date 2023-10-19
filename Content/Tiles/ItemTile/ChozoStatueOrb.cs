@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles.ItemTile
 {
@@ -12,13 +13,13 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		public override void SetStaticDefaults()
 		{
 			//base.SetStaticDefaults();
+			TileObjectData.newTile.LavaDeath = false;
 			Main.tileSpelunker[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileSpelunker[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Missile Expansion");
 			AddMapEntry(new Color(90, 90, 90), name);
 			Main.tileOreFinderPriority[Type] = 807;
 			DustType = 1;
