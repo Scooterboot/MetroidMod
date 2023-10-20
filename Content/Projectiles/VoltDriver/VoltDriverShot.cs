@@ -16,14 +16,12 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Main.projFrames[Projectile.type] = 4;
 		}
 		public override void SetDefaults()
-		{
-			
+		{		
 			string S  = PowerBeam.SetCondition();
 			base.SetDefaults();
-			Projectile.width = 22;
-			Projectile.height = 22;
-			Projectile.scale = 0.75f;
-			Projectile.damage = 15;
+			Projectile.width = 11;//22
+			Projectile.height = 11; //22
+			Projectile.scale = .5f;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
 			//Projectile.extraUpdates = 3;
@@ -43,7 +41,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void AI()
 		{
-			
 			string S  = PowerBeam.SetCondition();
 			if (S.Contains("wave") || S.Contains("nebula"))
 			{
@@ -56,10 +53,10 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 			if (Projectile.numUpdates == 0)
 			{
+				Projectile.frame++;
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			Projectile.frame++;
 			if (Projectile.frame > 3)
 			{
 				Projectile.frame = 0;

@@ -22,9 +22,9 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 20;
-			Projectile.height = 32;
-			Projectile.scale = 2f;
+			Projectile.width = 32;//32
+			Projectile.height = 20;//20
+			Projectile.scale = 1f;
 			Projectile.timeLeft = 60;
 			
 			string S  = PowerBeam.SetCondition();

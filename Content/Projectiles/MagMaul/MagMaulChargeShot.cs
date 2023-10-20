@@ -11,8 +11,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("MagMaul Charge Shot");
-			Main.projFrames[Projectile.type] = 2;
 		}
 		public override void SetDefaults()
 		{
@@ -29,15 +27,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-			if (Projectile.numUpdates == 0)
-			{
-				Projectile.rotation += 0.5f * Projectile.direction;
-				Projectile.frame++;
-			}
-			if (Projectile.frame > 1)
-			{
-				Projectile.frame = 0;
-			}
+			Projectile.rotation += 0.5f * Projectile.direction;
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 286, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
@@ -45,13 +35,13 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			if(mProjectile.canDiffuse)
 			{
-				Projectile.width += 79;
-				Projectile.height += 79;
+				Projectile.width += 60;
+				Projectile.height += 60;
 				Projectile.scale = 3f;
-				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+				/*Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
 				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
-				Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);*/
 				//mProjectile.Diffuse(Projectile, 286);
 				Projectile.Damage();
 				foreach (NPC target in Main.npc)

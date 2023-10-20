@@ -59,12 +59,12 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			{
 				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
 				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
-				Projectile.width += 37;
-				Projectile.height += 37;
+				Projectile.width += 32;
+				Projectile.height += 32;
 				Projectile.scale = 3f;
 				Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 				Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-				mProjectile.Diffuse(Projectile, 269);
+				//mProjectile.Diffuse(Projectile, 269);
 				Projectile.Damage();
 				foreach (NPC target in Main.npc)
 				{

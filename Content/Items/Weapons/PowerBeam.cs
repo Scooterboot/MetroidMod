@@ -342,6 +342,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ChargeShotSound = null;
 			noSomersault = false;
 			isSpray = false;
+			isChargeSpray = false;
 			isShock = false;
 			Stealth = false;
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
@@ -462,10 +463,10 @@ namespace MetroidMod.Content.Items.Weapons
 						lightColor = MetroidMod.iceColor;
 						texture = "IceBeam";
 
-						/*if (slot3.type == wa)
+						if (slot3.type == wa)
 						{
 							chargeShotAmt = 2;
-						}*/
+						}
 						if (slot4.type == sp)
 						{
 							shot = "IceSpazerShot";
