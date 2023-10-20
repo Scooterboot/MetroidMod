@@ -33,25 +33,22 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public override void Kill(int timeLeft)
 		{
-			if(mProjectile.canDiffuse)
+			Projectile.width += 44;
+			Projectile.height += 44;
+			Projectile.scale = 3f;
+			/*Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
+			Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);*/
+			//mProjectile.Diffuse(Projectile, 286);
+			Projectile.Damage();
+			foreach (NPC target in Main.npc)
 			{
-				Projectile.width += 60;
-				Projectile.height += 60;
-				Projectile.scale = 3f;
-				/*Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
-				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);*/
-				//mProjectile.Diffuse(Projectile, 286);
-				Projectile.Damage();
-				foreach (NPC target in Main.npc)
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
 				{
-					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
-					{
-						Projectile.Damage();
-						Projectile.usesLocalNPCImmunity = true;
-						Projectile.localNPCHitCooldown = 1;
-					}
+					Projectile.Damage();
+					Projectile.usesLocalNPCImmunity = true;
+					Projectile.localNPCHitCooldown = 1;
 				}
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);

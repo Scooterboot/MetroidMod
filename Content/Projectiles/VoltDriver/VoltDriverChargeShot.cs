@@ -55,25 +55,22 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void Kill(int timeLeft)
 		{
-			if (mProjectile.canDiffuse)
+			//Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+			//Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
+			Projectile.width += 32;
+			Projectile.height += 32;
+			Projectile.scale = 3f;
+			//Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			//Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+			//mProjectile.Diffuse(Projectile, 269);
+			Projectile.Damage();
+			foreach (NPC target in Main.npc)
 			{
-				Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
-				Projectile.width += 32;
-				Projectile.height += 32;
-				Projectile.scale = 3f;
-				Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-				//mProjectile.Diffuse(Projectile, 269);
-				Projectile.Damage();
-				foreach (NPC target in Main.npc)
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
 				{
-					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
-					{
-						Projectile.Damage();
-						Projectile.usesLocalNPCImmunity = true;
-						Projectile.localNPCHitCooldown = 1;
-					}
+					Projectile.Damage();
+					Projectile.usesLocalNPCImmunity = true;
+					Projectile.localNPCHitCooldown = 1;
 				}
 			}
 			mProjectile.DustyDeath(Projectile, 269);

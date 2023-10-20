@@ -90,7 +90,6 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 			if (mProjectile.homing)
 			{
-				mProjectile.HomingBehavior(Projectile);
 				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
 			}
 			int dustType = 6;

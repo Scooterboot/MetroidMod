@@ -865,7 +865,7 @@ Mods: {
 
 			GoldenTorizoSummon: {
 				DisplayName: Golden Torizo Summon
-				Tooltip: Summons Gold Torizo in the Chozo Temple.
+				Tooltip: Summons Gold Torizo
 			}
 
 			KraidBag: {
@@ -925,7 +925,7 @@ Mods: {
 
 			TorizoSummon: {
 				DisplayName: Torizo Summon
-				Tooltip: Summons Torizo in the Chozo Temple
+				Tooltip: Summons Torizo
 			}
 
 			Crucible: {

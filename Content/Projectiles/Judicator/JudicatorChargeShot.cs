@@ -22,8 +22,8 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 32;//32
-			Projectile.height = 20;//20
+			Projectile.width = 16;//32
+			Projectile.height = 16;//20
 			Projectile.scale = 1f;
 			Projectile.timeLeft = 60;
 			
@@ -61,10 +61,10 @@ namespace MetroidMod.Content.Projectiles.Judicator
 					Projectile.tileCollide = false;
 				}
 				MProjectile meep = mProjectile;
-				Projectile.width *= (int)Math.Abs(Projectile.velocity.Y * Projectile.width / Projectile.width) + GetDepth(meep);
-				Projectile.height *= (int)Math.Abs(Projectile.velocity.X * Projectile.height / Projectile.height) + GetDepth(meep);
-				Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-				Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+				int widthbonus = Math.Abs(Projectile.direction * Projectile.width / Projectile.width);
+				int heightbonus = Math.Abs(Projectile.direction * Projectile.height / Projectile.height);
+				Projectile.width += widthbonus + GetDepth(meep) * 16;
+				Projectile.height += heightbonus + GetDepth(meep) * 16;
 			}
 		}
 

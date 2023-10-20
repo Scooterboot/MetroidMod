@@ -32,7 +32,7 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override void AddRecipes()
 		{
-			CreateRecipe(1)
+			/*CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(15)
 				.AddIngredient<Miscellaneous.EnergyShard>(3)
 				.AddTile(TileID.Anvils)
