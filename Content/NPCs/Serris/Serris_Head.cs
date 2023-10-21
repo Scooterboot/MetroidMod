@@ -219,7 +219,7 @@ namespace MetroidMod.Content.NPCs.Serris
 						initialBoost = true;
 						NPC.TargetClosest(true);
 					}
-					
+
 					// activate speed boost on hit
 					if(NPC.justHit)
 					{
@@ -241,7 +241,7 @@ namespace MetroidMod.Content.NPCs.Serris
 					}
 					
 					NPC.localAI[3]++;
-					if(NPC.localAI[3] > 30)
+					if(NPC.localAI[3] > 60)
 					{
 						extra_state = 2;
 						NPC.localAI[3] = 0;
