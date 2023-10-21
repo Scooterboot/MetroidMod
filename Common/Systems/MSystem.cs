@@ -647,8 +647,6 @@ namespace MetroidMod.Common.Systems
 		}
 		public static int OrbItem(int i, int j)
 		{
-			//Mod mod = MetroidMod.Instance;
-
 			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
 			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
 
@@ -667,7 +665,6 @@ namespace MetroidMod.Common.Systems
 				int baseY = (int)GenVars.rockLayer;
 				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 32];
 				int index = 0;
-				// Okay, the goal is to do weighted random.
 				foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 				{
 					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.ItemType; }, addon.GenerationChance(i, j)); }
@@ -754,18 +751,18 @@ namespace MetroidMod.Common.Systems
 				jungle = (i >= Main.maxTilesX * 0.65 && i <= Main.maxTilesX * 0.8 && j < Main.UnderworldLayer);
 			}*/
 
-			ushort item  = (ushort)ModContent.TileType<ChozoStatueOrb>();
-			if (dungeon)
+			return (ushort)ModContent.TileType<ChozoStatueOrb>();
+			//if (dungeon)
 			{
-				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
+				//item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
 			}
-			else if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
+			//else if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
 			{
-				item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
+				//item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
 			}
-			else
+			//else
 			{
-				int baseX = Main.maxTilesX / 2;
+				/*int baseX = Main.maxTilesX / 2;
 				int baseY = (int)GenVars.rockLayer;
 				//float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX / 2)) + (Math.Max(j - baseY, 0) / (Main.maxTilesY - WorldGen.rockLayer))) / 2;
 
@@ -773,7 +770,7 @@ namespace MetroidMod.Common.Systems
 				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 32];
 				int index = 0;
 				// Okay, the goal is to do weighted random.
-				foreach (ModSuitAddon addon in SuitAddonLoader.addons)
+				/*foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 				{
 					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, addon.GenerationChance(i, j)); }
 				}
@@ -781,7 +778,7 @@ namespace MetroidMod.Common.Systems
 				{
 					if (beam.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)beam.TileType; }, RarityLoader.RarityCount - beam.Item.Item.rare); }
 				}*/
-				foreach (ModMBAddon addon in MBAddonLoader.addons)
+				/*foreach (ModMBAddon addon in MBAddonLoader.addons)
 				{
 					if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = (ushort)addon.TileType; }, addon.GenerationChance(i, j)); }
 				}
@@ -793,7 +790,7 @@ namespace MetroidMod.Common.Systems
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.JudicatorTile>(); }, 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 				//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
-				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>(); }, 32);
+				/*list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>(); }, 32);
 				list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamTile>(); }, 24);
 				if (WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 				{
@@ -881,7 +878,7 @@ namespace MetroidMod.Common.Systems
 					item = (ushort)ModContent.Find<ModTile>("MorphBallTile").Type;
 				}*/
 			}
-			return (ushort)ModContent.TileType<ChozoStatueOrb>();
+			//return (ushort)ModContent.TileType<ChozoStatueOrb>();
 		}
 		public static bool AddChozoStatue(int i, int j)
 		{

@@ -38,8 +38,8 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
         }
 		public override void Kill(int timeLeft)
 		{
-			Projectile.width += 140;
-			Projectile.height += 140;
+			Projectile.width += 76;
+			Projectile.height += 76;
 			Projectile.scale = 5f;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);

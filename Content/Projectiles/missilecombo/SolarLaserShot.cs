@@ -191,7 +191,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(189,600,true);
-			//target.immune[Projectile.owner] = 4;
+			target.immune[Projectile.owner] = 2;
 		}
 		
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

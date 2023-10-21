@@ -22,6 +22,8 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.scale = 2f;
 			Projectile.extraUpdates = 0;
 			Projectile.timeLeft = 2000;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
 		}
 
 		public override void AI()
@@ -118,7 +120,6 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 			if (mProjectile.homing)
 			{
-				mProjectile.HomingBehavior(Projectile);
 				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
 			}
 			int dustType = 6;
@@ -155,8 +156,17 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Main.dust[num72].noGravity = true;
 			}
 			P.Damage();
-			
-			if(P.Name.Contains("Nebula"))
+			foreach (NPC target in Main.npc)
+			{
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+				{
+					Projectile.Damage();
+					Projectile.usesLocalNPCImmunity = true;
+					Projectile.localNPCHitCooldown = 1;
+				}
+			}
+
+			if (P.Name.Contains("Nebula"))
 			{
 				var entitySource = P.GetSource_Death();
 				int n = Projectile.NewProjectile(entitySource, P.Center.X, P.Center.Y, 0f, 0f, ModContent.ProjectileType<NebulaMissileImpact>(),P.damage,P.knockBack,P.owner);

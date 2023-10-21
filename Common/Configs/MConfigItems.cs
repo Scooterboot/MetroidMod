@@ -750,10 +750,10 @@ namespace MetroidMod.Common.Configs
 		public float overheatBattleHammer;
 
 		//[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Damage Modifier")]
-		[Range(0f, 200f)]
-		[Increment(10f)]
+		[Range(0f, 50f)]
+		[Increment(1f)]
 		[Slider]
-		[DefaultValue(100f)]
+		[DefaultValue(20f)]
 		public float damageOmegaCannon;
 
 		//[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Use Time")]

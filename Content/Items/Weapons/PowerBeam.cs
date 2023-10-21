@@ -1732,7 +1732,7 @@ namespace MetroidMod.Content.Items.Weapons
 								int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
 								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 								mProj.waveDir = waveDir;
-								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9));
+								//mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9)); //TODO add dread diffusion beam in place of this
 								mProj.Projectile.netUpdate2 = true;
 							}
 							
