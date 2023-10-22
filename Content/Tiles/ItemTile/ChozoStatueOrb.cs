@@ -42,10 +42,10 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		public override bool RightClick(int i, int j)
 		{
 			WorldGen.KillTile(i, j, false, false, true);
-			/*if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[i, j].HasTile) //possibly dupes the item?
+			if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[i, j].HasTile)
 			{
 				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
-			}*/
+			}
 			return true;
 		}
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
