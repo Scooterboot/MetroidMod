@@ -24,6 +24,7 @@ namespace MetroidMod.Content.SuitAddons
 			// DisplayName.SetDefault("Reserve Tank");
 			// TODO: Write a better tooltip. I'm tired. - DarkSamus49
 			// Tooltip.SetDefault("Can store a spare tank of energy.");
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<Items.Accessories.ReserveTank>();
 			ItemNameLiteral = true;
 			SacrificeTotal = 4;
 			AddonSlot = SuitAddonSlotID.Tanks_Reserve;
