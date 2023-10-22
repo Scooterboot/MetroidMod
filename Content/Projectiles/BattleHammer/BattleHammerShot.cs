@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			base.SetDefaults();
 			Projectile.width = 20;
 			Projectile.height = 20;
-			Projectile.scale = Main.hardMode ? .75f : .5f;
+			Projectile.scale = .75f;
 			Projectile.aiStyle = 1;
 			//Projectile.usesLocalNPCImmunity = true;
 			//Projectile.localNPCHitCooldown = 1;
@@ -38,9 +38,9 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
         }
 		public override void Kill(int timeLeft)
 		{
-			Projectile.width += Main.hardMode? 76 : 43;
-			Projectile.height += Main.hardMode ? 76 : 43;
-			Projectile.scale = Main.hardMode ? 5f : 3.3f;
+			Projectile.width += 76;
+			Projectile.height += 76;
+			Projectile.scale = 5f;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			mProjectile.Diffuse(Projectile, 110);

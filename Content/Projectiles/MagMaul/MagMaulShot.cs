@@ -42,12 +42,9 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void Kill(int timeLeft)
 		{
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
-			if (Main.hardMode)
-			{
-				Projectile.width += 20;
-				Projectile.height += 20;
-				Projectile.scale = 1.6f;
-			}
+			Projectile.width += 20;
+			Projectile.height += 20;
+			Projectile.scale = 1.6f;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			Projectile.Damage();

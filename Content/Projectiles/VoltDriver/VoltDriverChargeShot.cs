@@ -48,7 +48,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			}
 			int dustType = 269;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
-			mProjectile.HomingBehavior(Projectile, shootSpeed, Main.hardMode ? 11 : 0);
+			mProjectile.HomingBehavior(Projectile, shootSpeed);
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
@@ -57,12 +57,9 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		{
 			//Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
 			//Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
-			if (Main.hardMode)
-			{
-				Projectile.width += 32;
-				Projectile.height += 32;
-			}
-			Projectile.scale = 2f;
+			Projectile.width += 32;
+			Projectile.height += 32;
+			Projectile.scale = 3f;
 			//Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			//Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			//mProjectile.Diffuse(Projectile, 269);
@@ -87,11 +84,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (Main.hardMode)
-			{
-				SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
-				target.AddBuff(31, 180);
-			}
+			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
+			target.AddBuff(31, 180);
 		}
 	}
 }

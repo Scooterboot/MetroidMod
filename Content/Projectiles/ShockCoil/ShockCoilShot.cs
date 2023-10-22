@@ -380,7 +380,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mp.statCharge += 10 / shots;
 				//mp.statCharge = Math.Min(((mp.statCharge + 7) / shots), MPlayer.maxCharge);
 			}*/
-			if ((mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat) || Main.hardMode)
+			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				/*int healingAmount = Math.Min(damageDone / 20, 5);
 				p.statLife += healingAmount;

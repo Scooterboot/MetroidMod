@@ -166,7 +166,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
-		/*public override bool AltFunctionUse(Player player) //placeholder for dread/SR parry
+		/*public override bool AltFunctionUse(Player player)
 		{
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.noMelee = false;
@@ -1021,7 +1021,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					isCharge = true;
 					shot = "JudicatorShot";
-					chargeShot = Main.hardMode? "JudicatorChargeShot" : "JudicatorShot";
+					chargeShot = "JudicatorChargeShot";
 					shotSound = "JudicatorSound";
 					chargeShotSound = "JudicatorChargeSound";
 					chargeUpSound = "ChargeStartup_JudicatorAffinity";
@@ -1043,17 +1043,12 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						comboError2 = true;
 					}
-					if (!Main.hardMode)
-					{
-						chargeShotAmt = 3;
-						isChargeSpray = true;
-					}
 				}
 
 				if (slot1.type == bh)
 				{
 					shot = "BattleHammerShot";
-					shotSound = Main.hardMode? "BattleHammerAffinitySound" : "BattleHammerSound";
+					shotSound = "BattleHammerAffinitySound";
 					texture = "BattleHammer";
 					useTime = MConfigItems.Instance.useTimeBattleHammer;
 					if (shotAmt > 1)
@@ -1815,21 +1810,18 @@ namespace MetroidMod.Content.Items.Weapons
 			if (Stealth)
 			{
 				player.scope = true;
-				if (Main.hardMode)
+				player.shroomiteStealth = true;
+				if(impStealth < 125f)
 				{
-					player.shroomiteStealth = true;
-					if (impStealth < 125f)
-					{
-						impStealth++;
-					}
-					Item.crit *= (int)(1f + (impStealth / 125f));
-					player.stealth -= (impStealth / 125f);
-					player.aggro -= (int)(impStealth * 4f);
-					if (player.velocity != Vector2.Zero)
-					{
-						player.shroomiteStealth = false;
-						impStealth = 0f;
-					}
+					impStealth++;
+				}
+				//Item.damage *= (int)(1f + (impStealth / 125f));
+				player.stealth -= (impStealth / 125f);
+				player.aggro -= (int)(impStealth * 4f);
+				if (player.velocity != Vector2.Zero || player.controlUseItem)
+				{
+					player.shroomiteStealth = false;
+					impStealth = 0f;
 				}
 			}
 		}

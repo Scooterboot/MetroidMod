@@ -495,8 +495,6 @@ Mods: {
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
-					Hardmode:
-					Blast radius increased
 					'''
 			}
 
@@ -507,10 +505,9 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					[c/78BE78:+500% damage]
-					[c/78BE78:Adds scope]
+					[c/78BE78:Adds scope and stealth]
 					[c/BE7878:+250% overheat use]
 					[c/BE7878:Massive speed reduction]
-					Hardmode: Adds stealth which reduces aggro and increases crit
 					'''
 			}
 
@@ -521,12 +518,11 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Shots bounce
+					Charge shots spray a freezing blast
+					Can shadowfreeze, but otherwise cannot pierce tiles
 					[c/78BE78:+45% damage]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
-					HardMode:
-					Charge shots spray a freezing blast, which can shadowfreeze
-					Can shadowfreeze, but otherwise cannot pierce tiles
 					'''
 			}
 
@@ -542,8 +538,6 @@ Mods: {
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:Cannot freeze or pierce]
-					Hardmode:
-					Charge shots have a larger blast radius and ignite enemies
 					'''
 			}
 
@@ -574,8 +568,6 @@ Mods: {
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
 					[c/BE7878:Probably still bugged]
-					Hardmode:
-					Restores energy regardless of charge state.
 					'''
 			}
 
@@ -585,13 +577,11 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Charge shots travel slowly but explode
+					Charge shots home, explode, and confuse
 					[c/78BE78:+10% damage]
 					[c/BE7878:-10% speed]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:+10% noise]
-					Hardmode:
-					Charge shots home and confuse. Blast radius increased.
 					'''
 			}
 
