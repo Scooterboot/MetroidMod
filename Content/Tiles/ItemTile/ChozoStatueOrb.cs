@@ -50,14 +50,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		}
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
-			if (RightClick(i, j))
-			{
-				noItem = true;
-			}
-			else
-			{
-				noItem = true;
-			}
+			noItem = true;
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, Common.Systems.MSystem.OrbItem(i,j));
 		}
 	}
