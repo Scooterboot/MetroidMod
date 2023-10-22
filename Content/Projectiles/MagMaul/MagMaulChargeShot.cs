@@ -33,9 +33,9 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public override void Kill(int timeLeft)
 		{
-			Projectile.width += 44;
-			Projectile.height += 44;
-			Projectile.scale = 3f;
+			Projectile.width += Main.hardMode ? 44 : 12;
+			Projectile.height += Main.hardMode ? 44 : 12;
+			Projectile.scale = Main.hardMode ? 5f : 3.3f;
 			/*Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
 			Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
@@ -62,7 +62,10 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			target.AddBuff(24, 600);
+			if (Main.hardMode)
+			{
+				target.AddBuff(24, 600);
+			}
 		}
 	}
 }
