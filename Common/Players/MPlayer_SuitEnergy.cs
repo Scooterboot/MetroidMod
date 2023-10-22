@@ -12,12 +12,12 @@ namespace MetroidMod.Common.Players
 		/// The percentage of energy that is subtracted from the damage the player has taken. <br />
 		/// Known as 'Energy Barrier Efficiency' (PROVISIONAL NAME).
 		/// </summary>
-		public float EnergyDefenseEfficiency = 0.0f;
+		public float EnergyDefenseEfficiency = Configs.MConfigItems.Instance.energyDefenseEfficiency; //0f;
 		/// <summary>
 		/// The percentage of damage that is subtracted from the player's energy. <br />
 		/// Known as 'Energy Barrier Resilience' (PROVISIONAL NAME).
 		/// </summary>
-		public float EnergyExpenseEfficiency = 0.1f;
+		public float EnergyExpenseEfficiency = Configs.MConfigItems.Instance.energyExpenseEfficiency; //0.1f;
 		/// <summary>
 		/// The number of Energy Tanks the player has.
 		/// </summary>
@@ -58,8 +58,8 @@ namespace MetroidMod.Common.Players
 
 		public void ResetEffects_SuitEnergy()
 		{
-			EnergyDefenseEfficiency = 0f;
-			EnergyExpenseEfficiency = 0.1f;
+			EnergyDefenseEfficiency = Configs.MConfigItems.Instance.energyDefenseEfficiency; //0f;
+			EnergyExpenseEfficiency = Configs.MConfigItems.Instance.energyExpenseEfficiency; //0.1f;
 
 			bool flag = false;
 			for (int i = 0; i < Player.buffType.Length; i++)
@@ -89,6 +89,7 @@ namespace MetroidMod.Common.Players
 			if (info.Damage <= 0)
 			{
 				info.Damage = 0;
+				Energy--;
 				#region cooldown code (stolen from tML source code)
 				switch (cooldownCounter)
 				{
