@@ -1,4 +1,5 @@
-
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.ID
 {
