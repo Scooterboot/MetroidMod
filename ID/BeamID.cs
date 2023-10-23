@@ -1,5 +1,9 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
+using System;
+using System.Collections;
 
 namespace MetroidMod.ID
 {
@@ -50,7 +54,8 @@ namespace MetroidMod.ID
                 }
 
 		// This could potentially substantially reduce backend processing time and eventually remove much clutter from PowerBeam.cs
-		public static HashTable Dict = new HashTable{
+		public static Dictionary Dict = new HashTable()
+		{	
 			{Charge.Charge, 	ModContent.ItemType<Addons.ChargeBeamAddon>()},
 			{Charge.ChargeV2, 	ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>()},
 			{Charge.Luminite, 	ModContent.ItemType<Addons.V3.LuminiteBeamAddon>()},
