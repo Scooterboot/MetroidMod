@@ -1,9 +1,11 @@
+using System;
+using System.Collections;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using System;
-using System.Collections;
+using MetroidMod.Content.Items;
 
 namespace MetroidMod.ID
 {
@@ -112,7 +114,7 @@ namespace MetroidMod.ID
                         }
                 }
 
-                private Dictionary<int, int> dict = new HashTable()
+                private static Dictionary<int, int> dict = new HashTable()
                 {
                         {Addon.Tank_Energy, ModContent.ItemType<>()}
                 }
