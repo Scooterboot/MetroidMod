@@ -34,7 +34,7 @@ namespace MetroidMod.ID
                 {
                         Tank_Energy,            // Energy
                         Tank_Reserve,           // Reserve
-                        Missile_Expansion, // Will be used to reconfigure where missiles are tracked/stored.
+                        Missile_Expansion,      // Will be used to reconfigure where missiles are tracked/stored.
                         Varia,                  // Varia
                         VariaV2,
                         Dark_Suit,              // Utility
@@ -116,9 +116,40 @@ namespace MetroidMod.ID
 
                 private static Dictionary<int, int> dict = new HashTable()
                 {
-                        {Addon.Tank_Energy, ModContent.ItemType<>()}
+                        {Addon.Tank_Energy, ModContent.ItemType<SuitAddons.EnergyTank>()},
+			{Addon.Tank_Reserve, ModContent.ItemType<SuitAddons.ReserveTank>()},
+			{Addon.MissileExpansion, ModContent.ItemType<Tiles.MissileExpansion>()},
+			{Addon.Varia, ModContent.ItemType<SuitAddons.VariaSuitAddon>()},
+			{Addon.VariaV2, ModContent.ItemType<SuitAddons.VariaSuitV2Addon>()},
+			{Addon.Dark_Suit, ModContent.ItemType<SuitAddons.DarkSuitAddon>()},
+			{Addon.Gravity, ModContent.ItemType<SuitAddons.GravitySuitAddon>()},
+			{Addon.PED, ModContent.ItemType<SuitAddons.PEDSuitAddon>()},
+			{Addon.Light, ModContent.ItemType<SuitAddons.LightSuitAddon>()},
+			{Addon.TerraGravity, ModContent.ItemType<SuitAddons.TerraGravitySuitAddon>()},
+			{Addon.Phazon, ModContent.ItemType<SuitAddons.PhazonSuitAddon>()},
+			{Addon.HazardShield, ModContent.ItemType<SuitAddons.HazardShieldAddon>()},
+			{Addon.Solar, ModContent.ItemType<SuitAddons.SolarAugment>()},
+			//{Addon.Stardust, ModContent.ItemType<SuitAddons.StardustAugment>()},
+			{Addon.Nebula, ModContent.ItemType<SuitAddons.NebulaAugment>()},
+			{Addon.Vortex, ModContent.ItemType<SuitAddons.VortexAugment>()},
+			{Addon.PowerGrip, ModContent.ItemType<SuitAddons.PowerGrip>()},
+			{Addon.ScrewAttack, ModContent.ItemType<SuitAddons.ScrewAttack>()},
+			{Addon.HiJump, ModContent.ItemType<SuitAddons.HiJumpBoots>()},
+			{Addon.SpaceJump_Boots, ModContent.ItemType<SuitAddons.SpaceJumpBoots>()},
+			{Addon.SpaceJump, ModContent.ItemType<SuitAddons.SpaceJump>()},
+			{Addon.SpeedBooster, ModContent.ItemType<SuitAddons.SpeedBooster>()},
+			{Addon.Scan, ModContent.ItemType<SuitAddons.ScanVisor>()},
+			//{Addon.Thermal, ModContent.ItemType<SuitAddons.ThermalVisor>()},
+			//{Addon.Dark_Visor, ModContent.ItemType<SuitAddons.DarkVisor>()},
+			//{Addon.Command, ModContent.ItemType<SuitAddons.CommandVisor>()},
+			{Addon.XRay, ModContent.ItemType<SuitAddons.XRayScope>()}//,
+			//{Addon.Echo, ModContent.ItemType<SuitAddons.EchoVisor>()}
                 }
-                
+
+		public static int getItemTypeOf(Addon suit)
+		{
+			return this.dict[(int) suit];
+		}
                 
         }
 }
