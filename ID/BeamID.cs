@@ -9,7 +9,6 @@ namespace MetroidMod.ID
 {
 	public static class BeamID
 	{
-		// Can potentially be extended to include Suit or Missile slots.
 		public enum SlotType
 		{
 			Charge,
@@ -19,7 +18,6 @@ namespace MetroidMod.ID
 			Utility
 		}
 
-		// Can encompass other addon types by renaming to "Addon". Will potentially lead to a laundry list switch block in getSlotType() and Dictionary below.
 		public enum Beam
 		{
 			Charge,
@@ -49,7 +47,6 @@ namespace MetroidMod.ID
 			Stardust
 		}
 
-		// Will replace BeamAddonSlotID.cs
 		public static int getSlotType(Beam beam)
 		{
 			switch(beam)
@@ -85,7 +82,7 @@ namespace MetroidMod.ID
 				case Beam.Stardust:
 					return SlotType.Secondary;
 				default:
-					return -1;
+					return -1; // Beam doesn't have an established SlotType
 			}
 		}
 
