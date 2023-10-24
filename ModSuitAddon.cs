@@ -46,6 +46,16 @@ namespace MetroidMod
 
 		public virtual string ArmorTextureHead { get; }
 		public virtual string ArmorTextureTorso { get; }
+		/// <summary>
+		/// Main visible shoulder texture location. <br />
+		/// Only used by Barrier addons.
+		/// </summary>
+		public virtual string OnShoulderTexture { get; }
+		/// <summary>
+		/// Semi-hidden visible shoulder texture location. <br />
+		/// Only used by Barrier addons.
+		/// </summary>
+		public virtual string OffShoulderTexture { get; }
 		public virtual string ArmorTextureArmsGlow { get; }
 		public virtual string ArmorTextureLegs { get; }
 

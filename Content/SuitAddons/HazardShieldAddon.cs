@@ -21,6 +21,10 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitGreaves_Legs";
 
+		public override string OnShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OnShoulder";
+
+		public override string OffShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OffShoulder";
+
 		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => false;//WorldGen.drunkWorldGen;

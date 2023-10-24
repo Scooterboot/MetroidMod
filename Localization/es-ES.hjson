@@ -2709,6 +2709,7 @@ Mods: {
 					Increases flight and jump mobility
 					''' */
 			}
+
 			ChozoStatueOrb: {
 				// DisplayName: Chozo Statue Orb
 				// Tooltip: ""
@@ -3960,7 +3961,7 @@ Mods: {
 					// Label: max Speed Shock Coil
 					// Tooltip: ""
 				}
-				
+
 				stackReserveTank: {
 					// Label: "[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack"
 					// Tooltip: ""
