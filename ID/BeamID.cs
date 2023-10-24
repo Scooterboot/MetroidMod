@@ -1,9 +1,11 @@
+using System;
+using System.Collections;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using System;
-using System.Collections;
+using MetroidMod.Content.Items;
 
 namespace MetroidMod.ID
 {
