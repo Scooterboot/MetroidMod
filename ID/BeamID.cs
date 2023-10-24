@@ -84,7 +84,7 @@ namespace MetroidMod.ID
 				case Beam.Stardust:
 					return SlotType.Secondary;
 				default:
-					return -1; // Beam doesn't have an established SlotType
+					return -1; // Beam doesn't exist
 			}
 		}
 
