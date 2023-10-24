@@ -7,9 +7,9 @@ using System.Collections;
 
 namespace MetroidMod.ID
 {
-        public class SuitID
+        public static class SuitID
         {
-                public enum SuitSlot
+                public enum SlotType
                 {
                         Tank_Energy,
                         Tank_Reserve,
@@ -65,48 +65,48 @@ namespace MetroidMod.ID
                         switch(suit)
                         {
                                 case Addon.Tank_Energy:
-                                        return SuitSlot.Tank_Energy;
+                                        return SlotType.Tank_Energy;
                                 case Addon.Tank_Reserve:
-                                        return SuitSlot.Tank_Reserve;
+                                        return SlotType.Tank_Reserve;
                                 case Addon.Missile_Expansion:
-                                        return SuitSlot.Missile_Expansion;
+                                        return SlotType.Missile_Expansion;
                                 case Addon.Varia:
                                 case Addon.VariaV2:
-                                        return SuitSlot.Varia;
+                                        return SlotType.Varia;
                                 case Addon.Dark_Suit:
                                 case Addon.Gravity:
                                 case Addon.PED:
-                                        return SuitSlot.Utility;
+                                        return SlotType.Utility;
                                 case Addon.Light:
                                 case Addon.TerraGravity:
                                 case Addon.Phazon:
                                 case Addon.HazardShield:
-                                        return SuitSlot.Utility2;
+                                        return SlotType.Utility2;
                                 case Addon.Solar:
                                 case Addon.Stardust:
                                 case Addon.Nebula:
                                 case Addon.Vortex:
-                                        return SuitSlot.Lunar;
+                                        return SlotType.Lunar;
                                 case Addon.PowerGrip:
-                                        return SuitSlot.Grip;
+                                        return SlotType.Grip;
                                 case Addon.ScrewAttack:
-                                        return SuitSlot.Attack;
+                                        return SlotType.Attack;
                                 case Addon.HiJump:
                                 case Addon.SpaceJump_Boots:
-                                        return SuitSlot.Boots;
+                                        return SlotType.Boots;
                                 case Addon.SpaceJump:
-                                        return SuitSlot.Jump;
+                                        return SlotType.Jump;
                                 case Addon.SpeedBooster:
-                                        return SuitSlot.Speed;
+                                        return SlotType.Speed;
                                 case Addon.Scan:
-                                        return SuitSlot.Visor_Scan;
+                                        return SlotType.Visor_Scan;
                                 case Addon.Thermal:
                                 case Addon.Dark_Visor:
                                 case Addon.Command:
-                                        return SuitSlot.Visor_Utility;
+                                        return SlotType.Visor_Utility;
                                 case Addon.XRay:
                                 case Addon.Echo:
-                                        return SuitSlot.Visor_Utility2;
+                                        return SlotType.Visor_Utility2;
                                 default:
                                         return -1; // Suit Addon doesn't exist
                         }
