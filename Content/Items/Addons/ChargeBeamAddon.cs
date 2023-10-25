@@ -5,7 +5,7 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class ChargeBeamAddon : ModItem
+	public class ChargeBeamAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
@@ -33,8 +33,8 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 0;
-			mItem.beamSlotType = BeamChangeSlotID.Charge;
+			this.beamID = BeamID.Charge;
+			this.slotType = BeamID.SlotType.Charge;
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
 		}
