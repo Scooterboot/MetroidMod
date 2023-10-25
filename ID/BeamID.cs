@@ -20,7 +20,7 @@ namespace MetroidMod.ID
 			Utility
 		}
 
-		public enum Beam
+		public enum Beam // Going to go back over this enum with Attributes to give it the proper "database" style and get rid of the ugly HashTable dict.
 		{
 			Charge,
 			ChargeV2,
@@ -49,42 +49,39 @@ namespace MetroidMod.ID
 			Stardust
 		}
 
-		public static int getSlotType(Beam beam)
+		public static int[] getBeamsBySlot(SlotType slot)
 		{
-			switch(beam)
+			switch(slot)
 			{
-				case Beam.Charge:
-				case Beam.ChargeV2:
-				case Beam.Luminite:
-				case Beam.Hyper:
-				case Beam.Phazon:
-				case Beam.BattleHammer:
-				case Beam.Imperialist:
-				case Beam.Judicator:
-				case Beam.Magmaul:
-				case Beam.ShockCoil:
-				case Beam.VoltDriver:
-				case Beam.OmegaCannon:
-					return SlotType.Charge;
-				case Beam.Wave:
-				case Beam.WaveV2:
-				case Beam.Nebula:
-					return SlotType.Utility;
-				case Beam.Spazer:
-				case Beam.Wide:
-				case Beam.Vortex:
-					return SlotType.PrimaryA;
-				case Beam.PlasmaR:
-				case Beam.PlasmaG:
-				case Beam.Nova:
-				case Beam.Solar:
-					return SlotType.PrimaryB;
-				case Beam.Ice:
-				case Beam.IceV2:
-				case Beam.Stardust:
-					return SlotType.Secondary;
+				case SlotType.Charge:
+					return new sealed int[] {Beam.Charge, Beam.ChargeV2, Beam.Luminite, Beam.Hyper, Beam.Phazon, Beam.BattleHammer, Beam.Imperialist, Beam.Judicator, Beam.Magmaul, Beam.ShockCoil, Beam.VoltDriver, Beam.OmegaCannon};
+				case SlotType.Utility:
+					return new sealed int[] {Beam.Wave, Beam.WaveV2, Beam.Nebula};
+				case SlotType.PrimaryA:
+					return new sealed int[] {Beam.Spazer, Beam.Wide, Beam.Vortex};
+				case SlotType.PrimaryB:
+					return new sealed int[] {Beam.PlasmaR, Beam.PlasmaG, Beam.Nova, Beam.Solar};
+				case SlotType.Secondary:
+					return new sealed int[] {Beam.Ice, Beam.IceV2, Beam.Stardust};
 				default:
-					return -1; // Beam doesn't exist
+					return null;
+			}
+		}
+
+		public static int[] getBeamsByVersion(int ver)
+		{
+			switch(ver)
+			{
+				case 1:
+					return new sealed int[] {Beam.Charge, Beam.Wave, Beam.Spazer, Beam.Ice};
+				case 2:
+					return new sealed int[] {Beam.ChargeV2, Beam.WaveV2, Beam.Wide, Beam.IceV2, Beam.PlasmaG, Beam.PlasmaR, Beam.Nova};
+				case 3:
+					return new sealed int[] {Beam.Luminite, Beam.Nebula, Beam.Vortex, Beam.Solar, Beam.Stardust};
+				case 0:
+					return new sealed int[] {Beam.Hyper, Beam.Phazon, Beam.BattleHammer, Beam.Imperialist, Beam.Judicator, Beam.Magmaul, Beam.ShockCoil, Beam.VoltDriver, Beam.OmegaCannon};
+				default:
+					return null;
 			}
 		}
 
