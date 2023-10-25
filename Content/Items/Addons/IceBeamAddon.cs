@@ -1,10 +1,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class IceBeamAddon : ModItem
+	public class IceBeamAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
