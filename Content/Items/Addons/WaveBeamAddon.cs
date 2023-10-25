@@ -37,7 +37,6 @@ namespace MetroidMod.Content.Items.Addons
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
    			this.beamID = BeamID.Beam.Wave;
       			this.slotType = BeamID.SlotType.Utility;
-			mItem.addonSlotType = 2;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageWaveBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatWaveBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedWaveBeam;
