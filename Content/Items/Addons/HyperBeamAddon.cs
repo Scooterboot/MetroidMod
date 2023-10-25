@@ -42,7 +42,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>();
-			this.beamID = BeamID.Hyper;
+			this.beamID = BeamID.Beam.Hyper;
    			this.slotType = BeamID.SlotType.Charge;
 		}
 		public override void AddRecipes()
