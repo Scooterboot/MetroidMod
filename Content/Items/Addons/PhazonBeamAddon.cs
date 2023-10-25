@@ -36,7 +36,6 @@ namespace MetroidMod.Content.Items.Addons
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>();
-			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
    			this.beamID = BeamID.Beam.Phazon;
       			this.slotType = BeamID.SlotType.Charge;
 		}
