@@ -6,7 +6,7 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class PhazonBeamAddon : ModItem
+	public class PhazonBeamAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
@@ -37,6 +37,8 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+   			this.beamID = BeamID.Beam.Phazon;
+      			this.slotType = BeamID.SlotType.Charge;
 			mItem.addonSlotType = 0;
 			mItem.beamSlotType = BeamChangeSlotID.PhazonBeam;
 		}
