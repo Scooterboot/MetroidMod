@@ -38,6 +38,7 @@ namespace MetroidMod.Content.Items.Addons
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
    			this.beamID = BeamID.Beam.Spazer;
       			this.slotType = BeamID.SlotType.PrimaryA;
+	 		this.ver = 1;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageSpazer;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatSpazer;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedSpazer;
