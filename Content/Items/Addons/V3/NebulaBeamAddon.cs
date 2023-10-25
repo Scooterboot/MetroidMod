@@ -35,7 +35,9 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.NebulaBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 2;
+   			this.beamID = BeamID.Beam.Nebula;
+      			this.slotType = BeamID.SlotType.Utility;
+	 		this.ver = 3;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageNebulaBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatNebulaBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedNebulaBeam;
