@@ -7,7 +7,7 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class SpazerAddon : ModItem
+	public class SpazerAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
