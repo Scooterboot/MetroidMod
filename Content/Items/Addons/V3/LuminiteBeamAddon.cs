@@ -5,7 +5,7 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V3
 {
-	public class LuminiteBeamAddon : ModItem
+	public class LuminiteBeamAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
@@ -33,8 +33,9 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.LuminiteBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 0;
-			mItem.beamSlotType = BeamChangeSlotID.Luminite;
+   			this.beamID = BeamID.Beam.Luminite;
+      			this.slotType = BeamID.SlotType.Charge;
+	 		this.ver = 3;
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageLuminiteBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatLuminiteBeam;
 		}
