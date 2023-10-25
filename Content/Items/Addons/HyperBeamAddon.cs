@@ -44,6 +44,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>();
 			this.beamID = BeamID.Beam.Hyper;
    			this.slotType = BeamID.SlotType.Charge;
+      			this.ver = 0;
 		}
 		public override void AddRecipes()
 		{
