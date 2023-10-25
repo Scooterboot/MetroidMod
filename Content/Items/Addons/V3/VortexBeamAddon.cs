@@ -3,10 +3,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V3
 {
-	public class VortexBeamAddon : ModItem
+	public class VortexBeamAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
@@ -35,7 +36,9 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.VortexBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 3;
+   			this.beamID = BeamID.Beam.Vortex;
+      			this.slotType = BeamID.SlotType.PrimaryA;
+			this.ver = 3;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVortexBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVortexBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedVortexBeam;
