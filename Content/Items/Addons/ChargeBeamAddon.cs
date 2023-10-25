@@ -35,6 +35,7 @@ namespace MetroidMod.Content.Items.Addons
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			this.beamID = BeamID.Beam.Charge;
 			this.slotType = BeamID.SlotType.Charge;
+   			this.ver = 1;
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
 		}
