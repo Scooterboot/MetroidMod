@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.ChargeBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			this.beamID = BeamID.Charge;
+			this.beamID = BeamID.Beam.Charge;
 			this.slotType = BeamID.SlotType.Charge;
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
