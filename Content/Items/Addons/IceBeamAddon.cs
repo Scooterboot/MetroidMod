@@ -35,7 +35,8 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 1;
+			this.beamID = BeamID.Ice;
+   			this.slotType = BeamID.SlotType.Secondary;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageIceBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatIceBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedIceBeam;
