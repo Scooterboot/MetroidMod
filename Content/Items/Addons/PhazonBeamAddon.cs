@@ -38,6 +38,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.PhazonBeamTile>();
    			this.beamID = BeamID.Beam.Phazon;
       			this.slotType = BeamID.SlotType.Charge;
+	 		this.ver = 0;
 		}
 
 		public override void AddRecipes()
