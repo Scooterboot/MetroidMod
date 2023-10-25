@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -35,7 +36,8 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 3;
+   			this.beamID = BeamID.Beam.Spazer;
+      			this.slotType = BeamID.SlotType.PrimaryA;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageSpazer;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatSpazer;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedSpazer;
