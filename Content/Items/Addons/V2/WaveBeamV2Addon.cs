@@ -38,6 +38,7 @@ namespace MetroidMod.Content.Items.Addons.V2
    			this.beamID = BeamID.Beam.WaveV2;
       			this.slotType = BeamID.SlotType.Utility;
 	 		this.ver = 2;
+    			this.itemID = ModContent.ItemType<WaveBeamV2Addon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageWaveBeamV2;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatWaveBeamV2;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedWaveBeamV2;
