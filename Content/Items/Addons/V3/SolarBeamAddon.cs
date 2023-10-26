@@ -38,6 +38,7 @@ namespace MetroidMod.Content.Items.Addons.V3
    			this.beamID = BeamID.Beam.Solar;
       			this.slotType = BeamID.SlotType.PrimaryB;
 			this.ver = 3;
+    			this.itemID = ModContent.ItemType<SolarBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageSolarBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatSolarBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedSolarBeam;
