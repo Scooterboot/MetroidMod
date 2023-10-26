@@ -39,6 +39,7 @@ namespace MetroidMod.Content.Items.Addons.V3
    			this.beamID = BeamID.Beam.Stardust;
       			this.slotType = BeamID.SlotType.Secondary;
 			this.ver = 3;
+    			this.itemID = ModContent.ItemType<StardustBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageStardustBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatStardustBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedStardustBeam;
