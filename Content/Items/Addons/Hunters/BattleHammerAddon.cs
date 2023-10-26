@@ -39,6 +39,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
    			this.beamID = BeamID.Beam.BattleHammer;
       			this.slotType = BeamID.SlotType.Charge;
 			this.ver = 3;
+    			this.itemID = ModContent.ItemType<BattleHammerAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageBattleHammer;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatBattleHammer;
 		}
