@@ -36,7 +36,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.OmegaCannonTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 0;
+			this.beamID = BeamID.Beam.OmegaCannon;
+      			this.slotType = BeamID.SlotType.Charge;
+			this.ver = 0;
+    			this.itemID = ModContent.ItemType<OmegaCannonAddon>();
 			mItem.beamSlotType = BeamChangeSlotID.OmegaCannon;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageOmegaCannon;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatOmegaCannon;
