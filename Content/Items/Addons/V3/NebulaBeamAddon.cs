@@ -38,6 +38,7 @@ namespace MetroidMod.Content.Items.Addons.V3
    			this.beamID = BeamID.Beam.Nebula;
       			this.slotType = BeamID.SlotType.Utility;
 	 		this.ver = 3;
+    			this.itemID = ModContent.ItemType<NebulaBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageNebulaBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatNebulaBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedNebulaBeam;
