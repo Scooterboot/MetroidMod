@@ -39,6 +39,7 @@ namespace MetroidMod.Content.Items.Addons
    			this.beamID = BeamID.Beam.Phazon;
       			this.slotType = BeamID.SlotType.Charge;
 	 		this.ver = 0;
+    			this.itemID = ModContent.ItemType<PhazonBeamAddon>();
 		}
 
 		public override void AddRecipes()
