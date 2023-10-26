@@ -36,6 +36,7 @@ namespace MetroidMod.Content.Items.Addons.V2
    			this.beamID = BeamID.Beam.ChargeV2;
       			this.slotType = BeamID.SlotType.Charge;
 	 		this.ver = 2;
+    			this.itemID = ModContent.ItemType<ChargeBeamV2Addon>();
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeamV2;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeamV2;
 		}
