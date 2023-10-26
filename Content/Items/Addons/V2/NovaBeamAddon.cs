@@ -38,6 +38,7 @@ namespace MetroidMod.Content.Items.Addons.V2
    			this.beamID = BeamID.Beam.Nova;
       			this.slotType = BeamID.SlotType.PrimaryB;
 	 		this.ver = 2;
+    			this.itemID = ModContent.ItemType<NovaBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageNovaBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatNovaBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedNovaBeam;
