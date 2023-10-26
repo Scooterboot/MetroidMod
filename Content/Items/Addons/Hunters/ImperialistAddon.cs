@@ -36,7 +36,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 0;
+			this.beamID = BeamID.Beam.Imperialist;
+      			this.slotType = BeamID.SlotType.Charge;
+			this.ver = 0;
+    			this.itemID = ModContent.ItemType<ImperialistAddon>();
 			mItem.beamSlotType = BeamChangeSlotID.Imperialist;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageImperialist;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatImperialist;
