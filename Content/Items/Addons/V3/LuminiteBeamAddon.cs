@@ -36,6 +36,7 @@ namespace MetroidMod.Content.Items.Addons.V3
    			this.beamID = BeamID.Beam.Luminite;
       			this.slotType = BeamID.SlotType.Charge;
 	 		this.ver = 3;
+    			this.itemID = ModContent.ItemType<LuminiteBeamAddon>();
 			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageLuminiteBeam;
 			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatLuminiteBeam;
 		}
