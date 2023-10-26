@@ -39,6 +39,7 @@ namespace MetroidMod.Content.Items.Addons
    			this.beamID = BeamID.Beam.PlasmaG;
       			this.slotType = BeamID.SlotType.PrimaryB;
 	 		this.ver = 2;
+    			this.itemID = ModContent.ItemType<PlasmaBeamGreenAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damagePlasmaBeamGreen;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatPlasmaBeamGreen;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedPlasmaBeamGreen;
