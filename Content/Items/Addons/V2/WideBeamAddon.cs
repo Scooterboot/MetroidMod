@@ -39,6 +39,7 @@ namespace MetroidMod.Content.Items.Addons.V2
    			this.beamID = BeamID.Beam.Wide;
       			this.slotType = BeamID.SlotType.PrimaryA;
 	 		this.ver = 2;
+    			this.itemID = ModContent.ItemType<WideBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageWideBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatWideBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedWideBeam;
