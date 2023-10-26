@@ -39,6 +39,7 @@ namespace MetroidMod.Content.Items.Addons.V3
    			this.beamID = BeamID.Beam.Vortex;
       			this.slotType = BeamID.SlotType.PrimaryA;
 			this.ver = 3;
+    			this.itemID = ModContent.ItemType<VortexBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVortexBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVortexBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedVortexBeam;
