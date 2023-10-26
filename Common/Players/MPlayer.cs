@@ -413,15 +413,15 @@ namespace MetroidMod.Common.Players
 				dashTime++;
 			}
 		}
-		public override bool ConsumableDodge(Player.HurtInfo info)//tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+		{
+			ModifyHurt_SuitEnergy(ref modifiers);
+		}
+		public override bool ConsumableDodge(Player.HurtInfo info)
 		{
 			if (SMoveEffect > 0)
 			{
 				return true;
-			}
-			if (info.Damage > 0)
-			{
-				return PreHurt_SuitEnergy(info) & false;
 			}
 			return false;
 		}

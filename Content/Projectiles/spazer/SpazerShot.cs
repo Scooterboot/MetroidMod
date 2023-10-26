@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 		{
 			
 			string S  = PowerBeam.SetCondition();
-			if (S.Contains("ice"))
+			if (S.Contains("ice") || Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;

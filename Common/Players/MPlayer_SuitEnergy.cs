@@ -12,12 +12,12 @@ namespace MetroidMod.Common.Players
 		/// The percentage of energy that is subtracted from the damage the player has taken. <br />
 		/// Known as 'Energy Barrier Efficiency' (PROVISIONAL NAME).
 		/// </summary>
-		public float EnergyDefenseEfficiency = Configs.MConfigItems.Instance.energyDefenseEfficiency; //0f;
+		public float EnergyDefenseEfficiency = 0f;
 		/// <summary>
 		/// The percentage of damage that is subtracted from the player's energy. <br />
 		/// Known as 'Energy Barrier Resilience' (PROVISIONAL NAME).
 		/// </summary>
-		public float EnergyExpenseEfficiency = Configs.MConfigItems.Instance.energyExpenseEfficiency; //0.1f;
+		public float EnergyExpenseEfficiency = 0.1f;
 		/// <summary>
 		/// The number of Energy Tanks the player has.
 		/// </summary>
@@ -58,8 +58,8 @@ namespace MetroidMod.Common.Players
 
 		public void ResetEffects_SuitEnergy()
 		{
-			EnergyDefenseEfficiency = Configs.MConfigItems.Instance.energyDefenseEfficiency; //0f;
-			EnergyExpenseEfficiency = Configs.MConfigItems.Instance.energyExpenseEfficiency; //0.1f;
+			EnergyDefenseEfficiency = 0f;
+			EnergyExpenseEfficiency = 0.1f;
 
 			bool flag = false;
 			for (int i = 0; i < Player.buffType.Length; i++)
@@ -77,46 +77,26 @@ namespace MetroidMod.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public bool PreHurt_SuitEnergy(Player.HurtInfo info)
+		public void ModifyHurt_SuitEnergy(ref Player.HurtModifiers modifiers) //bug: can make one immune to DoT debuffs
 		{
-			if (!ShouldShowArmorUI || Player.immune) { return true; }
-			int cooldownCounter = 0;
-			bool pvp = info.PvP;
-			int oldEnergy = Energy;
-			float damageToSubtractFromEnergy = Math.Max(info.Damage * (1 - EnergyExpenseEfficiency), 1f);
-			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
-			info.Damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
-			if (info.Damage <= 0)
+			modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
 			{
-				info.Damage = 0;
-				Energy--;
-				#region cooldown code (stolen from tML source code)
-				switch (cooldownCounter)
+				if (!ShouldShowArmorUI || Player.immune || Energy <=0) { return; };
+				int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
+				info.Damage = Math.Max(1, info.Damage - energyDamage);
+				Energy = Math.Max(1, Energy - (int)(energyDamage *(1-EnergyExpenseEfficiency)));
+				if (info.Damage <= 1)
 				{
-					case -1:
-						{
-							Player.immune = true;
-							Player.immuneTime = pvp ? 8 : (Player.longInvince ? 40 : 20);
-							break;
-						}
-					case 0:
-							Player.hurtCooldowns[cooldownCounter] = (Player.longInvince ? 40 : 20);
-						break;
-					case 1:
-					case 3:
-					case 4:
-							Player.hurtCooldowns[cooldownCounter] = (Player.longInvince ? 40 : 20);
-						break;
+					//info.Damage = 0;
+					Energy -= info.SourceDamage;
+					//customDamage = true;
 				}
-				#endregion
-				//customDamage = true;
-			}
-			if (Common.Configs.MConfigClient.Instance.energyHit && Energy > 0)
+			};
+			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
 				//playSound = false;
 				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
 			}
-			return true;
 		}
 		public override void OnRespawn()
 		{

@@ -465,7 +465,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 						if (slot3.type == wa)
 						{
-							chargeShotAmt = 2;
+							//chargeShotAmt = 2;
 						}
 						if (slot4.type == sp)
 						{
