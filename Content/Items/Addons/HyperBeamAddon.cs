@@ -45,6 +45,7 @@ namespace MetroidMod.Content.Items.Addons
 			this.beamID = BeamID.Beam.Hyper;
    			this.slotType = BeamID.SlotType.Charge;
       			this.ver = 0;
+			this.itemID = ModContent.ItemType<HyperBeamAddon>();
 		}
 		public override void AddRecipes()
 		{
