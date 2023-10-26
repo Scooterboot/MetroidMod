@@ -39,6 +39,7 @@ namespace MetroidMod.Content.Items.Addons.V2
    			this.beamID = BeamID.Beam.IceV2;
       			this.slotType = BeamID.SlotType.Secondary;
 	 		this.ver = 2;
+    			this.itemID = ModContent.ItemType<IceBeamV2Addon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageIceBeamV2;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatIceBeamV2;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedIceBeamV2;
