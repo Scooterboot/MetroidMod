@@ -38,7 +38,7 @@ namespace MetroidMod.Content.SuitAddons
 				"30% increased energy barrier efficiency\n" + // Provisional name
 				"20% increased energy barrier resilience\n" // Provisional name
 				); */
-			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<VortexAugment>().ItemType;
+			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<VortexAugment>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_LunarAugment;
 			ItemNameLiteral = true;
 		}

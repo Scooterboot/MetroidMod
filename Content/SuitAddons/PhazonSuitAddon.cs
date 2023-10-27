@@ -43,7 +43,7 @@ namespace MetroidMod.Content.SuitAddons
 				"10% increased energy barrier resilience\n" + // Provisional name
 				"Immune to damage caused by blue Phazon blocks\n" +
 				"Enables Phazon Beam use"); */
-			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<TerraGravitySuitAddon>().ItemType;
+			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<TerraGravitySuitAddon>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Augment;
 			ItemNameLiteral = false;
 		}
