@@ -90,6 +90,10 @@ namespace MetroidMod.Common.Players
 					//info.Damage = 0;
 					Energy -= info.SourceDamage;
 					//customDamage = true;
+					if(info.SourceDamage >= Energy)
+					{
+						Energy = 0;
+					}
 				}
 			};
 			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
