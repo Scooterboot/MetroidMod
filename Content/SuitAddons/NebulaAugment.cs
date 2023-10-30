@@ -44,7 +44,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Grants 7 seconds of lava immunity\n" +
 				"Immune to damage caused by blue Phazon blocks\n" +
 				"Enables Phazon Beam use");*/
-			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<VortexAugment>().ItemType;
+			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<VortexAugment>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
 		}

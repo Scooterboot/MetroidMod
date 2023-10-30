@@ -16,12 +16,12 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 8;
-			Projectile.height = 8;
-			Projectile.scale = .5f;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.scale = .75f;
 			Projectile.aiStyle = 1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 1;
+			//Projectile.usesLocalNPCImmunity = true;
+			//Projectile.localNPCHitCooldown = 1;
 		}
 
 		public override void AI()
@@ -36,20 +36,19 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 				Main.dust[dust].noGravity = true;
 			}
         }
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			return base.OnTileCollide(oldVelocity);
-		}
 		public override void Kill(int timeLeft)
 		{
-			Projectile.width += 126;
-			Projectile.height += 126;
+			Projectile.width += 76;
+			Projectile.height += 76;
 			Projectile.scale = 5f;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
+			Projectile.Damage(); //battlehammer double hits on direct(ish) hit
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
 			foreach (NPC target in Main.npc)
 			{
 				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))

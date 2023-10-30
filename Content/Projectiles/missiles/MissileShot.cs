@@ -21,6 +21,8 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.height = 8;
 			Projectile.scale = 2f;
 			Projectile.timeLeft = 1000;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
 		}
 
 		public override void AI()
@@ -90,7 +92,6 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 			if (mProjectile.homing)
 			{
-				mProjectile.HomingBehavior(Projectile);
 				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
 			}
 			int dustType = 6;
@@ -108,6 +109,15 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Main.dust[num72].noGravity = true;
 			}
 			Projectile.Damage();
+			foreach (NPC target in Main.npc)
+			{
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+				{
+					Projectile.Damage();
+					Projectile.usesLocalNPCImmunity = true;
+					Projectile.localNPCHitCooldown = 1;
+				}
+			}
 		}
 
 		public override bool PreDraw(ref Color lightColor)

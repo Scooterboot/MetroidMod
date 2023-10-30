@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.scale = 1f;
 			Projectile.penetrate = 15;//-1;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 4;
+			Projectile.localNPCHitCooldown = 8; //4
 			
 			mProjectile.amplitude = 4f*Projectile.scale;
 			mProjectile.wavesPerSecond = 2f;

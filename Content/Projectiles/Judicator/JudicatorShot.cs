@@ -17,9 +17,9 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 10;
-			Projectile.height = 22;
-			Projectile.scale = .5f;
+			Projectile.width = 5; //10
+			Projectile.height = 11; //22
+			Projectile.scale = 1f;
 			//Projectile.penetrate = 1;
 			//Projectile.aiStyle = 0;
 			Projectile.timeLeft = 90;

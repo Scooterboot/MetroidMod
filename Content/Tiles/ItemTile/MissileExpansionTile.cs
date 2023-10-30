@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles.ItemTile
 {
@@ -20,6 +21,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Main.tileOreFinderPriority[Type] = 805;
 			DustType = 1;
 			AnimationFrameHeight = 18;
+			TileObjectData.newTile.LavaDeath = false;
 			Main.tileLavaDeath[Type] = false;
 			Main.tileObsidianKill[Type] = false;
 		}

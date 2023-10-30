@@ -166,13 +166,13 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
-		public override bool AltFunctionUse(Player player)
+		/*public override bool AltFunctionUse(Player player)
 		{
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.noMelee = false;
 			Item.knockBack = Math.Max(4f, Item.knockBack * 2);
 			return true;
-		}
+		}*/
 
 		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
@@ -342,6 +342,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ChargeShotSound = null;
 			noSomersault = false;
 			isSpray = false;
+			isChargeSpray = false;
 			isShock = false;
 			Stealth = false;
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
@@ -462,10 +463,10 @@ namespace MetroidMod.Content.Items.Weapons
 						lightColor = MetroidMod.iceColor;
 						texture = "IceBeam";
 
-						/*if (slot3.type == wa)
+						if (slot3.type == wa)
 						{
-							chargeShotAmt = 2;
-						}*/
+							//chargeShotAmt = 2;
+						}
 						if (slot4.type == sp)
 						{
 							shot = "IceSpazerShot";
@@ -1334,7 +1335,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.shootSpeed = slot1.type == oc ? 2f : slot1.type == vd ? 11f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
-			Item.knockBack = slot1.type == bh ? 8f : slot1.type == sc? 0f : 4f;
+			Item.knockBack = slot1.type == bh ? 6f : slot1.type == sc? 0f : 4f;
 			Item.scale = 0.8f;
 			Item.crit = 3;
 			Item.value = 20000;
@@ -1731,7 +1732,7 @@ namespace MetroidMod.Content.Items.Weapons
 								int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
 								MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 								mProj.waveDir = waveDir;
-								mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9));
+								//mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9)); //TODO add dread diffusion beam in place of this
 								mProj.Projectile.netUpdate2 = true;
 							}
 							
@@ -1814,7 +1815,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					impStealth++;
 				}
-				//Item.damage *= (int)(1f + (mp.impStealth / 125f));
+				//Item.damage *= (int)(1f + (impStealth / 125f));
 				player.stealth -= (impStealth / 125f);
 				player.aggro -= (int)(impStealth * 4f);
 				if (player.velocity != Vector2.Zero || player.controlUseItem)

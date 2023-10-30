@@ -11,11 +11,6 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Missile Expansion");
-			/* Tooltip.SetDefault("A Missile Expansion\n" +
-				"Increase maximum Missiles by 5 with each expansion slotted in\n" +
-				"Stack it up to 50 expansions for +250 maximum Missiles"); */
-
 			Item.ResearchUnlockCount = 50;
 		}
 

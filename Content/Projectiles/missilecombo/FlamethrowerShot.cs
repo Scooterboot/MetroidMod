@@ -149,7 +149,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			target.immune[Projectile.owner] = 4;
+			target.immune[Projectile.owner] = 8; //4;
 			target.AddBuff(24,600,true);
 		}
 

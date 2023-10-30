@@ -35,8 +35,8 @@ namespace MetroidMod.Content.Items.Addons.V2
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.beamSlotType = BeamChangeSlotID.ChargeV2;
-			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeam;
-			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeam;
+			mItem.addonChargeDmg = Common.Configs.MConfigItems.Instance.damageChargeBeamV2;
+			mItem.addonChargeHeat = Common.Configs.MConfigItems.Instance.overheatChargeBeamV2;
 		}
 
 		public override void AddRecipes()
