@@ -150,8 +150,8 @@ Mods: {
 			}
 
 			NESCrateriaSurfaceBiome: {
-				DisplayName: N E S Crateria Surface
-				TownNPCDialogueName: the N E S Crateria Surface Biome
+				DisplayName: NES Crateria Surface
+				TownNPCDialogueName: the NES Crateria Surface Biome
 			}
 		}
 
@@ -2391,15 +2391,17 @@ Mods: {
 				DisplayName: Dark Suit
 				Tooltip:
 					'''
-					You shouldn't have this./*+9 defense
+					You shouldn't have this.
+					+9 defense
 					+15 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency // Provisional name
-					7.5% increased energy barrier resilience // Provisional name
+					15% increased energy barrier efficiency
+					7.5% increased energy barrier resilience
 					Reduces damage from the Dark World
+					Slot: Primary
 					'''
 			}
 
@@ -2424,7 +2426,7 @@ Mods: {
 					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
-					Slot: Utility
+					Slot: Primary
 					'''
 			}
 
@@ -2432,16 +2434,17 @@ Mods: {
 				DisplayName: Hazard Shield
 				Tooltip:
 					'''
-					You shouldn't have this./*+10 defense
+					+10 defense
 					+15 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					5% increased hunter critical strike chance
 					10% increased movement speed
-					25% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
+					25% increased energy barrier efficiency
+					10% increased energy barrier resilience
 					Debuffs tick down twice as fast
+					Slot: Barrier
 					'''
 			}
 
@@ -2459,17 +2462,19 @@ Mods: {
 				DisplayName: Light Suit
 				Tooltip:
 					'''
-					You shouldn't have this./*+10 defense
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
+					You shouldn't have this.
+					+19 defense
+					+30 overheat capacity
+					10% decreased overheat use
+					10% decreased Missile Charge Combo cost
+					10% increased hunter damage
+					8% increased hunter critical strike chance
 					10% increased movement speed
-					25% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
+					40% increased energy barrier efficiency
+					17.5% increased energy barrier resilience
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
+					Slot: Primary
 					'''
 			}
 
@@ -2477,30 +2482,41 @@ Mods: {
 				DisplayName: Nebula Augment
 				Tooltip:
 					'''
-					+10 defense
-					+25 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
-					Slot: Secondary Augmentatio      n
+					+29 defense
+					+55 overheat capacity
+					15% decreased overheat use
+					15% decreased Missile Charge Combo cost
+					15% increased hunter damage
+					13% increased hunter critical strike chance
+					10% increased movement speed
+					60% increased energy barrier efficiency
+					37.5% increased energy barrier resilience
+					Infinite breath underwater
+					Immune to knockback
+					Free movement in liquid
+					Grants 7 seconds of lava immunity
+					Immune to damage caused by blue Phazon blocks
+					Enables Phazon Beam use
+					Slot: Primary
 					'''
 			}
 
 			PEDSuitAddonAddon: {
-				DisplayName: P E D Suit
+				DisplayName: PED Suit
 				Tooltip:
 					'''
-					You shouldn't have this./*+9 defense
+					You shouldn't have this.
+					+9 defense
 					+15 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					5% increased energy barrier efficiency // Provisional name
-					7.5% increased energy barrier resilience // Provisional name
+					5% increased energy barrier efficiency
+					7.5% increased energy barrier resilience
 					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
 					Slightly increased health regen when standing on Phazon
+					Slot: Primary
 					'''
 			}
 
@@ -2508,18 +2524,22 @@ Mods: {
 				DisplayName: Phazon Suit
 				Tooltip:
 					'''
-					+10 defense
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
+					+19 defense
+					+30 overheat capacity
+					10% decreased overheat use
+					10% decreased Missile Charge Combo cost
+					10% increased hunter damage
+					8% increased hunter critical strike chance
 					10% increased movement speed
-					15% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
+					30% increased energy barrier efficiency
+					17.5% increased energy barrier resilience
+					Infinite breath underwater
+					Immune to knockback
+					Free movement in liquid
+					Grants 7 seconds of lava immunity
 					Immune to damage caused by blue Phazon blocks
-					Slot: Augmentatio      n
 					Enables Phazon Beam use
+					Slot: Primary
 					'''
 			}
 
@@ -2560,16 +2580,18 @@ Mods: {
 				DisplayName: Solar Augment
 				Tooltip:
 					'''
-					You shouldn't have this./*+10 defense
+					You shouldn't have this.
+					+10 defense
 					+25 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					5% increased hunter critical strike chance
-					20% increased energy barrier efficiency // Provisional name
-					15% increased energy barrier resilience // Provisional name
+					20% increased energy barrier efficiency
+					15% increased energy barrier resilience
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
+					Slot: Primary
 					'''
 			}
 
@@ -2614,19 +2636,22 @@ Mods: {
 				DisplayName: Terra Gravity Suit
 				Tooltip:
 					'''
-					+10 defense
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
+					+19 defense
+					+30 overheat capacity
+					10% decreased overheat use
+					10% decreased Missile Charge Combo cost
+					10% increased hunter damage
+					8% increased hunter critical strike chance
 					10% increased movement speed
-					15% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
-					Grants 7 seconds of lava immunity
+					30% increased energy barrier efficiency
+					17.5% increased energy barrier resilience
+					Infinite breath underwater
+					Immune to knockback
+					Free movement in liquid
+					Grants 14 seconds of lava immunity
 					Default gravity in space
-					Slot: Augmentatio      n
 					Immune to Distorted and Amplified Gravity effects
+					Slot: Primary
 					'''
 			}
 
@@ -2642,8 +2667,8 @@ Mods: {
 					5% increased hunter critical strike chance
 					55% increased underwater breathing
 					10% increased movement speed
-					10% increased energy barrier efficiency // Provisional name
-					20% increased energy barrier resilience // Provisional name
+					10% increased energy barrier efficiency
+					20% increased energy barrier resilience
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
@@ -2676,13 +2701,22 @@ Mods: {
 				DisplayName: Vortex Augment
 				Tooltip:
 					'''
-					+10 defense
-					+25 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
-					Slot: Secondary Augmenatio     n
+					+29 defense
+					+55 overheat capacity
+					15% decreased overheat use
+					15% decreased Missile Charge Combo cost
+					15% increased hunter damage
+					13% increased hunter critical strike chance
+					10% increased movement speed
+					60% increased energy barrier efficiency
+					37.5% increased energy barrier resilience
+					Infinite breath underwater
+					Immune to knockback
+					Free movement in liquid
+					Grants 14 seconds of lava immunity
+					Default gravity in space
+					Immune to Distorted and Amplified Gravity effects
+					Slot: Primary
 					'''
 			}
 
