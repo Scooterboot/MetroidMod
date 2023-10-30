@@ -57,6 +57,7 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient<ScrewSpaceBooster>(1)
 				.AddIngredient(ItemID.FrostsparkBoots, 1)
 				.AddIngredient(ItemID.LavaWaders, 1)
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
