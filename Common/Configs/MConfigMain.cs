@@ -59,9 +59,9 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool enableMorphBallWallJump;
 
-	[Header("[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches")]
-		
-		//[Label("Enabled")]
+	[Header("AutomaticallyClosingHatches")]
+
+		//[Label("Closing hatches")]
 		//[Tooltip("When enabled, hatches will automatically close after a certain period of time.")]
 		[DefaultValue(true)]
 		public bool AutocloseHatchesEnabled;
@@ -73,5 +73,12 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(10)]
 		public int AutocloseHatchesTime;
+
+	[Header("DisableMobSpawn")]
+
+		//[Label("Disable Mob Spawns")]
+		//[Tooltip("Disable Metroid mod mob spawning, as they currently have no unique drops")]
+		[DefaultValue(false)]
+		public bool disablemobspawn;
 	}
 }

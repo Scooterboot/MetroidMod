@@ -6,6 +6,8 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Common.Configs;
+using tModPorter;
 
 namespace MetroidMod.Content.NPCs.Mobs.Hopper
 {
@@ -22,6 +24,10 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
+			if (MConfigMain.Instance.disablemobspawn == true)
+			{
+				return 0f;
+			}
 			return SpawnCondition.Underground.Chance * 0.05f + SpawnCondition.Cavern.Chance * 0.15f + SpawnCondition.UndergroundJungle.Chance * 0.12f;
 		}
 		
@@ -159,6 +165,10 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
+			if(MConfigMain.Instance.disablemobspawn == true)
+			{
+				return 0f;
+			}
 			if(Main.hardMode)
 			{
 				return SpawnCondition.Underground.Chance * 0.05f + SpawnCondition.Cavern.Chance * 0.15f + SpawnCondition.UndergroundJungle.Chance * 0.12f;

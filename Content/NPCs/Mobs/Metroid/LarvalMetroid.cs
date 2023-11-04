@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using MetroidMod.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -71,7 +72,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if(Main.hardMode || NPC.downedBoss2)
+			if (MConfigMain.Instance.disablemobspawn == true)
+			{
+				return 0f;
+			}
+			if (Main.hardMode || NPC.downedBoss2)
 			{
 				float chance1 = 0.03f;
 				float chance2 = 0.5f;
