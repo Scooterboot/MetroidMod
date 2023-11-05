@@ -73,8 +73,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		public override bool ShouldUpdatePosition()
 		{
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (held.shotsy > 1)
+			if (PowerBeam.shotsy > 1)
 			{
 				return true;
 			}
