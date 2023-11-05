@@ -15,7 +15,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 {
 	public class ShockCoilShot : MProjectile
 	{
-		private int shots = PowerBeam.shocky;
 		public override void SetStaticDefaults()
 		{
             Main.projFrames[Projectile.type] = 12;
@@ -69,6 +68,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			string S  = PowerBeam.SetCondition();
 			Vector2 V = P.velocity;
 			P.knockBack = 0;
+			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			int shots = held.shocky;
 
 			Lead = Main.projectile[O.heldProj];
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
@@ -369,6 +370,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
+			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			int shots = held.shocky;
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
 			float ranges = maxDamage - minDamage;
