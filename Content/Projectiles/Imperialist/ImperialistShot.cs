@@ -86,13 +86,12 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile P = Projectile;
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
-			//Vector2 startPosition = centerFloored - Main.screenPosition;
 			Vector2 endPosition = centerFloored + P.velocity * visualBeamLength;
 			float _ = float.NaN;
-			if (projHitbox.Intersects(targetHitbox) && Projectile.frame <= 5)
+			/*if (projHitbox.Intersects(targetHitbox))
 			{
 				return true;
-			}
+			}*/
 			Vector2 beamEndPos = P.Center + P.velocity * maxRange;
 			if (P.frame <= 5)
 			{
@@ -157,20 +156,20 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			DelegateMethods.c_1 = beamColor;
 			Utils.DrawLaser(spriteBatch, texture, startPosition, endPosition, drawScale, lineFraming);
 		}
-		/*public override void CutTiles()
+		public override void CutTiles()
 		{
 			// tilecut_0 is an unnamed decompiled variable which tells CutTiles how the tiles are being cut (in this case, via a Projectile).
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
 			Utils.TileActionAttempt cut = new Utils.TileActionAttempt(DelegateMethods.CutTiles);
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = Projectile.Center.Floor() + Projectile.velocity * 16f;
-			Vector2 beamStartPos = centerFloored - Main.screenPosition;
-			Vector2 beamEndPos = beamStartPos + Projectile.velocity * visualBeamLength;
+			//Vector2 beamStartPos = centerFloored - Main.screenPosition;
+			Vector2 beamEndPos = centerFloored + Projectile.velocity * visualBeamLength;
 
 			// PlotTileLine is a function which performs the specified action to all tiles along a drawn line, with a specified width.
 			// In this case, it is cutting all tiles which can be destroyed by Projectiles, for example grass or pots.
-			Utils.PlotTileLine(beamStartPos, beamEndPos, Projectile.width * Projectile.scale, cut);
-		}*/
+			Utils.PlotTileLine(Projectile.Center, beamEndPos, Projectile.width * Projectile.scale, cut);
+		}
 	}
 }
 
