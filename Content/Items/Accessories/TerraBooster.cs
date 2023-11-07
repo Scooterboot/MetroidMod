@@ -122,7 +122,8 @@ namespace MetroidMod.Content.Items.Accessories
 			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item), mp.screwAttackDmg);
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;
-			player.empressBrooch = true;
+			player.wingTime = player.wingTimeMax;
+			mp.insigniaActive = true;
 		}
 
 		public override void AddRecipes()

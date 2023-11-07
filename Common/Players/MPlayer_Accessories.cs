@@ -64,6 +64,7 @@ namespace MetroidMod.Common.Players
 		public static float maxSpaceJumps = 120;
 		public float statSpaceJumps = maxSpaceJumps;
 		public int spaceJumpsRegenDelay = 0;
+		public bool insigniaActive = false;
 		
 		public bool screwAttack = false;
 		public int screwAttackSpeedEffect = 0;
@@ -92,6 +93,8 @@ namespace MetroidMod.Common.Players
 			hiJumpBoost = false;
 			spaceJumpBoots = false;
 			spaceJump = false;
+
+			insigniaActive = false;
 			
 			screwAttack = false;
 			screwAttackDmg = 0;
@@ -712,7 +715,9 @@ namespace MetroidMod.Common.Players
 				{
 					Player.jump = Player.jumpHeight;
 					Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
-					mp.statSpaceJumps -= 15;
+					if (!mp.insigniaActive) {
+						mp.statSpaceJumps -= 15;
+					}
 					mp.spaceJumpsRegenDelay = 25;
 				}
 			}
