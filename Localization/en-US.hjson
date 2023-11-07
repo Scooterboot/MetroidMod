@@ -3953,47 +3953,47 @@ Mods: {
 				}
 
 				useTimeVoltDriver: {
-					Label: use Time Volt Driver
+					Label: "[i:MetroidMod/VoltDriverAddon] Volt Driver Speed"
 					Tooltip: ""
 				}
 
 				useTimeMagMaul: {
-					Label: use Time Mag Maul
+					Label: "[i:MetroidMod/MagMaulAddon] MagMaul Speed"
 					Tooltip: ""
 				}
 
 				useTimeImperialist: {
-					Label: use Time Imperialist
+					Label: "[i:MetroidMod/ImperialistAddon] Imperialist Speed"
 					Tooltip: ""
 				}
 
 				useTimeJudicator: {
-					Label: use Time Judicator
+					Label: "[i:MetroidMod/JudicatorAddon] Judicator Speed"
 					Tooltip: ""
 				}
 
 				useTimeShockCoil: {
-					Label: use Time Shock Coil
+					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Speed"
 					Tooltip: ""
 				}
 
 				useTimeBattleHammer: {
-					Label: use Time Battle Hammer
+					Label: "[i:MetroidMod/BattleHammerAddon] BattleHammer Speed"
 					Tooltip: ""
 				}
 
 				useTimeOmegaCannon: {
-					Label: use Time Omega Cannon
+					Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Speed"
 					Tooltip: ""
 				}
 
 				minSpeedShockCoil: {
-					Label: min Speed Shock Coil
+					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Minimum Speed"
 					Tooltip: ""
 				}
 
 				maxSpeedShockCoil: {
-					Label: max Speed Shock Coil
+					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Maximum Speed"
 					Tooltip: ""
 				}
 
@@ -4017,6 +4017,8 @@ Mods: {
 					"[i:MetroidMod/BlueHatch]Automatically_Closing_Hatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
 					"[i:3611]TechPreservation": "[i:3611] Tech Preservation"
 					"[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
+					DisableMobSpawn: Disable Mob Spawns
+					AutomaticallyClosingHatches: Automatically Closing Hatches
 				}
 
 				enableBossSummonConsumption: {
@@ -4039,7 +4041,7 @@ Mods: {
 				}
 
 				AutocloseHatchesEnabled: {
-					Label: Enabled
+					Label: "[i:MetroidMod/BlueHatch] Closing hatches"
 					Tooltip: When enabled, hatches will automatically close after a certain period of time.
 				}
 
@@ -4051,6 +4053,11 @@ Mods: {
 				drunkWorldHasDrunkStatues: {
 					Label: Drunk World has drunk Chozo Statues
 					Tooltip: When enabled, Chozo Statues can have any suit addon or morph ball addon.
+				}
+
+				disablemobspawn: {
+					Tooltip: Disable Metroid mod mob spawning, as they currently have no unique drops
+					Label: Disable Mob Spawns
 				}
 			}
 

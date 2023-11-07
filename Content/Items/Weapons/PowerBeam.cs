@@ -240,8 +240,8 @@ namespace MetroidMod.Content.Items.Weapons
 		private int shotAmt = 1;
 		private int chargeShotAmt = 1;
 		private string shooty = "";
-		public static int shotsy;
-		public static int shocky = 1;
+		public int shotsy;
+		public int shocky = 1;
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;

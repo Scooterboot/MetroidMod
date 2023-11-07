@@ -6,6 +6,7 @@ using MetroidMod.Content.Items.Weapons;
 using System.IO;
 using MetroidMod.Common.Players;
 using Terraria.GameContent;
+using Terraria.Enums;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
@@ -72,7 +73,8 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		public override bool ShouldUpdatePosition()
 		{
-			if (PowerBeam.shotsy > 1)
+			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			if (held.shotsy > 1)
 			{
 				return true;
 			}
@@ -85,10 +87,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile P = Projectile;
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
-			//Vector2 startPosition = centerFloored - Main.screenPosition;
 			Vector2 endPosition = centerFloored + P.velocity * visualBeamLength;
 			float _ = float.NaN;
-			/*if (projHitbox.Intersects(targetHitbox) && Projectile.frame <= 5)
+			/*if (projHitbox.Intersects(targetHitbox))
 			{
 				return true;
 			}*/
@@ -115,7 +116,8 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				return false;
 			}
 			Projectile P = Projectile;
-			if (PowerBeam.shotsy > 1)
+			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			if (held.shotsy > 1)
 			{
 				mProjectile.WaveBehavior(P, true);
 			}
@@ -131,7 +133,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			for (P.ai[1] = 0f; P.ai[1] <= Max_Range; P.ai[1] += 4f)
 			{
 				Vector2 end = P.Center + P.velocity * P.ai[1];
-				Vector2 trueEnd = end + P.velocity * GetDepth(meep) * P.ai[1] * 16f;
+				Vector2 trueEnd = end + P.velocity * GetDepth(meep) * P.ai[1] * 4f;
 				if (CollideMethods.CheckCollide(trueEnd, 0, 0))
 				{
 					P.ai[1] -= 4f;
@@ -155,6 +157,20 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			// c_1 is an unnamed decompiled variable which is the render color of the beam drawn by DelegateMethods.RainbowLaserDraw.
 			DelegateMethods.c_1 = beamColor;
 			Utils.DrawLaser(spriteBatch, texture, startPosition, endPosition, drawScale, lineFraming);
+		}
+		public override void CutTiles()
+		{
+			// tilecut_0 is an unnamed decompiled variable which tells CutTiles how the tiles are being cut (in this case, via a Projectile).
+			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
+			Utils.TileActionAttempt cut = new Utils.TileActionAttempt(DelegateMethods.CutTiles);
+			float visualBeamLength = maxRange - 14.5f;
+			Vector2 centerFloored = Projectile.Center.Floor() + Projectile.velocity * 16f;
+			//Vector2 beamStartPos = centerFloored - Main.screenPosition;
+			Vector2 beamEndPos = centerFloored + Projectile.velocity * visualBeamLength;
+
+			// PlotTileLine is a function which performs the specified action to all tiles along a drawn line, with a specified width.
+			// In this case, it is cutting all tiles which can be destroyed by Projectiles, for example grass or pots.
+			Utils.PlotTileLine(Projectile.Center, beamEndPos, Projectile.width * Projectile.scale, cut);
 		}
 	}
 }

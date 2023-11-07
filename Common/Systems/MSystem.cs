@@ -1004,9 +1004,9 @@ namespace MetroidMod.Common.Systems
 					WorldGen.PlaceObject(statueX, statueY, ModContent.TileType<ChozoStatueNatural>(), false, 0, 0, -1, -dir);
 					WorldGen.PlaceObject(statueX2, statueY, ModContent.TileType<ChozoStatueArmNatural>(), false, 0, 0, -1, -dir);
 
-					ushort item = StatueItem(statueX2, statueY - 2);
+					//ushort item = StatueItem(statueX2, statueY - 2);
 					Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().HasTile = true;
-					Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = item;
+					Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)ModContent.TileType<ChozoStatueOrb>();
 
 					Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameX = 0;
 					Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameY = 0;

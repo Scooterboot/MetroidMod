@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MetroidMod.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -26,6 +27,10 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
+			if (MConfigMain.Instance.disablemobspawn == true)
+			{
+				return 0f;
+			}
 			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + SpawnCondition.Underworld.Chance * 0.15f;
 		}
 		

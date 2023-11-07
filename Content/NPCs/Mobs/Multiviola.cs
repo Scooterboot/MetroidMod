@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MetroidMod.Common.Configs;
 using Microsoft.Xna.Framework;
 
 using Terraria;
@@ -28,6 +29,10 @@ namespace MetroidMod.Content.NPCs.Mobs
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
+			if (MConfigMain.Instance.disablemobspawn == true)
+			{
+				return 0f;
+			}
 			return SpawnCondition.Underworld.Chance * 0.15f;
 		}
 		public override void SetDefaults()
