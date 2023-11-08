@@ -647,15 +647,16 @@ namespace MetroidMod.Common.Systems
 		}
 		public static int OrbItem(int i, int j)
 		{
-			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
-			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
+			int range = GenVars.jungleMaxX - GenVars.jungleMinX;
+			bool dungeon = Main.LocalPlayer.ZoneDungeon;
+			bool jungle = Main.LocalPlayer.ZoneJungle;
 
 			int item = ModContent.ItemType<MorphBall>();
 			if (dungeon)
 			{
 				item = ModContent.ItemType<IceBeamAddon>();
 			}
-			else if (jungle && WorldGen.genRand.Next(10) <= 5 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
+			else if (jungle && WorldGen.genRand.Next(11) <= 2 && !WorldGen.everythingWorldGen && !WorldGen.notTheBees)
 			{
 				item = ModContent.ItemType<SpazerAddon>();
 			}
