@@ -22,6 +22,7 @@ using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Projectiles.missiles;
 using MetroidMod.Content.Projectiles.missilecombo;
 using Terraria.Utilities;
+using MetroidMod.Common.UI;
 //using MetroidMod.Projectiles.chargelead;
 
 namespace MetroidMod.Content.Items.Weapons
@@ -30,6 +31,7 @@ namespace MetroidMod.Content.Items.Weapons
 	{
 		// Failsaves.
 		private Item[] _missileMods;
+		private Item[] _missileChange;
 		public Item[] MissileMods
 		{
 			get
@@ -48,7 +50,23 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			set { _missileMods = value; }
 		}
+		public Item[] MissileChange
+		{
+			get {
+				if (_missileChange == null)
+				{
+					_missileChange = new Item[13];
+					for (int i = 0; i < _missileChange.Length; ++i)
+					{
+						_missileChange[i] = new Item();
+						_missileChange[i].TurnToAir();
+					}
+				}
 
+				return _missileChange;
+			}
+			set { _missileChange = value; }
+		}
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Missile Launcher");
@@ -1077,6 +1095,7 @@ namespace MetroidMod.Content.Items.Weapons
 			MissileLauncher clone = (MissileLauncher)NewInstance(item);//this.NewInstance(item);
 			//MissileLauncher missileClone = (MissileLauncher)clone;
 			clone._missileMods = new Item[MetroidMod.missileSlotAmount];
+			clone._missileChange = new Item[MetroidMod.missileChangeSlotAmount];
 			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
 			{
 				clone.MissileMods[i] = this.MissileMods[i];
@@ -1088,6 +1107,19 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					clone._missileMods[i] = _missileMods[i];
+				}
+			}
+			for (int i = 0; i < MetroidMod.missileChangeSlotAmount; ++i)
+			{
+				clone.MissileChange[i] = this.MissileChange[i];
+				if (_missileChange == null || _missileChange[i] == null)
+				{
+					clone._missileChange[i] = new Item();
+					clone._missileChange[i].TurnToAir();
+				}
+				else
+				{
+					clone._missileChange[i] = _missileChange[i];
 				}
 			}
 
@@ -1109,6 +1141,15 @@ namespace MetroidMod.Content.Items.Weapons
 				tag.Add("statMissiles", 0);
 				tag.Add("maxMissiles", 0);
 			}
+			for (int i = 0; i < MissileChange.Length; ++i)
+			{
+				// Failsave check.
+				if (MissileChange[i] == null)
+				{
+					MissileChange[i] = new Item();
+				}
+				tag.Add("MissileChange" + i, ItemIO.Save(MissileChange[i]));
+			}
 		}
 		public override void LoadData(TagCompound tag)
 		{
@@ -1124,6 +1165,12 @@ namespace MetroidMod.Content.Items.Weapons
 				MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
 				mi.statMissiles = tag.GetInt("statMissiles");
 				mi.maxMissiles = tag.GetInt("maxMissiles");
+				MissileChange = new Item[MetroidMod.missileChangeSlotAmount];
+				for (int i = 0; i < MissileChange.Length; i++)
+				{
+					Item item = tag.Get<Item>("MissileChange" + i);
+					MissileChange[i] = item;
+				}
 			}
 			catch { }
 		}
@@ -1134,6 +1181,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				ItemIO.Send(MissileMods[i], writer);
 			}
+			for (int i = 0; i < MissileChange.Length; ++i)
+			{
+				ItemIO.Send(MissileChange[i], writer);
+			}
 			writer.Write(chargeLead);
 		}
 		public override void NetReceive(BinaryReader reader)
@@ -1141,6 +1192,10 @@ namespace MetroidMod.Content.Items.Weapons
 			for (int i = 0; i < MissileMods.Length; ++i)
 			{
 				MissileMods[i] = ItemIO.Receive(reader);
+			}
+			for (int i = 0; i < MissileChange.Length; ++i)
+			{
+				MissileChange[i] = ItemIO.Receive(reader);
 			}
 			chargeLead = reader.ReadInt32();
 		}

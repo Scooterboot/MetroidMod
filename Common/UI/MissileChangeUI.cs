@@ -26,23 +26,23 @@ using MetroidMod.Content.Items.Addons;
 
 namespace MetroidMod.Common.UI
 {
-	public class BeamChangeUI : UIState
+	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.GetModPlayer<MPlayer>().beamChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<PowerBeam>();
+		public static bool Visible => Main.LocalPlayer.GetModPlayer<MPlayer>().missileChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<MissileLauncher>();
 
-		public BeamChangePanel panel;
+		public MissileChangePanel panel;
 		public override void OnInitialize()
 		{
 			base.OnInitialize();
-			panel = new BeamChangePanel();
+			panel = new MissileChangePanel();
 			panel.Initialize();
-			/*panel.addonSlots = new BeamUIItemBox[MetroidMod.beamChangeSlotAmount];
-			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+			/*panel.addonSlots = new BeamUIItemBox[MetroidMod.missileChangeSlotAmount];
+			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)
 			{
 				panel.addonSlots[i] = new BeamUIItemBox();
 				panel.addonSlots[i].Top.Pixels = panel.itemBoxPositionValues[i].Y;
 				panel.addonSlots[i].Left.Pixels = panel.itemBoxPositionValues[i].X;
-				panel.addonSlots[i].beamSlotType = i;
+				panel.addonSlots[i].missileChangeType = i;
 				panel.addonSlots[i].SetCondition();
 
 				panel.Append(panel.addonSlots[i]);
@@ -56,53 +56,54 @@ namespace MetroidMod.Common.UI
 		}
 	}
 
-	public class BeamChangePanel : DragableUIPanel
+	public class MissileChangePanel : DragableUIPanel
 	{
 		private Asset<Texture2D> panelTexture;
 
-		public BeamUIItemBox[] addonSlots;
+		public MissileUIItemBox[] missileSlots;
 
 		public UIText[] textSlots;
 
-		public UIText[] BeamInfoSlots;
+		public UIText[] MissileInfoSlots;
 
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
-		public Vector2[] itemBoxPositionValues = new Vector2[MetroidMod.beamChangeSlotAmount]
+		public Vector2[] itemBoxPositionValues = new Vector2[MetroidMod.missileChangeSlotAmount]
 		{
-			new Vector2(211, 110),
-			new Vector2(192, 169),
-			new Vector2(142, 205),
-			new Vector2(80, 205),
-			new Vector2(30, 169),
-			new Vector2(11, 110),
-			new Vector2(30, 51),
-			new Vector2(80, 15),
-			new Vector2(142, 15),
-			new Vector2(192, 51),
-			new Vector2(80, 110),
-			new Vector2(142, 110)
+			new Vector2(211, 115),
+			new Vector2(188, 179),
+			new Vector2(128, 214),
+			new Vector2(61, 202),
+			new Vector2(17, 149),
+			new Vector2(17, 81),
+			new Vector2(61, 28),
+			new Vector2(128, 16),
+			new Vector2(188, 51),
+			new Vector2(136, 90),
+			new Vector2(136, 140),
+			new Vector2(86, 90),
+			new Vector2(86, 140)
 		};
 		public override void OnInitialize()
 		{
-			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/bepis", AssetRequestMode.ImmediateLoad); //the "background.stupid"
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/bepisblank", AssetRequestMode.ImmediateLoad); //the "background.stupid"
 			SetPadding(0);
 			Top.Pixels = Main.instance.invBottom + 152;
 			Left.Pixels = 160;
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
 
-			addonSlots = new BeamUIItemBox[12];
-			for (int i = 0; i < BeamChangeSlotID.Count; ++i)
+			missileSlots = new MissileUIItemBox[13];
+			for (int i = 0; i < MissileChangeSlotID.Count; ++i)
 			{
-				addonSlots[i] = new BeamUIItemBox();
-				addonSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
-				addonSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
-				addonSlots[i].beamSlotType = i;
-				addonSlots[i].SetCondition();
+				missileSlots[i] = new MissileUIItemBox();
+				missileSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
+				missileSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
+				missileSlots[i].missileChangeType = i;
+				missileSlots[i].SetCondition();
 
-				Append(addonSlots[i]);
+				Append(missileSlots[i]);
 			}
 		}
 		protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -127,13 +128,13 @@ namespace MetroidMod.Common.UI
 			base.Update(gameTime);
 		}
 	}
-	public class BeamUIItemBox : UIPanel
+	public class MissileUIItemBox : UIPanel
 	{
 		private Texture2D itemBoxTexture;
 
 		public Condition condition;
 
-		public int beamSlotType;
+		public int missileChangeType;
 		public int addonSlotType;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
@@ -165,7 +166,7 @@ namespace MetroidMod.Common.UI
 					MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					//if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.PowerBeam) { return false; }
 					//ModBeam mBeam = ((BeamItem)addonItem.ModItem).modBeam;
-					return addonItem.type <= ItemID.None || mItem.beamSlotType == beamSlotType;
+					return addonItem.type <= ItemID.None || mItem.missileChangeType == missileChangeType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
 				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance);
@@ -176,67 +177,27 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
+			MissileLauncher missileTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
+			if (missileTarget == null || missileTarget.MissileChange == null) { return; }
 
-			if (powerBeamTarget.BeamChange[beamSlotType] != null && !powerBeamTarget.BeamChange[beamSlotType].IsAir)
+			if (missileTarget.MissileChange[missileChangeType] != null && !missileTarget.MissileChange[missileChangeType].IsAir)
 			{
 				//pickup
 				if (Main.mouseItem.IsAir && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
+					Main.mouseItem = missileTarget.MissileChange[missileChangeType].Clone();
 
-					powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
-					if(Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
+					missileTarget.MissileChange[missileChangeType].TurnToAir();
+					if(Main.mouseItem.type == missileTarget.MissileMods[addonSlotType].type)
 					{
-						powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
+						missileTarget.MissileMods[addonSlotType].TurnToAir();
 					}
 				}
 				//activate
-				if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift)) //this can be cleaner
+				if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
 				{
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<OmegaCannonAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.OmegaCannonLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<BattleHammerAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<MagMaulAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ImperialistAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.ImperialistLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<JudicatorAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ShockCoilAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
-					}
-					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<HyperBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<PhazonBeamAddon>())
-					{
-						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
-					}
-					powerBeamTarget.BeamMods[addonSlotType] = powerBeamTarget.BeamChange[beamSlotType].Clone();
+					missileTarget.MissileMods[addonSlotType] = missileTarget.MissileChange[missileChangeType].Clone();
 				}
 			}
 			else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))
@@ -244,7 +205,7 @@ namespace MetroidMod.Common.UI
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					//SoundEngine.PlaySound(SoundID.Grab);
-					powerBeamTarget.BeamChange[beamSlotType] = Main.mouseItem.Clone();
+					missileTarget.MissileChange[missileChangeType] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
 			}
@@ -254,26 +215,26 @@ namespace MetroidMod.Common.UI
 		{
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
-			if (target == null || target.type != ModContent.ItemType<PowerBeam>()) { return; }
-			PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
+			if (target == null || target.type != ModContent.ItemType<MissileLauncher>()) { return; }
+			MissileLauncher missileTarget = (MissileLauncher)target.ModItem;
 
 			spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 			// Item drawing.
-			if (powerBeamTarget == null || powerBeamTarget.BeamChange == null || powerBeamTarget.BeamChange[beamSlotType].IsAir) { return; }
+			if (missileTarget == null || missileTarget.MissileChange == null || missileTarget.MissileChange[missileChangeType].IsAir) { return; }
 
-			Color itemColor = powerBeamTarget.BeamChange[beamSlotType].GetAlpha(Color.White);
-			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[powerBeamTarget.BeamChange[beamSlotType].type].Value;
+			Color itemColor = missileTarget.MissileChange[missileChangeType].GetAlpha(Color.White);
+			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[missileTarget.MissileChange[missileChangeType].type].Value;
 			CalculatedStyle innerDimensions = GetDimensions();
 
 			if (IsMouseHovering)
 			{
-				Main.hoverItemName = powerBeamTarget.BeamChange[beamSlotType].Name;
-				Main.HoverItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
+				Main.hoverItemName = missileTarget.MissileChange[missileChangeType].Name;
+				Main.HoverItem = missileTarget.MissileChange[missileChangeType].Clone();
 			}
 
-			Rectangle frame = Main.itemAnimations[powerBeamTarget.BeamChange[beamSlotType].type] != null
-						? Main.itemAnimations[powerBeamTarget.BeamChange[beamSlotType].type].GetFrame(itemTexture)
+			Rectangle frame = Main.itemAnimations[missileTarget.MissileChange[missileChangeType].type] != null
+						? Main.itemAnimations[missileTarget.MissileChange[missileChangeType].type].GetFrame(itemTexture)
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
@@ -292,7 +253,7 @@ namespace MetroidMod.Common.UI
 			//float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, powerBeamTarget.BeamChange[beamSlotType].type);
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, missileTarget.MissileChange[missileChangeType].type);
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
@@ -302,7 +263,7 @@ namespace MetroidMod.Common.UI
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if (powerBeamTarget.BeamChange[beamSlotType].color != default(Color))
+			if (missileTarget.MissileChange[missileChangeType].color != default(Color))
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);

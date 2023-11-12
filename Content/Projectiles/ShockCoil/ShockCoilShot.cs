@@ -138,7 +138,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 									if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
 									{
 										target = npc;
-										mp.statCharge = 0;
+										//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
 									}
 
 									if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
@@ -378,18 +378,19 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			mp.statOverheat += (int)mp.overheatCost / shots;
+			mp.Energy += (int)(damageDone * (mp.statCharge * MPlayer.maxCharge)); 
 			/*if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				mp.statCharge += 10 / shots;
 				//mp.statCharge = Math.Min(((mp.statCharge + 7) / shots), MPlayer.maxCharge);
 			}*/
-			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+			/*if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				/*int healingAmount = Math.Min(damageDone / 20, 5);
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);*/
-				mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
-			}
+				/*mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
+			}*/
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 			if(damageDone > 0)
 			{

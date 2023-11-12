@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using MetroidMod.Content.MorphBallAddons;
+using MetroidMod.Content.Items.Tiles;
 
 //using MetroidMod.Content.NPCs;
 //using MetroidMod.Content.Items;
@@ -523,7 +524,7 @@ namespace MetroidMod.Common.Players
 				{
 					p.poundRelease = false;
 				}
-				if (Main.tile[Player.tileTargetX, Player.tileTargetY].HasTile && Main.tile[Player.tileTargetX, Player.tileTargetY].TileType != 26)
+				if (Main.tile[Player.tileTargetX, Player.tileTargetY].HasTile && Main.tile[Player.tileTargetX, Player.tileTargetY].TileType != 26 && Main.tile[Player.tileTargetX, Player.tileTargetY].TileType != ModContent.TileType<Content.Tiles.PhazonTile>())
 				{
 					if (cooldownbomb == 0 && Main.mouseLeft)
 					{
@@ -546,8 +547,8 @@ namespace MetroidMod.Common.Players
 		}
 		public void BoostBall(Player Player)
 		{
-
-			if(Systems.MSystem.BoostBallKey.Current && Player.whoAmI == Main.myPlayer)
+			MPlayer mp = Player.GetModPlayer<MPlayer>();
+			if (Systems.MSystem.BoostBallKey.Current && Player.whoAmI == Main.myPlayer)
 			{
 				if(boostCharge <= 60)
 				{
@@ -625,6 +626,19 @@ namespace MetroidMod.Common.Players
 			}
 			if(boostEffect > 0)
 			{
+				bool BoostRam = false;
+				foreach (Projectile P in Main.projectile) if(P!=null)
+				{
+					if (P.active && P.owner == Player.whoAmI && P.type == ModContent.ProjectileType<Content.Projectiles.RamBall>())
+					{
+						BoostRam = true;
+						break;
+					}
+				}
+				if (!BoostRam)
+				{
+					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, ModContent.ProjectileType<Content.Projectiles.RamBall>(), mp.boostEffect, mp.boostEffect/5, Player.whoAmI);
+				}
 				Player.armorEffectDrawShadow = true;
 				boostEffect--;
 			}

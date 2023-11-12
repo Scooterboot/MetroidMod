@@ -24,6 +24,7 @@ using MetroidMod.Content.Projectiles.hyperbeam;
 using System.Security.AccessControl;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MetroidMod.Common.Configs;
+using MetroidMod.Content.Mounts;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -266,7 +267,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public static string SetCondition()
 		{
 			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (held == null)
+			if (held == null || Main.LocalPlayer.mount.Type == ModContent.MountType<MorphBallMount>())
 			{
 				return "";
 			}

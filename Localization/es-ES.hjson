@@ -480,6 +480,7 @@ Mods: {
 					Adds Charge Effect 
 					Charge by holding click 
 					Charge shots deal x3 damage, but overheat x2 the normal use
+					Array slot 1
 					''' */
 			}
 
@@ -495,6 +496,7 @@ Mods: {
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
+					Array slot 7
 					''' */
 			}
 
@@ -508,6 +510,7 @@ Mods: {
 					[c/78BE78:Adds scope and stealth]
 					[c/BE7878:+250% overheat use]
 					[c/BE7878:Massive speed reduction]
+					Array slot 4
 					''' */
 			}
 
@@ -523,6 +526,7 @@ Mods: {
 					[c/78BE78:+45% damage]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
+					Array slot 5
 					''' */
 			}
 
@@ -538,6 +542,7 @@ Mods: {
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:Cannot freeze or pierce]
+					Array slot 3
 					''' */
 			}
 
@@ -551,6 +556,7 @@ Mods: {
 					[c/BE7878:10x overheat use]
 					[c/BE7878:Slow as the DMV]
 					[c/BE7878:Cannot Pierce walls or enemies]
+					Array slot 8
 					''' */
 			}
 
@@ -560,7 +566,7 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Fires a short range electric charge that restores energy when fully charged
+					Fires a short range electric charge that restores energy
 					Charges on enemy damage and overheats when fully charged
 					Range depends on addons
 					Builds speed and charge when attacking an enemy
@@ -568,6 +574,7 @@ Mods: {
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
 					[c/BE7878:Probably still bugged]
+					Array slot 6
 					''' */
 			}
 
@@ -582,6 +589,7 @@ Mods: {
 					[c/BE7878:-10% speed]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:+10% noise]
+					Array slot 2
 					''' */
 			}
 
@@ -595,6 +603,7 @@ Mods: {
 					Slightly decreases firerate
 					Affected by addons regardless of version
 					Disables freeze and other debuff effects
+					Array slot 9
 					'Da babeh'
 					''' */
 			}
@@ -625,6 +634,7 @@ Mods: {
 					Affected by addons regardless of version 
 					Disables freeze and other debuff effects
 					Can only be used while wearing the Phazon Suit
+					Array slot 10
 					'It's made of pure Phazon energy!
 					''' */
 			}
@@ -679,6 +689,7 @@ Mods: {
 					Adds Charge Effect
 					Charge by holding click
 					Charge shots deal x4 damage, but overheat x2.5 the normal use
+					Array slot 11
 					''' */
 			}
 
@@ -745,6 +756,7 @@ Mods: {
 					Adds Charge Effect 
 					Charge by holding click 
 					Charge shots deal x5 damage, but overheat x3 the normal use
+					Array slot 12
 					''' */
 			}
 
@@ -1016,6 +1028,7 @@ Mods: {
 					Hold Click to charge 
 					Fires a constant stream of fire at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Array slot 6
 					''' */
 			}
 
@@ -1028,6 +1041,7 @@ Mods: {
 					Hold Click to charge 
 					Charge shots cover terrain in ice on impact, freezing enemies 
 					Charge shots cost 10 missiles
+					Array slot 5
 					''' */
 			}
 
@@ -1040,6 +1054,7 @@ Mods: {
 					Hold Click to charge 
 					Creates a tethered mass of Nebula energy that lashes at foes when fully charged 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Array slot 12
 					''' */
 			}
 
@@ -1052,6 +1067,7 @@ Mods: {
 					Hold Click to charge 
 					Fires a continuous laser beam of Nova energy at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Array slot 9
 					''' */
 			}
 
@@ -1064,6 +1080,7 @@ Mods: {
 					Hold Click to charge 
 					Rapidly fires piercing projectiles at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Array slot 7
 					''' */
 			}
 
@@ -1076,6 +1093,7 @@ Mods: {
 					Hold Click to charge 
 					Fires a continuous laser beam of Solar energy at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Array slot 13
 					''' */
 			}
 
@@ -1088,6 +1106,7 @@ Mods: {
 					Hold Click to charge 
 					Fires a spray of 5 missiles 
 					Costs 5 missiles
+					Array slot 2
 					''' */
 			}
 
@@ -1102,6 +1121,7 @@ Mods: {
 					Additionally a Stardust Guardian spawns at the center which attacks any enemy caught in the ice 
 					Charge shots cost 10 missiles
 					Both the ice and the Guardian last 20 seconds
+					Array slot 11
 					''' */
 			}
 
@@ -1116,6 +1136,7 @@ Mods: {
 					Each vortex fires a blast after 2 seconds 
 					Releasing the charge makes all vortexes immediately fire 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Array slot 10
 					''' */
 			}
 
@@ -1128,6 +1149,7 @@ Mods: {
 					Hold Click to charge 
 					Fires a constant stream of electricity at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Array slot 4
 					''' */
 			}
 
@@ -1141,6 +1163,7 @@ Mods: {
 					Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies 
 					Charge shots and flares deal 3x damage
 					Costs 5 missiles
+					Array slot 8
 					''' */
 			}
 
@@ -1152,6 +1175,7 @@ Mods: {
 					Slot Type: Charge
 					Fires a double-damage homing missile
 					Costs 1 Missile
+					Array slot 1
 					''' */
 			}
 
@@ -1202,6 +1226,7 @@ Mods: {
 					Hold click to lock on to targets, and release to fire 
 					Can lock on to a maximum of 5 targets 
 					Consumes the appropriate number of missiles
+					Array slot 3
 					''' */
 			}
 
@@ -2397,8 +2422,8 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency // Provisional name
-					7.5% increased energy barrier resilience // Provisional name
+					15% increased energy barrier efficiency
+					7.5% increased energy barrier resilience
 					Reduces damage from the Dark World
 					''' */
 			}
@@ -2418,8 +2443,8 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency // Provisional name
-					7.5% increased energy barrier resilience // Provisional name
+					15% increased energy barrier efficiency
+					7.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
 					Free movement in liquid
@@ -2439,8 +2464,8 @@ Mods: {
 					5% increased hunter damage
 					5% increased hunter critical strike chance
 					10% increased movement speed
-					25% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
+					25% increased energy barrier efficiency
+					10% increased energy barrier resilience
 					Debuffs tick down twice as fast
 					''' */
 			}
@@ -2466,8 +2491,8 @@ Mods: {
 					5% increased hunter damage
 					5% increased hunter critical strike chance
 					10% increased movement speed
-					25% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
+					25% increased energy barrier efficiency
+					10% increased energy barrier resilience
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
 					''' */
@@ -2497,8 +2522,8 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					5% increased energy barrier efficiency // Provisional name
-					7.5% increased energy barrier resilience // Provisional name
+					5% increased energy barrier efficiency
+					7.5% increased energy barrier resilience
 					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
 					Slightly increased health regen when standing on Phazon
 					''' */
@@ -2515,8 +2540,8 @@ Mods: {
 					5% increased hunter damage
 					5% increased hunter critical strike chance
 					10% increased movement speed
-					15% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
+					15% increased energy barrier efficiency
+					10% increased energy barrier resilience
 					Immune to damage caused by blue Phazon blocks
 					Slot: Augmentatio      n
 					Enables Phazon Beam use
@@ -2566,8 +2591,8 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					5% increased hunter critical strike chance
-					20% increased energy barrier efficiency // Provisional name
-					15% increased energy barrier resilience // Provisional name
+					20% increased energy barrier efficiency
+					15% increased energy barrier resilience
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
 					''' */
@@ -2621,8 +2646,8 @@ Mods: {
 					5% increased hunter damage
 					5% increased hunter critical strike chance
 					10% increased movement speed
-					15% increased energy barrier efficiency // Provisional name
-					10% increased energy barrier resilience // Provisional name
+					15% increased energy barrier efficiency
+					10% increased energy barrier resilience
 					Grants 7 seconds of lava immunity
 					Default gravity in space
 					Slot: Augmentatio      n
@@ -2642,8 +2667,8 @@ Mods: {
 					5% increased hunter critical strike chance
 					55% increased underwater breathing
 					10% increased movement speed
-					10% increased energy barrier efficiency // Provisional name
-					20% increased energy barrier resilience // Provisional name
+					10% increased energy barrier efficiency
+					20% increased energy barrier resilience
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
@@ -2663,8 +2688,8 @@ Mods: {
 					7% increased hunter critical strike chance
 					80% increased underwater breathing
 					10% increased movement speed
-					20% increased energy barrier efficiency // Provisional name
-					37.5% increased energy barrier resilience // Provisional name
+					20% increased energy barrier efficiency
+					37.5% increased energy barrier resilience
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
@@ -3109,6 +3134,7 @@ Mods: {
 			// CrystalBombProjectile.DisplayName: Crystal Bomb Projectile
 			// BombProjectile.DisplayName: Bomb Projectile
 			// BetsyBombProjectile.DisplayName: Betsy Bomb Projectile
+			// RamBall.DisplayName: Ram Ball
 		}
 
 		Configs: {

@@ -39,6 +39,7 @@ namespace MetroidMod
 		internal const int ballSlotAmount = 5;
 		internal const int beamSlotAmount = 5;
 		internal const int beamChangeSlotAmount = 12;
+		internal const int missileChangeSlotAmount = 13;
 		internal const int missileSlotAmount = 3;
 
 		public static bool UseAltWeaponTextures;
