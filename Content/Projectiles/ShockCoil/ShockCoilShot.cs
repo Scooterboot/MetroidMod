@@ -378,7 +378,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			mp.statOverheat += (int)mp.overheatCost / shots;
-			mp.Energy += (int)(damageDone * (mp.statCharge * MPlayer.maxCharge)); 
+			mp.Energy += (int)(damageDone * (mp.statCharge / MPlayer.maxCharge)); 
 			/*if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				mp.statCharge += 10 / shots;
