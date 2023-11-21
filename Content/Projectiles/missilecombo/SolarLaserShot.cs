@@ -202,7 +202,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				P.Center + P.velocity * P.ai[1], (float)P.width*scaleUp, ref point);
 		}
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if(soundInstance != null)
 			{

@@ -72,7 +72,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			Main.dust[dust].noGravity = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.Diffuse(Projectile, dustType);
 		}

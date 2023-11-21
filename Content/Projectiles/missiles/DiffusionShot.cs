@@ -111,7 +111,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			}
 		}
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int dustType = 6;
 			if(Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
@@ -222,7 +222,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), basePosition, Projectile.Center, Projectile.width, ref point);
 		}
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			

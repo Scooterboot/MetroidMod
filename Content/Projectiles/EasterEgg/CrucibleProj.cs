@@ -65,7 +65,7 @@ namespace MetroidMod.Content.Projectiles.EasterEgg
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			SoundEngine.PlaySound(SoundID.Item10, P.position);

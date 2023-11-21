@@ -79,7 +79,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			mProjectile.PlasmaDrawTrail(Projectile,Main.player[Projectile.owner],Main.spriteBatch,10,scale*Projectile.localAI[0]*Projectile.localAI[1],new Color(mp.r, mp.g, mp.b, 128));
 			return false;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));

@@ -74,7 +74,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 				Main.dust[dust].noGravity = true;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType, true, 1f, color2);
 		}

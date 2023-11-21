@@ -109,7 +109,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(),600,true);
 		}
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for(int i = 0; i < Projectile.oldPos.Length; i++)
 			{

@@ -43,7 +43,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
             Main.dust[dust].noGravity = true;
             mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 1, dustType, 2f);
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.width *= 75;
 			Projectile.height *= 75;

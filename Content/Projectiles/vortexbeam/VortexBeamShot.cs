@@ -66,7 +66,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}

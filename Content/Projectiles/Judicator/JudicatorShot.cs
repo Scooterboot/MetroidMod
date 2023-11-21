@@ -80,7 +80,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (var i = 0; i < 5; i++)
 			{

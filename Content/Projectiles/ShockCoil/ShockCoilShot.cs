@@ -351,7 +351,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (soundInstance != null)
 			{

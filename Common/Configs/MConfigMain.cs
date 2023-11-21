@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
 namespace MetroidMod.Common.Configs

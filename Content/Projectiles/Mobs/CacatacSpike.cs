@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Projectiles.Mobs
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for(int i = 0; i < 8; ++i)
 			{

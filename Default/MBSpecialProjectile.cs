@@ -65,7 +65,7 @@ namespace MetroidMod.Default
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(new SoundStyle(modMBAddon.ExplosionSound), Projectile.position);
 			if (!modMBAddon.Kill(timeLeft)) { return; }

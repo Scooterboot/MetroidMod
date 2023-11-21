@@ -42,7 +42,7 @@ namespace MetroidMod.Content.Projectiles.stardustbeam
 				DustID.GemTopaz, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.Diffuse(Projectile, 88);
 		}

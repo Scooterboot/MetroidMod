@@ -167,7 +167,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			}
 		}
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			for (int i = 0; i < 30; i++)

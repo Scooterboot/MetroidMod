@@ -64,7 +64,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, color2, Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.Diffuse(Projectile, dustType, color2);
 		}

@@ -91,7 +91,7 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 			Projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + 1.57f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}

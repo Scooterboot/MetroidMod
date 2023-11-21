@@ -137,7 +137,7 @@ namespace MetroidMod.Content.Projectiles
 		{
 			modifiers.FinalDamage.Flat = target.damage * 2;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();

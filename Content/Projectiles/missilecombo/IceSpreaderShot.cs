@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, 135, 2f);
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			
