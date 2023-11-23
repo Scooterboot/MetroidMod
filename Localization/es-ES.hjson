@@ -2721,6 +2721,11 @@ Mods: {
 				// DisplayName: Chozo Statue Orb
 				// Tooltip: ""
 			}
+
+			PhazonCore: {
+				// DisplayName: Phazon Core
+				// Tooltip: Destroy this with the nova laser to add phazon to the world
+			}
 		}
 
 		NPCs: {

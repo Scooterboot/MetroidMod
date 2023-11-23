@@ -20,6 +20,7 @@ using MetroidMod.Content.Items.Vanity;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Items.Tools;
 using MetroidMod.ID;
+using MetroidMod.Content.Items.Tiles;
 
 #endregion
 
@@ -185,6 +186,7 @@ namespace MetroidMod.Content.NPCs.Town
 			var npcShop = new NPCShop(Type, ShopName);
 			Condition Gold = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo));
 			Condition Phantoon = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon));
+			Condition Phazon = new Condition("Conditions.spawnedPhazon", () => MSystem.PhazonSpawn != true);
 			npcShop.Add(ModContent.ItemType<Items.Boss.TorizoSummon>());
 			npcShop.Add(ModContent.ItemType<VanityPack>());
 			npcShop.Add<PowerBeam>(Condition.Hardmode);
@@ -197,6 +199,7 @@ namespace MetroidMod.Content.NPCs.Town
 			npcShop.Add(SuitAddonLoader.GetAddon<VariaSuitV2Addon>().ItemType, Condition.DownedMechBossAll);
 			npcShop.Add(ModContent.ItemType<VanityPack_Prime>(), Phantoon);
 			npcShop.Add(SuitAddonLoader.GetAddon<GravitySuitAddon>().ItemType, Condition.DownedPlantera);
+			npcShop.Add(ModContent.ItemType<PhazonCore>(), Condition.DownedPlantera, Phazon);
 			npcShop.Add(ModContent.ItemType<GreenKeycard>(), Condition.DownedGolem);
 			npcShop.Add(ModContent.ItemType<Items.Boss.GoldenTorizoSummon>(), Gold);
 			npcShop.Add(ModContent.ItemType<GreenKeycard>(), Condition.DownedCultist);

@@ -36,6 +36,7 @@ using MetroidMod.Content.Items.Addons.V3;
 using MetroidMod.Content.Items.MissileAddons;
 using MetroidMod.Content.Tiles.ItemTile.Missile;
 using MetroidMod.Content.Items.MissileAddons.BeamCombos;
+using Steamworks;
 
 
 #endregion
@@ -74,6 +75,8 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind PowerBombKey;
 		internal static ModKeybind VisorUIKey;
 		internal static ModKeybind BombKey;
+
+		public static bool PhazonSpawn;
 
 		public override void Load()
 		{
