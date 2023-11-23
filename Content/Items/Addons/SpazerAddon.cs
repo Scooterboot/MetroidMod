@@ -48,6 +48,7 @@ namespace MetroidMod.Content.Items.Addons
 				.AddIngredient(ItemID.Stinger, 12)
 				.AddIngredient(ItemID.JungleSpores, 12)
 				.AddIngredient(ItemID.Topaz, 1)
+				.AddIngredient(ItemID.BeeGun, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

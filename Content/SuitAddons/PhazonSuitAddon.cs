@@ -6,6 +6,7 @@ using MetroidMod.ID;
 using MetroidMod.Content;
 using MetroidMod.Content.Items.Weapons;
 using Terraria.ModLoader;
+using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -25,7 +26,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => ((WorldGen.drunkWorldGen || WorldGen.everythingWorldGen) && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues) || MSystem.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate);
 
 		public override double GenerationChance(int x, int y) => 4;
 

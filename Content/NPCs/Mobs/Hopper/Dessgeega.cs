@@ -174,7 +174,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if(Main.hardMode)
+			if (MConfigMain.Instance.disablemobspawn == true)
+			{
+				return 0f;
+			}
+			if (Main.hardMode)
 			{
 				return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
 			}

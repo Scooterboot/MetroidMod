@@ -56,6 +56,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			{
 				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
 			}*/
+			//WorldGen.PlaceTile(i, j, ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>());
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, Common.Systems.MSystem.OrbItem(i,j));
 		}
 	}
