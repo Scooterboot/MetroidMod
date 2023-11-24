@@ -10,6 +10,7 @@ using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Common.Configs;
+using Terraria.GameContent.Tile_Entities;
 
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
@@ -372,13 +373,24 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			MPlayer mp = O.GetModPlayer<MPlayer>();
 			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			int shots = held.shocky;
+			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
 			float ranges = maxDamage - minDamage;
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			mp.statOverheat += (int)mp.overheatCost / shots;
-			mp.Energy += (int)(damageDone * (mp.statCharge / MPlayer.maxCharge)); 
+			if(mp.Energy < mp.MaxEnergy && !O.immune && !target2.TypeName.Contains("Dummy"))
+			{
+				if(heal > mp.MaxEnergy - mp.Energy)
+				{
+					mp.Energy = mp.MaxEnergy;
+				}
+				else
+				{
+					mp.Energy += heal;
+				}
+			}
 			/*if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				mp.statCharge += 10 / shots;
@@ -391,6 +403,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				p.HealEffect(healingAmount, true);*/
 				/*mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
 			}*/
+			base.OnHitNPC(target2, hit, damageDone);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 			if(damageDone > 0)
 			{
