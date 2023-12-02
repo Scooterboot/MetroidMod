@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using Terraria.Enums;
 
 namespace MetroidMod.Content.Projectiles.OmegaCannon
 {
@@ -21,8 +22,10 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.width = 32;
 			Projectile.height = 32;
 			Projectile.scale = 1f;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
 		}
-
+		private int blastRadius;
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
@@ -54,12 +57,17 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
 				{
 					Projectile.Damage();
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 10;
 				}
 			}
 		}
-
+		public override bool? CanCutTiles()
+		{
+			if(Projectile.timeLeft <= 1)
+			{
+				return false;
+			}
+			return null;
+		}
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
