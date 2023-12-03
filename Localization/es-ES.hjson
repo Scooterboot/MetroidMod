@@ -566,7 +566,7 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Fires a short range electric charge that restores energy
+					Fires a short range electric charge that restores energy when at full health
 					Charges on enemy damage and overheats when fully charged
 					Range depends on addons
 					Builds speed and charge when attacking an enemy

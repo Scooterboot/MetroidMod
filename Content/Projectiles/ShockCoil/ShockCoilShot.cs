@@ -217,7 +217,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (ampSyncCooldown-- <= 0)
 					{
 						ampSyncCooldown = 20;
-						Projectile.netUpdate2 = true;
+						//Projectile.netUpdate2 = true;
 					}
 					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
@@ -380,7 +380,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			mp.statOverheat += (int)mp.overheatCost / shots;
-			if(mp.Energy < mp.MaxEnergy && !O.immune && !target2.TypeName.Contains("Dummy"))
+			if(mp.Energy < mp.MaxEnergy && !target2.TypeName.Contains("Dummy") && O.statLife >= O.statLifeMax2)
 			{
 				if(heal > mp.MaxEnergy - mp.Energy)
 				{
@@ -409,7 +409,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			{
 				foreach(NPC G in Main.npc)
 				{
-					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / (double)damaage);
+					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 					Projectile.localNPCHitCooldown = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 				}
 			}
