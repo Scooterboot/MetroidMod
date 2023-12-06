@@ -131,6 +131,7 @@ namespace MetroidMod.Content.Items.Accessories
 			CreateRecipe(1)
 				.AddIngredient<TerraBooster>(1)
 				.AddIngredient(ItemID.EmpressFlightBooster, 1)
+				.AddIngredient(ItemID.LunarBar, 2)
 				.Register();
 		}
 	}
