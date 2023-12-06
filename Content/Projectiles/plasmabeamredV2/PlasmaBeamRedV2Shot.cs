@@ -75,7 +75,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}

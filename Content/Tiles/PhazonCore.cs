@@ -9,6 +9,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
+using MetroidMod.Common.Systems;
 
 #endregion
 
@@ -92,7 +93,11 @@ namespace MetroidMod.Content.Tiles
 				int Amount_Of_Spawns = 100 + (int)(Main.maxTilesY * 0.2f);
 				for(int i = 0; i < Amount_Of_Spawns; i++)
 				{
-					Common.Systems.MSystem.AddPhazon();
+					if(MSystem.PhazonSpawn != true)
+					{
+						Common.Systems.MSystem.AddPhazon();
+						MSystem.PhazonSpawn = true;
+					}
 				}
 			}
 		}

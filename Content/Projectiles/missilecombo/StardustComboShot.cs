@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 88, 0, 0, 100, default(Color), 2f);
 			Main.dust[dust].noGravity = true;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			

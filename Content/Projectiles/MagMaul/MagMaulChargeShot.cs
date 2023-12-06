@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 286, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.width += 44;
 			Projectile.height += 44;

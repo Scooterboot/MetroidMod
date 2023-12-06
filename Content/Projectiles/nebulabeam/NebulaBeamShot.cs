@@ -70,7 +70,7 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}

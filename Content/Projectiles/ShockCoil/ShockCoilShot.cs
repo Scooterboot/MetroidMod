@@ -10,6 +10,7 @@ using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Common.Configs;
+using Terraria.GameContent.Tile_Entities;
 
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
@@ -138,7 +139,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 									if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
 									{
 										target = npc;
-										mp.statCharge = 0;
+										//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
 									}
 
 									if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
@@ -216,7 +217,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (ampSyncCooldown-- <= 0)
 					{
 						ampSyncCooldown = 20;
-						Projectile.netUpdate2 = true;
+						//Projectile.netUpdate2 = true;
 					}
 					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
@@ -351,7 +352,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (soundInstance != null)
 			{
@@ -372,30 +373,43 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			MPlayer mp = O.GetModPlayer<MPlayer>();
 			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			int shots = held.shocky;
+			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
 			float ranges = maxDamage - minDamage;
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			mp.statOverheat += (int)mp.overheatCost / shots;
+			if(mp.Energy < mp.MaxEnergy && !target2.TypeName.Contains("Dummy") && O.statLife >= O.statLifeMax2)
+			{
+				if(heal > mp.MaxEnergy - mp.Energy)
+				{
+					mp.Energy = mp.MaxEnergy;
+				}
+				else
+				{
+					mp.Energy += heal;
+				}
+			}
 			/*if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				mp.statCharge += 10 / shots;
 				//mp.statCharge = Math.Min(((mp.statCharge + 7) / shots), MPlayer.maxCharge);
 			}*/
-			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+			/*if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				/*int healingAmount = Math.Min(damageDone / 20, 5);
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);*/
-				mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
-			}
+				/*mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
+			}*/
+			base.OnHitNPC(target2, hit, damageDone);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 			if(damageDone > 0)
 			{
 				foreach(NPC G in Main.npc)
 				{
-					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / (double)damaage);
+					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 					Projectile.localNPCHitCooldown = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 				}
 			}

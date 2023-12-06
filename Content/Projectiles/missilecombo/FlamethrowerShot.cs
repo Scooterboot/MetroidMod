@@ -153,7 +153,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			target.AddBuff(24,600,true);
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			P.position -= P.velocity;

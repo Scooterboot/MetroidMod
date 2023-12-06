@@ -633,7 +633,7 @@ namespace MetroidMod.Common.UI
 		public override void OnInitialize()
 		{
 			Left.Pixels = 420;
-			Top.Pixels = 354;
+			Top.Pixels = 340; //354
 			
 			iconTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ComboErrorIcon", AssetRequestMode.ImmediateLoad).Value;
 			
@@ -652,7 +652,7 @@ namespace MetroidMod.Common.UI
 			if (!enabled && MConfigClient.Instance.PowerBeamError.auto)
 			{
 				Left.Pixels = 112;
-				Top.Pixels = 354;
+				Top.Pixels = 340; //354
 				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
 				{
 					Top.Pixels += 170;

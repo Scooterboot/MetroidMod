@@ -71,24 +71,24 @@ namespace MetroidMod.Common.UI
 
 		public Vector2[] itemBoxPositionValues = new Vector2[MetroidMod.beamChangeSlotAmount]
 		{
-			new Vector2(200, 100), //32,334
-			new Vector2(181, 159), //174, 334
-			new Vector2(131, 195), //98,174
-			new Vector2(69, 195), //98,94
-			new Vector2(19, 159), //32,94
-			new Vector2(0, 100), //174,94
-			new Vector2(19, 41), //32,174
-			new Vector2(69, 5), //174,174
-			new Vector2(131, 5), //98,254
-			new Vector2(181, 41), //32,254
-			new Vector2(69, 100), //32,254
-			new Vector2(131, 100) //32,254
+			new Vector2(211, 110),
+			new Vector2(192, 169),
+			new Vector2(142, 205),
+			new Vector2(80, 205),
+			new Vector2(30, 169),
+			new Vector2(11, 110),
+			new Vector2(30, 51),
+			new Vector2(80, 15),
+			new Vector2(142, 15),
+			new Vector2(192, 51),
+			new Vector2(80, 110),
+			new Vector2(142, 110)
 		};
 		public override void OnInitialize()
 		{
 			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/bepis", AssetRequestMode.ImmediateLoad); //the "background.stupid"
 			SetPadding(0);
-			Top.Pixels = Main.instance.invBottom + 174;
+			Top.Pixels = Main.instance.invBottom + 152;
 			Left.Pixels = 160;
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();

@@ -38,7 +38,7 @@ namespace MetroidMod.Content.Projectiles.Paralyzer
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}

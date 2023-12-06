@@ -56,7 +56,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Projectile.ai[0] = 0f;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			P.position.X = P.position.X + (float)(P.width / 2);

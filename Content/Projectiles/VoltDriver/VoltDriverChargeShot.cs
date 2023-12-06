@@ -53,7 +53,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Main.dust[dust].noGravity = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			//Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
 			//Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);

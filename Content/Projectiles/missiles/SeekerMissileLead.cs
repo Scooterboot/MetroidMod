@@ -140,7 +140,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				P.Kill();
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player O = Main.player[Projectile.owner];
 			MGlobalItem mi = O.inventory[O.selectedItem].GetGlobalItem<MGlobalItem>();

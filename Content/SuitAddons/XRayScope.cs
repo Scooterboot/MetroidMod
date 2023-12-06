@@ -48,8 +48,8 @@ namespace MetroidMod.Content.SuitAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 10)
-				.AddIngredient(ItemID.SpelunkerPotion)
+				//.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 10)
+				.AddIngredient(ItemID.SpelunkerPotion, 30)
 				.AddIngredient(ItemID.GlowingMushroom, 30)
 				.AddTile(TileID.Anvils)
 				.Register();

@@ -197,7 +197,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			P.position.X -= (float)P.width/2f;
 			P.position.Y -= (float)P.height/2f;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			if(velocity != Vector2.Zero)

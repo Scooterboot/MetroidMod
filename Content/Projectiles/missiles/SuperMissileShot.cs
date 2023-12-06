@@ -101,7 +101,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				mProjectile.HomingBehavior(Projectile);
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			int size = 80;

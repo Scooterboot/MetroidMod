@@ -233,7 +233,7 @@ namespace MetroidMod.Content.Projectiles
 			Lighting.AddLight(P.Center, (LightColor.R / 255f) * P.scale, (LightColor.G / 255f) * P.scale, (LightColor.B / 255f) * P.scale);
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 

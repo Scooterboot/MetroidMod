@@ -1,6 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 {
@@ -38,6 +39,7 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 			mItem.addonChargeDmg = 1f;
 			mItem.addonMissileCost = 10;
 			mItem.addonMissileDrain = 5;
+			mItem.missileChangeType = MissileChangeSlotID.VortexCombo;
 		}
 
 		public override void AddRecipes()

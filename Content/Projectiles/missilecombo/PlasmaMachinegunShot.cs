@@ -82,7 +82,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				startPos = Lead.Center + O.velocity + start;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, 61);
 		}

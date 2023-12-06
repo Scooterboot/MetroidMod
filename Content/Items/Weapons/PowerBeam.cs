@@ -24,6 +24,7 @@ using MetroidMod.Content.Projectiles.hyperbeam;
 using System.Security.AccessControl;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MetroidMod.Common.Configs;
+using MetroidMod.Content.Mounts;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -265,8 +266,7 @@ namespace MetroidMod.Content.Items.Weapons
 		//Mod modBeamTextureMod = null;
 		public static string SetCondition()
 		{
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (held == null)
+			if (Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem is not PowerBeam held)
 			{
 				return "";
 			}
@@ -275,7 +275,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override void UpdateInventory(Player P)
 		{
-			MPlayer mp = P.GetModPlayer<MPlayer>();
+			//MPlayer mp = P.GetModPlayer<MPlayer>();
 
 			int ch = ModContent.ItemType<Addons.ChargeBeamAddon>();
 			int ic = ModContent.ItemType<Addons.IceBeamAddon>();
@@ -1696,7 +1696,7 @@ namespace MetroidMod.Content.Items.Weapons
 				shooty += "stardust";
 			}
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			shooty.ToString();
+			//shooty.ToString();
 			float MY = Main.mouseY + Main.screenPosition.Y;
 			float MX = Main.mouseX + Main.screenPosition.X;
 			if (player.gravDir == -1f)

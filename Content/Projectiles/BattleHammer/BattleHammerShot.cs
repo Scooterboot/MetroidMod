@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 				Main.dust[dust].noGravity = true;
 			}
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.width += 76;
 			Projectile.height += 76;

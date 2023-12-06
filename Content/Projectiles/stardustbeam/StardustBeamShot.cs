@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Projectiles.stardustbeam
 				Projectile.frame = 0;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, 88);
 		}

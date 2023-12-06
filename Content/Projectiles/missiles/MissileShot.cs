@@ -78,7 +78,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				mProjectile.HomingBehavior(Projectile);
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);

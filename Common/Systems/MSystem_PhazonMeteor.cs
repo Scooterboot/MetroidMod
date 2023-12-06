@@ -29,7 +29,6 @@ namespace MetroidMod.Common.Systems
 			int maxSpread = 8;
 			int minFrequency = 5;
 			int maxFrequency = 8;
-
 			WorldGen.OreRunner(WorldGen.genRand.Next(lX, hX), WorldGen.genRand.Next(lY, hY), WorldGen.genRand.Next(minSpread, maxSpread + 1), WorldGen.genRand.Next(minFrequency, maxFrequency + 1), (ushort)ModContent.TileType<Content.Tiles.PhazonTile>());
 		}
 

@@ -22,6 +22,7 @@ namespace MetroidMod.Common.Systems
 		internal static UserInterface pbUserInterface;
 		internal static UserInterface bcUserInterface;
 		internal static UserInterface miUserInterface;
+		internal static UserInterface mcUserInterface;
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
 		internal static UserInterface helmetUserInterface;
@@ -34,6 +35,7 @@ namespace MetroidMod.Common.Systems
 		internal bool isPBInit = false;
 		internal bool isBCInit = false;
 		internal bool isMIInit = false;
+		internal bool isMCInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
 		internal bool isHELMInit = false;
@@ -54,6 +56,7 @@ namespace MetroidMod.Common.Systems
 				pbUserInterface = new UserInterface();
 				bcUserInterface = new UserInterface();
 				miUserInterface = new UserInterface();
+				mcUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
 				helmetUserInterface = new UserInterface();
@@ -89,6 +92,7 @@ namespace MetroidMod.Common.Systems
 			pbUserInterface = null;
 			bcUserInterface = null;
 			miUserInterface = null;
+			mcUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
 			helmetUserInterface = null;
@@ -150,6 +154,11 @@ namespace MetroidMod.Common.Systems
 				bcUserInterface.SetState(new UI.BeamChangeUI());
 				isBCInit = true;
 			}
+			if (!isMCInit)
+			{
+				mcUserInterface.SetState(new UI.MissileChangeUI());
+				isMCInit = true;
+			}
 			if (visorUserInterface != null && UI.VisorSelectUI.Visible)
 			{
 				visorUserInterface.Update(gameTime);
@@ -181,6 +190,10 @@ namespace MetroidMod.Common.Systems
 			if (miUserInterface != null && UI.MissileLauncherUI.Visible)
 			{
 				miUserInterface.Update(gameTime);
+			}
+			if (mcUserInterface != null && UI.MissileChangeUI.Visible)
+			{
+				mcUserInterface.Update(gameTime);
 			}
 			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
 			{
@@ -400,6 +413,19 @@ namespace MetroidMod.Common.Systems
 						{
 							if (Main.hasFocus) { miUserInterface.Recalculate(); }
 							miUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Missile Change UI",
+					delegate {
+						if (UI.MissileChangeUI.Visible)// && !Main.recBigList)
+						{
+							if (Main.hasFocus) { mcUserInterface.Recalculate(); }
+							mcUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 
 						return true;
