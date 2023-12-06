@@ -18,7 +18,7 @@ namespace MetroidMod.Common.UI
 {
 	public class VisorSelectUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowVisorUI;
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowVisorUI && mp.ShouldShowArmorUI;
 
 		private VisorSelectPanel visorSelectPanel;
 		public override void OnInitialize()
