@@ -96,9 +96,9 @@ namespace MetroidMod.Common.Players
 					}
 				}
 			};
-			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
+			if (Configs.MConfigClient.Instance.energyHit && ShouldShowArmorUI && Energy > 0)
 			{
-				//playSound = false;
+				modifiers.DisableSound();
 				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
 			}
 		}
