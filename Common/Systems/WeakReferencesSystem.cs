@@ -31,7 +31,6 @@ namespace MetroidMod
 		public override void PostSetupContent()
 		{
 			DoBossChecklistSupport();
-			DoCensusModSupport();
 			DoRecipeBrowserSupport();
 			DoHEROsModSupport();
 			DoMusicDisplaySupport();
@@ -143,17 +142,6 @@ namespace MetroidMod
 					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog")
 				}
 			);
-		}
-
-		private void DoCensusModSupport()
-		{
-			if (!ModLoader.TryGetMod("Census", out Mod census) || census == null)
-			{
-				Mod.Logger.Info("Census is not loaded.");
-				return;
-			}
-			Mod.Logger.Info("Doing Census compatibility");
-			census.Call("TownNPCCondition", ModContent.NPCType<ChozoGhost>(), $"Defeat Torizo, an ancient guardian found in the [c/ffff00:Chozo Ruins]");
 		}
 
 		private void DoRecipeBrowserSupport()
