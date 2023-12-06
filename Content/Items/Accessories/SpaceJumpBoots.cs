@@ -47,28 +47,28 @@ namespace MetroidMod.Content.Items.Accessories
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.CloudinaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.BlizzardinaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.SandstorminaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.TsunamiInABottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().Type, 1)
+				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
