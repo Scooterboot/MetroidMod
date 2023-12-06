@@ -474,7 +474,7 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidMod.DragableMissileLauncherUI;
+			enabled = MConfigClient.Instance.MissileLauncher.enabled;
 			if (!enabled)
 			{
 				Left.Pixels = 112; //112
