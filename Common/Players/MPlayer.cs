@@ -415,6 +415,10 @@ namespace MetroidMod.Common.Players
 		{
 			ModifyHurt_SuitEnergy(ref modifiers);
 		}
+		public override void PostHurt(Player.HurtInfo info)
+		{
+			PostHurt_SuitEnergy(info);
+		}
 		public override bool ConsumableDodge(Player.HurtInfo info)
 		{
 			if (SMoveEffect > 0)
