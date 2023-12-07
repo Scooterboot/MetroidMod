@@ -79,6 +79,7 @@ namespace MetroidMod.Common.Players
 		}
 		public void ModifyHurt_SuitEnergy(ref Player.HurtModifiers modifiers) //bug: can make one immune to DoT debuffs
 		{
+			/*
 			modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
 			{
 				if (!ShouldShowArmorUI || Player.immune || Energy <=0) { return; };
@@ -96,10 +97,32 @@ namespace MetroidMod.Common.Players
 					}
 				}
 			};
-			if (Configs.MConfigClient.Instance.energyHit && ShouldShowArmorUI && Energy > 0)
+			*/
+			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; };
+			modifiers.FinalDamage *= 1f-EnergyDefenseEfficiency;
+			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
 				modifiers.DisableSound();
 				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
+			}
+		}
+		public void PostHurt_SuitEnergy(Player.HurtInfo info)
+		{
+			Mod.Logger.Info(info.SourceDamage);
+			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
+			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
+			Mod.Logger.Info(energyDamage);
+			Energy = Math.Max(1, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
+			Mod.Logger.Info(Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
+			if (info.Damage <= 1)
+			{
+				//info.Damage = 0;
+				Energy -= info.SourceDamage;
+				//customDamage = true;
+				if (info.SourceDamage >= Energy)
+				{
+					Energy = 0;
+				}
 			}
 		}
 		public override void OnRespawn()
