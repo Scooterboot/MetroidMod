@@ -814,40 +814,40 @@ namespace MetroidMod.Common.Players
 			
 			if(Player.controlLeft)
 			{
-				spiderSpeed = Math.Max(spiderSpeed-0.125f,-2f);
+				spiderSpeed = Math.Max(spiderSpeed-0.1f,-2f);
 			}
 			else if(Player.controlRight)
 			{
-				spiderSpeed = Math.Min(spiderSpeed+0.125f,2f);
+				spiderSpeed = Math.Min(spiderSpeed+0.1f,2f);
 			}
 			else
 			{
 				if(spiderSpeed > 0)
 				{
-					spiderSpeed = Math.Max(spiderSpeed-0.125f,0f);
+					spiderSpeed = Math.Max(spiderSpeed-0.1f,0f);
 				}
 				else
 				{
-					spiderSpeed = Math.Min(spiderSpeed+0.125f,0f);
+					spiderSpeed = Math.Min(spiderSpeed+0.1f,0f);
 				}
 			}
 			
-			Vector2 velocity = new(0.125f,0f);
-			Vector2 velocity2 = new(0f,0.125f);
+			Vector2 velocity = new(0.1f,0f);
+			Vector2 velocity2 = new(0f,0.1f);
 			if(CurEdge == Edge.Right)
 			{
-				velocity = new(0f,-0.125f);
-				velocity2 = new(0.125f,0f);
+				velocity = new(0f,-0.1f);
+				velocity2 = new(0.1f,0f);
 			}
 			if(CurEdge == Edge.Left)
 			{
-				velocity = new Vector2(0f,0.125f);
-				velocity2 = new Vector2(-0.125f,0f);
+				velocity = new Vector2(0f,0.1f);
+				velocity2 = new Vector2(-0.1f,0f);
 			}
 			if(CurEdge == Edge.Ceiling)
 			{
-				velocity = new Vector2(-0.125f,0f);
-				velocity2 = new Vector2(0f,-0.125f);
+				velocity = new Vector2(-0.1f,0f);
+				velocity2 = new Vector2(0f,-0.1f);
 			}
 			velocity *= Math.Sign(spiderSpeed);
 			
