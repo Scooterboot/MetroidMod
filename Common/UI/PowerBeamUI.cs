@@ -543,8 +543,10 @@ namespace MetroidMod.Common.UI
 
 			buttonTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOff", AssetRequestMode.ImmediateLoad).Value;
 			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+			//buttonTex_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceClick", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOn", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+			//buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceClick", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = 44; //buttonTex.Width
 			Height.Pixels = 44;
@@ -604,10 +606,10 @@ namespace MetroidMod.Common.UI
 
 			if (IsMouseHovering)
 			{
-				tex = texH;
+				// bug: buttonTex_Click isn't ever defined. what does this do?
 				if (clicked)
 				{
-					tex = texC;
+					texH = texC;
 					clicked = false;
 				}
 
@@ -620,6 +622,10 @@ namespace MetroidMod.Common.UI
 			}
 
 			sb.Draw(tex, DrawRectangle, Color.White);
+			if (IsMouseHovering)
+			{
+				sb.Draw(texH, DrawRectangle, Color.White);
+			}
 		}
 	}
 
