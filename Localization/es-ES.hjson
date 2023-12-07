@@ -2726,6 +2726,66 @@ Mods: {
 				// DisplayName: Phazon Core
 				// Tooltip: Destroy this with the nova laser to add phazon to the world
 			}
+
+			VanityFusionGravitySuitBreastplate: {
+				// DisplayName: Vanity Fusion Gravity Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityFusionGravitySuitGreaves: {
+				// DisplayName: Vanity Fusion Gravity Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityFusionGravitySuitHelmet: {
+				// DisplayName: Vanity Fusion Gravity Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityFusionOmegaSuitBreastplate: {
+				// DisplayName: Vanity Fusion Omega Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityFusionOmegaSuitGreaves: {
+				// DisplayName: Vanity Fusion Omega Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityFusionOmegaSuitHelmet: {
+				// DisplayName: Vanity Fusion Omega Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityFusionSuitBreastplate: {
+				// DisplayName: Vanity Fusion Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityFusionSuitGreaves: {
+				// DisplayName: Vanity Fusion Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityFusionSuitHelmet: {
+				// DisplayName: Vanity Fusion Suit Helmet
+				// Tooltip: ""
+			}
+
+			VanityFusionVariaSuitBreastplate: {
+				// DisplayName: Vanity Fusion Varia Suit Breastplate
+				// Tooltip: ""
+			}
+
+			VanityFusionVariaSuitGreaves: {
+				// DisplayName: Vanity Fusion Varia Suit Greaves
+				// Tooltip: ""
+			}
+
+			VanityFusionVariaSuitHelmet: {
+				// DisplayName: Vanity Fusion Varia Suit Helmet
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
