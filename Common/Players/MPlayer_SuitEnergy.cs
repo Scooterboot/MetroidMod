@@ -127,7 +127,11 @@ namespace MetroidMod.Common.Players
 		}
 		public override void OnRespawn()
 		{
-			if (Player.TryMetroidPlayer(out MPlayer mp)) mp.Energy = mp.MaxEnergy;
+			if (Player.TryMetroidPlayer(out MPlayer mp))
+			{
+				mp.Energy = mp.MaxEnergy;
+				mp.SuitReserves = mp.MaxSuitReserves;
+			}
 		}
 		public override void UpdateLifeRegen()
 		{
