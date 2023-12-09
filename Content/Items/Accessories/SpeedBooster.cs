@@ -12,14 +12,15 @@ using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("SpeedBoosterAddon")]
 	public class SpeedBooster : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Speed Booster");
-			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
-			/*"Allows the user to run insanely fast\n" + 
-			"Damages enemies while running\n" +
+			//DisplayName.SetDefault("Speed Booster");
+			//Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
+			/*"Damages enemies while running\n" +
 			"Damage scales off of enemy's contact damage\n" +
 			"While active, press DOWN to charge a Shine Spark\n" +
 			"Then press JUMP to activate the charge");*/
@@ -42,10 +43,9 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
-			//Item.consumable = true;
-			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpeedBoosterTile>();
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpeedBoosterTile>();
 		}
-		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -55,14 +55,6 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient(ItemID.JungleSpores, 5)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
-		*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpeedBooster>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

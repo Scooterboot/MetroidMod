@@ -825,7 +825,7 @@ namespace MetroidMod.Common.Systems
 				//float dist = (float)((Math.Abs(i - baseX) / (Main.maxTilesX / 2)) + (Math.Max(j - baseY, 0) / (Main.maxTilesY - WorldGen.rockLayer))) / 2;
 
 				//int rand = WorldGen.genRand.Next((int)Math.Max(100 * (1 - dist), 5));
-				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 32];
+				WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 33];
 				int index = 0;
 				// Okay, the goal is to do weighted random.
 				/*foreach (ModSuitAddon addon in SuitAddonLoader.addons)
@@ -1646,7 +1646,7 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceObject(statueX2, statueY, ModContent.TileType<ChozoStatueArmNatural>(), false, 0, 0, -1, -dir);
 
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().HasTile = true;
-			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)SuitAddonLoader.GetAddon<Content.SuitAddons.PowerGrip>().TileType;
+			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)ModContent.TileType<Content.Tiles.ItemTile.PowerGripTile>();
 
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameX = 0;
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameY = 0;

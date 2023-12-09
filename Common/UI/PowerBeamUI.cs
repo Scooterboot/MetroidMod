@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Elements;
 
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
@@ -113,8 +114,8 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = 256;
 			Height.Pixels = 164;
-			enabled = MetroidMod.DragablePowerBeamUI;
-			if (!enabled)
+			enabled = MConfigClient.Instance.PowerBeam.enabled;
+			if (!enabled && MConfigClient.Instance.PowerBeam.auto)
 			{
 				Left.Pixels = 160;
 				Top.Pixels = Main.instance.invBottom + 10;
@@ -472,8 +473,8 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidMod.DragablePowerBeamUI;
-			if (!enabled)
+			enabled = MConfigClient.Instance.PsuedoScrewAttack.enabled;
+			if (!enabled && MConfigClient.Instance.PsuedoScrewAttack.auto)
 			{
 				Left.Pixels = 112;
 				Top.Pixels = 274;
@@ -542,8 +543,10 @@ namespace MetroidMod.Common.UI
 
 			buttonTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOff", AssetRequestMode.ImmediateLoad).Value;
 			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+			//buttonTex_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceClick", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOn", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+			//buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceClick", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = 44; //buttonTex.Width
 			Height.Pixels = 44;
@@ -557,7 +560,7 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidMod.DragablePowerBeamUI;
+			enabled = Configs.MConfigClient.Instance.PowerBeam.enabled;
 			if (!enabled)
 			{
 				Left.Pixels = 112; //112
@@ -603,10 +606,10 @@ namespace MetroidMod.Common.UI
 
 			if (IsMouseHovering)
 			{
-				tex = texH;
+				// bug: buttonTex_Click isn't ever defined. what does this do?
 				if (clicked)
 				{
-					tex = texC;
+					texH = texC;
 					clicked = false;
 				}
 
@@ -619,6 +622,10 @@ namespace MetroidMod.Common.UI
 			}
 
 			sb.Draw(tex, DrawRectangle, Color.White);
+			if (IsMouseHovering)
+			{
+				sb.Draw(texH, DrawRectangle, Color.White);
+			}
 		}
 	}
 
@@ -647,8 +654,8 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MetroidMod.DragablePowerBeamUI;
-			if (!enabled)
+			enabled = MConfigClient.Instance.PowerBeamError.enabled;
+			if (!enabled && MConfigClient.Instance.PowerBeamError.auto)
 			{
 				Left.Pixels = 112;
 				Top.Pixels = 340; //354

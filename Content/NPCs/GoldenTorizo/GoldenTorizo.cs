@@ -91,7 +91,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.GoldenTorizoBag>()));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-			notExpertRule.OnSuccess(ItemDropRule.Common(SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.ScrewAttack>()));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoMusicBox>(), 6));
 			npcLoot.Add(notExpertRule);
 		}

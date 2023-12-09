@@ -25,15 +25,22 @@ namespace MetroidMod.Common.Systems
 		internal static UserInterface mcUserInterface;
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
+		internal static UserInterface helmetUserInterface;
+		internal static UserInterface breastplateUserInterface;
+		internal static UserInterface reserveUserInterface;
 		internal static UserInterface visorUserInterface;
 		internal static UserInterface smUserInterface;
 
+		// bri'ish innit?
 		internal bool isPBInit = false;
 		internal bool isBCInit = false;
 		internal bool isMIInit = false;
 		internal bool isMCInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
+		internal bool isHELMInit = false;
+		internal bool isBREAInit = false;
+		internal bool isRESInit = false;
 		internal bool isVIInit = false;
 		internal bool isSMInit = false;
 
@@ -52,6 +59,9 @@ namespace MetroidMod.Common.Systems
 				mcUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
+				helmetUserInterface = new UserInterface();
+				breastplateUserInterface = new UserInterface();
+				reserveUserInterface = new UserInterface();
 				smUserInterface = new UserInterface();
 				visorUserInterface = new UserInterface();
 
@@ -85,6 +95,9 @@ namespace MetroidMod.Common.Systems
 			mcUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
+			helmetUserInterface = null;
+			breastplateUserInterface = null;
+			reserveUserInterface = null;
 			smUserInterface = null;
 			visorUserInterface = null;
 		}
@@ -101,9 +114,24 @@ namespace MetroidMod.Common.Systems
 				smUserInterface.SetState(new UI.SenseMoveUI());
 				isSMInit = true;
 			}
+			if (!isRESInit)
+			{
+				reserveUserInterface.SetState(new UI.SuitAddons.ReserveUI());
+				isRESInit = true;
+			}
+			if (!isBREAInit)
+			{
+				breastplateUserInterface.SetState(new UI.SuitAddons.BreastplateAddonsUI());
+				isBREAInit = true;
+			}
+			if (!isHELMInit)
+			{
+				helmetUserInterface.SetState(new UI.SuitAddons.HelmetAddonsUI());
+				isHELMInit = true;
+			}
 			if (!isSUInit)
 			{
-				suitUserInterface.SetState(new UI.SuitAddonsUI());
+				suitUserInterface.SetState(new UI.SuitAddonUI());
 				isSUInit = true;
 			}
 			if (!isMBInit)
@@ -139,7 +167,19 @@ namespace MetroidMod.Common.Systems
 			{
 				smUserInterface.Update(gameTime);
 			}
-			if (suitUserInterface != null && UI.SuitAddonsUI.Visible)
+			if (reserveUserInterface != null && UI.SuitAddons.ReserveUI.Visible)
+			{
+				reserveUserInterface.Update(gameTime);
+			}
+			if (breastplateUserInterface != null && UI.SuitAddons.BreastplateAddonsUI.Visible)
+			{
+				breastplateUserInterface.Update(gameTime);
+			}
+			if (helmetUserInterface != null && UI.SuitAddons.HelmetAddonsUI.Visible)
+			{
+				helmetUserInterface.Update(gameTime);
+			}
+			if (suitUserInterface != null && UI.SuitAddonUI.Visible)
 			{
 				suitUserInterface.Update(gameTime);
 			}
@@ -406,14 +446,52 @@ namespace MetroidMod.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidMod: Suit Addons UI",
+					"MetroidMod: Helmet Addons UI",
 					delegate {
-						if (UI.SuitAddonsUI.Visible)
+						if (UI.SuitAddons.HelmetAddonsUI.Visible)
+						{
+							if (Main.hasFocus) { helmetUserInterface.Recalculate(); }
+							helmetUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Breastplate Addons UI",
+					delegate {
+						if (UI.SuitAddons.BreastplateAddonsUI.Visible)
+						{
+							if (Main.hasFocus) { breastplateUserInterface.Recalculate(); }
+							breastplateUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Reserve UI",
+					delegate {
+						if (UI.SuitAddons.ReserveUI.Visible)
+						{
+							if (Main.hasFocus) { reserveUserInterface.Recalculate(); }
+							reserveUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Suit Addon UI",
+					delegate {
+						if (UI.SuitAddonUI.Visible)
 						{
 							if (Main.hasFocus) { suitUserInterface.Recalculate(); }
 							suitUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
-
 						return true;
 					},
 					InterfaceScaleType.UI)

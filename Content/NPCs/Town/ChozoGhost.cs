@@ -165,7 +165,7 @@ namespace MetroidMod.Content.NPCs.Town
 				" \n" +
 				"Objective: Craft a Varia Suit using Hellstone Bars and equip it";
 			}
-			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons[SuitAddonSlotID.Suit_Varia] == SuitAddonLoader.GetAddon<VariaSuitAddon>().Item)
+			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons[SuitAddonSlotID.Suit_Barrier] == SuitAddonLoader.GetAddon<VariaSuitAddon>().Item)
 			{
 				chat = "You are now ready for your next challenge. Go to the Dungeon and free the old man there of his curse, " +
 				"then you will gain entry to the Dungeon. Many spoils await you inside that will help you on your journey." +

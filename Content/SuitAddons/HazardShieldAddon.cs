@@ -3,10 +3,11 @@ using Terraria;
 using Terraria.ID;
 using MetroidMod.Common.Players;
 using MetroidMod.ID;
+using MetroidMod.Content.Tiles;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	internal class HazardShieldAddon : ModSuitAddon
+	public class HazardShieldAddon : ModSuitAddon
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitItem";
 
@@ -18,24 +19,37 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_Arms_Glow";
 
+		public override string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_Shoulders_Glow";
+
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitGreaves_Legs";
 
+		public override string OnShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OnShoulder";
+
+		public override string OffShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OffShoulder";
+
 		public override bool AddOnlyAddonItem => false;
+
+		public override bool CanGenerateOnChozoStatue(int x, int y) => false;//WorldGen.drunkWorldGen;
+
+		public override double GenerationChance(int x, int y) => 20;
 
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Hazard Shield");
-			/* Tooltip.SetDefault("You shouldn't have this."/*"+10 defense\n" +
-				"+15 overheat capacity\n" +
-				"5% decreased overheat use\n" +
-				"5% decreased Missile Charge Combo cost\n" +
-				"5% increased hunter damage\n" +
-				"5% increased hunter critical strike chance\n" +
-				"10% increased movement speed\n" +
-				"25% increased energy barrier efficiency\n" + // Provisional name
-				"10% increased energy barrier resilience\n" + // Provisional name
-				"Debuffs tick down twice as fast"); */
-			AddonSlot = SuitAddonSlotID.Suit_Augment;
+			/* Tooltip.SetDefault("You shouldn't have this."/*"+25 defense\n" +
+				"+45 overheat capacity\n" +
+				"20% decreased overheat use\n" +
+				"15% decreased Missile Charge Combo cost\n" +
+				"15% increased hunter damage\n" +
+				"12% increased hunter critical strike chance\n" +
+				"80% increased underwater breathing\n" +
+				"20% increased movement speed\n" +
+				"45% increased energy barrier efficiency\n" + // Provisional name
+				"47.5% increased energy barrier resilience\n" + // Provisional name
+				"Immunity to fire blocks" + "\n" +
+				"Immunity to chill and freeze effects"
+				"Debuffs tick down twice as fast");*/
+			AddonSlot = SuitAddonSlotID.Suit_Barrier;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
@@ -47,22 +61,48 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.statDefense += 10;
-			player.moveSpeed += 0.10f;
+			player.statDefense += 25;
+			player.nightVision = true;
+			player.fireWalk = true;
+			player.buffImmune[BuffID.OnFire] = true;
+			player.buffImmune[BuffID.Burning] = true;
+			player.buffImmune[BuffID.Chilled] = true;
+			player.buffImmune[BuffID.Frozen] = true;
+			player.moveSpeed += 0.20f;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
-			HunterDamagePlayer.ModPlayer(player).HunterCrit += 5;
-			mp.phazonRegen = 4;
-			mp.maxOverheat += 15;
-			mp.overheatCost -= 0.05f;
-			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.25f;
-			mp.EnergyExpenseEfficiency += 0.10f;
-			mp.hazardShield = 1;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.15f;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += 12;
+			mp.maxOverheat += 45;
+			mp.overheatCost -= 0.2f;
+			mp.missileCost -= 0.15f;
+			mp.breathMult = 1.8f;
+			mp.EnergyDefenseEfficiency += 0.45f;
+			mp.EnergyExpenseEfficiency += 0.475f;
+			mp.hazardShield += 1;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{
-			player.GetModPlayer<MPlayer>().visorGlowColor = new Color(0, 228, 255);
+			if (player.TryGetModPlayer(out MPlayer mp))
+			{
+				mp.visorGlowColor = new Color(0, 228, 255);
+				int primaryType = MPlayer.GetPowerSuit(player)[0].Type;
+				if (!(primaryType == SuitAddonLoader.GetAddon<VortexAugment>().Type
+					|| primaryType == SuitAddonLoader.GetAddon<NebulaAugment>().Type
+					|| primaryType == SuitAddonLoader.GetAddon<SolarAugment>().Type))
+				{
+					ShouldOverrideShoulders = true;
+				}
+			}
 		}
+		/* Implement a recipe?
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddSuitAddon<VariaSuitV2Addon>(1)
+				.AddRecipeGroup(ItemID.ShroomiteBar, 60)
+				.AddTile<NovaWorkTableTile>()
+				.Register();
+		}
+		*/
 	}
 }

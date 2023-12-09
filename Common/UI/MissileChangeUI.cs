@@ -23,6 +23,7 @@ using MetroidMod.Content.Items.Addons.Hunters;
 using MetroidMod.Content.Items.Addons.V2;
 using MetroidMod.Content.Items.Addons.V3;
 using MetroidMod.Content.Items.Addons;
+using MetroidMod.Common.Configs;
 
 namespace MetroidMod.Common.UI
 {
@@ -114,7 +115,7 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
-			enabled = MetroidMod.DragablePowerBeamUI;
+			enabled = MConfigClient.Instance.MissileLauncher.enabled;
 			if (!enabled)
 			{
 				Left.Pixels = 160;

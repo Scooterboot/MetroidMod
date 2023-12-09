@@ -18,6 +18,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/DarkSuit/DarkSuitBreastplate_Arms_Glow";
 
+		public override string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/DarkSuit/DarkSuitBreastplate_Shoulders_Glow";
+
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/DarkSuit/DarkSuitGreaves_Legs";
 
 		public override bool AddOnlyAddonItem => false;
@@ -34,7 +36,7 @@ namespace MetroidMod.Content.SuitAddons
 				"15% increased energy barrier efficiency\n" + // Provisional name
 				"7.5% increased energy barrier resilience\n" + // Provisional name
 				"Reduces damage from the Dark World");*/
-			AddonSlot = SuitAddonSlotID.Suit_Utility;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)

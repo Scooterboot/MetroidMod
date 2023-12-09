@@ -29,17 +29,23 @@ namespace MetroidMod.Content.SuitAddons
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Nebula Augment");
-			/* Tooltip.SetDefault("+10 defense\n" +
-				"+25 overheat capacity\n" +
-				"5% decreased overheat use\n" +
-				"5% decreased Missile Charge Combo cost\n" +
-				"5% increased hunter damage\n" +
-				"5% increased hunter critical strike chance\n" +
-				"30% increased energy barrier efficiency\n" + // Provisional name
-				"20% increased energy barrier resilience\n" // Provisional name
-				); */
+			/* Tooltip.SetDefault("+29 defense\n" +
+				"+55 overheat capacity\n" +
+				"15% decreased overheat use\n" +
+				"15% decreased Missile Charge Combo cost\n" +
+				"15% increased hunter damage\n" +
+				"13% increased hunter critical strike chance\n" +
+				"10% increased movement speed\n" +
+				"60% increased energy barrier efficiency\n" + // Provisional name
+				"37.5% increased energy barrier resilience\n" + // Provisional name
+				"Infinite breath underwater\n" +
+				"Immune to knockback\n" +
+				"Free movement in liquid\n" +
+				"Grants 7 seconds of lava immunity\n" +
+				"Immune to damage caused by blue Phazon blocks\n" +
+				"Enables Phazon Beam use");*/
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<VortexAugment>().ItemType;
-			AddonSlot = SuitAddonSlotID.Suit_LunarAugment;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
 		}
 		public override void SetItemDefaults(Item item)
@@ -51,15 +57,25 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.statDefense += 10;
+			player.statDefense += 29;
+			player.noKnockback = true;
+			player.ignoreWater = true;
+			if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
+			{
+				player.gills = true;
+			}
+			player.lavaMax += 420; // blaze it
+			player.moveSpeed += 0.10f;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
-			HunterDamagePlayer.ModPlayer(player).HunterCrit += 5;
-			mp.maxOverheat += 25;
-			mp.overheatCost -= 0.05f;
-			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.30f;
-			mp.EnergyExpenseEfficiency += 0.20f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.15f;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += 13;
+			mp.maxOverheat += 55;
+			mp.overheatCost -= 0.15f;
+			mp.missileCost -= 0.15f;
+			mp.EnergyDefenseEfficiency += 0.60f;
+			mp.EnergyExpenseEfficiency += 0.375f;
+			mp.phazonImmune = true;
+			mp.canUsePhazonBeam = true;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{
@@ -75,6 +91,7 @@ namespace MetroidMod.Content.SuitAddons
 			CreateRecipe(1)
 				.AddIngredient(ItemID.LunarBar, 36)
 				.AddIngredient(ItemID.FragmentNebula, 45)
+				.AddSuitAddon<PhazonSuitAddon>(1)
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}

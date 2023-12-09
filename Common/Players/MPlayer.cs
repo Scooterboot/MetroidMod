@@ -187,12 +187,10 @@ namespace MetroidMod.Common.Players
 
 			if (hazardShield > 0)
 			{
-				List<int> debuffList = new() { 20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197 };
-
 				for (int k = 0; k < P.buffType.Length; k++)
 				{
 					int buff = P.buffType[k];
-					if (debuffList.Contains(buff))
+					if (MetroidMod.hazardShieldDebuffList.Contains(buff))
 					{
 						P.buffTime[k] = Math.Max(P.buffTime[k] - hazardShield, 0);
 					}

@@ -136,6 +136,20 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(10)]
 		public int stackEnergyTank;
+
+		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack")]
+		[Range(1, 10)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(4)]
+		public int stackReserveTank;
+
+		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity")]
+		[Range(20, 200)]
+		[Increment(20)]
+		[Slider]
+		[DefaultValue(100)]
+		public int reserveTankStoreCount;
 		
 		//[Label("[i:MetroidMod/PowerGripAddon] Ledge Climb without Power Suit")]
 		//[Tooltip("When enabled, lacking the Power Suit Breastplate will automatically grant you Ledge Climb,\njust like in Metroid: Zero Mission.")]

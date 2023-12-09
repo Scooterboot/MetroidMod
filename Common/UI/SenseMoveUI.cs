@@ -13,6 +13,7 @@ using Terraria.GameContent.UI.Elements;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items;
 using MetroidMod.Content.Items.Armors;
+using MetroidMod.Common.Configs;
 
 namespace MetroidMod.Common.UI
 {
@@ -51,9 +52,8 @@ namespace MetroidMod.Common.UI
 			this.SetPadding(0);
 			this.Width.Pixels = buttonTex.Width;
 			this.Height.Pixels = buttonTex.Height;
-			this.Left.Pixels = Main.screenWidth - 600;
+			this.Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 240 : 200);
 			this.Top.Pixels = 300;
-			enabled = MetroidMod.DragableSenseMoveUI;
 
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
@@ -62,14 +62,14 @@ namespace MetroidMod.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidMod.DragableSenseMoveUI;
+			enabled = MConfigClient.Instance.SenseMove.enabled;
 			if (base.IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			if (!enabled)
+			if (!enabled && MConfigClient.Instance.SenseMove.auto)
 			{
-				this.Left.Pixels = Main.screenWidth - 600;
+				this.Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 240 : 200);
 				this.Top.Pixels = 300;
 				if (!Main.mapFullscreen && Main.mapStyle == 1)
 				{

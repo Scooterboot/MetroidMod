@@ -46,7 +46,18 @@ namespace MetroidMod
 
 		public virtual string ArmorTextureHead { get; }
 		public virtual string ArmorTextureTorso { get; }
+		/// <summary>
+		/// Main visible shoulder texture location. <br />
+		/// Only used by Barrier addons.
+		/// </summary>
+		public virtual string OnShoulderTexture { get; }
+		/// <summary>
+		/// Semi-hidden visible shoulder texture location. <br />
+		/// Only used by Barrier addons.
+		/// </summary>
+		public virtual string OffShoulderTexture { get; }
 		public virtual string ArmorTextureArmsGlow { get; }
+		public virtual string ArmorTextureShouldersGlow { get; }
 		public virtual string ArmorTextureLegs { get; }
 
 		public abstract string TileTexture { get; }
@@ -74,6 +85,11 @@ namespace MetroidMod
 		public int SacrificeTotal { get; set; } = 1;
 
 		public bool ItemNameLiteral { get; set; } = true;
+
+		/// <summary>
+		/// Used for Barrier addons. Set to true if the suit should override the shoulders of the Primary addon.
+		/// </summary>
+		public bool ShouldOverrideShoulders { get; set; } = false;
 
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
 		internal bool IsArmor => ArmorTextureHead != null && ArmorTextureHead != "" && ArmorTextureTorso != null && ArmorTextureTorso != "" && ArmorTextureLegs != null && ArmorTextureLegs != "";

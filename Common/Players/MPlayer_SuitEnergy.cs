@@ -47,7 +47,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The maximum possible reserve energy the player can have.
 		/// </summary>
-		public int MaxSuitReserves => SuitReserveTanks * 100 + AdditionalMaxReserves;
+		public int MaxSuitReserves => SuitReserveTanks * Configs.MConfigItems.Instance.reserveTankStoreCount + AdditionalMaxReserves;
 		public int AdditionalMaxReserves = 0;
 		/// <summary>
 		/// The amount of energy the player has in reserves.
@@ -108,12 +108,9 @@ namespace MetroidMod.Common.Players
 		}
 		public void PostHurt_SuitEnergy(Player.HurtInfo info)
 		{
-			Mod.Logger.Info(info.SourceDamage);
 			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
 			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
-			Mod.Logger.Info(energyDamage);
 			Energy = Math.Max(1, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
-			Mod.Logger.Info(Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
 			if (info.Damage <= 1)
 			{
 				//info.Damage = 0;

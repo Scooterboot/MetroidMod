@@ -2,6 +2,7 @@
 using Terraria.ID;
 using MetroidMod.Common.Players;
 using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.SuitAddons
@@ -41,7 +42,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Immune to knockback\n" +
 				"Free movement in liquid\n" +
 				"Grants 7 seconds of lava immunity"); */
-			AddonSlot = SuitAddonSlotID.Suit_Utility;
+			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
@@ -70,6 +71,10 @@ namespace MetroidMod.Content.SuitAddons
 			{
 				player.gills = true;
 			}
+		}
+		public override void OnUpdateVanitySet(Player player)
+		{
+			player.GetModPlayer<MPlayer>().visorGlowColor = new Color(0, 248, 112);
 		}
 		public override void AddRecipes()
 		{

@@ -5,12 +5,14 @@ using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("PowerGripAddon")]
 	public class PowerGrip : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Power Grip");
-			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");//"Allows the user to grab onto ledges\n" + "Does not need to be equipped; works while in inventory");
+			//DisplayName.SetDefault("Power Grip");
+			//Tooltip.SetDefault("Allows the user to grab onto ledges\n" + "Does not need to be equipped; works while in inventory");
 
 			Item.ResearchUnlockCount = 1;
 		}
@@ -28,7 +30,7 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.PowerGripTile>();
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.PowerGripTile>();
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
@@ -45,7 +47,6 @@ namespace MetroidMod.Content.Items.Accessories
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.powerGrip = true;
 		}
-		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -53,14 +54,6 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient(ItemID.Sapphire, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
-		*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.PowerGrip>().ItemType);
 		}
 	}
 }
