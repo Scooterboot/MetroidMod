@@ -89,8 +89,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				P.stopsDealingDamageAfterPenetrateHits = true;
 			}
 			mProjectile.WaveBehavior(P);
-			range = (GetDepth(meep) * 16) + 6f;
-            distance = (GetDepth(meep) * 16) + 6f;
+			range = (GetDepth(meep) * 16) + 32f;
+            distance = (GetDepth(meep) * 16) + 32f;
 
             oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
