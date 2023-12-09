@@ -166,7 +166,7 @@ namespace MetroidMod.Content.Projectiles
 		public int waveDir = -1;
 		public float wavesPerSecond = 0f;
 		public float amplitude = 0f;
-		public int waveDepth = 8;
+		public int waveDepth = 4;
 		float t = 0f;
 		float t2 = 0f;
 		Vector2 pos = new Vector2(0,0);
