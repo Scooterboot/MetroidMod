@@ -2477,7 +2477,6 @@ Mods: {
 					'''
 					Increases jump height
 					Does not stack with other jump accessories
-					Slot: Boots
 					''' */
 			}
 
@@ -2572,7 +2571,6 @@ Mods: {
 					'''
 					Allows the user to grab onto ledges
 					Does not need to be equipped; works while in inventory
-					Slot: Hand
 					''' */
 			}
 
@@ -2595,7 +2593,6 @@ Mods: {
 					Damage enemies while someraulting
 					Damage scales off of enemy's contact damage
 					Hold Left/Right and double jump to do a 'boost' ability
-					Slot: Attack
 					''' */
 			}
 
@@ -2627,7 +2624,6 @@ Mods: {
 					Allows the user to jump up to 10 times in a row
 					Jumps recharge mid-air
 					Increases jump height and prevents fall damage
-					Slot: Jump
 					''' */
 			}
 
@@ -2637,7 +2633,6 @@ Mods: {
 					'''
 					Allows the wearer to double jump
 					Allows somersaulting
-					Slot: Jump
 					"WHATARETHOOSE"
 					''' */
 			}
@@ -2651,7 +2646,6 @@ Mods: {
 					Damage scales off of enemy's contact damage
 					While active, press DOWN to charge a Shine Spark
 					Then press JUMP to activate the charge
-					Slot: Speed Augmentatio       n
 					''' */
 			}
 
@@ -2695,7 +2689,7 @@ Mods: {
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
-					Slot: Varia
+					Slot: Barrier
 					''' */
 			}
 
@@ -2716,7 +2710,7 @@ Mods: {
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
-					Slot: Varia
+					Slot: Barrier
 					''' */
 			}
 
