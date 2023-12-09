@@ -173,7 +173,7 @@ namespace MetroidMod.Common.Players
 			for (int i = 0; i < msa.Length; i++)
 			{
 				if (msa[i] == null) { continue; }
-				if (i == 0 || msa[i].ShouldOverrideShoulders | msa[0].ArmorTextureShouldersGlow == null)
+				if (i == 0 || msa[i].ShouldOverrideShoulders || msa[0] == null || msa[0].ArmorTextureShouldersGlow == null)
 				{
 					string temp = msa[i].ArmorTextureShouldersGlow;
 					if (temp != "" && temp != null)
