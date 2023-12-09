@@ -39,10 +39,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 		NPC target;
 
-        const float Max_Range = 250f;
+        /*const float Max_Range = 250f;
         float range = Max_Range;
         const float Max_Distance = 250f;
-        float distance = Max_Distance;
+        float distance = Max_Distance;*/
 
         Vector2 oPos;
         Vector2 mousePos;
@@ -90,8 +90,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 			mProjectile.WaveBehavior(P);
 
-			range = (GetDepth(meep) * 16) + 48f;
-            distance = (GetDepth(meep) * 16) + 48f;
+			float range = (GetDepth(meep) * 16) + 48f;
+            float distance = (GetDepth(meep) * 16) + 48f;
 
             oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
@@ -286,6 +286,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			SpriteBatch sb = Main.spriteBatch;
 			Projectile P = Projectile;
+			MProjectile meep = mProjectile;
 			Color color = MetroidMod.powColor;
 			Player O = Main.player[Projectile.owner];
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
@@ -293,6 +294,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			int y4 = num108 * P.frame;
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			P.scale = .8f;
+			float range = (GetDepth(meep) * 16) + 48f;
 			if (O.controlUseItem && !O.dead)
 			{
 
@@ -335,8 +337,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					}
 
 					pos[i] = Lead.Center + targetrot.ToRotationVector2() * (dist / num) * i;
-					pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
-					pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
+					pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(oPos, P.Center) / range);
+					pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(oPos, P.Center) / range);
 
 					float rot = (float)Math.Atan2(pos[i].Y - Lead.Center.Y, pos[i].X - Lead.Center.X + (float)Math.PI / 2);
 					if (i > 0)
@@ -374,14 +376,14 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			MPlayer mp = O.GetModPlayer<MPlayer>();
 			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			int shots = held.shocky;
-			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge));
+			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge) * (O.statLife / O.statLifeMax2));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
 			float ranges = maxDamage - minDamage;
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
-			mp.statOverheat += (int)mp.overheatCost / shots;
-			if(mp.Energy < mp.MaxEnergy && !target2.TypeName.Contains("Dummy") && O.statLife >= O.statLifeMax2)
+			mp.statOverheat += mp.overheatCost / shots;
+			if(mp.Energy < mp.MaxEnergy && !target2.TypeName.Contains("Dummy") && !O.immune)
 			{
 				if(heal > mp.MaxEnergy - mp.Energy)
 				{
@@ -402,7 +404,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				/*int healingAmount = Math.Min(damageDone / 20, 5);
 				p.statLife += healingAmount;
 				p.HealEffect(healingAmount, true);*/
-				/*mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
+			/*mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
 			}*/
 			base.OnHitNPC(target2, hit, damageDone);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
