@@ -427,7 +427,6 @@ Mods: {
 					Allows the user to jump up to 10 times in a row 
 					Jumps recharge mid-air
 					Increases jump height and prevents fall damage
-					Slot: Jump
 					''' */
 			}
 
@@ -438,7 +437,6 @@ Mods: {
 					Allows the wearer to double jump 
 					Allows somersaulting
 					Increases jump height
-					Slot: Jump
 					''' */
 			}
 
@@ -2765,8 +2763,7 @@ Mods: {
 					Provides the ability to walk on water and lava 
 					Grants immunity to fire blocks and 7 seconds lava immunity
 					Increases jump height and prevents fall damage
-					Grants infinite wing and rocket boot flight
-					Increases flight and jump mobility
+					Grants faster jumps
 					''' */
 			}
 

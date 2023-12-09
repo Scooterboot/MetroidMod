@@ -19,6 +19,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_Arms_Glow";
 
+		public override string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_Shoulders_Glow";
+
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitGreaves_Legs";
 
 		public override string OnShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OnShoulder";
@@ -80,7 +82,17 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{
-			player.GetModPlayer<MPlayer>().visorGlowColor = new Color(0, 228, 255);
+			if (player.TryGetModPlayer(out MPlayer mp))
+			{
+				mp.visorGlowColor = new Color(0, 228, 255);
+				int primaryType = MPlayer.GetPowerSuit(player)[0].Type;
+				if (!(primaryType == SuitAddonLoader.GetAddon<VortexAugment>().Type
+					|| primaryType == SuitAddonLoader.GetAddon<NebulaAugment>().Type
+					|| primaryType == SuitAddonLoader.GetAddon<SolarAugment>().Type))
+				{
+					ShouldOverrideShoulders = true;
+				}
+			}
 		}
 		/* Implement a recipe?
 		public override void AddRecipes()

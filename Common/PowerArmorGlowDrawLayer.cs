@@ -173,6 +173,24 @@ namespace MetroidMod.Common
 
 		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.HandOnAcc);
 	}
+	internal class PAShouldersGlow : PowerArmorGlowLayer
+	{
+		private static Asset<Texture2D> _glowTexture;
+
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
+
+		public override DrawDataInfo GetData(PlayerDrawSet info)
+		{
+			_glowTexture = MPlayer.GetShouldersGlow(info);
+			shader = info.cBody;
+			color = info.colorArmorBody;
+
+			return GetBodyDrawDataInfo(info, _glowTexture.Value);
+		}
+
+		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.HandOnAcc);
+	}
 	internal class PAGreavesGlow : PowerArmorGlowLayer
 	{
 		private static Asset<Texture2D> _glowTexture;

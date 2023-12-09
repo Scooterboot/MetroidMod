@@ -166,6 +166,24 @@ namespace MetroidMod.Common.Players
 
 			return ModContent.Request<Texture2D>(tex);
 		}
+		public static Asset<Texture2D> GetShouldersGlow(PlayerDrawSet info)
+		{
+			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Arms_Glow";
+			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
+			for (int i = 0; i < msa.Length; i++)
+			{
+				if (msa[i] == null) { continue; }
+				if (i == 0 || msa[i].ShouldOverrideShoulders | msa[0].ArmorTextureShouldersGlow == null)
+				{
+					string temp = msa[i].ArmorTextureShouldersGlow;
+					if (temp != "" && temp != null)
+					{
+						tex = temp;
+					}
+				}
+			}
+			return ModContent.Request<Texture2D>(tex);
+		}
 		public static int GetGreaves(Player player)
 		{
 			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitGreaves), EquipType.Legs);
