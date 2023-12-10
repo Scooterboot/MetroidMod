@@ -31,7 +31,6 @@ namespace MetroidMod.Default
 			Item.maxStack = 1;
 			Item.width = Main.netMode == NetmodeID.Server ? 32 : ModContent.Request<Texture2D>(Texture).Value.Width;
 			Item.height = Main.netMode == NetmodeID.Server ? 32 : ModContent.Request<Texture2D>(Texture).Value.Height;
-			modSuitAddon.Item = Item;
 			modSuitAddon.SetItemDefaults(Item);
 			modSuitAddon.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;

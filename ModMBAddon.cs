@@ -27,7 +27,7 @@ namespace MetroidMod
 		/// <summary>
 		/// The <see cref="Item"/> this addon controls.
 		/// </summary>
-		public Item Item;
+		public Item Item => ModItem.Item;
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
 
@@ -90,7 +90,6 @@ namespace MetroidMod
 			ModTile.Unload();
 			ModItem = null;
 			ModTile = null;
-			Item = null;
 			base.Unload();
 		}
 		protected override sealed void Register()
