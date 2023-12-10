@@ -7,7 +7,7 @@ namespace MetroidMod.Content.Walls
 {
 	public class TourianWallNatural : ModWall
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Walls/NorfairBrickWall";
+		public override string Texture => $"{nameof(MetroidMod)}/Content/Walls/TourianWall";
 		public override void SetStaticDefaults()
 		{
 			DustType = 87;
