@@ -2830,6 +2830,31 @@ Mods: {
 				DisplayName: Vanity Fusion Varia Suit Helmet
 				Tooltip: ""
 			}
+
+			TropicPlating1: {
+				DisplayName: Tropic Plating
+				Tooltip: Name pending
+			}
+
+			TropicPlating2: {
+				DisplayName: Slightly Overgrown Tropic Plating
+				Tooltip: Name pending
+			}
+
+			TropicPlating3: {
+				DisplayName: Somewhat Overgrown Tropic Plating
+				Tooltip: Name pending
+			}
+
+			TropicPlating4: {
+				DisplayName: Very Overgrown Tropic Plating
+				Tooltip: Name pending
+			}
+
+			TropicPlating5: {
+				DisplayName: Dangerously Overgrown Tropic Plating
+				Tooltip: Name pending
+			}
 		}
 
 		NPCs: {
