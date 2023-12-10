@@ -3398,11 +3398,6 @@ Mods: {
 					Tooltip: ""
 				}
 
-				GreavesAddons: {
-					Label: Greaves Addons
-					Tooltip: ""
-				}
-
 				Reserves: {
 					Label: Reserves
 					Tooltip: ""

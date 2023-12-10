@@ -67,8 +67,6 @@ namespace MetroidMod.Common.Configs
 		public DragablePanelPage HelmetAddons = new();
 		//[Label("Breastplate Addons")]
 		public DragablePanelPage BreastplateAddons = new();
-		//[Label("Greaves Addons")]
-		public DragablePanelPage GreavesAddons = new();
 		//[Label("Reserves Menu")]
 		public DragablePanelPage Reserves = new();
 		//[Label("Charge Somersault (Psuedo Screw Attack)")]
