@@ -253,7 +253,7 @@ namespace MetroidMod.Content.Projectiles
 				P.position.X = pos.X + (float)Math.Cos(rot+((float)Math.PI/2))*shift;
 				P.position.Y = pos.Y + (float)Math.Sin(rot+((float)Math.PI/2))*shift;
 				
-				if(!P.tileCollide && !P.Name.Contains("Hyper"))
+				if(!P.tileCollide && !P.Name.Contains("Hyper") || P.type == ModContent.ProjectileType<ImperialistShot>())
 				{				
 					string S  = PowerBeam.SetCondition();
 					waveDepth = 4;

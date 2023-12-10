@@ -133,7 +133,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			for (P.ai[1] = 0f; P.ai[1] <= Max_Range; P.ai[1] += 4f)
 			{
 				Vector2 end = P.Center + P.velocity * P.ai[1];
-				Vector2 trueEnd = end + P.velocity * GetDepth(meep) * P.ai[1] * 4f;
+				Vector2 trueEnd = end + P.velocity * GetDepth(meep) * P.ai[1] * 8f;
 				if (CollideMethods.CheckCollide(trueEnd, 0, 0))
 				{
 					P.ai[1] -= 4f;
