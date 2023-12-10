@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Projectiles
 		{
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			Projectile.position.X = P.position.X;
+			Projectile.position.X = P.Center.X - 5;
 			Projectile.position.Y = P.position.Y -Projectile.gfxOffY;
 			Projectile.velocity = P.velocity;
 			Projectile.velocity.Normalize();
