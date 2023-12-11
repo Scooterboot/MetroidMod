@@ -304,8 +304,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Increases jump height
-					Stacks with other jump height accessories
-					Does not stack with frog leg
+					Does not stack with other jump accessories
 					''' */
 			}
 
