@@ -75,6 +75,12 @@ namespace MetroidMod
 		public virtual SoundStyle? VisorBackgroundNoise => null;
 
 		/// <summary>
+		/// The Filter Name to be used when the visor is in use <br />
+		/// Note: This is only used for Visors, such as the Dark Visor.
+		/// </summary>
+		public virtual string VisorShaderFilterName { get; }
+
+		/// <summary>
 		/// The Color to set the hud to when the visor is in use. <br />
 		/// Note: This is only used for Visors.
 		/// </summary>

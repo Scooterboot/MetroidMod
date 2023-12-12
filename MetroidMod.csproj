@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Music\" />
-    <Folder Include="Assets\Effects\" />
     <Folder Include="Assets\Sounds\" />
     <Folder Include="Assets\Textures\MissileAddons\" />
     <Folder Include="Assets\Textures\SuitAddons\EnergyTank\" />

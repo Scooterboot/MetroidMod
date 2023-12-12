@@ -46,6 +46,8 @@ namespace MetroidMod.Common.Systems
 
 		internal bool isVisorBGAudioPlaying = false;
 		internal ActiveSound VisorBGAudio;
+		internal bool isScreenShaderActive = false;
+		internal string VisorScreenShader;
 		internal int oldVisorID = -1;
 
 		public override void Load()
@@ -285,15 +287,28 @@ namespace MetroidMod.Common.Systems
 				if (SuitAddonLoader.TryGetAddon(mp.VisorInUse, out ModSuitAddon addon))
 				{
 					addon.DrawVisor(P);
-					if (addon.Type != oldVisorID && isVisorBGAudioPlaying)
+					if (addon.Type != oldVisorID)
 					{
-						VisorBGAudio.Sound.Stop(true);
-						isVisorBGAudioPlaying = false;
+						if (isVisorBGAudioPlaying)
+						{
+							VisorBGAudio.Sound.Stop(true);
+							isVisorBGAudioPlaying = false;
+						}
+						if (SuitAddonLoader.TryGetAddon(oldVisorID, out ModSuitAddon old) && old.VisorShaderFilterName != null)
+						{
+							Filters.Scene[old.VisorShaderFilterName].Deactivate();
+							isScreenShaderActive = false;
+						}
 					}
 					if (addon.VisorBackgroundNoise != null && !isVisorBGAudioPlaying)
 					{
 						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound((SoundStyle)addon.VisorBackgroundNoise), out VisorBGAudio);
 						isVisorBGAudioPlaying = true;
+					}
+					if (addon.VisorShaderFilterName != null && !isScreenShaderActive)
+					{
+						Filters.Scene.Activate(addon.VisorShaderFilterName);
+						isScreenShaderActive = true;
 					}
 					oldVisorID = addon.Type;
 				}
@@ -303,6 +318,11 @@ namespace MetroidMod.Common.Systems
 					{
 						VisorBGAudio.Sound.Stop(true);
 						isVisorBGAudioPlaying = false;
+					}
+					if (isScreenShaderActive && SuitAddonLoader.TryGetAddon(oldVisorID, out ModSuitAddon old) && old.VisorShaderFilterName != null)
+					{
+						Filters.Scene[old.VisorShaderFilterName].Deactivate();
+						isScreenShaderActive = false;
 					}
 				}
 				//Filters.Scene.Activate("FilterName");

@@ -91,6 +91,8 @@ namespace MetroidMod
 
 			DebugDH = false;
 
+			MetroidShaders.LoadShaders();
+
 			if (!Main.dedServ)
 			{
 				MusicLoader.AddMusicBox(this, MusicLoader.GetMusicSlot(this, "Assets/Music/Serris"), ModContent.ItemType<Content.Items.Tiles.SerrisMusicBox>(), ModContent.TileType<Content.Tiles.SerrisMusicBox>());

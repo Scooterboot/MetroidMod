@@ -97,6 +97,7 @@ Mods: {
 			VariaSuitV2Addon: Mods.MetroidMod.SuitAddonName.VariaSuitV2Addon
 			VortexAugment: Mods.MetroidMod.SuitAddonName.VortexAugment
 			XRayScope: Mods.MetroidMod.SuitAddonName.XRayScope
+			DarkVisor: Mods.MetroidMod.SuitAddonName.DarkVisor
 		}
 
 		SuitAddonTooltip: {
@@ -141,6 +142,7 @@ Mods: {
 			VariaSuitV2Addon: Mods.MetroidMod.SuitAddonTooltip.VariaSuitV2Addon
 			VortexAugment: Mods.MetroidMod.SuitAddonTooltip.VortexAugment
 			XRayScope: Mods.MetroidMod.SuitAddonTooltip.XRayScope
+			DarkVisor: Mods.MetroidMod.SuitAddonTooltip.DarkVisor
 		}
 
 		Biomes: {
@@ -2882,6 +2884,11 @@ Mods: {
 
 			TourianBag: {
 				DisplayName: Tourian Bag
+				Tooltip: ""
+			}
+
+			DarkVisorAddon: {
+				DisplayName: Dark Visor Addon
 				Tooltip: ""
 			}
 		}
