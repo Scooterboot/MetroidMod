@@ -2854,6 +2854,36 @@ Mods: {
 				DisplayName: Dangerously Overgrown Tropic Plating
 				Tooltip: Name pending
 			}
+
+			BrinstarBag: {
+				DisplayName: Brinstar Bag
+				Tooltip: ""
+			}
+
+			ChozoRuinsBag: {
+				DisplayName: Chozo Ruins Bag
+				Tooltip: ""
+			}
+
+			NorfairBag: {
+				DisplayName: Norfair Bag
+				Tooltip: ""
+			}
+
+			Sector2TropicBag: {
+				DisplayName: Sector 2 (TRO) Bag
+				Tooltip: ""
+			}
+
+			Sector5ArcticBag: {
+				DisplayName: Sector 5 (ARC) Bag
+				Tooltip: ""
+			}
+
+			TourianBag: {
+				DisplayName: Tourian Bag
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

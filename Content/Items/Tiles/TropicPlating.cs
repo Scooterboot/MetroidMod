@@ -24,6 +24,19 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.TropicPlating1>();
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(25)
+				.AddIngredient(ItemID.GreenBrick, 25)
+				.AddIngredient(ItemID.Emerald, 1)
+				.AddTile(TileID.Furnaces)
+				.Register();
+			CreateRecipe(25)
+				.AddIngredient(ItemID.GreenStucco, 25)
+				.AddIngredient(ItemID.Emerald, 1)
+				.AddTile(TileID.Furnaces)
+				.Register();
+		}
 	}
 	public class TropicPlating2 : ModItem
 	{
