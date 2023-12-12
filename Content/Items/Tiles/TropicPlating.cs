@@ -8,6 +8,7 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TropicPlating2>();
 			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
@@ -28,6 +29,7 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TropicPlating3>();
 			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
@@ -48,6 +50,7 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TropicPlating4>();
 			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
@@ -68,6 +71,7 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TropicPlating5>();
 			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
@@ -88,6 +92,7 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TropicPlating1>();
 			Item.ResearchUnlockCount = 100;
 		}
 		public override void SetDefaults()
