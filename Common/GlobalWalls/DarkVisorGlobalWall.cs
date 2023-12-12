@@ -14,7 +14,7 @@ namespace MetroidMod.Common.GlobalWalls
 				SuitAddonLoader.TryGetAddon<Content.SuitAddons.DarkVisor>(out ModSuitAddon darkVisor) &&
 				mp.VisorInUse == darkVisor.Type)
 			{
-				if (!Main.tile[i, j].HasTile)
+				if (!Main.tile[i, j].HasTile || !Main.tileSolid[Main.tile[i, j].TileType] || TileID.Sets.DrawsWalls[Main.tile[i, j].TileType])
 				{
 					r = MathHelper.Clamp(r + 1f, 0f, 1f);
 					g = MathHelper.Clamp(g + 1f, 0f, 1f);
