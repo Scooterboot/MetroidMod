@@ -10,6 +10,10 @@ namespace MetroidMod.Content.Tiles
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating2>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating3>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating4>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating5>()] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileDungeon[Type] = true;
 
@@ -26,6 +30,10 @@ namespace MetroidMod.Content.Tiles
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating1>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating3>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating4>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating5>()] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileDungeon[Type] = true;
 
@@ -42,6 +50,10 @@ namespace MetroidMod.Content.Tiles
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating1>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating2>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating4>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating5>()] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileDungeon[Type] = true;
 
@@ -58,6 +70,10 @@ namespace MetroidMod.Content.Tiles
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating1>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating2>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating3>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating5>()] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileDungeon[Type] = true;
 
@@ -74,6 +90,10 @@ namespace MetroidMod.Content.Tiles
 		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating1>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating2>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating3>()] = true;
+			Main.tileMerge[Type][ModContent.TileType<TropicPlating4>()] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileDungeon[Type] = true;
 
