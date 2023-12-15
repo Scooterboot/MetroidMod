@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;

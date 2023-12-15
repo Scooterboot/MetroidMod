@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 6;

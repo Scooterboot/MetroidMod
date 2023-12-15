@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("ice"))
 			{
 				dustType = 135;

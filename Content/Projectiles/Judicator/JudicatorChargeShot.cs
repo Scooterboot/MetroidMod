@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.scale = 1f;
 			Projectile.timeLeft = 60;
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 9;
@@ -44,7 +44,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 
 		public override void AI()
 		{
-			string S = PowerBeam.SetCondition();
+			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);

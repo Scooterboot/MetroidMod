@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("stardust"))
 			{
 				dustType = 88;

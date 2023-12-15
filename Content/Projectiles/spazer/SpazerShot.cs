@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("ice") || Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
@@ -84,7 +84,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Shot";
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("wave"))
 			{
 				Projectile.tileCollide = false;

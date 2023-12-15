@@ -28,7 +28,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			mProjectile.delay = 0;
 			//Projectile.tileCollide = false;
 
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("green"))
 			{
 				Projectile.penetrate = 6;
@@ -44,12 +44,20 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		private float BeamLength
 		{
-			get => Projectile.localAI[1];
-			set => Projectile.localAI[1] = value;
+			get 
+			{
+				return Projectile.localAI[1];
+			}
+
+			set 
+			{
+				Projectile.localAI[1] = value;
+			}
 		}
-		const float Max_Range = 2200f;
-		float maxRange = 0f;
-		float scaleUp = 0f;
+		private bool spaze;
+		private const float Max_Range = 2200f;
+		private float maxRange = 0f;
+		private float scaleUp = 0f;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -73,15 +81,27 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		public override bool ShouldUpdatePosition()
 		{
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			PowerBeam held = Main.player[Projectile.owner].inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			if (held.shotsy > 1)
 			{
+				spaze = true;
 				return true;
 			}
+			spaze = false;
 			return false;
 		}
-		public override void SendExtraAI(BinaryWriter writer) => writer.Write(BeamLength);
-		public override void ReceiveExtraAI(BinaryReader reader) => BeamLength = reader.ReadSingle();
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(spaze);
+			writer.Write(BeamLength);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			BeamLength = reader.ReadSingle();
+			spaze = reader.ReadBoolean();
+		}
+
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			Projectile P = Projectile;
@@ -93,7 +113,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			{
 				return true;
 			}*/
-			Vector2 beamEndPos = P.Center + P.velocity * maxRange;
 			if (P.frame <= 5)
 			{
 				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center, endPosition, P.width, ref _);
@@ -102,7 +121,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		private int GetDepth(MProjectile mp)
 		{
-			string S = PowerBeam.SetCondition();
+			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("wave") || S.Contains("nebula"))
 			{
 				return mp.waveDepth;
@@ -116,7 +135,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				return false;
 			}
 			Projectile P = Projectile;
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			PowerBeam held = Main.player[P.owner].inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			if (held.shotsy > 1)
 			{
 				mProjectile.WaveBehavior(P, true);
@@ -125,7 +144,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Texture2D texture = TextureAssets.Projectile[P.type].Value;
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
-			Vector2 drawScale = new Vector2(scaleUp, 1f);
+			Vector2 drawScale = new(scaleUp, 1f);
 			DelegateMethods.f_1 = 1f;
 			Vector2 startPosition = centerFloored - Main.screenPosition;
 			Vector2 endPosition = startPosition + P.velocity * visualBeamLength;
@@ -150,9 +169,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 			return false;
 		}
-		private void DrawBeam(SpriteBatch spriteBatch, Texture2D texture, Vector2 startPosition, Vector2 endPosition, Vector2 drawScale, Color beamColor)
+		private static void DrawBeam(SpriteBatch spriteBatch, Texture2D texture, Vector2 startPosition, Vector2 endPosition, Vector2 drawScale, Color beamColor)
 		{
-			Utils.LaserLineFraming lineFraming = new Utils.LaserLineFraming(DelegateMethods.RainbowLaserDraw);
+			Utils.LaserLineFraming lineFraming = new(DelegateMethods.RainbowLaserDraw);
 
 			// c_1 is an unnamed decompiled variable which is the render color of the beam drawn by DelegateMethods.RainbowLaserDraw.
 			DelegateMethods.c_1 = beamColor;
@@ -162,7 +181,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			// tilecut_0 is an unnamed decompiled variable which tells CutTiles how the tiles are being cut (in this case, via a Projectile).
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-			Utils.TileActionAttempt cut = new Utils.TileActionAttempt(DelegateMethods.CutTiles);
+			Utils.TileActionAttempt cut = new(DelegateMethods.CutTiles);
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = Projectile.Center.Floor() + Projectile.velocity * 16f;
 			//Vector2 beamStartPos = centerFloored - Main.screenPosition;

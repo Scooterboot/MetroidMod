@@ -91,7 +91,7 @@ namespace MetroidMod.Content.Projectiles
 		bool[] npcPrevHit = new bool[Main.maxNPCs];
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red") || S.Contains("plasmared"))
 			{
 				if(Projectile.Name.Contains("Ice") || S.Contains("ice"))
@@ -247,7 +247,6 @@ namespace MetroidMod.Content.Projectiles
 				if (P.type == ModContent.ProjectileType<ImperialistShot>())
 				{
 					pos -= P.velocity;
-					P.netUpdate = true;
 				}
 				float rot = (float)Math.Atan2((P.velocity.Y),(P.velocity.X));
 				P.position.X = pos.X + (float)Math.Cos(rot+((float)Math.PI/2))*shift;
@@ -255,7 +254,7 @@ namespace MetroidMod.Content.Projectiles
 				
 				if(!P.tileCollide && !P.Name.Contains("Hyper") || P.type == ModContent.ProjectileType<ImperialistShot>())
 				{				
-					string S  = PowerBeam.SetCondition();
+					string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 					waveDepth = 4;
 					if(P.Name.Contains("Spazer") || S.Contains("spazer"))
 					{
@@ -407,7 +406,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public void DustyDeath(Projectile Projectile, int dustType, bool noGravity = true, float scale = 1f, Color color = default(Color))
 		{
-			string S = PowerBeam.SetCondition();
+			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			Vector2 pos = Projectile.position;
 			int freq = 20;
 			if(Projectile.Name.Contains("Charge"))
@@ -432,7 +431,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public void Diffuse(Projectile Projectile, int dustType, Color color = default(Color), bool noGravity = true, float scale = 1f)
 		{
-			string S = PowerBeam.SetCondition();
+			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (canDiffuse)
 			{
 				if (Projectile.owner != Main.myPlayer) return;

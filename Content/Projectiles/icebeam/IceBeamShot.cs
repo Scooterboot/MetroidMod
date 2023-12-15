@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		public override void SetDefaults()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			base.SetDefaults();
 			Projectile.width = 8;
 			Projectile.height = 8;
@@ -32,7 +32,7 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 

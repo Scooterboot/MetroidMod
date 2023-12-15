@@ -11,6 +11,7 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Common.Configs;
 using Terraria.GameContent.Tile_Entities;
+using Terraria.ID;
 
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
@@ -66,10 +67,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			MProjectile meep = mProjectile;
             Player O = Main.player[P.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(O);
 			Vector2 V = P.velocity;
 			P.knockBack = 0;
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			PowerBeam held = O.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			int shots = held.shocky;
 
 			Lead = Main.projectile[O.heldProj];
@@ -95,7 +96,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
             oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-			if (Lead != null && Lead.active && Lead.type == ModContent.ProjectileType<ChargeLead>())
+			if (Lead != null && Lead.active && Lead.type == ModContent.ProjectileType<ChargeLead>() && Lead.owner == Main.myPlayer)
 			{
 				if (P.owner == Main.myPlayer && !O.dead)
 				{
@@ -154,16 +155,19 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (target == null || !target.active)
 					{
 						targetPos = Lead.Center;
+						P.netUpdate = true;
 					}
 					if (!setTargetPos)
 					{
 						targetPos = P.Center;
 						setTargetPos = true;
+						P.netUpdate = true;
 						return;
 					}
 					else if (target != null && target.active)
 					{
 						targetPos = target.Center;
+						P.netUpdate = true;
 					}
 					else
 					{
@@ -171,6 +175,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						{
 							mp.statCharge = 0;
 							targetPos = oPos + diff * range;
+							P.netUpdate = true;
 							//targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 							//targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 						}
@@ -218,7 +223,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (ampSyncCooldown-- <= 0)
 					{
 						ampSyncCooldown = 20;
-						//Projectile.netUpdate2 = true;
+						Projectile.netUpdate2 = true;
 					}
 					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
@@ -357,24 +362,23 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 		public override void OnKill(int timeLeft)
 		{
-			if (soundInstance != null)
-			{
-				soundInstance.Stop(true);
-			}
+			soundInstance?.Stop(true);
 		}
 		public override void SendExtraAI(BinaryWriter writer)
         {
             writer.WriteVector2(targetPos);
+			base.SendExtraAI(writer);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             targetPos = reader.ReadVector2();
+			base.ReceiveExtraAI(reader);
         }
 		public override void OnHitNPC(NPC target2, NPC.HitInfo hit, int damageDone)
 		{
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			PowerBeam held = O.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			int shots = held.shocky;
 			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge) * (O.statLife / O.statLifeMax2));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;

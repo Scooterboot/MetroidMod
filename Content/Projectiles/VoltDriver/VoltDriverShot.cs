@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void SetDefaults()
 		{		
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			base.SetDefaults();
 			Projectile.width = 11;//22
 			Projectile.height = 11; //22
@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void AI()
 		{
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("wave") || S.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;

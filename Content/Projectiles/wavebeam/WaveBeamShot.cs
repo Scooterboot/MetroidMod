@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("ice"))
 			{
 				dustType = 59;

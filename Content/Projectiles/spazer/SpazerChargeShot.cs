@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 		Color color = MetroidMod.powColor;
 		public override void AI()
 		{
-			string S = PowerBeam.SetCondition();
+			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (S.Contains("ice") || Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
@@ -87,7 +87,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 		public override void SetDefaults()
 		{
 			
-			string S  = PowerBeam.SetCondition();
+			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Charge Shot";
 			if (S.Contains("wave"))
