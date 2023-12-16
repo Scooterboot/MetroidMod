@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MetroidMod.Common.Systems;
+using System.Collections.Generic;
 
 namespace MetroidMod.Content.Tiles
 {
@@ -20,6 +21,11 @@ namespace MetroidMod.Content.Tiles
 			HitSound = SoundID.Tink;
 
 			AddMapEntry(new Color(149, 149, 174));
+		}
+
+		public override IEnumerable<Item> GetItemDrops(int i, int j)
+		{
+			yield return new Item(ModContent.ItemType<Items.Tiles.TourianPipe>());
 		}
 
 		public override bool CanExplode(int i, int j) => NPC.downedMoonlord;//MSystem.bossesDown.HasFlag(MetroidBossDown.MotherBrain);

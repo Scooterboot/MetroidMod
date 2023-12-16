@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MetroidMod.Common.Systems;
+using System.Collections.Generic;
 
 namespace MetroidMod.Content.Tiles
 {
@@ -19,6 +20,11 @@ namespace MetroidMod.Content.Tiles
 			HitSound = SoundID.Tink;
 
 			AddMapEntry(new Color(168, 104, 87));
+		}
+
+		public override IEnumerable<Item> GetItemDrops(int i, int j)
+		{
+			yield return new Item(ModContent.ItemType<Items.Tiles.NorfairBrick>());
 		}
 
 		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid);

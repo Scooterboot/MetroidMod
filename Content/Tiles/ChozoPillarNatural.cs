@@ -4,6 +4,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MetroidMod.Common.Systems;
+using System.Collections.Generic;
 
 namespace MetroidMod.Content.Tiles
 {
@@ -23,6 +24,11 @@ namespace MetroidMod.Content.Tiles
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Chozite Pillar");
 			AddMapEntry(new Color(200, 160, 72), name);
+		}
+
+		public override IEnumerable<Item> GetItemDrops(int i, int j)
+		{
+			yield return new Item(ModContent.ItemType<Items.Tiles.ChozoPillar>());
 		}
 
 		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
