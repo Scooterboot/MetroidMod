@@ -6,6 +6,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using MetroidMod.Content.Items.Weapons;
 using Terraria.GameContent;
+using Terraria.DataStructures;
+using System.IO;
 
 namespace MetroidMod.Content.Projectiles.Judicator
 {
@@ -19,32 +21,44 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			return mp.waveDepth;
 		}
+		public override void OnSpawn(IEntitySource source)
+		{
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
+			{
+				if (player.HeldItem.ModItem is PowerBeam hold)
+				{
+					shot = hold.shotEffect.ToString();
+				}
+			}
+			if (shot.Contains("green"))
+			{
+				Projectile.penetrate = 6;
+				Projectile.maxPenetrate = 6;
+			}
+			if (shot.Contains("nova"))
+			{
+				Projectile.penetrate = 8;
+				Projectile.maxPenetrate = 8;
+			}
+			if (shot.Contains("solar"))
+			{
+				Projectile.penetrate = 12;
+				Projectile.maxPenetrate = 12;
+			}
+			base.OnSpawn(source);
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
 			Projectile.width = 16;//32
 			Projectile.height = 16;//20
 			Projectile.scale = 1f;
-			Projectile.timeLeft = 60;
-			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("green"))
-			{
-				Projectile.penetrate = 9;
-			}
-			if (S.Contains("nova"))
-			{
-				Projectile.penetrate = 11;
-			}
-			if (S.Contains("solar"))
-			{
-				Projectile.penetrate = 16;
-			}
+			Projectile.timeLeft = 60;	
 		}
 
 		public override void AI()
 		{
-			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
+			 
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
@@ -56,7 +70,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			}
 			if (Projectile.timeLeft == 1) //shadowfreeze
 			{
-				if(S.Contains("wave") || S.Contains("nebula"))
+				if(shot.Contains("wave") || shot.Contains("nebula"))
 				{
 					Projectile.tileCollide = false;
 				}
@@ -79,6 +93,16 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
+		}
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(Projectile.penetrate);
+			writer.Write(Projectile.maxPenetrate);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			Projectile.penetrate = (int)reader.ReadSingle();
+			Projectile.maxPenetrate = (int)reader.ReadSingle();
 		}
 	}
 }

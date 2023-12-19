@@ -12,6 +12,7 @@ using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Common.Configs;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
@@ -53,12 +54,26 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         int soundDelay = 30;
 
 		int ampSyncCooldown = 20;
-        float[] amp = new float[3];
+		int shots = 1;
+
+		float[] amp = new float[3];
         float[] ampDest = new float[3];
 
 		private int GetDepth(MProjectile mp)
 		{
 			return mp.waveDepth;
+		}
+		public override void OnSpawn(IEntitySource source)
+		{
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
+			{
+				if (player.HeldItem.ModItem is PowerBeam hold)
+				{
+					shot = hold.shotEffect.ToString();
+					shots = hold.shocky;
+				}
+			}
+			base.OnSpawn(source);
 		}
 
 		public override void AI()
@@ -67,11 +82,9 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			MProjectile meep = mProjectile;
             Player O = Main.player[P.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			string S  = PowerBeam.SetCondition(O);
+			 
 			Vector2 V = P.velocity;
 			P.knockBack = 0;
-			PowerBeam held = O.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			int shots = held.shocky;
 
 			Lead = Main.projectile[O.heldProj];
 			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
@@ -85,7 +98,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
             }
 			//range = Math.Min(GetDepth(meep), Max_Range);
 			//distance = Math.Min(GetDepth(meep), Max_Distance);
-			if (!S.Contains("wave") && !S.Contains("nebula"))
+			if (!shot.Contains("wave") && !shot.Contains("nebula"))
 			{
 				P.stopsDealingDamageAfterPenetrateHits = true;
 			}
@@ -378,8 +391,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			PowerBeam held = O.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			int shots = held.shocky;
 			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge) * (O.statLife / O.statLifeMax2));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;

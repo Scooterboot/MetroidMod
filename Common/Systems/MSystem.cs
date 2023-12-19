@@ -108,7 +108,7 @@ namespace MetroidMod.Common.Systems
 			MetroidMod.T3HMBarRecipeGroupID = RecipeGroup.RegisterGroup("MetroidMod:Tier3HMBar", new RecipeGroup(() => "Any Tier-3 Hardmode Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar) { IconicItemId = ItemID.AdamantiteBar });
 		}
 
-		public override void OnWorldLoad()
+		public override void ClearWorld()
 		{
 			weaponBlockItems = new List<int>() {
 				ModContent.ItemType<Content.Items.Tiles.Destroyable.CrumbleBlock>(),

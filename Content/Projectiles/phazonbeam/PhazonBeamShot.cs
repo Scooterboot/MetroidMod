@@ -37,13 +37,13 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		{
 			Projectile P = Projectile;
 			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
+			 
 			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + 1.57f;
 			
-			bool isWave = (S.Contains("wave") || S.Contains("nebula")),
-			isSpazer = S.Contains("spazer") || S.Contains("wide") || S.Contains("vortex"),
-			isPlasma = S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar"),
-			isNebula = S.Contains("nebula");
+			bool isWave = (shot.Contains("wave") || shot.Contains("nebula")),
+			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
+			isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"),
+			isNebula = shot.Contains("nebula");
 			
 			if(!initialize)
 			{

@@ -7,15 +7,56 @@ using System.IO;
 using MetroidMod.Common.Players;
 using Terraria.GameContent;
 using Terraria.Enums;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+using Mono.Cecil;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
 	public class ImperialistShot : MProjectile
 	{
 		//what a total mess lmao --Dr
+		//TODO: netsync, replace "held" with entitysource
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 100;
+		}
+		private bool spaze = false;
+		private int depth = 0;
+		public override void OnSpawn(IEntitySource source)
+		{
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
+			{
+				if (player.HeldItem.ModItem is PowerBeam hold)
+				{
+					shot = hold.shotEffect.ToString();
+					if (hold.shotAmt > 1)
+					{
+						spaze = true;
+					}
+					if (shot.Contains("wave") || shot.Contains("nebula"))
+					{
+						depth = waveDepth;
+						mProjectile.WaveBehavior(Projectile, true);
+					}
+				}
+			}
+			if (shot.Contains("green"))
+			{
+				Projectile.penetrate = 6;
+				Projectile.maxPenetrate = 6;
+			}
+			if (shot.Contains("nova"))
+			{
+				Projectile.penetrate = 8;
+				Projectile.maxPenetrate = 8;
+			}
+			if (shot.Contains("solar"))
+			{
+				Projectile.penetrate = 12;
+				Projectile.maxPenetrate = 12;
+			}
+			base.OnSpawn(source);
 		}
 		public override void SetDefaults()
 		{
@@ -28,19 +69,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			mProjectile.delay = 0;
 			//Projectile.tileCollide = false;
 
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (S.Contains("nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (S.Contains("solar"))
-			{
-				Projectile.penetrate = 12;
-			}
 		}
 		private float BeamLength
 		{
@@ -54,7 +82,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				Projectile.localAI[1] = value;
 			}
 		}
-		private bool spaze;
 		private const float Max_Range = 2200f;
 		private float maxRange = 0f;
 		private float scaleUp = 0f;
@@ -65,6 +92,11 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			P.velocity = Vector2.Normalize(P.velocity);
 			P.rotation = P.velocity.ToRotation() - 1.57f;
 			P.stopsDealingDamageAfterPenetrateHits = true;
+			if (shot.Contains("wave") || shot.Contains("nebula"))
+			{
+				depth = waveDepth;
+				mProjectile.WaveBehavior(Projectile, true);
+			}
 
 			if (P.numUpdates == 0)
 			{
@@ -81,25 +113,26 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		public override bool ShouldUpdatePosition()
 		{
-			PowerBeam held = Main.player[Projectile.owner].inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (held.shotsy > 1)
+			if (spaze)
 			{
-				spaze = true;
 				return true;
 			}
-			spaze = false;
 			return false;
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
+			writer.Write(Projectile.penetrate);
+			writer.Write(Projectile.maxPenetrate);
 			writer.Write(spaze);
 			writer.Write(BeamLength);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			BeamLength = reader.ReadSingle();
 			spaze = reader.ReadBoolean();
+			BeamLength = reader.ReadSingle();
+			Projectile.penetrate = (int)reader.ReadSingle();
+			Projectile.maxPenetrate = (int)reader.ReadSingle();
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -119,15 +152,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			}
 			return false;
 		}
-		private int GetDepth(MProjectile mp)
-		{
-			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("wave") || S.Contains("nebula"))
-			{
-				return mp.waveDepth;
-			}
-			return 0;
-		}
 		public override bool PreDraw(ref Color lightColor)
 		{
 			if (Projectile.velocity == Vector2.Zero)
@@ -135,12 +159,10 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				return false;
 			}
 			Projectile P = Projectile;
-			PowerBeam held = Main.player[P.owner].inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (held.shotsy > 1)
+			if (spaze)
 			{
 				mProjectile.WaveBehavior(P, true);
 			}
-			MProjectile meep = mProjectile;
 			Texture2D texture = TextureAssets.Projectile[P.type].Value;
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
@@ -152,7 +174,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			for (P.ai[1] = 0f; P.ai[1] <= Max_Range; P.ai[1] += 4f)
 			{
 				Vector2 end = P.Center + P.velocity * P.ai[1];
-				Vector2 trueEnd = end + P.velocity * GetDepth(meep) * P.ai[1] * 8f;
+				Vector2 trueEnd = end + P.velocity * depth * P.ai[1] * 8f;
 				if (CollideMethods.CheckCollide(trueEnd, 0, 0))
 				{
 					P.ai[1] -= 4f;

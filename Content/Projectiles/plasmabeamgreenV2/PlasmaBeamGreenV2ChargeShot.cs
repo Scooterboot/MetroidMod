@@ -33,13 +33,13 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("ice"))
+			 
+			if (shot.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
-			else if(S.Contains("wave"))
+			else if(shot.Contains("wave"))
 			{
 				dustType = 15;
 				color = MetroidMod.plaGreenColor2;
@@ -58,23 +58,23 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 				}
 			}
 
-			if (S.Contains("wave"))
+			if (shot.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 			}
-			if (S.Contains("wide") || (S.Contains("wave")))
+			if (shot.Contains("wide") || (shot.Contains("wave")))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			if (S.Contains("wide") && !S.Contains("wave"))
+			if (shot.Contains("wide") && !shot.Contains("wave"))
 			{
 				mProjectile.amplitude = 14f * Projectile.scale;
 			}
-			if (S.Contains("wave") && !S.Contains("wide"))
+			if (shot.Contains("wave") && !shot.Contains("wide"))
 			{
 				mProjectile.amplitude = 12f * Projectile.scale;
 			}
-			if (S.Contains("wave") && S.Contains("wide"))
+			if (shot.Contains("wave") && shot.Contains("wide"))
 			{
 				mProjectile.amplitude = 16f * Projectile.scale;
 			}

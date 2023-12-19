@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using MetroidMod.Content.Items.Weapons;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Content.Projectiles.VoltDriver
 {
@@ -23,18 +24,17 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.scale = 1f;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
+			Projectile.penetrate = 1;
 		}
 
 		public override void AI()
 		{
-			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			int shootSpeed = 2;
-			if (S.Contains("wave") || S.Contains("nebula"))
+			if (shot.Contains("wave") || shot.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 			}
+			int shootSpeed = 2;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
             if (Projectile.numUpdates == 0)

@@ -21,6 +21,8 @@ using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles.ShockCoil;
 using MetroidMod.Content.Projectiles.Imperialist;
 using MetroidMod.Content.Projectiles.VoltDriver;
+using Terraria.DataStructures;
+using Mono.Cecil;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -33,6 +35,19 @@ namespace MetroidMod.Content.Projectiles
 		}
 		
 		public bool hunter = false;
+
+		public string shot = "";
+
+		public override void OnSpawn(IEntitySource source)
+		{
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
+			{
+				if (player.HeldItem.ModItem is PowerBeam hold)
+				{
+					shot = hold.shotEffect.ToString();
+				}
+			}
+		}
 		public override void SetDefaults()
 		{
 			Projectile.aiStyle = -1;
@@ -41,7 +56,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.tileCollide = true;
 			Projectile.penetrate = 1;
 			Projectile.ignoreWater = true;
-			
+
 			//Projectile.melee = false;
 			//Projectile.ranged = false;
 			//Projectile.magic = false;
@@ -90,11 +105,10 @@ namespace MetroidMod.Content.Projectiles
 
 		bool[] npcPrevHit = new bool[Main.maxNPCs];
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{	
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red") || S.Contains("plasmared"))
+		{
+			if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red") || shot.Contains("plasmared"))
 			{
-				if(Projectile.Name.Contains("Ice") || S.Contains("ice"))
+				if(Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 				{
 					target.AddBuff(44,300);
 				}
@@ -104,9 +118,9 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}
 			
-			if(Projectile.Name.Contains("Nova") || S.Contains("nova"))
+			if(Projectile.Name.Contains("Nova") || shot.ToString().Contains("nova"))
 			{
-				if(Projectile.Name.Contains("Ice") || S.Contains("ice"))
+				if(Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 				{
 					target.AddBuff(44,300);
 				}
@@ -115,7 +129,7 @@ namespace MetroidMod.Content.Projectiles
 					target.AddBuff(39,300);
 				}
 			}
-			if(Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust") || S.Contains("ice") || S.Contains("stardust"))
+			if(Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust") || shot.Contains("ice") || shot.Contains("stardust"))
 			{
 				string buffName = "IceFreeze";
 				if(Projectile.Name.Contains("Missile"))
@@ -124,7 +138,7 @@ namespace MetroidMod.Content.Projectiles
 				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
 			}
 			
-			if(Projectile.Name.Contains("Solar") || S.Contains("solar"))
+			if(Projectile.Name.Contains("Solar") || shot.Contains("solar"))
 			{
 				target.AddBuff(189,300);
 			}
@@ -178,7 +192,7 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public void WaveBehavior(Projectile P, bool spaze = false)
 		{
-			if(!initialized)
+			if (!initialized)
 			{
 				initialize(P);
 				waveStyle = (int)P.ai[1];
@@ -254,48 +268,47 @@ namespace MetroidMod.Content.Projectiles
 				
 				if(!P.tileCollide && !P.Name.Contains("Hyper") || P.type == ModContent.ProjectileType<ImperialistShot>())
 				{				
-					string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 					waveDepth = 4;
-					if(P.Name.Contains("Spazer") || S.Contains("spazer"))
+					if(P.Name.Contains("Spazer") || shot.Contains("spazer"))
 					{
 						waveDepth = 6;
 					}
-					if(P.Name.Contains("Plasma") || S.Contains("plasma"))
+					if(P.Name.Contains("Plasma") || shot.Contains("plasma"))
 					{
 						waveDepth = 8;
 					}
-					if(P.Name.Contains("V2") || S.Contains("V2"))
+					if(P.Name.Contains("V2") || shot.Contains("V2"))
 					{
 						waveDepth = 6;
 					}
-					if(P.Name.Contains("Wide") || S.Contains("wide"))
+					if(P.Name.Contains("Wide") || shot.Contains("wide"))
 					{
 						waveDepth = 9;
 					}
-					if(P.Name.Contains("Nova") || S.Contains("nova"))
+					if(P.Name.Contains("Nova") || shot.Contains("nova"))
 					{
 						waveDepth = 12;
 					}
-					if(P.Name.Contains("Nebula") || S.Contains("nebula"))
+					if(P.Name.Contains("Nebula") || shot.Contains("nebula"))
 					{
 						waveDepth = 8;
 					}
-					if(P.Name.Contains("Vortex") || S.Contains("vortex"))
+					if(P.Name.Contains("Vortex") || shot.Contains("vortex"))
 					{
 						waveDepth = 12;
 					}
-					if(P.Name.Contains("Solar") || S.Contains("solar"))
+					if(P.Name.Contains("Solar") || shot.Contains("solar"))
 					{
 						waveDepth = 16;
 					}
 					if(P.Name.Contains("Charge"))
 					{
 						waveDepth += 2;
-						if(P.Name.Contains("V2") || P.Name.Contains("Wide") || P.Name.Contains("Nova") || S.Contains("V2") || S.Contains("wide") || S.Contains("nova"))
+						if(P.Name.Contains("V2") || P.Name.Contains("Wide") || P.Name.Contains("Nova") || shot.Contains("V2") || shot.Contains("wide") || shot.Contains("nova"))
 						{
 							waveDepth += 1;
 						}
-						if(P.Name.Contains("Nebula") || S.Contains("nebula"))
+						if(P.Name.Contains("Nebula") || shot.Contains("nebula"))
 						{
 							waveDepth += 2;
 						}
@@ -406,7 +419,6 @@ namespace MetroidMod.Content.Projectiles
 
 		public void DustyDeath(Projectile Projectile, int dustType, bool noGravity = true, float scale = 1f, Color color = default(Color))
 		{
-			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			Vector2 pos = Projectile.position;
 			int freq = 20;
 			if(Projectile.Name.Contains("Charge"))
@@ -420,7 +432,7 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].noGravity = noGravity;
 			}
 			SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/BeamImpactSound");
-			if(Projectile.Name.Contains("Ice") || S.Contains("ice"))
+			if(Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 			{
 				sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
 			}
@@ -431,7 +443,6 @@ namespace MetroidMod.Content.Projectiles
 
 		public void Diffuse(Projectile Projectile, int dustType, Color color = default(Color), bool noGravity = true, float scale = 1f)
 		{
-			string S = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (canDiffuse)
 			{
 				if (Projectile.owner != Main.myPlayer) return;
@@ -452,9 +463,8 @@ namespace MetroidMod.Content.Projectiles
 					p.Name = Projectile.Name;
 					p.netUpdate = true;
 				}
-
 				SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/BeamImpactSound");
-				if (Projectile.Name.Contains("Ice") || S.Contains("ice"))
+				if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 				{
 					sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
 				}
@@ -586,10 +596,12 @@ namespace MetroidMod.Content.Projectiles
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(canDiffuse);
+			writer.Write(shot);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			canDiffuse = reader.ReadBoolean();
+			shot = reader.ReadString();
 		}
 	}
 }

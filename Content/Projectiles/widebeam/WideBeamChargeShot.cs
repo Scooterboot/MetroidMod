@@ -31,15 +31,14 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
-			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("ice"))
+				 
+			if (shot.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 				color2 = default(Color);
 			}
-			else if(S.Contains("wave"))
+			else if(shot.Contains("wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor2;
@@ -71,9 +70,8 @@ namespace MetroidMod.Content.Projectiles.widebeam
 		
 		public override bool PreDraw(ref Color lightColor)
 		{
-			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("wave"))
+					 
+			if (shot.Contains("wave"))
 			{
 				mProjectile.PlasmaDraw(Projectile,Main.player[Projectile.owner], Main.spriteBatch);
 			}

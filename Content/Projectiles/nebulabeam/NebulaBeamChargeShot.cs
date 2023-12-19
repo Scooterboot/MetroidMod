@@ -34,8 +34,8 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("stardust"))
+			 
+			if (shot.Contains("stardust"))
 			{
 				dustType = 88;
 				color = MetroidMod.iceColor;
@@ -61,7 +61,7 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 			
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale*scale);
 			Main.dust[dust].noGravity = true;
-			if(S.Contains("stardust"))
+			if(shot.Contains("stardust"))
 			{
 				dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;

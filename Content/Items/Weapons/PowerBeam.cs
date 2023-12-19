@@ -25,6 +25,9 @@ using System.Security.AccessControl;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MetroidMod.Common.Configs;
 using MetroidMod.Content.Mounts;
+using Mono.Cecil;
+using MetroidMod.Content.Projectiles.Paralyzer;
+using MetroidMod.Content.Projectiles.VoltDriver;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -238,10 +241,9 @@ namespace MetroidMod.Content.Items.Weapons
 		private int dustType = 64;
 		private Color dustColor = default(Color);
 		private Color lightColor = MetroidMod.powColor;
-		private int shotAmt = 1;
+		public int shotAmt = 1;
 		private int chargeShotAmt = 1;
-		private string shooty = "";
-		public int shotsy;
+		public string shotEffect = "";
 		public int shocky = 1;
 
 		public SoundStyle? ShotSound;
@@ -263,56 +265,48 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private string altTexture => texture + "_alt";
 		private string texture = "";
+
+		private readonly int ch = ModContent.ItemType<Addons.ChargeBeamAddon>();
+		private readonly int ic = ModContent.ItemType<Addons.IceBeamAddon>();
+		private readonly int wa = ModContent.ItemType<Addons.WaveBeamAddon>();
+		private readonly int sp = ModContent.ItemType<Addons.SpazerAddon>();
+		private readonly int plR = ModContent.ItemType<Addons.PlasmaBeamRedAddon>();
+		private readonly int plG = ModContent.ItemType<Addons.PlasmaBeamGreenAddon>();
+
+		private readonly int ch2 = ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>();
+		private readonly int ic2 = ModContent.ItemType<Addons.V2.IceBeamV2Addon>();
+		private readonly int wa2 = ModContent.ItemType<Addons.V2.WaveBeamV2Addon>();
+		private readonly int wi = ModContent.ItemType<Addons.V2.WideBeamAddon>();
+		private readonly int nv = ModContent.ItemType<Addons.V2.NovaBeamAddon>();
+
+		private readonly int ch3 = ModContent.ItemType<Addons.V3.LuminiteBeamAddon>();
+		private readonly int sd = ModContent.ItemType<Addons.V3.StardustBeamAddon>();
+		private readonly int nb = ModContent.ItemType<Addons.V3.NebulaBeamAddon>();
+		private readonly int vt = ModContent.ItemType<Addons.V3.VortexBeamAddon>();
+		private readonly int sl = ModContent.ItemType<Addons.V3.SolarBeamAddon>();
+
+		private readonly int hy = ModContent.ItemType<Addons.HyperBeamAddon>();
+		private readonly int ph = ModContent.ItemType<Addons.PhazonBeamAddon>();
+
+		private readonly int vd = ModContent.ItemType<Addons.Hunters.VoltDriverAddon>();
+		private readonly int jd = ModContent.ItemType<Addons.Hunters.JudicatorAddon>();
+		private readonly int bh = ModContent.ItemType<Addons.Hunters.BattleHammerAddon>();
+		private readonly int mm = ModContent.ItemType<Addons.Hunters.MagMaulAddon>();
+		private readonly int imp = ModContent.ItemType<Addons.Hunters.ImperialistAddon>();
+		private readonly int sc = ModContent.ItemType<Addons.Hunters.ShockCoilAddon>();
+		private readonly int oc = ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>();
+
 		//Mod modBeamTextureMod = null;
-		public static string SetCondition(Player P)
-		{
-			if (Main.player[P.whoAmI].inventory[MetroidMod.Instance.selectedItem].ModItem is PowerBeam held)
-			{
-				return held.shooty;
-			}
-			return "";
-		}
 
 		public override void UpdateInventory(Player P)
 		{
 			//MPlayer mp = P.GetModPlayer<MPlayer>();
-
-			int ch = ModContent.ItemType<Addons.ChargeBeamAddon>();
-			int ic = ModContent.ItemType<Addons.IceBeamAddon>();
-			int wa = ModContent.ItemType<Addons.WaveBeamAddon>();
-			int sp = ModContent.ItemType<Addons.SpazerAddon>();
-			int plR = ModContent.ItemType<Addons.PlasmaBeamRedAddon>();
-			int plG = ModContent.ItemType<Addons.PlasmaBeamGreenAddon>();
-
-			int ch2 = ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>();
-			int ic2 = ModContent.ItemType<Addons.V2.IceBeamV2Addon>();
-			int wa2 = ModContent.ItemType<Addons.V2.WaveBeamV2Addon>();
-			int wi = ModContent.ItemType<Addons.V2.WideBeamAddon>();
-			int nv = ModContent.ItemType<Addons.V2.NovaBeamAddon>();
-
-			int ch3 = ModContent.ItemType<Addons.V3.LuminiteBeamAddon>();
-			int sd = ModContent.ItemType<Addons.V3.StardustBeamAddon>();
-			int nb = ModContent.ItemType<Addons.V3.NebulaBeamAddon>();
-			int vt = ModContent.ItemType<Addons.V3.VortexBeamAddon>();
-			int sl = ModContent.ItemType<Addons.V3.SolarBeamAddon>();
-
-			int hy = ModContent.ItemType<Addons.HyperBeamAddon>();
-			int ph = ModContent.ItemType<Addons.PhazonBeamAddon>();
-
-			int vd = ModContent.ItemType<Addons.Hunters.VoltDriverAddon>();
-			int jd = ModContent.ItemType<Addons.Hunters.JudicatorAddon>();
-			int bh = ModContent.ItemType<Addons.Hunters.BattleHammerAddon>();
-			int mm = ModContent.ItemType<Addons.Hunters.MagMaulAddon>();
-			int imp = ModContent.ItemType<Addons.Hunters.ImperialistAddon>();
-			int sc = ModContent.ItemType<Addons.Hunters.ShockCoilAddon>();
-			int oc = ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>();
 
 			Item slot1 = BeamMods[0];
 			Item slot2 = BeamMods[1];
 			Item slot3 = BeamMods[2];
 			Item slot4 = BeamMods[3];
 			Item slot5 = BeamMods[4];
-
 
 			int damage = MConfigItems.Instance.damagePowerBeam;
 			overheat = MConfigItems.Instance.overheatPowerBeam;
@@ -334,8 +328,8 @@ namespace MetroidMod.Content.Items.Weapons
 			lightColor = MetroidMod.powColor;
 
 			texture = "";
-			shooty = "";
-			string S = shooty;
+			//shotEffect = "";
+
 			//modBeamTextureMod = null;
 
 			ShotSound = null;
@@ -1160,7 +1154,7 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "HyperBeam";
 
 				// Wave / Nebula
-				if(S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar"))
+				if(shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"))
 				{
 					shot = "PlasmaHyperBeamShot";
 				}
@@ -1332,7 +1326,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			//Item.autoReuse = (!slot1.IsAir);//(isCharge);
 
-			Item.shootSpeed = slot1.type == oc ? 2f : slot1.type == vd ? 11f : 8f;
+			Item.shootSpeed = slot1.type == oc || Item.shoot == ModContent.ProjectileType<VoltDriverChargeShot>() ? 2f : Item.shoot == ModContent.ProjectileType<VoltDriverShot>() ? 11f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
 			Item.knockBack = slot1.type == bh ? 6f : slot1.type == sc? 0f : 4f;
@@ -1528,6 +1522,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+
 			if (isCharge || isShock)
 			{
 				int ch = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), damage, knockback, player.whoAmI);
@@ -1567,6 +1562,7 @@ namespace MetroidMod.Content.Items.Weapons
 							int extraProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ExtraHyperBeamShot>(), damage, knockback, player.whoAmI, 0, i);
 							MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
 							mProj.waveDir = waveDir;
+							mProj.shot = shotEffect.ToString();
 							Main.projectile[extraProj].netUpdate = true;
 						}
 					}
@@ -1576,22 +1572,17 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else
 			{
-				if (!isSpray)
+				for (int i = 0; i < shotAmt; i++)
 				{
-					for (int i = 0; i < shotAmt; i++)
-					{
-						int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, i);
-						MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-						mProj.waveDir = waveDir;
-						Main.projectile[shotProj].netUpdate = true;
-					}
-				}
-				if (isSpray && shotAmt > 1)
-				{
-					for (int i = 0; i < shotAmt; i++)
+					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, i);
+					MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+					mProj.waveDir = waveDir;
+					mProj.shot = shotEffect.ToString();
+					Main.projectile[shotProj].netUpdate = true;
+					if (isSpray && shotAmt > 1)
 					{
 						Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
-						Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI, 0, i);
+						Main.projectile[shotProj].velocity = newVelocity;
 					}
 				}
 			}
@@ -1599,7 +1590,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 			mp.statOverheat += (int)(overheat * mp.overheatCost);
 			mp.overheatDelay = (int)Math.Max(useTime - 10, 2);
-
 			/* Sound & Sound Networking */
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 			{
@@ -1623,82 +1613,67 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			if(player.whoAmI == Main.myPlayer)
 			{
-				shotsy = shotAmt;
+				shotEffect = "";
 				Item slot1 = BeamMods[0];
 				Item slot2 = BeamMods[1];
 				Item slot3 = BeamMods[2];
 				Item slot4 = BeamMods[3];
 				Item slot5 = BeamMods[4];
-				int ic = ModContent.ItemType<Addons.IceBeamAddon>();
-				int wa = ModContent.ItemType<Addons.WaveBeamAddon>();
-				int sp = ModContent.ItemType<Addons.SpazerAddon>();
-				int plR = ModContent.ItemType<Addons.PlasmaBeamRedAddon>();
-				int plG = ModContent.ItemType<Addons.PlasmaBeamGreenAddon>();
-				int ic2 = ModContent.ItemType<Addons.V2.IceBeamV2Addon>();
-				int wa2 = ModContent.ItemType<Addons.V2.WaveBeamV2Addon>();
-				int wi = ModContent.ItemType<Addons.V2.WideBeamAddon>();
-				int nv = ModContent.ItemType<Addons.V2.NovaBeamAddon>();
-				int sd = ModContent.ItemType<Addons.V3.StardustBeamAddon>();
-				int nb = ModContent.ItemType<Addons.V3.NebulaBeamAddon>();
-				int vt = ModContent.ItemType<Addons.V3.VortexBeamAddon>();
-				int sl = ModContent.ItemType<Addons.V3.SolarBeamAddon>();
-				int mm = ModContent.ItemType<Addons.Hunters.MagMaulAddon>();
 				MPlayer mp = player.GetModPlayer<MPlayer>();
 				int oHeat = (int)(overheat * mp.overheatCost);
 				if (slot4.type == vt && comboError3 != true)
 				{
-					shooty += "vortex";
+					shotEffect += "vortex";
 				}
 				if (slot4.type == sp && comboError3 != true)
 				{
-					shooty += "spazer";
+					shotEffect += "spazer";
 				}
 				if (slot4.type == wi && comboError3 != true)
 				{
-					shooty += "wide";
+					shotEffect += "wide";
 				}
 				if (slot3.type == wa && comboError2 != true)
 				{
-					shooty += "wave";
+					shotEffect += "wave";
 				}
 				if (slot3.type == wa2 && comboError2 != true)
 				{
-					shooty += "waveV2";
+					shotEffect += "waveV2";
 				}
 				if (slot3.type == nb && comboError2 != true)
 				{
-					shooty += "nebula";
+					shotEffect += "nebula";
 				}
 				if (slot5.type == plR && comboError4 != true)
 				{
-					shooty += "plasmared";
+					shotEffect += "plasmared";
 				}
 				if (slot5.type == plG && comboError4 != true)
 				{
-					shooty += "plasmagreen";
+					shotEffect += "plasmagreen";
 				}
 				if (slot5.type == nv && comboError4 != true)
 				{
-					shooty += "nova";
+					shotEffect += "nova";
 				}
 				if (slot5.type == sl && comboError4 != true)
 				{
-					shooty += "solar";
+					shotEffect += "solar";
 				}
 				if (slot2.type == ic && comboError1 != true)
 				{
-					shooty += "ice";
+					shotEffect += "ice";
 				}
 				if (slot2.type == ic2 && comboError1 != true)
 				{
-					shooty += "iceV2";
+					shotEffect += "iceV2";
 				}
 				if (slot2.type == sd && comboError1 != true)
 				{
-					shooty += "stardust";
+					shotEffect += "stardust";
 				}
 				Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-				//shooty.ToString();
 				float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
 				if (player.gravDir == -1f)
@@ -1728,33 +1703,24 @@ namespace MetroidMod.Content.Items.Weapons
 							float dmgMult = 1f + (chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge;
 							double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
-							if (mp.statCharge >= (MPlayer.maxCharge * 0.5) && !isChargeSpray)
+							if (mp.statCharge >= (MPlayer.maxCharge * 0.5))
 							{
 								for (int i = 0; i < chargeShotAmt; i++)
 								{
 									int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
 									MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 									mProj.waveDir = waveDir;
+									mProj.shot = shotEffect.ToString();
 									//mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9)); //TODO add dread diffusion beam in place of this
 									Main.projectile[chargeProj].netUpdate = true;
+									if (isChargeSpray && chargeShotAmt > 1)
+									{
+										Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+										Main.projectile[chargeProj].velocity = newVelocity;
+									}
 								}
-
-
 								SoundEngine.PlaySound(new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}"), oPos);
 
-								mp.statOverheat += (int)(oHeat * chargeCost);
-								mp.overheatDelay = (int)useTime - 10;
-							}
-							if (isChargeSpray && chargeShotAmt > 1 && mp.statCharge >= (MPlayer.maxCharge * 0.5))
-							{
-								for (int i = 0; i < chargeShotAmt; i++)
-								{
-									Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
-									int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, newVelocity.X, newVelocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
-									MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
-									mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9);
-									Main.projectile[chargeProj].netUpdate = true;
-								}
 								mp.statOverheat += (int)(oHeat * chargeCost);
 								mp.overheatDelay = (int)useTime - 10;
 							}
@@ -1762,24 +1728,17 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								if (mp.statCharge >= 30 && mp.statCharge <= (MPlayer.maxCharge * 0.5))
 								{
-									if (!isSpray)
+									for (int i = 0; i < shotAmt; i++)
 									{
-										for (int i = 0; i < shotAmt; i++)
-										{
-											int shotProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
-											MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-											mProj.waveDir = waveDir;
-											Main.projectile[shotProj].netUpdate = true;
-										}
-									}
-									if (isSpray && shotAmt > 1)
-									{
-										for (int i = 0; i < shotAmt; i++)
+										int shotProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
+										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+										mProj.waveDir = waveDir;
+										mProj.shot = shotEffect.ToString();
+										Main.projectile[shotProj].netUpdate = true;
+										if (isSpray && shotAmt > 1)
 										{
 											Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
-											int shotProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, newVelocity.X, newVelocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI, 0, i);
-											MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-											Main.projectile[shotProj].netUpdate = true;
+											Main.projectile[shotProj].velocity = newVelocity;
 										}
 									}
 

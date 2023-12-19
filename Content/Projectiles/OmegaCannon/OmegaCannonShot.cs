@@ -25,7 +25,6 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
 		}
-		private int blastRadius;
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;

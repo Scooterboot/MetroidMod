@@ -31,14 +31,14 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("stardust"))
+			 
+			if (shot.Contains("stardust"))
 			{
 				dustType = 88;
 				color = MetroidMod.iceColor;
 				scale = 0.5f;
 			}
-			else if(S.Contains("nebula"))
+			else if(shot.Contains("nebula"))
 			{
 				dustType = 255;
 				color = MetroidMod.waveColor;
@@ -47,7 +47,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Nebula"));
-			if(S.Contains("nebula"))
+			if(shot.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 
@@ -59,7 +59,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale*0.5f);
 				Main.dust[dust].noGravity = true;
-				if(S.Contains("stardust"))
+				if(shot.Contains("stardust"))
 				{
 					dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), Projectile.scale);
 					Main.dust[dust].noGravity = true;

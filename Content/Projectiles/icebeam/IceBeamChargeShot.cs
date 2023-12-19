@@ -3,6 +3,7 @@ using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.icebeam
@@ -13,20 +14,25 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		{
 			// DisplayName.SetDefault("Ice Beam Charge Shot");
 		}
-		public override void SetDefaults()
+		public override void OnSpawn(IEntitySource source)
 		{
-			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			base.SetDefaults();
-			Projectile.width = 16;
-			Projectile.height = 16;
-			Projectile.scale = 2f;
-			if (S.Contains("wave"))
+			if (shot.Contains("wave"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
 				mProjectile.delay = 4;
+				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
 			}
+
+		}
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.scale = 2f;
 		}
 
 		public override void AI()
@@ -34,15 +40,9 @@ namespace MetroidMod.Content.Projectiles.icebeam
 			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
 			if (Projectile.numUpdates == 0)
 			{
 				Projectile.rotation += 0.5f*Projectile.direction;
-			}
-			if (S.Contains("wave"))
-			{
-				Projectile.tileCollide = false;
-				mProjectile.WaveBehavior(Projectile);
 			}
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 59, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;

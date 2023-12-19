@@ -3,6 +3,7 @@ using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.spazer
@@ -13,6 +14,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 		{
 			// DisplayName.SetDefault("Spazer Shot");
 		}
+		Color color = MetroidMod.powColor;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -26,17 +28,14 @@ namespace MetroidMod.Content.Projectiles.spazer
 		}
 
 		int dustType = 64;
-		Color color = MetroidMod.powColor;
 		public override void AI()
 		{
-			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("ice") || Projectile.Name.Contains("Ice"))
+			if (shot.Contains("ice") || Projectile.Name.Contains("Ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
-			else if(S.Contains("wave") || Projectile.Name.Contains("Wave"))
+			else if (shot.Contains("wave") || Projectile.Name.Contains("Wave"))
 			{
 				dustType = 62;
 				color = MetroidMod.waveColor;
@@ -83,9 +82,11 @@ namespace MetroidMod.Content.Projectiles.spazer
 		{
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Shot";
-			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
-			if (S.Contains("wave"))
+		}
+		public override void AI()
+		{
+			base.AI();
+			if (shot.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 				Projectile.Name += "Wave";

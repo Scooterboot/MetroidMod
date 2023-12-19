@@ -34,7 +34,7 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 		public override void AI()
 		{
 			
-			string S  = PowerBeam.SetCondition(Main.player[Projectile.owner]);
+			 
 			if (Projectile.Name.Contains("Stardust"))
 			{
 				dustType = 87;
@@ -49,25 +49,25 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 				Projectile.frame = 0;
 			}
 
-			if (S.Contains("nebula"))
+			if (shot.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 				mProjectile.HomingBehavior(Projectile);
 				//mProjectile.amplitude = 8f * Projectile.scale;
 			}
-			if (!S.Contains("vortex") && S.Contains("nebula"))
+			if (!shot.Contains("vortex") && shot.Contains("nebula"))
 			{
 				mProjectile.amplitude = 12f * Projectile.scale;
 				mProjectile.wavesPerSecond = 2f;
 			}
-			if (S.Contains("vortex") && !S.Contains("nebula"))
+			if (shot.Contains("vortex") && !shot.Contains("nebula"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 				mProjectile.wavesPerSecond = 2f;
-				mProjectile.WaveBehavior(Projectile, !S.Contains("nebula"));
+				mProjectile.WaveBehavior(Projectile, !shot.Contains("nebula"));
 			}
-			if (S.Contains("vortex") && S.Contains("nebula"))
+			if (shot.Contains("vortex") && shot.Contains("nebula"))
 			{
 				mProjectile.amplitude = 16f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1.5f;
@@ -76,7 +76,7 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 			int dType = Utils.SelectRandom<int>(Main.rand, new int[] { 6,158 });
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dType, 0, 0, 100, default(Color), Projectile.scale*2);
 			Main.dust[dust].noGravity = true;
-			if(S.Contains("stardust"))
+			if(shot.Contains("stardust"))
 			{
 				dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
