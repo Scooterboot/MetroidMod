@@ -904,7 +904,11 @@ Mods: {
 
 			OmegaPirateSummon: {
 				DisplayName: Phazon Reactor Core
-				Tooltip: ""
+				Tooltip: 
+					'''
+					Summons Omega Pirate
+					unstable in multiplayer
+					'''
 			}
 
 			PhantoonBag: {
@@ -924,7 +928,7 @@ Mods: {
 
 			SerrisSummon: {
 				DisplayName: Serris Bait
-				Tooltip: ""
+				Tooltip: Summons Serris at the Ocean
 			}
 
 			TorizoBag: {
