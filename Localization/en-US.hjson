@@ -904,7 +904,7 @@ Mods: {
 
 			OmegaPirateSummon: {
 				DisplayName: Phazon Reactor Core
-				Tooltip: 
+				Tooltip:
 					'''
 					Summons Omega Pirate
 					unstable in multiplayer
