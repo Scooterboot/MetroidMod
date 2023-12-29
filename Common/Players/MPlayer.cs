@@ -65,6 +65,9 @@ namespace MetroidMod.Common.Players
 		public bool falling;
 		public int energyLowTimer = 0;
 
+		public int selectedItem = 0;
+		public int oldSelectedItem = 0;
+
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();

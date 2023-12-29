@@ -61,9 +61,6 @@ namespace MetroidMod
 		public static bool DebugDSI;
 		public static bool DisplayDebugValues;
 
-		public int selectedItem = 0;
-		public int oldSelectedItem = 0;
-
 		public int[] FrozenStandOnNPCs;
 
 		//public static int beamsRecipeGroupID;

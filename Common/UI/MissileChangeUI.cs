@@ -29,7 +29,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.GetModPlayer<MPlayer>().missileChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<MissileLauncher>();
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>();
 
 		public MissileChangePanel panel;
 		public override void OnInitialize()
@@ -178,7 +178,7 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-			MissileLauncher missileTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
+			MissileLauncher missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 			if (missileTarget == null || missileTarget.MissileChange == null) { return; }
 
 			if (missileTarget.MissileChange[missileChangeType] != null && !missileTarget.MissileChange[missileChangeType].IsAir)
@@ -215,7 +215,7 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
-			Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
+			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
 			if (target == null || target.type != ModContent.ItemType<MissileLauncher>()) { return; }
 			MissileLauncher missileTarget = (MissileLauncher)target.ModItem;
 

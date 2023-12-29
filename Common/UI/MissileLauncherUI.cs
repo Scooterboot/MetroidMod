@@ -29,7 +29,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileLauncherUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<MissileLauncher>();
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>();
 
 		MissileLauncherPanel missileLauncherPanel;
 		private MissileChangeButton mcButton;
@@ -171,7 +171,7 @@ namespace MetroidMod.Common.UI
 			// No failsafe. Should maybe be implemented? also ugly --Dr
 			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
 			
-			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
+			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 			if (missileLauncherTarget == null || missileLauncherTarget.MissileMods == null) { return; }
 
 			if (missileLauncherTarget.MissileMods[missileSlotType] != null && !missileLauncherTarget.MissileMods[missileSlotType].IsAir)
@@ -331,7 +331,7 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
-			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
+			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 
 			spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
 

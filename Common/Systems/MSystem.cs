@@ -146,10 +146,10 @@ namespace MetroidMod.Common.Systems
 		public override void UpdateUI(GameTime gameTime)
 		{
 			Player player = Main.LocalPlayer;
-			if (player.selectedItem < 10)
+			if (player.selectedItem < 10 && player.TryMetroidPlayer(out MPlayer mp))
 			{
-				MetroidMod.Instance.oldSelectedItem = MetroidMod.Instance.selectedItem;
-				MetroidMod.Instance.selectedItem = player.selectedItem;
+				mp.oldSelectedItem = mp.selectedItem;
+				mp.selectedItem = player.selectedItem;
 			}
 		}
 
