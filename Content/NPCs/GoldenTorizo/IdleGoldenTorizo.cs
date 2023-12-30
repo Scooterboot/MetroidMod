@@ -20,10 +20,24 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		{
 			// DisplayName.SetDefault("???");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.ActsLikeTownNPC[Type] = true;
 		}
 		public override void SetDefaults()
 		{
-			NPC.CloneDefaults(NPCID.OldMan);
+			/* This CloneDefaults functions as such:
+				this.townNPC = true;
+				this.friendly = true;
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 7;
+				this.damage = 10;
+				this.defense = 15;
+				this.lifeMax = 250;
+				this.HitSound = new SoundStyle?(SoundID.NPCHit1);
+				this.DeathSound = new SoundStyle?(SoundID.NPCDeath1);
+				this.knockBackResist = 0.5f;
+			*/
+			//NPC.CloneDefaults(NPCID.OldMan);
 			
 			NPC.width = 96;
 			NPC.height = 96;
