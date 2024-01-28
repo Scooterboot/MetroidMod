@@ -138,11 +138,11 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			{
 				P.velocity.X = P.velocity.X * 0.9f;
 				P.localAI[1] += 1f;
-				if (P.localAI[1] == 10f && P.owner == Main.myPlayer)
+				if (P.localAI[1] == 5f && P.owner == Main.myPlayer)
 				{
 					Projectile.NewProjectile(Projectile.GetSource_FromAI(), P.Center.X, P.Center.Y, 0f, 0f, ProjectileID.StardustGuardianExplosion, damage, 6f, P.owner, 0f, 5f);
 				}
-				if (P.localAI[1] >= 20f)
+				if (P.localAI[1] >= 10f)
 				{
 					P.localAI[1] = 0f;
 					P.ai[1] = 0f;

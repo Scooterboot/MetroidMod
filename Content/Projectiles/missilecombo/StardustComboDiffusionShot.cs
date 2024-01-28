@@ -107,6 +107,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(),600,true);
+			target.AddBuff(BuffID.Frostburn, 600, true);
 		}
 		
 		public override void OnKill(int timeLeft)
