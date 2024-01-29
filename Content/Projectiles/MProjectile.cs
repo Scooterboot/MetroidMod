@@ -313,14 +313,14 @@ namespace MetroidMod.Content.Projectiles
 							waveDepth += 2;
 						}
 					}
-					if(P.type == ModContent.ProjectileType<VoltDriverShot>())
+					/*if(P.type == ModContent.ProjectileType<VoltDriverShot>())
 					{
 						waveDepth /= 2;
 					}
 					if (P.type == ModContent.ProjectileType<VoltDriverChargeShot>())
 					{
 						waveDepth *= 2;
-					}
+					}*/
 					WaveCollide(P,waveDepth);
 				}
 			}
