@@ -488,7 +488,7 @@ namespace MetroidMod.Content.Items.Weapons
 				noSomersault = true;
 
 				comboUseTime = 10;
-				comboShotAmt = 4;
+				comboShotAmt = 6;
 
 				useVortexSounds = true;
 

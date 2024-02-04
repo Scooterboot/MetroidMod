@@ -24,7 +24,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 5;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 4*(1+Projectile.extraUpdates);
+			Projectile.localNPCHitCooldown = 2*(1+Projectile.extraUpdates);
 		}
 		
 		Vector2 targetPos;

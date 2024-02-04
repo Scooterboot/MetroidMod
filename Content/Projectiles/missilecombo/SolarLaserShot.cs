@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 5;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 13*(1+Projectile.extraUpdates);
+			Projectile.localNPCHitCooldown = 10*(1+Projectile.extraUpdates);
 		}
 		private float BeamLength
 		{
