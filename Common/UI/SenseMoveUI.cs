@@ -1,19 +1,13 @@
 ﻿using System;
+using MetroidMod.Common.Configs;
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using ReLogic.Content;
-
 using Terraria;
-using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Elements;
-
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items;
-using MetroidMod.Content.Items.Armors;
-using MetroidMod.Common.Configs;
+using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {

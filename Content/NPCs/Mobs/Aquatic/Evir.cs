@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
@@ -51,7 +50,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 		{
 			NPC.TargetClosest();
 
-			if(NPC.ai[0] == 0)
+			if (NPC.ai[0] == 0)
 			{
 				if (NPC.ai[1]++ >= 120)
 				{
@@ -64,9 +63,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 			else
 			{
 				Projectile projectile = Main.projectile[(int)NPC.ai[2]];
-				projectile.position = NPC.position + (projectilePosition * NPC.scale) - new Vector2(NPC.direction == -1 ? projectile.width+2 : -2, projectile.height / 2);
+				projectile.position = NPC.position + (projectilePosition * NPC.scale) - new Vector2(NPC.direction == -1 ? projectile.width + 2 : -2, projectile.height / 2);
 
-				if(NPC.ai[1]++ >= 60)
+				if (NPC.ai[1]++ >= 60)
 				{
 					Vector2 shootDirection = Vector2.Normalize(Main.player[NPC.target].Center - projectile.Center) * shootSpeed;
 					projectile.velocity = shootDirection;

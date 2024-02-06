@@ -1,15 +1,10 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.DataStructures;
-using ReLogic.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.OmegaPirate
 {
@@ -70,43 +65,43 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		public override bool PreAI()
 		{
 			//shoulder
-			if(NPC.ai[1] == 1f)
+			if (NPC.ai[1] == 1f)
 			{
 				NPC.width = 58;
 				NPC.height = 58;
 			}
 			//elbow
-			if(NPC.ai[1] == 2f)
+			if (NPC.ai[1] == 2f)
 			{
 				NPC.width = 38;
 				NPC.height = 38;
 			}
 			//hand
-			if(NPC.ai[1] == 3f)
+			if (NPC.ai[1] == 3f)
 			{
 				NPC.width = 60;
 				NPC.height = 60;
 			}
 			//thigh
-			if(NPC.ai[1] == 4f)
+			if (NPC.ai[1] == 4f)
 			{
 				NPC.width = 44;
 				NPC.height = 44;
 			}
 			//shin
-			if(NPC.ai[1] == 5f)
+			if (NPC.ai[1] == 5f)
 			{
 				NPC.width = 50;
 				NPC.height = 50;
 			}
 			//foot
-			if(NPC.ai[1] == 6f)
+			if (NPC.ai[1] == 6f)
 			{
 				NPC.width = 40;
 				NPC.height = 40;
 			}
 			//cannon
-			if(NPC.ai[1] == 7f)
+			if (NPC.ai[1] == 7f)
 			{
 				NPC.width = 48;
 				NPC.height = 48;
@@ -126,9 +121,9 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			bool visible = (Base.alpha < 255);
 			if (!Base.active)
 			{
-				Terraria.Audio.SoundEngine.PlaySound((Terraria.Audio.SoundStyle)NPC.DeathSound,NPC.Center);
+				Terraria.Audio.SoundEngine.PlaySound((Terraria.Audio.SoundStyle)NPC.DeathSound, NPC.Center);
 				NPC.life = 0;
-				if(visible)
+				if (visible)
 					NPC.HitEffect(0, 10.0);
 				NPC.active = false;
 				return;
@@ -136,10 +131,10 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			NPC.damage = Base.damage;
 			NPC.defense = Base.defense;
 			NPC.realLife = Base.whoAmI;
-			if(NPC.ai[1] != 0f || Base.dontTakeDamage || Base.ai[0] != 2)
+			if (NPC.ai[1] != 0f || Base.dontTakeDamage || Base.ai[0] != 2)
 			{
 				NPC.dontTakeDamage = true;
-				for(int i = 0; i < NPC.buffTime.Length; i++)
+				for (int i = 0; i < NPC.buffTime.Length; i++)
 				{
 					NPC.buffTime[i] = 0;
 				}
@@ -169,17 +164,17 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				int dustID = Dust.NewDust(NPC.position, NPC.width, NPC.height, 68, NPC.velocity.X * 0.2f, NPC.velocity.Y * 0.2f, 100, Color.White, NPC.life <= 0 && m % 2 == 0 ? 3f : 1f);
 				Main.dust[dustID].noGravity = true;
 			}
-				
-			if(NPC.life <= 0 && Base.ai[0] == 3)
+
+			if (NPC.life <= 0 && Base.ai[0] == 3)
 			{
 				var entitySource = NPC.GetSource_Death();
 				Gore newGore;
-				if(NPC.ai[1] == 1f)
+				if (NPC.ai[1] == 1f)
 				{
 					newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("OmegaPirateGore1").Type)];
 					newGore.timeLeft = 60;
 				}
-				else if(NPC.ai[1] == 3f)
+				else if (NPC.ai[1] == 3f)
 				{
 					newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("OmegaPirateGore3").Type)];
 					newGore.timeLeft = 60;
@@ -193,16 +188,16 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 					newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("OmegaPirateGore6").Type)];
 					newGore.timeLeft = 60;
 				}
-				else if(NPC.ai[1] == 4f)
+				else if (NPC.ai[1] == 4f)
 				{
 					newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("OmegaPirateGore2").Type)];
 					newGore.timeLeft = 60;
 				}
 				else
 				{
-					for(int i = 0; i < NPC.width; i += 10)
+					for (int i = 0; i < NPC.width; i += 10)
 					{
-						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("OmegaPirateGore" + Main.rand.Next(6,9)).Type)];
+						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("OmegaPirateGore" + Main.rand.Next(6, 9)).Type)];
 						newGore.timeLeft = 60;
 					}
 				}
@@ -211,7 +206,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
-			if(projectile.penetrate > 0 && projectile.aiStyle != 3)
+			if (projectile.penetrate > 0 && projectile.aiStyle != 3)
 			{
 				projectile.penetrate = 0;
 				projectile.netUpdate = true;

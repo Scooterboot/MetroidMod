@@ -1,11 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.Audio;
-using MetroidMod.Content.Items.Weapons;
-using Terraria.DataStructures;
 
 namespace MetroidMod.Content.Projectiles.VoltDriver
 {
@@ -36,13 +31,13 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			}
 			int shootSpeed = 2;
 			Color color = MetroidMod.powColor;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-            if (Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Projectile.numUpdates == 0)
 			{
-				Projectile.rotation += 0.5f*Projectile.direction;
+				Projectile.rotation += 0.5f * Projectile.direction;
 				Projectile.frame++;
 			}
-			if(Projectile.frame > 3)
+			if (Projectile.frame > 3)
 			{
 				Projectile.frame = 0;
 			}
@@ -76,7 +71,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			mProjectile.DustyDeath(Projectile, 269);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

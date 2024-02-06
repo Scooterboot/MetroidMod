@@ -1,15 +1,13 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Tiles;
 using MetroidMod.Content.Tiles.Hatch;
-using tModPorter;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {

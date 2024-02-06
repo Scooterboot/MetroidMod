@@ -1,29 +1,20 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using ReLogic.Content;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.UI;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.UI.Elements;
-
 using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Content.Items;
-using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.Items.Addons.Hunters;
-using MetroidMod.Content.Items.Addons.V2;
-using MetroidMod.Content.Items.Addons.V3;
-using MetroidMod.Content.Items.Addons;
 using MetroidMod.Content.Items.MissileAddons;
-using MetroidMod.Content.Tiles.ItemTile.Missile;
 using MetroidMod.Content.Items.MissileAddons.BeamCombos;
+using MetroidMod.Content.Items.Weapons;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
@@ -153,8 +144,7 @@ namespace MetroidMod.Common.UI
 
 		public void SetCondition()
 		{
-			this.condition = delegate (Item addonItem)
-			{
+			this.condition = delegate (Item addonItem) {
 				//Mod mod = MetroidMod.Instance;
 				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == mod)
 				{
@@ -170,7 +160,7 @@ namespace MetroidMod.Common.UI
 		{
 			// No failsafe. Should maybe be implemented? also ugly --Dr
 			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
-			
+
 			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 			if (missileLauncherTarget == null || missileLauncherTarget.MissileMods == null) { return; }
 
@@ -243,7 +233,7 @@ namespace MetroidMod.Common.UI
 					{
 						int stack = Main.mouseItem.stack + missileLauncherTarget.MissileMods[missileSlotType].stack;
 
-						if(missileLauncherTarget.MissileMods[missileSlotType].maxStack >= stack)
+						if (missileLauncherTarget.MissileMods[missileSlotType].maxStack >= stack)
 						{
 							missileLauncherTarget.MissileMods[missileSlotType].stack = stack;
 							Main.mouseItem.TurnToAir();
@@ -374,7 +364,7 @@ namespace MetroidMod.Common.UI
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if(missileLauncherTarget.MissileMods[missileSlotType].stack > 1)
+			if (missileLauncherTarget.MissileMods[missileSlotType].stack > 1)
 			{
 				Utils.DrawBorderStringFourWay(
 					spriteBatch,

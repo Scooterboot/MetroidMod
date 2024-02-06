@@ -1,10 +1,8 @@
 using System;
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.hyperbeam
 {
@@ -44,16 +42,16 @@ isNebula = shot.Contains("nebula");
 				speed = P.velocity.Length();
 				initialized = true;
 			}
-			
-			if(isSpazer || isWave)
+
+			if (isSpazer || isWave)
 			{
 				mProjectile.WaveBehavior(Projectile, !isWave);
 			}
-			if(isNebula)
+			if (isNebula)
 			{
-				if(initialized)
+				if (initialized)
 				{
-					mProjectile.HomingBehavior(P,speed);
+					mProjectile.HomingBehavior(P, speed);
 				}
 			}
 			if (isPlasma)
@@ -66,10 +64,10 @@ isNebula = shot.Contains("nebula");
 			{
 				Projectile.tileCollide = false;
 			}
-			Lighting.AddLight(P.Center, (float)mp.r/255f, (float)mp.g/255f, (float)mp.b/255f);
-			
+			Lighting.AddLight(P.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
+
 			Vector2 velocity = Projectile.position - Projectile.oldPos[0];
-			if(Vector2.Distance(Projectile.position, Projectile.position+velocity) < Vector2.Distance(Projectile.position,Projectile.position+Projectile.velocity))
+			if (Vector2.Distance(Projectile.position, Projectile.position + velocity) < Vector2.Distance(Projectile.position, Projectile.position + Projectile.velocity))
 			{
 				velocity = Projectile.velocity;
 			}
@@ -78,7 +76,7 @@ isNebula = shot.Contains("nebula");
 		public override bool PreDraw(ref Color lightColor)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
-			mProjectile.PlasmaDrawTrail(Projectile,Main.player[Projectile.owner],Main.spriteBatch,10,0.6f,new Color(mp.r, mp.g, mp.b, 128));
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 10, 0.6f, new Color(mp.r, mp.g, mp.b, 128));
 			return false;
 		}
 		public override void OnKill(int timeLeft)

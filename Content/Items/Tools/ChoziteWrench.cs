@@ -1,13 +1,10 @@
 #region Using directives
 
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-
-using MetroidMod.Common.Systems;
-using MetroidMod.ID;
 
 #endregion
 

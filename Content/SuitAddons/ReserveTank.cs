@@ -1,9 +1,8 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.ID;
-using MetroidMod.Common.Players;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {

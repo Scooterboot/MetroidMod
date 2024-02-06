@@ -1,9 +1,8 @@
-using System; 
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -43,8 +42,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 		}
 
 
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			/*CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(30)
 				.AddIngredient<Miscellaneous.EnergyShard>(30)
@@ -62,7 +61,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				.AddIngredient(ItemID.Ruby, 20)
 				.AddTile(TileID.Hellforge)
 				.Register();*/
-			
+
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(30)
 				.AddIngredient<Miscellaneous.EnergyShard>(30)

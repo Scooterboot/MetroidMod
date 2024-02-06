@@ -1,15 +1,10 @@
+using System;
+using MetroidMod.Common.Players;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
-using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -38,13 +33,13 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void AI()
 		{
-			
+
 			Player P = Main.player[Projectile.owner];
-			Projectile.position.X = P.Center.X - Projectile.width/2;
-			Projectile.position.Y = P.Center.Y - Projectile.height/2;
+			Projectile.position.X = P.Center.X - Projectile.width / 2;
+			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
 
 			SpeedSound++;
-			if(SpeedSound == 4)
+			if (SpeedSound == 4)
 			{
 				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position), out activeSound))
 				{
@@ -52,7 +47,7 @@ namespace MetroidMod.Content.Projectiles
 				}
 
 			}
-			if(soundInstance != null && SpeedSound == 82)
+			if (soundInstance != null && SpeedSound == 82)
 			{
 				soundInstance.Stop();
 				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position), out activeSound))
@@ -63,37 +58,37 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			if(mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
+			if (mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
 			{
-				if(soundInstance != null)
+				if (soundInstance != null)
 				{
 					soundInstance.Stop(true);
 				}
 				Projectile.Kill();
 			}
-			foreach(Projectile Pr in Main.projectile) if (Pr!= null)
-			{
-				if(Pr.active && (Pr.type == ModContent.ProjectileType<ShineSpark>() || Pr.type == ModContent.ProjectileType<SpeedBall>()))
+			foreach (Projectile Pr in Main.projectile) if (Pr != null)
 				{
-					if (soundInstance != null)
+					if (Pr.active && (Pr.type == ModContent.ProjectileType<ShineSpark>() || Pr.type == ModContent.ProjectileType<SpeedBall>()))
 					{
-						soundInstance.Stop(true);
+						if (soundInstance != null)
+						{
+							soundInstance.Stop(true);
+						}
+						Projectile.Kill();
+						return;
 					}
-					Projectile.Kill();
-					return;
 				}
-			}
-			Lighting.AddLight((int)((float)Projectile.Center.X/16f), (int)((float)(Projectile.Center.Y)/16f),  0, 0.75f, 1f);
-			float rotation = (float)Math.Atan2(P.position.Y-P.shadowPos[0].Y, P.position.X-P.shadowPos[0].X);
-			float rotation1 = rotation+((float)Math.PI/2);
-			float rotation2 = rotation-((float)Math.PI/2);
-			Vector2 vect = P.Center - new Vector2(4,4) + rotation.ToRotationVector2()*24f;
-			Vector2 vel = P.position-mp.oldPosition;
-			Vector2 vel1 = rotation1.ToRotationVector2()*Math.Abs(P.velocity.X);
-			Vector2 vel2 = rotation2.ToRotationVector2()*Math.Abs(P.velocity.X);
-			int num20 = Dust.NewDust(vect-vel1, 1, 1, 67, vel1.X+vel.X, vel1.Y+vel.Y, 100, default(Color), 2f);
+			Lighting.AddLight((int)((float)Projectile.Center.X / 16f), (int)((float)(Projectile.Center.Y) / 16f), 0, 0.75f, 1f);
+			float rotation = (float)Math.Atan2(P.position.Y - P.shadowPos[0].Y, P.position.X - P.shadowPos[0].X);
+			float rotation1 = rotation + ((float)Math.PI / 2);
+			float rotation2 = rotation - ((float)Math.PI / 2);
+			Vector2 vect = P.Center - new Vector2(4, 4) + rotation.ToRotationVector2() * 24f;
+			Vector2 vel = P.position - mp.oldPosition;
+			Vector2 vel1 = rotation1.ToRotationVector2() * Math.Abs(P.velocity.X);
+			Vector2 vel2 = rotation2.ToRotationVector2() * Math.Abs(P.velocity.X);
+			int num20 = Dust.NewDust(vect - vel1, 1, 1, 67, vel1.X + vel.X, vel1.Y + vel.Y, 100, default(Color), 2f);
 			Main.dust[num20].noGravity = true;
-			int num21 = Dust.NewDust(vect-vel2, 1, 1, 67, vel2.X+vel.X, vel2.Y+vel.Y, 100, default(Color), 2f);
+			int num21 = Dust.NewDust(vect - vel2, 1, 1, 67, vel2.X + vel.X, vel2.Y + vel.Y, 100, default(Color), 2f);
 			Main.dust[num21].noGravity = true;
 
 			if (activeSound != null)

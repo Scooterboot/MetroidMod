@@ -1,15 +1,11 @@
-using Terraria;
-using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
-using Terraria.ID;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Nightmare
 {
@@ -62,9 +58,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			bool flag = (Head.alpha < 255);
 			if (!Head.active)
 			{
-				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound,NPC.Center);
+				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound, NPC.Center);
 				NPC.life = 0;
-				if(flag)
+				if (flag)
 				{
 					NPC.HitEffect(0, 10.0);
 				}
@@ -74,17 +70,17 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 			NPC.damage = Head.damage;
 			NPC.velocity = Head.velocity;
-			
-			if(NPC.ai[1] >= 1 && NPC.ai[1] <= 3)
+
+			if (NPC.ai[1] >= 1 && NPC.ai[1] <= 3)
 			{
-				Vector2 laserPos = NPC.Center + new Vector2(13*Head.direction,17);
-				if(NPC.ai[1] == 2)
+				Vector2 laserPos = NPC.Center + new Vector2(13 * Head.direction, 17);
+				if (NPC.ai[1] == 2)
 				{
-					laserPos = NPC.Center + new Vector2(19*Head.direction,17);
+					laserPos = NPC.Center + new Vector2(19 * Head.direction, 17);
 				}
-				if(NPC.ai[1] == 3)
+				if (NPC.ai[1] == 3)
 				{
-					laserPos = NPC.Center + new Vector2(25*Head.direction,19);
+					laserPos = NPC.Center + new Vector2(25 * Head.direction, 19);
 				}
 
 				if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -126,16 +122,16 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				}
 			}
 
-			if(!Head.dontTakeDamage)
+			if (!Head.dontTakeDamage)
 			{
-				for(int i = 0; i < Main.maxProjectiles; i++)
+				for (int i = 0; i < Main.maxProjectiles; i++)
 				{
-					if(Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+					if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
 					{
 						Projectile P = Main.projectile[i];
-						Rectangle projRect = new Rectangle((int)(P.position.X+P.velocity.X),(int)(P.position.Y+P.velocity.Y),P.width,P.height);
-						Rectangle npcRect = new Rectangle((int)NPC.position.X,(int)NPC.position.Y,NPC.width,NPC.height);
-						if(projRect.Intersects(npcRect))
+						Rectangle projRect = new Rectangle((int)(P.position.X + P.velocity.X), (int)(P.position.Y + P.velocity.Y), P.width, P.height);
+						Rectangle npcRect = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
+						if (projRect.Intersects(npcRect))
 						{
 							if (Main.projectile[i].penetrate > 0)
 							{
@@ -165,10 +161,10 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					Main.dust[num72].noGravity = true;
 				}
 				//Main.PlaySound(4,(int)NPC.position.X,(int)NPC.position.Y,14);
-					
+
 				int num = (int)NPC.ai[1];
-				string path = "NightmareArmFrontGore"+num;
-				int gore = Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(0f,3f), Mod.Find<ModGore>(path).Type, 1f);
+				string path = "NightmareArmFrontGore" + num;
+				int gore = Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(0f, 3f), Mod.Find<ModGore>(path).Type, 1f);
 				Main.gore[gore].velocity *= 0.4f;
 				Main.gore[gore].timeLeft = 60;
 			}

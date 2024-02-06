@@ -1,23 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Default;
+using MetroidMod.ID;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 //using Terraria.GameContent.Liquid;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using MetroidMod.Content.Items.Armors;
-using MetroidMod.Default;
-using MetroidMod.ID;
-
-using MetroidMod.Common.Players;
 
 namespace MetroidMod
 {
@@ -63,9 +53,9 @@ namespace MetroidMod
 
 		public static bool IsASuitTile(Tile tile)
 		{
-			foreach(ModSuitAddon addon in addons)
+			foreach (ModSuitAddon addon in addons)
 			{
-				if(tile.TileType == addon.TileType) { return true; }
+				if (tile.TileType == addon.TileType) { return true; }
 			}
 			return false;
 		}

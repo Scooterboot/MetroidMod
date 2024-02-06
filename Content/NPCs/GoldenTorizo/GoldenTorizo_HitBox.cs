@@ -1,23 +1,18 @@
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using ReLogic.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.GoldenTorizo
 {
 	public class GoldenTorizo_HitBox : ModNPC
 	{
 		public override string Texture => Mod.Name + "/Content/NPCs/GoldenTorizo/GoldenTorizoHand_Front";
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Golden Torizo");
@@ -61,41 +56,41 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		{
 			get { return Main.npc[(int)NPC.ai[0]]; }
 		}
-		
+
 		public override bool PreAI()
 		{
 			//body
-			if(NPC.ai[1] == 1f)
+			if (NPC.ai[1] == 1f)
 			{
 				NPC.width = 56;
 				NPC.height = 94;
 			}
 			//shoulder
-			if(NPC.ai[1] == 2f)
+			if (NPC.ai[1] == 2f)
 			{
 				NPC.width = 30;
 				NPC.height = 30;
 			}
 			//arm
-			if(NPC.ai[1] == 3f)
+			if (NPC.ai[1] == 3f)
 			{
 				NPC.width = 30;
 				NPC.height = 30;
 			}
 			//hand
-			if(NPC.ai[1] == 4f)
+			if (NPC.ai[1] == 4f)
 			{
 				NPC.width = 32;
 				NPC.height = 32;
 			}
 			//thigh
-			if(NPC.ai[1] == 5f)
+			if (NPC.ai[1] == 5f)
 			{
 				NPC.width = 30;
 				NPC.height = 30;
 			}
 			//calf
-			if(NPC.ai[1] == 6f)
+			if (NPC.ai[1] == 6f)
 			{
 				NPC.width = 28;
 				NPC.height = 28;
@@ -108,11 +103,11 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			if (!Base.active)
 			{
 				NPC.life = 0;
-				if(flag)
+				if (flag)
 				{
-					if(NPC.ai[1] == 1f)
+					if (NPC.ai[1] == 1f)
 					{
-						SoundEngine.PlaySound((SoundStyle)NPC.DeathSound,NPC.Center);
+						SoundEngine.PlaySound((SoundStyle)NPC.DeathSound, NPC.Center);
 					}
 					NPC.HitEffect(0, 10.0);
 				}
@@ -123,7 +118,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			NPC.defense = Base.defense;
 			NPC.GivenName = Base.GivenName;
 			NPC.direction = Base.direction;
-			if(NPC.ai[1] > 1f)
+			if (NPC.ai[1] > 1f)
 			{
 				NPC.dontTakeDamage = true;
 			}
@@ -131,82 +126,82 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			{
 				NPC.dontTakeDamage = Base.dontTakeDamage;
 			}
-			if(NPC.ai[1] != 1f)
+			if (NPC.ai[1] != 1f)
 			{
 				NPC.chaseable = false;
 			}
 			NPC.realLife = Base.whoAmI;
 		}
-		
+
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
 			GoldenTorizo mNpc = (GoldenTorizo)Base.ModNPC;
-			if(mNpc.screwAttack)
+			if (mNpc.screwAttack)
 			{
 				modifiers.FinalDamage *= 2;
 			}
 		}
-		
+
 		public override bool? CanBeHitByItem(Player player, Item item) => (NPC.ai[1] <= 1f) ? null : false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => (NPC.ai[1] <= 1f) ? null : false;
-		
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
-			if(NPC.ai[1] <= 1f)
+			if (NPC.ai[1] <= 1f)
 			{
 				Base.HitEffect(hit);
 			}
-			
-			if(NPC.life <= 0 && Main.netMode != NetmodeID.Server)
+
+			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				Gore newGore;
 				var entitySource = NPC.GetSource_Death();
-				if(NPC.ai[1] == 0f)
+				if (NPC.ai[1] == 0f)
 				{
-					for(int i = 0; i < 3; i++)
+					for (int i = 0; i < 3; i++)
 					{
 						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoHeadGore1").Type)];
 						newGore.timeLeft = 60;
-						
-						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoHeadGore" + (2+i)).Type)];
+
+						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoHeadGore" + (2 + i)).Type)];
 						newGore.timeLeft = 60;
 					}
 				}
-				if(NPC.ai[1] == 1f)
+				if (NPC.ai[1] == 1f)
 				{
 					newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoBodyGore1").Type)];
 					newGore.timeLeft = 60;
-					
-					for(int i = 0; i < 3; i++)
+
+					for (int i = 0; i < 3; i++)
 					{
 						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoBodyGore2").Type)];
 						newGore.timeLeft = 60;
-						
+
 						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoBodyGore3").Type)];
 						newGore.timeLeft = 60;
-						
+
 						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoBodyGore4").Type)];
 						newGore.timeLeft = 60;
 					}
 				}
-				if(NPC.ai[1] >= 2f)
+				if (NPC.ai[1] >= 2f)
 				{
-					if(NPC.ai[1] == 2)
+					if (NPC.ai[1] == 2)
 					{
 						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoGore1").Type)];
 						newGore.timeLeft = 60;
 					}
-					
+
 					newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoGore" + NPC.ai[1]).Type)];
 					newGore.timeLeft = 60;
-					
-					if(NPC.ai[1] == 6)
+
+					if (NPC.ai[1] == 6)
 					{
-						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center+new Vector2(0,30), new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoGore7").Type)];
+						newGore = Main.gore[Gore.NewGore(entitySource, NPC.Center + new Vector2(0, 30), new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f, Mod.Find<ModGore>("TorizoGore7").Type)];
 						newGore.timeLeft = 60;
 					}
 				}
-				
+
 				for (int num70 = 0; num70 < 10; num70++)
 				{
 					int num71 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 5f);

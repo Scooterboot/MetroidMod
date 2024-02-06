@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MetroidMod.Default;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-
-using MetroidMod.Default;
-using MetroidMod.ID;
 
 namespace MetroidMod
 {

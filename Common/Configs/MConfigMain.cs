@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
 namespace MetroidMod.Common.Configs
@@ -21,14 +20,13 @@ namespace MetroidMod.Common.Configs
 
 		public MConfigMain()
 		{
-			condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message)
-			{
+			condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message) {
 				return whoAmI == 0;
 			};
 		}
-		
-	[Header("General")]
-		
+
+		[Header("General")]
+
 		//[Label("[i:MetroidMod/TorizoSummon] Boss Summon Consumption")]
 		//[Tooltip("When enabled, Boss Summon items will be consumed upon usage.")]
 		[DefaultValue(true)]
@@ -48,7 +46,7 @@ namespace MetroidMod.Common.Configs
 		//[DefaultValue(false)]
 		//internal bool veryBrokenHatchControl;
 
-	[Header("[i:3611]TechPreservation")]
+		[Header("[i:3611]TechPreservation")]
 
 		//[Label("[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots")]
 		//[Tooltip("Enables a small, niche movement tech that has not been named. It's pronounced 'nitch' not 'neesh' -Dr")]
@@ -60,13 +58,13 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool enableMorphBallWallJump;
 
-	[Header("AutomaticallyClosingHatches")]
+		[Header("AutomaticallyClosingHatches")]
 
 		//[Label("Closing hatches")]
 		//[Tooltip("When enabled, hatches will automatically close after a certain period of time.")]
 		[DefaultValue(true)]
 		public bool AutocloseHatchesEnabled;
-		
+
 		//[Label("Timer")]
 		//[Tooltip("Time before hatches automatically close, in seconds.")]
 		[Range(0, 120)]
@@ -75,7 +73,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(10)]
 		public int AutocloseHatchesTime;
 
-	[Header("DisableMobSpawn")]
+		[Header("DisableMobSpawn")]
 
 		//[Label("Disable Mob Spawns")]
 		//[Tooltip("Disable Metroid mod mob spawning, as they currently have no unique drops")]

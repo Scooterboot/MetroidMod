@@ -1,15 +1,12 @@
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using Terraria.ID;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Phantoon
 {
@@ -43,7 +40,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			NPC.behindTiles = false;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 0;
-			
+
 			NPC.dontTakeDamage = true;
 			NPC.noTileCollide = true;
 			NPC.noGravity = true;
@@ -64,13 +61,13 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		{
 			damage *= 2;
 		}
-		
+
 		Vector2 startPos;
-		
+
 		bool initialized = false;
 		public override bool PreAI()
 		{
-			if(!initialized)
+			if (!initialized)
 			{
 				startPos = NPC.Center;
 				initialized = true;
@@ -105,11 +102,11 @@ namespace MetroidMod.Content.NPCs.Phantoon
 						NPC.ai[3] = 2;
 				}
 
-				if(NPC.ai[3] == 1 || NPC.ai[3] == 2)
+				if (NPC.ai[3] == 1 || NPC.ai[3] == 2)
 				{
 					NPC.ai[2] += (float)Math.PI / 120;
-					
-					if(NPC.ai[3] == 2)
+
+					if (NPC.ai[3] == 2)
 					{
 						dist -= 1f;
 					}
@@ -118,33 +115,33 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				{
 					dist = 120;
 				}
-				
+
 				NPC.Center = creator.Center + new Vector2((float)Math.Cos(NPC.ai[2]) * dist, (float)Math.Sin(NPC.ai[2]) * dist);
-				
-				if(dist <= 10f)
+
+				if (dist <= 10f)
 				{
 					NPC.alpha += 25;
-					if(NPC.alpha >= 255)
+					if (NPC.alpha >= 255)
 					{
 						NPC.active = false;
 					}
 				}
 				NPC.frameCounter++;
-				if(NPC.frameCounter > 4)
+				if (NPC.frameCounter > 4)
 				{
 					NPC.frame.Y++;
 					NPC.frameCounter = 0;
 				}
-				if(NPC.frame.Y >= 3)
+				if (NPC.frame.Y >= 3)
 				{
 					NPC.frame.Y = 0;
 				}
 			}
 			else
 			{
-				if(timeLeft > 0)
+				if (timeLeft > 0)
 				{
-					if(NPC.dontTakeDamage)
+					if (NPC.dontTakeDamage)
 					{
 						NPC.alpha = 127;
 					}
@@ -157,7 +154,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				else
 				{
 					NPC.alpha += 25;
-					if(NPC.alpha >= 255)
+					if (NPC.alpha >= 255)
 					{
 						NPC.active = false;
 					}
@@ -168,30 +165,30 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			if (NPC.ai[1] == 0)
 			{
 				NPC.noTileCollide = false;
-				
+
 				NPC.frameCounter++;
-				if(NPC.frameCounter > 4)
+				if (NPC.frameCounter > 4)
 				{
 					currentFrame++;
 					NPC.frameCounter = 0;
 				}
-				if(currentFrame >= 3)
+				if (currentFrame >= 3)
 				{
 					currentFrame = 0;
 				}
-				
-				if(NPC.ai[2] <= 0f)
+
+				if (NPC.ai[2] <= 0f)
 				{
-					if(!bounced)
+					if (!bounced)
 					{
 						frameSet = 0;
-						if(NPC.velocity.Y == 0f)
+						if (NPC.velocity.Y == 0f)
 						{
-							if(bounceCounter > 0)
+							if (bounceCounter > 0)
 							{
 								currentFrame = 0;
 								frameSet = 6;
-								if(timeLeft > 0)
+								if (timeLeft > 0)
 								{
 									NPC.alpha = 0;
 								}
@@ -199,7 +196,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 							}
 							bounceCounter++;
 						}
-						if(bounceCounter > 10 && Main.netMode != NetmodeID.MultiplayerClient)
+						if (bounceCounter > 10 && Main.netMode != NetmodeID.MultiplayerClient)
 						{
 							bounced = true;
 							NPC.netUpdate = true;
@@ -209,7 +206,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					}
 					else
 					{
-						if(NPC.velocity.Y == 0f)
+						if (NPC.velocity.Y == 0f)
 						{
 							NPC.life = 0;
 							NPC.HitEffect(0, 10.0);
@@ -227,37 +224,37 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					NPC.dontTakeDamage = false;
 					NPC.damage = damage;
 				}
-				
+
 				NPC.frame.Y = currentFrame + frameSet;
 			}
 
-			if(NPC.ai[1] == 1) // targeting behavior
+			if (NPC.ai[1] == 1) // targeting behavior
 			{
 				NPC.frameCounter++;
-				if(NPC.frameCounter > 4)
+				if (NPC.frameCounter > 4)
 				{
 					currentFrame++;
 					NPC.frameCounter = 0;
 				}
-				if(currentFrame >= 3)
+				if (currentFrame >= 3)
 				{
 					currentFrame = 0;
 				}
 
 				float targetRot = (float)Math.Atan2(player.Center.Y - NPC.Center.Y, player.Center.X - NPC.Center.X);
-				if(NPC.ai[3] < 30)
+				if (NPC.ai[3] < 30)
 				{
-					if(creator.active)
+					if (creator.active)
 					{
 						startPos = creator.Center;
-						NPC.Center = creator.Center + new Vector2((float)Math.Cos(NPC.ai[2]) * dist,(float)Math.Sin(NPC.ai[2]) * dist);
+						NPC.Center = creator.Center + new Vector2((float)Math.Cos(NPC.ai[2]) * dist, (float)Math.Sin(NPC.ai[2]) * dist);
 					}
 					else
 					{
-						NPC.Center = startPos + new Vector2((float)Math.Cos(NPC.ai[2]) * dist,(float)Math.Sin(NPC.ai[2]) * dist);
+						NPC.Center = startPos + new Vector2((float)Math.Cos(NPC.ai[2]) * dist, (float)Math.Sin(NPC.ai[2]) * dist);
 					}
-					
-					if(dist < 120)
+
+					if (dist < 120)
 					{
 						dist += 6f;
 					}
@@ -266,9 +263,9 @@ namespace MetroidMod.Content.NPCs.Phantoon
 						NPC.ai[3]++;
 					}
 
-					if(NPC.ai[3] == 30)
+					if (NPC.ai[3] == 30)
 					{
-						NPC.velocity = targetRot.ToRotationVector2()*12;
+						NPC.velocity = targetRot.ToRotationVector2() * 12;
 					}
 					frameSet = 0;
 					NPC.dontTakeDamage = true;
@@ -279,7 +276,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					NPC.damage = damage;
 					//NPC.velocity += targetRot.ToRotationVector2()*0.2f;
 				}
-				
+
 				NPC.frame.Y = currentFrame + frameSet;
 			}
 
@@ -290,7 +287,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				NPC.dontTakeDamage = false;
 				float targetRot = (float)Math.Atan2(player.Center.Y - NPC.Center.Y, player.Center.X - NPC.Center.X);
 
-				if(NPC.ai[2] == 0f)
+				if (NPC.ai[2] == 0f)
 				{
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
@@ -305,23 +302,23 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				}
 				else
 				{
-					if(NPC.velocity.Length() < 16)
+					if (NPC.velocity.Length() < 16)
 					{
 						NPC.velocity *= 1.025f;
-						if(Vector2.Distance(player.Center, NPC.Center) <= 600)
+						if (Vector2.Distance(player.Center, NPC.Center) <= 600)
 						{
-							NPC.velocity += targetRot.ToRotationVector2()*0.5f;
+							NPC.velocity += targetRot.ToRotationVector2() * 0.5f;
 						}
 					}
 				}
-				
+
 				NPC.frameCounter++;
-				if(NPC.frameCounter > 4)
+				if (NPC.frameCounter > 4)
 				{
 					NPC.frame.Y++;
 					NPC.frameCounter = 0;
 				}
-				if(NPC.frame.Y >= 6 || NPC.frame.Y < 3)
+				if (NPC.frame.Y >= 6 || NPC.frame.Y < 3)
 				{
 					NPC.frame.Y = 3;
 				}
@@ -330,19 +327,19 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			// Super fireball #2
 			if (NPC.ai[1] == 3)
 			{
-				if(creator.type == NPC.type && creator.active && creator.ai[1] == 2)
+				if (creator.type == NPC.type && creator.active && creator.ai[1] == 2)
 				{
 					NPC.Center = creator.Center + new Vector2((float)Math.Cos(NPC.ai[2]) * 28, (float)Math.Sin(NPC.ai[2]) * 28) - creator.velocity;
 					NPC.velocity = creator.velocity;
 					NPC.ai[2] += (float)Math.PI / 60;
-					
+
 					NPC.frameCounter++;
-					if(NPC.frameCounter > 4)
+					if (NPC.frameCounter > 4)
 					{
 						NPC.frame.Y++;
 						NPC.frameCounter = 0;
 					}
-					if(NPC.frame.Y >= 3)
+					if (NPC.frame.Y >= 3)
 					{
 						NPC.frame.Y = 0;
 					}
@@ -363,46 +360,46 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			{
 				NPC.Center = startPos + new Vector2((float)Math.Cos(NPC.ai[2]) * dist, (float)Math.Sin(NPC.ai[2]) * dist);
 				dist += 8f;
-				NPC.ai[2] += (float)Math.PI/60;
-				
+				NPC.ai[2] += (float)Math.PI / 60;
+
 				NPC.damage = damage;
 				NPC.dontTakeDamage = false;
-				if(NPC.frameCounter++ > 4)
+				if (NPC.frameCounter++ > 4)
 				{
 					NPC.frame.Y++;
 					NPC.frameCounter = 0;
 				}
-				if(NPC.frame.Y >= 3)
+				if (NPC.frame.Y >= 3)
 				{
 					NPC.frame.Y = 0;
 				}
 			}
 
 			float num = (255f - NPC.alpha) / 255f;
-			Lighting.AddLight(NPC.Center, 0f,0.75f*num,1f*num);
+			Lighting.AddLight(NPC.Center, 0f, 0.75f * num, 1f * num);
 		}
 
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
 			Texture2D tex = Terraria.GameContent.TextureAssets.Npc[Type].Value;
 			int texH = (tex.Height / 7);
-			sb.Draw(tex,NPC.Center - Main.screenPosition,new Rectangle?(new Rectangle(0,texH*NPC.frame.Y,tex.Width,texH)),NPC.GetAlpha(Color.White),0f,new Vector2(tex.Width/2,texH-(NPC.height/2)-1),1f,SpriteEffects.None,0f);
+			sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, texH * NPC.frame.Y, tex.Width, texH)), NPC.GetAlpha(Color.White), 0f, new Vector2(tex.Width / 2, texH - (NPC.height / 2) - 1), 1f, SpriteEffects.None, 0f);
 			return false;
 		}
-		
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
-			for(int i = 0; i < 15; i++)
+			for (int i = 0; i < 15; i++)
 			{
-				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 59, 0f, -(Main.rand.Next(4)/2), 100, Color.White, 1.5f);
+				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 59, 0f, -(Main.rand.Next(4) / 2), 100, Color.White, 1.5f);
 				Main.dust[dust].noGravity = true;
 			}
-			if(NPC.life <= 0)
+			if (NPC.life <= 0)
 			{
-				for(int i = 0; i < 10; i++)
+				for (int i = 0; i < 10; i++)
 				{
-					int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 56, 0f, -(Main.rand.Next(3)/2), 100, Color.White, 2f);
+					int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 56, 0f, -(Main.rand.Next(3) / 2), 100, Color.White, 2f);
 					Main.dust[dust].noGravity = true;
 				}
 			}

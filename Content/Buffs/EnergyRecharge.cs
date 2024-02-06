@@ -1,9 +1,7 @@
-using Microsoft.Xna.Framework.Audio;
-using Terraria.ModLoader;
+using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.Audio;
-
-using MetroidMod.Common.Players;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Buffs
 {
@@ -25,7 +23,7 @@ namespace MetroidMod.Content.Buffs
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if ((/*player.statLife >= player.statLifeMax2 && mp.reserveHearts >= mp.reserveTanks && */mp.Energy >= mp.MaxEnergy) || player.controlJump || player.controlUseItem)
 			{
-				if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
+				if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{
 					result.Stop();
 				}
@@ -61,7 +59,7 @@ namespace MetroidMod.Content.Buffs
 				}
 				player.mount.Dismount(player);
 				//Main.PlaySound(10, player.Center);
-				if(!soundPlayed)
+				if (!soundPlayed)
 				{
 					soundInstance = SoundEngine.PlaySound(Sounds.Suit.ConcentrationLoop, player.Center);
 					soundPlayed = true;

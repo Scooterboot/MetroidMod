@@ -1,9 +1,7 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.GlobalItems;
-using static MetroidMod.Sounds;
-using Terraria.DataStructures;
 
 namespace MetroidMod.Content.Items.Tiles
 {

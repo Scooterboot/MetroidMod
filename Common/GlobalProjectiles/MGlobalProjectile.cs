@@ -1,10 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-
+﻿using MetroidMod.Common.Systems;
+using MetroidMod.Content.Projectiles.Paralyzer;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-
-using MetroidMod.Common.Systems;
-using MetroidMod.Content.Projectiles.Paralyzer;
 
 namespace MetroidMod.Common.GlobalProjectiles
 {

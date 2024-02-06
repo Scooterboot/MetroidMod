@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.useAmmo = AmmoID.Arrow;
 			Item.autoReuse = true;
 		}
-		
+
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

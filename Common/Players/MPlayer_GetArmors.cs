@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using MetroidMod.Content.Items.Armors;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Content.Items.Armors;
-using MetroidMod.Default;
-using MetroidMod.ID;
 
 namespace MetroidMod.Common.Players
 {
@@ -228,7 +227,7 @@ namespace MetroidMod.Common.Players
 			{
 				armor = player.armor[11].ModItem as PowerSuitBreastplate;
 			}
-			else { return new ModSuitAddon[2] {null, null}; }
+			else { return new ModSuitAddon[2] { null, null }; }
 			Item[] sa = armor.SuitAddons;
 			ModSuitAddon[] msa = new ModSuitAddon[2];
 			for (int i = SuitAddonSlotID.Suit_Barrier; i <= SuitAddonSlotID.Suit_Primary; i++)

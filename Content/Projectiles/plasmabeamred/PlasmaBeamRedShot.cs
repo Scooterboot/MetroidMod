@@ -1,7 +1,5 @@
 using System;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -29,20 +27,20 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			
-			 
+
+
 			if (shot.Contains("ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			if(Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Projectile.numUpdates == 0)
 			{
 				Projectile.frame++;
 			}
-			if(Projectile.frame > 1)
+			if (Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
@@ -80,12 +78,12 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 4);

@@ -38,7 +38,7 @@ namespace MetroidMod.Content.Items.Boss
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
-		
+
 		public override bool ConsumeItem(Player player)
 		{
 			if (Common.Configs.MConfigMain.Instance.enableBossSummonConsumption)
@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Items.Boss
 				return false;
 			}
 		}
-		
+
 		public override bool CanUseItem(Player player)
 		{
 			return !NPC.AnyNPCs(ModContent.NPCType<NPCs.Phantoon.Phantoon>()) && !Main.dayTime;

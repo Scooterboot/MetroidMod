@@ -1,15 +1,12 @@
-using Terraria;
-using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
-using Terraria.ID;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MetroidMod.Content.NPCs.OmegaPirate;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.OmegaPirate
 {
@@ -60,15 +57,15 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		bool soundPlayed = false;
 		public override void AI()
 		{
-			if(Base == null || !Base.active)
+			if (Base == null || !Base.active)
 				NPC.ai[3] = 1;
 
 			NPC.realLife = Base.whoAmI;
 
-			if(NPC.ai[3] == 1)
+			if (NPC.ai[3] == 1)
 			{
 				NPC.ai[1] -= 0.05f;
-				if(NPC.ai[1] <= 0f)
+				if (NPC.ai[1] <= 0f)
 				{
 					NPC.life = 0;
 					NPC.active = false;
@@ -77,7 +74,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			}
 			else
 			{
-				if(NPC.ai[1] <= 1f)
+				if (NPC.ai[1] <= 1f)
 				{
 					NPC.ai[1] = Math.Min(NPC.ai[1] + 0.05f, 1f);
 				}
@@ -86,21 +83,21 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 					NPC.ai[1] = Math.Max(NPC.ai[1] - 0.05f, 1f);
 				}
 			}
-			
-			if(NPC.ai[2] > maxDamage)
+
+			if (NPC.ai[2] > maxDamage)
 			{
 				NPC.ai[2] = maxDamage;
 			}
-			
-			if(NPC.ai[1] > 1f && NPC.ai[1] <= 1.05f)
+
+			if (NPC.ai[1] > 1f && NPC.ai[1] <= 1.05f)
 			{
-				Color color = Color.Lerp(OmegaPirate.minGlowColor,OmegaPirate.maxGlowColor,(NPC.ai[2] / maxDamage));
+				Color color = Color.Lerp(OmegaPirate.minGlowColor, OmegaPirate.maxGlowColor, (NPC.ai[2] / maxDamage));
 				CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.position.Y, 1, 1), color, (int)NPC.ai[2], false, false);
 			}
-			
-			if(NPC.ai[1] > 1f)
+
+			if (NPC.ai[1] > 1f)
 			{
-				if(!soundPlayed)
+				if (!soundPlayed)
 				{
 					SoundEngine.PlaySound(Sounds.NPCs.ElitePirate_AbsorbProjectileSound, NPC.position);
 					soundPlayed = true;
@@ -110,33 +107,33 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			{
 				soundPlayed = false;
 			}
-			
+
 			NPC.position.X += NPC.width / 2f;
 			NPC.position.Y += NPC.height / 2f;
 			NPC.width = (int)(70 * NPC.ai[1]);
 			NPC.height = (int)(70 * NPC.ai[1]);
 			NPC.position.X -= NPC.width / 2f;
 			NPC.position.Y -= NPC.height / 2f;
-			
-			NPC.scale = 0.5f + ((float)Main.rand.Next(6)/10f) + (NPC.ai[2] / 400f);
-			
-			for(int i = 0; i < NPC.maxAI; i++)
+
+			NPC.scale = 0.5f + ((float)Main.rand.Next(6) / 10f) + (NPC.ai[2] / 400f);
+
+			for (int i = 0; i < NPC.maxAI; i++)
 			{
 				NPC.localAI[i] = (i + 2f + (float)Main.rand.Next(10)) / 10f;
 			}
-			
-			int dust1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 87, 0f, 0f, 100, Color.White, (1.5f + (NPC.ai[2] / 400f))*NPC.ai[1]);
+
+			int dust1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 87, 0f, 0f, 100, Color.White, (1.5f + (NPC.ai[2] / 400f)) * NPC.ai[1]);
 			Main.dust[dust1].noGravity = true;
 			Main.dust[dust1].velocity *= 0.3f;
-			
+
 			NPC.rotation += 0.5f * Base.direction;
-			
-			if(soundCounter <= 0)
+
+			if (soundCounter <= 0)
 			{
 				SoundEngine.PlaySound(Sounds.NPCs.ElitePirate_AbsorbSound, NPC.position);
 			}
 			soundCounter++;
-			if(soundCounter > 30)
+			if (soundCounter > 30)
 			{
 				soundCounter = 0;
 			}
@@ -146,15 +143,15 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/OmegaPirate/OmegaPirateAbsorbField").Value,
 			tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/OmegaPirate/OmegaPirateAbsorbField2").Value;
-			
-			Color color = new Color(255,255,255,100);
-			sb.Draw(tex, new Vector2((float)((int)(NPC.Center.X - Main.screenPosition.X)), (float)((int)(NPC.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), color, NPC.rotation, new Vector2((float)tex.Width/2f, (float)tex.Height/2f), NPC.scale * NPC.ai[1], SpriteEffects.None, 0f);
-			
-			for(int i = 0; i < NPC.maxAI; i++)
+
+			Color color = new Color(255, 255, 255, 100);
+			sb.Draw(tex, new Vector2((float)((int)(NPC.Center.X - Main.screenPosition.X)), (float)((int)(NPC.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), color, NPC.rotation, new Vector2((float)tex.Width / 2f, (float)tex.Height / 2f), NPC.scale * NPC.ai[1], SpriteEffects.None, 0f);
+
+			for (int i = 0; i < NPC.maxAI; i++)
 			{
-				Color color2 = new Color(255,255,255,100);
+				Color color2 = new Color(255, 255, 255, 100);
 				color2 *= ((2f - NPC.localAI[i]) / 1.5f);
-				sb.Draw(tex2, new Vector2((float)((int)(NPC.Center.X - Main.screenPosition.X)), (float)((int)(NPC.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), color2, NPC.rotation, new Vector2((float)tex2.Width/2f, (float)tex2.Height/2f), (NPC.localAI[i] * NPC.ai[1]) / 2f, SpriteEffects.None, 0f);
+				sb.Draw(tex2, new Vector2((float)((int)(NPC.Center.X - Main.screenPosition.X)), (float)((int)(NPC.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), color2, NPC.rotation, new Vector2((float)tex2.Width / 2f, (float)tex2.Height / 2f), (NPC.localAI[i] * NPC.ai[1]) / 2f, SpriteEffects.None, 0f);
 			}
 			return false;
 		}

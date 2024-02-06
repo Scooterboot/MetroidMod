@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile.Beam.Hunters
 {

@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
+﻿using System;
+using System.Linq;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.NPCs.Mobs.Metroid;
-using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Common.GlobalNPCs
 {
@@ -171,7 +171,7 @@ namespace MetroidMod.Common.GlobalNPCs
 			}
 			if (npc.type == NPCID.IceQueen)
 			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.FrozenCore>()));
+				//npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.FrozenCore>())); //everyone wanted this rebalanced --Dr
 				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FrozenCore"), 1);
 			}
 			if (npc.type == NPCID.GoblinSummoner)

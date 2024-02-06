@@ -20,8 +20,8 @@ namespace MetroidMod.Content.Items.Tools
 			Item.height = 36;
 			Item.useTime = 17;
 			Item.useAnimation = 20;
-			Item.axe = 13;	
-			Item.hammer = 65;	
+			Item.axe = 13;
+			Item.hammer = 65;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 4;
 			Item.value = 12500;

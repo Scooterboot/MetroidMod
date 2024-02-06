@@ -1,13 +1,11 @@
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using MetroidMod.Content.Items.Weapons;
-using Terraria.GameContent;
-using Terraria.DataStructures;
 using System.IO;
+using MetroidMod.Content.Items.Weapons;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Judicator
 {
@@ -53,12 +51,12 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.width = 16;//32
 			Projectile.height = 16;//20
 			Projectile.scale = 1f;
-			Projectile.timeLeft = 60;	
+			Projectile.timeLeft = 60;
 		}
 
 		public override void AI()
 		{
-			 
+
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
@@ -70,7 +68,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			}
 			if (Projectile.timeLeft == 1) //shadowfreeze
 			{
-				if(shot.Contains("wave") || shot.Contains("nebula"))
+				if (shot.Contains("wave") || shot.Contains("nebula"))
 				{
 					Projectile.tileCollide = false;
 				}

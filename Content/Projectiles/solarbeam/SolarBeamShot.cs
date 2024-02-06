@@ -1,9 +1,6 @@
 using System;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.solarbeam
 {
@@ -32,18 +29,18 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			
-			 
+
+
 			if (shot.Contains("Stardust"))
 			{
 				dustType = 87;
 			}
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			if(Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Projectile.numUpdates == 0)
 			{
 				Projectile.frame++;
 			}
-			if(Projectile.frame > 1)
+			if (Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
@@ -73,18 +70,18 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 
 			if (Projectile.numUpdates == 0 || !shot.Contains("stardust"))
 			{
-				int dType = Utils.SelectRandom<int>(Main.rand, new int[] { 6,158 });
+				int dType = Utils.SelectRandom<int>(Main.rand, new int[] { 6, 158 });
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dType, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
-				if(shot.Contains("stardust"))
+				if (shot.Contains("stardust"))
 				{
 					dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), Projectile.scale);
 					Main.dust[dust].noGravity = true;
 				}
 			}
-			
+
 			Vector2 velocity = Projectile.position - Projectile.oldPos[0];
-			if(Vector2.Distance(Projectile.position, Projectile.position+velocity) < Vector2.Distance(Projectile.position,Projectile.position+Projectile.velocity))
+			if (Vector2.Distance(Projectile.position, Projectile.position + velocity) < Vector2.Distance(Projectile.position, Projectile.position + Projectile.velocity))
 			{
 				velocity = Projectile.velocity;
 			}
@@ -95,19 +92,19 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 50);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
 			return false;
 		}
 	}
-	
+
 	public class VortexSolarBeamShot : SolarBeamShot
 	{
 		public override void SetDefaults()
