@@ -1,14 +1,26 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items;
-using MetroidMod.Content.Tiles.Hatch;
+using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.UI;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using ReLogic;
+using ReLogic.Graphics;
+
+using MetroidMod.Content.Items;
+using MetroidMod.Common.UI;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Tiles.Hatch;
+using MetroidMod.ID;
 
 namespace MetroidMod
 {

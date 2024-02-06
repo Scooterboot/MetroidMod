@@ -1,9 +1,15 @@
+using Terraria;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+using Terraria.ModLoader;
+using Terraria.UI;
+using Terraria.ID;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -54,7 +60,7 @@ namespace MetroidMod.Content.Items.Accessories
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;
-			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item),mp.speedBoostDmg);
 			mp.spaceJump = true;
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;

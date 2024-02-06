@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Metroid
 {
@@ -11,7 +13,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 	{
 		/*
 		 * NPC.ai[0] = animation manager (pingpong).
-		 */
+		 */ 
 
 		internal readonly float speed = 3.5F;
 		internal readonly float acceleration = .04F;
@@ -57,20 +59,20 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 
 		public override bool PreAI()
 		{
-			if (NPC.ai[0] == 0)
+			if(NPC.ai[0] == 0)
 				NPC.ai[0] = 1;
 
 			NPC.TargetClosest();
 
 			Vector2 targetVelocity = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * speed;
 
-			if (NPC.velocity.X < targetVelocity.X)
+			if(NPC.velocity.X < targetVelocity.X)
 			{
 				NPC.velocity.X += acceleration;
 				if (NPC.velocity.X < 0)
 					NPC.velocity.X *= .98F;
 			}
-			else if (NPC.velocity.X > targetVelocity.X)
+			else if(NPC.velocity.X > targetVelocity.X)
 			{
 				NPC.velocity.X -= acceleration;
 				if (NPC.velocity.X > 0)
@@ -107,11 +109,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			Rectangle collisionRect = new Rectangle(
 				(int)NPC.position.X - 32, (int)NPC.position.Y - 32, NPC.width + 64, NPC.height + 64);
 			// Proximity damage.
-			for (int i = 0; i < 255; ++i)
+			for(int i = 0; i < 255; ++i)
 			{
 				if (!Main.player[i].active || Main.player[i].dead) continue;
 
-				if (Main.player[i].getRect().Intersects(collisionRect) &&
+				if(Main.player[i].getRect().Intersects(collisionRect) &&
 					Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason("could not get away"), 5, 0, false, false, 0, false) != 0)
 				{
 					Main.player[i].hurtCooldowns[0] = 15;

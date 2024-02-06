@@ -1,9 +1,10 @@
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+using Microsoft.Xna.Framework;
 using System;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -69,10 +70,10 @@ namespace MetroidMod.Content.Items.Accessories
 			player.fireWalk = true;
 			player.lavaMax += 420;
 			mp.speedBooster = true;
-			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item),mp.speedBoostDmg);
 			mp.spaceJump = true;
 			mp.screwAttack = true;
-			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item), mp.screwAttackDmg);
+			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item),mp.screwAttackDmg);
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;
 		}

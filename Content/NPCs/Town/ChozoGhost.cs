@@ -1,24 +1,27 @@
 #region Using directives
 
 using System.Collections.Generic;
-using MetroidMod.Common.Systems;
-using MetroidMod.Content.Items.Armors;
-using MetroidMod.Content.Items.Miscellaneous;
-using MetroidMod.Content.Items.Tiles;
-using MetroidMod.Content.Items.Tools;
-using MetroidMod.Content.Items.Vanity;
-using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.SuitAddons;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using Terraria.Localization;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using MetroidMod.Common.Systems;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.Items.Vanity;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.Items.Tools;
+using MetroidMod.ID;
+using MetroidMod.Content.Items.Tiles;
+using MetroidMod.Content.Items.Miscellaneous;
 
 #endregion
 

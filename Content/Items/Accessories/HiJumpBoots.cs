@@ -1,6 +1,7 @@
 using Terraria;
-using Terraria.ID;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace MetroidMod.Content.Items.Accessories
 {

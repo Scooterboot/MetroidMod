@@ -1,12 +1,16 @@
-using System.IO;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.DataStructures;
+using Terraria.Graphics;
+using Terraria.Graphics.Capture;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
+using System.IO;
 
 namespace MetroidMod.Content.Projectiles.Boss
 {
@@ -58,44 +62,44 @@ namespace MetroidMod.Content.Projectiles.Boss
 		{
 			NPC Head = Main.npc[(int)Projectile.ai[0]];
 			NPC Tail = Main.npc[(int)Projectile.ai[1]];
-
-			if (Projectile.localAI[0] == 1)
+			
+			if(Projectile.localAI[0] == 1)
 			{
 				Projectile.localAI[1]++;
-				if (Projectile.localAI[1] == 20)
+				if(Projectile.localAI[1] == 20)
 				{
 					SoundEngine.PlaySound(Sounds.NPCs.Nightmare_GravityField_Deactivate, Projectile.Center);
 				}
 				num = -1;
-				if (Projectile.scale <= 0f)
+				if(Projectile.scale <= 0f)
 				{
 					Projectile.Kill();
 					return;
 				}
 			}
-
-			if (Tail == null || !Tail.active || Head == null || !Head.active)
+			
+			if(Tail == null || !Tail.active || Head == null || !Head.active)
 				Projectile.localAI[0] = 1;
 			else
 			{
-
+			
 				Player player = Main.player[Head.target];
-
-				if (Vector2.Distance(Projectile.Center, player.Center) < fieldRadius * Projectile.scale)
+				
+				if(Vector2.Distance(Projectile.Center,player.Center) < fieldRadius * Projectile.scale)
 					player.AddBuff(ModContent.BuffType<Buffs.GravityDebuff>(), 1);
-
+				
 				Projectile.Center = new Vector2(Tail.Center.X + 26 * Head.direction, Tail.Center.Y + 14);
 				Projectile.spriteDirection = Head.direction;
 			}
-
+			
 			Projectile.position.X += Projectile.width / 2f;
 			Projectile.position.Y += Projectile.height / 2f;
-			Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.025f * num, 0f, 1f);
+			Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.025f*num,0f,1f);
 			Projectile.width = (int)(20 * Projectile.scale);
 			Projectile.height = (int)(20 * Projectile.scale);
 			Projectile.position.X -= Projectile.width / 2f;
 			Projectile.position.Y -= Projectile.height / 2f;
-
+			
 			Projectile.timeLeft = 10;
 			Projectile.rotation += 0.25f;
 		}
@@ -108,12 +112,12 @@ namespace MetroidMod.Content.Projectiles.Boss
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
 			Color color25 = Lighting.GetColor((int)((double)Projectile.position.X + (double)Projectile.width * 0.5) / 16, (int)(((double)Projectile.position.Y + (double)Projectile.height * 0.5) / 16.0));
-
+			
 			Vector2 vector60 = Projectile.position + new Vector2((float)Projectile.width, (float)Projectile.height) / 2f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
 			Texture2D texture2D31 = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			Color alpha4 = Projectile.GetAlpha(color25);
 			Vector2 origin8 = new Vector2((float)texture2D31.Width, (float)texture2D31.Height) / 2f;
-
+			
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;
 			Color color58 = Color.Lerp(alpha4, Color.Black, 0.5f);
@@ -126,25 +130,25 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Main.spriteBatch.Draw(texture2D31, vector60, null, color57, -Projectile.rotation * 0.7f, origin8, Projectile.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.Extra[50].Value, vector60, null, alpha4 * 0.8f, Projectile.rotation * 0.5f, origin8, Projectile.scale * 0.9f, spriteEffects, 0f);
 			Main.spriteBatch.Draw(texture2D31, vector60, null, alpha4, Projectile.rotation, origin8, Projectile.scale, spriteEffects, 0f);
-
+			
 			float size = fieldRadius * 2.4f;
-
+			
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-
-			DrawData value9 = new DrawData(ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/Boss/NightmareGravityField_Blank").Value, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, (int)size, (int)size)), new Color(160, 128, 160), 0f, new Vector2(size / 2, size / 2), new Vector2(1.5f, 1f) * Projectile.scale, spriteEffects, 0);
+			
+			DrawData value9 = new DrawData(ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/Boss/NightmareGravityField_Blank").Value, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, (int)size, (int)size)), new Color(160,128,160), 0f, new Vector2(size / 2, size / 2), new Vector2(1.5f,1f) * Projectile.scale, spriteEffects, 0);
 			GameShaders.Misc["ForceField"].UseColor(new Vector3(1f));
 			GameShaders.Misc["ForceField"].Apply(new DrawData?(value9));
 			value9.Draw(Main.spriteBatch);
-
+			
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.Transform);
-
-			if (Projectile.localAI[0] != 1)
+			
+			if(Projectile.localAI[0] != 1)
 			{
 				Filters.Scene.Activate("HeatDistortion", Projectile.Center, new object[0]);
 			}
-
+			
 			return false;
 		}
 

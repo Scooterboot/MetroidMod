@@ -1,7 +1,14 @@
-using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -13,7 +20,7 @@ namespace MetroidMod.Content.Projectiles
 		{
 			// DisplayName.SetDefault("Shine Ball");
 		}
-		public override void SetDefaults()
+public override void SetDefaults()
 		{
 			Projectile.width = 48;
 			Projectile.height = 48;
@@ -30,10 +37,10 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Player P = Main.player[Projectile.owner];
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
+			Projectile.position.X=P.Center.X-Projectile.width/2;
+			Projectile.position.Y=P.Center.Y-Projectile.height/2;
 			ShineSoundStart++;
-			if (ShineSoundStart > 3 && ShineSoundStart < 5)
+			if(ShineSoundStart > 3 && ShineSoundStart < 5)
 			{
 				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShineSpark, P.position), out activeSound))
 				{
@@ -45,17 +52,17 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			if (mp.shineDirection == 0 || !mp.shineActive || !mp.ballstate)
+			if(mp.shineDirection == 0 || !mp.shineActive || !mp.ballstate)
 			{
 				Projectile.Kill();
 			}
-			Lighting.AddLight((int)((float)Projectile.Center.X / 16f), (int)((float)(Projectile.Center.Y) / 16f), 1f, 0.85f, 0);
+			Lighting.AddLight((int)((float)Projectile.Center.X/16f), (int)((float)(Projectile.Center.Y)/16f), 1f, 0.85f, 0);
 
 			if (activeSound != null)
 			{
 				activeSound.Position = P.Center;
 			}
-		}
+		}	
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.FinalDamage.Flat = target.damage * 2;

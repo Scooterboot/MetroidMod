@@ -1,9 +1,12 @@
-﻿using MetroidMod.Common.Players;
+﻿using System;
 using Microsoft.Xna.Framework;
-using Terraria;
+using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Miscellaneous
 {

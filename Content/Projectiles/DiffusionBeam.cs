@@ -1,8 +1,14 @@
 using System;
-using MetroidMod.Content.DamageClasses;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using System.IO;
+
+using MetroidMod.Content.DamageClasses;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -29,7 +35,7 @@ namespace MetroidMod.Content.Projectiles
 		public override void PostAI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			if (Projectile.numUpdates == 0)
+			if(Projectile.numUpdates == 0)
 			{
 				int dust_type = (int)Projectile.ai[0];
 				int raw_color = (int)Projectile.ai[1];
@@ -37,7 +43,7 @@ namespace MetroidMod.Content.Projectiles
 
 				int dust = Dust.NewDust(Projectile.Center, 1, 1, dust_type, 0, 0, 100, color, 2.0f);
 				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity = new Vector2((Main.rand.Next(50) - 25) * 0.1f, (Main.rand.Next(50) - 25) * 0.1f);
+				Main.dust[dust].velocity = new Vector2((Main.rand.Next(50)-25)*0.1f, (Main.rand.Next(50)-25)*0.1f);
 			}
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)

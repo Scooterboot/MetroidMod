@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using MetroidMod.Common.GlobalNPCs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.ModLoader;
+using MetroidMod.Common.GlobalNPCs;
+using Terraria.GameContent.Bestiary;
+using System.Collections.Generic;
 
 namespace MetroidMod.Content.NPCs.Mobs
 {

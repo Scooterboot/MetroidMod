@@ -1,6 +1,7 @@
-﻿using MetroidMod.Common.Players;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.MorphBallAddons
 {

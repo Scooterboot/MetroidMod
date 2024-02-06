@@ -1,8 +1,10 @@
-﻿using MetroidMod.ID;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.ID;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Default
 {

@@ -1,13 +1,16 @@
 using System;
 using System.Linq;
-using MetroidMod.Common.Players;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using ReLogic.Content;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+
+using MetroidMod.Common.Players;
+using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -99,7 +102,7 @@ namespace MetroidMod.Content.Projectiles
 		public override bool PreAI()
 		{
 			owner = Main.player[Projectile.owner];
-			increment = ((float)Math.PI * 2) / 60f;
+			increment = ((float)Math.PI*2)/60f;
 			return false;
 		}
 		public override void PostAI()
@@ -110,7 +113,7 @@ namespace MetroidMod.Content.Projectiles
 				isHooked = false;
 				return;
 			}
-			if (cantGrab)
+			if(cantGrab)
 			{
 				Projectile.Kill();
 				isHooked = false;
@@ -236,7 +239,7 @@ namespace MetroidMod.Content.Projectiles
 						vector8.Y = y * 16;
 						if (P.position.X + P.width > vector8.X && P.position.X < vector8.X + 16f && P.position.Y + P.height > vector8.Y && P.position.Y < vector8.Y + 16f && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || tile.TileType == 314))
 						{
-							if (!GrappableBlocks.Contains(tile.TileType))
+							if(!GrappableBlocks.Contains(tile.TileType))
 							{
 								P.velocity *= 0;
 								cantGrab = true;
@@ -246,8 +249,8 @@ namespace MetroidMod.Content.Projectiles
 							mp.maxDist = Vector2.Distance(owner.Center, P.Center);
 							//if (owner.grapCount < 10)
 							//{
-							mp.grapplingBeam = P.whoAmI;
-							//owner.grapCount++;
+								mp.grapplingBeam = P.whoAmI;
+								//owner.grapCount++;
 							//}
 
 							P.velocity *= 0;
@@ -280,12 +283,12 @@ namespace MetroidMod.Content.Projectiles
 				}
 
 				// NPC check.
-				for (int i = 0; i < 200; ++i)
+				for(int i = 0; i < 200; ++i)
 				{
 					NPC target = Main.npc[i];
-					if (Projectile.getRect().Intersects(target.getRect()) && target.active)
+					if(Projectile.getRect().Intersects(target.getRect()) && target.active)
 					{
-						if (GrappableNPCs.Contains(target.type))
+						if(GrappableNPCs.Contains(target.type))
 						{
 							Projectile.ai[1] = i;
 
@@ -325,23 +328,23 @@ namespace MetroidMod.Content.Projectiles
 					Main.projectile[oldestProjectile].Kill();
 				}
 			}
-
+			
 			P.frameCounter++;
-			if (P.frameCounter > 4)
+			if(P.frameCounter > 4)
 			{
 				P.frame++;
 				P.frameCounter = 0;
 			}
-			if (P.frame >= Main.projFrames[P.type])
+			if(P.frame >= Main.projFrames[P.type])
 			{
 				P.frame = 0;
 			}
 			chainFrame = Main.rand.Next(4);
 			chainFrame2 = Main.rand.Next(4);
 			time += increment * 2f;
-			if (time >= (float)Math.PI * 2)
+			if(time >= (float)Math.PI*2)
 			{
-				time -= (float)Math.PI * 2;
+				time -= (float)Math.PI*2;
 			}
 		}
 		public override bool PreKill(int timeLeft)
@@ -354,51 +357,51 @@ namespace MetroidMod.Content.Projectiles
 		{
 			Projectile P = Projectile;
 			MPlayer mp = owner.GetModPlayer<MPlayer>();
-
+			
 			Asset<Texture2D> tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/GrappleBeamChain2");
-			float dist = Math.Max(Vector2.Distance(owner.Center, Projectile.Center), 1);
+			float dist = Math.Max(Vector2.Distance(owner.Center, Projectile.Center),1);
 			float maxDist = 400;
-			if (isHooked)
+			if(isHooked)
 			{
-				maxDist = Math.Max(mp.maxDist, 1);
+				maxDist = Math.Max(mp.maxDist,1);
 			}
-
+			
 			int numH = tex.Value.Height / 4;
-
+			
 			Vector2 chain = Projectile.Center - owner.Center;
-			int linklength = Math.Max(numH - 1, 1);
-			int numlinks = (int)Math.Ceiling(dist / linklength);
+			int linklength = Math.Max(numH-1,1);
+			int numlinks = (int)Math.Ceiling(dist/linklength);
 			Vector2[] pos = new Vector2[numlinks];
-
-			float amplitude = 3 + 6f * (1f - dist / maxDist);
-
-			for (int j = 0; j < 3; j++)
+			
+			float amplitude = 3 + 6f * (1f - dist/maxDist);
+			
+			for(int j = 0; j < 3; j++)
 			{
-				if (j == 0 || j == 2)
+				if(j == 0 || j == 2)
 				{
-					for (int i = 0; i < numlinks; i++)
+					for(int i = 0; i < numlinks; i++)
 					{
-						pos[i] = owner.Center + chain / numlinks * i;
-
+						pos[i] = owner.Center + chain/numlinks * i;
+						
 						int k = 1;
-						if (j > 0)
+						if(j > 0)
 						{
 							k = -1;
 						}
-
+						
 						float t = 0f;
-						t += increment * (i * maxDist / dist) * 2f;
-						if (t >= (float)Math.PI * 2)
+						t += increment * (i * maxDist/dist) * 2f;
+						if(t >= (float)Math.PI*2)
 						{
-							t -= (float)Math.PI * 2;
+							t -= (float)Math.PI*2;
 						}
-
+						
 						float shift = amplitude * (float)Math.Sin(t + time) * k;
-
-						float rot = (float)Math.Atan2(chain.Y, chain.X) + (float)Math.PI / 2;
-						pos[i].X += (float)Math.Cos(rot) * shift;
-						pos[i].Y += (float)Math.Sin(rot) * shift;
-
+						
+						float rot = (float)Math.Atan2(chain.Y, chain.X) + (float)Math.PI/2;
+						pos[i].X += (float)Math.Cos(rot)*shift;
+						pos[i].Y += (float)Math.Sin(rot)*shift;
+						
 						Color color = Color.White;
 						Main.EntitySpriteDraw(tex.Value, pos[i] - Main.screenPosition, new Rectangle?(new Rectangle(0, numH * chainFrame2, tex.Value.Width, numH)), color, rot, new Vector2((float)tex.Value.Width / 2, (float)numH / 2), Projectile.scale, SpriteEffects.None, 0);
 						//s.Draw(tex,pos[i] - Main.screenPosition,new Rectangle?(new Rectangle(0,numH*chainFrame2,tex.Width,numH)),color,rot,new Vector2((float)tex.Width/2,(float)numH/2),projectile.scale,SpriteEffects.None,0f);
@@ -411,7 +414,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			tex = Terraria.GameContent.TextureAssets.Projectile[P.type];//Main.projectileTexture[P.type];
 			int num = tex.Value.Height / Main.projFrames[Type];
-			Main.spriteBatch.Draw(tex.Value, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, num * P.frame, tex.Value.Width, num)), Projectile.GetAlpha(Color.White), 0f, new Vector2((float)tex.Value.Width / 2, (float)num / 2), Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(tex.Value, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, num*P.frame, tex.Value.Width, num)), Projectile.GetAlpha(Color.White), 0f, new Vector2((float)tex.Value.Width/2, (float)num/2), Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override bool PreDrawExtras()
@@ -421,33 +424,33 @@ namespace MetroidMod.Content.Projectiles
 		public void DrawChain(Vector2 start, Vector2 end, Asset<Texture2D> name, int frame = 0, int frameCount = 0)
 		{
 			int numH = name.Value.Height;
-			if (frameCount > 0)
+			if(frameCount > 0)
 			{
-				numH = name.Value.Height / frameCount;
+				numH = name.Value.Height/frameCount;
 			}
-
+			
 			start -= Main.screenPosition;
 			end -= Main.screenPosition;
 
-			int linklength = numH - 1;
+			int linklength = numH-1;
 			Vector2 chain = end - start;
 
 			float length = (float)chain.Length();
-			int numlinks = (int)Math.Ceiling(length / linklength);
+			int numlinks = (int)Math.Ceiling(length/linklength);
 			Vector2[] links = new Vector2[numlinks];
 			float rotation = (float)Math.Atan2(chain.Y, chain.X);
 
 			for (int i = 0; i < numlinks; i++)
 			{
-				links[i] = start + chain / numlinks * i;
-				Vector2 LR = links[i] + Main.screenPosition;
+				links[i] =start + chain/numlinks * i;
+				Vector2 LR = links[i]+Main.screenPosition;
 
-				Color color = Lighting.GetColor((int)((links[i].X + Main.screenPosition.X) / 16), (int)((links[i].Y + Main.screenPosition.Y) / 16));
+				Color color = Lighting.GetColor((int)((links[i].X+Main.screenPosition.X)/16), (int)((links[i].Y+Main.screenPosition.Y)/16));
 				//spriteBatch.Draw(name, new Rectangle((int)links[i].X, (int)links[i].Y, name.Width, linklength), null, color, rotation+1.57f, new Vector2(name.Width/2f, linklength), SpriteEffects.None, 1f);
 				//spriteBatch.Draw(name,links[i],new Rectangle?(new Rectangle(0,numH*frame,name.Width,numH)),color,rotation+1.57f,new Vector2(name.Width/2f,numH/2f),Projectile.scale,SpriteEffects.None,0f);
-				Main.EntitySpriteDraw(name.Value, links[i], new Rectangle?(new Rectangle(0, numH * frame, name.Value.Width, numH)), color, rotation + 1.57f, new Vector2(name.Value.Width / 2f, numH / 2f), Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(name.Value, links[i], new Rectangle?(new Rectangle(0, numH*frame, name.Value.Width, numH)), color, rotation + 1.57f, new Vector2(name.Value.Width / 2f, numH / 2f), Projectile.scale, SpriteEffects.None, 0);
 
-				Lighting.AddLight(LR, 229f / 255f, 249f / 255f, 255f / 255f);
+				Lighting.AddLight(LR, 229f/255f, 249f/255f, 255f/255f);
 			}
 		}
 	}

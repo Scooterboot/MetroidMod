@@ -1,5 +1,7 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -30,27 +32,27 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 		Color color = MetroidMod.plaGreenColor;
 		public override void AI()
 		{
-
-
+			
+			 
 			if (shot.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
 			}
-			else if (shot.Contains("wave"))
+			else if(shot.Contains("wave"))
 			{
 				dustType = 15;
 				color = MetroidMod.plaGreenColor2;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-			if (Main.projFrames[Projectile.type] > 1)
+			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
+			if(Main.projFrames[Projectile.type] > 1)
 			{
-				if (Projectile.numUpdates == 0)
+				if(Projectile.numUpdates == 0)
 				{
 					Projectile.frame++;
 				}
-				if (Projectile.frame > 1)
+				if(Projectile.frame > 1)
 				{
 					Projectile.frame = 0;
 				}
@@ -86,14 +88,14 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}
-
+		
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
 			return false;
 		}
 	}
-
+	
 	public class WidePlasmaBeamGreenV2Shot : PlasmaBeamGreenV2Shot
 	{
 		public override void SetDefaults()
@@ -103,7 +105,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 			Main.projFrames[Projectile.type] = 2;
 		}
 	}
-
+	
 	public class WavePlasmaBeamGreenV2Shot : PlasmaBeamGreenV2Shot
 	{
 		public override void SetDefaults()
@@ -113,7 +115,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 			Main.projFrames[Projectile.type] = 1;
 		}
 	}
-
+	
 	public class IcePlasmaBeamGreenV2Shot : PlasmaBeamGreenV2Shot
 	{
 		public override void SetDefaults()
@@ -122,7 +124,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 			Projectile.Name = "Ice Plasma Beam Green V2 Shot";
 		}
 	}
-
+	
 	public class IceWidePlasmaBeamGreenV2Shot : WidePlasmaBeamGreenV2Shot
 	{
 		public override void SetDefaults()
@@ -131,7 +133,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 			Projectile.Name = "Ice Wide Plasma Beam Green V2 Shot";
 		}
 	}
-
+	
 	public class IceWavePlasmaBeamGreenV2Shot : WavePlasmaBeamGreenV2Shot
 	{
 		public override void SetDefaults()
@@ -141,7 +143,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 			Main.projFrames[Projectile.type] = 1;
 		}
 	}
-
+	
 	public class IceWaveWidePlasmaBeamGreenV2Shot : WavePlasmaBeamGreenV2Shot
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamredV2/IceWaveWidePlasmaBeamRedV2Shot";

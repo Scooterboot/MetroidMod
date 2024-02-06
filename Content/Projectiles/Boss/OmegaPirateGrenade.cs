@@ -1,4 +1,6 @@
+using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -24,19 +26,19 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.height = 16;
 			Projectile.scale = 1f;
 		}
-
+		
 		public override void AI()
 		{
 			Projectile.rotation += 0.5f;
 			Projectile.localAI[0]++;
-			if (Projectile.localAI[0] > 20)
+			if(Projectile.localAI[0] > 20)
 			{
 				Projectile.velocity.Y += 0.25f;
 			}
-
-			for (int i = 0; i < 3; i++)
+			
+			for(int i = 0; i < 3; i++)
 			{
-				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 100, Color.White, 1 + (i / 2));
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 100, Color.White, 1+(i/2));
 				Main.dust[dust2].noGravity = true;
 			}
 		}
@@ -55,7 +57,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 			//Main.PlaySound(2,(int)Projectile.position.X,(int)Projectile.position.Y,14);
 			SoundEngine.PlaySound(Sounds.NPCs.ElitePirate_GrenadeExplodeSound, Projectile.position);
-
+			
 			for (int num70 = 0; num70 < 25; num70++)
 			{
 				int num71 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default(Color), 1f);

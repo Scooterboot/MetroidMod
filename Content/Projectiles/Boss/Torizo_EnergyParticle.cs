@@ -1,6 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Boss
 {
@@ -30,17 +32,17 @@ namespace MetroidMod.Content.Projectiles.Boss
 		public override void AI()
 		{
 			Projectile P = Projectile;
-
+			
 			bool rotFlag = true;
-			if (P.localAI[0] < 90)
+			if(P.localAI[0] < 90)
 			{
 				P.velocity *= 0.9f;
-				if (P.velocity.Length() < 1f)
+				if(P.velocity.Length() < 1f)
 				{
 					P.velocity *= 0f;
 					rotFlag = false;
 				}
-				else if (P.velocity.Length() > 1f)
+				else if(P.velocity.Length() > 1f)
 				{
 					vel = Vector2.Normalize(P.velocity) * 8f;
 				}
@@ -48,26 +50,26 @@ namespace MetroidMod.Content.Projectiles.Boss
 			}
 			else
 			{
-				if (P.velocity.Length() > 0.1f)
+				if(P.velocity.Length() > 0.1f)
 				{
 					vel = P.velocity;
 				}
-				Vector2 dest = new Vector2(P.ai[0], P.ai[1]);
-
+				Vector2 dest = new Vector2(P.ai[0],P.ai[1]);
+				
 				Vector2 vec = dest - P.Center;
 				float num2 = vec.Length();
 				num2 = projSpeed / num2;
 				vec *= num2;
 				P.velocity.X = (vel.X * acc + vec.X) / (acc + 1f);
 				P.velocity.Y = (vel.Y * acc + vec.Y) / (acc + 1f);
-
-				if (Vector2.Distance(dest, P.Center + P.velocity) < projSpeed)
+				
+				if(Vector2.Distance(dest,P.Center+P.velocity) < projSpeed)
 				{
 					P.Kill();
 				}
 			}
-
-			if (rotFlag)
+			
+			if(rotFlag)
 			{
 				P.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			}

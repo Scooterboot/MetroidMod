@@ -1,14 +1,26 @@
 ﻿using System;
-using MetroidMod.Common.Configs;
-using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using ReLogic.Content;
+
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+using Terraria.UI.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
+
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Default;
+using MetroidMod.ID;
+using MetroidMod.Common.Configs;
+using Humanizer;
 
 namespace MetroidMod.Common.UI.SuitAddons
 {
@@ -44,7 +56,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 		private bool reserveHoldingRClick;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
-		public Rectangle ModeAddRectangle => new((int)(DrawRectangle.Width * 28.0 / 168.0), (int)(DrawRectangle.Height * 16.0 / 86.0), (int)(DrawRectangle.Width * 110.0 / 168.0), (int)(DrawRectangle.Height * 10.0 / 86.0));
+		public Rectangle ModeAddRectangle => new((int)(DrawRectangle.Width * 28.0 / 168.0), (int)(DrawRectangle.Height * 16.0 / 86.0), (int)(DrawRectangle.Width * 110.0 / 168.0),(int)(DrawRectangle.Height * 10.0 / 86.0));
 
 		public Rectangle GetNumRect(int i)
 		{
@@ -69,7 +81,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			PanelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ReserveUI", AssetRequestMode.ImmediateLoad);
 			ModeTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Reserve/MODE", AssetRequestMode.ImmediateLoad);
 			NumberTextures = new Asset<Texture2D>[10];
-			for (int i = 0; i < 10; i++)
+			for(int i = 0; i < 10; i++)
 			{
 				NumberTextures[i] = ModContent.Request<Texture2D>($"MetroidMod/Assets/Textures/UI/Reserve/{i}", AssetRequestMode.ImmediateLoad);
 			}
@@ -85,13 +97,15 @@ namespace MetroidMod.Common.UI.SuitAddons
 			modeButton.Top.Pixels = ModeAddRectangle.Top;
 			modeButton.Width.Pixels = ModeAddRectangle.Width;
 			modeButton.Height.Pixels = ModeAddRectangle.Height;
-			modeButton.OnUpdate += delegate {
+			modeButton.OnUpdate += delegate
+			{
 				if (modeButton.IsMouseHovering)
 				{
 					Main.LocalPlayer.mouseInterface = true;
 				}
 			};
-			modeButton.OnLeftClick += delegate {
+			modeButton.OnLeftClick += delegate
+			{
 				Main.LocalPlayer.MetroidPlayer().SuitReservesAuto = !Main.LocalPlayer.MetroidPlayer().SuitReservesAuto;
 			};
 			Append(modeButton);
@@ -100,7 +114,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 			reserveAmt.Top.Pixels = NumButtonRect.Top;
 			reserveAmt.Width.Pixels = NumButtonRect.Width;
 			reserveAmt.Height.Pixels = NumButtonRect.Height;
-			reserveAmt.OnUpdate += delegate {
+			reserveAmt.OnUpdate += delegate
+			{
 				if (modeButton.IsMouseHovering)
 				{
 					Main.LocalPlayer.mouseInterface = true;
@@ -160,7 +175,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			int filled = mp.SuitReserves;
 			// make leading zeros
 			string e = $"{filled:D4}{tanks:D4}";
-			for (int i = 0; i < e.Length; i++)
+			for(int i = 0; i < e.Length; i++)
 			{
 				Rectangle rect = GetNumRect(i);
 				spriteBatch.Draw(

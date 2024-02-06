@@ -1,11 +1,15 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MetroidMod;
+using MetroidMod.Content.NPCs.OmegaPirate;
 
 namespace MetroidMod.Content.NPCs.OmegaPirate
 {
@@ -49,16 +53,16 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			get { return Main.npc[(int)NPC.ai[3]]; }
 		}
-
+		
 		public override void AI()
 		{
-			if (Base == null || !Base.active)
+			if(Base == null || !Base.active)
 				NPC.ai[2] = 1;
 
-			if (NPC.ai[2] == 1)
+			if(NPC.ai[2] == 1)
 			{
 				NPC.scale -= 0.05f;
-				if (NPC.scale <= 0f)
+				if(NPC.scale <= 0f)
 				{
 					NPC.life = 0;
 					NPC.active = false;
@@ -69,13 +73,13 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			{
 				NPC.scale = Math.Min(NPC.scale + 0.05f, 1f);
 			}
-
+			
 			NPC.rotation += 0.25f;
-
-			if (NPC.scale >= 0.5f && NPC.ai[2] != 1)
+			
+			if(NPC.scale >= 0.5f && NPC.ai[2] != 1)
 			{
 				NPC.localAI[0] += 1f;
-				if (NPC.localAI[0] > 10f)
+				if(NPC.localAI[0] > 10f)
 				{
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
@@ -92,18 +96,18 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/OmegaPirate/Omega_DarkPortal").Value,
 			tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/OmegaPirate/Omega_DarkPortal2").Value;
-
+			
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (NPC.spriteDirection == -1)
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
 			Color color25 = Lighting.GetColor((int)((double)NPC.position.X + (double)NPC.width * 0.5) / 16, (int)(((double)NPC.position.Y + (double)NPC.height * 0.5) / 16.0));
-
+			
 			Vector2 vector60 = NPC.Center - Main.screenPosition;
 			Color alpha4 = NPC.GetAlpha(color25);
 			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
-
+			
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;
 			Color color58 = Color.Lerp(alpha4, Color.Black, 0.5f);

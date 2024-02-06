@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles.ItemTile
 {

@@ -1,9 +1,14 @@
-﻿using System;
-using MetroidMod.Default;
-using MetroidMod.ID;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
 namespace MetroidMod
 {

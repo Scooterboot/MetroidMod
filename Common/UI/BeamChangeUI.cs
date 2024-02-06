@@ -1,20 +1,28 @@
-﻿using MetroidMod.Common.GlobalItems;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using ReLogic.Content;
+
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+using Terraria.UI.Chat;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Addons;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Default;
+using MetroidMod.ID;
 using MetroidMod.Content.Items.Addons.Hunters;
 using MetroidMod.Content.Items.Addons.V2;
 using MetroidMod.Content.Items.Addons.V3;
-using MetroidMod.Content.Items.Weapons;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.UI;
+using MetroidMod.Content.Items.Addons;
 
 namespace MetroidMod.Common.UI
 {
@@ -180,7 +188,7 @@ namespace MetroidMod.Common.UI
 					Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
 
 					powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
-					if (Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
+					if(Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
 					{
 						powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
 					}

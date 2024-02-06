@@ -1,7 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
-using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ModLoader;
+using Terraria.GameContent.UI.BigProgressBar;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Content.BossBars
 {

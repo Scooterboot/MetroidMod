@@ -1,8 +1,9 @@
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
+using System; 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -44,27 +45,27 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 		}
 
 
-		public override void AddRecipes()
-		{
+        public override void AddRecipes()
+        {
+            CreateRecipe(1)
+                .AddIngredient<Miscellaneous.ChoziteBar>(30)
+                .AddIngredient<Miscellaneous.EnergyShard>(30)
+                .AddIngredient<Addons.IceBeamAddon>(1)
+                .AddIngredient<Addons.PlasmaBeamRedAddon>(1)
+                .AddIngredient(ItemID.Amethyst, 30)
+                .AddTile(TileID.Hellforge)
+                .Register();
+			
 			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient<Addons.IceBeamAddon>(1)
-				.AddIngredient<Addons.PlasmaBeamRedAddon>(1)
-				.AddIngredient(ItemID.Amethyst, 30)
-				.AddTile(TileID.Hellforge)
-				.Register();
-
-			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient<Addons.IceBeamAddon>(1)
-				.AddIngredient<Addons.PlasmaBeamGreenAddon>(1)
-				.AddIngredient(ItemID.Amethyst, 30)
-				.AddTile(TileID.Hellforge)
-				.Register();
+                .AddIngredient<Miscellaneous.ChoziteBar>(30)
+                .AddIngredient<Miscellaneous.EnergyShard>(30)
+                .AddIngredient<Addons.IceBeamAddon>(1)
+                .AddIngredient<Addons.PlasmaBeamGreenAddon>(1)
+                .AddIngredient(ItemID.Amethyst, 30)
+                .AddTile(TileID.Hellforge)
+                .Register();
 
 
-		}
-	}
+        }
+    }
 }

@@ -1,6 +1,10 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.spazer
 {
@@ -17,8 +21,8 @@ namespace MetroidMod.Content.Projectiles.spazer
 			Projectile.width = 4;
 			Projectile.height = 4;
 			Projectile.scale = 2f;
-
-			mProjectile.amplitude = 7.5f * Projectile.scale;
+			
+			mProjectile.amplitude = 7.5f*Projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 4;
 		}
@@ -37,11 +41,11 @@ namespace MetroidMod.Content.Projectiles.spazer
 				color = MetroidMod.waveColor;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-
+			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
+			
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
-
-			if (Projectile.numUpdates == 0)
+			
+			if(Projectile.numUpdates == 0)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
@@ -54,11 +58,11 @@ namespace MetroidMod.Content.Projectiles.spazer
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
+			mProjectile.PlasmaDraw(Projectile,Main.player[Projectile.owner], Main.spriteBatch);
 			return false;
 		}
 	}
-
+	
 	public class WaveSpazerShot : SpazerShot
 	{
 		public override void SetDefaults()
@@ -67,11 +71,11 @@ namespace MetroidMod.Content.Projectiles.spazer
 			Projectile.Name = "Wave Spazer Shot";
 			Projectile.tileCollide = false;
 
-			mProjectile.amplitude = 12f * Projectile.scale;
+			mProjectile.amplitude = 12f*Projectile.scale;
 			mProjectile.wavesPerSecond = 1f;
 		}
 	}
-
+	
 	public class IceSpazerShot : SpazerShot
 	{
 		public override void SetDefaults()

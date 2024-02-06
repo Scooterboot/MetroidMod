@@ -1,24 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.MissileAddons;
 using MetroidMod.Content.Items.MissileAddons.BeamCombos;
 using MetroidMod.Content.Projectiles;
-using MetroidMod.Content.Projectiles.missilecombo;
 using MetroidMod.Content.Projectiles.missiles;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
+using MetroidMod.Content.Projectiles.missilecombo;
 using Terraria.Utilities;
+using MetroidMod.Common.UI;
 //using MetroidMod.Projectiles.chargelead;
 
 namespace MetroidMod.Content.Items.Weapons
@@ -30,7 +34,8 @@ namespace MetroidMod.Content.Items.Weapons
 		private Item[] _missileChange;
 		public Item[] MissileMods
 		{
-			get {
+			get
+			{
 				if (_missileMods == null)
 				{
 					_missileMods = new Item[MetroidMod.missileSlotAmount];
@@ -320,9 +325,9 @@ namespace MetroidMod.Content.Items.Weapons
 			int ft = ModContent.ItemType<FlamethrowerAddon>();
 			int pl = ModContent.ItemType<PlasmaMachinegunAddon>();
 			int nv = ModContent.ItemType<NovaComboAddon>();
-			int hm = ModContent.ItemType<HomingMissileAddon>();
+            int hm = ModContent.ItemType<HomingMissileAddon>();
 
-			int di = ModContent.ItemType<DiffusionMissileAddon>();
+            int di = ModContent.ItemType<DiffusionMissileAddon>();
 
 			// Charge Combos
 			if (slot1.type == wb)
@@ -338,18 +343,18 @@ namespace MetroidMod.Content.Items.Weapons
 				comboKnockBack = 0f;
 				texture = "Wavebuster";
 			}
-			if (slot1.type == hm)
-			{
+            if (slot1.type == hm)
+            {
 				isHoming = true;
 				chargeShot = shot;
-				chargeUpSound = "ChargeStartup_HomingMissile";
-				chargeShotSound = "HomingMissileShoot";
-				chargeTex = "ChargeLead_Spazer";
-				dustType = 64;
-				lightColor = MetroidMod.powColor;
-				texture = "SpazerCombo";
-			}
-			if (slot1.type == icSp)
+                chargeUpSound = "ChargeStartup_HomingMissile";
+                chargeShotSound = "HomingMissileShoot";
+                chargeTex = "ChargeLead_Spazer";
+                dustType = 64;
+                lightColor = MetroidMod.powColor;
+                texture = "SpazerCombo";
+            }
+            if (slot1.type == icSp)
 			{
 				chargeShot = "IceSpreaderShot";
 				chargeShotSound = "IceSpreaderSound";
@@ -553,7 +558,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem mi)) { return true; }
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;//Main.itemTexture[Item.type];
-			SetTexture(mi);
+			setTexture(mi);
 			if (mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;
@@ -568,7 +573,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem mi)) { return true; }
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;//Main.itemTexture[Item.type];
-			SetTexture(mi);
+			setTexture(mi);
 			if (mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;
@@ -576,7 +581,7 @@ namespace MetroidMod.Content.Items.Weapons
 			sb.Draw(tex, position, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 			return false;
 		}
-		void SetTexture(MGlobalItem mi)
+		void setTexture(MGlobalItem mi)
 		{
 			if (texture != "")
 			{
@@ -585,7 +590,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					alt = "_alt";
 				}
-				mi.itemTexture = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MissileLauncher/{texture + alt}").Value;// + "/" + texture).Value;
+				mi.itemTexture = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MissileLauncher/{texture+alt}").Value;// + "/" + texture).Value;
 			}
 			else
 			{
@@ -712,7 +717,7 @@ namespace MetroidMod.Content.Items.Weapons
 			return true;
 		}
 
-		bool LeadActive(Player player, int type)
+		bool leadActive(Player player, int type)
 		{
 			return (chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == type);
 		}
@@ -754,7 +759,7 @@ namespace MetroidMod.Content.Items.Weapons
 						int damage = player.GetWeaponDamage(Item);
 
 						//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
-						if (player.controlUseItem && LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
+						if (player.controlUseItem && leadActive(player, ModContent.ProjectileType<ChargeLead>()))
 						{
 							if (mp.statCharge < MPlayer.maxCharge)
 							{
@@ -832,7 +837,7 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else
 						{
-							if (mp.statCharge <= 0 && LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
+							if (mp.statCharge <= 0 && leadActive(player, ModContent.ProjectileType<ChargeLead>()))
 							{
 								mp.statCharge++;
 							}
@@ -880,7 +885,7 @@ namespace MetroidMod.Content.Items.Weapons
 								}
 							}
 
-							if (!LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
+							if (!leadActive(player, ModContent.ProjectileType<ChargeLead>()))
 							{
 								mp.statCharge = 0;
 							}
@@ -926,7 +931,7 @@ namespace MetroidMod.Content.Items.Weapons
 					Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
 					int damage = player.GetWeaponDamage(Item);
 					//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
-					if (player.controlUseItem && LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
+					if (player.controlUseItem && leadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
 					{
 						if (mi.seekerCharge < MGlobalItem.seekerMaxCharge)
 						{
@@ -995,7 +1000,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					else
 					{
-						if (mi.seekerCharge <= 0 && LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
+						if (mi.seekerCharge <= 0 && leadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
 						{
 							mi.seekerCharge++;
 						}
@@ -1025,7 +1030,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 							mi.statMissiles -= 1;
 						}
-						if (!LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
+						if (!leadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
 						{
 							mi.seekerCharge = 0;
 						}
@@ -1101,7 +1106,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public override ModItem Clone(Item item)
 		{
 			MissileLauncher clone = (MissileLauncher)NewInstance(item);//this.NewInstance(item);
-																	   //MissileLauncher missileClone = (MissileLauncher)clone;
+			//MissileLauncher missileClone = (MissileLauncher)clone;
 			clone._missileMods = new Item[MetroidMod.missileSlotAmount];
 			clone._missileChange = new Item[MetroidMod.missileChangeSlotAmount];
 			for (int i = 0; i < MetroidMod.missileSlotAmount; ++i)

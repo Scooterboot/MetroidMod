@@ -1,11 +1,13 @@
-using MetroidMod.Common.Configs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Common.Configs;
+using tModPorter;
 
 namespace MetroidMod.Content.NPCs.Mobs.Hopper
 {
@@ -19,7 +21,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			// DisplayName.SetDefault("Sidehopper");
 			Main.npcFrameCount[Type] = 3;
 		}
-
+		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			if (MConfigMain.Instance.disablemobspawn == true)
@@ -28,7 +30,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			}
 			return SpawnCondition.Underground.Chance * 0.05f + SpawnCondition.Cavern.Chance * 0.15f + SpawnCondition.UndergroundJungle.Chance * 0.12f;
 		}
-
+		
 		public override void SetDefaults()
 		{
 			NPC.width = 60;
@@ -80,7 +82,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 		}
-
+		
 		public override bool PreAI()
 		{
 			if (!spawn && newScale != -1)
@@ -95,12 +97,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		public override void AI()
 		{
 			mNPC.HopperAI(NPC, 4f, 9f);
-
-			if (NPC.ai[1] == 1f)
+			
+			if(NPC.ai[1] == 1f)
 			{
-				if (NPC.ai[0] < 30)
+				if(NPC.ai[0] < 30)
 				{
-					if (NPC.frameCounter > 0)
+					if(NPC.frameCounter > 0)
 					{
 						NPC.frameCounter--;
 					}
@@ -109,7 +111,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 				{
 					NPC.frameCounter = 10;
 				}
-				if (NPC.frameCounter > 0)
+				if(NPC.frameCounter > 0)
 				{
 					NPC.frame.Y = 1;
 				}
@@ -126,31 +128,31 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		}
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
-			mNPC.DrawHopper(NPC, sb, screenPos, drawColor);
+			mNPC.DrawHopper(NPC,sb,screenPos,drawColor);
 			return false;
 		}
-
+		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				var entitySource = NPC.GetSource_Death();
-				for (int i = 0; i < 3; i++)
+				for(int i = 0; i < 3; i++)
 				{
-					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("SidehopperGore" + i).Type, NPC.scale);
-					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width, Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
+					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("SidehopperGore"+i).Type, NPC.scale);
+					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width,Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
 					gore.timeLeft = 60;
 				}
 				for (int i = 0; i < 15; i++)
 				{
-					Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 5, RandomVel.X, RandomVel.Y, 0, default(Color), 1.5f * NPC.scale);
+					Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 5, RandomVel.X, RandomVel.Y, 0, default(Color), 1.5f*NPC.scale);
 					dust.noGravity = false;
 				}
 			}
 		}
 	}
-
+	
 	public class Sidehopper_Large : Sidehopper
 	{
 		private bool spawn = false;
@@ -160,20 +162,20 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			// DisplayName.SetDefault("Large Sidehopper");
 			Main.npcFrameCount[Type] = 3;
 		}
-
+		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (MConfigMain.Instance.disablemobspawn == true)
+			if(MConfigMain.Instance.disablemobspawn == true)
 			{
 				return 0f;
 			}
-			if (Main.hardMode)
+			if(Main.hardMode)
 			{
 				return SpawnCondition.Underground.Chance * 0.05f + SpawnCondition.Cavern.Chance * 0.15f + SpawnCondition.UndergroundJungle.Chance * 0.12f;
 			}
 			return 0f;
 		}
-
+		
 		public override void SetDefaults()
 		{
 			NPC.width = 96;
@@ -191,7 +193,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 		}
-
+		
 		public override bool PreAI()
 		{
 			if (!spawn)
@@ -201,17 +203,17 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			}
 			return true;
 		}
-
+		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				var entitySource = NPC.GetSource_Death();
-				for (int i = 0; i < 5; i++)
+				for(int i = 0; i < 5; i++)
 				{
-					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("SidehopperLargeGore" + i).Type, NPC.scale);
-					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width, Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
+					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("SidehopperLargeGore"+i).Type, NPC.scale);
+					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width,Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
 					gore.timeLeft = 60;
 				}
 				for (int i = 0; i < 15; i++)

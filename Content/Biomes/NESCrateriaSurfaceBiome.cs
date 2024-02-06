@@ -1,4 +1,6 @@
 ﻿using MetroidMod.Common.Systems;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Graphics.Capture;
 using Terraria.ModLoader;

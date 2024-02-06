@@ -1,16 +1,19 @@
 ﻿using System;
-using MetroidMod.Common.Configs;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Items.Accessories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
+using Terraria.GameContent.UI.Elements;
+
+using MetroidMod.Common.Configs;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Default;
 
 namespace MetroidMod.Common.UI
 {

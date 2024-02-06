@@ -1,4 +1,7 @@
-﻿namespace MetroidMod.Content.Beams
+﻿using Terraria;
+using Terraria.ID;
+
+namespace MetroidMod.Content.Beams
 {
 	/*
 	public class WaveBeam : ModUtilityBeam

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 {
@@ -47,14 +49,14 @@ namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 			if (NPC.direction == 0)
 				NPC.TargetClosest();
 
-			if (NPC.wet)
+			if(NPC.wet)
 			{
 				bool followPlayer = false;
 				NPC.TargetClosest(false);
 				if (Main.player[NPC.target].wet && !Main.player[NPC.target].dead)
 					followPlayer = true;
 
-				if (followPlayer) // Follow target.
+				if(followPlayer) // Follow target.
 				{
 					NPC.TargetClosest(true);
 					if (NPC.direction != NPC.oldDirection)
@@ -119,7 +121,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 			}
 			else
 			{
-				if (NPC.velocity.Y == 0)
+				if(NPC.velocity.Y == 0)
 				{
 					NPC.velocity.X *= .94F;
 					if (NPC.velocity.X > -.2F && NPC.velocity.X < .2F)

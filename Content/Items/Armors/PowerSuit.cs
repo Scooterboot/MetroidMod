@@ -1,12 +1,12 @@
-using System.IO;
-using MetroidMod.Common.Players;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 using Terraria.ModLoader.IO;
+using System.IO;
 
 namespace MetroidMod.Content.Items.Armors
 {
@@ -87,7 +87,7 @@ namespace MetroidMod.Content.Items.Armors
 			player.setBonus = "Allows the ability to Sense Move" + "\n" +
 							"Double tap a direction (when enabled)" + "\n" +
 							"Right click the Sense Move button to access Addon Menu";// + 
-																					 //SuitAddonLoader.GetSetBonusText(player);
+							//SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.EnergyDefenseEfficiency += Common.Configs.MConfigItems.Instance.energyDefenseEfficiency;
 			mp.EnergyExpenseEfficiency += Common.Configs.MConfigItems.Instance.energyExpenseEfficiency;
@@ -104,11 +104,11 @@ namespace MetroidMod.Content.Items.Armors
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			mp.isPowerSuit = true;
 			mp.visorGlowColor = new Color(0, 248, 112);
-			if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1) || mp.SMoveEffect > 0) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
+			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1) || mp.SMoveEffect > 0) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
 			{
 				mp.jet = true;
 			}
-			else if (mp.shineDirection == 0 || mp.shineDirection == 5)
+			else if(mp.shineDirection == 0 || mp.shineDirection == 5)
 			{
 				mp.jet = false;
 			}

@@ -1,4 +1,8 @@
-﻿namespace MetroidMod.Content.Tiles.ItemTile.Missile
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
+
+namespace MetroidMod.Content.Tiles.ItemTile.Missile
 {
 	public abstract class MissileAbst : ItemTile
 	{

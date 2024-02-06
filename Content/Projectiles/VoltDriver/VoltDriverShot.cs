@@ -1,11 +1,12 @@
 using System;
-using System.IO;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
+using Terraria.Audio;
+using MetroidMod.Content.Items.Weapons;
+using Terraria.DataStructures;
+using System.IO;
 
 namespace MetroidMod.Content.Projectiles.VoltDriver
 {
@@ -18,9 +19,9 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
+			if(source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
 			{
-				if (player.HeldItem.ModItem is PowerBeam hold)
+				if(player.HeldItem.ModItem is PowerBeam hold)
 				{
 					shot = hold.shotEffect.ToString();
 				}
@@ -43,8 +44,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			base.OnSpawn(source);
 		}
 		public override void SetDefaults()
-		{
-
+		{		
+			 
 			base.SetDefaults();
 			Projectile.width = 12;//22
 			Projectile.height = 12; //22

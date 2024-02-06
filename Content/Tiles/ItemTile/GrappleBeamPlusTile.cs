@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using MetroidMod.Content.Items.Tools;
+﻿using MetroidMod.Content.Items.Accessories;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using MetroidMod.Content.Items.Tools;
 
 namespace MetroidMod.Content.Tiles.ItemTile
 {

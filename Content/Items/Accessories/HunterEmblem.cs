@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
@@ -25,7 +26,7 @@ namespace MetroidMod.Content.Items.Accessories
 		{
 			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.15f;
 		}
-
+		
 		public override void AddRecipes()
 		{
 			Recipe.Create(ItemID.AvengerEmblem)

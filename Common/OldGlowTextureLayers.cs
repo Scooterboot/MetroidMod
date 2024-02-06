@@ -1,9 +1,13 @@
-﻿using MetroidMod.Common.Players;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Common
 {

@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using System;
 
 namespace MetroidMod.Content.Tiles.Hatch
 {
@@ -29,7 +30,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			TileObjectData.newTile.AnchorLeft = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.AnchorRight = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
+			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			LocalizedText name = CreateMapEntryName();
@@ -37,7 +38,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			AddMapEntry(new Color(0, 160, 0), name);
 			AdjTiles = new int[] { TileID.ClosedDoor };
 			MinPick = 150;
-
+			
 			otherDoorID = ModContent.TileType<GreenHatchOpenVertical>();
 		}
 
@@ -67,7 +68,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			}
 			return false;
 		}
-
+		
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
 			r = 0.05f;
@@ -76,7 +77,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 		}
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			DrawDoor(i, j, spriteBatch, ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/GreenHatchVerticalDoor").Value);
+			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/GreenHatchVerticalDoor").Value);
 			return true;
 		}
 	}

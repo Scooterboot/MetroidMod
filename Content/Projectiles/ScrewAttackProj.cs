@@ -1,8 +1,12 @@
-using System;
-using MetroidMod.Common.Players;
-using Microsoft.Xna.Framework;
 using Terraria;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -17,18 +21,18 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void SetDefaults()
 		{
-			Projectile.width = 64;
-			Projectile.height = 64;
-			Projectile.aiStyle = 0;
-			Projectile.friendly = true;
-			Projectile.hostile = false;
-			Projectile.penetrate = -1;
-			Projectile.DamageType = DamageClass.Melee;//Projectile.melee = true;
-			Projectile.alpha = 255;
-			Projectile.tileCollide = false;
-			Projectile.ownerHitCheck = true;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 7;
+				Projectile.width = 64;
+				Projectile.height = 64;
+				Projectile.aiStyle = 0;
+				Projectile.friendly = true;
+				Projectile.hostile = false;
+				Projectile.penetrate = -1;
+				Projectile.DamageType = DamageClass.Melee;//Projectile.melee = true;
+				Projectile.alpha = 255;
+				Projectile.tileCollide = false;
+				Projectile.ownerHitCheck = true;
+				Projectile.usesLocalNPCImmunity = true;
+				Projectile.localNPCHitCooldown = 7;
 
 		}
 		public void Initialize()
@@ -36,13 +40,13 @@ namespace MetroidMod.Content.Projectiles
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			int dustType = 15;
-			if (mp.screwAttackSpeedEffect > 30)
+			if(mp.screwAttackSpeedEffect > 30)
 			{
 				dustType = 57;
 			}
-			for (float i = 0f; i < (float)(Math.PI * 2); i += (float)(Math.PI / 16))
+			for(float i = 0f; i < (float)(Math.PI*2); i += (float)(Math.PI/16))
 			{
-				Vector2 position = Projectile.Center + i.ToRotationVector2() * 24;
+				Vector2 position = Projectile.Center + i.ToRotationVector2()*24;
 				int num20 = Dust.NewDust(position, 1, 1, dustType, 0f, 0f, 100, default(Color), 2f);
 				Main.dust[num20].position = position;
 				Main.dust[num20].velocity -= P.velocity;
@@ -60,21 +64,21 @@ namespace MetroidMod.Content.Projectiles
 			//Projectile.penetrateImmuneTime = 7;
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
+			Projectile.position.X = P.Center.X-Projectile.width/2;
+			Projectile.position.Y = P.Center.Y-Projectile.height/2;
 			Projectile.direction = P.direction;
 			Projectile.spriteDirection = P.direction;
 			//Projectile.rotation += mp.rotation;
 			Projectile.rotation = 0f;
 			DelayTime++;
-			if (DelayTime > 16 || !initialSoundPlayed)
+			if(DelayTime > 16 || !initialSoundPlayed)
 			{
 				Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.ScrewAttack, P.position);
 				initialSoundPlayed = true;
 				DelayTime = 0;
 			}
 
-			if (!mp.somersault || !mp.screwAttack)
+			if(!mp.somersault || !mp.screwAttack)
 			{
 				Projectile.Kill();
 			}
@@ -82,16 +86,16 @@ namespace MetroidMod.Content.Projectiles
 			{
 				lastVel = P.velocity;
 			}
-			foreach (Projectile Pr in Main.projectile) if (Pr != null)
+			foreach(Projectile Pr in Main.projectile) if (Pr!= null)
+			{
+				if(Pr.active && (Pr.type == ModContent.ProjectileType<ShineSpark>() || Pr.type == ModContent.ProjectileType<SpeedBall>()))
 				{
-					if (Pr.active && (Pr.type == ModContent.ProjectileType<ShineSpark>() || Pr.type == ModContent.ProjectileType<SpeedBall>()))
-					{
-						Projectile.Kill();
-						return;
-					}
+					  Projectile.Kill();
+					  return;
 				}
+			}
 			Projectile.frameCounter++;
-			if (Projectile.frameCounter >= 3)
+			if(Projectile.frameCounter >= 3)
 			{
 				Projectile.frame++;
 				Projectile.frameCounter = 0;
@@ -101,28 +105,28 @@ namespace MetroidMod.Content.Projectiles
 				Projectile.frame = 0;
 			}
 			Vector3 color = new Vector3(0.85f, 0.92f, 1);
-			if (Projectile.frame == 1)
+			if(Projectile.frame == 1)
 			{
 				color = new Vector3(1, 1, 0.85f);
 			}
-			if (Projectile.frame == 2)
+			if(Projectile.frame == 2)
 			{
 				color = new Vector3(1, 0.85f, 1);
 			}
-			if (Projectile.frame == 3)
+			if(Projectile.frame == 3)
 			{
 				color = new Vector3(0.85f, 1, 0.85f);
 			}
-			if (mp.screwAttackSpeedEffect > 30)
+			if(mp.screwAttackSpeedEffect > 30)
 			{
 				color = new Vector3(1, 0.85f, 0);
 			}
 			Vector2 pos = new Vector2(Projectile.Center.X, Projectile.Center.Y);
 			Lighting.AddLight(pos, color);
 			Init++;
-			if (Init > 2)
+			if(Init > 2)
 			{
-				if (!Initialized)
+				if(!Initialized)
 				{
 					Initialize();
 				}
@@ -138,13 +142,13 @@ namespace MetroidMod.Content.Projectiles
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			int dustType = 15;
-			if (mp.screwAttackSpeedEffect > 30)
+			if(mp.screwAttackSpeedEffect > 30)
 			{
 				dustType = 57;
 			}
-			for (float i = 0f; i < (float)(Math.PI * 2); i += (float)(Math.PI / 16))
+			for(float i = 0f; i < (float)(Math.PI*2); i += (float)(Math.PI/16))
 			{
-				Vector2 position = Projectile.Center + i.ToRotationVector2() * 24;
+				Vector2 position = Projectile.Center + i.ToRotationVector2()*24;
 				int num20 = Dust.NewDust(position, 1, 1, dustType, 0f, 0f, 100, default(Color), 2f);
 				Main.dust[num20].position = position;
 				Main.dust[num20].velocity += lastVel;

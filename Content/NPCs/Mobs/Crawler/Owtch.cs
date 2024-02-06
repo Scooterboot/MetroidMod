@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MetroidMod.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,7 +18,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			// DisplayName.SetDefault("Owtch");
 			Main.npcFrameCount[Type] = 3;
 		}
-
+		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			if (MConfigMain.Instance.disablemobspawn == true)
@@ -26,7 +27,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			}
 			return SpawnCondition.Ocean.Chance * 0.2f + SpawnCondition.DesertCave.Chance * 0.2f;
 		}
-
+		
 		private float speed = 0.5f;
 		public override void SetDefaults()
 		{
@@ -45,7 +46,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			//bannerItem = mod.ItemType("OwtchBanner");
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
-
+			
 			mNPC.crawlSpeed = 0.5f;
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -59,28 +60,28 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 		}
 		public override bool PreAI()
 		{
-			mNPC.CrawlerAI(NPC, mNPC.crawlSpeed * NPC.scale);
-
+			mNPC.CrawlerAI(NPC,mNPC.crawlSpeed*NPC.scale);
+			
 			NPC.frameCounter++;
-			if (NPC.frameCounter >= 4)
+			if(NPC.frameCounter >= 4)
 			{
 				NPC.frame.Y += 1;
-				if (NPC.frame.Y >= Main.npcFrameCount[NPC.type])
+				if(NPC.frame.Y >= Main.npcFrameCount[NPC.type])
 				{
 					NPC.frame.Y = 0;
 				}
 				NPC.frameCounter = 0;
 			}
-
+			
 			return false;
 		}
 
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
-			mNPC.DrawCrawler(NPC, sb, screenPos, drawColor);
+			mNPC.DrawCrawler(NPC,sb,screenPos,drawColor);
 			return false;
 		}
-
+		
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
@@ -88,9 +89,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				var entitySource = NPC.GetSource_Death();
 				Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("OwtchGore").Type, NPC.scale);
-				gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width, Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
+				gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width,Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
 				gore.timeLeft = 60;
-
+				
 				for (int i = 0; i < 10; i++)
 				{
 					Dust dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.PinkCrystalShard, RandomVel.X, RandomVel.Y, 0, default(Color), 1f);

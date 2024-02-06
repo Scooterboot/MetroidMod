@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
@@ -45,7 +46,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 		{
 			NPC.noGravity = true;
 
-			if (NPC.ai[0] == 0) // NPC is dormant/idle.
+			if(NPC.ai[0] == 0) // NPC is dormant/idle.
 			{
 				NPC.TargetClosest(true);
 
@@ -61,14 +62,14 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 				NPC.TargetClosest(true);
 				Player p = Main.player[NPC.target];
 
-
-				if (NPC.position.X < p.position.X)
+				
+				if(NPC.position.X < p.position.X)
 				{
 					if (NPC.velocity.X < 0)
 						NPC.velocity.X *= .98F;
 					NPC.velocity.X += .3F;
 				}
-				else if (NPC.position.X > p.position.X)
+				else if(NPC.position.X > p.position.X)
 				{
 					if (NPC.velocity.X > 0)
 						NPC.velocity.X *= .98F;
@@ -87,9 +88,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 				NPC.velocity.Y = .6F;
 				NPC.velocity.X = 0;
 
-				if (NPC.ai[1]++ <= 60) // 'Spew' projectiles.
+				if(NPC.ai[1]++ <= 60) // 'Spew' projectiles.
 				{
-					if (Main.netMode != 1 && NPC.ai[1] % 15 == 0)
+					if(Main.netMode != 1 && NPC.ai[1] % 15 == 0)
 						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(Main.rand.Next(-40, 41) * .1F, -5), ModContent.ProjectileType<Projectiles.Mobs.SkreeRock>(), NPC.damage, 1.2F);
 				}
 				else
@@ -103,7 +104,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 				NPC.frame.Y = 4 * frameHeight;
 			else
 			{
-				if (NPC.frameCounter++ >= 3)
+				if(NPC.frameCounter++ >= 3)
 				{
 					NPC.frame.Y = (NPC.frame.Y + frameHeight) % (4 * frameHeight);
 					NPC.frameCounter = 0;

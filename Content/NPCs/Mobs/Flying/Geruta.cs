@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Flying
 {
@@ -46,11 +48,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 
 		public override bool PreAI()
 		{
-			if (NPC.ai[0] == 0)
+			if(NPC.ai[0] == 0)
 			{
 				NPC.velocity = Vector2.Zero;
 
-				if (NPC.ai[1]++ >= 30) // Jump countdown.
+				if(NPC.ai[1]++ >= 30) // Jump countdown.
 				{
 					NPC.TargetClosest();
 
@@ -65,15 +67,15 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			}
 			else
 			{
-				if (NPC.collideX) // If collide on the X axis, turn the X velocity around and cut it a bit.
+				if(NPC.collideX) // If collide on the X axis, turn the X velocity around and cut it a bit.
 				{
 					NPC.velocity.X *= -.8F;
 					NPC.netUpdate = true;
 				}
 
-				if (NPC.collideY) // If collide on the Y axis, see if we've landed or should bounce back.
+				if(NPC.collideY) // If collide on the Y axis, see if we've landed or should bounce back.
 				{
-					if (NPC.oldVelocity.Y > 0)
+					if(NPC.oldVelocity.Y > 0)
 						NPC.velocity.Y = 0;
 					else
 					{
@@ -89,12 +91,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 				}
 
 				// If we're 'falling' upwards, make sure to time the fall so the fall isn't endless.
-				if (NPC.velocity.Y < 0)
+				if(NPC.velocity.Y < 0)
 				{
 					if (NPC.oldVelocity.Y >= 0)
 						NPC.ai[2] = 0;
-
-					if (NPC.ai[1]++ >= 120)
+					
+					if(NPC.ai[1]++ >= 120)
 					{
 						NPC.ai[0] = 1;
 						NPC.ai[1] = 1;
@@ -168,9 +170,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 
 			Vector2[] dustSides = new Vector2[2] { new Vector2(10, 0), new Vector2(22, 0) };
 			dustSides[0].Y = dustSides[1].Y = NPC.frame.Y == 6 * frameHeight ? 16 : -4;
-			for (int i = 0; i < dustSides.Length; ++i)
+			for(int i = 0; i < dustSides.Length; ++i)
 			{
-				for (int j = 0; j < 5; ++j)
+				for(int j = 0; j < 5; ++j)
 				{
 					int newDust = Dust.NewDust(NPC.position + dustSides[i] * NPC.scale, (int)(6 * NPC.scale), (int)(6 * NPC.scale), DustID.Torch, 0, -NPC.velocity.Y * .3F);
 					Main.dust[newDust].noGravity = true;

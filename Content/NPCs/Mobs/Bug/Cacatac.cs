@@ -64,7 +64,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 
 		public override void AI()
 		{
-			if (NPC.ai[0] == 0) // Movement stage.
+			if(NPC.ai[0] == 0) // Movement stage.
 			{
 				NPC.TargetClosest(true);
 
@@ -79,12 +79,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 
 				NPC.velocity.X = NPC.direction * speed;
 			}
-			if (NPC.ai[0] == 1) // Projectile stage.
+			if(NPC.ai[0] == 1) // Projectile stage.
 			{
 				NPC.ai[1]++;
 				NPC.velocity = Vector2.Zero;
 
-				if (Main.netMode != 1 && NPC.ai[1] >= 60)
+				if(Main.netMode != 1 && NPC.ai[1] >= 60)
 				{
 					var entitySource = NPC.GetSource_FromAI();
 					// Fire projectiles.
@@ -106,9 +106,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 
 		public override void FindFrame(int frameHeight)
 		{
-			if (!NPC.collideX && !NPC.collideY) // NPC is aired.
+			if(!NPC.collideX && !NPC.collideY) // NPC is aired.
 				NPC.frame.Y = 7 * frameHeight; // Idle.
-			else if (NPC.ai[0] == 0)
+			else if(NPC.ai[0] == 0)
 			{
 				NPC.frameCounter += Math.Abs(NPC.velocity.X) / 3.5F;
 
@@ -116,7 +116,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 				int frame = (int)(NPC.frameCounter);
 				NPC.frame.Y = frame * frameHeight;
 			}
-			else if (NPC.ai[0] == 1)
+			else if(NPC.ai[0] == 1)
 			{
 
 				if (NPC.ai[1] < 20)

@@ -1,9 +1,17 @@
+using System;
 using System.IO;
+using System.Text;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
 using Terraria.ID;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -12,7 +20,8 @@ namespace MetroidMod.Content.Items.Accessories
 		private Item[] _ballMods;
 		public Item[] ballMods
 		{
-			get {
+			get
+			{
 				if (_ballMods == null)
 				{
 					_ballMods = new Item[MetroidMod.ballSlotAmount];
@@ -78,7 +87,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SaveData(TagCompound tag)
 		{
 			//TagCompound tag = new TagCompound();
-			for (int i = 0; i < ballMods.Length; ++i)
+			for(int i = 0; i < ballMods.Length; ++i)
 			{
 				tag.Add("ballItem" + i, ItemIO.Save(ballMods[i]));
 			}
@@ -89,15 +98,15 @@ namespace MetroidMod.Content.Items.Accessories
 			try
 			{
 				ballMods = new Item[MetroidMod.ballSlotAmount];
-				for (int i = 0; i < ballMods.Length; ++i)
+				for (int i = 0; i< ballMods.Length; ++i)
 				{
 					Item item = tag.Get<Item>("ballItem" + i);
 					ballMods[i] = item;
 				}
 			}
-			catch { }
+			catch{}
 		}
-
+		
 		public override void NetSend(BinaryWriter writer)
 		{
 			for (int i = 0; i < ballMods.Length; ++i)

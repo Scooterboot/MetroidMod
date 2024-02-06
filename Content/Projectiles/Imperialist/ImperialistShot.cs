@@ -1,13 +1,15 @@
 using System;
-using System.IO;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
+using MetroidMod.Content.Items.Weapons;
+using System.IO;
+using MetroidMod.Common.Players;
 using Terraria.GameContent;
+using Terraria.Enums;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
+using Mono.Cecil;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
@@ -70,11 +72,13 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		private float BeamLength
 		{
-			get {
+			get 
+			{
 				return Projectile.localAI[1];
 			}
 
-			set {
+			set 
+			{
 				Projectile.localAI[1] = value;
 			}
 		}

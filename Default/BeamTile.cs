@@ -1,4 +1,11 @@
-﻿namespace MetroidMod.Default
+﻿using Terraria;
+using Terraria.Enums;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
+using Terraria.DataStructures;
+
+namespace MetroidMod.Default
 {
 	/*
 	[Autoload(false)]

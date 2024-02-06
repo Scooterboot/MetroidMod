@@ -1,7 +1,18 @@
-﻿using System.Collections.Generic;
-//using Terraria.GameContent.Liquid;
-using MetroidMod.ID;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+//using Terraria.GameContent.Liquid;
+using Terraria.ID;
+using Terraria.ModLoader.IO;
+using MetroidMod.ID;
 
 namespace MetroidMod
 {

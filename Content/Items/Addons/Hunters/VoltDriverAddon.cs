@@ -1,8 +1,10 @@
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
+using System; 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -42,20 +44,20 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVoltDriver;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriver;
 		}
-
+	
 
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient(ItemID.CelestialMagnet, 1)
+                .AddIngredient<Miscellaneous.ChoziteBar>(30)
+                .AddIngredient<Miscellaneous.EnergyShard>(30)
+                .AddIngredient(ItemID.CelestialMagnet, 1)
 				.AddIngredient(ItemID.SpaceGun, 1)
 				.AddIngredient(ItemID.Topaz, 30)
-				.AddIngredient(ItemID.Wire, 100)
+                .AddIngredient(ItemID.Wire, 100)
 				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
+        }
 	}
 }

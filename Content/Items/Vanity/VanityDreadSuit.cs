@@ -1,8 +1,8 @@
-using MetroidMod.Common.Players;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Vanity
 {
@@ -31,11 +31,11 @@ namespace MetroidMod.Content.Items.Vanity
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			mp.isPowerSuit = true;
 			mp.visorGlowColor = new Color(0, 248, 112);
-			if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1) || mp.SMoveEffect > 0) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
+			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1) || mp.SMoveEffect > 0) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
 			{
 				mp.jet = true;
 			}
-			else if (mp.shineDirection == 0 || mp.shineDirection == 5)
+			else if(mp.shineDirection == 0 || mp.shineDirection == 5)
 			{
 				mp.jet = false;
 			}

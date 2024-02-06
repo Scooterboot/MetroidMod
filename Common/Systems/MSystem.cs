@@ -1,35 +1,42 @@
 ﻿#region Using directives
 
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
 using System.Linq;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Accessories;
-using MetroidMod.Content.Items.Addons;
-using MetroidMod.Content.Items.Addons.Hunters;
-using MetroidMod.Content.Items.Addons.V2;
-using MetroidMod.Content.Items.Addons.V3;
-using MetroidMod.Content.Items.MissileAddons;
-using MetroidMod.Content.Items.MissileAddons.BeamCombos;
-using MetroidMod.Content.Items.Tools;
-using MetroidMod.Content.NPCs.GoldenTorizo;
-using MetroidMod.Content.NPCs.Torizo;
-using MetroidMod.Content.SuitAddons;
-using MetroidMod.Content.Tiles;
-using MetroidMod.Content.Tiles.Hatch;
-using MetroidMod.Content.Tiles.ItemTile;
-using MetroidMod.Content.Walls;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
+using Terraria.Localization;
 using Terraria.WorldBuilding;
+using Terraria.GameContent.Generation;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Tiles;
+using MetroidMod.Content.Tiles.ItemTile;
+using MetroidMod.Content.Tiles.Hatch;
+using MetroidMod.Content.Walls;
+using MetroidMod.Content.NPCs.GoldenTorizo;
+using MetroidMod.Content.NPCs.Torizo;
+using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Content.Items.Addons.Hunters;
+using MetroidMod.Content.Items.Addons;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.Content.Items.Tools;
+using MetroidMod.Content.Items.Addons.V2;
+using MetroidMod.Content.Items.Addons.V3;
+using MetroidMod.Content.Items.MissileAddons;
+using MetroidMod.Content.Tiles.ItemTile.Missile;
+using MetroidMod.Content.Items.MissileAddons.BeamCombos;
+using Steamworks;
 
 
 #endregion
@@ -1725,7 +1732,7 @@ namespace MetroidMod.Common.Systems
 				for (int m = yy - 1; m < yy + 1; m++)
 				{
 					//if (Main.tile[l, m] == null)
-					//Main.tile[l, m] = new Tile();
+						//Main.tile[l, m] = new Tile();
 					Tile tile = Main.tile[l, m];
 					tile.HasTile = true;
 					tile.TileType = (ushort)ModContent.TileType<ChozoChest>();

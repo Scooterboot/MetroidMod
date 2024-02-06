@@ -1,4 +1,7 @@
+using System;
+
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
 using Terraria.DataStructures;
@@ -22,8 +25,8 @@ namespace MetroidMod.Content.Tiles
 			Main.tileSolidTop[Type] = true;
 			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2); 
+			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);

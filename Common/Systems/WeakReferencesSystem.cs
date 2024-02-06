@@ -1,8 +1,17 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using ReLogic.Content;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using MetroidMod.Common.Systems;
-using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Items.Accessories;
 using MetroidMod.Content.Items.Boss;
+using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Items.Miscellaneous;
 using MetroidMod.Content.Items.Tiles;
 using MetroidMod.Content.Items.Vanity;
 using MetroidMod.Content.NPCs.GoldenTorizo;
@@ -12,12 +21,8 @@ using MetroidMod.Content.NPCs.OmegaPirate;
 using MetroidMod.Content.NPCs.Phantoon;
 using MetroidMod.Content.NPCs.Serris;
 using MetroidMod.Content.NPCs.Torizo;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
+using MetroidMod.Content.NPCs.Town;
 using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace MetroidMod
 {
@@ -40,7 +45,7 @@ namespace MetroidMod
 
 		private void DoBossChecklistSupport()
 		{
-			if (!ModLoader.TryGetMod("BossChecklist", out Mod bossChecklist) || bossChecklist == null)
+			if(!ModLoader.TryGetMod("BossChecklist", out Mod bossChecklist) || bossChecklist == null)
 			{
 				Mod.Logger.Info("Boss Checklist is not loaded.");
 				return;

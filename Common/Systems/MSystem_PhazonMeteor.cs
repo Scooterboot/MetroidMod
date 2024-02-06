@@ -1,12 +1,14 @@
 ﻿#region Using directives
 
 using System;
-using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Localization;
+
+using Microsoft.Xna.Framework;
 
 #endregion
 

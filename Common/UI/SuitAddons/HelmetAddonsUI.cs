@@ -1,17 +1,25 @@
 ﻿using System;
-using MetroidMod.Common.Configs;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Armors;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using ReLogic.Content;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+using Terraria.UI.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
+
+using MetroidMod.Common.Configs;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
 namespace MetroidMod.Common.UI.SuitAddons
 {
@@ -59,7 +67,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			Append(new HelmetAddonsLines());
 
 			addonSlots = new HelmetUIItemBox[3];
-			for (int i = 0; i < addonSlots.Length; i++)
+			for(int i = 0; i < addonSlots.Length; i++)
 			{
 				addonSlots[i] = new HelmetUIItemBox();
 				addonSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;

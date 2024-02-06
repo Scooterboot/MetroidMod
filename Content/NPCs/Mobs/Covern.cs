@@ -39,26 +39,26 @@ namespace MetroidMod.Content.NPCs.Mobs
 
 		public override bool PreAI()
 		{
-			if (NPC.ai[0] == 0)
+			if(NPC.ai[0] == 0)
 			{
 				NPC.ai[0] = 1;
 				NPC.ai[1] = 1;
 			}
 
-			if (NPC.ai[0] == 1)
+			if(NPC.ai[0] == 1)
 			{
 				if (NPC.ai[1] > 0)
 					NPC.ai[1] -= .06F;
 				else
 					NPC.ai[1] = 0;
-
-				if (NPC.ai[3]++ >= 180)
+				
+				if(NPC.ai[3]++ >= 180)
 				{
 					NPC.ai[0] = 2;
 					NPC.ai[3] = 0;
 				}
 			}
-			else if (NPC.ai[0] == 2)
+			else if(NPC.ai[0] == 2)
 			{
 				if (NPC.ai[1] < 1)
 					NPC.ai[1] += .06F;
@@ -66,7 +66,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 				{
 					NPC.ai[1] = 1;
 
-					if (NPC.ai[3]++ >= 60)
+					if(NPC.ai[3]++ >= 60)
 					{
 						NPC.TargetClosest(false);
 						Vector2 newPos = Main.player[NPC.target].Center + new Vector2(Main.rand.Next(-160, 161), Main.rand.Next(-120, 40));
@@ -89,7 +89,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 		{
 			if (NPC.frameCounter++ >= 6)
 			{
-				NPC.frame.Y = (NPC.frame.Y + frameHeight) % ((Main.npcFrameCount[NPC.type] - 1) * frameHeight);
+				NPC.frame.Y = (NPC.frame.Y + frameHeight) % ((Main.npcFrameCount[NPC.type]-1) * frameHeight);
 				NPC.frameCounter = 0;
 			}
 		}
@@ -106,7 +106,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 		{
 			Texture2D texture = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Mobs/Covern_Glowmask").Value;
 			Vector2 drawPos = NPC.position - Main.screenPosition;
-			Vector2 origin = new Vector2(texture.Width / 2, ((texture.Height / (Main.npcFrameCount[NPC.type] - 1)) / 2));
+			Vector2 origin = new Vector2(texture.Width / 2, ((texture.Height / (Main.npcFrameCount[NPC.type]-1)) / 2));
 			drawPos += origin * NPC.scale + new Vector2(0, 2 * NPC.scale);
 
 			if (NPC.ai[1] < 1)

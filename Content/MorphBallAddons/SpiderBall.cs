@@ -1,7 +1,9 @@
-﻿using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Tools;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.Content.Items.Tools;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
@@ -16,7 +18,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
-		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen || Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
+		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen|| Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
 
 		public override void SetStaticDefaults()
 		{

@@ -1,7 +1,7 @@
-using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {

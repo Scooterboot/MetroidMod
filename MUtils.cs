@@ -1,4 +1,9 @@
-﻿using MetroidMod.Common.GlobalItems;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.GlobalNPCs;
 using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;

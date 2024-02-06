@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.createTile = ModContent.TileType<Content.Tiles.GripLedge>();
 			Item.rare = ItemRarityID.Green;
 		}
-
+		
 		public override void AddRecipes()
 		{
 			CreateRecipe(99)

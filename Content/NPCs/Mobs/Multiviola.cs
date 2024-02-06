@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MetroidMod.Common.Configs;
+using Microsoft.Xna.Framework;
 
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -60,7 +62,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 
 		public override bool PreAI()
 		{
-			if (NPC.ai[0] == 0)
+			if(NPC.ai[0] == 0)
 			{
 				NPC.velocity = (Main.rand.NextFloat((float)Math.PI * 2).ToRotationVector2()) * speed;
 				NPC.ai[0] = 1;
