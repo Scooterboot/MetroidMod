@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-
-using Terraria.ModLoader;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Buffs
 {

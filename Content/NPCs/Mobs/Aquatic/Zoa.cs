@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 {
@@ -62,14 +60,14 @@ namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 				if (followPlayer) // Follow target.
 				{
 					NPC.TargetClosest(true);
-					
-					if(NPC.ai[1]-- <= -30)
+
+					if (NPC.ai[1]-- <= -30)
 					{
 						Vector2 dashVelocity = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * dashSpeed;
 						NPC.velocity = dashVelocity;
 
 						// Setup dash dusts.
-						for(int i = 0; i < 8; ++i)
+						for (int i = 0; i < 8; ++i)
 						{
 							dashVelocity *= .5F;
 							int newDust = Dust.NewDust(NPC.Center, NPC.width, NPC.height, DustID.BubbleBlock, -dashVelocity.X, -dashVelocity.Y);

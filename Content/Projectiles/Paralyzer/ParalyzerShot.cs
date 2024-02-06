@@ -1,9 +1,6 @@
 ﻿using System;
-using MetroidMod.Content.Buffs;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Paralyzer
 {

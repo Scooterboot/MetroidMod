@@ -1,10 +1,10 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using MetroidMod.Common.Systems;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using MetroidMod.Common.Systems;
-using System.Collections.Generic;
 
 namespace MetroidMod.Content.Tiles
 {

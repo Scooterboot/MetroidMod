@@ -1,14 +1,7 @@
+using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria.ModLoader;
-using Terraria.UI;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {

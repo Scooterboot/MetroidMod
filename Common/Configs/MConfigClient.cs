@@ -10,15 +10,15 @@ namespace MetroidMod.Common.Configs
 	public class MConfigClient : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
-		
+
 		public static MConfigClient Instance;
 
 		public MConfigClient()
 		{
 		}
-		
+
 		[Header("General")]
-		
+
 		/*[Label("Toggle alternate weapon textures")]
 		[Tooltip("When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.\n" +
 		"Default value: false")]*/
@@ -36,13 +36,13 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(true)]*/
 		public bool energyLow;
 
-        /*[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Interval")]
+		/*[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Interval")]
         [Tooltip("The interval between Low Energy beeps.\n[Default: 20]")]*/
-        [Slider]
-        [DefaultValue(20)]
-        [Range(5, 200)]
-        [Increment(5)]
-        public int energyLowInterval;
+		[Slider]
+		[DefaultValue(20)]
+		[Range(5, 200)]
+		[Increment(5)]
+		public int energyLowInterval;
 
 		/*[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Fade")]
 		[Tooltip("When enabled, a fading, non-looping beep will be heard when Suit Energy is low.\n" +
@@ -123,7 +123,7 @@ namespace MetroidMod.Common.Configs
 		}
 
 		[Header("MapIcons")]
-		
+
 		/*[Label("[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map")]
 		[Tooltip("When enabled, the map will show an icon where Torizo's boss room is.\n" +
 		"Default value: true")]*/
@@ -140,14 +140,14 @@ namespace MetroidMod.Common.Configs
 	public class MConfigClientDebug : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
-		
+
 		public static MConfigClientDebug Instance;
 
 		public MConfigClientDebug()
 		{
 			Instance = this;
 		}
-		
+
 		/*[Label("Draw NPC hitboxes")]
 		[Tooltip("When enabled, draws NPC hitboxes.\n" +
 		"Default value: false")]*/

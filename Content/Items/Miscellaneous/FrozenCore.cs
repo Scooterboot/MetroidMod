@@ -1,7 +1,3 @@
-using System;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria.DataStructures;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,6 +20,13 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			Item.height = 16;
 			Item.value = 100;
 			Item.rare = ItemRarityID.Green;
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddIngredient(ItemID.SpectreBar, 8)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 }

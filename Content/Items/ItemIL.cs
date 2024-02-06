@@ -1,15 +1,12 @@
 ﻿#region Using directives
 
 using System;
-
+using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Content.Items.Weapons;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using Terraria;
 using Terraria.ModLoader;
-
-using MonoMod.Cil;
-using Mono.Cecil.Cil;
-
-using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.Items.Accessories;
 
 #endregion
 

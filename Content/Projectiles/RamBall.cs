@@ -1,17 +1,8 @@
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
-using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -40,7 +31,7 @@ namespace MetroidMod.Content.Projectiles
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Projectile.position.X = P.Center.X - 5;
-			Projectile.position.Y = P.position.Y -Projectile.gfxOffY;
+			Projectile.position.Y = P.position.Y - Projectile.gfxOffY;
 			Projectile.velocity = P.velocity;
 			Projectile.velocity.Normalize();
 			Projectile.rotation = Projectile.velocity.ToRotation() + 1.57f;

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using MetroidMod.Content.Items.Accessories;
 using Microsoft.Xna.Framework;

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -31,11 +30,11 @@ namespace MetroidMod.Content.Projectiles.Boss
 		public override void AI()
 		{
 			Projectile.rotation = 0f;
-			
-			if(Projectile.frame < 4)
+
+			if (Projectile.frame < 4)
 			{
 				Projectile.frameCounter++;
-				if(Projectile.frameCounter > 2)
+				if (Projectile.frameCounter > 2)
 				{
 					Projectile.frame++;
 					Projectile.frameCounter = 0;
@@ -58,7 +57,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			int num108 = tex.Height / Main.projFrames[Projectile.type];
 			int y4 = num108 * Projectile.frame;
-			Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Color.White, Projectile.rotation, new Vector2((float)tex.Width/2f, (float)num108/2f), Projectile.scale, effects, 0f);
+			Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Color.White, Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, effects, 0f);
 			return false;
 		}
 	}

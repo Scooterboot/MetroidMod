@@ -1,7 +1,6 @@
 ﻿using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Players
@@ -99,7 +98,7 @@ namespace MetroidMod.Common.Players
 			};
 			*/
 			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; };
-			modifiers.FinalDamage *= 1f-EnergyDefenseEfficiency;
+			modifiers.FinalDamage *= 1f - EnergyDefenseEfficiency;
 			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
 				modifiers.DisableSound();

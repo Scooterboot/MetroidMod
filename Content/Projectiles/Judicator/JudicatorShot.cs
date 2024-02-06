@@ -1,13 +1,11 @@
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using MetroidMod.Content.Items.Weapons;
-using Terraria.DataStructures;
-using Mono.Cecil;
 using System.IO;
+using MetroidMod.Content.Items.Weapons;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Judicator
 {
@@ -61,13 +59,13 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Projectile.numUpdates == 0)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-        }
+		}
 
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -106,7 +104,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorImpactSound, Projectile.position);
 		}
 
-        public override bool PreDraw(ref Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;

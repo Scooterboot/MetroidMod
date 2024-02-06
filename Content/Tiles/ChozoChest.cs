@@ -1,15 +1,13 @@
-using System;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.Localization;
 using Terraria.GameContent.ObjectInteractions;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles
 {
@@ -46,8 +44,9 @@ namespace MetroidMod.Content.Tiles
 		}
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
-		
-		public override void NumDust(int i, int j, bool fail, ref int num) {
+
+		public override void NumDust(int i, int j, bool fail, ref int num)
+		{
 			num = 1;
 		}
 		public override LocalizedText DefaultContainerName(int frameX, int frameY)
@@ -55,7 +54,8 @@ namespace MetroidMod.Content.Tiles
 			int option = frameX / 36;
 			return CreateMapEntryName();
 		}
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
 			Chest.DestroyChest(i, j);
 		}
 

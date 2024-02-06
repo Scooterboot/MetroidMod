@@ -1,7 +1,5 @@
 using System;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -22,8 +20,8 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 			Projectile.height = 8;
 			Projectile.scale = 2f;
 			Projectile.tileCollide = false;
-			
-			mProjectile.amplitude = 8f*Projectile.scale;
+
+			mProjectile.amplitude = 8f * Projectile.scale;
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 3;
 		}
@@ -33,8 +31,8 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 		float scale = 0.75f;
 		public override void AI()
 		{
-			
-			 
+
+
 			if (shot.Contains("stardust"))
 			{
 				dustType = 88;
@@ -42,28 +40,28 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 				scale = 0.375f;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			
-			if(Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+
+			if (Projectile.numUpdates == 0)
 			{
-				if(Main.projFrames[Projectile.type] > 1)
+				if (Main.projFrames[Projectile.type] > 1)
 				{
 					Projectile.frame++;
 				}
 			}
-			if(Projectile.frame > 1)
+			if (Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
-			
+
 			mProjectile.WaveBehavior(Projectile);
 			mProjectile.HomingBehavior(Projectile);
-			
-			if(Projectile.numUpdates == 0)
+
+			if (Projectile.numUpdates == 0)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale*scale);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale * scale);
 				Main.dust[dust].noGravity = true;
-				if(shot.Contains("stardust"))
+				if (shot.Contains("stardust"))
 				{
 					dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), Projectile.scale);
 					Main.dust[dust].noGravity = true;
@@ -74,7 +72,7 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

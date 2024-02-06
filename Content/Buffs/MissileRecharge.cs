@@ -1,9 +1,8 @@
-using Microsoft.Xna.Framework.Audio;
-using Terraria.ModLoader;
-using Terraria;
-using Terraria.Audio;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 //using MetroidMod.Content.Items;
 
 namespace MetroidMod.Content.Buffs
@@ -20,7 +19,7 @@ namespace MetroidMod.Content.Buffs
 		ReLogic.Utilities.SlotId soundInstance;
 		bool soundPlayed = false;
 		int num = 0;
-		public override void Update(Player player,ref int buffIndex)
+		public override void Update(Player player, ref int buffIndex)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			bool flag = false;
@@ -30,12 +29,12 @@ namespace MetroidMod.Content.Buffs
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					flag = true;
-					if(mi.statMissiles < mi.maxMissiles)
+					if (mi.statMissiles < mi.maxMissiles)
 					{
 						mi.statMissiles++;
 						num++;
 						int num2 = num;
-						while(num2 > 50)
+						while (num2 > 50)
 						{
 							mi.statMissiles++;
 							num2 -= 50;
@@ -51,12 +50,12 @@ namespace MetroidMod.Content.Buffs
 			}
 			if (!flag || player.controlJump || player.controlUseItem)
 			{
-				if(SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
+				if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{
 					result.Stop();
 				}
 				soundPlayed = false;
-				if(!flag)
+				if (!flag)
 				{
 					SoundEngine.PlaySound(Sounds.Suit.MissilesReplenished, player.Center);
 				}
@@ -79,7 +78,7 @@ namespace MetroidMod.Content.Buffs
 				}
 				player.mount.Dismount(player);
 				//Main.PlaySound(10, player.Center);
-				if(!soundPlayed)
+				if (!soundPlayed)
 				{
 					soundInstance = SoundEngine.PlaySound(Sounds.Suit.ConcentrationLoop, player.Center);
 					soundPlayed = true;

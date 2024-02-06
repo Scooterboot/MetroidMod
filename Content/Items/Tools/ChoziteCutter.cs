@@ -1,14 +1,12 @@
 #region Using directives
 
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-
-using MetroidMod.Common.Systems;
-using MetroidMod.ID;
 
 #endregion
 
@@ -16,7 +14,7 @@ namespace MetroidMod.Content.Items.Tools
 {
 	public class ChoziteCutter : ModItem
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Chozite Cutter");

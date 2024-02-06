@@ -1,16 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MetroidMod.Common.Systems;
+using MetroidMod.Content.NPCs.GoldenTorizo;
+using MetroidMod.Content.NPCs.Torizo;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Localization;
 using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
-using MetroidMod.Common.Systems;
-using MetroidMod.Content.NPCs.GoldenTorizo;
-using MetroidMod.Content.NPCs.Torizo;
 
 namespace MetroidMod.Common
 {

@@ -1,14 +1,12 @@
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
-using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Kraid
 {
@@ -47,14 +45,14 @@ namespace MetroidMod.Content.NPCs.Kraid
 			NPC.npcSlots = 1;
 			NPC.boss = true;
 
-			swipeDestVec[0] = new Vector2(-12f,-10f);
-			swipeDestVec[1] = new Vector2(-22f,-36f);
-			swipeDestVec[2] = new Vector2(-40f,-52f);
-			swipeDestVec[3] = new Vector2(-48f,-98f);
-			swipeDestVec[4] = new Vector2(-60f,-102f);
-			swipeDestVec[5] = new Vector2(12f,-132f);
-			swipeDestVec[6] = new Vector2(26f,-46f);
-			swipeDestVec[7] = new Vector2(-28f,22f);
+			swipeDestVec[0] = new Vector2(-12f, -10f);
+			swipeDestVec[1] = new Vector2(-22f, -36f);
+			swipeDestVec[2] = new Vector2(-40f, -52f);
+			swipeDestVec[3] = new Vector2(-48f, -98f);
+			swipeDestVec[4] = new Vector2(-60f, -102f);
+			swipeDestVec[5] = new Vector2(12f, -132f);
+			swipeDestVec[6] = new Vector2(26f, -46f);
+			swipeDestVec[7] = new Vector2(-28f, 22f);
 			swipeDestVec[8] = Vector2.Zero;
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -71,7 +69,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 		int bArmAnim = 1;
 		int num = 1;
 		float anim = 0;
-		Vector2 animVec = new Vector2(-14f,8f);
+		Vector2 animVec = new Vector2(-14f, 8f);
 
 		int state = 0;
 		int num2 = 100;
@@ -83,7 +81,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				NPC.life = 0;
 				NPC.active = false;
-				if(!despawn)
+				if (!despawn)
 				{
 					NPC.HitEffect(0, 10.0);
 				}
@@ -91,15 +89,15 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 
 			state = 0;
-			if(Head.life < (int)(Head.lifeMax*0.75f))
+			if (Head.life < (int)(Head.lifeMax * 0.75f))
 			{
 				state = 1;
 			}
-			if(Head.life < (int)(Head.lifeMax*0.5f))
+			if (Head.life < (int)(Head.lifeMax * 0.5f))
 			{
 				state = 2;
 			}
-			if(Head.life < (int)(Head.lifeMax*0.25f))
+			if (Head.life < (int)(Head.lifeMax * 0.25f))
 			{
 				state = 3;
 			}
@@ -110,44 +108,44 @@ namespace MetroidMod.Content.NPCs.Kraid
 				NPC.timeLeft = 60;
 			}
 
-			if(NPC.ai[1] > 0)
+			if (NPC.ai[1] > 0)
 			{
 				NPC.ai[1]++;
 			}
-			if(NPC.ai[1] >= num2)
+			if (NPC.ai[1] >= num2)
 			{
-				if(NPC.ai[1] <= num2+46)
+				if (NPC.ai[1] <= num2 + 46)
 				{
-					swipeFrame = Math.Min(swipeFrame+0.17f,5f);
-					NPC.frame.Y = Math.Max(NPC.frame.Y-1,0);
+					swipeFrame = Math.Min(swipeFrame + 0.17f, 5f);
+					NPC.frame.Y = Math.Max(NPC.frame.Y - 1, 0);
 				}
 				else
 				{
-					if(NPC.ai[1] <= num2+54)
+					if (NPC.ai[1] <= num2 + 54)
 					{
-						swipeFrame = Math.Min(swipeFrame+0.25f,7f);
+						swipeFrame = Math.Min(swipeFrame + 0.25f, 7f);
 					}
-					else if(NPC.ai[1] <= num2+70)
+					else if (NPC.ai[1] <= num2 + 70)
 					{
-						swipeFrame = Math.Min(swipeFrame+0.125f,9f);
+						swipeFrame = Math.Min(swipeFrame + 0.125f, 9f);
 					}
-					NPC.frame.Y = Math.Min(NPC.frame.Y+1,5);
+					NPC.frame.Y = Math.Min(NPC.frame.Y + 1, 5);
 				}
-				if(swipeFrame == 6f)
+				if (swipeFrame == 6f)
 				{
 					SoundEngine.PlaySound(Sounds.NPCs.KraidSwipe, NPC.Center);
 
 					Vector2 clawPos = NPC.Center;
-					float trot = (float)Math.Atan2(player.Center.Y-clawPos.Y,player.Center.X-clawPos.X);
+					float trot = (float)Math.Atan2(player.Center.Y - clawPos.Y, player.Center.X - clawPos.X);
 					float speed = 8f;
-					Vector2 clawVel = new Vector2((float)Math.Cos(trot)*speed,(float)Math.Sin(trot)*speed);
+					Vector2 clawVel = new Vector2((float)Math.Cos(trot) * speed, (float)Math.Sin(trot) * speed);
 
-					int slash = Projectile.NewProjectile(NPC.GetSource_FromAI(),clawPos.X,clawPos.Y,clawVel.X,clawVel.Y,ModContent.ProjectileType<Projectiles.Boss.KraidSlash>(),30,8f);
+					int slash = Projectile.NewProjectile(NPC.GetSource_FromAI(), clawPos.X, clawPos.Y, clawVel.X, clawVel.Y, ModContent.ProjectileType<Projectiles.Boss.KraidSlash>(), 30, 8f);
 					Main.projectile[slash].ai[0] = Head.whoAmI;
 					Main.projectile[slash].spriteDirection = Head.direction;
 				}
-				swipeVec = Kraid_ArmFront.LerpArray(Vector2.Zero,swipeDestVec,swipeFrame);
-				if(NPC.ai[1] >= num2+75)
+				swipeVec = Kraid_ArmFront.LerpArray(Vector2.Zero, swipeDestVec, swipeFrame);
+				if (NPC.ai[1] >= num2 + 75)
 				{
 					swipeFrame = 0f;
 					swipeVec = Vector2.Zero;
@@ -155,22 +153,22 @@ namespace MetroidMod.Content.NPCs.Kraid
 					NPC.frame.Y = 4;
 					bArmAnim = -1;
 				}
-				NPC.frameCounter = Math.Max(NPC.frameCounter-1,0);
+				NPC.frameCounter = Math.Max(NPC.frameCounter - 1, 0);
 			}
 			else
 			{
 				num2 = 100;
-				num2 -= 20*state;
+				num2 -= 20 * state;
 				NPC.frameCounter += 1;
-				if(NPC.frameCounter >= 10)
+				if (NPC.frameCounter >= 10)
 				{
 					NPC.frame.Y += bArmAnim;
-					if(NPC.frame.Y >= 4)
+					if (NPC.frame.Y >= 4)
 					{
 						NPC.frame.Y = 4;
 						bArmAnim = -1;
 					}
-					if(NPC.frame.Y <= 0)
+					if (NPC.frame.Y <= 0)
 					{
 						NPC.frame.Y = 0;
 						bArmAnim = 1;
@@ -178,31 +176,31 @@ namespace MetroidMod.Content.NPCs.Kraid
 					NPC.frameCounter = 0;
 				}
 			}
-			NPC.rotation = -(((float)Math.PI/4) * (Math.Max((swipeVec.X+swipeVec.Y)*-1,0)/192));
+			NPC.rotation = -(((float)Math.PI / 4) * (Math.Max((swipeVec.X + swipeVec.Y) * -1, 0) / 192));
 
-			if(NPC.frame.Y >= 4)
+			if (NPC.frame.Y >= 4)
 			{
 				num = -1;
 			}
-			if(NPC.frame.Y <= 0)
+			if (NPC.frame.Y <= 0)
 			{
 				num = 1;
 			}
-			anim = (1f/4)*NPC.frame.Y+((float)NPC.frameCounter/40)*num;
-			anim = MathHelper.Clamp(anim,0f,1f);
-			
-			Vector2 vec = Vector2.Lerp(Vector2.Zero,new Vector2(animVec.X*Head.direction,animVec.Y),anim);
-			NPC.Center = Head.Center + new Vector2(234*Head.direction,79) + vec + new Vector2(swipeVec.X*Head.direction,swipeVec.Y);
+			anim = (1f / 4) * NPC.frame.Y + ((float)NPC.frameCounter / 40) * num;
+			anim = MathHelper.Clamp(anim, 0f, 1f);
+
+			Vector2 vec = Vector2.Lerp(Vector2.Zero, new Vector2(animVec.X * Head.direction, animVec.Y), anim);
+			NPC.Center = Head.Center + new Vector2(234 * Head.direction, 79) + vec + new Vector2(swipeVec.X * Head.direction, swipeVec.Y);
 			NPC.velocity *= 0f;
-			
-			for(int i = 0; i < Main.maxProjectiles; i++)
+
+			for (int i = 0; i < Main.maxProjectiles; i++)
 			{
-				if(Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+				if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
 				{
 					Projectile P = Main.projectile[i];
-					Rectangle projRect = new Rectangle((int)(P.position.X+P.velocity.X),(int)(P.position.Y+P.velocity.Y),P.width,P.height);
-					Rectangle npcRect = new Rectangle((int)NPC.position.X,(int)NPC.position.Y,NPC.width,NPC.height);
-					if(projRect.Intersects(npcRect))
+					Rectangle projRect = new Rectangle((int)(P.position.X + P.velocity.X), (int)(P.position.Y + P.velocity.Y), P.width, P.height);
+					Rectangle npcRect = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
+					if (projRect.Intersects(npcRect))
 					{
 						if (Main.projectile[i].penetrate > 0)
 						{

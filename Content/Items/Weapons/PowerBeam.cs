@@ -1,33 +1,23 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.UI;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-
+using System.IO;
+using MetroidMod.Common.Configs;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Projectiles;
-using MetroidMod.Content.Projectiles.powerbeam;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Default;
-using Terraria.Utilities;
 using MetroidMod.Content.Projectiles.hyperbeam;
-using System.Security.AccessControl;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using MetroidMod.Common.Configs;
-using MetroidMod.Content.Mounts;
-using Mono.Cecil;
-using MetroidMod.Content.Projectiles.Paralyzer;
+using MetroidMod.Content.Projectiles.powerbeam;
 using MetroidMod.Content.Projectiles.VoltDriver;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using Terraria.Utilities;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -38,8 +28,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private Item[] _beamchangeMods;
 		public Item[] BeamMods
 		{
-			get
-			{
+			get {
 				if (_beamMods == null)
 				{
 					_beamMods = new Item[5];
@@ -56,8 +45,7 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public Item[] BeamChange
 		{
-			get 
-			{
+			get {
 				if (_beamchangeMods == null)
 				{
 					_beamchangeMods = new Item[12];
@@ -117,7 +105,7 @@ namespace MetroidMod.Content.Items.Weapons
 			recipe.AddRecipe();*/
 		}
 
-        public override bool CanUseItem(Player player)
+		public override bool CanUseItem(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if (player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type)
@@ -157,7 +145,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override void OnResearched(bool fullyResearched)
 		{
-			foreach(Item item in BeamMods)
+			foreach (Item item in BeamMods)
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
@@ -663,7 +651,7 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								shot = "IceNovaBeamShot";
 								chargeShot = "IceNovaBeamChargeShot";
-								if(slot4.type == wi)
+								if (slot4.type == wi)
 								{
 									//shotAmt = 3;
 									//chargeShotAmt = 3;
@@ -1024,7 +1012,7 @@ namespace MetroidMod.Content.Items.Weapons
 					useTime = MConfigItems.Instance.useTimeJudicator;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					mItem.addonChargeDmg = MConfigItems.Instance.damageJudicatorCharge;
-					mItem.addonChargeHeat =	MConfigItems.Instance.overheatJudicatorCharge;
+					mItem.addonChargeHeat = MConfigItems.Instance.overheatJudicatorCharge;
 					if (shotAmt > 1)
 					{
 						isSpray = true;
@@ -1053,7 +1041,7 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						comboError2 = true;
 					}
-					
+
 					if (slot5.type == plG)
 					{
 						comboError4 = true;
@@ -1154,7 +1142,7 @@ namespace MetroidMod.Content.Items.Weapons
 				texture = "HyperBeam";
 
 				// Wave / Nebula
-				if(shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"))
+				if (shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"))
 				{
 					shot = "PlasmaHyperBeamShot";
 				}
@@ -1177,7 +1165,7 @@ namespace MetroidMod.Content.Items.Weapons
 			waveDmg = 0f;
 			spazDmg = 0f;
 			plasDmg = 0f;
-			hunterDmg= 0f;
+			hunterDmg = 0f;
 
 			iceHeat = 0f;
 			waveHeat = 0f;
@@ -1329,7 +1317,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.shootSpeed = slot1.type == oc || Item.shoot == ModContent.ProjectileType<VoltDriverChargeShot>() ? 2f : Item.shoot == ModContent.ProjectileType<VoltDriverShot>() ? 11f : 8f;
 			Item.reuseDelay = 0;
 			Item.mana = 0;
-			Item.knockBack = slot1.type == bh ? 6f : slot1.type == sc? 0f : 4f;
+			Item.knockBack = slot1.type == bh ? 6f : slot1.type == sc ? 0f : 4f;
 			Item.scale = 0.8f;
 			Item.crit = 3;
 			Item.value = 20000;
@@ -1386,13 +1374,13 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					alt = "_alt";
 				}
-				mi.itemTexture = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/PowerBeam/{texture+alt}").Value;
+				mi.itemTexture = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/PowerBeam/{texture + alt}").Value;
 			}
 			else
 			{
 				if (MetroidMod.UseAltWeaponTextures)
 				{
-					mi.itemTexture = ModContent.Request<Texture2D>(Texture+"_alt").Value;
+					mi.itemTexture = ModContent.Request<Texture2D>(Texture + "_alt").Value;
 				}
 				else
 				{
@@ -1511,7 +1499,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			return clone;
 		}
-			
+
 
 		int chargeLead = -1;
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -1611,7 +1599,7 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override void HoldItem(Player player)
 		{
-			if(player.whoAmI == Main.myPlayer)
+			if (player.whoAmI == Main.myPlayer)
 			{
 				shotEffect = "";
 				Item slot1 = BeamMods[0];
@@ -1871,5 +1859,5 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			chargeLead = reader.ReadInt32();
 		}
-    }
+	}
 }

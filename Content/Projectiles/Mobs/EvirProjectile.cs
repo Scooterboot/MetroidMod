@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Mobs
@@ -19,7 +17,7 @@ namespace MetroidMod.Content.Projectiles.Mobs
 			Projectile.hostile = true;
 			Projectile.friendly = false;
 			Projectile.scale = 1.5F;
-			
+
 			Projectile.numHits = 1;
 		}
 

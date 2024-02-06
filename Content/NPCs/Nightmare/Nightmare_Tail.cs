@@ -1,15 +1,11 @@
-using Terraria;
-using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
-using Terraria.ID;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Nightmare
 {
@@ -131,22 +127,22 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				}
 			}
 		}
-		
+
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			if(NPC.ai[2] == 0)
+			if (NPC.ai[2] == 0)
 			{
 				modifiers.FinalDamage /= (int)(item.damage * 10f);
 			}
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if(NPC.ai[2] == 0)
+			if (NPC.ai[2] == 0)
 			{
 				modifiers.FinalDamage /= (int)(projectile.damage * 10f);
 			}
 		}
-		
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
@@ -161,8 +157,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					Main.dust[num72].noGravity = true;
 				}
 				//Main.PlaySound(4,(int)NPC.position.X,(int)NPC.position.Y,14);
-					
-				int gore = Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(0f,3f), Mod.Find<ModGore>("NightmareTailGore").Type, 1f);
+
+				int gore = Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(0f, 3f), Mod.Find<ModGore>("NightmareTailGore").Type, 1f);
 				Main.gore[gore].velocity *= 0.4f;
 				Main.gore[gore].timeLeft = 60;
 			}

@@ -1,12 +1,9 @@
 #region Using directives
 
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Accessories;
 using Terraria;
 using Terraria.ModLoader;
-
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items;
-using MetroidMod.Content.Items.Accessories;
 
 #endregion
 
@@ -66,7 +63,7 @@ namespace MetroidMod.Content.Mounts
 
 			mp.morphBall = true;
 			mp.MorphBallBasic(player);
-			if(mBall != null)
+			if (mBall != null)
 			{
 				ModMBAddon modMBAddon;
 				if (!mBall.ballMods[0].IsAir)
@@ -83,7 +80,7 @@ namespace MetroidMod.Content.Mounts
 					mp.bombDamage = player.GetWeaponDamage(mBall.ballMods[1]);
 					//mp.Bomb(player, bombMItem.bombType, mBall.ballMods[1]);
 				}
-				if(!mBall.ballMods[2].IsAir)
+				if (!mBall.ballMods[2].IsAir)
 				{
 					//MGlobalItem pbMItem = mBall.ballMods[2].GetGlobalItem<MGlobalItem>();
 					if (MBAddonLoader.TryGetAddon(mBall.ballMods[2], out modMBAddon)) { modMBAddon.UpdateEquip(player); }
@@ -96,14 +93,14 @@ namespace MetroidMod.Content.Mounts
 				}
 				else
 				{*/
-					if (MBAddonLoader.TryGetAddon(mBall.ballMods[3], out modMBAddon))
-					{
-						modMBAddon.UpdateEquip(player);
-					}
-					else
-					{
-						mp.spiderball = false;
-					}
+				if (MBAddonLoader.TryGetAddon(mBall.ballMods[3], out modMBAddon))
+				{
+					modMBAddon.UpdateEquip(player);
+				}
+				else
+				{
+					mp.spiderball = false;
+				}
 				/*}*/
 
 				/*if (mBall.ballMods[4].type == bb)
@@ -112,15 +109,15 @@ namespace MetroidMod.Content.Mounts
 				}
 				else
 				{*/
-					if (MBAddonLoader.TryGetAddon(mBall.ballMods[4], out modMBAddon))
-					{
-						modMBAddon.UpdateEquip(player);
-					}
-					else
-					{
-						mp.boostCharge = 0;
-						mp.boostEffect = 0;
-					}
+				if (MBAddonLoader.TryGetAddon(mBall.ballMods[4], out modMBAddon))
+				{
+					modMBAddon.UpdateEquip(player);
+				}
+				else
+				{
+					mp.boostCharge = 0;
+					mp.boostEffect = 0;
+				}
 				/*}*/
 			}
 		}

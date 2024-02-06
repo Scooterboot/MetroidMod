@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
+﻿using System;
+using System.Linq;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.NPCs.Mobs.Metroid;
-using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Common.GlobalNPCs
 {
@@ -143,14 +143,14 @@ namespace MetroidMod.Common.GlobalNPCs
 			}*/
 			if (npc.type != NPCID.MotherSlime && npc.type != NPCID.CorruptSlime && npc.type != NPCID.Slimer && npc.lifeMax > 1 && npc.damage > 0)
 			{
-				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 2));
+				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 1));
 				if (npc.boss)
 				{
 					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, (int)Math.Min(5f * (float)npc.lifeMax / 10f, 255f), (int)Math.Min(25f * (float)npc.lifeMax / 10f, 255f)));
 				}
 				else
 				{
-					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, 5, 25));
+					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 5, 5, 25));
 				}
 			}
 			/*if (mp.reserveTanks > 0 && mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)
@@ -171,7 +171,7 @@ namespace MetroidMod.Common.GlobalNPCs
 			}
 			if (npc.type == NPCID.IceQueen)
 			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.FrozenCore>()));
+				//npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Miscellaneous.FrozenCore>())); //everyone wanted this rebalanced --Dr
 				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FrozenCore"), 1);
 			}
 			if (npc.type == NPCID.GoblinSummoner)

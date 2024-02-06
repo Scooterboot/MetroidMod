@@ -1,10 +1,6 @@
-using System;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.icebeam
 {
@@ -38,11 +34,11 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		public override void AI()
 		{
 			Color color = MetroidMod.iceColor;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+
 			if (Projectile.numUpdates == 0)
 			{
-				Projectile.rotation += 0.5f*Projectile.direction;
+				Projectile.rotation += 0.5f * Projectile.direction;
 			}
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 59, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
@@ -51,7 +47,7 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		{
 			mProjectile.Diffuse(Projectile, 59);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

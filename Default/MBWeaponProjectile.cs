@@ -1,14 +1,11 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.ModLoader;
-using Terraria.ID;
-
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
-using MetroidMod.Content.Projectiles;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Default
 {

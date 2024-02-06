@@ -1,17 +1,4 @@
-﻿using System;
-using System.IO;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.ModLoader;
-
-using MetroidMod.Content.DamageClasses;
-using MetroidMod.Content.Projectiles;
-
-namespace MetroidMod.Default
+﻿namespace MetroidMod.Default
 {
 	/*
 	[Autoload(false)]

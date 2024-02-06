@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MetroidMod.Common.Players;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
-using MetroidMod.Common.Players;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Common.GlobalItems
 {

@@ -1,28 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Capture;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
-using MetroidMod.ID;
 using MetroidMod.Content.Biomes;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace MetroidMod.Common.Players
 {
@@ -370,7 +359,7 @@ namespace MetroidMod.Common.Players
 			}
 
 			GrappleBeamMovement();
-			
+
 			if (Energy <= 30 && ShouldShowArmorUI == true)
 			{
 				energyLowTimer--;
