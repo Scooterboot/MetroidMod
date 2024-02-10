@@ -1570,7 +1570,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (isHyper)
 			{
-				//int hyperProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI);
+				int hyperProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI);
 
 				if (shotAmt > 1)
 				{
