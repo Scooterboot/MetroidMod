@@ -1478,7 +1478,7 @@ Mods: {
 
 			MissileExpansion: {
 				DisplayName: Missile Expansion
-				Tooltip: ""
+				Tooltip: "Increases max missiles, stacks up to 50"
 			}
 
 			MissileStation: {

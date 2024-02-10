@@ -280,7 +280,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			leadAimSpeed = 0f;
 
-			mi.maxMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher + (Common.Configs.MConfigItems.Instance.ammoMissileTank * exp.stack);
+			mi.maxMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher + (Common.Configs.MConfigItems.Instance.ammoMissileTank * Math.Min(exp.stack,50));
 			if (mi.statMissiles > mi.maxMissiles)
 			{
 				mi.statMissiles = mi.maxMissiles;
