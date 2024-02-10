@@ -533,7 +533,8 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Shots bounce and roll
-					Charge shots explode and ignite
+					Charge shots ignite
+					all shots diffuse with diffusion beam in the array
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
@@ -582,6 +583,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Charge shots home, explode, and confuse
+					charge shots diffuse with diffusion beam in the array
 					[c/78BE78:+10% damage]
 					[c/BE7878:-10% speed]
 					[c/BE7878:+50% overheat use]
@@ -686,7 +688,8 @@ Mods: {
 					Adds Charge Effect
 					Charge by holding click
 					Charge shots deal x4 damage, but overheat x2.5 the normal use
-					Adds a diffusion effect to most other weapons when in the array
+					Damage and heat scaling affects all charge shots when in the array
+					Adds a diffusion effect when fully charged
 					Array slot 11
 					''' */
 			}
@@ -753,8 +756,8 @@ Mods: {
 					Slot Type: Charge
 					Adds Charge Effect 
 					Charge by holding click 
-					Charge shots deal x5 damage, but overheat x3 the normal use.
-					Affects all charge weapons when in the array.
+					Charge shots deal x5 damage, but overheat x3 the normal use
+					Damage and heat scaling affects all charge shots when in the array
 					Array slot 12
 					''' */
 			}
