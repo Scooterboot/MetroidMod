@@ -8,6 +8,7 @@ using MetroidMod.Content.Projectiles.Imperialist;
 using MetroidMod.Content.Projectiles.ShockCoil;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -33,7 +34,12 @@ namespace MetroidMod.Content.Projectiles
 			{
 				if (player.HeldItem.ModItem is PowerBeam hold)
 				{
+					MPlayer mp = player.GetModPlayer<MPlayer>();
 					shot = hold.shotEffect.ToString();
+					if(((!hold.BeamChange[10].IsAir || !hold.BeamChange[11].IsAir) && mp.statCharge >= (MPlayer.maxCharge * 0.9) && hold.BeamMods[0].type != ModContent.ItemType<Items.Addons.ChargeBeamAddon>()) || hold.BeamMods[0].type == ModContent.ItemType<Items.Addons.Hunters.BattleHammerAddon>())
+					{
+						canDiffuse = true;
+					}
 				}
 			}
 		}

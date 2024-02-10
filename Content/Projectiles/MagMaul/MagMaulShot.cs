@@ -44,17 +44,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			Projectile.scale = 1.6f;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-			Projectile.Damage();
-			foreach (NPC target in Main.npc)
-			{
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
-				{
-					Projectile.Damage();
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 1;
-				}
-			}
-			mProjectile.DustyDeath(Projectile, 286);
+			mProjectile.Diffuse(Projectile, 286);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

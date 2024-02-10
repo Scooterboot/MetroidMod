@@ -50,25 +50,10 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void OnKill(int timeLeft)
 		{
-			//Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
-			//Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
 			Projectile.width += 32;
 			Projectile.height += 32;
 			Projectile.scale = 3f;
-			//Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-			//Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-			//mProjectile.Diffuse(Projectile, 269);
-			Projectile.Damage();
-			foreach (NPC target in Main.npc)
-			{
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
-				{
-					Projectile.Damage();
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 1;
-				}
-			}
-			mProjectile.DustyDeath(Projectile, 269);
+			mProjectile.Diffuse(Projectile, 269);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);
 		}
 
@@ -79,8 +64,11 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
-			target.AddBuff(31, 180);
+			if(target.active && !target.buffImmune[31])
+			{
+				SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
+				target.AddBuff(31, 180);
+			}
 		}
 	}
 }

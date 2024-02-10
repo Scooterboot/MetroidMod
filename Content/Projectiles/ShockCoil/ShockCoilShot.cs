@@ -52,7 +52,9 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		int soundDelay = 30;
 
 		int ampSyncCooldown = 20;
-		int shots = 1;
+		//int shots = 1;
+		int immuneTime = 0;
+		int dmg = 0;
 
 		float[] amp = new float[3];
 		float[] ampDest = new float[3];
@@ -68,9 +70,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				if (player.HeldItem.ModItem is PowerBeam hold)
 				{
 					shot = hold.shotEffect.ToString();
-					shots = hold.shocky;
+					//shots = hold.shotAmt;
 				}
 			}
+			dmg = Projectile.damage;
 			base.OnSpawn(source);
 		}
 
@@ -85,7 +88,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			P.knockBack = 0;
 
 			Lead = Main.projectile[O.heldProj];
-			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			if (P.numUpdates == 0)
 			{
 				P.frame++;
@@ -96,9 +98,14 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 			//range = Math.Min(GetDepth(meep), Max_Range);
 			//distance = Math.Min(GetDepth(meep), Max_Distance);
-			if (!shot.Contains("wave") && !shot.Contains("nebula"))
+			if(immuneTime > 0)
 			{
-				P.stopsDealingDamageAfterPenetrateHits = true;
+				P.damage = 0;
+				immuneTime--;
+			}
+			else
+			{
+				P.damage = dmg;
 			}
 			mProjectile.WaveBehavior(P);
 
@@ -141,10 +148,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 									if (flag)
 									{
 										target = npc;
-										if (P.frame == 0)
-										{
-											mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-										}
 									}
 								}
 								else
@@ -276,6 +279,14 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				}
 			}
 		}
+		public override bool? CanHitNPC(NPC target3)
+		{
+			if (target != target3 || !shot.Contains("wave") && !shot.Contains("nebula") && !Collision.CanHitLine(Lead.Center, Projectile.width, Projectile.height, targetPos, Projectile.width, Projectile.height) || immuneTime > 0)
+			{
+				return false;
+			}
+			return base.CanHitNPC(target3);
+		}
 		public override void CutTiles()
 		{
 			Player p = Main.player[Projectile.owner];
@@ -394,9 +405,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
 			float ranges = maxDamage - minDamage;
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
-			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
-			mp.statOverheat += mp.overheatCost / shots;
-			if (mp.Energy < mp.MaxEnergy && !target2.TypeName.Contains("Dummy") && !O.immune)
+			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
+			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
+			mp.statOverheat += mp.overheatCost; // /shots;
+			mp.statCharge = Math.Min(mp.statCharge + 2, MPlayer.maxCharge);
+			if (mp.Energy < mp.MaxEnergy)
 			{
 				if (heal > mp.MaxEnergy - mp.Energy)
 				{
@@ -407,28 +420,18 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					mp.Energy += heal;
 				}
 			}
-			/*if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-			{
-				mp.statCharge += 10 / shots;
-				//mp.statCharge = Math.Min(((mp.statCharge + 7) / shots), MPlayer.maxCharge);
-			}*/
-			/*if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-			{
-				/*int healingAmount = Math.Min(damageDone / 20, 5);
-				p.statLife += healingAmount;
-				p.HealEffect(healingAmount, true);*/
-			/*mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
-			}*/
-			base.OnHitNPC(target2, hit, damageDone);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
 			if (damageDone > 0)
 			{
-				foreach (NPC G in Main.npc)
+				immuneTime = 4 * immunity;
+				Projectile.localNPCHitCooldown = immunity;
+				/*foreach (NPC G in Main.npc)
 				{
-					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
+					//G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 					Projectile.localNPCHitCooldown = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
-				}
+				}*/
 			}
+			base.OnHitNPC(target2, hit, damageDone);
 		}
 	}
 }

@@ -488,7 +488,6 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					[c/78BE78:Shots Explode]
-					[c/78BE78:Direct hits double hit]
 					[c/78BE78:+50% knockback]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
@@ -679,7 +678,7 @@ Mods: {
 			}
 
 			ChargeBeamV2Addon: {
-				// DisplayName: Charge Beam V2
+				// DisplayName: Diffusion Beam
 				/* Tooltip:
 					'''
 					[c/FF9696:Power Beam Addon V2]
@@ -687,6 +686,7 @@ Mods: {
 					Adds Charge Effect
 					Charge by holding click
 					Charge shots deal x4 damage, but overheat x2.5 the normal use
+					Adds a diffusion effect to most other weapons when in the array
 					Array slot 11
 					''' */
 			}
@@ -753,7 +753,8 @@ Mods: {
 					Slot Type: Charge
 					Adds Charge Effect 
 					Charge by holding click 
-					Charge shots deal x5 damage, but overheat x3 the normal use
+					Charge shots deal x5 damage, but overheat x3 the normal use.
+					Affects all charge weapons when in the array.
 					Array slot 12
 					''' */
 			}

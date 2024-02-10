@@ -11,6 +11,7 @@ using MetroidMod.Content.Projectiles.powerbeam;
 using MetroidMod.Content.Projectiles.VoltDriver;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -232,7 +233,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public int shotAmt = 1;
 		private int chargeShotAmt = 1;
 		public string shotEffect = "";
-		public int shocky = 1;
+		//public int shocky = 1;
 
 		public SoundStyle? ShotSound;
 		public SoundStyle? ChargeShotSound;
@@ -347,6 +348,36 @@ namespace MetroidMod.Content.Items.Weapons
 			bool addonsV3 = (slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl);
 
 			int versionType = 1;
+			float GetCharge()
+			{
+				if (!BeamChange[11].IsAir)
+				{
+					return MConfigItems.Instance.damageLuminiteBeam;
+				}
+				else if (!BeamChange[10].IsAir)
+				{
+					return MConfigItems.Instance.damageChargeBeamV2;
+				}
+				else
+				{
+					return MConfigItems.Instance.damageChargeBeam;
+				}
+			}
+			float GetHeat()
+			{
+				if (!BeamChange[11].IsAir)
+				{
+					return MConfigItems.Instance.overheatLuminiteBeam;
+				}
+				else if (!BeamChange[10].IsAir)
+				{
+					return MConfigItems.Instance.overheatChargeBeamV2;
+				}
+				else
+				{
+					return MConfigItems.Instance.overheatChargeBeam;
+				}
+			}
 			if (addonsV3 || (chargeV3 && !addonsV1 && !addonsV2))
 			{
 				versionType = 3;
@@ -364,7 +395,7 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot4.type == sp)
 				{
 					shotAmt = 3;
-					shocky = 3;
+					//shocky = 3;
 					chargeShotAmt = 3;
 				}
 			}
@@ -373,13 +404,13 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot3.type == nb && slot4.type != vt)
 				{
 					shotAmt = 2;
-					shocky = 2;
+					//shocky = 2;
 					chargeShotAmt = 2;
 				}
 				if (slot4.type == vt)
 				{
 					shotAmt = 5;
-					shocky = 5;
+					//shocky = 5;
 					chargeShotAmt = 5;
 				}
 				if (slot2.type == ic || slot2.type == ic2)
@@ -416,13 +447,13 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot4.type != wi && slot3.type == wa2)
 				{
 					shotAmt = 2;
-					shocky = 2;
+					//shocky = 2;
 					chargeShotAmt = 2;
 				}
 				if (slot4.type == wi)
 				{
 					shotAmt = 3;
-					shocky = 3;
+					//shocky = 3;
 					chargeShotAmt = 3;
 				}
 			}
@@ -987,8 +1018,8 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "VoltDriver";
 					chargeTex = "ChargeLead_Spazer";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = MConfigItems.Instance.damageVoltDriverCharge;
-					mItem.addonChargeHeat = MConfigItems.Instance.overheatVoltDriverCharge;
+					mItem.addonChargeDmg = GetCharge();
+					mItem.addonChargeHeat = GetHeat();
 					useTime = MConfigItems.Instance.useTimeVoltDriver;
 					if (shotAmt > 1)
 					{
@@ -1011,8 +1042,8 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Ice";
 					useTime = MConfigItems.Instance.useTimeJudicator;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = MConfigItems.Instance.damageJudicatorCharge;
-					mItem.addonChargeHeat = MConfigItems.Instance.overheatJudicatorCharge;
+					mItem.addonChargeDmg = GetCharge();
+					mItem.addonChargeHeat = GetHeat();
 					if (shotAmt > 1)
 					{
 						isSpray = true;
@@ -1067,8 +1098,8 @@ namespace MetroidMod.Content.Items.Weapons
 					texture = "MagMaul";
 					chargeTex = "ChargeLead_PlasmaRed";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = MConfigItems.Instance.damageMagMaulCharge;
-					mItem.addonChargeHeat = MConfigItems.Instance.overheatMagMaulCharge;
+					mItem.addonChargeDmg = GetCharge();
+					mItem.addonChargeHeat = GetHeat();
 					useTime = MConfigItems.Instance.useTimeMagMaul;
 					if (shotAmt > 1)
 					{
@@ -1103,7 +1134,7 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeShot = "ShockCoilChargeShot";
 					chargeTex = "ChargeLead_Stardust";
 					useTime = MConfigItems.Instance.useTimeShockCoil;
-					shotAmt = 1;
+					//shotAmt = 1;
 					if (slot5.type == plG)
 					{
 						comboError4 = true;
@@ -1539,7 +1570,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (isHyper)
 			{
-				int hyperProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI);
+				//int hyperProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI);
 
 				if (shotAmt > 1)
 				{
@@ -1672,7 +1703,6 @@ namespace MetroidMod.Content.Items.Weapons
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 				int damage = player.GetWeaponDamage(Item);
 				Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
-
 				if (isCharge)
 				{
 
@@ -1695,11 +1725,12 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								for (int i = 0; i < chargeShotAmt; i++)
 								{
+									//bool arrayDiff = (!BeamChange[10].IsAir || !BeamChange[11].IsAir) && slot1.type != ch;
 									int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
 									MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 									mProj.waveDir = waveDir;
 									mProj.shot = shotEffect.ToString();
-									//mProj.canDiffuse = (mp.statCharge >= (MPlayer.maxCharge * 0.9)); //TODO add dread diffusion beam in place of this
+									//mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9) && arrayDiff;
 									Main.projectile[chargeProj].netUpdate = true;
 									if (isChargeSpray && chargeShotAmt > 1)
 									{
@@ -1765,7 +1796,7 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						impStealth++;
 					}
-					//Item.damage *= (int)(1f + (impStealth / 125f));
+					Item.crit *= (int)(1f + (impStealth / 125f));
 					player.stealth -= (impStealth / 125f);
 					player.aggro -= (int)(impStealth * 4f);
 					if (player.velocity != Vector2.Zero || player.controlUseItem)

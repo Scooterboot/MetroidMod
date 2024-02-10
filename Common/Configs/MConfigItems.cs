@@ -594,26 +594,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(17f)]
 		public float useTimeVoltDriver;
 
-		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Charge Damage Multiplier")]
-		[Range(1f, 5f)]
-		[Increment(0.5f)]
-		[Slider]
-		[DefaultValue(3f)]
-		public float damageVoltDriverCharge;
-
 		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Overheat Modifer")]
 		[Range(0f, 2f)]
 		[Increment(0.5f)]
 		[Slider]
 		[DefaultValue(0.5f)]
 		public float overheatVoltDriver;
-
-		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Charge Overheat Multiplier")]
-		[Range(0f, 5f)]
-		[Increment(0.5f)]
-		[Slider]
-		[DefaultValue(3f)]
-		public float overheatVoltDriverCharge;
 
 		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Damage Modifier")]
 		[Range(0f, 2f)]
@@ -629,26 +615,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(36f)]
 		public float useTimeMagMaul;
 
-		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Charge Damage Multiplier")]
-		[Range(1f, 5f)]
-		[Increment(0.5f)]
-		[Slider]
-		[DefaultValue(3f)]
-		public float damageMagMaulCharge;
-
 		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Overheat Modifer")]
 		[Range(0f, 2f)]
 		[Increment(0.05f)]
 		[Slider]
 		[DefaultValue(.75f)]
 		public float overheatMagMaul;
-
-		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Charge Overheat Multiplier")]
-		[Range(0f, 5f)]
-		[Increment(0.5f)]
-		[Slider]
-		[DefaultValue(3f)]
-		public float overheatMagMaulCharge;
 
 		//[Label("[i:MetroidMod/ImperialistAddon] Imperialist Damage Modifier")]
 		[Range(0f, 10f)]
@@ -685,26 +657,12 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(27f)]
 		public float useTimeJudicator;
 
-		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Charge Damage Multiplier")]
-		[Range(1f, 5f)]
-		[Increment(0.5f)]
-		[Slider]
-		[DefaultValue(3f)]
-		public float damageJudicatorCharge;
-
 		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Overheat Modifer")]
 		[Range(0f, 2f)]
 		[Increment(0.05f)]
 		[Slider]
 		[DefaultValue(.75f)]
 		public float overheatJudicator;
-
-		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Charge Overheat Multiplier")]
-		[Range(0f, 5f)]
-		[Increment(0.5f)]
-		[Slider]
-		[DefaultValue(3f)]
-		public float overheatJudicatorCharge;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
 		[Range(-0.9f, 2f)]
