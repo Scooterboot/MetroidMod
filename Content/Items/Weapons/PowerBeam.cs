@@ -1328,8 +1328,10 @@ namespace MetroidMod.Content.Items.Weapons
 			double shotsPerSecond = 60 / useTime * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
 
 			useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
+			
+			float oof = 1f + (impStealth / 125f);
 
-			Item.damage = finalDmg;
+			Item.damage = (int)(finalDmg * oof);
 			Item.useTime = (int)useTime;
 			Item.useAnimation = (int)useTime;
 			Item.shoot = ModContent.Find<ModProjectile>(Mod.Name, shot).Type;
@@ -1796,7 +1798,6 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						impStealth++;
 					}
-					Item.crit *= (int)(1f + (impStealth / 125f));
 					player.stealth -= (impStealth / 125f);
 					player.aggro -= (int)(impStealth * 4f);
 					if (player.velocity != Vector2.Zero || player.controlUseItem)

@@ -21,6 +21,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		private bool spaze = false;
 		private int depth = 0;
+		private float hitRange = 0;
 		public override void OnSpawn(IEntitySource source)
 		{
 			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
@@ -91,7 +92,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			if (shot.Contains("wave") || shot.Contains("nebula"))
 			{
 				depth = waveDepth;
-				mProjectile.WaveBehavior(Projectile, true);
+				//mProjectile.WaveBehavior(Projectile, true);
 			}
 
 			if (P.numUpdates == 0)
@@ -105,6 +106,10 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				}
 			}
 			P.scale = 0.75f * scaleUp;
+			if (P.frame >= 6)
+			{
+				P.damage = 0;
+			}
 			//P.damage *= (int)(1d + (mp.impStealth / 125d));
 		}
 		public override bool ShouldUpdatePosition()
@@ -138,23 +143,28 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
 			Vector2 endPosition = centerFloored + P.velocity * visualBeamLength;
 			float _ = float.NaN;
-			/*if (projHitbox.Intersects(targetHitbox))
+			if (projHitbox.Intersects(targetHitbox))
 			{
 				return true;
-			}*/
-			if (P.frame <= 5)
-			{
-				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center, endPosition, P.width, ref _);
 			}
-			return false;
+			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center, endPosition, P.width, ref _);
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if(Projectile.penetrate == 1)
+			{
+				hitRange = Vector2.Distance(target.Center, Projectile.Center);
+			}
+			base.OnHitNPC(target, hit, damageDone);
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Projectile.velocity == Vector2.Zero)
+			Projectile P = Projectile;
+			if (P.velocity == Vector2.Zero)
 			{
 				return false;
 			}
-			Projectile P = Projectile;
 			if (spaze)
 			{
 				mProjectile.WaveBehavior(P, true);
@@ -167,14 +177,20 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Vector2 startPosition = centerFloored - Main.screenPosition;
 			Vector2 endPosition = startPosition + P.velocity * visualBeamLength;
 
-			for (P.ai[1] = 0f; P.ai[1] <= Max_Range; P.ai[1] += 4f)
+			for (P.ai[1] = 0f; P.ai[1] <= maxRange; P.ai[1] += 4f)
 			{
 				Vector2 end = P.Center + P.velocity * P.ai[1];
 				Vector2 trueEnd = end + P.velocity * depth * P.ai[1] * 8f;
-				if (CollideMethods.CheckCollide(trueEnd, 0, 0))
+				if (CollideMethods.CheckCollide(trueEnd, 0, 0) && hitRange == 0)
 				{
 					P.ai[1] -= 4f;
 					maxRange = Vector2.Distance(trueEnd, P.Center);
+					break;
+				}
+				if(hitRange > 0)
+				{
+					P.ai[1] -= 4f;
+					maxRange = hitRange;
 					break;
 				}
 				else
