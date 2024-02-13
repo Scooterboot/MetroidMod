@@ -1329,7 +1329,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 			
-			float oof = 1f + (impStealth / 125f);
+			float oof = 1f + (impStealth / 126f);
 
 			Item.damage = (int)(finalDmg * oof);
 			Item.useTime = (int)useTime;
@@ -1794,11 +1794,11 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					player.scope = true;
 					player.shroomiteStealth = true;
-					if (impStealth < 125f)
+					if (impStealth < 126f)
 					{
-						impStealth++;
+						impStealth += 2;
 					}
-					player.stealth -= (impStealth / 125f);
+					player.stealth -= impStealth / 126f;
 					player.aggro -= (int)(impStealth * 4f);
 					if (player.velocity != Vector2.Zero || player.controlUseItem)
 					{

@@ -109,8 +109,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 			mProjectile.WaveBehavior(P);
 
-			float range = (GetDepth(meep) * 16) + 48f;
-			float distance = (GetDepth(meep) * 16) + 48f;
+			float range = (GetDepth(meep) * 16) + 32f;
+			float distance = (GetDepth(meep) * 16) + 32f;
 
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 

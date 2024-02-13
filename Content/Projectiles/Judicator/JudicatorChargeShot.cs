@@ -66,17 +66,19 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			if (Projectile.timeLeft <= 2) //shadowfreeze
+			if (Projectile.timeLeft == 2) //shadowfreeze
 			{
+				Projectile.penetrate = -1;
 				if (shot.Contains("wave") || shot.Contains("nebula"))
 				{
 					Projectile.tileCollide = false;
 				}
+				Projectile.velocity.Normalize();
 				MProjectile meep = mProjectile;
-				int widthbonus = Math.Abs(Projectile.direction * Projectile.width / Projectile.width);
-				int heightbonus = Math.Abs(Projectile.direction * Projectile.height / Projectile.height);
-				Projectile.width += widthbonus + GetDepth(meep) * 24;
-				Projectile.height += heightbonus + GetDepth(meep) * 24;
+				int widthbonus = Math.Abs((int)Projectile.velocity.X * 16);
+				int heightbonus = Math.Abs((int)Projectile.velocity.X * 16);
+				Projectile.width *= widthbonus + GetDepth(meep);
+				Projectile.height *= heightbonus + GetDepth(meep);
 			}
 		}
 

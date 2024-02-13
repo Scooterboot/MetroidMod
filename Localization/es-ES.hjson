@@ -2776,7 +2776,7 @@ Mods: {
 
 			PhazonCore: {
 				// DisplayName: Phazon Core
-				// Tooltip: Destroy this with the nova laser to add phazon to the world
+				// Tooltip: Destroy this with the nova laser to add phazon to the world. THIS IS A FAILSAFE THAT DOES NOTHING IF THE LEVITHAN LANDED
 			}
 
 			VanityFusionGravitySuitBreastplate: {

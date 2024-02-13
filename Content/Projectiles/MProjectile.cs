@@ -6,6 +6,7 @@ using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles.Imperialist;
 using MetroidMod.Content.Projectiles.ShockCoil;
+using MetroidMod.Content.Projectiles.VoltDriver;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
@@ -308,14 +309,14 @@ namespace MetroidMod.Content.Projectiles
 							waveDepth += 2;
 						}
 					}
-					/*if(P.type == ModContent.ProjectileType<VoltDriverShot>())
+					if(P.type == ModContent.ProjectileType<VoltDriverShot>())
 					{
 						waveDepth /= 2;
 					}
 					if (P.type == ModContent.ProjectileType<VoltDriverChargeShot>())
 					{
 						waveDepth *= 2;
-					}*/
+					}
 					WaveCollide(P, waveDepth);
 				}
 			}
