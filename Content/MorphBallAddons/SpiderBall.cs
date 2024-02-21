@@ -16,7 +16,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
-		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen || Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
+		public override double GenerationChance(int x, int y) => (WorldGen.drunkWorldGen || WorldGen.everythingWorldGen) && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
 
 		public override void SetStaticDefaults()
 		{
