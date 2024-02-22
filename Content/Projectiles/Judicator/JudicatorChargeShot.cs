@@ -19,6 +19,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			return mp.waveDepth;
 		}
+		private int yeet = 1;
 		public override void OnSpawn(IEntitySource source)
 		{
 			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
@@ -32,16 +33,19 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			{
 				Projectile.penetrate = 6;
 				Projectile.maxPenetrate = 6;
+				yeet = 6;
 			}
 			if (shot.Contains("nova"))
 			{
 				Projectile.penetrate = 8;
 				Projectile.maxPenetrate = 8;
+				yeet = 8;
 			}
 			if (shot.Contains("solar"))
 			{
 				Projectile.penetrate = 12;
 				Projectile.maxPenetrate = 12;
+				yeet = 12;
 			}
 			base.OnSpawn(source);
 		}
@@ -54,6 +58,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			Projectile.timeLeft = 60;
 		}
 
+		private Vector2 move;
 		public override void AI()
 		{
 
@@ -66,19 +71,28 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			if (Projectile.timeLeft == 2) //shadowfreeze
+			if (Projectile.timeLeft == 60) //shadowfreeze
 			{
+				move = Projectile.velocity;
 				Projectile.penetrate = -1;
 				if (shot.Contains("wave") || shot.Contains("nebula"))
 				{
 					Projectile.tileCollide = false;
 				}
-				Projectile.velocity.Normalize();
+				//Projectile.velocity.Normalize();
 				MProjectile meep = mProjectile;
+				Projectile.velocity.Normalize();
 				int widthbonus = Math.Abs((int)Projectile.velocity.X * 16);
 				int heightbonus = Math.Abs((int)Projectile.velocity.X * 16);
 				Projectile.width *= widthbonus + GetDepth(meep);
 				Projectile.height *= heightbonus + GetDepth(meep);
+			}
+			else
+			{
+				Projectile.penetrate = yeet;
+				Projectile.velocity = move;
+				Projectile.width = 16;
+				Projectile.height = 16;
 			}
 		}
 
