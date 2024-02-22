@@ -29,7 +29,7 @@ namespace MetroidMod.Common
 			var torizoHeadTexture = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Content/NPCs/Torizo/IdleTorizo_Head", AssetRequestMode.ImmediateLoad);
 
 			Rectangle room = MSystem.TorizoRoomLocation;
-			if (!MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(ModContent.NPCType<Torizo>()) && context.Draw(torizoHeadTexture.Value, new Vector2(room.Center.X, room.Center.Y), Color.White, new SpriteFrame(1, 1, 0, 0), scaleIfNotSelected, scaleIfSelected, Alignment.Center).IsMouseOver)
+			if (!MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(ModContent.NPCType<Torizo>()) && MSystem.TorizoRoomLocation.X > 0 && MSystem.TorizoRoomLocation.Y > 0 && context.Draw(torizoHeadTexture.Value, new Vector2(room.Center.X, room.Center.Y), Color.White, new SpriteFrame(1, 1, 0, 0), scaleIfNotSelected, scaleIfSelected, Alignment.Center).IsMouseOver)
 			{
 				text = "???";//Language.GetTextValue("");
 			}
