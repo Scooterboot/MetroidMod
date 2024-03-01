@@ -79,7 +79,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				{
 					Projectile.tileCollide = false;
 				}
-				//Projectile.velocity.Normalize();
 				MProjectile meep = mProjectile;
 				Projectile.velocity.Normalize();
 				int widthbonus = Math.Abs((int)Projectile.velocity.X * 16);
