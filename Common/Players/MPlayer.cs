@@ -44,6 +44,7 @@ namespace MetroidMod.Common.Players
 
 		public bool phazonImmune = false;
 		public bool canUsePhazonBeam = false;
+		public bool canUseHyperBeam = false;
 		public int hazardShield = 0;
 		public int phazonRegen = 0;
 
@@ -75,6 +76,7 @@ namespace MetroidMod.Common.Players
 
 			phazonImmune = false;
 			canUsePhazonBeam = false;
+			canUseHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 
@@ -85,6 +87,15 @@ namespace MetroidMod.Common.Players
 			switch (Player.name.ToLower())
 			{
 				case "ed the terrarian":
+				case "edd":
+				case "eddy":
+				case "lumpy":
+				case "dork":
+				case "double dee":
+				case "double d":
+				case "eduard":
+				case "edduard":
+				case "ed boy":
 				case "ed": // challenge name, tributary to a beta tester who broke my sanity for around 2 hours - DarkSamus49
 					Player.statLifeMax2 /= 5;
 					Player.statManaMax2 /= 4;

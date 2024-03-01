@@ -117,6 +117,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				return false;
 			}
+			if (BeamMods[0].type == ModContent.ItemType<Addons.HyperBeamAddon>() && !mp.canUseHyperBeam)
+			{
+				return false;
+			}
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
 		}
 
