@@ -443,7 +443,8 @@ namespace MetroidMod.Common.Players
 
 			int num20 = 0;
 			bool flag2 = false;
-			if (mp.senseMoveCooldown <= 0 && (P.velocity.Y == 0f || mp.spaceJump))
+			bool slideDash = !mp.spaceJumped && mp.spaceJumpBoots; //Metroid Prime scan jump pseudo mechanic
+			if (mp.senseMoveCooldown <= 0 && (P.velocity.Y == 0f || mp.spaceJump || slideDash))
 			{
 				if (P.controlRight && P.releaseRight && !mp.shineActive)//MetroidMod.SenseMoveKey.Current)
 				{
@@ -452,6 +453,7 @@ namespace MetroidMod.Common.Players
 						num20 = 1;
 						flag2 = true;
 						mp.dashTime = 0;
+						slideDash = false;
 					}
 					else
 					{
@@ -465,6 +467,7 @@ namespace MetroidMod.Common.Players
 						num20 = -1;
 						flag2 = true;
 						mp.dashTime = 0;
+						slideDash = false;
 					}
 					else
 					{
