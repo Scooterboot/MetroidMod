@@ -4195,7 +4195,7 @@ Mods: {
 				}
 
 				drunkWorldHasDrunkStatues: {
-					Label: Drunk World has drunk Chozo Statues
+					Label: Drunk Chozo Statues
 					Tooltip: When enabled, Chozo Statues can have any suit addon or morph ball addon.
 				}
 

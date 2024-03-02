@@ -2676,6 +2676,7 @@ Mods: {
 					Grants 14 seconds of lava immunity
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
+					Enables Hyper Beam use
 					Slot: Primary
 					''' */
 			}
@@ -2741,6 +2742,7 @@ Mods: {
 					Grants 14 seconds of lava immunity
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
+					Enables Hyper Beam use
 					Slot: Primary
 					''' */
 			}
@@ -4193,7 +4195,7 @@ Mods: {
 				}
 
 				drunkWorldHasDrunkStatues: {
-					// Label: Drunk World has drunk Chozo Statues
+					// Label: Drunk Chozo Statues
 					// Tooltip: When enabled, Chozo Statues can have any suit addon or morph ball addon.
 				}
 
