@@ -736,7 +736,7 @@ namespace MetroidMod.Common.Systems
 				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceBeamV2Addon>(); }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceSuperMissileAddon>(); }, 4);
 			}
-			if ((WorldGen.drunkWorldGen || WorldGen.everythingWorldGen) && Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			if (Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				list[index++] = new WeightedChance(() => { item = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType; }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<OmegaCannonAddon>(); }, 1);

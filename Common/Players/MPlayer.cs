@@ -96,12 +96,12 @@ namespace MetroidMod.Common.Players
 				case "eduard":
 				case "edduard":
 				case "ed boy":
-				case "ed": // challenge name, tributary to a beta tester who broke my sanity for around 2 hours - DarkSamus49
+				case "ed": // challenge name, tributary to a beta tester who broke my sanity for around 2 hours - DarkSamus49 //also funi dr tweak to be actually playable
 					Player.statLifeMax2 /= 5;
 					Player.statManaMax2 /= 4;
-					Player.velocity.X /= 4f;
+					Player.velocity.X /= 1.5f;
 					Player.velocity.Y += Player.controlJump | Player.velocity.Y <= 0 ? 0 : 16f;
-					Player.maxFallSpeed = 10000f;
+					Player.maxFallSpeed = 100f;
 					break;
 				default:
 					break;
