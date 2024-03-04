@@ -57,7 +57,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 
 		public override void FindFrame(int frameHeight)
 		{
-			if(NPC.frameCounter++ >= 20)
+			if (NPC.frameCounter++ >= 20)
 			{
 				NPC.frame.Y = (NPC.frame.Y + frameHeight) % (Main.npcFrameCount[NPC.type] * frameHeight);
 				NPC.frameCounter = 0;

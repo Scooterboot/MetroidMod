@@ -1,7 +1,3 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-
 namespace MetroidMod.Content.Tiles.ItemTile
 {
 	/*public class XRayScopeTile : ItemTile

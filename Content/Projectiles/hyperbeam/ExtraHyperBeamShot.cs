@@ -1,10 +1,8 @@
 using System;
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.hyperbeam
 {
@@ -32,29 +30,28 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		{
 			Projectile P = Projectile;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
-			
-			string S  = PowerBeam.SetCondition();
 
-			bool isWave = (S.Contains("wave") || S.Contains("nebula")),
-			isSpazer = S.Contains("spazer") || S.Contains("wide") || S.Contains("vortex"),
-			isPlasma = S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar"),
-			isNebula = S.Contains("nebula");
+			bool isWave = (shot.Contains("wave") || shot.Contains("nebula")),
+isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
+isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"),
+isNebula = shot.Contains("nebula");
+
 
 			if (!initialized)
 			{
 				speed = P.velocity.Length();
 				initialized = true;
 			}
-			
-			if(isSpazer || isWave)
+
+			if (isSpazer || isWave)
 			{
 				mProjectile.WaveBehavior(Projectile, !isWave);
 			}
-			if(isNebula)
+			if (isNebula)
 			{
-				if(initialized)
+				if (initialized)
 				{
-					mProjectile.HomingBehavior(P,speed);
+					mProjectile.HomingBehavior(P, speed);
 				}
 			}
 			if (isPlasma)
@@ -67,10 +64,10 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			{
 				Projectile.tileCollide = false;
 			}
-			Lighting.AddLight(P.Center, (float)mp.r/255f, (float)mp.g/255f, (float)mp.b/255f);
-			
+			Lighting.AddLight(P.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
+
 			Vector2 velocity = Projectile.position - Projectile.oldPos[0];
-			if(Vector2.Distance(Projectile.position, Projectile.position+velocity) < Vector2.Distance(Projectile.position,Projectile.position+Projectile.velocity))
+			if (Vector2.Distance(Projectile.position, Projectile.position + velocity) < Vector2.Distance(Projectile.position, Projectile.position + Projectile.velocity))
 			{
 				velocity = Projectile.velocity;
 			}
@@ -79,10 +76,10 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		public override bool PreDraw(ref Color lightColor)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
-			mProjectile.PlasmaDrawTrail(Projectile,Main.player[Projectile.owner],Main.spriteBatch,10,0.6f,new Color(mp.r, mp.g, mp.b, 128));
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 10, 0.6f, new Color(mp.r, mp.g, mp.b, 128));
 			return false;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));

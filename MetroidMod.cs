@@ -1,26 +1,14 @@
 using System;
-using System.IO;
 using System.Collections.Generic;
-
+using System.IO;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items;
+using MetroidMod.Content.Tiles.Hatch;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.UI;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using ReLogic;
-using ReLogic.Graphics;
-
-using MetroidMod.Content.Items;
-using MetroidMod.Common.UI;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Tiles.Hatch;
-using MetroidMod.ID;
 
 namespace MetroidMod
 {
@@ -39,13 +27,10 @@ namespace MetroidMod
 		internal const int ballSlotAmount = 5;
 		internal const int beamSlotAmount = 5;
 		internal const int beamChangeSlotAmount = 12;
+		internal const int missileChangeSlotAmount = 13;
 		internal const int missileSlotAmount = 3;
 
 		public static bool UseAltWeaponTextures;
-		public static bool DragablePowerBeamUI;
-		public static bool DragableMissileLauncherUI;
-		public static bool DragableMorphBallUI;
-		public static bool DragableSenseMoveUI;
 
 		public static Color powColor = new(248, 248, 110);
 		public static Color iceColor = new(0, 255, 255);
@@ -62,9 +47,7 @@ namespace MetroidMod
 
 		public static bool DebugDH;
 		public static bool DebugDSI;
-
-		public int selectedItem = 0;
-		public int oldSelectedItem = 0;
+		public static bool DisplayDebugValues;
 
 		public int[] FrozenStandOnNPCs;
 
@@ -80,6 +63,8 @@ namespace MetroidMod
 		public static int T2HMBarRecipeGroupID;
 		public static int T3HMBarRecipeGroupID;
 		public static ushort unloadedItemID;
+
+		public static List<int> hazardShieldDebuffList = new() { 20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197 };
 
 		public override void Load()
 		{
@@ -121,6 +106,30 @@ namespace MetroidMod
 			SuitAddonLoader.Unload();
 			MBAddonLoader.Unload();
 		}
+
+		#region Calls
+		public override object Call(params object[] args)
+		{
+			// Make absolutely, 100% certain that we have arguments.
+			if (args is null) { throw new ArgumentNullException(nameof(args), "Arguments cannot be null!"); }
+			if (args.Length == 0) { throw new ArgumentException("Arguments cannot be empty!"); }
+
+			// Take first argument and treat it like a command.
+			if (args[0] is string content)
+			{
+				switch (content.ToLower())
+				{
+					// AddHazardShieldDebuff: Makes the Hazard Shield more effective against debuff id stored in args[1]
+					case "addhazardshielddebuff":
+						if (args[1] is int id) { hazardShieldDebuffList.Add(id); return true; }
+						else { throw new Exception($"Expected an argument of type int when adding to Hazard Shield debuff list, but got type {args[1].GetType().Name} instead."); }
+				}
+			}
+
+			// Arguments didn't match any commands? Just return false.
+			return false;
+		}
+		#endregion
 
 		/* NETWORK SYNICNG <<<<< WIP >>>>> */
 		public override void HandlePacket(BinaryReader reader, int whoAmI)

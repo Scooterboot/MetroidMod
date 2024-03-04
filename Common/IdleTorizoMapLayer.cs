@@ -1,16 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MetroidMod.Common.Systems;
+using MetroidMod.Content.NPCs.GoldenTorizo;
+using MetroidMod.Content.NPCs.Torizo;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Localization;
 using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
-using MetroidMod.Common.Systems;
-using MetroidMod.Content.NPCs.GoldenTorizo;
-using MetroidMod.Content.NPCs.Torizo;
 
 namespace MetroidMod.Common
 {
@@ -31,7 +29,7 @@ namespace MetroidMod.Common
 			var torizoHeadTexture = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Content/NPCs/Torizo/IdleTorizo_Head", AssetRequestMode.ImmediateLoad);
 
 			Rectangle room = MSystem.TorizoRoomLocation;
-			if (!MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(ModContent.NPCType<Torizo>()) && context.Draw(torizoHeadTexture.Value, new Vector2(room.Center.X, room.Center.Y), Color.White, new SpriteFrame(1, 1, 0, 0), scaleIfNotSelected, scaleIfSelected, Alignment.Center).IsMouseOver)
+			if (!MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(ModContent.NPCType<Torizo>()) && MSystem.TorizoRoomLocation.X > 0 && MSystem.TorizoRoomLocation.Y > 0 && context.Draw(torizoHeadTexture.Value, new Vector2(room.Center.X, room.Center.Y), Color.White, new SpriteFrame(1, 1, 0, 0), scaleIfNotSelected, scaleIfSelected, Alignment.Center).IsMouseOver)
 			{
 				text = "???";//Language.GetTextValue("");
 			}

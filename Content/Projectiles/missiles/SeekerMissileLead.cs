@@ -1,13 +1,10 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Content.Projectiles;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Terraria;
+using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles.missiles
 {
@@ -140,7 +137,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				P.Kill();
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player O = Main.player[Projectile.owner];
 			MGlobalItem mi = O.inventory[O.selectedItem].GetGlobalItem<MGlobalItem>();

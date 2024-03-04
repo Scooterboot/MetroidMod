@@ -32,21 +32,21 @@ namespace MetroidMod.Content.Projectiles.Boss
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			
-			if(Projectile.frame < 2)
+
+			if (Projectile.frame < 2)
 			{
 				Projectile.frameCounter++;
-				if(Projectile.frameCounter > 2)
+				if (Projectile.frameCounter > 2)
 				{
 					Projectile.frame++;
 					Projectile.frameCounter = 0;
 				}
 			}
-			
-			if(Projectile.timeLeft < 100)
+
+			if (Projectile.timeLeft < 100)
 			{
 				alpha -= 0.01f;
-				if(alpha <= 0f)
+				if (alpha <= 0f)
 				{
 					Projectile.Kill();
 				}
@@ -56,38 +56,38 @@ namespace MetroidMod.Content.Projectiles.Boss
 				}
 			}
 		}
-		
+
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
-			if(Projectile.frame == 0)
+			if (Projectile.frame == 0)
 			{
-				Rectangle hb = new Rectangle((int)(Projectile.Center.X-16),(int)(Projectile.Center.Y-16),32,32);
+				Rectangle hb = new Rectangle((int)(Projectile.Center.X - 16), (int)(Projectile.Center.Y - 16), 32, 32);
 				return hb.Intersects(targetHitbox);
 			}
-			if(Projectile.frame == 1)
+			if (Projectile.frame == 1)
 			{
-				for(int i = -1; i < 2; i++)
+				for (int i = -1; i < 2; i++)
 				{
 					Vector2 center = Projectile.Center;
 					center += Projectile.rotation.ToRotationVector2() * 16 * i;
-					
-					Rectangle hb = new Rectangle((int)(center.X-16),(int)(center.Y-16),32,32);
-					if(hb.Intersects(targetHitbox))
+
+					Rectangle hb = new Rectangle((int)(center.X - 16), (int)(center.Y - 16), 32, 32);
+					if (hb.Intersects(targetHitbox))
 					{
 						return true;
 					}
 				}
 			}
-			if(Projectile.frame == 2)
+			if (Projectile.frame == 2)
 			{
-				for(int i = -2; i < 3; i++)
+				for (int i = -2; i < 3; i++)
 				{
 					Vector2 center = Projectile.Center;
 					center += Projectile.rotation.ToRotationVector2() * 15f * i;
-					center += (Projectile.rotation-1.57f).ToRotationVector2() * 8f;
-					
-					Rectangle hb = new Rectangle((int)(center.X-8),(int)(center.Y-8),16,16);
-					if(hb.Intersects(targetHitbox))
+					center += (Projectile.rotation - 1.57f).ToRotationVector2() * 8f;
+
+					Rectangle hb = new Rectangle((int)(center.X - 8), (int)(center.Y - 8), 16, 16);
+					if (hb.Intersects(targetHitbox))
 					{
 						return true;
 					}
@@ -112,7 +112,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			int num108 = tex.Height / Main.projFrames[Projectile.type];
 			int y4 = num108 * Projectile.frame;
-			Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Color.White*alpha, Projectile.rotation, new Vector2((float)tex.Width/2f, (float)num108/2f), Projectile.scale, effects, 0f);
+			Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Color.White * alpha, Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, effects, 0f);
 			return false;
 		}
 	}

@@ -1,13 +1,11 @@
 #region Using directives
 
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-
-using MetroidMod.Common.Systems;
-using MetroidMod.ID;
 
 #endregion
 
@@ -15,7 +13,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 {
 	public class FakeBlock : ModItem
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Fake Block");
@@ -66,7 +64,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class FakeBlockHint : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Fake Block (Transparent)");
@@ -82,7 +80,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class BombBlock : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Bomb Block");
@@ -98,7 +96,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class BombBlockChain : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Bomb Block (Chain)");
@@ -129,7 +127,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class CrumbleBlockSpeed : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Crumble Block (SpeedBoost)");
@@ -145,7 +143,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class CrumbleBlockSlow : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Crumble Block (Delayed)");
@@ -161,7 +159,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class MissileBlock : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Missile Block");
@@ -177,7 +175,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class SuperMissileBlock : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Super Missile Block");
@@ -193,7 +191,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class PowerBombBlock : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Power Bomb Block");
@@ -209,7 +207,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class BoostBlock : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Boost Block");
@@ -225,7 +223,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 	}
 	public class ScrewAttackBlock : FakeBlock
 	{
-		
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Screw Attack Block");

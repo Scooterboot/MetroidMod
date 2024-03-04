@@ -1,15 +1,10 @@
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Items.Addons.Hunters;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -78,13 +73,13 @@ namespace MetroidMod.Content.Items.Addons
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
-		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale )
+		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			Texture2D tex = ModContent.Request<Texture2D>("MetroidMod/Content/Items/Addons/HyperBeamAddonColors").Value;
 			drawColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
 			sb.Draw(tex, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 		}
-		public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI )
+		public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
 			DrawColors(sb);//, Main.player[Item.owner]);
 			lightColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);

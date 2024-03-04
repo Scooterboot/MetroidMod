@@ -1,10 +1,9 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
 using System;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -12,10 +11,9 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Space Boosted Screw Attack");
-			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
-			/*"Allows the user to run insanely fast\n" +
-			"Allows somersaulting\n" +
+			//DisplayName.SetDefault("Space Boosted Screw Attack");
+			//Tooltip.SetDefault("Allows the user to run insanely fast\n" +
+			/*"Allows somersaulting\n" +
 			"Damage enemies while running or somersaulting\n" +
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" +
@@ -42,7 +40,6 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 		}
-		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -51,25 +48,14 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}
-		*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpaceJump>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpeedBooster>().ItemType);
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
-		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;
-			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item),mp.speedBoostDmg);
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
 			mp.spaceJump = true;
 			mp.screwAttack = true;
-			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item),mp.screwAttackDmg);
+			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item), mp.screwAttackDmg);
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;
 		}

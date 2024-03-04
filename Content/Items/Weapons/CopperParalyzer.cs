@@ -1,16 +1,13 @@
 ﻿using System;
-
-using Microsoft.Xna.Framework;
-
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Projectiles.Paralyzer;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Weapons
 {

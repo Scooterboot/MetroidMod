@@ -1,12 +1,11 @@
 using System;
 using System.IO;
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -56,9 +55,9 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			Player O = Main.player[P.owner];			
+			Player O = Main.player[P.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			
+
 			mp.chargeColor = LightColor;
 
 			P.scale = mp.statCharge / MPlayer.maxCharge;
@@ -69,8 +68,8 @@ namespace MetroidMod.Content.Projectiles
 			{
 				negateUseTime++;
 			}
-			
-			float dmgMult = (1f+((float)mp.statCharge*0.04f));
+
+			float dmgMult = (1f + ((float)mp.statCharge * 0.04f));
 			//int damage = (int)((float)I.damage*O.rangedDamage*O.allDamage);
 			int damage = O.GetWeaponDamage(I);
 
@@ -95,15 +94,15 @@ namespace MetroidMod.Content.Projectiles
 			{
 				soundInstance = SoundEngine.PlaySound(new SoundStyle($"{ChargeUpSoundMod.Name}/Assets/Sounds/{ChargeUpSound}"), P.Center);
 			}
-			else if(comboSound == 1)
+			else if (comboSound == 1)
 			{
-				if(mp.statCharge >= MPlayer.maxCharge-20 && !soundPlayed)
+				if (mp.statCharge >= MPlayer.maxCharge - 20 && !soundPlayed)
 				{
 					SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeComboActivate, P.Center);
 					soundPlayed = true;
 				}
 			}
-			else if(mp.statCharge >= MPlayer.maxCharge && !soundPlayed)
+			else if (mp.statCharge >= MPlayer.maxCharge && !soundPlayed)
 			{
 				SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeMax, P.Center);
 				if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
@@ -112,17 +111,17 @@ namespace MetroidMod.Content.Projectiles
 				}
 				soundPlayed = true;
 			}
-			if(noSomersault)
+			if (noSomersault)
 			{
 				mp.disableSomersault = true;
 			}
-			
+
 			O.itemTime = 2;
 			O.itemAnimation = 2;
-			
+
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-			if(O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
+			if (O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
 			{
 				if (P.owner == Main.myPlayer)
 				{
@@ -135,20 +134,20 @@ namespace MetroidMod.Content.Projectiles
 					float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
 
 					Vector2 newVelocity = targetrotation.ToRotationVector2() * 26;*/
-					
+
 					Vector2 mousePos = Main.MouseWorld;
 					Vector2 diff = Vector2.Normalize(mousePos - oPos);
 					if (float.IsNaN(diff.X) || float.IsNaN(diff.Y))
 					{
 						diff = -Vector2.UnitY;
 					}
-					
-					if(aimSpeed > 0f && mp.statCharge >= MPlayer.maxCharge)
+
+					if (aimSpeed > 0f && mp.statCharge >= MPlayer.maxCharge)
 					{
 						diff = Vector2.Normalize(Vector2.Lerp(diff, Vector2.Normalize(P.velocity), aimSpeed));
 					}
-					
-					Vector2 newVelocity = diff * ((30f - 24f*I.scale) + I.scale*I.width);
+
+					Vector2 newVelocity = diff * ((30f - 24f * I.scale) + I.scale * I.width);
 
 					if (newVelocity.X != P.velocity.X || newVelocity.Y != P.velocity.Y)
 					{
@@ -160,37 +159,37 @@ namespace MetroidMod.Content.Projectiles
 			}
 			else
 			{
-				if(mp.statCharge >= 30)
+				if (mp.statCharge >= 30)
 				{
 					O.itemTime = I.useTime;
 					O.itemAnimation = I.useAnimation;
 				}
 				else
 				{
-					O.itemTime = I.useTime-negateUseTime;
-					O.itemAnimation = I.useAnimation-negateUseTime;
+					O.itemTime = I.useTime - negateUseTime;
+					O.itemAnimation = I.useAnimation - negateUseTime;
 				}
 				P.Kill();
 			}
-			
+
 			P.friendly = false;
 			P.damage = 0;
-			if(mp.somersault)
+			if (mp.somersault)
 			{
 				P.alpha = 255;
-				if(canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
+				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = damage*5*ChargeShotAmt;
+					P.damage = damage * 5 * ChargeShotAmt;
 				}
-				P.position.X = oPos.X-P.width/2;
-				P.position.Y = oPos.Y-P.height/2;
+				P.position.X = oPos.X - P.width / 2;
+				P.position.Y = oPos.Y - P.height / 2;
 				P.velocity = Vector2.Zero;
-				if(O.controlLeft)
+				if (O.controlLeft)
 				{
 					O.direction = -1;
 				}
-				if(O.controlRight)
+				if (O.controlRight)
 				{
 					O.direction = 1;
 				}
@@ -199,7 +198,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
 				P.alpha = 0;
-				if(P.velocity.X < 0)
+				if (P.velocity.X < 0)
 				{
 					P.direction = -1;
 				}
@@ -208,14 +207,14 @@ namespace MetroidMod.Content.Projectiles
 					P.direction = 1;
 				}
 				O.ChangeDir(P.direction);
-				
+
 				P.position += Vector2.Normalize(P.velocity) * 8f * extraScale;
 			}
 			P.position.Y += O.gfxOffY;
 			P.position.X += (float)(P.width / 2);
 			P.position.Y += (float)(P.height / 2);
-			P.width = mp.somersault?50:16;
-			P.height = mp.somersault?60:16;
+			P.width = mp.somersault ? 50 : 16;
+			P.height = mp.somersault ? 60 : 16;
 			P.position.X -= (float)(P.width / 2);
 			P.position.Y -= (float)(P.height / 2);
 
@@ -233,16 +232,16 @@ namespace MetroidMod.Content.Projectiles
 			Lighting.AddLight(P.Center, (LightColor.R / 255f) * P.scale, (LightColor.G / 255f) * P.scale, (LightColor.B / 255f) * P.scale);
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 
 			if (!mp.ballstate && !mp.shineActive)
 			{
-				if(Projectile.penetrate > 0)
+				if (Projectile.penetrate > 0)
 				{
 					// Charged shot sounds played here for network purposes.
-					if(comboSound == 0 || mp.statCharge < MPlayer.maxCharge)
+					if (comboSound == 0 || mp.statCharge < MPlayer.maxCharge)
 					{
 						if (((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !missile) || (mp.statCharge >= MPlayer.maxCharge && missile)) && ChargeShotSound != "none")
 						{

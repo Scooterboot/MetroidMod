@@ -1,15 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
+﻿using System;
+using MetroidMod.Default;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using MetroidMod.Default;
-using MetroidMod.ID;
 
 namespace MetroidMod
 {
@@ -28,7 +25,7 @@ namespace MetroidMod
 		/// <summary>
 		/// The <see cref="Item"/> this addon controls.
 		/// </summary>
-		public Item Item;
+		public Item Item => ModItem.Item;
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
 
@@ -46,7 +43,18 @@ namespace MetroidMod
 
 		public virtual string ArmorTextureHead { get; }
 		public virtual string ArmorTextureTorso { get; }
+		/// <summary>
+		/// Main visible shoulder texture location. <br />
+		/// Only used by Barrier addons.
+		/// </summary>
+		public virtual string OnShoulderTexture { get; }
+		/// <summary>
+		/// Semi-hidden visible shoulder texture location. <br />
+		/// Only used by Barrier addons.
+		/// </summary>
+		public virtual string OffShoulderTexture { get; }
 		public virtual string ArmorTextureArmsGlow { get; }
+		public virtual string ArmorTextureShouldersGlow { get; }
 		public virtual string ArmorTextureLegs { get; }
 
 		public abstract string TileTexture { get; }
@@ -74,6 +82,11 @@ namespace MetroidMod
 		public int SacrificeTotal { get; set; } = 1;
 
 		public bool ItemNameLiteral { get; set; } = true;
+
+		/// <summary>
+		/// Used for Barrier addons. Set to true if the suit should override the shoulders of the Primary addon.
+		/// </summary>
+		public bool ShouldOverrideShoulders { get; set; } = false;
 
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
 		internal bool IsArmor => ArmorTextureHead != null && ArmorTextureHead != "" && ArmorTextureTorso != null && ArmorTextureTorso != "" && ArmorTextureLegs != null && ArmorTextureLegs != "";
@@ -130,7 +143,6 @@ namespace MetroidMod
 			ModTile.Unload();
 			ModItem = null;
 			ModTile = null;
-			Item = null;
 			base.Unload();
 		}
 

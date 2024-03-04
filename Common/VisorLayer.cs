@@ -1,11 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using MetroidMod.Common.Players;
 
 namespace MetroidMod.Common
 {
@@ -27,7 +24,7 @@ namespace MetroidMod.Common
 					null,
 					drawPlayer.GetImmuneAlphaPure(mPlayer.visorGlowColor, drawInfo.shadow),
 					drawPlayer.headRotation,
-					tex.Size()*0.5f,
+					tex.Size() * 0.5f,
 					1f,
 					SpriteEffects.None,
 					0

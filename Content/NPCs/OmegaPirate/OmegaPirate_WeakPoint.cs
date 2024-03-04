@@ -1,15 +1,11 @@
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using Terraria.ID;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.OmegaPirate
 {
@@ -57,7 +53,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		}
 		public override bool PreAI()
 		{
-			if(NPC.ai[1] == 1f)
+			if (NPC.ai[1] == 1f)
 			{
 				NPC.width = 44;
 				NPC.height = 44;
@@ -70,9 +66,9 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			bool flag = (Base.alpha < 255);
 			if (!Base.active)
 			{
-				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound,NPC.Center);
+				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound, NPC.Center);
 				NPC.life = 0;
-				if(flag)
+				if (flag)
 				{
 					NPC.HitEffect(0, 10.0);
 				}
@@ -80,7 +76,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				return;
 			}
 			NPC.dontTakeDamage = true;
-			if(Base.ai[0] == 1)
+			if (Base.ai[0] == 1)
 			{
 				NPC.dontTakeDamage = false;
 			}
@@ -103,7 +99,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		}
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
-			if(projectile.penetrate > 0 && projectile.aiStyle != 3)
+			if (projectile.penetrate > 0 && projectile.aiStyle != 3)
 			{
 				projectile.penetrate = 0;
 				projectile.netUpdate = true;

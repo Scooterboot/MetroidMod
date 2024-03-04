@@ -3,8 +3,6 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-using Microsoft.Xna.Framework;
-
 namespace MetroidMod.Content.Items.Boss
 {
 	public class GoldenTorizoSummon : ModItem
@@ -40,7 +38,7 @@ namespace MetroidMod.Content.Items.Boss
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
-		
+
 		public override bool ConsumeItem(Player player)
 		{
 			if (Common.Configs.MConfigMain.Instance.enableBossSummonConsumption)
@@ -52,7 +50,7 @@ namespace MetroidMod.Content.Items.Boss
 				return false;
 			}
 		}
-		
+
 		public override bool CanUseItem(Player player)
 		{
 			return !NPC.AnyNPCs(ModContent.NPCType<NPCs.GoldenTorizo.GoldenTorizo>());

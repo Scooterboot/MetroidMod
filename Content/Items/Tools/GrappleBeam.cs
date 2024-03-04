@@ -1,9 +1,8 @@
 using MetroidMod.Content.MorphBallAddons;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace MetroidMod.Content.Items.Tools
 {
 	public class GrappleBeam : ModItem

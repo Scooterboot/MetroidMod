@@ -1,10 +1,8 @@
-using System;
+using System.IO;
+using MetroidMod.Content.NPCs.OmegaPirate;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using MetroidMod.Content.NPCs.OmegaPirate;
-using System.IO;
 
 namespace MetroidMod.Content.Projectiles.Boss
 {
@@ -28,11 +26,11 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.scale = 1f;
 			Projectile.extraUpdates = 100;
 		}
-		
+
 		public override void AI()
 		{
-			Color dustColor = Color.Lerp(OmegaPirate.minGlowColor,OmegaPirate.maxGlowColor,Projectile.localAI[0]);
-			for(int i = 0; i < 3; i++)
+			Color dustColor = Color.Lerp(OmegaPirate.minGlowColor, OmegaPirate.maxGlowColor, Projectile.localAI[0]);
+			for (int i = 0; i < 3; i++)
 			{
 				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 63, 0f, 0f, 100, dustColor, 5f);
 				Main.dust[dust2].noGravity = true;

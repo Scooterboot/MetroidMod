@@ -1,8 +1,7 @@
-using System; 
+using MetroidMod.Common.GlobalItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.Addons.V3
 {

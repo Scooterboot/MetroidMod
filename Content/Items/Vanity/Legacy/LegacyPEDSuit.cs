@@ -1,8 +1,7 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using MetroidMod.Common.Players;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Vanity.Legacy
 {

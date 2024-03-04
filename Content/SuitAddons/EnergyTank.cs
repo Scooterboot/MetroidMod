@@ -1,9 +1,9 @@
 ﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using MetroidMod.ID;
 using MetroidMod.Common.Players;
+using MetroidMod.ID;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -15,7 +15,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedBoss2;
 
 		public override double GenerationChance(int x, int y) => 4;
 

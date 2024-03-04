@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MetroidMod.Content.NPCs.OmegaPirate;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ModLoader;
 using Terraria.GameContent.UI.BigProgressBar;
-using MetroidMod.Content.NPCs.OmegaPirate;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.BossBars
 {

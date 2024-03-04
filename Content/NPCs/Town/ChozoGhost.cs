@@ -1,25 +1,24 @@
 #region Using directives
 
 using System.Collections.Generic;
-
+using MetroidMod.Common.Systems;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.Items.Miscellaneous;
+using MetroidMod.Content.Items.Tiles;
+using MetroidMod.Content.Items.Tools;
+using MetroidMod.Content.Items.Vanity;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.SuitAddons;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
-using Terraria.Localization;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using MetroidMod.Common.Systems;
-using MetroidMod.Content.SuitAddons;
-using MetroidMod.Content.Items.Armors;
-using MetroidMod.Content.Items.Vanity;
-using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.Items.Tools;
-using MetroidMod.ID;
 
 #endregion
 
@@ -164,7 +163,7 @@ namespace MetroidMod.Content.NPCs.Town
 				" \n" +
 				"Objective: Craft a Varia Suit using Hellstone Bars and equip it";
 			}
-			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons[SuitAddonSlotID.Suit_Varia] == SuitAddonLoader.GetAddon<VariaSuitAddon>().Item)
+			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons[SuitAddonSlotID.Suit_Barrier] == SuitAddonLoader.GetAddon<VariaSuitAddon>().Item)
 			{
 				chat = "You are now ready for your next challenge. Go to the Dungeon and free the old man there of his curse, " +
 				"then you will gain entry to the Dungeon. Many spoils await you inside that will help you on your journey." +
@@ -183,24 +182,34 @@ namespace MetroidMod.Content.NPCs.Town
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, ShopName);
+			Condition Torizo = new Condition("Conditions.downedTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo));
+			Condition Kraid = new Condition("Conditions.downedKraid", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid));
+			Condition Phantoon = new Condition("Conditions.downedPhantoon", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon));
+			Condition Nightmare = new Condition("Conditions.downedNightmare", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare));
 			Condition Gold = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo));
-			Condition Phantoon = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon));
-			npcShop.Add(ModContent.ItemType<Items.Boss.TorizoSummon>());
-			npcShop.Add(ModContent.ItemType<VanityPack>());
+			Condition Phazon = new Condition("Conditions.spawnedPhazon", () => MSystem.PhazonSpawn != true);
 			npcShop.Add<PowerBeam>(Condition.Hardmode);
 			npcShop.Add<MissileLauncher>(Condition.Hardmode);
-			npcShop.Add(ModContent.ItemType<PowerSuitHelmet>(), Condition.Hardmode);
-			npcShop.Add(ModContent.ItemType<PowerSuitBreastplate>(), Condition.Hardmode);
-			npcShop.Add(ModContent.ItemType<PowerSuitGreaves>(), Condition.Hardmode);
-			npcShop.Add(ModContent.ItemType<Items.Tiles.MissileExpansion>(), Condition.Hardmode, Condition.BloodMoon);
-			npcShop.Add(ModContent.ItemType<RedKeycard>(), Condition.DownedMechBossAny);
+			npcShop.Add<Items.Tiles.MissileExpansion>(Condition.Hardmode, Condition.BloodMoon);
+			npcShop.Add<PowerSuitHelmet>(Condition.Hardmode);
+			npcShop.Add<PowerSuitBreastplate>(Condition.Hardmode);
+			npcShop.Add<PowerSuitGreaves>(Condition.Hardmode);
 			npcShop.Add(SuitAddonLoader.GetAddon<VariaSuitV2Addon>().ItemType, Condition.DownedMechBossAll);
-			npcShop.Add(ModContent.ItemType<VanityPack_Prime>(), Phantoon);
 			npcShop.Add(SuitAddonLoader.GetAddon<GravitySuitAddon>().ItemType, Condition.DownedPlantera);
-			npcShop.Add(ModContent.ItemType<GreenKeycard>(), Condition.DownedGolem);
-			npcShop.Add(ModContent.ItemType<Items.Boss.GoldenTorizoSummon>(), Gold);
-			npcShop.Add(ModContent.ItemType<GreenKeycard>(), Condition.DownedCultist);
-			npcShop.Add(ModContent.ItemType<VanityPack_Lunar>(), Condition.DownedMoonLord);
+			npcShop.Add<RedKeycard>(Condition.DownedMechBossAny);
+			npcShop.Add<GreenKeycard>(Condition.DownedGolem);
+			npcShop.Add<ChozoRuinsBag>(Torizo);
+			npcShop.Add<BrinstarBag>(Kraid);
+			npcShop.Add<NorfairBag>(Kraid);//Ridley); // no ridley yet
+			npcShop.Add<Sector2TropicBag>(Kraid);//Zazabi); // no zazabi yet
+			npcShop.Add<Sector5ArcticBag>(Nightmare);
+			npcShop.Add<TourianBag>(Condition.DownedMoonLord);//MotherBrain // no mother brain yet
+			npcShop.Add<VanityPack>();
+			npcShop.Add<VanityPack_Prime>(Phantoon);
+			npcShop.Add<VanityPack_Lunar>(Condition.DownedMoonLord);
+			npcShop.Add<Items.Boss.TorizoSummon>();
+			npcShop.Add<Items.Boss.GoldenTorizoSummon>(Gold);
+			npcShop.Add<PhazonCore>(Condition.DownedPlantera, Phazon);
 			npcShop.Register();
 		}
 

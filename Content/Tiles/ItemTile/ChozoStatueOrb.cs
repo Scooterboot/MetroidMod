@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles.ItemTile
@@ -42,7 +41,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		public override bool RightClick(int i, int j)
 		{
 			WorldGen.KillTile(i, j, false, false, true);
-			if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[i, j].HasTile)
+			if ((Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server) && !Main.tile[i, j].HasTile)
 			{
 				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
 			}
@@ -50,8 +49,17 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		}
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
-			noItem = true;
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, Common.Systems.MSystem.OrbItem(i,j));
+			if (!fail && !effectOnly)
+			{
+				noItem = true;
+				base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
+				/*if ((Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server) && !Main.tile[i, j].HasTile)
+				{
+					NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
+				}*/
+				//WorldGen.PlaceTile(i, j, ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.VoltDriverTile>());
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, Common.Systems.MSystem.OrbItem(i, j));
+			}
 		}
 	}
 }

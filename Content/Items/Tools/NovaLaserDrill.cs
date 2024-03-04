@@ -1,9 +1,9 @@
+using MetroidMod.Common.GlobalItems;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.Tools
 {
@@ -68,13 +68,13 @@ namespace MetroidMod.Content.Items.Tools
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}
-		
+
 		string altTexture => Texture + "_Alt";
 		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
 			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;//Main.itemTexture[Item.type];
-			if(MetroidMod.UseAltWeaponTextures)
+			if (MetroidMod.UseAltWeaponTextures)
 			{
 				mi.itemTexture = ModContent.Request<Texture2D>(altTexture).Value;//GetTexture(altTexture);
 			}
@@ -82,7 +82,7 @@ namespace MetroidMod.Content.Items.Tools
 			{
 				mi.itemTexture = Terraria.GameContent.TextureAssets.Item[Type].Value;//Main.itemTexture[Item.type];
 			}
-			if(mi.itemTexture != null)
+			if (mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;
 			}
@@ -96,7 +96,7 @@ namespace MetroidMod.Content.Items.Tools
 		{
 			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();
 			Texture2D tex = Terraria.GameContent.TextureAssets.Item[Type].Value;
-			if(MetroidMod.UseAltWeaponTextures)
+			if (MetroidMod.UseAltWeaponTextures)
 			{
 				mi.itemTexture = ModContent.Request<Texture2D>(altTexture).Value;
 			}
@@ -104,14 +104,14 @@ namespace MetroidMod.Content.Items.Tools
 			{
 				mi.itemTexture = Terraria.GameContent.TextureAssets.Item[Type].Value;
 			}
-			if(mi.itemTexture != null)
+			if (mi.itemTexture != null)
 			{
 				tex = mi.itemTexture;
 			}
 			sb.Draw(tex, position, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 			return false;
 		}
-		
+
 		public override void HoldItem(Player player)
 		{
 			bool flag13 = player.position.X / 16f - (float)Player.tileRangeX - (float)Item.tileBoost <= (float)Player.tileTargetX && (player.position.X + (float)player.width) / 16f + (float)Player.tileRangeX + (float)Item.tileBoost - 1f >= (float)Player.tileTargetX && player.position.Y / 16f - (float)Player.tileRangeY - (float)Item.tileBoost <= (float)Player.tileTargetY && (player.position.Y + (float)player.height) / 16f + (float)Player.tileRangeY + (float)Item.tileBoost - 2f >= (float)Player.tileTargetY;

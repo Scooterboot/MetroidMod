@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.ID;
-
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
-using Terraria.Map;
 
 namespace MetroidMod.Common.Systems
 {
@@ -22,16 +20,25 @@ namespace MetroidMod.Common.Systems
 		internal static UserInterface pbUserInterface;
 		internal static UserInterface bcUserInterface;
 		internal static UserInterface miUserInterface;
+		internal static UserInterface mcUserInterface;
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
+		internal static UserInterface helmetUserInterface;
+		internal static UserInterface breastplateUserInterface;
+		internal static UserInterface reserveUserInterface;
 		internal static UserInterface visorUserInterface;
 		internal static UserInterface smUserInterface;
 
+		// bri'ish innit?
 		internal bool isPBInit = false;
 		internal bool isBCInit = false;
 		internal bool isMIInit = false;
+		internal bool isMCInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
+		internal bool isHELMInit = false;
+		internal bool isBREAInit = false;
+		internal bool isRESInit = false;
 		internal bool isVIInit = false;
 		internal bool isSMInit = false;
 
@@ -47,8 +54,12 @@ namespace MetroidMod.Common.Systems
 				pbUserInterface = new UserInterface();
 				bcUserInterface = new UserInterface();
 				miUserInterface = new UserInterface();
+				mcUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
+				helmetUserInterface = new UserInterface();
+				breastplateUserInterface = new UserInterface();
+				reserveUserInterface = new UserInterface();
 				smUserInterface = new UserInterface();
 				visorUserInterface = new UserInterface();
 
@@ -79,8 +90,12 @@ namespace MetroidMod.Common.Systems
 			pbUserInterface = null;
 			bcUserInterface = null;
 			miUserInterface = null;
+			mcUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
+			helmetUserInterface = null;
+			breastplateUserInterface = null;
+			reserveUserInterface = null;
 			smUserInterface = null;
 			visorUserInterface = null;
 		}
@@ -97,9 +112,24 @@ namespace MetroidMod.Common.Systems
 				smUserInterface.SetState(new UI.SenseMoveUI());
 				isSMInit = true;
 			}
+			if (!isRESInit)
+			{
+				reserveUserInterface.SetState(new UI.SuitAddons.ReserveUI());
+				isRESInit = true;
+			}
+			if (!isBREAInit)
+			{
+				breastplateUserInterface.SetState(new UI.SuitAddons.BreastplateAddonsUI());
+				isBREAInit = true;
+			}
+			if (!isHELMInit)
+			{
+				helmetUserInterface.SetState(new UI.SuitAddons.HelmetAddonsUI());
+				isHELMInit = true;
+			}
 			if (!isSUInit)
 			{
-				suitUserInterface.SetState(new UI.SuitAddonsUI());
+				suitUserInterface.SetState(new UI.SuitAddonUI());
 				isSUInit = true;
 			}
 			if (!isMBInit)
@@ -122,6 +152,11 @@ namespace MetroidMod.Common.Systems
 				bcUserInterface.SetState(new UI.BeamChangeUI());
 				isBCInit = true;
 			}
+			if (!isMCInit)
+			{
+				mcUserInterface.SetState(new UI.MissileChangeUI());
+				isMCInit = true;
+			}
 			if (visorUserInterface != null && UI.VisorSelectUI.Visible)
 			{
 				visorUserInterface.Update(gameTime);
@@ -130,7 +165,19 @@ namespace MetroidMod.Common.Systems
 			{
 				smUserInterface.Update(gameTime);
 			}
-			if (suitUserInterface != null && UI.SuitAddonsUI.Visible)
+			if (reserveUserInterface != null && UI.SuitAddons.ReserveUI.Visible)
+			{
+				reserveUserInterface.Update(gameTime);
+			}
+			if (breastplateUserInterface != null && UI.SuitAddons.BreastplateAddonsUI.Visible)
+			{
+				breastplateUserInterface.Update(gameTime);
+			}
+			if (helmetUserInterface != null && UI.SuitAddons.HelmetAddonsUI.Visible)
+			{
+				helmetUserInterface.Update(gameTime);
+			}
+			if (suitUserInterface != null && UI.SuitAddonUI.Visible)
 			{
 				suitUserInterface.Update(gameTime);
 			}
@@ -141,6 +188,10 @@ namespace MetroidMod.Common.Systems
 			if (miUserInterface != null && UI.MissileLauncherUI.Visible)
 			{
 				miUserInterface.Update(gameTime);
+			}
+			if (mcUserInterface != null && UI.MissileChangeUI.Visible)
+			{
+				mcUserInterface.Update(gameTime);
 			}
 			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
 			{
@@ -367,6 +418,19 @@ namespace MetroidMod.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Missile Change UI",
+					delegate {
+						if (UI.MissileChangeUI.Visible)// && !Main.recBigList)
+						{
+							if (Main.hasFocus) { mcUserInterface.Recalculate(); }
+							mcUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
 					"MetroidMod: Morph Ball UI",
 					delegate {
 						if (UI.MorphBallUI.Visible)
@@ -380,14 +444,52 @@ namespace MetroidMod.Common.Systems
 					InterfaceScaleType.UI)
 				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidMod: Suit Addons UI",
+					"MetroidMod: Helmet Addons UI",
 					delegate {
-						if (UI.SuitAddonsUI.Visible)
+						if (UI.SuitAddons.HelmetAddonsUI.Visible)
+						{
+							if (Main.hasFocus) { helmetUserInterface.Recalculate(); }
+							helmetUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Breastplate Addons UI",
+					delegate {
+						if (UI.SuitAddons.BreastplateAddonsUI.Visible)
+						{
+							if (Main.hasFocus) { breastplateUserInterface.Recalculate(); }
+							breastplateUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Reserve UI",
+					delegate {
+						if (UI.SuitAddons.ReserveUI.Visible)
+						{
+							if (Main.hasFocus) { reserveUserInterface.Recalculate(); }
+							reserveUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Suit Addon UI",
+					delegate {
+						if (UI.SuitAddonUI.Visible)
 						{
 							if (Main.hasFocus) { suitUserInterface.Recalculate(); }
 							suitUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
-
 						return true;
 					},
 					InterfaceScaleType.UI)
@@ -823,8 +925,8 @@ namespace MetroidMod.Common.Systems
 				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num2}").Value;
 				Vector2 center = new(Main.screenWidth / 2, tex1.Height);
 				center += new Vector2(0, 20);
-				sb.Draw(tex1, center + new Vector2(-100 - tex1.Width * 2 - 16, - tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex1.Width, tex1.Height)), mp.HUDColor, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 2f, SpriteEffects.None, 0f);
-				sb.Draw(tex2, center + new Vector2(-100 - tex1.Width - 4, - tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), mp.HUDColor, 0f, new Vector2((float)(tex2.Width / 2), (float)(tex2.Height / 2)), 2f, SpriteEffects.None, 0f);
+				sb.Draw(tex1, center + new Vector2(-100 - tex1.Width * 2 - 16, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex1.Width, tex1.Height)), mp.HUDColor, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 2f, SpriteEffects.None, 0f);
+				sb.Draw(tex2, center + new Vector2(-100 - tex1.Width - 4, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), mp.HUDColor, 0f, new Vector2((float)(tex2.Width / 2), (float)(tex2.Height / 2)), 2f, SpriteEffects.None, 0f);
 
 				// bar
 				Texture2D value = Terraria.GameContent.TextureAssets.MagicPixel.Value;
@@ -843,7 +945,7 @@ namespace MetroidMod.Common.Systems
 				Texture2D boxTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/Box2").Value;
 				for (int i = 0; i < totalBoxes; i++)
 				{
-					sb.Draw(boxTex, center + new Vector2(-100 + (tex1.Width * i) + 8 + (4 * i), - boxTex.Height / 2), new Rectangle?(new Rectangle(0, 0, boxTex.Width / 2, boxTex.Height / 2)), i < boxCount ? mp.HUDColor : Color.DarkSlateGray, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 1.5f, SpriteEffects.None, 0f);
+					sb.Draw(boxTex, center + new Vector2(-100 + (tex1.Width * i) + 8 + (4 * i), -boxTex.Height / 2), new Rectangle?(new Rectangle(0, 0, boxTex.Width / 2, boxTex.Height / 2)), i < boxCount ? mp.HUDColor : Color.DarkSlateGray, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 1.5f, SpriteEffects.None, 0f);
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Content.Items.Boss
 {
@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Items.Boss
 
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			itemLoot.Add(ItemDropRule.Common(SuitAddonLoader.GetAddon<SuitAddons.ScrewAttack>().ItemType));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accessories.ScrewAttack>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.EnergyShard>(), 1, 60, 144));
 		}

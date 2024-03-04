@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MetroidMod.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,12 +22,16 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
 		}
-		
+
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
+			if (MConfigMain.Instance.disablemobspawn == true)
+			{
+				return 0f;
+			}
 			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + SpawnCondition.Underworld.Chance * 0.15f;
 		}
-		
+
 		public override void SetDefaults()
 		{
 			NPC.width = 24;
@@ -47,7 +50,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 			NPC.lavaImmune = true;
-			
+
 			mNPC.crawlSpeed = 1f;
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -62,30 +65,30 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 		int frameNum = 1;
 		public override bool PreAI()
 		{
-			mNPC.CrawlerAI(NPC, mNPC.crawlSpeed*NPC.scale, 1, false);
-			
+			mNPC.CrawlerAI(NPC, mNPC.crawlSpeed * NPC.scale, 1, false);
+
 			NPC.frameCounter++;
-			if(NPC.frameCounter >= 6)
+			if (NPC.frameCounter >= 6)
 			{
 				NPC.frame.Y += frameNum;
-				if(NPC.frame.Y >= Main.npcFrameCount[NPC.type]-1)
+				if (NPC.frame.Y >= Main.npcFrameCount[NPC.type] - 1)
 				{
-					NPC.frame.Y = Main.npcFrameCount[NPC.type]-1;
+					NPC.frame.Y = Main.npcFrameCount[NPC.type] - 1;
 					frameNum = -1;
 				}
-				if(NPC.frame.Y <= 0)
+				if (NPC.frame.Y <= 0)
 				{
 					NPC.frame.Y = 0;
 					frameNum = 1;
 				}
 				NPC.frameCounter = 0;
 			}
-			
+
 			Lighting.AddLight(NPC.Center, 0.4f, 1f, 0.65f);
-			
+
 			return false;
 		}
-		
+
 		public override Color? GetAlpha(Color drawColor)
 		{
 			drawColor = Color.White;
@@ -94,10 +97,10 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
-			mNPC.DrawCrawler(NPC,sb,screenPos,drawColor);
+			mNPC.DrawCrawler(NPC, sb, screenPos, drawColor);
 			return false;
 		}
-		
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
