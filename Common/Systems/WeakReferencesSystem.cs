@@ -138,7 +138,7 @@ namespace MetroidMod
 				new List<int>() { ModContent.NPCType<GoldenTorizo>(), ModContent.NPCType<GoldenTorizo_HitBox>() },
 				new Dictionary<string, object>()
 				{
-					["spawnItems"] = ModContent.ItemType<SerrisSummon>(),
+					["spawnItems"] = ModContent.ItemType<GoldenTorizoSummon>(),
 					["collectibles"] = new List<int>() { /*ModContent.ItemType<GoldenTorizoTrophy>(), ModContent.ItemType<GoldenTorizoMask>(),*/ ModContent.ItemType<TorizoMusicBox>() },
 					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog")
 				}
