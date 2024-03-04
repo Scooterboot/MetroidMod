@@ -39,7 +39,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.MagMaulTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 0;
+			this.beamID = BeamID.Beam.Magmaul;
+      			this.slotType = BeamID.SlotType.Charge;
+			this.ver = 0;
+    			this.itemID = ModContent.ItemType<MagMaulAddon>();
 			mItem.beamSlotType = BeamChangeSlotID.MagMaul;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageMagMaul;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatMagMaul;

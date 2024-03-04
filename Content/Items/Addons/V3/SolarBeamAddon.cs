@@ -1,10 +1,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V3
 {
-	public class SolarBeamAddon : ModItem
+	public class SolarBeamAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
@@ -34,7 +35,10 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.SolarBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 4;
+   			this.beamID = BeamID.Beam.Solar;
+      			this.slotType = BeamID.SlotType.PrimaryB;
+			this.ver = 3;
+    			this.itemID = ModContent.ItemType<SolarBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageSolarBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatSolarBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedSolarBeam;

@@ -39,7 +39,10 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ShockCoilTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 0;
+			this.beamID = BeamID.Beam.ShockCoil;
+      			this.slotType = BeamID.SlotType.Charge;
+			this.ver = 0;
+    			this.itemID = ModContent.ItemType<ShockCoilAddon>();
 			mItem.beamSlotType = BeamChangeSlotID.ShockCoil;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageShockCoil;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.heatShockCoil;
