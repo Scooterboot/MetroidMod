@@ -2,11 +2,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Items.Addons.Hunters;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class PlasmaBeamGreenAddon : ModItem, IBeamAddon
+	public class PlasmaBeamGreenAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -36,10 +35,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.PlasmaBeamGreenTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-   			this.beamID = BeamID.Beam.PlasmaG;
-      			this.slotType = BeamID.SlotType.PrimaryB;
-	 		this.ver = 2;
-    			this.itemID = ModContent.ItemType<PlasmaBeamGreenAddon>();
+			mItem.addonSlotType = 4;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damagePlasmaBeamGreen;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatPlasmaBeamGreen;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedPlasmaBeamGreen;

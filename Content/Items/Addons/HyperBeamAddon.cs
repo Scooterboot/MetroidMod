@@ -13,7 +13,7 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class HyperBeamAddon : ModItem, IBeamAddon
+	public class HyperBeamAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -42,10 +42,9 @@ namespace MetroidMod.Content.Items.Addons
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.HyperBeamTile>();
-			this.beamID = BeamID.Beam.Hyper;
-   			this.slotType = BeamID.SlotType.Charge;
-      			this.ver = 0;
-			this.itemID = ModContent.ItemType<HyperBeamAddon>();
+			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.HyperBeam;
 		}
 		public override void AddRecipes()
 		{

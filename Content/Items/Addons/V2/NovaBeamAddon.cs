@@ -1,11 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V2
 {
-	public class NovaBeamAddon : ModItem, IBeamAddon
+	public class NovaBeamAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -35,10 +34,7 @@ namespace MetroidMod.Content.Items.Addons.V2
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.NovaBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-   			this.beamID = BeamID.Beam.Nova;
-      			this.slotType = BeamID.SlotType.PrimaryB;
-	 		this.ver = 2;
-    			this.itemID = ModContent.ItemType<NovaBeamAddon>();
+			mItem.addonSlotType = 4;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageNovaBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatNovaBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedNovaBeam;

@@ -196,43 +196,47 @@ namespace MetroidMod.Common.UI
 				//activate
 				if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift)) //this can be cleaner
 				{
-					// If-Else jank replaced with Switch, could be made further simpler with use of Enums
-					switch (powerBeamTarget.BeamChange[beamSlotType].type)
-     					{
-     						case ModContent.ItemType<OmegaCannonAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.OmegaCannonLoad);
-	  						goto default;
-	 					case ModContent.ItemType<BattleHammerAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerLoad);
-	  						goto default;
-	 					case ModContent.ItemType<VoltDriverAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
-	  						goto default;
-	 					case ModContent.ItemType<MagMaulAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulLoad);
-	  						goto default;
-	 					case ModContent.ItemType<ImperialistAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.ImperialistLoad);
-	  						goto default;
-	 					case ModContent.ItemType<JudicatorAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorLoad);
-	  						goto default;
-	 					case ModContent.ItemType<ShockCoilAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerLoad);
-	  						goto default;
-	 					case ModContent.ItemType<ChargeBeamAddon>():
-       						case ModContent.ItemType<ChargeBeamV2Addon>():
-	     					case ModContent.ItemType<LuminiteBeamAddon>():
-	   						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
-	  						goto default;
-	 					case ModContent.ItemType<HyperBeamAddon>():
-       						case ModContent.ItemType<PhazonBeamAddon>():
-	     						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
-	    						goto default;
-	   					default:
-	 						powerBeamTarget.BeamMods[addonSlotType] = powerBeamTarget.BeamChange[beamSlotType].Clone();
-							break;
-       					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<OmegaCannonAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.OmegaCannonLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<BattleHammerAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<MagMaulAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ImperialistAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ImperialistLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<JudicatorAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ShockCoilAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
+					}
+					if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<HyperBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<PhazonBeamAddon>())
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
+					}
+					powerBeamTarget.BeamMods[addonSlotType] = powerBeamTarget.BeamChange[beamSlotType].Clone();
 				}
 			}
 			else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))

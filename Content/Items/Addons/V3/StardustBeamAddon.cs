@@ -1,11 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V3
 {
-	public class StardustBeamAddon : ModItem, IBeamAddon
+	public class StardustBeamAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -36,10 +35,7 @@ namespace MetroidMod.Content.Items.Addons.V3
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.StardustBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-   			this.beamID = BeamID.Beam.Stardust;
-      			this.slotType = BeamID.SlotType.Secondary;
-			this.ver = 3;
-    			this.itemID = ModContent.ItemType<StardustBeamAddon>();
+			mItem.addonSlotType = 1;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageStardustBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatStardustBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedStardustBeam;

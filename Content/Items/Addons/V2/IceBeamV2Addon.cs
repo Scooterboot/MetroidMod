@@ -1,11 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V2
 {
-	public class IceBeamV2Addon : ModItem, IBeamAddon
+	public class IceBeamV2Addon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -36,10 +35,7 @@ namespace MetroidMod.Content.Items.Addons.V2
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.IceBeamV2Tile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-   			this.beamID = BeamID.Beam.IceV2;
-      			this.slotType = BeamID.SlotType.Secondary;
-	 		this.ver = 2;
-    			this.itemID = ModContent.ItemType<IceBeamV2Addon>();
+			mItem.addonSlotType = 1;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageIceBeamV2;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatIceBeamV2;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedIceBeamV2;

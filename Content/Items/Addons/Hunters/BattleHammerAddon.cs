@@ -7,7 +7,7 @@ using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
-	public class BattleHammerAddon : ModItem, IBeamAddon
+	public class BattleHammerAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -36,10 +36,8 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.BattleHammerTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-   			this.beamID = BeamID.Beam.BattleHammer;
-      			this.slotType = BeamID.SlotType.Charge;
-			this.ver = 0;
-    			this.itemID = ModContent.ItemType<BattleHammerAddon>();
+			mItem.addonSlotType = 0;
+			mItem.beamSlotType = BeamChangeSlotID.BattleHammer;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageBattleHammer;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatBattleHammer;
 		}
