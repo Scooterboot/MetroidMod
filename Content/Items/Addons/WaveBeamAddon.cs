@@ -3,10 +3,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class WaveBeamAddon : ModItem
+	public class WaveBeamAddon : ModItem, IBeamAddon
 	{
 		public override void SetStaticDefaults()
 		{
@@ -34,7 +35,10 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.WaveBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonSlotType = 2;
+   			this.beamID = BeamID.Beam.Wave;
+      			this.slotType = BeamID.SlotType.Utility;
+	 		this.ver = 1;
+    			this.itemID = ModContent.ItemType<WaveBeamAddon>();
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageWaveBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatWaveBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedWaveBeam;
