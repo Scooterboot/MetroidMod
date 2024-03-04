@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Tiles
 			Main.tileTable[Type] = true;
 			Main.tileLavaDeath[Type] = false;
 			TileID.Sets.Platforms[Type] = false;
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16 };
+			TileObjectData.newTile.CoordinateHeights = new int[]{ 16 };
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
 			TileObjectData.newTile.StyleHorizontal = true;
@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Tiles
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AddMapEntry(new Color(39, 76, 39));
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
-			AdjTiles = new int[] { TileID.Platforms };
+			AdjTiles = new int[]{ TileID.Platforms };
 		}
 
 		public override void PostSetDefaults()

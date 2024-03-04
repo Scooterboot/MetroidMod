@@ -1,10 +1,13 @@
-﻿using MetroidMod.Common.Players;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Common
 {
@@ -162,24 +165,6 @@ namespace MetroidMod.Common
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
 			_glowTexture = MPlayer.GetArmsGlow(info);
-			shader = info.cBody;
-			color = info.colorArmorBody;
-
-			return GetBodyDrawDataInfo(info, _glowTexture.Value);
-		}
-
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.HandOnAcc);
-	}
-	internal class PAShouldersGlow : PowerArmorGlowLayer
-	{
-		private static Asset<Texture2D> _glowTexture;
-
-		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
-
-		public override DrawDataInfo GetData(PlayerDrawSet info)
-		{
-			_glowTexture = MPlayer.GetShouldersGlow(info);
 			shader = info.cBody;
 			color = info.colorArmorBody;
 

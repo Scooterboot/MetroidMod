@@ -1,9 +1,15 @@
+using Terraria;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+using Terraria.ModLoader;
+using Terraria.UI;
+using Terraria.ID;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -11,9 +17,10 @@ namespace MetroidMod.Content.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Space Booster");
-			//Tooltip.SetDefault("Allows the user to run insanely fast\n" + 
-			/*"Damage enemies while running\n" + 
+			// DisplayName.SetDefault("Space Booster");
+			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
+			/*"Allows the user to run insanely fast\n" + 
+			"Damage enemies while running\n" + 
 			"Damage scales off of enemy's contact damage\n" +
 			"Allows the user to jump up to 10 times in a row\n" + 
 			"Jumps recharge mid-air\n" + 
@@ -31,17 +38,19 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.height = 20;
 			Item.maxStack = 1;
 			Item.value = 40000;
-			Item.rare = ItemRarityID.Lime;
+			Item.rare = 7;
 			Item.accessory = true;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpaceBoosterTile>();
+			Item.useStyle = 1;
+			//Item.consumable = true;
+			//Item.createTile = mod.TileType("SpaceBoosterTile");
 		}
+
+		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -50,11 +59,21 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}
+		*/
+		public override bool CanRightClick() => true;
+		public override void RightClick(Player player)
+		{
+			var entitySource = player.GetSource_OpenItem(Type);
+
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpaceJump>().ItemType);
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.SpeedBooster>().ItemType);
+			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
+		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.speedBooster = true;
-			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
+			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item),mp.speedBoostDmg);
 			mp.spaceJump = true;
 			mp.hiJumpBoost = true;
 			player.noFallDmg = true;

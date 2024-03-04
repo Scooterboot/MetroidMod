@@ -1,3 +1,7 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 namespace MetroidMod.Content.Items.Tiles
 {
 	/*public class XRayScopePlaceable : ModItem

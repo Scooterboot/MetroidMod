@@ -1,8 +1,8 @@
-﻿using MetroidMod.Common.Players;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -35,7 +35,7 @@ namespace MetroidMod.Content.SuitAddons
 				"7.5% increased energy barrier resilience\n" + // Provisional name
 				"Press the Hypermode key to activate Hypermode (take 100 damage to gain +50% damage for 20 seconds, 120 s cooldown)\n" +
 				"Slightly increased health regen when standing on Phazon"); */
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
+			AddonSlot = SuitAddonSlotID.Suit_Utility;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
@@ -52,9 +52,7 @@ namespace MetroidMod.Content.SuitAddons
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += 3;
 			mp.phazonImmune = true;
-			mp.phazonRegen += 2;
-			// workaround for Hazard Shield being applied earlier than PED Suit causing hazard shield buffing PED to not work
-			if (mp.hazardShield > 0) { mp.phazonRegen += 2; }
+			mp.phazonRegen = 2;
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;

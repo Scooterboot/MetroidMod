@@ -99,11 +99,7 @@ Mods: {
 		Items: {
 			HiJumpBoots: {
 				DisplayName: Hi-Jump Boots
-				Tooltip:
-					'''
-					Increases jump height
-					Stacks with other jump height accessories
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			HunterEmblem: {
@@ -122,11 +118,7 @@ Mods: {
 
 			PowerGrip: {
 				DisplayName: Power Grip
-				Tooltip:
-					'''
-					Allows the user to grab onto ledges
-					Does not need to be equipped; works while in inventory
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			ReserveTank: {
@@ -177,94 +169,37 @@ Mods: {
 
 			ScrewAttack: {
 				DisplayName: Screw Attack
-				Tooltip:
-					'''
-					Allows the user to double jump
-					Allows somersaulting
-					Damage enemies while someraulting
-					Damage scales off of enemy's contact damage
-					Hold Left/Right and double jump to do a 'boost' ability
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			ScrewSpaceBooster: {
 				DisplayName: Space Boosted Screw Attack
-				Tooltip:
-					'''
-					Allows the user to run insanely fast
-					Allows somersaulting
-					Damage enemies while running or somersaulting
-					Damage scales off of enemy's contact damage
-					Allows the user to jump up to 10 times in a row
-					Jumps recharge mid-air
-					Holding left/right while jumping midair gives a boost
-					Increases jump height and prevents fall damage
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			SpaceBooster: {
 				DisplayName: Space Booster
-				Tooltip:
-					'''
-					Allows the user to run insanely fast
-					Damage enemies while running
-					Damage scales off of enemy's contact damage
-					Allows the user to jump up to 10 times in a row
-					Jumps recharge mid-air
-					Allows somersaulting
-					Increases jump height and prevents fall damage
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			SpaceJump: {
 				DisplayName: Space Jump
-				Tooltip:
-					'''
-					'Somersault continuously in the air!' 
-					Allows somersaulting
-					Allows the user to jump up to 10 times in a row
-					Jumps recharge mid-air
-					Increases jump height and prevents fall damage
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			SpaceJumpBoots: {
 				DisplayName: Space Jump Boots
-				Tooltip:
-					'''
-					Allows the wearer to double jump
-					Allows somersaulting
-					Increases jump height
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			SpeedBooster: {
 				DisplayName: Speed Booster
-				Tooltip:
-					'''
-					Allows the user to run insanely fast
-					Damages enemies while running
-					Damage scales off of enemy's contact damage
-					While active, press DOWN to charge a Shine Spark
-					Then press JUMP to activate the charge
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			TerraBooster: {
 				DisplayName: Terra Booster
-				Tooltip:
-					'''
-					Allows the user to run insanely fast and extra mobility on ice
-					Allows somersaulting
-					Damage enemies while running or somersaulting
-					Damage scales off of enemy's contact damage
-					Allows the user to jump up to 10 times in a row
-					Jumps recharge mid-air
-					Holding left/right while jumping midair gives a boost
-					Provides the ability to walk on water and lava
-					Grants immunity to fire blocks and 7 seconds lava immunity
-					Increases jump height and prevents fall damage
-					'''
+				Tooltip: "[c/ff0000:Unobtainable.] Please use the Suit Addon system."
 			}
 
 			ChargeBeamAddon: {
@@ -1859,7 +1794,7 @@ Mods: {
 				Tooltip:
 					'''
 					[c/9696FF:Suit Addon]
-					Slot Type: Primary
+					Slot Type: Utility
 					You shouldn't have this.
 					'''
 			}
@@ -1902,6 +1837,17 @@ Mods: {
 					[c/9696FF:Suit Addon]
 					Slot Type: Augmentation
 					You shouldn't have this.
+					'''
+			}
+
+			HiJumpBootsAddon: {
+				DisplayName: Hi-Jump Boots
+				Tooltip:
+					'''
+					[c/9696FF:Suit Addon]
+					Slot Type: Boots
+					Increases jump height
+					Stacks with other jump height accessories
 					'''
 			}
 
@@ -1963,6 +1909,17 @@ Mods: {
 					'''
 			}
 
+			PowerGripAddon: {
+				DisplayName: Power Grip
+				Tooltip:
+					'''
+					[c/9696FF:Suit Addon]
+					Slot Type: Hand
+					Allows the user to grab onto ledges
+					Does not need to be equipped; works while in inventory
+					'''
+			}
+
 			ReserveTankAddon: {
 				DisplayName: Reserve Tank
 				Tooltip:
@@ -1983,6 +1940,20 @@ Mods: {
 					'''
 			}
 
+			ScrewAttackAddon: {
+				DisplayName: Screw Attack
+				Tooltip:
+					'''
+					[c/9696FF:Suit Addon]
+					Slot Type: Attack
+					Allows the user to double jump
+					Allows somersaulting
+					Damage enemies while someraulting
+					Damage scales off of enemy's contact damage
+					Hold Left/Right and double jump to do a 'boost' ability
+					'''
+			}
+
 			SolarAugmentAddon: {
 				DisplayName: Solar Augment
 				Tooltip:
@@ -1990,6 +1961,45 @@ Mods: {
 					[c/9696FF:Suit Addon]
 					Slot Type: Secondary Augmentation
 					You shouldn't have this.
+					'''
+			}
+
+			SpaceJumpAddon: {
+				DisplayName: Space Jump
+				Tooltip:
+					'''
+					[c/9696FF:Suit Addon]
+					Slot Type: Jump
+					'Somersault continuously in the air!'
+					Allows somersaulting
+					Allows the user to jump up to 10 times in a row
+					Jumps recharge mid-air
+					Increases jump height and prevents fall damage
+					'''
+			}
+
+			SpaceJumpBootsAddon: {
+				DisplayName: Space Jump Boots
+				Tooltip:
+					'''
+					[c/9696FF:Suit Addon]
+					Slot Type: Jump
+					Allows the wearer to double jump
+					Allows somersaulting
+					'''
+			}
+
+			SpeedBoosterAddon: {
+				DisplayName: Speed Booster
+				Tooltip:
+					'''
+					[c/9696FF:Suit Addon]
+					Slot Type: Speed Augmentation
+					Allows the user to run insanely fast
+					Damages enemies while running
+					Damage scales off of enemy's contact damage
+					While active, press DOWN to charge a Shine Spark
+					Then press JUMP to activate the charge
 					'''
 			}
 

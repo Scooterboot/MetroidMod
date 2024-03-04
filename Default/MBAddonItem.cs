@@ -1,8 +1,10 @@
-﻿using MetroidMod.ID;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.ID;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Default
 {
@@ -31,6 +33,7 @@ namespace MetroidMod.Default
 			Item.maxStack = 1;
 			Item.width = Main.netMode == NetmodeID.Server ? 32 : ModContent.Request<Texture2D>(Texture).Value.Width;
 			Item.height = Main.netMode == NetmodeID.Server ? 32 : ModContent.Request<Texture2D>(Texture).Value.Height;
+			modMBAddon.Item = Item;
 			modMBAddon.SetItemDefaults(Item);
 			modMBAddon.ItemType = Type;
 			Item.useStyle = ItemUseStyleID.Swing;

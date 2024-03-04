@@ -1,5 +1,7 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -27,41 +29,41 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-
-
-			if (shot.Contains("ice"))
+			
+			string S  = PowerBeam.SetCondition();
+			if (S.Contains("ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-			if (Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
+			if(Projectile.numUpdates == 0)
 			{
 				Projectile.frame++;
 			}
-			if (Projectile.frame > 1)
+			if(Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
 
-			if (shot.Contains("wave"))
+			if (S.Contains("wave"))
 			{
 				Projectile.Name += "Wave";
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			if (!shot.Contains("spazer") && shot.Contains("wave"))
+			if (!S.Contains("spazer") && S.Contains("wave"))
 			{
 				mProjectile.amplitude = 8f * Projectile.scale;
 			}
-			if (shot.Contains("spazer") && !shot.Contains("wave"))
+			if (S.Contains("spazer") && !S.Contains("wave"))
 			{
 				mProjectile.amplitude = 7.5f * Projectile.scale;
 				mProjectile.wavesPerSecond = 2f;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			if (shot.Contains("spazer") && shot.Contains("wave"))
+			if (S.Contains("spazer") && S.Contains("wave"))
 			{
 				mProjectile.amplitude = 12f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
@@ -74,16 +76,16 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 			}
 		}
 
-		public override void OnKill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}
-
+		
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
 		}
-
+		
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 4);

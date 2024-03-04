@@ -1,9 +1,14 @@
-﻿using MetroidMod.Content.Items.Armors;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
 namespace MetroidMod.Common.Players
 {

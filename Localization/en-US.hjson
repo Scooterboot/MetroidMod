@@ -150,8 +150,8 @@ Mods: {
 			}
 
 			NESCrateriaSurfaceBiome: {
-				DisplayName: NES Crateria Surface
-				TownNPCDialogueName: the NES Crateria Surface Biome
+				DisplayName: N E S Crateria Surface
+				TownNPCDialogueName: the N E S Crateria Surface Biome
 			}
 		}
 
@@ -304,7 +304,8 @@ Mods: {
 				Tooltip:
 					'''
 					Increases jump height
-					Stacks with other jump accessories
+					Stacks with other jump height accessories
+					Does not stack with frog leg
 					'''
 			}
 
@@ -426,6 +427,7 @@ Mods: {
 					Allows the user to jump up to 10 times in a row 
 					Jumps recharge mid-air
 					Increases jump height and prevents fall damage
+					Slot: Jump
 					'''
 			}
 
@@ -436,6 +438,7 @@ Mods: {
 					Allows the wearer to double jump 
 					Allows somersaulting
 					Increases jump height
+					Slot: Jump
 					'''
 			}
 
@@ -477,7 +480,6 @@ Mods: {
 					Adds Charge Effect 
 					Charge by holding click 
 					Charge shots deal x3 damage, but overheat x2 the normal use
-					Array slot 1
 					'''
 			}
 
@@ -488,11 +490,11 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					[c/78BE78:Shots Explode]
+					[c/78BE78:Direct hits double hit]
 					[c/78BE78:+50% knockback]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
-					Array slot 7
 					'''
 			}
 
@@ -506,7 +508,6 @@ Mods: {
 					[c/78BE78:Adds scope and stealth]
 					[c/BE7878:+250% overheat use]
 					[c/BE7878:Massive speed reduction]
-					Array slot 4
 					'''
 			}
 
@@ -522,7 +523,6 @@ Mods: {
 					[c/78BE78:+45% damage]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
-					Array slot 5
 					'''
 			}
 
@@ -533,13 +533,11 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Shots bounce and roll
-					Charge shots ignite
-					all shots diffuse with diffusion beam in the array
+					Charge shots explode and ignite
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:Cannot freeze or pierce]
-					Array slot 3
 					'''
 			}
 
@@ -550,11 +548,9 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					[c/78BE78:20x base damage]
-					[c/78BE78:Colossal blast radius; screenwipe]
 					[c/BE7878:10x overheat use]
 					[c/BE7878:Slow as the DMV]
 					[c/BE7878:Cannot Pierce walls or enemies]
-					Array slot 8
 					'''
 			}
 
@@ -564,7 +560,7 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Fires a short range electric charge that restores energy when at full health
+					Fires a short range electric charge that restores energy when fully charged
 					Charges on enemy damage and overheats when fully charged
 					Range depends on addons
 					Builds speed and charge when attacking an enemy
@@ -572,7 +568,6 @@ Mods: {
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
 					[c/BE7878:Probably still bugged]
-					Array slot 6
 					'''
 			}
 
@@ -583,12 +578,10 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Charge shots home, explode, and confuse
-					charge shots diffuse with diffusion beam in the array
 					[c/78BE78:+10% damage]
 					[c/BE7878:-10% speed]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:+10% noise]
-					Array slot 2
 					'''
 			}
 
@@ -602,7 +595,6 @@ Mods: {
 					Slightly decreases firerate
 					Affected by addons regardless of version
 					Disables freeze and other debuff effects
-					Array slot 9
 					'Da babeh'
 					'''
 			}
@@ -633,7 +625,6 @@ Mods: {
 					Affected by addons regardless of version 
 					Disables freeze and other debuff effects
 					Can only be used while wearing the Phazon Suit
-					Array slot 10
 					'It's made of pure Phazon energy!
 					'''
 			}
@@ -680,7 +671,7 @@ Mods: {
 			}
 
 			ChargeBeamV2Addon: {
-				DisplayName: Diffusion Beam
+				DisplayName: Charge Beam V2
 				Tooltip:
 					'''
 					[c/FF9696:Power Beam Addon V2]
@@ -688,9 +679,6 @@ Mods: {
 					Adds Charge Effect
 					Charge by holding click
 					Charge shots deal x4 damage, but overheat x2.5 the normal use
-					Damage and heat scaling affects all charge shots when in the array
-					Adds a diffusion effect when fully charged
-					Array slot 11
 					'''
 			}
 
@@ -757,8 +745,6 @@ Mods: {
 					Adds Charge Effect 
 					Charge by holding click 
 					Charge shots deal x5 damage, but overheat x3 the normal use
-					Damage and heat scaling affects all charge shots when in the array
-					Array slot 12
 					'''
 			}
 
@@ -909,11 +895,7 @@ Mods: {
 
 			OmegaPirateSummon: {
 				DisplayName: Phazon Reactor Core
-				Tooltip:
-					'''
-					Summons Omega Pirate
-					unstable in multiplayer
-					'''
+				Tooltip: ""
 			}
 
 			PhantoonBag: {
@@ -933,7 +915,7 @@ Mods: {
 
 			SerrisSummon: {
 				DisplayName: Serris Bait
-				Tooltip: Summons Serris at the Ocean
+				Tooltip: ""
 			}
 
 			TorizoBag: {
@@ -1034,7 +1016,6 @@ Mods: {
 					Hold Click to charge 
 					Fires a constant stream of fire at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
-					Array slot 6
 					'''
 			}
 
@@ -1047,7 +1028,6 @@ Mods: {
 					Hold Click to charge 
 					Charge shots cover terrain in ice on impact, freezing enemies 
 					Charge shots cost 10 missiles
-					Array slot 5
 					'''
 			}
 
@@ -1060,7 +1040,6 @@ Mods: {
 					Hold Click to charge 
 					Creates a tethered mass of Nebula energy that lashes at foes when fully charged 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
-					Array slot 12
 					'''
 			}
 
@@ -1073,7 +1052,6 @@ Mods: {
 					Hold Click to charge 
 					Fires a continuous laser beam of Nova energy at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
-					Array slot 9
 					'''
 			}
 
@@ -1086,7 +1064,6 @@ Mods: {
 					Hold Click to charge 
 					Rapidly fires piercing projectiles at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
-					Array slot 7
 					'''
 			}
 
@@ -1099,7 +1076,6 @@ Mods: {
 					Hold Click to charge 
 					Fires a continuous laser beam of Solar energy at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
-					Array slot 13
 					'''
 			}
 
@@ -1112,7 +1088,6 @@ Mods: {
 					Hold Click to charge 
 					Fires a spray of 5 missiles 
 					Costs 5 missiles
-					Array slot 2
 					'''
 			}
 
@@ -1127,7 +1102,6 @@ Mods: {
 					Additionally a Stardust Guardian spawns at the center which attacks any enemy caught in the ice 
 					Charge shots cost 10 missiles
 					Both the ice and the Guardian last 20 seconds
-					Array slot 11
 					'''
 			}
 
@@ -1142,7 +1116,6 @@ Mods: {
 					Each vortex fires a blast after 2 seconds 
 					Releasing the charge makes all vortexes immediately fire 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
-					Array slot 10
 					'''
 			}
 
@@ -1155,7 +1128,6 @@ Mods: {
 					Hold Click to charge 
 					Fires a constant stream of electricity at full charge 
 					Initially costs 10 missiles, then drains 5 missiles per second during use
-					Array slot 4
 					'''
 			}
 
@@ -1169,7 +1141,6 @@ Mods: {
 					Charge shots create 4 large diffusion flares on impact that spiral outward, dealing damage to enemies 
 					Charge shots and flares deal 3x damage
 					Costs 5 missiles
-					Array slot 8
 					'''
 			}
 
@@ -1181,7 +1152,6 @@ Mods: {
 					Slot Type: Charge
 					Fires a double-damage homing missile
 					Costs 1 Missile
-					Array slot 1
 					'''
 			}
 
@@ -1232,7 +1202,6 @@ Mods: {
 					Hold click to lock on to targets, and release to fire 
 					Can lock on to a maximum of 5 targets 
 					Consumes the appropriate number of missiles
-					Array slot 3
 					'''
 			}
 
@@ -1478,7 +1447,7 @@ Mods: {
 
 			MissileExpansion: {
 				DisplayName: Missile Expansion
-				Tooltip: Increases max missiles, stacks up to 50
+				Tooltip: ""
 			}
 
 			MissileStation: {
@@ -2422,17 +2391,15 @@ Mods: {
 				DisplayName: Dark Suit
 				Tooltip:
 					'''
-					You shouldn't have this.
-					+9 defense
+					You shouldn't have this./*+9 defense
 					+15 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency
-					7.5% increased energy barrier resilience
+					15% increased energy barrier efficiency // Provisional name
+					7.5% increased energy barrier resilience // Provisional name
 					Reduces damage from the Dark World
-					Slot: Primary
 					'''
 			}
 
@@ -2451,18 +2418,94 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency
-					7.5% increased energy barrier resilience
+					15% increased energy barrier efficiency // Provisional name
+					7.5% increased energy barrier resilience // Provisional name
 					Infinite breath underwater
 					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
-					Slot: Primary
+					Slot: Utility
 					'''
 			}
 
 			HazardShieldAddonAddon: {
 				DisplayName: Hazard Shield
+				Tooltip:
+					'''
+					You shouldn't have this./*+10 defense
+					+15 overheat capacity
+					5% decreased overheat use
+					5% decreased Missile Charge Combo cost
+					5% increased hunter damage
+					5% increased hunter critical strike chance
+					10% increased movement speed
+					25% increased energy barrier efficiency // Provisional name
+					10% increased energy barrier resilience // Provisional name
+					Debuffs tick down twice as fast
+					'''
+			}
+
+			HiJumpBootsAddon: {
+				DisplayName: Hi Jump Boots
+				Tooltip:
+					'''
+					Increases jump height
+					Does not stack with other jump accessories
+					Slot: Boots
+					'''
+			}
+
+			LightSuitAddonAddon: {
+				DisplayName: Light Suit
+				Tooltip:
+					'''
+					You shouldn't have this./*+10 defense
+					+15 overheat capacity
+					5% decreased overheat use
+					5% decreased Missile Charge Combo cost
+					5% increased hunter damage
+					5% increased hunter critical strike chance
+					10% increased movement speed
+					25% increased energy barrier efficiency // Provisional name
+					10% increased energy barrier resilience // Provisional name
+					Immune to damage from the Dark World
+					Immune to damage from Dark Water
+					'''
+			}
+
+			NebulaAugmentAddon: {
+				DisplayName: Nebula Augment
+				Tooltip:
+					'''
+					+10 defense
+					+25 overheat capacity
+					5% decreased overheat use
+					5% decreased Missile Charge Combo cost
+					5% increased hunter damage
+					5% increased hunter critical strike chance
+					Slot: Secondary Augmentatio      n
+					'''
+			}
+
+			PEDSuitAddonAddon: {
+				DisplayName: P E D Suit
+				Tooltip:
+					'''
+					You shouldn't have this./*+9 defense
+					+15 overheat capacity
+					5% decreased overheat use
+					5% decreased Missile Charge Combo cost
+					5% increased hunter damage
+					3% increased hunter critical strike chance
+					5% increased energy barrier efficiency // Provisional name
+					7.5% increased energy barrier resilience // Provisional name
+					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
+					Slightly increased health regen when standing on Phazon
+					'''
+			}
+
+			PhazonSuitAddonAddon: {
+				DisplayName: Phazon Suit
 				Tooltip:
 					'''
 					+10 defense
@@ -2472,104 +2515,11 @@ Mods: {
 					5% increased hunter damage
 					5% increased hunter critical strike chance
 					10% increased movement speed
-					25% increased energy barrier efficiency
-					10% increased energy barrier resilience
-					Debuffs tick down twice as fast
-					Slot: Barrier
-					'''
-			}
-
-			HiJumpBootsAddon: {
-				DisplayName: Hi Jump Boots
-				Tooltip:
-					'''
-					Increases jump height
-					Stacks with other jump accessories
-					'''
-			}
-
-			LightSuitAddonAddon: {
-				DisplayName: Light Suit
-				Tooltip:
-					'''
-					You shouldn't have this.
-					+19 defense
-					+30 overheat capacity
-					10% decreased overheat use
-					10% decreased Missile Charge Combo cost
-					10% increased hunter damage
-					8% increased hunter critical strike chance
-					10% increased movement speed
-					40% increased energy barrier efficiency
-					17.5% increased energy barrier resilience
-					Immune to damage from the Dark World
-					Immune to damage from Dark Water
-					Slot: Primary
-					'''
-			}
-
-			NebulaAugmentAddon: {
-				DisplayName: Nebula Augment
-				Tooltip:
-					'''
-					+29 defense
-					+55 overheat capacity
-					15% decreased overheat use
-					15% decreased Missile Charge Combo cost
-					15% increased hunter damage
-					13% increased hunter critical strike chance
-					10% increased movement speed
-					60% increased energy barrier efficiency
-					37.5% increased energy barrier resilience
-					Infinite breath underwater
-					Immune to knockback
-					Free movement in liquid
-					Grants 7 seconds of lava immunity
+					15% increased energy barrier efficiency // Provisional name
+					10% increased energy barrier resilience // Provisional name
 					Immune to damage caused by blue Phazon blocks
+					Slot: Augmentatio      n
 					Enables Phazon Beam use
-					Slot: Primary
-					'''
-			}
-
-			PEDSuitAddonAddon: {
-				DisplayName: PED Suit
-				Tooltip:
-					'''
-					You shouldn't have this.
-					+9 defense
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					3% increased hunter critical strike chance
-					5% increased energy barrier efficiency
-					7.5% increased energy barrier resilience
-					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
-					Slightly increased health regen when standing on Phazon
-					Slot: Primary
-					'''
-			}
-
-			PhazonSuitAddonAddon: {
-				DisplayName: Phazon Suit
-				Tooltip:
-					'''
-					+19 defense
-					+30 overheat capacity
-					10% decreased overheat use
-					10% decreased Missile Charge Combo cost
-					10% increased hunter damage
-					8% increased hunter critical strike chance
-					10% increased movement speed
-					30% increased energy barrier efficiency
-					17.5% increased energy barrier resilience
-					Infinite breath underwater
-					Immune to knockback
-					Free movement in liquid
-					Grants 7 seconds of lava immunity
-					Immune to damage caused by blue Phazon blocks
-					Enables Phazon Beam use
-					Slot: Primary
 					'''
 			}
 
@@ -2579,6 +2529,7 @@ Mods: {
 					'''
 					Allows the user to grab onto ledges
 					Does not need to be equipped; works while in inventory
+					Slot: Hand
 					'''
 			}
 
@@ -2601,6 +2552,7 @@ Mods: {
 					Damage enemies while someraulting
 					Damage scales off of enemy's contact damage
 					Hold Left/Right and double jump to do a 'boost' ability
+					Slot: Attack
 					'''
 			}
 
@@ -2608,18 +2560,16 @@ Mods: {
 				DisplayName: Solar Augment
 				Tooltip:
 					'''
-					You shouldn't have this.
-					+10 defense
+					You shouldn't have this./*+10 defense
 					+25 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					5% increased hunter critical strike chance
-					20% increased energy barrier efficiency
-					15% increased energy barrier resilience
+					20% increased energy barrier efficiency // Provisional name
+					15% increased energy barrier resilience // Provisional name
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
-					Slot: Primary
 					'''
 			}
 
@@ -2632,6 +2582,7 @@ Mods: {
 					Allows the user to jump up to 10 times in a row
 					Jumps recharge mid-air
 					Increases jump height and prevents fall damage
+					Slot: Jump
 					'''
 			}
 
@@ -2641,6 +2592,7 @@ Mods: {
 					'''
 					Allows the wearer to double jump
 					Allows somersaulting
+					Slot: Jump
 					"WHATARETHOOSE"
 					'''
 			}
@@ -2654,6 +2606,7 @@ Mods: {
 					Damage scales off of enemy's contact damage
 					While active, press DOWN to charge a Shine Spark
 					Then press JUMP to activate the charge
+					Slot: Speed Augmentatio       n
 					'''
 			}
 
@@ -2661,23 +2614,19 @@ Mods: {
 				DisplayName: Terra Gravity Suit
 				Tooltip:
 					'''
-					+19 defense
-					+30 overheat capacity
-					10% decreased overheat use
-					10% decreased Missile Charge Combo cost
-					10% increased hunter damage
-					8% increased hunter critical strike chance
+					+10 defense
+					+15 overheat capacity
+					5% decreased overheat use
+					5% decreased Missile Charge Combo cost
+					5% increased hunter damage
+					5% increased hunter critical strike chance
 					10% increased movement speed
-					30% increased energy barrier efficiency
-					17.5% increased energy barrier resilience
-					Infinite breath underwater
-					Immune to knockback
-					Free movement in liquid
-					Grants 14 seconds of lava immunity
+					15% increased energy barrier efficiency // Provisional name
+					10% increased energy barrier resilience // Provisional name
+					Grants 7 seconds of lava immunity
 					Default gravity in space
+					Slot: Augmentatio      n
 					Immune to Distorted and Amplified Gravity effects
-					Enables Hyper Beam use
-					Slot: Primary
 					'''
 			}
 
@@ -2693,12 +2642,12 @@ Mods: {
 					5% increased hunter critical strike chance
 					55% increased underwater breathing
 					10% increased movement speed
-					10% increased energy barrier efficiency
-					20% increased energy barrier resilience
+					10% increased energy barrier efficiency // Provisional name
+					20% increased energy barrier resilience // Provisional name
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
-					Slot: Barrier
+					Slot: Varia
 					'''
 			}
 
@@ -2714,12 +2663,12 @@ Mods: {
 					7% increased hunter critical strike chance
 					80% increased underwater breathing
 					10% increased movement speed
-					20% increased energy barrier efficiency
-					37.5% increased energy barrier resilience
+					20% increased energy barrier efficiency // Provisional name
+					37.5% increased energy barrier resilience // Provisional name
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
-					Slot: Barrier
+					Slot: Varia
 					'''
 			}
 
@@ -2727,23 +2676,13 @@ Mods: {
 				DisplayName: Vortex Augment
 				Tooltip:
 					'''
-					+29 defense
-					+55 overheat capacity
-					15% decreased overheat use
-					15% decreased Missile Charge Combo cost
-					15% increased hunter damage
-					13% increased hunter critical strike chance
-					10% increased movement speed
-					60% increased energy barrier efficiency
-					37.5% increased energy barrier resilience
-					Infinite breath underwater
-					Immune to knockback
-					Free movement in liquid
-					Grants 14 seconds of lava immunity
-					Default gravity in space
-					Immune to Distorted and Amplified Gravity effects
-					Enables Hyper Beam use
-					Slot: Primary
+					+10 defense
+					+25 overheat capacity
+					5% decreased overheat use
+					5% decreased Missile Charge Combo cost
+					5% increased hunter damage
+					5% increased hunter critical strike chance
+					Slot: Secondary Augmenatio     n
 					'''
 			}
 
@@ -2753,146 +2692,8 @@ Mods: {
 				Tooltip: Projects a wide ray of light if you are standing still
 			}
 
-			TerraBoosterV2: {
-				DisplayName: Celestial Booster
-				Tooltip:
-					'''
-					Allows the user to run insanely fast and extra mobility on ice
-					Allows somersaulting
-					Damage enemies while running or somersaulting
-					Damage scales off of enemy's contact damage
-					Allows the user to jump up to 10 times in a row
-					Jumps recharge mid-air
-					Holding left/right while jumping midair gives a boost 
-					Provides the ability to walk on water and lava 
-					Grants immunity to fire blocks and 7 seconds lava immunity
-					Increases jump height and prevents fall damage
-					Grants faster jumps
-					'''
-			}
-
 			ChozoStatueOrb: {
 				DisplayName: Chozo Statue Orb
-				Tooltip: ""
-			}
-
-			PhazonCore: {
-				DisplayName: Phazon Core
-				Tooltip: Destroy this with the nova laser to add phazon to the world. THIS IS A FAILSAFE THAT DOES NOTHING IF THE LEVITHAN LANDED
-			}
-
-			VanityFusionGravitySuitBreastplate: {
-				DisplayName: Vanity Fusion Gravity Suit Breastplate
-				Tooltip: ""
-			}
-
-			VanityFusionGravitySuitGreaves: {
-				DisplayName: Vanity Fusion Gravity Suit Greaves
-				Tooltip: ""
-			}
-
-			VanityFusionGravitySuitHelmet: {
-				DisplayName: Vanity Fusion Gravity Suit Helmet
-				Tooltip: ""
-			}
-
-			VanityFusionOmegaSuitBreastplate: {
-				DisplayName: Vanity Fusion Omega Suit Breastplate
-				Tooltip: ""
-			}
-
-			VanityFusionOmegaSuitGreaves: {
-				DisplayName: Vanity Fusion Omega Suit Greaves
-				Tooltip: ""
-			}
-
-			VanityFusionOmegaSuitHelmet: {
-				DisplayName: Vanity Fusion Omega Suit Helmet
-				Tooltip: ""
-			}
-
-			VanityFusionSuitBreastplate: {
-				DisplayName: Vanity Fusion Suit Breastplate
-				Tooltip: ""
-			}
-
-			VanityFusionSuitGreaves: {
-				DisplayName: Vanity Fusion Suit Greaves
-				Tooltip: ""
-			}
-
-			VanityFusionSuitHelmet: {
-				DisplayName: Vanity Fusion Suit Helmet
-				Tooltip: ""
-			}
-
-			VanityFusionVariaSuitBreastplate: {
-				DisplayName: Vanity Fusion Varia Suit Breastplate
-				Tooltip: ""
-			}
-
-			VanityFusionVariaSuitGreaves: {
-				DisplayName: Vanity Fusion Varia Suit Greaves
-				Tooltip: ""
-			}
-
-			VanityFusionVariaSuitHelmet: {
-				DisplayName: Vanity Fusion Varia Suit Helmet
-				Tooltip: ""
-			}
-
-			TropicPlating1: {
-				DisplayName: Tropic Plating
-				Tooltip: Name pending
-			}
-
-			TropicPlating2: {
-				DisplayName: Slightly Overgrown Tropic Plating
-				Tooltip: Name pending
-			}
-
-			TropicPlating3: {
-				DisplayName: Somewhat Overgrown Tropic Plating
-				Tooltip: Name pending
-			}
-
-			TropicPlating4: {
-				DisplayName: Very Overgrown Tropic Plating
-				Tooltip: Name pending
-			}
-
-			TropicPlating5: {
-				DisplayName: Dangerously Overgrown Tropic Plating
-				Tooltip: Name pending
-			}
-
-			BrinstarBag: {
-				DisplayName: Brinstar Bag
-				Tooltip: ""
-			}
-
-			ChozoRuinsBag: {
-				DisplayName: Chozo Ruins Bag
-				Tooltip: ""
-			}
-
-			NorfairBag: {
-				DisplayName: Norfair Bag
-				Tooltip: ""
-			}
-
-			Sector2TropicBag: {
-				DisplayName: Sector 2 (TRO) Bag
-				Tooltip: ""
-			}
-
-			Sector5ArcticBag: {
-				DisplayName: Sector 5 (ARC) Bag
-				Tooltip: ""
-			}
-
-			TourianBag: {
-				DisplayName: Tourian Bag
 				Tooltip: ""
 			}
 		}
@@ -3099,8 +2900,6 @@ Mods: {
 					LikeNPC_Princess: I like {NPCName}.
 					Princess_LovesNPC: I like {NPCName}.
 				}
-
-				Census.SpawnCondition: Defeat Torizo, an ancient guardian found in the [c/ffff00:Chozo Ruins]
 			}
 		}
 
@@ -3310,7 +3109,6 @@ Mods: {
 			CrystalBombProjectile.DisplayName: Crystal Bomb Projectile
 			BombProjectile.DisplayName: Bomb Projectile
 			BetsyBombProjectile.DisplayName: Betsy Bomb Projectile
-			RamBall.DisplayName: Ram Ball
 		}
 
 		Configs: {
@@ -3329,7 +3127,6 @@ Mods: {
 					DraggableMorphBallUI: Draggable Morph Ball UI
 					DraggableMissileLauncherUI: Draggable Missile Launcher UI
 					DraggablePowerBeamUI: Draggable Power Beam UI
-					DraggableUIPanels: Draggable Panels UI
 				}
 
 				UseAltWeaponTextures: {
@@ -3422,56 +3219,6 @@ Mods: {
 						Default value: true
 						'''
 				}
-
-				PowerBeam: {
-					Label: Power Beam
-					Tooltip: ""
-				}
-
-				PowerBeamError: {
-					Label: Power Beam Error
-					Tooltip: ""
-				}
-
-				MissileLauncher: {
-					Label: Missile Launcher
-					Tooltip: ""
-				}
-
-				MorphBall: {
-					Label: Morph Ball
-					Tooltip: ""
-				}
-
-				SenseMove: {
-					Label: Sense Move
-					Tooltip: ""
-				}
-
-				SuitMenu: {
-					Label: Suit Menu
-					Tooltip: ""
-				}
-
-				HelmetAddons: {
-					Label: Helmet Addons
-					Tooltip: ""
-				}
-
-				BreastplateAddons: {
-					Label: Breastplate Addons
-					Tooltip: ""
-				}
-
-				Reserves: {
-					Label: Reserves
-					Tooltip: ""
-				}
-
-				PsuedoScrewAttack: {
-					Label: Psuedo Screw Attack
-					Tooltip: ""
-				}
 			}
 
 			MConfigClientDebug: {
@@ -3495,11 +3242,6 @@ Mods: {
 						Default value: false
 						'''
 				}
-
-				DisplayDebugValues: {
-					Label: Display Debug Values
-					Tooltip: ""
-				}
 			}
 
 			MConfigItems: {
@@ -3508,7 +3250,7 @@ Mods: {
 				Headers: {
 					"[i:MetroidMod/ChoziteBar]Chozite_Gear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					"[i:MetroidMod/VariaSuitV2AddonAddon]PowerSuit": "[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit"
-					"[i:MetroidMod/PowerGrip]Suit_Addons": "[i:MetroidMod/PowerGrip] Suit Addons"
+					"[i:MetroidMod/PowerGripAddon]Suit_Addons": "[i:MetroidMod/PowerGripAddon] Suit Addons"
 					"[i:MetroidMod/PowerBeam]Standard_Weapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
 					"[i:MetroidMod/PowerBeam]Special_Beams": "[i:MetroidMod/PowerBeam] Special Beams"
 					"[i:MetroidMod/PowerBeam]PowerBeam_V2_Addons": "[i:MetroidMod/PowerBeam] Power Beam V2 Addons"
@@ -3520,15 +3262,14 @@ Mods: {
 					"[i:MetroidMod/PowerBeam]PowerBeamV1Addons": "[i:MetroidMod/PowerBeam] Power Beam V1 Addons"
 					"[i:MetroidMod/PowerBeam]SpecialBeams": "[i:MetroidMod/PowerBeam] Special Beams"
 					"[i:MetroidMod/PowerBeam]StandardWeapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
-					"[i:MetroidMod/PowerGrip]SuitAddons": "[i:MetroidMod/PowerGrip] Suit Addons"
+					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i:MetroidMod/PowerGripAddon] Suit Addons"
 					"[i:MetroidMod/ChoziteBar]ChoziteGear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					"[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i:MetroidMod/MissileLauncher] Missile Launcher Addons"
 					"[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons": "[i:MetroidMod/PowerBeam] Power Beam Hunters Addons"
-					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons Header"
 				}
 
 				enableWallJumpChoziteArmor: {
-					Label: "[i:MetroidMod/HiJumpBoots] Wall Jump"
+					Label: "[i:MetroidMod/HiJumpBootsAddon] Wall Jump"
 					Tooltip: When enabled, a full set of Chozite Armor grants the ability to Wall Jump.
 				}
 
@@ -3563,12 +3304,12 @@ Mods: {
 				}
 
 				enableLedgeClimbPowerSuitBreastplate: {
-					Label: "[i:MetroidMod/PowerGrip] Ledge Climb"
+					Label: "[i:MetroidMod/PowerGripAddon] Ledge Climb"
 					Tooltip: When enabled, the Power Suit's Breastplate grants Ledge Climb.
 				}
 
 				enableWallJumpPowerSuitGreaves: {
-					Label: "[i:MetroidMod/HiJumpBoots] Wall Jump"
+					Label: "[i:MetroidMod/HiJumpBootsAddon] Wall Jump"
 					Tooltip: When enabled, the Power Suit's Greaves grant Wall-Jump.
 				}
 
@@ -3608,7 +3349,7 @@ Mods: {
 				}
 
 				enableLedgeClimbNoPowerSuit: {
-					Label: "[i:MetroidMod/PowerGrip] Ledge Climb without Power Suit"
+					Label: "[i:MetroidMod/PowerGripAddon] Ledge Climb without Power Suit"
 					Tooltip:
 						'''
 						When enabled, lacking the Power Suit Breastplate will automatically grant you Ledge Climb,
@@ -3617,12 +3358,12 @@ Mods: {
 				}
 
 				enableWallJumpPowerGrip: {
-					Label: "[i:MetroidMod/PowerGrip][i:MetroidMod/HiJumpBoots] Power Grip grants Wall Jump"
+					Label: "[i:MetroidMod/PowerGripAddon][i:MetroidMod/HiJumpBootsAddon] Power Grip grants Wall Jump"
 					Tooltip: ""
 				}
 
 				enableLedgeClimbPowerGrip: {
-					Label: "[i:MetroidMod/PowerGrip] Power Grip grants Ledge Climb"
+					Label: "[i:MetroidMod/PowerGripAddon] Power Grip grants Ledge Climb"
 					Tooltip: ""
 				}
 
@@ -4097,57 +3838,47 @@ Mods: {
 				}
 
 				useTimeVoltDriver: {
-					Label: "[i:MetroidMod/VoltDriverAddon] Volt Driver Speed"
+					Label: use Time Volt Driver
 					Tooltip: ""
 				}
 
 				useTimeMagMaul: {
-					Label: "[i:MetroidMod/MagMaulAddon] MagMaul Speed"
+					Label: use Time Mag Maul
 					Tooltip: ""
 				}
 
 				useTimeImperialist: {
-					Label: "[i:MetroidMod/ImperialistAddon] Imperialist Speed"
+					Label: use Time Imperialist
 					Tooltip: ""
 				}
 
 				useTimeJudicator: {
-					Label: "[i:MetroidMod/JudicatorAddon] Judicator Speed"
+					Label: use Time Judicator
 					Tooltip: ""
 				}
 
 				useTimeShockCoil: {
-					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Speed"
+					Label: use Time Shock Coil
 					Tooltip: ""
 				}
 
 				useTimeBattleHammer: {
-					Label: "[i:MetroidMod/BattleHammerAddon] BattleHammer Speed"
+					Label: use Time Battle Hammer
 					Tooltip: ""
 				}
 
 				useTimeOmegaCannon: {
-					Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Speed"
+					Label: use Time Omega Cannon
 					Tooltip: ""
 				}
 
 				minSpeedShockCoil: {
-					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Minimum Speed"
+					Label: min Speed Shock Coil
 					Tooltip: ""
 				}
 
 				maxSpeedShockCoil: {
-					Label: "[i:MetroidMod/ShockCoilAddon] ShockCoil Maximum Speed"
-					Tooltip: ""
-				}
-
-				stackReserveTank: {
-					Label: "[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack"
-					Tooltip: ""
-				}
-
-				reserveTankStoreCount: {
-					Label: "[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity"
+					Label: max Speed Shock Coil
 					Tooltip: ""
 				}
 			}
@@ -4161,8 +3892,6 @@ Mods: {
 					"[i:MetroidMod/BlueHatch]Automatically_Closing_Hatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
 					"[i:3611]TechPreservation": "[i:3611] Tech Preservation"
 					"[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
-					DisableMobSpawn: Disable Mob Spawns
-					AutomaticallyClosingHatches: Automatically Closing Hatches
 				}
 
 				enableBossSummonConsumption: {
@@ -4176,7 +3905,7 @@ Mods: {
 				}
 
 				enableMorphBallWallJump: {
-					Label: "[i:MetroidMod/HiJumpBoots] Wall-Jump while in Morph Ball"
+					Label: "[i:MetroidMod/HiJumpBootsAddon] Wall-Jump while in Morph Ball"
 					Tooltip:
 						'''
 						By default, you cannot Wall-Jump while in Morph Ball.
@@ -4185,7 +3914,7 @@ Mods: {
 				}
 
 				AutocloseHatchesEnabled: {
-					Label: "[i:MetroidMod/BlueHatch] Closing hatches"
+					Label: Enabled
 					Tooltip: When enabled, hatches will automatically close after a certain period of time.
 				}
 
@@ -4195,65 +3924,8 @@ Mods: {
 				}
 
 				drunkWorldHasDrunkStatues: {
-					Label: Drunk Chozo Statues
+					Label: Drunk World has drunk Chozo Statues
 					Tooltip: When enabled, Chozo Statues can have any suit addon or morph ball addon.
-				}
-
-				disablemobspawn: {
-					Tooltip: Disable Metroid mod mob spawning, as they currently have no unique drops
-					Label: Disable Mob Spawns
-				}
-			}
-
-			DragablePanelPage: {
-				Tooltip: ""
-
-				enabled: {
-					Label: Enabled
-					Tooltip:
-						'''
-						Allows the UI to be draggable.
-						Default value: false
-						'''
-				}
-
-				auto: {
-					Label: Automatically move the UI
-					Tooltip:
-						'''
-						Automatically moves the UI according to other UI elements.
-						Default value: true
-						'''
-				}
-
-				Headers.LocationAndPlacement: Location and Placement
-
-				fromLeft: {
-					Label: Measure X from the left
-					Tooltip:
-						'''
-						Measure X Displacement from the left side of the screen.
-						Default value: true
-						'''
-				}
-
-				locationX: {
-					Label: X Displacement
-					Tooltip: ""
-				}
-
-				fromTop: {
-					Label: Measure Y from the top
-					Tooltip:
-						'''
-						Measure Y Displacement from the top side of the screen.
-						Default value: true
-						'''
-				}
-
-				locationY: {
-					Label: Y Displacement
-					Tooltip: ""
 				}
 			}
 		}

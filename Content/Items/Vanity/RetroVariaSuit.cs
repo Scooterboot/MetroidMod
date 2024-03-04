@@ -1,8 +1,8 @@
-using MetroidMod.Common.Players;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Vanity
 {
@@ -35,7 +35,7 @@ namespace MetroidMod.Content.Items.Vanity
 			{
 				mp.jet = true;
 			}
-			else if (mp.shineDirection == 0 || mp.shineDirection == 5)
+			else if(mp.shineDirection == 0 || mp.shineDirection == 5)
 			{
 				mp.jet = false;
 			}

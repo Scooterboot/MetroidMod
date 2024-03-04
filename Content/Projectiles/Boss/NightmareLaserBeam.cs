@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Boss
@@ -34,7 +35,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 		int drawWidth = 6;
 		float rot = 0f;
 		int chargeFrame = 0;
-
+		
 		float distance = 3000f;
 		Vector2 laserPos = Vector2.Zero;
 		public override void AI()
@@ -44,62 +45,62 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 			if (Head != null && Head.active && Arm != null && Arm.active)
 			{
-				laserPos = Arm.Center + new Vector2(17 * Head.direction, 15);
-				if (Arm.ai[1] == 1)
+				laserPos = Arm.Center + new Vector2(17*Head.direction,15);
+				if(Arm.ai[1] == 1)
 				{
-					laserPos = Arm.Center + new Vector2(17 * Head.direction, 16);
+					laserPos = Arm.Center + new Vector2(17*Head.direction,16);
 				}
-				if (Arm.ai[1] == 2)
+				if(Arm.ai[1] == 2)
 				{
-					laserPos = Arm.Center + new Vector2(17 * Head.direction, 9);
+					laserPos = Arm.Center + new Vector2(17*Head.direction,9);
 				}
-				if (Arm.type == ModContent.NPCType<NPCs.Nightmare.Nightmare_ArmFront>())
+				if(Arm.type == ModContent.NPCType<NPCs.Nightmare.Nightmare_ArmFront>())
 				{
-					laserPos = Arm.Center + new Vector2(13 * Head.direction, 17);
-					if (Arm.ai[1] == 2)
+					laserPos = Arm.Center + new Vector2(13*Head.direction,17);
+					if(Arm.ai[1] == 2)
 					{
-						laserPos = Arm.Center + new Vector2(19 * Head.direction, 17);
+						laserPos = Arm.Center + new Vector2(19*Head.direction,17);
 					}
-					if (Arm.ai[1] == 3)
+					if(Arm.ai[1] == 3)
 					{
-						laserPos = Arm.Center + new Vector2(25 * Head.direction, 19);
+						laserPos = Arm.Center + new Vector2(25*Head.direction,19);
 					}
 				}
 				Player player = Main.player[Head.target];
-
-				rot += 0.125f * Head.direction;
-
+				
+				rot += 0.125f*Head.direction;
+				
 				Projectile.Center = laserPos;
 				Projectile.velocity.X = Math.Sign(player.Center.X - Projectile.Center.X);
 				Projectile.velocity.Y = 0f;
-				Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) - (float)(Math.PI / 2);
+				Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) - (float)(Math.PI/2);
 				Projectile.localAI[1] = distance;
-
-				if (delay <= 10)
+				
+				if(delay <= 10)
 				{
 					delay++;
 				}
-				else if (charge < chargeMax)
+				else if(charge < chargeMax)
 				{
 					charge++;
 				}
 				chargeFrame = (int)(3f * ((float)charge / (float)chargeMax));
-				if (Projectile.localAI[0] == 1)
+				if(Projectile.localAI[0] == 1)
 				{
-					if (Projectile.timeLeft > 60)
+					if(Projectile.timeLeft > 60)
 					{
 						Projectile.timeLeft = 60;
 					}
-					if (drawWidth > 0)
+					if(drawWidth > 0)
 					{
 						drawWidth--;
 					}
 					charge = chargeMax;
 					chargeFrame = 5;
-					for (int i = 0; i < 20; i++)
+					for(int i = 0; i < 20; i++)
 					{
 						Vector2 pos = Projectile.Center + Projectile.velocity * Main.rand.Next((int)Projectile.localAI[1]);
-						int num71 = Dust.NewDust(new Vector2(pos.X - 7, pos.Y - 7), 14, 14, 57, 0f, 0f, 100, default(Color), 3f);
+						int num71 = Dust.NewDust(new Vector2(pos.X-7,pos.Y-7), 14, 14, 57, 0f, 0f, 100, default(Color), 3f);
 						Main.dust[num71].noGravity = true;
 					}
 				}
@@ -116,19 +117,19 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/Boss/NightmareLaserCharge").Value;
 			int num108 = tex.Height / 7;
 			int y4 = num108 * chargeFrame;
-			Main.spriteBatch.Draw(tex, laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), color45, rot, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, SpriteEffects.None, 0f);
-
+			Main.spriteBatch.Draw(tex, laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), color45, rot, new Vector2((float)tex.Width/2f, (float)num108/2f), Projectile.scale, SpriteEffects.None, 0f);
+			
 			if (Projectile.velocity == Vector2.Zero)
 			{
 				return false;
 			}
 			Texture2D texture2D22 = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			float num230 = Projectile.localAI[1];
-			int width = texture2D22.Width - (drawWidth * 2);
-
+			int width = texture2D22.Width-(drawWidth*2);
+			
 			Rectangle rectangle8 = new Rectangle(drawWidth, 0, width, 22);
 			Main.spriteBatch.Draw(texture2D22, Projectile.Center.Floor() - Main.screenPosition, new Rectangle?(rectangle8), color45, Projectile.rotation, rectangle8.Size() / 2f, Projectile.scale, SpriteEffects.None, 0f);
-
+			
 			num230 -= 33f * Projectile.scale;
 			Vector2 value22 = Projectile.Center.Floor();
 			value22 += Projectile.velocity * Projectile.scale * 10.5f;
@@ -152,7 +153,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Main.spriteBatch.Draw(texture2D22, value22 - Main.screenPosition - Projectile.velocity, new Rectangle?(rectangle8), color45, Projectile.rotation, texture2D22.Frame(1, 1, 0, 0).Top(), Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
-
+		
 		public override bool ShouldUpdatePosition()
 		{
 			return false;
@@ -163,10 +164,10 @@ namespace MetroidMod.Content.Projectiles.Boss
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
 			Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
 		}
-
+		
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
-			if (Projectile.localAI[0] == 1)
+			if(Projectile.localAI[0] == 1)
 			{
 				float point = 0f;
 				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], Projectile.width, ref point);

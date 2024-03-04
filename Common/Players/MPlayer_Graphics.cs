@@ -1,11 +1,19 @@
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
+using System.Collections.Generic;
+
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Capture;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 //using MetroidMod.Content.NPCs;
 //using MetroidMod.Content.Items;
@@ -13,34 +21,34 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Players
 {
-	public partial class MPlayer : ModPlayer
+	public partial class MPlayer : ModPlayer  
 	{
 		public int style;
 		public int r = 255;
 		public int g = 0;
 		public int b = 0;
-
+		
 		public Color chargeColor = Color.White;
 		public int hyperColors = 0;
 		public bool jet = false;
 		private int tweak = 0;
-
+		
 		public bool isPowerSuit = false;
 		public bool isLegacySuit = false;
 		public bool thrusters = false;
 		public bool visorGlow = false;
 		public Color visorGlowColor = new(255, 255, 255);
-
+		
 		public float ballrot = 0f;
 		public static int oldNumMax = 10;
 		public Vector2[] oldPos = new Vector2[oldNumMax];
-
+		
 		public int psuedoScrewFlash = 0;
 		public int shineChargeFlash = 0;
 		private Rectangle jetFrame;
 		private int jetFrameCounter = 1;
 		private int currentFrame = 0;
-
+		
 		public void ResetEffects_Graphics()
 		{
 			chargeColor = Color.White;
@@ -96,12 +104,12 @@ namespace MetroidMod.Common.Players
 					b = 63;
 				}
 			}
-
+			
 			bool trail = (!Player.dead && !Player.mount.Active && Player.grapCount == 0 && shineDirection == 0 && !shineActive && !ballstate);
-			if (trail && ((Player.controlJump && Player.jump > 0 && (isPowerSuit || isLegacySuit)) || (grapplingBeam >= 0 && (Math.Abs(Player.velocity.X) >= 8.5f || Math.Abs(Player.velocity.Y) >= 8.5f)) || (spaceJump && somersault) || SMoveEffect > 0))
+			if(trail && ((Player.controlJump && Player.jump > 0 && (isPowerSuit || isLegacySuit)) || (grapplingBeam >= 0 && (Math.Abs(Player.velocity.X) >= 8.5f || Math.Abs(Player.velocity.Y) >= 8.5f)) || (spaceJump && somersault) || SMoveEffect > 0))
 			{
 				tweak++;
-				if (tweak > 4)
+				if(tweak > 4)
 				{
 					tweak = 5;
 					Player.armorEffectDrawShadow = true;
@@ -347,7 +355,7 @@ namespace MetroidMod.Common.Players
 			if (ballstate)
 			{
 				//for (int i = 0; i < layers.Count; ++i)
-				//layers[i].visible = false;
+					//layers[i].visible = false;
 				//layers.Add(ballLayer);
 				//ballLayer.visible = true;
 			}
@@ -904,22 +912,22 @@ namespace MetroidMod.Common.Players
 			jetFrame.Width = 40;
 			jetFrame.Height = 56;
 			jetFrame.X = 0;
-			jetFrame.Y = jetFrame.Height * currentFrame;
+			jetFrame.Y = jetFrame.Height*currentFrame;
 			jetFrameCounter++;
 			int frame = 2;
-			if (jetFrameCounter < frame)
+			if(jetFrameCounter < frame)
 			{
 				currentFrame = 0;
 			}
-			else if (jetFrameCounter < frame * 2)
+			else if(jetFrameCounter < frame * 2)
 			{
 				currentFrame = 1;
 			}
-			else if (jetFrameCounter < frame * 3)
+			else if(jetFrameCounter < frame * 3)
 			{
 				currentFrame = 2;
 			}
-			else if (jetFrameCounter < frame * 4 - 1)
+			else if(jetFrameCounter < frame * 4 - 1)
 			{
 				currentFrame = 1;
 			}

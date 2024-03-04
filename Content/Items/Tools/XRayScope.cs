@@ -1,9 +1,13 @@
 using System;
-using MetroidMod.Common.Players;
-using MetroidMod.Common.Systems;
-using Microsoft.Xna.Framework;
+
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+
+using Microsoft.Xna.Framework;
+
+using MetroidMod.Common.Systems;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Tools
 {
@@ -66,13 +70,13 @@ namespace MetroidMod.Content.Items.Tools
 			{
 				MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 			}
-			float targetrotation = (float)Math.Atan2((MY - player.Center.Y), (MX - player.Center.X));
+			float targetrotation = (float)Math.Atan2((MY-player.Center.Y),(MX-player.Center.X));
 			if (player.velocity.Y == 0 && player.velocity.X == 0)
 			{
-				for (int i = 0; i < 20; i++)
+				for(int i = 0; i < 20; i++)
 				{
-					Vector2 lightPos = new Vector2(player.Center.X + (float)Math.Cos(targetrotation) * range * (2 + (2 * i)), player.position.Y + (float)Math.Sin(targetrotation) * range * (2 + (2 * i)) + 8);
-					if (!player.dead && !mp.ballstate && player.velocity.Y == 0 && player.velocity.X == 0)
+					Vector2 lightPos = new Vector2(player.Center.X+(float)Math.Cos(targetrotation)*range*(2+(2*i)),player.position.Y+(float)Math.Sin(targetrotation)*range*(2+(2*i))+8);
+					if(!player.dead && !mp.ballstate && player.velocity.Y == 0 && player.velocity.X == 0)
 					{
 						if ((Main.mouseX + Main.screenPosition.X) > player.position.X)
 						{
@@ -83,11 +87,11 @@ namespace MetroidMod.Content.Items.Tools
 							player.direction = -1;
 						}
 						float lightMult = 1f;
-						if (Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy || Lighting.Mode == Terraria.Graphics.Light.LightMode.Color)
+						if(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy || Lighting.Mode == Terraria.Graphics.Light.LightMode.Color)
 						{
 							lightMult = 0.1f;
 						}
-						Lighting.AddLight((int)((float)lightPos.X / 16f), (int)((float)lightPos.Y / 16f), 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult);
+						Lighting.AddLight((int)((float)lightPos.X/16f), (int)((float)lightPos.Y/16f), 0.75f+(0.25f*i)*lightMult, 0.75f+(0.25f*i)*lightMult, 0.75f+(0.25f*i)*lightMult);
 						Vector2 tilePos = lightPos / 16f;
 						MSystem.hit[(int)tilePos.X, (int)tilePos.Y] = true;
 						MSystem.hit[(int)tilePos.X - 1, (int)tilePos.Y] = true;
@@ -100,14 +104,14 @@ namespace MetroidMod.Content.Items.Tools
 			return true;
 		}
 
-		/*	public bool XRayActive(Player player)
+	/*	public bool XRayActive(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			if(MBase.KeyPressed(MBase.XRayKey) && !mp.ballstate && player.velocity.Y == 0 && player.velocity.X == 0 && player.itemAnimation == 0)
 			{
-				MPlayer mp = player.GetModPlayer<MPlayer>();
-				if(MBase.KeyPressed(MBase.XRayKey) && !mp.ballstate && player.velocity.Y == 0 && player.velocity.X == 0 && player.itemAnimation == 0)
-				{
-					return true;
-				}
-				return false;
-			}*/
+				return true;
+			}
+			return false;
+		}*/
 	}
 }

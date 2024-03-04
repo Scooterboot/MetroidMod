@@ -1,6 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace MetroidMod.Content.Projectiles.stardustbeam
@@ -24,27 +26,27 @@ namespace MetroidMod.Content.Projectiles.stardustbeam
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.iceColor;
-			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-			if (Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
+			if(Projectile.numUpdates == 0)
 			{
 				Projectile.frame++;
 			}
-			if (Projectile.frame > 1)
+			if(Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
-
-			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire, 0, 0, 100, default(Color), Projectile.scale / 2f);
+			
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire, 0, 0, 100, default(Color), Projectile.scale/2f);
 			Main.dust[dust].noGravity = true;
-			dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height,
+			dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 
 				DustID.GemTopaz, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
-		public override void OnKill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
 			mProjectile.Diffuse(Projectile, 88);
 		}
-
+		
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 3);

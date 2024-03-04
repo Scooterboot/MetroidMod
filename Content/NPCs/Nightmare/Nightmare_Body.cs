@@ -1,11 +1,14 @@
+using Terraria;
+using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
+using Terraria.ID;
+using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Nightmare
 {
@@ -51,9 +54,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			bool flag = (Head.alpha < 255);
 			if (!Head.active)
 			{
-				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound, NPC.Center);
+				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound,NPC.Center);
 				NPC.life = 0;
-				if (flag)
+				if(flag)
 				{
 					NPC.HitEffect(0, 10.0);
 				}
@@ -62,26 +65,26 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			}
 
 			NPC.damage = Head.damage;
-			NPC.Center = Head.Center + new Vector2(-44 * Head.direction, -5);
+			NPC.Center = Head.Center + new Vector2(-44*Head.direction,-5);
 			NPC.velocity *= 0f;
 
-			if (!Head.dontTakeDamage)
+			if(!Head.dontTakeDamage)
 			{
-				for (int i = 0; i < Main.maxProjectiles; i++)
+				for(int i = 0; i < Main.maxProjectiles; i++)
 				{
-					if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+					if(Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
 					{
 						Projectile P = Main.projectile[i];
-						Rectangle projRect = new Rectangle((int)(P.position.X + P.velocity.X), (int)(P.position.Y + P.velocity.Y), P.width, P.height);
-
-						Rectangle npcRect1 = new Rectangle((int)NPC.Center.X - 102, (int)NPC.Center.Y - 59, 106, 104);
-						Rectangle npcRect2 = new Rectangle((int)NPC.Center.X - 102, (int)NPC.Center.Y + 45, 202, 16);
-						if (Head.direction == -1)
+						Rectangle projRect = new Rectangle((int)(P.position.X+P.velocity.X),(int)(P.position.Y+P.velocity.Y),P.width,P.height);
+						
+						Rectangle npcRect1 = new Rectangle((int)NPC.Center.X-102,(int)NPC.Center.Y-59,106,104);
+						Rectangle npcRect2 = new Rectangle((int)NPC.Center.X-102,(int)NPC.Center.Y+45,202,16);
+						if(Head.direction == -1)
 						{
-							npcRect1.X = (int)NPC.Center.X - 4;
-							npcRect2.X = (int)NPC.Center.X - 100;
+							npcRect1.X = (int)NPC.Center.X-4;
+							npcRect2.X = (int)NPC.Center.X-100;
 						}
-						if (projRect.Intersects(npcRect1) || projRect.Intersects(npcRect2))
+						if(projRect.Intersects(npcRect1) || projRect.Intersects(npcRect2))
 						{
 							if (Main.projectile[i].penetrate > 0)
 							{

@@ -1,7 +1,6 @@
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.MissileAddons
 {
@@ -36,7 +35,6 @@ namespace MetroidMod.Content.Items.MissileAddons
 			mItem.missileSlotType = 0;
 			mItem.addonChargeDmg = 2f;
 			mItem.addonMissileCost = 1;
-			mItem.missileChangeType = MissileChangeSlotID.Homing;
 		}
 
 		public override void AddRecipes()

@@ -1,7 +1,8 @@
-using MetroidMod.Common.Players;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Armors
 {
@@ -22,7 +23,7 @@ namespace MetroidMod.Content.Items.Armors
 			Item.value = 5000;
 			Item.defense = Common.Configs.MConfigItems.Instance.defenseChoziteBreastplate;
 		}
-		public override bool IsArmorSet(Item head, Item body, Item legs) => head.type == ModContent.ItemType<ChoziteHelmet>() && body.type == ModContent.ItemType<ChoziteBreastplate>() && legs.type == ModContent.ItemType<ChoziteGreaves>();
+		public override bool IsArmorSet(Item head, Item body, Item legs ) => head.type == ModContent.ItemType<ChoziteHelmet>() && body.type == ModContent.ItemType<ChoziteBreastplate>() && legs.type == ModContent.ItemType<ChoziteGreaves>();
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "+2 defense" + "\n"

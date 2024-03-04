@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -19,16 +20,16 @@ namespace MetroidMod.Content.Tiles
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
 			//Main.tileSpelunker[Type] = true;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX); 
 			TileObjectData.newTile.Height = 3;
-			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };
+			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 18 };
 			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
-			TileObjectData.newTile.StyleWrapLimit = 2;
-			TileObjectData.newTile.StyleMultiplier = 2;
+			TileObjectData.newTile.StyleWrapLimit = 2; 
+			TileObjectData.newTile.StyleMultiplier = 2; 
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
-			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
-			TileObjectData.addAlternate(1);
+			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight; 
+			TileObjectData.addAlternate(1); 
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
 			//Main.tileOreFinderPriority[Type] = 806;

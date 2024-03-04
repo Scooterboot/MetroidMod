@@ -1,13 +1,13 @@
-﻿using MetroidMod.Common.Systems;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.Walls
 {
 	public class TourianWallNatural : ModWall
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Walls/TourianWall";
+		public override string Texture => $"{nameof(MetroidMod)}/Content/Walls/NorfairBrickWall";
 		public override void SetStaticDefaults()
 		{
 			DustType = 87;

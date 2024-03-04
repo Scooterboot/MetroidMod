@@ -1,8 +1,9 @@
-﻿using MetroidMod.Common.Players;
-using MetroidMod.ID;
+﻿using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ID;
+using MetroidMod.ID;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -16,23 +17,23 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
-		public override double GenerationChance(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
+		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
 
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Reserve Tank");
 			// TODO: Write a better tooltip. I'm tired. - DarkSamus49
 			// Tooltip.SetDefault("Can store a spare tank of energy.");
-			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<Items.Accessories.ReserveTank>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<Items.Accessories.ReserveTank>();
 			ItemNameLiteral = true;
-			SacrificeTotal = Common.Configs.MConfigItems.Instance.stackReserveTank;
+			SacrificeTotal = 4;
 			AddonSlot = SuitAddonSlotID.Tanks_Reserve;
 		}
 		public override void SetItemDefaults(Item item)
 		{
 			item.width = 16;
 			item.height = 11;
-			item.maxStack = Common.Configs.MConfigItems.Instance.stackReserveTank;
+			item.maxStack = 4;
 			item.value = Item.buyPrice(0, 5, 0, 0);
 			item.rare = ItemRarityID.Green;
 		}
@@ -50,7 +51,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.SuitReserveTanks = stack <= Common.Configs.MConfigItems.Instance.stackReserveTank ? stack : Common.Configs.MConfigItems.Instance.stackReserveTank;
+			mp.SuitReserveTanks = stack;
 		}
 	}
 }

@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Utility
 {
@@ -43,11 +46,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 
 		public override bool PreAI()
 		{
-			if (NPC.ai[0] == 0) // Idle/grounded phase.
+			if(NPC.ai[0] == 0) // Idle/grounded phase.
 			{
 				if (NPC.localAI[2] > 0) NPC.localAI[2]--;
 
-				if (NPC.ai[1]++ >= 60)
+				if(NPC.ai[1]++ >= 60)
 				{
 					NPC.velocity.Y = -Main.rand.Next(9, 15);
 
@@ -63,7 +66,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 				if (NPC.velocity.Y >= 0)
 					NPC.localAI[1]++;
 
-				if (NPC.collideY && NPC.oldVelocity.Y >= 0)
+				if(NPC.collideY && NPC.oldVelocity.Y >= 0)
 				{
 					NPC.velocity.Y = 0;
 
@@ -81,7 +84,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 
 		public override void FindFrame(int frameHeight)
 		{
-			if (NPC.ai[0] == 0)
+			if(NPC.ai[0] == 0)
 			{
 				if (NPC.localAI[2] > 0)
 				{
@@ -102,7 +105,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			}
 			else
 			{
-				if (NPC.velocity.Y < 0)
+				if(NPC.velocity.Y < 0)
 				{
 					if (NPC.velocity.Y < -5)
 						NPC.frame.Y = 2 * frameHeight;
@@ -121,7 +124,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 						NPC.frame.Y = 6 * frameHeight;
 					else
 					{
-						if (NPC.frameCounter++ % 5 == 0)
+						if(NPC.frameCounter++ % 5 == 0)
 						{
 							NPC.frame.Y += frameHeight;
 							if (NPC.frame.Y >= 9 * frameHeight)

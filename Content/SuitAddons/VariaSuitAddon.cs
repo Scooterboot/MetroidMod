@@ -1,7 +1,7 @@
-﻿using MetroidMod.Common.Players;
-using MetroidMod.ID;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -21,9 +21,9 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => NPC.downedBoss2;//Main.UnderworldLayer;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => y >= Main.UnderworldLayer;
 
-		public override double GenerationChance(int x, int y) => 4;//20;
+		public override double GenerationChance(int x, int y) => 20;
 
 		public override void SetStaticDefaults()
 		{
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.SuitAddons
 				"20% increased energy barrier resilience\n" + // Provisional name
 				"Immunity to fire blocks" + "\n" + 
 				"Immunity to chill and freeze effects"); */
-			AddonSlot = SuitAddonSlotID.Suit_Barrier;
+			AddonSlot = SuitAddonSlotID.Suit_Varia;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)

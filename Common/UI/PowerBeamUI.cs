@@ -1,20 +1,23 @@
-using MetroidMod.Common.Configs;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Addons;
-using MetroidMod.Content.Items.Addons.Hunters;
-using MetroidMod.Content.Items.Addons.V2;
-using MetroidMod.Content.Items.Addons.V3;
-using MetroidMod.Content.Items.Weapons;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
+
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
+using Terraria.GameContent.UI.Elements;
+
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Default;
+using ReLogic.Content;
+using MetroidMod.Content.Items.Addons.Hunters;
+using MetroidMod.Content.Items.Addons;
+using MetroidMod.Content.Items.Addons.V2;
+using MetroidMod.Content.Items.Addons.V3;
 
 namespace MetroidMod.Common.UI
 {
@@ -23,7 +26,7 @@ namespace MetroidMod.Common.UI
 	 */
 	public class PowerBeamUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<PowerBeam>();
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<PowerBeam>();
 
 		private PowerBeamPanel powerBeamPanel;
 		private PowerBeamScrewAttackButton pbsaButton;
@@ -110,8 +113,8 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = 256;
 			Height.Pixels = 164;
-			enabled = MConfigClient.Instance.PowerBeam.enabled;
-			if (!enabled && MConfigClient.Instance.PowerBeam.auto)
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
 			{
 				Left.Pixels = 160;
 				Top.Pixels = Main.instance.invBottom + 10;
@@ -133,7 +136,7 @@ namespace MetroidMod.Common.UI
 	public class PowerBeamItemBox : UIPanel
 	{
 		private Texture2D itemBoxTexture;
-
+		
 		public Condition condition;
 		public Condition condition2;
 
@@ -162,7 +165,8 @@ namespace MetroidMod.Common.UI
 
 		public void SetCondition()
 		{
-			condition = delegate (Item addonItem) {
+			condition = delegate (Item addonItem)
+			{
 				//Mod mod = ModLoader.GetMod("MetroidMod");
 				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
@@ -181,7 +185,7 @@ namespace MetroidMod.Common.UI
 		{
 			//TODO No failsafe. Should maybe be implemented?
 			// How do I get BeamChange[beamSlotType] to not always equal 0 so it isnt this disguting trainwreck? --Dr
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as PowerBeam;
+			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
 			if (powerBeamTarget == null || powerBeamTarget.BeamMods == null) { return; }
 
 			if (powerBeamTarget.BeamMods[addonSlotType] != null && !powerBeamTarget.BeamMods[addonSlotType].IsAir)
@@ -242,7 +246,7 @@ namespace MetroidMod.Common.UI
 					powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
 					//powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
 				}
-				else if (condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
+				else if(condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 
@@ -254,9 +258,9 @@ namespace MetroidMod.Common.UI
 				}
 			}
 			//place
-			else if (!Main.mouseItem.IsAir)
+			else if(!Main.mouseItem.IsAir)
 			{
-				if (condition == null || (condition != null && condition(Main.mouseItem)))
+				if (condition == null || (condition != null && condition(Main.mouseItem) ))
 				{
 					if (Main.mouseItem.type == ModContent.ItemType<ChargeBeamAddon>())
 					{
@@ -308,12 +312,12 @@ namespace MetroidMod.Common.UI
 						powerBeamTarget.BeamChange[9] = Main.mouseItem.Clone();
 						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
 					}
-					if (Main.mouseItem.type == ModContent.ItemType<ChargeBeamV2Addon>())
+					if(Main.mouseItem.type == ModContent.ItemType<ChargeBeamV2Addon>())
 					{
 						powerBeamTarget.BeamChange[10] = Main.mouseItem.Clone();
 						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
 					}
-					if (Main.mouseItem.type == ModContent.ItemType<LuminiteBeamAddon>())
+					if(Main.mouseItem.type == ModContent.ItemType<LuminiteBeamAddon>())
 					{
 						powerBeamTarget.BeamChange[11] = Main.mouseItem.Clone();
 						SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
@@ -328,7 +332,7 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
-			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
+			Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
 			if (target == null || target.type != ModContent.ItemType<PowerBeam>()) { return; }
 			PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 
@@ -373,14 +377,14 @@ namespace MetroidMod.Common.UI
 
 			drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
 			drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
-
+			
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
 			if (powerBeamTarget.BeamMods[addonSlotType].color != default(Color))
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
-																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+					//Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 			}
 		}
 	}
@@ -434,7 +438,7 @@ namespace MetroidMod.Common.UI
 			spriteBatch.Draw(powerBeamLines.Value, DrawRectangle, Color.White);
 		}
 	}
-
+	
 	// Charge Somersault attack toggle button
 	public class PowerBeamScrewAttackButton : DragableUIPanel
 	{
@@ -447,29 +451,29 @@ namespace MetroidMod.Common.UI
 		{
 			Left.Pixels = 112;
 			Top.Pixels = 274;
-
+			
 			buttonTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton", AssetRequestMode.ImmediateLoad).Value;
 			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Hover", AssetRequestMode.ImmediateLoad).Value;
 			buttonTex_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Click", AssetRequestMode.ImmediateLoad).Value;
-
+			
 			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Hover", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PsuedoScrewUIButton_Enabled_Click", AssetRequestMode.ImmediateLoad).Value;
-
+			
 			Width.Pixels = buttonTex.Width;
 			Height.Pixels = buttonTex.Height;
 			OnLeftClick += SAButtonClick;
 		}
-
+		
 		public override void Update(GameTime gameTime)
 		{
-			if (IsMouseHovering)
+			if(IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MConfigClient.Instance.PsuedoScrewAttack.enabled;
-			if (!enabled && MConfigClient.Instance.PsuedoScrewAttack.auto)
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
 			{
 				Left.Pixels = 112;
 				Top.Pixels = 274;
@@ -481,46 +485,46 @@ namespace MetroidMod.Common.UI
 
 			base.Update(gameTime);
 		}
-
+		
 		private bool clicked = false;
 		private void SAButtonClick(UIMouseEvent evt, UIElement e)
 		{
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-
+			
 			mp.psuedoScrewActive = !mp.psuedoScrewActive;
 			SoundEngine.PlaySound(SoundID.MenuTick);
 			clicked = true;
 		}
-
+		
 		protected override void DrawSelf(SpriteBatch sb)
 		{
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-
+			
 			Texture2D tex = buttonTex, texH = buttonTex_Hover, texC = buttonTex_Click;
-			if (mp.psuedoScrewActive)
+			if(mp.psuedoScrewActive)
 			{
 				tex = buttonTexEnabled;
 				texH = buttonTexEnabled_Hover;
 				texC = buttonTexEnabled_Click;
 			}
-
-			if (IsMouseHovering)
+			
+			if(IsMouseHovering)
 			{
 				tex = texH;
-				if (clicked)
+				if(clicked)
 				{
 					tex = texC;
 					clicked = false;
 				}
-
+				
 				string psText = "Charge Somersault Attack: Disabled";
-				if (mp.psuedoScrewActive)
+				if(mp.psuedoScrewActive)
 				{
 					psText = "Charge Somersault Attack: Enabled";
 				}
 				Main.hoverItemName = psText;
 			}
-
+			
 			sb.Draw(tex, DrawRectangle, Color.White);
 		}
 	}
@@ -538,10 +542,8 @@ namespace MetroidMod.Common.UI
 
 			buttonTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOff", AssetRequestMode.ImmediateLoad).Value;
 			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
-			//buttonTex_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceClick", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOn", AssetRequestMode.ImmediateLoad).Value;
 			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
-			//buttonTexEnabled_Click = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceClick", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Pixels = 44; //buttonTex.Width
 			Height.Pixels = 44;
@@ -555,7 +557,7 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = Configs.MConfigClient.Instance.PowerBeam.enabled;
+			enabled = MetroidMod.DragablePowerBeamUI;
 			if (!enabled)
 			{
 				Left.Pixels = 112; //112
@@ -601,10 +603,10 @@ namespace MetroidMod.Common.UI
 
 			if (IsMouseHovering)
 			{
-				// bug: buttonTex_Click isn't ever defined. what does this do?
+				tex = texH;
 				if (clicked)
 				{
-					texH = texC;
+					tex = texC;
 					clicked = false;
 				}
 
@@ -617,10 +619,6 @@ namespace MetroidMod.Common.UI
 			}
 
 			sb.Draw(tex, DrawRectangle, Color.White);
-			if (IsMouseHovering)
-			{
-				sb.Draw(texH, DrawRectangle, Color.White);
-			}
 		}
 	}
 
@@ -634,26 +632,26 @@ namespace MetroidMod.Common.UI
 		public override void OnInitialize()
 		{
 			Left.Pixels = 420;
-			Top.Pixels = 340; //354
-
+			Top.Pixels = 354;
+			
 			iconTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ComboErrorIcon", AssetRequestMode.ImmediateLoad).Value;
-
+			
 			Width.Pixels = iconTex.Width;
 			Height.Pixels = iconTex.Height;
 		}
-
+		
 		public override void Update(GameTime gameTime)
 		{
-			if (IsMouseHovering)
+			if(IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = MConfigClient.Instance.PowerBeamError.enabled;
-			if (!enabled && MConfigClient.Instance.PowerBeamError.auto)
+			enabled = MetroidMod.DragablePowerBeamUI;
+			if (!enabled)
 			{
 				Left.Pixels = 112;
-				Top.Pixels = 340; //354
+				Top.Pixels = 354;
 				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
 				{
 					Top.Pixels += 170;
@@ -662,40 +660,40 @@ namespace MetroidMod.Common.UI
 
 			base.Update(gameTime);
 		}
-
+		
 		protected override void DrawSelf(SpriteBatch sb)
 		{
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as PowerBeam;
-			if (powerBeamTarget != null && (powerBeamTarget.comboError1 || powerBeamTarget.comboError2 || powerBeamTarget.comboError3 || powerBeamTarget.comboError4))
+			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[(MetroidMod.Instance).selectedItem].ModItem as PowerBeam;
+			if(powerBeamTarget != null && (powerBeamTarget.comboError1 || powerBeamTarget.comboError2 || powerBeamTarget.comboError3 || powerBeamTarget.comboError4))
 			{
 				//MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-
-				if (IsMouseHovering)
+				
+				if(IsMouseHovering)
 				{
-					string text = "Error: addon version mistmatch detected.\n" +
+					string text = "Error: addon version mistmatch detected.\n"+
 					"The following slots have had their addon effects disabled:";
-					if (powerBeamTarget.comboError1)
+					if(powerBeamTarget.comboError1)
 					{
 						text += "\nSecondary";
 					}
-					if (powerBeamTarget.comboError2)
+					if(powerBeamTarget.comboError2)
 					{
 						text += "\nUtility";
 					}
-					if (powerBeamTarget.comboError3)
+					if(powerBeamTarget.comboError3)
 					{
 						text += "\nPrimary A";
 					}
-					if (powerBeamTarget.comboError4)
+					if(powerBeamTarget.comboError4)
 					{
 						text += "\nPrimary B";
 					}
-					text += "\n \n" +
+					text += "\n \n"+
 					"Note: Addon stat bonuses are still applied.";
-
+					
 					Main.hoverItemName = text;
 				}
-
+				
 				sb.Draw(iconTex, DrawRectangle, Color.White);
 			}
 		}

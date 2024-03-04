@@ -1,6 +1,7 @@
 ﻿using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Players
@@ -11,12 +12,12 @@ namespace MetroidMod.Common.Players
 		/// The percentage of energy that is subtracted from the damage the player has taken. <br />
 		/// Known as 'Energy Barrier Efficiency' (PROVISIONAL NAME).
 		/// </summary>
-		public float EnergyDefenseEfficiency = 0f;
+		public float EnergyDefenseEfficiency = Configs.MConfigItems.Instance.energyDefenseEfficiency; //0f;
 		/// <summary>
 		/// The percentage of damage that is subtracted from the player's energy. <br />
 		/// Known as 'Energy Barrier Resilience' (PROVISIONAL NAME).
 		/// </summary>
-		public float EnergyExpenseEfficiency = 0.1f;
+		public float EnergyExpenseEfficiency = Configs.MConfigItems.Instance.energyExpenseEfficiency; //0.1f;
 		/// <summary>
 		/// The number of Energy Tanks the player has.
 		/// </summary>
@@ -46,7 +47,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The maximum possible reserve energy the player can have.
 		/// </summary>
-		public int MaxSuitReserves => SuitReserveTanks * Configs.MConfigItems.Instance.reserveTankStoreCount + AdditionalMaxReserves;
+		public int MaxSuitReserves => SuitReserveTanks * 100 + AdditionalMaxReserves;
 		public int AdditionalMaxReserves = 0;
 		/// <summary>
 		/// The amount of energy the player has in reserves.
@@ -57,8 +58,8 @@ namespace MetroidMod.Common.Players
 
 		public void ResetEffects_SuitEnergy()
 		{
-			EnergyDefenseEfficiency = 0f;
-			EnergyExpenseEfficiency = 0.1f;
+			EnergyDefenseEfficiency = Configs.MConfigItems.Instance.energyDefenseEfficiency; //0f;
+			EnergyExpenseEfficiency = Configs.MConfigItems.Instance.energyExpenseEfficiency; //0.1f;
 
 			bool flag = false;
 			for (int i = 0; i < Player.buffType.Length; i++)
@@ -76,49 +77,50 @@ namespace MetroidMod.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public void ModifyHurt_SuitEnergy(ref Player.HurtModifiers modifiers) //bug: can make one immune to DoT debuffs
+		public bool PreHurt_SuitEnergy(Player.HurtInfo info)
 		{
-			/*
-			modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
+			if (!ShouldShowArmorUI || Player.immune) { return true; }
+			int cooldownCounter = 0;
+			bool pvp = info.PvP;
+			int oldEnergy = Energy;
+			float damageToSubtractFromEnergy = Math.Max(info.Damage * (1 - EnergyExpenseEfficiency), 1f);
+			Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
+			info.Damage -= (int)(oldEnergy * EnergyDefenseEfficiency);
+			if (info.Damage <= 0)
 			{
-				if (!ShouldShowArmorUI || Player.immune || Energy <=0) { return; };
-				int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
-				info.Damage = Math.Max(1, info.Damage - energyDamage);
-				Energy = Math.Max(1, Energy - (int)(energyDamage *(1-EnergyExpenseEfficiency)));
-				if (info.Damage <= 1)
+				info.Damage = 0;
+				Energy--;
+				#region cooldown code (stolen from tML source code)
+				switch (cooldownCounter)
 				{
-					//info.Damage = 0;
-					Energy -= info.SourceDamage;
-					//customDamage = true;
-					if(info.SourceDamage >= Energy)
-					{
-						Energy = 0;
-					}
+					case -1:
+						{
+							Player.immune = true;
+							Player.immuneTime = pvp ? 8 : (Player.longInvince ? 40 : 20);
+							break;
+						}
+					case 0:
+							Player.hurtCooldowns[cooldownCounter] = (Player.longInvince ? 40 : 20);
+						break;
+					case 1:
+					case 3:
+					case 4:
+							Player.hurtCooldowns[cooldownCounter] = (Player.longInvince ? 40 : 20);
+						break;
 				}
-			};
-			*/
-			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; };
-			float hit = 1f - EnergyDefenseEfficiency;
-			modifiers.FinalDamage *= hit;
-			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
+				#endregion
+				//customDamage = true;
+			}
+			if (Common.Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
-				modifiers.DisableSound();
+				//playSound = false;
 				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
 			}
-		}
-		public void PostHurt_SuitEnergy(Player.HurtInfo info)
-		{
-			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
-			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
-			Energy = Math.Max(1, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
+			return true;
 		}
 		public override void OnRespawn()
 		{
-			if (Player.TryMetroidPlayer(out MPlayer mp))
-			{
-				mp.Energy = mp.MaxEnergy;
-				mp.SuitReserves = mp.MaxSuitReserves;
-			}
+			if (Player.TryMetroidPlayer(out MPlayer mp)) mp.Energy = 99;
 		}
 		public override void UpdateLifeRegen()
 		{
@@ -142,10 +144,10 @@ namespace MetroidMod.Common.Players
 			{
 				//Player.lifeRegen = 0;
 				int oldEnergy = Energy;
-				float damageToSubtractFromEnergy = Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
+				float damageToSubtractFromEnergy = Math.Min((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f);
 				Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 				Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
-				//if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
+				if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
 			}
 		}
 		private static void SetMinMax(ref float value, float min = 0f, float max = 1f) => value = Math.Min(Math.Max(value, min), max);

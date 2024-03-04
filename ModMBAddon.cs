@@ -1,9 +1,14 @@
-﻿using System;
-using MetroidMod.Default;
-using MetroidMod.ID;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
 namespace MetroidMod
 {
@@ -22,7 +27,7 @@ namespace MetroidMod
 		/// <summary>
 		/// The <see cref="Item"/> this addon controls.
 		/// </summary>
-		public Item Item => ModItem.Item;
+		public Item Item;
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
 
@@ -85,6 +90,7 @@ namespace MetroidMod
 			ModTile.Unload();
 			ModItem = null;
 			ModTile = null;
+			Item = null;
 			base.Unload();
 		}
 		protected override sealed void Register()

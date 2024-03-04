@@ -1,8 +1,15 @@
-using MetroidMod.Common.Players;
-using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -32,11 +39,11 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Player P = Main.player[Projectile.owner];
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
-
+			Projectile.position.X=P.Center.X-Projectile.width/2;
+			Projectile.position.Y=P.Center.Y-Projectile.height/2;
+			
 			SpeedSound++;
-			if (SpeedSound == 4 && SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position), out activeSound))
+			if(SpeedSound == 4 && SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position), out activeSound))
 			{
 				soundInstance = activeSound.Sound;
 			}
@@ -51,7 +58,7 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			if (!mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
+			if(!mp.ballstate || !mp.speedBoosting || mp.SMoveEffect > 0)
 			{
 				if (soundInstance != null)
 				{
@@ -59,19 +66,19 @@ namespace MetroidMod.Content.Projectiles
 				}
 				Projectile.Kill();
 			}
-			foreach (Projectile Pr in Main.projectile) if (Pr != null)
+			foreach(Projectile Pr in Main.projectile) if (Pr!= null)
+			{
+				if(Pr.active && (Pr.type == ModContent.ProjectileType<ShineBall>() || Pr.type == ModContent.ProjectileType<SpeedBoost>()))
 				{
-					if (Pr.active && (Pr.type == ModContent.ProjectileType<ShineBall>() || Pr.type == ModContent.ProjectileType<SpeedBoost>()))
+					if (soundInstance != null)
 					{
-						if (soundInstance != null)
-						{
-							soundInstance.Stop(true);
-						}
-						Projectile.Kill();
-						return;
+						soundInstance.Stop(true);
 					}
+					Projectile.Kill();
+					return;
 				}
-			Lighting.AddLight((int)((float)Projectile.Center.X / 16f), (int)((float)(Projectile.Center.Y) / 16f), 0, 0.75f, 1f);
+			}
+			Lighting.AddLight((int)((float)Projectile.Center.X/16f), (int)((float)(Projectile.Center.Y)/16f), 0, 0.75f, 1f);
 
 			if (activeSound != null)
 			{

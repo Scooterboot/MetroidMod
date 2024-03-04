@@ -1,8 +1,9 @@
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
+using System; 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.Hunters
 {
@@ -18,7 +19,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				string.Format("[c/BE7878:Slow as the DMV]\n") +
                 string.Format("[c/BE7878:Cannot Pierce walls or enemies]")); */
 
-			Item.ResearchUnlockCount = 1;
+            Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -40,24 +41,24 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageOmegaCannon;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatOmegaCannon;
 		}
-
+	
 
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient(ItemID.LunarBar, 15)
-				.AddIngredient(ItemID.FragmentVortex, 30)
-				.AddIngredient(ItemID.FragmentSolar, 30)
-				.AddIngredient(ItemID.FragmentNebula, 30)
-				.AddIngredient(ItemID.FragmentStardust, 30)
-				.AddIngredient(ItemID.Diamond, 30)
-				.AddIngredient<Addons.Hunters.JudicatorAddon>(1)
-				.AddIngredient<Addons.Hunters.BattleHammerAddon>(1)
-				.AddIngredient<Addons.Hunters.VoltDriverAddon>(1)
-				.AddIngredient<Addons.Hunters.MagMaulAddon>(1)
-				.AddIngredient<Addons.Hunters.ImperialistAddon>(1)
-				.AddIngredient<Addons.Hunters.ShockCoilAddon>(1)
-				.AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ItemID.FragmentVortex, 30)
+                .AddIngredient(ItemID.FragmentSolar, 30)
+                .AddIngredient(ItemID.FragmentNebula, 30)
+                .AddIngredient(ItemID.FragmentStardust, 30)
+                .AddIngredient(ItemID.Diamond, 30)
+                .AddIngredient<Addons.Hunters.JudicatorAddon>(1)
+                .AddIngredient<Addons.Hunters.BattleHammerAddon>(1)
+                .AddIngredient<Addons.Hunters.VoltDriverAddon>(1)
+                .AddIngredient<Addons.Hunters.MagMaulAddon>(1)
+                .AddIngredient<Addons.Hunters.ImperialistAddon>(1)
+                .AddIngredient<Addons.Hunters.ShockCoilAddon>(1)
+                .AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}

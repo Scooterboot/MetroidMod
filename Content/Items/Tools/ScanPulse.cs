@@ -1,8 +1,10 @@
-using MetroidMod.Common.Systems;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
+using Microsoft.Xna.Framework;
+
+using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.Items.Tools
 {
@@ -35,7 +37,7 @@ namespace MetroidMod.Content.Items.Tools
 			return true;
 		}
 
-		public static void Reveal(int x, int y)
+		public static void Reveal(int x, int y)	
 		{
 			for (int i = x - 100; i < x + 100; i++)
 			{

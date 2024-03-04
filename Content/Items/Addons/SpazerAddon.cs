@@ -1,7 +1,8 @@
-using MetroidMod.Common.GlobalItems;
+using System; 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.Addons
 {
@@ -47,7 +48,6 @@ namespace MetroidMod.Content.Items.Addons
 				.AddIngredient(ItemID.Stinger, 12)
 				.AddIngredient(ItemID.JungleSpores, 12)
 				.AddIngredient(ItemID.Topaz, 1)
-				.AddIngredient(ItemID.BeeWax, 12)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

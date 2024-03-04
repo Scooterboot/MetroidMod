@@ -1,21 +1,15 @@
-﻿using MetroidMod.Content.Items.Armors;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Default;
+using MetroidMod.ID;
 
 namespace MetroidMod.Common.Players
 {
-	public enum SuitAddonUIState : byte
-	{
-		None = 0,
-		Helmet = 1,
-		Breastplate = 2,
-		Reserves = 3,
-	}
 	public partial class MPlayer : ModPlayer
 	{
 		public bool ShouldShowArmorUI = false;
@@ -25,7 +19,6 @@ namespace MetroidMod.Common.Players
 		public bool ShouldDrawBreastplate = false;
 		public bool IsPowerSuitGreaves = false;
 		public bool ShouldDrawGreaves = false;
-		public SuitAddonUIState SuitAddonUIState = SuitAddonUIState.None;
 		public void ResetEffects_GetArmors()
 		{
 			ShouldShowArmorUI = false;
@@ -165,24 +158,6 @@ namespace MetroidMod.Common.Players
 
 			return ModContent.Request<Texture2D>(tex);
 		}
-		public static Asset<Texture2D> GetShouldersGlow(PlayerDrawSet info)
-		{
-			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Arms_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				if (i == 0 || msa[i].ShouldOverrideShoulders || msa[0] == null || msa[0].ArmorTextureShouldersGlow == null)
-				{
-					string temp = msa[i].ArmorTextureShouldersGlow;
-					if (temp != "" && temp != null)
-					{
-						tex = temp;
-					}
-				}
-			}
-			return ModContent.Request<Texture2D>(tex);
-		}
 		public static int GetGreaves(Player player)
 		{
 			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitGreaves), EquipType.Legs);
@@ -227,13 +202,13 @@ namespace MetroidMod.Common.Players
 			{
 				armor = player.armor[11].ModItem as PowerSuitBreastplate;
 			}
-			else { return new ModSuitAddon[2] { null, null }; }
+			else { return new ModSuitAddon[4] {null, null, null, null}; }
 			Item[] sa = armor.SuitAddons;
-			ModSuitAddon[] msa = new ModSuitAddon[2];
-			for (int i = SuitAddonSlotID.Suit_Barrier; i <= SuitAddonSlotID.Suit_Primary; i++)
+			ModSuitAddon[] msa = new ModSuitAddon[4];
+			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{
-				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Barrier] = null; continue; }
-				msa[i - SuitAddonSlotID.Suit_Barrier] = SuitAddonLoader.GetAddon(sa[i]);
+				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Varia] = null; continue; }
+				msa[i - SuitAddonSlotID.Suit_Varia] = SuitAddonLoader.GetAddon(sa[i]);
 			}
 			return msa;
 		}

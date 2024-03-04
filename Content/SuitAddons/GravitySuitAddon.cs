@@ -1,9 +1,7 @@
-﻿using MetroidMod.Common.Players;
-using MetroidMod.Common.Systems;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -23,7 +21,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon);
+		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues;
 
 		public override double GenerationChance(int x, int y) => 4;
 
@@ -42,7 +40,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Immune to knockback\n" +
 				"Free movement in liquid\n" +
 				"Grants 7 seconds of lava immunity"); */
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
+			AddonSlot = SuitAddonSlotID.Suit_Utility;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
@@ -71,10 +69,6 @@ namespace MetroidMod.Content.SuitAddons
 			{
 				player.gills = true;
 			}
-		}
-		public override void OnUpdateVanitySet(Player player)
-		{
-			player.GetModPlayer<MPlayer>().visorGlowColor = new Color(0, 248, 112);
 		}
 		public override void AddRecipes()
 		{

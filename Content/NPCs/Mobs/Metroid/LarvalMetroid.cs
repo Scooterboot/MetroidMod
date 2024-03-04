@@ -1,7 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
-using MetroidMod.Common.Configs;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -66,22 +71,18 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (MConfigMain.Instance.disablemobspawn == true)
-			{
-				return 0f;
-			}
-			if (Main.hardMode || NPC.downedBoss2)
+			if(Main.hardMode || NPC.downedBoss2)
 			{
 				float chance1 = 0.03f;
 				float chance2 = 0.5f;
-				if (Main.hardMode)
+				if(Main.hardMode)
 				{
 					chance1 = 0.5f;
 					chance2 = 0.75f;
 				}
-				return (SpawnCondition.Corruption.Chance + SpawnCondition.Crimson.Chance) * chance1 + SpawnCondition.DungeonNormal.Chance * chance2;
+				return (SpawnCondition.Corruption.Chance + SpawnCondition.Crimson.Chance)*chance1 + SpawnCondition.DungeonNormal.Chance*chance2;
 			}
-			return SpawnCondition.DungeonNormal.Chance * 0.5f;
+			return SpawnCondition.DungeonNormal.Chance*0.5f;
 		}
 
 		public override bool PreAI()

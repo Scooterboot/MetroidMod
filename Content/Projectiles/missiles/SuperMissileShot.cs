@@ -1,8 +1,10 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace MetroidMod.Content.Projectiles.missiles
 {
@@ -27,19 +29,19 @@ namespace MetroidMod.Content.Projectiles.missiles
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-
+			
 			int dustType = 6;
 			float scale = 2f;
-			if (Projectile.Name.Contains("Ice"))
+			if(Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 			}
-			if (Projectile.Name.Contains("Stardust") || Projectile.Name.Contains("Nebula"))
+			if(Projectile.Name.Contains("Stardust") || Projectile.Name.Contains("Nebula"))
 			{
 				dustType = 87;
 				scale = 1f;
 				int dustType2 = 88;
-				if (Projectile.Name.Contains("Nebula"))
+				if(Projectile.Name.Contains("Nebula"))
 				{
 					dustType = 255;
 					scale = 1.5f;
@@ -48,26 +50,26 @@ namespace MetroidMod.Content.Projectiles.missiles
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType2, 0, 0, 100, default(Color), 2f);
 				Main.dust[dust].noGravity = true;
 			}
-			mProjectile.DustLine(Projectile.Center - Projectile.velocity * 0.5f, Projectile.velocity, Projectile.rotation, 5, 3, dustType, scale);
-
+			mProjectile.DustLine(Projectile.Center-Projectile.velocity*0.5f, Projectile.velocity, Projectile.rotation, 5, 3, dustType, scale);
+			
 			Projectile.ai[0] += 1f;
-			if (Projectile.ai[0] > (5f + (float)Projectile.extraUpdates) && Projectile.extraUpdates < 10)
+			if (Projectile.ai[0] > (5f+(float)Projectile.extraUpdates) && Projectile.extraUpdates < 10)
 			{
 				Projectile.extraUpdates++;
 				Projectile.ai[0] = 0f;
 			}
-
-			if (mProjectile.seeking && mProjectile.seekTarget > -1)
+			
+			if(mProjectile.seeking && mProjectile.seekTarget > -1)
 			{
 				float num236 = Projectile.position.X;
 				float num237 = Projectile.position.Y;
 				bool flag5 = false;
 				Projectile.ai[1] += 1f;
-				if (Projectile.ai[1] > 5f && (Projectile.numUpdates <= 0 || (Projectile.numUpdates <= 1 && (Projectile.Name.Contains("Stardust") || Projectile.Name.Contains("Nebula")))))
+				if(Projectile.ai[1] > 5f && (Projectile.numUpdates <= 0 || (Projectile.numUpdates <= 1 && (Projectile.Name.Contains("Stardust") || Projectile.Name.Contains("Nebula")))))
 				{
 					Projectile.ai[1] = 5f;
 					int num239 = mProjectile.seekTarget;
-					if (Main.npc[num239].active)
+					if(Main.npc[num239].active)
 					{
 						num236 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
 						num237 = Main.npc[num239].position.Y + (float)(Main.npc[num239].height / 2);
@@ -99,11 +101,11 @@ namespace MetroidMod.Content.Projectiles.missiles
 				mProjectile.HomingBehavior(Projectile);
 			}
 		}
-		public override void OnKill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
 			Projectile P = Projectile;
 			int size = 80;
-			if (P.Name.Contains("Stardust"))
+			if(P.Name.Contains("Stardust"))
 			{
 				size = 100;
 			}
@@ -123,33 +125,33 @@ namespace MetroidMod.Content.Projectiles.missiles
 			int dustType = 6;
 			int dustType2 = 30;
 			float scale = 1f;
-			if (P.Name.Contains("Ice"))
+			if(P.Name.Contains("Ice"))
 			{
 				dustType = 135;
-				SoundEngine.PlaySound(Sounds.Items.Weapons.IceMissileExplode, Projectile.position);
+				SoundEngine.PlaySound(Sounds.Items.Weapons.IceMissileExplode,Projectile.position);
 			}
 			else
 			{
-				SoundEngine.PlaySound(Sounds.Items.Weapons.SuperMissileExplode, Projectile.position);
+				SoundEngine.PlaySound(Sounds.Items.Weapons.SuperMissileExplode,Projectile.position);
 			}
-			if (P.Name.Contains("Stardust"))
+			if(P.Name.Contains("Stardust"))
 			{
 				dustType = 88;
 				dustType2 = 87;
 				scale = 0.6f;
 			}
-			if (P.Name.Contains("Nebula"))
+			if(P.Name.Contains("Nebula"))
 			{
 				dustType = 255;
 				dustType2 = 240;
 				scale = 0.75f;
 			}
-			for (int num70 = 0; num70 < 25f * (2f - scale); num70++)
+			for (int num70 = 0; num70 < 25f*(2f-scale); num70++)
 			{
-				int num71 = Dust.NewDust(P.position, P.width, P.height, dustType, 0f, 0f, 100, default(Color), 5f * scale);
+				int num71 = Dust.NewDust(P.position, P.width, P.height, dustType, 0f, 0f, 100, default(Color), 5f*scale);
 				Main.dust[num71].velocity *= 1.4f;
 				Main.dust[num71].noGravity = true;
-				int num72 = Dust.NewDust(P.position, P.width, P.height, dustType2, 0f, 0f, 100, default(Color), 3f * scale);
+				int num72 = Dust.NewDust(P.position, P.width, P.height, dustType2, 0f, 0f, 100, default(Color), 3f*scale);
 				Main.dust[num72].velocity *= 1.4f;
 				Main.dust[num72].noGravity = true;
 			}
@@ -167,7 +169,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			if (P.Name.Contains("Nebula"))
 			{
 				var entitySource = P.GetSource_Death();
-				int n = Projectile.NewProjectile(entitySource, P.Center.X, P.Center.Y, 0f, 0f, ModContent.ProjectileType<NebulaMissileImpact>(), P.damage, P.knockBack, P.owner);
+				int n = Projectile.NewProjectile(entitySource, P.Center.X, P.Center.Y, 0f, 0f, ModContent.ProjectileType<NebulaMissileImpact>(),P.damage,P.knockBack,P.owner);
 			}
 		}
 

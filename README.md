@@ -1,5 +1,5 @@
-Welcome to the Open Beta version of the Metroid Mod!
+Welcome to the Metroid Mod for Terraria
 
-Feedback is needed, as we are actively working towards fixing any and all issues that crop up. Once things are more stable, we can start working towards future content updates!
+This is a WIP attempt to update the Metroid Mod from tModLoader 1.3 to tModLoader 1.4. It is very broken.
 
 [Link to TODO](./TODO.txt)

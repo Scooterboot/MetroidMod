@@ -1,8 +1,14 @@
-using System;
-using MetroidMod.Content.DamageClasses;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MetroidMod.Content.DamageClasses;
 
 namespace MetroidMod.Default
 {
@@ -59,11 +65,11 @@ namespace MetroidMod.Default
 			}
 		}
 
-		public override void OnKill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
 			SoundEngine.PlaySound(new SoundStyle(modMBAddon.ExplosionSound), Projectile.position);
 			if (!modMBAddon.Kill(timeLeft)) { return; }
-			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, modMBAddon.ExplosionProjectileType, (int)Math.Floor(Projectile.damage * modMBAddon.DamageMultiplier), modMBAddon.Knockback, Projectile.owner);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, modMBAddon.ExplosionProjectileType, (int)Math.Floor(Projectile.damage*modMBAddon.DamageMultiplier), modMBAddon.Knockback, Projectile.owner);
 		}
 
 		public override ModProjectile Clone(Projectile newEntity)

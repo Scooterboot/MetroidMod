@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace MetroidMod.Content.Projectiles.missiles
 {
@@ -12,13 +13,13 @@ namespace MetroidMod.Content.Projectiles.missiles
 		{
 			// DisplayName.SetDefault("Diffusion Shot");
 		}
-
+		
 		bool initialised = false;
 		public float radius = 0.0f;
 		public float spin = 0.0f;
 		float SpinIncrease = 0.05f;
-		public Vector2 basePosition = new Vector2(0f, 0f);
-
+		public Vector2 basePosition = new Vector2(0f,0f);
+		
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -39,49 +40,49 @@ namespace MetroidMod.Content.Projectiles.missiles
 		}
 		public override void AI()
 		{
-			if (!initialised)
+			if(!initialised)
 			{
 				initialise();
 			}
 			SpinIncrease += 0.001f;
 			radius += 2.0f;
 			spin += SpinIncrease;
-			Projectile.position = (basePosition - new Vector2(Projectile.width / 2, Projectile.height / 2)) + spin.ToRotationVector2() * radius;
+			Projectile.position = (basePosition - new Vector2(Projectile.width/2,Projectile.height/2)) + spin.ToRotationVector2()*radius;
 
-			if (!Projectile.Name.Contains("Nebula"))
+			if(!Projectile.Name.Contains("Nebula"))
 			{
 				Projectile.rotation = 0f;
 				Projectile.frameCounter++;
 				int frame = 2;
-				if (Projectile.frameCounter < frame)
+				if(Projectile.frameCounter < frame)
 				{
 					Projectile.frame = 0;
 				}
-				else if (Projectile.frameCounter < frame * 2)
+				else if(Projectile.frameCounter < frame * 2)
 				{
 					Projectile.frame = 1;
 				}
-				else if (Projectile.frameCounter < frame * 3)
+				else if(Projectile.frameCounter < frame * 3)
 				{
 					Projectile.frame = 2;
 				}
-				else if (Projectile.frameCounter < frame * 4)
+				else if(Projectile.frameCounter < frame * 4)
 				{
 					Projectile.frame = 3;
 				}
-				else if (Projectile.frameCounter < frame * 5)
+				else if(Projectile.frameCounter < frame * 5)
 				{
 					Projectile.frame = 4;
 				}
-				else if (Projectile.frameCounter < frame * 6)
+				else if(Projectile.frameCounter < frame * 6)
 				{
 					Projectile.frame = 3;
 				}
-				else if (Projectile.frameCounter < frame * 7)
+				else if(Projectile.frameCounter < frame * 7)
 				{
 					Projectile.frame = 2;
 				}
-				else if (Projectile.frameCounter < frame * 8 - 1)
+				else if(Projectile.frameCounter < frame * 8 - 1)
 				{
 					Projectile.frame = 1;
 				}
@@ -90,34 +91,34 @@ namespace MetroidMod.Content.Projectiles.missiles
 					Projectile.frame = 1;
 					Projectile.frameCounter = 0;
 				}
-
+			
 				int dustType = 6;
 				Color color = MetroidMod.plaRedColor;
-				if (Projectile.Name.Contains("Ice"))
+				if(Projectile.Name.Contains("Ice"))
 				{
 					dustType = 135;
 					color = MetroidMod.iceColor;
 				}
-				if (Projectile.Name.Contains("Stardust"))
+				if(Projectile.Name.Contains("Stardust"))
 				{
 					dustType = 88;
 					color = MetroidMod.iceColor;
 					Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 87, 0, 0, 100, default(Color), 1.5f)].noGravity = true;
 				}
-				Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+				Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), 2.5f);
 				Main.dust[dust].noGravity = true;
 			}
 		}
-
-		public override void OnKill(int timeLeft)
+		
+		public override void Kill(int timeLeft)
 		{
 			int dustType = 6;
-			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
+			if(Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust"))
 			{
 				dustType = 135;
 			}
-			for (int i = 0; i < Projectile.oldPos.Length; i++)
+			for(int i = 0; i < Projectile.oldPos.Length; i++)
 			{
 				for (int num70 = 0; num70 < 5; num70++)
 				{
@@ -126,7 +127,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				}
 			}
 		}
-
+		
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
@@ -163,18 +164,18 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.height = 42;
 			Projectile.scale = 1f;
 		}
-
+		
 		public override void AI()
 		{
 			base.AI();
-
+			
 			Projectile P = Projectile;
 			P.rotation -= 0.104719758f * 2;
 			P.scale = Math.Min(P.scale + 0.01f, 1.5f);
 			P.position = P.Center;
-			P.width = (P.height = (int)(32f * P.scale));
+			P.width = (P.height = (int)(32f*P.scale));
 			P.Center = P.position;
-
+			
 			int num3;
 			for (int num1012 = 0; num1012 < 1; num1012 = num3 + 1)
 			{
@@ -213,18 +214,18 @@ namespace MetroidMod.Content.Projectiles.missiles
 			}
 			Lighting.AddLight(P.Center, 0.7f, 0.2f, 0.6f);
 		}
-
+		
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			float point = 0f;
 			return projHitbox.Intersects(targetHitbox) ||
 				Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), basePosition, Projectile.Center, Projectile.width, ref point);
 		}
-
-		public override void OnKill(int timeLeft)
+		
+		public override void Kill(int timeLeft)
 		{
 			Projectile P = Projectile;
-
+			
 			P.position = P.Center;
 			P.width = (P.height = 176);
 			P.Center = P.position;
@@ -280,8 +281,8 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Gore gore18 = Main.gore[num102];
 				gore18.velocity.Y = gore18.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
 			}
-
-			for (int i = 0; i < Projectile.oldPos.Length; i++)
+			
+			for(int i = 0; i < Projectile.oldPos.Length; i++)
 			{
 				for (int num70 = 0; num70 < 5; num70++)
 				{
@@ -290,7 +291,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				}
 			}
 		}
-
+		
 		public override Color? GetAlpha(Color lightColor)
 		{
 			Projectile P = Projectile;
@@ -312,7 +313,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/missiles/NebulaMissileImpact2").Value;
 			Color alpha4 = P.GetAlpha(color25);
 			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
-
+			
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;
 			Color color58 = Color.Lerp(alpha4, Color.Black, 0.5f);
@@ -320,46 +321,46 @@ namespace MetroidMod.Content.Projectiles.missiles
 			float num274 = 0.95f + (P.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
 			color58 *= num274;
 			float scale13 = 0.6f + P.scale * 0.6f * num274;
-
-			float dist = Math.Max(radius, 1);
+			
+			float dist = Math.Max(radius,1);
 			Vector2 diff2 = Vector2.Normalize(P.Center - basePosition);
 			if (float.IsNaN(diff2.X) || float.IsNaN(diff2.Y))
 			{
 				diff2 = -Vector2.UnitY;
 			}
-
-			float spin2 = spin + (float)Math.PI / 2;
-
+			
+			float spin2 = spin + (float)Math.PI/2;
+			
 			int k = 1;
-			for (float i = 0f; i < dist; i += 1f + (30f * (i / dist)))
+			for(float i = 0f; i < dist; i += 1f + (30f*(i/dist)))
 			{
 				SpriteEffects se = SpriteEffects.None;
 				if (k == -1)
 				{
 					se = SpriteEffects.FlipHorizontally;
 				}
-
+				
 				Vector2 pos1 = basePosition + spin2.ToRotationVector2() * i;
 				Vector2 pos2 = basePosition + diff2 * i;
-
-				Vector2 fPos = Vector2.Lerp(pos1, pos2, i / dist) - Main.screenPosition;
-
-				float rot = ((float)Math.PI * 2f / dist) * i;
-				sb.Draw(tex2, fPos, null, alpha4, rot + P.rotation * k, origin8, MathHelper.Lerp(0.1f, P.scale, (i / dist)), se, 0f);
+				
+				Vector2 fPos = Vector2.Lerp(pos1,pos2,i/dist) - Main.screenPosition;
+				
+				float rot = ((float)Math.PI*2f / dist) * i;
+				sb.Draw(tex2, fPos, null, alpha4, rot + P.rotation*k, origin8, MathHelper.Lerp(0.1f,P.scale,(i/dist)), se, 0f);
 				k *= -1;
 			}
-
-			sb.Draw(tex2, basePosition - Main.screenPosition, null, alpha4, -P.rotation, origin8, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
-
-
+			
+			sb.Draw(tex2, basePosition-Main.screenPosition, null, alpha4, -P.rotation, origin8, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
+			
+			
 			sb.Draw(tex2, pos, null, color58, -P.rotation + 0.35f, origin8, scale13, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex2, pos, null, alpha4, -P.rotation, origin8, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex, pos, null, color57, -P.rotation * 0.7f, origin8, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex2, pos, null, alpha4 * 0.8f, P.rotation * 0.5f, origin8, P.scale * 0.9f, spriteEffects, 0f);
 			alpha4.A = 0;
-
+			
 			sb.Draw(tex, pos, null, alpha4, P.rotation, origin8, P.scale, spriteEffects, 0f);
-
+			
 			return false;
 		}
 	}

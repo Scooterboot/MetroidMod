@@ -25,12 +25,5 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ArcticPlating>();
 		}
-		public override void AddRecipes()
-		{
-			CreateRecipe(25)
-				.AddIngredient(ItemID.SnowBrick, 25)
-				.AddTile(TileID.Anvils)
-				.Register();
-		}
 	}
 }

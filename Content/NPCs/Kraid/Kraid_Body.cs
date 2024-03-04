@@ -1,11 +1,14 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
 using Terraria.ModLoader;
+using Terraria.GameContent.Bestiary;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Content.NPCs.Kraid
 {
@@ -57,7 +60,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				NPC.life = 0;
 				NPC.active = false;
-				if (!despawn)
+				if(!despawn)
 				{
 					NPC.HitEffect(0, 10.0);
 				}
@@ -65,15 +68,15 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 
 			state = 0;
-			if (Head.life < (int)(Head.lifeMax * 0.75f))
+			if(Head.life < (int)(Head.lifeMax*0.75f))
 			{
 				state = 1;
 			}
-			if (Head.life < (int)(Head.lifeMax * 0.5f))
+			if(Head.life < (int)(Head.lifeMax*0.5f))
 			{
 				state = 2;
 			}
-			if (Head.life < (int)(Head.lifeMax * 0.25f))
+			if(Head.life < (int)(Head.lifeMax*0.25f))
 			{
 				state = 3;
 			}
@@ -85,12 +88,12 @@ namespace MetroidMod.Content.NPCs.Kraid
 				NPC.timeLeft = 60;
 			}
 
-			NPC.Center = Head.Center + new Vector2(29 * Head.direction, 223);
+			NPC.Center = Head.Center + new Vector2(29*Head.direction,223);
 			NPC.velocity *= 0f;
-
-			if (++NPC.ai[1] >= 180 && Main.netMode != NetmodeID.MultiplayerClient)
+			
+			if(++NPC.ai[1] >= 180 && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int spike = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (126 * Head.direction), NPC.Center.Y + 59, 4f * Head.direction, 0f, ModContent.ProjectileType<Projectiles.Boss.KraidBellySpike>(), NPC.damage / 2, 4f);
+				int spike = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center.X+(126*Head.direction),NPC.Center.Y+59,4f*Head.direction,0f,ModContent.ProjectileType<Projectiles.Boss.KraidBellySpike>(),NPC.damage/2,4f);
 				Main.projectile[spike].ai[0] = Head.whoAmI;
 				Main.projectile[spike].ai[1] = Head.target;
 				Main.projectile[spike].spriteDirection = Head.direction;
@@ -98,42 +101,42 @@ namespace MetroidMod.Content.NPCs.Kraid
 				Main.projectile[spike].netUpdate = true;
 				NPC.ai[1] = 0;
 			}
-			if (++NPC.ai[2] >= 300 && Main.netMode != NetmodeID.MultiplayerClient)
+			if(++NPC.ai[2] >= 300 && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int spike = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (126 * Head.direction), NPC.Center.Y - 19, 4f * Head.direction, 0f, ModContent.ProjectileType<Projectiles.Boss.KraidBellySpike>(), NPC.damage / 2, 4f);
+				int spike = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center.X+(126*Head.direction),NPC.Center.Y-19,4f*Head.direction,0f,ModContent.ProjectileType<Projectiles.Boss.KraidBellySpike>(),NPC.damage/2,4f);
 				Main.projectile[spike].ai[0] = Head.whoAmI;
 				Main.projectile[spike].ai[1] = Head.target;
 				Main.projectile[spike].spriteDirection = Head.direction;
 				Main.projectile[spike].frame = state;
 
 				NPC.netUpdate = true;
-				NPC.ai[2] = Main.rand.Next(state * 40, 121);
+				NPC.ai[2] = Main.rand.Next(state*40,121);
 			}
-			if (++NPC.ai[3] >= 420 && Main.netMode != NetmodeID.MultiplayerClient)
+			if(++NPC.ai[3] >= 420 && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				int spike = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X + (102 * Head.direction), NPC.Center.Y - 87, 4f * Head.direction, 0f, ModContent.ProjectileType<Projectiles.Boss.KraidBellySpike>(), NPC.damage / 2, 4f);
+				int spike = Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X+(102*Head.direction),NPC.Center.Y-87,4f*Head.direction,0f,ModContent.ProjectileType<Projectiles.Boss.KraidBellySpike>(),NPC.damage/2,4f);
 				Main.projectile[spike].ai[0] = Head.whoAmI;
 				Main.projectile[spike].ai[1] = Head.target;
 				Main.projectile[spike].spriteDirection = Head.direction;
 				Main.projectile[spike].frame = state;
 
 				NPC.netUpdate = true;
-				NPC.ai[3] = Main.rand.Next(state * 80, 241);
+				NPC.ai[3] = Main.rand.Next(state*80,241);
 			}
 
-			for (int i = 0; i < Main.maxProjectiles; i++)
+			for(int i = 0; i < Main.maxProjectiles; i++)
 			{
-				if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+				if(Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
 				{
 					Projectile P = Main.projectile[i];
-					Rectangle projRect = new Rectangle((int)(P.position.X + P.velocity.X), (int)(P.position.Y + P.velocity.Y), P.width, P.height);
-					Rectangle npcRect1 = new Rectangle((int)NPC.position.X, (int)NPC.position.Y + 40, NPC.width, NPC.height - 40);
-					Rectangle npcRect2 = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width - 60, 40);
-					if (Head.direction == -1)
+					Rectangle projRect = new Rectangle((int)(P.position.X+P.velocity.X),(int)(P.position.Y+P.velocity.Y),P.width,P.height);
+					Rectangle npcRect1 = new Rectangle((int)NPC.position.X,(int)NPC.position.Y+40,NPC.width,NPC.height-40);
+					Rectangle npcRect2 = new Rectangle((int)NPC.position.X,(int)NPC.position.Y,NPC.width-60,40);
+					if(Head.direction == -1)
 					{
-						npcRect2.X = (int)NPC.position.X + 60;
+						npcRect2.X = (int)NPC.position.X+60;
 					}
-					if (projRect.Intersects(npcRect1) || projRect.Intersects(npcRect2))
+					if(projRect.Intersects(npcRect1) || projRect.Intersects(npcRect2))
 					{
 						if (Main.projectile[i].penetrate > 0)
 						{
@@ -161,7 +164,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 							Main.dust[dustID].noGravity = true;
 						}
 					}
-					SoundEngine.PlaySound(SoundID.NPCDeath1, NPC.position);
+					SoundEngine.PlaySound(SoundID.NPCDeath1,NPC.position);
 					/*for (int num70 = 0; num70 < 65; num70++)
 					{
 						int num71 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 5f);

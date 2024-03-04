@@ -25,18 +25,5 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.RedBrinstone>();
 		}
-		public override void AddRecipes()
-		{
-			CreateRecipe(25)
-				.AddIngredient(ItemID.RedBrick, 25)
-				.AddIngredient(ItemID.Ruby, 1)
-				.AddTile(TileID.Furnaces)
-				.Register();
-			CreateRecipe(25)
-				.AddIngredient(ItemID.RedStucco, 25)
-				.AddIngredient(ItemID.Ruby, 1)
-				.AddTile(TileID.Furnaces)
-				.Register();
-		}
 	}
 }

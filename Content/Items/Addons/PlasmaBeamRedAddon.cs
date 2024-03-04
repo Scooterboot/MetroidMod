@@ -1,6 +1,7 @@
-using MetroidMod.Common.GlobalItems;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Addons.Hunters;
 
 namespace MetroidMod.Content.Items.Addons
 {

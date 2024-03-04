@@ -1,4 +1,9 @@
-﻿using MetroidMod.Common.GlobalItems;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.GlobalNPCs;
 using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
@@ -47,7 +52,5 @@ namespace MetroidMod
 
 		public static MGlobalProjectile MetroidGlobal(this Projectile proj) => proj.GetGlobalProjectile<MGlobalProjectile>();
 		public static bool MetroidGlobal(this Projectile proj, out MGlobalProjectile mgp) => proj.TryGetGlobalProjectile(out mgp);
-
-		public static Recipe AddSuitAddon<T>(this Recipe recipe, int stack = 1) where T : ModSuitAddon => recipe.AddIngredient(SuitAddonLoader.GetAddon<T>().ItemType, stack);
 	}
 }

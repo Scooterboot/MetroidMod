@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Flying
 {
@@ -62,18 +64,18 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 		}
 		public override void AI()
 		{
-			if (NPC.ai[0] == 0) // Dormant/idle ai.
+			if(NPC.ai[0] == 0) // Dormant/idle ai.
 			{
 				NPC.TargetClosest(false);
 				NPC.velocity = Vector2.Zero;
 
-				if (Vector2.Distance(NPC.Center, Main.player[NPC.target].Center) <= 64)
+				if(Vector2.Distance(NPC.Center, Main.player[NPC.target].Center) <= 64)
 				{
 					NPC.velocity.Y = -8;
 					NPC.ai[0] = 1;
 				}
 			}
-			else if (NPC.ai[0] == 1) // Jump.
+			else if(NPC.ai[0] == 1) // Jump.
 			{
 				// Animation timer.
 				NPC.ai[1]++;
@@ -86,7 +88,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 					NPC.ai[1] = 0;
 				}
 			}
-			else if (NPC.ai[0] == 2) // Downfall
+			else if(NPC.ai[0] == 2) // Downfall
 			{
 				// Animation timer.
 				NPC.ai[1]++;

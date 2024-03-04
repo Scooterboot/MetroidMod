@@ -1,7 +1,6 @@
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.MissileAddons
 {
@@ -35,7 +34,6 @@ namespace MetroidMod.Content.Items.MissileAddons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.SeekerMissile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
-			mItem.missileChangeType = MissileChangeSlotID.Seeker;
 		}
 
 		public override void AddRecipes()

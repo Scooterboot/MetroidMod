@@ -1,12 +1,12 @@
-using System.IO;
-using MetroidMod.Common.Players;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
 using Terraria.ModLoader.IO;
+using System.IO;
 
 namespace MetroidMod.Content.Items.Armors
 {
@@ -20,7 +20,7 @@ namespace MetroidMod.Content.Items.Armors
 			get {
 				if (_suitAddons == null)
 				{
-					_suitAddons = new Item[SuitAddonSlotID.Suit_Primary + 1];
+					_suitAddons = new Item[SuitAddonSlotID.Misc_Attack + 1];
 					for (int i = 0; i < _suitAddons.Length; i++)
 					{
 						_suitAddons[i] = new Item();
@@ -58,25 +58,6 @@ namespace MetroidMod.Content.Items.Armors
 			{
 				mp.powerGrip = true;
 			}
-			#region Handle old data
-			if (SuitAddons.Length > SuitAddonSlotID.Suit_Primary + 1)
-			{
-				if (!SuitAddons[4].IsAir)
-				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[4], SuitAddons[4].stack); SuitAddons[4].TurnToAir(true); }
-				if (!SuitAddons[5].IsAir)
-				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[5], SuitAddons[5].stack); SuitAddons[5].TurnToAir(true); }
-				if (!SuitAddons[6].IsAir)
-				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[6], SuitAddons[6].stack); SuitAddons[6].TurnToAir(true); }
-				if (!SuitAddons[7].IsAir)
-				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[7], SuitAddons[7].stack); SuitAddons[7].TurnToAir(true); }
-				Item[] items = new Item[4];
-				for (int i = 0; i < items.Length; i++)
-				{
-					items[i] = SuitAddons[i];
-				}
-				SuitAddons = items;
-			}
-			#endregion
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -85,9 +66,8 @@ namespace MetroidMod.Content.Items.Armors
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "Allows the ability to Sense Move" + "\n" +
-							"Double tap a direction (when enabled)" + "\n" +
-							"Right click the Sense Move button to access Addon Menu";// + 
-																					 //SuitAddonLoader.GetSetBonusText(player);
+							"Double tap a direction (when enabled)";// + 
+							//SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.EnergyDefenseEfficiency += Common.Configs.MConfigItems.Instance.energyDefenseEfficiency;
 			mp.EnergyExpenseEfficiency += Common.Configs.MConfigItems.Instance.energyExpenseEfficiency;
@@ -104,11 +84,11 @@ namespace MetroidMod.Content.Items.Armors
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			mp.isPowerSuit = true;
 			mp.visorGlowColor = new Color(0, 248, 112);
-			if (P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1) || mp.SMoveEffect > 0) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
+			if(P.velocity.Y != 0f && ((P.controlRight && P.direction == 1) || (P.controlLeft && P.direction == -1) || mp.SMoveEffect > 0) && mp.shineDirection == 0 && !mp.shineActive && !mp.ballstate)
 			{
 				mp.jet = true;
 			}
-			else if (mp.shineDirection == 0 || mp.shineDirection == 5)
+			else if(mp.shineDirection == 0 || mp.shineDirection == 5)
 			{
 				mp.jet = false;
 			}
@@ -139,40 +119,8 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			try
 			{
-				if (tag.ContainsKey("SuitAddons4"))
-				{
-					LoadLegacyData(tag);
-				}
-				else
-				{
-					SuitAddons = new Item[SuitAddonSlotID.Suit_Primary + 1];
-					for (int i = 0; i < SuitAddons.Length; i++)
-					{
-						Item item = tag.Get<Item>("SuitAddons" + i);
-						SuitAddons[i] = item;
-					}
-				}
-			}
-			catch { }
-		}
-		/// <summary>
-		/// Loads (and readies) pre-rework save data. The pre-rework save data in question follows a format such that:<br/>
-		/// 0 = Reserve Tanks<br/>
-		/// 1 = Energy Tanks<br/>
-		/// 2 = Varia/Varia V2<br/>
-		/// 3 = Gravity/Dark/PED<br/>
-		/// 4 = Light/Terra Gravity/Phazon/Hazard Shield<br/>
-		/// 5 = Lunar<br/>
-		/// </summary>
-		/// <param name="tag">The TagCompound to load data from.</param>
-		public void LoadLegacyData(TagCompound tag)
-		{
-			try
-			{
-				SuitAddons = new Item[8];
-				// varia and gravity are fine as-is, they'll just go into "Barrier" and "Primary" respectively
-				// however we'll want to spit out IDs 4 through 7
-				for (int i = 0; i < 8; i++)
+				SuitAddons = new Item[SuitAddonSlotID.Misc_Attack + 1];
+				for (int i = 0; i < SuitAddons.Length; i++)
 				{
 					Item item = tag.Get<Item>("SuitAddons" + i);
 					SuitAddons[i] = item;
@@ -217,15 +165,12 @@ namespace MetroidMod.Content.Items.Armors
 	{
 		// Failsaves.
 		private Item[] _suitAddons;
-		/// <summary>
-		/// HEY! This is just here for pre-rework addon formats. These will only be spat out.
-		/// </summary>
 		public Item[] SuitAddons
 		{
 			get {
 				if (_suitAddons == null)
 				{
-					_suitAddons = new Item[3];
+					_suitAddons = new Item[SuitAddonSlotID.Boots_Speed - SuitAddonSlotID.Misc_Attack];
 					for (int i = 0; i < _suitAddons.Length; i++)
 					{
 						_suitAddons[i] = new Item();
@@ -265,17 +210,6 @@ namespace MetroidMod.Content.Items.Armors
 			{
 				player.noFallDmg = true;
 			}
-			#region Old data handling
-			if (SuitAddons != null && SuitAddons.Length > 0)
-			{
-				if (!SuitAddons[0].IsAir)
-				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[0], SuitAddons[0].stack); SuitAddons[0].TurnToAir(true); }
-				if (!SuitAddons[1].IsAir)
-				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[1], SuitAddons[1].stack); SuitAddons[1].TurnToAir(true); }
-				if (!SuitAddons[2].IsAir)
-				{ player.QuickSpawnItem(new EntitySource_OverfullInventory(player), SuitAddons[2], SuitAddons[2].stack); SuitAddons[2].TurnToAir(true); }
-			}
-			#endregion
 		}
 
 		public override void AddRecipes()
@@ -287,20 +221,61 @@ namespace MetroidMod.Content.Items.Armors
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
-		// no corresponding SaveData because we're attempting loading legacy data
+		public override void SaveData(TagCompound tag)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				// Failsave check.
+				if (SuitAddons[i] == null)
+				{
+					SuitAddons[i] = new Item();
+				}
+				tag.Add("SuitAddons" + i, ItemIO.Save(SuitAddons[i]));
+			}
+		}
 		public override void LoadData(TagCompound tag)
 		{
 			try
 			{
-				if (!tag.ContainsKey("SuitAddons0")) { return; }
-				// load pre-rework data since it's there
-				for (int i = 0; i < 3; i++)
+				SuitAddons = new Item[SuitAddonSlotID.Boots_Speed - SuitAddonSlotID.Misc_Attack];
+				for (int i = 0; i < SuitAddons.Length; i++)
 				{
 					Item item = tag.Get<Item>("SuitAddons" + i);
 					SuitAddons[i] = item;
 				}
 			}
 			catch { }
+		}
+		public override void NetSend(BinaryWriter writer)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				ItemIO.Send(SuitAddons[i], writer);
+			}
+		}
+		public override void NetReceive(BinaryReader reader)
+		{
+			for (int i = 0; i < SuitAddons.Length; ++i)
+			{
+				SuitAddons[i] = ItemIO.Receive(reader);
+			}
+		}
+
+		public override ModItem Clone(Item newEntity)
+		{
+			PowerSuitGreaves obj = (PowerSuitGreaves)base.Clone(newEntity);
+			obj.SuitAddons = SuitAddons;
+			return obj;
+		}
+
+		public override void OnResearched(bool fullyResearched)
+		{
+			foreach (Item item in SuitAddons)
+			{
+				if (item == null || item.IsAir) { continue; }
+				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
+				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
+			}
 		}
 	}
 	[AutoloadEquip(EquipType.Head)]

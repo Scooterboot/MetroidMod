@@ -1,9 +1,9 @@
-﻿using MetroidMod.Common.Players;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ID;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Common.GlobalNPCs
 {

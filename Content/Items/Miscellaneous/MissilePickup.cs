@@ -1,9 +1,11 @@
-using MetroidMod.Common.GlobalItems;
+using System;
 using Microsoft.Xna.Framework;
-using Terraria;
+using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.Miscellaneous
 {
@@ -28,9 +30,9 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		public override bool ItemSpace(Player player) => true;
 		public override bool OnPickup(Player player)
 		{
-			for (int i = 0; i < player.inventory.Length; i++)
+			for(int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].type == ModContent.ItemType<Weapons.MissileLauncher>())
+				if(player.inventory[i].type == ModContent.ItemType<Weapons.MissileLauncher>())
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					mi.statMissiles += Item.stack;

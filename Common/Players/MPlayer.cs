@@ -1,17 +1,28 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Capture;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.Audio;
+
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
-using MetroidMod.Content.Biomes;
 using MetroidMod.ID;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
+using MetroidMod.Content.Biomes;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetroidMod.Common.Players
 {
@@ -44,7 +55,6 @@ namespace MetroidMod.Common.Players
 
 		public bool phazonImmune = false;
 		public bool canUsePhazonBeam = false;
-		public bool canUseHyperBeam = false;
 		public int hazardShield = 0;
 		public int phazonRegen = 0;
 
@@ -54,9 +64,6 @@ namespace MetroidMod.Common.Players
 
 		public bool falling;
 		public int energyLowTimer = 0;
-
-		public int selectedItem = 0;
-		public int oldSelectedItem = 0;
 
 		public override void ResetEffects()
 		{
@@ -76,7 +83,6 @@ namespace MetroidMod.Common.Players
 
 			phazonImmune = false;
 			canUsePhazonBeam = false;
-			canUseHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 
@@ -87,21 +93,12 @@ namespace MetroidMod.Common.Players
 			switch (Player.name.ToLower())
 			{
 				case "ed the terrarian":
-				case "edd":
-				case "eddy":
-				case "lumpy":
-				case "dork":
-				case "double dee":
-				case "double d":
-				case "eduard":
-				case "edduard":
-				case "ed boy":
 				case "ed": // challenge name, tributary to a beta tester who broke my sanity for around 2 hours - DarkSamus49
 					Player.statLifeMax2 /= 5;
 					Player.statManaMax2 /= 4;
-					Player.velocity.X /= 1.5f;
+					Player.velocity.X /= 4f;
 					Player.velocity.Y += Player.controlJump | Player.velocity.Y <= 0 ? 0 : 16f;
-					Player.maxFallSpeed = 100f;
+					Player.maxFallSpeed = 10000f;
 					break;
 				default:
 					break;
@@ -190,10 +187,12 @@ namespace MetroidMod.Common.Players
 
 			if (hazardShield > 0)
 			{
+				List<int> debuffList = new() { 20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197 };
+
 				for (int k = 0; k < P.buffType.Length; k++)
 				{
 					int buff = P.buffType[k];
-					if (MetroidMod.hazardShieldDebuffList.Contains(buff))
+					if (debuffList.Contains(buff))
 					{
 						P.buffTime[k] = Math.Max(P.buffTime[k] - hazardShield, 0);
 					}
@@ -370,7 +369,7 @@ namespace MetroidMod.Common.Players
 			}
 
 			GrappleBeamMovement();
-
+			
 			if (Energy <= 30 && ShouldShowArmorUI == true)
 			{
 				energyLowTimer--;
@@ -414,19 +413,15 @@ namespace MetroidMod.Common.Players
 				dashTime++;
 			}
 		}
-		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
-		{
-			ModifyHurt_SuitEnergy(ref modifiers);
-		}
-		public override void PostHurt(Player.HurtInfo info)
-		{
-			PostHurt_SuitEnergy(info);
-		}
-		public override bool ConsumableDodge(Player.HurtInfo info)
+		public override bool ConsumableDodge(Player.HurtInfo info)//tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage
 		{
 			if (SMoveEffect > 0)
 			{
 				return true;
+			}
+			if (info.Damage > 0)
+			{
+				return PreHurt_SuitEnergy(info) & false;
 			}
 			return false;
 		}
@@ -454,8 +449,7 @@ namespace MetroidMod.Common.Players
 
 			int num20 = 0;
 			bool flag2 = false;
-			bool slideDash = !mp.spaceJumped && mp.spaceJumpBoots; //Metroid Prime scan jump pseudo mechanic
-			if (mp.senseMoveCooldown <= 0 && (P.velocity.Y == 0f || mp.spaceJump || slideDash))
+			if (mp.senseMoveCooldown <= 0 && (P.velocity.Y == 0f || mp.spaceJump))
 			{
 				if (P.controlRight && P.releaseRight && !mp.shineActive)//MetroidMod.SenseMoveKey.Current)
 				{
@@ -464,7 +458,6 @@ namespace MetroidMod.Common.Players
 						num20 = 1;
 						flag2 = true;
 						mp.dashTime = 0;
-						slideDash = false;
 					}
 					else
 					{
@@ -478,7 +471,6 @@ namespace MetroidMod.Common.Players
 						num20 = -1;
 						flag2 = true;
 						mp.dashTime = 0;
-						slideDash = false;
 					}
 					else
 					{
@@ -675,7 +667,6 @@ namespace MetroidMod.Common.Players
 
 		public bool psuedoScrewActive = false;
 		public bool beamChangeActive = false;
-		public bool missileChangeActive = false;
 		public override void SaveData(TagCompound tag)
 		{
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;

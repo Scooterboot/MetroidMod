@@ -1,4 +1,16 @@
-﻿namespace MetroidMod
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+using MetroidMod.Common.Players;
+using MetroidMod.ID;
+
+namespace MetroidMod
 {
 	/*
 	public abstract class ModUtilityBeam : ModBeam

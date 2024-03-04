@@ -25,16 +25,5 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.TanglevineTile>();
 		}
-		public override void AddRecipes()
-		{
-			CreateRecipe(25)
-				.AddIngredient(ItemID.Cobweb, 25)
-				//.AddIngredient<XParasite>()
-				.Register();
-			CreateRecipe(1)
-				.AddIngredient(ItemID.Cobweb, 1)
-				//.AddIngredient<XParasite>()
-				.Register();
-		}
 	}
 }

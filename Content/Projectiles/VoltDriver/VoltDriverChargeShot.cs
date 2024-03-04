@@ -1,6 +1,10 @@
+using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 using Terraria.Audio;
+using MetroidMod.Content.Items.Weapons;
 
 namespace MetroidMod.Content.Projectiles.VoltDriver
 {
@@ -19,25 +23,26 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Projectile.scale = 1f;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
-			Projectile.penetrate = 1;
 		}
 
 		public override void AI()
 		{
-			if (shot.Contains("wave") || shot.Contains("nebula"))
+			
+			string S  = PowerBeam.SetCondition();
+			int shootSpeed = 2;
+			if (S.Contains("wave") || S.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 			}
-			int shootSpeed = 2;
 			Color color = MetroidMod.powColor;
-			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-			if (Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
+            if (Projectile.numUpdates == 0)
 			{
-				Projectile.rotation += 0.5f * Projectile.direction;
+				Projectile.rotation += 0.5f*Projectile.direction;
 				Projectile.frame++;
 			}
-			if (Projectile.frame > 3)
+			if(Projectile.frame > 3)
 			{
 				Projectile.frame = 0;
 			}
@@ -48,15 +53,30 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			Main.dust[dust].noGravity = true;
 		}
 
-		public override void OnKill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
+			//Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+			//Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
 			Projectile.width += 32;
 			Projectile.height += 32;
 			Projectile.scale = 3f;
-			mProjectile.Diffuse(Projectile, 269);
+			//Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			//Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+			//mProjectile.Diffuse(Projectile, 269);
+			Projectile.Damage();
+			foreach (NPC target in Main.npc)
+			{
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+				{
+					Projectile.Damage();
+					Projectile.usesLocalNPCImmunity = true;
+					Projectile.localNPCHitCooldown = 1;
+				}
+			}
+			mProjectile.DustyDeath(Projectile, 269);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);
 		}
-
+		
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
@@ -64,11 +84,8 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if(target.active && !target.buffImmune[31])
-			{
-				SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
-				target.AddBuff(31, 180);
-			}
+			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
+			target.AddBuff(31, 180);
 		}
 	}
 }

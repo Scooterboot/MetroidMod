@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Flying
 {
@@ -52,7 +54,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 				NPC.TargetClosest();
 
 			Player target = Main.player[NPC.target];
-
+			
 			float tempSpeed = speed * (NPC.ai[1] > 0 ? 2.5F : 1);
 			float tempAcceleration = acceleration * (NPC.ai[1] > 0 ? 2 : 1);
 
@@ -95,7 +97,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 				NPC.velocity.Y = NPC.oldVelocity.Y * -.7F;
 			}
 
-			if (NPC.ai[2] <= 0 && Vector2.Distance(target.Center, NPC.Center) <= 200)
+			if(NPC.ai[2] <= 0 && Vector2.Distance(target.Center, NPC.Center) <= 200)
 			{
 				NPC.ai[1] = 120;
 				NPC.ai[2] = 300;

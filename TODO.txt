@@ -4,6 +4,7 @@
  -	Get new textures for:
 	 -	Stardust Hazard Shield Suit
 	 -	MPH arm cannons
+ -	UI Fixes (specifically custom textures)
  -	Figure out and implement screen shaders for:
 	 -	X-Ray Visor (implement in Metroid Prime update, make upgrade in Metroid Prime 3: Corruption update)
 	 -	Thermal Visor (implement in Metroid Prime update)
@@ -13,11 +14,7 @@
  -	Fix Kraid multiplayer loot bag
  -	Fix Nightmare Core-X not spawning in multiplayer
  -	Make Scan Visor lock onto enemies
- -	Find a better way to alert players to the new location of the suit ui, because apparently telling them through the suit's set bonus tooltip isn't good enough.
  -	Sprites for things relating to the Chozo Ruins 'biome' (for use in the Bestiary)
  -	Make a new Mod Menu that isn't explicitly based on NEStroid to fit the new music
 	 -	For reference purposes, the new music is stated to be vaguely based on Super Metroid
- -	Balance the new addon system (somehow)
- -	Figure out how to make Hazard Shield shoulderpads draw on primary suits
  -	Make Space Jump Boots conform to the new jump loader
-

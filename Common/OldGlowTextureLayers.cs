@@ -1,9 +1,13 @@
-﻿using MetroidMod.Common.Players;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Common
 {
@@ -145,13 +149,7 @@ namespace MetroidMod.Common
 			if (item != null && item.ModItem != null)
 			{
 				string name = item.ModItem.Texture + "_Arms_Glow";
-				string name2 = item.ModItem.Texture + "_Shoulders_Glow";
 				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidMod"))
-				{
-					Texture2D tex = asset.Value;
-					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);
-				}
-				if (ModContent.RequestIfExists(name2, out asset) && name.Contains("MetroidMod"))
 				{
 					Texture2D tex = asset.Value;
 					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);

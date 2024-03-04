@@ -1,19 +1,24 @@
 ﻿using System;
-using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using ReLogic.Content;
+
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.UI.Elements;
-using Terraria.ModLoader;
+using Terraria.Graphics.Effects;
 using Terraria.UI;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.GameContent.UI.Elements;
+
+using MetroidMod.Common.Players;
 
 namespace MetroidMod.Common.UI
 {
 	public class VisorSelectUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowVisorUI && mp.ShouldShowArmorUI;
+		public static bool Visible => Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowVisorUI;
 
 		private VisorSelectPanel visorSelectPanel;
 		public override void OnInitialize()

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MetroidMod.Content.Items.Tools;
+﻿using MetroidMod.Content.Items.Tools;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;

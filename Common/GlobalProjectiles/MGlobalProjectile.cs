@@ -1,8 +1,10 @@
-﻿using MetroidMod.Common.Systems;
-using MetroidMod.Content.Projectiles.Paralyzer;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.ModLoader;
+
+using MetroidMod.Common.Systems;
+using MetroidMod.Content.Projectiles.Paralyzer;
 
 namespace MetroidMod.Common.GlobalProjectiles
 {
@@ -89,7 +91,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 				}
 			}
 		}
-		public override void OnKill(Projectile projectile, int timeLeft)
+		public override void Kill(Projectile projectile, int timeLeft)
 		{
 			int tilex = (int)(projectile.position.X / 16) - 1;
 			int tiley = (int)(projectile.position.Y / 16) - 1;

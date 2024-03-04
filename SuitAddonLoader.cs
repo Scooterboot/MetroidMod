@@ -1,13 +1,23 @@
-﻿using System.Collections.Generic;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Armors;
-using MetroidMod.Default;
-using MetroidMod.ID;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 //using Terraria.GameContent.Liquid;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Default;
+using MetroidMod.ID;
+
+using MetroidMod.Common.Players;
 
 namespace MetroidMod
 {
@@ -53,9 +63,9 @@ namespace MetroidMod
 
 		public static bool IsASuitTile(Tile tile)
 		{
-			foreach (ModSuitAddon addon in addons)
+			foreach(ModSuitAddon addon in addons)
 			{
-				if (tile.TileType == addon.TileType) { return true; }
+				if(tile.TileType == addon.TileType) { return true; }
 			}
 			return false;
 		}
@@ -77,8 +87,15 @@ namespace MetroidMod
 			{
 				SuitAddonSlotID.Tanks_Energy => "Energy Tank",
 				SuitAddonSlotID.Tanks_Reserve => "Reserve Tank",
-				SuitAddonSlotID.Suit_Barrier => "Barrier",
-				SuitAddonSlotID.Suit_Primary => "Primary",
+				SuitAddonSlotID.Suit_Varia => "Varia",
+				SuitAddonSlotID.Suit_Utility => "Utility",
+				SuitAddonSlotID.Suit_Augment => "Augmentation",
+				SuitAddonSlotID.Suit_LunarAugment => "Secondary Augmentation",
+				SuitAddonSlotID.Misc_Grip => "Hand",
+				SuitAddonSlotID.Misc_Attack => "Attack",
+				SuitAddonSlotID.Boots_JumpHeight => "Boots",
+				SuitAddonSlotID.Boots_Jump => "Jump",
+				SuitAddonSlotID.Boots_Speed => "Speed Augmentation",
 				SuitAddonSlotID.Visor_Scan => "Scan Visor",
 				SuitAddonSlotID.Visor_Utility => "Utility Visor",
 				SuitAddonSlotID.Visor_AltVision => "Alt Visor",
@@ -96,6 +113,10 @@ namespace MetroidMod
 				items[index++] = item;
 			}
 			foreach (Item item in (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons)
+			{
+				items[index++] = item;
+			}
+			foreach (Item item in (player.armor[2].ModItem as PowerSuitGreaves).SuitAddons)
 			{
 				items[index++] = item;
 			}
@@ -125,6 +146,10 @@ namespace MetroidMod
 			{
 				items[index++] = item;
 			}
+			foreach (Item item in (player.armor[2].ModItem as PowerSuitGreaves).SuitAddons)
+			{
+				items[index++] = item;
+			}
 			ModSuitAddon[] suitAddons = new ModSuitAddon[items.Length];
 			for (int i = 0; i < items.Length; i++)
 			{
@@ -142,7 +167,7 @@ namespace MetroidMod
 		public static void OnUpdateVanitySet(Player player)
 		{
 			Item[] items = (GetBreastplate(player, true).ModItem as PowerSuitBreastplate).SuitAddons;
-			for (int i = SuitAddonSlotID.Suit_Barrier; i <= SuitAddonSlotID.Suit_Primary; i++)
+			for (int i = SuitAddonSlotID.Suit_Varia; i <= SuitAddonSlotID.Suit_LunarAugment; i++)
 			{
 				if (items[i] == null || !TryGetAddon(items[i], out ModSuitAddon addon)) { continue; }
 				addon.OnUpdateVanitySet(player);
