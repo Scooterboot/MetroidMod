@@ -400,7 +400,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge) * (O.statLife / O.statLifeMax2));
+			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge));// * (O.statLife / O.statLifeMax2));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
 			float ranges = maxDamage - minDamage;
