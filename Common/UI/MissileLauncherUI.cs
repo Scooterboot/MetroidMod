@@ -1,29 +1,29 @@
 ﻿using System;
+using MetroidMod.Common.Configs;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.MissileAddons;
+using MetroidMod.Content.Items.MissileAddons.BeamCombos;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using ReLogic.Content;
-
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.UI;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Elements;
-
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Items;
-using MetroidMod.Content.Items.Weapons;
+using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
 	public class MissileLauncherUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<MissileLauncher>();
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>();
 
 		MissileLauncherPanel missileLauncherPanel;
+		private MissileChangeButton mcButton;
 
 		public override void OnInitialize()
 		{
@@ -31,6 +31,9 @@ namespace MetroidMod.Common.UI
 			missileLauncherPanel.Initialize();
 
 			Append(missileLauncherPanel);
+			mcButton = new MissileChangeButton();
+			mcButton.Initialize();
+			Append(mcButton);
 		}
 	}
 
@@ -60,7 +63,6 @@ namespace MetroidMod.Common.UI
 			this.Top.Pixels = 260;
 			this.Width.Pixels = panelTexture.Width;
 			this.Height.Pixels = panelTexture.Height;
-			enabled = MetroidMod.DragableMissileLauncherUI;
 
 			this.Append(new MissileLauncherFrame());
 			this.Append(new MissileLauncherLines());
@@ -93,8 +95,8 @@ namespace MetroidMod.Common.UI
 
 		public override void Update(GameTime gameTime)
 		{
-			enabled = MetroidMod.DragableMissileLauncherUI;
-			if (!enabled)
+			enabled = MConfigClient.Instance.MissileLauncher.enabled;
+			if (!enabled && MConfigClient.Instance.MissileLauncher.auto)
 			{
 				this.Left.Pixels = 160;
 				this.Top.Pixels = 260;
@@ -119,6 +121,7 @@ namespace MetroidMod.Common.UI
 
 		public Condition condition;
 
+		public int changeSlotType;
 		public int missileSlotType;
 
 		public Rectangle DrawRectangle => new Rectangle((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
@@ -141,8 +144,7 @@ namespace MetroidMod.Common.UI
 
 		public void SetCondition()
 		{
-			this.condition = delegate (Item addonItem)
-			{
+			this.condition = delegate (Item addonItem) {
 				//Mod mod = MetroidMod.Instance;
 				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == mod)
 				{
@@ -156,14 +158,68 @@ namespace MetroidMod.Common.UI
 		// Clicking functionality.
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
-			// No failsafe. Should maybe be implemented?
-			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
+			// No failsafe. Should maybe be implemented? also ugly --Dr
+			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
+
+			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 			if (missileLauncherTarget == null || missileLauncherTarget.MissileMods == null) { return; }
 
 			if (missileLauncherTarget.MissileMods[missileSlotType] != null && !missileLauncherTarget.MissileMods[missileSlotType].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<HomingMissileAddon>())
+					{
+						missileLauncherTarget.MissileChange[0].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SpazerComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[1].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SeekerMissileAddon>())
+					{
+						missileLauncherTarget.MissileChange[2].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<WavebusterAddon>())
+					{
+						missileLauncherTarget.MissileChange[3].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<IceSpreaderAddon>())
+					{
+						missileLauncherTarget.MissileChange[4].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<FlamethrowerAddon>())
+					{
+						missileLauncherTarget.MissileChange[5].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<PlasmaMachinegunAddon>())
+					{
+						missileLauncherTarget.MissileChange[6].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<DiffusionMissileAddon>())
+					{
+						missileLauncherTarget.MissileChange[7].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NovaComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[8].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<VortexComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[9].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<StardustComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[10].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NebulaComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[11].TurnToAir();
+					}
+					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SolarComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[12].TurnToAir();
+					}
 					SoundEngine.PlaySound(SoundID.Grab);
 					Main.mouseItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
 
@@ -177,7 +233,7 @@ namespace MetroidMod.Common.UI
 					{
 						int stack = Main.mouseItem.stack + missileLauncherTarget.MissileMods[missileSlotType].stack;
 
-						if(missileLauncherTarget.MissileMods[missileSlotType].maxStack >= stack)
+						if (missileLauncherTarget.MissileMods[missileSlotType].maxStack >= stack)
 						{
 							missileLauncherTarget.MissileMods[missileSlotType].stack = stack;
 							Main.mouseItem.TurnToAir();
@@ -203,6 +259,58 @@ namespace MetroidMod.Common.UI
 			{
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
+					if (Main.mouseItem.type == ModContent.ItemType<HomingMissileAddon>())
+					{
+						missileLauncherTarget.MissileChange[0] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<SpazerComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[1] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<SeekerMissileAddon>())
+					{
+						missileLauncherTarget.MissileChange[2] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<WavebusterAddon>())
+					{
+						missileLauncherTarget.MissileChange[3] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<IceSpreaderAddon>())
+					{
+						missileLauncherTarget.MissileChange[4] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<FlamethrowerAddon>())
+					{
+						missileLauncherTarget.MissileChange[5] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<PlasmaMachinegunAddon>())
+					{
+						missileLauncherTarget.MissileChange[6] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<DiffusionMissileAddon>())
+					{
+						missileLauncherTarget.MissileChange[7] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<NovaComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[8] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<VortexComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[9] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<StardustComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[10] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<NebulaComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[11] = Main.mouseItem.Clone();
+					}
+					if (Main.mouseItem.type == ModContent.ItemType<SolarComboAddon>())
+					{
+						missileLauncherTarget.MissileChange[12] = Main.mouseItem.Clone();
+					}
 					SoundEngine.PlaySound(SoundID.Grab);
 					missileLauncherTarget.MissileMods[missileSlotType] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
@@ -213,7 +321,7 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
-			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
+			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 
 			spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
 
@@ -256,7 +364,7 @@ namespace MetroidMod.Common.UI
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if(missileLauncherTarget.MissileMods[missileSlotType].stack > 1)
+			if (missileLauncherTarget.MissileMods[missileSlotType].stack > 1)
 			{
 				Utils.DrawBorderStringFourWay(
 					spriteBatch,
@@ -325,6 +433,99 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(missileLauncherLines, drawRectangle, Color.White);
+		}
+	}
+	public class MissileChangeButton : DragableUIPanel
+	{
+		private Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
+		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
+
+		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+
+		public override void OnInitialize()
+		{
+			Left.Pixels = 112;
+			Top.Pixels = 374; //274
+
+			buttonTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOff", AssetRequestMode.ImmediateLoad).Value;
+			buttonTex_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceOn", AssetRequestMode.ImmediateLoad).Value;
+			buttonTexEnabled_Hover = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamInterfaceHover", AssetRequestMode.ImmediateLoad).Value;
+
+			Width.Pixels = 44; //buttonTex.Width
+			Height.Pixels = 44;
+			OnLeftClick += BCButtonClick;
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			if (IsMouseHovering)
+			{
+				Main.LocalPlayer.mouseInterface = true;
+			}
+
+			enabled = MConfigClient.Instance.MissileLauncher.enabled;
+			if (!enabled)
+			{
+				Left.Pixels = 112; //112
+				Top.Pixels = 374;
+				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				{
+					Top.Pixels += 170;
+				}
+			}
+
+			base.Update(gameTime);
+		}
+
+		private bool clicked = false;
+		private void BCButtonClick(UIMouseEvent evt, UIElement e)
+		{
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+
+			mp.missileChangeActive = !mp.missileChangeActive;
+			//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+			clicked = true;
+			if (mp.missileChangeActive)
+			{
+				SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
+			}
+			if (!mp.missileChangeActive)
+			{
+				SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+			}
+		}
+
+		protected override void DrawSelf(SpriteBatch sb)
+		{
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+
+			Texture2D tex = buttonTex, texH = buttonTex_Hover, texC = buttonTex_Click;
+			if (mp.missileChangeActive)
+			{
+				tex = buttonTexEnabled;
+				texH = buttonTexEnabled_Hover;
+				texC = buttonTexEnabled_Click;
+			}
+
+			if (IsMouseHovering)
+			{
+				tex = texH;
+				if (clicked)
+				{
+					tex = texC;
+					clicked = false;
+				}
+
+				string psText = "Missile Interface: Disabled";
+				if (mp.missileChangeActive)
+				{
+					psText = "Missile Interface: Enabled";
+				}
+				Main.hoverItemName = psText;
+			}
+
+			sb.Draw(tex, DrawRectangle, Color.White);
 		}
 	}
 }

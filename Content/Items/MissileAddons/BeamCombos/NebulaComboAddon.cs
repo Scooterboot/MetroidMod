@@ -1,6 +1,7 @@
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 {
@@ -30,12 +31,13 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType< Content.Tiles.ItemTile.Missile.NebulaCombo>();
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.NebulaCombo>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
 			mItem.addonChargeDmg = 1f;
 			mItem.addonMissileCost = 10;
 			mItem.addonMissileDrain = 5;
+			mItem.missileChangeType = MissileChangeSlotID.NebulaCombo;
 		}
 
 		public override void AddRecipes()

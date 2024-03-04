@@ -1,9 +1,6 @@
 ﻿using System;
-using MetroidMod.Content.Buffs;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Paralyzer
 {
@@ -38,7 +35,7 @@ namespace MetroidMod.Content.Projectiles.Paralyzer
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}

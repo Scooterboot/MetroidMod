@@ -1,7 +1,8 @@
-﻿using Terraria;
-using Terraria.ID;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
 using MetroidMod.ID;
+using Terraria;
+using Terraria.ID;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -21,7 +22,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid);
 
 		public override double GenerationChance(int x, int y) => 4;
 
@@ -40,7 +41,7 @@ namespace MetroidMod.Content.SuitAddons
 				"37.5% increased energy barrier resilience\n" + // Provisional name
 				"Immunity to fire blocks" + "\n" +
 				"Immunity to chill and freeze effects"); */
-			AddonSlot = SuitAddonSlotID.Suit_Varia;
+			AddonSlot = SuitAddonSlotID.Suit_Barrier;
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
@@ -74,7 +75,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<VariaSuitAddon>().ItemType, 1)
+				.AddSuitAddon<VariaSuitAddon>(1)
 				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
 				.AddIngredient<Items.Miscellaneous.KraidTissue>(30)
 				.AddTile(TileID.MythrilAnvil)

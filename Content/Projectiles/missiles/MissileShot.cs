@@ -1,9 +1,7 @@
 using System;
 using System.IO;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles.missiles
@@ -28,15 +26,15 @@ namespace MetroidMod.Content.Projectiles.missiles
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			
+
 			int dustType = 6;
-			if(Projectile.Name.Contains("Ice"))
+			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 			}
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
-			
-			if(mProjectile.seeking && mProjectile.seekTarget > -1)
+
+			if (mProjectile.seeking && mProjectile.seekTarget > -1)
 			{
 				float num236 = Projectile.position.X;
 				float num237 = Projectile.position.Y;
@@ -46,7 +44,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				{
 					Projectile.ai[0] = 5f;
 					int num239 = mProjectile.seekTarget;
-					if(Main.npc[num239].active)
+					if (Main.npc[num239].active)
 					{
 						num236 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
 						num237 = Main.npc[num239].position.Y + (float)(Main.npc[num239].height / 2);
@@ -78,7 +76,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				mProjectile.HomingBehavior(Projectile);
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
@@ -88,14 +86,14 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
 			//Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
-			SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplode,Projectile.position);
+			SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplode, Projectile.position);
 
 			if (mProjectile.homing)
 			{
 				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
 			}
 			int dustType = 6;
-			if(Projectile.Name.Contains("Ice"))
+			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 			}

@@ -1,10 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-using MetroidMod.Content.Items.Weapons;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.phazonbeam
 {
@@ -36,16 +34,16 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			
-			string S  = PowerBeam.SetCondition();
+
+
 			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + 1.57f;
-			
-			bool isWave = (S.Contains("wave") || S.Contains("nebula")),
-			isSpazer = S.Contains("spazer") || S.Contains("wide") || S.Contains("vortex"),
-			isPlasma = S.Contains("plasmagreen") || S.Contains("nova") || S.Contains("solar"),
-			isNebula = S.Contains("nebula");
-			
-			if(!initialize)
+
+			bool isWave = (shot.Contains("wave") || shot.Contains("nebula")),
+			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
+			isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"),
+			isNebula = shot.Contains("nebula");
+
+			if (!initialize)
 			{
 				vel = Vector2.Normalize(P.velocity);
 				if (float.IsNaN(vel.X) || float.IsNaN(vel.Y))
@@ -53,44 +51,44 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 					vel = -Vector2.UnitY;
 				}
 				P.velocity = vel * speed;
-				
-				for(int i = 0; i < P.oldRot.Length; i++)
+
+				for (int i = 0; i < P.oldRot.Length; i++)
 				{
 					P.oldRot[i] = P.rotation;
 				}
-				
-				if(isSpazer && !isWave)
+
+				if (isSpazer && !isWave)
 				{
-					P.velocity.X += (float)Main.rand.Next(-50,51) * 0.05f;
-					P.velocity.Y += (float)Main.rand.Next(-50,51) * 0.05f;
+					P.velocity.X += (float)Main.rand.Next(-50, 51) * 0.05f;
+					P.velocity.Y += (float)Main.rand.Next(-50, 51) * 0.05f;
 				}
-				
+
 				initialize = true;
 			}
-			Lighting.AddLight(P.Center, 0f/255f,148f/255f,255f/255f);
-			
+			Lighting.AddLight(P.Center, 0f / 255f, 148f / 255f, 255f / 255f);
+
 			//if(P.numUpdates == 0)
 			//{
-				int dust = Dust.NewDust(P.position, P.width, P.height, DustID.BlueCrystalShard, 0, 0, 100, default(Color), P.scale);
-				Main.dust[dust].noGravity = true;
+			int dust = Dust.NewDust(P.position, P.width, P.height, DustID.BlueCrystalShard, 0, 0, 100, default(Color), P.scale);
+			Main.dust[dust].noGravity = true;
 			//}
-			
+
 			float mult = 0.005f;
-			if(isWave)
+			if (isWave)
 			{
 				Projectile.tileCollide = false;
 				mult = 0.015f;
-				if(isSpazer)
+				if (isSpazer)
 				{
 					mult = 0.025f;
 				}
 			}
-			P.velocity.X += (float)Main.rand.Next(-50,51) * mult;
-			P.velocity.Y += (float)Main.rand.Next(-50,51) * mult;
-			
-			if(isNebula)
+			P.velocity.X += (float)Main.rand.Next(-50, 51) * mult;
+			P.velocity.Y += (float)Main.rand.Next(-50, 51) * mult;
+
+			if (isNebula)
 			{
-				mProjectile.HomingBehavior(P,speed);
+				mProjectile.HomingBehavior(P, speed);
 			}
 			if (isPlasma)
 			{
@@ -99,44 +97,44 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 				Projectile.localNPCHitCooldown = 4;
 			}
 		}
-		
+
 		public override void PostAI()
 		{
 			Projectile P = Projectile;
 			P.localAI[0] += 1f;
-			for (int i = P.oldPos.Length-1; i > 0; i--)
+			for (int i = P.oldPos.Length - 1; i > 0; i--)
 			{
 				P.oldPos[i] = P.oldPos[i - 1];
 			}
-			P.oldPos[0] = P.position+P.velocity;
-			
+			P.oldPos[0] = P.position + P.velocity;
+
 			float width = 24f * P.scale / 2f;
-			if(Vector2.Distance(P.oldPos[0],P.oldPos[1]) > width && P.localAI[0] > P.extraUpdates*3)
+			if (Vector2.Distance(P.oldPos[0], P.oldPos[1]) > width && P.localAI[0] > P.extraUpdates * 3)
 			{
-				for(int i = 1; i < P.oldPos.Length; i++)
+				for (int i = 1; i < P.oldPos.Length; i++)
 				{
-					Vector2 pos = P.oldPos[i-1] - P.oldPos[i];
+					Vector2 pos = P.oldPos[i - 1] - P.oldPos[i];
 					float len = pos.Length();
-					
+
 					len = (len - (float)width) / len;
 					pos.X *= len;
 					pos.Y *= len;
 					P.oldPos[i] += pos;
 				}
 			}
-			
-			for (int i = P.oldRot.Length-1; i > 0; i--)
+
+			for (int i = P.oldRot.Length - 1; i > 0; i--)
 			{
 				P.oldRot[i] = P.oldRot[i - 1];
 			}
 			P.oldRot[0] = P.rotation;
 		}
-		
+
 		/*public override void Kill(int timeLeft)
 		{
 			mProjectile.DustyDeath(projectile, 68);
 		}*/
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);

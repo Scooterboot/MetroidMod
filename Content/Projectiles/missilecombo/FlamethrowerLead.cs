@@ -1,6 +1,4 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Audio;
@@ -36,9 +34,9 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile P = Projectile;
 			Player O = Main.player[P.owner];
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
-			
+
 			Lead = Main.projectile[(int)P.ai[0]];
-			if(!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>())
+			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>())
 			{
 				P.Kill();
 				return;
@@ -51,10 +49,10 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 					diff.Normalize();
 					P.velocity = diff * 8f;
 					P.netUpdate = true;
-					
-					if(soundDelay <= 0)
+
+					if (soundDelay <= 0)
 					{
-						if(!soundPlayed)
+						if (!soundPlayed)
 						{
 							SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.FlamethrowerStart, O.position), out ActiveSound result);
 							soundInstance = result.Sound;
@@ -63,7 +61,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 						}
 						else
 						{
-							if(soundInstance != null)
+							if (soundInstance != null)
 							{
 								soundInstance.Stop(true);
 							}
@@ -90,9 +88,9 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				}*/
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
-			if(soundInstance != null)
+			if (soundInstance != null)
 			{
 				soundInstance.Stop(true);
 			}

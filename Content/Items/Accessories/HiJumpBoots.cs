@@ -1,18 +1,18 @@
 using Terraria;
-using Terraria.GameContent.Creative;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	// legacy name because old suit addon system
+	[LegacyName("HiJumpBootsAddon")]
 	public class HiJumpBoots : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Hi-Jump Boots");
-			// Tooltip.SetDefault("[c/ff0000:Unobtainable.] Please use the Suit Addon system.");
-			/*"Increases jump height\n" + 
-			"Stacks with other jump height accessories");*/
+			//DisplayName.SetDefault("Hi-Jump Boots");
+			//Tooltip.SetDefault("Increases jump height\n" + 
+			//"Stacks with other jump height accessories");
 
 			Item.ResearchUnlockCount = 1;
 		}
@@ -30,10 +30,9 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.HiJumpBootsTile>();
+			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.HiJumpBootsTile>();
 		}
 
-		/*
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -43,14 +42,6 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient(ItemID.Emerald, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
-		*/
-		public override bool CanRightClick() => true;
-		public override void RightClick(Player player)
-		{
-			var entitySource = player.GetSource_OpenItem(Type);
-
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.HiJumpBoots>().ItemType);
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

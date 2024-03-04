@@ -1,14 +1,11 @@
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using Terraria.ID;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Nightmare
 {
@@ -83,51 +80,51 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 			NPC.position.X += NPC.width / 2f;
 			NPC.position.Y += NPC.height / 2f;
-			NPC.scale = Math.Min(NPC.scale + 0.015f,1f);
+			NPC.scale = Math.Min(NPC.scale + 0.015f, 1f);
 			NPC.width = (int)(50 * NPC.scale);
 			NPC.height = (int)(50 * NPC.scale);
 			NPC.position.X -= NPC.width / 2f;
 			NPC.position.Y -= NPC.height / 2f;
-			
-			
-			rotation += 0.25f*NPC.direction;
+
+
+			rotation += 0.25f * NPC.direction;
 			NPC.rotation = rotation;
 			NPC.frame.Y++;
-			if(NPC.frame.Y > 3)
+			if (NPC.frame.Y > 3)
 			{
 				NPC.frame.Y = 0;
 			}
-			
+
 			Player player = Main.player[NPC.target];
 			NPC Head = Main.npc[(int)NPC.ai[0]];
-			
-			float targetRot = (float)Math.Atan2(player.Center.Y-NPC.Center.Y,player.Center.X-NPC.Center.X);
-			if(NPC.ai[2] == 0f)
+
+			float targetRot = (float)Math.Atan2(player.Center.Y - NPC.Center.Y, player.Center.X - NPC.Center.X);
+			if (NPC.ai[2] == 0f)
 			{
 				NPC.velocity = targetRot.ToRotationVector2();
 				NPC.ai[2] = 1f;
 			}
 			else
 			{
-				if(NPC.velocity.Length() <= 12)
+				if (NPC.velocity.Length() <= 12)
 				{
 					NPC.velocity *= 1.025f;
-					if(Vector2.Distance(player.Center,NPC.Center) <= 600)
+					if (Vector2.Distance(player.Center, NPC.Center) <= 600)
 					{
-						NPC.velocity += targetRot.ToRotationVector2()*0.33f;
+						NPC.velocity += targetRot.ToRotationVector2() * 0.33f;
 					}
 				}
 			}
-			
-			if(timeLeft <= 0)
+
+			if (timeLeft <= 0)
 			{
 				NPC.damage--;
-				if(NPC.damage < 0)
+				if (NPC.damage < 0)
 				{
 					NPC.damage = 0;
 				}
 				NPC.alpha += 10;
-				if(NPC.alpha >= 255)
+				if (NPC.alpha >= 255)
 				{
 					NPC.active = false;
 				}
@@ -137,7 +134,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
-			if(!Main.npc[(int)NPC.ai[0]].active || NPC.ai[0] <= -1)
+			if (!Main.npc[(int)NPC.ai[0]].active || NPC.ai[0] <= -1)
 			{
 				Texture2D tex = Terraria.GameContent.TextureAssets.Npc[Type].Value;
 				SpriteEffects effects = SpriteEffects.None;
@@ -146,22 +143,22 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					effects = SpriteEffects.FlipHorizontally;
 				}
 				int height = (int)(tex.Height / Main.npcFrameCount[NPC.type]);
-				sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height*NPC.frame.Y, tex.Width, height)), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2((float)tex.Width/2f, (float)height/2f), NPC.scale, effects, 0f);
+				sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height * NPC.frame.Y, tex.Width, height)), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2((float)tex.Width / 2f, (float)height / 2f), NPC.scale, effects, 0f);
 			}
 			return false;
 		}
-		
+
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
-			for(int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.PurpleTorch, 0f, 0f, 100, Color.White, 3f);
 				Main.dust[dust].noGravity = true;
 			}
-			if(NPC.life <= 0)
+			if (NPC.life <= 0)
 			{
-				for(int i = 0; i < 15; i++)
+				for (int i = 0; i < 15; i++)
 				{
 					int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.PurpleTorch, 0f, 0f, 100, Color.White, 5f);
 					Main.dust[dust].noGravity = true;

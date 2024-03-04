@@ -61,7 +61,7 @@ namespace MetroidMod
 
 				public static readonly SoundStyle SolarComboSoundStart = new($"{nameof(MetroidMod)}/Assets/Sounds/SolarComboSoundStart")
 				{
-					
+
 				};
 
 				public static readonly SoundStyle SolarComboSoundLoop = new($"{nameof(MetroidMod)}/Assets/Sounds/SolarComboSoundLoop")
@@ -194,27 +194,27 @@ namespace MetroidMod
 
 				};
 
-                public static readonly SoundStyle HomingMissileShoot = new($"{nameof(MetroidMod)}/Assets/Sounds/HomingMissileShoot")
-                {
+				public static readonly SoundStyle HomingMissileShoot = new($"{nameof(MetroidMod)}/Assets/Sounds/HomingMissileShoot")
+				{
 
-                };
+				};
 
-                public static readonly SoundStyle ChargeStartup_HomingMissile = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeStartup_HomingMissile")
-                {
+				public static readonly SoundStyle ChargeStartup_HomingMissile = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeStartup_HomingMissile")
+				{
 
-                };
+				};
 
-                public static readonly SoundStyle MissileShootHunters = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileShootHunters")
-                {
+				public static readonly SoundStyle MissileShootHunters = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileShootHunters")
+				{
 
-                };
+				};
 
-                public static readonly SoundStyle MissileExplodeHunters = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileExplodeHunters")
-                {
+				public static readonly SoundStyle MissileExplodeHunters = new($"{nameof(MetroidMod)}/Assets/Sounds/MissileExplodeHunters")
+				{
 
-                };
+				};
 
-                public static readonly SoundStyle VoltDriverShot = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverSound")
+				public static readonly SoundStyle VoltDriverShot = new($"{nameof(MetroidMod)}/Assets/Sounds/VoltDriverSound")
 				{
 
 				};
@@ -270,7 +270,7 @@ namespace MetroidMod
 				{
 
 				};
-				
+
 				public static readonly SoundStyle JudicatorAffinityChargeShot = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorAffinityChargeShot")
 				{
 
@@ -326,15 +326,15 @@ namespace MetroidMod
 
 				};
 
-                public static readonly SoundStyle ShockCoilStartupSound = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilStartupSound")
-                {
+				public static readonly SoundStyle ShockCoilStartupSound = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilStartupSound")
+				{
 
-                };
+				};
 
-                public static readonly SoundStyle OmegaCannonShot = new($"{nameof(MetroidMod)}/Assets/Sounds/OmegaCannonShot")
-                {
+				public static readonly SoundStyle OmegaCannonShot = new($"{nameof(MetroidMod)}/Assets/Sounds/OmegaCannonShot")
+				{
 
-                };
+				};
 
 				public static readonly SoundStyle ShockCoilLoad = new($"{nameof(MetroidMod)}/Assets/Sounds/ShockCoilLoad")
 				{

@@ -1,7 +1,7 @@
+using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -229,7 +229,7 @@ namespace MetroidMod.Content.Items.Accessories
 			recipe.AddRecipe();*/
 		}
 	}
-	
+
 	public abstract class RTankAccessory : ModItem
 	{
 		public override bool CanEquipAccessory(Player player, int slot, bool modded)

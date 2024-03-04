@@ -1,8 +1,6 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Mobs
@@ -32,7 +30,7 @@ namespace MetroidMod.Content.Projectiles.Mobs
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int num4;
 			for (int num471 = 0; num471 < 30; num471 = num4 + 1)

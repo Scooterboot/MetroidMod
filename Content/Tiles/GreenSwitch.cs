@@ -1,10 +1,9 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-
-using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Content.Tiles
 {

@@ -1,10 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.missiles
 {
@@ -30,7 +29,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 8;
 		}
-		
+
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -87,11 +86,11 @@ namespace MetroidMod.Content.Projectiles.missiles
 				return;
 			}
 		}
-		
-		public override void Kill(int timeLeft)
+
+		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
-			
+
 			P.position = P.Center;
 			P.width = (P.height = 176);
 			P.Center = P.position;
@@ -148,7 +147,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				gore18.velocity.Y = gore18.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
 			}
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			Projectile P = Projectile;
@@ -159,7 +158,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 		{
 			SpriteBatch sb = Main.spriteBatch;
 			Projectile P = Projectile;
-			
+
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (P.spriteDirection == -1)
 			{
@@ -171,7 +170,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/missiles/NebulaMissileImpact2").Value;
 			Color alpha4 = P.GetAlpha(color25);
 			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
-			
+
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;
 			Color color58 = Color.Lerp(alpha4, Color.Black, 0.5f);
@@ -179,15 +178,15 @@ namespace MetroidMod.Content.Projectiles.missiles
 			float num274 = 0.95f + (P.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
 			color58 *= num274;
 			float scale13 = 0.6f + P.scale * 0.6f * num274;
-			
+
 			sb.Draw(tex2, pos, null, color58, -P.rotation + 0.35f, origin8, scale13, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex2, pos, null, alpha4, -P.rotation, origin8, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex, pos, null, color57, -P.rotation * 0.7f, origin8, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex2, pos, null, alpha4 * 0.8f, P.rotation * 0.5f, origin8, P.scale * 0.9f, spriteEffects, 0f);
 			alpha4.A = 0;
-			
+
 			sb.Draw(tex, pos, null, alpha4, P.rotation, origin8, P.scale, spriteEffects, 0f);
-			
+
 			return false;
 		}
 	}

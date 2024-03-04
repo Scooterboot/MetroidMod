@@ -1,14 +1,11 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.ModLoader;
-using Terraria.ID;
-
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
-using MetroidMod.Content.Projectiles;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Default
 {
@@ -105,7 +102,7 @@ namespace MetroidMod.Default
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);

@@ -1,14 +1,8 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.DataStructures;
 using Terraria.ID;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Content.NPCs.GoldenTorizo
 {
@@ -41,7 +35,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			NPC.behindTiles = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 0;
-			
+
 			//NPC.dontTakeDamage = true;
 			//NPC.noTileCollide = true;
 			NPC.noGravity = true;
@@ -59,52 +53,52 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.EnergyPickup>(), 1, 10, 25));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.MissilePickup>(), 1, 5, 25));
 		}
-		
+
 		public override void AI()
 		{
-			if(NPC.ai[0] >= 1)
+			if (NPC.ai[0] >= 1)
 			{
-				if(NPC.velocity.X == 0 || NPC.velocity.Y == 0)
+				if (NPC.velocity.X == 0 || NPC.velocity.Y == 0)
 				{
 					NPC.damage = damage;
 					NPC.velocity *= 0f;
-					
-					NPC.position.X += NPC.width/2f;
+
+					NPC.position.X += NPC.width / 2f;
 					NPC.position.Y += NPC.height;
 					NPC.width = 30;
 					NPC.height = 60;
-					NPC.position.X -= NPC.width/2f;
+					NPC.position.X -= NPC.width / 2f;
 					NPC.position.Y -= NPC.height;
-					
-					if(NPC.ai[0] == 1)
+
+					if (NPC.ai[0] == 1)
 					{
 						for (int i = 0; i < 25; i++)
 						{
-							int newDust = Dust.NewDust(new Vector2(NPC.position.X+2,NPC.position.Y+NPC.height-4), NPC.width-2, 8, 55, 0f, 0f, 100, default(Color), 2f);
+							int newDust = Dust.NewDust(new Vector2(NPC.position.X + 2, NPC.position.Y + NPC.height - 4), NPC.width - 2, 8, 55, 0f, 0f, 100, default(Color), 2f);
 							Main.dust[newDust].velocity *= 0.5f;
 							Main.dust[newDust].velocity.Y -= 4f;
 							Main.dust[newDust].noGravity = true;
 
-							newDust = Dust.NewDust(new Vector2(NPC.position.X+2,NPC.position.Y+NPC.height-4), NPC.width-2, 8, 30, 0f, 0f, 100, default(Color), 2f);
+							newDust = Dust.NewDust(new Vector2(NPC.position.X + 2, NPC.position.Y + NPC.height - 4), NPC.width - 2, 8, 30, 0f, 0f, 100, default(Color), 2f);
 							Main.dust[newDust].velocity *= 0.5f;
 							Main.dust[newDust].velocity.Y -= 4f;
 							Main.dust[newDust].noGravity = true;
-							
-							newDust = Dust.NewDust(new Vector2(NPC.position.X+4,NPC.position.Y+NPC.height-10), NPC.width-4, 10, 55, 0f, 0f, 100, default(Color), 0.5f);
+
+							newDust = Dust.NewDust(new Vector2(NPC.position.X + 4, NPC.position.Y + NPC.height - 10), NPC.width - 4, 10, 55, 0f, 0f, 100, default(Color), 0.5f);
 							Main.dust[newDust].velocity.X *= 0.5f;
 							Main.dust[newDust].velocity.Y = -Main.rand.Next(30) * 0.1f;
 							Main.dust[newDust].noGravity = true;
 						}
 					}
-					Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14,NPC.Center);
-					
+					Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+
 					NPC.ai[0]++;
 				}
 				else
 				{
 					NPC.velocity.Y += 0.1f;
 				}
-				if(NPC.ai[0] > 2)
+				if (NPC.ai[0] > 2)
 				{
 					NPC.life = 0;
 					NPC.HitEffect(0, 10.0);
@@ -119,16 +113,16 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server) { return; }
-			for(int i = 0; i < 15; i++)
+			for (int i = 0; i < 15; i++)
 			{
-				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 30, 0f, -(Main.rand.Next(4)/2), 100, Color.White, 1.5f);
+				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 30, 0f, -(Main.rand.Next(4) / 2), 100, Color.White, 1.5f);
 				Main.dust[dust].noGravity = true;
 			}
-			if(NPC.life <= 0)
+			if (NPC.life <= 0)
 			{
-				for(int i = 0; i < 10; i++)
+				for (int i = 0; i < 10; i++)
 				{
-					int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 55, 0f, -(Main.rand.Next(3)/2), 100, Color.White, 2f);
+					int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 55, 0f, -(Main.rand.Next(3) / 2), 100, Color.White, 2f);
 					Main.dust[dust].noGravity = true;
 				}
 			}

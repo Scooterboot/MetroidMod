@@ -1,13 +1,10 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.Localization;
-using System;
 
 namespace MetroidMod.Content.Tiles
 {
@@ -23,10 +20,10 @@ namespace MetroidMod.Content.Tiles
 			TileID.Sets.InteractibleByNPCs[Type] = true;
 			TileID.Sets.IsValidSpawnPoint[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX); 
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.Origin = new Point16(1, 2);
-			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 18 };
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
@@ -35,7 +32,7 @@ namespace MetroidMod.Content.Tiles
 			AddMapEntry(new Color(65, 62, 91), name);
 			DustType = 1;
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
-			AdjTiles = new int[]{ TileID.Beds };
+			AdjTiles = new int[] { TileID.Beds };
 			//Bed = true;
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 		}

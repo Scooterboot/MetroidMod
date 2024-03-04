@@ -1,10 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-using MetroidMod.Content.Items.Weapons;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.solarbeam
 {
@@ -33,68 +31,68 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			
-			string S  = PowerBeam.SetCondition();
+
+
 			if (Projectile.Name.Contains("Stardust"))
 			{
 				dustType = 87;
 			}
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			if(Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Projectile.numUpdates == 0)
 			{
 				Projectile.frame++;
 			}
-			if(Projectile.frame > 1)
+			if (Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
 
-			if (S.Contains("nebula"))
+			if (shot.Contains("nebula"))
 			{
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 				mProjectile.HomingBehavior(Projectile);
 				//mProjectile.amplitude = 8f * Projectile.scale;
 			}
-			if (!S.Contains("vortex") && S.Contains("nebula"))
+			if (!shot.Contains("vortex") && shot.Contains("nebula"))
 			{
 				mProjectile.amplitude = 12f * Projectile.scale;
 				mProjectile.wavesPerSecond = 2f;
 			}
-			if (S.Contains("vortex") && !S.Contains("nebula"))
+			if (shot.Contains("vortex") && !shot.Contains("nebula"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 				mProjectile.wavesPerSecond = 2f;
-				mProjectile.WaveBehavior(Projectile, !S.Contains("nebula"));
+				mProjectile.WaveBehavior(Projectile, !shot.Contains("nebula"));
 			}
-			if (S.Contains("vortex") && S.Contains("nebula"))
+			if (shot.Contains("vortex") && shot.Contains("nebula"))
 			{
 				mProjectile.amplitude = 16f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1.5f;
 			}
 
-			int dType = Utils.SelectRandom<int>(Main.rand, new int[] { 6,158 });
-			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dType, 0, 0, 100, default(Color), Projectile.scale*2);
+			int dType = Utils.SelectRandom<int>(Main.rand, new int[] { 6, 158 });
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dType, 0, 0, 100, default(Color), Projectile.scale * 2);
 			Main.dust[dust].noGravity = true;
-			if(S.Contains("stardust"))
+			if (shot.Contains("stardust"))
 			{
 				dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemTopaz, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			
+
 			Vector2 velocity = Projectile.position - Projectile.oldPos[0];
-			if(Vector2.Distance(Projectile.position, Projectile.position+velocity) < Vector2.Distance(Projectile.position,Projectile.position+Projectile.velocity))
+			if (Vector2.Distance(Projectile.position, Projectile.position + velocity) < Vector2.Distance(Projectile.position, Projectile.position + Projectile.velocity))
 			{
 				velocity = Projectile.velocity;
 			}
 			Projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + 1.57f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			mProjectile.Diffuse(Projectile, dustType);
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 50);
@@ -106,7 +104,7 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 			return false;
 		}
 	}
-	
+
 	public class VortexSolarBeamChargeShot : SolarBeamChargeShot
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/solarbeam/VortexSolarBeamChargeShot";

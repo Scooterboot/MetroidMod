@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Flying
 {
@@ -56,7 +52,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 				NPC.direction *= -1;
 				NPC.netUpdate = true;
 			}
-			if(NPC.collideY || NPC.ai[0]++ >= 180)
+			if (NPC.collideY || NPC.ai[0]++ >= 180)
 			{
 				NPC.ai[0] = 0;
 

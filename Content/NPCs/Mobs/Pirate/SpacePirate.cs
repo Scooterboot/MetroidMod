@@ -90,16 +90,16 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 
 				bool grounded = false;
 
-				if(NPC.velocity.Y == 0) // Grounded.
+				if (NPC.velocity.Y == 0) // Grounded.
 				{
 					int npcTileXLeft = (int)NPC.position.X / 16;
 					int npcTileXRight = (int)(NPC.position.X + NPC.width) / 16;
 					int npcTileY = (int)(NPC.position.Y + NPC.height + 7) / 16;
 
-					for(int i = npcTileXLeft; i < npcTileXRight; ++i)
+					for (int i = npcTileXLeft; i < npcTileXRight; ++i)
 					{
-						if(Main.tile[i, npcTileY] == null) return false;
-						if(Main.tile[i, npcTileY].IsActuated && Main.tileSolid[Main.tile[i, npcTileY].TileType])
+						if (Main.tile[i, npcTileY] == null) return false;
+						if (Main.tile[i, npcTileY].IsActuated && Main.tileSolid[Main.tile[i, npcTileY].TileType])
 						{
 							grounded = true;
 							break;
@@ -107,7 +107,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 					}
 				}
 
-				if(NPC.velocity.Y >= 0) // 'Falling' check for sloped tiles.
+				if (NPC.velocity.Y >= 0) // 'Falling' check for sloped tiles.
 				{
 					int dir = NPC.velocity.X == 0 ? 0 : NPC.velocity.X > 0 ? 1 : -1;
 					float posX = NPC.position.X + NPC.velocity.X;
@@ -160,16 +160,16 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 					if (NPC.velocity.X < 0 && NPC.direction == -1 || NPC.velocity.X > 0 && NPC.direction == 1)
 					{
 						// Jump required, determine jump height.
-						if (NPC.height >= 32 && Main.tile[tileX, tileY - 2].IsActuated && Main.tileSolid[Main.tile[tileX, tileY-2].TileType])
+						if (NPC.height >= 32 && Main.tile[tileX, tileY - 2].IsActuated && Main.tileSolid[Main.tile[tileX, tileY - 2].TileType])
 						{
 							if (Main.tile[tileX, tileY - 3].IsActuated && Main.tileSolid[Main.tile[tileX, tileY - 3].TileType])
 								NPC.velocity.Y = -8;
 							else
 								NPC.velocity.Y = -7;
-							
+
 							NPC.netUpdate = true;
 						}
-						else if(Main.tile[tileX, tileY-1].IsActuated && Main.tileSolid[Main.tile[tileX, tileY - 1].TileType])
+						else if (Main.tile[tileX, tileY - 1].IsActuated && Main.tileSolid[Main.tile[tileX, tileY - 1].TileType])
 						{
 							NPC.velocity.Y = -6;
 							NPC.netUpdate = true;
@@ -194,7 +194,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 					specialTimer++;
 
 					// If no jump has been initiated yet.
-					if(NPC.velocity.Y == 0)
+					if (NPC.velocity.Y == 0)
 					{
 						// TEMPORARY.
 						if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height) &&
@@ -211,14 +211,14 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 
 				NPC.ai[1] = grounded ? 1 : 0;
 			}
-			if(NPC.ai[0] == 1) // Shooting. Do we even want this?
+			if (NPC.ai[0] == 1) // Shooting. Do we even want this?
 			{
 
 			}
-			if(NPC.ai[0] == 2) // Dropkick.
+			if (NPC.ai[0] == 2) // Dropkick.
 			{
 				// Start the dropkick off with a small jump (almost) straight up.
-				if(NPC.ai[2] == 0)
+				if (NPC.ai[2] == 0)
 				{
 					NPC.ai[1] = 0;
 					NPC.ai[2] = 1;
@@ -241,20 +241,20 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 				}
 				else
 				{
-					if(NPC.velocity.Y == 0)
+					if (NPC.velocity.Y == 0)
 					{
 						NPC.velocity.X = 0;
-						if(NPC.ai[1] == 0)
+						if (NPC.ai[1] == 0)
 						{
 							var entitySource = NPC.GetSource_FromAI();
 							// projectile spawning?
-							for(int i = 0; i < 4; ++i)
+							for (int i = 0; i < 4; ++i)
 							{
 								if (Main.netMode != 1)
 									Projectile.NewProjectile(entitySource, NPC.Center, new Vector2(Main.rand.Next(-40, 41) * .1F, -5), ModContent.ProjectileType<Projectiles.Mobs.SkreeRock>(), NPC.damage, 1.2F);
 							}
 						}
-						if(NPC.ai[1]++ >= 40)
+						if (NPC.ai[1]++ >= 40)
 						{
 							NPC.ai[0] = 0;
 							NPC.ai[1] = 0;
@@ -263,7 +263,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 					}
 				}
 			}
-			if(NPC.ai[0] == 3) // Overhead jump + projectiles.
+			if (NPC.ai[0] == 3) // Overhead jump + projectiles.
 			{
 				// This part is... Slightly hacky to make animations smooth. Feel free to refactor.
 				NPC.ai[1]++;
@@ -277,7 +277,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 						NPC.velocity.X = 8 * NPC.direction;
 					}
 				}
-				else if(NPC.ai[1] >= 13)
+				else if (NPC.ai[1] >= 13)
 				{
 					NPC.rotation += .5F * NPC.direction;
 
@@ -307,31 +307,32 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 
 		public override void FindFrame(int frameHeight)
 		{
-			if(NPC.ai[0] == 0)
+			if (NPC.ai[0] == 0)
 			{
 				if (NPC.velocity.Y != 0)
 					NPC.frame.Y = 14 * frameHeight;
 				else
 				{
 					NPC.frameCounter += Math.Abs(NPC.velocity.X * .45F);
-					if (NPC.frameCounter >= 6) { 
+					if (NPC.frameCounter >= 6)
+					{
 						NPC.frame.Y = (NPC.frame.Y + frameHeight) % (4 * frameHeight);
 						NPC.frameCounter = 0;
 					}
 				}
 			}
-			else if(NPC.ai[0] == 1)
+			else if (NPC.ai[0] == 1)
 			{
 
 			}
-			else if(NPC.ai[0] == 2)
+			else if (NPC.ai[0] == 2)
 			{
 				if (NPC.ai[2] == 0)
 					NPC.frame.Y = 14 * frameHeight;
 				else
 					NPC.frame.Y = 15 * frameHeight;
 			}
-			else if(NPC.ai[0] == 3)
+			else if (NPC.ai[0] == 3)
 			{
 				if (NPC.ai[1] < 4)
 					NPC.frame.Y = 9 * frameHeight;
@@ -348,7 +349,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			for(int i = 0; i < 5; ++i)
+			for (int i = 0; i < 5; ++i)
 			{
 				Vector2 drawPos = NPC.oldPos[i] + new Vector2(NPC.width / 2, NPC.height / 2) - Main.screenPosition;
 				spriteBatch.Draw(Terraria.GameContent.TextureAssets.Npc[Type].Value, drawPos, NPC.frame, Color.White * (.9F - .1F * i));

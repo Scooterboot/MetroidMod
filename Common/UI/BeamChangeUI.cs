@@ -1,34 +1,26 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using ReLogic.Content;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
-using Terraria.UI.Chat;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-using MetroidMod.Common.GlobalItems;
+﻿using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Armors;
-using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Default;
-using MetroidMod.ID;
+using MetroidMod.Content.Items.Addons;
 using MetroidMod.Content.Items.Addons.Hunters;
 using MetroidMod.Content.Items.Addons.V2;
 using MetroidMod.Content.Items.Addons.V3;
-using MetroidMod.Content.Items.Addons;
+using MetroidMod.Content.Items.Weapons;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
 	public class BeamChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.GetModPlayer<MPlayer>().beamChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<PowerBeam>();
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.beamChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<PowerBeam>();
 
 		public BeamChangePanel panel;
 		public override void OnInitialize()
@@ -71,24 +63,24 @@ namespace MetroidMod.Common.UI
 
 		public Vector2[] itemBoxPositionValues = new Vector2[MetroidMod.beamChangeSlotAmount]
 		{
-			new Vector2(200, 100), //32,334
-			new Vector2(181, 159), //174, 334
-			new Vector2(131, 195), //98,174
-			new Vector2(69, 195), //98,94
-			new Vector2(19, 159), //32,94
-			new Vector2(0, 100), //174,94
-			new Vector2(19, 41), //32,174
-			new Vector2(69, 5), //174,174
-			new Vector2(131, 5), //98,254
-			new Vector2(181, 41), //32,254
-			new Vector2(69, 100), //32,254
-			new Vector2(131, 100) //32,254
+			new Vector2(211, 110),
+			new Vector2(192, 169),
+			new Vector2(142, 205),
+			new Vector2(80, 205),
+			new Vector2(30, 169),
+			new Vector2(11, 110),
+			new Vector2(30, 51),
+			new Vector2(80, 15),
+			new Vector2(142, 15),
+			new Vector2(192, 51),
+			new Vector2(80, 110),
+			new Vector2(142, 110)
 		};
 		public override void OnInitialize()
 		{
 			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/bepis", AssetRequestMode.ImmediateLoad); //the "background.stupid"
 			SetPadding(0);
-			Top.Pixels = Main.instance.invBottom + 174;
+			Top.Pixels = Main.instance.invBottom + 152;
 			Left.Pixels = 160;
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
@@ -113,7 +105,7 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
-			enabled = MetroidMod.DragablePowerBeamUI;
+			enabled = Configs.MConfigClient.Instance.PowerBeam.enabled;
 			if (!enabled)
 			{
 				Left.Pixels = 160;
@@ -176,7 +168,7 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
+			PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as PowerBeam;
 			if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
 
 			if (powerBeamTarget.BeamChange[beamSlotType] != null && !powerBeamTarget.BeamChange[beamSlotType].IsAir)
@@ -188,7 +180,7 @@ namespace MetroidMod.Common.UI
 					Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
 
 					powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
-					if(Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
+					if (Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
 					{
 						powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
 					}
@@ -253,7 +245,7 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
-			Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
+			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
 			if (target == null || target.type != ModContent.ItemType<PowerBeam>()) { return; }
 			PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 

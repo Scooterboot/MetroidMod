@@ -25,5 +25,14 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.NorfairBubbleSM>();
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(25)
+				.AddIngredient(ItemID.Bubble, 25)
+				.Register();
+			CreateRecipe(1)
+				.AddIngredient<NorfairBubbleZM>(1)
+				.Register();
+		}
 	}
 }

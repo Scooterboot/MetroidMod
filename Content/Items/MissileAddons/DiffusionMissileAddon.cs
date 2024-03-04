@@ -1,6 +1,7 @@
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.MissileAddons
 {
@@ -36,6 +37,7 @@ namespace MetroidMod.Content.Items.MissileAddons
 			mItem.missileSlotType = 0;
 			mItem.addonChargeDmg = 3f;
 			mItem.addonMissileCost = 5;
+			mItem.missileChangeType = MissileChangeSlotID.Diffusion;
 		}
 
 		public override void AddRecipes()

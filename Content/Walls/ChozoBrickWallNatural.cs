@@ -1,7 +1,7 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
-using MetroidMod.Common.Systems;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Walls
 {

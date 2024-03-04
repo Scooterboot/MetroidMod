@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.ID;
@@ -27,9 +26,9 @@ namespace MetroidMod.Content.Projectiles.Mobs
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
-			for(int i = 0; i < 8; ++i)
+			for (int i = 0; i < 8; ++i)
 			{
 				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GrassBlades, Projectile.velocity.X, Projectile.velocity.Y);
 			}

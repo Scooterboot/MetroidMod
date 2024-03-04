@@ -7,7 +7,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using System;
 
 namespace MetroidMod.Content.Tiles.Hatch
 {
@@ -26,7 +25,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			TileObjectData.newTile.AnchorLeft = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.AnchorRight = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16, 16 };
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			TileID.Sets.HousingWalls[Type] = true;
@@ -34,24 +33,24 @@ namespace MetroidMod.Content.Tiles.Hatch
 			// name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
 			//dustType = 1;
-			AdjTiles = new int[]{ TileID.OpenDoor };
-			
+			AdjTiles = new int[] { TileID.OpenDoor };
+
 			otherDoorID = ModContent.TileType<BlueHatchVertical>();
 		}
-		
+
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
-			if(type == Type)
+			if (type == Type)
 			{
 				short doorHeight = 72;
 				Tile tile = Main.tile[i, j];
-				while(tile.TileFrameY+frameYOffset >= doorHeight)
+				while (tile.TileFrameY + frameYOffset >= doorHeight)
 				{
 					frameYOffset -= doorHeight;
 				}
-				if(tile.TileFrameY < doorHeight*4)
+				if (tile.TileFrameY < doorHeight * 4)
 				{
-					if(tile.TileFrameY < doorHeight)
+					if (tile.TileFrameY < doorHeight)
 					{
 						tile.TileFrameY += doorHeight;
 					}
@@ -61,7 +60,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 		}
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/BlueHatchVerticalDoor").Value);
+			DrawDoor(i, j, spriteBatch, ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/BlueHatchVerticalDoor").Value);
 			return true;
 		}
 	}

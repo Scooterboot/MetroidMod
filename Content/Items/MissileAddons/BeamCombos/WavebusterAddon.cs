@@ -1,6 +1,7 @@
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.ID;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 {
@@ -36,6 +37,7 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 			mItem.addonChargeDmg = 1f;
 			mItem.addonMissileCost = 10;
 			mItem.addonMissileDrain = 5;
+			mItem.missileChangeType = MissileChangeSlotID.Wavebuster;
 		}
 
 		public override void AddRecipes()
