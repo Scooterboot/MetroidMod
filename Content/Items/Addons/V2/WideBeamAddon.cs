@@ -3,11 +3,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons.V2
 {
-	public class WideBeamAddon : ModItem, IBeamAddon
+	public class WideBeamAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -36,10 +35,7 @@ namespace MetroidMod.Content.Items.Addons.V2
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.WideBeamTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-   			this.beamID = BeamID.Beam.Wide;
-      			this.slotType = BeamID.SlotType.PrimaryA;
-	 		this.ver = 2;
-    			this.itemID = ModContent.ItemType<WideBeamAddon>();
+			mItem.addonSlotType = 3;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageWideBeam;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatWideBeam;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedWideBeam;

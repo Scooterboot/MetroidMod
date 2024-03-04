@@ -3,11 +3,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.Items.Addons
 {
-	public class SpazerAddon : ModItem, IBeamAddon
+	public class SpazerAddon : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -36,10 +35,7 @@ namespace MetroidMod.Content.Items.Addons
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.SpazerTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-   			this.beamID = BeamID.Beam.Spazer;
-      			this.slotType = BeamID.SlotType.PrimaryA;
-	 		this.ver = 1;
-    			this.itemID = ModContent.ItemType<SpazerAddon>();
+			mItem.addonSlotType = 3;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageSpazer;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatSpazer;
 			mItem.addonSpeed = Common.Configs.MConfigItems.Instance.speedSpazer;
