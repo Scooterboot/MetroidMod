@@ -14,7 +14,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 	public class ImperialistShot : MProjectile
 	{
 		//what a total mess lmao --Dr
-		//TODO: netsync, replace "held" with entitysource
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 100;
@@ -88,6 +87,8 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			P.timeLeft = 100;
 			P.velocity = Vector2.Normalize(P.velocity);
 			P.rotation = P.velocity.ToRotation() - 1.57f;
+			P.usesLocalNPCImmunity = true;
+			P.localNPCHitCooldown = 18;
 			P.stopsDealingDamageAfterPenetrateHits = true;
 			if (shot.Contains("wave") || shot.Contains("nebula"))
 			{
@@ -149,7 +150,6 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			}
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center, endPosition, P.width, ref _);
 		}
-
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if(Projectile.penetrate == 1)
