@@ -28,6 +28,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			// name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
 			AdjTiles = new int[] { TileID.OpenDoor };
+			RegisterItemDrop(ModContent.ItemType<Items.Tiles.BlueHatch>());
 
 			otherDoorID = ModContent.TileType<BlueHatch>();
 		}

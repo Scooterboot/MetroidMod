@@ -34,6 +34,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			AddMapEntry(new Color(0, 160, 0), name);
 			AdjTiles = new int[] { TileID.OpenDoor };
 			MinPick = 150;
+			RegisterItemDrop(ModContent.ItemType<Items.Tiles.GreenHatch>());
 
 			otherDoorID = ModContent.TileType<GreenHatchVertical>();
 		}

@@ -32,6 +32,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			//dustType = 1;
 			AdjTiles = new int[] { TileID.OpenDoor };
 			MinPick = 210;
+			RegisterItemDrop(ModContent.ItemType<Items.Tiles.YellowHatch>());
 
 			otherDoorID = ModContent.TileType<YellowHatch>();
 		}
