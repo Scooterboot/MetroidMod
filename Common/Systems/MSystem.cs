@@ -19,6 +19,9 @@ using MetroidMod.Content.SuitAddons;
 using MetroidMod.Content.Tiles;
 using MetroidMod.Content.Tiles.Hatch;
 using MetroidMod.Content.Tiles.ItemTile;
+using MetroidMod.Content.Tiles.ItemTile.Beam;
+using MetroidMod.Content.Tiles.ItemTile.Beam.Hunters;
+using MetroidMod.Content.Tiles.ItemTile.Missile;
 using MetroidMod.Content.Walls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -647,94 +650,94 @@ namespace MetroidMod.Common.Systems
 			bool dungeon = Main.LocalPlayer.ZoneDungeon;
 			bool jungle = Main.LocalPlayer.ZoneJungle;
 
-			int item = ModContent.ItemType<MorphBall>();
+			int item = ModContent.TileType<MorphBallTile>();
 			int baseX = Main.maxTilesX / 2;
 			int baseY = (int)GenVars.rockLayer;
 			WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 35];
 			int index = 0;
 			foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 			{
-				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.ItemType; }, addon.GenerationChance(i, j)); }
+				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance(i, j)); }
 			}
 			foreach (ModMBAddon addon in MBAddonLoader.addons)
 			{
-				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.ItemType; }, addon.GenerationChance(i, j)); }
+				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance(i, j)); }
 			}
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ShockCoilAddon>(); }, 6);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<MagMaulAddon>(); }, 6);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<BattleHammerAddon>(); }, 6);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<VoltDriverAddon>(); }, 6);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ImperialistAddon>(); }, 6);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<JudicatorAddon>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ShockCoilTile>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<MagMaulTile>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<BattleHammerTile>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<VoltDriverTile>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ImperialistTile>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<JudicatorTile>(); }, 6);
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ChargeBeamAddon>(); }, 24);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamAddon>(); }, 24);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<HomingMissileAddon>(); }, 4);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ChargeBeamTile>(); }, 24);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamTile>(); }, 24);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HomingMissile>(); }, 4);
 			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpazerAddon>(); }, 12);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpazerTile>(); }, 12);
 			}
 			if (NPC.downedBoss3 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceBeamAddon>(); }, 12);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceMissileAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpazerComboAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceBeamTile>(); }, 12);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceMissile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpazerCombo>(); }, 4);
 			}
 			if (NPC.downedMechBoss2 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ChargeBeamV2Addon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<ChargeBeamV2Tile>(); }, 4);
 			}
 			if (NPC.downedMechBoss1 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamV2Addon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<FlamethrowerAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaMachinegunAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamV2Tile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<Flamethrower>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaMachinegun>(); }, 4);
 			}
 			if (NPC.downedMechBoss3 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WideBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<WideBeamTile>(); }, 4);
 			}
 			if (bossesDown.HasFlag(MetroidBossDown.downedKraid) || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaBeamGreenAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaBeamRedAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamGreenTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamRedTile>(); }, 4);
 			}
 			if (Main.hardMode || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SuperMissileAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceSpreaderAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SeekerMissileAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WavebusterAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SuperMissile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceSpreader>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SeekerMissile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<Wavebuster>(); }, 4);
 			}
 			if (NPC.downedPlantBoss || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NovaComboAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NovaBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<NovaCombo>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<NovaBeamTile>(); }, 4);
 			}
 			if (NPC.downedMoonlord || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustComboAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustMissileAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SolarComboAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaComboAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaMissileAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SolarBeamAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustBeamAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<VortexBeamAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<LuminiteBeamAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaBeamAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<OmegaCannonAddon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PhazonBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<StardustCombo>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<StardustMissile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SolarCombo>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<NebulaCombo>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<NebulaMissile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SolarBeamTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<StardustBeamTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<VortexBeamTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<LuminiteBeamTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<NebulaBeamTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<OmegaCannonTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PhazonBeamTile>(); }, 4);
 			}
 			if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<DiffusionMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<DiffusionMissile>(); }, 4);
 			}
 			if (NPC.downedChristmasIceQueen || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceBeamV2Addon>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceSuperMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceBeamV2Tile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceSuperMissile>(); }, 4);
 			}
 			Array.Resize(ref list, index);
 			double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));

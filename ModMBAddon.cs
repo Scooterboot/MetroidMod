@@ -117,6 +117,18 @@ namespace MetroidMod
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 
+		/// <inheritdoc cref="ModTile.CanKillTile(int, int, ref bool)"/>
+		public virtual bool CanKillTile(int i, int j) { return true; }
+
+		// for some reason <inheritdoc> doesn't like CanExplode sooooo...
+		/// <summary>
+		/// Allows you to determine whether or not the tile at the given coordinates be hit by anything. Returns true by default.
+		/// </summary>
+		/// <param name="i">The x position in coordinates</param>
+		/// <param name="j">The y position in coordinates</param>
+		/// <returns></returns>
+		public virtual bool CanExplodeTile(int i, int j) { return true; }
+
 		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
 	}
 }

@@ -196,6 +196,12 @@ namespace MetroidMod
 		/// <inheritdoc cref="ModItem.UseItem(Player)"/>
 		public virtual bool? UseItem(Player player) { return null; }
 
+		/// <inheritdoc cref="ModTile.CanKillTile(int, int, ref bool)"/>
+		public virtual bool CanKillTile(int i, int j) { return true; }
+
+		/// <inheritdoc cref="ModMBAddon.CanExplodeTile(int, int)"/>
+		public virtual bool CanExplodeTile(int i, int j) { return true; }
+
 		/// <summary>
 		/// Allows you to do things when this visor is equipped and in use. <br />
 		/// Note: This is only called for Visors, such as the X-Ray Scope.
