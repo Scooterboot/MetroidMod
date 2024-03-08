@@ -1,6 +1,7 @@
 ﻿using System;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.MorphBallAddons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

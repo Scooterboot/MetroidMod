@@ -102,41 +102,44 @@ namespace MetroidMod.Content.Projectiles
 		bool[] npcPrevHit = new bool[Main.maxNPCs];
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red") || shot.Contains("plasmared"))
+			if (!Projectile.Name.Contains("Hyper")&& (!Projectile.Name.Contains("Phazon")))
 			{
-				if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
+				if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red") || shot.Contains("plasmared"))
 				{
-					target.AddBuff(44, 300);
+					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
+					{
+						target.AddBuff(44, 300);
+					}
+					else
+					{
+						target.AddBuff(24, 300);
+					}
 				}
-				else
-				{
-					target.AddBuff(24, 300);
-				}
-			}
 
-			if (Projectile.Name.Contains("Nova") || shot.ToString().Contains("nova"))
-			{
-				if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
+				if (Projectile.Name.Contains("Nova") || shot.ToString().Contains("nova"))
 				{
-					target.AddBuff(44, 300);
+					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
+					{
+						target.AddBuff(44, 300);
+					}
+					else
+					{
+						target.AddBuff(39, 300);
+					}
 				}
-				else
+				if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust") || shot.Contains("ice") || shot.Contains("stardust"))
 				{
-					target.AddBuff(39, 300);
+					string buffName = "IceFreeze";
+					if (Projectile.Name.Contains("Missile"))
+						buffName = "InstantFreeze";
+
+					target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
 				}
-			}
-			if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust") || shot.Contains("ice") || shot.Contains("stardust"))
-			{
-				string buffName = "IceFreeze";
-				if (Projectile.Name.Contains("Missile"))
-					buffName = "InstantFreeze";
 
-				target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
-			}
-
-			if (Projectile.Name.Contains("Solar") || shot.Contains("solar"))
-			{
-				target.AddBuff(189, 300);
+				if (Projectile.Name.Contains("Solar") || shot.Contains("solar"))
+				{
+					target.AddBuff(189, 300);
+				}
 			}
 
 			if (Projectile.penetrate != 1)

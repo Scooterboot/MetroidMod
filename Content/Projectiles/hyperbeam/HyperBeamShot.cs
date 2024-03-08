@@ -2,6 +2,7 @@ using System;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.hyperbeam
@@ -36,7 +37,6 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		{
 			Projectile P = Projectile;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
-
 
 			bool isWave = shot.Contains("wave") || shot.Contains("nebula"),
 			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
@@ -82,6 +82,12 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));
 		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.ArmorPenetration += 50;
+			base.ModifyHitNPC(target, ref modifiers);
+		}
+
 	}
 	public class PlasmaHyperBeamShot : HyperBeamShot
 	{

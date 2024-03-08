@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -134,7 +135,11 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		{
 			mProjectile.DustyDeath(projectile, 68);
 		}*/
-
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			target.AddBuff(ModContent.BuffType<PhazonDebuff>(), 60);
+			base.OnHitNPC(target, hit, damageDone);
+		}
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);

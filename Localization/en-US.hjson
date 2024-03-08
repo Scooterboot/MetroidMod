@@ -551,6 +551,7 @@ Mods: {
 					Slot Type: Charge
 					[c/78BE78:20x base damage]
 					[c/78BE78:Colossal blast radius; screenwipe]
+					[c/78BE78: Direct hits have high armor penetration]
 					[c/BE7878:10x overheat use]
 					[c/BE7878:Slow as the DMV]
 					[c/BE7878:Cannot Pierce walls or enemies]
@@ -601,6 +602,7 @@ Mods: {
 					Increases base damage from 14 to 35, and base overheat use from 4 to 7
 					Slightly decreases firerate
 					Affected by addons regardless of version
+					Main projectile has high armor penetration
 					Disables freeze and other debuff effects
 					Array slot 9
 					'Da babeh'

@@ -55,6 +55,12 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 				}
 			}
 		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (Projectile.timeLeft >= 1)
+				modifiers.ArmorPenetration += 50;
+			base.ModifyHitNPC(target, ref modifiers);
+		}
 		public override bool? CanCutTiles()
 		{
 			if (Projectile.timeLeft <= 1)
