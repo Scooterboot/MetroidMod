@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+using MetroidMod.Common.GlobalItems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using System.IO;
-using MetroidMod.Common.GlobalItems;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -37,7 +33,7 @@ namespace MetroidMod.Content.Projectiles
 			Player player = Main.player[P.owner];
 			float num = (float)Math.PI / 2f;
 			Vector2 vector = player.RotatedRelativePoint(player.MountedCenter);
-			
+
 			P.localAI[0] += 2f;//1f;
 			if (P.localAI[0] >= 60f)
 			{
@@ -148,7 +144,7 @@ namespace MetroidMod.Content.Projectiles
 					P.velocity = vector2;
 				}
 			}
-			
+
 			P.position = player.RotatedRelativePoint(player.MountedCenter) - P.Size / 2f;
 			P.rotation = P.velocity.ToRotation() + num;
 			P.spriteDirection = P.direction;
@@ -180,12 +176,12 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}*/
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color(255, 255, 255, 128) * (1f - (float)Projectile.alpha / 255f);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			Projectile P = Projectile;
@@ -197,7 +193,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
-			
+
 			Vector2 vector42 = P.position + new Vector2(P.width, P.height) / 2f + Vector2.UnitY * P.gfxOffY - Main.screenPosition;
 			Texture2D texture2D36 = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;//Main.projectileTexture[P.type];
 			Color alpha7 = P.GetAlpha(color25);
@@ -225,8 +221,8 @@ namespace MetroidMod.Content.Projectiles
 					Color white3 = Color.LimeGreen;
 					white3.A = 128;
 					//white3 *= 0.5f;
-					
-					float mult = Math.Min(num274/24f + 4f, 10f);
+
+					float mult = Math.Min(num274 / 24f + 4f, 10f);
 					Vector2 value51 = new Vector2(array7[num278].X, 0f).RotatedBy(num275) * mult;//4f;
 					Vector2 start = vector43 + value49 * num277;
 					Vector2 midpos = start + value51 + value49 * num274 / 8f;
@@ -234,45 +230,45 @@ namespace MetroidMod.Content.Projectiles
 					float rot = (start - end).ToRotation() - (float)Math.PI / 2f;
 					float rot2 = (start - midpos).ToRotation() + (float)Math.PI / 2f;
 					float rot3 = (midpos - end).ToRotation() + (float)Math.PI / 2f;
-					
-					if(num278 == 2)
+
+					if (num278 == 2)
 					{
-						Main.spriteBatch.Draw(texture2D36, end - Main.screenPosition, new Rectangle(0,0,texture2D36.Width,(int)(num274-num277)/2), alpha7, rot, new Vector2(texture2D36.Width, texture2D36.Height) / 2f, new Vector2(0.75f,2f), spriteEffects, 0f);
+						Main.spriteBatch.Draw(texture2D36, end - Main.screenPosition, new Rectangle(0, 0, texture2D36.Width, (int)(num274 - num277) / 2), alpha7, rot, new Vector2(texture2D36.Width, texture2D36.Height) / 2f, new Vector2(0.75f, 2f), spriteEffects, 0f);
 					}
-					
-					int dist = (int)Math.Ceiling(Vector2.Distance(start,midpos));
+
+					int dist = (int)Math.Ceiling(Vector2.Distance(start, midpos));
 					Vector2[] pos = new Vector2[dist];
-					for(int i = 0; i < dist-1; i++)
+					for (int i = 0; i < dist - 1; i++)
 					{
-						float t = (float)Math.PI/2 * (float)i/dist;
+						float t = (float)Math.PI / 2 * (float)i / dist;
 						float shift = mult * (float)Math.Sin(t);
-						
+
 						pos[i] = start + value49 * i;
 						pos[i].X += (float)Math.Cos(rot) * shift * array7[num278].X;
 						pos[i].Y += (float)Math.Sin(rot) * shift * array7[num278].X;
-						
+
 						rot2 = (start - pos[i]).ToRotation() - (float)Math.PI / 2f;
-						if(i > 0)
+						if (i > 0)
 						{
-							rot2 = (pos[i-1] - pos[i]).ToRotation() - (float)Math.PI / 2f;
+							rot2 = (pos[i - 1] - pos[i]).ToRotation() - (float)Math.PI / 2f;
 						}
-						
-						Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, pos[i] - Main.screenPosition, new Rectangle(0,0,1,1), white3, rot2, Vector2.One / 2f, new Vector2(2f,2f), spriteEffects, 0);
+
+						Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, pos[i] - Main.screenPosition, new Rectangle(0, 0, 1, 1), white3, rot2, Vector2.One / 2f, new Vector2(2f, 2f), spriteEffects, 0);
 					}
-					
-					Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, midpos - Main.screenPosition, new Rectangle(0,0,1,(int)Vector2.Distance(midpos,end)), white3, rot3, Vector2.One / 2f, new Vector2(2f,1f), spriteEffects, 0);
+
+					Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, midpos - Main.screenPosition, new Rectangle(0, 0, 1, (int)Vector2.Distance(midpos, end)), white3, rot3, Vector2.One / 2f, new Vector2(2f, 1f), spriteEffects, 0);
 				}
 			}
-			
+
 			float num280 = P.localAI[0] / 60f;
-			
+
 			Texture2D texture2D37 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/NovaLaserDrill_Lead").Value;
-			Main.spriteBatch.Draw(texture2D37, vector43 - Main.screenPosition + value49 * 30f, null, alpha7, num280 * (float)Math.PI*2, new Vector2((float)texture2D37.Width / 2f, (float)texture2D37.Height / 2f), 1.5f, spriteEffects, 0f);
-			
+			Main.spriteBatch.Draw(texture2D37, vector43 - Main.screenPosition + value49 * 30f, null, alpha7, num280 * (float)Math.PI * 2, new Vector2((float)texture2D37.Width / 2f, (float)texture2D37.Height / 2f), 1.5f, spriteEffects, 0f);
+
 			Item item = player.inventory[player.selectedItem];
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 			Texture2D texture2D38 = Terraria.GameContent.TextureAssets.Item[item.type].Value;//Main.itemTexture[item.type];
-			if(mi.itemTexture != null)
+			if (mi.itemTexture != null)
 			{
 				texture2D38 = mi.itemTexture;
 			}

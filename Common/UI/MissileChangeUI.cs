@@ -1,35 +1,23 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using ReLogic.Content;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
-using Terraria.UI.Chat;
-using Terraria.ID;
-using Terraria.ModLoader;
-
+﻿using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Default;
 using MetroidMod.ID;
-using MetroidMod.Content.Items.Addons.Hunters;
-using MetroidMod.Content.Items.Addons.V2;
-using MetroidMod.Content.Items.Addons.V3;
-using MetroidMod.Content.Items.Addons;
-using MetroidMod.Common.Configs;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
 	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.GetModPlayer<MPlayer>().missileChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].type == ModContent.ItemType<MissileLauncher>();
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>();
 
 		public MissileChangePanel panel;
 		public override void OnInitialize()
@@ -178,7 +166,7 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-			MissileLauncher missileTarget = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as MissileLauncher;
+			MissileLauncher missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 			if (missileTarget == null || missileTarget.MissileChange == null) { return; }
 
 			if (missileTarget.MissileChange[missileChangeType] != null && !missileTarget.MissileChange[missileChangeType].IsAir)
@@ -190,7 +178,7 @@ namespace MetroidMod.Common.UI
 					Main.mouseItem = missileTarget.MissileChange[missileChangeType].Clone();
 
 					missileTarget.MissileChange[missileChangeType].TurnToAir();
-					if(Main.mouseItem.type == missileTarget.MissileMods[addonSlotType].type)
+					if (Main.mouseItem.type == missileTarget.MissileMods[addonSlotType].type)
 					{
 						missileTarget.MissileMods[addonSlotType].TurnToAir();
 					}
@@ -215,7 +203,7 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
-			Item target = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem];
+			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
 			if (target == null || target.type != ModContent.ItemType<MissileLauncher>()) { return; }
 			MissileLauncher missileTarget = (MissileLauncher)target.ModItem;
 

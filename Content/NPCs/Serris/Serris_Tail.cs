@@ -1,14 +1,10 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 
 namespace MetroidMod.Content.NPCs.Serris
 {
@@ -48,7 +44,7 @@ namespace MetroidMod.Content.NPCs.Serris
 		}
 		public override bool PreAI()
 		{
-			if(tailType > 0)
+			if (tailType > 0)
 			{
 				NPC.width = 20;
 				NPC.height = 20;

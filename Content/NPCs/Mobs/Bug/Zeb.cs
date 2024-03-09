@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Bug
 {
@@ -74,7 +73,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 				NPC.velocity.Y += speedBuildup;
 			else if (NPC.velocity.Y > targetVelocity.Y)
 				NPC.velocity.Y -= speedBuildup;
-			
+
 			if (NPC.collideX)
 			{
 				NPC.netUpdate = true;

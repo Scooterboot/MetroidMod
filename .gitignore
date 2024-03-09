@@ -3,6 +3,9 @@
 
 .vs/
 
+# jetbrains rider
+.idea
+
 *.user
 *.suo
 *.[Cc]ache

@@ -1,7 +1,5 @@
 using System;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -33,9 +31,9 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 		Color color = MetroidMod.plaGreenColor;
 		public override void AI()
 		{
-			
-			string S  = PowerBeam.SetCondition();
-			if (S.Contains("ice"))
+
+
+			if (shot.Contains("ice"))
 			{
 				dustType = 59;
 				color = MetroidMod.iceColor;
@@ -50,23 +48,23 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 			{
 				Projectile.frame = 0;
 			}
-			if (S.Contains("wave"))
+			if (shot.Contains("wave"))
 			{
 				Projectile.Name += "Wave";
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			if (!S.Contains("spazer") && S.Contains("wave"))
+			if (!shot.Contains("spazer") && shot.Contains("wave"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 			}
-			if (S.Contains("spazer") && !S.Contains("wave"))
+			if (shot.Contains("spazer") && !shot.Contains("wave"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 				mProjectile.wavesPerSecond = 2f;
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			if (S.Contains("spazer") && S.Contains("wave"))
+			if (shot.Contains("spazer") && shot.Contains("wave"))
 			{
 				mProjectile.amplitude = 14.5f * Projectile.scale;
 			}
@@ -78,14 +76,14 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 		{
 			mProjectile.Diffuse(Projectile, dustType);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
 			return false;
 		}
 	}
-	
+
 	public class IcePlasmaBeamGreenChargeShot : PlasmaBeamGreenChargeShot
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/plasmabeamgreen/IcePlasmaBeamGreenChargeShot";
@@ -95,5 +93,5 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 			Projectile.Name = "Ice Plasma Beam Green Charge Shot";
 		}
 	}
-	
+
 }

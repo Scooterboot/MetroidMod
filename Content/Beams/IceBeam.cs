@@ -1,7 +1,4 @@
-﻿using Terraria;
-using Terraria.ID;
-
-namespace MetroidMod.Content.Beams
+﻿namespace MetroidMod.Content.Beams
 {
 	/*
 	public class IceBeam : ModSecondaryBeam

@@ -1,18 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using MetroidMod.Common.Systems;
-using MetroidMod.Content.Tiles;
-using MetroidMod.Content.Tiles.Hatch;
-using MetroidMod.ID;
 
 namespace MetroidMod.Default
 {

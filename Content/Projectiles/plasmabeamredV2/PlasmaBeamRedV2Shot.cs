@@ -1,9 +1,6 @@
 using System;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 {
@@ -26,44 +23,44 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 		Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
-			
-			string S  = PowerBeam.SetCondition();
-			if (S.Contains("ice"))
+
+
+			if (shot.Contains("ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
 			}
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			if(Main.projFrames[Projectile.type] > 1)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Main.projFrames[Projectile.type] > 1)
 			{
-				if(Projectile.numUpdates == 0)
+				if (Projectile.numUpdates == 0)
 				{
 					Projectile.frame++;
 				}
-				if(Projectile.frame > 1)
+				if (Projectile.frame > 1)
 				{
 					Projectile.frame = 0;
 				}
 			}
 
-			if (S.Contains("wave"))
+			if (shot.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 			}
-			if (S.Contains("wide") || (S.Contains("wave")))
+			if (shot.Contains("wide") || (shot.Contains("wave")))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			if (S.Contains("wide") && !S.Contains("wave"))
+			if (shot.Contains("wide") && !shot.Contains("wave"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 			}
-			if (S.Contains("wave") && !S.Contains("wide"))
+			if (shot.Contains("wave") && !shot.Contains("wide"))
 			{
 				mProjectile.amplitude = 8f * Projectile.scale;
 			}
-			if (S.Contains("wave") && S.Contains("wide"))
+			if (shot.Contains("wave") && shot.Contains("wide"))
 			{
 				mProjectile.amplitude = 16f * Projectile.scale;
 			}
@@ -79,15 +76,15 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 		{
 			mProjectile.DustyDeath(Projectile, dustType);
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if(Projectile.Name.Contains("Ice") && Projectile.Name.Contains("Wave") && Projectile.Name.Contains("Wide"))
+			if (Projectile.Name.Contains("Ice") && Projectile.Name.Contains("Wave") && Projectile.Name.Contains("Wide"))
 			{
 				mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
 			}
@@ -98,7 +95,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			return false;
 		}
 	}
-	
+
 	public class WidePlasmaBeamRedV2Shot : PlasmaBeamRedV2Shot
 	{
 		public override void SetDefaults()
@@ -107,7 +104,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			Projectile.Name = "Wide Plasma Beam Red V2 Shot";
 		}
 	}
-	
+
 	public class WavePlasmaBeamRedV2Shot : PlasmaBeamRedV2Shot
 	{
 		public override void SetDefaults()
@@ -117,7 +114,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			Projectile.tileCollide = false;
 		}
 	}
-	
+
 	public class IcePlasmaBeamRedV2Shot : PlasmaBeamRedV2Shot
 	{
 		public override void SetDefaults()
@@ -126,7 +123,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			Projectile.Name = "Ice Plasma Beam Red V2 Shot";
 		}
 	}
-	
+
 	public class IceWidePlasmaBeamRedV2Shot : WidePlasmaBeamRedV2Shot
 	{
 		public override void SetDefaults()
@@ -135,7 +132,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			Projectile.Name = "Ice Wide Plasma Beam Red V2 Shot";
 		}
 	}
-	
+
 	public class IceWavePlasmaBeamRedV2Shot : WavePlasmaBeamRedV2Shot
 	{
 		public override void SetDefaults()
@@ -144,7 +141,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamredV2
 			Projectile.Name = "Ice Wave Plasma Beam Red V2 Shot";
 		}
 	}
-	
+
 	public class IceWaveWidePlasmaBeamRedV2Shot : WavePlasmaBeamRedV2Shot
 	{
 		public override void SetDefaults()

@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using MetroidMod.Content.Projectiles.EasterEgg;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Content.Projectiles.EasterEgg;
 
 namespace MetroidMod.Content.Items.EasterEgg
 {

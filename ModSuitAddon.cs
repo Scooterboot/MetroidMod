@@ -1,15 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
+﻿using System;
+using MetroidMod.Default;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using MetroidMod.Default;
-using MetroidMod.ID;
 
 namespace MetroidMod
 {
@@ -204,6 +201,12 @@ namespace MetroidMod
 
 		/// <inheritdoc cref="ModItem.UseItem(Player)"/>
 		public virtual bool? UseItem(Player player) { return null; }
+
+		/// <inheritdoc cref="ModTile.CanKillTile(int, int, ref bool)"/>
+		public virtual bool CanKillTile(int i, int j) { return true; }
+
+		/// <inheritdoc cref="ModMBAddon.CanExplodeTile(int, int)"/>
+		public virtual bool CanExplodeTile(int i, int j) { return true; }
 
 		/// <summary>
 		/// Allows you to do things when this visor is equipped and in use. <br />

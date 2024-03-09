@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs
 {
@@ -14,7 +12,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 		/*
 		 * NPC.ai[0] = dashing logic. 
 		 */
-		 
+
 		internal readonly float speed = 1.2F;
 		internal readonly float dashSpeed = 6F;
 		internal readonly float acceleration = .08F;

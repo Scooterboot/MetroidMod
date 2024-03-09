@@ -1,19 +1,14 @@
-using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Bestiary;
-using Terraria.ID;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
+using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
-
-using MetroidMod.Common.Systems;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Serris
 {
@@ -116,7 +111,7 @@ namespace MetroidMod.Content.NPCs.Serris
 			//coreDamage = (int)(coreDamage * 0.7f * Main.expertDamage);
 			NPC.damage = damage;
 		}
-		
+
 		public override int SpawnNPC(int tileX, int tileY)
 		{
 			int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
@@ -126,9 +121,9 @@ namespace MetroidMod.Content.NPCs.Serris
 			int num13 = (int)(Main.player[NPC.target].position.Y / 16f) - spawnRangeY;
 			int num14 = (int)(Main.player[NPC.target].position.Y / 16f) + spawnRangeY;
 
-			return NPC.NewNPC(NPC.GetSource_FromAI(), (int)MathHelper.Clamp(tileX,num11,num12) * 16 + 8, (int)MathHelper.Clamp(tileY,num13,num14) * 16, Type);
+			return NPC.NewNPC(NPC.GetSource_FromAI(), (int)MathHelper.Clamp(tileX, num11, num12) * 16 + 8, (int)MathHelper.Clamp(tileY, num13, num14) * 16, Type);
 		}
-		
+
 		bool initialBoost = false;
 		//SoundEffectInstance soundInstance;
 		int soundCounter = 0;
@@ -149,48 +144,48 @@ namespace MetroidMod.Content.NPCs.Serris
 				this.Update_Worm(true);
 
 				state = 1;
-				if(NPC.life < (int)(NPC.lifeMax * 0.6f))
+				if (NPC.life < (int)(NPC.lifeMax * 0.6f))
 				{
 					state = 3;
 				}
-				else if(NPC.life < (int)(NPC.lifeMax * 0.8f))
+				else if (NPC.life < (int)(NPC.lifeMax * 0.8f))
 				{
 					state = 2;
 				}
-				
-				if(numUpdates == 0)
+
+				if (numUpdates == 0)
 				{
-					mouthFrame += 0.04f*mouthNum;
-					if(mouthFrame <= 0f)
+					mouthFrame += 0.04f * mouthNum;
+					if (mouthFrame <= 0f)
 					{
 						mouthFrame = 0f;
 						mouthNum = 1;
 					}
-					if(mouthFrame >= 1f)
+					if (mouthFrame >= 1f)
 					{
 						mouthFrame = 1f;
 						mouthNum = -1;
 					}
-					
+
 					glowFrameCounter++;
-					if(glowFrameCounter > 8)
+					if (glowFrameCounter > 8)
 					{
 						glowFrame += glowNum;
 						glowFrameCounter = 0;
 					}
-					if(glowFrame <= 0)
+					if (glowFrame <= 0)
 					{
 						glowFrame = 0;
 						glowNum = 1;
 					}
-					if(glowFrame >= 2)
+					if (glowFrame >= 2)
 					{
 						glowFrame = 2;
 						glowNum = -1;
 					}
 				}
-				
-				if(NPC.life < (int)(NPC.lifeMax * 0.5f))
+
+				if (NPC.life < (int)(NPC.lifeMax * 0.5f))
 				{
 					glowFrame = 1;
 					mouthFrame = 0f;
@@ -202,17 +197,17 @@ namespace MetroidMod.Content.NPCs.Serris
 					ai_state = SerrisState.Transforming;
 					return;
 				}
-				
+
 				// normal movement
-				if(extra_state == 0)
+				if (extra_state == 0)
 				{
 					NPC.damage = damage;
 					NPC.chaseable = true;
 					maxUpdates = 1;
 					oldRot = NPC.rotation;
-					
+
 					//initial speed boost
-					if(!initialBoost)
+					if (!initialBoost)
 					{
 						extra_state = 1;
 						NPC.localAI[3] = 30;
@@ -221,34 +216,34 @@ namespace MetroidMod.Content.NPCs.Serris
 					}
 
 					// activate speed boost on hit
-					if(NPC.justHit)
+					if (NPC.justHit)
 					{
 						extra_state = 1;
 						NPC.TargetClosest(true);
 					}
 				}
 				// stunned movement
-				if(extra_state == 1)
+				if (extra_state == 1)
 				{
 					mouthNum = 2;
-					
+
 					NPC.position -= NPC.velocity;
 					NPC.rotation = oldRot;
-					
-					if(NPC.localAI[3] == 1)
+
+					if (NPC.localAI[3] == 1)
 					{
 						SoundEngine.PlaySound(Sounds.NPCs.SerrisHurt, NPC.Center);
 					}
-					
+
 					NPC.localAI[3]++;
-					if(NPC.localAI[3] > 60)
+					if (NPC.localAI[3] > 60)
 					{
 						extra_state = 2;
 						NPC.localAI[3] = 0;
 					}
 				}
 				// speedboost movement
-				if(extra_state == 2)
+				if (extra_state == 2)
 				{
 					state = 4;
 					mouthNum = -3;
@@ -256,7 +251,7 @@ namespace MetroidMod.Content.NPCs.Serris
 					NPC.chaseable = false;
 					NPC.damage = speedDamage;
 					NPC.position += NPC.velocity * 1.5f;
-					
+
 					Lighting.AddLight((int)(NPC.Center.X / 16f), (int)(NPC.Center.Y / 16f), 2.0f, 2.0f, 2.0f);
 
 					if (Main.netMode != NetmodeID.Server)
@@ -291,22 +286,22 @@ namespace MetroidMod.Content.NPCs.Serris
 							soundInstance.Pan = pan;
 							soundInstance.Volume = volume * Main.soundVolume;
 						}*/
-						if(soundCounter <= 0)
+						if (soundCounter <= 0)
 						{
 							SoundEngine.PlaySound(Sounds.NPCs.SerrisAccel, NPC.Center);
 							soundCounter = 21;
 						}
-						else if(numUpdates == 0)
+						else if (numUpdates == 0)
 						{
 							soundCounter--;
 						}
 					}
-					
-					if(numUpdates <= 0)
+
+					if (numUpdates <= 0)
 					{
 						NPC.localAI[3]++;
 					}
-					if(NPC.localAI[3] > 480)
+					if (NPC.localAI[3] > 480)
 					{
 						extra_state = 0;
 						NPC.localAI[3] = 0;
@@ -326,16 +321,16 @@ namespace MetroidMod.Content.NPCs.Serris
 				//if(soundInstance != null)
 				//	soundInstance.Stop(true);
 				NPC.damage = coreDamage;
-				
-				if(NPC.timeLeft < 300)
+
+				if (NPC.timeLeft < 300)
 					NPC.timeLeft = 300;
 			}
-			
-			if(ai_state == SerrisState.Transforming)
+
+			if (ai_state == SerrisState.Transforming)
 			{
-				if(NPC.localAI[1] == 0)
-					SoundEngine.PlaySound(SoundID.NPCDeath14,NPC.Center);
-				
+				if (NPC.localAI[1] == 0)
+					SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.Center);
+
 				extra_state += 0.01f;
 				if (extra_state > 0.5f)
 					extra_state = 0.5f;
@@ -343,10 +338,10 @@ namespace MetroidMod.Content.NPCs.Serris
 				NPC.chaseable = false;
 				NPC.rotation += extra_state;
 
-				if(NPC.localAI[1]++ <= 1f)
+				if (NPC.localAI[1]++ <= 1f)
 					SoundEngine.PlaySound(Sounds.NPCs.SerrisDeath, NPC.Center);
 
-				if(NPC.localAI[1] > 170f)
+				if (NPC.localAI[1] > 170f)
 				{
 					SoundEngine.PlaySound(SoundID.Item14, NPC.position);
 
@@ -387,7 +382,7 @@ namespace MetroidMod.Content.NPCs.Serris
 					NPC.netUpdate = true;
 					ai_state = SerrisState.CoreXState;
 				}
-				
+
 				NPC.velocity.X *= 0.98f;
 				NPC.velocity.Y *= 0.98f;
 				if (NPC.velocity.X > -0.1f && NPC.velocity.X < 0.1f)
@@ -399,11 +394,11 @@ namespace MetroidMod.Content.NPCs.Serris
 			if (ai_state == SerrisState.CoreXState)
 			{
 				state = 5;
-				if(NPC.life < (int)(NPC.lifeMax * 0.1f))
+				if (NPC.life < (int)(NPC.lifeMax * 0.1f))
 				{
 					state = 7;
 				}
-				else if(NPC.life < (int)(NPC.lifeMax * 0.3f))
+				else if (NPC.life < (int)(NPC.lifeMax * 0.3f))
 				{
 					state = 6;
 				}
@@ -413,10 +408,10 @@ namespace MetroidMod.Content.NPCs.Serris
 				NPC.damage = coreDamage;
 				NPC.HitSound = SoundID.NPCHit1;
 				NPC.knockBackResist = 0.5f;
-				
+
 				NPC.position += NPC.velocity * 1.5f;
-				
-				if(NPC.localAI[3] > 0)
+
+				if (NPC.localAI[3] > 0)
 				{
 					NPC.chaseable = false;
 					NPC.position -= NPC.velocity;
@@ -425,38 +420,38 @@ namespace MetroidMod.Content.NPCs.Serris
 				}
 				else
 				{
-					if(NPC.localAI[1] == 0)
+					if (NPC.localAI[1] == 0)
 					{
 						NPC.chaseable = true;
-						if(NPC.justHit)
+						if (NPC.justHit)
 						{
 							NPC.localAI[1] = 1;
 							SoundEngine.PlaySound(Sounds.NPCs.CoreXHurt, NPC.Center);
 							NPC.TargetClosest(true);
 						}
 					}
-					if(NPC.localAI[1] == 1)
+					if (NPC.localAI[1] == 1)
 					{
 						NPC.localAI[2]++;
-						if(NPC.localAI[2] > 8)
+						if (NPC.localAI[2] > 8)
 						{
 							NPC.localAI[1] = 2;
 							NPC.localAI[2] = 0;
 						}
 					}
-					if(NPC.localAI[1] == 2)
+					if (NPC.localAI[1] == 2)
 					{
 						NPC.chaseable = false;
 						NPC.localAI[2]++;
-						if(NPC.localAI[2] > 150)
+						if (NPC.localAI[2] > 150)
 						{
 							NPC.localAI[1] = 0;
 							NPC.localAI[2] = 0;
 							NPC.TargetClosest(true);
 						}
 					}
-					
-					if(Main.dayTime && (!Main.player[NPC.target].dead || Main.player[NPC.target].active))
+
+					if (Main.dayTime && (!Main.player[NPC.target].dead || Main.player[NPC.target].active))
 						NPC.velocity.Y = NPC.velocity.Y + 0.1f;
 				}
 			}
@@ -491,18 +486,18 @@ namespace MetroidMod.Content.NPCs.Serris
 
 		public override void PostAI()
 		{
-			if(ai_state == SerrisState.CoreXState)
+			if (ai_state == SerrisState.CoreXState)
 				NPC.rotation = 0f;
 			else
 				NPC.spriteDirection = Math.Sign(NPC.velocity.X);
-			
+
 			//if(!NPC.active && soundInstance != null)
 			//	soundInstance.Stop(true);
 		}
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
-			if(ai_state == SerrisState.CoreXState && Main.netMode != NetmodeID.Server)
+			if (ai_state == SerrisState.CoreXState && Main.netMode != NetmodeID.Server)
 			{
 				for (int m = 0; m < (NPC.life <= 0 ? 20 : 5); m++)
 				{
@@ -519,7 +514,7 @@ namespace MetroidMod.Content.NPCs.Serris
 				if (Main.netMode != NetmodeID.Server)
 				{
 					var entitySource = NPC.GetSource_Death();
-					Gore newGore = Main.gore[Gore.NewGore(entitySource, NPC.position, NPC.velocity *.4f, Mod.Find<ModGore>("SerrisXGore1").Type)];
+					Gore newGore = Main.gore[Gore.NewGore(entitySource, NPC.position, NPC.velocity * .4f, Mod.Find<ModGore>("SerrisXGore1").Type)];
 					newGore.timeLeft = 60;
 					newGore.velocity += Vector2.One;
 
@@ -535,12 +530,12 @@ namespace MetroidMod.Content.NPCs.Serris
 					newGore.timeLeft = 60;
 					newGore.velocity -= Vector2.One;
 				}
-					
+
 				//if(soundInstance != null)
 				//	soundInstance.Stop(true);
 			}
 		}
-		
+
 		public int sbFrame = 0;
 		int sbFrameCounter = 0;
 		int coreFrame = 0;
@@ -549,7 +544,7 @@ namespace MetroidMod.Content.NPCs.Serris
 		int flashFrameCounter = 0;
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
-			if(ai_state <= SerrisState.Transforming)
+			if (ai_state <= SerrisState.Transforming)
 			{
 				Texture2D texHead = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Serris/Serris_Head").Value,
 					texJaw = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Serris/Serris_Jaw").Value;
@@ -567,31 +562,31 @@ namespace MetroidMod.Content.NPCs.Serris
 					jawOrig2.Y = jawHeight - jawOrig2.Y;
 				}
 				int frame = state - 1;
-				if(state == 4)
+				if (state == 4)
 					frame = sbFrame + 3;
-				
+
 				sbFrameCounter++;
-				if(sbFrameCounter > 5)
+				if (sbFrameCounter > 5)
 				{
 					sbFrame++;
 					sbFrameCounter = 0;
 				}
-				if(sbFrame > 1)
+				if (sbFrame > 1)
 				{
 					sbFrame = 0;
 				}
-				
+
 				float headRot = NPC.rotation - 1.57f;
-				
+
 				Color headColor = NPC.GetAlpha(Lighting.GetColor((int)NPC.Center.X / 16, (int)NPC.Center.Y / 16));
-				Vector2 jawOrig = Vector2.Lerp(jawOrig1,jawOrig2,mouthFrame);
+				Vector2 jawOrig = Vector2.Lerp(jawOrig1, jawOrig2, mouthFrame);
 				int jawFrame = frame * jawHeight;
-				sb.Draw(texJaw, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,jawFrame,texJaw.Width,jawHeight)), 
+				sb.Draw(texJaw, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, jawFrame, texJaw.Width, jawHeight)),
 				headColor, headRot, jawOrig, 1f, effects, 0f);
-				
-				int headFrame = frame * (headHeight*3);
+
+				int headFrame = frame * (headHeight * 3);
 				headFrame += headHeight * glowFrame;
-				sb.Draw(texHead, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,headFrame,texHead.Width,headHeight)), 
+				sb.Draw(texHead, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, headFrame, texHead.Width, headHeight)),
 				headColor, headRot, headOrig, 1f, effects, 0f);
 			}
 			else
@@ -600,27 +595,27 @@ namespace MetroidMod.Content.NPCs.Serris
 					texShell = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Serris/SerrisCoreX_Shell").Value;
 				int coreHeight = texCore.Height / 8;
 				int shellHeight = texShell.Height / 4;
-				
+
 				coreFrameCounter++;
-				if(coreFrameCounter > 5)
+				if (coreFrameCounter > 5)
 				{
 					coreFrame++;
 					coreFrameCounter = 0;
 				}
-				if(coreFrame >= 8)
+				if (coreFrame >= 8)
 				{
 					coreFrame = 0;
 				}
-				
-				if(NPC.localAI[1] == 2 || NPC.localAI[3] > 0)
+
+				if (NPC.localAI[1] == 2 || NPC.localAI[3] > 0)
 				{
 					flashFrameCounter++;
-					if(flashFrameCounter > 4)
+					if (flashFrameCounter > 4)
 					{
 						flashFrame++;
 						flashFrameCounter = 0;
 					}
-					if(flashFrame > 1)
+					if (flashFrame > 1)
 					{
 						flashFrame = 0;
 					}
@@ -630,22 +625,22 @@ namespace MetroidMod.Content.NPCs.Serris
 					flashFrame = 0;
 					flashFrameCounter = 0;
 				}
-				
-				int shellFrame = state-5;
-				if(flashFrame > 0)
+
+				int shellFrame = state - 5;
+				if (flashFrame > 0)
 				{
 					shellFrame = 3;
 				}
-				
+
 				Color color = NPC.GetAlpha(Lighting.GetColor((int)NPC.Center.X / 16, (int)NPC.Center.Y / 16));
-				
-				sb.Draw(texCore, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,coreHeight*coreFrame,texCore.Width,coreHeight)), 
-				color, 0f, new Vector2(texCore.Width/2,coreHeight/2), 1f, SpriteEffects.None, 0f);
-				
-				sb.Draw(texShell, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0,shellHeight*shellFrame,texShell.Width,shellHeight)), 
-				color, 0f, new Vector2(texShell.Width/2,shellHeight/2), 1f, SpriteEffects.None, 0f);
+
+				sb.Draw(texCore, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, coreHeight * coreFrame, texCore.Width, coreHeight)),
+				color, 0f, new Vector2(texCore.Width / 2, coreHeight / 2), 1f, SpriteEffects.None, 0f);
+
+				sb.Draw(texShell, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, shellHeight * shellFrame, texShell.Width, shellHeight)),
+				color, 0f, new Vector2(texShell.Width / 2, shellHeight / 2), 1f, SpriteEffects.None, 0f);
 			}
-			
+
 			return false;
 		}
 

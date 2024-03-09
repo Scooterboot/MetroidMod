@@ -1,7 +1,5 @@
 using System;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -32,49 +30,49 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 		Color color = MetroidMod.novColor;
 		public override void AI()
 		{
-			
-			string S  = PowerBeam.SetCondition();
+
+
 			if (Projectile.Name.Contains("Ice"))
 			{
 				dustType = 135;
 				color = MetroidMod.iceColor;
 			}
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			if(Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			if (Projectile.numUpdates == 0)
 			{
 				Projectile.frame++;
 			}
-			if(Projectile.frame > 1)
+			if (Projectile.frame > 1)
 			{
 				Projectile.frame = 0;
 			}
 
-			if (S.Contains("wave"))
+			if (shot.Contains("wave"))
 			{
 				Projectile.tileCollide = false;
 			}
-			if (S.Contains("wide") || (S.Contains("wave")))
+			if (shot.Contains("wide") || (shot.Contains("wave")))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
-			if (S.Contains("wide") && !S.Contains("wave"))
+			if (shot.Contains("wide") && !shot.Contains("wave"))
 			{
 				mProjectile.amplitude = 10f * Projectile.scale;
 			}
-			if (S.Contains("wave") && !S.Contains("wide"))
+			if (shot.Contains("wave") && !shot.Contains("wide"))
 			{
 				mProjectile.amplitude = 12f * Projectile.scale;
 			}
-			if (S.Contains("wave") && S.Contains("wide"))
+			if (shot.Contains("wave") && shot.Contains("wide"))
 			{
 				mProjectile.amplitude = 16f * Projectile.scale;
 			}
 
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
-			
+
 			Vector2 velocity = Projectile.position - Projectile.oldPos[0];
-			if(Vector2.Distance(Projectile.position, Projectile.position+velocity) < Vector2.Distance(Projectile.position,Projectile.position+Projectile.velocity))
+			if (Vector2.Distance(Projectile.position, Projectile.position + velocity) < Vector2.Distance(Projectile.position, Projectile.position + Projectile.velocity))
 			{
 				velocity = Projectile.velocity;
 			}
@@ -85,16 +83,16 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 		{
 			mProjectile.Diffuse(Projectile, dustType);
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
 		}
-		
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			float scale = 0.75f;
-			if(Projectile.Name.Contains("Ice") && Projectile.Name.Contains("Wave"))
+			if (Projectile.Name.Contains("Ice") && Projectile.Name.Contains("Wave"))
 			{
 				scale = 1f;
 			}
@@ -102,7 +100,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			return false;
 		}
 	}
-	
+
 	public class WideNovaBeamV2ChargeShot : NovaBeamV2ChargeShot
 	{
 		public override string Texture => $"{Mod.Name}/Content/Projectiles/novabeamV2/WaveNovaBeamV2ChargeShot";
@@ -112,7 +110,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			Projectile.Name = "Wide Nova Beam V2 Charge Shot";
 		}
 	}
-	
+
 	public class WaveNovaBeamV2ChargeShot : NovaBeamV2ChargeShot
 	{
 		public override void SetDefaults()
@@ -121,7 +119,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			Projectile.Name = "Wave Nova Beam V2 Charge Shot";
 		}
 	}
-	
+
 	public class IceNovaBeamV2ChargeShot : NovaBeamV2ChargeShot
 	{
 		public override void SetDefaults()
@@ -130,7 +128,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			Projectile.Name = "Ice Nova Beam V2 Charge Shot";
 		}
 	}
-	
+
 	public class IceWideNovaBeamV2ChargeShot : WideNovaBeamV2ChargeShot
 	{
 		public override void SetDefaults()
@@ -139,7 +137,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			Projectile.Name = "Ice Wide Nova Beam V2 Charge Shot";
 		}
 	}
-	
+
 	public class IceWaveNovaBeamV2ChargeShot : WaveNovaBeamV2ChargeShot
 	{
 		public override void SetDefaults()

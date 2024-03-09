@@ -1,21 +1,14 @@
 ﻿using System;
-
-using Microsoft.Xna.Framework.Graphics;
-
-using ReLogic.Content;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-
 using MetroidMod.Common.GlobalNPCs;
-using MetroidMod.Common.Systems;
 using MetroidMod.Common.Players;
 using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {

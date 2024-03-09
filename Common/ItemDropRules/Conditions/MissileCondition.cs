@@ -1,5 +1,5 @@
-﻿using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
+﻿using Terraria.GameContent.ItemDropRules;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Common.ItemDropRules.Conditions
 {

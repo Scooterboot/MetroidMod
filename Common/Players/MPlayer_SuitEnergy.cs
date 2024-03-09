@@ -1,7 +1,6 @@
 ﻿using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Players
@@ -99,7 +98,8 @@ namespace MetroidMod.Common.Players
 			};
 			*/
 			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; };
-			modifiers.FinalDamage *= 1f-EnergyDefenseEfficiency;
+			float hit = 1f - EnergyDefenseEfficiency;
+			modifiers.FinalDamage *= hit;
 			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
 				modifiers.DisableSound();
@@ -111,16 +111,6 @@ namespace MetroidMod.Common.Players
 			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
 			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
 			Energy = Math.Max(1, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
-			if (info.Damage <= 1)
-			{
-				//info.Damage = 0;
-				Energy -= info.SourceDamage;
-				//customDamage = true;
-				if (info.SourceDamage >= Energy)
-				{
-					Energy = 0;
-				}
-			}
 		}
 		public override void OnRespawn()
 		{
@@ -152,10 +142,10 @@ namespace MetroidMod.Common.Players
 			{
 				//Player.lifeRegen = 0;
 				int oldEnergy = Energy;
-				float damageToSubtractFromEnergy = Math.Min((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f);
+				float damageToSubtractFromEnergy = Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
 				Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 				Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
-				if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
+				//if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
 			}
 		}
 		private static void SetMinMax(ref float value, float min = 0f, float max = 1f) => value = Math.Min(Math.Max(value, min), max);

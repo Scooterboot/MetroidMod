@@ -1,9 +1,9 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.DataStructures;
 
 namespace MetroidMod.Default
 {
@@ -46,12 +46,17 @@ namespace MetroidMod.Default
 		}
 		public override bool RightClick(int i, int j)
 		{
+			if (!modMBAddon.CanKillTile(i, j)) { return true; }
 			WorldGen.KillTile(i, j, false, false, false);
 			if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[i, j].HasTile)
 			{
 				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, (float)i, (float)j, 0f, 0, 0, 0);
 			}
 			return true;
+		}
+		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			if (!modMBAddon.CanKillTile(i, j)) { fail = true; }
 		}
 	}
 }

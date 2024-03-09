@@ -1,7 +1,6 @@
-﻿using Terraria;
+﻿using MetroidMod.Content.DamageClasses;
+using Terraria;
 using Terraria.ModLoader;
-
-using MetroidMod.Content.DamageClasses;
 
 namespace MetroidMod.Common.Players
 {

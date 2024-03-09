@@ -1,13 +1,9 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using System;
 
 namespace MetroidMod.Content.Tiles.Hatch
 {
@@ -32,6 +28,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			// name.SetDefault("Blue Hatch");
 			AddMapEntry(new Color(56, 112, 224), name);
 			AdjTiles = new int[] { TileID.OpenDoor };
+			RegisterItemDrop(ModContent.ItemType<Items.Tiles.BlueHatch>());
 
 			otherDoorID = ModContent.TileType<BlueHatch>();
 		}

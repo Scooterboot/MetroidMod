@@ -1,10 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.Enums;
 
 namespace MetroidMod.Content.Projectiles.OmegaCannon
 {
@@ -13,9 +9,9 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Omega Cannon Shot");
-            Main.projFrames[Projectile.type] = 2;
+			Main.projFrames[Projectile.type] = 2;
 
-        }
+		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -25,26 +21,25 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
 		}
-		private int blastRadius;
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
 			Color color = MetroidMod.powColor;
-			Lighting.AddLight(Projectile.Center, color.R/255f,color.G/255f,color.B/255f);
-			
-			if(Projectile.numUpdates == 0)
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+
+			if (Projectile.numUpdates == 0)
 			{
-                Projectile.rotation += 0.5f * Projectile.direction;
-                Projectile.frame++;
-            }
-            if (Projectile.frame > 1)
-            {
-                Projectile.frame = 0;
-            }
-            int dustType = 64;
-            int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 64, 0, 0, 100, default(Color), Projectile.scale);
-            Main.dust[dust].noGravity = true;
-            mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 1, dustType, 2f);
+				Projectile.rotation += 0.5f * Projectile.direction;
+				Projectile.frame++;
+			}
+			if (Projectile.frame > 1)
+			{
+				Projectile.frame = 0;
+			}
+			int dustType = 64;
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 64, 0, 0, 100, default(Color), Projectile.scale);
+			Main.dust[dust].noGravity = true;
+			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 1, dustType, 2f);
 		}
 		public override void OnKill(int timeLeft)
 		{
@@ -60,9 +55,15 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 				}
 			}
 		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (Projectile.timeLeft >= 1)
+				modifiers.ArmorPenetration += 50;
+			base.ModifyHitNPC(target, ref modifiers);
+		}
 		public override bool? CanCutTiles()
 		{
-			if(Projectile.timeLeft <= 1)
+			if (Projectile.timeLeft <= 1)
 			{
 				return false;
 			}

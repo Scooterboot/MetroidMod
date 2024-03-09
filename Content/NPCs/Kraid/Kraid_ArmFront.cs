@@ -1,13 +1,11 @@
-using Terraria;
-using Terraria.ID;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
-using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Kraid
 {
@@ -46,14 +44,14 @@ namespace MetroidMod.Content.NPCs.Kraid
 			NPC.npcSlots = 1;
 			NPC.boss = true;
 
-			swipeDestVec[0] = new Vector2(-20f,-2f);
-			swipeDestVec[1] = new Vector2(-50f,-6f);
-			swipeDestVec[2] = new Vector2(-78f,-42f);
-			swipeDestVec[3] = new Vector2(-70f,-116f);
-			swipeDestVec[4] = new Vector2(0f,-100f);
-			swipeDestVec[5] = new Vector2(36f,-54f);
-			swipeDestVec[6] = new Vector2(42f,0f);
-			swipeDestVec[7] = new Vector2(6f,22f);
+			swipeDestVec[0] = new Vector2(-20f, -2f);
+			swipeDestVec[1] = new Vector2(-50f, -6f);
+			swipeDestVec[2] = new Vector2(-78f, -42f);
+			swipeDestVec[3] = new Vector2(-70f, -116f);
+			swipeDestVec[4] = new Vector2(0f, -100f);
+			swipeDestVec[5] = new Vector2(36f, -54f);
+			swipeDestVec[6] = new Vector2(42f, 0f);
+			swipeDestVec[7] = new Vector2(6f, 22f);
 			swipeDestVec[8] = Vector2.Zero;
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -70,8 +68,8 @@ namespace MetroidMod.Content.NPCs.Kraid
 		int fArmAnim = 1;
 		int num = 1;
 		float anim = 0;
-		Vector2 animVec = new Vector2(14f,-8f);
-		
+		Vector2 animVec = new Vector2(14f, -8f);
+
 		int num2 = 220;
 
 		int state = 0;
@@ -83,7 +81,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				NPC.life = 0;
 				NPC.active = false;
-				if(!despawn)
+				if (!despawn)
 				{
 					NPC.HitEffect(0, 10.0);
 				}
@@ -91,15 +89,15 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 
 			state = 0;
-			if(Head.life < (int)(Head.lifeMax*0.75f))
+			if (Head.life < (int)(Head.lifeMax * 0.75f))
 			{
 				state = 1;
 			}
-			if(Head.life < (int)(Head.lifeMax*0.5f))
+			if (Head.life < (int)(Head.lifeMax * 0.5f))
 			{
 				state = 2;
 			}
-			if(Head.life < (int)(Head.lifeMax*0.25f))
+			if (Head.life < (int)(Head.lifeMax * 0.25f))
 			{
 				state = 3;
 			}
@@ -112,18 +110,18 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 
 			NPC.ai[1]++;
-			if(NPC.ai[1] >= num2)
+			if (NPC.ai[1] >= num2)
 			{
-				if(NPC.ai[1] <= num2+40)
+				if (NPC.ai[1] <= num2 + 40)
 				{
-					swipeFrame = Math.Min(swipeFrame+0.125f,4f);
+					swipeFrame = Math.Min(swipeFrame + 0.125f, 4f);
 				}
-				else if(NPC.ai[1] <= num2+75)
+				else if (NPC.ai[1] <= num2 + 75)
 				{
-					swipeFrame = Math.Min(swipeFrame+0.25f,9f);
+					swipeFrame = Math.Min(swipeFrame + 0.25f, 9f);
 				}
-				swipeVec = LerpArray(Vector2.Zero,swipeDestVec,swipeFrame);
-				if(NPC.ai[1] >= num2+80)
+				swipeVec = LerpArray(Vector2.Zero, swipeDestVec, swipeFrame);
+				if (NPC.ai[1] >= num2 + 80)
 				{
 					swipeFrame = 0f;
 					swipeVec = Vector2.Zero;
@@ -133,17 +131,17 @@ namespace MetroidMod.Content.NPCs.Kraid
 			else
 			{
 				num2 = 220;
-				num2 -= 30*state;
+				num2 -= 30 * state;
 			}
-			NPC.rotation = -(((float)Math.PI/4) * (Math.Max((swipeVec.X+swipeVec.Y)*-1,0)/194));
-			
-			if(swipeFrame == 6f)
+			NPC.rotation = -(((float)Math.PI / 4) * (Math.Max((swipeVec.X + swipeVec.Y) * -1, 0) / 194));
+
+			if (swipeFrame == 6f)
 			{
 				Terraria.Audio.SoundEngine.PlaySound(Sounds.NPCs.KraidSwipe, NPC.Center);
-				Vector2 clawPos = NPC.Center+new Vector2(48*Head.direction,-36);
-				float trot = (float)Math.Atan2(player.Center.Y-clawPos.Y,player.Center.X-clawPos.X);
+				Vector2 clawPos = NPC.Center + new Vector2(48 * Head.direction, -36);
+				float trot = (float)Math.Atan2(player.Center.Y - clawPos.Y, player.Center.X - clawPos.X);
 				float speed = 4f;
-				Vector2 clawVel = new Vector2((float)Math.Cos(trot)*speed,(float)Math.Sin(trot)*speed);
+				Vector2 clawVel = new Vector2((float)Math.Cos(trot) * speed, (float)Math.Sin(trot) * speed);
 
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
@@ -163,31 +161,31 @@ namespace MetroidMod.Content.NPCs.Kraid
 					}
 				}
 			}
-			
+
 			NPC.frameCounter += 1;
-			if(NPC.frameCounter >= 10)
+			if (NPC.frameCounter >= 10)
 			{
 				NPC.frame.Y += fArmAnim;
-				if(NPC.frame.Y >= 4 || NPC.frame.Y <= 0)
+				if (NPC.frame.Y >= 4 || NPC.frame.Y <= 0)
 				{
 					fArmAnim *= -1;
 				}
 				NPC.frameCounter = 0;
 			}
 
-			if(NPC.frame.Y >= 4)
+			if (NPC.frame.Y >= 4)
 			{
 				num = -1;
 			}
-			if(NPC.frame.Y <= 0)
+			if (NPC.frame.Y <= 0)
 			{
 				num = 1;
 			}
-			anim = (1f/4)*NPC.frame.Y+((float)NPC.frameCounter/40)*num;
-			anim = MathHelper.Clamp(anim,0f,1f);
-			
-			Vector2 vec = Vector2.Lerp(Vector2.Zero,new Vector2(animVec.X*Head.direction,animVec.Y),anim);
-			NPC.Center = Head.Center + new Vector2(42*Head.direction,131) + vec + new Vector2(swipeVec.X*Head.direction,swipeVec.Y);
+			anim = (1f / 4) * NPC.frame.Y + ((float)NPC.frameCounter / 40) * num;
+			anim = MathHelper.Clamp(anim, 0f, 1f);
+
+			Vector2 vec = Vector2.Lerp(Vector2.Zero, new Vector2(animVec.X * Head.direction, animVec.Y), anim);
+			NPC.Center = Head.Center + new Vector2(42 * Head.direction, 131) + vec + new Vector2(swipeVec.X * Head.direction, swipeVec.Y);
 			NPC.velocity *= 0f;
 		}
 		/*public override void HitEffect(int hitDirection, double damage)
@@ -229,22 +227,22 @@ namespace MetroidMod.Content.NPCs.Kraid
 		{
 			return false;
 		}
-		
+
 		public static Vector2 LerpArray(Vector2 value1, Vector2[] value2, float amount)
 		{
 			Vector2 result = value1;
-			for(int i = 0; i < value2.Length; i++)
+			for (int i = 0; i < value2.Length; i++)
 			{
-				if((i+1) >= amount)
+				if ((i + 1) >= amount)
 				{
 					Vector2 firstValue = value1;
 					Vector2 secondValue = value2[i];
-					if(i > 0)
+					if (i > 0)
 					{
-						firstValue = value2[i-1];
+						firstValue = value2[i - 1];
 					}
-					float amt = amount-i;
-					result = firstValue + (secondValue-firstValue)*amt;
+					float amt = amount - i;
+					result = firstValue + (secondValue - firstValue) * amt;
 					break;
 				}
 			}

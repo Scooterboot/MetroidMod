@@ -1,14 +1,11 @@
 ﻿using System;
-
+using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-
-using MetroidMod.Common.Systems;
-using MetroidMod.Common.Players;
-using MetroidMod.ID;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -24,7 +21,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
 
-		public override double GenerationChance(int x, int y) => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 5;
+		public override double GenerationChance(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 5;
 
 		public override void SetStaticDefaults()
 		{

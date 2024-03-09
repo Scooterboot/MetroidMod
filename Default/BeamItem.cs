@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace MetroidMod.Default
+﻿namespace MetroidMod.Default
 {
 	/*
 	[Autoload(false)]

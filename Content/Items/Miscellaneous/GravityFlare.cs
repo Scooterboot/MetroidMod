@@ -1,9 +1,6 @@
-using System;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Miscellaneous
@@ -28,8 +25,8 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			Item.height = 16;
 			Item.value = 10000;
 			Item.rare = ItemRarityID.Pink;
-			
+
 		}
-	
+
 	}
 }

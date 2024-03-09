@@ -1,11 +1,9 @@
-using Terraria;
 using System;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -49,7 +47,7 @@ namespace MetroidMod.Content.Items.Accessories
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJumpBoots = true;
 			mp.screwAttack = true;
-			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item),mp.screwAttackDmg);
+			mp.screwAttackDmg = Math.Max(player.GetWeaponDamage(Item), mp.screwAttackDmg);
 		}
 	}
 }

@@ -46,13 +46,13 @@ namespace MetroidMod.Content.Items.Weapons
 					return true;
 				}
 				return false;
-			}		
+			}
 			return true;
 		}
 
 		public override bool? UseItem(Player player)
 		{
-			if(player.altFunctionUse == 2)
+			if (player.altFunctionUse == 2)
 			{
 				if (player.velocity.Y == 0)
 				{

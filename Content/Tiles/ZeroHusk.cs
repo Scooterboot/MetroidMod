@@ -1,15 +1,10 @@
-﻿using System;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.DataStructures;
 
 namespace MetroidMod.Content.Tiles
 {
@@ -29,7 +24,7 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.newTile.LavaDeath = true;
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16 };
 			TileObjectData.addTile(Type);
-			
+
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Zero Husk");
 			AddMapEntry(new Color(180, 180, 180), name);

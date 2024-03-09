@@ -1,6 +1,5 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -35,8 +34,8 @@ namespace MetroidMod.Content.Projectiles
 			{
 				for (int l = 0; l < 4; l++)
 				{
-					float x = (P.position.X - P.velocity.X * ((float)l * 0.25f) + (P.width/2));
-					float y = (P.position.Y - P.velocity.Y * ((float)l * 0.25f) + (P.height/2));
+					float x = (P.position.X - P.velocity.X * ((float)l * 0.25f) + (P.width / 2));
+					float y = (P.position.Y - P.velocity.Y * ((float)l * 0.25f) + (P.height / 2));
 					int num20 = Dust.NewDust(new Vector2(x, y), 1, 1, 68, 0f, 0f, 100, default(Color), Main.rand.Next(3, 6));
 					Main.dust[num20].position.X = x;
 					Main.dust[num20].position.Y = y;
@@ -44,12 +43,12 @@ namespace MetroidMod.Content.Projectiles
 					Main.dust[num20].noGravity = true;
 				}
 			}
-			if(P.localAI[0] < 60f)
+			if (P.localAI[0] < 60f)
 			{
-				P.velocity.X += (float)Main.rand.Next(-50,51) * 0.075f;
-				P.velocity.Y += (float)Main.rand.Next(-50,51) * 0.075f;
+				P.velocity.X += (float)Main.rand.Next(-50, 51) * 0.075f;
+				P.velocity.Y += (float)Main.rand.Next(-50, 51) * 0.075f;
 			}
-			else if(P.velocity.Length() < 16)
+			else if (P.velocity.Length() < 16)
 			{
 				P.velocity *= 1.1f;
 			}

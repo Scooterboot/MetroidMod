@@ -1,5 +1,7 @@
 #region Using directives
 
+using MetroidMod.Common.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -7,9 +9,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-using MetroidMod.Common.Systems;
 
 #endregion
 
@@ -36,11 +35,11 @@ namespace MetroidMod.Content.Tiles
 		public override bool CanExplode(int x, int y) => false;
 
 		public override void NumDust(int x, int y, bool fail, ref int num) => num = fail ? 1 : 3;
-		
+
 		public override void ModifyLight(int x, int y, ref float r, ref float g, ref float b)
-		{	
-			r = (255f/255f);
-			g = (105f/255f);
+		{
+			r = (255f / 255f);
+			g = (105f / 255f);
 			b = 0f;
 		}
 
@@ -51,13 +50,14 @@ namespace MetroidMod.Content.Tiles
 				return;
 			}
 
-			if(!fail && !effectOnly)
+			if (!fail && !effectOnly)
 			{
-				for(int i = x - 16; i < x + 16; i++)
+				noItem = true;
+				for (int i = x - 16; i < x + 16; i++)
 				{
-					for(int j = y - 16; j < y + 16; j++)
+					for (int j = y - 16; j < y + 16; j++)
 					{
-						if(Main.tile[i,j].TileType == ModContent.TileType<PhazonCore>())
+						if (Main.tile[i, j].TileType == ModContent.TileType<PhazonCore>())
 						{
 							for (int k = 0; k < 10; k++)
 							{
@@ -91,9 +91,9 @@ namespace MetroidMod.Content.Tiles
 				}
 
 				int Amount_Of_Spawns = 100 + (int)(Main.maxTilesY * 0.2f);
-				for(int i = 0; i < Amount_Of_Spawns; i++)
+				for (int i = 0; i < Amount_Of_Spawns; i++)
 				{
-					if(MSystem.PhazonSpawn != true)
+					if (MSystem.PhazonSpawn != true)
 					{
 						Common.Systems.MSystem.AddPhazon();
 						MSystem.PhazonSpawn = true;

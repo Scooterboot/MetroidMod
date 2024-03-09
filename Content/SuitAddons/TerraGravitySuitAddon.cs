@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using MetroidMod.Common.Players;
-using MetroidMod.ID;
-using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -23,7 +23,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => ((WorldGen.drunkWorldGen || WorldGen.everythingWorldGen) && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues) || MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare);
+		public override bool CanGenerateOnChozoStatue(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare);
 
 		public override double GenerationChance(int x, int y) => 4;
 
@@ -45,7 +45,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Grants 14 seconds of lava immunity\n" +
 				"Default gravity in space\n" +
 				"Immune to Distorted and Amplified Gravity effects"); */
-			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType;
+			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = false;
 		}
@@ -78,6 +78,7 @@ namespace MetroidMod.Content.SuitAddons
 			mp.missileCost -= 0.1f;
 			mp.EnergyDefenseEfficiency += 0.3f;
 			mp.EnergyExpenseEfficiency += 0.175f;
+			mp.canUseHyperBeam = true;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{

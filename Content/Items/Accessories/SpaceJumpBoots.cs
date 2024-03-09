@@ -1,14 +1,8 @@
-using Terraria;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.SuitAddons;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {

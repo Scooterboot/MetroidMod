@@ -490,7 +490,6 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					[c/78BE78:Shots Explode]
-					[c/78BE78:Direct hits double hit]
 					[c/78BE78:+50% knockback]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
@@ -536,7 +535,8 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Shots bounce and roll
-					Charge shots explode and ignite
+					Charge shots ignite
+					all shots diffuse with diffusion beam in the array
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
@@ -552,6 +552,8 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					[c/78BE78:20x base damage]
+					[c/78BE78:Colossal blast radius; screenwipe]
+					[c/78BE78:Direct hits have high armor penetration]
 					[c/BE7878:10x overheat use]
 					[c/BE7878:Slow as the DMV]
 					[c/BE7878:Cannot Pierce walls or enemies]
@@ -584,6 +586,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Charge shots home, explode, and confuse
+					charge shots diffuse with diffusion beam in the array
 					[c/78BE78:+10% damage]
 					[c/BE7878:-10% speed]
 					[c/BE7878:+50% overheat use]
@@ -601,6 +604,7 @@ Mods: {
 					Increases base damage from 14 to 35, and base overheat use from 4 to 7
 					Slightly decreases firerate
 					Affected by addons regardless of version
+					Main projectile has high armor penetration
 					Disables freeze and other debuff effects
 					Array slot 9
 					'Da babeh'
@@ -680,7 +684,7 @@ Mods: {
 			}
 
 			ChargeBeamV2Addon: {
-				DisplayName: Charge Beam V2
+				DisplayName: Diffusion Beam
 				Tooltip:
 					'''
 					[c/FF9696:Power Beam Addon V2]
@@ -688,6 +692,8 @@ Mods: {
 					Adds Charge Effect
 					Charge by holding click
 					Charge shots deal x4 damage, but overheat x2.5 the normal use
+					Damage and heat scaling affects all charge shots when in the array
+					Adds a diffusion effect when fully charged
 					Array slot 11
 					'''
 			}
@@ -755,6 +761,7 @@ Mods: {
 					Adds Charge Effect 
 					Charge by holding click 
 					Charge shots deal x5 damage, but overheat x3 the normal use
+					Damage and heat scaling affects all charge shots when in the array
 					Array slot 12
 					'''
 			}
@@ -906,7 +913,11 @@ Mods: {
 
 			OmegaPirateSummon: {
 				DisplayName: Phazon Reactor Core
-				Tooltip: ""
+				Tooltip:
+					'''
+					Summons Omega Pirate
+					unstable in multiplayer
+					'''
 			}
 
 			PhantoonBag: {
@@ -926,7 +937,7 @@ Mods: {
 
 			SerrisSummon: {
 				DisplayName: Serris Bait
-				Tooltip: ""
+				Tooltip: Summons Serris at the Ocean
 			}
 
 			TorizoBag: {
@@ -1471,7 +1482,7 @@ Mods: {
 
 			MissileExpansion: {
 				DisplayName: Missile Expansion
-				Tooltip: ""
+				Tooltip: Increases max missiles, stacks up to 50
 			}
 
 			MissileStation: {
@@ -2669,6 +2680,7 @@ Mods: {
 					Grants 14 seconds of lava immunity
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
+					Enables Hyper Beam use
 					Slot: Primary
 					'''
 			}
@@ -2734,6 +2746,7 @@ Mods: {
 					Grants 14 seconds of lava immunity
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
+					Enables Hyper Beam use
 					Slot: Primary
 					'''
 			}
@@ -2769,7 +2782,7 @@ Mods: {
 
 			PhazonCore: {
 				DisplayName: Phazon Core
-				Tooltip: Destroy this with the nova laser to add phazon to the world
+				Tooltip: Destroy this with the nova laser to add phazon to the world. THIS IS A FAILSAFE THAT DOES NOTHING IF THE LEVITHAN LANDED
 			}
 
 			VanityFusionGravitySuitBreastplate: {
@@ -4191,7 +4204,7 @@ Mods: {
 				}
 
 				drunkWorldHasDrunkStatues: {
-					Label: Drunk World has drunk Chozo Statues
+					Label: Drunk Chozo Statues
 					Tooltip: When enabled, Chozo Statues can have any suit addon or morph ball addon.
 				}
 

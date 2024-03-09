@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.NPCs.Mobs.Bug
 {
@@ -66,7 +64,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 					NPC.position.X -= NPC.velocity.X + (float)NPC.direction;
 
 				NPC.ai[0]++;
-				if(NPC.ai[0] >= NPC.ai[1])
+				if (NPC.ai[0] >= NPC.ai[1])
 				{
 					NPC.TargetClosest();
 
@@ -81,10 +79,10 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 
 		public override void FindFrame(int frameHeight)
 		{
-			if(NPC.velocity.Y == 0)
+			if (NPC.velocity.Y == 0)
 			{
 				// Just landed, revert to 'idle' frame.
-				if(NPC.frame.Y != 0)
+				if (NPC.frame.Y != 0)
 				{
 					if (NPC.frameCounter++ < 5)
 						NPC.frame.Y = frameHeight;
@@ -98,7 +96,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			else
 			{
 				// Just aired, start launch animation
-				if(NPC.frame.Y != 2 * frameHeight)
+				if (NPC.frame.Y != 2 * frameHeight)
 				{
 					if (NPC.frameCounter++ < 5)
 						NPC.frame.Y = frameHeight;

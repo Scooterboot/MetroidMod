@@ -1,9 +1,7 @@
-﻿using System;
-using MetroidMod.Common.Configs;
+﻿using MetroidMod.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,7 +46,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			}
 			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
 		}
-		
+
 		public override void SetDefaults()
 		{
 			NPC.width = 60;
@@ -88,7 +86,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 		}
-		
+
 		public override bool PreAI()
 		{
 			if (!spawn && newScale != -1)
@@ -103,12 +101,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		public override void AI()
 		{
 			mNPC.HopperAI(NPC, 5f, 8f);
-			
-			if(NPC.ai[1] == 1f)
+
+			if (NPC.ai[1] == 1f)
 			{
-				if(NPC.ai[0] < 30)
+				if (NPC.ai[0] < 30)
 				{
-					if(NPC.frameCounter > 0)
+					if (NPC.frameCounter > 0)
 					{
 						NPC.frameCounter--;
 					}
@@ -117,7 +115,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 				{
 					NPC.frameCounter = 10;
 				}
-				if(NPC.frameCounter > 0)
+				if (NPC.frameCounter > 0)
 				{
 					NPC.frame.Y = 1;
 				}
@@ -134,25 +132,25 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		}
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
-			mNPC.DrawHopper(NPC,sb,screenPos,drawColor);
+			mNPC.DrawHopper(NPC, sb, screenPos, drawColor);
 			return false;
 		}
-		
+
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				var entitySource = NPC.GetSource_Death();
-				for(int i = 0; i < 3; i++)
+				for (int i = 0; i < 3; i++)
 				{
-					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("DessgeegaGore"+i).Type, NPC.scale);
-					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width,Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
+					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("DessgeegaGore" + i).Type, NPC.scale);
+					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width, Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
 					gore.timeLeft = 60;
 				}
 				for (int i = 0; i < 15; i++)
 				{
-					Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 6, RandomVel.X, RandomVel.Y, 100, default(Color), 1.5f*NPC.scale);
+					Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 6, RandomVel.X, RandomVel.Y, 100, default(Color), 1.5f * NPC.scale);
 					dust.noGravity = false;
 				}
 			}
@@ -171,7 +169,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
 		}
-		
+
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			if (MConfigMain.Instance.disablemobspawn == true)
@@ -184,7 +182,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			}
 			return 0f;
 		}
-		
+
 		public override void SetDefaults()
 		{
 			NPC.width = 96;
@@ -203,7 +201,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			NPC.behindTiles = true;
 			NPC.lavaImmune = true;
 		}
-		
+
 		public override bool PreAI()
 		{
 			if (!spawn)
@@ -213,7 +211,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			}
 			return true;
 		}
-		
+
 		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
@@ -222,8 +220,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 				var entitySource = NPC.GetSource_Death();
 				for (int i = 0; i < 3; i++)
 				{
-					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("DessgeegaLargeGore"+i).Type, NPC.scale);
-					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width,Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
+					Gore gore = Gore.NewGoreDirect(entitySource, NPC.Center, RandomVel, Mod.Find<ModGore>("DessgeegaLargeGore" + i).Type, NPC.scale);
+					gore.position -= new Vector2(Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Width, Terraria.GameContent.TextureAssets.Gore[gore.type].Value.Height) / 2;
 					gore.timeLeft = 60;
 				}
 				for (int i = 0; i < 15; i++)

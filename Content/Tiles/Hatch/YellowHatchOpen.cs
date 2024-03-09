@@ -2,12 +2,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using System;
 
 namespace MetroidMod.Content.Tiles.Hatch
 {
@@ -24,7 +22,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 			TileObjectData.newTile.Height = 4;
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 16, 16, 16 };
+			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16 };
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			TileID.Sets.HousingWalls[Type] = true;
@@ -32,9 +30,10 @@ namespace MetroidMod.Content.Tiles.Hatch
 			// name.SetDefault("Yellow Hatch");
 			AddMapEntry(new Color(248, 232, 56), name);
 			//dustType = 1;
-			AdjTiles = new int[]{ TileID.OpenDoor };
+			AdjTiles = new int[] { TileID.OpenDoor };
 			MinPick = 210;
-			
+			RegisterItemDrop(ModContent.ItemType<Items.Tiles.YellowHatch>());
+
 			otherDoorID = ModContent.TileType<YellowHatch>();
 		}
 
@@ -50,20 +49,20 @@ namespace MetroidMod.Content.Tiles.Hatch
 		{
 			new EntitySource_TileBreak(i, j); //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.YellowHatch>());
 		}
-		
+
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
 		{
-			if(type == Type)
+			if (type == Type)
 			{
 				short doorHeight = 72;
 				Tile tile = Main.tile[i, j];
-				while(tile.TileFrameY+frameYOffset >= doorHeight)
+				while (tile.TileFrameY + frameYOffset >= doorHeight)
 				{
 					frameYOffset -= doorHeight;
 				}
-				if(tile.TileFrameY < doorHeight*4)
+				if (tile.TileFrameY < doorHeight * 4)
 				{
-					if(tile.TileFrameY < doorHeight)
+					if (tile.TileFrameY < doorHeight)
 					{
 						tile.TileFrameY += doorHeight;
 					}
@@ -73,7 +72,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 		}
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			DrawDoor(i,j,spriteBatch,ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/YellowHatchDoor").Value);
+			DrawDoor(i, j, spriteBatch, ModContent.Request<Texture2D>($"{Mod.Name}/Content/Tiles/Hatch/YellowHatchDoor").Value);
 			return true;
 		}
 	}

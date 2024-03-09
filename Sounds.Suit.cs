@@ -47,6 +47,11 @@ namespace MetroidMod
 
 			};
 
+			public static readonly SoundStyle MissilePickup = new($"{nameof(MetroidMod)}/Assets/Sounds/MissilePickupSound") 
+			{
+					
+			};
+
 			public static readonly SoundStyle EnergyHit = new($"{nameof(MetroidMod)}/Assets/Sounds/EnergyHit_", 0, 2)
 			{
 				PitchVariance = 0.5f

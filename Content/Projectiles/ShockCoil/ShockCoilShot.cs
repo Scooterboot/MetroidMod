@@ -1,16 +1,16 @@
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ModLoader;
-using Terraria.Enums;
 using System.IO;
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Common.Configs;
-using Terraria.GameContent.Tile_Entities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.Enums;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.ShockCoil
 {
@@ -18,84 +18,103 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 	{
 		public override void SetStaticDefaults()
 		{
-            Main.projFrames[Projectile.type] = 12;
-        }
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.scale = 1f;
+			Main.projFrames[Projectile.type] = 12;
+		}
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.scale = 1f;
 			Projectile.penetrate = -1;
-            Projectile.extraUpdates = 5;
+			Projectile.extraUpdates = 5;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.tileCollide = false;
 		}
 
 		Vector2 targetPos;
-        bool setTargetPos = false;
+		bool setTargetPos = false;
 
-        Projectile Lead;
+		Projectile Lead;
 
 		NPC target;
 
-        /*const float Max_Range = 250f;
+		/*const float Max_Range = 250f;
         float range = Max_Range;
         const float Max_Distance = 250f;
         float distance = Max_Distance;*/
 
-        Vector2 oPos;
-        Vector2 mousePos;
+		Vector2 oPos;
+		Vector2 mousePos;
 
-        SoundEffectInstance soundInstance;
-        bool soundPlayed = false;
-        int soundDelay = 30;
+		SoundEffectInstance soundInstance;
+		bool soundPlayed = false;
+		int soundDelay = 30;
 
 		int ampSyncCooldown = 20;
-        float[] amp = new float[3];
-        float[] ampDest = new float[3];
+		//int shots = 1;
+		int immuneTime = 0;
+		int dmg = 0;
+
+		float[] amp = new float[3];
+		float[] ampDest = new float[3];
 
 		private int GetDepth(MProjectile mp)
 		{
 			return mp.waveDepth;
 		}
+		public override void OnSpawn(IEntitySource source)
+		{
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
+			{
+				if (player.HeldItem.ModItem is PowerBeam hold)
+				{
+					shot = hold.shotEffect.ToString();
+					//shots = hold.shotAmt;
+				}
+			}
+			dmg = Projectile.damage;
+			base.OnSpawn(source);
+		}
 
 		public override void AI()
-        {
+		{
 			Projectile P = Projectile;
 			MProjectile meep = mProjectile;
-            Player O = Main.player[P.owner];
+			Player O = Main.player[P.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			string S  = PowerBeam.SetCondition();
+
 			Vector2 V = P.velocity;
 			P.knockBack = 0;
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			int shots = held.shocky;
 
 			Lead = Main.projectile[O.heldProj];
-			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			if (P.numUpdates == 0)
-            {
-                P.frame++;
+			{
+				P.frame++;
 			}
-            if (P.frame >= 12)
-            {
-                P.frame = 0;
-            }
+			if (P.frame >= 12)
+			{
+				P.frame = 0;
+			}
 			//range = Math.Min(GetDepth(meep), Max_Range);
 			//distance = Math.Min(GetDepth(meep), Max_Distance);
-			if (!S.Contains("wave") && !S.Contains("nebula"))
+			if(immuneTime > 0)
 			{
-				P.stopsDealingDamageAfterPenetrateHits = true;
+				P.damage = 0;
+				immuneTime--;
+			}
+			else
+			{
+				P.damage = dmg;
 			}
 			mProjectile.WaveBehavior(P);
 
-			float range = (GetDepth(meep) * 16) + 48f;
-            float distance = (GetDepth(meep) * 16) + 48f;
+			float range = (GetDepth(meep) * 16) + 32f;
+			float distance = (GetDepth(meep) * 16) + 32f;
 
-            oPos = O.RotatedRelativePoint(O.MountedCenter, true);
+			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-			if (Lead != null && Lead.active && Lead.type == ModContent.ProjectileType<ChargeLead>())
+			if (Lead != null && Lead.active && Lead.type == ModContent.ProjectileType<ChargeLead>() && Lead.owner == Main.myPlayer)
 			{
 				if (P.owner == Main.myPlayer && !O.dead)
 				{
@@ -129,10 +148,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 									if (flag)
 									{
 										target = npc;
-										if (P.frame == 0)
-										{
-											mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-										}
 									}
 								}
 								else
@@ -154,16 +169,19 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (target == null || !target.active)
 					{
 						targetPos = Lead.Center;
+						P.netUpdate = true;
 					}
 					if (!setTargetPos)
 					{
 						targetPos = P.Center;
 						setTargetPos = true;
+						P.netUpdate = true;
 						return;
 					}
 					else if (target != null && target.active)
 					{
 						targetPos = target.Center;
+						P.netUpdate = true;
 					}
 					else
 					{
@@ -171,6 +189,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						{
 							mp.statCharge = 0;
 							targetPos = oPos + diff * range;
+							P.netUpdate = true;
 							//targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 							//targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 						}
@@ -218,7 +237,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (ampSyncCooldown-- <= 0)
 					{
 						ampSyncCooldown = 20;
-						//Projectile.netUpdate2 = true;
+						Projectile.netUpdate2 = true;
 					}
 					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
@@ -259,6 +278,14 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilReload, O.position);
 				}
 			}
+		}
+		public override bool? CanHitNPC(NPC target3)
+		{
+			if (target != target3 || !shot.Contains("wave") && !shot.Contains("nebula") && !Collision.CanHitLine(Lead.Center, Projectile.width, Projectile.height, targetPos, Projectile.width, Projectile.height) || immuneTime > 0)
+			{
+				return false;
+			}
+			return base.CanHitNPC(target3);
 		}
 		public override void CutTiles()
 		{
@@ -345,7 +372,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					{
 						rot = (float)Math.Atan2(pos[i].Y - pos[i - 1].Y, pos[i].X - pos[i - 1].X) + (float)Math.PI / 2;
 					}
-					sb.Draw(tex, pos[i] - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), P.GetAlpha(Color.White), rot, new Vector2(tex.Width / 2f, (float)num108 / 2),	new Vector2(scale, 1f),	SpriteEffects.None,	0f);
+					sb.Draw(tex, pos[i] - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), P.GetAlpha(Color.White), rot, new Vector2(tex.Width / 2f, (float)num108 / 2), new Vector2(scale, 1f), SpriteEffects.None, 0f);
 
 
 					Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
@@ -357,35 +384,34 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 		public override void OnKill(int timeLeft)
 		{
-			if (soundInstance != null)
-			{
-				soundInstance.Stop(true);
-			}
+			soundInstance?.Stop(true);
 		}
 		public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.WriteVector2(targetPos);
-        }
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            targetPos = reader.ReadVector2();
-        }
+		{
+			writer.WriteVector2(targetPos);
+			base.SendExtraAI(writer);
+		}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			targetPos = reader.ReadVector2();
+			base.ReceiveExtraAI(reader);
+		}
 		public override void OnHitNPC(NPC target2, NPC.HitInfo hit, int damageDone)
 		{
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			int shots = held.shocky;
-			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge) * (O.statLife / O.statLifeMax2));
+			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge));// * (O.statLife / O.statLifeMax2));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
 			float ranges = maxDamage - minDamage;
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
-			float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
-			mp.statOverheat += mp.overheatCost / shots;
-			if(mp.Energy < mp.MaxEnergy && !target2.TypeName.Contains("Dummy") && !O.immune)
+			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
+			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
+			mp.statOverheat += mp.overheatCost; // /shots;
+			mp.statCharge = Math.Min(mp.statCharge + 2, MPlayer.maxCharge);
+			if (mp.Energy < mp.MaxEnergy)
 			{
-				if(heal > mp.MaxEnergy - mp.Energy)
+				if (heal > mp.MaxEnergy - mp.Energy)
 				{
 					mp.Energy = mp.MaxEnergy;
 				}
@@ -394,28 +420,18 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					mp.Energy += heal;
 				}
 			}
-			/*if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-			{
-				mp.statCharge += 10 / shots;
-				//mp.statCharge = Math.Min(((mp.statCharge + 7) / shots), MPlayer.maxCharge);
-			}*/
-			/*if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat || mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-			{
-				/*int healingAmount = Math.Min(damageDone / 20, 5);
-				p.statLife += healingAmount;
-				p.HealEffect(healingAmount, true);*/
-			/*mp.Energy += damageDone;// Math.Min(damageDone / 20, 5);
-			}*/
-			base.OnHitNPC(target2, hit, damageDone);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);
-			if(damageDone > 0)
+			if (damageDone > 0)
 			{
-				foreach(NPC G in Main.npc)
+				immuneTime = 4 * immunity;
+				Projectile.localNPCHitCooldown = immunity;
+				/*foreach (NPC G in Main.npc)
 				{
-					G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
+					//G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 					Projectile.localNPCHitCooldown = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
-				}
+				}*/
 			}
+			base.OnHitNPC(target2, hit, damageDone);
 		}
 	}
 }

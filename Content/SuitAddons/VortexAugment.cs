@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MetroidMod.Common.Players;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using MetroidMod.Common.Players;
-using MetroidMod.ID;
-using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -23,7 +22,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => ((WorldGen.drunkWorldGen || WorldGen.everythingWorldGen) && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues) || NPC.downedMoonlord;
+		public override bool CanGenerateOnChozoStatue(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedMoonlord;
 		public override double GenerationChance(int x, int y) => 1;
 
 		public override void SetStaticDefaults()
@@ -44,7 +43,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Grants 14 seconds of lava immunity\n" +
 				"Default gravity in space\n" +
 				"Immune to Distorted and Amplified Gravity effects"); */
-			ItemID.Sets.ShimmerTransformToItem[Type] = SuitAddonLoader.GetAddon<NebulaAugment>().ItemType;
+			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<NebulaAugment>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
 		}
@@ -77,6 +76,7 @@ namespace MetroidMod.Content.SuitAddons
 			mp.missileCost -= 0.15f;
 			mp.EnergyDefenseEfficiency += 0.60f;
 			mp.EnergyExpenseEfficiency += 0.375f;
+			mp.canUseHyperBeam = true;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{

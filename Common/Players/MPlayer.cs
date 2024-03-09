@@ -1,28 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Capture;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
-using MetroidMod.ID;
 using MetroidMod.Content.Biomes;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace MetroidMod.Common.Players
 {
@@ -55,6 +44,7 @@ namespace MetroidMod.Common.Players
 
 		public bool phazonImmune = false;
 		public bool canUsePhazonBeam = false;
+		public bool canUseHyperBeam = false;
 		public int hazardShield = 0;
 		public int phazonRegen = 0;
 
@@ -64,6 +54,9 @@ namespace MetroidMod.Common.Players
 
 		public bool falling;
 		public int energyLowTimer = 0;
+
+		public int selectedItem = 0;
+		public int oldSelectedItem = 0;
 
 		public override void ResetEffects()
 		{
@@ -83,6 +76,7 @@ namespace MetroidMod.Common.Players
 
 			phazonImmune = false;
 			canUsePhazonBeam = false;
+			canUseHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 
@@ -93,12 +87,21 @@ namespace MetroidMod.Common.Players
 			switch (Player.name.ToLower())
 			{
 				case "ed the terrarian":
+				case "edd":
+				case "eddy":
+				case "lumpy":
+				case "dork":
+				case "double dee":
+				case "double d":
+				case "eduard":
+				case "edduard":
+				case "ed boy":
 				case "ed": // challenge name, tributary to a beta tester who broke my sanity for around 2 hours - DarkSamus49
 					Player.statLifeMax2 /= 5;
 					Player.statManaMax2 /= 4;
-					Player.velocity.X /= 4f;
+					Player.velocity.X /= 1.5f;
 					Player.velocity.Y += Player.controlJump | Player.velocity.Y <= 0 ? 0 : 16f;
-					Player.maxFallSpeed = 10000f;
+					Player.maxFallSpeed = 100f;
 					break;
 				default:
 					break;
@@ -367,7 +370,7 @@ namespace MetroidMod.Common.Players
 			}
 
 			GrappleBeamMovement();
-			
+
 			if (Energy <= 30 && ShouldShowArmorUI == true)
 			{
 				energyLowTimer--;
@@ -451,7 +454,8 @@ namespace MetroidMod.Common.Players
 
 			int num20 = 0;
 			bool flag2 = false;
-			if (mp.senseMoveCooldown <= 0 && (P.velocity.Y == 0f || mp.spaceJump))
+			bool slideDash = !mp.spaceJumped && mp.spaceJumpBoots; //Metroid Prime scan jump pseudo mechanic
+			if (mp.senseMoveCooldown <= 0 && (P.velocity.Y == 0f || mp.spaceJump || slideDash))
 			{
 				if (P.controlRight && P.releaseRight && !mp.shineActive)//MetroidMod.SenseMoveKey.Current)
 				{
@@ -460,6 +464,7 @@ namespace MetroidMod.Common.Players
 						num20 = 1;
 						flag2 = true;
 						mp.dashTime = 0;
+						slideDash = false;
 					}
 					else
 					{
@@ -473,6 +478,7 @@ namespace MetroidMod.Common.Players
 						num20 = -1;
 						flag2 = true;
 						mp.dashTime = 0;
+						slideDash = false;
 					}
 					else
 					{

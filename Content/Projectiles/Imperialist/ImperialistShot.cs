@@ -1,12 +1,13 @@
 using System;
+using System.IO;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using MetroidMod.Content.Items.Weapons;
-using System.IO;
-using MetroidMod.Common.Players;
-using Terraria.GameContent;
+using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Imperialist
 {
@@ -16,6 +17,44 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 100;
+		}
+		private bool spaze = false;
+		private int depth = 0;
+		private float hitRange = 0;
+		public override void OnSpawn(IEntitySource source)
+		{
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
+			{
+				if (player.HeldItem.ModItem is PowerBeam hold)
+				{
+					shot = hold.shotEffect.ToString();
+					if (hold.shotAmt > 1)
+					{
+						spaze = true;
+					}
+					if (shot.Contains("wave") || shot.Contains("nebula"))
+					{
+						depth = waveDepth;
+						mProjectile.WaveBehavior(Projectile, true);
+					}
+				}
+			}
+			if (shot.Contains("green"))
+			{
+				Projectile.penetrate = 6;
+				Projectile.maxPenetrate = 6;
+			}
+			if (shot.Contains("nova"))
+			{
+				Projectile.penetrate = 8;
+				Projectile.maxPenetrate = 8;
+			}
+			if (shot.Contains("solar"))
+			{
+				Projectile.penetrate = 12;
+				Projectile.maxPenetrate = 12;
+			}
+			base.OnSpawn(source);
 		}
 		public override void SetDefaults()
 		{
@@ -28,35 +67,34 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			mProjectile.delay = 0;
 			//Projectile.tileCollide = false;
 
-			string S  = PowerBeam.SetCondition();
-			if (S.Contains("green"))
-			{
-				Projectile.penetrate = 6;
-			}
-			if (S.Contains("nova"))
-			{
-				Projectile.penetrate = 8;
-			}
-			if (S.Contains("solar"))
-			{
-				Projectile.penetrate = 12;
-			}
 		}
 		private float BeamLength
 		{
-			get => Projectile.localAI[1];
-			set => Projectile.localAI[1] = value;
+			get {
+				return Projectile.localAI[1];
+			}
+
+			set {
+				Projectile.localAI[1] = value;
+			}
 		}
-		const float Max_Range = 2200f;
-		float maxRange = 0f;
-		float scaleUp = 0f;
+		private const float Max_Range = 2200f;
+		private float maxRange = 0f;
+		private float scaleUp = 0f;
 		public override void AI()
 		{
 			Projectile P = Projectile;
 			P.timeLeft = 100;
 			P.velocity = Vector2.Normalize(P.velocity);
 			P.rotation = P.velocity.ToRotation() - 1.57f;
+			P.usesLocalNPCImmunity = true;
+			P.localNPCHitCooldown = 18;
 			P.stopsDealingDamageAfterPenetrateHits = true;
+			if (shot.Contains("wave") || shot.Contains("nebula"))
+			{
+				depth = waveDepth;
+				//mProjectile.WaveBehavior(Projectile, true);
+			}
 
 			if (P.numUpdates == 0)
 			{
@@ -69,19 +107,36 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				}
 			}
 			P.scale = 0.75f * scaleUp;
+			if (P.frame >= 6)
+			{
+				P.damage = 0;
+			}
 			//P.damage *= (int)(1d + (mp.impStealth / 125d));
 		}
 		public override bool ShouldUpdatePosition()
 		{
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (held.shotsy > 1)
+			if (spaze)
 			{
 				return true;
 			}
 			return false;
 		}
-		public override void SendExtraAI(BinaryWriter writer) => writer.Write(BeamLength);
-		public override void ReceiveExtraAI(BinaryReader reader) => BeamLength = reader.ReadSingle();
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(Projectile.penetrate);
+			writer.Write(Projectile.maxPenetrate);
+			writer.Write(spaze);
+			writer.Write(BeamLength);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			spaze = reader.ReadBoolean();
+			BeamLength = reader.ReadSingle();
+			Projectile.penetrate = (int)reader.ReadSingle();
+			Projectile.maxPenetrate = (int)reader.ReadSingle();
+		}
+
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			Projectile P = Projectile;
@@ -89,55 +144,53 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
 			Vector2 endPosition = centerFloored + P.velocity * visualBeamLength;
 			float _ = float.NaN;
-			/*if (projHitbox.Intersects(targetHitbox))
+			if (projHitbox.Intersects(targetHitbox))
 			{
 				return true;
-			}*/
-			Vector2 beamEndPos = P.Center + P.velocity * maxRange;
-			if (P.frame <= 5)
-			{
-				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center, endPosition, P.width, ref _);
 			}
-			return false;
+			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center, endPosition, P.width, ref _);
 		}
-		private int GetDepth(MProjectile mp)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			string S = PowerBeam.SetCondition();
-			if (S.Contains("wave") || S.Contains("nebula"))
+			if(Projectile.penetrate == 1)
 			{
-				return mp.waveDepth;
+				hitRange = Vector2.Distance(target.Center, Projectile.Center);
 			}
-			return 0;
+			base.OnHitNPC(target, hit, damageDone);
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (Projectile.velocity == Vector2.Zero)
+			Projectile P = Projectile;
+			if (P.velocity == Vector2.Zero)
 			{
 				return false;
 			}
-			Projectile P = Projectile;
-			PowerBeam held = Main.LocalPlayer.inventory[MetroidMod.Instance.selectedItem].ModItem as PowerBeam;
-			if (held.shotsy > 1)
+			if (spaze)
 			{
 				mProjectile.WaveBehavior(P, true);
 			}
-			MProjectile meep = mProjectile;
 			Texture2D texture = TextureAssets.Projectile[P.type].Value;
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
-			Vector2 drawScale = new Vector2(scaleUp, 1f);
+			Vector2 drawScale = new(scaleUp, 1f);
 			DelegateMethods.f_1 = 1f;
 			Vector2 startPosition = centerFloored - Main.screenPosition;
 			Vector2 endPosition = startPosition + P.velocity * visualBeamLength;
 
-			for (P.ai[1] = 0f; P.ai[1] <= Max_Range; P.ai[1] += 4f)
+			for (P.ai[1] = 0f; P.ai[1] <= maxRange; P.ai[1] += 4f)
 			{
 				Vector2 end = P.Center + P.velocity * P.ai[1];
-				Vector2 trueEnd = end + P.velocity * GetDepth(meep) * P.ai[1] * 8f;
-				if (CollideMethods.CheckCollide(trueEnd, 0, 0))
+				Vector2 trueEnd = end + P.velocity * depth * P.ai[1] * 8f;
+				if (CollideMethods.CheckCollide(trueEnd, 0, 0) && hitRange == 0)
 				{
 					P.ai[1] -= 4f;
 					maxRange = Vector2.Distance(trueEnd, P.Center);
+					break;
+				}
+				if(hitRange > 0)
+				{
+					P.ai[1] -= 4f;
+					maxRange = hitRange;
 					break;
 				}
 				else
@@ -150,9 +203,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 			return false;
 		}
-		private void DrawBeam(SpriteBatch spriteBatch, Texture2D texture, Vector2 startPosition, Vector2 endPosition, Vector2 drawScale, Color beamColor)
+		private static void DrawBeam(SpriteBatch spriteBatch, Texture2D texture, Vector2 startPosition, Vector2 endPosition, Vector2 drawScale, Color beamColor)
 		{
-			Utils.LaserLineFraming lineFraming = new Utils.LaserLineFraming(DelegateMethods.RainbowLaserDraw);
+			Utils.LaserLineFraming lineFraming = new(DelegateMethods.RainbowLaserDraw);
 
 			// c_1 is an unnamed decompiled variable which is the render color of the beam drawn by DelegateMethods.RainbowLaserDraw.
 			DelegateMethods.c_1 = beamColor;
@@ -162,7 +215,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			// tilecut_0 is an unnamed decompiled variable which tells CutTiles how the tiles are being cut (in this case, via a Projectile).
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-			Utils.TileActionAttempt cut = new Utils.TileActionAttempt(DelegateMethods.CutTiles);
+			Utils.TileActionAttempt cut = new(DelegateMethods.CutTiles);
 			float visualBeamLength = maxRange - 14.5f;
 			Vector2 centerFloored = Projectile.Center.Floor() + Projectile.velocity * 16f;
 			//Vector2 beamStartPos = centerFloored - Main.screenPosition;

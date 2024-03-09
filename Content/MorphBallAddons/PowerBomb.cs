@@ -1,15 +1,14 @@
 ﻿using System;
+using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
+using MetroidMod.Content.Tiles;
+using MetroidMod.Content.Tiles.Hatch;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Common.Systems;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.Tiles;
-using MetroidMod.Content.Tiles.Hatch;
-using MetroidMod.ID;
-using tModPorter;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
@@ -25,7 +24,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => ((WorldGen.drunkWorldGen || WorldGen.everythingWorldGen) && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues) || (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
+		public override bool CanGenerateOnChozoStatue(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
 
 		public override double GenerationChance(int x, int y) => 4;
 

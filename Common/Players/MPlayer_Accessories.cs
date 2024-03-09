@@ -1,38 +1,26 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Capture;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
-
 //using MetroidMod.Content.NPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
-using MetroidMod.ID;
 using MetroidMod.Content.Items.Accessories;
-using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Mounts;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Players
 {
-	public partial class MPlayer : ModPlayer  
+	public partial class MPlayer : ModPlayer
 	{
 		public bool powerGrip = false;
 		public bool isGripping = false;
 		public int reGripTimer = 0;
 		public int gripDir = 1;
-		
+
 		public bool speedBooster = false;
 		public bool speedBoosting = false;
 		private float speedBuildUp = 0f;
@@ -43,7 +31,7 @@ namespace MetroidMod.Common.Players
 		private int proj = -1;
 		private int shineSound = 0;
 		public int speedBoostDmg = 0;
-		
+
 		public bool somersault = false;
 		public bool canSomersault = false;
 		public bool disableSomersault = false;
@@ -56,7 +44,7 @@ namespace MetroidMod.Common.Players
 
 		public bool EnableWallJump = false;
 		public bool canWallJump = false;
-		
+
 		public bool hiJumpBoost = false;
 		public bool spaceJumpBoots = false;
 		public bool spaceJumped = false;
@@ -65,12 +53,12 @@ namespace MetroidMod.Common.Players
 		public float statSpaceJumps = maxSpaceJumps;
 		public int spaceJumpsRegenDelay = 0;
 		public bool insigniaActive = false;
-		
+
 		public bool screwAttack = false;
 		public int screwAttackSpeedEffect = 0;
 		public int screwSpeedDelay = 0;
 		public int screwAttackDmg = 0;
-		
+
 		public int reserveTanks = 0;
 		public int reserveHearts = 0;
 		public int reserveHeartsValue = 20;
@@ -78,37 +66,37 @@ namespace MetroidMod.Common.Players
 		public bool RedKeycard = false;
 		public bool GreenKeycard = false;
 		public bool YellowKeycard = false;
-		
+
 		public void ResetEffects_Accessories()
 		{
 			powerGrip = false;
-			
+
 			speedBooster = false;
 			speedBoosting = false;
 			speedBoostDmg = 0;
-			
+
 			disableSomersault = false;
 			EnableWallJump = false;
-			
+
 			hiJumpBoost = false;
 			spaceJumpBoots = false;
 			spaceJump = false;
 
 			insigniaActive = false;
-			
+
 			screwAttack = false;
 			screwAttackDmg = 0;
-			
+
 			bool flag = false;
-			for(int i = 0; i < Player.buffType.Length; i++)
+			for (int i = 0; i < Player.buffType.Length; i++)
 			{
-				if(Player.buffType[i] == ModContent.BuffType<Content.Buffs.EnergyRecharge>() && Player.buffTime[i] > 0)
+				if (Player.buffType[i] == ModContent.BuffType<Content.Buffs.EnergyRecharge>() && Player.buffTime[i] > 0)
 				{
 					flag = true;
 					break;
 				}
 			}
-			if(!flag)
+			if (!flag)
 			{
 				reserveTanks = 0;
 				reserveHeartsValue = 20;
@@ -123,61 +111,61 @@ namespace MetroidMod.Common.Players
 			Player P = Player;
 			somersault = (!P.dead && !disableSomersault && (SMoveEffect > 0 || canSomersault) && !P.mount.Active && P.velocity.Y != 0 /*&& P.velocity.X != 0*/ && !P.sliding && !P.pulley && !isGripping && (P.itemAnimation == 0 || statCharge >= 30) && P.grappling[0] <= -1 && grapplingBeam <= -1 && shineDirection == 0 && !shineActive && !ballstate && (((P.wingsLogic != 0 || P.rocketBoots != 0 || P.carpet) && (!P.controlJump || (!P.canRocket && !P.rocketRelease && P.wingsLogic == 0) || (P.wingTime <= 0 && P.rocketTime <= 0 && P.carpetTime <= 0))) || (P.wingsLogic == 0 && P.rocketBoots == 0 && !P.carpet)) && !P.sandStorm);
 			somersault &= !(P.rocketDelay <= 0 && P.wingsLogic > 0 && P.controlJump && P.velocity.Y > 0f && P.wingTime <= 0);
-			
-			if(Player.velocity.Y == 0 || Player.sliding || (Player.autoJump && Player.justJumped) || Player.grappling[0] >= 0 || grapplingBeam >= 0)
+
+			if (Player.velocity.Y == 0 || Player.sliding || (Player.autoJump && Player.justJumped) || Player.grappling[0] >= 0 || grapplingBeam >= 0)
 			{
 				statSpaceJumps = maxSpaceJumps;
 			}
 
-			if(statSpaceJumps < maxSpaceJumps && spaceJumpsRegenDelay <= 0)
+			if (statSpaceJumps < maxSpaceJumps && spaceJumpsRegenDelay <= 0)
 			{
 				statSpaceJumps++;
 			}
-			else if(spaceJumpsRegenDelay <= 0)
+			else if (spaceJumpsRegenDelay <= 0)
 			{
 				statSpaceJumps = maxSpaceJumps;
 			}
-			if(spaceJumpsRegenDelay > 0)
+			if (spaceJumpsRegenDelay > 0)
 			{
 				spaceJumpsRegenDelay--;
 			}
-			
-			if(!Player.mount.Active)
+
+			if (!Player.mount.Active)
 			{
-				if(somersault)
+				if (somersault)
 				{
-					float rotMax = (float)Math.PI/8;
-					if(spaceJump)// && SMoveEffect <= 0)
+					float rotMax = (float)Math.PI / 8;
+					if (spaceJump)// && SMoveEffect <= 0)
 					{
-						rotMax = (float)Math.PI/4;
+						rotMax = (float)Math.PI / 4;
 					}
-					rotation += MathHelper.Clamp((rotateCountX + rotateCountY) * Player.direction * Player.gravDir,-rotMax,rotMax);
-					if(rotation > (Math.PI*2))
+					rotation += MathHelper.Clamp((rotateCountX + rotateCountY) * Player.direction * Player.gravDir, -rotMax, rotMax);
+					if (rotation > (Math.PI * 2))
 					{
-						rotation -= (float)(Math.PI*2);
+						rotation -= (float)(Math.PI * 2);
 					}
-					if(rotation < -(Math.PI*2))
+					if (rotation < -(Math.PI * 2))
 					{
-						rotation += (float)(Math.PI*2);
+						rotation += (float)(Math.PI * 2);
 					}
 					Player.fullRotation = rotation;
-					Player.fullRotationOrigin = new Vector2((float)Player.width/2,(float)Player.height*0.55f);
-					if(Player.gravDir == -1)
+					Player.fullRotationOrigin = new Vector2((float)Player.width / 2, (float)Player.height * 0.55f);
+					if (Player.gravDir == -1)
 					{
-						Player.fullRotationOrigin.Y = (float)Player.height*0.45f;
+						Player.fullRotationOrigin.Y = (float)Player.height * 0.45f;
 					}
 					itemRotTweak = 2;
 
 				}
-				else if(shineDirection == 2 || shineDirection == 4) //right and up or left and up
+				else if (shineDirection == 2 || shineDirection == 4) //right and up or left and up
 				{
 					rotation = 0.05f * Player.direction * Player.gravDir;
 					Player.fullRotation = rotation;
 					Player.fullRotationOrigin = Player.Center - Player.position;
 				}
-				else if(shineDirection == 1 || shineDirection == 3) //right or left
+				else if (shineDirection == 1 || shineDirection == 3) //right or left
 				{
-					rotation = ((float)Math.PI/4f) * Player.direction * Player.gravDir;
+					rotation = ((float)Math.PI / 4f) * Player.direction * Player.gravDir;
 					Player.fullRotation = rotation;
 					Player.fullRotationOrigin = Player.Center - Player.position;
 				}
@@ -204,7 +192,7 @@ namespace MetroidMod.Common.Players
 				rotation = 0f;
 				Player.fullRotation = 0f;
 			}
-			if(spaceJump)
+			if (spaceJump)
 			{
 				rotateSpeed = 0.2f;
 				rotateSpeed2 = 20f;
@@ -214,25 +202,25 @@ namespace MetroidMod.Common.Players
 				rotateSpeed = 0.08f;
 				rotateSpeed2 = 40f;
 			}
-			if(Player.velocity.Y > 1)
+			if (Player.velocity.Y > 1)
 			{
-				rotateCountY = rotateSpeed + Player.velocity.Y/rotateSpeed2;
+				rotateCountY = rotateSpeed + Player.velocity.Y / rotateSpeed2;
 			}
-			else if(Player.velocity.Y < -1)
+			else if (Player.velocity.Y < -1)
 			{
-				rotateCountY = rotateSpeed + (Player.velocity.Y/rotateSpeed2)*(-1f);
+				rotateCountY = rotateSpeed + (Player.velocity.Y / rotateSpeed2) * (-1f);
 			}
 			else
 			{
 				rotateCountY = rotateSpeed;
 			}
-			if(Player.velocity.X > 1)
+			if (Player.velocity.X > 1)
 			{
-				rotateCountX = rotateSpeed + Player.velocity.X/rotateSpeed2;
+				rotateCountX = rotateSpeed + Player.velocity.X / rotateSpeed2;
 			}
-			else if(Player.velocity.X < -1)
+			else if (Player.velocity.X < -1)
 			{
-				rotateCountX = rotateSpeed + (Player.velocity.X/rotateSpeed2)*(-1f);
+				rotateCountX = rotateSpeed + (Player.velocity.X / rotateSpeed2) * (-1f);
 			}
 			else
 			{
@@ -264,9 +252,9 @@ namespace MetroidMod.Common.Players
 			if (speedBooster)
 			{
 				AddSpeedBoost(Player, speedBoostDmg);
-				if(Player.controlJump)
+				if (Player.controlJump)
 				{
-					if(Player.velocity.Y == 0)
+					if (Player.velocity.Y == 0)
 					{
 						sbFlag = true;
 					}
@@ -275,15 +263,15 @@ namespace MetroidMod.Common.Players
 				{
 					sbFlag = false;
 				}
-				if(sbFlag)
+				if (sbFlag)
 				{
-					if(Player.velocity.X <= -4f && Player.controlLeft)
+					if (Player.velocity.X <= -4f && Player.controlLeft)
 					{
-						Player.jumpSpeedBoost += Math.Abs(Player.velocity.X/4f);
+						Player.jumpSpeedBoost += Math.Abs(Player.velocity.X / 4f);
 					}
-					else if(Player.velocity.X >= 4f && Player.controlRight)
+					else if (Player.velocity.X >= 4f && Player.controlRight)
 					{
-						Player.jumpSpeedBoost += Math.Abs(Player.velocity.X/4f);
+						Player.jumpSpeedBoost += Math.Abs(Player.velocity.X / 4f);
 					}
 				}
 			}
@@ -291,20 +279,20 @@ namespace MetroidMod.Common.Players
 			{
 				sbFlag = false;
 			}
-			
+
 			DoWallJump(Player, wallJumpDir, altJump);
 
-			if(spaceJumpBoots || spaceJump || screwAttack)
+			if (spaceJumpBoots || spaceJump || screwAttack)
 			{
 				EnableWallJump = true;
 				AddSpaceJumpBoots(Player);
-				if(spaceJump)
+				if (spaceJump)
 				{
 					AddSpaceJump(Player);
 				}
-				if(screwAttack)
+				if (screwAttack)
 				{
-					AddScrewAttack(Player,screwAttackDmg);
+					AddScrewAttack(Player, screwAttackDmg);
 				}
 			}
 			else if (EnableWallJump)
@@ -342,7 +330,7 @@ namespace MetroidMod.Common.Players
 		}
 		public void PostUpdateRunSpeeds_Accessories()
 		{
-			if(hiJumpBoost)
+			if (hiJumpBoost)
 			{
 				Player.jumpHeight += 5;
 				Player.jumpSpeed += 1.5f;
@@ -352,7 +340,7 @@ namespace MetroidMod.Common.Players
 		{
 			if (Player.itemAnimation > 0)
 			{
-				if(itemRotTweak > 0)
+				if (itemRotTweak > 0)
 				{
 					float MY = Main.mouseY + Main.screenPosition.Y;
 					float MX = Main.mouseX + Main.screenPosition.X;
@@ -361,8 +349,8 @@ namespace MetroidMod.Common.Players
 						MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 					}
 					Vector2 oPos = Player.RotatedRelativePoint(Player.MountedCenter, true);
-					Player.ChangeDir(Math.Sign(MX-oPos.X));
-					Player.itemRotation = (float)Math.Atan2((MY-oPos.Y)*Player.direction,(MX-oPos.X)*Player.direction) - Player.fullRotation;
+					Player.ChangeDir(Math.Sign(MX - oPos.X));
+					Player.itemRotation = (float)Math.Atan2((MY - oPos.Y) * Player.direction, (MX - oPos.X) * Player.direction) - Player.fullRotation;
 					itemRotTweak--;
 				}
 			}
@@ -370,8 +358,8 @@ namespace MetroidMod.Common.Players
 			{
 				itemRotTweak = 0;
 			}
-			
-			if(!speedBooster)
+
+			if (!speedBooster)
 			{
 				speedBuildUp = 0;
 				shineCharge = 0;
@@ -428,8 +416,8 @@ namespace MetroidMod.Common.Players
 				{
 					num2 = Player.position.Y + (float)Player.height - 8f;
 				}
-				num = MathHelper.Clamp(num / 16f, 0, Main.maxTilesX-1);
-				num2 = MathHelper.Clamp(num2 / 16f, 0, Main.maxTilesY-1);
+				num = MathHelper.Clamp(num / 16f, 0, Main.maxTilesX - 1);
+				num2 = MathHelper.Clamp(num2 / 16f, 0, Main.maxTilesY - 1);
 				/*
 				//Allow gripping onto non solid tiles
 				if (Main.tile[(int)num, (int)num2].active() && !Main.tile[(int)num, (int)num2].inActive() && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.Rope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.SilkRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.VineRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.WebRope && Main.tile[(int)num, (int)num2].type != Terraria.ID.TileID.Chain && (Main.tile[(int)num, (int)num2 - (int)Player.gravDir].inActive() || !Main.tile[(int)num, (int)num2 - (int)Player.gravDir].active() || (Main.tile[(int)num, (int)num2 - 1].bottomSlope() && Player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].topSlope() && Player.gravDir == -1) || !Main.tileSolid[Main.tile[(int)num, (int)num2 - (int)Player.gravDir].type] || Main.tileSolidTop[Main.tile[(int)num, (int)num2 - (int)Player.gravDir].type] || (Main.tile[(int)num, (int)num2].halfBrick() && Player.gravDir == 1) || (Main.tile[(int)num, (int)num2 + 1].halfBrick() && Player.gravDir == -1) || Main.tile[(int)num, (int)num2].type == Terraria.ID.TileID.MinecartTrack))
@@ -457,7 +445,8 @@ namespace MetroidMod.Common.Players
 					{
 						MSystem.AddRegenBlock((int)num, (int)num2, true);
 						// Enforce SpeedBooster
-						if(falling){
+						if (falling)
+						{
 							Player.velocity.X = 0;
 							Player.oldVelocity.X = 0;
 						}
@@ -465,13 +454,13 @@ namespace MetroidMod.Common.Players
 					}
 					if (MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
 					{
-						MSystem.nextTick.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 1, new Vector2((int)num, (int)num2)));
+						MSystem.nextTick.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 1, new Vector2((int)num, (int)num2)));
 						flag = false;
 					}
 					if (MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleSlow) //CrumbleSlow
 					{
 						MSystem.hit[(int)num, (int)num2] = true;
-						MSystem.timers.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 60, new Vector2((int)num, (int)num2)));
+						MSystem.timers.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 60, new Vector2((int)num, (int)num2)));
 						flag = false;
 					}
 				}
@@ -492,7 +481,8 @@ namespace MetroidMod.Common.Players
 					{
 						MSystem.AddRegenBlock((int)num3, (int)num2, true);
 						// Enforce SpeedBooster
-						if(falling){
+						if (falling)
+						{
 							Player.velocity.X = 0;
 							Player.oldVelocity.X = 0;
 						}
@@ -500,17 +490,17 @@ namespace MetroidMod.Common.Players
 					}
 					if (MSystem.mBlockType[(int)num3, (int)num2] == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
 					{
-						MSystem.nextTick.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 1, new Vector2((int)num3, (int)num2)));
+						MSystem.nextTick.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 1, new Vector2((int)num3, (int)num2)));
 						flag = false;
 					}
 					if (MSystem.mBlockType[(int)num3, (int)num2] == BreakableTileID.CrumbleSlow) //CrumbleSlow
 					{
 						MSystem.hit[(int)num3, (int)num2] = true;
-						MSystem.timers.Enqueue(new Tuple<int,Vector2>((int)(MSystem.Timer) + 60, new Vector2((int)num3, (int)num2)));
+						MSystem.timers.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 60, new Vector2((int)num3, (int)num2)));
 						flag = false;
 					}
 				}
-		
+
 				if (flag && ((Player.velocity.Y > 0f && Player.gravDir == 1f) || (Player.velocity.Y < Player.gravity && Player.gravDir == -1f)))
 				{
 					if (!Player.controlDown)
@@ -612,7 +602,7 @@ namespace MetroidMod.Common.Players
 					reGripTimer = 10;
 				}
 			}
-			if (isGripping && Player.controlRight && gripDir >=1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
+			if (isGripping && Player.controlRight && gripDir >= 1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
 			{
 				var ball = ModContent.MountType<MorphBallMount>();
 				Player.QuickMount();
@@ -709,13 +699,14 @@ namespace MetroidMod.Common.Players
 		public static void AddSpaceJump(Player Player)
 		{
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
-			if(mp.statSpaceJumps >= 15 && Player.grappling[0] == -1  && mp.spaceJumped && !Player.GetJumpState(ExtraJump.CloudInABottle).Active && !Player.GetJumpState(ExtraJump.BlizzardInABottle).Active && !Player.GetJumpState(ExtraJump.SandstormInABottle).Active && !Player.GetJumpState(ExtraJump.FartInAJar).Active && Player.jump == 0 && Player.velocity.Y != 0f && Player.rocketTime == 0 && Player.wingTime == 0f && !Player.mount.Active)
+			if (mp.statSpaceJumps >= 15 && Player.grappling[0] == -1 && mp.spaceJumped && !Player.GetJumpState(ExtraJump.CloudInABottle).Active && !Player.GetJumpState(ExtraJump.BlizzardInABottle).Active && !Player.GetJumpState(ExtraJump.SandstormInABottle).Active && !Player.GetJumpState(ExtraJump.FartInAJar).Active && Player.jump == 0 && Player.velocity.Y != 0f && Player.rocketTime == 0 && Player.wingTime == 0f && !Player.mount.Active)
 			{
-				if(Player.controlJump && Player.releaseJump && Player.velocity.Y != 0 && mp.spaceJumped)
+				if (Player.controlJump && Player.releaseJump && Player.velocity.Y != 0 && mp.spaceJumped)
 				{
 					Player.jump = Player.jumpHeight;
 					Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
-					if (!mp.insigniaActive) {
+					if (!mp.insigniaActive)
+					{
 						mp.statSpaceJumps -= 15;
 					}
 					mp.spaceJumpsRegenDelay = 25;
@@ -725,26 +716,26 @@ namespace MetroidMod.Common.Players
 		public static void AddSpaceJumpBoots(Player Player)
 		{
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
-			if(Player.velocity.Y == 0f || Player.sliding || (Player.autoJump && Player.justJumped) || Player.grappling[0] >= 0 || mp.grapplingBeam >= 0)
+			if (Player.velocity.Y == 0f || Player.sliding || (Player.autoJump && Player.justJumped) || Player.grappling[0] >= 0 || mp.grapplingBeam >= 0)
 			{
 				mp.spaceJumped = false;
-				if(Player.velocity.X != 0 || Player.sliding)
+				if (Player.velocity.X != 0 || Player.sliding)
 				{
 					mp.canSomersault = true;
 				}
-				else if(!Player.sliding)
+				else if (!Player.sliding)
 				{
 					mp.canSomersault = false;
 				}
 			}
-			else if((!Player.mount.Active || !Player.mount.BlockExtraJumps) && Player.controlJump && Player.releaseJump && !mp.spaceJumped && Player.grappling[0] == -1 && mp.grapplingBeam <= -1 && Player.jump <= 0)
+			else if ((!Player.mount.Active || !Player.mount.BlockExtraJumps) && Player.controlJump && Player.releaseJump && !mp.spaceJumped && Player.grappling[0] == -1 && mp.grapplingBeam <= -1 && Player.jump <= 0)
 			{
 				int num167 = Player.height;
 				if (Player.gravDir == -1f)
 				{
 					num167 = 4;
 				}
-				SoundEngine.PlaySound(SoundID.Item20,Player.position);
+				SoundEngine.PlaySound(SoundID.Item20, Player.position);
 				for (int num168 = 0; num168 < 8; num168++)
 				{
 					int type4 = 6;
@@ -773,7 +764,7 @@ namespace MetroidMod.Common.Players
 				Player.rocketRelease = false;
 				Player.fallStart = (int)(Player.Center.Y / 16f);
 			}
-			if(mp.spaceJumped)
+			if (mp.spaceJumped)
 			{
 				mp.canSomersault = true;
 			}
@@ -781,68 +772,68 @@ namespace MetroidMod.Common.Players
 		private int screwProj = -1;
 		public void AddScrewAttack(Player Player, int damage)
 		{
-			if(somersault)
+			if (somersault)
 			{
 				bool flag = false;
 				Player.longInvince = true;
 				int screwAttackID = ModContent.ProjectileType<Content.Projectiles.ScrewAttackProj>();
-				foreach(Projectile P in Main.projectile)
+				foreach (Projectile P in Main.projectile)
 				{
-					if(P.active && P.owner==Player.whoAmI && P.type == screwAttackID)
+					if (P.active && P.owner == Player.whoAmI && P.type == screwAttackID)
 					{
 						flag = true;
 						break;
 					}
 				}
-				if(!flag)
+				if (!flag)
 				{
-					screwProj = Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X+Player.width/2,Player.position.Y+Player.height/2,0,0,screwAttackID,damage,0,Player.whoAmI);
+					screwProj = Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, screwAttackID, damage, 0, Player.whoAmI);
 				}
 			}
-			if(screwSpeedDelay <= 0 && !ballstate && Player.grappling[0] == -1 && Player.velocity.Y != 0f && !Player.mount.Active)
+			if (screwSpeedDelay <= 0 && !ballstate && Player.grappling[0] == -1 && Player.velocity.Y != 0f && !Player.mount.Active)
 			{
-				if(Player.controlJump && Player.releaseJump && System.Math.Abs(Player.velocity.X) > 2.5f)
+				if (Player.controlJump && Player.releaseJump && System.Math.Abs(Player.velocity.X) > 2.5f)
 				{
 					screwSpeedDelay = 20;
 				}
 			}
-			if(screwSpeedDelay > 0)
+			if (screwSpeedDelay > 0)
 			{
-				if(Player.jump > 1 && ((Player.velocity.Y < 0 && Player.gravDir == 1) || (Player.velocity.Y > 0 && Player.gravDir == -1)) && screwSpeedDelay >= 19 && somersault)
+				if (Player.jump > 1 && ((Player.velocity.Y < 0 && Player.gravDir == 1) || (Player.velocity.Y > 0 && Player.gravDir == -1)) && screwSpeedDelay >= 19 && somersault)
 				{
 					screwAttackSpeedEffect = 60;
 				}
 				screwSpeedDelay--;
 			}
-			if(screwAttackSpeedEffect > 0)
+			if (screwAttackSpeedEffect > 0)
 			{
 				if (Player.controlLeft)
 				{
-					if (Player.velocity.X < -2 && Player.velocity.X > -8*Player.moveSpeed)
+					if (Player.velocity.X < -2 && Player.velocity.X > -8 * Player.moveSpeed)
 					{
 						Player.velocity.X -= 0.2f;
-						Player.velocity.X -= (float) 0.02+((Player.moveSpeed-1f)/10);
+						Player.velocity.X -= (float)0.02 + ((Player.moveSpeed - 1f) / 10);
 					}
 				}
 				else if (Player.controlRight)
 				{
-					if (Player.velocity.X > 2 && Player.velocity.X < 8*Player.moveSpeed)
+					if (Player.velocity.X > 2 && Player.velocity.X < 8 * Player.moveSpeed)
 					{
 						Player.velocity.X += 0.2f;
-						Player.velocity.X += (float) 0.02+((Player.moveSpeed-1f)/10);
+						Player.velocity.X += (float)0.02 + ((Player.moveSpeed - 1f) / 10);
 					}
 				}
-				for(int i = 0; i < (screwAttackSpeedEffect/20); i++)
+				for (int i = 0; i < (screwAttackSpeedEffect / 20); i++)
 				{
-					if(screwProj != -1)
+					if (screwProj != -1)
 					{
 						Projectile P = Main.projectile[screwProj];
-						if(P.active && P.owner == Player.whoAmI && P.type == ModContent.ProjectileType<Content.Projectiles.ScrewAttackProj>())
+						if (P.active && P.owner == Player.whoAmI && P.type == ModContent.ProjectileType<Content.Projectiles.ScrewAttackProj>())
 						{
 							Color color = new();
 							int dust = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, DustID.Enchanted_Gold, -Player.velocity.X * 0.5f, -Player.velocity.Y * 0.5f, 100, color, 2f);
 							Main.dust[dust].noGravity = true;
-							if(i == ((screwAttackSpeedEffect/20)-1) && screwAttackSpeedEffect == 59)
+							if (i == ((screwAttackSpeedEffect / 20) - 1) && screwAttackSpeedEffect == 59)
 							{
 								SoundEngine.PlaySound(Sounds.Items.Weapons.ScrewAttackSpeed, Player.position);
 							}
@@ -1072,7 +1063,7 @@ namespace MetroidMod.Common.Players
 
 				case 8: //down
 					Player.velocity.X = 0;
-					Player.velocity.Y = 7 *Player.accRunSpeed * Player.gravDir;
+					Player.velocity.Y = 7 * Player.accRunSpeed * Player.gravDir;
 					Player.maxFallSpeed = 7 * Player.accRunSpeed;
 					shineDischarge = 0;
 					if (Player.miscCounter % 4 == 0 && !ballstate)
@@ -1085,33 +1076,33 @@ namespace MetroidMod.Common.Players
 					break;
 			}
 
-			if(shineDirection != 0)
+			if (shineDirection != 0)
 			{
 				mp.statOverheat += 0.5f;
 				shineCharge = 0;
 				bool shineSpark = false;
 				int ShineSparkID = ModContent.ProjectileType<Content.Projectiles.ShineSpark>();
-				if(mp.ballstate)
+				if (mp.ballstate)
 				{
 					ShineSparkID = ModContent.ProjectileType<Content.Projectiles.ShineBall>();
 				}
-				foreach(Terraria.Projectile P in Main.projectile)
+				foreach (Terraria.Projectile P in Main.projectile)
 				{
-					if(P.active && P.owner==Player.whoAmI && P.type == ShineSparkID)
+					if (P.active && P.owner == Player.whoAmI && P.type == ShineSparkID)
 					{
 						shineSpark = true;
 						break;
 					}
 				}
-				if(!shineSpark)
+				if (!shineSpark)
 				{
-					proj = Projectile.NewProjectile(Player.GetSource_FromAI(),Player.position.X+Player.width/2,Player.position.Y+Player.height/2,0,0,ShineSparkID,damage,0,Player.whoAmI);
+					proj = Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, ShineSparkID, damage, 0, Player.whoAmI);
 				}
 			}
 
-		//cancel shine-spark
+			//cancel shine-spark
 			//stop right movement
-			if(shineDirection == 1 && (CheckCollide(Player.velocity.X,0f) || mp.statOverheat >= mp.maxOverheat || 
+			if (shineDirection == 1 && (CheckCollide(Player.velocity.X, 0f) || mp.statOverheat >= mp.maxOverheat ||
 			(Player.position.X + (float)Player.width) > (Main.rightWorld - 640f - 48f)))
 			{
 				shineDirection = 0;
@@ -1119,13 +1110,13 @@ namespace MetroidMod.Common.Players
 				shineActive = false;
 				Main.projectile[proj].Kill();
 				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
+				if (mp.statOverheat >= mp.maxOverheat)
 				{
 					mp.statOverheat += 10;
 				}
 			}
 			//stop up and right movement
-			if(shineDirection == 2 && (CheckCollide(Player.velocity.X,Player.velocity.Y) || CheckCollide(Player.velocity.X,0f) || CheckCollide(0f,Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || 
+			if (shineDirection == 2 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
 			(Player.position.X + (float)Player.width) > (Main.rightWorld - 640f - 48f) || Player.position.Y < (Main.topWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1133,13 +1124,13 @@ namespace MetroidMod.Common.Players
 				shineActive = false;
 				Main.projectile[proj].Kill();
 				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
+				if (mp.statOverheat >= mp.maxOverheat)
 				{
 					mp.statOverheat += 10;
 				}
 			}
 			//stop left movement
-			if(shineDirection == 3 && (CheckCollide(Player.velocity.X,0f) || mp.statOverheat >= mp.maxOverheat || 
+			if (shineDirection == 3 && (CheckCollide(Player.velocity.X, 0f) || mp.statOverheat >= mp.maxOverheat ||
 			Player.position.X < (Main.leftWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1147,13 +1138,13 @@ namespace MetroidMod.Common.Players
 				shineActive = false;
 				Main.projectile[proj].Kill();
 				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
+				if (mp.statOverheat >= mp.maxOverheat)
 				{
 					mp.statOverheat += 10;
 				}
 			}
 			//stop left and up movement
-			if(shineDirection == 4 && (CheckCollide(Player.velocity.X,Player.velocity.Y) || CheckCollide(Player.velocity.X,0f) || CheckCollide(0f,Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || 
+			if (shineDirection == 4 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
 			Player.position.X < (Main.leftWorld + 640f + 32f) || Player.position.Y < (Main.topWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1161,13 +1152,13 @@ namespace MetroidMod.Common.Players
 				shineActive = false;
 				Main.projectile[proj].Kill();
 				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
+				if (mp.statOverheat >= mp.maxOverheat)
 				{
 					mp.statOverheat += 10;
 				}
 			}
 			//stop up movement
-			if(shineDirection == 5 && (CheckCollide(0f,Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || 
+			if (shineDirection == 5 && (CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
 			Player.position.Y < (Main.topWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1175,7 +1166,7 @@ namespace MetroidMod.Common.Players
 				shineActive = false;
 				Main.projectile[proj].Kill();
 				speedBuildUp = 135f;
-				if(mp.statOverheat >= mp.maxOverheat)
+				if (mp.statOverheat >= mp.maxOverheat)
 				{
 					mp.statOverheat += 10;
 				}
@@ -1231,20 +1222,20 @@ namespace MetroidMod.Common.Players
 				shineActive = false;
 				Main.projectile[proj].Kill();
 				speedBuildUp = 135f;
-				
-				if(Player.velocity.Y >= 0)
+
+				if (Player.velocity.Y >= 0)
 				{
 					Player.velocity.Y = 1E-05f;
 					Player.jump = 1;
 				}
-				if(Player.velocity.X != 0)
+				if (Player.velocity.X != 0)
 				{
 					mp.canSomersault = true;
 				}
-				
+
 				Player.releaseJump = false;
 			}
-		#endregion
+			#endregion
 		}
 	}
 }
