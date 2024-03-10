@@ -22,7 +22,6 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			Main.tileSpelunker[Type] = true;
 			// DisplayName.SetDefault("Energy Tank");
 			// Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
