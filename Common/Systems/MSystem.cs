@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.Players;
+using MetroidMod.Common.UI;
 using MetroidMod.Content.Items.Accessories;
 using MetroidMod.Content.Items.Addons;
 using MetroidMod.Content.Items.Addons.Hunters;
@@ -640,6 +641,31 @@ namespace MetroidMod.Common.Systems
 
 					}
 				}));
+				tasks.Insert(PotsIndex - 2, new PassLegacy("Energy Tanks", delegate (GenerationProgress progress, GameConfiguration configuration) {
+					progress.Message = "Placing Energy Tanks";
+					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
+					{
+						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
+						bool flag = false;
+						int num3 = 0;
+						while (!flag)
+						{
+							if (AddTank(WorldGen.genRand.Next(4, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
+							{
+								flag = true;
+							}
+							else
+							{
+								num3++;
+								if (num3 >= 10000)
+								{
+									flag = true;
+								}
+							}
+						}
+
+					}
+				}));
 
 				tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));
 			}
@@ -1051,6 +1077,35 @@ namespace MetroidMod.Common.Systems
 					Main.tile[i, k].Get<TileWallWireStateData>().IsHalfBlock = false;
 					Main.tile[i, num].Get<TileWallWireStateData>().HasTile = true;
 					Main.tile[i, num].Get<TileTypeData>().Type = (ushort)ModContent.TileType<MissileExpansionTile>();
+
+					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameX = 0;
+					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameY = 0;
+					return true;
+				}
+				else
+				{
+					k++;
+				}
+			}
+			return false;
+		}
+		public static bool AddTank(int i, int j)
+		{
+			//Mod mod = MetroidMod.Instance;
+			int k = j;
+			while (k < Main.maxTilesY)
+			{
+				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile)
+				{
+					int num = k - 1;
+					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava)
+					{
+						return false;
+					}
+					Main.tile[i, k].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
+					Main.tile[i, k].Get<TileWallWireStateData>().IsHalfBlock = false;
+					Main.tile[i, num].Get<TileWallWireStateData>().HasTile = true;
+					Main.tile[i, num].Get<TileTypeData>().Type = (ushort)SuitAddonLoader.GetAddon<Content.SuitAddons.EnergyTank>().TileType;
 
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameX = 0;
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameY = 0;

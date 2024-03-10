@@ -30,6 +30,7 @@ namespace MetroidMod.Common.Players
 		public float missileCost = 1f;
 		public float maxParalyzerCharge = 100f;
 		public float statParalyzerCharge = 0f;
+		public int tankCapacity = 0;
 
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
@@ -761,6 +762,7 @@ namespace MetroidMod.Common.Players
 			packet.Write(boostEffect);
 			packet.Write(boostCharge);
 			packet.Write(EnergyTanks);
+			packet.Write(tankCapacity);
 			packet.Write(Energy);
 			packet.Write(SuitReserveTanks);
 			packet.Write(SuitReserves);
@@ -780,6 +782,7 @@ namespace MetroidMod.Common.Players
 				packet.Write(boostEffect);
 				packet.Write(boostCharge);
 				packet.Write(EnergyTanks);
+				packet.Write(tankCapacity);
 				packet.Write(Energy);
 				packet.Write(SuitReserveTanks);
 				packet.Write(SuitReserves);

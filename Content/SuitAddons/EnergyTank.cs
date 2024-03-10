@@ -1,5 +1,6 @@
 ﻿using System;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Tiles.ItemTile;
 using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;
@@ -21,17 +22,18 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
+			Main.tileSpelunker[Type] = true;
 			// DisplayName.SetDefault("Energy Tank");
 			// Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
-			SacrificeTotal = Common.Configs.MConfigItems.Instance.stackEnergyTank;
+			SacrificeTotal = 14;
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;
 		}
 		public override void SetItemDefaults(Item item)
 		{
 			item.width = 16;
 			item.height = 11;
-			item.maxStack = Common.Configs.MConfigItems.Instance.stackEnergyTank;
+			item.maxStack = 14;
 			item.value = Item.buyPrice(0, 0, 10, 0);
 			item.rare = ItemRarityID.Green;
 		}
@@ -48,7 +50,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnergyTanks = Math.Min(stack, Common.Configs.MConfigItems.Instance.stackEnergyTank);
+			mp.EnergyTanks = Math.Min(stack, mp.tankCapacity);
 		}
 	}
 }

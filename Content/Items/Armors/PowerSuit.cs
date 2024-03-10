@@ -53,6 +53,7 @@ namespace MetroidMod.Content.Items.Armors
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.10f;
+			mp.tankCapacity += 4;
 			mp.IsPowerSuitBreastplate = true;
 			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerSuitBreastplate)
 			{

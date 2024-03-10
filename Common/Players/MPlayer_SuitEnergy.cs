@@ -24,7 +24,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The maximum possible energy the player can have.
 		/// </summary>
-		public int MaxEnergy => EnergyTanks * 100 + 99 + AdditionalMaxEnergy;
+		public int MaxEnergy => Math.Min(EnergyTanks * 100 + 99 + AdditionalMaxEnergy, tankCapacity * 100 + 99 + AdditionalMaxEnergy);
 		public int AdditionalMaxEnergy = 0;
 		/// <summary>
 		/// The amount of filled energy tanks the player has.
@@ -73,6 +73,7 @@ namespace MetroidMod.Common.Players
 			{
 				SuitReserveTanks = 0;
 				EnergyTanks = 0;
+				tankCapacity = 0;
 				AdditionalMaxEnergy = 0;
 			}
 		}
@@ -123,6 +124,7 @@ namespace MetroidMod.Common.Players
 		public override void UpdateLifeRegen()
 		{
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
+			if (EnergyTanks > tankCapacity) { EnergyTanks = tankCapacity; }
 			if (SuitReserves > MaxSuitReserves) { SuitReserves = MaxSuitReserves; }
 			SetMinMax(ref EnergyDefenseEfficiency);
 			SetMinMax(ref EnergyExpenseEfficiency);

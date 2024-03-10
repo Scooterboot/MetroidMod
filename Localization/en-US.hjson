@@ -2449,6 +2449,7 @@ Mods: {
 					'''
 					+9 defense
 					+15 overheat capacity
+					+2 energy tank capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
@@ -2516,6 +2517,7 @@ Mods: {
 					'''
 					+29 defense
 					+55 overheat capacity
+					+6 energy tank capacity
 					15% decreased overheat use
 					15% decreased Missile Charge Combo cost
 					15% increased hunter damage
@@ -2558,6 +2560,7 @@ Mods: {
 					'''
 					+19 defense
 					+30 overheat capacity
+					+4 energy tank capacity
 					10% decreased overheat use
 					10% decreased Missile Charge Combo cost
 					10% increased hunter damage
@@ -2665,6 +2668,7 @@ Mods: {
 					'''
 					+19 defense
 					+30 overheat capacity
+					+4 energy tank capacity
 					10% decreased overheat use
 					10% decreased Missile Charge Combo cost
 					10% increased hunter damage
@@ -2688,6 +2692,7 @@ Mods: {
 				Tooltip:
 					'''
 					+6 defense
+					+2 energy tank capacity
 					+15 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
@@ -2710,6 +2715,7 @@ Mods: {
 					'''
 					+15 defense
 					+30 overheat capacity
+					+4 energy tank capacity
 					15% decreased overheat use
 					10% decreased Missile Charge Combo cost
 					10% increased hunter damage
@@ -2731,6 +2737,7 @@ Mods: {
 					'''
 					+29 defense
 					+55 overheat capacity
+					+6 energy tank capacity
 					15% decreased overheat use
 					15% decreased Missile Charge Combo cost
 					15% increased hunter damage
