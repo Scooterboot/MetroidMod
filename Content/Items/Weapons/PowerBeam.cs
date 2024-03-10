@@ -1543,6 +1543,20 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
 		}
+		public bool HeatUse(Player player) //really lazy ammo reservation --Dr
+		{
+			bool one = player.ammoBox || player.ammoPotion;
+			bool both = player.ammoBox && player.ammoPotion;
+			if (one && !both && Main.rand.NextBool(5))
+			{
+				return false;
+			}
+			if (both && Main.rand.NextBool(4))
+			{
+				return false;
+			}
+			return true;
+		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -1613,7 +1627,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			waveDir *= -1;
 
-			mp.statOverheat += (int)(overheat * mp.overheatCost);
+			mp.statOverheat += (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0);
 			mp.overheatDelay = (int)Math.Max(useTime - 10, 2);
 			/* Sound & Sound Networking */
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
@@ -1645,7 +1659,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item slot4 = BeamMods[3];
 				Item slot5 = BeamMods[4];
 				MPlayer mp = player.GetModPlayer<MPlayer>();
-				int oHeat = (int)(overheat * mp.overheatCost);
+				int oHeat = (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0);
 				if (slot4.type == vt && comboError3 != true)
 				{
 					shotEffect += "vortex";
