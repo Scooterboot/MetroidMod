@@ -742,6 +742,19 @@ namespace MetroidMod.Content.Items.Weapons
 			if (player.whoAmI == Main.myPlayer && Item.TryGetGlobalItem(out MGlobalItem mi))
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>();
+				if (Common.Systems.MSystem.SwitchKey.JustPressed)
+				{
+					mp.missileChangeActive = !mp.missileChangeActive;
+					//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					if (mp.missileChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
+					}
+					if (!mp.missileChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					}
+				}
 
 				int chCost = (int)(AmmoUse(player) ? (chargeCost * (mp.missileCost + 0.001f)) : 0);
 				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));

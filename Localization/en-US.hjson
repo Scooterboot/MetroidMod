@@ -53,6 +53,7 @@ Mods: {
 			"Power Bomb.DisplayName": Power  Bomb
 			"Show Visor UI.DisplayName": Show  Visor  U I
 			"Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
+			"Switch Interface.DisplayName": Switch  Interface
 		}
 
 		SuitAddonName: {

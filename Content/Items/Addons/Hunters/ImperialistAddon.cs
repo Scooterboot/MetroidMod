@@ -63,12 +63,12 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				.Register();*/
 
 			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient(ItemID.LaserRifle, 1)
-				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
-				.AddIngredient(ItemID.Ruby, 20)
-				.AddTile(TileID.Hellforge)
+				.AddIngredient<Miscellaneous.ChoziteBar>(15)
+				.AddIngredient<Miscellaneous.EnergyShard>(2)
+				.AddIngredient(ItemID.BlackLens, 2)
+				.AddIngredient(ItemID.Ruby, 1)
+				.AddIngredient(ItemID.IllegalGunParts, 1)
+				.AddTile(TileID.Anvils)
 				.Register();
 
 		}

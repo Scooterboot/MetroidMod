@@ -1659,6 +1659,19 @@ namespace MetroidMod.Content.Items.Weapons
 				Item slot4 = BeamMods[3];
 				Item slot5 = BeamMods[4];
 				MPlayer mp = player.GetModPlayer<MPlayer>();
+				if (Common.Systems.MSystem.SwitchKey.JustPressed)
+				{
+					mp.beamChangeActive = !mp.beamChangeActive;
+					//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					if (mp.beamChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
+					}
+					if (!mp.beamChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					}
+				}
 				int oHeat = (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0);
 				if (slot4.type == vt && comboError3 != true)
 				{

@@ -72,6 +72,7 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind PowerBombKey;
 		internal static ModKeybind VisorUIKey;
 		internal static ModKeybind BombKey;
+		internal static ModKeybind SwitchKey;
 
 		public static bool PhazonSpawn;
 
@@ -82,6 +83,7 @@ namespace MetroidMod.Common.Systems
 			PowerBombKey = KeybindLoader.RegisterKeybind(Mod, "Power Bomb", "Z");
 			VisorUIKey = KeybindLoader.RegisterKeybind(Mod, "Show Visor UI", "V");
 			BombKey = KeybindLoader.RegisterKeybind(Mod, "Morph Ball Bomb", "C");
+			SwitchKey = KeybindLoader.RegisterKeybind(Mod, "Switch Interface", "G");
 		}
 		public override void Unload()
 		{
