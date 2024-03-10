@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using MetroidMod.Content.Items.Walls;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +32,11 @@ namespace MetroidMod.Content.Items.Tiles
 				.AddIngredient(ItemID.AshBlock, 3)
 				.AddIngredient(ItemID.HellstoneBrick, 1)
 				.AddTile(TileID.Furnaces)
+				.Register();
+
+			CreateRecipe()
+				.AddIngredient<NorfairBrickWall>(4)
+				.AddTile(TileID.WorkBenches)
 				.Register();
 		}
 	}

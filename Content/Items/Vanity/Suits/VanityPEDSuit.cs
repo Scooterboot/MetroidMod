@@ -51,6 +51,7 @@ namespace MetroidMod.Content.Items.Vanity.Suits
 	[AutoloadEquip(EquipType.Head)]
 	public class VanityPEDSuitHelmet : VanityVariaSuitV2Helmet
 	{
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/SuitAddons/PEDSuit/PEDSuitHelmet";
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Outdated P.E.D. Suit Helmet");

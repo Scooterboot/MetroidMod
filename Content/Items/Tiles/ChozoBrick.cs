@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using MetroidMod.Content.Items.Walls;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +32,11 @@ namespace MetroidMod.Content.Items.Tiles
 				.AddIngredient<ChoziteOre>(1)
 				.AddIngredient(ItemID.StoneBlock, 5)
 				.AddTile(TileID.Furnaces)
+				.Register();
+
+			CreateRecipe()
+				.AddIngredient<ChozoBrickWall>(4)
+				.AddTile(TileID.WorkBenches)
 				.Register();
 		}
 	}
