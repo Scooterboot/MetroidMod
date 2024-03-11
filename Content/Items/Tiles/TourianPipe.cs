@@ -27,8 +27,6 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.TourianPipe>();
 		}
-<<<<<<< Updated upstream
-=======
 		public override void AddRecipes()
 		{
 			CreateRecipe(20)
@@ -50,6 +48,5 @@ namespace MetroidMod.Content.Items.Tiles
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}
->>>>>>> Stashed changes
 	}
 }

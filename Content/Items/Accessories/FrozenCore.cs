@@ -27,9 +27,9 @@ namespace MetroidMod.Content.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			//There's almost definitely a better way to do this but heck if I know what it is
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.statOverheat -= 0.1f;
+			mp.overheatCost *= 0.9f;
+			//mp.statOverheat -= 0.1f;
 		}
 		public override void AddRecipes()
 		{

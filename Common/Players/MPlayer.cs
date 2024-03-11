@@ -30,7 +30,6 @@ namespace MetroidMod.Common.Players
 		public float missileCost = 1f;
 		public float maxParalyzerCharge = 100f;
 		public float statParalyzerCharge = 0f;
-		public int tankCapacity = 0;
 
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
@@ -682,6 +681,7 @@ namespace MetroidMod.Common.Players
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
 			tag["senseMoveEnabled"] = senseMoveEnabled;
 			tag["energy"] = Energy;
+			tag["capacity"] = tankCapacity;
 			tag["reserves"] = SuitReserves;
 			tag["reserveAuto"] = SuitReservesAuto;
 		}
@@ -705,6 +705,12 @@ namespace MetroidMod.Common.Players
 				if (energy > 0)
 				{
 					Energy = energy;
+				}
+
+				energy = tag.GetInt("capacity");
+				if (energy > 0)
+				{
+					tankCapacity = energy;
 				}
 
 				energy = tag.GetInt("reserves");
@@ -736,6 +742,7 @@ namespace MetroidMod.Common.Players
 			boostEffect = 0;
 			EnergyTanks = 0;
 			Energy = 0;
+			tankCapacity = 0;
 		}
 
 		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
@@ -748,6 +755,7 @@ namespace MetroidMod.Common.Players
 			clone.boostCharge = boostCharge;
 			clone.EnergyTanks = EnergyTanks;
 			clone.Energy = Energy;
+			clone.tankCapacity = tankCapacity;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
 		}
