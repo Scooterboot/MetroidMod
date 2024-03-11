@@ -975,7 +975,7 @@ Mods: {
 
 			FrozenCore: {
 				DisplayName: Frozen Core
-				Tooltip: ""
+				Tooltip: "Reduces overheat use by 15%"
 			}
 
 			GravityFlare: {
