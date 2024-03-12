@@ -163,13 +163,18 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
-		/*public override bool AltFunctionUse(Player player)
+		public override bool AltFunctionUse(Player player)
 		{
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.noMelee = false;
-			Item.knockBack = Math.Max(4f, Item.knockBack * 2);
+			for (int i = 0; i < player.inventory.Length; i++)
+			{
+				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem+1].ModItem is MissileLauncher)
+				{
+					player.inventory[player.selectedItem] = player.inventory[player.selectedItem+1].Clone();
+					player.inventory[player.selectedItem + 1] = Item.Clone();
+				}
+			}
 			return true;
-		}*/
+		}
 
 		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{

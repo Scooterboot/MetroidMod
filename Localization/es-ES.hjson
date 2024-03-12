@@ -975,7 +975,7 @@ Mods: {
 
 			FrozenCore: {
 				// DisplayName: Frozen Core
-				// Tooltip: ""
+				// Tooltip: Reduces overheat use by 15%
 			}
 
 			GravityFlare: {
@@ -2236,7 +2236,11 @@ Mods: {
 
 			MissileLauncher: {
 				// DisplayName: Missile Launcher
-				// Tooltip: Select this item in your hotbar and open your inventory to open the Missile Addon UI
+				/* Tooltip:
+					'''
+					Select this item in your hotbar and open your inventory to open the Missile Addon UI
+					Right click with this next to a Power Beam to quick swap
+					''' */
 			}
 
 			Paralyzer: {
@@ -2246,7 +2250,11 @@ Mods: {
 
 			PowerBeam: {
 				// DisplayName: Power Beam
-				// Tooltip: Select this item in your hotbar and open your inventory to open the Beam Addon UI
+				/* Tooltip:
+					'''
+					Select this item in your hotbar and open your inventory to open the Beam Addon UI
+					Right click with this next to a Missile Launcher to quick swap
+					''' */
 			}
 
 			BetsyBombAddon: {

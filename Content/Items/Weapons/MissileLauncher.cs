@@ -12,6 +12,7 @@ using MetroidMod.Content.Projectiles.missiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -108,7 +109,18 @@ namespace MetroidMod.Content.Items.Weapons
 			player.itemLocation.X = player.MountedCenter.X - (float)Item.width * 0.5f;
 			player.itemLocation.Y = player.MountedCenter.Y - (float)Item.height * 0.5f;
 		}
-
+		public override bool AltFunctionUse(Player player)
+		{
+			for (int i = 0; i < player.inventory.Length; i++)
+			{
+				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem + 1].ModItem is PowerBeam)
+				{
+					player.inventory[player.selectedItem] = player.inventory[player.selectedItem + 1].Clone();
+					player.inventory[player.selectedItem + 1] = Item.Clone();
+				}
+			}
+			return true;
+		}
 		public override bool CanUseItem(Player player)
 		{
 			if (!Item.TryGetGlobalItem(out MGlobalItem mi) || player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type)
