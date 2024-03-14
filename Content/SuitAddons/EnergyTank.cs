@@ -26,6 +26,7 @@ namespace MetroidMod.Content.SuitAddons
 			// Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
 			SacrificeTotal = 14;
+			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<Items.Accessories.ReserveTank>();
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;
 		}
 		public override void SetItemDefaults(Item item)
