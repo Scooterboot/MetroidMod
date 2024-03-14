@@ -618,8 +618,8 @@ namespace MetroidMod.Common.Systems
 
 					}
 				}));
-				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions", delegate (GenerationProgress progress, GameConfiguration configuration) {
-					progress.Message = "Placing Missile Expansions";
+				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions and Energy Tanks", delegate (GenerationProgress progress, GameConfiguration configuration) {
+					progress.Message = "Placing Missile Expansions and EnergyTanks";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
 					{
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
@@ -627,32 +627,22 @@ namespace MetroidMod.Common.Systems
 						int num3 = 0;
 						while (!flag)
 						{
-							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
+							if (Main.rand.NextBool(4))
 							{
-								flag = true;
-							}
-							else
-							{
-								num3++;
-								if (num3 >= 10000)
+								if (AddTank(WorldGen.genRand.Next(4, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 								{
 									flag = true;
 								}
+								else
+								{
+									num3++;
+									if (num3 >= 10000)
+									{
+										flag = true;
+									}
+								}
 							}
-						}
-
-					}
-				}));
-				tasks.Insert(PotsIndex - 2, new PassLegacy("Energy Tanks", delegate (GenerationProgress progress, GameConfiguration configuration) {
-					progress.Message = "Placing Energy Tanks";
-					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
-					{
-						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
-						bool flag = false;
-						int num3 = 0;
-						while (!flag)
-						{
-							if (AddTank(WorldGen.genRand.Next(4, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
+							else if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 							{
 								flag = true;
 							}
