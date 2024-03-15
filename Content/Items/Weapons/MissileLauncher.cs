@@ -27,6 +27,7 @@ namespace MetroidMod.Content.Items.Weapons
 	public class MissileLauncher : ModItem
 	{
 		// Failsaves.
+		public PowerBeam store;
 		private Item[] _missileMods;
 		private Item[] _missileChange;
 		public Item[] MissileMods
@@ -111,14 +112,20 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override bool AltFunctionUse(Player player)
 		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(); //really shitty way to do this but whatever
+			mp.missileLauncher = this;
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem + 1].ModItem is PowerBeam)
+				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem + 1].ModItem is PowerBeam pb && mp.powerBeam == null)
 				{
-					player.inventory[player.selectedItem] = player.inventory[player.selectedItem + 1].Clone();
-					player.inventory[player.selectedItem + 1] = Item.Clone();
+					mp.powerBeam = pb;
+				}
+				if (mp.powerBeam != null)
+				{
+					player.inventory[player.selectedItem] = mp.powerBeam.Item.Clone();
 				}
 			}
+
 			return true;
 		}
 		public override bool CanUseItem(Player player)

@@ -165,12 +165,20 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		public override bool AltFunctionUse(Player player)
 		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();//really shitty way to do this but whatever
+			mp.powerBeam = this;
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem+1].ModItem is MissileLauncher)
+				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem+1].ModItem is MissileLauncher ml && mp.missileLauncher == null)
 				{
-					player.inventory[player.selectedItem] = player.inventory[player.selectedItem+1].Clone();
-					player.inventory[player.selectedItem + 1] = Item.Clone();
+					mp.missileLauncher = ml;
+
+					//player.inventory[player.selectedItem] = player.inventory[player.selectedItem+1].Clone();
+					//player.inventory[player.selectedItem + 1] = Item.Clone();
+				}
+				if (mp.missileLauncher != null)
+				{
+					player.inventory[player.selectedItem] = mp.missileLauncher.Item.Clone();
 				}
 			}
 			return true;

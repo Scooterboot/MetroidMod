@@ -5,6 +5,7 @@ using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Biomes;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -31,6 +32,9 @@ namespace MetroidMod.Common.Players
 		public float maxParalyzerCharge = 100f;
 		public float statParalyzerCharge = 0f;
 
+		public PowerBeam powerBeam;
+		public MissileLauncher missileLauncher;
+		public bool PrimeHunter = false;
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
 		public int SMoveEffect = 0;
@@ -114,7 +118,6 @@ namespace MetroidMod.Common.Players
 			PreUpdate_Graphics();
 
 			Player P = Player;
-
 			if (statCharge >= maxCharge)
 			{
 				statCharge = maxCharge;
@@ -238,7 +241,7 @@ namespace MetroidMod.Common.Players
 			{
 				for (int k = y1; k <= y2; k++)
 				{
-					MPlayer mp = Player.GetModPlayer<MPlayer>();
+					MPlayer mp = P.GetModPlayer<MPlayer>();
 					if (mp.speedBoosting || mp.shineActive)
 					{
 						if (Main.tile[i, k].HasTile && !Main.tile[i, k].IsActuated)
@@ -363,7 +366,14 @@ namespace MetroidMod.Common.Players
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
 			PostUpdateMiscEffects_Visors();
-
+			if (statCharge >= maxCharge && MSystem.HyperMode.JustPressed && ShouldShowArmorUI == true)
+			{
+				PrimeHunter = !PrimeHunter;
+				if(PrimeHunter)
+				{
+					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+				}
+			}
 			if (senseMove && senseMoveEnabled)
 			{
 				SenseMove(Player);
