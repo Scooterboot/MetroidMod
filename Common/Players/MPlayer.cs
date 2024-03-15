@@ -534,6 +534,10 @@ namespace MetroidMod.Common.Players
 					{
 						Player.mount.Dismount(Player);
 					}
+					if (Player.shimmering)
+					{
+						projectile.Kill();
+					}
 					Player.canCarpet = true;
 					Player.carpetFrame = -1;
 					Player.wingFrame = 1;
