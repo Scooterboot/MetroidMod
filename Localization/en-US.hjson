@@ -54,6 +54,7 @@ Mods: {
 			"Show Visor UI.DisplayName": Show  Visor  U I
 			"Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
 			"Switch Interface.DisplayName": Switch  Interface
+			HyperMode.DisplayName: Hyper Mode
 		}
 
 		SuitAddonName: {
@@ -250,6 +251,22 @@ Mods: {
 			TorizoTrophyTile.MapEntry: Torizo Trophy
 			ZeroHusk.MapEntry: Zero Husk
 			ChozoStatueOrb.MapEntry: Chozo Statue Orb
+			NebulaAugmentTile.MapEntry: Nebula Augment Tile
+			LightSuitAddonTile.MapEntry: Light Suit Addon Tile
+			HazardShieldAddonTile.MapEntry: Hazard Shield Addon Tile
+			GravitySuitAddonTile.MapEntry: Gravity Suit Addon Tile
+			EnergyTankTile.MapEntry: Energy Tank Tile
+			DarkSuitAddonTile.MapEntry: Dark Suit Addon Tile
+			PEDSuitAddonTile.MapEntry: P E D Suit Addon Tile
+			PhazonSuitAddonTile.MapEntry: Phazon Suit Addon Tile
+			ReserveTankTile.MapEntry: Reserve Tank Tile
+			ScanVisorTile.MapEntry: Scan Visor Tile
+			SolarAugmentTile.MapEntry: Solar Augment Tile
+			TerraGravitySuitAddonTile.MapEntry: Terra Gravity Suit Addon Tile
+			VariaSuitAddonTile.MapEntry: Varia Suit Addon Tile
+			VariaSuitV2AddonTile.MapEntry: Varia Suit V2 Addon Tile
+			VortexAugmentTile.MapEntry: Vortex Augment Tile
+			XRayScopeTile.MapEntry: X Ray Scope Tile
 		}
 
 		Buffs: {
@@ -296,6 +313,11 @@ Mods: {
 			PhazonDebuff: {
 				DisplayName: Phazon Debuff
 				Description: Phazon is draining your life away!
+			}
+
+			PrimeHunterBuff: {
+				Description: Mods.MetroidMod.Buffs.PrimeHunterBuff.Description
+				DisplayName: Prime Hunter Buff
 			}
 		}
 

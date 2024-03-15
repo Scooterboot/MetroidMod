@@ -73,6 +73,7 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind VisorUIKey;
 		internal static ModKeybind BombKey;
 		internal static ModKeybind SwitchKey;
+		internal static ModKeybind HyperMode;
 
 		public static bool PhazonSpawn;
 
@@ -84,6 +85,7 @@ namespace MetroidMod.Common.Systems
 			VisorUIKey = KeybindLoader.RegisterKeybind(Mod, "Show Visor UI", "V");
 			BombKey = KeybindLoader.RegisterKeybind(Mod, "Morph Ball Bomb", "C");
 			SwitchKey = KeybindLoader.RegisterKeybind(Mod, "Switch Interface", "G");
+			HyperMode = KeybindLoader.RegisterKeybind(Mod, "HyperMode", "C");
 		}
 		public override void Unload()
 		{
@@ -622,27 +624,12 @@ namespace MetroidMod.Common.Systems
 					progress.Message = "Placing Missile Expansions and EnergyTanks";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
 					{
-						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
+						//float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
 						bool flag = false;
 						int num3 = 0;
 						while (!flag)
 						{
-							if (Main.rand.NextBool(4))
-							{
-								if (AddTank(WorldGen.genRand.Next(4, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
-								{
-									flag = true;
-								}
-								else
-								{
-									num3++;
-									if (num3 >= 10000)
-									{
-										flag = true;
-									}
-								}
-							}
-							else if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
+							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 							{
 								flag = true;
 							}
@@ -681,12 +668,12 @@ namespace MetroidMod.Common.Systems
 			{
 				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance(i, j)); }
 			}
-			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ShockCoilTile>(); }, 6);
+			/*list[index++] = new WeightedChance(() => { item = ModContent.TileType<ShockCoilTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<MagMaulTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<BattleHammerTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<VoltDriverTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ImperialistTile>(); }, 6);
-			list[index++] = new WeightedChance(() => { item = ModContent.TileType<JudicatorTile>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<JudicatorTile>(); }, 6);*/
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ChargeBeamTile>(); }, 24);
@@ -1068,36 +1055,23 @@ namespace MetroidMod.Common.Systems
 					Main.tile[i, k].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
 					Main.tile[i, k].Get<TileWallWireStateData>().IsHalfBlock = false;
 					Main.tile[i, num].Get<TileWallWireStateData>().HasTile = true;
-					Main.tile[i, num].Get<TileTypeData>().Type = (ushort)ModContent.TileType<MissileExpansionTile>();
-
-					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameX = 0;
-					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameY = 0;
-					return true;
-				}
-				else
-				{
-					k++;
-				}
-			}
-			return false;
-		}
-		public static bool AddTank(int i, int j)
-		{
-			//Mod mod = MetroidMod.Instance;
-			int k = j;
-			while (k < Main.maxTilesY)
-			{
-				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile)
-				{
-					int num = k - 1;
-					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava)
+					ushort output = (ushort)ModContent.TileType<MissileExpansionTile>();
+					switch (Main.rand.Next(12))
 					{
-						return false;
+						case 0: 
+						case 1:
+						case 2: 
+						case 3: output = (ushort)ModContent.TileType<MissileExpansionTile>(); break;
+						case 4:
+						case 5: output = (ushort)SuitAddonLoader.GetAddon<EnergyTank>().TileType; break;
+						case 6: output = (ushort)ModContent.TileType<ImperialistTile>() ; break;
+						case 7: output = (ushort)ModContent.TileType<JudicatorTile>(); break;
+						case 8: output = (ushort)ModContent.TileType<MagMaulTile>(); break;
+						case 9: output = (ushort)ModContent.TileType<BattleHammerTile>(); break;
+						case 10: output = (ushort)ModContent.TileType<VoltDriverTile>(); break;
+						case 11: output = (ushort)ModContent.TileType<ShockCoilTile>(); break;
 					}
-					Main.tile[i, k].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
-					Main.tile[i, k].Get<TileWallWireStateData>().IsHalfBlock = false;
-					Main.tile[i, num].Get<TileWallWireStateData>().HasTile = true;
-					Main.tile[i, num].Get<TileTypeData>().Type = (ushort)SuitAddonLoader.GetAddon<Content.SuitAddons.EnergyTank>().TileType;
+					Main.tile[i, num].Get<TileTypeData>().Type = output;
 
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameX = 0;
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameY = 0;
