@@ -919,7 +919,7 @@ namespace MetroidMod.Common.Systems
 				if (num2 >= 2)// && !Main.tile[i, k - 1].HasTile && !Main.tile[i, k - 2].HasTile && !Main.tile[i, k - 3].HasTile && !Main.tile[i + 1, k - 1].HasTile && !Main.tile[i + 1, k - 2].HasTile && !Main.tile[i + 1, k - 3].HasTile && !Main.tile[i + 2, k - 1].HasTile && !Main.tile[i + 2, k - 2].HasTile && !Main.tile[i + 2, k - 3].HasTile)
 				{
 					int num = k - 1;
-					if (Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 1, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 2, num - 1].LiquidType == LiquidID.Lava)
+					if (Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 1, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 2, num - 1].LiquidType == LiquidID.Lava || Main.tile[i, num].LiquidType == LiquidID.Shimmer || Main.tile[i, num - 1].LiquidType == LiquidID.Shimmer)
 					{
 						return false;
 					}
@@ -1048,7 +1048,7 @@ namespace MetroidMod.Common.Systems
 				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile)
 				{
 					int num = k - 1;
-					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava)
+					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i, num].LiquidType == LiquidID.Shimmer || Main.tile[i, num - 1].LiquidType == LiquidID.Shimmer)
 					{
 						return false;
 					}
