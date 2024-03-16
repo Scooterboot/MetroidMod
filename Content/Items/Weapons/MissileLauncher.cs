@@ -126,6 +126,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 			}
 			Item.CopyNetStateTo(mp.missileLauncher.Item);
+			Item.CopyNetStateTo(mp.powerBeam.Item);
 			return false;
 		}
 		public override bool CanUseItem(Player player)
