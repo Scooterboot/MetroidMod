@@ -624,7 +624,7 @@ namespace MetroidMod.Common.Systems
 					progress.Message = "Placing Missile Expansions and EnergyTanks";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
 					{
-						//float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
+						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
 						bool flag = false;
 						int num3 = 0;
 						while (!flag)
@@ -636,7 +636,7 @@ namespace MetroidMod.Common.Systems
 							else
 							{
 								num3++;
-								if (num3 >= 10000)
+								if (num3 >= 15000)
 								{
 									flag = true;
 								}
