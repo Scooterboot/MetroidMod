@@ -181,6 +181,7 @@ namespace MetroidMod.Content.Items.Weapons
 					player.inventory[player.selectedItem] = mp.missileLauncher.Item.Clone();
 				}
 			}
+			Item.CopyNetStateTo(mp.powerBeam.Item);
 			return false;
 		}
 
@@ -1910,7 +1911,6 @@ namespace MetroidMod.Content.Items.Weapons
 				_beamchangeMods[i].TurnToAir();
 			}
 		}
-
 		public override void NetSend(BinaryWriter writer)
 		{
 			for (int i = 0; i < BeamMods.Length; ++i)

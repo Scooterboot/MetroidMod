@@ -772,6 +772,8 @@ namespace MetroidMod.Common.Players
 			clone.tankCapacity = tankCapacity;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
+			missileLauncher.Item.CopyNetStateTo(missileLauncher.Item);
+			powerBeam.Item.CopyNetStateTo(powerBeam.Item);
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -788,7 +790,7 @@ namespace MetroidMod.Common.Players
 			packet.Write(Energy);
 			packet.Write(SuitReserveTanks);
 			packet.Write(SuitReserves);
-			packet.Send(toWho, fromWho);
+			packet.Send(toWho, fromWho); //to *whom*
 		}
 
 		public override void SendClientChanges(ModPlayer clientPlayer)

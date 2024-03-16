@@ -125,7 +125,7 @@ namespace MetroidMod.Content.Items.Weapons
 					player.inventory[player.selectedItem] = mp.powerBeam.Item.Clone();
 				}
 			}
-
+			Item.CopyNetStateTo(mp.missileLauncher.Item);
 			return false;
 		}
 		public override bool CanUseItem(Player player)
