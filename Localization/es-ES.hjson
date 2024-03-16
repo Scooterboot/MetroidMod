@@ -2258,11 +2258,7 @@ Mods: {
 
 			MissileLauncher: {
 				// DisplayName: Missile Launcher
-				/* Tooltip:
-					'''
-					Select this item in your hotbar and open your inventory to open the Missile Addon UI
-					Right click with this next to a Power Beam to quick swap
-					''' */
+				// Tooltip: Select this item in your hotbar and open your inventory to open the Missile Addon UI
 			}
 
 			Paralyzer: {
@@ -2272,11 +2268,7 @@ Mods: {
 
 			PowerBeam: {
 				// DisplayName: Power Beam
-				/* Tooltip:
-					'''
-					Select this item in your hotbar and open your inventory to open the Beam Addon UI
-					Right click with this next to a Missile Launcher to quick swap
-					''' */
+				// Tooltip: Select this item in your hotbar and open your inventory to open the Beam Addon UI
 			}
 
 			BetsyBombAddon: {
@@ -2937,7 +2929,7 @@ Mods: {
 			}
 
 			SupercooledEmblem: {
-				// Tooltip: ""
+				// Tooltip: Reduces overheat and increases damage by 15%
 				// DisplayName: Supercooled Emblem
 			}
 		}
