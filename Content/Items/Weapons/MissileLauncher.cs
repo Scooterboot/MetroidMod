@@ -126,7 +126,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 			}
 
-			return true;
+			return false;
 		}
 		public override bool CanUseItem(Player player)
 		{

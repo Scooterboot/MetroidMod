@@ -181,7 +181,7 @@ namespace MetroidMod.Content.Items.Weapons
 					player.inventory[player.selectedItem] = mp.missileLauncher.Item.Clone();
 				}
 			}
-			return true;
+			return false;
 		}
 
 		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
