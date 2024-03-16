@@ -2261,7 +2261,6 @@ Mods: {
 				Tooltip:
 					'''
 					Select this item in your hotbar and open your inventory to open the Missile Addon UI
-					Right click with this next to a Power Beam to quick swap
 					'''
 			}
 
@@ -2275,7 +2274,6 @@ Mods: {
 				Tooltip:
 					'''
 					Select this item in your hotbar and open your inventory to open the Beam Addon UI
-					Right click with this next to a Missile Launcher to quick swap
 					'''
 			}
 
@@ -2934,6 +2932,11 @@ Mods: {
 			TourianBag: {
 				DisplayName: Tourian Bag
 				Tooltip: ""
+			}
+
+			SupercooledEmblem: {
+				Tooltip: "Reduces overheat and increases damage by 15%"
+				DisplayName: Supercooled Emblem
 			}
 		}
 

@@ -2935,6 +2935,11 @@ Mods: {
 				// DisplayName: Tourian Bag
 				// Tooltip: ""
 			}
+
+			SupercooledEmblem: {
+				// Tooltip: ""
+				// DisplayName: Supercooled Emblem
+			}
 		}
 
 		NPCs: {

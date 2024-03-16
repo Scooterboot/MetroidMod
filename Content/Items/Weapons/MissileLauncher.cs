@@ -27,7 +27,6 @@ namespace MetroidMod.Content.Items.Weapons
 	public class MissileLauncher : ModItem
 	{
 		// Failsaves.
-		public PowerBeam store;
 		private Item[] _missileMods;
 		private Item[] _missileChange;
 		public Item[] MissileMods
@@ -110,7 +109,7 @@ namespace MetroidMod.Content.Items.Weapons
 			player.itemLocation.X = player.MountedCenter.X - (float)Item.width * 0.5f;
 			player.itemLocation.Y = player.MountedCenter.Y - (float)Item.height * 0.5f;
 		}
-		public override bool AltFunctionUse(Player player)
+		/*public override bool AltFunctionUse(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //really shitty way to do this but whatever
 			mp.missileLauncher = this;
@@ -128,7 +127,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.CopyNetStateTo(mp.missileLauncher.Item);
 			Item.CopyNetStateTo(mp.powerBeam.Item);
 			return false;
-		}
+		}*/
 		public override bool CanUseItem(Player player)
 		{
 			if (!Item.TryGetGlobalItem(out MGlobalItem mi) || player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type)

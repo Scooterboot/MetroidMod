@@ -163,7 +163,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
-		public override bool AltFunctionUse(Player player)
+		/*public override bool AltFunctionUse(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();//really shitty way to do this but whatever
 			mp.powerBeam = this;
@@ -184,7 +184,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.CopyNetStateTo(mp.missileLauncher.Item);
 			Item.CopyNetStateTo(mp.powerBeam.Item);
 			return false;
-		}
+		}*/
 
 		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
