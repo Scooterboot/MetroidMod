@@ -10,6 +10,7 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -23,6 +24,9 @@ namespace MetroidMod.Common.Players
 		public float statCharge = 0.0f;
 		public static float maxCharge = 100.0f;
 
+		public static float maxHyper = 100f;
+		public float hyperCharge = 0.0f;
+		private int hyperRechargedelay = 0;
 		public float maxOverheat = 100f;
 		public float statOverheat = 0f;
 		public float overheatCost = 1f;
@@ -32,8 +36,6 @@ namespace MetroidMod.Common.Players
 		public float maxParalyzerCharge = 100f;
 		public float statParalyzerCharge = 0f;
 
-		public PowerBeam powerBeam;
-		public MissileLauncher missileLauncher;
 		public bool PrimeHunter = false;
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
@@ -118,6 +120,23 @@ namespace MetroidMod.Common.Players
 			PreUpdate_Graphics();
 
 			Player P = Player;
+			MPlayer mp = P.GetModPlayer<MPlayer>();
+			if (hyperCharge > 0 && mp.PrimeHunter || !MSystem.HyperMode.Current)
+			{
+				if (hyperRechargedelay <= 0)
+				{
+					hyperCharge -= 1.0f;
+					hyperRechargedelay = 6;
+				}
+				if (hyperRechargedelay > 0)
+				{
+					hyperRechargedelay--;
+				}
+			}
+			if (hyperCharge >= maxHyper)
+			{
+				hyperCharge = maxHyper;
+			}
 			if (statCharge >= maxCharge)
 			{
 				statCharge = maxCharge;
@@ -241,7 +260,6 @@ namespace MetroidMod.Common.Players
 			{
 				for (int k = y1; k <= y2; k++)
 				{
-					MPlayer mp = P.GetModPlayer<MPlayer>();
 					if (mp.speedBoosting || mp.shineActive)
 					{
 						if (Main.tile[i, k].HasTile && !Main.tile[i, k].IsActuated)
@@ -366,13 +384,28 @@ namespace MetroidMod.Common.Players
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
 			PostUpdateMiscEffects_Visors();
-			if (statCharge >= maxCharge && MSystem.HyperMode.JustPressed && ShouldShowArmorUI == true)
+			if (MSystem.HyperMode.Current && IsPowerSuitBreastplate && IsPowerSuitGreaves && IsPowerSuitHelmet && statPBCh == 0 && statCharge == 0)
 			{
-				PrimeHunter = !PrimeHunter;
-				if(PrimeHunter)
+				if (!PrimeHunter)
 				{
-					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+					hyperCharge++;
 				}
+				if(hyperCharge >= maxHyper)
+				{
+					PrimeHunter = true;
+				}
+				if (hyperCharge == 0f && PrimeHunter)
+				{
+					PrimeHunter = false;
+				}
+			}
+			if (PrimeHunter)
+			{
+				Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+			}
+			if(Player.dead)
+			{
+				PrimeHunter = false;
 			}
 			if (senseMove && senseMoveEnabled)
 			{
@@ -686,7 +719,15 @@ namespace MetroidMod.Common.Players
 				}
 			}
 		}
-
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			MPlayer mp = Player.GetModPlayer<MPlayer>();
+			if (mp.PrimeHunter && target.life <= 0 && mp.Energy < mp.MaxEnergy)
+			{
+				int heal = Math.Max(target.lifeMax / 20, 1);
+				mp.Energy += Math.Min(heal, mp.MaxEnergy-mp.MaxEnergy);
+			}
+		}
 		public bool psuedoScrewActive = false;
 		public bool beamChangeActive = false;
 		public bool missileChangeActive = false;
@@ -764,6 +805,7 @@ namespace MetroidMod.Common.Players
 			MPlayer clone = clientClone as MPlayer;
 
 			clone.statCharge = statCharge;
+			clone.hyperCharge = hyperCharge;
 			clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
@@ -772,8 +814,6 @@ namespace MetroidMod.Common.Players
 			clone.tankCapacity = tankCapacity;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
-			missileLauncher.Item.CopyNetStateTo(missileLauncher.Item);
-			powerBeam.Item.CopyNetStateTo(powerBeam.Item);
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -782,6 +822,7 @@ namespace MetroidMod.Common.Players
 			packet.Write((byte)MetroidMessageType.SyncStartPlayerStats);
 			packet.Write((byte)Player.whoAmI);
 			packet.Write((double)statCharge);
+			packet.Write((double)hyperCharge);
 			packet.Write(spiderball);
 			packet.Write(boostEffect);
 			packet.Write(boostCharge);
@@ -796,12 +837,13 @@ namespace MetroidMod.Common.Players
 		public override void SendClientChanges(ModPlayer clientPlayer)
 		{
 			MPlayer clone = clientPlayer as MPlayer;
-			if (clone.statCharge != statCharge || clone.spiderball != spiderball || clone.boostEffect != boostEffect || clone.boostCharge != boostCharge)
+			if (clone.statCharge != statCharge || clone.spiderball != spiderball || clone.boostEffect != boostEffect || clone.boostCharge != boostCharge || clone.hyperCharge != hyperCharge)
 			{
 				ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 				packet.Write((byte)Player.whoAmI);
 				packet.Write((double)statCharge);
+				packet.Write((double)hyperCharge);
 				packet.Write(spiderball);
 				packet.Write(boostEffect);
 				packet.Write(boostCharge);

@@ -316,7 +316,7 @@ Mods: {
 			}
 
 			PrimeHunterBuff: {
-				Description: Mods.MetroidMod.Buffs.PrimeHunterBuff.Description
+				Description: Your reputation makes you a Prime target
 				DisplayName: Prime Hunter Buff
 			}
 		}

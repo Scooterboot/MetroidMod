@@ -641,24 +641,38 @@ namespace MetroidMod.Common.Systems
 				Texture2D texBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBar").Value,
 					texBarBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder").Value,
 					texBarBorder2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder2").Value;
-				if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || item.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || mp.ballstate)
+				if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || item.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || mp.ballstate || mp.PrimeHunter)
 				{
+					int hp = (int)mp.hyperCharge, hpMax = (int)MPlayer.maxHyper;
 					int ch = (int)mp.statCharge, chMax = (int)MPlayer.maxCharge;
 					int pb = (int)mp.statPBCh, pbMax = (int)MPlayer.maxPBCh;
 					float x = 22, y = 78 + z;
 					int times = (int)Math.Ceiling(texBar.Height / 2f);
+					float hppercent = hpMax == 0 ? 0f : 1f * hp / hpMax;
 					float chpercent = chMax == 0 ? 0f : 1f * ch / chMax;
 					float pbpercent = pbMax == 0 ? 0f : 1f * pb / pbMax;
+					int w0 = (int)(Math.Floor(texBar.Width / 2f * hppercent) * 2);
 					int w = (int)(Math.Floor(texBar.Width / 2f * chpercent) * 2);
 					int w2 = (int)(Math.Floor(texBar.Width / 2f * pbpercent) * 2);
 
 					//Color c = chpercent < 1f ? new Color(chR,chG,chB) : Color.Gold;
 					Color c = chpercent < 1f ? MColor.HsvColor(300.0 - chpercent * 240, 0.5, 1.0) : Color.Gold;
-
+					Color h = hppercent > 0f ? Color.Turquoise : Color.Gray;
 					Color p = pbpercent < 1f ? Color.Crimson : Color.Gray;
 					chStyle = chpercent <= 0f ? 0 : (chpercent <= .5f ? 1 : (chpercent <= .75f ? 2 : (chpercent <= .99f ? 3 : 0)));
 					float offsetX = 2, offsetY = 2;
 					sb.Draw(texBarBorder2, new Vector2(x, y), new Rectangle(0, 0, texBarBorder2.Width, texBarBorder2.Height), Color.White);
+					if(hp > 0)
+					{
+						for (int i = 0; i < times; i++)
+						{
+							int ww = w0 - (i * 2);
+							if (ww > 0)
+							{
+								sb.Draw(texBar, new Vector2(x + offsetX, y + offsetY + i * 2), new Rectangle(0, i * 2, ww, 2), h);
+							}
+						}
+					}
 					if (pb > 0)
 					{
 						for (int i = 0; i < times; i++)
