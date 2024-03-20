@@ -9,6 +9,7 @@ namespace MetroidMod.Content.Items.Accessories
 {
 	// legacy name because old suit addon system
 	[LegacyName("ScrewAttackAddon")]
+	[AutoloadEquip(EquipType.Front)]
 	public class ScrewAttack : ModItem//HunterDamageItem
 	{
 		public override void SetStaticDefaults()
