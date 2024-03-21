@@ -31,7 +31,14 @@ namespace MetroidMod
 			{
 
 			};
+			public static readonly SoundStyle Sting = new($"{nameof(MetroidMod)}/Assets/Sounds/Sting")
+			{
 
+			};
+			public static readonly SoundStyle SamusDeath = new($"{nameof(MetroidMod)}/Assets/Sounds/SamusDeath")
+			{
+
+			};
 			public static readonly SoundStyle ConcentrationLoop = new($"{nameof(MetroidMod)}/Assets/Sounds/ConcentrationLoop")
 			{
 

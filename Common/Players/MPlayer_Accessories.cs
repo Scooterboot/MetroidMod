@@ -3,6 +3,7 @@ using System;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Mounts;
 using MetroidMod.Content.Tiles;
 using MetroidMod.ID;
@@ -395,6 +396,19 @@ namespace MetroidMod.Common.Players
 				}
 				SoundEngine.PlaySound(Sounds.Suit.MissilesReplenished, Player.position);
 				return false;
+			}
+			if (PrimeHunter)
+			{
+				bool wearingSuit = Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>();
+				if (!wearingSuit)
+				{
+					damageSource = PlayerDeathReason.ByCustomReason($"{Player.name} did not find an exploit");
+				}
+				else
+				{
+					damageSource = PlayerDeathReason.ByCustomReason("The Prime Hunter is dead!");
+				}
+				SoundEngine.PlaySound(Sounds.Suit.SamusDeath, Player.position);
 			}
 			return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
 		}

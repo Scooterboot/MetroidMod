@@ -2,7 +2,7 @@
 using System.Linq;
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
-//using MetroidMod.Content.Items;
+using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Biomes;
 using MetroidMod.Content.Items.Weapons;
@@ -14,6 +14,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using MetroidMod.Content.Items.Armors;
 
 namespace MetroidMod.Common.Players
 {
@@ -36,6 +37,7 @@ namespace MetroidMod.Common.Players
 		public float maxParalyzerCharge = 100f;
 		public float statParalyzerCharge = 0f;
 
+		public bool canHyper = false;
 		public bool PrimeHunter = false;
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
@@ -384,17 +386,18 @@ namespace MetroidMod.Common.Players
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
 			PostUpdateMiscEffects_Visors();
-			if (MSystem.HyperMode.Current && IsPowerSuitBreastplate && IsPowerSuitGreaves && IsPowerSuitHelmet && statPBCh == 0 && statCharge == 0)
+			if (MSystem.HyperMode.Current && statPBCh <= 0f && statCharge <= 0f)
 			{
-				if (!PrimeHunter)
+				if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>()) && Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && (Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 				{
 					hyperCharge++;
 				}
 				if(hyperCharge >= maxHyper)
 				{
 					PrimeHunter = true;
+					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 				}
-				if (hyperCharge == 0f && PrimeHunter)
+				if (hyperCharge <= 0f)
 				{
 					PrimeHunter = false;
 				}
@@ -403,7 +406,7 @@ namespace MetroidMod.Common.Players
 			{
 				Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 			}
-			if(Player.dead)
+			if (Player.dead || !Player.HasBuff<Content.Buffs.PrimeHunterBuff>() && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f)
 			{
 				PrimeHunter = false;
 			}
@@ -814,6 +817,8 @@ namespace MetroidMod.Common.Players
 			clone.tankCapacity = tankCapacity;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
+			clone.PrimeHunter = PrimeHunter;
+			clone.canHyper = canHyper;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -831,6 +836,8 @@ namespace MetroidMod.Common.Players
 			packet.Write(Energy);
 			packet.Write(SuitReserveTanks);
 			packet.Write(SuitReserves);
+			packet.Write(PrimeHunter);
+			packet.Write(canHyper);
 			packet.Send(toWho, fromWho); //to *whom*
 		}
 
@@ -852,6 +859,8 @@ namespace MetroidMod.Common.Players
 				packet.Write(Energy);
 				packet.Write(SuitReserveTanks);
 				packet.Write(SuitReserves);
+				packet.Write(PrimeHunter);
+				packet.Write(canHyper);
 				packet.Send();
 			}
 		}
