@@ -165,10 +165,25 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		/*public override bool AltFunctionUse(Player player)
 		{
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.noMelee = false;
-			Item.knockBack = Math.Max(4f, Item.knockBack * 2);
-			return true;
+			MPlayer mp = player.GetModPlayer<MPlayer>();//really shitty way to do this but whatever
+			mp.powerBeam = this;
+			for (int i = 0; i < player.inventory.Length; i++)
+			{
+				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem+1].ModItem is MissileLauncher ml && mp.missileLauncher == null)
+				{
+					mp.missileLauncher = ml;
+
+					//player.inventory[player.selectedItem] = player.inventory[player.selectedItem+1].Clone();
+					//player.inventory[player.selectedItem + 1] = Item.Clone();
+				}
+				if (mp.missileLauncher != null)
+				{
+					player.inventory[player.selectedItem] = mp.missileLauncher.Item.Clone();
+				}
+			}
+			Item.CopyNetStateTo(mp.missileLauncher.Item);
+			Item.CopyNetStateTo(mp.powerBeam.Item);
+			return false;
 		}*/
 
 		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
@@ -1659,6 +1674,19 @@ namespace MetroidMod.Content.Items.Weapons
 				Item slot4 = BeamMods[3];
 				Item slot5 = BeamMods[4];
 				MPlayer mp = player.GetModPlayer<MPlayer>();
+				if (Common.Systems.MSystem.SwitchKey.JustPressed)
+				{
+					mp.beamChangeActive = !mp.beamChangeActive;
+					//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					if (mp.beamChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
+					}
+					if (!mp.beamChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					}
+				}
 				int oHeat = (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0);
 				if (slot4.type == vt && comboError3 != true)
 				{
@@ -1884,7 +1912,6 @@ namespace MetroidMod.Content.Items.Weapons
 				_beamchangeMods[i].TurnToAir();
 			}
 		}
-
 		public override void NetSend(BinaryWriter writer)
 		{
 			for (int i = 0; i < BeamMods.Length; ++i)

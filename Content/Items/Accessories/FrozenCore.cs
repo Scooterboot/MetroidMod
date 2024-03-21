@@ -27,8 +27,7 @@ namespace MetroidMod.Content.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			//There's almost definitely a better way to do this but heck if I know what it is
-			//nevermind this is definitely how you do it
+      //Multiply by what would be left over
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.overheatCost *= 0.85f;
 		}

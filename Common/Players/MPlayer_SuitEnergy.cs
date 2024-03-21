@@ -22,6 +22,10 @@ namespace MetroidMod.Common.Players
 		/// </summary>
 		public int EnergyTanks = 0;
 		/// <summary>
+		/// The number of Energy Tanks the player can use.
+		/// </summary>
+		public int tankCapacity = 0;
+		/// <summary>
 		/// The maximum possible energy the player can have.
 		/// </summary>
 		public int MaxEnergy => Math.Min(EnergyTanks * 100 + 99 + AdditionalMaxEnergy, tankCapacity * 100 + 99 + AdditionalMaxEnergy);

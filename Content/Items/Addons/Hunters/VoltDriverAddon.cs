@@ -47,13 +47,19 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient(ItemID.CelestialMagnet, 1)
-				.AddIngredient(ItemID.SpaceGun, 1)
-				.AddIngredient(ItemID.Topaz, 30)
-				.AddIngredient(ItemID.Wire, 100)
-				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
+				.AddIngredient<Miscellaneous.ChoziteBar>(15)
+				.AddIngredient<Miscellaneous.EnergyShard>(2)
+				.AddIngredient(ItemID.CopperBar, 10)
+				.AddIngredient(ItemID.Topaz, 1)
+				.AddIngredient(ItemID.Wire, 30)
+				.AddTile(TileID.Anvils)
+				.Register();
+			CreateRecipe(1)
+				.AddIngredient<Miscellaneous.ChoziteBar>(15)
+				.AddIngredient<Miscellaneous.EnergyShard>(2)
+				.AddIngredient(ItemID.TinBar, 10)
+				.AddIngredient(ItemID.Topaz, 1)
+				.AddIngredient(ItemID.Wire, 30)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

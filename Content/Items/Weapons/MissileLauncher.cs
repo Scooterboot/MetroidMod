@@ -12,6 +12,7 @@ using MetroidMod.Content.Projectiles.missiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -108,7 +109,25 @@ namespace MetroidMod.Content.Items.Weapons
 			player.itemLocation.X = player.MountedCenter.X - (float)Item.width * 0.5f;
 			player.itemLocation.Y = player.MountedCenter.Y - (float)Item.height * 0.5f;
 		}
-
+		/*public override bool AltFunctionUse(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(); //really shitty way to do this but whatever
+			mp.missileLauncher = this;
+			for (int i = 0; i < player.inventory.Length; i++)
+			{
+				if (player.inventory[player.selectedItem].ModItem == this && player.inventory[player.selectedItem + 1].ModItem is PowerBeam pb && mp.powerBeam == null)
+				{
+					mp.powerBeam = pb;
+				}
+				if (mp.powerBeam != null)
+				{
+					player.inventory[player.selectedItem] = mp.powerBeam.Item.Clone();
+				}
+			}
+			Item.CopyNetStateTo(mp.missileLauncher.Item);
+			Item.CopyNetStateTo(mp.powerBeam.Item);
+			return false;
+		}*/
 		public override bool CanUseItem(Player player)
 		{
 			if (!Item.TryGetGlobalItem(out MGlobalItem mi) || player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type)
@@ -742,6 +761,19 @@ namespace MetroidMod.Content.Items.Weapons
 			if (player.whoAmI == Main.myPlayer && Item.TryGetGlobalItem(out MGlobalItem mi))
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>();
+				if (Common.Systems.MSystem.SwitchKey.JustPressed)
+				{
+					mp.missileChangeActive = !mp.missileChangeActive;
+					//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					if (mp.missileChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
+					}
+					if (!mp.missileChangeActive)
+					{
+						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+					}
+				}
 
 				int chCost = (int)(AmmoUse(player) ? (chargeCost * (mp.missileCost + 0.001f)) : 0);
 				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));

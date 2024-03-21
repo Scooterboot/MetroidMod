@@ -3,7 +3,9 @@ using System;
 //using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Accessories;
+using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Mounts;
+using MetroidMod.Content.Tiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -395,6 +397,19 @@ namespace MetroidMod.Common.Players
 				SoundEngine.PlaySound(Sounds.Suit.MissilesReplenished, Player.position);
 				return false;
 			}
+			if (PrimeHunter)
+			{
+				bool wearingSuit = Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>();
+				if (!wearingSuit)
+				{
+					damageSource = PlayerDeathReason.ByCustomReason($"{Player.name} did not find an exploit");
+				}
+				else
+				{
+					damageSource = PlayerDeathReason.ByCustomReason("The Prime Hunter is dead!");
+				}
+				SoundEngine.PlaySound(Sounds.Suit.SamusDeath, Player.position);
+			}
 			return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
 		}
 		public void GripMovement()
@@ -402,7 +417,7 @@ namespace MetroidMod.Common.Players
 			gripDir = Player.direction;
 			isGripping = false;
 			reGripTimer--;
-			if (reGripTimer <= 0 && powerGrip && !Player.mount.Active && ((!Player.controlRight && gripDir == -1) || (!Player.controlLeft && gripDir == 1)))
+			if (reGripTimer <= 0 && powerGrip && !Player.mount.Active && ((!Player.controlRight && gripDir == -1) || (!Player.controlLeft && gripDir == 1)) && !Player.shimmering)
 			{
 				bool flag = false;
 				float num = Player.position.X;
@@ -434,7 +449,7 @@ namespace MetroidMod.Common.Players
 				{
 					flag = true;
 				}
-				if (Main.tile[(int)num, (int)num2].TileType == ModContent.TileType<Content.Tiles.GripLedge>() && !Main.tile[(int)num, (int)num2].IsActuated && Main.tile[(int)num, (int)num2].HasTile)
+				if (Main.tile[(int)num, (int)num2].TileType == ModContent.TileType<GripLedge>() && !Main.tile[(int)num, (int)num2].IsActuated && Main.tile[(int)num, (int)num2].HasTile)
 				{
 					flag = true;
 				}
@@ -601,28 +616,29 @@ namespace MetroidMod.Common.Players
 					isGripping = false;
 					reGripTimer = 10;
 				}
-			}
-			if (isGripping && Player.controlRight && gripDir >= 1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
-			{
-				var ball = ModContent.MountType<MorphBallMount>();
-				Player.QuickMount();
-				//Player.mount.SetMount(ball, Player);
-				isGripping = false;
-				reGripTimer = 10;
-				Player.position.X += 16f * gripDir;
-				Player.position.Y -= 32f;
-				SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
-			}
-			if (isGripping && Player.controlLeft && gripDir <= -1 && Player.releaseLeft && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>())
-			{
-				var ball = ModContent.MountType<MorphBallMount>();
-				Player.QuickMount();
-				//Player.mount.SetMount(ball, Player);
-				isGripping = false;
-				reGripTimer = 10;
-				Player.position.X += 16f * gripDir;
-				Player.position.Y -= 32f;
-				SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
+				bool gripledge = MSystem.mBlockType[(int)num, (int)num2] == ModContent.TileType<GripLedge>();
+				if (isGripping && Player.controlRight && gripDir >= 1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>() && !gripledge)
+				{
+					var ball = ModContent.MountType<MorphBallMount>();
+					Player.QuickMount();
+					//Player.mount.SetMount(ball, Player);
+					isGripping = false;
+					reGripTimer = 10;
+					Player.position.X += 16f * gripDir;
+					Player.position.Y -= 32f;
+					SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
+				}
+				if (isGripping && Player.controlLeft && gripDir <= -1 && Player.releaseLeft && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>() && !gripledge)
+				{
+					var ball = ModContent.MountType<MorphBallMount>();
+					Player.QuickMount();
+					//Player.mount.SetMount(ball, Player);
+					isGripping = false;
+					reGripTimer = 10;
+					Player.position.X += 16f * gripDir;
+					Player.position.Y -= 32f;
+					SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
+				}
 			}
 		}
 		public void CheckWallJump(Player Player, ref int dir, ref bool altJump)
@@ -846,7 +862,7 @@ namespace MetroidMod.Common.Players
 		public void AddSpeedBoost(Player Player, int damage)
 		{
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
-			speedBoosting = ((Math.Abs(Player.velocity.X) >= 6.85f || canWallJump) && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0);
+			speedBoosting = (Math.Abs(Player.velocity.X) >= 6.85f || canWallJump) && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0 && !(Player.mount.Active && !mp.morphBall);
 			if ((Player.controlRight && Player.velocity.X > 0) || (Player.controlLeft && Player.velocity.X < 0))
 			{
 				speedBuildUp = Math.Min(speedBuildUp + 1f, 135f);

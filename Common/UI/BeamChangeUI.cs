@@ -12,6 +12,7 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -20,7 +21,7 @@ namespace MetroidMod.Common.UI
 {
 	public class BeamChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.beamChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<PowerBeam>();
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.beamChangeActive == true && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<PowerBeam>();
 
 		public BeamChangePanel panel;
 		public override void OnInitialize()
@@ -105,15 +106,18 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
+			if (Common.Systems.MSystem.SwitchKey.JustPressed)
+			{
+				Left.Pixels = Main.mouseX - (Width.Pixels / 2);
+				Top.Pixels = Main.mouseY - (Height.Pixels / 2);
+			}
 			enabled = Configs.MConfigClient.Instance.PowerBeam.enabled;
 			if (!enabled)
 			{
-				Left.Pixels = 160;
-				Top.Pixels = Main.instance.invBottom + 174;
-				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				/*if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
 				{
 					Top.Pixels += 170;
-				}
+				}*/
 			}
 
 			base.Update(gameTime);
@@ -229,6 +233,10 @@ namespace MetroidMod.Common.UI
 						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
 					}
 					powerBeamTarget.BeamMods[addonSlotType] = powerBeamTarget.BeamChange[beamSlotType].Clone();
+					if(Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
+					{
+						mp.beamChangeActive = false;
+					}
 				}
 			}
 			else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))

@@ -22,6 +22,7 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.width = 32;
 			Item.height = 44;
 			Item.value = 1000;
+
 			Item.rare = ItemRarityID.Lime;
 			Item.accessory = true;
 		}
@@ -33,8 +34,6 @@ namespace MetroidMod.Content.Items.Accessories
 			//mp.statOverheat -= 10f;
 			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.1f;
 			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterCrit += 10;
-
-			//mp.statOverheat -= 0.1f;
 		}
 		public override void AddRecipes()
 		{

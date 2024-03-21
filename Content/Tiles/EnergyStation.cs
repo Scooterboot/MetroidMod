@@ -1,3 +1,4 @@
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 
 using Terraria;
@@ -53,7 +54,8 @@ namespace MetroidMod.Content.Tiles
 
 		public override bool RightClick(int i, int j)
 		{
-			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange && !MUtils.AnyBossesActive())
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange && !MUtils.AnyBossesActive() && !mp.PrimeHunter)
 			{
 				Main.LocalPlayer.AddBuff(BuffType<Buffs.EnergyRecharge>(), 2);
 				return (true);

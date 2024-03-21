@@ -53,6 +53,8 @@ Mods: {
 			// "Power Bomb.DisplayName": Power  Bomb
 			// "Show Visor UI.DisplayName": Show  Visor  U I
 			// "Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
+			// "Switch Interface.DisplayName": Switch  Interface
+			// HyperMode.DisplayName: Hyper Mode
 		}
 
 		SuitAddonName: {
@@ -249,6 +251,22 @@ Mods: {
 			// TorizoTrophyTile.MapEntry: Torizo Trophy
 			// ZeroHusk.MapEntry: Zero Husk
 			// ChozoStatueOrb.MapEntry: Chozo Statue Orb
+			// NebulaAugmentTile.MapEntry: Nebula Augment Tile
+			// LightSuitAddonTile.MapEntry: Light Suit Addon Tile
+			// HazardShieldAddonTile.MapEntry: Hazard Shield Addon Tile
+			// GravitySuitAddonTile.MapEntry: Gravity Suit Addon Tile
+			// EnergyTankTile.MapEntry: Energy Tank Tile
+			// DarkSuitAddonTile.MapEntry: Dark Suit Addon Tile
+			// PEDSuitAddonTile.MapEntry: P E D Suit Addon Tile
+			// PhazonSuitAddonTile.MapEntry: Phazon Suit Addon Tile
+			// ReserveTankTile.MapEntry: Reserve Tank Tile
+			// ScanVisorTile.MapEntry: Scan Visor Tile
+			// SolarAugmentTile.MapEntry: Solar Augment Tile
+			// TerraGravitySuitAddonTile.MapEntry: Terra Gravity Suit Addon Tile
+			// VariaSuitAddonTile.MapEntry: Varia Suit Addon Tile
+			// VariaSuitV2AddonTile.MapEntry: Varia Suit V2 Addon Tile
+			// VortexAugmentTile.MapEntry: Vortex Augment Tile
+			// XRayScopeTile.MapEntry: X Ray Scope Tile
 		}
 
 		Buffs: {
@@ -295,6 +313,11 @@ Mods: {
 			PhazonDebuff: {
 				// DisplayName: Phazon Debuff
 				// Description: Phazon is draining your life away!
+			}
+
+			PrimeHunterBuff: {
+				// Description: Your reputation makes you a Prime target
+				// DisplayName: Prime Hunter Buff
 			}
 		}
 
@@ -974,7 +997,7 @@ Mods: {
 
 			FrozenCore: {
 				// DisplayName: Frozen Core
-				// Tooltip: ""
+				// Tooltip: Reduces overheat use by 15%
 			}
 
 			GravityFlare: {
@@ -2727,6 +2750,7 @@ Mods: {
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
+					Enables the use of the Prime Hunter ability
 					Slot: Barrier
 					''' */
 			}
@@ -2903,6 +2927,11 @@ Mods: {
 			TourianBag: {
 				// DisplayName: Tourian Bag
 				// Tooltip: ""
+			}
+
+			SupercooledEmblem: {
+				// Tooltip: Reduces overheat and increases damage by 15%
+				// DisplayName: Supercooled Emblem
 			}
 		}
 
@@ -3343,93 +3372,93 @@ Mods: {
 
 				UseAltWeaponTextures: {
 					// Label: Toggle alternate weapon textures
-					/* Tooltip:
+					Tooltip:
 						'''
 						When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.
 						Default value: false
-						''' */
+						'''
 				}
 
 				energyHit: {
 					// Label: "[i:MetroidMod/EnergyTankAddon] Energy Hit Sound"
-					/* Tooltip:
+					Tooltip:
 						'''
 						When enabled, a custom sound will play when Suit Energy receives damage.
 						Default value: true
-						''' */
+						'''
 				}
 
 				energyLow: {
 					// Label: "[i:MetroidMod/EnergyTankAddon] Low Energy Alert"
-					/* Tooltip:
+					Tooltip:
 						'''
 						When enabled, a beep will be heard when Suit Energy is low.
 						Default value: true
-						''' */
+						'''
 				}
 
 				energyLowInterval: {
 					// Label: "[i:MetroidMod/EnergyTankAddon] Low Energy Alert Interval"
-					/* Tooltip:
+					Tooltip:
 						'''
 						The interval between Low Energy beeps.
 						[Default: 20]
-						''' */
+						'''
 				}
 
 				energyLowFade: {
 					// Label: "[i:MetroidMod/EnergyTankAddon] Low Energy Alert Fade"
-					/* Tooltip:
+					Tooltip:
 						'''
 						When enabled, a fading, non-looping beep will be heard when Suit Energy is low.
 						Default value: false
 						(WORK IN PROGRESS)
-						''' */
+						'''
 				}
 
 				DragablePowerBeamUI: {
 					// Label: Enabled
-					/* Tooltip:
+					Tooltip:
 						'''
 						Allows the Power Beam UI to be draggable.
 						Default value: false
-						''' */
+						'''
 				}
 
 				DragableMissileLauncherUI: {
 					// Label: Enabled
-					/* Tooltip:
+					Tooltip:
 						'''
 						Allows the Missile Launcher UI to be draggable.
 						Default value: false
-						''' */
+						'''
 				}
 
 				DragableMorphBallUI: {
 					// Label: Enabled
-					/* Tooltip:
+					Tooltip:
 						'''
 						Allows the Morph Ball UI to be draggable.
 						Default value: false
-						''' */
+						'''
 				}
 
 				DragableSenseMoveUI: {
 					// Label: Enabled
-					/* Tooltip:
+					Tooltip:
 						'''
 						Allows the Sense Move UI to be draggable.
 						Default value: false
-						''' */
+						'''
 				}
 
 				showTorizoRoomIcon: {
 					// Label: "[i:MetroidMod/GoldenTorizoSummon] Show Torizo Room Location on Map"
-					/* Tooltip:
+					Tooltip:
 						'''
 						When enabled, the map will show an icon where Torizo's boss room is.
 						Default value: true
-						''' */
+						'''
 				}
 
 				PowerBeam: {

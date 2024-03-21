@@ -17,7 +17,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && Main.playerInventory && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>();
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>();
 
 		public MissileChangePanel panel;
 		public override void OnInitialize()
@@ -103,15 +103,18 @@ namespace MetroidMod.Common.UI
 		{
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
-			enabled = MConfigClient.Instance.MissileLauncher.enabled;
+			if (Common.Systems.MSystem.SwitchKey.JustPressed)
+			{
+				Left.Pixels = Main.mouseX - (Width.Pixels / 2);
+				Top.Pixels = Main.mouseY - (Height.Pixels / 2);
+			}
+			enabled = Configs.MConfigClient.Instance.MissileLauncher.enabled;
 			if (!enabled)
 			{
-				Left.Pixels = 160;
-				Top.Pixels = Main.instance.invBottom + 174;
-				if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
+				/*if (Main.LocalPlayer.chest != -1 || Main.npcShop != 0)
 				{
 					Top.Pixels += 170;
-				}
+				}*/
 			}
 
 			base.Update(gameTime);

@@ -72,6 +72,7 @@ namespace MetroidMod.Content.SuitAddons
 			mp.breathMult = 1.8f;
 			mp.EnergyDefenseEfficiency += 0.2f;
 			mp.EnergyExpenseEfficiency += 0.375f;
+			mp.canHyper = true;
 		}
 		public override void AddRecipes()
 		{
