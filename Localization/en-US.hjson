@@ -491,29 +491,27 @@ Mods: {
 					Increases jump height and prevents fall damage
 					'''
 			}
-			
+
 			FrozenCore: {
 				DisplayName: Frozen Core
-				Tooltip: "Reduces Overheat by 15%"
+				Tooltip: Reduces Overheat by 15%
 			}
-			
+
 			SupercooledEmblem: {
-				DisplayName: Overclocked Core
-				Tooltip: '''
-						 Reduces Overheat by 15%
-						 10% increased Hunter damage and critical strike chance
-						 '''
+				Tooltip: Reduces overheat and increases damage by 15%
+				DisplayName: Supercooled Emblem
 			}
-			
+
 			EnhancedCombatUnit: {
 				DisplayName: Enhanced Combat Unit
-				Tooltip: '''
-						 Reduces Overheat by 15%
-						 10% increased Hunter damage and critical strike chance
-						 Stores up to 4 hearts picked up when at full health
-						 Automatically uses the stored hearts to save you from death
-						 Each heart is worth 5 more life
-						 '''
+				Tooltip:
+					'''
+					Reduces Overheat by 15%
+					10% increased Hunter damage and critical strike chance
+					Stores up to 4 hearts picked up when at full health
+					Automatically uses the stored hearts to save you from death
+					Each heart is worth 5 more life
+					'''
 			}
 
 			ChargeBeamAddon: {
@@ -1019,7 +1017,7 @@ Mods: {
 				DisplayName: Energy Shard
 				Tooltip: ""
 			}
-      
+
 			GravityFlare: {
 				DisplayName: Gravity Flare
 				Tooltip: ""
@@ -2947,11 +2945,6 @@ Mods: {
 			TourianBag: {
 				DisplayName: Tourian Bag
 				Tooltip: ""
-			}
-
-			SupercooledEmblem: {
-				Tooltip: Reduces overheat and increases damage by 15%
-				DisplayName: Supercooled Emblem
 			}
 		}
 

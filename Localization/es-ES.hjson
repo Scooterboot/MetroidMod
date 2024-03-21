@@ -394,8 +394,9 @@ Mods: {
 				// DisplayName: Life Reserve Tank MK5
 				/* Tooltip:
 					'''
-					Stores up to 5 hearts picked up when at full health
+					Stores up to 4 hearts picked up when at full health
 					Automatically uses the stored hearts to save you from death
+					Each heart is worth 5 more life
 					''' */
 			}
 
@@ -488,6 +489,28 @@ Mods: {
 					Provides the ability to walk on water and lava 
 					Grants immunity to fire blocks and 7 seconds lava immunity
 					Increases jump height and prevents fall damage
+					''' */
+			}
+
+			FrozenCore: {
+				// DisplayName: Frozen Core
+				// Tooltip: Reduces Overheat by 15%
+			}
+
+			SupercooledEmblem: {
+				// Tooltip: Reduces overheat and increases damage by 15%
+				// DisplayName: Supercooled Emblem
+			}
+
+			EnhancedCombatUnit: {
+				// DisplayName: Enhanced Combat Unit
+				/* Tooltip:
+					'''
+					Reduces Overheat by 15%
+					10% increased Hunter damage and critical strike chance
+					Stores up to 4 hearts picked up when at full health
+					Automatically uses the stored hearts to save you from death
+					Each heart is worth 5 more life
 					''' */
 			}
 
@@ -993,11 +1016,6 @@ Mods: {
 			EnergyShard: {
 				// DisplayName: Energy Shard
 				// Tooltip: ""
-			}
-
-			FrozenCore: {
-				// DisplayName: Frozen Core
-				// Tooltip: Reduces overheat use by 15%
 			}
 
 			GravityFlare: {
@@ -2927,11 +2945,6 @@ Mods: {
 			TourianBag: {
 				// DisplayName: Tourian Bag
 				// Tooltip: ""
-			}
-
-			SupercooledEmblem: {
-				// Tooltip: Reduces overheat and increases damage by 15%
-				// DisplayName: Supercooled Emblem
 			}
 		}
 
