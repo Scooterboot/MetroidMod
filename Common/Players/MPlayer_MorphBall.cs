@@ -467,15 +467,18 @@ namespace MetroidMod.Common.Players
 				Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y + 4, 0, 0, type, damage, 0, Player.whoAmI);
 			}
 		}
-		public void Drill(Player p, int drill)
+		public void Drill(Player p)
 		{
 			Item drills = p.GetBestPickaxe();
 			bool noBuildFlag = false;
-			if (Main.mouseLeft && !Player.mouseInterface && morphBall)
+			int drill;
+			if (Main.mouseLeft && !Player.mouseInterface && morphBall && drills != null)
 			{
 				drill = drills.pick;
 				//p.controlUseItem = true;
 			}
+			else
+				return;
 			for (int i = 0; i < p.buffType.Length; i++)
 			{
 				if (p.buffType[i] == BuffID.NoBuilding && p.buffTime[i] > 0)

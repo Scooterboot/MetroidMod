@@ -20,7 +20,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			//"~60% pickaxe power\n" +
 			//"Can mine Meteorite\n" +
 			string.Format("[c/78BE78:Requires Morph Ball to use]")); */
-			DrillPower = 1;
+			//DrillPower = 1;
 
 			ItemNameLiteral = true;
 		}
