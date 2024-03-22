@@ -406,7 +406,7 @@ namespace MetroidMod.Common.Players
 			{
 				Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 			}
-			if (Player.dead || !Player.HasBuff<Content.Buffs.PrimeHunterBuff>() && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f)
+			if (Player.dead || !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
 			{
 				PrimeHunter = false;
 			}
@@ -728,7 +728,7 @@ namespace MetroidMod.Common.Players
 			if (mp.PrimeHunter && target.life <= 0 && mp.Energy < mp.MaxEnergy)
 			{
 				int heal = Math.Max(target.lifeMax / 20, 1);
-				mp.Energy += Math.Min(heal, mp.MaxEnergy-mp.MaxEnergy);
+				mp.Energy += Math.Min(heal, mp.MaxEnergy-mp.Energy);
 			}
 		}
 		public bool psuedoScrewActive = false;
