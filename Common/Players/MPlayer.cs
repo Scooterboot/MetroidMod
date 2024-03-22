@@ -397,18 +397,19 @@ namespace MetroidMod.Common.Players
 					PrimeHunter = true;
 					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 				}
-				if (hyperCharge <= 0f)
+				if (hyperCharge <= 0f && PrimeHunter)
 				{
-					PrimeHunter = false;
+					PrimeHunter = !PrimeHunter;
 				}
 			}
-			if (PrimeHunter)
-			{
-				Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
-			}
-			if (Player.dead || !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
+			if (Player.dead || !PrimeHunter /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
 			{
 				PrimeHunter = false;
+				Player.ClearBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>());
+			}
+			if(PrimeHunter)
+			{
+				Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 			}
 			if (senseMove && senseMoveEnabled)
 			{
