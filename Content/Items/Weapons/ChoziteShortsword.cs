@@ -18,16 +18,22 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void SetDefaults()
 		{
 			Item.damage = Common.Configs.MConfigItems.Instance.damageChoziteShortsword;
-			Item.DamageType = DamageClass.Melee;//Item.melee = true;
+			Item.DamageType = DamageClass.MeleeNoSpeed;
+			Item.useAnimation = 10;
+			Item.useTime = 10;
 			Item.width = 32;
 			Item.height = 32;
 			Item.useTime = Item.useAnimation = defUseTime;
-			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useStyle = ItemUseStyleID.Rapier;
+			Item.shoot = ModContent.ProjectileType<Projectiles.ChoziteShortswordStab>();
 			Item.knockBack = 4;
 			Item.value = 12500;
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item1;
-			Item.useTurn = true;
+			Item.useTurn = false;
+			Item.noUseGraphic = true;
+			Item.noMelee = true;
+			Item.shootSpeed = 1f;
 		}
 
 		public override bool AltFunctionUse(Player player) => true;

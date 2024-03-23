@@ -3362,6 +3362,7 @@ Mods: {
 			BombProjectile.DisplayName: Bomb Projectile
 			BetsyBombProjectile.DisplayName: Betsy Bomb Projectile
 			RamBall.DisplayName: Ram Ball
+			ChoziteShortswordStab.DisplayName: Chozite Shortsword
 		}
 
 		Configs: {
