@@ -82,6 +82,7 @@ namespace MetroidMod.Common.Players
 
 			senseMove = false;
 
+			//PrimeHunter = false;
 			phazonImmune = false;
 			canUsePhazonBeam = false;
 			canUseHyperBeam = false;
@@ -125,7 +126,7 @@ namespace MetroidMod.Common.Players
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if (hyperCharge > 0 && mp.PrimeHunter || !MSystem.HyperMode.Current)
 			{
-				if (hyperRechargedelay <= 0)
+				if (hyperRechargedelay <= 0 && hyperCharge > 0f)
 				{
 					hyperCharge -= 1.0f;
 					hyperRechargedelay = 6;
@@ -386,7 +387,7 @@ namespace MetroidMod.Common.Players
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
 			PostUpdateMiscEffects_Visors();
-			if (MSystem.HyperMode.Current && statPBCh <= 0f && statCharge <= 0f)
+			if (MSystem.HyperMode.Current && statPBCh <=0f && statCharge <= 0f)
 			{
 				if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>()) && Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && (Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 				{
