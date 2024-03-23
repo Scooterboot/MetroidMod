@@ -1048,7 +1048,7 @@ namespace MetroidMod.Common.Systems
 			int k = j;
 			while (k < Main.maxTilesY)
 			{
-				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile)
+				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile && Main.tile[i, j].TileType != TileID.Cobweb)
 				{
 					int num = k - 1;
 					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i, num].LiquidType == LiquidID.Shimmer || Main.tile[i, num - 1].LiquidType == LiquidID.Shimmer)
