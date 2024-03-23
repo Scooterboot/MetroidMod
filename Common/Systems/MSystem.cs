@@ -658,7 +658,7 @@ namespace MetroidMod.Common.Systems
 			int item = ModContent.TileType<MorphBallTile>();
 			int baseX = Main.maxTilesX / 2;
 			int baseY = (int)GenVars.rockLayer;
-			WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 35];
+			WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 5 + MBAddonLoader.AddonCount + 35];
 			int index = 0;
 			foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 			{
@@ -677,6 +677,7 @@ namespace MetroidMod.Common.Systems
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ChargeBeamTile>(); }, 24);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HiJumpBootsTile>(); }, 24);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamTile>(); }, 24);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HomingMissile>(); }, 4);
 			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
@@ -707,6 +708,7 @@ namespace MetroidMod.Common.Systems
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamGreenTile>(); }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamRedTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpBootsTile>(); }, 4);
 			}
 			if (Main.hardMode || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
@@ -738,6 +740,7 @@ namespace MetroidMod.Common.Systems
 			if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<DiffusionMissile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpTile>(); }, 4);
 			}
 			if (NPC.downedChristmasIceQueen || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
