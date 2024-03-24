@@ -1918,6 +1918,11 @@ namespace MetroidMod.Content.Items.Weapons
 					Item item = tag.Get<Item>("BeamItem" + i);
 					BeamMods[i] = item;
 				}
+				if (Item.TryGetGlobalItem(out MGlobalItem pb))
+				{
+					pb.statUA = tag.Get<int>("statUA");
+					pb.maxUA = tag.Get<int>("maxUA");
+				}
 				BeamChange = new Item[MetroidMod.beamChangeSlotAmount];
 				for (int i = 0; i < BeamChange.Length; i++)
 				{
