@@ -1890,7 +1890,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else
 			{
-				tag.Add("statUA", 0);
+				tag.Add("statUA", 0f);
 				tag.Add("maxUA", 0);
 			}
 			for (int i = 0; i < BeamChange.Length; ++i)
@@ -1915,7 +1915,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				if (Item.TryGetGlobalItem(out MGlobalItem pb))
 				{
-					pb.statUA = tag.Get<int>("statUA");
+					pb.statUA = tag.Get<float>("statUA");
 					pb.maxUA = tag.Get<int>("maxUA");
 				}
 				BeamChange = new Item[MetroidMod.beamChangeSlotAmount];
