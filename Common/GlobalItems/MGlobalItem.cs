@@ -21,6 +21,10 @@ namespace MetroidMod.Common.GlobalItems
 		public float addonDmg = 0;
 		public float addonSpeed = 0;
 		public float addonHeat = 0;
+		/// <summary>
+		/// How much universal ammo to use per normal shot (NOT A PERCENTAGE)
+		/// </summary>
+		public float addonUACost = 0;
 
 		public int missileSlotType = -1;
 
@@ -28,7 +32,8 @@ namespace MetroidMod.Common.GlobalItems
 		public int addonMissileDrain = 5;
 		#endregion
 
-		public int statUA = 50;
+		// float because funi - ChaosInsurgent49
+		public float statUA = 40;
 		public int maxUA = 400;
 		public int statMissiles = 5;
 		public int maxMissiles = 5;

@@ -713,7 +713,7 @@ namespace MetroidMod.Common.Systems
 					if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>())
 					{
 						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
-						int num = Math.Min(mi.statUA, mi.maxUA);
+						int num = Math.Min((int)mi.statUA, mi.maxUA);
 						string text;
 						text = ((int)Math.Round((double)num * 100 / mi.maxUA)).ToString() + "%";
 						if (Configs.MConfigClientDebug.Instance.DisplayDebugValues)

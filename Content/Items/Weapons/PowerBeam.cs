@@ -128,7 +128,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (isHunter && Item.TryGetGlobalItem(out MGlobalItem pb))
 			{
-				return player.whoAmI == Main.myPlayer && pb.statUA > 0 && mp.statOverheat < mp.maxOverheat;
+				return player.whoAmI == Main.myPlayer && Math.Floor(pb.statUA) > 0 && mp.statOverheat < mp.maxOverheat;
 			}
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
 		}
@@ -374,7 +374,7 @@ namespace MetroidMod.Content.Items.Weapons
 			bool addonsV2 = (slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv);
 			addonsV2 |= ((slot5.type == plG || slot5.type == plR) && (chargeV2 || chargeV3) && !addonsV1);
 			bool addonsV3 = (slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl);
-			pb.maxUA = Common.Configs.MConfigItems.Instance.ammoPowerBeam + (Common.Configs.MConfigItems.Instance.ammoUA * Math.Min(UA.stack, 12));
+			pb.maxUA = MConfigItems.Instance.ammoPowerBeam + (MConfigItems.Instance.ammoUA * Math.Min(UA.stack, 12));
 			if (pb.statUA > pb.maxUA)
 			{
 				pb.statUA = pb.maxUA;
@@ -1676,7 +1676,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if(isHunter)
 			{
-				pb.statUA--;
+				pb.statUA -= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
 			}
 			return false;
 		}

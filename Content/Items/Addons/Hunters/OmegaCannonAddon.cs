@@ -37,6 +37,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.beamSlotType = BeamChangeSlotID.OmegaCannon;
+			mItem.addonUACost = 400f / 50f; // arbitrary 50 shots with omega cannon when at max UA (i couldn't find a proper number) -ChaosInsurgent49
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageOmegaCannon;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatOmegaCannon;
 		}
