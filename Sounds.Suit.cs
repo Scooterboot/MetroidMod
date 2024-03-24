@@ -59,6 +59,11 @@ namespace MetroidMod
 					
 			};
 
+			public static readonly SoundStyle UAPickup = new($"{nameof(MetroidMod)}/Assets/Sounds/UAPickup")
+			{
+
+			};
+
 			public static readonly SoundStyle EnergyHit = new($"{nameof(MetroidMod)}/Assets/Sounds/EnergyHit_", 0, 2)
 			{
 				PitchVariance = 0.5f
