@@ -9,6 +9,7 @@ using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Projectiles.hyperbeam;
 using MetroidMod.Content.Projectiles.powerbeam;
 using MetroidMod.Content.Projectiles.VoltDriver;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
@@ -27,12 +28,13 @@ namespace MetroidMod.Content.Items.Weapons
 		// Failsaves.
 		private Item[] _beamMods;
 		private Item[] _beamchangeMods;
+		private bool isHunter = false;
 		public Item[] BeamMods
 		{
 			get {
 				if (_beamMods == null)
 				{
-					_beamMods = new Item[5];
+					_beamMods = new Item[BeamAddonSlotID.Count];
 					for (int i = 0; i < _beamMods.Length; ++i)
 					{
 						_beamMods[i] = new Item();
@@ -49,7 +51,7 @@ namespace MetroidMod.Content.Items.Weapons
 			get {
 				if (_beamchangeMods == null)
 				{
-					_beamchangeMods = new Item[12];
+					_beamchangeMods = new Item[BeamChangeSlotID.Count];
 					for (int i = 0; i < _beamchangeMods.Length; ++i)
 					{
 						_beamchangeMods[i] = new Item();
@@ -67,8 +69,8 @@ namespace MetroidMod.Content.Items.Weapons
 			// Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");
 			Item.ResearchUnlockCount = 1;
 
-			BeamMods = new Item[5];
-			BeamChange = new Item[12];
+			BeamMods = new Item[BeamAddonSlotID.Count];
+			BeamChange = new Item[BeamChangeSlotID.Count];
 		}
 		public override void SetDefaults()
 		{
@@ -89,6 +91,9 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.shoot = ModContent.ProjectileType<PowerBeamShot>();
 			Item.shootSpeed = 8f;
 			Item.crit = 3;
+			MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
+			pb.statUA = Common.Configs.MConfigItems.Instance.ammoPowerBeam;
+			pb.maxUA = MConfigItems.Instance.ammoPowerBeam;
 		}
 
 		public override void AddRecipes()
@@ -120,6 +125,10 @@ namespace MetroidMod.Content.Items.Weapons
 			if (BeamMods[0].type == ModContent.ItemType<Addons.HyperBeamAddon>() && !mp.canUseHyperBeam)
 			{
 				return false;
+			}
+			if (isHunter && Item.TryGetGlobalItem(out MGlobalItem pb))
+			{
+				return player.whoAmI == Main.myPlayer && pb.statUA > 0 && mp.statOverheat < mp.maxOverheat;
 			}
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
 		}
@@ -194,14 +203,14 @@ namespace MetroidMod.Content.Items.Weapons
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
-			BeamMods = new Item[5];
+			BeamMods = new Item[BeamAddonSlotID.Count];
 			foreach (Item item in BeamChange)
 			{
 				if (item == null || item.IsAir) { continue; }
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
-			BeamChange = new Item[12];
+			BeamChange = new Item[BeamChangeSlotID.Count];
 			return base.CanReforge();
 		}
 		/*public override bool RangedPrefix()
@@ -265,7 +274,6 @@ namespace MetroidMod.Content.Items.Weapons
 		private bool isCharge = false;
 		private bool isHyper = false;
 		private bool isPhazon = false;
-		private bool isHunter = false;
 		bool Stealth = false;
 
 		public bool comboError1, comboError2, comboError3, comboError4;
@@ -309,12 +317,13 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void UpdateInventory(Player P)
 		{
 			//MPlayer mp = P.GetModPlayer<MPlayer>();
-
+			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem pb)) { return; }
 			Item slot1 = BeamMods[0];
 			Item slot2 = BeamMods[1];
 			Item slot3 = BeamMods[2];
 			Item slot4 = BeamMods[3];
 			Item slot5 = BeamMods[4];
+			Item UA = BeamMods[5];
 
 			int damage = MConfigItems.Instance.damagePowerBeam;
 			overheat = MConfigItems.Instance.overheatPowerBeam;
@@ -365,7 +374,11 @@ namespace MetroidMod.Content.Items.Weapons
 			bool addonsV2 = (slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv);
 			addonsV2 |= ((slot5.type == plG || slot5.type == plR) && (chargeV2 || chargeV3) && !addonsV1);
 			bool addonsV3 = (slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl);
-
+			pb.maxUA = Common.Configs.MConfigItems.Instance.ammoUA * UA.stack;
+			if (pb.statUA > pb.maxUA)
+			{
+				pb.statUA = pb.maxUA;
+			}
 			int versionType = 1;
 			float GetCharge()
 			{
@@ -1576,6 +1589,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+			if (!Item.TryGetGlobalItem(out MGlobalItem pb)) { return true; }
 
 			if (isCharge || isShock)
 			{
@@ -1660,7 +1674,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), player.position);
 			}
-
+			if(isHunter)
+			{
+				pb.statUA--;
+			}
 			return false;
 		}
 		public override void HoldItem(Player player)
@@ -1899,8 +1916,8 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void OnCreated(ItemCreationContext context)
 		{
 			base.OnCreated(context);
-			_beamMods = new Item[5];
-			_beamchangeMods = new Item[12];
+			_beamMods = new Item[BeamAddonSlotID.Count];
+			_beamchangeMods = new Item[BeamChangeSlotID.Count];
 			for (int i = 0; i < _beamMods.Length; ++i)
 			{
 				_beamMods[i] = new Item();

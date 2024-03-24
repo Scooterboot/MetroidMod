@@ -4208,6 +4208,16 @@ Mods: {
 					// Label: "[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity"
 					// Tooltip: ""
 				}
+
+				ammoUA: {
+					// Tooltip: ""
+					// Label: ammo U A
+				}
+
+				ammoPowerBeam: {
+					// Tooltip: ""
+					// Label: ammo Power Beam
+				}
 			}
 
 			MConfigMain: {

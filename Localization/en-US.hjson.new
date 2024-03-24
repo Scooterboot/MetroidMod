@@ -1234,6 +1234,15 @@ Mods: {
 					Stack it up to 50 expansions for +250 maximum Missiles
 					'''
 			}
+			UAExpansion: {
+				DisplayName: UA Expansion
+				Tooltip:
+					'''
+					A Missile Expansion
+					Increase maximum Missiles by 5 with each expansion slotted in
+					Stack it up to 50 expansions for +250 maximum Missiles
+					'''
+			}
 
 			MissileStation: {
 				DisplayName: Missile Station
@@ -2781,6 +2790,7 @@ Mods: {
 			VortexCombo.MapEntry: Vortex Storm
 			Wavebuster.MapEntry: Wavebuster
 			MissileExpansionTile.MapEntry: Missile Expansion
+			UAExpansionTile.MapEntry: UA Expansion
 			MorphBallTile.MapEntry: Morph Ball
 			KraidPhantoonMusicBox.MapEntry: Music Box
 			KraidTrophyTile.MapEntry: Kraid Trophy

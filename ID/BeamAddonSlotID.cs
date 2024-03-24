@@ -8,5 +8,7 @@
 		public const short Utility = 2;
 		public const short PrimaryA = 3;
 		public const short PrimaryB = 4;
+		public const short UA = 5;
+		public const short Count = 6;
 	}
 }

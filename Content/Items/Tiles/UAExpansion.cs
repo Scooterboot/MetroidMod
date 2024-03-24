@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Items.Tiles
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.maxStack = 50;
+			Item.maxStack = 4;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
@@ -31,6 +31,9 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>();
+
+			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+			mItem.addonSlotType = 5;
 		}
 	}
 }

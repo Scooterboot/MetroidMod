@@ -131,6 +131,10 @@ namespace MetroidMod.Common.Players
 			{
 				spaceJumpsRegenDelay--;
 			}
+			if (reserveHearts > reserveTanks)
+			{
+				reserveHearts = reserveTanks;
+			}
 
 			if (!Player.mount.Active)
 			{

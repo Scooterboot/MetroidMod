@@ -80,7 +80,8 @@ namespace MetroidMod.Common.UI
 			new Vector2(174, 14),
 			new Vector2(32, 14),
 			new Vector2(32, 94),
-			new Vector2(174, 94)
+			new Vector2(174, 94),
+			new Vector2(98, 148)
 		};
 
 		public override void OnInitialize()
@@ -109,7 +110,7 @@ namespace MetroidMod.Common.UI
 		public override void Update(GameTime gameTime)
 		{
 			Width.Pixels = 256;
-			Height.Pixels = 164;
+			Height.Pixels = 224;
 			enabled = MConfigClient.Instance.PowerBeam.enabled;
 			if (!enabled && MConfigClient.Instance.PowerBeam.auto)
 			{

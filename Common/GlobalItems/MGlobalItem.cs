@@ -28,6 +28,8 @@ namespace MetroidMod.Common.GlobalItems
 		public int addonMissileDrain = 5;
 		#endregion
 
+		public int statUA = 50;
+		public int maxUA = 400;
 		public int statMissiles = 5;
 		public int maxMissiles = 5;
 
@@ -46,6 +48,8 @@ namespace MetroidMod.Common.GlobalItems
 			MGlobalItem other = (MGlobalItem)MemberwiseClone();
 			other.maxMissiles = maxMissiles;
 			other.statMissiles = statMissiles;
+			other.statUA = statUA;
+			other.maxUA = maxUA;
 
 			return other;
 		}

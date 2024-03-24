@@ -710,6 +710,15 @@ namespace MetroidMod.Common.Systems
 						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
+					if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>())
+					{
+						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
+						int num = Math.Min(mi.statUA, mi.maxUA);
+						string text = num.ToString("000");
+						Vector2 vect = Terraria.GameContent.FontAssets.MouseText.Value.MeasureString(text);
+						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
+						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+					}
 				}
 				if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || mp.shineDirection != 0 || mp.shineActive)
 				{

@@ -19,25 +19,41 @@ namespace MetroidMod.Content.Buffs
 		ReLogic.Utilities.SlotId soundInstance;
 		bool soundPlayed = false;
 		int num = 0;
+		int num3 = 0;
 		public override void Update(Player player, ref int buffIndex)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			bool flag = false;
+			bool flag2 = false;
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>())
+				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>() || player.inventory[i].type == ModContent.ItemType<Items.Weapons.PowerBeam>())
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					flag = true;
-					if (mi.statMissiles < mi.maxMissiles)
+					if (mi.statMissiles < mi.maxMissiles || mi.statUA < mi.maxUA)
 					{
-						mi.statMissiles++;
-						num++;
-						int num2 = num;
-						while (num2 > 50)
+						if(mi.statMissiles < mi.maxMissiles)
 						{
 							mi.statMissiles++;
-							num2 -= 50;
+							num++;
+							int num2 = num;
+							while (num2 > 50)
+							{
+								mi.statMissiles++;
+								num2 -= 50;
+							}
+						}
+						if(mi.statUA < mi.maxUA)
+						{
+							mi.statUA++;
+							num3++;
+							int num4 = num3;
+							while (num4 > 400)
+							{
+								mi.statUA++;
+								num4 -= 400;
+							}
 						}
 						break;
 					}
@@ -48,7 +64,7 @@ namespace MetroidMod.Content.Buffs
 					}
 				}
 			}
-			if (!flag || player.controlJump || player.controlUseItem)
+			if (!flag && !flag2 || player.controlJump || player.controlUseItem)
 			{
 				if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{

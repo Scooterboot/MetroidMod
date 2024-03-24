@@ -75,7 +75,7 @@ namespace MetroidMod.Common.UI
 			new Vector2(142, 15),
 			new Vector2(192, 51),
 			new Vector2(80, 110),
-			new Vector2(142, 110)
+			new Vector2(142, 110),
 		};
 		public override void OnInitialize()
 		{
@@ -86,7 +86,7 @@ namespace MetroidMod.Common.UI
 			Width.Pixels = panelTexture.Width();
 			Height.Pixels = panelTexture.Height();
 
-			addonSlots = new BeamUIItemBox[12];
+			addonSlots = new BeamUIItemBox[BeamChangeSlotID.Count];
 			for (int i = 0; i < BeamChangeSlotID.Count; ++i)
 			{
 				addonSlots[i] = new BeamUIItemBox();

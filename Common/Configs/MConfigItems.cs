@@ -171,6 +171,20 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(14)]
 		public int useTimePowerBeam;
 
+		//[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Starting Ammo")]
+		[Range(1, 10)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(0)]
+		public int ammoPowerBeam;
+
+		//[Label("[i:MetroidMod/MissileExpansion] Ammo per Missile Tank")]
+		[Range(1, 100)]
+		[Increment(1)]
+		[Slider]
+		[DefaultValue(50)]
+		public int ammoUA;
+
 		//[Label("[i:MetroidMod/PowerBeam] Power Beam Overheat")]
 		[Range(1, 100)]
 		[Increment(1)]

@@ -61,7 +61,7 @@ namespace MetroidMod.Common.UI
 			Append(new MorphBallFrame());
 			Append(new MorphBallLines());
 
-			ballSlots = new MorphBallItemBox[MetroidMod.beamSlotAmount];
+			ballSlots = new MorphBallItemBox[ 5/*MetroidMod.beamSlotAmount*/];
 			/*
 			textSlots = new UIText[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
@@ -78,7 +78,7 @@ namespace MetroidMod.Common.UI
 				Append(textSlots[i]);
 			}
 			*/
-			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
+			for (int i = 0; i < 5 /*MetroidMod.beamSlotAmount*/; ++i)
 			{
 				ballSlots[i] = new MorphBallItemBox();
 				ballSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
