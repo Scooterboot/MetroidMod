@@ -83,7 +83,7 @@ namespace MetroidMod.Common.UI
 			new Vector2(32, 14),
 			new Vector2(32, 94),
 			new Vector2(174, 94),
-			new Vector2(98, 158)
+			new Vector2(98, 152)
 		};
 
 		public override void OnInitialize()
