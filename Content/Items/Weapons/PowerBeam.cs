@@ -1674,10 +1674,8 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), player.position);
 			}
-			if(isHunter)
-			{
-				pb.statUA -= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
-			}
+			// Does UA math, and doesn't subtract for normal shots (they have cost set to 0)
+			pb.statUA -= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
 			return false;
 		}
 		public override void HoldItem(Player player)
@@ -1691,6 +1689,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item slot4 = BeamMods[3];
 				Item slot5 = BeamMods[4];
 				MPlayer mp = player.GetModPlayer<MPlayer>();
+				MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
 				if (Common.Systems.MSystem.SwitchKey.JustPressed)
 				{
 					mp.beamChangeActive = !mp.beamChangeActive;
@@ -1807,6 +1806,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 								mp.statOverheat += (int)(oHeat * chargeCost);
 								mp.overheatDelay = (int)useTime - 10;
+								pb.statUA -= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
 							}
 							else if (mp.statCharge > 0)
 							{
@@ -1830,6 +1830,11 @@ namespace MetroidMod.Content.Items.Weapons
 
 									mp.statOverheat += oHeat;
 									mp.overheatDelay = (int)useTime - 10;
+								}
+								else if (mp.statCharge > 0)
+								{
+									var entitySource = player.GetSource_ItemUse(Item);
+									int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
 								}
 							}
 							if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != ModContent.ProjectileType<ChargeLead>())
