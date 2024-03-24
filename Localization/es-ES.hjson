@@ -267,6 +267,7 @@ Mods: {
 			// VariaSuitV2AddonTile.MapEntry: Varia Suit V2 Addon Tile
 			// VortexAugmentTile.MapEntry: Vortex Augment Tile
 			// XRayScopeTile.MapEntry: X Ray Scope Tile
+			// UAExpansionTile.MapEntry: U A Expansion Tile
 		}
 
 		Buffs: {
@@ -2944,6 +2945,11 @@ Mods: {
 
 			TourianBag: {
 				// DisplayName: Tourian Bag
+				// Tooltip: ""
+			}
+
+			UAExpansion: {
+				// DisplayName: U A Expansion
 				// Tooltip: ""
 			}
 		}
