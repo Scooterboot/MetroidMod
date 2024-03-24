@@ -1831,11 +1831,6 @@ namespace MetroidMod.Content.Items.Weapons
 									mp.statOverheat += oHeat;
 									mp.overheatDelay = (int)useTime - 10;
 								}
-								else if (mp.statCharge > 0)
-								{
-									var entitySource = player.GetSource_ItemUse(Item);
-									int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
-								}
 							}
 							if (chargeLead == -1 || !Main.projectile[chargeLead].active || Main.projectile[chargeLead].owner != player.whoAmI || Main.projectile[chargeLead].type != ModContent.ProjectileType<ChargeLead>())
 							{
