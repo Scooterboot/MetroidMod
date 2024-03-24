@@ -374,7 +374,7 @@ namespace MetroidMod.Content.Items.Weapons
 			bool addonsV2 = (slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv);
 			addonsV2 |= ((slot5.type == plG || slot5.type == plR) && (chargeV2 || chargeV3) && !addonsV1);
 			bool addonsV3 = (slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl);
-			pb.maxUA = Common.Configs.MConfigItems.Instance.ammoUA * UA.stack;
+			pb.maxUA = Common.Configs.MConfigItems.Instance.ammoPowerBeam + (Common.Configs.MConfigItems.Instance.ammoUA * Math.Min(UA.stack, 12));
 			if (pb.statUA > pb.maxUA)
 			{
 				pb.statUA = pb.maxUA;
@@ -1882,6 +1882,16 @@ namespace MetroidMod.Content.Items.Weapons
 					BeamMods[i] = new Item();
 				}
 				tag.Add("BeamItem" + i, ItemIO.Save(BeamMods[i]));
+			}
+			if (Item.TryGetGlobalItem(out MGlobalItem pb))
+			{
+				tag.Add("statUA", pb.statUA);
+				tag.Add("maxUA", pb.maxUA);
+			}
+			else
+			{
+				tag.Add("statUA", 0);
+				tag.Add("maxUA", 0);
 			}
 			for (int i = 0; i < BeamChange.Length; ++i)
 			{
