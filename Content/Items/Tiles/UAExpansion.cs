@@ -14,14 +14,14 @@ namespace MetroidMod.Content.Items.Tiles
 				"Increase maximum Missiles by 5 with each expansion slotted in\n" +
 				"Stack it up to 50 expansions for +250 maximum Missiles"); */
 
-			Item.ResearchUnlockCount = 4;
+			Item.ResearchUnlockCount = 12;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.maxStack = 4;
+			Item.maxStack = 12;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
