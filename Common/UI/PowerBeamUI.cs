@@ -1,3 +1,4 @@
+using System;
 using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
@@ -11,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -365,7 +367,7 @@ namespace MetroidMod.Common.UI
 				}
 			}
 
-			//float unreflectedScale = drawScale;
+			float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
 			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, powerBeamTarget.BeamMods[addonSlotType].type);
@@ -382,6 +384,20 @@ namespace MetroidMod.Common.UI
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+			}
+
+			if (powerBeamTarget.BeamMods[addonSlotType].stack > 1)
+			{
+				Utils.DrawBorderStringFourWay(
+					spriteBatch,
+					FontAssets.ItemStack.Value,
+					Math.Min(9999, powerBeamTarget.BeamMods[addonSlotType].stack).ToString(),
+					innerDimensions.Position().X + 10f,
+					innerDimensions.Position().Y + 26f,
+					Color.White,
+					Color.Black,
+					Vector2.Zero,
+					unreflectedScale * 0.8f);
 			}
 		}
 	}
