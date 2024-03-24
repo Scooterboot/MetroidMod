@@ -32,7 +32,7 @@ namespace MetroidMod.Content.Items.Accessories
 			//mp.statOverheat -= 10f;
 			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.1f;
 			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterCrit += 10;
-			mp.reserveHearts = 4;
+			mp.reserveTanks = 4;
 			mp.reserveHeartsValue = 25;
 
 			//mp.statOverheat -= 0.1f;
