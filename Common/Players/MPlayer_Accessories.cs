@@ -61,12 +61,30 @@ namespace MetroidMod.Common.Players
 		public int screwSpeedDelay = 0;
 		public int screwAttackDmg = 0;
 
+		/// <summary>
+		/// The amount of Life Reserve tanks a player has.
+		/// </summary>
 		public int reserveTanks = 0;
+		/// <summary>
+		/// The amount of hearts currently stored in a player's Life Reserve tanks.
+		/// </summary>
 		public int reserveHearts = 0;
+		/// <summary>
+		/// The current value of each heart in a player's Life Reserve Tanks.
+		/// </summary>
 		public int reserveHeartsValue = 20;
 
+		/// <summary>
+		/// Whether or not this player can open red hatches by right-clicking.
+		/// </summary>
 		public bool RedKeycard = false;
+		/// <summary>
+		/// Whether or not this player can open green hatches by right-clicking.
+		/// </summary>
 		public bool GreenKeycard = false;
+		/// <summary>
+		/// Whether or not this player can open yellow hatches by right-clicking.
+		/// </summary>
 		public bool YellowKeycard = false;
 
 		public void ResetEffects_Accessories()
@@ -227,6 +245,10 @@ namespace MetroidMod.Common.Players
 			else
 			{
 				rotateCountX = rotateSpeed;
+			}
+			if (reserveHearts > reserveTanks)
+			{
+				reserveHearts = reserveTanks;
 			}
 		}
 		private bool sbFlag = false;
