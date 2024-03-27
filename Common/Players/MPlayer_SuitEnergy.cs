@@ -123,6 +123,7 @@ namespace MetroidMod.Common.Players
 			{
 				mp.Energy = mp.MaxEnergy;
 				mp.SuitReserves = mp.MaxSuitReserves;
+				SoundEngine.PlaySound(Sounds.Suit.SpawnIn, Player.position);
 			}
 		}
 		public override void UpdateLifeRegen()

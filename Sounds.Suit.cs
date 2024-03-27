@@ -118,6 +118,10 @@ namespace MetroidMod
 			{
 
 			};
+			public static readonly SoundStyle SpawnIn = new($"{nameof(MetroidMod)}/Assets/Sounds/SpawnIn")
+			{
+
+			};
 
 			public static class Visors
 			{

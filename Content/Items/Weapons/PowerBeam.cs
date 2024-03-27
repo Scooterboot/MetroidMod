@@ -268,6 +268,10 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private int waveDir = -1;
 
+		public bool Lum = false;
+		public bool Diff = false;
+
+		private bool isJud = false;
 		private bool isSpray = false;
 		private bool isChargeSpray = false;
 		private bool isShock = false;
@@ -349,6 +353,9 @@ namespace MetroidMod.Content.Items.Weapons
 
 			//modBeamTextureMod = null;
 
+
+			Lum = !BeamChange[11].IsAir;
+			Diff = !BeamChange[10].IsAir;
 			ShotSound = null;
 			ChargeShotSound = null;
 			noSomersault = false;
@@ -356,6 +363,7 @@ namespace MetroidMod.Content.Items.Weapons
 			isChargeSpray = false;
 			isShock = false;
 			Stealth = false;
+			isJud = !Lum && !Diff && (slot1.type == jd);
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);
@@ -382,11 +390,11 @@ namespace MetroidMod.Content.Items.Weapons
 			int versionType = 1;
 			float GetCharge()
 			{
-				if (!BeamChange[11].IsAir)
+				if (!Lum)
 				{
 					return MConfigItems.Instance.damageLuminiteBeam;
 				}
-				else if (!BeamChange[10].IsAir)
+				else if (!Diff)
 				{
 					return MConfigItems.Instance.damageChargeBeamV2;
 				}
@@ -397,11 +405,11 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			float GetHeat()
 			{
-				if (!BeamChange[11].IsAir)
+				if (!Lum)
 				{
 					return MConfigItems.Instance.overheatLuminiteBeam;
 				}
-				else if (!BeamChange[10].IsAir)
+				else if (!Diff)
 				{
 					return MConfigItems.Instance.overheatChargeBeamV2;
 				}
@@ -427,7 +435,6 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot4.type == sp)
 				{
 					shotAmt = 3;
-					//shocky = 3;
 					chargeShotAmt = 3;
 				}
 			}
@@ -436,13 +443,11 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot3.type == nb && slot4.type != vt)
 				{
 					shotAmt = 2;
-					//shocky = 2;
 					chargeShotAmt = 2;
 				}
 				if (slot4.type == vt)
 				{
 					shotAmt = 5;
-					//shocky = 5;
 					chargeShotAmt = 5;
 				}
 				if (slot2.type == ic || slot2.type == ic2)
@@ -922,12 +927,6 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Luminite";
 					dustType = 229;
 					lightColor = MetroidMod.lumColor;
-
-					/*if (slot4.type == vt)
-					{
-						shotAmt = 5;
-						chargeShotAmt = 5;
-					}*/
 					// Stardust
 					if (slot2.type == sd && slot5.IsAir)
 					{
@@ -948,13 +947,6 @@ namespace MetroidMod.Content.Items.Weapons
 							chargeShot = "StardustVortexBeamChargeShot";
 						}
 					}
-					/*if (slot3.type == nb && slot4.type != vt)
-					{
-						shotAmt = 2;
-						chargeShotAmt = 2;
-
-						// Stardust Nebula Vortex
-					}*/
 					if (slot5.type == sl)
 					{
 						shot = "SolarBeamShot";
@@ -1066,10 +1058,10 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					isCharge = true;
 					shot = "JudicatorShot";
-					chargeShot = "JudicatorChargeShot";
+					chargeShot = (Lum || Diff) ? "JudicatorChargeShot" : "JudicatorShot";
 					shotSound = "JudicatorSound";
 					chargeShotSound = "JudicatorChargeSound";
-					chargeUpSound = "ChargeStartup_JudicatorAffinity";
+					chargeUpSound = Lum || Diff ? "ChargeStartup_JudicatorAffinity" : "ChargeStartup_Judicator";
 					texture = "Judicator";
 					chargeTex = "ChargeLead_Ice";
 					useTime = MConfigItems.Instance.useTimeJudicator;
@@ -1093,7 +1085,7 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot1.type == bh)
 				{
 					shot = "BattleHammerShot";
-					shotSound = "BattleHammerAffinitySound";
+					shotSound = Lum || Diff ? "BattleHammerAffinitySound" : "BattleHammerSound";
 					texture = "BattleHammer";
 					useTime = MConfigItems.Instance.useTimeBattleHammer;
 					if (shotAmt > 1)
@@ -1756,6 +1748,11 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					shotEffect += "stardust";
 				}
+				if (isJud)
+				{
+					chargeShotAmt *= 3;
+					isChargeSpray = true;
+				}
 				Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 				float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
@@ -1857,16 +1854,19 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					player.scope = true;
 					player.shroomiteStealth = true;
-					if (impStealth < 126f)
+					if (Diff)
 					{
-						impStealth += 2;
-					}
-					player.stealth -= impStealth / 126f;
-					player.aggro -= (int)(impStealth * 4f);
-					if (player.velocity != Vector2.Zero || player.controlUseItem)
-					{
-						player.shroomiteStealth = false;
-						impStealth = 0f;
+						if (impStealth < 126f)
+						{
+							impStealth += 2;
+						}
+						player.stealth -= impStealth / 126f;
+						player.aggro -= (int)(impStealth * 4f);
+						if (player.velocity != Vector2.Zero || player.controlUseItem)
+						{
+							player.shroomiteStealth = false;
+							impStealth = 0f;
+						}
 					}
 				}
 			}

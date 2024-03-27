@@ -249,7 +249,7 @@ namespace MetroidMod
 
 				public static readonly SoundStyle JudicatorImpactSound = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorImpactSound")
 				{
-
+					PitchVariance = 1.5f
 				};
 				public static readonly SoundStyle JudicatorFreeze = new($"{nameof(MetroidMod)}/Assets/Sounds/JudicatorFreeze")
 				{
@@ -267,6 +267,10 @@ namespace MetroidMod
 				};
 
 				public static readonly SoundStyle ChargeStartup_JudicatorAffinity = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeStartup_JudicatorAffinity")
+				{
+
+				};
+				public static readonly SoundStyle ChargeStartup_Judicator = new($"{nameof(MetroidMod)}/Assets/Sounds/ChargeStartup_Judicator")
 				{
 
 				};

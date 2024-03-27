@@ -588,10 +588,10 @@ namespace MetroidMod.Common.Configs
 		[Header("[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons")]
 
 		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Damage Modifier")]
-		[Range(0f, 2f)]
+		[Range(0f, 10f)]
 		[Increment(0.1f)]
 		[Slider]
-		[DefaultValue(.1f)]
+		[DefaultValue(.6f)]
 		public float damageVoltDriver;
 
 		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Use Time")]
@@ -612,7 +612,7 @@ namespace MetroidMod.Common.Configs
 		[Range(0f, 2f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(.45f)]
+		[DefaultValue(.6f)]
 		public float damageMagMaul;
 
 		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Use Time")]
@@ -654,7 +654,7 @@ namespace MetroidMod.Common.Configs
 		[Range(0f, 2f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(.45f)]
+		[DefaultValue(1f)]
 		public float damageJudicator;
 
 		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Use Time")]
@@ -710,7 +710,7 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 2f)]
 		[Increment(0.25f)]
 		[Slider]
-		[DefaultValue(0f)]
+		[DefaultValue(1f)]
 		public float damageBattleHammer;
 
 		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Use Time")]

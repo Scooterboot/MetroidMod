@@ -11,6 +11,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 {
 	public class JudicatorChargeShot : MProjectile
 	{
+		//todo: add balance for luminite
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Judicator Charge Shot");
@@ -99,7 +100,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorFreeze, Projectile.position);
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(), 300);
-			target.AddBuff(44, 300);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

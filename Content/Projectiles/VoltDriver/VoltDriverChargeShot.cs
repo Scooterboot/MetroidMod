@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 			}
-			int shootSpeed = 2;
+			int shootSpeed = Luminite ? 4 : 2;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Projectile.numUpdates == 0)
@@ -43,7 +43,10 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			}
 			int dustType = 269;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
-			mProjectile.HomingBehavior(Projectile, shootSpeed);
+			if(Luminite || DiffBeam)
+			{
+				mProjectile.HomingBehavior(Projectile, shootSpeed);
+			}
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
@@ -64,7 +67,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if(target.active && !target.buffImmune[31])
+			if(target.active && !target.buffImmune[31] && (Luminite || DiffBeam))
 			{
 				SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
 				target.AddBuff(31, 180);

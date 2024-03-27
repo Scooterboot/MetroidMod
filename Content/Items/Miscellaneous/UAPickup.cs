@@ -13,10 +13,8 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		{
 			// DisplayName.SetDefault("UA Pickup");
 			ItemID.Sets.ItemNoGravity[Type] = true;
-			/* this isn't animated.
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 4));
-			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-			*/
+			ItemID.Sets.AnimatesAsSoul[Item.type] = true;	
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 		}
 		public override void SetDefaults()
@@ -38,8 +36,8 @@ namespace MetroidMod.Content.Items.Miscellaneous
 					mi.statUA += Item.stack;
 				}
 			}
-			// TODO: Add original UA Pickup noise (currently uses MissilePickup noise
-			Terraria.Audio.SoundEngine.PlaySound(Sounds.Suit.MissilePickup/*UAPickup*/, player.position);
+
+			Terraria.Audio.SoundEngine.PlaySound(Sounds.Suit.UAPickup, player.position);
 			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.White, Item.stack, false, false);
 			return false;
 		}
