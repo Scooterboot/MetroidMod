@@ -30,14 +30,17 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			Projectile.width += Luminite ? 88 : DiffBeam ? 44 : 22;
 			Projectile.height += Luminite ? 88 : DiffBeam ? 44 : 22;
 			Projectile.scale = Luminite ? 4 : DiffBeam ? 3 : 2;
-			Projectile.damage /= (int)3.5;
-			foreach (NPC target in Main.npc)
+			//Projectile.damage /= (int)3.5;
+			if(Luminite || DiffBeam)
 			{
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+				foreach (NPC target in Main.npc)
 				{
-					Projectile.Damage();
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 1;
+					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+					{
+						Projectile.Damage();
+						Projectile.usesLocalNPCImmunity = true;
+						Projectile.localNPCHitCooldown = 1;
+					}
 				}
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);

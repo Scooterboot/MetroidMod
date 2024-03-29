@@ -320,7 +320,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override void UpdateInventory(Player P)
 		{
-			//MPlayer mp = P.GetModPlayer<MPlayer>();
+			MPlayer mp = P.GetModPlayer<MPlayer>();
 			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem pb)) { return; }
 			Item slot1 = BeamMods[0];
 			Item slot2 = BeamMods[1];
@@ -354,8 +354,8 @@ namespace MetroidMod.Content.Items.Weapons
 			//modBeamTextureMod = null;
 
 
-			Lum = !BeamChange[11].IsAir;
-			Diff = !BeamChange[10].IsAir;
+			Lum = !BeamChange[11].IsAir || (!BeamChange[10].IsAir && mp.PrimeHunter);
+			Diff = (!BeamChange[10].IsAir || mp.PrimeHunter) && BeamChange[11].IsAir;
 			ShotSound = null;
 			ChargeShotSound = null;
 			noSomersault = false;
@@ -363,7 +363,7 @@ namespace MetroidMod.Content.Items.Weapons
 			isChargeSpray = false;
 			isShock = false;
 			Stealth = false;
-			isJud = !Lum && !Diff && (slot1.type == jd);
+			isJud = !Lum && !Diff && (slot1.type == jd) && !mp.PrimeHunter;
 			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 			isHyper = (slot1.type == hy);
 			isPhazon = (slot1.type == ph);
@@ -1043,7 +1043,7 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Spazer";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					mItem.addonChargeDmg = GetCharge();
-					mItem.addonChargeHeat = GetHeat();
+					//mItem.addonChargeHeat = GetHeat();
 					useTime = MConfigItems.Instance.useTimeVoltDriver;
 					if (shotAmt > 1)
 					{
@@ -1058,7 +1058,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					isCharge = true;
 					shot = "JudicatorShot";
-					chargeShot = (Lum || Diff) ? "JudicatorChargeShot" : "JudicatorShot";
+					chargeShot = Lum || Diff ? "JudicatorChargeShot" : "JudicatorShot";
 					shotSound = "JudicatorSound";
 					chargeShotSound = "JudicatorChargeSound";
 					chargeUpSound = Lum || Diff ? "ChargeStartup_JudicatorAffinity" : "ChargeStartup_Judicator";
@@ -1067,7 +1067,7 @@ namespace MetroidMod.Content.Items.Weapons
 					useTime = MConfigItems.Instance.useTimeJudicator;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					mItem.addonChargeDmg = GetCharge();
-					mItem.addonChargeHeat = GetHeat();
+					//mItem.addonChargeHeat = GetHeat();
 					if (shotAmt > 1)
 					{
 						isSpray = true;
@@ -1123,7 +1123,7 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_PlasmaRed";
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					mItem.addonChargeDmg = GetCharge();
-					mItem.addonChargeHeat = GetHeat();
+					//mItem.addonChargeHeat = GetHeat();
 					useTime = MConfigItems.Instance.useTimeMagMaul;
 					if (shotAmt > 1)
 					{
@@ -1347,7 +1347,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 
 			finalDmg = (int)Math.Round((double)(damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg + hunterDmg)));
-			overheat = (int)Math.Max(Math.Round((double)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 1);
+			overheat = (int)Math.Max(Math.Round((double)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat /*+ hunterHeat*/))), 1);
 
 			double shotsPerSecond = 60 / useTime * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
 
@@ -1782,7 +1782,7 @@ namespace MetroidMod.Content.Items.Weapons
 							float dmgMult = 1f + (chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge;
 							double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
-							if (mp.statCharge >= (MPlayer.maxCharge * 0.5))
+							if (mp.statCharge >= (MPlayer.maxCharge * 0.5)) //todo disable shortcharge for mph weapons
 							{
 								for (int i = 0; i < chargeShotAmt; i++)
 								{
@@ -1791,7 +1791,7 @@ namespace MetroidMod.Content.Items.Weapons
 									MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 									mProj.waveDir = waveDir;
 									mProj.shot = shotEffect.ToString();
-									//mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9) && arrayDiff;
+									mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9);
 									Main.projectile[chargeProj].netUpdate = true;
 									if (isChargeSpray && chargeShotAmt > 1)
 									{
@@ -1853,21 +1853,23 @@ namespace MetroidMod.Content.Items.Weapons
 				if (Stealth)
 				{
 					player.scope = true;
-					player.shroomiteStealth = true;
-					if (Diff)
+					if (impStealth < 126f)
 					{
-						if (impStealth < 126f)
-						{
-							impStealth += 2;
-						}
+						impStealth += 1.5f;
+					}
+					if (Diff || Lum)
+					{
+						player.shroomiteStealth = true;
 						player.stealth -= impStealth / 126f;
 						player.aggro -= (int)(impStealth * 4f);
-						if (player.velocity != Vector2.Zero || player.controlUseItem)
-						{
-							player.shroomiteStealth = false;
-							impStealth = 0f;
-						}
 					}
+					if (player.velocity != Vector2.Zero || player.controlUseItem)
+					{
+						player.shroomiteStealth = false;
+						impStealth = 0f;
+					}
+					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
+					player.GetCritChance(damageClass) += (int)impStealth / (Lum ? 3f : Diff ? 5f : 10f);
 				}
 			}
 		}

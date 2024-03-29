@@ -682,7 +682,7 @@ namespace MetroidMod.Common.Configs
 		[Range(.1f, 1f)]
 		[Increment(0.1f)]
 		[Slider]
-		[DefaultValue(0.5f)]
+		[DefaultValue(0.7f)]
 		public float minSpeedShockCoil;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]

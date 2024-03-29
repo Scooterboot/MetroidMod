@@ -53,15 +53,18 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			//Projectile.Damage(); //battlehammer double hits on direct(ish) hit
 			//Projectile.usesLocalNPCImmunity = true;
 			//Projectile.localNPCHitCooldown = 1;
-			/*foreach (NPC target in Main.npc)
+			if(Luminite || DiffBeam)
 			{
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+				foreach (NPC target in Main.npc)
 				{
-					Projectile.Damage();
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 1;
+					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+					{
+						Projectile.Damage();
+						Projectile.usesLocalNPCImmunity = true;
+						Projectile.localNPCHitCooldown = 1;
+					}
 				}
-			}*/
+			}
 		}
 
 		public override bool PreDraw(ref Color lightColor)

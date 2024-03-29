@@ -21,6 +21,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			return mp.waveDepth;
 		}
 		private int yeet = 1;
+		private Vector2 move;
 		public override void OnSpawn(IEntitySource source)
 		{
 			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
@@ -48,18 +49,20 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				Projectile.maxPenetrate = 12;
 				yeet = 12;
 			}
+			move = Projectile.velocity;
+			Projectile.timeLeft = Luminite ? 60 : 40;
 			base.OnSpawn(source);
 		}
 		public override void SetDefaults()
 		{
-			base.SetDefaults();
 			Projectile.width = 16;//32
 			Projectile.height = 16;//20
 			Projectile.scale = 1f;
-			Projectile.timeLeft = 60;
+			Projectile.timeLeft = Luminite ? 60 : 40;
+			//Projectile.extraUpdates = 2;
+			base.SetDefaults();
 		}
 
-		private Vector2 move;
 		public override void AI()
 		{
 
@@ -72,9 +75,8 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			if (Projectile.timeLeft == 60) //shadowfreeze
+			if (Projectile.timeLeft == (Luminite ? 60 : 40)) //shadowfreeze
 			{
-				move = Projectile.velocity;
 				Projectile.penetrate = -1;
 				if (shot.Contains("wave") || shot.Contains("nebula"))
 				{

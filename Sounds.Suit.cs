@@ -122,6 +122,18 @@ namespace MetroidMod
 			{
 
 			};
+			public static readonly SoundStyle PrimeHunterCharge = new($"{nameof(MetroidMod)}/Assets/Sounds/PrimeHunterCharge")
+			{
+
+			};
+			public static readonly SoundStyle PrimeHunterActivate = new($"{nameof(MetroidMod)}/Assets/Sounds/PrimeHunterActivate")
+			{
+
+			};
+			public static readonly SoundStyle PrimeHunterDeactivate = new($"{nameof(MetroidMod)}/Assets/Sounds/PrimeHunterDeactivate")
+			{
+
+			};
 
 			public static class Visors
 			{

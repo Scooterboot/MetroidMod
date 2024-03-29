@@ -388,11 +388,13 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
+			writer.WriteVector2(oPos);
 			writer.WriteVector2(targetPos);
 			base.SendExtraAI(writer);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
+			oPos = reader.ReadVector2();
 			targetPos = reader.ReadVector2();
 			base.ReceiveExtraAI(reader);
 		}
@@ -401,26 +403,23 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
 			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge));// * (O.statLife / O.statLifeMax2));
-			float minDamage = MConfigItems.Instance.minSpeedShockCoil;
-			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil;
+			float minDamage = MConfigItems.Instance.minSpeedShockCoil + (Luminite? 1.0f : DiffBeam? 0.5f :0);
+			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil + (Luminite ? 1.0f : DiffBeam ? 0.5f : 0);
 			float ranges = maxDamage - minDamage;
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 			mp.statOverheat += mp.overheatCost; // /shots;
 			mp.statCharge = Math.Min(mp.statCharge + 2, MPlayer.maxCharge);
-			if (Luminite || DiffBeam)
+			if (mp.Energy < mp.MaxEnergy && !mp.PrimeHunter && (Luminite || DiffBeam))
 			{
-				if (mp.Energy < mp.MaxEnergy && !mp.PrimeHunter)
+				if (heal > mp.MaxEnergy - mp.Energy)
 				{
-					if (heal > mp.MaxEnergy - mp.Energy)
-					{
-						mp.Energy = mp.MaxEnergy;
-					}
-					else
-					{
-						mp.Energy += heal;
-					}
+					mp.Energy = mp.MaxEnergy;
+				}
+				else
+				{
+					mp.Energy += heal;
 				}
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, Projectile.position);

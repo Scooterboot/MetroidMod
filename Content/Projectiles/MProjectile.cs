@@ -39,15 +39,15 @@ namespace MetroidMod.Content.Projectiles
 				{
 					MPlayer mp = player.GetModPlayer<MPlayer>();
 					shot = hold.shotEffect.ToString();
-					if(((!hold.BeamChange[10].IsAir || !hold.BeamChange[11].IsAir) && mp.statCharge >= (MPlayer.maxCharge * 0.9) && hold.BeamMods[0].type != ModContent.ItemType<Items.Addons.ChargeBeamAddon>()))
+					/*if(((!hold.BeamChange[10].IsAir || !hold.BeamChange[11].IsAir) && mp.statCharge >= (MPlayer.maxCharge * 0.9) && hold.BeamMods[0].type != ModContent.ItemType<Items.Addons.ChargeBeamAddon>()))
 					{
 						canDiffuse = true;
-					}
-					if (hold.Lum)
+					}*/
+					if (hold.Lum || (hold.Diff && mp.PrimeHunter))
 					{
 						Luminite = true;
 					}
-					if(hold.Diff)
+					if((hold.Diff || mp.PrimeHunter) && !hold.Lum)
 					{
 						DiffBeam = true;
 					}
@@ -604,11 +604,15 @@ namespace MetroidMod.Content.Projectiles
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
+			writer.Write(Luminite);
+			writer.Write(DiffBeam);
 			writer.Write(canDiffuse);
 			writer.Write(shot);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
+			Luminite = reader.ReadBoolean();
+			DiffBeam = reader.ReadBoolean();
 			canDiffuse = reader.ReadBoolean();
 			shot = reader.ReadString();
 		}
