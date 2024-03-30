@@ -317,7 +317,20 @@ namespace MetroidMod.Content.Items.Weapons
 		private readonly int oc = ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>();
 
 		//Mod modBeamTextureMod = null;
-
+		public bool AmmoUse(Player player) //really lazy ammo reservation --Dr
+		{
+			bool one = player.ammoBox || player.ammoPotion;
+			bool both = player.ammoBox && player.ammoPotion;
+			if (one && !both && Main.rand.NextBool(5))
+			{
+				return false;
+			}
+			if (both && Main.rand.NextBool(4))
+			{
+				return false;
+			}
+			return true;
+		}
 		public override void UpdateInventory(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>();
@@ -1648,7 +1661,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			waveDir *= -1;
 
-			mp.statOverheat += (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0);
+			mp.statOverheat += !isHunter && AmmoUse(player)? (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0) : 0;
 			mp.overheatDelay = (int)Math.Max(useTime - 10, 2);
 			/* Sound & Sound Networking */
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
@@ -1800,7 +1813,7 @@ namespace MetroidMod.Content.Items.Weapons
 								}
 								SoundEngine.PlaySound(new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}"), oPos);
 
-								mp.statOverheat += (int)(oHeat * chargeCost);
+								mp.statOverheat += AmmoUse(player)? (int)(oHeat * chargeCost) : 0;
 								mp.overheatDelay = (int)useTime - 10;
 								pb.statUA -= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
 							}
@@ -1824,7 +1837,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 									SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
 
-									mp.statOverheat += oHeat;
+									mp.statOverheat += AmmoUse(player)? oHeat : 0;
 									mp.overheatDelay = (int)useTime - 10;
 								}
 							}
@@ -1845,7 +1858,7 @@ namespace MetroidMod.Content.Items.Weapons
 					mp.overheatDelay = (int)cooldown / 3;
 					if (cooldown <= 0)
 					{
-						mp.statOverheat += oHeat - 1;
+						mp.statOverheat += AmmoUse(player)? (oHeat - 1) : 0;
 						cooldown = (int)useTime;
 					}
 				}
