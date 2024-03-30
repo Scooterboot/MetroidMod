@@ -38,7 +38,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			}
 
 			Terraria.Audio.SoundEngine.PlaySound(Sounds.Suit.UAPickup, player.position);
-			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.White, Item.stack, false, false);
+			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.Green, Item.stack, false, false);
 			return false;
 		}
 	}
