@@ -53,6 +53,7 @@ namespace MetroidMod.Content.Items.Armors
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.10f;
+			mp.tankCapacity += 4;
 			mp.IsPowerSuitBreastplate = true;
 			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerSuitBreastplate)
 			{
@@ -120,6 +121,7 @@ namespace MetroidMod.Content.Items.Armors
 				.AddIngredient<ChoziteBreastplate>(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 20)
+				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 20)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -284,6 +286,7 @@ namespace MetroidMod.Content.Items.Armors
 				.AddIngredient<ChoziteGreaves>(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 15)
+				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 15)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -357,6 +360,7 @@ namespace MetroidMod.Content.Items.Armors
 				.AddIngredient<ChoziteHelmet>(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 10)
+				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

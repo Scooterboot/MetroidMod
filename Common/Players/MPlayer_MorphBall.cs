@@ -467,15 +467,18 @@ namespace MetroidMod.Common.Players
 				Projectile.NewProjectile(Player.GetSource_Accessory(BombItem), Player.Center.X, Player.Center.Y + 4, 0, 0, type, damage, 0, Player.whoAmI);
 			}
 		}
-		public void Drill(Player p, int drill)
+		public void Drill(Player p)
 		{
 			Item drills = p.GetBestPickaxe();
 			bool noBuildFlag = false;
-			if (Main.mouseLeft && !Player.mouseInterface && morphBall)
+			int drill;
+			if (Main.mouseLeft && !Player.mouseInterface && morphBall && drills != null)
 			{
 				drill = drills.pick;
 				//p.controlUseItem = true;
 			}
+			else
+				return;
 			for (int i = 0; i < p.buffType.Length; i++)
 			{
 				if (p.buffType[i] == BuffID.NoBuilding && p.buffTime[i] > 0)
@@ -625,7 +628,7 @@ namespace MetroidMod.Common.Players
 					}
 				if (!BoostRam)
 				{
-					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, ModContent.ProjectileType<Content.Projectiles.RamBall>(), mp.boostEffect, mp.boostEffect / 5, Player.whoAmI);
+					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, ModContent.ProjectileType<Content.Projectiles.RamBall>(), mp.PrimeHunter ? mp.boostEffect * 5 : mp.boostEffect, mp.PrimeHunter ? mp.boostEffect : mp.boostEffect / 5, Player.whoAmI);
 				}
 				Player.armorEffectDrawShadow = true;
 				boostEffect--;

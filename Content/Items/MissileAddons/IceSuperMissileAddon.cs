@@ -43,7 +43,7 @@ namespace MetroidMod.Content.Items.MissileAddons
 			CreateRecipe()
 				.AddIngredient<SuperMissileAddon>(1)
 				.AddIngredient<IceMissileAddon>(1)
-				.AddIngredient<Miscellaneous.FrozenCore>(1)
+				.AddIngredient<Items.Accessories.FrozenCore>(1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

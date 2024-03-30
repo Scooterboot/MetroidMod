@@ -45,13 +45,22 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient(ItemID.MeteoriteBar, 30)
-				.AddIngredient(ItemID.Emerald, 30)
-				.AddIngredient(ItemID.Grenade, 99)
-				.AddTile(TileID.Hellforge)
+				.AddIngredient(ItemID.GoldBar, 8)
+				.AddIngredient<Miscellaneous.EnergyShard>(2)
+				.AddIngredient<Miscellaneous.ChoziteBar>(15)
+				.AddIngredient(ItemID.JungleSpores, 15)
+				.AddIngredient(ItemID.Emerald, 1)
+				.AddIngredient(ItemID.Grenade, 20)
+				.AddTile(TileID.Anvils)
+				.Register();
+			CreateRecipe(1)
+				.AddIngredient(ItemID.PlatinumBar, 8)
+				.AddIngredient<Miscellaneous.EnergyShard>(2)
+				.AddIngredient<Miscellaneous.ChoziteBar>(15)
+				.AddIngredient(ItemID.JungleSpores, 15)
+				.AddIngredient(ItemID.Emerald, 1)
+				.AddIngredient(ItemID.Grenade, 20)
+				.AddTile(TileID.Anvils)
 				.Register();
 		}
 	}

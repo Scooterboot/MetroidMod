@@ -34,6 +34,12 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 				Main.dust[dust].noGravity = true;
 			}
 		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (Projectile.timeLeft >= 1)
+				modifiers.ArmorPenetration += 10;
+			base.ModifyHitNPC(target, ref modifiers);
+		}
 		public override void OnKill(int timeLeft)
 		{
 			Projectile.width += 76;

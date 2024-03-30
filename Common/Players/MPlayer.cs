@@ -2,16 +2,19 @@
 using System.Linq;
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
-//using MetroidMod.Content.Items;
+using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Biomes;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using MetroidMod.Content.Items.Armors;
 
 namespace MetroidMod.Common.Players
 {
@@ -22,6 +25,9 @@ namespace MetroidMod.Common.Players
 		public float statCharge = 0.0f;
 		public static float maxCharge = 100.0f;
 
+		public static float maxHyper = 100f;
+		public float hyperCharge = 0.0f;
+		private int hyperRechargedelay = 0;
 		public float maxOverheat = 100f;
 		public float statOverheat = 0f;
 		public float overheatCost = 1f;
@@ -31,6 +37,8 @@ namespace MetroidMod.Common.Players
 		public float maxParalyzerCharge = 100f;
 		public float statParalyzerCharge = 0f;
 
+		public bool canHyper = false;
+		public bool PrimeHunter = false;
 		public bool senseMove = false;
 		public bool senseMoveEnabled = true;
 		public int SMoveEffect = 0;
@@ -74,6 +82,7 @@ namespace MetroidMod.Common.Players
 
 			senseMove = false;
 
+			//PrimeHunter = false;
 			phazonImmune = false;
 			canUsePhazonBeam = false;
 			canUseHyperBeam = false;
@@ -114,7 +123,23 @@ namespace MetroidMod.Common.Players
 			PreUpdate_Graphics();
 
 			Player P = Player;
-
+			MPlayer mp = P.GetModPlayer<MPlayer>();
+			if (hyperCharge > 0 && mp.PrimeHunter || !MSystem.HyperMode.Current)
+			{
+				if (hyperRechargedelay <= 0 && hyperCharge > 0f)
+				{
+					hyperCharge -= 1.0f;
+					hyperRechargedelay = 6;
+				}
+				if (hyperRechargedelay > 0)
+				{
+					hyperRechargedelay--;
+				}
+			}
+			if (hyperCharge >= maxHyper)
+			{
+				hyperCharge = maxHyper;
+			}
 			if (statCharge >= maxCharge)
 			{
 				statCharge = maxCharge;
@@ -238,7 +263,6 @@ namespace MetroidMod.Common.Players
 			{
 				for (int k = y1; k <= y2; k++)
 				{
-					MPlayer mp = Player.GetModPlayer<MPlayer>();
 					if (mp.speedBoosting || mp.shineActive)
 					{
 						if (Main.tile[i, k].HasTile && !Main.tile[i, k].IsActuated)
@@ -363,7 +387,31 @@ namespace MetroidMod.Common.Players
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
 			PostUpdateMiscEffects_Visors();
-
+			if (MSystem.HyperMode.Current && statPBCh <=0f && statCharge <= 0f)
+			{
+				if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>()) && Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && (Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
+				{
+					hyperCharge++;
+				}
+				if(hyperCharge >= maxHyper)
+				{
+					PrimeHunter = true;
+					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+				}
+				if (hyperCharge <= 0f && PrimeHunter)
+				{
+					PrimeHunter = !PrimeHunter;
+				}
+			}
+			if (Player.dead || !PrimeHunter /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
+			{
+				PrimeHunter = false;
+				Player.ClearBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>());
+			}
+			if(PrimeHunter)
+			{
+				Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+			}
 			if (senseMove && senseMoveEnabled)
 			{
 				SenseMove(Player);
@@ -524,6 +572,10 @@ namespace MetroidMod.Common.Players
 					{
 						Player.mount.Dismount(Player);
 					}
+					if (Player.shimmering)
+					{
+						projectile.Kill();
+					}
 					Player.canCarpet = true;
 					Player.carpetFrame = -1;
 					Player.wingFrame = 1;
@@ -672,7 +724,15 @@ namespace MetroidMod.Common.Players
 				}
 			}
 		}
-
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			MPlayer mp = Player.GetModPlayer<MPlayer>();
+			if (mp.PrimeHunter && target.life <= 0 && mp.Energy < mp.MaxEnergy)
+			{
+				int heal = Math.Max(target.lifeMax / 20, 1);
+				mp.Energy += Math.Min(heal, mp.MaxEnergy-mp.Energy);
+			}
+		}
 		public bool psuedoScrewActive = false;
 		public bool beamChangeActive = false;
 		public bool missileChangeActive = false;
@@ -681,6 +741,7 @@ namespace MetroidMod.Common.Players
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
 			tag["senseMoveEnabled"] = senseMoveEnabled;
 			tag["energy"] = Energy;
+			tag["capacity"] = tankCapacity;
 			tag["reserves"] = SuitReserves;
 			tag["reserveAuto"] = SuitReservesAuto;
 		}
@@ -704,6 +765,12 @@ namespace MetroidMod.Common.Players
 				if (energy > 0)
 				{
 					Energy = energy;
+				}
+
+				energy = tag.GetInt("capacity");
+				if (energy > 0)
+				{
+					tankCapacity = energy;
 				}
 
 				energy = tag.GetInt("reserves");
@@ -735,6 +802,7 @@ namespace MetroidMod.Common.Players
 			boostEffect = 0;
 			EnergyTanks = 0;
 			Energy = 0;
+			tankCapacity = 0;
 		}
 
 		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
@@ -742,13 +810,17 @@ namespace MetroidMod.Common.Players
 			MPlayer clone = clientClone as MPlayer;
 
 			clone.statCharge = statCharge;
+			clone.hyperCharge = hyperCharge;
 			clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
 			clone.EnergyTanks = EnergyTanks;
 			clone.Energy = Energy;
+			clone.tankCapacity = tankCapacity;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
+			clone.PrimeHunter = PrimeHunter;
+			clone.canHyper = canHyper;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -757,32 +829,40 @@ namespace MetroidMod.Common.Players
 			packet.Write((byte)MetroidMessageType.SyncStartPlayerStats);
 			packet.Write((byte)Player.whoAmI);
 			packet.Write((double)statCharge);
+			packet.Write((double)hyperCharge);
 			packet.Write(spiderball);
 			packet.Write(boostEffect);
 			packet.Write(boostCharge);
 			packet.Write(EnergyTanks);
+			packet.Write(tankCapacity);
 			packet.Write(Energy);
 			packet.Write(SuitReserveTanks);
 			packet.Write(SuitReserves);
-			packet.Send(toWho, fromWho);
+			packet.Write(PrimeHunter);
+			packet.Write(canHyper);
+			packet.Send(toWho, fromWho); //to *whom*
 		}
 
 		public override void SendClientChanges(ModPlayer clientPlayer)
 		{
 			MPlayer clone = clientPlayer as MPlayer;
-			if (clone.statCharge != statCharge || clone.spiderball != spiderball || clone.boostEffect != boostEffect || clone.boostCharge != boostCharge)
+			if (clone.statCharge != statCharge || clone.spiderball != spiderball || clone.boostEffect != boostEffect || clone.boostCharge != boostCharge || clone.hyperCharge != hyperCharge)
 			{
 				ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 				packet.Write((byte)Player.whoAmI);
 				packet.Write((double)statCharge);
+				packet.Write((double)hyperCharge);
 				packet.Write(spiderball);
 				packet.Write(boostEffect);
 				packet.Write(boostCharge);
 				packet.Write(EnergyTanks);
+				packet.Write(tankCapacity);
 				packet.Write(Energy);
 				packet.Write(SuitReserveTanks);
 				packet.Write(SuitReserves);
+				packet.Write(PrimeHunter);
+				packet.Write(canHyper);
 				packet.Send();
 			}
 		}

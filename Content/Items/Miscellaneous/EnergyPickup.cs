@@ -29,7 +29,10 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		public override bool OnPickup(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.Energy += Item.stack;
+			if(!mp.PrimeHunter)
+			{
+				mp.Energy += Item.stack;
+			}
 			Terraria.Audio.SoundEngine.PlaySound(Sounds.Suit.EnergyPickup, player.position);
 			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.Magenta, Item.stack, false, false);
 			return false;

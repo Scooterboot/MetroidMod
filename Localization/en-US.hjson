@@ -53,6 +53,8 @@ Mods: {
 			"Power Bomb.DisplayName": Power  Bomb
 			"Show Visor UI.DisplayName": Show  Visor  U I
 			"Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
+			"Switch Interface.DisplayName": Switch  Interface
+			HyperMode.DisplayName: Hyper Mode
 		}
 
 		SuitAddonName: {
@@ -251,6 +253,22 @@ Mods: {
 			TorizoTrophyTile.MapEntry: Torizo Trophy
 			ZeroHusk.MapEntry: Zero Husk
 			ChozoStatueOrb.MapEntry: Chozo Statue Orb
+			NebulaAugmentTile.MapEntry: Nebula Augment Tile
+			LightSuitAddonTile.MapEntry: Light Suit Addon Tile
+			HazardShieldAddonTile.MapEntry: Hazard Shield Addon Tile
+			GravitySuitAddonTile.MapEntry: Gravity Suit Addon Tile
+			EnergyTankTile.MapEntry: Energy Tank Tile
+			DarkSuitAddonTile.MapEntry: Dark Suit Addon Tile
+			PEDSuitAddonTile.MapEntry: P E D Suit Addon Tile
+			PhazonSuitAddonTile.MapEntry: Phazon Suit Addon Tile
+			ReserveTankTile.MapEntry: Reserve Tank Tile
+			ScanVisorTile.MapEntry: Scan Visor Tile
+			SolarAugmentTile.MapEntry: Solar Augment Tile
+			TerraGravitySuitAddonTile.MapEntry: Terra Gravity Suit Addon Tile
+			VariaSuitAddonTile.MapEntry: Varia Suit Addon Tile
+			VariaSuitV2AddonTile.MapEntry: Varia Suit V2 Addon Tile
+			VortexAugmentTile.MapEntry: Vortex Augment Tile
+			XRayScopeTile.MapEntry: X Ray Scope Tile
 		}
 
 		Buffs: {
@@ -297,6 +315,11 @@ Mods: {
 			PhazonDebuff: {
 				DisplayName: Phazon Debuff
 				Description: Phazon is draining your life away!
+			}
+
+			PrimeHunterBuff: {
+				Description: Your reputation makes you a Prime target
+				DisplayName: Prime Hunter Buff
 			}
 		}
 
@@ -373,8 +396,9 @@ Mods: {
 				DisplayName: Life Reserve Tank MK5
 				Tooltip:
 					'''
-					Stores up to 5 hearts picked up when at full health
+					Stores up to 4 hearts picked up when at full health
 					Automatically uses the stored hearts to save you from death
+					Each heart is worth 5 more life
 					'''
 			}
 
@@ -467,6 +491,28 @@ Mods: {
 					Provides the ability to walk on water and lava 
 					Grants immunity to fire blocks and 7 seconds lava immunity
 					Increases jump height and prevents fall damage
+					'''
+			}
+
+			FrozenCore: {
+				DisplayName: Frozen Core
+				Tooltip: Reduces Overheat by 15%
+			}
+
+			SupercooledEmblem: {
+				Tooltip: Reduces overheat and increases damage by 15%
+				DisplayName: Supercooled Emblem
+			}
+
+			EnhancedCombatUnit: {
+				DisplayName: Enhanced Combat Unit
+				Tooltip:
+					'''
+					Reduces Overheat by 15%
+					10% increased Hunter damage and critical strike chance
+					Stores up to 4 hearts picked up when at full health
+					Automatically uses the stored hearts to save you from death
+					Each heart is worth 5 more life
 					'''
 			}
 
@@ -971,11 +1017,6 @@ Mods: {
 
 			EnergyShard: {
 				DisplayName: Energy Shard
-				Tooltip: ""
-			}
-
-			FrozenCore: {
-				DisplayName: Frozen Core
 				Tooltip: ""
 			}
 
@@ -2451,6 +2492,7 @@ Mods: {
 					'''
 					+9 defense
 					+15 overheat capacity
+					+2 energy tank capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
@@ -2518,6 +2560,7 @@ Mods: {
 					'''
 					+29 defense
 					+55 overheat capacity
+					+6 energy tank capacity
 					15% decreased overheat use
 					15% decreased Missile Charge Combo cost
 					15% increased hunter damage
@@ -2560,6 +2603,7 @@ Mods: {
 					'''
 					+19 defense
 					+30 overheat capacity
+					+4 energy tank capacity
 					10% decreased overheat use
 					10% decreased Missile Charge Combo cost
 					10% increased hunter damage
@@ -2667,6 +2711,7 @@ Mods: {
 					'''
 					+19 defense
 					+30 overheat capacity
+					+4 energy tank capacity
 					10% decreased overheat use
 					10% decreased Missile Charge Combo cost
 					10% increased hunter damage
@@ -2690,6 +2735,7 @@ Mods: {
 				Tooltip:
 					'''
 					+6 defense
+					+2 energy tank capacity
 					+15 overheat capacity
 					5% decreased overheat use
 					5% decreased Missile Charge Combo cost
@@ -2712,6 +2758,7 @@ Mods: {
 					'''
 					+15 defense
 					+30 overheat capacity
+					+4 energy tank capacity
 					15% decreased overheat use
 					10% decreased Missile Charge Combo cost
 					10% increased hunter damage
@@ -2723,6 +2770,7 @@ Mods: {
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
+					Enables the use of the Prime Hunter ability
 					Slot: Barrier
 					'''
 			}
@@ -2733,6 +2781,7 @@ Mods: {
 					'''
 					+29 defense
 					+55 overheat capacity
+					+6 energy tank capacity
 					15% decreased overheat use
 					15% decreased Missile Charge Combo cost
 					15% increased hunter damage
@@ -3320,6 +3369,7 @@ Mods: {
 			BombProjectile.DisplayName: Bomb Projectile
 			BetsyBombProjectile.DisplayName: Betsy Bomb Projectile
 			RamBall.DisplayName: Ram Ball
+			ChoziteShortswordStab.DisplayName: Chozite Shortsword
 		}
 
 		Configs: {

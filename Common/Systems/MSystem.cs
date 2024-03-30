@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.Players;
+using MetroidMod.Common.UI;
 using MetroidMod.Content.Items.Accessories;
 using MetroidMod.Content.Items.Addons;
 using MetroidMod.Content.Items.Addons.Hunters;
@@ -71,6 +72,8 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind PowerBombKey;
 		internal static ModKeybind VisorUIKey;
 		internal static ModKeybind BombKey;
+		internal static ModKeybind SwitchKey;
+		internal static ModKeybind HyperMode;
 
 		public static bool PhazonSpawn;
 
@@ -81,6 +84,8 @@ namespace MetroidMod.Common.Systems
 			PowerBombKey = KeybindLoader.RegisterKeybind(Mod, "Power Bomb", "Z");
 			VisorUIKey = KeybindLoader.RegisterKeybind(Mod, "Show Visor UI", "V");
 			BombKey = KeybindLoader.RegisterKeybind(Mod, "Morph Ball Bomb", "C");
+			SwitchKey = KeybindLoader.RegisterKeybind(Mod, "Switch Interface", "G");
+			HyperMode = KeybindLoader.RegisterKeybind(Mod, "HyperMode", "C");
 		}
 		public override void Unload()
 		{
@@ -615,8 +620,8 @@ namespace MetroidMod.Common.Systems
 
 					}
 				}));
-				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions", delegate (GenerationProgress progress, GameConfiguration configuration) {
-					progress.Message = "Placing Missile Expansions";
+				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions and Energy Tanks", delegate (GenerationProgress progress, GameConfiguration configuration) {
+					progress.Message = "Placing Missile Expansions and EnergyTanks";
 					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
 					{
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
@@ -631,7 +636,7 @@ namespace MetroidMod.Common.Systems
 							else
 							{
 								num3++;
-								if (num3 >= 10000)
+								if (num3 >= 15000)
 								{
 									flag = true;
 								}
@@ -653,7 +658,7 @@ namespace MetroidMod.Common.Systems
 			int item = ModContent.TileType<MorphBallTile>();
 			int baseX = Main.maxTilesX / 2;
 			int baseY = (int)GenVars.rockLayer;
-			WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 2 + MBAddonLoader.AddonCount + 35];
+			WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 5 + MBAddonLoader.AddonCount + 35];
 			int index = 0;
 			foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 			{
@@ -663,15 +668,16 @@ namespace MetroidMod.Common.Systems
 			{
 				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance(i, j)); }
 			}
-			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ShockCoilTile>(); }, 6);
+			/*list[index++] = new WeightedChance(() => { item = ModContent.TileType<ShockCoilTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<MagMaulTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<BattleHammerTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<VoltDriverTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ImperialistTile>(); }, 6);
-			list[index++] = new WeightedChance(() => { item = ModContent.TileType<JudicatorTile>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<JudicatorTile>(); }, 6);*/
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ChargeBeamTile>(); }, 24);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HiJumpBootsTile>(); }, 24);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamTile>(); }, 24);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HomingMissile>(); }, 4);
 			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
@@ -702,6 +708,7 @@ namespace MetroidMod.Common.Systems
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamGreenTile>(); }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamRedTile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpBootsTile>(); }, 4);
 			}
 			if (Main.hardMode || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
@@ -733,6 +740,7 @@ namespace MetroidMod.Common.Systems
 			if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<DiffusionMissile>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpTile>(); }, 4);
 			}
 			if (NPC.downedChristmasIceQueen || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
@@ -914,7 +922,7 @@ namespace MetroidMod.Common.Systems
 				if (num2 >= 2)// && !Main.tile[i, k - 1].HasTile && !Main.tile[i, k - 2].HasTile && !Main.tile[i, k - 3].HasTile && !Main.tile[i + 1, k - 1].HasTile && !Main.tile[i + 1, k - 2].HasTile && !Main.tile[i + 1, k - 3].HasTile && !Main.tile[i + 2, k - 1].HasTile && !Main.tile[i + 2, k - 2].HasTile && !Main.tile[i + 2, k - 3].HasTile)
 				{
 					int num = k - 1;
-					if (Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 1, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 2, num - 1].LiquidType == LiquidID.Lava)
+					if (Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 1, num - 1].LiquidType == LiquidID.Lava || Main.tile[i + 2, num - 1].LiquidType == LiquidID.Lava || Main.tile[i, num].LiquidType == LiquidID.Shimmer || Main.tile[i, num - 1].LiquidType == LiquidID.Shimmer)
 					{
 						return false;
 					}
@@ -1040,17 +1048,33 @@ namespace MetroidMod.Common.Systems
 			int k = j;
 			while (k < Main.maxTilesY)
 			{
-				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile)
+				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile && Main.tile[i, j].TileType != TileID.Cobweb)
 				{
 					int num = k - 1;
-					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava)
+					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i, num].LiquidType == LiquidID.Shimmer || Main.tile[i, num - 1].LiquidType == LiquidID.Shimmer)
 					{
 						return false;
 					}
 					Main.tile[i, k].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
 					Main.tile[i, k].Get<TileWallWireStateData>().IsHalfBlock = false;
 					Main.tile[i, num].Get<TileWallWireStateData>().HasTile = true;
-					Main.tile[i, num].Get<TileTypeData>().Type = (ushort)ModContent.TileType<MissileExpansionTile>();
+					ushort output = (ushort)ModContent.TileType<MissileExpansionTile>();
+					switch (Main.rand.Next(12))
+					{
+						case 0: 
+						case 1:
+						case 2: 
+						case 3: output = (ushort)ModContent.TileType<MissileExpansionTile>(); break;
+						case 4:
+						case 5: output = (ushort)SuitAddonLoader.GetAddon<EnergyTank>().TileType; break;
+						case 6: output = (ushort)ModContent.TileType<ImperialistTile>() ; break;
+						case 7: output = (ushort)ModContent.TileType<JudicatorTile>(); break;
+						case 8: output = (ushort)ModContent.TileType<MagMaulTile>(); break;
+						case 9: output = (ushort)ModContent.TileType<BattleHammerTile>(); break;
+						case 10: output = (ushort)ModContent.TileType<VoltDriverTile>(); break;
+						case 11: output = (ushort)ModContent.TileType<ShockCoilTile>(); break;
+					}
+					Main.tile[i, num].Get<TileTypeData>().Type = output;
 
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameX = 0;
 					Main.tile[i, num].Get<TileWallWireStateData>().TileFrameY = 0;

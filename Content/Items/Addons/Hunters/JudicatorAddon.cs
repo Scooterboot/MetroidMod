@@ -47,24 +47,13 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient<Addons.IceBeamAddon>(1)
-				.AddIngredient<Addons.PlasmaBeamRedAddon>(1)
-				.AddIngredient(ItemID.Amethyst, 30)
-				.AddTile(TileID.Hellforge)
+				.AddIngredient<Miscellaneous.ChoziteBar>(15)
+				.AddIngredient<Miscellaneous.EnergyShard>(2)
+				.AddIngredient(ItemID.Bone, 25)
+				.AddIngredient(ItemID.Amethyst, 1)
+				.AddIngredient(ItemID.IceBlock, 99)
+				.AddTile(TileID.Anvils)
 				.Register();
-
-			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.ChoziteBar>(30)
-				.AddIngredient<Miscellaneous.EnergyShard>(30)
-				.AddIngredient<Addons.IceBeamAddon>(1)
-				.AddIngredient<Addons.PlasmaBeamGreenAddon>(1)
-				.AddIngredient(ItemID.Amethyst, 30)
-				.AddTile(TileID.Hellforge)
-				.Register();
-
-
 		}
 	}
 }

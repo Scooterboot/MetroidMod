@@ -128,13 +128,6 @@ namespace MetroidMod.Common.Configs
 
 		[Header("[i:MetroidMod/PowerGripAddon]SuitAddons")]
 
-		//[Label("[i:MetroidMod/EnergyTankAddon] Energy Tank Stack")]
-		[Range(1, 14)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(10)]
-		public int stackEnergyTank;
-
 		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack")]
 		[Range(1, 10)]
 		[Increment(1)]

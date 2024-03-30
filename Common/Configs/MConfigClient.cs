@@ -100,17 +100,14 @@ namespace MetroidMod.Common.Configs
 			public bool fromLeft = true;
 			//[Label("X Displacement")]
 			public float locationX;
-			/*[Label("Measure Y from the top")]
-			[Tooltip("Measure Y Displacement from the top side of the screen.\n" +
-			"Default value: true")]*/
 			public bool fromTop = true;
 			//[Label("Y Displacement")]
 			public float locationY;
 
-			public override string ToString()
+			/*public override string ToString() //but y tho? Dr
 			{
 				return $"{enabled} {auto} {fromLeft} {locationX} {fromTop} {locationY}";
-			}
+			}*/
 
 			public override bool Equals(object obj)
 			{

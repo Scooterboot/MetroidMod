@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using MetroidMod.Common.Players;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.NPCs.Mobs.Metroid;
 using Microsoft.Xna.Framework;
+using rail;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -115,6 +117,15 @@ namespace MetroidMod.Common.GlobalNPCs
 
 		public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => target.TryGetModPlayer(out Players.MPlayer mp) && !(mp.screwAttack && mp.somersault);
 
+		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			if (mp.PrimeHunter)
+			{
+				spawnRate = (int)(spawnRate * 0.75); //it's truly bizarre how this has to be an inverse ~Dr
+			}
+			//base.EditSpawnRate(player, ref spawnRate, ref maxSpawns);
+		}
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
 			//Player player = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];

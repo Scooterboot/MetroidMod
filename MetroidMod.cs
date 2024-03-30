@@ -151,6 +151,10 @@ namespace MetroidMod
 					int energy = reader.ReadInt32();
 					int reserveTanks = reader.ReadInt32();
 					int reserve = reader.ReadInt32();
+					int capacity = reader.ReadInt32();
+					bool canHyper = reader.ReadBoolean();
+					int Hypercharge = reader.ReadInt32();
+					int pbCh = reader.ReadInt32();
 
 					targetPlayer.statCharge = (float)statCharge;
 					targetPlayer.spiderball = spiderBall;
@@ -160,6 +164,10 @@ namespace MetroidMod
 					targetPlayer.Energy = energy;
 					targetPlayer.SuitReserveTanks = reserveTanks;
 					targetPlayer.SuitReserves = reserve;
+					targetPlayer.tankCapacity = capacity;
+					targetPlayer.canHyper = canHyper;
+					targetPlayer.hyperCharge = Hypercharge;
+					targetPlayer.statPBCh = pbCh;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
@@ -174,6 +182,10 @@ namespace MetroidMod
 						packet.Write(energy);
 						packet.Write(reserveTanks);
 						packet.Write(reserve);
+						packet.Write(capacity);
+						packet.Write(canHyper);
+						packet.Write(Hypercharge);
+						packet.Write(pbCh);
 						packet.Send(-1, playerID);
 					}
 					break;

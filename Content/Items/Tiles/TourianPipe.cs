@@ -1,4 +1,6 @@
 ﻿using Terraria;
+﻿using MetroidMod.Content.Items.Walls;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,6 +26,27 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.TourianPipe>();
+		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(20)
+				.AddIngredient<ChoziteOre>(1)
+				.AddIngredient(ItemID.TitaniumOre, 1) //I'm making tourian pipes hardmode-exclusive because titanium makes the most sense as the alloy material
+				.AddIngredient(ItemID.StoneBlock, 20)
+				.AddTile(TileID.AdamantiteForge)
+				.Register();
+
+			CreateRecipe(20)
+				.AddIngredient<ChoziteOre>(1)
+				.AddIngredient(ItemID.AdamantiteOre, 1) //it makes more sense with titanium but rng exists
+				.AddIngredient(ItemID.StoneBlock, 20)
+				.AddTile(TileID.AdamantiteForge)
+				.Register();
+
+			CreateRecipe()
+				.AddIngredient<TourianWall>(4)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
 	}
 }

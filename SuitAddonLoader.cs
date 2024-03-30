@@ -168,6 +168,10 @@ namespace MetroidMod
 
 		public static void ArmorSetShadows(Player player)
 		{
+			if (player == null)
+			{
+				return;
+			}
 			Item[] items = (GetBreastplate(player, true).ModItem as PowerSuitBreastplate).SuitAddons;
 			ModSuitAddon[] suitAddons = new ModSuitAddon[items.Length];
 			for (int i = 0; i < items.Length; i++)

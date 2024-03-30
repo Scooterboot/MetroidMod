@@ -170,6 +170,8 @@ namespace MetroidMod
 
 		public override void SetStaticDefaults()
 		{
+			Main.tileSpelunker[TileType] = true;
+			Main.tileOreFinderPriority[Type] = 806;
 			base.SetStaticDefaults();
 		}
 
