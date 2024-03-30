@@ -64,6 +64,13 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			//BossBag = ModContent.ItemType<Items.Boss.GoldenTorizoBag>();
 			NPC.chaseable = false;
 		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
+		{
+			if (modifiers.DamageType == ModContent.GetContent<DamageClasses.HunterDamageClass>())
+			{
+				modifiers.FinalDamage *= 0.1f;
+			}
+		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
