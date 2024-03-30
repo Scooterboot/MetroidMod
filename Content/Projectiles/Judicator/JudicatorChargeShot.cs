@@ -24,6 +24,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		private Vector2 move;
 		public override void OnSpawn(IEntitySource source)
 		{
+			base.OnSpawn(source);
 			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
 			{
 				if (player.HeldItem.ModItem is PowerBeam hold)
@@ -50,7 +51,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				yeet = 12;
 			}
 			Projectile.timeLeft = Luminite ? 60 : 40;
-			base.OnSpawn(source);
 		}
 		public override void SetDefaults()
 		{
