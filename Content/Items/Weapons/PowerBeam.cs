@@ -1782,18 +1782,17 @@ namespace MetroidMod.Content.Items.Weapons
 							float dmgMult = 1f + (chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge;
 							double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
-							if (mp.statCharge >= (MPlayer.maxCharge * 0.5)) //todo disable shortcharge for mph weapons
+							if ((mp.statCharge >= (MPlayer.maxCharge * 0.5)&& !isHunter) || (mp.statCharge >= MPlayer.maxCharge && isHunter))
 							{
 								for (int i = 0; i < chargeShotAmt; i++)
 								{
-									//bool arrayDiff = (!BeamChange[10].IsAir || !BeamChange[11].IsAir) && slot1.type != ch;
 									int chargeProj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI, 0, i);
 									MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 									mProj.waveDir = waveDir;
 									mProj.shot = shotEffect.ToString();
 									mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9);
 									Main.projectile[chargeProj].netUpdate = true;
-									if (isChargeSpray && chargeShotAmt > 1)
+									if (isChargeSpray /*&& chargeShotAmt > 1*/)
 									{
 										Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
 										Main.projectile[chargeProj].velocity = newVelocity;
@@ -1807,7 +1806,7 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							else if (mp.statCharge > 0)
 							{
-								if (mp.statCharge >= 30 && mp.statCharge <= (MPlayer.maxCharge * 0.5))
+								if (mp.statCharge >= 30 && mp.statCharge <= (!isHunter ? MPlayer.maxCharge * 0.5 : MPlayer.maxCharge))
 								{
 									for (int i = 0; i < shotAmt; i++)
 									{

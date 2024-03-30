@@ -49,7 +49,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				Projectile.maxPenetrate = 12;
 				yeet = 12;
 			}
-			move = Projectile.velocity;
 			Projectile.timeLeft = Luminite ? 60 : 40;
 			base.OnSpawn(source);
 		}
@@ -77,6 +76,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			}
 			if (Projectile.timeLeft == (Luminite ? 60 : 40)) //shadowfreeze
 			{
+				move = Projectile.velocity;
 				Projectile.penetrate = -1;
 				if (shot.Contains("wave") || shot.Contains("nebula"))
 				{
