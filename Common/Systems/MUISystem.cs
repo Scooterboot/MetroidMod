@@ -8,6 +8,7 @@ using ReLogic.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.ResourceSets;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Map;
 using Terraria.ModLoader;
