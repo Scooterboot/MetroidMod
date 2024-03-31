@@ -128,7 +128,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (isHunter && Item.TryGetGlobalItem(out MGlobalItem pb))
 			{
-				return player.whoAmI == Main.myPlayer && Math.Floor(pb.statUA) > 0 && mp.statOverheat < mp.maxOverheat;
+				return player.whoAmI == Main.myPlayer && Math.Floor(pb.statUA) > 0 && mp.statOverheat < mp.maxOverheat &&pb.statUA >= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
 			}
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
 		}
@@ -399,6 +399,10 @@ namespace MetroidMod.Content.Items.Weapons
 			if (pb.statUA > pb.maxUA)
 			{
 				pb.statUA = pb.maxUA;
+			}
+			if(pb.statUA <= 0f)
+			{
+				pb.statUA = 0f;
 			}
 			int versionType = 1;
 			float GetCharge()
@@ -1661,7 +1665,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			waveDir *= -1;
 
-			mp.statOverheat += !isHunter && AmmoUse(player)? (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0) : 0;
+			mp.statOverheat += !isHunter?  (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0) : 0;
 			mp.overheatDelay = (int)Math.Max(useTime - 10, 2);
 			/* Sound & Sound Networking */
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
@@ -1673,7 +1677,6 @@ namespace MetroidMod.Content.Items.Weapons
 				packet.Write(shotSound);
 				packet.Send();
 			}
-
 			// Play the shot sound for the local player.
 			if (!isPhazon)
 			{
@@ -1803,7 +1806,7 @@ namespace MetroidMod.Content.Items.Weapons
 									MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 									mProj.waveDir = waveDir;
 									mProj.shot = shotEffect.ToString();
-									mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9);
+									mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9) && (Lum || Diff);
 									Main.projectile[chargeProj].netUpdate = true;
 									if (isChargeSpray /*&& chargeShotAmt > 1*/)
 									{
@@ -1815,7 +1818,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 								mp.statOverheat += AmmoUse(player)? (int)(oHeat * chargeCost) : 0;
 								mp.overheatDelay = (int)useTime - 10;
-								pb.statUA -= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
+								pb.statUA -= AmmoUse(player) ? BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost : 0;
 							}
 							else if (mp.statCharge > 0)
 							{
@@ -1858,7 +1861,8 @@ namespace MetroidMod.Content.Items.Weapons
 					mp.overheatDelay = (int)cooldown / 3;
 					if (cooldown <= 0)
 					{
-						mp.statOverheat += AmmoUse(player)? (oHeat - 1) : 0;
+						pb.statUA -= AmmoUse(player) ? (oHeat - 1) : 0; ;
+						//mp.statOverheat += AmmoUse(player)? (oHeat - 1) : 0;
 						cooldown = (int)useTime;
 					}
 				}
@@ -1882,6 +1886,34 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
 					player.GetCritChance(damageClass) += (int)impStealth / (Lum ? 3f : Diff ? 5f : 10f);
+				}
+				if (isHunter && pb.statUA < BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost && player.controlUseItem)
+				{
+					if (!BeamChange[11].IsAir)
+					{
+						BeamMods[0].type = ModContent.ItemType<Addons.V3.LuminiteBeamAddon>();
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;// MConfigItems.Instance.damagePowerBeam;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageLuminiteBeam;
+						//hunterDmg = 0f;
+						//isHunter = false;
+					}
+					else if (!BeamChange[10].IsAir)
+					{
+						BeamMods[0].type = ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>();
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;// MConfigItems.Instance.damagePowerBeam;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageChargeBeamV2;
+						//isHunter = false;
+					}
+					else if (!BeamChange[0].IsAir)
+					{
+						BeamMods[0].type = ModContent.ItemType<Addons.ChargeBeamAddon>();
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageChargeBeam;
+						//isHunter = false;
+					}
 				}
 			}
 		}

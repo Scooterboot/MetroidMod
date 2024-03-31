@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using MetroidMod.Common.Configs;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
@@ -70,7 +71,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				if (player.HeldItem.ModItem is PowerBeam hold)
 				{
 					shot = hold.shotEffect.ToString();
-					//shots = hold.shotAmt;
+
 				}
 			}
 			dmg = Projectile.damage;
@@ -271,7 +272,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						amp[i] -= 3;
 					}
 				}
-				if (mp.statOverheat >= mp.maxOverheat)
+				if (mp.statOverheat >= mp.maxOverheat || O.HeldItem.GetGlobalItem<MGlobalItem>().statUA <= 0f)
 				{
 					P.Kill();
 					mp.statCharge = 0;
@@ -409,7 +410,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			double damaage = Math.Clamp(mp.statCharge / MPlayer.maxCharge * ranges + minDamage, minDamage, maxDamage);
 			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
-			mp.statOverheat += mp.overheatCost; // /shots;
+			//mp.statOverheat += mp.overheatCost; // /shots;
 			mp.statCharge = Math.Min(mp.statCharge + 2, MPlayer.maxCharge);
 			if (mp.Energy < mp.MaxEnergy && !mp.PrimeHunter && (Luminite || DiffBeam))
 			{

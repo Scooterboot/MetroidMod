@@ -284,7 +284,7 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.75f)]
+		[DefaultValue(0.4f)]
 		public float damageIceBeam;
 
 		//[Label("[i:MetroidMod/IceBeamAddon] Ice Beam Overheat Multiplier")]
@@ -298,21 +298,21 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 0.3f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(-0.3f)]
+		[DefaultValue(-0.1f)]
 		public float speedIceBeam;
 
 		//[Label("[i:MetroidMod/WaveBeamAddon] Wave Beam Damage Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.5f)]
+		[DefaultValue(0.25f)]
 		public float damageWaveBeam;
 
 		//[Label("[i:MetroidMod/WaveBeamAddon] Wave Beam Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.5f)]
+		[DefaultValue(0.25f)]
 		public float overheatWaveBeam;
 
 		//[Label("[i:MetroidMod/WaveBeamAddon] Wave Beam Speed Multiplier")]
@@ -326,35 +326,35 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.25f)]
+		[DefaultValue(0.10f)]
 		public float damageSpazer;
 
 		//[Label("[i:MetroidMod/SpazerAddon] Spazer Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.5f)]
+		[DefaultValue(0.3f)]
 		public float overheatSpazer;
 
 		//[Label("[i:MetroidMod/SpazerAddon] Spazer Speed Multiplier")]
 		[Range(-0.5f, 0.3f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.15f)]
+		[DefaultValue(0.10f)]
 		public float speedSpazer;
 
 		//[Label("[i:MetroidMod/PlasmaBeamGreenAddon] Plasma Beam (Green) Damage Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(1f)]
+		[DefaultValue(0.5f)]
 		public float damagePlasmaBeamGreen;
 
 		//[Label("[i:MetroidMod/PlasmaBeamGreenAddon] Plasma Beam (Green) Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.75f)]
+		[DefaultValue(0.4f)]
 		public float overheatPlasmaBeamGreen;
 
 		//[Label("[i:MetroidMod/PlasmaBeamGreenAddon] Plasma Beam (Green) Speed Multiplier")]
@@ -368,14 +368,14 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(1f)]
+		[DefaultValue(0.5f)]
 		public float damagePlasmaBeamRed;
 
 		//[Label("[i:MetroidMod/PlasmaBeamRedAddon] Plasma Beam (Red) Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.75f)]
+		[DefaultValue(0.4f)]
 		public float overheatPlasmaBeamRed;
 
 		//[Label("[i:MetroidMod/PlasmaBeamRedAddon] Plasma Beam (Red) Speed Multiplier")]
@@ -405,14 +405,14 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(1f)]
+		[DefaultValue(0.5f)]
 		public float damageWideBeam;
 
 		//[Label("[i:MetroidMod/WideBeamAddon] Wide Beam Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.75f)]
+		[DefaultValue(0.4f)]
 		public float overheatWideBeam;
 
 		//[Label("[i:MetroidMod/WideBeamAddon] Wide Beam Speed Multiplier")]
@@ -426,14 +426,14 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(2.25f)]
+		[DefaultValue(1.13f)]
 		public float damageIceBeamV2;
 
 		//[Label("[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.5f)]
+		[DefaultValue(0.25f)]
 		public float overheatIceBeamV2;
 
 		//[Label("[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Speed Multiplier")]
@@ -447,14 +447,14 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(1.25f)]
+		[DefaultValue(0.65f)]
 		public float damageWaveBeamV2;
 
 		//[Label("[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.75f)]
+		[DefaultValue(0.4f)]
 		public float overheatWaveBeamV2;
 
 		//[Label("[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Speed Multiplier")]
@@ -468,7 +468,7 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(2.25f)]
+		[DefaultValue(1.13f)]
 		public float damageNovaBeam;
 
 		//[Label("[i:MetroidMod/NovaBeamAddon] Nova Beam Overheat Multiplier")]
@@ -505,7 +505,7 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(2.25f)]
+		[DefaultValue(1.13f)]
 		public float damageNebulaBeam;
 
 		//[Label("[i:MetroidMod/NebulaBeamAddon] Nebula Beam Overheat Multiplier")]
@@ -526,14 +526,14 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(3f)]
+		[DefaultValue(1.5f)]
 		public float damageSolarBeam;
 
 		//[Label("[i:MetroidMod/SolarBeamAddon] Solar Beam Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(1.5f)]
+		[DefaultValue(0.75f)]
 		public float overheatSolarBeam;
 
 		//[Label("[i:MetroidMod/SolarBeamAddon] Solar Beam Speed Multiplier")]
@@ -547,14 +547,14 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(2.6f)]
+		[DefaultValue(1.3f)]
 		public float damageStardustBeam;
 
 		//[Label("[i:MetroidMod/StardustBeamAddon] Stardust Beam Overheat Multiplier")]
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(0.5f)]
+		[DefaultValue(0.25f)]
 		public float overheatStardustBeam;
 
 		//[Label("[i:MetroidMod/StardustBeamAddon] Stardust Beam Speed Multiplier")]
@@ -568,7 +568,7 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 4f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(1.5f)]
+		[DefaultValue(0.75f)]
 		public float damageVortexBeam;
 
 		//[Label("[i:MetroidMod/VortexBeamAddon] Vortex Beam Overheat Multiplier")]

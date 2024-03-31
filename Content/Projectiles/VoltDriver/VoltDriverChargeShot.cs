@@ -13,13 +13,14 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void SetDefaults()
 		{
-			base.SetDefaults();
 			Projectile.width = 32;
 			Projectile.height = 32;
 			Projectile.scale = 1f;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
 			Projectile.penetrate = 1;
+			Projectile.extraUpdates = 0;
+			base.SetDefaults();
 		}
 
 		public override void AI()
@@ -29,7 +30,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 				Projectile.tileCollide = false;
 				mProjectile.WaveBehavior(Projectile);
 			}
-			int shootSpeed = Luminite ? 4 : 2;
+			float shootSpeed = Luminite ? 4f : 2f;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Projectile.numUpdates == 0)
@@ -43,10 +44,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			}
 			int dustType = 269;
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
-			if(Luminite || DiffBeam)
-			{
-				mProjectile.HomingBehavior(Projectile, shootSpeed);
-			}
+			mProjectile.HomingBehavior(Projectile, shootSpeed, 11f, !DiffBeam && !Luminite ? 0f : 300f);
 			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269, 0, 0, 100, default(Color), Projectile.scale);
 			Main.dust[dust].noGravity = true;
 		}
