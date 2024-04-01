@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		{
 			// DisplayName.SetDefault("UA Pickup");
 			ItemID.Sets.ItemNoGravity[Type] = true;
-			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 4));
+			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 6));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;	
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 		}

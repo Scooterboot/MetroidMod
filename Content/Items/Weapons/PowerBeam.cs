@@ -1083,7 +1083,7 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeTex = "ChargeLead_Ice";
 					useTime = MConfigItems.Instance.useTimeJudicator;
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-					mItem.addonChargeDmg = GetCharge();
+					mItem.addonChargeDmg = Lum || Diff ? GetCharge() : 1f;
 					//mItem.addonChargeHeat = GetHeat();
 					if (shotAmt > 1)
 					{
