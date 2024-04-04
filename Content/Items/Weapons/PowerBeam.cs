@@ -317,20 +317,6 @@ namespace MetroidMod.Content.Items.Weapons
 		private readonly int oc = ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>();
 
 		//Mod modBeamTextureMod = null;
-		public bool AmmoUse(Player player) //really lazy ammo reservation --Dr
-		{
-			bool one = player.ammoBox || player.ammoPotion;
-			bool both = player.ammoBox && player.ammoPotion;
-			if (one && !both && Main.rand.NextBool(5))
-			{
-				return false;
-			}
-			if (both && Main.rand.NextBool(4))
-			{
-				return false;
-			}
-			return true;
-		}
 		public override void UpdateInventory(Player P)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>();
@@ -1580,20 +1566,6 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
 		}
-		public bool HeatUse(Player player) //really lazy ammo reservation --Dr
-		{
-			bool one = player.ammoBox || player.ammoPotion;
-			bool both = player.ammoBox && player.ammoPotion;
-			if (one && !both && Main.rand.NextBool(5))
-			{
-				return false;
-			}
-			if (both && Main.rand.NextBool(4))
-			{
-				return false;
-			}
-			return true;
-		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -1665,7 +1637,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			waveDir *= -1;
 
-			mp.statOverheat += !isHunter?  (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0) : 0;
+			mp.statOverheat += !isHunter?  (int)(pb.AmmoUse(player) ? (overheat * mp.overheatCost) : 0) : 0;
 			mp.overheatDelay = (int)Math.Max(useTime - 10, 2);
 			/* Sound & Sound Networking */
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
@@ -1683,7 +1655,7 @@ namespace MetroidMod.Content.Items.Weapons
 				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), player.position);
 			}
 			// Does UA math, and doesn't subtract for normal shots (they have cost set to 0)
-			pb.statUA -= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
+			pb.statUA -= pb.AmmoUse(player)? BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost : 0;
 			return false;
 		}
 		public override void HoldItem(Player player)
@@ -1711,7 +1683,7 @@ namespace MetroidMod.Content.Items.Weapons
 						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
 					}
 				}
-				int oHeat = (int)(HeatUse(player) ? (overheat * mp.overheatCost) : 0);
+				int oHeat = (int)(pb.AmmoUse(player) ? (overheat * mp.overheatCost) : 0);
 				if (slot4.type == vt && comboError3 != true)
 				{
 					shotEffect += "vortex";
@@ -1816,9 +1788,9 @@ namespace MetroidMod.Content.Items.Weapons
 								}
 								SoundEngine.PlaySound(new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}"), oPos);
 
-								mp.statOverheat += AmmoUse(player)? (int)(oHeat * chargeCost) : 0;
+								mp.statOverheat += pb.AmmoUse(player)? (int)(oHeat * chargeCost) : 0;
 								mp.overheatDelay = (int)useTime - 10;
-								pb.statUA -= AmmoUse(player) ? BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost : 0;
+								pb.statUA -= pb.AmmoUse(player) ? BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost : 0;
 							}
 							else if (mp.statCharge > 0)
 							{
@@ -1840,7 +1812,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 									SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
 
-									mp.statOverheat += AmmoUse(player)? oHeat : 0;
+									mp.statOverheat += pb.AmmoUse(player)? oHeat : 0;
 									mp.overheatDelay = (int)useTime - 10;
 								}
 							}
@@ -1861,7 +1833,7 @@ namespace MetroidMod.Content.Items.Weapons
 					mp.overheatDelay = (int)cooldown / 3;
 					if (cooldown <= 0)
 					{
-						pb.statUA -= AmmoUse(player) ? (oHeat - 1) : 0; ;
+						pb.statUA -= pb.AmmoUse(player) ? (oHeat - 1) : 0;
 						//mp.statOverheat += AmmoUse(player)? (oHeat - 1) : 0;
 						cooldown = (int)useTime;
 					}

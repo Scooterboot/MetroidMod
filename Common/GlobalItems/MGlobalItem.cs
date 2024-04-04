@@ -48,6 +48,17 @@ namespace MetroidMod.Common.GlobalItems
 		public override bool InstancePerEntity => true;
 		protected override bool CloneNewInstances => true;
 
+		public bool AmmoUse(Player player)
+		{
+			if ((player.huntressAmmoCost90 && Main.rand.NextBool(10)) || (player.ammoBox && Main.rand.NextBool(5)) || (player.ammoPotion && Main.rand.NextBool(5)) || (player.ammoCost80 && Main.rand.NextBool(5)) || (player.ammoCost75 && Main.rand.NextBool(4)))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{
 			MGlobalItem other = (MGlobalItem)MemberwiseClone();
