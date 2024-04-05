@@ -821,6 +821,7 @@ namespace MetroidMod.Common.Players
 			clone.SuitReserves = SuitReserves;
 			clone.PrimeHunter = PrimeHunter;
 			clone.canHyper = canHyper;
+			clone.morphBall = morphBall;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -840,6 +841,7 @@ namespace MetroidMod.Common.Players
 			packet.Write(SuitReserves);
 			packet.Write(PrimeHunter);
 			packet.Write(canHyper);
+			packet.Write(morphBall);
 			packet.Send(toWho, fromWho); //to *whom*
 		}
 
@@ -863,6 +865,7 @@ namespace MetroidMod.Common.Players
 				packet.Write(SuitReserves);
 				packet.Write(PrimeHunter);
 				packet.Write(canHyper);
+				packet.Write(morphBall);
 				packet.Send();
 			}
 		}
