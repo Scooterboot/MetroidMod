@@ -795,6 +795,7 @@ namespace MetroidMod.Common.Players
 		{
 			oldPos = new Vector2[oldNumMax];
 
+			PrimeHunter = false;
 			spiderball = false;
 
 			statCharge = 0;
