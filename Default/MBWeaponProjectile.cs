@@ -171,7 +171,7 @@ namespace MetroidMod.Default
 					}
 				}
 			}
-			foreach (NPC target in Main.npc)
+			/*foreach (NPC target in Main.npc) //lags to high hell
 			{
 				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
 				{
@@ -179,7 +179,7 @@ namespace MetroidMod.Default
 					Projectile.usesLocalNPCImmunity = true;
 					Projectile.localNPCHitCooldown = 1;
 				}
-			}
+			}*/
 			SoundEngine.PlaySound(Sounds.Suit.BombExplode, Projectile.Center);
 
 			int dustType = 59, dustType2 = 61;

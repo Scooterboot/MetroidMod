@@ -107,7 +107,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Main.dust[num72].noGravity = true;
 			}
 			Projectile.Damage();
-			foreach (NPC target in Main.npc)
+			/*foreach (NPC target in Main.npc)
 			{
 				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
 				{
@@ -115,7 +115,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 					Projectile.usesLocalNPCImmunity = true;
 					Projectile.localNPCHitCooldown = 1;
 				}
-			}
+			}*/
 		}
 
 		public override bool PreDraw(ref Color lightColor)
