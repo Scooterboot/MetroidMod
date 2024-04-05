@@ -153,6 +153,7 @@ namespace MetroidMod
 					bool canHyper = reader.ReadBoolean();
 					int Hypercharge = reader.ReadInt32();
 					int pbCh = reader.ReadInt32();
+					bool PH = reader.ReadBoolean();
 
 					targetPlayer.statCharge = (float)statCharge;
 					targetPlayer.spiderball = spiderBall;
@@ -166,6 +167,7 @@ namespace MetroidMod
 					targetPlayer.canHyper = canHyper;
 					targetPlayer.hyperCharge = Hypercharge;
 					targetPlayer.statPBCh = pbCh;
+					targetPlayer.PrimeHunter = PH;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
@@ -184,6 +186,7 @@ namespace MetroidMod
 						packet.Write(canHyper);
 						packet.Write(Hypercharge);
 						packet.Write(pbCh);
+						packet.Write(PH);
 						packet.Send(-1, playerID);
 					}
 					break;
