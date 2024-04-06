@@ -47,7 +47,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.height *= 75;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-			foreach (NPC target in Main.npc)
+			foreach (NPC target in Main.npc) //this is laggy and inneficient, probably
 			{
 				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
 				{
