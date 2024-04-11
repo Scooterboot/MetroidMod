@@ -115,7 +115,7 @@ namespace MetroidMod.Common.Players
 		{
 			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
 			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
-			Energy = Math.Max(1, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
+			Energy = Math.Max(0, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
 		}
 		public override void OnRespawn()
 		{
