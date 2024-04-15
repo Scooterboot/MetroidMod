@@ -539,6 +539,7 @@ Mods: {
 					[c/78BE78:+100% damage]
 					[c/78BE78:+50% knockback]
 					[c/BE7878:-40% speed]
+					[c/BE7878:+50% overheat use]
 					[c/BE7878:Cannot pierce walls or enemies]
 					Blast radius and armor penetration increases with affinity
 					Array slot 7
@@ -554,6 +555,7 @@ Mods: {
 					Uses UA reserves
 					[c/78BE78:+500% damage]
 					[c/78BE78:Adds scope and, with affinity, stealth]
+					[c/BE7878:+250% overheat use]
 					[c/78BE78:Damage and Crit scale with Stealth]
 					[c/BE7878:Massive speed reduction]
 					Array slot 4
@@ -572,6 +574,7 @@ Mods: {
 					Affinity Can shadowfreeze, but otherwise cannot pierce tiles
 					Non-affinity charge shots fire extra shots
 					[c/78BE78:+100% damage]
+					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
 					Array slot 5
 					'''
@@ -587,6 +590,7 @@ Mods: {
 					Affinity Charge shots ignite
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
+					[c/BE7878:+75% overheat use]
 					[c/BE7878:Cannot freeze or pierce]
 					Array slot 3
 					'''
@@ -634,6 +638,7 @@ Mods: {
 					Slot Type: Charge
 					Affinity Charge shots home, explode, and confuse
 					[c/78BE78:+60% damage]
+					[c/BE7878:+50% overheat use]
 					[c/BE7878:-10% speed]
 					[c/BE7878:+10% noise]
 					Array slot 2
@@ -665,8 +670,8 @@ Mods: {
 					Shots freeze enemies
 					Each time the enemy is shot, they will become 20% slower
 					After 5 shots the enemy will become completely frozen
-					[c/78BE78:+38% damage]
-					[c/BE7878:+13% overheat use]
+					[c/78BE78:+40% damage]
+					[c/BE7878:+25% overheat use]
 					[c/BE7878:-30% speed]
 					'''
 			}
@@ -696,7 +701,7 @@ Mods: {
 					Slot Type: Primary B
 					Shots pierce enemies
 					[c/78BE78:+50% damage]
-					[c/BE7878:+38% overheat use]
+					[c/BE7878:+40% overheat use]
 					[c/BE7878:-15% speed]
 					'''
 			}
@@ -710,7 +715,7 @@ Mods: {
 					Slot Type: Primary B
 					Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed
 					[c/78BE78:+50% damage]
-					[c/BE7878:+38% overheat use]
+					[c/BE7878:+75% overheat use]
 					[c/BE7878:-15% speed]
 					'''
 			}
@@ -722,8 +727,8 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Primary A
 					Beam fires 3 shots at once, effectively tripling its damage
-					[c/78BE78:+13% damage]
-					[c/BE7878:+25% overheat use]
+					[c/78BE78:+15% damage]
+					[c/BE7878:+50% overheat use]
 					[c/78BE78:+15% speed]
 					'''
 			}
@@ -752,8 +757,8 @@ Mods: {
 					Shots freeze enemies 
 					Each time the enemy is shot, they will become 20% slower 
 					After 5 shots the enemy will become completely frozen 
-					[c/78BE78:+113% damage]
-					[c/BE7878:+25% overheat use]
+					[c/78BE78:+115% damage]
+					[c/BE7878:+50% overheat use]
 					[c/BE7878:-30% speed]
 					'''
 			}
@@ -766,8 +771,8 @@ Mods: {
 					Slot Type: Primary B 
 					Shots pierce enemies 
 					Shots set enemies ablaze with Cursed Fire, or Frost Burns them if Ice Beam is installed 
-					[c/78BE78:+113% damage]
-					[c/BE7878:+50% overheat use]
+					[c/78BE78:+115% damage]
+					[c/BE7878:+100% overheat use]
 					[c/BE7878:-15% speed]
 					'''
 			}
@@ -779,8 +784,8 @@ Mods: {
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Utility
 					Shots penetrate terrain by an extended depth
-					[c/78BE78:+63% damage]
-					[c/BE7878:+38% overheat use]
+					[c/78BE78:+65% damage]
+					[c/BE7878:+75% overheat use]
 					'''
 			}
 
@@ -792,7 +797,7 @@ Mods: {
 					Slot Type: Primary A
 					Beam fires 3 shots at once, effectively tripling its damage
 					[c/78BE78:+50% damage]
-					[c/BE7878:+38% overheat use]
+					[c/BE7878:+75% overheat use]
 					[c/78BE78:+15% speed]
 					'''
 			}
@@ -820,8 +825,8 @@ Mods: {
 					Slot Type: Utility
 					Shots penetrate terrain by an extended depth
 					Shots home in on enemies
-					[c/78BE78:+113% damage]
-					[c/BE7878:+50% overheat use]
+					[c/78BE78:+115% damage]
+					[c/BE7878:+100% overheat use]
 					'''
 			}
 
@@ -834,7 +839,7 @@ Mods: {
 					Shots pierce enemies 
 					Shots set enemies ablaze with the Daybroken debuff 
 					[c/78BE78:+150% damage]
-					[c/BE7878:+75% overheat use]
+					[c/BE7878:+150% overheat use]
 					[c/BE7878:-15% speed]
 					'''
 			}
@@ -849,7 +854,7 @@ Mods: {
 					Each time the enemy is shot, they will become 20% slower 
 					After 5 shots the enemy will become completely frozen 
 					[c/78BE78:+130% damage]
-					[c/BE7878:+25% overheat use]
+					[c/BE7878:+50% overheat use]
 					[c/BE7878:-30% speed]
 					'''
 			}
@@ -862,7 +867,7 @@ Mods: {
 					Slot Type: Primary A
 					Beam fires 5 shots at once
 					[c/78BE78:+75% damage]
-					[c/BE7878:+50% overheat use]
+					[c/BE7878:+100% overheat use]
 					[c/78BE78:+25% speed]
 					'''
 			}
@@ -875,7 +880,7 @@ Mods: {
 					Slot Type: Utility
 					Shots penetrate terrain by a limited depth
 					[c/78BE78:+25% damage]
-					[c/BE7878:+25% overheat use]
+					[c/BE7878:+50% overheat use]
 					'''
 			}
 

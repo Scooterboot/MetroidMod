@@ -726,7 +726,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else
 			{
-				mi.statMissiles -= mi.AmmoUse(player)? 1 : 0;
+				mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1));
 				SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), player.position);
 			}
 			return true;
@@ -762,7 +762,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 				}
 
-				int chCost = (int)(mi.AmmoUse(player) ? (chargeCost * (mp.missileCost + 0.001f)) : 0);
+				int chCost = (int)Math.Round(MGlobalItem.AmmoUsage(player,chargeCost * (mp.missileCost + 0.001f)));
 				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
 				isCharge &= (mi.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
 
@@ -845,7 +845,7 @@ namespace MetroidMod.Content.Items.Weapons
 											//if(comboCostTime <= 0)
 											if (comboCostTime > comboCostUseTime)
 											{
-												mi.statMissiles = Math.Max(mi.statMissiles -= mi.AmmoUse(player) ? 1 : 0,0);
+												mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player,1)),0);
 												//comboCostTime = comboCostUseTime;
 												comboCostTime = 0;
 											}
@@ -896,7 +896,7 @@ namespace MetroidMod.Content.Items.Weapons
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 										mProj.homing = true;
 										mProj.Projectile.netUpdate2 = true;
-										mi.statMissiles = Math.Max(mi.statMissiles -= mi.AmmoUse(player) ? 1 : 0, 0);
+										mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
 									}
 									else
 									{
@@ -909,7 +909,7 @@ namespace MetroidMod.Content.Items.Weapons
 								{
 									var entitySource = player.GetSource_ItemUse(Item);
 									int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
-									mi.statMissiles -= 1;
+									mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1));
 								}
 							}
 
@@ -1044,7 +1044,7 @@ namespace MetroidMod.Content.Items.Weapons
 									mProj.seekTarget = mi.seekerTarget[i];
 									mProj.seeking = true;
 									mProj.Projectile.netUpdate2 = true;
-									mi.statMissiles = Math.Max(mi.statMissiles -= mi.AmmoUse(player) ? 1 : 0, 0);
+									mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
 								}
 							}
 

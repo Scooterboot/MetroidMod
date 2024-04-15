@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.beamSlotType = BeamChangeSlotID.VoltDriver;
-			mItem.addonUACost = 1f;// 400f / 120f;
+			mItem.addonUACost = 1;// 400f / 120f;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVoltDriver;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriver;
 		}

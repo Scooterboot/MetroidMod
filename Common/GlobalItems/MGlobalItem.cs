@@ -24,7 +24,7 @@ namespace MetroidMod.Common.GlobalItems
 		/// <summary>
 		/// How much universal ammo to use per normal shot (NOT A PERCENTAGE)
 		/// </summary>
-		public float addonUACost = 0;
+		public int addonUACost = 0;
 
 		public int missileSlotType = -1;
 
@@ -33,7 +33,7 @@ namespace MetroidMod.Common.GlobalItems
 		#endregion
 
 		// float because funi - ChaosInsurgent49
-		public float statUA = 40;
+		public int statUA = 40;
 		public int maxUA = 400;
 		public int statMissiles = 5;
 		public int maxMissiles = 5;
@@ -48,15 +48,15 @@ namespace MetroidMod.Common.GlobalItems
 		public override bool InstancePerEntity => true;
 		protected override bool CloneNewInstances => true;
 
-		public bool AmmoUse(Player player)
+		public static float AmmoUsage(Player player, float cost)
 		{
 			if ((player.huntressAmmoCost90 && Main.rand.NextBool(10)) || (player.ammoBox && Main.rand.NextBool(5)) || (player.ammoPotion && Main.rand.NextBool(5)) || (player.ammoCost80 && Main.rand.NextBool(5)) || (player.ammoCost75 && Main.rand.NextBool(4)))
 			{
-				return false;
+				return Main.rand.NextFloat(cost);
 			}
 			else
 			{
-				return true;
+				return cost;
 			}
 		}
 		public override GlobalItem Clone(Item item, Item itemClone)
