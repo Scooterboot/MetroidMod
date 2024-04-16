@@ -487,13 +487,11 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot4.type != wi && slot3.type == wa2)
 				{
 					shotAmt = 2;
-					//shocky = 2;
 					chargeShotAmt = 2;
 				}
 				if (slot4.type == wi)
 				{
 					shotAmt = 3;
-					//shocky = 3;
 					chargeShotAmt = 3;
 				}
 			}
@@ -1655,7 +1653,10 @@ namespace MetroidMod.Content.Items.Weapons
 				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), player.position);
 			}
 			// Does UA math, and doesn't subtract for normal shots (they have cost set to 0)
-			pb.statUA -= (int)Math.Round(MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost));//pb.AmmoUse(player)? BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost : 0;
+			if(!isShock)
+			{
+				pb.statUA -= (float)Math.Round(MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost));
+			}
 			return false;
 		}
 		public override void HoldItem(Player player)
@@ -1790,7 +1791,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 								mp.statOverheat += MGlobalItem.AmmoUsage(player, oHeat * mp.overheatCost);
 								mp.overheatDelay = (int)useTime - 10;
-								pb.statUA -= (int)Math.Round(MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost));
+								pb.statUA -= (float)Math.Round(MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost));
 							}
 							else if (mp.statCharge > 0)
 							{
@@ -1827,14 +1828,17 @@ namespace MetroidMod.Content.Items.Weapons
 						mp.statCharge = 0;
 					}
 				}
-				if (isShock && player.controlUseItem && mp.statOverheat < mp.maxOverheat && mp.statCharge >= MPlayer.maxCharge)
+				if (isShock && player.controlUseItem && mp.statOverheat < mp.maxOverheat)
 				{
 					cooldown--;
 					mp.overheatDelay = (int)cooldown / 3;
 					if (cooldown <= 0)
 					{
-						pb.statUA -= (int)Math.Round(MGlobalItem.AmmoUsage(player, oHeat));
-						mp.statOverheat += MGlobalItem.AmmoUsage(player, oHeat);
+						pb.statUA -= (float)Math.Round(MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost));
+						if (mp.statCharge >= MPlayer.maxCharge)
+						{
+							mp.statOverheat += MGlobalItem.AmmoUsage(player, oHeat);
+						}
 						cooldown = (int)useTime;
 					}
 				}

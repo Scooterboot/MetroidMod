@@ -40,7 +40,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.beamSlotType = BeamChangeSlotID.MagMaul;
-			mItem.addonUACost = 1;// 400f / 60f;
+			mItem.addonUACost = 400f / 60f;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageMagMaul;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatMagMaul;
 		}

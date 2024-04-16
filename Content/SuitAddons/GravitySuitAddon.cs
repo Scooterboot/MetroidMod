@@ -1,4 +1,5 @@
-﻿using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -65,6 +66,8 @@ namespace MetroidMod.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
+			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+			mItem.addonUACost *= 0.95f;
 			mp.breathMult = 2;
 			mp.EnergyDefenseEfficiency += 0.15f;
 			mp.EnergyExpenseEfficiency += 0.075f;

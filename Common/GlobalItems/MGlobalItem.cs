@@ -24,7 +24,7 @@ namespace MetroidMod.Common.GlobalItems
 		/// <summary>
 		/// How much universal ammo to use per normal shot (NOT A PERCENTAGE)
 		/// </summary>
-		public int addonUACost = 0;
+		public float addonUACost = 0f;
 
 		public int missileSlotType = -1;
 
@@ -33,7 +33,7 @@ namespace MetroidMod.Common.GlobalItems
 		#endregion
 
 		// float because funi - ChaosInsurgent49
-		public int statUA = 40;
+		public float statUA = 40f;
 		public int maxUA = 400;
 		public int statMissiles = 5;
 		public int maxMissiles = 5;

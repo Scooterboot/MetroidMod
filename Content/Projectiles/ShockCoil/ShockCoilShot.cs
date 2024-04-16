@@ -272,7 +272,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						amp[i] -= 3;
 					}
 				}
-				if (mp.statOverheat >= mp.maxOverheat || O.HeldItem.GetGlobalItem<MGlobalItem>().statUA <= 0f)
+				if (mp.statOverheat >= mp.maxOverheat || O.HeldItem.GetGlobalItem<MGlobalItem>().statUA <= O.HeldItem.GetGlobalItem<MGlobalItem>().addonUACost)
 				{
 					P.Kill();
 					mp.statCharge = 0;
