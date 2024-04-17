@@ -8,11 +8,6 @@ namespace MetroidMod.Common.Players
 	public partial class MPlayer : ModPlayer
 	{
 		/// <summary>
-		/// The percentage of energy that is subtracted from the damage the player has taken. <br />
-		/// Known as 'Energy Barrier Efficiency' (PROVISIONAL NAME).
-		/// </summary>
-		public float EnergyDefenseEfficiency = 0f;
-		/// <summary>
 		/// The percentage of damage that is subtracted from the player's energy. <br />
 		/// Known as 'Energy Barrier Resilience' (PROVISIONAL NAME).
 		/// </summary>
@@ -61,7 +56,6 @@ namespace MetroidMod.Common.Players
 
 		public void ResetEffects_SuitEnergy()
 		{
-			EnergyDefenseEfficiency = 0f;
 			EnergyExpenseEfficiency = 0.1f;
 
 			bool flag = false;
@@ -103,7 +97,6 @@ namespace MetroidMod.Common.Players
 			};
 			*/
 			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; };
-			float hit = 1f - EnergyDefenseEfficiency;
 			modifiers.FinalDamage *= .2f;
 			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
@@ -143,7 +136,6 @@ namespace MetroidMod.Common.Players
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
 			if (EnergyTanks > tankCapacity) { EnergyTanks = tankCapacity; }
 			if (SuitReserves > MaxSuitReserves) { SuitReserves = MaxSuitReserves; }
-			SetMinMax(ref EnergyDefenseEfficiency);
 			SetMinMax(ref EnergyExpenseEfficiency);
 			if (!ShouldShowArmorUI) { return; }
 			if (SuitReservesAuto && Energy <= 0)

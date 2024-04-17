@@ -55,7 +55,6 @@ namespace MetroidMod.Content.SuitAddons
 			mp.maxOverheat += 15;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.15f;
 			mp.EnergyExpenseEfficiency += 0.075f;
 			// code to reduce damage from Dark World goes here: without the Dark Suit, the player takes 10 damage per second; with the Dark Suit, the player takes 1 damage per second
 		}

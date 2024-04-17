@@ -77,7 +77,6 @@ namespace MetroidMod.Content.SuitAddons
 			mp.maxOverheat += 30;
 			mp.overheatCost -= 0.10f;
 			mp.missileCost -= 0.10f;
-			mp.EnergyDefenseEfficiency += 0.30f;
 			mp.EnergyExpenseEfficiency += 0.175f;
 			mp.phazonImmune = true;
 			mp.canUsePhazonBeam = true;

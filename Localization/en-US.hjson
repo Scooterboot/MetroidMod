@@ -2472,7 +2472,6 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency
 					7.5% increased energy barrier resilience
 					Reduces damage from the Dark World
 					Slot: Primary
@@ -2495,7 +2494,6 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency
 					7.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
@@ -2516,7 +2514,6 @@ Mods: {
 					5% increased hunter damage
 					5% increased hunter critical strike chance
 					10% increased movement speed
-					25% increased energy barrier efficiency
 					10% increased energy barrier resilience
 					Debuffs tick down twice as fast
 					Slot: Barrier
@@ -2544,7 +2541,6 @@ Mods: {
 					10% increased hunter damage
 					8% increased hunter critical strike chance
 					10% increased movement speed
-					40% increased energy barrier efficiency
 					17.5% increased energy barrier resilience
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
@@ -2564,7 +2560,6 @@ Mods: {
 					15% increased hunter damage
 					13% increased hunter critical strike chance
 					10% increased movement speed
-					60% increased energy barrier efficiency
 					37.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
@@ -2587,7 +2582,6 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					3% increased hunter critical strike chance
-					5% increased energy barrier efficiency
 					7.5% increased energy barrier resilience
 					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
 					Slightly increased health regen when standing on Phazon
@@ -2607,7 +2601,6 @@ Mods: {
 					10% increased hunter damage
 					8% increased hunter critical strike chance
 					10% increased movement speed
-					30% increased energy barrier efficiency
 					17.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
@@ -2661,7 +2654,6 @@ Mods: {
 					5% decreased Missile Charge Combo cost
 					5% increased hunter damage
 					5% increased hunter critical strike chance
-					20% increased energy barrier efficiency
 					15% increased energy barrier resilience
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
@@ -2715,7 +2707,6 @@ Mods: {
 					10% increased hunter damage
 					8% increased hunter critical strike chance
 					10% increased movement speed
-					30% increased energy barrier efficiency
 					17.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
@@ -2741,7 +2732,6 @@ Mods: {
 					5% increased hunter critical strike chance
 					55% increased underwater breathing
 					10% increased movement speed
-					10% increased energy barrier efficiency
 					20% increased energy barrier resilience
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
@@ -2763,7 +2753,6 @@ Mods: {
 					7% increased hunter critical strike chance
 					80% increased underwater breathing
 					10% increased movement speed
-					20% increased energy barrier efficiency
 					37.5% increased energy barrier resilience
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
@@ -2785,7 +2774,6 @@ Mods: {
 					15% increased hunter damage
 					13% increased hunter critical strike chance
 					10% increased movement speed
-					60% increased energy barrier efficiency
 					37.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
@@ -3644,13 +3632,8 @@ Mods: {
 					Tooltip: ""
 				}
 
-				energyDefenseEfficiency: {
-					Label: "[i:MetroidMod/EnergyTankAddon] Energy Defense Efficiency"
-					Tooltip: ""
-				}
-
 				energyExpenseEfficiency: {
-					Label: "[i:MetroidMod/ReserveTankAddon] Energy Expense Efficiency"
+					Label: "[i:MetroidMod/ReserveTankAddon] Energy Barrier Resilience"
 					Tooltip: ""
 				}
 

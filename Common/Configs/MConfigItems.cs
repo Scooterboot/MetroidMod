@@ -112,13 +112,6 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(5)]
 		public int defensePowerSuitGreaves;
 
-		//[Label("[i:MetroidMod/EnergyTankAddon] Energy Defense Efficiency")]
-		[Range(0.05f, 1f)]
-		[Increment(0.05f)]
-		[Slider]
-		[DefaultValue(0.1f)]
-		public float energyDefenseEfficiency;
-
 		//[Label("[i:MetroidMod/ReserveTankAddon] Energy Expense Efficiency")]
 		[Range(0.05f, 1f)]
 		[Increment(0.05f)]

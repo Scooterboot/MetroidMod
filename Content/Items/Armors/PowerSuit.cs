@@ -90,7 +90,6 @@ namespace MetroidMod.Content.Items.Armors
 							"Right click the Sense Move button to access Addon Menu";// + 
 																					 //SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnergyDefenseEfficiency += Common.Configs.MConfigItems.Instance.energyDefenseEfficiency;
 			mp.EnergyExpenseEfficiency += Common.Configs.MConfigItems.Instance.energyExpenseEfficiency;
 			mp.senseMove = true;
 			mp.ShouldShowArmorUI = true;

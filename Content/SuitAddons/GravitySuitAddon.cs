@@ -66,7 +66,6 @@ namespace MetroidMod.Content.SuitAddons
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
 			mp.breathMult = 2;
-			mp.EnergyDefenseEfficiency += 0.15f;
 			mp.EnergyExpenseEfficiency += 0.075f;
 			if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
 			{

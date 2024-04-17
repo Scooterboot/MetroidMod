@@ -67,7 +67,6 @@ namespace MetroidMod.Content.SuitAddons
 			mp.overheatCost -= 0.10f;
 			mp.missileCost -= 0.05f;
 			mp.breathMult = 1.55f;
-			mp.EnergyDefenseEfficiency += 0.1f;
 			mp.EnergyExpenseEfficiency += 0.2f;
 		}
 		public override void AddRecipes()

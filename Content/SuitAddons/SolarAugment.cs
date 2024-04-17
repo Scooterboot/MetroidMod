@@ -56,10 +56,10 @@ namespace MetroidMod.Content.SuitAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += 5;
+			mp.tankCapacity += 6;
 			mp.maxOverheat += 25;
 			mp.overheatCost -= 0.05f;
 			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.60f;
 			mp.EnergyExpenseEfficiency += 0.325f;
 		}
 		public override void OnUpdateVanitySet(Player player)
