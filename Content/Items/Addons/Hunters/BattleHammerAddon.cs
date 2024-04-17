@@ -36,6 +36,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.BattleHammerTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
+			mItem.addonUACost = 400f / 150f;
 			mItem.beamSlotType = BeamChangeSlotID.BattleHammer;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageBattleHammer;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatBattleHammer;

@@ -11,6 +11,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 {
 	public class JudicatorChargeShot : MProjectile
 	{
+		//todo: add balance for luminite
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Judicator Charge Shot");
@@ -20,8 +21,10 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			return mp.waveDepth;
 		}
 		private int yeet = 1;
+		private Vector2 move;
 		public override void OnSpawn(IEntitySource source)
 		{
+			base.OnSpawn(source);
 			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.type == ModContent.ItemType<PowerBeam>())
 			{
 				if (player.HeldItem.ModItem is PowerBeam hold)
@@ -47,18 +50,18 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				Projectile.maxPenetrate = 12;
 				yeet = 12;
 			}
-			base.OnSpawn(source);
+			Projectile.timeLeft = Luminite ? 60 : 40;
 		}
 		public override void SetDefaults()
 		{
-			base.SetDefaults();
 			Projectile.width = 16;//32
 			Projectile.height = 16;//20
 			Projectile.scale = 1f;
-			Projectile.timeLeft = 60;
+			Projectile.timeLeft = Luminite ? 60 : 40;
+			//Projectile.extraUpdates = 2;
+			base.SetDefaults();
 		}
 
-		private Vector2 move;
 		public override void AI()
 		{
 
@@ -71,7 +74,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			if (Projectile.timeLeft == 60) //shadowfreeze
+			if (Projectile.timeLeft == (Luminite ? 60 : 40)) //shadowfreeze
 			{
 				move = Projectile.velocity;
 				Projectile.penetrate = -1;
@@ -99,7 +102,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorFreeze, Projectile.position);
 			target.AddBuff(ModContent.BuffType<Buffs.InstantFreeze>(), 300);
-			target.AddBuff(44, 300);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

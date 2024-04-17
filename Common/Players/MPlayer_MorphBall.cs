@@ -472,7 +472,7 @@ namespace MetroidMod.Common.Players
 			Item drills = p.GetBestPickaxe();
 			bool noBuildFlag = false;
 			int drill;
-			if (Main.mouseLeft && !Player.mouseInterface && morphBall && drills != null)
+			if (Main.mouseLeft && !Player.mouseInterface && morphBall && drills != null && p.whoAmI==Main.myPlayer)
 			{
 				drill = drills.pick;
 				//p.controlUseItem = true;

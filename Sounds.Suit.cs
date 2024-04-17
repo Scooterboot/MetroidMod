@@ -59,6 +59,11 @@ namespace MetroidMod
 					
 			};
 
+			public static readonly SoundStyle UAPickup = new($"{nameof(MetroidMod)}/Assets/Sounds/UAPickup")
+			{
+
+			};
+
 			public static readonly SoundStyle EnergyHit = new($"{nameof(MetroidMod)}/Assets/Sounds/EnergyHit_", 0, 2)
 			{
 				PitchVariance = 0.5f
@@ -110,6 +115,22 @@ namespace MetroidMod
 			};
 
 			public static readonly SoundStyle SpiderActivate = new($"{nameof(MetroidMod)}/Assets/Sounds/SpiderActivate")
+			{
+
+			};
+			public static readonly SoundStyle SpawnIn = new($"{nameof(MetroidMod)}/Assets/Sounds/SpawnIn")
+			{
+
+			};
+			public static readonly SoundStyle PrimeHunterCharge = new($"{nameof(MetroidMod)}/Assets/Sounds/PrimeHunterCharge")
+			{
+
+			};
+			public static readonly SoundStyle PrimeHunterActivate = new($"{nameof(MetroidMod)}/Assets/Sounds/PrimeHunterActivate")
+			{
+
+			};
+			public static readonly SoundStyle PrimeHunterDeactivate = new($"{nameof(MetroidMod)}/Assets/Sounds/PrimeHunterDeactivate")
 			{
 
 			};

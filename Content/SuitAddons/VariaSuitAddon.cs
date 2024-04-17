@@ -1,4 +1,5 @@
-﻿using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;
@@ -69,6 +70,8 @@ namespace MetroidMod.Content.SuitAddons
 			mp.breathMult = 1.55f;
 			mp.EnergyDefenseEfficiency += 0.1f;
 			mp.EnergyExpenseEfficiency += 0.2f;
+			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+			mItem.addonUACost *= 0.95f;
 		}
 		public override void AddRecipes()
 		{

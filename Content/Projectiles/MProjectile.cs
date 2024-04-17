@@ -28,6 +28,8 @@ namespace MetroidMod.Content.Projectiles
 		public bool hunter = false;
 
 		public string shot = "";
+		public bool Luminite = false;
+		public bool DiffBeam = false;
 
 		public override void OnSpawn(IEntitySource source)
 		{
@@ -37,9 +39,17 @@ namespace MetroidMod.Content.Projectiles
 				{
 					MPlayer mp = player.GetModPlayer<MPlayer>();
 					shot = hold.shotEffect.ToString();
-					if(((!hold.BeamChange[10].IsAir || !hold.BeamChange[11].IsAir) && mp.statCharge >= (MPlayer.maxCharge * 0.9) && hold.BeamMods[0].type != ModContent.ItemType<Items.Addons.ChargeBeamAddon>()) || hold.BeamMods[0].type == ModContent.ItemType<Items.Addons.Hunters.BattleHammerAddon>())
+					/*if(((!hold.BeamChange[10].IsAir || !hold.BeamChange[11].IsAir) && mp.statCharge >= (MPlayer.maxCharge * 0.9) && hold.BeamMods[0].type != ModContent.ItemType<Items.Addons.ChargeBeamAddon>()))
 					{
 						canDiffuse = true;
+					}*/
+					if (hold.Lum || (hold.Diff && mp.PrimeHunter))
+					{
+						Luminite = true;
+					}
+					if((hold.Diff || mp.PrimeHunter) && !hold.Lum)
+					{
+						DiffBeam = true;
 					}
 				}
 			}
@@ -318,7 +328,7 @@ namespace MetroidMod.Content.Projectiles
 					}
 					if (P.type == ModContent.ProjectileType<VoltDriverChargeShot>())
 					{
-						waveDepth *= 2;
+						waveDepth *= Luminite ? (int)1.5f : 2;
 					}
 					WaveCollide(P, waveDepth);
 				}
@@ -594,11 +604,15 @@ namespace MetroidMod.Content.Projectiles
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
+			writer.Write(Luminite);
+			writer.Write(DiffBeam);
 			writer.Write(canDiffuse);
 			writer.Write(shot);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
+			Luminite = reader.ReadBoolean();
+			DiffBeam = reader.ReadBoolean();
 			canDiffuse = reader.ReadBoolean();
 			shot = reader.ReadString();
 		}

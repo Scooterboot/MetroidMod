@@ -267,6 +267,7 @@ Mods: {
 			VariaSuitV2AddonTile.MapEntry: Varia Suit V2 Addon Tile
 			VortexAugmentTile.MapEntry: Vortex Augment Tile
 			XRayScopeTile.MapEntry: X Ray Scope Tile
+			UAExpansionTile.MapEntry: UA Expansion
 		}
 
 		Buffs: {
@@ -533,11 +534,14 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					[c/78BE78:Shots Explode]
+					Uses UA reserves
+					[c/78BE78:Shots Explode and have armor penetration]
+					[c/78BE78:+100% damage]
 					[c/78BE78:+50% knockback]
-					[c/BE7878:+50% overheat use]
 					[c/BE7878:-40% speed]
+					[c/BE7878:+50% overheat use]
 					[c/BE7878:Cannot pierce walls or enemies]
+					Blast radius and armor penetration increases with affinity
 					Array slot 7
 					'''
 			}
@@ -548,9 +552,11 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
+					Uses UA reserves
 					[c/78BE78:+500% damage]
-					[c/78BE78:Adds scope and stealth]
+					[c/78BE78:Adds scope and, with affinity, stealth]
 					[c/BE7878:+250% overheat use]
+					[c/78BE78:Damage and Crit scale with Stealth]
 					[c/BE7878:Massive speed reduction]
 					Array slot 4
 					'''
@@ -562,10 +568,12 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
+					Uses UA reserves
 					Shots bounce
-					Charge shots spray a freezing blast
-					Can shadowfreeze, but otherwise cannot pierce tiles
-					[c/78BE78:+45% damage]
+					Affinity Charge shots spray a freezing blast
+					Affinity Can shadowfreeze, but otherwise cannot pierce tiles
+					Non-affinity charge shots fire extra shots
+					[c/78BE78:+100% damage]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-45% speed]
 					Array slot 5
@@ -578,9 +586,8 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Shots bounce and roll
-					Charge shots ignite
-					all shots diffuse with diffusion beam in the array
+					Shots bounce, roll and explode
+					Affinity Charge shots ignite
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
@@ -595,7 +602,7 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					[c/78BE78:20x base damage]
+					[c/78BE78:210 base damage]
 					[c/78BE78:Colossal blast radius; screenwipe]
 					[c/78BE78:Direct hits have high armor penetration]
 					[c/BE7878:10x overheat use]
@@ -611,8 +618,8 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Fires a short range electric charge that restores energy when at full health
-					Charges on enemy damage and overheats when fully charged
+					Fires a short range electric charge that restores energy
+					Charges on enemy damage
 					Range depends on addons
 					Builds speed and charge when attacking an enemy
 					[c/BE7878:No knockback]
@@ -629,11 +636,10 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Charge shots home, explode, and confuse
-					charge shots diffuse with diffusion beam in the array
-					[c/78BE78:+10% damage]
-					[c/BE7878:-10% speed]
+					Affinity Charge shots home, explode, and confuse
+					[c/78BE78:+60% damage]
 					[c/BE7878:+50% overheat use]
+					[c/BE7878:-10% speed]
 					[c/BE7878:+10% noise]
 					Array slot 2
 					'''
@@ -664,7 +670,7 @@ Mods: {
 					Shots freeze enemies
 					Each time the enemy is shot, they will become 20% slower
 					After 5 shots the enemy will become completely frozen
-					[c/78BE78:+75% damage]
+					[c/78BE78:+40% damage]
 					[c/BE7878:+25% overheat use]
 					[c/BE7878:-30% speed]
 					'''
@@ -694,8 +700,8 @@ Mods: {
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Primary B
 					Shots pierce enemies
-					[c/78BE78:+100% damage]
-					[c/BE7878:+75% overheat use]
+					[c/78BE78:+50% damage]
+					[c/BE7878:+40% overheat use]
 					[c/BE7878:-15% speed]
 					'''
 			}
@@ -708,7 +714,7 @@ Mods: {
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Primary B
 					Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed
-					[c/78BE78:+100% damage]
+					[c/78BE78:+50% damage]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-15% speed]
 					'''
@@ -721,7 +727,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Primary A
 					Beam fires 3 shots at once, effectively tripling its damage
-					[c/78BE78:+25% damage]
+					[c/78BE78:+15% damage]
 					[c/BE7878:+50% overheat use]
 					[c/78BE78:+15% speed]
 					'''
@@ -737,7 +743,7 @@ Mods: {
 					Charge by holding click
 					Charge shots deal x4 damage, but overheat x2.5 the normal use
 					Damage and heat scaling affects all charge shots when in the array
-					Adds a diffusion effect when fully charged
+					Adds a diffusion effect when fully charged and affinity effects
 					Array slot 11
 					'''
 			}
@@ -751,7 +757,7 @@ Mods: {
 					Shots freeze enemies 
 					Each time the enemy is shot, they will become 20% slower 
 					After 5 shots the enemy will become completely frozen 
-					[c/78BE78:+225% damage]
+					[c/78BE78:+115% damage]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-30% speed]
 					'''
@@ -765,7 +771,7 @@ Mods: {
 					Slot Type: Primary B 
 					Shots pierce enemies 
 					Shots set enemies ablaze with Cursed Fire, or Frost Burns them if Ice Beam is installed 
-					[c/78BE78:+225% damage]
+					[c/78BE78:+115% damage]
 					[c/BE7878:+100% overheat use]
 					[c/BE7878:-15% speed]
 					'''
@@ -778,7 +784,7 @@ Mods: {
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Utility
 					Shots penetrate terrain by an extended depth
-					[c/78BE78:+125% damage]
+					[c/78BE78:+65% damage]
 					[c/BE7878:+75% overheat use]
 					'''
 			}
@@ -790,7 +796,7 @@ Mods: {
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Primary A
 					Beam fires 3 shots at once, effectively tripling its damage
-					[c/78BE78:+100% damage]
+					[c/78BE78:+50% damage]
 					[c/BE7878:+75% overheat use]
 					[c/78BE78:+15% speed]
 					'''
@@ -806,6 +812,7 @@ Mods: {
 					Charge by holding click 
 					Charge shots deal x5 damage, but overheat x3 the normal use
 					Damage and heat scaling affects all charge shots when in the array
+					Affinity effects are more powerful
 					Array slot 12
 					'''
 			}
@@ -818,7 +825,7 @@ Mods: {
 					Slot Type: Utility
 					Shots penetrate terrain by an extended depth
 					Shots home in on enemies
-					[c/78BE78:+225% damage]
+					[c/78BE78:+115% damage]
 					[c/BE7878:+100% overheat use]
 					'''
 			}
@@ -831,7 +838,7 @@ Mods: {
 					Slot Type: Primary B 
 					Shots pierce enemies 
 					Shots set enemies ablaze with the Daybroken debuff 
-					[c/78BE78:+300% damage]
+					[c/78BE78:+150% damage]
 					[c/BE7878:+150% overheat use]
 					[c/BE7878:-15% speed]
 					'''
@@ -846,7 +853,7 @@ Mods: {
 					Shots freeze enemies 
 					Each time the enemy is shot, they will become 20% slower 
 					After 5 shots the enemy will become completely frozen 
-					[c/78BE78:+260% damage]
+					[c/78BE78:+130% damage]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-30% speed]
 					'''
@@ -859,7 +866,7 @@ Mods: {
 					[c/FF9696:Power Beam Addon V3]
 					Slot Type: Primary A
 					Beam fires 5 shots at once
-					[c/78BE78:+150% damage]
+					[c/78BE78:+75% damage]
 					[c/BE7878:+100% overheat use]
 					[c/78BE78:+25% speed]
 					'''
@@ -872,7 +879,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Utility
 					Shots penetrate terrain by a limited depth
-					[c/78BE78:+50% damage]
+					[c/78BE78:+25% damage]
 					[c/BE7878:+50% overheat use]
 					'''
 			}
@@ -2946,6 +2953,16 @@ Mods: {
 				DisplayName: Tourian Bag
 				Tooltip: ""
 			}
+
+			UAExpansion: {
+				DisplayName: UA Expansion
+				Tooltip: ""
+			}
+
+			UAPickup: {
+				DisplayName: UA Pickup
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4201,6 +4218,16 @@ Mods: {
 				reserveTankStoreCount: {
 					Label: "[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity"
 					Tooltip: ""
+				}
+
+				ammoUA: {
+					Tooltip: ""
+					Label: ammo U A
+				}
+
+				ammoPowerBeam: {
+					Tooltip: ""
+					Label: ammo Power Beam
 				}
 			}
 

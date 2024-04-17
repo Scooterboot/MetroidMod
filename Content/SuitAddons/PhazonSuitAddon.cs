@@ -1,4 +1,5 @@
-﻿using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -81,6 +82,8 @@ namespace MetroidMod.Content.SuitAddons
 			mp.EnergyExpenseEfficiency += 0.175f;
 			mp.phazonImmune = true;
 			mp.canUsePhazonBeam = true;
+			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+			mItem.addonUACost *= 0.90f;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{

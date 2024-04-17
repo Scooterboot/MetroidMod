@@ -10,18 +10,6 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		{
 			// DisplayName.SetDefault("Ice Beam Charge Shot");
 		}
-		public override void OnSpawn(IEntitySource source)
-		{
-			if (shot.Contains("wave"))
-			{
-				mProjectile.amplitude = 10f * Projectile.scale;
-				mProjectile.wavesPerSecond = 1f;
-				mProjectile.delay = 4;
-				Projectile.tileCollide = false;
-				mProjectile.WaveBehavior(Projectile);
-			}
-
-		}
 
 		public override void SetDefaults()
 		{
@@ -29,6 +17,9 @@ namespace MetroidMod.Content.Projectiles.icebeam
 			Projectile.width = 16;
 			Projectile.height = 16;
 			Projectile.scale = 2f;
+			mProjectile.amplitude = 10f * Projectile.scale;
+			mProjectile.wavesPerSecond = 1f;
+			mProjectile.delay = 4;
 		}
 
 		public override void AI()
@@ -36,6 +27,11 @@ namespace MetroidMod.Content.Projectiles.icebeam
 			Color color = MetroidMod.iceColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
+			if (shot.Contains("wave"))
+			{
+				Projectile.tileCollide = false;
+				mProjectile.WaveBehavior(Projectile);
+			}
 			if (Projectile.numUpdates == 0)
 			{
 				Projectile.rotation += 0.5f * Projectile.direction;

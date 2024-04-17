@@ -382,26 +382,43 @@ namespace MetroidMod.Common.Players
 				}
 			}
 		}
+		private ReLogic.Utilities.SlotId soundInstancePH;
+		private bool soundPlayed = false;
 		public override void PostUpdateMiscEffects()
 		{
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
 			PostUpdateMiscEffects_Visors();
-			if (MSystem.HyperMode.Current && statPBCh <=0f && statCharge <= 0f)
+			if (MSystem.HyperMode.Current && statPBCh <=0f && statCharge <= 0f && canHyper)
 			{
 				if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>()) && Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && (Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 				{
+					if (!soundPlayed)
+					{
+						soundInstancePH = SoundEngine.PlaySound(Sounds.Suit.PrimeHunterCharge, Player.position);
+						soundPlayed = true;
+					}
 					hyperCharge++;
 				}
 				if(hyperCharge >= maxHyper)
 				{
 					PrimeHunter = true;
+
+					SoundEngine.PlaySound(Sounds.Suit.PrimeHunterActivate, Player.position);
 					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+					soundPlayed = true;
 				}
 				if (hyperCharge <= 0f && PrimeHunter)
 				{
+					soundPlayed = false;
+					SoundEngine.PlaySound(Sounds.Suit.PrimeHunterDeactivate, Player.position);
 					PrimeHunter = !PrimeHunter;
 				}
+			}
+			else if (SoundEngine.TryGetActiveSound(soundInstancePH, out ActiveSound result) && hyperCharge > 0f)
+			{
+				soundPlayed = false;
+				result.Stop();
 			}
 			if (Player.dead || !PrimeHunter /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
 			{
@@ -816,8 +833,8 @@ namespace MetroidMod.Common.Players
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
 			clone.EnergyTanks = EnergyTanks;
-			clone.Energy = Energy;
 			clone.tankCapacity = tankCapacity;
+			clone.Energy = Energy;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
 			clone.PrimeHunter = PrimeHunter;

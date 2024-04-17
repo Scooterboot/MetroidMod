@@ -80,6 +80,7 @@ namespace MetroidMod
 				BeamAddonSlotID.Utility => "Utility",
 				BeamAddonSlotID.PrimaryA => "Primary A",
 				BeamAddonSlotID.PrimaryB => "Primary B",
+				BeamAddonSlotID.UA => "UA",
 				_ => "Unknown",
 			};
 		}

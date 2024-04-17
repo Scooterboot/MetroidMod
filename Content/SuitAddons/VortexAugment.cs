@@ -1,4 +1,5 @@
-﻿using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -78,6 +79,8 @@ namespace MetroidMod.Content.SuitAddons
 			mp.EnergyDefenseEfficiency += 0.60f;
 			mp.EnergyExpenseEfficiency += 0.375f;
 			mp.canUseHyperBeam = true;
+			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
+			mItem.addonUACost *= 0.85f;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{
