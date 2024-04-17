@@ -740,7 +740,7 @@ namespace MetroidMod.Common.Players
 		{
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
 			tag["senseMoveEnabled"] = senseMoveEnabled;
-			tag["energy"] = Energy;
+			tag["energy"] = (int)Energy;
 			tag["capacity"] = tankCapacity;
 			tag["reserves"] = SuitReserves;
 			tag["reserveAuto"] = SuitReservesAuto;
