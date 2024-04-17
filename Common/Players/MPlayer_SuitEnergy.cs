@@ -130,11 +130,11 @@ namespace MetroidMod.Common.Players
 			if (Player.immune) { return; }
 			if (Energy > 0 && Player.lifeRegen < 0)
 			{
-				//Player.lifeRegen = 0;
 				float oldEnergy = Energy;
-				float damageToSubtractFromEnergy = (-Player.lifeRegen) / 60f; //* (1 - EnergyExpenseEfficiency); //why was this set to min? it nullified dot
+				float damageToSubtractFromEnergy = (-Player.lifeRegen) / 60f * (1f - EnergyExpenseEfficiency);
 				Energy = Math.Max(Energy - damageToSubtractFromEnergy, 0);
-				Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
+				//Player.lifeRegen += (int)(oldEnergy);
+				Player.lifeRegen = 0;
 				//if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
 			}
 		}
