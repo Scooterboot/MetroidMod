@@ -107,7 +107,7 @@ namespace MetroidMod.Common.Players
 		public void PostHurt_SuitEnergy(Player.HurtInfo info)
 		{
 			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
-			int energyDamage = (int)(info.SourceDamage * .8f);
+			int energyDamage = Math.Max(1, (int)(info.SourceDamage * .8f));
 			Energy = Math.Max(0, Energy - (int)(energyDamage));//(1 - EnergyExpenseEfficiency)));
 		}
 		public override void OnRespawn()
