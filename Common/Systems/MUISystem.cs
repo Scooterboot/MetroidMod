@@ -855,7 +855,7 @@ namespace MetroidMod.Common.Systems
 				// number
 				int num0 = (int)Math.Floor(mp.Energy / 10f);
 				int num1 = num0 - (int)Math.Floor(num0 / 10f) * 10;
-				int num2 = mp.Energy - (num0 * 10);
+				int num2 = (int)mp.Energy - (num0 * 10);
 				Texture2D tex1 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num1}").Value;
 				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num2}").Value;
 				Vector2 center = new(Main.screenWidth / 2, tex1.Height);

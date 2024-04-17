@@ -37,11 +37,11 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The amount remaining outside of filled energy tanks.
 		/// </summary>
-		public int EnergyRemainder => Energy - (FilledEnergyTanks * 100);
+		public int EnergyRemainder => (int)(Energy - (FilledEnergyTanks * 100));
 		/// <summary>
 		/// The amount of energy the player has.
 		/// </summary>
-		public int Energy = 99;
+		public float Energy = 99;
 
 		/// <summary>
 		/// The number of Reserve Tanks the player has.
@@ -104,7 +104,7 @@ namespace MetroidMod.Common.Players
 			*/
 			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; };
 			float hit = 1f - EnergyDefenseEfficiency;
-			modifiers.FinalDamage *= hit;
+			modifiers.FinalDamage *= .2f;
 			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
 			{
 				modifiers.DisableSound();
@@ -114,8 +114,8 @@ namespace MetroidMod.Common.Players
 		public void PostHurt_SuitEnergy(Player.HurtInfo info)
 		{
 			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
-			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
-			Energy = Math.Max(0, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
+			int energyDamage = (int)(info.SourceDamage * .8f);
+			Energy = Math.Max(0, Energy - (int)(energyDamage * 5f));//(1 - EnergyExpenseEfficiency)));
 		}
 		public override void OnRespawn()
 		{
@@ -123,6 +123,19 @@ namespace MetroidMod.Common.Players
 			{
 				mp.Energy = mp.MaxEnergy;
 				mp.SuitReserves = mp.MaxSuitReserves;
+			}
+		}
+		public override void UpdateBadLifeRegen()
+		{
+			if (Player.immune) { return; }
+			if (Energy > 0 && Player.lifeRegen < 0)
+			{
+				//Player.lifeRegen = 0;
+				float oldEnergy = Energy;
+				float damageToSubtractFromEnergy = (-Player.lifeRegen) / 60f; //* (1 - EnergyExpenseEfficiency); //why was this set to min? it nullified dot
+				Energy = Math.Max(Energy - damageToSubtractFromEnergy, 0);
+				Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
+				//if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
 			}
 		}
 		public override void UpdateLifeRegen()
@@ -143,16 +156,18 @@ namespace MetroidMod.Common.Players
 					Energy -= 1;
 				}
 			}
+			/*
 			if (Player.immune) { return; }
 			if (Energy > 0 && Player.lifeRegen < 0)
 			{
 				//Player.lifeRegen = 0;
-				int oldEnergy = Energy;
-				float damageToSubtractFromEnergy = Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
-				Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
+				float oldEnergy = Energy;
+				float damageToSubtractFromEnergy = (-Player.lifeRegen) / 60f; //* (1 - EnergyExpenseEfficiency); //why was this set to min? it nullified dot
+				Energy = Math.Max(Energy - damageToSubtractFromEnergy, 0);
 				Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
 				//if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
 			}
+			*/
 		}
 		private static void SetMinMax(ref float value, float min = 0f, float max = 1f) => value = Math.Min(Math.Max(value, min), max);
 	}
