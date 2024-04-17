@@ -218,6 +218,18 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			return (Main.npc[_rLeg[i]]);
 		}
 
+		internal int NPCArmorHPMax
+		{
+			get {
+				int amt = 0;
+				if (RArmArmor != null && RArmArmor.active) { amt += RArmArmor.lifeMax; }
+				if (LArmArmor != null && LArmArmor.active) { amt += LArmArmor.lifeMax; }
+				if (RLegArmor != null && RLegArmor.active) { amt += RLegArmor.lifeMax; }
+				if (LLegArmor != null && LLegArmor.active) { amt += LLegArmor.lifeMax; }
+				return amt;
+			}
+		}
+
 		internal int NPCArmorHP
 		{
 			get {
