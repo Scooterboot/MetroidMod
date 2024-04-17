@@ -36,12 +36,14 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.value = 250000;
 			Item.rare = ItemRarityID.Cyan;
 			Item.accessory = true;
+			/*
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
+			*/
 		}
 
 		public override void AddRecipes()
@@ -97,12 +99,14 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.value = 250000;
 			Item.rare = ItemRarityID.Cyan;
 			Item.accessory = true;
+			/*
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
+			*/
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
