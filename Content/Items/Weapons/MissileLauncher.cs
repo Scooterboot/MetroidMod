@@ -1148,6 +1148,7 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					clone._missileMods[i] = _missileMods[i];
+					clone._missileMods[i].stack = _missileMods[i].stack;
 				}
 			}
 			for (int i = 0; i < MetroidMod.missileChangeSlotAmount; ++i)
@@ -1170,7 +1171,9 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void SaveData(TagCompound tag)
 		{
 			for (int i = 0; i < MissileMods.Length; ++i)
+			{
 				tag.Add("missileItem" + i, ItemIO.Save(MissileMods[i]));
+			}
 
 			if (Item.TryGetGlobalItem(out MGlobalItem mi))
 			{
@@ -1220,7 +1223,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			for (int i = 0; i < MissileMods.Length; ++i)
 			{
-				ItemIO.Send(MissileMods[i], writer);
+				ItemIO.Send(MissileMods[i], writer, true);
 			}
 			for (int i = 0; i < MissileChange.Length; ++i)
 			{
@@ -1232,7 +1235,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			for (int i = 0; i < MissileMods.Length; ++i)
 			{
-				MissileMods[i] = ItemIO.Receive(reader);
+				MissileMods[i] = ItemIO.Receive(reader, true);
 			}
 			for (int i = 0; i < MissileChange.Length; ++i)
 			{

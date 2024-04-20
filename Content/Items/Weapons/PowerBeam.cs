@@ -1905,6 +1905,15 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				tag.Add("BeamItem" + i, ItemIO.Save(BeamMods[i]));
 			}
+			for (int i = 0; i < BeamChange.Length; ++i)
+			{
+				// Failsave check.
+				if (BeamChange[i] == null)
+				{
+					BeamChange[i] = new Item();
+				}
+				tag.Add("BeamChange" + i, ItemIO.Save(BeamChange[i]));
+			}
 			if (Item.TryGetGlobalItem(out MGlobalItem pb))
 			{
 				tag.Add("statUA", pb.statUA);
@@ -1914,15 +1923,6 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				tag.Add("statUA", 0f);
 				tag.Add("maxUA", 0);
-			}
-			for (int i = 0; i < BeamChange.Length; ++i)
-			{
-				// Failsave check.
-				if (BeamChange[i] == null)
-				{
-					BeamChange[i] = new Item();
-				}
-				tag.Add("BeamChange" + i, ItemIO.Save(BeamChange[i]));
 			}
 		}
 		public override void LoadData(TagCompound tag)
@@ -1935,17 +1935,15 @@ namespace MetroidMod.Content.Items.Weapons
 					Item item = tag.Get<Item>("BeamItem" + i);
 					BeamMods[i] = item;
 				}
-				if (Item.TryGetGlobalItem(out MGlobalItem pb))
-				{
-					pb.statUA = tag.Get<int>("statUA");
-					pb.maxUA = tag.Get<int>("maxUA");
-				}
 				BeamChange = new Item[MetroidMod.beamChangeSlotAmount];
 				for (int i = 0; i < BeamChange.Length; i++)
 				{
 					Item item = tag.Get<Item>("BeamChange" + i);
 					BeamChange[i] = item;
 				}
+				MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
+				pb.statMissiles = tag.GetInt("statUA");
+				pb.maxMissiles = tag.GetInt("maxUA");
 			}
 			catch { }
 		}
@@ -1970,7 +1968,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			for (int i = 0; i < BeamMods.Length; ++i)
 			{
-				ItemIO.Send(BeamMods[i], writer);
+				ItemIO.Send(BeamMods[i], writer,true);
 			}
 			for (int i = 0; i < BeamChange.Length; ++i)
 			{
@@ -1982,7 +1980,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			for (int i = 0; i < BeamMods.Length; ++i)
 			{
-				BeamMods[i] = ItemIO.Receive(reader);
+				BeamMods[i] = ItemIO.Receive(reader,true);
 			}
 			for (int i = 0; i < BeamChange.Length; ++i)
 			{
