@@ -1942,8 +1942,8 @@ namespace MetroidMod.Content.Items.Weapons
 					BeamChange[i] = item;
 				}
 				MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
-				pb.statMissiles = tag.GetInt("statUA");
-				pb.maxMissiles = tag.GetInt("maxUA");
+				pb.statUA = tag.GetFloat("statUA");
+				pb.maxUA = tag.GetInt("maxUA");
 			}
 			catch { }
 		}
