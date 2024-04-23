@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
 			Item.rare = ItemRarityID.LightRed;
-			Item.value = 50000;
+			Item.value = 500000;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;

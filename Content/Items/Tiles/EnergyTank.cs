@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Items.Tiles
 			//Item.consumable = true;
 			//Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.EnergyTank>();
 			Item.rare = ItemRarityID.Green;
-			Item.value = 1000;
+			Item.value = 100000;
 		}
 		public override bool CanRightClick() => true;
 		public override void RightClick(Player player)
