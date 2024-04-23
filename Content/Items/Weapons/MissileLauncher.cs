@@ -70,7 +70,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 			Item.ResearchUnlockCount = 1;
 		}
-		//public override void SetDefaults()
 		public override void SetDefaults()
 		{
 			Item.damage = Common.Configs.MConfigItems.Instance.damageMissileLauncher;
@@ -1148,7 +1147,6 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					clone._missileMods[i] = _missileMods[i];
-					clone._missileMods[i].stack = _missileMods[i].stack;
 				}
 			}
 			for (int i = 0; i < MetroidMod.missileChangeSlotAmount; ++i)

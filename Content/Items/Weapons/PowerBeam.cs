@@ -128,7 +128,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			if (isHunter && Item.TryGetGlobalItem(out MGlobalItem pb))
 			{
-				return player.whoAmI == Main.myPlayer && Math.Floor((float)pb.statUA) > 0 && mp.statOverheat < mp.maxOverheat &&pb.statUA >= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
+				return player.whoAmI == Main.myPlayer && Math.Floor(pb.statUA) > 0 && mp.statOverheat < mp.maxOverheat &&pb.statUA >= BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost;
 			}
 			return mp.statOverheat < mp.maxOverheat;// && BeamLoader.CanShoot(player, BeamMods);
 		}

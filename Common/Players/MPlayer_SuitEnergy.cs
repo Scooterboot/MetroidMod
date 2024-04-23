@@ -125,7 +125,7 @@ namespace MetroidMod.Common.Players
 				mp.SuitReserves = mp.MaxSuitReserves;
 				if(mp.ShouldShowArmorUI)
 				{
-					SoundEngine.PlaySound(Sounds.Suit.SpawnIn, new Microsoft.Xna.Framework.Vector2(Player.SpawnX, Player.SpawnY));
+					SoundEngine.PlaySound(Sounds.Suit.SpawnIn);
 				}
 			}
 		}

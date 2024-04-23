@@ -17,6 +17,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 {
 	public class ShockCoilShot : MProjectile
 	{
+		//HOW DOES NETUPDATE WORK REEEEE Dr
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 12;
@@ -238,7 +239,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (ampSyncCooldown-- <= 0)
 					{
 						ampSyncCooldown = 20;
-						Projectile.netUpdate2 = true;
+						//Projectile.netUpdate2 = true;
 					}
 					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
@@ -411,7 +412,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 			//mp.statOverheat += mp.overheatCost; // /shots;
-			mp.statCharge = Math.Min(mp.statCharge + 2, MPlayer.maxCharge);
+			mp.statCharge = Math.Min(mp.statCharge + 1.5f, MPlayer.maxCharge);
 			if (mp.Energy < mp.MaxEnergy && !mp.PrimeHunter && (Luminite || DiffBeam))
 			{
 				if (heal > mp.MaxEnergy - mp.Energy)

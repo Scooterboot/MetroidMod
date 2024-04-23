@@ -16,11 +16,11 @@ namespace MetroidMod.Common.GlobalItems
 		public int addonSlotType = -1;
 		public int beamSlotType = -1;
 		public int missileChangeType = -1;
-		public float addonChargeDmg = 1;
-		public float addonChargeHeat = 1;
-		public float addonDmg = 0;
-		public float addonSpeed = 0;
-		public float addonHeat = 0;
+		public float addonChargeDmg = 1f;
+		public float addonChargeHeat = 1f;
+		public float addonDmg = 0f;
+		public float addonSpeed = 0f;
+		public float addonHeat = 0f;
 		/// <summary>
 		/// How much universal ammo to use per normal shot (NOT A PERCENTAGE)
 		/// </summary>
