@@ -812,6 +812,7 @@ namespace MetroidMod.Common.Players
 		{
 			oldPos = new Vector2[oldNumMax];
 
+			canHyper = false;
 			PrimeHunter = false;
 			spiderball = false;
 
@@ -821,6 +822,9 @@ namespace MetroidMod.Common.Players
 			EnergyTanks = 0;
 			Energy = 0;
 			tankCapacity = 0;
+			hyperCharge = 0;
+			SuitReserveTanks = 0;
+			SuitReserves = 0;
 		}
 
 		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */

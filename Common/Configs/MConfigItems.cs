@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
 namespace MetroidMod.Common.Configs
@@ -13,15 +14,15 @@ namespace MetroidMod.Common.Configs
 
 		internal CanEditServerConfig condition;
 
-		internal delegate bool CanEditServerConfig(ModConfig pendingConfig, int whoAmI, ref string message);
+		internal delegate bool CanEditServerConfig(ModConfig pendingConfig, int whoAmI, ref NetworkText message);
 
-		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message) => condition(pendingConfig, whoAmI, ref message);
+		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref NetworkText message) => condition(pendingConfig, whoAmI, ref message);
 
 		public static MConfigItems Instance;
 
 		public MConfigItems()
 		{
-			condition = delegate (ModConfig pendingConfig, int whoAmI, ref string message) {
+			condition = delegate (ModConfig pendingConfig, int whoAmI, ref NetworkText message) {
 				return whoAmI == 0;
 			};
 		}
