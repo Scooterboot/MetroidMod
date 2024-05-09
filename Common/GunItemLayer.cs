@@ -46,7 +46,7 @@ namespace MetroidMod.Common
 				{
 					origin4 = new Vector2(tex.Width + num80, tex.Height / 2);
 				}
-				DrawData item2 = new(tex, new Vector2((int)(drawInfo.ItemLocation.X - Main.screenPosition.X), (int)(drawInfo.ItemLocation.Y - Main.screenPosition.Y + vector7.Y)), new Rectangle(0, 0, tex.Width, tex.Height), drawInfo.colorArmorBody, P.itemRotation, origin4, I.scale, drawInfo.itemEffect, 0);
+				DrawData item2 = new(tex, new Vector2((int)(drawInfo.ItemLocation.X - Main.screenPosition.X + vector7.X), (int)(drawInfo.ItemLocation.Y - Main.screenPosition.Y + vector7.Y)), new Rectangle(0, 0, tex.Width, tex.Height), drawInfo.colorArmorBody, P.itemRotation, origin4, I.scale, drawInfo.itemEffect, 0);
 				item2.shader = drawInfo.cBody;
 				drawInfo.DrawDataCache.Add(item2);
 			}
