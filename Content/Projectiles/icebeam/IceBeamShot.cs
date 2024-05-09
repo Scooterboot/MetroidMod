@@ -82,9 +82,8 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Projectile.penetrate = (int)reader.ReadSingle();
-			Projectile.maxPenetrate = (int)reader.ReadSingle();
-
+			Projectile.penetrate = (int)reader.ReadInt32();
+			Projectile.maxPenetrate = (int)reader.ReadInt32();
 		}
 	}
 }
