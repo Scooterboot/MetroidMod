@@ -11,7 +11,7 @@ namespace MetroidMod.Common
 	// "Aiming" sprite
 	public class GunItemLayer : PlayerDrawLayer
 	{
-		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.HeldItem);
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.ArmOverItem);
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) =>
 			drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() ||
 			drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() ||

@@ -1,3 +1,5 @@
+using System;
+using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -57,14 +59,15 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			if (player.altFunctionUse == 2)
 			{
+				int dir = Math.Sign(Main.MouseWorld.X - player.Center.X);
 				if (player.velocity.Y == 0)
 				{
 					player.velocity.Y = -4f * player.gravDir;
-					player.velocity.X = -7f * player.direction;
+					player.velocity.X = -7f * dir;
 				}
 				else
 				{
-					player.velocity.X = -5.5f * player.direction;
+					player.velocity.X = -5.5f * dir;
 				}
 				return true;
 			}

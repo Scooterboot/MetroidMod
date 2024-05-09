@@ -110,6 +110,14 @@ namespace MetroidMod.Content.Items.Weapons
 			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 		}
+		public override void UseStyle(Player player, Rectangle heldItemFrame)
+		{
+			float armRot = player.itemRotation - (float)(Math.PI / 2) * player.direction;
+			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, armRot);
+			Vector2 origin = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, armRot);
+			origin.Y -= heldItemFrame.Height / 2f;
+			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * -16 * player.direction;
+		}
 
 		public override bool CanUseItem(Player player)
 		{

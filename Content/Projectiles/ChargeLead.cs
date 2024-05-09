@@ -147,7 +147,7 @@ namespace MetroidMod.Content.Projectiles
 						diff = Vector2.Normalize(Vector2.Lerp(diff, Vector2.Normalize(P.velocity), aimSpeed));
 					}
 
-					Vector2 newVelocity = diff * ((30f - 24f * I.scale) + I.scale * I.width);
+					Vector2 newVelocity = diff * ((22f + 8f * P.scale - 24f * I.scale) + I.scale * I.width * 0.5f);
 
 					if (newVelocity.X != P.velocity.X || newVelocity.Y != P.velocity.Y)
 					{
@@ -196,7 +196,8 @@ namespace MetroidMod.Content.Projectiles
 			}
 			else
 			{
-				P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
+				//P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
+				P.position = O.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, O.itemRotation - (float)(Math.PI / 2) * O.direction) - P.Size / 2f;
 				P.alpha = 0;
 				if (P.velocity.X < 0)
 				{

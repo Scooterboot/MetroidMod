@@ -2273,7 +2273,7 @@ Mods: {
 
 			ChoziteSword: {
 				// DisplayName: Chozite Sword
-				// Tooltip: Right click for a lunge that deals extra knocback
+				// Tooltip: Right click for a lunge that pierces 10 defense
 			}
 
 			CopperParalyzer: {
@@ -4382,6 +4382,11 @@ Mods: {
 				// Name: Torizo Theme
 				// Author: Paradoxx Productions
 			}
+		}
+
+		InfoDisplays: {
+			// EfficiencyDisplay.DisplayName: Efficiency Display
+			// ExpenseDisplay.DisplayName: Expense Display
 		}
 	}
 }

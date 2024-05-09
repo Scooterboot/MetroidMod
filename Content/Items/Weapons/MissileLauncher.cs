@@ -105,8 +105,13 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
-			player.itemLocation.X = player.MountedCenter.X - (float)Item.width * 0.5f;
-			player.itemLocation.Y = player.MountedCenter.Y - (float)Item.height * 0.5f;
+			float armRot = player.itemRotation - (float)(Math.PI / 2) * player.direction;
+			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, armRot);
+			Vector2 origin = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, armRot);
+			origin.Y -= heldItemFrame.Height / 2f;
+			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * -14 * player.direction;
+			//player.itemLocation.X = player.MountedCenter.X - (float)Item.width * 0.5f;
+			//player.itemLocation.Y = player.MountedCenter.Y - (float)Item.height * 0.5f;
 		}
 		/*public override bool AltFunctionUse(Player player)
 		{

@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,22 +33,31 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override bool CanUseItem(Player player)
 		{
-			Item.useTime = 20;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useAnimation = 20;
-			Item.knockBack = 5;
 			if (player.altFunctionUse == 2 && !Main.mouseLeft)
 			{
 				Item.useTime = 30;
-				Item.knockBack = 8;
 				Item.useStyle = ItemUseStyleID.Thrust;
-				if (player.itemTime == 0)
+				if (player.itemAnimation == 0)
 				{
 					return true;
 				}
 				return false;
 			}
+			Item.useTime = 20;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useAnimation = 20;
 			return true;
+		}
+		public override void UseStyle(Player player, Rectangle heldItemFrame)
+		{
+			if (player.altFunctionUse == 2)
+			{
+				Item.useStyle = ItemUseStyleID.Thrust;
+			}
+			else
+			{
+				Item.useStyle = ItemUseStyleID.Swing;
+			}
 		}
 
 		public override bool? UseItem(Player player)
@@ -77,6 +87,14 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.knockBack = 8;
 			}
 		}*/
+		public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (Item.useStyle == ItemUseStyleID.Thrust)
+			{
+				modifiers.Knockback *= 1.6f;
+				modifiers.ArmorPenetration += 10;
+			}
+		}
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Item.useStyle == ItemUseStyleID.Thrust && player.velocity.X * player.direction > 0)
