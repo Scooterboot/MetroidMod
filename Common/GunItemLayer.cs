@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Common
 {
+	// "Aiming" sprite
 	public class GunItemLayer : PlayerDrawLayer
 	{
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.HeldItem);
@@ -51,6 +52,7 @@ namespace MetroidMod.Common
 			}
 		}
 	}
+	// Idle
 	public class GunLayer : PlayerDrawLayer
 	{
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.HandOnAcc);
