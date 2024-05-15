@@ -231,7 +231,9 @@ namespace MetroidMod.Common.Players
 		}
 		public void PostUpdateRunSpeeds_MorphBall()
 		{
-			if (spiderball && CurEdge != Edge.None)
+			Player player = Main.LocalPlayer;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			if (mp.spiderball && mp.CurEdge != Edge.None)
 			{
 				Player.moveSpeed = 0f;
 				Player.maxRunSpeed = 0f;

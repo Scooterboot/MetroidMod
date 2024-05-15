@@ -389,30 +389,32 @@ namespace MetroidMod.Common.Players
 			PostUpdateMiscEffects_Accessories();
 			PostUpdateMiscEffects_MorphBall();
 			PostUpdateMiscEffects_Visors();
-			if (MSystem.HyperMode.Current && statPBCh <=0f && statCharge <= 0f && canHyper)
+			Player player = Main.LocalPlayer;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			if (MSystem.HyperMode.Current && mp.statPBCh <=0f && mp.statCharge <= 0f && mp.canHyper)
 			{
-				if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>()) && Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && (Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
+				if (!mp.PrimeHunter && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() || player.HeldItem.type == ModContent.ItemType<MissileLauncher>()) && player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 				{
 					if (!soundPlayed)
 					{
 						soundInstancePH = SoundEngine.PlaySound(Sounds.Suit.PrimeHunterCharge, Player.position);
 						soundPlayed = true;
 					}
-					hyperCharge++;
+					mp.hyperCharge++;
 				}
 				if(hyperCharge >= maxHyper)
 				{
-					PrimeHunter = true;
+					mp.PrimeHunter = true;
 
-					SoundEngine.PlaySound(Sounds.Suit.PrimeHunterActivate, Player.position);
-					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+					SoundEngine.PlaySound(Sounds.Suit.PrimeHunterActivate, player.position);
+					player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 					soundPlayed = true;
 				}
-				if (hyperCharge <= 0f && PrimeHunter)
+				if (mp.hyperCharge <= 0f && mp.PrimeHunter)
 				{
 					soundPlayed = false;
-					SoundEngine.PlaySound(Sounds.Suit.PrimeHunterDeactivate, Player.position);
-					PrimeHunter = !PrimeHunter;
+					SoundEngine.PlaySound(Sounds.Suit.PrimeHunterDeactivate, player.position);
+					mp.PrimeHunter = !mp.PrimeHunter;
 				}
 			}
 			else if (SoundEngine.TryGetActiveSound(soundInstancePH, out ActiveSound result) && hyperCharge > 0f)
@@ -420,14 +422,14 @@ namespace MetroidMod.Common.Players
 				soundPlayed = false;
 				result.Stop();
 			}
-			if (Player.dead || !PrimeHunter /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
+			if (player.dead || !mp.PrimeHunter /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
 			{
-				PrimeHunter = false;
-				Player.ClearBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>());
+				mp.PrimeHunter = false;
+				player.ClearBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>());
 			}
-			if(PrimeHunter)
+			if(mp.PrimeHunter)
 			{
-				Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+				player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 			}
 			if (senseMove && senseMoveEnabled)
 			{
@@ -441,8 +443,8 @@ namespace MetroidMod.Common.Players
 				energyLowTimer--;
 				if (energyLowTimer <= 0)
 				{
-					energyLowTimer = Common.Configs.MConfigClient.Instance.energyLowInterval;
-					if (Common.Configs.MConfigClient.Instance.energyLow)
+					energyLowTimer = Configs.MConfigClient.Instance.energyLowInterval;
+					if (Configs.MConfigClient.Instance.energyLow)
 					{
 						SoundEngine.PlaySound(Sounds.Suit.EnergyLow, Player.position);
 					}
@@ -453,7 +455,6 @@ namespace MetroidMod.Common.Players
 		{
 			PostUpdateRunSpeeds_Accessories();
 			PostUpdateRunSpeeds_MorphBall();
-
 		}
 		public override void PostUpdate()
 		{
