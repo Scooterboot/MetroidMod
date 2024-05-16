@@ -1877,18 +1877,21 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						BeamMods[0].type = ModContent.ItemType<Addons.V3.LuminiteBeamAddon>();
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0;
-						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;// MConfigItems.Instance.damagePowerBeam;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageLuminiteBeam;
-						//hunterDmg = 0f;
-						//isHunter = false;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeHeat = MConfigItems.Instance.overheatLuminiteBeam;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonHeat = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonSpeed = 0f;
 					}
 					else if (!BeamChange[10].IsAir)
 					{
 						BeamMods[0].type = ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>();
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0;
-						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;// MConfigItems.Instance.damagePowerBeam;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageChargeBeamV2;
-						//isHunter = false;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeHeat = MConfigItems.Instance.overheatChargeBeamV2;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonHeat = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonSpeed = 0f;
 					}
 					else if (!BeamChange[0].IsAir)
 					{
@@ -1896,7 +1899,18 @@ namespace MetroidMod.Content.Items.Weapons
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageChargeBeam;
-						//isHunter = false;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeHeat = MConfigItems.Instance.overheatChargeBeam;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonHeat = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonSpeed = 0f;
+					}
+					else
+					{
+						BeamMods[0].TurnToAir();
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonHeat = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonSpeed = 0f;
+						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeHeat = 0f;
 					}
 				}
 			}

@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		}
 		public override IEnumerable<Item> GetItemDrops(int i, int j)
 		{
-			yield return new Item(ModContent.ItemType<GrappleBeamPlus>());
+			yield return new Item(ModContent.ItemType<GrappleBeam>());
 		}
 	}
 }
