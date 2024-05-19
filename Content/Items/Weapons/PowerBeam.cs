@@ -1876,6 +1876,7 @@ namespace MetroidMod.Content.Items.Weapons
 					if (!BeamChange[11].IsAir)
 					{
 						BeamMods[0].type = ModContent.ItemType<Addons.V3.LuminiteBeamAddon>();
+						BeamChange[11].type = ModContent.ItemType<Addons.V3.LuminiteBeamAddon>();
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageLuminiteBeam;
@@ -1886,6 +1887,7 @@ namespace MetroidMod.Content.Items.Weapons
 					else if (!BeamChange[10].IsAir)
 					{
 						BeamMods[0].type = ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>();
+						BeamChange[10].type = ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>();
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageChargeBeamV2;
@@ -1896,6 +1898,7 @@ namespace MetroidMod.Content.Items.Weapons
 					else if (!BeamChange[0].IsAir)
 					{
 						BeamMods[0].type = ModContent.ItemType<Addons.ChargeBeamAddon>();
+						BeamChange[0].type = ModContent.ItemType<Addons.ChargeBeamAddon>();
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
 						BeamMods[0].GetGlobalItem<MGlobalItem>().addonChargeDmg = MConfigItems.Instance.damageChargeBeam;

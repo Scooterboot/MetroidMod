@@ -1,4 +1,5 @@
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Tiles.ItemTile;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +14,7 @@ namespace MetroidMod.Content.Items.Tiles
 			/* Tooltip.SetDefault("A Missile Expansion\n" +
 				"Increase maximum Missiles by 5 with each expansion slotted in\n" +
 				"Stack it up to 50 expansions for +250 maximum Missiles"); */
-
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EnergyTank>();
 			Item.ResearchUnlockCount = 12;
 		}
 
@@ -30,7 +31,7 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>();
+			Item.createTile = ModContent.TileType<UAExpansionTile>();
 
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 5;

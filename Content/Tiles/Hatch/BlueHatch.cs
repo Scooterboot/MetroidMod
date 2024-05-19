@@ -60,12 +60,13 @@ namespace MetroidMod.Content.Tiles.Hatch
 		public override bool RightClick(int i, int j)
 		{
 			if (/*Common.Configs.MConfigMain.Instance.veryBrokenHatchControl || */Main.LocalPlayer.controlUseTile)
-			{
+			/*{
 				HitWire(i, j);
 				if (Main.netMode == NetmodeID.MultiplayerClient) { SendRightClick(i, j); }
 				return true;
-			}
-			return false;
+			}*/
+			HitWire(i, j);
+			return true;
 		}
 
 		public void SendRightClick(int i, int j)

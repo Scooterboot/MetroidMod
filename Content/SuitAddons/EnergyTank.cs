@@ -1,5 +1,6 @@
 ﻿using System;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Tiles;
 using MetroidMod.Content.Tiles.ItemTile;
 using MetroidMod.ID;
 using Terraria;
@@ -26,7 +27,7 @@ namespace MetroidMod.Content.SuitAddons
 			// Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
 			SacrificeTotal = 14;
-			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<Items.Accessories.ReserveTank>();
+			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<UAExpansion>();
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;
 		}
 		public override void SetItemDefaults(Item item)

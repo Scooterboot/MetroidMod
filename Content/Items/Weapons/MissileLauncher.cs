@@ -766,7 +766,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 				}
 
-				int chCost = (int)Math.Round(MGlobalItem.AmmoUsage(player,chargeCost * (mp.missileCost + 0.001f)));
+				int chCost = (int)(mp.missileCost + 0.001f);
 				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
 				isCharge &= (mi.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
 
@@ -839,7 +839,7 @@ namespace MetroidMod.Content.Items.Weapons
 												Main.projectile[proj].ai[0] = chargeLead;
 											}
 
-											mi.statMissiles = Math.Max(mi.statMissiles - chCost, 0);
+											mi.statMissiles = Math.Max(mi.statMissiles - (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost)), 0);
 
 											initialShot = true;
 										}
@@ -900,14 +900,14 @@ namespace MetroidMod.Content.Items.Weapons
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 										mProj.homing = true;
 										mProj.Projectile.netUpdate2 = true;
-										mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
+										mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 2)), 0);
 									}
 									else
 									{
 										var entitySource = player.GetSource_ItemUse(Item);
 										int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
 									}
-									mi.statMissiles -= chCost;
+									mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost));
 								}
 								else if (mp.statCharge > 0)
 								{
