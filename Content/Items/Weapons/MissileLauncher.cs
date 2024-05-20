@@ -364,6 +364,7 @@ namespace MetroidMod.Content.Items.Weapons
 			if (slot1.type == hm)
 			{
 				isHoming = true;
+				chargeCost = 2;
 				chargeShot = shot;
 				chargeUpSound = "ChargeStartup_HomingMissile";
 				chargeShotSound = "HomingMissileShoot";
@@ -766,7 +767,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 				}
 
-				int chCost = (int)(mp.missileCost + 0.001f);
+				int chCost = (int)(chargeCost * (mp.missileCost + 0.001f));
 				comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
 				isCharge &= (mi.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
 
@@ -875,11 +876,11 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							if (isHeldCombo <= 0 || mp.statCharge < MPlayer.maxCharge)
 							{
+								var entitySource = player.GetSource_ItemUse(Item);
 								if (mp.statCharge >= MPlayer.maxCharge && mi.statMissiles >= chCost)
 								{
 									if (isShotgun)
 									{
-										var entitySource = player.GetSource_ItemUse(Item);
 										for (int i = 0; i < shotgunAmt; i++)
 										{
 											int k = i - (shotgunAmt / 2);
@@ -895,23 +896,20 @@ namespace MetroidMod.Content.Items.Weapons
 									}
 									if (isHoming)
 									{
-										var entitySource = player.GetSource_ItemUse(Item);
 										int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage * 2, Item.knockBack, player.whoAmI);
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 										mProj.homing = true;
-										mProj.Projectile.netUpdate2 = true;
-										mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 2)), 0);
+										//mProj.Projectile.netUpdate2 = true;
+										//mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 2)), 0);
 									}
-									else
+									else if (!isShotgun) //dont know why this needs to be this way but it do
 									{
-										var entitySource = player.GetSource_ItemUse(Item);
 										int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
 									}
 									mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost));
 								}
 								else if (mp.statCharge > 0)
 								{
-									var entitySource = player.GetSource_ItemUse(Item);
 									int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
 									mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1));
 								}
