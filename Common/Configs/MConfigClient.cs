@@ -49,7 +49,19 @@ namespace MetroidMod.Common.Configs
 		"Default value: false\n" + "(WORK IN PROGRESS)")]*/
 		[DefaultValue(false)]
 		public bool energyLowFade;
-
+		
+		[BackgroundColor(255, 255, 255)]
+		[Label("[i:StoneBlock] Weapon Fire Screenshake")]
+		[Tooltip("Should beams and missiles produce screenshake when fired?")]
+		[DefaultValue(true)]
+		public bool WeaponFireScreenshake;
+		
+		[BackgroundColor(255, 255, 255)]
+		[Label("[i:StoneBlock] Weapon Collide Screenshake")]
+		[Tooltip("Should beams, bombs and missiles produce screenshake when exploding?")]
+		[DefaultValue(true)]
+		public bool WeaponCollideScreenshake;
+		
 		[Header("DraggableUIPanels")]
 		//[Label("Power Beam")]
 		public DragablePanelPage PowerBeam = new();
