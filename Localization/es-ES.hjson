@@ -3541,6 +3541,16 @@ Mods: {
 					// Label: Psuedo Screw Attack
 					// Tooltip: ""
 				}
+
+				WeaponCollideScreenshake: {
+					// Tooltip: Should beams, bombs and missiles produce screenshake when exploding?
+					// Label: "[i:StoneBlock] Weapon Collide Screenshake"
+				}
+
+				WeaponFireScreenshake: {
+					// Tooltip: Should beams and missiles produce screenshake when fired?
+					// Label: "[i:StoneBlock] Weapon Fire Screenshake"
+				}
 			}
 
 			MConfigClientDebug: {
