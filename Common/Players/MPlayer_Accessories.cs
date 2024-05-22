@@ -423,7 +423,9 @@ namespace MetroidMod.Common.Players
 				SoundEngine.PlaySound(Sounds.Suit.MissilesReplenished, Player.position);
 				return false;
 			}
-			if (PrimeHunter)
+			Player player = Main.LocalPlayer;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			if (mp.PrimeHunter)
 			{
 				bool wearingSuit = Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>();
 				if (!wearingSuit)
