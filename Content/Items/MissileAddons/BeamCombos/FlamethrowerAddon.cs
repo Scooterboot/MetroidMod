@@ -49,6 +49,14 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 				.AddIngredient(ItemID.SoulofMight, 5)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
+			
+			CreateRecipe()
+				.AddIngredient(ItemID.HallowedBar, 10)
+				.AddIngredient(ItemID.CursedFlame, 10)
+				.AddIngredient(ItemID.Ruby, 1)
+				.AddIngredient(ItemID.SoulofMight, 5)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 }

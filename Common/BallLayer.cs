@@ -9,6 +9,7 @@ namespace MetroidMod.Common
 {
 	public class BallLayer : PlayerDrawLayer
 	{
+		//TODO spiderball lags multiplayer like crazy
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.FrontAccFront);
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => drawInfo.drawPlayer.GetModPlayer<MPlayer>().morphBall;
 
@@ -21,8 +22,8 @@ namespace MetroidMod.Common
 
 			if (!drawPlayer.active || drawPlayer.outOfRange || Main.gameMenu) return;
 
-			Texture2D tex = mp.spiderball ? ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Spiderball").Value : ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball").Value;
-			Texture2D tex3 = mp.spiderball ? ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Spiderball_Dye").Value : ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Dye").Value;
+			Texture2D tex = /*mp.spiderball ? ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Spiderball").Value : */ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball").Value;
+			Texture2D tex3 = /*mp.spiderball ? ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Spiderball_Dye").Value : */ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Dye").Value;
 			Texture2D boost = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Boostball").Value;
 			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Morphball_Light").Value;
 			Texture2D spiderTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Spiderball").Value;
@@ -129,11 +130,11 @@ namespace MetroidMod.Common
 						drawInfo.DrawDataCache.Add(data);
 					}
 
-					if (mp.spiderball)
+					/*if (mp.spiderball)
 					{
 						data = new DrawData(spiderTex, thispos, new Rectangle?(new Rectangle(0, 0, spiderTex.Width, spiderTex.Height)), mp.morphColorLights * 0.5f, mp.ballrot, new Vector2(spiderTex.Width / 2, spiderTex.Height / 2), scale, effects, 0);
 						drawInfo.DrawDataCache.Add(data);
-					}
+					}*/
 				}
 			}
 		}

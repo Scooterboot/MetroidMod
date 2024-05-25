@@ -171,19 +171,19 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (target == null || !target.active)
 					{
 						targetPos = Lead.Center;
-						P.netUpdate = true;
+						//P.netUpdate = true;
 					}
 					if (!setTargetPos)
 					{
 						targetPos = P.Center;
 						setTargetPos = true;
-						P.netUpdate = true;
+						//P.netUpdate = true;
 						return;
 					}
 					else if (target != null && target.active)
 					{
 						targetPos = target.Center;
-						P.netUpdate = true;
+						//P.netUpdate = true;
 					}
 					else
 					{
@@ -191,7 +191,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						{
 							mp.statCharge = 0;
 							targetPos = oPos + diff * range;
-							P.netUpdate = true;
+							//P.netUpdate = true;
 							//targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 							//targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 						}
@@ -239,7 +239,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (ampSyncCooldown-- <= 0)
 					{
 						ampSyncCooldown = 20;
-						//Projectile.netUpdate2 = true;
+						Projectile.netUpdate2 = true;
 					}
 					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
@@ -404,7 +404,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			Player O = Main.player[Projectile.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			int heal = (int)(damageDone * (mp.statCharge / MPlayer.maxCharge));// * (O.statLife / O.statLifeMax2));
+			int heal = ((int)(damageDone * (mp.statCharge / MPlayer.maxCharge));// * (O.statLife / O.statLifeMax2));
 			float minDamage = MConfigItems.Instance.minSpeedShockCoil + (Luminite? 1.0f : DiffBeam? 0.5f :0);
 			float maxDamage = MConfigItems.Instance.maxSpeedShockCoil + (Luminite ? 1.0f : DiffBeam ? 0.5f : 0);
 			float ranges = maxDamage - minDamage;

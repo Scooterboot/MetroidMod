@@ -58,7 +58,7 @@ namespace MetroidMod.Content.Tiles.Hatch
 				if (Main.LocalPlayer.TryGetModPlayer(out Common.Players.MPlayer mp) && mp.YellowKeycard)
 				{
 					HitWire(i, j);
-					if (Main.netMode == NetmodeID.MultiplayerClient) { SendRightClick(i, j); }
+					//if (Main.netMode == NetmodeID.MultiplayerClient) { SendRightClick(i, j); }
 					return true;
 				}
 			}

@@ -142,7 +142,7 @@ namespace MetroidMod
 					byte playerID = reader.ReadByte();
 					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>();
 					double statCharge = reader.ReadDouble();
-					bool spiderBall = reader.ReadBoolean();
+					//bool spiderBall = reader.ReadBoolean();
 					int boostEffect = reader.ReadInt32();
 					int boostCharge = reader.ReadInt32();
 					int energyTanks = reader.ReadInt32();
@@ -156,7 +156,7 @@ namespace MetroidMod
 					bool PH = reader.ReadBoolean();
 
 					targetPlayer.statCharge = (float)statCharge;
-					targetPlayer.spiderball = spiderBall;
+					//targetPlayer.spiderball = spiderBall;
 					targetPlayer.boostEffect = boostEffect;
 					targetPlayer.boostCharge = boostCharge;
 					targetPlayer.EnergyTanks = energyTanks;
@@ -175,7 +175,7 @@ namespace MetroidMod
 						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 						packet.Write(playerID);
 						packet.Write(statCharge);
-						packet.Write(spiderBall);
+						//packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
 						packet.Write(energyTanks);
