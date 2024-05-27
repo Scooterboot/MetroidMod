@@ -800,7 +800,7 @@ namespace MetroidMod.Common.Players
 		public void SpiderMovement(Player Player)
 		{
 			Player.velocity.X = 0f;
-			Player.velocity.Y = 0f;// 1E-05f;
+			Player.velocity.Y = 1E-05f;
 
 			Player.position.X = (float)Math.Round(Player.position.X, 2);
 			Player.position.Y = (float)Math.Round(Player.position.Y, 2);

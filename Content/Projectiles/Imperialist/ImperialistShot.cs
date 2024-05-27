@@ -123,18 +123,22 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
-			writer.Write(Projectile.penetrate);
-			writer.Write(Projectile.maxPenetrate);
 			writer.Write(spaze);
 			writer.Write(BeamLength);
+			writer.Write(depth);
+			writer.Write(hitRange);
+			writer.Write(Projectile.penetrate);
+			writer.Write(Projectile.maxPenetrate);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			spaze = reader.ReadBoolean();
 			BeamLength = reader.ReadSingle();
-			Projectile.penetrate = (int)reader.ReadSingle();
-			Projectile.maxPenetrate = (int)reader.ReadSingle();
+			depth = reader.ReadInt32();
+			hitRange = reader.ReadSingle();
+			Projectile.penetrate = reader.ReadInt32();
+			Projectile.maxPenetrate = reader.ReadInt32();
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

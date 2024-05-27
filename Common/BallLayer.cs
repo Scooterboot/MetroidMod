@@ -130,11 +130,11 @@ namespace MetroidMod.Common
 						drawInfo.DrawDataCache.Add(data);
 					}
 
-					/*if (mp.spiderball)
+					if (mp.spiderball)
 					{
 						data = new DrawData(spiderTex, thispos, new Rectangle?(new Rectangle(0, 0, spiderTex.Width, spiderTex.Height)), mp.morphColorLights * 0.5f, mp.ballrot, new Vector2(spiderTex.Width / 2, spiderTex.Height / 2), scale, effects, 0);
 						drawInfo.DrawDataCache.Add(data);
-					}*/
+					}
 				}
 			}
 		}
