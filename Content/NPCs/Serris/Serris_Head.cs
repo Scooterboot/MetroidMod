@@ -136,6 +136,7 @@ namespace MetroidMod.Content.NPCs.Serris
 		int glowNum = 1;
 		int glowFrameCounter = 0;
 		float oldRot = 0f;
+		int resets = 9;
 
 		public override void AI()
 		{
@@ -216,7 +217,7 @@ namespace MetroidMod.Content.NPCs.Serris
 					}
 
 					// activate speed boost on hit
-					if (NPC.justHit)
+					if (NPC.justHit && NPC.life <= NPC.lifeMax * resets / 10)
 					{
 						extra_state = 1;
 						NPC.TargetClosest(true);
@@ -232,6 +233,7 @@ namespace MetroidMod.Content.NPCs.Serris
 
 					if (NPC.localAI[3] == 1)
 					{
+						resets--;
 						SoundEngine.PlaySound(Sounds.NPCs.SerrisHurt, NPC.Center);
 					}
 
@@ -423,8 +425,9 @@ namespace MetroidMod.Content.NPCs.Serris
 					if (NPC.localAI[1] == 0)
 					{
 						NPC.chaseable = true;
-						if (NPC.justHit)
+						if (NPC.justHit && NPC.life <= NPC.lifeMax * resets / 10)
 						{
+							resets--;
 							NPC.localAI[1] = 1;
 							SoundEngine.PlaySound(Sounds.NPCs.CoreXHurt, NPC.Center);
 							NPC.TargetClosest(true);

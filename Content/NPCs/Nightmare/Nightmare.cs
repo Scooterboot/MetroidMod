@@ -286,6 +286,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 		int state = 0;
 		int currentState = 0;
+		int resets = 4;
 		public override void AI()
 		{
 			bool despawn = false;
@@ -913,8 +914,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 						immuneFlash = true;
 						NPC.dontTakeDamage = true;
 					}
-					if (NPC.justHit && hitDelay <= 0)
+					if (NPC.justHit && hitDelay <= 0 && NPC.life <= NPC.lifeMax * resets / 5)
 					{
+						resets--;
 						hitDelay = 1;
 					}
 					if (hitDelay > 0)
