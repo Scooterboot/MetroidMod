@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Buffs
 			player.GetDamage(damageClass) += 0.30f;
 			player.GetCritChance(damageClass) += 15;
 			player.GetArmorPenetration(damageClass) += 20;
-			//player.statDefense -= 20;
+			player.statDefense /= 2;
 			//player.statLifeMax2 -= player.statLifeMax2 / 10;
 			player.endurance -= 0.25f;
 			//mp.PrimeHunter = true;
@@ -51,9 +51,9 @@ namespace MetroidMod.Content.Buffs
 			player.runAcceleration *= 5f;
 			player.runSlowdown *= 5f;
 			player.accRunSpeed *= 5f;
-			/*if(player.mount.Active && mp.morphBall)
+			if(player.mount.Active && mp.morphBall)
 			{
-				player.thorns += 100f;
+				player.thorns *= 3f;
 			}
 			/*if (player.lifeRegen > 0)
 			{

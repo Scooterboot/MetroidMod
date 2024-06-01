@@ -125,10 +125,11 @@ namespace MetroidMod.Common.Players
 				mp.SuitReserves = mp.MaxSuitReserves;
 				if(mp.ShouldShowArmorUI)
 				{
-					SoundEngine.PlaySound(Sounds.Suit.SpawnIn, new Microsoft.Xna.Framework.Vector2(Player.SpawnX, Player.SpawnY));
+					SoundEngine.PlaySound(Sounds.Suit.SpawnIn);
 				}
 			}
 		}
+		private int Stinger = 0;
 		public override void UpdateLifeRegen()
 		{
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
@@ -147,14 +148,20 @@ namespace MetroidMod.Common.Players
 					Energy -= 1;
 				}
 			}
-			if (Player.immune) { return; }
+			if (Player.immune || Player.creativeGodMode) { return; }
 			if (Energy > 0 && Player.lifeRegen < 0)
 			{
-				//Player.lifeRegen = 0;
+				int regen = Player.lifeRegen;
 				int oldEnergy = Energy;
-				float damageToSubtractFromEnergy = Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
-				Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
-				Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
+				Stinger++;
+				if (Stinger >= 30 && !Player.creativeGodMode)
+				{
+					Stinger = 0;
+					float damageToSubtractFromEnergy = (-Player.lifeRegen) * (1 - EnergyExpenseEfficiency);// Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
+					Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
+					//Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
+				}
+				Player.lifeRegen -= Player.lifeRegen;
 				//if (Player.lifeRegen > 0) { Player.lifeRegen = 0; }
 			}
 		}

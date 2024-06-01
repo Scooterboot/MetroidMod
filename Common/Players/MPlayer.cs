@@ -807,7 +807,7 @@ namespace MetroidMod.Common.Players
 		}
 
 		/* NETWORK SYNCING. <<<<<< WIP >>>>>> */
-
+		//TODO CLEAN THIS UP!!
 		// Using Initialize to make sure every Player has his/her own instance.
 		public override void Initialize()
 		{
