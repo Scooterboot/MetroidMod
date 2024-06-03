@@ -180,7 +180,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			return false;
 		}
 		public override void SendExtraAI(BinaryWriter writer) => writer.Write(BeamLength);
-		public override void ReceiveExtraAI(BinaryReader reader) => BeamLength = reader.ReadSingle();
+		public override void ReceiveExtraAI(BinaryReader reader) => BeamLength = reader.ReadInt32();
 		public override void CutTiles()
 		{
 			Projectile P = Projectile;

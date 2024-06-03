@@ -37,7 +37,6 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpeedBoosterTile>();
 		}
 		public override void AddRecipes()
@@ -47,6 +46,7 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddIngredient(ItemID.HellstoneBar, 5)
 				.AddIngredient(ItemID.Emerald, 1)
 				.AddIngredient(ItemID.JungleSpores, 5)
+				.AddIngredient(ItemID.Magiluminescence, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

@@ -74,8 +74,7 @@ namespace MetroidMod.Content.SuitAddons
 			mp.EnergyDefenseEfficiency += 0.2f;
 			mp.EnergyExpenseEfficiency += 0.375f;
 			mp.canHyper = true;
-			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonUACost *= 0.90f;
+			mp.UACost -= 0.10f;
 		}
 		public override void AddRecipes()
 		{

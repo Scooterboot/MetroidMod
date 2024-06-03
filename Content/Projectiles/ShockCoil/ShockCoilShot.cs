@@ -60,6 +60,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 		float[] amp = new float[3];
 		float[] ampDest = new float[3];
+		float range;
+		float distance;
 
 		private int GetDepth(MProjectile mp)
 		{
@@ -111,8 +113,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 			mProjectile.WaveBehavior(P);
 
-			float range = (GetDepth(meep) * 16) + 32f;
-			float distance = (GetDepth(meep) * 16) + 32f;
+			range = (GetDepth(meep) * 16) + 32f;
+			distance = (GetDepth(meep) * 16) + 32f;
 
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
@@ -171,19 +173,19 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (target == null || !target.active)
 					{
 						targetPos = Lead.Center;
-						//P.netUpdate = true;
+						P.netUpdate = true;
 					}
 					if (!setTargetPos)
 					{
 						targetPos = P.Center;
 						setTargetPos = true;
-						//P.netUpdate = true;
+						P.netUpdate = true;
 						return;
 					}
 					else if (target != null && target.active)
 					{
 						targetPos = target.Center;
-						//P.netUpdate = true;
+						P.netUpdate = true;
 					}
 					else
 					{
@@ -191,7 +193,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						{
 							mp.statCharge = 0;
 							targetPos = oPos + diff * range;
-							//P.netUpdate = true;
+							P.netUpdate = true;
 							//targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 							//targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 						}
@@ -273,7 +275,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						amp[i] -= 3;
 					}
 				}
-				if (mp.statOverheat >= mp.maxOverheat || O.HeldItem.GetGlobalItem<MGlobalItem>().statUA <= O.HeldItem.GetGlobalItem<MGlobalItem>().addonUACost)
+				if (mp.statOverheat >= mp.maxOverheat || O.HeldItem.GetGlobalItem<MGlobalItem>().statUA <= 0)//O.HeldItem.GetGlobalItem<MGlobalItem>().addonUACost)
 				{
 					P.Kill();
 					mp.statCharge = 0;
@@ -390,12 +392,18 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
+			writer.Write(range);
+			writer.Write(distance);
+			writer.WriteVector2(mousePos);
 			writer.WriteVector2(oPos);
 			writer.WriteVector2(targetPos);
 			base.SendExtraAI(writer);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
+			range = reader.ReadInt32();
+			distance = reader.ReadInt32();
+			mousePos = reader.ReadVector2();
 			oPos = reader.ReadVector2();
 			targetPos = reader.ReadVector2();
 			base.ReceiveExtraAI(reader);

@@ -134,9 +134,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			spaze = reader.ReadBoolean();
-			BeamLength = reader.ReadSingle();
+			BeamLength = reader.ReadInt32();
 			depth = reader.ReadInt32();
-			hitRange = reader.ReadSingle();
+			hitRange = reader.ReadInt32();
 			Projectile.penetrate = reader.ReadInt32();
 			Projectile.maxPenetrate = reader.ReadInt32();
 		}

@@ -49,10 +49,10 @@ namespace MetroidMod.Content.Buffs
 							mi.statUA++;
 							num3++;
 							int num4 = num3;
-							while (num4 > 400)
+							while (num4 > 50)
 							{
 								mi.statUA++;
-								num4 -= 400;
+								num4 -= 50;
 							}
 						}
 						break;

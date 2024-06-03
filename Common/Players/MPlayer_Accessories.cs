@@ -900,6 +900,9 @@ namespace MetroidMod.Common.Players
 				speedBuildUp = 0f;
 			}
 			Player.maxRunSpeed += (speedBuildUp * 0.06f);
+			Player.runAcceleration *= 1.5f;
+			Player.runSlowdown *= 1.5f;
+			Player.accRunSpeed *= 1.5f;
 			if (mp.speedBoosting)
 			{
 				Player.armorEffectDrawShadow = true;

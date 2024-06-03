@@ -518,7 +518,7 @@ namespace MetroidMod.Content.NPCs
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			directionY = reader.ReadInt16();
-			crawlSpeed = reader.ReadSingle();
+			crawlSpeed = reader.ReadInt32(); //Single
 		}
 
 

@@ -70,8 +70,7 @@ namespace MetroidMod.Content.SuitAddons
 			mp.breathMult = 1.55f;
 			mp.EnergyDefenseEfficiency += 0.1f;
 			mp.EnergyExpenseEfficiency += 0.2f;
-			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
-			mItem.addonUACost *= 0.95f;
+			mp.UACost -= 0.05f;
 		}
 		public override void AddRecipes()
 		{

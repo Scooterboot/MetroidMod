@@ -116,8 +116,8 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Projectile.penetrate = (int)reader.ReadSingle();
-			Projectile.maxPenetrate = (int)reader.ReadSingle();
+			Projectile.penetrate =	reader.ReadInt32();
+			Projectile.maxPenetrate = reader.ReadInt32();
 		}
 	}
 }

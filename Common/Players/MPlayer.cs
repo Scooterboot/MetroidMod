@@ -36,6 +36,7 @@ namespace MetroidMod.Common.Players
 		public float missileCost = 1f;
 		public float maxParalyzerCharge = 100f;
 		public float statParalyzerCharge = 0f;
+		public float UACost = 1f;
 
 		public bool canHyper = false;
 		public bool PrimeHunter = false;
@@ -78,6 +79,7 @@ namespace MetroidMod.Common.Players
 			maxOverheat = 100f;
 			overheatCost = 1f;
 			missileCost = 1f;
+			UACost = 1f;
 			maxParalyzerCharge = 100f;
 
 			senseMove = false;
