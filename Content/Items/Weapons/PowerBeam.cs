@@ -1645,7 +1645,7 @@ namespace MetroidMod.Content.Items.Weapons
 			mp.statOverheat += MGlobalItem.AmmoUsage(player, overheat * mp.overheatCost);//(int)(pb.AmmoUse(player) ? (overheat * mp.overheatCost) : 0);
 			mp.overheatDelay = (int)Math.Max(useTime - 10, 2);
 			/* Sound & Sound Networking */ //TODO causes audio crashes
-			/*if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
+			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 			{
 				// Send a packet to have the sound play on all clients.
 				ModPacket packet = Mod.GetPacket();
@@ -1653,7 +1653,7 @@ namespace MetroidMod.Content.Items.Weapons
 				packet.Write((byte)player.whoAmI);
 				packet.Write(shotSound);
 				packet.Send();
-			}*/
+			}
 			// Play the shot sound for the local player, not really --Dr
 			if (!isPhazon)
 			{
