@@ -116,14 +116,14 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 			//SoundEngine.PlaySound(SoundID.Item14,P.position);
 
+			int dustType = 6;
+			int dustType2 = 30;
+			float scale = 1f;
 			if (mProjectile.homing)
 			{
 				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
 			}
-			int dustType = 6;
-			int dustType2 = 30;
-			float scale = 1f;
-			if (P.Name.Contains("Ice"))
+			else if (P.Name.Contains("Ice"))
 			{
 				dustType = 135;
 				SoundEngine.PlaySound(Sounds.Items.Weapons.IceMissileExplode, Projectile.position);

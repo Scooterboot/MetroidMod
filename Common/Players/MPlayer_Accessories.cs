@@ -1049,8 +1049,8 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 2: //right and up
-					Player.velocity.X = Math.Max(5 * Player.accRunSpeed, 20);
-					Player.velocity.Y = Math.Min(-5 * Player.accRunSpeed * Player.gravDir, -20);
+					Player.velocity.X = Math.Max(4 * Player.accRunSpeed, 20);
+					Player.velocity.Y = Math.Min(-4 * Player.accRunSpeed * Player.gravDir, -20);
 					Player.maxFallSpeed = 0f;
 					Player.direction = 1;
 					shineDischarge = 0;
@@ -1058,7 +1058,7 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 3: //left
-					Player.velocity.X = Math.Min(-5 * Player.accRunSpeed, -20);
+					Player.velocity.X = Math.Min(-4 * Player.accRunSpeed, -20);
 					Player.velocity.Y = 0;
 					Player.maxFallSpeed = 0f;
 					Player.direction = -1;
@@ -1068,8 +1068,8 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 4: //left and up
-					Player.velocity.X = Math.Min(-5 * Player.accRunSpeed, -20);
-					Player.velocity.Y = Math.Min(-5 * Player.accRunSpeed * Player.gravDir, -20);
+					Player.velocity.X = Math.Min(-4 * Player.accRunSpeed, -20);
+					Player.velocity.Y = Math.Min(-4 * Player.accRunSpeed * Player.gravDir, -20);
 					Player.maxFallSpeed = 0f;
 					Player.direction = -1;
 					shineDischarge = 0;
@@ -1078,7 +1078,7 @@ namespace MetroidMod.Common.Players
 
 				case 5: //up
 					Player.velocity.X = 0;
-					Player.velocity.Y = Math.Min(-5 * Player.accRunSpeed * Player.gravDir, -20);
+					Player.velocity.Y = Math.Min(-4 * Player.accRunSpeed * Player.gravDir, -20);
 					Player.maxFallSpeed = 0f;
 					shineDischarge = 0;
 					if (Player.miscCounter % 5 == 0 && !ballstate)
@@ -1090,9 +1090,9 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 6: //right and down
-					Player.velocity.X = Math.Max(5 * Player.accRunSpeed, 20);
-					Player.velocity.Y = Math.Max(5 * Player.accRunSpeed * Player.gravDir, 20);
-					Player.maxFallSpeed = Math.Max(5 * Player.accRunSpeed, 20);
+					Player.velocity.X = Math.Max(4 * Player.accRunSpeed, 20);
+					Player.velocity.Y = Math.Max(4 * Player.accRunSpeed * Player.gravDir, 20);
+					Player.maxFallSpeed = Math.Max(4 * Player.accRunSpeed, 20);
 					Player.direction = 1;
 					shineDischarge = 0;
 					Player.controlLeft = false;
@@ -1100,9 +1100,9 @@ namespace MetroidMod.Common.Players
 					break;
 
 				case 7: //left and down
-					Player.velocity.X = Math.Min(-5 * Player.accRunSpeed, -20);
-					Player.velocity.Y = Math.Max(5 * Player.accRunSpeed * Player.gravDir, 20);
-					Player.maxFallSpeed = Math.Max(5 * Player.accRunSpeed, 20);
+					Player.velocity.X = Math.Min(-4 * Player.accRunSpeed, -20);
+					Player.velocity.Y = Math.Max(4 * Player.accRunSpeed * Player.gravDir, 20);
+					Player.maxFallSpeed = Math.Max(4 * Player.accRunSpeed, 20);
 					Player.direction = -1;
 					shineDischarge = 0;
 					Player.controlRight = false;
@@ -1111,8 +1111,8 @@ namespace MetroidMod.Common.Players
 
 				case 8: //down
 					Player.velocity.X = 0;
-					Player.velocity.Y = Math.Max(5 * Player.accRunSpeed * Player.gravDir, 20);
-					Player.maxFallSpeed = Math.Max(5 * Player.accRunSpeed, 20);
+					Player.velocity.Y = Math.Max(4 * Player.accRunSpeed * Player.gravDir, 20);
+					Player.maxFallSpeed = Math.Max(4 * Player.accRunSpeed, 20);
 					shineDischarge = 0;
 					if (Player.miscCounter % 4 == 0 && !ballstate)
 					{

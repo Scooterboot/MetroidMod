@@ -86,11 +86,13 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
 			//Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
-			SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplode, Projectile.position);
-
 			if (mProjectile.homing)
 			{
 				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
+			}
+			else
+			{
+				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplode, Projectile.position);
 			}
 			int dustType = 6;
 			if (Projectile.Name.Contains("Ice"))
