@@ -35,7 +35,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 					if (shot.Contains("wave") || shot.Contains("nebula"))
 					{
 						depth = waveDepth;
-						mProjectile.WaveBehavior(Projectile, true);
+						//mProjectile.WaveBehavior(Projectile, true);
 					}
 				}
 			}
@@ -125,8 +125,8 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			writer.Write(spaze);
 			writer.Write(BeamLength);
-			writer.Write(depth);
-			writer.Write(hitRange);
+			//writer.Write(waveDepth);
+			//writer.Write(hitRange);
 			writer.Write(Projectile.penetrate);
 			writer.Write(Projectile.maxPenetrate);
 		}
@@ -135,8 +135,8 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			spaze = reader.ReadBoolean();
 			BeamLength = reader.ReadInt32();
-			depth = reader.ReadInt32();
-			hitRange = reader.ReadInt32();
+			//waveDepth = reader.ReadInt32();
+			//hitRange = reader.ReadInt32();
 			Projectile.penetrate = reader.ReadInt32();
 			Projectile.maxPenetrate = reader.ReadInt32();
 		}

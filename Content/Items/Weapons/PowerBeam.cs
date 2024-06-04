@@ -1376,7 +1376,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				ChargeShotSound = new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}");
 			}
-			//Item.UseSound = ShotSound;
+			Item.UseSound = ShotSound; //TESTING
 
 			//Item.autoReuse = (!slot1.IsAir);//(isCharge);
 
@@ -1622,7 +1622,6 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 					}
 				}
-
 				mp.hyperColors = 23;
 			}
 			else
@@ -1655,13 +1654,13 @@ namespace MetroidMod.Content.Items.Weapons
 				packet.Write(shotSound);
 				packet.Send();
 			}*/
-			// Play the shot sound for the local player.
+			// Play the shot sound for the local player, not really --Dr
 			if (!isPhazon)
 			{
-				SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), player.position);
+				SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), player.position);// SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
 			}
 			// Does UA math, and doesn't subtract for normal shots (they have cost set to 0)
-			if(!isShock && isHunter)
+			if (!isShock && isHunter)
 			{
 				pb.statUA -= MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost * mp.UACost);
 			}
@@ -1871,7 +1870,7 @@ namespace MetroidMod.Content.Items.Weapons
 					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
 					player.GetCritChance(damageClass) += (int)impStealth / (Lum ? 3f : Diff ? 5f : 10f);
 				}
-				if (isHunter && pb.statUA <= 0f && player.controlUseItem)//TODO tooltips dont fix
+				if (isHunter && pb.statUA <= 0f && player.controlUseItem)
 				{
 					if (!BeamChange[11].IsAir)
 					{

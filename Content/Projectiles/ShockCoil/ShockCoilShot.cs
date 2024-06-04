@@ -111,176 +111,194 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			{
 				P.damage = dmg;
 			}
-			mProjectile.WaveBehavior(P);
+			//mProjectile.WaveBehavior(P);
 
 			range = (GetDepth(meep) * 16) + 32f;
 			distance = (GetDepth(meep) * 16) + 32f;
 
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-			if (Lead != null && Lead.active && Lead.type == ModContent.ProjectileType<ChargeLead>() && Lead.owner == Main.myPlayer)
+			if (Lead != null && Lead.active/* && Lead.type == ModContent.ProjectileType<ChargeLead>() && Lead.owner == Main.myPlayer*/)
 			{
-				if (P.owner == Main.myPlayer && !O.dead)
+				for (int k = 0; k < range; k++)
 				{
-					P.netUpdate = true;
-					Vector2 diff = Main.MouseWorld - oPos;
-					diff.Normalize();
+					float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
+					Vector2 tilePos = Lead.Center + targetrot.ToRotationVector2() * k;
+					int i = (int)MathHelper.Clamp(tilePos.X / 16, 0, Main.maxTilesX - 2);
+					int j = (int)MathHelper.Clamp(tilePos.Y / 16, 0, Main.maxTilesY - 2);
 
-					mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
-
-					target = null;
-					for (int i = 0; i < Main.maxNPCs; i++)
+					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
 					{
-						if (Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
+						range = Math.Max(range - 1, 1);
+						distance = Math.Max(distance - 1, 1);
+					}
+					/*else
+					{
+						range = Math.Min(range + 1, Max_Range);
+						distance = Math.Min(distance + 1, Max_Distance);
+					}*/
+				}
+			}
+			if (P.owner == Main.myPlayer && !O.dead)
+			{
+				P.netUpdate = true;
+				Vector2 diff = Main.MouseWorld - oPos;
+				diff.Normalize();
+
+				mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
+
+				target = null;
+				for (int i = 0; i < Main.maxNPCs; i++)
+				{
+					if (Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
+					{
+						NPC npc = Main.npc[i];
+						Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+
+						float point = 0f;
+						if (Vector2.Distance(oPos, npc.Center) < range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
 						{
-							NPC npc = Main.npc[i];
-							Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
-
-							float point = 0f;
-							if (Vector2.Distance(oPos, npc.Center) < range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
-							{
-								range = Vector2.Distance(oPos, npc.Center);
-								mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
-							}
-
-							bool flag = (Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance);
-
-							if (Main.npc[i].CanBeChasedBy(P, false))
-							{
-								if (target == null || !target.active)
-								{
-									if (flag)
-									{
-										target = npc;
-									}
-								}
-								else
-								{
-									if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
-									{
-										target = npc;
-										//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
-									}
-
-									if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
-									{
-										target = null;
-									}
-								}
-							}
+							range = Vector2.Distance(oPos, npc.Center);
+							mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
 						}
-					}
-					if (target == null || !target.active)
-					{
-						targetPos = Lead.Center;
-						P.netUpdate = true;
-					}
-					if (!setTargetPos)
-					{
-						targetPos = P.Center;
-						setTargetPos = true;
-						P.netUpdate = true;
-						return;
-					}
-					else if (target != null && target.active)
-					{
-						targetPos = target.Center;
-						P.netUpdate = true;
-					}
-					else
-					{
-						if (P.numUpdates == 0)
-						{
-							mp.statCharge = 0;
-							targetPos = oPos + diff * range;
-							P.netUpdate = true;
-							//targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
-							//targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
-						}
-					}
 
-					if (P.numUpdates == 0)
-					{
-						if (soundDelay <= 0)
-						{
-							if (!soundPlayed)
-							{
-								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
-								soundInstance = result.Sound;
-								soundPlayed = true;
-								soundDelay = 50;
-							}
-							if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-							{
-								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity2, O.position), out ActiveSound result);
-								soundInstance = result.Sound;
-								soundDelay = 40;
-							}
+						bool flag = (Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance);
 
+						if (Main.npc[i].CanBeChasedBy(P, false))
+						{
+							if (target == null || !target.active)
+							{
+								if (flag)
+								{
+									target = npc;
+								}
+							}
 							else
 							{
-								if (soundInstance != null)
+								if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
 								{
-									soundInstance.Stop(true);
+									target = npc;
+									//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
 								}
-								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
-								soundInstance = result.Sound;
-								soundDelay = 40;
+
+								if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
+								{
+									target = null;
+								}
 							}
 						}
-						else
-						{
-							soundDelay--;
-						}
-						for (int i = 0; i < 3; i++)
-						{
-							ampDest[i] = Main.rand.Next(-15, 16);
-						}
 					}
-
-					if (ampSyncCooldown-- <= 0)
-					{
-						ampSyncCooldown = 20;
-						Projectile.netUpdate2 = true;
-					}
-					float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
-					float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
-					P.velocity = targetAngle.ToRotationVector2() * speed;
 				}
-				if (O.controlUseItem)
+				if (target == null || !target.active)
 				{
-					P.timeLeft = 5;
+					targetPos = Lead.Center;
+					//P.netUpdate = true;
+				}
+				if (!setTargetPos)
+				{
+					targetPos = P.Center;
+					setTargetPos = true;
+					//P.netUpdate = true;
+					return;
+				}
+				else if (target != null && target.active)
+				{
+					targetPos = target.Center;
+					//P.netUpdate = true;
 				}
 				else
 				{
-					P.Kill();
+					if (P.numUpdates == 0)
+					{
+						mp.statCharge = 0;
+						targetPos = oPos + diff * range;
+						P.netUpdate = true;
+						//targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
+						//targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
+					}
 				}
 
 				if (P.numUpdates == 0)
 				{
+					if (soundDelay <= 0)
+					{
+						if (!soundPlayed)
+						{
+							SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
+							soundInstance = result.Sound;
+							soundPlayed = true;
+							soundDelay = 50;
+						}
+						if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+						{
+							SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity2, O.position), out ActiveSound result);
+							soundInstance = result.Sound;
+							soundDelay = 40;
+						}
+
+						else
+						{
+							if (soundInstance != null)
+							{
+								soundInstance.Stop(true);
+							}
+							SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
+							soundInstance = result.Sound;
+							soundDelay = 40;
+						}
+					}
+					else
+					{
+						soundDelay--;
+					}
 					for (int i = 0; i < 3; i++)
 					{
 						ampDest[i] = Main.rand.Next(-15, 16);
 					}
 				}
 
+				if (ampSyncCooldown-- <= 0)
+				{
+					ampSyncCooldown = 20;
+					Projectile.netUpdate2 = true;
+				}
+				float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
+				float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
+				P.velocity = targetAngle.ToRotationVector2() * speed;
+			}
+			if (O.controlUseItem)
+			{
+				P.timeLeft = 5;
+			}
+			else
+			{
+				P.Kill();
+			}
+
+			if (P.numUpdates == 0)
+			{
 				for (int i = 0; i < 3; i++)
 				{
-					if (amp[i] < ampDest[i])
-					{
-						amp[i] += 3;
-					}
-					else
-					{
-						amp[i] -= 3;
-					}
+					ampDest[i] = Main.rand.Next(-15, 16);
 				}
-				if (mp.statOverheat >= mp.maxOverheat || O.HeldItem.GetGlobalItem<MGlobalItem>().statUA <= 0)//O.HeldItem.GetGlobalItem<MGlobalItem>().addonUACost)
+			}
+
+			for (int i = 0; i < 3; i++)
+			{
+				if (amp[i] < ampDest[i])
 				{
-					P.Kill();
-					mp.statCharge = 0;
-					SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilReload, O.position);
+					amp[i] += 3;
 				}
+				else
+				{
+					amp[i] -= 3;
+				}
+			}
+			if (mp.statOverheat >= mp.maxOverheat || O.HeldItem.GetGlobalItem<MGlobalItem>().statUA <= 0)//O.HeldItem.GetGlobalItem<MGlobalItem>().addonUACost)
+			{
+				P.Kill();
+				mp.statCharge = 0;
+				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilReload, O.position);
 			}
 		}
 		public override bool? CanHitNPC(NPC target3)
@@ -325,7 +343,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			int y4 = num108 * P.frame;
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			P.scale = .8f;
-			float range = (GetDepth(meep) * 16) + 48f;
+			range = (GetDepth(meep) * 16) + 48f;
 			if (O.controlUseItem && !O.dead)
 			{
 
@@ -392,21 +410,21 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
-			writer.Write(range);
-			writer.Write(distance);
-			writer.WriteVector2(mousePos);
-			writer.WriteVector2(oPos);
+			//writer.Write(range);
+			//writer.Write(distance);
+			//writer.WriteVector2(mousePos);
+			//writer.WriteVector2(oPos);
 			writer.WriteVector2(targetPos);
-			base.SendExtraAI(writer);
+			//base.SendExtraAI(writer);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			range = reader.ReadInt32();
-			distance = reader.ReadInt32();
-			mousePos = reader.ReadVector2();
-			oPos = reader.ReadVector2();
+			//range = reader.ReadInt32();
+			//distance = reader.ReadInt32();
+			//mousePos = reader.ReadVector2();
+			//oPos = reader.ReadVector2();
 			targetPos = reader.ReadVector2();
-			base.ReceiveExtraAI(reader);
+			//base.ReceiveExtraAI(reader);
 		}
 		public override void OnHitNPC(NPC target2, NPC.HitInfo hit, int damageDone)
 		{

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -99,13 +100,13 @@ namespace MetroidMod.Content.Projectiles.spazer
 			base.SetDefaults();
 			Projectile.Name = "Ice Spazer Charge Shot";
 		}
-		public override void OnSpawn(IEntitySource source)
+		public override void AI()
 		{
-			base.OnSpawn(source);
+			base.AI();
 			if (shot.Contains("wave"))
 			{
-				Projectile.tileCollide = false;
 				Projectile.Name = "Ice Wave Spazer Charge Shot";
+				Projectile.tileCollide = false;
 				mProjectile.amplitude = 12f * Projectile.scale;
 				mProjectile.wavesPerSecond = 1f;
 			}
