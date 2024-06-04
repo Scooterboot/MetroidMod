@@ -817,7 +817,7 @@ namespace MetroidMod.Common.Players
 
 			canHyper = false;
 			PrimeHunter = false;
-			//spiderball = false;
+			spiderball = false;
 
 			statCharge = 0;
 			boostCharge = 0;
@@ -836,7 +836,7 @@ namespace MetroidMod.Common.Players
 
 			clone.statCharge = statCharge;
 			clone.hyperCharge = hyperCharge;
-			//clone.spiderball = spiderball;
+			clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
 			clone.EnergyTanks = EnergyTanks;
@@ -855,7 +855,7 @@ namespace MetroidMod.Common.Players
 			packet.Write((byte)Player.whoAmI);
 			packet.Write((double)statCharge);
 			packet.Write((double)hyperCharge);
-			//packet.Write(spiderball);
+			packet.Write(spiderball);
 			packet.Write(boostEffect);
 			packet.Write(boostCharge);
 			packet.Write(EnergyTanks);
@@ -878,7 +878,7 @@ namespace MetroidMod.Common.Players
 				packet.Write((byte)Player.whoAmI);
 				packet.Write((double)statCharge);
 				packet.Write((double)hyperCharge);
-				//packet.Write(spiderball);
+				packet.Write(spiderball);
 				packet.Write(boostEffect);
 				packet.Write(boostCharge);
 				packet.Write(EnergyTanks);
