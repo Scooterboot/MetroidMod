@@ -817,15 +817,15 @@ namespace MetroidMod.Common.Players
 
 			canHyper = false;
 			PrimeHunter = false;
-			//spiderball = false;
+			spiderball = false;
 
-			statCharge = 0;
+			statCharge = 0f;
 			boostCharge = 0;
 			boostEffect = 0;
 			EnergyTanks = 0;
 			Energy = 0;
 			tankCapacity = 0;
-			hyperCharge = 0;
+			hyperCharge = 0f;
 			SuitReserveTanks = 0;
 			SuitReserves = 0;
 		}

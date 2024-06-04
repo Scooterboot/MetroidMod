@@ -141,32 +141,32 @@ namespace MetroidMod
 				case MetroidMessageType.SyncStartPlayerStats:
 					byte playerID = reader.ReadByte();
 					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>();
-					double statCharge = reader.ReadDouble();
+					//double statCharge = reader.ReadDouble();
 					//bool spiderBall = reader.ReadBoolean();
-					int boostEffect = reader.ReadInt32();
-					int boostCharge = reader.ReadInt32();
+					//int boostEffect = reader.ReadInt32();
+					//int boostCharge = reader.ReadInt32();
 					int energyTanks = reader.ReadInt32();
 					int energy = reader.ReadInt32();
 					int reserveTanks = reader.ReadInt32();
 					int reserve = reader.ReadInt32();
 					int capacity = reader.ReadInt32();
-					bool canHyper = reader.ReadBoolean();
-					int Hypercharge = reader.ReadInt32();
-					int pbCh = reader.ReadInt32();
+					//bool canHyper = reader.ReadBoolean();
+					//int Hypercharge = reader.ReadInt32();
+					//int pbCh = reader.ReadInt32();
 					bool PH = reader.ReadBoolean();
 
-					targetPlayer.statCharge = (float)statCharge;
+					//targetPlayer.statCharge = (float)statCharge;
 					//targetPlayer.spiderball = spiderBall;
-					targetPlayer.boostEffect = boostEffect;
-					targetPlayer.boostCharge = boostCharge;
+					//targetPlayer.boostEffect = boostEffect;
+					//targetPlayer.boostCharge = boostCharge;
 					targetPlayer.EnergyTanks = energyTanks;
 					targetPlayer.Energy = energy;
 					targetPlayer.SuitReserveTanks = reserveTanks;
 					targetPlayer.SuitReserves = reserve;
 					targetPlayer.tankCapacity = capacity;
-					targetPlayer.canHyper = canHyper;
-					targetPlayer.hyperCharge = Hypercharge;
-					targetPlayer.statPBCh = pbCh;
+					//targetPlayer.canHyper = canHyper;
+					//targetPlayer.hyperCharge = Hypercharge;
+					//targetPlayer.statPBCh = pbCh;
 					targetPlayer.PrimeHunter = PH;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
@@ -174,18 +174,18 @@ namespace MetroidMod
 						ModPacket packet = GetPacket();
 						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 						packet.Write(playerID);
-						packet.Write(statCharge);
+						//packet.Write(statCharge);
 						//packet.Write(spiderBall);
-						packet.Write(boostEffect);
-						packet.Write(boostCharge);
+						//packet.Write(boostEffect);
+						//packet.Write(boostCharge);
 						packet.Write(energyTanks);
 						packet.Write(energy);
 						packet.Write(reserveTanks);
 						packet.Write(reserve);
 						packet.Write(capacity);
-						packet.Write(canHyper);
-						packet.Write(Hypercharge);
-						packet.Write(pbCh);
+						//packet.Write(canHyper);
+						//packet.Write(Hypercharge);
+						//packet.Write(pbCh);
 						packet.Write(PH);
 						packet.Send(-1, playerID);
 					}
