@@ -402,7 +402,7 @@ namespace MetroidMod.Common.Players
 						soundInstancePH = SoundEngine.PlaySound(Sounds.Suit.PrimeHunterCharge, Player.position);
 						soundPlayed = true;
 					}
-					mp.hyperCharge++;
+					mp.hyperCharge += .6f;
 				}
 				if(hyperCharge >= maxHyper)
 				{
