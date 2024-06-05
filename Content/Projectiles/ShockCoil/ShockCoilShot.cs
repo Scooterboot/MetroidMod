@@ -192,19 +192,16 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				if (target == null || !target.active)
 				{
 					targetPos = Lead.Center;
-					//P.netUpdate = true;
 				}
 				if (!setTargetPos)
 				{
 					targetPos = P.Center;
 					setTargetPos = true;
-					//P.netUpdate = true;
 					return;
 				}
 				else if (target != null && target.active)
 				{
 					targetPos = target.Center;
-					//P.netUpdate = true;
 				}
 				else
 				{
@@ -212,7 +209,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					{
 						mp.statCharge = 0;
 						targetPos = oPos + diff * range;
-						P.netUpdate = true;
 						//targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 						//targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 					}
@@ -410,21 +406,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
-			//writer.Write(range);
-			//writer.Write(distance);
-			//writer.WriteVector2(mousePos);
-			//writer.WriteVector2(oPos);
 			writer.WriteVector2(targetPos);
-			//base.SendExtraAI(writer);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			//range = reader.ReadInt32();
-			//distance = reader.ReadInt32();
-			//mousePos = reader.ReadVector2();
-			//oPos = reader.ReadVector2();
 			targetPos = reader.ReadVector2();
-			//base.ReceiveExtraAI(reader);
 		}
 		public override void OnHitNPC(NPC target2, NPC.HitInfo hit, int damageDone)
 		{
