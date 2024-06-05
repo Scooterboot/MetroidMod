@@ -157,7 +157,7 @@ namespace MetroidMod.Common.Players
 				if (Stinger >= 30 && !Player.creativeGodMode)
 				{
 					Stinger = 0;
-					float damageToSubtractFromEnergy = (-Player.lifeRegen) * (1 - EnergyExpenseEfficiency);// Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
+					float damageToSubtractFromEnergy = Math.Max((-Player.lifeRegen) * (1 - EnergyExpenseEfficiency), 1f);// Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
 					Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 					//Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
 				}
