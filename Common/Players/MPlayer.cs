@@ -399,12 +399,12 @@ namespace MetroidMod.Common.Players
 				{
 					if (!soundPlayed)
 					{
-						soundInstancePH = SoundEngine.PlaySound(Sounds.Suit.PrimeHunterCharge, Player.position);
+						soundInstancePH = SoundEngine.PlaySound(Sounds.Suit.PrimeHunterCharge, player.position);
 						soundPlayed = true;
 					}
 					mp.hyperCharge += .6f;
 				}
-				if(hyperCharge >= maxHyper)
+				if(mp.hyperCharge >= maxHyper)
 				{
 					mp.PrimeHunter = true;
 
@@ -419,7 +419,7 @@ namespace MetroidMod.Common.Players
 					mp.PrimeHunter = !mp.PrimeHunter;
 				}
 			}
-			else if (SoundEngine.TryGetActiveSound(soundInstancePH, out ActiveSound result) && hyperCharge > 0f)
+			else if (SoundEngine.TryGetActiveSound(soundInstancePH, out ActiveSound result) && mp.hyperCharge > 0f)
 			{
 				soundPlayed = false;
 				result.Stop();
@@ -617,6 +617,7 @@ namespace MetroidMod.Common.Players
 					Player.rocketFrame = false;
 					Player.canRocket = false;
 					Player.rocketRelease = false;
+					Player.RefreshExtraJumps();
 					Player.fallStart = (int)(Player.position.Y / 16f);
 
 					Vector2 vel = Vector2.Zero;

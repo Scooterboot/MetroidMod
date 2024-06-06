@@ -81,7 +81,7 @@ namespace MetroidMod.Content.SuitAddons
 			CreateRecipe(1)
 				.AddSuitAddon<VariaSuitAddon>(1)
 				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
-				.AddIngredient<Items.Miscellaneous.KraidTissue>(30)
+				.AddIngredient<Items.Miscellaneous.KraidTissue>(1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

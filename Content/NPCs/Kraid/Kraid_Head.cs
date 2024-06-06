@@ -82,7 +82,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.KraidBag>()));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.KraidTissue>(), 1, 20, 31));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.KraidTissue>(), 1));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.UnknownPlasmaBeam>()));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.KraidPhantoonMusicBox>(), 6));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.KraidMask>(), 8));

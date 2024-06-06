@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Items.Boss
 
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.PurePhazon>(), 1, 30, 41));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.PurePhazon>(), 1));
 			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.OmegaPirateMusicBox>(), 6));
 			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.OmegaPirateMask>(), 8));
 			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.OmegaPirateTrophy>(), 11));

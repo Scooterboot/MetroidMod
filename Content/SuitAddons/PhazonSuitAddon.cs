@@ -96,7 +96,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.PhazonBar>(60)
-				.AddIngredient<Items.Miscellaneous.PurePhazon>(45)
+				.AddIngredient<Items.Miscellaneous.PurePhazon>(1)
 				.AddSuitAddon<GravitySuitAddon>(1)
 				.AddTile<Tiles.NovaWorkTableTile>()
 				.Register();
