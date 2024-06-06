@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			// DisplayName.SetDefault("Pure Phazon");
 			// Tooltip.SetDefault("'Highly concentrated Phazon, in its purest form.");
 
-			Item.ResearchUnlockCount = 25;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

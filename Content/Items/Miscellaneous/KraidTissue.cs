@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			// DisplayName.SetDefault("Large Reptile Tissue");
 			// Tooltip.SetDefault("Tough tissue that can be used to upgrade the Varia Suit");
 
-			Item.ResearchUnlockCount = 25;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{

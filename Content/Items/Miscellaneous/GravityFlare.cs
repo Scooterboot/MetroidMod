@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(10, 2));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 
-			Item.ResearchUnlockCount = 25;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
