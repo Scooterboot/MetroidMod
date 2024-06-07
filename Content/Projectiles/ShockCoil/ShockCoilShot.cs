@@ -120,7 +120,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			if (Lead != null && Lead.active/* && Lead.type == ModContent.ProjectileType<ChargeLead>() && Lead.owner == Main.myPlayer*/)
 			{
-				for (int k = 0; k < range; k++)
+				/*for (int k = 0; k < range; k++)
 				{
 					float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
 					Vector2 tilePos = Lead.Center + targetrot.ToRotationVector2() * k;
@@ -136,8 +136,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					{
 						range = Math.Min(range + 1, Max_Range);
 						distance = Math.Min(distance + 1, Max_Distance);
-					}*/
-				}
+					}
+				}*/
 			}
 			if (P.owner == Main.myPlayer && !O.dead)
 			{
@@ -407,10 +407,12 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.WriteVector2(targetPos);
+			base.SendExtraAI(writer);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			targetPos = reader.ReadVector2();
+			base.ReceiveExtraAI(reader);
 		}
 		public override void OnHitNPC(NPC target2, NPC.HitInfo hit, int damageDone)
 		{
