@@ -41,14 +41,6 @@ namespace MetroidMod.Content.Items.Weapons
 						_beamMods[i].TurnToAir();
 					}
 				}
-				for (int i = 0; i < _beamMods.Length; ++i)
-				{
-					if (_beamMods[i] != null)
-					{
-						_beamMods[i] = new Item();
-						_beamMods[i].TurnToAir();
-					}
-				}
 
 				return _beamMods;
 			}
@@ -61,14 +53,6 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					_beamchangeMods = new Item[BeamChangeSlotID.Count];
 					for (int i = 0; i < _beamchangeMods.Length; ++i)
-					{
-						_beamchangeMods[i] = new Item();
-						_beamchangeMods[i].TurnToAir();
-					}
-				}
-				for (int i = 0; i < _beamchangeMods.Length; ++i)
-				{
-					if (_beamchangeMods[i] != null)
 					{
 						_beamchangeMods[i] = new Item();
 						_beamchangeMods[i].TurnToAir();
@@ -219,7 +203,7 @@ namespace MetroidMod.Content.Items.Weapons
 			return false;
 		}*/
 
-		public override void PreReforge()
+		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
 			foreach (Item item in BeamMods)
 			{
@@ -235,6 +219,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 			BeamChange = new Item[BeamChangeSlotID.Count];
+			return base.CanReforge();
 		}
 		/*public override bool RangedPrefix()
 		{

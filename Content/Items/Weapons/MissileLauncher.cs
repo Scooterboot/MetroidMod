@@ -41,14 +41,6 @@ namespace MetroidMod.Content.Items.Weapons
 						_missileMods[i].TurnToAir();
 					}
 				}
-				for (int i = 0; i < _missileMods.Length; ++i)
-				{
-					if (_missileMods[i] != null)
-					{
-						_missileMods[i] = new Item();
-						_missileMods[i].TurnToAir();
-					}
-				}
 
 				return _missileMods;
 			}
@@ -61,14 +53,6 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					_missileChange = new Item[13];
 					for (int i = 0; i < _missileChange.Length; ++i)
-					{
-						_missileChange[i] = new Item();
-						_missileChange[i].TurnToAir();
-					}
-				}
-				for (int i = 0; i < _missileChange.Length; ++i)
-				{
-					if (_missileChange[i] != null)
 					{
 						_missileChange[i] = new Item();
 						_missileChange[i].TurnToAir();
@@ -197,7 +181,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
-		public override void PreReforge()
+		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
 			foreach (Item item in MissileMods)
 			{
@@ -213,6 +197,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 			MissileChange = new Item[5];
+			return base.CanReforge();
 		}
 
 		int finalDmg = 0;
