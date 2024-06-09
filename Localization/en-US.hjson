@@ -2956,7 +2956,7 @@ Mods: {
 
 			UAExpansion: {
 				DisplayName: UA Expansion
-				Tooltip: "Increases ammo for UA-using weapons, stacks up to 12"
+				Tooltip: Increases ammo for UA-using weapons, stacks up to 12
 			}
 
 			UAPickup: {
