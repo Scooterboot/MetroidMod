@@ -30,5 +30,6 @@ namespace MetroidMod.Content.Tiles
 		public override bool CanExplode(int i, int j) => NPC.downedMoonlord;//MSystem.bossesDown.HasFlag(MetroidBossDown.MotherBrain);
 
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged) => NPC.downedMoonlord || WorldGen.generatingWorld;//MSystem.bossesDown.HasFlag(MetroidBossDown.MotherBrain) || WorldGen.generatingWorld;
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced) => NPC.downedMoonlord || WorldGen.generatingWorld;
 	}
 }

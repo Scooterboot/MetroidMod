@@ -34,5 +34,6 @@ namespace MetroidMod.Content.Tiles
 		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
 
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld;
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld;
 	}
 }

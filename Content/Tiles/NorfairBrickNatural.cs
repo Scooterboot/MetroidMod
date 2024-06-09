@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Tiles
 		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid);
 
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid) || WorldGen.generatingWorld;
-
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid) || WorldGen.generatingWorld;
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
 			if (j > Main.UnderworldLayer)
