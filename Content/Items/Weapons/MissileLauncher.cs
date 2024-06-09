@@ -181,7 +181,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
-		public override bool CanReforge()/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
+		/*public override bool CanReforge()// tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. 
 		{
 			foreach (Item item in MissileMods)
 			{
@@ -198,7 +198,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			MissileChange = new Item[5];
 			return base.CanReforge();
-		}
+		}*/
 
 		int finalDmg = 0;
 
