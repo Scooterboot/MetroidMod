@@ -1,10 +1,12 @@
 using System;
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using tModPorter;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -38,23 +40,26 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.position.X = P.Center.X - Projectile.width / 2;
 			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
 
-			SpeedSound++;
-			if (SpeedSound == 4)
+			if (!MConfigItems.Instance.muteSpeedBooster)
 			{
-				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position), out activeSound))
+				SpeedSound++;
+				if (SpeedSound == 4)
 				{
-					soundInstance = activeSound.Sound;
+					if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterStartup, P.position), out activeSound))
+					{
+						soundInstance = activeSound.Sound;
+					}
+
 				}
-
-			}
-			if (soundInstance != null && SpeedSound == 82)
-			{
-				soundInstance.Stop();
-				if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position), out activeSound))
+				if (soundInstance != null && SpeedSound == 82)
 				{
-					soundInstance = activeSound.Sound;
+					soundInstance.Stop();
+					if (SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.SpeedBoosterLoop, P.position), out activeSound))
+					{
+						soundInstance = activeSound.Sound;
 
-					SpeedSound = 68;
+						SpeedSound = 68;
+					}
 				}
 			}
 			MPlayer mp = P.GetModPlayer<MPlayer>();

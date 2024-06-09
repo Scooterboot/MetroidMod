@@ -156,6 +156,10 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(true)]
 		public bool enableLedgeClimbPowerGrip;
 
+		//[Label("[i:MetroidMod/SpeedBoosterAddon] Speedbooster is silent")]
+		[DefaultValue(false)]
+		public bool muteSpeedBooster;
+
 		[Header("[i:MetroidMod/PowerBeam]StandardWeapons")]
 
 		//[Label("[i:MetroidMod/PowerBeam] Power Beam Damage")]

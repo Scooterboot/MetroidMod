@@ -4232,12 +4232,17 @@ Mods: {
 
 				ammoUA: {
 					// Tooltip: ""
-					// Label: ammo U A
+					// Label: "[i:MetroidMod/UAExpansion] UA Ammo"
 				}
 
 				ammoPowerBeam: {
 					// Tooltip: ""
-					// Label: ammo Power Beam
+					// Label: "[i:MetroidMod/UAExpansion] Powerbeam Ammo"
+				}
+
+				muteSpeedBooster: {
+					// Label: "[i:MetroidMod/SpeedBooster] Silent Speed Booster"
+					// Tooltip: Speed Boosting is silent
 				}
 			}
 
@@ -4260,7 +4265,7 @@ Mods: {
 				}
 
 				spaceJumpRocketBoots: {
-					// Label: "[i:MetroidMod/SpaceJumpAddon] Space Jump doesn't override Rocket Boots"
+					// Label: "[i:MetroidMod/SpaceJump] Space Jump doesn't override Rocket Boots"
 					// Tooltip: Enables a small, niche movement tech that has not been named. It's pronounced 'nitch' not 'neesh' -Dr
 				}
 
