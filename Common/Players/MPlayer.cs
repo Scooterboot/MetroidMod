@@ -25,7 +25,7 @@ namespace MetroidMod.Common.Players
 		public float statCharge = 0.0f;
 		public static float maxCharge = 100.0f;
 
-		public static float maxHyper = 100f;
+		public static float maxHyper = 100.0f;
 		public float hyperCharge = 0.0f;
 		private int hyperRechargedelay = 0;
 		public float maxOverheat = 100f;
@@ -126,11 +126,11 @@ namespace MetroidMod.Common.Players
 
 			Player P = Player;
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			if (hyperCharge > 0 && mp.PrimeHunter || !MSystem.HyperMode.Current)
+			if (mp.hyperCharge > 0 && mp.PrimeHunter || !MSystem.HyperMode.Current)
 			{
-				if (hyperRechargedelay <= 0 && hyperCharge > 0f)
+				if (hyperRechargedelay <= 0 && mp.hyperCharge > 0f)
 				{
-					hyperCharge -= 1.0f;
+					mp.hyperCharge -= 1.0f;
 					hyperRechargedelay = 6;
 				}
 				if (hyperRechargedelay > 0)
@@ -138,9 +138,9 @@ namespace MetroidMod.Common.Players
 					hyperRechargedelay--;
 				}
 			}
-			if (hyperCharge >= maxHyper)
+			if (mp.hyperCharge >= maxHyper)
 			{
-				hyperCharge = maxHyper;
+				mp.hyperCharge = maxHyper;
 			}
 			if (statCharge >= maxCharge)
 			{
@@ -409,7 +409,7 @@ namespace MetroidMod.Common.Players
 					mp.PrimeHunter = true;
 
 					SoundEngine.PlaySound(Sounds.Suit.PrimeHunterActivate, player.position);
-					player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
+					//player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
 					soundPlayed = true;
 				}
 				if (mp.hyperCharge <= 0f && mp.PrimeHunter)
@@ -426,6 +426,10 @@ namespace MetroidMod.Common.Players
 			}
 			if (player.dead || !mp.PrimeHunter /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
 			{
+				if (player.dead)
+				{
+					mp.hyperCharge = 0f;
+				}
 				mp.PrimeHunter = false;
 				player.ClearBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>());
 			}
@@ -820,13 +824,13 @@ namespace MetroidMod.Common.Players
 			PrimeHunter = false;
 			spiderball = false;
 
-			statCharge = 0;
+			statCharge = 0f;
 			boostCharge = 0;
 			boostEffect = 0;
 			EnergyTanks = 0;
 			Energy = 0;
 			tankCapacity = 0;
-			hyperCharge = 0;
+			hyperCharge = 0f;
 			SuitReserveTanks = 0;
 			SuitReserves = 0;
 		}
@@ -837,7 +841,7 @@ namespace MetroidMod.Common.Players
 
 			clone.statCharge = statCharge;
 			clone.hyperCharge = hyperCharge;
-			//clone.spiderball = spiderball;
+			clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
 			clone.EnergyTanks = EnergyTanks;
@@ -845,8 +849,8 @@ namespace MetroidMod.Common.Players
 			clone.Energy = Energy;
 			clone.SuitReserveTanks = SuitReserveTanks;
 			clone.SuitReserves = SuitReserves;
-			clone.PrimeHunter = PrimeHunter;
-			clone.canHyper = canHyper;
+			//clone.PrimeHunter = PrimeHunter;
+			//clone.canHyper = canHyper;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -856,7 +860,7 @@ namespace MetroidMod.Common.Players
 			packet.Write((byte)Player.whoAmI);
 			packet.Write((double)statCharge);
 			packet.Write((double)hyperCharge);
-			//packet.Write(spiderball);
+			packet.Write(spiderball);
 			packet.Write(boostEffect);
 			packet.Write(boostCharge);
 			packet.Write(EnergyTanks);
@@ -864,8 +868,8 @@ namespace MetroidMod.Common.Players
 			packet.Write(Energy);
 			packet.Write(SuitReserveTanks);
 			packet.Write(SuitReserves);
-			packet.Write(PrimeHunter);
-			packet.Write(canHyper);
+			//packet.Write(PrimeHunter);
+			//packet.Write(canHyper);
 			packet.Send(toWho, fromWho); //to *whom*
 		}
 
@@ -879,7 +883,7 @@ namespace MetroidMod.Common.Players
 				packet.Write((byte)Player.whoAmI);
 				packet.Write((double)statCharge);
 				packet.Write((double)hyperCharge);
-				//packet.Write(spiderball);
+				packet.Write(spiderball);
 				packet.Write(boostEffect);
 				packet.Write(boostCharge);
 				packet.Write(EnergyTanks);
@@ -887,8 +891,8 @@ namespace MetroidMod.Common.Players
 				packet.Write(Energy);
 				packet.Write(SuitReserveTanks);
 				packet.Write(SuitReserves);
-				packet.Write(PrimeHunter);
-				packet.Write(canHyper);
+				//packet.Write(PrimeHunter);
+				//packet.Write(canHyper);
 				packet.Send();
 			}
 		}
