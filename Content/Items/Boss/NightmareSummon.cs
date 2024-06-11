@@ -57,8 +57,18 @@ namespace MetroidMod.Content.Items.Boss
 		}
 		public override bool? UseItem(Player player)
 		{
-			NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Nightmare.Nightmare>());
-			SoundEngine.PlaySound(SoundID.Roar, player.position);
+			if (player.whoAmI == Main.myPlayer)
+			{
+				SoundEngine.PlaySound(SoundID.Roar, player.position);
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Nightmare.Nightmare>());
+				}
+				else
+				{
+					NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Nightmare.Nightmare>());
+				}
+			}
 			return true;
 		}
 	}

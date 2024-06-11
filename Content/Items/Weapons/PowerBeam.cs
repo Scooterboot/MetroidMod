@@ -1376,7 +1376,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				ChargeShotSound = new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}");
 			}
-			Item.UseSound = ShotSound; //TESTING
+			//Item.UseSound = ShotSound; //TESTING
 
 			//Item.autoReuse = (!slot1.IsAir);//(isCharge);
 
@@ -1400,7 +1400,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else
 			{
-				Item.UseSound = null;
+				Item.UseSound = ShotSound;
 			}
 		}
 		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
@@ -1648,11 +1648,11 @@ namespace MetroidMod.Content.Items.Weapons
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 			{
 				// Send a packet to have the sound play on all clients.
-				ModPacket packet = Mod.GetPacket();
+				/*ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.PlaySyncedSound);
 				packet.Write((byte)player.whoAmI);
 				packet.Write(shotSound);
-				packet.Send();
+				packet.Send();*/
 			}
 			// Play the shot sound for the local player, not really --Dr
 			if (!isPhazon)
@@ -1869,6 +1869,10 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
 					player.GetCritChance(damageClass) += (int)impStealth / (Lum ? 3f : Diff ? 5f : 10f);
+					if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
+					{
+						NetMessage.SendData(MessageID.PlayerStealth, number: player.whoAmI, number2: player.stealth);
+					}
 				}
 				if (isHunter && pb.statUA <= 0f && player.controlUseItem)
 				{

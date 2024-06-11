@@ -58,8 +58,18 @@ namespace MetroidMod.Content.Items.Boss
 		public override bool? UseItem(Player player)
 		{
 			//Main.NewText("Huh, there seems to be a massive amount of ectoplasmic readings coming from... right above me!", 127, 255, 127);
-			NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Phantoon.Phantoon>());
-			SoundEngine.PlaySound(SoundID.NPCDeath10, player.position);
+			if (player.whoAmI == Main.myPlayer)
+			{
+				SoundEngine.PlaySound(SoundID.Roar, player.position);
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Phantoon.Phantoon>());
+				}
+				else
+				{
+					NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Phantoon.Phantoon>());
+				}
+			}
 			return true;
 		}
 	}
