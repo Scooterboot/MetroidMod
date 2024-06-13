@@ -1944,7 +1944,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else
 			{
-				tag.Add("statUA", 0f);
+				tag.Add("statUA", 0);
 				tag.Add("maxUA", 0);
 			}
 		}

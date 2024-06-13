@@ -142,10 +142,10 @@ namespace MetroidMod
 					byte playerID = reader.ReadByte();
 					MPlayer targetPlayer = Main.player[playerID].GetModPlayer<MPlayer>();
 					double statCharge = reader.ReadDouble();
-					bool spiderBall = reader.ReadBoolean();
+					//bool spiderBall = reader.ReadBoolean();
 					int boostEffect = reader.ReadInt32();
 					int boostCharge = reader.ReadInt32();
-					int energyTanks = reader.Read();
+					int energyTanks = reader.ReadInt32();
 					int energy = reader.ReadInt32();
 					int reserveTanks = reader.ReadInt32();
 					int reserve = reader.ReadInt32();
@@ -153,10 +153,10 @@ namespace MetroidMod
 					//bool canHyper = reader.ReadBoolean();
 					double Hypercharge = reader.ReadDouble();
 					//int pbCh = reader.ReadInt32();
-					//bool PH = reader.ReadBoolean();
+					bool PH = reader.ReadBoolean();
 
 					targetPlayer.statCharge = (float)statCharge;
-					targetPlayer.spiderball = spiderBall;
+					//targetPlayer.spiderball = spiderBall;
 					targetPlayer.boostEffect = boostEffect;
 					targetPlayer.boostCharge = boostCharge;
 					targetPlayer.EnergyTanks = energyTanks;
@@ -167,7 +167,7 @@ namespace MetroidMod
 					//targetPlayer.canHyper = canHyper;
 					targetPlayer.hyperCharge = (float)Hypercharge;
 					//targetPlayer.statPBCh = pbCh;
-					//targetPlayer.PrimeHunter = PH;
+					targetPlayer.PrimeHunter = PH;
 
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
@@ -175,7 +175,7 @@ namespace MetroidMod
 						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 						packet.Write(playerID);
 						packet.Write(statCharge);
-						packet.Write(spiderBall);
+						//packet.Write(spiderBall);
 						packet.Write(boostEffect);
 						packet.Write(boostCharge);
 						packet.Write(energyTanks);
@@ -186,7 +186,7 @@ namespace MetroidMod
 						//packet.Write(canHyper);
 						packet.Write(Hypercharge);
 						//packet.Write(pbCh);
-						//packet.Write(PH);
+						packet.Write(PH);
 						packet.Send(-1, playerID);
 					}
 					break;
