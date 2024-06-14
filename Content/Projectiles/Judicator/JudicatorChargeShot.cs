@@ -113,11 +113,17 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		{
 			writer.Write(Projectile.penetrate);
 			writer.Write(Projectile.maxPenetrate);
+			writer.Write(yeet);
+			writer.WriteVector2(move);
+			base.SendExtraAI(writer);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			Projectile.penetrate =	reader.ReadInt32();
 			Projectile.maxPenetrate = reader.ReadInt32();
+			yeet = reader.ReadInt32();
+			move = reader.ReadVector2();
+			base.ReceiveExtraAI(reader);
 		}
 	}
 }

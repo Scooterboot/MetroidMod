@@ -123,6 +123,10 @@ namespace MetroidMod.Common.Players
 			{
 				mp.Energy = mp.MaxEnergy;
 				mp.SuitReserves = mp.MaxSuitReserves;
+				if (mp.PrimeHunter)
+				{
+					mp.PrimeHunter = !mp.PrimeHunter;
+				}
 				if(mp.ShouldShowArmorUI)
 				{
 					SoundEngine.PlaySound(Sounds.Suit.SpawnIn);

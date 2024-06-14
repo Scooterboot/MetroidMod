@@ -86,7 +86,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.knockBack = 4f;
 			Item.value = 20000;
 			Item.rare = ItemRarityID.Green;
-			//Item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/PowerBeamSound");
+			Item.UseSound = ShotSound;//mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/PowerBeamSound");
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<PowerBeamShot>();
 			Item.shootSpeed = 8f;
@@ -1368,15 +1368,17 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.useTime = (int)useTime;
 			Item.useAnimation = (int)useTime;
 			Item.shoot = ModContent.Find<ModProjectile>(Mod.Name, shot).Type;
-			if (ShotSound == null)
+			ShotSound = new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}");
+			ChargeShotSound = new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}");
+			/*if (ShotSound == null)
 			{
-				ShotSound = new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}");
+
 			}
 			if (ChargeShotSound == null)
 			{
-				ChargeShotSound = new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}");
-			}
-			//Item.UseSound = ShotSound; //TESTING
+				
+			}*/
+			Item.UseSound = ShotSound; //TESTING
 
 			//Item.autoReuse = (!slot1.IsAir);//(isCharge);
 
@@ -1869,10 +1871,6 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
 					player.GetCritChance(damageClass) += (int)impStealth / (Lum ? 3f : Diff ? 5f : 10f);
-					if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
-					{
-						NetMessage.SendData(MessageID.PlayerStealth, number: player.whoAmI, number2: player.stealth);
-					}
 				}
 				if (isHunter && pb.statUA <= 0f && player.controlUseItem)
 				{

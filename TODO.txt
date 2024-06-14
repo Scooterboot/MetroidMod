@@ -11,7 +11,6 @@
 	 -	Echo Visor (implement in Metroid Prime 2: Echoes update)
 	 -	Command Visor (implement in Metroid Prime 3: Corruption update)
  -	Fix Kraid multiplayer loot bag
- -	Fix Nightmare Core-X not spawning in multiplayer
  -	Make Scan Visor lock onto enemies
  -	Find a better way to alert players to the new location of the suit ui, because apparently telling them through the suit's set bonus tooltip isn't good enough.
  -	Sprites for things relating to the Chozo Ruins 'biome' (for use in the Bestiary)
@@ -20,4 +19,7 @@
  -	Balance the new addon system (somehow)
  -	Figure out how to make Hazard Shield shoulderpads draw on primary suits
  -	Make Space Jump Boots conform to the new jump loader
+- Netsync the following:
+imperialist invisibiltiy
+powerbeam shotsound
 
