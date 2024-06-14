@@ -1,10 +1,13 @@
 using System;
 using System.IO;
+using MetroidMod.Common.Configs;
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ModLoader;
 
@@ -35,6 +38,8 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 		NPC target;
 
+		private int dmg = 0;
+		private int immuneTime = 0;
 		const float Max_Range = 300f;
 		float range = Max_Range;
 		const float Max_Distance = 300f;
@@ -50,7 +55,11 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		int ampSyncCooldown = 20;
 		float[] amp = new float[3];
 		float[] ampDest = new float[3];
-
+		public override void OnSpawn(IEntitySource source)
+		{
+			dmg = Projectile.damage;
+		base.OnSpawn(source); 
+		}
 		public override void AI()
 		{
 
@@ -72,7 +81,14 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			{
 				P.frame = 0;
 			}
-
+			if (immuneTime > 0)
+			{
+				P.damage = 0;
+				immuneTime--;
+			}
+			else {
+				P.damage = dmg;
+			}
 			range = Max_Range;
 			distance = Max_Distance;
 
@@ -253,7 +269,14 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				soundInstance.Stop(true);
 			}
 		}
-
+		public override bool? CanHitNPC(NPC target3)
+		{
+			if (target != target3 || immuneTime > 0)
+			{
+				return false;
+			}
+			return base.CanHitNPC(target3);
+		}
 		public override void CutTiles()
 		{
 			if (Lead != null && Lead.active)
@@ -367,7 +390,16 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 			return false;
 		}
-
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Player O = Main.player[Projectile.owner];
+			if (damageDone > 0)
+			{
+				immuneTime += O.HeldItem.useTime;
+				Projectile.localNPCHitCooldown = O.HeldItem.useTime;
+			}
+			base.OnHitNPC(target, hit, damageDone);
+		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.WriteVector2(targetPos);

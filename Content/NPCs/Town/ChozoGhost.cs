@@ -191,7 +191,7 @@ namespace MetroidMod.Content.NPCs.Town
 			npcShop.Add<PowerBeam>(Condition.Hardmode);
 			npcShop.Add<MissileLauncher>(Condition.Hardmode);
 			npcShop.Add<MissileExpansion>(Condition.Hardmode, Condition.BloodMoon);
-			npcShop.Add<Items.Tiles.EnergyTank>(Condition.Hardmode, Condition.BloodMoon);
+			npcShop.Add(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType,Condition.Hardmode, Condition.BloodMoon);
 			npcShop.Add<UAExpansion>(Condition.Hardmode, Condition.BloodMoon);
 			npcShop.Add<PowerSuitHelmet>(Condition.Hardmode);
 			npcShop.Add<PowerSuitBreastplate>(Condition.Hardmode);
