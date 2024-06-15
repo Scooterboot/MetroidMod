@@ -1694,57 +1694,70 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 				}
 				float oHeat = overheat * mp.overheatCost;
-				if (slot4.type == vt && comboError3 != true)
+				if (comboError3 != true)
 				{
-					shotEffect += "vortex";
+					if(slot4.type == vt)
+					{
+						shotEffect += "vortex";
+					}
+					if(slot4.type == sp)
+					{
+						shotEffect += "spazer";
+					}
+					if(slot4.type == wi)
+					{
+						shotEffect += "wide";
+					}
 				}
-				if (slot4.type == sp && comboError3 != true)
+				if (comboError2 != true || chargeShot == "JudicatorChargeShot")
 				{
-					shotEffect += "spazer";
+					if(slot3.type == wa)
+					{
+						shotEffect += "wave";
+					}
+					if(slot3.type == wa2)
+					{
+						shotEffect += "waveV2";
+					}
+					if(slot3.type == nb)
+					{
+						shotEffect += "nebula";
+					}
 				}
-				if (slot4.type == wi && comboError3 != true)
+
+				if (comboError4 != true)
 				{
-					shotEffect += "wide";
+					if(slot5.type == plR)
+					{
+						shotEffect += "plasmared";
+					}
+					if (slot5.type == plG)
+					{
+						shotEffect += "plasmagreen";
+					}
+					if (slot5.type == nv)
+					{
+						shotEffect += "nova";
+					}
+					if (slot5.type == sl)
+					{
+						shotEffect += "solar";
+					}
 				}
-				if (slot3.type == wa && comboError2 != true)
+				if (comboError1 != true)
 				{
-					shotEffect += "wave";
-				}
-				if (slot3.type == wa2 && comboError2 != true)
-				{
-					shotEffect += "waveV2";
-				}
-				if (slot3.type == nb && comboError2 != true)
-				{
-					shotEffect += "nebula";
-				}
-				if (slot5.type == plR && comboError4 != true)
-				{
-					shotEffect += "plasmared";
-				}
-				if (slot5.type == plG && comboError4 != true)
-				{
-					shotEffect += "plasmagreen";
-				}
-				if (slot5.type == nv && comboError4 != true)
-				{
-					shotEffect += "nova";
-				}
-				if (slot5.type == sl && comboError4 != true)
-				{
-					shotEffect += "solar";
-				}
-				if (slot2.type == ic && comboError1 != true)
-				{
-					shotEffect += "ice";
-				}
-				if (slot2.type == ic2 && comboError1 != true)
-				{
-					shotEffect += "iceV2";
-				}
-				if (slot2.type == sd && comboError1 != true)
-				{
-					shotEffect += "stardust";
+					if (slot2.type == ic)
+					{
+						shotEffect += "ice";
+					}
+					if (slot2.type == ic2)
+					{
+						shotEffect += "iceV2";
+					}
+					if (slot2.type == sd)
+					{
+						shotEffect += "stardust";
+					}
 				}
 				if (isJud)
 				{

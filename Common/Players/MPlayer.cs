@@ -420,7 +420,7 @@ namespace MetroidMod.Common.Players
 				}
 				if (hyperCharge > 0f && PrimeHunter)
 				{
-					hyperCharge -= .6f;
+					hyperCharge -= .2f;
 				}
 				if (hyperCharge >= maxHyper)
 				{

@@ -5,6 +5,7 @@ using MetroidMod.Content.Buffs;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles.Imperialist;
+using MetroidMod.Content.Projectiles.Judicator;
 using MetroidMod.Content.Projectiles.ShockCoil;
 using MetroidMod.Content.Projectiles.VoltDriver;
 using Microsoft.Xna.Framework;
@@ -275,7 +276,7 @@ namespace MetroidMod.Content.Projectiles
 				P.position.X = pos.X + (float)Math.Cos(rot + ((float)Math.PI / 2)) * shift;
 				P.position.Y = pos.Y + (float)Math.Sin(rot + ((float)Math.PI / 2)) * shift;
 
-				if (!P.tileCollide && !P.Name.Contains("Hyper") || P.type == ModContent.ProjectileType<ImperialistShot>())
+				if (!P.tileCollide && !P.Name.Contains("Hyper") || P.type == ModContent.ProjectileType<ImperialistShot>() || P.type == ModContent.ProjectileType<JudicatorChargeShot>())
 				{
 					waveDepth = 4;
 					if (P.Name.Contains("Spazer") || shot.Contains("spazer"))
