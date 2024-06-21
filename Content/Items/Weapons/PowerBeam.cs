@@ -286,7 +286,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private bool isCharge = false;
 		private bool isHyper = false;
 		private bool isPhazon = false;
-		bool Stealth = false;
+		private bool Stealth = false;
 
 		public bool comboError1, comboError2, comboError3, comboError4;
 		bool noSomersault = false;
@@ -412,21 +412,6 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					return MConfigItems.Instance.damageChargeBeam;
-				}
-			}
-			float GetHeat()
-			{
-				if (!Lum)
-				{
-					return MConfigItems.Instance.overheatLuminiteBeam;
-				}
-				else if (!Diff)
-				{
-					return MConfigItems.Instance.overheatChargeBeamV2;
-				}
-				else
-				{
-					return MConfigItems.Instance.overheatChargeBeam;
 				}
 			}
 			if (addonsV3 || (chargeV3 && !addonsV1 && !addonsV2))
@@ -1568,7 +1553,7 @@ namespace MetroidMod.Content.Items.Weapons
 			return clone;
 		}
 
-
+		private NetMessage.NetSoundInfo soundSync;
 		int chargeLead = -1;
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
@@ -1650,11 +1635,11 @@ namespace MetroidMod.Content.Items.Weapons
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 			{
 				// Send a packet to have the sound play on all clients.
-				/*ModPacket packet = Mod.GetPacket();
+				ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.PlaySyncedSound);
 				packet.Write((byte)player.whoAmI);
 				packet.Write(shotSound);
-				packet.Send();*/
+				packet.Send();
 			}
 			// Play the shot sound for the local player, not really --Dr
 			if (!isPhazon)
@@ -1870,6 +1855,10 @@ namespace MetroidMod.Content.Items.Weapons
 					if (impStealth < 126f)
 					{
 						impStealth += 1.5f;
+						if (Main.netMode == 1) 
+						{
+							NetMessage.SendData(84);
+						}
 					}
 					if (Diff || Lum)
 					{
@@ -2014,7 +2003,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			for (int i = 0; i < BeamMods.Length; ++i)
 			{
-				BeamMods[i] = ItemIO.Receive(reader,true);
+				BeamMods[i] = ItemIO.Receive(reader, true);
 			}
 			for (int i = 0; i < BeamChange.Length; ++i)
 			{

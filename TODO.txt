@@ -20,6 +20,7 @@
  -	Figure out how to make Hazard Shield shoulderpads draw on primary suits
  -	Make Space Jump Boots conform to the new jump loader
 - Netsync the following:
-imperialist invisibiltiy
-powerbeam shotsound
-
+	imperialist invisibiltiy
+	powerbeam shotsound
+	powerbeam and missile launcher appearance
+add right click parry for arm cannon

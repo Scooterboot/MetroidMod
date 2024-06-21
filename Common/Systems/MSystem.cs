@@ -662,7 +662,7 @@ namespace MetroidMod.Common.Systems
 							else
 							{
 								num3++;
-								if (num3 >= 16400)
+								if (num3 >= 20500) //16400
 								{
 									flag = true;
 								}
@@ -702,17 +702,17 @@ namespace MetroidMod.Common.Systems
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<JudicatorTile>(); }, 6);*/
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.MorphBallTile>(); }, RarityLoader.RarityCount - 4);
 			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.TileType<Content.Tiles.ItemTile.XRayScopeTile>(); }, RarityLoader.RarityCount - 4);
-			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ChargeBeamTile>(); }, 24);
-			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HiJumpBootsTile>(); }, 24);
-			list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamTile>(); }, 24);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<ChargeBeamTile>(); }, 8);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HiJumpBootsTile>(); }, 8);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamTile>(); }, 8);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HomingMissile>(); }, 4);
 			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpazerTile>(); }, 12);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpazerTile>(); }, 8);
 			}
 			if (NPC.downedBoss3 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
-				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceBeamTile>(); }, 12);
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceBeamTile>(); }, 8);
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceMissile>(); }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpazerCombo>(); }, 4);
 			}
