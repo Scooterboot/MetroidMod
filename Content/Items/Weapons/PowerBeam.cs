@@ -1635,11 +1635,11 @@ namespace MetroidMod.Content.Items.Weapons
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 			{
 				// Send a packet to have the sound play on all clients.
-				ModPacket packet = Mod.GetPacket();
+				/*ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.PlaySyncedSound);
 				packet.Write((byte)player.whoAmI);
 				packet.Write(shotSound);
-				packet.Send();
+				packet.Send();*/
 			}
 			// Play the shot sound for the local player, not really --Dr
 			if (!isPhazon)
@@ -1658,6 +1658,7 @@ namespace MetroidMod.Content.Items.Weapons
 			if (player.whoAmI == Main.myPlayer)
 			{
 				shotEffect = "";
+				Item.UseSound = ShotSound;
 				Item slot1 = BeamMods[0];
 				Item slot2 = BeamMods[1];
 				Item slot3 = BeamMods[2];
@@ -1668,7 +1669,6 @@ namespace MetroidMod.Content.Items.Weapons
 				if (Common.Systems.MSystem.SwitchKey.JustPressed)
 				{
 					mp.beamChangeActive = !mp.beamChangeActive;
-					//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
 					if (mp.beamChangeActive)
 					{
 						SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
