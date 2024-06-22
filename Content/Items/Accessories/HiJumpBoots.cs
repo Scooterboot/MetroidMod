@@ -6,7 +6,7 @@ namespace MetroidMod.Content.Items.Accessories
 {
 	// legacy name because old suit addon system
 	[LegacyName("HiJumpBootsAddon")]
-	//[AutoloadEquip(EquipType.Shoes)]
+	[AutoloadEquip(EquipType.Shoes)]
 	public class HiJumpBoots : ModItem
 	{
 		AutoloadEquip AutoloadEquip;
