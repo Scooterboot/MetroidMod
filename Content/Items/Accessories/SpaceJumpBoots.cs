@@ -8,6 +8,7 @@ namespace MetroidMod.Content.Items.Accessories
 {
 	// legacy name because old suit addon system
 	[LegacyName("SpaceJumpBootsAddon")]
+	//[AutoloadEquip(EquipType.Shoes)]
 	public class SpaceJumpBoots : ModItem
 	{
 		public override void SetStaticDefaults()

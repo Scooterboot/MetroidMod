@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
+	//[AutoloadEquip(EquipType.Shoes)]
 	public class TerraBooster : ModItem//HunterDamageItem
 	{
 		public override void SetStaticDefaults()

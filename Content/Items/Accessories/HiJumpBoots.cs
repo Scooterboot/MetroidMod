@@ -6,8 +6,10 @@ namespace MetroidMod.Content.Items.Accessories
 {
 	// legacy name because old suit addon system
 	[LegacyName("HiJumpBootsAddon")]
+	//[AutoloadEquip(EquipType.Shoes)]
 	public class HiJumpBoots : ModItem
 	{
+		AutoloadEquip AutoloadEquip;
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Hi-Jump Boots");
@@ -32,7 +34,6 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.HiJumpBootsTile>();
 		}
-
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

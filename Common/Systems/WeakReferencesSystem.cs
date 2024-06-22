@@ -189,7 +189,6 @@ namespace MetroidMod
 			);
 			*/
 		}
-
 		private void DoMusicDisplaySupport()
 		{
 			if (!ModLoader.TryGetMod("MusicDisplay", out Mod musdisp) || musdisp == null)
