@@ -25,6 +25,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			AnimationFrameHeight = 18;
 			Main.tileLavaDeath[Type] = false;
 			Main.tileObsidianKill[Type] = false;
+			TileID.Sets.FriendlyFairyCanLureTo[Type] = true;
 		}
 
 		public override void AnimateTile(ref int frame, ref int frameCounter)

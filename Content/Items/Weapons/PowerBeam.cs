@@ -1634,6 +1634,7 @@ namespace MetroidMod.Content.Items.Weapons
 			/* Sound & Sound Networking */ //TODO causes audio crashes
 			if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 			{
+				//NetMessage.SendData(132);
 				// Send a packet to have the sound play on all clients.
 				/*ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.PlaySyncedSound);
@@ -1645,6 +1646,16 @@ namespace MetroidMod.Content.Items.Weapons
 			if (!isPhazon)
 			{
 				SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), player.position);// SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
+				if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
+				{
+					NetMessage.SendData(132);
+					// Send a packet to have the sound play on all clients.
+					/*ModPacket packet = Mod.GetPacket();
+					packet.Write((byte)MetroidMessageType.PlaySyncedSound);
+					packet.Write((byte)player.whoAmI);
+					packet.Write(shotSound);
+					packet.Send();*/
+				}
 			}
 			// Does UA math, and doesn't subtract for normal shots (they have cost set to 0)
 			if (!isShock && isHunter)
@@ -1997,6 +2008,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				ItemIO.Send(BeamChange[i], writer);
 			}
+			writer.Write(impStealth);//howsyncree
 			writer.Write(chargeLead);
 		}
 		public override void NetReceive(BinaryReader reader)
@@ -2009,6 +2021,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				BeamChange[i] = ItemIO.Receive(reader);
 			}
+			impStealth = reader.ReadInt32();//howsyncree
 			chargeLead = reader.ReadInt32();
 		}
 	}

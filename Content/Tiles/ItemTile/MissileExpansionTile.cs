@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ObjectData;
 
@@ -23,6 +24,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			TileObjectData.newTile.LavaDeath = false;
 			Main.tileLavaDeath[Type] = false;
 			Main.tileObsidianKill[Type] = false;
+			TileID.Sets.FriendlyFairyCanLureTo[Type] = true;
 		}
 
 		public override void AnimateTile(ref int frame, ref int frameCounter)

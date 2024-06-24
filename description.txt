@@ -35,9 +35,9 @@ Credits:
 -Implementing Low Energy Alert and Energy Hit code.
 [Wandering Spider, Klover, MetroidPrime21, Missingno, and Prismatic]
 -Some suit addon textures.
-[VinniSauce]
+[v_sabitron]
 -Some tile and wall textures.
-[Wandering Spider and VinniSauce]
+[Wandering Spider and v_sabitron]
 -Collaborating on revamping most all item and tile textures
 [DrMetroid]
 Metroid Prime Hunters content and 1.4.4.9 port

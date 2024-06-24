@@ -2302,12 +2302,17 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Explodes in defense reducing miasma that also sets enemies on fire
+					Slot: Weapon
 					'''
 			}
 
 			BombAddon: {
 				DisplayName: Morph Ball Bombs
-				Tooltip: -Press the bomb keybind to set off a bomb
+				Tooltip:
+					'''
+					-Press the bomb keybind to set off a bomb
+					Slot: Weapon
+					'''
 			}
 
 			BoostBallAddon: {
@@ -2316,6 +2321,7 @@ Mods: {
 					'''
 					-Hold Boost Ball Key to charge a speed boost
 					-Release the key to accelerate in the direction you are moving
+					Slot: Boost
 					'''
 			}
 
@@ -2325,6 +2331,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Fires off Crystal shards on detonation
+					Slot: Weapon
 					'''
 			}
 
@@ -2334,6 +2341,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Burns enemies with Cursed Flames
+					Slot: Weapon
 					'''
 			}
 
@@ -2343,6 +2351,7 @@ Mods: {
 					'''
 					~Left Click while morphed to drill
 					uses best pickaxe/drill
+					Slot: Drill
 					[c/78BE78:Requires Morph Ball to use]
 					'''
 			}
@@ -2353,6 +2362,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Sets enemies on fire
+					Slot: Weapon
 					'''
 			}
 
@@ -2362,6 +2372,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Frostburns enemies
+					Slot: Weapon
 					'''
 			}
 
@@ -2371,6 +2382,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Decreases enemy defense
+					Slot: Weapon
 					'''
 			}
 
@@ -2380,6 +2392,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Inflicts enemies with Phazon radiation poisoning
+					Slot: Weapon
 					'''
 			}
 
@@ -2389,6 +2402,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Poisons foes
+					Slot: Weapon
 					'''
 			}
 
@@ -2398,7 +2412,7 @@ Mods: {
 					'''
 					-Press the Power Bomb Key to set off a Power Bomb (20 second cooldown)
 					-Power Bombs create large explosions that vacuum in items afterwards
-					-Power Bombs ignore 50% of enemy defense and can deal ~1400 damage total
+					Slot: Special
 					'''
 			}
 
@@ -2408,6 +2422,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Fires off Jack 'O Lanterns on detonation
+					Slot: Weapon
 					"I took a grenade to the face, dude!"
 					'''
 			}
@@ -2418,6 +2433,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Inflicts enemies with Shadowflame
+					Slot: Weapon
 					'''
 			}
 
@@ -2427,7 +2443,7 @@ Mods: {
 					'''
 					-Press the Power Bomb Key to set off a Solar Bomb (20 second cooldown)
 					-Solar Bombs create massive explosions which burn enemies and vacuum in items afterwards
-					-Solar Bombs ignore 50% of enemy defense and can deal ~7400 damage total
+					Slot: Special
 					'''
 			}
 
@@ -2437,6 +2453,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Burns foes with the fury of the sun
+					Slot: Weapon
 					'''
 			}
 
@@ -2446,6 +2463,7 @@ Mods: {
 					'''
 					-Press the Spider Ball Key to activate Spider Ball
 					-Allows you to climb on walls and ceilings
+					Slot: Utility
 					'''
 			}
 
@@ -2455,6 +2473,7 @@ Mods: {
 					'''
 					-Press the bomb keybind to set off a bomb
 					Inflicts enemies with Acid Venom
+					Slot: Weapon
 					'''
 			}
 
@@ -2464,7 +2483,7 @@ Mods: {
 					'''
 					-Press the Power Bomb Key to set off a Vortex Bomb (20 second cooldown)
 					-Vortex Bombs create massive explosions which vacuum in foes and items
-					-Vortex Bombs can deal ~1400 damage total
+					Slot: Special
 					'''
 			}
 
@@ -2488,7 +2507,7 @@ Mods: {
 
 			EnergyTankAddon: {
 				DisplayName: Energy Tank
-				Tooltip: Grants the user an extra tank of energy
+				Tooltip: Grants the user an extra tank of energy, stacks up to 14
 			}
 
 			GravitySuitAddonAddon: {
@@ -2637,7 +2656,12 @@ Mods: {
 
 			ReserveTankAddon: {
 				DisplayName: Reserve Tank
-				Tooltip: Can store a spare tank of energy
+				Tooltip:
+					'''
+					Can store a spare tank of energy
+					Set to "auto" in the suitUI to automatically use when energy is depleted
+					Stacks up to 4
+					'''
 			}
 
 			ScanVisorAddon: {

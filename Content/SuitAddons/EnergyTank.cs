@@ -29,6 +29,7 @@ namespace MetroidMod.Content.SuitAddons
 			SacrificeTotal = 14;
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<UAExpansion>();
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;
+			TileID.Sets.FriendlyFairyCanLureTo[TileType] = true;
 		}
 		public override void SetItemDefaults(Item item)
 		{

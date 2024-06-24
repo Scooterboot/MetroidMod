@@ -44,7 +44,6 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void SetDefaults()
 		{
-
 			base.SetDefaults();
 			Projectile.width = 12;//22
 			Projectile.height = 12; //22
