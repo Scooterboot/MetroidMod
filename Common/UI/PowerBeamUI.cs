@@ -248,12 +248,30 @@ namespace MetroidMod.Common.UI
 				else if (condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
+					if (Main.mouseItem.type == powerBeamTarget.BeamMods[beamSlotType].type)
+					{
+						int stack = Main.mouseItem.stack + powerBeamTarget.BeamMods[beamSlotType].stack;
 
-					Item tempBoxItem = powerBeamTarget.BeamMods[addonSlotType].Clone();
-					Item tempMouseItem = Main.mouseItem.Clone();
+						if (powerBeamTarget.BeamMods[beamSlotType].maxStack >= stack)
+						{
+							powerBeamTarget.BeamMods[beamSlotType].stack = stack;
+							Main.mouseItem.TurnToAir();
+						}
+						else
+						{
+							int stackDiff = stack - powerBeamTarget.BeamMods[beamSlotType].maxStack;
+							powerBeamTarget.BeamMods[beamSlotType].stack = powerBeamTarget.BeamMods[beamSlotType].maxStack;
+							Main.mouseItem.stack = stackDiff;
+						}
+					}
+					else
+					{
+						Item tempBoxItem = powerBeamTarget.BeamMods[beamSlotType].Clone();
+						Item tempMouseItem = Main.mouseItem.Clone();
 
-					powerBeamTarget.BeamMods[addonSlotType] = tempMouseItem;
-					Main.mouseItem = tempBoxItem;
+						powerBeamTarget.BeamMods[beamSlotType] = tempMouseItem;
+						Main.mouseItem = tempBoxItem;
+					}
 				}
 			}
 			//place

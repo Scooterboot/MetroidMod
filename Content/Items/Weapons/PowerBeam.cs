@@ -1553,7 +1553,6 @@ namespace MetroidMod.Content.Items.Weapons
 			return clone;
 		}
 
-		private NetMessage.NetSoundInfo soundSync;
 		int chargeLead = -1;
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
@@ -1866,16 +1865,16 @@ namespace MetroidMod.Content.Items.Weapons
 					if (impStealth < 126f)
 					{
 						impStealth += 1.5f;
-						if (Main.netMode == 1) 
-						{
-							NetMessage.SendData(84);
-						}
 					}
 					if (Diff || Lum)
 					{
 						player.shroomiteStealth = true;
 						player.stealth -= impStealth / 126f;
 						player.aggro -= (int)(impStealth * 4f);
+						if (Main.netMode == 1)
+						{
+							NetMessage.SendData(84);
+						}
 					}
 					if (player.velocity != Vector2.Zero || player.controlUseItem)
 					{
