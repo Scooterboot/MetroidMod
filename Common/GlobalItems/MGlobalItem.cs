@@ -44,6 +44,7 @@ namespace MetroidMod.Common.GlobalItems
 		public static int seekerMaxCharge = 25;
 
 		public Texture2D itemTexture;
+		public bool isBeam=true;
 
 		public override bool InstancePerEntity => true;
 		protected override bool CloneNewInstances => true;

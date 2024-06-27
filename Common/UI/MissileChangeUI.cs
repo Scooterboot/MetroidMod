@@ -17,7 +17,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>();
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>()|| (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam));
 
 		public MissileChangePanel panel;
 		public override void OnInitialize()
@@ -169,40 +169,82 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-			MissileLauncher missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
-			if (missileTarget == null || missileTarget.MissileChange == null) { return; }
-
-			if (missileTarget.MissileChange[missileChangeType] != null && !missileTarget.MissileChange[missileChangeType].IsAir)
+			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<MissileLauncher>()) 
 			{
-				//pickup
-				if (Main.mouseItem.IsAir && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
-				{
-					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = missileTarget.MissileChange[missileChangeType].Clone();
+				MissileLauncher missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
+				if (missileTarget == null || missileTarget.MissileChange == null) { return; }
 
-					missileTarget.MissileChange[missileChangeType].TurnToAir();
-					if (Main.mouseItem.type == missileTarget.MissileMods[addonSlotType].type)
+				if (missileTarget.MissileChange[missileChangeType] != null && !missileTarget.MissileChange[missileChangeType].IsAir)
+				{
+					//pickup
+					if (Main.mouseItem.IsAir && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
 					{
-						missileTarget.MissileMods[addonSlotType].TurnToAir();
+						SoundEngine.PlaySound(SoundID.Grab);
+						Main.mouseItem = missileTarget.MissileChange[missileChangeType].Clone();
+
+						missileTarget.MissileChange[missileChangeType].TurnToAir();
+						if (Main.mouseItem.type == missileTarget.MissileMods[addonSlotType].type)
+						{
+							missileTarget.MissileMods[addonSlotType].TurnToAir();
+						}
+					}
+					//activate
+					if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+					{
+						missileTarget.MissileMods[addonSlotType] = missileTarget.MissileChange[missileChangeType].Clone();
+					}
+					if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
+					{
+						mp.missileChangeActive = false;
 					}
 				}
-				//activate
-				if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+				else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))
 				{
-					missileTarget.MissileMods[addonSlotType] = missileTarget.MissileChange[missileChangeType].Clone();
-				}
-				if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
-				{
-					mp.missileChangeActive = false;
+					if (condition == null || (condition != null && condition(Main.mouseItem)))
+					{
+						//SoundEngine.PlaySound(SoundID.Grab);
+						missileTarget.MissileChange[missileChangeType] = Main.mouseItem.Clone();
+						Main.mouseItem.TurnToAir();
+					}
 				}
 			}
-			else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))
+			else if(Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
-				if (condition == null || (condition != null && condition(Main.mouseItem)))
+				ArmCannon missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
+				if (missileTarget == null || missileTarget.MissileChange == null) { return; }
+
+				if (missileTarget.MissileChange[missileChangeType] != null && !missileTarget.MissileChange[missileChangeType].IsAir)
 				{
-					//SoundEngine.PlaySound(SoundID.Grab);
-					missileTarget.MissileChange[missileChangeType] = Main.mouseItem.Clone();
-					Main.mouseItem.TurnToAir();
+					//pickup
+					if (Main.mouseItem.IsAir && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+					{
+						SoundEngine.PlaySound(SoundID.Grab);
+						Main.mouseItem = missileTarget.MissileChange[missileChangeType].Clone();
+
+						missileTarget.MissileChange[missileChangeType].TurnToAir();
+						if (Main.mouseItem.type == missileTarget.MissileMods[addonSlotType].type)
+						{
+							missileTarget.MissileMods[addonSlotType].TurnToAir();
+						}
+					}
+					//activate
+					if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+					{
+						missileTarget.MissileMods[addonSlotType] = missileTarget.MissileChange[missileChangeType].Clone();
+					}
+					if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
+					{
+						mp.missileChangeActive = false;
+					}
+				}
+				else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))
+				{
+					if (condition == null || (condition != null && condition(Main.mouseItem)))
+					{
+						//SoundEngine.PlaySound(SoundID.Grab);
+						missileTarget.MissileChange[missileChangeType] = Main.mouseItem.Clone();
+						Main.mouseItem.TurnToAir();
+					}
 				}
 			}
 		}
@@ -211,58 +253,115 @@ namespace MetroidMod.Common.UI
 		{
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
-			if (target == null || target.type != ModContent.ItemType<MissileLauncher>()) { return; }
+			if (target == null || (target.type != ModContent.ItemType<MissileLauncher>() && target.type != ModContent.ItemType<ArmCannon>())) { return; }
 			MissileLauncher missileTarget = (MissileLauncher)target.ModItem;
+			ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 
-			spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
-
-			// Item drawing.
-			if (missileTarget == null || missileTarget.MissileChange == null || missileTarget.MissileChange[missileChangeType].IsAir) { return; }
-
-			Color itemColor = missileTarget.MissileChange[missileChangeType].GetAlpha(Color.White);
-			Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[missileTarget.MissileChange[missileChangeType].type].Value;
-			CalculatedStyle innerDimensions = GetDimensions();
-
-			if (IsMouseHovering)
+			if (target.type == ModContent.ItemType<MissileLauncher>())
 			{
-				Main.hoverItemName = missileTarget.MissileChange[missileChangeType].Name;
-				Main.HoverItem = missileTarget.MissileChange[missileChangeType].Clone();
-			}
+				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
-			Rectangle frame = Main.itemAnimations[missileTarget.MissileChange[missileChangeType].type] != null
-						? Main.itemAnimations[missileTarget.MissileChange[missileChangeType].type].GetFrame(itemTexture)
-						: itemTexture.Frame(1, 1, 0, 0);
+				// Item drawing.
+				if (missileTarget == null || missileTarget.MissileChange == null || missileTarget.MissileChange[missileChangeType].IsAir) { return; }
 
-			float drawScale = 1f;
-			if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
-			{
-				if (frame.Width > frame.Height)
+				Color itemColor = missileTarget.MissileChange[missileChangeType].GetAlpha(Color.White);
+				Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[missileTarget.MissileChange[missileChangeType].type].Value;
+				CalculatedStyle innerDimensions = GetDimensions();
+
+				if (IsMouseHovering)
 				{
-					drawScale = innerDimensions.Width / frame.Width;
+					Main.hoverItemName = missileTarget.MissileChange[missileChangeType].Name;
+					Main.HoverItem = missileTarget.MissileChange[missileChangeType].Clone();
 				}
-				else
+
+				Rectangle frame = Main.itemAnimations[missileTarget.MissileChange[missileChangeType].type] != null
+							? Main.itemAnimations[missileTarget.MissileChange[missileChangeType].type].GetFrame(itemTexture)
+							: itemTexture.Frame(1, 1, 0, 0);
+
+				float drawScale = 1f;
+				if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
 				{
-					drawScale = innerDimensions.Width / frame.Height;
+					if (frame.Width > frame.Height)
+					{
+						drawScale = innerDimensions.Width / frame.Width;
+					}
+					else
+					{
+						drawScale = innerDimensions.Width / frame.Height;
+					}
+				}
+
+				//float unreflectedScale = drawScale;
+				Color tmpcolor = Color.White;
+
+				ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, missileTarget.MissileChange[missileChangeType].type);
+
+				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
+
+				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
+				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+
+				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
+					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+
+				if (missileTarget.MissileChange[missileChangeType].color != default(Color))
+				{
+					spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
+																		   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 				}
 			}
-
-			//float unreflectedScale = drawScale;
-			Color tmpcolor = Color.White;
-
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, missileTarget.MissileChange[missileChangeType].type);
-
-			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
-
-			drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-			drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
-
-			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
-				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
-
-			if (missileTarget.MissileChange[missileChangeType].color != default(Color))
+			else if(target.type == ModContent.ItemType<ArmCannon>())
 			{
-				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
-																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
+
+				// Item drawing.
+				if (cannonTarget == null || cannonTarget.MissileChange == null || cannonTarget.MissileChange[missileChangeType].IsAir) { return; }
+
+				Color itemColor = cannonTarget.MissileChange[missileChangeType].GetAlpha(Color.White);
+				Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[cannonTarget.MissileChange[missileChangeType].type].Value;
+				CalculatedStyle innerDimensions = GetDimensions();
+
+				if (IsMouseHovering)
+				{
+					Main.hoverItemName = cannonTarget.MissileChange[missileChangeType].Name;
+					Main.HoverItem = cannonTarget.MissileChange[missileChangeType].Clone();
+				}
+
+				Rectangle frame = Main.itemAnimations[cannonTarget.MissileChange[missileChangeType].type] != null
+							? Main.itemAnimations[cannonTarget.MissileChange[missileChangeType].type].GetFrame(itemTexture)
+							: itemTexture.Frame(1, 1, 0, 0);
+
+				float drawScale = 1f;
+				if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
+				{
+					if (frame.Width > frame.Height)
+					{
+						drawScale = innerDimensions.Width / frame.Width;
+					}
+					else
+					{
+						drawScale = innerDimensions.Width / frame.Height;
+					}
+				}
+
+				//float unreflectedScale = drawScale;
+				Color tmpcolor = Color.White;
+
+				ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, cannonTarget.MissileChange[missileChangeType].type);
+
+				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
+
+				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
+				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+
+				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
+					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+
+				if (cannonTarget.MissileChange[missileChangeType].color != default(Color))
+				{
+					spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
+																		   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+				}
 			}
 		}
 	}

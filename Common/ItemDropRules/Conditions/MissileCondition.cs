@@ -11,7 +11,7 @@ namespace MetroidMod.Common.ItemDropRules.Conditions
 			bool flag = false;
 			for (int i = 0; i < info.player.inventory.Length; i++)
 			{
-				if (info.player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>())
+				if (info.player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || info.player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>())
 				{
 					flag = true;
 					break;

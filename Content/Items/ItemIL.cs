@@ -42,6 +42,7 @@ namespace MetroidMod.Content.Items
 			{
 				if (item.type == ModContent.ItemType<MorphBall>() ||
 					item.type == ModContent.ItemType<PowerBeam>() ||
+					item.type == ModContent.ItemType<ArmCannon>() ||
 					item.type == ModContent.ItemType<MissileLauncher>())
 				{
 					return (false);

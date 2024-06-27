@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -541,7 +542,7 @@ namespace MetroidMod.Common.Systems
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 
-			if (item.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>())
+			if (item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb) && pb.isBeam)
 			{
 				tRot += 0.05f;
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
@@ -641,7 +642,7 @@ namespace MetroidMod.Common.Systems
 				Texture2D texBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBar").Value,
 					texBarBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder").Value,
 					texBarBorder2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder2").Value;
-				if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || item.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || mp.ballstate || mp.PrimeHunter)
+				if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() || mp.ballstate || mp.PrimeHunter)
 				{
 					int hp = (int)mp.hyperCharge, hpMax = (int)MPlayer.maxHyper;
 					int ch = (int)mp.statCharge, chMax = (int)MPlayer.maxCharge;
@@ -701,7 +702,7 @@ namespace MetroidMod.Common.Systems
 					}
 					sb.Draw(texBarBorder, new Vector2(x, y), new Rectangle(0, 0, texBarBorder.Width, texBarBorder.Height), Color.White);
 
-					if (item.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>())
+					if (item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem gg) && !gg.isBeam)
 					{
 						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 						int num = Math.Min(mi.statMissiles, mi.maxMissiles);
@@ -710,7 +711,7 @@ namespace MetroidMod.Common.Systems
 						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
-					if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>())
+					if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<ArmCannon>())
 					{
 						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 						int num = Math.Min((int)mi.statUA, mi.maxUA);
@@ -725,7 +726,7 @@ namespace MetroidMod.Common.Systems
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
 				}
-				if (item.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || mp.shineDirection != 0 || mp.shineActive)
+				if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb1) && pb1.isBeam || mp.shineDirection != 0 || mp.shineActive)
 				{
 					Texture2D overheatBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBar").Value,
 					overheatBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBorder").Value;
@@ -753,7 +754,7 @@ namespace MetroidMod.Common.Systems
 					Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 					sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x2 + 2, y2 + overheatBorder.Height + 2), color, 0f, default(Vector2), 0.75f, SpriteEffects.None, 0f);
 				}
-				if (item.type == ModContent.ItemType<Content.Items.Weapons.CopperParalyzer>() || item.type == ModContent.ItemType<Content.Items.Weapons.Paralyzer>())
+				if (item.type == ModContent.ItemType<CopperParalyzer>() || item.type == ModContent.ItemType<Paralyzer>())
 				{
 					Texture2D overheatBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBar").Value,
 					overheatBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBorder").Value;

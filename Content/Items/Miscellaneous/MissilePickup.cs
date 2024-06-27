@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		{
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].type == ModContent.ItemType<Weapons.MissileLauncher>())
+				if (player.inventory[i].type == ModContent.ItemType<Weapons.MissileLauncher>() || player.inventory[i].type == ModContent.ItemType<Weapons.ArmCannon>())
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					mi.statMissiles += Item.stack;
