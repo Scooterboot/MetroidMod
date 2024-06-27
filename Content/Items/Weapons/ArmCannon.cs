@@ -132,7 +132,6 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.value = 20000;
 				Item.rare = ItemRarityID.Green;
 				Item.UseSound = ShotSound;//mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/PowerBeamSound");
-				Item.autoReuse = true;
 				Item.shoot = ModContent.ProjectileType<PowerBeamShot>();
 				Item.shootSpeed = 8f;
 				Item.crit = 3;
@@ -157,6 +156,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.shootSpeed = 8f;
 				Item.crit = 10;
 			}
+			Item.autoReuse = pb.isBeam;
 			pb.statUA = MConfigItems.Instance.ammoPowerBeam;
 			pb.maxUA = MConfigItems.Instance.ammoPowerBeam;
 			pb.statMissiles = MConfigItems.Instance.ammoMissileLauncher;
@@ -443,7 +443,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				//modBeamTextureMod = null;
 
-
+				Item.autoReuse = true;
 				Lum = !BeamChange[11].IsAir || (!BeamChange[10].IsAir && mp.PrimeHunter);
 				Diff = (!BeamChange[10].IsAir || mp.PrimeHunter) && BeamChange[11].IsAir;
 				ShotSound = null;
