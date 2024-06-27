@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Buffs
 			bool flag2 = false;
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>() || player.inventory[i].type == ModContent.ItemType<Items.Weapons.PowerBeam>())
+				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>() || player.inventory[i].type == ModContent.ItemType<Items.Weapons.PowerBeam>()||player.inventory[i].type == ModContent.ItemType<Items.Weapons.ArmCannon>())
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					flag = true;

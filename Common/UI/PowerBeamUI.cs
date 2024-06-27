@@ -25,7 +25,7 @@ namespace MetroidMod.Common.UI
 	 */
 	public class PowerBeamUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<PowerBeam>() || Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam);
+		public static bool Visible => Main.playerInventory && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<PowerBeam>() || Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam);
 
 		private PowerBeamPanel powerBeamPanel;
 		private PowerBeamScrewAttackButton pbsaButton;

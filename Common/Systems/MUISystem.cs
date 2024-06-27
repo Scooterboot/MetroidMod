@@ -542,7 +542,7 @@ namespace MetroidMod.Common.Systems
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 
-			if (item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb) && pb.isBeam)
+			if (item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb) && !pb.isBeam)
 			{
 				tRot += 0.05f;
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
@@ -711,7 +711,7 @@ namespace MetroidMod.Common.Systems
 						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
-					if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<ArmCannon>())
+					if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem gz) && gz.isBeam)
 					{
 						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 						int num = Math.Min((int)mi.statUA, mi.maxUA);

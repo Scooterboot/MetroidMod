@@ -2078,9 +2078,16 @@ namespace MetroidMod.Content.Items.Weapons
 		private int targetNum = 0;
 		public override void HoldItem(Player player)
 		{
-			MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
 			if (player.whoAmI == Main.myPlayer)
 			{
+				MPlayer mp = player.GetModPlayer<MPlayer>();
+				MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
+				float MY = Main.mouseY + Main.screenPosition.Y;
+				float MX = Main.mouseX + Main.screenPosition.X;
+				Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
+				int damage = player.GetWeaponDamage(Item);
+				Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
 				if (pb.isBeam) 
 				{
 					shotEffect = "";
@@ -2090,7 +2097,6 @@ namespace MetroidMod.Content.Items.Weapons
 					Item slot3 = BeamMods[2];
 					Item slot4 = BeamMods[3];
 					Item slot5 = BeamMods[4];
-					MPlayer mp = player.GetModPlayer<MPlayer>();
 					if (Common.Systems.MSystem.SwitchKey.JustPressed)
 					{
 						mp.beamChangeActive = !mp.beamChangeActive;
@@ -2174,17 +2180,11 @@ namespace MetroidMod.Content.Items.Weapons
 						chargeShotAmt *= 3;
 						isChargeSpray = true;
 					}
-					Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-					float MY = Main.mouseY + Main.screenPosition.Y;
-					float MX = Main.mouseX + Main.screenPosition.X;
 					if (player.gravDir == -1f)
 					{
 						MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
 					}
 
-					float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
-					int damage = player.GetWeaponDamage(Item);
-					Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
 					if (isCharge)
 					{
 
@@ -2339,183 +2339,176 @@ namespace MetroidMod.Content.Items.Weapons
 							BeamMods[0].TurnToAir();
 						}
 					}
-					else
+					
+				}
+				else
+				{
+					if (Common.Systems.MSystem.SwitchKey.JustPressed)
 					{
-						if (Common.Systems.MSystem.SwitchKey.JustPressed)
+						mp.missileChangeActive = !mp.missileChangeActive;
+						//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+						if (mp.missileChangeActive)
 						{
-							mp.missileChangeActive = !mp.missileChangeActive;
-							//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
-							if (mp.missileChangeActive)
-							{
-								SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
-							}
-							if (!mp.missileChangeActive)
-							{
-								SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
-							}
+							SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelect);
 						}
-
-						int chCost = (int)(chargeCost * (mp.missileCost + 0.001f));
-						comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
-						isCharge &= (pb.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
-
-						Item.autoReuse = (isCharge || isSeeker);
-
-						if (isCharge)
+						if (!mp.missileChangeActive)
 						{
-							if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
+							SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
+						}
+					}
+
+					int chCost = (int)(chargeCost * (mp.missileCost + 0.001f));
+					comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
+					isCharge &= (pb.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
+
+					Item.autoReuse = (isCharge || isSeeker);
+
+					if (isCharge)
+					{
+						if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
+						{
+							if (player.gravDir == -1f)
+								MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+
+
+							float dmgMult = chargeMult;
+
+							//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
+							if (player.controlUseItem && LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
 							{
-								if (player.gravDir == -1f)
-									MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-
-
-								float dmgMult = chargeMult;
-
-								//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
-								if (player.controlUseItem && LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
+								if (mp.statCharge < MPlayer.maxCharge)
 								{
-									if (mp.statCharge < MPlayer.maxCharge)
+									mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
+								}
+								if (isHeldCombo > 0)
+								{
+									if (pb.statMissiles > 0)
 									{
-										mp.statCharge = Math.Min(mp.statCharge + 1, MPlayer.maxCharge);
-									}
-									if (isHeldCombo > 0)
-									{
-										if (pb.statMissiles > 0)
+										if (mp.statCharge >= MPlayer.maxCharge)
 										{
-											if (mp.statCharge >= MPlayer.maxCharge)
+											if (isMiniGun)
 											{
-												if (isMiniGun)
+												this.MiniGunShoot(player, Item, Main.projectile[chargeLead], Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), comboKnockBack, chargeShotSound);
+											}
+											else
+											{
+												if (comboTime <= 0)
 												{
-													this.MiniGunShoot(player, Item, Main.projectile[chargeLead], Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), comboKnockBack, chargeShotSound);
+													var entitySource = player.GetSource_ItemUse(Item);
+													for (int i = 0; i < comboShotAmt; i++)
+													{
+														int proj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
+														Main.projectile[proj].ai[0] = chargeLead;
+													}
+													comboTime = comboUseTime;
+												}
+
+												if (isHeldCombo == 2 && comboTime > 0)
+												{
+													comboTime--;
+												}
+											}
+
+											if (!initialShot)
+											{
+												if (useFlameSounds || useVortexSounds)
+												{
+													int type = ModContent.ProjectileType<FlamethrowerLead>();
+													if (useVortexSounds)
+													{
+														type = ModContent.ProjectileType<VortexComboLead>();
+													}
+													int proj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, type, 0, 0, player.whoAmI);
+													Main.projectile[proj].ai[0] = chargeLead;
+												}
+
+												pb.statMissiles = Math.Max(pb.statMissiles - (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost)), 0);
+
+												initialShot = true;
+											}
+
+											if (comboCostUseTime > 0)
+											{
+												//if(comboCostTime <= 0)
+												if (comboCostTime > comboCostUseTime)
+												{
+													pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
+													//comboCostTime = comboCostUseTime;
+													comboCostTime = 0;
 												}
 												else
 												{
-													if (comboTime <= 0)
-													{
-														var entitySource = player.GetSource_ItemUse(Item);
-														for (int i = 0; i < comboShotAmt; i++)
-														{
-															int proj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
-															Main.projectile[proj].ai[0] = chargeLead;
-														}
-														comboTime = comboUseTime;
-													}
-
-													if (isHeldCombo == 2 && comboTime > 0)
-													{
-														comboTime--;
-													}
-												}
-
-												if (!initialShot)
-												{
-													if (useFlameSounds || useVortexSounds)
-													{
-														int type = ModContent.ProjectileType<FlamethrowerLead>();
-														if (useVortexSounds)
-														{
-															type = ModContent.ProjectileType<VortexComboLead>();
-														}
-														int proj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, type, 0, 0, player.whoAmI);
-														Main.projectile[proj].ai[0] = chargeLead;
-													}
-
-													pb.statMissiles = Math.Max(pb.statMissiles - (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost)), 0);
-
-													initialShot = true;
-												}
-
-												if (comboCostUseTime > 0)
-												{
-													//if(comboCostTime <= 0)
-													if (comboCostTime > comboCostUseTime)
-													{
-														pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
-														//comboCostTime = comboCostUseTime;
-														comboCostTime = 0;
-													}
-													else
-													{
-														//comboCostTime--;
-														comboCostTime++;
-													}
+													//comboCostTime--;
+													comboCostTime++;
 												}
 											}
 										}
-										else
-										{
-											Main.projectile[chargeLead].Kill();
-										}
 									}
-								}
-								else
-								{
-									if (mp.statCharge <= 0 && LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
+									else
 									{
-										mp.statCharge++;
+										Main.projectile[chargeLead].Kill();
 									}
-									if (isHeldCombo <= 0 || mp.statCharge < MPlayer.maxCharge)
-									{
-										var entitySource = player.GetSource_ItemUse(Item);
-										if (mp.statCharge >= MPlayer.maxCharge && pb.statMissiles >= chCost)
-										{
-											if (isShotgun)
-											{
-												for (int i = 0; i < shotgunAmt; i++)
-												{
-													int k = i - (shotgunAmt / 2);
-													Vector2 shotGunVel = Vector2.Normalize(velocity) * (Item.shootSpeed + 4f);
-													double rot = Angle.ConvertToRadians(4.0 * k);
-													shotGunVel = shotGunVel.RotatedBy(rot, default(Vector2));
-													if (float.IsNaN(shotGunVel.X) || float.IsNaN(shotGunVel.Y))
-													{
-														shotGunVel = -Vector2.UnitY;
-													}
-													int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, shotGunVel.X, shotGunVel.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
-												}
-											}
-											if (isHoming)
-											{
-												int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage * 2, Item.knockBack, player.whoAmI);
-												MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-												mProj.homing = true;
-												//mProj.Projectile.netUpdate2 = true;
-												//mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 2)), 0);
-											}
-											else if (!isShotgun) //dont know why this needs to be this way but it do
-											{
-												int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
-											}
-											pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost));
-										}
-										else if (mp.statCharge > 0)
-										{
-											int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
-											pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1));
-										}
-									}
-
-									if (!LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
-									{
-										mp.statCharge = 0;
-									}
-
-									comboTime = 0;
-									comboCostTime = 0;
-									scalePlus = 0f;
-									initialShot = false;
 								}
 							}
-							else if (!mp.ballstate)
+							else
 							{
-								mp.statCharge = 0;
+								if (mp.statCharge <= 0 && LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
+								{
+									mp.statCharge++;
+								}
+								if (isHeldCombo <= 0 || mp.statCharge < MPlayer.maxCharge)
+								{
+									var entitySource = player.GetSource_ItemUse(Item);
+									if (mp.statCharge >= MPlayer.maxCharge && pb.statMissiles >= chCost)
+									{
+										if (isShotgun)
+										{
+											for (int i = 0; i < shotgunAmt; i++)
+											{
+												int k = i - (shotgunAmt / 2);
+												Vector2 shotGunVel = Vector2.Normalize(velocity) * (Item.shootSpeed + 4f);
+												double rot = Angle.ConvertToRadians(4.0 * k);
+												shotGunVel = shotGunVel.RotatedBy(rot, default(Vector2));
+												if (float.IsNaN(shotGunVel.X) || float.IsNaN(shotGunVel.Y))
+												{
+													shotGunVel = -Vector2.UnitY;
+												}
+												int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, shotGunVel.X, shotGunVel.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
+											}
+										}
+										if (isHoming)
+										{
+											int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage * 2, Item.knockBack, player.whoAmI);
+											MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+											mProj.homing = true;
+											//mProj.Projectile.netUpdate2 = true;
+											//mi.statMissiles = Math.Max(mi.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 2)), 0);
+										}
+										else if (!isShotgun) //dont know why this needs to be this way but it do
+										{
+											int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
+										}
+										pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost));
+									}
+									else if (mp.statCharge > 0)
+									{
+										int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
+										pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1));
+									}
+								}
+
+								if (!LeadActive(player, ModContent.ProjectileType<ChargeLead>()))
+								{
+									mp.statCharge = 0;
+								}
+
 								comboTime = 0;
 								comboCostTime = 0;
 								scalePlus = 0f;
 								initialShot = false;
 							}
 						}
-						else
+						else if (!mp.ballstate)
 						{
 							mp.statCharge = 0;
 							comboTime = 0;
@@ -2523,133 +2516,130 @@ namespace MetroidMod.Content.Items.Weapons
 							scalePlus = 0f;
 							initialShot = false;
 						}
+					}
+					else
+					{
+						mp.statCharge = 0;
+						comboTime = 0;
+						comboCostTime = 0;
+						scalePlus = 0f;
+						initialShot = false;
+					}
 
-						if (targetingDelay > 0)
-							targetingDelay--;
+					if (targetingDelay > 0)
+						targetingDelay--;
 
-						if (isSeeker && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
+					if (isSeeker && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
+					{
+						if (player.gravDir == -1f)
 						{
-							if (player.gravDir == -1f)
+							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+						}
+						Rectangle mouse = new Rectangle((int)MX - 1, (int)MY - 1, 2, 2);
+						//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
+						if (player.controlUseItem && LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
+						{
+							if (pb.seekerCharge < MGlobalItem.seekerMaxCharge)
 							{
-								MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-							}
-							Rectangle mouse = new Rectangle((int)MX - 1, (int)MY - 1, 2, 2);
-							//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
-							if (player.controlUseItem && LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
-							{
-								if (pb.seekerCharge < MGlobalItem.seekerMaxCharge)
-								{
-									pb.seekerCharge = Math.Min(pb.seekerCharge + 1, MGlobalItem.seekerMaxCharge);
-								}
-								else
-								{
-									for (int i = 0; i < Main.maxNPCs; i++)
-									{
-										NPC npc = Main.npc[i];
-										if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly)// && !npc.immortal)
-										{
-											Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
-											bool flag = false;
-											for (int j = 0; j < pb.seekerTarget.Length; j++)
-											{
-												if (pb.seekerTarget[j] == npc.whoAmI)
-												{
-													flag = true;
-												}
-											}
-
-											Vector2 delta = new Vector2(MX, MY);
-											delta.X -= MathHelper.Clamp(MX, npcRect.X, npcRect.X + npcRect.Width);
-											delta.Y -= MathHelper.Clamp(MY, npcRect.Y, npcRect.Y + npcRect.Height);
-											bool colFlag = (delta.Length() < 50);
-											if (colFlag && pb.seekerTarget[targetNum] <= -1 && ((targetingDelay <= 0 && mouse.Intersects(npcRect)) || !flag) && pb.statMissiles > pb.numSeekerTargets)
-											{
-												pb.seekerTarget[targetNum] = npc.whoAmI;
-												targetNum++;
-												if (targetNum > 4)
-												{
-													targetNum = 0;
-												}
-												targetingDelay = 40;
-												SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerLockSound, oPos);
-											}
-										}
-									}
-
-									int num = 10;
-									while (pb.seekerTarget[targetNum] > -1 && num > 0)
-									{
-										targetNum++;
-										if (targetNum > 4)
-										{
-											targetNum = 0;
-										}
-										num--;
-									}
-
-									pb.numSeekerTargets = 0;
-									for (int i = 0; i < pb.seekerTarget.Length; i++)
-									{
-										if (pb.seekerTarget[i] > -1)
-										{
-											pb.numSeekerTargets++;
-
-											if (!Main.npc[pb.seekerTarget[i]].active)
-											{
-												pb.seekerTarget[i] = -1;
-											}
-										}
-									}
-								}
+								pb.seekerCharge = Math.Min(pb.seekerCharge + 1, MGlobalItem.seekerMaxCharge);
 							}
 							else
 							{
-								if (pb.seekerCharge <= 0 && LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
+								for (int i = 0; i < Main.maxNPCs; i++)
 								{
-									pb.seekerCharge++;
-								}
-								if (pb.seekerCharge >= MGlobalItem.seekerMaxCharge && pb.numSeekerTargets > 0)
-								{
-									var entitySource = player.GetSource_ItemUse(Item);
-									for (int i = 0; i < pb.seekerTarget.Length; i++)
+									NPC npc = Main.npc[i];
+									if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly)// && !npc.immortal)
 									{
-										if (pb.seekerTarget[i] > -1)
+										Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+										bool flag = false;
+										for (int j = 0; j < pb.seekerTarget.Length; j++)
 										{
-											int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
-											MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-											mProj.seekTarget = pb.seekerTarget[i];
-											mProj.seeking = true;
-											mProj.Projectile.netUpdate2 = true;
-											pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
+											if (pb.seekerTarget[j] == npc.whoAmI)
+											{
+												flag = true;
+											}
+										}
+
+										Vector2 delta = new Vector2(MX, MY);
+										delta.X -= MathHelper.Clamp(MX, npcRect.X, npcRect.X + npcRect.Width);
+										delta.Y -= MathHelper.Clamp(MY, npcRect.Y, npcRect.Y + npcRect.Height);
+										bool colFlag = (delta.Length() < 50);
+										if (colFlag && pb.seekerTarget[targetNum] <= -1 && ((targetingDelay <= 0 && mouse.Intersects(npcRect)) || !flag) && pb.statMissiles > pb.numSeekerTargets)
+										{
+											pb.seekerTarget[targetNum] = npc.whoAmI;
+											targetNum++;
+											if (targetNum > 4)
+											{
+												targetNum = 0;
+											}
+											targetingDelay = 40;
+											SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerLockSound, oPos);
 										}
 									}
+								}
 
-									SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
-								}
-								else if (pb.seekerCharge > 0)
+								int num = 10;
+								while (pb.seekerTarget[targetNum] > -1 && num > 0)
 								{
-									var entitySource = player.GetSource_ItemUse(Item);
-									int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
-									SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
+									targetNum++;
+									if (targetNum > 4)
+									{
+										targetNum = 0;
+									}
+									num--;
+								}
 
-									pb.statMissiles -= 1;
-								}
-								if (!LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
-								{
-									pb.seekerCharge = 0;
-								}
 								pb.numSeekerTargets = 0;
-								for (int k = 0; k < pb.seekerTarget.Length; k++)
+								for (int i = 0; i < pb.seekerTarget.Length; i++)
 								{
-									pb.seekerTarget[k] = -1;
+									if (pb.seekerTarget[i] > -1)
+									{
+										pb.numSeekerTargets++;
+
+										if (!Main.npc[pb.seekerTarget[i]].active)
+										{
+											pb.seekerTarget[i] = -1;
+										}
+									}
 								}
-								targetNum = 0;
-								targetingDelay = 0;
 							}
 						}
 						else
 						{
-							pb.seekerCharge = 0;
+							if (pb.seekerCharge <= 0 && LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
+							{
+								pb.seekerCharge++;
+							}
+							if (pb.seekerCharge >= MGlobalItem.seekerMaxCharge && pb.numSeekerTargets > 0)
+							{
+								var entitySource = player.GetSource_ItemUse(Item);
+								for (int i = 0; i < pb.seekerTarget.Length; i++)
+								{
+									if (pb.seekerTarget[i] > -1)
+									{
+										int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
+										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+										mProj.seekTarget = pb.seekerTarget[i];
+										mProj.seeking = true;
+										mProj.Projectile.netUpdate2 = true;
+										pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
+									}
+								}
+
+								SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
+							}
+							else if (pb.seekerCharge > 0)
+							{
+								var entitySource = player.GetSource_ItemUse(Item);
+								int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(shot).Type, damage, Item.knockBack, player.whoAmI);
+								SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
+
+								pb.statMissiles -= 1;
+							}
+							if (!LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
+							{
+								pb.seekerCharge = 0;
+							}
 							pb.numSeekerTargets = 0;
 							for (int k = 0; k < pb.seekerTarget.Length; k++)
 							{
@@ -2659,8 +2649,19 @@ namespace MetroidMod.Content.Items.Weapons
 							targetingDelay = 0;
 						}
 					}
+					else
+					{
+						pb.seekerCharge = 0;
+						pb.numSeekerTargets = 0;
+						for (int k = 0; k < pb.seekerTarget.Length; k++)
+						{
+							pb.seekerTarget[k] = -1;
+						}
+						targetNum = 0;
+						targetingDelay = 0;
+					}
 				}
-				
+
 			}
 		}
 		SoundEffectInstance soundInstance;

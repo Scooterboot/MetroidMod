@@ -20,7 +20,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileLauncherUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>() || (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam);
+		public static bool Visible => Main.playerInventory && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>() || Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam);
 
 		MissileLauncherPanel missileLauncherPanel;
 		private MissileChangeButton mcButton;
@@ -319,7 +319,7 @@ namespace MetroidMod.Common.UI
 					}
 				}
 			}
-			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<MissileLauncher>())
+			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
 				if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
 
