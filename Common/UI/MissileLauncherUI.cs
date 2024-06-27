@@ -20,7 +20,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileLauncherUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>();
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>() || (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam);
 
 		MissileLauncherPanel missileLauncherPanel;
 		private MissileChangeButton mcButton;
@@ -159,161 +159,324 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			// No failsafe. Should maybe be implemented? also ugly --Dr
-			if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
-
-			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
-			if (missileLauncherTarget == null || missileLauncherTarget.MissileMods == null) { return; }
-
-			if (missileLauncherTarget.MissileMods[missileSlotType] != null && !missileLauncherTarget.MissileMods[missileSlotType].IsAir)
+			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<MissileLauncher>())
 			{
-				if (Main.mouseItem.IsAir)
+				if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
+
+				MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
+				if (missileLauncherTarget == null || missileLauncherTarget.MissileMods == null) { return; }
+
+				if (missileLauncherTarget.MissileMods[missileSlotType] != null && !missileLauncherTarget.MissileMods[missileSlotType].IsAir)
 				{
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<HomingMissileAddon>())
+					if (Main.mouseItem.IsAir)
 					{
-						missileLauncherTarget.MissileChange[0].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SpazerComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[1].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SeekerMissileAddon>())
-					{
-						missileLauncherTarget.MissileChange[2].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<WavebusterAddon>())
-					{
-						missileLauncherTarget.MissileChange[3].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<IceSpreaderAddon>())
-					{
-						missileLauncherTarget.MissileChange[4].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<FlamethrowerAddon>())
-					{
-						missileLauncherTarget.MissileChange[5].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<PlasmaMachinegunAddon>())
-					{
-						missileLauncherTarget.MissileChange[6].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<DiffusionMissileAddon>())
-					{
-						missileLauncherTarget.MissileChange[7].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NovaComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[8].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<VortexComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[9].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<StardustComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[10].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NebulaComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[11].TurnToAir();
-					}
-					if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SolarComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[12].TurnToAir();
-					}
-					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
-
-					missileLauncherTarget.MissileMods[missileSlotType].TurnToAir();
-				}
-				else if (condition == null || (condition != null && condition(Main.mouseItem)))
-				{
-					SoundEngine.PlaySound(SoundID.Grab);
-
-					if (Main.mouseItem.type == missileLauncherTarget.MissileMods[missileSlotType].type)
-					{
-						int stack = Main.mouseItem.stack + missileLauncherTarget.MissileMods[missileSlotType].stack;
-
-						if (missileLauncherTarget.MissileMods[missileSlotType].maxStack >= stack)
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<HomingMissileAddon>())
 						{
-							missileLauncherTarget.MissileMods[missileSlotType].stack = stack;
-							Main.mouseItem.TurnToAir();
+							missileLauncherTarget.MissileChange[0].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SpazerComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[1].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SeekerMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[2].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<WavebusterAddon>())
+						{
+							missileLauncherTarget.MissileChange[3].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<IceSpreaderAddon>())
+						{
+							missileLauncherTarget.MissileChange[4].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<FlamethrowerAddon>())
+						{
+							missileLauncherTarget.MissileChange[5].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<PlasmaMachinegunAddon>())
+						{
+							missileLauncherTarget.MissileChange[6].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<DiffusionMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[7].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NovaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[8].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<VortexComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[9].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<StardustComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[10].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NebulaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[11].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SolarComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[12].TurnToAir();
+						}
+						SoundEngine.PlaySound(SoundID.Grab);
+						Main.mouseItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
+
+						missileLauncherTarget.MissileMods[missileSlotType].TurnToAir();
+					}
+					else if (condition == null || (condition != null && condition(Main.mouseItem)))
+					{
+						SoundEngine.PlaySound(SoundID.Grab);
+
+						if (Main.mouseItem.type == missileLauncherTarget.MissileMods[missileSlotType].type)
+						{
+							int stack = Main.mouseItem.stack + missileLauncherTarget.MissileMods[missileSlotType].stack;
+
+							if (missileLauncherTarget.MissileMods[missileSlotType].maxStack >= stack)
+							{
+								missileLauncherTarget.MissileMods[missileSlotType].stack = stack;
+								Main.mouseItem.TurnToAir();
+							}
+							else
+							{
+								int stackDiff = stack - missileLauncherTarget.MissileMods[missileSlotType].maxStack;
+								missileLauncherTarget.MissileMods[missileSlotType].stack = missileLauncherTarget.MissileMods[missileSlotType].maxStack;
+								Main.mouseItem.stack = stackDiff;
+							}
 						}
 						else
 						{
-							int stackDiff = stack - missileLauncherTarget.MissileMods[missileSlotType].maxStack;
-							missileLauncherTarget.MissileMods[missileSlotType].stack = missileLauncherTarget.MissileMods[missileSlotType].maxStack;
-							Main.mouseItem.stack = stackDiff;
+							Item tempBoxItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
+							Item tempMouseItem = Main.mouseItem.Clone();
+
+							missileLauncherTarget.MissileMods[missileSlotType] = tempMouseItem;
+							Main.mouseItem = tempBoxItem;
 						}
 					}
-					else
+				}
+				else if (!Main.mouseItem.IsAir)
+				{
+					if (condition == null || (condition != null && condition(Main.mouseItem)))
 					{
-						Item tempBoxItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
-						Item tempMouseItem = Main.mouseItem.Clone();
-
-						missileLauncherTarget.MissileMods[missileSlotType] = tempMouseItem;
-						Main.mouseItem = tempBoxItem;
+						if (Main.mouseItem.type == ModContent.ItemType<HomingMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[0] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<SpazerComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[1] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<SeekerMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[2] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<WavebusterAddon>())
+						{
+							missileLauncherTarget.MissileChange[3] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<IceSpreaderAddon>())
+						{
+							missileLauncherTarget.MissileChange[4] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<FlamethrowerAddon>())
+						{
+							missileLauncherTarget.MissileChange[5] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<PlasmaMachinegunAddon>())
+						{
+							missileLauncherTarget.MissileChange[6] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<DiffusionMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[7] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<NovaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[8] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<VortexComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[9] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<StardustComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[10] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<NebulaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[11] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<SolarComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[12] = Main.mouseItem.Clone();
+						}
+						SoundEngine.PlaySound(SoundID.Grab);
+						missileLauncherTarget.MissileMods[missileSlotType] = Main.mouseItem.Clone();
+						Main.mouseItem.TurnToAir();
 					}
 				}
 			}
-			else if (!Main.mouseItem.IsAir)
+			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<MissileLauncher>())
 			{
-				if (condition == null || (condition != null && condition(Main.mouseItem)))
+				if (Main.LocalPlayer.controlUseItem || Main.LocalPlayer.controlUseTile) { return; }
+
+				ArmCannon missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
+				if (missileLauncherTarget == null || missileLauncherTarget.MissileMods == null) { return; }
+
+				if (missileLauncherTarget.MissileMods[missileSlotType] != null && !missileLauncherTarget.MissileMods[missileSlotType].IsAir)
 				{
-					if (Main.mouseItem.type == ModContent.ItemType<HomingMissileAddon>())
+					if (Main.mouseItem.IsAir)
 					{
-						missileLauncherTarget.MissileChange[0] = Main.mouseItem.Clone();
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<HomingMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[0].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SpazerComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[1].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SeekerMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[2].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<WavebusterAddon>())
+						{
+							missileLauncherTarget.MissileChange[3].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<IceSpreaderAddon>())
+						{
+							missileLauncherTarget.MissileChange[4].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<FlamethrowerAddon>())
+						{
+							missileLauncherTarget.MissileChange[5].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<PlasmaMachinegunAddon>())
+						{
+							missileLauncherTarget.MissileChange[6].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<DiffusionMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[7].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NovaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[8].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<VortexComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[9].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<StardustComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[10].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<NebulaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[11].TurnToAir();
+						}
+						if (missileLauncherTarget.MissileMods[missileSlotType].type == ModContent.ItemType<SolarComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[12].TurnToAir();
+						}
+						SoundEngine.PlaySound(SoundID.Grab);
+						Main.mouseItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
+
+						missileLauncherTarget.MissileMods[missileSlotType].TurnToAir();
 					}
-					if (Main.mouseItem.type == ModContent.ItemType<SpazerComboAddon>())
+					else if (condition == null || (condition != null && condition(Main.mouseItem)))
 					{
-						missileLauncherTarget.MissileChange[1] = Main.mouseItem.Clone();
+						SoundEngine.PlaySound(SoundID.Grab);
+
+						if (Main.mouseItem.type == missileLauncherTarget.MissileMods[missileSlotType].type)
+						{
+							int stack = Main.mouseItem.stack + missileLauncherTarget.MissileMods[missileSlotType].stack;
+
+							if (missileLauncherTarget.MissileMods[missileSlotType].maxStack >= stack)
+							{
+								missileLauncherTarget.MissileMods[missileSlotType].stack = stack;
+								Main.mouseItem.TurnToAir();
+							}
+							else
+							{
+								int stackDiff = stack - missileLauncherTarget.MissileMods[missileSlotType].maxStack;
+								missileLauncherTarget.MissileMods[missileSlotType].stack = missileLauncherTarget.MissileMods[missileSlotType].maxStack;
+								Main.mouseItem.stack = stackDiff;
+							}
+						}
+						else
+						{
+							Item tempBoxItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
+							Item tempMouseItem = Main.mouseItem.Clone();
+
+							missileLauncherTarget.MissileMods[missileSlotType] = tempMouseItem;
+							Main.mouseItem = tempBoxItem;
+						}
 					}
-					if (Main.mouseItem.type == ModContent.ItemType<SeekerMissileAddon>())
+				}
+				else if (!Main.mouseItem.IsAir)
+				{
+					if (condition == null || (condition != null && condition(Main.mouseItem)))
 					{
-						missileLauncherTarget.MissileChange[2] = Main.mouseItem.Clone();
+						if (Main.mouseItem.type == ModContent.ItemType<HomingMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[0] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<SpazerComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[1] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<SeekerMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[2] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<WavebusterAddon>())
+						{
+							missileLauncherTarget.MissileChange[3] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<IceSpreaderAddon>())
+						{
+							missileLauncherTarget.MissileChange[4] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<FlamethrowerAddon>())
+						{
+							missileLauncherTarget.MissileChange[5] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<PlasmaMachinegunAddon>())
+						{
+							missileLauncherTarget.MissileChange[6] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<DiffusionMissileAddon>())
+						{
+							missileLauncherTarget.MissileChange[7] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<NovaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[8] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<VortexComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[9] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<StardustComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[10] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<NebulaComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[11] = Main.mouseItem.Clone();
+						}
+						if (Main.mouseItem.type == ModContent.ItemType<SolarComboAddon>())
+						{
+							missileLauncherTarget.MissileChange[12] = Main.mouseItem.Clone();
+						}
+						SoundEngine.PlaySound(SoundID.Grab);
+						missileLauncherTarget.MissileMods[missileSlotType] = Main.mouseItem.Clone();
+						Main.mouseItem.TurnToAir();
 					}
-					if (Main.mouseItem.type == ModContent.ItemType<WavebusterAddon>())
-					{
-						missileLauncherTarget.MissileChange[3] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<IceSpreaderAddon>())
-					{
-						missileLauncherTarget.MissileChange[4] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<FlamethrowerAddon>())
-					{
-						missileLauncherTarget.MissileChange[5] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<PlasmaMachinegunAddon>())
-					{
-						missileLauncherTarget.MissileChange[6] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<DiffusionMissileAddon>())
-					{
-						missileLauncherTarget.MissileChange[7] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<NovaComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[8] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<VortexComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[9] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<StardustComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[10] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<NebulaComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[11] = Main.mouseItem.Clone();
-					}
-					if (Main.mouseItem.type == ModContent.ItemType<SolarComboAddon>())
-					{
-						missileLauncherTarget.MissileChange[12] = Main.mouseItem.Clone();
-					}
-					SoundEngine.PlaySound(SoundID.Grab);
-					missileLauncherTarget.MissileMods[missileSlotType] = Main.mouseItem.Clone();
-					Main.mouseItem.TurnToAir();
 				}
 			}
 		}
@@ -321,61 +484,123 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			//base.DrawSelf(spriteBatch);
-			MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
-
-			spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
-
-			// Item drawing.
-			if (missileLauncherTarget.MissileMods[missileSlotType].IsAir) return;
-
-			Color itemColor = missileLauncherTarget.MissileMods[missileSlotType].GetAlpha(Color.White);
-			Texture2D itemTexture = TextureAssets.Item[missileLauncherTarget.MissileMods[missileSlotType].type].Value;
-			CalculatedStyle innerDimensions = base.GetDimensions();
-
-			if (base.IsMouseHovering)
+			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<MissileLauncher>())
 			{
-				Main.hoverItemName = missileLauncherTarget.MissileMods[missileSlotType].Name;
-				Main.HoverItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
+				MissileLauncher missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
+
+				spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
+
+				// Item drawing.
+				if (missileLauncherTarget.MissileMods[missileSlotType].IsAir) return;
+
+				Color itemColor = missileLauncherTarget.MissileMods[missileSlotType].GetAlpha(Color.White);
+				Texture2D itemTexture = TextureAssets.Item[missileLauncherTarget.MissileMods[missileSlotType].type].Value;
+				CalculatedStyle innerDimensions = base.GetDimensions();
+
+				if (base.IsMouseHovering)
+				{
+					Main.hoverItemName = missileLauncherTarget.MissileMods[missileSlotType].Name;
+					Main.HoverItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
+				}
+
+				var frame = Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type] != null
+							? Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type].GetFrame(itemTexture)
+							: itemTexture.Frame(1, 1, 0, 0);
+
+				float drawScale = 1f;
+				if ((float)frame.Width > innerDimensions.Width || (float)frame.Height > innerDimensions.Width)
+				{
+					if (frame.Width > frame.Height)
+						drawScale = innerDimensions.Width / (float)frame.Width;
+					else
+						drawScale = innerDimensions.Width / (float)frame.Height;
+				}
+
+				var unreflectedScale = drawScale;
+				var tmpcolor = Color.White;
+
+				ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, missileLauncherTarget.MissileMods[missileSlotType].type);
+
+				Vector2 drawPosition = new Vector2(innerDimensions.X, innerDimensions.Y);
+
+				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
+				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+
+				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
+					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+
+				if (missileLauncherTarget.MissileMods[missileSlotType].stack > 1)
+				{
+					Utils.DrawBorderStringFourWay(
+						spriteBatch,
+						FontAssets.ItemStack.Value,
+						Math.Min(9999, missileLauncherTarget.MissileMods[missileSlotType].stack).ToString(),
+						innerDimensions.Position().X + 10f,
+						innerDimensions.Position().Y + 26f,
+						Color.White,
+						Color.Black,
+						Vector2.Zero,
+						unreflectedScale * 0.8f);
+				}
 			}
-
-			var frame = Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type] != null
-						? Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type].GetFrame(itemTexture)
-						: itemTexture.Frame(1, 1, 0, 0);
-
-			float drawScale = 1f;
-			if ((float)frame.Width > innerDimensions.Width || (float)frame.Height > innerDimensions.Width)
+			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
-				if (frame.Width > frame.Height)
-					drawScale = innerDimensions.Width / (float)frame.Width;
-				else
-					drawScale = innerDimensions.Width / (float)frame.Height;
-			}
+				ArmCannon missileLauncherTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
 
-			var unreflectedScale = drawScale;
-			var tmpcolor = Color.White;
+				spriteBatch.Draw(itemBoxTexture, DrawRectangle, Color.White);
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, missileLauncherTarget.MissileMods[missileSlotType].type);
+				// Item drawing.
+				if (missileLauncherTarget.MissileMods[missileSlotType].IsAir) return;
 
-			Vector2 drawPosition = new Vector2(innerDimensions.X, innerDimensions.Y);
+				Color itemColor = missileLauncherTarget.MissileMods[missileSlotType].GetAlpha(Color.White);
+				Texture2D itemTexture = TextureAssets.Item[missileLauncherTarget.MissileMods[missileSlotType].type].Value;
+				CalculatedStyle innerDimensions = base.GetDimensions();
 
-			drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-			drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+				if (base.IsMouseHovering)
+				{
+					Main.hoverItemName = missileLauncherTarget.MissileMods[missileSlotType].Name;
+					Main.HoverItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
+				}
 
-			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
-				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+				var frame = Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type] != null
+							? Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type].GetFrame(itemTexture)
+							: itemTexture.Frame(1, 1, 0, 0);
 
-			if (missileLauncherTarget.MissileMods[missileSlotType].stack > 1)
-			{
-				Utils.DrawBorderStringFourWay(
-					spriteBatch,
-					FontAssets.ItemStack.Value,
-					Math.Min(9999, missileLauncherTarget.MissileMods[missileSlotType].stack).ToString(),
-					innerDimensions.Position().X + 10f,
-					innerDimensions.Position().Y + 26f,
-					Color.White,
-					Color.Black,
-					Vector2.Zero,
-					unreflectedScale * 0.8f);
+				float drawScale = 1f;
+				if ((float)frame.Width > innerDimensions.Width || (float)frame.Height > innerDimensions.Width)
+				{
+					if (frame.Width > frame.Height)
+						drawScale = innerDimensions.Width / (float)frame.Width;
+					else
+						drawScale = innerDimensions.Width / (float)frame.Height;
+				}
+
+				var unreflectedScale = drawScale;
+				var tmpcolor = Color.White;
+
+				ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, missileLauncherTarget.MissileMods[missileSlotType].type);
+
+				Vector2 drawPosition = new Vector2(innerDimensions.X, innerDimensions.Y);
+
+				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
+				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+
+				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
+					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
+
+				if (missileLauncherTarget.MissileMods[missileSlotType].stack > 1)
+				{
+					Utils.DrawBorderStringFourWay(
+						spriteBatch,
+						FontAssets.ItemStack.Value,
+						Math.Min(9999, missileLauncherTarget.MissileMods[missileSlotType].stack).ToString(),
+						innerDimensions.Position().X + 10f,
+						innerDimensions.Position().Y + 26f,
+						Color.White,
+						Color.Black,
+						Vector2.Zero,
+						unreflectedScale * 0.8f);
+				}
 			}
 		}
 	}

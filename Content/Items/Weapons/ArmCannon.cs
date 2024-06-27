@@ -1701,7 +1701,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					alt = "_alt";
 				}
-				mi.itemTexture = mi.isBeam ? ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/PowerBeam/{texture + alt}").Value : ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MissileLauncher/{texture + alt}").Value;
+				mi.itemTexture = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ArmCannon/{texture + alt}").Value;
 			}
 			else
 			{

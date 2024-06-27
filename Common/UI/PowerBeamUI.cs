@@ -518,11 +518,11 @@ namespace MetroidMod.Common.UI
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
 			if (target == null || (target.type != ModContent.ItemType<PowerBeam>() && target.type != ModContent.ItemType<ArmCannon>())) { return; }
-			PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
-			ArmCannon cannonTarget = (ArmCannon)target.ModItem;
+
 
 			if (target.type == ModContent.ItemType<PowerBeam>())
 			{
+				PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 				// Item drawing.
@@ -588,8 +588,9 @@ namespace MetroidMod.Common.UI
 						unreflectedScale * 0.8f);
 				}
 			}
-			else if(target.type != ModContent.ItemType<ArmCannon>())
+			else if(target.type == ModContent.ItemType<ArmCannon>())
 			{
+				ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 				// Item drawing.

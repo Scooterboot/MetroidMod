@@ -2987,6 +2987,11 @@ Mods: {
 				// DisplayName: UA Pickup
 				// Tooltip: ""
 			}
+
+			ArmCannon: {
+				// DisplayName: Arm Cannon
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

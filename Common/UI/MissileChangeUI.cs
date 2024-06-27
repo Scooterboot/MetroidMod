@@ -254,11 +254,10 @@ namespace MetroidMod.Common.UI
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
 			if (target == null || (target.type != ModContent.ItemType<MissileLauncher>() && target.type != ModContent.ItemType<ArmCannon>())) { return; }
-			MissileLauncher missileTarget = (MissileLauncher)target.ModItem;
-			ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 
 			if (target.type == ModContent.ItemType<MissileLauncher>())
 			{
+				MissileLauncher missileTarget = (MissileLauncher)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 				// Item drawing.
@@ -312,6 +311,7 @@ namespace MetroidMod.Common.UI
 			}
 			else if(target.type == ModContent.ItemType<ArmCannon>())
 			{
+				ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
 
 				// Item drawing.
