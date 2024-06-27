@@ -25,6 +25,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI.Chat;
 using Terraria.Utilities;
 
 namespace MetroidMod.Content.Items.Weapons
@@ -1846,7 +1847,6 @@ namespace MetroidMod.Content.Items.Weapons
 							tooltips[k].Text = num20 + Lang.tip[40].Value;
 						}
 					}
-
 				}
 			}
 		}
