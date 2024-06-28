@@ -168,6 +168,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(8)
+				.AddIngredient<Tiles.MissileExpansion>(1)
 				.AddIngredient<Miscellaneous.EnergyShard>(3)
 				.AddTile(TileID.Anvils)
 				.Register();
@@ -1706,13 +1707,27 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			else
 			{
-				if (MetroidMod.UseAltWeaponTextures)
+				if (mi.isBeam)
 				{
-					mi.itemTexture = ModContent.Request<Texture2D>(Texture + "_alt").Value;
+					if (MetroidMod.UseAltWeaponTextures)
+					{
+						mi.itemTexture = ModContent.Request<Texture2D>(Texture + "_alt").Value;
+					}
+					else
+					{
+						mi.itemTexture = ModContent.Request<Texture2D>(Texture).Value;
+					}
 				}
 				else
 				{
-					mi.itemTexture = ModContent.Request<Texture2D>(Texture).Value;
+					if (MetroidMod.UseAltWeaponTextures)
+					{
+						mi.itemTexture = ModContent.Request<Texture2D>(Texture + "miss_alt").Value;
+					}
+					else
+					{
+						mi.itemTexture = ModContent.Request<Texture2D>(Texture + "miss").Value;
+					}
 				}
 			}
 			if (mi.itemTexture != null)
