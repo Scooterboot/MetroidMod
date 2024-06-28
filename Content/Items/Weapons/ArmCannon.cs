@@ -197,11 +197,11 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				return false;
 			}
-			if (isHunter && Item.TryGetGlobalItem(out MGlobalItem ac))
+			if (isHunter && Item.TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam)
 			{
 				return player.whoAmI == Main.myPlayer && Math.Floor(ac.statUA) > 0 && mp.statOverheat < mp.maxOverheat /*&& pb.statUA > BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost*/;
 			}
-			return Item.TryGetGlobalItem(out MGlobalItem mi) && mi.isBeam? (mp.statOverheat < mp.maxOverheat) : (player.whoAmI == Main.myPlayer && mi.statMissiles > 0);// && BeamLoader.CanShoot(player, BeamMods);
+			return Item.TryGetGlobalItem(out MGlobalItem mi) && (mi.isBeam? (player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat) : (player.whoAmI == Main.myPlayer && mi.statMissiles > 0));// && BeamLoader.CanShoot(player, BeamMods);
 		}
 
 		public override int ChoosePrefix(UnifiedRandom rand)
