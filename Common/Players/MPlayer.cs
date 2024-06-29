@@ -378,7 +378,7 @@ namespace MetroidMod.Common.Players
 			{
 				if (MSystem.HyperMode.Current && statPBCh <= 0f && statCharge <= 0f && canHyper)
 				{
-					if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>() || Player.HeldItem.type == ModContent.ItemType<PowerBeam>()) && Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && (Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
+					if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>() || Player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 					{
 						if (!soundPlayed)
 						{
