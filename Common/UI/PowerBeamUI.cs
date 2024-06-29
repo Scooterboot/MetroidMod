@@ -250,28 +250,28 @@ namespace MetroidMod.Common.UI
 					else if (condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
 					{
 						SoundEngine.PlaySound(SoundID.Grab);
-						if (Main.mouseItem.type == powerBeamTarget.BeamMods[beamSlotType].type)
+						if (Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
 						{
-							int stack = Main.mouseItem.stack + powerBeamTarget.BeamMods[beamSlotType].stack;
+							int stack = Main.mouseItem.stack + powerBeamTarget.BeamMods[addonSlotType].stack;
 
-							if (powerBeamTarget.BeamMods[beamSlotType].maxStack >= stack)
+							if (powerBeamTarget.BeamMods[addonSlotType].maxStack >= stack)
 							{
-								powerBeamTarget.BeamMods[beamSlotType].stack = stack;
+								powerBeamTarget.BeamMods[addonSlotType].stack = stack;
 								Main.mouseItem.TurnToAir();
 							}
 							else
 							{
-								int stackDiff = stack - powerBeamTarget.BeamMods[beamSlotType].maxStack;
-								powerBeamTarget.BeamMods[beamSlotType].stack = powerBeamTarget.BeamMods[beamSlotType].maxStack;
+								int stackDiff = stack - powerBeamTarget.BeamMods[addonSlotType].maxStack;
+								powerBeamTarget.BeamMods[addonSlotType].stack = powerBeamTarget.BeamMods[addonSlotType].maxStack;
 								Main.mouseItem.stack = stackDiff;
 							}
 						}
 						else
 						{
-							Item tempBoxItem = powerBeamTarget.BeamMods[beamSlotType].Clone();
+							Item tempBoxItem = powerBeamTarget.BeamMods[addonSlotType].Clone();
 							Item tempMouseItem = Main.mouseItem.Clone();
 
-							powerBeamTarget.BeamMods[beamSlotType] = tempMouseItem;
+							powerBeamTarget.BeamMods[addonSlotType] = tempMouseItem;
 							Main.mouseItem = tempBoxItem;
 						}
 					}
@@ -413,28 +413,28 @@ namespace MetroidMod.Common.UI
 					else if (condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
 					{
 						SoundEngine.PlaySound(SoundID.Grab);
-						if (Main.mouseItem.type == powerBeamTarget.BeamMods[beamSlotType].type)
+						if (Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
 						{
-							int stack = Main.mouseItem.stack + powerBeamTarget.BeamMods[beamSlotType].stack;
+							int stack = Main.mouseItem.stack + powerBeamTarget.BeamMods[addonSlotType].stack;
 
-							if (powerBeamTarget.BeamMods[beamSlotType].maxStack >= stack)
+							if (powerBeamTarget.BeamMods[addonSlotType].maxStack >= stack)
 							{
-								powerBeamTarget.BeamMods[beamSlotType].stack = stack;
+								powerBeamTarget.BeamMods[addonSlotType].stack = stack;
 								Main.mouseItem.TurnToAir();
 							}
 							else
 							{
-								int stackDiff = stack - powerBeamTarget.BeamMods[beamSlotType].maxStack;
-								powerBeamTarget.BeamMods[beamSlotType].stack = powerBeamTarget.BeamMods[beamSlotType].maxStack;
+								int stackDiff = stack - powerBeamTarget.BeamMods[addonSlotType].maxStack;
+								powerBeamTarget.BeamMods[addonSlotType].stack = powerBeamTarget.BeamMods[addonSlotType].maxStack;
 								Main.mouseItem.stack = stackDiff;
 							}
 						}
 						else
 						{
-							Item tempBoxItem = powerBeamTarget.BeamMods[beamSlotType].Clone();
+							Item tempBoxItem = powerBeamTarget.BeamMods[addonSlotType].Clone();
 							Item tempMouseItem = Main.mouseItem.Clone();
 
-							powerBeamTarget.BeamMods[beamSlotType] = tempMouseItem;
+							powerBeamTarget.BeamMods[addonSlotType] = tempMouseItem;
 							Main.mouseItem = tempBoxItem;
 						}
 					}
