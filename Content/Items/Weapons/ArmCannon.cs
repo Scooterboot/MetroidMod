@@ -198,7 +198,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				return false;
 			}
-			if (isHunter && Item.TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam)
+			if (isHunter && BeamMods[0].type != ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>() && Item.TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam)
 			{
 				return player.whoAmI == Main.myPlayer && Math.Floor(ac.statUA) > 0 && mp.statOverheat < mp.maxOverheat /*&& pb.statUA > BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost*/;
 			}
