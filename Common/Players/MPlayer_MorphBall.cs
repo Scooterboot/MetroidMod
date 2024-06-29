@@ -883,10 +883,6 @@ namespace MetroidMod.Common.Players
 					spiderball = !spiderball;
 					SoundEngine.PlaySound(Sounds.Suit.SpiderActivate, Player.position);
 				}
-				else
-				{
-					spiderball = false;
-				}
 			}
 
 			// get current edge
