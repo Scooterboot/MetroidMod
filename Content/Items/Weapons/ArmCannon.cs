@@ -2318,7 +2318,7 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						if (!BeamChange[11].IsAir)
 						{
-							BeamMods[0] = BeamChange[0].Clone();
+							BeamMods[0] = BeamChange[11].Clone();
 							BeamChange[11].type = ModContent.ItemType<Addons.V3.LuminiteBeamAddon>();
 							BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0f;
 							BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
@@ -2329,7 +2329,7 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 						else if (!BeamChange[10].IsAir)
 						{
-							BeamMods[0] = BeamChange[0].Clone();
+							BeamMods[0] = BeamChange[10].Clone();
 							BeamChange[10].type = ModContent.ItemType<Addons.V2.ChargeBeamV2Addon>();
 							BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost = 0f;
 							BeamMods[0].GetGlobalItem<MGlobalItem>().addonDmg = 0f;
