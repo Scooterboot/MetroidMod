@@ -26,5 +26,14 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ChozoBrickNatural>();
 		}
+		public override void AddRecipes()
+		{
+			CreateRecipe(4)
+				.AddIngredient<ChozoBrick>(1)
+				.AddIngredient(ItemID.StoneBlock, 5)
+				.AddCondition(Condition.InGraveyard)
+				.AddTile(TileID.Furnaces)
+				.Register();
+		}
 	}
 }

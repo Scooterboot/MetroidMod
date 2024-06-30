@@ -2996,6 +2996,31 @@ Mods: {
 					Right click to swap between missile launcher and powerbeam
 					''' */
 			}
+
+			AQAPlating: {
+				// DisplayName: A Q A Plating
+				// Tooltip: ""
+			}
+
+			ARCPlating: {
+				// DisplayName: A R C Plating
+				// Tooltip: ""
+			}
+
+			PYRPlating: {
+				// DisplayName: P Y R Plating
+				// Tooltip: ""
+			}
+
+			ResearchCenterPlating: {
+				// DisplayName: Research Center Plating
+				// Tooltip: ""
+			}
+
+			SRXPlating: {
+				// DisplayName: S R X Plating
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

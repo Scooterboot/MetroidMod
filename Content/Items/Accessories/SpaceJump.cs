@@ -39,12 +39,24 @@ namespace MetroidMod.Content.Items.Accessories
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe(1)
-				.AddIngredient<SpaceJumpBoots>(1)
-				.AddIngredient(ItemID.HallowedBar, 10)
-				.AddIngredient(ItemID.SoulofFlight, 10)
-				.AddTile(TileID.MythrilAnvil)
-				.Register();
+			if (MUtils.CalamityActive())
+			{
+				CreateRecipe(1)
+	.AddIngredient<SpaceJumpBoots>(1)
+	.AddRecipeGroup(MetroidMod.T2HMBarRecipeGroupID, 10)
+	.AddIngredient(ItemID.SoulofFlight, 10)
+	.AddTile(TileID.MythrilAnvil)
+	.Register();
+			}
+			else
+			{
+				CreateRecipe(1)
+					.AddIngredient<SpaceJumpBoots>(1)
+					.AddIngredient(ItemID.HallowedBar, 10)
+					.AddIngredient(ItemID.SoulofFlight, 10)
+					.AddTile(TileID.MythrilAnvil)
+					.Register();
+			}
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

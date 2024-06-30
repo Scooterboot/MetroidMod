@@ -13,6 +13,7 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
@@ -28,12 +29,14 @@ namespace MetroidMod.Content.NPCs.Town
 	public class ChozoGhost : ModNPC
 	{
 		public const string ShopName = "Chozo Shop";
+
+		private static int ShimmerHeadIndex;
+		private static Profiles.StackedNPCProfile NPCProfile;
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[Type] = 16;
-
-			NPCID.Sets.ExtraFramesCount[Type] = 9;
-			NPCID.Sets.AttackFrameCount[Type] = 4;
+			Main.npcFrameCount[Type] = 16; //24
+			NPCID.Sets.ExtraFramesCount[Type] = 9; //13
+			NPCID.Sets.AttackFrameCount[Type] = 4;//6
 			NPCID.Sets.DangerDetectRange[Type] = 700;
 
 			NPCID.Sets.AttackType[Type] = 0;
@@ -41,6 +44,9 @@ namespace MetroidMod.Content.NPCs.Town
 			NPCID.Sets.AttackAverageChance[Type] = 30;
 
 			NPCID.Sets.HatOffsetY[Type] = 4;
+
+			//NPCID.Sets.ShimmerTownTransform[NPC.type] = true;
+			//NPCID.Sets.ShimmerTownTransform[Type] = true;
 
 			NPC.Happiness
 				.SetBiomeAffection<OceanBiome>(AffectionLevel.Love)
@@ -52,8 +58,16 @@ namespace MetroidMod.Content.NPCs.Town
 				.SetNPCAffection(NPCID.WitchDoctor, AffectionLevel.Dislike)
 				.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate)
 			;
+			NPCProfile = new Profiles.StackedNPCProfile(
+				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture)),
+				new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIndex)
+			);
 		}
-
+		public override void Load()
+		{
+			// Adds our Shimmer Head to the NPCHeadLoader.
+			ShimmerHeadIndex = Mod.AddNPCHeadTexture(Type, Texture + "_Shimmer_Head");
+		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
@@ -86,7 +100,10 @@ namespace MetroidMod.Content.NPCs.Town
 		public override bool CanTownNPCSpawn(int numTownNPCs)/* tModPorter Suggestion: Copy the implementation of NPC.SpawnAllowed_Merchant in vanilla if you to count money, and be sure to set a flag when unlocked, so you don't count every tick. */
 			=> MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
 
-
+		public override ITownNPCProfile TownNPCProfile()
+		{
+			return NPCProfile;
+		}
 		public override List<string> SetNPCNameList()
 		{
 			return new List<string>() {
@@ -213,6 +230,11 @@ namespace MetroidMod.Content.NPCs.Town
 			npcShop.Add<Items.Boss.TorizoSummon>();
 			npcShop.Add<Items.Boss.GoldenTorizoSummon>(Gold);
 			npcShop.Add<PhazonCore>(Condition.DownedPlantera, Phazon);
+			npcShop.Add<AQAPlating>(Condition.IsNpcShimmered);
+			npcShop.Add<ARCPlating>(Condition.IsNpcShimmered);
+			npcShop.Add<PYRPlating>(Condition.IsNpcShimmered);
+			npcShop.Add<SRXPlating>(Condition.IsNpcShimmered);
+			npcShop.Add<ResearchCenterPlating>(Condition.IsNpcShimmered);
 			npcShop.Register();
 		}
 
