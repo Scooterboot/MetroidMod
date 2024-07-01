@@ -554,7 +554,7 @@ Mods: {
 					Slot Type: Charge
 					Uses UA reserves
 					[c/78BE78:+500% damage]
-					[c/78BE78:Adds scope and, with affinity, stealth]
+					[c/78BE78:When standing still, adds scope and stealth]
 					[c/BE7878:+250% overheat use]
 					[c/78BE78:Damage and Crit scale with Stealth]
 					[c/BE7878:Massive speed reduction]

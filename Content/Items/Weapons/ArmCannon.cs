@@ -259,7 +259,10 @@ namespace MetroidMod.Content.Items.Weapons
 		public override bool AltFunctionUse(Player player)
 		{
 			Item.TryGetGlobalItem(out MGlobalItem mi);
-			mi.isBeam = !mi.isBeam;
+			if (!Stealth || Stealth && player.velocity != Vector2.Zero)
+			{
+				mi.isBeam = !mi.isBeam;
+			}
 			return false;
 		}
 
@@ -2291,7 +2294,10 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					if (Stealth)
 					{
-						player.scope = true;
+						if (!player.mount.Active)
+						{
+							player.scope = true;
+						}
 						if (impStealth < 126f)
 						{
 							impStealth += 1.5f;
