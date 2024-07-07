@@ -2320,7 +2320,7 @@ namespace MetroidMod.Content.Items.Weapons
 						DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
 						player.GetCritChance(damageClass) += (int)impStealth / (Lum ? 3f : Diff ? 5f : 10f);
 					}
-					if (isHunter && pb.statUA <= 0f && player.controlUseItem)
+					if (isHunter && pb.statUA <= 0f && player.controlUseItem && BeamMods[0].type != ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>())
 					{
 						if (!BeamChange[11].IsAir)
 						{

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
-	//[AutoloadEquip(EquipType.Shoes)]
+	[AutoloadEquip(EquipType.Shoes)]
 	public class TerraBooster : ModItem//HunterDamageItem
 	{
 		public override void SetStaticDefaults()
@@ -80,7 +80,7 @@ namespace MetroidMod.Content.Items.Accessories
 			player.noFallDmg = true;
 		}
 	}
-
+	[AutoloadEquip(EquipType.Shoes)]
 	public class TerraBoosterV2 : ModItem
 	{
 		public override string Texture => $"{Mod.Name}/Content/Items/Accessories/TerraBooster";
