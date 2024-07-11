@@ -8,6 +8,7 @@ using MetroidMod.Content.Mounts;
 using MetroidMod.Content.Tiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -645,22 +646,20 @@ namespace MetroidMod.Common.Players
 					reGripTimer = 10;
 				}
 				bool gripledge = MSystem.mBlockType[(int)num, (int)num2] == ModContent.TileType<GripLedge>();
-				if (isGripping && Player.controlRight && gripDir >= 1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>() && !gripledge)
+				if (isGripping && Player.controlRight && gripDir >= 1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>() && !gripledge && Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
 					var ball = ModContent.MountType<MorphBallMount>();
 					Player.QuickMount();
-					//Player.mount.SetMount(ball, Player);
 					isGripping = false;
 					reGripTimer = 10;
 					Player.position.X += 16f * gripDir;
 					Player.position.Y -= 32f;
 					SoundEngine.PlaySound(Sounds.Suit.MorphIn, Player.position);
 				}
-				if (isGripping && Player.controlLeft && gripDir <= -1 && Player.releaseLeft && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>() && !gripledge)
+				if (isGripping && Player.controlLeft && gripDir <= -1 && Player.releaseLeft && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>() && !gripledge && Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
 					var ball = ModContent.MountType<MorphBallMount>();
 					Player.QuickMount();
-					//Player.mount.SetMount(ball, Player);
 					isGripping = false;
 					reGripTimer = 10;
 					Player.position.X += 16f * gripDir;

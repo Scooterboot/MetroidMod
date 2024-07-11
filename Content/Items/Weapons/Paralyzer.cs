@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true;
 			Item.knockBack = 0;
-			Item.value = Item.buyPrice(0, 50, 0, 0);
+			Item.value = Item.buyPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = Sounds.Items.Weapons.Paralyzer;
 			Item.shoot = ModContent.ProjectileType<ParalyzerShot>();

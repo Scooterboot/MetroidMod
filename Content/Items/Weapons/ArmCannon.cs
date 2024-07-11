@@ -2681,6 +2681,10 @@ namespace MetroidMod.Content.Items.Weapons
 						targetNum = 0;
 						targetingDelay = 0;
 					}
+					if(pb.statMissiles <= 0f && player.controlUseItem)
+					{
+						pb.isBeam = !pb.isBeam;
+					}
 				}
 
 			}

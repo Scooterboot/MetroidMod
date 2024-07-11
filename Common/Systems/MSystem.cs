@@ -706,6 +706,7 @@ namespace MetroidMod.Common.Systems
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HiJumpBootsTile>(); }, 8);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamTile>(); }, 8);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HomingMissile>(); }, 4);
+			list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpBootsTile>(); }, 4);
 			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpazerTile>(); }, 8);
@@ -734,7 +735,6 @@ namespace MetroidMod.Common.Systems
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamGreenTile>(); }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamRedTile>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpBootsTile>(); }, 4);
 			}
 			if (Main.hardMode || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
@@ -763,7 +763,7 @@ namespace MetroidMod.Common.Systems
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<OmegaCannonTile>(); }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PhazonBeamTile>(); }, 4);
 			}
-			if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+			if (NPC.downedMechBossAny || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<DiffusionMissile>(); }, 4);
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpTile>(); }, 4);
