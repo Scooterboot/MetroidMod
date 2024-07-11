@@ -1312,9 +1312,9 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.useTime = (int)useTime;
 				Item.useAnimation = (int)useTime;
 				Item.shoot = ModContent.Find<ModProjectile>(Mod.Name, shot).Type;
-				ShotSound = new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}");
-				ChargeShotSound = new SoundStyle($"{chargeShotSoundMod.Name}/Assets/Sounds/{chargeShotSound}");
-				Item.UseSound = ShotSound; //TESTING
+				//ShotSound = new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}");
+				ChargeShotSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/{chargeShotSound}");
+				Item.UseSound = new($"{Mod.Name}/Assets/Sounds/{shotSound}");//ShotSound; //TESTING
 
 				//Item.autoReuse = (!slot1.IsAir);//(isCharge);
 
@@ -1338,7 +1338,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				else
 				{
-					Item.UseSound = ShotSound;
+					Item.UseSound = new($"{Mod.Name}/Assets/Sounds/{shotSound}");
 				}
 			}
 			else
@@ -1653,7 +1653,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.useTime = (int)useTime;
 				Item.useAnimation = (int)useTime;
 				Item.shoot = Mod.Find<ModProjectile>(shot).Type;
-				Item.UseSound = null;
+				Item.UseSound = new($"{Mod.Name}/Assets/Sounds/{shotSound}");
 
 				Item.shootSpeed = 8f;
 				Item.reuseDelay = 0;
@@ -2307,7 +2307,7 @@ namespace MetroidMod.Content.Items.Weapons
 							player.shroomiteStealth = true;
 							player.stealth -= impStealth / 126f;
 							player.aggro -= (int)(impStealth * 4f);
-							if (Main.netMode == 1)
+							if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 							{
 								NetMessage.SendData(84);
 							}
@@ -2862,7 +2862,6 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				ItemIO.Send(MissileChange[i], writer);
 			}
-			writer.Write(impStealth);//howsyncree
 			writer.Write(chargeLead);
 		}
 		public override void NetReceive(BinaryReader reader)
@@ -2883,7 +2882,6 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				MissileChange[i] = ItemIO.Receive(reader);
 			}
-			impStealth = reader.ReadInt32();//howsyncree
 			chargeLead = reader.ReadInt32();
 		}
 	}
