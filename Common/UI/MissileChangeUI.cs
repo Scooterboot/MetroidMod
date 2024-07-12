@@ -231,10 +231,10 @@ namespace MetroidMod.Common.UI
 					if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
 					{
 						missileTarget.MissileMods[addonSlotType] = missileTarget.MissileChange[missileChangeType].Clone();
-					}
-					if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
-					{
-						mp.missileChangeActive = false;
+						if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
+						{
+							mp.missileChangeActive = false;
+						}
 					}
 				}
 				else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))

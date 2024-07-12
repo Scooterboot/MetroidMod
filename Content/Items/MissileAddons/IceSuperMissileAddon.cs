@@ -44,6 +44,7 @@ namespace MetroidMod.Content.Items.MissileAddons
 				.AddIngredient<SuperMissileAddon>(1)
 				.AddIngredient<IceMissileAddon>(1)
 				.AddIngredient(ItemID.Ectoplasm, 8)
+				.AddIngredient(ItemID.BeetleShell, 3)
 				.AddIngredient<Accessories.FrozenCore>(1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
