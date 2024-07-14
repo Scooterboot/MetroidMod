@@ -2364,6 +2364,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				else
 				{
+					shot = "";
 					if (Common.Systems.MSystem.SwitchKey.JustPressed)
 					{
 						mp.missileChangeActive = !mp.missileChangeActive;

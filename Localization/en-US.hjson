@@ -320,6 +320,11 @@ Mods: {
 				Description: Your reputation makes you a Prime target
 				DisplayName: Prime Hunter Buff
 			}
+
+			GeemerPetBuff: {
+				DisplayName: Geemer Pet Buff
+				Description: Mods.MetroidMod.Buffs.GeemerPetBuff.Description
+			}
 		}
 
 		Items: {
@@ -3021,6 +3026,11 @@ Mods: {
 				DisplayName: S R X Plating
 				Tooltip: ""
 			}
+
+			GeemerSupps: {
+				DisplayName: Geemer Supps
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -3438,6 +3448,7 @@ Mods: {
 			BetsyBombProjectile.DisplayName: Betsy Bomb Projectile
 			RamBall.DisplayName: Ram Ball
 			ChoziteShortswordStab.DisplayName: Chozite Shortsword
+			GeemerPet.DisplayName: Geemer Pet
 		}
 
 		Configs: {

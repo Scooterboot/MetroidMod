@@ -186,14 +186,14 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			for (int i = 0; i < SuitAddons.Length; ++i)
 			{
-				ItemIO.Send(SuitAddons[i], writer);
+				ItemIO.Send(SuitAddons[i], writer, true);
 			}
 		}
 		public override void NetReceive(BinaryReader reader)
 		{
 			for (int i = 0; i < SuitAddons.Length; ++i)
 			{
-				SuitAddons[i] = ItemIO.Receive(reader);
+				SuitAddons[i] = ItemIO.Receive(reader, true);
 			}
 		}
 

@@ -630,7 +630,7 @@ namespace MetroidMod.Common.Players
 					}
 				if (!BoostRam)
 				{
-					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, ModContent.ProjectileType<Content.Projectiles.RamBall>(), mp.PrimeHunter ? mp.boostEffect * 5 : mp.boostEffect, mp.PrimeHunter ? mp.boostEffect : mp.boostEffect / 5, Player.whoAmI);
+					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, ModContent.ProjectileType<Content.Projectiles.RamBall>(), mp.PrimeHunter ? mp.boostEffect * 5 : mp.boostEffect, mp.PrimeHunter ? mp.boostEffect : mp.boostEffect / 3, Player.whoAmI);
 				}
 				Player.armorEffectDrawShadow = true;
 				boostEffect--;
