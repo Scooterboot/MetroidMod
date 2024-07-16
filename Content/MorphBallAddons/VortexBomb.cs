@@ -118,8 +118,8 @@ namespace MetroidMod.Content.MorphBallAddons
 					{
 						if (P.Hitbox.Intersects(npc.Hitbox))
 						{
-							Vector2 center = new Vector2(P.Center.X, P.Center.Y - ((float)N.height / 2f));
-							Vector2 velocity = Vector2.Normalize(center - npc.Center) * Math.Min(npcVacSpeed * N.knockBackResist, Vector2.Distance(center, npc.Center));
+							Vector2 center = new Vector2(P.Center.X, P.Center.Y - ((float)npc.height / 2f));
+							Vector2 velocity = Vector2.Normalize(center - npc.Center) * Math.Min(npcVacSpeed * npc.knockBackResist, Vector2.Distance(center, npc.Center));
 							if (Vector2.Distance(center, npc.Center) > 1f)
 							{
 								npc.position += velocity;

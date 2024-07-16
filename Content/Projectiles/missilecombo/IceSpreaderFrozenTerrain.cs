@@ -91,7 +91,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 										if (projRect.Intersects(npcRect))
 										{
-											if (freezeDelay[i] <= 0)
+											if (freezeDelay[who.whoAmI] <= 0)
 											{
 												npc.AddBuff(ModContent.BuffType<Buffs.IceFreeze>(), 600, true);
 												freezeDelay[who.whoAmI] = 20;
