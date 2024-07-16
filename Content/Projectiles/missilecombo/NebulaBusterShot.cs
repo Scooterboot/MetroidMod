@@ -75,13 +75,13 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				Vector2 rotPoint = Lead.Center + rot.ToRotationVector2() * distance * Lead.scale;
 
 				target = null;
-				for (int i = 0; i < Main.maxNPCs; i++)
+				foreach (NPC who in Main.ActiveNPCs)
 				{
-					if (Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
+					NPC npc = Main.npc[who.whoAmI];
+					if (npc.lifeMax > 5 && npc.dontTakeDamage && !npc.friendly)
 					{
-						NPC npc = Main.npc[i];
 
-						if (Main.npc[i].CanBeChasedBy(P, false) && Vector2.Distance(npc.Center, rotPoint) < range)
+						if (npc.CanBeChasedBy(P, false) && Vector2.Distance(npc.Center, rotPoint) < range)
 						{
 							if (target == null || !target.active)
 							{

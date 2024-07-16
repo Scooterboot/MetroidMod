@@ -378,16 +378,17 @@ namespace MetroidMod.Content.Projectiles
 			if (P.ai[0] > 10f)
 			{
 				P.ai[0] = 10f;
-				for (int i = 0; i < 200; i++)
+				foreach (NPC who in Main.ActiveNPCs)
 				{
+					NPC npc = Main.npc[who.whoAmI];
 					//bool? flag3 = NPCLoader.CanBeHitByProjectile(Main.npc[i], P);
 					//if (Main.npc[i].CanBeChasedBy(P, false) && !npcPrevHit[i]  && (!flag3.HasValue || flag3.Value))
-					if (Main.npc[i].CanBeChasedBy(P, false) && !npcPrevHit[i])
+					if (npc.CanBeChasedBy(P, false) && !npcPrevHit[who.whoAmI])
 					{
-						float centerX = Main.npc[i].position.X + (float)(Main.npc[i].width / 2);
-						float centerY = Main.npc[i].position.Y + (float)(Main.npc[i].height / 2);
+						float centerX = npc.position.X + (float)(npc.width / 2);
+						float centerY = npc.position.Y + (float)(npc.height / 2);
 						float val = Math.Abs(P.position.X + (float)(P.width / 2) - centerX) + Math.Abs(P.position.Y + (float)(P.height / 2) - centerY);
-						if (val < dist && Collision.CanHit(P.position, P.width, P.height, Main.npc[i].position, Main.npc[i].width, Main.npc[i].height))
+						if (val < dist && Collision.CanHit(P.position, P.width, P.height, npc.position, npc.width, npc.height))
 						{
 							dist = val;
 							homeX = centerX;

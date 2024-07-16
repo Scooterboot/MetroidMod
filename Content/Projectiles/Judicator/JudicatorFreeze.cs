@@ -81,24 +81,24 @@ namespace MetroidMod.Content.Projectiles.Judicator
 							if (fSize > 0)
 							{
 								Rectangle projRect = new Rectangle((int)pos.X - fSize / 2, (int)pos.Y - fSize / 2, fSize, fSize);
-								for (int i = 0; i < Main.maxNPCs; i++)
+								foreach (NPC who in Main.ActiveNPCs)
 								{
-									if (Main.npc[i].active && !Main.npc[i].friendly && !Main.npc[i].dontTakeDamage)
+									NPC npc = Main.npc[who.whoAmI];
+									if (!npc.friendly && !npc.dontTakeDamage)
 									{
-										NPC npc = Main.npc[i];
 										Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 
 										if (projRect.Intersects(npcRect))
 										{
-											if (freezeDelay[i] <= 0)
+											if (freezeDelay[who.whoAmI] <= 0)
 											{
 												npc.AddBuff(ModContent.BuffType<Buffs.IceFreeze>(), 600, true);
 												npc.AddBuff(44, 300);
-												freezeDelay[i] = 20;
+												freezeDelay[who.whoAmI] = 20;
 											}
 											else
 											{
-												freezeDelay[i]--;
+												freezeDelay[who.whoAmI]--;
 											}
 										}
 									}

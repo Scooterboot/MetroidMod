@@ -23,9 +23,10 @@ namespace MetroidMod
 
 		public static bool AnyBossesActive()
 		{
-			for (int i = 0; i < Main.npc.Length; i++)
+			foreach (NPC who in Main.ActiveNPCs)
 			{
-				if (Main.npc[i].boss && Main.npc[i].active && Main.npc[i].type != ModContent.NPCType<IdleTorizo>() && Main.npc[i].type != ModContent.NPCType<IdleGoldenTorizo>())
+				NPC npc = Main.npc[who.whoAmI];
+				if (npc.boss && npc.active && npc.type != ModContent.NPCType<IdleTorizo>() && npc.type != ModContent.NPCType<IdleGoldenTorizo>())
 				{
 					return true;
 				}

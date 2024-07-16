@@ -2567,9 +2567,9 @@ namespace MetroidMod.Content.Items.Weapons
 							}
 							else
 							{
-								for (int i = 0; i < Main.maxNPCs; i++)
+								foreach (NPC who in Main.ActiveNPCs)
 								{
-									NPC npc = Main.npc[i];
+									NPC npc = Main.npc[who.whoAmI];
 									if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly)// && !npc.immortal)
 									{
 										Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);

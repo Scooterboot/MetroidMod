@@ -338,9 +338,9 @@ namespace MetroidMod.Common.Players
 			// 'Standing on NPC' mechanic. 
 			// Might need some more work, but that's for something in the future.
 			// TODO: THE Player SLIDED OVER THE TOP OF THE TRIPPER WHEN IT CHANGES DIRECTION.
-			for (int i = 0; i < 200; ++i)
+			foreach (NPC who in Main.ActiveNPCs)
 			{
-				NPC npc = Main.npc[i];
+				NPC npc = Main.npc[who.whoAmI];
 				if (npc.active && ((MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type) || npc.type == ModContent.NPCType<Content.NPCs.Mobs.Utility.Tripper>()))
 				{
 					MGlobalNPC mnpc = npc.GetGlobalNPC<MGlobalNPC>();

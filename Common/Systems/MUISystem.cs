@@ -224,9 +224,9 @@ namespace MetroidMod.Common.Systems
 			// (debug) draw npc hitboxes
 			if (MetroidMod.DebugDH)
 			{
-				for (int j = 0; j < Main.maxNPCs; j++)
+				foreach (NPC who in Main.ActiveNPCs)
 				{
-					NPC npc = Main.npc[j];
+					NPC npc = Main.npc[who.whoAmI];
 					if (npc.active && npc.life > 0)
 					{
 						Color color = new(0, 255, 0);

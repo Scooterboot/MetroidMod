@@ -55,10 +55,10 @@ namespace MetroidMod.Common.GlobalProjectiles
 			float distance = 250f;
 			if (projectile.active && projectile.penetrate > 0 && projectile.damage > 0 && projectile.friendly && projectile.velocity != Vector2.Zero && projectile.aiStyle != 3 && projectile.aiStyle != 15 && !Main.projPet[projectile.type])
 			{
-				for (int i = 0; i < Main.npc.Length; i++)
+				foreach (NPC who in Main.ActiveNPCs)
 				{
-					NPC npc = Main.npc[i];
-					if (npc != null && npc.active && npc.type == ModContent.NPCType<Content.NPCs.OmegaPirate.OmegaPirateAbsorbField>() && npc.ai[3] != 1)
+					NPC npc = Main.npc[who.whoAmI];
+					if (npc != null && npc.type == ModContent.NPCType<Content.NPCs.OmegaPirate.OmegaPirateAbsorbField>() && npc.ai[3] != 1)
 					{
 						if (Vector2.Distance(npc.Center, projectile.Center) < distance * npc.ai[1])
 						{

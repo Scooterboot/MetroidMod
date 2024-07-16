@@ -111,19 +111,19 @@ namespace MetroidMod.Content.MorphBallAddons
 					}
 				}
 
-				for (int i = 0; i < Main.npc.Length; i++)
+				foreach (NPC who in Main.ActiveNPCs)
 				{
-					if (Main.npc[i].CanBeChasedBy(P, false) && Main.npc[i].knockBackResist != 0f)
+					NPC npc = Main.npc[who.whoAmI];
+					if (npc.CanBeChasedBy(P, false) && npc.knockBackResist != 0f)
 					{
-						NPC N = Main.npc[i];
-						if (P.Hitbox.Intersects(N.Hitbox))
+						if (P.Hitbox.Intersects(npc.Hitbox))
 						{
 							Vector2 center = new Vector2(P.Center.X, P.Center.Y - ((float)N.height / 2f));
-							Vector2 velocity = Vector2.Normalize(center - N.Center) * Math.Min(npcVacSpeed * N.knockBackResist, Vector2.Distance(center, N.Center));
-							if (Vector2.Distance(center, N.Center) > 1f)
+							Vector2 velocity = Vector2.Normalize(center - npc.Center) * Math.Min(npcVacSpeed * N.knockBackResist, Vector2.Distance(center, npc.Center));
+							if (Vector2.Distance(center, npc.Center) > 1f)
 							{
-								N.position += velocity;
-								N.velocity *= 0f;
+								npc.position += velocity;
+								npc.velocity *= 0f;
 							}
 						}
 					}

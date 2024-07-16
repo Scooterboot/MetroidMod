@@ -74,15 +74,15 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			if (P.ai[1] == 0f)
 			{
 				int target = -1;
-				for (int i = 0; i < 200; i++)
+				foreach (NPC who in Main.ActiveNPCs)
 				{
-					NPC npc = Main.npc[i];
+					NPC npc = Main.npc[who.whoAmI];
 					if (npc.CanBeChasedBy(P, false))
 					{
 						//if (P.Distance(npc.Center) < distance)
 						if (Main.projectile[(int)P.ai[0]].Distance(npc.Center) < distance)
 						{
-							target = i;
+							target = who.whoAmI;
 						}
 					}
 				}

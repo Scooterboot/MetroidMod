@@ -151,11 +151,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
 
 				target = null;
-				for (int i = 0; i < Main.maxNPCs; i++)
+				foreach (var who in Main.ActiveNPCs)
 				{
-					if (Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
+					NPC npc = Main.npc[who.whoAmI];
+					if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
 					{
-						NPC npc = Main.npc[i];
 						Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 
 						float point = 0f;
@@ -167,7 +167,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 						bool flag = (Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance);
 
-						if (Main.npc[i].CanBeChasedBy(P, false))
+						if (npc.CanBeChasedBy(P, false))
 						{
 							if (target == null || !target.active)
 							{

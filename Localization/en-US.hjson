@@ -2512,7 +2512,11 @@ Mods: {
 
 			EnergyTankAddon: {
 				DisplayName: Energy Tank
-				Tooltip: Grants the user an extra tank of energy, stacks up to 14
+				Tooltip:
+					'''
+					Grants the user an extra tank of energy, stacks up to 14
+					The amount of tanks actually in use effected by suit tank capacity
+					'''
 			}
 
 			GravitySuitAddonAddon: {

@@ -136,11 +136,11 @@ namespace MetroidMod.Common.Systems
 			}
 
 			// If there's an NPC within the spawn area of the Phazon Meteorite, disallow spawning.
-			for (int i = 0; i < Main.maxNPCs; i++)
+			foreach (NPC who in Main.ActiveNPCs)
 			{
-				if (Main.npc[i].active)
+				NPC npc = Main.npc[who.whoAmI];
 				{
-					if (rectangle.Intersects(Main.npc[i].Hitbox))
+					if (rectangle.Intersects(npc.Hitbox))
 					{
 						return false;
 					}

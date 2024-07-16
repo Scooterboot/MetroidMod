@@ -105,11 +105,11 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			}
 
 			Rectangle projRect = new Rectangle((int)P.position.X, (int)P.position.Y, P.width, P.height);
-			for (int i = 0; i < Main.maxNPCs; i++)
+			foreach (NPC who in Main.ActiveNPCs)
 			{
-				if (Main.npc[i].active && Main.npc[i].lifeMax > 5 && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly)
+				NPC npc = Main.npc[who.whoAmI];
+				if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
 				{
-					NPC npc = Main.npc[i];
 					Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 					if (projRect.Intersects(npcRect))
 					{

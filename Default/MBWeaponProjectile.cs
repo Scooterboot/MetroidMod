@@ -112,28 +112,32 @@ namespace MetroidMod.Default
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 
-			Projectile.Damage();
 
-			for (int i = 0; i < 200; ++i)
+			foreach (var npc in Main.ActiveNPCs)
 			{
-				NPC npc = Main.npc[i];
-				if (npc.active && !npc.friendly && !npc.dontTakeDamage && npc.type != NPCID.TargetDummy && !npc.boss)
+				NPC who = Main.npc[npc.whoAmI];
+				if (who.active && !who.friendly && !who.dontTakeDamage && who.type != NPCID.TargetDummy)
 				{
-					Vector2 direction = npc.Center - Projectile.Center;
+					Vector2 direction = who.Center - Projectile.Center;
 					float distance = direction.Length();
 					direction.Normalize();
 					if (distance < BombRadius)
 					{
-						npc.velocity += direction * (BombRadius - distance);
+						who.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
+						//Projectile.Damage();
+						if (!who.boss)
+						{
+							who.velocity += direction * (BombRadius - distance);
 
-						if (npc.velocity.X > Xthreshold)
-							npc.velocity.X = Xthreshold;
-						if (npc.velocity.X < -Xthreshold)
-							npc.velocity.X = -Xthreshold;
-						if (npc.velocity.Y > Xthreshold)
-							npc.velocity.Y = Xthreshold;
-						if (npc.velocity.Y < -Xthreshold)
-							npc.velocity.Y = -Xthreshold;
+							if (who.velocity.X > Xthreshold)
+								who.velocity.X = Xthreshold;
+							if (who.velocity.X < -Xthreshold)
+								who.velocity.X = -Xthreshold;
+							if (who.velocity.Y > Xthreshold)
+								who.velocity.Y = Xthreshold;
+							if (who.velocity.Y < -Xthreshold)
+								who.velocity.Y = -Xthreshold;
+						}
 					}
 				}
 			}
@@ -171,15 +175,6 @@ namespace MetroidMod.Default
 					}
 				}
 			}
-			/*foreach (NPC target in Main.npc) //lags to high hell
-			{
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
-				{
-					Projectile.Damage();
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 1;
-				}
-			}*/
 			SoundEngine.PlaySound(Sounds.Suit.BombExplode, Projectile.Center);
 
 			int dustType = 59, dustType2 = 61;

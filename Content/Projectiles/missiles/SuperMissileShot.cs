@@ -153,16 +153,14 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Main.dust[num72].velocity *= 1.4f;
 				Main.dust[num72].noGravity = true;
 			}
-			P.Damage();
-			/*foreach (NPC target in Main.npc)
+			foreach (NPC who in Main.ActiveNPCs)
 			{
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height))
+				NPC npc = Main.npc[who.whoAmI];
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
 				{
-					Projectile.Damage();
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 1;
+					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
 				}
-			}*/
+			}
 
 			if (P.Name.Contains("Nebula"))
 			{
