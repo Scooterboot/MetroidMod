@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 				foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
 				{
 					NPC npc = Main.npc[who.whoAmI];
-					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
+					if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit)
 					{
 						npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
 						//Projectile.Damage();

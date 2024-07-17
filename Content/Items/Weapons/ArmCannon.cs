@@ -151,7 +151,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.knockBack = 5.5f;
 				Item.value = 20000;
 				Item.rare = ItemRarityID.Green;
-				Item.UseSound = Sounds.Items.Weapons.MissileShoot;
+				Item.UseSound = ShotSound;
 				Item.autoReuse = false;
 				Item.shoot = ModContent.ProjectileType<MissileShot>();
 				Item.shootSpeed = 8f;
@@ -1653,7 +1653,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.useTime = (int)useTime;
 				Item.useAnimation = (int)useTime;
 				Item.shoot = Mod.Find<ModProjectile>(shot).Type;
-				Item.UseSound = new($"{Mod.Name}/Assets/Sounds/{shotSound}");
+				Item.UseSound = null;// new($"{Mod.Name}/Assets/Sounds/{shotSound}");
 
 				Item.shootSpeed = 8f;
 				Item.reuseDelay = 0;
@@ -2029,7 +2029,7 @@ namespace MetroidMod.Content.Items.Weapons
 				// Play the shot sound for the local player, not really --Dr
 				if (!isPhazon)
 				{
-					SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), player.position);// SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
+					//SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), player.position);// SoundEngine.PlaySound(new SoundStyle($"{shotSoundMod.Name}/Assets/Sounds/{shotSound}"), oPos);
 					if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
 					{
 						NetMessage.SendData(132);
@@ -2364,7 +2364,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				else
 				{
-					shot = "";
+					shotEffect = "";
 					if (Common.Systems.MSystem.SwitchKey.JustPressed)
 					{
 						mp.missileChangeActive = !mp.missileChangeActive;

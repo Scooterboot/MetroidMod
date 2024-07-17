@@ -39,8 +39,8 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
-			Projectile.width += 20;
-			Projectile.height += 20;
+			Projectile.width += 40;
+			Projectile.height += 40;
 			Projectile.scale = 1.6f;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
@@ -48,7 +48,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			foreach (NPC who in Main.ActiveNPCs)
 			{
 				NPC npc = Main.npc[who.whoAmI];
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit)
 				{
 					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
 					//Projectile.Damage();

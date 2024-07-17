@@ -56,7 +56,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			foreach (NPC who in Main.ActiveNPCs)
 			{
 				NPC npc = Main.npc[who.whoAmI];
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit)
 				{
 					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
 					//Projectile.Damage();
