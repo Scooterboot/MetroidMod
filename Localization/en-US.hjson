@@ -324,7 +324,7 @@ Mods: {
 
 			GeemerPetBuff: {
 				DisplayName: Geemer Pet Buff
-				Description: Mods.MetroidMod.Buffs.GeemerPetBuff.Description
+				Description: A Geemer is zooming around you
 			}
 		}
 
@@ -3034,6 +3034,11 @@ Mods: {
 
 			GeemerSupps: {
 				DisplayName: Geemer Supps
+				Tooltip: ""
+			}
+
+			NOCPlating: {
+				DisplayName: N O C Plating
 				Tooltip: ""
 			}
 		}

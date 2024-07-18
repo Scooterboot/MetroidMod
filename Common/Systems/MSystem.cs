@@ -46,7 +46,7 @@ namespace MetroidMod.Common.Systems
 	public partial class MSystem : ModSystem
 	{
 		public static MetroidBossDown bossesDown;
-		public static Rectangle TorizoRoomLocation = new(0, 0, 80, 40);
+		public static Rectangle TorizoRoomLocation = new(0, 0, 80, 30);
 
 		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 
@@ -1603,7 +1603,7 @@ namespace MetroidMod.Common.Systems
 			Hatch(doorX, doorY);
 
 			int bossRoomWidth = 80;
-			int bossRoomHeight = 40;
+			int bossRoomHeight = 30;
 			int bossRoomX = saveRoomX + saveRoomWidth - 4;
 			int bossRoomY = y + height - bossRoomHeight;
 			doorX = bossRoomX;
