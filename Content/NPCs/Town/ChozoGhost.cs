@@ -1,6 +1,7 @@
 #region Using directives
 
 using System.Collections.Generic;
+using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Items.Miscellaneous;
@@ -122,12 +123,17 @@ namespace MetroidMod.Content.NPCs.Town
 			chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue1", Main.LocalPlayer.name));
 			chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue2"));
 			chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue3"));
+			chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue3"));
 			//chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue4"));
 
 			int wdoctor = NPC.FindFirstNPC(NPCID.WitchDoctor);
 			if (wdoctor >= 0)
 			{
-				chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.StandardDialogue3", Main.npc[wdoctor].GivenName), 0.5);
+				chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.WitchDialogue", Main.npc[wdoctor].GivenName), 0.5);
+			}
+			if (Main.LocalPlayer.TryMetroidPlayer(out MPlayer mp) && mp.ShouldShowArmorUI) // if player is in suit, give them a tip on Energy
+			{
+				chat.Add(Language.GetTextValue($"Mods.{nameof(MetroidMod)}.Dialogue.ChozoGhost.EnergyHint"));
 			}
 
 			return chat;
