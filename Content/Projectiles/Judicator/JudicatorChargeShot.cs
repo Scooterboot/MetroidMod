@@ -39,20 +39,20 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			}
 			if (shot.Contains("green"))
 			{
-				/*Projectile.penetrate = 6;
-				Projectile.maxPenetrate = 6;*/
+				Projectile.penetrate = 6;
+				Projectile.maxPenetrate = 6;
 				yeet = 6;
 			}
 			if (shot.Contains("nova"))
 			{
-				/*Projectile.penetrate = 8;
-				Projectile.maxPenetrate = 8;*/
+				Projectile.penetrate = 8;
+				Projectile.maxPenetrate = 8;
 				yeet = 8;
 			}
 			if (shot.Contains("solar"))
 			{
-				/*Projectile.penetrate = 12;
-				Projectile.maxPenetrate = 12;*/
+				Projectile.penetrate = 12;
+				Projectile.maxPenetrate = 12;
 				yeet = 12;
 			}
 			Projectile.timeLeft = Luminite ? 60 : 40;
