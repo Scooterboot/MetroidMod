@@ -46,7 +46,7 @@ namespace MetroidMod.Common.Systems
 	public partial class MSystem : ModSystem
 	{
 		public static MetroidBossDown bossesDown;
-		public static Rectangle TorizoRoomLocation = new(0, 0, 80, 30);
+		public static Rectangle TorizoRoomLocation = new(0, 0, 80, 25);
 
 		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 
