@@ -24,7 +24,7 @@ namespace MetroidMod.Content.Buffs
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			Stinger++;
 			player.statDefense /= 2;
-			bool wearingSuit = player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>();
+			bool wearingSuit = mp.ShouldShowArmorUI;//player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>();
 			if (mp.PrimeHunter && wearingSuit)
 			{
 				player.buffTime[buffIndec] = 2;

@@ -114,6 +114,51 @@ namespace MetroidMod.Common.Players
 					Player.velocity.Y += Player.controlJump | Player.velocity.Y <= 0 ? 0 : 16f;
 					Player.maxFallSpeed = 100f;
 					break;
+				case "justin bailey":
+					canSomersault = true;
+					canWallJump = true;
+					powerGrip = true;
+					break;
+				case "engage ridley": //TODO put something here for funi
+					Player.KillMe(PlayerDeathReason.ByCustomReason($"You found an easter egg at the cost of your life!"), 0, 0);
+					break;
+				case "narpas sword": //busted godmode
+					Player.statLife = Player.statLifeMax2;
+					Player.statMana = Player.statManaMax;
+					canSomersault = true;
+					canWallJump = true;
+					powerGrip = true;
+					canHyper = true;
+					phazonImmune = true;
+					canUsePhazonBeam = true;
+					canUseHyperBeam = true;
+					//Player.immune = true;
+					//statCharge = maxCharge;
+					screwAttack = true;
+					hiJumpBoost = true;
+					spaceJump = true;
+					senseMoveCooldown = 0;
+					senseMove = true;
+					Energy = MaxEnergy;
+					statOverheat = 0;
+					statPBCh = 0;
+					bomb = 0;
+					cooldownbomb = 0;
+					boostCharge = 100;
+					PrimeHunter = true;
+					statParalyzerCharge = maxParalyzerCharge;
+					missileCost = 0;
+					UACost = 0;
+					Player.noFallDmg = true;
+					speedBooster = true;
+					isPowerSuit = true;
+					ShouldShowArmorUI = true;
+					speedBoostDmg = 150;
+					screwAttackDmg = 150;
+					screwSpeedDelay = 0;
+					spaceJumpsRegenDelay = 0;
+					insigniaActive = true;
+					break;
 				default:
 					break;
 			}
