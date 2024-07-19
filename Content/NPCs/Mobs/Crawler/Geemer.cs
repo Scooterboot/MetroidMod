@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using MetroidMod.Common.Configs;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Pets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
@@ -117,6 +120,10 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 					gore.timeLeft = 60;
 				}
 			}
+		}
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GeemerSupps>(), 100));
 		}
 	}
 	public class Geemer_85 : Geemer

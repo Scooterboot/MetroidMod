@@ -1255,7 +1255,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_Temple(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0); //I set these to 0 pro temore
 
 			Hatch(x, y + height - 8);
 			Hatch(x + width - 4, y + height - 8);
@@ -1305,7 +1305,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_FirstShaft(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0);
 
 			VerticalHatch(x + width / 2 - 2, y);
 
@@ -1391,7 +1391,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_MorphHall(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0);
 
 			Mod mod = MetroidMod.Instance;
 
@@ -1459,7 +1459,7 @@ namespace MetroidMod.Common.Systems
 		{
 			Mod mod = MetroidMod.Instance;
 
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0);
 
 			for (int i = 0; i < 20; i++)
 			{
@@ -1524,7 +1524,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_SecondShaft(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0);
 
 			for (int j = 11; j < height - 5; j += 5)
 			{
@@ -1603,7 +1603,7 @@ namespace MetroidMod.Common.Systems
 			Hatch(doorX, doorY);
 
 			int bossRoomWidth = 80;
-			int bossRoomHeight = 30;
+			int bossRoomHeight = 25;
 			int bossRoomX = saveRoomX + saveRoomWidth - 4;
 			int bossRoomY = y + height - bossRoomHeight;
 			doorX = bossRoomX;
@@ -1622,7 +1622,7 @@ namespace MetroidMod.Common.Systems
 
 			int width = 36;
 			int height = 16;
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0);
 
 			for (int i = 0; i < 4; i++)
 			{
@@ -1677,7 +1677,7 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceObject(statueX2, statueY, ModContent.TileType<ChozoStatueArmNatural>(), false, 0, 0, -1, -dir);
 
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().HasTile = true;
-			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)ModContent.TileType<Content.Tiles.ItemTile.PowerGripTile>();
+			Main.tile[statueX2, statueY - 2].Get<TileTypeData>().Type = (ushort)ModContent.TileType<PowerGripTile>();
 
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameX = 0;
 			Main.tile[statueX2, statueY - 2].Get<TileWallWireStateData>().TileFrameY = 0;
@@ -1685,7 +1685,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_BossRoom(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 1);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(),0);
 
 			int stepsX = x + 4;
 			if (dir == -1)
@@ -1696,7 +1696,7 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceTile(stepsX, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
 			WorldGen.PlaceTile(stepsX + dir, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
 
-			NPC.NewNPC(NPC.GetSource_NaturalSpawn(), 8 + (x + width - 6) * 16, (y + height - 4) * 16, ModContent.NPCType<Content.NPCs.Torizo.IdleTorizo>());
+			NPC.NewNPC(NPC.GetSource_NaturalSpawn(), 8 + (x + width - 6) * 16, (y + height - 4) * 16, ModContent.NPCType<IdleTorizo>());
 			TorizoRoomLocation.X = x;
 			TorizoRoomLocation.Y = y;
 		}

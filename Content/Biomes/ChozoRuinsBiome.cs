@@ -27,11 +27,11 @@ namespace MetroidMod.Content.Biomes
 			{
 				int num = (int)player.Center.X / 16;
 				int num2 = (int)player.Center.Y / 16;
-				/*if (Main.tile[num, num2] != null && Main.tile[num, num2].WallType == ModContent.WallType<Walls.ChozoBrickWallNatural>())
+				if (Main.tile[num, num2] != null && Main.tile[num, num2].WallType == ModContent.WallType<Walls.ChozoBrickWallNatural>())
 				{
 					return true;
-				}*/
-				return true;
+				}
+				//return true;
 			}
 			return false;
 		}
