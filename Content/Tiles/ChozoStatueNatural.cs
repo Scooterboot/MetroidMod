@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Tiles
 			Main.tileLavaDeath[Type] = false;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
-			//Main.tileSpelunker[Type] = true;
+			Main.tileSpelunker[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };

@@ -20,7 +20,7 @@ namespace MetroidMod.Content.Tiles
 			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = false;
 			Main.tileTable[Type] = true;
-			//Main.tileSpelunker[Type] = true;
+			Main.tileSpelunker[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
 			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
