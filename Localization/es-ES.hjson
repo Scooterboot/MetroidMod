@@ -3042,6 +3042,11 @@ Mods: {
 				// DisplayName: N O C Plating
 				// Tooltip: ""
 			}
+
+			ChozoDrill: {
+				// DisplayName: Chozo Drill
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -3460,6 +3465,7 @@ Mods: {
 			// RamBall.DisplayName: Ram Ball
 			// ChoziteShortswordStab.DisplayName: Chozite Shortsword
 			// GeemerPet.DisplayName: Geemer Pet
+			// ChozoDrillProjectile.DisplayName: Chozo Drill Projectile
 		}
 
 		Configs: {
