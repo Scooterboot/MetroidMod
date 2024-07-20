@@ -2102,6 +2102,10 @@ namespace MetroidMod.Content.Items.Weapons
 				MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
 				float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
+				if (player.gravDir == -1f)
+				{
+					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+				}
 				Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 				int damage = player.GetWeaponDamage(Item);
@@ -2198,11 +2202,6 @@ namespace MetroidMod.Content.Items.Weapons
 						chargeShotAmt *= 3;
 						isChargeSpray = true;
 					}
-					if (player.gravDir == -1f)
-					{
-						MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-					}
-
 					if (isCharge)
 					{
 
@@ -2389,10 +2388,6 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 						{
-							if (player.gravDir == -1f)
-								MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-
-
 							float dmgMult = chargeMult;
 
 							//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("ChargeLead"))
@@ -2553,10 +2548,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 					if (isSeeker && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 					{
-						if (player.gravDir == -1f)
-						{
-							MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
-						}
 						Rectangle mouse = new Rectangle((int)MX - 1, (int)MY - 1, 2, 2);
 						//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
 						if (player.controlUseItem && LeadActive(player, ModContent.ProjectileType<SeekerMissileLead>()))
