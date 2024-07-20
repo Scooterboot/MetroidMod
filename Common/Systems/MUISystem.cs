@@ -254,7 +254,7 @@ namespace MetroidMod.Common.Systems
 						for (int j = 0; j < Main.maxTilesY; j++)
 						{
 							if (!Main.tile[i, j].HasTile) { continue; }
-							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]))
+							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]) || Main.tile[i,j].TileType == ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>() || Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>())
 							{
 								itemCoords.Add(new Vector2(i, j));
 							}
@@ -268,7 +268,6 @@ namespace MetroidMod.Common.Systems
 					if (tile != null && tile.HasTile)
 					{
 						Texture2D tex = Terraria.GameContent.TextureAssets.Tile[tile.TileType].Value;
-
 						Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight) / 2;
 
 						Vector2 pos = itemCoords[i] * 16f;
@@ -276,7 +275,14 @@ namespace MetroidMod.Common.Systems
 						float dist = Math.Min(Vector2.Distance(pos, screenCenter), Main.screenHeight / 2 - 32);
 
 						Vector2 drawPos = screenCenter + rot.ToRotationVector2() * dist - Main.screenPosition;
-						sb.Draw(tex, drawPos, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), Color.White, 0, new Vector2(tex.Width / 2, tex.Height / 2), 1f, SpriteEffects.None, 0f);
+						if (tex == Terraria.GameContent.TextureAssets.Tile[ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>()].Value)
+						{
+							sb.Draw(tex, drawPos, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height/4)), Color.White, 0, new Vector2(tex.Width / 2, tex.Height / 8), 1f, SpriteEffects.None, 0f);
+						}
+						else
+						{
+							sb.Draw(tex, drawPos, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), Color.White, 0, new Vector2(tex.Width / 2, tex.Height / 2), 1f, SpriteEffects.None, 0f);
+						}
 					}
 				}
 			}

@@ -67,7 +67,7 @@ namespace MetroidMod.Common
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			Item I = P.inventory[P.selectedItem];
-			int frame = (int)(P.bodyFrame.Y / P.bodyFrame.Height);
+			int frame = (P.bodyFrame.Y / P.bodyFrame.Height);
 			if ((I.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>()|| I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() || I.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>()) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
 				Texture2D tex = Terraria.GameContent.TextureAssets.Item[I.type].Value;//Main.itemTexture[I.type];
@@ -79,7 +79,7 @@ namespace MetroidMod.Common
 
 				if (tex != null)
 				{
-					Vector2 origin = new(14f, (float)((int)(tex.Height / 2)));
+					Vector2 origin = new(14f, tex.Height / 2);
 					if (P.direction == -1)
 					{
 						origin.X = tex.Width - 14;

@@ -479,6 +479,7 @@ Mods: {
 					Damage scales off of enemy's contact damage
 					While active, press DOWN to charge a Shine Spark
 					Then press JUMP to activate the charge
+					Shine Spark requires energy
 					'''
 			}
 

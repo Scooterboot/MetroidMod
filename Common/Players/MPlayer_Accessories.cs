@@ -1126,6 +1126,7 @@ namespace MetroidMod.Common.Players
 			if (shineDirection != 0)
 			{
 				mp.statOverheat += 0.5f;
+				mp.Energy--;
 				shineCharge = 0;
 				bool shineSpark = false;
 				int ShineSparkID = ModContent.ProjectileType<Content.Projectiles.ShineSpark>();
@@ -1149,7 +1150,7 @@ namespace MetroidMod.Common.Players
 
 			//cancel shine-spark
 			//stop right movement
-			if (shineDirection == 1 && (CheckCollide(Player.velocity.X, 0f) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 1 && (CheckCollide(Player.velocity.X, 0f) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			(Player.position.X + (float)Player.width) > (Main.rightWorld - 640f - 48f)))
 			{
 				shineDirection = 0;
@@ -1163,7 +1164,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			//stop up and right movement
-			if (shineDirection == 2 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 2 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			(Player.position.X + (float)Player.width) > (Main.rightWorld - 640f - 48f) || Player.position.Y < (Main.topWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1177,7 +1178,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			//stop left movement
-			if (shineDirection == 3 && (CheckCollide(Player.velocity.X, 0f) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 3 && (CheckCollide(Player.velocity.X, 0f) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			Player.position.X < (Main.leftWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1191,7 +1192,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			//stop left and up movement
-			if (shineDirection == 4 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 4 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			Player.position.X < (Main.leftWorld + 640f + 32f) || Player.position.Y < (Main.topWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1205,7 +1206,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			//stop up movement
-			if (shineDirection == 5 && (CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 5 && (CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			Player.position.Y < (Main.topWorld + 640f + 32f)))
 			{
 				shineDirection = 0;
@@ -1219,7 +1220,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			//stop down and right movement
-			if (shineDirection == 6 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 6 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			(Player.position.X + (float)Player.width) > (Main.rightWorld - 640f - 48f) || (Player.position.Y + Player.height) > (Main.bottomWorld - 640f - 48f)))
 			{
 				shineDirection = 0;
@@ -1233,7 +1234,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			//stop down and left movement
-			if (shineDirection == 7 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 7 && (CheckCollide(Player.velocity.X, Player.velocity.Y) || CheckCollide(Player.velocity.X, 0f) || CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			Player.position.X < (Main.leftWorld + 640f + 32f) || (Player.position.Y + Player.height) > (Main.bottomWorld - 640f - 48f)))
 			{
 				shineDirection = 0;
@@ -1247,7 +1248,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			//stop down movement
-			if (shineDirection == 8 && (CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat ||
+			if (shineDirection == 8 && (CheckCollide(0f, Player.velocity.Y) || mp.statOverheat >= mp.maxOverheat || mp.Energy <= 0 ||
 			(Player.position.Y + Player.height) > (Main.bottomWorld - 640f - 48f)))
 			{
 				shineDirection = 0;

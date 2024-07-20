@@ -331,7 +331,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private Color lightColor = MetroidMod.powColor;
 		public int shotAmt = 1;
 		private int chargeShotAmt = 1;
-		public string shotEffect = "";
+		public string shotEffect = ""; //this really should have been an enumerator. oh well! too bad!
 		private float comboKnockBack = 5.5f;
 		private bool isHoming = false;
 		private bool isCharge = false;
