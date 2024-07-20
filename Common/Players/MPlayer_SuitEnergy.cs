@@ -1,7 +1,9 @@
 ﻿using System;
+using MetroidMod.Common.GlobalItems;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using static MetroidMod.Sounds;
 
 namespace MetroidMod.Common.Players
 {
@@ -130,6 +132,26 @@ namespace MetroidMod.Common.Players
 				if(mp.ShouldShowArmorUI)
 				{
 					SoundEngine.PlaySound(Sounds.Suit.SpawnIn);
+				}
+			}
+			for (int i = 0; i < Player.inventory.Length; i++)
+			{
+				if (Player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || Player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || Player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>())
+				{
+					MGlobalItem mi = Player.inventory[i].GetGlobalItem<MGlobalItem>();
+
+					if (mi.statMissiles < mi.maxMissiles || mi.statUA < mi.maxUA)
+					{
+						if (mi.statMissiles < mi.maxMissiles)
+						{
+							mi.statMissiles = mi.maxMissiles;
+							mi.statUA = mi.maxUA;
+						}
+						if (mi.statUA < mi.maxUA)
+						{
+							mi.statUA += mi.maxUA;
+						}
+					}
 				}
 			}
 		}

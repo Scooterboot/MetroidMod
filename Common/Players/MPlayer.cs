@@ -145,14 +145,13 @@ namespace MetroidMod.Common.Players
 					bomb = 0;
 					cooldownbomb = 0;
 					boostCharge = 100;
-					PrimeHunter = true;
+					//PrimeHunter = true;
 					statParalyzerCharge = maxParalyzerCharge;
 					missileCost = 0;
 					UACost = 0;
 					Player.noFallDmg = true;
 					speedBooster = true;
 					isPowerSuit = true;
-					ShouldShowArmorUI = true;
 					speedBoostDmg = 150;
 					screwAttackDmg = 150;
 					screwSpeedDelay = 0;

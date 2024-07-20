@@ -42,7 +42,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		public override bool RightClick(int i, int j)
 		{
 			WorldGen.KillTile(i, j, false, false, true);
-			/*if ((Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server) && !Main.tile[i, j].HasTile)
+			/*if ((Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server) && !Main.tile[i, j].HasTile) //TODO turning this on double drops, turning it off makes the tile briefly invisible
 			{
 				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
 			}*/
