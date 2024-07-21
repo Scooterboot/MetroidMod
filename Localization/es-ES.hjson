@@ -1695,7 +1695,7 @@ Mods: {
 
 			NovaLaserDrill: {
 				// DisplayName: Nova Laser Drill
-				// Tooltip: ""
+				// Tooltip: Right click to swap between hammer and drill
 			}
 
 			OmniKeycard: {
@@ -4341,6 +4341,11 @@ Mods: {
 				muteSpeedBooster: {
 					// Label: "[i:MetroidMod/SpeedBooster] Silent Speed Booster"
 					// Tooltip: Speed Boosting is silent
+				}
+
+				Shinesparkenergy: {
+					// Label: "[i:MetroidMod/SpeedBooster] Shinespark energy"
+					// Tooltip: Shinespark uses energy like in Super Metroid
 				}
 			}
 

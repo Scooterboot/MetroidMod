@@ -160,6 +160,10 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool muteSpeedBooster;
 
+		//[Label("[i:MetroidMod/SpeedBoosterAddon] Shinespark uses energy")]
+		[DefaultValue(true)]
+		public bool Shinesparkenergy;
+
 		[Header("[i:MetroidMod/PowerBeam]StandardWeapons")]
 
 		//[Label("[i:MetroidMod/PowerBeam] Power Beam Damage")]
