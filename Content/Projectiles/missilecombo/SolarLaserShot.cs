@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using MetroidMod.Common.GlobalItems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -54,6 +55,10 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
 			Lead = Main.projectile[(int)P.ai[0]];
+			if(O.HeldItem.GetGlobalItem<MGlobalItem>().statMissiles <= 0)
+			{
+				P.Kill();
+			}
 			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>() || !O.controlUseItem)
 			{
 				P.Kill();

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using MetroidMod.Common.Configs;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -67,6 +68,10 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Player O = Main.player[P.owner];
 
 			Lead = Main.projectile[(int)P.ai[0]];
+			if (O.HeldItem.GetGlobalItem<MGlobalItem>().statMissiles <= 0)
+			{
+				P.Kill();
+			}
 			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>())
 			{
 				P.Kill();

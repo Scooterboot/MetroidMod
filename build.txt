@@ -1,5 +1,5 @@
 author = Scooterboot9697, Terratroid, Joost, Eldrazi, Jefftheswift, Begoliah, Dark Samus 49, DrMetroid
-version = 2.1.1.1110052
+version = 2.1.1.1110053
 displayName = Metroid Mod
 homepage = https://forums.terraria.org/index.php?threads/metroid-mod.101768/
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, ExampleMetroidAddonMod\*
