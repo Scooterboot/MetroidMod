@@ -210,9 +210,9 @@ namespace MetroidMod.Content.Projectiles
 			Vector2[] array7 = new Vector2[4]
 			{
 				vector45,
-				vector45.RotatedBy(1.5707963705062866),
-				vector45.RotatedBy(3.1415927410125732),
-				vector45.RotatedBy(4.71238899230957)
+				vector45.RotatedBy(MathHelper.PiOver2),
+				vector45.RotatedBy(MathHelper.Pi),
+				vector45.RotatedBy(MathHelper.Pi + MathHelper.PiOver2)
 			};
 			if (num274 > num277)
 			{

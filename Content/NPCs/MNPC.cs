@@ -341,8 +341,8 @@ namespace MetroidMod.Content.NPCs
 			{
 				float bottom_rot = 0f;
 				float left_rot = MathHelper.PiOver2;
-				float top_rot = 3.14f;
-				float right_rot = 4.71f;
+				float top_rot = MathHelper.Pi;
+				float right_rot = MathHelper.Pi + MathHelper.PiOver2;
 
 				float rot = rotation;
 				if (directionY < 0)
@@ -441,19 +441,19 @@ namespace MetroidMod.Content.NPCs
 
 				float rot2 = rotation;
 				rotation = rot;
-				if ((double)rotation > 6.28)
+				if ((double)rotation > MathHelper.TwoPi)
 				{
-					rotation -= 6.28f;
+					rotation -= MathHelper.TwoPi;
 				}
 				if (rotation < 0f)
 				{
-					rotation += 6.28f;
+					rotation += MathHelper.TwoPi;
 				}
 				float rot3 = Math.Abs(rotation - rot2);
 				float rotRate = 0.1f;
 				if (rotation > rot2)
 				{
-					if ((double)rot3 > 3.14)
+					if ((double)rot3 > MathHelper.Pi)
 					{
 						rotation += rotRate;
 					}
@@ -468,7 +468,7 @@ namespace MetroidMod.Content.NPCs
 				}
 				if (rotation < rot2)
 				{
-					if ((double)rot3 > 3.14)
+					if ((double)rot3 > MathHelper.Pi)
 					{
 						rotation -= rotRate;
 					}

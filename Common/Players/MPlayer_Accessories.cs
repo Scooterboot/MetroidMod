@@ -165,13 +165,13 @@ namespace MetroidMod.Common.Players
 						rotMax = (float)Math.PI / 4;
 					}
 					rotation += MathHelper.Clamp((rotateCountX + rotateCountY) * Player.direction * Player.gravDir, -rotMax, rotMax);
-					if (rotation > (Math.PI * 2))
+					if (rotation > (Math.PI * 2f))
 					{
-						rotation -= (float)(Math.PI * 2);
+						rotation -= (float)(Math.PI * 2f);
 					}
-					if (rotation < -(Math.PI * 2))
+					if (rotation < -(Math.PI * 2f))
 					{
-						rotation += (float)(Math.PI * 2);
+						rotation += (float)(Math.PI * 2f);
 					}
 					Player.fullRotation = rotation;
 					Player.fullRotationOrigin = new Vector2((float)Player.width / 2, (float)Player.height * 0.55f);
