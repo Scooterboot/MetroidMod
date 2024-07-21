@@ -120,7 +120,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			{
 				velocity = Vector2.Normalize(P.velocity);
 			}
-			P.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + 1.57f;
+			P.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + MathHelper.PiOver2;
 		}
 
 		public override bool ShouldUpdatePosition()

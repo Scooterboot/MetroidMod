@@ -69,7 +69,7 @@ namespace MetroidMod.Content.NPCs.Serris
 			Texture2D texTail = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Serris/Serris_Tail").Value;
 			Serris_Head serris_head = (Serris_Head)head.ModNPC;
 
-			float bRot = NPC.rotation - 1.57f;
+			float bRot = NPC.rotation - MathHelper.PiOver2;
 			int tailHeight = texTail.Height / 15;
 			Vector2 tailOrig = new Vector2(28, 29);
 			Color bodyColor = NPC.GetAlpha(Lighting.GetColor((int)NPC.Center.X / 16, (int)NPC.Center.Y / 16));

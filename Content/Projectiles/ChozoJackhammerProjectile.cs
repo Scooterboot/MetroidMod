@@ -8,17 +8,16 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
 {
-	public class ChozoDrillProjectile : ModProjectile
+	public class ChozoJackhammerProjectile : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			// Prevents jitter when stepping up and down blocks and half blocks
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
 			Main.projFrames[Type] = 3;
 		}
 
 		public override void SetDefaults() {
-			Projectile.width = 40;
-			Projectile.height = 22;
+			Projectile.width = 38;
+			Projectile.height = 20;
 			Projectile.friendly = true;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = -1;

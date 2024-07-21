@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Projectiles.nebulabeam
 				color = MetroidMod.iceColor;
 				scale = 0.375f;
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 			if (Projectile.numUpdates == 0)

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Tools
 {
-	public class ChozoDrill : ModItem
+	public class ChozoSaw : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.damage = 27;
 			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.width = 20;
-			Item.height = 22;
+			Item.height = 12;
 			Item.useTime = 10;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
@@ -27,21 +27,21 @@ namespace MetroidMod.Content.Items.Tools
 			Item.value = Item.buyPrice(gold: 2, silver: 60);
 			Item.rare = ItemRarityID.LightRed;
 			Item.UseSound = SoundID.Item23;
-			Item.shoot = ModContent.ProjectileType<Projectiles.ChozoDrillProjectile>();
+			Item.shoot = ModContent.ProjectileType<Projectiles.ChozoSawProjectile>();
 			Item.shootSpeed = 32f;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.channel = true;
 			Item.tileBoost = -1;
 
-			Item.pick = 100;
+			Item.axe = 30;
 		}
 
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient<ChoziteBar>(12)
-				.AddIngredient(ItemID.HellstoneBar, 20)
+				.AddIngredient<ChoziteBar>(10)
+				.AddIngredient(ItemID.HellstoneBar, 15)
 				.AddIngredient<EnergyShard>(3)
 				.AddTile(TileID.Hellforge)
 				.Register();

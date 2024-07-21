@@ -56,7 +56,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 			if (!initialized)
 			{
-				P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + 1.57f;
+				P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
 				for (int i = 0; i < P.oldPos.Length; i++)
 				{
 					P.oldPos[i] = P.position;
@@ -76,7 +76,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				{
 					velocity = P.velocity;
 				}
-				P.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + 1.57f;
+				P.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + MathHelper.PiOver2;
 
 				startPos = Lead.Center + O.velocity + start;
 			}

@@ -340,7 +340,7 @@ namespace MetroidMod.Content.NPCs
 			if (!flag && useRotation)
 			{
 				float bottom_rot = 0f;
-				float left_rot = 1.57f;
+				float left_rot = MathHelper.PiOver2;
 				float top_rot = 3.14f;
 				float right_rot = 4.71f;
 

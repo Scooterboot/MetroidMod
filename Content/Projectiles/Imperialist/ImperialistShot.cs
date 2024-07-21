@@ -99,7 +99,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			Projectile P = Projectile;
 			P.timeLeft = 100;
 			P.velocity = Vector2.Normalize(P.velocity);
-			P.rotation = P.velocity.ToRotation() - 1.57f;
+			P.rotation = P.velocity.ToRotation() - MathHelper.PiOver2;
 			P.usesLocalNPCImmunity = true;
 			P.localNPCHitCooldown = 18;
 			P.stopsDealingDamageAfterPenetrateHits = true;

@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + 1.57f;
+			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
 			Color color = MetroidMod.lumColor;
 			Lighting.AddLight(P.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 

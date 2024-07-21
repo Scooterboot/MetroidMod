@@ -912,13 +912,13 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 									{
 										float dist = 50f;//54f;
 										Vector2 clawPos = RArmPos[2];
-										clawPos += Angle.AngleFlip(RArmRot[0] + 1.57f + 0.4f * i, NPC.direction).ToRotationVector2() * dist;
-										Vector2 clawVel = Angle.AngleFlip(RArmRot[0] + 1.57f + 0.4f * i, NPC.direction).ToRotationVector2() * 4f;
+										clawPos += Angle.AngleFlip(RArmRot[0] + MathHelper.PiOver2 + 0.4f * i, NPC.direction).ToRotationVector2() * dist;
+										Vector2 clawVel = Angle.AngleFlip(RArmRot[0] + MathHelper.PiOver2 + 0.4f * i, NPC.direction).ToRotationVector2() * 4f;
 										if (anim_Claw >= 7f)
 										{
 											clawPos = LArmPos[2];
-											clawPos += Angle.AngleFlip(LArmRot[0] + 1.57f + 0.4f * i, NPC.direction).ToRotationVector2() * dist;
-											clawVel = Angle.AngleFlip(LArmRot[0] + 1.57f + 0.4f * i, NPC.direction).ToRotationVector2() * 4f;
+											clawPos += Angle.AngleFlip(LArmRot[0] + MathHelper.PiOver2 + 0.4f * i, NPC.direction).ToRotationVector2() * dist;
+											clawVel = Angle.AngleFlip(LArmRot[0] + MathHelper.PiOver2 + 0.4f * i, NPC.direction).ToRotationVector2() * 4f;
 										}
 										int slash = Projectile.NewProjectile(NPC.GetSource_FromAI(), clawPos.X, clawPos.Y, clawVel.X, clawVel.Y, ModContent.ProjectileType<Projectiles.Boss.TorizoSwipe>(), (int)((float)clawDamage / 2f), 8f);
 									}

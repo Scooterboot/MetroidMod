@@ -42,7 +42,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 				color = MetroidMod.waveColor2;
 				color2 = default(Color);
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Main.projFrames[Projectile.type] > 1)
 			{

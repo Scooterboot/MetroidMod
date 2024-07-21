@@ -42,7 +42,7 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
 			isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar");
 
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + 1.57f;
+			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
 
 			Lighting.AddLight(P.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
 

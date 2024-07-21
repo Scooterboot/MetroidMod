@@ -69,7 +69,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 			if (rotFlag)
 			{
-				P.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+				P.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			}
 			else
 			{

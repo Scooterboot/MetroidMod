@@ -845,11 +845,11 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 									float dist = 54f;
 									Vector2 clawPos = RArmPos[2];
-									clawPos += Angle.AngleFlip(RArmRot[0] + 1.57f, NPC.direction).ToRotationVector2() * dist;
+									clawPos += Angle.AngleFlip(RArmRot[0] + MathHelper.PiOver2, NPC.direction).ToRotationVector2() * dist;
 									if (anim_Claw >= 7f)
 									{
 										clawPos = LArmPos[2];
-										clawPos += Angle.AngleFlip(LArmRot[0] + 1.57f, NPC.direction).ToRotationVector2() * dist;
+										clawPos += Angle.AngleFlip(LArmRot[0] + MathHelper.PiOver2, NPC.direction).ToRotationVector2() * dist;
 									}
 									var entitySource = NPC.GetSource_FromAI();
 									int slash = Projectile.NewProjectile(entitySource, clawPos.X, clawPos.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Boss.TorizoSwipe>(), (int)((float)clawDamage / 2f), 8f);

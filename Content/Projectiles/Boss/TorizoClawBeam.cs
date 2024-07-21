@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 		float alpha = 1f;
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 
 			if (Projectile.frame < 2)
 			{
@@ -84,7 +84,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				{
 					Vector2 center = Projectile.Center;
 					center += Projectile.rotation.ToRotationVector2() * 15f * i;
-					center += (Projectile.rotation - 1.57f).ToRotationVector2() * 8f;
+					center += (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2() * 8f;
 
 					Rectangle hb = new Rectangle((int)(center.X - 8), (int)(center.Y - 8), 16, 16);
 					if (hb.Intersects(targetHitbox))

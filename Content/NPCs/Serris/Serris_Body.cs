@@ -95,8 +95,8 @@ namespace MetroidMod.Content.NPCs.Serris
 			int bodyHeight = texBody.Height / 10,
 				finsHeight = texFins.Height / 15;
 
-			float bodyRot = NPC.rotation - 1.57f;
-			float headRot = head.rotation - 1.57f;
+			float bodyRot = NPC.rotation - MathHelper.PiOver2;
+			float headRot = head.rotation - MathHelper.PiOver2;
 			Color bodyColor = NPC.GetAlpha(Lighting.GetColor((int)NPC.Center.X / 16, (int)NPC.Center.Y / 16));
 
 			SpriteEffects effects = SpriteEffects.None;

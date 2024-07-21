@@ -37,7 +37,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 			Projectile P = Projectile;
 
 
-			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + 1.57f;
+			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
 
 			bool isWave = (shot.Contains("wave") || shot.Contains("nebula")),
 			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),

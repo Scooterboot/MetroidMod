@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + 1.57f;
+			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
 			P.tileCollide = false;
 			P.alpha = 255;
 			P.localAI[0] += 1f;

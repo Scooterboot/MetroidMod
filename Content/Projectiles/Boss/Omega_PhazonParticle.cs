@@ -44,7 +44,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				P.Kill();
 			}
 
-			P.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			P.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			mProjectile.DustLine(P.position, P.velocity, P.rotation, 0, 3, 68, 1.5f);
 		}
 		public override bool PreDraw(ref Color lightColor)

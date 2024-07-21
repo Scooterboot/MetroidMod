@@ -3047,6 +3047,16 @@ Mods: {
 				// DisplayName: Chozo Drill
 				// Tooltip: ""
 			}
+
+			ChozoJackhammer: {
+				// DisplayName: Chozo Jackhammer
+				// Tooltip: ""
+			}
+
+			ChozoSaw: {
+				// DisplayName: Chozo Saw
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -3466,6 +3476,8 @@ Mods: {
 			// ChoziteShortswordStab.DisplayName: Chozite Shortsword
 			// GeemerPet.DisplayName: Geemer Pet
 			// ChozoDrillProjectile.DisplayName: Chozo Drill Projectile
+			// ChozoJackhammerProjectile.DisplayName: Chozo Jackhammer Projectile
+			// ChozoSawProjectile.DisplayName: Chozo Saw Projectile
 		}
 
 		Configs: {

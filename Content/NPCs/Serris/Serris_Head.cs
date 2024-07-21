@@ -579,7 +579,7 @@ namespace MetroidMod.Content.NPCs.Serris
 					sbFrame = 0;
 				}
 
-				float headRot = NPC.rotation - 1.57f;
+				float headRot = NPC.rotation - MathHelper.PiOver2;
 
 				Color headColor = NPC.GetAlpha(Lighting.GetColor((int)NPC.Center.X / 16, (int)NPC.Center.Y / 16));
 				Vector2 jawOrig = Vector2.Lerp(jawOrig1, jawOrig2, mouthFrame);

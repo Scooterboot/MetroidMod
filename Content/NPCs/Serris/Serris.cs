@@ -299,7 +299,7 @@ namespace MetroidMod.Content.NPCs.Serris
 						}
 					}
 				}
-				NPC.rotation = (float)System.Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 1.57f;
+				NPC.rotation = (float)System.Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + MathHelper.PiOver2;
 
 				// Lastly, check if we need to netUpdate the NPC.
 				if (head)
@@ -343,7 +343,7 @@ namespace MetroidMod.Content.NPCs.Serris
 				targetDir = new Vector2(targetNPC.position.X + (targetNPC.width / 2) - npcCenter.X, targetNPC.position.Y + (targetNPC.height / 2) - npcCenter.Y);
 
 				// no System, double
-				NPC.rotation = (float)System.Math.Atan2((double)targetDir.Y, (double)targetDir.X) + 1.57f;
+				NPC.rotation = (float)System.Math.Atan2((double)targetDir.Y, (double)targetDir.X) + MathHelper.PiOver2;
 				// num193
 				length = (float)targetDir.Length();
 

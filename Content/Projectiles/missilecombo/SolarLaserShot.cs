@@ -90,7 +90,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				P.velocity = Vector2.Normalize(Lead.velocity);
 				P.Center = oPos;
 				P.timeLeft = 2;
-				P.rotation = P.velocity.ToRotation() - 1.57f;
+				P.rotation = P.velocity.ToRotation() - MathHelper.PiOver2;
 
 				maxRange = Math.Min(maxRange + 16f, Max_Range);
 
@@ -149,7 +149,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 				Vector2 dustPos = oPos - (P.Size / 2f) * scaleUp + P.velocity * P.ai[1];
 				int size = (int)((float)P.width * scaleUp);
-				float num1 = P.velocity.ToRotation() + (Main.rand.NextBool(2) ? -1.0f : 1.0f) * 1.57f;
+				float num1 = P.velocity.ToRotation() + (Main.rand.NextBool(2) ? -1.0f : 1.0f) * MathHelper.PiOver2;
 				float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
 				Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
 				Dust dust = Main.dust[Dust.NewDust(dustPos, size, size, 6, dustVel.X, dustVel.Y, 100, default(Color), 4f)];

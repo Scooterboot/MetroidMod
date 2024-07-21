@@ -68,7 +68,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				{
 					Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
 				}
-				Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
+				Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			}
 			else
 			{

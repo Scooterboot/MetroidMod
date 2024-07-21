@@ -443,9 +443,9 @@ namespace MetroidMod.Content.Projectiles
 				Vector2 LR = links[i] + Main.screenPosition;
 
 				Color color = Lighting.GetColor((int)((links[i].X + Main.screenPosition.X) / 16), (int)((links[i].Y + Main.screenPosition.Y) / 16));
-				//spriteBatch.Draw(name, new Rectangle((int)links[i].X, (int)links[i].Y, name.Width, linklength), null, color, rotation+1.57f, new Vector2(name.Width/2f, linklength), SpriteEffects.None, 1f);
-				//spriteBatch.Draw(name,links[i],new Rectangle?(new Rectangle(0,numH*frame,name.Width,numH)),color,rotation+1.57f,new Vector2(name.Width/2f,numH/2f),Projectile.scale,SpriteEffects.None,0f);
-				Main.EntitySpriteDraw(name.Value, links[i], new Rectangle?(new Rectangle(0, numH * frame, name.Value.Width, numH)), color, rotation + 1.57f, new Vector2(name.Value.Width / 2f, numH / 2f), Projectile.scale, SpriteEffects.None, 0);
+				//spriteBatch.Draw(name, new Rectangle((int)links[i].X, (int)links[i].Y, name.Width, linklength), null, color, rotation+MathHelper.PiOver2, new Vector2(name.Width/2f, linklength), SpriteEffects.None, 1f);
+				//spriteBatch.Draw(name,links[i],new Rectangle?(new Rectangle(0,numH*frame,name.Width,numH)),color,rotation+MathHelper.PiOver2,new Vector2(name.Width/2f,numH/2f),Projectile.scale,SpriteEffects.None,0f);
+				Main.EntitySpriteDraw(name.Value, links[i], new Rectangle?(new Rectangle(0, numH * frame, name.Value.Width, numH)), color, rotation + MathHelper.PiOver2, new Vector2(name.Value.Width / 2f, numH / 2f), Projectile.scale, SpriteEffects.None, 0);
 
 				Lighting.AddLight(LR, 229f / 255f, 249f / 255f, 255f / 255f);
 			}

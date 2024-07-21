@@ -71,7 +71,7 @@ isNebula = shot.Contains("nebula");
 			{
 				velocity = Projectile.velocity;
 			}
-			Projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + MathHelper.PiOver2;
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{

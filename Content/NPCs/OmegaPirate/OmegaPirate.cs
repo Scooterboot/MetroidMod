@@ -3027,8 +3027,8 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				Vector2 LCannonTargetPos = LCannonPos[1] + TrajectoryVelocity(LCannonPos[1], Main.player[NPC.target].Center, grenadeSpeed, grenadeGravity, grenadeTimeBeforeGravity);
 				int rdir = Math.Sign(RCannonTargetPos.X - RCannonPos[1].X);
 				int ldir = Math.Sign(LCannonTargetPos.X - LCannonPos[1].X);
-				float RCannonTargetRot = Angle.Vector2Angle(RCannonPos[1], RCannonTargetPos, rdir, 1, 1f, -1.57f + BodyRot, 0.6f + BodyRot);
-				float LCannonTargetRot = Angle.Vector2Angle(LCannonPos[1], LCannonTargetPos, ldir, 1, 1f, -1.57f + BodyRot, 0.6f + BodyRot);
+				float RCannonTargetRot = Angle.Vector2Angle(RCannonPos[1], RCannonTargetPos, rdir, 1, 1f, -MathHelper.PiOver2 + BodyRot, 0.6f + BodyRot);
+				float LCannonTargetRot = Angle.Vector2Angle(LCannonPos[1], LCannonTargetPos, ldir, 1, 1f, -MathHelper.PiOver2 + BodyRot, 0.6f + BodyRot);
 				RCannonRot[0] = MathHelper.Lerp(RCannonRot[0], RCannonTargetRot * 0.5f, cannonTargetTransition);
 				RCannonRot[1] = MathHelper.Lerp(RCannonRot[1], RCannonTargetRot, cannonTargetTransition);
 				LCannonRot[0] = MathHelper.Lerp(LCannonRot[0], LCannonTargetRot * 0.5f, cannonTargetTransition);

@@ -76,7 +76,7 @@ namespace MetroidMod.Content.Projectiles.novabeamV2
 			{
 				velocity = Projectile.velocity;
 			}
-			Projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + MathHelper.PiOver2;
 		}
 
 		public override void OnKill(int timeLeft)

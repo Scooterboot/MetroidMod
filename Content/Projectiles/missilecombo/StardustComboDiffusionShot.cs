@@ -60,7 +60,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			if (vel != Vector2.Zero)
 			{
 				vel.Normalize();
-				P.rotation = vel.ToRotation() + 1.57f;
+				P.rotation = vel.ToRotation() + MathHelper.PiOver2;
 			}
 
 			Color color = MetroidMod.iceColor;
@@ -72,7 +72,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			for (int i = 1; i < segmentPos.Length; i++)
 			{
 				Vector2 pos = segmentPos[i - 1] - segmentPos[i];
-				segmentRot[i] = pos.ToRotation() + 1.57f;
+				segmentRot[i] = pos.ToRotation() + MathHelper.PiOver2;
 				float len = pos.Length();
 				int width = P.width / 2;
 

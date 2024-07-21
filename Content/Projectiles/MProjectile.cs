@@ -86,7 +86,7 @@ namespace MetroidMod.Content.Projectiles
 				Projectile.oldPos[i] = Projectile.position;
 			}
 
-			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			for (int i = 0; i < Projectile.oldRot.Length; i++)
 			{

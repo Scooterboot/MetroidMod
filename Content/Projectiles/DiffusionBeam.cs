@@ -28,7 +28,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public override void PostAI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			if (Projectile.numUpdates == 0)
 			{
 				int dust_type = (int)Projectile.ai[0];
