@@ -13,6 +13,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		{
 			Item.CloneDefaults(ItemID.LifeCrystal);
 			Item.consumable = false;
+			Item.maxStack = 1;
 		}
 
 		public override bool? UseItem(Player player)
