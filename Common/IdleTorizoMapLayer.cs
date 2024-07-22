@@ -1,6 +1,4 @@
 ﻿using MetroidMod.Common.Systems;
-using MetroidMod.Content.NPCs.GoldenTorizo;
-using MetroidMod.Content.NPCs.Torizo;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -9,7 +7,6 @@ using Terraria.DataStructures;
 using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MetroidMod.Common
 {
