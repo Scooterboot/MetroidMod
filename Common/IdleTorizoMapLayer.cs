@@ -9,34 +9,44 @@ using Terraria.DataStructures;
 using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MetroidMod.Common
 {
 	public class IdleTorizoMapLayer : ModMapLayer
 	{
-		public static IdleTorizoMapLayer Instance;
-
-		public IdleTorizoMapLayer()
-		{
-			Instance = this;
-		}
+		private const float scaleIfNotSelected = 1f;
+		private const float scaleIfSelected = scaleIfNotSelected * 1.2f;
+		protected virtual TorizoSpawningSystem System => ModContent.GetInstance<TorizoSpawningSystem>();
 
 		public override void Draw(ref MapOverlayDrawContext context, ref string text)
 		{
-			const float scaleIfNotSelected = 1f;
-			const float scaleIfSelected = scaleIfNotSelected * 1.2f;
-
-			var torizoHeadTexture = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Content/NPCs/Torizo/IdleTorizo_Head", AssetRequestMode.ImmediateLoad);
-
-			Rectangle room = MSystem.TorizoRoomLocation;
-			if (!MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(ModContent.NPCType<Torizo>()) && MSystem.TorizoRoomLocation.X > 0 && MSystem.TorizoRoomLocation.Y > 0 && context.Draw(torizoHeadTexture.Value, new Vector2(room.Center.X, room.Center.Y), Color.White, new SpriteFrame(1, 1, 0, 0), scaleIfNotSelected, scaleIfSelected, Alignment.Center).IsMouseOver)
+			if (!System.CanShowIcon())
 			{
-				text = "???";//Language.GetTextValue("");
+				return;
 			}
-			else if (NPC.downedGolemBoss && MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo) && !NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>()) && MSystem.TorizoRoomLocation.X > 0 && MSystem.TorizoRoomLocation.Y > 0 && context.Draw(torizoHeadTexture.Value, new Vector2(room.Left + (room.Width / 2f), room.Top + (room.Height / 2f)), Color.White, new SpriteFrame(1, 1, 0, 0), scaleIfNotSelected, scaleIfSelected, Alignment.Center).IsMouseOver)
+
+			string texturePath = $"{nameof(MetroidMod)}/Content/NPCs/Torizo/IdleTorizo_Head";
+			Texture2D torizoHeadTexture = ModContent.Request<Texture2D>(texturePath, AssetRequestMode.ImmediateLoad).Value;
+
+			var result = context.Draw(
+				torizoHeadTexture,
+				System.HeadLocation.ToTileCoordinates().ToVector2(),
+				Color.White,
+				new SpriteFrame(1, 1, 0, 0),
+				scaleIfNotSelected,
+				scaleIfSelected,
+				Alignment.Center);
+
+			if (result.IsMouseOver)
 			{
-				text = "???";//Language.GetTextValue("");
+				text = "???";
 			}
 		}
+	}
+
+	public class IdleGoldenTorizoMapLayer : IdleTorizoMapLayer
+	{
+		protected override TorizoSpawningSystem System => ModContent.GetInstance<GoldenTorizoSpawningSystem>();
 	}
 }

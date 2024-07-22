@@ -26,6 +26,7 @@ using MetroidMod.Content.Tiles.ItemTile.Missile;
 using MetroidMod.Content.Walls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Stubble.Core.Classes;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Generation;
@@ -46,7 +47,6 @@ namespace MetroidMod.Common.Systems
 	public partial class MSystem : ModSystem
 	{
 		public static MetroidBossDown bossesDown;
-		public static Rectangle TorizoRoomLocation = new(0, 0, 80, 25);
 
 		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 
@@ -356,21 +356,29 @@ namespace MetroidMod.Common.Systems
 			}
 			tag["downed"] = (int)bossesDown;
 			tag["spawnedPhazonMeteor"] = spawnedPhazonMeteor;
-			tag["TorizoRoomLocation.X"] = TorizoRoomLocation.X;
-			tag["TorizoRoomLocation.Y"] = TorizoRoomLocation.Y;
 			tag["BlockTypePositions"] = positions;
 			tag["BlockTypes"] = types;
 			tag["BlockRegen"] = regens;
 		}
 
+		private void ReadTorizoRoomLocationCompatibility(TagCompound tag)
+		{
+			Point torizoRoomLocation = new();
+			if (tag.TryGet("TorizoRoomLocation.X", out torizoRoomLocation.X) &&
+				tag.TryGet("TorizoRoomLocation.Y", out torizoRoomLocation.Y))
+			{
+				ModContent.GetInstance<TorizoSpawningSystem>().SetLocationFromLegacy(torizoRoomLocation);
+				ModContent.GetInstance<GoldenTorizoSpawningSystem>().SetLocationFromLegacy(torizoRoomLocation);
+			}
+		}
+
 		public override void LoadWorldData(TagCompound tag)
 		{
+			ReadTorizoRoomLocationCompatibility(tag);
+
 			int downed = tag.GetAsInt("downed");
 			bossesDown = (MetroidBossDown)downed;
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
-
-			TorizoRoomLocation.X = tag.Get<int>("TorizoRoomLocation.X");
-			TorizoRoomLocation.Y = tag.Get<int>("TorizoRoomLocation.Y");
 			IList<Vector2> positions = tag.GetList<Vector2>("BlockTypePositions");
 			IList<ushort> types = tag.GetList<ushort>("BlockTypes");
 			IList<bool> regens = tag.GetList<bool>("BlockRegen");
@@ -413,8 +421,6 @@ namespace MetroidMod.Common.Systems
 		{
 			writer.Write((int)bossesDown);
 			writer.Write(spawnedPhazonMeteor);
-			writer.Write(TorizoRoomLocation.X);
-			writer.Write(TorizoRoomLocation.Y);
 			List<Vector2> positions = new();
 			List<ushort> types = new();
 			List<bool> regens = new();
@@ -444,8 +450,6 @@ namespace MetroidMod.Common.Systems
 		{
 			bossesDown = (MetroidBossDown)reader.ReadInt32();
 			spawnedPhazonMeteor = reader.ReadBoolean();
-			TorizoRoomLocation.X = reader.ReadInt32();
-			TorizoRoomLocation.Y = reader.ReadInt32();
 			mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 			dontRegen = new bool[Main.maxTilesX, Main.maxTilesY];
 			int count = reader.ReadInt32();
@@ -1697,8 +1701,9 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceTile(stepsX + dir, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
 
 			NPC.NewNPC(NPC.GetSource_NaturalSpawn(), 8 + (x + width - 6) * 16, (y + height - 4) * 16, ModContent.NPCType<IdleTorizo>());
-			TorizoRoomLocation.X = x;
-			TorizoRoomLocation.Y = y;
+			Point location = new(x, y);
+			ModContent.GetInstance<TorizoSpawningSystem>().SetLocationFromLegacy(location);
+			ModContent.GetInstance<GoldenTorizoSpawningSystem>().SetLocationFromLegacy(location);
 		}
 
 		private static void ChozoRuins_SaveRoom(int x, int y)
@@ -1857,55 +1862,6 @@ namespace MetroidMod.Common.Systems
 			if (meteorSpawnAttempt > 0 && !spawnedPhazonMeteor)
 			{
 				meteorSpawnAttempt--;
-			}
-
-			if (!bossesDown.HasFlag(MetroidBossDown.downedTorizo) && !NPC.AnyNPCs(ModContent.NPCType<Torizo>()) && !NPC.AnyNPCs(ModContent.NPCType<IdleTorizo>()) && TorizoRoomLocation.X > 0 && TorizoRoomLocation.Y > 0)
-			{
-				Rectangle room = TorizoRoomLocation;
-				if (spawnCounter <= 0)
-				{
-					Vector2 pos = new Vector2(room.X + 8, room.Y + room.Height - 4);
-					if (room.X > Main.maxTilesX / 2)
-					{
-						pos.X = (room.X + room.Width - 8);
-					}
-					pos *= 16f;
-
-					NPC.NewNPC(NPC.GetSource_NaturalSpawn(), (int)pos.X, (int)pos.Y, ModContent.NPCType<IdleTorizo>());
-				}
-				else
-				{
-					spawnCounter--;
-				}
-			}
-			else
-			{
-				spawnCounter = 300;
-			}
-
-			if (NPC.downedGolemBoss && bossesDown.HasFlag(MetroidBossDown.downedTorizo) &&
-				!bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo) && !NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>()) && !NPC.AnyNPCs(ModContent.NPCType<IdleGoldenTorizo>()) && TorizoRoomLocation.X > 0 && TorizoRoomLocation.Y > 0)
-			{
-				Rectangle room = TorizoRoomLocation;
-				if (spawnCounter2 <= 0)
-				{
-					Vector2 pos = new Vector2(room.X + 8, room.Y + room.Height - 4);
-					if (room.X > Main.maxTilesX / 2)
-					{
-						pos.X = (room.X + room.Width - 8);
-					}
-					pos *= 16f;
-
-					NPC.NewNPC(NPC.GetSource_NaturalSpawn(), (int)pos.X, (int)pos.Y, ModContent.NPCType<IdleGoldenTorizo>());
-				}
-				else
-				{
-					spawnCounter2--;
-				}
-			}
-			else
-			{
-				spawnCounter2 = 300;
 			}
 		}
 

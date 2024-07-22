@@ -75,21 +75,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 		}
 		public override void PostAI()
 		{
-			Rectangle room = MSystem.TorizoRoomLocation;
-			if (room.X > 0 && room.Y > 0)
+			var system = ModContent.GetInstance<TorizoSpawningSystem>();
+			if (system.Initialized)
 			{
-				Vector2 pos = new Vector2(room.X + 8, room.Y + room.Height - 4);
-				NPC.direction = 1;
-				if (room.X > Main.maxTilesX / 2)
-				{
-					pos.X = (room.X + room.Width - 8);
-					NPC.direction = -1;
-				}
-				pos *= 16f;
-				NPC.spriteDirection = NPC.direction;
-
-				NPC.position.X = pos.X - NPC.width / 2;
-				NPC.position.Y = pos.Y - NPC.height;
+				system.UpdateNpcAttributes(NPC);
 
 				for (int i = 0; i < 255; i++)
 				{

@@ -3048,6 +3048,16 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			TorizoRelocator: {
+				// DisplayName: Torizo Relocator
+				// Tooltip: ""
+			}
+
+			GoldenTorizoRelocator: {
+				// DisplayName: Golden Torizo Relocator
+				// Tooltip: ""
+			}
+
 			ChozoJackhammer: {
 				// DisplayName: Chozo Jackhammer
 				// Tooltip: ""
