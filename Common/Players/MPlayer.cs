@@ -128,7 +128,7 @@ namespace MetroidMod.Common.Players
 					canSomersault = true;
 					canWallJump = true;
 					powerGrip = true;
-					canHyper = true;
+					//canHyper = true;
 					phazonImmune = true;
 					canUsePhazonBeam = true;
 					canUseHyperBeam = true;
