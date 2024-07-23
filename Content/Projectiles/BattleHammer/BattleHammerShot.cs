@@ -1,7 +1,9 @@
 using System;
+using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.BattleHammer
 {
@@ -42,26 +44,10 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 		}
 		public override void OnKill(int timeLeft)
 		{
-			Projectile.width += Luminite ? 100 : DiffBeam ? 76 : 42;
-			Projectile.height += Luminite ? 100 : DiffBeam ? 76 : 42;
-			Projectile.scale = Luminite ? 10 : DiffBeam ? 5 : 3;
-			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
-			//Projectile.Damage(); //battlehammer double hits on direct(ish) hit
-			//Projectile.usesLocalNPCImmunity = true;
-			//Projectile.localNPCHitCooldown = 1;
-			foreach (NPC who in Main.ActiveNPCs)
-			{
-				NPC npc = Main.npc[who.whoAmI];
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit)
-				{
-					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
-					//Projectile.Damage();
-				}
-			}
+			mProjectile.Explode(Luminite ? 5 : DiffBeam ? 3 : 2, Luminite ? 10 : DiffBeam ? 5 : 3);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

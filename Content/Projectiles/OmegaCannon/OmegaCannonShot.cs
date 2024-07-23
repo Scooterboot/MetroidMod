@@ -1,6 +1,8 @@
 using System;
+using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.OmegaCannon
 {
@@ -43,19 +45,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 		}
 		public override void OnKill(int timeLeft)
 		{
-			Projectile.width *= 75;
-			Projectile.height *= 75;
-			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-			foreach (NPC who in Main.ActiveNPCs ) //this is laggy and inneficient, probably
-			{
-				NPC npc = Main.npc[who.whoAmI];
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit)
-				{
-					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
-					//Projectile.Damage();
-				}
-			}
+			mProjectile.Explode(2368);
 		}
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{

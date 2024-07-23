@@ -121,9 +121,9 @@ namespace MetroidMod.Default
 					Vector2 direction = who.Center - Projectile.Center;
 					float distance = direction.Length();
 					direction.Normalize();
-					if (distance < BombRadius)
+					if (distance < BombRadius && !npc.dontTakeDamage)
 					{
-						who.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
+					 who.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>(), Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
 						//Projectile.Damage();
 						if (!who.boss)
 						{

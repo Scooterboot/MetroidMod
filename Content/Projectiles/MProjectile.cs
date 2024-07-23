@@ -612,7 +612,25 @@ namespace MetroidMod.Content.Projectiles
 			}
 			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
-
+		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size </summary>
+		public void Explode(int increase, float scale = 1f)
+		{
+			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+			Projectile.width += increase;
+			Projectile.height += increase;
+			Projectile.scale *= scale;
+			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+			foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
+			{
+				NPC npc = Main.npc[who.whoAmI];
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit && !npc.dontTakeDamage)
+				{
+					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>()/100f, Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
+				}
+			}
+		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(Luminite);

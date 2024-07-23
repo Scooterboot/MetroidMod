@@ -78,12 +78,13 @@ namespace MetroidMod.Content.Projectiles.missiles
 		}
 		public override void OnKill(int timeLeft)
 		{
-			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+			/*Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
 			Projectile.width += 48;
 			Projectile.height += 48;
 			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
+			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);*/
+			mProjectile.Explode(48);
 
 			//Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
 			if (mProjectile.homing)
@@ -107,14 +108,6 @@ namespace MetroidMod.Content.Projectiles.missiles
 				int num72 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 30, 0f, 0f, 100, default(Color), 3f);
 				Main.dust[num72].velocity *= 1.4f;
 				Main.dust[num72].noGravity = true;
-			}
-			foreach (NPC who in Main.ActiveNPCs)
-			{
-				NPC npc = Main.npc[who.whoAmI];
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit)
-				{
-					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
-				}
 			}
 		}
 

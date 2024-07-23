@@ -107,12 +107,13 @@ namespace MetroidMod.Content.Projectiles.missiles
 			{
 				size = 100;
 			}
-			P.position.X = P.position.X + (float)(P.width / 2);
+			/*P.position.X = P.position.X + (float)(P.width / 2);
 			P.position.Y = P.position.Y + (float)(P.height / 2);
 			P.width += size;
 			P.height += size;
 			P.position.X = P.position.X - (float)(P.width / 2);
-			P.position.Y = P.position.Y - (float)(P.height / 2);
+			P.position.Y = P.position.Y - (float)(P.height / 2);*/
+			mProjectile.Explode(size);
 
 			//SoundEngine.PlaySound(SoundID.Item14,P.position);
 
@@ -152,14 +153,6 @@ namespace MetroidMod.Content.Projectiles.missiles
 				int num72 = Dust.NewDust(P.position, P.width, P.height, dustType2, 0f, 0f, 100, default(Color), 3f * scale);
 				Main.dust[num72].velocity *= 1.4f;
 				Main.dust[num72].noGravity = true;
-			}
-			foreach (NPC who in Main.ActiveNPCs)
-			{
-				NPC npc = Main.npc[who.whoAmI];
-				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit)
-				{
-					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction);
-				}
 			}
 
 			if (P.Name.Contains("Nebula"))

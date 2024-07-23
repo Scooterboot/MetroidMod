@@ -140,8 +140,8 @@ namespace MetroidMod.Common.Players
 					senseMoveCooldown = 0;
 					senseMove = true;
 					Energy = MaxEnergy;
-					statOverheat = 0;
-					statPBCh = 0;
+					statOverheat = 0f;
+					statPBCh = 0f;
 					bomb = 0;
 					cooldownbomb = 0;
 					boostCharge = 100;
