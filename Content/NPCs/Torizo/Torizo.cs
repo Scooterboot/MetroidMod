@@ -16,6 +16,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 	[AutoloadBossHead]
 	public class Torizo : ModNPC
 	{
+		private bool expert = Main.expertMode;
+		private bool master = Main.masterMode;
+		private bool legend = Main.getGoodWorld;
+		private bool classic = !Main.expertMode && !Main.masterMode && !Main.getGoodWorld;
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_Head_Boss";
 		public override string Texture => Mod.Name + "/Content/NPCs/Torizo/TorizoBody";
 
@@ -730,10 +734,15 @@ namespace MetroidMod.Content.NPCs.Torizo
 				{
 					Player player = Main.player[NPC.target];
 
-					float speed = 0.15f;
+					float speed = expert? 0.20f : master? 0.25f : legend? 0.30f : 0.15f; //Dr zoooom
 					if (Head == null || !Head.active)
 					{
+						NPC.defense = 10;
 						speed *= 1.3f;
+					}
+					else
+					{
+						NPC.defense = expert ? 17 : master ? 19 : legend ? 21 : 15; //DR killing head lowers defense but goes faster
 					}
 
 					bool walkFlagR = (anim_Walk > 6f - speed && anim_Walk <= 6f);
@@ -782,7 +791,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					}
 
 					// Jump
-					if (Math.Abs(player.Center.X - NPC.Center.X) < 500 && player.Center.Y < NPC.Center.Y && (player.velocity.Y == 0f || NPC.ai[2] >= 1) && NPC.ai[1] == 0f)
+					if (Math.Abs(player.Center.X - NPC.Center.X) < 500 && player.Center.Y < NPC.Center.Y /*&& ((player.velocity.Y == 0f && classic) || NPC.ai[2] >= 1)*/ && NPC.ai[1] == 0f)
 					{
 						NPC.ai[2]++;
 					}
@@ -979,7 +988,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					HeadFrame = 3;
 					spawnAlpha = 0f;
 				}
-				// jump
+				// jump back
 				if (NPC.ai[0] == 2)
 				{
 					Player player = Main.player[NPC.target];
@@ -1134,7 +1143,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						if ((NPC.ai[2] == 10 || NPC.ai[2] == 20 || NPC.ai[2] == 30) && headFlag)
 						{
 							var entitySource = NPC.GetSource_FromAI();
-							for (int i = 0; i < 3; i++)
+							for (int i = 0; i < (expert? 4 : master ? 5 : legend ? 6 : 3); i++) //DR more bombs whee
 							{
 								Vector2 bombPos = HeadPos[0] + new Vector2(32f * NPC.direction, -6f);
 								Vector2 bombVel = new Vector2(3f * NPC.direction, -3f);
