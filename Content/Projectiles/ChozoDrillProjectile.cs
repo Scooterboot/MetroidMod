@@ -34,9 +34,15 @@ namespace MetroidMod.Content.Projectiles
 				SoundEngine.PlaySound(SoundID.Item22, Projectile.Center);
 				Projectile.soundDelay = 20;
 			}
-			Projectile.frame++;
-			if (Projectile.frame >= 2)
+			int delay = 0;
+			if (delay == 0)
 			{
+				delay = 10;
+				Projectile.frame++;
+			}
+			if (Projectile.frame >= 3)
+			{
+				delay++;
 				Projectile.frame = 0;
 			}
 
@@ -68,7 +74,7 @@ namespace MetroidMod.Content.Projectiles
 			player.SetDummyItemTime(2);
 			Projectile.Center = playerCenter;
 			Projectile.rotation = Projectile.velocity.ToRotation() + (player.direction == -1 ? MathHelper.Pi : 0f);
-			player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation() + (player.direction == -1 ? MathHelper.Pi : 0f);
+			player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();
 			Projectile.velocity.X *= 1f + Main.rand.Next(-3, 4) * 0.01f;
 			if (Main.rand.NextBool(10)) {
 				Dust dust = Dust.NewDustDirect(Projectile.position + Projectile.velocity * Main.rand.Next(6, 10) * 0.15f, Projectile.width, Projectile.height, 0, 0f, 0f, 80, Color.White, 1f);

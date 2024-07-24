@@ -734,7 +734,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 				{
 					Player player = Main.player[NPC.target];
 
-					float speed = expert? 0.20f : master? 0.25f : legend? 0.30f : 0.15f; //Dr zoooom
+					float speed = /*expert? 0.20f : master? 0.25f : legend? 0.30f : */0.15f; //Dr zoooom
 					if (Head == null || !Head.active)
 					{
 						NPC.defense = 10;
@@ -742,7 +742,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					}
 					else
 					{
-						NPC.defense = expert ? 17 : master ? 19 : legend ? 21 : 15; //DR killing head lowers defense but goes faster
+						NPC.defense = /*expert ? 17 : master ? 19 : legend ? 21 :*/ 15; //DR killing head lowers defense but goes faster
 					}
 
 					bool walkFlagR = (anim_Walk > 6f - speed && anim_Walk <= 6f);
@@ -1143,7 +1143,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						if ((NPC.ai[2] == 10 || NPC.ai[2] == 20 || NPC.ai[2] == 30) && headFlag)
 						{
 							var entitySource = NPC.GetSource_FromAI();
-							for (int i = 0; i < (expert? 4 : master ? 5 : legend ? 6 : 3); i++) //DR more bombs whee
+							for (int i = 0; i < (/*expert? 4 : master ? 5 : legend ? 6 :*/ 3); i++) //DR more bombs whee
 							{
 								Vector2 bombPos = HeadPos[0] + new Vector2(32f * NPC.direction, -6f);
 								Vector2 bombVel = new Vector2(3f * NPC.direction, -3f);
