@@ -679,7 +679,7 @@ namespace MetroidMod.Common.Systems
 				tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));
 			}
 		}
-		public static int OrbItem(int i, int j)
+		public static int OrbItem()
 		{
 			int range = GenVars.jungleMaxX - GenVars.jungleMinX;
 			bool dungeon = Main.LocalPlayer.ZoneDungeon;
@@ -692,11 +692,11 @@ namespace MetroidMod.Common.Systems
 			int index = 0;
 			foreach (ModSuitAddon addon in SuitAddonLoader.addons)
 			{
-				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance(i, j)); }
+				if (addon.CanGenerateOnChozoStatue()) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance()); }
 			}
 			foreach (ModMBAddon addon in MBAddonLoader.addons)
 			{
-				if (addon.CanGenerateOnChozoStatue(i, j)) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance(i, j)); }
+				if (addon.CanGenerateOnChozoStatue()) { list[index++] = new WeightedChance(() => { item = addon.TileType; }, addon.GenerationChance()); }
 			}
 			/*list[index++] = new WeightedChance(() => { item = ModContent.TileType<ShockCoilTile>(); }, 6);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<MagMaulTile>(); }, 6);

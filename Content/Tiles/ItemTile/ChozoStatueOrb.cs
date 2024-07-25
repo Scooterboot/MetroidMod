@@ -41,12 +41,22 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		}
 		public override bool RightClick(int i, int j)
 		{
-			WorldGen.KillTile(i, j, false, false, true);
+			
 			/*if ((Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server) && !Main.tile[i, j].HasTile) //TODO turning this on double drops, turning it off makes the tile briefly invisible
 			{
 				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
 			}*/
-			return true;
+			if (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server)
+			{
+				return false;
+			}
+			else 
+			{
+				WorldGen.KillTile(i, j, false, false, true);
+				return true;
+			}
+
+
 		}
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
@@ -54,11 +64,12 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			{
 				noItem = true;
 				base.KillTile(i, j, ref fail, ref effectOnly, ref noItem);
-				Main.tile[i, j].TileType = (ushort)Common.Systems.MSystem.OrbItem(i, j);
+				Main.tile[i, j].TileType = (ushort)Common.Systems.MSystem.OrbItem();
 				fail = true;
 				if ((Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server) && !Main.tile[i, j].HasTile)
 				{
 					NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
+					NetMessage.SendTileSquare(-1, i, j);
 				}
 				//Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, Common.Systems.MSystem.OrbItem(i, j));
 			}

@@ -1,5 +1,7 @@
+using MetroidMod.Common.Systems;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,7 +11,7 @@ namespace MetroidMod.Content.Items.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			Item.ResearchUnlockCount = 50;
+			Item.ResearchUnlockCount = 15;
 		}
 
 		public override void SetDefaults()
@@ -28,5 +30,15 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>();
 		}
+		/*public override bool CanRightClick()
+		{
+			return true;
+		}
+		public override void RightClick(Player player)
+		{
+			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OrbItem());
+			//Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
+			//base.RightClick(player);
+		}*/
 	}
 }

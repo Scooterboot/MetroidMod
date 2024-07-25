@@ -30,7 +30,7 @@
 			item.value = Terraria.Item.buyPrice(0, 0, 25, 0);
 			item.rare = ItemRarityID.LightRed;
 		}
-		public override bool CanGenerateOnChozoStatue(int x, int y) => true;
+		public override bool CanGenerateOnChozoStatue() => true;
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

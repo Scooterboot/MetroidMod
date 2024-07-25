@@ -595,6 +595,7 @@ Mods: {
 					Slot Type: Charge
 					Shots bounce, roll and explode
 					Affinity Charge shots ignite
+					Uses UA reserves
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
@@ -629,6 +630,7 @@ Mods: {
 					Charges on enemy damage
 					Range depends on addons
 					Builds speed and charge when attacking an enemy
+					Uses UA reserves
 					[c/BE7878:No knockback]
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
@@ -644,6 +646,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Affinity Charge shots home, explode, and confuse
+					Uses UA reserves
 					[c/78BE78:+60% damage]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-10% speed]

@@ -14,8 +14,8 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue(int x, int y) => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedQueenBee;
-		public override double GenerationChance(int x, int y) => 1;
+		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedQueenBee;
+		public override double GenerationChance() => 1;
 
 		public override void SetStaticDefaults()
 		{
