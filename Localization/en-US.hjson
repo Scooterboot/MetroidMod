@@ -188,7 +188,7 @@ Mods: {
 			YellowHatchOpenVertical.MapEntry: Yellow Hatch Open Vertical
 			YellowHatchVertical.MapEntry: Yellow Hatch Vertical
 			ChargeBeamTile.MapEntry: Charge Beam
-			ChargeBeamV2Tile.MapEntry: Charge Beam V2
+			ChargeBeamV2Tile.MapEntry: Diffusion Beam
 			BattleHammerTile.MapEntry: Battle Hammer
 			ImperialistTile.MapEntry: Imperialist
 			JudicatorTile.MapEntry: Judicator
@@ -198,19 +198,19 @@ Mods: {
 			VoltDriverTile.MapEntry: Volt Driver
 			HyperBeamTile.MapEntry: Hyper Beam
 			IceBeamTile.MapEntry: Ice Beam
-			IceBeamV2Tile.MapEntry: Ice Beam V2
+			IceBeamV2Tile.MapEntry: Frost Beam
 			LuminiteBeamTile.MapEntry: Luminite Beam
 			NebulaBeamTile.MapEntry: Nebula Beam
 			NovaBeamTile.MapEntry: Nova Beam
 			PhazonBeamTile.MapEntry: Phazon Beam
-			PlasmaBeamGreenTile.MapEntry: Plasma Beam Green
-			PlasmaBeamRedTile.MapEntry: Plasma Beam Red
+			PlasmaBeamGreenTile.MapEntry: Plasma Beam
+			PlasmaBeamRedTile.MapEntry: Blaze Beam
 			SolarBeamTile.MapEntry: Solar Beam
 			SpazerTile.MapEntry: Spazer
 			StardustBeamTile.MapEntry: Stardust Beam
 			VortexBeamTile.MapEntry: Vortex Beam
 			WaveBeamTile.MapEntry: Wave Beam Tile
-			WaveBeamV2Tile.MapEntry: Wave Beam V2
+			WaveBeamV2Tile.MapEntry: Helix Beam
 			WideBeamTile.MapEntry: Wide Beam
 			GrappleBeamPlusTile.MapEntry: Grapple Beam
 			GrappleBeamTile.MapEntry: Grapple Beam
@@ -262,9 +262,9 @@ Mods: {
 			ReserveTankTile.MapEntry: Reserve Tank Tile
 			ScanVisorTile.MapEntry: Scan Visor Tile
 			SolarAugmentTile.MapEntry: Solar Augment Tile
-			TerraGravitySuitAddonTile.MapEntry: Terra Gravity Suit Addon Tile
+			TerraGravitySuitAddonTile.MapEntry: True Gravity Suit Addon Tile
 			VariaSuitAddonTile.MapEntry: Varia Suit Addon Tile
-			VariaSuitV2AddonTile.MapEntry: Varia Suit V2 Addon Tile
+			VariaSuitV2AddonTile.MapEntry: True Varia Suit Addon Tile
 			VortexAugmentTile.MapEntry: Vortex Augment Tile
 			XRayScopeTile.MapEntry: X Ray Scope Tile
 			UAExpansionTile.MapEntry: UA Expansion
@@ -317,7 +317,7 @@ Mods: {
 			}
 
 			PrimeHunterBuff: {
-				Description: Your reputation makes you a Prime target
+				Description: Overclocking your Power Suit at the cost of your Energy
 				DisplayName: Prime Hunter Buff
 			}
 		}
@@ -414,7 +414,7 @@ Mods: {
 			}
 
 			ScrewSpaceBooster: {
-				DisplayName: Screw Space Booster
+				DisplayName: Omega Booster
 				Tooltip:
 					'''
 					Allows the user to run insanely fast
@@ -494,20 +494,24 @@ Mods: {
 			}
 
 			FrozenCore: {
-				DisplayName: Frozen Core
-				Tooltip: Reduces Overheat by 15%
+				DisplayName: Energy Supercoolant
+				Tooltip: 15% reduced Overheat
 			}
 
 			SupercooledEmblem: {
-				Tooltip: Reduces overheat and increases damage by 15%
-				DisplayName: Supercooled Emblem
+				Tooltip: '''
+						 15% reduced Overheat
+						 10% increased Hunter damage
+						 10% increased Hunter critical strike chance
+						 '''
+				DisplayName: Thermal Regulator
 			}
 
 			EnhancedCombatUnit: {
 				DisplayName: Enhanced Combat Unit
 				Tooltip:
 					'''
-					Reduces Overheat by 15%
+					15% reduced Overheat
 					10% increased Hunter damage and critical strike chance
 					Stores up to 4 hearts picked up when at full health
 					Automatically uses the stored hearts to save you from death
@@ -693,7 +697,7 @@ Mods: {
 			}
 
 			PlasmaBeamGreenAddon: {
-				DisplayName: Plasma Beam Green
+				DisplayName: Plasma Beam
 				Tooltip:
 					'''
 					[c/9696FF:Power Beam Addon]
@@ -707,7 +711,7 @@ Mods: {
 			}
 
 			PlasmaBeamRedAddon: {
-				DisplayName: Plasma Beam Red
+				DisplayName: Blaze Beam
 				Tooltip:
 					'''
 					[c/9696FF:Power Beam Addon]
@@ -749,7 +753,7 @@ Mods: {
 			}
 
 			IceBeamV2Addon: {
-				DisplayName: Ice Beam V2
+				DisplayName: Frost Beam
 				Tooltip:
 					'''
 					[c/FF9696:Power Beam Addon V2]
@@ -778,7 +782,7 @@ Mods: {
 			}
 
 			WaveBeamV2Addon: {
-				DisplayName: Wave Beam V2
+				DisplayName: Helix Beam
 				Tooltip:
 					'''
 					[c/FF9696:Power Beam Addon V2]
@@ -1462,18 +1466,21 @@ Mods: {
 			}
 
 			GrappleBeamPlaceable: {
-				DisplayName: Grapple Beam Placeable
+				DisplayName: Grapple Beam (Placeable)
 				Tooltip: ""
 			}
 
 			GrappleBeamPlusPlaceable: {
-				DisplayName: Grapple Beam Plus Placeable
+				DisplayName: Grapple Beam Lite (Placeable)
 				Tooltip: ""
 			}
 
 			GrappleBeamPlus: {
-				DisplayName: Grapple Beam Plus
-				Tooltip: Only attaches to special tiles
+				DisplayName: Grapple Beam Lite
+				Tooltip: '''
+						 Only attaches to special tiles
+						 For adventure map use only
+						 '''
 			}
 
 			GrappleBeam: {
@@ -1557,12 +1564,12 @@ Mods: {
 			}
 
 			NorfairBubbleSM: {
-				DisplayName: Norfair Bubble S M
+				DisplayName: Dark Molten Bubble Block
 				Tooltip: ""
 			}
 
 			NorfairBubbleZM: {
-				DisplayName: Norfair Bubble Z M
+				DisplayName: Light Molten Bubble Block
 				Tooltip: ""
 			}
 
@@ -1892,17 +1899,17 @@ Mods: {
 			}
 
 			LegacyTerraGravitySuitBreastplate: {
-				DisplayName: Legacy Terra Gravity Suit Breastplate
+				DisplayName: Legacy True Gravity Suit Breastplate
 				Tooltip: ""
 			}
 
 			LegacyTerraGravitySuitGreaves: {
-				DisplayName: Legacy Terra Gravity Suit Greaves
+				DisplayName: Legacy True Gravity Suit Greaves
 				Tooltip: ""
 			}
 
 			LegacyTerraGravitySuitHelmet: {
-				DisplayName: Legacy Terra Gravity Suit Helmet
+				DisplayName: Legacy True Gravity Suit Helmet
 				Tooltip: ""
 			}
 
@@ -1922,17 +1929,17 @@ Mods: {
 			}
 
 			LegacyVariaSuitV2Breastplate: {
-				DisplayName: Legacy Varia Suit V2 Breastplate
+				DisplayName: Legacy True Varia Suit Breastplate
 				Tooltip: ""
 			}
 
 			LegacyVariaSuitV2Greaves: {
-				DisplayName: Legacy Varia Suit V2 Greaves
+				DisplayName: Legacy True Varia Suit Greaves
 				Tooltip: ""
 			}
 
 			LegacyVariaSuitV2Helmet: {
-				DisplayName: Legacy Varia Suit V2 Helmet
+				DisplayName: Legacy True Varia Suit Helmet
 				Tooltip: ""
 			}
 
@@ -2097,17 +2104,17 @@ Mods: {
 			}
 
 			VanityTerraGravitySuitBreastplate: {
-				DisplayName: Vanity Terra Gravity Suit Breastplate
+				DisplayName: Vanity True Gravity Suit Breastplate
 				Tooltip: ""
 			}
 
 			VanityTerraGravitySuitGreaves: {
-				DisplayName: Vanity Terra Gravity Suit Greaves
+				DisplayName: Vanity True Gravity Suit Greaves
 				Tooltip: ""
 			}
 
 			VanityTerraGravitySuitHelmet: {
-				DisplayName: Vanity Terra Gravity Suit Helmet
+				DisplayName: Vanity True Gravity Suit Helmet
 				Tooltip: ""
 			}
 
@@ -2127,17 +2134,17 @@ Mods: {
 			}
 
 			VanityVariaSuitV2Breastplate: {
-				DisplayName: Vanity Varia Suit V2 Breastplate
+				DisplayName: Vanity True Varia Suit Breastplate
 				Tooltip: ""
 			}
 
 			VanityVariaSuitV2Greaves: {
-				DisplayName: Vanity Varia Suit V2 Greaves
+				DisplayName: Vanity True Varia Suit Greaves
 				Tooltip: ""
 			}
 
 			VanityVariaSuitV2Helmet: {
-				DisplayName: Vanity Varia Suit V2 Helmet
+				DisplayName: Vanity True Varia Suit Helmet
 				Tooltip: ""
 			}
 
@@ -2735,7 +2742,7 @@ Mods: {
 			}
 
 			TerraGravitySuitAddonAddon: {
-				DisplayName: Terra Gravity Suit
+				DisplayName: True Gravity Suit
 				Tooltip:
 					'''
 					+19 defense
@@ -2782,7 +2789,7 @@ Mods: {
 			}
 
 			VariaSuitV2AddonAddon: {
-				DisplayName: Varia Suit V2
+				DisplayName: True Varia Suit
 				Tooltip:
 					'''
 					+15 defense
@@ -2998,17 +3005,17 @@ Mods: {
 			}
 
 			AQAPlating: {
-				DisplayName: A Q A Plating
+				DisplayName: Aquatic Plating
 				Tooltip: ""
 			}
 
 			ARCPlating: {
-				DisplayName: A R C Plating
+				DisplayName: Arctic Plating
 				Tooltip: ""
 			}
 
 			PYRPlating: {
-				DisplayName: P Y R Plating
+				DisplayName: Pyrothermal Plating
 				Tooltip: ""
 			}
 
@@ -3018,7 +3025,7 @@ Mods: {
 			}
 
 			SRXPlating: {
-				DisplayName: S R X Plating
+				DisplayName: Extraterrestrial Plating
 				Tooltip: ""
 			}
 		}
@@ -3239,12 +3246,12 @@ Mods: {
 			IceWideBeamChargeShot.DisplayName: Ice Wide Beam Charge Shot
 			IceWaveWideBeamShot.DisplayName: Ice Wave Wide Beam Shot
 			IceWaveWideBeamChargeShot.DisplayName: Ice Wave Wide Beam Charge Shot
-			WaveBeamV2Shot.DisplayName: Wave Beam V2 Shot
-			WaveBeamV2ChargeShot.DisplayName: Wave Beam V2 Charge Shot
+			WaveBeamV2Shot.DisplayName: Helix Beam Shot
+			WaveBeamV2ChargeShot.DisplayName: Helix Beam Charge Shot
 			WaveBeamShot.DisplayName: Wave Beam Shot
 			WaveBeamChargeShot.DisplayName: Wave Beam Charge Shot
-			IceWaveBeamV2Shot.DisplayName: Ice Wave Beam V2 Shot
-			IceWaveBeamV2ChargeShot.DisplayName: Ice Wave Beam V2 Charge Shot
+			IceWaveBeamV2Shot.DisplayName: Frost Helix Beam Shot
+			IceWaveBeamV2ChargeShot.DisplayName: Frost Helix Beam Charge Shot
 			VortexBeamShot.DisplayName: Vortex Beam Shot
 			VortexBeamChargeShot.DisplayName: Vortex Beam Charge Shot
 			StardustVortexBeamShot.DisplayName: Stardust Vortex Beam Shot
@@ -3272,63 +3279,63 @@ Mods: {
 			ShineSpark.DisplayName: Shine Spark
 			ShineBall.DisplayName: Shine Ball
 			ScrewAttackProj.DisplayName: Screw Attack Proj
-			PowerBeamV2Shot.DisplayName: Power Beam V2 Shot
-			PowerBeamV2ChargeShot.DisplayName: Power Beam V2 Charge Shot
+			PowerBeamV2Shot.DisplayName: Diffusion Beam Shot
+			PowerBeamV2ChargeShot.DisplayName: Diffusion Beam Charge Shot
 			PowerBeamShot.DisplayName: Power Beam Shot
 			PowerBeamChargeShot.DisplayName: Power Beam Charge Shot
-			WidePlasmaBeamRedV2Shot.DisplayName: Wide Plasma Beam Red V2 Shot
-			WidePlasmaBeamRedV2ChargeShot.DisplayName: Wide Plasma Beam Red V2 Charge Shot
-			WavePlasmaBeamRedV2Shot.DisplayName: Wave Plasma Beam Red V2 Shot
-			WavePlasmaBeamRedV2ChargeShot.DisplayName: Wave Plasma Beam Red V2 Charge Shot
-			PlasmaBeamRedV2Shot.DisplayName: Plasma Beam Red V2 Shot
-			PlasmaBeamRedV2ChargeShot.DisplayName: Plasma Beam Red V2 Charge Shot
-			IceWidePlasmaBeamRedV2Shot.DisplayName: Ice Wide Plasma Beam Red V2 Shot
-			IceWidePlasmaBeamRedV2ChargeShot.DisplayName: Ice Wide Plasma Beam Red V2 Charge Shot
-			IceWaveWidePlasmaBeamRedV2Shot.DisplayName: Ice Wave Wide Plasma Beam Red V2 Shot
-			IceWaveWidePlasmaBeamRedV2ChargeShot.DisplayName: Ice Wave Wide Plasma Beam Red V2 Charge Shot
-			IceWavePlasmaBeamRedV2Shot.DisplayName: Ice Wave Plasma Beam Red V2 Shot
-			IceWavePlasmaBeamRedV2ChargeShot.DisplayName: Ice Wave Plasma Beam Red V2 Charge Shot
-			IcePlasmaBeamRedV2Shot.DisplayName: Ice Plasma Beam Red V2 Shot
-			IcePlasmaBeamRedV2ChargeShot.DisplayName: Ice Plasma Beam Red V2 Charge Shot
-			PlasmaBeamRedShot.DisplayName: Plasma Beam Red Shot
-			PlasmaBeamRedChargeShot.DisplayName: Plasma Beam Red Charge Shot
-			IcePlasmaBeamRedShot.DisplayName: Ice Plasma Beam Red Shot
-			IcePlasmaBeamRedChargeShot.DisplayName: Ice Plasma Beam Red Charge Shot
-			WidePlasmaBeamGreenV2Shot.DisplayName: Wide Plasma Beam Green V2 Shot
-			WidePlasmaBeamGreenV2ChargeShot.DisplayName: Wide Plasma Beam Green V2 Charge Shot
-			WavePlasmaBeamGreenV2Shot.DisplayName: Wave Plasma Beam Green V2 Shot
-			WavePlasmaBeamGreenV2ChargeShot.DisplayName: Wave Plasma Beam Green V2 Charge Shot
-			PlasmaBeamGreenV2Shot.DisplayName: Plasma Beam Green V2 Shot
-			PlasmaBeamGreenV2ChargeShot.DisplayName: Plasma Beam Green V2 Charge Shot
-			IceWidePlasmaBeamGreenV2Shot.DisplayName: Ice Wide Plasma Beam Green V2 Shot
-			IceWidePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Wide Plasma Beam Green V2 Charge Shot
-			IceWaveWidePlasmaBeamGreenV2Shot.DisplayName: Ice Wave Wide Plasma Beam Green V2 Shot
-			IceWaveWidePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Wave Wide Plasma Beam Green V2 Charge Shot
-			IceWavePlasmaBeamGreenV2Shot.DisplayName: Ice Wave Plasma Beam Green V2 Shot
-			IceWavePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Wave Plasma Beam Green V2 Charge Shot
-			IcePlasmaBeamGreenV2Shot.DisplayName: Ice Plasma Beam Green V2 Shot
-			IcePlasmaBeamGreenV2ChargeShot.DisplayName: Ice Plasma Beam Green V2 Charge Shot
-			PlasmaBeamGreenShot.DisplayName: Plasma Beam Green Shot
-			PlasmaBeamGreenChargeShot.DisplayName: Plasma Beam Green Charge Shot
-			IcePlasmaBeamGreenShot.DisplayName: Ice Plasma Beam Green Shot
-			IcePlasmaBeamGreenChargeShot.DisplayName: Ice Plasma Beam Green Charge Shot
+			WidePlasmaBeamRedV2Shot.DisplayName: Wide Blaze Beam Shot
+			WidePlasmaBeamRedV2ChargeShot.DisplayName: Wide Blaze Beam Charge Shot
+			WavePlasmaBeamRedV2Shot.DisplayName: Helix Blaze Beam Shot
+			WavePlasmaBeamRedV2ChargeShot.DisplayName: Helix Blaze Beam Charge Shot
+			PlasmaBeamRedV2Shot.DisplayName: Blaze Beam Shot
+			PlasmaBeamRedV2ChargeShot.DisplayName: Blaze Beam Charge Shot
+			IceWidePlasmaBeamRedV2Shot.DisplayName: Frost Wide Blaze Beam Shot
+			IceWidePlasmaBeamRedV2ChargeShot.DisplayName: Frost Wide Blaze Beam Charge Shot
+			IceWaveWidePlasmaBeamRedV2Shot.DisplayName: Frost Helix Wide Blaze Beam Shot
+			IceWaveWidePlasmaBeamRedV2ChargeShot.DisplayName: Ice Wave Wide Blaze Beam Charge Shot
+			IceWavePlasmaBeamRedV2Shot.DisplayName: Frost Helix Blaze Beam Shot
+			IceWavePlasmaBeamRedV2ChargeShot.DisplayName: Frost Helix Blaze Beam Charge Shot
+			IcePlasmaBeamRedV2Shot.DisplayName: Frost Blaze Beam Shot
+			IcePlasmaBeamRedV2ChargeShot.DisplayName: Frost Blaze Beam Charge Shot
+			PlasmaBeamRedShot.DisplayName: Blaze Beam Shot
+			PlasmaBeamRedChargeShot.DisplayName: Blaze Beam Charge Shot
+			IcePlasmaBeamRedShot.DisplayName: Ice Blaze Beam Shot
+			IcePlasmaBeamRedChargeShot.DisplayName: Ice Blaze Beam Charge Shot
+			WidePlasmaBeamGreenV2Shot.DisplayName: Wide Plasma Beam Shot
+			WidePlasmaBeamGreenV2ChargeShot.DisplayName: Wide Plasma Beam Charge Shot
+			WavePlasmaBeamGreenV2Shot.DisplayName: Helix Plasma Beam Shot
+			WavePlasmaBeamGreenV2ChargeShot.DisplayName: Helix Plasma Beam Charge Shot
+			PlasmaBeamGreenV2Shot.DisplayName: Plasma Beam V2 Shot
+			PlasmaBeamGreenV2ChargeShot.DisplayName: Plasma Beam V2 Charge Shot
+			IceWidePlasmaBeamGreenV2Shot.DisplayName: Frost Wide Plasma Beam Shot
+			IceWidePlasmaBeamGreenV2ChargeShot.DisplayName: Frost Wide Plasma Beam Charge Shot
+			IceWaveWidePlasmaBeamGreenV2Shot.DisplayName: Frost Helix Wide Plasma Beam  Shot
+			IceWaveWidePlasmaBeamGreenV2ChargeShot.DisplayName: Frost Helix Wide Plasma Beam Charge Shot
+			IceWavePlasmaBeamGreenV2Shot.DisplayName: Frost Helix Plasma Beam Shot
+			IceWavePlasmaBeamGreenV2ChargeShot.DisplayName: Frost Helix Plasma Beam Charge Shot
+			IcePlasmaBeamGreenV2Shot.DisplayName: Frost Plasma Beam Shot
+			IcePlasmaBeamGreenV2ChargeShot.DisplayName: Frost Plasma Beam Charge Shot
+			PlasmaBeamGreenShot.DisplayName: Plasma Beam Shot
+			PlasmaBeamGreenChargeShot.DisplayName: Plasma Beam Charge Shot
+			IcePlasmaBeamGreenShot.DisplayName: Ice Plasma Beam Shot
+			IcePlasmaBeamGreenChargeShot.DisplayName: Ice Plasma Beam Charge Shot
 			PhazonExplosion.DisplayName: Phazon Explosion
 			PhazonBeamShot.DisplayName: Phazon Beam Shot
 			ParalyzerShot.DisplayName: Paralyzer Shot
 			OmegaCannonShot.DisplayName: Omega Cannon Shot
 			NovaLaserDrillShot.DisplayName: Nova Laser Drill Shot
-			WideNovaBeamV2Shot.DisplayName: Wide Nova Beam V2 Shot
-			WideNovaBeamV2ChargeShot.DisplayName: Wide Nova Beam V2 Charge Shot
-			WaveNovaBeamV2Shot.DisplayName: Wave Nova Beam V2 Shot
-			WaveNovaBeamV2ChargeShot.DisplayName: Wave Nova Beam V2 Charge Shot
+			WideNovaBeamV2Shot.DisplayName: Wide Nova Beam Shot
+			WideNovaBeamV2ChargeShot.DisplayName: Wide Nova Beam Charge Shot
+			WaveNovaBeamV2Shot.DisplayName: Helix Nova Beam Shot
+			WaveNovaBeamV2ChargeShot.DisplayName: Helix Nova Beam Charge Shot
 			NovaBeamV2Shot.DisplayName: Nova Beam V2 Shot
 			NovaBeamV2ChargeShot.DisplayName: Nova Beam V2 Charge Shot
-			IceWideNovaBeamV2Shot.DisplayName: Ice Wide Nova Beam V2 Shot
-			IceWideNovaBeamV2ChargeShot.DisplayName: Ice Wide Nova Beam V2 Charge Shot
-			IceWaveNovaBeamV2Shot.DisplayName: Ice Wave Nova Beam V2 Shot
-			IceWaveNovaBeamV2ChargeShot.DisplayName: Ice Wave Nova Beam V2 Charge Shot
-			IceNovaBeamV2Shot.DisplayName: Ice Nova Beam V2 Shot
-			IceNovaBeamV2ChargeShot.DisplayName: Ice Nova Beam V2 Charge Shot
+			IceWideNovaBeamV2Shot.DisplayName: Frost Wide Nova Beam Shot
+			IceWideNovaBeamV2ChargeShot.DisplayName: Frost Wide Nova Beam V2 Charge Shot
+			IceWaveNovaBeamV2Shot.DisplayName: Frost Helix Nova Beam V2 Shot
+			IceWaveNovaBeamV2ChargeShot.DisplayName: Frost Helix Nova Beam V2 Charge Shot
+			IceNovaBeamV2Shot.DisplayName: Frost Nova Beam Shot
+			IceNovaBeamV2ChargeShot.DisplayName: Frost Nova Beam Charge Shot
 			WaveNovaBeamShot.DisplayName: Wave Nova Beam Shot
 			WaveNovaBeamChargeShot.DisplayName: Wave Nova Beam Charge Shot
 			NovaBeamShot.DisplayName: Nova Beam Shot
@@ -3391,8 +3398,8 @@ Mods: {
 			JudicatorFreeze.DisplayName: Judicator Freeze
 			JudicatorChargeShot.DisplayName: Judicator Charge Shot
 			ImperialistShot.DisplayName: Imperialist Shot
-			IceBeamV2Shot.DisplayName: Ice Beam V2 Shot
-			IceBeamV2ChargeShot.DisplayName: Ice Beam V2 Charge Shot
+			IceBeamV2Shot.DisplayName: Frost Beam Shot
+			IceBeamV2ChargeShot.DisplayName: Frost Beam Charge Shot
 			IceBeamShot.DisplayName: Ice Beam Shot
 			IceBeamChargeShot.DisplayName: Ice Beam Charge Shot
 			PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam Shot
@@ -3814,7 +3821,7 @@ Mods: {
 				}
 
 				damageChargeBeamV2: {
-					Label: "[i:MetroidMod/ChargeBeamV2Addon] Charge Beam V2 Damage Multiplier"
+					Label: "[i:MetroidMod/ChargeBeamV2Addon] Diffusion Beam Damage Multiplier"
 					Tooltip: ""
 				}
 
@@ -3824,7 +3831,7 @@ Mods: {
 				}
 
 				overheatChargeBeamV2: {
-					Label: "[i:MetroidMod/ChargeBeamV2Addon] Charge Beam V2 Overheat Multiplier"
+					Label: "[i:MetroidMod/ChargeBeamV2Addon] Diffusion Beam Overheat Multiplier"
 					Tooltip: ""
 				}
 
@@ -3849,7 +3856,7 @@ Mods: {
 				}
 
 				damageIceBeamV2: {
-					Label: "[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Damage Multiplier"
+					Label: "[i:MetroidMod/IceBeamV2Addon] Frost Beam Damage Multiplier"
 					Tooltip: ""
 				}
 
@@ -3859,7 +3866,7 @@ Mods: {
 				}
 
 				overheatIceBeamV2: {
-					Label: "[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Overheat Multiplier"
+					Label: "[i:MetroidMod/IceBeamV2Addon] Frost Beam Overheat Multiplier"
 					Tooltip: ""
 				}
 
@@ -3869,7 +3876,7 @@ Mods: {
 				}
 
 				speedIceBeamV2: {
-					Label: "[i:MetroidMod/IceBeamV2Addon] Ice Beam V2 Speed Multiplier"
+					Label: "[i:MetroidMod/IceBeamV2Addon] Frost Beam Speed Multiplier"
 					Tooltip: ""
 				}
 
@@ -3879,7 +3886,7 @@ Mods: {
 				}
 
 				damageWaveBeamV2: {
-					Label: "[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Damage Multiplier"
+					Label: "[i:MetroidMod/WaveBeamV2Addon] Helix Beam Damage Multiplier"
 					Tooltip: ""
 				}
 
@@ -3889,7 +3896,7 @@ Mods: {
 				}
 
 				overheatWaveBeamV2: {
-					Label: "[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Overheat Multiplier"
+					Label: "[i:MetroidMod/WaveBeamV2Addon] Helix Beam Overheat Multiplier"
 					Tooltip: ""
 				}
 
@@ -3899,7 +3906,7 @@ Mods: {
 				}
 
 				speedWaveBeamV2: {
-					Label: "[i:MetroidMod/WaveBeamV2Addon] Wave Beam V2 Speed Multiplier"
+					Label: "[i:MetroidMod/WaveBeamV2Addon] Helix Beam Speed Multiplier"
 					Tooltip: ""
 				}
 
