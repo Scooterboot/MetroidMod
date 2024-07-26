@@ -30,15 +30,15 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>();
 		}
-		/*public override bool CanRightClick()
+		public override bool CanRightClick()
 		{
 			return true;
 		}
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OrbItem());
+			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB());
 			//Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
-			//base.RightClick(player);
-		}*/
+			base.RightClick(player);
+		}
 	}
 }

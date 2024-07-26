@@ -791,6 +791,112 @@ namespace MetroidMod.Common.Systems
 			}
 			return item;
 		}
+		public static int OORB()
+		{
+			int item = ModContent.ItemType<MorphBall>();
+			WeightedChance[] list = new WeightedChance[SuitAddonLoader.AddonCount + 5 + MBAddonLoader.AddonCount + 35];
+			int index = 0;
+			foreach (ModSuitAddon addon in SuitAddonLoader.addons)
+			{
+				if (addon.CanGenerateOnChozoStatue()) { list[index++] = new WeightedChance(() => { item = addon.ItemType; }, addon.GenerationChance()); }
+			}
+			foreach (ModMBAddon addon in MBAddonLoader.addons)
+			{
+				if (addon.CanGenerateOnChozoStatue()) { list[index++] = new WeightedChance(() => { item = addon.ItemType; }, addon.GenerationChance()); }
+			}
+			/*list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ShockCoilItem>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<MagMaulItem>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<BattleHammerItem>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<VoltDriverItem>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ImperialistItem>(); }, 6);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<JudicatorItem>(); }, 6);*/
+			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.ItemType<Content.Items.ItemItem.MorphBallItem>(); }, RarityLoader.RarityCount - 4);
+			//list[index++] = new WeightedChance(() => { item = (ushort)ModContent.ItemType<Content.Items.ItemItem.XRayScopeItem>(); }, RarityLoader.RarityCount - 4);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ChargeBeamAddon>(); }, 8);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<HiJumpBoots>(); }, 8);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamAddon>(); }, 8);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<HomingMissileAddon>(); }, 4);
+			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpaceJumpBoots>(); }, 4);
+			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpazerAddon>(); }, 8);
+			}
+			if (NPC.downedBoss3 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceBeamAddon>(); }, 8);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpazerComboAddon>(); }, 4);
+			}
+			if (NPC.downedMechBoss2 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<ChargeBeamV2Addon>(); }, 4);
+			}
+			if (NPC.downedMechBoss1 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamV2Addon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<FlamethrowerAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaMachinegunAddon>(); }, 4);
+			}
+			if (NPC.downedMechBoss3 || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WideBeamAddon>(); }, 4);
+			}
+			if (bossesDown.HasFlag(MetroidBossDown.downedKraid) || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaBeamGreenAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaBeamRedAddon>(); }, 4);
+			}
+			if (Main.hardMode || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SuperMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceSpreaderAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SeekerMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WavebusterAddon>(); }, 4);
+			}
+			if (NPC.downedPlantBoss || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NovaComboAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NovaBeamAddon>(); }, 4);
+			}
+			if (NPC.downedMoonlord || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustComboAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SolarComboAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaComboAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SolarBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<StardustBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<VortexBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<LuminiteBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NebulaBeamAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<OmegaCannonAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PhazonBeamAddon>(); }, 4);
+			}
+			if (NPC.downedMechBossAny || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<DiffusionMissileAddon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpaceJump>(); }, 4);
+			}
+			if (NPC.downedChristmasIceQueen || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceBeamV2Addon>(); }, 4);
+				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceSuperMissileAddon>(); }, 4);
+			}
+			Array.Resize(ref list, index);
+			double numericValue = WorldGen.genRand.Next(0, (int)list.Sum(p => p.Ratio));
+
+			foreach (WeightedChance parameter in list)
+			{
+				numericValue -= parameter.Ratio;
+
+				if (!(numericValue <= 0)) { continue; }
+
+				parameter.Func();
+				break;
+			}
+			return item;
+		}
 
 		public static ushort StatueItem(int i, int j)
 		{
@@ -1607,7 +1713,7 @@ namespace MetroidMod.Common.Systems
 			Hatch(doorX, doorY);
 
 			int bossRoomWidth = 80;
-			int bossRoomHeight = 25;
+			int bossRoomHeight = 30;
 			int bossRoomX = saveRoomX + saveRoomWidth - 4;
 			int bossRoomY = y + height - bossRoomHeight;
 			doorX = bossRoomX;

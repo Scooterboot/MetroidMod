@@ -31,7 +31,7 @@ BOSS OVERHAUL:
 Torizo:
 -spews bombs less often, more of them, faster, less items dropped
 -make him jump around more often, possibly "juke" the player when above him
-	FTW: destroys platforms and ropes
+	FTW: destroys platforms and ropes, headless phase unavoidable
 Serris:
 -less vuln time, x phase spews x parasites that slow, make core face player
 -enrages out of ocean

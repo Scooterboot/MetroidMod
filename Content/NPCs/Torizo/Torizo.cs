@@ -67,7 +67,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
+			NPC.lifeMax = (int)(NPC.lifeMax * balance); //*.7f
 			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -988,7 +988,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					HeadFrame = 3;
 					spawnAlpha = 0f;
 				}
-				// jump back
+				// jump
 				if (NPC.ai[0] == 2)
 				{
 					Player player = Main.player[NPC.target];
@@ -1016,15 +1016,15 @@ namespace MetroidMod.Content.NPCs.Torizo
 					{
 						if (NPC.ai[2] == 1)
 						{
-							if (NPC.ai[1] == 1)
+							if (NPC.ai[1] == 1)//jump back
 							{
 								NPC.velocity.X = -7 * NPC.direction;
 								NPC.velocity.Y = -12f;
 							}
-							else
+							else //jump up
 							{
 								NPC.velocity.X = MathHelper.Clamp((player.Center.X - NPC.Center.X) * 0.015f, -7, 7);
-								NPC.velocity.Y = -16f;
+								NPC.velocity.Y = expert ? -20f : master ? -24f : legend ? -28f : -16f;
 							}
 							NPC.ai[2] = 2;
 						}

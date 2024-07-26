@@ -142,14 +142,14 @@ namespace MetroidMod.Content.NPCs.Torizo
 		{
 			if (NPC.ai[1] == 0f)
 			{
-				Base.StrikeNPC(hit);
+				//Base.StrikeNPC(hit);
 			}
 		}
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
 			if (NPC.ai[1] == 0f)
 			{
-				Base.StrikeNPC(hit);
+				//Base.StrikeNPC(hit);
 			}
 		}
 
