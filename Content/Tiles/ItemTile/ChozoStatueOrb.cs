@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -18,6 +19,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Main.tileSpelunker[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
+			TileObjectData.newTile.AnchorBottom = new AnchorData(Terraria.Enums.AnchorType.None, TileObjectData.newTile.Width, 0);
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(90, 90, 90), name);
 			Main.tileOreFinderPriority[Type] = 807;
@@ -48,7 +50,8 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			}*/
 			if (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server)
 			{
-				return false;
+				base.RightClick(i, j);
+				return true;
 			}
 			else 
 			{

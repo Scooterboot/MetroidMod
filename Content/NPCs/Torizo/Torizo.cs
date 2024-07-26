@@ -803,7 +803,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						}
 					}
 
-					if (NPC.ai[2] > 60)
+					if (!legend ? NPC.ai[2] > 60 : NPC.ai[2] > 20)
 					{
 						NPC.TargetClosest(true);
 						NPC.netUpdate = true;
@@ -905,7 +905,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					else
 					{
 						NPC.ai[3]++;
-						if (NPC.ai[3] > 300)
+						if (!legend ? NPC.ai[3] >  300 : NPC.ai[3] >100)
 						{
 							NPC.netUpdate = true;
 
@@ -1005,7 +1005,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 							NPC.velocity.X = 0f;
 						}
 
-						anim_JumpTransition += 0.075f;
+						anim_JumpTransition += !legend? 0.075f : 0.25f;
 						if (anim_JumpTransition >= 1f)
 						{
 							anim_JumpTransition = 1f;
@@ -1031,17 +1031,17 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 						if (anim_Jump < 2f)
 						{
-							anim_Jump = Math.Min(anim_Jump + 0.25f, 2f);
+							anim_Jump = Math.Min(anim_Jump += !legend? 0.25f : 0.75f, 2f);
 						}
 						else
 						{
 							if (NPC.velocity.Y < 0f)
 							{
-								anim_Jump = Math.Min(anim_Jump + 0.15f, 3f);
+								anim_Jump = Math.Min(anim_Jump += !legend? 0.15f :0.45f, 3f);
 							}
 							else
 							{
-								anim_Jump = Math.Max(anim_Jump - 0.05f, 2f);
+								anim_Jump = Math.Max(anim_Jump -= !legend? 0.05f : .15f, 2f);
 								anim_JumpTransition = Math.Max(anim_JumpTransition - 0.025f, 0.5f);
 							}
 						}
@@ -1059,7 +1059,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						NPC.velocity.X = 0f;
 						if (anim_Jump > 2f)
 						{
-							anim_Jump -= 0.1f;
+							anim_Jump -= !legend ? 0.1f : 0.3f;
 						}
 						anim_Jump = Math.Max(anim_Jump - 0.2f, 1f);
 						if (anim_Jump <= 1f)
@@ -1106,20 +1106,20 @@ namespace MetroidMod.Content.NPCs.Torizo
 					{
 						if (anim_BombTransition < 1f)
 						{
-							anim_BombTransition += 0.075f;
+							anim_BombTransition += !legend? 0.075f : 0.250f;
 							HeadFrame = 4;
 						}
 						else
 						{
 							anim_BombTransition = 1f;
-							anim_Bomb = Math.Min(anim_Bomb + 0.075f, 4f);
+							anim_Bomb = Math.Min(anim_Bomb += !legend ? 0.075f : 0.250f, 4f);
 
 							if (HeadFrame < 8)
 							{
-								HeadFrameCounter++;
+								HeadFrameCounter+= !legend? 1 : 2;
 								if (HeadFrameCounter > 14)
 								{
-									HeadFrame++;
+									HeadFrame += !legend? 1 : 2;
 									HeadFrameCounter = 0;
 								}
 							}
@@ -1128,7 +1128,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 								HeadFrame = 8;
 								HeadFrameCounter = 0;
 
-								NPC.ai[2]++;
+								NPC.ai[2] += !legend ? 1f :2.5f ;
 								if (NPC.ai[2] > 5)
 								{
 									NPC.ai[1] = 1;
@@ -1162,7 +1162,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						}
 
 						NPC.ai[2]++;
-						if (NPC.ai[2] > 60 || !headFlag)
+						if (!legend ? NPC.ai[2] > 60 : NPC.ai[2]> 20 || !headFlag)
 						{
 							NPC.ai[1] = 2;
 							NPC.ai[2] = 0;
@@ -1171,10 +1171,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 					}
 					if (NPC.ai[1] == 2)
 					{
-						anim_Bomb = Math.Max(anim_Bomb - 0.075f, 1f);
+						anim_Bomb = Math.Max(anim_Bomb -= !legend ? 0.075f : 0.250f, 1f);
 						if (HeadFrame > 4)
 						{
-							HeadFrameCounter++;
+							HeadFrameCounter+= !legend ? 1 : 3 ;
 							if (HeadFrameCounter > 14)
 							{
 								HeadFrame--;
@@ -1183,7 +1183,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						}
 						else if (anim_BombTransition > 0f)
 						{
-							anim_BombTransition -= 0.075f;
+							anim_BombTransition -= !legend ? 0.075f : 0.250f;
 							HeadFrame = 3;
 						}
 						else
@@ -1230,10 +1230,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 						{
 							anim_ClawTransition = 1f;
 
-							anim_Claw += 0.05f;
+							anim_Claw += !legend? 0.05f : 0.15f;
 							if ((anim_Claw >= 3f && anim_Claw < 4f) || (anim_Claw >= 7f && anim_Claw < 8f))
 							{
-								anim_Claw += 0.05f;
+								anim_Claw += !legend ? 0.05f : 0.15f;
 							}
 							if (anim_Claw >= 9f)
 							{
