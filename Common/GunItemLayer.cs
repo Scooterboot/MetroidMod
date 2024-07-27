@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static MetroidMod.Sounds;
 
 namespace MetroidMod.Common
 {
@@ -39,7 +40,7 @@ namespace MetroidMod.Common
 
 				int num80 = 10;
 				Vector2 vector7 = new(tex.Width / 2, tex.Height / 2);
-				Vector2 vector8 = new(24f / 2, tex.Height / 2);
+				Vector2 vector8 = Main.DrawPlayerItemPos(P.gravDir, I.type);
 				num80 = (int)vector8.X;
 				vector7.Y = vector8.Y;
 				Vector2 origin4 = new(-num80, tex.Height / 2);
