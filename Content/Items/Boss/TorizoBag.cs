@@ -1,3 +1,4 @@
+using MetroidMod.Content.Items.Accessories;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -30,6 +31,7 @@ namespace MetroidMod.Content.Items.Boss
 
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
+			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<TorizoEyeNecklace>(), 1));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.EnergyShard>(), 1, 15, 36));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.ChoziteOre>(), 1, 30, 90));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));

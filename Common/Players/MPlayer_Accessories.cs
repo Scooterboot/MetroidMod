@@ -64,6 +64,8 @@ namespace MetroidMod.Common.Players
 		public int screwSpeedDelay = 0;
 		public int screwAttackDmg = 0;
 
+		public bool Eyed = false;
+
 		/// <summary>
 		/// The amount of Life Reserve tanks a player has.
 		/// </summary>
@@ -94,6 +96,7 @@ namespace MetroidMod.Common.Players
 		{
 			powerGrip = false;
 
+			Eyed = false;
 			speedBooster = false;
 			speedBoosting = false;
 			speedBoostDmg = 0;

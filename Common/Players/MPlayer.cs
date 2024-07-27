@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using MetroidMod.Content.Items.Armors;
 using static MetroidMod.Sounds;
+using Terraria.GameContent.ItemDropRules;
 
 namespace MetroidMod.Common.Players
 {
@@ -530,12 +531,23 @@ namespace MetroidMod.Common.Players
 				dashTime++;
 			}
 		}
+		float oof = Main.rand.NextFloat(1f, 2f);
 		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
 		{
+			if (Eyed)
+			{
+				modifiers.FinalDamage /= oof;
+				modifiers.KnockbackImmunityEffectiveness *= 0;
+			}
 			ModifyHurt_SuitEnergy(ref modifiers);
 		}
 		public override void PostHurt(Player.HurtInfo info)
 		{
+			if (Eyed)
+			{
+				info.Knockback *= oof;
+				Player.immuneTime /= (int)oof;
+			}
 			PostHurt_SuitEnergy(info);
 		}
 		public override bool ConsumableDodge(Player.HurtInfo info)

@@ -3070,6 +3070,17 @@ Mods: {
 				// DisplayName: Chozo Saw
 				// Tooltip: ""
 			}
+
+			TorizoEyeNecklace: {
+				// DisplayName: Torizo Eye Necklace
+				/* Tooltip:
+					'''
+					Randomly reduces damage taken, up to 50%
+					Randomly increases knockback taken, up to 100%
+					Randomly reduces immunnity frames, up to 50%
+					Removes knockback immunity
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -3088,22 +3099,22 @@ Mods: {
 				// DisplayName: ???
 
 				TownNPCMood: {
-					// Content: I am content.
-					// NoHome: I hate not having a home.
-					// FarFromHome: I am too far from home.
-					// LoveSpace: I love having so much space.
-					// DislikeCrowded: I dislike how crowded I am.
-					// HateCrowded: I hate how crowded I am.
-					// LoveBiome: I love {BiomeName}.
-					// LikeBiome: I like {BiomeName}.
-					// DislikeBiome: I dislike {BiomeName}.
-					// HateBiome: I hate {BiomeName}.
-					// LoveNPC: I love {NPCName}.
-					// LikeNPC: I like {NPCName}.
-					// DislikeNPC: I dislike {NPCName}.
-					// HateNPC: I hate {NPCName}.
-					// LikeNPC_Princess: I like {NPCName}.
-					// Princess_LovesNPC: I like {NPCName}.
+					// Content: My name is Deez.
+					// NoHome: My name is Deez.
+					// FarFromHome: My name is Deez.
+					// LoveSpace: My name is Deez.
+					// DislikeCrowded: My name is Deez.
+					// HateCrowded: My name is Deez.
+					// LoveBiome: My name is Deez.
+					// LikeBiome: My name is Deez.
+					// DislikeBiome: My name is Deez.
+					// HateBiome: My name is Deez.
+					// LoveNPC: My name is Deez.
+					// LikeNPC: My name is Deez.
+					// DislikeNPC: My name is Deez.
+					// HateNPC: My name is Deez.
+					// LikeNPC_Princess: My name is Deez.
+					// Princess_LovesNPC: My name is Deez.
 				}
 			}
 
@@ -3223,22 +3234,22 @@ Mods: {
 				// DisplayName: ???
 
 				TownNPCMood: {
-					// Content: I am content.
-					// NoHome: I hate not having a home.
-					// FarFromHome: I am too far from home.
-					// LoveSpace: I love having so much space.
-					// DislikeCrowded: I dislike how crowded I am.
-					// HateCrowded: I hate how crowded I am.
-					// LoveBiome: I love {BiomeName}.
-					// LikeBiome: I like {BiomeName}.
-					// DislikeBiome: I dislike {BiomeName}.
-					// HateBiome: I hate {BiomeName}.
-					// LoveNPC: I love {NPCName}.
-					// LikeNPC: I like {NPCName}.
-					// DislikeNPC: I dislike {NPCName}.
-					// HateNPC: I hate {NPCName}.
-					// LikeNPC_Princess: I like {NPCName}.
-					// Princess_LovesNPC: I like {NPCName}.
+					// Content: My name is Deez.
+					// NoHome: My name is Deez.
+					// FarFromHome: My name is Deez.
+					// LoveSpace: My name is Deez.
+					// DislikeCrowded: My name is Deez.
+					// HateCrowded: My name is Deez.
+					// LoveBiome: My name is Deez.
+					// LikeBiome: My name is Deez.
+					// DislikeBiome: My name is Deez.
+					// HateBiome: My name is Deez.
+					// LoveNPC: My name is Deez.
+					// LikeNPC: My name is Deez.
+					// DislikeNPC: My name is Deez.
+					// HateNPC: My name is Deez.
+					// LikeNPC_Princess: My name is Deez.
+					// Princess_LovesNPC: My name is Deez.
 				}
 			}
 
