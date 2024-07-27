@@ -72,31 +72,48 @@ namespace MetroidMod.Common.Players
 		public static int GetHelmet(Player player)
 		{
 			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitHelmet), EquipType.Head);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
+			if(player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>())
 			{
-				if (msa[i] == null) { continue; }
-				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Head);
-				if (temp != -1)
+				msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitHelmet), EquipType.Head);
+				ModSuitAddon[] msa = GetPowerSuit(player);
+				for (int i = 0; i < msa.Length; i++)
 				{
-					msaEqu = temp;
+					if (msa[i] == null) { continue; }
+					int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Head);
+					if (temp != -1)
+					{
+						msaEqu = temp;
+					}
 				}
+				return msaEqu;
 			}
-
+			else if(player.armor[0].type == ModContent.ItemType<ChoziteHelmet>())
+			{
+				msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(ChoziteHelmet), EquipType.Head);
+			}
 			return msaEqu;
 		}
 		public static Asset<Texture2D> GetHelmetGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<PowerSuitHelmet>().Texture + "_Head_Glow";//"MetroidMod/Content/Items/Armors/PowerSuitHelmet_Head_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
+			Player drawPlayer = info.drawPlayer;
+			string tex= ModContent.GetInstance<PowerSuitHelmet>().Texture + "_Head_Glow";
+			if(drawPlayer.armor[0].type == ModContent.ItemType<PowerSuitHelmet>())
 			{
-				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureHead;
-				if (temp != "" && temp != null)
+				tex = ModContent.GetInstance<PowerSuitHelmet>().Texture + "_Head_Glow";//"MetroidMod/Content/Items/Armors/PowerSuitHelmet_Head_Glow";
+				ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
+				for (int i = 0; i < msa.Length; i++)
 				{
-					tex = temp + "_Glow";
+					if (msa[i] == null) { continue; }
+					string temp = msa[i].ArmorTextureHead;
+					if (temp != "" && temp != null)
+					{
+						tex = temp + "_Glow";
+					}
 				}
+			}
+			else if(drawPlayer.armor[0].type == ModContent.ItemType<ChoziteHelmet>())
+			{
+				tex = ModContent.GetInstance<ChoziteHelmet>().Texture + "_Head_Glow";
 			}
 
 			return ModContent.Request<Texture2D>(tex);
@@ -104,31 +121,48 @@ namespace MetroidMod.Common.Players
 		public static int GetBreastplate(Player player)
 		{
 			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
+			if (player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>())
 			{
-				if (msa[i] == null) { continue; }
-				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Body);
-				if (temp != -1)
+				msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
+				ModSuitAddon[] msa = GetPowerSuit(player);
+				for (int i = 0; i < msa.Length; i++)
 				{
-					msaEqu = temp;
+					if (msa[i] == null) { continue; }
+					int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Body);
+					if (temp != -1)
+					{
+						msaEqu = temp;
+					}
 				}
+				return msaEqu;
 			}
-
+			else if (player.armor[1].type == ModContent.ItemType<ChoziteBreastplate>())
+			{
+				msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(ChoziteBreastplate), EquipType.Body);
+			}
 			return msaEqu;
 		}
 		public static Asset<Texture2D> GetBreastplateGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Body_Glow";//"MetroidMod/Content/Items/Armors/PowerSuitBreastplate_Body_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
+			Player drawPlayer = info.drawPlayer;
+			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Body_Glow";
+			if (drawPlayer.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>())
 			{
-				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureTorso;
-				if (temp != "" && temp != null)
+				tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Body_Glow";
+				ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
+				for (int i = 0; i < msa.Length; i++)
 				{
-					tex = temp + "_Glow";
+					if (msa[i] == null) { continue; }
+					string temp = msa[i].ArmorTextureTorso;
+					if (temp != "" && temp != null)
+					{
+						tex = temp + "_Glow";
+					}
 				}
+			}
+			else if (drawPlayer.armor[1].type == ModContent.ItemType<ChoziteBreastplate>())
+			{
+				tex = ModContent.GetInstance<ChoziteBreastplate>().Texture + "_Body_Glow";
 			}
 
 			return ModContent.Request<Texture2D>(tex);
@@ -136,19 +170,18 @@ namespace MetroidMod.Common.Players
 		public static int GetArms(Player player)
 		{
 			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitBreastplate), EquipType.Body);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
-			{
-				if (msa[i] == null) { continue; }
-				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Body);
-				if (temp == -1)
+				ModSuitAddon[] msa = GetPowerSuit(player);
+				for (int i = 0; i < msa.Length; i++)
 				{
-					msaEqu = temp;
+					if (msa[i] == null) { continue; }
+					int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Body);
+				if (temp == -1)
+					{
+						msaEqu = temp;
+					}
 				}
+				return msaEqu;
 			}
-
-			return msaEqu;
-		}
 		public static Asset<Texture2D> GetArmsGlow(PlayerDrawSet info)
 		{
 			string tex = ModContent.GetInstance<PowerSuitBreastplate>().Texture + "_Arms_Glow";
@@ -186,31 +219,48 @@ namespace MetroidMod.Common.Players
 		public static int GetGreaves(Player player)
 		{
 			int msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitGreaves), EquipType.Legs);
-			ModSuitAddon[] msa = GetPowerSuit(player);
-			for (int i = 0; i < msa.Length; i++)
+			if (player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 			{
-				if (msa[i] == null) { continue; }
-				int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Legs);
-				if (temp != -1)
+				msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(PowerSuitGreaves), EquipType.Legs);
+				ModSuitAddon[] msa = GetPowerSuit(player);
+				for (int i = 0; i < msa.Length; i++)
 				{
-					msaEqu = temp;
+					if (msa[i] == null) { continue; }
+					int temp = EquipLoader.GetEquipSlot(msa[i].Mod, msa[i].Name, EquipType.Legs);
+					if (temp != -1)
+					{
+						msaEqu = temp;
+					}
 				}
+				return msaEqu;
 			}
-
+			else if (player.armor[2].type == ModContent.ItemType<ChoziteGreaves>())
+			{
+				msaEqu = EquipLoader.GetEquipSlot(MetroidMod.Instance, nameof(ChoziteGreaves), EquipType.Legs);
+			}
 			return msaEqu;
 		}
 		public static Asset<Texture2D> GetGreavesGlow(PlayerDrawSet info)
 		{
-			string tex = ModContent.GetInstance<PowerSuitGreaves>().Texture + "_Legs_Glow";//"MetroidMod/Content/Items/Armors/PowerSuitGreaves_Legs_Glow";
-			ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
-			for (int i = 0; i < msa.Length; i++)
+			Player drawPlayer = info.drawPlayer;
+			string tex = ModContent.GetInstance<PowerSuitGreaves>().Texture + "_Legs_Glow";
+			if (drawPlayer.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 			{
-				if (msa[i] == null) { continue; }
-				string temp = msa[i].ArmorTextureLegs;
-				if (temp != "" && temp != null)
+				tex = ModContent.GetInstance<PowerSuitGreaves>().Texture + "_Legs_Glow";
+				ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
+				for (int i = 0; i < msa.Length; i++)
 				{
-					tex = temp + "_Glow";
+					if (msa[i] == null) { continue; }
+					string temp = msa[i].ArmorTextureLegs;
+					if (temp != "" && temp != null)
+					{
+						tex = temp + "_Glow";
+					}
 				}
+			}
+			else if (drawPlayer.armor[2].type == ModContent.ItemType<ChoziteGreaves>())
+			{
+				tex = ModContent.GetInstance<ChoziteGreaves>().Texture + "_Legs_Glow";
 			}
 
 			return ModContent.Request<Texture2D>(tex);

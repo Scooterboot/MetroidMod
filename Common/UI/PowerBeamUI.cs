@@ -979,19 +979,19 @@ namespace MetroidMod.Common.UI
 				{
 					string text = "Error: addon version mistmatch detected.\n" +
 					"The following slots have had their addon effects disabled:";
-					if (powerBeamTarget.comboError1)
+					if (cannonTarget.comboError1)
 					{
 						text += "\nSecondary";
 					}
-					if (powerBeamTarget.comboError2)
+					if (cannonTarget.comboError2)
 					{
 						text += "\nUtility";
 					}
-					if (powerBeamTarget.comboError3)
+					if (cannonTarget.comboError3)
 					{
 						text += "\nPrimary A";
 					}
-					if (powerBeamTarget.comboError4)
+					if (cannonTarget.comboError4)
 					{
 						text += "\nPrimary B";
 					}

@@ -506,11 +506,12 @@ Mods: {
 			}
 
 			SupercooledEmblem: {
-				Tooltip: '''
-						 15% reduced Overheat
-						 10% increased Hunter damage
-						 10% increased Hunter critical strike chance
-						 '''
+				Tooltip:
+					'''
+					15% reduced Overheat
+					10% increased Hunter damage
+					10% increased Hunter critical strike chance
+					'''
 				DisplayName: Thermal Regulator
 			}
 
@@ -1487,10 +1488,11 @@ Mods: {
 
 			GrappleBeamPlus: {
 				DisplayName: Grapple Beam Lite
-				Tooltip: '''
-						 Only attaches to special tiles
-						 For adventure map use only
-						 '''
+				Tooltip:
+					'''
+					Only attaches to special tiles
+					For adventure map use only
+					'''
 			}
 
 			GrappleBeam: {
