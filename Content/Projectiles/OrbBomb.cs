@@ -1,5 +1,6 @@
 using System;
 using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Items.Miscellaneous;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -66,6 +67,14 @@ namespace MetroidMod.Content.Projectiles
 			{
 				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ItemID.Star);
 			}
+			if (Main.rand.NextBool(20))
+			{
+				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ModContent.ItemType< MissilePickup>());
+			}
+			if (Main.rand.NextBool(20))
+			{
+				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ModContent.ItemType<UAPickup>());
+			}
 			for (int i = 0; i < 15; i++)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 30, 0f, -(Main.rand.Next(4) / 2), 100, Color.White, 1.5f);
@@ -98,7 +107,6 @@ namespace MetroidMod.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
 	}

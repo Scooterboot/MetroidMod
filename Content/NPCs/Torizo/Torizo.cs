@@ -76,6 +76,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapons.TorizoClaws>(), 3));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapons.TorizoSpitter>(), 3));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.EnergyShard>(), 1, 15, 36));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.ChoziteOre>(), 1, 30, 90));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoMusicBox>(), 6));
@@ -735,7 +736,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 				{
 					Player player = Main.player[NPC.target];
 
-					float speed = expert? 0.20f : master? 0.25f : legend? 0.30f : 0.15f; //Dr zoooom
+					float speed = !legend?(expert? 0.20f : master? 0.25f : 0.15f) : 0.30f; //Dr zoooom
 					if (Head == null || !Head.active)
 					{
 						NPC.defense = 10;
@@ -743,7 +744,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					}
 					else
 					{
-						NPC.defense = expert ? 17 : master ? 19 : legend ? 21 : 15; //DR killing head lowers defense but goes faster
+						NPC.defense = !legend?( expert ? 17 : master ? 19 : 15) : 21; //DR killing head lowers defense but goes faster
 					}
 
 					bool walkFlagR = (anim_Walk > 6f - speed && anim_Walk <= 6f);
@@ -1025,7 +1026,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 							else //jump up
 							{
 								NPC.velocity.X = MathHelper.Clamp((player.Center.X - NPC.Center.X) * 0.015f, -7, 7);
-								NPC.velocity.Y = expert ? -20f : master ? -24f : legend ? -28f : -16f;
+								NPC.velocity.Y = !legend?( expert ? -20f : master ? -24f : -16f): -28f;
 							}
 							NPC.ai[2] = 2;
 						}
@@ -1144,7 +1145,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						if ((NPC.ai[2] == 10 || NPC.ai[2] == 20 || NPC.ai[2] == 30) && headFlag)
 						{
 							var entitySource = NPC.GetSource_FromAI();
-							for (int i = 0; i < (expert? 4 : master ? 5 : legend ? 6 : 3); i++) //DR more bombs whee
+							for (int i = 0; i < (!legend ? (expert ? 4 : master ? 5 : 3) : 6); i++) //DR more bombs whee
 							{
 								Vector2 bombPos = HeadPos[0] + new Vector2(32f * NPC.direction, -6f);
 								Vector2 bombVel = new Vector2(3f * NPC.direction, -3f);

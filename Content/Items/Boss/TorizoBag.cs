@@ -28,6 +28,7 @@ namespace MetroidMod.Content.Items.Boss
 
 		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapons.TorizoSpitter>(), 3));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapons.TorizoClaws>(), 3));
 			itemLoot.Add(ItemDropRule.NotScalingWithLuck(ModContent.ItemType<TorizoEyeNecklace>(), 1));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.EnergyShard>(), 1, 15, 36));

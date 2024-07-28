@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			Item.SetWeaponValues(44, 12);
 			Item.DamageType = DamageClass.Magic;//Item.ranged = true;
-			Item.DefaultToStaff(ModContent.ProjectileType<Projectiles.OrbBomb>(), 5, 25, 12);
+			Item.DefaultToStaff(ModContent.ProjectileType<Projectiles.OrbBomb>(), 5, 50, 12);
 			Item.width = 50;
 			Item.height = 50;
 			//Item.useTime = 18;

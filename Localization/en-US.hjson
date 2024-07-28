@@ -3093,7 +3093,21 @@ Mods: {
 
 			TorizoClaws: {
 				DisplayName: Torizo Claws
-				Tooltip: ""
+				Tooltip:
+					'''
+					Fires torizo orbs
+					Has a small chance to drop pickups on exploding
+					'''
+			}
+
+			ChoziteChunk: {
+				DisplayName: Chozite Chunk
+				Tooltip: Exploding bullet but worse
+			}
+
+			TorizoSpitter: {
+				DisplayName: Torizo Spitter
+				Tooltip: Fires shattering chozite chunks
 			}
 		}
 
@@ -3517,6 +3531,7 @@ Mods: {
 			ChozoJackhammerProjectile.DisplayName: Chozo Jackhammer Projectile
 			ChozoSawProjectile.DisplayName: Chozo Saw Projectile
 			OrbBomb.DisplayName: Orb Bomb
+			ChoziteChunk.DisplayName: Chozite Chunk
 		}
 
 		Configs: {
