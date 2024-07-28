@@ -3090,6 +3090,11 @@ Mods: {
 					Removes knockback immunity
 					'''
 			}
+
+			TorizoClaws: {
+				DisplayName: Torizo Claws
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -3511,6 +3516,7 @@ Mods: {
 			ChozoDrillProjectile.DisplayName: Chozo Drill Projectile
 			ChozoJackhammerProjectile.DisplayName: Chozo Jackhammer Projectile
 			ChozoSawProjectile.DisplayName: Chozo Saw Projectile
+			OrbBomb.DisplayName: Orb Bomb
 		}
 
 		Configs: {

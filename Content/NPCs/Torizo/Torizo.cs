@@ -75,6 +75,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.TorizoBag>()));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapons.TorizoClaws>(), 3));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.EnergyShard>(), 1, 15, 36));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.ChoziteOre>(), 1, 30, 90));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoMusicBox>(), 6));

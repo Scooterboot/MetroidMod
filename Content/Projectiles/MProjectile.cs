@@ -439,7 +439,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public void DustyDeath(Projectile Projectile, int dustType, bool noGravity = true, float scale = 1f, Color color = default(Color))
 		{
-			Vector2 pos = Projectile.position;
+			Vector2 pos = Projectile.Center;
 			int freq = 20;
 			if (Projectile.Name.Contains("Charge"))
 			{
