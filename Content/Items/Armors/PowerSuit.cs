@@ -34,10 +34,6 @@ namespace MetroidMod.Content.Items.Armors
 		}
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Power Suit Breastplate");
-			/* Tooltip.SetDefault("+15 overheat capacity\n" +
-			"10% decreased overheat use"); */
-
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()

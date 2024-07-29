@@ -11,7 +11,6 @@ namespace MetroidMod.Content.NPCs.Torizo
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Torizo Orb");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;

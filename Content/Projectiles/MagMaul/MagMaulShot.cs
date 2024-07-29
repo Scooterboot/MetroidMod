@@ -6,10 +6,6 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 {
 	public class MagMaulShot : MProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("MagMaul Shot");
-		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
