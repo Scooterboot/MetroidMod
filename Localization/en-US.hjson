@@ -479,7 +479,6 @@ Mods: {
 					Damage scales off of enemy's contact damage
 					While active, press DOWN to charge a Shine Spark
 					Then press JUMP to activate the charge
-					Shine Spark requires energy
 					'''
 			}
 
@@ -4395,11 +4394,6 @@ Mods: {
 				muteSpeedBooster: {
 					Label: "[i:MetroidMod/SpeedBooster] Silent Speed Booster"
 					Tooltip: Speed Boosting is silent
-				}
-
-				Shinesparkenergy: {
-					Label: "[i:MetroidMod/SpeedBooster] Shinespark energy"
-					Tooltip: Shinespark uses energy like in Super Metroid
 				}
 			}
 
