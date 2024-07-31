@@ -1,7 +1,7 @@
 The Metroid Mod is, quite simply, a mod that adds content based on the Metroid franchise.
 
 [url=https://forums.terraria.org/index.php?threads/metroid-mod.101768/]Forum Thread[/url] | [url=https://discord.com/invite/wfhSvQugFe]Discord[/url]
-[url=https://terrariamods.fandom.com/wiki/Metroid_Mod]Mod Wiki[/url] | [url=https://github.com/Scooterboot/MetroidMod]Github[/url]
+[url=https://terrariamods.wiki.gg/wiki/Metroid_Mod]Mod Wiki[/url] | [url=https://github.com/Scooterboot/MetroidMod]Github[/url]
 
 It adds:
 -A variety of armor sets
