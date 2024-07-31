@@ -212,7 +212,7 @@ namespace MetroidMod.Common.Configs
 		public int useTimeMissileLauncher;
 
 		//[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Starting Ammo")]
-		[Range(1, 10)]
+		[Range(0, 10)]
 		[Increment(1)]
 		[Slider]
 		[DefaultValue(5)]
