@@ -1970,32 +1970,5 @@ namespace MetroidMod.Common.Systems
 				meteorSpawnAttempt--;
 			}
 		}
-
-		public override void PreUpdateEntities()
-		{
-			Main.tileSolid[ModContent.TileType<BlueHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<BlueHatchOpenVertical>()] = false;
-			Main.tileSolid[ModContent.TileType<RedHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<RedHatchOpenVertical>()] = false;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpenVertical>()] = false;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpenVertical>()] = false;
-			Main.tileSolid[ModContent.TileType<LockedHatchOpen>()] = false;
-		}
-
-		//public override void MidUpdateTimeWorld()
-		public override void PostUpdateTime()
-		{
-			Main.tileSolid[ModContent.TileType<BlueHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<BlueHatchOpenVertical>()] = true;
-			Main.tileSolid[ModContent.TileType<RedHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<RedHatchOpenVertical>()] = true;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpenVertical>()] = true;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpenVertical>()] = true;
-			Main.tileSolid[ModContent.TileType<LockedHatchOpen>()] = true;
-		}
 	}
 }
