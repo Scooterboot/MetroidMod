@@ -3108,6 +3108,11 @@ Mods: {
 				DisplayName: Torizo Spitter
 				Tooltip: Fires shattering chozite chunks
 			}
+
+			TorizoRelic: {
+				DisplayName: Torizo Relic
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
