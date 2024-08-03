@@ -1981,6 +1981,7 @@ namespace MetroidMod.Common.Systems
 			Main.tileSolid[ModContent.TileType<GreenHatchOpenVertical>()] = false;
 			Main.tileSolid[ModContent.TileType<YellowHatchOpen>()] = false;
 			Main.tileSolid[ModContent.TileType<YellowHatchOpenVertical>()] = false;
+			Main.tileSolid[ModContent.TileType<LockedHatchOpen>()] = false;
 		}
 
 		//public override void MidUpdateTimeWorld()
@@ -1994,6 +1995,7 @@ namespace MetroidMod.Common.Systems
 			Main.tileSolid[ModContent.TileType<GreenHatchOpenVertical>()] = true;
 			Main.tileSolid[ModContent.TileType<YellowHatchOpen>()] = true;
 			Main.tileSolid[ModContent.TileType<YellowHatchOpenVertical>()] = true;
+			Main.tileSolid[ModContent.TileType<LockedHatchOpen>()] = true;
 		}
 	}
 }

@@ -269,6 +269,8 @@ Mods: {
 			// VortexAugmentTile.MapEntry: Vortex Augment Tile
 			// XRayScopeTile.MapEntry: X Ray Scope Tile
 			// UAExpansionTile.MapEntry: UA Expansion
+			// LockedHatch.MapEntry: Locked Hatch
+			// LockedHatchOpen.MapEntry: Locked Hatch Open
 		}
 
 		Buffs: {
@@ -3111,6 +3113,11 @@ Mods: {
 
 			TorizoRelic: {
 				// DisplayName: Torizo Relic
+				// Tooltip: ""
+			}
+
+			LockedHatch: {
+				// DisplayName: Locked Hatch
 				// Tooltip: ""
 			}
 		}
