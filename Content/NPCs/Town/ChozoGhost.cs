@@ -9,6 +9,7 @@ using MetroidMod.Content.Items.Tiles;
 using MetroidMod.Content.Items.Tools;
 using MetroidMod.Content.Items.Vanity;
 using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.Pets;
 using MetroidMod.Content.SuitAddons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -241,6 +242,7 @@ namespace MetroidMod.Content.NPCs.Town
 			npcShop.Add<PYRPlating>(Condition.IsNpcShimmered);
 			npcShop.Add<SRXPlating>(Condition.IsNpcShimmered);
 			npcShop.Add<ResearchCenterPlating>(Condition.IsNpcShimmered);
+			npcShop.Add<CrocomireBone>(Condition.InUnderworld);
 			npcShop.Register();
 		}
 

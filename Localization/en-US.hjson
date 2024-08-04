@@ -326,6 +326,11 @@ Mods: {
 				DisplayName: Geemer Pet Buff
 				Description: A Geemer is zooming around you
 			}
+
+			CrocomirePetBuff: {
+				DisplayName: Crocomire
+				Description: Crocomire is stoked to be here!
+			}
 		}
 
 		Items: {
@@ -3113,6 +3118,11 @@ Mods: {
 				DisplayName: Torizo Relic
 				Tooltip: ""
 			}
+
+			CrocomireBone: {
+				DisplayName: Crocomire Bone
+				Tooltip: Summons a miniature pet Crocomire
+			}
 		}
 
 		NPCs: {
@@ -3536,6 +3546,7 @@ Mods: {
 			ChozoSawProjectile.DisplayName: Chozo Saw Projectile
 			OrbBomb.DisplayName: Orb Bomb
 			ChoziteChunk.DisplayName: Chozite Chunk
+			CrocomirePet.DisplayName: Crocomire Pet
 		}
 
 		Configs: {
