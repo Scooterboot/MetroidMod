@@ -17,12 +17,12 @@ namespace MetroidMod.Content.Projectiles
 			base.SetDefaults();
 			Projectile.width = 20;
 			Projectile.height = 20;
-			Projectile.aiStyle = -1;
+			Projectile.aiStyle = 1;
 		}
 
 		public override void AI()
 		{
-			if (Projectile.velocity.X == 0 || Projectile.velocity.Y == 0)
+			/*if (Projectile.velocity.X == 0 || Projectile.velocity.Y == 0) //TODO No likey multiplayer
 			{
 				Projectile.velocity *= 0f;
 
@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles
 				Projectile.width = 30;
 				Projectile.height = 60;
 				Projectile.position.X -= Projectile.width / 2f;
-				Projectile.position.Y -= Projectile.height;*/
+				Projectile.position.Y -= Projectile.height;
 
 				for (int i = 0; i < 25; i++)
 				{
@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Projectiles
 			else
 			{
 				Projectile.velocity.Y += 0.1f;
-			}
+			}*/
 		}
 		public override void OnKill(int timeLeft)
 		{

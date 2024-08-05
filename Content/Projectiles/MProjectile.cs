@@ -625,7 +625,7 @@ namespace MetroidMod.Content.Projectiles
 			foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
 			{
 				NPC npc = Main.npc[who.whoAmI];
-				if (Collision.CanHitLine(Projectile.Center, Projectile.width, Projectile.height, npc.Center, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit && !npc.dontTakeDamage && !npc.friendly)
+				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit && !npc.dontTakeDamage && !npc.friendly)
 				{
 					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>()/100f, Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
 				}

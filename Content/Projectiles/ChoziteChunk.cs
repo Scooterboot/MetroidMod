@@ -1,7 +1,9 @@
 using System;
+using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -23,7 +25,28 @@ namespace MetroidMod.Content.Projectiles
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
+			if (Projectile.direction == -1)
+				Projectile.spriteDirection= -1;
+
+			float ballrotoffset = 0f;
+			if (Projectile.velocity.Y != Vector2.Zero.Y)
+			{
+				if (Projectile.velocity.X != 0f)
+					ballrotoffset += 0.05f * Projectile.velocity.X;
+				else
+					ballrotoffset += 0.25f * Projectile.direction;
+			}
+			else if (Projectile.velocity.X < 0f)
+				ballrotoffset -= 0.2f;
+			else if (Projectile.velocity.X > 0f)
+				ballrotoffset += 0.2f;
+
+			if (Projectile.velocity.X != 0f)
+				ballrotoffset += 0.025f * Projectile.velocity.X;
+			else
+				ballrotoffset += 0.125f * Projectile.direction;
+			Projectile.rotation += ballrotoffset;
+			//Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 

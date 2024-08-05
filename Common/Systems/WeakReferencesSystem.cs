@@ -5,6 +5,7 @@ using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Boss;
 using MetroidMod.Content.Items.Tiles;
 using MetroidMod.Content.Items.Vanity;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Kraid;
 using MetroidMod.Content.NPCs.Nightmare;
@@ -55,7 +56,7 @@ namespace MetroidMod
 				new Dictionary<string, object>()
 				{
 					["spawnItems"] = ModContent.ItemType<TorizoSummon>(),
-					["collectibles"] = new List<int>() { ModContent.ItemType<TorizoTrophy>(), ModContent.ItemType<TorizoMask>(), ModContent.ItemType<TorizoMusicBox>() },
+					["collectibles"] = new List<int>() { ModContent.ItemType<TorizoTrophy>(), ModContent.ItemType<TorizoMask>(), ModContent.ItemType<TorizoMusicBox>(), ModContent.ItemType<TorizoClaws>(), ModContent.ItemType<TorizoSpitter>(), ModContent.ItemType<TorizoRelic>() },
 					["customPortrait"] = BossChecklistRect("MetroidMod/Content/NPCs/Torizo/Torizo_BossLog")
 				}
 			);
