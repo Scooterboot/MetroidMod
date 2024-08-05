@@ -13,15 +13,13 @@ namespace MetroidMod.Content.Hatches
 	{
 		private static IEnumerable<int> GetOpenHatchTileTypes()
 		{
-			yield return ModContent.TileType<BlueHatchOpen>();
-			yield return ModContent.TileType<BlueHatchOpenVertical>();
-			yield return ModContent.TileType<RedHatchOpen>();
-			yield return ModContent.TileType<RedHatchOpenVertical>();
-			yield return ModContent.TileType<YellowHatchOpen>();
-			yield return ModContent.TileType<YellowHatchOpenVertical>();
-			yield return ModContent.TileType<GreenHatchOpen>();
-			yield return ModContent.TileType<GreenHatchOpenVertical>();
-			yield return ModContent.TileType<LockedHatchOpen>();
+			foreach(HatchTile hatchTile in ModContent.GetContent<HatchTile>())
+			{
+				if(hatchTile.Open)
+				{
+					yield return hatchTile.Type;
+				}
+			}
 		}
 
 		public override void PreUpdateEntities()

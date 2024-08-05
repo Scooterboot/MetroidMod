@@ -1,7 +1,9 @@
 #region Using directives
 
 using MetroidMod.Common.Systems;
+using MetroidMod.Content.Hatches;
 using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -41,6 +43,24 @@ namespace MetroidMod.Content.Items.Tools
 				MSystem.dontRegen[Player.tileTargetX, Player.tileTargetY] = !MSystem.dontRegen[Player.tileTargetX, Player.tileTargetY];
 				Wiring.ReActive(Player.tileTargetX, Player.tileTargetY);
 			}
+
+			
+			if (TileUtils.TryGetTileEntityAs(Player.tileTargetX, Player.tileTargetY, out HatchTileEntity tileEntity))
+			{
+				tileEntity.Behavior.HitChozoWrench();
+
+				Color color = tileEntity.Behavior.BlueConversion == HatchBlueConversionStatus.Enabled ?
+					Color.Cyan : Color.Red;
+
+				int i = tileEntity.Position.X;
+				int j = tileEntity.Position.Y;
+				Vector2 topLeft = new Point(i, j).ToWorldCoordinates(0, 0);
+				Vector2 bottomRight = new Point(i + 4, j + 4).ToWorldCoordinates(0, 0);
+				Dust.QuickBox(topLeft, bottomRight, 8, color, null);
+
+				return true;
+			}
+
 			return base.UseItem(player);
 		}
 

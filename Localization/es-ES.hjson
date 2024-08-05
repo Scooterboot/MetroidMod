@@ -271,6 +271,26 @@ Mods: {
 			// UAExpansionTile.MapEntry: UA Expansion
 			// LockedHatch.MapEntry: Locked Hatch
 			// LockedHatchOpen.MapEntry: Locked Hatch Open
+			// RedHatchTile.MapEntry: Red Hatch Tile
+			// BlueHatchTile.MapEntry: Blue Hatch Tile
+			// GreenHatchTile.MapEntry: Green Hatch Tile
+			// YellowHatchTile.MapEntry: Yellow Hatch Tile
+			// BlueHatch_.MapEntry: Blue Hatch_
+			// BlueHatch_Open.MapEntry: Blue Hatch_ Open
+			// BlueHatch_Vertical.MapEntry: Blue Hatch_ Vertical
+			// BlueHatch_OpenVertical.MapEntry: Blue Hatch_ Open Vertical
+			// GreenHatch_.MapEntry: Green Hatch_
+			// GreenHatch_Open.MapEntry: Green Hatch_ Open
+			// GreenHatch_Vertical.MapEntry: Green Hatch_ Vertical
+			// GreenHatch_OpenVertical.MapEntry: Green Hatch_ Open Vertical
+			// RedHatch_.MapEntry: Red Hatch_
+			// RedHatch_Open.MapEntry: Red Hatch_ Open
+			// RedHatch_Vertical.MapEntry: Red Hatch_ Vertical
+			// RedHatch_OpenVertical.MapEntry: Red Hatch_ Open Vertical
+			// YellowHatch_.MapEntry: Yellow Hatch_
+			// YellowHatch_Open.MapEntry: Yellow Hatch_ Open
+			// YellowHatch_Vertical.MapEntry: Yellow Hatch_ Vertical
+			// YellowHatch_OpenVertical.MapEntry: Yellow Hatch_ Open Vertical
 		}
 
 		Buffs: {
@@ -3118,6 +3138,26 @@ Mods: {
 
 			LockedHatch: {
 				// DisplayName: Locked Hatch
+				// Tooltip: ""
+			}
+
+			RedHatchItem: {
+				// DisplayName: Red Hatch Item
+				// Tooltip: ""
+			}
+
+			BlueHatchItem: {
+				// DisplayName: Blue Hatch Item
+				// Tooltip: ""
+			}
+
+			GreenHatchItem: {
+				// DisplayName: Green Hatch Item
+				// Tooltip: ""
+			}
+
+			YellowHatchItem: {
+				// DisplayName: Yellow Hatch Item
 				// Tooltip: ""
 			}
 		}
