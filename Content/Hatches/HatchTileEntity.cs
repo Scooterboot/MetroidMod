@@ -1,5 +1,7 @@
 ﻿using MetroidMod.Content.Hatches.Variants;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -56,12 +58,15 @@ namespace MetroidMod.Content.Hatches
 			}
 		}
 
+		private Vector2 Center => (Position + new Terraria.DataStructures.Point16(2, 2)).ToWorldCoordinates(0, 0);
+
 		public void Open()
 		{
 			if (IsOpen) return;
 			UpdateTiles(true);
 			Animation.Open();
 			Autoclose.Open();
+			SoundEngine.PlaySound(Sounds.Tiles.HatchOpen, Center);
 		}
 
 		public void Close()
@@ -69,6 +74,7 @@ namespace MetroidMod.Content.Hatches
 			if (!IsOpen) return;
 			UpdateTiles(false);
 			Animation.Close();
+			SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
 		}
 
 		public override void Update()
