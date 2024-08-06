@@ -14,6 +14,8 @@ namespace MetroidMod.Content.Hatches
 	{
 		public abstract ModHatch Hatch { get; }
 
+		public override string Name => Hatch.Name;
+		public override string Texture => base.Texture + "Item";
 		public override LocalizedText DisplayName => Hatch.DisplayName;
 		public override void SetStaticDefaults()
 		{

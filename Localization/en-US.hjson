@@ -3088,14 +3088,14 @@ Mods: {
 				Tooltip: Summons a miniature pet Crocomire
 			}
 
-			BlueHatchItem.Tooltip:
+			BlueHatch.Tooltip:
 				'''
 				Right click to place vertically
 				Opens when hit with any projectile
 				Can also be opened with right click or when the bubble shield is wired
 				When the metal base is wired, can be locked when powered
 				'''
-			GreenHatchItem.Tooltip:
+			GreenHatch.Tooltip:
 				'''
 				Right click to place vertically
 				Opens when hit with a Super Missile
@@ -3103,7 +3103,7 @@ Mods: {
 				Powering the metal bottom (or right when vertical) locks the hatch
 				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
 				'''
-			RedHatchItem.Tooltip:
+			RedHatch.Tooltip:
 				'''
 				Right click to place vertically
 				Opens when hit a Missile
@@ -3111,7 +3111,7 @@ Mods: {
 				Powering the metal bottom (or right when vertical) locks the hatch
 				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
 				'''
-			YellowHatchItem.Tooltip:
+			YellowHatch.Tooltip:
 				'''
 				Right click to place vertically
 				Opens when hit with a Power Bomb
