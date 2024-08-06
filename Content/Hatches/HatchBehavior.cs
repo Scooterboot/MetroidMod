@@ -2,8 +2,9 @@
 
 namespace MetroidMod.Content.Hatches
 {
+	// Why so many interfaces? I have no idea what I'm doing!!!! TODO???
 	internal class HatchBehavior
-		(ModHatch hatch, IHatchOpenController openController, IHatchVisualController Visual)
+		(IHatchProvider hatchProvider, IHatchOpenController openController, IHatchVisualController Visual)
 	{
 
 		/// <summary>
@@ -39,7 +40,7 @@ namespace MetroidMod.Content.Hatches
 		/// <summary>
 		/// The type of hatch that this behavior controls.
 		/// </summary>
-		public ModHatch Hatch { get; } = hatch;
+		public ModHatch Hatch => hatchProvider.Hatch;
 
 		/// <summary>
 		/// Directly open the hatch, without any checks.
@@ -206,6 +207,11 @@ namespace MetroidMod.Content.Hatches
 	internal interface IHatchVisualController
 	{
 		void SetVisualState(HatchVisualState state);
+	}
+
+	internal interface IHatchProvider
+	{
+		ModHatch Hatch { get; }
 	}
 
 	internal enum HatchVisualState

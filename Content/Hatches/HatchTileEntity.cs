@@ -6,7 +6,7 @@ using Terraria.ModLoader.IO;
 
 namespace MetroidMod.Content.Hatches
 {
-	internal class HatchTileEntity : ModTileEntity, IHatchOpenController, IHatchVisualController
+	internal class HatchTileEntity : ModTileEntity, IHatchProvider, IHatchOpenController, IHatchVisualController
 	{
 		private HatchTile HatchTile => ModContent.GetModTile(Main.tile[Position].TileType) as HatchTile;
 
@@ -20,7 +20,7 @@ namespace MetroidMod.Content.Hatches
 		public HatchBehavior Behavior
 		{
 			get {
-				_behavior ??= new(Hatch, this, this);
+				_behavior ??= new(this, this, this);
 				return _behavior;
 			}
 		}
