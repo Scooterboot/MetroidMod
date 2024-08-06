@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
+using Terraria.Localization;
 
 namespace MetroidMod.Content.Hatches
 {
@@ -13,6 +14,7 @@ namespace MetroidMod.Content.Hatches
 	{
 		public abstract ModHatch Hatch { get; }
 
+		public override LocalizedText DisplayName => Hatch.DisplayName;
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 1;

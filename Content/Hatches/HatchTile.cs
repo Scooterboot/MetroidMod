@@ -28,7 +28,7 @@ namespace MetroidMod.Content.Hatches
 			$"{nameof(MetroidMod)}/Content/Hatches/HatchBase{(Vertical ? "Vertical" : string.Empty)}";
 
 		public Color MapColor => Hatch.PrimaryColor;
-		
+
 		/// <summary>
 		/// The tile entity associated with this tile. In the event this is a hatch from a version
 		/// of the mod that had no tile entities (or the tile entity somehow magically died),
@@ -80,7 +80,7 @@ namespace MetroidMod.Content.Hatches
 			TileObjectData.addTile(Type);
 
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
-			AddMapEntry(MapColor, Hatch.LocalizedName);
+			AddMapEntry(MapColor, Hatch.DisplayName);
 			AdjTiles = [TileID.ClosedDoor];
 
 			RegisterItemDrop(Hatch.ItemType);
@@ -100,6 +100,14 @@ namespace MetroidMod.Content.Hatches
 
 			TileEntity(i, j).Behavior.HitRightClick(withKeycard);
 			return true;
+		}
+
+		public override void MouseOver(int i, int j)
+		{
+			Player player = Main.LocalPlayer;
+			player.noThrow = 2;
+			player.cursorItemIconEnabled = true;
+			player.cursorItemIconID = Hatch.ItemType;
 		}
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)

@@ -28,9 +28,10 @@ namespace MetroidMod.Content.Hatches
 		public virtual IHatchAppearance DefaultAppearance => new HatchAppearance(Name);
 
 		/// <summary>
-		/// The localized name of the hatch, which will appear on the minimap.
+		/// The translations to display for the name of this hatch.
+		/// This name will be synced across both the tiles and items this hatch covers.
 		/// </summary>
-		public LocalizedText LocalizedName => this.GetLocalization(nameof(LocalizedName));
+		public LocalizedText DisplayName => this.GetLocalization(nameof(DisplayName));
 
 		public string LocalizationCategory => "Hatches";
 
