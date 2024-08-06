@@ -172,22 +172,6 @@ Mods: {
 			// ChozoStatueNatural.MapEntry: Chozo Statue
 			// EnergyStation.MapEntry: Energy Station
 			// EnergyStationDevtool.MapEntry: Energy Station Devtool
-			// BlueHatch.MapEntry: Blue Hatch
-			// BlueHatchOpen.MapEntry: Blue Hatch Open
-			// BlueHatchOpenVertical.MapEntry: Blue Hatch Open Vertical
-			// BlueHatchVertical.MapEntry: Blue Hatch Vertical
-			// GreenHatch.MapEntry: Green Hatch
-			// GreenHatchOpen.MapEntry: Green Hatch Open
-			// GreenHatchOpenVertical.MapEntry: Green Hatch Open Vertical
-			// GreenHatchVertical.MapEntry: Green Hatch Vertical
-			// RedHatch.MapEntry: Red Hatch
-			// RedHatchOpen.MapEntry: Red Hatch Open
-			// RedHatchOpenVertical.MapEntry: Red Hatch Open Vertical
-			// RedHatchVertical.MapEntry: Red Hatch Vertical
-			// YellowHatch.MapEntry: Yellow Hatch
-			// YellowHatchOpen.MapEntry: Yellow Hatch Open
-			// YellowHatchOpenVertical.MapEntry: Yellow Hatch Open Vertical
-			// YellowHatchVertical.MapEntry: Yellow Hatch Vertical
 			// ChargeBeamTile.MapEntry: Charge Beam
 			// ChargeBeamV2Tile.MapEntry: Diffusion Beam
 			// BattleHammerTile.MapEntry: Battle Hammer
@@ -269,28 +253,6 @@ Mods: {
 			// VortexAugmentTile.MapEntry: Vortex Augment Tile
 			// XRayScopeTile.MapEntry: X Ray Scope Tile
 			// UAExpansionTile.MapEntry: UA Expansion
-			// LockedHatch.MapEntry: Locked Hatch
-			// LockedHatchOpen.MapEntry: Locked Hatch Open
-			// RedHatchTile.MapEntry: Red Hatch Tile
-			// BlueHatchTile.MapEntry: Blue Hatch Tile
-			// GreenHatchTile.MapEntry: Green Hatch Tile
-			// YellowHatchTile.MapEntry: Yellow Hatch Tile
-			// BlueHatch_.MapEntry: Blue Hatch_
-			// BlueHatch_Open.MapEntry: Blue Hatch_ Open
-			// BlueHatch_Vertical.MapEntry: Blue Hatch_ Vertical
-			// BlueHatch_OpenVertical.MapEntry: Blue Hatch_ Open Vertical
-			// GreenHatch_.MapEntry: Green Hatch_
-			// GreenHatch_Open.MapEntry: Green Hatch_ Open
-			// GreenHatch_Vertical.MapEntry: Green Hatch_ Vertical
-			// GreenHatch_OpenVertical.MapEntry: Green Hatch_ Open Vertical
-			// RedHatch_.MapEntry: Red Hatch_
-			// RedHatch_Open.MapEntry: Red Hatch_ Open
-			// RedHatch_Vertical.MapEntry: Red Hatch_ Vertical
-			// RedHatch_OpenVertical.MapEntry: Red Hatch_ Open Vertical
-			// YellowHatch_.MapEntry: Yellow Hatch_
-			// YellowHatch_Open.MapEntry: Yellow Hatch_ Open
-			// YellowHatch_Vertical.MapEntry: Yellow Hatch_ Vertical
-			// YellowHatch_OpenVertical.MapEntry: Yellow Hatch_ Open Vertical
 		}
 
 		Buffs: {
@@ -1352,11 +1314,6 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			BlueHatch: {
-				// DisplayName: Blue Hatch
-				// Tooltip: ""
-			}
-
 			BlueSwitch: {
 				// DisplayName: Blue Switch
 				// Tooltip: ""
@@ -1531,11 +1488,6 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			GreenHatch: {
-				// DisplayName: Green Hatch
-				// Tooltip: ""
-			}
-
 			GreenSwitch: {
 				// DisplayName: Green Switch
 				// Tooltip: ""
@@ -1626,11 +1578,6 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			RedHatch: {
-				// DisplayName: Red Hatch
-				// Tooltip: ""
-			}
-
 			RedSwitch: {
 				// DisplayName: Red Switch
 				// Tooltip: ""
@@ -1688,11 +1635,6 @@ Mods: {
 
 			TourianPipeNatural: {
 				// DisplayName: Tourian Pipe Natural
-				// Tooltip: ""
-			}
-
-			YellowHatch: {
-				// DisplayName: Yellow Hatch
 				// Tooltip: ""
 			}
 
@@ -3136,30 +3078,16 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			LockedHatch: {
-				// DisplayName: Locked Hatch
-				// Tooltip: ""
-			}
-
-			RedHatchItem: {
-				// DisplayName: Red Hatch Item
-				// Tooltip: ""
-			}
-
-			BlueHatchItem: {
-				// DisplayName: Blue Hatch Item
-				// Tooltip: ""
-			}
-
-			GreenHatchItem: {
-				// DisplayName: Green Hatch Item
-				// Tooltip: ""
-			}
-
-			YellowHatchItem: {
-				// DisplayName: Yellow Hatch Item
-				// Tooltip: ""
-			}
+			/* BlueHatchItem.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with any projectile
+				Can also be opened with right click or when the bubble shield is wired
+				When the metal base is wired, can be locked when powered
+				''' */
+			// GreenHatchItem.Tooltip: ""
+			// RedHatchItem.Tooltip: ""
+			// YellowHatchItem.Tooltip: ""
 		}
 
 		NPCs: {
@@ -4608,25 +4536,10 @@ Mods: {
 		}
 
 		Hatches: {
-			BlueHatch: {
-				// LocalizedName: Blue Hatch
-				// DisplayName: Mods.MetroidMod.Hatches.BlueHatch.DisplayName
-			}
-
-			GreenHatch: {
-				// LocalizedName: Green Hatch
-				// DisplayName: Mods.MetroidMod.Hatches.GreenHatch.DisplayName
-			}
-
-			RedHatch: {
-				// LocalizedName: Red Hatch
-				// DisplayName: Mods.MetroidMod.Hatches.RedHatch.DisplayName
-			}
-
-			YellowHatch: {
-				// LocalizedName: Yellow Hatch
-				// DisplayName: Mods.MetroidMod.Hatches.YellowHatch.DisplayName
-			}
+			// BlueHatch.DisplayName: Blue Hatch
+			// GreenHatch.DisplayName: Green Hatch
+			// RedHatch.DisplayName: Red Hatch
+			// YellowHatch.DisplayName: Yellow Hatch
 		}
 	}
 }

@@ -3077,6 +3077,41 @@ Mods: {
 				DisplayName: Torizo Relic
 				Tooltip: ""
 			}
+
+			BlueHatchItem.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with any projectile
+				Can also be opened with right click or when the bubble shield is wired
+				When the metal base is wired, can be locked when powered
+				'''
+
+			GreenHatchItem.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with a Super Missile
+				Can also be opened with Green Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				'''
+
+			RedHatchItem.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit a Missile
+				Can also be opened with Red Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				'''
+
+			YellowHatchItem.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with a Power Bomb
+				Can also be opened with Yellow Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				'''
 		}
 
 		NPCs: {
@@ -4525,21 +4560,10 @@ Mods: {
 		}
 
 		Hatches: {
-			BlueHatch: {
-				DisplayName: Blue Hatch
-			}
-
-			GreenHatch: {
-				DisplayName: Green Hatch
-			}
-
-			RedHatch: {
-				DisplayName: Red Hatch
-			}
-
-			YellowHatch: {
-				DisplayName: Yellow Hatch
-			}
+			BlueHatch.DisplayName: Blue Hatch
+			GreenHatch.DisplayName: Green Hatch
+			RedHatch.DisplayName: Red Hatch
+			YellowHatch.DisplayName: Yellow Hatch
 		}
 	}
 }
