@@ -1181,7 +1181,7 @@ namespace MetroidMod.Content.Items.Weapons
 						shotSound = "ShockCoilStartupSound";
 						texture = "ShockCoil";
 						chargeUpSound = "ShockCoilStartupSound";
-						chargeShotSound = "";
+						chargeShotSound = "ShockCoilLoad";
 						chargeShot = "ShockCoilChargeShot";
 						chargeTex = "ChargeLead_Stardust";
 						useTime = MConfigItems.Instance.useTimeShockCoil;
