@@ -45,17 +45,5 @@ namespace MetroidMod.Content.Hatches
 		{
 			return hatchTiles[open.ToInt() + vertical.ToInt() * 2].Type;
 		}
-
-		public static bool TryGetHatchAs<T>(int i, int j, out T hatch) where T : ModHatch
-		{
-			hatch = null;
-			
-			if(TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
-			{
-				hatch = tileEntity.Hatch as T;
-			}
-
-			return hatch != null;
-		}
 	}
 }

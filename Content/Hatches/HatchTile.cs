@@ -1,7 +1,4 @@
-﻿using System;
-using MetroidMod.Content.Tiles.Hatch;
-using Terraria.ID;
-using Terraria.Localization;
+﻿using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -10,7 +7,6 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.Enums;
-using MetroidMod.Content.Items.Tiles;
 using MetroidMod.Common.Players;
 
 namespace MetroidMod.Content.Hatches
@@ -26,15 +22,29 @@ namespace MetroidMod.Content.Hatches
 		public bool Open { get; } = Open;
 		public bool Vertical { get; } = Vertical;
 
-		// TODO the _ is to avoid conflicts, but also ensure that old worlds load properly
 		public override string Name =>
-			$"{Hatch.Name}_{(Open ? "Open" : string.Empty)}{(Vertical ? "Vertical" : string.Empty)}";
-		public override string Texture =>
-			Vertical ? ModContent.GetInstance<Tiles.Hatch.BlueHatchVertical>().Texture
-				: ModContent.GetInstance<Tiles.Hatch.BlueHatch>().Texture;
+			$"{Hatch.Name}{(Open ? "Open" : string.Empty)}{(Vertical ? "Vertical" : string.Empty)}";
+		public override string Texture => 
+			$"{nameof(MetroidMod)}/Content/Hatches/HatchBase{(Vertical ? "Vertical" : string.Empty)}";
 
 		public Color MapColor => Hatch.PrimaryColor;
-		public ModTileEntity TileEntity => ModContent.GetInstance<HatchTileEntity>();
+		
+		/// <summary>
+		/// The tile entity associated with this tile. In the event this is a hatch from a version
+		/// of the mod that had no tile entities (or the tile entity somehow magically died),
+		/// we ensure we create a new one so it's available at all times.
+		/// </summary>
+		public HatchTileEntity TileEntity(int i, int j)
+		{
+			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
+			{
+				return tileEntity;
+			}
+
+			var position = TileUtils.GetTopLeftTileInMultitile(i, j);
+			int id = ModContent.GetInstance<HatchTileEntity>().Place(position.X, position.Y);
+			return (HatchTileEntity)Terraria.DataStructures.TileEntity.ByID[id];
+		}
 
 
 		public override void SetStaticDefaults()
@@ -64,7 +74,7 @@ namespace MetroidMod.Content.Hatches
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.newTile.CoordinateHeights = [16, 16, 16, 16];
 
-			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(TileEntity.Hook_AfterPlacement, -1, 0, true);
+			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<HatchTileEntity>().Hook_AfterPlacement, -1, 0, true);
 			TileObjectData.newTile.UsesCustomCanPlace = true;
 
 			TileObjectData.addTile(Type);
@@ -88,13 +98,13 @@ namespace MetroidMod.Content.Hatches
 				if (Hatch is Variants.YellowHatch && mp.YellowKeycard) withKeycard = true;
 			}
 
-			TileUtils.GetTileEntity<HatchTileEntity>(i, j).Behavior.HitRightClick(withKeycard);
+			TileEntity(i, j).Behavior.HitRightClick(withKeycard);
 			return true;
 		}
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			HatchTileEntity tileEntity = TileUtils.GetTileEntity<HatchTileEntity>(i, j);
+			HatchTileEntity tileEntity = TileEntity(i, j);
 
 			Tile tile = Main.tile[i, j];
 
@@ -127,7 +137,7 @@ namespace MetroidMod.Content.Hatches
 
 		public override void HitWire(int i, int j)
 		{
-			HatchTileEntity tileEntity = TileUtils.GetTileEntity<HatchTileEntity>(i, j);
+			HatchTileEntity tileEntity = TileEntity(i, j);
 			var origin = tileEntity.Position;
 
 			var trigger = GetHatchWireTriggerAt(i - origin.X, j - origin.Y);
@@ -187,7 +197,7 @@ namespace MetroidMod.Content.Hatches
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			TileEntity.Kill(i, j);
+			ModContent.GetInstance<HatchTileEntity>().Kill(i, j);
 		}
 	}
 }

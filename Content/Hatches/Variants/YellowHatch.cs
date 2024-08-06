@@ -13,7 +13,6 @@ namespace MetroidMod.Content.Hatches.Variants
 
 	internal class YellowHatchItem : HatchItem
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Tiles/YellowHatch";
 		public override ModHatch Hatch => ModContent.GetInstance<YellowHatch>();
 	}
 }

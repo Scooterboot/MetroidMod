@@ -3,7 +3,6 @@ using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Tiles;
-using MetroidMod.Content.Tiles.Hatch;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

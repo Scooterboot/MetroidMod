@@ -65,10 +65,5 @@ namespace MetroidMod
 			entity = null;
 			return false;
 		}
-
-		public static T GetTileEntity<T>(int i, int j) where T: TileEntity
-		{
-			return TileEntity.ByPosition[GetTopLeftTileInMultitile(i, j)] as T;
-		}
 	}
 }

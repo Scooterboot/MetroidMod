@@ -22,14 +22,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 				int y = (int)MathHelper.Clamp(projectile.Center.Y / 16, 0, Main.maxTilesY - 2);
 				if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 				{
-					if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.BlueHatch>())
-					{
-						TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.BlueHatch>());
-					}
-					if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.BlueHatchVertical>())
-					{
-						TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.BlueHatchVertical>());
-					}
+					OpenAnyHatch(x, y);
 					if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.BlueSwitch>())
 					{
 						Wiring.TripWire(x, y, 1, 1);
