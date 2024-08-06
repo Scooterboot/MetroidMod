@@ -17,6 +17,7 @@ using Terraria.ModLoader.IO;
 using MetroidMod.Content.Items.Armors;
 using static MetroidMod.Sounds;
 using Terraria.GameContent.ItemDropRules;
+using MetroidMod.Content.Tiles.ItemTile;
 
 namespace MetroidMod.Common.Players
 {
@@ -289,10 +290,24 @@ namespace MetroidMod.Common.Players
 			x2 = (int)MathHelper.Clamp((Player.Center.X + blockCheckWidth / 2 + Math.Max(Player.velocity.X, 0)) / 16, 0, Main.maxTilesX - 1);
 			int y1 = (int)MathHelper.Clamp((Player.Center.Y - blockCheckHeight / 2 + Math.Min(Player.velocity.Y, 0)) / 16, 0, Main.maxTilesY - 1);
 			int y2 = (int)MathHelper.Clamp((Player.Center.Y + blockCheckHeight / 2 + Math.Max(Player.velocity.Y, 0)) / 16, 0, Main.maxTilesY - 1);
+
+			bool canBreakAddons = speedBoosting || shineActive || (somersault && screwAttack);
+
 			for (int i = x1; i <= x2; i++)
 			{
 				for (int k = y1; k <= y2; k++)
 				{
+					if(canBreakAddons)
+					{
+						Tile tile = Main.tile[i, k];
+						bool isAddon = tile.HasTile && ModContent.GetModTile(tile.TileType) is ItemTile;
+						
+						if (isAddon)
+						{
+							WorldGen.KillTile(i, k);
+						}
+					}
+
 					if (speedBoosting || shineActive)
 					{
 						if (Main.tile[i, k].HasTile && !Main.tile[i, k].IsActuated)
