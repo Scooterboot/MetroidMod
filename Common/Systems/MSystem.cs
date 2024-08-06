@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.Players;
-using MetroidMod.Common.UI;
+using MetroidMod.Content.Hatches;
+using MetroidMod.Content.Hatches.Variants;
 using MetroidMod.Content.Items.Accessories;
 using MetroidMod.Content.Items.Addons;
 using MetroidMod.Content.Items.Addons.Hunters;
@@ -13,12 +14,9 @@ using MetroidMod.Content.Items.Addons.V2;
 using MetroidMod.Content.Items.Addons.V3;
 using MetroidMod.Content.Items.MissileAddons;
 using MetroidMod.Content.Items.MissileAddons.BeamCombos;
-using MetroidMod.Content.Items.Tools;
-using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Torizo;
 using MetroidMod.Content.SuitAddons;
 using MetroidMod.Content.Tiles;
-using MetroidMod.Content.Tiles.Hatch;
 using MetroidMod.Content.Tiles.ItemTile;
 using MetroidMod.Content.Tiles.ItemTile.Beam;
 using MetroidMod.Content.Tiles.ItemTile.Beam.Hunters;
@@ -26,7 +24,6 @@ using MetroidMod.Content.Tiles.ItemTile.Missile;
 using MetroidMod.Content.Walls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Stubble.Core.Classes;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Generation;
@@ -35,7 +32,6 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
-using static MetroidMod.Sounds;
 
 
 
@@ -60,9 +56,6 @@ namespace MetroidMod.Common.Systems
 		public static Queue<Tuple<int, Vector2>> nextTick = new();
 		public static Queue<Tuple<int, Vector2>> regenTimers = new();
 		public static Queue<Tuple<int, Vector2>> quickRegenTimers = new();
-
-		public static Queue<Tuple<int, Vector2>> doorTimers = new();
-		public static Queue<Tuple<int, Vector2>> nextDoorTimers = new();
 
 		public static int Timer = 0;
 		public static int regenTime = 300;
@@ -287,54 +280,6 @@ namespace MetroidMod.Common.Systems
 					UpdateRegenTimers();
 				}
 			}
-			if (doorTimers.Count > 0)
-			{
-				Tuple<int, Vector2> timer = doorTimers.Peek();
-				if (timer.Item1 <= Timer)
-				{
-					Vector2 pos = timer.Item2;
-					int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].TileType;
-					bool open = (hatchtype == (ushort)ModContent.TileType<BlueHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<BlueHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpenVertical>());
-					if (open)
-					{
-						BlueHatch hatch = (TileLoader.GetTile(hatchtype) as BlueHatch);
-						hatch.ToggleHatch((int)pos.X, (int)pos.Y, (ushort)hatch.otherDoorID, true);
-					}
-					doorTimers.Dequeue();
-					UpdateRegenTimers();
-				}
-			}
-			if (nextDoorTimers.Count > 0)
-			{
-				Tuple<int, Vector2> timer = nextDoorTimers.Peek();
-				if (timer.Item1 <= Timer)
-				{
-					Vector2 pos = timer.Item2;
-					int hatchtype = Main.tile[(int)pos.X, (int)pos.Y].TileType;
-					bool open = (hatchtype == (ushort)ModContent.TileType<BlueHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<BlueHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpenVertical>());
-					if (open)
-					{
-						BlueHatch hatch = (TileLoader.GetTile(hatchtype) as BlueHatch);
-						hatch.ToggleHatch((int)pos.X, (int)pos.Y, (ushort)hatch.otherDoorID, true);
-					}
-					nextDoorTimers.Dequeue();
-					UpdateRegenTimers();
-				}
-			}
 		}
 
 		public override void SaveWorldData(TagCompound tag)
@@ -393,26 +338,6 @@ namespace MetroidMod.Common.Systems
 						dontRegen[(int)pos.X, (int)pos.Y] = regens[i];
 					}
 					Wiring.ReActive((int)pos.X, (int)pos.Y);
-				}
-			}
-			for (int row = 0; row < Main.maxTilesX; row++)
-			{
-				for (int column = 0; column < Main.maxTilesY; column++)
-				{
-					int hatchtype = Main.tile[row, column].TileType;
-					bool open = (hatchtype == (ushort)ModContent.TileType<BlueHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<BlueHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<RedHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<GreenHatchOpenVertical>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpen>()
-							|| hatchtype == (ushort)ModContent.TileType<YellowHatchOpenVertical>());
-					if (open)
-					{
-						BlueHatch hatch = (TileLoader.GetTile(hatchtype) as BlueHatch);
-						hatch.ToggleHatch(row, column, (ushort)hatch.otherDoorID, true);
-					}
 				}
 			}
 		}
@@ -1922,29 +1847,13 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void Hatch(int i, int j)
 		{
-			Mod mod = MetroidMod.Instance;
-			for (int x = i; x < i + 4; x++)
-			{
-				for (int y = j; y < j + 4; y++)
-				{
-					DestroyChest(x, y);
-					WorldGen.KillTile(x, y);
-				}
-			}
-			WorldGen.PlaceObject(i + 1, j + 2, ModContent.TileType<BlueHatch>(), false, 0, 0, -1, 1);
+			HatchTilePlacement.PlaceHatchAt(
+				ModContent.GetInstance<BlueHatch>().GetTileType(), i, j);
 		}
 		private static void VerticalHatch(int i, int j)
 		{
-			Mod mod = MetroidMod.Instance;
-			for (int x = i; x < i + 4; x++)
-			{
-				for (int y = j; y < j + 4; y++)
-				{
-					DestroyChest(x, y);
-					WorldGen.KillTile(x, y);
-				}
-			}
-			WorldGen.PlaceObject(i + 1, j + 2, ModContent.TileType<BlueHatchVertical>(), false, 0, 0, -1, 1);
+			HatchTilePlacement.PlaceHatchAt(
+				ModContent.GetInstance<BlueHatch>().GetTileType(vertical: true), i, j);
 		}
 		private static void DestroyChest(int x, int y)
 		{
@@ -1969,31 +1878,6 @@ namespace MetroidMod.Common.Systems
 			{
 				meteorSpawnAttempt--;
 			}
-		}
-
-		public override void PreUpdateEntities()
-		{
-			Main.tileSolid[ModContent.TileType<BlueHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<BlueHatchOpenVertical>()] = false;
-			Main.tileSolid[ModContent.TileType<RedHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<RedHatchOpenVertical>()] = false;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpenVertical>()] = false;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpen>()] = false;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpenVertical>()] = false;
-		}
-
-		//public override void MidUpdateTimeWorld()
-		public override void PostUpdateTime()
-		{
-			Main.tileSolid[ModContent.TileType<BlueHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<BlueHatchOpenVertical>()] = true;
-			Main.tileSolid[ModContent.TileType<RedHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<RedHatchOpenVertical>()] = true;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<GreenHatchOpenVertical>()] = true;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpen>()] = true;
-			Main.tileSolid[ModContent.TileType<YellowHatchOpenVertical>()] = true;
 		}
 	}
 }

@@ -1,7 +1,10 @@
 ﻿using MetroidMod.Common.Systems;
+using MetroidMod.Content.Hatches;
+using MetroidMod.Content.Hatches.Variants;
 using MetroidMod.Content.Projectiles.Paralyzer;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.GlobalProjectiles
@@ -19,14 +22,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 				int y = (int)MathHelper.Clamp(projectile.Center.Y / 16, 0, Main.maxTilesY - 2);
 				if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 				{
-					if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.BlueHatch>())
-					{
-						TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.BlueHatch>());
-					}
-					if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.BlueHatchVertical>())
-					{
-						TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.BlueHatchVertical>());
-					}
+					OpenAnyHatch(x, y);
 					if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.BlueSwitch>())
 					{
 						Wiring.TripWire(x, y, 1, 1);
@@ -91,6 +87,12 @@ namespace MetroidMod.Common.GlobalProjectiles
 		}
 		public override void OnKill(Projectile projectile, int timeLeft)
 		{
+			// Prevent wiring from opening hatches
+			if(projectile.type == ProjectileID.WireKite)
+			{
+				return;
+			}
+
 			int tilex = (int)(projectile.position.X / 16) - 1;
 			int tiley = (int)(projectile.position.Y / 16) - 1;
 			int tilex2 = (int)((projectile.position.X + projectile.width) / 16) + 1;
@@ -117,14 +119,8 @@ namespace MetroidMod.Common.GlobalProjectiles
 				{
 					if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 					{
-						if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.BlueHatch>())
-						{
-							TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.BlueHatch>());
-						}
-						if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.BlueHatchVertical>())
-						{
-							TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.BlueHatchVertical>());
-						}
+						OpenAnyHatch(x, y);
+
 						if (projectile.Name.Contains("Screw Attack"))
 						{
 							if (MSystem.mBlockType[x, y] == 3)
@@ -183,14 +179,8 @@ namespace MetroidMod.Common.GlobalProjectiles
 						}
 						if (projectile.Name.Contains("Missile"))
 						{
-							if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.RedHatch>())
-							{
-								TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.RedHatch>());
-							}
-							if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.RedHatchVertical>())
-							{
-								TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.RedHatchVertical>());
-							}
+							OpenRedHatch(x, y);
+
 							if (MSystem.mBlockType[x, y] == 4)
 							{
 								MSystem.AddRegenBlock(x, y);
@@ -201,14 +191,8 @@ namespace MetroidMod.Common.GlobalProjectiles
 							}
 							if (projectile.Name.Contains("Super") || projectile.Name.Contains("Nebula") || projectile.Name.Contains("Stardust"))
 							{
-								if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.GreenHatch>())
-								{
-									TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.GreenHatch>());
-								}
-								if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.Hatch.GreenHatchVertical>())
-								{
-									TileLoader.HitWire(x, y, ModContent.TileType<Content.Tiles.Hatch.GreenHatchVertical>());
-								}
+								OpenGreenHatch(x, y);
+								
 								if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.GreenSwitch>())
 								{
 									Wiring.TripWire(x, y, 1, 1);
@@ -220,6 +204,52 @@ namespace MetroidMod.Common.GlobalProjectiles
 							}
 						}
 					}
+				}
+			}
+		}
+	
+		public void OpenAnyHatch(int i, int j)
+		{
+			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
+			{
+				bool isBlue = tileEntity.Hatch is BlueHatch || tileEntity.Behavior.IsTurnedBlue;
+
+				if (isBlue)
+				{
+					tileEntity.Behavior.HitProjectile();
+				}
+			}
+		}
+
+		public void OpenRedHatch(int i, int j)
+		{
+			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
+			{
+				if (tileEntity.Hatch is RedHatch)
+				{
+					tileEntity.Behavior.HitProjectile();
+				}
+			}
+		}
+
+		public void OpenGreenHatch(int i, int j)
+		{
+			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
+			{
+				if (tileEntity.Hatch is GreenHatch)
+				{
+					tileEntity.Behavior.HitProjectile();
+				}
+			}
+		}
+
+		public void OpenYellowHatch(int i, int j)
+		{
+			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
+			{
+				if (tileEntity.Hatch is YellowHatch)
+				{
+					tileEntity.Behavior.HitProjectile();
 				}
 			}
 		}

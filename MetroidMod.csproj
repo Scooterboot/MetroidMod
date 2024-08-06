@@ -27,6 +27,7 @@
     <Folder Include="Content\NPCs\Mobs\Metroid\" />
     <Folder Include="Content\NPCs\Mobs\Utility\" />
     <Folder Include="Content\NPCs\Town\" />
+    <Folder Include="Content\Tiles\Hatch\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ExampleMetroidAddonMod\**" />

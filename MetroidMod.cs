@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items;
-using MetroidMod.Content.Tiles.Hatch;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -228,8 +227,9 @@ namespace MetroidMod
 					int i = reader.ReadInt32();
 					int j = reader.ReadInt32();
 
-					BlueHatch hatch = ModContent.GetModTile(type) as BlueHatch;
-					hatch.HitWire(i, j);
+					// TODO test multiplayer and deem if this is needed
+					//BlueHatch hatch = ModContent.GetModTile(type) as BlueHatch;
+					//hatch.HitWire(i, j);
 
 					if (Main.netMode == NetmodeID.Server)
 					{

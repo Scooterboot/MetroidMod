@@ -1,8 +1,8 @@
 ﻿using System;
+using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Tiles;
-using MetroidMod.Content.Tiles.Hatch;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -132,10 +132,8 @@ namespace MetroidMod.Content.MorphBallAddons
 					{
 						if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 						{
-							if (Main.tile[x, y].TileType == ModContent.TileType<YellowHatch>()) { TileLoader.HitWire(x, y, ModContent.TileType<YellowHatch>()); }
-							if (Main.tile[x, y].TileType == ModContent.TileType<YellowHatchVertical>()) { TileLoader.HitWire(x, y, ModContent.TileType<YellowHatchVertical>()); }
-							if (Main.tile[x, y].TileType == ModContent.TileType<BlueHatch>()) { TileLoader.HitWire(x, y, ModContent.TileType<BlueHatch>()); }
-							if (Main.tile[x, y].TileType == ModContent.TileType<BlueHatchVertical>()) { TileLoader.HitWire(x, y, ModContent.TileType<BlueHatchVertical>()); }
+							ModContent.GetInstance<MGlobalProjectile>().OpenYellowHatch(x, y);
+							ModContent.GetInstance<MGlobalProjectile>().OpenAnyHatch(x, y);
 							if (Main.tile[x, y].TileType == ModContent.TileType<YellowSwitch>()) { Wiring.TripWire(x, y, 1, 1); }
 						}
 						if (MSystem.mBlockType[x, y] != BreakableTileID.None)

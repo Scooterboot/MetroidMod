@@ -172,22 +172,6 @@ Mods: {
 			ChozoStatueNatural.MapEntry: Chozo Statue
 			EnergyStation.MapEntry: Energy Station
 			EnergyStationDevtool.MapEntry: Energy Station Devtool
-			BlueHatch.MapEntry: Blue Hatch
-			BlueHatchOpen.MapEntry: Blue Hatch Open
-			BlueHatchOpenVertical.MapEntry: Blue Hatch Open Vertical
-			BlueHatchVertical.MapEntry: Blue Hatch Vertical
-			GreenHatch.MapEntry: Green Hatch
-			GreenHatchOpen.MapEntry: Green Hatch Open
-			GreenHatchOpenVertical.MapEntry: Green Hatch Open Vertical
-			GreenHatchVertical.MapEntry: Green Hatch Vertical
-			RedHatch.MapEntry: Red Hatch
-			RedHatchOpen.MapEntry: Red Hatch Open
-			RedHatchOpenVertical.MapEntry: Red Hatch Open Vertical
-			RedHatchVertical.MapEntry: Red Hatch Vertical
-			YellowHatch.MapEntry: Yellow Hatch
-			YellowHatchOpen.MapEntry: Yellow Hatch Open
-			YellowHatchOpenVertical.MapEntry: Yellow Hatch Open Vertical
-			YellowHatchVertical.MapEntry: Yellow Hatch Vertical
 			ChargeBeamTile.MapEntry: Charge Beam
 			ChargeBeamV2Tile.MapEntry: Diffusion Beam
 			BattleHammerTile.MapEntry: Battle Hammer
@@ -1335,11 +1319,6 @@ Mods: {
 				Tooltip: ""
 			}
 
-			BlueHatch: {
-				DisplayName: Blue Hatch
-				Tooltip: ""
-			}
-
 			BlueSwitch: {
 				DisplayName: Blue Switch
 				Tooltip: ""
@@ -1514,11 +1493,6 @@ Mods: {
 				Tooltip: ""
 			}
 
-			GreenHatch: {
-				DisplayName: Green Hatch
-				Tooltip: ""
-			}
-
 			GreenSwitch: {
 				DisplayName: Green Switch
 				Tooltip: ""
@@ -1609,11 +1583,6 @@ Mods: {
 				Tooltip: ""
 			}
 
-			RedHatch: {
-				DisplayName: Red Hatch
-				Tooltip: ""
-			}
-
 			RedSwitch: {
 				DisplayName: Red Switch
 				Tooltip: ""
@@ -1671,11 +1640,6 @@ Mods: {
 
 			TourianPipeNatural: {
 				DisplayName: Tourian Pipe Natural
-				Tooltip: ""
-			}
-
-			YellowHatch: {
-				DisplayName: Yellow Hatch
 				Tooltip: ""
 			}
 
@@ -3123,6 +3087,38 @@ Mods: {
 				DisplayName: Crocomire Bone
 				Tooltip: Summons a miniature pet Crocomire
 			}
+
+			BlueHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with any projectile
+				Can also be opened with right click or when the bubble shield is wired
+				When the metal base is wired, can be locked when powered
+				'''
+			GreenHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with a Super Missile
+				Can also be opened with Green Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				'''
+			RedHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit a Missile
+				Can also be opened with Red Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				'''
+			YellowHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with a Power Bomb
+				Can also be opened with Yellow Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				'''
 		}
 
 		NPCs: {
@@ -4569,6 +4565,13 @@ Mods: {
 		InfoDisplays: {
 			EfficiencyDisplay.DisplayName: Efficiency Display
 			ExpenseDisplay.DisplayName: Expense Display
+		}
+
+		Hatches: {
+			BlueHatch.DisplayName: Blue Hatch
+			GreenHatch.DisplayName: Green Hatch
+			RedHatch.DisplayName: Red Hatch
+			YellowHatch.DisplayName: Yellow Hatch
 		}
 	}
 }
