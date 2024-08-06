@@ -93,7 +93,7 @@ namespace MetroidMod.Content.Hatches
 
 		public override void LoadData(TagCompound tag)
 		{
-			Behavior.BlueConversion = (HatchBlueConversionStatus)tag.Get<int>("HasTurnedBlue");
+			Behavior.BlueConversion = (HatchBlueConversionStatus)tag.Get<int>("BlueConversion");
 			Behavior.Locked = tag.Get<bool>("Locked");
 			SetVisualState((HatchVisualState)tag.Get<int>("_visualState"));
 		}
