@@ -15,7 +15,11 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Main.tileNoAttach[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.LavaDeath = false;
-			TileObjectData.newTile.AnchorBottom = new AnchorData(Terraria.Enums.AnchorType.None, TileObjectData.newTile.Width, 0);//new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0); //but y tho? its not unusual for pickups to be floating in metroid -- DR
+
+			AnchorType anchors = AnchorType.EmptyTile | AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide;
+			TileObjectData.newTile.AnchorBottom = new AnchorData(anchors, TileObjectData.newTile.Width, 0);
+			//but y tho? its not unusual for pickups to be floating in metroid -- DR
+			
 			TileObjectData.addTile(Type);
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			Main.tileLavaDeath[Type] = false;
@@ -29,6 +33,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
 			player.cursorItemIconEnabled = true;
+			player.cursorItemIconID = TileLoader.GetItemDropFromTypeAndStyle(Type);
 		}
 
 		public override bool RightClick(int i, int j)
