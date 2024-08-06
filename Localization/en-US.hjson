@@ -4606,5 +4606,12 @@ Mods: {
 			EfficiencyDisplay.DisplayName: Efficiency Display
 			ExpenseDisplay.DisplayName: Expense Display
 		}
+
+		Hatches: {
+			BlueHatch.LocalizedName: Blue Hatch
+			GreenHatch.LocalizedName: Green Hatch
+			RedHatch.LocalizedName: Red Hatch
+			YellowHatch.LocalizedName: Yellow Hatch
+		}
 	}
 }

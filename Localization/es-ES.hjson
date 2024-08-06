@@ -4606,5 +4606,12 @@ Mods: {
 			// EfficiencyDisplay.DisplayName: Efficiency Display
 			// ExpenseDisplay.DisplayName: Expense Display
 		}
+
+		Hatches: {
+			// BlueHatch.LocalizedName: Mods.MetroidMod.Hatches.BlueHatch.LocalizedName
+			// GreenHatch.LocalizedName: Mods.MetroidMod.Hatches.GreenHatch.LocalizedName
+			// RedHatch.LocalizedName: Mods.MetroidMod.Hatches.RedHatch.LocalizedName
+			// YellowHatch.LocalizedName: Mods.MetroidMod.Hatches.YellowHatch.LocalizedName
+		}
 	}
 }

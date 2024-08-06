@@ -7,7 +7,7 @@ namespace MetroidMod.Content.Hatches.Variants
 	internal class GreenHatch : ModHatch
 	{
 		public override int ItemType => ModContent.ItemType<GreenHatchItem>();
-		public override Color PrimaryColor => new(160, 0, 0);
+		public override Color PrimaryColor => new(0, 160, 0);
 		public override bool InteractableByDefault => false;
 	}
 

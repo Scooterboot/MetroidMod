@@ -80,7 +80,7 @@ namespace MetroidMod.Content.Hatches
 			TileObjectData.addTile(Type);
 
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
-			AddMapEntry(MapColor, CreateMapEntryName());
+			AddMapEntry(MapColor, Hatch.LocalizedName);
 			AdjTiles = [TileID.ClosedDoor];
 
 			RegisterItemDrop(Hatch.ItemType);

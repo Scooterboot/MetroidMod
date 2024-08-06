@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Hatches
 {
-	public abstract class ModHatch : ModType
+	public abstract class ModHatch : ModType, ILocalizedModType
 	{
 		/// <summary>
 		/// The item type associated with this hatch, which will drop when mined.
@@ -26,6 +27,13 @@ namespace MetroidMod.Content.Hatches
 		/// </summary>
 		public virtual IHatchAppearance DefaultAppearance => new HatchAppearance(Name);
 
+		/// <summary>
+		/// The localized name of the hatch, which will appear on the minimap.
+		/// </summary>
+		public LocalizedText LocalizedName => this.GetLocalization(nameof(LocalizedName));
+
+		public string LocalizationCategory => "Hatches";
+
 		private readonly HatchTile[] hatchTiles = new HatchTile[4];
 
 		protected override void Register()
@@ -40,6 +48,7 @@ namespace MetroidMod.Content.Hatches
 				Mod.AddContent(hatchTile);
 			}
 		}
+
 
 		public int GetTileType(bool open = false, bool vertical = false)
 		{
