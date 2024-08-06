@@ -613,7 +613,7 @@ namespace MetroidMod.Content.Projectiles
 			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
 		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size </summary>
-		public void Explode(int increase, float scale = 1f)
+		public void Explode(int increase, float scale = 1f) //TODO humorously, works the exact same as the missiles-through-wall exploit as SM
 		{
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
