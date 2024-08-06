@@ -136,23 +136,24 @@ namespace MetroidMod.Content.Hatches
 			HatchTilePlacement.SetHatchTilesAt(type, Position.X, Position.Y);
 		}
 
+		private IHatchAppearance CurrentAppearance => Behavior.IsTurnedBlue ? 
+			ModContent.GetInstance<BlueHatch>().DefaultAppearance : Hatch.DefaultAppearance;
+
 		public void SetVisualState(HatchVisualState state)
 		{
 			_visualState = state;
 
 			switch (state)
 			{
-				case HatchVisualState.Default:
-					_appearance = Hatch.DefaultAppearance;
-					break;
-				case HatchVisualState.Blue:
-					_appearance = ModContent.GetInstance<BlueHatch>().DefaultAppearance;
+				default:
+				case HatchVisualState.Current:
+					_appearance = CurrentAppearance;
 					break;
 				case HatchVisualState.Locked:
 					_appearance = new HatchAppearance("LockedHatch");
 					break;
 				case HatchVisualState.Blinking:
-					_appearance = new HatchBlinkingAppearance(Hatch.DefaultAppearance, new HatchAppearance("LockedHatch"));
+					_appearance = new HatchBlinkingAppearance(CurrentAppearance, new HatchAppearance("LockedHatch"));
 					break;
 			}
 		}

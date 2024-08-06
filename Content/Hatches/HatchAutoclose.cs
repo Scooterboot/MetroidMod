@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Hatches
 
 		public void Update()
 		{
-			if (AutocloseEnabled)
+			if (AutocloseEnabled && tileEntity.IsOpen)
 			{
 				if(autocloseTimer > 0)
 				{

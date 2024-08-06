@@ -177,7 +177,7 @@ namespace MetroidMod.Content.Hatches
 				return;
 			}
 
-			Visual.SetVisualState(IsTurnedBlue ? HatchVisualState.Blue : HatchVisualState.Default);
+			Visual.SetVisualState(HatchVisualState.Current);
 		}
 	}
 
@@ -216,8 +216,7 @@ namespace MetroidMod.Content.Hatches
 
 	internal enum HatchVisualState
 	{
-		Default,
-		Blue,
+		Current,
 		Locked,
 		Blinking
 	}
