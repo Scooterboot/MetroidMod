@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Hatches.Variants
@@ -13,5 +14,13 @@ namespace MetroidMod.Content.Hatches.Variants
 	internal class BlueHatchItem : HatchItem
 	{
 		public override ModHatch Hatch => ModContent.GetInstance<BlueHatch>();
+		public override void AddRecipes()
+		{
+			CreateRecipe(20)
+				.AddIngredient(ItemID.Sapphire)
+				.AddRecipeGroup("IronBar", 5)
+				.AddTile(TileID.Anvils)
+				.Register();
+		}
 	}
 }
