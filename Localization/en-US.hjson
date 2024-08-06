@@ -3078,6 +3078,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			CrocomireBone: {
+				DisplayName: Crocomire Bone
+				Tooltip: Summons a miniature pet Crocomire
+			}
+
 			BlueHatchItem.Tooltip:
 				'''
 				Right click to place vertically
