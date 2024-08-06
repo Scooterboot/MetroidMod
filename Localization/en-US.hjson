@@ -3085,7 +3085,6 @@ Mods: {
 				Can also be opened with right click or when the bubble shield is wired
 				When the metal base is wired, can be locked when powered
 				'''
-
 			GreenHatchItem.Tooltip:
 				'''
 				Right click to place vertically
@@ -3094,7 +3093,6 @@ Mods: {
 				Powering the metal bottom (or right when vertical) locks the hatch
 				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
 				'''
-
 			RedHatchItem.Tooltip:
 				'''
 				Right click to place vertically
@@ -3103,7 +3101,6 @@ Mods: {
 				Powering the metal bottom (or right when vertical) locks the hatch
 				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
 				'''
-
 			YellowHatchItem.Tooltip:
 				'''
 				Right click to place vertically
