@@ -47,11 +47,21 @@ namespace MetroidMod.Content.Hatches
 			}
 		}
 
+		private HatchAutoclose autoclose;
+		private HatchAutoclose Autoclose
+		{
+			get {
+				autoclose ??= new HatchAutoclose(this);
+				return autoclose;
+			}
+		}
+
 		public void Open()
 		{
 			if (IsOpen) return;
 			UpdateTiles(true);
 			Animation.Open();
+			Autoclose.Open();
 		}
 
 		public void Close()
@@ -65,6 +75,7 @@ namespace MetroidMod.Content.Hatches
 		{
 			Animation.Update();
 			Appearance.Update();
+			Autoclose.Update();
 		}
 
 		public override void SaveData(TagCompound tag)
