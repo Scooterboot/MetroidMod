@@ -2,6 +2,7 @@
 using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Hatches.Variants;
 using MetroidMod.Content.Projectiles.Paralyzer;
+using MetroidMod.Content.Switches.Variants;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -23,7 +24,8 @@ namespace MetroidMod.Common.GlobalProjectiles
 				if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 				{
 					OpenAnyHatch(x, y);
-					if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.BlueSwitch>())
+					
+					if (Main.tile[x, y].TileType == ModContent.GetInstance<BlueSwitch>().Tile.Type)
 					{
 						Wiring.TripWire(x, y, 1, 1);
 					}
@@ -142,7 +144,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 						}
 						else if (!projectile.Name.Contains("Charge Attack"))
 						{
-							if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.BlueSwitch>())
+							if (Main.tile[x, y].TileType == ModContent.GetInstance<BlueSwitch>().Tile.Type)
 							{
 								Wiring.TripWire(x, y, 1, 1);
 							}
@@ -185,7 +187,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
-							if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.RedSwitch>())
+							if (Main.tile[x, y].TileType == ModContent.GetInstance<RedSwitch>().Tile.Type)
 							{
 								Wiring.TripWire(x, y, 1, 1);
 							}
@@ -193,7 +195,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 							{
 								OpenGreenHatch(x, y);
 								
-								if (Main.tile[x, y].TileType == (ushort)ModContent.TileType<Content.Tiles.GreenSwitch>())
+								if (Main.tile[x, y].TileType == ModContent.GetInstance<GreenSwitch>().Tile.Type)
 								{
 									Wiring.TripWire(x, y, 1, 1);
 								}

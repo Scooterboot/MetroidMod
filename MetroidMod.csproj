@@ -27,11 +27,14 @@
     <Folder Include="Content\NPCs\Mobs\Metroid\" />
     <Folder Include="Content\NPCs\Mobs\Utility\" />
     <Folder Include="Content\NPCs\Town\" />
-    <Folder Include="Content\Tiles\Hatch\" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Content\Tiles\Hatch\**" />
+    <Compile Remove="Content\Tiles\Hatch\**" />
     <Compile Remove="ExampleMetroidAddonMod\**" />
+    <EmbeddedResource Remove="Content\Tiles\Hatch\**" />
     <EmbeddedResource Remove="ExampleMetroidAddonMod\**" />
+    <None Remove="Content\Tiles\Hatch\**" />
     <None Remove="ExampleMetroidAddonMod\**" />
   </ItemGroup>
 </Project>
