@@ -1,9 +1,9 @@
-﻿using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -45,6 +45,12 @@ namespace MetroidMod.Content.SuitAddons
 			if (!player.controlDownHold)
 			{
 				player.shimmerImmune = true;
+			}
+
+			// Ignore shimmer slowdown ability
+			if(player.TryGetModPlayer(out IgnoreShimmerModPlayer shimmerMp))
+			{
+				shimmerMp.ignoreShimmer = true;
 			}
 
 			player.statDefense += 29;
