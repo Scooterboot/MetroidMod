@@ -28,22 +28,6 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Vortex Augment");
-			/* Tooltip.SetDefault("+29 defense\n" +
-				"+55 overheat capacity\n" +
-				"15% decreased overheat use\n" +
-				"15% decreased Missile Charge Combo cost\n" +
-				"15% increased hunter damage\n" +
-				"13% increased hunter critical strike chance\n" +
-				"10% increased movement speed\n" +
-				"60% increased energy barrier efficiency\n" + // Provisional name
-				"37.5% increased energy barrier resilience\n" + // Provisional name
-				"Infinite breath underwater\n" +
-				"Immune to knockback\n" +
-				"Free movement in liquid\n" +
-				"Grants 14 seconds of lava immunity\n" +
-				"Default gravity in space\n" +
-				"Immune to Distorted and Amplified Gravity effects"); */
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<NebulaAugment>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
 			ItemNameLiteral = true;
@@ -57,6 +41,12 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
+			// Chromatic cloak ability
+			if (!player.controlDownHold)
+			{
+				player.shimmerImmune = true;
+			}
+
 			player.statDefense += 29;
 			player.noKnockback = true;
 			player.ignoreWater = true;
