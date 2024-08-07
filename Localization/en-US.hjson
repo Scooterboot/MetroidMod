@@ -267,6 +267,10 @@ Mods: {
 			VortexAugmentTile.MapEntry: Vortex Augment
 			XRayScopeTile.MapEntry: X Ray Scope
 			UAExpansionTile.MapEntry: UA Expansion
+			BlueSwitch.MapEntry: Blue Switch
+			GreenSwitch.MapEntry: Green Switch
+			RedSwitch.MapEntry: Red Switch
+			YellowSwitch.MapEntry: Yellow Switch
 		}
 
 		Buffs: {

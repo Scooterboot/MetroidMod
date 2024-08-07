@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Switches
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLavaDeath[Type] = false;
 
-			AddMapEntry(bubbleSwitch.MapColor);
+			AddMapEntry(bubbleSwitch.MapColor, CreateMapEntryName());
 
 			TileObjectData.newTile.CopyFrom(TileObjectData.StyleTorch);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
