@@ -127,7 +127,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(0.1f)]
 		public float energyExpenseEfficiency;
 
-		[Header("[i:MetroidMod/PowerGripAddon]SuitAddons")]
+		[Header("SuitAddons")]
 
 		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack")]
 		[Range(1, 10)]
@@ -247,6 +247,8 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(7)]
 		public int overheatHyperBeam;
+
+        public bool revertHyperBeamSuitLock;
 
 		//[Label("[i:MetroidMod/PhazonBeamAddon] Phazon Beam Damage")]
 		[Range(1, 100)]
