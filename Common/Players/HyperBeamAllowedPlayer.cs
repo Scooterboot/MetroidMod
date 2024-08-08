@@ -15,7 +15,7 @@ namespace MetroidMod.Common.Players
 
 		public bool CanUseHyperBeam()
 		{
-			if(Player.name == "narpas sword")
+			if(NarpasSwordPlayer.IsEnabled(Player))
 			{
 				return true;
 			}
