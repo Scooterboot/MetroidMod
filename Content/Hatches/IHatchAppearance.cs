@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Hatches
 		public void Update() { }
 		public string GetTexturePath(bool vertical)
 		{
-			return $"Content/Hatches/Variants/{name}{(vertical ? "Vertical" : string.Empty)}Door";
+			return $"{nameof(MetroidMod)}/Content/Hatches/Variants/{name}{(vertical ? "Vertical" : string.Empty)}Door";
 		}
 	}
 
