@@ -194,7 +194,9 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				return false;
 			}
-			if (BeamMods[0].type == ModContent.ItemType<Addons.HyperBeamAddon>() && !mp.canUseHyperBeam)
+
+			bool canUseHyperBeam = player.GetModPlayer<HyperBeamAllowedPlayer>().CanUseHyperBeam();
+			if (BeamMods[0].type == ModContent.ItemType<Addons.HyperBeamAddon>() && !canUseHyperBeam)
 			{
 				return false;
 			}
