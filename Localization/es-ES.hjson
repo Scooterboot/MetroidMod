@@ -3087,6 +3087,38 @@ Mods: {
 				// DisplayName: Crocomire Bone
 				// Tooltip: Summons a miniature pet Crocomire
 			}
+
+			/* BlueHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with any projectile
+				Can also be opened with right click or when the bubble shield is wired
+				When the metal base is wired, can be locked when powered
+				''' */
+			/* GreenHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with a Super Missile
+				Can also be opened with Green Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				''' */
+			/* RedHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit a Missile
+				Can also be opened with Red Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				''' */
+			/* YellowHatch.Tooltip:
+				'''
+				Right click to place vertically
+				Opens when hit with a Power Bomb
+				Can also be opened with Yellow Keycard or when powered via bubble shield
+				Powering the metal bottom (or right when vertical) locks the hatch
+				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
+				''' */
 		}
 
 		NPCs: {
@@ -3734,7 +3766,7 @@ Mods: {
 					// "[i:MetroidMod/ChoziteBar]ChoziteGear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					// "[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i:MetroidMod/MissileLauncher] Missile Launcher Addons"
 					// "[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons": "[i:MetroidMod/PowerBeam] Power Beam Hunters Addons"
-					// "[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons Header"
+					// SuitAddons: "[i:MetroidMod/PowerGrip] Suit Addons"
 				}
 
 				enableWallJumpChoziteArmor: {
@@ -4374,6 +4406,11 @@ Mods: {
 				muteSpeedBooster: {
 					// Label: "[i:MetroidMod/SpeedBooster] Silent Speed Booster"
 					// Tooltip: Speed Boosting is silent
+				}
+
+				revertHyperBeamSuitLock: {
+					// Tooltip: ""
+					// Label: revert Hyper Beam Suit Lock
 				}
 			}
 
