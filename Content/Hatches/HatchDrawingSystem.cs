@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoMod.Cil;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,13 +17,44 @@ namespace MetroidMod.Content.Hatches
 {
 	internal class HatchDrawingSystem : ModSystem
 	{
-		public override void PostDrawTiles()
+		public override void Load()
+		{
+			IL_Main.DoDraw += il =>
+			{
+				ILCursor c = new(il);
+				
+				// In this case, we would like to draw hatches in front of water
+				// so, let's go to the lines of code that draw water in the foreground
+				c.GotoNext(i =>
+				{
+					bool loadsScene = i.MatchLdsfld(typeof(Overlays).GetField("Scene", BindingFlags.Public | BindingFlags.Static));
+					if (!loadsScene) return false;
+
+					bool sceneIsWater = i.Next.Next.MatchLdcI4((int)RenderLayers.ForegroundWater);
+					return sceneIsWater;
+				});
+				// There's code that jumps to the current location, make sure we place stuff
+				// after said location so it doesn't get skipped
+				c.MoveAfterLabels();
+
+				// Our cursor now inserts code directly before water is drawn
+				// Let's add our hook now!
+				c.EmitDelegate(() =>
+				{
+					// The code currently has the correct spriteBatch set, so we don't need
+					// to begin and end one oursellves
+					DrawHatches();
+				});
+
+				MonoModHooks.DumpIL(Mod, il);
+			};
+		}
+
+		private void DrawHatches()
 		{
 			GetVisibleTiles(out int startX, out int startY, out int endX, out int endY);
 
 			SpriteBatch spriteBatch = Main.spriteBatch;
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-
 			for (int y = startY; y <= endY; y++)
 			{
 				for (int x = startX; x <= endX; x++)
@@ -28,8 +62,6 @@ namespace MetroidMod.Content.Hatches
 					DrawPosition(spriteBatch, x, y);
 				}
 			}
-
-			spriteBatch.End();
 		}
 
 		private void DrawPosition(SpriteBatch spriteBatch, int i, int j)
