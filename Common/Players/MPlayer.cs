@@ -17,6 +17,7 @@ using Terraria.ModLoader.IO;
 using MetroidMod.Content.Items.Armors;
 using static MetroidMod.Sounds;
 using Terraria.GameContent.ItemDropRules;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Tiles.ItemTile;
 
 namespace MetroidMod.Common.Players
@@ -158,6 +159,10 @@ namespace MetroidMod.Common.Players
 			screwSpeedDelay = 0;
 			spaceJumpsRegenDelay = 0;
 			insigniaActive = true;
+
+			// Infinite missiles
+			var heldItem = Player.HeldItem.GetGlobalItem<MGlobalItem>();
+			heldItem.statMissiles = heldItem.maxMissiles;
 		}
 
 		public override void PreUpdate()
