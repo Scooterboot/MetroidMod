@@ -78,7 +78,6 @@ namespace MetroidMod.Content.SuitAddons
 			mp.missileCost -= 0.15f;
 			mp.EnergyDefenseEfficiency += 0.60f;
 			mp.EnergyExpenseEfficiency += 0.375f;
-			mp.canUseHyperBeam = true;
 			mp.UACost -= 0.15f;
 		}
 		public override void OnUpdateVanitySet(Player player)

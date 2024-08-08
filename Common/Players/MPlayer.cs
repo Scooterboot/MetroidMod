@@ -55,7 +55,6 @@ namespace MetroidMod.Common.Players
 
 		public bool phazonImmune = false;
 		public bool canUsePhazonBeam = false;
-		public bool canUseHyperBeam = false;
 		public int hazardShield = 0;
 		public int phazonRegen = 0;
 
@@ -89,7 +88,6 @@ namespace MetroidMod.Common.Players
 			//PrimeHunter = false;
 			phazonImmune = false;
 			canUsePhazonBeam = false;
-			canUseHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 
@@ -133,7 +131,6 @@ namespace MetroidMod.Common.Players
 					//canHyper = true;
 					phazonImmune = true;
 					canUsePhazonBeam = true;
-					canUseHyperBeam = true;
 					//Player.immune = true;
 					//statCharge = maxCharge;
 					screwAttack = true;
