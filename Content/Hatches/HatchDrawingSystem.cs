@@ -46,8 +46,6 @@ namespace MetroidMod.Content.Hatches
 					// to begin and end one oursellves
 					DrawHatches();
 				});
-
-				MonoModHooks.DumpIL(Mod, il);
 			};
 		}
 
