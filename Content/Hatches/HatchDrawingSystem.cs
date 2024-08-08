@@ -8,6 +8,7 @@ using MonoMod.Cil;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -71,7 +72,7 @@ namespace MetroidMod.Content.Hatches
 
 			string doorTexture = hatchTile.Texture;
 			Rectangle doorSource = new(tile.TileFrameX, tile.TileFrameY, 16, 16);
-			DrawAt(spriteBatch, i, j, doorSource, doorTexture, GetHatchPaintColor(i, j));
+			DrawAt(spriteBatch, i, j, doorSource, doorTexture, GetHatchPaintSource(i, j));
 
 			HatchTileEntity tileEntity = hatchTile.TileEntity(i, j);
 			int animationFrame = tileEntity.Animation.DoorAnimationFrame;
@@ -80,23 +81,25 @@ namespace MetroidMod.Content.Hatches
 			{
 				string bubbleTexture = tileEntity.Appearance.GetTexturePath(hatchTile.Vertical);
 				Rectangle bubbleSource = new(tile.TileFrameX, tile.TileFrameY + animationFrame * (18 * 4), 16, 16);
-				DrawAt(spriteBatch, i, j, bubbleSource, bubbleTexture, tile.TileColor);
+				DrawAt(spriteBatch, i, j, bubbleSource, bubbleTexture, new(i, j));
 			}
 		}
 		
-		private void DrawAt(SpriteBatch spriteBatch, int i, int j, Rectangle? source, string texturePath, int paintColor)
+		private void DrawAt(SpriteBatch spriteBatch, int i, int j, Rectangle? source, string texturePath, Point paintSource)
 		{
-			Tile tile = Main.tile[i, j];
+			Tile paintSourceTile = Main.tile[paintSource];
+			if (!TileDrawing.IsVisible(paintSourceTile)) return;
+
 			Texture2D baseTexture = ModContent.Request<Texture2D>(texturePath, AssetRequestMode.ImmediateLoad).Value;
-			Texture2D texture = ModContent.GetInstance<TilePaintedTextureSystem>().RequestPaintedTexture(baseTexture, paintColor);
+			Texture2D texture = ModContent.GetInstance<TilePaintedTextureSystem>().RequestPaintedTexture(baseTexture, paintSourceTile.TileColor);
 			Vector2 drawPosition = new Vector2(i, j).ToWorldCoordinates(0, 0) - Main.screenPosition;
-			Color lightColor = Lighting.GetColor(i, j);
+			Color color = paintSourceTile.IsTileFullbright ? Color.White : Lighting.GetColor(i, j);
 
 			spriteBatch.Draw(
 				texture,
 				drawPosition,
 				source,
-				lightColor,
+				color,
 				0f,
 				Vector2.Zero,
 				1f,
@@ -105,7 +108,7 @@ namespace MetroidMod.Content.Hatches
 			);
 		}
 
-		private int GetHatchPaintColor(int i, int j)
+		private Point GetHatchPaintSource(int i, int j)
 		{
 			var hatchTile = ModContent.GetModTile(Main.tile[i, j].TileType) as HatchTile;
 			var origin = TileUtils.GetTopLeftTileInMultitile(i, j);
@@ -121,7 +124,7 @@ namespace MetroidMod.Content.Hatches
 				sx = Math.Clamp(sx, 1, 2);
 			}
 
-			return Main.tile[origin.X + sx, origin.Y + sy].TileColor;
+			return new(origin.X + sx, origin.Y + sy);
 		}
 
 		// TODO this method really doesn't belong here, but afaik not needed anywhere else yet
