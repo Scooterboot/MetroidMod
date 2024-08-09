@@ -80,5 +80,8 @@ namespace MetroidMod.Common.Configs
 		//[Tooltip("Disable Metroid mod mob spawning, as they currently have no unique drops")]
 		[DefaultValue(false)]
 		public bool disablemobspawn;
+
+		[Header("Misc")]
+		public bool enableGlobalNarpasSword;
 	}
 }

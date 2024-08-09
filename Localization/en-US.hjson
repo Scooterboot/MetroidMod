@@ -3768,7 +3768,7 @@ Mods: {
 					"[i:MetroidMod/ChoziteBar]ChoziteGear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					"[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i:MetroidMod/MissileLauncher] Missile Launcher Addons"
 					"[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons": "[i:MetroidMod/PowerBeam] Power Beam Hunters Addons"
-					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons Header"
+					SuitAddons: "[i:MetroidMod/PowerGrip] Suit Addons"
 				}
 
 				enableWallJumpChoziteArmor: {
@@ -4409,6 +4409,11 @@ Mods: {
 					Label: "[i:MetroidMod/SpeedBooster] Silent Speed Booster"
 					Tooltip: Speed Boosting is silent
 				}
+
+				revertHyperBeamSuitLock: {
+					Label: "[i:MetroidMod/HyperBeamAddon] Revert Hyper Beam Suit Lock"
+					Tooltip: Allows you to use Hyper Beam with any suits prior to True Gravity
+				}
 			}
 
 			MConfigMain: {
@@ -4422,6 +4427,7 @@ Mods: {
 					"[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
 					DisableMobSpawn: Disable Mob Spawns
 					AutomaticallyClosingHatches: Automatically Closing Hatches
+					Misc: Miscellaneous
 				}
 
 				enableBossSummonConsumption: {
@@ -4461,6 +4467,11 @@ Mods: {
 				disablemobspawn: {
 					Tooltip: Disable Metroid mod mob spawning, as they currently have no unique drops
 					Label: Disable Mob Spawns
+				}
+
+				enableGlobalNarpasSword: {
+					Label: Narpas Sword
+					Tooltip: Grants the Narpas Sword powerups to all players when enabled!
 				}
 			}
 

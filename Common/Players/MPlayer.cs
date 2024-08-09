@@ -17,6 +17,7 @@ using Terraria.ModLoader.IO;
 using MetroidMod.Content.Items.Armors;
 using static MetroidMod.Sounds;
 using Terraria.GameContent.ItemDropRules;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Tiles.ItemTile;
 
 namespace MetroidMod.Common.Players
@@ -55,7 +56,6 @@ namespace MetroidMod.Common.Players
 
 		public bool phazonImmune = false;
 		public bool canUsePhazonBeam = false;
-		public bool canUseHyperBeam = false;
 		public int hazardShield = 0;
 		public int phazonRegen = 0;
 
@@ -89,7 +89,6 @@ namespace MetroidMod.Common.Players
 			//PrimeHunter = false;
 			phazonImmune = false;
 			canUsePhazonBeam = false;
-			canUseHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 
@@ -124,46 +123,48 @@ namespace MetroidMod.Common.Players
 				case "engage ridley": //TODO put something here for funi
 					Player.KillMe(PlayerDeathReason.ByCustomReason($"You found an easter egg at the cost of your life!"), 0, 0);
 					break;
-				case "narpas sword": //busted godmode
-					Player.statLife = Player.statLifeMax2;
-					Player.statMana = Player.statManaMax;
-					canSomersault = true;
-					canWallJump = true;
-					powerGrip = true;
-					//canHyper = true;
-					phazonImmune = true;
-					canUsePhazonBeam = true;
-					canUseHyperBeam = true;
-					//Player.immune = true;
-					//statCharge = maxCharge;
-					screwAttack = true;
-					hiJumpBoost = true;
-					spaceJump = true;
-					senseMoveCooldown = 0;
-					senseMove = true;
-					Energy = MaxEnergy;
-					statOverheat = 0f;
-					statPBCh = 0f;
-					bomb = 0;
-					cooldownbomb = 0;
-					boostCharge = 100;
-					//PrimeHunter = true;
-					statParalyzerCharge = maxParalyzerCharge;
-					missileCost = 0;
-					UACost = 0;
-					Player.noFallDmg = true;
-					speedBooster = true;
-					isPowerSuit = true;
-					speedBoostDmg = 150;
-					screwAttackDmg = 150;
-					screwSpeedDelay = 0;
-					spaceJumpsRegenDelay = 0;
-					insigniaActive = true;
-					break;
 				default:
 					break;
 			}
 		}
+
+		public void NarpasSwordEffects()
+		{
+			Player.statLife = Player.statLifeMax2;
+			Player.statMana = Player.statManaMax;
+			canSomersault = true;
+			canWallJump = true;
+			powerGrip = true;
+			phazonImmune = true;
+			canUsePhazonBeam = true;
+			screwAttack = true;
+			hiJumpBoost = true;
+			spaceJump = true;
+			senseMoveCooldown = 0;
+			senseMove = true;
+			Energy = MaxEnergy;
+			statOverheat = 0f;
+			statPBCh = 0f;
+			bomb = 0;
+			cooldownbomb = 0;
+			boostCharge = 100;
+			statParalyzerCharge = maxParalyzerCharge;
+			missileCost = 0;
+			UACost = 0;
+			Player.noFallDmg = true;
+			speedBooster = true;
+			isPowerSuit = true;
+			speedBoostDmg = 150;
+			screwAttackDmg = 150;
+			screwSpeedDelay = 0;
+			spaceJumpsRegenDelay = 0;
+			insigniaActive = true;
+
+			// Infinite missiles
+			var heldItem = Player.HeldItem.GetGlobalItem<MGlobalItem>();
+			heldItem.statMissiles = heldItem.maxMissiles;
+		}
+
 		public override void PreUpdate()
 		{
 			PreUpdate_Accessories();
