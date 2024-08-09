@@ -23,29 +23,28 @@ namespace MetroidMod.Content.Hatches
 			IL_Main.DoDraw += il =>
 			{
 				ILCursor c = new(il);
-				
-				// In this case, we would like to draw hatches in front of water
-				// so, let's go to the lines of code that draw water in the foreground
-				c.GotoNext(i =>
-				{
-					bool loadsScene = i.MatchLdsfld(typeof(Overlays).GetField("Scene", BindingFlags.Public | BindingFlags.Static));
-					if (!loadsScene) return false;
 
-					bool sceneIsWater = i.Next.Next.MatchLdcI4((int)RenderLayers.ForegroundWater);
-					return sceneIsWater;
-				});
-				// There's code that jumps to the current location, make sure we place stuff
-				// after said location so it doesn't get skipped
-				c.MoveAfterLabels();
-
-				// Our cursor now inserts code directly before water is drawn
-				// Let's add our hook now!
-				c.EmitDelegate(() =>
+				// In this case, we would like to draw hatches in right before wiring is drawn
+				// The easiest way to achieve this seems to be doing it every time the game checks
+				// if wiring is visible during the DoDraw method
+				while (c.TryGotoNext(i =>
 				{
-					// The code currently has the correct spriteBatch set, so we don't need
-					// to begin and end one oursellves
-					DrawHatches();
-				});
+					Type type = typeof(Terraria.GameContent.UI.WiresUI.Settings);
+					return i.MatchCall(type.GetProperty("DrawWires").GetGetMethod());
+				}))
+				{
+					// Our cursor now inserts code directly before wiring
+					// Let's add our hook now!
+					c.EmitDelegate(() =>
+					{
+						// The code currently has the correct spriteBatch set, so we don't need
+						// to begin and end one oursellves
+						DrawHatches();
+					});
+					
+					// Move forward so we don't get stuck in the loop
+					c.GotoNext();
+				}
 			};
 		}
 
