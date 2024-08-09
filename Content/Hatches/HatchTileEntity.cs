@@ -58,6 +58,8 @@ namespace MetroidMod.Content.Hatches
 			}
 		}
 
+		private bool needsToClose;
+
 		private Vector2 Center => (Position + new Terraria.DataStructures.Point16(2, 2)).ToWorldCoordinates(0, 0);
 
 		public void Open()
@@ -72,13 +74,38 @@ namespace MetroidMod.Content.Hatches
 		public void Close()
 		{
 			if (!IsOpen) return;
-			UpdateTiles(false);
-			Animation.Close();
-			SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
+			needsToClose = true;
+		}
+
+		private bool CanClose()
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (!Collision.EmptyTile(Position.X + i, Position.Y + j, true))
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
 		}
 
 		public override void Update()
 		{
+			if(!IsOpen)
+			{
+				needsToClose = false;
+			}
+			else if(needsToClose && CanClose())
+			{
+				UpdateTiles(false);
+				Animation.Close();
+				SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
+			}
+
 			Animation.Update();
 			Appearance.Update();
 			Autoclose.Update();
