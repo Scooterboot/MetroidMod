@@ -119,16 +119,34 @@ namespace MetroidMod.Content.Hatches
 		{
 			if(Locked)
 			{
-				Locked = false;
+				Unlock();
+			}
+			else
+			{
+				Lock();
+			}
+		}
+
+		public void Lock()
+		{
+			Locked = true;
+			Visual.SetVisualState(HatchVisualState.Locked);
+		}
+
+		public void Unlock(bool withBlinking = true)
+		{
+			Locked = false;
+
+			if (withBlinking)
+			{
 				Visual.SetVisualState(HatchVisualState.Blinking);
 			}
 			else
 			{
-				Locked = true;
-				Visual.SetVisualState(HatchVisualState.Locked);
+				MakeCurrentColor();
 			}
 		}
-
+		
 
 		/// <summary>
 		/// Hit the hatch with a projectile that is capable of opening it under normal conditions.
