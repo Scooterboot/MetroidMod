@@ -59,19 +59,19 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void OnKill(int timeLeft)
 		{
-			if (Main.rand.NextBool(20))
+			if (Main.rand.NextBool(100))
 			{
 				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ItemID.Heart);
 			}
-			if (Main.rand.NextBool(20))
+			if (Main.rand.NextBool(100))
 			{
 				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ItemID.Star);
 			}
-			if (Main.rand.NextBool(20))
+			if (Main.rand.NextBool(100))
 			{
 				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ModContent.ItemType< MissilePickup>());
 			}
-			if (Main.rand.NextBool(20))
+			if (Main.rand.NextBool(100))
 			{
 				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ModContent.ItemType<UAPickup>());
 			}

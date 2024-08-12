@@ -3121,6 +3121,11 @@ Mods: {
 				Powering the metal bottom (or right when vertical) locks the hatch
 				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
 				''' */
+
+			ChozoRapier: {
+				// DisplayName: Chozo Rapier
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -3545,6 +3550,9 @@ Mods: {
 			// OrbBomb.DisplayName: Orb Bomb
 			// ChoziteChunk.DisplayName: Chozite Chunk
 			// CrocomirePet.DisplayName: Crocomire Pet
+			// ChozoClaymoreSlash.DisplayName: Chozo Claymore Slash
+			// ChozoRapierSlash.DisplayName: Chozo Rapier Slash
+			// ChozoRapierStab.DisplayName: Chozo Rapier Stab
 		}
 
 		Configs: {
@@ -4427,7 +4435,7 @@ Mods: {
 					// "[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
 					// DisableMobSpawn: Disable Mob Spawns
 					// AutomaticallyClosingHatches: Automatically Closing Hatches
-					// Misc: Misc Header
+					// Misc: Miscellaneous
 				}
 
 				enableBossSummonConsumption: {
@@ -4470,8 +4478,8 @@ Mods: {
 				}
 
 				enableGlobalNarpasSword: {
-					// Label: enable Global Narpas Sword
-					// Tooltip: ""
+					// Label: Narpas Sword
+					// Tooltip: Grants the Narpas Sword powerups to all players when enabled!
 				}
 			}
 
