@@ -1,5 +1,3 @@
-# .hjson files allow comments! Please read https://github.com/tModLoader/tModLoader/blob/1.4/ExampleMod/Localization/en-US.hjson for more information.
-
 Mods: {
 	MetroidMod: {
 		ModName: Metroid Mod
@@ -321,6 +319,16 @@ Mods: {
 				Description: Overclocking your Power Suit at the cost of your Energy
 				DisplayName: Prime Hunter Buff
 			}
+
+			GeemerPetBuff: {
+				Description: Mods.MetroidMod.Buffs.GeemerPetBuff.Description
+				DisplayName: Geemer Pet Buff
+			}
+
+			CrocomirePetBuff: {
+				Description: Mods.MetroidMod.Buffs.CrocomirePetBuff.Description
+				DisplayName: Crocomire Pet Buff
+			}
 		}
 
 		Items: {
@@ -500,11 +508,12 @@ Mods: {
 			}
 
 			SupercooledEmblem: {
-				Tooltip: '''
-						 15% reduced Overheat
-						 10% increased Hunter damage
-						 10% increased Hunter critical strike chance
-						 '''
+				Tooltip:
+					'''
+					15% reduced Overheat
+					10% increased Hunter damage
+					10% increased Hunter critical strike chance
+					'''
 				DisplayName: Thermal Regulator
 			}
 
@@ -1058,7 +1067,6 @@ Mods: {
 			PhazonBar: {
 				DisplayName: Phazon Bar
 				Tooltip: "'Glows ominously in the dark'"
-				# Mimics certain vanilla bars with tooltips (e.g. Hellstone is 'hot to the touch', chlorophyte 'reacts to the light')
 			}
 
 			Phazon: {
@@ -1324,12 +1332,12 @@ Mods: {
 
 			BlueHatch: {
 				DisplayName: Blue Hatch
-				Tooltip: "Right click or hit with a Beam blast to open"
+				Tooltip: Right click or hit with a Beam blast to open
 			}
 
 			BlueSwitch: {
 				DisplayName: Blue Switch
-				Tooltip: "Hit with a Beam blast to activate"
+				Tooltip: Hit with a Beam blast to activate
 			}
 
 			BrinstoneTile: {
@@ -1350,7 +1358,6 @@ Mods: {
 			ChozoBrickNatural: {
 				DisplayName: Abandoned Chozodian Brick
 				Tooltip: ""
-				# Every 'unsafe' wall in Vanilla uses a different adjective to describe it (Dungeon walls are "cursed", spider walls are "infested", etc.)
 			}
 
 			ChozoChest: {
@@ -1366,7 +1373,6 @@ Mods: {
 			ChozoPillarNatural: {
 				DisplayName: Abandoned Chozodian Pillar
 				Tooltip: ""
-				# Every 'unsafe' wall in Vanilla uses a different adjective to describe it (Dungeon walls are "cursed", spider walls are "infested", etc.)
 			}
 
 			ChozoRuinsActiveMusicBox: {
@@ -1387,131 +1393,141 @@ Mods: {
 			ChozoStatueArm: {
 				DisplayName: Chozo Statue Arm
 				Tooltip: "'Good for holding things'"
-				# There's no reference here, I just thought it'd be a funny way to say what it's for
 			}
 
 			BombBlock: {
 				DisplayName: Bomb Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when hit with a Morph Ball Bomb
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Morph Ball Bomb
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			BombBlockChain: {
 				DisplayName: Bomb Block Chain
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile and any in its chain when hit with a Morph Ball Bomb
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile and any in its chain when hit with a Morph Ball Bomb
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			BoostBlock: {
 				DisplayName: Boost Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when hit with the Speed Booster
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with the Speed Booster
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			CrumbleBlock: {
 				DisplayName: Crumble Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when stood upon
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when stood upon
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			CrumbleBlockSlow: {
 				DisplayName: Crumble Block Slow
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when stood upon after a delay
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when stood upon after a delay
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			CrumbleBlockSpeed: {
 				DisplayName: Crumble Block Speed
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Immediately deactivates the tile when stood upon
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Immediately deactivates the tile when stood upon
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			FakeBlock: {
 				DisplayName: Fake Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when hit
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			FakeBlockHint: {
 				DisplayName: Fake Block Hint
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Visible without special equipment, good for indicating destructible tiles
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Visible without special equipment, good for indicating destructible tiles
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			MissileBlock: {
 				DisplayName: Missile Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when hit with a Missile
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Missile
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			PowerBombBlock: {
 				DisplayName: Power Bomb Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when hit with a Power Bomb blast
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Power Bomb blast
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			ScrewAttackBlock: {
 				DisplayName: Screw Attack Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when hit with the Screw Attack
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with the Screw Attack
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			SuperMissileBlock: {
 				DisplayName: Super Missile Block
-				Tooltip: '''
-						 Can be placed over a standard tile
-						 Deactivates the tile when hit with a Super Missile
-						 Can be removed with Chozite Cutters
-						 '''
+				Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Super Missile
+					Can be removed with Chozite Cutters
+					'''
 			}
 
 			EnergyStation: {
 				DisplayName: Energy Station
-				Tooltip: "Right click to refill your Power Suit's Energy reserves"
+				Tooltip: Right click to refill your Power Suit's Energy reserves
 			}
 
 			EnergyStationDevtool: {
 				DisplayName: Energy Station Devtool
-				Tooltip: "You shouldn't have this."
+				Tooltip: You shouldn't have this.
 			}
 
 			EnergyTank: {
 				DisplayName: Incorrect Energy Tank
-				Tooltip: "You shouldn't have this."
-				# This is the old spriteripped energy tank that's deprecated now
+				Tooltip: You shouldn't have this.
 			}
 
 			ExtraArcticPlating: {
@@ -1531,10 +1547,11 @@ Mods: {
 
 			GrappleBeamPlus: {
 				DisplayName: Grapple Beam Lite
-				Tooltip: '''
-						 Only attaches to special tiles
-						 For adventure map use only
-						 '''
+				Tooltip:
+					'''
+					Only attaches to special tiles
+					For adventure map use only
+					'''
 			}
 
 			GrappleBeam: {
@@ -1554,17 +1571,17 @@ Mods: {
 
 			GreenHatch: {
 				DisplayName: Green Hatch
-				Tooltip: "Blast with a Super Missile to activate"
+				Tooltip: Blast with a Super Missile to activate
 			}
 
 			GreenSwitch: {
 				DisplayName: Green Switch
-				Tooltip: "Blast with a Super Missile to activate"
+				Tooltip: Blast with a Super Missile to activate
 			}
 
 			GripLedge: {
 				DisplayName: Grip Ledge
-				Tooltip: "Can be grabbed onto with the Power Grip"
+				Tooltip: Can be grabbed onto with the Power Grip
 			}
 
 			ItemPedestalTile: {
@@ -1594,7 +1611,7 @@ Mods: {
 
 			MissileStation: {
 				DisplayName: Missile Station
-				Tooltip: "Right click to refill your Arm Cannon's ammunitions"
+				Tooltip: Right click to refill your Arm Cannon's ammunitions
 			}
 
 			MorphBallPlaceable: {
@@ -1615,7 +1632,6 @@ Mods: {
 			NorfairBrickNatural: {
 				DisplayName: Infernal Norfic Bendezium Brick
 				Tooltip: ""
-				# Every 'unsafe' wall in Vanilla uses a different adjective to describe it (Dungeon walls are "cursed", spider walls are "infested", etc.)
 			}
 
 			NorfairBubbleSM: {
@@ -1630,7 +1646,7 @@ Mods: {
 
 			NovaWorkTable: {
 				DisplayName: Nova Work Table
-				Tooltip: "Used to craft items from Phazon"
+				Tooltip: Used to craft items from Phazon
 			}
 
 			OmegaPirateMusicBox: {
@@ -1650,12 +1666,12 @@ Mods: {
 
 			RedHatch: {
 				DisplayName: Red Hatch
-				Tooltip: "Blast with a Missile to open"
+				Tooltip: Blast with a Missile to open
 			}
 
 			RedSwitch: {
 				DisplayName: Red Switch
-				Tooltip: "Blast with a Missile to activate"
+				Tooltip: Blast with a Missile to activate
 			}
 
 			RidleyMusicBox: {
@@ -1706,7 +1722,6 @@ Mods: {
 			TourianPipeAccentNatural: {
 				DisplayName: Operational Tourian Accent Pipe
 				Tooltip: ""
-				# Every 'unsafe' wall in Vanilla uses a different adjective to describe it (Dungeon walls are "cursed", spider walls are "infested", etc.)
 			}
 
 			TourianPipeNatural: {
@@ -1716,12 +1731,12 @@ Mods: {
 
 			YellowHatch: {
 				DisplayName: Yellow Hatch
-				Tooltip: "Blast with a Power Bomb to open"
+				Tooltip: Blast with a Power Bomb to open
 			}
 
 			YellowSwitch: {
 				DisplayName: Yellow Switch
-				Tooltip: "Blast with a Power Bomb to activate"
+				Tooltip: Blast with a Power Bomb to activate
 			}
 
 			ChoziteCutter: {
@@ -1746,7 +1761,7 @@ Mods: {
 
 			GreenKeycard: {
 				DisplayName: Green Keycard
-				Tooltip: "Lets you open Green Hatches with Right click"
+				Tooltip: Lets you open Green Hatches with Right click
 			}
 
 			NovaLaserDrill: {
@@ -1756,16 +1771,16 @@ Mods: {
 
 			OmniKeycard: {
 				DisplayName: Omni Keycard
-				Tooltip: '''
-						 Lets you open any Hatch with Right click
-						 'Thankfully not a MasterCard'
-						 '''
-						 # Reference to SCP: Containment Breach     -Z
+				Tooltip:
+					'''
+					Lets you open any Hatch with Right click
+					'Thankfully not a MasterCard'
+					'''
 			}
 
 			RedKeycard: {
 				DisplayName: Red Keycard
-				Tooltip: "Lets you open Red Hatches with Right click"
+				Tooltip: Lets you open Red Hatches with Right click
 			}
 
 			ScanPulse: {
@@ -1775,7 +1790,7 @@ Mods: {
 
 			YellowKeycard: {
 				DisplayName: Yellow Keycard
-				Tooltip: "Lets you open Yellow Hatches with Right click"
+				Tooltip: Lets you open Yellow Hatches with Right click
 			}
 
 			EzloHat: {
@@ -2306,7 +2321,6 @@ Mods: {
 			ChozoBrickWallNatural: {
 				DisplayName: Abandoned Chozodian Brick Wall
 				Tooltip: ""
-				# Every 'unsafe' wall in Vanilla uses a different adjective to describe it (Dungeon walls are "cursed", spider walls are "infested", etc.)
 			}
 
 			NorfairBrickWall: {
@@ -2317,7 +2331,6 @@ Mods: {
 			NorfairBrickWallNatural: {
 				DisplayName: Infernal Norfic Bendezium Brick Wall
 				Tooltip: ""
-				# Every 'unsafe' wall in Vanilla uses a different adjective to describe it (Dungeon walls are "cursed", spider walls are "infested", etc.)
 			}
 
 			TourianWall: {
@@ -2328,7 +2341,6 @@ Mods: {
 			TourianWallNatural: {
 				DisplayName: Operational Tourian Wall
 				Tooltip: ""
-				# Every 'unsafe' wall in Vanilla uses a different adjective to describe it (Dungeon walls are "cursed", spider walls are "infested", etc.)
 			}
 
 			ChoziteCrossbow: {
@@ -2348,36 +2360,40 @@ Mods: {
 
 			CopperParalyzer: {
 				DisplayName: Copper Paralyzer
-				Tooltip: '''
-						 Automatically charges when not in use
-						 Fully-charged shots stun targets for a short time
-						 'Resembles Chozo sidearm'
-						 ''
+				Tooltip:
+					'''
+					Automatically charges when not in use
+					Fully-charged shots stun targets for a short time
+					'Resembles Chozo sidearm'
+					'''
 			}
 
 			MissileLauncher: {
 				DisplayName: Missile Launcher
-				Tooltip: '''
-						 (BEING PHASED OUT, DO NOT USE)
-						 Select this item in your hotbar and open your inventory to open the Missile Addon UI
-						 '''
+				Tooltip:
+					'''
+					--BEING PHASED OUT DO NOT USE--
+					Select this item in your hotbar and open your inventory to open the Missile Addon UI
+					'''
 			}
 
 			Paralyzer: {
 				DisplayName: Paralyzer
-				Tooltip: '''
-						 Automatically charges when not in use
-						 Fully-charged shots stun targets for a short time
-						 'A gift of the Chozo'
-						 '''
+				Tooltip:
+					'''
+					Automatically charges when not in use
+					Fully-charged shots stun targets for a short time
+					'A gift of the Chozo'
+					'''
 			}
 
 			PowerBeam: {
 				DisplayName: Power Beam
-				Tooltip: '''
-						 (BEING PHASED OUT, DO NOT USE)
-						 Select this item in your hotbar and open your inventory to open the Beam Addon UI
-						 '''
+				Tooltip:
+					'''
+					--BEING PHASED OUT DO NOT USE--
+					Select this item in your hotbar and open your inventory to open the Beam Addon UI
+					'''
 			}
 
 			BetsyBombAddon: {
@@ -3104,6 +3120,76 @@ Mods: {
 				DisplayName: Extraterrestrial Plating
 				Tooltip: ""
 			}
+
+			GeemerSupps: {
+				Tooltip: ""
+				DisplayName: Geemer Supps
+			}
+
+			CrocomireBone: {
+				Tooltip: ""
+				DisplayName: Crocomire Bone
+			}
+
+			TorizoSpitter: {
+				Tooltip: ""
+				DisplayName: Torizo Spitter
+			}
+
+			TorizoClaws: {
+				Tooltip: ""
+				DisplayName: Torizo Claws
+			}
+
+			ChozoRapier: {
+				Tooltip: ""
+				DisplayName: Chozo Rapier
+			}
+
+			ChozoSaw: {
+				Tooltip: ""
+				DisplayName: Chozo Saw
+			}
+
+			ChozoJackhammer: {
+				Tooltip: ""
+				DisplayName: Chozo Jackhammer
+			}
+
+			ChozoDrill: {
+				Tooltip: ""
+				DisplayName: Chozo Drill
+			}
+
+			TorizoRelic: {
+				Tooltip: ""
+				DisplayName: Torizo Relic
+			}
+
+			NOCPlating: {
+				Tooltip: ""
+				DisplayName: N O C Plating
+			}
+
+			TorizoRelocator: {
+				Tooltip: ""
+				DisplayName: Torizo Relocator
+			}
+
+			GoldenTorizoRelocator: {
+				Tooltip: ""
+				DisplayName: Golden Torizo Relocator
+			}
+
+			ChoziteChunk: {
+				Tooltip: ""
+				DisplayName: Chozite Chunk
+			}
+
+			TorizoEyeNecklace: {
+				Tooltip: ""
+				DisplayName: Torizo Eye Necklace
+			}
 		}
 
 		NPCs: {
@@ -3521,6 +3607,16 @@ Mods: {
 			BetsyBombProjectile.DisplayName: Betsy Bomb
 			RamBall.DisplayName: Ram Ball
 			ChoziteShortswordStab.DisplayName: Chozite Shortsword
+			GeemerPet.DisplayName: Geemer Pet
+			CrocomirePet.DisplayName: Crocomire Pet
+			ChoziteChunk.DisplayName: Chozite Chunk
+			ChozoClaymoreSlash.DisplayName: Chozo Claymore Slash
+			ChozoDrillProjectile.DisplayName: Chozo Drill Projectile
+			ChozoJackhammerProjectile.DisplayName: Chozo Jackhammer Projectile
+			ChozoRapierSlash.DisplayName: Chozo Rapier Slash
+			ChozoRapierStab.DisplayName: Chozo Rapier Stab
+			ChozoSawProjectile.DisplayName: Chozo Saw Projectile
+			OrbBomb.DisplayName: Orb Bomb
 		}
 
 		Configs: {
@@ -3745,6 +3841,7 @@ Mods: {
 					"[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i:MetroidMod/MissileLauncher] Missile Launcher Addons"
 					"[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons": "[i:MetroidMod/PowerBeam] Power Beam Hunters Addons"
 					"[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons Header"
+					SuitAddons: Suit Addons Header
 				}
 
 				enableWallJumpChoziteArmor: {
@@ -4385,6 +4482,11 @@ Mods: {
 					Label: "[i:MetroidMod/SpeedBooster] Silent Speed Booster"
 					Tooltip: Speed Boosting is silent
 				}
+
+				revertHyperBeamSuitLock: {
+					Label: revert Hyper Beam Suit Lock
+					Tooltip: ""
+				}
 			}
 
 			MConfigMain: {
@@ -4398,6 +4500,7 @@ Mods: {
 					"[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
 					DisableMobSpawn: Disable Mob Spawns
 					AutomaticallyClosingHatches: Automatically Closing Hatches
+					Misc: Misc Header
 				}
 
 				enableBossSummonConsumption: {
@@ -4407,11 +4510,11 @@ Mods: {
 
 				spaceJumpRocketBoots: {
 					Label: "[i:MetroidMod/SpaceJump] Space Jump doesn't override Rocket Boots"
-					Tooltip: '''
-							 Enables a small, niche movement tech that has not been named.
-							 (It's pronounced 'nitch' not 'neesh' -Dr)
-							 '''
-							 # I disagree -Z
+					Tooltip:
+						'''
+						Enables a small, niche movement tech that has not been named.
+						(It's pronounced 'nitch' not 'neesh' -Dr)
+						'''
 				}
 
 				enableMorphBallWallJump: {
@@ -4441,6 +4544,11 @@ Mods: {
 				disablemobspawn: {
 					Tooltip: Disable Metroid mod mob spawning, as they currently have no unique drops
 					Label: Disable Mob Spawns
+				}
+
+				enableGlobalNarpasSword: {
+					Label: enable Global Narpas Sword
+					Tooltip: ""
 				}
 			}
 
@@ -4547,6 +4655,13 @@ Mods: {
 		InfoDisplays: {
 			EfficiencyDisplay.DisplayName: Efficiency Display
 			ExpenseDisplay.DisplayName: Expense Display
+		}
+
+		Hatches: {
+			YellowHatch.DisplayName: Mods.MetroidMod.Hatches.YellowHatch.DisplayName
+			RedHatch.DisplayName: Mods.MetroidMod.Hatches.RedHatch.DisplayName
+			GreenHatch.DisplayName: Mods.MetroidMod.Hatches.GreenHatch.DisplayName
+			BlueHatch.DisplayName: Mods.MetroidMod.Hatches.BlueHatch.DisplayName
 		}
 	}
 }

@@ -1,5 +1,3 @@
-# .hjson files allow comments! Please read https://github.com/tModLoader/tModLoader/blob/1.4/ExampleMod/Localization/en-US.hjson for more information.
-
 Mods: {
 	MetroidMod: {
 		// ModName: Metroid Mod
@@ -20,7 +18,6 @@ Mods: {
 				# StdD4 is unused.
 				// StandardDialogue4: Be cautious of my brethren in our ancient ruins, for they may put your mettle to the test.
 				// WitchDialogue: "{0} keeps shaking his witchcraft 'things' at me whenever I come near him. Could you ask him to stop?"
-				// EnergyHint: Your suit should have a defense system called 'Energy.' Keep your suit powered, and it will be able to protect you better!
 			}
 		}
 
@@ -44,7 +41,7 @@ Mods: {
 		}
 
 		GameTips: {
-			// ItemStatueTip: Addons for the Power Beam, Missile Launcher, Morph Ball, and Power Suit can be found around the world on statues!
+			// ItemStatueTip: Addons for the Arm Cannon, Morph Ball, and Power Suit can be found around the world on statues!
 			// MysteriousStatueTip: There is a mysterious statue in the desert worth checking out...
 		}
 
@@ -52,9 +49,10 @@ Mods: {
 			// "Spider Ball.DisplayName": Spider  Ball
 			// "Boost Ball.DisplayName": Boost  Ball
 			// "Power Bomb.DisplayName": Power  Bomb
-			// "Show Visor UI.DisplayName": Show  Visor  U I
+			// "Show Visor UI.DisplayName": Show  Visor  UI
 			// "Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
 			// "Switch Interface.DisplayName": Switch  Interface
+			# I'm gonna assume there's a reason that these are all double-spaced and leave them like this     -Z
 			// HyperMode.DisplayName: Hyper Mode
 		}
 
@@ -149,7 +147,7 @@ Mods: {
 		Biomes: {
 			ChozoRuinsBiome: {
 				// DisplayName: Chozo Ruins
-				// TownNPCDialogueName: the Chozo Ruins Biome
+				// TownNPCDialogueName: the Chozo Ruins
 			}
 
 			NESCrateriaSurfaceBiome: {
@@ -159,25 +157,41 @@ Mods: {
 		}
 
 		Tiles: {
-			// ChoziteBarTile.MapEntry: Chozite Bar Tile
-			// ChoziteOreTile.MapEntry: Chozite Ore Tile
+			// ChoziteBarTile.MapEntry: Chozite Bar
+			// ChoziteOreTile.MapEntry: Chozite Ore
 			// ChozoChest.MapEntry: Chozodian Chest
 			// ChozoPillar.MapEntry: Chozo Pillar
-			// ChozoPillarNatural.MapEntry: Chozo Pillar Natural
-			// ChozoRuinsActiveMusicBox.MapEntry: Chozo Ruins Active Music Box
-			// ChozoRuinsInactiveMusicBox.MapEntry: Chozo Ruins Inactive Music Box
+			// ChozoPillarNatural.MapEntry: Chozo Pillar
+			// ChozoRuinsActiveMusicBox.MapEntry: Chozo Ruins (Active) Music Box
+			// ChozoRuinsInactiveMusicBox.MapEntry: Chozo Ruins (Inactive) Music Box
 			// ChozoStatue.MapEntry: Chozo Statue
 			// ChozoStatueArm.MapEntry: Chozo Statue
 			// ChozoStatueArmNatural.MapEntry: Chozo Statue
 			// ChozoStatueNatural.MapEntry: Chozo Statue
 			// EnergyStation.MapEntry: Energy Station
-			// EnergyStationDevtool.MapEntry: Energy Station Devtool
+			// EnergyStationDevtool.MapEntry: Energy Station (Devtool)
+			// BlueHatch.MapEntry: Blue Hatch
+			// BlueHatchOpen.MapEntry: Blue Hatch (Open)
+			// BlueHatchOpenVertical.MapEntry: Blue Hatch (Vertical, Open)
+			// BlueHatchVertical.MapEntry: Blue Hatch (Vertical)
+			// GreenHatch.MapEntry: Green Hatch
+			// GreenHatchOpen.MapEntry: Green Hatch (Open)
+			// GreenHatchOpenVertical.MapEntry: Green Hatch (Vertical, Open)
+			// GreenHatchVertical.MapEntry: Green Hatch (Vertical)
+			// RedHatch.MapEntry: Red Hatch
+			// RedHatchOpen.MapEntry: Red Hatch (Open)
+			// RedHatchOpenVertical.MapEntry: Red Hatch (Vertical, Open)
+			// RedHatchVertical.MapEntry: Red Hatch (Vertical)
+			// YellowHatch.MapEntry: Yellow Hatch
+			// YellowHatchOpen.MapEntry: Yellow Hatch (Open)
+			// YellowHatchOpenVertical.MapEntry: Yellow Hatch (Vertical, Open)
+			// YellowHatchVertical.MapEntry: Yellow Hatch (Vertical)
 			// ChargeBeamTile.MapEntry: Charge Beam
 			// ChargeBeamV2Tile.MapEntry: Diffusion Beam
-			// BattleHammerTile.MapEntry: Battle Hammer
+			// BattleHammerTile.MapEntry: BattleHammer
 			// ImperialistTile.MapEntry: Imperialist
 			// JudicatorTile.MapEntry: Judicator
-			// MagMaulTile.MapEntry: Mag Maul
+			// MagMaulTile.MapEntry: MagMaul
 			// OmegaCannonTile.MapEntry: Omega Cannon
 			// ShockCoilTile.MapEntry: Shock Coil
 			// VoltDriverTile.MapEntry: Volt Driver
@@ -236,22 +250,22 @@ Mods: {
 			// TorizoTrophyTile.MapEntry: Torizo Trophy
 			// ZeroHusk.MapEntry: Zero Husk
 			// ChozoStatueOrb.MapEntry: Chozo Statue Orb
-			// NebulaAugmentTile.MapEntry: Nebula Augment Tile
-			// LightSuitAddonTile.MapEntry: Light Suit Addon Tile
-			// HazardShieldAddonTile.MapEntry: Hazard Shield Addon Tile
-			// GravitySuitAddonTile.MapEntry: Gravity Suit Addon Tile
-			// EnergyTankTile.MapEntry: Energy Tank Tile
-			// DarkSuitAddonTile.MapEntry: Dark Suit Addon Tile
-			// PEDSuitAddonTile.MapEntry: P E D Suit Addon Tile
-			// PhazonSuitAddonTile.MapEntry: Phazon Suit Addon Tile
-			// ReserveTankTile.MapEntry: Reserve Tank Tile
-			// ScanVisorTile.MapEntry: Scan Visor Tile
-			// SolarAugmentTile.MapEntry: Solar Augment Tile
-			// TerraGravitySuitAddonTile.MapEntry: True Gravity Suit Addon Tile
-			// VariaSuitAddonTile.MapEntry: Varia Suit Addon Tile
-			// VariaSuitV2AddonTile.MapEntry: True Varia Suit Addon Tile
-			// VortexAugmentTile.MapEntry: Vortex Augment Tile
-			// XRayScopeTile.MapEntry: X Ray Scope Tile
+			// NebulaAugmentTile.MapEntry: Nebula Augment
+			// LightSuitAddonTile.MapEntry: Light Suit
+			// HazardShieldAddonTile.MapEntry: Hazard Shield
+			// GravitySuitAddonTile.MapEntry: Gravity Suit
+			// EnergyTankTile.MapEntry: Energy Tank
+			// DarkSuitAddonTile.MapEntry: Dark Suit
+			// PEDSuitAddonTile.MapEntry: P.E.D. Suit
+			// PhazonSuitAddonTile.MapEntry: Phazon Suit
+			// ReserveTankTile.MapEntry: Reserve Tank
+			// ScanVisorTile.MapEntry: Scan Visor
+			// SolarAugmentTile.MapEntry: Solar Augment
+			// TerraGravitySuitAddonTile.MapEntry: True Gravity Suit
+			// VariaSuitAddonTile.MapEntry: Varia Suit
+			// VariaSuitV2AddonTile.MapEntry: True Varia Suit
+			// VortexAugmentTile.MapEntry: Vortex Augment
+			// XRayScopeTile.MapEntry: X Ray Scope
 			// UAExpansionTile.MapEntry: UA Expansion
 		}
 
@@ -288,7 +302,7 @@ Mods: {
 
 			MorphBallMountBuff: {
 				// DisplayName: Morph Ball Mount Buff
-				// Description: Because you apparently can't crawl
+				// Description: Great for those that can't crawl!
 			}
 
 			ParalyzerStun: {
@@ -307,19 +321,19 @@ Mods: {
 			}
 
 			GeemerPetBuff: {
+				// Description: Mods.MetroidMod.Buffs.GeemerPetBuff.Description
 				// DisplayName: Geemer Pet Buff
-				// Description: A Geemer is zooming around you
 			}
 
 			CrocomirePetBuff: {
-				// DisplayName: Crocomire
-				// Description: Crocomire is stoked to be here!
+				// Description: Mods.MetroidMod.Buffs.CrocomirePetBuff.Description
+				// DisplayName: Crocomire Pet Buff
 			}
 		}
 
 		Items: {
 			HiJumpBoots: {
-				// DisplayName: Hi Jump Boots
+				// DisplayName: Hi-Jump Boots
 				/* Tooltip:
 					'''
 					Increases jump height
@@ -409,7 +423,7 @@ Mods: {
 			}
 
 			ScrewSpaceBooster: {
-				// DisplayName: Omega Booster
+				// DisplayName: Spiral Booster
 				/* Tooltip:
 					'''
 					Allows the user to run insanely fast
@@ -588,7 +602,6 @@ Mods: {
 					Slot Type: Charge
 					Shots bounce, roll and explode
 					Affinity Charge shots ignite
-					Uses UA reserves
 					[c/78BE78:+45% damage]
 					[c/BE7878:-45% speed]
 					[c/BE7878:+75% overheat use]
@@ -623,7 +636,6 @@ Mods: {
 					Charges on enemy damage
 					Range depends on addons
 					Builds speed and charge when attacking an enemy
-					Uses UA reserves
 					[c/BE7878:No knockback]
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
@@ -639,7 +651,6 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
 					Affinity Charge shots home, explode, and confuse
-					Uses UA reserves
 					[c/78BE78:+60% damage]
 					[c/BE7878:+50% overheat use]
 					[c/BE7878:-10% speed]
@@ -1055,7 +1066,7 @@ Mods: {
 
 			PhazonBar: {
 				// DisplayName: Phazon Bar
-				// Tooltip: ""
+				// Tooltip: "'Glows ominously in the dark'"
 			}
 
 			Phazon: {
@@ -1074,7 +1085,7 @@ Mods: {
 			}
 
 			UnknownPlasmaBeam: {
-				// DisplayName: Unknown Plasma Beam
+				// DisplayName: Unknown Beam Addon
 				// Tooltip: ""
 			}
 
@@ -1319,9 +1330,14 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			BlueHatch: {
+				// DisplayName: Blue Hatch
+				// Tooltip: Right click or hit with a Beam blast to open
+			}
+
 			BlueSwitch: {
 				// DisplayName: Blue Switch
-				// Tooltip: ""
+				// Tooltip: Hit with a Beam blast to activate
 			}
 
 			BrinstoneTile: {
@@ -1335,12 +1351,12 @@ Mods: {
 			}
 
 			ChozoBrick: {
-				// DisplayName: Chozo Brick
+				// DisplayName: Chozodian Brick
 				// Tooltip: ""
 			}
 
 			ChozoBrickNatural: {
-				// DisplayName: Chozo Brick Natural
+				// DisplayName: Abandoned Chozodian Brick
 				// Tooltip: ""
 			}
 
@@ -1350,12 +1366,12 @@ Mods: {
 			}
 
 			ChozoPillar: {
-				// DisplayName: Chozo Pillar
+				// DisplayName: Chozodian Pillar
 				// Tooltip: ""
 			}
 
 			ChozoPillarNatural: {
-				// DisplayName: Chozo Pillar Natural
+				// DisplayName: Abandoned Chozodian Pillar
 				// Tooltip: ""
 			}
 
@@ -1376,86 +1392,146 @@ Mods: {
 
 			ChozoStatueArm: {
 				// DisplayName: Chozo Statue Arm
-				// Tooltip: ""
+				// Tooltip: "'Good for holding things'"
 			}
 
 			BombBlock: {
 				// DisplayName: Bomb Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Morph Ball Bomb
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			BombBlockChain: {
 				// DisplayName: Bomb Block Chain
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile and any in its chain when hit with a Morph Ball Bomb
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			BoostBlock: {
 				// DisplayName: Boost Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with the Speed Booster
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			CrumbleBlock: {
 				// DisplayName: Crumble Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when stood upon
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			CrumbleBlockSlow: {
 				// DisplayName: Crumble Block Slow
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when stood upon after a delay
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			CrumbleBlockSpeed: {
 				// DisplayName: Crumble Block Speed
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Immediately deactivates the tile when stood upon
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			FakeBlock: {
 				// DisplayName: Fake Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			FakeBlockHint: {
 				// DisplayName: Fake Block Hint
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Visible without special equipment, good for indicating destructible tiles
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			MissileBlock: {
 				// DisplayName: Missile Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Missile
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			PowerBombBlock: {
 				// DisplayName: Power Bomb Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Power Bomb blast
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			ScrewAttackBlock: {
 				// DisplayName: Screw Attack Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with the Screw Attack
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			SuperMissileBlock: {
 				// DisplayName: Super Missile Block
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Can be placed over a standard tile
+					Deactivates the tile when hit with a Super Missile
+					Can be removed with Chozite Cutters
+					''' */
 			}
 
 			EnergyStation: {
 				// DisplayName: Energy Station
-				// Tooltip: ""
+				// Tooltip: Right click to refill your Power Suit's Energy reserves
 			}
 
 			EnergyStationDevtool: {
 				// DisplayName: Energy Station Devtool
-				// Tooltip: ""
+				// Tooltip: You shouldn't have this.
 			}
 
 			EnergyTank: {
-				// DisplayName: Energy Tank
-				// Tooltip: ""
+				// DisplayName: Incorrect Energy Tank
+				// Tooltip: You shouldn't have this.
 			}
 
 			ExtraArcticPlating: {
-				// DisplayName: Extra Arctic Plating
+				// DisplayName: Frostburnt Arctic Plating
 				// Tooltip: ""
 			}
 
@@ -1484,32 +1560,37 @@ Mods: {
 			}
 
 			GrappleTile: {
-				// DisplayName: Grapple Tile
+				// DisplayName: Grapple Point
 				// Tooltip: ""
 			}
 
 			GreenBrinstarRootsTile: {
-				// DisplayName: Green Brinstar Roots Tile
+				// DisplayName: Overgrown Brinstone Block
 				// Tooltip: ""
+			}
+
+			GreenHatch: {
+				// DisplayName: Green Hatch
+				// Tooltip: Blast with a Super Missile to activate
 			}
 
 			GreenSwitch: {
 				// DisplayName: Green Switch
-				// Tooltip: ""
+				// Tooltip: Blast with a Super Missile to activate
 			}
 
 			GripLedge: {
 				// DisplayName: Grip Ledge
-				// Tooltip: ""
+				// Tooltip: Can be grabbed onto with the Power Grip
 			}
 
 			ItemPedestalTile: {
-				// DisplayName: Item Pedestal Tile
+				// DisplayName: Item Pedestal
 				// Tooltip: ""
 			}
 
 			ItemRoomTile: {
-				// DisplayName: Item Room Tile
+				// DisplayName: Item Room Brick
 				// Tooltip: ""
 			}
 
@@ -1530,11 +1611,11 @@ Mods: {
 
 			MissileStation: {
 				// DisplayName: Missile Station
-				// Tooltip: ""
+				// Tooltip: Right click to refill your Arm Cannon's ammunitions
 			}
 
 			MorphBallPlaceable: {
-				// DisplayName: Morph Ball Placeable
+				// DisplayName: Morph Ball (Placeable)
 				// Tooltip: ""
 			}
 
@@ -1544,12 +1625,12 @@ Mods: {
 			}
 
 			NorfairBrick: {
-				// DisplayName: Norfair Brick
+				// DisplayName: Norfic Bendezium Brick
 				// Tooltip: ""
 			}
 
 			NorfairBrickNatural: {
-				// DisplayName: Norfair Brick Natural
+				// DisplayName: Infernal Norfic Bendezium Brick
 				// Tooltip: ""
 			}
 
@@ -1565,7 +1646,7 @@ Mods: {
 
 			NovaWorkTable: {
 				// DisplayName: Nova Work Table
-				// Tooltip: ""
+				// Tooltip: Used to craft items from Phazon
 			}
 
 			OmegaPirateMusicBox: {
@@ -1583,9 +1664,14 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			RedHatch: {
+				// DisplayName: Red Hatch
+				// Tooltip: Blast with a Missile to open
+			}
+
 			RedSwitch: {
 				// DisplayName: Red Switch
-				// Tooltip: ""
+				// Tooltip: Blast with a Missile to activate
 			}
 
 			RidleyMusicBox: {
@@ -1629,23 +1715,28 @@ Mods: {
 			}
 
 			TourianPipeAccent: {
-				// DisplayName: Tourian Pipe Accent
+				// DisplayName: Tourian Accent Pipe
 				// Tooltip: ""
 			}
 
 			TourianPipeAccentNatural: {
-				// DisplayName: Tourian Pipe Accent Natural
+				// DisplayName: Operational Tourian Accent Pipe
 				// Tooltip: ""
 			}
 
 			TourianPipeNatural: {
-				// DisplayName: Tourian Pipe Natural
+				// DisplayName: Operational Tourian Pipe
 				// Tooltip: ""
+			}
+
+			YellowHatch: {
+				// DisplayName: Yellow Hatch
+				// Tooltip: Blast with a Power Bomb to open
 			}
 
 			YellowSwitch: {
 				// DisplayName: Yellow Switch
-				// Tooltip: ""
+				// Tooltip: Blast with a Power Bomb to activate
 			}
 
 			ChoziteCutter: {
@@ -1670,22 +1761,26 @@ Mods: {
 
 			GreenKeycard: {
 				// DisplayName: Green Keycard
-				// Tooltip: ""
+				// Tooltip: Lets you open Green Hatches with Right click
 			}
 
 			NovaLaserDrill: {
 				// DisplayName: Nova Laser Drill
-				// Tooltip: Right click to swap between hammer and drill
+				// Tooltip: ""
 			}
 
 			OmniKeycard: {
 				// DisplayName: Omni Keycard
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Lets you open any Hatch with Right click
+					'Thankfully not a MasterCard'
+					''' */
 			}
 
 			RedKeycard: {
 				// DisplayName: Red Keycard
-				// Tooltip: ""
+				// Tooltip: Lets you open Red Hatches with Right click
 			}
 
 			ScanPulse: {
@@ -1695,7 +1790,7 @@ Mods: {
 
 			YellowKeycard: {
 				// DisplayName: Yellow Keycard
-				// Tooltip: ""
+				// Tooltip: Lets you open Yellow Hatches with Right click
 			}
 
 			EzloHat: {
@@ -1804,17 +1899,17 @@ Mods: {
 			}
 
 			LegacyPEDSuitBreastplate: {
-				// DisplayName: Legacy P E D Suit Breastplate
+				// DisplayName: Legacy P.E.D. Suit Breastplate
 				// Tooltip: ""
 			}
 
 			LegacyPEDSuitGreaves: {
-				// DisplayName: Legacy P E D Suit Greaves
+				// DisplayName: Legacy P.E.D. Suit Greaves
 				// Tooltip: ""
 			}
 
 			LegacyPEDSuitHelmet: {
-				// DisplayName: Legacy P E D Suit Helmet
+				// DisplayName: Legacy P.E.D. Suit Helmet
 				// Tooltip: ""
 			}
 
@@ -2054,17 +2149,17 @@ Mods: {
 			}
 
 			VanityPEDSuitBreastplate: {
-				// DisplayName: Vanity P E D Suit Breastplate
+				// DisplayName: Vanity P.E.D. Suit Breastplate
 				// Tooltip: ""
 			}
 
 			VanityPEDSuitGreaves: {
-				// DisplayName: Vanity P E D Suit Greaves
+				// DisplayName: Vanity P.E.D. Suit Greaves
 				// Tooltip: ""
 			}
 
 			VanityPEDSuitHelmet: {
-				// DisplayName: Vanity P E D Suit Helmet
+				// DisplayName: Vanity P.E.D. Suit Helmet
 				// Tooltip: ""
 			}
 
@@ -2219,22 +2314,22 @@ Mods: {
 			}
 
 			ChozoBrickWall: {
-				// DisplayName: Chozo Brick Wall
+				// DisplayName: Chozodian Brick Wall
 				// Tooltip: ""
 			}
 
 			ChozoBrickWallNatural: {
-				// DisplayName: Chozo Brick Wall Natural
+				// DisplayName: Abandoned Chozodian Brick Wall
 				// Tooltip: ""
 			}
 
 			NorfairBrickWall: {
-				// DisplayName: Norfair Brick Wall
+				// DisplayName: Norfic Bendezium Brick Wall
 				// Tooltip: ""
 			}
 
 			NorfairBrickWallNatural: {
-				// DisplayName: Norfair Brick Wall Natural
+				// DisplayName: Infernal Norfic Bendezium Brick Wall
 				// Tooltip: ""
 			}
 
@@ -2244,7 +2339,7 @@ Mods: {
 			}
 
 			TourianWallNatural: {
-				// DisplayName: Tourian Wall Natural
+				// DisplayName: Operational Tourian Wall
 				// Tooltip: ""
 			}
 
@@ -2265,22 +2360,40 @@ Mods: {
 
 			CopperParalyzer: {
 				// DisplayName: Copper Paralyzer
-				// Tooltip: Resembles Chozo sidearm
+				/* Tooltip:
+					'''
+					Automatically charges when not in use
+					Fully-charged shots stun targets for a short time
+					'Resembles Chozo sidearm'
+					''' */
 			}
 
 			MissileLauncher: {
 				// DisplayName: Missile Launcher
-				// Tooltip: Select this item in your hotbar and open your inventory to open the Missile Addon UI
+				/* Tooltip:
+					'''
+					--BEING PHASED OUT DO NOT USE--
+					Select this item in your hotbar and open your inventory to open the Missile Addon UI
+					''' */
 			}
 
 			Paralyzer: {
 				// DisplayName: Paralyzer
-				// Tooltip: "'A gift of the Chozo'"
+				/* Tooltip:
+					'''
+					Automatically charges when not in use
+					Fully-charged shots stun targets for a short time
+					'A gift of the Chozo'
+					''' */
 			}
 
 			PowerBeam: {
 				// DisplayName: Power Beam
-				// Tooltip: Select this item in your hotbar and open your inventory to open the Beam Addon UI
+				/* Tooltip:
+					'''
+					--BEING PHASED OUT DO NOT USE--
+					Select this item in your hotbar and open your inventory to open the Beam Addon UI
+					''' */
 			}
 
 			BetsyBombAddon: {
@@ -2317,7 +2430,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					-Press the bomb keybind to set off a bomb
-					Fires off Crystal shards on detonation
+					Fires off crystal shards on detonation
 					Slot: Weapon
 					''' */
 			}
@@ -2337,7 +2450,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					~Left Click while morphed to drill
-					uses best pickaxe/drill
+					matches the highest Pickaxe Power you possess
 					Slot: Drill
 					[c/78BE78:Requires Morph Ball to use]
 					''' */
@@ -2494,11 +2607,7 @@ Mods: {
 
 			EnergyTankAddon: {
 				// DisplayName: Energy Tank
-				/* Tooltip:
-					'''
-					Grants the user an extra tank of energy, stacks up to 14
-					The amount of tanks actually in use effected by suit tank capacity
-					''' */
+				// Tooltip: Grants the user an extra tank of energy, stacks up to 14
 			}
 
 			GravitySuitAddonAddon: {
@@ -2541,7 +2650,7 @@ Mods: {
 			}
 
 			HiJumpBootsAddon: {
-				// DisplayName: Hi Jump Boots
+				// DisplayName: Hi-Jump Boots
 				/* Tooltip:
 					'''
 					Increases jump height
@@ -2594,7 +2703,7 @@ Mods: {
 			}
 
 			PEDSuitAddonAddon: {
-				// DisplayName: PED Suit
+				// DisplayName: P.E.D. Suit
 				/* Tooltip:
 					'''
 					You shouldn't have this.
@@ -2650,7 +2759,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Can store a spare tank of energy
-					Set to "auto" in the suitUI to automatically use when energy is depleted
+					Set to "auto" in the suit UI to automatically use when energy is depleted
 					Stacks up to 4
 					''' */
 			}
@@ -2811,9 +2920,7 @@ Mods: {
 					37.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
-					Free movement in liquids including shimmer
-					Immunity to Shimmer Phasing
-					Hold Down to Phase while submerged in Shimmer
+					Free movement in liquid
 					Grants 14 seconds of lava immunity
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
@@ -2836,8 +2943,7 @@ Mods: {
 					Allows somersaulting
 					Damage enemies while running or somersaulting
 					Damage scales off of enemy's contact damage
-					Allows the user to jump up to 10 times in a row
-					Jumps recharge mid-air
+					Allows the user to jump continuously
 					Holding left/right while jumping midair gives a boost 
 					Provides the ability to walk on water and lava 
 					Grants immunity to fire blocks and 7 seconds lava immunity
@@ -3016,115 +3122,73 @@ Mods: {
 			}
 
 			GeemerSupps: {
+				// Tooltip: ""
 				// DisplayName: Geemer Supps
-				// Tooltip: ""
-			}
-
-			NOCPlating: {
-				// DisplayName: N O C Plating
-				// Tooltip: ""
-			}
-
-			ChozoDrill: {
-				// DisplayName: Chozo Drill
-				// Tooltip: ""
-			}
-
-			TorizoRelocator: {
-				// DisplayName: Torizo Relocator
-				// Tooltip: ""
-			}
-
-			GoldenTorizoRelocator: {
-				// DisplayName: Golden Torizo Relocator
-				// Tooltip: ""
-			}
-
-			ChozoJackhammer: {
-				// DisplayName: Chozo Jackhammer
-				// Tooltip: ""
-			}
-
-			ChozoSaw: {
-				// DisplayName: Chozo Saw
-				// Tooltip: ""
-			}
-
-			TorizoEyeNecklace: {
-				// DisplayName: Torizo Eye Necklace
-				/* Tooltip:
-					'''
-					Randomly reduces damage taken, up to 50%
-					Randomly increases knockback taken, up to 100%
-					Randomly reduces immunnity frames, up to 50%
-					Removes knockback immunity
-					''' */
-			}
-
-			TorizoClaws: {
-				// DisplayName: Torizo Claws
-				/* Tooltip:
-					'''
-					Fires torizo orbs
-					Has a small chance to drop pickups on exploding
-					''' */
-			}
-
-			ChoziteChunk: {
-				// DisplayName: Chozite Chunk
-				// Tooltip: Exploding bullet but worse
-			}
-
-			TorizoSpitter: {
-				// DisplayName: Torizo Spitter
-				// Tooltip: Fires shattering chozite chunks
-			}
-
-			TorizoRelic: {
-				// DisplayName: Torizo Relic
-				// Tooltip: ""
 			}
 
 			CrocomireBone: {
+				// Tooltip: ""
 				// DisplayName: Crocomire Bone
-				// Tooltip: Summons a miniature pet Crocomire
 			}
 
-			/* BlueHatch.Tooltip:
-				'''
-				Right click to place vertically
-				Opens when hit with any projectile
-				Can also be opened with right click or when the bubble shield is wired
-				When the metal base is wired, can be locked when powered
-				''' */
-			/* GreenHatch.Tooltip:
-				'''
-				Right click to place vertically
-				Opens when hit with a Super Missile
-				Can also be opened with Green Keycard or when powered via bubble shield
-				Powering the metal bottom (or right when vertical) locks the hatch
-				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
-				''' */
-			/* RedHatch.Tooltip:
-				'''
-				Right click to place vertically
-				Opens when hit a Missile
-				Can also be opened with Red Keycard or when powered via bubble shield
-				Powering the metal bottom (or right when vertical) locks the hatch
-				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
-				''' */
-			/* YellowHatch.Tooltip:
-				'''
-				Right click to place vertically
-				Opens when hit with a Power Bomb
-				Can also be opened with Yellow Keycard or when powered via bubble shield
-				Powering the metal bottom (or right when vertical) locks the hatch
-				You can use Chozite Wrench or power the top (or left when vertical) to toggle Bubble Shield mode
-				''' */
+			TorizoSpitter: {
+				// Tooltip: ""
+				// DisplayName: Torizo Spitter
+			}
+
+			TorizoClaws: {
+				// Tooltip: ""
+				// DisplayName: Torizo Claws
+			}
 
 			ChozoRapier: {
-				// DisplayName: Chozo Rapier
 				// Tooltip: ""
+				// DisplayName: Chozo Rapier
+			}
+
+			ChozoSaw: {
+				// Tooltip: ""
+				// DisplayName: Chozo Saw
+			}
+
+			ChozoJackhammer: {
+				// Tooltip: ""
+				// DisplayName: Chozo Jackhammer
+			}
+
+			ChozoDrill: {
+				// Tooltip: ""
+				// DisplayName: Chozo Drill
+			}
+
+			TorizoRelic: {
+				// Tooltip: ""
+				// DisplayName: Torizo Relic
+			}
+
+			NOCPlating: {
+				// Tooltip: ""
+				// DisplayName: N O C Plating
+			}
+
+			TorizoRelocator: {
+				// Tooltip: ""
+				// DisplayName: Torizo Relocator
+			}
+
+			GoldenTorizoRelocator: {
+				// Tooltip: ""
+				// DisplayName: Golden Torizo Relocator
+			}
+
+			ChoziteChunk: {
+				// Tooltip: ""
+				// DisplayName: Chozite Chunk
+			}
+
+			TorizoEyeNecklace: {
+				// Tooltip: ""
+				// DisplayName: Torizo Eye Necklace
 			}
 		}
 
@@ -3144,22 +3208,22 @@ Mods: {
 				// DisplayName: ???
 
 				TownNPCMood: {
-					// Content: My name is Deez.
-					// NoHome: My name is Deez.
-					// FarFromHome: My name is Deez.
-					// LoveSpace: My name is Deez.
-					// DislikeCrowded: My name is Deez.
-					// HateCrowded: My name is Deez.
-					// LoveBiome: My name is Deez.
-					// LikeBiome: My name is Deez.
-					// DislikeBiome: My name is Deez.
-					// HateBiome: My name is Deez.
-					// LoveNPC: My name is Deez.
-					// LikeNPC: My name is Deez.
-					// DislikeNPC: My name is Deez.
-					// HateNPC: My name is Deez.
-					// LikeNPC_Princess: My name is Deez.
-					// Princess_LovesNPC: My name is Deez.
+					// Content: I am content.
+					// NoHome: I hate not having a home.
+					// FarFromHome: I am too far from home.
+					// LoveSpace: I love having so much space.
+					// DislikeCrowded: I dislike how crowded I am.
+					// HateCrowded: I hate how crowded I am.
+					// LoveBiome: I love {BiomeName}.
+					// LikeBiome: I like {BiomeName}.
+					// DislikeBiome: I dislike {BiomeName}.
+					// HateBiome: I hate {BiomeName}.
+					// LoveNPC: I love {NPCName}.
+					// LikeNPC: I like {NPCName}.
+					// DislikeNPC: I dislike {NPCName}.
+					// HateNPC: I hate {NPCName}.
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 			}
 
@@ -3279,22 +3343,22 @@ Mods: {
 				// DisplayName: ???
 
 				TownNPCMood: {
-					// Content: My name is Deez.
-					// NoHome: My name is Deez.
-					// FarFromHome: My name is Deez.
-					// LoveSpace: My name is Deez.
-					// DislikeCrowded: My name is Deez.
-					// HateCrowded: My name is Deez.
-					// LoveBiome: My name is Deez.
-					// LikeBiome: My name is Deez.
-					// DislikeBiome: My name is Deez.
-					// HateBiome: My name is Deez.
-					// LoveNPC: My name is Deez.
-					// LikeNPC: My name is Deez.
-					// DislikeNPC: My name is Deez.
-					// HateNPC: My name is Deez.
-					// LikeNPC_Princess: My name is Deez.
-					// Princess_LovesNPC: My name is Deez.
+					// Content: I am content.
+					// NoHome: I hate not having a home.
+					// FarFromHome: I am too far from home.
+					// LoveSpace: I love having so much space.
+					// DislikeCrowded: I dislike how crowded I am.
+					// HateCrowded: I hate how crowded I am.
+					// LoveBiome: I love {BiomeName}.
+					// LikeBiome: I like {BiomeName}.
+					// DislikeBiome: I dislike {BiomeName}.
+					// HateBiome: I hate {BiomeName}.
+					// LoveNPC: I love {NPCName}.
+					// LikeNPC: I like {NPCName}.
+					// DislikeNPC: I dislike {NPCName}.
+					// HateNPC: I hate {NPCName}.
+					// LikeNPC_Princess: I like {NPCName}.
+					// Princess_LovesNPC: I like {NPCName}.
 				}
 			}
 
@@ -3488,8 +3552,8 @@ Mods: {
 			// IceSpreaderDiffusionShot.DisplayName: Ice Spreader Diffusion Shot
 			// FlamethrowerShot.DisplayName: Flamethrower Shot
 			// FlamethrowerLead.DisplayName: Flamethrower Lead
-			// MagMaulShot.DisplayName: Mag Maul Shot
-			// MagMaulChargeShot.DisplayName: Mag Maul Charge Shot
+			// MagMaulShot.DisplayName: MagMaul Shot
+			// MagMaulChargeShot.DisplayName: MagMaul Charge Shot
 			// LuminiteBeamShot.DisplayName: Luminite Beam Shot
 			// LuminiteBeamChargeShot.DisplayName: Luminite Beam Charge Shot
 			// JudicatorShot.DisplayName: Judicator Shot
@@ -3503,8 +3567,8 @@ Mods: {
 			// PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam Shot
 			// HyperBeamShot.DisplayName: Hyper Beam Shot
 			// ExtraHyperBeamShot.DisplayName: Extra Hyper Beam Shot
-			// GrappleBeamShot.DisplayName: Grapple Beam Shot
-			// GrappleBeamPlusShot.DisplayName: Grapple Beam Plus Shot
+			// GrappleBeamShot.DisplayName: Grapple Beam
+			// GrappleBeamPlusShot.DisplayName: Grapple Beam Lite
 			// CrucibleProj.DisplayName: Crucible Proj
 			// DiffusionBeam.DisplayName: Diffusion Beam
 			// ChargeLead.DisplayName: Charge Lead
@@ -3521,38 +3585,38 @@ Mods: {
 			// NightmareGravityField.DisplayName: Nightmare Gravity Field
 			// KraidSlash.DisplayName: Kraid Slash
 			// KraidBellySpike.DisplayName: Kraid Belly Spike
-			// BattleHammerShot.DisplayName: Battle Hammer Shot
+			// BattleHammerShot.DisplayName: BattleHammer Shot
 			// VortexBombExplosion.DisplayName: Vortex Bomb Explosion
-			// VortexBombProjectile.DisplayName: Vortex Bomb Projectile
-			// VenomBombProjectile.DisplayName: Venom Bomb Projectile
-			// SolarFireBombProjectile.DisplayName: Solar Fire Bomb Projectile
+			// VortexBombProjectile.DisplayName: Vortex Bomb
+			// VenomBombProjectile.DisplayName: Venom Bomb
+			// SolarFireBombProjectile.DisplayName: Solar Fire Bomb
 			// SolarBombExplosion.DisplayName: Solar Bomb Explosion
-			// SolarBombProjectile.DisplayName: Solar Bomb Projectile
-			// ShadowflameBombProjectile.DisplayName: Shadowflame Bomb Projectile
-			// PumpkinBombProjectile.DisplayName: Pumpkin Bomb Projectile
+			// SolarBombProjectile.DisplayName: Solar Bomb
+			// ShadowflameBombProjectile.DisplayName: Shadowflame Bomb
+			// PumpkinBombProjectile.DisplayName: Pumpkin Bomb
 			// PowerBombExplosion.DisplayName: Power Bomb Explosion
-			// PowerBombProjectile.DisplayName: Power Bomb Projectile
-			// PoisonBombProjectile.DisplayName: Poison Bomb Projectile
-			// PhazonBombProjectile.DisplayName: Phazon Bomb Projectile
-			// IchorBombProjectile.DisplayName: Ichor Bomb Projectile
-			// FrostburnBombProjectile.DisplayName: Frostburn Bomb Projectile
-			// FireBombProjectile.DisplayName: Fire Bomb Projectile
-			// CursedFlameBombProjectile.DisplayName: Cursed Flame Bomb Projectile
-			// CrystalBombProjectile.DisplayName: Crystal Bomb Projectile
-			// BombProjectile.DisplayName: Bomb Projectile
-			// BetsyBombProjectile.DisplayName: Betsy Bomb Projectile
+			// PowerBombProjectile.DisplayName: Power Bomb
+			// PoisonBombProjectile.DisplayName: Poison Bomb
+			// PhazonBombProjectile.DisplayName: Phazon Bomb
+			// IchorBombProjectile.DisplayName: Ichor Bomb
+			// FrostburnBombProjectile.DisplayName: Frostburn Bomb
+			// FireBombProjectile.DisplayName: Fire Bomb
+			// CursedFlameBombProjectile.DisplayName: Cursed Flame Bomb
+			// CrystalBombProjectile.DisplayName: Crystal Bomb
+			// BombProjectile.DisplayName: Morph Ball Bomb
+			// BetsyBombProjectile.DisplayName: Betsy Bomb
 			// RamBall.DisplayName: Ram Ball
 			// ChoziteShortswordStab.DisplayName: Chozite Shortsword
 			// GeemerPet.DisplayName: Geemer Pet
+			// CrocomirePet.DisplayName: Crocomire Pet
+			// ChoziteChunk.DisplayName: Chozite Chunk
+			// ChozoClaymoreSlash.DisplayName: Chozo Claymore Slash
 			// ChozoDrillProjectile.DisplayName: Chozo Drill Projectile
 			// ChozoJackhammerProjectile.DisplayName: Chozo Jackhammer Projectile
-			// ChozoSawProjectile.DisplayName: Chozo Saw Projectile
-			// OrbBomb.DisplayName: Orb Bomb
-			// ChoziteChunk.DisplayName: Chozite Chunk
-			// CrocomirePet.DisplayName: Crocomire Pet
-			// ChozoClaymoreSlash.DisplayName: Chozo Claymore Slash
 			// ChozoRapierSlash.DisplayName: Chozo Rapier Slash
 			// ChozoRapierStab.DisplayName: Chozo Rapier Stab
+			// ChozoSawProjectile.DisplayName: Chozo Saw Projectile
+			// OrbBomb.DisplayName: Orb Bomb
 		}
 
 		Configs: {
@@ -3776,7 +3840,8 @@ Mods: {
 					// "[i:MetroidMod/ChoziteBar]ChoziteGear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					// "[i:MetroidMod/MissileLauncher]MissileLauncherAddons": "[i:MetroidMod/MissileLauncher] Missile Launcher Addons"
 					// "[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons": "[i:MetroidMod/PowerBeam] Power Beam Hunters Addons"
-					// SuitAddons: "[i:MetroidMod/PowerGrip] Suit Addons"
+					// "[i:MetroidMod/PowerGripAddon]SuitAddons": "[i: Metroid Mod/ Power Grip Addon] Suit Addons Header"
+					// SuitAddons: Suit Addons Header
 				}
 
 				enableWallJumpChoziteArmor: {
@@ -4329,17 +4394,17 @@ Mods: {
 				}
 
 				damageOmegaCannon: {
-					// Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Damage Modifier"
+					// Label: "[i:MetroidMod/OmegaCannonAddon] Omega Cannon Damage Modifier"
 					// Tooltip: ""
 				}
 
 				speedOmegaCannon: {
-					// Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Speed Multiplier"
+					// Label: "[i:MetroidMod/OmegaCannonAddon] Omega Cannon Speed Multiplier"
 					// Tooltip: ""
 				}
 
 				overheatOmegaCannon: {
-					// Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Overheat Modifer"
+					// Label: "[i:MetroidMod/OmegaCannonAddon] Omega Cannon Overheat Modifer"
 					// Tooltip: ""
 				}
 
@@ -4379,7 +4444,7 @@ Mods: {
 				}
 
 				useTimeOmegaCannon: {
-					// Label: "[i:MetroidMod/OmegaCannonAddon] OmegaCannon Speed"
+					// Label: "[i:MetroidMod/OmegaCannonAddon] Omega Cannon Speed"
 					// Tooltip: ""
 				}
 
@@ -4419,8 +4484,8 @@ Mods: {
 				}
 
 				revertHyperBeamSuitLock: {
-					// Label: "[i:MetroidMod/HyperBeamAddon] Revert Hyper Beam Suit Lock"
-					// Tooltip: Allows you to use Hyper Beam with any suits prior to True Gravity
+					// Label: revert Hyper Beam Suit Lock
+					// Tooltip: ""
 				}
 			}
 
@@ -4435,7 +4500,7 @@ Mods: {
 					// "[i:MetroidMod/BlueHatch]AutomaticallyClosingHatches": "[i: Metroid Mod/ Blue Hatch] Automatically Closing Hatches"
 					// DisableMobSpawn: Disable Mob Spawns
 					// AutomaticallyClosingHatches: Automatically Closing Hatches
-					// Misc: Miscellaneous
+					// Misc: Misc Header
 				}
 
 				enableBossSummonConsumption: {
@@ -4445,7 +4510,11 @@ Mods: {
 
 				spaceJumpRocketBoots: {
 					// Label: "[i:MetroidMod/SpaceJump] Space Jump doesn't override Rocket Boots"
-					// Tooltip: Enables a small, niche movement tech that has not been named. It's pronounced 'nitch' not 'neesh' -Dr
+					/* Tooltip:
+						'''
+						Enables a small, niche movement tech that has not been named.
+						(It's pronounced 'nitch' not 'neesh' -Dr)
+						''' */
 				}
 
 				enableMorphBallWallJump: {
@@ -4478,8 +4547,8 @@ Mods: {
 				}
 
 				enableGlobalNarpasSword: {
-					// Label: Narpas Sword
-					// Tooltip: Grants the Narpas Sword powerups to all players when enabled!
+					// Label: enable Global Narpas Sword
+					// Tooltip: ""
 				}
 			}
 
@@ -4589,10 +4658,10 @@ Mods: {
 		}
 
 		Hatches: {
-			// BlueHatch.DisplayName: Blue Hatch
-			// GreenHatch.DisplayName: Green Hatch
-			// RedHatch.DisplayName: Red Hatch
-			// YellowHatch.DisplayName: Yellow Hatch
+			// YellowHatch.DisplayName: Mods.MetroidMod.Hatches.YellowHatch.DisplayName
+			// RedHatch.DisplayName: Mods.MetroidMod.Hatches.RedHatch.DisplayName
+			// GreenHatch.DisplayName: Mods.MetroidMod.Hatches.GreenHatch.DisplayName
+			// BlueHatch.DisplayName: Mods.MetroidMod.Hatches.BlueHatch.DisplayName
 		}
 	}
 }
