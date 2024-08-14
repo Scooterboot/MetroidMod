@@ -112,35 +112,7 @@ namespace MetroidMod.Content.Hatches
 
 		public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			HatchTileEntity tileEntity = TileEntity(i, j);
-
-			Tile tile = Main.tile[i, j];
-
-			int animationFrame = tileEntity.Animation.DoorAnimationFrame;
-			if (animationFrame != 4)
-			{
-				Texture2D texture = Mod.Assets.Request<Texture2D>(
-					tileEntity.Appearance.GetTexturePath(Vertical), AssetRequestMode.ImmediateLoad
-				).Value;
-
-				Vector2 zero = Main.drawToScreen ? Vector2.Zero : new(Main.offScreenRange, Main.offScreenRange);
-				Vector2 position = new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero;
-				Rectangle source = new(tile.TileFrameX, tile.TileFrameY + animationFrame * (18 * 4), 16, 16);
-
-				spriteBatch.Draw(
-					texture,
-					position,
-					source,
-					Lighting.GetColor(i, j),
-					0f,
-					Vector2.Zero,
-					1f,
-					SpriteEffects.None,
-					0f
-				);
-			}
-
-			return true;
+			return false;
 		}
 
 		public override void HitWire(int i, int j)
