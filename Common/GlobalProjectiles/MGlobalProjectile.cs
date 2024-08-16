@@ -1,8 +1,5 @@
 ﻿using MetroidMod.Common.Systems;
-using MetroidMod.Content.Hatches;
-using MetroidMod.Content.Hatches.Variants;
 using MetroidMod.Content.Projectiles.Paralyzer;
-using MetroidMod.Content.Switches.Variants;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -15,6 +12,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 		public override bool InstancePerEntity => true;
 		bool init = false;
 		float projSpeed = 1f;
+
 		public override bool PreAI(Projectile projectile)
 		{
 			if (!projectile.tileCollide && projectile.aiStyle != 26 && !projectile.minion && projectile.damage > 0 && projectile.friendly)
@@ -23,12 +21,6 @@ namespace MetroidMod.Common.GlobalProjectiles
 				int y = (int)MathHelper.Clamp(projectile.Center.Y / 16, 0, Main.maxTilesY - 2);
 				if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 				{
-					OpenAnyHatch(x, y);
-					
-					if (Main.tile[x, y].TileType == ModContent.GetInstance<BlueSwitch>().Tile.Type)
-					{
-						Wiring.TripWire(x, y, 1, 1);
-					}
 					if (MSystem.mBlockType[x, y] == 5)
 					{
 						MSystem.AddRegenBlock(x, y);
@@ -121,8 +113,6 @@ namespace MetroidMod.Common.GlobalProjectiles
 				{
 					if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 					{
-						OpenAnyHatch(x, y);
-
 						if (projectile.Name.Contains("Screw Attack"))
 						{
 							if (MSystem.mBlockType[x, y] == 3)
@@ -144,10 +134,6 @@ namespace MetroidMod.Common.GlobalProjectiles
 						}
 						else if (!projectile.Name.Contains("Charge Attack"))
 						{
-							if (Main.tile[x, y].TileType == ModContent.GetInstance<BlueSwitch>().Tile.Type)
-							{
-								Wiring.TripWire(x, y, 1, 1);
-							}
 							if (MSystem.mBlockType[x, y] != 0)
 							{
 								MSystem.hit[x, y] = true;
@@ -181,24 +167,12 @@ namespace MetroidMod.Common.GlobalProjectiles
 						}
 						if (projectile.Name.Contains("Missile"))
 						{
-							OpenRedHatch(x, y);
-
 							if (MSystem.mBlockType[x, y] == 4)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
-							if (Main.tile[x, y].TileType == ModContent.GetInstance<RedSwitch>().Tile.Type)
-							{
-								Wiring.TripWire(x, y, 1, 1);
-							}
 							if (projectile.Name.Contains("Super") || projectile.Name.Contains("Nebula") || projectile.Name.Contains("Stardust"))
 							{
-								OpenGreenHatch(x, y);
-								
-								if (Main.tile[x, y].TileType == ModContent.GetInstance<GreenSwitch>().Tile.Type)
-								{
-									Wiring.TripWire(x, y, 1, 1);
-								}
 								if (MSystem.mBlockType[x, y] == 8)
 								{
 									MSystem.AddRegenBlock(x, y);
@@ -206,52 +180,6 @@ namespace MetroidMod.Common.GlobalProjectiles
 							}
 						}
 					}
-				}
-			}
-		}
-	
-		public void OpenAnyHatch(int i, int j)
-		{
-			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
-			{
-				bool isBlue = tileEntity.Hatch is BlueHatch || tileEntity.Behavior.IsTurnedBlue;
-
-				if (isBlue)
-				{
-					tileEntity.Behavior.HitProjectile();
-				}
-			}
-		}
-
-		public void OpenRedHatch(int i, int j)
-		{
-			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
-			{
-				if (tileEntity.Hatch is RedHatch)
-				{
-					tileEntity.Behavior.HitProjectile();
-				}
-			}
-		}
-
-		public void OpenGreenHatch(int i, int j)
-		{
-			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
-			{
-				if (tileEntity.Hatch is GreenHatch)
-				{
-					tileEntity.Behavior.HitProjectile();
-				}
-			}
-		}
-
-		public void OpenYellowHatch(int i, int j)
-		{
-			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
-			{
-				if (tileEntity.Hatch is YellowHatch)
-				{
-					tileEntity.Behavior.HitProjectile();
 				}
 			}
 		}

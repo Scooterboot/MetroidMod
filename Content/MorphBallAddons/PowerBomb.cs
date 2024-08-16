@@ -2,6 +2,7 @@
 using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
+using MetroidMod.Content.Switches;
 using MetroidMod.Content.Switches.Variants;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -130,12 +131,7 @@ namespace MetroidMod.Content.MorphBallAddons
 				{
 					for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)
 					{
-						if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
-						{
-							ModContent.GetInstance<MGlobalProjectile>().OpenYellowHatch(x, y);
-							ModContent.GetInstance<MGlobalProjectile>().OpenAnyHatch(x, y);
-							if (Main.tile[x, y].TileType == ModContent.GetInstance<YellowSwitch>().Tile.Type) { Wiring.TripWire(x, y, 1, 1); }
-						}
+						ModContent.GetInstance<CollisionGlobalProjectile>().ProjectileTileHitAt(Projectile, x, y, true);
 						if (MSystem.mBlockType[x, y] != BreakableTileID.None)
 						{
 							MSystem.hit[x, y] = true;
