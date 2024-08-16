@@ -161,8 +161,10 @@ namespace MetroidMod.Common.Players
 			insigniaActive = true;
 
 			// Infinite missiles
-			var heldItem = Player.HeldItem.GetGlobalItem<MGlobalItem>();
-			heldItem.statMissiles = heldItem.maxMissiles;
+			if (Player.HeldItem.TryGetGlobalItem(out MGlobalItem heldItem))
+			{
+				heldItem.statMissiles = heldItem.maxMissiles;
+			}
 		}
 
 		public override void PreUpdate()
