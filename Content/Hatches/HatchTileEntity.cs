@@ -101,6 +101,7 @@ namespace MetroidMod.Content.Hatches
 			}
 			else if(needsToClose && CanClose())
 			{
+				needsToClose = false;
 				UpdateTiles(false);
 				Animation.Close();
 				SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
