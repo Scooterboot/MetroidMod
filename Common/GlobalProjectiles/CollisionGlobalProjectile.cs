@@ -36,10 +36,11 @@ namespace MetroidMod.Common.GlobalProjectiles
 				projectile.Name.Contains("Super") ||
 				projectile.Name.Contains("Nebula") ||
 				projectile.Name.Contains("Stardust"));
-			bool isPowerBomb = isDeath && projectile.Name.Contains("Bomb") && (
-				projectile.Name.Contains("Power") ||
-				projectile.Name.Contains("Solar") ||
-				projectile.Name.Contains("Vortex"));
+			bool isPowerBomb = projectile.Name.Contains("Bomb") &&
+				projectile.Name.Contains("Explosion") && (
+					projectile.Name.Contains("Power") ||
+					projectile.Name.Contains("Solar") ||
+					projectile.Name.Contains("Vortex"));
 
 			if (IsBlueInteractingProjectile(projectile, isDeath))
 			{

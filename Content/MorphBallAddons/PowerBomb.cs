@@ -131,7 +131,6 @@ namespace MetroidMod.Content.MorphBallAddons
 				{
 					for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)
 					{
-						ModContent.GetInstance<CollisionGlobalProjectile>().ProjectileTileHitAt(Projectile, x, y, true);
 						if (MSystem.mBlockType[x, y] != BreakableTileID.None)
 						{
 							MSystem.hit[x, y] = true;
