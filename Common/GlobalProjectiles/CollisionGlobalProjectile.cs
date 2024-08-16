@@ -31,12 +31,6 @@ namespace MetroidMod.Common.GlobalProjectiles
 
 		public void ProjectileTileHitAt(Projectile projectile, int i, int j, bool isDeath)
 		{
-			if(IsBlueInteractingProjectile(projectile, isDeath))
-			{
-				OpenHatch<BlueHatch>(i, j);
-				TriggerSwitch<BlueSwitch>(i, j);
-			}
-
 			bool isMissile = projectile.Name.Contains("Missile");
 			bool isSuper = isMissile && (
 				projectile.Name.Contains("Super") ||
@@ -47,7 +41,13 @@ namespace MetroidMod.Common.GlobalProjectiles
 				projectile.Name.Contains("Solar") ||
 				projectile.Name.Contains("Vortex"));
 
-			if(isMissile)
+			if (IsBlueInteractingProjectile(projectile, isDeath))
+			{
+				OpenHatch<BlueHatch>(i, j);
+				TriggerSwitch<BlueSwitch>(i, j);
+			}
+
+			if (isMissile)
 			{
 				OpenHatch<RedHatch>(i, j);
 				TriggerSwitch<RedSwitch>(i, j);
@@ -89,7 +89,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 
 			if (tile.HasTile && tile.TileType == ModContent.GetInstance<T>().Tile.Type)
 			{
-				Wiring.TripWire(i, j, 1, 1);
+				ModContent.GetInstance<BubbleSwitchActivationSystem>().HitSwitchAt(i, j);
 			}
 		}
 
