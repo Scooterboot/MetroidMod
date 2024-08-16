@@ -20,22 +20,28 @@ namespace MetroidMod.Content.Switches
 
 			AddMapEntry(bubbleSwitch.MapColor, CreateMapEntryName());
 
-			TileObjectData.newTile.CopyFrom(TileObjectData.StyleTorch);
+			TileObjectData.newTile.CopyFrom(TileObjectData.StyleSwitch);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 
-			TileObjectData.newAlternate.CopyFrom(TileObjectData.StyleTorch);
+			TileObjectData.newAlternate.CopyFrom(TileObjectData.StyleSwitch);
 			TileObjectData.newAlternate.AnchorLeft = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newAlternate.Height, 0);
 			TileObjectData.addAlternate(2);
 
-			TileObjectData.newAlternate.CopyFrom(TileObjectData.StyleTorch);
+			TileObjectData.newAlternate.CopyFrom(TileObjectData.StyleSwitch);
 			TileObjectData.newAlternate.AnchorRight = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newAlternate.Height, 0);
 			TileObjectData.addAlternate(3);
 
-			TileObjectData.newAlternate.CopyFrom(TileObjectData.StyleTorch);
+			TileObjectData.newAlternate.CopyFrom(TileObjectData.StyleSwitch);
 			TileObjectData.newAlternate.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newAlternate.Width, 0);
 			TileObjectData.addAlternate(1);
 
 			TileObjectData.addTile(Type);
+		}
+
+		public override bool RightClick(int i, int j)
+		{
+			SetStaticDefaults();
+			return true;
 		}
 	}
 }
