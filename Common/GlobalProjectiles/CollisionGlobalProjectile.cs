@@ -129,8 +129,8 @@ namespace MetroidMod.Common.GlobalProjectiles
 			Point tl = projectile.TopLeft.ToTileCoordinates();
 			Point br = projectile.BottomRight.ToTileCoordinates();
 
-			int x1 = Math.Clamp(tl.X - 1, 0, Main.maxTilesX);
-			int y1 = Math.Clamp(tl.Y - 1, 0, Main.maxTilesY);
+			int x1 = Math.Clamp(tl.X, 0, Main.maxTilesX);
+			int y1 = Math.Clamp(tl.Y, 0, Main.maxTilesY);
 			int x2 = Math.Clamp(br.X + 1, 0, Main.maxTilesX);
 			int y2 = Math.Clamp(br.Y + 1, 0, Main.maxTilesY);
 
