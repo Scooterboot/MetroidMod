@@ -29,12 +29,8 @@
     <Folder Include="Content\NPCs\Town\" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Remove="Content\Tiles\Hatch\**" />
-    <Compile Remove="Content\Tiles\Hatch\**" />
     <Compile Remove="ExampleMetroidAddonMod\**" />
-    <EmbeddedResource Remove="Content\Tiles\Hatch\**" />
     <EmbeddedResource Remove="ExampleMetroidAddonMod\**" />
-    <None Remove="Content\Tiles\Hatch\**" />
     <None Remove="ExampleMetroidAddonMod\**" />
   </ItemGroup>
 </Project>
