@@ -48,13 +48,13 @@ namespace MetroidMod.Common.GlobalProjectiles
 				TriggerSwitch<BlueSwitch>(i, j);
 			}
 
-			if (isMissile)
+			if (isMissile && isDeath)
 			{
 				OpenHatch<RedHatch>(i, j);
 				TriggerSwitch<RedSwitch>(i, j);
 			}
 
-			if (isSuper)
+			if (isSuper && isDeath)
 			{
 				OpenHatch<GreenHatch>(i, j);
 				TriggerSwitch<GreenSwitch>(i, j);
