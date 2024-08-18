@@ -16,9 +16,6 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Chozite Wrench");
-			// Tooltip.SetDefault("Toggles regeneration of weapon-destructable blocks. \nBlocks with disabled regeneration will have a red tint.");
-
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
@@ -36,14 +33,10 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override bool? UseItem(Player player)
 		{
-			//Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
-			//Vector2 pos = new Vector2(Player.tileTargetX * 16, Player.tileTargetY * 16);
-			if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] != BreakableTileID.None)
+			if (Main.mouseLeft)
 			{
-				MSystem.dontRegen[Player.tileTargetX, Player.tileTargetY] = !MSystem.dontRegen[Player.tileTargetX, Player.tileTargetY];
-				Wiring.ReActive(Player.tileTargetX, Player.tileTargetY);
+				ModContent.GetInstance<ChoziteWrenchAssistSystem>().HitTile(Player.tileTargetX, Player.tileTargetY);
 			}
-
 			
 			if (TileUtils.TryGetTileEntityAs(Player.tileTargetX, Player.tileTargetY, out HatchTileEntity tileEntity))
 			{
@@ -71,12 +64,6 @@ namespace MetroidMod.Content.Items.Tools
 				.AddIngredient<Miscellaneous.ChoziteBar>(5)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Wrench);
-			recipe.AddIngredient(null, "ChoziteBar", 5);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 	}
 }
