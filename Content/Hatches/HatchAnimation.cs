@@ -9,7 +9,7 @@ namespace MetroidMod.Content.Hatches
 	internal class HatchAnimation
 	{
 		public HatchAnimation(bool initiallyOpen) {
-			isOpen = initiallyOpen;
+			IsOpen = initiallyOpen;
 			doorAnimationFrame = initiallyOpen ? doorAnimationFrameAmount : 0;
 		}
 
@@ -23,26 +23,16 @@ namespace MetroidMod.Content.Hatches
 		/// <summary>
 		/// Determines whether the hatch sprite should aim towards opening or closing.
 		/// </summary>
-		private bool isOpen;
+		public bool IsOpen;
 
 		public int DoorAnimationFrame => doorAnimationFrame;
-
-		public void Open()
-		{
-			isOpen = true;
-		}
-
-		public void Close()
-		{
-			isOpen = false;
-		}
 
 		/// <summary>
 		/// Update the animation progress of the hatch.
 		/// </summary>
 		public void Update()
 		{
-			if (isOpen)
+			if (IsOpen)
 			{
 				if (doorAnimationFrame < doorAnimationFrameAmount)
 				{

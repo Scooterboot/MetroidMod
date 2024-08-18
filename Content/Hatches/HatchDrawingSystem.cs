@@ -72,7 +72,7 @@ namespace MetroidMod.Content.Hatches
 			DrawAt(spriteBatch, i, j, doorSource, doorTexture, GetHatchPaintSource(i, j));
 
 			HatchTileEntity tileEntity = hatchTile.TileEntity(i, j);
-			int animationFrame = tileEntity.Animation.DoorAnimationFrame;
+			int animationFrame = ModContent.GetInstance<HatchAnimationSystem>().GetHatchAnimation(tileEntity).DoorAnimationFrame;
 			bool isInvisible = animationFrame == 4;
 			if (!isInvisible)
 			{

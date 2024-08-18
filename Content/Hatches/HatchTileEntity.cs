@@ -1,4 +1,5 @@
-﻿using MetroidMod.Content.Hatches.Variants;
+﻿using System.Collections.Generic;
+using MetroidMod.Content.Hatches.Variants;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -30,15 +31,6 @@ namespace MetroidMod.Content.Hatches
 
 		public bool IsOpen => HatchTile.Open;
 
-		private HatchAnimation animation;
-		public HatchAnimation Animation
-		{
-			get {
-				animation ??= new HatchAnimation(IsOpen);
-				return animation;
-			}
-		}
-
 		private HatchVisualState _visualState;
 		private IHatchAppearance _appearance;
 		public IHatchAppearance Appearance
@@ -66,7 +58,6 @@ namespace MetroidMod.Content.Hatches
 		{
 			if (IsOpen) return;
 			UpdateTiles(true);
-			Animation.Open();
 			Autoclose.Open();
 			SoundEngine.PlaySound(Sounds.Tiles.HatchOpen, Center);
 		}
@@ -103,11 +94,9 @@ namespace MetroidMod.Content.Hatches
 			{
 				needsToClose = false;
 				UpdateTiles(false);
-				Animation.Close();
 				SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
 			}
 
-			Animation.Update();
 			Appearance.Update();
 			Autoclose.Update();
 		}
@@ -183,6 +172,21 @@ namespace MetroidMod.Content.Hatches
 				case HatchVisualState.Blinking:
 					_appearance = new HatchBlinkingAppearance(CurrentAppearance, new HatchAppearance("LockedHatch"));
 					break;
+			}
+		}
+
+		/// <summary>
+		/// Get all of the hatch tile entities that exist in the world.
+		/// </summary>
+		/// <returns></returns>
+		public static IEnumerable<HatchTileEntity> GetAll()
+		{
+			foreach(int id in ByID.Keys)
+			{
+				if (ByID[id] is HatchTileEntity hatch)
+				{
+					yield return hatch;
+				}
 			}
 		}
 	}
