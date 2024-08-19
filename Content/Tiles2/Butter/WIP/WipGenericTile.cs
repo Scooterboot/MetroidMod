@@ -35,7 +35,8 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"IdkSob2",
 				"SapphireMetal",
 				"Sizzling",
-				"Spicy"
+				"Spicy",
+				"Wrecked",
 			];
 
 			foreach(string tileName in tileNames)
