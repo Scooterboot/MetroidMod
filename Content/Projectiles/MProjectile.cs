@@ -14,6 +14,7 @@ using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -128,11 +129,18 @@ namespace MetroidMod.Content.Projectiles
 				{
 					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 					{
-						target.AddBuff(44, 300);
+						if (Projectile.Name.Contains("V2"))
+						{
+							target.AddBuff(BuffID.Frostburn2, 300);
+						}
+						else
+						{
+							target.AddBuff(BuffID.Frostburn, 300);
+						}
 					}
 					else
 					{
-						target.AddBuff(24, 300);
+						target.AddBuff(BuffID.OnFire, 300);
 					}
 				}
 
@@ -140,11 +148,11 @@ namespace MetroidMod.Content.Projectiles
 				{
 					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 					{
-						target.AddBuff(44, 300);
+						target.AddBuff(BuffID.Frostburn2, 300);
 					}
 					else
 					{
-						target.AddBuff(39, 300);
+						target.AddBuff(BuffID.CursedInferno, 300);
 					}
 				}
 				if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust") || shot.Contains("ice") || shot.Contains("stardust"))
