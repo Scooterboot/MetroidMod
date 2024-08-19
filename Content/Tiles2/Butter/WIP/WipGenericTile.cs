@@ -33,6 +33,7 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"Greenstar",
 				"IdkSob",
 				"IdkSob2",
+				"IdkSob3",
 				"SapphireMetal",
 				"Sizzling",
 				"Spicy",
