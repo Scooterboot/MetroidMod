@@ -3289,6 +3289,16 @@ Mods: {
 				DisplayName: Spicy
 				Tooltip: ""
 			}
+
+			IdkSob3: {
+				DisplayName: Idk Sob3
+				Tooltip: ""
+			}
+
+			Wrecked: {
+				DisplayName: Wrecked
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
