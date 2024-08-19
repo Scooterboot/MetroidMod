@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MetroidMod.Content.Hatches.Variants;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -50,53 +51,69 @@ namespace MetroidMod.Content.Hatches
 			}
 		}
 
-		private bool needsToClose;
+		public bool NeedsToClose;
 
 		private Vector2 Center => (Position + new Terraria.DataStructures.Point16(2, 2)).ToWorldCoordinates(0, 0);
 
 		public void Open()
 		{
-			if (IsOpen) return;
-			UpdateTiles(true);
-			Autoclose.Open();
-			SoundEngine.PlaySound(Sounds.Tiles.HatchOpen, Center);
+			ChangeOpenState(true, true);
 		}
 
+		/// <summary>
+		/// Close the hatch in intent (it will schedule it for closing, but it WON'T close
+		/// until it ensures that nothing is in the way.)
+		/// </summary>
 		public void Close()
 		{
-			if (!IsOpen) return;
-			needsToClose = true;
+			ChangeOpenState(false, true);
 		}
 
-		private bool CanClose()
+		/// <summary>
+		/// Actually close the hatch, with disregard for whether it would physically be able
+		/// to do so at the current moment.
+		/// </summary>
+		public void PhysicallyClose()
 		{
-			for (int j = 0; j < 4; j++)
+			NeedsToClose = false;
+			UpdateTiles(false);
+			SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
+		}
+
+		public void ChangeOpenState(bool open, bool sync)
+		{
+			if (IsOpen == open) return;
+
+			if(open)
 			{
-				for (int i = 0; i < 4; i++)
-				{
-					if (!Collision.EmptyTile(Position.X + i, Position.Y + j, true))
-					{
-						return false;
-					}
-				}
+				UpdateTiles(true);
+				Autoclose.Open();
+				SoundEngine.PlaySound(Sounds.Tiles.HatchOpen, Center);
+			}
+			else
+			{
+				NeedsToClose = true;
 			}
 
-			return true;
+			if(sync)
+			{
+				ModPacket packet = Mod.GetPacket();
+				packet.Write((byte)MetroidMessageType.ChangeHatchOpenState);
+				packet.Write(open);
+				packet.Write(Position.X);
+				packet.Write(Position.Y);
+				packet.Send();
+			}
+		}
+
+		private void SyncOpen()
+		{
+			ModPacket packet = Mod.GetPacket();
+
 		}
 
 		public override void Update()
 		{
-			if(!IsOpen)
-			{
-				needsToClose = false;
-			}
-			else if(needsToClose && CanClose())
-			{
-				needsToClose = false;
-				UpdateTiles(false);
-				SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
-			}
-
 			Appearance.Update();
 			Autoclose.Update();
 		}

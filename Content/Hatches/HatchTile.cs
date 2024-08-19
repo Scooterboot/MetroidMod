@@ -49,7 +49,7 @@ namespace MetroidMod.Content.Hatches
 
 		public override void SetStaticDefaults()
 		{
-			Main.tileSolid[Type] = true;
+			Main.tileSolid[Type] = !Open;
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -17,7 +18,7 @@ namespace MetroidMod
 		SyncPlayerStats,
 		PlaySyncedSound,
 		BestiaryUpdate,
-		DoorClickSync
+		ChangeHatchOpenState
 	}
 
 	[LegacyName("MetroidModPorted")]
@@ -222,24 +223,26 @@ namespace MetroidMod
 						packet.Send(-1, whoAmI);
 					}
 					break;
-				case MetroidMessageType.DoorClickSync:
-					ushort type = reader.ReadUInt16();
-					int i = reader.ReadInt32();
-					int j = reader.ReadInt32();
+				case MetroidMessageType.ChangeHatchOpenState:
+					bool open = reader.ReadBoolean();
+					short i = reader.ReadInt16();
+					short j = reader.ReadInt16();
 
-					// TODO test multiplayer and deem if this is needed
-					//BlueHatch hatch = ModContent.GetModTile(type) as BlueHatch;
-					//hatch.HitWire(i, j);
-
-					if (Main.netMode == NetmodeID.Server)
+					if(TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity hatch))
 					{
-						ModPacket packet = GetPacket();
-						packet.Write((byte)MetroidMessageType.DoorClickSync);
-						packet.Write(type);
-						packet.Write(i);
-						packet.Write(j);
-						packet.Send(-1, whoAmI);
+						hatch.ChangeOpenState(open, false);
+
+						if (Main.netMode == NetmodeID.Server)
+						{
+							ModPacket packet = GetPacket();
+							packet.Write((byte)MetroidMessageType.ChangeHatchOpenState);
+							packet.Write(open);
+							packet.Write(i);
+							packet.Write(j);
+							packet.Send(-1, whoAmI);
+						}
 					}
+
 					break;
 			}
 		}

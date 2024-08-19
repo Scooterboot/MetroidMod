@@ -61,9 +61,6 @@ namespace MetroidMod.Content.Hatches
 					tile.TileFrameY = (short)(j * 18);
 				}
 			}
-
-			// TODO is this needed?
-			// NetMessage.SendTileSquare(-1, x, y, 4, 4, TileChangeType.None);
 		}
 	}
 }
