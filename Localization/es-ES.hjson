@@ -3194,6 +3194,101 @@ Mods: {
 				// Tooltip: ""
 				// DisplayName: Torizo Eye Necklace
 			}
+
+			ClassicBrinstar: {
+				// DisplayName: Classic Brinstar
+				// Tooltip: ""
+			}
+
+			MeltingBubble: {
+				// DisplayName: Melting Bubble
+				// Tooltip: ""
+			}
+
+			MaridiaSand: {
+				// DisplayName: Maridia Sand
+				// Tooltip: ""
+			}
+
+			MaridiaStone: {
+				// DisplayName: Maridia Stone
+				// Tooltip: ""
+			}
+
+			SmoothCrateria: {
+				// DisplayName: Smooth Crateria
+				// Tooltip: ""
+			}
+
+			AmethystMetal: {
+				// DisplayName: Amethyst Metal
+				// Tooltip: ""
+			}
+
+			DiamondMetal: {
+				// DisplayName: Diamond Metal
+				// Tooltip: ""
+			}
+
+			Bluestar: {
+				// DisplayName: Bluestar
+				// Tooltip: ""
+			}
+
+			CrateriaGrass: {
+				// DisplayName: Crateria Grass
+				// Tooltip: ""
+			}
+
+			CrateriaSurface: {
+				// DisplayName: Crateria Surface
+				// Tooltip: ""
+			}
+
+			CrumbledNorfair: {
+				// DisplayName: Crumbled Norfair
+				// Tooltip: ""
+			}
+
+			DeathlySpike: {
+				// DisplayName: Deathly Spike
+				// Tooltip: ""
+			}
+
+			DeepNorfair: {
+				// DisplayName: Deep Norfair
+				// Tooltip: ""
+			}
+
+			Greenstar: {
+				// DisplayName: Greenstar
+				// Tooltip: ""
+			}
+
+			IdkSob: {
+				// DisplayName: Idk Sob
+				// Tooltip: ""
+			}
+
+			IdkSob2: {
+				// DisplayName: Idk Sob2
+				// Tooltip: ""
+			}
+
+			SapphireMetal: {
+				// DisplayName: Sapphire Metal
+				// Tooltip: ""
+			}
+
+			Sizzling: {
+				// DisplayName: Sizzling
+				// Tooltip: ""
+			}
+
+			Spicy: {
+				// DisplayName: Spicy
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
