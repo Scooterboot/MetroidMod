@@ -227,6 +227,10 @@ namespace MetroidMod.Common.Configs
 
 		[Header("[i:MetroidMod/PowerBeam]SpecialBeams")]
 
+		//[Label("check localization")]
+		[DefaultValue(false)]
+		public bool disengageSuitLock;
+
 		//[Label("[i:MetroidMod/HyperBeamAddon] Hyper Beam Damage")]
 		[Range(1, 100)]
 		[Increment(1)]
@@ -247,8 +251,6 @@ namespace MetroidMod.Common.Configs
 		[Slider]
 		[DefaultValue(7)]
 		public int overheatHyperBeam;
-
-        public bool revertHyperBeamSuitLock;
 
 		//[Label("[i:MetroidMod/PhazonBeamAddon] Phazon Beam Damage")]
 		[Range(1, 100)]

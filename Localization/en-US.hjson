@@ -474,6 +474,17 @@ Mods: {
 					Allows the wearer to double jump 
 					Allows somersaulting
 					Increases jump height
+					'Now with a whole extra dimension!'
+					'''
+			}
+
+			SpinBoost: {
+				DisplayName: Spin Boost
+				Tooltip:
+					'''
+					Allows the wearer to double jump 
+					Allows somersaulting
+					Increases jump height
 					'''
 			}
 
@@ -4488,9 +4499,9 @@ Mods: {
 					Tooltip: Speed Boosting is silent
 				}
 
-				revertHyperBeamSuitLock: {
-					Label: revert Hyper Beam Suit Lock
-					Tooltip: ""
+				disengageSuitLock: {
+					Label: Disable Suit Requirements for Special Beams
+					Tooltip: For mapmaking purposes
 				}
 			}
 

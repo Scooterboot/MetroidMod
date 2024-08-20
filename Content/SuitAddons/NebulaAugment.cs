@@ -77,7 +77,7 @@ namespace MetroidMod.Content.SuitAddons
 			mp.EnergyDefenseEfficiency += 0.60f;
 			mp.EnergyExpenseEfficiency += 0.375f;
 			mp.phazonImmune = true;
-			mp.canUsePhazonBeam = true;
+			mp.accessPhazonBeam = true;
 			mp.UACost -= 0.15f;
 		}
 		public override void OnUpdateVanitySet(Player player)

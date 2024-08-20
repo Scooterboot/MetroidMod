@@ -190,12 +190,13 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				return false;
 			}
-			if (BeamMods[0].type == ModContent.ItemType<Addons.PhazonBeamAddon>() && !mp.canUsePhazonBeam)
+			bool canUsePhazonBeam = player.GetModPlayer<SuitLockPlayer>().CanUsePhazonBeam();
+			if (BeamMods[0].type == ModContent.ItemType<Addons.PhazonBeamAddon>() && !canUsePhazonBeam)
 			{
 				return false;
 			}
 
-			bool canUseHyperBeam = player.GetModPlayer<HyperBeamAllowedPlayer>().CanUseHyperBeam();
+			bool canUseHyperBeam = player.GetModPlayer<SuitLockPlayer>().CanUseHyperBeam();
 			if (BeamMods[0].type == ModContent.ItemType<Addons.HyperBeamAddon>() && !canUseHyperBeam)
 			{
 				return false;

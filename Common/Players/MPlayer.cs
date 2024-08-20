@@ -55,7 +55,14 @@ namespace MetroidMod.Common.Players
 		public int grapplingBeam = -1;
 
 		public bool phazonImmune = false;
-		public bool canUsePhazonBeam = false;
+		/// <summary>
+		/// Determines whether or not the suit gives the player Phazon Beam access.
+		/// </summary>
+		public bool accessPhazonBeam = false;
+		/// <summary>
+		/// Determines whether or not the suit gives the player Hyper Beam access.
+		/// </summary>
+		public bool accessHyperBeam = false;
 		public int hazardShield = 0;
 		public int phazonRegen = 0;
 
@@ -88,7 +95,7 @@ namespace MetroidMod.Common.Players
 
 			//PrimeHunter = false;
 			phazonImmune = false;
-			canUsePhazonBeam = false;
+			accessPhazonBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 
@@ -136,7 +143,7 @@ namespace MetroidMod.Common.Players
 			canWallJump = true;
 			powerGrip = true;
 			phazonImmune = true;
-			canUsePhazonBeam = true;
+			accessPhazonBeam = true;
 			screwAttack = true;
 			hiJumpBoost = true;
 			spaceJump = true;
