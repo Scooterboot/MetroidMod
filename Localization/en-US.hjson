@@ -4498,9 +4498,9 @@ Mods: {
 					Tooltip: Speed Boosting is silent
 				}
 
-				revertHyperBeamSuitLock: {
-					Label: revert Hyper Beam Suit Lock
-					Tooltip: ""
+				disengageSuitLock: {
+					Label: Disable Suit Requirements for Special Beams
+					Tooltip: For mapmaking purposes
 				}
 			}
 
