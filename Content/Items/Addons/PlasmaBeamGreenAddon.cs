@@ -42,11 +42,11 @@ namespace MetroidMod.Content.Items.Addons
 
 		public override void AddRecipes()
 		{
-			CreateRecipe(1)
+			CreateRecipe()
 				.AddIngredient<Miscellaneous.UnknownPlasmaBeam>(1)
 				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
-				.AddIngredient(ItemID.CursedFlame, 10)
 				.AddIngredient(ItemID.SoulofLight, 5)
+				.AddIngredient(ItemID.Emerald, 1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
