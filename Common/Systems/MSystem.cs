@@ -636,6 +636,10 @@ namespace MetroidMod.Common.Systems
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<WaveBeamTile>(); }, 8);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<HomingMissile>(); }, 4);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpBootsTile>(); }, 4);
+			if(Main.LocalPlayer.ZoneUnderworldHeight)
+			{
+				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamRedTile>(); }, 6);
+			}
 			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpazerTile>(); }, 8);
@@ -663,7 +667,6 @@ namespace MetroidMod.Common.Systems
 			if (bossesDown.HasFlag(MetroidBossDown.downedKraid) || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamGreenTile>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamRedTile>(); }, 4);
 			}
 			if (Main.hardMode || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
