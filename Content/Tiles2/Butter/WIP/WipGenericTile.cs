@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 			string[] tileNames = [
 				"Bluestar",
 				"CrateriaGrass",
-				"CrateriaSurface",
+				"CrateriaSoil",
 				"CrumbledNorfair",
 				"DeathlySpike",
 				"DeepNorfair",
