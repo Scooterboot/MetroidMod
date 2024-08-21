@@ -4565,8 +4565,8 @@ Mods: {
 				}
 
 				enableGlobalNarpasSword: {
-					Label: enable Global Narpas Sword
-					Tooltip: ""
+					Label: Narpas Sword
+					Tooltip: Grants the Narpas Sword powerups to all players when enabled!
 				}
 			}
 
