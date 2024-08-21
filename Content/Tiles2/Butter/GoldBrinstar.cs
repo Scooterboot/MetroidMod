@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {
-	internal class ClassicBrinstar : GenericTile
+	internal class GoldBrinstar : GenericTile
 	{
 		public override Color MapColor => Color.DarkGoldenrod;
 		public override SoundStyle HitSound => SoundID.Tink;
