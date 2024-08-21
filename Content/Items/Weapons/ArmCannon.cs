@@ -2103,6 +2103,33 @@ namespace MetroidMod.Content.Items.Weapons
 		private int targetNum = 0;
 		public override void HoldItem(Player player)
 		{
+			// Running this code for all players should suffice to sync the feature
+			if (Stealth)
+			{
+				if (!player.mount.Active)
+				{
+					player.scope = true;
+				}
+
+				bool resetStealth = player.velocity != Vector2.Zero || player.controlUseItem;
+				bool stealthEnabled = DiffusionActive || LuminiteActive;
+
+				if (stealthEnabled && !resetStealth)
+				{
+					impStealth = Math.Min(impStealth + 1.5f, 126f);
+					player.shroomiteStealth = true;
+					player.stealth -= impStealth / 126f;
+					player.aggro -= (int)impStealth * 4;
+
+					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
+					player.GetCritChance(damageClass) += (int)impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f);
+				}
+				else
+				{
+					impStealth = 0f;
+				}
+			}
+
 			if (player.whoAmI == Main.myPlayer)
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -2298,34 +2325,7 @@ namespace MetroidMod.Content.Items.Weapons
 							cooldown = (int)useTime;
 						}
 					}
-					if (Stealth)
-					{
-						if (!player.mount.Active)
-						{
-							player.scope = true;
-						}
-						if (impStealth < 126f)
-						{
-							impStealth += 1.5f;
-						}
-						if (DiffusionActive || LuminiteActive)
-						{
-							player.shroomiteStealth = true;
-							player.stealth -= impStealth / 126f;
-							player.aggro -= (int)(impStealth * 4f);
-							if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
-							{
-								NetMessage.SendData(84);
-							}
-						}
-						if (player.velocity != Vector2.Zero || player.controlUseItem)
-						{
-							player.shroomiteStealth = false;
-							impStealth = 0f;
-						}
-						DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
-						player.GetCritChance(damageClass) += (int)impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f);
-					}
+					
 					if (isHunter && pb.statUA <= 0f && player.controlUseItem && BeamMods[0].type != ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>())
 					{
 						if (!BeamChange[11].IsAir)
