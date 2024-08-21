@@ -34,7 +34,7 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"BrinstarBrush",
 				"IdkSob2",
 				"Pinkstar",
-				"SapphireMetal",
+				"BrinstarMetal",
 				"Sizzling",
 				"Spicy",
 				"Wrecked",
