@@ -3299,6 +3299,96 @@ Mods: {
 				DisplayName: Wrecked
 				Tooltip: ""
 			}
+
+			GoldBrinstar: {
+				DisplayName: Gold Brinstar
+				Tooltip: ""
+			}
+
+			MaridiaMetal: {
+				DisplayName: Maridia Metal
+				Tooltip: ""
+			}
+
+			MaridiaSoil: {
+				DisplayName: Maridia Soil
+				Tooltip: ""
+			}
+
+			MoltenBubble: {
+				DisplayName: Molten Bubble
+				Tooltip: ""
+			}
+
+			SmoothCrateriaSlab: {
+				DisplayName: Smooth Crateria Slab
+				Tooltip: ""
+			}
+
+			CrateriaSoil: {
+				DisplayName: Crateria Soil
+				Tooltip: ""
+			}
+
+			NorfairStone: {
+				DisplayName: Norfair Stone
+				Tooltip: ""
+			}
+
+			SpaceSpike: {
+				DisplayName: Space Spike
+				Tooltip: ""
+			}
+
+			LorfairStone: {
+				DisplayName: Lorfair Stone
+				Tooltip: ""
+			}
+
+			GrownBrinstar: {
+				DisplayName: Grown Brinstar
+				Tooltip: ""
+			}
+
+			BrinstarBrush: {
+				DisplayName: Brinstar Brush
+				Tooltip: ""
+			}
+
+			CrateriaSlab: {
+				DisplayName: Crateria Slab
+				Tooltip: ""
+			}
+
+			Pinkstar: {
+				DisplayName: Pinkstar
+				Tooltip: ""
+			}
+
+			BrinstarMetal: {
+				DisplayName: Brinstar Metal
+				Tooltip: ""
+			}
+
+			BoilStone: {
+				DisplayName: Boil Stone
+				Tooltip: ""
+			}
+
+			AcidStone: {
+				DisplayName: Acid Stone
+				Tooltip: ""
+			}
+
+			WreckedPlate: {
+				DisplayName: Wrecked Plate
+				Tooltip: ""
+			}
+
+			ZebMetal: {
+				DisplayName: Zeb Metal
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
