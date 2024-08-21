@@ -4676,10 +4676,10 @@ Mods: {
 		}
 
 		Hatches: {
-			// YellowHatch.DisplayName: Mods.MetroidMod.Hatches.YellowHatch.DisplayName
-			// RedHatch.DisplayName: Mods.MetroidMod.Hatches.RedHatch.DisplayName
-			// GreenHatch.DisplayName: Mods.MetroidMod.Hatches.GreenHatch.DisplayName
-			// BlueHatch.DisplayName: Mods.MetroidMod.Hatches.BlueHatch.DisplayName
+			// YellowHatch.DisplayName: Yellow Hatch
+			// RedHatch.DisplayName: Red Hatch
+			// GreenHatch.DisplayName: Green Hatch
+			// BlueHatch.DisplayName: Blue Hatch
 		}
 	}
 }
