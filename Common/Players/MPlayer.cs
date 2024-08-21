@@ -19,6 +19,7 @@ using static MetroidMod.Sounds;
 using Terraria.GameContent.ItemDropRules;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Tiles.ItemTile;
+using System.IO;
 
 namespace MetroidMod.Common.Players
 {
@@ -937,18 +938,7 @@ namespace MetroidMod.Common.Players
 			ModPacket packet = Mod.GetPacket();
 			packet.Write((byte)MetroidMessageType.SyncStartPlayerStats);
 			packet.Write((byte)Player.whoAmI);
-			packet.Write((double)statCharge);
-			packet.Write((double)hyperCharge);
-			//packet.Write(spiderball);
-			packet.Write(boostEffect);
-			packet.Write(boostCharge);
-			packet.Write(EnergyTanks);
-			packet.Write(tankCapacity);
-			packet.Write(Energy);
-			packet.Write(SuitReserveTanks);
-			packet.Write(SuitReserves);
-			packet.Write(PrimeHunter);
-			packet.Write(canHyper);
+			WritePacketData(packet);
 			packet.Send(toWho, fromWho); //to *whom*
 		}
 
@@ -960,20 +950,24 @@ namespace MetroidMod.Common.Players
 				ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 				packet.Write((byte)Player.whoAmI);
-				packet.Write((double)statCharge);
-				packet.Write((double)hyperCharge);
-				//packet.Write(spiderball);
-				packet.Write(boostEffect);
-				packet.Write(boostCharge);
-				packet.Write(EnergyTanks);
-				packet.Write(tankCapacity);
-				packet.Write(Energy);
-				packet.Write(SuitReserveTanks);
-				packet.Write(SuitReserves);
-				packet.Write(PrimeHunter);
-				packet.Write(canHyper);
+				WritePacketData(packet);
 				packet.Send();
 			}
+		}
+
+		private void WritePacketData(ModPacket packet)
+		{
+			packet.Write((double)statCharge);
+			packet.Write((double)hyperCharge);
+			packet.Write(boostEffect);
+			packet.Write(boostCharge);
+			packet.Write(EnergyTanks);
+			packet.Write(tankCapacity);
+			packet.Write(Energy);
+			packet.Write(SuitReserveTanks);
+			packet.Write(SuitReserves);
+			packet.Write(PrimeHunter);
+			packet.Write(canHyper);
 		}
 	}
 }
