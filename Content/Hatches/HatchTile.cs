@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.Enums;
 using MetroidMod.Common.Players;
+using System;
 
 namespace MetroidMod.Content.Hatches
 {
@@ -98,7 +99,16 @@ namespace MetroidMod.Content.Hatches
 				if (Hatch is Variants.YellowHatch && mp.YellowKeycard) withKeycard = true;
 			}
 
-			TileEntity(i, j).Behavior.HitRightClick(withKeycard);
+			DebugAssist.NewTextMP("Right clicked hatch");
+
+			var hatch = TileEntity(i, j);
+
+			if (hatch.ModHatch.InteractableByDefault || hatch.State.IsBlue || withKeycard)
+			{
+				hatch.State.Interact();
+				TileEntity(i, j).SyncState();
+			}
+
 			return true;
 		}
 
@@ -117,22 +127,24 @@ namespace MetroidMod.Content.Hatches
 
 		public override void HitWire(int i, int j)
 		{
-			HatchTileEntity tileEntity = TileEntity(i, j);
-			var origin = tileEntity.Position;
-
+			HatchTileEntity hatch = TileEntity(i, j);
+			var origin = hatch.Position;
+			
 			var trigger = GetHatchWireTriggerAt(i - origin.X, j - origin.Y);
+			DebugAssist.NewTextMP($"Hatch wire trigger: {trigger}");
 			switch (trigger)
 			{
 				case HatchWireTrigger.ToggleDoor:
-					tileEntity.Behavior.WireToggleDoor();
+					hatch.State.Toggle();
 					break;
 				case HatchWireTrigger.ToggleBlue:
-					tileEntity.Behavior.WireToggleBlue();
+					hatch.State.ToggleBlueConversion();
 					break;
 				case HatchWireTrigger.ToggleLock:
-					tileEntity.Behavior.WireToggleLocked();
+					hatch.State.ToggleLocked();
 					break;
 			}
+			hatch.SyncState();
 
 			// Prevent the same functionality from being triggered more than once
 			for (int sy = 0; sy < 4; sy++)

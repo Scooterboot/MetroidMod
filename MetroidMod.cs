@@ -224,21 +224,24 @@ namespace MetroidMod
 					}
 					break;
 				case MetroidMessageType.ChangeHatchOpenState:
-					bool open = reader.ReadBoolean();
 					short i = reader.ReadInt16();
 					short j = reader.ReadInt16();
 
-					if(TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity hatch))
-					{
-						hatch.ChangeOpenState(open, false);
+					HatchState state = new();
+					state.DesiredState = (HatchDesiredState)reader.ReadByte();
+					state.LockStatus = (HatchLockStatus)reader.ReadByte();
+					state.BlueConversion = (HatchBlueConversionStatus)reader.ReadByte();
+					DebugAssist.NewTextMP($"Hatch state received: {state}");
 
+					if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity hatch))
+					{
+						hatch.State.DesiredState = state.DesiredState;
+						hatch.State.LockStatus = state.LockStatus;
+						hatch.State.BlueConversion = state.BlueConversion;
+						
 						if (Main.netMode == NetmodeID.Server)
 						{
-							ModPacket packet = GetPacket();
-							packet.Write((byte)MetroidMessageType.ChangeHatchOpenState);
-							packet.Write(open);
-							packet.Write(i);
-							packet.Write(j);
+							ModPacket packet = hatch.GetSyncPacket();
 							packet.Send(-1, whoAmI);
 						}
 					}

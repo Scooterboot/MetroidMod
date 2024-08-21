@@ -37,24 +37,32 @@ namespace MetroidMod.Content.Items.Tools
 			{
 				ModContent.GetInstance<ChoziteWrenchAssistSystem>().HitTile(Player.tileTargetX, Player.tileTargetY);
 			}
-			
-			if (TileUtils.TryGetTileEntityAs(Player.tileTargetX, Player.tileTargetY, out HatchTileEntity tileEntity))
+
+			if (player.whoAmI == Main.myPlayer)
 			{
-				tileEntity.Behavior.HitChozoWrench();
+				// Presumably tileTargetX and Y are only for the LocalPlayer, so this code should only run for them.
+				// This does mean the visual effect won't actually show for others. That is acceptable for now?
+				if (TileUtils.TryGetTileEntityAs(Player.tileTargetX, Player.tileTargetY, out HatchTileEntity tileEntity))
+				{
+					DebugAssist.NewTextMP("Hit with Chozo Wrench");
 
-				Color color = tileEntity.Behavior.BlueConversion == HatchBlueConversionStatus.Enabled ?
-					Color.Cyan : Color.Red;
+					tileEntity.State.ToggleBlueConversion();
+					tileEntity.SyncState();
 
-				int i = tileEntity.Position.X;
-				int j = tileEntity.Position.Y;
-				Vector2 topLeft = new Point(i, j).ToWorldCoordinates(0, 0);
-				Vector2 bottomRight = new Point(i + 4, j + 4).ToWorldCoordinates(0, 0);
-				Dust.QuickBox(topLeft, bottomRight, 8, color, null);
+					Color color = tileEntity.State.BlueConversion == HatchBlueConversionStatus.Disabled ?
+						Color.Red : Color.Cyan;
 
-				return true;
+					int i = tileEntity.Position.X;
+					int j = tileEntity.Position.Y;
+					Vector2 topLeft = new Point(i, j).ToWorldCoordinates(0, 0);
+					Vector2 bottomRight = new Point(i + 4, j + 4).ToWorldCoordinates(0, 0);
+					Dust.QuickBox(topLeft, bottomRight, 8, color, null);
+
+					return true;
+				}
 			}
 
-			return base.UseItem(player);
+			return false;
 		}
 
 		public override void AddRecipes()

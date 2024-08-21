@@ -9,7 +9,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidMod.Content.Hatches
+namespace MetroidMod.Content.Hatches.Visuals
 {
 	/// <summary>
 	/// Utility system that allows painting any texture with the same paint shaders
@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Hatches
 				var requests = paintSystem.GetType().GetField("_requests", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(paintSystem)
 					as List<TilePaintSystemV2.ARenderTargetHolder>;
 				requests.Add(cachedRenders[key]);
-				
+
 			}
 
 			return cachedRenders[key].IsReady ? cachedRenders[key].Target : texture;

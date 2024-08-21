@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Systems
 {
-	internal class BossHatchSystem : ModSystem
+	internal class HatchSpecialBossSystem : ModSystem
 	{
 		private bool oldAnyBossAlive;
 		private bool anyBossAlive;
@@ -23,26 +23,34 @@ namespace MetroidMod.Common.Systems
 				oldAnyBossAlive = anyBossAlive;
 				foreach (TileEntity tileEntity in TileEntity.ByID.Values)
 				{
-					if (tileEntity is not HatchTileEntity hatchTE)
+					if (tileEntity is not HatchTileEntity hatch)
 					{
 						continue;
 					}
 
-					if (hatchTE.Hatch is BlueHatch && hatchTE.Behavior.BlueConversion != HatchBlueConversionStatus.Disabled)
+					if (hatch.ModHatch is BlueHatch && hatch.State.BlueConversion != HatchBlueConversionStatus.Disabled)
 					{
 						// We can't turn a blue hatch blue! Activate secret boss functionality.
-						if(anyBossAlive)
+						DebugAssist.NewTextMP("Triggering boss hatch functionality");
+
+						if (anyBossAlive)
 						{
-							hatchTE.Behavior.Lock();
+							hatch.State.LockStatus = HatchLockStatus.Locked;
+						}
+						else if (bossWasKilled)
+						{
+							hatch.State.LockStatus = HatchLockStatus.UnlockedAndBlinking;
 						}
 						else
 						{
-							hatchTE.Behavior.Unlock(bossWasKilled);
+							hatch.State.LockStatus = HatchLockStatus.Unlocked;
 						}
+
+						hatch.SyncState();
 					}
 				}
 
-				if(!anyBossAlive)
+				if (!anyBossAlive)
 				{
 					bossWasKilled = false;
 				}
@@ -55,7 +63,7 @@ namespace MetroidMod.Common.Systems
 			{
 				if(npc.boss)
 				{
-					ModContent.GetInstance<BossHatchSystem>().anyBossAlive = true;
+					ModContent.GetInstance<HatchSpecialBossSystem>().anyBossAlive = true;
 				}
 			}
 
@@ -63,7 +71,7 @@ namespace MetroidMod.Common.Systems
 			{
 				if (npc.boss)
 				{
-					ModContent.GetInstance<BossHatchSystem>().bossWasKilled = true;
+					ModContent.GetInstance<HatchSpecialBossSystem>().bossWasKilled = true;
 				}
 			}
 		}

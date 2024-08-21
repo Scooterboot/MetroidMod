@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MetroidMod.Content.Hatches.Visuals;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -25,7 +26,7 @@ namespace MetroidMod.Content.Hatches
 		/// <summary>
 		/// The appearance this hatch will have by default (ie. when placed.)
 		/// </summary>
-		public virtual IHatchAppearance DefaultAppearance => new HatchAppearance(Name);
+		public virtual IHatchAppearance DefaultAppearance => new HatchStaticAppearance(Name);
 
 		/// <summary>
 		/// The translations to display for the name of this hatch.
