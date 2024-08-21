@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"DeathlySpike",
 				"LorfairStone",
 				"Greenstar",
-				"IdkSob",
+				"BrinstarBrush",
 				"IdkSob2",
 				"Pinkstar",
 				"SapphireMetal",
