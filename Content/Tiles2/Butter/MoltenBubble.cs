@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {
-	internal class MeltingBubble : GenericTile
+	internal class MoltenBubble : GenericTile
 	{
 		public override Color MapColor => Color.DarkGreen;
 		public override SoundStyle HitSound => SoundID.Dig;
