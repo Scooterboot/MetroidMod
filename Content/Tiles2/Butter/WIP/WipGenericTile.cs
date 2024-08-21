@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"CrateriaSoil",
 				"NorfairStone",
 				"DeathlySpike",
-				"DeepNorfair",
+				"LorfairStone",
 				"Greenstar",
 				"IdkSob",
 				"IdkSob2",
