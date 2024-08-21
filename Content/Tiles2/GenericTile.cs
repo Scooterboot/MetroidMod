@@ -26,6 +26,14 @@ namespace MetroidMod.Content.Tiles2
 			Mod.AddContent(Tile);
 		}
 
+		/// <summary>
+		/// Allows customizing defaults that are specific to each tile.
+		/// </summary>
+		public virtual void SetExtraTileDefaults()
+		{
+
+		}
+
 		public class BaseItem(GenericTile tile) : ModItem
 		{
 			public override string Name => tile.Name;
@@ -67,6 +75,8 @@ namespace MetroidMod.Content.Tiles2
 				MinPick = 35;
 
 				AddMapEntry(tile.MapColor);
+
+				tile.SetExtraTileDefaults();
 			}
 
 			// If i left this in, i forgot to remove it bruh
