@@ -144,11 +144,11 @@ namespace MetroidMod
 
 					targetPlayer.ReadPacketData(reader);
 
-					Logger.Debug($"Receive MPlayer {targetPlayer.PrimeHunter}");
 					if (msgType == MetroidMessageType.SyncPlayerStats && Main.netMode == NetmodeID.Server)
 					{
 						ModPacket packet = GetPacket();
 						packet.Write((byte)MetroidMessageType.SyncPlayerStats);
+						packet.Write(playerID);
 						targetPlayer.WritePacketData(packet);
 						packet.Send(-1, playerID);
 					}

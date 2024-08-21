@@ -957,34 +957,40 @@ namespace MetroidMod.Common.Players
 
 		public void WritePacketData(BinaryWriter writer)
 		{
-			writer.Write((double)statCharge);
-			writer.Write((double)hyperCharge);
+			writer.Write(statCharge);
+			writer.Write(hyperCharge);
+
 			writer.Write(boostEffect);
 			writer.Write(boostCharge);
+
 			writer.Write(EnergyTanks);
-			writer.Write(tankCapacity);
 			writer.Write(Energy);
+
 			writer.Write(SuitReserveTanks);
 			writer.Write(SuitReserves);
+			writer.Write(tankCapacity);
+
 			writer.Write(PrimeHunter);
 			writer.Write(canHyper);
-
-			Mod.Logger.Debug($"Sending MPlayer {PrimeHunter}");
 		}
 
 		public void ReadPacketData(BinaryReader reader)
 		{
-			statCharge = reader.ReadDouble();
+			statCharge = reader.ReadSingle();
+			hyperCharge = reader.ReadSingle();
+
 			boostEffect = reader.ReadInt32();
 			boostCharge = reader.ReadInt32();
+
 			EnergyTanks = reader.ReadInt32();
 			Energy = reader.ReadInt32();
+
 			SuitReserveTanks = reader.ReadInt32();
 			SuitReserves = reader.ReadInt32();
 			tankCapacity = reader.ReadInt32();
-			canHyper = reader.ReadBoolean();
-			hyperCharge = reader.ReadDouble();
+
 			PrimeHunter = reader.ReadBoolean();
+			canHyper = reader.ReadBoolean();
 		}
 	}
 }
