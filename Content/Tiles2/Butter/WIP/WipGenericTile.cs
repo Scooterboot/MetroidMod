@@ -35,7 +35,7 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"IdkSob2",
 				"Pinkstar",
 				"BrinstarMetal",
-				"Sizzling",
+				"BoilStone",
 				"Spicy",
 				"Wrecked",
 			];
