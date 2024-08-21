@@ -37,6 +37,9 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"BoilStone",
 				"AcidStone",
 				"WreckedPlate",
+				"KraidStone",
+				"RidleyStone",
+				"SquareRoomStone",
 			];
 
 			foreach(string tileName in tileNames)

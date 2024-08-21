@@ -3389,6 +3389,21 @@ Mods: {
 				// DisplayName: Zeb Metal
 				// Tooltip: ""
 			}
+
+			KraidStone: {
+				// DisplayName: Kraid Stone
+				// Tooltip: ""
+			}
+
+			RidleyStone: {
+				// DisplayName: Ridley Stone
+				// Tooltip: ""
+			}
+
+			SquareRoomStone: {
+				// DisplayName: Square Room Stone
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
