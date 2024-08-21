@@ -67,6 +67,7 @@ namespace MetroidMod.Content.Items.Accessories
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.spaceJumpBoots = true;
+			mp.itsSpinBoost = true;
 			mp.hiJumpBoost = true;
 		}
 	}

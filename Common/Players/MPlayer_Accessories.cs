@@ -51,7 +51,14 @@ namespace MetroidMod.Common.Players
 		public bool canWallJump = false;
 
 		public bool hiJumpBoost = false;
+		/// <summary>
+		/// Determines if you have a double-jump equipped.
+		/// </summary>
 		public bool spaceJumpBoots = false;
+		///<summary>
+		///If true, use the Spin Boost effects instead of Space Jump Boots.
+		///</summary>
+		public bool itsSpinBoost = true;
 		public bool spaceJumped = false;
 		public bool spaceJump = false;
 		public static float maxSpaceJumps = 120;
@@ -106,6 +113,7 @@ namespace MetroidMod.Common.Players
 
 			hiJumpBoost = false;
 			spaceJumpBoots = false;
+			itsSpinBoost = true;
 			spaceJump = false;
 
 			insigniaActive = false;
@@ -783,25 +791,58 @@ namespace MetroidMod.Common.Players
 				{
 					num167 = 4;
 				}
-				SoundEngine.PlaySound(SoundID.Item20, Player.position);
-				for (int num168 = 0; num168 < 8; num168++)
+				if (mp.itsSpinBoost == true)  //Visual effects for specifically the spin boost. It's the special variable because SJB came first
 				{
-					int type4 = 6;
-					float scale2 = 2.5f;
-					int alpha2 = 100;
-					if (num168 <= 3)
+					SoundEngine.PlaySound(SoundID.Item21, Player.position);
+					for (int num168 = 0; num168 < 16; num168++)
 					{
-						int num169 = Dust.NewDust(new Vector2(Player.position.X - 4f, Player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
-						Main.dust[num169].noGravity = true;
-						Main.dust[num169].velocity.X = Main.dust[num169].velocity.X * 1f - 2f - Player.velocity.X * 0.3f;
-						Main.dust[num169].velocity.Y = Main.dust[num169].velocity.Y * 1f + 2f * Player.gravDir - Player.velocity.Y * 0.3f;
+						int jumpDust = 263;
+						float scale2 = 2.5f;
+						int alpha2 = 0;
+						if (num168 % 2 == 1)
+						{
+							Dust jumpdust = Dust.NewDustPerfect(new Vector2(Player.position.X + 8f, Player.position.Y + (float)num167 - 10f), jumpDust, new Vector2((float)num168 / 3, 0f), alpha2, default(Color), scale2);
+							jumpdust.noGravity = true; //cool thing about perfectdust: you don't have to break out main.dust[], it just works    -Z
+							jumpdust.velocity.X = jumpdust.velocity.X * 1f - 2f;
+							/*int jumpFX1 = Dust.NewDust(new Vector2(Player.position.X - num168, Player.position.Y + (float)num167 - 10f), 0, 0, jumpDust, 0f, 0f, alpha2, default(Color), scale2);
+							Main.dust[jumpFX1].noGravity = true;
+							Main.dust[jumpFX1].velocity.X = Main.dust[jumpFX1].velocity.X * 1f - 2f - Player.velocity.X * 0.6f;*/
+							//Main.dust[jumpFX1].velocity.Y = Main.dust[jumpFX1].velocity.Y * 1f + 2f * Player.gravDir - Player.velocity.Y * 0.3f;
+						}
+						else
+						{
+							Dust jumpdust = Dust.NewDustPerfect(new Vector2(Player.position.X + 8f, Player.position.Y + (float)num167 - 10f), jumpDust, new Vector2(-(float)num168 / 3, 0f), alpha2, default(Color), scale2);
+							jumpdust.noGravity = true;
+							jumpdust.velocity.X = jumpdust.velocity.X * 1f + 2f;
+							/*int jumpFX2 = Dust.NewDust(new Vector2(Player.position.X - num168, Player.position.Y + (float)num167 - 10f), 0, 0, jumpDust, 0f, 0f, alpha2, default(Color), scale2);
+							Main.dust[jumpdust].noGravity = true;/
+							Main.dust[jumpFX2].velocity.X = Main.dust[jumpFX2].velocity.X * 1f + 2f - Player.velocity.X * 0.6f;*/
+							//Main.dust[jumpFX2].velocity.Y = Main.dust[jumpFX2].velocity.Y * 1f + 2f * Player.gravDir - Player.velocity.Y * 0.3f;
+						}
 					}
-					else
+				}
+				else
+				{
+					SoundEngine.PlaySound(SoundID.Item20, Player.position);
+					for (int num168 = 0; num168 < 8; num168++)
 					{
-						int num170 = Dust.NewDust(new Vector2(Player.position.X + (float)Player.width - 4f, Player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
-						Main.dust[num170].noGravity = true;
-						Main.dust[num170].velocity.X = Main.dust[num170].velocity.X * 1f + 2f - Player.velocity.X * 0.3f;
-						Main.dust[num170].velocity.Y = Main.dust[num170].velocity.Y * 1f + 2f * Player.gravDir - Player.velocity.Y * 0.3f;
+						int type4 = 6;
+						float scale2 = 2.5f;
+						int alpha2 = 100;
+						if (num168 <= 3)
+						{
+							int num169 = Dust.NewDust(new Vector2(Player.position.X - 4f, Player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+							Main.dust[num169].noGravity = true;
+							Main.dust[num169].velocity.X = Main.dust[num169].velocity.X * 1f - 2f - Player.velocity.X * 0.3f;
+							Main.dust[num169].velocity.Y = Main.dust[num169].velocity.Y * 1f + 2f * Player.gravDir - Player.velocity.Y * 0.3f;
+						}
+						else
+						{
+							int num170 = Dust.NewDust(new Vector2(Player.position.X + (float)Player.width - 4f, Player.position.Y + (float)num167 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+							Main.dust[num170].noGravity = true;
+							Main.dust[num170].velocity.X = Main.dust[num170].velocity.X * 1f + 2f - Player.velocity.X * 0.3f;
+							Main.dust[num170].velocity.Y = Main.dust[num170].velocity.Y * 1f + 2f * Player.gravDir - Player.velocity.Y * 0.3f;
+						}
 					}
 				}
 				mp.spaceJumped = true;
