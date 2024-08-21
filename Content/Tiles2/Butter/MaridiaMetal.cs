@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {
-	internal class AmethystMetal : GenericTile
+	internal class MaridiaMetal : GenericTile
 	{
 		public override Color MapColor => Color.Purple;
 		public override SoundStyle HitSound => SoundID.Tink;
