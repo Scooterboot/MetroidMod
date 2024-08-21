@@ -54,11 +54,11 @@ namespace MetroidMod.Content.Projectiles
 				{
 					MPlayer mp = player.GetModPlayer<MPlayer>();
 					shot = hold2.shotEffect.ToString();
-					if (hold2.Lum || (hold2.Diff && mp.PrimeHunter))
+					if (hold2.LuminiteActive || (hold2.DiffusionActive && mp.PrimeHunter))
 					{
 						Luminite = true;
 					}
-					if ((hold2.Diff || mp.PrimeHunter) && !hold2.Lum)
+					if ((hold2.DiffusionActive || mp.PrimeHunter) && !hold2.LuminiteActive)
 					{
 						DiffBeam = true;
 					}
