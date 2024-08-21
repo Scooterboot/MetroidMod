@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {
-	internal class MaridiaSand : GenericTile
+	internal class MaridiaSoil : GenericTile
 	{
 		public override Color MapColor => Color.SandyBrown;
 		public override SoundStyle HitSound => SoundID.Dig;
