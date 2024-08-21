@@ -44,12 +44,16 @@
 				return;
 			}
 
-			LockStatus = HatchLockStatus.Unlocked;
 			Toggle();
 		}
 
 		public void Toggle()
 		{
+			if(LockStatus == HatchLockStatus.UnlockedAndBlinking)
+			{
+				LockStatus = HatchLockStatus.Unlocked;
+			}
+
 			switch (DesiredState)
 			{
 				case HatchDesiredState.Open:
