@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {
-	internal class DiamondMetal : GenericTile
+	internal class ZebMetal : GenericTile
 	{
 		public override Color MapColor => Color.LightSteelBlue;
 		public override SoundStyle HitSound => SoundID.Tink;
