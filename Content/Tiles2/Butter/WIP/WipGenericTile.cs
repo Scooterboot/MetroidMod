@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Tiles2.Butter.WIP
 				"NorfairStone",
 				"SpaceSpike",
 				"LorfairStone",
-				"Greenstar",
+				"GrownBrinstar",
 				"BrinstarBrush",
 				"IdkSob2",
 				"Pinkstar",
