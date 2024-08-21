@@ -955,19 +955,36 @@ namespace MetroidMod.Common.Players
 			}
 		}
 
-		private void WritePacketData(ModPacket packet)
+		public void WritePacketData(BinaryWriter writer)
 		{
-			packet.Write((double)statCharge);
-			packet.Write((double)hyperCharge);
-			packet.Write(boostEffect);
-			packet.Write(boostCharge);
-			packet.Write(EnergyTanks);
-			packet.Write(tankCapacity);
-			packet.Write(Energy);
-			packet.Write(SuitReserveTanks);
-			packet.Write(SuitReserves);
-			packet.Write(PrimeHunter);
-			packet.Write(canHyper);
+			writer.Write((double)statCharge);
+			writer.Write((double)hyperCharge);
+			writer.Write(boostEffect);
+			writer.Write(boostCharge);
+			writer.Write(EnergyTanks);
+			writer.Write(tankCapacity);
+			writer.Write(Energy);
+			writer.Write(SuitReserveTanks);
+			writer.Write(SuitReserves);
+			writer.Write(PrimeHunter);
+			writer.Write(canHyper);
+
+			Mod.Logger.Debug($"Sending MPlayer {PrimeHunter}");
+		}
+
+		public void ReadPacketData(BinaryReader reader)
+		{
+			statCharge = reader.ReadDouble();
+			boostEffect = reader.ReadInt32();
+			boostCharge = reader.ReadInt32();
+			EnergyTanks = reader.ReadInt32();
+			Energy = reader.ReadInt32();
+			SuitReserveTanks = reader.ReadInt32();
+			SuitReserves = reader.ReadInt32();
+			tankCapacity = reader.ReadInt32();
+			canHyper = reader.ReadBoolean();
+			hyperCharge = reader.ReadDouble();
+			PrimeHunter = reader.ReadBoolean();
 		}
 	}
 }
