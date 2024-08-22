@@ -63,7 +63,7 @@ namespace MetroidMod.Content.Tiles2
 		public class BaseTile(GenericTile tile) : ModTile
 		{
 			public override string Name => tile.Name;
-			public override string Texture => (tile.GetType().Namespace + "." + tile.Name).Replace('.', '/') + "Tile";
+			public override string Texture => tile.TileTexture;
 			public override void SetStaticDefaults()
 			{
 				Main.tileSolid[Type] = true;
