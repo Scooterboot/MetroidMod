@@ -1,8 +1,10 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace MetroidMod.Content.Hatches
+namespace MetroidMod.Content.Hatches.Behavior
 {
 	/// <summary>
 	/// This system focuses on ensuring that hatches that should be closed, do as such
@@ -20,11 +22,21 @@ namespace MetroidMod.Content.Hatches
 	{
 		public override void PostUpdateEverything()
 		{
-			foreach(HatchTileEntity hatch in HatchTileEntity.GetAll())
+			foreach (HatchTileEntity hatch in HatchTileEntity.GetAll())
 			{
-				if(hatch.NeedsToClose && CanClose(hatch.Position))
+				bool wantsToOpen = hatch.State.DesiredState == HatchDesiredState.Open;
+
+				if (hatch.IsPhysicallyOpen != wantsToOpen)
 				{
-					hatch.PhysicallyClose();
+					int tileType = hatch.ModHatch.GetTileType(wantsToOpen, hatch.Tile.Vertical);
+
+					if(wantsToOpen || CanClose(hatch.Position))
+					{
+						Vector2 center = (hatch.Position + new Point16(2, 2)).ToWorldCoordinates(0, 0);
+						DebugAssist.NewTextMP($"Hatch physically {(wantsToOpen ? "opened" : "closed")}");
+						HatchTilePlacement.SetHatchTilesAt(tileType, hatch.Position.X, hatch.Position.Y);
+						SoundEngine.PlaySound(wantsToOpen ? Sounds.Tiles.HatchOpen : Sounds.Tiles.HatchClose, center);
+					}
 				}
 			}
 		}

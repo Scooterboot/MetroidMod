@@ -33,6 +33,7 @@ namespace MetroidMod.Content.Hatches
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
+			Item.mech = true;
 			Item.createTile = Hatch.GetTileType();
 		}
 

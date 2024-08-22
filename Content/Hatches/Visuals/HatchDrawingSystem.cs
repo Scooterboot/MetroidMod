@@ -14,7 +14,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MetroidMod.Content.Hatches
+namespace MetroidMod.Content.Hatches.Visuals
 {
 	internal class HatchDrawingSystem : ModSystem
 	{
@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Hatches
 						// to begin and end one oursellves
 						DrawHatches();
 					});
-					
+
 					// Move forward so we don't get stuck in the loop
 					c.GotoNext();
 				}
@@ -72,16 +72,17 @@ namespace MetroidMod.Content.Hatches
 			DrawAt(spriteBatch, i, j, doorSource, doorTexture, GetHatchPaintSource(i, j));
 
 			HatchTileEntity tileEntity = hatchTile.TileEntity(i, j);
-			int animationFrame = ModContent.GetInstance<HatchAnimationSystem>().GetHatchAnimation(tileEntity).DoorAnimationFrame;
+			HatchAnimationSystem animation = ModContent.GetInstance<HatchAnimationSystem>();
+			int animationFrame = animation.GetHatchAnimation(tileEntity).DoorAnimationFrame;
 			bool isInvisible = animationFrame == 4;
 			if (!isInvisible)
 			{
-				string bubbleTexture = tileEntity.Appearance.GetTexturePath(hatchTile.Vertical);
-				Rectangle bubbleSource = new(tile.TileFrameX, tile.TileFrameY + animationFrame * (18 * 4), 16, 16);
+				string bubbleTexture = animation.GetAppearance(tileEntity).GetTexturePath(hatchTile.Vertical);
+				Rectangle bubbleSource = new(tile.TileFrameX, tile.TileFrameY + animationFrame * 18 * 4, 16, 16);
 				DrawAt(spriteBatch, i, j, bubbleSource, bubbleTexture, new(i, j));
 			}
 		}
-		
+
 		private void DrawAt(SpriteBatch spriteBatch, int i, int j, Rectangle? source, string texturePath, Point paintSource)
 		{
 			Tile paintSourceTile = Main.tile[paintSource];
@@ -112,7 +113,7 @@ namespace MetroidMod.Content.Hatches
 			int sx = i - origin.X;
 			int sy = j - origin.Y;
 
-			if(hatchTile.Vertical)
+			if (hatchTile.Vertical)
 			{
 				sy = Math.Clamp(sy, 1, 2);
 			}

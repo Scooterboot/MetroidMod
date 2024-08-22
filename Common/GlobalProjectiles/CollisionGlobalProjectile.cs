@@ -5,7 +5,9 @@ using MetroidMod.Content.Switches;
 using MetroidMod.Content.Switches.Variants;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.GlobalProjectiles
@@ -71,15 +73,17 @@ namespace MetroidMod.Common.GlobalProjectiles
 		{
 			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
 			{
-				bool isCorrectHatch = tileEntity.Hatch is T;
-				if (tileEntity.Behavior.IsTurnedBlue && typeof(T) == typeof(BlueHatch))
+				bool isCorrectHatch = tileEntity.ModHatch is T;
+				if (tileEntity.State.IsBlue && typeof(T) == typeof(BlueHatch))
 				{
 					isCorrectHatch = true;
 				}
 
-				if (isCorrectHatch)
+				if (isCorrectHatch && tileEntity.State.DesiredState == HatchDesiredState.Closed && !tileEntity.State.IsLocked)
 				{
-					tileEntity.Behavior.HitProjectile();
+					DebugAssist.NewTextMP("Projectile hit hatch");
+					tileEntity.State.HitProjectile();
+					tileEntity.SyncState();
 				}
 			}
 		}

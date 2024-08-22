@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MetroidMod.Content.Hatches
+namespace MetroidMod.Content.Hatches.Visuals
 {
 	public interface IHatchAppearance
 	{
@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Hatches
 		string GetTexturePath(bool vertical);
 	}
 
-	internal class HatchAppearance(string name) : IHatchAppearance
+	internal class HatchStaticAppearance(string name) : IHatchAppearance
 	{
 		public void Update() { }
 		public string GetTexturePath(bool vertical)

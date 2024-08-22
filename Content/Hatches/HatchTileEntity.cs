@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using MetroidMod.Content.Hatches.Behavior;
 using MetroidMod.Content.Hatches.Variants;
+using MetroidMod.Content.NPCs.Mobs.Bug;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -10,126 +13,96 @@ using Terraria.ModLoader.IO;
 
 namespace MetroidMod.Content.Hatches
 {
-	internal class HatchTileEntity : ModTileEntity, IHatchProvider, IHatchOpenController, IHatchVisualController
+	internal class HatchTileEntity : ModTileEntity
 	{
-		private HatchTile HatchTile => ModContent.GetModTile(Main.tile[Position].TileType) as HatchTile;
+		public HatchTile Tile => ModContent.GetModTile(Main.tile[Position].TileType) as HatchTile;
+		public ModHatch ModHatch => Tile.Hatch;
+		public bool IsPhysicallyOpen => Tile.Open;
+
+
+		public HatchState State = new();
+
 
 		/// <summary>
-		/// The ModHatch that this tile entity is controlling.
+		/// Call this method after calling any method on the State,
+		/// this will let other multiplayer entities know what happened.
 		/// </summary>
-		public ModHatch Hatch => HatchTile.Hatch;
-
-
-		private HatchBehavior _behavior;
-		public HatchBehavior Behavior
+		public void SyncState()
 		{
-			get {
-				_behavior ??= new(this, this, this);
-				return _behavior;
-			}
-		}
-
-
-		public bool IsOpen => HatchTile.Open;
-
-		private HatchVisualState _visualState;
-		private IHatchAppearance _appearance;
-		public IHatchAppearance Appearance
-		{
-			get {
-				if (_appearance == null) SetVisualState(_visualState);
-				return _appearance;
-			}
-		}
-
-		private HatchAutoclose autoclose;
-		private HatchAutoclose Autoclose
-		{
-			get {
-				autoclose ??= new HatchAutoclose(this);
-				return autoclose;
-			}
-		}
-
-		public bool NeedsToClose;
-
-		private Vector2 Center => (Position + new Terraria.DataStructures.Point16(2, 2)).ToWorldCoordinates(0, 0);
-
-		public void Open()
-		{
-			ChangeOpenState(true, true);
-		}
-
-		/// <summary>
-		/// Close the hatch in intent (it will schedule it for closing, but it WON'T close
-		/// until it ensures that nothing is in the way.)
-		/// </summary>
-		public void Close()
-		{
-			ChangeOpenState(false, true);
-		}
-
-		/// <summary>
-		/// Actually close the hatch, with disregard for whether it would physically be able
-		/// to do so at the current moment.
-		/// </summary>
-		public void PhysicallyClose()
-		{
-			NeedsToClose = false;
-			UpdateTiles(false);
-			SoundEngine.PlaySound(Sounds.Tiles.HatchClose, Center);
-		}
-
-		public void ChangeOpenState(bool open, bool sync)
-		{
-			if (IsOpen == open) return;
-
-			if(open)
+			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
-				UpdateTiles(true);
-				Autoclose.Open();
-				SoundEngine.PlaySound(Sounds.Tiles.HatchOpen, Center);
-			}
-			else
-			{
-				NeedsToClose = true;
-			}
-
-			if(sync)
-			{
-				ModPacket packet = Mod.GetPacket();
-				packet.Write((byte)MetroidMessageType.ChangeHatchOpenState);
-				packet.Write(open);
-				packet.Write(Position.X);
-				packet.Write(Position.Y);
-				packet.Send();
+				DebugAssist.NewTextMP($"Hatch state sent: {State}");
+				GetSyncPacket().Send();
 			}
 		}
 
-		private void SyncOpen()
+		public ModPacket GetSyncPacket()
 		{
 			ModPacket packet = Mod.GetPacket();
+			packet.Write((byte)MetroidMessageType.ChangeHatchOpenState);
+			packet.Write(Position.X);
+			packet.Write(Position.Y);
+			WriteState(packet);
+			return packet;
+		}
 
+		public void WriteState(BinaryWriter writer)
+		{
+			writer.Write((byte)State.DesiredState);
+			writer.Write((byte)State.LockStatus);
+			writer.Write((byte)State.BlueConversion);
 		}
 
 		public override void Update()
 		{
-			Appearance.Update();
-			Autoclose.Update();
 		}
 
 		public override void SaveData(TagCompound tag)
 		{
-			if (Behavior.BlueConversion != default) tag["BlueConversion"] = (int)Behavior.BlueConversion;
-			if (Behavior.Locked) tag["Locked"] = Behavior.Locked;
-			if (_visualState != default) tag["_visualState"] = (int)_visualState;
+			if (State.DesiredState != default) tag["DesiredState"] = (int)State.DesiredState;
+			if (State.BlueConversion != default) tag["BlueConversion"] = (int)State.BlueConversion;
+			if (State.LockStatus != default) tag["LockStatus"] = (int)State.LockStatus;
 		}
 
 		public override void LoadData(TagCompound tag)
 		{
-			Behavior.BlueConversion = (HatchBlueConversionStatus)tag.Get<int>("BlueConversion");
-			Behavior.Locked = tag.Get<bool>("Locked");
-			SetVisualState((HatchVisualState)tag.Get<int>("_visualState"));
+			State.DesiredState = (HatchDesiredState)tag.Get<int>("DesiredState");
+			State.BlueConversion = (HatchBlueConversionStatus)tag.Get<int>("BlueConversion");
+			State.LockStatus = (HatchLockStatus)tag.Get<int>("LockStatus");
+		}
+
+
+
+		// Currently, the only usage of the NetSend and NetReceive methods is to
+		// sync state of hatches when a player first joins, everything else is done via ModPackets.
+		public override void NetSend(BinaryWriter writer)
+		{
+			WriteState(writer);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			State.DesiredState = (HatchDesiredState)reader.ReadByte();
+			State.LockStatus = (HatchLockStatus)reader.ReadByte();
+			State.BlueConversion = (HatchBlueConversionStatus)reader.ReadByte();
+		}
+
+		/// <summary>
+		/// Get all of the hatch tile entities that exist in the world.
+		/// </summary>
+		/// <returns></returns>
+		public static IEnumerable<HatchTileEntity> GetAll()
+		{
+			foreach(int id in ByID.Keys)
+			{
+				if (ByID[id] is HatchTileEntity hatch)
+				{
+					if (hatch.Tile != null)
+					{
+						yield return hatch;
+					}
+				}
+			}
 		}
 
 
@@ -161,49 +134,6 @@ namespace MetroidMod.Content.Hatches
 			if (Main.netMode == NetmodeID.Server)
 			{
 				NetMessage.SendData(MessageID.TileEntitySharing, number: ID, number2: Position.X, number3: Position.Y);
-			}
-		}
-
-		private void UpdateTiles(bool toOpenTiles)
-		{
-			ushort type = (ushort)Hatch.GetTileType(toOpenTiles, HatchTile.Vertical);
-			HatchTilePlacement.SetHatchTilesAt(type, Position.X, Position.Y);
-		}
-
-		private IHatchAppearance CurrentAppearance => Behavior.IsTurnedBlue ? 
-			ModContent.GetInstance<BlueHatch>().DefaultAppearance : Hatch.DefaultAppearance;
-
-		public void SetVisualState(HatchVisualState state)
-		{
-			_visualState = state;
-
-			switch (state)
-			{
-				default:
-				case HatchVisualState.Current:
-					_appearance = CurrentAppearance;
-					break;
-				case HatchVisualState.Locked:
-					_appearance = new HatchAppearance("LockedHatch");
-					break;
-				case HatchVisualState.Blinking:
-					_appearance = new HatchBlinkingAppearance(CurrentAppearance, new HatchAppearance("LockedHatch"));
-					break;
-			}
-		}
-
-		/// <summary>
-		/// Get all of the hatch tile entities that exist in the world.
-		/// </summary>
-		/// <returns></returns>
-		public static IEnumerable<HatchTileEntity> GetAll()
-		{
-			foreach(int id in ByID.Keys)
-			{
-				if (ByID[id] is HatchTileEntity hatch)
-				{
-					yield return hatch;
-				}
 			}
 		}
 	}
