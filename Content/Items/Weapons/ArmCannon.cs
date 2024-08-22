@@ -366,8 +366,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private int waveDir = -1;
 
-		public bool Lum = false;
-		public bool Diff = false;
+		public bool LuminiteActive = false;
+		public bool DiffusionActive = false;
 
 		private bool isJud = false;
 		private bool isSpray = false;
@@ -452,8 +452,12 @@ namespace MetroidMod.Content.Items.Weapons
 				//modBeamTextureMod = null;
 
 				Item.autoReuse = true;
-				Lum = !BeamChange[11].IsAir || (!BeamChange[10].IsAir && mp.PrimeHunter);
-				Diff = (!BeamChange[10].IsAir || mp.PrimeHunter) && BeamChange[11].IsAir;
+				bool hasDiffusionBeam = !BeamChange[10].IsAir;
+				bool hasLuminiteBeam = !BeamChange[11].IsAir;
+
+				LuminiteActive = hasLuminiteBeam || hasDiffusionBeam && mp.PrimeHunter;
+				DiffusionActive = (hasDiffusionBeam || mp.PrimeHunter) && !hasLuminiteBeam;
+
 				ShotSound = null;
 				ChargeShotSound = null;
 				noSomersault = false;
@@ -461,7 +465,7 @@ namespace MetroidMod.Content.Items.Weapons
 				isChargeSpray = false;
 				isShock = false;
 				Stealth = false;
-				isJud = !Lum && !Diff && (slot1.type == jd) && !mp.PrimeHunter;
+				isJud = !LuminiteActive && !DiffusionActive && (slot1.type == jd) && !mp.PrimeHunter;
 				isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 				isHyper = (slot1.type == hy);
 				isPhazon = (slot1.type == ph);
@@ -492,11 +496,11 @@ namespace MetroidMod.Content.Items.Weapons
 				int versionType = 1;
 				float GetCharge()
 				{
-					if (!Lum)
+					if (!LuminiteActive)
 					{
 						return MConfigItems.Instance.damageLuminiteBeam;
 					}
-					else if (!Diff)
+					else if (!DiffusionActive)
 					{
 						return MConfigItems.Instance.damageChargeBeamV2;
 					}
@@ -1088,15 +1092,15 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						isCharge = true;
 						shot = "JudicatorShot";
-						chargeShot = Lum || Diff ? "JudicatorChargeShot" : "JudicatorShot";
+						chargeShot = LuminiteActive || DiffusionActive ? "JudicatorChargeShot" : "JudicatorShot";
 						shotSound = "JudicatorSound";
 						chargeShotSound = "JudicatorChargeSound";
-						chargeUpSound = Lum || Diff ? "ChargeStartup_JudicatorAffinity" : "ChargeStartup_Judicator";
+						chargeUpSound = LuminiteActive || DiffusionActive ? "ChargeStartup_JudicatorAffinity" : "ChargeStartup_Judicator";
 						texture = "Judicator";
 						chargeTex = "ChargeLead_Ice";
 						useTime = MConfigItems.Instance.useTimeJudicator;
 						MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
-						mItem.addonChargeDmg = Lum || Diff ? GetCharge() : 1f;
+						mItem.addonChargeDmg = LuminiteActive || DiffusionActive ? GetCharge() : 1f;
 						//mItem.addonChargeHeat = GetHeat();
 						if (shotAmt > 1)
 						{
@@ -1115,7 +1119,7 @@ namespace MetroidMod.Content.Items.Weapons
 					if (slot1.type == bh)
 					{
 						shot = "BattleHammerShot";
-						shotSound = Lum || Diff ? "BattleHammerAffinitySound" : "BattleHammerSound";
+						shotSound = LuminiteActive || DiffusionActive ? "BattleHammerAffinitySound" : "BattleHammerSound";
 						texture = "BattleHammer";
 						useTime = MConfigItems.Instance.useTimeBattleHammer;
 						if (shotAmt > 1)
@@ -2099,6 +2103,33 @@ namespace MetroidMod.Content.Items.Weapons
 		private int targetNum = 0;
 		public override void HoldItem(Player player)
 		{
+			// Running this code for all players should suffice to sync the feature
+			if (Stealth)
+			{
+				if (!player.mount.Active)
+				{
+					player.scope = true;
+				}
+
+				bool resetStealth = player.velocity != Vector2.Zero || player.controlUseItem;
+				bool stealthEnabled = DiffusionActive || LuminiteActive;
+
+				if (stealthEnabled && !resetStealth)
+				{
+					impStealth = Math.Min(impStealth + 1.5f, 126f);
+					player.shroomiteStealth = true;
+					player.stealth -= impStealth / 126f;
+					player.aggro -= (int)impStealth * 4;
+
+					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
+					player.GetCritChance(damageClass) += (int)impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f);
+				}
+				else
+				{
+					impStealth = 0f;
+				}
+			}
+
 			if (player.whoAmI == Main.myPlayer)
 			{
 				MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -2231,7 +2262,7 @@ namespace MetroidMod.Content.Items.Weapons
 										MProjectile mProj = (MProjectile)Main.projectile[chargeProj].ModProjectile;
 										mProj.waveDir = waveDir;
 										mProj.shot = shotEffect.ToString();
-										mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9) && (Lum || Diff);
+										mProj.canDiffuse = mp.statCharge >= (MPlayer.maxCharge * 0.9) && (LuminiteActive || DiffusionActive);
 										Main.projectile[chargeProj].netUpdate = true;
 										if (isChargeSpray /*&& chargeShotAmt > 1*/)
 										{
@@ -2294,34 +2325,7 @@ namespace MetroidMod.Content.Items.Weapons
 							cooldown = (int)useTime;
 						}
 					}
-					if (Stealth)
-					{
-						if (!player.mount.Active)
-						{
-							player.scope = true;
-						}
-						if (impStealth < 126f)
-						{
-							impStealth += 1.5f;
-						}
-						if (Diff || Lum)
-						{
-							player.shroomiteStealth = true;
-							player.stealth -= impStealth / 126f;
-							player.aggro -= (int)(impStealth * 4f);
-							if (Main.netMode != NetmodeID.SinglePlayer && mp.Player.whoAmI == Main.myPlayer)
-							{
-								NetMessage.SendData(84);
-							}
-						}
-						if (player.velocity != Vector2.Zero || player.controlUseItem)
-						{
-							player.shroomiteStealth = false;
-							impStealth = 0f;
-						}
-						DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
-						player.GetCritChance(damageClass) += (int)impStealth / (Lum ? 3f : Diff ? 5f : 10f);
-					}
+					
 					if (isHunter && pb.statUA <= 0f && player.controlUseItem && BeamMods[0].type != ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>())
 					{
 						if (!BeamChange[11].IsAir)

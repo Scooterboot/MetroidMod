@@ -19,6 +19,7 @@ using static MetroidMod.Sounds;
 using Terraria.GameContent.ItemDropRules;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Tiles.ItemTile;
+using System.IO;
 
 namespace MetroidMod.Common.Players
 {
@@ -937,18 +938,7 @@ namespace MetroidMod.Common.Players
 			ModPacket packet = Mod.GetPacket();
 			packet.Write((byte)MetroidMessageType.SyncStartPlayerStats);
 			packet.Write((byte)Player.whoAmI);
-			packet.Write((double)statCharge);
-			packet.Write((double)hyperCharge);
-			//packet.Write(spiderball);
-			packet.Write(boostEffect);
-			packet.Write(boostCharge);
-			packet.Write(EnergyTanks);
-			packet.Write(tankCapacity);
-			packet.Write(Energy);
-			packet.Write(SuitReserveTanks);
-			packet.Write(SuitReserves);
-			packet.Write(PrimeHunter);
-			packet.Write(canHyper);
+			WritePacketData(packet);
 			packet.Send(toWho, fromWho); //to *whom*
 		}
 
@@ -960,20 +950,47 @@ namespace MetroidMod.Common.Players
 				ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MetroidMessageType.SyncPlayerStats);
 				packet.Write((byte)Player.whoAmI);
-				packet.Write((double)statCharge);
-				packet.Write((double)hyperCharge);
-				//packet.Write(spiderball);
-				packet.Write(boostEffect);
-				packet.Write(boostCharge);
-				packet.Write(EnergyTanks);
-				packet.Write(tankCapacity);
-				packet.Write(Energy);
-				packet.Write(SuitReserveTanks);
-				packet.Write(SuitReserves);
-				packet.Write(PrimeHunter);
-				packet.Write(canHyper);
+				WritePacketData(packet);
 				packet.Send();
 			}
+		}
+
+		public void WritePacketData(BinaryWriter writer)
+		{
+			writer.Write(statCharge);
+			writer.Write(hyperCharge);
+
+			writer.Write(boostEffect);
+			writer.Write(boostCharge);
+
+			writer.Write(EnergyTanks);
+			writer.Write(Energy);
+
+			writer.Write(SuitReserveTanks);
+			writer.Write(SuitReserves);
+			writer.Write(tankCapacity);
+
+			writer.Write(PrimeHunter);
+			writer.Write(canHyper);
+		}
+
+		public void ReadPacketData(BinaryReader reader)
+		{
+			statCharge = reader.ReadSingle();
+			hyperCharge = reader.ReadSingle();
+
+			boostEffect = reader.ReadInt32();
+			boostCharge = reader.ReadInt32();
+
+			EnergyTanks = reader.ReadInt32();
+			Energy = reader.ReadInt32();
+
+			SuitReserveTanks = reader.ReadInt32();
+			SuitReserves = reader.ReadInt32();
+			tankCapacity = reader.ReadInt32();
+
+			PrimeHunter = reader.ReadBoolean();
+			canHyper = reader.ReadBoolean();
 		}
 	}
 }
