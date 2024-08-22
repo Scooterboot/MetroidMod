@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Tiles2
 		public BaseTile Tile;
 
 		public virtual string ItemTexture => (GetType().Namespace + ".Item." + Name).Replace('.', '/');
-		public virtual string TileTexture => (GetType().Namespace + ".Tile" + Name).Replace('.', '/');
+		public virtual string TileTexture => (GetType().Namespace + ".Tile." + Name).Replace('.', '/');
 
 		public abstract Color MapColor { get; }
 		public abstract SoundStyle HitSound { get; }
