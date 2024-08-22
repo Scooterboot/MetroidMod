@@ -14,7 +14,9 @@ namespace MetroidMod.Content.Tiles2.Butter
 
 		public override void SetExtraTileDefaults()
 		{
-			// Prevents weird shadows from forming around the block as you place more
+			// These prevent these blocks from creating shadows,
+			// which can cause weird visual artifacts otherwise
+			Main.tileBlockLight[Tile.Type] = false;
 			Main.tileNoSunLight[Tile.Type] = false;
 		}
 	}
