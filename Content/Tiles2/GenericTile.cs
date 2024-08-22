@@ -35,6 +35,15 @@ namespace MetroidMod.Content.Tiles2
 
 		}
 
+		/// <summary>
+		/// Use this method to add recipes directly in the tile's code file.
+		/// Utilize Item.CreateRecipe instead of just CreateRecipe.
+		/// </summary>
+		public virtual void AddRecipes()
+		{
+
+		}
+
 		public class BaseItem(GenericTile tile) : ModItem
 		{
 			public override string Name => tile.Name;
@@ -57,6 +66,11 @@ namespace MetroidMod.Content.Tiles2
 				Item.useStyle = ItemUseStyleID.Swing;
 				Item.consumable = true;
 				Item.createTile = tile.Tile.Type;
+			}
+
+			public override void AddRecipes()
+			{
+				tile.AddRecipes();
 			}
 		}
 
