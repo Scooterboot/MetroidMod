@@ -3195,38 +3195,8 @@ Mods: {
 				DisplayName: Torizo Eye Necklace
 			}
 
-			ClassicBrinstar: {
-				DisplayName: Classic Brinstar
-				Tooltip: ""
-			}
-
-			MeltingBubble: {
-				DisplayName: Melting Bubble
-				Tooltip: ""
-			}
-
-			MaridiaSand: {
-				DisplayName: Maridia Sand
-				Tooltip: ""
-			}
-
-			MaridiaStone: {
-				DisplayName: Maridia Stone
-				Tooltip: ""
-			}
-
-			SmoothCrateria: {
-				DisplayName: Smooth Crateria
-				Tooltip: ""
-			}
-
-			AmethystMetal: {
-				DisplayName: Amethyst Metal
-				Tooltip: ""
-			}
-
-			DiamondMetal: {
-				DisplayName: Diamond Metal
+			AcidStone: {
+				DisplayName: Acid Stone
 				Tooltip: ""
 			}
 
@@ -3235,73 +3205,53 @@ Mods: {
 				Tooltip: ""
 			}
 
+			BoilStone: {
+				DisplayName: Boil Stone
+				Tooltip: ""
+			}
+
+			BrinstarBrush: {
+				DisplayName: Brinstar Brush
+				Tooltip: ""
+			}
+
+			BrinstarMetal: {
+				DisplayName: Brinstar Metal
+				Tooltip: ""
+			}
+
 			CrateriaGrass: {
 				DisplayName: Crateria Grass
 				Tooltip: ""
 			}
 
-			CrateriaSurface: {
-				DisplayName: Crateria Surface
+			CrateriaSlab: {
+				DisplayName: Crateria Slab
 				Tooltip: ""
 			}
 
-			CrumbledNorfair: {
-				DisplayName: Crumbled Norfair
-				Tooltip: ""
-			}
-
-			DeathlySpike: {
-				DisplayName: Deathly Spike
-				Tooltip: ""
-			}
-
-			DeepNorfair: {
-				DisplayName: Deep Norfair
-				Tooltip: ""
-			}
-
-			Greenstar: {
-				DisplayName: Greenstar
-				Tooltip: ""
-			}
-
-			IdkSob: {
-				DisplayName: Idk Sob
-				Tooltip: ""
-			}
-
-			IdkSob2: {
-				DisplayName: Idk Sob2
-				Tooltip: ""
-			}
-
-			SapphireMetal: {
-				DisplayName: Sapphire Metal
-				Tooltip: ""
-			}
-
-			Sizzling: {
-				DisplayName: Sizzling
-				Tooltip: ""
-			}
-
-			Spicy: {
-				DisplayName: Spicy
-				Tooltip: ""
-			}
-
-			IdkSob3: {
-				DisplayName: Idk Sob3
-				Tooltip: ""
-			}
-
-			Wrecked: {
-				DisplayName: Wrecked
+			CrateriaSoil: {
+				DisplayName: Crateria Soil
 				Tooltip: ""
 			}
 
 			GoldBrinstar: {
 				DisplayName: Gold Brinstar
+				Tooltip: ""
+			}
+
+			GrownBrinstar: {
+				DisplayName: Grown Brinstar
+				Tooltip: ""
+			}
+
+			KraidStone: {
+				DisplayName: Kraid Stone
+				Tooltip: ""
+			}
+
+			LorfairStone: {
+				DisplayName: Lorfair Stone
 				Tooltip: ""
 			}
 
@@ -3315,18 +3265,13 @@ Mods: {
 				Tooltip: ""
 			}
 
+			MaridiaStone: {
+				DisplayName: Maridia Stone
+				Tooltip: ""
+			}
+
 			MoltenBubble: {
 				DisplayName: Molten Bubble
-				Tooltip: ""
-			}
-
-			SmoothCrateriaSlab: {
-				DisplayName: Smooth Crateria Slab
-				Tooltip: ""
-			}
-
-			CrateriaSoil: {
-				DisplayName: Crateria Soil
 				Tooltip: ""
 			}
 
@@ -3335,48 +3280,28 @@ Mods: {
 				Tooltip: ""
 			}
 
-			SpaceSpike: {
-				DisplayName: Space Spike
-				Tooltip: ""
-			}
-
-			LorfairStone: {
-				DisplayName: Lorfair Stone
-				Tooltip: ""
-			}
-
-			GrownBrinstar: {
-				DisplayName: Grown Brinstar
-				Tooltip: ""
-			}
-
-			BrinstarBrush: {
-				DisplayName: Brinstar Brush
-				Tooltip: ""
-			}
-
-			CrateriaSlab: {
-				DisplayName: Crateria Slab
-				Tooltip: ""
-			}
-
 			Pinkstar: {
 				DisplayName: Pinkstar
 				Tooltip: ""
 			}
 
-			BrinstarMetal: {
-				DisplayName: Brinstar Metal
+			RidleyStone: {
+				DisplayName: Ridley Stone
 				Tooltip: ""
 			}
 
-			BoilStone: {
-				DisplayName: Boil Stone
+			SmoothCrateriaSlab: {
+				DisplayName: Smooth Crateria Slab
 				Tooltip: ""
 			}
 
-			AcidStone: {
-				DisplayName: Acid Stone
+			SpaceSpike: {
+				DisplayName: Space Spike
+				Tooltip: ""
+			}
+
+			SquareRoomStone: {
+				DisplayName: Square Room Stone
 				Tooltip: ""
 			}
 
@@ -3387,21 +3312,6 @@ Mods: {
 
 			ZebMetal: {
 				DisplayName: Zeb Metal
-				Tooltip: ""
-			}
-
-			KraidStone: {
-				DisplayName: Kraid Stone
-				Tooltip: ""
-			}
-
-			RidleyStone: {
-				DisplayName: Ridley Stone
-				Tooltip: ""
-			}
-
-			SquareRoomStone: {
-				DisplayName: Square Room Stone
 				Tooltip: ""
 			}
 		}
