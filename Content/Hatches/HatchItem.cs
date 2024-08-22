@@ -16,8 +16,7 @@ namespace MetroidMod.Content.Hatches
 
 		public override string Name => Hatch.Name;
 		public override string Texture => base.Texture + "Item";
-		// public override LocalizedText DisplayName => base.DisplayName; Hey so. This line was fucking up the display names for the hatches.
-		                                                               // Just leave it out          -Z
+		public override LocalizedText DisplayName => Hatch.DisplayName;
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 1;

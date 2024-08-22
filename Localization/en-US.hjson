@@ -742,7 +742,7 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Primary B
-					Shots will set targets ablaze with fire
+					Shots will set targets ablaze with fire and pierce through a few enemies
 					Use in tandem with secondary beams for varying results
 					[c/78BE78:+50% damage]
 					[c/BE7878:+75% overheat use]
@@ -799,7 +799,7 @@ Mods: {
 					'''
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Primary B 
-					Shots will set targets ablaze with cursed flames
+					Shots will pierce through many enemies and set targets ablaze with cursed flames
 					Use in tandem with secondary beams for varying results
 					[c/78BE78:+115% damage]
 					[c/BE7878:+100% overheat use]
@@ -2936,7 +2936,9 @@ Mods: {
 					37.5% increased energy barrier resilience
 					Infinite breath underwater
 					Immune to knockback
-					Free movement in liquid
+					Free movement in liquids including shimmer
+					Immunity to Shimmer Phasing
+					Hold Down to Phase while submerged in Shimmer
 					Grants 14 seconds of lava immunity
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
@@ -4599,8 +4601,8 @@ Mods: {
 				}
 
 				enableGlobalNarpasSword: {
-					Label: enable Global Narpas Sword
-					Tooltip: ""
+					Label: Narpas Sword
+					Tooltip: Grants the Narpas Sword powerups to all players when enabled!
 				}
 			}
 
@@ -4710,10 +4712,10 @@ Mods: {
 		}
 
 		Hatches: {
-			YellowHatch.DisplayName: Mods.MetroidMod.Hatches.YellowHatch.DisplayName
-			RedHatch.DisplayName: Mods.MetroidMod.Hatches.RedHatch.DisplayName
-			GreenHatch.DisplayName: Mods.MetroidMod.Hatches.GreenHatch.DisplayName
-			BlueHatch.DisplayName: Mods.MetroidMod.Hatches.BlueHatch.DisplayName
+			YellowHatch.DisplayName: Yellow Hatch
+			RedHatch.DisplayName: Red Hatch
+			GreenHatch.DisplayName: Green Hatch
+			BlueHatch.DisplayName: Blue Hatch
 		}
 	}
 }
