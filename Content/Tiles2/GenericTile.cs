@@ -93,13 +93,6 @@ namespace MetroidMod.Content.Tiles2
 
 				tile.SetExtraTileDefaults();
 			}
-
-			// If i left this in, i forgot to remove it bruh
-			public override bool RightClick(int i, int j)
-			{
-				SetStaticDefaults();
-				return true;
-			}
 		}
 	}
 }
