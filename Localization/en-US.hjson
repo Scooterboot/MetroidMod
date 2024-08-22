@@ -3244,6 +3244,126 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Torizo Eye Necklace
 			}
+
+			AcidStone: {
+				DisplayName: Acid Stone
+				Tooltip: ""
+			}
+
+			Bluestar: {
+				DisplayName: Bluestar
+				Tooltip: ""
+			}
+
+			BoilStone: {
+				DisplayName: Boil Stone
+				Tooltip: ""
+			}
+
+			BrinstarBrush: {
+				DisplayName: Brinstar Brush
+				Tooltip: ""
+			}
+
+			BrinstarMetal: {
+				DisplayName: Brinstar Metal
+				Tooltip: ""
+			}
+
+			CrateriaGrass: {
+				DisplayName: Crateria Grass
+				Tooltip: ""
+			}
+
+			CrateriaSlab: {
+				DisplayName: Crateria Slab
+				Tooltip: ""
+			}
+
+			CrateriaSoil: {
+				DisplayName: Crateria Soil
+				Tooltip: ""
+			}
+
+			GoldBrinstar: {
+				DisplayName: Gold Brinstar
+				Tooltip: ""
+			}
+
+			GrownBrinstar: {
+				DisplayName: Grown Brinstar
+				Tooltip: ""
+			}
+
+			KraidStone: {
+				DisplayName: Kraid Stone
+				Tooltip: ""
+			}
+
+			LorfairStone: {
+				DisplayName: Lorfair Stone
+				Tooltip: ""
+			}
+
+			MaridiaMetal: {
+				DisplayName: Maridia Metal
+				Tooltip: ""
+			}
+
+			MaridiaSoil: {
+				DisplayName: Maridia Soil
+				Tooltip: ""
+			}
+
+			MaridiaStone: {
+				DisplayName: Maridia Stone
+				Tooltip: ""
+			}
+
+			MoltenBubble: {
+				DisplayName: Molten Bubble
+				Tooltip: ""
+			}
+
+			NorfairStone: {
+				DisplayName: Norfair Stone
+				Tooltip: ""
+			}
+
+			Pinkstar: {
+				DisplayName: Pinkstar
+				Tooltip: ""
+			}
+
+			RidleyStone: {
+				DisplayName: Ridley Stone
+				Tooltip: ""
+			}
+
+			SmoothCrateriaSlab: {
+				DisplayName: Smooth Crateria Slab
+				Tooltip: ""
+			}
+
+			SpaceSpike: {
+				DisplayName: Space Spike
+				Tooltip: ""
+			}
+
+			SquareRoomStone: {
+				DisplayName: Square Room Stone
+				Tooltip: ""
+			}
+
+			WreckedPlate: {
+				DisplayName: Wrecked Plate
+				Tooltip: ""
+			}
+
+			ZebMetal: {
+				DisplayName: Zeb Metal
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
