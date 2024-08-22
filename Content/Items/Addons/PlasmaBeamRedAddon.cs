@@ -1,4 +1,5 @@
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Miscellaneous;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,12 +43,11 @@ namespace MetroidMod.Content.Items.Addons
 
 		public override void AddRecipes()
 		{
-			CreateRecipe(1)
-				.AddIngredient<Miscellaneous.UnknownPlasmaBeam>(1)
-				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
-				.AddIngredient(ItemID.Ichor, 10)
-				.AddIngredient(ItemID.SoulofLight, 5)
-				.AddTile(TileID.MythrilAnvil)
+			CreateRecipe()
+				.AddIngredient<ChoziteBar>(3)
+				.AddIngredient(ItemID.HellstoneBar, 10)
+				.AddIngredient(ItemID.Ruby, 1)
+				.AddTile(TileID.Anvils)
 				.Register();
 		}
 	}

@@ -742,7 +742,8 @@ Mods: {
 					[c/9696FF:Power Beam Addon]
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Primary B
-					Shots set enemies ablaze with Fire, or Frost Burns them if Ice Beam is installed
+					Shots will set targets ablaze with fire
+					Use in tandem with secondary beams for varying results
 					[c/78BE78:+50% damage]
 					[c/BE7878:+75% overheat use]
 					[c/BE7878:-15% speed]
@@ -798,8 +799,8 @@ Mods: {
 					'''
 					[c/FF9696:Power Beam Addon V2]
 					Slot Type: Primary B 
-					Shots pierce enemies 
-					Shots set enemies ablaze with Cursed Fire, or Frost Burns them if Ice Beam is installed 
+					Shots will set targets ablaze with cursed flames
+					Use in tandem with secondary beams for varying results
 					[c/78BE78:+115% damage]
 					[c/BE7878:+100% overheat use]
 					[c/BE7878:-15% speed]
