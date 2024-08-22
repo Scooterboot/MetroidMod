@@ -18,6 +18,11 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			// DisplayName.SetDefault("Golden Torizo");
 			Main.npcFrameCount[Type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][31] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.IceFreeze>()] = true;
@@ -45,11 +50,11 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		{
 			int associatedNPCType = ModContent.NPCType<GoldenTorizo>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			/*bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 				new FlavorTextBestiaryInfoElement("An enhanced version of the Torizo Statue but with golden armor plating. While this one lacks the spiritual possession it is far more dangerous than the lumbering machines the Gizzard tribe possess. Its energy waves are much faster and follow any hostile target. The Golden armor plating gives it extraordinary defenses and an energy shield while jumping. Be careful to avoid it if you don't want a nasty end!\n\nThis is a hitbox. What are you looking at?")
-			});
+			});*/
 		}
 
 		NPC Base

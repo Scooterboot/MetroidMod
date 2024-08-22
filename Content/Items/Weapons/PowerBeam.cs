@@ -96,7 +96,7 @@ namespace MetroidMod.Content.Items.Weapons
 			pb.maxUA = MConfigItems.Instance.ammoPowerBeam;
 		}
 
-		public override void AddRecipes()
+		/*public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(8)
@@ -108,8 +108,8 @@ namespace MetroidMod.Content.Items.Weapons
 			recipe.AddIngredient(null, "EnergyShard", 3);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-		}
+			recipe.AddRecipe();* /
+		}*/
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
 			float armRot = player.itemRotation - (float)(Math.PI / 2) * player.direction;

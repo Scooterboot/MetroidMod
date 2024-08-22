@@ -17,6 +17,8 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			// DisplayName.SetDefault("Fire Ball");
 			Main.npcFrameCount[NPC.type] = 7;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value); //this and above line hides the entity from the bestiary
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;
@@ -45,7 +47,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			NPC.noTileCollide = true;
 			NPC.noGravity = true;
 		}
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		/*public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			int associatedNPCType = ModContent.NPCType<Phantoon>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
@@ -54,7 +56,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 				new FlavorTextBestiaryInfoElement("A ball of fire.")
 			});
-		}
+		}*/
 
 		int damage = 132;
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */

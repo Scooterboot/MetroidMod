@@ -36,7 +36,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			NPC.npcSlots = 1;
 			NPC.localAI = new float[5];
 		}
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		/*public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			int associatedNPCType = ModContent.NPCType<OmegaPirate>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
@@ -45,7 +45,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
 				new FlavorTextBestiaryInfoElement("This absorb field is capable of absorbing projectiles with its hands and firing grenades from a distance. Get too close and it will react by smashing the ground to create an energy wave. Even if you smash its armor the creature will go invisible and attempt to absorb Phazon to repair its defenses.")
 			});
-		}
+		}*/
 
 		NPC Base
 		{

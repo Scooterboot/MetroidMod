@@ -16,6 +16,11 @@ namespace MetroidMod.Content.NPCs.Kraid
 			// DisplayName.SetDefault("Kraid");
 			Main.npcFrameCount[NPC.type] = 5;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true // ExampleMod says: "Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry."
+			};              // y'know, like this oaf
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 		}
 
 		Vector2 swipeVec = Vector2.Zero;
@@ -58,11 +63,12 @@ namespace MetroidMod.Content.NPCs.Kraid
 		{
 			int associatedNPCType = ModContent.NPCType<Kraid_Head>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			// Pretty sure we still need to have this method thing so the Scan Visor counts all of it as the one NPC
+			/*bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>  //All this is to add page info, not necessary but kept it here just in case    -Z
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 				new FlavorTextBestiaryInfoElement("This invasive species made its way on this planet after the Gizzard tribe had brought it to the Terrarian Planet to train young warriors. It is extremely bulky and slow, but can shoot projectiles from its stomach. It's hide is almost impenetrable save for even the hottest lava. But these creatures are not indestructible on the inside. Give it a taste of pain when the mouth opens!")
-			});
+			});*/
 		}
 
 		int fArmAnim = 1;

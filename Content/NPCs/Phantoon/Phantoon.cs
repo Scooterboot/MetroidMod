@@ -19,6 +19,15 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			// DisplayName.SetDefault("Phantoon");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
+			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()  //Alright so this here method thingy lets you tweak the bestiary display
+			{
+				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/Phantoon/Phantoon",
+				//Position = new Vector2(0f, 5f), // these two variables ONLY APPLY TO THE LIST TILES
+				//PortraitPositionXOverride = 0f,
+				//PortraitPositionYOverride = 6f,
+				PortraitScale = 0.5f, // Portrait refers to the full picture when clicking on the icon in the bestiary
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;

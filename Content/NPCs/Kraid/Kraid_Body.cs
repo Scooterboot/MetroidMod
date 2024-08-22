@@ -15,6 +15,11 @@ namespace MetroidMod.Content.NPCs.Kraid
 		{
 			// DisplayName.SetDefault("Kraid");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 		}
 		public override void SetDefaults()
 		{
@@ -42,11 +47,11 @@ namespace MetroidMod.Content.NPCs.Kraid
 		{
 			int associatedNPCType = ModContent.NPCType<Kraid_Head>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			/*bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 				new FlavorTextBestiaryInfoElement("Kraid's Body.")
-			});
+			});*/
 		}
 		int state = 0;
 		public override void AI()

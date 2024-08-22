@@ -35,16 +35,16 @@ namespace MetroidMod.Content.NPCs.Kraid
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 		}
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		/*public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
-			int associatedNPCType = ModContent.NPCType<Kraid_Head>();
-			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			//int associatedNPCType = ModContent.NPCType<Kraid_Head>();
+			//bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
+			/*bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 				new FlavorTextBestiaryInfoElement("One of Kraid's infinitely generating claws.")
-			});
-		}
+			});*/
+		//}
 
 		float rotation = 0f;
 		public override void AI()

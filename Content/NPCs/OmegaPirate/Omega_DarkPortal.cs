@@ -34,7 +34,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 		}
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		/*public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			int associatedNPCType = ModContent.NPCType<OmegaPirate>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
@@ -43,7 +43,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
 				new FlavorTextBestiaryInfoElement("The Omega Pirate will occasionally slip into an alternate dimension. This portal is used to perform that act.")
 			});
-		}
+		}*/
 
 		NPC Base
 		{

@@ -16,6 +16,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			// DisplayName.SetDefault("Gravity Orb");
 			Main.npcFrameCount[Type] = 4;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value); //this and above line hides the entity from the bestiary
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;
@@ -43,16 +45,6 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
 			NPC.ai[0] = -1;
-		}
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-		{
-			int associatedNPCType = ModContent.NPCType<Nightmare>();
-			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
-			{
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new FlavorTextBestiaryInfoElement("A gravity well created by Nightmare. It amplifies gravity.")
-			});
 		}
 
 		int timeLeft = 300;

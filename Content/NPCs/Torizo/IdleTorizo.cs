@@ -44,7 +44,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 				NPC.ai[i] = 0.0f;
 			}*/
 		}
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		/*public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			int associatedNPCType = ModContent.NPCType<Torizo>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
@@ -53,7 +53,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 				new FlavorTextBestiaryInfoElement("Nothing mysterious at all about this thing.")
 			});
-		}
+		}*/
 		public override bool CanChat()
 		{
 			return false;

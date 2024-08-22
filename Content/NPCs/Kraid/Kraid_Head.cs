@@ -18,6 +18,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 	{
 		public override string BossHeadTexture => Texture + "_Head_Boss_1";
 		public const string KraidHead = "MetroidMod/Content/NPCs/Kraid/Kraid_Head_Head_Boss_";
+		public string BestTexture => $"{Mod.Name}/Content/NPCs/Kraid/Kraid_BossLog";
 
 		public override void Load()
 		{
@@ -34,6 +35,16 @@ namespace MetroidMod.Content.NPCs.Kraid
 			Main.npcFrameCount[Type] = 6;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
+			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()  //Alright so this here method thingy lets you tweak the bestiary display
+			{
+				CustomTexturePath = BestTexture, //the sprite the bestiary uses. The method doesn't like the filepath shenanigans so make a variable outside
+				Position = new Vector2(-5f, 15f), // these two variables ONLY APPLY TO THE LIST TILES
+				Scale = 0.5f,
+				PortraitPositionXOverride = -12f, //these three variables ONLY APPLY TO THE BESTIARY PORTRAIT (the one right above the blurb)
+				PortraitPositionYOverride = 25f,
+				PortraitScale = 0.66f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;
@@ -70,6 +81,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundJungle,
 				new FlavorTextBestiaryInfoElement("This invasive species made its way on this planet after the Gizzard tribe had brought it to the Terrarian Planet to train young warriors. It is extremely bulky and slow, but can shoot projectiles from its stomach. It's hide is almost impenetrable save for even the hottest lava. But these creatures are not indestructible on the inside. Give it a taste of pain when the mouth opens!")
+				// TODO: move this to localization      -Z
 			});
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */

@@ -21,6 +21,16 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			// DisplayName.SetDefault("Nightmare");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
+			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()  //Alright so this here method thingy lets you tweak the bestiary display
+			{
+				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/Nightmare/Nightmare_BossLog",
+				Position = new Vector2(-20f, 38f), // these two variables ONLY APPLY TO THE LIST TILES
+				Scale = 0.6f,
+				PortraitPositionXOverride = -30f,
+				PortraitPositionYOverride = 40f,
+				PortraitScale = 0.8f // Portrait refers to the full picture when clicking on the icon in the bestiary
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;

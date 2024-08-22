@@ -25,20 +25,19 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			Main.npcFrameCount[Type] = 2;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
+			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()  //Alright so this here method thingy lets you tweak the bestiary display
+			{
+				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog",
+				Position = new Vector2(-10f, 20f), // these two variables ONLY APPLY TO THE LIST TILES
+				PortraitPositionYOverride = 0f,
+				PortraitScale = 1f, // Portrait refers to the full picture when clicking on the icon in the bestiary
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
 			// buffs
 			NPCID.Sets.SpecificDebuffImmunity[Type][31] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.IceFreeze>()] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.InstantFreeze>()] = true;
-
-
-			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers()
-			{
-				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/GoldenTorizo/GoldenTorizo_BossLog",
-				PortraitScale = 0.6f, // Portrait refers to the full picture when clicking on the icon in the bestiary
-				PortraitPositionYOverride = 0f,
-			};
-			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 		public override void SetDefaults()
 		{

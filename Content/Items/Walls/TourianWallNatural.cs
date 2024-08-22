@@ -24,6 +24,7 @@ namespace MetroidMod.Content.Items.Walls
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
+			ItemID.Sets.DrawUnsafeIndicator[Item.type] = true; //Hey so apparently they just have a thingy to make the unsafe skull show up.    -Z
 			Item.createWall = ModContent.WallType<Content.Walls.TourianWallNatural>();
 		}
 	}

@@ -22,6 +22,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		private bool classic = !Main.expertMode && !Main.masterMode && !Main.getGoodWorld;
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_Head_Boss";
 		public override string Texture => Mod.Name + "/Content/NPCs/Torizo/TorizoBody";
+		public string BestTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_BossLog";
 
 		public override void SetStaticDefaults()
 		{
@@ -29,6 +30,16 @@ namespace MetroidMod.Content.NPCs.Torizo
 			Main.npcFrameCount[Type] = 2;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 			NPCID.Sets.BossBestiaryPriority.Add(Type);
+			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()  //Alright so this here method thingy lets you tweak the bestiary display
+			{
+				CustomTexturePath = BestTexture, //the sprite the bestiary uses. The method doesn't like the filepath shenanigans so make a variable outside
+				Position = new Vector2(-10f, 20f), // these two variables ONLY APPLY TO THE LIST TILES
+				Scale = 1f,
+				PortraitPositionXOverride = -15f, //these three variables ONLY APPLY TO THE BESTIARY PORTRAIT (the one right above the blurb)
+				PortraitPositionYOverride = 5f,
+				PortraitScale = 1f
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.IceFreeze>()] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.InstantFreeze>()] = true;

@@ -94,14 +94,14 @@ namespace MetroidMod.Content.Items.Weapons
 			mi.statMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher;
 			mi.maxMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher;
 		}
-		public override void AddRecipes()
+		/*public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(10)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
+		}*/
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{

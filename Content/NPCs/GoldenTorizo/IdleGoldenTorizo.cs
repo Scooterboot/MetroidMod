@@ -44,7 +44,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			NPC.boss = false;
 			NPC.BossBar = ModContent.GetInstance<BossBars.BossBarNone>();
 		}
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		/*public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
 			int associatedNPCType = ModContent.NPCType<GoldenTorizo>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
@@ -53,7 +53,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 				new FlavorTextBestiaryInfoElement("Nope, nothing's wrong at all.")
 			});
-		}
+		}*/
 		public override bool CanChat()
 		{
 			return false;

@@ -18,6 +18,11 @@ namespace MetroidMod.Content.NPCs.Torizo
 			// DisplayName.SetDefault("Torizo");
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+			{
+				Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][31] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.IceFreeze>()] = true;
@@ -27,11 +32,11 @@ namespace MetroidMod.Content.NPCs.Torizo
 		{
 			int associatedNPCType = ModContent.NPCType<Torizo>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			/*bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 				new FlavorTextBestiaryInfoElement("Nothing mysterious at all about this thing.")
-			});
+			});*/
 		}
 		public override void SetDefaults()
 		{

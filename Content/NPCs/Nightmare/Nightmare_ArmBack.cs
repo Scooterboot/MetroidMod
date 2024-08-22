@@ -15,6 +15,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		{
 			// DisplayName.SetDefault("Nightmare");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value); //this and above line hides the entity from the bestiary
 		}
 		public override void SetDefaults()
 		{
@@ -39,11 +41,6 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		{
 			int associatedNPCType = ModContent.NPCType<Nightmare>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
-			{
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				new FlavorTextBestiaryInfoElement("Nightmare's Arm.")
-			});
 		}
 
 		int _laserBeam = 0;

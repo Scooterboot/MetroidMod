@@ -16,6 +16,8 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			// DisplayName.SetDefault("Omega Pirate");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(){Hide = true}; //hides the entity from the bestiary
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][24] = true;
@@ -45,11 +47,11 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			int associatedNPCType = ModContent.NPCType<OmegaPirate>();
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
-			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+			/*bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
 				new FlavorTextBestiaryInfoElement("An experiment created by the space pirates. It is a hulking monster corrupted by a biomass known as Phazon. It's capable of absorbing projectiles with its hands and firing grenades from a distance. Get too close and it will react by smashing the ground to create an energy wave. Even if you smash its armor the creature will go invisible and attempt to absorb Phazon to repair its defenses.")
-			});
+			});*/
 		}
 		public override bool PreAI()
 		{

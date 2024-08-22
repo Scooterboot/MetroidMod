@@ -7,6 +7,7 @@ namespace MetroidMod.Content.Items.Tiles
 	public class ChozoBrickNatural : ModItem
 	{
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Items/Tiles/ChozoBrick";
+		
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Chozite Brick (Natural)");
@@ -24,6 +25,7 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.useTime = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
+			ItemID.Sets.DrawUnsafeIndicator[Item.type] = true; //Hey so apparently they just have a thingy to make the unsafe skull show up.    -Z
 			Item.createTile = ModContent.TileType<Content.Tiles.ChozoBrickNatural>();
 		}
 		public override void AddRecipes()
