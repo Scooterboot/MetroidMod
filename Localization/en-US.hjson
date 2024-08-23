@@ -1357,7 +1357,7 @@ Mods: {
 			}
 
 			BrinstoneTile: {
-				DisplayName: Brinstone Block
+				DisplayName: Ancient Brinstone Block
 				Tooltip: ""
 			}
 
@@ -1581,7 +1581,7 @@ Mods: {
 			}
 
 			GreenBrinstarRootsTile: {
-				DisplayName: Overgrown Brinstone Block
+				DisplayName: Rooted Brinstone Block
 				Tooltip: ""
 			}
 
@@ -1606,7 +1606,7 @@ Mods: {
 			}
 
 			ItemRoomTile: {
-				DisplayName: Item Room Brick
+				DisplayName: Ancient Item Room Brick
 				Tooltip: ""
 			}
 
@@ -3246,102 +3246,102 @@ Mods: {
 			}
 
 			AcidStone: {
-				DisplayName: Acid Stone
+				DisplayName: Norfic Acidstone Block
 				Tooltip: ""
 			}
 
 			Bluestar: {
-				DisplayName: Bluestar
+				DisplayName: Brinstone Block
 				Tooltip: ""
 			}
 
 			BoilStone: {
-				DisplayName: Boil Stone
+				DisplayName: Norfic Bendezium Block
 				Tooltip: ""
 			}
 
 			BrinstarBrush: {
-				DisplayName: Brinstar Brush
+				DisplayName: Dark Overgrown Brinstone Block
 				Tooltip: ""
 			}
 
 			BrinstarMetal: {
-				DisplayName: Brinstar Metal
+				DisplayName: Brinstone Brick
 				Tooltip: ""
 			}
 
 			CrateriaGrass: {
-				DisplayName: Crateria Grass
+				DisplayName: Urthic Grass
 				Tooltip: ""
 			}
 
 			CrateriaSlab: {
-				DisplayName: Crateria Slab
+				DisplayName: Urthic Slab
 				Tooltip: ""
 			}
 
 			CrateriaSoil: {
-				DisplayName: Crateria Soil
+				DisplayName: Urthic Dirt
 				Tooltip: ""
 			}
 
 			GoldBrinstar: {
-				DisplayName: Gold Brinstar
+				DisplayName: Aged Brinstone Block
 				Tooltip: ""
 			}
 
 			GrownBrinstar: {
-				DisplayName: Grown Brinstar
+				DisplayName: Overgrown Brinstone Block
 				Tooltip: ""
 			}
 
 			KraidStone: {
-				DisplayName: Kraid Stone
+				DisplayName: Pirate Commander Plating
 				Tooltip: ""
 			}
 
 			LorfairStone: {
-				DisplayName: Lorfair Stone
+				DisplayName: Norfic Bendezium Brick
 				Tooltip: ""
 			}
 
 			MaridiaMetal: {
-				DisplayName: Maridia Metal
+				DisplayName: Maridian Laboratory Brick
 				Tooltip: ""
 			}
 
 			MaridiaSoil: {
-				DisplayName: Maridia Soil
+				DisplayName: Maridian Sand
 				Tooltip: ""
 			}
 
 			MaridiaStone: {
-				DisplayName: Maridia Stone
+				DisplayName: Maridian Shale
 				Tooltip: ""
 			}
 
 			MoltenBubble: {
-				DisplayName: Molten Bubble
+				DisplayName: Fiery Molten Bubble Block
 				Tooltip: ""
 			}
 
 			NorfairStone: {
-				DisplayName: Norfair Stone
+				DisplayName: Norfic Stone
 				Tooltip: ""
 			}
 
 			Pinkstar: {
-				DisplayName: Pinkstar
+				DisplayName: Fungal Brinstone Block
 				Tooltip: ""
 			}
 
 			RidleyStone: {
-				DisplayName: Ridley Stone
+				DisplayName: Pirate Elite Plating
 				Tooltip: ""
 			}
 
 			SmoothCrateriaSlab: {
-				DisplayName: Smooth Crateria Slab
+				DisplayName: Urthic Stone
 				Tooltip: ""
 			}
 
@@ -3351,17 +3351,17 @@ Mods: {
 			}
 
 			SquareRoomStone: {
-				DisplayName: Square Room Stone
+				DisplayName: Item Square Brick
 				Tooltip: ""
 			}
 
 			WreckedPlate: {
-				DisplayName: Wrecked Plate
+				DisplayName: Wrecked Plating
 				Tooltip: ""
 			}
 
 			ZebMetal: {
-				DisplayName: Zeb Metal
+				DisplayName: Item Room Brick
 				Tooltip: ""
 			}
 		}
@@ -3499,7 +3499,7 @@ Mods: {
 				}
 			}
 
-			PhantoonFireBall.DisplayName: Fire Ball
+			PhantoonFireBall.DisplayName: Fireball
 			Serris_Body.DisplayName: Serris
 
 			Serris_Head: {
