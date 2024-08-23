@@ -2464,10 +2464,6 @@ namespace MetroidMod.Content.Items.Weapons
 											}
 										}
 									}
-									else
-									{
-										Main.projectile[chargeLead].Kill();
-									}
 								}
 							}
 							else
@@ -2676,9 +2672,17 @@ namespace MetroidMod.Content.Items.Weapons
 						targetNum = 0;
 						targetingDelay = 0;
 					}
-					if(pb.statMissiles <= 0f && player.controlUseItem)
+
+					bool ranOutOfMissiles = pb.statMissiles <= 0f;
+					if (ranOutOfMissiles)
 					{
-						pb.isBeam = !pb.isBeam;
+						Main.projectile[chargeLead].Kill();
+
+						bool tryingToUseLauncher = Main.mouseLeft && Main.mouseLeftRelease;
+						if (tryingToUseLauncher)
+						{
+							pb.isBeam = true;
+						}
 					}
 				}
 
