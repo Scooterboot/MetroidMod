@@ -37,6 +37,12 @@ namespace MetroidMod.Content.Projectiles.Judicator
 					shot = hold2.shotEffect.ToString();
 				}
 			}
+			if (shot.Contains("red"))
+			{
+				Projectile.penetrate = 5;
+				Projectile.maxPenetrate = 5;
+				yeet = 5;
+			}
 			if (shot.Contains("green"))
 			{
 				Projectile.penetrate = 6;

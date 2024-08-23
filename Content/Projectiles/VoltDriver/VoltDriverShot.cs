@@ -29,6 +29,11 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 					shot = hold2.shotEffect.ToString();
 				}
 			}
+			if (shot.Contains("red"))
+			{
+				Projectile.penetrate = 2;
+				Projectile.maxPenetrate = 2;
+			}
 			if (shot.Contains("green"))
 			{
 				Projectile.penetrate = 6;

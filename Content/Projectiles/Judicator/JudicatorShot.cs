@@ -11,10 +11,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 {
 	public class JudicatorShot : MProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Judicator Shot");
-		}
 		public override void OnSpawn(IEntitySource source)
 		{
 			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() ||player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
@@ -27,6 +23,11 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				{
 					shot = hold2.shotEffect.ToString();
 				}
+			}
+			if (shot.Contains("red"))
+			{
+				Projectile.penetrate = 2;
+				Projectile.maxPenetrate = 2;
 			}
 			if (shot.Contains("green"))
 			{
