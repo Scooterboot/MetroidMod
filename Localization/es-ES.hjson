@@ -3138,7 +3138,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Select this item in your hotbar and open the inventory to open the UI
-					Right click to swap between missile launcher and powerbeam
+					Press the bomb keybind to swap between missile launcher and powerbeam
 					''' */
 			}
 

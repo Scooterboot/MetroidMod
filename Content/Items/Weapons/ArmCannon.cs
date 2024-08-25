@@ -4,6 +4,7 @@ using System.IO;
 using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.MissileAddons;
 using MetroidMod.Content.Items.MissileAddons.BeamCombos;
@@ -259,7 +260,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
-		public override bool AltFunctionUse(Player player)
+		/*public override bool AltFunctionUse(Player player)
 		{
 			Item.TryGetGlobalItem(out MGlobalItem mi);
 			if (!Stealth || Stealth && player.velocity != Vector2.Zero)
@@ -267,7 +268,7 @@ namespace MetroidMod.Content.Items.Weapons
 				mi.isBeam = !mi.isBeam;
 			}
 			return false;
-		}
+		}*/
 
 		/*public override bool CanReforge()// tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. 
 		{
@@ -2104,6 +2105,11 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void HoldItem(Player player)
 		{
 			// Running this code for all players should suffice to sync the feature
+			Item.TryGetGlobalItem(out MGlobalItem mi);
+			if (MSystem.BombKey.JustPressed && !player.mount.Active)
+			{
+				mi.isBeam = !mi.isBeam;
+			}
 			if (Stealth)
 			{
 				if (!player.mount.Active)

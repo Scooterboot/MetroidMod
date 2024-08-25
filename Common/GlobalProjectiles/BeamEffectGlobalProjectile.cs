@@ -14,7 +14,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 			{
 				return;
 			}
-			bool isBlaze = entity.ModProjectile.Name.Contains("Red")|| entity.ModProjectile is MProjectile MP && MP.shot.Contains("red");
+			bool isBlaze = entity.ModProjectile.Name.Contains("Red");//|| entity.ModProjectile is MProjectile MP && MP.shot.Contains("red");
 			bool isCharged = entity.ModProjectile.Name.Contains("Charge");
 
 			if (isBlaze)
