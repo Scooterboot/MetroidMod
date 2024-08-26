@@ -630,14 +630,23 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.scale *= scale;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-			foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
+			Projectile.Damage();
+			/*foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
 			{
 				NPC npc = Main.npc[who.whoAmI];
 				if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height) && Projectile.Hitbox.Intersects(who.Hitbox) && !npc.justHit && !npc.dontTakeDamage && !npc.friendly)
 				{
 					npc.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>()/100f, Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
 				}
+			}*/
+		}
+		public override bool? CanHitNPC(NPC target)
+		{
+			if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height) && Projectile.Hitbox.Intersects(target.Hitbox) && !target.justHit && !target.dontTakeDamage && !target.friendly)
+			{
+				return true;
 			}
+			return false;
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{

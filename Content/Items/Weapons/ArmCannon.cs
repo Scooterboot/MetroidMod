@@ -2105,9 +2105,9 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void HoldItem(Player player)
 		{
 			// Running this code for all players should suffice to sync the feature
-			Item.TryGetGlobalItem(out MGlobalItem mi);
 			if (MSystem.BombKey.JustPressed && !player.mount.Active)
 			{
+				Item.TryGetGlobalItem(out MGlobalItem mi);
 				mi.isBeam = !mi.isBeam;
 			}
 			if (Stealth)
@@ -2686,7 +2686,10 @@ namespace MetroidMod.Content.Items.Weapons
 					bool ranOutOfMissiles = pb.statMissiles <= 0f;
 					if (ranOutOfMissiles)
 					{
-						Main.projectile[chargeLead].Kill();
+						if(LeadActive(player, chargeLead))
+						{
+							Main.projectile[chargeLead].Kill();
+						}
 
 						bool tryingToUseLauncher = Main.mouseLeft && Main.mouseLeftRelease;
 						if (tryingToUseLauncher)

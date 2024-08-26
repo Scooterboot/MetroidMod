@@ -83,7 +83,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			dmg = Projectile.damage;
 			base.OnSpawn(source);
 		}
-
+		public override bool ShouldUpdatePosition()
+		{
+			return false;
+		}
 		public override void AI()
 		{
 			Projectile P = Projectile;
