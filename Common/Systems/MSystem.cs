@@ -1641,7 +1641,7 @@ namespace MetroidMod.Common.Systems
 			Hatch(doorX, doorY);
 
 			int bossRoomWidth = 80;
-			int bossRoomHeight = 30;
+			int bossRoomHeight = 60;
 			int bossRoomX = saveRoomX + saveRoomWidth - 4;
 			int bossRoomY = y + height - bossRoomHeight;
 			doorX = bossRoomX;
