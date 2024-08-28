@@ -60,7 +60,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 		public static bool SetRegen(int i, int j, bool regen)
 		{
 			bool old = MSystem.dontRegen[i, j];
-			MSystem.dontRegen[i, j] = regen;
+			MSystem.dontRegen[i, j] = !regen;
 			return old != regen;
 		}
 
