@@ -15,8 +15,6 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override bool? UseItem(Player player)
 		{
-			bool didSomething = false;
-
 			if (player.whoAmI == Main.myPlayer && Main.mouseLeft)
 			{
 				(int i, int j) = (Player.tileTargetX, Player.tileTargetY);
@@ -48,11 +46,11 @@ namespace MetroidMod.Content.Items.Tools
 				}
 				else
 				{
-					didSomething = ChoziteCutter.RemoveBlockAt(player, i, j);
+					ChoziteCutter.RemoveBlockAt(player, i, j);
 				}
 			}
 
-			return didSomething;
+			return false;
 		}
 
 		public override void SetStaticDefaults()
