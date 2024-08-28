@@ -4,6 +4,7 @@ using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,66 +37,75 @@ namespace MetroidMod.Content.Items.Tools
 		}
 
 		// Netsyncing ?
-		public override bool? UseItem(Player Player)
+		public override bool? UseItem(Player player)
 		{
-			Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
-			Vector2 pos = new(Player.tileTargetX * 16, Player.tileTargetY * 16);
-			if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] != 0)
+			return RemoveBlockAt(player, Player.tileTargetX, Player.tileTargetY);
+		}
+
+		public static bool RemoveBlockAt(Player player, int i, int j)
+		{
+			if (MSystem.mBlockType[i, j] == BreakableTileID.None)
 			{
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.CrumbleInstant)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.CrumbleBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.CrumbleSpeed)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSpeed>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.Bomb)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.BombBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.Missile)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.MissileBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.Fake)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.FakeBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.Boost)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.BoostBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.PowerBomb)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.PowerBombBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.SuperMissile)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.SuperMissileBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.ScrewAttack)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.ScrewAttackBlock>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.FakeHint)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.FakeBlockHint>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.CrumbleSlow)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSlow>());
-				}
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.BombChain)
-				{
-					Item.NewItem(new EntitySource_Parent(Player), pos, ModContent.ItemType<Tiles.Destroyable.BombBlockChain>());
-				}
-				MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] = 0;
-				MSystem.dontRegen[Player.tileTargetX, Player.tileTargetY] = false;
-				MSystem.hit[Player.tileTargetX, Player.tileTargetY] = false;
-				Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Main.MouseWorld);
+				return false;
 			}
-			return base.UseItem(Player);
+
+			Vector2 itemPosition = new Vector2(i, j).ToWorldCoordinates();
+			IEntitySource source = new EntitySource_Parent(player);
+
+			if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleInstant)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.CrumbleBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSpeed)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSpeed>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.Bomb)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.BombBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.Missile)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.MissileBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.Fake)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.FakeBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.Boost)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.BoostBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.PowerBomb)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.PowerBombBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.SuperMissile)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.SuperMissileBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.ScrewAttack)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.ScrewAttackBlock>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.FakeHint)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.FakeBlockHint>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSlow)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSlow>());
+			}
+			if (MSystem.mBlockType[i, j] == BreakableTileID.BombChain)
+			{
+				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.BombBlockChain>());
+			}
+
+			MSystem.mBlockType[i, j] = BreakableTileID.None;
+			MSystem.dontRegen[i, j] = false;
+			MSystem.hit[i, j] = false;
+			SoundEngine.PlaySound(SoundID.Dig, Main.MouseWorld);
+			return true;
 		}
 
 		public override void AddRecipes()
@@ -105,12 +115,6 @@ namespace MetroidMod.Content.Items.Tools
 				.AddIngredient<Miscellaneous.ChoziteBar>(5)
 				.AddTile(TileID.Anvils)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.WireCutter);
-			recipe.AddIngredient(null, "ChoziteBar", 5);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
 		}
 	}
 }

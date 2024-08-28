@@ -3364,6 +3364,11 @@ Mods: {
 				// DisplayName: Zeb Metal
 				// Tooltip: ""
 			}
+
+			ChoziteDualtool: {
+				// DisplayName: Chozite Dualtool
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

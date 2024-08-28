@@ -4,6 +4,7 @@ using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,15 +42,39 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 		{
 			if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem && player.whoAmI == Main.myPlayer)
 			{
-				Vector2 pos = new(Player.tileTargetX * 16, Player.tileTargetY * 16);
-				if (MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] == BreakableTileID.None)
-				{
-					MSystem.mBlockType[Player.tileTargetX, Player.tileTargetY] = placeType;
-					Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, pos);
-					return true;
-				}
+				return Place(player, Player.tileTargetX, Player.tileTargetY, placeType);
 			}
 			return false;
+		}
+
+		public static bool ExistsAt(int i, int j)
+		{
+			return MSystem.mBlockType[i, j] != BreakableTileID.None;
+		}
+
+		public static bool ExistsAt(int i, int j, ushort placeType)
+		{
+			return MSystem.mBlockType[i, j] == placeType;
+		}
+
+		public static void SetRegen(int i, int j, bool regen)
+		{
+			MSystem.dontRegen[i, j] = !regen;
+		}
+
+		public static bool Regens(int i, int j)
+		{
+			return !MSystem.dontRegen[i, j];
+		}
+
+		public static bool Place(Player player, int i, int j, ushort placeType)
+		{
+			if (ExistsAt(i, j)) return false;
+
+			Vector2 position = new Vector2(i, j).ToWorldCoordinates();
+			MSystem.mBlockType[i, j] = placeType;
+			SoundEngine.PlaySound(SoundID.Dig, position);
+			return true;
 		}
 
 		/*public override void AddRecipes()
