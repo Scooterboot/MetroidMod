@@ -15,40 +15,45 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override bool? UseItem(Player player)
 		{
+			bool didSomething = false;
+
 			if (player.whoAmI == Main.myPlayer && Main.mouseLeft)
 			{
 				(int i, int j) = (Player.tileTargetX, Player.tileTargetY);
-				ushort placeType = BreakableTileID.ScrewAttack;
 
 				if(ChoziteDualtoolSettings.IsPlacing)
 				{
-					bool neededTypeIsThere = FakeBlock.ExistsAt(i, j, placeType);
+					Item ammoItem = player.ChooseAmmo(Item);
+					bool hasAmmo = ammoItem != null;
 
-					Tile tile = Main.tile[i, j];
-					bool onSolidTile = tile.HasTile && Main.tileSolid[tile.TileType];
-					bool solidCondition = ChoziteDualtoolSettings.AllowPlaceOnEmpty || onSolidTile;
-					
-					if (!neededTypeIsThere && ChoziteDualtoolSettings.AllowPlaceNew && solidCondition)
+					if (hasAmmo)
 					{
-						ChoziteCutter.RemoveBlockAt(player, i, j);
-						FakeBlock.Place(player, i, j, placeType);
-						neededTypeIsThere = true;
+						ushort placeType = (ammoItem.ModItem as FakeBlock).PlaceType;
+						bool neededTypeIsThere = FakeBlock.ExistsAt(i, j, placeType);
+
+						Tile tile = Main.tile[i, j];
+						bool onSolidTile = tile.HasTile && Main.tileSolid[tile.TileType];
+						bool solidCondition = ChoziteDualtoolSettings.AllowPlaceOnEmpty || onSolidTile;
+
+
+						if (!neededTypeIsThere && ChoziteDualtoolSettings.AllowPlaceNew && solidCondition)
+						{
+							player.ConsumeItem(ammoItem.type);
+							ChoziteCutter.RemoveBlockAt(player, i, j);
+							FakeBlock.Place(player, i, j, placeType);
+						}
 					}
 
-					if (neededTypeIsThere)
-					{
-						FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen);
-					}
+					FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen);
 				}
 				else
 				{
-					ChoziteCutter.RemoveBlockAt(player, i, j);
+					didSomething = ChoziteCutter.RemoveBlockAt(player, i, j);
 				}
 			}
 
-			return null;
+			return didSomething;
 		}
-
 
 		public override void SetStaticDefaults()
 		{
@@ -66,6 +71,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useTime = 10;
 			Item.useStyle = 1;
 			Item.rare = 2;
+			Item.useAmmo = ModContent.ItemType<FakeBlock>();
 		}
 
 		public override void AddRecipes()
