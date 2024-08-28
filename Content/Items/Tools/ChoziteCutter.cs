@@ -30,8 +30,8 @@ namespace MetroidMod.Content.Items.Tools
 			Item.maxStack = 1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
+			Item.useTime = 5;
+			Item.useAnimation = 14;
 			Item.useStyle = 1;
 			Item.rare = 1;
 			Item.tileBoost = 20;

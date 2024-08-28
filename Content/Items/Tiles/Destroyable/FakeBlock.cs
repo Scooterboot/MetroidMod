@@ -57,9 +57,11 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 			return MSystem.mBlockType[i, j] == placeType;
 		}
 
-		public static void SetRegen(int i, int j, bool regen)
+		public static bool SetRegen(int i, int j, bool regen)
 		{
+			bool old = MSystem.dontRegen[i, j];
 			MSystem.dontRegen[i, j] = !regen;
+			return old != regen;
 		}
 
 		public static bool Regens(int i, int j)

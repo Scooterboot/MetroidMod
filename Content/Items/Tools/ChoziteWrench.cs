@@ -34,13 +34,13 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override bool? UseItem(Player player)
 		{
-			if (Main.mouseLeft)
-			{
-				ModContent.GetInstance<ChoziteWrenchAssistSystem>().HitTile(Player.tileTargetX, Player.tileTargetY);
-			}
-
 			if (player.whoAmI == Main.myPlayer)
 			{
+				if(ModContent.GetInstance<ChoziteWrenchAssistSystem>().HitTile(Player.tileTargetX, Player.tileTargetY))
+				{
+					return true;
+				}
+
 				// Presumably tileTargetX and Y are only for the LocalPlayer, so this code should only run for them.
 				// This does mean the visual effect won't actually show for others. That is acceptable for now?
 				if (TileUtils.TryGetTileEntityAs(Player.tileTargetX, Player.tileTargetY, out HatchTileEntity tileEntity))

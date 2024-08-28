@@ -17,6 +17,8 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override bool? UseItem(Player player)
 		{
+			bool didSomething = false;
+
 			if (player.whoAmI == Main.myPlayer && Main.mouseLeft && MUtils.CanReachWiring(player, Item))
 			{
 				(int i, int j) = (Player.tileTargetX, Player.tileTargetY);
@@ -41,18 +43,22 @@ namespace MetroidMod.Content.Items.Tools
 							ChoziteCutter.RemoveBlockAt(player, i, j);
 							FakeBlock.Place(player, i, j, placeType);
 							currentPlaceType = placeType;
+							didSomething = true;
 						}
 					}
 
-					FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen);
+					if(FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen))
+					{
+						didSomething = true;
+					}	
 				}
 				else
 				{
-					ChoziteCutter.RemoveBlockAt(player, i, j);
+					didSomething = ChoziteCutter.RemoveBlockAt(player, i, j);
 				}
 			}
 
-			return false;
+			return didSomething;
 		}
 
 		public override void HoldItem(Player player)
@@ -102,8 +108,8 @@ namespace MetroidMod.Content.Items.Tools
 			Item.maxStack = 1;
 			Item.useTurn = true;
 			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
+			Item.useTime = 5;
+			Item.useAnimation = 14;
 			Item.useStyle = 1;
 			Item.rare = 1;
 			Item.tileBoost = 20;
