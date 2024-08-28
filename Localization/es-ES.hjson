@@ -1757,7 +1757,7 @@ Mods: {
 
 			ChoziteCutter: {
 				// DisplayName: Chozite Cutter
-				// Tooltip: Can be used to remove Fake Blocks
+				// Tooltip: Removes breakable blocks
 			}
 
 			ChoziteHamaxe: {
@@ -1772,7 +1772,7 @@ Mods: {
 
 			ChoziteWrench: {
 				// DisplayName: Chozite Wrench
-				// Tooltip: Can be used to toggle a Fake Block's ability to regenerate
+				// Tooltip: Toggles the ability to regenerate in breakable blocks
 			}
 
 			GreenKeycard: {
@@ -3367,7 +3367,7 @@ Mods: {
 
 			ChoziteDualtool: {
 				// DisplayName: Chozite Dualtool
-				// Tooltip: ""
+				// Tooltip: Right Click while holding to edit usage settings
 			}
 		}
 
