@@ -34,12 +34,18 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useTime = 10;
 			Item.useStyle = 1;
 			Item.rare = 1;
+			Item.tileBoost = 20;
 		}
 
 		// Netsyncing ?
 		public override bool? UseItem(Player player)
 		{
-			return RemoveBlockAt(player, Player.tileTargetX, Player.tileTargetY);
+			if (MUtils.CanReachWiring(player, Item))
+			{
+				return RemoveBlockAt(player, Player.tileTargetX, Player.tileTargetY);
+			}
+
+			return false;
 		}
 
 		public static bool RemoveBlockAt(Player player, int i, int j)

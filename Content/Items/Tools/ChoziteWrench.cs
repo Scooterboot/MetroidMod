@@ -29,6 +29,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useTime = 15;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.rare = ItemRarityID.Blue;
+			Item.tileBoost = 20;
 		}
 
 		public override bool? UseItem(Player player)

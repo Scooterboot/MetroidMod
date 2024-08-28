@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Items.Tools
 	{
 		public override bool? UseItem(Player player)
 		{
-			if (player.whoAmI == Main.myPlayer && Main.mouseLeft)
+			if (player.whoAmI == Main.myPlayer && Main.mouseLeft && MUtils.CanReachWiring(player, Item))
 			{
 				(int i, int j) = (Player.tileTargetX, Player.tileTargetY);
 
@@ -69,6 +69,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useTime = 10;
 			Item.useStyle = 1;
 			Item.rare = 1;
+			Item.tileBoost = 20;
 			Item.useAmmo = ModContent.ItemType<FakeBlock>();
 		}
 
