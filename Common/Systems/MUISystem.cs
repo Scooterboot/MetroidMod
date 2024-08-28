@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using MetroidMod.Common.UI;
 using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,6 +31,7 @@ namespace MetroidMod.Common.Systems
 		internal static UserInterface reserveUserInterface;
 		internal static UserInterface visorUserInterface;
 		internal static UserInterface smUserInterface;
+		internal static ChoziteDualtoolUI choziteDualtoolUI;
 
 		// bri'ish innit?
 		internal bool isPBInit = false;
@@ -64,6 +66,7 @@ namespace MetroidMod.Common.Systems
 				reserveUserInterface = new UserInterface();
 				smUserInterface = new UserInterface();
 				visorUserInterface = new UserInterface();
+				choziteDualtoolUI = new();
 
 				/*powerBeamUI = new UI.PowerBeamUI();
 				powerBeamUI.Activate();
@@ -100,6 +103,7 @@ namespace MetroidMod.Common.Systems
 			reserveUserInterface = null;
 			smUserInterface = null;
 			visorUserInterface = null;
+			choziteDualtoolUI = null;
 		}
 
 		public override void UpdateUI(GameTime gameTime)
@@ -534,7 +538,27 @@ namespace MetroidMod.Common.Systems
 					InterfaceScaleType.UI)
 				);
 			}
+
+			AddLayerUI(layers, "Vanilla: Wire Selection", 1, new LegacyGameInterfaceLayer(
+				"MetroidMod: Chozite Dualtool",
+				delegate
+				{
+					choziteDualtoolUI.Update();
+					choziteDualtoolUI.Draw(Main.spriteBatch);
+					return true;
+				},
+				InterfaceScaleType.UI
+				));
 		}
+
+		private void AddLayerUI(List<GameInterfaceLayer> layers, string posRefLayerName, int layerOffset, GameInterfaceLayer layer)
+		{
+			int refLayerIndex = layers.FindIndex(layer => layer.Name.Equals(posRefLayerName));
+			if (refLayerIndex == -1) return;
+
+			layers.Insert(refLayerIndex + layerOffset, layer);
+		}
+
 		public override void PreDrawMapIconOverlay(IReadOnlyList<IMapLayer> layers, MapOverlayDrawContext mapOverlayDrawContext)
 		{
 			bool visible = Configs.MConfigClient.Instance.showTorizoRoomIcon;

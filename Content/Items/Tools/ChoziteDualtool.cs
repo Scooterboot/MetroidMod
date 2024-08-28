@@ -13,10 +13,6 @@ namespace MetroidMod.Content.Items.Tools
 
 	public class ChoziteDualtool : ModItem
 	{
-		private bool isStarted;
-		private bool isRemoving;
-		private bool applyRegen = true;
-
 		public override bool? UseItem(Player player)
 		{
 			if (player.whoAmI == Main.myPlayer && Main.mouseLeft)
@@ -24,52 +20,35 @@ namespace MetroidMod.Content.Items.Tools
 				(int i, int j) = (Player.tileTargetX, Player.tileTargetY);
 				ushort placeType = BreakableTileID.ScrewAttack;
 
-				if (!isStarted)
+				if(ChoziteDualtoolSettings.IsPlacing)
 				{
-					isStarted = true;
-					isRemoving = FakeBlock.ExistsAt(i, j, placeType) && FakeBlock.Regens(i, j) == applyRegen;
-				}
+					bool neededTypeIsThere = FakeBlock.ExistsAt(i, j, placeType);
 
-				if(isRemoving)
-				{
-					ChoziteCutter.RemoveBlockAt(player, i, j);
+					Tile tile = Main.tile[i, j];
+					bool onSolidTile = tile.HasTile && Main.tileSolid[tile.TileType];
+					bool solidCondition = ChoziteDualtoolSettings.AllowPlaceOnEmpty || onSolidTile;
+					
+					if (!neededTypeIsThere && ChoziteDualtoolSettings.AllowPlaceNew && solidCondition)
+					{
+						ChoziteCutter.RemoveBlockAt(player, i, j);
+						FakeBlock.Place(player, i, j, placeType);
+						neededTypeIsThere = true;
+					}
+
+					if (neededTypeIsThere)
+					{
+						FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen);
+					}
 				}
 				else
 				{
-					if (!FakeBlock.ExistsAt(i, j, placeType))
-					{
-						if (FakeBlock.ExistsAt(i, j))
-						{
-							ChoziteCutter.RemoveBlockAt(player, i, j);
-						}
-
-						FakeBlock.Place(player, i, j, placeType);
-					}
-
-
-					FakeBlock.SetRegen(i, j, applyRegen);
+					ChoziteCutter.RemoveBlockAt(player, i, j);
 				}
 			}
 
 			return null;
 		}
 
-		public override void HoldItem(Player player)
-		{
-			if (!Main.mouseLeft && player.itemAnimation == 0)
-			{
-				isStarted = false;
-			}
-
-			if(Main.mouseRight && Main.mouseRightRelease)
-			{
-				applyRegen = !applyRegen;
-
-				int dustAmount = 10;
-				Color color = applyRegen ? Color.White : Color.Red;
-				CombatText.NewText(player.Hitbox, color, applyRegen ? "Regen" : "No Regen");
-			}
-		}
 
 		public override void SetStaticDefaults()
 		{
