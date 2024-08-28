@@ -49,7 +49,7 @@ namespace MetroidMod.Content.Items.Tools
 				return false;
 			}
 
-			Vector2 itemPosition = new Vector2(i, j).ToWorldCoordinates();
+			Vector2 itemPosition = player.Center;
 			IEntitySource source = new EntitySource_Parent(player);
 
 			if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleInstant)
