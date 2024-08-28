@@ -13,6 +13,8 @@ namespace MetroidMod.Content.Items.Tools
 
 	public class ChoziteDualtool : ModItem
 	{
+		private int currentPlaceType = -1;
+
 		public override bool? UseItem(Player player)
 		{
 			if (player.whoAmI == Main.myPlayer && Main.mouseLeft && MUtils.CanReachWiring(player, Item))
@@ -33,12 +35,12 @@ namespace MetroidMod.Content.Items.Tools
 						bool onSolidTile = tile.HasTile && Main.tileSolid[tile.TileType];
 						bool solidCondition = ChoziteDualtoolSettings.AllowPlaceOnEmpty || onSolidTile;
 
-
 						if (!neededTypeIsThere && ChoziteDualtoolSettings.AllowPlaceNew && solidCondition)
 						{
-							player.ConsumeItem(ammoItem.type);
+							ammoItem.stack -= 1;
 							ChoziteCutter.RemoveBlockAt(player, i, j);
 							FakeBlock.Place(player, i, j, placeType);
+							currentPlaceType = placeType;
 						}
 					}
 
@@ -64,8 +66,29 @@ namespace MetroidMod.Content.Items.Tools
 					player.cursorItemIconID = ammoItem.type;
 				}
 			}
+
+			bool usingItem = player.ItemAnimationActive || Main.mouseLeft;
+			if(!usingItem)
+			{
+				currentPlaceType = -1;
+			}
 		}
 
+		public override bool? CanChooseAmmo(Item ammo, Player player)
+		{
+			if(currentPlaceType != -1)
+			{
+				if(ammo.ModItem is FakeBlock fakeBlock)
+				{
+					if(fakeBlock.PlaceType != currentPlaceType)
+					{
+						return false;
+					}
+				}
+			}
+
+			return null;
+		}
 
 		public override void SetStaticDefaults()
 		{
