@@ -77,6 +77,16 @@ namespace MetroidMod.Content.Items.Tools
 			return true;
 		}
 
+
+		public override void HoldItem(Player player)
+		{
+			if (MUtils.CanReachWiring(player, Item))
+			{
+				player.cursorItemIconEnabled = true;
+				player.cursorItemIconID = Type;
+			}
+		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

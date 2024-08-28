@@ -72,13 +72,18 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override void HoldItem(Player player)
 		{
-			if (MUtils.CanReachWiring(player, Item) && ChoziteDualtoolSettings.IsPlacing)
+			if (MUtils.CanReachWiring(player, Item))
 			{
+				player.cursorItemIconEnabled = true;
+
 				Item ammoItem = player.ChooseAmmo(Item);
-				if (ammoItem != null)
+				if (ChoziteDualtoolSettings.IsPlacing && ammoItem != null)
 				{
-					player.cursorItemIconEnabled = true;
 					player.cursorItemIconID = ammoItem.type;
+				}
+				else
+				{
+					player.cursorItemIconID = Type;
 				}
 			}
 

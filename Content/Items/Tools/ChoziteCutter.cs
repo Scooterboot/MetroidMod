@@ -48,6 +48,15 @@ namespace MetroidMod.Content.Items.Tools
 			return false;
 		}
 
+		public override void HoldItem(Player player)
+		{
+			if(MUtils.CanReachWiring(player, Item))
+			{
+				player.cursorItemIconEnabled = true;
+				player.cursorItemIconID = Type;
+			}
+		}
+
 		public static bool RemoveBlockAt(Player player, int i, int j)
 		{
 			if (MSystem.mBlockType[i, j] == BreakableTileID.None)
