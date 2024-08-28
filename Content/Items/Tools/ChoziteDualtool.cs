@@ -68,7 +68,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useAnimation = 15;
 			Item.useTime = 10;
 			Item.useStyle = 1;
-			Item.rare = 2;
+			Item.rare = 1;
 			Item.useAmmo = ModContent.ItemType<FakeBlock>();
 		}
 
