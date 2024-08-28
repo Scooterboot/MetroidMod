@@ -8,7 +8,7 @@ namespace MetroidMod.Content.Items.Tools
 		public static bool IsPlacing = true;
 		public static bool ApplyRegen = true;
 		public static bool AllowPlaceNew = true;
-		public static bool AllowPlaceOnEmpty = true;
+		public static bool AllowPlaceOnEmpty = false;
 
 		public static bool CanShow => Main.LocalPlayer.HeldItem.type == ModContent.ItemType<ChoziteDualtool>();
 	}
