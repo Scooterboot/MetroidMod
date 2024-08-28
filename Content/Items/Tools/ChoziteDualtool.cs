@@ -1,5 +1,6 @@
 ﻿
 using MetroidMod.Common.Systems;
+using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items.Tiles.Destroyable;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -19,21 +20,29 @@ namespace MetroidMod.Content.Items.Tools
 		{
 			bool didSomething = false;
 
-			if (player.whoAmI == Main.myPlayer && Main.mouseLeft && MUtils.CanReachWiring(player, Item))
+			if (player.whoAmI == Main.myPlayer && MUtils.CanReachWiring(player, Item))
 			{
+				bool leftClicked = Main.mouseLeft && Main.mouseLeftRelease;
+				if (leftClicked && ChoziteWrench.InteractWithHatchLocal())
+				{
+					return true;
+				}
+
 				(int i, int j) = (Player.tileTargetX, Player.tileTargetY);
 
 				if(ChoziteDualtoolSettings.IsPlacing)
 				{
+					Tile tile = Main.tile[i, j];
+					bool isValidTile = ModContent.GetModTile(tile.TileType) is HatchTile;
+
 					Item ammoItem = player.ChooseAmmo(Item);
 					bool hasAmmo = ammoItem != null;
 
-					if (hasAmmo)
+					if (hasAmmo && !isValidTile)
 					{
 						ushort placeType = (ammoItem.ModItem as FakeBlock).PlaceType;
 						bool neededTypeIsThere = FakeBlock.ExistsAt(i, j, placeType);
 
-						Tile tile = Main.tile[i, j];
 						bool onSolidTile = tile.HasTile && Main.tileSolid[tile.TileType];
 						bool solidCondition = ChoziteDualtoolSettings.AllowPlaceOnEmpty || onSolidTile;
 
