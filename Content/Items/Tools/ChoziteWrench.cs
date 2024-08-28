@@ -34,7 +34,7 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override bool? UseItem(Player player)
 		{
-			if (player.whoAmI == Main.myPlayer)
+			if (player.whoAmI == Main.myPlayer && MUtils.CanReachWiring(player, Item))
 			{
 				if(ModContent.GetInstance<ChoziteWrenchAssistSystem>().HitTile(Player.tileTargetX, Player.tileTargetY))
 				{
