@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Beam.Hunters.ImperialistTile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
-			mItem.addonUACost = 400f / 30f;
+			mItem.addonUACost = 400f / 15f;//30f;
 			mItem.beamSlotType = BeamChangeSlotID.Imperialist;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageImperialist;
 			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatImperialist;
@@ -66,7 +66,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(15)
 				.AddIngredient<Miscellaneous.EnergyShard>(2)
-				.AddIngredient(ItemID.BlackLens, 2)
+				.AddIngredient(ItemID.Lens, 5)
 				.AddIngredient(ItemID.Ruby, 1)
 				.AddIngredient(ItemID.IllegalGunParts, 1)
 				.AddTile(TileID.Anvils)

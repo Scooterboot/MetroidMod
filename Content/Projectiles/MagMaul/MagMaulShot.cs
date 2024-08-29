@@ -35,7 +35,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
-			mProjectile.Explode(40, 1.6f);
+			mProjectile.Explode(40, 1.6f, Luminite || DiffBeam ? .59f : .53f);
 			mProjectile.Diffuse(Projectile, 286);
 		}
 

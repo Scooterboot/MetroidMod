@@ -127,9 +127,9 @@ namespace MetroidMod.Content.Projectiles
 			{
 				if (Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red") || shot.Contains("plasmared"))
 				{
-					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
+					if (Projectile.Name.Contains("Ice") || shot.Contains("ice") || Projectile.type == ModContent.ProjectileType<JudicatorChargeShot>()||Projectile.type == ModContent.ProjectileType<JudicatorShot>())
 					{
-						if (Projectile.Name.Contains("V2"))
+						if (Projectile.Name.Contains("V2") || shot.Contains("V2"))
 						{
 							target.AddBuff(BuffID.Frostburn2, 300);
 						}
@@ -144,7 +144,7 @@ namespace MetroidMod.Content.Projectiles
 					}
 				}
 
-				if (Projectile.Name.Contains("Nova") || shot.ToString().Contains("nova"))
+				if (Projectile.Name.Contains("Nova") || shot.Contains("nova"))
 				{
 					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 					{
@@ -620,8 +620,8 @@ namespace MetroidMod.Content.Projectiles
 			}
 			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
-		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size </summary>
-		public void Explode(int increase, float scale = 1f)//TODO humorously, works the exact same as the missiles-through-wall exploit as SM
+		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size and damage multiplied by float </summary>
+		public void Explode(int increase, float scale = 1f, float damage = 1f)//TODO humorously, works the exact same as the missiles-through-wall exploit as SM
 		{
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
@@ -630,6 +630,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.scale *= scale;
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+			Projectile.damage *= (int)damage;
 			Projectile.Damage();
 			/*foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
 			{

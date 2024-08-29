@@ -1308,13 +1308,13 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 
 				finalDmg = (int)Math.Round((double)(damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg + hunterDmg)));
-				overheat = (int)Math.Max(Math.Round((double)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 1);
+				overheat = (isHunter && slot1.type != oc)? 0 : (int)Math.Max(Math.Round((double)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 1);
 
 				double shotsPerSecond = 60 / useTime * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
 
 				useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 
-				float oof = 1f + (impStealth / 126f);
+				float oof = Stealth? (1f + (impStealth / 126f)) : 1f;
 
 				Item.damage = (int)(finalDmg * oof);
 				Item.useTime = (int)useTime;
@@ -2122,13 +2122,13 @@ namespace MetroidMod.Content.Items.Weapons
 
 				if (stealthEnabled && !resetStealth)
 				{
-					impStealth = Math.Min(impStealth + 1.5f, 126f);
+					impStealth = Math.Min(impStealth + (LuminiteActive? 3f : DiffusionActive? 1.5f : 1f), 693f); //126f
 					player.shroomiteStealth = true;
-					player.stealth -= impStealth / 126f;
-					player.aggro -= (int)impStealth * 4;
+					player.stealth -= impStealth / 693f;
+					player.aggro -= (int)impStealth;// * 4;
 
 					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
-					player.GetCritChance(damageClass) += (int)impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f);
+					player.GetCritChance(damageClass) += (int)(impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f)/5.5f);
 				}
 				else
 				{

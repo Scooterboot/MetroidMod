@@ -51,10 +51,14 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 
 		public override void OnKill(int timeLeft)
 		{
-			Projectile.width += 32;
-			Projectile.height += 32;
-			Projectile.scale = 3f;
-			mProjectile.Diffuse(Projectile, 269);
+			if (Luminite || DiffBeam)
+			{
+				mProjectile.Explode(Luminite ? 88 : DiffBeam ? 44 : 22, Luminite ? 4f : DiffBeam ? 3f : 2f);
+			}
+			else
+			{
+				mProjectile.Diffuse(Projectile, 269);
+			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);
 		}
 
@@ -70,6 +74,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 				SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
 				target.AddBuff(31, 180);
 			}
+			base.OnHitNPC(target, hit, damageDone);
 		}
 	}
 }

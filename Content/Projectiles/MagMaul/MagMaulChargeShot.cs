@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			//Projectile.damage /= (int)3.5;
 			if(Luminite || DiffBeam)
 			{
-				mProjectile.Explode(Luminite ? 88 : DiffBeam ? 44 : 22, Luminite ? 4f : DiffBeam ? 3f : 2f);
+				mProjectile.Explode(Luminite ? 88 : DiffBeam ? 44 : 22, Luminite ? 4f : DiffBeam ? 3f : 2f, Luminite ||DiffBeam? .59f : .53f);
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
 			mProjectile.Diffuse(Projectile, 286);

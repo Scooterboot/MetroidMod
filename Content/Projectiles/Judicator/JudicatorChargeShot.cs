@@ -75,8 +75,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
-
-			MProjectile meep = mProjectile;
 			WaveBehavior(Projectile);
 			if (Projectile.numUpdates == 0)
 			{
