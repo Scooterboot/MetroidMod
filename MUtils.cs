@@ -34,6 +34,21 @@ namespace MetroidMod
 			return false;
 		}
 
+		public static bool CanReachWiring(Player player, Item item)
+		{
+			// Adapted from the mess that is decompiled vanilla code (specifically wire range because the copypaste in the disassembly goes hard)... like come on this feature ain't even that important why am I doing this?
+			float rangeX = Player.tileRangeX + item.tileBoost + player.blockRange;
+			float rangeY = Player.tileRangeY + item.tileBoost + player.blockRange;
+
+			bool reachFromLeft = rangeX > ((player.Left.X / 16f) - Player.tileTargetX);
+			bool reachFromRight = rangeX >= (Player.tileTargetX - (player.Right.X / 16f) + 1);
+			bool reachFromTop = rangeY > ((player.Top.Y / 16f) - Player.tileTargetY);
+			bool reachFromBottom = rangeY >= (Player.tileTargetY - (player.Bottom.Y / 16f) + 2);
+
+			bool reaches = reachFromLeft && reachFromRight && reachFromTop && reachFromBottom;
+			return reaches;
+		}
+
 		public static bool CalamityActive() => ModLoader.TryGetMod("CalamityMod", out _);
 		public static bool CalamityMod(out Mod calamityMod) => ModLoader.TryGetMod("CalamityMod", out calamityMod);
 

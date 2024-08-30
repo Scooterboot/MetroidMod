@@ -20,8 +20,8 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			Projectile.height = 20;
 			Projectile.scale = .75f;
 			Projectile.aiStyle = 1;
-			//Projectile.usesLocalNPCImmunity = true;
-			//Projectile.localNPCHitCooldown = 1;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 1;
 		}
 
 		public override void AI()
@@ -44,12 +44,19 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 		}
 		public override void OnKill(int timeLeft)
 		{
+			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
+			mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 20, Luminite ? 10 : DiffBeam ? 5 : 3);
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
-			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
-			mProjectile.Explode(Luminite ? 5 : DiffBeam ? 3 : 2, Luminite ? 10 : DiffBeam ? 5 : 3);
 		}
-
+		public override bool? CanHitNPC(NPC target)
+		{
+			if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height) && Projectile.Hitbox.Intersects(target.Hitbox))
+			{
+				return null;
+			}
+			return false;
+		}
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

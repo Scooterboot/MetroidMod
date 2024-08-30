@@ -5,6 +5,7 @@ using MetroidMod.Content.MorphBallAddons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -112,7 +113,7 @@ namespace MetroidMod.Default
 			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 
-
+			Projectile.Damage();
 			foreach (var npc in Main.ActiveNPCs)
 			{
 				NPC who = Main.npc[npc.whoAmI];
@@ -123,8 +124,8 @@ namespace MetroidMod.Default
 					direction.Normalize();
 					if (distance < BombRadius && !npc.dontTakeDamage)
 					{
-					 who.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>(), Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
-						//Projectile.Damage();
+					 //who.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>(), Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
+						//
 						if (!who.boss)
 						{
 							who.velocity += direction * (BombRadius - distance);
@@ -325,6 +326,15 @@ namespace MetroidMod.Default
 				target.AddBuff(BuffID.Daybreak, 600);*/
 		}
 
+		public override bool? CanCutTiles()
+		{
+			return true;
+		}
+		public override void CutTiles()
+		{
+			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
+			Utils.PlotTileLine(Projectile.position, Projectile.BottomRight, Projectile.width, DelegateMethods.CutTiles);
+		}
 		public override ModProjectile Clone(Projectile newEntity)
 		{
 			MBWeaponProjectile inst = (MBWeaponProjectile)base.Clone(newEntity);

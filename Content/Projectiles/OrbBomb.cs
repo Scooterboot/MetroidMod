@@ -20,43 +20,6 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.aiStyle = 1;
 		}
 
-		public override void AI()
-		{
-			/*if (Projectile.velocity.X == 0 || Projectile.velocity.Y == 0) //TODO No likey multiplayer
-			{
-				Projectile.velocity *= 0f;
-
-				/*Projectile.position.X += Projectile.width / 2f;
-				Projectile.position.Y += Projectile.height;
-				Projectile.width = 30;
-				Projectile.height = 60;
-				Projectile.position.X -= Projectile.width / 2f;
-				Projectile.position.Y -= Projectile.height;
-
-				for (int i = 0; i < 25; i++)
-				{
-					int newDust = Dust.NewDust(new Vector2(Projectile.position.X + 2, Projectile.position.Y + Projectile.height - 4), Projectile.width - 2, 8, 55, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[newDust].velocity *= 0.5f;
-					Main.dust[newDust].velocity.Y -= 4f;
-					Main.dust[newDust].noGravity = true;
-
-					newDust = Dust.NewDust(new Vector2(Projectile.position.X + 2, Projectile.position.Y + Projectile.height - 4), Projectile.width - 2, 8, 30, 0f, 0f, 100, default(Color), 2f);
-					Main.dust[newDust].velocity *= 0.5f;
-					Main.dust[newDust].velocity.Y -= 4f;
-					Main.dust[newDust].noGravity = true;
-
-					newDust = Dust.NewDust(new Vector2(Projectile.position.X + 4, Projectile.position.Y + Projectile.height - 10), Projectile.width - 4, 10, 55, 0f, 0f, 100, default(Color), 0.5f);
-					Main.dust[newDust].velocity.X *= 0.5f;
-					Main.dust[newDust].velocity.Y = -Main.rand.Next(30) * 0.1f;
-					Main.dust[newDust].noGravity = true;
-				}
-				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-			}
-			else
-			{
-				Projectile.velocity.Y += 0.1f;
-			}*/
-		}
 		public override void OnKill(int timeLeft)
 		{
 			if (Main.rand.NextBool(100))
@@ -104,9 +67,9 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}
 		}
-
 		public override bool PreDraw(ref Color lightColor)
 		{
+			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
 			return false;
 		}
 	}

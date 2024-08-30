@@ -120,7 +120,8 @@ namespace MetroidMod.Common.Systems
 				ModContent.ItemType<Content.Items.Tiles.Destroyable.CrumbleBlockSlow>(),
 				ModContent.ItemType<Content.Items.Tiles.Destroyable.BombBlockChain>(),
 				ModContent.ItemType<Content.Items.Tools.ChoziteCutter>(),
-				ModContent.ItemType<Content.Items.Tools.ChoziteWrench>()
+				ModContent.ItemType<Content.Items.Tools.ChoziteWrench>(),
+				ModContent.ItemType<Content.Items.Tools.ChoziteDualtool>(),
 			};
 			bossesDown = MetroidBossDown.downedNone;
 			mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
@@ -1641,7 +1642,7 @@ namespace MetroidMod.Common.Systems
 			Hatch(doorX, doorY);
 
 			int bossRoomWidth = 80;
-			int bossRoomHeight = 30;
+			int bossRoomHeight = 40;
 			int bossRoomX = saveRoomX + saveRoomWidth - 4;
 			int bossRoomY = y + height - bossRoomHeight;
 			doorX = bossRoomX;

@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(15)
 				.AddIngredient<Miscellaneous.EnergyShard>(2)
-				.AddIngredient(ItemID.Bone, 25)
+				.AddIngredient(ItemID.Wire, 25)
 				.AddIngredient(ItemID.Amethyst, 1)
 				.AddIngredient(ItemID.IceBlock, 99)
 				.AddTile(TileID.Anvils)

@@ -37,6 +37,12 @@ namespace MetroidMod.Content.Projectiles.Judicator
 					shot = hold2.shotEffect.ToString();
 				}
 			}
+			if (shot.Contains("red"))
+			{
+				Projectile.penetrate = 5;
+				Projectile.maxPenetrate = 5;
+				yeet = 5;
+			}
 			if (shot.Contains("green"))
 			{
 				Projectile.penetrate = 6;
@@ -69,8 +75,6 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
-
-			MProjectile meep = mProjectile;
 			WaveBehavior(Projectile);
 			if (Projectile.numUpdates == 0)
 			{

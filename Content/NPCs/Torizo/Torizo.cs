@@ -1121,6 +1121,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 						{
 							anim_BombTransition += !legend? 0.075f : 0.250f;
 							HeadFrame = 4;
+							if(anim_BombTransition >= 0.5f)
+							{
+								HeadFrame = 5;
+							}
 						}
 						else
 						{
@@ -1603,7 +1607,12 @@ namespace MetroidMod.Content.NPCs.Torizo
 			float headRot = HeadRot;
 			if (HeadFrame >= 4)
 			{
-				headRot -= -(float)Angle.ConvertToRadians(45);
+				//headRot -= -(float)Angle.ConvertToRadians(45);
+				headRot -= -(float)Angle.ConvertToRadians(25);
+				if (HeadFrame >= 5)
+				{
+					headRot -= -(float)Angle.ConvertToRadians(20);
+				}
 			}
 
 			// back arm
@@ -1639,12 +1648,13 @@ namespace MetroidMod.Content.NPCs.Torizo
 			// head
 			if (Head != null && Head.active)
 			{
-				DrawLimbTexture(NPC, sb, texHead, HeadPos[0], HeadPos[0], headRot, headRot, new Vector2(32, 38), headColor, headColor, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texHead_Glow, HeadPos[0], HeadPos[0], headRot, headRot, new Vector2(32, 38), glowColor, glowColor, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texHead_Glow2, HeadPos[0], HeadPos[0], headRot, headRot, new Vector2(32, 38), eyeGlowColor, eyeGlowColor, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texSpawnHead, HeadPos[0], HeadPos[0], headRot, headRot, new Vector2(32, 38), headColor * spawnAlpha, headColor * spawnAlpha, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texSpawnHead_Glow, HeadPos[0], HeadPos[0], headRot, headRot, new Vector2(32, 38), glowColor * spawnAlpha, glowColor * spawnAlpha, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texSpawnHead_Glow2, HeadPos[0], HeadPos[0], headRot, headRot, new Vector2(32, 38), eyeGlowColor * spawnAlpha, eyeGlowColor * spawnAlpha, fullScale, effects, HeadFrame, 9);
+				Vector2 headOrig = new Vector2(34,48); // 32,38
+				DrawLimbTexture(NPC, sb, texHead, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, headColor, headColor, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texHead_Glow, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, glowColor, glowColor, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texHead_Glow2, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, eyeGlowColor, eyeGlowColor, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texSpawnHead, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, headColor*spawnAlpha, headColor*spawnAlpha, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texSpawnHead_Glow, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, glowColor*spawnAlpha, glowColor*spawnAlpha, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texSpawnHead_Glow2, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, eyeGlowColor*spawnAlpha, eyeGlowColor*spawnAlpha, fullScale, effects, HeadFrame, 9);
 			}
 
 			// front calf

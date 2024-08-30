@@ -166,7 +166,7 @@ namespace MetroidMod.Common.Configs
 		[Range(1, 50)]
 		[Increment(1)]
 		[Slider]
-		[DefaultValue(10)]
+		[DefaultValue(9)]
 		public int damagePowerBeam;
 
 		//[Label("[i:MetroidMod/PowerBeam] Power Beam Use Time")]
@@ -201,7 +201,7 @@ namespace MetroidMod.Common.Configs
 		[Range(1, 100)]
 		[Increment(1)]
 		[Slider]
-		[DefaultValue(30)]
+		[DefaultValue(32)]
 		public int damageMissileLauncher;
 
 		//[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Use Time")]
@@ -600,7 +600,7 @@ namespace MetroidMod.Common.Configs
 		[Range(0f, 10f)]
 		[Increment(0.1f)]
 		[Slider]
-		[DefaultValue(.6f)]
+		[DefaultValue(.8f)]
 		public float damageVoltDriver;
 
 		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Use Time")]
@@ -618,10 +618,10 @@ namespace MetroidMod.Common.Configs
 		public float overheatVoltDriver;
 
 		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Damage Modifier")]
-		[Range(0f, 2f)]
+		[Range(0f, 5f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(.6f)]
+		[DefaultValue(2.8f)]
 		public float damageMagMaul;
 
 		//[Label("[i:MetroidMod/MagMaulAddon] MagMaul Use Time")]
@@ -642,7 +642,7 @@ namespace MetroidMod.Common.Configs
 		[Range(0f, 10f)]
 		[Increment(0.5f)]
 		[Slider]
-		[DefaultValue(5f)]
+		[DefaultValue(3f)]
 		public float damageImperialist;
 
 		//[Label("[i:MetroidMod/ImperialistAddon] Imperialist Use Time")]
@@ -663,7 +663,7 @@ namespace MetroidMod.Common.Configs
 		[Range(0f, 2f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(1f)]
+		[DefaultValue(1.9f)]
 		public float damageJudicator;
 
 		//[Label("[i:MetroidMod/JudicatorAddon] Judicator Use Time")]
@@ -716,7 +716,7 @@ namespace MetroidMod.Common.Configs
 		public float heatShockCoil;
 
 		//[Label("[i:MetroidMod/BattleHammerAddon] BattleHammer Damage Modifier")]
-		[Range(-0.5f, 2f)]
+		[Range(-0.5f, 5f)]
 		[Increment(0.25f)]
 		[Slider]
 		[DefaultValue(1f)]
@@ -740,7 +740,7 @@ namespace MetroidMod.Common.Configs
 		[Range(0f, 50f)]
 		[Increment(1f)]
 		[Slider]
-		[DefaultValue(20f)]
+		[DefaultValue(21f)]
 		public float damageOmegaCannon;
 
 		//[Label("[i:MetroidMod/OmegaCannonAddon] OmegaCannon Use Time")]

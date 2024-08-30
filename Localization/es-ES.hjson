@@ -631,8 +631,8 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					[c/78BE78:210 base damage]
-					[c/78BE78:Colossal blast radius; screenwipe]
+					[c/78BE78:+2100% damage]
+					[c/78BE78:Colossal blast radius; screenwipe what isn't behind tiles]
 					[c/78BE78:Direct hits have high armor penetration]
 					[c/BE7878:10x overheat use]
 					[c/BE7878:Slow as the DMV]
@@ -1757,7 +1757,7 @@ Mods: {
 
 			ChoziteCutter: {
 				// DisplayName: Chozite Cutter
-				// Tooltip: Can be used to remove Fake Blocks
+				// Tooltip: Removes breakable blocks
 			}
 
 			ChoziteHamaxe: {
@@ -1772,7 +1772,7 @@ Mods: {
 
 			ChoziteWrench: {
 				// DisplayName: Chozite Wrench
-				// Tooltip: Can be used to toggle a Fake Block's ability to regenerate
+				// Tooltip: Toggles the ability to regenerate in breakable blocks
 			}
 
 			GreenKeycard: {
@@ -3138,7 +3138,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Select this item in your hotbar and open the inventory to open the UI
-					Right click to swap between missile launcher and powerbeam
+					Press the bomb keybind to swap between missile launcher and powerbeam
 					''' */
 			}
 
@@ -3363,6 +3363,11 @@ Mods: {
 			ZebMetal: {
 				// DisplayName: Zeb Metal
 				// Tooltip: ""
+			}
+
+			ChoziteDualtool: {
+				// DisplayName: Chozite Dualtool
+				// Tooltip: Right Click while holding to edit usage settings
 			}
 		}
 
