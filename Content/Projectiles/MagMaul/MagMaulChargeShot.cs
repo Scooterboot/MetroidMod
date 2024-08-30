@@ -27,13 +27,9 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		}
 		public override void OnKill(int timeLeft)
 		{
-			//Projectile.damage /= (int)3.5;
-			if(Luminite || DiffBeam)
-			{
-				mProjectile.Explode(Luminite ? 88 : DiffBeam ? 44 : 22, Luminite ? 4f : DiffBeam ? 3f : 2f, Luminite ||DiffBeam? .59f : .53f);
-			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
-			mProjectile.Diffuse(Projectile, 286);
+			mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 20, 1f/*, Luminite || DiffBeam ? .59f : .53f*/);
+			mProjectile.DustyDeath(Projectile, 286);
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -47,6 +43,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			{
 				target.AddBuff(24, 600);
 			}
+			base.OnHitNPC(target,hit,damageDone);
 		}
 	}
 }

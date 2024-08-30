@@ -647,7 +647,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				return true;
 			}
-			return false;
+			return null;
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{

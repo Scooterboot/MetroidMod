@@ -103,7 +103,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 			for (var i = 0; i < 5; i++)
 			{
 				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
-				SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorImpactSound, Projectile.position);
+				//SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorImpactSound, Projectile.position);
 			}
 			mProjectile.DustyDeath(Projectile, 135);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorImpactSound, Projectile.position);

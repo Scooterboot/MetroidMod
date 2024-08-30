@@ -44,10 +44,10 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 		}
 		public override void OnKill(int timeLeft)
 		{
+			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
+			mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 20, Luminite ? 10 : DiffBeam ? 5 : 3);
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
-			SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
-			mProjectile.Explode(Luminite ? 5 : DiffBeam ? 3 : 2, Luminite ? 10 : DiffBeam ? 5 : 3);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

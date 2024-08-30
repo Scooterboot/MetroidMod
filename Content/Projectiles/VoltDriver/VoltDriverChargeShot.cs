@@ -55,10 +55,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 			{
 				mProjectile.Explode(Luminite ? 88 : DiffBeam ? 44 : 22, Luminite ? 4f : DiffBeam ? 3f : 2f);
 			}
-			else
-			{
-				mProjectile.Diffuse(Projectile, 269);
-			}
+			mProjectile.DustyDeath(Projectile, 269);
 			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverChargeImpactSound, Projectile.position);
 		}
 

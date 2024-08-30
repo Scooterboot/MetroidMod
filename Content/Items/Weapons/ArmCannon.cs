@@ -1383,7 +1383,7 @@ namespace MetroidMod.Content.Items.Weapons
 				isSeeker = slot1.type == se;
 				isCharge = !slot1.IsAir && !isSeeker;
 				isHeldCombo = 0;
-				chargeCost = 5;
+				chargeCostMi = 5;
 				comboSound = 0;
 				comboDrain = 5f;
 				noSomersault = false;
@@ -1466,7 +1466,7 @@ namespace MetroidMod.Content.Items.Weapons
 				if (slot1.type == hm)
 				{
 					isHoming = true;
-					chargeCost = 2;
+					chargeCostMi = 2;
 					chargeShot = shot;
 					chargeUpSound = "ChargeStartup_HomingMissile";
 					chargeShotSound = "HomingMissileShoot";
@@ -1639,7 +1639,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					chargeMult = mItem.addonChargeDmg;
-					chargeCost = mItem.addonMissileCost;
+					chargeCostMi = mItem.addonMissileCost;
 					comboDrain = mItem.addonMissileDrain;
 				}
 				comboCostUseTime = (int)Math.Round(60.0 / (double)comboDrain);
@@ -1822,7 +1822,7 @@ namespace MetroidMod.Content.Items.Weapons
 					Item.ModItem.UpdateInventory(Main.player[Main.myPlayer]);
 				}
 
-				int cost = (int)(chargeCost * (mp.missileCost + 0.001f));
+				int cost = (int)(chargeCostMi * (mp.missileCost + 0.001f));
 				string ch = "Charge shot consumes " + cost + " missiles";
 				if (isHeldCombo > 0)
 				{
@@ -2117,15 +2117,18 @@ namespace MetroidMod.Content.Items.Weapons
 					player.scope = true;
 				}
 
-				bool resetStealth = player.velocity != Vector2.Zero || player.controlUseItem;
+				bool resetStealth = player.velocity != Vector2.Zero || player.controlUseItem || (Item.TryGetGlobalItem(out MGlobalItem imp) && !imp.isBeam);
 				bool stealthEnabled = DiffusionActive || LuminiteActive;
 
-				if (stealthEnabled && !resetStealth)
+				if (!resetStealth)
 				{
 					impStealth = Math.Min(impStealth + (LuminiteActive? 3f : DiffusionActive? 1.5f : 1f), 693f); //126f
-					player.shroomiteStealth = true;
-					player.stealth -= impStealth / 693f;
-					player.aggro -= (int)impStealth;// * 4;
+					if (stealthEnabled)
+					{
+						player.shroomiteStealth = true;
+						player.stealth -= impStealth / 693f;
+						player.aggro -= (int)impStealth;// * 4;
+					}
 
 					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
 					player.GetCritChance(damageClass) += (int)(impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f)/5.5f);
@@ -2391,7 +2394,7 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 					}
 
-					int chCost = (int)(chargeCost * (mp.missileCost + 0.001f));
+					int chCost = (int)(chargeCostMi * (mp.missileCost + 0.001f));
 					comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
 					isCharge &= (pb.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
 
