@@ -33,7 +33,7 @@ namespace MetroidMod.Common.Systems
 
 		public void SetLocationFromLegacy(Point location)
 		{
-			Rectangle roomArea = new(location.X, location.Y, 80, 25);
+			Rectangle roomArea = new(location.X, location.Y, 80, 40);
 			Vector2 headLocation = roomArea.Center.ToWorldCoordinates();
 			int direction = (roomArea.X < Main.maxTilesX / 2).ToDirectionInt();
 			float spawnX = (direction == 1) ? (roomArea.X + 8) : (roomArea.Right - 8);
