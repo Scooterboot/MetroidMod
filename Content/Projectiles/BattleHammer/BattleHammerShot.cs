@@ -49,7 +49,14 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
 		}
-
+		public override bool? CanHitNPC(NPC target)
+		{
+			if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height) && Projectile.Hitbox.Intersects(target.Hitbox))
+			{
+				return null;
+			}
+			return false;
+		}
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

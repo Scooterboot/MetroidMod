@@ -31,7 +31,14 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 20, 1f/*, Luminite || DiffBeam ? .59f : .53f*/);
 			mProjectile.DustyDeath(Projectile, 286);
 		}
-
+		public override bool? CanHitNPC(NPC target)
+		{
+			if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height) && Projectile.Hitbox.Intersects(target.Hitbox))
+			{
+				return null;
+			}
+			return false;
+		}
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

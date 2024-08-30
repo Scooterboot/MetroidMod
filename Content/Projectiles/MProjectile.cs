@@ -641,14 +641,6 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}*/
 		}
-		public override bool? CanHitNPC(NPC target)
-		{
-			if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height) && Projectile.Hitbox.Intersects(target.Hitbox) && !target.justHit && !target.dontTakeDamage && !target.friendly)
-			{
-				return true;
-			}
-			return null;
-		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(Luminite);

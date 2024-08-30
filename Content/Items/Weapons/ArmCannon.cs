@@ -1314,7 +1314,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 
-				float oof = Stealth? (1f + (impStealth / 126f)) : 1f;
+				float oof = Stealth? Math.Max(impStealth / 126f, 1f) : 1f;
 
 				Item.damage = (int)(finalDmg * oof);
 				Item.useTime = (int)useTime;
