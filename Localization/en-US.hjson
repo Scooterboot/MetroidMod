@@ -392,34 +392,22 @@ Mods: {
 
 			ReserveTank: {
 				DisplayName: Life Reserve Tank
-				Tooltip:
-					'''
-					{$CommonItemTooltip.TotalStoredReserveHearts}
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank2: {
 				DisplayName: Life Reserve Tank MK2
-				Tooltip:
-					'''
-					{$CommonItemTooltip.TotalStoredReserveHearts}
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank3: {
 				DisplayName: Life Reserve Tank MK3
-				Tooltip:
-					'''
-					{$CommonItemTooltip.TotalStoredReserveHearts}
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank4: {
 				DisplayName: Life Reserve Tank MK4
-				Tooltip:
-					'''
-					{$CommonItemTooltip.TotalStoredReserveHearts}
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank5: {
