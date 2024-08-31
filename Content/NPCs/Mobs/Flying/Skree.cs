@@ -37,7 +37,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A predator that attacks potential victims and explodes.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Skree")
 			});
 		}
 

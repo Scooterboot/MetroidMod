@@ -45,7 +45,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A creature that's much like a slime but stretches itself to move rather than jump.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Puyo")
 			});
 		}
 

@@ -59,7 +59,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-				new FlavorTextBestiaryInfoElement("A moving orb with a strange face... Glows in the dark and is useful for light sources.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Viola")
 			});
 		}
 		int frameNum = 1;

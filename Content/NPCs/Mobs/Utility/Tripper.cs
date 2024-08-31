@@ -35,7 +35,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A useful moving platform, mind your weight when riding.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Tripper")
 			});
 		}
 

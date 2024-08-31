@@ -1,4 +1,5 @@
 ﻿using MetroidMod.Common.Configs;
+using MetroidMod.Content.NPCs.Mobs.Crawler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -34,7 +35,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A creature capable of bouncing on walls. But it is much stronger than the Sidehopper. They are more commonly found in hotter places... As with the Sidehopper, they are able to come in various sizes.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Dessgeega")
 			});
 		}
 
@@ -162,6 +163,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 
 		public override void SetStaticDefaults()
 		{
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value); //this and above line hides the entity from the bestiary
 			// DisplayName.SetDefault("Large Dessgeega");
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -200,6 +203,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			NPC.noGravity = true;
 			NPC.behindTiles = true;
 			NPC.lavaImmune = true;
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			int associatedNPCType = ModContent.NPCType<Dessgeega>();
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
 		}
 
 		public override bool PreAI()

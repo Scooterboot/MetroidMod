@@ -73,7 +73,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
-				new FlavorTextBestiaryInfoElement("An autonomous machine created by the long deceased Gizzard tribe. This one guards the entrance to the Gizzard tribe catacombs. The machine is slow and lumbering, serving as a gatekeeper rather than a guardian. It moves faster however when it's head is destroyed... There seems to be something alive about it...")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Torizo")
 			});
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */

@@ -41,7 +41,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A hostile cactus like creature that shoots spikes when attacked.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Cacatac")
 			});
 		}
 

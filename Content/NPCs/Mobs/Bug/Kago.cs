@@ -32,7 +32,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A small creature that tends to latch onto victims in swarms when it's hive is attacked.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Kago")
 			});
 		}
 

@@ -75,7 +75,7 @@ namespace MetroidMod.Content.NPCs.Town
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
 
-				new FlavorTextBestiaryInfoElement("A deceased member of the Gizzard tribe of Chozo who has lingering guilt. They are susceptible to phazon and prefer to avoid it.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.ChozoGhost")
 			});
 		}
 

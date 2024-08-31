@@ -42,7 +42,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
-				new FlavorTextBestiaryInfoElement("A failed imitation of a metroid. These experiments were created by the space pirates in an effort to replicate a metroid. Nonetheless, they are still creatures to be wary of. Try not to let them absorb your life energy.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Mochtroid")
 			});
 		}
 		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)

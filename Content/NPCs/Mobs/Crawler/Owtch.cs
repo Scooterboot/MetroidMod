@@ -54,7 +54,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
-				new FlavorTextBestiaryInfoElement("A spiky hard shell creature that is famous for its namesake uses its shell as a defensive mechanism.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Owtch")
 			});
 		}
 		public override bool PreAI()

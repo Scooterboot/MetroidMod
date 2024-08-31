@@ -33,6 +33,11 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpinBoostTile>();
 		}
 
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			return incomingItem.type != ModContent.ItemType<SpaceJumpBoots>();
+		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

@@ -37,7 +37,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
-				new FlavorTextBestiaryInfoElement("An absolutely foul creature that latches onto its victims and absorbs their energy. But they aren't capable of taking too many hits.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Beetom")
 			});
 		}
 

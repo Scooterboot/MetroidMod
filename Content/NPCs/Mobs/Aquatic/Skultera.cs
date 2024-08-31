@@ -38,7 +38,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("An aquatic fish that moves out and about passively.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Skultera")
 			});
 		}
 

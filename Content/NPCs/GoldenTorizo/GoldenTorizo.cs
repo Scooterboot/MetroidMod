@@ -75,7 +75,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
-				new FlavorTextBestiaryInfoElement("An enhanced version of the Torizo Statue but with golden armor plating. While this one lacks the spiritual possession, it is far more dangerous than the lumbering machines the Gizzard tribe possess. Its energy waves are much faster and follow any hostile target. The Golden armor plating gives it extraordinary defenses and an energy shield while jumping. Be careful to avoid it if you don't want a nasty end!")
+				new FlavorTextBestiaryInfoElement("Mods." + Mod.Name + ".Bestiary.GoldenTorizo")
 			});
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */

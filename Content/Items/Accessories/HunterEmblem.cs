@@ -1,11 +1,19 @@
+using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
 	public class HunterEmblem : ModItem
 	{
+		//All the important numbers changes need to be up here so the dynamic localization thing can access them.
+		//They're written as the percent changes so it's easier for the thing to read them
+		//On the plus side it'll make changing stats easier!   -Z
+		public static float huntDamage = 15f; //percent increase to hunter damage
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(huntDamage);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Hunter Emblem");
@@ -31,7 +39,7 @@ namespace MetroidMod.Content.Items.Accessories
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.15f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100; //formula to convert huntDamage to a percent value
 		}
 
 		public override void AddRecipes()

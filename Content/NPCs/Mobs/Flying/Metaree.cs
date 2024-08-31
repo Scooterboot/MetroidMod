@@ -37,7 +37,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
-				new FlavorTextBestiaryInfoElement("A Skree. But metal. Still dangerous.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Metaree")
 			});
 		}
 

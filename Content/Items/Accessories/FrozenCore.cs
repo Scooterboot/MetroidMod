@@ -3,11 +3,18 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MetroidMod.Content.Items.Addons;
 using MetroidMod.Common.Players;
+using Terraria.Localization;
 
 namespace MetroidMod.Content.Items.Accessories
 {
 	public class FrozenCore : ModItem
 	{
+		//All the important numbers changes need to be up here so the dynamic localization thing can access them.
+		//They're written as the percent changes so it's easier for the thing to read them
+		//On the plus side it'll make changing stats easier!   -Z
+		public static float overheatDown = 15f; //percent decrease to overheat cost
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(overheatDown);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Supercooled Plasma Core");
@@ -34,9 +41,8 @@ namespace MetroidMod.Content.Items.Accessories
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-      //Multiply by what would be left over
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.overheatCost *= 0.85f;
+			mp.overheatCost *= 1f - (overheatDown / 100); //formula to convert overheatDown to the right percentage value
 			mp.UACost *= 0.85f;
 		}
 		public override void AddRecipes()
