@@ -520,13 +520,13 @@ Mods: {
 
 			FrozenCore: {
 				DisplayName: Energy Supercoolant
-				Tooltip: 15% reduced Overheat
+				Tooltip: 15% reduced Overheat and UA usage
 			}
 
 			SupercooledEmblem: {
 				Tooltip:
 					'''
-					15% reduced Overheat
+					15% reduced Overheat and UA usage
 					10% increased Hunter damage
 					10% increased Hunter critical strike chance
 					'''
@@ -537,7 +537,7 @@ Mods: {
 				DisplayName: Enhanced Combat Unit
 				Tooltip:
 					'''
-					15% reduced Overheat
+					15% reduced Overheat and UA usage
 					10% increased Hunter damage and critical strike chance
 					Stores up to 4 hearts picked up when at full health
 					Automatically uses the stored hearts to save you from death
@@ -564,14 +564,14 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Uses UA reserves
+					Uses UA reserves instead of overheat
 					[c/78BE78:Shots Explode and have armor penetration]
 					[c/78BE78:+100% damage]
 					[c/78BE78:+50% knockback]
-					[c/BE7878:-40% speed]
-					[c/BE7878:+50% overheat use]
+					[c/BE7878:-52% speed]
 					[c/BE7878:Cannot pierce walls or enemies]
-					Blast radius and armor penetration increases with affinity
+					With affinity:
+					Direct hits have armor penetration and blast radius increased
 					Array slot 7
 					'''
 			}
@@ -582,12 +582,13 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Uses UA reserves
-					[c/78BE78:+500% damage]
-					[c/78BE78:When standing still, adds scope and stealth]
-					[c/BE7878:+250% overheat use]
-					[c/78BE78:Damage and Crit scale with Stealth]
-					[c/BE7878:Massive speed reduction]
+					Uses UA reserves instead of overheat
+					[c/78BE78:+300% damage]
+					[c/78BE78:Adds scope]
+					[c/78BE78:Damage and Crit increase when standing still]
+					[c/BE7878:-85% speed]
+					With Affinity:
+					Standing still adds stealth, damage and crit increase more rapidly
 					Array slot 4
 					'''
 			}
@@ -598,14 +599,15 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Uses UA reserves
+					Uses UA reserves instead of overheat
 					Shots bounce
-					Affinity Charge shots spray a freezing blast
-					Affinity Can shadowfreeze, but otherwise cannot pierce tiles
-					Non-affinity charge shots fire extra shots
-					[c/78BE78:+100% damage]
-					[c/BE7878:+75% overheat use]
-					[c/BE7878:-45% speed]
+					Charge fires more shots
+					[c/78BE78:+190% damage]
+					[c/BE7878:-52% speed]
+					With Affinity:
+					Charge shots instantly freeze enemies
+					Charge shots can "shadowfreeze"
+					Shadowfreeze range dependent on addons
 					Array slot 5
 					'''
 			}
@@ -616,12 +618,13 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
+					Uses UA reserves instead of overheat
 					Shots bounce, roll and explode
-					Affinity Charge shots ignite
-					[c/78BE78:+45% damage]
-					[c/BE7878:-45% speed]
-					[c/BE7878:+75% overheat use]
+					[c/78BE78:+280% damage]
+					[c/BE7878:-67% speed]
 					[c/BE7878:Cannot freeze or pierce]
+					With Affinity:
+					Charge shots ignite enemies, blast radius increases
 					Array slot 3
 					'''
 			}
@@ -648,7 +651,7 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Fires a short range electric charge that restores energy
+					Fires a short range electric charge
 					Charges on enemy damage
 					Range depends on addons
 					Builds speed and charge when attacking an enemy
@@ -656,6 +659,8 @@ Mods: {
 					[c/BE7878:Cannot pierce enemies]
 					[c/BE7878:Cannot pseudo-screw]
 					[c/BE7878:Probably still bugged]
+					With Affinity:
+					Restore energy when damaging enemies, charge faster
 					Array slot 6
 					'''
 			}
@@ -666,11 +671,11 @@ Mods: {
 					'''
 					[c/9696FF:Power Beam Addon]
 					Slot Type: Charge
-					Affinity Charge shots home, explode, and confuse
-					[c/78BE78:+60% damage]
-					[c/BE7878:+50% overheat use]
-					[c/BE7878:-10% speed]
+					[c/78BE78:+80% damage]
+					[c/BE7878:-18% speed]
 					[c/BE7878:+10% noise]
+					With affinity:
+					Charge shots home, explode, and confuse
 					Array slot 2
 					'''
 			}
@@ -681,8 +686,9 @@ Mods: {
 					'''
 					Power Beam Addon
 					Slot Type: Charge
-					Increases base damage from 14 to 35, and base overheat use from 4 to 7
-					Slightly decreases firerate
+					[c/78BE78:+300% damage]
+					[c/BE7878:-13% speed]
+					[c/BE7878:+75% overheat use]
 					Affected by addons regardless of version
 					Main projectile has high armor penetration
 					Disables freeze and other debuff effects
@@ -712,10 +718,12 @@ Mods: {
 					'''
 					Power Beam Addon
 					Slot Type: Charge
-					Decreases base damage from 14 to 6, and base overheat use from 4 to 1
-					Dramatically increases firerate
+					[c/BE7878:-33% damage]
+					[c/78BE78:+40% damage]
+					[c/78BE78:+250% speed]
+					[c/BE7878:-75% overheat use]
 					Affected by addons regardless of version 
-					Disables freeze and other debuff effects
+					Disables freeze and other debuff effects, applies phazon debuff
 					Can only be used while wearing the Phazon Suit
 					Array slot 10
 					'It's made of pure Phazon energy!
@@ -774,7 +782,8 @@ Mods: {
 					Charge by holding click
 					Charge shots deal x4 damage, but overheat x2.5 the normal use
 					Damage and heat scaling affects all charge shots when in the array
-					Adds a diffusion effect when fully charged and affinity effects
+					Adds a diffusion effect when fully charged
+					Adds affinity effects to UA-using weapons when in the array
 					Array slot 11
 					'''
 			}

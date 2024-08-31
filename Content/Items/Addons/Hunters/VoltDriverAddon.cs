@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.ID;
 using Terraria;
@@ -41,9 +42,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.beamSlotType = BeamChangeSlotID.VoltDriver;
 			mItem.addonUACost = 400f / 120f;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageVoltDriver;
-			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatVoltDriver;
 		}
-
 
 		public override void AddRecipes()
 		{

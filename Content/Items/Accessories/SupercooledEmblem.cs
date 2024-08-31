@@ -38,9 +38,9 @@ namespace MetroidMod.Content.Items.Accessories
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.overheatCost *= 0.85f;
-			//mp.statOverheat -= 10f;
-			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.1f;
-			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterCrit += 10;
+			mp.UACost *= 0.85f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.1f;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += 10;
 		}
 		public override void AddRecipes()
 		{

@@ -37,6 +37,7 @@ namespace MetroidMod.Content.Items.Accessories
       //Multiply by what would be left over
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.overheatCost *= 0.85f;
+			mp.UACost *= 0.85f;
 		}
 		public override void AddRecipes()
 		{

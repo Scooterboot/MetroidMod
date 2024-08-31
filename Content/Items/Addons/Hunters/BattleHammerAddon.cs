@@ -39,7 +39,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.addonUACost = 400f / 150f;
 			mItem.beamSlotType = BeamChangeSlotID.BattleHammer;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageBattleHammer;
-			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatBattleHammer;
 		}
 
 
