@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Pets
 		public override void SetStaticDefaults() {
 			Main.projFrames[Projectile.type] = 16;
 			Main.projPet[Projectile.type] = true;
-			ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(11, 4, 12)
+			ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(10, 6, 12)
 				.WithOffset(-10f, -10f)
 				.WithSpriteDirection(-1)
 				.WithCode(DelegateMethods.CharacterPreview.Float);
