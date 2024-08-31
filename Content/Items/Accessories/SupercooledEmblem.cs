@@ -26,7 +26,14 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.rare = ItemRarityID.Lime;
 			Item.accessory = true;
 		}
-
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			if (incomingItem.type == ModContent.ItemType<HunterEmblem>() || incomingItem.type == ModContent.ItemType<FrozenCore>() || incomingItem.type == ModContent.ItemType<EnhancedCombatUnit>())
+			{
+				return false;
+			}
+			return base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

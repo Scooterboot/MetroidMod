@@ -18,6 +18,7 @@ Mods: {
 				# StdD4 is unused.
 				// StandardDialogue4: Be cautious of my brethren in our ancient ruins, for they may put your mettle to the test.
 				// WitchDialogue: "{0} keeps shaking his witchcraft 'things' at me whenever I come near him. Could you ask him to stop?"
+				// EnergyHint: Energy will help reduce the amount of damage you take as well as may be used for other things when the technology is available. It's made of energy. Solar? Electrical? No. Just. Pure. Energy.
 			}
 		}
 
