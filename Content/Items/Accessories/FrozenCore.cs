@@ -24,12 +24,20 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.rare = ItemRarityID.LightPurple;
 			Item.accessory = true;
 		}
-
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			if (incomingItem.type == ModContent.ItemType<SupercooledEmblem>() || incomingItem.type == ModContent.ItemType<HunterEmblem>() || incomingItem.type == ModContent.ItemType<EnhancedCombatUnit>())
+			{
+				return false;
+			}
+			return base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
       //Multiply by what would be left over
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.overheatCost *= 0.85f;
+			mp.UACost *= 0.85f;
 		}
 		public override void AddRecipes()
 		{

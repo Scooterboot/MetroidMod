@@ -26,14 +26,21 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.rare = ItemRarityID.Lime;
 			Item.accessory = true;
 		}
-
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			if (incomingItem.type == ModContent.ItemType<HunterEmblem>() || incomingItem.type == ModContent.ItemType<FrozenCore>() || incomingItem.type == ModContent.ItemType<EnhancedCombatUnit>())
+			{
+				return false;
+			}
+			return base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.overheatCost *= 0.85f;
-			//mp.statOverheat -= 10f;
-			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.1f;
-			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterCrit += 10;
+			mp.UACost *= 0.85f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.1f;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += 10;
 		}
 		public override void AddRecipes()
 		{

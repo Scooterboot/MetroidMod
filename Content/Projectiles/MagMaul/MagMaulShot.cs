@@ -35,17 +35,20 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
-			mProjectile.Explode(40, 1.6f, Luminite || DiffBeam ? .59f : .53f);
+			if(timeLeft <=0 )
+			{
+				mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 40, 1.6f);
+			}
 			mProjectile.Diffuse(Projectile, 286);
 		}
-		public override bool? CanHitNPC(NPC target)
+		/*public override bool? CanHitNPC(NPC target)
 		{
 			if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, target.position, target.width, target.height) && Projectile.Hitbox.Intersects(target.Hitbox))
 			{
 				return null;
 			}
 			return false;
-		}
+		}*/
 		public override bool PreDraw(ref Color lightColor)
 		{
 			mProjectile.DrawCentered(Projectile, Main.spriteBatch);

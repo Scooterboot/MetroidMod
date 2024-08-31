@@ -377,6 +377,8 @@ namespace MetroidMod.Content.Items.Weapons
 		private bool isHyper = false;
 		private bool isPhazon = false;
 		private bool Stealth = false;
+		private bool usesUA = false;
+		private float UAcost = 0f;
 
 		public bool comboError1, comboError2, comboError3, comboError4;
 		private bool noSomersault = false;
@@ -471,6 +473,7 @@ namespace MetroidMod.Content.Items.Weapons
 				isHyper = (slot1.type == hy);
 				isPhazon = (slot1.type == ph);
 				isHunter = (slot1.type == oc) || (slot1.type == sc) || (slot1.type == imp) || (slot1.type == mm) || (slot1.type == bh) || (slot1.type == jd) || (slot1.type == vd);
+				usesUA = isHunter && slot1.type != oc;
 
 				comboError1 = false;
 				comboError2 = false;
@@ -508,6 +511,21 @@ namespace MetroidMod.Content.Items.Weapons
 					else
 					{
 						return MConfigItems.Instance.damageChargeBeam;
+					}
+				}
+				float GetCost()
+				{
+					if (!LuminiteActive)
+					{
+						return MConfigItems.Instance.overheatLuminiteBeam;
+					}
+					else if (!DiffusionActive)
+					{
+						return MConfigItems.Instance.overheatChargeBeamV2;
+					}
+					else
+					{
+						return MConfigItems.Instance.overheatChargeBeam;
 					}
 				}
 				if (addonsV3 || (chargeV3 && !addonsV1 && !addonsV2))
@@ -1302,9 +1320,10 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					chargeDmgMult = mItem.addonChargeDmg;
-					chargeCost = mItem.addonChargeHeat;
+					chargeCost = !usesUA? mItem.addonChargeHeat : GetCharge();
 					hunterDmg = mItem.addonDmg;
 					hunterHeat = mItem.addonHeat;
+					UAcost = mItem.addonUACost;
 				}
 
 				finalDmg = (int)Math.Round((double)(damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg + hunterDmg)));
@@ -1765,10 +1784,10 @@ namespace MetroidMod.Content.Items.Weapons
 				int chDmg = (int)(dmg * chargeDmgMult);
 				TooltipLine chDmgLine = new(Mod, "ChargeDamage", chDmg + " Charge Shot damage");
 
-				int oh = (int)(overheat * mp.overheatCost);
-				TooltipLine ohLine = new(Mod, "Overheat", "Overheats by " + oh + " points per use");
+				int oh = !usesUA? (int)(overheat * mp.overheatCost) : (int)(UAcost * mp.UACost);
+				TooltipLine ohLine = !usesUA? new(Mod, "Overheat", "Overheats by " + oh + " points per use, affected by ammo reservation") : new(Mod, "Overheat", "Uses about " + oh + " UA points per use, affected by ammo reservation");
 				int chOh = (int)(oh * chargeCost);
-				TooltipLine chOhLine = new(Mod, "ChargeOverheat", "Overheats by " + chOh + " points on Charge Shot");
+				TooltipLine chOhLine =!usesUA? new(Mod, "ChargeOverheat", "Overheats by " + chOh + " points on Charge Shot, affected by ammo reservation") : new(Mod, "ChargeOverheat", "Uses about " + chOh + " UA points on Charge Shot, affected by ammo reservation");
 
 				for (int k = 0; k < tooltips.Count; k++)
 				{
@@ -2162,7 +2181,7 @@ namespace MetroidMod.Content.Items.Weapons
 					Item slot3 = BeamMods[2];
 					Item slot4 = BeamMods[3];
 					Item slot5 = BeamMods[4];
-					if (Common.Systems.MSystem.SwitchKey.JustPressed)
+					if (MSystem.SwitchKey.JustPressed)
 					{
 						mp.beamChangeActive = !mp.beamChangeActive;
 						if (mp.beamChangeActive)
@@ -2283,7 +2302,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 									mp.statOverheat += MGlobalItem.AmmoUsage(player, oHeat * mp.overheatCost);
 									mp.overheatDelay = (int)useTime - 10;
-									pb.statUA -= MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost * mp.UACost);
+									pb.statUA -= MGlobalItem.AmmoUsage(player, BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost * mp.UACost * chargeCost);
 								}
 								else if (mp.statCharge > 0)
 								{
@@ -2380,7 +2399,7 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					shotEffect = "";
-					if (Common.Systems.MSystem.SwitchKey.JustPressed)
+					if (MSystem.SwitchKey.JustPressed)
 					{
 						mp.missileChangeActive = !mp.missileChangeActive;
 						//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);
@@ -2394,11 +2413,11 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 					}
 
-					int chCost = (int)(chargeCostMi * (mp.missileCost + 0.001f));
+					int chCost = (int)Math.Max(chargeCostMi * (mp.missileCost + 0.001f),1);
 					comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
-					isCharge &= (pb.statMissiles >= chCost || (isHeldCombo > 0 && initialShot));
+					isCharge &= pb.statMissiles >= chCost || (isHeldCombo > 0 && initialShot);
 
-					Item.autoReuse = (isCharge || isSeeker);
+					Item.autoReuse = isCharge || isSeeker;
 
 					if (isCharge)
 					{

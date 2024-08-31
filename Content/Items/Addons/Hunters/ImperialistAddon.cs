@@ -39,7 +39,6 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			mItem.addonUACost = 400f / 15f;//30f;
 			mItem.beamSlotType = BeamChangeSlotID.Imperialist;
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageImperialist;
-			mItem.addonHeat = Common.Configs.MConfigItems.Instance.overheatImperialist;
 		}
 
 

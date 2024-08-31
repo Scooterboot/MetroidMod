@@ -21,6 +21,14 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.rare = ItemRarityID.LightRed;
 			Item.accessory = true;
 		}
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			if (incomingItem.type == ModContent.ItemType<SupercooledEmblem>() || incomingItem.type == ModContent.ItemType<FrozenCore>() || incomingItem.type == ModContent.ItemType<EnhancedCombatUnit>())
+			{
+				return false;
+			}
+			return base.CanAccessoryBeEquippedWith(equippedItem, incomingItem, player);
+		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			Common.Players.HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.15f;

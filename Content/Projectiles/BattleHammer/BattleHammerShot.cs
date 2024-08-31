@@ -1,18 +1,12 @@
 using System;
-using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.BattleHammer
 {
 	public class BattleHammerShot : MProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("BattleHammer Shot");
-		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -23,7 +17,7 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
 		}
-
+		private bool oof = true;
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
@@ -38,8 +32,11 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 		}
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (Projectile.timeLeft >= 1)
+			if (oof)
+			{
 				modifiers.ArmorPenetration += Luminite ? 15 : DiffBeam ? 10 : 5;
+			}
+
 			base.ModifyHitNPC(target, ref modifiers);
 		}
 		public override void OnKill(int timeLeft)
@@ -48,6 +45,11 @@ namespace MetroidMod.Content.Projectiles.BattleHammer
 			mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 20, Luminite ? 10 : DiffBeam ? 5 : 3);
 			mProjectile.Diffuse(Projectile, 110);
 			mProjectile.Diffuse(Projectile, 55);
+		}
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			oof = false;
+			return base.OnTileCollide(oldVelocity);
 		}
 		public override bool? CanHitNPC(NPC target)
 		{
