@@ -54,7 +54,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundJungle,
-				new FlavorTextBestiaryInfoElement("A crab like creature with giant eyes. It's usually found in the jungle.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Zeela")
 			});
 		}
 		private void SetStats()

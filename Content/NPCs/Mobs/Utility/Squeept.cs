@@ -37,7 +37,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A useful step stool when frozen. Found in burning hot places.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Squeept")
 			});
 		}
 

@@ -33,6 +33,12 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.SpaceJumpBootsTile>();
 		}
+
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			return incomingItem.type != ModContent.ItemType<SpinBoost>();
+		}
+
 		/*public override void AddRecipes()    //This big block is how it used to be crafted before Spin Boost
 		{
 			CreateRecipe(1)

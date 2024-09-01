@@ -38,7 +38,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
-				new FlavorTextBestiaryInfoElement("A floating creature that attacks any victim by flying into them. Unlike the Skree, they do not self-destruct.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Waver")
 			});
 		}
 

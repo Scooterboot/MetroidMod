@@ -43,7 +43,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
-				new FlavorTextBestiaryInfoElement("Despite the name, this has nothing to do with the mammal. It releases poisonous gas to kill nearby victims. But it's usually stationary.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Bull")
 			});
 		}
 

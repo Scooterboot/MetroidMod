@@ -10,6 +10,27 @@ Mods: {
 		BiomeName.ChozoRuinsBiome: Chozo Ruins
 		DamageClasses.HunterDamageClass.DisplayName: Hunter Damage
 
+		CommonItemTooltip: {
+			PercentIncreasedHunterDamage: "{0}% increased hunter damage"
+			PercentIncreasedHunterCrit: "{0}% increased hunter critical strike chance"
+			PercentDecreasedComboCost: "{0}% decreased Missile Charge Combo cost"
+			IncreasedOverheatMax: Increases maximum overheat capacity by {0}
+			PercentDecreasedOverheatCost: "{0}% decreased overheat and UA usage"
+			PercentIncreasedOverheatCost: +{0}% overheat
+			PercentIncreasedUAUse: +{0}% UA usage
+			IncreasedTankCapacity: Increases maximum Energy Tank capacity by {0}
+			PercentIncreasedEnergyEfficiency: "{0}% increased energy efficiency"
+			PercentIncreasedEnergyResilience: "{0}% increased energy resilience"
+			TotalStoredReserveHearts:
+				'''
+				Stores up to {0} {^0:heart;hearts} picked up at full health
+				Automatically uses stored hearts to save you from death
+				'''
+			SomersaultEnabled: Allows somersaulting
+			HyperBeamEnabled: Enables the use of Hyper Beam
+			PhazonBeamEnabled: Enables the use of Phazon Beam
+		}
+
 		Dialogue: {
 			ChozoGhost: {
 				StandardDialogue1: Greetings, {0}! How may I aid you?
@@ -348,7 +369,7 @@ Mods: {
 
 			HunterEmblem: {
 				DisplayName: Hunter Emblem
-				Tooltip: 15% increased hunter damage
+				Tooltip: "{$CommonItemTooltip.PercentIncreasedHunterDamage}"
 			}
 
 			MorphBall: {
@@ -371,46 +392,29 @@ Mods: {
 
 			ReserveTank: {
 				DisplayName: Life Reserve Tank
-				Tooltip:
-					'''
-					Stores a heart picked up when at full health
-					Automatically uses the stored heart to save you from death
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank2: {
 				DisplayName: Life Reserve Tank MK2
-				Tooltip:
-					'''
-					Stores up to 2 hearts picked up when at full health
-					Automatically uses the stored hearts to save you from death
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank3: {
 				DisplayName: Life Reserve Tank MK3
-				Tooltip:
-					'''
-					Stores up to 3 hearts picked up when at full health
-					Automatically uses the stored hearts to save you from death
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank4: {
 				DisplayName: Life Reserve Tank MK4
-				Tooltip:
-					'''
-					Stores up to 4 hearts picked up when at full health
-					Automatically uses the stored hearts to save you from death
-					'''
+				Tooltip: "{$CommonItemTooltip.TotalStoredReserveHearts}"
 			}
 
 			ReserveTank5: {
 				DisplayName: Life Reserve Tank MK5
 				Tooltip:
 					'''
-					Stores up to 4 hearts picked up when at full health
-					Automatically uses the stored hearts to save you from death
+					{$CommonItemTooltip.TotalStoredReserveHearts}
 					Each heart is worth 5 more life
 					'''
 			}
@@ -520,15 +524,15 @@ Mods: {
 
 			FrozenCore: {
 				DisplayName: Energy Supercoolant
-				Tooltip: 15% reduced Overheat and UA usage
+				Tooltip: "{$CommonItemTooltip.PercentDecreasedOverheatCost}"
 			}
 
 			SupercooledEmblem: {
 				Tooltip:
 					'''
-					15% reduced Overheat and UA usage
-					10% increased Hunter damage
-					10% increased Hunter critical strike chance
+					{$CommonItemTooltip.PercentDecreasedOverheatCost}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@1}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@2}
 					'''
 				DisplayName: Thermal Regulator
 			}
@@ -537,10 +541,9 @@ Mods: {
 				DisplayName: Enhanced Combat Unit
 				Tooltip:
 					'''
-					15% reduced Overheat and UA usage
-					10% increased Hunter damage and critical strike chance
-					Stores up to 4 hearts picked up when at full health
-					Automatically uses the stored hearts to save you from death
+					{$CommonItemTooltip.PercentDecreasedOverheatCost}
+					{1}% increased hunter damage and critical strike chance
+					{$CommonItemTooltip.TotalStoredReserveHearts@2}
 					Each heart is worth 5 more life
 					'''
 			}
@@ -1367,7 +1370,7 @@ Mods: {
 			}
 
 			BrinstoneTile: {
-				DisplayName: Brinstone Block
+				DisplayName: Ancient Brinstone Block
 				Tooltip: ""
 			}
 
@@ -1591,7 +1594,7 @@ Mods: {
 			}
 
 			GreenBrinstarRootsTile: {
-				DisplayName: Overgrown Brinstone Block
+				DisplayName: Rooted Brinstone Block
 				Tooltip: ""
 			}
 
@@ -1616,7 +1619,7 @@ Mods: {
 			}
 
 			ItemRoomTile: {
-				DisplayName: Item Room Brick
+				DisplayName: Ancient Item Room Brick
 				Tooltip: ""
 			}
 
@@ -3256,102 +3259,102 @@ Mods: {
 			}
 
 			AcidStone: {
-				DisplayName: Acid Stone
+				DisplayName: Norfic Acidstone Block
 				Tooltip: ""
 			}
 
 			Bluestar: {
-				DisplayName: Bluestar
+				DisplayName: Brinstone Block
 				Tooltip: ""
 			}
 
 			BoilStone: {
-				DisplayName: Boil Stone
+				DisplayName: Norfic Bendezium Block
 				Tooltip: ""
 			}
 
 			BrinstarBrush: {
-				DisplayName: Brinstar Brush
+				DisplayName: Dark Overgrown Brinstone Block
 				Tooltip: ""
 			}
 
 			BrinstarMetal: {
-				DisplayName: Brinstar Metal
+				DisplayName: Brinstone Brick
 				Tooltip: ""
 			}
 
 			CrateriaGrass: {
-				DisplayName: Crateria Grass
+				DisplayName: Urthic Grass
 				Tooltip: ""
 			}
 
 			CrateriaSlab: {
-				DisplayName: Crateria Slab
+				DisplayName: Urthic Slab
 				Tooltip: ""
 			}
 
 			CrateriaSoil: {
-				DisplayName: Crateria Soil
+				DisplayName: Urthic Dirt
 				Tooltip: ""
 			}
 
 			GoldBrinstar: {
-				DisplayName: Gold Brinstar
+				DisplayName: Aged Brinstone Block
 				Tooltip: ""
 			}
 
 			GrownBrinstar: {
-				DisplayName: Grown Brinstar
+				DisplayName: Overgrown Brinstone Block
 				Tooltip: ""
 			}
 
 			KraidStone: {
-				DisplayName: Kraid Stone
+				DisplayName: Pirate Commander Plating
 				Tooltip: ""
 			}
 
 			LorfairStone: {
-				DisplayName: Lorfair Stone
+				DisplayName: Norfic Bendezium Brick
 				Tooltip: ""
 			}
 
 			MaridiaMetal: {
-				DisplayName: Maridia Metal
+				DisplayName: Maridian Laboratory Brick
 				Tooltip: ""
 			}
 
 			MaridiaSoil: {
-				DisplayName: Maridia Soil
+				DisplayName: Maridian Sand
 				Tooltip: ""
 			}
 
 			MaridiaStone: {
-				DisplayName: Maridia Stone
+				DisplayName: Maridian Shale
 				Tooltip: ""
 			}
 
 			MoltenBubble: {
-				DisplayName: Molten Bubble
+				DisplayName: Fiery Molten Bubble Block
 				Tooltip: ""
 			}
 
 			NorfairStone: {
-				DisplayName: Norfair Stone
+				DisplayName: Norfic Stone
 				Tooltip: ""
 			}
 
 			Pinkstar: {
-				DisplayName: Pinkstar
+				DisplayName: Fungal Brinstone Block
 				Tooltip: ""
 			}
 
 			RidleyStone: {
-				DisplayName: Ridley Stone
+				DisplayName: Pirate Elite Plating
 				Tooltip: ""
 			}
 
 			SmoothCrateriaSlab: {
-				DisplayName: Smooth Crateria Slab
+				DisplayName: Urthic Stone
 				Tooltip: ""
 			}
 
@@ -3361,17 +3364,17 @@ Mods: {
 			}
 
 			SquareRoomStone: {
-				DisplayName: Square Room Stone
+				DisplayName: Item Square Brick
 				Tooltip: ""
 			}
 
 			WreckedPlate: {
-				DisplayName: Wrecked Plate
+				DisplayName: Wrecked Plating
 				Tooltip: ""
 			}
 
 			ZebMetal: {
-				DisplayName: Zeb Metal
+				DisplayName: Item Room Brick
 				Tooltip: ""
 			}
 
@@ -3514,7 +3517,7 @@ Mods: {
 				}
 			}
 
-			PhantoonFireBall.DisplayName: Fire Ball
+			PhantoonFireBall.DisplayName: Fireball
 			Serris_Body.DisplayName: Serris
 
 			Serris_Head: {
@@ -3586,6 +3589,62 @@ Mods: {
 
 				Census.SpawnCondition: Defeat Torizo, an ancient guardian found in the [c/ffff00:Chozo Ruins]
 			}
+		}
+
+		Bestiary: {
+			# Bosses
+			Torizo: An autonomous machine created by the long deceased Gizzard tribe. This one guards the entrance to the Gizzard tribe catacombs. The machine is slow and lumbering, serving as a gatekeeper rather than a guardian. It moves faster however when it's head is destroyed... There seems to be something alive about it...
+			Serris: An invasive species brought by the Gizzard tribe and released into the seas after the tribe's collapse. The creature moves at extremely high speeds and is hard to keep an eye on. Attacking it will cause it to immediately retaliate and rush into you. Be aware of the creature's speed and strike with a charged attack at the head when it's not moving. Sometimes however... a creature isn't what it appears to be...
+			Kraid: This invasive species made its way on this planet after the Gizzard tribe had brought it to the Terrarian Planet to train young warriors. It is extremely bulky and slow, but can shoot projectiles from its stomach. It's hide is almost impenetrable save for even the hottest lava. But these creatures are not indestructible on the inside. Give it a taste of pain when the mouth opens!
+			Phantoon: An interdimensional anomaly drawn in by places of great negative emotions. Usually shipwrecks with lingering energy. The creature's only weakness is the eye in its mouth. It is capable of dematerializing at will... It's capable of spawning flaming eyes and rage hands to attack anything that gets in its way! To think that this is only the creature's head... it bears a resemblance to a certain deity...
+			Nightmare: A bio mechanical monstrosity created by a space faring species of humans. It can change it's positioning almost instantly and increase gravity to extreme conditions. If encountered it is best to destroy the gravity generator so avoiding its energy lasers is possible. While mechanical, its organic parts are not fully immune to damage. Blast the faceplate off to get to its true form! Sometimes however... a creature isn't what it appears to be...
+			OmegaPirate: An experiment created by the space pirates. It is a hulking monster corrupted by a biomass known as Phazon. It's capable of absorbing projectiles with its hands and firing grenades from a distance. Get too close and it will react by smashing the ground to create an energy wave. Even if you smash its armor, the creature will go invisible and attempt to absorb Phazon to repair its defenses.
+			GoldenTorizo: An enhanced version of the Torizo Statue but with golden armor plating. While this one lacks the spiritual possession, it is far more dangerous than the lumbering machines the Gizzard tribe possess. Its energy waves are much faster and follow any hostile target. The Golden armor plating gives it extraordinary defenses and an energy shield while jumping. Be careful to avoid it if you don't want a nasty end!
+			# Town NPCs
+			ChozoGhost: A deceased member of the Gizzard tribe of Chozo who has lingering guilt. They are susceptible to phazon and prefer to avoid it.
+			# Metroids
+			Metroid: The newborn stage of a metroid. Larval metroids are capable of growing in size when absorbing living creatures. Try not to let them latch onto you, otherwise you'll lose your life... These creatures are unable to tolerate cold temperatures however. So cool them down and smash them!
+			Mochtroid: A failed imitation of a metroid. These experiments were created by the space pirates in an effort to replicate a metroid. Nonetheless, they are still creatures to be wary of. Try not to let them absorb your life energy.
+			#Space Pirates
+			SpacePirate: A race of creatures which were the product of various invasive species including the metroids.
+			# Crawlers
+			Geemer: A small creature that crawls on walls. If you are a victim to this creature, you need to consider getting a different career.
+			Owtch: A spiky hard shell creature that is famous for its namesake uses its shell as a defensive mechanism.
+			Scisor: A crab-like creature that crawls on walls like a geemer.
+			Sova: A geemer that's on fire. Nothing much to say about it other than avoid the fire it trails.
+			Viola: A moving orb with a strange face... Glows in the dark and is useful for light sources.
+			Multiviola: A fiery Viola.
+			Zeela: A crab like creature with giant eyes. It's usually found in the jungle.
+			Zero: A strange larva that's very bulky.
+			# Bugs
+			Beetom: An absolutely foul creature that latches onto its victims and absorbs their energy. But they aren't capable of taking too many hits.
+			Cacatac: A hostile cactus like creature that shoots spikes when attacked.
+			Kago: A small creature that tends to latch onto victims in swarms when it's hive is attacked.
+			KagoHive: A hive that the Kago live in, its inhabitants attack when the hive is endangered.
+			Zeb: A flying horned beetle-like bug. They're quite plentiful and tend to appear whenever anything gets near the air pockets they inhabit.
+			Zebbo: A flying bug. They're quite plentiful and tend to appear whenever anything gets near the air pockets they inhabit.
+			# Hoppers
+			Sidehopper: A creature capable of bouncing on walls. Rather unremarkable but fast at doing so. These creatures seem to be genetically similar to the Dessgeega. They are able to come in various sizes.
+			Dessgeega: A creature capable of bouncing on walls. But it is much stronger than the Sidehopper. They are more commonly found in hotter places... As with the Sidehopper, they are able to come in various sizes.
+			# Flyers
+			Choot: A jumping creature that spits acidic saliva on potential meals. Useful as platforms when frozen.
+			Geruta: An organism capable of flying up to ceilings or floors when crossing its path. Nothing more than a nuisance.
+			Skree: A predator that attacks potential victims and explodes.
+			Metaree: A Skree. But metal. Still dangerous.
+			Reo: A bug like creature that flies up and down. It's merely an annoyance.
+			Waver: A floating creature that attacks any victim by flying into them. Unlike the Skree, they do not self-destruct.
+			# Utility
+			Ripper: A flying creature that can be useful as a grappling point and a stepstool when frozen.
+			Powamp: An aquatic balloon-like creature that's useful as a grappling point.
+			Squeept: A useful step stool when frozen. Found in burning hot places.
+			Tripper: A useful moving platform, mind your weight when riding.
+			# Aquatic
+			Evir: The spawn of a large creature that likes to trap its prey by getting it stuck to itself.
+			Skultera: An aquatic fish that moves out and about passively.
+			Zoa: An aquatic fish that is rather small.
+			# Other
+			Bull: Despite the name, this has nothing to do with the mammal. It releases poisonous gas to kill nearby victims. But it's usually stationary.
+			Puyo: A creature that's much like a slime but stretches itself to move rather than jump.
 		}
 
 		Projectiles: {

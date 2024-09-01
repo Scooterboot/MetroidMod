@@ -60,7 +60,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-				new FlavorTextBestiaryInfoElement("A geemer that's on fire. Nothing much to say about it other than avoid the fire it trails.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Sova")
 			});
 		}
 		private void SetStats()

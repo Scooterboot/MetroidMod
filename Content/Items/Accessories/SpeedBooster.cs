@@ -3,6 +3,7 @@ using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -31,6 +32,7 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.value = 40000;
 			Item.rare = ItemRarityID.Pink;
 			Item.accessory = true;
+			
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;

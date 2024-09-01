@@ -42,7 +42,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Aquatic
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("The spawn of a large creature that likes to trap its prey by getting it stuck to itself.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Evir")
 			});
 		}
 

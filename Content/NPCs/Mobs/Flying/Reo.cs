@@ -42,7 +42,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A bug like creature that flies up and down. It's merely an annoyance.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Reo")
 			});
 		}
 

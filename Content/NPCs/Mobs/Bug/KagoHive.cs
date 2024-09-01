@@ -35,7 +35,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A hive that the Kago live in, its inhabitants attack when the hive is endangered.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.KagoHive")
 			});
 		}
 		public override bool PreAI()

@@ -54,7 +54,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-				new FlavorTextBestiaryInfoElement("A fiery Viola.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Multiviola")
 			});
 		}
 

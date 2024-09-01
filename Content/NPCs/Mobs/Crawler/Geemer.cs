@@ -66,7 +66,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
-				new FlavorTextBestiaryInfoElement("A small creature that crawls on walls. If you are a victim to this creature, you need to consider getting a different career.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Geemer")
 				
 			});
 		}

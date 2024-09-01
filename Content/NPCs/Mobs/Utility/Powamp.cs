@@ -40,7 +40,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("An aquatic balloon-like creature that's useful as a grappling point.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Powamp")
 			});
 		}
 

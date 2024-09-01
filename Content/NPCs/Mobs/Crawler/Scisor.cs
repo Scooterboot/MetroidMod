@@ -53,7 +53,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
-				new FlavorTextBestiaryInfoElement("A crab-like creature that crawls on walls like a geemer.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Scisor")
 			});
 		}
 		public override bool PreAI()

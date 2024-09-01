@@ -40,7 +40,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A jumping creature that spits acidic saliva on potential meals. Useful as platforms when frozen.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Choot")
 			});
 		}
 

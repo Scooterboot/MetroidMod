@@ -1,12 +1,19 @@
 using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
 	public class ReserveTank : RTankAccessory
 	{
+		//All the important numbers changes need to be up here so the dynamic localization thing can access them.
+		//They're written as the percent changes so it's easier for the thing to read them
+		//On the plus side it'll make changing stats easier!   -Z
+		public static int tankCount = 1; //amount of reserve heart tanks provided
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(tankCount);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Life Reserve Tank");
@@ -34,7 +41,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.reserveTanks = 1;
+			mp.reserveTanks = tankCount;
 		}
 		public override void AddRecipes()
 		{
@@ -45,6 +52,9 @@ namespace MetroidMod.Content.Items.Accessories
 	}
 	public class ReserveTank2 : RTankAccessory
 	{
+		public static int tankCount = 2; //amount of reserve heart tanks provided
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(tankCount);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Life Reserve Tank MK2");
@@ -70,7 +80,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.reserveTanks = 2;
+			mp.reserveTanks = tankCount;
 		}
 		public override void AddRecipes()
 		{
@@ -89,6 +99,9 @@ namespace MetroidMod.Content.Items.Accessories
 	}
 	public class ReserveTank3 : RTankAccessory
 	{
+		public static int tankCount = 3; //amount of reserve heart tanks provided
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(tankCount);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Life Reserve Tank MK3");
@@ -114,7 +127,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.reserveTanks = 3;
+			mp.reserveTanks = tankCount;
 		}
 		public override void AddRecipes()
 		{
@@ -137,6 +150,9 @@ namespace MetroidMod.Content.Items.Accessories
 	}
 	public class ReserveTank4 : RTankAccessory
 	{
+		public static int tankCount = 4; //amount of reserve heart tanks provided
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(tankCount);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Life Reserve Tank MK4");
@@ -162,7 +178,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.reserveTanks = 4;
+			mp.reserveTanks = tankCount;
 		}
 		public override void AddRecipes()
 		{
@@ -183,6 +199,9 @@ namespace MetroidMod.Content.Items.Accessories
 	}
 	public class ReserveTank5 : RTankAccessory
 	{
+		public static int tankCount = 4; //amount of reserve heart tanks provided
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(tankCount);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Life Reserve Tank MK5");
@@ -209,7 +228,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.reserveTanks = 4;
+			mp.reserveTanks = tankCount;
 			mp.reserveHeartsValue = 25;
 		}
 		public override void AddRecipes()

@@ -35,7 +35,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A flying horned beetle-like bug. They're quite plentiful and tend to appear whenever anything gets near the air pockets they inhabit.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Zeb")
 			});
 		}
 

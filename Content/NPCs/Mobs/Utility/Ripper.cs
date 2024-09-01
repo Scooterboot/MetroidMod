@@ -40,7 +40,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A flying creature that can be useful as a grappling point and a stepstool when frozen.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Ripper")
 			});
 		}
 

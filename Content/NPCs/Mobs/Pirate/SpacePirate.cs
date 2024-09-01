@@ -45,7 +45,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("A race of creatures which were the product of various invasive species including the metroids.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.SpacePirate")
 			});
 		}
 

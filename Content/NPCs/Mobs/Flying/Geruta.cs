@@ -40,7 +40,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement("An organism capable of flying up to ceilings or floors when crossing its path. Nothing more than a nuisance.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Geruta")
 			});
 		}
 

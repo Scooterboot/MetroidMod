@@ -52,7 +52,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundJungle,
-				new FlavorTextBestiaryInfoElement("A strange larva that's very bulky.")
+				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Zero")
 			});
 		}
 
