@@ -32,6 +32,9 @@ namespace MetroidMod.Common.Players
 
 		public static float maxHyper = 100.0f;
 		public float hyperCharge = 0.0f;
+		/// <summary>
+		/// The player's maximum Overheat capacity.
+		/// </summary>
 		public float maxOverheat = 100f;
 		public float statOverheat = 0f;
 		public float overheatCost = 1f;
@@ -42,9 +45,18 @@ namespace MetroidMod.Common.Players
 		public float statParalyzerCharge = 0f;
 		public float UACost = 1f;
 
+		/// <summary>
+		/// Determines whether or not the player can activate a Hypermode.
+		/// </summary>
 		public bool canHyper = false;
 		public bool PrimeHunter = false;
+		/// <summary>
+		/// Determines whether or not the player can access Sense Move.
+		/// </summary>
 		public bool senseMove = false;
+		/// <summary>
+		/// Determines whether or not the player has Sense Move enabled through the UI.
+		/// </summary>
 		public bool senseMoveEnabled = true;
 		public int SMoveEffect = 0;
 		private bool senseSound = false;
@@ -144,7 +156,6 @@ namespace MetroidMod.Common.Players
 			canWallJump = true;
 			powerGrip = true;
 			phazonImmune = true;
-			accessPhazonBeam = true;
 			screwAttack = true;
 			hiJumpBoost = true;
 			spaceJump = true;

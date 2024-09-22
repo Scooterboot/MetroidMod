@@ -3,6 +3,7 @@ using MetroidMod.Common.Players;
 using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -25,6 +26,23 @@ namespace MetroidMod.Content.SuitAddons
 		public override bool CanGenerateOnChozoStatue() => NPC.downedBoss2;//Main.UnderworldLayer;
 
 		public override double GenerationChance() => 4;//20;
+
+		//This is where all of the suit addon's stats are stored.
+		//They're outside a method so it can be directly accessed by the localization.
+		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.
+		public static int suitDef = 6; //Added suit defense
+		public static int energyCap = 2; //Added E-tank capacity
+		public static float energyEff = 10f; //%Increased energy damage absorption
+		public static float energyRes = 20f; //%Increased energy DR
+		public static int overheatCap = 15; //Added maximum overheat
+		public static float overheatCost = 10f; //%Decreased overheat cost
+		public static float comboCost = 5f; //%Decreased Charge Combo cost
+		public static float huntDamage = 5f; //%Increased hunter damage
+		public static int huntCrit = 5; //Increased hunter crit
+		public static float speedUp = 10f; //%Increased movement speed
+		public static float extraBreath = 55f; //%Increased breath meter
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap,  overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
 
 		public override void SetStaticDefaults()
 		{
@@ -53,23 +71,23 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.statDefense += 6;
+			player.statDefense += suitDef;
 			player.nightVision = true;
 			player.fireWalk = true;
 			player.lavaRose = true;
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
-			player.moveSpeed += 0.10f;
+			player.moveSpeed += speedUp / 100;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
-			HunterDamagePlayer.ModPlayer(player).HunterCrit += 5;
-			mp.tankCapacity += 2;
-			mp.maxOverheat += 15;
-			mp.overheatCost -= 0.10f;
-			mp.missileCost -= 0.05f;
-			mp.breathMult = 1.55f;
-			mp.EnergyDefenseEfficiency += 0.1f;
-			mp.EnergyExpenseEfficiency += 0.2f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
+			mp.tankCapacity += energyCap;
+			mp.maxOverheat += overheatCap;
+			mp.overheatCost -= overheatCost / 100;
+			mp.missileCost -= comboCost / 100;
+			mp.breathMult = 1f + (extraBreath / 100);
+			mp.EnergyDefenseEfficiency += energyEff / 100;
+			mp.EnergyExpenseEfficiency += energyRes / 100;
 			mp.UACost -= 0.05f;
 		}
 		public override void AddRecipes()

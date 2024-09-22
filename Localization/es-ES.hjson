@@ -15,10 +15,12 @@ Mods: {
 			// PercentIncreasedHunterCrit: "{0}% increased hunter critical strike chance"
 			// PercentDecreasedComboCost: "{0}% decreased Missile Charge Combo cost"
 			// IncreasedOverheatMax: Increases maximum overheat capacity by {0}
-			// PercentDecreasedOverheatCost: "{0}% decreased overheat usage"
+			// PercentDecreasedOverheatCost: "{0}% decreased overheat and UA usage"
 			// PercentIncreasedOverheatCost: +{0}% overheat
 			// PercentIncreasedUAUse: +{0}% UA usage
 			// IncreasedTankCapacity: Increases maximum Energy Tank capacity by {0}
+			// IncreasedSuitDefense: +{0} defense
+			// IncreasedBreathMeter: Breath meter is {0}% longer
 			// PercentIncreasedEnergyEfficiency: "{0}% increased energy efficiency"
 			// PercentIncreasedEnergyResilience: "{0}% increased energy resilience"
 			/* TotalStoredReserveHearts:
@@ -27,6 +29,26 @@ Mods: {
 				Automatically uses stored hearts to save you from death
 				''' */
 			// SomersaultEnabled: Allows somersaulting
+			/* IsSuitAddon:
+				'''
+				Power Suit Addon
+				Slot: 
+				''' */
+			/* IsBeamAddon:
+				'''
+				Power Beam Addon
+				Slot: 
+				''' */
+			/* IsMissileAddon:
+				'''
+				Missile Launcher Addon
+				Slot: 
+				''' */
+			/* IsMorphAddon:
+				'''
+				Morph Ball Addon
+				Slot: 
+				''' */
 			// HyperBeamEnabled: Enables the use of Hyper Beam
 			// PhazonBeamEnabled: Enables the use of Phazon Beam
 		}
@@ -946,8 +968,17 @@ Mods: {
 				// DisplayName: Power Suit Breastplate
 				/* Tooltip:
 					'''
-					+15 overheat capacity
-					10% decreased overheat use
+					{$CommonItemTooltip.IncreasedOverheatMax}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@1}
+					''' */
+				/* SetBonus:
+					'''
+					An Energy barrier will absorb some incoming damage while powered
+					Collect Energy pickups to refill lost Energy and Energy Tanks to increase your maximum capacity
+					Allows the ability to Sense Move
+					Double tap a direction (when enabled)
+					Enables use of Suit Addons to improve the suit's capabilities
+					Right click the Sense Move button to access Addon Menu
 					''' */
 			}
 
@@ -964,7 +995,7 @@ Mods: {
 				// DisplayName: Power Suit Helmet
 				/* Tooltip:
 					'''
-					10% increased hunter damage
+					{$CommonItemTooltip.PercentIncreasedHunterDamage}
 					Emits light and grants improved night vision
 					30% increased underwater breathing
 					''' */
@@ -2401,7 +2432,7 @@ Mods: {
 				// DisplayName: Missile Launcher
 				/* Tooltip:
 					'''
-					--BEING PHASED OUT DO NOT USE--
+					[c/BE7878:--BEING PHASED OUT DO NOT USE--]
 					Select this item in your hotbar and open your inventory to open the Missile Addon UI
 					''' */
 			}
@@ -2420,7 +2451,7 @@ Mods: {
 				// DisplayName: Power Beam
 				/* Tooltip:
 					'''
-					--BEING PHASED OUT DO NOT USE--
+					[c/BE7878:--BEING PHASED OUT DO NOT USE--]
 					Select this item in your hotbar and open your inventory to open the Beam Addon UI
 					''' */
 			}
@@ -2621,14 +2652,15 @@ Mods: {
 				/* Tooltip:
 					'''
 					You shouldn't have this.
-					+9 defense
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency
-					7.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
 					Reduces damage from the Dark World
 					Slot: Primary
 					''' */
@@ -2643,20 +2675,21 @@ Mods: {
 				// DisplayName: Gravity Suit
 				/* Tooltip:
 					'''
-					+9 defense
-					+15 overheat capacity
-					+2 energy tank capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					3% increased hunter critical strike chance
-					15% increased energy barrier efficiency
-					7.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
 					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
-					Slot: Primary
 					''' */
 			}
 
@@ -2664,17 +2697,20 @@ Mods: {
 				// DisplayName: Hazard Shield
 				/* Tooltip:
 					'''
-					+10 defense
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
-					10% increased movement speed
-					25% increased energy barrier efficiency
-					10% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Barrier
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@8}
+					{$CommonItemTooltip.IncreasedBreathMeter@9}
+					Immunity to fire blocks
+					Immunity to chill and freeze effects
 					Debuffs tick down twice as fast
-					Slot: Barrier
 					''' */
 			}
 
@@ -2692,18 +2728,17 @@ Mods: {
 				/* Tooltip:
 					'''
 					You shouldn't have this.
-					+19 defense
-					+30 overheat capacity
-					10% decreased overheat use
-					10% decreased Missile Charge Combo cost
-					10% increased hunter damage
-					8% increased hunter critical strike chance
-					10% increased movement speed
-					40% increased energy barrier efficiency
-					17.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
-					Slot: Primary
 					''' */
 			}
 
@@ -2711,23 +2746,23 @@ Mods: {
 				// DisplayName: Nebula Augment
 				/* Tooltip:
 					'''
-					+29 defense
-					+55 overheat capacity
-					+6 energy tank capacity
-					15% decreased overheat use
-					15% decreased Missile Charge Combo cost
-					15% increased hunter damage
-					13% increased hunter critical strike chance
-					10% increased movement speed
-					60% increased energy barrier efficiency
-					37.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
 					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
 					Immune to damage caused by blue Phazon blocks
 					Enables Phazon Beam use
-					Slot: Primary
 					''' */
 			}
 
@@ -2736,17 +2771,18 @@ Mods: {
 				/* Tooltip:
 					'''
 					You shouldn't have this.
-					+9 defense
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					3% increased hunter critical strike chance
-					5% increased energy barrier efficiency
-					7.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					Enables the use of Hypermode
 					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
 					Slightly increased health regen when standing on Phazon
-					Slot: Primary
 					''' */
 			}
 
@@ -2754,23 +2790,23 @@ Mods: {
 				// DisplayName: Phazon Suit
 				/* Tooltip:
 					'''
-					+19 defense
-					+30 overheat capacity
-					+4 energy tank capacity
-					10% decreased overheat use
-					10% decreased Missile Charge Combo cost
-					10% increased hunter damage
-					8% increased hunter critical strike chance
-					10% increased movement speed
-					30% increased energy barrier efficiency
-					17.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
 					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
 					Immune to damage caused by blue Phazon blocks
 					Enables Phazon Beam use
-					Slot: Primary
 					''' */
 			}
 
@@ -2815,17 +2851,17 @@ Mods: {
 				/* Tooltip:
 					'''
 					You shouldn't have this.
-					+10 defense
-					+25 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
-					20% increased energy barrier efficiency
-					15% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
-					Slot: Primary
 					''' */
 			}
 
@@ -2867,16 +2903,17 @@ Mods: {
 				// DisplayName: True Gravity Suit
 				/* Tooltip:
 					'''
-					+19 defense
-					+30 overheat capacity
-					+4 energy tank capacity
-					10% decreased overheat use
-					10% decreased Missile Charge Combo cost
-					10% increased hunter damage
-					8% increased hunter critical strike chance
-					10% increased movement speed
-					30% increased energy barrier efficiency
-					17.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
 					Immune to knockback
 					Free movement in liquid
@@ -2884,7 +2921,6 @@ Mods: {
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
 					Enables Hyper Beam use
-					Slot: Primary
 					''' */
 			}
 
@@ -2892,21 +2928,21 @@ Mods: {
 				// DisplayName: Varia Suit
 				/* Tooltip:
 					'''
-					+6 defense
-					+2 energy tank capacity
-					+15 overheat capacity
-					5% decreased overheat use
-					5% decreased Missile Charge Combo cost
-					5% increased hunter damage
-					5% increased hunter critical strike chance
-					55% increased underwater breathing
-					10% increased movement speed
-					10% increased energy barrier efficiency
-					20% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Barrier
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					{$CommonItemTooltip.IncreasedBreathMeter@10}
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
-					Slot: Barrier
 					''' */
 			}
 
@@ -2914,22 +2950,23 @@ Mods: {
 				// DisplayName: True Varia Suit
 				/* Tooltip:
 					'''
-					+15 defense
-					+30 overheat capacity
-					+4 energy tank capacity
-					15% decreased overheat use
-					10% decreased Missile Charge Combo cost
-					10% increased hunter damage
-					7% increased hunter critical strike chance
-					80% increased underwater breathing
-					10% increased movement speed
-					20% increased energy barrier efficiency
-					37.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Barrier
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					{$CommonItemTooltip.IncreasedBreathMeter@10}
 					Immunity to fire blocks
 					Immunity to chill and freeze effects
 					Reduced damage from touching lava
 					Enables the use of the Prime Hunter ability
-					Slot: Barrier
+					Hold the Hypermode keybind to activate
 					''' */
 			}
 
@@ -2937,16 +2974,17 @@ Mods: {
 				// DisplayName: Vortex Augment
 				/* Tooltip:
 					'''
-					+29 defense
-					+55 overheat capacity
-					+6 energy tank capacity
-					15% decreased overheat use
-					15% decreased Missile Charge Combo cost
-					15% increased hunter damage
-					13% increased hunter critical strike chance
-					10% increased movement speed
-					60% increased energy barrier efficiency
-					37.5% increased energy barrier resilience
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
 					Immune to knockback
 					Free movement in liquids including shimmer
@@ -2955,8 +2993,7 @@ Mods: {
 					Grants 14 seconds of lava immunity
 					Default gravity in space
 					Immune to Distorted and Amplified Gravity effects
-					Enables Hyper Beam use
-					Slot: Primary
+					{$CommonItemTooltip.HyperBeamEnabled}
 					''' */
 			}
 
