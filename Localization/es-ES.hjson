@@ -15,7 +15,7 @@ Mods: {
 			// PercentIncreasedHunterCrit: "{0}% increased hunter critical strike chance"
 			// PercentDecreasedComboCost: "{0}% decreased Missile Charge Combo cost"
 			// IncreasedOverheatMax: Increases maximum overheat capacity by {0}
-			// PercentDecreasedOverheatCost: "{0}% decreased overheat usage"
+			// PercentDecreasedOverheatCost: "{0}% decreased overheat and UA usage"
 			// PercentIncreasedOverheatCost: +{0}% overheat
 			// PercentIncreasedUAUse: +{0}% UA usage
 			// IncreasedTankCapacity: Increases maximum Energy Tank capacity by {0}

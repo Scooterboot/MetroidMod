@@ -83,7 +83,7 @@ namespace MetroidMod.Content.Items.Accessories
 	[AutoloadEquip(EquipType.Shoes)]
 	public class TerraBoosterV2 : ModItem
 	{
-		public override string Texture => $"{Mod.Name}/Content/Items/Accessories/TerraBooster";
+		public override string Texture => $"{Mod.Name}/Content/Items/Accessories/TerraBoosterV2";
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 1;
