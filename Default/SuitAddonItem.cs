@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Default
@@ -13,6 +14,8 @@ namespace MetroidMod.Default
 		public override string Texture => modSuitAddon.ItemTexture;
 
 		public override string Name => modSuitAddon.Name + "Addon";
+
+		public override LocalizedText Tooltip => modSuitAddon.Tooltip ?? base.Tooltip;
 
 		public SuitAddonItem(ModSuitAddon modSuitAddon)
 		{

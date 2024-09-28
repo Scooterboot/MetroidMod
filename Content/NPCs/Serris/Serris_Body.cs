@@ -29,7 +29,7 @@ namespace MetroidMod.Content.NPCs.Serris
 			// DisplayName.SetDefault("Serris");
 			Main.npcFrameCount[NPC.type] = 10;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
 			{
 				Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
 			};

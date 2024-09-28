@@ -18,6 +18,9 @@ namespace MetroidMod.Common.Players
 	}
 	public partial class MPlayer : ModPlayer
 	{
+		/// <summary>
+		/// Determines if the player has access to the Suit Addon UI.
+		/// </summary>
 		public bool ShouldShowArmorUI = false;
 		public bool IsPowerSuitHelmet = false;
 		public bool ShouldDrawHelmet = false;

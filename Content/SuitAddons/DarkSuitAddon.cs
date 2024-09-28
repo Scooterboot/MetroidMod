@@ -3,6 +3,7 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -23,6 +24,20 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/DarkSuit/DarkSuitGreaves_Legs";
 
 		public override bool AddOnlyAddonItem => false;
+
+		//This is where all of the suit addon's stats are stored.
+		//They're outside a method so it can be directly accessed by the localization.
+		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.
+		public static int suitDef = 9; //Added suit defense
+		public static float energyEff = 15f; //%Increased energy damage absorption
+		public static float energyRes = 7.5f; //%Increased energy DR
+		public static int overheatCap = 15; //Added maximum overheat
+		public static float overheatCost = 5f; //%Decreased overheat cost
+		public static float comboCost = 5f; //%Decreased Charge Combo cost
+		public static float huntDamage = 5f; //%Increased hunter damage
+		public static int huntCrit = 3; //Increased hunter crit
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit);
 
 		public override void SetStaticDefaults()
 		{
@@ -48,15 +63,15 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.statDefense += 9;
+			player.statDefense += suitDef;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
-			HunterDamagePlayer.ModPlayer(player).HunterCrit += 3;
-			mp.maxOverheat += 15;
-			mp.overheatCost -= 0.05f;
-			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.15f;
-			mp.EnergyExpenseEfficiency += 0.075f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
+			mp.maxOverheat += overheatCap;
+			mp.overheatCost -= overheatCost / 100;
+			mp.missileCost -= comboCost / 100;
+			mp.EnergyDefenseEfficiency += energyEff / 100;
+			mp.EnergyExpenseEfficiency += energyRes / 100;
 			// code to reduce damage from Dark World goes here: without the Dark Suit, the player takes 10 damage per second; with the Dark Suit, the player takes 1 damage per second
 		}
 		public override void OnUpdateVanitySet(Player player)

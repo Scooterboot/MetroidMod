@@ -3,6 +3,7 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -25,6 +26,22 @@ namespace MetroidMod.Content.SuitAddons
 		public override bool CanGenerateOnChozoStatue() => false;//WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues;
 
 		public override double GenerationChance() => 4;
+
+		//This is where all of the suit addon's stats are stored.
+		//They're outside a method so it can be directly accessed by the localization.
+		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.
+		public static int suitDef = 10; //Added suit defense
+		//public static int energyCap = 1; //Added E-tank capacity, add between the above and below on the tooltip method
+		public static float energyEff = 60f; //%Increased energy damage absorption
+		public static float energyRes = 32.5f; //%Increased energy DR
+		public static int overheatCap = 25; //Added maximum overheat
+		public static float overheatCost = 5f; //%Decreased overheat cost
+		public static float comboCost = 5f; //%Decreased Charge Combo cost
+		public static float huntDamage = 5f; //%Increased hunter damage
+		public static int huntCrit = 5; //Increased hunter crit
+		//public static float speedUp = 10f; //%Increased movement speed
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit);
 
 		public override void SetStaticDefaults()
 		{
@@ -52,15 +69,15 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.statDefense += 10;
+			player.statDefense += suitDef;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.05f;
-			HunterDamagePlayer.ModPlayer(player).HunterCrit += 5;
-			mp.maxOverheat += 25;
-			mp.overheatCost -= 0.05f;
-			mp.missileCost -= 0.05f;
-			mp.EnergyDefenseEfficiency += 0.60f;
-			mp.EnergyExpenseEfficiency += 0.325f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
+			mp.maxOverheat += overheatCap;
+			mp.overheatCost -= overheatCost / 100;
+			mp.missileCost -= comboCost / 100;
+			mp.EnergyDefenseEfficiency += energyEff / 100;
+			mp.EnergyExpenseEfficiency += energyRes / 100;
 		}
 		public override void OnUpdateVanitySet(Player player)
 		{

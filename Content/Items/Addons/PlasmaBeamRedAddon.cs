@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Items.Addons
 				string.Format("[c/78BE78:+100% damage]\n") +
 				string.Format("[c/BE7878:+75% overheat use]\n") +
 				string.Format("[c/BE7878:-15% speed]")); */
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PlasmaBeamGreenAddon>();
+			//ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PlasmaBeamGreenAddon>(); //Leftover from when it was an alt
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()

@@ -3,6 +3,7 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -32,6 +33,23 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override double GenerationChance() => 20;
 
+		//This is where all of the suit addon's stats are stored.
+		//They're outside a method so it can be directly accessed by the localization.
+		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.
+		public static int suitDef = 25; //Added suit defense
+		//public static int energyCap = 4; //Added E-tank capacity, add between the above and below on the tooltip method
+		public static float energyEff = 45f; //%Increased energy damage absorption
+		public static float energyRes = 47.5f; //%Increased energy DR
+		public static int overheatCap = 45; //Added maximum overheat
+		public static float overheatCost = 20f; //%Decreased overheat cost
+		public static float comboCost = 15f; //%Decreased Charge Combo cost
+		public static float huntDamage = 15f; //%Increased hunter damage
+		public static int huntCrit = 12; //Increased hunter crit
+		public static float speedUp = 20f; //%Increased movement speed
+		public static float extraBreath = 80f; //%Increased breath meter
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Hazard Shield");
@@ -60,23 +78,24 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			player.statDefense += 25;
+			player.statDefense += suitDef;
 			player.nightVision = true;
 			player.fireWalk = true;
 			player.buffImmune[BuffID.OnFire] = true;
 			player.buffImmune[BuffID.Burning] = true;
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
-			player.moveSpeed += 0.20f;
+			player.moveSpeed += speedUp / 100;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += 0.15f;
-			HunterDamagePlayer.ModPlayer(player).HunterCrit += 12;
-			mp.maxOverheat += 45;
-			mp.overheatCost -= 0.2f;
-			mp.missileCost -= 0.15f;
-			mp.breathMult = 1.8f;
-			mp.EnergyDefenseEfficiency += 0.45f;
-			mp.EnergyExpenseEfficiency += 0.475f;
+			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
+			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
+			mp.maxOverheat += overheatCap;
+			mp.overheatCost -= overheatCost / 100;
+			mp.missileCost -= comboCost / 100;
+			mp.breathMult = 1f + (extraBreath / 100);
+			//mp.tankCapacity += 0;
+			mp.EnergyDefenseEfficiency += energyEff / 100;
+			mp.EnergyExpenseEfficiency += energyRes / 100;
 			mp.hazardShield += 1;
 		}
 		public override void OnUpdateVanitySet(Player player)

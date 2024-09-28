@@ -58,5 +58,22 @@ namespace MetroidMod.Content.Items.Accessories
 			mp.speedBooster = true;
 			mp.speedBoostDmg = Math.Max(player.GetWeaponDamage(Item), mp.speedBoostDmg);
 		}
+
+		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
+		{
+			return
+				(incomingItem.type != ItemID.HermesBoots)     ||
+				(incomingItem.type != ItemID.FlurryBoots)     ||
+				(incomingItem.type != ItemID.SailfishBoots)   ||
+				(incomingItem.type != ItemID.SandBoots)       ||
+				(incomingItem.type != ItemID.SpectreBoots)    ||
+				(incomingItem.type != ItemID.FairyBoots)      ||
+				(incomingItem.type != ItemID.AmphibianBoots)  ||
+				(incomingItem.type != ItemID.HellfireTreads)  ||
+				(incomingItem.type != ItemID.LightningBoots)  ||
+				(incomingItem.type != ItemID.FrostsparkBoots) ||
+				(incomingItem.type != ItemID.TerrasparkBoots);
+
+		}
 	}
 }
