@@ -2668,10 +2668,11 @@ Mods: {
 
 			EnergyTankAddon: {
 				DisplayName: Energy Tank
-				Tooltip: '''
-						 {$CommonItemTooltip.IsSuitAddon}Energy
-						 Grants the user an extra tank of energy, stacks up to 14
-						 '''
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Energy
+					Grants the user an extra tank of energy, stacks up to 14
+					'''
 			}
 
 			GravitySuitAddonAddon: {
@@ -2836,10 +2837,11 @@ Mods: {
 
 			ScanVisorAddon: {
 				DisplayName: Scan Visor
-				Tooltip: '''
-						 {$CommonItemTooltip.IsSuitAddon}Scan
-						 Fills in the Bestiary entries of NPCs you look at
-						 '''
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Scan
+					Fills in the Bestiary entries of NPCs you look at
+					'''
 			}
 
 			ScrewAttackAddon: {

@@ -2668,7 +2668,11 @@ Mods: {
 
 			EnergyTankAddon: {
 				// DisplayName: Energy Tank
-				// Tooltip: Grants the user an extra tank of energy, stacks up to 14
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Energy
+					Grants the user an extra tank of energy, stacks up to 14
+					''' */
 			}
 
 			GravitySuitAddonAddon: {
@@ -2737,6 +2741,7 @@ Mods: {
 					{$CommonItemTooltip.PercentDecreasedComboCost@5}
 					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
 					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@8}
 					Immune to damage from the Dark World
 					Immune to damage from Dark Water
 					''' */
@@ -2823,6 +2828,7 @@ Mods: {
 				// DisplayName: Reserve Tank
 				/* Tooltip:
 					'''
+					{$CommonItemTooltip.IsSuitAddon}Reserve
 					Can store a spare tank of energy
 					Set to "auto" in the suit UI to automatically use when energy is depleted
 					Stacks up to 4
@@ -2831,7 +2837,11 @@ Mods: {
 
 			ScanVisorAddon: {
 				// DisplayName: Scan Visor
-				// Tooltip: Fills in the Bestiary entries of NPCs you look at
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Scan
+					Fills in the Bestiary entries of NPCs you look at
+					''' */
 			}
 
 			ScrewAttackAddon: {
@@ -2999,7 +3009,7 @@ Mods: {
 
 			XRayScopeAddon: {
 				// DisplayName: X Ray Scope
-				// Slot: AltVisor
+				// Slot: Alt
 				// Tooltip: Projects a wide ray of light if you are standing still
 			}
 
