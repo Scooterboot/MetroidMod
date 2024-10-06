@@ -160,6 +160,18 @@ namespace MetroidMod.Common.GlobalItems
 				IItemDropRule DreadGravity = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitHelmet>(), 288));
 				DreadGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitBreastplate>(), 1));
 				DreadGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitGreaves>(), 1));
+				IItemDropRule Fusion = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionSuitHelmet>(), 288));
+				Fusion.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionSuitBreastplate>(), 1));
+				Fusion.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionSuitGreaves>(), 1));
+				IItemDropRule FusionVaria = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionVariaSuitHelmet>(), 288));
+				FusionVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionVariaSuitBreastplate>(), 1));
+				FusionVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionVariaSuitGreaves>(), 1));
+				IItemDropRule FusionGravity = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionGravitySuitHelmet>(), 288));
+				FusionGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionGravitySuitBreastplate>(), 1));
+				FusionGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionGravitySuitGreaves>(), 1));
+				IItemDropRule Omega = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionOmegaSuitHelmet>(), 288));
+				Omega.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionOmegaSuitBreastplate>(), 1));
+				Omega.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionOmegaSuitGreaves>(), 1));
 				IItemDropRule Retro = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitHelmet>(), 288));
 				Retro.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitBreastplate>(), 1));
 				Retro.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitGreaves>(), 1));
