@@ -52,7 +52,7 @@ namespace MetroidMod.Common.Players
 
 		public bool hiJumpBoost = false;
 		/// <summary>
-		/// Determines if you have a double-jump equipped.
+		/// Determines if you have a Metroid Mod double-jump equipped.
 		/// </summary>
 		public bool spaceJumpBoots = false;
 		///<summary>
