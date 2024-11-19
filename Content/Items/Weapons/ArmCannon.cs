@@ -57,9 +57,6 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			set { beamAddons = value; }
 		}
-		/// <summary>
-		/// Used to access the stats of beam addons to modify the Power Beam.
-		/// </summary>
 
 		/// <summary>
 		/// The array in which secondary charge addons are stored.<br/>
@@ -84,9 +81,6 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			set { chargeQuickSwap = value; }
 		}
-		/// <summary>
-		/// Used to access the stats of the quick swap addons to modify the Power Beam.
-		/// </summary>
 
 		//[Missile Launcher addons]
 		/// <summary>
@@ -143,14 +137,13 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <br/><br/><i>(VisualWinners was taken by <see cref="BeamShot"/>)</i>
 		/// </summary>
 		public int[] VisualDinners;
+		/// <summary>
+		/// Keeps track of the slot containing the currently-active holdfire. -1 means no holdfire.
+		/// </summary>
+		public int HoldFireSlot;
 
 		public SoundStyle beamSound = Sounds.Items.Weapons.PowerBeamSound;
 		public SoundStyle missileSound = Sounds.Items.Weapons.MissileSound;
-
-		/// <summary>
-		/// If true, prevent normal shots from being fired.
-		/// </summary>
-		public bool SuppressingFire = false;
 		#endregion
 
 
@@ -192,11 +185,10 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <br/><b>[9]</b> - Added shot count (convert to <b>int</b>)
 		/// </summary>
 		public float[] AdditionalBeamStats = new float[10];
-
 		///<summary>
 		///Contains all of the stats added passively by addons installed in the Primary Quick-Swap.
 		/// </summary>
-		//public int[] AdditionalPrimaryStats = new int[5]
+		//public int[] AdditionalPrimaryStats = new int[5];
 
 		/// <summary>
 		/// The final overheat value, which will be calculated in UpdateInventory.<br/>
@@ -263,8 +255,12 @@ namespace MetroidMod.Content.Items.Weapons
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
 			if (VisualDinners == null)
 			{
-				VisualDinners = new int[2]; //it's a surprise tool that'll help us later
+				VisualDinners = new int[4]; //it's a surprise tool that'll help us later
 				VisualDinners = [-1, -1, 0, 0];
+				HoldFireSlot = -1;
+				//Used to get alternate beam textures.
+				ac.assetModA = "NADA";
+				ac.assetModB = "NADA";
 			}
 			Item.width = 40;
 			Item.height = 20;
@@ -274,6 +270,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.knockBack = 0;
 			Item.value = 6969;
 			Item.rare = ItemRarityID.Green;
+			Item.channel = true;
 			ac.maxMissiles = 5;
 			ac.statMissiles = 5;
 			ac.maxUA = 40;
@@ -365,7 +362,7 @@ namespace MetroidMod.Content.Items.Weapons
 			MPlayer mp = p.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac)) { return; }
 			
-			Item.autoReuse = ac.isBeam;
+			Item.autoReuse = (ac.isBeam && HoldFireSlot == -1);
 			//apply the numbers to the weapon
 			if (ac.isBeam) //apply to power beam
 			{
@@ -400,31 +397,75 @@ namespace MetroidMod.Content.Items.Weapons
 
 			//AdditionalPrimaryStats = BeamAddonLoader.ArrayStatGrabber(primaryQuickSwap); //Gets PQS passives (doesn't exist yet)
 
-			#region Beam Presentation
+
+			//Iterate through the currently-active addons in search of a holdfire suppressor
+			//If none are found, iterate through both the currently-active addons and the array for active holdfires
+
+			#region Misc. Beamstacking
 			//VisualDinners[0] is the winning ShapePriority, VisualDinners[1] is the winning ColorPriority
 			if (VisualDinners[0] != -1) //Make sure there's actually stuff in the array
 			{
+				MetroidMod.Instance.Logger.Info("Holdfire Checking Time");
+				/*if (VisualDinners[2] == 1)
+				{
+
+				}//Check if there's a VIB*/
+				ModBeamAddon currentCheck = null; //gotta assign a value to this sucker or it'll throw a fit later
+				for (int i = 0; i < BeamAddonSlotID.Count - 1 + chargeQuickSwap.Length; ++i)
+				{
+					MetroidMod.Instance.Logger.Info("Holdfire Check Loop " + i);
+					if (i > 4)
+					{
+						currentCheck = BeamAddonLoader.GetAddon(chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
+						MetroidMod.Instance.Logger.Info("We're in the quick-swap with" + chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
+						if (currentCheck != null && currentCheck.HoldFire)
+						{
+							MetroidMod.Instance.Logger.Info("Holdfire found.");
+							HoldFireSlot = i;
+							break;
+						}
+						MetroidMod.Instance.Logger.Info("Nada");
+					}
+					else
+					{
+						currentCheck = BeamAddonLoader.GetAddon(beamAddons[i]);
+						MetroidMod.Instance.Logger.Info("We're in the main array with" + beamAddons[i]);
+						if (currentCheck != null && currentCheck.HoldFire)
+						{
+							MetroidMod.Instance.Logger.Info("Holdfire found.");
+							HoldFireSlot = i;
+							break;
+						}
+						MetroidMod.Instance.Logger.Info("Nada");
+					}
+				}//Get the active holdfire
 				if (VisualDinners[3] != 1) //Make sure SoundOverride is off
 				{
-					if (ModContent.Request<SoundEffect>(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound) == null)
+					if (ModContent.Request<SoundEffect>(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound) != null)
+					{
+						beamSound = new SoundStyle(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound);
+					}
+					else 
 					{
 						//Supposed to prevent crashes from trying to read nonexistent data. Doesn't fuckin work
 						MetroidMod.Instance.Logger.Error("ERROR: No shot sound found. Using backup." +
 														 "\nTIP: The file structure should be [(Mod)/Assets/Sounds/BeamAddons/(AddonFile)/Shot]");
-						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing");
+						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing"); 
 					}
-					else { beamSound = new SoundStyle(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound); }
 				}
 				else //If not, use the colorpriority sound effect
 				{
-					if (ModContent.Request<SoundEffect>(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotSound) == null)
+					if (ModContent.Request<SoundEffect>(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotSound) != null)
+					{
+						beamSound = new SoundStyle(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotSound);
+					}
+					else
 					{
 						//Supposed to prevent crashes from trying to read nonexistent data. Doesn't fuckin work
 						MetroidMod.Instance.Logger.Error("ERROR: No shot sound found. Using backup." +
 														 "\nTIP: The file structure should be [(Mod)/Assets/Sounds/BeamAddons/(AddonFile)/Shot]");
 						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing");
 					}
-					else { beamSound = new SoundStyle(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotSound); }
 				}
 			}
 			else
@@ -439,6 +480,8 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				missileSound = Sounds.Items.Weapons.MissileSound;
 			}
+
+			//Get customfire routines here
 			#endregion
 
 			#region Missile Launcher stat calculation
@@ -452,11 +495,30 @@ namespace MetroidMod.Content.Items.Weapons
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
 			ac.showChargeBar = true; //lets the charge UI show up
 			ac.showOnHand = true;
+
 			if (MSystem.ACSwitch.JustPressed)
 			{
 				ac.isBeam = !ac.isBeam;
 				SoundEngine.PlaySound(new SoundStyle("MetroidMod/Assets/Sounds/ArmCannon/WeaponSwitch"));
-			}
+			} //Swap between beam and missiles when the keybind is pressed
+
+			//the charge beam will have to bring a method in here in order for charging to work
+			//why did I want two to be active at once again???
+			//may have been a relic from when holdfire meant customfire
+			//or maybe it's just me trying to make sure TTNE fire beam is possible again idfk
+			//whatever, fire beam is kinda lame anyway, flamethrower is literally just it but better
+			//...it still would be kinda cool though
+			/*if (CanUseItem(player) && (HoldFireSlot != -1))
+			{
+				if (HoldFireSlot > BeamAddonSlotID.Count - 1)
+				{
+					BeamAddonLoader.GetAddon(chargeQuickSwap[HoldFireSlot - (BeamAddonSlotID.Count - 1)]).HoldFireBehavior(player, Item);
+				}
+				else
+				{
+					BeamAddonLoader.GetAddon(beamAddons[HoldFireSlot]).HoldFireBehavior(player, Item);
+				}
+			}*/
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -470,40 +532,58 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac.isBeam)
 			{
-				//I'll be honest, not 100% sure where I'm going with this.
-				//I'm gonna narrate my actions ahead of time in the comments to try and get a direction.
-				//Conveniently, this means that the documentation will be incredibly thorough.     -Z
 
-				//Check for the winning VIB here
-				//If found, call its CustomFire
+				if (!ac.SuppressingFire)
+				{
+					for (int i = 0; i < AdditionalBeamStats[9] + 1; i++)
+					{
+						BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
+						beam.VisualWinners = VisualDinners;
+						//The way shot textures are grabbed, explained in detail:
+						//Assets are stored in BeamAddons/BeamAddonName
+						//Basic shots are all named Shot
+						//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
+						//(e.g. a charge shot should be named ShotCharged
+						if (ac.assetModA != "NADA")
+						{
+							beam.fileMod = ac.assetModA;
+						}
+						if (ac.assetModB != "NADA" && beam.fileMod != "NADA")
+						{
+							beam.fileMod += ac.assetModB;
+						}
+						else if (ac.assetModB != "NADA")
+						{
+							beam.fileMod = ac.assetModB;
+						}
 
-				//If there's no winning VIB then start checking for customfires
-				//Port priority: Primary > Spread > Ion > Secondary > Ability?
-				//If none are found in main array check quick swap
-				//If customfire is on but suppresscustomfire is off find another one baybeeeee (the first winner is skipped)
+						beam.beamAddons = BeamAddonAccess
+							.Select(i => BeamAddonLoader.GetAddon(i))
+							.ToArray();
 
-				//After that check for any addons that have customfire false but suppresscustomfire true (killjoy configuration)
-				//I'll be honest I forgot why I wanted this one but I trust past me
-				//If found, cut the fun short and just make the projectile happen
-
-				//If customfire has avoided suppression, it's time to run it
-				//maybe all of this should be in updateinventory instead
-				BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
-				beam.VisualWinners = VisualDinners;
-
-				beam.beamAddons = BeamAddonAccess
-					.Select(i => BeamAddonLoader.GetAddon(i))
-					.ToArray();
-
-				mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
-				mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
+						mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
+						mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
+					}
+				}
 			} //Power Beam firing procedure
 			else { return true; } //Missile Launcher firing procedure
 
 			return false;
 		}
 
-		public void SpawnBeam(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		//If I need to fuck with Shoot in any meaningful way beam shooting can be called over here
+		/// <summary>
+		/// Make good desc later<br/>spawn beam here, has shoot overloads + string for shot texture mod
+		/// </summary>
+		/// <param name="player"></param>
+		/// <param name="source"></param>
+		/// <param name="position"></param>
+		/// <param name="velocity"></param>
+		/// <param name="type"></param>
+		/// <param name="damage"></param>
+		/// <param name="knockback"></param>
+		/// <param name="bonusFileMod"></param>
+		public void SpawnBeam(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
@@ -513,15 +593,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac != null && ac.isBeam)
 			{
-				for (int i = 0; i < AdditionalBeamStats[9] + 1;  i++)
-				{
-					BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
-					beam.VisualWinners = VisualDinners;
-					
-					beam.beamAddons = BeamAddonAccess
-						.Select(i => BeamAddonLoader.GetAddon(i))
-						.ToArray();
-				}
+				
 			}
 		}
 		#endregion
@@ -621,7 +693,6 @@ namespace MetroidMod.Content.Items.Weapons
 			#endregion
 			return clone;
 		}
-
 		public override void OnResearched(bool fullyResearched)
 		{
 			//If the player researches the arm cannon, puke out all the addons
@@ -654,7 +725,6 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			} //charge combo quick swap
 		}
-
 
 		public override void SaveData(TagCompound tag)
 		{
@@ -710,7 +780,6 @@ namespace MetroidMod.Content.Items.Weapons
 				tag.Add("Current Missiles", ac.statMissiles);
 			}
 		}
-
 		public override void LoadData(TagCompound tag)
 		{
 			try
@@ -750,7 +819,6 @@ namespace MetroidMod.Content.Items.Weapons
 			catch { }
 			ArrayUpdate();
 		}
-
 		#endregion
 	}
 }

@@ -27,7 +27,13 @@ namespace MetroidMod.Content.Projectiles
 		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count]; 
 		public float beamScale = 0.75f;
 		public int beamDust = DustID.YellowTorch;
-		public string textureMod;
+		/// <summary>
+		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of beams.
+		/// </summary>
+		public string fileMod = "NADA"; //Castle Crashers reference
+		/// <summary>
+		/// This string is used to change the projectile's display name to match installed addons.
+		/// </summary>
 		public string nameChanger;
 
 		public bool canPhase = false;
@@ -40,9 +46,8 @@ namespace MetroidMod.Content.Projectiles
 		/// </summary>
 		public int EntityInteract = 0;
 		public int ShotNumber = 0;
-		public bool charged = false;
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/BeamAddons/PowerBeam/Shot";
-		Color color = MetroidMod.powColor;
+		Color color = MetroidMod.powColor; //todo: learn shaders        -Z
 		public override void SetDefaults()
 		{
 			Projectile.width = 8;
@@ -59,7 +64,7 @@ namespace MetroidMod.Content.Projectiles
 		//{
 		//	return true;
 		//}
-		public override void AI() //TODO: make a whole-ass thing
+		public override void AI() //TODO: make a whole-ass thing         -Z
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
@@ -116,7 +121,7 @@ namespace MetroidMod.Content.Projectiles
 			ModBeamAddon beamColor = beamAddons[VisualWinners[1]];
 			Texture2D beamTex;
 			MetroidMod.Instance.Logger.Info(" Projectile renderin' time.\nTexture path: " + beamShape.ShotTexture);
-			if (charged) { beamTex = (ModContent.Request<Texture2D>(beamShape.ChargeShotTexture).Value); }
+			if (fileMod != "NADA") { beamTex = (ModContent.Request<Texture2D>(beamShape.ShotTexture + fileMod).Value); }
 			else { beamTex = (ModContent.Request<Texture2D>(beamShape.ShotTexture).Value); }
 			lightColor = beamColor.ShotColor;
 			beamDust = beamColor.ShotDust;

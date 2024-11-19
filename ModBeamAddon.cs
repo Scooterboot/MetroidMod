@@ -7,6 +7,7 @@ using MetroidMod.ID;
 using MetroidMod.Default;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.DataStructures;
 
 //gonna document as much of the code as I can to make it easy to follow
 namespace MetroidMod
@@ -76,19 +77,7 @@ namespace MetroidMod
 		/// </summary>
 		public virtual string ShotSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/Shot";
 		/// <summary>
-		/// The filepath for the addon's charged shot texture.
-		/// </summary>
-		public virtual string ChargeShotTexture => $"{Mod.Name}/Assets/Textures/BeamAddons/{Name}/ChargeShot";
-		/// <summary>
-		/// The amount of animation frames in the charged shot texture.
-		/// </summary>
-		public int ChargeShotFrames { get; } = 1;
-		/// <summary>
-		/// The filepath for the addon's charged shot sound effect.
-		/// </summary> 
-		public virtual string ChargeShotSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/ChargeShot";
-		/// <summary>
-		/// The filepath for the addon's shot/charged shot impact sound effect.
+		/// The filepath for the addon's shot impact sound effect.
 		/// </summary>
 		public virtual string ImpactSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/Impact";
 		/// <summary>
@@ -110,7 +99,7 @@ namespace MetroidMod
 		/// In the case of a tie, graphics are decided by slot priority.<br/>
 		/// Slot shape priority highest to lowest: Secondary(4), Spread(3), Ion(2), Ability(1), Primary(0)
 		/// </summary>
-		public abstract int ShapePriority { get; }
+		public virtual int ShapePriority { get; set; } = 0;
 
 		/// <summary>
 		/// Determines the level of priority of the addon's <b>shot color</b>.<br />
@@ -119,20 +108,20 @@ namespace MetroidMod
 		/// In the case of a tie, color is decided by slot priority.<br />
 		/// Slot color priority highest to lowest: Ability(1), Secondary(4), Ion(2), Spread(3), Primary(0)
 		/// </summary>
-		public abstract int ColorPriority { get; }
+		public virtual int ColorPriority { get; set; } =  0;
 		/// <summary>
 		/// If true, this addon's sounds will be applied to the shot so long as it has color priority.
 		/// </summary>
-		public virtual bool SoundOverride { get; } = false;
+		public virtual bool SoundOverride { get; set; } = false;
 
 		/// <summary>
-		/// If true, addon's visuals <b>completely override the priority system.</b>
+		/// If true, this addon will <b>completely override</b> the visual priority system and custom firing system. <br/>
 		/// Intended for use on Special Beams, like Hyper and Phazon.<br/>
 		/// Checks each addon in sequential order; 1, 2, yadda yadda.<br/>
 		/// Defaults to <b>false.</b><br/>
 		/// <i>(stands for Very Important Beam)</i>
 		/// </summary>
-		public virtual bool VIB { get; } = false;
+		public virtual bool VIB { get; set; } = false;
 		#endregion
 
 		#region Addon stat variables
@@ -202,7 +191,7 @@ namespace MetroidMod
 		/// <summary>
 		/// The buff that this addon will inflict on hit.
 		/// </summary>
-		public virtual BuffID InflictsBuff { get; set; } = null;
+		public virtual int InflictsBuff { get; set; }
 		/// <summary>
 		/// The amount of extra tiles this addon allows the beam to interact with before being destroyed.
 		/// <br/><br/>Example: The amount of tiles the Wave Beam allows the shot to phase through.
@@ -213,21 +202,21 @@ namespace MetroidMod
 		/// </summary>
 		public virtual int NPCInteract { get; set; } = 0;
 		/// <summary>
-		/// If true, this addon will continue to perform its actions for as long as Fire is held.
-		/// <br/>Only mess with this if you know what you're doing.
+		/// If true, this addon will continue to perform an action for as long as Fire is held.
+		/// <br/>For advanced beam shenanigans. Assemble said shenanigans over in HoldFireBehavior().
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool HoldFire { get; set; } = false;
 		/// <summary>
-		/// If true, you cannot use the Charge Beam while this addon is active, regardless of whether or not it's in the array.
-		/// <br/><br/>Defaults to <b>whatever value HoldFire is set to</b>.
+		/// If true, <b>all holdfire behavior</b> is disabled for as long as this beam is installed.
+		/// <br/>Useful if you don't want your addon to be able to be charged. Leave it off if your addon has a holdfire itself.
+		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
-		public virtual bool OverrideCharge => HoldFire;
+		public virtual bool SuppressHoldFire { get; set;} = false;
 		#endregion
 
 
 
-		public bool ItemNameLiteral { get; set; } = true;
 		/// <summary>
 		/// Makes the addon in question only add the item and tile, not the beam properties.<br/>
 		/// Good for... something, I think   -Z
@@ -287,21 +276,49 @@ namespace MetroidMod
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 
+		#region Advanced addon properties
 		/// <summary>
 		/// Allows VIB addons to completely commandeer the shot-firing process.
 		/// <br/><br/>TODO: make this optional
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <returns></returns>
-		public virtual void VIBOverride(Item[] addons) { }
-
-		public virtual void ModifyPreShot(Projectile shot) { }
+		public virtual void VIBOverride(Item[] addons, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) { }
+		/// <summary>
+		/// Lets you make the Arm Cannon do things while Fire is held down.
+		/// </summary>
+		public virtual void HoldFireBehavior(Player player, Item item) { }
+		/// <summary>
+		/// Changes how the projectiles shot are distributed.
+		/// </summary>
+		/// <param name="shot"></param>
 		public virtual void ModifyShotSpread(Projectile shot) { }
+		/// <summary>
+		/// Changes the way projectiles behave with this addon installed.
+		/// </summary>
+		/// <param name="shot"></param>
 		public virtual void ModifyShotAI(Projectile shot) { }
+		/// <summary>
+		/// Changes how projectiles interact with tiles they collide with.
+		/// </summary>
+		/// <param name="shot"></param>
 		public virtual void ModifyShotHitTile(Projectile shot) { }
+		/// <summary>
+		/// Changes how projectiles interact with tiles they hit.
+		/// </summary>
+		/// <param name="shot"></param>
 		public virtual void ModifyShotHitEntity(Projectile shot) { }
+		/// <summary>
+		/// Changes how projectiles interact with players they hit.
+		/// </summary>
+		/// <param name="shot"></param>
 		public virtual void ModifyShotHitPlayer(Projectile shot) { }
+		/// <summary>
+		/// Changes what projectiles do upon destruction.
+		/// </summary>
+		/// <param name="shot"></param>
 		public virtual void ModifyShotKill(Projectile shot) { }
+		#endregion
 
 		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);
 		/// <inheritdoc cref="ModTile.CanKillTile(int, int, ref bool)"/>

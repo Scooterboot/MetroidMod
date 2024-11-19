@@ -66,7 +66,7 @@ namespace MetroidMod
 		public virtual ModBeamAddon RequiredBeam { get; set; }
 		#endregion
 
-		public abstract bool AddOnlyMissileItem { get; }
+		public abstract bool AddOnlyAddonItem { get; }
 
 
 		public override sealed void SetupContent()
@@ -85,7 +85,7 @@ namespace MetroidMod
 		}
 		protected override sealed void Register()
 		{
-			if (!AddOnlyMissileItem)
+			if (!AddOnlyAddonItem)
 			{
 				Type = MissileAddonLoader.AddonCount;
 				if (Type > 127)
@@ -94,7 +94,7 @@ namespace MetroidMod
 				}
 				MissileAddonLoader.addons.Add(this);
 			}
-			Mod.Logger.Info("Register new Missile: " + FullName + ", OnlyMissileItem: " + AddOnlyMissileItem);
+			Mod.Logger.Info("Register new Missile: " + FullName + ", OnlyMissileItem: " + AddOnlyAddonItem);
 		}
 
 		public override void SetStaticDefaults() => base.SetStaticDefaults();

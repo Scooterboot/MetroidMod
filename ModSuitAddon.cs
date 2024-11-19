@@ -85,6 +85,7 @@ namespace MetroidMod
 
 		public int SacrificeTotal { get; set; } = 1;
 
+		//I... don't think this does anything anymore. May consider removing.
 		public bool ItemNameLiteral { get; set; } = true;
 
 		/// <summary>

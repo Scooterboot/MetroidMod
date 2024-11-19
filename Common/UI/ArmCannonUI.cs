@@ -45,6 +45,7 @@ namespace MetroidMod.Common.UI
 		//private AddonSlot[] ChargeSlot;
 		//private AddonSlot[] MissileSlot;
 		//private AddonSlot[] ComboSlot;
+		//private UIPanel QuickSwapPanel;
 
 		public override void OnInitialize()
 		{

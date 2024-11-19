@@ -29,7 +29,9 @@
 	-This entails:
 		* Charge shots
 		* The charge lead
-		* Alternate ways to fire the arm cannon ("CustomFires")
+		* Pseudo-Screw
+		* Functions for holding Fire down ("Holdfires")
+		* Arm Cannon mouse tracking
 		* the Primary quick-swap
 		* array passives (boosts that still apply while in the array)
 		* Multiple CustomFires at once?
@@ -43,7 +45,7 @@
 		* Tile interaction (similar principles can be applied to entity interaction)
 
 -Make Hyper Beam
-	-Why now? Because it entails:
+	-Why so early? Because it entails:
 		* VIB addon behavior
 		* Item VFX
 		* Advanced beam graphical effects
@@ -56,8 +58,10 @@
 			Not used to add or remove beams from the array, simply to swap what's equipped
 
 -Beam special textures (fusion DNA beam)
-	-Method in the beamshot, check shapewinner's specialtexture method against the rest of the array
-	-method returns the new shot and charge shot textures and sounds
+	-Part of VPS, shapewinner is checked for having special textures based on installed addons
+		-TEXTUREMOD. TextureMod strings in addons that all coagulate into a single string that gets appended to the ShotTexture path.
+			-Method inside of shapewinner that checks for other specific addons and appends strings accordingly
+	-Figure out how to do this without a dozen extra booleans
 
 -Beam texture animation
 	-Variable for counting the texture's frames already exists but does not currently get used
@@ -97,11 +101,11 @@
 	-Points in favor of having dedicated projectiles:
 		* Able to copy 80% of charge combo code verbatim
 		* Only one missile slot actually changes the properties of the standard shot
-		* More intuitive, in the sense that missiles are a lot more physical than beams
+		* More intuitive, in the sense that missiles are a lot more physical than beams so it makes sense that missiles would all be different projectiles
 	-Points against having dedicated projectiles:
 		* Makes it much more difficult to create a missile addon
 		* Creates a dissonance between weapon addon systems
-		* The third point in favor of dedicated projectiles is total conjecture
+		* The third point in favor of dedicated projectiles is total conjecture and all-around worthless
 
 -Determine how to port charge combos
 	-See if making beam-related ones require that beam equipped breaks balancing or not
@@ -129,6 +133,9 @@
 -Add automatic texture-grabbing for suit addons
 	-Very easy to implement, but tedious; requires renaming all suitaddon assets to match format
 
+-Fix the SuitAddonAddon thing
+	-Unimportant but it bugs me so I will tackle it Eventually(tm)
+
 -Upgrade DustyDeath to be more like the copy inside of BeamShot
 	-I ended up making the dusty death in the beamshot more complicated as a natural part of development and it only makes sense to bring MProjectile up to the same standard
 
@@ -151,6 +158,7 @@
 -Re-add old beam/missile VFX that died in the port
 	- Dust trails on beams, death dust particles might be too small
 	- Ice Beam's roation effect while it has shapepriority
+		-Could just make the rotation part of 
 
 -Add failsafes for missing beam addon assets
 	-VERY IMPORTANT. Especially since I doubt everyone wants a custom impact SE on their beam, but I also don't want to take away from the automaticness
@@ -167,11 +175,20 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ||=============================||
-||< CATEGORY E: FUTURE PLANS? >||
+||< CATEGORY E: THE AFTERMATH >||
 ||=============================||
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+-Re-implement all the addons
+	-Figure out what the fuck to do with affinity weapons
+
+-Phazon Hyper Beam (ped)
+	-I'd like to make it so it kinda just writes over your currently-equipped beam instead of having to craft it
+		-Hypermode could manually set your cannon's VIB and redirect firing code something something?? this was so much clearer in my head 10 seconds ago
+
+-Create ANOTHER another branch where I can finally try the beam rebalancing out like I wanted to from the start
 
 
 

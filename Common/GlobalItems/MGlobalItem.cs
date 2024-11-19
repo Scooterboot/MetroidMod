@@ -24,9 +24,19 @@ namespace MetroidMod.Common.GlobalItems
 		/// <br/><br/>Defaults to <b>false</b>/
 		/// </summary>
 		public bool showOnHand = false;
+		/// <summary>
+		/// If true, prevent normal shots from being fired.
+		/// </summary>
+		public bool SuppressingFire = false;
 		public float statUA = 40f;
 		public int maxUA = 400;
+		/// <summary>
+		/// The current amount of Missile ammo remaining in the weapon.
+		/// </summary>
 		public int statMissiles = 5;
+		/// <summary>
+		/// The weapon's maximum capacity for Missile ammo.
+		/// </summary>
 		public int maxMissiles = 5;
 
 		public int numSeekerTargets = 0;
@@ -38,7 +48,19 @@ namespace MetroidMod.Common.GlobalItems
 		/// <summary>
 		/// Determines if the Arm Cannon is set to beam mode.
 		/// </summary>
-		public bool isBeam=true;
+		public bool isBeam = true;
+		/// <summary>
+		/// If set to a different value, it is appended to the asset filepath.
+		/// <br/>Added before <see cref="assetModB"/>.
+		/// <br/><br/>Defaults to <b>"NADA"</b>.
+		/// </summary>
+		public string assetModA = "NADA";
+		/// <summary>
+		/// If set to a different value, it is appended to the asset filepath.
+		/// <br/>Added after <see cref="assetModA"/>.
+		/// <br/><br/>Defaults to <b>"NADA"</b>.
+		/// </summary>
+		public string assetModB = "NADA";
 
 		public override bool InstancePerEntity => true;
 		protected override bool CloneNewInstances => true;

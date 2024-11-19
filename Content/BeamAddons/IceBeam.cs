@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MetroidMod.ID;
+using MetroidMod.Content.Buffs;
+using Terraria.ID;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -23,6 +25,13 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			//these values determine how the addon will interact with the dynamic visual system
 			AddonSlot = BeamAddonSlotID.Ability;
+
+			ShapePriority = 1;
+			ColorPriority = 4;
+			SoundOverride = true;
+
+			BaseDamage = -5;
+			InflictsBuff = ModContent.BuffType<IceFreeze>();
 		}
 	}
 }
