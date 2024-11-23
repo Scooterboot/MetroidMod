@@ -30,12 +30,15 @@ namespace MetroidMod.Content.Projectiles
 		/// <summary>
 		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of beams.
 		/// </summary>
-		public string fileMod = "NADA"; //Castle Crashers reference
+		public string fileMod = "";
 		/// <summary>
 		/// This string is used to change the projectile's display name to match installed addons.
 		/// </summary>
 		public string nameChanger;
-
+		/// <summary>
+		/// The number of animation frames the shot has.
+		/// </summary>
+		public int ShotFrames = 1;
 		public bool canPhase = false;
 		/// <summary>
 		/// The amount of tile interactions the shot can perform before dying.
@@ -45,7 +48,17 @@ namespace MetroidMod.Content.Projectiles
 		/// The amount of entity interactions the shot can perform before dying.
 		/// </summary>
 		public int EntityInteract = 0;
-		public int ShotNumber = 0;
+
+		private float frameCounter
+		{
+			get => Projectile.ai[0];
+			set => Projectile.ai[0] = value;
+		}
+		private float shotNumber
+		{
+			get => Projectile.ai[1];
+			set => Projectile.ai[1] = value;
+		}
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/BeamAddons/PowerBeam/Shot";
 		Color color = MetroidMod.powColor; //todo: learn shaders        -Z
 		public override void SetDefaults()
@@ -60,6 +73,11 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
 
 		}
+
+		public override void SetStaticDefaults()
+		{
+			//Main.projFrames[Type] = ShotFrames;
+		}
 		//public override bool PreAI()
 		//{
 		//	return true;
@@ -68,6 +86,12 @@ namespace MetroidMod.Content.Projectiles
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+
+			/*if (Main.projFrames[Type] > 1)
+			{
+
+			}*/
+
 
 			//Put the dustline shit here later
 
@@ -97,9 +121,16 @@ namespace MetroidMod.Content.Projectiles
 			if (VisualWinners[0] != -1)
 			{
 				//TODO: Add an exception-catcher for if there's no asset found, make it default to the normal impact sound          -Z
-				if (VisualWinners[3] == 1)
-				{ SoundStyle sound = new(beamAddons[VisualWinners[1]].ImpactSound); SoundEngine.PlaySound(sound, Projectile.Center); }
-				else { SoundStyle sound = new(beamAddons[VisualWinners[0]].ImpactSound); SoundEngine.PlaySound(sound, Projectile.Center); }
+				if (ModContent.RequestIfExists(beamAddons[VisualWinners[(VisualWinners[3] == 1) ? 1 : 0]].ImpactSound, out Asset<SoundEffect> asset))
+				{
+					SoundStyle sound = new($"{Mod.Name}/" + asset.Name);
+					SoundEngine.PlaySound(sound, Projectile.Center); 
+				}
+				else 
+				{ 
+					SoundStyle sound = new($"{Mod.Name}/Assets/Sounds/ArmCannon/BeamImpactSound");
+					SoundEngine.PlaySound(sound, Projectile.Center); 
+				}
 			}
 		}
 
@@ -120,9 +151,19 @@ namespace MetroidMod.Content.Projectiles
 			ModBeamAddon beamShape = beamAddons[VisualWinners[0]];
 			ModBeamAddon beamColor = beamAddons[VisualWinners[1]];
 			Texture2D beamTex;
-			MetroidMod.Instance.Logger.Info(" Projectile renderin' time.\nTexture path: " + beamShape.ShotTexture);
-			if (fileMod != "NADA") { beamTex = (ModContent.Request<Texture2D>(beamShape.ShotTexture + fileMod).Value); }
-			else { beamTex = (ModContent.Request<Texture2D>(beamShape.ShotTexture).Value); }
+			if (ModContent.RequestIfExists(beamShape.ShotTexture + fileMod, out Asset<Texture2D>modShot))
+			{
+				beamTex = modShot.Value;
+			} //Check if there's an asset for the shot w/ any keywords that may be applied
+			else if (ModContent.RequestIfExists(beamShape.ShotTexture, out Asset<Texture2D> noModShot))
+			{
+				beamTex = noModShot.Value;
+			} //Otherwise check if the asset w/o keywords exists
+			else
+			{
+				//Failsafe file
+				beamTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/BeamAddons/PowerBeam/Shot").Value;
+			} //If it doesn't, bring out the failsafe
 			lightColor = beamColor.ShotColor;
 			beamDust = beamColor.ShotDust;
 			Main.EntitySpriteDraw(beamTex, Projectile.Center - Main.screenPosition, null, beamColor.ShotColor, Projectile.rotation, 

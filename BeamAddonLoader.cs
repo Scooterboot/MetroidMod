@@ -148,7 +148,7 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Starting shape priority check \nValue starts at -1");
 			for (int i = 0; i < addons.Length - 1; i++)
 			{
-				MetroidMod.Instance.Logger.Info("Shape Priority Check - Slot " + i + "\nContains: " + addons[i]);
+				MetroidMod.Instance.Logger.Info("Shape Priority Check - Slot " + i + ", Contains: " + addons[i]);
 				if (addons[i]?.ShapePriority >= highestShapePriority)
 				{
 					MetroidMod.Instance.Logger.Info("Value is workable");

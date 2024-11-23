@@ -287,7 +287,7 @@ namespace MetroidMod
 		/// <summary>
 		/// Lets you make the Arm Cannon do things while Fire is held down.
 		/// </summary>
-		public virtual void HoldFireBehavior(Player player, Item item) { }
+		public virtual void HoldFireBehavior(Player player) { }
 		/// <summary>
 		/// Changes how the projectiles shot are distributed.
 		/// </summary>
@@ -318,6 +318,16 @@ namespace MetroidMod
 		/// </summary>
 		/// <param name="shot"></param>
 		public virtual void ModifyShotKill(Projectile shot) { }
+		/// <summary>
+		/// Allows for a beam addon to take on special properties when used with certain other addons.
+		/// </summary>
+		/// <param name="shot"></param>
+		public virtual void AddonInteraction(Projectile shot, Item[] addons) { }
+		/// <summary>
+		/// Allows me to tweak the frames for charge beam because I didn't think to account for that
+		/// </summary>
+		/// <param name="shot"></param>
+		public virtual void FrameAdjust(Projectile shot, string keyword) { }
 		#endregion
 
 		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);

@@ -259,8 +259,7 @@ namespace MetroidMod.Content.Items.Weapons
 				VisualDinners = [-1, -1, 0, 0];
 				HoldFireSlot = -1;
 				//Used to get alternate beam textures.
-				ac.assetModA = "NADA";
-				ac.assetModB = "NADA";
+				ac.assetModifier = "";
 			}
 			Item.width = 40;
 			Item.height = 20;
@@ -270,7 +269,6 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.knockBack = 0;
 			Item.value = 6969;
 			Item.rare = ItemRarityID.Green;
-			Item.channel = true;
 			ac.maxMissiles = 5;
 			ac.statMissiles = 5;
 			ac.maxUA = 40;
@@ -387,7 +385,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 		}
 		/// <summary>
-		/// Gets all the info from installed addons and applies it to the arm cannon. Done in a separate method to prevent it running every tick.
+		/// Gets all the info from installed addons and applies it to the arm cannon. Done in a separate method to prevent it from running every tick.
 		/// </summary>
 		public void ArrayUpdate()
 		{
@@ -405,7 +403,8 @@ namespace MetroidMod.Content.Items.Weapons
 			//VisualDinners[0] is the winning ShapePriority, VisualDinners[1] is the winning ColorPriority
 			if (VisualDinners[0] != -1) //Make sure there's actually stuff in the array
 			{
-				MetroidMod.Instance.Logger.Info("Holdfire Checking Time");
+				MetroidMod.Instance.Logger.Info("Holdfire Checking Time, resetting HoldFireSlot now");
+				HoldFireSlot = -1;
 				/*if (VisualDinners[2] == 1)
 				{
 
@@ -413,11 +412,10 @@ namespace MetroidMod.Content.Items.Weapons
 				ModBeamAddon currentCheck = null; //gotta assign a value to this sucker or it'll throw a fit later
 				for (int i = 0; i < BeamAddonSlotID.Count - 1 + chargeQuickSwap.Length; ++i)
 				{
-					MetroidMod.Instance.Logger.Info("Holdfire Check Loop " + i);
 					if (i > 4)
 					{
 						currentCheck = BeamAddonLoader.GetAddon(chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
-						MetroidMod.Instance.Logger.Info("We're in the quick-swap with" + chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
+						MetroidMod.Instance.Logger.Info("Holdfire Check Loop" + (i + 1) + ", we're in the quick-swap with" + chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
 						if (currentCheck != null && currentCheck.HoldFire)
 						{
 							MetroidMod.Instance.Logger.Info("Holdfire found.");
@@ -429,7 +427,7 @@ namespace MetroidMod.Content.Items.Weapons
 					else
 					{
 						currentCheck = BeamAddonLoader.GetAddon(beamAddons[i]);
-						MetroidMod.Instance.Logger.Info("We're in the main array with" + beamAddons[i]);
+						MetroidMod.Instance.Logger.Info("Holdfire Check Loop " + (i + 1) + ", we're in the main array with" + beamAddons[i]);
 						if (currentCheck != null && currentCheck.HoldFire)
 						{
 							MetroidMod.Instance.Logger.Info("Holdfire found.");
@@ -441,16 +439,16 @@ namespace MetroidMod.Content.Items.Weapons
 				}//Get the active holdfire
 				if (VisualDinners[3] != 1) //Make sure SoundOverride is off
 				{
-					if (ModContent.Request<SoundEffect>(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound) != null)
+					if (ModContent.RequestIfExists(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound, out Asset<SoundEffect> asset))
 					{
-						beamSound = new SoundStyle(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound);
+						beamSound = new SoundStyle(asset.Name);
 					}
 					else 
 					{
 						//Supposed to prevent crashes from trying to read nonexistent data. Doesn't fuckin work
 						MetroidMod.Instance.Logger.Error("ERROR: No shot sound found. Using backup." +
 														 "\nTIP: The file structure should be [(Mod)/Assets/Sounds/BeamAddons/(AddonFile)/Shot]");
-						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing"); 
+						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing");
 					}
 				}
 				else //If not, use the colorpriority sound effect
@@ -508,17 +506,17 @@ namespace MetroidMod.Content.Items.Weapons
 			//or maybe it's just me trying to make sure TTNE fire beam is possible again idfk
 			//whatever, fire beam is kinda lame anyway, flamethrower is literally just it but better
 			//...it still would be kinda cool though
-			/*if (CanUseItem(player) && (HoldFireSlot != -1))
+			if (CanUseItem(player) && (HoldFireSlot != -1))
 			{
 				if (HoldFireSlot > BeamAddonSlotID.Count - 1)
 				{
-					BeamAddonLoader.GetAddon(chargeQuickSwap[HoldFireSlot - (BeamAddonSlotID.Count - 1)]).HoldFireBehavior(player, Item);
+					BeamAddonLoader.GetAddon(chargeQuickSwap[HoldFireSlot - (BeamAddonSlotID.Count - 1)]).HoldFireBehavior(player);
 				}
 				else
 				{
-					BeamAddonLoader.GetAddon(beamAddons[HoldFireSlot]).HoldFireBehavior(player, Item);
+					BeamAddonLoader.GetAddon(beamAddons[HoldFireSlot]).HoldFireBehavior(player);
 				}
-			}*/
+			}
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -535,35 +533,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				if (!ac.SuppressingFire)
 				{
-					for (int i = 0; i < AdditionalBeamStats[9] + 1; i++)
-					{
-						BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
-						beam.VisualWinners = VisualDinners;
-						//The way shot textures are grabbed, explained in detail:
-						//Assets are stored in BeamAddons/BeamAddonName
-						//Basic shots are all named Shot
-						//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
-						//(e.g. a charge shot should be named ShotCharged
-						if (ac.assetModA != "NADA")
-						{
-							beam.fileMod = ac.assetModA;
-						}
-						if (ac.assetModB != "NADA" && beam.fileMod != "NADA")
-						{
-							beam.fileMod += ac.assetModB;
-						}
-						else if (ac.assetModB != "NADA")
-						{
-							beam.fileMod = ac.assetModB;
-						}
-
-						beam.beamAddons = BeamAddonAccess
-							.Select(i => BeamAddonLoader.GetAddon(i))
-							.ToArray();
-
-						mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
-						mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
-					}
+					SpawnBeam(player, source, position, velocity, type, damage, knockback);
 				}
 			} //Power Beam firing procedure
 			else { return true; } //Missile Launcher firing procedure
@@ -571,9 +541,9 @@ namespace MetroidMod.Content.Items.Weapons
 			return false;
 		}
 
-		//If I need to fuck with Shoot in any meaningful way beam shooting can be called over here
 		/// <summary>
-		/// Make good desc later<br/>spawn beam here, has shoot overloads + string for shot texture mod
+		/// Used to fire beam projectiles.
+		/// <br/>Comes with an optional string overload called <i>bonusFileMod</i> which gets appended to the shot's filemod. Used for things like charge shots.
 		/// </summary>
 		/// <param name="player"></param>
 		/// <param name="source"></param>
@@ -583,17 +553,36 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <param name="damage"></param>
 		/// <param name="knockback"></param>
 		/// <param name="bonusFileMod"></param>
-		public void SpawnBeam(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod)
+		public void SpawnBeam(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "")
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			float speedX = velocity.X;
 			float speedY = velocity.Y;
+			MetroidMod.Instance.Logger.Info("Beam is firing. Cannon and Addons:\n" + Item + "\n" + BeamAddonAccess[0] + "\n" + BeamAddonAccess[1] + "\n" + BeamAddonAccess[2] + "\n" + BeamAddonAccess[3] + "\n" + BeamAddonAccess[4]);
 
 			if (ac != null && ac.isBeam)
 			{
-				
+				for (int i = 0; i < AdditionalBeamStats[9] + 1; i++)
+				{
+					BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
+					beam.VisualWinners = VisualDinners;
+					//The way shot textures are grabbed, explained in detail:
+					//Assets are stored in BeamAddons/BeamAddonName
+					//Basic shots are all named Shot
+					//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
+					//(e.g. a charge shot should be named ShotCharged
+					beam.fileMod += (ac.assetModifier + bonusFileMod);
+
+					beam.beamAddons = BeamAddonAccess
+						.Select(i => BeamAddonLoader.GetAddon(i))
+						.ToArray();
+					MetroidMod.Instance.Logger.Info("New beam drawn.\nTexture path: " + beam.beamAddons[beam.VisualWinners[0]].ShotTexture + "\nModifier stack: >" + beam.fileMod + "<");
+
+					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
+					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
+				}
 			}
 		}
 		#endregion

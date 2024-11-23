@@ -27,21 +27,56 @@ namespace MetroidMod.Common.Players
 	{
 		public bool ZoneChozoRuins => ModContent.GetInstance<ChozoRuinsBiome>().IsBiomeActive(Player);
 
+		/// <summary>
+		/// The current level of <b>standard</b> charge the player has built up.
+		/// <br/>Not to be confused with <see cref="hyperCharge"/> or <see cref="statParalyzerCharge"/>.
+		/// <br/><br/>Defaults to <b>0.0f</b>.
+		/// </summary>
 		public float statCharge = 0.0f;
+		/// <summary>
+		/// The maximum amount of <b>standard</b> charge the player can hold.
+		/// <br/>Not to be confused with <see cref="maxHyper"/> or <see cref="maxParalyzerCharge"/>.
+		/// <br/><br/>Defaults to <b>100.0f</b>.
+		/// </summary>
 		public static float maxCharge = 100.0f;
 
+		/// <summary>
+		/// The maximum amount of <b>Hypermode</b> charge the player can hold.
+		/// <br/>Not to be confused with <see cref="maxCharge"/> or <see cref="maxParalyzerCharge"/>.
+		/// <br/><br/>Defaults to <b>100.0f</b>.
+		/// </summary>
 		public static float maxHyper = 100.0f;
+		/// <summary>
+		/// The current level of <b>Hypermode</b> charge the player has built up.
+		/// <br/>Not to be confused with <see cref="statCharge"/> or <see cref="statParalyzerCharge"/>.
+		/// <br/><br/>Defaults to <b>0.0f</b>.
+		/// </summary>
 		public float hyperCharge = 0.0f;
 		/// <summary>
 		/// The player's maximum Overheat capacity.
+		/// <br/><br/>Defaults to <b>100f</b>.
 		/// </summary>
 		public float maxOverheat = 100f;
+		/// <summary>
+		/// The player's current level of Overheat.
+		/// <br/><br/>Defaults to <b>0f</b>.
+		/// </summary>
 		public float statOverheat = 0f;
 		public float overheatCost = 1f;
 		public int overheatDelay = 0;
 		private float overheatCooldown = 0f;
 		public float missileCost = 1f;
+		/// <summary>
+		/// The maximum amount of Paralyzer charge the player can hold.
+		/// <br/>Not to be confused with <see cref="maxCharge"/> or <see cref="maxHyper"/>.
+		/// <br/><br/>Defaults to <b>100f</b>.
+		/// </summary>
 		public float maxParalyzerCharge = 100f;
+		/// <summary>
+		/// The current level of Paralyzer charge the player has.
+		/// <br/>Not to be confused with <see cref="statCharge"/> or <see cref="hyperCharge"/>.
+		/// <br/><br/>Defaults to <b>0f</b>.
+		/// </summary>
 		public float statParalyzerCharge = 0f;
 		public float UACost = 1f;
 
@@ -67,6 +102,10 @@ namespace MetroidMod.Common.Players
 		public float maxDist;
 		public int grapplingBeam = -1;
 
+		/// <summary>
+		/// Determines whether or not the player is immune to Phazon contact damage.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
 		public bool phazonImmune = false;
 		/// <summary>
 		/// Determines whether or not the suit gives the player Phazon Beam access.
@@ -109,6 +148,7 @@ namespace MetroidMod.Common.Players
 			//PrimeHunter = false;
 			phazonImmune = false;
 			accessPhazonBeam = false;
+			accessHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 

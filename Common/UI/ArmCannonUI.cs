@@ -34,7 +34,7 @@ namespace MetroidMod.Common.UI
 		private ArmCannon target;
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>());
 
-		//TODO: when done, make it not look like shit
+		//TODO: when done, make it not look like shit          -Z
 		private UIPanel panel;
 		private UIText text;
 		private UIText text2;
@@ -89,7 +89,7 @@ namespace MetroidMod.Common.UI
 			for (int i = 0; i < 5; ++i) //do it like this for now because I'll figure out charge shit later
 			{
 				BeamSlot[i] = new AddonSlot();
-				BeamSlot[i].VAlign = 0.34f;
+				BeamSlot[i].VAlign = 0.3f;
 				BeamSlot[i].HAlign = 0.07f + (0.22f * i);
 				BeamSlot[i].isBeam = true;
 				BeamSlot[i].isArray = false;
@@ -131,7 +131,8 @@ namespace MetroidMod.Common.UI
 								  "\nSpread (spazer): " + target.BeamAddonAccess[3].Name +
 								  "\nSecondary (plasma): " + target.BeamAddonAccess[4].Name +
 								  "\nAmmo (ua): " + target.BeamAddonAccess[5].Name +
-								  "\nHope you don't need anything else lmao");
+								  "\nCurrent Holdfire: Slot " + target.HoldFireSlot +
+								  "\nHolding fire? " + Main.LocalPlayer.controlUseItem);
 			}
 		}
 

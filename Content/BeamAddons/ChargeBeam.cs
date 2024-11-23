@@ -9,6 +9,10 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using rail;
+using System;
+using Terraria.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -26,8 +30,15 @@ namespace MetroidMod.Content.BeamAddons
 		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/ArmCannon/BeamImpactSound";
 
 		#endregion
-
+		/// <summary>
+		/// The stat multiplier applied to a beam shot at <b>full charge.</b>
+		/// </summary>
 		public float chargeMultiplier = 3f;
+		/// <summary>
+		/// Makes the Charge Beam take a second to actually start charging
+		/// </summary>
+		private float chargeDelay = 0f;
+
 
 		public override void SetStaticDefaults()
 		{
@@ -37,6 +48,7 @@ namespace MetroidMod.Content.BeamAddons
 			ShapePriority = 0;
 			ColorPriority = 0;
 			SoundOverride = false;
+			HoldFire = true;
 
 			//This is where you set your numbers
 			BaseDamage = 5;
@@ -54,95 +66,130 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			item.rare = ItemRarityID.Blue;
 		}
-		/*
-		public override void HoldFireBehavior(Player player, Item item)
+		
+		//"This is where the fun begins" -Anakin Skywalker
+		public override void HoldFireBehavior(Player player)
 		{
-			//
-
-			//Get all the relevant data
-			MPlayer mp = player.GetModPlayer<MPlayer>();
+			//Get all the relevant data about the player first.
+			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
+			Item item = Main.LocalPlayer.inventory[mp.selectedItem]; //Grab the Arm Cannon from the player's selected item. A little worried this could break?
 			MGlobalItem ac = item.GetGlobalItem<MGlobalItem>();
-			ArmCannon wepon = ModContent.GetModItem(item.type) as ArmCannon;
+			ArmCannon wepon = (ArmCannon)item.ModItem; //john freeman looked on the ground and found wepon
+			//there's a tiny part of me that wants it to not hardcodedly check for an arm cannon but that's probably dumb so
+
+			//Now get all the relevant locational data.
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			float currentMultiplier;
-			float chargeDelay = item.useTime;
-			#region Charge Thresholds
-			if (mp.statCharge == 5 && player.controlUseItem)
-			{
-				//spawn the charge lead
-				//play the charging noise
-			} //Player has held Fire long enough to be recognized as trying to charge the beam
-			
-			if (mp.statCharge == 75 && player.controlUseItem)
-			{
-				ac.assetModB = "Charged";
-				//If beam, change arm cannon's use sound effect to itself plus "Charged"
-				//Enable pseudo-screw
-			} //Player has built up enough charge to create a charged beam shot
+			float MY = Main.mouseY + Main.screenPosition.Y;
+			float MX = Main.mouseX + Main.screenPosition.X;
+			if (player.gravDir == -1f) { MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY; }
+			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
+			Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 
-			if (mp.statCharge == 99.9f && player.controlUseItem) //can't do 100 otherwise it'll spam this every tick
+			//important control variables
+			bool canCharge = !player.noItems && !mp.ballstate && !mp.shineActive && !player.dead && !player.CCed && (player.whoAmI == Main.myPlayer);
+			float currentMultiplier = 0f;
+
+			//here's the part where all the charging happens
+			if (player.controlUseItem && canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null))
 			{
-				//play charging complete sound
-
-				//Don't have any of it yet but if it's charging a held combo spawn that projectile now
-			} //Player has maxed out their charge
-
-			#endregion
-
-			if (player.controlUseItem && !mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
-			{
-				if (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null)
+				if (chargeDelay == item.useTime)
 				{
-					if (chargeDelay > 0)
+					//Specific thresholds of charge at which certain things happen
+					switch (mp.statCharge)
 					{
-						chargeDelay -= 0.5f;
-						if (chargeDelay < 0) { chargeDelay = 0; }
+						case 0.0f:
+							//spawn the chargelead
+							ChargeLead chargio = Projectile.NewProjectileDirect(item.GetSource_FromThis(), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), 0, 0, player.whoAmI).ModProjectile as ChargeLead;
+							MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
+							chargio.sourceItem = item;
+							MetroidMod.Instance.Logger.Info(item);
+							//play charge noise
+							SoundEngine.PlaySound(new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/BeamChargingSound")); //TODO: asset request thing
+							break;
+						case 99f:
+							//Charging is done. Play charge complete sound effect.
+							SoundEngine.PlaySound(new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ChargeMax"));
+							MetroidMod.Instance.Logger.Info(player.name + " is charging beam shot! 100%");
+							//If it's missiles and there's a held combo selected whip that sucker out now
+							break;
+						default:
+							if ((mp.statCharge > 75) && ac.isBeam)
+							{
+								//Officially over the limit as to what's legally considered charged (only applies to beams)
+								//enable pseudo screw if beam
+								//also begin juicing up the current multiplier
+								currentMultiplier = (mp.statCharge - 25) / 100;
+								//Ideally it should still scale fairly naturally while still letting there be a bit of a bump at full to make there be a difference
+							}
+							else
+							{
+								//if it's not beam turn pseudo screw back off
+							}
+							if ((mp.statCharge % 25 == 0) && (mp.statCharge != 100f))
+							{
+								MetroidMod.Instance.Logger.Info(player.name + " is charging beam shot! " + mp.statCharge + "%");
+							}
+							break;
 					}
-					else
+					if (mp.statCharge < 100)
 					{
-						MetroidMod.Instance.Logger.Info("Charging!");
-						mp.statCharge += 0.1f;
-						currentMultiplier = (chargeMultiplier / 100) * (mp.statCharge / 2);
+						mp.statCharge += 1f;
 					}
-				}
 
-			}//Stuff that happens while fire is held and the player is legally allowed to shoot
-			else if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems && mp.statCharge > 5)
+				} //the delay has ended, charging can begin
+				else
+				{
+					chargeDelay += 1f;
+					if (chargeDelay % 10 == 0) { MetroidMod.Instance.Logger.Info("delay is at " + chargeDelay + "/" + item.useTime); }
+					if (chargeDelay > item.useTime) { chargeDelay = item.useTime; }
+				} //not allowed to charge just yet
+			}//Check if the player is currently trying to charge with a compatible weapon
+			else if (canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null) && mp.statCharge > 5)
 			{
-				MetroidMod.Instance.Logger.Info("Releasing charge!");
+				MetroidMod.Instance.Logger.Info("jobs done");
 				if (mp.statCharge == 100)
 				{
-					if (ac.isBeam) 
+					//spawn that fully charged beam my man
+					if (ac.isBeam)
 					{
-						wepon.Shoot(player, player.whoAmI, oPos, item.shootSpeed, item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack);
-					} //If beam, release the kraken
-					 //Else, check if the installed charge missile is not a holdfire
-					 //If it isn't, launch the nuke
+						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
+						wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity, item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
+					}
+					//alternatively shoot that missile combo if it's not a held
 				}
-				else if (mp.statCharge >= 75)
+				else if (mp.statCharge > 75 && ac.isBeam)
 				{
-					//If beam, release a slightly less cool kraken
-					//Else, fire a boring normal missile
+					//spawn that mostly charged beam my man
+					wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity, item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
+					MetroidMod.Instance.Logger.Info(player.name + " released the... uh... slightly-less-charged beam!!!");
 				}
 				else
 				{
-					//fire the weapon normally and boringly
+					//spawn that normal-ass beam my man
+					if (ac.isBeam)
+					{
+						wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity, item.shoot, item.damage, item.knockBack);
+						MetroidMod.Instance.Logger.Info(player.name + " didn't bother charging the beam all the way");
+					}
+					//alternatively shoot that normal-ass missile
 				}
-				//kill the charge lead
 				mp.statCharge = 0;
-			}//Stuff that happens once the player releases fire with an existent amount of charge
+				chargeDelay = 0;
+			}//Check if there's any charge to release
 			else
 			{
-				ac.assetModB = "NADA";
+				//MetroidMod.Instance.Logger.Info("jobs never startd");
 				mp.statCharge = 0;
-			}
+				chargeDelay = 0;
+			}//Cancel out any leftover charge
 		}
-		*/
+
 	}
 
 
 
 	//What I am about to do is probably incredibly stupid. Be warned.
+	//note for the future: the "what I am about to do" part is making this projectile part of the charge beam's file
 	public class ChargeLead : MProjectile
 	{
 		public override string Texture => $"{Mod.Name}/Assets/Textures/BeamAddons/ChargeLead";
@@ -168,15 +215,88 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override void AI()
 		{
+			//THE BARE MINIMUM OF WHAT I WANT THIS TO DO:
+			//* Increase in size with charge stat  - Done
+			//* Glue itself to the end of the arm cannon - Pretty much done
+			//* Delete itself upon releasing fire - Done
+			//* Function with both the beam and missiles - Not done
+			//* Color itself to either match the current beam or the current charge combo, depending on the context - Not done
+
+
 			Player player = Main.player[Projectile.owner];
 			MPlayer mp = player.GetModPlayer<MPlayer>();
+			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+			Vector2 ballPos = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - (float)(Math.PI / 2) * player.direction);
+			bool isCharging = player.controlUseItem && !player.noItems && !player.dead && !mp.ballstate && !mp.shineActive && !player.CCed;
+			
+			//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead!!!");
+			BarrelGlue(player, ballPos);
+			if (Projectile.owner == Main.myPlayer)
+			{
+				BarrelAim(ballPos, player.HeldItem.shootSpeed);
+				if (isCharging)
+				{
+					Projectile.rotation += 0.5f;
+					Projectile.scale = Math.Max(mp.statCharge / 100, 0.5f);
+				}
+				else
+				{
+					MetroidMod.Instance.Logger.Info("There goes the chargelead the big ball is gone");
+					Projectile.Kill();
+				}
+			}
+			//make sure the projectile doesn't expire naturally
+			Projectile.timeLeft = 2;
+		}
+		/// <summary>
+		/// Determines where the charge lead is positioned relative to the player's arm.
+		/// </summary>
+		/// <param name="player"></param>
+		/// <param name="playerHandPos"></param>
+		private void BarrelGlue(Player player, Vector2 playerHandPos)
+		{
+			//A lot of this is pretty much outta the ExampleMod last prism clone. Unsurprisingly I suppose.
+			Projectile.Center = playerHandPos;
+			Projectile.spriteDirection = Projectile.direction;
 
-			//THE BARE MINIMUM OF WHAT I WANT THIS TO DO:
-			//* Increase in size with charge stat
-			//* Glue itself to the end of the arm cannon
-			//* Delete itself upon releasing fire
-			//* Function with both the beam and missiles
-			//* Color itself to either match the current beam or the current charge combo, depending on the context
+			player.ChangeDir(Projectile.direction);
+			player.heldProj = Projectile.whoAmI;
+			player.itemTime = 2;
+			player.itemAnimation = 2;
+
+			player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();
+		}
+
+		/// <summary>
+		/// Lets the charge lead (and by extension, the player's arm) update the aim in real time.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="speed"></param>
+		private void BarrelAim(Vector2 source, float speed)
+		{
+			Vector2 aim = Vector2.Normalize(Main.MouseWorld - source);
+			if (aim.HasNaNs())
+			{
+				aim = -Vector2.UnitY;
+			}
+
+			aim = Vector2.Normalize(Vector2.Lerp(Vector2.Normalize(Projectile.velocity), aim, 1f));
+			aim *= speed;
+
+			if (aim != Projectile.velocity)
+			{
+				Projectile.netUpdate = true;
+			}
+			Projectile.velocity = aim;
+		}
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			Texture2D ballTex = ModContent.Request<Texture2D>(Texture).Value;
+			SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			//All this makes sure that the texture properly draws centered so it rotates and doesn't speen
+			Main.EntitySpriteDraw(ballTex, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, ballTex.Width, ballTex.Height)), ballColor, Projectile.rotation, new Vector2((float)ballTex.Width / 2, (float)ballTex.Height / 2), Projectile.scale, effects, 0);
+			return false;
 		}
 	}
 }

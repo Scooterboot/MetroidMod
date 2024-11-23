@@ -51,16 +51,10 @@ namespace MetroidMod.Common.GlobalItems
 		public bool isBeam = true;
 		/// <summary>
 		/// If set to a different value, it is appended to the asset filepath.
-		/// <br/>Added before <see cref="assetModB"/>.
-		/// <br/><br/>Defaults to <b>"NADA"</b>.
+		/// <br/>Used to obtain assets for special combinations <i>(i.e. the DNA-shaped beam from Fusion)</i>
+		/// <br/><br/>Defaults to <b>""</b> (blank).
 		/// </summary>
-		public string assetModA = "NADA";
-		/// <summary>
-		/// If set to a different value, it is appended to the asset filepath.
-		/// <br/>Added after <see cref="assetModA"/>.
-		/// <br/><br/>Defaults to <b>"NADA"</b>.
-		/// </summary>
-		public string assetModB = "NADA";
+		public string assetModifier = "";
 
 		public override bool InstancePerEntity => true;
 		protected override bool CloneNewInstances => true;
