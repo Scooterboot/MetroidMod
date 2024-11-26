@@ -27,15 +27,16 @@
 
 -Make Charge Beam function
 	-This entails:
-		* Charge shots
-		* The charge lead
+		* Charge shots [DONE]
+		* The charge lead [DONE]
+			-Does not emit light right now though, and its rendering position could be tweaked
 		* Pseudo-Screw
-		* Functions for holding Fire down ("Holdfires")
-		* Arm Cannon mouse tracking
+		* Functions for holding Fire down ("Holdfires") [DONE]
+		* Arm Cannon mouse tracking [DONE]
 		* the Primary quick-swap
 		* array passives (boosts that still apply while in the array)
 		* Multiple CustomFires at once?
-		* [eventually] Charge Combos
+		* (eventually) Charge Combos
 
 -Make Wave Beam
 	-This entails:
@@ -139,6 +140,8 @@
 -Upgrade DustyDeath to be more like the copy inside of BeamShot
 	-I ended up making the dusty death in the beamshot more complicated as a natural part of development and it only makes sense to bring MProjectile up to the same standard
 
+-Custom colorable Power Beam dust particle?
+
 -Figure out how to fix the thing where gravity uses neptune's shell physics underwater and not normal physics
 	-Honestly this one is kind of a tangent. I saw it mentioned in an old conversation while looking for something or other.
 
@@ -160,7 +163,7 @@
 	- Ice Beam's roation effect while it has shapepriority
 		-Could just make the rotation part of 
 
--Add failsafes for missing beam addon assets
+-Add failsafes for missing beam addon assets - DONE!!!!
 	-VERY IMPORTANT. Especially since I doubt everyone wants a custom impact SE on their beam, but I also don't want to take away from the automaticness
 
 -Fix all the systems I broke
@@ -170,6 +173,7 @@
 	-Fake blocks
 	-Parts of suit energy apparently
 	-Hatches probably
+	-Possibly Space Jump apparently???
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

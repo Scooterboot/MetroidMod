@@ -135,7 +135,7 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Starting VIBe check");
 			for (int i = 0; i < addons.Length - 1; ++i) //Check all addon slots for if VIB is true
 			{
-				MetroidMod.Instance.Logger.Info("VIBe Check - Slot " + i + "\nContains: " + addons[i]);
+				MetroidMod.Instance.Logger.Info("VIBe Check - Slot " + i + "- Contains: " + addons[i]);
 				if (addons[i] == null || addons[i].VIB == false) { continue; }
 				if (addons[i].VIB == true) { winners = [i, i, 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check"); return winners; }
 			}
@@ -145,10 +145,10 @@ namespace MetroidMod
 			//special thanks to my buddy Snek for this stuff, I was prolly just gonna do a buncha else-ifs lol    -Z
 			int highestShapePriorityIndex = -1;  //Compare ShapePriority values of all installed beams, determine which is the highest
 			int highestShapePriority = -1;
-			MetroidMod.Instance.Logger.Info("Starting shape priority check \nValue starts at -1");
+			MetroidMod.Instance.Logger.Info("Starting shape priority check");
 			for (int i = 0; i < addons.Length - 1; i++)
 			{
-				MetroidMod.Instance.Logger.Info("Shape Priority Check - Slot " + i + ", Contains: " + addons[i]);
+				MetroidMod.Instance.Logger.Info("Shape Priority Check - Slot " + i + "- Contains: " + addons[i]);
 				if (addons[i]?.ShapePriority >= highestShapePriority)
 				{
 					MetroidMod.Instance.Logger.Info("Value is workable");
@@ -168,10 +168,10 @@ namespace MetroidMod
 			int highestColorPriorityIndex = -1;
 			int highestColorPriority = -1;
 			int willItOverride = 0;
-			MetroidMod.Instance.Logger.Info("Starting color priority check \nValue starts at -1");
+			MetroidMod.Instance.Logger.Info("Starting color priority check");
 			for (int i = 0; i < colorOrder.Length; i++)
 			{
-				MetroidMod.Instance.Logger.Info("Color Priority Check - Slot " + i + "\nContains: " + colorOrder[i]);
+				MetroidMod.Instance.Logger.Info("Color Priority Check - Slot " + i + "- Contains: " + colorOrder[i]);
 				if (colorOrder[i]?.ColorPriority >= highestColorPriority)
 				{
 					MetroidMod.Instance.Logger.Info("Value is workable");
