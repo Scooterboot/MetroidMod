@@ -45,21 +45,21 @@ namespace MetroidMod
 
 		public virtual string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Item";
 
-		public virtual string ArmorTextureHead => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Head";
-		public virtual string ArmorTextureTorso => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Torso";
+		public virtual string ArmorTextureHead { get; }
+		public virtual string ArmorTextureTorso { get; }
 		/// <summary>
 		/// Main visible shoulder texture location. <br />
 		/// Only used by Barrier addons.
 		/// </summary>
-		public virtual string OnShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Shoulder";
+		public virtual string OnShoulderTexture { get; }
 		/// <summary>
 		/// Semi-hidden visible shoulder texture location. <br />
 		/// Only used by Barrier addons.
 		/// </summary>
-		public virtual string OffShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/OffShoulder";
-		public virtual string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/ArmGlow";
-		public virtual string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/ShoulderGlow";
-		public virtual string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Legs";
+		public virtual string OffShoulderTexture { get; }
+		public virtual string ArmorTextureArmsGlow { get; }
+		public virtual string ArmorTextureShouldersGlow { get; }
+		public virtual string ArmorTextureLegs { get; }
 
 		public virtual string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Tile";
 

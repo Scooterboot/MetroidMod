@@ -14,15 +14,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankTile";
-		#region failsafes for autograb
-		public override string ArmorTextureHead => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
-		public override string ArmorTextureTorso => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
-		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
-		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
-		public override string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
-		public override string OffShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
-		public override string OnShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankItem";
-		#endregion
 
 		public override bool AddOnlyAddonItem => false;
 
