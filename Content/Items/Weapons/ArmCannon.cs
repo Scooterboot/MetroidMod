@@ -446,6 +446,7 @@ namespace MetroidMod.Content.Items.Weapons
 					else 
 					{
 						//Supposed to prevent crashes from trying to read nonexistent data. Doesn't fuckin work
+						//EDIT: DOES fucking work :)
 						MetroidMod.Instance.Logger.Error("ERROR: No shot sound found. Using backup." +
 														 "\nTIP: The file structure should be [(Mod)/Assets/Sounds/BeamAddons/(AddonFile)/Shot]");
 						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing");

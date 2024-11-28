@@ -133,6 +133,7 @@
 
 -Add automatic texture-grabbing for suit addons
 	-Very easy to implement, but tedious; requires renaming all suitaddon assets to match format
+	-Make it so it doesn't make non-Suits completely fucking break
 
 -Fix the SuitAddonAddon thing
 	-Unimportant but it bugs me so I will tackle it Eventually(tm)

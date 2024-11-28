@@ -138,7 +138,7 @@ namespace MetroidMod
 				MetroidMod.Instance.Logger.Info("VIBe Check - Slot " + i + "- Contains: " + addons[i]);
 				if (addons[i] == null || addons[i].VIB == false) { continue; }
 				if (addons[i].VIB == true) { winners = [i, i, 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check"); return winners; }
-			}
+			} //Iterate through the slots looking for a VIB addon
 			MetroidMod.Instance.Logger.Info("You have failed the VIBe Check");
 
 
@@ -155,7 +155,7 @@ namespace MetroidMod
 					highestShapePriorityIndex = i;
 					highestShapePriority = addons[i].ShapePriority;
 				}
-			}
+			} //Iterate through the addons and determine which has the highest ShapePriority value
 			MetroidMod.Instance.Logger.Info("Result: Slot " + highestShapePriorityIndex);
 
 
@@ -164,6 +164,7 @@ namespace MetroidMod
 				if (addons[i] == null) { fuckYouIceBeam[i] = -1; continue; }
 				fuckYouIceBeam[i] = addons[i].ColorPriority;
 			}
+			//Color order is here to facilitate the port priority. Check the ShapePriority value's description for the order of priority.
 			ModBeamAddon[] colorOrder = [addons[BeamAddonSlotID.Primary], addons[BeamAddonSlotID.Spread], addons[BeamAddonSlotID.Ion], addons[BeamAddonSlotID.Secondary], addons[BeamAddonSlotID.Ability]]; //something something 20XX
 			int highestColorPriorityIndex = -1;
 			int highestColorPriority = -1;
@@ -184,7 +185,7 @@ namespace MetroidMod
 				if (addons[highestColorPriorityIndex].SoundOverride) //Check if the winner has sound override enabled.
 				{ MetroidMod.Instance.Logger.Info("SoundOverride detected!"); willItOverride = 1; }
 				else { MetroidMod.Instance.Logger.Info("No SoundOverride here."); willItOverride = 0; }
-			}
+			} //See if the sound override is enabled
 
 			MetroidMod.Instance.Logger.Info("Result: Slot " + highestShapePriorityIndex);
 			winners = [highestShapePriorityIndex, highestColorPriorityIndex, 0, willItOverride]; //If there are no winners it should turn up -1, -1, 0, 0

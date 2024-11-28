@@ -77,6 +77,18 @@ namespace MetroidMod.Content.Projectiles
 		public override void SetStaticDefaults()
 		{
 			//Main.projFrames[Type] = ShotFrames;
+			//So cool little thing: that value is static. Setting it to a variable means jack shit
+			//Which means I need to set that thing to like 1 and then manually count out frames myself
+			//and THEN I have to make shaders apply to it since I'm finally going out of my way to learn the damn things
+			//And that means I ALSO have to make the ENTIRE CUSTOM VISUAL SYSTEM RIGHT FUCKING NOW in order to make framecounts that vary on charged shots!!!
+			//"Why not just make it hardcoded?" Because I'm in too deep already. I already made charge beam modular and not hardcoded.
+			//...
+			//well at the very least I'll infodump about my plans to try and get them in order
+			//so to do this I'm prolly gonna need to have a method inside of ModBeamAddons where you can put your special edge-case scenarios
+			//can strings be the crux of switches? I hope, cause that'd be a real neat and tidy way to handle that
+			//well at least for the top level of keywords. this would have to create the bottom level.
+			//I guess like, for getting array data, you could plug it in
+			//maybe I should make a loader method that you can plug an addon array and an addon into and it gives you the array without that addon, that'd make things easier
 		}
 		//public override bool PreAI()
 		//{
@@ -168,6 +180,8 @@ namespace MetroidMod.Content.Projectiles
 			beamDust = beamColor.ShotDust;
 			Main.EntitySpriteDraw(beamTex, Projectile.Center - Main.screenPosition, null, beamColor.ShotColor, Projectile.rotation, 
 								  new Vector2(beamTex.Width / 2, beamTex.Height / 2), beamScale, SpriteEffects.None);
+
+			//TODO: make a system to handle framecounts
 			return false;
 		}
 	}
