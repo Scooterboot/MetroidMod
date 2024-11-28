@@ -579,7 +579,7 @@ namespace MetroidMod.Content.Items.Weapons
 					beam.beamAddons = BeamAddonAccess
 						.Select(i => BeamAddonLoader.GetAddon(i))
 						.ToArray();
-					MetroidMod.Instance.Logger.Info("New beam drawn.\nTexture path: " + beam.beamAddons[beam.VisualWinners[0]].ShotTexture + "\nModifier stack: >" + beam.fileMod + "<");
+					//MetroidMod.Instance.Logger.Info("New beam drawn.\nTexture path: " + (VisualDinners[0] != -1)? beam.beamAddons[beam.VisualWinners[0]].ShotTexture : "N/A" + "\nModifier stack: >" + beam.fileMod + "<");
 
 					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
 					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
