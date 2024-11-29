@@ -265,7 +265,7 @@ namespace MetroidMod.Common.UI
 						if (isArray) //Is it a quick-change menu?
 						{
 							SoundEngine.PlaySound(SoundID.Item16);
-							new ChatMessage(Main.LocalPlayer.name + " tried to do something that shouldn't be physically possible.");
+							Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Main.LocalPlayer.name + " tried to do something that shouldn't be physically possible."), Color.Red);
 						}
 						else
 						{
