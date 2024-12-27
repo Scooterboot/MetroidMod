@@ -587,7 +587,7 @@ Mods: {
 				// DisplayName: Nova Beam
 				/* Tooltip:
 					'''
-					{$CommonItemTooltip.IsBeamAddon}Ion
+					{$CommonItemTooltip.IsBeamAddon}Ion, or I'm gonna flip
 					Shots will pierce through many enemies and set targets ablaze with cursed flames
 					Use in tandem with secondary beams for varying results
 					[c/78BE78:+115% damage]

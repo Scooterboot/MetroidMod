@@ -96,6 +96,54 @@ namespace MetroidMod.Content.BeamAddons
 			item.rare = ItemRarityID.Cyan;
 		}
 
+		public override string SpecialComboSet(Item[] addons)
+		{
+			//The following is a really basic check for a specific installed addon.
+			//It converts the array of beam addon items into proper ModBeamAddons and checks the slot Ice Beam uses for Ice Beam.
+			//If you want more checks, add more booleans
+			ModBeamAddon[] beamAddons = addons
+				.Select(BeamAddonLoader.GetAddon)
+				.ToArray();
+			bool hasIce = false;
+
+
+			if (beamAddons[BeamAddonSlotID.Ability] == BeamAddonLoader.GetAddon<IceBeam>())
+			{
+				hasIce = true;
+			}
+
+			if (hasIce)
+			{
+				//Choose something unique that describes the particular combination to make things easier on yourself.
+				//For instance, this keyword is "Fuck" because  F U C K .
+				return "Fuck";
+			}
+			else
+			{
+				//Return blank if it doesn't get anything, keeps things clean.
+				return "";
+			}
+		}
+
+		public override int[] SpecialComboGet(string modifier)
+		{
+			// Really basic checker. This is where you plug in any special properties needed to make special textured work properly.
+			// For instance, frame counts
+			switch (modifier)
+			{
+				case "Charged":
+					return [2];
+
+				case "Fuck":
+					return [2];
+
+				case "FuckCharged":
+					return [5];
+
+				default:
+					return [-1];
+			}
+		}
 		//If you want your addon to do cool shit, you gotta whip up a projectile behavior modifier.
 		//It's not REQUIRED to have one of these for the addon to be able to function, without anything in these areas it just won't let the beam do anything new on its own
 	}

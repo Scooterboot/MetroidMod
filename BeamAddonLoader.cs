@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ReLogic.Content;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader.IO;
-using System.Drawing.Text;
 using MetroidMod.ID;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.GlobalItems;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.Audio;
+using Microsoft.Xna.Framework.Audio;
 
 namespace MetroidMod
 {
@@ -192,6 +194,132 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("winners value: [" + winners[0] + ", " + winners[1] + ", " + winners[2] + ", " + winners[3] +"]");
 			return winners;
 		}
+
+		/// <summary>
+		/// Used to acquire textures from the filepaths in the addon files and 2 modifier keywords.
+		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
+		/// </summary>
+		/// <param name="shapeSource"></param>
+		/// <param name="modA"></param>
+		/// <param name="modB"></param>
+		/// <returns></returns>
+		public static Texture2D ShotTextureGrabber(string shapeSource, string modA, string modB)
+		{
+			//I dislike the large amounts of else-ifs here           -Z
+
+			//This nasty else-if chain exists NOT to gauge how modded an asset path is, but to catch asset combinations that don't exist.
+			//If all the assets are present and correctly named, this method shouldn't pass through anything below the first if.
+			//For instance, a basic shot with zero modifiers would only pass through the first if, as mod strings default to blank, meaning it becomes:
+			//[shapeSource] + "" + ""
+			//which still just equals [shapeSource] and is therefore a valid asset path
+			//(Unless, of course, the basic shot texture is missing or misnamed, in which case it'll end up at the failsafe at the bottom)
+			//If the attempted filepath modification leads to a blank, like:
+			//[shapeSource] + "ModifierWithNoAssets" + "Charged"
+			//it'll attempt to grab another asset from its general "asset tree" to fill it in.
+			//for instance, this would fail the first else-if and succeed at the second, resulting in "[shapeSource]Charged" being selected instead
+			//The fallback texture should only call if there's literally NO adjacent assets in this particular filepath configuration, including a basic shot.
+			//The chain tries to get a modA path first, since the first layer of mod is a lot more "permanent" than the second
+			//(in the sense that it's applied during array updating and not when shooting)
+			MetroidMod.Instance.Logger.Info("Texture-grabbin time. Path: " + shapeSource + " " + " ");
+			if (ModContent.RequestIfExists(shapeSource + modA + modB, out Asset<Texture2D> fullModShot))
+			{
+				return (Texture2D)fullModShot;
+			}
+			else if (ModContent.RequestIfExists(shapeSource + modA, out Asset<Texture2D> firstModShot))
+			{
+				return (Texture2D)firstModShot;
+			}
+			else if (ModContent.RequestIfExists(shapeSource + modB, out Asset<Texture2D> lastModShot))
+			{
+				return (Texture2D)lastModShot;
+			}
+			else if (ModContent.RequestIfExists(shapeSource, out Asset<Texture2D> noModShot))
+			{
+				return (Texture2D)noModShot;
+			}
+			else
+			{
+				MetroidMod.Instance.Logger.Info("Didn't work lmao");
+				return MetroidMod.PowerBeamFallbackTexture;
+			}
+		}
+		/// <summary>
+		/// Used to acquire a beam shot's shooting sound effect through its filepath and current modifiers.
+		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
+		/// </summary>
+		/// <param name="soundSource"></param>
+		/// <param name="modA"></param>
+		/// <param name="modB"></param>
+		/// <returns></returns>
+		public static SoundStyle ShotSoundGrabber(string soundSource, string modA, string modB)
+		{
+			//I still greatly dislike the amount of else-ifs here     -Z
+
+			//This nasty else-if chain exists NOT to gauge how modded an asset path is, but to catch asset combinations that don't exist.
+			//If all the assets are present and correctly named, this method shouldn't pass through anything below the first if.
+			//For instance, a basic shot with zero modifiers would only pass through the first if, as mod strings default to blank, meaning it becomes:
+			//[soundSource] + "" + ""
+			//which still just equals [soundSource] and is therefore a valid asset path
+			//(Unless, of course, the basic shot sound is missing or misnamed, in which case it'll end up at the failsafe at the bottom)
+			//If the attempted filepath modification leads to a blank, like:
+			//[soundSource] + "ModifierWithNoAssets" + "Charged"
+			//it'll attempt to grab another asset from its general "asset tree" to fill it in.
+			//for instance, this would fail the first else-if and succeed at the second, resulting in "[soundSource]Charged" being selected instead
+			//The fallback sound should only call if there's literally NO adjacent assets in this particular filepath configuration, including a basic shot.
+			//The chain tries to get a modA path first, since the first layer of mod is a lot more "permanent" than the second
+			//(in the sense that it's applied during array updating and not when shooting)
+
+			//TODO: Too many overloads because of how modB works, being a temporary value and all. Find out how to fix.		-Z
+
+			if (ModContent.RequestIfExists(soundSource + modA + modB, out Asset<SoundEffect> fullModSound))
+			{
+				//For some reason you can't just convert sound effects to soundstyles but it still works somehow so idfk /shrug
+				return new SoundStyle(soundSource + modA + modB);
+			}
+			else if (ModContent.RequestIfExists(soundSource + modA, out Asset<SoundEffect> firstModSound))
+			{
+				return new SoundStyle(soundSource + modA);
+			}
+			else if (ModContent.RequestIfExists(soundSource + modB, out Asset<SoundEffect> lastModSound))
+			{
+				return new SoundStyle(soundSource + modB);
+			}
+			else if (ModContent.RequestIfExists(soundSource, out Asset<SoundEffect> noModSound))
+			{
+				return new SoundStyle(soundSource);
+			}
+			else
+			{
+				return MetroidMod.BeamShotFallbackSFX;
+			}
+		}
+		/// <summary>
+		/// Used to acquire a beam shot's impact sound effect through its filepath and current modifiers.
+		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
+		/// <br/>Also noticeably less complex than the other ones because this one's much more likely to turn up blank.
+		/// </summary>
+		/// <param name="soundSource"></param>
+		/// <param name="modA"></param>
+		/// <param name="modB"></param>
+		/// <returns></returns>
+		public static SoundStyle ImpactSoundGrabber(string soundSource, string modA, string modB)
+		{
+			//I am not going to put nearly as much effort into this one since 90% of beam addons don't even fuck with this sound effect anyway
+			if (ModContent.RequestIfExists(soundSource + modA + modB, out Asset<SoundEffect> modSound))
+			{
+				return new SoundStyle(soundSource + modA + modB);
+			}
+			else if (ModContent.RequestIfExists(soundSource, out Asset<SoundEffect> noModSound))
+			{
+				//this one is shorter because no impact sfx is kind of the default, will expand if necessary
+				return new SoundStyle(soundSource);
+			}
+			else
+			{
+				return MetroidMod.BeamImpactFallbackSFX;
+			}
+		}
+
 		/// <summary>
 		/// Combines all of the <b>weapon-side stats</b> of every installed beam addon.
 		/// <br/>These values will be applied to the weapon itself.
@@ -200,6 +328,7 @@ namespace MetroidMod
 		/// <returns></returns>
 		public static float[] WeaponStatStacker(Item[] beamAddons)
 		{
+			MetroidMod.Instance.Logger.Info("Stacking Beam Stats...");
 			float[] totals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 			ModBeamAddon[] addons = beamAddons //Converts the Item array into a ModBeamAddon array, allowing for direct stat access.
 				.Select(GetAddon)
@@ -220,6 +349,7 @@ namespace MetroidMod
 				totals[8] += addons[i].OverheatMult;
 				totals[9] += addons[i].AddShots;
 			}
+			MetroidMod.Instance.Logger.Info("Beam stats stacked");
 			return totals;
 		}
 

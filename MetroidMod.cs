@@ -5,6 +5,7 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -31,6 +32,19 @@ namespace MetroidMod
 		internal const int missileSlotAmount = 3;
 
 		public static bool UseAltWeaponTextures;
+
+		/// <summary>
+		/// The backup texture for a Beam shot. Identical to default Power Beam.
+		/// </summary>
+		public static Texture2D PowerBeamFallbackTexture => ModContent.Request<Texture2D>($"MetroidMod/Assets/Textures/BeamAddons/PowerBeam/Shot").Value;
+		/// <summary>
+		/// The backup sound effect for firing the Power Beam. Uses the Super Metroid hurt SFX to make it clear something is wrong.
+		/// </summary>
+		public static SoundStyle BeamShotFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/ShotMissing");
+		/// <summary>
+		/// The backup sound effect for Beam shot impact. Since I'm pretty sure most addons won't bother changing this, it's a lot more subtle than all the others.
+		/// </summary>
+		public static SoundStyle BeamImpactFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/BeamImpactSound");
 
 		public static Color powColor = new(248, 248, 110);
 		public static Color iceColor = new(0, 255, 255);

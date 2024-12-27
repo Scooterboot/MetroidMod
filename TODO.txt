@@ -65,7 +65,7 @@
 	-Figure out how to do this without a dozen extra booleans
 
 -Beam texture animation
-	-Variable for counting the texture's frames already exists but does not currently get used
+	-Variable for counting the texture's frames already exists but does not currently get used (DONE)
 
 -Arm cannon beam lights
 	-Classic design: Simple glowmask colored to match the current ColorPriority. Think MercurySteam arm cannons.
@@ -166,6 +166,12 @@
 
 -Add failsafes for missing beam addon assets - DONE!!!!
 	-VERY IMPORTANT. Especially since I doubt everyone wants a custom impact SE on their beam, but I also don't want to take away from the automaticness
+
+-Various beam presentation shit from the new system that needs fixing
+	-Charging sounds don't cut each other off properly
+	-Impact sound on no-addons is broke
+		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
+	-Optimize the sound effect grabber methods to not suck
 
 -Fix all the systems I broke
 	-Worldgen

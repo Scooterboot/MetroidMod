@@ -184,6 +184,7 @@ namespace MetroidMod.Content.BeamAddons
 			}//Cancel out any leftover charge
 		}
 
+
 	}
 
 

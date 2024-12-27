@@ -110,7 +110,9 @@ namespace MetroidMod
 		/// </summary>
 		public virtual int ColorPriority { get; set; } =  0;
 		/// <summary>
-		/// If true, this addon's sounds will be applied to the shot so long as it has color priority.
+		/// If true, this addon's sounds will play instead of the sounds from the current shape priority.
+		/// <br/>Requires this addon to have color priority.
+		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool SoundOverride { get; set; } = false;
 
@@ -319,15 +321,21 @@ namespace MetroidMod
 		/// <param name="shot"></param>
 		public virtual void ModifyShotKill(Projectile shot) { }
 		/// <summary>
-		/// Allows for a beam addon to take on special properties when used with certain other addons.
+		/// Allows this addon to detect if specific addons are installed with it and use unique visuals to accomodate.
+		/// <br/>Requires this addon to have shape priority.
+		/// <br/><br/>Should return a <b>blank string</b> if a special combo is not selected.
 		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void AddonInteraction(Projectile shot, Item[] addons) { }
+		/// <param name="addons"></param>
+		/// <returns></returns>
+		public virtual string SpecialComboSet(Item[] addons) { return ""; }
 		/// <summary>
-		/// Allows me to tweak the frames for charge beam because I didn't think to account for that
+		/// Defines special properties the beam shot will undertake with special combos defined in <see cref="SpecialComboSet()"/> (i.e. frame count).
+		/// <br/>Requires that special combos be defined.
+		/// <br/><br/>Should return all <b>zeroes</b> if a special combo is not identified.
 		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void FrameAdjust(Projectile shot, string keyword) { }
+		/// <param name="modifier"></param>
+		/// <returns></returns>
+		public virtual int[] SpecialComboGet(string modifier) { return [0]; }
 		#endregion
 
 		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);

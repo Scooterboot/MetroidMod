@@ -81,7 +81,7 @@ namespace MetroidMod.Common.UI
 		}
 
 		/// <summary>
-		/// Use this to write the mouse item to the array.
+		/// Use this to write the mouse item to the place you're storing the item.
 		/// <br/>Do <b>NOT</b> write over ItemRead during this. It'll be fine on its own.
 		/// </summary>
 		public abstract void DarkMagic(Item ItemWrite, bool StackAttack);

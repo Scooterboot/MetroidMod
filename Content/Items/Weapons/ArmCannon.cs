@@ -389,6 +389,7 @@ namespace MetroidMod.Content.Items.Weapons
 		/// </summary>
 		public void ArrayUpdate()
 		{
+			Item.TryGetGlobalItem(out MGlobalItem ac);
 			VisualDinners = BeamAddonLoader.VisualPriority(beamAddons); //Gets the shot visuals
 
 			AdditionalBeamStats = BeamAddonLoader.WeaponStatStacker(beamAddons); //Gets the beam stats
@@ -400,6 +401,8 @@ namespace MetroidMod.Content.Items.Weapons
 			//If none are found, iterate through both the currently-active addons and the array for active holdfires
 
 			#region Misc. Beamstacking
+			//This is gonna get a little hard to read.
+
 			//VisualDinners[0] is the winning ShapePriority, VisualDinners[1] is the winning ColorPriority
 			if (VisualDinners[0] != -1) //Make sure there's actually stuff in the array
 			{
@@ -410,6 +413,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 				}//Check if there's a VIB*/
 				ModBeamAddon currentCheck = null; //gotta assign a value to this sucker or it'll throw a fit later
+
+
 				for (int i = 0; i < BeamAddonSlotID.Count - 1 + chargeQuickSwap.Length; ++i)
 				{
 					if (i > 4)
@@ -437,20 +442,14 @@ namespace MetroidMod.Content.Items.Weapons
 						MetroidMod.Instance.Logger.Info("Nada");
 					}
 				}//Get the active holdfire
+
+				//Check if the shapepriority has any special visuals for this addon combination.
+				//If not, it returns blank meaning no change.
+				ac.assetModifier = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SpecialComboSet(beamAddons);
+
 				if (VisualDinners[3] != 1) //Make sure SoundOverride is off
 				{
-					if (ModContent.RequestIfExists(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound, out Asset<SoundEffect> asset))
-					{
-						beamSound = new SoundStyle(asset.Name);
-					}
-					else 
-					{
-						//Supposed to prevent crashes from trying to read nonexistent data. Doesn't fuckin work
-						//EDIT: DOES fucking work :)
-						MetroidMod.Instance.Logger.Error("ERROR: No shot sound found. Using backup." +
-														 "\nTIP: The file structure should be [(Mod)/Assets/Sounds/BeamAddons/(AddonFile)/Shot]");
-						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing");
-					}
+					beamSound = BeamAddonLoader.ShotSoundGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound, ac.assetModifier, "");
 				}
 				else //If not, use the colorpriority sound effect
 				{
@@ -466,11 +465,14 @@ namespace MetroidMod.Content.Items.Weapons
 						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing");
 					}
 				}
-			}
+			} //All the checks and shit for if there actually ARE addons in your arm cannon. Goes through holdfires, soundoverride, etc.
 			else
 			{
 				beamSound = Sounds.Items.Weapons.PowerBeamSound;
+				HoldFireSlot = -1;
 			}
+
+
 			if (missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir) //Missiles don't need a VPS because only one slot changes your base projectile
 			{
 				missileSound = new SoundStyle(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotSound);
@@ -561,19 +563,43 @@ namespace MetroidMod.Content.Items.Weapons
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			float speedX = velocity.X;
 			float speedY = velocity.Y;
-			MetroidMod.Instance.Logger.Info("Beam is firing. Cannon and Addons:\n" + Item + "\n" + BeamAddonAccess[0] + "\n" + BeamAddonAccess[1] + "\n" + BeamAddonAccess[2] + "\n" + BeamAddonAccess[3] + "\n" + BeamAddonAccess[4]);
+			int[] edgeCaseData = [0];
+			int theShootsingAmount = (int)AdditionalBeamStats[9] + 1;
+			MetroidMod.Instance.Logger.Info("Beam is firing. Cannon and Addons:\n" + Item + "\n" +
+											BeamAddonAccess[0] + "\n" + BeamAddonAccess[1] + "\n" +
+											BeamAddonAccess[2] + "\n" + BeamAddonAccess[3] + "\n" + BeamAddonAccess[4]);
 
 			if (ac != null && ac.isBeam)
 			{
-				for (int i = 0; i < AdditionalBeamStats[9] + 1; i++)
+				if (VisualDinners[0] != -1)
+				{
+					edgeCaseData = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SpecialComboGet(ac.assetModifier + bonusFileMod);
+					//Add way to add an extra shot here. It's 100% possible
+				}
+
+
+
+				for (int i = 0; i < theShootsingAmount; i++)
 				{
 					BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
+					MetroidMod.Instance.Logger.Info("beam spawn");
 					beam.VisualWinners = VisualDinners;
+					if (VisualDinners[0] != -1)
+					{
+						beam.ModTexture = BeamAddonLoader.ShotTextureGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
+					}
+
 					//The way shot textures are grabbed, explained in detail:
 					//Assets are stored in BeamAddons/BeamAddonName
 					//Basic shots are all named Shot
 					//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
 					//(e.g. a charge shot should be named ShotCharged
+
+					if (edgeCaseData[0] > 0)
+					{
+						beam.ShotFrames = edgeCaseData[0];
+					}
+					
 					beam.fileMod += (ac.assetModifier + bonusFileMod);
 
 					beam.beamAddons = BeamAddonAccess
