@@ -96,7 +96,7 @@ namespace MetroidMod.Content.BeamAddons
 			item.rare = ItemRarityID.Cyan;
 		}
 
-		public override string SpecialComboSet(Item[] addons)
+		public override string SetStaticCombos(Item[] addons)
 		{
 			//The following is a really basic check for a specific installed addon.
 			//It converts the array of beam addon items into proper ModBeamAddons and checks the slot Ice Beam uses for Ice Beam.
@@ -141,7 +141,7 @@ namespace MetroidMod.Content.BeamAddons
 					return [5];
 
 				default:
-					return [-1];
+					return [0];
 			}
 		}
 		//If you want your addon to do cool shit, you gotta whip up a projectile behavior modifier.

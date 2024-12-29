@@ -177,7 +177,6 @@ namespace MetroidMod.Content.Projectiles
 			beamDust = beamColor.ShotDust;
 			if (ModTexture != null)
 			{
-				MetroidMod.Instance.Logger.Info("We ain't null apparently");
 				//This here rectangle is the chunk of the texture that the sprite actually uses
 				Rectangle renderFrame = new Rectangle(0, 0, ModTexture.Width, ModTexture.Height / ShotFrames);
 
@@ -190,7 +189,6 @@ namespace MetroidMod.Content.Projectiles
 			else
 			{
 				ModTexture = (Texture2D)ModContent.Request<Texture2D>(Texture);
-				MetroidMod.Instance.Logger.Info("We nullin. Texture path: " + Texture);
 				Main.EntitySpriteDraw(ModTexture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width, ModTexture.Height), beamColor.ShotColor, Projectile.rotation,
 								  new Vector2(ModTexture.Width / 2, ModTexture.Height / 2), beamScale, SpriteEffects.None);
 			}

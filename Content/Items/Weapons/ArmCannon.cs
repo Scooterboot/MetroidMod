@@ -445,7 +445,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				//Check if the shapepriority has any special visuals for this addon combination.
 				//If not, it returns blank meaning no change.
-				ac.assetModifier = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SpecialComboSet(beamAddons);
+				ac.assetModifier = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SetStaticCombos(beamAddons);
 
 				if (VisualDinners[3] != 1) //Make sure SoundOverride is off
 				{

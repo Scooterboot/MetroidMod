@@ -163,11 +163,16 @@
 	- Dust trails on beams, death dust particles might be too small
 	- Ice Beam's roation effect while it has shapepriority
 		-Could just make the rotation part of 
+			-PART OF WHAT, PAST ME??????
+
+-Switching from the arm cannon to an empty hotbar slot causes a one-frame error
+	-Suit addons visibly vanish during this frame
 
 -Add failsafes for missing beam addon assets - DONE!!!!
 	-VERY IMPORTANT. Especially since I doubt everyone wants a custom impact SE on their beam, but I also don't want to take away from the automaticness
 
 -Various beam presentation shit from the new system that needs fixing
+	-Beam shot textures only render from the second call onward (the first shot is invisible)
 	-Charging sounds don't cut each other off properly
 	-Impact sound on no-addons is broke
 		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there

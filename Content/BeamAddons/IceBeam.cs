@@ -17,8 +17,6 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
 		public override Color ShotColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
 		public override int ShotDust => 59;
-		public override int ShapePriority => 1;
-		public override int ColorPriority => 4;
 		public override bool SoundOverride => true;
 
 		public override void SetStaticDefaults()
@@ -32,6 +30,17 @@ namespace MetroidMod.Content.BeamAddons
 
 			BaseDamage = -5;
 			InflictsBuff = ModContent.BuffType<IceFreeze>();
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient<Items.Miscellaneous.ChoziteBar>(3)
+				.AddIngredient(ItemID.IceBlock, 25)
+				.AddIngredient(ItemID.Bone, 10)
+				.AddIngredient(ItemID.Sapphire, 1)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 	}
 }

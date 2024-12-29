@@ -13,6 +13,7 @@ using System;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
+using Microsoft.CodeAnalysis;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -66,7 +67,25 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			item.rare = ItemRarityID.Blue;
 		}
-		
+
+		//This is a little bit complicated.
+		//Essentially, combo keywords are used to get assets for edge-case shenanigans.
+		//Odds are the only one you'll want to worry about is the one for charged shots,
+		//but even then you'll only need it if your charge shot sprite has a different amount of animation frames from the default.
+		//Below is the absolute simplest method to check if your shot is charged.
+		public override int[] SpecialComboGet(string modifier)
+		{
+			//Literally all you need for this method is a single switch. This is practically what switches were made for.
+			//If I see anyone try to use if-else chains here I will be very upset
+			switch (modifier)
+			{
+				case "Charged": //This is the dynamic keyword for a charged shot.
+					return [2];
+
+				default:
+					return base.SpecialComboGet(modifier);
+			}
+		}
 		//"This is where the fun begins" -Anakin Skywalker
 		public override void HoldFireBehavior(Player player)
 		{
@@ -153,14 +172,14 @@ namespace MetroidMod.Content.BeamAddons
 					if (ac.isBeam)
 					{
 						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
-						wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity, item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
+						wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity * 1.5f, item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
 					}
 					//alternatively shoot that missile combo if it's not a held
 				}
 				else if (mp.statCharge > 75 && ac.isBeam)
 				{
 					//spawn that mostly charged beam my man
-					wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity, item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
+					wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity * (1.5f * (mp.statCharge / 100)), item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
 					MetroidMod.Instance.Logger.Info(player.name + " released the... uh... slightly-less-charged beam!!!");
 				}
 				else
@@ -184,7 +203,15 @@ namespace MetroidMod.Content.BeamAddons
 			}//Cancel out any leftover charge
 		}
 
-
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient<Items.Miscellaneous.ChoziteBar>(3)
+				.AddIngredient(ItemID.ManaCrystal, 1)
+				.AddIngredient(ItemID.FallenStar, 2)
+				.AddTile(TileID.Anvils)
+				.Register();
+		}
 	}
 
 

@@ -277,6 +277,7 @@ namespace MetroidMod
 
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
+		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
 
 		#region Advanced addon properties
 		/// <summary>
@@ -321,21 +322,25 @@ namespace MetroidMod
 		/// <param name="shot"></param>
 		public virtual void ModifyShotKill(Projectile shot) { }
 		/// <summary>
-		/// Allows this addon to detect if specific addons are installed with it and use unique visuals to accomodate.
-		/// <br/>Requires this addon to have shape priority.
-		/// <br/><br/>Should return a <b>blank string</b> if a special combo is not selected.
+		/// Allows this addon to define <b>static combos</b>, allowing for specific addon combinations to have unique properties.
+		/// <br/>Each static combo needs a corresponding keyword, which the method will return. <b>Keywords must not contain spaces.</b>
+		/// <br/>An addon's static combos will only trigger if it has shape priority.
+		/// <br/>To apply special data to a combo (such as animation frame count), use <see cref="SpecialComboGet(string)"/>.
+		/// <br/><br/>Should return a <b>blank string</b> if a static combo is not selected.
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <returns></returns>
-		public virtual string SpecialComboSet(Item[] addons) { return ""; }
+		public virtual string SetStaticCombos(Item[] addons) { return ""; }
 		/// <summary>
-		/// Defines special properties the beam shot will undertake with special combos defined in <see cref="SpecialComboSet()"/> (i.e. frame count).
-		/// <br/>Requires that special combos be defined.
+		/// Defines special properties the beam shot will undertake when certain combos are detected (i.e. frame count).
+		/// <br/>This can include <b>static combos</b> defined in <see cref="SetStaticCombos(Item[])"/>, <b>dynamic combos</b> such as charge shots, as well as combinations of both.
 		/// <br/><br/>Should return all <b>zeroes</b> if a special combo is not identified.
 		/// </summary>
 		/// <param name="modifier"></param>
 		/// <returns></returns>
 		public virtual int[] SpecialComboGet(string modifier) { return [0]; }
+		//Dynamic combos are applied on the shot's firing.
+		//The best example of this would be charged shots, for which the keyword is "Charged".
 		#endregion
 
 		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);
