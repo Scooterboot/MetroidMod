@@ -312,7 +312,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 		}*/
 
-		int d = 0;
+		//int d = 0;
 		/*public void WaveCollide(Projectile P, int depth)
 		{
 			int i = (int)MathHelper.Clamp((P.Center.X) / 16f, 0, Main.maxTilesX - 1);

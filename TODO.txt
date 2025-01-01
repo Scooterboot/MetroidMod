@@ -42,6 +42,7 @@
 	-This entails:
 		* Projectile behavior injection
 		* Multiple beam shots in one firing (charge shot increases projectile count to 2 if it wasn't at or past it already)
+			-Figure out how to do the thing in the parentheses
 		* Special behavior on charge shots
 		* Tile interaction (similar principles can be applied to entity interaction)
 
@@ -179,13 +180,13 @@
 	-Optimize the sound effect grabber methods to not suck
 
 -Fix all the systems I broke
-	-Worldgen
-		-Chozo Statues/OORBs
-		-Missile/E-tank placements
-	-Fake blocks
-	-Parts of suit energy apparently
-	-Hatches probably
-	-Possibly Space Jump apparently???
+	* Worldgen
+		* Chozo Statues/OORBs
+		* Missile/E-tank placements
+	* Fake blocks
+	* Parts of suit energy apparently
+	* Hatches probably
+	* Possibly Space Jump apparently???
 		-UPDATE: Nah that's just me having Soaring Insignia on at the same time, false alarm
 
 

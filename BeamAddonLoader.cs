@@ -203,7 +203,7 @@ namespace MetroidMod
 		/// <param name="modA"></param>
 		/// <param name="modB"></param>
 		/// <returns></returns>
-		public static Texture2D ShotTextureGrabber(string shapeSource, string modA, string modB)
+		public static Asset<Texture2D> ShotTextureGrabber(string shapeSource, string modA, string modB)
 		{
 			//I dislike the large amounts of else-ifs here           -Z
 
@@ -223,19 +223,19 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Texture-grabbin time. Path: " + shapeSource + " " + " ");
 			if (ModContent.RequestIfExists(shapeSource + modA + modB, out Asset<Texture2D> fullModShot))
 			{
-				return (Texture2D)fullModShot;
+				return fullModShot;
 			}
 			else if (ModContent.RequestIfExists(shapeSource + modA, out Asset<Texture2D> firstModShot))
 			{
-				return (Texture2D)firstModShot;
+				return firstModShot;
 			}
 			else if (ModContent.RequestIfExists(shapeSource + modB, out Asset<Texture2D> lastModShot))
 			{
-				return (Texture2D)lastModShot;
+				return lastModShot;
 			}
 			else if (ModContent.RequestIfExists(shapeSource, out Asset<Texture2D> noModShot))
 			{
-				return (Texture2D)noModShot;
+				return noModShot;
 			}
 			else
 			{

@@ -57,7 +57,7 @@ namespace MetroidMod.Content.Projectiles
 		/// <summary>
 		/// This beam shot's texture after addons are applied.
 		/// </summary>
-		public Texture2D ModTexture;
+		public Asset<Texture2D> ModTexture;
 
 		private float currentFrame
 		{
@@ -86,6 +86,7 @@ namespace MetroidMod.Content.Projectiles
 		public override void SetStaticDefaults()
 		{
 			//Main.projFrames[Type] = 16;
+			// Bit worried this may cause issues in the future, but it seems to be fine for now so maybe it won't	-Z
 		}
 
 		//public override bool PreAI()
@@ -121,6 +122,7 @@ namespace MetroidMod.Content.Projectiles
 
 			if (Projectile.numUpdates == 0)
 			{
+				MetroidMod.Instance.Logger.Info("Oh hey this actually updates lmao");
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, beamDust, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
@@ -178,19 +180,19 @@ namespace MetroidMod.Content.Projectiles
 			if (ModTexture != null)
 			{
 				//This here rectangle is the chunk of the texture that the sprite actually uses
-				Rectangle renderFrame = new Rectangle(0, 0, ModTexture.Width, ModTexture.Height / ShotFrames);
+				Rectangle renderFrame = ModTexture.Frame(1, ShotFrames, 0, Projectile.frame);
 
 				//Shift it down to properly select the correct frame
 				renderFrame.Y = 0 + (renderFrame.Height * Projectile.frame);
 
-				Main.EntitySpriteDraw(ModTexture, Projectile.Center - Main.screenPosition, renderFrame, beamColor.ShotColor, Projectile.rotation,
-								  new Vector2(ModTexture.Width / 2, ModTexture.Height / 2), beamScale, SpriteEffects.None);
+				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, beamColor.ShotColor, Projectile.rotation,
+								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
 			}
 			else
 			{
-				ModTexture = (Texture2D)ModContent.Request<Texture2D>(Texture);
-				Main.EntitySpriteDraw(ModTexture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width, ModTexture.Height), beamColor.ShotColor, Projectile.rotation,
-								  new Vector2(ModTexture.Width / 2, ModTexture.Height / 2), beamScale, SpriteEffects.None);
+				ModTexture = ModContent.Request<Texture2D>(Texture);
+				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width(), ModTexture.Height()), beamColor.ShotColor, Projectile.rotation,
+								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
 			}
 			
 

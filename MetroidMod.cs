@@ -6,6 +6,7 @@ using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -36,7 +37,7 @@ namespace MetroidMod
 		/// <summary>
 		/// The backup texture for a Beam shot. Identical to default Power Beam.
 		/// </summary>
-		public static Texture2D PowerBeamFallbackTexture => ModContent.Request<Texture2D>($"MetroidMod/Assets/Textures/BeamAddons/PowerBeam/Shot").Value;
+		public static Asset<Texture2D> PowerBeamFallbackTexture => ModContent.Request<Texture2D>($"MetroidMod/Assets/Textures/BeamAddons/PowerBeam/Shot");
 		/// <summary>
 		/// The backup sound effect for firing the Power Beam. Uses the Super Metroid hurt SFX to make it clear something is wrong.
 		/// </summary>
