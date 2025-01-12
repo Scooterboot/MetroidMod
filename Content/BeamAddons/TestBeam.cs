@@ -12,7 +12,7 @@ using Terraria.ID;
 namespace MetroidMod.Content.BeamAddons
 {
 	//This here is how you make a pretty basic beam addon.
-	//Almost every important variable and method should be labelled, so I won't commend too much on their functions,
+	//Almost every important variable and method should be labelled, so I won't comment too much on their functions,
 	//But I'll be sure to point out the best ways to use stuff.           -Z
 	internal class TestBeam : ModBeamAddon
 	{
@@ -49,10 +49,12 @@ namespace MetroidMod.Content.BeamAddons
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/BeamAddons/{Name}/Item";
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/BeamAddons/{Name}/Tile";
 		public override string ShotTexture => $"{Mod.Name}/Assets/Textures/BeamAddons/{Name}/Shot";
-		public override string ShotSound => $"{Mod.Name}/Assets/Sound/BeamAddons/{Name}/Shot";
+		public override string ShotSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/Shot";
 		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/Impact";
 
-		//If you're copypasting from the example beam addon, you don't need to keep this part in the file.
+		//If you're copypasting from this file, you don't need to keep this part unless you want to use your own custom directories.
+		//However, regardless of where you put them, you MUST follow the file name format, because the entire system is built around it.
+		//Remember: for a charged shot texture, you MUST title the file "ShotCharged" or it will NOT find it.
 		#endregion
 
 		//I'll be honest, I have NO clue what the point of this thing is.

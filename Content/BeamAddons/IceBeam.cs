@@ -11,9 +11,12 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.BeamAddons
 {
-	
 	public class IceBeam : ModBeamAddon
 	{
+		//TODO:
+		//Make it actually inflict the debuff
+		//Make ice beam shots rotate when it has shape priority
+
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
 		public override Color ShotColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
 		public override int ShotDust => 59;

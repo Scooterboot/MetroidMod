@@ -397,8 +397,7 @@ namespace MetroidMod.Content.Items.Weapons
 			//AdditionalPrimaryStats = BeamAddonLoader.ArrayStatGrabber(primaryQuickSwap); //Gets PQS passives (doesn't exist yet)
 
 
-			//Iterate through the currently-active addons in search of a holdfire suppressor
-			//If none are found, iterate through both the currently-active addons and the array for active holdfires
+
 
 			#region Misc. Beamstacking
 			//This is gonna get a little hard to read.
@@ -406,6 +405,9 @@ namespace MetroidMod.Content.Items.Weapons
 			//VisualDinners[0] is the winning ShapePriority, VisualDinners[1] is the winning ColorPriority
 			if (VisualDinners[0] != -1) //Make sure there's actually stuff in the array
 			{
+				//Iterate through the currently-active addons in search of a holdfire suppressor
+				//If none are found, iterate through both the currently-active addons and the array for active holdfires
+				#region Holdfire checker
 				MetroidMod.Instance.Logger.Info("Holdfire Checking Time, resetting HoldFireSlot now");
 				HoldFireSlot = -1;
 				/*if (VisualDinners[2] == 1)
@@ -442,30 +444,28 @@ namespace MetroidMod.Content.Items.Weapons
 						MetroidMod.Instance.Logger.Info("Nada");
 					}
 				}//Get the active holdfire
+				#endregion
 
 				//Check if the shapepriority has any special visuals for this addon combination.
 				//If not, it returns blank meaning no change.
 				ac.assetModifier = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SetStaticCombos(beamAddons);
 
-				if (VisualDinners[3] != 1) //Make sure SoundOverride is off
-				{
-					beamSound = BeamAddonLoader.ShotSoundGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotSound, ac.assetModifier, "");
-				}
-				else //If not, use the colorpriority sound effect
-				{
-					if (ModContent.Request<SoundEffect>(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotSound) != null)
-					{
-						beamSound = new SoundStyle(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotSound);
-					}
-					else
-					{
-						//Supposed to prevent crashes from trying to read nonexistent data. Doesn't fuckin work
-						MetroidMod.Instance.Logger.Error("ERROR: No shot sound found. Using backup." +
-														 "\nTIP: The file structure should be [(Mod)/Assets/Sounds/BeamAddons/(AddonFile)/Shot]");
-						beamSound = new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ShotMissing");
-					}
-				}
+				//Get the modified shot sound effect.
+				//This may look fucking godawful but I assure you this is all pretty much one line
+				//Basically, it's asking the ShotSoundGrabber to get an asset based on the addon with sound effect privileges
+				//(shapepriority if color override is off and naturally colorpriority if it's on)
+				//and the current assetmodifier, determined a function ago (is that the right terminology???)
+				beamSound = BeamAddonLoader.ShotSoundGrabber
+					(BeamAddonLoader.GetAddon
+						(beamAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]
+						).ShotSound, ac.assetModifier, "", MetroidMod.BeamShotFallbackSFX
+					);
+
+
 			} //All the checks and shit for if there actually ARE addons in your arm cannon. Goes through holdfires, soundoverride, etc.
+
+
+
 			else
 			{
 				beamSound = Sounds.Items.Weapons.PowerBeamSound;
@@ -481,8 +481,6 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				missileSound = Sounds.Items.Weapons.MissileSound;
 			}
-
-			//Get customfire routines here
 			#endregion
 
 			#region Missile Launcher stat calculation
@@ -509,7 +507,7 @@ namespace MetroidMod.Content.Items.Weapons
 			//or maybe it's just me trying to make sure TTNE fire beam is possible again idfk
 			//whatever, fire beam is kinda lame anyway, flamethrower is literally just it but better
 			//...it still would be kinda cool though
-			if (CanUseItem(player) && (HoldFireSlot != -1))
+			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem != null))
 			{
 				if (HoldFireSlot > BeamAddonSlotID.Count - 1)
 				{
@@ -586,7 +584,13 @@ namespace MetroidMod.Content.Items.Weapons
 					beam.VisualWinners = VisualDinners;
 					if (VisualDinners[0] != -1)
 					{
+						//Need to BeamAddonLoader.GetAddon() the addons because the Arm Cannon stores the associated items and not the ModBeamAddons themselves
+						//There's a chance it'd prolly be more efficient to store them as the addons but I've already set everything up this way so
 						beam.ModTexture = BeamAddonLoader.ShotTextureGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
+						beam.Impact = BeamAddonLoader.ShotSoundGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.BeamImpactFallbackSFX);
+						//Okay that last line was a bit of a mouthful but essentially what that says:
+						//It's attempting to set the beam impact sfx to an addon's impact sfx given the filemods.
+						//If SoundOverride (VisualDinners[3]) is on, that addon is the ColorPriority, and if not, it's the ShapePriority
 					}
 
 					//The way shot textures are grabbed, explained in detail:

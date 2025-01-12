@@ -57,6 +57,10 @@ namespace MetroidMod.Content.Projectiles
 		public bool doParalyzerStun = false;
 		public float paralyzerStunAmount = 0;
 
+		/// <summary>
+		/// Temporary bool to cover areas where two <i>particular</i> Hunters weapons cause issues.
+		/// </summary>
+		public bool LittleShit = false;
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
@@ -312,8 +316,8 @@ namespace MetroidMod.Content.Projectiles
 			}
 		}*/
 
-		//int d = 0;
-		/*public void WaveCollide(Projectile P, int depth)
+		int d = 0;
+		public void PhaseCollide(Projectile P, int depth)
 		{
 			int i = (int)MathHelper.Clamp((P.Center.X) / 16f, 0, Main.maxTilesX - 1);
 			int j = (int)MathHelper.Clamp((P.Center.Y) / 16f, 0, Main.maxTilesY - 1);
@@ -329,11 +333,11 @@ namespace MetroidMod.Content.Projectiles
 			{
 				d--;
 			}
-			if (d >= depth && P.type != ModContent.ProjectileType<ShockCoilShot>() && P.type != ModContent.ProjectileType<ImperialistShot>())
+			if (d >= depth && !LittleShit)
 			{
 				P.Kill();
 			}
-		}*/
+		}
 
 		/*public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
 		{

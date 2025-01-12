@@ -60,6 +60,17 @@ namespace MetroidMod.Content.BeamAddons
 			}
 		}
 
+		//This is where I put the important stuff when I figure it out
+		/// <summary>
+		/// Makes the Wave Beam move in a sine-wave pattern and phase through walls.
+		/// </summary>
+		/// <param name="p"></param>
+		/// <param name="space"></param>
+		public void WaveBehavior(Projectile p, bool spaze = false)
+		{
+
+		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)

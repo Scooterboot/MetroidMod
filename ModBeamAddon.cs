@@ -117,22 +117,43 @@ namespace MetroidMod
 		public virtual bool SoundOverride { get; set; } = false;
 
 		/// <summary>
-		/// If true, this addon will <b>completely override</b> the visual priority system and custom firing system. <br/>
-		/// Intended for use on Special Beams, like Hyper and Phazon.<br/>
-		/// Checks each addon in sequential order; 1, 2, yadda yadda.<br/>
+		/// If true, this addon will <b>completely override</b> the visual priority system. <br/>
+		/// Making an addon a VIB also allows you to <b>create your own custom projectile</b> for your addon's shot, if you so choose. <br/>
+		/// If not, you can simply leave <see cref="vibOverride"/> as null. <br/>
+		/// Intended for use on Special Beams, such as the <b>Hyper Beam</b> and <b>Phazon Beam</b>.<br/>
+		/// Checks each addon in sequential order; slot 0, slot 1, yadda yadda.<br/>
 		/// Defaults to <b>false.</b><br/>
 		/// <i>(stands for Very Important Beam)</i>
 		/// </summary>
 		public virtual bool VIB { get; set; } = false;
+		/// <summary>
+		/// Determines the custom projectile the VIB will fire instead of the standard beam shot.
+		/// <br/>Leave null to use the standard beam shot projectile.
+		/// <br/><b>For advanced use ONLY. Not recommended for beginners.</b>
+		/// </summary>
+		public ModProjectile vibOverride;
+		/// <summary>
+		/// If true, this addon will not apply its properties to the Arm Cannon.
+		/// <br/>Used to create incompatibilites between addons.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool Overridden => false;
+		/// <summary>
+		/// If true, this addon will prevent the Arm Cannon it's installed in from firing.
+		/// <br/>Used primarily in Suitlocking.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool Locked => false;
 		#endregion
 
-		#region Addon stat variables
 		/// <summary>
 		/// The slot in the Addon UI that this addon uses.<br/><br/>
 		/// See <see cref="BeamAddonSlotID"/> for details on the different slots.
 		/// </summary> 
 		public virtual int AddonSlot { get; set; } = BeamAddonSlotID.None;
 
+
+		#region Addon stat variables
 		//These stats are plugged into the WEAPON, not the projectile.
 		/// <summary>
 		/// The base damage value this addon adds.<br/>
@@ -141,7 +162,7 @@ namespace MetroidMod
 		public virtual int BaseDamage { get; set; } = 0;
 		/// <summary>
 		/// The damage multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's tooltip. It will be converted later.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
 		/// (i.e. if the addon should have a 50% damage increase, put 50f instead of 1.5f)
 		/// </summary>
 		public virtual float DamageMult { get; set; } = 0f;
@@ -152,7 +173,7 @@ namespace MetroidMod
 		public virtual int BaseSpeed { get; set; } = 0;
 		/// <summary>
 		/// The usetime multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's tooltip. It will be converted later.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
 		/// (i.e. if the addon should have a 50% speed increase, put 50f instead of 1.5f)
 		/// </summary>
 		public virtual float SpeedMult { get; set; } = 0f;
@@ -163,7 +184,7 @@ namespace MetroidMod
 		public virtual float BaseVelocity { get; set; } = 0f;
 		/// <summary>
 		/// The velocity multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's tooltip. It will be converted later.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
 		/// (i.e. if the addon should have a 50% speed increase, put 50f instead of 1.5f)
 		/// </summary>
 		public virtual float VelocityMult { get; set; } = 0f;
@@ -179,7 +200,7 @@ namespace MetroidMod
 		public virtual int BaseOverheat { get; set; } = 0;
 		/// <summary>
 		/// The overheat multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's tooltip. It will be converted later.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip</i>. It will be converted later.<br/>
 		/// (i.e. if the addon should have a -50% overheat multiplier, put -50f instead of 0.5f)
 		/// </summary>
 		public virtual float OverheatMult { get; set; } = 0f;
@@ -187,8 +208,9 @@ namespace MetroidMod
 		/// The amount of extra projectiles this addon will make the player fire.
 		/// </summary>
 		public virtual int AddShots { get; set; } = 0;
+		#endregion
 
-
+		#region Shot Behavior Variables
 		//These stats get plugged into the PROJECTILE, not the weapon.
 		/// <summary>
 		/// The buff that this addon will inflict on hit.
@@ -205,7 +227,7 @@ namespace MetroidMod
 		public virtual int NPCInteract { get; set; } = 0;
 		/// <summary>
 		/// If true, this addon will continue to perform an action for as long as Fire is held.
-		/// <br/>For advanced beam shenanigans. Assemble said shenanigans over in HoldFireBehavior().
+		/// <br/>For advanced beam shenanigans. Assemble said shenanigans over in <see cref="HoldFireBehavior(Player)"/>.
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool HoldFire { get; set; } = false;
@@ -215,8 +237,9 @@ namespace MetroidMod
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool SuppressHoldFire { get; set;} = false;
-		#endregion
 
+
+		#endregion
 
 
 		/// <summary>
@@ -281,46 +304,24 @@ namespace MetroidMod
 
 		#region Advanced addon properties
 		/// <summary>
-		/// Allows VIB addons to completely commandeer the shot-firing process.
-		/// <br/><br/>TODO: make this optional
-		/// </summary>
-		/// <param name="addons"></param>
-		/// <returns></returns>
-		public virtual void VIBOverride(Item[] addons, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) { }
-		/// <summary>
 		/// Lets you make the Arm Cannon do things while Fire is held down.
+		/// <br/>To be used with <see cref="HoldFire"/>.
 		/// </summary>
 		public virtual void HoldFireBehavior(Player player) { }
-		/// <summary>
-		/// Changes how the projectiles shot are distributed.
-		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void ModifyShotSpread(Projectile shot) { }
-		/// <summary>
-		/// Changes the way projectiles behave with this addon installed.
-		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void ModifyShotAI(Projectile shot) { }
-		/// <summary>
-		/// Changes how projectiles interact with tiles they collide with.
-		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void ModifyShotHitTile(Projectile shot) { }
-		/// <summary>
-		/// Changes how projectiles interact with tiles they hit.
-		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void ModifyShotHitEntity(Projectile shot) { }
-		/// <summary>
-		/// Changes how projectiles interact with players they hit.
-		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void ModifyShotHitPlayer(Projectile shot) { }
-		/// <summary>
-		/// Changes what projectiles do upon destruction.
-		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void ModifyShotKill(Projectile shot) { }
+		///<inheritdoc cref="ModProjectile.OnSpawn(IEntitySource)"/>
+		public virtual void ShotOnSpawn(Projectile shot, IEntitySource source) { }
+		/// <inheritdoc cref="ModProjectile.PreAI"/>
+		public virtual bool ShotPreAI(Projectile shot) { return true; }
+		/// <inheritdoc cref="ModProjectile.AI"/>
+		public virtual void ShotAI(Projectile shot) { }
+		/// /// <inheritdoc cref="ModProjectile.PostAI"/>
+		public virtual void ShotPostAI(Projectile shot) { }
+		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
+		public virtual void ShotOnHitNPC(Projectile shot, NPC target, NPC.HitInfo hit, int damageDone) { }
+		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
+		public virtual void ShotOnHitPlayer(Projectile shot, Player target, Player.HurtInfo info) { }
+		/// <inheritdoc cref="ModProjectile.OnKill(int)"/>
+		public virtual void ShotOnKill(Projectile shot, int timeLeft) { }
 		/// <summary>
 		/// Allows this addon to define <b>static combos</b>, allowing for specific addon combinations to have unique properties.
 		/// <br/>Each static combo needs a corresponding keyword, which the method will return. <b>Keywords must not contain spaces.</b>

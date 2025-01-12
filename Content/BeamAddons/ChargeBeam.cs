@@ -27,7 +27,6 @@ namespace MetroidMod.Content.BeamAddons
 		public override int ShotDust => 64;
 
 		public override string ShotSound => $"{Mod.Name}/Assets/Sounds/ArmCannon/Shot";
-
 		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/ArmCannon/BeamImpactSound";
 
 		#endregion
@@ -93,8 +92,12 @@ namespace MetroidMod.Content.BeamAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			Item item = Main.LocalPlayer.inventory[mp.selectedItem]; //Grab the Arm Cannon from the player's selected item. A little worried this could break?
 			MGlobalItem ac = item.GetGlobalItem<MGlobalItem>();
-			ArmCannon wepon = (ArmCannon)item.ModItem; //john freeman looked on the ground and found wepon
+			ArmCannon wepon = (ArmCannon)item.ModItem; //john freeman then looked on the ground and found wepon so he pickd it up and fired fast at zombie goasts in front of a house
+			if (wepon == null) { return; }
+			Color ballColor = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[1]]).ShotColor;
+			ModBeamAddon soundSource = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[(wepon.VisualDinners[3] == 1) ? 1 : 0]]);
 			//there's a tiny part of me that wants it to not hardcodedly check for an arm cannon but that's probably dumb so
+
 
 			//Now get all the relevant locational data.
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
@@ -108,10 +111,12 @@ namespace MetroidMod.Content.BeamAddons
 			bool canCharge = !player.noItems && !mp.ballstate && !mp.shineActive && !player.dead && !player.CCed && (player.whoAmI == Main.myPlayer);
 			float currentMultiplier = 0f;
 
+			
+
 			//here's the part where all the charging happens
 			if (player.controlUseItem && canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null))
 			{
-				if (chargeDelay == item.useTime)
+				if (chargeDelay == item.useTime - 1)
 				{
 					//Specific thresholds of charge at which certain things happen
 					switch (mp.statCharge)
@@ -121,9 +126,9 @@ namespace MetroidMod.Content.BeamAddons
 							ChargeLead chargio = Projectile.NewProjectileDirect(item.GetSource_FromThis(), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), 0, 0, player.whoAmI).ModProjectile as ChargeLead;
 							MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
 							chargio.sourceItem = item;
+							chargio.ballColor = ballColor;
 							MetroidMod.Instance.Logger.Info(item);
 							//play charge noise
-							SoundEngine.PlaySound(new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/BeamChargingSound")); //TODO: asset request thing
 							break;
 						case 99f:
 							//Charging is done. Play charge complete sound effect.
@@ -162,6 +167,7 @@ namespace MetroidMod.Content.BeamAddons
 					if (chargeDelay % 10 == 0) { MetroidMod.Instance.Logger.Info("delay is at " + chargeDelay + "/" + item.useTime); }
 					if (chargeDelay > item.useTime) { chargeDelay = item.useTime; }
 				} //not allowed to charge just yet
+
 			}//Check if the player is currently trying to charge with a compatible weapon
 			else if (canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null) && mp.statCharge > 5)
 			{
@@ -241,11 +247,16 @@ namespace MetroidMod.Content.BeamAddons
 			Projectile.ignoreWater = true;
 		}
 
+		public override void OnSpawn(IEntitySource source)
+		{
+			//play the charging sound effect I guess
+		}
+
 		public override void AI()
 		{
 			//THE BARE MINIMUM OF WHAT I WANT THIS TO DO:
 			//* Increase in size with charge stat  - Done
-			//* Glue itself to the end of the arm cannon - Pretty much done
+			//* Glue itself to the end of the arm cannon - Pretty much done, just needs to render a layer higher
 			//* Delete itself upon releasing fire - Done
 			//* Function with both the beam and missiles - Not done
 			//* Color itself to either match the current beam or the current charge combo, depending on the context - Not done
@@ -257,6 +268,15 @@ namespace MetroidMod.Content.BeamAddons
 			Vector2 ballPos = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - (float)(Math.PI / 2) * player.direction);
 			bool isCharging = player.controlUseItem && !player.noItems && !player.dead && !mp.ballstate && !mp.shineActive && !player.CCed;
 			
+			//This sucker needs to exist so the sound effects can properly cut each other off
+			ReLogic.Utilities.SlotId soundInstance;
+			
+			//maybe put the thing in OnSpawn? 
+			//To have the thing change dynamically I'm gonna have to do a touch of finangling
+			//May need to include a few extra properties and variables?
+			//Or alternatively I could do all the asset checking back in the charge beam itself
+			//and relay the results into the variables that already exist -Z
+
 			//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead!!!");
 			BarrelGlue(player, ballPos);
 			if (Projectile.owner == Main.myPlayer)
@@ -275,6 +295,11 @@ namespace MetroidMod.Content.BeamAddons
 			}
 			//make sure the projectile doesn't expire naturally
 			Projectile.timeLeft = 2;
+		}
+
+		public override void OnKill(int timeLeft)
+		{
+			//play the shot sound here I guess
 		}
 		/// <summary>
 		/// Determines where the charge lead is positioned relative to the player's arm.

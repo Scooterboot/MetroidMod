@@ -28,14 +28,20 @@ namespace MetroidMod.Common.GlobalItems
 		/// If true, prevent normal shots from being fired.
 		/// </summary>
 		public bool SuppressingFire = false;
+		/// <summary>
+		/// The current amount of Universal Ammunition remaining in the item.
+		/// </summary>
 		public float statUA = 40f;
+		/// <summary>
+		/// The item's maximum capacity for Universal Ammunition.
+		/// </summary>
 		public int maxUA = 400;
 		/// <summary>
-		/// The current amount of Missile ammo remaining in the weapon.
+		/// The current amount of Missile ammo remaining in the item.
 		/// </summary>
 		public int statMissiles = 5;
 		/// <summary>
-		/// The weapon's maximum capacity for Missile ammo.
+		/// The item's maximum capacity for Missile ammo.
 		/// </summary>
 		public int maxMissiles = 5;
 

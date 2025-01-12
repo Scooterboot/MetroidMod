@@ -441,7 +441,8 @@ Mods: {
 				// DisplayName: Morph Ball
 				/* Tooltip:
 					'''
-					Equip and press the mount key to roll into a ball
+					Allows the user to morph into a ball and fit through narrow passageways
+					Can be upgraded with Morph Ball Addons
 					Morph Ball's colors are based on your shirt and undershirt colors
 					''' */
 			}
@@ -3041,38 +3042,72 @@ Mods: {
 			}
 
 			GeemerSupps: {
-				// Tooltip: Summons the mythical Orange Geemer
 				// DisplayName: Geemer Supps
+				// Tooltip: Summons the mythical Orange Geemer
 			}
 
 			CrocomireBone: {
-				// Tooltip: Summons a baby Crocomire
 				// DisplayName: Acid-Soaked Bone
+				// Tooltip: Summons a baby Crocomire
 			}
 
 			VanityPack: {
 				// DisplayName: Vanity Pack
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.RightClickToOpen}
+					Contains ancient variants of the following suits:
+					-Power Suit
+					-Varia Suit
+					-True Varia Suit
+					''' */
 			}
 
 			VanityPack_Prime: {
 				// DisplayName: Vanity Pack: Prime
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.RightClickToOpen}
+					Contains ancient variants of the following suits:
+					-Gravity Suit
+					-True Gravity Suit
+					-Phazon Suit
+					''' */
 			}
 
 			VanityPack_Echoes: {
 				// DisplayName: Vanity Pack: Echoes
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.RightClickToOpen}
+					Contains ancient variants of the following suits:
+					-Dark Suit
+					-Light Suit
+					''' */
 			}
 
 			VanityPack_Corruption: {
 				// DisplayName: Vanity Pack: Corruption
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.RightClickToOpen}
+					Contains ancient variants of the following suits:
+					-P.E.D. Suit
+					-Hazard Shield
+					''' */
 			}
 
 			VanityPack_Lunar: {
 				// DisplayName: Vanity Pack: Lunar
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.RightClickToOpen}
+					Contains ancient variants of the following suits:
+					-Vortex Gravity Suit
+					-Nebula Phazon Suit
+					-Solar Light Suit
+					-Stardust Hazard Shield
+					''' */
 			}
 
 			ChozoRuinsBag: {
@@ -3785,7 +3820,7 @@ Mods: {
 		Projectiles: {
 			# Power Beam
 			// BeamShot.DisplayName: Power Beam
-			// ChargeLead.DisplayName: Charge Lead
+			// ChargeLead.DisplayName: Charged Beam Energy
 			# Missile Launcher
 			// MissileShot.DisplayName: Missile
 			// IceMissileShot.DisplayName: Ice Missile

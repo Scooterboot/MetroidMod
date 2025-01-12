@@ -93,11 +93,14 @@ namespace MetroidMod.Content.Projectiles
 		//{
 		//	return true;
 		//}
+
 		public override void AI() //TODO: make a whole-ass thing         -Z
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
+
+			#region Animation code
 			//If this shot has more than 1 frame, run animation code
 			if (ShotFrames > 1)
 			{
@@ -116,6 +119,7 @@ namespace MetroidMod.Content.Projectiles
 				}
 				//if we're at the frame count reset
 			}
+			#endregion
 
 
 			//Put the dustline shit here later
@@ -131,6 +135,25 @@ namespace MetroidMod.Content.Projectiles
 		//{
 		//	base.PostAI();
 		//}
+
+		//public override bool OnTileCollide(Vector2 oldVelocity)
+		//{
+		//	//Inject tileinteract code here?
+		//	return base.OnTileCollide(oldVelocity);
+		//}
+		
+		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		//{
+		//	//inject onhitnpc code here
+		//	base.OnHitNPC(target, hit, damageDone);
+		//}
+		//public override void OnHitPlayer(Player target, Player.HurtInfo info)
+		//{
+		//	//Could do some cool shit here.
+		//	base.OnHitPlayer(target, info);
+		//}
+
+
 		public override void OnKill(int timeLeft)
 		{
 			Vector2 pos = Projectile.position;
@@ -144,31 +167,10 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
 				Main.dust[dust].noGravity = noGravity;
 			}
-			if (VisualWinners[0] != -1)
-			{
-				if (ModContent.RequestIfExists(beamAddons[VisualWinners[(VisualWinners[3] == 1) ? 1 : 0]].ImpactSound, out Asset<SoundEffect> asset))
-				{
-					SoundStyle sound = new($"{Mod.Name}/" + asset.Name);
-					SoundEngine.PlaySound(sound, Projectile.Center); 
-				}
-				else 
-				{ 
-					SoundStyle sound = new($"{Mod.Name}/Assets/Sounds/ArmCannon/BeamImpactSound");
-					SoundEngine.PlaySound(sound, Projectile.Center); 
-				}
-			}
+			SoundEngine.PlaySound(Impact, Projectile.position);
 		}
 
-		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		//{
-		//	//inject onhitnpc code here
-		//	base.OnHitNPC(target, hit, damageDone);
-		//}
-		//public override void OnHitPlayer(Player target, Player.HurtInfo info)
-		//{
-		//	//Could do some cool shit here.
-		//	base.OnHitPlayer(target, info);
-		//}
+
 
 		public override bool PreDraw(ref Color lightColor)
 		{

@@ -41,6 +41,33 @@
 -Make Wave Beam
 	-This entails:
 		* Projectile behavior injection
+			-[NOT VIABLE]|METHOD A: Beam Addon Global Projectiles
+				-Every beam addon now comes with a global projectile that applies its behavior to the beam shot.
+				-Should hopefully just be inherently compatible as multiple globals can apply to the same thing
+				-May not be able to have things take priority over each other???
+				-A lot less restrained, which means far less control as consequence
+				-Something I've never fully tried before, FOTU may be clouding my judgment
+				-May not be physically possible, could end up far more likely to over-apply than under-apply
+			-METHOD B: Rig it up manually
+				-Beam addons directly inject properties into the beam shot manually.
+				-Far more controlled; certain methods can only plug into certain parts
+				-Would probably require several more priority systems (things like movement patterns, buffs, etc.)
+					-On the other hand I'm no stranger to making priority systems   -Z
+				-but it may get tedious having to assign priority values to a bunch of extra stuff
+				-Can cause BeamShot to get messy
+				-got this far without globals, maybe it can go the distance?
+			-[NOT VIABLE]|METHOD C: Singular Beam Global Projectile
+				-All addons pass through one singular global projectile
+				-May defeat the point of using global projectiles in the first place?
+				-May not even be all that different from B
+			-METHOD D: One Beam Global Projectile Per Slot
+				-Each addon slot has its own bespoke global projectile through which it applies behavior
+				-Allows for finer control of how things stack on
+				-Slots will have pre-definied purposes
+				-Uses multiple globals at once which is the point of using globals
+			-METHOD E: BeamAddonLoader shenanigans
+				-Similar to D but it goes through BeamAddonLoader instead of a global
+
 		* Multiple beam shots in one firing (charge shot increases projectile count to 2 if it wasn't at or past it already)
 			-Figure out how to do the thing in the parentheses
 		* Special behavior on charge shots
@@ -52,6 +79,13 @@
 		* Item VFX
 		* Advanced beam graphical effects
 		* Suitlocking
+		* Also the primary array
+
+-Make a single Affinity Weapon
+	-Entails:
+		* The primary array
+		* Ammo systems
+		* Incompatibility, in-depth
 
 -Implement primary array
 	-Add array UI to the UI

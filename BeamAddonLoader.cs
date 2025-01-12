@@ -206,7 +206,7 @@ namespace MetroidMod
 		public static Asset<Texture2D> ShotTextureGrabber(string shapeSource, string modA, string modB)
 		{
 			//I dislike the large amounts of else-ifs here           -Z
-
+			#region grabber explanation
 			//This nasty else-if chain exists NOT to gauge how modded an asset path is, but to catch asset combinations that don't exist.
 			//If all the assets are present and correctly named, this method shouldn't pass through anything below the first if.
 			//For instance, a basic shot with zero modifiers would only pass through the first if, as mod strings default to blank, meaning it becomes:
@@ -220,6 +220,8 @@ namespace MetroidMod
 			//The fallback texture should only call if there's literally NO adjacent assets in this particular filepath configuration, including a basic shot.
 			//The chain tries to get a modA path first, since the first layer of mod is a lot more "permanent" than the second
 			//(in the sense that it's applied during array updating and not when shooting)
+			#endregion
+
 			MetroidMod.Instance.Logger.Info("Texture-grabbin time. Path: " + shapeSource + " " + " ");
 			if (ModContent.RequestIfExists(shapeSource + modA + modB, out Asset<Texture2D> fullModShot))
 			{
@@ -244,17 +246,21 @@ namespace MetroidMod
 			}
 		}
 		/// <summary>
-		/// Used to acquire a beam shot's shooting sound effect through its filepath and current modifiers.
+		/// Used to acquire a beam shot's sound effects through its filepath and current modifiers.
 		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
+		/// <br/><br/>The default fallbacks (the third value) are as follows:
+		/// <br/>Shooting: <see cref="MetroidMod.BeamShotFallbackSFX"/>
+		/// <br/>Impact: <see cref="MetroidMod.BeamImpactFallbackSFX"/>
+		/// <br/>Charging: <see cref="MetroidMod.BeamChargeFallbackSFX"/>
 		/// </summary>
 		/// <param name="soundSource"></param>
 		/// <param name="modA"></param>
 		/// <param name="modB"></param>
 		/// <returns></returns>
-		public static SoundStyle ShotSoundGrabber(string soundSource, string modA, string modB)
+		public static SoundStyle ShotSoundGrabber(string soundSource, string modA, string modB, SoundStyle fallback)
 		{
 			//I still greatly dislike the amount of else-ifs here     -Z
-
+			#region grabber explanation
 			//This nasty else-if chain exists NOT to gauge how modded an asset path is, but to catch asset combinations that don't exist.
 			//If all the assets are present and correctly named, this method shouldn't pass through anything below the first if.
 			//For instance, a basic shot with zero modifiers would only pass through the first if, as mod strings default to blank, meaning it becomes:
@@ -268,7 +274,7 @@ namespace MetroidMod
 			//The fallback sound should only call if there's literally NO adjacent assets in this particular filepath configuration, including a basic shot.
 			//The chain tries to get a modA path first, since the first layer of mod is a lot more "permanent" than the second
 			//(in the sense that it's applied during array updating and not when shooting)
-
+			#endregion
 			//TODO: Too many overloads because of how modB works, being a temporary value and all. Find out how to fix.		-Z
 
 			if (ModContent.RequestIfExists(soundSource + modA + modB, out Asset<SoundEffect> fullModSound))
@@ -290,33 +296,7 @@ namespace MetroidMod
 			}
 			else
 			{
-				return MetroidMod.BeamShotFallbackSFX;
-			}
-		}
-		/// <summary>
-		/// Used to acquire a beam shot's impact sound effect through its filepath and current modifiers.
-		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
-		/// <br/>Also noticeably less complex than the other ones because this one's much more likely to turn up blank.
-		/// </summary>
-		/// <param name="soundSource"></param>
-		/// <param name="modA"></param>
-		/// <param name="modB"></param>
-		/// <returns></returns>
-		public static SoundStyle ImpactSoundGrabber(string soundSource, string modA, string modB)
-		{
-			//I am not going to put nearly as much effort into this one since 90% of beam addons don't even fuck with this sound effect anyway
-			if (ModContent.RequestIfExists(soundSource + modA + modB, out Asset<SoundEffect> modSound))
-			{
-				return new SoundStyle(soundSource + modA + modB);
-			}
-			else if (ModContent.RequestIfExists(soundSource, out Asset<SoundEffect> noModSound))
-			{
-				//this one is shorter because no impact sfx is kind of the default, will expand if necessary
-				return new SoundStyle(soundSource);
-			}
-			else
-			{
-				return MetroidMod.BeamImpactFallbackSFX;
+				return fallback;
 			}
 		}
 
@@ -352,6 +332,23 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Beam stats stacked");
 			return totals;
 		}
+
+		//Behavior stackamajig?
+
+
+		//Compat checker here
+		//two types of no-gos that need to be accounted for:
+		//Incompatibilities: addon does not apply to beam shot while a different specified addon is installed
+		//BOOL RETURN METHODS?? MAYBE LIKE CANUSEITEM
+		//Could be able to make compat conditional without having to step all over locking
+		//Needs to run during arrayupdate specifically
+		//Returns bools for each slot?
+		//Which addons do the overriding? Do the overridden do the checks or the overriding?
+		//idfk.
+		//Locks: addon prevents beam from firing until certain conditions are met
+		//Suitlocking only? makes the process more automatic and makes the unknown item bit easier
+		//Store something in MPlayer?
+
 
 		#endregion
 

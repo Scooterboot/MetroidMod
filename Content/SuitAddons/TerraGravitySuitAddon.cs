@@ -67,6 +67,7 @@ namespace MetroidMod.Content.SuitAddons
 				"Immune to Distorted and Amplified Gravity effects"); */
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType;
 			AddonSlot = SuitAddonSlotID.Suit_Primary;
+			SuitKeys = ["HyperBeam"];
 			ItemNameLiteral = false;
 		}
 		public override void SetItemDefaults(Item item)
