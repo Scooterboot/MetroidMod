@@ -507,7 +507,7 @@ namespace MetroidMod.Content.Items.Weapons
 			//or maybe it's just me trying to make sure TTNE fire beam is possible again idfk
 			//whatever, fire beam is kinda lame anyway, flamethrower is literally just it but better
 			//...it still would be kinda cool though
-			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem != null))
+			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
 				if (HoldFireSlot > BeamAddonSlotID.Count - 1)
 				{

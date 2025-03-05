@@ -67,7 +67,9 @@
 				-Uses multiple globals at once which is the point of using globals
 			-METHOD E: BeamAddonLoader shenanigans
 				-Similar to D but it goes through BeamAddonLoader instead of a global
-
+		* On-the-fly behavior modification?
+			-Different combos have different sinewave settings.
+				-Could relate amplitude/wavelength to relevant stats?
 		* Multiple beam shots in one firing (charge shot increases projectile count to 2 if it wasn't at or past it already)
 			-Figure out how to do the thing in the parentheses
 		* Special behavior on charge shots

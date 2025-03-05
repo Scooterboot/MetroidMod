@@ -88,12 +88,15 @@ namespace MetroidMod.Content.BeamAddons
 		//"This is where the fun begins" -Anakin Skywalker
 		public override void HoldFireBehavior(Player player)
 		{
+			//This needs to be here otherwise the game's gonna keep on trying to call shit inside of this method without the arm cannon if you switch items too fast
+			if (player.lastVisualizedSelectedItem.type != ModContent.ItemType<ArmCannon>()) { return; }
+
+
 			//Get all the relevant data about the player first.
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			Item item = Main.LocalPlayer.inventory[mp.selectedItem]; //Grab the Arm Cannon from the player's selected item. A little worried this could break?
 			MGlobalItem ac = item.GetGlobalItem<MGlobalItem>();
 			ArmCannon wepon = (ArmCannon)item.ModItem; //john freeman then looked on the ground and found wepon so he pickd it up and fired fast at zombie goasts in front of a house
-			if (wepon == null) { return; }
 			Color ballColor = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[1]]).ShotColor;
 			ModBeamAddon soundSource = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[(wepon.VisualDinners[3] == 1) ? 1 : 0]]);
 			//there's a tiny part of me that wants it to not hardcodedly check for an arm cannon but that's probably dumb so
@@ -198,6 +201,8 @@ namespace MetroidMod.Content.BeamAddons
 					}
 					//alternatively shoot that normal-ass missile
 				}
+				player.itemTime = 20;
+				player.itemAnimation = 20;
 				mp.statCharge = 0;
 				chargeDelay = 0;
 			}//Check if there's any charge to release

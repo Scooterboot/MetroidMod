@@ -177,7 +177,7 @@ namespace MetroidMod.Content.Projectiles
 			if (VisualWinners[0] == -1 || VisualWinners[1] == -1 || beamAddons == null){ return true; }
 			ModBeamAddon beamShape = beamAddons[VisualWinners[0]];
 			ModBeamAddon beamColor = beamAddons[VisualWinners[1]];
-			lightColor = beamColor.ShotColor;
+			color = beamColor.ShotColor;
 			beamDust = beamColor.ShotDust;
 			if (ModTexture != null)
 			{
