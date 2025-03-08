@@ -164,12 +164,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			}
 
 			P.scale = scale;
-			P.position.X = P.position.X + (float)(P.width / 2);
-			P.position.Y = P.position.Y + (float)(P.height / 2);
-			P.width = (int)((float)width * P.scale);
-			P.height = (int)((float)height * P.scale);
-			P.position.X = P.position.X - (float)(P.width / 2);
-			P.position.Y = P.position.Y - (float)(P.height / 2);
+			P.Resize((int)(width * P.scale), (int)(height * P.scale));
 
 			if ((int)P.ai[0] == maxDist && P.numUpdates == 0)
 			{

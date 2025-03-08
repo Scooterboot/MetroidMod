@@ -116,12 +116,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			}
 
 			ExplosionProjectile.scale = scaleSize * 0.02f;
-			ExplosionProjectile.position.X = (float)Math.Floor(ExplosionProjectile.position.X + (ExplosionProjectile.width / 2));
-			ExplosionProjectile.position.Y = (float)Math.Floor(ExplosionProjectile.position.Y + (ExplosionProjectile.height / 2));
-			ExplosionProjectile.width = (int)Math.Floor(width * ExplosionProjectile.scale);
-			ExplosionProjectile.height = (int)Math.Floor(height * ExplosionProjectile.scale);
-			ExplosionProjectile.position.X = (float)Math.Floor(ExplosionProjectile.position.X - (ExplosionProjectile.width / 2));
-			ExplosionProjectile.position.Y = (float)Math.Floor(ExplosionProjectile.position.Y - (ExplosionProjectile.height / 2));
+			ExplosionProjectile.Resize((int)Math.Floor(width * ExplosionProjectile.scale), (int)Math.Floor(height * ExplosionProjectile.scale));
 			ExplosionProjectile.netUpdate = true;
 
 			if (ExplosionProjectile.frameCounter == maxDistance)

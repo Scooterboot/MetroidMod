@@ -3323,7 +3323,7 @@ Mods: {
 			}
 
 			TorizoEyeNecklace: {
-				// Tooltip: Reduces damage and knockback resistance
+				// Tooltip: Randomly reduces damage taken, up to half. Randomly increases knockback taken, up to double.
 				// DisplayName: Torizo Eye Necklace
 			}
 

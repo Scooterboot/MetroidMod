@@ -38,7 +38,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 			NPC.width = 12; NPC.height = 12;
 
 			/* Temporary NPC values */
-			NPC.scale = 0.5f;
+			NPC.scale = 1f;
 			NPC.damage = 15;
 			NPC.defense = 5;
 			NPC.lifeMax = 20;
