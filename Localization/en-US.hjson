@@ -4004,6 +4004,7 @@ Mods: {
 			ChozoSawProjectile.DisplayName: Powered Chozite Saw
 			OrbBomb.DisplayName: Orb Bomb
 			MiniTorizo.DisplayName: Mini Torizo
+			OmegaCannonFrag.DisplayName: Omega Cannon Frag
 		}
 
 		Configs: {

@@ -1,7 +1,9 @@
 using System;
 using MetroidMod.Content.DamageClasses;
+using MetroidMod.Content.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.OmegaCannon
@@ -23,16 +25,44 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
 		}
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
+			{
+				Projectile.velocity.X = -oldVelocity.X;
+			}
+
+			if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+			{
+				Projectile.velocity.Y = -oldVelocity.Y;
+			}
+			Projectile.timeLeft -= 120;
+
+			return false;
+		}
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = 0;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-
+			
+			if (Projectile.ai[1] == 0)
+			{
+				Projectile.scale = 1.5f;
+			}
 			if (Projectile.numUpdates == 0)
 			{
 				Projectile.rotation += 0.5f * Projectile.direction;
 				Projectile.frame++;
+
+				if (Projectile.timeLeft < 32 * (Projectile.extraUpdates + 1))
+				{
+					Projectile.velocity *= 0.95f;
+				}
+				if (Projectile.timeLeft % 7 == 0)
+				{
+					Dust.NewDust(Projectile.position + Projectile.Size / 4, Projectile.width / 2, Projectile.height / 2, ModContent.DustType<OmegaCannonTrail>(), 0, 0, 255, Color.White, Projectile.scale);
+				}
 			}
 			if (Projectile.frame > 1)
 			{
@@ -45,7 +75,28 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 		}
 		public override void OnKill(int timeLeft)
 		{
+			Projectile.penetrate = -1;
 			mProjectile.Explode(2368);
+			if (Projectile.ai[1] == 0)
+			{
+				int shootNum = 15;
+				float shootSpread = 360f;
+				float spread = shootSpread * 0.0174f;
+				float baseSpeed = 5f;
+				double startAngle = 0;
+				double deltaAngle = spread / shootNum;
+				int damage = Projectile.damage / 2;
+				float knockBack = Projectile.knockBack / 2;
+				int lifeTime = 90;
+				for (int i = 0; i < shootNum; i++)
+				{
+					double offsetAngle = startAngle + deltaAngle * i;
+					Vector2 vel = new Vector2(baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle));
+					Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, vel, ModContent.ProjectileType<OmegaCannonFrag>(), damage, knockBack, Projectile.owner, lifeTime);
+				}
+			}
+			Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<OmegaCannonTrail>(), Vector2.Zero, 255, Color.White, Projectile.scale + 1f);
+
 		}
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
