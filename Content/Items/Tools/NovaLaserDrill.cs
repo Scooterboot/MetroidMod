@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Items.Tools
 
 			Item.ResearchUnlockCount = 1;
 		}
-		public bool hammer = true;
+		public bool hammer = false;
 		public override void SetDefaults()
 		{
 			Item.width = 28;
@@ -134,7 +134,7 @@ namespace MetroidMod.Content.Items.Tools
 				Item.hammer = 0;
 				if (flag13 && tile != null && tile.HasTile && !mp.ballstate && !player.mouseInterface && (tile.TileType == ModContent.TileType<Content.Tiles.PhazonTile>() || tile.TileType == ModContent.TileType<Content.Tiles.PhazonCore>()))
 				{
-					Item.pick = 1000;//TODO morphball drill exploit can make the pick power say at 1000
+					Item.pick = 1000;
 				}
 				else
 				{
