@@ -17,7 +17,6 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.friendly = true;
 			Projectile.ignoreWater = true;
 			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
-			Projectile.extraUpdates = 2;
 			
 			Projectile.width = 80;
 			Projectile.height = 80;
@@ -28,6 +27,12 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.tileCollide = false;
 
 			Main.projFrames[Type] = 2;
+		}
+		public override void ModifyDamageHitbox(ref Rectangle hitbox)
+		{
+			hitbox = new Rectangle((int)(Projectile.Center.X - 40 * Projectile.scale), (int)(Projectile.Center.Y - 40 * Projectile.scale), 
+				(int)(80 * Projectile.scale), (int)(80 * Projectile.scale));
+
 		}
 
 		//public override void ModifyDamageHitbox(ref Rectangle hitbox)
@@ -65,33 +70,29 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 		//	}
 		//}
 
+
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
-			
-
-			if (Projectile.numUpdates == 0)
+			Projectile.scale = Projectile.ai[1];
+			if (Projectile.timeLeft > 5)
 			{
-				if (Projectile.timeLeft > 5)
-				{
-					Projectile.timeLeft = 100;
-				}
+				Projectile.timeLeft = 100;
+			}
 
-				Projectile.ai[0]--;
-				if ((int)Projectile.ai[0] % 5 == 0)
-				{
-					Projectile.frame = (Projectile.frame + 1) % 2;
-				}
-				if (Projectile.ai[0] < 64)
-				{
-					Projectile.velocity *= 0.925f;
-					Projectile.alpha += 4;
-				}
-				if (Projectile.ai[0] < 0)
-				{
-					Projectile.Kill();
-				}
+			Projectile.ai[0]--;
+			if ((int)Projectile.ai[0] % 5 == 0)
+			{
+				Projectile.frame = (Projectile.frame + 1) % 2;
+			}
+			if (Projectile.ai[0] < 64)
+			{
+				Projectile.velocity *= 0.925f;
+				Projectile.alpha += 4;
+			}
+			if (Projectile.ai[0] < 0)
+			{
+				Projectile.Kill();
 			}
 
 			Color color = MetroidMod.powColor;

@@ -25,21 +25,21 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
 		}
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
-			{
-				Projectile.velocity.X = -oldVelocity.X;
-			}
+		//public override bool OnTileCollide(Vector2 oldVelocity)
+		//{
+		//	if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
+		//	{
+		//		Projectile.velocity.X = -oldVelocity.X;
+		//	}
 
-			if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
-			{
-				Projectile.velocity.Y = -oldVelocity.Y;
-			}
-			Projectile.timeLeft -= 120;
+		//	if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+		//	{
+		//		Projectile.velocity.Y = -oldVelocity.Y;
+		//	}
+		//	Projectile.timeLeft -= 120;
 
-			return false;
-		}
+		//	return false;
+		//}
 		public override void AI()
 		{
 			Projectile.rotation = 0;
@@ -77,23 +77,28 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 		{
 			Projectile.penetrate = -1;
 			mProjectile.Explode(2368);
-			if (Projectile.ai[1] == 0)
+			int shootNum = 15;
+			float baseSpeed = 15f;
+			int damage = Projectile.damage / 2;
+			float knockBack = Projectile.knockBack / 2;
+			int lifeTime = 90;
+			float scale = Projectile.scale / 1.5f;
+			if (Projectile.ai[1] != 0)
 			{
-				int shootNum = 15;
-				float shootSpread = 360f;
-				float spread = shootSpread * 0.0174f;
-				float baseSpeed = 5f;
-				double startAngle = 0;
-				double deltaAngle = spread / shootNum;
-				int damage = Projectile.damage / 2;
-				float knockBack = Projectile.knockBack / 2;
-				int lifeTime = 90;
-				for (int i = 0; i < shootNum; i++)
-				{
-					double offsetAngle = startAngle + deltaAngle * i;
-					Vector2 vel = new Vector2(baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle));
-					Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, vel, ModContent.ProjectileType<OmegaCannonFrag>(), damage, knockBack, Projectile.owner, lifeTime);
-				}
+				shootNum = 8;
+				lifeTime = 70;
+				baseSpeed = 12f;
+			}
+
+			float shootSpread = 360f;
+			float spread = shootSpread * 0.0174f;
+			double startAngle = Main.rand.NextFloat() * 3.14f;
+			double deltaAngle = spread / shootNum;
+			for (int i = 0; i < shootNum; i++)
+			{
+				double offsetAngle = startAngle + deltaAngle * i;
+				Vector2 vel = new Vector2(baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle));
+				Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, vel, ModContent.ProjectileType<OmegaCannonFrag>(), damage, knockBack, Projectile.owner, lifeTime, scale);
 			}
 			Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<OmegaCannonTrail>(), Vector2.Zero, 255, Color.White, Projectile.scale + 1f);
 
