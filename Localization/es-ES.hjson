@@ -294,7 +294,7 @@ Mods: {
 			// TorizoMusicBox.MapEntry: Torizo Music Box
 			// TorizoTrophyTile.MapEntry: Torizo Trophy
 			// ZeroHusk.MapEntry: Zero Husk
-			// ChozoStatueOrb.MapEntry: Chozo Statue Orb
+			// ChozoStatueOrb.MapEntry: Item Orb
 			// NebulaAugmentTile.MapEntry: Nebula Augment
 			// LightSuitAddonTile.MapEntry: Light Suit
 			// HazardShieldAddonTile.MapEntry: Hazard Shield
@@ -317,17 +317,17 @@ Mods: {
 			// RedSwitch.MapEntry: Red Switch
 			// YellowSwitch.MapEntry: Yellow Switch
 			// PhazonChest.MapEntry: Phazon Chest
-			// ChozoStatueOrb2.MapEntry: Chozo Statue Orb2
-			// ChozoStatueOrb3.MapEntry: Chozo Statue Orb3
-			// ChozoStatue2.MapEntry: Chozo Statue2
-			// ChozoStatue3.MapEntry: Chozo Statue3
-			// ChozoStatueArm2.MapEntry: Chozo Statue Arm2
-			// ChozoStatueArm2Natural.MapEntry: Chozo Statue Arm2 Natural
-			// ChozoStatueArm3.MapEntry: Chozo Statue Arm3
-			// ChozoStatueArm3Natural.MapEntry: Chozo Statue Arm3 Natural
-			// ChozoStatueNatural2.MapEntry: Chozo Statue Natural2
-			// ChozoStatueNatural3.MapEntry: Chozo Statue Natural3
-			// UnknownItemTile.MapEntry: Unknown Item Tile
+			// ChozoStatueOrb2.MapEntry: Ancient Item Orb
+			// ChozoStatueOrb3.MapEntry: Imperial Item Orb
+			// ChozoStatue2.MapEntry: Ancient Chozo Statue
+			// ChozoStatue3.MapEntry: Imperial Chozo Statue
+			// ChozoStatueArm2.MapEntry: Ancient Chozo Statue
+			// ChozoStatueArm2Natural.MapEntry: Ancient Chozo Statue
+			// ChozoStatueArm3.MapEntry: Imperial Chozo Statue
+			// ChozoStatueArm3Natural.MapEntry: Imperial Chozo Statue
+			// ChozoStatueNatural2.MapEntry: Ancient Chozo Statue
+			// ChozoStatueNatural3.MapEntry: Imperial Chozo Statue
+			// UnknownItemTile.MapEntry: Unknown Item
 		}
 
 		Buffs: {
@@ -3053,7 +3053,7 @@ Mods: {
 			}
 
 			ChozoStatueOrb: {
-				// DisplayName: Chozo Statue Orb
+				// DisplayName: Item Orb
 				// Tooltip: ""
 			}
 
@@ -3265,8 +3265,12 @@ Mods: {
 			}
 
 			TorizoClaws: {
-				// Tooltip: ""
-				// DisplayName: Torizo Claws
+				// DisplayName: Oorb Bomber
+				/* Tooltip:
+					'''
+					Casts explosive oorbs in an arc
+					'No, it's not a typo'
+					''' */
 			}
 
 			ChozoRapier: {
@@ -3323,7 +3327,7 @@ Mods: {
 			}
 
 			TorizoEyeNecklace: {
-				// Tooltip: Reduces damage and knockback resistance
+				// Tooltip: Randomly reduces damage taken, up to half. Randomly increases knockback taken, up to double.
 				// DisplayName: Torizo Eye Necklace
 			}
 
@@ -3487,33 +3491,33 @@ Mods: {
 			}
 
 			ChozoStatueOrb2: {
-				// DisplayName: Chozo Statue Orb2
+				// DisplayName: Ancient Item Orb
 				// Tooltip: ""
 			}
 
 			ChozoStatueOrb3: {
-				// DisplayName: Chozo Statue Orb3
+				// DisplayName: Imperial Item Orb
 				// Tooltip: ""
 			}
 
 			ChozoStatue2: {
-				// DisplayName: Chozo Statue2
+				// DisplayName: Ancient Chozo Statue
 				// Tooltip: ""
 			}
 
 			ChozoStatue3: {
-				// DisplayName: Chozo Statue3
+				// DisplayName: Imperial Chozo Statue
 				// Tooltip: ""
 			}
 
 			ChozoStatueArm2: {
-				// DisplayName: Chozo Statue Arm2
-				// Tooltip: ""
+				// DisplayName: Ancient Chozo Statue Arm
+				// Tooltip: "'Good for holding things'"
 			}
 
 			ChozoStatueArm3: {
-				// DisplayName: Chozo Statue Arm3
-				// Tooltip: ""
+				// DisplayName: Imperial Chozo Statue Arm
+				// Tooltip: "'Good for holding things'"
 			}
 
 			ChozoStaff: {
@@ -3996,13 +4000,13 @@ Mods: {
 			// GeemerPet.DisplayName: Orange Geemer
 			// CrocomirePet.DisplayName: Baby Crocomire
 			// ChoziteChunk.DisplayName: Chozite Chunk
-			// ChozoClaymoreSlash.DisplayName: Chozo Claymore Slash
+			// ChozoClaymoreSlash.DisplayName: Chozo Claymore
 			// ChozoDrillProjectile.DisplayName: Powered Chozite Drill
 			// ChozoJackhammerProjectile.DisplayName: Powered Chozite Jackhammer
-			// ChozoRapierSlash.DisplayName: Chozo Rapier Slash
-			// ChozoRapierStab.DisplayName: Chozo Rapier Stab
+			// ChozoRapierSlash.DisplayName: Chozo Rapier
+			// ChozoRapierStab.DisplayName: Chozo Rapier
 			// ChozoSawProjectile.DisplayName: Powered Chozite Saw
-			// OrbBomb.DisplayName: Orb Bomb
+			// OrbBomb.DisplayName: Oorb Bomb
 			// MiniTorizo.DisplayName: Mini Torizo
 		}
 

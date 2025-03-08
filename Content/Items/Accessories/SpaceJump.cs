@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.height = 20;
 			Item.maxStack = 1;
 			Item.value = 40000;
-			Item.rare = ItemRarityID.Lime;
+			Item.rare = ItemRarityID.Pink;
 			Item.accessory = true;
 			Item.useTurn = true;
 			Item.autoReuse = true;

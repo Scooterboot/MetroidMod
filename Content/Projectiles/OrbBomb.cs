@@ -18,10 +18,15 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.width = 20;
 			Projectile.height = 20;
 			Projectile.aiStyle = 1;
+			
+			//MProjectile default is Hunter, don't forget to set it to be not hunter
+			Projectile.DamageType = DamageClass.Magic;
+			hunter = false;
 		}
 
 		public override void OnKill(int timeLeft)
 		{
+			//Occasionally drop a pickup on detonation
 			if (Main.rand.NextBool(100))
 			{
 				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ItemID.Heart);
