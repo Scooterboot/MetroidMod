@@ -141,12 +141,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			scale += 0.04f * speed;
 
 			P.scale = scale;
-			P.position.X += (float)(P.width / 2);
-			P.position.Y += (float)(P.height / 2);
-			P.width = (int)((float)width * P.scale);
-			P.height = (int)((float)height * P.scale);
-			P.position.X -= (float)(P.width / 2);
-			P.position.Y -= (float)(P.height / 2);
+			P.Resize((int)(width * P.scale), (int)(height * P.scale));
 
 			if (P.alpha < 255)
 			{

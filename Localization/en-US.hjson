@@ -382,7 +382,7 @@ Mods: {
 			}
 
 			GeemerPetBuff: {
-				Description: Mods.MetroidMod.Buffs.GeemerPetBuff.Description
+				Description: The Orange Geemer is your companion
 				DisplayName: Orange Geemer
 			}
 
@@ -3525,6 +3525,21 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Chozo Staff
 			}
+
+			LokiDevItemBody: {
+				DisplayName: Loki Dev Item Body
+				Tooltip: ""
+			}
+
+			LokiDevItemHead: {
+				DisplayName: Loki Dev Item Head
+				Tooltip: ""
+			}
+
+			LokiDevItemLegs: {
+				DisplayName: Loki Dev Item Legs
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4009,6 +4024,7 @@ Mods: {
 			ChozoSawProjectile.DisplayName: Powered Chozite Saw
 			OrbBomb.DisplayName: Oorb Bomb
 			MiniTorizo.DisplayName: Mini Torizo
+			OmegaCannonFrag.DisplayName: Omega Cannon Frag
 		}
 
 		Configs: {

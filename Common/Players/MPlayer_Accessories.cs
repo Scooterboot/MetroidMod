@@ -782,7 +782,7 @@ namespace MetroidMod.Common.Players
 		public static void AddSpaceJump(Player Player)
 		{
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
-			if (mp.statSpaceJumps >= 15 && Player.grappling[0] == -1 && mp.spaceJumped && !Player.GetJumpState(ExtraJump.CloudInABottle).Active && !Player.GetJumpState(ExtraJump.BlizzardInABottle).Active && !Player.GetJumpState(ExtraJump.SandstormInABottle).Active && !Player.GetJumpState(ExtraJump.FartInAJar).Active && Player.jump == 0 && Player.velocity.Y != 0f /*&& Player.rocketTime == 0 && Player.wingTime == 0f*/ && !Player.mount.Active)
+			if (mp.statSpaceJumps >= 15 && Player.grappling[0] == -1 && mp.spaceJumped && !Player.GetJumpState(ExtraJump.CloudInABottle).Active && !Player.GetJumpState(ExtraJump.BlizzardInABottle).Active && !Player.GetJumpState(ExtraJump.SandstormInABottle).Active && !Player.GetJumpState(ExtraJump.FartInAJar).Active && Player.jump == 0 && Player.velocity.Y != 0f && ((Player.rocketTime == 0 && Player.wingTime == 0f)|| !MConfigMain.Instance.spaceJumpRocketBoots) && !Player.mount.Active)
 			{
 				if (Player.controlJump && (Player.releaseJump||Player.autoJump&&(mp.insigniaActive && mp.spaceJumpsRegenDelay <= 0) || !mp.insigniaActive) && Player.velocity.Y != 0 && mp.spaceJumped)
 				{

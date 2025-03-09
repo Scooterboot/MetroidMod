@@ -396,6 +396,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private bool isShock = false;
 		private bool isHyper = false;
 		private bool isPhazon = false;
+		private bool isOmega = false;
 		private bool Stealth = false;
 		private bool usesUA = false;
 		private float UAcost = 0f;
@@ -492,6 +493,7 @@ namespace MetroidMod.Content.Items.Weapons
 				isJud = !LuminiteActive && !DiffusionActive && (slot1.type == jd) && !mp.PrimeHunter;
 				isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
 				isHyper = (slot1.type == hy);
+				isOmega = (slot1.type == oc);
 				isPhazon = (slot1.type == ph);
 				isHunter = (slot1.type == oc) || (slot1.type == sc) || (slot1.type == imp) || (slot1.type == mm) || (slot1.type == bh) || (slot1.type == jd) || (slot1.type == vd);
 				usesUA = isHunter && slot1.type != oc;
@@ -1979,6 +1981,27 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 					}
 					mp.hyperColors = 23;
+				}
+				else if (isOmega)
+				{
+					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, 0);
+
+					if (shotAmt > 1)
+					{
+						for (int i = 1; i < shotAmt; i++)
+						{
+							int extraProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, i);
+							MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
+							mProj.waveDir = waveDir;
+							mProj.shot = shotEffect.ToString();
+							Main.projectile[extraProj].netUpdate = true;
+							if (isSpray && shotAmt > 1)
+							{
+								Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+								Main.projectile[extraProj].velocity = newVelocity;
+							}
+						}
+					}
 				}
 				else
 				{

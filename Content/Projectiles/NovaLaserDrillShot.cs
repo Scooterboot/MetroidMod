@@ -154,6 +154,14 @@ namespace MetroidMod.Content.Projectiles
 			player.itemTime = 2;
 			player.itemAnimation = 2;
 			player.itemRotation = (float)Math.Atan2(P.velocity.Y * (float)P.direction, P.velocity.X * (float)P.direction);
+			if (player.controlUseItem)
+			{
+				player.HeldItem.useTime = Math.Max((int)(4 * player.pickSpeed), 1);
+			}
+			else
+			{
+				player.HeldItem.useTime = 4;
+			}
 			/*for (int num54 = 0; num54 < 2; num54++)
 			{
 				Dust obj = Main.dust[Dust.NewDust(P.position + P.velocity * 2f, P.width, P.height, 6, 0f, 0f, 100, Color.Transparent, 2f)];

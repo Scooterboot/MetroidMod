@@ -61,6 +61,7 @@ namespace MetroidMod.Common{
 			bool isSuperMissile = SuperMissile;
 			bool isBomb = Bomb;
 			bool isImperialist = projectile.Name.Contains("Imperialist");
+			bool isOmegaCannon = projectile.Name.Contains("Omega") && projectile.Name.Contains("Shot");
 			//	[Antinous]: I need to figure out how to exclude every other projectile except for Metroid Mod's.
 			if (isBeamSmall)
 			{
@@ -89,6 +90,12 @@ namespace MetroidMod.Common{
 			if (isImperialist)
 			{
 				if (behavior == 1 && configFire) { DoScreenshake(projectile, 2); }
+			}
+			if (isOmegaCannon)
+			{
+				if (behavior == 1 && configFire) { DoScreenshake(projectile, 3); }
+				if (behavior == 3 && configCollide) { DoScreenshake(projectile, projectile.ai[1] == 0 ? 6 : 5);
+				}
 			}
 		}
 		public override void OnSpawn(Projectile projectile, IEntitySource source){

@@ -801,7 +801,7 @@ namespace MetroidMod.Common.Players
 			}
 		}
 		internal float spiderSpeed = 0f;
-		public void SpiderMovement(Player Player)
+		public void SpiderMovement(Player Player) //TODO THIS IS HIDEOUS
 		{
 			Player.velocity.X = 0f;
 			Player.velocity.Y = 1E-05f;
