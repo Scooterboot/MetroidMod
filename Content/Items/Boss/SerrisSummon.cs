@@ -25,7 +25,7 @@ namespace MetroidMod.Content.Items.Boss
 			Item.useStyle = 4;
 			Item.noMelee = true;
 			Item.value = 1000;
-			Item.rare = 7;
+			Item.rare = ItemRarityID.Orange;
 		}
 
 		public override void AddRecipes()
@@ -40,14 +40,7 @@ namespace MetroidMod.Content.Items.Boss
 
 		public override bool ConsumeItem(Player player)
 		{
-			if (Common.Configs.MConfigMain.Instance.enableBossSummonConsumption)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return Common.Configs.MConfigMain.Instance.enableBossSummonConsumption;
 		}
 
 		public override bool CanUseItem(Player player)

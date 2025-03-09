@@ -51,7 +51,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			NPC.boss = true;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.value = Item.buyPrice(0, 0, 7, 0);
+			NPC.value = Item.buyPrice(0, 15, 0, 0);
 			NPC.knockBackResist = 0;
 			NPC.lavaImmune = true;
 			NPC.noTileCollide = false;

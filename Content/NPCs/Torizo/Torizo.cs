@@ -56,7 +56,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			NPC.boss = true;
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
-			NPC.value = Item.buyPrice(0, 0, 7, 0);
+			NPC.value = Item.buyPrice(0, 0, 75, 0);
 			NPC.knockBackResist = 0;
 			NPC.lavaImmune = true;
 			NPC.noGravity = false;

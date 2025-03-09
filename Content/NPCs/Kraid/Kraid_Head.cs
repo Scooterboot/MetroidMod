@@ -64,7 +64,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			NPC.DeathSound = Sounds.NPCs.KraidRoar;//SoundID.NPCDeath5;
 			NPC.noGravity = true;
 			NPC.noTileCollide = true;
-			NPC.value = Item.buyPrice(0, 0, 7, 0);
+			NPC.value = Item.buyPrice(0, 7, 0, 0);
 			NPC.knockBackResist = 0;
 			NPC.lavaImmune = true;
 			NPC.behindTiles = true;

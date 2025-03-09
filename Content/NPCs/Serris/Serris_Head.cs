@@ -84,7 +84,7 @@ namespace MetroidMod.Content.NPCs.Serris
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = Sounds.NPCs.CoreXDeath;
 			NPC.noGravity = true;
-			NPC.value = Item.buyPrice(0, 0, 7, 0);
+			NPC.value = Item.buyPrice(0, 5, 0, 0);
 			NPC.knockBackResist = 0;
 			NPC.lavaImmune = true;
 			NPC.noTileCollide = true;

@@ -55,7 +55,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath12;
 			NPC.noGravity = true;
-			NPC.value = Item.buyPrice(0, 0, 7, 0);
+			NPC.value = Item.buyPrice(0, 15, 0, 0);
 			NPC.knockBackResist = 0;
 			NPC.lavaImmune = true;
 			NPC.noTileCollide = true;
