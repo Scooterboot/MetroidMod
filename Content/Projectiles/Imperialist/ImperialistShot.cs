@@ -220,7 +220,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			for (int i = 0; i < Projectile.maxPenetrate; i++)
 			{
-				if (nearestTargets[i] == target.whoAmI)
+				if (nearestTargets[i] == target.whoAmI && !target.friendly)
 				{
 					if (i == Projectile.maxPenetrate - 1)
 					{
