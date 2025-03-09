@@ -490,6 +490,7 @@ Mods: {
 				// DisplayName: Space Booster
 				/* Tooltip:
 					'''
+					[c/BE7878:--BEING PHASED OUT DO NOT USE--]
 					Allows the user to run insanely fast 
 					Damage enemies while running 
 					Damage scales off of enemy's contact damage
