@@ -382,7 +382,7 @@ Mods: {
 			}
 
 			GeemerPetBuff: {
-				Description: Mods.MetroidMod.Buffs.GeemerPetBuff.Description
+				Description: The Orange Geemer is your companion
 				DisplayName: Orange Geemer
 			}
 
@@ -3519,6 +3519,21 @@ Mods: {
 			ChozoStaff: {
 				Tooltip: ""
 				DisplayName: Chozo Staff
+			}
+
+			LokiDevItemBody: {
+				DisplayName: Loki Dev Item Body
+				Tooltip: ""
+			}
+
+			LokiDevItemHead: {
+				DisplayName: Loki Dev Item Head
+				Tooltip: ""
+			}
+
+			LokiDevItemLegs: {
+				DisplayName: Loki Dev Item Legs
+				Tooltip: ""
 			}
 		}
 
