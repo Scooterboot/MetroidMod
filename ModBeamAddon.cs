@@ -1,0 +1,353 @@
+﻿using System;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Terraria.Localization;
+using Terraria;
+using MetroidMod.ID;
+using MetroidMod.Default;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.DataStructures;
+
+//gonna document as much of the code as I can to make it easy to follow
+namespace MetroidMod
+{
+	/// <summary>
+	/// The base type for all Power Beam addons.<br/><br/>
+	/// ModBeamAddons automatically generate a <see cref="Terraria.ModLoader.ModItem"/> and a <see cref="Terraria.ModLoader.ModTile"/> to access the addon in-game.<br/>
+	/// Textures are grabbed automatically at this filepath:<br/>
+	/// <u>(name of mod)<b>/Assets/Textures/BeamAddons/</b>(name of addon file)<b>/</b>(Item for item sprite, Tile for tile sprite, Shot for shot sprite, etc.)</u><br/>
+	/// but can be overriden to point to any filepath. Sounds are also stored this way, just swap Textures for Sounds.<br/><br/>
+	/// Every ModBeamAddon needs an <b>AddonSlot</b>, <b>ShapePriority</b>, and <b>ColorPriority</b>.
+	/// </summary>
+	public abstract class ModBeamAddon : ModType
+	{
+		/// <summary>
+		/// The numerical ID of the addon.<br/>
+		/// Pretty much just like how Terraria's items all have a number ID.
+		/// </summary>
+		public int Type { get; private set; }
+		internal void ChangeType(int type) => Type = type;
+
+		/// <summary>
+		/// The <see cref="ModItem"/> this addon controls.
+		/// </summary>
+		public ModItem ModItem;
+		/// <summary>
+		/// The <see cref="ModTile"/> this addon controls.
+		/// </summary>
+		public ModTile ModTile;
+		/// <summary>
+		/// The <see cref="Item"/> this addon controls.
+		/// </summary>
+		public Item Item => ModItem.Item;
+		/// <summary>
+		/// References the ModItem previously generated
+		/// </summary>
+		public int ItemType { get; internal set; }
+		/// <summary>
+		/// References the ModTile previously generated
+		/// </summary>
+		public int TileType { get; internal set; }
+
+		/// <summary>
+		/// The translations for the tooltip of this item.
+		/// </summary>
+		public virtual LocalizedText Tooltip => ModItem.GetLocalization(nameof(Tooltip), () => "");
+
+		#region Appearance variables
+		/// <summary>
+		/// The filepath for the addon's item texture.
+		/// </summary>
+		public virtual string ItemTexture => $"{Mod.Name}/Assets/Textures/BeamAddons/{Name}/Item";
+		/// <summary>
+		/// the filepath for the addon's tile texture.
+		/// </summary>
+		public virtual string TileTexture => $"{Mod.Name}/Assets/Textures/BeamAddons/{Name}/Tile";
+		/// <summary>
+		/// The filepath for the addon's normal shot texture.
+		/// </summary>
+		public virtual string ShotTexture => $"{Mod.Name}/Assets/Textures/BeamAddons/{Name}/Shot";
+		/// <summary>
+		/// The amount of animation frames in the normal shot texture.
+		/// </summary>
+		public virtual int ShotFrames { get; } = 1;
+		/// <summary>
+		/// The filepath for the addon's shot sound effect.
+		/// </summary>
+		public virtual string ShotSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/Shot";
+		/// <summary>
+		/// The filepath for the addon's shot impact sound effect.
+		/// </summary>
+		public virtual string ImpactSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/Impact";
+		/// <summary>
+		/// The color of the addon's projectile.
+		/// </summary>
+		public abstract Color ShotColor { get; }
+		/// <summary>
+		/// The integer ID of the dust particles this addon's projectile will leave behind.
+		/// <br/>Use <see cref="DustID"/> for vanilla dust and use <see cref="ModDust.Type"/> for modded ones.
+		/// </summary>
+		public abstract int ShotDust { get; }
+		#endregion
+
+		#region Visual Priority System variables
+		/// <summary>
+		/// Determines the level of priority of the addon's <b>shot texture</b>.<br />
+		/// 0 is the lowest, 5 is the highest<br />
+		/// If the addon has the <i>highest shape priority currently installed</i>, its shot graphics will be used.<br />
+		/// In the case of a tie, graphics are decided by slot priority.<br/>
+		/// Slot shape priority highest to lowest: Secondary(4), Spread(3), Ion(2), Ability(1), Primary(0)
+		/// </summary>
+		public virtual int ShapePriority { get; set; } = 0;
+
+		/// <summary>
+		/// Determines the level of priority of the addon's <b>shot color</b>.<br />
+		/// 0 is the lowest, 5 is the highest<br />
+		/// If the addon has the <i>highest color priority currently installed</i>, its shot color will be used.<br />
+		/// In the case of a tie, color is decided by slot priority.<br />
+		/// Slot color priority highest to lowest: Ability(1), Secondary(4), Ion(2), Spread(3), Primary(0)
+		/// </summary>
+		public virtual int ColorPriority { get; set; } =  0;
+		/// <summary>
+		/// If true, this addon's sounds will play instead of the sounds from the current shape priority.
+		/// <br/>Requires this addon to have color priority.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool SoundOverride { get; set; } = false;
+
+		/// <summary>
+		/// If true, this addon will <b>completely override</b> the visual priority system. <br/>
+		/// Making an addon a VIB also allows you to <b>create your own custom projectile</b> for your addon's shot, if you so choose. <br/>
+		/// If not, you can simply leave <see cref="vibOverride"/> as null. <br/>
+		/// Intended for use on Special Beams, such as the <b>Hyper Beam</b> and <b>Phazon Beam</b>.<br/>
+		/// Checks each addon in sequential order; slot 0, slot 1, yadda yadda.<br/>
+		/// Defaults to <b>false.</b><br/>
+		/// <i>(stands for Very Important Beam)</i>
+		/// </summary>
+		public virtual bool VIB { get; set; } = false;
+		/// <summary>
+		/// Determines the custom projectile the VIB will fire instead of the standard beam shot.
+		/// <br/>Leave null to use the standard beam shot projectile.
+		/// <br/><b>For advanced use ONLY. Not recommended for beginners.</b>
+		/// </summary>
+		public ModProjectile vibOverride;
+		/// <summary>
+		/// If true, this addon will not apply its properties to the Arm Cannon.
+		/// <br/>Used to create incompatibilites between addons.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool Overridden => false;
+		/// <summary>
+		/// If true, this addon will prevent the Arm Cannon it's installed in from firing.
+		/// <br/>Used primarily in Suitlocking.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool Locked => false;
+		#endregion
+
+		/// <summary>
+		/// The slot in the Addon UI that this addon uses.<br/><br/>
+		/// See <see cref="BeamAddonSlotID"/> for details on the different slots.
+		/// </summary> 
+		public virtual int AddonSlot { get; set; } = BeamAddonSlotID.None;
+
+
+		#region Addon stat variables
+		//These stats are plugged into the WEAPON, not the projectile.
+		/// <summary>
+		/// The base damage value this addon adds.<br/>
+		/// NOTE: Not to be confused with DamageMult, which is applied after this variable.
+		/// </summary>
+		public virtual int BaseDamage { get; set; } = 0;
+		/// <summary>
+		/// The damage multiplier value this addon adds.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
+		/// (i.e. if the addon should have a 50% damage increase, put 50f instead of 1.5f)
+		/// </summary>
+		public virtual float DamageMult { get; set; } = 0f;
+		/// <summary>
+		/// The base usetime value this addon adds.<br/>
+		/// NOTE: Not to be confused with SpeedMult, which is applied after this variable.
+		/// </summary>
+		public virtual int BaseSpeed { get; set; } = 0;
+		/// <summary>
+		/// The usetime multiplier value this addon adds.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
+		/// (i.e. if the addon should have a 50% speed increase, put 50f instead of 1.5f)
+		/// </summary>
+		public virtual float SpeedMult { get; set; } = 0f;
+		/// <summary>
+		/// The base velocity value this addon adds.<br/>
+		/// NOTE: Not to be confused with VelocityMult, which is applied after this variable.
+		/// </summary>
+		public virtual float BaseVelocity { get; set; } = 0f;
+		/// <summary>
+		/// The velocity multiplier value this addon adds.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
+		/// (i.e. if the addon should have a 50% speed increase, put 50f instead of 1.5f)
+		/// </summary>
+		public virtual float VelocityMult { get; set; } = 0f;
+		/// <summary>
+		/// The critical strike chance this addon adds.<br/>
+		/// NOTE: due to how crits work this one does NOT have a respective Mult value.
+		/// </summary>
+		public virtual int CritChance { get; set; } = 0;
+		/// <summary>
+		/// The base overheat value this addon adds.<br/>
+		/// NOTE: Not to be confused with OverheatMult, which is applied after this variable.
+		/// </summary>
+		public virtual int BaseOverheat { get; set; } = 0;
+		/// <summary>
+		/// The overheat multiplier value this addon adds.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip</i>. It will be converted later.<br/>
+		/// (i.e. if the addon should have a -50% overheat multiplier, put -50f instead of 0.5f)
+		/// </summary>
+		public virtual float OverheatMult { get; set; } = 0f;
+		/// <summary>
+		/// The amount of extra projectiles this addon will make the player fire.
+		/// </summary>
+		public virtual int AddShots { get; set; } = 0;
+		#endregion
+
+		#region Shot Behavior Variables
+		//These stats get plugged into the PROJECTILE, not the weapon.
+		/// <summary>
+		/// The buff that this addon will inflict on hit.
+		/// </summary>
+		public virtual int InflictsBuff { get; set; }
+		/// <summary>
+		/// The amount of extra tiles this addon allows the beam to interact with before being destroyed.
+		/// <br/><br/>Example: The amount of tiles the Wave Beam allows the shot to phase through.
+		/// </summary>
+		public virtual int TileInteract { get; set; } = 0;
+		/// <summary>
+		/// The amount of extra NPCs this addon allows the beam to hit before being destroyed.
+		/// </summary>
+		public virtual int NPCInteract { get; set; } = 0;
+		/// <summary>
+		/// If true, this addon will continue to perform an action for as long as Fire is held.
+		/// <br/>For advanced beam shenanigans. Assemble said shenanigans over in <see cref="HoldFireBehavior(Player)"/>.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool HoldFire { get; set; } = false;
+		/// <summary>
+		/// If true, <b>all holdfire behavior</b> is disabled for as long as this beam is installed.
+		/// <br/>Useful if you don't want your addon to be able to be charged. Leave it off if your addon has a holdfire itself.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool SuppressHoldFire { get; set;} = false;
+
+
+		#endregion
+
+
+		/// <summary>
+		/// Makes the addon in question only add the item and tile, not the beam properties.<br/>
+		/// Good for... something, I think   -Z
+		/// </summary>
+		public abstract bool AddOnlyAddonItem { get; }
+
+		public override sealed void SetupContent()
+		{
+			SetStaticDefaults();
+			ModItem.SetStaticDefaults();
+		}
+
+		public override void Load()
+		{
+			ModItem = new BeamAddonItem(this);
+			ModTile = new BeamAddonTile(this);
+			if (ModItem == null) { throw new Exception("WTF happened here? BeamAddonItem is null!"); }
+			if (ModTile == null) { throw new Exception("WTF happened here? BeamAddonTile is null!"); }
+			Mod.AddContent(ModItem);
+			Mod.AddContent(ModTile);
+
+		}
+
+		public override void Unload()
+		{
+			ModItem.Unload();
+			ModTile.Unload();
+			ModItem = null;
+			ModTile = null;
+			base.Unload();
+		}
+
+		protected sealed override void Register()
+		{
+			if (!AddOnlyAddonItem && BeamAddonLoader.AddonCount <= 127)
+			{
+				Type = BeamAddonLoader.AddonCount;
+				if (Type > 127)
+				{
+					throw new Exception("Beam Addons Limit Reached. (Max: 128)");
+				}
+				BeamAddonLoader.addons.Add(this);
+			}
+			MetroidMod.Instance.Logger.Info("Register new Beam Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+		}
+
+		public override void SetStaticDefaults()
+		{
+			Main.tileSpelunker[TileType] = true;
+			Main.tileOreFinderPriority[Type] = 806;
+			base.SetStaticDefaults();
+		}
+
+		/// <inheritdoc cref="ModItem.SetDefaults()"/>
+		public virtual void SetItemDefaults(Item item) { }
+
+		/// <inheritdoc cref="ModItem.AddRecipes"/>
+		public virtual void AddRecipes() { }
+		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
+
+		#region Advanced addon properties
+		/// <summary>
+		/// Lets you make the Arm Cannon do things while Fire is held down.
+		/// <br/>To be used with <see cref="HoldFire"/>.
+		/// </summary>
+		public virtual void HoldFireBehavior(Player player) { }
+		///<inheritdoc cref="ModProjectile.OnSpawn(IEntitySource)"/>
+		public virtual void ShotOnSpawn(Projectile shot, IEntitySource source) { }
+		/// <inheritdoc cref="ModProjectile.PreAI"/>
+		public virtual bool ShotPreAI(Projectile shot) { return true; }
+		/// <inheritdoc cref="ModProjectile.AI"/>
+		public virtual void ShotAI(Projectile shot) { }
+		/// /// <inheritdoc cref="ModProjectile.PostAI"/>
+		public virtual void ShotPostAI(Projectile shot) { }
+		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
+		public virtual void ShotOnHitNPC(Projectile shot, NPC target, NPC.HitInfo hit, int damageDone) { }
+		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
+		public virtual void ShotOnHitPlayer(Projectile shot, Player target, Player.HurtInfo info) { }
+		/// <inheritdoc cref="ModProjectile.OnKill(int)"/>
+		public virtual void ShotOnKill(Projectile shot, int timeLeft) { }
+		/// <summary>
+		/// Allows this addon to define <b>static combos</b>, allowing for specific addon combinations to have unique properties.
+		/// <br/>Each static combo needs a corresponding keyword, which the method will return. <b>Keywords must not contain spaces.</b>
+		/// <br/>An addon's static combos will only trigger if it has shape priority.
+		/// <br/>To apply special data to a combo (such as animation frame count), use <see cref="SpecialComboGet(string)"/>.
+		/// <br/><br/>Should return a <b>blank string</b> if a static combo is not selected.
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <returns></returns>
+		public virtual string SetStaticCombos(Item[] addons) { return ""; }
+		/// <summary>
+		/// Defines special properties the beam shot will undertake when certain combos are detected (i.e. frame count).
+		/// <br/>This can include <b>static combos</b> defined in <see cref="SetStaticCombos(Item[])"/>, <b>dynamic combos</b> such as charge shots, as well as combinations of both.
+		/// <br/><br/>Should return all <b>zeroes</b> if a special combo is not identified.
+		/// </summary>
+		/// <param name="modifier"></param>
+		/// <returns></returns>
+		public virtual int[] SpecialComboGet(string modifier) { return [0]; }
+		//Dynamic combos are applied on the shot's firing.
+		//The best example of this would be charged shots, for which the keyword is "Charged".
+		#endregion
+
+		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);
+		/// <inheritdoc cref="ModTile.CanKillTile(int, int, ref bool)"/>
+		public virtual bool CanKillTile(int i, int j) { return true; }
+		/// <inheritdoc cref="ModMBAddon.CanExplodeTile(int, int)"/>
+		public virtual bool CanExplodeTile(int i, int j) { return true; }
+	}
+}

@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MetroidMod.Content.Items.Addons;
 using MetroidMod.Common.Players;
 using Terraria.Localization;
 

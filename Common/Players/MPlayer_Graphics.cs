@@ -37,7 +37,7 @@ namespace MetroidMod.Common.Players
 		public static int oldNumMax = 10;
 		public Vector2[] oldPos = new Vector2[oldNumMax];
 
-		public int psuedoScrewFlash = 0;
+		public int pseudoScrewFlash = 0;
 		public int shineChargeFlash = 0;
 		private Rectangle jetFrame;
 		private int jetFrameCounter = 1;
@@ -149,12 +149,12 @@ namespace MetroidMod.Common.Players
 			{
 				if (drawInfo.shadow == 0f)
 				{
-					psuedoScrewFlash++;
+					pseudoScrewFlash++;
 				}
 			}
 			else
 			{
-				psuedoScrewFlash = 0;
+				pseudoScrewFlash = 0;
 			}
 			if (shineCharge > 0)
 			{
@@ -167,7 +167,7 @@ namespace MetroidMod.Common.Players
 			{
 				shineChargeFlash = 0;
 			}
-			if (hyperColors > 0 || speedBoosting || shineActive || (pseudoScrew && psuedoScrewFlash >= 3) || (shineCharge > 0 && shineChargeFlash >= 4))
+			if (hyperColors > 0 || speedBoosting || shineActive || (pseudoScrew && pseudoScrewFlash >= 3) || (shineCharge > 0 && shineChargeFlash >= 4))
 			{
 				int shader = GameShaders.Armor.GetShaderIdFromItemId(3558);
 				if (drawInfo.drawPlayer.head > 0 && drawInfo.drawPlayer.cHead <= 0)
@@ -187,9 +187,9 @@ namespace MetroidMod.Common.Players
 				{
 					hyperColors--;
 				}
-				if (psuedoScrewFlash >= 9)
+				if (pseudoScrewFlash >= 9)
 				{
-					psuedoScrewFlash = 0;
+					pseudoScrewFlash = 0;
 				}
 				if (shineChargeFlash >= 6)
 				{

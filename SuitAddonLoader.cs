@@ -85,7 +85,12 @@ namespace MetroidMod
 				_ => "Unknown"
 			};
 		}
-
+		/// <summary>
+		/// Originally designed to show bonuses given by all addons in a particular armor piece <br/>
+		/// Was broken by 1.4's localization update, then invalidated by the scaling-back of the suit addon system, and thus never saw implementation.
+		/// </summary>
+		/// <param name="player"></param>
+		/// <returns></returns>
 		public static string GetSetBonusText(Player player)
 		{
 			string returnVal = "\n";
@@ -112,7 +117,10 @@ namespace MetroidMod
 			}
 			return returnVal;
 		}
-
+		/// <summary>
+		/// When tModLoader calls OnUpdateArmorSet, automatically calls all of the addons
+		/// </summary>
+		/// <param name="player"></param>
 		public static void OnUpdateArmorSet(Player player)
 		{
 			int index = 0;
@@ -138,7 +146,10 @@ namespace MetroidMod
 				gsa.OnUpdateArmorSet(MPlayer.GetPowerSuit(player), player);
 			}
 		}
-
+		/// <summary>
+		/// called whenever OnUpdateVanitySet is called on the Power Suit
+		/// </summary>
+		/// <param name="player"></param>
 		public static void OnUpdateVanitySet(Player player)
 		{
 			Item[] items = (GetBreastplate(player, true).ModItem as PowerSuitBreastplate).SuitAddons;

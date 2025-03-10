@@ -6,7 +6,7 @@ namespace MetroidMod.Content.Projectiles.Paralyzer
 {
 	public class ParalyzerShot : MProjectile
 	{
-		public override string Texture => $"{nameof(MetroidMod)}/Content/Projectiles/spazer/SpazerShot";
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/BeamAddons/DiffusionBeam/Shot";
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Paralyzer Blast");

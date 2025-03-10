@@ -25,16 +25,7 @@ namespace MetroidMod
 		public Item Item => ModItem.Item;
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
-
-		/// <summary>
-		/// The translations for the display name of this item.
-		/// </summary>
-		public LocalizedText DisplayName { get; internal set; }
-
-		/// <summary>
-		/// The translations for the tooltip of this item.
-		/// </summary>
-		public LocalizedText Tooltip { get; internal set; }
+		public virtual LocalizedText Tooltip => ModItem.GetLocalization(nameof(Tooltip), () => "");
 
 		public abstract string ItemTexture { get; }
 
@@ -89,8 +80,6 @@ namespace MetroidMod
 		}
 		protected override sealed void Register()
 		{
-			DisplayName = Language.GetOrRegister(Mod, $"SuitAddonName.{Name}");
-			Tooltip = Language.GetOrRegister(Mod, $"SuitAddonTooltip.{Name}");
 			if (!AddOnlyAddonItem)
 			{
 				Type = MBAddonLoader.AddonCount;

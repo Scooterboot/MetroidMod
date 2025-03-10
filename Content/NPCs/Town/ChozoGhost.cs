@@ -212,12 +212,10 @@ namespace MetroidMod.Content.NPCs.Town
 			Condition Nightmare = new Condition("Conditions.downedNightmare", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare));
 			Condition Gold = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo));
 			Condition Phazon = new Condition("Conditions.spawnedPhazon", () => MSystem.PhazonSpawn != true);
-			npcShop.Add<PowerBeam>(Condition.Hardmode);
 			npcShop.Add<ArmCannon>(Condition.Hardmode);
-			npcShop.Add<MissileLauncher>(Condition.Hardmode);
-			npcShop.Add<MissileExpansion>(Condition.Hardmode, Condition.BloodMoon);
+			//npcShop.Add<MissileExpansion>(Condition.Hardmode, Condition.BloodMoon);
 			npcShop.Add(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType,Condition.Hardmode, Condition.BloodMoon);
-			npcShop.Add<UAExpansion>(Condition.Hardmode, Condition.BloodMoon);
+			//npcShop.Add<UAExpansion>(Condition.Hardmode, Condition.BloodMoon);
 			npcShop.Add<PowerSuitHelmet>(Condition.Hardmode);
 			npcShop.Add<PowerSuitBreastplate>(Condition.Hardmode);
 			npcShop.Add<PowerSuitGreaves>(Condition.Hardmode);

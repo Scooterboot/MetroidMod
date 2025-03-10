@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 1;
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpaceJumpBoots>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SpaceJumpBoots>(); //this is the entire reason spin boost exists
 		}
 		public override void SetDefaults()
 		{
@@ -43,28 +43,28 @@ namespace MetroidMod.Content.Items.Accessories
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.CloudinaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient<Items.Miscellaneous.PurifiedBiomass>(6)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.BlizzardinaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient<Items.Miscellaneous.PurifiedBiomass>(6)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.SandstorminaBottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient<Items.Miscellaneous.PurifiedBiomass>(6)
 				.AddTile(TileID.Anvils)
 				.Register();
 
 			CreateRecipe(1)
 				.AddIngredient<HiJumpBoots>(1)
 				.AddIngredient(ItemID.TsunamiInABottle, 1)
-				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
+				.AddIngredient<Items.Miscellaneous.PurifiedBiomass>(6)
 				.AddTile(TileID.Anvils)
 				.Register();
 			CreateRecipe(1)

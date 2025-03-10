@@ -5,26 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.Players;
-using MetroidMod.Common.UI;
 using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Hatches.Variants;
 using MetroidMod.Content.Items.Accessories;
-using MetroidMod.Content.Items.Addons;
-using MetroidMod.Content.Items.Addons.Hunters;
-using MetroidMod.Content.Items.Addons.V2;
-using MetroidMod.Content.Items.Addons.V3;
-using MetroidMod.Content.Items.Miscellaneous;
-using MetroidMod.Content.Items.MissileAddons;
-using MetroidMod.Content.Items.MissileAddons.BeamCombos;
-using MetroidMod.Content.Items.Tools;
-using MetroidMod.Content.MorphBallAddons;
 using MetroidMod.Content.NPCs.Torizo;
 using MetroidMod.Content.SuitAddons;
 using MetroidMod.Content.Tiles;
 using MetroidMod.Content.Tiles.ItemTile;
-using MetroidMod.Content.Tiles.ItemTile.Beam;
-using MetroidMod.Content.Tiles.ItemTile.Beam.Hunters;
-using MetroidMod.Content.Tiles.ItemTile.Missile;
 using MetroidMod.Content.Walls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -73,6 +60,7 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind SwitchKey;
 		internal static ModKeybind HyperMode;
 		internal static ModKeybind FlashShiftKey;
+		internal static ModKeybind ACSwitch;
 
 		public static bool PhazonSpawn;
 
@@ -86,6 +74,7 @@ namespace MetroidMod.Common.Systems
 			SwitchKey = KeybindLoader.RegisterKeybind(Mod, "Switch Interface", "G");
 			HyperMode = KeybindLoader.RegisterKeybind(Mod, "HyperMode", "C");
 			FlashShiftKey = KeybindLoader.RegisterKeybind(Mod, "Flash Shift", "F");
+			ACSwitch = KeybindLoader.RegisterKeybind(Mod, "Arm Cannon Mode Change", "J");
 		}
 		public override void Unload()
 		{
@@ -677,12 +666,6 @@ namespace MetroidMod.Common.Systems
 			if (NPC.downedPlantBoss || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.TileType<NovaBeamTile>(); }, 4);
-			}			
-			if (NPC.downedGolemBoss || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
-			{
-				list[index++] = new WeightedChance(() => { item = ModContent.TileType<NovaCombo>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceBeamV2Tile>(); }, 4);
-				list[index++] = new WeightedChance(() => { item = ModContent.TileType<IceSuperMissile>(); }, 4);
 			}
 			if (NPC.downedMoonlord || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
@@ -736,11 +719,6 @@ namespace MetroidMod.Common.Systems
 			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<WaveBeamAddon>(); }, 8);
 			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<HomingMissileAddon>(); }, 4);
 			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpaceJumpBoots>(); }, 4);
-			list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpinBoost>(); }, 4);
-			if (Main.LocalPlayer.ZoneUnderworldHeight)
-			{
-				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<PlasmaBeamRedAddon>(); }, 4);
-			}
 			if (NPC.downedQueenBee || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				list[index++] = new WeightedChance(() => { item = ModContent.ItemType<SpazerAddon>(); }, 8);

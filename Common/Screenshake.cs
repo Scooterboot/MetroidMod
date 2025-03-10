@@ -6,13 +6,6 @@ using Terraria.ModLoader;
 using Terraria.Graphics.CameraModifiers;
 using MetroidMod.Common.Configs;
 using MetroidMod.Content.Projectiles;
-using MetroidMod.Content.Projectiles.powerbeam;
-using MetroidMod.Content.Projectiles.icebeam;
-using MetroidMod.Content.Projectiles.wavebeam;
-using MetroidMod.Content.Projectiles.spazer;
-using MetroidMod.Content.Projectiles.plasmabeamgreen;
-using MetroidMod.Content.Projectiles.plasmabeamred;
-using MetroidMod.Content.Projectiles.missiles;
 
 namespace MetroidMod.Common{
 	// CI: Why does this class exist?

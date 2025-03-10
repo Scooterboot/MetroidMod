@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Items.Tiles
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(null, "MissileExpansion")
+				//.AddIngredient(null, "MissileExpansion")
 				.AddRecipeGroup("IronBar", 5)
 				.AddTile(TileID.Anvils)
 				.Register();

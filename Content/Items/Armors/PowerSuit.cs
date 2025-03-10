@@ -119,9 +119,8 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			CreateRecipe(1)
 				.AddIngredient<ChoziteBreastplate>(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
-				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 20)
-				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 20)
+				.AddIngredient<Items.Miscellaneous.PowerCore>(1)
+				.AddIngredient<Items.Miscellaneous.PurifiedBiomass>(16)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -284,9 +283,8 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			CreateRecipe(1)
 				.AddIngredient<ChoziteGreaves>(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
-				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 15)
-				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 15)
+				.AddIngredient<Items.Miscellaneous.PowerCore>(1)
+				.AddIngredient<Items.Miscellaneous.PurifiedBiomass>(8)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -360,9 +358,8 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			CreateRecipe(1)
 				.AddIngredient<ChoziteHelmet>(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
-				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 10)
-				.AddRecipeGroup(MetroidMod.EvilMaterialRecipeGroupID, 10)
+				.AddIngredient<Items.Miscellaneous.PowerCore>(1)
+				.AddIngredient<Items.Miscellaneous.PurifiedBiomass>(12)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

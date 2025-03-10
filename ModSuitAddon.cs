@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MetroidMod.Default;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -12,6 +13,9 @@ namespace MetroidMod
 {
 	public abstract class ModSuitAddon : ModType
 	{
+		/// <summary>
+		/// Each addon has a number like Terraria items
+		/// </summary>
 		public int Type { get; private set; }
 		internal void ChangeType(int type) => Type = type;
 		/// <summary>
@@ -26,17 +30,33 @@ namespace MetroidMod
 		/// The <see cref="Item"/> this addon controls.
 		/// </summary>
 		public Item Item => ModItem.Item;
+		/// <summary>
+		/// References the ModItem previously generated
+		/// </summary>
 		public int ItemType { get; internal set; }
+		/// <summary>
+		/// References the ModTile previously generated
+		/// </summary>
 		public int TileType { get; internal set; }
 
 		/// <summary>
-		/// The translations for the tooltip of this item.
+		/// The translations for the tooltip of this Suit Addon's item.
 		/// </summary>
 		public virtual LocalizedText Tooltip => ModItem.GetLocalization(nameof(Tooltip), () => "");
 
-		public abstract string ItemTexture { get; }
-
+		/// <summary>
+		/// The filepath for the item texture of this Suit Addon.
+		/// </summary>
+		public virtual string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Item";
+		/// <summary>
+		/// The filepath for the helmet texture of this Suit Addon.
+		/// <br/><i>TODO: Find a way to make it grab automatically without breaking everything.     -Z</i>
+		/// </summary>
 		public virtual string ArmorTextureHead { get; }
+		/// <summary>
+		/// The filepath for the torso/breastplate texture of this Suit Addon.
+		/// <br/><i>TODO: Find a way to make it grab automatically without breaking everything.     -Z</i>
+		/// </summary>
 		public virtual string ArmorTextureTorso { get; }
 		/// <summary>
 		/// Main visible shoulder texture location. <br />
@@ -48,11 +68,25 @@ namespace MetroidMod
 		/// Only used by Barrier addons.
 		/// </summary>
 		public virtual string OffShoulderTexture { get; }
+		/// <summary>
+		/// The filepath for the glowmap used for the suit's arms.
+		/// <br/><i>TODO: Find a way to make it grab automatically without breaking everything.     -Z</i>
+		/// </summary>
 		public virtual string ArmorTextureArmsGlow { get; }
+		/// <summary>
+		/// The filepath for the glowmap used for the suit's pauldrons.
+		/// <br/><i>TODO: Find a way to make it grab automatically without breaking everything.     -Z</i>
+		/// </summary>
 		public virtual string ArmorTextureShouldersGlow { get; }
+		/// <summary>
+		/// The filepath for the legs texture of this Suit Addon.
+		/// <br/><i>TODO: Find a way to make it grab automatically without breaking everything.     -Z</i>
+		/// </summary>
 		public virtual string ArmorTextureLegs { get; }
-
-		public abstract string TileTexture { get; }
+		/// <summary>
+		/// The filepath for the tile texture of this Suit Addon.
+		/// </summary>
+		public virtual string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/{Name}/Tile";
 
 		/// <summary>
 		/// The path to the texture shown for the visor in the visor select. <br />
@@ -76,6 +110,7 @@ namespace MetroidMod
 
 		public int SacrificeTotal { get; set; } = 1;
 
+		//I... don't think this does anything anymore. May consider removing.
 		public bool ItemNameLiteral { get; set; } = true;
 
 		/// <summary>
@@ -83,7 +118,20 @@ namespace MetroidMod
 		/// </summary>
 		public bool ShouldOverrideShoulders { get; set; } = false;
 
+		/// <summary>
+		/// Determines what special "suitlocked" addons this suit addon enables access to (e.g. Hyper Beam).
+		/// <br/>Suitlocked addons will check for their <b>class name</b>, which is usually the same as their filename. Make sure to spell it right!
+		/// </summary>
+		public virtual List<string> SuitKeys { get; set; } = new List<string>();
+
+		/// <summary>
+		/// The Power Suit slot the addon uses.<br/><br/>
+		/// See <see cref="SuitAddonSlotID"/> for what the slots are for.
+		/// </summary>
 		public virtual int AddonSlot { get; set; } = SuitAddonSlotID.None;
+		/// <summary>
+		/// Determines if textures should load. If it's null, it will not try to create textures
+		/// </summary>
 		internal bool IsArmor => ArmorTextureHead != null && ArmorTextureHead != "" && ArmorTextureTorso != null && ArmorTextureTorso != "" && ArmorTextureLegs != null && ArmorTextureLegs != "";
 		public string GetAddonSlotName() => SuitAddonLoader.GetAddonSlotName(AddonSlot);
 		/// <summary>

@@ -1,4 +1,6 @@
-﻿using MetroidMod.Common.GlobalItems;
+﻿using System.Collections.Generic;
+using System;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.GlobalNPCs;
 using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
@@ -6,6 +8,7 @@ using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Torizo;
 using Terraria;
 using Terraria.ModLoader;
+using System.Linq;
 
 namespace MetroidMod
 {
@@ -48,6 +51,17 @@ namespace MetroidMod
 			bool reaches = reachFromLeft && reachFromRight && reachFromTop && reachFromBottom;
 			return reaches;
 		}
+
+		/// <summary>
+		/// This method is used by every single AddonLoader and is very important, please don't fuck with it
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list"></param>
+		/// <param name="predict"></param>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		internal static bool TryGetValue<T>(this IList<T> list, Func<T, bool> predict, out T value) =>
+			(value = list.FirstOrDefault(predict)) != null;
 
 		public static bool CalamityActive() => ModLoader.TryGetMod("CalamityMod", out _);
 		public static bool CalamityMod(out Mod calamityMod) => ModLoader.TryGetMod("CalamityMod", out calamityMod);

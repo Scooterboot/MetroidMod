@@ -4,10 +4,6 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.Projectiles.Imperialist;
-using MetroidMod.Content.Projectiles.Judicator;
-using MetroidMod.Content.Projectiles.ShockCoil;
-using MetroidMod.Content.Projectiles.VoltDriver;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
@@ -27,44 +23,7 @@ namespace MetroidMod.Content.Projectiles
 			mProjectile = this;
 		}
 
-		public bool hunter = false;
-
 		public string shot = "";
-		public bool Luminite = false;
-		public bool DiffBeam = false;
-
-		public override void OnSpawn(IEntitySource source)
-		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() ||player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
-			{
-				if (player.HeldItem.ModItem is PowerBeam hold)
-				{
-					MPlayer mp = player.GetModPlayer<MPlayer>();
-					shot = hold.shotEffect.ToString();
-					if (hold.Lum || (hold.Diff && mp.PrimeHunter))
-					{
-						Luminite = true;
-					}
-					if((hold.Diff || mp.PrimeHunter) && !hold.Lum)
-					{
-						DiffBeam = true;
-					}
-				}
-				if (player.HeldItem.ModItem is ArmCannon hold2)
-				{
-					MPlayer mp = player.GetModPlayer<MPlayer>();
-					shot = hold2.shotEffect.ToString();
-					if (hold2.LuminiteActive || (hold2.DiffusionActive && mp.PrimeHunter))
-					{
-						Luminite = true;
-					}
-					if ((hold2.DiffusionActive || mp.PrimeHunter) && !hold2.LuminiteActive)
-					{
-						DiffBeam = true;
-					}
-				}
-			}
-		}
 		public override void SetDefaults()
 		{
 			Projectile.aiStyle = -1;
@@ -78,8 +37,8 @@ namespace MetroidMod.Content.Projectiles
 			//Projectile.ranged = false;
 			//Projectile.magic = false;
 			//Projectile.thrown = false;
+			//hunter = true;
 			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
-			hunter = true;
 
 			Projectile.extraUpdates = 2;
 			for (int i = 0; i < Projectile.oldPos.Length; i++)
@@ -98,41 +57,34 @@ namespace MetroidMod.Content.Projectiles
 		public bool doParalyzerStun = false;
 		public float paralyzerStunAmount = 0;
 
+		/// <summary>
+		/// Temporary bool to cover areas where two <i>particular</i> Hunters weapons cause issues.
+		/// </summary>
+		public bool LittleShit = false;
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			Player player = Main.player[Projectile.owner];
-			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit + player.inventory[player.selectedItem].crit)
+			if (Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit + player.inventory[player.selectedItem].crit)
 			{
 				modifiers.CritDamage += 1f;
 			}
 			if (doParalyzerStun)
 			{
-				ApplyBuffToTarget(target, ModContent.BuffType<ParalyzerStun>(), (int)Math.Floor(paralyzerStunAmount * 60));
+				target.AddBuff(ModContent.BuffType<ParalyzerStun>(), (int)Math.Floor(paralyzerStunAmount * 60));
 			}
 		}
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)/* tModPorter Note: Removed. Use ModifyHitPlayer and check modifiers.PvP */
 		{
 			Player player = Main.player[Projectile.owner];
-			if (hunter && Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit + player.inventory[player.selectedItem].crit)
+			if (Main.rand.Next(1, 101) <= HunterDamagePlayer.ModPlayer(player).HunterCrit + player.inventory[player.selectedItem].crit)
 			{
 				modifiers.FinalDamage += 1f;
 			}
-			BuffLogic(target);
 		}
 
 		bool[] npcPrevHit = new bool[Main.maxNPCs];
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			BuffLogic(target);
-
-			if (Projectile.penetrate != 1)
-			{
-				npcPrevHit[target.whoAmI] = true;
-			}
-		}
-
-		private void BuffLogic(Entity target)
+		/*public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (!Projectile.Name.Contains("Hyper")&& (!Projectile.Name.Contains("Phazon")))
 			{
@@ -142,16 +94,16 @@ namespace MetroidMod.Content.Projectiles
 					{
 						if (Projectile.Name.Contains("V2") || shot.Contains("V2"))
 						{
-							ApplyBuffToTarget(target, BuffID.Frostburn2, 300);
+							target.AddBuff(BuffID.Frostburn2, 300);
 						}
 						else
 						{
-							ApplyBuffToTarget(target, BuffID.Frostburn, 300);
+							target.AddBuff(BuffID.Frostburn, 300);
 						}
 					}
 					else
 					{
-						ApplyBuffToTarget(target, BuffID.OnFire, 300);
+						target.AddBuff(BuffID.OnFire, 300);
 					}
 				}
 
@@ -159,11 +111,11 @@ namespace MetroidMod.Content.Projectiles
 				{
 					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 					{
-						ApplyBuffToTarget(target, BuffID.Frostburn2, 300);
+						target.AddBuff(BuffID.Frostburn2, 300);
 					}
 					else
 					{
-						ApplyBuffToTarget(target, BuffID.CursedInferno, 300);
+						target.AddBuff(BuffID.CursedInferno, 300);
 					}
 				}
 				if (Projectile.Name.Contains("Ice") || Projectile.Name.Contains("Stardust") || shot.Contains("ice") || shot.Contains("stardust"))
@@ -172,39 +124,20 @@ namespace MetroidMod.Content.Projectiles
 					if (Projectile.Name.Contains("Missile"))
 						buffName = "InstantFreeze";
 
-					ApplyBuffToTarget(target, Mod.Find<ModBuff>(buffName).Type, 300);
+					target.AddBuff(Mod.Find<ModBuff>(buffName).Type, 300);
 				}
 
 				if (Projectile.Name.Contains("Solar") || shot.Contains("solar"))
 				{
-					ApplyBuffToTarget(target, 189, 300);
+					target.AddBuff(189, 300);
 				}
 			}
-		}
 
-		/// <summary>
-		/// Method that applies a buff to a target no matter whether it is a player or an npc. Errors if it is neither.
-		/// </summary>
-		/// <param name="target"></param>
-		/// <param name="buffID"></param>
-		/// <param name="time"></param>
-		/// <param name="quiet"></param>
-		private void ApplyBuffToTarget(Entity target, int buffID, int time, bool quiet = false)
-		{
-			if (target is Player)
+			if (Projectile.penetrate != 1)
 			{
-				(target as Player).AddBuff(buffID, time, quiet);
+				npcPrevHit[target.whoAmI] = true;
 			}
-			else if (target is NPC)
-			{
-				(target as NPC).AddBuff(buffID, time, quiet);
-			}
-			else
-			{
-				Mod.Logger.Error("Tried to ApplyBuffToTarget to a non-player, non-npc entity. What.");
-			}
-		}
-
+		}*/
 		public override void PostAI()
 		{
 			for (int i = Projectile.oldPos.Length - 1; i > 0; i--)
@@ -247,7 +180,7 @@ namespace MetroidMod.Content.Projectiles
 			pos = P.position;
 			initialized = true;
 		}
-		public void WaveBehavior(Projectile P, bool spaze = false)
+		/*public void WaveBehavior(Projectile P, bool spaze = false)
 		{
 			if (!initialized)
 			{
@@ -381,10 +314,10 @@ namespace MetroidMod.Content.Projectiles
 					WaveCollide(P, waveDepth);
 				}
 			}
-		}
+		}*/
 
 		int d = 0;
-		public void WaveCollide(Projectile P, int depth)
+		public void PhaseCollide(Projectile P, int depth)
 		{
 			int i = (int)MathHelper.Clamp((P.Center.X) / 16f, 0, Main.maxTilesX - 1);
 			int j = (int)MathHelper.Clamp((P.Center.Y) / 16f, 0, Main.maxTilesY - 1);
@@ -400,13 +333,13 @@ namespace MetroidMod.Content.Projectiles
 			{
 				d--;
 			}
-			if (d >= depth && P.type != ModContent.ProjectileType<ShockCoilShot>() && P.type != ModContent.ProjectileType<ImperialistShot>())
+			if (d >= depth && !LittleShit)
 			{
 				P.Kill();
 			}
 		}
 
-		public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
+		/*public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
 		{
 			float homeX = P.position.X;
 			float homeY = P.position.Y;
@@ -451,7 +384,7 @@ namespace MetroidMod.Content.Projectiles
 			yDist *= combinedDist;
 			P.velocity.X = (P.velocity.X * accuracy + xDist) / (accuracy + 1f);
 			P.velocity.Y = (P.velocity.Y * accuracy + yDist) / (accuracy + 1f);
-		}
+		}*/
 
 		int dustDelayCounter = 0;
 		public void DustLine(Vector2 Position, Vector2 Velocity, float rotation, int dustDelay, int freq, int dustType, float scale, Color color = default(Color))
@@ -475,6 +408,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 		}
 
+		//TODO: Update this
 		public void DustyDeath(Projectile Projectile, int dustType, bool noGravity = true, float scale = 1f, Color color = default(Color))
 		{
 			Vector2 pos = Projectile.position;
@@ -653,8 +587,13 @@ namespace MetroidMod.Content.Projectiles
 		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size and damage multiplied by float </summary>
 		public void Explode(int increase, float scale = 1f)//TODO humorously, works the exact same as the missiles-through-wall exploit as SM
 		{
-			Projectile.Resize(Projectile.width + increase, Projectile.height + increase);
+			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+			Projectile.width += increase;
+			Projectile.height += increase;
 			Projectile.scale *= scale;
+			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			Projectile.Damage();
 			/*foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
 			{
@@ -667,15 +606,11 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
-			writer.Write(Luminite);
-			writer.Write(DiffBeam);
 			writer.Write(canDiffuse);
 			writer.Write(shot);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Luminite = reader.ReadBoolean();
-			DiffBeam = reader.ReadBoolean();
 			canDiffuse = reader.ReadBoolean();
 			shot = reader.ReadString();
 		}

@@ -15,13 +15,14 @@ namespace MetroidMod.Common.UI
 	{
 		public Texture2D backgroundTexture;
 		internal float scale;
-		internal Item item;
-		internal event Func<bool> CanClick;
+		internal Item ItemRead;
+		public Item ItemWrite;
+		internal protected event Func<bool> CanClick;
 
 		public UIItemSlot(float scale = 1f)
 		{
 			this.scale = scale;
-			item = new Item();
+			ItemRead = new Item();
 			backgroundTexture = TextureAssets.InventoryBack4.Value;
 			Width.Set(backgroundTexture.Width * scale, 0f);
 			Height.Set(backgroundTexture.Height * scale, 0f);
@@ -36,58 +37,73 @@ namespace MetroidMod.Common.UI
 
 				if (CanClick?.Invoke() ?? true)
 				{
-
-					Utils.Swap(ref item, ref Main.mouseItem);
-					if (item.type == 0 || item.stack < 1)
-					{
-						item = new Item();
-					}
-
-					if (Main.mouseItem.type == item.type)
-					{
-						Utils.Swap(ref item.favorited, ref Main.mouseItem.favorited);
-						if (item.stack != item.maxStack && Main.mouseItem.stack != Main.mouseItem.maxStack)
-						{
-							if (Main.mouseItem.stack + item.stack <= Main.mouseItem.maxStack)
-							{
-								item.stack += Main.mouseItem.stack;
-								Main.mouseItem.stack = 0;
-							}
-							else
-							{
-								int giveAmount = Main.mouseItem.maxStack - item.stack;
-								item.stack += giveAmount;
-								Main.mouseItem.stack -= giveAmount;
-							}
-						}
-					}
-					if (Main.mouseItem.type == 0 || Main.mouseItem.stack < 1)
-					{
-						Main.mouseItem = new Item();
-					}
-
-					if (Main.mouseItem.type > 0 || item.type > 0)
-					{
-						Recipe.FindRecipes();
-						SoundEngine.PlaySound(SoundID.Grab);
-					}
+					MetroidMod.Instance.Logger.Info("Hey if this is showing up there's probably a problem");
+					SlotMagic(true);
 					base.LeftMouseDown(evt);
 				}
 			}
 		}
 
+		public void SlotMagic(bool itsGiving)
+		{
+			MetroidMod.Instance.Logger.Info("MAGIC TIME");
+			if (itsGiving)
+			{
+				MetroidMod.Instance.Logger.Info("ermmm.......... it's GIVING");
+				if (ItemRead == Main.mouseItem)
+				{
+					MetroidMod.Instance.Logger.Info("Looks like we gots a stackem on our hands fellas");
+					Item ItemWrite = Main.mouseItem;
+					Main.mouseItem.TurnToAir();
+					DarkMagic(ItemWrite, true);
+					SoundEngine.PlaySound(SoundID.Grab);
+				}
+				else
+				{
+					MetroidMod.Instance.Logger.Info("Ain't stacking.");
+					Item ItemWrite = Main.mouseItem;
+					Main.mouseItem = ItemRead;
+					MetroidMod.Instance.Logger.Info("You should now be holding something called " + Main.mouseItem + ", and it should be the same as " + ItemRead);
+					DarkMagic(ItemWrite, false);
+					SoundEngine.PlaySound(SoundID.Grab);
+				}
+
+			}
+			else
+			{
+				MetroidMod.Instance.Logger.Info("it is absolutely not giving (HOTLOADED PROPERLY!!!");
+				Main.mouseItem = ItemRead.Clone();
+				MetroidMod.Instance.Logger.Info("Hand: " + Main.mouseItem + "\nPicking up: " + ItemRead);
+				DarkMagic(ItemWrite = null, false);
+				Recipe.FindRecipes();
+				SoundEngine.PlaySound(SoundID.Grab);
+			}
+		}
+
+		/// <summary>
+		/// Use this to write the mouse item to the place you're storing the item.
+		/// <br/>Do <b>NOT</b> write over ItemRead during this. It'll be fine on its own.
+		/// </summary>
+		public abstract void DarkMagic(Item ItemWrite, bool StackAttack);
+
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			Vector2 position = GetInnerDimensions().Position();
 			spriteBatch.Draw(backgroundTexture, position, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-			if (item != null && !item.IsAir)
+
+			if (ContainsPoint(Main.MouseScreen))
 			{
-				Texture2D itemTexture = TextureAssets.Item[item.type].Value;
-				Rectangle textureFrame = Main.itemAnimations[item.type]?.GetFrame(itemTexture) ?? itemTexture.Bounds;
+				Main.LocalPlayer.mouseInterface = true;
+			}
+
+			if (ItemRead != null && !ItemRead.IsAir)
+			{
+				Texture2D itemTexture = TextureAssets.Item[ItemRead.type].Value;
+				Rectangle textureFrame = Main.itemAnimations[ItemRead.type]?.GetFrame(itemTexture) ?? itemTexture.Bounds;
 
 				Color newColor = Color.White;
 				float pulseScale = 1f;
-				ItemSlot.GetItemLight(ref newColor, ref pulseScale, item, false);
+				ItemSlot.GetItemLight(ref newColor, ref pulseScale, ItemRead, false);
 				int height = textureFrame.Height;
 				int width = textureFrame.Width;
 				float drawScale = 1f;
@@ -99,30 +115,30 @@ namespace MetroidMod.Common.UI
 				drawScale *= scale;
 				Vector2 itemPosition = position + backgroundTexture.Size() * scale / 2f - textureFrame.Size() * drawScale / 2f;
 				Vector2 itemOrigin = textureFrame.Size() * (pulseScale / 2f - 0.5f);
-				if (ItemLoader.PreDrawInInventory(item, spriteBatch, itemPosition, textureFrame, item.GetAlpha(newColor),
-					item.GetColor(Color.White), itemOrigin, drawScale * pulseScale))
+				if (ItemLoader.PreDrawInInventory(ItemRead, spriteBatch, itemPosition, textureFrame, ItemRead.GetAlpha(newColor),
+					ItemRead.GetColor(Color.White), itemOrigin, drawScale * pulseScale))
 				{
-					spriteBatch.Draw(itemTexture, itemPosition, textureFrame, item.GetAlpha(newColor), 0f, itemOrigin, drawScale * pulseScale, SpriteEffects.None, 0f);
-					if (item.color != Color.Transparent)
+					spriteBatch.Draw(itemTexture, itemPosition, textureFrame, ItemRead.GetAlpha(newColor), 0f, itemOrigin, drawScale * pulseScale, SpriteEffects.None, 0f);
+					if (ItemRead.color != Color.Transparent)
 					{
-						spriteBatch.Draw(itemTexture, itemPosition, textureFrame, item.GetColor(Color.White), 0f, itemOrigin, drawScale * pulseScale, SpriteEffects.None, 0f);
+						spriteBatch.Draw(itemTexture, itemPosition, textureFrame, ItemRead.GetColor(Color.White), 0f, itemOrigin, drawScale * pulseScale, SpriteEffects.None, 0f);
 					}
 				}
-				ItemLoader.PostDrawInInventory(item, spriteBatch, itemPosition, textureFrame, item.GetAlpha(newColor),
-					item.GetColor(Color.White), itemOrigin, drawScale * pulseScale);
-				if (ItemID.Sets.TrapSigned[item.type])
+				ItemLoader.PostDrawInInventory(ItemRead, spriteBatch, itemPosition, textureFrame, ItemRead.GetAlpha(newColor),
+					ItemRead.GetColor(Color.White), itemOrigin, drawScale * pulseScale);
+				if (ItemID.Sets.TrapSigned[ItemRead.type])
 				{
 					spriteBatch.Draw(TextureAssets.Wire.Value, position + new Vector2(40f) * scale, new Rectangle(4, 58, 8, 8), Color.White, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
 				}
 
-				if (item.stack > 1)
+				if (ItemRead.stack > 1)
 				{
-					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, item.stack.ToString(), position + new Vector2(10f, 26f) * scale, Color.White, 0f, Vector2.Zero, new Vector2(scale), -1f, scale);
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, ItemRead.stack.ToString(), position + new Vector2(10f, 26f) * scale, Color.White, 0f, Vector2.Zero, new Vector2(scale), -1f, scale);
 				}
 
 				if (IsMouseHovering)
 				{
-					Main.HoverItem = item.Clone();
+					Main.HoverItem = ItemRead.Clone();
 					Main.hoverItemName = Main.HoverItem.Name;
 				}
 			}

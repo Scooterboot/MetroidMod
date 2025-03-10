@@ -71,10 +71,10 @@ namespace MetroidMod.Content.Projectiles.missiles
 				Projectile.velocity.X = (Projectile.velocity.X * 11f + num244) / 12f;
 				Projectile.velocity.Y = (Projectile.velocity.Y * 11f + num245) / 12f;
 			}
-			if (mProjectile.homing)
+			/*if (mProjectile.homing)
 			{
 				mProjectile.HomingBehavior(Projectile);
-			}
+			}*/
 		}
 		public override void OnKill(int timeLeft)
 		{

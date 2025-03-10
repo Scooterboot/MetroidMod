@@ -12,30 +12,37 @@ namespace MetroidMod.Common.GlobalItems
 	{
 		public AddonType AddonType = AddonType.None;
 
-		#region Old code, remove later in favor of modularity maybe?
-		public int addonSlotType = -1;
-		public int beamSlotType = -1;
-		public int missileChangeType = -1;
-		public float addonChargeDmg = 1f;
-		public float addonChargeHeat = 1f;
-		public float addonDmg = 0f;
-		public float addonSpeed = 0f;
-		public float addonHeat = 0f;
+
+		
 		/// <summary>
-		/// How much universal ammo to use per normal shot (NOT A PERCENTAGE)
+		/// If <b>true</b>, display the Charge Bar.
+		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
-		public float addonUACost = 0f;
-
-		public int missileSlotType = -1;
-
-		public int addonMissileCost = 5;
-		public int addonMissileDrain = 5;
-		#endregion
-
-		// float because funi - ChaosInsurgent49
+		public bool showChargeBar = false;
+		/// <summary>
+		/// If <b>true</b>, render the item on the player character's front arm.
+		/// <br/><br/>Defaults to <b>false</b>/
+		/// </summary>
+		public bool showOnHand = false;
+		/// <summary>
+		/// If true, prevent normal shots from being fired.
+		/// </summary>
+		public bool SuppressingFire = false;
+		/// <summary>
+		/// The current amount of Universal Ammunition remaining in the item.
+		/// </summary>
 		public float statUA = 40f;
+		/// <summary>
+		/// The item's maximum capacity for Universal Ammunition.
+		/// </summary>
 		public int maxUA = 400;
+		/// <summary>
+		/// The current amount of Missile ammo remaining in the item.
+		/// </summary>
 		public int statMissiles = 5;
+		/// <summary>
+		/// The item's maximum capacity for Missile ammo.
+		/// </summary>
 		public int maxMissiles = 5;
 
 		public int numSeekerTargets = 0;
@@ -44,7 +51,16 @@ namespace MetroidMod.Common.GlobalItems
 		public static int seekerMaxCharge = 25;
 
 		public Texture2D itemTexture;
-		public bool isBeam=true;
+		/// <summary>
+		/// Determines if the Arm Cannon is set to beam mode.
+		/// </summary>
+		public bool isBeam = true;
+		/// <summary>
+		/// If set to a different value, it is appended to the asset filepath.
+		/// <br/>Used to obtain assets for special combinations <i>(i.e. the DNA-shaped beam from Fusion)</i>
+		/// <br/><br/>Defaults to <b>""</b> (blank).
+		/// </summary>
+		public string assetModifier = "";
 
 		public override bool InstancePerEntity => true;
 		protected override bool CloneNewInstances => true;
@@ -92,13 +108,13 @@ namespace MetroidMod.Common.GlobalItems
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			bool pseudoScrew = (mp.statCharge >= MPlayer.maxCharge && mp.somersault);
-			if (mp.hyperColors > 0 || mp.speedBoosting || mp.shineActive || (pseudoScrew && mp.psuedoScrewFlash >= 3) || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
+			if (mp.hyperColors > 0 || mp.speedBoosting || mp.shineActive || (pseudoScrew && mp.pseudoScrewFlash >= 3) || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
 			{
 				if (mp.hyperColors > 0)
 				{
 					color = P.GetImmuneAlphaPure(new Color(mp.r, mp.g, mp.b, 255), shadow);
 				}
-				else if (pseudoScrew && mp.psuedoScrewFlash >= 3)
+				else if (pseudoScrew && mp.pseudoScrewFlash >= 3)
 				{
 					color = P.GetImmuneAlphaPure(mp.chargeColor, shadow);
 				}

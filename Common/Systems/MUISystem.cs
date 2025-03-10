@@ -20,10 +20,16 @@ namespace MetroidMod.Common.Systems
 	internal class MUISystem : ModSystem
 	{
 		public static MUISystem Instance { get; private set; }
+		#region Old arm cannon UI things. Delete once the new system's up.
 		internal static UserInterface pbUserInterface;
 		internal static UserInterface bcUserInterface;
 		internal static UserInterface miUserInterface;
 		internal static UserInterface mcUserInterface;
+		#endregion
+		/// <summary>
+		/// The UI interface for the Arm Cannon.
+		/// </summary>
+		internal static UserInterface acUserInterface;
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
 		internal static UserInterface helmetUserInterface;
@@ -34,10 +40,13 @@ namespace MetroidMod.Common.Systems
 		internal static ChoziteDualtoolUI choziteDualtoolUI;
 
 		// bri'ish innit?
+		#region Old arm cannon UI things. Delete once the new system's up.
 		internal bool isPBInit = false;
 		internal bool isBCInit = false;
 		internal bool isMIInit = false;
 		internal bool isMCInit = false;
+		#endregion
+		internal bool isACInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
 		internal bool isHELMInit = false;
@@ -55,10 +64,13 @@ namespace MetroidMod.Common.Systems
 			if (!Main.dedServ)
 			{
 				//addonsUI = new UI.AddonsUI();
+				#region Old arm cannon UI things. Delete once the new system's up.
 				pbUserInterface = new UserInterface();
 				bcUserInterface = new UserInterface();
 				miUserInterface = new UserInterface();
 				mcUserInterface = new UserInterface();
+				#endregion
+				acUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
 				helmetUserInterface = new UserInterface();
@@ -92,10 +104,13 @@ namespace MetroidMod.Common.Systems
 
 		public override void Unload()
 		{
+			#region Old arm cannon UI things. Delete once the new system's up.
 			pbUserInterface = null;
 			bcUserInterface = null;
 			miUserInterface = null;
 			mcUserInterface = null;
+			#endregion
+			acUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
 			helmetUserInterface = null;
@@ -143,25 +158,10 @@ namespace MetroidMod.Common.Systems
 				mbUserInterface.SetState(new UI.MorphBallUI());
 				isMBInit = true;
 			}
-			if (!isMIInit)
+			if (!isACInit)
 			{
-				miUserInterface.SetState(new UI.MissileLauncherUI());
-				isMIInit = true;
-			}
-			if (!isPBInit)
-			{
-				pbUserInterface.SetState(new UI.PowerBeamUI());
-				isPBInit = true;
-			}
-			if (!isBCInit)
-			{
-				bcUserInterface.SetState(new UI.BeamChangeUI());
-				isBCInit = true;
-			}
-			if (!isMCInit)
-			{
-				mcUserInterface.SetState(new UI.MissileChangeUI());
-				isMCInit = true;
+				acUserInterface.SetState(new UI.ArmCannonUI());
+				isACInit = true;
 			}
 			if (visorUserInterface != null && UI.VisorSelectUI.Visible)
 			{
@@ -191,21 +191,9 @@ namespace MetroidMod.Common.Systems
 			{
 				mbUserInterface.Update(gameTime);
 			}
-			if (miUserInterface != null && UI.MissileLauncherUI.Visible)
-			{
-				miUserInterface.Update(gameTime);
-			}
-			if (mcUserInterface != null && UI.MissileChangeUI.Visible)
-			{
-				mcUserInterface.Update(gameTime);
-			}
-			if (pbUserInterface != null && UI.PowerBeamUI.Visible)
-			{
-				pbUserInterface.Update(gameTime);
-			}
-			if (bcUserInterface != null && UI.BeamChangeUI.Visible)
-			{
-				bcUserInterface.Update(gameTime);
+			if (acUserInterface != null && UI.ArmCannonUI.Visible) 
+			{ 
+				acUserInterface.Update(gameTime);
 			}
 		}
 
@@ -258,7 +246,7 @@ namespace MetroidMod.Common.Systems
 						for (int j = 0; j < Main.maxTilesY; j++)
 						{
 							if (!Main.tile[i, j].HasTile) { continue; }
-							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]) || Main.tile[i,j].TileType == ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>() || Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>())
+							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]) || Main.tile[i,j].TileType == ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>() /*|| Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>()*/)
 							{
 								itemCoords.Add(new Vector2(i, j));
 							}
@@ -391,51 +379,13 @@ namespace MetroidMod.Common.Systems
 			if (index != -1)
 			{
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidMod: Power Beam UI",
+					"MetroidMod: Arm Cannon UI",
 					delegate {
-						if (UI.PowerBeamUI.Visible)// && !Main.recBigList)
+						if (UI.ArmCannonUI.Visible)
 						{
-							if (Main.hasFocus) { pbUserInterface.Recalculate(); }
-							pbUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
-						}
-
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
-				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidMod: Beam Change UI",
-					delegate {
-						if (UI.BeamChangeUI.Visible)// && !Main.recBigList)
-						{
-							if (Main.hasFocus) { bcUserInterface.Recalculate(); }
-							bcUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
-						}
-
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
-				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidMod: Missile Launcher UI",
-					delegate {
-						if (UI.MissileLauncherUI.Visible)// && !Main.recBigList)
-						{
-							if (Main.hasFocus) { miUserInterface.Recalculate(); }
-							miUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
-						}
-
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
-				layers.Insert(index, new LegacyGameInterfaceLayer(
-					"MetroidMod: Missile Change UI",
-					delegate {
-						if (UI.MissileChangeUI.Visible)// && !Main.recBigList)
-						{
-							if (Main.hasFocus) { mcUserInterface.Recalculate(); }
-							mcUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+							if (Main.hasFocus) { acUserInterface.Recalculate();
+								acUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+							};
 						}
 
 						return true;
@@ -574,7 +524,7 @@ namespace MetroidMod.Common.Systems
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 
-			if (item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb) && !pb.isBeam)
+			if (item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb) && !pb.isBeam)
 			{
 				tRot += 0.05f;
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
@@ -669,12 +619,13 @@ namespace MetroidMod.Common.Systems
 			Player P = Main.player[Main.myPlayer];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
-			if (P.whoAmI == Main.myPlayer && P.active && !P.dead && !P.ghost)
+			item.TryGetGlobalItem<MGlobalItem>(out MGlobalItem mItem);
+			if (P.whoAmI == Main.myPlayer && P.active && !P.dead && !P.ghost && mItem != null)
 			{
 				Texture2D texBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBar").Value,
 					texBarBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder").Value,
 					texBarBorder2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder2").Value;
-				if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() || mp.ballstate || mp.PrimeHunter)
+				if (mItem.showChargeBar || mp.ballstate || mp.PrimeHunter)
 				{
 					int hp = (int)mp.hyperCharge, hpMax = (int)MPlayer.maxHyper;
 					int ch = (int)mp.statCharge, chMax = (int)MPlayer.maxCharge;
@@ -734,7 +685,7 @@ namespace MetroidMod.Common.Systems
 					}
 					sb.Draw(texBarBorder, new Vector2(x, y), new Rectangle(0, 0, texBarBorder.Width, texBarBorder.Height), Color.White);
 
-					if (item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem gg) && !gg.isBeam)
+					if (item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem gg) && !gg.isBeam)
 					{
 						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 						int num = Math.Min(mi.statMissiles, mi.maxMissiles);
@@ -743,7 +694,7 @@ namespace MetroidMod.Common.Systems
 						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
-					if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem gz) && gz.isBeam)
+					if (item.type == ModContent.ItemType<ArmCannon>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem gz) && gz.isBeam)
 					{
 						MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 						int num = Math.Min((int)mi.statUA, mi.maxUA);
@@ -758,7 +709,7 @@ namespace MetroidMod.Common.Systems
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
 				}
-				if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb1) && pb1.isBeam || mp.shineDirection != 0 || mp.shineActive)
+				if (item.type == ModContent.ItemType<ArmCannon>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb1) && pb1.isBeam || mp.shineDirection != 0 || mp.shineActive)
 				{
 					Texture2D overheatBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBar").Value,
 					overheatBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBorder").Value;

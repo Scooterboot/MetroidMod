@@ -1,7 +1,7 @@
 ﻿namespace MetroidMod.ID
 {
 	public class BeamChangeSlotID
-	{
+	{		//Delete this later once the system is set up to not need this sucker
 		/// <summary>
 		/// Assigning this ID to the slot type will make it not equipable.
 		/// </summary>
