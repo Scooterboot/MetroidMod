@@ -317,6 +317,18 @@ Mods: {
 			// GreenSwitch.MapEntry: Green Switch
 			// RedSwitch.MapEntry: Red Switch
 			// YellowSwitch.MapEntry: Yellow Switch
+			// PhazonChest.MapEntry: Phazon Chest
+			// ChozoStatueOrb2.MapEntry: Ancient Item Orb
+			// ChozoStatueOrb3.MapEntry: Imperial Item Orb
+			// ChozoStatue2.MapEntry: Ancient Chozo Statue
+			// ChozoStatue3.MapEntry: Imperial Chozo Statue
+			// ChozoStatueArm2.MapEntry: Ancient Chozo Statue
+			// ChozoStatueArm2Natural.MapEntry: Ancient Chozo Statue
+			// ChozoStatueArm3.MapEntry: Imperial Chozo Statue
+			// ChozoStatueArm3Natural.MapEntry: Imperial Chozo Statue
+			// ChozoStatueNatural2.MapEntry: Ancient Chozo Statue
+			// ChozoStatueNatural3.MapEntry: Imperial Chozo Statue
+			// UnknownItemTile.MapEntry: Unknown Item
 			// TestBeamTile.MapEntry: Test Beam
 			// GrappleBeamLiteTile.MapEntry: Grapple Beam Lite Tile
 		}
@@ -4019,6 +4031,7 @@ Mods: {
 			// CrocomirePet.DisplayName: Baby Crocomire
 			// OrbBomb.DisplayName: Orb Bomb
 			// DiffusionBeam.DisplayName: Diffusion Beam
+			// MiniTorizo.DisplayName: Mini Torizo
 		}
 
 		Configs: {
@@ -4189,6 +4202,11 @@ Mods: {
 				WeaponFireScreenshake: {
 					// Tooltip: Should beams and missiles produce screenshake when fired?
 					// Label: "[i:StoneBlock] Weapon Fire Screenshake"
+				}
+
+				PsuedoScrewAttack: {
+					// Label: Psuedo Screw Attack
+					// Tooltip: ""
 				}
 			}
 

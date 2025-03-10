@@ -254,7 +254,7 @@ Mods: {
 			SpazerTile.MapEntry: Spazer
 			StardustBeamTile.MapEntry: Stardust Beam
 			VortexBeamTile.MapEntry: Vortex Beam
-			WaveBeamTile.MapEntry: Wave Beam Tile
+			WaveBeamTile.MapEntry: Wave Beam
 			WaveBeamV2Tile.MapEntry: Helix Beam
 			WideBeamTile.MapEntry: Wide Beam
 			GrappleBeamPlusTile.MapEntry: Grapple Beam
@@ -330,7 +330,7 @@ Mods: {
 			ChozoStatueNatural3.MapEntry: Imperial Chozo Statue
 			UnknownItemTile.MapEntry: Unknown Item
 			TestBeamTile.MapEntry: Test Beam
-			GrappleBeamLiteTile.MapEntry: Grapple Beam Lite Tile
+			GrappleBeamLiteTile.MapEntry: Grapple Beam Lite
 		}
 
 		Buffs: {
@@ -428,7 +428,7 @@ Mods: {
 					Collect Energy pickups to refill lost Energy and Energy Tanks to increase your maximum capacity
 					Allows the ability to Sense Move
 					Double tap a direction (when enabled)
-					Enables use of Suit Addons to improve the suit's capabilities
+					Enables use of Power Suit Addons to improve your suit's capabilities
 					Right click the Sense Move button to access Addon Menu
 					'''
 			}
@@ -1610,6 +1610,7 @@ Mods: {
 				DisplayName: Space Booster
 				Tooltip:
 					'''
+					[c/BE7878:--BEING PHASED OUT DO NOT USE--]
 					Allows the user to run insanely fast 
 					Damage enemies while running 
 					Damage scales off of enemy's contact damage
@@ -1742,8 +1743,12 @@ Mods: {
 			}
 
 			TorizoEyeNecklace: {
-				Tooltip: ""
 				DisplayName: Torizo Eye Necklace
+				Tooltip:
+					'''
+					Randomly reduces damage taken, up to half.
+					Randomly increases knockback taken, up to double.
+					'''
 			}
 
 			#######################
@@ -1878,13 +1883,22 @@ Mods: {
 			}
 
 			TorizoClaws: {
-				Tooltip: ""
-				DisplayName: Torizo Claws
+				DisplayName: Oorb Bomber
+				Tooltip: 
+					'''
+					Casts explosive oorbs in an arc
+					'No, it's not a typo'
+					'''
 			}
 
 			ChozoRapier: {
 				Tooltip: ""
 				DisplayName: Powered Chozite Rapier
+			}
+
+			ChozoStaff: {
+				Tooltip: ""
+				DisplayName: Chozo Staff
 			}
 
 			######################
@@ -2098,7 +2112,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons Omega Pirate
-					unstable in multiplayer
+					[c/BE7878:--NOTE: Currently unstable in multiplayer--]
 					'''
 			}
 
@@ -2198,13 +2212,43 @@ Mods: {
 				Tooltip: ""
 			}
 
+			ChozoStatue2: {
+				DisplayName: Ancient Chozo Statue
+				Tooltip: ""
+			}
+
+			ChozoStatue3: {
+				DisplayName: Imperial Chozo Statue
+				Tooltip: ""
+			}
+
 			ChozoStatueArm: {
 				DisplayName: Chozo Statue Arm
 				Tooltip: "'Good for holding things'"
 			}
 
+			ChozoStatueArm2: {
+				DisplayName: Ancient Chozo Statue Arm
+				Tooltip: "'Good for holding things'"
+			}
+
+			ChozoStatueArm3: {
+				DisplayName: Imperial Chozo Statue Arm
+				Tooltip: "'Good for holding things'"
+			}
+
 			ChozoStatueOrb: {
-				DisplayName: Chozo Statue Orb
+				DisplayName: Item Orb
+				Tooltip: ""
+			}
+
+			ChozoStatueOrb2: {
+				DisplayName: Ancient Item Orb
+				Tooltip: ""
+			}
+
+			ChozoStatueOrb3: {
+				DisplayName: Imperial Item Orb
 				Tooltip: ""
 			}
 
@@ -2396,6 +2440,11 @@ Mods: {
 
 			ChozoBrickNatural: {
 				DisplayName: Abandoned Chozodian Brick
+				Tooltip: ""
+			}
+
+			Phazestone: {
+				DisplayName: Phazestone
 				Tooltip: ""
 			}
 
@@ -2661,6 +2710,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			PhazestoneWall: {
+				DisplayName: Phazestone Wall
+				Tooltip: ""
+			}
+
 			NorfairBrickWall: {
 				DisplayName: Norfic Bendezium Brick Wall
 				Tooltip: ""
@@ -2695,6 +2749,11 @@ Mods: {
 
 			ChozoPillarNatural: {
 				DisplayName: Abandoned Chozodian Pillar
+				Tooltip: ""
+			}
+
+			PhazonChest: {
+				DisplayName: Phazon Chest
 				Tooltip: ""
 			}
 
@@ -3036,17 +3095,17 @@ Mods: {
 			#######################
 			
 			EnergyPickup: {
-				DisplayName: Energy Pickup
+				DisplayName: Suit Energy
 				Tooltip: ""
 			}
 
 			MissilePickup: {
-				DisplayName: Missile Pickup
+				DisplayName: Missile Launcher Ammunition
 				Tooltip: ""
 			}
 
 			UAPickup: {
-				DisplayName: UA Pickup
+				DisplayName: Universal Ammunition
 				Tooltip: ""
 			}
 
@@ -3590,56 +3649,6 @@ Mods: {
 					'''
 			}
 
-			Phazestone: {
-				DisplayName: Phazestone
-				Tooltip: ""
-			}
-
-			PhazonChest: {
-				DisplayName: Phazon Chest
-				Tooltip: ""
-			}
-
-			PhazestoneWall: {
-				DisplayName: Phazestone Wall
-				Tooltip: ""
-			}
-
-			ChozoStatueOrb2: {
-				DisplayName: Ancient Item Orb
-				Tooltip: ""
-			}
-
-			ChozoStatueOrb3: {
-				DisplayName: Imperial Item Orb
-				Tooltip: ""
-			}
-
-			ChozoStatue2: {
-				DisplayName: Ancient Chozo Statue
-				Tooltip: ""
-			}
-
-			ChozoStatue3: {
-				DisplayName: Imperial Chozo Statue
-				Tooltip: ""
-			}
-
-			ChozoStatueArm2: {
-				DisplayName: Ancient Chozo Statue Arm
-				Tooltip: "'Good for holding things'"
-			}
-
-			ChozoStatueArm3: {
-				DisplayName: Imperial Chozo Statue Arm
-				Tooltip: "'Good for holding things'"
-			}
-
-			ChozoStaff: {
-				Tooltip: ""
-				DisplayName: Chozo Staff
-			}
-
 			LokiDevItemBody: {
 				DisplayName: Loki Dev Item Body
 				Tooltip: ""
@@ -3673,11 +3682,11 @@ Mods: {
 
 				TownNPCMood: {
 					Content: I AM ERROR.
-					NoHome: GET OUTTA MY TEMPLE.
+					NoHome: WHERE IS MY TEMPLE.
 					FarFromHome: I MUST RETURN TO MY TEMPLE.
 					LoveSpace: NO INTRUDERS DETECTED.
 					DislikeCrowded: DESTROY ALL INTRUDERS.
-					HateCrowded: DESTROY ALL INTRUDERS SLOWLY AND PAINFULLY WITH ELECTRIC SHOCK SOMERSAULTS.
+					HateCrowded: DESTROY ALL INTRUDERS SLOWLY AND PAINFULLY WITH HIGH-VOLTAGE SOMERSAULTS.
 					LoveBiome: THIS IS MY TEMPLE.
 					LikeBiome: I MUST RETURN TO MY TEMPLE.
 					DislikeBiome: I MUST RETURN TO MY TEMPLE.
@@ -3943,25 +3952,25 @@ Mods: {
 			# Missile Charge Combos
 			WavebusterShot.DisplayName: Wavebuster
 			IceSpreaderShot.DisplayName: Ice Spreader
-			IceSpreaderFrozenTerrain.DisplayName: Ice Spreader Frozen Terrain
+			IceSpreaderFrozenTerrain.DisplayName: Ice Spreader
 			IceSpreaderDiffusionShot.DisplayName: Ice Spreader
 			FlamethrowerShot.DisplayName: Blazing Flamethrower
-			FlamethrowerLead.DisplayName: Flamethrower Lead
+			FlamethrowerLead.DisplayName: Flamethrower
 			PlasmaMachinegunShot.DisplayName: Plasma Machinegun
 			NovaLaserShot.DisplayName: Nova Laser
-			SeekerMissileLead.DisplayName: Seeker Missile Lead
+			SeekerMissileLead.DisplayName: Seeker Missile
 			VortexComboShot2.DisplayName: Vortex Combo
 			VortexComboShot.DisplayName: Vortex Combo
-			VortexComboLead.DisplayName: Vortex Combo Lead
+			VortexComboLead.DisplayName: Vortex Combo
 			StardustFrozenTerrain.DisplayName: Frozen Stardust
 			StardustComboShot.DisplayName: Stardust Combo Shot
 			StardustComboGuardian.DisplayName: Stardust Spirit
 			StardustComboDiffusionShot.DisplayName: Stardust Combo Diffusion Shot
 			SolarLaserShot.DisplayName: Supernova
-			SolarLaserFlareShot.DisplayName: Supernova Solar Flare
+			SolarLaserFlareShot.DisplayName: Supernova
 			SolarLaserFlameTrail.DisplayName: Supernova Afterburn
-			NebulaComboShot.DisplayName: Nebula Combo Shot
-			NebulaBusterShot.DisplayName: Nebula Buster Shot
+			NebulaComboShot.DisplayName: Nebula Combo
+			NebulaBusterShot.DisplayName: Nebula Buster 
 			# Morph Ball Bombs
 			BombProjectile.DisplayName: Morph Ball Bomb
 			PoisonBombProjectile.DisplayName: Poison Bomb
@@ -3978,11 +3987,11 @@ Mods: {
 			SolarFireBombProjectile.DisplayName: Solar Fire Bomb
 			# Power Bombs
 			PowerBombProjectile.DisplayName: Power Bomb
-			PowerBombExplosion.DisplayName: Power Bomb Explosion
+			PowerBombExplosion.DisplayName: Power Bomb
 			VortexBombProjectile.DisplayName: Vortex Bomb
-			VortexBombExplosion.DisplayName: Vortex Bomb Explosion
+			VortexBombExplosion.DisplayName: Vortex Bomb
 			SolarBombProjectile.DisplayName: Solar Bomb
-			SolarBombExplosion.DisplayName: Solar Bomb Explosion
+			SolarBombExplosion.DisplayName: Solar Bomb
 			# Accessory Projectiles
 			SpeedBoost.DisplayName: Speed Booster
 			SpeedBall.DisplayName: Speed Ball
@@ -3993,9 +4002,9 @@ Mods: {
 			#Other Weapon Projectiles
 			ParalyzerShot.DisplayName: Paralyzer
 			ChoziteChunk.DisplayName: Chozite Chunk
-			ChozoClaymoreSlash.DisplayName: Chozo Claymore Slash
-			ChozoRapierSlash.DisplayName: Chozo Rapier Slash
-			ChozoRapierStab.DisplayName: Chozo Rapier Stab
+			ChozoClaymoreSlash.DisplayName: Chozo Claymore
+			ChozoRapierSlash.DisplayName: Chozo Rapier
+			ChozoRapierStab.DisplayName: Chozo Rapier
 			ChoziteShortswordStab.DisplayName: Chozite Shortsword
 			# Tool Projectiles
 			NovaLaserDrillShot.DisplayName: Nova Laser Drill
@@ -4006,18 +4015,18 @@ Mods: {
 			ChozoJackhammerProjectile.DisplayName: Powered Chozite Jackhammer
 			# Enemy Projectiles
 			SpacePirateClaw.DisplayName: Space Pirate Claw
-			SkreeRock.DisplayName: loose debris from a Skree
-			MetareeRock.DisplayName: loose debris from a Metaree
+			SkreeRock.DisplayName: Skree
+			MetareeRock.DisplayName: Metaree
 			EvirProjectile.DisplayName: Evir Projectile
 			CacatacSpike.DisplayName: Cacatac Spike
 			#Boss Projectiles
 			TorizoSwipe.DisplayName: Torizo
 			TorizoClawBeam.DisplayName: Torizo Claw Beam
-			Torizo_EnergyParticle.DisplayName: Torizo_ Energy Particle
+			Torizo_EnergyParticle.DisplayName: Torizo Energy Particle
 			OmegaPirateSlash.DisplayName: Omega Pirate
-			OmegaPirateShockwave.DisplayName: Omega Pirate Shockwave
-			OmegaPirateLaser.DisplayName: Omega Pirate Laser
-			OmegaPirateGrenade.DisplayName: Omega Pirate Grenade
+			OmegaPirateShockwave.DisplayName: Wave Quake
+			OmegaPirateLaser.DisplayName: Siphoned Energy
+			OmegaPirateGrenade.DisplayName: Plasma Incendiary Grenade
 			Omega_PhazonParticle.DisplayName: Phazon Particle
 			NightmareLaserBeam.DisplayName: Nightmare Laser Beam
 			NightmareLaser.DisplayName: Nightmare Laser
@@ -4031,6 +4040,7 @@ Mods: {
 			CrocomirePet.DisplayName: Baby Crocomire
 			OrbBomb.DisplayName: Orb Bomb
 			DiffusionBeam.DisplayName: Diffusion Beam
+			MiniTorizo.DisplayName: Mini Torizo
 		}
 
 		Configs: {
@@ -4201,6 +4211,11 @@ Mods: {
 				WeaponFireScreenshake: {
 					Tooltip: Should beams and missiles produce screenshake when fired?
 					Label: "[i:StoneBlock] Weapon Fire Screenshake"
+				}
+
+				PsuedoScrewAttack: {
+					Label: Psuedo Screw Attack
+					Tooltip: ""
 				}
 			}
 

@@ -17,12 +17,6 @@ namespace MetroidMod.Common.Configs
 		{
 		}
 
-		[Header("General")]
-
-		/*[Label("Toggle alternate weapon textures")]
-		[Tooltip("When enabled, shows Metroid Prime style weapons, as opposed to the default Super Metroid style.\n" +
-		"Default value: false")]*/
-		public bool UseAltWeaponTextures;
 
 		/*[Label("[i:MetroidMod/EnergyTankAddon] Energy Hit Sound")]
 		[Tooltip("When enabled, a custom sound will play when Suit Energy receives damage.\n" +
@@ -139,10 +133,6 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(true)]
 		public bool showTorizoRoomIcon;
 
-		public override void OnChanged()
-		{
-			MetroidMod.UseAltWeaponTextures = UseAltWeaponTextures;
-		}
 	}
 
 	//[Label("Client Side Debug")]

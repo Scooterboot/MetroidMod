@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Projectiles
 			
 			//MProjectile default is Hunter, don't forget to set it to be not hunter
 			Projectile.DamageType = DamageClass.Magic;
-			hunter = false;
+			//hunter = false;
 		}
 
 		public override void OnKill(int timeLeft)

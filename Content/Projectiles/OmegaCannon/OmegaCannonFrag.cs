@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.OmegaCannon
 {
+	/*
 	public class OmegaCannonFrag : ModProjectile
 	{
 		public override void SetDefaults()
@@ -106,4 +107,5 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + MathHelper.PiOver2;
 		}
 	}
+	*/
 }
