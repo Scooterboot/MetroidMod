@@ -40,7 +40,7 @@
 
 -Make Wave Beam
 	-This entails:
-		* Projectile behavior injection
+		* Projectile behavior injection <<(THIS IS THE HARD PART)>>
 			-[NOT VIABLE]|METHOD A: Beam Addon Global Projectiles
 				-Every beam addon now comes with a global projectile that applies its behavior to the beam shot.
 				-Should hopefully just be inherently compatible as multiple globals can apply to the same thing
@@ -92,7 +92,7 @@
 -Implement primary array
 	-Add array UI to the UI
 	-Implement radial menu
-		-Concept: Pressing the interface button opens a wheel around the player containing the currently-selected mode's quick-swap array.
+		-Concept: Pressing the interface keybind opens a wheel around the player containing the currently-selected mode's quick-swap array.
 			Not used to add or remove beams from the array, simply to swap what's equipped
 
 -Beam special textures (fusion DNA beam)
@@ -101,16 +101,21 @@
 			-Method inside of shapewinner that checks for other specific addons and appends strings accordingly
 	-Figure out how to do this without a dozen extra booleans
 
--Beam texture animation
-	-Variable for counting the texture's frames already exists but does not currently get used (DONE)
+-Beam texture animation [DONE]
 
--Arm cannon beam lights
-	-Classic design: Simple glowmask colored to match the current ColorPriority. Think MercurySteam arm cannons.
-	-Prime design: Arm Cannon's shape is decided by ShapePriority, with the color of the exposed lighty-bits determined by ColorPriority. (e.g. plasma's extra length w/ Ice blue)
+-Arm Cannon extra visuals
+	* Textures: 
+		-Make alt texs no longer clientside?
+		-Accessories able to show up on top of the arm cannon?
+			-Frozen Core, Thermal Regulator, ECU
+	* Lights:
+		* Classic design: Simple glowmask colored to match the current ColorPriority. Think MercurySteam arm cannons.
+		* Prime design: Arm Cannon's shape is decided by ShapePriority, with the color of the exposed lighty-bits determined by ColorPriority. (e.g. plasma's extra length w/ Ice blue)
 
 -Make sure system is multiplayer compatible
 
 -Localization Antics
+	-Make overheat stat on arm cannon tooltip able to update on the fly
 	-Give beam addons fancy tooltips
 	-Make beam shot's localization name change to match addons equipped
 		-Override DisplayName with the ShapePriority?
@@ -167,6 +172,7 @@
 -Figure out shaders for better beam coloring
 	-Texture coloring functions, but looks like ass.
 	-Could possibly use armor shaders? (Critter Shampoo applies armor dye to projectiles (minions, namely (yeah apparently they're projectiles, I didn't realize either)))
+	-Add way to let beam addons supply their own shaders if they want (necessary for imperialist probably)
 
 -Add automatic texture-grabbing for suit addons
 	-Very easy to implement, but tedious; requires renaming all suitaddon assets to match format
@@ -182,6 +188,7 @@
 
 -Figure out how to fix the thing where gravity uses neptune's shell physics underwater and not normal physics
 	-Honestly this one is kind of a tangent. I saw it mentioned in an old conversation while looking for something or other.
+	-Honestly it's mostly still here to remind me to do that at some point
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -202,28 +209,19 @@
 		-Could just make the rotation part of 
 			-PART OF WHAT, PAST ME??????
 
--Switching from the arm cannon to an empty hotbar slot causes a one-frame error
-	-Suit addons visibly vanish during this frame
-
--Add failsafes for missing beam addon assets - DONE!!!!
-	-VERY IMPORTANT. Especially since I doubt everyone wants a custom impact SE on their beam, but I also don't want to take away from the automaticness
-
 -Various beam presentation shit from the new system that needs fixing
-	-Beam shot textures only render from the second call onward (the first shot is invisible)
 	-Charging sounds don't cut each other off properly
 	-Impact sound on no-addons is broke
 		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
-	-Optimize the sound effect grabber methods to not suck
+	-Optimize the sound effect grabber methods to not suck - DONE!!!(?)
 
 -Fix all the systems I broke
 	* Worldgen
-		* Chozo Statues/OORBs
+		* Chozo Statues/OORBs   -   Replace all item/tile calls with calls to appropriate addons
 		* Missile/E-tank placements
 	* Fake blocks
 	* Parts of suit energy apparently
 	* Hatches probably
-	* Possibly Space Jump apparently???
-		-UPDATE: Nah that's just me having Soaring Insignia on at the same time, false alarm
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -242,7 +240,26 @@
 	-I'd like to make it so it kinda just writes over your currently-equipped beam instead of having to craft it
 		-Hypermode could manually set your cannon's VIB and redirect firing code something something?? this was so much clearer in my head 10 seconds ago
 
--Create ANOTHER another branch where I can finally try the beam rebalancing out like I wanted to from the start
+-The Energy Tank Crafting Recipe Dilemma [AWAITING A RULING]
+	-At the start of this project, before I realized just how fucking much I'd be doing, I changed a lot of earlygame recipes to replace energy tanks with new materials
+	-This, uh... still needs to actually get approved.
+		-If it does, I don't have to do shit.
+		-If it doesn't, I gotta revert all that.
+
+-More alternative Arm Cannon textures?
+	* Fusion?
+	* Dread?
+	* Retro?
+	* Ancient? (uses legacy sprites)
+	-Allow for submods to add new arm cannon appearances?
+
+
+
+||============||
+|| FINALLY... ||
+||============||
+
+-Create ANOTHER another branch where I can finally try to rework beam addon progression like I wanted to do from the start
 
 
 
