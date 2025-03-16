@@ -109,6 +109,7 @@ namespace MetroidMod.Common.Players
 			//PrimeHunter = false;
 			phazonImmune = false;
 			accessPhazonBeam = false;
+			accessHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
 
