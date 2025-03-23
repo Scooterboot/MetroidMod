@@ -20,8 +20,8 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.height = 8;
 			Projectile.scale = 2f;
 			Projectile.penetrate = -1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
+			Projectile.usesIDStaticNPCImmunity = true;
+			Projectile.idStaticNPCHitCooldown = 4;
 		}
 
 		int dir = 1;

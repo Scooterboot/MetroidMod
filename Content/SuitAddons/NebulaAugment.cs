@@ -31,15 +31,15 @@ namespace MetroidMod.Content.SuitAddons
 		//This is where all of the suit addon's stats are stored.
 		//They're outside a method so it can be directly accessed by the localization.
 		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.
-		public static int suitDef = 29; //Added suit defense
+		public static int suitDef = 23; //Added suit defense
 		public static int energyCap = 6; //Added E-tank capacity
-		public static float energyEff = 60f; //%Increased energy damage absorption
-		public static float energyRes = 37.5f; //%Increased energy DR
+		public static float energyEff = 40f; //%Increased energy damage absorption
+		public static float energyRes = 22.5f; //%Increased energy DR
 		public static int overheatCap = 55; //Added maximum overheat
 		public static float overheatCost = 15f; //%Decreased overheat cost
 		public static float comboCost = 15f; //%Decreased Charge Combo cost
-		public static float huntDamage = 15f; //%Increased hunter damage
-		public static int huntCrit = 13; //Increased hunter crit
+		public static float huntDamage = 20f; //%Increased hunter damage
+		public static int huntCrit = 17; //Increased hunter crit
 		public static float speedUp = 10f; //%Increased movement speed
 
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);

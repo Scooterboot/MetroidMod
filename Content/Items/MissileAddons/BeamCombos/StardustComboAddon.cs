@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Items.MissileAddons.BeamCombos
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.StardustCombo>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
-			mItem.addonChargeDmg = 1f;
+			mItem.addonChargeDmg = 5f;
 			mItem.addonMissileCost = 10;
 			mItem.missileChangeType = MissileChangeSlotID.StardustCombo;
 		}

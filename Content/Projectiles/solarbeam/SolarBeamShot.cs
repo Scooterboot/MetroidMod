@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 			Projectile.scale = 2f;
 			Projectile.penetrate = 12;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
+			Projectile.localNPCHitCooldown = 16;
 
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 3;

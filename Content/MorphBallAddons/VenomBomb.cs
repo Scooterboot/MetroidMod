@@ -47,7 +47,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
+				//.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
 				.AddIngredient(ItemID.ChlorophyteBar, 5)
 				.AddIngredient(ItemID.VialofVenom, 5)
 				.AddTile(TileID.MythrilAnvil)

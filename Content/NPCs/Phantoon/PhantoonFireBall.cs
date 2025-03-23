@@ -31,7 +31,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		{
 			NPC.width = 28;
 			NPC.height = 28;
-			NPC.damage = 0;
+			NPC.damage = 66;
 			NPC.defense = 10;
 			NPC.lifeMax = 50;
 			NPC.knockBackResist = 0;
@@ -58,10 +58,22 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			});
 		}*/
 
-		int damage = 132;
-		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+		//int damage = 132;
+		//public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+		//{
+		//	damage *= 2;
+		//}
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
 		{
-			damage *= 2;
+			if (NPC.ai[1] == 1 && NPC.ai[3] >= 30)
+			{
+				return true;
+			}
+			if (NPC.dontTakeDamage)
+			{
+				return false;
+			}
+			return base.CanHitPlayer(target, ref cooldownSlot);
 		}
 
 		Vector2 startPos;
@@ -216,7 +228,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 						}
 						frameSet = 3;
 						NPC.dontTakeDamage = false;
-						NPC.damage = damage;
+						//NPC.damage = damage;
 					}
 					NPC.velocity.Y += 0.1f;
 				}
@@ -224,7 +236,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				{
 					NPC.ai[2] -= 1f;
 					NPC.dontTakeDamage = false;
-					NPC.damage = damage;
+					//NPC.damage = damage;
 				}
 
 				NPC.frame.Y = currentFrame + frameSet;
@@ -275,7 +287,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				else
 				{
 					frameSet = 3;
-					NPC.damage = damage;
+					//NPC.damage = damage;
 					//NPC.velocity += targetRot.ToRotationVector2()*0.2f;
 				}
 
@@ -285,7 +297,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			// Super fireball
 			if (NPC.ai[1] == 2)
 			{
-				NPC.damage = damage;
+				//NPC.damage = damage;
 				NPC.dontTakeDamage = false;
 				float targetRot = (float)Math.Atan2(player.Center.Y - NPC.Center.Y, player.Center.X - NPC.Center.X);
 
@@ -345,7 +357,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					{
 						NPC.frame.Y = 0;
 					}
-					NPC.damage = damage;
+					//NPC.damage = damage;
 				}
 				else
 				{
@@ -353,7 +365,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					NPC.ai[2] = 0f;
 					NPC.ai[3] = 0f;
 					NPC.dontTakeDamage = true;
-					NPC.damage = 0;
+					//NPC.damage = 0;
 				}
 			}
 
@@ -364,7 +376,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 				dist += 8f;
 				NPC.ai[2] += (float)Math.PI / 60;
 
-				NPC.damage = damage;
+				//NPC.damage = damage;
 				NPC.dontTakeDamage = false;
 				if (NPC.frameCounter++ > 4)
 				{

@@ -24,8 +24,8 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.extraUpdates = 1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
+			Projectile.usesIDStaticNPCImmunity = true;
+			Projectile.idStaticNPCHitCooldown = 6;
 		}
 
 		bool initialize = false;

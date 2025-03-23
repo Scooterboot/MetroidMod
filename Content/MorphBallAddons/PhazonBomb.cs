@@ -47,7 +47,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
+				//.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
 				.AddIngredient<Items.Miscellaneous.PhazonBar>(5)
 				.AddTile<Tiles.NovaWorkTableTile>()
 				.Register();

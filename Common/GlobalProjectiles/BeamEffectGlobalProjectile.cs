@@ -14,8 +14,9 @@ namespace MetroidMod.Common.GlobalProjectiles
 			{
 				return;
 			}
-			entity.usesLocalNPCImmunity = true;
-			entity.localNPCHitCooldown = 16;
+			// [Joost] Why were we globally overriding everything to 16 i frames? This hsould be done individually
+			//entity.usesLocalNPCImmunity = true;
+			//entity.localNPCHitCooldown = 16;
 			bool isBlaze = entity.ModProjectile.Name.Contains("Red");//|| entity.ModProjectile is MProjectile MP && MP.shot.Contains("red");
 			bool isCharged = entity.ModProjectile.Name.Contains("Charge");
 

@@ -31,7 +31,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			NPC.width = 58;
 			NPC.height = 58;
 			NPC.scale = 1f;
-			NPC.damage = 0;
+			NPC.damage = 10;
 			NPC.defense = 10;
 			NPC.lifeMax = 5000;
 			NPC.HitSound = SoundID.NPCHit1;
@@ -42,6 +42,14 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			NPC.noTileCollide = true;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 1;
+		}
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
+		{
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
+		}
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			return false;
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
@@ -106,6 +114,14 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				projectile.penetrate = 0;
 				projectile.netUpdate = true;
 			}
+		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
+		{
+			if (projectile.penetrate < 0 && projectile.aiStyle != 3)
+			{
+				modifiers.FinalDamage *= 0.5f;
+				modifiers.DisableCrit();
+			}	
 		}
 	}
 }

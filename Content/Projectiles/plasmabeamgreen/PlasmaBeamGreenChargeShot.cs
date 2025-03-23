@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreen
 			Projectile.scale = 2f;
 			Projectile.penetrate = 9;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
+			Projectile.localNPCHitCooldown = 16;
 
 			mProjectile.wavesPerSecond = 1f;
 			mProjectile.delay = 12;

@@ -86,6 +86,8 @@ namespace MetroidMod.Content.Projectiles.missiles
 				return;
 			}
 		}
+		
+
 
 		public override void OnKill(int timeLeft)
 		{

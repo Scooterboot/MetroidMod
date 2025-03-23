@@ -32,8 +32,8 @@ namespace MetroidMod.Content.SuitAddons
 		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.
 		public static int suitDef = 29; //Added suit defense
 		public static int energyCap = 6; //Added E-tank capacity
-		public static float energyEff = 60f; //%Increased energy damage absorption
-		public static float energyRes = 37.5f; //%Increased energy DR
+		public static float energyEff = 40f; //%Increased energy damage absorption
+		public static float energyRes = 27.5f; //%Increased energy DR
 		public static int overheatCap = 55; //Added maximum overheat
 		public static float overheatCost = 15f; //%Decreased overheat cost
 		public static float comboCost = 15f; //%Decreased Charge Combo cost

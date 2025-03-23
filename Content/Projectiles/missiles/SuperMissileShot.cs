@@ -105,7 +105,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			int size = 80;
 			if (P.Name.Contains("Stardust"))
 			{
-				size = 100;
+				size = 200;
 			}
 			/*P.position.X = P.position.X + (float)(P.width / 2);
 			P.position.Y = P.position.Y + (float)(P.height / 2);

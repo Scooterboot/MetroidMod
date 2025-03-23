@@ -58,7 +58,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		}
 		private float scale = 0.01f;
 		private float speed = 4f;
-		private const int maxDist = 60;
+		private const int maxDist = 54;
 
 		private float itemVacSpeed = 5f;
 		private float npcVacSpeed = 5f;
@@ -143,7 +143,7 @@ namespace MetroidMod.Content.MorphBallAddons
 				dust.velocity += Vector2.Normalize(P.Center - dust.position) * 10f;// * P.scale;
 				dust.noGravity = true;
 			}*/
-			int num = 20;
+			int num = 6;
 			for (int i = 0; i < num; i++)
 			{
 				float angle = (float)((Math.PI * 2) / num) * i;
@@ -151,7 +151,7 @@ namespace MetroidMod.Content.MorphBallAddons
 				Vector2 position = P.Center;
 				position.X += (float)Math.Cos(angle) * ((float)P.width / 2f);
 				position.Y += (float)Math.Sin(angle) * ((float)P.height / 2f);
-				int num20 = Dust.NewDust(position, 1, 1, 229, 0f, 0f, 100, default(Color), MathHelper.Clamp(P.scale, 1f, 3f));
+				int num20 = Dust.NewDust(position, 1, 1, 229, 0f, 0f, 100, default(Color), MathHelper.Clamp(P.scale, 1f, 3f) * ((i % 2 == 0) ? 1.33f : 1));
 				Dust dust = Main.dust[num20];
 				dust.position = position;
 				dust.velocity = Vector2.Normalize(P.Center - dust.position) * 10f;

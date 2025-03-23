@@ -43,7 +43,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			NPC.width = 62;
 			NPC.height = 62;
-			NPC.damage = 0;
+			NPC.damage = 70;
 			NPC.defense = 30;
 			NPC.lifeMax = 20000;
 			NPC.dontTakeDamage = false;
@@ -82,8 +82,16 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
-			NPC.damage = 0;//(int)(NPC.damage * 0.8f);
-			damage = (int)(damage * 2 * 0.8f);
+			NPC.damage = (int)(NPC.damage * 0.8f);
+			//damage = (int)(damage * 2 * 0.8f);
+		}
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			if (NPC.dontTakeDamage)
+			{
+				return false;
+			}
+			return base.CanHitPlayer(target, ref cooldownSlot);
 		}
 		public override void BossLoot(ref string name, ref int potionType)
 		{
@@ -154,7 +162,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			}
 		}
 
-		int damage = 70;
+		//int damage = 70;
 
 		int _body,
 			_rArmArmor, _lArmArmor,
@@ -1428,7 +1436,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				// main phase
 				else if (NPC.ai[0] == 1)
 				{
-					NPC.damage = damage;
+					//NPC.damage = damage;
 
 					// walk, absorb, & attack
 					if (NPC.ai[1] == 0)
@@ -2436,7 +2444,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 								else
 								{
 									fullAlpha = 0f;
-									NPC.damage = 0;
+									//NPC.damage = 0;
 									NPC.ai[1] = 1;
 									NPC.ai[2] = 0;
 									NPC.ai[4] = 0;
@@ -2550,7 +2558,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 					// appear and regen phazon armor
 					else if (NPC.ai[1] == 2)
 					{
-						NPC.damage = damage;
+						//NPC.damage = damage;
 						fullAlpha = 1f;
 
 						if (NPC.ai[3] < NPC.lifeMax * 0.1f)
@@ -2743,7 +2751,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 										anim_PhazonStartTransition = 0f;
 										anim_PhazonRegen = 1f;
 										anim_PhazonRegenTransition = 0f;
-										NPC.damage = damage;
+										//NPC.damage = damage;
 										Body.dontTakeDamage = true;
 										for (int i = 0; i < NPC.ai.Length; i++)
 										{
@@ -2817,7 +2825,6 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 								if (Main.netMode != NetmodeID.MultiplayerClient)
 								{
 									fullAlpha = 0f;
-									NPC.damage = 0;
 									NPC.ai[1] = 1;
 									NPC.ai[2] = 0;
 									NPC.ai[3] = 120 + Main.rand.Next(121);
@@ -2825,7 +2832,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 									NPC.ai[5] = 10 + Main.rand.Next(30);
 									anim_PhazonRegen = 1f;
 									anim_PhazonRegenTransition = 0f;
-									NPC.damage = 0;
+									//NPC.damage = 0;
 									NPC.netUpdate = true;
 									Body.netUpdate = true;
 									NPC.dontTakeDamage = true;

@@ -133,9 +133,10 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 					List<int> listNPCIndices = new List<int>();
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
-						if ((bool)Colliding(Projectile.Hitbox, Main.npc[i].Hitbox))
+						NPC n = Main.npc[i];
+						if (!n.friendly && !n.dontTakeDamage && (bool)Colliding(Projectile.Hitbox, n.Hitbox))
 						{
-							listDists.Add(Projectile.Distance(Main.npc[i].Center));
+							listDists.Add(Projectile.Distance(n.Center));
 							listNPCIndices.Add(i);
 						}
 					}
@@ -218,9 +219,13 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 		public override bool? CanHitNPC(NPC target)
 		{
+			if (target.friendly)
+			{
+				return false;
+			}
 			for (int i = 0; i < Projectile.maxPenetrate; i++)
 			{
-				if (nearestTargets[i] == target.whoAmI && !target.friendly)
+				if (nearestTargets[i] == target.whoAmI)
 				{
 					if (i == Projectile.maxPenetrate - 1)
 					{

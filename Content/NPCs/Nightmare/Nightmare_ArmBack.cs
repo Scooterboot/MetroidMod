@@ -23,7 +23,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.width = 48;
 			NPC.height = 48;
 			NPC.scale = 1f;
-			NPC.damage = 0;//50;
+			NPC.damage = 50;//50;
 			NPC.defense = 30;
 			NPC.lifeMax = 30000;
 			NPC.dontTakeDamage = true;
@@ -49,6 +49,15 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			get { return Main.projectile[_laserBeam]; }
 		}
 
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			NPC Head = Main.npc[(int)NPC.ai[0]];
+			if (Head.dontTakeDamage)
+			{
+				return false;
+			}
+			return base.CanHitPlayer(target, ref cooldownSlot);
+		}
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];
@@ -65,7 +74,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				return;
 			}
 
-			NPC.damage = Head.damage;
+			//NPC.damage = Head.damage;
 			NPC.velocity = Head.velocity;
 
 			Vector2 laserPos = NPC.Center + new Vector2(17 * Head.direction, 15);

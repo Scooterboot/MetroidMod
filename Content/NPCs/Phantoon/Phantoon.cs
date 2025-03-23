@@ -36,13 +36,13 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			NPCID.Sets.SpecificDebuffImmunity[Type][44] = true;
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.PhazonDebuff>()] = true;
 		}
-		int damage = 130;//65;
+		//int damage = 130;//65;
 		int oldLife = 0;
 		public override void SetDefaults()
 		{
 			NPC.width = 92;
 			NPC.height = 180;
-			NPC.damage = 0;
+			NPC.damage = 65;
 			NPC.defense = 50;
 			NPC.lifeMax = 15000;
 			NPC.dontTakeDamage = true;
@@ -72,10 +72,18 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance + 1);
-			NPC.damage = 0;//(int)(NPC.damage * 0.7f);
-			damage *= 2;
-			damage = (int)(damage * 0.7f);
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
+			NPC.damage = (int)(NPC.damage * 0.7f);
+			//damage *= 2;
+			//damage = (int)(damage * 0.7f);
+		}
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			if (NPC.dontTakeDamage)
+			{
+				return false;
+			}
+			return base.CanHitPlayer(target, ref cooldownSlot);
 		}
 		public override void BossLoot(ref string name, ref int potionType)
 		{
@@ -533,7 +541,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 
 			if (eyeOpen > 0)
 			{
-				NPC.damage = damage;
+				//NPC.damage = damage;
 				NPC.dontTakeDamage = false;
 
 				if ((eyeOpen == 1 && eyeFrame < 2) || (eyeOpen == 2 && eyeFrame < 3))
@@ -569,7 +577,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			else
 			{
 				NPC.dontTakeDamage = true;
-				NPC.damage = 0;
+				//NPC.damage = 0;
 
 				if (eyeFrame > 0)
 				{

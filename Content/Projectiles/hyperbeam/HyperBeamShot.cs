@@ -26,8 +26,15 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 		float scale = 0f;
 		public override bool PreAI()
 		{
+			bool isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar");
 			if (!spawned)
 			{
+				if (isPlasma)
+				{
+					Projectile.penetrate = 25;
+					Projectile.usesLocalNPCImmunity = true;
+					Projectile.localNPCHitCooldown = 10 * (1 + Projectile.extraUpdates);
+				}
 				scale = Projectile.scale;
 				spawned = true;
 			}
@@ -39,8 +46,8 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
 
 			bool isWave = shot.Contains("wave") || shot.Contains("nebula"),
-			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
-			isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar");
+			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex");
+			
 
 			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
 
@@ -54,12 +61,6 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			if (isWave)
 			{
 				Projectile.tileCollide = false;
-			}
-			if (isPlasma)
-			{
-				Projectile.penetrate = -1;
-				Projectile.usesLocalNPCImmunity = true;
-				Projectile.localNPCHitCooldown = 10;
 			}
 			if (isSpazer || isWave)
 			{

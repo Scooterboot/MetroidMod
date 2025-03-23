@@ -32,15 +32,22 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
 
 			bool isWave = (shot.Contains("wave") || shot.Contains("nebula")),
-isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
-isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"),
-isNebula = shot.Contains("nebula");
+				isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
+				isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"),
+				isNebula = shot.Contains("nebula");
 
 
 			if (!initialized)
 			{
 				speed = P.velocity.Length();
 				initialized = true;
+
+				if (isPlasma)
+				{
+					Projectile.penetrate = 15;
+					Projectile.usesLocalNPCImmunity = true;
+					Projectile.localNPCHitCooldown = 10 * (1 + Projectile.extraUpdates);
+				}
 			}
 
 			if (isSpazer || isWave)
@@ -53,12 +60,6 @@ isNebula = shot.Contains("nebula");
 				{
 					mProjectile.HomingBehavior(P, speed);
 				}
-			}
-			if (isPlasma)
-			{
-				Projectile.penetrate = -1;
-				Projectile.usesLocalNPCImmunity = true;
-				Projectile.localNPCHitCooldown = 10;
 			}
 			if (isWave)
 			{

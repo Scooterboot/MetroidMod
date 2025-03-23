@@ -28,7 +28,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 5;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10 * (1 + Projectile.extraUpdates);
+			Projectile.localNPCHitCooldown = 4 * (1 + Projectile.extraUpdates);
 		}
 		private float BeamLength
 		{
@@ -196,7 +196,9 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(189, 600, true);
-			target.immune[Projectile.owner] = 2;
+			//Main.NewText(Projectile.localNPCHitCooldown);
+			//Projectile.localNPCImmunity[target.whoAmI] = Projectile.localNPCHitCooldown;
+			//target.immune[Projectile.owner] = 2;
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

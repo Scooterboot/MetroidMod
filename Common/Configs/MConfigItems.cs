@@ -770,7 +770,7 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 0.3f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(-0.5f)]
+		[DefaultValue(-0.4f)]
 		public float speedNebulaMissile;
 
 		//[Label("[i:MetroidMod/StardustMissileAddon] Stardust Missile Damage Multiplier")]
@@ -784,7 +784,7 @@ namespace MetroidMod.Common.Configs
 		[Range(-0.5f, 0.3f)]
 		[Increment(0.05f)]
 		[Slider]
-		[DefaultValue(-0.5f)]
+		[DefaultValue(-0.1f)]
 		public float speedStardustMissile;
 	}
 }
