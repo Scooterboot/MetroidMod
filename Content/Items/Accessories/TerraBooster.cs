@@ -29,6 +29,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SetDefaults()
 		{
 			Item.damage = 150;
+			Item.knockBack = 10;
 			Item.noMelee = true;
 			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Item.width = 36;
@@ -92,6 +93,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void SetDefaults()
 		{
 			Item.damage = 150;
+			Item.knockBack = 10;
 			Item.noMelee = true;
 			Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Item.width = 36;

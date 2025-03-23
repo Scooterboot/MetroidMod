@@ -28,12 +28,20 @@ namespace MetroidMod.Common.GlobalNPCs
 				}
 				return;
 			}
+
+			float MX = Main.screenPosition.X + (Main.mouseX + (Main.mouseX - Main.screenWidth * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.X) - 1f)) * Main.UIScale;
+			float MY = Main.screenPosition.Y + (Main.mouseY + (Main.mouseY - Main.screenHeight * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f)) * Main.UIScale;
+			if (Main.LocalPlayer.gravDir == -1f)
+			{
+				MY = Main.screenPosition.Y + ((float)Main.screenHeight - (Main.mouseY + (Main.mouseY - Main.screenHeight * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f))) * Main.UIScale;
+			}
+
 			boundingBox.X -= 25;
 			boundingBox.Y -= 25;
 			boundingBox.Width += 50;
 			boundingBox.Height += 50;
 			mp.ScanProgress = 0f;
-			if (boundingBox.Contains(new Point((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y)))
+			if (boundingBox.Contains(new Point((int)MX, (int)MY)))
 			{
 				soundShouldPlay = true;
 				if (npc.friendly)

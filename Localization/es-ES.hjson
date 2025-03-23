@@ -328,7 +328,7 @@ Mods: {
 			// ChozoStatueNatural2.MapEntry: Ancient Chozo Statue
 			// ChozoStatueNatural3.MapEntry: Imperial Chozo Statue
 			// UnknownItemTile.MapEntry: Unknown Item
-			// FusionOmegaAddonTile.MapEntry: Varia Suit Omega Addon Tile
+			// FusionOmegaAddonTile.MapEntry: Varia Suit Omega
 		}
 
 		Buffs: {

@@ -891,7 +891,7 @@ namespace MetroidMod.Common.Players
 			if (somersault)
 			{
 				bool flag = false;
-				Player.longInvince = true;
+				//Player.longInvince = true;
 				int screwAttackID = ModContent.ProjectileType<Content.Projectiles.ScrewAttackProj>();
 				foreach (Projectile P in Main.projectile)
 				{

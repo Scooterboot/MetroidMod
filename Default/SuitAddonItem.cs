@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -53,6 +54,7 @@ namespace MetroidMod.Default
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = Type;
 			}
+			modSuitAddon.HoldItem(player);
 		}
 		public override bool IsVanitySet(int head, int body, int legs) => true;
 
@@ -61,6 +63,7 @@ namespace MetroidMod.Default
 		public override bool CanUseItem(Player player) => modSuitAddon.CanUseItem(player);
 
 		public override bool? UseItem(Player player) => modSuitAddon.UseItem(player);
+
 
 		public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup) => itemGroup = ContentSamples.CreativeHelper.ItemGroup.Accessories;
 

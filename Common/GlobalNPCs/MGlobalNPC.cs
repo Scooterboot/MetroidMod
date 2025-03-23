@@ -115,8 +115,24 @@ namespace MetroidMod.Common.GlobalNPCs
 			}
 		}
 
-		public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => target.TryGetModPlayer(out Players.MPlayer mp) && !(mp.screwAttack && mp.somersault);
-
+		//public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => target.TryGetModPlayer(out Players.MPlayer mp) && !(mp.screwAttack && mp.somersault);
+		
+		public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
+		{
+			target.TryGetModPlayer(out MPlayer mp);
+			
+			if (mp.screwAttack && mp.somersault)
+			{
+				if (modifiers.CooldownCounter > 0) // Check if incoming damage is a boss
+				{
+					modifiers.FinalDamage *= 0.75f;
+				}
+				else
+				{
+					modifiers.FinalDamage *= 0.5f;
+				}
+			}
+		}
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

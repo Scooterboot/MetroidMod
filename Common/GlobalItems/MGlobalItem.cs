@@ -75,7 +75,7 @@ namespace MetroidMod.Common.GlobalItems
 	{
 		public override bool CanUseItem(Item item, Player player)
 		{
-			return player.GetModPlayer<MPlayer>().VisorInUse != SuitAddonLoader.GetAddon<Content.SuitAddons.ScanVisor>().Type && player.GetModPlayer<MPlayer>().VisorInUse != SuitAddonLoader.GetAddon<Content.SuitAddons.XRayScope>().Type;
+			return player.GetModPlayer<MPlayer>().VisorInUse != SuitAddonLoader.GetAddon<Content.SuitAddons.ScanVisor>().Type;
 		}
 	}
 	public class Grab : GlobalItem

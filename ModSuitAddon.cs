@@ -191,6 +191,9 @@ namespace MetroidMod
 		/// <inheritdoc cref="ModItem.UseItem(Player)"/>
 		public virtual bool? UseItem(Player player) { return null; }
 
+		/// <inheritdoc cref="ModItem.HoldItem(Player)"/>
+		public virtual void HoldItem(Player player) { }
+
 		/// <inheritdoc cref="ModTile.CanKillTile(int, int, ref bool)"/>
 		public virtual bool CanKillTile(int i, int j) { return true; }
 
