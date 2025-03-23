@@ -35,7 +35,7 @@ namespace MetroidMod.Content.Items.MissileAddons
 			Item.createTile = ModContent.TileType<Content.Tiles.ItemTile.Missile.DiffusionMissile>();
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.missileSlotType = 0;
-			mItem.addonChargeDmg = 3f;
+			mItem.addonChargeDmg = 1f;
 			mItem.addonMissileCost = 5;
 			mItem.missileChangeType = MissileChangeSlotID.Diffusion;
 		}

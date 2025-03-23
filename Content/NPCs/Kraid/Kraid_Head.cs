@@ -480,13 +480,15 @@ namespace MetroidMod.Content.NPCs.Kraid
 		}*/
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f) makes him a total pushover
+			modifiers.ScalingArmorPenetration += 0.95f;
+			//modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f) makes him a total pushover
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
 			if (mouthOpen && projectile.Center.Y > NPC.position.Y && ((NPC.direction == 1 && projectile.Center.X >= NPC.Center.X) || (NPC.direction == -1 && projectile.Center.X <= NPC.Center.X)))
 			{
-				modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f);
+				modifiers.ScalingArmorPenetration += 0.95f;
+				//modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f);
 			}
 		}
 
