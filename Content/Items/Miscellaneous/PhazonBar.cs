@@ -22,7 +22,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			Item.width = 16;
 			Item.height = 16;
 			Item.value = 10000;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Cyan;
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;

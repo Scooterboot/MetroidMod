@@ -30,7 +30,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			item.damage = 103;
 			item.value = Item.buyPrice(0, 5, 0, 0);
-			item.rare = ItemRarityID.Yellow;
+			item.rare = ItemRarityID.Cyan;
 		}
 
 		public override void Kill(Projectile P, int timeLeft, ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2)

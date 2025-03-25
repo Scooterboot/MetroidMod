@@ -75,7 +75,7 @@ namespace MetroidMod.Content.SuitAddons
 			item.width = 16;
 			item.height = 16;
 			item.value = Item.buyPrice(0, 11, 70, 0);
-			item.rare = ItemRarityID.Lime;
+			item.rare = ItemRarityID.Cyan;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
