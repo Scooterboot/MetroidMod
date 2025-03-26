@@ -1302,7 +1302,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				NPC.ai[0] = 3;
 				NPC.damage = 0;
 				NPC.netUpdate = true;
-				NPC.life = NPC.lifeMax;
+				NPC.life = 1;
 				NPC.dontTakeDamage = true;
 				Body.dontTakeDamage = true;
 				return false;

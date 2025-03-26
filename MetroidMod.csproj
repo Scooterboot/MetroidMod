@@ -37,6 +37,5 @@
     <AdditionalFiles Remove="Assets\Effects\ProjectileShaders.fx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Effects\ProjectileShaders.fx" />
   </ItemGroup>
 </Project>
