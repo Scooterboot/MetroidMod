@@ -195,8 +195,18 @@ namespace MetroidMod.Common.GlobalNPCs
 
 			if (npc.type == NPCID.WallofFlesh)
 			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Content.Items.Accessories.HunterEmblem>()));
-				//Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HunterEmblem"), 1);
+				OneFromOptionsNotScaledWithLuckDropRule emblemDropRule = npcLoot.Get(includeGlobalDrops: false)
+					.OfType<LeadingConditionRule>()
+					.Where(rule => rule.condition is Conditions.NotExpert)
+					.SelectMany(rule => rule.ChainedRules)
+					.OfType<Chains.TryIfSucceeded>()
+					.Select(rule => rule.RuleToChain)
+					.OfType<OneFromOptionsNotScaledWithLuckDropRule>()
+					.FirstOrDefault(rule => rule.dropIds.Contains(ItemID.WarriorEmblem));
+				if (emblemDropRule != null)
+				{
+					emblemDropRule.dropIds = [.. emblemDropRule.dropIds.Append(ModContent.ItemType<Content.Items.Accessories.HunterEmblem>())];
+				}
 			}
 			if (npc.type == NPCID.IceQueen)
 			{

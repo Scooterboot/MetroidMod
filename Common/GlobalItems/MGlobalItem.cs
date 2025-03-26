@@ -1,4 +1,5 @@
-﻿using MetroidMod.Common.Players;
+﻿using System.Linq;
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -183,6 +184,17 @@ namespace MetroidMod.Common.GlobalItems
 				Lokidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.LokiDevItemLegs>(), 1));
 
 				itemLoot.Add(expertRule);
+			}
+
+			if (item.type == ItemID.WallOfFleshBossBag)
+			{
+				OneFromOptionsNotScaledWithLuckDropRule emblemDropRule = itemLoot.Get(includeGlobalDrops: false)
+					.OfType<OneFromOptionsNotScaledWithLuckDropRule>()
+					.FirstOrDefault(rule => rule.dropIds.Contains(ItemID.WarriorEmblem));
+				if (emblemDropRule != null)
+				{
+					emblemDropRule.dropIds = [.. emblemDropRule.dropIds.Append(ModContent.ItemType<Content.Items.Accessories.HunterEmblem>())];
+				}
 			}
 		}
 	}
