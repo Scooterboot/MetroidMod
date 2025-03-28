@@ -200,6 +200,7 @@ namespace MetroidMod.Common.Players
 				Player.canJumpAgain_Sail = false;
 				Player.canJumpAgain_Unicorn = false;
 				*/
+				Player.wingsLogic = 0;
 				Player.blockExtraJumps = true;
 				Player.pulley = false;
 				Player.ropeCount = 10;

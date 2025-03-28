@@ -2,6 +2,8 @@ using System;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -132,6 +134,22 @@ namespace MetroidMod.Content.Projectiles
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.FinalDamage.Flat = target.damage * 2;
+		}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Player player = Main.player[Projectile.owner];
+			int hitDir = player.Center.X < target.Center.X ? -1 : 1;
+			if (target.knockBackResist > 0)
+			{
+				float kbResist = 0.25f + target.knockBackResist;
+				target.velocity = new Vector2(8 * -hitDir, -4) * kbResist;
+			}
+			else if (!player.immune && target.life > 0)
+			{
+				player.velocity = new Vector2(12 * hitDir, -4 * player.gravDir);
+				SoundEngine.PlaySound(Sounds.Suit.EnergyHit.WithPitchOffset(0.45f).WithVolumeScale(0.6f), player.Center);
+			}
+			player.GiveImmuneTimeForCollisionAttack(4);
 		}
 		public override void OnKill(int timeLeft)
 		{

@@ -25,6 +25,7 @@ namespace MetroidMod.Content.Items.Tiles
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = ModContent.TileType<Content.Tiles.PhazonTile>();
+			Item.rare = ItemRarityID.Cyan;
 		}
 	}
 }

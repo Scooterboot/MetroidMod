@@ -114,6 +114,7 @@ namespace MetroidMod.Default
 			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 
 			Projectile.Damage();
+			//Projectile.ExplodeCrackedTiles(Projectile.position, (int)BombRadius, (int)(Projectile.position.X + Projectile.width - BombRadius), (int)(Projectile.position.X + Projectile.width), (int)(Projectile.height - BombRadius), (int)(Projectile.position.Y + Projectile.height));
 			foreach (var npc in Main.ActiveNPCs)
 			{
 				NPC who = Main.npc[npc.whoAmI];

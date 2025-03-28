@@ -118,6 +118,14 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			return true;
 		}
 
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			if (Base.dontTakeDamage)
+			{
+				return false;
+			}
+			return base.CanHitPlayer(target, ref cooldownSlot);
+		}
 		public override void AI()
 		{
 			bool visible = (Base.alpha < 255);
@@ -212,6 +220,14 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			{
 				projectile.penetrate = 0;
 				projectile.netUpdate = true;
+			}
+		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
+		{
+			if (projectile.penetrate < 0 && projectile.aiStyle != 3)
+			{
+				modifiers.FinalDamage *= 0.75f;
+				modifiers.DisableCrit();
 			}
 		}
 

@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			Item.width = 16;
 			Item.height = 16;
 			Item.value = 10000;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.Cyan;
 		}
 		/*public override void AddRecipes()
 		{

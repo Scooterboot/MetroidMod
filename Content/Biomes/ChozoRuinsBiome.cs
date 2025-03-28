@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Biomes
 	public class ChozoRuinsBiome : ModBiome
 	{
 		public override int Music => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) ? MusicLoader.GetMusicSlot(Mod, "Assets/Music/ChozoRuinsActive") : MusicLoader.GetMusicSlot(Mod, "Assets/Music/ChozoRuinsInactive");
-		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
+		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
 		// TODO: Bestiary sprites and stuff
 		public override string BestiaryIcon => base.BestiaryIcon;

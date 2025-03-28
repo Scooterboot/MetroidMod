@@ -30,8 +30,8 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.maxStack = 1;
 			Item.width = 32;
 			Item.height = 44;
-			Item.value = 1000;
-			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.buyPrice(0, 25, 87, 0);
+			Item.rare = ItemRarityID.Yellow;
 			Item.accessory = true;
 		}
 		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)

@@ -1,4 +1,6 @@
-﻿using MetroidMod.Content.Items.Armors;
+﻿using log4net.Repository.Hierarchy;
+using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.SuitAddons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -288,6 +290,10 @@ namespace MetroidMod.Common.Players
 				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Barrier] = null; continue; }
 				msa[i - SuitAddonSlotID.Suit_Barrier] = SuitAddonLoader.GetAddon(sa[i]);
 			}
+			//if (msa[0].Name == "FusionOmegaAddon")
+			//{
+			//	msa[1] = msa[0];
+			//}
 			return msa;
 		}
 	}

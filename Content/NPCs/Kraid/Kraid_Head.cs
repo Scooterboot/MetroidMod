@@ -85,7 +85,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance) + 1;
+			NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -480,13 +480,15 @@ namespace MetroidMod.Content.NPCs.Kraid
 		}*/
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f) makes him a total pushover
+			modifiers.ScalingArmorPenetration += 0.95f;
+			//modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f) makes him a total pushover
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
 			if (mouthOpen && projectile.Center.Y > NPC.position.Y && ((NPC.direction == 1 && projectile.Center.X >= NPC.Center.X) || (NPC.direction == -1 && projectile.Center.X <= NPC.Center.X)))
 			{
-				modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f);
+				modifiers.ScalingArmorPenetration += 0.95f;
+				//modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.1f); //modifiers.FinalDamage += (int)(NPC.defense * 0.95f * 0.5f);
 			}
 		}
 

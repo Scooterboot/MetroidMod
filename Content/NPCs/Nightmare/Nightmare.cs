@@ -40,12 +40,12 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.PhazonDebuff>()] = true;
 		}
 
-		int damage = 100;//50;
+		//int damage = 100;//50;
 		public override void SetDefaults()
 		{
 			NPC.width = 80;
 			NPC.height = 80;
-			NPC.damage = 0;//50;
+			NPC.damage = 50;
 			NPC.defense = 40;
 			NPC.lifeMax = 30000;
 			NPC.dontTakeDamage = false;
@@ -73,11 +73,19 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Nightmare")
 			});
 		}
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			if (NPC.dontTakeDamage && state < 4)
+			{
+				return false;
+			}
+			return base.CanHitPlayer(target, ref cooldownSlot);
+		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);
-			NPC.damage = 0;//(int)(NPC.damage * 0.8f);
-			damage = (int)(damage * 2 * 0.8f);
+			//NPC.damage = (int)(NPC.damage * 0.8f);
+			//damage = (int)(damage * 2 * 0.8f);
 		}
 		public override void BossLoot(ref string name, ref int potionType)
 		{
@@ -305,7 +313,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				NPC.TargetClosest(true);
 				if (Main.player[NPC.target].dead || Math.Abs(NPC.position.X - Main.player[NPC.target].position.X) > 2000f || Math.Abs(NPC.position.Y - Main.player[NPC.target].position.Y) > 2000f)
 				{
-					NPC.damage = 0;
+					//NPC.damage = 0;
 					NPC.velocity.X *= 0.9f;
 					NPC.dontTakeDamage = true;
 					if (NPC.velocity.X > 0)
@@ -404,7 +412,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					}
 					NPC.velocity.Y = -num3;
 
-					NPC.damage = 0;
+					//NPC.damage = 0;
 					NPC.dontTakeDamage = true;
 					NPC.alpha = Math.Max(NPC.alpha - 5, 127);
 				}
@@ -413,7 +421,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					// Main phase
 					if (NPC.ai[1] == 0 && !despawn)
 					{
-						NPC.damage = damage;
+						//NPC.damage = damage;
 						NPC.dontTakeDamage = false;
 						NPC.alpha = Math.Max(NPC.alpha - 16, 0);
 
@@ -570,7 +578,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					// Dash phase #1
 					if (NPC.ai[1] == 1)
 					{
-						NPC.damage = 0;
+						//NPC.damage = 0;
 						NPC.dontTakeDamage = true;
 						NPC.alpha = Math.Min(NPC.alpha + 16, 127);
 
@@ -613,7 +621,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					if (NPC.ai[1] == 2)
 					{
 						NPC.alpha = Math.Min(NPC.alpha + 16, 127);
-						NPC.damage = 0;
+						//NPC.damage = 0;
 						NPC.dontTakeDamage = true;
 
 						if (player.Center.X < Body.Center.X)
@@ -648,7 +656,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					// Laser beam phase
 					if (NPC.ai[1] == 3 && !despawn)
 					{
-						NPC.damage = damage;
+						//NPC.damage = damage;
 						NPC.dontTakeDamage = false;
 						NPC.alpha = Math.Max(NPC.alpha - 16, 0);
 
@@ -827,7 +835,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			}
 			else
 			{
-				NPC.damage = damage;
+				//NPC.damage = damage;
 				NPC.alpha = Math.Max(NPC.alpha - 16, 0);
 
 				if (!isX)

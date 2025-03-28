@@ -103,7 +103,8 @@ namespace MetroidMod.Content.Projectiles.Minions
 		}
 
 		public sealed override void SetDefaults() {
-			Projectile.width = 18;
+			Projectile.CloneDefaults(ProjectileID.PirateCaptain);
+			Projectile.width = 32;
 			Projectile.height = 28;
 			Projectile.tileCollide = false; // Makes the minion go through tiles freely
 
@@ -126,7 +127,7 @@ namespace MetroidMod.Content.Projectiles.Minions
 		}
 
 		// The AI of this minion is split into multiple methods to avoid bloat. This method just passes values between calls actual parts of the AI.
-		public override void AI() {
+		/*public override void AI() {
 			Player owner = Main.player[Projectile.owner];
 
 			if (!CheckActive(owner)) {
@@ -312,6 +313,6 @@ namespace MetroidMod.Content.Projectiles.Minions
 
 			// Some visuals here
 			Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
-		}
+		}*/
 	}
 }

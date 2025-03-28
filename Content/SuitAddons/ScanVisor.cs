@@ -70,6 +70,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override void DrawVisor(Player player)
 		{
 			if (scanTex == null || barTex == null || barBorderTex == null || !player.TryGetModPlayer(out MPlayer mp)) { return; }
+
 			scanRect = new(
 				Main.mouseX - (scanTex.Width() / 2),
 				Main.mouseY - (scanTex.Height() / 2),
@@ -92,7 +93,6 @@ namespace MetroidMod.Content.SuitAddons
 
 			Main.spriteBatch.Draw(barBorderTex.Value, barBorderRect, Color.White);
 			Main.spriteBatch.Draw(barTex.Value, barRect, mp.HUDColor);
-
 			if (ScanVisorGlobalNPC.sound != null && ScanVisorGlobalNPC.sound.IsPlaying && !ScanVisorGlobalNPC.soundShouldPlay)
 			{
 				ScanVisorGlobalNPC.sound.Sound.Stop(true);

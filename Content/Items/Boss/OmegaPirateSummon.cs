@@ -25,7 +25,7 @@ namespace MetroidMod.Content.Items.Boss
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.noMelee = true;
 			Item.value = 1000;
-			Item.rare = ItemRarityID.Lime;
+			Item.rare = ItemRarityID.Cyan;
 		}
 
 		public override void AddRecipes()

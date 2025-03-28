@@ -30,7 +30,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			item.damage = 103;
 			item.value = Item.buyPrice(0, 5, 0, 0);
-			item.rare = ItemRarityID.Yellow;
+			item.rare = ItemRarityID.Cyan;
 		}
 
 		public override void Kill(Projectile P, int timeLeft, ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2)
@@ -47,7 +47,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
+				//.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
 				.AddIngredient<Items.Miscellaneous.PhazonBar>(5)
 				.AddTile<Tiles.NovaWorkTableTile>()
 				.Register();

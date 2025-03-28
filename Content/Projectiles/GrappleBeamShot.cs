@@ -135,6 +135,23 @@ namespace MetroidMod.Content.Projectiles
 						num127 = Main.maxTilesY;
 					}
 
+					if (Main.myPlayer == P.owner)
+					{
+						//Vanilla code for grappling hooks breaking cracked bricks.
+						//Gets the tile it's hooked to and checks if it's an unactuated cracked brick, in which case boom after a random amount of time
+						int hookedX = (int)(P.Center.X / 16f);
+						int hookedY = (int)(P.Center.Y / 16f);
+						if (hookedX > 0 && hookedY > 0 && hookedX < Main.maxTilesX && hookedY < Main.maxTilesY && Main.tile[hookedX, hookedY].HasUnactuatedTile && TileID.Sets.CrackedBricks[Main.tile[hookedX, hookedY].TileType] && Main.rand.NextBool(16))
+						{
+							WorldGen.KillTile(hookedX, hookedY);
+							if (Main.netMode != 0)
+							{
+								NetMessage.SendData(17, -1, -1, null, 20, hookedX, hookedY);
+							}
+						}
+						//NetMessage.SendData(13, -1, -1, "", P.owner, 0f, 0f, 0f, 0f);
+					}
+
 					bool flag3 = true;
 					for (int x = num124; x < num125; x++)
 					{
