@@ -24,6 +24,29 @@ namespace MetroidMod.Content.Projectiles
 		}
 
 		public string shot = "";
+
+		/// <summary>
+		/// The total amount of interactions this projectile can perform with tiles.
+		/// </summary>
+		public int TileInteract = 0;
+		/// <summary>
+		/// The current number of interactions this projectile has performed with tiles.
+		/// </summary>
+		public int TilesInteracted = 0;
+		/// <summary>
+		/// The total amount of interactions this projectile can perform with entities.
+		/// </summary>
+		public int EntityInteract = 0;
+		/// <summary>
+		/// The current number of interactions this projectile has performed with entities.
+		/// </summary>
+		public int EntitiesInteracted = 0;
+
+		/// <summary>
+		/// If this projectile is part of a group, decides if the shots should move symmetrically.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public bool symmetry = false;
 		public override void SetDefaults()
 		{
 			Projectile.aiStyle = -1;

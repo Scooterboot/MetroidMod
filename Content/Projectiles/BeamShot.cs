@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -40,14 +41,6 @@ namespace MetroidMod.Content.Projectiles
 		/// </summary>
 		public int ShotFrames = 1;
 		public bool canPhase = false;
-		/// <summary>
-		/// The amount of tile interactions the shot can perform before dying.
-		/// </summary>
-		public int TileInteract = 0;
-		/// <summary>
-		/// The amount of entity interactions the shot can perform before dying.
-		/// </summary>
-		public int EntityInteract = 0;
 
 		/// <summary>
 		/// This beam shot's impact sound effect.
@@ -77,7 +70,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.height = 8;
 			Projectile.scale = 0.75f;
 			Projectile.friendly = true;
-			Projectile.tileCollide = true;
+			//Projectile.tileCollide = true;
 			Projectile.ignoreWater = true;
 			Projectile.penetrate = 1;
 			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
@@ -86,13 +79,25 @@ namespace MetroidMod.Content.Projectiles
 		public override void SetStaticDefaults()
 		{
 			//Main.projFrames[Type] = 16;
-			// Bit worried this may cause issues in the future, but it seems to be fine for now so maybe it won't	-Z
+			//Bit worried commenting this out may cause issues in the future, but it seems to be fine for now so maybe it won't		-Z
 		}
 
-		//public override bool PreAI()
-		//{
-		//	return true;
-		//}
+		public void OnInitialized(IEntitySource source)
+		{
+			//Gather data from installed addons.
+			MetroidMod.Instance.Logger.Info("Beam addons: " + beamAddons[0] + " " + beamAddons[1] + " " + beamAddons[2] + " " + beamAddons[3] + " " + beamAddons[4]);
+			//First, call method to calculate tileinteract total.
+			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true);
+			//Then, call method to calculate entityinteract total.
+			EntityInteract = BeamAddonLoader.InteractStacker(beamAddons, false);
+
+			BeamAddonLoader.AddonOnInitialized(beamAddons, mProjectile, source);
+		}
+
+		public override bool PreAI()
+		{
+			return true;
+		}
 
 		public override void AI() //TODO: make a whole-ass thing         -Z
 		{
@@ -130,18 +135,25 @@ namespace MetroidMod.Content.Projectiles
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, beamDust, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
+
+			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
 		}
 		//public override void PostAI()
 		//{
 		//	base.PostAI();
 		//}
 
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			return BeamAddonLoader.AddonTileCollideStyle(beamAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
+
 		//public override bool OnTileCollide(Vector2 oldVelocity)
 		//{
 		//	//Inject tileinteract code here?
 		//	return base.OnTileCollide(oldVelocity);
 		//}
-		
+
 		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		//{
 		//	//inject onhitnpc code here

@@ -8,6 +8,7 @@ using MetroidMod.Default;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.DataStructures;
+using MetroidMod.Content.Projectiles;
 
 //gonna document as much of the code as I can to make it easy to follow
 namespace MetroidMod
@@ -224,7 +225,7 @@ namespace MetroidMod
 		/// <summary>
 		/// The amount of extra NPCs this addon allows the beam to hit before being destroyed.
 		/// </summary>
-		public virtual int NPCInteract { get; set; } = 0;
+		public virtual int EntityInteract { get; set; } = 0;
 		/// <summary>
 		/// If true, this addon will continue to perform an action for as long as Fire is held.
 		/// <br/>For advanced beam shenanigans. Assemble said shenanigans over in <see cref="HoldFireBehavior(Player)"/>.
@@ -304,25 +305,6 @@ namespace MetroidMod
 
 		#region Advanced addon properties
 		/// <summary>
-		/// Lets you make the Arm Cannon do things while Fire is held down.
-		/// <br/>To be used with <see cref="HoldFire"/>.
-		/// </summary>
-		public virtual void HoldFireBehavior(Player player) { }
-		///<inheritdoc cref="ModProjectile.OnSpawn(IEntitySource)"/>
-		public virtual void ShotOnSpawn(Projectile shot, IEntitySource source) { }
-		/// <inheritdoc cref="ModProjectile.PreAI"/>
-		public virtual bool ShotPreAI(Projectile shot) { return true; }
-		/// <inheritdoc cref="ModProjectile.AI"/>
-		public virtual void ShotAI(Projectile shot) { }
-		/// /// <inheritdoc cref="ModProjectile.PostAI"/>
-		public virtual void ShotPostAI(Projectile shot) { }
-		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
-		public virtual void ShotOnHitNPC(Projectile shot, NPC target, NPC.HitInfo hit, int damageDone) { }
-		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
-		public virtual void ShotOnHitPlayer(Projectile shot, Player target, Player.HurtInfo info) { }
-		/// <inheritdoc cref="ModProjectile.OnKill(int)"/>
-		public virtual void ShotOnKill(Projectile shot, int timeLeft) { }
-		/// <summary>
 		/// Allows this addon to define <b>static combos</b>, allowing for specific addon combinations to have unique properties.
 		/// <br/>Each static combo needs a corresponding keyword, which the method will return. <b>Keywords must not contain spaces.</b>
 		/// <br/>An addon's static combos will only trigger if it has shape priority.
@@ -342,6 +324,37 @@ namespace MetroidMod
 		public virtual int[] SpecialComboGet(string modifier) { return [0]; }
 		//Dynamic combos are applied on the shot's firing.
 		//The best example of this would be charged shots, for which the keyword is "Charged".
+
+
+		/// <summary>
+		/// Lets you make the Arm Cannon do things while Fire is held down.
+		/// <br/>To be used with <see cref="HoldFire"/>.
+		/// </summary>
+		public virtual void HoldFireBehavior(Player player) { }
+
+		//Making the following methods check for an MProjectile as opposed to a standard Projectile makes it easier to use beam-specific variables.
+		///<summary> Gets called when your projectile spawns in world.
+		///<br/>...except it's not <i>technically</i> on spawn since onboarding addons happens after the projectile spawns, so uh...
+		///<br/>Let's just say 'yes' and pretend a 'yes', because it might as well be, but acknowledge that... also... 'no'??</summary>
+		public virtual void OnSpawn(MProjectile shot, IEntitySource source) { }
+		/// <inheritdoc cref="ModProjectile.PreAI"/>
+		public virtual bool PreAI(MProjectile shot) { return true; }
+		/// <inheritdoc cref="ModProjectile.AI"/>
+		public virtual void AI(MProjectile shot) { }
+		/// /// <inheritdoc cref="ModProjectile.PostAI"/>
+		public virtual void PostAI(MProjectile shot) { }
+		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
+		public virtual void OnHitNPC(MProjectile shot, NPC target, NPC.HitInfo hit, int damageDone) { }
+		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
+		public virtual void OnHitPlayer(MProjectile shot, Player target, Player.HurtInfo info) { }
+		/// <inheritdoc cref="ModProjectile.TileCollideStyle(ref int, ref int, ref bool, ref Vector2)"/>
+		public virtual bool TileCollideStyle(MProjectile shot, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
+		/// <inheritdoc cref="ModProjectile.OnTileCollide(Vector2)"/>
+		public virtual bool OnTileCollide(MProjectile shot, Vector2 oldVelocity) { return true; }
+		/// <inheritdoc cref="ModProjectile.OnKill(int)"/>
+		public virtual void OnKill(MProjectile shot, int timeLeft) { }
+
+
 		#endregion
 
 		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);

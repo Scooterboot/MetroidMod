@@ -40,7 +40,7 @@
 
 -Make Wave Beam
 	-This entails:
-		* Projectile behavior injection <<(THIS IS THE HARD PART)>>
+		* Projectile behavior injection <<(THIS IS THE HARD PART)>> [DONE]
 			-[NOT VIABLE]|METHOD A: Beam Addon Global Projectiles
 				-Every beam addon now comes with a global projectile that applies its behavior to the beam shot.
 				-Should hopefully just be inherently compatible as multiple globals can apply to the same thing
@@ -65,7 +65,7 @@
 				-Allows for finer control of how things stack on
 				-Slots will have pre-definied purposes
 				-Uses multiple globals at once which is the point of using globals
-			-METHOD E: BeamAddonLoader shenanigans
+			-METHOD E: BeamAddonLoader shenanigans <<(Picked this one)>>
 				-Similar to D but it goes through BeamAddonLoader instead of a global
 		* On-the-fly behavior modification?
 			-Different combos have different sinewave settings.
@@ -73,7 +73,7 @@
 		* Multiple beam shots in one firing (charge shot increases projectile count to 2 if it wasn't at or past it already)
 			-Figure out how to do the thing in the parentheses
 		* Special behavior on charge shots
-		* Tile interaction (similar principles can be applied to entity interaction)
+		* Tile interaction (similar principles can be applied to entity interaction) [DONE]
 
 -Make Hyper Beam
 	-Why so early? Because it entails:

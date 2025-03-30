@@ -544,7 +544,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 		/// <summary>
 		/// Used to fire beam projectiles.
-		/// <br/>Comes with an optional string overload called <i>bonusFileMod</i> which gets appended to the shot's filemod. Used for things like charge shots.
 		/// </summary>
 		/// <param name="player"></param>
 		/// <param name="source"></param>
@@ -553,7 +552,8 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <param name="type"></param>
 		/// <param name="damage"></param>
 		/// <param name="knockback"></param>
-		/// <param name="bonusFileMod"></param>
+		/// <param name="bonusFileMod">Appended to the shot's filemod for on-the-fly modifications.
+		/// <br/>Things like charge shots take advantage of this.</param>
 		public void SpawnBeam(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "")
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
@@ -577,7 +577,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 
 
-				for (int i = 0; i < theShootsingAmount; i++)
+				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
 				{
 					BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
 					MetroidMod.Instance.Logger.Info("beam spawn");
@@ -610,7 +610,7 @@ namespace MetroidMod.Content.Items.Weapons
 						.Select(i => BeamAddonLoader.GetAddon(i))
 						.ToArray();
 					//MetroidMod.Instance.Logger.Info("New beam drawn.\nTexture path: " + (VisualDinners[0] != -1)? beam.beamAddons[beam.VisualWinners[0]].ShotTexture : "N/A" + "\nModifier stack: >" + beam.fileMod + "<");
-
+					beam.OnInitialized(source);
 					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
 					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
 				}

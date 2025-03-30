@@ -331,6 +331,7 @@ Mods: {
 			UnknownItemTile.MapEntry: Unknown Item
 			TestBeamTile.MapEntry: Test Beam
 			GrappleBeamLiteTile.MapEntry: Grapple Beam Lite
+			FusionOmegaAddonTile.MapEntry: Fusion Omega Addon Tile
 		}
 
 		Buffs: {
@@ -1884,7 +1885,7 @@ Mods: {
 
 			TorizoClaws: {
 				DisplayName: Oorb Bomber
-				Tooltip: 
+				Tooltip:
 					'''
 					Casts explosive oorbs in an arc
 					'No, it's not a typo'
@@ -3663,6 +3664,11 @@ Mods: {
 				DisplayName: Loki Dev Item Legs
 				Tooltip: ""
 			}
+
+			FusionOmegaAddonAddon: {
+				DisplayName: Fusion Omega Addon Addon
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -3970,7 +3976,7 @@ Mods: {
 			SolarLaserFlareShot.DisplayName: Supernova
 			SolarLaserFlameTrail.DisplayName: Supernova Afterburn
 			NebulaComboShot.DisplayName: Nebula Combo
-			NebulaBusterShot.DisplayName: Nebula Buster 
+			NebulaBusterShot.DisplayName: Nebula Buster
 			# Morph Ball Bombs
 			BombProjectile.DisplayName: Morph Ball Bomb
 			PoisonBombProjectile.DisplayName: Poison Bomb

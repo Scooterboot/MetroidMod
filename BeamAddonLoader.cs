@@ -15,6 +15,10 @@ using MetroidMod.Common.GlobalItems;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Audio;
+using System.Numerics;
+using MetroidMod.Content.Projectiles;
+using Terraria.DataStructures;
+using MetroidMod.Common.UI.SuitAddons;
 
 namespace MetroidMod
 {
@@ -85,7 +89,7 @@ namespace MetroidMod
 		/// <summary>
 		/// Gets the ModBeamAddon of an addon through <b>idfk</b><br/>
 		/// Used to access an addon's properties for further use.<br/>
-		/// NOTE: Can someone else check this thing and tell me how it gets the thing?   -Z
+		/// <br/><i>NOTE: Can someone else check this thing and tell me how it gets the thing?   -Z</i>
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
@@ -248,14 +252,14 @@ namespace MetroidMod
 		/// <summary>
 		/// Used to acquire a beam shot's sound effects through its filepath and current modifiers.
 		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
-		/// <br/><br/>The default fallbacks (the third value) are as follows:
+		/// </summary>
+		/// <param name="soundSource">The base sound filepath, upon which the mod strings will be applied.</param>
+		/// <param name="modA">Appends onto soundSource, <i>before</i> modB.</param>
+		/// <param name="modB">Appends onto soundSource, <i>after</i> modA.</param>
+		/// <param name="fallback">The sound effect to be used should the grabber fail. The default fallbacks are as follows:
 		/// <br/>Shooting: <see cref="MetroidMod.BeamShotFallbackSFX"/>
 		/// <br/>Impact: <see cref="MetroidMod.BeamImpactFallbackSFX"/>
-		/// <br/>Charging: <see cref="MetroidMod.BeamChargeFallbackSFX"/>
-		/// </summary>
-		/// <param name="soundSource"></param>
-		/// <param name="modA"></param>
-		/// <param name="modB"></param>
+		/// <br/>Charging: <see cref="MetroidMod.BeamChargeFallbackSFX"/></param>
 		/// <returns></returns>
 		public static SoundStyle ShotSoundGrabber(string soundSource, string modA, string modB, SoundStyle fallback)
 		{
@@ -304,7 +308,7 @@ namespace MetroidMod
 		/// Combines all of the <b>weapon-side stats</b> of every installed beam addon.
 		/// <br/>These values will be applied to the weapon itself.
 		/// </summary>
-		/// <param name="beamAddons"></param>
+		/// <param name="beamAddons">The array containing the beam addons whose stacks need statting.<br/>...stats need stacking*</param>
 		/// <returns></returns>
 		public static float[] WeaponStatStacker(Item[] beamAddons)
 		{
@@ -334,7 +338,30 @@ namespace MetroidMod
 		}
 
 		//Behavior stackamajig?
+		/// <summary>
+		/// Creates a total interact value from the sum of that value across all installed beam addons, plus an optional multiplier.
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="concreteMatter">If true, add tileInteract. If false, add entityInteract.</param>
+		/// <param name="multiplier">Used to apply a multiplier to an interact value.<br/>Charge shots use this.</param>
+		/// <returns></returns>
+		public static int InteractStacker(ModBeamAddon[] addons, bool concreteMatter, float multiplier = 1f)
+		{
+			int total = 0;
+			MetroidMod.Instance.Logger.Info("Stacking " + (concreteMatter ? "TileInteract" : "NPCInteract"));
 
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				total += (concreteMatter) ? addons[i].TileInteract : addons[i].EntityInteract;
+			}//iterate through array and add all interact values.
+			MetroidMod.Instance.Logger.Info("Subtotal: " + total + "  ||  Applying multiplier...");
+			//Apply charge modifier as well.
+			float totalFloat = total * multiplier;
+			total = (int)totalFloat;
+			MetroidMod.Instance.Logger.Info("Final value: " + total);
+			return total;
+		}
 
 		//Compat checker here
 		//two types of no-gos that need to be accounted for:
@@ -349,7 +376,44 @@ namespace MetroidMod
 		//Suitlocking only? makes the process more automatic and makes the unknown item bit easier
 		//Store something in MPlayer?
 
+		//Method Stackems ahead
 
+		public static void AddonOnInitialized(ModBeamAddon[] addons, MProjectile shot, IEntitySource source)
+		{
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].OnSpawn(shot, source);
+			}
+		}
+
+		//public static bool AddonPreAI
+		/// <summary>
+		/// Runs <see cref="ModBeamAddon.AI(MProjectile)"/> on each installed addon.
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="shot"></param>
+		public static void AddonAI(ModBeamAddon[] addons, MProjectile shot)
+		{
+			for(int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].AI(shot);
+			}
+		}
+
+		public static bool AddonTileCollideStyle(ModBeamAddon[] addons, MProjectile shot, ref int width, ref int height, ref bool fallThrough, ref Microsoft.Xna.Framework.Vector2 hitboxCenterFrac)
+		{
+			bool endValue = true;
+
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				endValue = addons[i].TileCollideStyle(shot, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+				if (!endValue) { break; }
+			}
+			return endValue;
+		}
 		#endregion
 
 		#region Under-the-hood stuff
