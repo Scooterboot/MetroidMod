@@ -211,7 +211,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			
 
-			//TODO: make a system to handle framecounts
+			//TODO: Shaders instead of flat coloration
 			return false;
 		}
 	}

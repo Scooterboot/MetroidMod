@@ -573,6 +573,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					edgeCaseData = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SpecialComboGet(ac.assetModifier + bonusFileMod);
 					//Add way to add an extra shot here. It's 100% possible
+					//Extra overload(s) for tile/entity interact multiplier?
 				}
 
 
@@ -598,6 +599,8 @@ namespace MetroidMod.Content.Items.Weapons
 					//Basic shots are all named Shot
 					//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
 					//(e.g. a charge shot should be named ShotCharged
+
+					//TODO: Character limit on modifiers? Don't want someone to make a 5000000000000 letter long one
 
 					if (edgeCaseData[0] > 0)
 					{

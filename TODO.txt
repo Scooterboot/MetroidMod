@@ -95,7 +95,7 @@
 		-Concept: Pressing the interface keybind opens a wheel around the player containing the currently-selected mode's quick-swap array.
 			Not used to add or remove beams from the array, simply to swap what's equipped
 
--Beam special textures (fusion DNA beam)
+-Beam special textures (fusion DNA beam) [DONE]
 	-Part of VPS, shapewinner is checked for having special textures based on installed addons
 		-TEXTUREMOD. TextureMod strings in addons that all coagulate into a single string that gets appended to the ShotTexture path.
 			-Method inside of shapewinner that checks for other specific addons and appends strings accordingly
@@ -105,7 +105,7 @@
 
 -Arm Cannon extra visuals
 	* Textures: 
-		-Make alt texs no longer clientside?
+		-Make alt textures no longer clientside?
 		-Accessories able to show up on top of the arm cannon?
 			-Frozen Core, Thermal Regulator, ECU
 	* Lights:
@@ -207,7 +207,7 @@
 	- Dust trails on beams, death dust particles might be too small
 	- Ice Beam's roation effect while it has shapepriority
 		-Could just make the rotation part of 
-			-PART OF WHAT, PAST ME??????
+			-PART OF WHAT, PAST ME??????		-Z
 
 -Various beam presentation shit from the new system that needs fixing
 	-Charging sounds don't cut each other off properly

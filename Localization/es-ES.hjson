@@ -332,6 +332,8 @@ Mods: {
 			// TestBeamTile.MapEntry: Test Beam
 			// GrappleBeamLiteTile.MapEntry: Grapple Beam Lite
 			// FusionOmegaAddonTile.MapEntry: Fusion Omega Addon Tile
+			// PlasmaBeamTile.MapEntry: Plasma Beam Tile
+			// SpazerBeamTile.MapEntry: Spazer Beam Tile
 		}
 
 		Buffs: {
@@ -515,7 +517,7 @@ Mods: {
 					''' */
 			}
 
-			SpazerAddon: {
+			SpazerBeamAddon: {
 				// DisplayName: Spazer Beam
 				/* Tooltip:
 					'''
@@ -527,7 +529,7 @@ Mods: {
 					''' */
 			}
 
-			PlasmaBeamGreenAddon: {
+			PlasmaBeamAddon: {
 				// DisplayName: Plasma Beam
 				/* Tooltip:
 					'''
