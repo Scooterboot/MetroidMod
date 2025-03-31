@@ -377,7 +377,13 @@ namespace MetroidMod
 		//Store something in MPlayer?
 
 		//Method Stackems ahead
-
+		/// <summary>
+		/// Runs the OnSpawn() behavior of every addon in a given array.
+		/// <br/>The reason it's OnInitialized instead of OnSpawn is because you can't really insert addons before OnSpawn() runs.
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="shot"></param>
+		/// <param name="source"></param>
 		public static void AddonOnInitialized(ModBeamAddon[] addons, MProjectile shot, IEntitySource source)
 		{
 			for (int i = 0; i < addons.Length - 1; ++i)
@@ -387,7 +393,18 @@ namespace MetroidMod
 			}
 		}
 
-		//public static bool AddonPreAI
+		public static bool AddonPreAI(ModBeamAddon[] addons, MProjectile shot)
+		{
+			bool endValue = true;
+
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				endValue = addons[i].PreAI(shot);
+				if (!endValue) { break; }
+			}
+			return endValue;
+		}
 		/// <summary>
 		/// Runs <see cref="ModBeamAddon.AI(MProjectile)"/> on each installed addon.
 		/// </summary>
@@ -399,6 +416,41 @@ namespace MetroidMod
 			{
 				if (addons[i] == null) { continue; }
 				addons[i].AI(shot);
+			}
+		}
+		/// <summary>
+		/// Runs <see cref="ModBeamAddon.PostAI(MProjectile)"/> on each installed addon.
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="shot"></param>
+		public static void AddonPostAI(ModBeamAddon[] addons, MProjectile shot)
+		{
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].PostAI(shot);
+			}
+		}
+		/// <summary>
+		/// Runs <see cref="ModBeamAddon.OnHitNPC(MProjectile, NPC, NPC.HitInfo, int)"/> on each installed addon.
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="shot"></param>
+		public static void AddonOnHitNPC(ModBeamAddon[] addons, MProjectile shot, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].OnHitNPC(shot, target, hit, damageDone);
+			}
+		}
+
+		public static void AddonOnHitPlayer(ModBeamAddon[] addons, MProjectile shot, Player target, Player.HurtInfo info)
+		{
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].OnHitPlayer(shot, target, info);
 			}
 		}
 
@@ -413,6 +465,28 @@ namespace MetroidMod
 				if (!endValue) { break; }
 			}
 			return endValue;
+		}
+
+		public static bool AddonOnTileCollide(ModBeamAddon[] addons, MProjectile shot, Microsoft.Xna.Framework.Vector2 oldVelocity)
+		{
+			bool endValue = true;
+
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].OnTileCollide(shot, oldVelocity);
+				if (!endValue) { break; }
+			}
+			return endValue;
+		}
+
+		public static void AddonOnKill(ModBeamAddon[] addons, MProjectile shot, int timeLeft)
+		{
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].OnKill(shot, timeLeft);
+			}
 		}
 		#endregion
 
