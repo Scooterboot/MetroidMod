@@ -608,6 +608,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 					beam.beamAddons = BeamAddonAccess
 						.Select(i => BeamAddonLoader.GetAddon(i))
+						.Select(i => i?.Clone())
 						.ToArray();
 					//MetroidMod.Instance.Logger.Info("New beam drawn.\nTexture path: " + (VisualDinners[0] != -1)? beam.beamAddons[beam.VisualWinners[0]].ShotTexture : "N/A" + "\nModifier stack: >" + beam.fileMod + "<");
 					beam.OnInitialized(source);

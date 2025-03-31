@@ -84,6 +84,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public void OnInitialized(IEntitySource source)
 		{
+			MetroidMod.Instance.Logger.Info("put something here later");
 			//Gather data from installed addons.
 			MetroidMod.Instance.Logger.Info("Beam addons: " + beamAddons[0] + " " + beamAddons[1] + " " + beamAddons[2] + " " + beamAddons[3] + " " + beamAddons[4]);
 			//First, call method to calculate tileinteract total.

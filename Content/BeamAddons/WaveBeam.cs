@@ -136,12 +136,12 @@ namespace MetroidMod.Content.BeamAddons
 		public void WaveBehavior(MProjectile p, bool spaze = false)
 		{
 			//This'll probably look really intimidating if you don't know too much about sinewaves but there's not all that much going on.
-
+			//MetroidMod.Instance.Logger.Info("proj is " + p);
 			float increment = (MathHelper.TwoPi / 60);
 
 			//Consider making the following values external in the future?
 			float amplitude = (p.Projectile.width * p.Projectile.height) * p.Projectile.scale;
-			float wavesPerSecond = 70f;
+			float wavesPerSecond = 5f;
 			if (sineDelay <= 0)
 			{
 				if (spaze)

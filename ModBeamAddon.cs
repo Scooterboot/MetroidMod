@@ -288,6 +288,15 @@ namespace MetroidMod
 			}
 			MetroidMod.Instance.Logger.Info("Register new Beam Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
 		}
+		/// <summary>
+		/// Used to instantiate copies of beam addons.
+		/// <br/> Useful for being able to have more than one beam shot active at once.
+		/// </summary>
+		/// <returns></returns>
+		public ModBeamAddon Clone()
+		{
+			return (ModBeamAddon)this.MemberwiseClone();
+		}
 
 		public override void SetStaticDefaults()
 		{

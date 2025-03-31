@@ -412,6 +412,7 @@ namespace MetroidMod
 		/// <param name="shot"></param>
 		public static void AddonAI(ModBeamAddon[] addons, MProjectile shot)
 		{
+			//MetroidMod.Instance.Logger.Info(addons.Length);
 			for(int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
