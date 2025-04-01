@@ -285,7 +285,7 @@ Mods: {
 			ChargeBeamTile.MapEntry: Charge Beam
 			WaveBeamTile.MapEntry: Wave Beam
 			IceBeamTile.MapEntry: Ice Beam
-			SpazerTile.MapEntry: Spazer
+			SpazerTile.MapEntry: Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
 			PlasmaBeamRedTile.MapEntry: Blaze Beam
 			PlasmaBeamGreenTile.MapEntry: Plasma Beam
 
@@ -610,7 +610,7 @@ Mods: {
 			}
 
 			SpazerBeamAddon: {
-				DisplayName: Spazer Beam
+				DisplayName: Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
 				Tooltip:
 					'''
 					{$CommonItemTooltip.IsBeamAddon}Primary A
@@ -4067,8 +4067,8 @@ Mods: {
 			WaveBeamChargeShot.DisplayName: Charged Wave Beam
 			IceBeamShot.DisplayName: Ice Beam
 			IceBeamChargeShot.DisplayName: Charged Ice Beam
-			SpazerShot.DisplayName: Spazer
-			SpazerChargeShot.DisplayName: Charged Spazer
+			SpazerShot.DisplayName: Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			SpazerChargeShot.DisplayName: Charged Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
 			PlasmaBeamRedShot.DisplayName: Blaze Beam
 			PlasmaBeamRedChargeShot.DisplayName: Charged Blaze Beam
 			PlasmaBeamGreenShot.DisplayName: Plasma Beam
@@ -4125,8 +4125,8 @@ Mods: {
 			OmegaCannonFrag.DisplayName: Omega Cannon
 			
 			#Combination
-			WaveSpazerShot.DisplayName: Wave Spazer
-			WaveSpazerChargeShot.DisplayName: Charged Wave Spazer
+			WaveSpazerShot.DisplayName: Wave Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			WaveSpazerChargeShot.DisplayName: Charged Wave Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
 			WaveWideBeamShot.DisplayName: Helix Wide Beam
 			WaveWideBeamChargeShot.DisplayName: Charged Helix Wide Beam
 			IceWideBeamShot.DisplayName: Frost Wide Beam
@@ -4143,8 +4143,8 @@ Mods: {
 			StardustVortexBeamChargeShot.DisplayName: Charged Stardust Vortex Beam
 			NebulaVortexBeamShot.DisplayName: Nebula Vortex Beam
 			NebulaVortexBeamChargeShot.DisplayName: Charged Nebula Vortex Beam
-			IceSpazerShot.DisplayName: Ice Spazer
-			IceSpazerChargeShot.DisplayName: Charged Ice Spazer
+			IceSpazerShot.DisplayName: Ice Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			IceSpazerChargeShot.DisplayName: Charged Ice Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
 			VortexSolarBeamShot.DisplayName: Vortex Solar Beam
 			VortexSolarBeamChargeShot.DisplayName: Charged Vortex Solar Beam
 			WidePlasmaBeamRedV2Shot.DisplayName: Wide Blaze Beam
@@ -4973,17 +4973,17 @@ Mods: {
 
 				speedSpazer: {
 					Tooltip: ""
-					Label: "[i:MetroidMod/SpazerAddon] Spazer Speed Multiplier"
+					Label: "[i:MetroidMod/SpazerAddon] Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon Speed Multiplier"
 				}
 
 				overheatSpazer: {
 					Tooltip: ""
-					Label: "[i:MetroidMod/SpazerAddon] Spazer Overheat Multiplier"
+					Label: "[i:MetroidMod/SpazerAddon] Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon Overheat Multiplier"
 				}
 
 				damageSpazer: {
 					Tooltip: ""
-					Label: "[i:MetroidMod/SpazerAddon] Spazer Damage Multiplier"
+					Label: "[i:MetroidMod/SpazerAddon] Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon Damage Multiplier"
 				}
 
 				damageVoltDriver: {
