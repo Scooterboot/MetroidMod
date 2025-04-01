@@ -132,43 +132,29 @@ Mods: {
 			PumpkinBomb: Mods.MetroidMod.SuitAddonName.PumpkinBomb
 			BetsyBomb: Mods.MetroidMod.SuitAddonName.BetsyBomb
 			SolarFireBomb: Mods.MetroidMod.SuitAddonName.SolarFireBomb
-
 			PowerBomb: Mods.MetroidMod.SuitAddonName.PowerBomb
 			VortexBomb: Mods.MetroidMod.SuitAddonName.VortexBomb
 			SolarBomb: Mods.MetroidMod.SuitAddonName.SolarBomb
-			
 			BoostBall: Mods.MetroidMod.SuitAddonName.BoostBall
-			
 			SpiderBall: Mods.MetroidMod.SuitAddonName.SpiderBall
-			
 			Drill: Mods.MetroidMod.SuitAddonName.Drill
-
 			#Suit Addons
 			VariaSuitAddon: Mods.MetroidMod.SuitAddonName.VariaSuitAddon
 			VariaSuitV2Addon: Mods.MetroidMod.SuitAddonName.VariaSuitV2Addon
-
 			HazardShieldAddon: Mods.MetroidMod.SuitAddonName.HazardShieldAddon
-
 			GravitySuitAddon: Mods.MetroidMod.SuitAddonName.GravitySuitAddon
 			TerraGravitySuitAddon: Mods.MetroidMod.SuitAddonName.TerraGravitySuitAddon
-			
 			PhazonSuitAddon: Mods.MetroidMod.SuitAddonName.PhazonSuitAddon
-
 			DarkSuitAddon: Mods.MetroidMod.SuitAddonName.DarkSuitAddon
 			LightSuitAddon: Mods.MetroidMod.SuitAddonName.LightSuitAddon
-
 			PEDSuitAddon: Mods.MetroidMod.SuitAddonName.PEDSuitAddon
-
 			VortexAugment: Mods.MetroidMod.SuitAddonName.VortexAugment
 			NebulaAugment: Mods.MetroidMod.SuitAddonName.NebulaAugment
 			SolarAugment: Mods.MetroidMod.SuitAddonName.SolarAugment
-			
 			EnergyTank: Mods.MetroidMod.SuitAddonName.EnergyTank
 			ReserveTank: Mods.MetroidMod.SuitAddonName.ReserveTank
-			
 			ScanVisor: Mods.MetroidMod.SuitAddonName.ScanVisor
 			XRayScope: Mods.MetroidMod.SuitAddonName.XRayScope
-
 			#Deprecated
 			PowerGrip: Mods.MetroidMod.SuitAddonName.PowerGrip
 			HiJumpBoots: Mods.MetroidMod.SuitAddonName.HiJumpBoots
@@ -193,43 +179,29 @@ Mods: {
 			PumpkinBomb: Mods.MetroidMod.SuitAddonTooltip.PumpkinBomb
 			BetsyBomb: Mods.MetroidMod.SuitAddonTooltip.BetsyBomb
 			SolarFireBomb: Mods.MetroidMod.SuitAddonTooltip.SolarFireBomb
-
 			PowerBomb: Mods.MetroidMod.SuitAddonTooltip.PowerBomb
 			VortexBomb: Mods.MetroidMod.SuitAddonTooltip.VortexBomb
 			SolarBomb: Mods.MetroidMod.SuitAddonTooltip.SolarBomb
-			
 			BoostBall: Mods.MetroidMod.SuitAddonTooltip.BoostBall
-			
 			SpiderBall: Mods.MetroidMod.SuitAddonTooltip.SpiderBall
-			
 			Drill: Mods.MetroidMod.SuitAddonTooltip.Drill
-
 			#Suit Addons
 			VariaSuitAddon: Mods.MetroidMod.SuitAddonTooltip.VariaSuitAddon
 			VariaSuitV2Addon: Mods.MetroidMod.SuitAddonTooltip.VariaSuitV2Addon
-
 			HazardShieldAddon: Mods.MetroidMod.SuitAddonTooltip.HazardShieldAddon
-
 			GravitySuitAddon: Mods.MetroidMod.SuitAddonTooltip.GravitySuitAddon
 			TerraGravitySuitAddon: Mods.MetroidMod.SuitAddonTooltip.TerraGravitySuitAddon
-			
 			PhazonSuitAddon: Mods.MetroidMod.SuitAddonTooltip.PhazonSuitAddon
-
 			DarkSuitAddon: Mods.MetroidMod.SuitAddonTooltip.DarkSuitAddon
 			LightSuitAddon: Mods.MetroidMod.SuitAddonTooltip.LightSuitAddon
-
 			PEDSuitAddon: Mods.MetroidMod.SuitAddonTooltip.PEDSuitAddon
-
 			VortexAugment: Mods.MetroidMod.SuitAddonTooltip.VortexAugment
 			NebulaAugment: Mods.MetroidMod.SuitAddonTooltip.NebulaAugment
 			SolarAugment: Mods.MetroidMod.SuitAddonTooltip.SolarAugment
-			
 			EnergyTank: Mods.MetroidMod.SuitAddonTooltip.EnergyTank
 			ReserveTank: Mods.MetroidMod.SuitAddonTooltip.ReserveTank
-			
 			ScanVisor: Mods.MetroidMod.SuitAddonTooltip.ScanVisor
 			XRayScope: Mods.MetroidMod.SuitAddonTooltip.XRayScope
-
 			#Deprecated
 			PowerGrip: Mods.MetroidMod.SuitAddonTooltip.PowerGrip
 			HiJumpBoots: Mods.MetroidMod.SuitAddonTooltip.HiJumpBoots
@@ -255,32 +227,21 @@ Mods: {
 			#Suit Addons
 			VariaSuitAddonTile.MapEntry: Varia Suit
 			VariaSuitV2AddonTile.MapEntry: True Varia Suit
-
 			HazardShieldAddonTile.MapEntry: Hazard Shield
-
-			
 			GravitySuitAddonTile.MapEntry: Gravity Suit
 			TerraGravitySuitAddonTile.MapEntry: True Gravity Suit
-
 			PhazonSuitAddonTile.MapEntry: Phazon Suit
-
 			DarkSuitAddonTile.MapEntry: Dark Suit
 			LightSuitAddonTile.MapEntry: Light Suit
-
 			PEDSuitAddonTile.MapEntry: P.E.D. Suit
-
 			VortexAugmentTile.MapEntry: Vortex Augment
 			NebulaAugmentTile.MapEntry: Nebula Augment
 			SolarAugmentTile.MapEntry: Solar Augment
-			
 			FusionOmegaAddonTile.MapEntry: Varia Suit Omega
-
 			EnergyTankTile.MapEntry: Energy Tank
 			ReserveTankTile.MapEntry: Reserve Tank
-
 			ScanVisorTile.MapEntry: Scan Visor
 			XRayScopeTile.MapEntry: X Ray Scope
-
 			#Beam Addons
 			ChargeBeamTile.MapEntry: Charge Beam
 			WaveBeamTile.MapEntry: Wave Beam
@@ -288,39 +249,32 @@ Mods: {
 			SpazerTile.MapEntry: Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
 			PlasmaBeamRedTile.MapEntry: Blaze Beam
 			PlasmaBeamGreenTile.MapEntry: Plasma Beam
-
 			ChargeBeamV2Tile.MapEntry: Diffusion Beam
 			WaveBeamV2Tile.MapEntry: Helix Beam
 			IceBeamV2Tile.MapEntry: Frost Beam
 			WideBeamTile.MapEntry: Wide Beam
 			NovaBeamTile.MapEntry: Nova Beam
-			
 			VoltDriverTile.MapEntry: Volt Driver
 			BattleHammerTile.MapEntry: Battlehammer
 			MagMaulTile.MapEntry: Magmaul
 			ShockCoilTile.MapEntry: Shock Coil
 			JudicatorTile.MapEntry: Judicator
 			ImperialistTile.MapEntry: Imperialist
-			
 			LuminiteBeamTile.MapEntry: Luminite Beam
 			NebulaBeamTile.MapEntry: Nebula Beam
 			StardustBeamTile.MapEntry: Stardust Beam
 			VortexBeamTile.MapEntry: Vortex Beam
 			SolarBeamTile.MapEntry: Solar Beam
-			
 			HyperBeamTile.MapEntry: Hyper Beam
 			PhazonBeamTile.MapEntry: Phazon Beam
 			OmegaCannonTile.MapEntry: Omega Cannon
-			
 			UAExpansionTile.MapEntry: UA Expansion
-
 			#Missile Addons
 			IceMissile.MapEntry: Ice Missile
 			SuperMissile.MapEntry: Super Missile
 			IceSuperMissile.MapEntry: Ice Super Missile
 			NebulaMissile.MapEntry: Nebula Missile
 			StardustMissile.MapEntry: Stardust Missile
-
 			HomingMissile.MapEntry: Homing Missile
 			SpazerCombo.MapEntry: Missile Array
 			SeekerMissile.MapEntry: Seeker Missile
@@ -334,64 +288,49 @@ Mods: {
 			VortexCombo.MapEntry: Vortex Storm
 			StardustCombo.MapEntry: Stardust Blizzard
 			SolarCombo.MapEntry: Solar Flare
-
 			MissileExpansionTile.MapEntry: Missile Expansion
-
 			#Hatches/Switches
 			BlueHatch.MapEntry: Blue Hatch
 			BlueHatchOpen.MapEntry: Blue Hatch
 			BlueHatchOpenVertical.MapEntry: Blue Hatch
 			BlueHatchVertical.MapEntry: Blue Hatch
-
 			BlueSwitch.MapEntry: Blue Switch
-			
 			RedHatch.MapEntry: Red Hatch
 			RedHatchOpen.MapEntry: Red Hatch
 			RedHatchOpenVertical.MapEntry: Red Hatch
 			RedHatchVertical.MapEntry: Red Hatch
-			
 			RedSwitch.MapEntry: Red Switch
-
 			GreenHatch.MapEntry: Green Hatch
 			GreenHatchOpen.MapEntry: Green Hatch
 			GreenHatchOpenVertical.MapEntry: Green Hatch
 			GreenHatchVertical.MapEntry: Green Hatch
-			
 			GreenSwitch.MapEntry: Green Switch
-
 			YellowHatch.MapEntry: Yellow Hatch
 			YellowHatchOpen.MapEntry: Yellow Hatch
 			YellowHatchOpenVertical.MapEntry: Yellow Hatch
 			YellowHatchVertical.MapEntry: Yellow Hatch
-			
 			YellowSwitch.MapEntry: Yellow Switch
-
 			#Misc. Placeable Items
 			MorphBallTile.MapEntry: Morph Ball
 			GrappleBeamTile.MapEntry: Grapple Beam
 			GrappleBeamPlusTile.MapEntry: Grapple Beam Lite
 			UnknownItemTile.MapEntry: Unknown Item
-			
 			ChozoStatueOrb.MapEntry: Item Orb
 			ChozoStatueOrb2.MapEntry: Ancient Item Orb
 			ChozoStatueOrb3.MapEntry: Imperial Item Orb
-
 			#Music Boxes
 			ChozoRuinsInactiveMusicBox.MapEntry: Music Box (Slumbering Ruins)
 			ChozoRuinsActiveMusicBox.MapEntry: Music Box (Chozo Ruins)
-			
 			TorizoMusicBox.MapEntry: Music Box (Torizo)
 			SerrisMusicBox.MapEntry: Music Box (Serris)
 			KraidPhantoonMusicBox.MapEntry: Music Box (Kraid/Phantoon)
 			NightmareMusicBox.MapEntry: Music Box (Nightmare)
 			OmegaPirateMusicBox.MapEntry: Music Box (Omega Pirate)
-
 			#Furniture
 			SaveStation.MapEntry: Save Station
 			EnergyStation.MapEntry: Energy Station
 			MissileStation.MapEntry: Missile Station
 			NovaWorkTableTile.MapEntry: Nova Work Table
-			
 			ChozoStatue.MapEntry: Chozo Statue
 			ChozoStatueArm.MapEntry: Chozo Statue
 			ChozoStatueNatural.MapEntry: Chozo Statue
@@ -404,31 +343,23 @@ Mods: {
 			ChozoStatueArm3.MapEntry: Imperial Chozo Statue
 			ChozoStatueNatural3.MapEntry: Imperial Chozo Statue
 			ChozoStatueArm3Natural.MapEntry: Imperial Chozo Statue
-			
 			TorizoTrophyTile.MapEntry: Torizo Trophy
 			SerrisTrophyTile.MapEntry: Serris Trophy
 			KraidTrophyTile.MapEntry: Kraid Trophy
 			PhantoonTrophyTile.MapEntry: Phantoon Trophy
-
 			ChozoPillar.MapEntry: Chozodian Pillar
 			ChozoPillarNatural.MapEntry: Chozodian Pillar
 			ChozoChest.MapEntry: Chozodian Chest
 			ChoziteBarTile.MapEntry: Chozite Bar
-			
 			PhazonChest.MapEntry: Phazon Chest
-
 			#Shinies
 			ChoziteOreTile.MapEntry: Chozite Ore
 			PhazonTile.MapEntry: Phazon
-			
 			PhazonCore.MapEntry: Phazon Core
-
 			#Unused/Dev
 			EnergyStationDevtool.MapEntry: Energy Station (Devtool)
 			RidleyMusicBox.MapEntry: Music Box (Ridley?)
 			ZeroHusk.MapEntry: Zero Husk
-
-			#Unsorted
 		}
 
 		Buffs: {
@@ -499,7 +430,6 @@ Mods: {
 		}
 
 		Items: {
-			
 			################################
 			# -----[[Core Equipment]]----- #
 			################################
@@ -943,6 +873,11 @@ Mods: {
 					Increases maximum Missile Launcher ammo by 5
 					Can stack inside of the interface
 					'''
+			}
+
+			MissileExpansion: {
+				Tooltip: ""
+				DisplayName: Missile Expansion
 			}
 
 			# Primary Addons
@@ -1476,8 +1411,6 @@ Mods: {
 					'''
 			}
 
-
-			
 			FusionOmegaAddonAddon: {
 				DisplayName: Varia Suit Omega
 				Tooltip:
@@ -3792,6 +3725,36 @@ Mods: {
 				DisplayName: Loki Dev Item Legs
 				Tooltip: ""
 			}
+
+			PowerBeam: {
+				Tooltip: ""
+				DisplayName: Power Beam
+			}
+
+			MissileLauncher: {
+				Tooltip: ""
+				DisplayName: Missile Launcher
+			}
+
+			GrappleBeamPlus: {
+				Tooltip: ""
+				DisplayName: Grapple Beam Plus
+			}
+
+			GrappleBeamPlusPlaceable: {
+				Tooltip: ""
+				DisplayName: Grapple Beam Plus Placeable
+			}
+
+			SpazerAddon: {
+				Tooltip: ""
+				DisplayName: Spazer Addon
+			}
+
+			PlasmaBeamGreenAddon: {
+				Tooltip: ""
+				DisplayName: Plasma Beam Green Addon
+			}
 		}
 
 		NPCs: {
@@ -4075,7 +4038,6 @@ Mods: {
 			PlasmaBeamGreenChargeShot.DisplayName: Charged Plasma Beam
 			NovaBeamShot.DisplayName: Nova Beam V1
 			NovaBeamChargeShot.DisplayName: Charged Nova Beam V1
-
 			#V2
 			PowerBeamV2Shot.DisplayName: Diffusion Beam
 			PowerBeamV2ChargeShot.DisplayName: Charged Diffusion Beam
@@ -4091,7 +4053,6 @@ Mods: {
 			PlasmaBeamGreenV2ChargeShot.DisplayName: Charged Plasma Beam V2
 			NovaBeamV2Shot.DisplayName: Nova Beam
 			NovaBeamV2ChargeShot.DisplayName: Charged Nova Beam
-
 			#Affinity
 			MagMaulShot.DisplayName: MagMaul
 			MagMaulChargeShot.DisplayName: Charged Magmaul
@@ -4104,7 +4065,6 @@ Mods: {
 			BattleHammerShot.DisplayName: Battlehammer
 			VoltDriverShot.DisplayName: Volt Driver
 			VoltDriverChargeShot.DisplayName: Charged Volt Driver
-			
 			#V3
 			LuminiteBeamShot.DisplayName: Luminite Beam
 			LuminiteBeamChargeShot.DisplayName: Charged Luminite Beam
@@ -4116,14 +4076,12 @@ Mods: {
 			VortexBeamChargeShot.DisplayName: Vortex Beam Charge Shot
 			SolarBeamShot.DisplayName: Solar Beam Shot
 			SolarBeamChargeShot.DisplayName: Solar Beam Charge Shot
-			
 			#Special
 			HyperBeamShot.DisplayName: Hyper Beam
 			ExtraHyperBeamShot.DisplayName: Hyper Beam
 			PhazonBeamShot.DisplayName: Phazon Beam
 			OmegaCannonShot.DisplayName: Omega Cannon
 			OmegaCannonFrag.DisplayName: Omega Cannon
-			
 			#Combination
 			WaveSpazerShot.DisplayName: Wave Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
 			WaveSpazerChargeShot.DisplayName: Charged Wave Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
@@ -4191,11 +4149,9 @@ Mods: {
 			IceNovaBeamChargeShot.DisplayName: Charged Ice Nova Beam
 			StardustNebulaBeamChargeShot.DisplayName: Charged Stardust Nebula Beam
 			PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam
-
 			#Misc.
 			DiffusionBeam.DisplayName: Diffusion Beam
 			ChargeLead.DisplayName: Charge Lead
-
 			#Missile Launcher
 			MissileShot.DisplayName: Missile
 			IceMissileShot.DisplayName: Ice Missile
@@ -4204,7 +4160,6 @@ Mods: {
 			NebulaMissileShot.DisplayName: Nebula Missile
 			NebulaMissileImpact.DisplayName: Nebula Missile
 			StardustMissileShot.DisplayName: Stardust Missile
-			
 			SeekerMissileLead.DisplayName: Seeker Missile Lead
 			WavebusterShot.DisplayName: Wavebuster
 			IceSpreaderShot.DisplayName: Ice Spreader
@@ -4234,7 +4189,6 @@ Mods: {
 			SolarLaserShot.DisplayName: Solar Flare
 			SolarLaserFlareShot.DisplayName: Solar Flare
 			SolarLaserFlameTrail.DisplayName: Solar Flare Afterburn
-
 			#Morph Ball
 			BombProjectile.DisplayName: Morph Ball Bomb
 			PoisonBombProjectile.DisplayName: Poison Bomb
@@ -4249,15 +4203,12 @@ Mods: {
 			PumpkinBombProjectile.DisplayName: Pumpkin Bomb
 			BetsyBombProjectile.DisplayName: Betsy Bomb
 			SolarFireBombProjectile.DisplayName: Solar Fire Bomb
-			
 			SolarBombExplosion.DisplayName: Solar Bomb
 			SolarBombProjectile.DisplayName: Solar Bomb
 			VortexBombExplosion.DisplayName: Vortex Bomb
 			VortexBombProjectile.DisplayName: Vortex Bomb
 			PowerBombExplosion.DisplayName: Power Bomb
 			PowerBombProjectile.DisplayName: Power Bomb
-
-
 			#Accessory Projectiles
 			SpeedBoost.DisplayName: Speed Boost
 			SpeedBall.DisplayName: Speed Ball
@@ -4265,7 +4216,6 @@ Mods: {
 			ShineBall.DisplayName: Shine Ball
 			RamBall.DisplayName: Ram Ball
 			ScrewAttackProj.DisplayName: Screw Attack
-
 			#Weapon Projectiles
 			ParalyzerShot.DisplayName: Paralyzer
 			ChoziteShortswordStab.DisplayName: Chozite Shortsword
@@ -4274,30 +4224,23 @@ Mods: {
 			ChozoRapierStab.DisplayName: Chozite Rapier
 			OrbBomb.DisplayName: Oorb Bomb
 			MiniTorizo.DisplayName: Mini Torizo
-
 			ChoziteChunk.DisplayName: Chozite Chunk
-			
 			#Tool Projectiles
 			ChozoDrillProjectile.DisplayName: Powered Chozite Drill
 			ChozoJackhammerProjectile.DisplayName: Powered Chozite Jackhammer
 			ChozoSawProjectile.DisplayName: Powered Chozite Saw
 			NovaLaserDrillShot.DisplayName: Nova Laser Drill
-			
 			GrappleBeamShot.DisplayName: Grapple Beam
 			GrappleBeamPlusShot.DisplayName: Grapple Beam Lite
-
 			#Pets
 			GeemerPet.DisplayName: Orange Geemer
 			CrocomirePet.DisplayName: Baby Crocomire
-
 			#Enemy Projectiles
 			SpacePirateClaw.DisplayName: Space Pirate
 			SkreeRock.DisplayName: Skree Debris
 			MetareeRock.DisplayName: Metaree Debris
 			EvirProjectile.DisplayName: Evir
 			CacatacSpike.DisplayName: Cacatac Spike
-			
-
 			#Boss Projectiles
 			TorizoSwipe.DisplayName: Torizo
 			TorizoClawBeam.DisplayName: Claw Beam
@@ -4316,7 +4259,6 @@ Mods: {
 			OmegaPirateGrenade.DisplayName: Plasma Incendiary Grenade
 			#Prime 1 refers to this attack's source by name as "Plasma Incendiary Launchers"
 			Omega_PhazonParticle.DisplayName: Omega Phazon Particle
-
 			#Misc./Unsorted
 			PhazonExplosion.DisplayName: Phazon Explosion
 			CrucibleProj.DisplayName: Wraithfire Energy
