@@ -70,8 +70,8 @@ namespace MetroidMod.Content.Items.Weapons
 			get {
 				if (chargeQuickSwap == null)
 				{
-					chargeQuickSwap = new Item[8]; //Array is dynamic, so reset to one Item long and turn that Item into air
-					for(int i = 0;i < chargeQuickSwap.Length; ++i)
+					chargeQuickSwap = new Item[MetroidMod.beamChangeSlotAmount];
+					for(int i = 0; i < chargeQuickSwap.Length; ++i)
 					{
 						chargeQuickSwap[i] = new Item();
 						chargeQuickSwap[i].TurnToAir();
@@ -160,7 +160,7 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <summary>
 		/// The Power Beam's total base velocity, before accounting for addon multipliers.
 		/// </summary>
-		float BeamBaseVelocity = 24f;
+		float BeamBaseVelocity = 18f;
 		/// <summary>
 		/// The Power Beam's base critical strike chance, before accounting for addon multipliers.
 		/// </summary>
@@ -305,7 +305,7 @@ namespace MetroidMod.Content.Items.Weapons
 			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, armRot);
 			Vector2 origin = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, armRot);
 			origin.Y -= heldItemFrame.Height / 2f;
-			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * (mi.isBeam ? -16 : -14) * player.direction;
+			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * -20 * player.direction;
 		}
 
 		public override bool CanUseItem(Player player) //lets things properly restrict your ability to use the weapon
@@ -554,7 +554,8 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <param name="knockback"></param>
 		/// <param name="bonusFileMod">Appended to the shot's filemod for on-the-fly modifications.
 		/// <br/>Things like charge shots take advantage of this.</param>
-		public void SpawnBeam(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "")
+		/// <param name="multiplier">Allows for on-the-fly modifying of the Interact values.</param>
+		public void SpawnBeam(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1f)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
@@ -565,7 +566,7 @@ namespace MetroidMod.Content.Items.Weapons
 			int theShootsingAmount = (int)AdditionalBeamStats[9] + 1;
 			MetroidMod.Instance.Logger.Info("Beam is firing. Cannon and Addons:\n" + Item + "\n" +
 											BeamAddonAccess[0] + "\n" + BeamAddonAccess[1] + "\n" +
-											BeamAddonAccess[2] + "\n" + BeamAddonAccess[3] + "\n" + BeamAddonAccess[4]);
+											beamAddons[2] + "\n" + BeamAddonAccess[3] + "\n" + BeamAddonAccess[4]);
 
 			if (ac != null && ac.isBeam)
 			{
@@ -581,7 +582,7 @@ namespace MetroidMod.Content.Items.Weapons
 				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
 				{
 					BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
-					MetroidMod.Instance.Logger.Info("beam spawn");
+					MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount);
 					beam.VisualWinners = VisualDinners;
 					if (VisualDinners[0] != -1)
 					{
@@ -606,14 +607,17 @@ namespace MetroidMod.Content.Items.Weapons
 					{
 						beam.ShotFrames = edgeCaseData[0];
 					}
+
+					beam.groupSize = theShootsingAmount;
+					beam.groupID = i + 1;
 					
 					beam.fileMod += (ac.assetModifier + bonusFileMod);
 
-					beam.beamAddons = BeamAddonAccess
+					beam.beamAddons = beamAddons
 						.Select(i => BeamAddonLoader.GetAddon(i))
 						.Select(i => i?.Clone())
 						.ToArray();
-					//MetroidMod.Instance.Logger.Info("New beam drawn.\nTexture path: " + (VisualDinners[0] != -1)? beam.beamAddons[beam.VisualWinners[0]].ShotTexture : "N/A" + "\nModifier stack: >" + beam.fileMod + "<");
+					
 					beam.OnInitialized(source);
 					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
 					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);

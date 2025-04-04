@@ -226,7 +226,7 @@ namespace MetroidMod
 			//(in the sense that it's applied during array updating and not when shooting)
 			#endregion
 
-			MetroidMod.Instance.Logger.Info("Texture-grabbin time. Path: " + shapeSource + " " + " ");
+			MetroidMod.Instance.Logger.Info("Texture-grabbin time. Path: " + shapeSource + modA + modB);
 			if (ModContent.RequestIfExists(shapeSource + modA + modB, out Asset<Texture2D> fullModShot))
 			{
 				return fullModShot;
@@ -333,7 +333,8 @@ namespace MetroidMod
 				totals[8] += addons[i].OverheatMult;
 				totals[9] += addons[i].AddShots;
 			}
-			MetroidMod.Instance.Logger.Info("Beam stats stacked");
+			MetroidMod.Instance.Logger.Info("Beam stats stacked!  ||  " 
+											+ totals[9]);
 			return totals;
 		}
 

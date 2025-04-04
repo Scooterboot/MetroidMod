@@ -46,6 +46,12 @@ namespace MetroidMod.Common.GlobalItems
 		/// </summary>
 		public int maxMissiles = 5;
 
+		/// <summary>
+		/// Allows for shot properties to alter between beamshots.
+		/// <br/>The <b>Wave Beam</b> uses this to alternate sinewave direction.
+		/// </summary>
+		public int inverter = 1;
+
 		public int numSeekerTargets = 0;
 		public int[] seekerTarget = new int[5];
 		public int seekerCharge = 0;

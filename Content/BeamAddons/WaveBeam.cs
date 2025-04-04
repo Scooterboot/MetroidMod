@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using log4net.Repository.Hierarchy;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -28,6 +29,11 @@ namespace MetroidMod.Content.BeamAddons
 		int wallhax = 5; //the amt of tiles it can phase before dying
 		#endregion
 
+		/// <summary>
+		/// If true, add an extra shot when charged.
+		/// </summary>
+		private bool doubleUp = false;
+
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = BeamAddonSlotID.Ion;
@@ -41,6 +47,7 @@ namespace MetroidMod.Content.BeamAddons
 			DamageMult = dmg;
 			OverheatMult = oh;
 			CritChance = crit;
+			AddShots = 1;
 
 			TileInteract = wallhax;
 			#endregion
@@ -51,11 +58,31 @@ namespace MetroidMod.Content.BeamAddons
 			item.rare = ItemRarityID.Green;
 			item.value = Item.buyPrice(0, 1, 98, 7); //markiplier.jpeg
 		}
+		public override string SetStaticCombos(Item[] addons)
+		{
+			float[] addonStats = BeamAddonLoader.WeaponStatStacker(addons);
+			//Get the weapon stats from installed addons
+
+			//Check if the addons don't add any shots.
+			if (addonStats[9] == 0)
+			{
+				doubleUp = true;
+			} //If the addons add zero shots, turn on doubleUp
+			else
+			{
+				doubleUp = false;
+			} //Otherwise, turn it off.
+
+				return base.SetStaticCombos(addons);
+		}
 		public override int[] SpecialComboGet(string modifier)
 		{
 			switch (modifier)
 			{
 				case "Charged":
+					//Check if doubleUp is true
+					//If true, add an extra projectile to the shot.
+					//If not, don't
 					return [2];
 
 				default:
@@ -89,7 +116,16 @@ namespace MetroidMod.Content.BeamAddons
 		#endregion
 		public override void OnSpawn(MProjectile shot, IEntitySource source)
 		{
-			sinelessCenter = shot.Projectile.Center;
+			if ((source is EntitySource_Parent parent && parent.Entity is Player player && player.whoAmI == Main.myPlayer) && (!shot.symmetry))
+			{
+				MGlobalItem ac = player.HeldItem.GetGlobalItem<MGlobalItem>();
+				//if (ac.inverter != 1 && ac.inverter != -1) { ac.inverter = 1; } //Potential failsafe to guard against bad values, revisit after making spazed waves
+				sineDir = ac.inverter;
+				ac.inverter *= -1;
+				MetroidMod.Instance.Logger.Info("Fleeped that sheet");
+			} //Check if the shot is asymmetrical. If it is, flip the Arm Cannon's inverter. This allows for the sinewave direction to flip between shots.
+				sinelessCenter = shot.Projectile.Center;
+
 		}
 
 		public override void AI(MProjectile shot)
@@ -159,7 +195,7 @@ namespace MetroidMod.Content.BeamAddons
 			sineDelay = Math.Max(sineDelay - 1, 0);
 			//If sineDir is *= to p.direction, firing left causes the shot to rapidly go back and forth between opposite wave and normal wave, making it look like two shots.
 			//Consider employing if dynamic multishot does not work out.
-			sineDir = p.Projectile.direction;
+			//sineDir = p.Projectile.direction;
 			
 			//Set the projectile's offset from the sineless center
 			float shift = amplitude * (float)Math.Sin(sineRad) * sineDir;

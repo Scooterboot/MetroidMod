@@ -43,6 +43,14 @@ namespace MetroidMod.Content.Projectiles
 		public int EntitiesInteracted = 0;
 
 		/// <summary>
+		/// If this projectile is being spawned in a group, this is the group's total size.
+		/// </summary>
+		public int groupSize = 1;
+		/// <summary>
+		/// If this projectile is being spawned in a group, this is its position in the group.
+		/// </summary>
+		public int groupID = 1;
+		/// <summary>
 		/// If this projectile is part of a group, decides if the shots should move symmetrically.
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>

@@ -36,6 +36,9 @@ namespace MetroidMod.Common
 				}
 				Color currentColor = Lighting.GetColor((int)((double)drawInfo.Position.X + (double)P.width * 0.5) / 16, (int)(((double)drawInfo.Position.Y + (double)P.height * 0.5) / 16.0));
 
+				//NOTE: The following math is designed to make the upper layer (the one that goes over the player's arm) line up exactly with the lower layer, which is drawn in the Arm Cannon's UseStyle.
+				//In other words, don't touch this specific part unless you know what you're doing.				-Z
+
 				int num80 = 10;
 				Vector2 vector7 = new(tex.Width / 2, tex.Height / 2);
 				Vector2 vector8 = Main.DrawPlayerItemPos(P.gravDir, I.type);
@@ -90,14 +93,14 @@ namespace MetroidMod.Common
 					{
 						rotate = 1.3625f;
 						posX = -7f;
-						posY = 13f;
-					}
+						posY = 11f;
+					} //Standing still
 					else if (frame == 5)
 					{
 						rotate = -1.75f;
 						posX = -8f;
-						posY = -12f;
-					}
+						posY = -13f;
+					} //Jumping
 					else if (frame == 6 || frame == 18 || frame == 19 || (frame >= 11 && frame <= 13))
 					{
 						posX = 0f;

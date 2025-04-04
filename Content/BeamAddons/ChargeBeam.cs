@@ -14,6 +14,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static MetroidMod.Sounds;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -126,7 +128,7 @@ namespace MetroidMod.Content.BeamAddons
 					{
 						case 0.0f:
 							//spawn the chargelead
-							ChargeLead chargio = Projectile.NewProjectileDirect(item.GetSource_FromThis(), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), 0, 0, player.whoAmI).ModProjectile as ChargeLead;
+							ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
 							MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
 							chargio.sourceItem = item;
 							chargio.ballColor = ballColor;
@@ -181,7 +183,7 @@ namespace MetroidMod.Content.BeamAddons
 					if (ac.isBeam)
 					{
 						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
-						wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity * 1.5f, item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
+						wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
 					}
 					//alternatively shoot that missile combo if it's not a held
 				}
@@ -269,8 +271,10 @@ namespace MetroidMod.Content.BeamAddons
 
 			Player player = Main.player[Projectile.owner];
 			MPlayer mp = player.GetModPlayer<MPlayer>();
+			MGlobalItem ac = sourceItem.GetGlobalItem<MGlobalItem>();
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			Vector2 ballPos = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - (float)(Math.PI / 2) * player.direction);
+
 			bool isCharging = player.controlUseItem && !player.noItems && !player.dead && !mp.ballstate && !mp.shineActive && !player.CCed;
 			
 			//This sucker needs to exist so the sound effects can properly cut each other off
@@ -283,15 +287,36 @@ namespace MetroidMod.Content.BeamAddons
 			//and relay the results into the variables that already exist -Z
 
 			//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead!!!");
-			BarrelGlue(player, ballPos);
 			if (Projectile.owner == Main.myPlayer)
 			{
-				BarrelAim(ballPos, player.HeldItem.shootSpeed);
-				if (isCharging)
+				if (isCharging && ((!mp.somersault && mp.pseudoScrewActive) || (!mp.pseudoScrewActive) || (mp.pseudoScrewActive && mp.statCharge < 75)))
 				{
+					BarrelGlue(player, ballPos);
+					BarrelAim(player, ballPos, player.HeldItem.shootSpeed);
+
 					Projectile.rotation += 0.5f;
 					Projectile.scale = Math.Max(mp.statCharge / 100, 0.5f);
+
+					if (!mp.pseudoScrewActive || (mp.pseudoScrewActive && mp.statCharge < 75))
+					{
+						mp.disableSomersault = true;
+					}
+					else
+					{
+						mp.disableSomersault = false;
+					}
+					Projectile.hide = false;
+					Projectile.friendly = false;
+					Projectile.damage = (int)(sourceItem.damage * ((mp.statCharge - 25) / 100 + 1));
 				}
+				else if (isCharging && mp.pseudoScrewActive && ac.isBeam && mp.statCharge > 75f)
+				{
+					Projectile.hide = true;
+					Projectile.friendly = true;
+					Projectile.Center = oPos;
+					player.itemTime = 2;
+
+				} //pseudo-screw
 				else
 				{
 					MetroidMod.Instance.Logger.Info("There goes the chargelead the big ball is gone");
@@ -304,6 +329,16 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override void OnKill(int timeLeft)
 		{
+			Player player = Main.player[Projectile.owner];
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			MGlobalItem ac = sourceItem.GetGlobalItem<MGlobalItem>();
+			ArmCannon wepon = (ArmCannon)sourceItem.ModItem;
+			if (Projectile.owner == Main.myPlayer && Projectile.friendly)
+			{
+				mp.statCharge = 0;
+				player.itemTime = 0;
+			}
+
 			//play the shot sound here I guess
 		}
 		/// <summary>
@@ -314,7 +349,7 @@ namespace MetroidMod.Content.BeamAddons
 		private void BarrelGlue(Player player, Vector2 playerHandPos)
 		{
 			//A lot of this is pretty much outta the ExampleMod last prism clone. Unsurprisingly I suppose.
-			Projectile.Center = playerHandPos;
+			Projectile.Center = player.RotatedRelativePoint(playerHandPos, false, false);
 			Projectile.spriteDirection = Projectile.direction;
 
 			player.ChangeDir(Projectile.direction);
@@ -330,9 +365,9 @@ namespace MetroidMod.Content.BeamAddons
 		/// </summary>
 		/// <param name="source"></param>
 		/// <param name="speed"></param>
-		private void BarrelAim(Vector2 source, float speed)
+		private void BarrelAim(Player p, Vector2 source, float speed)
 		{
-			Vector2 aim = Vector2.Normalize(Main.MouseWorld - source);
+			Vector2 aim = Vector2.Normalize(p.RotatedRelativePoint(Main.MouseWorld, true) - source);
 			if (aim.HasNaNs())
 			{
 				aim = -Vector2.UnitY;

@@ -248,10 +248,10 @@ Mods: {
 			// NebulaBeamTile.MapEntry: Nebula Beam
 			// NovaBeamTile.MapEntry: Nova Beam
 			// PhazonBeamTile.MapEntry: Phazon Beam
-			// PlasmaBeamGreenTile.MapEntry: Plasma Beam
+			// PlasmaBeamTile.MapEntry: Plasma Beam
 			// PlasmaBeamRedTile.MapEntry: Blaze Beam
 			// SolarBeamTile.MapEntry: Solar Beam
-			// SpazerTile.MapEntry: Spazer
+			// SpazerBeamTile.MapEntry: Spazer Beam
 			// StardustBeamTile.MapEntry: Stardust Beam
 			// VortexBeamTile.MapEntry: Vortex Beam
 			// WaveBeamTile.MapEntry: Wave Beam
@@ -331,9 +331,7 @@ Mods: {
 			// UnknownItemTile.MapEntry: Unknown Item
 			// TestBeamTile.MapEntry: Test Beam
 			// GrappleBeamLiteTile.MapEntry: Grapple Beam Lite
-			// FusionOmegaAddonTile.MapEntry: Fusion Omega Addon Tile
-			// PlasmaBeamTile.MapEntry: Plasma Beam Tile
-			// SpazerBeamTile.MapEntry: Spazer Beam Tile
+			// FusionOmegaAddonTile.MapEntry: Fusion Omega
 		}
 
 		Buffs: {
@@ -3668,7 +3666,7 @@ Mods: {
 			}
 
 			FusionOmegaAddonAddon: {
-				// DisplayName: Fusion Omega Addon Addon
+				// DisplayName: Fusion Omega
 				// Tooltip: ""
 			}
 		}

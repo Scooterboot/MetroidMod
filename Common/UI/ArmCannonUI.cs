@@ -298,7 +298,7 @@ namespace MetroidMod.Common.UI
 						}
 						else
 						{
-							if (isBeam) { target.BeamAddonAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
+							if (isBeam) { target.BeamAddonAccess[slotType] = ItemWrite; MetroidMod.Instance.Logger.Info("Addon inserted"); target.ArrayUpdate(); }
 							else { target.MissileAddonAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
 						}
 					}
