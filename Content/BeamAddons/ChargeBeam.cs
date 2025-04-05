@@ -39,7 +39,7 @@ namespace MetroidMod.Content.BeamAddons
 		/// <summary>
 		/// Makes the Charge Beam take a second to actually start charging
 		/// </summary>
-		private float chargeDelay = 0f;
+		public float chargeDelay = 0f;
 
 
 		public override void SetStaticDefaults()
@@ -58,7 +58,7 @@ namespace MetroidMod.Content.BeamAddons
 			BaseOverheat = 5;
 			OverheatMult = 0f;
 			BaseSpeed = 0;
-			SpeedMult = 0f;
+			SpeedMult = -20f;
 			BaseVelocity = 0;
 			VelocityMult = 0f;
 			CritChance = 0;
@@ -74,19 +74,21 @@ namespace MetroidMod.Content.BeamAddons
 		//Odds are the only one you'll want to worry about is the one for charged shots,
 		//but even then you'll only need it if your charge shot sprite has a different amount of animation frames from the default.
 		//Below is the absolute simplest method to check if your shot is charged.
-		public override int[] SpecialComboGet(string modifier)
+		public override int[] ComboVisualsGet(string modifier)
 		{
 			//Literally all you need for this method is a single switch. This is practically what switches were made for.
 			//If I see anyone try to use if-else chains here I will be very upset
 			switch (modifier)
 			{
 				case "Charged": //This is the dynamic keyword for a charged shot.
-					return [2];
+					return [2, -1];
 
 				default:
-					return base.SpecialComboGet(modifier);
+					return base.ComboVisualsGet(modifier);
 			}
 		}
+
+
 		//"This is where the fun begins" -Anakin Skywalker
 		public override void HoldFireBehavior(Player player)
 		{
@@ -130,7 +132,9 @@ namespace MetroidMod.Content.BeamAddons
 							//spawn the chargelead
 							ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
 							MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
+							mp.disableSomersault = true;
 							chargio.sourceItem = item;
+							chargio.sourceAddon = this;
 							chargio.ballColor = ballColor;
 							MetroidMod.Instance.Logger.Info(item);
 							//play charge noise
@@ -145,10 +149,11 @@ namespace MetroidMod.Content.BeamAddons
 							if ((mp.statCharge > 75) && ac.isBeam)
 							{
 								//Officially over the limit as to what's legally considered charged (only applies to beams)
-								//enable pseudo screw if beam
 								//also begin juicing up the current multiplier
 								currentMultiplier = (mp.statCharge - 25) / 100;
 								//Ideally it should still scale fairly naturally while still letting there be a bit of a bump at full to make there be a difference
+
+								//enable pseudo screw if beam
 							}
 							else
 							{
@@ -241,6 +246,8 @@ namespace MetroidMod.Content.BeamAddons
 
 		public Item sourceItem;
 
+		public ChargeBeam sourceAddon;
+
 		public override void SetDefaults()
 		{
 			Projectile.width = 16;
@@ -307,11 +314,11 @@ namespace MetroidMod.Content.BeamAddons
 					}
 					Projectile.hide = false;
 					Projectile.friendly = false;
-					Projectile.damage = (int)(sourceItem.damage * ((mp.statCharge - 25) / 100 + 1));
 				}
 				else if (isCharging && mp.pseudoScrewActive && ac.isBeam && mp.statCharge > 75f)
 				{
 					Projectile.hide = true;
+					Projectile.damage = (int)((sourceItem.damage) * ((mp.statCharge == 100) ? (sourceAddon.chargeMultiplier) : ((mp.statCharge - 25) / 100 + 1)));
 					Projectile.friendly = true;
 					Projectile.Center = oPos;
 					player.itemTime = 2;
@@ -320,6 +327,7 @@ namespace MetroidMod.Content.BeamAddons
 				else
 				{
 					MetroidMod.Instance.Logger.Info("There goes the chargelead the big ball is gone");
+					mp.disableSomersault = false;
 					Projectile.Kill();
 				}
 			}
@@ -337,6 +345,7 @@ namespace MetroidMod.Content.BeamAddons
 			{
 				mp.statCharge = 0;
 				player.itemTime = 0;
+				sourceAddon.chargeDelay = 0;
 			}
 
 			//play the shot sound here I guess

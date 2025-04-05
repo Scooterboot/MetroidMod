@@ -317,23 +317,40 @@ namespace MetroidMod
 		/// Allows this addon to define <b>static combos</b>, allowing for specific addon combinations to have unique properties.
 		/// <br/>Each static combo needs a corresponding keyword, which the method will return. <b>Keywords must not contain spaces.</b>
 		/// <br/>An addon's static combos will only trigger if it has shape priority.
-		/// <br/>To apply special data to a combo (such as animation frame count), use <see cref="SpecialComboGet(string)"/>.
+		/// <br/>To apply special data to a combo (such as animation frame count), use <see cref="ComboVisualsGet(string)"/>.
 		/// <br/><br/>Should return a <b>blank string</b> if a static combo is not selected.
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <returns></returns>
 		public virtual string SetStaticCombos(Item[] addons) { return ""; }
 		/// <summary>
-		/// Defines special properties the beam shot will undertake when certain combos are detected (i.e. frame count).
-		/// <br/>This can include <b>static combos</b> defined in <see cref="SetStaticCombos(Item[])"/>, <b>dynamic combos</b> such as charge shots, as well as combinations of both.
-		/// <br/><br/>Should return all <b>zeroes</b> if a special combo is not identified.
+		/// Defines special visual properties the beam shot will undertake when certain combos are detected.
+		/// <br/>This can include <b>static combos</b> defined in <see cref="SetStaticCombos(Item[])"/>, <b>dynamic combos</b> applied at the time of firing (such as "Charged"), as well as combinations of both.
+		/// <br/><b>ReturnValue[0]</b>: Combo texture's animation framecount. Count starts at <b>1</b>.
+		/// <br/><b>ReturnValue[1]</b>: Combo's unique dust ID, if any. <b>-1</b> enables default dust-grabbing behavior and <b>-2</b> disables default dust generation entirely.
+		/// <br/><br/>Should return <b>[1, -1]</b> if a special combo is not identified.
 		/// </summary>
 		/// <param name="modifier"></param>
 		/// <returns></returns>
-		public virtual int[] SpecialComboGet(string modifier) { return [0]; }
+		public virtual int[] ComboVisualsGet(string modifier) { return [1, -1]; }
 		//Dynamic combos are applied on the shot's firing.
 		//The best example of this would be charged shots, for which the keyword is "Charged".
 
+		/// <summary>
+		/// Allows beam addons to apply some <i>highly</i> specific edge-case values in edge-case scenarios.
+		/// <br/>Example: The Wave Beam uses this method to spawn a second projectile on a charged shot without any other extra projectiles.
+		/// <br/>Array values are as follows:
+		/// <br/>[0]: Damage Multiplier
+		/// <br/>[1]: Speed Multiplier
+		/// <br/>[2]: Velocity Multiplier
+		/// <br/>[3]: Overheat Multiplier
+		/// <br/>[4]: Add Shots
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="statVals"></param>
+		/// <param name="bonusMod"></param>
+		/// <returns></returns>
+		public virtual float[] EdgeCaseData(ModBeamAddon[] addons, float[] statVals, string bonusMod) { return [0, 0, 0, 0, 0]; }
 
 		/// <summary>
 		/// Lets you make the Arm Cannon do things while Fire is held down.

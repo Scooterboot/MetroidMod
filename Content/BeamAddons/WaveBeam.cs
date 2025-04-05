@@ -47,7 +47,7 @@ namespace MetroidMod.Content.BeamAddons
 			DamageMult = dmg;
 			OverheatMult = oh;
 			CritChance = crit;
-			AddShots = 1;
+			AddShots = 0;
 
 			TileInteract = wallhax;
 			#endregion
@@ -75,7 +75,7 @@ namespace MetroidMod.Content.BeamAddons
 
 				return base.SetStaticCombos(addons);
 		}
-		public override int[] SpecialComboGet(string modifier)
+		public override int[] ComboVisualsGet(string modifier)
 		{
 			switch (modifier)
 			{
@@ -83,11 +83,25 @@ namespace MetroidMod.Content.BeamAddons
 					//Check if doubleUp is true
 					//If true, add an extra projectile to the shot.
 					//If not, don't
-					return [2];
+					return [2, -1];
 
 				default:
-					return base.SpecialComboGet(modifier);
+					return base.ComboVisualsGet(modifier);
 			}
+		}
+
+		public override float[] EdgeCaseData(ModBeamAddon[] addons, float[] statVals, string bonusMod)
+		{
+			//WELCOME ONE AND ALL TO THE ENTIRE REASON THIS METHOD EXISTS
+			//Because hardcoding it is just too below me or some shit I guess			-Z
+			//MetroidMod.Instance.Logger.Info("edgecase bullshit  " + bonusMod);
+			if (bonusMod == "Charged" && statVals[9] == 0)
+			{
+				MetroidMod.Instance.Logger.Info("HEY WAVE BEAM'S DOING THE THING!!!");
+				return [0, 0, 0, 0, 1];
+			}
+			else { return base.EdgeCaseData(addons, statVals, bonusMod); }
+
 		}
 		#region Behavior modification
 

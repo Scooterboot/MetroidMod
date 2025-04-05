@@ -41,7 +41,11 @@ namespace MetroidMod.Content.Projectiles
 		/// </summary>
 		public int ShotFrames = 1;
 		public float multiplier = 1f;
-		public bool canPhase = false;
+		/// <summary>
+		/// Suppresses default dust behavior.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public bool dustSuppress = false;
 
 		/// <summary>
 		/// This beam shot's impact sound effect.
@@ -131,7 +135,7 @@ namespace MetroidMod.Content.Projectiles
 
 			//Put the dustline shit here later
 
-			if (Projectile.numUpdates == 0)
+			if (Projectile.numUpdates == 0 && !dustSuppress)
 			{
 				MetroidMod.Instance.Logger.Info("Oh hey this actually updates lmao");
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, beamDust, 0, 0, 100, default(Color), Projectile.scale);
@@ -150,11 +154,16 @@ namespace MetroidMod.Content.Projectiles
 			return BeamAddonLoader.AddonTileCollideStyle(beamAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
-		//public override bool OnTileCollide(Vector2 oldVelocity)
-		//{
-		//	//Inject tileinteract code here?
-		//	return base.OnTileCollide(oldVelocity);
-		//}
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			//Inject tileinteract code here?
+			if (!dustSuppress)
+			{
+				Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+			}
+			
+			return BeamAddonLoader.AddonOnTileCollide(beamAddons, mProjectile, oldVelocity);
+		}
 
 		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		//{
@@ -192,7 +201,7 @@ namespace MetroidMod.Content.Projectiles
 			ModBeamAddon beamShape = beamAddons[VisualWinners[0]];
 			ModBeamAddon beamColor = beamAddons[VisualWinners[1]];
 			color = beamColor.ShotColor;
-			beamDust = beamColor.ShotDust;
+			Color recolor = (VisualWinners[0] == VisualWinners[1]) ? Color.White : beamColor.ShotColor;
 			if (ModTexture != null)
 			{
 				//This here rectangle is the chunk of the texture that the sprite actually uses
@@ -201,7 +210,7 @@ namespace MetroidMod.Content.Projectiles
 				//Shift it down to properly select the correct frame
 				renderFrame.Y = 0 + (renderFrame.Height * Projectile.frame);
 
-				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, beamColor.ShotColor, Projectile.rotation,
+				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, recolor, Projectile.rotation,
 								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
 			}
 			else

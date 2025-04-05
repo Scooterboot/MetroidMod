@@ -156,7 +156,7 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <summary>
 		/// The Power Beam's base usetime, before accounting for addon multipliers.
 		/// </summary>
-		int BeamBaseSpeed = 14;
+		int BeamBaseSpeed = 12;
 		/// <summary>
 		/// The Power Beam's total base velocity, before accounting for addon multipliers.
 		/// </summary>
@@ -562,7 +562,8 @@ namespace MetroidMod.Content.Items.Weapons
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			float speedX = velocity.X;
 			float speedY = velocity.Y;
-			int[] edgeCaseData = [0];
+			int[] visualData = [0, -1];
+			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
 			int theShootsingAmount = (int)AdditionalBeamStats[9] + 1;
 			MetroidMod.Instance.Logger.Info("Beam is firing. Cannon and Addons:\n" + Item + "\n" +
 											BeamAddonAccess[0] + "\n" + BeamAddonAccess[1] + "\n" +
@@ -572,11 +573,16 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				if (VisualDinners[0] != -1)
 				{
-					edgeCaseData = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SpecialComboGet(ac.assetModifier + bonusFileMod);
-					//Add way to add an extra shot here. It's 100% possible
-					//Extra overload(s) for tile/entity interact multiplier?
+					visualData = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ComboVisualsGet(ac.assetModifier + bonusFileMod);
 				}
-
+				//MetroidMod.Instance.Logger.Info("Wave Beam Bullshit Time");
+				edgeCaseStuff = BeamAddonLoader.EdgeCaseStacker(beamAddons, AdditionalBeamStats, bonusFileMod);
+				AdditionalBeamStats[1] += edgeCaseStuff[0];
+				AdditionalBeamStats[3] += edgeCaseStuff[1];
+				AdditionalBeamStats[5] += edgeCaseStuff[2];
+				AdditionalBeamStats[8] += edgeCaseStuff[3];
+				theShootsingAmount += (int)edgeCaseStuff[4];
+				//need way to slap on a bonus projectile here.
 
 
 				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
@@ -589,6 +595,7 @@ namespace MetroidMod.Content.Items.Weapons
 						//Need to BeamAddonLoader.GetAddon() the addons because the Arm Cannon stores the associated items and not the ModBeamAddons themselves
 						//There's a chance it'd prolly be more efficient to store them as the addons but I've already set everything up this way so
 						beam.ModTexture = BeamAddonLoader.ShotTextureGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
+						beam.beamDust = (visualData[1] < 0) ? BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotDust : visualData[1];
 						beam.Impact = BeamAddonLoader.ShotSoundGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.BeamImpactFallbackSFX);
 						//Okay that last line was a bit of a mouthful but essentially what that says:
 						//It's attempting to set the beam impact sfx to an addon's impact sfx given the filemods.
@@ -603,9 +610,9 @@ namespace MetroidMod.Content.Items.Weapons
 
 					//TODO: Character limit on modifiers? Don't want someone to make a 5000000000000 letter long one
 
-					if (edgeCaseData[0] > 0)
+					if (visualData[0] > 0)
 					{
-						beam.ShotFrames = edgeCaseData[0];
+						beam.ShotFrames = visualData[0];
 					}
 
 					beam.groupSize = theShootsingAmount;

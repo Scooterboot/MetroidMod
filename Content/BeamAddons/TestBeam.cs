@@ -127,23 +127,25 @@ namespace MetroidMod.Content.BeamAddons
 			}
 		}
 
-		public override int[] SpecialComboGet(string modifier)
+		public override int[] ComboVisualsGet(string modifier)
 		{
 			// Really basic checker. This is where you plug in any special properties needed to make special textured work properly.
 			// For instance, frame counts
 			switch (modifier)
 			{
 				case "Charged":
-					return [2];
+					return [2, -1];
+					//First value is how many frames the shot texture will have.
+					//Second value is dust ID for this specific combo. Use -1 if you don't want to think about it, or -2 if you don't want any of the stock dust
 
 				case "Fuck":
-					return [2];
+					return [2, DustID.JungleSpore];
 
 				case "FuckCharged":
-					return [5];
+					return [5, DustID.CursedTorch];
 
 				default:
-					return [0];
+					return [0, -1];
 			}
 		}
 		//If you want your addon to do cool shit, you gotta whip up a projectile behavior modifier.

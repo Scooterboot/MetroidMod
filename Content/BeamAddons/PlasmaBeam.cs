@@ -43,14 +43,14 @@ namespace MetroidMod.Content.BeamAddons
 			item.value = Item.buyPrice(0, 10, 1, 67);
 		}
 
-		public override int[] SpecialComboGet(string modifier)
+		public override int[] ComboVisualsGet(string modifier)
 		{
 			switch(modifier)
 			{
 				case "Charged":
-					return [2];
+					return [2, -1];
 				default:
-					return base.SpecialComboGet(modifier);
+					return base.ComboVisualsGet(modifier);
 			}
 		}
 	}

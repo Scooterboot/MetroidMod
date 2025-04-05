@@ -30,7 +30,7 @@
 		* Charge shots [DONE]
 		* The charge lead [DONE]
 			-Does not emit light right now though, and its rendering position could be tweaked
-		* Pseudo-Screw
+		* Pseudo-Screw [Partially complete]
 		* Functions for holding Fire down ("Holdfires") [DONE]
 		* Arm Cannon mouse tracking [DONE]
 		* the Primary quick-swap
@@ -67,12 +67,12 @@
 				-Uses multiple globals at once which is the point of using globals
 			-METHOD E: BeamAddonLoader shenanigans <<(Picked this one)>>
 				-Similar to D but it goes through BeamAddonLoader instead of a global
-		* On-the-fly behavior modification?
+		* On-the-fly behavior modification? [ACCOMPLISHED?]
 			-Different combos have different sinewave settings.
 				-Could relate amplitude/wavelength to relevant stats?
 		* Multiple beam shots in one firing (charge shot increases projectile count to 2 if it wasn't at or past it already)
-			-Figure out how to do the thing in the parentheses
-		* Special behavior on charge shots
+			-Figure out how to do the thing in the parentheses [DONE]
+		* Special behavior on charge shots	[DONE]
 		* Tile interaction (similar principles can be applied to entity interaction) [DONE]
 
 -Make Hyper Beam
@@ -170,9 +170,19 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -Figure out shaders for better beam coloring
-	-Texture coloring functions, but looks like ass.
+	-Texture coloring is functional, but looks like ass.
 	-Could possibly use armor shaders? (Critter Shampoo applies armor dye to projectiles (minions, namely (yeah apparently they're projectiles, I didn't realize either)))
+	-Need a base color, a "core" color (usually white but must be defined because Dark Beam), and MAYBE a secondary color?
 	-Add way to let beam addons supply their own shaders if they want (necessary for imperialist probably)
+
+-Custom colorable Power Beam dust particle?
+
+-Upgrade DustyDeath to be more like the copy inside of BeamShot
+	-I ended up making the dusty death in the beamshot more complicated as a natural part of development and it only makes sense to bring MProjectile up to the same standard
+
+
+
+-------- POWER SUIT SYSTEM UPGRADES --------
 
 -Add automatic texture-grabbing for suit addons
 	-Very easy to implement, but tedious; requires renaming all suitaddon assets to match format
@@ -181,10 +191,9 @@
 -Fix the SuitAddonAddon thing
 	-Unimportant but it bugs me so I will tackle it Eventually(tm)
 
--Upgrade DustyDeath to be more like the copy inside of BeamShot
-	-I ended up making the dusty death in the beamshot more complicated as a natural part of development and it only makes sense to bring MProjectile up to the same standard
+-Update Power Suit glowmask system to use the modern spritesheet style
+	-More important but also less related to the whole beam thingamabobber
 
--Custom colorable Power Beam dust particle?
 
 -Figure out how to fix the thing where gravity uses neptune's shell physics underwater and not normal physics
 	-Honestly this one is kind of a tangent. I saw it mentioned in an old conversation while looking for something or other.
@@ -211,9 +220,16 @@
 
 -Various beam presentation shit from the new system that needs fixing
 	-Charging sounds don't cut each other off properly
+	-No charged shot sound effects
+	-Pseudo-Screw does not correctly color the player
+	-Dust trail does not function
+	-Random visual jank
 	-Impact sound on no-addons is broke
 		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
 	-Optimize the sound effect grabber methods to not suck - DONE!!!(?)
+
+-It Just Works
+	* Functionality bugs with the new system go here
 
 -Fix all the systems I broke
 	* Worldgen
@@ -221,7 +237,7 @@
 		* Missile/E-tank placements
 	* Fake blocks
 	* Parts of suit energy apparently
-	* Hatches probably
+	* Hatches definitely
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

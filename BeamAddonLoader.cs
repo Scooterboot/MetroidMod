@@ -364,6 +364,50 @@ namespace MetroidMod
 			return total;
 		}
 
+		/// <summary>
+		/// Used to apply some <i>highly</i> specific edge-case values in edge-case scenarios.
+		/// <br/>Example: The Wave Beam uses this method to spawn a second projectile on a charged shot without any other extra projectiles.
+		/// <br/>Array values are as follows:
+		/// <br/>[0]: Damage Multiplier
+		/// <br/>[1]: Speed Multiplier
+		/// <br/>[2]: Velocity Multiplier
+		/// <br/>[3]: Overheat Multiplier
+		/// <br/>[4]: Add Shots
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="statVals"></param>
+		/// <param name="bonusMod"></param>
+		/// <returns></returns>
+		public static float[] EdgeCaseStacker(Item[] beamAddons, float[] statVals, string bonusMod)
+		{
+			//So, the entire reason this method exists is because of Wave Beam, the little shit.
+			//It has this special little thing where if you charge up a shot without spazer, your charged shot will have TWO projectiles!
+			//Turns out, that's REALLY FUCKING HARD TO DO, APPARENTLY.
+			//If anyone else can figure out a better way of doing this please for the love of god do it and tell me how			-Z
+
+			ModBeamAddon[] addons = beamAddons //Converts the Item array into a ModBeamAddon array, allowing for direct stat access.
+				.Select(GetAddon)
+				.ToArray();
+
+			float[] output;
+			float[] finalOutput = [0, 0, 0, 0, 0];
+
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				//MetroidMod.Instance.Logger.Info("Loop " + i + ", addon is " + addons[i]);
+				output = addons[i].EdgeCaseData(addons, statVals, bonusMod);
+				//MetroidMod.Instance.Logger.Info(output);
+
+				for (int j = 0; j < finalOutput.Length; ++j)
+				{
+					finalOutput[j] += output[j];
+				}
+
+			}
+			MetroidMod.Instance.Logger.Info(finalOutput[4]);
+			return finalOutput;
+			}
 		//Compat checker here
 		//two types of no-gos that need to be accounted for:
 		//Incompatibilities: addon does not apply to beam shot while a different specified addon is installed
