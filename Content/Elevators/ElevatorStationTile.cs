@@ -19,13 +19,24 @@ namespace MetroidMod.Content.Elevators
             AddMapEntry(new(200, 200, 200));
 
             TileObjectData.newTile.UsesCustomCanPlace = true;
-            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.StyleHorizontal = false;
             TileObjectData.newTile.Width = 4;
-            TileObjectData.newTile.Height = 1;
+            TileObjectData.newTile.Height = 2;
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinateHeights = [16, 16];
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
+
+			AnimationFrameHeight = 36;
         }
-    }
+
+		public override void AnimateTile(ref int frame, ref int frameCounter)
+		{
+			if(++frameCounter >= 8)
+			{
+				frameCounter = 0;
+				frame = (++frame) % 3;
+			}
+		}
+	}
 }
