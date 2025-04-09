@@ -3382,6 +3382,11 @@ Mods: {
 				DisplayName: Chozite Dualtool
 				Tooltip: Right Click while holding to edit usage settings
 			}
+
+			ElevatorStationItem: {
+				DisplayName: Elevator Station
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
