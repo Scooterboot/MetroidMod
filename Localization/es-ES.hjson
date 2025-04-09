@@ -3384,7 +3384,7 @@ Mods: {
 			}
 
 			ElevatorStationItem: {
-				// DisplayName: Elevator Station Item
+				// DisplayName: Elevator Station
 				// Tooltip: ""
 			}
 		}
