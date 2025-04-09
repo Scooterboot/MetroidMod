@@ -3755,6 +3755,11 @@ Mods: {
 				// Tooltip: ""
 				// DisplayName: Plasma Beam Green Addon
 			}
+
+			ElevatorStationItem: {
+				// DisplayName: Elevator Station Item
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

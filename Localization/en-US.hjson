@@ -3736,6 +3736,11 @@ Mods: {
 				DisplayName: Loki Dev Item Legs
 				Tooltip: ""
 			}
+
+			ElevatorStationItem: {
+				DisplayName: Elevator Station
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
