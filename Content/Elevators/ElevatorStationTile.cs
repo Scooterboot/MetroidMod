@@ -25,6 +25,7 @@ namespace MetroidMod.Content.Elevators
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinateHeights = [16, 16];
             TileObjectData.newTile.CoordinatePadding = 2;
+			TileObjectData.newTile.Origin = new(1, 1);
             TileObjectData.addTile(Type);
 
 			AnimationFrameHeight = 36;
