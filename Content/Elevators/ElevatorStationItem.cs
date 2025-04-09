@@ -6,6 +6,7 @@ namespace MetroidMod.Content.Elevators
 	{
 		public override void SetDefaults()
 		{
+			Item.DefaultToPlaceableTile(ModContent.TileType<ElevatorStationTile>());
 		}
 	}
 }
