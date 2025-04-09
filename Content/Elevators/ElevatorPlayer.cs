@@ -97,6 +97,7 @@ namespace MetroidMod.Content.Elevators
 
 				if (!WorldGen.InWorld(current.X, current.Y)) break;
 				if(Elevator.Find(current) is not Elevator elevator) continue;
+				if (elevator == startElevator) continue;
 				if (elevator.Origin.X != startElevator.Origin.X) continue;
 
 				return elevator;
