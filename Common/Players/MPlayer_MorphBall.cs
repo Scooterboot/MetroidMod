@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Elevators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
@@ -121,7 +122,10 @@ namespace MetroidMod.Common.Players
 			}
 
 			//morph ball transformation tweaks and effects
-			if ((Player.miscEquips[3].type == ModContent.ItemType<Content.Items.Accessories.MorphBall>() || Player.mount.Type == ModContent.MountType<Content.Mounts.MorphBallMount>()) && Player.controlMount && !shineActive)
+			bool equippedMorphBall = Player.miscEquips[3].type == ModContent.ItemType<Content.Items.Accessories.MorphBall>();
+			bool inMorphBallMount = Player.mount.Type == ModContent.MountType<Content.Mounts.MorphBallMount>();
+			bool inElevator = Player.GetModPlayer<ElevatorPlayer>().InElevator;
+			if ((equippedMorphBall || inMorphBallMount) && Player.controlMount && !shineActive && !inElevator)
 			{
 				if (mflag)
 				{
