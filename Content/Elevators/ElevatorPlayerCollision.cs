@@ -34,6 +34,36 @@ namespace MetroidMod.Content.Elevators
 				c.EmitDelegate((Player player) => player.GetModPlayer<ElevatorPlayer>().InElevator);
 				c.EmitBrtrue(skipHurtTileLabel);
 			};
+
+			IL_Player.Update += il =>
+			{
+				ILCursor c = new(il);
+				c.GotoNext(MoveType.Before, i => i.MatchCall(typeof(Collision).GetMethod("LavaCollision", BindingFlags.Static | BindingFlags.Public)));
+
+				ILLabel skipLavaCollisionLabel = null;
+				c.GotoPrev(MoveType.After, i => i.MatchBrtrue(out skipLavaCollisionLabel));
+
+				c.EmitLdarg0();
+				c.EmitDelegate((Player player) => player.GetModPlayer<ElevatorPlayer>().InElevator);
+				c.EmitBrtrue(skipLavaCollisionLabel);
+
+				
+				c = new(il);
+				c.GotoNext(MoveType.After, i => i.MatchCall(typeof(Collision).GetMethod("WetCollision", BindingFlags.Static | BindingFlags.Public)));
+
+				c.EmitLdarg0();
+				c.EmitDelegate((bool anyWet, Player player) =>
+				{
+					if (anyWet && player.GetModPlayer<ElevatorPlayer>().InElevator)
+					{
+						Collision.honey = false;
+						Collision.shimmer = false;
+						return false;
+					}
+
+					return anyWet;
+				});
+			};
 		}
 	}
 }
