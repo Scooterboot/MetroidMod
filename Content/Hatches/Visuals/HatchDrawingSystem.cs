@@ -50,16 +50,7 @@ namespace MetroidMod.Content.Hatches.Visuals
 
 		private void DrawHatches()
 		{
-			GetVisibleTiles(out int startX, out int startY, out int endX, out int endY);
-
-			SpriteBatch spriteBatch = Main.spriteBatch;
-			for (int y = startY; y <= endY; y++)
-			{
-				for (int x = startX; x <= endX; x++)
-				{
-					DrawPosition(spriteBatch, x, y);
-				}
-			}
+			TileUtils.IterateVisibleTiles((x, y) => DrawPosition(Main.spriteBatch, x, y));
 		}
 
 		private void DrawPosition(SpriteBatch spriteBatch, int i, int j)
@@ -123,24 +114,6 @@ namespace MetroidMod.Content.Hatches.Visuals
 			}
 
 			return new(origin.X + sx, origin.Y + sy);
-		}
-
-		// TODO this method really doesn't belong here, but afaik not needed anywhere else yet
-		private void GetVisibleTiles(out int startX, out int startY, out int endX, out int endY)
-		{
-			Vector2 screenPosition = Main.screenPosition;
-			Vector2 screenSize = new(Main.screenWidth, Main.screenHeight);
-			Vector2 tileSize = new(16, 16);
-
-			startX = (int)(screenPosition.X / tileSize.X) - 1;
-			startY = (int)(screenPosition.Y / tileSize.Y) - 1;
-			endX = (int)((screenPosition.X + screenSize.X) / tileSize.X) + 1;
-			endY = (int)((screenPosition.Y + screenSize.Y) / tileSize.Y) + 1;
-
-			startX = Math.Max(0, startX);
-			startY = Math.Max(0, startY);
-			endX = Math.Min(Main.maxTilesX - 1, endX);
-			endY = Math.Min(Main.maxTilesY - 1, endY);
 		}
 	}
 }

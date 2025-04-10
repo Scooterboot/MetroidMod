@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using Terraria;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod
 {
@@ -64,6 +66,47 @@ namespace MetroidMod
 
 			entity = null;
 			return false;
+		}
+
+		/// <summary>
+		/// Get the range of visible tiles on the screen.
+		/// </summary>
+		/// <param name="startX"></param>
+		/// <param name="startY"></param>
+		/// <param name="endX"></param>
+		/// <param name="endY"></param>
+		public static void GetVisibleTiles(out int startX, out int startY, out int endX, out int endY)
+		{
+			Vector2 screenPosition = Main.screenPosition;
+			Vector2 screenSize = new(Main.screenWidth, Main.screenHeight);
+			Vector2 tileSize = new(16, 16);
+
+			startX = (int)(screenPosition.X / tileSize.X) - 1;
+			startY = (int)(screenPosition.Y / tileSize.Y) - 1;
+			endX = (int)((screenPosition.X + screenSize.X) / tileSize.X) + 1;
+			endY = (int)((screenPosition.Y + screenSize.Y) / tileSize.Y) + 1;
+
+			startX = Math.Max(0, startX);
+			startY = Math.Max(0, startY);
+			endX = Math.Min(Main.maxTilesX - 1, endX);
+			endY = Math.Min(Main.maxTilesY - 1, endY);
+		}
+
+		/// <summary>
+		/// Call the provided action for all visible tile coordinates.
+		/// </summary>
+		/// <param name="action"></param>
+		public static void IterateVisibleTiles(Action<int, int> action)
+		{
+			GetVisibleTiles(out int startX, out int startY, out int endX, out int endY);
+
+			for (int y = startY; y <= endY; y++)
+			{
+				for (int x = startX; x <= endX; x++)
+				{
+					action(x, y);
+				}
+			}
 		}
 	}
 }
