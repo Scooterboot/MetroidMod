@@ -88,7 +88,7 @@ namespace MetroidMod.Content.Elevators
 			lastMovedPosition = Player.position;
 
 			Player.velocity = Vector2.Zero;
-			Player.direction = lockedElevatorFacingDirection;
+			// Player.direction = lockedElevatorFacingDirection;
 		}
 
 		private static float Approach(float current, float target, float speed)
