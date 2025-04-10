@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Elevators
@@ -41,6 +42,11 @@ namespace MetroidMod.Content.Elevators
 		public override bool CanUseItem(Item item)
 		{
 			return !InElevator;
+		}
+
+		public override bool ImmuneTo(PlayerDeathReason damageSource, int cooldownCounter, bool dodgeable)
+		{
+			return InElevator;
 		}
 
 		private void TryLeaveInvalidElevator()
