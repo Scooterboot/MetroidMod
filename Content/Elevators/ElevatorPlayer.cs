@@ -25,6 +25,11 @@ namespace MetroidMod.Content.Elevators
 		public override void PreUpdate()
 		{
 			TryLeaveInvalidElevator();
+			if(InElevator)
+			{
+				Color color = Color.Yellow;
+				Lighting.AddLight(Player.Center, color.ToVector3());
+			}
 		}
 
 		public override void PreUpdateMovement()

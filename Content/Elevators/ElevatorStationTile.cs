@@ -18,6 +18,7 @@ namespace MetroidMod.Content.Elevators
 		public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
+			Main.tileLighted[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = false;
             Main.tileFrameImportant[Type] = true;
@@ -38,6 +39,15 @@ namespace MetroidMod.Content.Elevators
 
 			AnimationFrameHeight = Height * 18;
         }
+
+		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
+			Color color = Color.Yellow;
+			float intensity = 0.75f / 255f;
+			r = color.R * intensity;
+			g = color.G * intensity;
+			b = color.B * intensity;
+		}
 
 		public override void AnimateTile(ref int frame, ref int frameCounter)
 		{
