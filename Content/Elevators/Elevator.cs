@@ -41,6 +41,25 @@ namespace MetroidMod.Content.Elevators
 		}
 
 		/// <summary>
+		/// Whether any player is currently riding this elevator.
+		/// </summary>
+		public bool IsInUse
+		{
+			get
+			{
+				foreach(Player player in Main.ActivePlayers)
+				{
+					if(player.GetModPlayer<ElevatorPlayer>().IsUsingElevator(this))
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// Get the elevator that contains the specified tile position.
 		/// </summary>
 		/// <param name="position"></param>

@@ -9,12 +9,14 @@ using Terraria.ModLoader;
 namespace MetroidMod.Content.Elevators
 {
 	/// <summary>
-	/// Platforms for idle elevators are drawn separately instead of on tile PreDraw for two reasons:
+	/// Platforms for idle elevators are drawn separately instead of on tile PreDraw for three reasons:
 	/// 1. Tiles are drawn less frequently than everything else (every 4 game draws)
 	/// When a platform goes from drawing from a tile into drawing below a player for moving,
 	/// the lower draw frequency can lead to the platform blinking, which looks bad imo.
 	/// 2. The platform animates at a different speed than the rest of the elevator,
 	/// meaning making it part of the spritesheet would increase the amount of combinations a lot.
+	/// 3. Drawing it apart from tiles means that it will always draw behind the player, regardless
+	/// of whether they're behind tiles due to using an elevator or not.
 	/// </summary>
 	internal class ElevatorPlatformDrawing : ModSystem
 	{
@@ -30,7 +32,10 @@ namespace MetroidMod.Content.Elevators
 			});
 			foreach(Elevator elevator in visibleElevators)
 			{
-				DrawPlatform(elevator.ArrivalPosition);
+				if (!elevator.IsInUse)
+				{
+					DrawPlatform(elevator.ArrivalPosition);
+				}
 			}
 		}
 
