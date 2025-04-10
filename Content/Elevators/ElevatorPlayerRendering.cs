@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.Xna.Framework.Graphics;
 using MonoMod.Cil;
 using Terraria;
 using Terraria.ModLoader;
@@ -31,6 +32,20 @@ namespace MetroidMod.Content.Elevators
 				c.GotoNext(MoveType.Before, i => i.MatchCall(GetPrivateMethod<Main>("DoDraw_Tiles_Solid")));
 				c.EmitDelegate(() =>
 				{
+					ElevatorPlatformDrawing epd = ModContent.GetInstance<ElevatorPlatformDrawing>();
+					
+					SpriteBatch sb = Main.spriteBatch;
+
+					sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+					epd.DrawIdlePlatforms();
+					foreach (Player player in _elevatingPlayersDrawBehindBlocks)
+					{
+						epd.DrawPlayerPlatform(player);
+					}
+
+					sb.End();
+
 					// A call is missing here for "Potion of Return", is it too niche to include it yet?
 					Main.PlayerRenderer.DrawPlayers(Main.Camera, _elevatingPlayersDrawBehindBlocks);
 				});
