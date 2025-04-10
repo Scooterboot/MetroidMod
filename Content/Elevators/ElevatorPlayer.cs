@@ -48,6 +48,8 @@ namespace MetroidMod.Content.Elevators
 
 		private void TryRideElevator()
 		{
+			if (_currentRide != null) return;
+
 			bool goUp = Player.controlUp;
 			bool goDown = Player.controlDown;
 			
