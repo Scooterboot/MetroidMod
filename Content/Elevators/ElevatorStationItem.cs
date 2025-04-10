@@ -18,6 +18,7 @@ namespace MetroidMod.Content.Elevators
 			CreateRecipe()
 				.AddIngredient(ItemID.Teleporter, 1)
 				.AddIngredient(ItemID.HellstoneBar, 12)
+				.AddIngredient(ItemID.SunplateBlock, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
