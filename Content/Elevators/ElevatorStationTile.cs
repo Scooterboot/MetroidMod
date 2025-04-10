@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Elevators
 	internal class ElevatorStationTile : ModTile
     {
 		public virtual int Height => 2;
-		public virtual bool Animated => false;
+		public virtual bool Animated => true;
 		public virtual int FrameAmount => 3;
 		public virtual Point16 Origin => new(1, 1);
 
