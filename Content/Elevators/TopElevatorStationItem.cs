@@ -2,11 +2,8 @@
 
 namespace MetroidMod.Content.Elevators
 {
-	internal class TopElevatorStationItem : ModItem
+	internal class TopElevatorStationItem : ElevatorStationItem
 	{
-		public override void SetDefaults()
-		{
-			Item.DefaultToPlaceableTile(ModContent.TileType<TopElevatorStationTile>());
-		}
+		public override int TileType => ModContent.TileType<TopElevatorStationTile>();
 	}
 }
