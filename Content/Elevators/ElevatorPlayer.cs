@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -11,6 +13,7 @@ namespace MetroidMod.Content.Elevators
 		private ElevatorRide? _currentRide;
 		private Vector2 lastMovedPosition;
 		private int lastDirection;
+		private SlotId elevatorSoundSlot;
 
 		/// <summary>
 		/// Whether the player is currently riding an elevator.
@@ -37,6 +40,7 @@ namespace MetroidMod.Content.Elevators
 		{
 			TryRideElevator();
 			PerformElevatorMovement();
+			PlayElevatorSound();
 		}
 
 		public override bool CanUseItem(Item item)
@@ -47,6 +51,17 @@ namespace MetroidMod.Content.Elevators
 		public override bool ImmuneTo(PlayerDeathReason damageSource, int cooldownCounter, bool dodgeable)
 		{
 			return InElevator;
+		}
+
+		private void PlayElevatorSound()
+		{
+			if (!InElevator) return;
+			if (SoundEngine.TryGetActiveSound(elevatorSoundSlot, out ActiveSound sound)) return;
+			elevatorSoundSlot = SoundEngine.PlaySound(Sounds.Tiles.Elevator, Player.position, s =>
+			{
+				s.Position = Player.position;
+				return InElevator;
+			});
 		}
 
 		private void TryLeaveInvalidElevator()
