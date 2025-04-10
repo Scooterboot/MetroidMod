@@ -9,7 +9,7 @@ namespace MetroidMod.Content.Elevators
 	{
 		private ElevatorRide? _currentRide;
 		private Vector2 lastMovedPosition;
-		private int lockedElevatorFacingDirection;
+		private int lastDirection;
 
 		/// <summary>
 		/// Whether the player is currently riding an elevator.
@@ -54,18 +54,18 @@ namespace MetroidMod.Content.Elevators
 
 		private void TryRideElevator()
 		{
-			if (_currentRide != null) return;
-
 			bool goUp = Player.controlUp;
 			bool goDown = Player.controlDown;
-			
 			int direction = (goUp ? -1 : 0) + (goDown ? 1 : 0);
+			if (direction == lastDirection) return;
+			lastDirection = direction;
 			if (direction == 0) return;
+
+			if (_currentRide != null) return;
 			if (GetElevatorUnderPlayer() is not Elevator start) return;
 			if (GetTargetElevator(start, direction) is not Elevator end) return;
 
 			_currentRide = new(start, end);
-			lockedElevatorFacingDirection = Player.direction;
 			Player.Center = new Vector2(start.ArrivalPosition.X, Player.Center.Y);
 		}
 
@@ -86,9 +86,7 @@ namespace MetroidMod.Content.Elevators
 
 			Player.position.Y += displacement;
 			lastMovedPosition = Player.position;
-
 			Player.velocity = Vector2.Zero;
-			// Player.direction = lockedElevatorFacingDirection;
 		}
 
 		private static float Approach(float current, float target, float speed)
