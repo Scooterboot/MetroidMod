@@ -64,6 +64,17 @@ namespace MetroidMod.Content.Elevators
 					return anyWet;
 				});
 			};
+
+			IL_Player.CheckDrowning += il =>
+			{
+				ILCursor c = new(il);
+				ILLabel skipCheck = c.DefineLabel();
+				c.EmitLdarg0();
+				c.EmitDelegate((Player player) => player.GetModPlayer<ElevatorPlayer>().InElevator);
+				c.EmitBrfalse(skipCheck);
+				c.EmitRet();
+				c.MarkLabel(skipCheck);
+			};
 		}
 	}
 }
