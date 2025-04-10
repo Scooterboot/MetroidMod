@@ -32,6 +32,11 @@ namespace MetroidMod.Content.Elevators
 			PerformElevatorMovement();
 		}
 
+		public override bool CanUseItem(Item item)
+		{
+			return !InElevator;
+		}
+
 		private void TryLeaveInvalidElevator()
 		{
 			if (_currentRide is ElevatorRide ride)
