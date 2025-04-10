@@ -15,6 +15,12 @@ namespace MetroidMod.Content.Elevators
 		/// </summary>
 		public bool InElevator => _currentRide != null;
 
+		public bool IsUsingElevator(Elevator elevator)
+		{
+			if (_currentRide is not ElevatorRide ride) return false;
+			return ride.Start == elevator || ride.End == elevator;
+		}
+
 		public override void PreUpdate()
 		{
 			TryLeaveInvalidElevator();
