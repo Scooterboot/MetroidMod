@@ -80,7 +80,7 @@ namespace MetroidMod.Content.Elevators
 			Tile tile = Main.tile[position];
 			if (!tile.HasTile) return false;
 
-			bool correctTile = tile.TileType == ModContent.TileType<ElevatorStationTile>();
+			bool correctTile = tile.TileType == ModContent.TileType<ElevatorStationTile>() || tile.TileType == ModContent.TileType<TopElevatorStationTile>();
 			if (!correctTile) return false;
 
 			return true;
