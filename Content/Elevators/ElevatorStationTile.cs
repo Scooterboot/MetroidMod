@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Elevators
 			TileObjectData.newTile.Origin = Origin;
             TileObjectData.addTile(Type);
 
-			AnimationFrameHeight = TileObjectData.newTile.CoordinateFullHeight;
+			AnimationFrameHeight = Height * 18;
         }
 
 		public override void AnimateTile(ref int frame, ref int frameCounter)
