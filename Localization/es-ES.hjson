@@ -3760,6 +3760,11 @@ Mods: {
 				// DisplayName: Elevator Station
 				// Tooltip: ""
 			}
+
+			TopElevatorStationItem: {
+				// Tooltip: ""
+				// DisplayName: Top Elevator Station
+			}
 		}
 
 		NPCs: {
