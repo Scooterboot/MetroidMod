@@ -72,6 +72,7 @@ namespace MetroidMod.Content.Elevators
 
 			_currentRide = new(start, end);
 			Player.Center = new Vector2(start.ArrivalPosition.X, Player.Center.Y);
+			Player.mount.Dismount(Player);
 		}
 
 		private void PerformElevatorMovement()
