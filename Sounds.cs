@@ -15,6 +15,11 @@ namespace MetroidMod
 			{
 
 			};
+
+			public static readonly SoundStyle Elevator = new($"{nameof(MetroidMod)}/Assets/Sounds/ElevatorLoop")
+			{
+				IsLooped = true
+			};
 		}
 		public static class Items
 		{
