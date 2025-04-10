@@ -3758,12 +3758,12 @@ Mods: {
 
 			ElevatorStationItem: {
 				// DisplayName: Elevator Station
-				// Tooltip: ""
+				// Tooltip: The classic elevator of the 80's
 			}
 
 			TopElevatorStationItem: {
-				// Tooltip: ""
 				// DisplayName: Top Elevator Station
+				// Tooltip: The classic elevator of the 80's
 			}
 		}
 
