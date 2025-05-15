@@ -180,7 +180,9 @@
 -Upgrade DustyDeath to be more like the copy inside of BeamShot
 	-I ended up making the dusty death in the beamshot more complicated as a natural part of development and it only makes sense to bring MProjectile up to the same standard
 
+-Way to make wave beam amplitude narrow in response to the length of the beam shot texture
 
+-Better, longer hitbox for Plasma Beam?
 
 -------- POWER SUIT SYSTEM UPGRADES --------
 
@@ -226,10 +228,9 @@
 	-Random visual jank
 	-Impact sound on no-addons is broke
 		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
-	-Optimize the sound effect grabber methods to not suck - DONE!!!(?)
 
 -It Just Works
-	* Functionality bugs with the new system go here
+	* Wave's bonus shot on charge doesn't work unless it's fully charged
 
 -Fix all the systems I broke
 	* Worldgen

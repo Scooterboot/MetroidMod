@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Chat.Commands;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace MetroidMod.Content.BeamAddons
@@ -52,6 +54,16 @@ namespace MetroidMod.Content.BeamAddons
 				default:
 					return base.ComboVisualsGet(modifier);
 			}
+		}
+
+		public override void ShapeBehavior(MProjectile shot)
+		{
+			//shot.Projectile.rotation += MathHelper.Pi;
+		}
+
+		public override void OnSpawn(MProjectile shot, IEntitySource source)
+		{
+			shot.Projectile.penetrate = -1;
 		}
 	}
 }

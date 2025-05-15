@@ -23,6 +23,7 @@ namespace MetroidMod
 	/// </summary>
 	public abstract class ModBeamAddon : ModType
 	{
+		#region Type-definer variables
 		/// <summary>
 		/// The numerical ID of the addon.<br/>
 		/// Pretty much just like how Terraria's items all have a number ID.
@@ -50,11 +51,19 @@ namespace MetroidMod
 		/// References the ModTile previously generated
 		/// </summary>
 		public int TileType { get; internal set; }
+		#endregion
 
 		/// <summary>
 		/// The translations for the tooltip of this item.
 		/// </summary>
 		public virtual LocalizedText Tooltip => ModItem.GetLocalization(nameof(Tooltip), () => "");
+
+		/// <summary>
+		/// The slot in the Addon UI that this addon uses.<br/><br/>
+		/// See <see cref="BeamAddonSlotID"/> for details on the different slots.
+		/// </summary> 
+		public virtual int AddonSlot { get; set; } = BeamAddonSlotID.None;
+
 
 		#region Appearance variables
 		/// <summary>
@@ -101,7 +110,11 @@ namespace MetroidMod
 		/// Slot shape priority highest to lowest: Secondary(4), Spread(3), Ion(2), Ability(1), Primary(0)
 		/// </summary>
 		public virtual int ShapePriority { get; set; } = 0;
-
+		/// <summary>
+		/// Sets to true when this addon has shape priority.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		//public bool ShapePrioritized = false;
 		/// <summary>
 		/// Determines the level of priority of the addon's <b>shot color</b>.<br />
 		/// 0 is the lowest, 5 is the highest<br />
@@ -110,6 +123,11 @@ namespace MetroidMod
 		/// Slot color priority highest to lowest: Ability(1), Secondary(4), Ion(2), Spread(3), Primary(0)
 		/// </summary>
 		public virtual int ColorPriority { get; set; } =  0;
+		/// <summary>
+		/// Sets to true when this addon has color priority.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		//public bool ColorPrioritized = false;
 		/// <summary>
 		/// If true, this addon's sounds will play instead of the sounds from the current shape priority.
 		/// <br/>Requires this addon to have color priority.
@@ -132,26 +150,8 @@ namespace MetroidMod
 		/// <br/>Leave null to use the standard beam shot projectile.
 		/// <br/><b>For advanced use ONLY. Not recommended for beginners.</b>
 		/// </summary>
-		public ModProjectile vibOverride;
-		/// <summary>
-		/// If true, this addon will not apply its properties to the Arm Cannon.
-		/// <br/>Used to create incompatibilites between addons.
-		/// <br/><br/>Defaults to <b>false</b>.
-		/// </summary>
-		public virtual bool Overridden => false;
-		/// <summary>
-		/// If true, this addon will prevent the Arm Cannon it's installed in from firing.
-		/// <br/>Used primarily in Suitlocking.
-		/// <br/><br/>Defaults to <b>false</b>.
-		/// </summary>
-		public virtual bool Locked => false;
+		public ModProjectile vibOverride = null;
 		#endregion
-
-		/// <summary>
-		/// The slot in the Addon UI that this addon uses.<br/><br/>
-		/// See <see cref="BeamAddonSlotID"/> for details on the different slots.
-		/// </summary> 
-		public virtual int AddonSlot { get; set; } = BeamAddonSlotID.None;
 
 
 		#region Addon stat variables
@@ -163,7 +163,7 @@ namespace MetroidMod
 		public virtual int BaseDamage { get; set; } = 0;
 		/// <summary>
 		/// The damage multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip</i>. It will be converted later.<br/>
 		/// (i.e. if the addon should have a 50% damage increase, put 50f instead of 1.5f)
 		/// </summary>
 		public virtual float DamageMult { get; set; } = 0f;
@@ -174,7 +174,7 @@ namespace MetroidMod
 		public virtual int BaseSpeed { get; set; } = 0;
 		/// <summary>
 		/// The usetime multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip</i>. It will be converted later.<br/>
 		/// (i.e. if the addon should have a 50% speed increase, put 50f instead of 1.5f)
 		/// </summary>
 		public virtual float SpeedMult { get; set; } = 0f;
@@ -185,7 +185,7 @@ namespace MetroidMod
 		public virtual float BaseVelocity { get; set; } = 0f;
 		/// <summary>
 		/// The velocity multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's <i>tooltip<i/>. It will be converted later.<br/>
+		/// NOTE: Input the value as you would see it on the item's <i>tooltip</i>. It will be converted later.<br/>
 		/// (i.e. if the addon should have a 50% speed increase, put 50f instead of 1.5f)
 		/// </summary>
 		public virtual float VelocityMult { get; set; } = 0f;
@@ -211,7 +211,7 @@ namespace MetroidMod
 		public virtual int AddShots { get; set; } = 0;
 		#endregion
 
-		#region Shot Behavior Variables
+		#region Shot Behavior/Compatibility Variables
 		//These stats get plugged into the PROJECTILE, not the weapon.
 		/// <summary>
 		/// The buff that this addon will inflict on hit.
@@ -232,17 +232,30 @@ namespace MetroidMod
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool HoldFire { get; set; } = false;
+
+		//Compatibility-related variables
 		/// <summary>
 		/// If true, <b>all holdfire behavior</b> is disabled for as long as this beam is installed.
 		/// <br/>Useful if you don't want your addon to be able to be charged. Leave it off if your addon has a holdfire itself.
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool SuppressHoldFire { get; set;} = false;
-
+		/// <summary>
+		/// If true, this addon will not apply its properties to the Arm Cannon.
+		/// <br/>Used to create incompatibilites between addons.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool Overridden => false;
+		/// <summary>
+		/// If true, this addon will prevent the Arm Cannon it's installed in from firing.
+		/// <br/>Used primarily in Suitlocking.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool Locked => false;
 
 		#endregion
 
-
+		#region Data-handling methods
 		/// <summary>
 		/// Makes the addon in question only add the item and tile, not the beam properties.<br/>
 		/// Good for... something, I think   -Z
@@ -297,6 +310,7 @@ namespace MetroidMod
 		{
 			return (ModBeamAddon)this.MemberwiseClone();
 		}
+		#endregion
 
 		public override void SetStaticDefaults()
 		{
@@ -357,10 +371,20 @@ namespace MetroidMod
 		/// <br/>To be used with <see cref="HoldFire"/>.
 		/// </summary>
 		public virtual void HoldFireBehavior(Player player) { }
+		/// <summary>
+		/// Extension of <see cref="AI(MProjectile)"/> that only runs when the addon has Shape Priority.
+		/// <br/>Example: Ice Beam uses this to make its projectile rotate.
+		/// </summary>
+		/// <param name="shot"></param>
+		public virtual void ShapeBehavior(MProjectile shot) { }
 
-		//Making the following methods check for an MProjectile as opposed to a standard Projectile makes it easier to use beam-specific variables.
+		#region Projectile behavior injectors
+		//These methods are designed to line up with the ones inside of ModProjectiles, allowing for ModProjectile code to be injected into beam shots.
+		//Making them check for an MProjectile as opposed to a standard Projectile makes it easier to use beam-specific variables.
+
+
 		///<summary> Gets called when your projectile spawns in world.
-		///<br/>...except it's not <i>technically</i> on spawn since onboarding addons happens after the projectile spawns, so uh...
+		///<br/><br/>...except it's not <i>technically</i> on spawn since onboarding addons happens after the projectile spawns, so uh...
 		///<br/>Let's just say 'yes' and pretend a 'yes', because it might as well be, but acknowledge that... also... 'no'??</summary>
 		public virtual void OnSpawn(MProjectile shot, IEntitySource source) { }
 		/// <inheritdoc cref="ModProjectile.PreAI"/>
@@ -379,10 +403,15 @@ namespace MetroidMod
 		public virtual bool OnTileCollide(MProjectile shot, Vector2 oldVelocity) { return true; }
 		/// <inheritdoc cref="ModProjectile.OnKill(int)"/>
 		public virtual void OnKill(MProjectile shot, int timeLeft) { }
-
+		#endregion
 
 		#endregion
 
+		/// <summary>
+		/// Whether or not this addon's tile will display its ModItem texture when hovered over with the mouse.
+		/// </summary>
+		/// <param name="player"></param>
+		/// <returns></returns>
 		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);
 		/// <inheritdoc cref="ModTile.CanKillTile(int, int, ref bool)"/>
 		public virtual bool CanKillTile(int i, int j) { return true; }

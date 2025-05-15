@@ -385,65 +385,116 @@ namespace MetroidMod.Content.Items.Weapons
 
 		}
 		/// <summary>
-		/// Gets all the info from installed addons and applies it to the arm cannon. Done in a separate method to prevent it from running every tick.
+		/// Gets all the pre-shot info from installed addons and applies it to the arm cannon.
+		/// <br/>Done in a separate method to prevent it from running every tick.
 		/// </summary>
 		public void ArrayUpdate()
 		{
 			Item.TryGetGlobalItem(out MGlobalItem ac);
+
+			//Suitlock checker goes here
+
+			//Compatibility checker goes here
+
 			VisualDinners = BeamAddonLoader.VisualPriority(beamAddons); //Gets the shot visuals
 
 			AdditionalBeamStats = BeamAddonLoader.WeaponStatStacker(beamAddons); //Gets the beam stats
 
 			//AdditionalPrimaryStats = BeamAddonLoader.ArrayStatGrabber(primaryQuickSwap); //Gets PQS passives (doesn't exist yet)
 
-
-
-
 			#region Misc. Beamstacking
 			//This is gonna get a little hard to read.
 
 			//VisualDinners[0] is the winning ShapePriority, VisualDinners[1] is the winning ColorPriority
-			if (VisualDinners[0] != -1) //Make sure there's actually stuff in the array
+			if (VisualDinners[0] != -1) //This makes sure there's actually stuff in the array
 			{
-				//Iterate through the currently-active addons in search of a holdfire suppressor
-				//If none are found, iterate through both the currently-active addons and the array for active holdfires
-				#region Holdfire checker
-				MetroidMod.Instance.Logger.Info("Holdfire Checking Time, resetting HoldFireSlot now");
-				HoldFireSlot = -1;
-				/*if (VisualDinners[2] == 1)
-				{
+				
+				#region VIB/Holdfire Checker
+				//Originally this was pretty much just to check for holdfires, but this is the perfect place to do a shitton of stuff
 
-				}//Check if there's a VIB*/
+				//Initialize important variables
 				ModBeamAddon currentCheck = null; //gotta assign a value to this sucker or it'll throw a fit later
+				bool HelpImBeingSuppressed = false; //no basis for a form of government			-Z
+				HoldFireSlot = -1;
 
-
-				for (int i = 0; i < BeamAddonSlotID.Count - 1 + chargeQuickSwap.Length; ++i)
+				if (VisualDinners[2] == 1)
 				{
-					if (i > 4)
+					ModBeamAddon vibRibbon = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]); // you have NO idea how long I've been waiting to use this variable name		-Z
+					if (vibRibbon.vibOverride != null)
 					{
-						currentCheck = BeamAddonLoader.GetAddon(chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
-						MetroidMod.Instance.Logger.Info("Holdfire Check Loop" + (i + 1) + ", we're in the quick-swap with" + chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
-						if (currentCheck != null && currentCheck.HoldFire)
-						{
-							MetroidMod.Instance.Logger.Info("Holdfire found.");
-							HoldFireSlot = i;
-							break;
-						}
-						MetroidMod.Instance.Logger.Info("Nada");
-					}
+						Item.shoot = vibRibbon.vibOverride.Type; //la la laaa, tanoshi naaaa
+						ac.SuppressingFire = true;
+						HelpImBeingSuppressed = true;
+						MetroidMod.Instance.Logger.Info("YUH OH, WE GOTS A LIVE ONE FELLAS");
+						if (vibRibbon.HoldFire) { HoldFireSlot = vibRibbon.AddonSlot; }
+					} //Check if this VIB uses its own projectile. If so, disable the normal beam shot.
 					else
 					{
+						ac.SuppressingFire = false;
+					}
+				}//Check if there's a VIB
+				else
+				{
+					ac.SuppressingFire = false;
+				}
+
+
+				//First, check for holdfire suppressors.
+
+				MetroidMod.Instance.Logger.Info("Checking the anarcho-cynicallist commune for supreme executive power");
+				if (!HelpImBeingSuppressed)
+				{
+					for (int i = 0; i < BeamAddonSlotID.Count - 1; ++i)
+					{
 						currentCheck = BeamAddonLoader.GetAddon(beamAddons[i]);
-						MetroidMod.Instance.Logger.Info("Holdfire Check Loop " + (i + 1) + ", we're in the main array with" + beamAddons[i]);
-						if (currentCheck != null && currentCheck.HoldFire)
+						if (currentCheck != null && currentCheck.SuppressHoldFire)
 						{
-							MetroidMod.Instance.Logger.Info("Holdfire found.");
-							HoldFireSlot = i;
+							MetroidMod.Instance.Logger.Info("Slot " + i + " had a sword thrown at them by a watery tart");
+							HelpImBeingSuppressed = true;
 							break;
 						}
-						MetroidMod.Instance.Logger.Info("Nada");
+						//MetroidMod.Instance.Logger.Info("Nothing on " + i);
 					}
-				}//Get the active holdfire
+				}
+
+				//Holdfire checker.
+				//Goes through all installed addons (including quick-swap) to check for holdfires.
+				//Only runs if no holdfire suppressors are installed in the main array.
+				MetroidMod.Instance.Logger.Info("Holdfire Checking Time");
+
+				if (!HelpImBeingSuppressed)
+				{
+					currentCheck = null; //Clear value for next check
+					for (int i = 0; i < BeamAddonSlotID.Count - 1 + chargeQuickSwap.Length; ++i)
+					{
+						if (i > 4) //Quickswap Array
+						{
+							currentCheck = BeamAddonLoader.GetAddon(chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
+							//MetroidMod.Instance.Logger.Info("Holdfire Check Loop" + (i + 1) + ", we're in the quick-swap with" + chargeQuickSwap[i - (BeamAddonSlotID.Count - 1)]);
+							if (currentCheck != null && currentCheck.HoldFire)
+							{
+								MetroidMod.Instance.Logger.Info("Holdfire found at quick-swap slot " + (i - 3) + ".");
+								HoldFireSlot = i;
+								break;
+							}
+							//MetroidMod.Instance.Logger.Info("Nada");
+						}
+						else //Normal Addons
+						{
+							currentCheck = BeamAddonLoader.GetAddon(beamAddons[i]);
+							//MetroidMod.Instance.Logger.Info("Holdfire Check Loop " + (i + 1) + ", we're in the main array with" + beamAddons[i]);
+							if (currentCheck != null && currentCheck.HoldFire)
+							{
+								MetroidMod.Instance.Logger.Info("Holdfire found at slot " + (1 + 1) + ".");
+								HoldFireSlot = i;
+								break;
+							}
+							//MetroidMod.Instance.Logger.Info("Nada");
+						}
+					}//Get the active holdfire
+					if (HoldFireSlot == -1) { MetroidMod.Instance.Logger.Info("No holdfires found"); }
+				}
+				
 				#endregion
 
 				//Check if the shapepriority has any special visuals for this addon combination.
@@ -463,8 +514,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 
 			} //All the checks and shit for if there actually ARE addons in your arm cannon. Goes through holdfires, soundoverride, etc.
-
-
 
 			else
 			{
@@ -492,7 +541,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
-			ac.showChargeBar = true; //lets the charge UI show up
+			ac.showChargeBar = true;
 			ac.showOnHand = true;
 
 			if (MSystem.ACSwitch.JustPressed)
@@ -502,13 +551,11 @@ namespace MetroidMod.Content.Items.Weapons
 			} //Swap between beam and missiles when the keybind is pressed
 
 			//the charge beam will have to bring a method in here in order for charging to work
-			//why did I want two to be active at once again???
-			//may have been a relic from when holdfire meant customfire
-			//or maybe it's just me trying to make sure TTNE fire beam is possible again idfk
-			//whatever, fire beam is kinda lame anyway, flamethrower is literally just it but better
-			//...it still would be kinda cool though
 			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
+				//note: if charge combos depend on charge and charge is being overridden by a different holdfire
+				//that'll make it so you can't shoot charge combos while it's equipped
+				//Look into later			-Z
 				if (HoldFireSlot > BeamAddonSlotID.Count - 1)
 				{
 					BeamAddonLoader.GetAddon(chargeQuickSwap[HoldFireSlot - (BeamAddonSlotID.Count - 1)]).HoldFireBehavior(player);
@@ -531,13 +578,18 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac.isBeam)
 			{
-
 				if (!ac.SuppressingFire)
 				{
 					SpawnBeam(player, source, position, velocity, type, damage, knockback);
 				}
 			} //Power Beam firing procedure
-			else { return true; } //Missile Launcher firing procedure
+			else
+			{
+
+				//nothing here yet lol
+
+			} //Missile Launcher firing procedure
+
 
 			return false;
 		}

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net.Repository.Hierarchy;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
@@ -11,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -57,23 +51,6 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			item.rare = ItemRarityID.Green;
 			item.value = Item.buyPrice(0, 1, 98, 7); //markiplier.jpeg
-		}
-		public override string SetStaticCombos(Item[] addons)
-		{
-			float[] addonStats = BeamAddonLoader.WeaponStatStacker(addons);
-			//Get the weapon stats from installed addons
-
-			//Check if the addons don't add any shots.
-			if (addonStats[9] == 0)
-			{
-				doubleUp = true;
-			} //If the addons add zero shots, turn on doubleUp
-			else
-			{
-				doubleUp = false;
-			} //Otherwise, turn it off.
-
-				return base.SetStaticCombos(addons);
 		}
 		public override int[] ComboVisualsGet(string modifier)
 		{
@@ -122,11 +99,6 @@ namespace MetroidMod.Content.BeamAddons
 		/// The time in game ticks until the sine wave starts.
 		/// </summary>
 		public int sineDelay = 3;
-		/// <summary>
-		/// The lateral center of the sinewave.
-		/// <br/>In other words, if the shot wasn't sinewaving, this is where it would be.
-		/// </summary>
-		public Vector2 sinelessCenter;
 		#endregion
 		public override void OnSpawn(MProjectile shot, IEntitySource source)
 		{
@@ -138,7 +110,6 @@ namespace MetroidMod.Content.BeamAddons
 				ac.inverter *= -1;
 				MetroidMod.Instance.Logger.Info("Fleeped that sheet");
 			} //Check if the shot is asymmetrical. If it is, flip the Arm Cannon's inverter. This allows for the sinewave direction to flip between shots.
-				sinelessCenter = shot.Projectile.Center;
 
 		}
 
@@ -213,11 +184,10 @@ namespace MetroidMod.Content.BeamAddons
 			
 			//Set the projectile's offset from the sineless center
 			float shift = amplitude * (float)Math.Sin(sineRad) * sineDir;
-			sinelessCenter += p.Projectile.velocity;
 			float rot = (float)Math.Atan2((p.Projectile.velocity.Y), (p.Projectile.velocity.X));
 			//Update projectile's position.
-			p.Projectile.position.X = sinelessCenter.X + (float)Math.Cos(rot + (MathHelper.PiOver2)) * shift;
-			p.Projectile.position.Y = sinelessCenter.Y + (float)Math.Sin(rot + (MathHelper.PiOver2)) * shift;
+			p.Projectile.position.X = p.corePosition.X + (float)Math.Cos(rot + (MathHelper.PiOver2)) * shift;
+			p.Projectile.position.Y = p.corePosition.Y + (float)Math.Sin(rot + (MathHelper.PiOver2)) * shift;
 			//MetroidMod.Instance.Logger.Info("One full wavebeh completed");
 		}
 		#endregion

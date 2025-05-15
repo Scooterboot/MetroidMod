@@ -62,7 +62,7 @@ namespace MetroidMod.Common.UI
 			text = new UIText("CHOZO UNIVERSAL WEAPONS PLATFORM", 0.7f);
 			text.HAlign = 0.5f;
 			text.VAlign = 0.05f;
-			text2 = new UIText("v.0.3.8.1 beta", 0.65f);
+			text2 = new UIText("v.0.3.8.2 beta", 0.65f);
 			text2.HAlign = text.HAlign;
 			text2.VAlign = text.VAlign + 0.08f;
 			UIText text3 = new UIText("DEVELOPER MODE", 0.5f);

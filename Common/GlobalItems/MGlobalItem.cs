@@ -30,6 +30,10 @@ namespace MetroidMod.Common.GlobalItems
 		/// </summary>
 		public bool SuppressingFire = false;
 		/// <summary>
+		/// If true, prevent firing this weapon at all.
+		/// </summary>
+		public bool Locked = false;
+		/// <summary>
 		/// The current amount of Universal Ammunition remaining in the item.
 		/// </summary>
 		public float statUA = 40f;

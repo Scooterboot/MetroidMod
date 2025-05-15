@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.ID;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -89,25 +90,30 @@ namespace MetroidMod.Content.Projectiles
 
 		public void OnInitialized(IEntitySource source)
 		{
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			//MetroidMod.Instance.Logger.Info("put something here later");
+
+
 			//Gather data from installed addons.
-			MetroidMod.Instance.Logger.Info("Beam addons: " + beamAddons[0] + " " + beamAddons[1] + " " + beamAddons[2] + " " + beamAddons[3] + " " + beamAddons[4]);
+			MetroidMod.Instance.Logger.Info("Beam addons: " + beamAddons[0] + " " + beamAddons[1] + " " + beamAddons[2] + " " + beamAddons[3] + " " + beamAddons[4]
+				+ "\nShot " + groupID + "/" + groupSize);
+
 			//First, call method to calculate tileinteract total.
 			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, multiplier);
 			//Then, call method to calculate entityinteract total.
 			EntityInteract = BeamAddonLoader.InteractStacker(beamAddons, false, multiplier);
+
 
 			BeamAddonLoader.AddonOnInitialized(beamAddons, mProjectile, source);
 		}
 
 		public override bool PreAI()
 		{
-			return true;
+			return BeamAddonLoader.AddonPreAI(beamAddons, mProjectile);
 		}
-
+		int dustTimer = 5;
 		public override void AI() //TODO: make a whole-ass thing         -Z
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 
@@ -131,23 +137,29 @@ namespace MetroidMod.Content.Projectiles
 				//if we're at the frame count reset
 			}
 			#endregion
-
+			if (VisualWinners[0] != -1)
+			{
+				beamAddons[VisualWinners[0]].ShapeBehavior(mProjectile);
+			}
 
 			//Put the dustline shit here later
 
-			if (Projectile.numUpdates == 0 && !dustSuppress)
+			if (dustTimer < 1 && !dustSuppress)
 			{
-				MetroidMod.Instance.Logger.Info("Oh hey this actually updates lmao");
+				//MetroidMod.Instance.Logger.Info("Oh hey this actually updates lmao");
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, beamDust, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
+				dustTimer = 5;
 			}
+			else { dustTimer--; }
 
-			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
+				BeamAddonLoader.AddonAI(beamAddons, mProjectile);
 		}
-		//public override void PostAI()
-		//{
-		//	base.PostAI();
-		//}
+		public override void PostAI()
+		{
+			base.PostAI();
+			BeamAddonLoader.AddonPostAI(beamAddons, mProjectile);
+		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
@@ -165,16 +177,20 @@ namespace MetroidMod.Content.Projectiles
 			return BeamAddonLoader.AddonOnTileCollide(beamAddons, mProjectile, oldVelocity);
 		}
 
-		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		//{
-		//	//inject onhitnpc code here
-		//	base.OnHitNPC(target, hit, damageDone);
-		//}
-		//public override void OnHitPlayer(Player target, Player.HurtInfo info)
-		//{
-		//	//Could do some cool shit here.
-		//	base.OnHitPlayer(target, info);
-		//}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			//inject onhitnpc code here
+			BeamAddonLoader.AddonOnHitNPC(beamAddons, mProjectile, target, hit, damageDone);
+			if (!SuppressBuff)
+			{
+				//target.AddBuff()
+			}
+		}
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
+		{
+			//Could do some cool shit here.
+			BeamAddonLoader.AddonOnHitPlayer(beamAddons, mProjectile, target, info);
+		}
 
 
 		public override void OnKill(int timeLeft)
@@ -190,6 +206,7 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
 				Main.dust[dust].noGravity = noGravity;
 			}
+			BeamAddonLoader.AddonOnKill(beamAddons, mProjectile, timeLeft);
 			SoundEngine.PlaySound(Impact, Projectile.position);
 		}
 

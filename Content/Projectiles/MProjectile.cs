@@ -43,6 +43,11 @@ namespace MetroidMod.Content.Projectiles
 		public int EntitiesInteracted = 0;
 
 		/// <summary>
+		/// If true, the projectile will not use standard buff-infliction code.
+		/// </summary>
+		public bool SuppressBuff = false;
+
+		/// <summary>
 		/// If this projectile is being spawned in a group, this is the group's total size.
 		/// </summary>
 		public int groupSize = 1;
@@ -55,6 +60,12 @@ namespace MetroidMod.Content.Projectiles
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public bool symmetry = false;
+
+		/// <summary>
+		/// Tracks the path a projectile would take without any special movement patterns.
+		/// <br/>Example: The Wave Beam uses this to keep track of where its shots would be if it weren't doing a sine wave.
+		/// </summary>
+		public Vector2 corePosition;
 		public override void SetDefaults()
 		{
 			Projectile.aiStyle = -1;
@@ -92,6 +103,11 @@ namespace MetroidMod.Content.Projectiles
 		/// Temporary bool to cover areas where two <i>particular</i> Hunters weapons cause issues.
 		/// </summary>
 		public bool LittleShit = false;
+
+		public override void OnSpawn(IEntitySource source)
+		{
+			corePosition = Projectile.position;
+		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
@@ -183,6 +199,9 @@ namespace MetroidMod.Content.Projectiles
 				Projectile.oldRot[i] = Projectile.oldRot[i - 1];
 			}
 			Projectile.oldRot[0] = Projectile.rotation;
+
+			corePosition += Projectile.velocity;
+			//May need to net-update this
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

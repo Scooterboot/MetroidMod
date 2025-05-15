@@ -19,6 +19,7 @@ using System.Numerics;
 using MetroidMod.Content.Projectiles;
 using Terraria.DataStructures;
 using MetroidMod.Common.UI.SuitAddons;
+using MetroidMod.Content.MorphBallAddons;
 
 namespace MetroidMod
 {
@@ -87,9 +88,9 @@ namespace MetroidMod
 			addons.TryGetValue(fullName, out ModBeamAddon beam) ? beam : null;
 
 		/// <summary>
-		/// Gets the ModBeamAddon of an addon through <b>idfk</b><br/>
+		/// Gets the ModBeamAddon of an addon through its <b>ModBeamAddon value.</b><br/>
 		/// Used to access an addon's properties for further use.<br/>
-		/// <br/><i>NOTE: Can someone else check this thing and tell me how it gets the thing?   -Z</i>
+		/// <br/>This has to be used as the file itself is a type and not an individual instance.
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
@@ -141,7 +142,7 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Starting VIBe check");
 			for (int i = 0; i < addons.Length - 1; ++i) //Check all addon slots for if VIB is true
 			{
-				MetroidMod.Instance.Logger.Info("VIBe Check - Slot " + i + "- Contains: " + addons[i]);
+				//MetroidMod.Instance.Logger.Info("VIBe Check - Slot " + i + "- Contains: " + addons[i]); //Keep commented out unless absolutely necessary, it clogs the console
 				if (addons[i] == null || addons[i].VIB == false) { continue; }
 				if (addons[i].VIB == true) { winners = [i, i, 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check"); return winners; }
 			} //Iterate through the slots looking for a VIB addon
@@ -154,10 +155,10 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Starting shape priority check");
 			for (int i = 0; i < addons.Length - 1; i++)
 			{
-				MetroidMod.Instance.Logger.Info("Shape Priority Check - Slot " + i + "- Contains: " + addons[i]);
+				//MetroidMod.Instance.Logger.Info("Shape Priority Check - Slot " + i + "- Contains: " + addons[i]);
 				if (addons[i]?.ShapePriority >= highestShapePriority)
 				{
-					MetroidMod.Instance.Logger.Info("Value is workable");
+					//MetroidMod.Instance.Logger.Info("Value is workable");
 					highestShapePriorityIndex = i;
 					highestShapePriority = addons[i].ShapePriority;
 				}
@@ -178,10 +179,10 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Starting color priority check");
 			for (int i = 0; i < colorOrder.Length; i++)
 			{
-				MetroidMod.Instance.Logger.Info("Color Priority Check - Slot " + i + "- Contains: " + colorOrder[i]);
+				//MetroidMod.Instance.Logger.Info("Color Priority Check - Slot " + i + "- Contains: " + colorOrder[i]);
 				if (colorOrder[i]?.ColorPriority >= highestColorPriority)
 				{
-					MetroidMod.Instance.Logger.Info("Value is workable");
+					//MetroidMod.Instance.Logger.Info("Value is workable");
 					highestColorPriorityIndex = colorOrder[i].AddonSlot;
 					highestColorPriority = colorOrder[i].ColorPriority;
 				}
@@ -194,8 +195,28 @@ namespace MetroidMod
 			} //See if the sound override is enabled
 
 			MetroidMod.Instance.Logger.Info("Result: Slot " + highestShapePriorityIndex);
+
 			winners = [highestShapePriorityIndex, highestColorPriorityIndex, 0, willItOverride]; //If there are no winners it should turn up -1, -1, 0, 0
 			MetroidMod.Instance.Logger.Info("winners value: [" + winners[0] + ", " + winners[1] + ", " + winners[2] + ", " + winners[3] +"]");
+
+			//Delete this later if plan b doesn't work
+			//	for (int i = 0; i < addons.Length - 1; i++)
+			//	{
+			//		if (i == winners[0]) { addons[i].ShapePrioritized = true; }
+			//		else
+			//		{
+			//			if (addons[i] == null) { continue; }
+			//			addons[i].ShapePrioritized = false;
+			//		}
+
+			//		if (i == winners[1]) { addons[i].ColorPrioritized = true; }
+			//		else
+			//		{
+			//			if (addons[i] == null) { continue; }
+			//			addons[i].ColorPrioritized = false;
+			//		}
+			//	}
+
 			return winners;
 		}
 
@@ -322,6 +343,7 @@ namespace MetroidMod
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].Overridden) { continue; }
 				totals[0] += addons[i].BaseDamage;
 				totals[1] += addons[i].DamageMult;
 				totals[2] += addons[i].BaseSpeed;
@@ -407,8 +429,12 @@ namespace MetroidMod
 			}
 			MetroidMod.Instance.Logger.Info(finalOutput[4]);
 			return finalOutput;
-			}
+		}
+
+
+		
 		//Compat checker here
+
 		//two types of no-gos that need to be accounted for:
 		//Incompatibilities: addon does not apply to beam shot while a different specified addon is installed
 		//BOOL RETURN METHODS?? MAYBE LIKE CANUSEITEM
@@ -420,6 +446,10 @@ namespace MetroidMod
 		//Locks: addon prevents beam from firing until certain conditions are met
 		//Suitlocking only? makes the process more automatic and makes the unknown item bit easier
 		//Store something in MPlayer?
+
+
+
+
 
 		//Method Stackems ahead
 		/// <summary>

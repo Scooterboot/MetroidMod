@@ -58,7 +58,7 @@ namespace MetroidMod.Content.BeamAddons
 			BaseOverheat = 5;
 			OverheatMult = 0f;
 			BaseSpeed = 0;
-			SpeedMult = -20f;
+			SpeedMult = 50f;
 			BaseVelocity = 0;
 			VelocityMult = 0f;
 			CritChance = 0;
@@ -302,7 +302,8 @@ namespace MetroidMod.Content.BeamAddons
 					BarrelAim(player, ballPos, player.HeldItem.shootSpeed);
 
 					Projectile.rotation += 0.5f;
-					Projectile.scale = Math.Max(mp.statCharge / 100, 0.5f);
+					//Projectile.scale = Math.Max(mp.statCharge / 100, 0.5f);
+					Projectile.scale = Math.Max(MathHelper.Lerp(0f, 1f, mp.statCharge / 100), 0.5f); //Idrk what the difference is but I've heard lerps are useful so I'm trying em out			-Z
 
 					if (!mp.pseudoScrewActive || (mp.pseudoScrewActive && mp.statCharge < 75))
 					{
@@ -311,6 +312,7 @@ namespace MetroidMod.Content.BeamAddons
 					else
 					{
 						mp.disableSomersault = false;
+						mp.chargeColor = ballColor;
 					}
 					Projectile.hide = false;
 					Projectile.friendly = false;

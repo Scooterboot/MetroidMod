@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using MetroidMod.ID;
 using MetroidMod.Content.Buffs;
 using Terraria.ID;
+using Terraria;
+using MetroidMod.Content.Projectiles;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -16,6 +18,10 @@ namespace MetroidMod.Content.BeamAddons
 		//TODO:
 		//Make it actually inflict the debuff
 		//Make ice beam shots rotate when it has shape priority
+		/// <summary>
+		/// If true, the projectile will rotate.
+		/// </summary>
+		public bool bananasRotatE = false;
 
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
 		public override Color ShotColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
@@ -30,9 +36,38 @@ namespace MetroidMod.Content.BeamAddons
 			ShapePriority = 1;
 			ColorPriority = 4;
 			SoundOverride = true;
+			bananasRotatE = false;
 
 			BaseDamage = -5;
+			VelocityMult = -25f;
 			InflictsBuff = ModContent.BuffType<IceFreeze>();
+		}
+
+		public override int[] ComboVisualsGet(string modifier)
+		{
+			MetroidMod.Instance.Logger.Info("Wait it IS running???  ||" + modifier);
+			if (modifier == "Charged" || modifier == "")
+			{
+				MetroidMod.Instance.Logger.Info("bananas........ rotat e");
+				bananasRotatE = true;
+				return base.ComboVisualsGet(modifier);
+			}
+			else
+			{
+				MetroidMod.Instance.Logger.Info("w h o   a r e   y o u   t o   a c c u s e   m e");
+				bananasRotatE = false;
+				return base.ComboVisualsGet(modifier);
+			}
+		}
+
+		public override void ShapeBehavior(MProjectile shot)
+		{
+			//MetroidMod.Instance.Logger.Info("rotat e? " + bananasRotatE);
+			if (bananasRotatE)
+			{
+				//MetroidMod.Instance.Logger.Info("go..... g    O..........");
+				shot.Projectile.rotation += 0.2f * (float)shot.Projectile.direction;
+			}
 		}
 
 		public override void AddRecipes()
