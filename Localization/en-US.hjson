@@ -3348,22 +3348,16 @@ Mods: {
 			
 			PowerBeam: {
 				DisplayName: Power Beam
-				Tooltip:
-					'''
-					[c/BE7878:--BEING PHASED OUT, DO NOT USE--]
-					'''
+				Tooltip: "[c/BE7878:--BEING PHASED OUT, DO NOT USE--]"
 			}
 
 			MissileLauncher: {
 				DisplayName: Missile Launcher
-				Tooltip:
-					'''
-					[c/BE7878:--BEING PHASED OUT, DO NOT USE--]
-					'''
+				Tooltip: "[c/BE7878:--BEING PHASED OUT, DO NOT USE--]"
 			}
 
 			# Unused
-
+			
 			HiJumpBootsAddon: {
 				DisplayName: Hi-Jump Boots
 				Tooltip:
@@ -3374,7 +3368,7 @@ Mods: {
 					Stacks with other jump accessories
 					'''
 			}
-			
+
 			PowerGripAddon: {
 				DisplayName: Power Grip
 				Tooltip:
@@ -3747,14 +3741,9 @@ Mods: {
 				Tooltip: The classic elevator of the 80's
 			}
 
-			ElevatorStationItem: {
-				DisplayName: Elevator Station
-				Tooltip: The classic elevator of the 80's
-			}
-
-			TopElevatorStationItem: {
-				DisplayName: Top Elevator Station
-				Tooltip: The classic elevator of the 80's
+			GrappleBeamPlusPlaceable: {
+				DisplayName: Grapple Beam Plus Placeable
+				Tooltip: ""
 			}
 		}
 

@@ -246,7 +246,7 @@ Mods: {
 			// ChargeBeamTile.MapEntry: Charge Beam
 			// WaveBeamTile.MapEntry: Wave Beam
 			// IceBeamTile.MapEntry: Ice Beam
-			// SpazerTile.MapEntry: Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			// SpazerTile.MapEntry: Spazer Beam
 			// PlasmaBeamRedTile.MapEntry: Blaze Beam
 			// PlasmaBeamGreenTile.MapEntry: Plasma Beam
 			// ChargeBeamV2Tile.MapEntry: Diffusion Beam
@@ -539,8 +539,8 @@ Mods: {
 					''' */
 			}
 
-			SpazerBeamAddon: {
-				// DisplayName: Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			SpazerAddon: {
+				// DisplayName: Spazer Beam
 				/* Tooltip:
 					'''
 					{$CommonItemTooltip.IsBeamAddon}Primary A
@@ -551,7 +551,7 @@ Mods: {
 					''' */
 			}
 
-			PlasmaBeamAddon: {
+			PlasmaBeamGreenAddon: {
 				// DisplayName: Plasma Beam
 				/* Tooltip:
 					'''
@@ -865,7 +865,7 @@ Mods: {
 			# -----[[Missile Addons]]----- #
 			################################
 			
-			MissileExpansionAddon: {
+			MissileExpansion: {
 				// DisplayName: Missile Expansion
 				/* Tooltip:
 					'''
@@ -873,11 +873,6 @@ Mods: {
 					Increases maximum Missile Launcher ammo by 5
 					Can stack inside of the interface
 					''' */
-			}
-
-			MissileExpansion: {
-				// Tooltip: ""
-				// DisplayName: Missile Expansion
 			}
 
 			# Primary Addons
@@ -2269,7 +2264,7 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			GrappleBeamLitePlaceable: {
+			GrappleBeamLPlusPlaceable: {
 				// DisplayName: Grapple Beam Lite (Placeable)
 				// Tooltip: ""
 			}
@@ -3181,7 +3176,7 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			GrappleBeamLite: {
+			GrappleBeamPlus: {
 				// DisplayName: Grapple Beam Lite
 				/* Tooltip:
 					'''
@@ -3351,6 +3346,18 @@ Mods: {
 			# -----[[Legacy]]----- #
 			########################
 			
+			PowerBeam: {
+				// DisplayName: Power Beam
+				// Tooltip: "[c/BE7878:--BEING PHASED OUT, DO NOT USE--]"
+			}
+
+			MissileLauncher: {
+				// DisplayName: Missile Launcher
+				// Tooltip: "[c/BE7878:--BEING PHASED OUT, DO NOT USE--]"
+			}
+
+			# Unused
+			
 			HiJumpBootsAddon: {
 				// DisplayName: Hi-Jump Boots
 				/* Tooltip:
@@ -3362,8 +3369,6 @@ Mods: {
 					''' */
 			}
 
-			# Unused
-			
 			PowerGripAddon: {
 				// DisplayName: Power Grip
 				/* Tooltip:
@@ -3726,54 +3731,19 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			PowerBeam: {
-				// Tooltip: ""
-				// DisplayName: Power Beam
+			ElevatorStationItem: {
+				// DisplayName: Elevator Station
+				// Tooltip: The classic elevator of the 80's
 			}
 
-			MissileLauncher: {
-				// Tooltip: ""
-				// DisplayName: Missile Launcher
-			}
-
-			GrappleBeamPlus: {
-				// Tooltip: ""
-				// DisplayName: Grapple Beam Plus
+			TopElevatorStationItem: {
+				// DisplayName: Top Elevator Station
+				// Tooltip: The classic elevator of the 80's
 			}
 
 			GrappleBeamPlusPlaceable: {
-				// Tooltip: ""
 				// DisplayName: Grapple Beam Plus Placeable
-			}
-
-			SpazerAddon: {
 				// Tooltip: ""
-				// DisplayName: Spazer Addon
-			}
-
-			PlasmaBeamGreenAddon: {
-				// Tooltip: ""
-				// DisplayName: Plasma Beam Green Addon
-			}
-
-			ElevatorStationItem: {
-				// DisplayName: Elevator Station
-				// Tooltip: The classic elevator of the 80's
-			}
-
-			TopElevatorStationItem: {
-				// DisplayName: Top Elevator Station
-				// Tooltip: The classic elevator of the 80's
-			}
-
-			ElevatorStationItem: {
-				// DisplayName: Elevator Station
-				// Tooltip: The classic elevator of the 80's
-			}
-
-			TopElevatorStationItem: {
-				// DisplayName: Top Elevator Station
-				// Tooltip: The classic elevator of the 80's
 			}
 		}
 
@@ -4050,8 +4020,8 @@ Mods: {
 			// WaveBeamChargeShot.DisplayName: Charged Wave Beam
 			// IceBeamShot.DisplayName: Ice Beam
 			// IceBeamChargeShot.DisplayName: Charged Ice Beam
-			// SpazerShot.DisplayName: Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
-			// SpazerChargeShot.DisplayName: Charged Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			// SpazerShot.DisplayName: Spazer Beam
+			// SpazerChargeShot.DisplayName: Charged Spazer Beam
 			// PlasmaBeamRedShot.DisplayName: Blaze Beam
 			// PlasmaBeamRedChargeShot.DisplayName: Charged Blaze Beam
 			// PlasmaBeamGreenShot.DisplayName: Plasma Beam
@@ -4103,8 +4073,8 @@ Mods: {
 			// OmegaCannonShot.DisplayName: Omega Cannon
 			// OmegaCannonFrag.DisplayName: Omega Cannon
 			#Combination
-			// WaveSpazerShot.DisplayName: Wave Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
-			// WaveSpazerChargeShot.DisplayName: Charged Wave Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			// WaveSpazerShot.DisplayName: Wave Spazer Beam
+			// WaveSpazerChargeShot.DisplayName: Charged Wave Spazer Beam
 			// WaveWideBeamShot.DisplayName: Helix Wide Beam
 			// WaveWideBeamChargeShot.DisplayName: Charged Helix Wide Beam
 			// IceWideBeamShot.DisplayName: Frost Wide Beam
@@ -4121,8 +4091,8 @@ Mods: {
 			// StardustVortexBeamChargeShot.DisplayName: Charged Stardust Vortex Beam
 			// NebulaVortexBeamShot.DisplayName: Nebula Vortex Beam
 			// NebulaVortexBeamChargeShot.DisplayName: Charged Nebula Vortex Beam
-			// IceSpazerShot.DisplayName: Ice Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
-			// IceSpazerChargeShot.DisplayName: Charged Ice Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon
+			// IceSpazerShot.DisplayName: Ice Spazer Beam
+			// IceSpazerChargeShot.DisplayName: Charged Ice Spazer Beam
 			// VortexSolarBeamShot.DisplayName: Vortex Solar Beam
 			// VortexSolarBeamChargeShot.DisplayName: Charged Vortex Solar Beam
 			// WidePlasmaBeamRedV2Shot.DisplayName: Wide Blaze Beam
@@ -4935,17 +4905,17 @@ Mods: {
 
 				speedSpazer: {
 					// Tooltip: ""
-					// Label: "[i:MetroidMod/SpazerAddon] Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon Speed Multiplier"
+					// Label: "[i:MetroidMod/SpazerAddon] Spazer Beam Speed Multiplier"
 				}
 
 				overheatSpazer: {
 					// Tooltip: ""
-					// Label: "[i:MetroidMod/SpazerAddon] Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon Overheat Multiplier"
+					// Label: "[i:MetroidMod/SpazerAddon] Spazer Beam Overheat Multiplier"
 				}
 
 				damageSpazer: {
 					// Tooltip: ""
-					// Label: "[i:MetroidMod/SpazerAddon] Spazer Trazer Erazer Plazer Disaestzer Lazer: The Beam Addon Damage Multiplier"
+					// Label: "[i:MetroidMod/SpazerAddon] Spazer Beam Damage Multiplier"
 				}
 
 				damageVoltDriver: {
