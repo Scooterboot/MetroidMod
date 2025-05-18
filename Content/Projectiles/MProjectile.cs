@@ -74,6 +74,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.penetrate = 1;
 			Projectile.ignoreWater = true;
 
+			//The following commented-out section is a relic from before tMod supported custom damage types.
 			//Projectile.melee = false;
 			//Projectile.ranged = false;
 			//Projectile.magic = false;
@@ -232,23 +233,60 @@ namespace MetroidMod.Content.Projectiles
 		public bool seeking = false;
 		public int seekTarget = -1;
 
+		#region Wave Beam-related methods
+		/// <summary>
+		/// Index for projectiles in a multishot scenario. Determines what value is given to i, which alternates and magnifies sine direction in multi-shot shots.
+		/// </summary>
 		public int waveStyle = 0;
+		/// <summary>
+		/// Sine-wave behavior will not begin until this value reaches 0.
+		/// </summary>
 		public int delay = 0;
+		/// <summary>
+		/// Alternates sine direction for single-shot projectiles.
+		/// </summary>
 		public int waveDir = -1;
 		public float wavesPerSecond = 0f;
+		/// <summary>
+		/// The full vertical range of the sine wave.
+		/// </summary>
 		public float amplitude = 0f;
+		/// <summary>
+		/// The maximum amount of tiles the shot can phase through at once.
+		/// </summary>
 		public int waveDepth = 4;
+		/// <summary>
+		/// Radian value.
+		/// <br/>Loops from 0 to 2pi. Spazer without Wave will cut short and lock at 1/2pi to space the shots out properly.
+		/// </summary>
 		float t = 0f;
+		/// <summary>
+		/// Backsteps <see cref="t"/> by 1/2 pi to give Vortex + Nebula a specific pattern.
+		/// </summary>
 		float t2 = 0f;
+		/// <summary>
+		/// The centerpoint of the sine wave.
+		/// <br/>In other words, if the projectile weren't sine-waving, this is where it would be.
+		/// </summary>
 		Vector2 pos = new Vector2(0, 0);
 		bool initialized = false;
+		/// <summary>
+		/// Stores the projectile's starting position in a variable "pos".
+		/// <br/>Used to track the line along which the projectile oscillates while under WaveBehavior.
+		/// </summary>
+		/// <param name="P"></param>
 		void initialize(Projectile P)
 		{
-			pos = P.position;
+			pos = P.position; //set pos to the origin position
+			//NOTE: this whole thing is very deprecated. This could all be accomplished in OnSpawn().		-Z
 			initialized = true;
 		}
 		public void WaveBehavior(Projectile P, bool spaze = false)
 		{
+			//P is the projectile getting the sinewave.
+			//The bool spaze is for whether or not the shot functions like spazer ALONE. It is NOT for spazer with wave.
+			//Its job is to make the projectile spaze out and STAY THERE. DO NOT FORGET AGAIN.			-Z, to Z
+			#region initialization and wavestyle
 			if (!initialized)
 			{
 				initialize(P);
@@ -257,129 +295,134 @@ namespace MetroidMod.Content.Projectiles
 			}
 			else
 			{
-				float increment = ((float)Math.PI * 2) / 60f;
+				//The amount by which t increases every frame.
+				//Current equation totals out to 360 degrees every second.
+				float increment = (MathHelper.TwoPi) / 60f;
 				float i = 1;
-				if (waveStyle == 1)
+				//Check the index of the projectile and apply the appropriate multiplier to the amplitude.
+				switch (waveStyle)
 				{
-					i = -1;
+					case 1:
+						i = -1;
+						break;
+
+					case 2:
+						i = 0;
+						break;
+
+					case 3:
+						i = (P.Name.Contains("Hyper")) ? 1.5 : 2;
+						break;
+
+					case 4:
+						i = (P.Name.Contains("Hyper")) ? -1.5 : -2;
+						break;
 				}
-				if (waveStyle == 2)
-				{
-					i = 0;
-				}
-				if (waveStyle == 3)
-				{
-					i = 2;
-					if (P.Name.Contains("Hyper"))
-					{
-						i = 1.5f;
-					}
-				}
-				if (waveStyle == 4)
-				{
-					i = -2;
-					if (P.Name.Contains("Hyper"))
-					{
-						i = -1.5f;
-					}
-				}
+				#endregion
+				//If the delay is done, proceed along the sinewave
 				if (delay <= 0)
 				{
-					if (spaze)
+					if (spaze) //For Spazer without wave. Spaces projectiles out to 1/2pi and keeps them there.
 					{
-						t = Math.Min(t + increment * wavesPerSecond, (float)Math.PI / 2);
+						t = Math.Min(t + increment * wavesPerSecond, MathHelper.PiOver2);
 					}
-					else
+					else //begin calculating the sinewave
 					{
 						t += increment * wavesPerSecond;
 					}
-					if (t >= (float)Math.PI * 2)
+					if (t >= MathHelper.TwoPi)
 					{
-						t -= (float)Math.PI * 2;
+						t -= MathHelper.TwoPi;
 					}
 
-					if (waveStyle == 3 || waveStyle == 4)
+					if (waveStyle == 3 || waveStyle == 4) //calculate the backstep for vortex+nebula
 					{
-						t2 = Math.Min(t2 + increment * wavesPerSecond / 4, (float)Math.PI / 2);
+						t2 = Math.Min(t2 + increment * wavesPerSecond / 4, MathHelper.PiOver2);
 					}
 				}
+				//Decrease the delay if it's not already at 0
 				delay = Math.Max(delay - 1, 0);
+				//Make sure it's waving in the right direction
 				i *= P.direction;
-				if (!spaze)
+				if (!spaze) //If it's not spazer, alternate sine direction
 				{
 					i *= waveDir;
 				}
+				//Calculate the total shift from the standard path (pos)
 				float shift = amplitude * (float)Math.Sin(t) * i;
-				if (!spaze && (waveStyle == 3 || waveStyle == 4))
+				if (!spaze && (waveStyle == 3 || waveStyle == 4))//Tweak Vortex+Nebula to create a specific pattern
 				{
 					shift = amplitude * (float)Math.Sin(t - t2) * i;
 				}
-				pos += P.velocity;
-				if (P.type == ModContent.ProjectileType<ImperialistShot>())
+				if (P.type != ModContent.ProjectileType<ImperialistShot>()) //Move pos along the standard path
 				{
-					pos -= P.velocity;
+					pos += P.velocity;
 				}
 				float rot = (float)Math.Atan2((P.velocity.Y), (P.velocity.X));
-				P.position.X = pos.X + (float)Math.Cos(rot + ((float)Math.PI / 2)) * shift;
-				P.position.Y = pos.Y + (float)Math.Sin(rot + ((float)Math.PI / 2)) * shift;
+				//Apply final offset values
+				P.position.X = pos.X + (float)Math.Cos(rot + (MathHelper.PiOver2) * shift;
+				P.position.Y = pos.Y + (float)Math.Sin(rot + (MathHelper.PiOver2) * shift;
 
+				#region waveDepth grabbing and running WaveCollide
+				//Basically just a whole friggin thing to find how far wave can go through blocks
 				if (!P.tileCollide && !P.Name.Contains("Hyper") || P.type == ModContent.ProjectileType<ImperialistShot>() || P.type == ModContent.ProjectileType<JudicatorChargeShot>())
 				{
-					waveDepth = 4;
+					waveDepth = 4; //wave alone
 					if (P.Name.Contains("Spazer") || shot.Contains("spazer"))
 					{
-						waveDepth = 6;
+						waveDepth = 6; //wave + spazer
 					}
 					if (P.Name.Contains("Plasma") || shot.Contains("plasma"))
 					{
-						waveDepth = 8;
+						waveDepth = 8; //wave + plasma
 					}
 					if (P.Name.Contains("V2") || shot.Contains("V2"))
 					{
-						waveDepth = 6;
+						waveDepth = 6; //helix
 					}
 					if (P.Name.Contains("Wide") || shot.Contains("wide"))
 					{
-						waveDepth = 9;
+						waveDepth = 9; //helix + wide
 					}
 					if (P.Name.Contains("Nova") || shot.Contains("nova"))
 					{
-						waveDepth = 12;
+						waveDepth = 12; //helix + nova
 					}
 					if (P.Name.Contains("Nebula") || shot.Contains("nebula"))
 					{
-						waveDepth = 8;
+						waveDepth = 8; //nebula
 					}
 					if (P.Name.Contains("Vortex") || shot.Contains("vortex"))
 					{
-						waveDepth = 12;
+						waveDepth = 12; //nebula + vortex
 					}
 					if (P.Name.Contains("Solar") || shot.Contains("solar"))
 					{
-						waveDepth = 16;
+						waveDepth = 16; //nebula + solar
 					}
 					if (P.Name.Contains("Charge"))
 					{
-						waveDepth += 2;
+						waveDepth += 2; //add 2 on a charge shot
 						if (P.Name.Contains("V2") || P.Name.Contains("Wide") || P.Name.Contains("Nova") || shot.Contains("V2") || shot.Contains("wide") || shot.Contains("nova"))
 						{
-							waveDepth += 1;
+							waveDepth += 1; //add an extra if you're using v2 addons
 						}
 						if (P.Name.Contains("Nebula") || shot.Contains("nebula"))
 						{
-							waveDepth += 2;
+							waveDepth += 2; //add 2 extra if you're using v3 addons
 						}
 					}
 					if(P.type == ModContent.ProjectileType<VoltDriverShot>())
 					{
-						waveDepth /= 2;
+						waveDepth /= 2; //halve it if it's voltdriver
 					}
 					if (P.type == ModContent.ProjectileType<VoltDriverChargeShot>())
 					{
-						waveDepth *= Luminite ? (int)1.5f : 2;
+						waveDepth *= Luminite ? (int)1.5f : 2; //multiply it if it's a volt charge shot though????
 					}
-					WaveCollide(P, waveDepth);
+					WaveCollide(P, waveDepth); //run WaveCollide
 				}
+				#endregion
 			}
 		}
 
@@ -405,6 +448,7 @@ namespace MetroidMod.Content.Projectiles
 				P.Kill();
 			}
 		}
+		#endregion
 
 		public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
 		{
