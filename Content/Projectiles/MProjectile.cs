@@ -311,11 +311,11 @@ namespace MetroidMod.Content.Projectiles
 						break;
 
 					case 3:
-						i = (P.Name.Contains("Hyper")) ? 1.5 : 2;
+						i = (P.Name.Contains("Hyper")) ? 1.5f : 2f;
 						break;
 
 					case 4:
-						i = (P.Name.Contains("Hyper")) ? -1.5 : -2;
+						i = (P.Name.Contains("Hyper")) ? -1.5f : -2f;
 						break;
 				}
 				#endregion
@@ -360,8 +360,8 @@ namespace MetroidMod.Content.Projectiles
 				}
 				float rot = (float)Math.Atan2((P.velocity.Y), (P.velocity.X));
 				//Apply final offset values
-				P.position.X = pos.X + (float)Math.Cos(rot + (MathHelper.PiOver2) * shift;
-				P.position.Y = pos.Y + (float)Math.Sin(rot + (MathHelper.PiOver2) * shift;
+				P.position.X = pos.X + (float)Math.Cos(rot + (MathHelper.PiOver2)) * shift;
+				P.position.Y = pos.Y + (float)Math.Sin(rot + (MathHelper.PiOver2)) * shift;
 
 				#region waveDepth grabbing and running WaveCollide
 				//Basically just a whole friggin thing to find how far wave can go through blocks
@@ -418,7 +418,7 @@ namespace MetroidMod.Content.Projectiles
 					}
 					if (P.type == ModContent.ProjectileType<VoltDriverChargeShot>())
 					{
-						waveDepth *= Luminite ? (int)1.5f : 2; //multiply it if it's a volt charge shot though????
+						waveDepth = (int)(waveDepth * (Luminite ? 1.5f : 2)); //multiply it if it's a volt charge shot though????
 					}
 					WaveCollide(P, waveDepth); //run WaveCollide
 				}
