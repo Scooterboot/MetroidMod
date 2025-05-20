@@ -43,21 +43,90 @@ namespace MetroidMod.Common
 		public static DrawDataInfo GetBodyDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture)
 		{
 			Player drawPlayer = drawInfo.drawPlayer;
+			Rectangle frame = drawInfo.compTorsoFrame;
 			Vector2 pos = drawPlayer.bodyPosition + drawInfo.bodyVect + new Vector2(
-				 (int)(drawInfo.Position.X - Main.screenPosition.X - drawPlayer.bodyFrame.Width / 2f + drawPlayer.width / 2f),
-				 (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.bodyFrame.Height + 4f)
+				 (int)(drawInfo.Position.X - Main.screenPosition.X - frame.Width / 2f + drawPlayer.width / 2f),
+				 (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - frame.Height + 4f)
 			);
+			Vector2 offset = Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height];
+			offset.Y -= 2f;
+			pos += offset * (float)(-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
 
 			return new DrawDataInfo
 			{
 				Position = pos,
-				Frame = drawPlayer.bodyFrame,
+				Frame = new Rectangle?(frame),
 				Origin = drawInfo.bodyVect,
 				Rotation = drawPlayer.bodyRotation,
 				Texture = texture
 			};
 		}
+		private static DrawDataInfo GetArmsDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture, bool back = false, bool shoulder = false)
+		{
+			Player drawPlayer = drawInfo.drawPlayer;
+			Rectangle frame = back ? drawInfo.compBackArmFrame : drawInfo.compFrontArmFrame;
+			Rectangle shoulderFrame = back ? drawInfo.compBackShoulderFrame : drawInfo.compFrontShoulderFrame;
+			Vector2 origin = drawInfo.bodyVect;
+			Vector2 pos = drawPlayer.bodyPosition;
+			float rot = drawPlayer.bodyRotation;
+			if (back)
+			{
+				Vector2 compositeOffset_BackArm = new Vector2((float)(6 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1)), (float)(2 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1)));
+				origin += compositeOffset_BackArm;
+			}
+			else
+			{
+				Vector2 compositeOffset_FrontArm = new Vector2((float)(-5 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1)), 0f);
+				origin += compositeOffset_FrontArm;
+			}
+			if (shoulder)
+			{
+				frame = shoulderFrame;
+				pos += back ? drawInfo.backShoulderOffset : drawInfo.frontShoulderOffset;
+			}
+			else
+			{
+				rot += back ? drawInfo.compositeBackArmRotation : drawInfo.compositeFrontArmRotation;
+				if (!back && drawInfo.compFrontArmFrame.X / drawInfo.compFrontArmFrame.Width >= 7)
+				{
+					pos += new Vector2((float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), (float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1));
+				}
+			}
+			Vector2 offset = Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height];
+			offset.Y -= 2f;
+			pos += offset * (float)(-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
+			pos += origin + new Vector2(
+				 (int)(drawInfo.Position.X - Main.screenPosition.X - frame.Width / 2f + drawPlayer.width / 2f),
+				 (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - frame.Height + 4f)
+			);
+			
 
+			return new DrawDataInfo
+			{
+				Position = pos,
+				Frame = new Rectangle?(frame),
+				Origin = origin,
+				Rotation = rot,
+				Texture = texture
+			};
+		}
+
+		public static DrawDataInfo GetFrontArmDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture)
+		{
+			return GetArmsDrawDataInfo(drawInfo, texture, false, false);
+		}
+		public static DrawDataInfo GetFrontShoulderDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture)
+		{
+			return GetArmsDrawDataInfo(drawInfo, texture, false, true);
+		}
+		public static DrawDataInfo GetBackArmDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture)
+		{
+			return GetArmsDrawDataInfo(drawInfo, texture, true, false);
+		}
+		public static DrawDataInfo GetBackShoulderDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture)
+		{
+			return GetArmsDrawDataInfo(drawInfo, texture, true, true);
+		}
 		public static DrawDataInfo GetLegDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture)
 		{
 			Player drawPlayer = drawInfo.drawPlayer;
@@ -129,7 +198,7 @@ namespace MetroidMod.Common
 			shader = info.cHead;
 			color = info.colorArmorHead;
 
-			return GetBodyDrawDataInfo(info, _glowTexture.Value);
+			return GetHeadDrawDataInfo(info, _glowTexture.Value);
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
@@ -152,25 +221,65 @@ namespace MetroidMod.Common
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Torso);
 	}
-	internal class PAArmsGlow : PowerArmorGlowLayer
+	internal class PAFrontShoulderGlow : PowerArmorGlowLayer
 	{
 		private static Asset<Texture2D> _glowTexture;
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
-			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo);
+			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo) && !drawInfo.hideCompositeShoulders && drawInfo.compShoulderOverFrontArm;
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture = MPlayer.GetArmsGlow(info);
+			_glowTexture = MPlayer.GetBreastplateGlow(info);
 			shader = info.cBody;
 			color = info.colorArmorBody;
 
-			return GetBodyDrawDataInfo(info, _glowTexture.Value);
+			return GetFrontShoulderDrawDataInfo(info, _glowTexture.Value);
 		}
 
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.HandOnAcc);
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.ArmOverItem);
 	}
-	internal class PAShouldersGlow : PowerArmorGlowLayer
+	internal class PAFrontArmGlow : PowerArmorGlowLayer
+	{
+		private static Asset<Texture2D> _glowTexture;
+
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo) &&
+			!(drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() ||
+			drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() ||
+			drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>() ||
+			drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>());
+
+		public override DrawDataInfo GetData(PlayerDrawSet info)
+		{
+			_glowTexture = MPlayer.GetBreastplateGlow(info);
+			shader = info.cBody;
+			color = info.colorArmorBody;
+
+			return GetFrontArmDrawDataInfo(info, _glowTexture.Value);
+		}
+
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.ArmOverItem);
+	}
+	internal class PABackShoulderGlow : PowerArmorGlowLayer
+	{
+		private static Asset<Texture2D> _glowTexture;
+
+		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo) && !drawInfo.hideCompositeShoulders;
+
+		public override DrawDataInfo GetData(PlayerDrawSet info)
+		{
+			_glowTexture = MPlayer.GetBreastplateGlow(info);
+			shader = info.cBody;
+			color = info.colorArmorBody;
+
+			return GetBackShoulderDrawDataInfo(info, _glowTexture.Value);
+		}
+
+		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.OffhandAcc);
+	}
+	internal class PABackArmGlow : PowerArmorGlowLayer
 	{
 		private static Asset<Texture2D> _glowTexture;
 
@@ -179,14 +288,14 @@ namespace MetroidMod.Common
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{
-			_glowTexture = MPlayer.GetShouldersGlow(info);
+			_glowTexture = MPlayer.GetBreastplateGlow(info);
 			shader = info.cBody;
 			color = info.colorArmorBody;
 
-			return GetBodyDrawDataInfo(info, _glowTexture.Value);
+			return GetBackArmDrawDataInfo(info, _glowTexture.Value);
 		}
 
-		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.HandOnAcc);
+		public override Position GetDefaultPosition() => new BeforeParent(PlayerDrawLayers.OffhandAcc);
 	}
 	internal class PAGreavesGlow : PowerArmorGlowLayer
 	{
@@ -201,7 +310,7 @@ namespace MetroidMod.Common
 			shader = info.cLegs;
 			color = info.colorArmorLegs;
 
-			return GetBodyDrawDataInfo(info, _glowTexture.Value);
+			return GetLegDrawDataInfo(info, _glowTexture.Value);
 		}
 
 		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Leggings);

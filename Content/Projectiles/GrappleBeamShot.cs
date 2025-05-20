@@ -104,6 +104,18 @@ namespace MetroidMod.Content.Projectiles
 				isHooked = false;
 				return;
 			}
+
+			Player.CompositeArmStretchAmount stretch = Player.CompositeArmStretchAmount.ThreeQuarters;
+			float rot = owner.DirectionTo(Projectile.Center).ToRotation() - MathHelper.PiOver2 * owner.gravDir;
+			if (isHooked)
+			{
+				if (owner.controlUp)
+					stretch = Player.CompositeArmStretchAmount.Quarter;
+				if (owner.controlDown)
+					stretch = Player.CompositeArmStretchAmount.Full; 
+			}
+			owner.SetCompositeArmBack(true, stretch, rot * owner.gravDir);
+
 			Projectile P = Projectile;
 			MPlayer mp = owner.GetModPlayer<MPlayer>();
 			if (isHooked)

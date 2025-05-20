@@ -3669,6 +3669,11 @@ Mods: {
 				// DisplayName: Fusion Omega
 				// Tooltip: ""
 			}
+
+			GrappleLasso: {
+				// Tooltip: ""
+				// DisplayName: Grapple Lasso Glove
+			}
 		}
 
 		NPCs: {
