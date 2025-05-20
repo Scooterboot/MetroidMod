@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Items.Vanity
 			Item.width = 18;
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
-			Item.value = 0;
+			Item.value = Item.sellPrice(0, 0, 75, 0);
 			Item.vanity = true;
 		}
 	}

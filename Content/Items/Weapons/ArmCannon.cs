@@ -180,10 +180,21 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			Item.TryGetGlobalItem(out MGlobalItem mi);
 			float armRot = player.itemRotation - (float)(Math.PI / 2) * player.direction;
-			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, armRot);
-			Vector2 origin = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, armRot);
+			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.gravDir < 0 ? MathHelper.Pi - armRot : armRot);
+			Vector2 origin = SetCannonPos(player, armRot);
 			origin.Y -= heldItemFrame.Height / 2f;
 			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * (mi.isBeam ? -16 : -14) * player.direction;
+		}
+		private Vector2 SetCannonPos(Player player, float rotation)
+		{
+			float num = rotation + MathHelper.PiOver2; 
+			Vector2 vector = new Vector2((float)Math.Cos((double)num), (float)Math.Sin((double)num));
+			vector *= 10f;
+
+			vector += new Vector2(-4f * player.direction, -2f * player.gravDir);
+			vector += new Vector2(0f, 3f * player.direction * player.gravDir).RotatedBy((double)(rotation + MathHelper.PiOver2), default(Vector2));
+
+			return player.MountedCenter + vector;
 		}
 
 		public override bool CanUseItem(Player player)

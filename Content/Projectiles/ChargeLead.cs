@@ -124,7 +124,7 @@ namespace MetroidMod.Content.Projectiles
 			O.itemTime = 2;
 			O.itemAnimation = 2;
 
-			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
+			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter);
 
 			if (O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
 			{

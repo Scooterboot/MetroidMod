@@ -3745,6 +3745,11 @@ Mods: {
 				DisplayName: Grapple Beam Plus Placeable
 				Tooltip: ""
 			}
+
+			GrappleLasso: {
+				Tooltip: ""
+				DisplayName: Grapple Lasso Glove
+			}
 		}
 
 		NPCs: {
