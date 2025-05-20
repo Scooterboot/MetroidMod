@@ -640,7 +640,7 @@ namespace MetroidMod.Content.Items.Weapons
 				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
 				{
 					BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
-					MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount);
+					MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
 					beam.VisualWinners = VisualDinners;
 					if (VisualDinners[0] != -1)
 					{
@@ -668,7 +668,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 
 					beam.groupSize = theShootsingAmount;
-					beam.groupID = i + 1;
+					beam.groupID = i;
 					
 					beam.fileMod += (ac.assetModifier + bonusFileMod);
 

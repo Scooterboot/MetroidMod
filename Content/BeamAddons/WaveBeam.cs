@@ -98,47 +98,50 @@ namespace MetroidMod.Content.BeamAddons
 		/// <summary>
 		/// The time in game ticks until the sine wave starts.
 		/// </summary>
-		public int sineDelay = 3;
+		public float sineTimer = 0;
 		#endregion
-		public override void OnSpawn(MProjectile shot, IEntitySource source)
+		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
 		{
-			if ((source is EntitySource_Parent parent && parent.Entity is Player player && player.whoAmI == Main.myPlayer) && (!shot.symmetry))
+			if ((source is EntitySource_Parent parent && parent.Entity is Player player && player.whoAmI == Main.myPlayer) && (!mpshot.symmetry))
 			{
 				MGlobalItem ac = player.HeldItem.GetGlobalItem<MGlobalItem>();
 				//if (ac.inverter != 1 && ac.inverter != -1) { ac.inverter = 1; } //Potential failsafe to guard against bad values, revisit after making spazed waves
-				sineDir = ac.inverter;
-				ac.inverter *= -1;
+				if (!mpshot.symmetry)
+				{
+					sineDir = ac.inverter;
+					ac.inverter *= -1;
+				}
 				MetroidMod.Instance.Logger.Info("Fleeped that sheet");
 			} //Check if the shot is asymmetrical. If it is, flip the Arm Cannon's inverter. This allows for the sinewave direction to flip between shots.
 
 		}
 
-		public override void AI(MProjectile shot)
+		public override void AI(MProjectile mpshot)
 		{
 			//MetroidMod.Instance.Logger.Info("Ok so it's definitely RUNNING...");
-			WaveBehavior(shot, shot.symmetry);
+			WaveBehavior(mpshot, mpshot.symmetry);
 		}
 
-		public override bool TileCollideStyle(MProjectile shot, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		public override bool TileCollideStyle(MProjectile mpshot, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			//This code handles the Wave Beam's ability to pass through terrain.
 
 			//Get the tile currently overlapping with the shot
-			int i = (int)MathHelper.Clamp((shot.Projectile.Center.X) / 16f, 0, Main.maxTilesX - 1);
-			int j = (int)MathHelper.Clamp((shot.Projectile.Center.Y) / 16f, 0, Main.maxTilesY - 1);
+			int i = (int)MathHelper.Clamp((mpshot.Projectile.Center.X) / 16f, 0, Main.maxTilesX - 1);
+			int j = (int)MathHelper.Clamp((mpshot.Projectile.Center.Y) / 16f, 0, Main.maxTilesY - 1);
 
 			if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
 			{
-				shot.TilesInteracted++;
+				mpshot.TilesInteracted++;
 				//Console.WriteLine("Tile found! \n" + wallhaxDepth + " " + wallhax);
 
 			} //While inside of a tile, increment T.I. counter
-			else if (shot.TilesInteracted > 0)
+			else if (mpshot.TilesInteracted > 0)
 			{
-				shot.TilesInteracted--;
+				mpshot.TilesInteracted--;
 			} //When outside of a tile, bring value back down. Prevents shots from getting eaten up from getting caught on corners.
 
-			if (shot.TilesInteracted >= shot.TileInteract && shot.TileInteract > 0) //&& argument is included as a failsafe
+			if (mpshot.TilesInteracted >= mpshot.TileInteract && mpshot.TileInteract > 0) //&& argument is included as a failsafe
 			{
 				MetroidMod.Instance.Logger.Info("Yo the thing shoulda despawned by now");
 				return true;
@@ -152,24 +155,38 @@ namespace MetroidMod.Content.BeamAddons
 		/// <summary>
 		/// Makes the Wave Beam move in a sine-wave pattern.
 		/// </summary>
-		/// <param name="p"></param>
+		/// <param name="mpshot"></param>
 		/// <param name="spaze">Whether or not the sine wave should be symmetrical with other shots.</param>
-		public void WaveBehavior(MProjectile p, bool spaze = false)
+		public void WaveBehavior(MProjectile mpshot, bool spaze = false)
 		{
 			//This'll probably look really intimidating if you don't know too much about sinewaves but there's not all that much going on.
 			//MetroidMod.Instance.Logger.Info("proj is " + p);
 			float increment = (MathHelper.TwoPi / 60);
+			float sineDelay = mpshot.Projectile.height / mpshot.Projectile.velocity.Length();
 
 			//Consider making the following values external in the future?
-			float amplitude = (p.Projectile.width * p.Projectile.height) * p.Projectile.scale;
+			float amplitude = mpshot.Projectile.width * mpshot.Projectile.scale * 4;
+			float ampMultiplier = 1; //Used for larger multishots to space out shots
 			float wavesPerSecond = 5f;
-			if (sineDelay <= 0)
+			if (sineTimer >= sineDelay)
 			{
 				if (spaze)
 				{
 					//TODO: waveStyle stuff
-					//This is where all the stuff for multi-shot symmetrical patterns will go.
-					MetroidMod.Instance.Logger.Info("Something's spazing when it shouldn't");
+
+					//Must set ampMultiplier dynamically based on groupID.
+					//Half of the projectiles will have the inverse of the other half's values
+					//(e.g: 4 projectiles could have -2, -1, 1, 2 in that order)
+					//However it may be best to use half-steps on even amounts so the overal amount of space is consistent
+					float midpoint = (((float)mpshot.groupSize - 1) / 2) + 1; //This equation should do that automatically. Emphasis on "should".
+
+					ampMultiplier = (mpshot.groupID + 1) - midpoint; //Subtract by the midpoint to create an offset. Must add 1 to ID so values line up properly.
+					//If odd, the middle projectile will have a multiplier of 0.
+
+				}
+				else
+				{
+					ampMultiplier = sineDir;
 				}
 				sineRad += increment * wavesPerSecond;
 				if (sineRad >= MathHelper.TwoPi)
@@ -177,17 +194,17 @@ namespace MetroidMod.Content.BeamAddons
 					sineRad -= MathHelper.TwoPi;
 				}
 			}
-			sineDelay = Math.Max(sineDelay - 1, 0);
+			sineTimer = Math.Min(sineTimer + 1, sineDelay);
 			//If sineDir is *= to p.direction, firing left causes the shot to rapidly go back and forth between opposite wave and normal wave, making it look like two shots.
 			//Consider employing if dynamic multishot does not work out.
 			//sineDir = p.Projectile.direction;
 			
 			//Set the projectile's offset from the sineless center
-			float shift = amplitude * (float)Math.Sin(sineRad) * sineDir;
-			float rot = (float)Math.Atan2((p.Projectile.velocity.Y), (p.Projectile.velocity.X));
+			float shift = amplitude * (float)Math.Sin(sineRad) * ampMultiplier;
+			float rot = (float)Math.Atan2((mpshot.Projectile.velocity.Y), (mpshot.Projectile.velocity.X));
 			//Update projectile's position.
-			p.Projectile.position.X = p.corePosition.X + (float)Math.Cos(rot + (MathHelper.PiOver2)) * shift;
-			p.Projectile.position.Y = p.corePosition.Y + (float)Math.Sin(rot + (MathHelper.PiOver2)) * shift;
+			mpshot.Projectile.position.X = mpshot.corePosition.X + (float)Math.Cos(rot + (MathHelper.PiOver2)) * shift;
+			mpshot.Projectile.position.Y = mpshot.corePosition.Y + (float)Math.Sin(rot + (MathHelper.PiOver2)) * shift;
 			//MetroidMod.Instance.Logger.Info("One full wavebeh completed");
 		}
 		#endregion

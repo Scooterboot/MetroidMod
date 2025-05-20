@@ -4417,6 +4417,421 @@ Mods: {
 					// Label: reserve Tank Store Count
 					// Tooltip: ""
 				}
+
+				damagePowerBeam: {
+					// Label: damage Power Beam
+					// Tooltip: ""
+				}
+
+				useTimePowerBeam: {
+					// Label: use Time Power Beam
+					// Tooltip: ""
+				}
+
+				overheatPowerBeam: {
+					// Label: overheat Power Beam
+					// Tooltip: ""
+				}
+
+				damageMissileLauncher: {
+					// Label: damage Missile Launcher
+					// Tooltip: ""
+				}
+
+				useTimeMissileLauncher: {
+					// Label: use Time Missile Launcher
+					// Tooltip: ""
+				}
+
+				damageHyperBeam: {
+					// Label: damage Hyper Beam
+					// Tooltip: ""
+				}
+
+				useTimeHyperBeam: {
+					// Label: use Time Hyper Beam
+					// Tooltip: ""
+				}
+
+				overheatHyperBeam: {
+					// Label: overheat Hyper Beam
+					// Tooltip: ""
+				}
+
+				damagePhazonBeam: {
+					// Label: damage Phazon Beam
+					// Tooltip: ""
+				}
+
+				useTimePhazonBeam: {
+					// Label: use Time Phazon Beam
+					// Tooltip: ""
+				}
+
+				overheatPhazonBeam: {
+					// Label: overheat Phazon Beam
+					// Tooltip: ""
+				}
+
+				damageChargeBeam: {
+					// Label: damage Charge Beam
+					// Tooltip: ""
+				}
+
+				overheatChargeBeam: {
+					// Label: overheat Charge Beam
+					// Tooltip: ""
+				}
+
+				damageIceBeam: {
+					// Label: damage Ice Beam
+					// Tooltip: ""
+				}
+
+				overheatIceBeam: {
+					// Label: overheat Ice Beam
+					// Tooltip: ""
+				}
+
+				speedIceBeam: {
+					// Label: speed Ice Beam
+					// Tooltip: ""
+				}
+
+				damageWaveBeam: {
+					// Label: damage Wave Beam
+					// Tooltip: ""
+				}
+
+				overheatWaveBeam: {
+					// Label: overheat Wave Beam
+					// Tooltip: ""
+				}
+
+				speedWaveBeam: {
+					// Label: speed Wave Beam
+					// Tooltip: ""
+				}
+
+				damageSpazer: {
+					// Label: damage Spazer
+					// Tooltip: ""
+				}
+
+				overheatSpazer: {
+					// Label: overheat Spazer
+					// Tooltip: ""
+				}
+
+				speedSpazer: {
+					// Label: speed Spazer
+					// Tooltip: ""
+				}
+
+				damagePlasmaBeamGreen: {
+					// Label: damage Plasma Beam Green
+					// Tooltip: ""
+				}
+
+				overheatPlasmaBeamGreen: {
+					// Label: overheat Plasma Beam Green
+					// Tooltip: ""
+				}
+
+				speedPlasmaBeamGreen: {
+					// Label: speed Plasma Beam Green
+					// Tooltip: ""
+				}
+
+				damagePlasmaBeamRed: {
+					// Label: damage Plasma Beam Red
+					// Tooltip: ""
+				}
+
+				overheatPlasmaBeamRed: {
+					// Label: overheat Plasma Beam Red
+					// Tooltip: ""
+				}
+
+				speedPlasmaBeamRed: {
+					// Label: speed Plasma Beam Red
+					// Tooltip: ""
+				}
+
+				damageChargeBeamV2: {
+					// Label: damage Charge Beam V2
+					// Tooltip: ""
+				}
+
+				overheatChargeBeamV2: {
+					// Label: overheat Charge Beam V2
+					// Tooltip: ""
+				}
+
+				damageWideBeam: {
+					// Label: damage Wide Beam
+					// Tooltip: ""
+				}
+
+				overheatWideBeam: {
+					// Label: overheat Wide Beam
+					// Tooltip: ""
+				}
+
+				speedWideBeam: {
+					// Label: speed Wide Beam
+					// Tooltip: ""
+				}
+
+				damageIceBeamV2: {
+					// Label: damage Ice Beam V2
+					// Tooltip: ""
+				}
+
+				overheatIceBeamV2: {
+					// Label: overheat Ice Beam V2
+					// Tooltip: ""
+				}
+
+				speedIceBeamV2: {
+					// Label: speed Ice Beam V2
+					// Tooltip: ""
+				}
+
+				damageWaveBeamV2: {
+					// Label: damage Wave Beam V2
+					// Tooltip: ""
+				}
+
+				overheatWaveBeamV2: {
+					// Label: overheat Wave Beam V2
+					// Tooltip: ""
+				}
+
+				speedWaveBeamV2: {
+					// Label: speed Wave Beam V2
+					// Tooltip: ""
+				}
+
+				damageNovaBeam: {
+					// Label: damage Nova Beam
+					// Tooltip: ""
+				}
+
+				overheatNovaBeam: {
+					// Label: overheat Nova Beam
+					// Tooltip: ""
+				}
+
+				speedNovaBeam: {
+					// Label: speed Nova Beam
+					// Tooltip: ""
+				}
+
+				damageLuminiteBeam: {
+					// Label: damage Luminite Beam
+					// Tooltip: ""
+				}
+
+				overheatLuminiteBeam: {
+					// Label: overheat Luminite Beam
+					// Tooltip: ""
+				}
+
+				damageNebulaBeam: {
+					// Label: damage Nebula Beam
+					// Tooltip: ""
+				}
+
+				overheatNebulaBeam: {
+					// Label: overheat Nebula Beam
+					// Tooltip: ""
+				}
+
+				speedNebulaBeam: {
+					// Label: speed Nebula Beam
+					// Tooltip: ""
+				}
+
+				damageSolarBeam: {
+					// Label: damage Solar Beam
+					// Tooltip: ""
+				}
+
+				overheatSolarBeam: {
+					// Label: overheat Solar Beam
+					// Tooltip: ""
+				}
+
+				speedSolarBeam: {
+					// Label: speed Solar Beam
+					// Tooltip: ""
+				}
+
+				damageStardustBeam: {
+					// Label: damage Stardust Beam
+					// Tooltip: ""
+				}
+
+				overheatStardustBeam: {
+					// Label: overheat Stardust Beam
+					// Tooltip: ""
+				}
+
+				speedStardustBeam: {
+					// Label: speed Stardust Beam
+					// Tooltip: ""
+				}
+
+				damageVortexBeam: {
+					// Label: damage Vortex Beam
+					// Tooltip: ""
+				}
+
+				overheatVortexBeam: {
+					// Label: overheat Vortex Beam
+					// Tooltip: ""
+				}
+
+				speedVortexBeam: {
+					// Label: speed Vortex Beam
+					// Tooltip: ""
+				}
+
+				damageVoltDriver: {
+					// Label: damage Volt Driver
+					// Tooltip: ""
+				}
+
+				useTimeVoltDriver: {
+					// Label: use Time Volt Driver
+					// Tooltip: ""
+				}
+
+				damageMagMaul: {
+					// Label: damage Mag Maul
+					// Tooltip: ""
+				}
+
+				useTimeMagMaul: {
+					// Label: use Time Mag Maul
+					// Tooltip: ""
+				}
+
+				damageImperialist: {
+					// Label: damage Imperialist
+					// Tooltip: ""
+				}
+
+				useTimeImperialist: {
+					// Label: use Time Imperialist
+					// Tooltip: ""
+				}
+
+				damageJudicator: {
+					// Label: damage Judicator
+					// Tooltip: ""
+				}
+
+				useTimeJudicator: {
+					// Label: use Time Judicator
+					// Tooltip: ""
+				}
+
+				damageShockCoil: {
+					// Label: damage Shock Coil
+					// Tooltip: ""
+				}
+
+				minSpeedShockCoil: {
+					// Label: min Speed Shock Coil
+					// Tooltip: ""
+				}
+
+				maxSpeedShockCoil: {
+					// Label: max Speed Shock Coil
+					// Tooltip: ""
+				}
+
+				useTimeShockCoil: {
+					// Label: use Time Shock Coil
+					// Tooltip: ""
+				}
+
+				damageBattleHammer: {
+					// Label: damage Battle Hammer
+					// Tooltip: ""
+				}
+
+				useTimeBattleHammer: {
+					// Label: use Time Battle Hammer
+					// Tooltip: ""
+				}
+
+				damageOmegaCannon: {
+					// Label: damage Omega Cannon
+					// Tooltip: ""
+				}
+
+				useTimeOmegaCannon: {
+					// Label: use Time Omega Cannon
+					// Tooltip: ""
+				}
+
+				overheatOmegaCannon: {
+					// Label: overheat Omega Cannon
+					// Tooltip: ""
+				}
+
+				damageIceMissile: {
+					// Label: damage Ice Missile
+					// Tooltip: ""
+				}
+
+				speedIceMissile: {
+					// Label: speed Ice Missile
+					// Tooltip: ""
+				}
+
+				damageSuperMissile: {
+					// Label: damage Super Missile
+					// Tooltip: ""
+				}
+
+				speedSuperMissile: {
+					// Label: speed Super Missile
+					// Tooltip: ""
+				}
+
+				damageIceSuperMissile: {
+					// Label: damage Ice Super Missile
+					// Tooltip: ""
+				}
+
+				speedIceSuperMissile: {
+					// Label: speed Ice Super Missile
+					// Tooltip: ""
+				}
+
+				damageNebulaMissile: {
+					// Label: damage Nebula Missile
+					// Tooltip: ""
+				}
+
+				speedNebulaMissile: {
+					// Label: speed Nebula Missile
+					// Tooltip: ""
+				}
+
+				damageStardustMissile: {
+					// Label: damage Stardust Missile
+					// Tooltip: ""
+				}
+
+				speedStardustMissile: {
+					// Label: speed Stardust Missile
+					// Tooltip: ""
+				}
 			}
 
 			MConfigMain: {

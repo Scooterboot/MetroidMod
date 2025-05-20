@@ -23,6 +23,8 @@ namespace MetroidMod.Content.BeamAddons
 		/// </summary>
 		public bool bananasRotatE = false;
 
+		public int iceDustTimer = 4;
+
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
 		public override Color ShotColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
 		public override int ShotDust => 59;
@@ -45,7 +47,6 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override int[] ComboVisualsGet(string modifier)
 		{
-			MetroidMod.Instance.Logger.Info("Wait it IS running???  ||" + modifier);
 			if (modifier == "Charged" || modifier == "")
 			{
 				MetroidMod.Instance.Logger.Info("bananas........ rotat e");
@@ -60,13 +61,13 @@ namespace MetroidMod.Content.BeamAddons
 			}
 		}
 
-		public override void ShapeBehavior(MProjectile shot)
+		public override void ShapeBehavior(MProjectile mpshot)
 		{
 			//MetroidMod.Instance.Logger.Info("rotat e? " + bananasRotatE);
 			if (bananasRotatE)
 			{
 				//MetroidMod.Instance.Logger.Info("go..... g    O..........");
-				shot.Projectile.rotation += 0.2f * (float)shot.Projectile.direction;
+				mpshot.Projectile.rotation += 0.6f * (float)mpshot.Projectile.direction;
 			}
 		}
 
@@ -79,6 +80,16 @@ namespace MetroidMod.Content.BeamAddons
 				.AddIngredient(ItemID.Sapphire, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
+		}
+
+		public override void AI(MProjectile mpshot)
+		{
+			if (iceDustTimer <= 0)
+			{
+				Dust.NewDust(mpshot.Projectile.position, mpshot.Projectile.width, mpshot.Projectile.height, DustID.IceTorch, 0, 1, 0, default, 1.5f);
+				iceDustTimer = 3;
+			}
+			iceDustTimer--;
 		}
 	}
 }

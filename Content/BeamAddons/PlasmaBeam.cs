@@ -56,14 +56,14 @@ namespace MetroidMod.Content.BeamAddons
 			}
 		}
 
-		public override void ShapeBehavior(MProjectile shot)
+		public override void ShapeBehavior(MProjectile mpshot)
 		{
 			//shot.Projectile.rotation += MathHelper.Pi;
 		}
 
-		public override void OnSpawn(MProjectile shot, IEntitySource source)
+		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
 		{
-			shot.Projectile.penetrate = -1;
+			mpshot.Projectile.penetrate = -1;
 		}
 	}
 }

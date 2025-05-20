@@ -195,7 +195,7 @@ namespace MetroidMod.Content.BeamAddons
 				else if (mp.statCharge > 75 && ac.isBeam)
 				{
 					//spawn that mostly charged beam my man
-					wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity * (1.5f * (mp.statCharge / 100)), item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
+					wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (1.5f * (mp.statCharge / 100)), item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
 					MetroidMod.Instance.Logger.Info(player.name + " released the... uh... slightly-less-charged beam!!!");
 				}
 				else
@@ -203,7 +203,7 @@ namespace MetroidMod.Content.BeamAddons
 					//spawn that normal-ass beam my man
 					if (ac.isBeam)
 					{
-						wepon.SpawnBeam(player, item.GetSource_FromThis(), oPos, velocity, item.shoot, item.damage, item.knockBack);
+						wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity, item.shoot, item.damage, item.knockBack);
 						MetroidMod.Instance.Logger.Info(player.name + " didn't bother charging the beam all the way");
 					}
 					//alternatively shoot that normal-ass missile
@@ -313,6 +313,7 @@ namespace MetroidMod.Content.BeamAddons
 					{
 						mp.disableSomersault = false;
 						mp.chargeColor = ballColor;
+						MetroidMod.Instance.Logger.Info(ballColor);
 					}
 					Projectile.hide = false;
 					Projectile.friendly = false;

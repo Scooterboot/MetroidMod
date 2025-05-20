@@ -26,6 +26,8 @@ namespace MetroidMod.Content.BeamAddons
 
 
 		bool spazed = false;
+		float spazeRad = 0f;
+		float spazeTimer = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -58,62 +60,67 @@ namespace MetroidMod.Content.BeamAddons
 			}
 		}
 
-		public override void OnSpawn(MProjectile shot, IEntitySource source)
+		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
 		{
-			shot.symmetry = true;
+			mpshot.symmetry = true;
+			spazed = false;
 
-			MetroidMod.Instance.Logger.Info(shot.groupID + " " + shot.groupSize)
-;			float totalSpaze = shot.Projectile.height * shot.groupSize * 5;
-			float rot = (float)Math.Atan2((shot.Projectile.velocity.Y), (shot.Projectile.velocity.X));
-			float spazPos;
-			if (shot.groupID <= (shot.groupSize / 2))
-			{
-
-			}
-			else if (shot.groupID == ((shot.groupSize - 1) / 2) + 1 && shot.groupSize % 2 != 0)
-			{
-
-			}
-			else if (shot.groupID > (shot.groupSize / 2))
+			//MetroidMod.Instance.Logger.Info(mpshot.groupID + 1 + " " + mpshot.groupSize);
+			//float totalSpaze = mpshot.Projectile.height * mpshot.groupSize;
+			//float rot = (float)Math.Atan2((mpshot.Projectile.velocity.Y), (mpshot.Projectile.velocity.X));
+			//float spazPos;
 
 
-				shot.Projectile.position.X = shot.corePosition.X + (float)Math.Cos(rot + (Math.Sin(MathHelper.PiOver2) * shot.Projectile.direction) * (totalSpaze / shot.groupID)) * 10;
-			shot.Projectile.position.Y = shot.corePosition.Y + (float)Math.Sin(rot + (Math.Sin(MathHelper.PiOver2) * shot.Projectile.direction) * (totalSpaze / shot.groupID)) * 10;
+			//mpshot.Projectile.position.X = mpshot.corePosition.X + (float)Math.Cos(rot + (Math.Sin(MathHelper.PiOver2) * mpshot.Projectile.direction) * (totalSpaze * (mpshot.groupID  - mpshot.groupSize / 2))) * 20;
+			//mpshot.Projectile.position.Y = mpshot.corePosition.Y + (float)Math.Sin(rot + (Math.Sin(MathHelper.PiOver2) * mpshot.Projectile.direction) * (totalSpaze * (mpshot.groupID - mpshot.groupSize / 2))) * 20;
 		}
 
-		public override bool PreAI(MProjectile shot)
+		public override bool PreAI(MProjectile mpshot)
 		{
-			return base.PreAI(shot);
+			return base.PreAI(mpshot);
 		}
 
-		public override void AI(MProjectile shot)
+		public override void AI(MProjectile mpshot)
 		{
 			if (!spazed)
 			{
-				SpazeBehavior(shot);
+				SpazeBehavior(mpshot);
 			}
 		}
 
-		public void SpazeBehavior(MProjectile p)
+		public void SpazeBehavior(MProjectile mpshot)
 		{
-			//Must account for an arbitrary amount of projectiles
+			//Spazer uses a sine wave for a nice clean spazing.
+			//See wave beam for a more thorough documentation of this.
+			float increment = (MathHelper.TwoPi / 60);
+			float SPAZE_DELAY = mpshot.Projectile.height / mpshot.Projectile.velocity.Length();
+			float amplitude = mpshot.Projectile.width * mpshot.Projectile.scale * 4;
+			float frequency = 5f;
 
-			//first, check if the number of projectiles is even or odd.
-			if (p.groupSize % 2 == 0)
+			//Must account for an arbitrary amount of projectiles. Any addon could just randomly add an extra shot, after all.
+			float midpoint = (((float)mpshot.groupSize - 1) / 2) + 1; //This equation should do that automatically.
+
+			float ampMultiplier = (mpshot.groupID + 1) - midpoint; //Subtract by the midpoint to create an offset. Must add 1 to ID so values line up properly.
+																   //If odd, the middle projectile will have a multiplier of 0.
+
+			if (spazeTimer >= SPAZE_DELAY)
 			{
-				for (int i = 0; i < p.groupSize; i++)
-				{
-					if (i <= (p.groupSize / 2))
-					{
+				//Increment the radian value toward Pi over 2 and then keep it there.
+				spazeRad = Math.Min(spazeRad + increment * frequency, MathHelper.PiOver2);
+			}
+			//Delay is to make it look nicer.
+			spazeTimer = Math.Min(spazeTimer + 1, SPAZE_DELAY);
 
-					}
-				}
-			}//Total projectile number is even
-			else
+			float shift = amplitude * (float)Math.Sin(spazeRad) * ampMultiplier;
+			float rot = (float)Math.Atan2((mpshot.Projectile.velocity.Y), (mpshot.Projectile.velocity.X));
+			//Update projectile's position.
+			mpshot.Projectile.position.X = mpshot.corePosition.X + (float)Math.Cos(rot + (MathHelper.PiOver2)) * shift;
+			mpshot.Projectile.position.Y = mpshot.corePosition.Y + (float)Math.Sin(rot + (MathHelper.PiOver2)) * shift;
+
+			if (spazeRad == MathHelper.PiOver2)
 			{
-
-			}//Total projectile number is odd
-
+				spazed = true;
+			}
 
 		}
 	}

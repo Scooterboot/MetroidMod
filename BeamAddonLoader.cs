@@ -427,7 +427,7 @@ namespace MetroidMod
 				}
 
 			}
-			MetroidMod.Instance.Logger.Info(finalOutput[4]);
+			MetroidMod.Instance.Logger.Info(finalOutput[4] + 1);
 			return finalOutput;
 		}
 

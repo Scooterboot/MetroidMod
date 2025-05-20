@@ -386,23 +386,23 @@ namespace MetroidMod
 		///<summary> Gets called when your projectile spawns in world.
 		///<br/><br/>...except it's not <i>technically</i> on spawn since onboarding addons happens after the projectile spawns, so uh...
 		///<br/>Let's just say 'yes' and pretend a 'yes', because it might as well be, but acknowledge that... also... 'no'??</summary>
-		public virtual void OnSpawn(MProjectile shot, IEntitySource source) { }
+		public virtual void OnSpawn(MProjectile mpshot, IEntitySource source) { }
 		/// <inheritdoc cref="ModProjectile.PreAI"/>
-		public virtual bool PreAI(MProjectile shot) { return true; }
+		public virtual bool PreAI(MProjectile mpshot) { return true; }
 		/// <inheritdoc cref="ModProjectile.AI"/>
-		public virtual void AI(MProjectile shot) { }
+		public virtual void AI(MProjectile mpshot) { }
 		/// /// <inheritdoc cref="ModProjectile.PostAI"/>
-		public virtual void PostAI(MProjectile shot) { }
+		public virtual void PostAI(MProjectile mpshot) { }
 		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
-		public virtual void OnHitNPC(MProjectile shot, NPC target, NPC.HitInfo hit, int damageDone) { }
+		public virtual void OnHitNPC(MProjectile mpshot, NPC target, NPC.HitInfo hit, int damageDone) { }
 		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
-		public virtual void OnHitPlayer(MProjectile shot, Player target, Player.HurtInfo info) { }
+		public virtual void OnHitPlayer(MProjectile mpshot, Player target, Player.HurtInfo info) { }
 		/// <inheritdoc cref="ModProjectile.TileCollideStyle(ref int, ref int, ref bool, ref Vector2)"/>
-		public virtual bool TileCollideStyle(MProjectile shot, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
+		public virtual bool TileCollideStyle(MProjectile mpshot, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
 		/// <inheritdoc cref="ModProjectile.OnTileCollide(Vector2)"/>
-		public virtual bool OnTileCollide(MProjectile shot, Vector2 oldVelocity) { return true; }
+		public virtual bool OnTileCollide(MProjectile mpshot, Vector2 oldVelocity) { return true; }
 		/// <inheritdoc cref="ModProjectile.OnKill(int)"/>
-		public virtual void OnKill(MProjectile shot, int timeLeft) { }
+		public virtual void OnKill(MProjectile mpshot, int timeLeft) { }
 		#endregion
 
 		#endregion

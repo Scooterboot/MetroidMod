@@ -182,7 +182,12 @@
 
 -Way to make wave beam amplitude narrow in response to the length of the beam shot texture
 
+-Wave Beam has afterimages
+
 -Better, longer hitbox for Plasma Beam?
+	-also re-implement plasmadraw somehow
+
+-Increase ice beam standalone shot rotation speed, add particle effects
 
 -------- POWER SUIT SYSTEM UPGRADES --------
 

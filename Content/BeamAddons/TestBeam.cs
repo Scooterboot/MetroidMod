@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;
+using MetroidMod.Content.Projectiles;
+using Terraria.DataStructures;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -17,16 +19,20 @@ namespace MetroidMod.Content.BeamAddons
 	internal class TestBeam : ModBeamAddon
 	{
 		//If you keep important stats outside of a method, you can plug them into the tooltip!
+		//Highly recommend doing this as the system is already designed around it and it means you only have to do the tooltips once
+		//and then it just automatically updates every time you alter a value
 		#region Beam stat values
-		int bd = 50;
-		int bs = -5;
-		float bv = 0f;
-		int bo = 0;
-		float dm = 0f;
-		float sm = 0f;
-		float vm = 0f;
-		float om = 0f;
-		int cc = 0;
+		int bd = 50; //base damage
+		int bs = -5; //base speed
+		float bv = 0f; //base velocity
+		int bo = 0; //base overheat
+		float dm = 0f; //damage multiplier
+		float sm = 0f; //speed multiplier
+		float vm = 0f; //velocity multiplier
+		float om = -95f; //overheat multiplier
+		int cc = 0; //crit chance
+
+		int sa = 3; //shots added
 		#endregion
 
 		#region Asset Grabbing
@@ -86,6 +92,16 @@ namespace MetroidMod.Content.BeamAddons
 			//9 times outta 10, you're better off using multipliers instead of modifying the base, since the base is the thing the multipliers multiply off of.
 			BaseDamage = bd;
 			BaseSpeed = bs;
+			//BaseVelocity = bv;
+			//BaseOverheat = bo;
+			//Here's where those multipliers start, by the by.
+			//DamageMult = dm;
+			//SpeedMult = sm;
+			//VelocityMult = vm;
+			OverheatMult = om;
+			//CritChance = cc;
+			//Be VERY careful about adding extra shots. That gets real busted real fast.
+			AddShots = sa;
 		}
 
 		//This is the part where you set the values of the addon's item form.
@@ -98,6 +114,7 @@ namespace MetroidMod.Content.BeamAddons
 			item.rare = ItemRarityID.Cyan;
 		}
 
+		#region Addon Combos
 		public override string SetStaticCombos(Item[] addons)
 		{
 			//The following is a really basic check for a specific installed addon.
@@ -148,7 +165,12 @@ namespace MetroidMod.Content.BeamAddons
 					return [0, -1];
 			}
 		}
+		#endregion
 		//If you want your addon to do cool shit, you gotta whip up a projectile behavior modifier.
 		//It's not REQUIRED to have one of these for the addon to be able to function, without anything in these areas it just won't let the beam do anything new on its own
+		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
+		{
+			mpshot.symmetry = true;
+		}
 	}
 }
