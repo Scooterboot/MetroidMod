@@ -110,7 +110,7 @@ Mods: {
 			"Boost Ball.DisplayName": Boost  Ball
 			"Power Bomb.DisplayName": Power  Bomb
 			"Show Visor UI.DisplayName": Show  Visor  UI
-			"Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
+			"Morph Ball Bomb.DisplayName": Morph  Ball  Bomb / Swap
 			"Switch Interface.DisplayName": Switch  Interface
 			# I'm gonna assume there's a reason that these are all double-spaced and leave them like this     -Z
 			HyperMode.DisplayName: Hyper Mode
@@ -477,7 +477,7 @@ Mods: {
 					'''
 					Can be enhanced with addons
 					Select this item in your hotbar to access the Arm Cannon Interface in your inventory
-					Press the bomb keybind to swap between missile launcher and powerbeam
+					Press the swap keybind to swap between missile launcher and powerbeam
 					'''
 			}
 
