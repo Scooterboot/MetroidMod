@@ -144,7 +144,7 @@ namespace MetroidMod.Content.Projectiles
 				float kbResist = 0.25f + target.knockBackResist;
 				target.velocity = new Vector2(8 * -hitDir, -4) * kbResist;
 			}
-			else if (!player.immune && target.life > 0)
+			else if (!player.immune && target.life > 0 && player.GetModPlayer<MPlayer>().SMoveEffect == 0)
 			{
 				player.velocity = new Vector2(12 * hitDir, -4 * player.gravDir);
 				SoundEngine.PlaySound(Sounds.Suit.EnergyHit.WithPitchOffset(0.45f).WithVolumeScale(0.6f), player.Center);
