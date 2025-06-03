@@ -108,11 +108,12 @@ Mods: {
 		Keybinds: {
 			// "Spider Ball.DisplayName": Spider Ball
 			// "Boost Ball.DisplayName": Boost Ball
-			// "Power Bomb.DisplayName": Power Bomb / Swap
+			// "Power Bomb.DisplayName": Power Bomb
 			// "Show Visor UI.DisplayName": Show Visor UI
 			// "Morph Ball Bomb.DisplayName": Morph Ball Bomb
 			// "Switch Interface.DisplayName": Switch Interface
 			// HyperMode.DisplayName: Hyper Mode
+			// Swap.DisplayName: Arm Cannon Swap
 			// "Flash Shift.DisplayName": Flash Shift
 		}
 
@@ -476,7 +477,7 @@ Mods: {
 					'''
 					Can be enhanced with addons
 					Select this item in your hotbar to access the Arm Cannon Interface in your inventory
-					Press the swap keybind to swap between missile launcher and powerbeam
+					Press the Arm Cannon Swap keybind to swap between missile launcher and powerbeam
 					''' */
 			}
 

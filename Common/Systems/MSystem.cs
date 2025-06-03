@@ -73,6 +73,7 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind SwitchKey;
 		internal static ModKeybind HyperMode;
 		internal static ModKeybind FlashShiftKey;
+		internal static ModKeybind SwapKey;
 
 		public static bool PhazonSpawn;
 
@@ -82,6 +83,7 @@ namespace MetroidMod.Common.Systems
 			SpiderBallKey = KeybindLoader.RegisterKeybind(Mod, "Spider Ball", "X");
 			BoostBallKey = KeybindLoader.RegisterKeybind(Mod, "Boost Ball", "F");
 			PowerBombKey = KeybindLoader.RegisterKeybind(Mod, "Power Bomb", "Z");
+			SwapKey = KeybindLoader.RegisterKeybind(Mod, "Swap", "Z");
 			SwitchKey = KeybindLoader.RegisterKeybind(Mod, "Switch Interface", "G");
 			VisorUIKey = KeybindLoader.RegisterKeybind(Mod, "Show Visor UI", "V");
 			HyperMode = KeybindLoader.RegisterKeybind(Mod, "HyperMode", "C");
