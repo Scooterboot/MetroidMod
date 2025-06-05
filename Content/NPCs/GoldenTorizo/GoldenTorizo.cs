@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,12 +11,16 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace MetroidMod.Content.NPCs.GoldenTorizo
 {
 	[AutoloadBossHead]
 	public class GoldenTorizo : ModNPC
 	{
+		private readonly bool expert = Main.expertMode;
+		private readonly bool master = Main.masterMode;
+		private readonly bool legend = Main.getGoodWorld;
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/GoldenTorizo/GoldenTorizo_Head_Boss";
 		public override string Texture => Mod.Name + "/Content/NPCs/GoldenTorizo/GoldenTorizoBody";
 
@@ -67,7 +72,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		{
 			if (modifiers.DamageType == ModContent.GetContent<DamageClasses.HunterDamageClass>())
 			{
-				modifiers.FinalDamage *= 0.1f;
+					modifiers.FinalDamage *= 0.1f;
 			}
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -99,6 +104,14 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		public override void OnKill()
 		{
 			MSystem.bossesDown |= MetroidBossDown.downedGoldenTorizo;
+			if (legend)
+			{
+				MSystem.bossesDown |= MetroidBossDown.downedTorizo;
+				if (!NPC.AnyNPCs(ModContent.NPCType<Town.ChozoGhost>()))
+				{
+					NPC.NewNPC(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Town.ChozoGhost>());
+				}
+			}
 		}
 		public override bool? CanBeHitByItem(Player player, Item item) => false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
@@ -664,6 +677,39 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 
 		public override void AI()
 		{
+
+			for (int i = 0; i < Main.maxProjectiles; i++)
+			{
+				if (Main.projectile[i].active && Main.projectile[i].friendly && Main.projectile[i].damage > 0)
+				{
+					Projectile P = Main.projectile[i];
+					Rectangle projRect = P.Hitbox;
+					if (projRect.Intersects(NPC.Hitbox) || projRect.Intersects(Head.Hitbox) || projRect.Intersects(Body.Hitbox) || projRect.Intersects(LHand.Hitbox) || projRect.Intersects(RHand.Hitbox))
+					{
+						if (!Main.projectile[i].hostile && (P.type == ModContent.ProjectileType<Projectiles.missiles.SuperMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.IceSuperMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.NebulaMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.StardustMissileShot>()))
+						{
+							// Set ownership
+							Main.projectile[i].hostile = true;
+							Main.projectile[i].friendly = false;
+							Main.projectile[i].owner = Main.myPlayer;
+							// Turn around
+							Main.projectile[i].velocity *= -1f;
+
+							// Flip sprite
+							if (Main.projectile[i].Center.X > NPC.Center.X * 0.5f)
+							{
+								Main.projectile[i].direction = 1;
+								Main.projectile[i].spriteDirection = 1;
+							}
+							else
+							{
+								Main.projectile[i].direction = -1;
+								Main.projectile[i].spriteDirection = -1;
+							}
+						}
+					}
+				}
+			};
 			int numH = 117;//164;
 
 			if (Main.player[NPC.target].dead || Math.Abs(NPC.position.X - Main.player[NPC.target].position.X) > 2500f || Math.Abs(NPC.position.Y - Main.player[NPC.target].position.Y) > 2500f)
@@ -795,7 +841,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 				{
 					Player player = Main.player[NPC.target];
 
-					float speed = 0.2f;//0.15f;
+					float speed = !legend ? (expert ? 0.20f : master ? 0.25f : 0.15f) : 0.30f; //Dr zoooom
 					/*if(Head == null || !Head.active)
 					{
 						speed *= 1.3f;
@@ -847,7 +893,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 					}
 
 					// Jump
-					if (Math.Abs(player.Center.X - NPC.Center.X) < 500 && player.Center.Y < NPC.Center.Y && (player.velocity.Y == 0f || NPC.ai[2] >= 1) && NPC.ai[1] == 0f)
+					if (Math.Abs(player.Center.X - NPC.Center.X) < 500 && player.Center.Y < NPC.Center.Y /*&& (player.velocity.Y == 0f || NPC.ai[2] >= 1)*/ && NPC.ai[1] == 0f)
 					{
 						NPC.ai[2]++;
 					}
@@ -859,7 +905,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 						}
 					}
 
-					if (NPC.ai[2] > 60)
+					if (!legend ? NPC.ai[2] > 60 : NPC.ai[2] > 20)
 					{
 						NPC.TargetClosest(true);
 						NPC.netUpdate = true;
@@ -969,7 +1015,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 					else
 					{
 						NPC.ai[3]++;
-						if (NPC.ai[3] > 200)
+						if (!legend ? NPC.ai[3] > 300 : NPC.ai[3] > 100)
 						{
 							NPC.netUpdate = true;
 
@@ -1069,7 +1115,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 							NPC.velocity.X = 0f;
 						}
 
-						anim_SpinJumpTransition += 0.085f;//0.075f;
+						anim_SpinJumpTransition += !legend? 0.075f : 0.25f;
 						if (anim_SpinJumpTransition >= 1f)
 						{
 							anim_SpinJumpTransition = 1f;
@@ -1112,7 +1158,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 
 						if (anim_SpinJump < 3f)
 						{
-							anim_SpinJump = Math.Min(anim_SpinJump + 0.25f, 3f);
+							anim_SpinJump = Math.Min(anim_SpinJump += !legend ? 0.25f : 0.75f, 3f);
 						}
 						else
 						{
@@ -1158,7 +1204,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 						NPC.velocity.X = 0f;
 						if (anim_SpinJump > 2f)
 						{
-							anim_SpinJump -= 0.1f;
+							anim_SpinJump -= !legend ? 0.1f : 0.3f;
 						}
 						anim_SpinJump = Math.Max(anim_SpinJump - 0.2f, 1f);
 						if (anim_SpinJump <= 1f)
@@ -1221,14 +1267,14 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 						{
 							anim_BombTransition = 1f;
 							//anim_Bomb = Math.Min(anim_Bomb+0.075f,4f);
-							anim_Bomb = Math.Min(anim_Bomb + 0.1f, 4f);
+							anim_Bomb = Math.Min(anim_Bomb += !legend ? 0.075f : 0.1f, 4f);
 
 							if (HeadFrame < 8)
 							{
-								HeadFrameCounter++;
+								HeadFrameCounter += !legend ? 1 : 2;
 								if (HeadFrameCounter > 7)
 								{
-									HeadFrame++;
+									HeadFrame += !legend ? 1 : 2;
 									HeadFrameCounter = 0;
 								}
 							}
@@ -1237,7 +1283,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 								HeadFrame = 8;
 								HeadFrameCounter = 0;
 
-								NPC.ai[2]++;
+								NPC.ai[2] += !legend ? 1f : 2.5f;
 								if (NPC.ai[2] > 5)
 								{
 									NPC.ai[1] = 1;
@@ -1252,7 +1298,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 						if ((NPC.ai[2] == 10 || NPC.ai[2] == 20 || NPC.ai[2] == 30) && headFlag)
 						{
 							var entitySource = NPC.GetSource_FromAI();
-							for (int i = 0; i < 3; i++)
+							for (int i = 0; i < (!legend ? (expert ? 4 : master ? 5 : 3) : 6); i++) //DR more bombs whee
 							{
 								Vector2 bombPos = HeadPos[0] + new Vector2(32f * NPC.direction, -6f);
 								Vector2 bombVel = new Vector2(3f * NPC.direction, -3f);
@@ -1270,7 +1316,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 						}
 
 						NPC.ai[2] += 2f;
-						if (NPC.ai[2] > 60 || !headFlag)
+						if (!legend ? NPC.ai[2] > 60 : NPC.ai[2] > 20 || !headFlag)
 						{
 							NPC.ai[1] = 2;
 							NPC.ai[2] = 0;
@@ -1280,10 +1326,10 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 					if (NPC.ai[1] == 2)
 					{
 						//anim_Bomb = Math.Max(anim_Bomb-0.075f,1f);
-						anim_Bomb = Math.Max(anim_Bomb - 0.1f, 1f);
+						anim_Bomb = Math.Max(anim_Bomb -= !legend ? 0.075f : 0.250f, 1f);
 						if (HeadFrame > 4)
 						{
-							HeadFrameCounter++;
+							HeadFrameCounter += !legend ? 1 : 3;
 							if (HeadFrameCounter > 7)
 							{
 								HeadFrame--;
@@ -1292,7 +1338,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 						}
 						else if (anim_BombTransition > 0f)
 						{
-							anim_BombTransition -= 0.075f;
+							anim_BombTransition -= !legend ? 0.075f : 0.250f;
 							HeadFrame = 3;
 						}
 						else
