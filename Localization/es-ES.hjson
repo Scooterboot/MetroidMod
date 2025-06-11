@@ -440,7 +440,7 @@ Mods: {
 					'''
 					{$CommonItemTooltip.PercentIncreasedHunterDamage}
 					Emits light and grants improved night vision
-					30% increased underwater breathing
+					{$CommonItemTooltip.IncreasedBreathMeter@1}
 					''' */
 			}
 
