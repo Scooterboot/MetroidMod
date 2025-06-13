@@ -2116,7 +2116,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void HoldItem(Player player)
 		{
 			// Running this code for all players should suffice to sync the feature
-			if (MSystem.BombKey.JustPressed && !player.mount.Active)
+			if (MSystem.SwapKey.JustPressed && !player.mount.Active)
 			{
 				Item.TryGetGlobalItem(out MGlobalItem mi);
 				mi.isBeam = !mi.isBeam;

@@ -13,43 +13,49 @@ namespace MetroidMod.Content.Elevators
 
 		public override void Load()
 		{
-			IL_Main.DoDraw += il =>
+			//jopojelly said in a thread this SHOULD help prevent the cellref crash, but it doesn't 100% prevent it :(
+			//It seems more stable but the fact that it's inconsistent drives me insane
+			//Likely gonna have to wait until they fix MonoMod itself
+			Main.QueueMainThreadAction(() =>
 			{
-				ILCursor c = new(il);
-				c.GotoNext(MoveType.After, i => i.MatchCall(GetPrivateMethod<Main>("RefreshPlayerDrawOrder")));
-				c.EmitLdarg0();
-				c.EmitDelegate((Main main) =>
+				IL_Main.DoDraw += il =>
 				{
-					_elevatingPlayersDrawBehindBlocks.Clear();
-					MovePlayersToElevatingList((List<Player>)GetPrivateField(main, "_playersThatDrawBehindNPCs"));
-					MovePlayersToElevatingList((List<Player>)GetPrivateField(main, "_playersThatDrawAfterProjectiles"));
-				});
-			};
-
-			IL_Main.DoDraw_WallsTilesNPCs += il =>
-			{
-				ILCursor c = new(il);
-				c.GotoNext(MoveType.Before, i => i.MatchCall(GetPrivateMethod<Main>("DoDraw_Tiles_Solid")));
-				c.EmitDelegate(() =>
-				{
-					ElevatorPlatformDrawing epd = ModContent.GetInstance<ElevatorPlatformDrawing>();
-					
-					SpriteBatch sb = Main.spriteBatch;
-
-					sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-
-					epd.DrawIdlePlatforms();
-					foreach (Player player in _elevatingPlayersDrawBehindBlocks)
+					ILCursor c = new(il);
+					c.GotoNext(MoveType.After, i => i.MatchCall(GetPrivateMethod<Main>("RefreshPlayerDrawOrder")));
+					c.EmitLdarg0();
+					c.EmitDelegate((Main main) =>
 					{
-						epd.DrawPlayerPlatform(player);
-					}
+						_elevatingPlayersDrawBehindBlocks.Clear();
+						MovePlayersToElevatingList((List<Player>)GetPrivateField(main, "_playersThatDrawBehindNPCs"));
+						MovePlayersToElevatingList((List<Player>)GetPrivateField(main, "_playersThatDrawAfterProjectiles"));
+					});
+				};
 
-					sb.End();
+				IL_Main.DoDraw_WallsTilesNPCs += il =>
+				{
+					ILCursor c = new(il);
+					c.GotoNext(MoveType.Before, i => i.MatchCall(GetPrivateMethod<Main>("DoDraw_Tiles_Solid")));
+					c.EmitDelegate(() =>
+					{
+						ElevatorPlatformDrawing epd = ModContent.GetInstance<ElevatorPlatformDrawing>();
 
-					// A call is missing here for "Potion of Return", is it too niche to include it yet?
-					Main.PlayerRenderer.DrawPlayers(Main.Camera, _elevatingPlayersDrawBehindBlocks);
-				});
-			};
+						SpriteBatch sb = Main.spriteBatch;
+
+						sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+						epd.DrawIdlePlatforms();
+						foreach (Player player in _elevatingPlayersDrawBehindBlocks)
+						{
+							epd.DrawPlayerPlatform(player);
+						}
+
+						sb.End();
+
+						// A call is missing here for "Potion of Return", is it too niche to include it yet?
+						Main.PlayerRenderer.DrawPlayers(Main.Camera, _elevatingPlayersDrawBehindBlocks);
+					});
+				};
+			});
 		}
 
 		private void MovePlayersToElevatingList(List<Player> players)

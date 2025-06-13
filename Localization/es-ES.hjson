@@ -106,15 +106,15 @@ Mods: {
 		}
 
 		Keybinds: {
-			// "Spider Ball.DisplayName": Spider  Ball
-			// "Boost Ball.DisplayName": Boost  Ball
-			// "Power Bomb.DisplayName": Power  Bomb
-			// "Show Visor UI.DisplayName": Show  Visor  UI
-			// "Morph Ball Bomb.DisplayName": Morph  Ball  Bomb
-			// "Switch Interface.DisplayName": Switch  Interface
-			# I'm gonna assume there's a reason that these are all double-spaced and leave them like this     -Z
+			// "Spider Ball.DisplayName": Spider Ball
+			// "Boost Ball.DisplayName": Boost Ball
+			// "Power Bomb.DisplayName": Power Bomb
+			// "Show Visor UI.DisplayName": Show Visor UI
+			// "Morph Ball Bomb.DisplayName": Morph Ball Bomb
+			// "Switch Interface.DisplayName": Switch Interface
 			// HyperMode.DisplayName: Hyper Mode
-			// "Flash Shift.DisplayName": Flash  Shift
+			// Swap.DisplayName: Arm Cannon Swap
+			// "Flash Shift.DisplayName": Flash Shift
 		}
 
 		SuitAddonName: {
@@ -477,7 +477,7 @@ Mods: {
 					'''
 					Can be enhanced with addons
 					Select this item in your hotbar to access the Arm Cannon Interface in your inventory
-					Press the bomb keybind to swap between missile launcher and powerbeam
+					Press the Arm Cannon Swap keybind to swap between missile launcher and powerbeam
 					''' */
 			}
 
@@ -3750,6 +3750,11 @@ Mods: {
 				// Tooltip: ""
 				// DisplayName: Grapple Lasso Glove
 			}
+
+			ShaderTestItem: {
+				// DisplayName: Shader Test Item
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4257,6 +4262,7 @@ Mods: {
 			#Misc./Unsorted
 			// PhazonExplosion.DisplayName: Phazon Explosion
 			// CrucibleProj.DisplayName: Wraithfire Energy
+			// ShaderTestProj.DisplayName: Shader Test Proj
 		}
 
 		Configs: {

@@ -96,6 +96,8 @@ namespace MetroidMod
 				Asset<Effect> projShaderRef = this.Assets.Request<Effect>("Assets/Effects/ProjectileShaders");
 
 				GameShaders.Misc["MetroidModLaserBeam"] = new MiscShaderData(projShaderRef, "LaserShaderPass");
+				GameShaders.Misc["MetroidModDualTint"] = new MiscShaderData(projShaderRef, "DualTintShaderPass");
+				GameShaders.Misc["MetroidModPaletteShader"] = new MiscShaderData(projShaderRef, "PaletteShaderPass");
 			}
 
 			/*if (Main.netMode != NetmodeID.Server)

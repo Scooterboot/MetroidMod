@@ -16,10 +16,9 @@ namespace MetroidMod.Content.NPCs.Torizo
 	[AutoloadBossHead]
 	public class Torizo : ModNPC
 	{
-		private bool expert = Main.expertMode;
-		private bool master = Main.masterMode;
-		private bool legend = Main.getGoodWorld;
-		private bool classic = !Main.expertMode && !Main.masterMode && !Main.getGoodWorld;
+		private readonly bool expert = Main.expertMode;
+		private readonly bool master = Main.masterMode;
+		private readonly bool legend = Main.getGoodWorld;
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_Head_Boss";
 		public override string Texture => Mod.Name + "/Content/NPCs/Torizo/TorizoBody";
 		public string BestTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_BossLog";
