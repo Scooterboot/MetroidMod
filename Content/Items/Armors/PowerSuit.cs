@@ -354,8 +354,8 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
 			player.nightVision = true;
-			MPlayer mp = player.GetModPlayer<MPlayer>();
 			player.breathEffectiveness += extraBreath / 100;
+			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.visorGlow = true;
 			mp.IsPowerSuitHelmet = true;
 		}
