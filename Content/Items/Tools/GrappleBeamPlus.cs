@@ -31,17 +31,15 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override void AddRecipes()
 		{
-			/*CreateRecipe(1)
+			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(15)
 				.AddIngredient<Miscellaneous.EnergyShard>(3)
 				.AddTile(TileID.Anvils)
+				.AddCondition(Condition.InGraveyard)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod); 
-			recipe.AddIngredient(null, "ChoziteBar", 15);
-			recipe.AddIngredient(null, "EnergyShard", 3);
-			recipe.AddTile(TileID.Anvils);   
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			CreateRecipe(1)
+				.AddIngredient<Tiles.GrappleBeamPlusPlaceable>(1)
+				.Register();
 		}
 	}
 }

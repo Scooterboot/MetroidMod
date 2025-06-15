@@ -90,47 +90,50 @@ namespace MetroidMod.Common
 					float rotate = 0f;
 					float posX = 0f;
 					float posY = 0f;
-					if (frame == 0)
+					switch (frame)
 					{
-						rotate = 1.3625f;
-						posX = -7f;
-						posY = 13f;
-					}
-					else if (frame == 5)
-					{
-						rotate = -1.75f;
-						posX = -8f;
-						posY = -12f;
-					}
-					else if (frame == 6 || frame == 18 || frame == 19 || (frame >= 11 && frame <= 13))
-					{
-						posX = 0f;
-						posY = 5f;
-					}
-					else if (frame >= 7 && frame <= 9)
-					{
-						posX = -2f;
-						posY = 3f;
-					}
-					else if (frame == 10)
-					{
-						posX = -2f;
-						posY = 5f;
-					}
-					else if (frame == 14)
-					{
-						posX = 2f;
-						posY = 3f;
-					}
-					else if (frame == 15 || frame == 16)
-					{
-						posX = 4f;
-						posY = 3f;
-					}
-					else if (frame == 17)
-					{
-						posX = 2f;
-						posY = 5f;
+						case 0:
+							rotate = 1.3625f;
+							posX = -7f;
+							posY = 11f;
+							break;
+
+						case 5:
+							rotate = -1.75f;
+							posX = -8f;
+							posY = -13f;
+							break;
+
+						case 6 or 18 or 19 or (>= 11 and <= 13):
+							posX = 0f;
+							posY = 5f;
+							break;
+
+						case >= 7 and <= 9:
+							posX = -2f;
+							posY = 3f;
+							break;
+
+						case 10:
+							posX = -2f;
+							posY = 5f;
+							break;
+
+						case 14:
+							posX = 2f;
+							posY = 3f;
+							break;
+
+						case 15 or 16:
+							posX = 4f;
+							posY = 3f;
+							break;
+
+						case 17:
+							posX = 2f;
+							posY = 5f;
+							break;
+
 					}
 					rot = rotate * P.direction * P.gravDir;
 					pos.X += ((float)P.bodyFrame.Width * 0.5f) + posX * P.direction;

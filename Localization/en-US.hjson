@@ -329,6 +329,8 @@ Mods: {
 			#Furniture
 			SaveStation.MapEntry: Save Station
 			EnergyStation.MapEntry: Energy Station
+			TopElevatorStation.MapEntry: Elevator
+			ElevatorStation.MapEntry: Elevator
 			MissileStation.MapEntry: Missile Station
 			NovaWorkTableTile.MapEntry: Nova Work Table
 			ChozoStatue.MapEntry: Chozo Statue
@@ -2254,6 +2256,24 @@ Mods: {
 				Tooltip: Blast with a Power Bomb to activate
 			}
 
+			ElevatorStationItem: {
+				DisplayName: Elevator Base
+				Tooltip:
+					'''
+					Press UP to use
+					Must have another elevator station directly above
+					'''
+			}
+
+			TopElevatorStationItem: {
+				DisplayName: Elevator Station
+				Tooltip:
+					'''
+					Press UP or DOWN to use
+					Must have another elevator station directly above or below
+					'''
+			}
+
 			MorphBallPlaceable: {
 				DisplayName: Morph Ball (Placeable)
 				Tooltip: ""
@@ -2346,7 +2366,7 @@ Mods: {
 				Tooltip:
 					'''
 					Can be placed over a standard tile
-					Deactivates the tile when hit
+					Deactivates the tile when hit with any projectile
 					Can be removed with Chozite Cutters
 					'''
 			}
@@ -2416,7 +2436,7 @@ Mods: {
 				Tooltip:
 					'''
 					Can be placed over a standard tile
-					Deactivates the tile when hit with the Speed Booster
+					Deactivates the tile when run into with the Speed Booster
 					Can be removed with Chozite Cutters
 					'''
 			}
@@ -3731,18 +3751,8 @@ Mods: {
 				Tooltip: ""
 			}
 
-			ElevatorStationItem: {
-				DisplayName: Elevator Station
-				Tooltip: The classic elevator of the 80's
-			}
-
-			TopElevatorStationItem: {
-				DisplayName: Top Elevator Station
-				Tooltip: The classic elevator of the 80's
-			}
-
 			GrappleBeamPlusPlaceable: {
-				DisplayName: Grapple Beam Plus Placeable
+				DisplayName: Grapple Beam Lite (Placeable)
 				Tooltip: ""
 			}
 

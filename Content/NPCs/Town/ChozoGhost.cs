@@ -6,6 +6,7 @@ using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Items.Miscellaneous;
 using MetroidMod.Content.Items.Tiles;
+using MetroidMod.Content.Items.Tiles.Destroyable;
 using MetroidMod.Content.Items.Tools;
 using MetroidMod.Content.Items.Vanity;
 using MetroidMod.Content.Items.Weapons;
@@ -212,6 +213,7 @@ namespace MetroidMod.Content.NPCs.Town
 			Condition Nightmare = new Condition("Conditions.downedNightmare", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare));
 			Condition Gold = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo));
 			Condition Phazon = new Condition("Conditions.spawnedPhazon", () => MSystem.PhazonSpawn != true);
+			npcShop.Add<FakeBlock>(Condition.NpcIsPresent(NPCID.Mechanic));
 			//npcShop.Add<PowerBeam>(Condition.Hardmode);
 			npcShop.Add<ArmCannon>(Condition.Hardmode);
 			//npcShop.Add<MissileLauncher>(Condition.Hardmode);

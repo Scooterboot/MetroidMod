@@ -19,6 +19,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.DefaultToStaff(ModContent.ProjectileType<Projectiles.OrbBomb>(), 5, 50, 12);
 			Item.width = 50;
 			Item.height = 50;
+			Item.value = Item.sellPrice(0, 0, 60, 0);
 			//Item.useTime = 18;
 			//Item.useAnimation = 12;
 			/*Item.useStyle = ItemUseStyleID.Shoot;
