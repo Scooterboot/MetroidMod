@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using MetroidMod.Content.Items.Miscellaneous;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Elevators
@@ -16,9 +17,8 @@ namespace MetroidMod.Content.Elevators
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ItemID.Teleporter, 1)
-				.AddIngredient(ItemID.HellstoneBar, 12)
-				.AddIngredient(ItemID.SunplateBlock, 10)
+				.AddIngredient<ChoziteBar>(8)
+				.AddIngredient(ItemID.Wire, 6)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

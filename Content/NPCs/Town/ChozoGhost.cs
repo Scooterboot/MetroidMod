@@ -213,6 +213,8 @@ namespace MetroidMod.Content.NPCs.Town
 			Condition Nightmare = new Condition("Conditions.downedNightmare", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare));
 			Condition Gold = new Condition("Conditions.downedGoldenTorizo", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo));
 			Condition Phazon = new Condition("Conditions.spawnedPhazon", () => MSystem.PhazonSpawn != true);
+			npcShop.Add<ChoziteWrench>(Condition.NpcIsPresent(NPCID.Mechanic));
+			npcShop.Add<ChoziteCutter>(Condition.NpcIsPresent(NPCID.Mechanic));
 			npcShop.Add<FakeBlock>(Condition.NpcIsPresent(NPCID.Mechanic));
 			//npcShop.Add<PowerBeam>(Condition.Hardmode);
 			npcShop.Add<ArmCannon>(Condition.Hardmode);

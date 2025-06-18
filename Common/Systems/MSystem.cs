@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.Players;
@@ -585,7 +586,12 @@ namespace MetroidMod.Common.Systems
 				}));
 				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions and Energy Tanks", delegate (GenerationProgress progress, GameConfiguration configuration) {
 					progress.Message = "Placing Missile Expansions and EnergyTanks";
-					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
+
+					int numTanks = 0;
+					//Number of tanks is based on world size
+					//The equation is multiplying the total area to decide the amount
+					//90 on small, 207 on Medium, 362 on Large
+					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 18E-06); i++) 
 					{
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
 						bool flag = false;
@@ -594,6 +600,7 @@ namespace MetroidMod.Common.Systems
 						{
 							if (AddExpansion(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY - 100)))
 							{
+								numTanks++;
 								flag = true;
 							}
 							else
@@ -605,8 +612,9 @@ namespace MetroidMod.Common.Systems
 								}
 							}
 						}
-
 					}
+					MetroidMod.Instance.Logger.Info("Generated " + numTanks + " tanks");
+
 				}));
 
 				tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));

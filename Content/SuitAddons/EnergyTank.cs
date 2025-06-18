@@ -27,7 +27,7 @@ namespace MetroidMod.Content.SuitAddons
 			// Tooltip.SetDefault("Grants the user an extra tank of energy.");
 			ItemNameLiteral = true;
 			SacrificeTotal = 14;
-			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<UAExpansion>();
+			//ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<MissileExpansion>();
 			AddonSlot = SuitAddonSlotID.Tanks_Energy;
 			TileID.Sets.FriendlyFairyCanLureTo[TileType] = true;
 		}
@@ -36,7 +36,7 @@ namespace MetroidMod.Content.SuitAddons
 			item.width = 16;
 			item.height = 11;
 			item.maxStack = 14;
-			item.value = Item.buyPrice(0, 0, 10, 0);
+			item.value = Item.buyPrice(0, 10, 0, 0);
 			item.rare = ItemRarityID.Green;
 		}
 		public override void AddRecipes()

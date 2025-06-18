@@ -35,6 +35,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useStyle = 1;
 			Item.rare = 1;
 			Item.tileBoost = 20;
+			Item.value = Item.buyPrice(0, 2, 50);
 		}
 
 		// Netsyncing ?

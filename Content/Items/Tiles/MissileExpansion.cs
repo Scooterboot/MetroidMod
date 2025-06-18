@@ -1,4 +1,5 @@
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Tiles.ItemTile;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,6 +15,7 @@ namespace MetroidMod.Content.Items.Tiles
 				"Increase maximum Missiles by 5 with each expansion slotted in\n" +
 				"Stack it up to 50 expansions for +250 maximum Missiles"); */
 
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<UAExpansion>();
 			Item.ResearchUnlockCount = 50;
 		}
 

@@ -30,6 +30,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.rare = ItemRarityID.Blue;
 			Item.tileBoost = 20;
+			Item.value = Item.buyPrice(0, 2, 50);
 		}
 
 		public override bool? UseItem(Player player)
