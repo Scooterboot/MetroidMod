@@ -112,6 +112,8 @@ namespace MetroidMod
 			if (ModTile == null) { throw new Exception("WTF happened here? SuitAddonTile is null!"); }
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
+			ItemType = ModItem.Type; // new
+			TileType = ModTile.Type; // new
 			if (IsArmor && Main.netMode != NetmodeID.Server)
 			{
 				EquipLoader.AddEquipTexture(Mod, ArmorTextureHead, EquipType.Head, name: Name);
