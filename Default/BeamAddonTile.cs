@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ObjectData;
 using Terraria.Enums;
 using Terraria;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MetroidMod.Default
 {
@@ -43,6 +44,11 @@ namespace MetroidMod.Default
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 			TileID.Sets.DisableSmartCursor[Type] = true;
+		}
+
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+		{
+			modBeamAddon.PostDrawTile(i, j, spriteBatch);
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;

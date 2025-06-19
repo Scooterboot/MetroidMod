@@ -58,6 +58,16 @@ namespace MetroidMod.Default
 				player.cursorItemIconID = Type;
 			}
 		}
+		
+		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			modBeamAddon.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+		}
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+		{
+			modBeamAddon.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
+		}
 
 		//You need the next two methods in here or else it will just NOT WORK
 		//And it'll take ages to figure out the problem

@@ -8,14 +8,12 @@ using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
-using rail;
 using System;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static MetroidMod.Sounds;
+using Terraria.Graphics.Shaders;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -25,7 +23,9 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
 
 		#region Projectile visuals
-		public override Color ShotColor => new(248, 248, 110); //This should hopefully only be for light color in the future, assuming I make shaders
+		public override Color PrimaryColor => new(248, 248, 110); //This should hopefully only be for light color in the future, assuming I make shaders
+
+		public override Color SecondaryColor => MetroidMod.powSecondaryColor;
 		public override int ShotDust => 64;
 
 		public override string ShotSound => $"{Mod.Name}/Assets/Sounds/ArmCannon/Shot";
@@ -99,9 +99,13 @@ namespace MetroidMod.Content.BeamAddons
 			//Get all the relevant data about the player first.
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			Item item = Main.LocalPlayer.inventory[mp.selectedItem]; //Grab the Arm Cannon from the player's selected item. A little worried this could break?
-			MGlobalItem ac = item.GetGlobalItem<MGlobalItem>();
 			ArmCannon wepon = (ArmCannon)item.ModItem; //john freeman then looked on the ground and found wepon so he pickd it up and fired fast at zombie goasts in front of a house
-			Color ballColor = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[1]]).ShotColor;
+			if (wepon == null) { return; } //I stg I have to have one of these for every goddamn step of conversion just to make sure it goes through properly
+			MGlobalItem ac = item.GetGlobalItem<MGlobalItem>();
+			Color chargioColor = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[1]]).PrimaryColor;
+			Color chargioColor2 = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[1]]).SecondaryColor;
+			float chargioBrightness = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[1]]).CoreBrightness;
+			float chargioSaturation = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[1]]).CoreSaturation;
 			ModBeamAddon soundSource = BeamAddonLoader.GetAddon(wepon.BeamAddonAccess[wepon.VisualDinners[(wepon.VisualDinners[3] == 1) ? 1 : 0]]);
 			//there's a tiny part of me that wants it to not hardcodedly check for an arm cannon but that's probably dumb so
 
@@ -135,7 +139,10 @@ namespace MetroidMod.Content.BeamAddons
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;
 							chargio.sourceAddon = this;
-							chargio.ballColor = ballColor;
+							chargio.ballColor = chargioColor;
+							chargio.ballColor2 = chargioColor2;
+							chargio.coreBrightness = chargioBrightness;
+							chargio.coreSaturation = chargioSaturation;
 							MetroidMod.Instance.Logger.Info(item);
 							//play charge noise
 							break;
@@ -243,6 +250,12 @@ namespace MetroidMod.Content.BeamAddons
 		public string MaxChargeSound => $"{Mod.Name}/Assets/Sounds/ArmCannon/ChargeMax";
 
 		public Color ballColor = MetroidMod.powColor;
+
+		public Color ballColor2 = MetroidMod.powSecondaryColor;
+
+		public float coreBrightness = 1f;
+
+		public float coreSaturation = 0f;
 
 		public Item sourceItem;
 
@@ -400,7 +413,27 @@ namespace MetroidMod.Content.BeamAddons
 			Texture2D ballTex = ModContent.Request<Texture2D>(Texture).Value;
 			SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			//All this makes sure that the texture properly draws centered so it rotates and doesn't speen
-			Main.EntitySpriteDraw(ballTex, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, ballTex.Width, ballTex.Height)), ballColor, Projectile.rotation, new Vector2((float)ballTex.Width / 2, (float)ballTex.Height / 2), Projectile.scale, effects, 0);
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+			DrawData data = new DrawData(ballTex, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, ballTex.Width, ballTex.Height)), ballColor, Projectile.rotation, new Vector2((float)ballTex.Width / 2, (float)ballTex.Height / 2), Projectile.scale, effects, 0);
+
+			MiscShaderData shaderData = GameShaders.Misc["MetroidModPaletteShader"];
+			shaderData.UseColor(ballColor); //Primary color is the bright colors
+			shaderData.UseSecondaryColor(ballColor2); //Secondary is the dark colors
+			shaderData.UseOpacity(coreBrightness); //Affects brightness of the 'core' (the white of the texture)
+									   //Defaulting to 1f to keep the core bright
+			shaderData.UseSaturation(coreSaturation); //Affects saturation of the 'core'
+										  //0 to keep the core white instead of being the primary color
+			shaderData.UseImage0(TextureAssets.Projectile[Projectile.type]);
+
+			shaderData.Apply(data);
+			data.Draw(Main.spriteBatch);
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
 			return false;
 		}
 	}

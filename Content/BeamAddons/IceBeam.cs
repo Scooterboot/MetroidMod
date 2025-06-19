@@ -17,7 +17,6 @@ namespace MetroidMod.Content.BeamAddons
 	{
 		//TODO:
 		//Make it actually inflict the debuff
-		//Make ice beam shots rotate when it has shape priority
 		/// <summary>
 		/// If true, the projectile will rotate.
 		/// </summary>
@@ -26,7 +25,8 @@ namespace MetroidMod.Content.BeamAddons
 		public int iceDustTimer = 4;
 
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
-		public override Color ShotColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
+		public override Color PrimaryColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
+		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
 		public override int ShotDust => 59;
 		public override bool SoundOverride => true;
 
@@ -49,13 +49,11 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			if (modifier == "Charged" || modifier == "")
 			{
-				MetroidMod.Instance.Logger.Info("bananas........ rotat e");
 				bananasRotatE = true;
 				return base.ComboVisualsGet(modifier);
 			}
 			else
 			{
-				MetroidMod.Instance.Logger.Info("w h o   a r e   y o u   t o   a c c u s e   m e");
 				bananasRotatE = false;
 				return base.ComboVisualsGet(modifier);
 			}
@@ -71,6 +69,16 @@ namespace MetroidMod.Content.BeamAddons
 			}
 		}
 
+		public override void AI(MProjectile mpshot)
+		{
+			if (iceDustTimer <= 0)
+			{
+				Dust.NewDust(mpshot.Projectile.position, mpshot.Projectile.width, mpshot.Projectile.height, DustID.IceRod, 0, 1, 0, default, 1.5f);
+				iceDustTimer = 3;
+			}
+			iceDustTimer--;
+		}
+
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
@@ -80,16 +88,6 @@ namespace MetroidMod.Content.BeamAddons
 				.AddIngredient(ItemID.Sapphire, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
-
-		public override void AI(MProjectile mpshot)
-		{
-			if (iceDustTimer <= 0)
-			{
-				Dust.NewDust(mpshot.Projectile.position, mpshot.Projectile.width, mpshot.Projectile.height, DustID.IceTorch, 0, 1, 0, default, 1.5f);
-				iceDustTimer = 3;
-			}
-			iceDustTimer--;
 		}
 	}
 }

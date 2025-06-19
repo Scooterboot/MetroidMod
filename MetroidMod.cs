@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Hatches;
@@ -53,11 +54,15 @@ namespace MetroidMod
 		public static SoundStyle BeamImpactFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/BeamImpactSound");
 
 		public static Color powColor = new(248, 248, 110);
+		public static Color powSecondaryColor = new(248, 168, 0);
 		public static Color iceColor = new(0, 255, 255);
+		public static Color iceSecondaryColor = new(40, 96, 208);
 		public static Color waveColor = new(215, 0, 215);
+		public static Color waveSecondaryColor = new(176, 0, 176);
 		public static Color waveColor2 = new(239, 153, 239);
 		public static Color plaRedColor = new(253, 221, 3);
 		public static Color plaGreenColor = new(0, 248, 112);
+		public static Color plaGreenSecondaryColor = new(0, 160, 72);
 		public static Color plaGreenColor2 = new(61, 248, 154);
 		public static Color novColor = new(50, 255, 1);
 		public static Color wideColor = new(255, 210, 255);
@@ -113,6 +118,8 @@ namespace MetroidMod
 				Asset<Effect> projShaderRef = this.Assets.Request<Effect>("Assets/Effects/ProjectileShaders");
 
 				GameShaders.Misc["MetroidModLaserBeam"] = new MiscShaderData(projShaderRef, "LaserShaderPass");
+				GameShaders.Misc["MetroidModDualTint"] = new MiscShaderData(projShaderRef, "DualTintShaderPass");
+				GameShaders.Misc["MetroidModPaletteShader"] = new MiscShaderData(projShaderRef, "PaletteShaderPass");
 			}
 
 			/*if (Main.netMode != NetmodeID.Server)

@@ -18,7 +18,8 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool AddOnlyAddonItem => false;
 
 		public override int ShotDust => DustID.KryptonMoss;
-		public override Color ShotColor => MetroidMod.plaGreenColor;
+		public override Color PrimaryColor => MetroidMod.plaGreenColor;
+		public override Color SecondaryColor => MetroidMod.plaGreenSecondaryColor;
 
 
 		int die = 100;

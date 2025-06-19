@@ -68,8 +68,11 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool AddOnlyAddonItem => false;
 
 
-		//If we get around to implementing shaders edit this part
-		public override Color ShotColor => new(0, 0, 255, 1f);
+		//Primary color is your beam shot's main color. Secondary is the accent color.
+		public override Color PrimaryColor => new(0, 0, 255, 1f);
+
+		public override Color SecondaryColor => Color.Black;
+		public override float CoreSaturation => 0.5f;
 
 		//If you don't want to make custom dust, see the Terraria Wiki or the Modder's Toolkit to find the vanilla dust that's right for you
 		public override int ShotDust => 33;

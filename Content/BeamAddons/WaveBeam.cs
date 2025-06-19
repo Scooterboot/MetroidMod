@@ -13,7 +13,9 @@ namespace MetroidMod.Content.BeamAddons
 	{
 		public override bool AddOnlyAddonItem => false;
 
-		public override Color ShotColor => MetroidMod.waveColor;
+		public override Color PrimaryColor => MetroidMod.waveColor;
+
+		public override Color SecondaryColor => MetroidMod.waveSecondaryColor;
 		public override int ShotDust => 59;
 
 		#region Stat Values

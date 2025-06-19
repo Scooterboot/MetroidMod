@@ -18,6 +18,7 @@ namespace MetroidMod.Content.Tiles2.Butter
 			// which can cause weird visual artifacts otherwise
 			Main.tileBlockLight[Tile.Type] = false;
 			Main.tileNoSunLight[Tile.Type] = false;
+			TileID.Sets.DrawsWalls[Tile.Type] = true;
 		}
 	}
 }

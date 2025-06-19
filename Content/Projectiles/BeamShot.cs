@@ -14,6 +14,8 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -181,9 +183,9 @@ namespace MetroidMod.Content.Projectiles
 		{
 			//inject onhitnpc code here
 			BeamAddonLoader.AddonOnHitNPC(beamAddons, mProjectile, target, hit, damageDone);
-			if (!SuppressBuff)
+			if (!SuppressBuff && VisualWinners[1] != -1)
 			{
-				//target.AddBuff()
+				target.AddBuff(beamAddons[VisualWinners[1]].InflictsBuff, 600);
 			}
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -217,8 +219,8 @@ namespace MetroidMod.Content.Projectiles
 			if (VisualWinners[0] == -1 || VisualWinners[1] == -1 || beamAddons == null){ return true; }
 			ModBeamAddon beamShape = beamAddons[VisualWinners[0]];
 			ModBeamAddon beamColor = beamAddons[VisualWinners[1]];
-			color = beamColor.ShotColor;
-			Color recolor = (VisualWinners[0] == VisualWinners[1]) ? Color.White : beamColor.ShotColor;
+			color = beamColor.PrimaryColor;
+			Color color2 = beamColor.SecondaryColor;
 			if (ModTexture != null)
 			{
 				//This here rectangle is the chunk of the texture that the sprite actually uses
@@ -227,13 +229,33 @@ namespace MetroidMod.Content.Projectiles
 				//Shift it down to properly select the correct frame
 				renderFrame.Y = 0 + (renderFrame.Height * Projectile.frame);
 
-				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, recolor, Projectile.rotation,
+				Main.spriteBatch.End();
+				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+
+
+				DrawData data = new DrawData(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
 								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
+
+				MiscShaderData shaderData = GameShaders.Misc["MetroidModPaletteShader"];
+				shaderData.UseColor(color); //Primary color is the bright colors
+				shaderData.UseSecondaryColor(color2); //Secondary is the dark colors
+				shaderData.UseOpacity(1f); //Affects brightness of the 'core' (the white of the texture)
+										   //Defaulting to 1f to keep the core bright
+				shaderData.UseSaturation(0f); //Affects saturation of the 'core'
+											  //0 to keep the core white instead of being the primary color
+				shaderData.UseImage0(ModTexture);
+
+				shaderData.Apply(data);
+				data.Draw(Main.spriteBatch);
+
+				Main.spriteBatch.End();
+				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 			}
 			else
 			{
 				ModTexture = ModContent.Request<Texture2D>(Texture);
-				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width(), ModTexture.Height()), beamColor.ShotColor, Projectile.rotation,
+				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width(), ModTexture.Height()), beamColor.PrimaryColor, Projectile.rotation,
 								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
 			}
 			

@@ -20,7 +20,9 @@ namespace MetroidMod.Content.BeamAddons
 
 		int extraShots = 2;
 		public override bool AddOnlyAddonItem => false;
-		public override Color ShotColor => MetroidMod.powColor;
+		public override Color PrimaryColor => MetroidMod.powColor;
+
+		public override Color SecondaryColor => MetroidMod.powSecondaryColor;
 
 		public override int ShotDust => DustID.YellowTorch;
 
@@ -64,15 +66,6 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			mpshot.symmetry = true;
 			spazed = false;
-
-			//MetroidMod.Instance.Logger.Info(mpshot.groupID + 1 + " " + mpshot.groupSize);
-			//float totalSpaze = mpshot.Projectile.height * mpshot.groupSize;
-			//float rot = (float)Math.Atan2((mpshot.Projectile.velocity.Y), (mpshot.Projectile.velocity.X));
-			//float spazPos;
-
-
-			//mpshot.Projectile.position.X = mpshot.corePosition.X + (float)Math.Cos(rot + (Math.Sin(MathHelper.PiOver2) * mpshot.Projectile.direction) * (totalSpaze * (mpshot.groupID  - mpshot.groupSize / 2))) * 20;
-			//mpshot.Projectile.position.Y = mpshot.corePosition.Y + (float)Math.Sin(rot + (Math.Sin(MathHelper.PiOver2) * mpshot.Projectile.direction) * (totalSpaze * (mpshot.groupID - mpshot.groupSize / 2))) * 20;
 		}
 
 		public override bool PreAI(MProjectile mpshot)
@@ -95,7 +88,7 @@ namespace MetroidMod.Content.BeamAddons
 			float increment = (MathHelper.TwoPi / 60);
 			float SPAZE_DELAY = mpshot.Projectile.height / mpshot.Projectile.velocity.Length();
 			float amplitude = mpshot.Projectile.width * mpshot.Projectile.scale * 4;
-			float frequency = 5f;
+			float frequency = 5.1f;
 
 			//Must account for an arbitrary amount of projectiles. Any addon could just randomly add an extra shot, after all.
 			float midpoint = (((float)mpshot.groupSize - 1) / 2) + 1; //This equation should do that automatically.

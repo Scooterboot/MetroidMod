@@ -85,9 +85,15 @@ float4 DodgeAndBurnShaderFunction(float4 sampleColor : COLOR0, float2 coords : T
 float4 PaletteShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
     //This one overrides the darker shades with the secondary color, and applies a gradient to lighter shades for a cleaner palette override
+    //Luminosity below 25% is a gradient from black to secondary color
+    //[25-50)% is the secondary color
+    //[50-95)% is a gradient from secondary to primary color
+    //95%+ the color's brightness is multiplied by uOpacity while the saturation of the primaryColor is controlled by uSaturation
     float4 color = tex2D(uImage0, coords);
     float3 primaryColor = uColor;
     float3 secondaryColor = uSecondaryColor;
+    float coreLum = uOpacity;
+    float coreSat = uSaturation;
     float lum = (color.r + color.g + color.b) / 3;
     if (lum > 0)
     {
@@ -106,6 +112,11 @@ float4 PaletteShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOO
         {
             float lum2 = (lum * 2) - 0.8;
             color.rgb = primaryColor * lum2 + secondaryColor * (1 - lum2);
+            color *= color.a;
+        }
+        else
+        {
+            color.rgb = (color.rgb * coreLum * (1 - coreSat)) + (primaryColor * coreSat * coreLum);
             color *= color.a;
         }
     }

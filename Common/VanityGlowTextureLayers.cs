@@ -232,9 +232,7 @@ namespace MetroidMod.Common
 						pos += new Vector2((float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), (float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1));
 					}
 
-					bool holdingCannon = drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() ||
-										 drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() ||
-										 drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>() ||
+					bool holdingCannon = drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>() ||
 										 drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>();
 					if (!holdingCannon)
 					{

@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.DataStructures;
 using MetroidMod.Content.Projectiles;
+using Microsoft.Xna.Framework.Graphics;
 
 //gonna document as much of the code as I can to make it easy to follow
 namespace MetroidMod
@@ -91,9 +92,24 @@ namespace MetroidMod
 		/// </summary>
 		public virtual string ImpactSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/{Name}/Impact";
 		/// <summary>
-		/// The color of the addon's projectile.
+		/// The primary color of the addon's projectile.
 		/// </summary>
-		public abstract Color ShotColor { get; }
+		public abstract Color PrimaryColor { get; }
+		/// <summary>
+		/// The secondary color of the addon's projectile, used for dark shading.
+		/// <br/>For example, Ice Beam's secondary color is dark blue.
+		/// </summary>
+		public virtual Color SecondaryColor => PrimaryColor;
+		/// <summary>
+		/// The brightness of the projectile's "core" when this addon has color priority.
+		/// <br/>Default is <b>1f</b>, or full brightness. In conjunction with <see cref="CoreSaturation"/>'s default value, the "core" appears pure white by default.
+		/// </summary>
+		public virtual float CoreBrightness => 1f;
+		/// <summary>
+		/// The saturation of the projectile's "core" when this addon has color priority.
+		/// <br/>Default is <b>0</b>, or fully greyscale.
+		/// </summary>
+		public virtual float CoreSaturation => 0f;
 		/// <summary>
 		/// The integer ID of the dust particles this addon's projectile will leave behind.
 		/// <br/>Use <see cref="DustID"/> for vanilla dust and use <see cref="ModDust.Type"/> for modded ones.
@@ -152,7 +168,6 @@ namespace MetroidMod
 		/// </summary>
 		public ModProjectile vibOverride = null;
 		#endregion
-
 
 		#region Addon stat variables
 		//These stats are plugged into the WEAPON, not the projectile.
@@ -276,6 +291,8 @@ namespace MetroidMod
 			if (ModTile == null) { throw new Exception("WTF happened here? BeamAddonTile is null!"); }
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
+			ItemType = ModItem.Type;
+			TileType = ModTile.Type;
 
 		}
 
@@ -312,6 +329,7 @@ namespace MetroidMod
 		}
 		#endregion
 
+		#region ModItem fields
 		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[TileType] = true;
@@ -322,9 +340,17 @@ namespace MetroidMod
 		/// <inheritdoc cref="ModItem.SetDefaults()"/>
 		public virtual void SetItemDefaults(Item item) { }
 
+		/// <inheritdoc cref="ModItem.PostDrawInInventory(SpriteBatch, Vector2, Rectangle, Color, Color, Vector2, float)"/>
+		public virtual void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale) { }
+
+		///<inheritdoc cref="ModItem.PostDrawInWorld(SpriteBatch, Color, Color, float, float, int)"/>
+		public virtual void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) { }
+
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
+
+		#endregion
 
 		#region Advanced addon properties
 		/// <summary>
@@ -407,6 +433,7 @@ namespace MetroidMod
 
 		#endregion
 
+		#region ModTile fields
 		/// <summary>
 		/// Whether or not this addon's tile will display its ModItem texture when hovered over with the mouse.
 		/// </summary>
@@ -417,5 +444,9 @@ namespace MetroidMod
 		public virtual bool CanKillTile(int i, int j) { return true; }
 		/// <inheritdoc cref="ModMBAddon.CanExplodeTile(int, int)"/>
 		public virtual bool CanExplodeTile(int i, int j) { return true; }
+
+		///<inheritdoc cref="ModBlockType.PostDraw(int, int, SpriteBatch)"/>
+		public virtual void PostDrawTile(int i, int j, SpriteBatch sb) { }
+		#endregion
 	}
 }

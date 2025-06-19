@@ -284,7 +284,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.shootSpeed = BeamBaseVelocity;
 				Item.crit = BeamBaseCrit;
 				Item.autoReuse = true;
-			}//Power Beam default stats
+			}//Power Beam default stat assignment
 			else 
 			{
 				Item.damage = MissileBaseDamage;
@@ -295,7 +295,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.shootSpeed = MissileBaseVelocity;
 				Item.crit = MissileBaseCrit;
 				Item.autoReuse = false;
-			}//Missile Launcher default stats
+			}//Missile Launcher default stat assignment
 
 		}
 		public override void UseStyle(Player player, Rectangle heldItemFrame) //makes the player's arm rotate with the arm cannon

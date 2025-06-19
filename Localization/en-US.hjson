@@ -332,6 +332,8 @@ Mods: {
 			TestBeamTile.MapEntry: Test Beam
 			GrappleBeamLiteTile.MapEntry: Grapple Beam Lite
 			FusionOmegaAddonTile.MapEntry: Fusion Omega
+			ElevatorStationTile.MapEntry: Elevator
+			TopElevatorStationTile.MapEntry: Elevator
 		}
 
 		Buffs: {
@@ -2273,6 +2275,24 @@ Mods: {
 				Tooltip: Can be grabbed onto with the Power Grip
 			}
 
+			ElevatorStationItem: {
+				DisplayName: Elevator Base
+				Tooltip:
+					'''
+					Press UP to use
+					Must have another elevator station directly above
+					'''
+			}
+
+			TopElevatorStationItem: {
+				DisplayName: Elevator Station
+				Tooltip:
+					'''
+					Press UP or DOWN to use
+					Must have another elevator station directly above or below
+					'''
+			}
+
 			# Fake Blocks
 			
 			FakeBlock: {
@@ -3674,6 +3694,11 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Grapple Lasso Glove
 			}
+
+			ShaderTestItem: {
+				DisplayName: Shader Test Item
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4052,6 +4077,7 @@ Mods: {
 			OrbBomb.DisplayName: Orb Bomb
 			DiffusionBeam.DisplayName: Diffusion Beam
 			MiniTorizo.DisplayName: Mini Torizo
+			ShaderTestProj.DisplayName: Shader Test Proj
 		}
 
 		Configs: {
