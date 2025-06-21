@@ -27,7 +27,7 @@ namespace MetroidMod.Common.Systems
 		public virtual bool CanSpawn()
 		{
 			bool torizoDowned = MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
-			bool torizoAlive = NPC.AnyNPCs(ModContent.NPCType<Torizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleTorizo>());
+			bool torizoAlive = NPC.AnyNPCs(ModContent.NPCType<Torizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleGoldenTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>());
 			bool legend = WorldGen.everythingWorldGen || WorldGen.getGoodWorldGen || Main.getGoodWorld;
 			return Initialized && !torizoDowned && !torizoAlive &&!legend;
 		}
@@ -73,8 +73,7 @@ namespace MetroidMod.Common.Systems
 				spawnCounter -= 1;
 				return;
 			}
-			bool legend = WorldGen.everythingWorldGen || WorldGen.getGoodWorldGen || Main.getGoodWorld;
-			NPC.NewNPC(Entity.GetSource_NaturalSpawn(), (int)SpawnLocation.X, (int)SpawnLocation.Y, legend ? ModContent.NPCType<IdleGoldenTorizo>() : ModContent.NPCType<IdleTorizo>());
+			NPC.NewNPC(Entity.GetSource_NaturalSpawn(), (int)SpawnLocation.X, (int)SpawnLocation.Y, NpcType);
 		}
 
 		public override void LoadWorldData(TagCompound tag)
@@ -122,7 +121,7 @@ namespace MetroidMod.Common.Systems
 			bool legend = WorldGen.everythingWorldGen || WorldGen.getGoodWorldGen || Main.getGoodWorld;
 			bool canGoldenSpawn = NPC.downedGolemBoss || legend;
 			bool goldenTorizoDowned = MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo);
-			bool goldenTorizoAlive = NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleGoldenTorizo>());
+			bool goldenTorizoAlive = NPC.AnyNPCs(ModContent.NPCType<Torizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleGoldenTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>());
 			return canGoldenSpawn && !goldenTorizoDowned && !goldenTorizoAlive;
 		}
 	}
