@@ -73,7 +73,7 @@ namespace MetroidMod.Common.Systems
 		internal static ModKeybind BombKey;
 		internal static ModKeybind SwitchKey;
 		internal static ModKeybind HyperMode;
-		internal static ModKeybind FlashShiftKey;
+		//internal static ModKeybind FlashShiftKey;
 		internal static ModKeybind SwapKey;
 
 		public static bool PhazonSpawn;
@@ -88,7 +88,7 @@ namespace MetroidMod.Common.Systems
 			SwitchKey = KeybindLoader.RegisterKeybind(Mod, "Switch Interface", "G");
 			VisorUIKey = KeybindLoader.RegisterKeybind(Mod, "Show Visor UI", "V");
 			HyperMode = KeybindLoader.RegisterKeybind(Mod, "HyperMode", "C");
-			FlashShiftKey = KeybindLoader.RegisterKeybind(Mod, "Flash Shift", "F");
+			//FlashShiftKey = KeybindLoader.RegisterKeybind(Mod, "Flash Shift", "F");
 		}
 		public override void Unload()
 		{

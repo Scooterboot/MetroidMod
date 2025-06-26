@@ -1799,10 +1799,12 @@ namespace MetroidMod.Content.Items.Weapons
 				int dmg = player.GetWeaponDamage(Item);
 				int chDmg = (int)(dmg * chargeDmgMult);
 				TooltipLine chDmgLine = new(Mod, "ChargeDamage", chDmg + " Charge Shot damage");
-				int oh = !usesUA ? (int)(overheat * mp.overheatCost) : (int)(UAcost * mp.UACost);
-				TooltipLine ohLine = !usesUA ? new(Mod, "Overheat", "Overheats by " + oh + " points per use, affected by ammo reservation") : new(Mod, "Overheat", "Uses about " + oh + " UA points per use, affected by ammo reservation");
+				int oh = (int)(overheat * mp.overheatCost);
+				string ua = (UAcost * mp.UACost).ToString("0.0");
+				TooltipLine ohLine = !usesUA ? new(Mod, "Overheat", "Overheats by " + oh + " points per use, affected by ammo reservation") : new(Mod, "Overheat", "Uses about " + ua + " UA points per use, affected by ammo reservation");
 				int chOh = (int)(oh * chargeCost);
-				TooltipLine chOhLine = !usesUA ? new(Mod, "ChargeOverheat", "Overheats by " + chOh + " points on Charge Shot, affected by ammo reservation") : new(Mod, "ChargeOverheat", "Uses about " + chOh + " UA points on Charge Shot, affected by ammo reservation");
+				string chUa = (UAcost * mp.UACost * chargeCost).ToString("0.0");
+				TooltipLine chOhLine = !usesUA ? new(Mod, "ChargeOverheat", "Overheats by " + chOh + " points on Charge Shot, affected by ammo reservation") : new(Mod, "ChargeOverheat", "Uses about " + chUa + " UA points on Charge Shot, affected by ammo reservation");
 				int cost = (int)(chargeCostMi * (mp.missileCost + 0.001f));
 				string ch = "Charge shot consumes " + cost + " missiles";
 				float drain = (float)Math.Round(comboDrain * mp.missileCost, 2);

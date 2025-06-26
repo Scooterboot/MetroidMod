@@ -984,6 +984,7 @@ namespace MetroidMod.Common.Players
 			if (mp.speedBoosting)
 			{
 				Player.armorEffectDrawShadow = true;
+				Player.noKnockback = true;
 				//MPlayer.jet = true;
 				bool SpeedBoost = false;
 				int SpeedBoostID = ModContent.ProjectileType<Content.Projectiles.SpeedBoost>();
@@ -1039,6 +1040,7 @@ namespace MetroidMod.Common.Players
 			if (shineActive)
 			{
 				shineSound = 0;
+				Player.noKnockback = true;
 				Player.velocity.Y = 0;
 				Player.maxFallSpeed = 0f;
 				Player.velocity.X = 0;
@@ -1371,7 +1373,7 @@ namespace MetroidMod.Common.Players
 				if (flashShiftTime < FLASH_SHIFT_WINDOW || allowVerticalFlashShift && flashShiftTime == flashShiftLength - 1) //[Joost] The OR flashShiftTime == flashShiftLength - 1 is to give a 1 frame window to reinput the flash direction for easier diagonal input while vertical flash shifting is enabled
 				{
 					Vector2 inputDir = Vector2.Zero;
-					if (MSystem.FlashShiftKey.JustPressed)
+					if (MSystem.BoostBallKey.JustPressed)
 					{
 						if (Player.controlLeft) inputDir.X--;
 						if (Player.controlRight) inputDir.X++;
@@ -1382,7 +1384,7 @@ namespace MetroidMod.Common.Players
 						}
 
 					}
-					else if (MSystem.FlashShiftKey.Current)
+					else if (MSystem.BoostBallKey.Current)
 					{
 						flashShiftGlow = true;
 						if (allowVerticalFlashShift)

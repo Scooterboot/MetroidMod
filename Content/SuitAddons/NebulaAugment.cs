@@ -76,7 +76,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
 			player.statDefense += suitDef;
-			player.noKnockback = true;
+			//player.noKnockback = true;
 			player.ignoreWater = true;
 			if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
 			{

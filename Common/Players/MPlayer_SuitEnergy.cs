@@ -60,6 +60,7 @@ namespace MetroidMod.Common.Players
 		public int SuitReserves = 0;
 
 		public bool SuitReservesAuto = false;
+		public bool drainingReserves = false;
 
 		public void ResetEffects_SuitEnergy()
 		{
@@ -165,15 +166,37 @@ namespace MetroidMod.Common.Players
 			SetMinMax(ref EnergyDefenseEfficiency);
 			SetMinMax(ref EnergyExpenseEfficiency);
 			if (!ShouldShowArmorUI) { return; }
-			if (SuitReservesAuto && Energy <= 0)
+			if (SuitReservesAuto)
 			{
-				Energy += Math.Min(SuitReserves, MaxEnergy);
-				SuitReserves -= Math.Min(SuitReserves, MaxEnergy);
+				//Energy += Math.Min(SuitReserves, MaxEnergy);
+				//SuitReserves -= Math.Min(SuitReserves, MaxEnergy);
 				while (Energy > MaxEnergy)
 				{
 					SuitReserves += 1;
 					Energy -= 1;
 				}
+				if (Energy <= 0)
+				{
+					drainingReserves = true;
+				}
+				if (drainingReserves)
+				{
+					if (Energy < MaxEnergy && SuitReserves > 0)
+					{
+						int amount = 3;
+						SetMinMax(ref amount, 1, Math.Min(MaxEnergy - Energy, SuitReserves));
+						Energy += amount;
+						SuitReserves -= amount;
+					}
+					else
+					{
+						drainingReserves = false;
+					}
+				}
+			}
+			else
+			{
+				drainingReserves = false;
 			}
 			if (Player.immune || Player.creativeGodMode) { return; }
 			if (Energy > 0 && Player.lifeRegen < 0)
@@ -193,5 +216,6 @@ namespace MetroidMod.Common.Players
 			}
 		}
 		private static void SetMinMax(ref float value, float min = 0f, float max = 1f) => value = Math.Min(Math.Max(value, min), max);
+		private static void SetMinMax(ref int value, int min = 0, int max = 1) => value = Math.Min(Math.Max(value, min), max);
 	}
 }

@@ -46,6 +46,10 @@ namespace MetroidMod.Content.Buffs
 				{
 					mp.Energy += 3;
 				}
+				if (mp.SuitReserves < mp.MaxSuitReserves)
+				{
+					mp.SuitReserves += 3;
+				}
 				player.buffTime[buffIndex] = 2;
 				player.controlLeft = false;
 				player.controlRight = false;

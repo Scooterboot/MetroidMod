@@ -101,6 +101,15 @@ namespace MetroidMod.Content.Projectiles
 				activeSound.Position = P.Center;
 			}
 		}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Player player = Main.player[Projectile.owner];
+			if (target.knockBackResist > 0)
+			{
+				target.velocity = new Vector2(player.velocity.X * target.knockBackResist, -8);
+			}
+			player.GiveImmuneTimeForCollisionAttack(4);
+		}
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			modifiers.FinalDamage.Flat = (int)(target.damage * 1.5f);

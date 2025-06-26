@@ -187,8 +187,7 @@ namespace MetroidMod.Content.Projectiles
 					P.friendly = true;
 					P.damage = damage * 5 * ChargeShotAmt;
 				}
-				P.position.X = oPos.X - P.width / 2;
-				P.position.Y = oPos.Y - P.height / 2;
+				P.Center = O.Center;
 				P.velocity = Vector2.Zero;
 				if (O.controlLeft)
 				{
@@ -219,8 +218,8 @@ namespace MetroidMod.Content.Projectiles
 			P.position.Y += O.gfxOffY;
 			P.position.X += (float)(P.width / 2);
 			P.position.Y += (float)(P.height / 2);
-			P.width = mp.somersault ? 50 : 16;
-			P.height = mp.somersault ? 60 : 16;
+			P.width = mp.somersault ? 64 : 16;
+			P.height = mp.somersault ? 64 : 16;
 			P.position.X -= (float)(P.width / 2);
 			P.position.Y -= (float)(P.height / 2);
 
@@ -236,6 +235,22 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].noGravity = true;
 			}
 			Lighting.AddLight(P.Center, (LightColor.R / 255f) * P.scale, (LightColor.G / 255f) * P.scale, (LightColor.B / 255f) * P.scale);
+		}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Player player = Main.player[Projectile.owner];
+			int hitDir = player.Center.X < target.Center.X ? -1 : 1;
+			if (target.knockBackResist > 0)
+			{
+				float kbResist = 0.25f + target.knockBackResist;
+				target.velocity = new Vector2(8 * -hitDir, -4) * kbResist;
+			}
+			else if (!player.noKnockback && !player.immune && target.life > 0 && player.GetModPlayer<MPlayer>().SMoveEffect == 0)
+			{
+				player.velocity = new Vector2(12 * hitDir, -4 * player.gravDir);
+				SoundEngine.PlaySound(Sounds.Suit.EnergyHit.WithPitchOffset(0.65f).WithVolumeScale(0.6f), player.Center);
+			}
+			player.GiveImmuneTimeForCollisionAttack(4);
 		}
 
 		public override void OnKill(int timeLeft)

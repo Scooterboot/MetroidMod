@@ -14,8 +14,8 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void SetDefaults()
 		{
-			Projectile.width = 22;
-			Projectile.height = 22;
+			Projectile.width = 32;
+			Projectile.height = 32;
 			Projectile.scale = .5f;
 			Projectile.aiStyle = 0;
 			Projectile.tileCollide = false;
@@ -30,12 +30,14 @@ namespace MetroidMod.Content.Projectiles
 		{
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			Projectile.position.X = P.Center.X - 5;
-			Projectile.position.Y = P.position.Y - Projectile.gfxOffY;
+			//Projectile.position.X = P.Center.X - 5;
+			//Projectile.position.Y = P.position.Y - Projectile.gfxOffY;
+			Projectile.Center = P.Center;
 			Projectile.velocity = P.velocity;
 			Projectile.velocity.Normalize();
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			Projectile.alpha = 100;
+			Projectile.direction = P.direction;
 			//Projectile.knockBack = mp.boostEffect;
 
 
@@ -56,7 +58,6 @@ namespace MetroidMod.Content.Projectiles
 			P.velocity -= P.velocity;
 			P.GiveImmuneTimeForCollisionAttack(mp.boostEffect);
 			mp.boostEffect = 0;
-			base.OnHitNPC(target, hit, damageDone);
 		}
 	}
 }

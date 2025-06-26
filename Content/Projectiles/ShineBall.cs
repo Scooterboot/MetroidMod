@@ -1,4 +1,5 @@
 using MetroidMod.Common.Players;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -55,6 +56,23 @@ namespace MetroidMod.Content.Projectiles
 			{
 				activeSound.Position = P.Center;
 			}
+		}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			Player player = Main.player[Projectile.owner];
+			if (target.knockBackResist > 0)
+			{
+				if (player.velocity.X == 0)
+				{
+					int hitDir = player.Center.X < target.Center.X ? -1 : 1;
+					target.velocity = new Vector2(6 * hitDir, -6 * target.knockBackResist);
+				}
+				else
+				{
+					target.velocity = new Vector2(player.velocity.X * target.knockBackResist, -10);
+				}
+			}
+			player.GiveImmuneTimeForCollisionAttack(4);
 		}
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{

@@ -457,10 +457,8 @@ Mods: {
 					'''
 					An Energy barrier will absorb some incoming damage while powered
 					Collect Energy pickups to refill lost Energy and Energy Tanks to increase your maximum capacity
-					Allows the ability to Sense Move
-					Double tap a direction (when enabled)
+					Allows the ability to Sense Move; double tap a direction when enabled
 					Enables use of Power Suit Addons to improve your suit's capabilities
-					Right click the Sense Move button to access Addon Menu
 					'''
 			}
 
@@ -499,7 +497,7 @@ Mods: {
 			
 			UAExpansion: {
 				DisplayName: UA Expansion
-				Tooltip: Increases ammo for UA-using weapons, stacks up to 12
+				Tooltip: Increases ammo for UA-using weapons by 30, stacks up to 12
 			}
 
 			# Beam Weapons
@@ -651,6 +649,7 @@ Mods: {
 					'''
 					{$CommonItemTooltip.IsBeamAddon}Charge
 					Array slot 2
+					Uses UA reserves instead of overheat
 					[c/78BE78:+80% damage]
 					[c/BE7878:-18% speed]
 					[c/BE7878:+10% noise]
@@ -1204,7 +1203,6 @@ Mods: {
 					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
 					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
-					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
 					'''
@@ -1226,7 +1224,6 @@ Mods: {
 					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
 					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
-					Immune to knockback
 					Free movement in liquid
 					Grants 14 seconds of lava immunity
 					Default gravity in space
@@ -1251,7 +1248,6 @@ Mods: {
 					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
 					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
-					Immune to knockback
 					Free movement in liquids including shimmer
 					Immunity to Shimmer Phasing
 					Hold Down to Phase while submerged in Shimmer
@@ -1278,7 +1274,6 @@ Mods: {
 					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
 					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
-					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
 					Immune to damage caused by blue Phazon blocks
@@ -1302,7 +1297,6 @@ Mods: {
 					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
 					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
 					Infinite breath underwater
-					Immune to knockback
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
 					Immune to damage caused by blue Phazon blocks

@@ -133,15 +133,16 @@ namespace MetroidMod.Common.UI.SuitAddons
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
 			if (reserveHoldingLClick)
 			{
-				if (mp.SuitReserves < mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount && mp.Energy >= 1)
+				if (mp.SuitReserves < mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount && mp.Energy >= (mp.SuitReservesAuto ? 2 : 1))
 				{
 					mp.SuitReserves += 1;
 					mp.Energy -= 1;
+					mp.drainingReserves = false;
 				}
 			}
 			if (reserveHoldingRClick)
 			{
-				if (!mp.SuitReservesAuto && mp.SuitReserves >= 1 && mp.Energy <= mp.MaxEnergy - 1)
+				if (mp.SuitReserves >= 1 && mp.Energy <= mp.MaxEnergy - 1)
 				{
 					mp.SuitReserves -= 1;
 					mp.Energy += 1;

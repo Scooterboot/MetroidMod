@@ -71,7 +71,7 @@ namespace MetroidMod.Content.SuitAddons
 			}
 
 			player.statDefense += suitDef;
-			player.noKnockback = true;
+			//player.noKnockback = true;
 			player.ignoreWater = true;
 			if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
 			{

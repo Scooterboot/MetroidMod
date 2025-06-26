@@ -121,7 +121,7 @@ namespace MetroidMod.Common.GlobalNPCs
 		{
 			target.TryGetModPlayer(out MPlayer mp);
 			
-			if (mp.screwAttack && mp.somersault)
+			if ((mp.screwAttack && mp.somersault) || mp.speedBoosting)
 			{
 				if (modifiers.CooldownCounter > 0) // Check if incoming damage is a boss
 				{

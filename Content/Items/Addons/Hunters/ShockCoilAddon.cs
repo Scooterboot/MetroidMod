@@ -40,7 +40,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.beamSlotType = BeamChangeSlotID.ShockCoil;
-			mItem.addonUACost = 400f / 60f;
+			mItem.addonUACost = 400f / 160f;//was 60
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageShockCoil;
 		}
 		public override void AddRecipes()

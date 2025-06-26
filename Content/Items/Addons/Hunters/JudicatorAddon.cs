@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 			MGlobalItem mItem = Item.GetGlobalItem<MGlobalItem>();
 			mItem.addonSlotType = 0;
 			mItem.beamSlotType = BeamChangeSlotID.Judicator;
-			mItem.addonUACost = 400f / 120f;
+			mItem.addonUACost = 400f / 320f;//was 120
 			mItem.addonDmg = Common.Configs.MConfigItems.Instance.damageJudicator;
 		}
 
