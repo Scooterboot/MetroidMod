@@ -76,12 +76,21 @@ namespace MetroidMod
 		}
 		public override void Load()
 		{
+			//ModMissileAddons automatically generate their items and tiles on load, based on the MissileAddonItem and MissileAddonTile templates.
+			//This is the code that facilitates this.
+
+			//Assigns a new M.A.I. and M.A.T. instance to the current M.M.A.
 			ModItem = new MissileAddonItem(this);
 			ModTile = new MissileAddonTile(this);
 			if (ModItem == null) { throw new Exception("WTF happened here? MissileAddonItem is null!"); }
 			if (ModTile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
+			//Adds the content to the game.
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
+			//Assigns the Type values to the appropriate fields.
+			//If you forget this part, you can't call the addons through their Type, which breaks things like Shimmer recipes.
+			ItemType = ModItem.Type;
+			TileType = ModTile.Type;
 		}
 		protected override sealed void Register()
 		{

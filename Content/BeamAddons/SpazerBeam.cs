@@ -88,7 +88,7 @@ namespace MetroidMod.Content.BeamAddons
 			float increment = (MathHelper.TwoPi / 60);
 			float SPAZE_DELAY = mpshot.Projectile.height / mpshot.Projectile.velocity.Length();
 			float amplitude = mpshot.Projectile.width * mpshot.Projectile.scale * 4;
-			float frequency = 5.1f;
+			float frequency = 5f - ((mpshot.groupSize - 1) / 2);
 
 			//Must account for an arbitrary amount of projectiles. Any addon could just randomly add an extra shot, after all.
 			float midpoint = (((float)mpshot.groupSize - 1) / 2) + 1; //This equation should do that automatically.

@@ -228,29 +228,36 @@ namespace MetroidMod.Content.Projectiles
 
 				//Shift it down to properly select the correct frame
 				renderFrame.Y = 0 + (renderFrame.Height * Projectile.frame);
+				if (VisualWinners[0] != VisualWinners[1]) //Color and shape do not match. Begin applying shader.
+				{
+					Main.spriteBatch.End();
+					Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
-				Main.spriteBatch.End();
-				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+					//The code for applying the default color shader to the projectile.
 
+					DrawData data = new DrawData(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
+									  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
 
+					MiscShaderData shaderData = GameShaders.Misc["MetroidModPaletteShader"];
+					shaderData.UseColor(color); //Primary color is the bright colors
+					shaderData.UseSecondaryColor(color2); //Secondary is the dark colors
+					shaderData.UseOpacity(1f); //Affects brightness of the 'core' (the white of the texture)
+											   //Defaulting to 1f to keep the core bright
+					shaderData.UseSaturation(0f); //Affects saturation of the 'core'
+												  //0 to keep the core white instead of being the primary color
+					shaderData.UseImage0(ModTexture);
 
-				DrawData data = new DrawData(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
-								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
+					shaderData.Apply(data);
+					data.Draw(Main.spriteBatch);
 
-				MiscShaderData shaderData = GameShaders.Misc["MetroidModPaletteShader"];
-				shaderData.UseColor(color); //Primary color is the bright colors
-				shaderData.UseSecondaryColor(color2); //Secondary is the dark colors
-				shaderData.UseOpacity(1f); //Affects brightness of the 'core' (the white of the texture)
-										   //Defaulting to 1f to keep the core bright
-				shaderData.UseSaturation(0f); //Affects saturation of the 'core'
-											  //0 to keep the core white instead of being the primary color
-				shaderData.UseImage0(ModTexture);
-
-				shaderData.Apply(data);
-				data.Draw(Main.spriteBatch);
-
-				Main.spriteBatch.End();
-				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+					Main.spriteBatch.End();
+					Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				} //If the color and shape don't match, apply the recoloring shader
+				else //Color and shape match. Shader is not needed and will not be applied.
+				{
+					Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
+									  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
+				} //If they do, no shader is necessary.
 			}
 			else
 			{

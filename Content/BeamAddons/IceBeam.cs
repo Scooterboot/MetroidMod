@@ -27,7 +27,7 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
 		public override Color PrimaryColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
-		public override int ShotDust => 59;
+		public override int ShotDust => DustID.IceGolem;
 		public override bool SoundOverride => true;
 
 		public override void SetStaticDefaults()
@@ -73,7 +73,7 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			if (iceDustTimer <= 0)
 			{
-				Dust.NewDust(mpshot.Projectile.position, mpshot.Projectile.width, mpshot.Projectile.height, DustID.IceRod, 0, 1, 0, default, 1.5f);
+				Dust.NewDust(mpshot.Projectile.position, mpshot.Projectile.width, mpshot.Projectile.height, ShotDust, 0, 1, 0, default, 1.5f);
 				iceDustTimer = 3;
 			}
 			iceDustTimer--;

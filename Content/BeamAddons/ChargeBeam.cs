@@ -176,6 +176,7 @@ namespace MetroidMod.Content.BeamAddons
 					{
 						mp.statCharge += 1f;
 					}
+					mp.chargeColor = chargioColor;
 
 				} //the delay has ended, charging can begin
 				else
@@ -325,7 +326,6 @@ namespace MetroidMod.Content.BeamAddons
 					else
 					{
 						mp.disableSomersault = false;
-						mp.chargeColor = ballColor;
 						MetroidMod.Instance.Logger.Info(ballColor);
 					}
 					Projectile.hide = false;

@@ -53,20 +53,27 @@ namespace MetroidMod
 		/// </summary>
 		public static SoundStyle BeamImpactFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/BeamImpactSound");
 
-		public static Color powColor = new(248, 248, 110);
+		public static Color powColor = new(248, 248, 104);
 		public static Color powSecondaryColor = new(248, 168, 0);
-		public static Color iceColor = new(0, 255, 255);
-		public static Color iceSecondaryColor = new(40, 96, 208);
-		public static Color waveColor = new(215, 0, 215);
+		public static Color iceColor = new(0, 176, 248);
+		public static Color iceSecondaryColor = new(0, 56, 168);
+		public static Color waveColor = new(255, 115, 255);
 		public static Color waveSecondaryColor = new(176, 0, 176);
 		public static Color waveColor2 = new(239, 153, 239);
+		public static Color waveSecondaryColor2 = new(158, 79, 158);
 		public static Color plaRedColor = new(253, 221, 3);
+		public static Color plaRedSecondaryColor = new(184, 58, 24);
 		public static Color plaGreenColor = new(0, 248, 112);
 		public static Color plaGreenSecondaryColor = new(0, 160, 72);
 		public static Color plaGreenColor2 = new(61, 248, 154);
+		public static Color plaGreenSecondaryColor2 = new(40, 136, 80);
 		public static Color novColor = new(50, 255, 1);
+		public static Color novSecondaryColor = new(24, 184, 67);
 		public static Color wideColor = new(255, 210, 255);
 		public static Color lumColor = new(209, 255, 250);
+		public static Color lumSecondaryColor = new(45, 105, 76);
+		public static Color lumColor2 = new(229, 218, 186);
+		public static Color lumSecondaryColor2 = new(164, 101, 124);
 		public static MetroidMod Instance { get; private set; }
 		public MetroidMod() { Instance = this; }
 

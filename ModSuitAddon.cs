@@ -154,12 +154,21 @@ namespace MetroidMod
 		}
 		public override void Load()
 		{
+			//ModSuitAddons automatically generate their items and tiles on load, based on the SuitAddonItem and SuitAddonTile templates.
+			//This is the code that facilitates this.
+
+			//Assigns a new S.A.I. and S.A.T. instance to the current M.S.A.
 			ModItem = new SuitAddonItem(this);
 			ModTile = new SuitAddonTile(this);
 			if (ModItem == null) { throw new Exception("WTF happened here? SuitAddonItem is null!"); }
 			if (ModTile == null) { throw new Exception("WTF happened here? SuitAddonTile is null!"); }
+			//Adds the content to the game.
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
+			//Assigns the Type values to the appropriate fields.
+			//If you forget this part, you can't call the addons through their Type, which breaks things like Shimmer recipes.
+			ItemType = ModItem.Type;
+			TileType = ModTile.Type;
 			if (IsArmor && Main.netMode != NetmodeID.Server)
 			{
 				EquipLoader.AddEquipTexture(Mod, ArmorTextureHead, EquipType.Head, name: Name);

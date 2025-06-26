@@ -35,10 +35,10 @@
 		* Arm Cannon mouse tracking [DONE]
 		* the Primary quick-swap
 		* array passives (boosts that still apply while in the array)
-		* Multiple CustomFires at once?
+		* Multiple CustomFires at once? [NO]
 		* (eventually) Charge Combos
 
--Make Wave Beam
+-Make Wave Beam [DONE]
 	-This entails:
 		* Projectile behavior injection <<(THIS IS THE HARD PART)>> [DONE]
 			-[NOT VIABLE]|METHOD A: Beam Addon Global Projectiles
@@ -78,7 +78,7 @@
 -Make Hyper Beam
 	-Why so early? Because it entails:
 		* VIB addon behavior
-		* Item VFX
+		* Item VFX [DONE]
 		* Advanced beam graphical effects
 		* Suitlocking
 		* Also the primary array
@@ -121,7 +121,7 @@
 		-Override DisplayName with the ShapePriority?
 			-Append first word of ColorPriority to the beginning? (e.g. Wave Spazer Beam, Ice Plasma Beam)
 
--Make better UI
+-Make better UI [JUST USE THE OLD ONE]
 	-Current UI is 99% placeholder, but the AddonSlot system in ArmCannonUI is pretty much complete.
 	-Would like to keep all of the slot menus in the same UI file if possible (save the radials obviously)
 
@@ -169,7 +169,7 @@
 ||=======================================||
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
--Figure out shaders for better beam coloring
+-Figure out shaders for better beam coloring [DONE]
 	-Texture coloring is functional, but looks like ass.
 	-Could possibly use armor shaders? (Critter Shampoo applies armor dye to projectiles (minions, namely (yeah apparently they're projectiles, I didn't realize either)))
 	-Need a base color, a "core" color (usually white but must be defined because Dark Beam), and MAYBE a secondary color?
@@ -191,6 +191,8 @@
 
 -------- POWER SUIT SYSTEM UPGRADES --------
 
+-Consolidated Power Suit UI
+
 -Add automatic texture-grabbing for suit addons
 	-Very easy to implement, but tedious; requires renaming all suitaddon assets to match format
 	-Make it so it doesn't make non-Suits completely fucking break
@@ -198,7 +200,7 @@
 -Fix the SuitAddonAddon thing
 	-Unimportant but it bugs me so I will tackle it Eventually(tm)
 
--Update Power Suit glowmask system to use the modern spritesheet style
+-Update Power Suit glowmask system to use the modern spritesheet style - DONE!
 	-More important but also less related to the whole beam thingamabobber
 
 
@@ -235,7 +237,8 @@
 		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
 
 -It Just Works
-	* Wave's bonus shot on charge doesn't work unless it's fully charged
+	* Wave's bonus shot on charge doesn't work unless it's fully charged [FIXED]
+	* Normal shot goes off immediately after a charged shot for no apparent reason
 
 -Fix all the systems I broke
 	* Worldgen

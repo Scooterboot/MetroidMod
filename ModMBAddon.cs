@@ -69,6 +69,8 @@ namespace MetroidMod
 			if (ModTile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
+			ItemType = ModItem.Type;
+			TileType = ModTile.Type;
 		}
 		public override void Unload()
 		{

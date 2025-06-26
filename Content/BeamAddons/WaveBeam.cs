@@ -16,7 +16,7 @@ namespace MetroidMod.Content.BeamAddons
 		public override Color PrimaryColor => MetroidMod.waveColor;
 
 		public override Color SecondaryColor => MetroidMod.waveSecondaryColor;
-		public override int ShotDust => 59;
+		public override int ShotDust => DustID.FireworkFountain_Pink;
 
 		#region Stat Values
 		float dmg = 25f;
@@ -65,7 +65,7 @@ namespace MetroidMod.Content.BeamAddons
 					return [2, -1];
 
 				default:
-					return base.ComboVisualsGet(modifier);
+					return [4, -1];
 			}
 		}
 
@@ -169,7 +169,7 @@ namespace MetroidMod.Content.BeamAddons
 			//Consider making the following values external in the future?
 			float amplitude = mpshot.Projectile.width * mpshot.Projectile.scale * 4;
 			float ampMultiplier = 1; //Used for larger multishots to space out shots
-			float wavesPerSecond = 5f;
+			float wavesPerSecond = 5f - ((mpshot.groupSize - 1) / 2);
 			if (sineTimer >= sineDelay)
 			{
 				if (spaze)

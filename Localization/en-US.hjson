@@ -205,7 +205,7 @@ Mods: {
 		Tiles: {
 			ChoziteBarTile.MapEntry: Chozite Bar
 			ChoziteOreTile.MapEntry: Chozite Ore
-			ChozoChest.MapEntry: Chozodian Chest
+			ChozoChest.MapEntry: Chest
 			ChozoPillar.MapEntry: Chozo Pillar
 			ChozoPillarNatural.MapEntry: Chozo Pillar
 			ChozoRuinsActiveMusicBox.MapEntry: Chozo Ruins (Active) Music Box
@@ -4078,6 +4078,9 @@ Mods: {
 			DiffusionBeam.DisplayName: Diffusion Beam
 			MiniTorizo.DisplayName: Mini Torizo
 			ShaderTestProj.DisplayName: Shader Test Proj
+			ExtraHyperBeamShot.DisplayName: Extra Hyper Beam Shot
+			HyperBeamShot.DisplayName: Hyper Beam Shot
+			PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam Shot
 		}
 
 		Configs: {

@@ -658,7 +658,7 @@ namespace MetroidMod.Content.Items.Weapons
 						//Need to BeamAddonLoader.GetAddon() the addons because the Arm Cannon stores the associated items and not the ModBeamAddons themselves
 						//There's a chance it'd prolly be more efficient to store them as the addons but I've already set everything up this way so
 						beam.ModTexture = BeamAddonLoader.ShotTextureGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
-						beam.beamDust = (visualData[1] < 0) ? BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotDust : visualData[1];
+						beam.beamDust = (visualData[1] < 0) ? BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotDust : visualData[1];
 						beam.Impact = BeamAddonLoader.ShotSoundGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.BeamImpactFallbackSFX);
 						//Okay that last line was a bit of a mouthful but essentially what that says:
 						//It's attempting to set the beam impact sfx to an addon's impact sfx given the filemods.

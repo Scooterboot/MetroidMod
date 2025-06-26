@@ -285,12 +285,19 @@ namespace MetroidMod
 
 		public override void Load()
 		{
+			//ModBeamAddons automatically generate their items and tiles on load, based on the BeamAddonItem and BeamAddonTile templates.
+			//This is the code that facilitates this.
+
+			//Assigns a new B.A.I. and B.A.T. instance to the current M.B.A.
 			ModItem = new BeamAddonItem(this);
 			ModTile = new BeamAddonTile(this);
 			if (ModItem == null) { throw new Exception("WTF happened here? BeamAddonItem is null!"); }
 			if (ModTile == null) { throw new Exception("WTF happened here? BeamAddonTile is null!"); }
+			//Adds the content to the game.
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
+			//Assigns the Type values to the appropriate fields.
+			//If you forget this part, you can't call the addons through their Type, which breaks things like Shimmer recipes.
 			ItemType = ModItem.Type;
 			TileType = ModTile.Type;
 

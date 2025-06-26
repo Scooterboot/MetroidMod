@@ -18,6 +18,7 @@ using Terraria.GameContent.Biomes;
 using Terraria.Chat.Commands;
 using Terraria.UI.Chat;
 using Terraria.Chat;
+using Terraria.ModLoader.UI;
 
 namespace MetroidMod.Common.UI
 {
@@ -35,6 +36,7 @@ namespace MetroidMod.Common.UI
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>());
 
 		//TODO: when done, make it not look like shit          -Z
+		private ArmCannonPanel armCannonPanel;
 		private UIPanel panel;
 		private UIText text;
 		private UIText text2;
@@ -42,10 +44,10 @@ namespace MetroidMod.Common.UI
 		private UIText psdText;
 		private AddonSlot[] BeamSlot;
 		private UIText debugInfo;
-		//private AddonSlot[] ChargeSlot;
-		//private AddonSlot[] MissileSlot;
+		private UIPanel QuickSwapPanel;
+		private AddonSlot[] ChargeSlot;
+		private AddonSlot[] MissileSlot;
 		//private AddonSlot[] ComboSlot;
-		//private UIPanel QuickSwapPanel;
 
 		public override void OnInitialize()
 		{
@@ -62,7 +64,7 @@ namespace MetroidMod.Common.UI
 			text = new UIText("CHOZO UNIVERSAL WEAPONS PLATFORM", 0.7f);
 			text.HAlign = 0.5f;
 			text.VAlign = 0.05f;
-			text2 = new UIText("v.0.3.8.2 beta", 0.65f);
+			text2 = new UIText("v.0.3.8.3 beta", 0.65f);
 			text2.HAlign = text.HAlign;
 			text2.VAlign = text.VAlign + 0.08f;
 			UIText text3 = new UIText("DEVELOPER MODE", 0.5f);
@@ -109,6 +111,19 @@ namespace MetroidMod.Common.UI
 			debugInfo.VAlign = panel.VAlign;
 			debugInfo.MarginLeft = panel.MarginLeft + panel.Width.Pixels;
 			Append(debugInfo);
+
+			QuickSwapPanel = new UIPanel();
+			QuickSwapPanel.Width.Set(190, 0);
+			QuickSwapPanel.Height.Set(115, 0);
+			QuickSwapPanel.MarginLeft = panel.MarginLeft;
+			QuickSwapPanel.MarginTop = QuickSwapPanel.VAlign = panel.MarginTop + 0.5f;
+			QuickSwapPanel.BackgroundColor = new Color(0, 0, 0.25f, 0.5f);
+			QuickSwapPanel.BorderColor = Color.Teal;
+			Append(QuickSwapPanel);
+
+			ChargeSlot = new AddonSlot[8];
+			UIText[] chargeLabels = new UIText[8];
+
 		}
 
 		public override void Update(GameTime gameTime)
@@ -163,6 +178,12 @@ namespace MetroidMod.Common.UI
 			{
 				pseudoScrewButton.BackgroundColor = Color.Red;
 			}
+		}
+
+		public class ArmCannonPanel : DragableUIPanel
+		{
+			private Texture2D panelTexture;
+
 		}
 
 		public class AddonSlot : UIItemSlot //I did not make UIItemSlot. I am simply the one that found it. or perhaps it found me
