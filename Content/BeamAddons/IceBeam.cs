@@ -27,6 +27,7 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool AddOnlyAddonItem => false; //Idk why you'd ever want to enable this
 		public override Color PrimaryColor => new(0, 255, 255); //Highly recommend making the shot texture greyscale for maximum effect
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
+		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/IceBeam/Impact";
 		public override int ShotDust => DustID.IceGolem;
 		public override bool SoundOverride => true;
 

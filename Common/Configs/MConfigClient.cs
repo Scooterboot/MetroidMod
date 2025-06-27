@@ -58,11 +58,7 @@ namespace MetroidMod.Common.Configs
 		
 		[Header("DraggableUIPanels")]
 		//[Label("Power Beam")]
-		public DragablePanelPage PowerBeam = new();
-		//[Label("Power Beam Error")]
-		public DragablePanelPage PowerBeamError = new();
-		//[Label("Missile Launcher")]
-		public DragablePanelPage MissileLauncher = new();
+		public DragablePanelPage ArmCannon = new();
 		//[Label("Morph Ball")]
 		public DragablePanelPage MorphBall = new();
 		//[Label("Sense Move")]

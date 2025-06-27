@@ -13,12 +13,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using MetroidMod.Common.Players;
 using ReLogic.Content;
-using Microsoft.Build.Execution;
 using Terraria.GameContent.Biomes;
 using Terraria.Chat.Commands;
 using Terraria.UI.Chat;
 using Terraria.Chat;
 using Terraria.ModLoader.UI;
+using Microsoft.CodeAnalysis;
+using MetroidMod.Common.GlobalItems;
+using MonoMod.Logs;
 
 namespace MetroidMod.Common.UI
 {
@@ -37,108 +39,30 @@ namespace MetroidMod.Common.UI
 
 		//TODO: when done, make it not look like shit          -Z
 		private ArmCannonPanel armCannonPanel;
-		private UIPanel panel;
-		private UIText text;
-		private UIText text2;
-		private UIPanel pseudoScrewButton;
-		private UIText psdText;
-		private AddonSlot[] BeamSlot;
 		private UIText debugInfo;
-		private UIPanel QuickSwapPanel;
-		private AddonSlot[] ChargeSlot;
-		private AddonSlot[] MissileSlot;
-		//private AddonSlot[] ComboSlot;
 
 		public override void OnInitialize()
 		{
-			panel = new UIPanel();
-			panel.Width.Set(380, 0);
-			panel.Height.Set(230, 0);
-			panel.MarginTop = panel.VAlign = 0.305f;
-			panel.MarginLeft = 66;
-			panel.PaddingTop = 0;
-			panel.BackgroundColor = new Color(0, 0, 0.25f, 0.5f);
-			panel.BorderColor = Color.Teal;
-			Append(panel);
+			armCannonPanel = new ArmCannonPanel();
+			armCannonPanel.Initialize();
+			armCannonPanel.VAlign = 0.3f;
+			armCannonPanel.Left.Pixels = 62;
+			Append(armCannonPanel);
 
-			text = new UIText("CHOZO UNIVERSAL WEAPONS PLATFORM", 0.7f);
-			text.HAlign = 0.5f;
-			text.VAlign = 0.05f;
-			text2 = new UIText("v.0.3.8.3 beta", 0.65f);
-			text2.HAlign = text.HAlign;
-			text2.VAlign = text.VAlign + 0.08f;
-			UIText text3 = new UIText("DEVELOPER MODE", 0.5f);
-			text3.TextColor = Color.Yellow;
-			text3.VAlign = 1f;
-			panel.Append(text);
-			panel.Append(text2);
-			panel.Append(text3);
-
-			pseudoScrewButton = new UIPanel();
-			pseudoScrewButton.Width.Set(75, 0);
-			pseudoScrewButton.Height.Set(30, 0);
-			pseudoScrewButton.HAlign = 0.97f;
-			pseudoScrewButton.VAlign = 0.95f;
-			pseudoScrewButton.BackgroundColor = Color.Red;
-			pseudoScrewButton.OnLeftClick += OnPSBClick;
-			psdText = new UIText("P.S.A");
-			psdText.HAlign = psdText.VAlign = 0.5f;
-			panel.Append(pseudoScrewButton);
-			pseudoScrewButton.Append(psdText);
-
-			BeamSlot = new AddonSlot[5];
-			UIText[] labels = new UIText[5];
-			for (int i = 0; i < 5; ++i) //do it like this for now because I'll figure out charge shit later
-			{
-				BeamSlot[i] = new AddonSlot();
-				BeamSlot[i].VAlign = 0.3f;
-				BeamSlot[i].HAlign = 0.07f + (0.22f * i);
-				BeamSlot[i].isBeam = true;
-				BeamSlot[i].isArray = false;
-				BeamSlot[i].slotType = i;
-				BeamSlot[i].ItemRead = new Item();
-
-				labels[i] = new UIText(i.ToString(), 0.8f);
-				labels[i].HAlign = 0.11f + (0.195f * i);
-				labels[i].VAlign = BeamSlot[i].VAlign + 0.175f;
-
-				panel.Append(BeamSlot[i]);
-				panel.Append(labels[i]);
-
-				MetroidMod.Instance.Logger.Info("Congrats, the fucking thing loaded!\nSlot: " + i);
-			}
 			debugInfo = new UIText("Initializing.\nWait until Update(), numbnuts", 0.75f);
-			debugInfo.VAlign = panel.VAlign;
-			debugInfo.MarginLeft = panel.MarginLeft + panel.Width.Pixels;
+			debugInfo.VAlign = armCannonPanel.VAlign;
+			debugInfo.MarginLeft = armCannonPanel.MarginLeft + armCannonPanel.Width.Pixels + 5;
 			Append(debugInfo);
-
-			QuickSwapPanel = new UIPanel();
-			QuickSwapPanel.Width.Set(190, 0);
-			QuickSwapPanel.Height.Set(115, 0);
-			QuickSwapPanel.MarginLeft = panel.MarginLeft;
-			QuickSwapPanel.MarginTop = QuickSwapPanel.VAlign = panel.MarginTop + 0.5f;
-			QuickSwapPanel.BackgroundColor = new Color(0, 0, 0.25f, 0.5f);
-			QuickSwapPanel.BorderColor = Color.Teal;
-			Append(QuickSwapPanel);
-
-			ChargeSlot = new AddonSlot[8];
-			UIText[] chargeLabels = new UIText[8];
 
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			//In the initialization the array writes itself onto the slots
-			//In order for the slots to be able to actually change the contents,
-			//during the update the item slots override the array
-			//I hope this is how it works otherwise I'm gonna feel pretty stupid
+			//I had to reconfigure the fuck out of this shit and I'm doing some really hacky shit now and I don't like it
+			armCannonPanel.Update(gameTime);
 			if (Visible)
 			{
 				target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
-				for (int i = 0; i < 5; ++i)
-				{
-					BeamSlot[i].ItemRead = target.BeamAddonAccess[i];
-				}
 				debugInfo.SetText("SLOT INFO:" +
 								  "\nPrimary (charge): " + target.BeamAddonAccess[0].Name +
 								  "\nAbility (ice): " + target.BeamAddonAccess[1].Name +
@@ -150,43 +74,248 @@ namespace MetroidMod.Common.UI
 								  "\nHolding fire? " + Main.LocalPlayer.controlUseItem);
 			}
 		}
+	}
+	public class ArmCannonPanel : DragableUIPanel
+	{
+		//Why is this its own separate class? Idfk
+		private Texture2D panelTexture;
 
-		private void OnPSBClick(UIMouseEvent evt, UIElement listeningElement)
+		/// <summary>
+		/// The slots that hold addons, stored in an array to save space.
+		/// </summary>
+		private AddonSlot[] addonSlots;
+		/// <summary>
+		/// Holds titles and missile/UA ammo count.
+		/// </summary>
+		private UIText[] info;
+		/// <summary>
+		/// The Arm Cannon this instance of the UI affects.
+		/// </summary>
+		private ArmCannon target;
+
+		public Rectangle DrawRectangle => new Rectangle((int)GetDimensions().Position().X, (int)GetDimensions().Position().Y, (int)Width.Pixels, (int)Height.Pixels);
+
+		//The exact coordinate positions of every addon slot in the UI.
+		public Vector2[] slotPositions = new Vector2[BeamAddonSlotID.Count + MissileAddonSlotID.Count]
 		{
-			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-			SoundEngine.PlaySound(SoundID.Item16);
-			mp.pseudoScrewActive = !mp.pseudoScrewActive;
+			//Beam addons:
+			new(78, 8), //Primary
+			new(76, 175), //Ability
+			new(244, 175), //Ion
+			new(76, 108), //Spread
+			new(244, 108), //Secondary
+			new(130, 265), //Ammo
+			//Missile addons:
+			new(160, 16), //Charge
+			new(244, 8), //Primary
+			new(190, 265) //Tank
+		};
+
+		public override void OnInitialize()
+		{
+			//Set the textures for the UI.
+			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Border", AssetRequestMode.ImmediateLoad).Value;
+
+			//Carve out the ol' spot where the UI shows up.
+			Width.Pixels = panelTexture.Width;
+			Height.Pixels = panelTexture.Height;
+
+			//Add the fancy visuals
+			Append(new ArmCannonFrame());
+			Append(new ArmCannonLines());
+
+			//Begin placing the slots
+			addonSlots = new AddonSlot[slotPositions.Length];
+			UIText[] addonLabels = new UIText[addonSlots.Length];
+			for (int i = 0; i < addonSlots.Length; ++i)
+			{
+				addonSlots[i] = new AddonSlot();
+				addonSlots[i].Top.Pixels = slotPositions[i].Y;
+				addonSlots[i].Left.Pixels = slotPositions[i].X;
+				if (i < BeamAddonSlotID.Count)
+				{
+					addonSlots[i].isBeam = true;
+					addonSlots[i].slotType = i;
+					if (i != 5)
+					{
+						addonLabels[i] = new UIText(i.ToString(), 0.75f); //TODO: Dictionary for slot names
+						addonLabels[i].TextColor = Color.Orange;
+					}
+					else
+					{
+						addonLabels[i] = new UIText("", 0.01f);
+					}
+				}
+				else
+				{
+					addonSlots[i].isBeam = false;
+					addonSlots[i].slotType = (i - BeamAddonSlotID.Count);
+					if (i != 8)
+					{
+						addonLabels[i] = new UIText((i).ToString(), 0.75f); //TODO: Dictionary for slot names
+						addonLabels[i].TextColor = Color.Orange;
+					}
+					else
+					{
+						addonLabels[i] = new UIText("", 0.01f);
+					}
+				}
+				addonLabels[i].Top.Pixels = addonSlots[i].Top.Pixels + addonSlots[i].Height.Pixels - 4;
+				addonLabels[i].Left.Pixels = addonSlots[i].Left.Pixels + (addonSlots[i].Width.Pixels / 2 - 9);
+
+				addonSlots[i].ItemRead = new Item();
+
+				Append(addonSlots[i]);
+				Append(addonLabels[i]);
+			}
+
+			info = new UIText[6];
+			//All of the non-slot related labels go here
+			info[0] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.ACTitle"), 0.75f);
+			info[0].HAlign = 0.5f;
+			info[0].Top.Pixels = -11;
+
+			info[1] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.ACAmmoTitle"), 0.5f);
+			info[1].HAlign = info[0].HAlign;
+			info[1].Top.Pixels = 247;
+
+			info[2] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.UALabel"), 0.75f);
+			info[2].HAlign = 0.2f;
+			info[2].Top.Pixels = 260;
+
+			info[3] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.MissileLabel"), 0.75f);
+			info[3].HAlign = 0.8f;
+			info[3].Top.Pixels = 260;
+
+			//These two show how much ammo the player has.
+			info[4] = new UIText("  0/  0", 1f);
+			info[4].HAlign = info[2].HAlign;
+			info[4].Top.Pixels = 280;
+
+			info[5] = new UIText("  0/  0", 1f);
+			info[5].HAlign = info[3].HAlign;
+			info[5].Top.Pixels = 280;
+
+			//Gonna append them in a for loop cause I'm too lazy to write 6 different appends
+			for (int i = 0; i < info.Length; ++i)
+			{
+				Append(info[i]);
+			}
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			// Ignore mouse input.
+			if (base.IsMouseHovering)
+			{
+				Main.LocalPlayer.mouseInterface = true;
+			}
+			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+			MGlobalItem ac = (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem]).GetGlobalItem<MGlobalItem>();
+			for (int i = 0; i < addonSlots.Length; ++i)
+			{
+				if (i < BeamAddonSlotID.Count)
+				{
+					addonSlots[i].ItemRead = target.BeamAddonAccess[i];
+				}
+				else
+				{
+					addonSlots[i].ItemRead = target.MissileAddonAccess[i - BeamAddonSlotID.Count];
+				}
+			}
+			info[0].Top.Pixels = -11;
+			info[1].Top.Pixels = 247;
+			info[1].SetText(Language.GetTextValue("Mods.MetroidMod.UILabelling.ACAmmoTitle"));
+			info[2].HAlign = 0.2f;
+			info[3].HAlign = 0.8f;
+			info[4].HAlign = info[2].HAlign;
+			info[4].Top.Pixels = info[5].Top.Pixels = 285;
+			info[5].HAlign = info[3].HAlign;
+
+			info[4].SetText(ac.statUA.ToString("000") + "/" + ac.maxUA.ToString("000"));
+			if (ac.maxUA == ac.statUA && ac.maxUA != 0)
+			{
+				info[4].TextColor = Color.Gold;
+			}
+			else if (ac.statUA == 0 && ac.maxUA != 0)
+			{
+				info[4].TextColor = Color.Red;
+			}
+			else if (ac.maxUA == 0)
+			{
+				info[4].TextColor = info[2].TextColor = Color.Gray;
+			}
+			else { info[4].TextColor = info[2].TextColor = Color.White; }
+
+				info[5].SetText(ac.statMissiles.ToString("000") + "/" + ac.maxMissiles.ToString("000"));
+			if (ac.maxMissiles == ac.statMissiles && ac.maxMissiles != 0)
+			{
+				info[5].TextColor = Color.Gold;
+			}
+			else if (ac.statMissiles == 0 && ac.maxMissiles != 0)
+			{
+				info[5].TextColor = Color.Red;
+			}
+			else if (ac.maxMissiles == 0)
+			{
+				info[5].TextColor = info[3].TextColor = Color.Gray;
+			}
+			else { info[5].TextColor = info[3].TextColor = Color.White; }
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			if (pseudoScrewButton.ContainsPoint(Main.MouseScreen))
-			{
-				Main.LocalPlayer.mouseInterface = true;
-				psdText.TextColor = Color.Yellow;
-			}
-			else
-			{
-				psdText.TextColor = Color.White;
-			}
-			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-			if (mp.pseudoScrewActive)
-			{
-				pseudoScrewButton.BackgroundColor = Color.Green;
-			}
-			else
-			{
-				pseudoScrewButton.BackgroundColor = Color.Red;
-			}
+			Vector2 realPosition = GetDimensions().Position();
+			spriteBatch.Draw(panelTexture, new Rectangle((int)realPosition.X, (int)realPosition.Y, panelTexture.Width, panelTexture.Height), Color.White);
 		}
+	}
 
-		public class ArmCannonPanel : DragableUIPanel
+	public class ArmCannonFrame : UIPanel
+	{
+		private Texture2D armCannonFrame;
+		public Rectangle DrawRectangle => new Rectangle((int)(Parent.GetDimensions().Position().X + Left.Pixels), (int)(Parent.GetDimensions().Position().Y + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+
+
+		public override void OnInitialize()
 		{
-			private Texture2D panelTexture;
+			// Set the textures for the UI.
+			armCannonFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Frame", AssetRequestMode.ImmediateLoad).Value;
 
+			//Carve out the ol' spot where the UI shows up.
+			Width.Pixels = armCannonFrame.Width;
+			Height.Pixels = armCannonFrame.Height;
+			
+			//Hardcoded position values. This is a handcrafted sucker.
+			Left.Pixels = 166;
+			Top.Pixels = 120;
 		}
 
-		public class AddonSlot : UIItemSlot //I did not make UIItemSlot. I am simply the one that found it. or perhaps it found me
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			spriteBatch.Draw(armCannonFrame, DrawRectangle, Color.White);
+		}
+	}
+	public class ArmCannonLines : UIPanel
+	{
+		private Texture2D armCannonLines;
+		public Rectangle DrawRectangle => new Rectangle((int)(Parent.GetDimensions().Position().X + Left.Pixels), (int)(Parent.GetDimensions().Position().Y + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+
+		public override void OnInitialize()
+		{
+			armCannonLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Lines", AssetRequestMode.ImmediateLoad).Value;
+
+			//Carve out the ol' spot where the UI shows up.
+			Width.Pixels = armCannonLines.Width;
+			Height.Pixels = armCannonLines.Height;
+		}
+
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			spriteBatch.Draw(armCannonLines, DrawRectangle, Color.White);
+		}
+	}
+
+	public class AddonSlot : UIItemSlot //I did not make UIItemSlot. I am simply the one that found it. or perhaps it found me
 		{
 			public delegate bool Condition(Item item); //Idk the deal with these but I prolly have to use these because something something data security
 
@@ -207,11 +336,6 @@ namespace MetroidMod.Common.UI
 			public AddonSlot()
 			{
 				backgroundTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
-			}
-
-			public override void Update(GameTime gameTime)
-			{
-				
 			}
 			public override void LeftMouseDown(UIMouseEvent evt)
 			{
@@ -327,6 +451,3 @@ namespace MetroidMod.Common.UI
 			}
 		}
 	}
-
-
-}

@@ -473,7 +473,7 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
 				Main.dust[dust].noGravity = noGravity;
 			}
-			SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/BeamImpactSound");
+			SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/ArmCannon/BeamImpactSound");
 			if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 			{
 				sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");

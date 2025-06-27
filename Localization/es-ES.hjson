@@ -7,6 +7,21 @@ Mods: {
 			// PhazonCorruption: "{0} has been corrupted with Phazon!"
 		}
 
+		BeamSlotDictionary: {
+			// Charge: Beam
+			// Ice: Utility
+			// Wave: Ion
+			// Spazer: Spread
+			// Plasma: Secondary
+			// UA: Beam Ammo
+		}
+
+		MissileSlotDictionary: {
+			// ChargeCombo: Combo
+			// Primary: Missile
+			// Tanks: Missile Ammo
+		}
+
 		// BiomeName.ChozoRuinsBiome: Chozo Ruins
 		// DamageClasses.HunterDamageClass.DisplayName: Hunter Damage
 
@@ -51,6 +66,16 @@ Mods: {
 				''' */
 			// HyperBeamEnabled: Enables the use of Hyper Beam
 			// PhazonBeamEnabled: Enables the use of Phazon Beam
+		}
+
+		UILabelling: {
+			// ACTitle: ARM CANNON
+			// ACAmmoTitle: A M M O
+			// UALabel: BEAM
+			// MissileLabel: MISSILE
+			// PSTitle: POWER SUIT
+			// ReserveLabel: RESERVE
+			// MBTitle: MORPH BALL
 		}
 
 		Dialogue: {
@@ -4255,6 +4280,11 @@ Mods: {
 
 				PsuedoScrewAttack: {
 					// Label: Psuedo Screw Attack
+					// Tooltip: ""
+				}
+
+				ArmCannon: {
+					// Label: Arm Cannon
 					// Tooltip: ""
 				}
 			}
