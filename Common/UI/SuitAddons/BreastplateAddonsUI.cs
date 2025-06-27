@@ -36,39 +36,57 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
 
-		public Vector2[] itemBoxPositionValues = new Vector2[4]
+		public Vector2[] breastItemBoxPositionValues = new Vector2[4]
 		{
-			new Vector2(32, 94), // Energy
-			new Vector2(174, 94), // Reserve
-			new Vector2(32, 14), // Barrier
-			new Vector2(174, 14) // Primary
+			new Vector2(36, 160), // Reserve
+			new Vector2(186, 160), // Energy
+			new Vector2(196, 88), // Barrier
+			new Vector2(26, 88) // Primary
 		};
-
-		public BreastplateUIItemBox[] addonSlots;
+		public Vector2[] helmItemBoxPositionValues = new Vector2[3]
+		{
+			new Vector2(50, 16), // Scan
+			new Vector2(170, 16), // Utility
+			new Vector2(110, 16), // Alt
+		};
+		public BreastplateUIItemBox[] breastAddonSlots;
+		public HelmetUIItemBox[] helmAddonSlots;
 
 		public override void OnInitialize()
 		{
-			PanelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuitBreastplate_Border", AssetRequestMode.ImmediateLoad);
+			PanelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerSuit_Border", AssetRequestMode.ImmediateLoad);
 
 			SetPadding(0);
 			Left.Pixels = Main.screenWidth - PanelTexture.Width() - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
-			Top.Pixels = 210;
+			Top.Pixels = 160;
 			Width.Pixels = PanelTexture.Width();
 			Height.Pixels = PanelTexture.Height();
 
+			Append(new BreastplateAddonsBackground());
 			Append(new BreastplateAddonsFrame());
 			Append(new BreastplateAddonsLines());
 
-			addonSlots = new BreastplateUIItemBox[4];
-			for (int i = 0; i < addonSlots.Length; i++)
+			breastAddonSlots = new BreastplateUIItemBox[4];
+			for (int i = 0; i < breastAddonSlots.Length; i++)
 			{
-				addonSlots[i] = new BreastplateUIItemBox();
-				addonSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
-				addonSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
-				addonSlots[i].addonSlotType = i;
-				addonSlots[i].SetCondition();
+				breastAddonSlots[i] = new BreastplateUIItemBox();
+				breastAddonSlots[i].Top.Pixels = breastItemBoxPositionValues[i].Y;
+				breastAddonSlots[i].Left.Pixels = breastItemBoxPositionValues[i].X;
+				breastAddonSlots[i].addonSlotType = i;
+				breastAddonSlots[i].SetCondition();
 
-				Append(addonSlots[i]);
+				Append(breastAddonSlots[i]);
+			}
+			helmAddonSlots = new HelmetUIItemBox[3];
+			for (int i = 0; i < helmAddonSlots.Length; i++)
+			{
+				helmAddonSlots[i] = new HelmetUIItemBox();
+				helmAddonSlots[i].Top.Pixels = helmItemBoxPositionValues[i].Y;
+				helmAddonSlots[i].Left.Pixels = helmItemBoxPositionValues[i].X;
+				helmAddonSlots[i].addonSlotType = i + 4;
+				helmAddonSlots[i].SetCondition();
+
+				Append(helmAddonSlots[i]);
 			}
 		}
 
@@ -82,7 +100,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			if (!enabled && MConfigClient.Instance.BreastplateAddons.auto)
 			{
 				Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
-				Top.Pixels = 210;
+				Top.Pixels = 160;
 				if (!Main.mapFullscreen && Main.mapStyle == 1)
 				{
 					Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);
@@ -161,12 +179,30 @@ namespace MetroidMod.Common.UI.SuitAddons
 				else if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
+					if (Main.mouseItem.type == target.SuitAddons[addonSlotType].type)
+					{
+						int stack = Main.mouseItem.stack + target.SuitAddons[addonSlotType].stack;
 
-					Item tempBoxItem = target.SuitAddons[addonSlotType].Clone();
-					Item tempMouseItem = Main.mouseItem.Clone();
+						if (target.SuitAddons[addonSlotType].maxStack >= stack)
+						{
+							target.SuitAddons[addonSlotType].stack = stack;
+							Main.mouseItem.TurnToAir();
+						}
+						else
+						{
+							int stackDiff = stack - target.SuitAddons[addonSlotType].maxStack;
+							target.SuitAddons[addonSlotType].stack = target.SuitAddons[addonSlotType].maxStack;
+							Main.mouseItem.stack = stackDiff;
+						}
+					}
+					else
+					{
+						Item tempBoxItem = target.SuitAddons[addonSlotType].Clone();
+						Item tempMouseItem = Main.mouseItem.Clone();
 
-					target.SuitAddons[addonSlotType] = tempMouseItem;
-					Main.mouseItem = tempBoxItem;
+						target.SuitAddons[addonSlotType] = tempMouseItem;
+						Main.mouseItem = tempBoxItem;
+					}
 				}
 			}
 			else if (!Main.mouseItem.IsAir)
@@ -263,14 +299,14 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void OnInitialize()
 		{
-			FrameTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuitBreastplate_Frame", AssetRequestMode.ImmediateLoad);
+			FrameTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerSuit_Frame", AssetRequestMode.ImmediateLoad);
 
 			Width.Pixels = FrameTexture.Width();
 			Height.Pixels = FrameTexture.Height();
 
 			// Hardcoded position values.
-			Top.Pixels = 120;
-			Left.Pixels = 110;
+			Left.Pixels = 98;
+			Top.Pixels = 92;
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -286,7 +322,30 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public override void OnInitialize()
 		{
-			LinesTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuitBreastplate_Lines", AssetRequestMode.ImmediateLoad);
+			LinesTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerSuit_Lines", AssetRequestMode.ImmediateLoad);
+
+			Width.Pixels = LinesTexture.Width();
+			Height.Pixels = LinesTexture.Height();
+
+			// Hardcoded position values.
+			Top.Pixels = 0;
+			Left.Pixels = 0;
+		}
+
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			spriteBatch.Draw(LinesTexture.Value, DrawRectangle, Color.White);
+		}
+	}
+	public class BreastplateAddonsBackground : UIPanel
+	{
+		private Asset<Texture2D> LinesTexture;
+
+		public Rectangle DrawRectangle => new Rectangle((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+
+		public override void OnInitialize()
+		{
+			LinesTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/PowerSuit_Background", AssetRequestMode.ImmediateLoad);
 
 			Width.Pixels = LinesTexture.Width();
 			Height.Pixels = LinesTexture.Height();

@@ -14,7 +14,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 {
 	public class ReserveUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.SuitAddonUIState == SuitAddonUIState.Reserves && Main.EquipPage == 0;
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.SuitAddonUIState == SuitAddonUIState.Breastplate && mp.SuitReserveTanks > 0 && Main.EquipPage == 0;
 
 		public ReservePanel panel;
 
@@ -33,6 +33,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		private Asset<Texture2D> ModeTexture;
 
+		private Asset<Texture2D> BarTexture;
+
 		private Asset<Texture2D>[] NumberTextures;
 
 		public ReserveButton modeButton;
@@ -44,30 +46,32 @@ namespace MetroidMod.Common.UI.SuitAddons
 		private bool reserveHoldingRClick;
 
 		public Rectangle DrawRectangle => new((int)Left.Pixels, (int)Top.Pixels, (int)Width.Pixels, (int)Height.Pixels);
-		public Rectangle ModeAddRectangle => new((int)(DrawRectangle.Width * 28.0 / 168.0), (int)(DrawRectangle.Height * 16.0 / 86.0), (int)(DrawRectangle.Width * 110.0 / 168.0), (int)(DrawRectangle.Height * 10.0 / 86.0));
+		public Rectangle ModeAddRectangle => new((int)(DrawRectangle.Width * 90.0 / 216.0), (int)(DrawRectangle.Height * 6.0 / 66.0), (int)(DrawRectangle.Width * 110.0 / 216.0), (int)(DrawRectangle.Height * 10.0 / 66.0));
 
 		public Rectangle GetNumRect(int i)
 		{
 			return i switch
 			{
-				0 => new((int)(DrawRectangle.Width * 16.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				1 => new((int)(DrawRectangle.Width * 32.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				2 => new((int)(DrawRectangle.Width * 48.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				3 => new((int)(DrawRectangle.Width * 64.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				4 => new((int)(DrawRectangle.Width * 88.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				5 => new((int)(DrawRectangle.Width * 104.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				6 => new((int)(DrawRectangle.Width * 120.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
-				7 => new((int)(DrawRectangle.Width * 136.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 14.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0)),
+				0 => new((int)(DrawRectangle.Width * 154.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
+				1 => new((int)(DrawRectangle.Width * 170.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
+				2 => new((int)(DrawRectangle.Width * 186.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
+				//3 => new((int)(DrawRectangle.Width * 150.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
+				//4 => new((int)(DrawRectangle.Width * 166.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
+				//5 => new((int)(DrawRectangle.Width * 182.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
+				//6 => new((int)(DrawRectangle.Width * 198.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
+				//7 => new((int)(DrawRectangle.Width * 214.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 14.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0)),
 				_ => new(),
 			};
 		}
+		public Rectangle BarRect => new((int)(DrawRectangle.Width * 90.0 / 216.0), (int)(DrawRectangle.Height * 40.0 / 66.0), (int)(DrawRectangle.Width * 58.0 / 216.0), (int)(DrawRectangle.Height * 12.0 / 66.0));
 
-		public Rectangle NumButtonRect => new((int)(DrawRectangle.Width * 16.0 / 168.0), (int)(DrawRectangle.Height * 60.0 / 86.0), (int)(DrawRectangle.Width * 134.0 / 168.0), (int)(DrawRectangle.Height * 14.0 / 86.0));
+		public Rectangle NumButtonRect => new((int)(DrawRectangle.Width * 94.0 / 216.0), (int)(DrawRectangle.Height * 38.0 / 66.0), (int)(DrawRectangle.Width * 134.0 / 216.0), (int)(DrawRectangle.Height * 14.0 / 66.0));
 
 		public override void OnInitialize()
 		{
 			PanelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ReserveUI", AssetRequestMode.ImmediateLoad);
 			ModeTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Reserve/MODE", AssetRequestMode.ImmediateLoad);
+			BarTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Reserve/Bar", AssetRequestMode.ImmediateLoad);
 			NumberTextures = new Asset<Texture2D>[10];
 			for (int i = 0; i < 10; i++)
 			{
@@ -76,7 +80,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 			SetPadding(0);
 			Left.Pixels = Main.screenWidth - PanelTexture.Width() - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
-			Top.Pixels = 250;
+			Top.Pixels = 400;
 			Width.Pixels = PanelTexture.Width();
 			Height.Pixels = PanelTexture.Height();
 
@@ -101,7 +105,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			reserveAmt.Width.Pixels = NumButtonRect.Width;
 			reserveAmt.Height.Pixels = NumButtonRect.Height;
 			reserveAmt.OnUpdate += delegate {
-				if (modeButton.IsMouseHovering)
+				if (reserveAmt.IsMouseHovering)
 				{
 					Main.LocalPlayer.mouseInterface = true;
 				}
@@ -117,14 +121,28 @@ namespace MetroidMod.Common.UI.SuitAddons
 		{
 			base.Update(gameTime);
 			enabled = MConfigClient.Instance.Reserves.enabled;
-			if (IsMouseHovering)
+			if (modeButton.IsMouseHovering)
 			{
 				Main.LocalPlayer.mouseInterface = true;
+				ModeTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Reserve/MODE_Hover", AssetRequestMode.ImmediateLoad);
+			}
+			else
+			{
+				ModeTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Reserve/MODE", AssetRequestMode.ImmediateLoad);
+			}
+			if (reserveAmt.IsMouseHovering)
+			{
+				Main.LocalPlayer.mouseInterface = true;
+				BarTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Reserve/Bar_Hover", AssetRequestMode.ImmediateLoad);
+			}
+			else
+			{
+				BarTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/Reserve/Bar", AssetRequestMode.ImmediateLoad);
 			}
 			if (!enabled && MConfigClient.Instance.Reserves.auto)
 			{
-				Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 290 : 250);
-				Top.Pixels = 250;
+				Left.Pixels = Main.screenWidth - Width.Pixels - (Main.netMode == NetmodeID.MultiplayerClient ? 294 : 254);
+				Top.Pixels = 398;
 				if (!Main.mapFullscreen && Main.mapStyle == 1)
 				{
 					Top.Pixels += Math.Min(256, Main.screenHeight - Main.instance.RecommendedEquipmentAreaPushUp);
@@ -159,8 +177,30 @@ namespace MetroidMod.Common.UI.SuitAddons
 			// number drawing
 			int tanks = mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount;
 			int filled = mp.SuitReserves;
+			int bars = Math.Min(mp.SuitReserveTanks, 4);
+
+			// bar drawing
+			Rectangle bRectFrame = new Rectangle(0, 0, 16 + (bars - 1) * 14, 12);
+
+			Rectangle bRectFill = BarRect;
+			bRectFill.X += 1;
+			bRectFill.Width = (int)((float)filled / tanks * (bRectFrame.Width - 2));
+			spriteBatch.Draw(
+				BarTexture.Value,
+				new Rectangle(DrawRectangle.Left + bRectFill.Left, DrawRectangle.Top + bRectFill.Top, bRectFill.Width, bRectFill.Height),
+				new Rectangle?(new Rectangle(0, 12, 58, 12)),
+				Main.MouseTextColorReal
+				);
+
+			spriteBatch.Draw(
+				BarTexture.Value,
+				new Rectangle(DrawRectangle.Left + BarRect.Left, DrawRectangle.Top + BarRect.Top, bRectFrame.Width, BarRect.Height),
+				new Rectangle?(bRectFrame),
+				Main.MouseTextColorReal
+				);
+
 			// make leading zeros
-			string e = $"{filled:D4}{tanks:D4}";
+			string e = $"{filled:D3}";
 			for (int i = 0; i < e.Length; i++)
 			{
 				Rectangle rect = GetNumRect(i);

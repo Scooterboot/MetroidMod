@@ -16,7 +16,7 @@ namespace MetroidMod.Common.Players
 		None = 0,
 		Helmet = 1,
 		Breastplate = 2,
-		Reserves = 3,
+		Reserves = 3
 	}
 	public partial class MPlayer : ModPlayer
 	{

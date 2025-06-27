@@ -1118,6 +1118,7 @@ Mods: {
 					{$CommonItemTooltip.IsSuitAddon}Reserve
 					Can store a spare tank of energy
 					Set to "auto" in the suit UI to automatically use when energy is depleted
+					Left click the bar to fill reserves with suit energy, right click to draw from reserves
 					Stacks up to 4
 					''' */
 			}

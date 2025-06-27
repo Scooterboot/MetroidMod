@@ -75,16 +75,19 @@ namespace MetroidMod.Common.UI
 		{
 			if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
 			{
-				if (mp.SuitAddonUIState < SuitAddonUIState.Reserves)
-				{
-					if (Main.keyState.IsKeyDown(Keys.LeftShift)) { mp.SuitAddonUIState -= 1; }
-					else { mp.SuitAddonUIState += 1; }
-					if (Main.keyState.IsKeyDown(Keys.LeftControl)) { mp.SuitAddonUIState = SuitAddonUIState.None; }
-				}
-				else
-				{
-					mp.SuitAddonUIState = SuitAddonUIState.None;
-				}
+				mp.SuitAddonUIState = mp.SuitAddonUIState == SuitAddonUIState.None ? SuitAddonUIState.Breastplate : SuitAddonUIState.None;
+				//The old cycling code
+				//if (mp.SuitAddonUIState < SuitAddonUIState.Reserves)
+				//{
+				//	if (Main.keyState.IsKeyDown(Keys.LeftShift)) { mp.SuitAddonUIState -= 1; }
+				//	else { mp.SuitAddonUIState += 1; }
+				//	if (Main.keyState.IsKeyDown(Keys.LeftControl)) { mp.SuitAddonUIState = SuitAddonUIState.None; }
+				//}
+				//else
+				//{
+				//	mp.SuitAddonUIState = SuitAddonUIState.None;
+				//}
+
 				/*
 				// i swear this is necessary ;-; - DarkSamus49
 				switch (state)
