@@ -160,72 +160,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool muteSpeedBooster;
 
-		[Header("[i:MetroidMod/PowerBeam]StandardWeapons")]
-
-		//[Label("[i:MetroidMod/PowerBeam] Power Beam Damage")]
-		[Range(1, 50)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(9)]
-		public int damagePowerBeam;
-
-		//[Label("[i:MetroidMod/PowerBeam] Power Beam Use Time")]
-		[Range(5, 60)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(14)]
-		public int useTimePowerBeam;
-
-		//[Label("[i:MetroidMod/MissileLauncher] Power Beam Starting Ammo")]
-		[Range(0, 100)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(40f)]
-		public float ammoPowerBeam;
-
-		//[Label("[i:MetroidMod/MissileExpansion] Ammo per UA Expansion")]
-		[Range(20, 100)]
-		[Increment(10)]
-		[Slider]
-		[DefaultValue(30)]
-		public int ammoUA;
-
-		//[Label("[i:MetroidMod/PowerBeam] Power Beam Overheat")]
-		[Range(1, 100)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(4)]
-		public int overheatPowerBeam;
-
-		//[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Damage")]
-		[Range(1, 100)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(32)]
-		public int damageMissileLauncher;
-
-		//[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Use Time")]
-		[Range(5, 60)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(18)]
-		public int useTimeMissileLauncher;
-
-		//[Label("[i:MetroidMod/MissileLauncher] Missile Launcher Starting Ammo")]
-		[Range(0, 10)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(5)]
-		public int ammoMissileLauncher;
-
-		//[Label("[i:MetroidMod/MissileExpansion] Ammo per Missile Tank")]
-		[Range(1, 10)]
-		[Increment(1)]
-		[Slider]
-		[DefaultValue(5)]
-		public int ammoMissileTank;
-
-		[Header("[i:MetroidMod/PowerBeam]SpecialBeams")]
+		[Header("[i:MetroidMod/PowerBeam]ArmCannon")]
 
 		//[Label("check localization")]
 		[DefaultValue(false)]
