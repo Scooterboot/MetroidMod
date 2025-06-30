@@ -1,26 +1,18 @@
-﻿using Terraria.ModLoader;
-using Terraria.Localization;
-using Terraria.UI;
+﻿using System;
+using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
-using Terraria;
-using MetroidMod.Content.Items.Weapons;
-using Terraria.GameContent.UI.Elements;
-using System.Security.Cryptography.X509Certificates;
-using Terraria.Audio;
-using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
-using MetroidMod.Common.Players;
 using ReLogic.Content;
-using Terraria.GameContent.Biomes;
-using Terraria.Chat.Commands;
-using Terraria.UI.Chat;
+using Terraria;
+using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.ModLoader.UI;
-using Microsoft.CodeAnalysis;
-using MetroidMod.Common.GlobalItems;
-using MonoMod.Logs;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
@@ -37,23 +29,77 @@ namespace MetroidMod.Common.UI
 		private ArmCannon target;
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>());
 
-		//TODO: when done, make it not look like shit          -Z
+		private UIDraggableBase baseBoard;
 		private ArmCannonPanel armCannonPanel;
+
+		private Asset<Texture2D> barTex => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuperMetroidUI_Border");
+		private Asset<Texture2D> bgTex => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuperMetroidUI_BG");
+		private UIPanelTileBackground buttonTab;
+
+		private UIImageButton beamArrayToggle;
+		private UIImageButton missileArrayToggle;
+		private UIImageButton pseudoScrewToggle;
+
+		private UIPanelTileBackground testPanel;
+		private UIHidable testTab;
 		private UIText debugInfo;
 
 		public override void OnInitialize()
 		{
-			armCannonPanel = new ArmCannonPanel();
+			//The baseboard ensures that when the player deems fit to drag the UI around, all associated elements come with.
+			baseBoard = new UIDraggableBase();
+			//Hardcoded size values, perfectly tailored to the UI assets
+			baseBoard.SetPadding(0);
+			baseBoard.Width.Pixels = 492;
+			baseBoard.Height.Pixels = 332;
+			baseBoard.VAlign = 0.33f;
+			baseBoard.Left.Pixels = 62;
+			Append(baseBoard);
+
+			buttonTab = new UIPanelTileBackground(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/BackgroundSolid"), barTex, 10, 10);
+			buttonTab.panelColor = Color.Black;
+			buttonTab.SetPadding(0);
+			buttonTab.Width.Pixels = 90;
+			buttonTab.Height.Pixels = 106;
+			baseBoard.Append(buttonTab);
+
+			armCannonPanel = new ArmCannonPanel(bgTex, barTex, 10, 10);
 			armCannonPanel.Initialize();
-			armCannonPanel.VAlign = 0.3f;
-			armCannonPanel.Left.Pixels = 62;
-			Append(armCannonPanel);
+			armCannonPanel.Left.Pixels = 56;
+			baseBoard.Append(armCannonPanel);
+
+			beamArrayToggle = new UIImageButton(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamArrayButton_Off"));
+			beamArrayToggle.Left.Pixels = 8.5f;
+			beamArrayToggle.Top.Pixels = 7.5f;
+			beamArrayToggle.Width.Pixels = beamArrayToggle.Height.Pixels = 44;
+			beamArrayToggle.SetVisibility(1f, 1f);
+			beamArrayToggle.SetHoverImage(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamArrayButton_Off_Hover"));
+
+			buttonTab.Append(beamArrayToggle);
+
+			missileArrayToggle = new UIImageButton(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/ChargeComboButton_Off"));
+			missileArrayToggle.Left.Pixels = 8.5f;
+			missileArrayToggle.Top.Pixels = 52.5f;
+			missileArrayToggle.Width.Pixels = missileArrayToggle.Height.Pixels = 44;
+			missileArrayToggle.SetVisibility(1f, 1f);
+			missileArrayToggle.SetHoverImage(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/ChargeComboButton_Off_Hover"));
+
+			buttonTab.Append(missileArrayToggle);
+
+
+
 
 			debugInfo = new UIText("Initializing.\nWait until Update(), numbnuts", 0.75f);
-			debugInfo.VAlign = armCannonPanel.VAlign;
-			debugInfo.MarginLeft = armCannonPanel.MarginLeft + armCannonPanel.Width.Pixels + 5;
+			debugInfo.VAlign = baseBoard.VAlign - 0.08f;
+			debugInfo.MarginLeft = baseBoard.MarginLeft + armCannonPanel.Width.Pixels + buttonTab.Width.Pixels + 25;
 			Append(debugInfo);
 
+			testPanel = new UIPanelTileBackground(bgTex, barTex, 10, 10);
+			testPanel.VAlign = 0.75f;
+			testPanel.HAlign = 0.1f;
+			testPanel.Width.Pixels = 100;
+			testPanel.Height.Pixels = 100;
+			Append(testPanel);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -63,27 +109,40 @@ namespace MetroidMod.Common.UI
 			if (Visible)
 			{
 				target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
-				debugInfo.SetText("SLOT INFO:" +
-								  "\nPrimary (charge): " + target.BeamAddonAccess[0].Name +
-								  "\nAbility (ice): " + target.BeamAddonAccess[1].Name +
-								  "\nIon (wave): " + target.BeamAddonAccess[2].Name +
-								  "\nSpread (spazer): " + target.BeamAddonAccess[3].Name +
-								  "\nSecondary (plasma): " + target.BeamAddonAccess[4].Name +
-								  "\nAmmo (ua): " + target.BeamAddonAccess[5].Name +
-								  "\nCurrent Holdfire: Slot " + target.HoldFireSlot +
-								  "\nHolding fire? " + Main.LocalPlayer.controlUseItem);
+				debugInfo.SetText("CHOZO UNIVERSAL WEAPONS PLATFORM\nv0.8.0.1\nDEVELOPER MODE\nSLOT INFO:"
+								  + "\nPrimary (charge): " + target.BeamAddonAccess[0].Name
+								  + "\nAbility (ice): " + target.BeamAddonAccess[1].Name
+								  + "\nIon (wave): " + target.BeamAddonAccess[2].Name
+								  + "\nSpread (spazer): " + target.BeamAddonAccess[3].Name
+								  + "\nSecondary (plasma): " + target.BeamAddonAccess[4].Name
+								  + "\nAmmo (ua): " + target.BeamAddonAccess[5].Name
+								  + "\nCurrent Holdfire: Slot " + target.HoldFireSlot
+								  + "\nHolding fire? " + Main.LocalPlayer.controlUseItem
+								  + "\nVisual Dinners: [" + target.VisualDinners[0] + ", " + target.VisualDinners[1] + ", " + target.VisualDinners[2] + ", " + target.VisualDinners[3] + "]"
+								  );
 			}
 		}
 	}
-	public class ArmCannonPanel : DragableUIPanel
+	public class ArmCannonPanel : UIPanelTileBackground
 	{
-		//Why is this its own separate class? Idfk
-		private Texture2D panelTexture;
+
+		//The various lines and patterns drawn on top of the panel.
+		private UIImage panelLines;
+		/// <summary>
+		/// The wireframe representation of the item this UI interfaces with.
+		/// </summary>
+		private UIImage panelWireframe;
+
+		private UIImage panelTitleBox;
 
 		/// <summary>
 		/// The slots that hold addons, stored in an array to save space.
 		/// </summary>
-		private AddonSlot[] addonSlots;
+		private ArmCannonAddonSlot[] addonSlots;
+		/// <summary>
+		/// The cute little labels below addon slots that tell you what slot they are.
+		/// </summary>
+		private SlotLabel[] slotLabels;
 		/// <summary>
 		/// Holds titles and missile/UA ammo count.
 		/// </summary>
@@ -93,108 +152,124 @@ namespace MetroidMod.Common.UI
 		/// </summary>
 		private ArmCannon target;
 
-		public Rectangle DrawRectangle => new Rectangle((int)GetDimensions().Position().X, (int)GetDimensions().Position().Y, (int)Width.Pixels, (int)Height.Pixels);
-
 		//The exact coordinate positions of every addon slot in the UI.
 		public Vector2[] slotPositions = new Vector2[BeamAddonSlotID.Count + MissileAddonSlotID.Count]
 		{
 			//Beam addons:
-			new(78, 8), //Primary
-			new(76, 175), //Ability
-			new(244, 175), //Ion
-			new(76, 108), //Spread
-			new(244, 108), //Secondary
-			new(130, 265), //Ammo
+			new(35, 18), //[0]Primary
+			new(34, 188), //[1]Ability
+			new(202, 188), //[2]Ion
+			new(34, 118), //[3]Spread
+			new(202, 118), //[4]Secondary
+			new(90, 276), //[5]Ammo
 			//Missile addons:
-			new(160, 16), //Charge
-			new(244, 8), //Primary
-			new(190, 265) //Tank
+			new(118, 28), //[6]Charge
+			new(201, 18), //[7]Primary
+			new(146, 276) //[8]Tank
 		};
+
+		public ArmCannonPanel(Asset<Texture2D> panel, Asset<Texture2D> border, int cornerSize = 12, int barSize = 4) : base(panel, border, cornerSize, barSize) {}
 
 		public override void OnInitialize()
 		{
 			//Set the textures for the UI.
-			panelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Border", AssetRequestMode.ImmediateLoad).Value;
 
-			//Carve out the ol' spot where the UI shows up.
-			Width.Pixels = panelTexture.Width;
-			Height.Pixels = panelTexture.Height;
+			Asset<Texture2D> labelTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/BackgroundSolid");
+			Color labelColor = new Color(248, 176, 0);
 
-			//Add the fancy visuals
-			Append(new ArmCannonFrame());
-			Append(new ArmCannonLines());
+			//Set the size precisely so everything's in place!
+			Width.Pixels = 280;
+			Height.Pixels = 332;
+			SetPadding(0);
+
+			panelLines = new UIImage(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Lines"));
+			Append(panelLines);
+			panelWireframe = new UIImage(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Frame"));
+			panelWireframe.Left.Pixels = 112;
+			panelWireframe.Top.Pixels = 118;
+			Append(panelWireframe);
+
+			panelTitleBox = new UIImage(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_TitleBar"));
+			panelTitleBox.HAlign = 0.22f;
+			panelTitleBox.Top.Pixels = -3;
+			Append(panelTitleBox);
 
 			//Begin placing the slots
-			addonSlots = new AddonSlot[slotPositions.Length];
-			UIText[] addonLabels = new UIText[addonSlots.Length];
+			addonSlots = new ArmCannonAddonSlot[slotPositions.Length];
+			//UIText[] addonLabels = new UIText[addonSlots.Length];
+			slotLabels = new SlotLabel[addonSlots.Length];
 			for (int i = 0; i < addonSlots.Length; ++i)
 			{
-				addonSlots[i] = new AddonSlot();
+				addonSlots[i] = new ArmCannonAddonSlot();
 				addonSlots[i].Top.Pixels = slotPositions[i].Y;
 				addonSlots[i].Left.Pixels = slotPositions[i].X;
+				//Needed to center slot labels
+				float slotCenterX = slotPositions[i].X + (addonSlots[i].Width.Pixels / 2) - 4;
 				if (i < BeamAddonSlotID.Count)
 				{
 					addonSlots[i].isBeam = true;
 					addonSlots[i].slotType = i;
 					if (i != 5)
 					{
-						addonLabels[i] = new UIText(i.ToString(), 0.75f); //TODO: Dictionary for slot names
-						addonLabels[i].TextColor = Color.Orange;
+						slotLabels[i] = new SlotLabel(labelTexture, labelColor, BeamAddonSlotID.GetSlotName(i).ToUpper(), 0.75f, Color.Black);
 					}
-					else
-					{
-						addonLabels[i] = new UIText("", 0.01f);
-					}
-				}
+				} //Power Beam addon slots
 				else
 				{
 					addonSlots[i].isBeam = false;
 					addonSlots[i].slotType = (i - BeamAddonSlotID.Count);
 					if (i != 8)
 					{
-						addonLabels[i] = new UIText((i).ToString(), 0.75f); //TODO: Dictionary for slot names
-						addonLabels[i].TextColor = Color.Orange;
+						slotLabels[i] = new SlotLabel(labelTexture, labelColor, MissileAddonSlotID.GetSlotName(i - BeamAddonSlotID.Count).ToUpper(), 0.75f, Color.Black);
 					}
-					else
-					{
-						addonLabels[i] = new UIText("", 0.01f);
-					}
-				}
-				addonLabels[i].Top.Pixels = addonSlots[i].Top.Pixels + addonSlots[i].Height.Pixels - 4;
-				addonLabels[i].Left.Pixels = addonSlots[i].Left.Pixels + (addonSlots[i].Width.Pixels / 2 - 9);
+				} //Missile Launcher addon slots
 
 				addonSlots[i].ItemRead = new Item();
 
 				Append(addonSlots[i]);
-				Append(addonLabels[i]);
+
+				if (i != 5 && i != 8)
+				{
+					float labelOffX = slotLabels[i].Width.Pixels / 2;
+					slotLabels[i].Top.Pixels = (int)Math.Ceiling(addonSlots[i].Top.Pixels + addonSlots[i].Height.Pixels - 4);
+					slotLabels[i].Left.Pixels = (int)Math.Ceiling(slotCenterX - labelOffX);
+					Append(slotLabels[i]);
+				}
 			}
 
 			info = new UIText[6];
 			//All of the non-slot related labels go here
+			//[0] - UI title ("ARM CANNON")
+			//[1] - ammo section title ("A M M O")
+			//[2] - UA label ("BEAM")
+			//[3] - Missile label ("MISSILE")
+			//[4] - UA ammo counter
+			//[5] - Missile ammo counter
+
 			info[0] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.ACTitle"), 0.75f);
 			info[0].HAlign = 0.5f;
-			info[0].Top.Pixels = -11;
 
-			info[1] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.ACAmmoTitle"), 0.5f);
+			info[1] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.ACAmmoTitle"), 0.57f);
 			info[1].HAlign = info[0].HAlign;
-			info[1].Top.Pixels = 247;
+			info[1].Top.Pixels = 258;
 
-			info[2] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.UALabel"), 0.75f);
-			info[2].HAlign = 0.2f;
-			info[2].Top.Pixels = 260;
+			info[2] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.UALabel"), 0.38f, true);
+			info[2].HAlign = 0.11f;
+			info[2].Top.Pixels = 278;
 
-			info[3] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.MissileLabel"), 0.75f);
-			info[3].HAlign = 0.8f;
-			info[3].Top.Pixels = 260;
+			info[3] = new UIText(Language.GetTextValue("Mods.MetroidMod.UILabelling.MissileLabel"), 0.38f, true);
+			info[3].HAlign = 0.92f;
+			info[3].Top.Pixels = 278;
 
 			//These two show how much ammo the player has.
-			info[4] = new UIText("  0/  0", 1f);
-			info[4].HAlign = info[2].HAlign;
-			info[4].Top.Pixels = 280;
-
-			info[5] = new UIText("  0/  0", 1f);
-			info[5].HAlign = info[3].HAlign;
-			info[5].Top.Pixels = 280;
+			//UA
+			info[4] = new UIText("  0/  0", 0.44f, true);
+			info[4].HAlign = 0.06f;
+			info[4].Top.Pixels = 300;
+			//Missiles
+			info[5] = new UIText("  0/  0", 0.44f, true);
+			info[5].HAlign = 0.94f;
+			info[5].Top.Pixels = 300;
 
 			//Gonna append them in a for loop cause I'm too lazy to write 6 different appends
 			for (int i = 0; i < info.Length; ++i)
@@ -223,14 +298,9 @@ namespace MetroidMod.Common.UI
 					addonSlots[i].ItemRead = target.MissileAddonAccess[i - BeamAddonSlotID.Count];
 				}
 			}
-			info[0].Top.Pixels = -11;
-			info[1].Top.Pixels = 247;
-			info[1].SetText(Language.GetTextValue("Mods.MetroidMod.UILabelling.ACAmmoTitle"));
-			info[2].HAlign = 0.2f;
-			info[3].HAlign = 0.8f;
-			info[4].HAlign = info[2].HAlign;
-			info[4].Top.Pixels = info[5].Top.Pixels = 285;
-			info[5].HAlign = info[3].HAlign;
+
+			#region Hotload adjustments
+			#endregion
 
 			info[4].SetText(ac.statUA.ToString("000") + "/" + ac.maxUA.ToString("000"));
 			if (ac.maxUA == ac.statUA && ac.maxUA != 0)
@@ -247,7 +317,7 @@ namespace MetroidMod.Common.UI
 			}
 			else { info[4].TextColor = info[2].TextColor = Color.White; }
 
-				info[5].SetText(ac.statMissiles.ToString("000") + "/" + ac.maxMissiles.ToString("000"));
+			info[5].SetText(ac.statMissiles.ToString("000") + "/" + ac.maxMissiles.ToString("000"));
 			if (ac.maxMissiles == ac.statMissiles && ac.maxMissiles != 0)
 			{
 				info[5].TextColor = Color.Gold;
@@ -262,192 +332,157 @@ namespace MetroidMod.Common.UI
 			}
 			else { info[5].TextColor = info[3].TextColor = Color.White; }
 		}
-
-		protected override void DrawSelf(SpriteBatch spriteBatch)
-		{
-			Vector2 realPosition = GetDimensions().Position();
-			spriteBatch.Draw(panelTexture, new Rectangle((int)realPosition.X, (int)realPosition.Y, panelTexture.Width, panelTexture.Height), Color.White);
-		}
 	}
-
-	public class ArmCannonFrame : UIPanel
+	public class UIHidable : UIElement
 	{
-		private Texture2D armCannonFrame;
-		public Rectangle DrawRectangle => new Rectangle((int)(Parent.GetDimensions().Position().X + Left.Pixels), (int)(Parent.GetDimensions().Position().Y + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
-
-
-		public override void OnInitialize()
+		public bool Hidden;
+		public override void Draw(SpriteBatch spriteBatch)
 		{
-			// Set the textures for the UI.
-			armCannonFrame = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Frame", AssetRequestMode.ImmediateLoad).Value;
-
-			//Carve out the ol' spot where the UI shows up.
-			Width.Pixels = armCannonFrame.Width;
-			Height.Pixels = armCannonFrame.Height;
-			
-			//Hardcoded position values. This is a handcrafted sucker.
-			Left.Pixels = 166;
-			Top.Pixels = 120;
+			if (Hidden) return;
+			base.Draw(spriteBatch);
 		}
-
-		protected override void DrawSelf(SpriteBatch spriteBatch)
+		public override void Update(GameTime gameTime)
 		{
-			spriteBatch.Draw(armCannonFrame, DrawRectangle, Color.White);
+			if (Hidden) return;
+			base.Update(gameTime);
 		}
 	}
-	public class ArmCannonLines : UIPanel
+
+	public class ArmCannonAddonSlot : UIItemSlot //I did not make UIItemSlot. I am simply the one that found it. or perhaps it found me
 	{
-		private Texture2D armCannonLines;
-		public Rectangle DrawRectangle => new Rectangle((int)(Parent.GetDimensions().Position().X + Left.Pixels), (int)(Parent.GetDimensions().Position().Y + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
+		public delegate bool Condition(Item item); //Idk the deal with these but I prolly have to use these because something something data security
 
-		public override void OnInitialize()
+		/// <summary>
+		/// If <b>true</b>, it's a beam addon slot and not a missile addon slot.
+		/// </summary>
+		public bool isBeam;
+		/// <summary>
+		/// If <b>true</b>, it's an array slot.
+		/// </summary>
+		public bool isArray;
+		/// <summary>
+		/// The type of slot the slot is
+		/// <br/>Only important for standard beam addons
+		/// </summary>
+		public int slotType;
+
+		public ArmCannonAddonSlot(Texture2D slotTexture = null)
 		{
-			armCannonLines = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_Lines", AssetRequestMode.ImmediateLoad).Value;
-
-			//Carve out the ol' spot where the UI shows up.
-			Width.Pixels = armCannonLines.Width;
-			Height.Pixels = armCannonLines.Height;
+			if (slotTexture == null) { slotTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value; }
+			backgroundTexture = slotTexture;
 		}
-
-		protected override void DrawSelf(SpriteBatch spriteBatch)
+		public override void LeftMouseDown(UIMouseEvent evt)
 		{
-			spriteBatch.Draw(armCannonLines, DrawRectangle, Color.White);
-		}
-	}
-
-	public class AddonSlot : UIItemSlot //I did not make UIItemSlot. I am simply the one that found it. or perhaps it found me
-		{
-			public delegate bool Condition(Item item); //Idk the deal with these but I prolly have to use these because something something data security
-
-			/// <summary>
-			/// If <b>true</b>, it's a beam addon slot and not a missile addon slot.
-			/// </summary>
-			public bool isBeam;
-			/// <summary>
-			/// If <b>true</b>, it's an array slot.
-			/// </summary>
-			public bool isArray;
-			/// <summary>
-			/// The type of slot the slot is
-			/// <br/>Only important for standard beam addons
-			/// </summary>
-			public int slotType;
-
-			public AddonSlot()
+			Player player = Main.LocalPlayer;
+			//This part does the calculation for if you clicking an item slot has an effect on its contents
+			//this is gonna be real long and nesty, brace yourself
+			MetroidMod.Instance.Logger.Info("Begin the clickening");
+			if (!Main.mouseItem.IsAir)
 			{
-				backgroundTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value;
-			}
-			public override void LeftMouseDown(UIMouseEvent evt)
-			{
-				Player player = Main.LocalPlayer;
-				//This part does the calculation for if you clicking an item slot has an effect on its contents
-				//this is gonna be real long and nesty, brace yourself
-				MetroidMod.Instance.Logger.Info("Begin the clickening");
-				if (!Main.mouseItem.IsAir)
+				MetroidMod.Instance.Logger.Info("You're definitely holding something");
+				if (isBeam == true)
 				{
-					MetroidMod.Instance.Logger.Info("You're definitely holding something");
-					if (isBeam == true)
+					MetroidMod.Instance.Logger.Info("It's a beam addon slot");
+					ModBeamAddon heldItem = BeamAddonLoader.GetAddon(Main.mouseItem);
+					if (heldItem != null)
 					{
-						MetroidMod.Instance.Logger.Info("It's a beam addon slot");
-						ModBeamAddon heldItem = BeamAddonLoader.GetAddon(Main.mouseItem);
-						if (heldItem != null)
+						MetroidMod.Instance.Logger.Info("The held item IS a beam addon!\nThe addon in question: " + heldItem);
+						if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
 						{
-							MetroidMod.Instance.Logger.Info("The held item IS a beam addon!\nThe addon in question: " + heldItem);
-							if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
+							if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack))
 							{
-								if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack))
-								{
-									MetroidMod.Instance.Logger.Info("We stackin this shit");
-									SlotMagic(true);
-								} //Account for stacks
-								else if (Main.mouseItem.type != ItemRead.type)
-								{
-									MetroidMod.Instance.Logger.Info("We NOT stackin this shit");
-									SlotMagic(true);
-								} //Items can't stack, check if they can swap
-							}
-						}
-					}
-					else
-					{
-						ModMissileAddon heldItem = MissileAddonLoader.GetAddon(Main.mouseItem);
-						if (heldItem != null)
-						{
-							MetroidMod.Instance.Logger.Info("It's a missile addon slot");
-							if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
+								MetroidMod.Instance.Logger.Info("We stackin this shit");
+								SlotMagic(true);
+							} //Account for stacks
+							else if (Main.mouseItem.type != ItemRead.type)
 							{
-								if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack))
-								{
-									SlotMagic(true);
-								} //Account for stacks
-								else if (Main.mouseItem.type != ItemRead.type)
-								{
-									SlotMagic(true);
-								} //Items can't stack, check if they can swap
-							}
-						}
-					}
-				}//Check for putting an item into a slot first, then if the mouse is empty
-				else
-				{
-					MetroidMod.Instance.Logger.Info("Caught empty-handed boi");
-					if (!ItemRead.IsAir)
-					{
-						MetroidMod.Instance.Logger.Info("erm.... it is TAKING.");
-						SlotMagic(false);
-					}
-				}
-			}
-
-			public override void DarkMagic(Item ItemWrite, bool StackAttack)
-			{
-				ArmCannon target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
-				//Takes the action attempted through SlotMagic and applies the effect to the addon array.
-				if (StackAttack) //Player tried to stack stuff
-				{
-					if (ItemWrite == null) //Player removed a thing from the array
-					{
-						if (isArray) //Is it a quick-change menu?
-						{
-							SoundEngine.PlaySound(SoundID.Item16);
-							ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Main.LocalPlayer.name + " tried to do something that shouldn't be physically possible."), Color.Red);
-						}
-						else
-						{
-							if (isBeam) { target.BeamAddonAccess[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
-							else { target.MissileAddonAccess[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
+								MetroidMod.Instance.Logger.Info("We NOT stackin this shit");
+								SlotMagic(true);
+							} //Items can't stack, check if they can swap
 						}
 					}
 				}
 				else
 				{
-					if (ItemWrite == null) //Player removed a thing from the array
+					ModMissileAddon heldItem = MissileAddonLoader.GetAddon(Main.mouseItem);
+					if (heldItem != null)
 					{
-						if (isArray) //Is it a quick-change menu?
+						MetroidMod.Instance.Logger.Info("It's a missile addon slot");
+						if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
 						{
-							if (isBeam) { target.ChargeQuickSwapAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
-							else { target.ComboQuickChangeAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
+							if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack))
+							{
+								SlotMagic(true);
+							} //Account for stacks
+							else if (Main.mouseItem.type != ItemRead.type)
+							{
+								SlotMagic(true);
+							} //Items can't stack, check if they can swap
 						}
-						else
-						{
-							if (isBeam) { target.BeamAddonAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
-							else { target.MissileAddonAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
-						}
+					}
+				}
+			}//Check for putting an item into a slot first, then if the mouse is empty
+			else
+			{
+				MetroidMod.Instance.Logger.Info("Caught empty-handed boi");
+				if (!ItemRead.IsAir)
+				{
+					MetroidMod.Instance.Logger.Info("erm.... it is TAKING.");
+					SlotMagic(false);
+				}
+			}
+		}
+
+		public override void DarkMagic(Item ItemWrite, bool StackAttack)
+		{
+			ArmCannon target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+			//Takes the action attempted through SlotMagic and applies the effect to the addon array.
+			if (StackAttack) //Player tried to stack stuff
+			{
+				if (ItemWrite == null) //Player removed a thing from the array
+				{
+					if (isArray) //Is it a quick-change menu?
+					{
+						SoundEngine.PlaySound(SoundID.Item16);
+						ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Main.LocalPlayer.name + " tried to do something that shouldn't be physically possible."), Color.Red);
 					}
 					else
 					{
-						if (isArray)
-						{
-							if (isBeam) { target.ChargeQuickSwapAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
-							else { target.ComboQuickChangeAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
-						}
-						else
-						{
-							if (isBeam) { target.BeamAddonAccess[slotType] = ItemWrite; MetroidMod.Instance.Logger.Info("Addon inserted"); target.ArrayUpdate(); }
-							else { target.MissileAddonAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
-						}
+						if (isBeam) { target.BeamAddonAccess[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
+						else { target.MissileAddonAccess[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
+					}
+				}
+			}
+			else
+			{
+				if (ItemWrite == null) //Player removed a thing from the array
+				{
+					if (isArray) //Is it a quick-change menu?
+					{
+						if (isBeam) { target.ChargeQuickSwapAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
+						else { target.ComboQuickChangeAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
+					}
+					else
+					{
+						if (isBeam) { target.BeamAddonAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
+						else { target.MissileAddonAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
+					}
+				}
+				else
+				{
+					if (isArray)
+					{
+						if (isBeam) { target.ChargeQuickSwapAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
+						else { target.ComboQuickChangeAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
+					}
+					else
+					{
+						if (isBeam) { target.BeamAddonAccess[slotType] = ItemWrite; MetroidMod.Instance.Logger.Info("Addon inserted"); target.ArrayUpdate(); }
+						else { target.MissileAddonAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
 					}
 				}
 			}
 		}
 	}
+
+}

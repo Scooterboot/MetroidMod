@@ -8,15 +8,17 @@ Mods: {
 		}
 
 		BeamSlotDictionary: {
-			// Charge: Beam
-			// Ice: Utility
-			// Wave: Ion
-			// Spazer: Spread
-			// Plasma: Secondary
-			// UA: Beam Ammo
+			// None: None
+			// Primary: Beam
+			// Ability: Utility
+			// Ion: Ion
+			// Spread: Spread
+			// Secondary: Secondary
+			// Ammo: Beam Ammo
 		}
 
 		MissileSlotDictionary: {
+			// None: None
 			// ChargeCombo: Combo
 			// Primary: Missile
 			// Tanks: Missile Ammo
@@ -4323,17 +4325,7 @@ Mods: {
 				Headers: {
 					// "[i:MetroidMod/ChoziteBar]Chozite_Gear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
 					// "[i:MetroidMod/VariaSuitV2AddonAddon]PowerSuit": "[i:MetroidMod/VariaSuitV2AddonAddon] Power Suit"
-					// "[i:MetroidMod/PowerGrip]Suit_Addons": "[i:MetroidMod/PowerGrip] Suit Addons"
-					// "[i:MetroidMod/PowerBeam]Standard_Weapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
-					// "[i:MetroidMod/PowerBeam]Special_Beams": "[i:MetroidMod/PowerBeam] Special Beams"
-					// "[i:MetroidMod/PowerBeam]PowerBeam_V2_Addons": "[i:MetroidMod/PowerBeam] Power Beam V2 Addons"
-					// "[i:MetroidMod/PowerBeam]PowerBeam_V3_Addons": "[i:MetroidMod/PowerBeam] Power Beam V3 Addons"
-					// "[i:MetroidMod/MissileLauncher]MissileLauncher_Addons": "[i:Metroid Mod/MissileLauncher] Missile Launcher Addons"
-					// "[i:MetroidMod/PowerBeam]PowerBeam_V1_Addons": "[i:MetroidMod/PowerBeam] Power Beam V1 Addons"
-					// "[i:MetroidMod/PowerBeam]PowerBeamV3Addons": "[i:MetroidMod/PowerBeam] Power Beam V3 Addons"
-					// "[i:MetroidMod/PowerBeam]PowerBeamV2Addons": "[i:MetroidMod/PowerBeam] Power Beam V2 Addons"
-					// "[i:MetroidMod/PowerBeam]PowerBeamV1Addons": "[i:MetroidMod/PowerBeam] Power Beam V1 Addons"
-					// "[i:MetroidMod/PowerBeam]SpecialBeams": "[i:MetroidMod/PowerBeam] Special Beams"
+					// "[i:MetroidMod/PowerBeam]ArmCannon": "[i:MetroidMod/PowerBeam] Arm Cannon"
 					// "[i:MetroidMod/PowerBeam]StandardWeapons": "[i:MetroidMod/PowerBeam] Standard Weapons"
 					// "[i:MetroidMod/PowerGrip]SuitAddons": "[i:MetroidMod/PowerGrip] Suit Addons"
 					// "[i:MetroidMod/ChoziteBar]ChoziteGear": "[i:MetroidMod/ChoziteBar] Chozite Gear"
@@ -4454,7 +4446,7 @@ Mods: {
 
 				ammoUA: {
 					// Tooltip: ""
-					// Label: "[i:MetroidMod/UAExpansion] UA Ammo"
+					// Label: "[i:MetroidMod/UAExpansion] Starting UA Ammo"
 				}
 
 				ammoPowerBeam: {

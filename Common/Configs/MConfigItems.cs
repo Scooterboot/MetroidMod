@@ -158,7 +158,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool muteSpeedBooster;
 
-		[Header("[i:MetroidMod/PowerBeam]SpecialBeams")]
+		[Header("[i:MetroidMod/PowerBeam]ArmCannon")]
 
 		//[Label("check localization")]
 		[DefaultValue(false)]

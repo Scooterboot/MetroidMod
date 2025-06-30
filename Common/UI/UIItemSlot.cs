@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -142,6 +144,48 @@ namespace MetroidMod.Common.UI
 					Main.hoverItemName = Main.HoverItem.Name;
 				}
 			}
+		}
+	}
+
+	/// <summary>
+	/// The funny little labels on the UI that say the name of the slot.
+	/// </summary>
+	public class SlotLabel : UIElement
+	{
+		/// <summary>
+		/// The little strip of color behind the text.
+		/// </summary>
+		public UIText label;
+		/// <summary>
+		/// The text on the sticker that says the thing.
+		/// </summary>
+		public UIPanel sticker;
+
+		public SlotLabel(Asset<Texture2D> stickerTexture, Color stickerColor, string labelText, float labelScale, Color labelColor, float labelAlign = 0.5f)
+		{
+			SetPadding(0);
+			label = new UIText(labelText, labelScale, false);
+			label.TextColor = labelColor;
+			label.ShadowColor = Color.Transparent;
+			label.HAlign = label.VAlign = labelAlign;
+
+			sticker = new UIPanel(stickerTexture, ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/BackgroundSolid"), 0, 0);
+			sticker.BackgroundColor = stickerColor;
+			sticker.BorderColor = Color.Transparent;
+
+			//Make the sticker fully back the label with a tiny bit of wiggle room
+			sticker.Width.Pixels = label.MinWidth.Pixels + 3;
+			sticker.Height.Pixels = label.MinHeight.Pixels + 2;
+
+			//Make the element itself sized to the sticker so it actually displays.
+			Width.Pixels = sticker.Width.Pixels;
+			Height.Pixels = sticker.Height.Pixels;
+		}
+
+		public override void OnInitialize()
+		{
+			sticker.Append(label);
+			Append(sticker);
 		}
 	}
 }

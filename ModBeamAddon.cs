@@ -352,7 +352,11 @@ namespace MetroidMod
 
 		///<inheritdoc cref="ModItem.PostDrawInWorld(SpriteBatch, Color, Color, float, float, int)"/>
 		public virtual void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) { }
+		///<inheritdoc cref="ModItem.RightClick(Player)"/>
+		public virtual void RightClick(Player player)
+		{
 
+		}
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
