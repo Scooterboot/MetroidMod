@@ -80,7 +80,6 @@ namespace MetroidMod.Common.Players
 		public int phazonRegen = 0;
 
 		public double Time = 0;
-		public float breathMult = 1f;
 		public Vector2 oldPosition;
 
 		public bool falling;
@@ -112,8 +111,6 @@ namespace MetroidMod.Common.Players
 			accessHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
-
-			breathMult = 1f;
 
 			HUDColor = Color.LightBlue;
 
@@ -236,7 +233,7 @@ namespace MetroidMod.Common.Players
 			{
 				Time = 0;
 			}
-			P.breathMax = (int)(200 * breathMult);
+			
 			oldPosition = P.position;
 
 			if (visorGlow && !ballstate)

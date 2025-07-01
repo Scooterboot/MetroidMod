@@ -328,8 +328,11 @@ namespace MetroidMod.Content.Items.Armors
 			}
 			set { _suitAddons = value; }
 		}
+
 		public static float huntDamage = 10f;
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(huntDamage);
+		public static float extraBreath = 30f;
+
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(huntDamage, extraBreath);
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Power Suit Helmet");
@@ -351,8 +354,8 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
 			player.nightVision = true;
+			player.breathEffectiveness += extraBreath / 100;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.breathMult = 1.3f;
 			mp.visorGlow = true;
 			mp.IsPowerSuitHelmet = true;
 		}

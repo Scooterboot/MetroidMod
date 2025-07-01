@@ -86,13 +86,13 @@ namespace MetroidMod.Content.SuitAddons
 			player.buffImmune[BuffID.Chilled] = true;
 			player.buffImmune[BuffID.Frozen] = true;
 			player.moveSpeed += speedUp / 100;
+			player.breathEffectiveness += extraBreath / 100;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
 			mp.maxOverheat += overheatCap;
 			mp.overheatCost -= overheatCost / 100;
 			mp.missileCost -= comboCost / 100;
-			mp.breathMult = 1f + (extraBreath / 100);
 			//mp.tankCapacity += 0;
 			mp.EnergyDefenseEfficiency += energyEff / 100;
 			mp.EnergyExpenseEfficiency += energyRes / 100;
