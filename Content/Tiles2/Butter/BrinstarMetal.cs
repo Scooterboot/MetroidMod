@@ -9,6 +9,6 @@ namespace MetroidMod.Content.Tiles2.Butter
 		public override Color MapColor => new(144, 168, 224);
 		// TODO: assign appropiate values for these!
 		public override SoundStyle HitSound => SoundID.Tink;
-		public override int DustType => DustID.Firework_Red;
+		public override int DustType => DustID.BlueCrystalShard;
 	}
 }
