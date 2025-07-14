@@ -414,7 +414,17 @@ namespace MetroidMod
 		/// </summary>
 		/// <param name="shot"></param>
 		public virtual void ShapeBehavior(MProjectile shot) { }
-
+		/// <summary>
+		/// Allows VIBs with custom projectiles to take over the firing logic.
+		/// </summary>
+		/// <param name="player"></param>
+		/// <param name="source"></param>
+		/// <param name="position"></param>
+		/// <param name="velocity"></param>
+		/// <param name="type"></param>
+		/// <param name="damage"></param>
+		/// <param name="knockback"></param>
+		public virtual void VIBShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) { }
 		#region Projectile behavior injectors
 		//These methods are designed to line up with the ones inside of ModProjectiles, allowing for ModProjectile code to be injected into beam shots.
 		//Making them check for an MProjectile as opposed to a standard Projectile makes it easier to use beam-specific variables.

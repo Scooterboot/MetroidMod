@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Text;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Projectiles.missiles;
-using MetroidMod.Content.Projectiles.Paralyzer;
-using MetroidMod.Default;
 using MetroidMod.ID;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -141,6 +131,17 @@ namespace MetroidMod.Content.Items.Weapons
 		/// Keeps track of the slot containing the currently-active holdfire. -1 means no holdfire.
 		/// </summary>
 		public int HoldFireSlot;
+
+		/// <summary>
+		/// The slot in the Beam Array that the beam Charge slot is currently mapped to.
+		/// <br/>Defaults to <b>0</b>.
+		/// </summary>
+		public int activeBeamArraySlot = 0;
+		/// <summary>
+		/// The slot in the Charge Combo Array that the missile Charge slot is currently mapped to.
+		/// <br/>Defaults to <b>0</b>.
+		/// </summary>
+		public int activeMissileArray = 0;
 
 		public SoundStyle beamSound = Sounds.Items.Weapons.PowerBeamSound;
 		public SoundStyle missileSound = Sounds.Items.Weapons.MissileSound;
@@ -589,7 +590,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac.isBeam)
 			{
-				if (!ac.SuppressingFire)
+				if (ac.SuppressingFire) { return false; }
+
 				{
 					SpawnBeam(player, source, position, velocity, type, damage, knockback);
 				}

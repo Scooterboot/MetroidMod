@@ -1,5 +1,6 @@
 ﻿using System;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -31,14 +32,27 @@ namespace MetroidMod.Common.UI
 
 		private UIDraggableBase baseBoard;
 		private ArmCannonPanel armCannonPanel;
+		private ArrayPanel beamArrayPanel;
+		private ArrayPanel missileArrayPanel;
 
 		private Asset<Texture2D> barTex => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuperMetroidUI_Border");
 		private Asset<Texture2D> bgTex => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/SuperMetroidUI_BG");
 		private UIPanelTileBackground buttonTab;
 
+
+		#region buttons
 		private UIImageButton beamArrayToggle;
+		private bool beamPanelOpen = false;
 		private UIImageButton missileArrayToggle;
+		private bool missilePanelOpen = false;
+
 		private UIImageButton pseudoScrewToggle;
+		private Asset<Texture2D> psButtonOff => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PseudoScrewUIButton");
+		private Asset<Texture2D> psButtonOffHover => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PseudoScrewUIButton_Hover");
+		private Asset<Texture2D> psButtonOffClick => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PseudoScrewUIButton_Click");
+		private Asset<Texture2D> psButtonOn => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PseudoScrewUIButton_Enabled");
+		private Asset<Texture2D> psButtonOnHover => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/PseudoScrewUIButton_Enabled_Hover");
+		#endregion
 
 		private UIPanelTileBackground testPanel;
 		private UIHidable testTab;
@@ -46,6 +60,7 @@ namespace MetroidMod.Common.UI
 
 		public override void OnInitialize()
 		{
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
 			//The baseboard ensures that when the player deems fit to drag the UI around, all associated elements come with.
 			baseBoard = new UIDraggableBase();
 			//Hardcoded size values, perfectly tailored to the UI assets
@@ -63,10 +78,25 @@ namespace MetroidMod.Common.UI
 			buttonTab.Height.Pixels = 106;
 			baseBoard.Append(buttonTab);
 
+			beamArrayPanel = new ArrayPanel(bgTex, barTex, 10, 10);
+			beamArrayPanel.SetPadding(0);
+			beamArrayPanel.Initialize();
+			beamArrayPanel.Top.Pixels = 6;
+			beamArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
+			baseBoard.Append(beamArrayPanel);
+
+			missileArrayPanel = new ArrayPanel(bgTex, barTex, 10, 10);
+			missileArrayPanel.SetPadding(0);
+			missileArrayPanel.Initialize();
+			missileArrayPanel.Top.Pixels = 6 + beamArrayPanel.Height.Pixels;
+			missileArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
+			baseBoard.Append(missileArrayPanel);
+
 			armCannonPanel = new ArmCannonPanel(bgTex, barTex, 10, 10);
 			armCannonPanel.Initialize();
 			armCannonPanel.Left.Pixels = 56;
 			baseBoard.Append(armCannonPanel);
+
 
 			beamArrayToggle = new UIImageButton(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamArrayButton_Off"));
 			beamArrayToggle.Left.Pixels = 8.5f;
@@ -74,7 +104,7 @@ namespace MetroidMod.Common.UI
 			beamArrayToggle.Width.Pixels = beamArrayToggle.Height.Pixels = 44;
 			beamArrayToggle.SetVisibility(1f, 1f);
 			beamArrayToggle.SetHoverImage(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamArrayButton_Off_Hover"));
-
+			beamArrayToggle.OnLeftClick += new MouseEvent(BeamButtonClicked);
 			buttonTab.Append(beamArrayToggle);
 
 			missileArrayToggle = new UIImageButton(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/ChargeComboButton_Off"));
@@ -83,15 +113,23 @@ namespace MetroidMod.Common.UI
 			missileArrayToggle.Width.Pixels = missileArrayToggle.Height.Pixels = 44;
 			missileArrayToggle.SetVisibility(1f, 1f);
 			missileArrayToggle.SetHoverImage(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/ChargeComboButton_Off_Hover"));
-
+			missileArrayToggle.OnLeftClick += new MouseEvent(MissileButtonClicked);
 			buttonTab.Append(missileArrayToggle);
 
+			pseudoScrewToggle = new UIImageButton((mp.pseudoScrewActive)? psButtonOn : psButtonOff);
+			pseudoScrewToggle.Left.Pixels = 8;
+			pseudoScrewToggle.Top.Pixels = 110;
+			pseudoScrewToggle.Width.Pixels = pseudoScrewToggle.Height.Pixels = 44;
+			pseudoScrewToggle.SetVisibility(1f, 1f);
+			pseudoScrewToggle.SetHoverImage((mp.pseudoScrewActive) ? psButtonOnHover : psButtonOffHover);
+			pseudoScrewToggle.OnLeftClick += new MouseEvent(PSAButtonClicked);
+			baseBoard.Append(pseudoScrewToggle);
 
 
 
 			debugInfo = new UIText("Initializing.\nWait until Update(), numbnuts", 0.75f);
-			debugInfo.VAlign = baseBoard.VAlign - 0.08f;
-			debugInfo.MarginLeft = baseBoard.MarginLeft + armCannonPanel.Width.Pixels + buttonTab.Width.Pixels + 25;
+			debugInfo.VAlign = baseBoard.VAlign * 2f;
+			debugInfo.MarginLeft = baseBoard.MarginLeft + armCannonPanel.Width.Pixels + buttonTab.Width.Pixels / 2;
 			Append(debugInfo);
 
 			testPanel = new UIPanelTileBackground(bgTex, barTex, 10, 10);
@@ -122,10 +160,32 @@ namespace MetroidMod.Common.UI
 								  );
 			}
 		}
+
+		private void PSAButtonClicked(UIMouseEvent evt, UIElement listingElement)
+		{
+			MetroidMod.Instance.Logger.Debug("Pseudo-screw toggle");
+			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			SoundEngine.PlaySound(SoundID.MenuTick);
+			mp.pseudoScrewActive = !mp.pseudoScrewActive;
+			pseudoScrewToggle.SetImage((mp.pseudoScrewActive) ? psButtonOn : psButtonOff);
+			pseudoScrewToggle.SetHoverImage((mp.pseudoScrewActive) ? psButtonOnHover : psButtonOffHover);
+			pseudoScrewToggle.Width.Pixels = pseudoScrewToggle.Height.Pixels = 44;
+		}
+		private void BeamButtonClicked(UIMouseEvent evt, UIElement listingElement)
+		{
+			beamPanelOpen = !beamPanelOpen;
+			beamArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
+			SoundEngine.PlaySound(SoundID.MenuTick);
+		}
+		private void MissileButtonClicked(UIMouseEvent evt, UIElement listingElement)
+		{
+			missilePanelOpen = !missilePanelOpen;
+			missileArrayPanel.Left.Pixels = (missilePanelOpen) ? 310 : 144;
+			SoundEngine.PlaySound(SoundID.MenuTick);
+		}
 	}
 	public class ArmCannonPanel : UIPanelTileBackground
 	{
-
 		//The various lines and patterns drawn on top of the panel.
 		private UIImage panelLines;
 		/// <summary>
@@ -333,6 +393,23 @@ namespace MetroidMod.Common.UI
 			else { info[5].TextColor = info[3].TextColor = Color.White; }
 		}
 	}
+
+	public class ArrayPanel : UIPanelTileBackground
+	{
+		//Okay so there's two ways I see myself going about this:
+		//1: Each array slot is a fully-functional beam slot and they all have buttons under them, rendering the charge slot worthless.
+		//2: Each array slot is a glorified button that just displays what's in that slot, and things can only be added or removed via the charge slot.
+		//I could HYPOTHETICALLY do it kinda like it was before but I don't really want to because A) that feels like a recipe for accidentally deleting items and B) it's already hacky as fuck
+		//I suppose only time will tell which I end up going with.
+		public ArrayPanel(Asset<Texture2D> panel, Asset<Texture2D> border, int cornerSize = 12, int barSize = 4) : base(panel, border, cornerSize, barSize) {}
+
+		public override void OnInitialize()
+		{
+			Width.Pixels = 182;
+			Height.Pixels = 160;
+		}
+	}
+
 	public class UIHidable : UIElement
 	{
 		public bool Hidden;
