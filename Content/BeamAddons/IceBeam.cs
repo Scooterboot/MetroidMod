@@ -74,8 +74,8 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			if (iceDustTimer <= 0)
 			{
-				Dust.NewDust(mpshot.Projectile.position, mpshot.Projectile.width, mpshot.Projectile.height, ShotDust, 0, 1, 0, default, 1.5f);
-				iceDustTimer = 3;
+				Dust.NewDust(mpshot.Projectile.position, mpshot.Projectile.width, mpshot.Projectile.height, ShotDust, 0, 1, 0, default, 1f);
+				iceDustTimer = 5;
 			}
 			iceDustTimer--;
 		}

@@ -144,6 +144,8 @@ namespace MetroidMod
 			//OnHooks.Unload();
 			//ILHooks.Unload();
 			//BeamLoader.Unload();
+			BeamAddonLoader.Unload();
+			MissileAddonLoader.Unload();
 			SuitAddonLoader.Unload();
 			MBAddonLoader.Unload();
 		}

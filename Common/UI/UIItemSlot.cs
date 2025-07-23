@@ -45,7 +45,11 @@ namespace MetroidMod.Common.UI
 				}
 			}
 		}
-
+		/// <summary>
+		/// Handles the mouse-side of the Item tradeoff upon adding or removing something from a slot.
+		/// <br/>Afterward, it calls DarkMagic() to handle the tradeoff on the target location's side.
+		/// </summary>
+		/// <param name="itsGiving"></param>
 		public void SlotMagic(bool itsGiving)
 		{
 			MetroidMod.Instance.Logger.Info("MAGIC TIME");

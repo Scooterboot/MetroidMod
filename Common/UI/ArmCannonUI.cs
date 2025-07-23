@@ -41,6 +41,7 @@ namespace MetroidMod.Common.UI
 
 
 		#region buttons
+		//TODO: make class for fancy buttons
 		private UIImageButton beamArrayToggle;
 		private bool beamPanelOpen = false;
 		private UIImageButton missileArrayToggle;
@@ -55,12 +56,12 @@ namespace MetroidMod.Common.UI
 		#endregion
 
 		private UIPanelTileBackground testPanel;
-		private UIHidable testTab;
 		private UIText debugInfo;
 
 		public override void OnInitialize()
 		{
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
+			#region baseboard
 			//The baseboard ensures that when the player deems fit to drag the UI around, all associated elements come with.
 			baseBoard = new UIDraggableBase();
 			//Hardcoded size values, perfectly tailored to the UI assets
@@ -70,34 +71,47 @@ namespace MetroidMod.Common.UI
 			baseBoard.VAlign = 0.33f;
 			baseBoard.Left.Pixels = 62;
 			Append(baseBoard);
+			#endregion
 
+			#region buttons tab
 			buttonTab = new UIPanelTileBackground(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/BackgroundSolid"), barTex, 10, 10);
 			buttonTab.panelColor = Color.Black;
 			buttonTab.SetPadding(0);
 			buttonTab.Width.Pixels = 90;
 			buttonTab.Height.Pixels = 106;
 			baseBoard.Append(buttonTab);
+			#endregion
 
+			#region beam array panel
 			beamArrayPanel = new ArrayPanel(bgTex, barTex, 10, 10);
 			beamArrayPanel.SetPadding(0);
-			beamArrayPanel.Initialize();
+
 			beamArrayPanel.Top.Pixels = 6;
 			beamArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
-			baseBoard.Append(beamArrayPanel);
 
+			beamArrayPanel.isBeam = true;
+
+			beamArrayPanel.Initialize();
+			baseBoard.Append(beamArrayPanel);
+			#endregion
+
+			#region missile array panel
 			missileArrayPanel = new ArrayPanel(bgTex, barTex, 10, 10);
 			missileArrayPanel.SetPadding(0);
-			missileArrayPanel.Initialize();
+			missileArrayPanel.isBeam = false;
 			missileArrayPanel.Top.Pixels = 6 + beamArrayPanel.Height.Pixels;
 			missileArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
+
+			missileArrayPanel.Initialize();
 			baseBoard.Append(missileArrayPanel);
+			#endregion
 
 			armCannonPanel = new ArmCannonPanel(bgTex, barTex, 10, 10);
 			armCannonPanel.Initialize();
 			armCannonPanel.Left.Pixels = 56;
 			baseBoard.Append(armCannonPanel);
 
-
+			#region buttons
 			beamArrayToggle = new UIImageButton(ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/Buttons/BeamArrayButton_Off"));
 			beamArrayToggle.Left.Pixels = 8.5f;
 			beamArrayToggle.Top.Pixels = 7.5f;
@@ -124,6 +138,7 @@ namespace MetroidMod.Common.UI
 			pseudoScrewToggle.SetHoverImage((mp.pseudoScrewActive) ? psButtonOnHover : psButtonOffHover);
 			pseudoScrewToggle.OnLeftClick += new MouseEvent(PSAButtonClicked);
 			baseBoard.Append(pseudoScrewToggle);
+			#endregion
 
 
 
@@ -148,12 +163,14 @@ namespace MetroidMod.Common.UI
 			{
 				target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
 				debugInfo.SetText("CHOZO UNIVERSAL WEAPONS PLATFORM\nv0.8.0.1\nDEVELOPER MODE\nSLOT INFO:"
-								  + "\nPrimary (charge): " + target.BeamAddonAccess[0].Name
-								  + "\nAbility (ice): " + target.BeamAddonAccess[1].Name
-								  + "\nIon (wave): " + target.BeamAddonAccess[2].Name
-								  + "\nSpread (spazer): " + target.BeamAddonAccess[3].Name
-								  + "\nSecondary (plasma): " + target.BeamAddonAccess[4].Name
-								  + "\nAmmo (ua): " + target.BeamAddonAccess[5].Name
+								  //+ "\nPrimary (charge): " + target.BeamAddonAccess[0].Name
+								  //+ "\nAbility (ice): " + target.BeamAddonAccess[1].Name
+								  //+ "\nIon (wave): " + target.BeamAddonAccess[2].Name
+								  //+ "\nSpread (spazer): " + target.BeamAddonAccess[3].Name
+								  //+ "\nSecondary (plasma): " + target.BeamAddonAccess[4].Name
+								  //+ "\nAmmo (ua): " + target.BeamAddonAccess[5].Name
+								  + "\nActive beam array slot: " + target.activeBeamArraySlot
+								  + "\nActive missile array slot: " + target.activeMissileArray
 								  + "\nCurrent Holdfire: Slot " + target.HoldFireSlot
 								  + "\nHolding fire? " + Main.LocalPlayer.controlUseItem
 								  + "\nVisual Dinners: [" + target.VisualDinners[0] + ", " + target.VisualDinners[1] + ", " + target.VisualDinners[2] + ", " + target.VisualDinners[3] + "]"
@@ -401,29 +418,86 @@ namespace MetroidMod.Common.UI
 		//2: Each array slot is a glorified button that just displays what's in that slot, and things can only be added or removed via the charge slot.
 		//I could HYPOTHETICALLY do it kinda like it was before but I don't really want to because A) that feels like a recipe for accidentally deleting items and B) it's already hacky as fuck
 		//I suppose only time will tell which I end up going with.
+
+		private ArmCannon target;
+		
+		/// <summary>
+		/// Is it the beam array or is it the missile array?
+		/// <br/>This bool is the deciding factor, but only for <b>ArrayPanels</b>.
+		/// </summary>
+		public bool isBeam;
+		public Asset<Texture2D> slotTex => ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox_Metal", AssetRequestMode.ImmediateLoad);
+		public Asset<Texture2D> beamFrameTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_ArrayFrame_Beam");
+		public Asset<Texture2D> missileFrameTex = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ArmCannon_ArrayFrame_Missile");
+
+		private UIImage ArrayFrame;
+
+		private ArmCannonAddonSlot[] arraySlots;
+		public Vector2[] slotPositions = new Vector2[8]
+		{
+			new(80, 10), //Top
+			new(128, 10), //Top-right
+			new(128, 58), //Right
+			new(128, 106), //Bottom-right
+			new(80, 106), //Bottom
+			new(32, 106), //Bottom-left
+			new(32, 58), //Left
+			new(32, 10) //Top-left
+		};
 		public ArrayPanel(Asset<Texture2D> panel, Asset<Texture2D> border, int cornerSize = 12, int barSize = 4) : base(panel, border, cornerSize, barSize) {}
+
 
 		public override void OnInitialize()
 		{
 			Width.Pixels = 182;
 			Height.Pixels = 160;
-		}
-	}
 
-	public class UIHidable : UIElement
-	{
-		public bool Hidden;
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			if (Hidden) return;
-			base.Draw(spriteBatch);
+			arraySlots = new ArmCannonAddonSlot[8];
+			//place the array slots in position
+			for (int i = 0; i < arraySlots.Length; ++i)
+			{
+				arraySlots[i] = new ArmCannonAddonSlot(slotTex);
+				arraySlots[i].Left.Pixels = slotPositions[i].X;
+				arraySlots[i].Top.Pixels = slotPositions[i].Y;
+
+				arraySlots[i].isArray = true;
+				arraySlots[i].slotType = 0; //both arrays only take addons of their respective type 0
+				arraySlots[i].slotNumber = i;
+				arraySlots[i].isBeam = isBeam;
+
+				Append(arraySlots[i]);
+			}
+
+			ArrayFrame = new UIImage(isBeam? beamFrameTex : missileFrameTex);
+			ArrayFrame.Width.Pixels = isBeam? 28 : 20;
+			ArrayFrame.Height.Pixels = isBeam ? 28 : 36;
+			ArrayFrame.Left.Pixels = 12;
+			ArrayFrame.HAlign = 0.5f;
+			ArrayFrame.VAlign = 0.5f;
+			Append(ArrayFrame);
 		}
 		public override void Update(GameTime gameTime)
 		{
-			if (Hidden) return;
-			base.Update(gameTime);
+			//Currently selected array slot is colored yellow
+			//All others default to Color.White
 		}
 	}
+
+	//Old experiment for array panels. Keeping it around just in case.
+	//public class UIHidable : UIElement
+	//{
+	//	public bool Hidden;
+	//	public override void Draw(SpriteBatch spriteBatch)
+	//	{
+	//		if (Hidden) return;
+	//		base.Draw(spriteBatch);
+	//	}
+	//	public override void Update(GameTime gameTime)
+	//	{
+	//		if (Hidden) return;
+	//		base.Update(gameTime);
+	//	}
+	//}
 
 	public class ArmCannonAddonSlot : UIItemSlot //I did not make UIItemSlot. I am simply the one that found it. or perhaps it found me
 	{
@@ -438,33 +512,44 @@ namespace MetroidMod.Common.UI
 		/// </summary>
 		public bool isArray;
 		/// <summary>
-		/// The type of slot the slot is
-		/// <br/>Only important for standard beam addons
+		/// The addon type this slot accepts.
+		/// <br/>For non-Array slots, this also serves as its slot number.
 		/// </summary>
 		public int slotType;
+		/// <summary>
+		/// For array slots. The position in the array this slot maps to.
+		/// </summary>
+		public int slotNumber;
 
-		public ArmCannonAddonSlot(Texture2D slotTexture = null)
+		ArmCannon target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+
+		public ArmCannonAddonSlot(Asset<Texture2D> slotTexture = null)
 		{
-			if (slotTexture == null) { slotTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad).Value; }
-			backgroundTexture = slotTexture;
+			if (slotTexture == null) { slotTexture = ModContent.Request<Texture2D>("MetroidMod/Assets/Textures/UI/ItemBox", AssetRequestMode.ImmediateLoad); }
+			backgroundTexture = slotTexture.Value;
 		}
 		public override void LeftMouseDown(UIMouseEvent evt)
 		{
 			Player player = Main.LocalPlayer;
+			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem; //failsafe
 			//This part does the calculation for if you clicking an item slot has an effect on its contents
 			//this is gonna be real long and nesty, brace yourself
 			MetroidMod.Instance.Logger.Info("Begin the clickening");
 			if (!Main.mouseItem.IsAir)
 			{
 				MetroidMod.Instance.Logger.Info("You're definitely holding something");
-				if (isBeam == true)
+				if (isBeam)
 				{
 					MetroidMod.Instance.Logger.Info("It's a beam addon slot");
 					ModBeamAddon heldItem = BeamAddonLoader.GetAddon(Main.mouseItem);
-					if (heldItem != null)
+					if (isArray)
+					{
+						target.activeBeamArraySlot = slotNumber;
+					}
+					else if (heldItem != null)
 					{
 						MetroidMod.Instance.Logger.Info("The held item IS a beam addon!\nThe addon in question: " + heldItem);
-						if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
+						if (heldItem.AddonSlot == slotType)
 						{
 							if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack))
 							{
@@ -482,7 +567,11 @@ namespace MetroidMod.Common.UI
 				else
 				{
 					ModMissileAddon heldItem = MissileAddonLoader.GetAddon(Main.mouseItem);
-					if (heldItem != null)
+					if (isArray)
+					{
+						target.activeMissileArray = slotNumber;
+					}
+					else if (heldItem != null)
 					{
 						MetroidMod.Instance.Logger.Info("It's a missile addon slot");
 						if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
@@ -512,7 +601,7 @@ namespace MetroidMod.Common.UI
 
 		public override void DarkMagic(Item ItemWrite, bool StackAttack)
 		{
-			ArmCannon target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem; //failsafe
 			//Takes the action attempted through SlotMagic and applies the effect to the addon array.
 			if (StackAttack) //Player tried to stack stuff
 			{
