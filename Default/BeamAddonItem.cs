@@ -66,7 +66,7 @@ namespace MetroidMod.Default
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			modBeamAddon.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
+			modBeamAddon.PostDrawInWorld(Item, spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
 		}
 
 		//You need the next two methods in here or else it will just NOT WORK
