@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -50,8 +51,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ItemID.Heart, 4));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.EnergyPickup>(), 4, 10, 25));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.MissilePickup>(), 4, 5, 25));
+			npcLoot.Add(ItemDropRule.Common(ItemID.Star, 4));
+			npcLoot.Add(ItemDropRule.ByCondition(new Common.ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 4, 10, 25));
+			npcLoot.Add(ItemDropRule.ByCondition(new Common.ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 4, 5, 25));
+			npcLoot.Add(ItemDropRule.ByCondition(new Common.ItemDropRules.Conditions.UniversalAmmoCondition(), ModContent.ItemType<Content.Items.Miscellaneous.UAPickup>(), 5, 5, 40));
 		}
 
 		public override void AI()

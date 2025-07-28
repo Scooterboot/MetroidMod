@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MetroidMod.Common.Systems;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -85,8 +86,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.TorizoBag>()));
 			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Tiles.TorizoRelic>()));
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapons.TorizoClaws>(), 3));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapons.TorizoSpitter>(), 3));
+			notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, [ModContent.ItemType<TorizoClaws>(), ModContent.ItemType<TorizoSpitter>()]));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.EnergyShard>(), 1, 15, 36));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.ChoziteOre>(), 1, 30, 90));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoMusicBox>(), 6));
