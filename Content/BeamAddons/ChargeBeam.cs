@@ -332,7 +332,7 @@ namespace MetroidMod.Content.BeamAddons
 					else
 					{
 						mp.disableSomersault = false;
-						MetroidMod.Instance.Logger.Info(ballColor);
+						//MetroidMod.Instance.Logger.Info(ballColor);
 					}
 					Projectile.hide = false;
 					Projectile.friendly = false;

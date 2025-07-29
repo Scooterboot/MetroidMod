@@ -351,7 +351,7 @@ namespace MetroidMod
 		public virtual void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale) { }
 
 		///<inheritdoc cref="ModItem.PostDrawInWorld(SpriteBatch, Color, Color, float, float, int)"/>
-		public virtual void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) { }
+		public virtual void PostDrawInWorld(Item item, SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) { }
 		///<inheritdoc cref="ModItem.RightClick(Player)"/>
 		public virtual void RightClick(Player player)
 		{
