@@ -86,6 +86,12 @@ namespace MetroidMod.Content.BeamAddons
 				default:
 					return base.ComboVisualsGet(modifier);
 			}
+			/*if (if-else)
+				{
+					return veryupset;
+				}
+				else
+					return;*/
 		}
 
 
