@@ -476,12 +476,11 @@ Mods: {
 				// DisplayName: Arm Cannon
 				/* Tooltip:
 					'''
+					[c/FFFF00:UNDER CONSTRUCTION]
 					Current weapon: [add a checker]
 					Can be enhanced with addons
 					Select this item in your hotbar to access the Arm Cannon Interface in your inventory
 					Press [insert keybind] to swap current weapon
-					[c/FFFF00:UNDER CONSTRUCTION]
-
 					''' */
 			}
 

@@ -19,6 +19,7 @@ namespace MetroidMod.Common.UI
 		internal float scale;
 		internal Item ItemRead;
 		public Item ItemWrite;
+		public Color slotColor = Color.White;
 		internal protected event Func<bool> CanClick;
 
 		public UIItemSlot(float scale = 1f)
@@ -95,7 +96,7 @@ namespace MetroidMod.Common.UI
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			Vector2 position = GetInnerDimensions().Position();
-			spriteBatch.Draw(backgroundTexture, position, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(backgroundTexture, position, null, slotColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
 			if (ContainsPoint(Main.MouseScreen))
 			{

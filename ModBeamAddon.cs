@@ -267,7 +267,11 @@ namespace MetroidMod
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool Locked => false;
-
+		/// <summary>
+		/// If true, this addon's stats will be ignored while it's in the array.
+		/// <br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool IgnoreStatsInArray => false;
 		#endregion
 
 		#region Data-handling methods

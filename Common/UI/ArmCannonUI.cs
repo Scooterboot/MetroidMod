@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
@@ -480,6 +481,24 @@ namespace MetroidMod.Common.UI
 		{
 			//Currently selected array slot is colored yellow
 			//All others default to Color.White
+			if (base.IsMouseHovering)
+			{
+				Main.LocalPlayer.mouseInterface = true;
+			}
+			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+			MGlobalItem ac = (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem]).GetGlobalItem<MGlobalItem>();
+			for (int i = 0; i < arraySlots.Length; ++i)
+			{
+				arraySlots[i].ItemRead = (isBeam) ? target.ChargeQuickSwapAccess[i] : target.ComboQuickChangeAccess[i];
+				if ((target.activeBeamArraySlot == arraySlots[i].slotNumber && arraySlots[i].isBeam) || (target.activeMissileArray == arraySlots[i].slotNumber && !arraySlots[i].isBeam))
+				{
+					arraySlots[i].slotColor = Color.Yellow;
+				}
+				else
+				{
+					arraySlots[i].slotColor = Color.White;
+				}
+			}
 		}
 	}
 
@@ -542,11 +561,7 @@ namespace MetroidMod.Common.UI
 				{
 					MetroidMod.Instance.Logger.Info("It's a beam addon slot");
 					ModBeamAddon heldItem = BeamAddonLoader.GetAddon(Main.mouseItem);
-					if (isArray)
-					{
-						target.activeBeamArraySlot = slotNumber;
-					}
-					else if (heldItem != null)
+					if (heldItem != null && !isArray)
 					{
 						MetroidMod.Instance.Logger.Info("The held item IS a beam addon!\nThe addon in question: " + heldItem);
 						if (heldItem.AddonSlot == slotType)
@@ -567,11 +582,7 @@ namespace MetroidMod.Common.UI
 				else
 				{
 					ModMissileAddon heldItem = MissileAddonLoader.GetAddon(Main.mouseItem);
-					if (isArray)
-					{
-						target.activeMissileArray = slotNumber;
-					}
-					else if (heldItem != null)
+					if (heldItem != null)
 					{
 						MetroidMod.Instance.Logger.Info("It's a missile addon slot");
 						if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
@@ -591,10 +602,36 @@ namespace MetroidMod.Common.UI
 			else
 			{
 				MetroidMod.Instance.Logger.Info("Caught empty-handed boi");
-				if (!ItemRead.IsAir)
+				if (isBeam)
 				{
-					MetroidMod.Instance.Logger.Info("erm.... it is TAKING.");
-					SlotMagic(false);
+					if (isArray)
+					{
+						SoundEngine.PlaySound(SoundID.MenuTick);
+						target.activeBeamArraySlot = slotNumber;
+						target.HoldFireSlot = -1;
+						target.BeamAddonAccess[0] = target.ChargeQuickSwapAccess[slotNumber];
+						target.ArrayUpdate();
+					}
+					else if (!ItemRead.IsAir)
+					{
+						MetroidMod.Instance.Logger.Info("erm.... it is TAKING.");
+						SlotMagic(false);
+					}
+				}
+				else
+				{
+					if (isArray)
+					{
+						SoundEngine.PlaySound(SoundID.MenuTick);
+						target.activeMissileArray = slotNumber;
+						target.MissileAddonAccess[0] = target.ComboQuickChangeAccess[slotNumber];
+						target.ArrayUpdate();
+					}
+					else
+					{
+						MetroidMod.Instance.Logger.Info("erm.... it is TAKING.");
+						SlotMagic(false);
+					}
 				}
 			}
 		}
@@ -643,7 +680,7 @@ namespace MetroidMod.Common.UI
 					}
 					else
 					{
-						if (isBeam) { target.BeamAddonAccess[slotType] = ItemWrite; MetroidMod.Instance.Logger.Info("Addon inserted"); target.ArrayUpdate(); }
+						if (isBeam) { target.BeamAddonAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
 						else { target.MissileAddonAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
 					}
 				}

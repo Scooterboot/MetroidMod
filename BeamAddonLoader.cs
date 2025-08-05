@@ -25,6 +25,7 @@ namespace MetroidMod
 {
 	/// <summary>
 	/// Manages ModBeamAddons, stacks effects of addons installed into arm cannons, and provides helpful methods to retrieve beam addon information.
+	/// <br/>And, of course, loads them.
 	/// </summary>
 	public static class BeamAddonLoader 
 	{
@@ -136,7 +137,7 @@ namespace MetroidMod
 			//In order:
 			//[0] = The slot containing the highest ShapePriority (0-4)
 			//[1] = The slot containing the highest ColorPriority (0-4)
-			//[2] = 0 if the VIBe check failed, 1 if it passed
+			//[2] = 0 if the VIBe check failed, 1 if it passed, 2 if it has its own projectile
 			//[3] = 0 if ColorPriority doesn't have SoundOverride, 1 if it does
 
 			MetroidMod.Instance.Logger.Info("Starting VIBe check");
@@ -144,7 +145,11 @@ namespace MetroidMod
 			{
 				//MetroidMod.Instance.Logger.Info("VIBe Check - Slot " + i + "- Contains: " + addons[i]); //Keep commented out unless absolutely necessary, it clogs the console
 				if (addons[i] == null || addons[i].VIB == false) { continue; }
-				if (addons[i].VIB == true) { winners = [i, i, 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check"); return winners; }
+				if (addons[i].VIB == true)
+				{
+					winners = [i, i, (addons[i].vibOverride != null)? 2 : 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check");
+					return winners;
+				}
 			} //Iterate through the slots looking for a VIB addon
 			MetroidMod.Instance.Logger.Info("You have failed the VIBe Check");
 
@@ -355,11 +360,33 @@ namespace MetroidMod
 				totals[8] += addons[i].OverheatMult;
 				totals[9] += addons[i].AddShots;
 			}
-			MetroidMod.Instance.Logger.Info("Beam stats stacked!  ||  " 
-											+ totals[9]);
+			MetroidMod.Instance.Logger.Info("Beam stats stacked!");
 			return totals;
 		}
 
+		public static float[] ArrayStatGrabber(Item[] beamAddons)
+		{
+			MetroidMod.Instance.Logger.Info("Stacking Beam Stats...");
+			float[] totals = [0, 0, 0, 0, 0];
+			ModBeamAddon[] addons = beamAddons //Converts the Item array into a ModBeamAddon array, allowing for direct stat access.
+				.Select(GetAddon)
+				.ToArray();
+
+			//Run through all installed addons that actually add stats (i.e. leaving out the ammo slot)
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				if (addons[i].Overridden) { continue; }
+				if (addons[i].IgnoreStatsInArray) { continue; }
+				totals[0] += addons[i].BaseDamage;
+				totals[1] += addons[i].BaseSpeed;
+				totals[2] += addons[i].BaseVelocity;
+				totals[3] += addons[i].CritChance;
+				totals[4] += addons[i].BaseOverheat;
+			}
+			MetroidMod.Instance.Logger.Info("Array stats stacked!");
+			return totals;
+		}
 		//Behavior stackamajig?
 		/// <summary>
 		/// Creates a total interact value from the sum of that value across all installed beam addons, plus an optional multiplier.
@@ -451,7 +478,8 @@ namespace MetroidMod
 
 
 
-		//Method Stackems ahead
+		//Method Stackems ahead.
+		//This is the REAL fun part: where projectile behavior is added onto the beam shots in real-time.
 		/// <summary>
 		/// Runs the OnSpawn() behavior of every addon in a given array.
 		/// <br/>The reason it's OnInitialized instead of OnSpawn is because you can't really insert addons before OnSpawn() runs.

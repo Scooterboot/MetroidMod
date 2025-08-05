@@ -121,7 +121,10 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			set { comboQuickChange = value; }
 		}
+		#endregion
+		
 
+		#region Data pointers
 		/// <summary>
 		/// Keeps track of the addons that were selected by the <b>Visual Priority System</b>.
 		/// <br/><br/><i>(VisualWinners was taken by <see cref="BeamShot"/>)</i>
@@ -189,7 +192,7 @@ namespace MetroidMod.Content.Items.Weapons
 		///<summary>
 		///Contains all of the stats added passively by addons installed in the Primary Quick-Swap.
 		/// </summary>
-		//public int[] AdditionalPrimaryStats = new int[5];
+		public float[] AdditionalPrimaryStats = new float[5];
 
 		/// <summary>
 		/// The final overheat value, which will be calculated in UpdateInventory.<br/>
@@ -376,11 +379,11 @@ namespace MetroidMod.Content.Items.Weapons
 			//apply the numbers to the weapon
 			if (ac.isBeam) //apply to power beam
 			{
-				Item.damage = (int)((BeamBaseDamage + (int)AdditionalBeamStats[0] /*+ AdditionalPrimaryStats[0]*/) * ((AdditionalBeamStats[1] / 100) + 1)); //Formula for power beam base damage calc. Has to convert to int to work
-				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round((360 / ((BeamBaseSpeed + (int)AdditionalBeamStats[2] /*+ AdditionalPrimaryStats[1]*/) * ((AdditionalBeamStats[3] / 100) + 1)))), 2); //Usetime calc. Can't let the usetime drop below a certain point
+				Item.damage = (int)((BeamBaseDamage + (int)AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100) + 1)); //Formula for power beam base damage calc. Has to convert to int to work
+				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round((360 / ((BeamBaseSpeed + (int)AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100) + 1)))), 2); //Usetime calc. Can't let the usetime drop below a certain point
 				Item.shootSpeed = ((BeamBaseVelocity + (int)AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100) + 1)); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
-				Item.crit = BeamBaseCrit + (int)AdditionalBeamStats[6] /*+ AdditionalPrimaryStats[3]*/;
-				Overheat = (int)((BaseOverheat + (int)AdditionalBeamStats[7] /*+ AdditionalPrimaryStats[4]*/) * ((AdditionalBeamStats[8] / 100) + 1));
+				Item.crit = BeamBaseCrit + (int)AdditionalBeamStats[6] + (int)AdditionalPrimaryStats[3];
+				Overheat = (int)((BaseOverheat + (int)AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100) + 1));
 				Item.UseSound = beamSound;
 				Item.shoot = ModContent.ProjectileType<BeamShot>();
 			}
@@ -404,15 +407,14 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			Item.TryGetGlobalItem(out MGlobalItem ac);
 
-			//Suitlock checker goes here
-
-			//Compatibility checker goes here
-
-			VisualDinners = BeamAddonLoader.VisualPriority(beamAddons); //Gets the shot visuals
+			VisualDinners = BeamAddonLoader.VisualPriority(beamAddons); //Gets the shot visuals and checks for VIBs
 
 			AdditionalBeamStats = BeamAddonLoader.WeaponStatStacker(beamAddons); //Gets the beam stats
 
-			//AdditionalPrimaryStats = BeamAddonLoader.ArrayStatGrabber(primaryQuickSwap); //Gets PQS passives (doesn't exist yet)
+
+			chargeQuickSwap[activeBeamArraySlot] = beamAddons[0];
+
+			AdditionalPrimaryStats = BeamAddonLoader.ArrayStatGrabber(chargeQuickSwap); //Gets PQS passives (doesn't exist yet)
 
 			#region Misc. Beamstacking
 			//This is gonna get a little hard to read.
@@ -420,8 +422,12 @@ namespace MetroidMod.Content.Items.Weapons
 			//VisualDinners[0] is the winning ShapePriority, VisualDinners[1] is the winning ColorPriority
 			if (VisualDinners[0] != -1) //This makes sure there's actually stuff in the array
 			{
-				
-				#region VIB/Holdfire Checker
+
+				//Suitlock checker goes here
+
+				//Compatibility checker goes here
+
+				#region Holdfire Checker
 				//Originally this was pretty much just to check for holdfires, but this is the perfect place to do a shitton of stuff
 
 				//Initialize important variables
@@ -429,22 +435,11 @@ namespace MetroidMod.Content.Items.Weapons
 				bool HelpImBeingSuppressed = false; //no basis for a form of government			-Z
 				HoldFireSlot = -1;
 
-				if (VisualDinners[2] == 1)
+				if (VisualDinners[2] == 2)
 				{
-					ModBeamAddon vibRibbon = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]); // you have NO idea how long I've been waiting to use this variable name		-Z
-					if (vibRibbon.vibOverride != null)
-					{
-						Item.shoot = vibRibbon.vibOverride.Type; //la la laaa, tanoshi naaaa
-						ac.SuppressingFire = true;
-						HelpImBeingSuppressed = true;
-						MetroidMod.Instance.Logger.Info("YUH OH, WE GOTS A LIVE ONE FELLAS");
-						if (vibRibbon.HoldFire) { HoldFireSlot = vibRibbon.AddonSlot; }
-					} //Check if this VIB uses its own projectile. If so, disable the normal beam shot.
-					else
-					{
-						ac.SuppressingFire = false;
-					}
-				}//Check if there's a VIB
+					ac.SuppressingFire = true;
+					HelpImBeingSuppressed = true;
+				}//Check if there's bespoke VIB projectile
 				else
 				{
 					ac.SuppressingFire = false;
@@ -526,13 +521,12 @@ namespace MetroidMod.Content.Items.Weapons
 
 
 			} //All the checks and shit for if there actually ARE addons in your arm cannon. Goes through holdfires, soundoverride, etc.
-
 			else
 			{
 				beamSound = Sounds.Items.Weapons.PowerBeamSound;
+				ac.SuppressingFire = false;
 				HoldFireSlot = -1;
 			}
-
 
 			if (missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir) //Missiles don't need a VPS because only one slot changes your base projectile
 			{
@@ -568,7 +562,7 @@ namespace MetroidMod.Content.Items.Weapons
 				//note: if charge combos depend on charge and charge is being overridden by a different holdfire
 				//that'll make it so you can't shoot charge combos while it's equipped
 				//Look into later			-Z
-				if (HoldFireSlot > BeamAddonSlotID.Count - 1)
+				if (HoldFireSlot >= BeamAddonSlotID.Count - 1)
 				{
 					BeamAddonLoader.GetAddon(chargeQuickSwap[HoldFireSlot - (BeamAddonSlotID.Count - 1)]).HoldFireBehavior(player);
 				}
@@ -768,6 +762,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					else { clone.chargeQuickSwap[i] = chargeQuickSwap[i]; }
 				}
+			clone.activeBeamArraySlot = activeBeamArraySlot;
 			#endregion
 			#region Missile Addon cloning
 			for (int i = 0; i < MissileAddonSlotID.Count; ++i)
@@ -790,6 +785,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					else { clone.comboQuickChange[i] = comboQuickChange[i]; }
 				}
+			clone.activeMissileArray = activeMissileArray;
 			#endregion
 			return clone;
 		}
@@ -850,6 +846,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				tag.Add("Primary Quick-Swap - Slot " + (i + 1), ItemIO.Save(chargeQuickSwap[i]));
 			}
+			tag.Add("Selected Primary Quick-Swap Slot", activeBeamArraySlot);
 			//Normal missile addons
 			for (int i = 0; i < MissileAddonSlotID.Count; ++i)
 			{
@@ -870,6 +867,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				tag.Add("Charge Combo Quick-Swap - Slot " + (i + 1), ItemIO.Save(comboQuickChange[i]));
 			}
+			tag.Add("Selected Combo Quick-Swap Slot", activeMissileArray);
 			#endregion
 			//ammo
 			if (Item.TryGetGlobalItem(out MGlobalItem ac))
@@ -915,6 +913,8 @@ namespace MetroidMod.Content.Items.Weapons
 				ac.statUA = tag.GetFloat("Current UA");
 				ac.maxMissiles = tag.GetInt("Maximum Missiles");
 				ac.statMissiles = tag.GetInt("Current Missiles");
+				activeBeamArraySlot = tag.GetInt("Selected Primary Quick-Swap Slot");
+				activeMissileArray = tag.GetInt("Selected Combo Quick-Swap Slot");
 			}
 			catch { }
 			ArrayUpdate();
