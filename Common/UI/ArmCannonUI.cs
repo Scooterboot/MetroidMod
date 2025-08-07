@@ -159,7 +159,9 @@ namespace MetroidMod.Common.UI
 		public override void Update(GameTime gameTime)
 		{
 			//I had to reconfigure the fuck out of this shit and I'm doing some really hacky shit now and I don't like it
-			armCannonPanel.Update(gameTime);
+			armCannonPanel.Update(gameTime);    //Don't forget to call Update()
+			beamArrayPanel.Update(gameTime);    //So that the sub-elements can
+			missileArrayPanel.Update(gameTime); //All properly update!
 			if (Visible)
 			{
 				target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
@@ -492,11 +494,11 @@ namespace MetroidMod.Common.UI
 				arraySlots[i].ItemRead = (isBeam) ? target.ChargeQuickSwapAccess[i] : target.ComboQuickChangeAccess[i];
 				if ((target.activeBeamArraySlot == arraySlots[i].slotNumber && arraySlots[i].isBeam) || (target.activeMissileArray == arraySlots[i].slotNumber && !arraySlots[i].isBeam))
 				{
-					arraySlots[i].slotColor = Color.Yellow;
+					arraySlots[i].slotColor = new Color(252, 195, 0);
 				}
 				else
 				{
-					arraySlots[i].slotColor = Color.White;
+					arraySlots[i].slotColor = Color.DarkGray;
 				}
 			}
 		}
@@ -551,12 +553,13 @@ namespace MetroidMod.Common.UI
 		{
 			Player player = Main.LocalPlayer;
 			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem; //failsafe
+			bool isDupe = false; //To make sure you can't get more than one of the same nonstacking addon in an arm cannon.
 			//This part does the calculation for if you clicking an item slot has an effect on its contents
 			//this is gonna be real long and nesty, brace yourself
 			MetroidMod.Instance.Logger.Info("Begin the clickening");
 			if (!Main.mouseItem.IsAir)
 			{
-				MetroidMod.Instance.Logger.Info("You're definitely holding something");
+				//MetroidMod.Instance.Logger.Info("You're definitely holding something");
 				if (isBeam)
 				{
 					MetroidMod.Instance.Logger.Info("It's a beam addon slot");
@@ -566,16 +569,25 @@ namespace MetroidMod.Common.UI
 						MetroidMod.Instance.Logger.Info("The held item IS a beam addon!\nThe addon in question: " + heldItem);
 						if (heldItem.AddonSlot == slotType)
 						{
-							if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack))
+							if (slotType == 0)
+							{
+								isDupe = BeamAddonLoader.ArrayDupeChecker(target.ChargeQuickSwapAccess, heldItem);
+							}
+
+							if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack) && !isDupe)
 							{
 								MetroidMod.Instance.Logger.Info("We stackin this shit");
 								SlotMagic(true);
 							} //Account for stacks
-							else if (Main.mouseItem.type != ItemRead.type)
+							else if (Main.mouseItem.type != ItemRead.type && !isDupe)
 							{
 								MetroidMod.Instance.Logger.Info("We NOT stackin this shit");
 								SlotMagic(true);
 							} //Items can't stack, check if they can swap
+							else if (isDupe)
+							{
+								SoundEngine.PlaySound(SoundID.Item16);
+							}
 						}
 					}
 				}

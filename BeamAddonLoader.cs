@@ -364,7 +364,7 @@ namespace MetroidMod
 			return totals;
 		}
 
-		public static float[] ArrayStatGrabber(Item[] beamAddons)
+		public static float[] ArrayStatGrabber(Item[] beamAddons, int activeSlot)
 		{
 			MetroidMod.Instance.Logger.Info("Stacking Beam Stats...");
 			float[] totals = [0, 0, 0, 0, 0];
@@ -473,8 +473,26 @@ namespace MetroidMod
 		//Locks: addon prevents beam from firing until certain conditions are met
 		//Suitlocking only? makes the process more automatic and makes the unknown item bit easier
 		//Store something in MPlayer?
+		
+		/// <summary>
+		/// Checks if a ModBeamAddon is a duplicate of an addon currently stored in an array.
+		/// <br/>If it is, return <b>true</b>. Otherwise, return <b>false</b>/
+		/// </summary>
+		/// <param name="arrayAddons"></param>
+		/// <param name="newAddon"></param>
+		/// <returns></returns>
+		public static bool ArrayDupeChecker(Item[] arrayAddons, ModBeamAddon newAddon)
+		{
+			ModBeamAddon[] addons = arrayAddons //Converts the Item array into a ModBeamAddon array, allowing for direct stat access.
+				.Select(GetAddon)
+				.ToArray();
 
-
+			foreach (ModBeamAddon checkAddon in addons)
+			{
+				if (newAddon == checkAddon) { return true; }
+			}
+			return false;
+		}
 
 
 

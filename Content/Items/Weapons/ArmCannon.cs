@@ -414,7 +414,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			chargeQuickSwap[activeBeamArraySlot] = beamAddons[0];
 
-			AdditionalPrimaryStats = BeamAddonLoader.ArrayStatGrabber(chargeQuickSwap); //Gets PQS passives (doesn't exist yet)
+			AdditionalPrimaryStats = BeamAddonLoader.ArrayStatGrabber(chargeQuickSwap, activeBeamArraySlot); //Gets PQS passives (doesn't exist yet)
 
 			#region Misc. Beamstacking
 			//This is gonna get a little hard to read.

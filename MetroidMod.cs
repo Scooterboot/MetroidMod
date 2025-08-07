@@ -28,14 +28,30 @@ namespace MetroidMod
 	[LegacyName("MetroidModPorted")]
 	public class MetroidMod : Mod
 	{
+		public static MetroidMod Instance { get; private set; }
+		public MetroidMod() { Instance = this; }
+
+
+		public static bool DebugDH;
+		public static bool DebugDSI;
+		public static bool DisplayDebugValues;
+
+
+		#region Addon array sizes
 		internal const int ballSlotAmount = 5;
 		internal const int beamSlotAmount = 6;
 		internal const int beamChangeSlotAmount = 8;
 		internal const int missileChangeSlotAmount = 8;
 		internal const int missileSlotAmount = 3;
+		#endregion
 
-		public static bool UseAltWeaponTextures;
+		public static bool UseAltWeaponTextures; //delete later			-Z
 
+		#region Fallback textures
+		//With systems as complicated as the addon ones, things are gonna go wrong.
+		//If the system fails to find any particular asset for an addon, it'll default to one of these suckers.
+
+		#region Power Beam fallbacks
 		/// <summary>
 		/// The backup texture for a Beam shot. Identical to default Power Beam.
 		/// </summary>
@@ -52,7 +68,11 @@ namespace MetroidMod
 		/// The backup sound effect for Beam shot impact. Since I'm pretty sure most addons won't bother changing this, it's a lot more subtle than all the others.
 		/// </summary>
 		public static SoundStyle BeamImpactFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/BeamImpactSound");
+		#endregion
 
+		#endregion
+
+		#region Beam color values
 		public static Color powColor = new(248, 248, 104);
 		public static Color powSecondaryColor = new(248, 168, 0);
 		public static Color iceColor = new(0, 176, 248);
@@ -74,26 +94,54 @@ namespace MetroidMod
 		public static Color lumSecondaryColor = new(45, 105, 76);
 		public static Color lumColor2 = new(229, 218, 186);
 		public static Color lumSecondaryColor2 = new(164, 101, 124);
-		public static MetroidMod Instance { get; private set; }
-		public MetroidMod() { Instance = this; }
-
-		public static bool DebugDH;
-		public static bool DebugDSI;
-		public static bool DisplayDebugValues;
+		#endregion
 
 		public int[] FrozenStandOnNPCs;
 
+		#region Recipe Groups
 		//public static int beamsRecipeGroupID;
+		/// <summary>
+		/// A recipe group that includes all vanilla pre-Hardmode grappling hooks.
+		/// </summary>
 		public static int PreHMhooksRecipeID;
+		/// <summary>
+		/// A recipe group that includes all Morph Ball Bombs.
+		/// </summary>
 		public static int MorphBallBombsRecipeGroupID;
+		/// <summary>
+		/// A recipe group that includes Copper and Tin Bars.
+		/// </summary>
 		public static int T1PHMBarRecipeGroupID;
+		/// <summary>
+		/// Self-explanatory.
+		/// </summary>
 		public static int GoldPlatinumBarRecipeGroupID;
+		/// <summary>
+		/// A recipe group that includes Demonite and Crimtane Bars.
+		/// </summary>
 		public static int EvilBarRecipeGroupID;
+		/// <summary>
+		/// A recipe group that contains Shadow Scales and Tissue Samples.
+		/// </summary>
 		public static int EvilMaterialRecipeGroupID;
+		/// <summary>
+		/// A recipe group that includes Cursed Flames and Ichor.
+		/// </summary>
 		public static int EvilHMMaterialRecipeGroupID;
+		/// <summary>
+		/// A recipe group that includes Cobalt and Palladium.
+		/// </summary>
 		public static int T1HMBarRecipeGroupID;
+		/// <summary>
+		/// A recipe group that contains Mythril and Orichalcum.
+		/// </summary>
 		public static int T2HMBarRecipeGroupID;
+		/// <summary>
+		/// A recipe group that includes Adamantite and Titanium.
+		/// </summary>
 		public static int T3HMBarRecipeGroupID;
+		#endregion
+
 		public static ushort unloadedItemID;
 
 		public static List<int> hazardShieldDebuffList = new() { 20, 21, 22, 23, 24, 30, 31, 32, 33, 35, 36, 46, 47, 69, 70, 72, 80, 88, 94, 103, 120, 137, 144, 145, 148, 149, 153, 156, 164, 169, 195, 196, 197 };
