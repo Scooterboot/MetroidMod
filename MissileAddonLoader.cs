@@ -1,9 +1,11 @@
-﻿using Terraria.ModLoader;
-using Terraria.Localization;
+﻿using System.Collections.Generic;
+using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.Localization;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace MetroidMod
@@ -112,6 +114,23 @@ namespace MetroidMod
 
 				missile.ChangeType(freeType);
 				freeType++;
+			}
+		}
+		//Method Stackems ahead.
+		//This is the REAL fun part: where projectile behavior is added onto the beam shots in real-time.
+		/// <summary>
+		/// Runs the OnSpawn() behavior of every addon in a given array.
+		/// <br/>The reason it's OnInitialized instead of OnSpawn is because you can't really insert addons before OnSpawn() runs.
+		/// </summary>
+		/// <param name="addons"></param>
+		/// <param name="shot"></param>
+		/// <param name="source"></param>
+		public static void AddonOnInitialized(ModMissileAddon[] addons, MProjectile shot, IEntitySource source)
+		{
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				addons[i].OnSpawn(shot, source);
 			}
 		}
 

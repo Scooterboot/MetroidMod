@@ -31,13 +31,13 @@ namespace MetroidMod
 		public int TileType { get; internal set; }
 
 		//TODO: When you gut the old system remove the "NewFormat/" from the path directories
-		public virtual string ItemTexture => $"{Mod.Name}/Assets/Textures/MissileAddons/NewFormat/{Name}/Item";
-		public virtual string TileTexture => $"{Mod.Name}/Assets/Textures/MissileAddons/NewFormat/{Name}/Tile";
+		public virtual string ItemTexture => $"{Mod.Name}/Assets/Textures/MissileAddons/{Name}/Item";
+		public virtual string TileTexture => $"{Mod.Name}/Assets/Textures/MissileAddons/{Name}/Tile";
 		public virtual int TileFrames { get; } = 1;
-		public virtual string ShotTexture => $"{Mod.Name}/Assets/Textures/MissileAddons/NewFormat/{Name}/Shot";
+		public virtual string ShotTexture => $"{Mod.Name}/Assets/Textures/MissileAddons/{Name}/Shot";
 		public virtual int ShotFrames { get; } = 1;
-		public virtual string ShotSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/NewFormat/{Name}/Shot";
-		public virtual string ImpactSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/NewFormat/{Name}/Impact";
+		public virtual string ShotSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/{Name}/Shot";
+		public virtual string ImpactSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/{Name}/Impact";
 
 		public virtual LocalizedText Tooltip => ModItem.GetLocalization(nameof(Tooltip), () => "");
 

@@ -68,6 +68,10 @@ namespace MetroidMod
 		/// The backup sound effect for Beam shot impact. Since I'm pretty sure most addons won't bother changing this, it's a lot more subtle than all the others.
 		/// </summary>
 		public static SoundStyle BeamImpactFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/BeamImpactSound");
+		/// <summary>
+		/// The backup sound effect for Missile shot impact. Since I'm pretty sure most addons won't bother changing this, it's a lot more subtle than all the others.
+		/// </summary>
+		public static SoundStyle MissileImpactFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/MissileImpact");
 		#endregion
 
 		#endregion

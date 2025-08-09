@@ -326,7 +326,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public override bool CanUseItem(Player player) //lets things properly restrict your ability to use the weapon
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			return (player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat); //Add a suit lock check here later
+			return (player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat); //Add a suit lock check here later (as well as missile --DR)
 		}
 		#region Item visual methods
 		private void SetTexture(MGlobalItem ac)
@@ -592,7 +592,8 @@ namespace MetroidMod.Content.Items.Weapons
 			} //Power Beam firing procedure
 			else
 			{
-
+				return true;
+				//Launch(player, source, position, velocity, type, damage, knockback);
 				//nothing here yet lol
 
 			} //Missile Launcher firing procedure
@@ -690,6 +691,95 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 			}
 		}
+		/// <summary>
+		/// Used to fire missile projectiles.
+		/// </summary>
+		/// <param name="player"></param>
+		/// <param name="source"></param>
+		/// <param name="position"></param>
+		/// <param name="velocity"></param>
+		/// <param name="type"></param>
+		/// <param name="damage"></param>
+		/// <param name="knockback"></param>
+		/// <param name="bonusFileMod">Appended to the shot's filemod for on-the-fly modifications.
+		/// <br/>Things like charge shots take advantage of this.</param>
+		/// <param name="multiplier">Allows for on-the-fly modifying of the Interact values.</param>
+		/*public void Launch(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1f)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
+			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
+			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+			float speedX = velocity.X;
+			float speedY = velocity.Y;
+			int[] visualData = [0, -1];
+			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
+			int theShootsingAmount = (int)AdditionalBeamStats[9] + 1;
+			MetroidMod.Instance.Logger.Info("Beam is firing. Cannon and Addons:\n" + Item + "\n" +
+											BeamAddonAccess[0] + "\n" + BeamAddonAccess[1] + "\n" +
+											beamAddons[2] + "\n" + BeamAddonAccess[3] + "\n" + BeamAddonAccess[4]);
+
+			if (ac != null && !ac.isBeam)
+			{
+				if (VisualDinners[0] != -1)
+				{
+					visualData = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ComboVisualsGet(ac.assetModifier + bonusFileMod);
+				}
+				//MetroidMod.Instance.Logger.Info("Wave Beam Bullshit Time");
+				edgeCaseStuff = BeamAddonLoader.EdgeCaseStacker(beamAddons, AdditionalBeamStats, bonusFileMod);
+				AdditionalBeamStats[1] += edgeCaseStuff[0];
+				AdditionalBeamStats[3] += edgeCaseStuff[1];
+				AdditionalBeamStats[5] += edgeCaseStuff[2];
+				AdditionalBeamStats[8] += edgeCaseStuff[3];
+				theShootsingAmount += (int)edgeCaseStuff[4];
+				//need way to slap on a bonus projectile here.
+
+
+				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
+				{
+					MissileShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as MissileShot;
+					MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
+					beam.VisualWinners = VisualDinners;
+					if (VisualDinners[0] != -1)
+					{
+						//Need to BeamAddonLoader.GetAddon() the addons because the Arm Cannon stores the associated items and not the ModBeamAddons themselves
+						//There's a chance it'd prolly be more efficient to store them as the addons but I've already set everything up this way so
+						beam.ModTexture = MissileAddonLoader.ShotTextureGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
+						beam.beamDust = (visualData[1] < 0) ? BeamAddonLoader.GetAddon(beamAddons[VisualDinners[1]]).ShotDust : visualData[1];
+						beam.Impact = BeamAddonLoader.ShotSoundGrabber(BeamAddonLoader.GetAddon(beamAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.BeamImpactFallbackSFX);
+						//Okay that last line was a bit of a mouthful but essentially what that says:
+						//It's attempting to set the beam impact sfx to an addon's impact sfx given the filemods.
+						//If SoundOverride (VisualDinners[3]) is on, that addon is the ColorPriority, and if not, it's the ShapePriority
+					}
+
+					//The way shot textures are grabbed, explained in detail:
+					//Assets are stored in BeamAddons/BeamAddonName
+					//Basic shots are all named Shot
+					//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
+					//(e.g. a charge shot should be named ShotCharged
+
+					//TODO: Character limit on modifiers? Don't want someone to make a 5000000000000 letter long one
+
+					if (visualData[0] > 0)
+					{
+						beam.ShotFrames = visualData[0];
+					}
+
+					beam.groupSize = theShootsingAmount;
+					beam.groupID = i;
+
+					beam.fileMod += (ac.assetModifier + bonusFileMod);
+
+					beam.beamAddons = beamAddons
+						.Select(i => BeamAddonLoader.GetAddon(i))
+						.Select(i => i?.Clone())
+						.ToArray();
+
+					beam.OnInitialized(source);
+					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
+					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
+				}
+			}
+		}*/
 		#endregion
 		public override void AddRecipes()
 		{
