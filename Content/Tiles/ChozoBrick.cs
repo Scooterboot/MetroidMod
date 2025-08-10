@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Tiles
 			//Main.tileMerge[TileID.Sand][Type] = true;
 
 			DustType = 87;
-			MinPick = 65;
+			MinPick = 60;
 			HitSound = SoundID.Tink;
 
 			AddMapEntry(new Color(200, 160, 72));

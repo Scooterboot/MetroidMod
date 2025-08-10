@@ -1,17 +1,71 @@
 using System;
-using System.IO;
+using MetroidMod.Content.DamageClasses;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
-namespace MetroidMod.Content.Projectiles.missiles
+namespace MetroidMod.Content.Projectiles
 {
-	public class MissileShot : MProjectile
+	internal class MissileShot : MProjectile
 	{
-		public override void SetStaticDefaults()
+		/// <summary>
+		/// Stores the winning slot numbers from the Visual Priority check.
+		/// </summary>
+		public int[] VisualWinners = [-1, -1, 0, 0];
+		public ModMissileAddon[] missileAddons = new ModMissileAddon[MissileAddonSlotID.Count];
+		public float missileScale = 0.75f;
+		public int missileDust = DustID.YellowTorch;
+		/// <summary>
+		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of missiles.
+		/// </summary>
+		public string fileMod = "";
+		/// <summary>
+		/// This string is used to change the projectile's display name to match installed addons.
+		/// </summary>
+		public string nameChanger;
+		/// <summary>
+		/// The number of animation frames the shot has.
+		/// </summary>
+		public int ShotFrames = 1;
+		public float multiplier = 1f;
+		/// <summary>
+		/// Suppresses default dust behavior.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public bool dustSuppress = false;
+
+		/// <summary>
+		/// This missile shot's impact sound effect.
+		/// <br/><br/>Defaults to the <b>fallback impact SFX</b>.
+		/// </summary>
+		public SoundStyle Impact = MetroidMod.MissileImpactFallbackSFX;
+		/// <summary>
+		/// This missile shot's texture after addons are applied.
+		/// </summary>
+		public Asset<Texture2D> ModTexture;
+
+		private float currentFrame
 		{
-			// DisplayName.SetDefault("Missile Shot");
+			get => Projectile.ai[0];
+			set => Projectile.ai[0] = value;
 		}
+		private float shotNumber
+		{
+			get => Projectile.ai[1];
+			set => Projectile.ai[1] = value;
+		}
+		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/MissileAddons/Expansion/Shot";
+		Color color = MetroidMod.powColor; //todo: learn shaders        -Z
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -21,122 +75,198 @@ namespace MetroidMod.Content.Projectiles.missiles
 			Projectile.timeLeft = 1000;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
+			Projectile.friendly = true;
+			//Projectile.tileCollide = true;
+			Projectile.ignoreWater = true;
+			Projectile.penetrate = 1;
+			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
+
+		}
+		public override void SetStaticDefaults()
+		{
+			//Main.projFrames[Type] = 16;
+			//Bit worried commenting this out may cause issues in the future, but it seems to be fine for now so maybe it won't		-Z
 		}
 
-		public override void AI()
+		public void OnInitialized(IEntitySource source)
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			//MetroidMod.Instance.Logger.Info("put something here later");
 
-			int dustType = 6;
-			if (Projectile.Name.Contains("Ice"))
-			{
-				dustType = 135;
-			}
-			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, dustType, 2f);
 
-			if (mProjectile.seeking && mProjectile.seekTarget > -1)
-			{
-				float num236 = Projectile.position.X;
-				float num237 = Projectile.position.Y;
-				bool flag5 = false;
-				Projectile.ai[0] += 1f;
-				if (Projectile.ai[0] > 5f && Projectile.numUpdates <= 0)
-				{
-					Projectile.ai[0] = 5f;
-					int num239 = mProjectile.seekTarget;
-					if (Main.npc[num239].active)
-					{
-						num236 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
-						num237 = Main.npc[num239].position.Y + (float)(Main.npc[num239].height / 2);
-						flag5 = true;
-					}
-					else
-					{
-						mProjectile.seekTarget = -1;
-					}
-				}
-				if (!flag5)
-				{
-					num236 = Projectile.position.X + (float)(Projectile.width / 2) + Projectile.velocity.X * 100f;
-					num237 = Projectile.position.Y + (float)(Projectile.height / 2) + Projectile.velocity.Y * 100f;
-				}
-				float num243 = 8f;
-				Vector2 vector22 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
-				float num244 = num236 - vector22.X;
-				float num245 = num237 - vector22.Y;
-				float num246 = (float)Math.Sqrt((double)(num244 * num244 + num245 * num245));
-				num246 = num243 / num246;
-				num244 *= num246;
-				num245 *= num246;
-				Projectile.velocity.X = (Projectile.velocity.X * 11f + num244) / 12f;
-				Projectile.velocity.Y = (Projectile.velocity.Y * 11f + num245) / 12f;
-			}
-			/*if (mProjectile.homing)
-			{
-				mProjectile.HomingBehavior(Projectile);
-			}*/
+			//Gather data from installed addons.
+			/*MetroidMod.Instance.Logger.Info("missile addons: " + missileAddons[0] + " " + missileAddons[1] + " " + missileAddons[2] + " " + missileAddons[3] + " " + missileAddons[4]
+				+ "\nShot " + groupID + "/" + groupSize);*/
+
+			//First, call method to calculate tileinteract total.
+			TileInteract = MissileAddonLoader.InteractStacker(missileAddons, true, multiplier);
+			//Then, call method to calculate entityinteract total.
+			EntityInteract = MissileAddonLoader.InteractStacker(missileAddons, false, multiplier);
+
+
+			MissileAddonLoader.AddonOnInitialized(missileAddons, mProjectile, source);
 		}
+
+		public override bool PreAI()
+		{
+			return MissileAddonLoader.AddonPreAI(missileAddons, mProjectile);
+		}
+		int dustTimer = 5;
+		public override void AI() //TODO: make a whole-ass thing         -Z
+		{
+			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+
+
+			#region Animation code
+			//If this shot has more than 1 frame, run animation code
+			if (ShotFrames > 1)
+			{
+				//increment the frame counter
+				Projectile.frameCounter++;
+
+				//if the required amount of time has passed progress the frame
+				if (Projectile.frameCounter > 2)
+				{
+					Projectile.frame++;
+					if (Projectile.frame >= ShotFrames)
+					{
+						Projectile.frame = 0;
+					}
+					Projectile.frameCounter = 0;
+				}
+				//if we're at the frame count reset
+			}
+			#endregion
+			if (VisualWinners[0] != -1)
+			{
+				missileAddons[VisualWinners[0]].ShapeBehavior(mProjectile);
+			}
+
+			//Put the dustline shit here later
+
+			if (dustTimer < 1 && !dustSuppress)
+			{
+				//MetroidMod.Instance.Logger.Info("Oh hey this actually updates lmao");
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, missileDust, 0, 0, 100, default(Color), Projectile.scale);
+				Main.dust[dust].noGravity = true;
+				dustTimer = 5;
+			}
+			else { dustTimer--; }
+
+			MissileAddonLoader.AddonAI(missileAddons, mProjectile);
+		}
+		public override void PostAI()
+		{
+			base.PostAI();
+			MissileAddonLoader.AddonPostAI(missileAddons, mProjectile);
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			return MissileAddonLoader.AddonTileCollideStyle(missileAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			//Inject tileinteract code here?
+			if (!dustSuppress)
+			{
+				Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+			}
+
+			return MissileAddonLoader.AddonOnTileCollide(missileAddons, mProjectile, oldVelocity);
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			//inject onhitnpc code here
+			MissileAddonLoader.AddonOnHitNPC(missileAddons, mProjectile, target, hit, damageDone);
+			if (!SuppressBuff && VisualWinners[1] != -1)
+			{
+				target.AddBuff(missileAddons[VisualWinners[1]].InflictsBuff, 600);
+			}
+		}
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
+		{
+			//Could do some cool shit here.
+			MissileAddonLoader.AddonOnHitPlayer(missileAddons, mProjectile, target, info);
+		}
+
+
 		public override void OnKill(int timeLeft)
 		{
-			/*Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-			Projectile.width += 48;
-			Projectile.height += 48;
-			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);*/
-			mProjectile.Explode(48);
+			Vector2 pos = Projectile.position;
 
-			//Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
-			if (mProjectile.homing)
+			//Copied from MProjectile.DustyDeath()
+			int freq = 20;
+			bool noGravity = true;
+			for (int i = 0; i < freq; i++)
 			{
-				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplodeHunters, Projectile.position);
+				int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, missileDust, 0, 0, 100, color, Projectile.scale * missileScale);
+				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
+				Main.dust[dust].noGravity = noGravity;
 			}
-			else
-			{
-				SoundEngine.PlaySound(Sounds.Items.Weapons.MissileExplode, Projectile.position);
-			}
-			int dustType = 6;
-			if (Projectile.Name.Contains("Ice"))
-			{
-				dustType = 135;
-			}
-			for (int num70 = 0; num70 < 25; num70++)
-			{
-				int num71 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, 0f, 0f, 100, default(Color), 5f);
-				Main.dust[num71].velocity *= 1.4f;
-				Main.dust[num71].noGravity = true;
-				int num72 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 30, 0f, 0f, 100, default(Color), 3f);
-				Main.dust[num72].velocity *= 1.4f;
-				Main.dust[num72].noGravity = true;
-			}
+			MissileAddonLoader.AddonOnKill(missileAddons, mProjectile, timeLeft);
+			SoundEngine.PlaySound(Impact, Projectile.position);
 		}
+
+
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
+			if (VisualWinners[0] == -1 || VisualWinners[1] == -1 || missileAddons == null) { return true; }
+			ModMissileAddon missileShape = missileAddons[VisualWinners[0]];
+			ModMissileAddon missileColor = missileAddons[VisualWinners[1]];
+			color = missileColor.PrimaryColor;
+			Color color2 = missileColor.SecondaryColor;
+			if (ModTexture != null)
+			{
+				//This here rectangle is the chunk of the texture that the sprite actually uses
+				Rectangle renderFrame = ModTexture.Frame(1, ShotFrames, 0, Projectile.frame);
+
+				//Shift it down to properly select the correct frame
+				renderFrame.Y = 0 + (renderFrame.Height * Projectile.frame);
+				if (VisualWinners[0] != VisualWinners[1]) //Color and shape do not match. Begin applying shader.
+				{
+					Main.spriteBatch.End();
+					Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+					//The code for applying the default color shader to the projectile.
+
+					DrawData data = new DrawData(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
+									  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), missileScale, SpriteEffects.None);
+
+					MiscShaderData shaderData = GameShaders.Misc["MetroidModPaletteShader"];
+					shaderData.UseColor(color); //Primary color is the bright colors
+					shaderData.UseSecondaryColor(color2); //Secondary is the dark colors
+					shaderData.UseOpacity(1f); //Affects brightness of the 'core' (the white of the texture)
+											   //Defaulting to 1f to keep the core bright
+					shaderData.UseSaturation(0f); //Affects saturation of the 'core'
+												  //0 to keep the core white instead of being the primary color
+					shaderData.UseImage0(ModTexture);
+
+					shaderData.Apply(data);
+					data.Draw(Main.spriteBatch);
+
+					Main.spriteBatch.End();
+					Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+				} //If the color and shape don't match, apply the recoloring shader
+				else //Color and shape match. Shader is not needed and will not be applied.
+				{
+					Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
+									  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), missileScale, SpriteEffects.None);
+				} //If they do, no shader is necessary.
+			}
+			else
+			{
+				ModTexture = ModContent.Request<Texture2D>(Texture);
+				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width(), ModTexture.Height()), missileColor.PrimaryColor, Projectile.rotation,
+								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), missileScale, SpriteEffects.None);
+			}
+
+
+			//TODO: Shaders instead of flat coloration
 			return false;
-		}
-
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			base.SendExtraAI(writer);
-
-			writer.Write(mProjectile.seeking);
-			writer.Write(mProjectile.seekTarget);
-		}
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			base.ReceiveExtraAI(reader);
-
-			mProjectile.seeking = reader.ReadBoolean();
-			mProjectile.seekTarget = reader.ReadInt32();
-		}
-	}
-	public class IceMissileShot : MissileShot
-	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Ice Missile Shot");
 		}
 	}
 }

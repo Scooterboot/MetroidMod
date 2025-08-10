@@ -4107,6 +4107,7 @@ Mods: {
 			// ExtraHyperBeamShot.DisplayName: Extra Hyper Beam Shot
 			// HyperBeamShot.DisplayName: Hyper Beam Shot
 			// PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam Shot
+			// MissileShotReal.DisplayName: Missile Shot Real
 		}
 
 		Configs: {
