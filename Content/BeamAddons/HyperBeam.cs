@@ -3,11 +3,15 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.BeamAddons
 {
+	/// <summary>
+	/// the baby
+	/// </summary>
     class HyperBeam : ModBeamAddon
     {
 		//As this is the first VIB addon, it will serve as an example.
@@ -20,7 +24,6 @@ namespace MetroidMod.Content.BeamAddons
 		#endregion
 
 		public override Color PrimaryColor => Color.White;
-
 		public override float CoreSaturation => 0.5f;
 
 		public override int ShotDust => DustID.RainbowTorch;
@@ -31,6 +34,7 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			AddonSlot = BeamAddonSlotID.Primary;
 			VIB = true;
+			ArrayPassive = false;
 
 			BaseDamage = bd;
 			DamageMult = dm;
@@ -46,6 +50,8 @@ namespace MetroidMod.Content.BeamAddons
 
 		#region taste the rainbow
 		//All the code for the rainbow effects on the sprite
+
+		//TODO: Rainbow effect doesn't work on item/tile previews
 		public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			Texture2D tex = ModContent.Request<Texture2D>(ItemTexture + "Rainbow").Value;
@@ -79,6 +85,25 @@ namespace MetroidMod.Content.BeamAddons
 			}
 			sb.Draw(ModContent.Request<Texture2D>(TileTexture + "Rainbow").Value, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}
+		#endregion
+
+		#region The juicy stuff
+
+		public override void VIBShoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1)
+		{
+			//copypaste most of the SpawnBeam stuff here
+
+
+			//do the for loop for the shootsing amount
+			//if the loop no. is 0: spawn the primary projectile
+			//else: spawn the extras, assign the primary as the parent
+			//Insert the addons into the projectile
+			//Run OnInitialize()
+
+			//I think also this is where the, uh, rainbow-y code goes?? for making you go all rainbow?
+		}
+
+
 		#endregion
 	}
 }

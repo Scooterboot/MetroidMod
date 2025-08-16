@@ -22,7 +22,7 @@ namespace MetroidMod.Content.BeamAddons
 		public override Color SecondaryColor => MetroidMod.plaGreenSecondaryColor;
 
 
-		int die = 100;
+		float die = 100f;
 		float hot = 50f;
 		int pierce = 255;
 
@@ -32,7 +32,7 @@ namespace MetroidMod.Content.BeamAddons
 			ShapePriority = 4;
 			ColorPriority = 3;
 
-			BaseDamage = die;
+			DamageMult = die;
 			OverheatMult = hot;
 
 			EntityInteract = pierce;
@@ -65,6 +65,8 @@ namespace MetroidMod.Content.BeamAddons
 		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
 		{
 			mpshot.Projectile.penetrate = -1;
+			mpshot.Projectile.usesLocalNPCImmunity = true;
+			mpshot.Projectile.localNPCHitCooldown = 16;
 		}
 	}
 }

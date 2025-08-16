@@ -47,7 +47,7 @@ namespace MetroidMod
 
 		public static bool UseAltWeaponTextures; //delete later			-Z
 
-		#region Fallback textures
+		#region Fallback Assets
 		//With systems as complicated as the addon ones, things are gonna go wrong.
 		//If the system fails to find any particular asset for an addon, it'll default to one of these suckers.
 

@@ -16,7 +16,7 @@ namespace MetroidMod.Content.BeamAddons
 	public class IceBeam : ModBeamAddon
 	{
 		//TODO:
-		//Make it actually inflict the debuff
+		//Make it actually inflict the debuff (it does that now)
 		/// <summary>
 		/// If true, the projectile will rotate.
 		/// </summary>
@@ -29,7 +29,6 @@ namespace MetroidMod.Content.BeamAddons
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
 		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/IceBeam/Impact";
 		public override int ShotDust => DustID.IceGolem;
-		public override bool SoundOverride => true;
 
 		public override void SetStaticDefaults()
 		{
