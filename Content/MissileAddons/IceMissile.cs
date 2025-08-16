@@ -9,13 +9,13 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.BeamAddons
 {
-	internal class WaveBeam : ModBeamAddon
+	internal class IceMissile : ModMissileAddon
 	{
 		public override bool AddOnlyAddonItem => false;
 
-		public override Color PrimaryColor => MetroidMod.waveColor;
+		public override Color PrimaryColor => MetroidMod.iceColor;
 
-		public override Color SecondaryColor => MetroidMod.waveSecondaryColor;
+		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
 		public override int ShotDust => DustID.FireworkFountain_Pink;
 
 		#region Stat Values
@@ -32,7 +32,7 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override void SetStaticDefaults()
 		{
-			AddonSlot = BeamAddonSlotID.Ion;
+			AddonSlot = MissileAddonSlotID.Primary;
 
 			#region Visual Priority
 			ShapePriority = 1;
@@ -69,7 +69,7 @@ namespace MetroidMod.Content.BeamAddons
 			}
 		}
 
-		public override float[] EdgeCaseData(ModBeamAddon[] addons, float[] statVals, string bonusMod)
+		public override float[] EdgeCaseData(ModMissileAddon[] addons, float[] statVals, string bonusMod)
 		{
 			//WELCOME ONE AND ALL TO THE ENTIRE REASON THIS METHOD EXISTS
 			//Because hardcoding it is just too below me or some shit I guess			-Z

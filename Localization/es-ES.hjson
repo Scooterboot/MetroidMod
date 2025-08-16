@@ -361,6 +361,7 @@ Mods: {
 			// FusionOmegaAddonTile.MapEntry: Fusion Omega
 			// ElevatorStationTile.MapEntry: Elevator
 			// TopElevatorStationTile.MapEntry: Elevator
+			// IceMissileTile.MapEntry: Ice Missile Tile
 		}
 
 		Buffs: {

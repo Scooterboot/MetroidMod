@@ -6,7 +6,7 @@ using Terraria.Audio;
 
 namespace MetroidMod.Content.Projectiles.missiles
 {
-	public class MissileShot : MProjectile
+	public class MissileShotOld : MProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -77,7 +77,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			}
 		}
 		public override void OnKill(int timeLeft)
-		{/*
+		{
 			mProjectile.Explode(48);
 
 			//Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14,Projectile.position);
@@ -126,7 +126,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			mProjectile.seekTarget = reader.ReadInt32();
 		}
 	}
-	public class IceMissileShot : MissileShot
+	public class IceMissileShot : MissileShotOld
 	{
 		public override void SetStaticDefaults()
 		{

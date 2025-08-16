@@ -64,6 +64,7 @@ namespace MetroidMod
 		/// The backup sound effect for charging a shot. Identical to default Charge Beam charging sound.
 		/// </summary>
 		public static SoundStyle BeamChargeFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/BeamChargingSound");
+
 		/// <summary>
 		/// The backup sound effect for Beam shot impact. Since I'm pretty sure most addons won't bother changing this, it's a lot more subtle than all the others.
 		/// </summary>
@@ -71,7 +72,15 @@ namespace MetroidMod
 		/// <summary>
 		/// The backup sound effect for Missile shot impact. Since I'm pretty sure most addons won't bother changing this, it's a lot more subtle than all the others.
 		/// </summary>
+		/// 		/// <summary>
+		/// The backup texture for a Beam shot. Identical to default Power Beam.
+		/// </summary>
+		public static Asset<Texture2D> MissileFallbackTexture => ModContent.Request<Texture2D>($"MetroidMod/Assets/Textures/MissileAddons/Expansion/Shot");
 		public static SoundStyle MissileImpactFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/MissileImpact");
+		/// <summary>
+		/// The backup sound effect for charging a shot. Identical to default Missile charging sound.
+		/// </summary>
+		public static SoundStyle MissileChargeFallbackSFX => new SoundStyle($"MetroidMod/Assets/Sounds/ArmCannon/MissileChargingSound");
 		#endregion
 
 		#endregion

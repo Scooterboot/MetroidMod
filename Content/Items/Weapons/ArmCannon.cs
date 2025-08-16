@@ -591,9 +591,7 @@ namespace MetroidMod.Content.Items.Weapons
 			} //Power Beam firing procedure
 			else
 			{
-				//return true;
 				Launch(player, source, position, velocity, type, damage, knockback);
-				//nothing here yet lol
 
 			} //Missile Launcher firing procedure
 
@@ -713,9 +711,6 @@ namespace MetroidMod.Content.Items.Weapons
 			int[] visualData = [0, -1];
 			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
 			int theShootsingAmount = (int)AdditionalBeamStats[9] + 1;
-			MetroidMod.Instance.Logger.Info("Beam is firing. Cannon and Addons:\n" + Item + "\n" +
-											BeamAddonAccess[0] + "\n" + BeamAddonAccess[1] + "\n" +
-											beamAddons[2] + "\n" + BeamAddonAccess[3] + "\n" + BeamAddonAccess[4]);
 
 			if (ac != null && !ac.isBeam)
 			{
@@ -735,16 +730,16 @@ namespace MetroidMod.Content.Items.Weapons
 
 				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
 				{
-					MissileShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as MissileShot;
+					MissileShot miss = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as MissileShot;
 					//MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
-					beam.VisualWinners = VisualDinners;
+					miss.VisualWinners = VisualDinners;
 					if (VisualDinners[0] != -1)
 					{
 						//Need to BeamAddonLoader.GetAddon() the addons because the Arm Cannon stores the associated items and not the ModBeamAddons themselves
 						//There's a chance it'd prolly be more efficient to store them as the addons but I've already set everything up this way so
-						beam.ModTexture = MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
-						beam.missileDust = (visualData[1] < 0) ? MissileAddonLoader.GetAddon(missileAddons[VisualDinners[1]]).ShotDust : visualData[1];
-						beam.Impact = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(beamAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.MissileImpactFallbackSFX);
+						miss.ModTexture = MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
+						miss.missileDust = (visualData[1] < 0) ? MissileAddonLoader.GetAddon(missileAddons[VisualDinners[1]]).ShotDust : visualData[1];
+						miss.Impact = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.MissileImpactFallbackSFX);
 						//Okay that last line was a bit of a mouthful but essentially what that says:
 						//It's attempting to set the beam impact sfx to an addon's impact sfx given the filemods.
 						//If SoundOverride (VisualDinners[3]) is on, that addon is the ColorPriority, and if not, it's the ShapePriority
@@ -760,20 +755,20 @@ namespace MetroidMod.Content.Items.Weapons
 
 					if (visualData[0] > 0)
 					{
-						beam.ShotFrames = visualData[0];
+						miss.ShotFrames = visualData[0];
 					}
 
-					beam.groupSize = theShootsingAmount;
-					beam.groupID = i;
+					miss.groupSize = theShootsingAmount;
+					miss.groupID = i;
 
-					beam.fileMod += (ac.assetModifier + bonusFileMod);
+					miss.fileMod += (ac.assetModifier + bonusFileMod);
 
-					beam.missileAddons = missileAddons
+					miss.missileAddons = missileAddons
 						.Select(i => MissileAddonLoader.GetAddon(i))
 						.Select(i => i?.Clone())
 						.ToArray();
 
-					beam.OnInitialized(source);
+					miss.OnInitialized(source);
 					//mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
 					//mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
 				}

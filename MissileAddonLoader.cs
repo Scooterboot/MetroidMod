@@ -81,7 +81,7 @@ namespace MetroidMod
 			addons.TryGetValue(i => i is T, out ModMissileAddon missile) ? missile : null;
 
 		/// <summary>
-		/// Creates a total interact value from the sum of that value across all installed beam addons, plus an optional multiplier.
+		/// Creates a total interact value from the sum of that value across all installed Missile addons, plus an optional multiplier.
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <param name="concreteMatter">If true, add tileInteract. If false, add entityInteract.</param>
@@ -157,7 +157,7 @@ namespace MetroidMod
 			}
 		}
 		//Method Stackems ahead.
-		//This is the REAL fun part: where projectile behavior is added onto the beam shots in real-time.
+		//This is the REAL fun part: where projectile behavior is added onto the Missile shots in real-time.
 		/// <summary>
 		/// Runs the OnSpawn() behavior of every addon in a given array.
 		/// <br/>The reason it's OnInitialized instead of OnSpawn is because you can't really insert addons before OnSpawn() runs.
@@ -174,7 +174,7 @@ namespace MetroidMod
 			}
 		}
 		/// <summary>
-		/// Runs <see cref="ModBeamAddon.AI(MProjectile)"/> on each installed addon.
+		/// Runs <see cref="ModMissileAddon.AI(MProjectile)"/> on each installed addon.
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <param name="shot"></param>
@@ -188,7 +188,7 @@ namespace MetroidMod
 			}
 		}
 		/// <summary>
-		/// Runs <see cref="ModBeamAddon.PostAI(MProjectile)"/> on each installed addon.
+		/// Runs <see cref="ModMissileAddon.PostAI(MProjectile)"/> on each installed addon.
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <param name="shot"></param>
@@ -201,16 +201,16 @@ namespace MetroidMod
 			}
 		}
 		/// <summary>
-		/// Used to acquire a beam shot's sound effects through its filepath and current modifiers.
+		/// Used to acquire a Missile shot's sound effects through its filepath and current modifiers.
 		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
 		/// </summary>
 		/// <param name="soundSource">The base sound filepath, upon which the mod strings will be applied.</param>
 		/// <param name="modA">Appends onto soundSource, <i>before</i> modB.</param>
 		/// <param name="modB">Appends onto soundSource, <i>after</i> modA.</param>
 		/// <param name="fallback">The sound effect to be used should the grabber fail. The default fallbacks are as follows:
-		/// <br/>Shooting: <see cref="MetroidMod.BeamShotFallbackSFX"/>
-		/// <br/>Impact: <see cref="MetroidMod.BeamImpactFallbackSFX"/>
-		/// <br/>Charging: <see cref="MetroidMod.BeamChargeFallbackSFX"/></param>
+		/// <br/>Shooting: <see cref="MetroidMod.MissileShotFallbackSFX"/>
+		/// <br/>Impact: <see cref="MetroidMod.MissileImpactFallbackSFX"/>
+		/// <br/>Charging: <see cref="MetroidMod.MissileChargeFallbackSFX"/></param>
 		/// <returns></returns>
 		public static SoundStyle ShotSoundGrabber(string soundSource, string modA, string modB, SoundStyle fallback)
 		{
@@ -301,11 +301,11 @@ namespace MetroidMod
 			else
 			{
 				MetroidMod.Instance.Logger.Info("Didn't work lmao");
-				return MetroidMod.PowerBeamFallbackTexture;
+				return MetroidMod.MissileFallbackTexture;
 			}
 		}
 		/// <summary>
-		/// Runs <see cref="ModBeamAddon.OnHitNPC(MProjectile, NPC, NPC.HitInfo, int)"/> on each installed addon.
+		/// Runs <see cref="ModMissileAddon.OnHitNPC(MProjectile, NPC, NPC.HitInfo, int)"/> on each installed addon.
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <param name="shot"></param>
