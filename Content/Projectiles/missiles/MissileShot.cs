@@ -214,13 +214,16 @@ namespace MetroidMod.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (VisualWinners[0] == -1 || VisualWinners[1] == -1 || missileAddons == null) { return true; }
-			ModMissileAddon missileShape = missileAddons[VisualWinners[0]];
-			ModMissileAddon missileColor = missileAddons[VisualWinners[1]];
-			color = missileColor.PrimaryColor;
-			Color color2 = missileColor.SecondaryColor;
+			//if (VisualWinners[0] == -1 || VisualWinners[1] == -1 || missileAddons == null) { return true; }
+			//ModMissileAddon missileShape = missileAddons[VisualWinners[0]];
+			//ModMissileAddon missileColor = missileAddons[VisualWinners[1]];
+			//color = missileColor.PrimaryColor;
+			//Color color2 = missileColor.SecondaryColor;
 			if (ModTexture != null)
 			{
+				Rectangle renderFrame = ModTexture.Frame(1, ShotFrames, 0, Projectile.frame);
+				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
+				  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), missileScale, SpriteEffects.None);/*
 				//This here rectangle is the chunk of the texture that the sprite actually uses
 				Rectangle renderFrame = ModTexture.Frame(1, ShotFrames, 0, Projectile.frame);
 
@@ -255,12 +258,12 @@ namespace MetroidMod.Content.Projectiles
 				{
 					Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, renderFrame, Color.White, Projectile.rotation,
 									  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), missileScale, SpriteEffects.None);
-				} //If they do, no shader is necessary.
+				} //If they do, no shader is necessary.*/
 			}
 			else
 			{
 				ModTexture = ModContent.Request<Texture2D>(Texture);
-				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width(), ModTexture.Height()), missileColor.PrimaryColor, Projectile.rotation,
+				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width(), ModTexture.Height()), color, Projectile.rotation,
 								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), missileScale, SpriteEffects.None);
 			}
 

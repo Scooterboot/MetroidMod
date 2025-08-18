@@ -732,18 +732,10 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					MissileShot miss = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as MissileShot;
 					//MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
-					miss.VisualWinners = VisualDinners;
-					if (VisualDinners[0] != -1)
-					{
-						//Need to BeamAddonLoader.GetAddon() the addons because the Arm Cannon stores the associated items and not the ModBeamAddons themselves
-						//There's a chance it'd prolly be more efficient to store them as the addons but I've already set everything up this way so
-						miss.ModTexture = MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[VisualDinners[0]]).ShotTexture, ac.assetModifier, bonusFileMod);
-						miss.missileDust = (visualData[1] < 0) ? MissileAddonLoader.GetAddon(missileAddons[VisualDinners[1]]).ShotDust : visualData[1];
-						miss.Impact = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[VisualDinners[(VisualDinners[3] == 1) ? 1 : 0]]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.MissileImpactFallbackSFX);
-						//Okay that last line was a bit of a mouthful but essentially what that says:
-						//It's attempting to set the beam impact sfx to an addon's impact sfx given the filemods.
-						//If SoundOverride (VisualDinners[3]) is on, that addon is the ColorPriority, and if not, it's the ShapePriority
-					}
+
+					miss.Impact = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.MissileImpactFallbackSFX);
+					miss.ModTexture = MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ShotTexture,ac.assetModifier, bonusFileMod);
+					miss.missileDust = MissileAddonLoader.GetAddon(missileAddons[1]).ShotDust;
 
 					//The way shot textures are grabbed, explained in detail:
 					//Assets are stored in BeamAddons/BeamAddonName
@@ -752,7 +744,7 @@ namespace MetroidMod.Content.Items.Weapons
 					//(e.g. a charge shot should be named ShotCharged
 
 					//TODO: Character limit on modifiers? Don't want someone to make a 5000000000000 letter long one
-
+					/*
 					if (visualData[0] > 0)
 					{
 						miss.ShotFrames = visualData[0];
@@ -766,7 +758,7 @@ namespace MetroidMod.Content.Items.Weapons
 					miss.missileAddons = missileAddons
 						.Select(i => MissileAddonLoader.GetAddon(i))
 						.Select(i => i?.Clone())
-						.ToArray();
+						.ToArray();*/
 
 					miss.OnInitialized(source);
 					//mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);

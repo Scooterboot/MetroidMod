@@ -7,8 +7,8 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
-namespace MetroidMod.Content.BeamAddons
-{
+namespace MetroidMod.Content.MissileAddons
+	{
 	internal class IceMissile : ModMissileAddon
 	{
 		public override bool AddOnlyAddonItem => false;
@@ -16,8 +16,17 @@ namespace MetroidMod.Content.BeamAddons
 		public override Color PrimaryColor => MetroidMod.iceColor;
 
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
-		public override int ShotDust => DustID.FireworkFountain_Pink;
+		public override int ShotDust => DustID.IceTorch;
 
+		public override void SetStaticDefaults()
+		{
+			AddonSlot = MissileAddonSlotID.Primary;
+
+			#region Visual Priority
+			ShapePriority = 5;
+			#endregion
+			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
+		}
 		public override void SetItemDefaults(Item item)
 		{
 			item.rare = ItemRarityID.Green;
