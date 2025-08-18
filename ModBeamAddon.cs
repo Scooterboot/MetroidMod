@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using MetroidMod.Content.Projectiles;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 //gonna document as much of the code as I can to make it easy to follow
 namespace MetroidMod
@@ -247,6 +248,16 @@ namespace MetroidMod
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool HoldFire { get; set; } = false;
+		/// <summary>
+		/// If true, any base stat changes this addon applies will continue to apply within the array.
+		/// <br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool ArrayPassive { get; set; } = false;
+		/// <summary>
+		/// If true, this addon's HoldFire functionality can still be accessed if it is in the array.
+		/// <br/>Defaults to <b>True</b>.
+		/// </summary>
+		public virtual bool HoldfirePassive { get; set; } = true;
 
 		//Compatibility-related variables
 		/// <summary>
@@ -267,11 +278,8 @@ namespace MetroidMod
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool Locked => false;
-		/// <summary>
-		/// If true, this addon's stats will be ignored while it's in the array.
-		/// <br/>Defaults to <b>false</b>.
-		/// </summary>
-		public virtual bool IgnoreStatsInArray => false;
+
+		public virtual List<string> Overrides => new();
 		#endregion
 
 		#region Data-handling methods
@@ -428,7 +436,8 @@ namespace MetroidMod
 		/// <param name="type"></param>
 		/// <param name="damage"></param>
 		/// <param name="knockback"></param>
-		public virtual void VIBShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) { }
+		public virtual void VIBShoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1f) { }
+
 		#region Projectile behavior injectors
 		//These methods are designed to line up with the ones inside of ModProjectiles, allowing for ModProjectile code to be injected into beam shots.
 		//Making them check for an MProjectile as opposed to a standard Projectile makes it easier to use beam-specific variables.

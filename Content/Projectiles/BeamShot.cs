@@ -23,6 +23,9 @@ namespace MetroidMod.Content.Projectiles
 		/// Stores the winning slot numbers from the Visual Priority check.
 		/// </summary>
 		public int[] VisualWinners = [-1, -1, 0, 0];
+		/// <summary>
+		/// The beam addons this shot is affected by.
+		/// </summary>
 		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count]; 
 		public float beamScale = 0.75f;
 		public int beamDust = DustID.YellowTorch;

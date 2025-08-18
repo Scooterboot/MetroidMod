@@ -68,12 +68,7 @@ namespace MetroidMod.Content.BeamAddons
 			spazed = false;
 		}
 
-		public override bool PreAI(MProjectile mpshot)
-		{
-			return base.PreAI(mpshot);
-		}
-
-		public override void AI(MProjectile mpshot)
+		public override void PostAI(MProjectile mpshot)
 		{
 			if (!spazed)
 			{

@@ -30,6 +30,7 @@ namespace MetroidMod.Content.BeamAddons
 		/// </summary>
 		private bool doubleUp = false;
 
+		#region Item properties
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = BeamAddonSlotID.Ion;
@@ -49,11 +50,25 @@ namespace MetroidMod.Content.BeamAddons
 			#endregion
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 		}
+		
 		public override void SetItemDefaults(Item item)
 		{
 			item.rare = ItemRarityID.Green;
 			item.value = Item.buyPrice(0, 1, 98, 7); //markiplier.jpeg
 		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe(1)
+				.AddIngredient<Items.Miscellaneous.ChoziteBar>(3)
+				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 8)
+				.AddIngredient(ItemID.Amethyst, 1)
+				.AddTile(TileID.Anvils)
+				.Register();
+		}
+		#endregion
+
+		#region Addon interaction fields
 		public override int[] ComboVisualsGet(string modifier)
 		{
 			switch (modifier)
@@ -82,6 +97,8 @@ namespace MetroidMod.Content.BeamAddons
 			else { return base.EdgeCaseData(addons, statVals, bonusMod); }
 
 		}
+		#endregion
+
 		#region Behavior modification
 
 		#region Vital sinewave variables
@@ -102,6 +119,7 @@ namespace MetroidMod.Content.BeamAddons
 		/// </summary>
 		public float sineTimer = 0;
 		#endregion
+
 		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
 		{
 			if ((source is EntitySource_Parent parent && parent.Entity is Player player && player.whoAmI == Main.myPlayer) && (!mpshot.symmetry))
@@ -118,7 +136,13 @@ namespace MetroidMod.Content.BeamAddons
 
 		}
 
-		public override void AI(MProjectile mpshot)
+		//public override void AI(MProjectile mpshot)
+		//{
+		//	//MetroidMod.Instance.Logger.Info("Ok so it's definitely RUNNING...");
+		//	WaveBehavior(mpshot, mpshot.symmetry);
+		//}
+
+		public override void PostAI(MProjectile mpshot)
 		{
 			//MetroidMod.Instance.Logger.Info("Ok so it's definitely RUNNING...");
 			WaveBehavior(mpshot, mpshot.symmetry);
@@ -210,14 +234,5 @@ namespace MetroidMod.Content.BeamAddons
 			//MetroidMod.Instance.Logger.Info("One full wavebeh completed");
 		}
 		#endregion
-		public override void AddRecipes()
-		{
-			CreateRecipe(1)
-				.AddIngredient<Items.Miscellaneous.ChoziteBar>(3)
-				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 8)
-				.AddIngredient(ItemID.Amethyst, 1)
-				.AddTile(TileID.Anvils)
-				.Register();
-		}
 	}
 }

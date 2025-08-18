@@ -377,7 +377,7 @@ namespace MetroidMod
 			{
 				if (addons[i] == null) { continue; }
 				if (addons[i].Overridden) { continue; }
-				if (addons[i].IgnoreStatsInArray) { continue; }
+				if (!addons[i].ArrayPassive) { continue; }
 				totals[0] += addons[i].BaseDamage;
 				totals[1] += addons[i].BaseSpeed;
 				totals[2] += addons[i].BaseVelocity;

@@ -1,15 +1,29 @@
 using System;
 using MetroidMod.Common.Players;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace MetroidMod.Content.Projectiles.HyperBeam
 {
 	public class HyperBeamShot : MProjectile
 	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/HyperBeam/HyperBeamShot";
+		//todo: this is dumb
+		//rewrite like most of this
+		public override string Texture => $"{Mod.Name}/Assets/Textures/BeamAddons/HyperBeam/Shot";
+
+		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 2]; //Hyper Beam doesn't need the charge slot (since it's already known) or the ammo slot (doesn't use ammo)
+
+		/// <summary>
+		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of beams.
+		/// </summary>
+		public string fileMod = "";
+
+
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Hyper Beam Shot");
@@ -22,32 +36,27 @@ namespace MetroidMod.Content.Projectiles.HyperBeam
 			Projectile.scale = 2f;
 		}
 
-		bool spawned = false;
 		float scale = 0f;
-		public override bool PreAI()
+		public void OnInitialized(IEntitySource source)
 		{
-			bool isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar");
-			if (!spawned)
-			{
-				if (isPlasma)
-				{
-					Projectile.penetrate = 25;
-					Projectile.usesLocalNPCImmunity = true;
-					Projectile.localNPCHitCooldown = 10 * (1 + Projectile.extraUpdates);
-				}
-				scale = Projectile.scale;
-				spawned = true;
-			}
-			return true;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			scale = Projectile.scale;
+
+			//Gather data from installed addons.
+
+			//First, call method to calculate tileinteract total.
+			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, 2.5f);
+			//Then, call method to calculate entityinteract total.
+			EntityInteract = BeamAddonLoader.InteractStacker(beamAddons, false, 2.5f);
+
+
+			BeamAddonLoader.AddonOnInitialized(beamAddons, mProjectile, source);
 		}
+
 		public override void AI()
 		{
 			Projectile P = Projectile;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
-
-			bool isWave = shot.Contains("wave") || shot.Contains("nebula"),
-			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex");
-			
 
 			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
 
@@ -57,16 +66,8 @@ namespace MetroidMod.Content.Projectiles.HyperBeam
 			P.localAI[1] = Math.Min(P.localAI[1] + 0.025f, 1f);
 
 			P.scale = scale * P.localAI[0];
-
-			if (isWave)
-			{
-				Projectile.tileCollide = false;
-			}
-			if (isSpazer || isWave)
-			{
-				//mProjectile.PhaseBehavior(Projectile, !isWave);
-			}
 		}
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			float scale = 0.65f;
@@ -89,23 +90,5 @@ namespace MetroidMod.Content.Projectiles.HyperBeam
 			base.ModifyHitNPC(target, ref modifiers);
 		}
 
-	}
-	public class PlasmaHyperBeamShot : HyperBeamShot
-	{
-		public override string Texture => $"{Mod.Name}/Content/Projectiles/HyperBeam/PlasmaHyperBeamShot";
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Plasma Hyper Beam Shot");
-		}
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			Projectile.width = 16;
-			Projectile.height = 16;
-			Projectile.scale = 3f;
-			Projectile.penetrate = -1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 4;
-		}
 	}
 }
