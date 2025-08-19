@@ -147,7 +147,7 @@ namespace MetroidMod
 				if (addons[i] == null || addons[i].VIB == false) { continue; }
 				if (addons[i].VIB == true)
 				{
-					winners = [i, i, (addons[i].vibOverride != null)? 2 : 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check");
+					winners = [i, i, (addons[i].vibOverride != -1)? 2 : 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check");
 					return winners;
 				}
 			} //Iterate through the slots looking for a VIB addon

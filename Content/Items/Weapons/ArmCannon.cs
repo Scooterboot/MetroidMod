@@ -549,7 +549,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ac.showChargeBar = true;
 			ac.showOnHand = true;
 
-			if (MSystem.ACSwitch.JustPressed)
+			if (MSystem.ACSwitch.JustPressed && player.itemTime <= 0)
 			{
 				ac.isBeam = !ac.isBeam;
 				SoundEngine.PlaySound(new SoundStyle("MetroidMod/Assets/Sounds/ArmCannon/WeaponSwitch"));
@@ -583,8 +583,13 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac.isBeam)
 			{
-				if (ac.SuppressingFire) { return false; }
-
+				if (ac.SuppressingFire && VisualDinners[2] != 2) { return false; }
+				else if (VisualDinners[2] == 2)
+				{
+					MetroidMod.Instance.Logger.Info("TASTE THE RAINBOW MOTHERFUCKER");
+					BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).VIBShoot(Item, player, source, position, velocity, type, damage, knockback);
+				}
+				else
 				{
 					SpawnBeam(player, source, position, velocity, type, damage, knockback);
 				}

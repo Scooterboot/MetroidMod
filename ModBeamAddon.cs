@@ -167,7 +167,7 @@ namespace MetroidMod
 		/// <br/>Leave null to use the standard beam shot projectile.
 		/// <br/><b>For advanced use ONLY. Not recommended for beginners.</b>
 		/// </summary>
-		public ModProjectile vibOverride = null;
+		public int vibOverride = -1;
 		#endregion
 
 		#region Addon stat variables
@@ -437,6 +437,8 @@ namespace MetroidMod
 		/// <param name="damage"></param>
 		/// <param name="knockback"></param>
 		public virtual void VIBShoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1f) { }
+		//TODO: Make this return a bool? Make it like a preAI() type deal?
+		//Too drained to figure this shit out rn		-Z
 
 		#region Projectile behavior injectors
 		//These methods are designed to line up with the ones inside of ModProjectiles, allowing for ModProjectile code to be injected into beam shots.

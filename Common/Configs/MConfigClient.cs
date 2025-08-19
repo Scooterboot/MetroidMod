@@ -38,21 +38,14 @@ namespace MetroidMod.Common.Configs
 		[Increment(5)]
 		public int energyLowInterval;
 
-		/*[Label("[i:MetroidMod/EnergyTankAddon] Low Energy Alert Fade")]
-		[Tooltip("When enabled, a fading, non-looping beep will be heard when Suit Energy is low.\n" +
-		"Default value: false\n" + "(WORK IN PROGRESS)")]*/
 		[DefaultValue(false)]
 		public bool energyLowFade;
 		
 		[BackgroundColor(255, 255, 255)]
-		[Label("[i:StoneBlock] Weapon Fire Screenshake")]
-		[Tooltip("Should beams and missiles produce screenshake when fired?")]
 		[DefaultValue(true)]
 		public bool WeaponFireScreenshake;
 		
 		[BackgroundColor(255, 255, 255)]
-		[Label("[i:StoneBlock] Weapon Collide Screenshake")]
-		[Tooltip("Should beams, bombs and missiles produce screenshake when exploding?")]
 		[DefaultValue(true)]
 		public bool WeaponCollideScreenshake;
 		

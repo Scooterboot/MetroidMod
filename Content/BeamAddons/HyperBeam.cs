@@ -1,4 +1,6 @@
 ﻿using System;
+using MetroidMod.Common.Players;
+using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +36,7 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			AddonSlot = BeamAddonSlotID.Primary;
 			VIB = true;
+			vibOverride = ModContent.ProjectileType<HyperBeamShot>();
 			ArrayPassive = false;
 
 			BaseDamage = bd;
@@ -89,6 +92,11 @@ namespace MetroidMod.Content.BeamAddons
 
 		#region The juicy stuff
 
+		public override string SetStaticCombos(Item[] addons)
+		{
+			return base.SetStaticCombos(addons);
+		}
+
 		public override void VIBShoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1)
 		{
 			//copypaste most of the SpawnBeam stuff here
@@ -105,5 +113,115 @@ namespace MetroidMod.Content.BeamAddons
 
 
 		#endregion
+	}
+	//I failed to resist the temptation to move this into the Hyper Beam file
+	//if I did it with charge lead I'm obligated by rule of consistency to do it here
+	//My apologies for my crimes against good coding practices
+
+	public class HyperBeamShot : MProjectile
+	{
+		//todo: this is dumb
+		//rewrite like most of this
+		public override string Texture => $"{Mod.Name}/Assets/Textures/BeamAddons/HyperBeam/Shot";
+
+		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 2]; //Hyper Beam doesn't need the charge slot (since it's already known) or the ammo slot (doesn't use ammo)
+
+		/// <summary>
+		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of beams.
+		/// </summary>
+		public string fileMod = "";
+
+
+
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Hyper Beam Shot");
+		}
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.scale = 2f;
+		}
+
+		#region Projectile AI
+		float scale = 0f;
+		public void OnInitialized(IEntitySource source)
+		{
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			scale = Projectile.scale;
+
+			//Gather data from installed addons.
+
+			//First, call method to calculate tileinteract total.
+			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, 2f);
+			//Then, call method to calculate entityinteract total.
+			EntityInteract = BeamAddonLoader.InteractStacker(beamAddons, false, 2f);
+
+
+			BeamAddonLoader.AddonOnInitialized(beamAddons, mProjectile, source);
+		}
+
+		public override void AI()
+		{
+			Projectile P = Projectile;
+			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
+
+			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
+
+			Lighting.AddLight(P.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
+
+			P.localAI[0] = Math.Min(P.localAI[0] + 0.075f, 1f);
+			P.localAI[1] = Math.Min(P.localAI[1] + 0.025f, 1f);
+
+			P.scale = scale * P.localAI[0];
+
+			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			return BeamAddonLoader.AddonTileCollideStyle(beamAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return BeamAddonLoader.AddonOnTileCollide(beamAddons, mProjectile, oldVelocity);
+		}
+
+		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		//{
+		//	BeamAddonLoader.AddonOnHitNPC(beamAddons, mProjectile, target, hit, damageDone);
+		//}
+		//public override void OnHitPlayer(Player target, Player.HurtInfo info)
+		//{
+		//	BeamAddonLoader.AddonOnHitPlayer(beamAddons, mProjectile, target, info);
+		//}
+
+		public override void OnKill(int timeLeft)
+		{
+			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
+			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));
+		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.ArmorPenetration += 50;
+			base.ModifyHitNPC(target, ref modifiers);
+		}
+		#endregion
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			float scale = 0.65f;
+			if (fileMod.Contains("Plasma"))
+			{
+				scale = 1f;
+			}
+			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 10, scale * Projectile.localAI[0] * Projectile.localAI[1], new Color(mp.r, mp.g, mp.b, 128));
+			return false;
+		}
+
 	}
 }

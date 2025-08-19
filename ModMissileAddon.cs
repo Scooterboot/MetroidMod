@@ -11,7 +11,7 @@ using Terraria.DataStructures;
 using MetroidMod.Content.Projectiles;
 using Microsoft.Xna.Framework.Graphics;
 
-//gonna document as much of the code as I can to make it easy to follow
+//Left some notes in "type-definer variables"		-Z
 namespace MetroidMod
 {
 	/// <summary>
@@ -44,6 +44,24 @@ namespace MetroidMod
 		/// The <see cref="Item"/> this addon controls.
 		/// </summary>
 		public Item Item => ModItem.Item;
+
+		//PROPOSITION: built-in ModProjectiles for missile addons?
+		//Can define and write its fields directly in the addon file like you can with the build-in ModItems and ModTiles
+		//Would streamline and simplify the addon creation process while keeping file counts down
+		//Necessary fields to begin implementation (but not to finish it) are written below, just comment them out if you decide to go with this
+		//Other things this would require:
+		// * A MissileAddonProjectile.cs in MetroidMod/Default
+		// * A ModMissileAddon method for each Projectile method
+
+		///// <summary>
+		///// The <see cref="ModProjectile"/> this addon controls.
+		///// </summary>
+		//public ModProjectile ModProjectile;
+
+		///// <summary>
+		///// The <see cref="Projectile"/> this addon controls.
+		///// </summary>
+		//public Projectile Projectile => ModProjectile.Projectile;
 		/// <summary>
 		/// References the ModItem previously generated
 		/// </summary>
@@ -52,6 +70,10 @@ namespace MetroidMod
 		/// References the ModTile previously generated
 		/// </summary>
 		public int TileType { get; internal set; }
+		///// <summary>
+		///// References the ModProjectile previously generated
+		///// </summary>
+		//public int ProjectileType { get; internal set; }
 		#endregion
 
 		/// <summary>

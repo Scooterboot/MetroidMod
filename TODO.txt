@@ -25,6 +25,258 @@
 ||=====================================||
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+-Make Hyper Beam
+	-This entails:
+		* VIB addon behavior
+			* VIBs with custom projectiles
+			* Custom firing logic for VIBs
+		* Item VFX [DONE]
+		* Advanced beam graphical effects
+		* Suitlocking
+			* By extension, incompatibility
+		* Also the primary array
+	-(The beam itself isn't the hard part. It's literally everything else surrounding it.)
+
+-Make Pseudo-Screw Suck Less
+
+-Make charge shots have sound effects
+
+-Implement radial menu
+	-Concept: Pressing the interface keybind opens a wheel around the player containing the currently-selected mode's quick-swap array.
+		Not used to add or remove beams from the array, simply to swap what's equipped
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+||==============================||
+||< CATEGORY B: MISSILE SYSTEM >||
+||==============================||
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-Decide whether or not missile addons should have their own dedicated projectiles
+	-Points in favor of having dedicated projectiles:
+		* Able to copy 80% of charge combo code verbatim
+		* Only one missile slot actually changes the properties of the standard shot
+		* More intuitive, in the sense that missiles are a lot more physical than beams so it makes sense that missiles would all be different projectiles
+	-Points against having dedicated projectiles:
+		* Makes it much more difficult to create a missile addon
+		* Creates a dissonance between weapon addon systems
+		* The third point in favor of dedicated projectiles is total conjecture and all-around worthless
+
+-Determine how to port charge combos
+	-See if making beam-related ones require that beam equipped breaks balancing or not
+
+-Make a config to change starting missiles to 0 and let missile expansions stack 1 higher
+	-Useful for mapmaking
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+||=======================================||
+||< CATEGORY C: UPGRADES TO OLD SYSTEMS >||
+||=======================================||
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-Custom colorable Power Beam dust particle?
+
+-Upgrade DustyDeath to be more like the copy inside of BeamShot
+	-I ended up making the dusty death in the beamshot more complicated as a natural part of development and it only makes sense to bring MProjectile up to the same standard
+
+-Way to make wave beam amplitude narrow in response to the length of the beam shot texture
+
+-Wave Beam has afterimages
+
+-Better, longer hitbox for Plasma Beam?
+	-also re-implement plasmadraw somehow
+
+-Increase ice beam standalone shot rotation speed, add particle effects
+
+-------- POWER SUIT SYSTEM UPGRADES --------
+
+-Port new Power Suit UI into branch
+	-Make it use the fancy new UI code
+
+-Add automatic texture-grabbing for suit addons
+	-Very easy to implement, but tedious; requires renaming all suitaddon assets to match format
+	-Make it so it doesn't make non-Suits completely fucking break
+
+-Fix the SuitAddonAddon thing
+	-Unimportant but it bugs me so I will tackle it Eventually(tm)
+
+-Figure out how to fix the thing where gravity uses neptune's shell physics underwater and not normal physics
+	-Honestly this one is kind of a tangent. I saw it mentioned in an old conversation while looking for something or other.
+	-Honestly it's mostly still here to remind me to do that at some point
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+||=====================||
+||< CATEGORY D: FIXES >||
+||=====================||
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-Various beam presentation shit from the new system that needs fixing
+	-Charging sounds don't cut each other off properly
+	-No charged shot sound effects
+	-Pseudo-Screw does not correctly color the player
+	-Dust trail does not function
+	-Random visual jank
+	-Impact sound on no-addons is broke
+		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
+
+-It Just Works
+	* Normal shot goes off immediately after a charged shot for no apparent reason
+
+-Fix all the systems I broke
+	* Worldgen
+		* Chozo Statues/OORBs   -   Replace all item/tile calls with calls to appropriate addons
+		* Missile/E-tank placements
+	* Fake blocks
+	* Parts of suit energy apparently
+	* Hatches definitely
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+||=============================||
+||< CATEGORY E: THE AFTERMATH >||
+||=============================||
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-Re-implement all the beam addons
+	*V1s
+		* Charge Beam [DONE]
+		* Ice Beam [DONE]
+		* Wave Beam [DONE]
+		* Spazer Beam [DONE]
+		* Plasma Beam [DONE]
+		* Blaze Beam
+	* V2s
+		* Diffusion Beam
+		* Frost Beam
+		* Helix Beam
+		* Wide Beam
+		* Nova Beam
+	* V3s
+		* Luminite Beam
+		* Stardust Beam
+		* Nebula Beam
+		* Vortex Beam
+		* Solar Beam
+	* Affinity
+		* Volt Driver
+		* Battlehammer
+		* Magmaul
+		* Shock Coil
+		* Judicator
+		* Imperialist
+	* Special
+		* Hyper Beam
+		* Phazon Beam
+		* Omega Cannon
+	* Other
+		* UA Tank
+
+-Re-implement all the missile addons
+	* Primary
+		* Ice Missile
+		* Super Missile
+		* Ice Super Missile
+		* Nebula Missile
+		* Stardust Missile
+	* Charge Combo
+		* Homing Missile
+		* Missile Array
+		* Seeker Missile
+		* Wavebuster
+		* Ice Spreader
+		* Flamethrower
+		* Plasma Machine Gun
+		* Diffusion Missile
+		* Nova Laser
+		* Stardust Blizzard
+		* Vortex Storm
+		* Nebula Singularity
+		* Supernova
+	* Expansion
+		* Missile Tank
+
+-Localization Antics
+	-Make overheat stat on arm cannon tooltip able to update on the fly
+	-Give beam addons fancy tooltips
+	-Make beam shot's localization name change to match addons equipped
+		-Override DisplayName with the ShapePriority?
+			-Append first word of ColorPriority to the beginning? (e.g. Wave Spazer Beam, Ice Plasma Beam)
+
+-Arm Cannon extra visuals
+	* Textures: 
+		-Make alt textures no longer clientside?
+		-Accessories able to show up on top of the arm cannon?
+			-Frozen Core, Thermal Regulator, ECU
+	* Lights:
+		* Classic design: Simple glowmask colored to match the current ColorPriority. Think MercurySteam arm cannons.
+		* Prime design: Arm Cannon's shape is decided by ShapePriority, with the color of the exposed lighty-bits determined by ColorPriority. (e.g. plasma's extra length w/ Ice blue)
+	-More alternative Arm Cannon textures?
+		* Fusion?
+		* Dread?
+		* Retro?
+		* Ancient? (uses legacy sprites)
+	-Allow for submods to add new arm cannon appearances?
+
+-Make sure system is multiplayer compatible
+	-NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE NETCODE 
+
+-Make example beam addon in the example submod
+	-Move Test Beam there after everything else is good to go?
+
+-Phazon Hyper Beam (ped)
+	-I'd like to make it so it kinda just writes over your currently-equipped beam instead of having to craft it
+		-Hypermode could manually set your cannon's VIB and redirect firing code something something?? this was so much clearer in my head 10 seconds ago
+
+-The Energy Tank Crafting Recipe Dilemma [AWAITING A RULING]
+	-At the start of this project, before I realized just how fucking much I'd be doing, I changed a lot of earlygame recipes to replace energy tanks with new materials
+	-This, uh... still needs to actually get approved.
+		-If it does, I don't have to do shit.
+		-If it doesn't, I gotta revert all that.
+
+
+
+||============||
+|| FINALLY... ||
+||============||
+
+-Create ANOTHER another branch where I can finally try to rework beam addon progression like I wanted to do from the start
+
+
+
+
+
+
+
+
+||===================||
+|| STUFF THAT'S DONE ||
+||===================||
+
+Advanced Beamstacking
+----------------------
+
 -Make Charge Beam function [DONE?]
 	-This entails:
 		* Charge shots [DONE]
@@ -75,28 +327,12 @@
 		* Special behavior on charge shots	[DONE]
 		* Tile interaction (similar principles can be applied to entity interaction) [DONE]
 
--Make Hyper Beam
-	-Why so early? Because it entails:
-		* VIB addon behavior
-			* VIBs with custom projectiles
-			* Custom firing logic for VIBs
-		* Item VFX [DONE]
-		* Advanced beam graphical effects
-		* Suitlocking
-		* Also the primary array
+-Implement Primary Array
 
--Make a single Affinity Weapon
-	-Entails:
-		* The primary array
-		* Ammo systems
-		* Incompatibility, in-depth
-
--Implement primary array
-	-Add array UI to the UI [DONE!]
-	-Implement radial menu
-		-Concept: Pressing the interface keybind opens a wheel around the player containing the currently-selected mode's quick-swap array.
-			Not used to add or remove beams from the array, simply to swap what's equipped
-
+-Make better UI [DONE!!]
+	-Current UI is 99% placeholder, but the AddonSlot system in ArmCannonUI is pretty much complete.
+	-Would like to keep all of the slot menus in the same UI file if possible (save the radials obviously)
+	
 -Beam special textures (fusion DNA beam) [DONE]
 	-Part of VPS, shapewinner is checked for having special textures based on installed addons
 		-TEXTUREMOD. TextureMod strings in addons that all coagulate into a single string that gets appended to the ShotTexture path.
@@ -105,71 +341,15 @@
 
 -Beam texture animation [DONE]
 
--Arm Cannon extra visuals
-	* Textures: 
-		-Make alt textures no longer clientside?
-		-Accessories able to show up on top of the arm cannon?
-			-Frozen Core, Thermal Regulator, ECU
-	* Lights:
-		* Classic design: Simple glowmask colored to match the current ColorPriority. Think MercurySteam arm cannons.
-		* Prime design: Arm Cannon's shape is decided by ShapePriority, with the color of the exposed lighty-bits determined by ColorPriority. (e.g. plasma's extra length w/ Ice blue)
 
--Make sure system is multiplayer compatible
-
--Localization Antics
-	-Make overheat stat on arm cannon tooltip able to update on the fly
-	-Give beam addons fancy tooltips
-	-Make beam shot's localization name change to match addons equipped
-		-Override DisplayName with the ShapePriority?
-			-Append first word of ColorPriority to the beginning? (e.g. Wave Spazer Beam, Ice Plasma Beam)
-
--Make better UI [JUST USE THE OLD ONE]
-	-Current UI is 99% placeholder, but the AddonSlot system in ArmCannonUI is pretty much complete.
-	-Would like to keep all of the slot menus in the same UI file if possible (save the radials obviously)
-
--Make example beam addon in the example submod
-	-Move Test Beam there after everything else is good to go?
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Missile System
+---------------
 
 
 
+Upgrades to Old Systems
+------------------------
 
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-||==============================||
-||< CATEGORY B: MISSILE SYSTEM >||
-||==============================||
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--Decide whether or not missile addons should have their own dedicated projectiles
-	-Points in favor of having dedicated projectiles:
-		* Able to copy 80% of charge combo code verbatim
-		* Only one missile slot actually changes the properties of the standard shot
-		* More intuitive, in the sense that missiles are a lot more physical than beams so it makes sense that missiles would all be different projectiles
-	-Points against having dedicated projectiles:
-		* Makes it much more difficult to create a missile addon
-		* Creates a dissonance between weapon addon systems
-		* The third point in favor of dedicated projectiles is total conjecture and all-around worthless
-
--Determine how to port charge combos
-	-See if making beam-related ones require that beam equipped breaks balancing or not
-
--Make a config to change starting missiles to 0 and let missile expansions stack 1 higher
-	-Useful for mapmaking
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-||=======================================||
-||< CATEGORY C: UPGRADES TO OLD SYSTEMS >||
-||=======================================||
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -Figure out shaders for better beam coloring [DONE]
 	-Texture coloring is functional, but looks like ass.
@@ -177,51 +357,13 @@
 	-Need a base color, a "core" color (usually white but must be defined because Dark Beam), and MAYBE a secondary color?
 	-Add way to let beam addons supply their own shaders if they want (necessary for imperialist probably)
 
--Custom colorable Power Beam dust particle?
-
--Upgrade DustyDeath to be more like the copy inside of BeamShot
-	-I ended up making the dusty death in the beamshot more complicated as a natural part of development and it only makes sense to bring MProjectile up to the same standard
-
--Way to make wave beam amplitude narrow in response to the length of the beam shot texture
-
--Wave Beam has afterimages
-
--Better, longer hitbox for Plasma Beam?
-	-also re-implement plasmadraw somehow
-
--Increase ice beam standalone shot rotation speed, add particle effects
-
--------- POWER SUIT SYSTEM UPGRADES --------
-
--Consolidated Power Suit UI
-
--Add automatic texture-grabbing for suit addons
-	-Very easy to implement, but tedious; requires renaming all suitaddon assets to match format
-	-Make it so it doesn't make non-Suits completely fucking break
-
--Fix the SuitAddonAddon thing
-	-Unimportant but it bugs me so I will tackle it Eventually(tm)
-
 -Update Power Suit glowmask system to use the modern spritesheet style - DONE!
 	-More important but also less related to the whole beam thingamabobber
 
 
--Figure out how to fix the thing where gravity uses neptune's shell physics underwater and not normal physics
-	-Honestly this one is kind of a tangent. I saw it mentioned in an old conversation while looking for something or other.
-	-Honestly it's mostly still here to remind me to do that at some point
 
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-||=====================||
-||< CATEGORY D: FIXES >||
-||=====================||
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Bug Fixes
+----------
 
 -Re-add old beam/missile VFX that died in the port
 	- Dust trails on beams, death dust particles might be too small
@@ -230,63 +372,7 @@
 			-PART OF WHAT, PAST ME??????		-Z
 
 -Various beam presentation shit from the new system that needs fixing
-	-Charging sounds don't cut each other off properly
-	-No charged shot sound effects
-	-Pseudo-Screw does not correctly color the player
-	-Dust trail does not function
-	-Random visual jank
-	-Impact sound on no-addons is broke
-		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
 
 -It Just Works
 	* Wave's bonus shot on charge doesn't work unless it's fully charged [FIXED]
-	* Normal shot goes off immediately after a charged shot for no apparent reason
-
--Fix all the systems I broke
-	* Worldgen
-		* Chozo Statues/OORBs   -   Replace all item/tile calls with calls to appropriate addons
-		* Missile/E-tank placements
-	* Fake blocks
-	* Parts of suit energy apparently
-	* Hatches definitely
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-||=============================||
-||< CATEGORY E: THE AFTERMATH >||
-||=============================||
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
--Re-implement all the addons
-	-Figure out what the fuck to do with affinity weapons
-
--Phazon Hyper Beam (ped)
-	-I'd like to make it so it kinda just writes over your currently-equipped beam instead of having to craft it
-		-Hypermode could manually set your cannon's VIB and redirect firing code something something?? this was so much clearer in my head 10 seconds ago
-
--The Energy Tank Crafting Recipe Dilemma [AWAITING A RULING]
-	-At the start of this project, before I realized just how fucking much I'd be doing, I changed a lot of earlygame recipes to replace energy tanks with new materials
-	-This, uh... still needs to actually get approved.
-		-If it does, I don't have to do shit.
-		-If it doesn't, I gotta revert all that.
-
--More alternative Arm Cannon textures?
-	* Fusion?
-	* Dread?
-	* Retro?
-	* Ancient? (uses legacy sprites)
-	-Allow for submods to add new arm cannon appearances?
-
-
-
-||============||
-|| FINALLY... ||
-||============||
-
--Create ANOTHER another branch where I can finally try to rework beam addon progression like I wanted to do from the start
-
-
 

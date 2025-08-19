@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using static MetroidMod.Sounds;
 using Terraria.Graphics.Shaders;
+using MetroidMod.Common.Systems;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -192,6 +193,7 @@ namespace MetroidMod.Content.BeamAddons
 					if (chargeDelay > item.useTime) { chargeDelay = item.useTime; }
 				} //not allowed to charge just yet
 
+
 			}//Check if the player is currently trying to charge with a compatible weapon
 			else if (canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null) && mp.statCharge > 5)
 			{
@@ -351,6 +353,12 @@ namespace MetroidMod.Content.BeamAddons
 					MetroidMod.Instance.Logger.Info("There goes the chargelead the big ball is gone");
 					mp.disableSomersault = false;
 					Projectile.Kill();
+				}
+				if (MSystem.ACSwitch.JustPressed)
+				{
+					mp.disableSomersault = false;
+					Projectile.Kill();
+
 				}
 			}
 			//make sure the projectile doesn't expire naturally
