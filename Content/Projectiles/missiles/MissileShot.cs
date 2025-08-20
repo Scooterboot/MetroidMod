@@ -18,12 +18,8 @@ namespace MetroidMod.Content.Projectiles
 {
 	internal class MissileShot : MProjectile
 	{
-		/// <summary>
-		/// Stores the winning slot numbers from the Visual Priority check.
-		/// </summary>
-		public int[] VisualWinners = [-1, -1, 0, 0];
 		public ModMissileAddon[] missileAddons = new ModMissileAddon[MissileAddonSlotID.Count];
-		public float missileScale = 0.75f;
+		public float missileScale = 2f;
 		public int missileDust = DustID.YellowTorch;
 		/// <summary>
 		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of missiles.
@@ -137,10 +133,7 @@ namespace MetroidMod.Content.Projectiles
 				//if we're at the frame count reset
 			}
 			#endregion
-			if (VisualWinners[0] != -1)
-			{
-				missileAddons[VisualWinners[0]].ShapeBehavior(mProjectile);
-			}
+
 
 			//Put the dustline shit here later
 
@@ -181,10 +174,6 @@ namespace MetroidMod.Content.Projectiles
 		{
 			//inject onhitnpc code here
 			MissileAddonLoader.AddonOnHitNPC(missileAddons, mProjectile, target, hit, damageDone);
-			if (!SuppressBuff && VisualWinners[1] != -1)
-			{
-				target.AddBuff(missileAddons[VisualWinners[1]].InflictsBuff, 600);
-			}
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{

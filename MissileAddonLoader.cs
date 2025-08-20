@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -205,47 +206,14 @@ namespace MetroidMod
 		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
 		/// </summary>
 		/// <param name="soundSource">The base sound filepath, upon which the mod strings will be applied.</param>
-		/// <param name="modA">Appends onto soundSource, <i>before</i> modB.</param>
-		/// <param name="modB">Appends onto soundSource, <i>after</i> modA.</param>
 		/// <param name="fallback">The sound effect to be used should the grabber fail. The default fallbacks are as follows:
 		/// <br/>Shooting: <see cref="MetroidMod.MissileShotFallbackSFX"/>
 		/// <br/>Impact: <see cref="MetroidMod.MissileImpactFallbackSFX"/>
 		/// <br/>Charging: <see cref="MetroidMod.MissileChargeFallbackSFX"/></param>
 		/// <returns></returns>
-		public static SoundStyle ShotSoundGrabber(string soundSource, string modA, string modB, SoundStyle fallback)
+		public static SoundStyle ShotSoundGrabber(string soundSource, SoundStyle fallback)
 		{
-			//I still greatly dislike the amount of else-ifs here     -Z
-			#region grabber explanation
-			//This nasty else-if chain exists NOT to gauge how modded an asset path is, but to catch asset combinations that don't exist.
-			//If all the assets are present and correctly named, this method shouldn't pass through anything below the first if.
-			//For instance, a basic shot with zero modifiers would only pass through the first if, as mod strings default to blank, meaning it becomes:
-			//[soundSource] + "" + ""
-			//which still just equals [soundSource] and is therefore a valid asset path
-			//(Unless, of course, the basic shot sound is missing or misnamed, in which case it'll end up at the failsafe at the bottom)
-			//If the attempted filepath modification leads to a blank, like:
-			//[soundSource] + "ModifierWithNoAssets" + "Charged"
-			//it'll attempt to grab another asset from its general "asset tree" to fill it in.
-			//for instance, this would fail the first else-if and succeed at the second, resulting in "[soundSource]Charged" being selected instead
-			//The fallback sound should only call if there's literally NO adjacent assets in this particular filepath configuration, including a basic shot.
-			//The chain tries to get a modA path first, since the first layer of mod is a lot more "permanent" than the second
-			//(in the sense that it's applied during array updating and not when shooting)
-			#endregion
-			//TODO: Too many overloads because of how modB works, being a temporary value and all. Find out how to fix.		-Z
-
-			if (ModContent.RequestIfExists(soundSource + modA + modB, out Asset<SoundEffect> fullModSound))
-			{
-				//For some reason you can't just convert sound effects to soundstyles but it still works somehow so idfk /shrug
-				return new SoundStyle(soundSource + modA + modB);
-			}
-			else if (ModContent.RequestIfExists(soundSource + modA, out Asset<SoundEffect> firstModSound))
-			{
-				return new SoundStyle(soundSource + modA);
-			}
-			else if (ModContent.RequestIfExists(soundSource + modB, out Asset<SoundEffect> lastModSound))
-			{
-				return new SoundStyle(soundSource + modB);
-			}
-			else if (ModContent.RequestIfExists(soundSource, out Asset<SoundEffect> noModSound))
+			if (ModContent.RequestIfExists(soundSource, out Asset<SoundEffect> noModSound))
 			{
 				return new SoundStyle(soundSource);
 			}
@@ -259,42 +227,10 @@ namespace MetroidMod
 		/// <br/>Mostly comprised of failsafes to prevent grabbing assets that don't exist.
 		/// </summary>
 		/// <param name="shapeSource"></param>
-		/// <param name="modA"></param>
-		/// <param name="modB"></param>
 		/// <returns></returns>
-		public static Asset<Texture2D> ShotTextureGrabber(string shapeSource, string modA, string modB)
+		public static Asset<Texture2D> ShotTextureGrabber(string shapeSource)
 		{
-			//I dislike the large amounts of else-ifs here           -Z
-			#region grabber explanation
-			//This nasty else-if chain exists NOT to gauge how modded an asset path is, but to catch asset combinations that don't exist.
-			//If all the assets are present and correctly named, this method shouldn't pass through anything below the first if.
-			//For instance, a basic shot with zero modifiers would only pass through the first if, as mod strings default to blank, meaning it becomes:
-			//[shapeSource] + "" + ""
-			//which still just equals [shapeSource] and is therefore a valid asset path
-			//(Unless, of course, the basic shot texture is missing or misnamed, in which case it'll end up at the failsafe at the bottom)
-			//If the attempted filepath modification leads to a blank, like:
-			//[shapeSource] + "ModifierWithNoAssets" + "Charged"
-			//it'll attempt to grab another asset from its general "asset tree" to fill it in.
-			//for instance, this would fail the first else-if and succeed at the second, resulting in "[shapeSource]Charged" being selected instead
-			//The fallback texture should only call if there's literally NO adjacent assets in this particular filepath configuration, including a basic shot.
-			//The chain tries to get a modA path first, since the first layer of mod is a lot more "permanent" than the second
-			//(in the sense that it's applied during array updating and not when shooting)
-			#endregion
-
-			MetroidMod.Instance.Logger.Info("Texture-grabbin time. Path: " + shapeSource + modA + modB);
-			if (ModContent.RequestIfExists(shapeSource + modA + modB, out Asset<Texture2D> fullModShot))
-			{
-				return fullModShot;
-			}
-			else if (ModContent.RequestIfExists(shapeSource + modA, out Asset<Texture2D> firstModShot))
-			{
-				return firstModShot;
-			}
-			else if (ModContent.RequestIfExists(shapeSource + modB, out Asset<Texture2D> lastModShot))
-			{
-				return lastModShot;
-			}
-			else if (ModContent.RequestIfExists(shapeSource, out Asset<Texture2D> noModShot))
+			if (ModContent.RequestIfExists(shapeSource, out Asset<Texture2D> noModShot))
 			{
 				return noModShot;
 			}
@@ -304,6 +240,37 @@ namespace MetroidMod
 				return MetroidMod.MissileFallbackTexture;
 			}
 		}
+		/// <summary>
+		/// Combines all of the <b>weapon-side stats</b> of every installed missile addon.
+		/// <br/>These values will be applied to the weapon itself.
+		/// </summary>
+		/// <param name="missileAddons">The array containing the Missile addons whose stacks need statting.<br/>...stats need stacking*</param>
+		/// <returns></returns>
+		public static float[] WeaponStatStacker(Item[] missileAddons)
+		{
+			MetroidMod.Instance.Logger.Info("Stacking Missile Stats...");
+			float[] totals = [0, 0, 0, 0, 0, 0, 0];
+			ModMissileAddon[] addons = missileAddons //Converts the Item array into a ModMissileAddon array, allowing for direct stat access.
+				.Select(GetAddon)
+				.ToArray();
+
+			//Run through all installed addons that actually add stats (i.e. leaving out the ammo slot)
+			for (int i = 0; i < addons.Length - 1; ++i)
+			{
+				if (addons[i] == null) { continue; }
+				if (addons[i].Overridden) { continue; }
+				totals[0] += addons[i].BaseDamage;
+				totals[1] += addons[i].DamageMult;
+				totals[2] += addons[i].BaseSpeed;
+				totals[3] += addons[i].SpeedMult;
+				totals[4] += addons[i].BaseVelocity;
+				totals[5] += addons[i].VelocityMult;
+				totals[6] += addons[i].CritChance;
+			}
+			MetroidMod.Instance.Logger.Info("Missile stats stacked!");
+			return totals;
+		}
+
 		/// <summary>
 		/// Runs <see cref="ModMissileAddon.OnHitNPC(MProjectile, NPC, NPC.HitInfo, int)"/> on each installed addon.
 		/// </summary>

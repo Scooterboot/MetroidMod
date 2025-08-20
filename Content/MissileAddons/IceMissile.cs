@@ -26,18 +26,21 @@ namespace MetroidMod.Content.MissileAddons
 			ShapePriority = 5;
 			#endregion
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
+			base.SetStaticDefaults();
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.rare = ItemRarityID.Green;
-			item.value = Item.buyPrice(0, 1, 98, 7); //markiplier.jpeg
+			item.value = 30000;
+			item.rare = ItemRarityID.LightRed;
+			base.SetItemDefaults(item);
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe(1)
-				.AddIngredient<Items.Miscellaneous.ChoziteBar>(3)
-				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 8)
-				.AddIngredient(ItemID.Amethyst, 1)
+			CreateRecipe()
+				.AddIngredient<Items.Miscellaneous.ChoziteBar>(8)
+				.AddIngredient(ItemID.IceBlock, 25)
+				.AddIngredient(ItemID.Bone, 10)
+				.AddIngredient(ItemID.Sapphire)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

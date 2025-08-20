@@ -15,18 +15,13 @@ namespace MetroidMod.Default
 {
 	[Autoload(false)]
 	
-	internal class BeamAddonItem : ModItem
+	internal class BeamAddonItem(ModBeamAddon modBeamAddon) : ModItem
 	{
-		public ModBeamAddon modBeamAddon;
+		public ModBeamAddon modBeamAddon = modBeamAddon;
 
 		public override string Texture => modBeamAddon.ItemTexture;
 		public override string Name => modBeamAddon.Name + "Addon";
 		public override LocalizedText Tooltip => modBeamAddon.Tooltip ?? base.Tooltip;
-
-		public BeamAddonItem(ModBeamAddon modBeamAddon)
-		{
-			this.modBeamAddon = modBeamAddon;
-		}
 
 		public override void SetStaticDefaults()
 		{

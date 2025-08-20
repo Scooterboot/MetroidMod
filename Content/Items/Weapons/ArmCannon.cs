@@ -155,23 +155,23 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <summary>
 		/// The Power Beam's base damage, before accounting for addon multipliers.
 		/// </summary>
-		int BeamBaseDamage = 10;
+		private readonly int BeamBaseDamage = 10;
 		/// <summary>
 		/// The Power Beam's base usetime, before accounting for addon multipliers.
 		/// </summary>
-		int BeamBaseSpeed = 12;
+		private readonly int BeamBaseSpeed = 12;
 		/// <summary>
 		/// The Power Beam's total base velocity, before accounting for addon multipliers.
 		/// </summary>
-		float BeamBaseVelocity = 18f;
+		private readonly float BeamBaseVelocity = 18f;
 		/// <summary>
 		/// The Power Beam's base critical strike chance, before accounting for addon multipliers.
 		/// </summary>
-		int BeamBaseCrit = 3;
+		private readonly int BeamBaseCrit = 3;
 		/// <summary>
 		/// The Power Beam's base Overheat use, before accounting for addon multipliers.
 		/// </summary>
-		int BaseOverheat = 4;
+		private readonly int BaseOverheat = 4;
 
 		/// <summary>
 		/// Contains all of the stats added by installed addons.
@@ -188,6 +188,14 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <br/><b>[9]</b> - Added shot count (convert to <b>int</b>)
 		/// </summary>
 		public float[] AdditionalBeamStats = new float[10];
+		/// <summary>
+		/// Contains all of the stats added by installed addons.
+		/// <br/>Each index, in order:
+		/// <br/><b>[0]</b> - Added base damage (convert to <b>int</b>)
+		/// <br/><b>[1]</b> - Damage multiplier
+		/// <br/><b>[2]</b> - Added base usetime (convert to <b>int</b>)
+		/// <br/><b>[3]</b> - Usetime multiplier
+		public float[] AdditionalMissileStats = new float[4];
 		///<summary>
 		///Contains all of the stats added passively by addons installed in the Primary Quick-Swap.
 		/// </summary>
@@ -197,7 +205,7 @@ namespace MetroidMod.Content.Items.Weapons
 		/// The final overheat value, which will be calculated in UpdateInventory.<br/>
 		/// It has to be out here because there's no baked-in variable like there is for damage/velocity/whatever
 		/// </summary>
-		int Overheat = 0;
+		private int Overheat = 0;
 		#endregion
 
 
@@ -206,39 +214,39 @@ namespace MetroidMod.Content.Items.Weapons
 		/// the projectile type the missile launcher will fire.
 		/// <br/><br/><b>MAY NOT BE NEEDED.</b> Worry about all this shit once Charge Beam is functional.
 		/// </summary>
-		int missileShot = ModContent.ProjectileType<MissileShot>();
+		private int missileShot = ModContent.ProjectileType<MissileShot>();
 		/// <summary>
 		/// The Missile Launcher's base damage, before accounting for addons.
 		/// </summary>
-		int MissileBaseDamage = 32;
+		private readonly int MissileBaseDamage = 32;
 		/// <summary>
 		/// The Missile Launcher's total damage multiplier from addons.
 		/// </summary>
-		float MissileDamageMult = 0f;
+		private readonly float MissileDamageMult = 0f;
 		/// <summary>
 		/// The Missile Launcher's base usetime, before accounting for addons.
 		/// </summary>
-		int MissileBaseSpeed = 18;
+		private readonly int MissileBaseSpeed = 18;
 		/// <summary>
 		/// The Missile Launcher's total speed multiplier from addons.
 		/// </summary>
-		float MissileSpeedMult = 0f;
+		private readonly float MissileSpeedMult = 0f;
 		/// <summary>
 		/// The Missile Launcher's base velocity, before accounting for addons.
 		/// </summary>
-		int MissileBaseVelocity = 25;
+		private readonly float MissileBaseVelocity = 8f;
 		/// <summary>
 		/// The Missile Launcher's total velocity multiplier from addons.
 		/// </summary>
-		float MissileVelocityMult = 0f;
+		private readonly float MissileVelocityMult = 0f;
 		/// <summary>
 		/// The Missile Launcher's base critical strike chance, before accounting for addons.
 		/// </summary>
-		int MissileBaseCrit = 3;
+		private readonly int MissileBaseCrit = 3;
 		/// <summary>
 		/// The Missile Launcher's base Charge Combo cost, before accounting for addons.
 		/// </summary>
-		int BaseComboCost = 10;
+		private readonly int BaseComboCost = 10;
 		// I was gonna have just as many stats as the PB in here but
 		// there's really only one missile addon that affects your base projectile
 		// it really didn't end up being necessary I think
@@ -378,22 +386,21 @@ namespace MetroidMod.Content.Items.Weapons
 			//apply the numbers to the weapon
 			if (ac.isBeam) //apply to power beam
 			{
-				Item.damage = (int)((BeamBaseDamage + (int)AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100) + 1)); //Formula for power beam base damage calc. Has to convert to int to work
-				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round((360 / ((BeamBaseSpeed + (int)AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100) + 1)))), 2); //Usetime calc. Can't let the usetime drop below a certain point
-				Item.shootSpeed = ((BeamBaseVelocity + (int)AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100) + 1)); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
-				Item.crit = BeamBaseCrit + (int)AdditionalBeamStats[6] + (int)AdditionalPrimaryStats[3];
-				Overheat = (int)((BaseOverheat + (int)AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100) + 1));
+				Item.damage = (int)((BeamBaseDamage + AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100f) + 1f)); //Formula for power beam base damage calc. Has to convert to int to work
+				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360f / ((BeamBaseSpeed + AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100) + 1))), 2); //Usetime calc. Can't let the usetime drop below a certain point
+				Item.shootSpeed = (BeamBaseVelocity + AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100f) + 1f); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
+				Item.crit = (int)(BeamBaseCrit + AdditionalBeamStats[6] + AdditionalPrimaryStats[3]);
+				Overheat = (int)((BaseOverheat + AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100f) + 1f));
 				Item.UseSound = beamSound;
 				Item.shoot = ModContent.ProjectileType<BeamShot>();
 			}
 			else //go missile mode
 			{
-				Item.damage = MissileBaseDamage;
-				Item.useTime = MissileBaseSpeed;
-				Item.useAnimation = MissileBaseSpeed;
-				Item.UseSound = missileSound;
+				Item.damage = (int)((MissileBaseDamage + AdditionalMissileStats[0]) * ((AdditionalMissileStats[1] / 100f) + 1f)); //Formula for power Missile base damage calc. Has to convert to int to work
+				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360f / ((MissileBaseSpeed + AdditionalMissileStats[2]) * ((AdditionalMissileStats[3] / 100f) + 1f))), 2f); //Usetime calc. Can't let the usetime drop below a certain point
 				Item.shootSpeed = MissileBaseVelocity;
 				Item.crit = MissileBaseCrit;
+				Item.UseSound = missileSound;
 				Item.shoot = ModContent.ProjectileType<MissileShot>();
 			}
 
@@ -409,6 +416,7 @@ namespace MetroidMod.Content.Items.Weapons
 			VisualDinners = BeamAddonLoader.VisualPriority(beamAddons); //Gets the shot visuals and checks for VIBs
 
 			AdditionalBeamStats = BeamAddonLoader.WeaponStatStacker(beamAddons); //Gets the beam stats
+			AdditionalMissileStats = MissileAddonLoader.WeaponStatStacker(missileAddons);
 
 
 			chargeQuickSwap[activeBeamArraySlot] = beamAddons[0];
@@ -583,6 +591,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac.isBeam)
 			{
+				if (ac.SuppressingFire) { return false; }
 				if (ac.SuppressingFire && VisualDinners[2] != 2) { return false; }
 				else if (VisualDinners[2] == 2)
 				{
@@ -597,10 +606,7 @@ namespace MetroidMod.Content.Items.Weapons
 			else
 			{
 				Launch(player, source, position, velocity, type, damage, knockback);
-
 			} //Missile Launcher firing procedure
-
-
 			return false;
 		}
 
@@ -719,56 +725,39 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac != null && !ac.isBeam)
 			{
-				/*if (VisualDinners[0] != -1)
+				MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as MissileShot;
+				//MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
+
+				miss.Impact = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ImpactSound, MetroidMod.MissileImpactFallbackSFX);
+				miss.ModTexture = MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ShotTexture);
+				miss.missileDust = MissileAddonLoader.GetAddon(missileAddons[1]).ShotDust;
+
+				//The way shot textures are grabbed, explained in detail:
+				//Assets are stored in BeamAddons/BeamAddonName
+				//Basic shots are all named Shot
+				//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
+				//(e.g. a charge shot should be named ShotCharged
+
+				//TODO: Character limit on modifiers? Don't want someone to make a 5000000000000 letter long one
+				/*
+				if (visualData[0] > 0)
 				{
-					visualData = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).ComboVisualsGet(ac.assetModifier + bonusFileMod);
+					miss.ShotFrames = visualData[0];
 				}
-				//MetroidMod.Instance.Logger.Info("Wave Beam Bullshit Time");
-				/*edgeCaseStuff = MissileAddonLoader.EdgeCaseStacker(beamAddons, AdditionalBeamStats, bonusFileMod);
-				AdditionalBeamStats[1] += edgeCaseStuff[0];
-				AdditionalBeamStats[3] += edgeCaseStuff[1];
-				AdditionalBeamStats[5] += edgeCaseStuff[2];
-				AdditionalBeamStats[8] += edgeCaseStuff[3];
-				theShootsingAmount += (int)edgeCaseStuff[4];*/
-				//need way to slap on a bonus projectile here.
 
+				miss.groupSize = theShootsingAmount;
+				miss.groupID = i;
 
-				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
-				{
-					MissileShot miss = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as MissileShot;
-					//MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
+				miss.fileMod += (ac.assetModifier + bonusFileMod);
 
-					miss.Impact = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ImpactSound, ac.assetModifier, bonusFileMod, MetroidMod.MissileImpactFallbackSFX);
-					miss.ModTexture = MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ShotTexture,ac.assetModifier, bonusFileMod);
-					miss.missileDust = MissileAddonLoader.GetAddon(missileAddons[1]).ShotDust;
+				miss.missileAddons = missileAddons
+					.Select(i => MissileAddonLoader.GetAddon(i))
+					.Select(i => i?.Clone())
+					.ToArray();*/
 
-					//The way shot textures are grabbed, explained in detail:
-					//Assets are stored in BeamAddons/BeamAddonName
-					//Basic shots are all named Shot
-					//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
-					//(e.g. a charge shot should be named ShotCharged
-
-					//TODO: Character limit on modifiers? Don't want someone to make a 5000000000000 letter long one
-					/*
-					if (visualData[0] > 0)
-					{
-						miss.ShotFrames = visualData[0];
-					}
-
-					miss.groupSize = theShootsingAmount;
-					miss.groupID = i;
-
-					miss.fileMod += (ac.assetModifier + bonusFileMod);
-
-					miss.missileAddons = missileAddons
-						.Select(i => MissileAddonLoader.GetAddon(i))
-						.Select(i => i?.Clone())
-						.ToArray();*/
-
-					miss.OnInitialized(source);
-					//mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
-					//mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
-				}
+				miss.OnInitialized(source);
+				//mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
+				//mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
 			}
 		}
 		#endregion
@@ -901,7 +890,7 @@ namespace MetroidMod.Content.Items.Weapons
 				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			} //charge combo quick swap
-		}
+		}//TODO this dumps addons galore with hyperresearch iirc --DR
 
 		public override void SaveData(TagCompound tag)
 		{

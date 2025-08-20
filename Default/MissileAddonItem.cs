@@ -15,18 +15,13 @@ namespace MetroidMod.Default
 {
 	[Autoload(false)]
 	
-	internal class MissileAddonItem : ModItem
+	internal class MissileAddonItem(ModMissileAddon modMissileAddon) : ModItem
 	{
-		public ModMissileAddon modMissileAddon;
+		public ModMissileAddon modMissileAddon = modMissileAddon;
 
 		public override string Texture => modMissileAddon.ItemTexture;
 		public override string Name => modMissileAddon.Name + "Addon";
 		public override LocalizedText Tooltip => modMissileAddon.Tooltip ?? base.Tooltip;
-
-		public MissileAddonItem(ModMissileAddon modMissileAddon)
-		{
-			this.modMissileAddon = modMissileAddon;
-		}
 
 		public override void SetStaticDefaults()
 		{
