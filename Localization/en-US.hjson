@@ -943,6 +943,7 @@ Mods: {
 					'''
 					{$CommonItemTooltip.IsMissileAddon}Charge
 					Array slot 1
+					Hold Click to charge
 					Fires a double-damage homing missile
 					Costs 1 Missile
 					'''
@@ -981,7 +982,7 @@ Mods: {
 					Array slot 4
 					Hold Click to charge 
 					Fires a constant stream of electricity at full charge 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Costs 10 missiles to activate and 5 missiles per second to maintain
 					'''
 			}
 
