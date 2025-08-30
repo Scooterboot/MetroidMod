@@ -1204,8 +1204,7 @@ Mods: {
 					{$CommonItemTooltip.PercentDecreasedComboCost@6}
 					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
 					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					Infinite breath underwater
+					{$CommonItemTooltip.IncreasedBreathMeter@9}
 					Free movement in liquid
 					Grants 7 seconds of lava immunity
 					'''

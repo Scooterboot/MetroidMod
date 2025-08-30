@@ -114,7 +114,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			CreateRecipe(1)
 				.AddIngredient(ItemID.ChlorophyteBar, 60)
-				.AddIngredient<Items.Miscellaneous.NightmareCoreXFragment>(45)
+				.AddIngredient<Items.Miscellaneous.NightmareCoreX>(1)
 				.AddSuitAddon<GravitySuitAddon>(1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();

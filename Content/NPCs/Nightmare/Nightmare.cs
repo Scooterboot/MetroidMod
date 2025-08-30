@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MetroidMod.Common.Systems;
+using MetroidMod.Content.Dusts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -101,7 +103,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreX>(), 1));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreXFragment>(), 1, 25, 25));
+			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreXFragment>(), 1, 25, 25));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareMusicBox>(), 6));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.NightmareMask>(), 8));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareTrophy>(), 11));
@@ -200,6 +202,10 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 		int goopFrame = 0;
 		int goopFrameCounter = 0;
+
+		int eyeFlicker = 0;
+		int eyeFlickerAmount = 0;
+		int eyeFlickerCounter = 0;
 
 		Vector2 faceFrame = Vector2.Zero;
 		Vector2 faceFrameCounter = Vector2.Zero;
@@ -389,6 +395,32 @@ namespace MetroidMod.Content.NPCs.Nightmare
 							Main.dust[num72].noGravity = true;
 						}
 						SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+
+
+						var entitySource = NPC.GetSource_Death();
+
+						Gore newGore = Main.gore[Gore.NewGore(entitySource, NPC.position, NPC.velocity * .4f, Mod.Find<ModGore>("NightmareMaskGore1").Type)];
+						newGore.timeLeft = 60;
+						newGore.velocity -= Vector2.One;
+
+						newGore = Main.gore[Gore.NewGore(entitySource, NPC.position, NPC.velocity * .4f, Mod.Find<ModGore>("NightmareMaskGore2").Type)];
+						newGore.timeLeft = 60;
+						newGore.velocity += new Vector2(-1f, 1f);
+
+						newGore = Main.gore[Gore.NewGore(entitySource, NPC.position, NPC.velocity * .4f, Mod.Find<ModGore>("NightmareMaskGore3").Type)];
+						newGore.timeLeft = 60;
+						newGore.velocity += new Vector2(1f, -1f);
+
+						newGore = Main.gore[Gore.NewGore(entitySource, NPC.position, NPC.velocity * .4f, Mod.Find<ModGore>("NightmareMaskGore4").Type)];
+						newGore.timeLeft = 60;
+						newGore.velocity += Vector2.One;
+					}
+					if (currentState == 2 && state == 3)
+					{
+						var entitySource = NPC.GetSource_Death();
+						Gore newGore = Main.gore[Gore.NewGore(entitySource, NPC.position, NPC.velocity * .4f, Mod.Find<ModGore>("NightmareEyeGore").Type)];
+						newGore.timeLeft = 60;
+						newGore.velocity += Vector2.One;
 					}
 					currentState = state;
 				}
@@ -989,6 +1021,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 			NPC.direction = direction;
 
+			float lifePercent = (float)NPC.life / NPC.lifeMax;
 			if (currentState > 0)
 			{
 				NPC.HitSound = SoundID.NPCHit1;
@@ -998,6 +1031,31 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				{
 					faceFrame.X++;
 					faceFrameCounter.X = 0;
+					if (currentState < 4)
+					{
+						if (faceFrame.Y >= 3 && faceFrame.Y <= 5)
+						{
+							if (faceFrame.X == 1)
+							{
+								Dust.NewDustPerfect(NPC.Center + new Vector2(-16 * NPC.direction, 44), ModContent.DustType<NightmareGoo2>()).velocity = NPC.velocity;
+							}
+							if (faceFrame.X == 3)
+							{
+								Dust.NewDustPerfect(NPC.Center + new Vector2(18 * NPC.direction, 44), ModContent.DustType<NightmareGoo3>()).velocity = NPC.velocity;
+							}
+						}
+						if (faceFrame.Y >= 6 && faceFrame.Y <= 8)
+						{
+							if (faceFrame.X == 1)
+							{
+								Dust.NewDustPerfect(NPC.Center + new Vector2(-16 * NPC.direction, 56), ModContent.DustType<NightmareGoo4>()).velocity = NPC.velocity;
+							}
+							if (faceFrame.X == 4)
+							{
+								Dust.NewDustPerfect(NPC.Center + new Vector2(30 * NPC.direction, 52), ModContent.DustType<NightmareGoo5>()).velocity = NPC.velocity;
+							}
+						}
+					}
 				}
 				if (faceFrame.X > 3)
 				{
@@ -1022,20 +1080,39 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				}
 				faceFrame.Y = faceMouthSequence[faceFrameIndex] + (3 * (currentState - 1));
 			}
-			else if (NPC.life < NPC.lifeMax * 0.9)
+			else if (NPC.life < NPC.lifeMax * 0.8)
 			{
 				goopFrameCounter++;
-				if (goopFrameCounter > (8 * ((float)NPC.life / NPC.lifeMax)))
+				if (goopFrameCounter > 8 * lifePercent)
 				{
 					goopFrame++;
-					if (goopFrame > 26)
+					if (goopFrame > 29)
 					{
-						goopFrame = 14;
+						goopFrame = 17;
 					}
 					goopFrameCounter = 0;
-					if (goopFrame == 18)
+					if (goopFrame == 21)
 					{
 						//Drop goo particle here
+						Dust.NewDustPerfect(NPC.Center + new Vector2(6 * NPC.direction, 54), ModContent.DustType<NightmareGoo1>()).velocity = NPC.velocity;
+					}
+				}
+			}
+			if (NPC.life < NPC.lifeMax)
+			{
+				if (eyeFlicker != eyeFlickerAmount)
+				{
+					eyeFlicker += Math.Sign(eyeFlickerAmount - eyeFlicker);
+				}
+				else
+				{
+					eyeFlickerAmount = lifePercent > 0.8 ? 0 : 10;
+					eyeFlickerCounter++;
+					if (eyeFlickerCounter > 50)
+					{
+						eyeFlickerCounter -= (int)((Main.rand.Next(70) + 20) * lifePercent);
+						eyeFlickerAmount = lifePercent < 0.8 ? (int)(50 * (0.8f - lifePercent)) : (int)MathHelper.Lerp(10, 1, Math.Max(0, 5 * (lifePercent - 0.8f)));
+						
 					}
 				}
 			}
@@ -1174,8 +1251,10 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 				Texture2D texBody = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_Body").Value,
 						texTail = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_TailAnim").Value,
+						texTailGlow = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_TailGlow").Value,
 						texMask = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_MaskGel").Value,
-						texFace = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_OpenFace").Value;
+						texFace = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_OpenFace").Value,
+						texEyeglow = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_Eyeglow").Value;
 
 				Vector2 bodyDrawPos = Body.Center + new Vector2(-17 * NPC.direction, 32);
 				Color bodyColor = NPC.GetAlpha(Lighting.GetColor((int)bodyDrawPos.X / 16, (int)bodyDrawPos.Y / 16));
@@ -1183,12 +1262,17 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				if (currentState <= 0)
 				{
 					sb.Draw(texBody, bodyDrawPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texBody.Width, texBody.Height)), bodyColor, 0f, new Vector2(texBody.Width / 2, texBody.Height / 2), 1f, effects, 0f);
-				
-					if (NPC.life < NPC.lifeMax * 0.9)
+					Vector2 maskOffset = new Vector2(65 * NPC.direction, -22);
+
+
+					Color glowColor = NPC.GetAlpha(Color.White * ((10 - eyeFlicker) / 10f));
+					sb.Draw(texEyeglow, bodyDrawPos + maskOffset - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texEyeglow.Width, texEyeglow.Height)), glowColor, 0f, new Vector2(texEyeglow.Width / 2, texEyeglow.Height / 2), 1f, effects, 0);
+
+
+					if (NPC.life < NPC.lifeMax * 0.8)
 					{
-						Vector2 maskOffset = new Vector2(65 * NPC.direction, -22);
-						Rectangle? maskRect = new Rectangle?(new Rectangle(0, goopFrame * texMask.Height / 27, texMask.Width, texMask.Height / 27));
-						sb.Draw(texMask, bodyDrawPos + maskOffset - Main.screenPosition, maskRect, bodyColor, 0f, new Vector2(texMask.Width / 2, (texMask.Height / 27) / 2), 1f, effects, 0);
+						Rectangle? maskRect = new Rectangle?(new Rectangle(0, goopFrame * texMask.Height / 30, texMask.Width, texMask.Height / 30));
+						sb.Draw(texMask, bodyDrawPos + maskOffset - Main.screenPosition, maskRect, bodyColor, 0f, new Vector2(texMask.Width / 2, (texMask.Height / 30) / 2), 1f, effects, 0);
 					}
 				
 				}
@@ -1200,7 +1284,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					sb.Draw(texFace, bodyDrawPos - Main.screenPosition, new Rectangle?(new Rectangle((int)faceFrame.X * faceWidth, (int)faceFrame.Y * faceHeight, faceWidth, faceHeight)), bodyColor, 0f, new Vector2(faceWidth / 2, faceHeight / 2), 1f, effects, 0f);
 				}
 
-				if (Tail.active)
+				if (Tail.active && Tail.type == ModContent.NPCType<Nightmare_Tail>())
 				{
 					Vector2 tailDrawPos = Tail.Center;
 
@@ -1208,6 +1292,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					int tailHeight = texTail.Height / 5;
 
 					sb.Draw(texTail, tailDrawPos - Main.screenPosition, new Rectangle?(new Rectangle((int)tailFrame.X * tailWidth, (int)tailFrame.Y * tailHeight, tailWidth, tailHeight)), bodyColor, 0f, new Vector2(tailWidth / 2, tailHeight / 2), 1f, effects, 0f);
+					Color glowColor = NPC.GetAlpha(Color.White * (tailFrame.Y / 4f) * (0.25f + 0.75f * (10 - tailSpinCounterMax) / 10f));
+					sb.Draw(texTailGlow, tailDrawPos - Main.screenPosition, new Rectangle?(new Rectangle((int)tailFrame.X * tailWidth, (int)tailFrame.Y * tailHeight, tailWidth, tailHeight)), glowColor, 0f, new Vector2(tailWidth / 2, tailHeight / 2), 1f, effects, 0f);
 				}
 
 				for (int i = 4; i >= 2; i--)

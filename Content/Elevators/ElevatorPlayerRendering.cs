@@ -16,6 +16,7 @@ namespace MetroidMod.Content.Elevators
 			//jopojelly said in a thread this SHOULD help prevent the cellref crash, but it doesn't 100% prevent it :(
 			//It seems more stable but the fact that it's inconsistent drives me insane
 			//Likely gonna have to wait until they fix MonoMod itself
+			/*
 			Main.QueueMainThreadAction(() =>
 			{
 				IL_Main.DoDraw += il =>
@@ -55,7 +56,7 @@ namespace MetroidMod.Content.Elevators
 						Main.PlayerRenderer.DrawPlayers(Main.Camera, _elevatingPlayersDrawBehindBlocks);
 					});
 				};
-			});
+			});*/
 		}
 
 		private void MovePlayersToElevatingList(List<Player> players)

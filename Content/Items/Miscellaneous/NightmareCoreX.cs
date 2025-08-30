@@ -26,15 +26,11 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			Item.value = 10000;
 			Item.rare = ItemRarityID.Pink;
 		}
-		public override void AddRecipes()
+		/*public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<NightmareCoreXFragment>(20)
 				.Register();
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "NightmareCoreXFragment", 20);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
-		}
+		}*/
 	}
 }

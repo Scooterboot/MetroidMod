@@ -70,7 +70,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				rot += 0.125f * Head.direction;
 
 				Projectile.Center = laserPos;
-				Projectile.velocity.X = Math.Sign(player.Center.X - Projectile.Center.X);
+				Projectile.velocity.X = Head.direction;
 				Projectile.velocity.Y = 0f;
 				Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) - (float)(Math.PI / 2);
 				Projectile.localAI[1] = distance;
