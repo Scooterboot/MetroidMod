@@ -77,14 +77,14 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			//NPC.damage = Head.damage;
 			NPC.velocity = Head.velocity;
 
-			Vector2 laserPos = NPC.Center + new Vector2(17 * Head.direction, 15);
+			Vector2 laserPos = NPC.Center + new Vector2(17 * Head.direction, 0);
 			if (NPC.ai[1] == 1)
 			{
-				laserPos = NPC.Center + new Vector2(17 * Head.direction, 16);
+				laserPos = NPC.Center + new Vector2(25 * Head.direction, 6);
 			}
 			if (NPC.ai[1] == 2)
 			{
-				laserPos = NPC.Center + new Vector2(17 * Head.direction, 9);
+				laserPos = NPC.Center + new Vector2(28 * Head.direction, 3);
 			}
 
 			if (Main.netMode != NetmodeID.MultiplayerClient)

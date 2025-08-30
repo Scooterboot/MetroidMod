@@ -44,25 +44,25 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 			if (Head != null && Head.active && Arm != null && Arm.active)
 			{
-				laserPos = Arm.Center + new Vector2(17 * Head.direction, 15);
+				laserPos = Arm.Center + new Vector2(17 * Head.direction, 0);
 				if (Arm.ai[1] == 1)
 				{
-					laserPos = Arm.Center + new Vector2(17 * Head.direction, 16);
+					laserPos = Arm.Center + new Vector2(25 * Head.direction, 6);
 				}
 				if (Arm.ai[1] == 2)
 				{
-					laserPos = Arm.Center + new Vector2(17 * Head.direction, 9);
+					laserPos = Arm.Center + new Vector2(28 * Head.direction, 3);
 				}
 				if (Arm.type == ModContent.NPCType<NPCs.Nightmare.Nightmare_ArmFront>())
 				{
-					laserPos = Arm.Center + new Vector2(13 * Head.direction, 17);
+					laserPos = Arm.Center + new Vector2(14 * Head.direction, 9);
 					if (Arm.ai[1] == 2)
 					{
-						laserPos = Arm.Center + new Vector2(19 * Head.direction, 17);
+						laserPos = Arm.Center + new Vector2(16 * Head.direction, 12);
 					}
 					if (Arm.ai[1] == 3)
 					{
-						laserPos = Arm.Center + new Vector2(25 * Head.direction, 19);
+						laserPos = Arm.Center + new Vector2(24 * Head.direction, 12);
 					}
 				}
 				Player player = Main.player[Head.target];
@@ -125,12 +125,13 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Texture2D texture2D22 = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			float num230 = Projectile.localAI[1];
 			int width = texture2D22.Width - (drawWidth * 2);
+			Vector2 linePos = Projectile.Center.Floor() + new Vector2(6 * Math.Sign(Projectile.velocity.X), 0);
 
 			Rectangle rectangle8 = new Rectangle(drawWidth, 0, width, 22);
-			Main.spriteBatch.Draw(texture2D22, Projectile.Center.Floor() - Main.screenPosition, new Rectangle?(rectangle8), color45, Projectile.rotation, rectangle8.Size() / 2f, Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(texture2D22, linePos - Main.screenPosition, new Rectangle?(rectangle8), color45, Projectile.rotation, rectangle8.Size() / 2f, Projectile.scale, SpriteEffects.None, 0f);
 
 			num230 -= 33f * Projectile.scale;
-			Vector2 value22 = Projectile.Center.Floor();
+			Vector2 value22 = linePos;
 			value22 += Projectile.velocity * Projectile.scale * 10.5f;
 			rectangle8 = new Rectangle(drawWidth, 25, width, 28);
 			if (num230 > 0f)

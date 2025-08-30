@@ -95,7 +95,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.velocity *= 0f;
 			//NPC.damage = Head.damage;
 			NPC.dontTakeDamage = Head.dontTakeDamage;
-			NPC.Center = Head.Center + new Vector2(-76 * Head.direction, 88);
+			NPC.Center = Head.Center + new Vector2(-76 * Head.direction, 145);
 
 			if (NPC.ai[1] == 1)
 			{

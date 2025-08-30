@@ -77,16 +77,16 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			//NPC.damage = Head.damage;
 			NPC.velocity = Head.velocity;
 
-			if (NPC.ai[1] >= 1 && NPC.ai[1] <= 3)
+			if (NPC.ai[1] >= 1 && NPC.ai[1] <= 3) // NPC.ai[1] == which segment of the arm this is
 			{
-				Vector2 laserPos = NPC.Center + new Vector2(13 * Head.direction, 17);
+				Vector2 laserPos = NPC.Center + new Vector2(14 * Head.direction, 9);
 				if (NPC.ai[1] == 2)
 				{
-					laserPos = NPC.Center + new Vector2(19 * Head.direction, 17);
+					laserPos = NPC.Center + new Vector2(16 * Head.direction, 12);
 				}
 				if (NPC.ai[1] == 3)
 				{
-					laserPos = NPC.Center + new Vector2(25 * Head.direction, 19);
+					laserPos = NPC.Center + new Vector2(24 * Head.direction, 12);
 				}
 
 				if (Main.netMode != NetmodeID.MultiplayerClient)

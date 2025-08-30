@@ -35,25 +35,25 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 			if (Head != null && Head.active && Arm != null && Arm.active)
 			{
-				laserPos = Arm.Center + new Vector2(17 * Head.direction, 15);
+				laserPos = Arm.Center + new Vector2(17 * Head.direction, 0);
 				if (Arm.ai[1] == 1)
 				{
-					laserPos = Arm.Center + new Vector2(17 * Head.direction, 16);
+					laserPos = Arm.Center + new Vector2(25 * Head.direction, 6);
 				}
 				if (Arm.ai[1] == 2)
 				{
-					laserPos = Arm.Center + new Vector2(17 * Head.direction, 9);
+					laserPos = Arm.Center + new Vector2(28 * Head.direction, 3);
 				}
 				if (Arm.type == ModContent.NPCType<NPCs.Nightmare.Nightmare_ArmFront>())
 				{
-					laserPos = Arm.Center + new Vector2(13 * Head.direction, 17);
+					laserPos = Arm.Center + new Vector2(14 * Head.direction, 9);
 					if (Arm.ai[1] == 2)
 					{
-						laserPos = Arm.Center + new Vector2(19 * Head.direction, 17);
+						laserPos = Arm.Center + new Vector2(16 * Head.direction, 12);
 					}
 					if (Arm.ai[1] == 3)
 					{
-						laserPos = Arm.Center + new Vector2(25 * Head.direction, 19);
+						laserPos = Arm.Center + new Vector2(24 * Head.direction, 12);
 					}
 				}
 				Player player = Main.player[Head.target];

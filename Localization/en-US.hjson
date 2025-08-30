@@ -362,6 +362,7 @@ Mods: {
 			EnergyStationDevtool.MapEntry: Energy Station (Devtool)
 			RidleyMusicBox.MapEntry: Music Box (Ridley?)
 			ZeroHusk.MapEntry: Zero Husk
+			MetalChest.MapEntry: Metal Chest
 		}
 
 		Buffs: {
@@ -3759,6 +3760,86 @@ Mods: {
 
 			ShaderTestItem: {
 				DisplayName: Shader Test Item
+				Tooltip: ""
+			}
+
+			CrateriaDirtWall: {
+				DisplayName: Crateria Dirt Wall
+				Tooltip: ""
+			}
+
+			CrateriaStoneWall: {
+				DisplayName: Crateria Stone Wall
+				Tooltip: ""
+			}
+
+			MaridiaBrickWall: {
+				DisplayName: Maridia Brick Wall
+				Tooltip: ""
+			}
+
+			MetalWall: {
+				DisplayName: Metal Wall
+				Tooltip: ""
+			}
+
+			NorfairBoilingWall: {
+				DisplayName: Norfair Boiling Wall
+				Tooltip: ""
+			}
+
+			MetalChairItem: {
+				DisplayName: Metal Chair Item
+				Tooltip: ""
+			}
+
+			MetalChestItem: {
+				DisplayName: Metal Chest Item
+				Tooltip: ""
+			}
+
+			MetalDoorItem: {
+				DisplayName: Metal Door Item
+				Tooltip: ""
+			}
+
+			MetalWorkbenchItem: {
+				DisplayName: Metal Workbench Item
+				Tooltip: ""
+			}
+
+			NorfairBoilingStone: {
+				DisplayName: Norfair Boiling Stone
+				Tooltip: ""
+			}
+
+			MetalBlock: {
+				DisplayName: Metal Block
+				Tooltip: ""
+			}
+
+			MetalBrick: {
+				DisplayName: Metal Brick
+				Tooltip: ""
+			}
+
+			MetalPillar: {
+				DisplayName: Metal Pillar
+				Tooltip: ""
+			}
+
+			MetalPipe: {
+				DisplayName: Metal Pipe
+				Tooltip: ""
+			}
+
+			MetalPlate: {
+				DisplayName: Metal Plate
+				Tooltip: ""
+			}
+
+			NorfairPurpleMass: {
+				DisplayName: Norfair Purple Mass
 				Tooltip: ""
 			}
 		}

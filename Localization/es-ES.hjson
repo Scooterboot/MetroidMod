@@ -362,6 +362,7 @@ Mods: {
 			// EnergyStationDevtool.MapEntry: Energy Station (Devtool)
 			// RidleyMusicBox.MapEntry: Music Box (Ridley?)
 			// ZeroHusk.MapEntry: Zero Husk
+			// MetalChest.MapEntry: Metal Chest
 		}
 
 		Buffs: {
@@ -943,6 +944,7 @@ Mods: {
 					'''
 					{$CommonItemTooltip.IsMissileAddon}Charge
 					Array slot 1
+					Hold Click to charge
 					Fires a double-damage homing missile
 					Costs 1 Missile
 					''' */
@@ -981,7 +983,7 @@ Mods: {
 					Array slot 4
 					Hold Click to charge 
 					Fires a constant stream of electricity at full charge 
-					Initially costs 10 missiles, then drains 5 missiles per second during use
+					Costs 10 missiles to activate and 5 missiles per second to maintain
 					''' */
 			}
 
@@ -3758,6 +3760,86 @@ Mods: {
 
 			ShaderTestItem: {
 				// DisplayName: Shader Test Item
+				// Tooltip: ""
+			}
+
+			CrateriaDirtWall: {
+				// DisplayName: Crateria Dirt Wall
+				// Tooltip: ""
+			}
+
+			CrateriaStoneWall: {
+				// DisplayName: Crateria Stone Wall
+				// Tooltip: ""
+			}
+
+			MaridiaBrickWall: {
+				// DisplayName: Maridia Brick Wall
+				// Tooltip: ""
+			}
+
+			MetalWall: {
+				// DisplayName: Metal Wall
+				// Tooltip: ""
+			}
+
+			NorfairBoilingWall: {
+				// DisplayName: Norfair Boiling Wall
+				// Tooltip: ""
+			}
+
+			MetalChairItem: {
+				// DisplayName: Metal Chair Item
+				// Tooltip: ""
+			}
+
+			MetalChestItem: {
+				// DisplayName: Metal Chest Item
+				// Tooltip: ""
+			}
+
+			MetalDoorItem: {
+				// DisplayName: Metal Door Item
+				// Tooltip: ""
+			}
+
+			MetalWorkbenchItem: {
+				// DisplayName: Metal Workbench Item
+				// Tooltip: ""
+			}
+
+			NorfairBoilingStone: {
+				// DisplayName: Norfair Boiling Stone
+				// Tooltip: ""
+			}
+
+			MetalBlock: {
+				// DisplayName: Metal Block
+				// Tooltip: ""
+			}
+
+			MetalBrick: {
+				// DisplayName: Metal Brick
+				// Tooltip: ""
+			}
+
+			MetalPillar: {
+				// DisplayName: Metal Pillar
+				// Tooltip: ""
+			}
+
+			MetalPipe: {
+				// DisplayName: Metal Pipe
+				// Tooltip: ""
+			}
+
+			MetalPlate: {
+				// DisplayName: Metal Plate
+				// Tooltip: ""
+			}
+
+			NorfairPurpleMass: {
+				// DisplayName: Norfair Purple Mass
 				// Tooltip: ""
 			}
 		}

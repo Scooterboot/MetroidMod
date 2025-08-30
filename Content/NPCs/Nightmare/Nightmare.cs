@@ -101,7 +101,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreX>(), 1));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreXFragment>(), 1, 25));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreXFragment>(), 1, 25, 25));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareMusicBox>(), 6));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.NightmareMask>(), 8));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareTrophy>(), 11));
@@ -198,6 +198,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			}
 		}
 
+		int goopFrame = 0;
+		int goopFrameCounter = 0;
+
 		Vector2 faceFrame = Vector2.Zero;
 		Vector2 faceFrameCounter = Vector2.Zero;
 		int faceFrameIndex = 0;
@@ -228,25 +231,28 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			if (!initialized)
 			{
 				/* Initialize positions outside of network check so they're initialized on client machines as well. */
-				armFrontPos1[0] = new Vector2(84, 12);
-				armFrontPos1[1] = new Vector2(112, 44);
-				armFrontPos1[2] = new Vector2(122, 78);
-				armFrontPos1[3] = new Vector2(122, 108);
-				armFrontPos1[4] = new Vector2(108, 152);
+				armFrontPos1[0] = new Vector2(85, 12);
+				armFrontPos1[1] = new Vector2(101, 59);
+				armFrontPos1[2] = new Vector2(110, 93);
+				armFrontPos1[3] = new Vector2(118, 135);
+				armFrontPos1[4] = new Vector2(106, 185);
 
-				armBackPos1[0] = new Vector2(-30, 76);
-				armBackPos1[1] = new Vector2(-24, 105);
-				armBackPos1[2] = new Vector2(-16, 130);
+				armBackPos1[0] = new Vector2(-10, 52);
+				armBackPos1[1] = new Vector2(-5, 84);
+				armBackPos1[2] = new Vector2(0, 129);
 
-				armFrontPos2[0] = new Vector2(84, 12);
-				armFrontPos2[1] = new Vector2(120, 52);
-				armFrontPos2[2] = new Vector2(136, 90);
-				armFrontPos2[3] = new Vector2(144, 128);
-				armFrontPos2[4] = new Vector2(136, 182);
+				//armFrontPos2 = armFrontPos1;
+				//armBackPos2 = armBackPos1;
 
-				armBackPos2[0] = new Vector2(-30, 80);
-				armBackPos2[1] = new Vector2(-24, 117);
-				armBackPos2[2] = new Vector2(-16, 150);
+				armFrontPos2[0] = armFrontPos1[0] + new Vector2(4, 4);
+				armFrontPos2[1] = armFrontPos1[1] + new Vector2(8, 8);
+				armFrontPos2[2] = armFrontPos1[2] + new Vector2(14, 12);
+				armFrontPos2[3] = armFrontPos1[3] + new Vector2(22, 20);
+				armFrontPos2[4] = armFrontPos1[4] + new Vector2(28, 30);
+
+				armBackPos2[0] = armBackPos1[0] + new Vector2(0, 4);
+				armBackPos2[1] = armBackPos1[1] + new Vector2(-2, 12);
+				armBackPos2[2] = armBackPos1[2] + new Vector2(0, 20);
 
 				NPC.TargetClosest(true);
 				if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -264,7 +270,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					Body.realLife = NPC.whoAmI;
 					Body.netUpdate = true;
 
-					_tail = NPC.NewNPC(entitySource, (int)(NPC.Center.X - 76 * NPC.direction), (int)(NPC.Center.Y + 88), ModContent.NPCType<Nightmare_Tail>(), NPC.whoAmI, NPC.whoAmI);
+					_tail = NPC.NewNPC(entitySource, (int)(NPC.Center.X - 76 * NPC.direction), (int)(NPC.Center.Y + 145), ModContent.NPCType<Nightmare_Tail>(), NPC.whoAmI, NPC.whoAmI);
 					Tail.position += new Vector2(0, (float)Tail.height / 2);
 					Tail.netUpdate = true;
 
@@ -1016,6 +1022,23 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				}
 				faceFrame.Y = faceMouthSequence[faceFrameIndex] + (3 * (currentState - 1));
 			}
+			else if (NPC.life < NPC.lifeMax * 0.9)
+			{
+				goopFrameCounter++;
+				if (goopFrameCounter > (8 * ((float)NPC.life / NPC.lifeMax)))
+				{
+					goopFrame++;
+					if (goopFrame > 26)
+					{
+						goopFrame = 14;
+					}
+					goopFrameCounter = 0;
+					if (goopFrame == 18)
+					{
+						//Drop goo particle here
+					}
+				}
+			}
 
 			tailFrameCounter++;
 			if (tailFrameCounter > 8)
@@ -1154,12 +1177,20 @@ namespace MetroidMod.Content.NPCs.Nightmare
 						texMask = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_MaskGel").Value,
 						texFace = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_OpenFace").Value;
 
-				Vector2 bodyDrawPos = Body.Center + new Vector2(11 * NPC.direction, 2);
+				Vector2 bodyDrawPos = Body.Center + new Vector2(-17 * NPC.direction, 32);
 				Color bodyColor = NPC.GetAlpha(Lighting.GetColor((int)bodyDrawPos.X / 16, (int)bodyDrawPos.Y / 16));
 
 				if (currentState <= 0)
 				{
 					sb.Draw(texBody, bodyDrawPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texBody.Width, texBody.Height)), bodyColor, 0f, new Vector2(texBody.Width / 2, texBody.Height / 2), 1f, effects, 0f);
+				
+					if (NPC.life < NPC.lifeMax * 0.9)
+					{
+						Vector2 maskOffset = new Vector2(65 * NPC.direction, -22);
+						Rectangle? maskRect = new Rectangle?(new Rectangle(0, goopFrame * texMask.Height / 27, texMask.Width, texMask.Height / 27));
+						sb.Draw(texMask, bodyDrawPos + maskOffset - Main.screenPosition, maskRect, bodyColor, 0f, new Vector2(texMask.Width / 2, (texMask.Height / 27) / 2), 1f, effects, 0);
+					}
+				
 				}
 				else
 				{
@@ -1179,7 +1210,49 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					sb.Draw(texTail, tailDrawPos - Main.screenPosition, new Rectangle?(new Rectangle((int)tailFrame.X * tailWidth, (int)tailFrame.Y * tailHeight, tailWidth, tailHeight)), bodyColor, 0f, new Vector2(tailWidth / 2, tailHeight / 2), 1f, effects, 0f);
 				}
 
-				for (int i = 4; i >= 0; i--)
+				for (int i = 4; i >= 2; i--)
+				{
+					if (Main.npc[_armFront[i]].active)
+					{
+						Texture2D texArmFront = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_ArmFront").Value;
+						if (i > 0)
+						{				}
+
+						texArmFront = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_ArmFront" + i).Value;
+
+
+						Vector2 armFrontOrigin = new Vector2(texArmFront.Width / 2, texArmFront.Height / 2);
+						if (i == 4)
+						{
+							armFrontOrigin.X -= 7 * NPC.direction;
+						}
+
+						Vector2 armFrontDrawPos = Main.npc[_armFront[i]].Center;
+						Color armFrontColor = NPC.GetAlpha(Lighting.GetColor((int)armFrontDrawPos.X / 16, (int)armFrontDrawPos.Y / 16));
+						sb.Draw(texArmFront, armFrontDrawPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texArmFront.Width, texArmFront.Height)), armFrontColor, 0f, armFrontOrigin, 1f, effects, 0f);
+					}
+				}
+				for (int i = 0; i <= 1; i++) // Lil fuckery so that ArmFront1 is the topmost drawn arm
+				{
+					Texture2D texArmFront = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_ArmFront").Value;
+					if (i > 0)
+					{
+						texArmFront = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/Nightmare_ArmFront" + i).Value;
+					}
+					Vector2 armFrontOrigin = new Vector2(texArmFront.Width / 2, texArmFront.Height / 2);
+					if (i == 4)
+					{
+						armFrontOrigin.X -= 7 * NPC.direction;
+					}
+
+					Vector2 armFrontDrawPos = Main.npc[_armFront[i]].Center;
+					Color armFrontColor = NPC.GetAlpha(Lighting.GetColor((int)armFrontDrawPos.X / 16, (int)armFrontDrawPos.Y / 16));
+					sb.Draw(texArmFront, armFrontDrawPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texArmFront.Width, texArmFront.Height)), armFrontColor, 0f, armFrontOrigin, 1f, effects, 0f);
+
+				}
+
+
+				/*for (int i = 4; i >= 0; i--)
 				{
 					if (Main.npc[_armFront[i]].active)
 					{
@@ -1199,7 +1272,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 						Color armFrontColor = NPC.GetAlpha(Lighting.GetColor((int)armFrontDrawPos.X / 16, (int)armFrontDrawPos.Y / 16));
 						sb.Draw(texArmFront, armFrontDrawPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texArmFront.Width, texArmFront.Height)), armFrontColor, 0f, armFrontOrigin, 1f, effects, 0f);
 					}
-				}
+				}*/
 			}
 			else
 			{
