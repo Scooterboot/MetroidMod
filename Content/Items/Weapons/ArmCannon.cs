@@ -307,7 +307,6 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.crit = MissileBaseCrit;
 				Item.autoReuse = false;
 			}//Missile Launcher default stat assignment
-
 		}
 		public override void UseStyle(Player player, Rectangle heldItemFrame) //makes the player's arm rotate with the arm cannon
 		{
@@ -333,7 +332,13 @@ namespace MetroidMod.Content.Items.Weapons
 		public override bool CanUseItem(Player player) //lets things properly restrict your ability to use the weapon
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			return (player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat); //Add a suit lock check here later (as well as missile --DR)
+			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac)) { return false; }
+			if (ac.isBeam)
+			{
+				return player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat; //Add a suit lock check here later (as well as missile --DR);
+			}
+			else
+				return ac.statMissiles > 0;
 		}
 		#region Item visual methods
 		private void SetTexture(MGlobalItem ac)
@@ -403,7 +408,6 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.UseSound = missileSound;
 				Item.shoot = ModContent.ProjectileType<MissileShot>();
 			}
-
 		}
 		/// <summary>
 		/// Gets all the pre-shot info from installed addons and applies it to the arm cannon.
@@ -438,7 +442,7 @@ namespace MetroidMod.Content.Items.Weapons
 				//Originally this was pretty much just to check for holdfires, but this is the perfect place to do a shitton of stuff
 
 				//Initialize important variables
-				ModBeamAddon currentCheck = null; //gotta assign a value to this sucker or it'll throw a fit later
+				ModBeamAddon currentCheck = null; //gotta assign a value to this sucker or it'll throw a fit later //but do you tho? --DR
 				bool HelpImBeingSuppressed = false; //no basis for a form of government			-Z
 				HoldFireSlot = -1;
 
@@ -591,13 +595,14 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac.isBeam)
 			{
-				if (ac.SuppressingFire) { return false; }
-				if (ac.SuppressingFire && VisualDinners[2] != 2) { return false; }
-				else if (VisualDinners[2] == 2)
+				//if (ac.SuppressingFire) { return false; }
+				//if (ac.SuppressingFire && VisualDinners[2] != 2) { return false; }
+				if (VisualDinners[2] == 2 && ac.SuppressingFire)
 				{
 					MetroidMod.Instance.Logger.Info("TASTE THE RAINBOW MOTHERFUCKER");
 					BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).VIBShoot(Item, player, source, position, velocity, type, damage, knockback);
 				}
+				else if (ac.SuppressingFire) {return false;}
 				else
 				{
 					SpawnBeam(player, source, position, velocity, type, damage, knockback);
@@ -716,48 +721,16 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
-			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			float speedX = velocity.X;
-			float speedY = velocity.Y;
-			int[] visualData = [0, -1];
-			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
-			int theShootsingAmount = (int)AdditionalBeamStats[9] + 1;
 
 			if (ac != null && !ac.isBeam)
 			{
+				bool nope = MissileAddonLoader.GetAddon(missileAddons[1]) == null;
 				MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as MissileShot;
-				//MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
-
-				miss.Impact = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ImpactSound, MetroidMod.MissileImpactFallbackSFX);
-				miss.ModTexture = MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ShotTexture);
-				miss.missileDust = MissileAddonLoader.GetAddon(missileAddons[1]).ShotDust;
-
-				//The way shot textures are grabbed, explained in detail:
-				//Assets are stored in BeamAddons/BeamAddonName
-				//Basic shots are all named Shot
-				//In order to make alternate textures modular, the textures for specific edge-cases take the standard name and append modifiers to it
-				//(e.g. a charge shot should be named ShotCharged
-
-				//TODO: Character limit on modifiers? Don't want someone to make a 5000000000000 letter long one
-				/*
-				if (visualData[0] > 0)
-				{
-					miss.ShotFrames = visualData[0];
-				}
-
-				miss.groupSize = theShootsingAmount;
-				miss.groupID = i;
-
-				miss.fileMod += (ac.assetModifier + bonusFileMod);
-
-				miss.missileAddons = missileAddons
-					.Select(i => MissileAddonLoader.GetAddon(i))
-					.Select(i => i?.Clone())
-					.ToArray();*/
-
+				miss.Impact = !nope? MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ImpactSound, MetroidMod.MissileImpactFallbackSFX): MetroidMod.MissileImpactFallbackSFX;
+				miss.ModTexture = !nope? MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ShotTexture): MetroidMod.MissileFallbackTexture;
+				miss.missileDust = !nope? MissileAddonLoader.GetAddon(missileAddons[1]).ShotDust : DustID.YellowTorch;
 				miss.OnInitialized(source);
-				//mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
-				//mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
+				//ac.statMissiles -= (int)MGlobalItem.AmmoUsage(player, 1);
 			}
 		}
 		#endregion
