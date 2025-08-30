@@ -3841,6 +3841,11 @@ Mods: {
 				DisplayName: Norfair Purple Mass
 				Tooltip: ""
 			}
+
+			NightmareMask: {
+				Tooltip: ""
+				DisplayName: Nightmare Mask
+			}
 		}
 
 		NPCs: {
