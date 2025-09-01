@@ -216,33 +216,6 @@ namespace MetroidMod
 		/// </summary>
 		public virtual float SpeedMult { get; set; } = 0f;
 		/// <summary>
-		/// The base velocity value this addon adds.<br/>
-		/// NOTE: Not to be confused with VelocityMult, which is applied after this variable.
-		/// </summary>
-		public virtual float BaseVelocity { get; set; } = 0f;
-		/// <summary>
-		/// The velocity multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's <i>tooltip</i>. It will be converted later.<br/>
-		/// (i.e. if the addon should have a 50% speed increase, put 50f instead of 1.5f)
-		/// </summary>
-		public virtual float VelocityMult { get; set; } = 0f;
-		/// <summary>
-		/// The critical strike chance this addon adds.<br/>
-		/// NOTE: due to how crits work this one does NOT have a respective Mult value.
-		/// </summary>
-		public virtual int CritChance { get; set; } = 0;
-		/// <summary>
-		/// The base overheat value this addon adds.<br/>
-		/// NOTE: Not to be confused with OverheatMult, which is applied after this variable.
-		/// </summary>
-		public virtual int BaseOverheat { get; set; } = 0;
-		/// <summary>
-		/// The overheat multiplier value this addon adds.<br/>
-		/// NOTE: Input the value as you would see it on the item's <i>tooltip</i>. It will be converted later.<br/>
-		/// (i.e. if the addon should have a -50% overheat multiplier, put -50f instead of 0.5f)
-		/// </summary>
-		public virtual float OverheatMult { get; set; } = 0f;
-		/// <summary>
 		/// The amount of extra projectiles this addon will make the player fire.
 		/// </summary>
 		public virtual int AddShots { get; set; } = 0;

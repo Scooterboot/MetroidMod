@@ -331,8 +331,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 		public override bool CanUseItem(Player player) //lets things properly restrict your ability to use the weapon
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac)) { return false; }
+			//MPlayer mp = player.GetModPlayer<MPlayer>();
+			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac) || ac == null || !player.TryGetModPlayer(out MPlayer mp)) { return false; }
 			if (ac.isBeam)
 			{
 				return player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat; //Add a suit lock check here later (as well as missile --DR);
@@ -383,26 +383,25 @@ namespace MetroidMod.Content.Items.Weapons
 		//"This is where the fun begins" -Anakin Skywalker
 		#region The juicy stuff
 		public override void UpdateInventory(Player p)
-		{
-			MPlayer mp = p.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
-			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac)) { return; }
+		{   //MPlayer mp = player.GetModPlayer<MPlayer>();//finds the current player's MPlayer data for later modification
+			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac) || ac == null || !p.TryGetModPlayer(out MPlayer mp)) { return; }
 			
 			Item.autoReuse = (ac.isBeam && HoldFireSlot == -1);
 			//apply the numbers to the weapon
 			if (ac.isBeam) //apply to power beam
 			{
-				Item.damage = (int)((BeamBaseDamage + AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100f) + 1f)); //Formula for power beam base damage calc. Has to convert to int to work
-				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360f / ((BeamBaseSpeed + AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100) + 1))), 2); //Usetime calc. Can't let the usetime drop below a certain point
-				Item.shootSpeed = (BeamBaseVelocity + AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100f) + 1f); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
+				Item.damage = (int)((int)(BeamBaseDamage + AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100) + 1)); //Formula for power beam base damage calc. Has to convert to int to work
+				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360 / ((BeamBaseSpeed + AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100) + 1))), 2); //Usetime calc. Can't let the usetime drop below a certain point
+				Item.shootSpeed =  (BeamBaseVelocity + AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100f) + 1f); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
 				Item.crit = (int)(BeamBaseCrit + AdditionalBeamStats[6] + AdditionalPrimaryStats[3]);
-				Overheat = (int)((BaseOverheat + AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100f) + 1f));
+				Overheat = (int)((BaseOverheat + AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100) + 1));
 				Item.UseSound = beamSound;
 				Item.shoot = ModContent.ProjectileType<BeamShot>();
 			}
 			else //go missile mode
 			{
-				Item.damage = (int)((MissileBaseDamage + AdditionalMissileStats[0]) * ((AdditionalMissileStats[1] / 100f) + 1f)); //Formula for power Missile base damage calc. Has to convert to int to work
-				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360f / ((MissileBaseSpeed + AdditionalMissileStats[2]) * ((AdditionalMissileStats[3] / 100f) + 1f))), 2f); //Usetime calc. Can't let the usetime drop below a certain point
+				Item.damage = (int)((MissileBaseDamage + AdditionalMissileStats[0]) * ((AdditionalMissileStats[1] / 100) + 1)); //Formula for power Missile base damage calc. Has to convert to int to work
+				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360 / ((MissileBaseSpeed + AdditionalMissileStats[2]) * ((AdditionalMissileStats[3] / 100) + 1))), 2); //Usetime calc. Can't let the usetime drop below a certain point
 				Item.shootSpeed = MissileBaseVelocity;
 				Item.crit = MissileBaseCrit;
 				Item.UseSound = missileSound;
@@ -724,11 +723,11 @@ namespace MetroidMod.Content.Items.Weapons
 
 			if (ac != null && !ac.isBeam)
 			{
-				bool nope = MissileAddonLoader.GetAddon(missileAddons[1]) == null;
+				bool yup = missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir;
 				MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as MissileShot;
-				miss.Impact = !nope? MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ImpactSound, MetroidMod.MissileImpactFallbackSFX): MetroidMod.MissileImpactFallbackSFX;
-				miss.ModTexture = !nope? MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[1]).ShotTexture): MetroidMod.MissileFallbackTexture;
-				miss.missileDust = !nope? MissileAddonLoader.GetAddon(missileAddons[1]).ShotDust : DustID.YellowTorch;
+				miss.Impact = yup? MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ImpactSound, MetroidMod.MissileImpactFallbackSFX): MetroidMod.MissileImpactFallbackSFX;
+				miss.ModTexture = yup? MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotTexture): MetroidMod.MissileFallbackTexture;
+				miss.missileDust = yup ? MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotDust : DustID.YellowTorch;
 				miss.OnInitialized(source);
 				//ac.statMissiles -= (int)MGlobalItem.AmmoUsage(player, 1);
 			}
