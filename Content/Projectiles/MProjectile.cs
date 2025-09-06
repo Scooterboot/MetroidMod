@@ -389,7 +389,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 		}
 
-		/*public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
+		public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f)
 		{
 			float homeX = P.position.X;
 			float homeY = P.position.Y;
@@ -434,7 +434,7 @@ namespace MetroidMod.Content.Projectiles
 			yDist *= combinedDist;
 			P.velocity.X = (P.velocity.X * accuracy + xDist) / (accuracy + 1f);
 			P.velocity.Y = (P.velocity.Y * accuracy + yDist) / (accuracy + 1f);
-		}*/
+		}
 
 		int dustDelayCounter = 0;
 		public void DustLine(Vector2 Position, Vector2 Velocity, float rotation, int dustDelay, int freq, int dustType, float scale, Color color = default(Color))

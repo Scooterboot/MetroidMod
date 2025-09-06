@@ -192,13 +192,11 @@ namespace MetroidMod.Content.BeamAddons
 					if (chargeDelay % 10 == 0) { MetroidMod.Instance.Logger.Info("delay is at " + chargeDelay + "/" + item.useTime); }
 					if (chargeDelay > item.useTime) { chargeDelay = item.useTime; }
 				} //not allowed to charge just yet
-
-
 			}//Check if the player is currently trying to charge with a compatible weapon
-			else if (canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null) && mp.statCharge > 5)
+			else if (canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null) && mp.statCharge > 5f)
 			{
 				MetroidMod.Instance.Logger.Info("jobs done");
-				if (mp.statCharge == 100)
+				if (mp.statCharge >= 100f)
 				{
 					//spawn that fully charged beam my man
 					if (ac.isBeam)
@@ -206,12 +204,17 @@ namespace MetroidMod.Content.BeamAddons
 						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
 						wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
 					}
+					else
+					{
+						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
+						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack);
+					}
 					//alternatively shoot that missile combo if it's not a held
 				}
-				else if (mp.statCharge > 75 && ac.isBeam)
+				else if (mp.statCharge > 75f && ac.isBeam)
 				{
 					//spawn that mostly charged beam my man
-					wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (1.5f * (mp.statCharge / 100)), item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
+					wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (1.5f * (mp.statCharge / 100f)), item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
 					MetroidMod.Instance.Logger.Info(player.name + " released the... uh... slightly-less-charged beam!!!");
 				}
 				else
@@ -226,8 +229,8 @@ namespace MetroidMod.Content.BeamAddons
 				}
 				player.itemTime = 20;
 				player.itemAnimation = 20;
-				mp.statCharge = 0;
-				chargeDelay = 0;
+				mp.statCharge = 0f;
+				chargeDelay = 0f;
 			}//Check if there's any charge to release
 			else
 			{

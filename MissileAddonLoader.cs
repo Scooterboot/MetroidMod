@@ -243,6 +243,11 @@ namespace MetroidMod
 		/// <summary>
 		/// Combines all of the <b>weapon-side stats</b> of every installed missile addon.
 		/// <br/>These values will be applied to the weapon itself.
+		/// <br/>Array values are as follows:
+		/// <br/>[0]: Damage Base
+		/// <br/>[1]: Damage Multiplier
+		/// <br/>[2]: BaseSpeed
+		/// <br/>[3]: SpeedMult
 		/// </summary>
 		/// <param name="missileAddons">The array containing the Missile addons whose stacks need statting.<br/>...stats need stacking*</param>
 		/// <returns></returns>

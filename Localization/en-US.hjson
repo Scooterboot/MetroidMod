@@ -362,6 +362,7 @@ Mods: {
 			ElevatorStationTile.MapEntry: Elevator
 			TopElevatorStationTile.MapEntry: Elevator
 			IceMissileTile.MapEntry: Ice Missile Tile
+			HomingMissileTile.MapEntry: Homing Missile Tile
 		}
 
 		Buffs: {

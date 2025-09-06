@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -195,6 +196,7 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <br/><b>[1]</b> - Damage multiplier
 		/// <br/><b>[2]</b> - Added base usetime (convert to <b>int</b>)
 		/// <br/><b>[3]</b> - Usetime multiplier
+		///</summary>
 		public float[] AdditionalMissileStats = new float[4];
 		///<summary>
 		///Contains all of the stats added passively by addons installed in the Primary Quick-Swap.
@@ -720,14 +722,20 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
-
+			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
 			if (ac != null && !ac.isBeam)
 			{
+				edgeCaseStuff = MissileAddonLoader.WeaponStatStacker(missileAddons);
+				AdditionalMissileStats[1] += edgeCaseStuff[0];
+				AdditionalMissileStats[3] += edgeCaseStuff[1];
+				AdditionalMissileStats[5] += edgeCaseStuff[2];
+				AdditionalMissileStats[8] += edgeCaseStuff[3];
 				bool yup = missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir;
 				MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as MissileShot;
 				miss.Impact = yup? MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ImpactSound, MetroidMod.MissileImpactFallbackSFX): MetroidMod.MissileImpactFallbackSFX;
 				miss.ModTexture = yup? MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotTexture): MetroidMod.MissileFallbackTexture;
 				miss.missileDust = yup ? MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotDust : DustID.YellowTorch;
+				miss.fileMod += (ac.assetModifier + bonusFileMod);
 				miss.OnInitialized(source);
 				//ac.statMissiles -= (int)MGlobalItem.AmmoUsage(player, 1);
 			}
