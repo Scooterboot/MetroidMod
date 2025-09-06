@@ -726,10 +726,10 @@ namespace MetroidMod.Content.Items.Weapons
 			if (ac != null && !ac.isBeam)
 			{
 				edgeCaseStuff = MissileAddonLoader.WeaponStatStacker(missileAddons);
-				AdditionalMissileStats[1] += edgeCaseStuff[0];
-				AdditionalMissileStats[3] += edgeCaseStuff[1];
-				AdditionalMissileStats[5] += edgeCaseStuff[2];
-				AdditionalMissileStats[8] += edgeCaseStuff[3];
+				AdditionalMissileStats[0] += edgeCaseStuff[0];
+				AdditionalMissileStats[1] += edgeCaseStuff[1];
+				AdditionalMissileStats[2] += edgeCaseStuff[2];
+				AdditionalMissileStats[3] += edgeCaseStuff[3];
 				bool yup = missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir;
 				MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as MissileShot;
 				miss.Impact = yup? MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ImpactSound, MetroidMod.MissileImpactFallbackSFX): MetroidMod.MissileImpactFallbackSFX;
