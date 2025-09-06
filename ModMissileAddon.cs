@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace MetroidMod
 {
 	/// <summary>
-	/// The base type for all Power Missile addons.<br/><br/>
+	/// The base type for all Missile Launcher addons.<br/><br/>
 	/// ModMissileAddons automatically generate a <see cref="Terraria.ModLoader.ModItem"/> and a <see cref="Terraria.ModLoader.ModTile"/> to access the addon in-game.<br/>
 	/// Textures are grabbed automatically at this filepath:<br/>
 	/// <u>(name of mod)<b>/Assets/Textures/MissileAddons/</b>(name of addon file)<b>/</b>(Item for item sprite, Tile for tile sprite, Shot for shot sprite, etc.)</u><br/>
@@ -53,15 +53,15 @@ namespace MetroidMod
 		// * A MissileAddonProjectile.cs in MetroidMod/Default
 		// * A ModMissileAddon method for each Projectile method
 
-		///// <summary>
-		///// The <see cref="ModProjectile"/> this addon controls.
-		///// </summary>
-		//public ModProjectile ModProjectile;
+		/// <summary>
+		/// The <see cref="ModProjectile"/> this addon controls.
+		/// </summary>
+		public ModProjectile ModProjectile;
 
-		///// <summary>
-		///// The <see cref="Projectile"/> this addon controls.
-		///// </summary>
-		//public Projectile Projectile => ModProjectile.Projectile;
+		/// <summary>
+		/// The <see cref="Projectile"/> this addon controls.
+		/// </summary>
+		public Projectile Projectile => ModProjectile.Projectile;
 		/// <summary>
 		/// References the ModItem previously generated
 		/// </summary>
@@ -70,10 +70,10 @@ namespace MetroidMod
 		/// References the ModTile previously generated
 		/// </summary>
 		public int TileType { get; internal set; }
-		///// <summary>
-		///// References the ModProjectile previously generated
-		///// </summary>
-		//public int ProjectileType { get; internal set; }
+		/// <summary>
+		/// References the ModProjectile previously generated
+		/// </summary>
+		public int ProjectileType { get; internal set; }
 		#endregion
 
 		/// <summary>
@@ -114,6 +114,15 @@ namespace MetroidMod
 		/// </summary>
 		public virtual string ImpactSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/{Name}/Impact";
 		/// <summary>
+		/// The integer ID of the dust particles this addon's projectile will leave behind.
+		/// <br/>Use <see cref="DustID"/> for vanilla dust and use <see cref="ModDust.Type"/> for modded ones.
+		/// </summary>
+		public abstract int ShotDust { get; }
+
+		#region Charge Colors
+		//Relevant only for charge addons. Determines the color of the charge lead.
+
+		/// <summary>
 		/// The primary color of the addon's projectile.
 		/// </summary>
 		public abstract Color PrimaryColor { get; }
@@ -132,63 +141,8 @@ namespace MetroidMod
 		/// <br/>Default is <b>0</b>, or fully greyscale.
 		/// </summary>
 		public virtual float CoreSaturation => 0f;
-		/// <summary>
-		/// The integer ID of the dust particles this addon's projectile will leave behind.
-		/// <br/>Use <see cref="DustID"/> for vanilla dust and use <see cref="ModDust.Type"/> for modded ones.
-		/// </summary>
-		public abstract int ShotDust { get; }
 		#endregion
 
-		#region Visual Priority System variables
-		/// <summary>
-		/// Determines the level of priority of the addon's <b>shot texture</b>.<br />
-		/// 0 is the lowest, 5 is the highest<br />
-		/// If the addon has the <i>highest shape priority currently installed</i>, its shot graphics will be used.<br />
-		/// In the case of a tie, graphics are decided by slot priority.<br/>
-		/// Slot shape priority highest to lowest: Secondary(4), Spread(3), Ion(2), Ability(1), Primary(0)
-		/// </summary>
-		public virtual int ShapePriority { get; set; } = 0;
-		/// <summary>
-		/// Sets to true when this addon has shape priority.
-		/// <br/><br/>Defaults to <b>false</b>.
-		/// </summary>
-		//public bool ShapePrioritized = false;
-		/// <summary>
-		/// Determines the level of priority of the addon's <b>shot color</b>.<br />
-		/// 0 is the lowest, 5 is the highest<br />
-		/// If the addon has the <i>highest color priority currently installed</i>, its shot color will be used.<br />
-		/// In the case of a tie, color is decided by slot priority.<br />
-		/// Slot color priority highest to lowest: Ability(1), Secondary(4), Ion(2), Spread(3), Primary(0)
-		/// </summary>
-		public virtual int ColorPriority { get; set; } = 0;
-		/// <summary>
-		/// Sets to true when this addon has color priority.
-		/// <br/><br/>Defaults to <b>false</b>.
-		/// </summary>
-		//public bool ColorPrioritized = false;
-		/// <summary>
-		/// If true, this addon's sounds will play instead of the sounds from the current shape priority.
-		/// <br/>Requires this addon to have color priority.
-		/// <br/><br/>Defaults to <b>false</b>.
-		/// </summary>
-		public virtual bool SoundOverride { get; set; } = false;
-
-		/// <summary>
-		/// If true, this addon will <b>completely override</b> the visual priority system. <br/>
-		/// Making an addon a VIB also allows you to <b>create your own custom projectile</b> for your addon's shot, if you so choose. <br/>
-		/// If not, you can simply leave <see cref="vibOverride"/> as null. <br/>
-		/// Intended for use on Special Missiles, such as the <b>Hyper Missile</b> and <b>Phazon Missile</b>.<br/>
-		/// Checks each addon in sequential order; slot 0, slot 1, yadda yadda.<br/>
-		/// Defaults to <b>false.</b><br/>
-		/// <i>(stands for Very Important Missile)</i>
-		/// </summary>
-		public virtual bool VIB { get; set; } = false;
-		/// <summary>
-		/// Determines the custom projectile the VIB will fire instead of the standard Missile shot.
-		/// <br/>Leave null to use the standard Missile shot projectile.
-		/// <br/><b>For advanced use ONLY. Not recommended for beginners.</b>
-		/// </summary>
-		public ModProjectile vibOverride = null;
 		#endregion
 
 		#region Addon stat variables
@@ -228,28 +182,42 @@ namespace MetroidMod
 		/// </summary>
 		public virtual int InflictsBuff { get; set; }
 		/// <summary>
-		/// The amount of extra tiles this addon allows the Missile to interact with before being destroyed.
-		/// <br/><br/>Example: The amount of tiles the Wave Missile allows the shot to phase through.
-		/// </summary>
-		public virtual int TileInteract { get; set; } = 0;
-		/// <summary>
-		/// The amount of extra NPCs this addon allows the Missile to hit before being destroyed.
-		/// </summary>
-		public virtual int EntityInteract { get; set; } = 0;
-		/// <summary>
 		/// If true, this addon will continue to perform an action for as long as Fire is held.
 		/// <br/>For advanced Missile shenanigans. Assemble said shenanigans over in <see cref="HoldFireBehavior(Player)"/>.
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool HoldFire { get; set; } = false;
 
-		//Compatibility-related variables
 		/// <summary>
-		/// If true, <b>all holdfire behavior</b> is disabled for as long as this Missile is installed.
-		/// <br/>Useful if you don't want your addon to be able to be charged. Leave it off if your addon has a holdfire itself.
+		/// If false, this addon does not require Charge Beam to use.
+		/// <br/>Applies only to charge addons.
+		/// <br/><br/>Defaults to <b>true</b>.
+		/// </summary>
+		public virtual bool NeedsCharging { get; set; } = true; //thanks seeker missiles
+
+		//Fake Block-related stuff
+		/// <summary>
+		/// The level of strength this missile addon has in regard to missile blocks.
+		/// <br/><i>(e.g. Missile blocks are tier 1, Super Missile blocks are tier 2, etc. etc.)</i>
+		/// <br/><br/>Defaults to <b>1</b>.
+		/// </summary>
+		public virtual int MissileTier { get; set; } = 1;
+
+		/// <summary>
+		/// If true, this missile addon cannot break standard tiered missile blocks.
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
-		public virtual bool SuppressHoldFire { get; set; } = false;
+		public virtual bool TechnicallyNotAMissile { get; set; } = false;
+
+
+		/// <summary>
+		/// Lets you make the Arm Cannon do things while Fire is held down.
+		/// <br/>To be used with <see cref="HoldFire"/>.
+		/// </summary>
+		public virtual void HoldFireBehavior(Player player) { }
+
+
+		//Compatibility-related variables
 		/// <summary>
 		/// If true, this addon will not apply its properties to the Arm Cannon.
 		/// <br/>Used to create incompatibilites between addons.
@@ -262,11 +230,6 @@ namespace MetroidMod
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool Locked => false;
-		/// <summary>
-		/// If true, this addon's stats will be ignored while it's in the array.
-		/// <br/>Defaults to <b>false</b>.
-		/// </summary>
-		public virtual bool IgnoreStatsInArray => false;
 		#endregion
 
 		#region Data-handling methods
@@ -295,10 +258,12 @@ namespace MetroidMod
 			//Adds the content to the game.
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
+			Mod.AddContent(ModProjectile);
 			//Assigns the Type values to the appropriate fields.
 			//If you forget this part, you can't call the addons through their Type, which breaks things like Shimmer recipes.
 			ItemType = ModItem.Type;
 			TileType = ModTile.Type;
+			ProjectileType = ModProjectile.Type;
 
 		}
 
@@ -306,8 +271,10 @@ namespace MetroidMod
 		{
 			ModItem.Unload();
 			ModTile.Unload();
+			ModProjectile.Unload();
 			ModItem = null;
 			ModTile = null;
+			ModProjectile = null;
 			base.Unload();
 		}
 
@@ -363,93 +330,7 @@ namespace MetroidMod
 		#endregion
 
 		#region Advanced addon properties
-		/// <summary>
-		/// Allows this addon to define <b>static combos</b>, allowing for specific addon combinations to have unique properties.
-		/// <br/>Each static combo needs a corresponding keyword, which the method will return. <b>Keywords must not contain spaces.</b>
-		/// <br/>An addon's static combos will only trigger if it has shape priority.
-		/// <br/>To apply special data to a combo (such as animation frame count), use <see cref="ComboVisualsGet(string)"/>.
-		/// <br/><br/>Should return a <b>blank string</b> if a static combo is not selected.
-		/// </summary>
-		/// <param name="addons"></param>
-		/// <returns></returns>
-		public virtual string SetStaticCombos(Item[] addons) { return ""; }
-		/// <summary>
-		/// Defines special visual properties the Missile shot will undertake when certain combos are detected.
-		/// <br/>This can include <b>static combos</b> defined in <see cref="SetStaticCombos(Item[])"/>, <b>dynamic combos</b> applied at the time of firing (such as "Charged"), as well as combinations of both.
-		/// <br/><b>ReturnValue[0]</b>: Combo texture's animation framecount. Count starts at <b>1</b>.
-		/// <br/><b>ReturnValue[1]</b>: Combo's unique dust ID, if any. <b>-1</b> enables default dust-grabbing behavior and <b>-2</b> disables default dust generation entirely.
-		/// <br/><br/>Should return <b>[1, -1]</b> if a special combo is not identified.
-		/// </summary>
-		/// <param name="modifier"></param>
-		/// <returns></returns>
-		public virtual int[] ComboVisualsGet(string modifier) { return [1, -1]; }
-		//Dynamic combos are applied on the shot's firing.
-		//The best example of this would be charged shots, for which the keyword is "Charged".
 
-		/// <summary>
-		/// Allows Missile addons to apply some <i>highly</i> specific edge-case values in edge-case scenarios.
-		/// <br/>Example: The Wave Missile uses this method to spawn a second projectile on a charged shot without any other extra projectiles.
-		/// <br/>Array values are as follows:
-		/// <br/>[0]: Damage Multiplier
-		/// <br/>[1]: Speed Multiplier
-		/// <br/>[2]: Velocity Multiplier
-		/// <br/>[3]: Overheat Multiplier
-		/// <br/>[4]: Add Shots
-		/// </summary>
-		/// <param name="addons"></param>
-		/// <param name="statVals"></param>
-		/// <param name="bonusMod"></param>
-		/// <returns></returns>
-		public virtual float[] EdgeCaseData(ModMissileAddon[] addons, float[] statVals, string bonusMod) { return [0, 0, 0, 0, 0]; }
-
-		/// <summary>
-		/// Lets you make the Arm Cannon do things while Fire is held down.
-		/// <br/>To be used with <see cref="HoldFire"/>.
-		/// </summary>
-		public virtual void HoldFireBehavior(Player player) { }
-		/// <summary>
-		/// Extension of <see cref="AI(MProjectile)"/> that only runs when the addon has Shape Priority.
-		/// <br/>Example: Ice Missile uses this to make its projectile rotate.
-		/// </summary>
-		/// <param name="shot"></param>
-		public virtual void ShapeBehavior(MProjectile shot) { }
-		/// <summary>
-		/// Allows VIBs with custom projectiles to take over the firing logic.
-		/// </summary>
-		/// <param name="player"></param>
-		/// <param name="source"></param>
-		/// <param name="position"></param>
-		/// <param name="velocity"></param>
-		/// <param name="type"></param>
-		/// <param name="damage"></param>
-		/// <param name="knockback"></param>
-		public virtual void VIBShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) { }
-		#region Projectile behavior injectors
-		//These methods are designed to line up with the ones inside of ModProjectiles, allowing for ModProjectile code to be injected into Missile shots.
-		//Making them check for an MProjectile as opposed to a standard Projectile makes it easier to use Missile-specific variables.
-
-
-		///<summary> Gets called when your projectile spawns in world.
-		///<br/><br/>...except it's not <i>technically</i> on spawn since onboarding addons happens after the projectile spawns, so uh...
-		///<br/>Let's just say 'yes' and pretend a 'yes', because it might as well be, but acknowledge that... also... 'no'??</summary>
-		public virtual void OnSpawn(MProjectile mpshot, IEntitySource source) { }
-		/// <inheritdoc cref="ModProjectile.PreAI"/>
-		public virtual bool PreAI(MProjectile mpshot) { return true; }
-		/// <inheritdoc cref="ModProjectile.AI"/>
-		public virtual void AI(MProjectile mpshot) { }
-		/// /// <inheritdoc cref="ModProjectile.PostAI"/>
-		public virtual void PostAI(MProjectile mpshot) { }
-		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
-		public virtual void OnHitNPC(MProjectile mpshot, NPC target, NPC.HitInfo hit, int damageDone) { }
-		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
-		public virtual void OnHitPlayer(MProjectile mpshot, Player target, Player.HurtInfo info) { }
-		/// <inheritdoc cref="ModProjectile.TileCollideStyle(ref int, ref int, ref bool, ref Vector2)"/>
-		public virtual bool TileCollideStyle(MProjectile mpshot, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
-		/// <inheritdoc cref="ModProjectile.OnTileCollide(Vector2)"/>
-		public virtual bool OnTileCollide(MProjectile mpshot, Vector2 oldVelocity) { return true; }
-		/// <inheritdoc cref="ModProjectile.OnKill(int)"/>
-		public virtual void OnKill(MProjectile mpshot, int timeLeft) { }
-		#endregion
 
 		#endregion
 
@@ -467,6 +348,36 @@ namespace MetroidMod
 
 		///<inheritdoc cref="ModBlockType.PostDraw(int, int, SpriteBatch)"/>
 		public virtual void PostDrawTile(int i, int j, SpriteBatch sb) { }
+		#endregion
+
+		#region ModProjectile fields
+
+		/// <inheritdoc cref="ModProjectile.SetDefaults()"/>
+		public virtual void SetProjectileDefaults() { }
+
+
+		/// <inheritdoc cref="ModProjectile.OnSpawn(IEntitySource)"/>
+		public virtual void OnSpawn(IEntitySource source) { }
+
+		/// <inheritdoc cref="ModProjectile.PreAI()"/>
+		public virtual bool PreAI() { return true; }
+		///<inheritdoc cref="ModProjectile.AI()"/>
+		public virtual void AI() { }
+		///<inheritdoc cref="ModProjectile.PostAI()"/>
+		public virtual void PostAI() { }
+
+		///<inheritdoc cref="ModProjectile.TileCollideStyle(ref int, ref int, ref bool, ref Vector2)"/>
+		public virtual bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
+		///<inheritdoc cref="ModProjectile.OnTileCollide(Vector2)"/>
+		public virtual bool OnTileCollide (Vector2 oldVelocity) { return true; }
+
+		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
+		public virtual void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) { }
+		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
+		public virtual void OnHitPlayer(Player target, Player.HurtInfo info) { }
+
+		///<inheritdoc cref="ModProjectile.OnKill(int)"/>
+		public virtual void OnKill(int timeLeft) { }
 		#endregion
 	}
 }
