@@ -1,4 +1,5 @@
 ﻿using System;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
@@ -100,7 +101,11 @@ namespace MetroidMod.Content.BeamAddons
 		public override void VIBShoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1)
 		{
 			//copypaste most of the SpawnBeam stuff here
-
+			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
+			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
+			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+			float speedX = velocity.X;
+			float speedY = velocity.Y;
 
 			//do the for loop for the shootsing amount
 			//if the loop no. is 0: spawn the primary projectile
@@ -224,4 +229,6 @@ namespace MetroidMod.Content.BeamAddons
 		}
 
 	}
+
+
 }

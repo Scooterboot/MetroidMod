@@ -56,12 +56,12 @@ namespace MetroidMod
 		/// <summary>
 		/// The <see cref="ModProjectile"/> this addon controls.
 		/// </summary>
-		public ModProjectile ModProjectile;
+		public MProjectile mProjectile;
 
 		/// <summary>
 		/// The <see cref="Projectile"/> this addon controls.
 		/// </summary>
-		public Projectile Projectile => ModProjectile.Projectile;
+		public Projectile Projectile => mProjectile.Projectile;
 		/// <summary>
 		/// References the ModItem previously generated
 		/// </summary>
@@ -258,12 +258,12 @@ namespace MetroidMod
 			//Adds the content to the game.
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
-			Mod.AddContent(ModProjectile);
+			Mod.AddContent(mProjectile);
 			//Assigns the Type values to the appropriate fields.
 			//If you forget this part, you can't call the addons through their Type, which breaks things like Shimmer recipes.
 			ItemType = ModItem.Type;
 			TileType = ModTile.Type;
-			ProjectileType = ModProjectile.Type;
+			ProjectileType = mProjectile.Type;
 
 		}
 
@@ -271,10 +271,10 @@ namespace MetroidMod
 		{
 			ModItem.Unload();
 			ModTile.Unload();
-			ModProjectile.Unload();
+			mProjectile.Unload();
 			ModItem = null;
 			ModTile = null;
-			ModProjectile = null;
+			mProjectile = null;
 			base.Unload();
 		}
 
@@ -302,13 +302,15 @@ namespace MetroidMod
 		}
 		#endregion
 
-		#region ModItem fields
+
 		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[TileType] = true;
 			Main.tileOreFinderPriority[Type] = 806;
 			base.SetStaticDefaults();
 		}
+
+		#region ModItem fields
 
 		/// <inheritdoc cref="ModItem.SetDefaults()"/>
 		public virtual void SetItemDefaults(Item item) { }
@@ -353,31 +355,34 @@ namespace MetroidMod
 		#region ModProjectile fields
 
 		/// <inheritdoc cref="ModProjectile.SetDefaults()"/>
-		public virtual void SetProjectileDefaults() { }
+		public virtual void SetProjectileDefaults(MProjectile mProjectile) { }
 
 
 		/// <inheritdoc cref="ModProjectile.OnSpawn(IEntitySource)"/>
-		public virtual void OnSpawn(IEntitySource source) { }
+		public virtual void OnSpawn(MProjectile mProjectile, IEntitySource source) { }
 
 		/// <inheritdoc cref="ModProjectile.PreAI()"/>
-		public virtual bool PreAI() { return true; }
+		public virtual bool PreAI(MProjectile mProjectile) { return true; }
 		///<inheritdoc cref="ModProjectile.AI()"/>
-		public virtual void AI() { }
+		public virtual void AI(MProjectile mProjectile) { }
 		///<inheritdoc cref="ModProjectile.PostAI()"/>
-		public virtual void PostAI() { }
+		public virtual void PostAI(MProjectile mProjectile) { }
 
 		///<inheritdoc cref="ModProjectile.TileCollideStyle(ref int, ref int, ref bool, ref Vector2)"/>
-		public virtual bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
+		public virtual bool TileCollideStyle(MProjectile mProjectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
 		///<inheritdoc cref="ModProjectile.OnTileCollide(Vector2)"/>
-		public virtual bool OnTileCollide (Vector2 oldVelocity) { return true; }
+		public virtual bool OnTileCollide (MProjectile mProjectile, Vector2 oldVelocity) { return true; }
 
 		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
-		public virtual void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) { }
+		public virtual void OnHitNPC(MProjectile mProjectile, NPC target, NPC.HitInfo hit, int damageDone) { }
 		/// <inheritdoc cref="ModProjectile.OnHitPlayer(Player, Player.HurtInfo)"/>
-		public virtual void OnHitPlayer(Player target, Player.HurtInfo info) { }
+		public virtual void OnHitPlayer(MProjectile mProjectile, Player target, Player.HurtInfo info) { }
 
 		///<inheritdoc cref="ModProjectile.OnKill(int)"/>
-		public virtual void OnKill(int timeLeft) { }
+		public virtual void OnKill(MProjectile mProjectile, int timeLeft) { }
+
+		///<inheritdoc cref="ModProjectile.PreDraw(ref Color)"/>
+		public virtual bool ProjectilePreDraw(MProjectile mProjectile, ref Color lightColor) { return true; }
 		#endregion
 	}
 }
