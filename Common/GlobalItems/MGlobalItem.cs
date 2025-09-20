@@ -182,6 +182,10 @@ namespace MetroidMod.Common.GlobalItems
 				IItemDropRule Lokidev = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.LokiDevItemHead>(), 288));
 				Lokidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.LokiDevItemBody>(), 1));
 				Lokidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.LokiDevItemLegs>(), 1));
+				IItemDropRule Pipsidev = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemHead>(), 288));
+				Pipsidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemBody>(), 1));
+				//Pipsidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemTail>(), 1)); TODO Y U NO EQUIP
+				Pipsidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemLegs>(), 1));
 
 				itemLoot.Add(expertRule);
 			}
