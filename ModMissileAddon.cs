@@ -381,8 +381,12 @@ namespace MetroidMod
 		///<inheritdoc cref="ModProjectile.OnKill(int)"/>
 		public virtual void OnKill(MProjectile mProjectile, int timeLeft) { }
 
+
 		///<inheritdoc cref="ModProjectile.PreDraw(ref Color)"/>
-		public virtual bool ProjectilePreDraw(MProjectile mProjectile, ref Color lightColor) { return true; }
+		public virtual bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor) { return true; }
+
+		///<inheritdoc cref="ModProjectile.PostDraw(Color)"/>
+		public virtual void PostDrawProjectile(MProjectile mProjectile, Color lightColor) { }
 		#endregion
 	}
 }
