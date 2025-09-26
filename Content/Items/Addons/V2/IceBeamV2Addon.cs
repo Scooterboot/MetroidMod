@@ -47,7 +47,7 @@ namespace MetroidMod.Content.Items.Addons.V2
 				.AddIngredient<IceBeamAddon>(1)
 				.AddIngredient(ItemID.Ectoplasm, 8)
 				.AddIngredient(ItemID.BeetleHusk, 3)
-				.AddIngredient<Accessories.FrozenCore>(1)
+				.AddIngredient(ItemID.FrostCore, 1)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
