@@ -74,15 +74,27 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
-			STATE = (int)StateID.Sucking;
-			NPC.target = target.whoAmI;
-			AI_Counter = 0;
+			if (STATE == (int)StateID.Aggroed)
+			{
+				STATE = (int)StateID.Sucking;
+				NPC.target = target.whoAmI;
+				KnockoffScale = 0;
+				NPC.netUpdate = true;
+			}
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit)
 		{
-			STATE = (int)StateID.Sucking;
-			NPC.target = target.WhoAmIToTargettingIndex;
-			AI_Counter = 0;
+			if (STATE == (int)StateID.Aggroed)
+			{
+				STATE = (int)StateID.Sucking;
+				NPC.target = target.WhoAmIToTargettingIndex;
+				KnockoffScale = 0;
+				NPC.netUpdate = true;
+			}
+		}
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers.Knockback *= 0;
 		}
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
 		{
@@ -255,6 +267,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			{
 				STATE = (int)StateID.Frozen;
 				NPC.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().speedDecrease = 0;
+				NPC.netUpdate = true;
 			}
 			if (STATE == (int)StateID.Idle)
 			{
@@ -303,6 +316,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					NPC.targetRect = r;
 					STATE = (int)StateID.Aggroed;
 					AI_Counter = 0;
+					NPC.netUpdate = true;
 					//Dust.NewDustPerfect(tPos, DustID.GreenFairy, Vector2.Zero);
 				}
 			}
@@ -334,7 +348,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 						if (hitbox.Intersects(NPC.targetRect))
 						{
 							STATE = (int)StateID.Sucking;
-							AI_Counter = 0;
+							KnockoffScale = 0;
+							NPC.netUpdate = true;
 						}
 					}
 					else
@@ -370,6 +385,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				if (!NPC.HasValidTarget)
 				{
 					STATE = (int)StateID.Idle;
+					NPC.netUpdate = true;
 				}
 				else
 				{
@@ -429,6 +445,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					else
 					{
 						STATE = (int)StateID.Idle;
+						NPC.netUpdate = true;
 					}
 					int num = 0;
 					float num2 = 0;
@@ -437,6 +454,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					if (!hitbox.Intersects(NPC.targetRect))
 					{
 						STATE = (int)StateID.Aggroed;
+						NPC.netUpdate = true;
 					}
 					else
 					{
@@ -476,6 +494,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				if (!NPC.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().froze)
 				{
 					STATE = (int)StateID.Idle;
+					NPC.netUpdate = true;
 				}
 			}
 			else

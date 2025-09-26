@@ -363,6 +363,8 @@ Mods: {
 			RidleyMusicBox.MapEntry: Music Box (Ridley?)
 			ZeroHusk.MapEntry: Zero Husk
 			MetalChest.MapEntry: Metal Chest
+			GTTrophyTile.MapEntry: G T Trophy Tile
+			NightmareTrophyTile.MapEntry: Nightmare Trophy Tile
 		}
 
 		Buffs: {
