@@ -95,28 +95,30 @@ namespace MetroidMod.Common.GlobalItems
 			bool pseudoScrew = (mp.statCharge >= MPlayer.maxCharge && mp.somersault);
 			if (mp.hyperColors > 0 || mp.speedBoosting || mp.shineActive || (pseudoScrew && mp.psuedoScrewFlash >= 3) || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
 			{
+				Color dustColor = color;
 				if (mp.hyperColors > 0)
 				{
-					color = P.GetImmuneAlphaPure(new Color(mp.r, mp.g, mp.b, 255), shadow);
+					dustColor = P.GetImmuneAlphaPure(new Color(mp.r, mp.g, mp.b, 255), shadow);
 				}
 				else if (pseudoScrew && mp.psuedoScrewFlash >= 3)
 				{
-					color = P.GetImmuneAlphaPure(mp.chargeColor, shadow);
+					dustColor = P.GetImmuneAlphaPure(mp.chargeColor, shadow);
 				}
 				else if (mp.shineActive || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
 				{
-					color = P.GetImmuneAlphaPure(new Color(255, 216, 0), shadow);
+					dustColor = P.GetImmuneAlphaPure(new Color(255, 216, 0), shadow);
 				}
 				else if (mp.speedBoosting)
 				{
-					color = P.GetImmuneAlphaPure(new Color(0, 200, 255), shadow);
+					dustColor = P.GetImmuneAlphaPure(new Color(0, 200, 255), shadow);
 				}
-				mp.morphColor = color;
+				color = P.GetImmuneAlphaPure(Color.White, shadow);
+				mp.morphColor = dustColor;
 
 				int dustType = 212;
 				if (P.head <= 0 || P.body <= 0 || P.legs <= 0)
 				{
-					int dust = Dust.NewDust(new Vector2(P.position.X - P.velocity.X, P.position.Y - 2f - P.velocity.Y), P.width, P.height, dustType, -P.velocity.X * 0.25f, -P.velocity.Y * 0.25f, 100, color, 1.0f);
+					int dust = Dust.NewDust(new Vector2(P.position.X - P.velocity.X, P.position.Y - 2f - P.velocity.Y), P.width, P.height, dustType, -P.velocity.X * 0.25f, -P.velocity.Y * 0.25f, 100, dustColor, 1.0f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].noLight = true;
 				}

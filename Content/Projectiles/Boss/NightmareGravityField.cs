@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.Boss
@@ -86,6 +87,17 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 				Projectile.Center = new Vector2(Tail.Center.X + 26 * Head.direction, Tail.Center.Y + 14);
 				Projectile.spriteDirection = Head.direction;
+				
+				foreach (Projectile P in Main.ActiveProjectiles)
+				{
+					if (P.Name.Contains("Missile") || P.aiStyle == ProjAIStyleID.Arrow || P.aiStyle == ProjAIStyleID.ThrownProjectile || P.aiStyle == ProjAIStyleID.Bounce || P.aiStyle == ProjAIStyleID.GroundProjectile || P.aiStyle == ProjAIStyleID.Boulder || P.aiStyle == ProjAIStyleID.Explosive || P.aiStyle == ProjAIStyleID.BeachBall || P.aiStyle == ProjAIStyleID.GolfBall || P.aiStyle == ProjAIStyleID.PaperPlane)
+					{
+						if (P.velocity.Y < 20)
+						{
+							P.velocity.Y++;
+						}
+					}
+				}
 			}
 
 			Projectile.position.X += Projectile.width / 2f;
@@ -98,6 +110,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 			Projectile.timeLeft = 10;
 			Projectile.rotation += 0.25f;
+
 		}
 
 		public override bool PreDraw(ref Color lightColor)

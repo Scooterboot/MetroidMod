@@ -79,7 +79,7 @@ float4 DodgeAndBurnShaderFunction(float4 sampleColor : COLOR0, float2 coords : T
     color.rgb = colorDodge * mainColorStr + color.rgb * (1 - mainColorStr);
     color *= color.a;
     color.a *= sampleColor.a;
-    return color;
+    return color * sampleColor;
 }
 
 float4 PaletteShaderFunction(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0

@@ -1,4 +1,6 @@
+using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Buffs
@@ -17,6 +19,11 @@ namespace MetroidMod.Content.Buffs
 		{
 			N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().froze = true;
 			N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().speedDecrease = 0;
+			//int dustRate = (int)Math.Max(N.buffTime[buffIndex] / 40, 1);
+			//if (N.buffTime[buffIndex] < 120 && Main.rand.NextBool(dustRate))
+			//{
+			//	Dust.NewDust(N.position, N.width, N.height, DustID.Ice, 0, 0, 100, default, 1);
+			//}
 		}
 	}
 }

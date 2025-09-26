@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -66,7 +67,8 @@ namespace MetroidMod.Content.Projectiles.Boss
 				}
 				else if (Projectile.localAI[0] < 25)
 				{
-					Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
+					SoundEngine.PlaySound(Sounds.NPCs.NightmareShot, Projectile.Center);
+					//Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
 				}
 				Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			}

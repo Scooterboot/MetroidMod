@@ -15,6 +15,9 @@ namespace MetroidMod.Content.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			player.maxFallSpeed += 10f;
+			player.gravDir = 1f;
+			player.gravControl = false;
+			player.gravControl2 = false;
 			player.gravity += Player.defaultGravity;
 			Player.jumpHeight -= (int)(Player.jumpHeight * 0.5f);
 			Player.jumpSpeed -= Player.jumpSpeed * 0.5f;

@@ -28,7 +28,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.lifeMax = 10000;
 			//NPC.dontTakeDamage = true;
 			NPC.HitSound = SoundID.NPCHit4;
-			NPC.DeathSound = SoundID.NPCDeath14;
+			NPC.DeathSound = Sounds.NPCs.NightmareTailBreak;// SoundID.NPCDeath14;
 			NPC.noGravity = true;
 			NPC.knockBackResist = 0;
 			NPC.lavaImmune = true;
@@ -156,6 +156,11 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
+			if (NPC.soundDelay <= 0 && hit.Damage > 20)
+			{
+				SoundEngine.PlaySound(Sounds.NPCs.NightmareTailHurt, NPC.Center);
+				NPC.soundDelay = 40;
+			}
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
 			{
 				for (int num70 = 0; num70 < 15; num70++)

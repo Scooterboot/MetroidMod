@@ -141,6 +141,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 								Main.projectile[i].penetrate--;
 								if (Main.projectile[i].penetrate == 0)
 								{
+									SoundEngine.PlaySound(Sounds.NPCs.FusionPlink, NPC.position);
 									break;
 								}
 							}

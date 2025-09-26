@@ -430,6 +430,16 @@ Mods: {
 				Description: Mods.MetroidMod.Buffs.MiniTorizoBuff.Description
 				DisplayName: Mini Torizo Buff
 			}
+
+			MetroidSucc: {
+				DisplayName: Metroid Drain
+				Description: Your life is rapidly being drained
+			}
+
+			MochtroidSucc: {
+				DisplayName: Mochtroid Drain
+				Description: Your life is being drained
+			}
 		}
 
 		Items: {
@@ -3955,10 +3965,10 @@ Mods: {
 			Skree.DisplayName: Skree
 			Waver.DisplayName: Waver
 			Dessgeega.DisplayName: Dessgeega
-			Dessgeega_Large.DisplayName: Large Dessgeega
+			Dessgeega_Large.DisplayName: Big Dessgeega
 			Sidehopper.DisplayName: Sidehopper
 			Sidehopper_Large.DisplayName: Large Sidehopper
-			LarvalMetroid.DisplayName: Larval Metroid
+			LarvalMetroid.DisplayName: Metroid
 			Mochtroid.DisplayName: Mochtroid
 			Multiviola.DisplayName: Multiviola
 			SpacePirate.DisplayName: Space Pirate

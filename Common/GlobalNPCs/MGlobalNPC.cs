@@ -4,9 +4,12 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.NPCs.Mobs.Metroid;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using rail;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -51,7 +54,7 @@ namespace MetroidMod.Common.GlobalNPCs
 			}
 			if (froze || stunned)
 			{
-				if (speedDecrease <= 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && !MetroidMod.Instance.FrozenStandOnNPCs.Contains(npc.type))
+				if (speedDecrease <= 0 && npc.type != ModContent.NPCType<LarvalMetroid>() && npc.type != ModContent.NPCType<Mochtroid>() && !MetroidMod.Instance.FrozenStandOnNPCs.Contains(npc.type))
 				{
 					npc.damage = 0;
 					npc.frame.Y = 0;
@@ -108,15 +111,51 @@ namespace MetroidMod.Common.GlobalNPCs
 			if (froze)
 			{
 				drawColor = Lighting.GetColor((int)npc.position.X / 16, (int)npc.position.Y / 16, new Color(0, 144, 255));
+				int iceIndex = npc.FindBuffIndex(ModContent.BuffType<IceFreeze>());
+				int instantIndex = npc.FindBuffIndex(ModContent.BuffType<InstantFreeze>());
+				int timeLeft = Math.Max(iceIndex != -1 ? npc.buffTime[iceIndex] : -1, instantIndex != -1 ? npc.buffTime[instantIndex] : -1);
+				if (timeLeft > 0)
+				{
+					int dustRate = (int)Math.Max(timeLeft / 40, 1);
+					if (timeLeft < 120 && Main.rand.NextBool(dustRate))
+					{
+						Dust.NewDust(npc.position, npc.width, npc.height, DustID.Ice, 0, 0, 100, default, 1 - speedDecrease);
+					}
+				}
 			}
 			if (stunned)
 			{
 				drawColor = Lighting.GetColor((int)npc.position.X / 16, (int)npc.position.Y / 16, new Color(255, 255, 0));
 			}
 		}
+		//public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		//{
+		//	if (froze)
+		//	{
+		//		spriteBatch.End();
+		//		spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+
+
+		//		MiscShaderData shaderData = GameShaders.Misc["MetroidModDualTint"];
+		//		shaderData.UseColor(new Color(0f, 0.714f, 1f));
+		//		shaderData.UseSecondaryColor(new Color(0f, 0.286f, 1f));
+		//		shaderData.UseOpacity(0.2f);
+		//		shaderData.UseSaturation(1f);
+		//		shaderData.UseImage0(TextureAssets.Npc[npc.type]);
+		//	}
+		//	return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
+		//}
+		//public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		//{
+		//	if (froze)
+		//	{
+		//		spriteBatch.End();
+		//		spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.Transform);
+		//	}
+		//}
 
 		//public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => target.TryGetModPlayer(out Players.MPlayer mp) && !(mp.screwAttack && mp.somersault);
-		
+
 		public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
 		{
 			target.TryGetModPlayer(out MPlayer mp);

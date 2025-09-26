@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -22,14 +23,23 @@ namespace MetroidMod.Content.Buffs
 			else
 				N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().speedDecrease = 0;
 
-			int dustID = Dust.NewDust(N.position, N.width, N.height, DustID.BlueTorch, N.velocity.X * 0.2f, N.velocity.Y * 0.2f, 100, new Color(), 2f);
-
+			int dustID = Dust.NewDust(N.position, N.width, N.height, DustID.IceTorch, N.velocity.X * 0.2f, N.velocity.Y * 0.2f, 100, new Color(), 2f);
+			if (N.buffTime[buffIndex] < 300)
+			{
+				N.buffTime[buffIndex] = 300;
+			}
 			return true;
 		}
 
 		public override void Update(NPC N, ref int buffIndex)
 		{
 			N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().froze = true;
+			//float speedDown = N.GetGlobalNPC<Common.GlobalNPCs.MGlobalNPC>().speedDecrease;
+			//int dustRate = (int)Math.Max(N.buffTime[buffIndex] / 40, 1);
+			//if (N.buffTime[buffIndex] < 120 && Main.rand.NextBool(dustRate))
+			//{
+			//	Dust.NewDust(N.position, N.width, N.height, DustID.Ice, 0, 0, 100, default,  1 - speedDown);
+			//}
 		}
 	}
 }

@@ -291,7 +291,7 @@ namespace MetroidMod.Content.NPCs.Serris
 						if (soundCounter <= 0)
 						{
 							SoundEngine.PlaySound(Sounds.NPCs.SerrisAccel, NPC.Center);
-							soundCounter = 21;
+							soundCounter = 16;
 						}
 						else if (numUpdates == 0)
 						{

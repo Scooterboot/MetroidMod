@@ -26,7 +26,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()  //Alright so this here method thingy lets you tweak the bestiary display
 			{
 				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/Nightmare/Nightmare_BossLog",
-				Position = new Vector2(-20f, 38f), // these two variables ONLY APPLY TO THE LIST TILES
+				Position = new Vector2(-24f, 48f), // these two variables ONLY APPLY TO THE LIST TILES
 				Scale = 0.6f,
 				PortraitPositionXOverride = -30f,
 				PortraitPositionYOverride = 40f,
@@ -89,10 +89,6 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			//NPC.damage = (int)(NPC.damage * 0.8f);
 			//damage = (int)(damage * 2 * 0.8f);
 		}
-		public override void BossLoot(ref string name, ref int potionType)
-		{
-			potionType = ItemID.GreaterHealingPotion;
-		}
 		public override void OnKill()
 		{
 			MSystem.bossesDown |= MetroidBossDown.downedNightmare;
@@ -122,6 +118,14 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					{
 						Main.dust[dustID].noGravity = true;
 					}
+				}
+			}
+			if (state < 4)
+			{
+				if (NPC.soundDelay <= 0)
+				{
+					SoundEngine.PlaySound(Sounds.NPCs.NightmareOuch, NPC.Center);
+					NPC.soundDelay = 55;
 				}
 			}
 
@@ -394,7 +398,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 							Main.dust[num72].velocity *= 1.4f;
 							Main.dust[num72].noGravity = true;
 						}
-						SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+						SoundEngine.PlaySound(Sounds.NPCs.NightmareMaskBreak, NPC.position);
 
 
 						var entitySource = NPC.GetSource_Death();
@@ -456,6 +460,12 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				}
 				else
 				{
+					NPC.localAI[0]++;
+					if (NPC.localAI[0] > 150)
+					{
+						NPC.localAI[0] = 0;
+						SoundEngine.PlaySound(Sounds.NPCs.NightmareWaow, NPC.position);
+					}
 					// Main phase
 					if (NPC.ai[1] == 0 && !despawn)
 					{
@@ -922,7 +932,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 						}
 						if (xCounter == 61)
 						{
-							SoundEngine.PlaySound(SoundID.NPCDeath14, Body.Center);
+							SoundEngine.PlaySound(Sounds.NPCs.NightmareDeath, NPC.position);
 						}
 					}
 					if (xCounter > 90)
@@ -955,7 +965,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				{
 					NPC.aiStyle = 5;
 					NPC.knockBackResist = 0.5f;
-					NPC.HitSound = SoundID.NPCHit8;
+					NPC.HitSound = Sounds.NPCs.CoreXHurt;//SoundID.NPCHit8;
+					NPC.DeathSound = Sounds.NPCs.CoreXDeath;
 					NPC.position += NPC.velocity * 1.5f;
 
 					NPC.ai[3]++;
@@ -1022,7 +1033,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.direction = direction;
 
 			float lifePercent = (float)NPC.life / NPC.lifeMax;
-			if (currentState > 0)
+			if (currentState > 0 && state < 4)
 			{
 				NPC.HitSound = SoundID.NPCHit1;
 

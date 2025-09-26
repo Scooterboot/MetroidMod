@@ -963,7 +963,7 @@ namespace MetroidMod.Common.Players
 		{
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
 
-			speedBoosting = (Math.Abs(Player.velocity.X) >= 6.85f || canWallJump) && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0 && !(Player.mount.Active && !mp.morphBall);
+			speedBoosting = (Math.Abs(Player.velocity.X) >= 6.85f || canWallJump) && speedBuildUp >= 120f && mp.SMoveEffect <= 0 && shineDirection == 0 && !(Player.mount.Active && !mp.morphBall) && !Player.slow && !Player.dazed;
 			if ((Player.controlRight && Player.velocity.X > 0) || (Player.controlLeft && Player.velocity.X < 0))
 			{
 				if(Player.velocity.Y == 0)
@@ -1014,6 +1014,10 @@ namespace MetroidMod.Common.Players
 					Player.velocity.X = 0;
 					speedBuildUp = 0f;
 				}
+			}
+			if (Player.slow || Player.dazed)
+			{
+				shineCharge = 0;
 			}
 			if (shineCharge > 0)
 			{

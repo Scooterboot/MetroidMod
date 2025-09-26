@@ -86,6 +86,45 @@ namespace MetroidMod
 
 			};
 
+			public static readonly SoundStyle NightmareOuch = new($"{nameof(MetroidMod)}/Assets/Sounds/NightmareOuch")
+			{
+
+			};
+
+			public static readonly SoundStyle NightmareTailHurt = new($"{nameof(MetroidMod)}/Assets/Sounds/NightmareTailHurt")
+			{
+
+			};
+
+			public static readonly SoundStyle NightmareTailBreak = new($"{nameof(MetroidMod)}/Assets/Sounds/NightmareTailBreak")
+			{
+
+			};
+
+			public static readonly SoundStyle NightmareMaskBreak = new($"{nameof(MetroidMod)}/Assets/Sounds/NightmareMaskBreak")
+			{
+
+			};
+
+			public static readonly SoundStyle NightmareDeath = new($"{nameof(MetroidMod)}/Assets/Sounds/NightmareDeath")
+			{
+
+			};
+			public static readonly SoundStyle NightmareShot = new($"{nameof(MetroidMod)}/Assets/Sounds/NightmareShot")
+			{
+
+			};
+
+			public static readonly SoundStyle NightmareWaow = new($"{nameof(MetroidMod)}/Assets/Sounds/NightmareWaow")
+			{
+
+			};
+
+			public static readonly SoundStyle FusionPlink = new($"{nameof(MetroidMod)}/Assets/Sounds/FusionPlink")
+			{
+
+			};
+
 			public static readonly SoundStyle OmegaPirateCore_TransitionSound = new($"{nameof(MetroidMod)}/Assets/Sounds/OmegaPirateCore_TransitionSound")
 			{
 

@@ -88,7 +88,7 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			modifiers.FinalDamage.Flat = target.damage * 2;
+			modifiers.SourceDamage.Flat += target.damage * 2;
 		}
 	}
 }

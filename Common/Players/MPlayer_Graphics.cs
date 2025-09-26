@@ -182,6 +182,34 @@ namespace MetroidMod.Common.Players
 				{
 					drawInfo.cLegs = shader;
 				}
+				if (drawInfo.drawPlayer.shoe > 0 && drawInfo.drawPlayer.cShoe <= 0)
+				{
+					drawInfo.cShoe = shader;
+				}
+
+				Color color = drawInfo.colorHair;
+				if (hyperColors > 0)
+				{
+					color = drawInfo.drawPlayer.GetImmuneAlphaPure(new Color(r, g, b, 255), drawInfo.shadow);
+				}
+				else if (pseudoScrew && psuedoScrewFlash >= 3)
+				{
+					color = drawInfo.drawPlayer.GetImmuneAlphaPure(chargeColor, drawInfo.shadow);
+				}
+				else if (shineActive || (shineCharge > 0 && shineChargeFlash >= 4))
+				{
+					color = drawInfo.drawPlayer.GetImmuneAlphaPure(new Color(255, 216, 0), drawInfo.shadow);
+				}
+				else if (speedBoosting)
+				{
+					color = drawInfo.drawPlayer.GetImmuneAlphaPure(new Color(0, 200, 255), drawInfo.shadow);
+				}
+				if (drawInfo.drawPlayer.hairDye == 0)
+				{
+					drawInfo.colorHair = color;
+				}
+				//drawInfo.hairDyePacked = shader;
+				drawInfo.skinDyePacked = shader;
 
 				if (drawInfo.shadow == 0f && hyperColors > 0)
 				{
@@ -280,6 +308,43 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			ModifyDrawInfo_GetArmors(ref drawInfo);
+		}
+		public override void DrawEffects(PlayerDrawSet drawInfo, ref float red, ref float green, ref float blue, ref float alpha, ref bool fullBright)
+		{
+			Color color = new Color(red, green, blue);
+			bool pseudoScrew = (statCharge >= maxCharge && somersault);
+			if (hyperColors > 0)
+			{
+				color = drawInfo.drawPlayer.GetImmuneAlphaPure(new Color(r, g, b, 255), drawInfo.shadow);
+				drawInfo.colorHair = color;
+				red = color.R / 255f;
+				green = color.G / 255f;
+				blue = color.B / 255f;
+			}
+			else if (pseudoScrew && psuedoScrewFlash >= 3)
+			{
+				color = drawInfo.drawPlayer.GetImmuneAlphaPure(chargeColor, drawInfo.shadow);
+				drawInfo.colorHair = color;
+				red = color.R / 255f;
+				green = color.G / 255f;
+				blue = color.B / 255f;
+			}
+			else if (shineActive || (shineCharge > 0 && shineChargeFlash >= 4))
+			{
+				color = drawInfo.drawPlayer.GetImmuneAlphaPure(new Color(255, 216, 0), drawInfo.shadow);
+				drawInfo.colorHair = color;
+				red = color.R / 255f;
+				green = color.G / 255f;
+				blue = color.B / 255f;
+			}
+			else if (speedBoosting)
+			{
+				color = drawInfo.drawPlayer.GetImmuneAlphaPure(new Color(0, 200, 255), drawInfo.shadow);
+				red = color.R / 255f;
+				green = color.G / 255f;
+				blue = color.B / 255f;
+			}
+			
 		}
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{

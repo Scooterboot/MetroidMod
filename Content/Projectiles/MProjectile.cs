@@ -220,6 +220,12 @@ namespace MetroidMod.Content.Projectiles
 				Projectile.oldRot[i] = Projectile.oldRot[i - 1];
 			}
 			Projectile.oldRot[0] = Projectile.rotation;
+
+
+			if (Projectile.Name.Contains("Ice") || shot.Contains("ice") || (Projectile.Name.Contains("Missile") && Projectile.Name.Contains("Stardust")) || (shot.Contains("ice") && shot.Contains("stardust")) || Projectile.type == ModContent.ProjectileType<JudicatorChargeShot>() || Projectile.type == ModContent.ProjectileType<JudicatorShot>())
+			{
+				Projectile.coldDamage = true;
+			}
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
