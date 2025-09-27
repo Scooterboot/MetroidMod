@@ -20,6 +20,7 @@ using Terraria.GameContent.ItemDropRules;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Tiles.ItemTile;
 using System.IO;
+using MetroidMod.Content.Buffs;
 
 namespace MetroidMod.Common.Players
 {
@@ -88,6 +89,7 @@ namespace MetroidMod.Common.Players
 		public int selectedItem = 0;
 		public int oldSelectedItem = 0;
 
+		public bool suckedByMetroid = false;
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();
@@ -111,6 +113,7 @@ namespace MetroidMod.Common.Players
 			accessHyperBeam = false;
 			hazardShield = 0;
 			phazonRegen = 0;
+			suckedByMetroid = false;
 
 			HUDColor = Color.LightBlue;
 
@@ -381,6 +384,8 @@ namespace MetroidMod.Common.Players
 			{
 				falling = true;
 			}
+
+
 		}
 		public static bool TouchTiles(Vector2 Position, int Width, int Height, int tileType)
 		{
@@ -541,6 +546,13 @@ namespace MetroidMod.Common.Players
 		{
 			PostUpdateRunSpeeds_Accessories();
 			PostUpdateRunSpeeds_MorphBall();
+			if (suckedByMetroid)
+			{
+				Player.dash = 0;
+				Player.dashType = 0;
+				Player.wingsLogic = 0;
+				Player.rocketBoots = 0;
+			}
 		}
 		public override void PostUpdate()
 		{
@@ -597,7 +609,7 @@ namespace MetroidMod.Common.Players
 		public void SenseMove(Player P)
 		{
 
-			if (P.mount.Active || ballstate)
+			if (P.mount.Active || ballstate || Player.HasBuff<MetroidSucc>())
 			{
 				return;
 			}

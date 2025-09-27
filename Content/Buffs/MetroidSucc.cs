@@ -1,3 +1,4 @@
+using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -23,7 +24,9 @@ namespace MetroidMod.Content.Buffs
 			player.lifeRegenTime = 0;
 			player.lifeRegen -= Main.masterMode ? 160 : Main.expertMode ? 120 : 80;
 			player.dazed = true;
-			player.velocity *= 0.95f;
+			player.blockExtraJumps = true;
+			player.GetModPlayer<MPlayer>().suckedByMetroid = true;
+			//player.velocity *= 0.95f;
 		}
 		public override void Update(NPC N, ref int buffIndec)
 		{

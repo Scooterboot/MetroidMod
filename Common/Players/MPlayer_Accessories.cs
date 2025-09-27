@@ -784,7 +784,7 @@ namespace MetroidMod.Common.Players
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
 			if (mp.statSpaceJumps >= 15 && Player.grappling[0] == -1 && mp.spaceJumped && !Player.GetJumpState(ExtraJump.CloudInABottle).Active && !Player.GetJumpState(ExtraJump.BlizzardInABottle).Active && !Player.GetJumpState(ExtraJump.SandstormInABottle).Active && !Player.GetJumpState(ExtraJump.FartInAJar).Active && Player.jump == 0 && Player.velocity.Y != 0f && ((Player.rocketTime == 0 && Player.wingTime == 0f)|| !MConfigMain.Instance.spaceJumpRocketBoots) && !Player.mount.Active)
 			{
-				if (Player.controlJump && (Player.releaseJump||Player.autoJump&&(!mp.insigniaActive && mp.spaceJumpsRegenDelay <= 0) || mp.insigniaActive) && Player.velocity.Y != 0 && mp.spaceJumped)
+				if (Player.controlJump && !Player.blockExtraJumps && (Player.releaseJump||Player.autoJump&&(!mp.insigniaActive && mp.spaceJumpsRegenDelay <= 0) || mp.insigniaActive) && Player.velocity.Y != 0 && mp.spaceJumped)
 				{
 					Player.jump = Player.jumpHeight;
 					Player.velocity.Y = -Player.jumpSpeed * Player.gravDir;
@@ -811,7 +811,7 @@ namespace MetroidMod.Common.Players
 					mp.canSomersault = false;
 				}
 			}
-			else if ((!Player.mount.Active || !Player.mount.BlockExtraJumps) && Player.controlJump && Player.releaseJump && !mp.spaceJumped && Player.grappling[0] == -1 && mp.grapplingBeam <= -1 && Player.jump <= 0)
+			else if ((!Player.mount.Active || !Player.mount.BlockExtraJumps) && Player.controlJump && !Player.blockExtraJumps && Player.releaseJump && !mp.spaceJumped && Player.grappling[0] == -1 && mp.grapplingBeam <= -1 && Player.jump <= 0)
 			{
 				int num167 = Player.height;
 				if (Player.gravDir == -1f)

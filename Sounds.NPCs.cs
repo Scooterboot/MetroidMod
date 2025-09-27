@@ -46,6 +46,21 @@ namespace MetroidMod
 
 			};
 
+			public static readonly SoundStyle Metroid = new($"{nameof(MetroidMod)}/Assets/Sounds/Metroid")
+			{
+
+			};
+
+			public static readonly SoundStyle Mochtroid = new($"{nameof(MetroidMod)}/Assets/Sounds/Mochtroid")
+			{
+
+			};
+
+			public static readonly SoundStyle TheBaby = new($"{nameof(MetroidMod)}/Assets/Sounds/TheBaby")
+			{
+
+			};
+
 			public static readonly SoundStyle PhantoonFire = new($"{nameof(MetroidMod)}/Assets/Sounds/PhantoonFire")
 			{
 

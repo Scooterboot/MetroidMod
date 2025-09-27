@@ -58,6 +58,10 @@ namespace MetroidMod.Default
 				Projectile.frameCounter = 0;
 			}
 		}
+		public override bool? CanDamage()
+		{
+			return false;
+		}
 
 		public override void OnKill(int timeLeft)
 		{

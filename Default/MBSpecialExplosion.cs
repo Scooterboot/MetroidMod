@@ -48,7 +48,8 @@ namespace MetroidMod.Default
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (target.defense < 1000) { modifiers.FinalDamage += target.defense / 2; }
+			//if (target.defense < 1000) { modifiers.FinalDamage += target.defense / 2; }
+			modifiers.ArmorPenetration += 999;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

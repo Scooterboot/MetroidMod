@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Buffs
 			player.lifeRegenTime = 0;
 			player.lifeRegen -= (Main.masterMode ? 80 : Main.expertMode ? 60 : 40) / (player.iceBarrier ? 2 : 1);
 			player.dazed = true;
-			player.velocity *= 0.96f;
+			//player.velocity *= 0.96f;
 		}
 		
 	}

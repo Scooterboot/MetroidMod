@@ -1,10 +1,12 @@
 using System;
 using System.IO;
+using FullSerializer;
 using MetroidMod.Common.Configs;
 using MetroidMod.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
@@ -39,13 +41,13 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		public override void SetDefaults()
 		{
-			NPC.width = 64;
+			NPC.width = 60;
 			NPC.height = 46;
 			NPC.damage = 30;
 			NPC.defense = 400;
 			NPC.lifeMax = 320;
 			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.DeathSound = Sounds.NPCs.Metroid;
 			NPC.noGravity = true;
 			NPC.value = Item.buyPrice(0, 0, 19, 86);
 			NPC.knockBackResist = 1f;
@@ -72,16 +74,15 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		{
 			return true;
 		}
-		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-		{
-			if (STATE == (int)StateID.Aggroed)
-			{
-				STATE = (int)StateID.Sucking;
-				NPC.target = target.whoAmI;
-				KnockoffScale = 0;
-				NPC.netUpdate = true;
-			}
-		}
+		//public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+		//{
+		//	if (STATE == (int)StateID.Aggroed)
+		//	{
+		//		STATE = (int)StateID.Sucking;
+		//		NPC.target = target.whoAmI;
+		//		KnockoffScale = 0;
+		//	}
+		//}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit)
 		{
 			if (STATE == (int)StateID.Aggroed)
@@ -98,43 +99,65 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
 		{
-			if (target.iceBarrier || target.frostBurn) return false;
-			if (STATE == (int)StateID.Sucking || STATE == (int)StateID.Frozen) return false;
-			return base.CanHitPlayer(target, ref cooldownSlot);
+			return false;
+			//if (target.iceBarrier || target.frostBurn) return false;
+			//if (STATE == (int)StateID.Sucking || STATE == (int)StateID.Frozen) return false;
+			//return base.CanHitPlayer(target, ref cooldownSlot);
 		}
 		public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
 		{
-			npcHitbox.Height += 18;
+			npcHitbox.Height += 14;
 			return base.ModifyCollisionData(victimHitbox, ref immunityCooldownSlot, ref damageMultiplier, ref npcHitbox);
 		}
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
-			if (STATE == (int)StateID.Sucking && hit.Knockback > 0)
-			{
-				KnockoffScale += hit.Knockback * 1.5f;
-			}
+			//if (STATE == (int)StateID.Sucking && hit.Knockback > 0)
+			//{
+			//	KnockoffScale += hit.Knockback * 1.5f;
+			//}
 		}
 		public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
-			if (STATE == (int)StateID.Sucking)
-			{
-				if (hit.Knockback > 0)
-				{
-					KnockoffScale += hit.Knockback;
-					if (Main.player[projectile.owner].heldProj == projectile.whoAmI)
-					{
-						KnockoffScale += hit.Knockback * 0.5f;
-					}
-				}
-				if (projectile.coldDamage)
-				{
-					KnockoffScale += 2;
-				}
+			//if (STATE == (int)StateID.Sucking)
+			//{
+			//	if (hit.Knockback > 0)
+			//	{
+			//		KnockoffScale += hit.Knockback;
+			//		if (Main.player[projectile.owner].heldProj == projectile.whoAmI)
+			//		{
+			//			KnockoffScale += hit.Knockback * 0.5f;
+			//		}
+			//	}
+			//	if (projectile.coldDamage)
+			//	{
+			//		KnockoffScale += 2;
+			//	}
 
-				if (projectile.type == ((ModMBWeapon)MBAddonLoader.GetAddon<MorphBallAddons.Bomb>()).ProjectileType || projectile.type == ((ModMBSpecial)MBAddonLoader.GetAddon<MorphBallAddons.PowerBomb>()).ProjectileType)
+			//	if (projectile.type == ((ModMBWeapon)MBAddonLoader.GetAddon<MorphBallAddons.Bomb>()).ProjectileType || projectile.type == ((ModMBSpecial)MBAddonLoader.GetAddon<MorphBallAddons.PowerBomb>()).ProjectileType)
+			//	{
+			//		KnockoffScale += 8;
+			//	}
+			//}
+		}
+
+		public override void HitEffect(NPC.HitInfo hit)
+		{
+			if (STATE == (int)StateID.Sucking && hit.Knockback > 0)
+			{
+				KnockoffScale += hit.Knockback;
+			}
+			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
+			{
+				for (int i = 0; i < 20; i++)
 				{
-					KnockoffScale += 8;
+					Dust d = Dust.NewDustDirect(NPC.position, NPC.height, NPC.height, DustID.t_Slime, 0, 0, 120, Color.LimeGreen, 1.5f);
+					d.velocity = NPC.DirectionTo(d.position) * 3;
 				}
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(10, 0), NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(-10, 0), NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(0, -10), NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(10, 10), NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
+				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(10, 10), NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
 			}
 		}
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
@@ -154,7 +177,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				}
 				if (item.type == ItemID.IceBlade || item.type == ItemID.Frostbrand)
 				{
-					KnockoffScale += 4;
+					//KnockoffScale += 4;
 					modifiers.ScalingArmorPenetration += 1f;
 				}
 				modifiers.FinalDamage *= 1 - DR;
@@ -186,7 +209,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					{
 						projectile.knockBack = 1.5f;
 					}
-					KnockoffScale += 4;
+					//KnockoffScale += 4;
 					modifiers.ScalingArmorPenetration += 1f;
 				}
 				modifiers.FinalDamage *= 1 - DR;
@@ -217,38 +240,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				});
 		}
 
-		public override void HitEffect(NPC.HitInfo hit)
-		{
-			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)
-			{
-				for (int i = 0; i < 20; i++)
-				{
-					Dust d = Dust.NewDustDirect(NPC.position, NPC.height, NPC.height, DustID.t_Slime, 0, 0, 120, Color.LimeGreen, 1.5f);
-					d.velocity = NPC.DirectionTo(d.position) * 3;
-				}
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(10, 0), NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(-10, 0), NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(0, -10), NPC.velocity, Mod.Find<ModGore>("MetroidGore1").Type, NPC.scale);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(10, 10), NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
-				Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center + new Vector2(10, 10), NPC.velocity, Mod.Find<ModGore>("MetroidGore2").Type, NPC.scale);
-			}
-		}
-
-		private float STATE
-		{
-			get { return NPC.ai[0]; }
-			set { NPC.ai[0] = value; }
-		}
-		private float AI_Counter
-		{
-			get { return NPC.ai[1]; }
-			set { NPC.ai[1] = value; }
-		}
-		private float KnockoffScale
-		{
-			get { return NPC.ai[2]; }
-			set { NPC.ai[2] = value; }
-		}
+		public ref float STATE => ref NPC.ai[0];
+		public ref float AI_Counter => ref NPC.ai[1];
+		public ref float KnockoffScale => ref NPC.ai[2];
 		private enum StateID : int
 		{
 			Idle,
@@ -304,7 +298,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				NPC.velocity = ((home - 1f) * NPC.velocity + move) / home;
 
 				NPCUtils.TargetSearchResults results = NPCUtils.SearchForTarget(NPC, NPCUtils.TargetSearchFlag.All, 
-					(Player p) => p.Distance(NPC.Center) < 600 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, p.position, p.width, p.height) 
+					(Player p) => p.Distance(NPC.Center) < 600 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, p.position, p.width, p.height) && p.active && !p.dead && !p.immune
 					&& ! p.buffImmune[ModContent.BuffType<MetroidSucc>()] && !p.HasBuff<MetroidSucc>() && !p.HasBuff(BuffID.Frozen), 
 					(NPC n) => !n.TypeName.Contains("Metroid") && !n.dontTakeDamage && !n.immortal && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, n.position, n.width, n.height) &&
 					!n.buffImmune[ModContent.BuffType<MetroidSucc>()] && !n.HasBuff<MetroidSucc>() && !n.HasBuff<IceFreeze>() && !n.HasBuff<InstantFreeze>() && !n.coldDamage);
@@ -316,7 +310,6 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					NPC.targetRect = r;
 					STATE = (int)StateID.Aggroed;
 					AI_Counter = 0;
-					NPC.netUpdate = true;
 					//Dust.NewDustPerfect(tPos, DustID.GreenFairy, Vector2.Zero);
 				}
 			}
@@ -325,10 +318,25 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				if (!NPC.HasValidTarget)
 				{
 					STATE = (int)StateID.Idle;
+					NPC.netUpdate = true;
 				}
 				else
 				{
 					float speed = 7;
+					foreach (Player p in Main.ActivePlayers)
+					{
+						Rectangle hitbox = NPC.Hitbox;
+						int num = 0;
+						float num2 = 0;
+						NPC.GetMeleeCollisionData(p.Hitbox, NPC.whoAmI, ref num, ref num2, ref hitbox);
+						if (hitbox.Intersects(p.Hitbox) && p.active && !p.dead && !p.immune && !p.buffImmune[ModContent.BuffType<MetroidSucc>()] && !p.HasBuff<MetroidSucc>() && !p.HasBuff(BuffID.Frozen) && !(p.iceBarrier || p.frostBurn))
+						{
+							STATE = (int)StateID.Sucking;
+							NPC.target = p.whoAmI;
+							KnockoffScale = 0;
+							NPC.netUpdate = true;
+						}
+					}
 					if (NPC.HasPlayerTarget)
 					{
 						Player p = Main.player[NPC.target];
@@ -361,7 +369,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					{
 						targetPos = NPC.targetRect.Center();
 					}
-					if (!Collision.CanHitLine(NPC.position, NPC.width, NPC.height, targetPos, 0, 0))
+					//Dust.NewDustPerfect(targetPos, DustID.BlueTorch, Vector2.Zero);
+					if (!Collision.CanHitLine(NPC.position, NPC.width, NPC.height, targetPos, 0, 0) || NPC.Distance(targetPos) > 600)
 					{
 						AI_Counter++;
 						//Dust.NewDustPerfect(targetPos, DustID.RedTorch, Vector2.Zero);
@@ -416,6 +425,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 								dmg += 50;
 							}
 							NPC.SimpleStrikeNPC(dmg, p.direction, true, 10);
+							NPC.netUpdate = true;
 						}
 					}
 					else if (NPC.HasNPCTarget)
@@ -440,12 +450,18 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 								NPC.AddBuff(BuffID.Frostburn2, n.buffTime[b]);
 								n.DelBuff(b);
 							}
+							NPC.netUpdate = true;
 						}
 					}
 					else
 					{
 						STATE = (int)StateID.Idle;
 						NPC.netUpdate = true;
+					}
+					if (NPC.soundDelay <= 0)
+					{
+						NPC.soundDelay = 55;
+						SoundEngine.PlaySound(Sounds.NPCs.Metroid.WithPitchOffset(Main.rand.NextFloat() * 0.25f).WithVolumeScale(0.5f), NPC.Center);
 					}
 					int num = 0;
 					float num2 = 0;
@@ -454,7 +470,6 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					if (!hitbox.Intersects(NPC.targetRect))
 					{
 						STATE = (int)StateID.Aggroed;
-						NPC.netUpdate = true;
 					}
 					else
 					{
@@ -479,9 +494,13 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 
 				}
 			}
-			if (KnockoffScale > 1)
+			if (KnockoffScale > 0)
 			{
 				KnockoffScale -= 0.25f;
+				if (KnockoffScale < 0)
+				{
+					KnockoffScale = 0;
+				}
 			}
 			if (STATE == (int)StateID.Frozen)
 			{
@@ -567,6 +586,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				{
 					shellAnimCounter--;
 				}
+				if (shellAnimCounter < -10) shellAnimCounter = -10;
+				if (shellAnimCounter > 10) shellAnimCounter = 10;
 			}
 			if (NPC.frameCounter >= 20)
 			{
@@ -665,7 +686,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			Vector2 originElec = new Vector2(texElec.Width * 0.5f, frameHeightElec * 0.5f);
 			Vector2 originOuter = new Vector2(texOuter.Width * 0.5f, frameHeightOuter * 0.5f);
 
-			Vector2 shellScale = new Vector2(1f + (Math.Abs(shellAnimCounter) * 0.003f), 1f - (Math.Abs(shellAnimCounter) * 0.002f));
+			Vector2 shellScale = new Vector2(1f + (shellAnimCounter * 0.003f), 1f - (shellAnimCounter * 0.002f));
 
 			if (STATE == (int)StateID.Frozen)
 			{

@@ -5,6 +5,7 @@ using MetroidMod.Content.Buffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
@@ -39,7 +40,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 
 			NPC.noGravity = true;
 			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.DeathSound = Sounds.NPCs.Mochtroid;
 
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -141,11 +142,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			NPC.value = ((int)(NPC.value * NPC.scale));
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
+			NPC.DeathSound = Sounds.NPCs.Mochtroid.WithVolumeScale(NPC.scale * 0.75f).WithPitchOffset(1f - NPC.scale);
 		}
-
 		public override void AI()
 		{
-			if (STATE == (int)StateID.Spawn)
+			if (NPC.scale == 1)
 			{
 				SetStats();
 				STATE = (int)StateID.Idle;
@@ -233,9 +234,18 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 						sucking = true;
 					}
 				}
-				if (sucking && NPC.life < NPC.lifeMax && AI_Counter % 2 == 0)
+				if (sucking)
 				{
-					NPC.life++;
+					if (NPC.life < NPC.lifeMax && AI_Counter % 2 == 0)
+					{
+						NPC.life++;
+					}
+					if (NPC.soundDelay <= 0)
+					{
+						NPC.soundDelay = 75; 
+						SoundEngine.PlaySound(Sounds.NPCs.Mochtroid.WithPitchOffset(Main.rand.NextFloat() * 0.25f + (1f - NPC.scale)).WithVolumeScale(NPC.scale * 0.5f), NPC.Center);
+
+					}
 				}
 				float acc = sucking ? acceleration * 2 : acceleration;
 				float dec = sucking ? 0.95f : 0.98f;
