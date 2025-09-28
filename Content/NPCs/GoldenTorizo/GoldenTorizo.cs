@@ -99,6 +99,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.ScrewAttack>()));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoMusicBox>(), 6));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.GoldenTorizoTrophy>(), 11));
 			npcLoot.Add(notExpertRule);
 		}
 		public override void OnKill()

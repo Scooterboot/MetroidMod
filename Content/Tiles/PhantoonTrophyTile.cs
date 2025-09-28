@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -15,8 +16,9 @@ namespace MetroidMod.Content.Tiles
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLavaDeath[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
-			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.StyleWrapLimit = 36;
+			TileObjectData.newTile.StyleHorizontal = false;
+			TileObjectData.newTile.StyleWrapLimit = 9;
+			AnimationFrameHeight = TileObjectData.newTile.CoordinateFullHeight;
 			TileObjectData.addTile(Type);
 			DustType = 7;
 			TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
@@ -29,5 +31,18 @@ namespace MetroidMod.Content.Tiles
 		{
 			new EntitySource_TileBreak(i, j); //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.PhantoonTrophy>());
 		}
+
+		//public override void AnimateTile(ref int frame, ref int frameCounter)
+		//{
+		//	float targetRot = (float)Math.Atan2(Main.LocalPlayer.Center.Y - (Main.tile.Y + 22), Main.Main.LocalPlayer.Center.X - tile.X);
+		//	if (targetRot >= (float)(Math.PI * 2))
+		//	{
+		//		targetRot -= (float)(Math.PI * 2);
+		//	}
+		//	if (targetRot < 0)
+		//	{
+		//		targetRot += (float)(Math.PI * 2);
+		//	}
+		//}
 	}
 }

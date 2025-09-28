@@ -105,7 +105,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.PurePhazon>(), 1));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.OmegaPirateMusicBox>(), 6));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.OmegaPirateMask>(), 8));
-			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.OmegaPirateTrophy>(), 11));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.OmegaPirateTrophy>(), 11));
 
 			npcLoot.Add(notExpertRule);
 		}

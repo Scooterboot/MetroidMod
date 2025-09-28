@@ -332,27 +332,31 @@ Mods: {
 			// TopElevatorStation.MapEntry: Elevator
 			// ElevatorStation.MapEntry: Elevator
 			// MissileStation.MapEntry: Missile Station
-			// NovaWorkTableTile.MapEntry: Nova Work Table
+			// NovaWorkTableTile.MapEntry: Nova Worktable
 			// ChozoStatue.MapEntry: Chozo Statue
 			// ChozoStatueArm.MapEntry: Chozo Statue
 			// ChozoStatueNatural.MapEntry: Chozo Statue
 			// ChozoStatueArmNatural.MapEntry: Chozo Statue
-			// ChozoStatue2.MapEntry: Ancient Chozo Statue
-			// ChozoStatueArm2.MapEntry: Ancient Chozo Statue
-			// ChozoStatueNatural2.MapEntry: Ancient Chozo Statue
-			// ChozoStatueArm2Natural.MapEntry: Ancient Chozo Statue
-			// ChozoStatue3.MapEntry: Imperial Chozo Statue
-			// ChozoStatueArm3.MapEntry: Imperial Chozo Statue
-			// ChozoStatueNatural3.MapEntry: Imperial Chozo Statue
-			// ChozoStatueArm3Natural.MapEntry: Imperial Chozo Statue
+			// ChozoStatue2.MapEntry: Chozo Statue
+			// ChozoStatueArm2.MapEntry: Chozo Statue
+			// ChozoStatueNatural2.MapEntry: Chozo Statue
+			// ChozoStatueArm2Natural.MapEntry: Chozo Statue
+			// ChozoStatue3.MapEntry: Chozo Statue
+			// ChozoStatueArm3.MapEntry: Chozo Statue
+			// ChozoStatueNatural3.MapEntry: Chozo Statue
+			// ChozoStatueArm3Natural.MapEntry: Chozo Statue
 			// TorizoTrophyTile.MapEntry: Torizo Trophy
 			// SerrisTrophyTile.MapEntry: Serris Trophy
 			// KraidTrophyTile.MapEntry: Kraid Trophy
 			// PhantoonTrophyTile.MapEntry: Phantoon Trophy
+			// OmegaPirateTrophyTile.MapEntry: Omega Pirate Trophy
+			// NightmareTrophyTile.MapEntry: Nightmare Trophy
+			// GoldenTorizoTrophyTile.MapEntry: Golden Torizo Trophy
 			// ChozoPillar.MapEntry: Chozodian Pillar
 			// ChozoPillarNatural.MapEntry: Chozodian Pillar
 			// ChozoChest.MapEntry: Chozodian Chest
 			// ChoziteBarTile.MapEntry: Chozite Bar
+			// MetalChest.MapEntry: Metal Chest
 			// PhazonChest.MapEntry: Phazon Chest
 			#Shinies
 			// ChoziteOreTile.MapEntry: Chozite Ore
@@ -361,10 +365,8 @@ Mods: {
 			#Unused/Dev
 			// EnergyStationDevtool.MapEntry: Energy Station (Devtool)
 			// RidleyMusicBox.MapEntry: Music Box (Ridley?)
+			// RidleyTrophyTile.MapEntry: Ridley Trophy?
 			// ZeroHusk.MapEntry: Zero Husk
-			// MetalChest.MapEntry: Metal Chest
-			// GTTrophyTile.MapEntry: G T Trophy Tile
-			// NightmareTrophyTile.MapEntry: Nightmare Trophy Tile
 		}
 
 		Buffs: {
@@ -2085,7 +2087,7 @@ Mods: {
 			######################
 			
 			TorizoSummon: {
-				// DisplayName: Torizo Summon
+				// DisplayName: Inactive Torizo Unit
 				// Tooltip: Summons Torizo
 			}
 
@@ -2105,8 +2107,8 @@ Mods: {
 			}
 
 			TorizoRelic: {
-				// Tooltip: ""
 				// DisplayName: Torizo Relic
+				// Tooltip: ""
 			}
 
 			SerrisSummon: {
@@ -2126,6 +2128,11 @@ Mods: {
 
 			SerrisMask: {
 				// DisplayName: Serris Mask
+				// Tooltip: ""
+			}
+
+			SerrisRelic: {
+				// DisplayName: Serris Relic
 				// Tooltip: ""
 			}
 
@@ -2149,6 +2156,11 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			KraidRelic: {
+				// DisplayName: Kraid Relic
+				// Tooltip: ""
+			}
+
 			PhantoonSummon: {
 				// DisplayName: Ectoplasmic Locator
 				// Tooltip: Summons Phantoon at night
@@ -2169,6 +2181,11 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			PhantoonRelic: {
+				// DisplayName: Phantoon Relic
+				// Tooltip: ""
+			}
+
 			NightmareSummon: {
 				// DisplayName: Strange Device
 				// Tooltip: Summons Nightmare at night
@@ -2181,6 +2198,16 @@ Mods: {
 
 			NightmareTrophy: {
 				// DisplayName: Nightmare Trophy
+				// Tooltip: ""
+			}
+
+			NightmareMask: {
+				// Tooltip: ""
+				// DisplayName: Nightmare Mask
+			}
+
+			NightmareRelic: {
+				// DisplayName: Nightmare Relic
 				// Tooltip: ""
 			}
 
@@ -2203,8 +2230,18 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			OmegaPirateMask: {
+				// DisplayName: Omega Pirate Mask
+				// Tooltip: ""
+			}
+
+			OmegaPirateRelic: {
+				// DisplayName: Omega Pirate Relic
+				// Tooltip: ""
+			}
+
 			GoldenTorizoSummon: {
-				// DisplayName: Golden Torizo Summon
+				// DisplayName: Inactive Gold Torizo Unit
 				// Tooltip: Summons Gold Torizo
 			}
 
@@ -2214,8 +2251,47 @@ Mods: {
 			}
 
 			GoldenTorizoTrophy: {
-				// DisplayName: Golden Torizo Trophy
+				// DisplayName: Gold Torizo Trophy
 				// Tooltip: ""
+			}
+
+			GoldenTorizoMask: {
+				// DisplayName: Gold Torizo Mask
+				// Tooltip: ""
+			}
+
+			GoldenTorizoRelic: {
+				// DisplayName: Gold Torizo Relic
+				// Tooltip: ""
+			}
+
+			RidleySummon: {
+				// DisplayName: "[PLACEHOLDER NAME]"
+				// Tooltip: You shouldn't have this.
+			}
+
+			RidleyBag: {
+				// DisplayName: Treasure Bag (Ridley)
+				/* Tooltip:
+					'''
+					You shouldn't have this.
+					{$CommonItemTooltip.RightClickToOpen}
+					''' */
+			}
+
+			RidleyTrophy: {
+				// DisplayName: Ridley Trophy
+				// Tooltip: You shouldn't have this.
+			}
+
+			RidleyMask: {
+				// DisplayName: Ridley Mask
+				// Tooltip: You shouldn't have this.
+			}
+
+			RidleyRelic: {
+				// DisplayName: Ridley Relic
+				// Tooltip: You shouldn't have this.
 			}
 
 			########################
@@ -3852,11 +3928,6 @@ Mods: {
 			NorfairPurpleMass: {
 				// DisplayName: Norfair Purple Mass
 				// Tooltip: ""
-			}
-
-			NightmareMask: {
-				// Tooltip: ""
-				// DisplayName: Nightmare Mask
 			}
 
 			PipsiParadoxxDevItemBody: {

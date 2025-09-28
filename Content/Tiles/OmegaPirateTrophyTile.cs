@@ -7,7 +7,7 @@ using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles
 {
-	public class GTTrophyTile : ModTile
+	public class OmegaPirateTrophyTile : ModTile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -20,13 +20,13 @@ namespace MetroidMod.Content.Tiles
 			DustType = 7;
 			Terraria.ID.TileID.Sets.DisableSmartCursor[Type] = true;//disableSmartCursor = true;
 			LocalizedText name = CreateMapEntryName();
-			// name.SetDefault("Gold Torizo Trophy");
-			AddMapEntry(new Color(149, 133, 77), name);
+			// name.SetDefault("Omega Pirate Trophy");
+			AddMapEntry(new Color(137, 98, 69), name);
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			new EntitySource_TileBreak(i, j); //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.GTTrophy>());
+			new EntitySource_TileBreak(i, j); //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ModContent.ItemType<Items.Tiles.OmegaPirateTrophy>());
 		}
 	}
 }

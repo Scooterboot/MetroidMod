@@ -102,7 +102,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreXFragment>(), 1, 25, 25));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareMusicBox>(), 6));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.NightmareMask>(), 8));
-			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareTrophy>(), 11));
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareTrophy>(), 11));
 
 			npcLoot.Add(notExpertRule);
 		}
