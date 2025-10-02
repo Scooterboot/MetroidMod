@@ -182,6 +182,7 @@ namespace MetroidMod.Common.Systems
 				}
 			}
 			Wiring.DeActive(x, y);
+			NetMessage.SendTileSquare(Main.myPlayer, x, y);
 			if (mBlockType[x, y] == 12)
 			{
 				int left = mBlockType[x - 1, y];
@@ -266,6 +267,7 @@ namespace MetroidMod.Common.Systems
 					else
 					{
 						Wiring.ReActive((int)pos.X, (int)pos.Y);
+						NetMessage.SendTileSquare(Main.myPlayer, (int)pos.X, (int)pos.Y);
 					}
 					regenTimers.Dequeue();
 					UpdateRegenTimers();
