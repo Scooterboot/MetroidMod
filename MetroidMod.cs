@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
 using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -21,7 +23,8 @@ namespace MetroidMod
 		SyncPlayerStats,
 		PlaySyncedSound,
 		BestiaryUpdate,
-		ChangeHatchOpenState
+		ChangeHatchOpenState,
+		BreakableBlockUpdate
 	}
 
 	[LegacyName("MetroidModPorted")]
@@ -225,6 +228,37 @@ namespace MetroidMod
 					}
 
 					break;
+
+				case MetroidMessageType.BreakableBlockUpdate:
+					int posX = reader.Read7BitEncodedInt();
+					int posY = reader.Read7BitEncodedInt();
+					bool itsBreaking = reader.ReadBoolean();
+					int placeType;
+					if (!itsBreaking)
+					{
+						placeType = reader.Read7BitEncodedInt();
+					}
+					else
+					{
+						placeType = BreakableTileID.None;
+					}
+
+					MSystem.mBlockType[posX, posY] = (ushort)placeType;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						ModPacket syncer = GetPacket();
+						syncer.Write((byte)MetroidMessageType.BreakableBlockUpdate);
+						syncer.Write7BitEncodedInt(posX);
+						syncer.Write7BitEncodedInt(posY);
+						syncer.Write(itsBreaking);
+						if (!itsBreaking)
+						{
+							syncer.Write7BitEncodedInt(placeType);
+						}
+						syncer.Send(ignoreClient: whoAmI);
+					}
+						break;
 			}
 		}
 	}

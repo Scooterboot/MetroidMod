@@ -65,62 +65,80 @@ namespace MetroidMod.Content.Items.Tools
 				return false;
 			}
 
-			Vector2 itemPosition = player.Center;
 			IEntitySource source = new EntitySource_Parent(player);
+			 if (player == Main.LocalPlayer)
+			{
+				switch (MSystem.mBlockType[i, j])
+				{
+					case BreakableTileID.CrumbleInstant:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.CrumbleBlock>());
+						break;
 
-			if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleInstant)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.CrumbleBlock>());
+					case BreakableTileID.CrumbleSpeed:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSpeed>());
+						break;
+
+					case BreakableTileID.Bomb:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.BombBlock>());
+						break;
+
+					case BreakableTileID.Missile:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.MissileBlock>());
+						break;
+
+					case BreakableTileID.Fake:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.FakeBlock>());
+						break;
+
+					case BreakableTileID.Boost:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.BoostBlock>());
+						break;
+
+					case BreakableTileID.PowerBomb:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.PowerBombBlock>());
+						break;
+
+					case BreakableTileID.SuperMissile:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.SuperMissileBlock>());
+						break;
+
+					case BreakableTileID.ScrewAttack:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.ScrewAttackBlock>());
+						break;
+
+					case BreakableTileID.FakeHint:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.FakeBlockHint>());
+						break;
+
+					case BreakableTileID.CrumbleSlow:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSlow>());
+						break;
+
+					case BreakableTileID.BombChain:
+						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.BombBlockChain>());
+						break;
+
+					default:
+						MetroidMod.Instance.Logger.Info("Rolled a non-value. " + MSystem.mBlockType[i, j]);
+						break;
+				}
 			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSpeed)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSpeed>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.Bomb)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.BombBlock>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.Missile)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.MissileBlock>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.Fake)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.FakeBlock>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.Boost)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.BoostBlock>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.PowerBomb)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.PowerBombBlock>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.SuperMissile)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.SuperMissileBlock>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.ScrewAttack)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.ScrewAttackBlock>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.FakeHint)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.FakeBlockHint>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSlow)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.CrumbleBlockSlow>());
-			}
-			if (MSystem.mBlockType[i, j] == BreakableTileID.BombChain)
-			{
-				Item.NewItem(source, itemPosition, ModContent.ItemType<Tiles.Destroyable.BombBlockChain>());
-			}
+			
 
 			MSystem.mBlockType[i, j] = BreakableTileID.None;
 			MSystem.dontRegen[i, j] = false;
 			MSystem.hit[i, j] = false;
 			SoundEngine.PlaySound(SoundID.Dig, Main.MouseWorld);
+			if (Main.netMode != NetmodeID.SinglePlayer)
+			{
+				ModPacket removeBreakableBlock = ModContent.GetInstance<MetroidMod>().GetPacket();
+				removeBreakableBlock.Write((byte)MetroidMessageType.BreakableBlockUpdate);
+				removeBreakableBlock.Write7BitEncodedInt(i);
+				removeBreakableBlock.Write7BitEncodedInt(j);
+				removeBreakableBlock.Write(true);
+				removeBreakableBlock.Send(-1, player.whoAmI);
+			}
+			
 			return true;
 		}
 

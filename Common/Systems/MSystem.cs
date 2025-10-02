@@ -351,6 +351,12 @@ namespace MetroidMod.Common.Systems
 			}
 		}
 
+		//TODO: BREAKABLE BLOCK NETCODE!!!!!!!!!!!!!!
+		//Things to netcode:
+		//* Clients telling the server that there's a new fake block
+		//* Clients telling the server that they broke a fake block
+		//* Server telling the clients the current state of fake blocks
+
 		public override void NetSend(BinaryWriter writer)
 		{
 			writer.Write((int)bossesDown);
@@ -445,7 +451,9 @@ namespace MetroidMod.Common.Systems
 					int yOff = -12 * 16;
 					Vector2 drawPos = new Vector2((float)(i * 16 + xOff - (int)screenPos.X), (float)(j * 16 + yOff - (int)screenPos.Y)) + zero;
 
+					//draw breakables
 					bool revealed = (hit[i, j] && (Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated));
+					string breakableTexPath = "";
 					if (draw || revealed)
 					{
 						if (dontRegen[i, j] && draw)
@@ -455,78 +463,46 @@ namespace MetroidMod.Common.Systems
 							color.G /= 2;
 							spriteBatch.End();
 						}
-						if (mBlockType[i, j] == 1)
+						switch(mBlockType[i, j])
 						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
+							case 1 or 2 or 11:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock";
+								break;
+
+							case 3 or 12:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/BombBlock";
+								break;
+
+							case 4:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/MissileBlock";
+								break;
+
+							case 5 or 10:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/FakeBlock";
+								break;
+
+							case 6:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/BoostBlock";
+								break;
+
+							case 7:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/PowerBombBlock";
+								break;
+
+							case 8:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/SuperMissileBlock";
+								break;
+
+							case 9:
+								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/ScrewAttackBlock";
+								break;
 						}
-						if (mBlockType[i, j] == 2)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 3)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/BombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 4)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/MissileBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 5)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/FakeBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 6)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/BoostBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 7)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/PowerBombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 8)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/SuperMissileBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 9)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/ScrewAttackBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 10)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/FakeBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 11)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
-						if (mBlockType[i, j] == 12)
-						{
-							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-							spriteBatch.Draw(ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Breakable/BombBlock").Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
-							spriteBatch.End();
-						}
+						if (breakableTexPath == "") { continue; }
+
+						spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);
+						spriteBatch.Draw(ModContent.Request<Texture2D>(breakableTexPath).Value, drawPos, new Rectangle(0, 0, 16, 16), color, 0f, default(Vector2), scale, SpriteEffects.None, 0f);
+						spriteBatch.End();
+
 					}
 					if (!revealed)
 					{
