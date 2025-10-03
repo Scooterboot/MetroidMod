@@ -33,7 +33,6 @@ namespace MetroidMod.Content.Items.Boss
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.GravityFlare>(), 1));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.KraidPhantoonMusicBox>(), 6));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.PhantoonMask>(), 8));
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.PhantoonTrophy>(), 11));
 		}
 	}
 }

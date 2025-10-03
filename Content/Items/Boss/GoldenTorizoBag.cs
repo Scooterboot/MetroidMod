@@ -32,7 +32,6 @@ namespace MetroidMod.Content.Items.Boss
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accessories.ScrewAttack>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.EnergyShard>(), 1, 60, 144));
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.GoldenTorizoTrophy>(), 11));
 
 			LeadingConditionRule Legendary = new LeadingConditionRule(new Conditions.ZenithSeedIsUp());
 			LeadingConditionRule Worthy = new LeadingConditionRule(new Conditions.ForTheWorthyIsUp());

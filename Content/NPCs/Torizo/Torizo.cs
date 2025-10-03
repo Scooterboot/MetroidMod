@@ -85,13 +85,14 @@ namespace MetroidMod.Content.NPCs.Torizo
 		{
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.TorizoBag>()));
 			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Tiles.TorizoRelic>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoTrophy>(), 11));
+
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, [ModContent.ItemType<TorizoClaws>(), ModContent.ItemType<TorizoSpitter>()]));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.EnergyShard>(), 1, 15, 36));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.ChoziteOre>(), 1, 30, 90));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoMusicBox>(), 6));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.TorizoMask>(), 8));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoTrophy>(), 11));
 
 			npcLoot.Add(notExpertRule);
 		}

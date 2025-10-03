@@ -100,12 +100,12 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.OmegaPirateBag>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.OmegaPirateTrophy>(), 11));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.PurePhazon>(), 1));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.OmegaPirateMusicBox>(), 6));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.OmegaPirateMask>(), 8));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.OmegaPirateTrophy>(), 11));
 
 			npcLoot.Add(notExpertRule);
 		}

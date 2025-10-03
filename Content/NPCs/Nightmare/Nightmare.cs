@@ -96,13 +96,13 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.NightmareBag>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareTrophy>(), 11));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreX>(), 1));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreXFragment>(), 1, 25, 25));
 			//notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareMusicBox>(), 6));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.NightmareMask>(), 8));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareTrophy>(), 11));
 
 			npcLoot.Add(notExpertRule);
 		}

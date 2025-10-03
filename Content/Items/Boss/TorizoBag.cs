@@ -35,7 +35,6 @@ namespace MetroidMod.Content.Items.Boss
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.ChoziteOre>(), 1, 30, 90));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoMusicBox>(), 6));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.TorizoMask>(), 8));
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.TorizoTrophy>(), 11));
 		}
 	}
 }

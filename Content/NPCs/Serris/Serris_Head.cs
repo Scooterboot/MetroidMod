@@ -669,12 +669,12 @@ namespace MetroidMod.Content.NPCs.Serris
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.SerrisBag>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.SerrisTrophy>(), 11));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.SerrisCoreX>(), 1));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.SerrisMusicBox>(), 6));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.SerrisMask>(), 8));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.SerrisTrophy>(), 11));
 
 			npcLoot.Add(notExpertRule);
 		}

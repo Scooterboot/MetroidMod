@@ -96,12 +96,12 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.PhantoonBag>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.PhantoonTrophy>(), 11));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.GravityFlare>(), 1));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.KraidPhantoonMusicBox>(), 6));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanity.PhantoonMask>(), 8));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.PhantoonTrophy>(), 11));
 
 			npcLoot.Add(notExpertRule);
 		}

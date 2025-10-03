@@ -35,7 +35,6 @@ namespace MetroidMod.Content.Items.Boss
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.SerrisCoreX>(), 1));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.SerrisMusicBox>(), 6));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.SerrisMask>(), 8));
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.SerrisTrophy>(), 11));
 		}
 	}
 }

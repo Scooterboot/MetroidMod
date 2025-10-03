@@ -95,11 +95,11 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.GoldenTorizoBag>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.GoldenTorizoTrophy>(), 11));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.ScrewAttack>()));
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.TorizoMusicBox>(), 6));
-			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.GoldenTorizoTrophy>(), 11));
 			npcLoot.Add(notExpertRule);
 		}
 		public override void OnKill()
