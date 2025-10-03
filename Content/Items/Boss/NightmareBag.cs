@@ -35,7 +35,7 @@ namespace MetroidMod.Content.Items.Boss
 			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Miscellaneous.NightmareCoreXFragment>(), 1, 25, 25));
 			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.NightmareMusicBox>(), 6));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vanity.NightmareMask>(), 8));
-			//itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.NightmareTrophy>(), 11));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Tiles.NightmareTrophy>(), 11));
 		}
 	}
 }
