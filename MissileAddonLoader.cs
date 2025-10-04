@@ -81,30 +81,6 @@ namespace MetroidMod
 		public static ModMissileAddon GetAddon<T>() where T : ModMissileAddon =>
 			addons.TryGetValue(i => i is T, out ModMissileAddon missile) ? missile : null;
 
-		/// <summary>
-		/// Creates a total interact value from the sum of that value across all installed Missile addons, plus an optional multiplier.
-		/// </summary>
-		/// <param name="addons"></param>
-		/// <param name="concreteMatter">If true, add tileInteract. If false, add entityInteract.</param>
-		/// <param name="multiplier">Used to apply a multiplier to an interact value.<br/>Charge shots use this.</param>
-		/// <returns></returns>
-		public static int InteractStacker(ModMissileAddon[] addons, bool concreteMatter, float multiplier = 1f)
-		{
-			int total = 0;
-			MetroidMod.Instance.Logger.Info("Stacking " + (concreteMatter ? "TileInteract" : "NPCInteract"));
-
-			for (int i = 0; i < addons.Length - 1; ++i)
-			{
-				if (addons[i] == null) { continue; }
-				total += (concreteMatter) ? addons[i].TileInteract : addons[i].EntityInteract;
-			}//iterate through array and add all interact values.
-			MetroidMod.Instance.Logger.Info("Subtotal: " + total + "  ||  Applying multiplier...");
-			//Apply charge modifier as well.
-			float totalFloat = total * multiplier;
-			total = (int)totalFloat;
-			MetroidMod.Instance.Logger.Info("Final value: " + total);
-			return total;
-		}
 		public static bool AddonPreAI(ModMissileAddon[] addons, MProjectile shot)
 		{
 			bool endValue = true;

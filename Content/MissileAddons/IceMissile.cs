@@ -22,9 +22,6 @@ namespace MetroidMod.Content.MissileAddons
 		{
 			AddonSlot = MissileAddonSlotID.Primary;
 
-			#region Visual Priority
-			ShapePriority = 5;
-			#endregion
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 			base.SetStaticDefaults();
 		}

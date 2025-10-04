@@ -17,23 +17,17 @@ namespace MetroidMod.Content.MissileAddons
 
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
 		public override int ShotDust => DustID.IceTorch;
-		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
-		{
-			mpshot.HomingBehavior(mpshot.Projectile);
-		}
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Charge;
 
-			#region Visual Priority
-			ShapePriority = 5;
-			#endregion
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 			base.SetStaticDefaults();
 		}
 		public override void AI(MProjectile mpshot)
 		{
 			mpshot.HomingBehavior(mpshot.Projectile);
+			base.AI(mpshot);
 		}
 		public override void SetItemDefaults(Item item) //TO DO SOMETHING WITH THIS
 		{

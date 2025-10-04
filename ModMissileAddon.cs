@@ -253,6 +253,7 @@ namespace MetroidMod
 			//Assigns a new B.A.I. and B.A.T. instance to the current M.B.A.
 			ModItem = new MissileAddonItem(this);
 			ModTile = new MissileAddonTile(this);
+			mProjectile = new MissileAddonProjectile(this); 
 			if (ModItem == null) { throw new Exception("WTF happened here? MissileAddonItem is null!"); }
 			if (ModTile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
 			//Adds the content to the game.

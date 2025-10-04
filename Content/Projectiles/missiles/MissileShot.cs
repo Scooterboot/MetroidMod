@@ -87,18 +87,6 @@ namespace MetroidMod.Content.Projectiles
 		public void OnInitialized(IEntitySource source)
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
-			//MetroidMod.Instance.Logger.Info("put something here later");
-
-
-			//Gather data from installed addons.
-			/*MetroidMod.Instance.Logger.Info("missile addons: " + missileAddons[0] + " " + missileAddons[1] + " " + missileAddons[2] + " " + missileAddons[3] + " " + missileAddons[4]
-				+ "\nShot " + groupID + "/" + groupSize);*/
-
-			//First, call method to calculate tileinteract total.
-			TileInteract = MissileAddonLoader.InteractStacker(missileAddons, true, multiplier);
-			//Then, call method to calculate entityinteract total.
-			EntityInteract = MissileAddonLoader.InteractStacker(missileAddons, false, multiplier);
-
 
 			MissileAddonLoader.AddonOnInitialized(missileAddons, mProjectile, source);
 		}
