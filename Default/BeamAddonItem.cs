@@ -14,9 +14,14 @@ using MetroidMod.Content.SuitAddons;
 namespace MetroidMod.Default
 {
 	[Autoload(false)]
-	
+	///<summary>
+	///The template off of which <see cref="ModBeamAddon"/>s generate their items.
+	///</summary>
 	internal class BeamAddonItem(ModBeamAddon modBeamAddon) : ModItem
 	{
+		/// <summary>
+		/// <inheritdoc cref="BeamAddonTile.modBeamAddon"/>
+		/// </summary>
 		public ModBeamAddon modBeamAddon = modBeamAddon;
 
 		public override string Texture => modBeamAddon.ItemTexture;
@@ -53,16 +58,12 @@ namespace MetroidMod.Default
 				player.cursorItemIconID = Type;
 			}
 		}
-		
-		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-		{
-			modBeamAddon.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
-		}
 
-		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-		{
-			modBeamAddon.PostDrawInWorld(Item, spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
-		}
+		public override void RightClick(Player player) => modBeamAddon.RightClick(player);
+		
+		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale) => modBeamAddon.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) => modBeamAddon.PostDrawInWorld(Item, spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
 
 		//You need the next two methods in here or else it will just NOT WORK
 		//And it'll take ages to figure out the problem
@@ -81,9 +82,8 @@ namespace MetroidMod.Default
 		}
 		//Again, don't forget those two up there
 		//You'll be kicking yourself over it
-		public override void AddRecipes()
-		{
-			modBeamAddon.AddRecipes();
-		}
+
+
+		public override void AddRecipes() => modBeamAddon.AddRecipes();
 	}
 }

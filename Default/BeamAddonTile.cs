@@ -13,21 +13,27 @@ using Terraria.ObjectData;
 using Terraria.Enums;
 using Terraria;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetroidMod.Default
 {
 	[Autoload(false)]
-	internal class BeamAddonTile : ModTile
+
+	///<summary>
+	///The template off of which <see cref="ModBeamAddon"/>s generate their item tiles.
+	///</summary>
+	internal class BeamAddonTile(ModBeamAddon modBeamAddon) : ModTile
 	{
-		public ModBeamAddon modBeamAddon;
+		//This is essentially just a dummy tile file that allows for the built-in ModTiles to be defined directly within the main class.
+
+		/// <summary>
+		/// The <see cref="ModBeamAddon"/> this template is generating for.
+		/// </summary>
+		public ModBeamAddon modBeamAddon = modBeamAddon;
 
 		public override string Texture => modBeamAddon.TileTexture;
 		public override string Name => modBeamAddon.Name + "Tile";
 
-		public BeamAddonTile(ModBeamAddon modBeamAddon)
-		{
-			this.modBeamAddon = modBeamAddon;
-		}
 
 		public override void SetStaticDefaults()
 		{
@@ -46,10 +52,12 @@ namespace MetroidMod.Default
 			TileID.Sets.DisableSmartCursor[Type] = true;
 		}
 
-		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
-		{
-			modBeamAddon.PostDrawTile(i, j, spriteBatch);
-		}
+		//All the basic consistencies between addon tiles are pre-defined.
+		//For everything else, all that needs to be done is to just connect the methods to their corresponding ModBeamAddon method.
+		//Square peg, square hole. Simple as that.		-Z
+		public override void PostDraw(int i, int j, SpriteBatch spriteBatch) => modBeamAddon.PostDrawTile(i, j, spriteBatch);
+
+		public override void PostDrawPlacementPreview(int i, int j, SpriteBatch spriteBatch, Rectangle frame, Vector2 position, Color color, bool validPlacement, SpriteEffects spriteEffects) => modBeamAddon.PostDrawPlacementPreview(i, j, spriteBatch, frame, position, color, validPlacement, spriteEffects);
 
 		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
 		public override bool Slope(int i, int j) => false;

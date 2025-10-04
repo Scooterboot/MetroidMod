@@ -87,7 +87,29 @@ namespace MetroidMod.Content.BeamAddons
 			{
 				zero = Vector2.Zero;
 			}
-			sb.Draw(ModContent.Request<Texture2D>(TileTexture + "Rainbow").Value, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			sb.Draw(ModContent.Request<Texture2D>(TileTexture + "Rainbow").Value,
+				new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero,
+				new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16),
+				new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB),
+				0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+		}
+
+		public override void PostDrawPlacementPreview(int i, int j, SpriteBatch sb, Rectangle frame, Vector2 position, Color color, bool validPlacement, SpriteEffects spriteEffects)
+		{
+			Tile tile = Main.tile[i, j];
+			Vector2 zero = new(Main.offScreenRange, Main.offScreenRange);
+			if (Main.drawToScreen)
+			{
+				zero = Vector2.Zero;
+			}
+			if (validPlacement)
+			{
+				sb.Draw(ModContent.Request<Texture2D>(TileTexture + "Rainbow").Value,
+					position,
+					new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16),
+					new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB),
+					0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			}
 		}
 		#endregion
 

@@ -364,11 +364,9 @@ namespace MetroidMod
 
 		///<inheritdoc cref="ModItem.PostDrawInWorld(SpriteBatch, Color, Color, float, float, int)"/>
 		public virtual void PostDrawInWorld(Item item, SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) { }
-		///<inheritdoc cref="ModItem.RightClick(Player)"/>
-		public virtual void RightClick(Player player)
-		{
 
-		}
+		///<inheritdoc cref="ModItem.RightClick(Player)"/>
+		public virtual void RightClick(Player player) {	}
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);
@@ -483,6 +481,9 @@ namespace MetroidMod
 
 		///<inheritdoc cref="ModBlockType.PostDraw(int, int, SpriteBatch)"/>
 		public virtual void PostDrawTile(int i, int j, SpriteBatch sb) { }
+
+		///<inheritdoc cref="ModTile.PostDrawPlacementPreview(int, int, SpriteBatch, Rectangle, Vector2, Color, bool, SpriteEffects)"/>
+		public virtual void PostDrawPlacementPreview(int i, int j, SpriteBatch spriteBatch, Rectangle frame, Vector2 position, Color color, bool validPlacement, SpriteEffects spriteEffects) { }
 		#endregion
 	}
 }

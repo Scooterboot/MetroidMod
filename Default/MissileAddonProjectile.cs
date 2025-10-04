@@ -79,5 +79,19 @@ namespace MetroidMod.Default
 			modMissileAddon.PostDrawProjectile(mProjectile, lightColor);
 		}
 		#endregion
+
+		//Don't forget these two methods. Very important.
+		public override ModProjectile Clone(Projectile newEntity)
+		{
+			MissileAddonProjectile obj = (MissileAddonProjectile)base.Clone(newEntity);
+			obj.modMissileAddon = modMissileAddon;
+			return obj;
+		}
+
+		public override ModProjectile NewInstance(Projectile entity)
+		{
+			var inst = Clone(entity);
+			return inst;
+		}
 	}
 }

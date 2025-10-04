@@ -4110,6 +4110,8 @@ Mods: {
 			// HyperBeamShot.DisplayName: Hyper Beam Shot
 			// PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam Shot
 			// MissileShotReal.DisplayName: Missile Shot Real
+			// HomingMissileProjectile.DisplayName: Homing Missile Projectile
+			// IceMissileProjectile.DisplayName: Ice Missile Projectile
 		}
 
 		Configs: {

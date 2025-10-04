@@ -150,7 +150,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public SoundStyle missileSound = Sounds.Items.Weapons.MissileSound;
 		#endregion
 
-
+		#region stats
 		#region Power Beam stats
 
 		/// <summary>
@@ -173,35 +173,6 @@ namespace MetroidMod.Content.Items.Weapons
 		/// The Power Beam's base Overheat use, before accounting for addon multipliers.
 		/// </summary>
 		private readonly int BaseOverheat = 4;
-
-		/// <summary>
-		/// Contains all of the stats added by installed addons.
-		/// <br/>Each index, in order:
-		/// <br/><b>[0]</b> - Added base damage (convert to <b>int</b>)
-		/// <br/><b>[1]</b> - Damage multiplier
-		/// <br/><b>[2]</b> - Added base usetime (convert to <b>int</b>)
-		/// <br/><b>[3]</b> - Usetime multiplier
-		/// <br/><b>[4]</b> - Added base velocity (convert to <b>int</b>)
-		/// <br/><b>[5]</b> - Velocity multiplier
-		/// <br/><b>[6]</b> - Added crit chance (convert to <b>int</b>)
-		/// <br/><b>[7]</b> - Added base overheat cost (convert to <b>int</b>)
-		/// <br/><b>[8]</b> - Overheat cost multiplier
-		/// <br/><b>[9]</b> - Added shot count (convert to <b>int</b>)
-		/// </summary>
-		public float[] AdditionalBeamStats = new float[10];
-		/// <summary>
-		/// Contains all of the stats added by installed addons.
-		/// <br/>Each index, in order:
-		/// <br/><b>[0]</b> - Added base damage (convert to <b>int</b>)
-		/// <br/><b>[1]</b> - Damage multiplier
-		/// <br/><b>[2]</b> - Added base usetime (convert to <b>int</b>)
-		/// <br/><b>[3]</b> - Usetime multiplier
-		///</summary>
-		public float[] AdditionalMissileStats = new float[4];
-		///<summary>
-		///Contains all of the stats added passively by addons installed in the Primary Quick-Swap.
-		/// </summary>
-		public float[] AdditionalPrimaryStats = new float[5];
 
 		/// <summary>
 		/// The final overheat value, which will be calculated in UpdateInventory.<br/>
@@ -252,6 +223,38 @@ namespace MetroidMod.Content.Items.Weapons
 		// I was gonna have just as many stats as the PB in here but
 		// there's really only one missile addon that affects your base projectile
 		// it really didn't end up being necessary I think
+		#endregion
+
+		//TODO: See about converting these into StatModifiers?
+
+		/// <summary>
+		/// Contains all of the stats added by installed addons.
+		/// <br/>Each index, in order:
+		/// <br/><b>[0]</b> - Added base damage (convert to <b>int</b>)
+		/// <br/><b>[1]</b> - Damage multiplier
+		/// <br/><b>[2]</b> - Added base usetime (convert to <b>int</b>)
+		/// <br/><b>[3]</b> - Usetime multiplier
+		/// <br/><b>[4]</b> - Added base velocity (convert to <b>int</b>)
+		/// <br/><b>[5]</b> - Velocity multiplier
+		/// <br/><b>[6]</b> - Added crit chance (convert to <b>int</b>)
+		/// <br/><b>[7]</b> - Added base overheat cost (convert to <b>int</b>)
+		/// <br/><b>[8]</b> - Overheat cost multiplier
+		/// <br/><b>[9]</b> - Added shot count (convert to <b>int</b>)
+		/// </summary>
+		public float[] AdditionalBeamStats = new float[10];
+		/// <summary>
+		/// Contains all of the stats added by installed addons.
+		/// <br/>Each index, in order:
+		/// <br/><b>[0]</b> - Added base damage (convert to <b>int</b>)
+		/// <br/><b>[1]</b> - Damage multiplier
+		/// <br/><b>[2]</b> - Added base usetime (convert to <b>int</b>)
+		/// <br/><b>[3]</b> - Usetime multiplier
+		///</summary>
+		public float[] AdditionalMissileStats = new float[4];
+		///<summary>
+		///Contains all of the stats added passively by addons installed in the Primary Quick-Swap.
+		/// </summary>
+		public float[] AdditionalPrimaryStats = new float[5];
 		#endregion
 
 		public override void SetStaticDefaults()
@@ -553,6 +556,9 @@ namespace MetroidMod.Content.Items.Weapons
 			#region Missile Launcher stat calculation
 			//MissileShot = missileAddons[1]
 			#endregion
+
+			//TODO: Netsync thing here
+			Item.NetStateChanged();
 		}
 
 		public override void HoldItem(Player player)
