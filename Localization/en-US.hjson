@@ -364,6 +364,15 @@ Mods: {
 			IceMissileTile.MapEntry: Ice Missile Tile
 			HomingMissileTile.MapEntry: Homing Missile Tile
 			SpazerComboTile.MapEntry: Spazer Combo Tile
+			FlamethrowerTile.MapEntry: Flamethrower Tile
+			IceSpreaderTile.MapEntry: Ice Spreader Tile
+			NebulaComboTile.MapEntry: Nebula Combo Tile
+			NovaComboTile.MapEntry: Nova Combo Tile
+			PlasmaMachinegunTile.MapEntry: Plasma Machinegun Tile
+			SolarComboTile.MapEntry: Solar Combo Tile
+			StardustComboTile.MapEntry: Stardust Combo Tile
+			VortexComboTile.MapEntry: Vortex Combo Tile
+			WavebusterTile.MapEntry: Wavebuster Tile
 		}
 
 		Buffs: {
@@ -4114,6 +4123,15 @@ Mods: {
 			HomingMissileProjectile.DisplayName: Homing Missile Projectile
 			IceMissileProjectile.DisplayName: Ice Missile Projectile
 			SpazerComboProjectile.DisplayName: Spazer Combo Projectile
+			FlamethrowerProjectile.DisplayName: Flamethrower Projectile
+			IceSpreaderProjectile.DisplayName: Ice Spreader Projectile
+			NebulaComboProjectile.DisplayName: Nebula Combo Projectile
+			NovaComboProjectile.DisplayName: Nova Combo Projectile
+			PlasmaMachinegunProjectile.DisplayName: Plasma Machinegun Projectile
+			SolarComboProjectile.DisplayName: Solar Combo Projectile
+			StardustComboProjectile.DisplayName: Stardust Combo Projectile
+			VortexComboProjectile.DisplayName: Vortex Combo Projectile
+			WavebusterProjectile.DisplayName: Wavebuster Projectile
 		}
 
 		Configs: {

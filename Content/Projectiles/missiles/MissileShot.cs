@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Projectiles
 	internal class MissileShot : MProjectile
 	{
 		public ModMissileAddon[] missileAddons = new ModMissileAddon[MissileAddonSlotID.Count];
-		public float missileScale = 2f;
+		public float missileScale = 1f;
 		public int missileDust = DustID.YellowTorch;
 		/// <summary>
 		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of missiles.

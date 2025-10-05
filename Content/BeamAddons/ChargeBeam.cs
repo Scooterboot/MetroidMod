@@ -395,7 +395,7 @@ namespace MetroidMod.Content.BeamAddons
 		private void BarrelGlue(Player player, Vector2 playerHandPos)
 		{
 			//A lot of this is pretty much outta the ExampleMod last prism clone. Unsurprisingly I suppose.
-			Projectile.Center = player.RotatedRelativePoint(playerHandPos, false, false);
+			Projectile.position = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - (float)(Math.PI / 2) * player.direction) - Projectile.Size / 2f;
 			Projectile.spriteDirection = Projectile.direction;
 
 			player.ChangeDir(Projectile.direction);
