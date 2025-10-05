@@ -423,7 +423,7 @@ namespace MetroidMod
 		/// <br/>[3]: Overheat Multiplier
 		/// <br/>[4]: Add Shots
 		/// </summary>
-		/// <param name="addons"></param>
+		/// <param name="beamAddons"></param>
 		/// <param name="statVals"></param>
 		/// <param name="bonusMod"></param>
 		/// <returns></returns>

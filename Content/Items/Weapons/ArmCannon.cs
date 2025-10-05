@@ -250,7 +250,7 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <br/><b>[2]</b> - Added base usetime (convert to <b>int</b>)
 		/// <br/><b>[3]</b> - Usetime multiplier
 		///</summary>
-		public float[] AdditionalMissileStats = new float[4];
+		public float[] AdditionalMissileStats = new float[5];
 		///<summary>
 		///Contains all of the stats added passively by addons installed in the Primary Quick-Swap.
 		/// </summary>
@@ -521,6 +521,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				//Check if the shapepriority has any special visuals for this addon combination.
 				//If not, it returns blank meaning no change.
+
 				ac.assetModifier = BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).SetStaticCombos(beamAddons);
 
 				//Get the modified shot sound effect.
@@ -728,7 +729,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
-			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
+			float[] edgeCaseStuff;
 			if (ac != null && !ac.isBeam)
 			{
 				edgeCaseStuff = MissileAddonLoader.WeaponStatStacker(missileAddons);
@@ -736,12 +737,16 @@ namespace MetroidMod.Content.Items.Weapons
 				AdditionalMissileStats[1] += edgeCaseStuff[1];
 				AdditionalMissileStats[2] += edgeCaseStuff[2];
 				AdditionalMissileStats[3] += edgeCaseStuff[3];
+				AdditionalMissileStats[4] += edgeCaseStuff[4];
 				bool yup = missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir;
 				MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as MissileShot;
 				miss.Impact = yup? MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ImpactSound, MetroidMod.MissileImpactFallbackSFX): MetroidMod.MissileImpactFallbackSFX;
 				miss.ModTexture = yup? MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotTexture): MetroidMod.MissileFallbackTexture;
 				miss.missileDust = yup ? MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotDust : DustID.YellowTorch;
-				miss.fileMod += (ac.assetModifier + bonusFileMod);
+				miss.fileMod += ac.assetModifier + bonusFileMod;
+				miss.missileAddons = [.. missileAddons
+					.Select(MissileAddonLoader.GetAddon)
+					.Select(i => i?.Clone())];
 				miss.OnInitialized(source);
 				//ac.statMissiles -= (int)MGlobalItem.AmmoUsage(player, 1);
 			}

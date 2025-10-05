@@ -363,6 +363,7 @@ Mods: {
 			// TopElevatorStationTile.MapEntry: Elevator
 			// IceMissileTile.MapEntry: Ice Missile Tile
 			// HomingMissileTile.MapEntry: Homing Missile Tile
+			// SpazerComboTile.MapEntry: Spazer Combo Tile
 		}
 
 		Buffs: {
@@ -4112,6 +4113,7 @@ Mods: {
 			// MissileShotReal.DisplayName: Missile Shot Real
 			// HomingMissileProjectile.DisplayName: Homing Missile Projectile
 			// IceMissileProjectile.DisplayName: Ice Missile Projectile
+			// SpazerComboProjectile.DisplayName: Spazer Combo Projectile
 		}
 
 		Configs: {

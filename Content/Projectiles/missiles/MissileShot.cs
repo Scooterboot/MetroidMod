@@ -86,8 +86,6 @@ namespace MetroidMod.Content.Projectiles
 
 		public void OnInitialized(IEntitySource source)
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
-
 			MissileAddonLoader.AddonOnInitialized(missileAddons, mProjectile, source);
 		}
 
@@ -100,6 +98,7 @@ namespace MetroidMod.Content.Projectiles
 		{
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 
 			#region Animation code
 			//If this shot has more than 1 frame, run animation code
@@ -138,7 +137,6 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void PostAI()
 		{
-			base.PostAI();
 			MissileAddonLoader.AddonPostAI(missileAddons, mProjectile);
 		}
 

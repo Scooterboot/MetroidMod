@@ -207,7 +207,7 @@ namespace MetroidMod.Content.BeamAddons
 					else
 					{
 						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
-						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack);
+						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, item.damage, item.knockBack, "Charged");
 					}
 					//alternatively shoot that missile combo if it's not a held
 				}
@@ -226,6 +226,10 @@ namespace MetroidMod.Content.BeamAddons
 						MetroidMod.Instance.Logger.Info(player.name + " didn't bother charging the beam all the way");
 					}
 					//alternatively shoot that normal-ass missile
+					else
+					{
+						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, item.damage, item.knockBack);
+					}
 				}
 				player.itemTime = 20;
 				player.itemAnimation = 20;

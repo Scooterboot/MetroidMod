@@ -230,7 +230,7 @@ namespace MetroidMod
 		public static float[] WeaponStatStacker(Item[] missileAddons)
 		{
 			MetroidMod.Instance.Logger.Info("Stacking Missile Stats...");
-			float[] totals = [0, 0, 0, 0];
+			float[] totals = [0, 0, 0, 0, 0];
 			ModMissileAddon[] addons = missileAddons //Converts the Item array into a ModMissileAddon array, allowing for direct stat access.
 				.Select(GetAddon)
 				.ToArray();
@@ -244,6 +244,7 @@ namespace MetroidMod
 				totals[1] += addons[i].DamageMult;
 				totals[2] += addons[i].BaseSpeed;
 				totals[3] += addons[i].SpeedMult;
+				totals[4] += addons[i].AddShots;
 			}
 			MetroidMod.Instance.Logger.Info("Missile stats stacked!");
 			return totals;

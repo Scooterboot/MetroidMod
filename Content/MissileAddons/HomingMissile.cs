@@ -12,11 +12,19 @@ namespace MetroidMod.Content.MissileAddons
 	internal class HomingMissile : ModMissileAddon
 	{
 		public override bool AddOnlyAddonItem => false;
+		public override float DamageMult
+		{
+			get {
+				return 2f;
+			}
 
-		public override Color PrimaryColor => MetroidMod.iceColor;
-
-		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
-		public override int ShotDust => DustID.IceTorch;
+			set {
+				base.DamageMult = value;
+			}
+		}
+		public override Color PrimaryColor => MetroidMod.powColor;
+		public override Color SecondaryColor => MetroidMod.powSecondaryColor;
+		public override int ShotDust => DustID.YellowTorch;
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Charge;
@@ -27,7 +35,6 @@ namespace MetroidMod.Content.MissileAddons
 		public override void AI(MProjectile mpshot)
 		{
 			mpshot.HomingBehavior(mpshot.Projectile);
-			base.AI(mpshot);
 		}
 		public override void SetItemDefaults(Item item) //TO DO SOMETHING WITH THIS
 		{
