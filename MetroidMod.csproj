@@ -28,6 +28,9 @@
     <Folder Include="Content\NPCs\Mobs\Metroid\" />
     <Folder Include="Content\NPCs\Mobs\Utility\" />
     <Folder Include="Content\NPCs\Town\" />
+    <Folder Include="ExampleMetroidAddonMod\Content\BeamAddons\" />
+    <Folder Include="ExampleMetroidAddonMod\Content\MissileAddons\" />
+    <Folder Include="ExampleMetroidAddonMod\Assets\" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Remove="Assets\Textures\Beams\**" />

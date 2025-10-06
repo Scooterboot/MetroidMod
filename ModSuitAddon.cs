@@ -19,15 +19,15 @@ namespace MetroidMod
 		public int Type { get; private set; }
 		internal void ChangeType(int type) => Type = type;
 		/// <summary>
-		/// The <see cref="ModItem"/> this addon controls.
+		/// The ModItem this addon controls.
 		/// </summary>
 		public ModItem ModItem;
 		/// <summary>
-		/// The <see cref="ModTile"/> this addon controls.
+		/// The ModTile this addon controls.
 		/// </summary>
 		public ModTile ModTile;
 		/// <summary>
-		/// The <see cref="Item"/> this addon controls.
+		/// The Item this addon controls.
 		/// </summary>
 		public Item Item => ModItem.Item;
 		/// <summary>

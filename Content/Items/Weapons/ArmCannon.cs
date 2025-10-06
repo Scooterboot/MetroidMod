@@ -110,7 +110,7 @@ namespace MetroidMod.Content.Items.Weapons
 			get { 
 				if(comboQuickChange == null) //See BeamArrayAccess above
 				{
-					comboQuickChange = new Item[8];
+					comboQuickChange = new Item[MetroidMod.missileChangeSlotAmount];
 					for (int i = 0;i < comboQuickChange.Length; ++i)
 					{
 						comboQuickChange[i] = new Item();
@@ -151,6 +151,7 @@ namespace MetroidMod.Content.Items.Weapons
 		#endregion
 
 		#region stats
+
 		#region Power Beam stats
 
 		/// <summary>
@@ -410,7 +411,9 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.shootSpeed = MissileBaseVelocity;
 				Item.crit = MissileBaseCrit;
 				Item.UseSound = missileSound;
-				Item.shoot = ModContent.ProjectileType<MissileShot>();
+				Item.shoot = (missileAddons[MissileAddonSlotID.Primary].IsAir) 
+					? ModContent.ProjectileType<MissileShot>() //fallback if no missile addon (may consider revoking?	-Z)
+					: (MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).mProjectile.Projectile.type);
 			}
 		}
 		/// <summary>
@@ -554,7 +557,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			#endregion
 
-			#region Missile Launcher stat calculation
+			#region Missile Launcher
 			//MissileShot = missileAddons[1]
 			#endregion
 
@@ -576,7 +579,7 @@ namespace MetroidMod.Content.Items.Weapons
 			} //Swap between beam and missiles when the keybind is pressed
 
 			//the charge beam will have to bring a method in here in order for charging to work
-			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
+			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (ac.isBeam || (!ac.isBeam && missileAddons[MissileAddonSlotID.Charge] != null)))
 			{
 				//note: if charge combos depend on charge and charge is being overridden by a different holdfire
 				//that'll make it so you can't shoot charge combos while it's equipped
@@ -725,30 +728,26 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <param name="bonusFileMod">Appended to the shot's filemod for on-the-fly modifications.
 		/// <br/>Things like charge shots take advantage of this.</param>
 		/// <param name="multiplier">Allows for on-the-fly modifying of the Interact values.</param>
-		public void Launch(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1f)
+		public void Launch(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool isCharged = false)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
 			float[] edgeCaseStuff;
 			if (ac != null && !ac.isBeam)
 			{
-				edgeCaseStuff = MissileAddonLoader.WeaponStatStacker(missileAddons);
-				AdditionalMissileStats[0] += edgeCaseStuff[0];
-				AdditionalMissileStats[1] += edgeCaseStuff[1];
-				AdditionalMissileStats[2] += edgeCaseStuff[2];
-				AdditionalMissileStats[3] += edgeCaseStuff[3];
-				AdditionalMissileStats[4] += edgeCaseStuff[4];
-				bool yup = missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir;
-				MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as MissileShot;
-				miss.Impact = yup? MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ImpactSound, MetroidMod.MissileImpactFallbackSFX): MetroidMod.MissileImpactFallbackSFX;
-				miss.ModTexture = yup? MissileAddonLoader.ShotTextureGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotTexture): MetroidMod.MissileFallbackTexture;
-				miss.missileDust = yup ? MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotDust : DustID.YellowTorch;
-				miss.fileMod += ac.assetModifier + bonusFileMod;
-				miss.missileAddons = [.. missileAddons
-					.Select(MissileAddonLoader.GetAddon)
-					.Select(i => i?.Clone())];
-				miss.OnInitialized(source);
-				//ac.statMissiles -= (int)MGlobalItem.AmmoUsage(player, 1);
+				if (isCharged && MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).IgnoreProjectile)
+				{
+					MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
+					miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
+				}
+				else if (isCharged)
+				{
+					Projectile.NewProjectileDirect(source, position, velocity, MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).Projectile.type, damage, knockback);
+				}
+				else
+				{
+					MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
+				}
 			}
 		}
 		#endregion

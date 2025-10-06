@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -129,10 +131,40 @@ namespace MetroidMod.Content.BeamAddons
 			float speedX = velocity.X;
 			float speedY = velocity.Y;
 
-			//do the for loop for the shootsing amount
-			//if the loop no. is 0: spawn the primary projectile
-			//else: spawn the extras, assign the primary as the parent
-			//Insert the addons into the projectile
+			ArmCannon wepon = (ArmCannon)item.ModItem;
+
+			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
+			int theShootsingAmount = (int)wepon.AdditionalBeamStats[9];
+
+			HyperBeamShot tasteTheRainbow = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamShot>(), damage, knockback).ModProjectile) as HyperBeamShot;
+			tasteTheRainbow.beamAddons = wepon.BeamAddonAccess
+				.Select(i => BeamAddonLoader.GetAddon(i))
+				.Select(i => i?.Clone())
+				.ToArray();
+
+			tasteTheRainbow.OnInitialized(source);
+
+			if (theShootsingAmount > 0)
+			{
+				for (int i = 0; i < theShootsingAmount; i++)
+				{
+					//HyperBeamExtraShot stray = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile) as HyperBeamExtraShot;
+					//stray.mother = tasteTheRainbow;
+					//stray.beamAddons = wepon.beamAddonAccess
+					//	.Select(i => BeamAddonLoader.GetAddon(i))
+					//	.Select(i => i?.Clone())
+					//	.ToArray();
+					//stray.babyID = i;
+					//
+					//stray.OnInitialized(source);
+				}
+			}
+
+			//spawn the primary projectile
+			//insert the addons onto the projectile
+			//run OnInitialize()
+			//run a for loop for spawning the extras, assign the primary as the parent
+			//Insert the addons into the projectiles
 			//Run OnInitialize()
 
 			//I think also this is where the, uh, rainbow-y code goes?? for making you go all rainbow?
@@ -151,7 +183,7 @@ namespace MetroidMod.Content.BeamAddons
 		//rewrite like most of this
 		public override string Texture => $"{Mod.Name}/Assets/Textures/BeamAddons/HyperBeam/Shot";
 
-		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 2]; //Hyper Beam doesn't need the charge slot (since it's already known) or the ammo slot (doesn't use ammo)
+		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 1]; //Hyper Beam doesn't need the charge slot (since it's already known) or the ammo slot (doesn't use ammo)
 
 		/// <summary>
 		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of beams.
@@ -178,7 +210,7 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			scale = Projectile.scale;
-
+			MetroidMod.Instance.Logger.Info("BWEEEW");
 			//Gather data from installed addons.
 
 			//First, call method to calculate tileinteract total.
@@ -189,7 +221,10 @@ namespace MetroidMod.Content.BeamAddons
 
 			BeamAddonLoader.AddonOnInitialized(beamAddons, mProjectile, source);
 		}
-
+		public override void OnSpawn(IEntitySource source)
+		{
+			OnInitialized(source);
+		}
 		public override void AI()
 		{
 			Projectile P = Projectile;

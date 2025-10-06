@@ -17,6 +17,7 @@ namespace MetroidMod.Default
 		public override string Texture => modMissileAddon.ShotTexture;
 		public override string Name => modMissileAddon.Name + "Projectile";
 
+
 		public override void SetDefaults()
 		{
 			Projectile.friendly = true;
@@ -32,38 +33,67 @@ namespace MetroidMod.Default
 
 		public override bool PreAI()
 		{
-			return modMissileAddon.PreAI(mProjectile);
+			if (Override != null)
+			{
+				return (modMissileAddon.PreAI(mProjectile) 
+					&& Override.PreAI(mProjectile));
+			}
+			else
+			{
+				return modMissileAddon.PreAI(mProjectile);
+			}
 		}
 		public override void AI()
 		{
 			modMissileAddon.AI(mProjectile);
+			if (Override != null) { Override.AI(mProjectile); }
 		}
 		public override void PostAI()
 		{
 			modMissileAddon.PostAI(mProjectile);
+			if (Override != null) { Override.PostAI(mProjectile); }
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			return modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+			if (Override != null)
+			{
+				return (modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac) 
+					&& Override.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac));
+			}
+			else 
+			{ 
+				return modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac); 
+			}
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			return modMissileAddon.OnTileCollide(mProjectile, oldVelocity);
+			if (Override != null)
+			{
+				return (modMissileAddon.OnTileCollide(mProjectile, oldVelocity)
+					&& Override.OnTileCollide(mProjectile, oldVelocity));
+			}
+			else
+			{
+				return modMissileAddon.OnTileCollide(mProjectile, oldVelocity);
+			}
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			modMissileAddon.OnHitNPC(mProjectile, target, hit, damageDone);
+			if (Override != null) { Override.OnHitNPC(mProjectile, target, hit, damageDone); }
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			modMissileAddon.OnHitPlayer(mProjectile, target, info);
+			if (Override != null) { Override.OnHitPlayer(mProjectile, target, info); }
 		}
 
 		public override void OnKill(int timeLeft)
 		{
 			modMissileAddon.OnKill(mProjectile, timeLeft);
+			if (Override != null) { Override.OnKill(mProjectile, timeLeft); }
 		}
 
 		#endregion

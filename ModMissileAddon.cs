@@ -125,7 +125,7 @@ namespace MetroidMod
 		/// <summary>
 		/// The primary color of the addon's projectile.
 		/// </summary>
-		public abstract Color PrimaryColor { get; }
+		public virtual Color PrimaryColor { get; set; } = MetroidMod.powColor;
 		/// <summary>
 		/// The secondary color of the addon's projectile, used for dark shading.
 		/// <br/>For example, Ice Missile's secondary color is dark blue.
@@ -195,6 +195,12 @@ namespace MetroidMod
 		/// </summary>
 		public virtual bool NeedsCharging { get; set; } = true; //thanks seeker missiles
 
+		/// <summary>
+		/// If true, this addon will <i>not</i> use its own projectile, and will instead inject its behavior into your primary addon.
+		/// <br/>Does not affect Primary addons. Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool IgnoreProjectile { get; set; } = false;
+
 		//Fake Block-related stuff
 		/// <summary>
 		/// The level of strength this missile addon has in regard to missile blocks.
@@ -250,21 +256,23 @@ namespace MetroidMod
 			//ModMissileAddons automatically generate their items and tiles on load, based on the MissileAddonItem and MissileAddonTile templates.
 			//This is the code that facilitates this.
 
+
+
 			//Assigns a new B.A.I. and B.A.T. instance to the current M.B.A.
 			ModItem = new MissileAddonItem(this);
 			ModTile = new MissileAddonTile(this);
-			mProjectile = new MissileAddonProjectile(this); 
+			if (!IgnoreProjectile) { mProjectile = new MissileAddonProjectile(this); }
 			if (ModItem == null) { throw new Exception("WTF happened here? MissileAddonItem is null!"); }
 			if (ModTile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
 			//Adds the content to the game.
 			Mod.AddContent(ModItem);
 			Mod.AddContent(ModTile);
-			Mod.AddContent(mProjectile);
+			if (!IgnoreProjectile) { Mod.AddContent(mProjectile); }
 			//Assigns the Type values to the appropriate fields.
 			//If you forget this part, you can't call the addons through their Type, which breaks things like Shimmer recipes.
 			ItemType = ModItem.Type;
 			TileType = ModTile.Type;
-			ProjectileType = mProjectile.Type;
+			if (!IgnoreProjectile) { ProjectileType = mProjectile.Type; }
 
 		}
 
@@ -272,10 +280,10 @@ namespace MetroidMod
 		{
 			ModItem.Unload();
 			ModTile.Unload();
-			mProjectile.Unload();
+			if (!IgnoreProjectile) { mProjectile.Unload(); }
 			ModItem = null;
 			ModTile = null;
-			mProjectile = null;
+			if (!IgnoreProjectile) { mProjectile = null; }
 			base.Unload();
 		}
 

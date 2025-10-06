@@ -25,6 +25,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public string shot = "";
 
+		#region Arm Cannon fields
 		/// <summary>
 		/// The total amount of interactions this projectile can perform with tiles.
 		/// </summary>
@@ -66,6 +67,12 @@ namespace MetroidMod.Content.Projectiles
 		/// <br/>Example: The Wave Beam uses this to keep track of where its shots would be if it weren't doing a sine wave.
 		/// </summary>
 		public Vector2 corePosition;
+
+		/// <summary>
+		/// Used by certain missile charge addons to inject behavior into a primary as opposed to 
+		/// </summary>
+		public ModMissileAddon Override = null;
+		#endregion
 		public override void SetDefaults()
 		{
 			Projectile.aiStyle = -1;

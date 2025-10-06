@@ -81,6 +81,7 @@ namespace MetroidMod
 		public static ModMissileAddon GetAddon<T>() where T : ModMissileAddon =>
 			addons.TryGetValue(i => i is T, out ModMissileAddon missile) ? missile : null;
 
+		//wtf is this		-Z
 		public static bool AddonPreAI(ModMissileAddon[] addons, MProjectile shot)
 		{
 			bool endValue = true;

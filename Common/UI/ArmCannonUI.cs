@@ -562,7 +562,7 @@ namespace MetroidMod.Common.UI
 				//MetroidMod.Instance.Logger.Info("You're definitely holding something");
 				if (isBeam)
 				{
-					MetroidMod.Instance.Logger.Info("It's a beam addon slot");
+					MetroidMod.Instance.Logger.Info("It's a beam addon slot and you're holding something");
 					ModBeamAddon heldItem = BeamAddonLoader.GetAddon(Main.mouseItem);
 					if (heldItem != null && !isArray)
 					{
@@ -596,7 +596,7 @@ namespace MetroidMod.Common.UI
 					ModMissileAddon heldItem = MissileAddonLoader.GetAddon(Main.mouseItem);
 					if (heldItem != null)
 					{
-						MetroidMod.Instance.Logger.Info("It's a missile addon slot");
+						MetroidMod.Instance.Logger.Info("It's a missile addon slot and you're holding something");
 						if (heldItem.AddonSlot == slotType || isArray == true) //If it's an array then slot numbers don't matter
 						{
 							if ((Main.mouseItem.type == ItemRead.type) && (Main.mouseItem.stack + ItemRead.stack <= ItemRead.maxStack))
@@ -639,7 +639,7 @@ namespace MetroidMod.Common.UI
 						target.MissileAddonAccess[0] = target.ComboQuickChangeAccess[slotNumber];
 						target.ArrayUpdate();
 					}
-					else
+					else if (!ItemRead.IsAir)
 					{
 						MetroidMod.Instance.Logger.Info("erm.... it is TAKING.");
 						SlotMagic(false);

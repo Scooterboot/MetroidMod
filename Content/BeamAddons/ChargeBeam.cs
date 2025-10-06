@@ -141,7 +141,7 @@ namespace MetroidMod.Content.BeamAddons
 					{
 						case 0.0f:
 							//spawn the chargelead
-							ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
+							ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * 18f, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
 							MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;
@@ -204,10 +204,10 @@ namespace MetroidMod.Content.BeamAddons
 						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
 						wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
 					}
-					else
+					else //if (!the charge missile is a holdfire)
 					{
 						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
-						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, item.damage, item.knockBack, "Charged");
+						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, item.damage, item.knockBack, true);
 					}
 					//alternatively shoot that missile combo if it's not a held
 				}

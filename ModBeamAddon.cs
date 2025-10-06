@@ -164,7 +164,7 @@ namespace MetroidMod
 		public virtual bool VIB { get; set; } = false;
 		/// <summary>
 		/// Determines the custom projectile the VIB will fire instead of the standard beam shot.
-		/// <br/>Leave null to use the standard beam shot projectile.
+		/// <br/>Leave at -1 to use the standard beam shot projectile.
 		/// <br/><b>For advanced use ONLY. Not recommended for beginners.</b>
 		/// </summary>
 		public int vibOverride = -1;
