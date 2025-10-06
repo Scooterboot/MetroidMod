@@ -83,5 +83,7 @@ namespace MetroidMod
 		public static bool MetroidGlobal(this Projectile proj, out MGlobalProjectile mgp) => proj.TryGetGlobalProjectile(out mgp);
 
 		public static Recipe AddSuitAddon<T>(this Recipe recipe, int stack = 1) where T : ModSuitAddon => recipe.AddIngredient(SuitAddonLoader.GetAddon<T>().ItemType, stack);
+		public static Recipe AddBeamAddon<T>(this Recipe recipe, int stack = 1) where T : ModBeamAddon => recipe.AddIngredient(BeamAddonLoader.GetAddon<T>().ItemType, stack);
+		public static Recipe AddMissileAddon<T>(this Recipe recipe, int stack = 1) where T : ModMissileAddon => recipe.AddIngredient(MissileAddonLoader.GetAddon<T>().ItemType, stack);
 	}
 }
