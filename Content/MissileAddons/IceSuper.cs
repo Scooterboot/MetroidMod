@@ -36,8 +36,8 @@ namespace MetroidMod.Content.MissileAddons
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				//.AddIngredient<ModContent.ItemType<SuperMissile>()>
-				//.AddIngredient<IceMissile>()
+				.AddMissileAddon<SuperMissile>(1)
+				.AddMissileAddon<IceMissile>(1)
 				.AddIngredient(ItemID.Ectoplasm, 8)
 				.AddIngredient(ItemID.BeetleHusk, 3)
 				.AddIngredient<FrozenCore>(1)
