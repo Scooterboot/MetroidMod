@@ -2,6 +2,7 @@
 [Bb]in
 
 .vs/
+lib/
 
 # jetbrains rider
 .idea
