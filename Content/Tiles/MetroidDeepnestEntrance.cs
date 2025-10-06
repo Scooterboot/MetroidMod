@@ -24,7 +24,6 @@ namespace MetroidMod.Content.Tiles
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = false;
-			Main.tileSolidTop[Type] = true;
 			TileID.Sets.NotReallySolid[Type] = true;
 			TileID.Sets.DrawsWalls[Type] = true;
 			TileID.Sets.DisableSmartCursor[Type] = true;
