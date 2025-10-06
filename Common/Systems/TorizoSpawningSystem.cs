@@ -26,6 +26,11 @@ namespace MetroidMod.Common.Systems
 
 		public virtual bool CanSpawn()
 		{
+			if (SubworldLibrary.SubworldSystem.AnyActive())
+			{
+				return false;
+			}
+
 			bool torizoDowned = MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
 			bool torizoAlive = NPC.AnyNPCs(ModContent.NPCType<Torizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleGoldenTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>());
 			bool legend = WorldGen.everythingWorldGen || WorldGen.getGoodWorldGen || Main.getGoodWorld;
@@ -118,6 +123,11 @@ namespace MetroidMod.Common.Systems
 
 		public override bool CanSpawn()
 		{
+			if (SubworldLibrary.SubworldSystem.AnyActive())
+			{
+				return false;
+			}
+
 			bool legend = WorldGen.everythingWorldGen || WorldGen.getGoodWorldGen || Main.getGoodWorld;
 			bool canGoldenSpawn = NPC.downedGolemBoss || legend;
 			bool goldenTorizoDowned = MSystem.bossesDown.HasFlag(MetroidBossDown.downedGoldenTorizo);
