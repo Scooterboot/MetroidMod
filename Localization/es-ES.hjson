@@ -367,6 +367,7 @@ Mods: {
 			// RidleyMusicBox.MapEntry: Music Box (Ridley?)
 			// RidleyTrophyTile.MapEntry: Ridley Trophy?
 			// ZeroHusk.MapEntry: Zero Husk
+			// MetroidDeepnestEntrance.MapEntry: Deepnest Entrance
 		}
 
 		Buffs: {
