@@ -11,17 +11,12 @@ using Terraria;
 namespace MetroidMod.Default
 {
 	[Autoload(false)]
-	internal class MissileAddonTile : ModTile
+	internal class MissileAddonTile(ModMissileAddon modMissileAddon) : ModTile
 	{
-		public ModMissileAddon modMissileAddon;
+		public ModMissileAddon modMissileAddon = modMissileAddon;
 
 		public override string Texture => modMissileAddon.TileTexture;
 		public override string Name => modMissileAddon.Name + "Tile";
-
-		public MissileAddonTile(ModMissileAddon modMissileAddon)
-		{
-			this.modMissileAddon = modMissileAddon;
-		}
 
 		public override void SetStaticDefaults()
 		{

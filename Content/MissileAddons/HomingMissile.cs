@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
-namespace MetroidMod.Content.MissileAddons.BeamCombos
+namespace MetroidMod.Content.MissileAddons
 {
 	internal class HomingMissile : ModMissileAddon
 	{
