@@ -10,8 +10,6 @@ namespace MetroidMod.Content.Walls
 		public override string Texture => $"{nameof(MetroidMod)}/Content/Walls/MetroidHiveWall";
 		public override void SetStaticDefaults()
 		{
-			Main.wallHouse[Type] = true;
-
 			DustType = DustID.Sand;
 
 			AddMapEntry(new Color(65, 55, 17));
