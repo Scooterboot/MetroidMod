@@ -68,6 +68,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			{
 				chance = SpawnCondition.Dungeon.Chance * 0.05f;
 			}
+			// TODO: This is temporary. What are we gonna have spawn in the Deepnest?
+			if (ModContent.GetInstance<Biomes.MetroidDeepnestBiome>().IsBiomeActive(spawnInfo.Player))
+			{
+				chance += 0.1f;
+			}
 			return chance;
 		}
 		public override bool? CanFallThroughPlatforms()

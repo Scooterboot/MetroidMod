@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Biomes;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.NPCs.Mobs.Metroid;
 using Microsoft.Xna.Framework;
@@ -172,12 +174,31 @@ namespace MetroidMod.Common.GlobalNPCs
 				}
 			}
 		}
+		public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+		{
+			if (ModContent.GetInstance<MetroidDeepnestBiome>().IsBiomeActive(spawnInfo.Player))
+			{
+				foreach (KeyValuePair<int, float> pair in pool)
+				{
+					// If not in whitelist, annihilate the npc's spawnability.
+					if (!MetroidDeepnestBiome.AllowedNPCs.Contains(pair.Key))
+					{
+						pool[pair.Key] = 0f;
+					}
+				}
+			}
+		}
+
 		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if (mp.PrimeHunter)
 			{
 				spawnRate = (int)(spawnRate * 0.75); //it's truly bizarre how this has to be an inverse ~Dr
+			}
+			if (SubworldLibrary.SubworldSystem.IsActive<Content.Subworlds.MetroidDeepnest>())
+			{
+				maxSpawns = 60;
 			}
 			//base.EditSpawnRate(player, ref spawnRate, ref maxSpawns);
 		}

@@ -221,6 +221,12 @@ Mods: {
 				// DisplayName: NES Crateria Surface
 				// TownNPCDialogueName: the NES Crateria Surface Biome
 			}
+
+			// TODO: Come up with a good name.
+			MetroidDeepnestBiome: {
+				// DisplayName: Metroid Deepnest Biome
+				// TownNPCDialogueName: the Metroid Deepnest Biome
+			}
 		}
 
 		Tiles: {
@@ -369,6 +375,7 @@ Mods: {
 			// ZeroHusk.MapEntry: Zero Husk
 			// MetroidHuskGamma.MapEntry: Metroid Husk Gamma
 			// MetroidHuskLarva.MapEntry: Metroid Husk Larva
+			// MetroidDeepnestEntrance.MapEntry: Metroid Deepnest Entrance
 		}
 
 		Buffs: {
@@ -3969,6 +3976,16 @@ Mods: {
 
 			HuskLarva: {
 				// DisplayName: Metroid Husk
+				// Tooltip: ""
+			}
+
+			MetroidHiveWall: {
+				// DisplayName: Metroid Hive Wall
+				// Tooltip: ""
+			}
+
+			MetroidHiveWallNatural: {
+				// DisplayName: Metroid Hive Wall Natural
 				// Tooltip: ""
 			}
 		}

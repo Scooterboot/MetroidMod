@@ -75,7 +75,8 @@ namespace MetroidMod.Content.Subworlds
 						progress.Set((y + x * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY));
 						Tile tile = Main.tile[x, y];
 						tile.HasTile = true;
-						tile.TileType = TileID.Dirt;
+						tile.TileType = (ushort)ModContent.TileType<Tiles.MetroidHive>();
+						tile.WallType = (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>();
 					}
 				}
 				WorldGen.generatingWorld = false;
