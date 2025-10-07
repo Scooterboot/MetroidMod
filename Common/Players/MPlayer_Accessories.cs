@@ -462,11 +462,11 @@ namespace MetroidMod.Common.Players
 				bool wearingSuit = Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>();
 				if (!wearingSuit)
 				{
-					damageSource = PlayerDeathReason.ByCustomReason($"{Player.name} did not find an exploit");
+					damageSource = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey($"Mods.{nameof(MetroidMod)}.ChatMessages.NoExploitsHereNoSiree", player.name));
 				}
 				else
 				{
-					damageSource = PlayerDeathReason.ByCustomReason("The Prime Hunter is dead!");
+					damageSource = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey($"Mods.{nameof(MetroidMod)}.ChatMessages.PrimeHunterDied"));
 				}
 				SoundEngine.PlaySound(Sounds.Suit.SamusDeath, Player.position);
 			}

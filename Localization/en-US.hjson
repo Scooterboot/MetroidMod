@@ -2,9 +2,11 @@ Mods: {
 	MetroidMod: {
 		ModName: Metroid Mod
 
-		WorldEvents: {
+		ChatMessages: {
 			PhazonMeteor: A Leviathan has landed!
 			PhazonCorruption: "{0} has been corrupted with Phazon!"
+			PrimeHunterDied: The Prime Hunter is dead!
+			NoExploitsHereNoSiree: "{0} did not find an exploit"
 		}
 
 		BiomeName.ChozoRuinsBiome: Chozo Ruins
