@@ -66,6 +66,7 @@ namespace MetroidMod.Content.Tiles
 		{
 			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange && !MUtils.AnyBossesActive() && !SubworldSystem.AnyActive())
 			{
+				Main.LocalPlayer.MetroidPlayer().posInRealWorld = Main.LocalPlayer.position;
 				SubworldSystem.MovePlayerToSubworld<Subworlds.MetroidDeepnest>(Main.LocalPlayer.whoAmI);
 				return (true);
 			}
