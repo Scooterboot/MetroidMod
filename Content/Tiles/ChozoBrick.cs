@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Tiles
 			Main.tileDungeon[Type] = true;
 			//Main.tileMerge[Type][TileID.Sand] = true;
 			//Main.tileMerge[TileID.Sand][Type] = true;
-
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<Items.Tiles.ChozoBrickNatural>();
 			DustType = 87;
 			MinPick = 60;
 			HitSound = SoundID.Tink;

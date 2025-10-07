@@ -1,6 +1,7 @@
 ﻿using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Walls
@@ -11,6 +12,7 @@ namespace MetroidMod.Content.Walls
 		public override void SetStaticDefaults()
 		{
 			DustType = 87;
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<Items.Walls.NorfairBrickWall>();
 
 			AddMapEntry(new Color(68, 42, 35));
 		}
