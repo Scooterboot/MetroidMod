@@ -28,6 +28,7 @@ namespace MetroidMod.Default
 		#region behavior
 		public override void OnSpawn(IEntitySource source)
 		{
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 			modMissileAddon.OnSpawn(mProjectile, source);
 		}
 

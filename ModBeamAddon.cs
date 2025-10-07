@@ -335,7 +335,7 @@ namespace MetroidMod
 				}
 				BeamAddonLoader.addons.Add(this);
 			}
-			MetroidMod.Instance.Logger.Info("Register new Beam Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+			MetroidMod.Instance.Logger.Info("Register new Beam Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem + ", Visual Priority: " + ShapePriority + "S/" + ColorPriority + "C, VIB: " + VIB);
 		}
 		/// <summary>
 		/// Used to instantiate copies of beam addons.

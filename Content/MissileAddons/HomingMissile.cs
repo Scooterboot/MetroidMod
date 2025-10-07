@@ -26,6 +26,8 @@ namespace MetroidMod.Content.MissileAddons
 		public override Color PrimaryColor => MetroidMod.powColor;
 		public override Color SecondaryColor => MetroidMod.powSecondaryColor;
 		public override int ShotDust => DustID.YellowTorch;
+
+		public override bool IgnoreProjectile => true;
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Charge;
@@ -35,13 +37,7 @@ namespace MetroidMod.Content.MissileAddons
 		}
 		public override void AI(MProjectile mpshot)
 		{
-			if (mpshot is MissileShot oof)
-			{
-				if (oof.fileMod.Contains("Charge"))
-				{
-					mpshot.HomingBehavior(mpshot.Projectile);
-				}
-			}
+			mpshot.HomingBehavior(mpshot.Projectile);
 		}
 		public override void SetItemDefaults(Item item) //TO DO SOMETHING WITH THIS
 		{

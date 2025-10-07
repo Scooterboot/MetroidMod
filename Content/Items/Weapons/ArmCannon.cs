@@ -290,6 +290,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ac.statMissiles = 5;
 			ac.maxUA = 40;
 			ac.statUA = 40;
+			ac.barrelOffset = 20f;
 
 			if (ac.isBeam) 
 			{
@@ -558,11 +559,13 @@ namespace MetroidMod.Content.Items.Weapons
 			#endregion
 
 			#region Missile Launcher
-			//MissileShot = missileAddons[1]
+			//
 			#endregion
 
 			//TODO: Netsync thing here
 			Item.NetStateChanged();
+
+			ac.barrelOffset = 20f;
 		}
 
 		public override void HoldItem(Player player)

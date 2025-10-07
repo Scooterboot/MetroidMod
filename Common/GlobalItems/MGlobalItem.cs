@@ -73,6 +73,12 @@ namespace MetroidMod.Common.GlobalItems
 		/// </summary>
 		public string assetModifier = "";
 
+		/// <summary>
+		/// How far down the weapon's "barrel" is.
+		/// <br/>The Arm Cannon uses this value to offset the Charge Beam's lead across different textures.
+		/// </summary>
+		public float barrelOffset;
+
 		public override bool InstancePerEntity => true;
 		protected override bool CloneNewInstances => true;
 

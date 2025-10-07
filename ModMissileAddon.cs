@@ -199,7 +199,7 @@ namespace MetroidMod
 		/// If true, this addon will <i>not</i> use its own projectile, and will instead inject its behavior into your primary addon.
 		/// <br/>Does not affect Primary addons. Defaults to <b>false</b>.
 		/// </summary>
-		public virtual bool IgnoreProjectile { get; set; } = false;
+		public virtual bool IgnoreProjectile => false;
 
 		//Fake Block-related stuff
 		/// <summary>
@@ -258,7 +258,7 @@ namespace MetroidMod
 
 
 
-			//Assigns a new B.A.I. and B.A.T. instance to the current M.B.A.
+			//Assigns a new M.A.I., M.A.T., and (usually) M.A.P. instance to the current M.M.A.
 			ModItem = new MissileAddonItem(this);
 			ModTile = new MissileAddonTile(this);
 			if (!IgnoreProjectile) { mProjectile = new MissileAddonProjectile(this); }
@@ -298,7 +298,7 @@ namespace MetroidMod
 				}
 				MissileAddonLoader.addons.Add(this);
 			}
-			MetroidMod.Instance.Logger.Info("Register new Missile Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem);
+			MetroidMod.Instance.Logger.Info("Register new Missile Addon: " + FullName + ", OnlyAddonItem: " + AddOnlyAddonItem + ", IgnoreProjectile: " + IgnoreProjectile);
 		}
 		/// <summary>
 		/// Used to instantiate copies of Missile addons.

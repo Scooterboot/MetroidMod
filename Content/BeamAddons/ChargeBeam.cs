@@ -141,7 +141,7 @@ namespace MetroidMod.Content.BeamAddons
 					{
 						case 0.0f:
 							//spawn the chargelead
-							ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * 18f, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
+							ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * ac.barrelOffset, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
 							MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;
@@ -328,7 +328,7 @@ namespace MetroidMod.Content.BeamAddons
 				if (isCharging && ((!mp.somersault && mp.pseudoScrewActive) || (!mp.pseudoScrewActive) || (mp.pseudoScrewActive && mp.statCharge < 75)))
 				{
 					BarrelGlue(player, ballPos);
-					BarrelAim(player, ballPos, player.HeldItem.shootSpeed);
+					BarrelAim(player, ballPos, ac.barrelOffset);
 
 					Projectile.rotation += 0.5f;
 					//Projectile.scale = Math.Max(mp.statCharge / 100, 0.5f);

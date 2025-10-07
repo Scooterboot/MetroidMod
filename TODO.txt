@@ -45,6 +45,10 @@
 	-Concept: Pressing the interface keybind opens a wheel around the player containing the currently-selected mode's quick-swap array.
 		Not used to add or remove beams from the array, simply to swap what's equipped
 
+-Compatibility
+
+-Suitlocking
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -57,18 +61,14 @@
 ||< CATEGORY B: MISSILE SYSTEM >||
 ||==============================||
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--Decide whether or not missile addons should have their own dedicated projectiles
-	-Points in favor of having dedicated projectiles:
-		* Able to copy 80% of charge combo code verbatim
-		* Only one missile slot actually changes the properties of the standard shot
-		* More intuitive, in the sense that missiles are a lot more physical than beams so it makes sense that missiles would all be different projectiles
-	-Points against having dedicated projectiles:
-		* Makes it much more difficult to create a missile addon
-		* Creates a dissonance between weapon addon systems
-		* The third point in favor of dedicated projectiles is total conjecture and all-around worthless
+-Decide whether or not missile addons should have their own dedicated projectiles [DONE, THEY WILL]
 
 -Determine how to port charge combos
 	-See if making beam-related ones require that beam equipped breaks balancing or not
+
+-IgnoreProjectile system for charge addons
+	-Allows charge missiles to not have their own projectile and just inject their crap on your primary
+		-addons that would use this: Homing, Array, Seeker, Diffusion
 
 -Make a config to change starting missiles to 0 and let missile expansions stack 1 higher
 	-Useful for mapmaking
@@ -344,7 +344,15 @@ Advanced Beamstacking
 
 Missile System
 ---------------
-
+-Decide whether or not missile addons should have their own dedicated projectiles
+	-Points in favor of having dedicated projectiles:
+		* Able to copy 80% of charge combo code verbatim
+		* Only one missile slot actually changes the properties of the standard shot
+		* More intuitive, in the sense that missiles are a lot more physical than beams so it makes sense that missiles would all be different projectiles
+	-Points against having dedicated projectiles:
+		* Makes it much more difficult to create a missile addon
+		* Creates a dissonance between weapon addon systems
+		* The third point in favor of dedicated projectiles is total conjecture and all-around worthless
 
 
 Upgrades to Old Systems

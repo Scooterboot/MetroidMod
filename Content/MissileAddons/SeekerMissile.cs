@@ -18,9 +18,11 @@ namespace MetroidMod.Content.MissileAddons
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
 		public override int ShotDust => DustID.IceTorch;
 
+		public override bool IgnoreProjectile => true;
+
 		public override void SetStaticDefaults()
 		{
-			AddonSlot = MissileAddonSlotID.Primary;
+			AddonSlot = MissileAddonSlotID.Charge;
 
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 			base.SetStaticDefaults();

@@ -11,6 +11,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -148,24 +149,18 @@ namespace MetroidMod.Content.BeamAddons
 			{
 				for (int i = 0; i < theShootsingAmount; i++)
 				{
-					//HyperBeamExtraShot stray = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile) as HyperBeamExtraShot;
-					//stray.mother = tasteTheRainbow;
-					//stray.beamAddons = wepon.beamAddonAccess
-					//	.Select(i => BeamAddonLoader.GetAddon(i))
-					//	.Select(i => i?.Clone())
-					//	.ToArray();
-					//stray.babyID = i;
-					//
-					//stray.OnInitialized(source);
+					HyperBeamExtraShot stray = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile) as HyperBeamExtraShot;
+					stray.mother = tasteTheRainbow;
+					stray.beamAddons = wepon.BeamAddonAccess
+						.Select(i => BeamAddonLoader.GetAddon(i))
+						.Select(i => i?.Clone())
+						.ToArray();
+					stray.groupSize = theShootsingAmount;
+					stray.groupID = i;
+
+					stray.OnInitialized(source);
 				}
 			}
-
-			//spawn the primary projectile
-			//insert the addons onto the projectile
-			//run OnInitialize()
-			//run a for loop for spawning the extras, assign the primary as the parent
-			//Insert the addons into the projectiles
-			//Run OnInitialize()
 
 			//I think also this is where the, uh, rainbow-y code goes?? for making you go all rainbow?
 		}
@@ -183,7 +178,7 @@ namespace MetroidMod.Content.BeamAddons
 		//rewrite like most of this
 		public override string Texture => $"{Mod.Name}/Assets/Textures/BeamAddons/HyperBeam/Shot";
 
-		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 1]; //Hyper Beam doesn't need the charge slot (since it's already known) or the ammo slot (doesn't use ammo)
+		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 1]; //Hyper Beam doesn't need the ammo slot (doesn't use ammo)
 
 		/// <summary>
 		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of beams.
@@ -208,8 +203,6 @@ namespace MetroidMod.Content.BeamAddons
 		float scale = 0f;
 		public void OnInitialized(IEntitySource source)
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
-			scale = Projectile.scale;
 			MetroidMod.Instance.Logger.Info("BWEEEW");
 			//Gather data from installed addons.
 
@@ -223,21 +216,21 @@ namespace MetroidMod.Content.BeamAddons
 		}
 		public override void OnSpawn(IEntitySource source)
 		{
-			OnInitialized(source);
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			scale = Projectile.scale;
 		}
 		public override void AI()
 		{
-			Projectile P = Projectile;
-			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
+			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
 
-			Lighting.AddLight(P.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
+			Lighting.AddLight(Projectile.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
 
-			P.localAI[0] = Math.Min(P.localAI[0] + 0.075f, 1f);
-			P.localAI[1] = Math.Min(P.localAI[1] + 0.025f, 1f);
+			Projectile.localAI[0] = Math.Min(Projectile.localAI[0] + 0.075f, 1f);
+			Projectile.localAI[1] = Math.Min(Projectile.localAI[1] + 0.025f, 1f);
 
-			P.scale = scale * P.localAI[0];
+			Projectile.scale = scale * Projectile.localAI[0];
 
 			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
 		}
@@ -287,5 +280,84 @@ namespace MetroidMod.Content.BeamAddons
 
 	}
 
+	public class HyperBeamExtraShot : MProjectile
+	{
+		public override string Texture => $"{Mod.Name}/Assets/Textures/BeamAddons/HyperBeam/ExtraShot";
 
+		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 1]; //Hyper Beam doesn't need the ammo slot (doesn't use ammo)
+
+		/// <summary>
+		/// This string is appended to the end of the shot's texturepath to find unique textures for a specific combination of beams.
+		/// </summary>
+		public string fileMod = "";
+
+		/// <summary>
+		/// The extra-shot's parent (or "mother") projectile.
+		/// </summary>
+		public MProjectile mother;
+
+
+
+		public override void SetDefaults()
+		{
+			base.SetDefaults();
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.scale = 2f;
+		}
+
+		#region Projectile AI
+		
+		public void OnInitialized(IEntitySource source)
+		{
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+
+			//First, call method to calculate tileinteract total.
+			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, 2f);
+			//Then, call method to calculate entityinteract total.
+			EntityInteract = BeamAddonLoader.InteractStacker(beamAddons, false, 2f);
+
+			BeamAddonLoader.AddonOnInitialized(beamAddons, mProjectile, source);
+		}
+
+		public override void AI()
+		{
+			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
+
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+
+			Lighting.AddLight(Projectile.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
+
+			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
+		}
+
+		public override void PostAI()
+		{
+			BeamAddonLoader.AddonPostAI(beamAddons, mProjectile);
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			return BeamAddonLoader.AddonTileCollideStyle(beamAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			return BeamAddonLoader.AddonOnTileCollide(beamAddons, mProjectile, oldVelocity);
+		}
+
+		public override void OnKill(int timeLeft)
+		{
+			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
+			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));
+		}
+		#endregion
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 10, Projectile.scale * Projectile.localAI[0] * Projectile.localAI[1], new Color(mp.r, mp.g, mp.b, 128));
+			return false;
+		}
+	}
 }

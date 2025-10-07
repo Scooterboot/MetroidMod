@@ -373,6 +373,12 @@ Mods: {
 			// StardustComboTile.MapEntry: Stardust Combo Tile
 			// VortexComboTile.MapEntry: Vortex Combo Tile
 			// WavebusterTile.MapEntry: Wavebuster Tile
+			// DiffusionMissileTile.MapEntry: Diffusion Missile Tile
+			// IceSuperTile.MapEntry: Ice Super Tile
+			// NebulaMissileTile.MapEntry: Nebula Missile Tile
+			// SeekerMissileTile.MapEntry: Seeker Missile Tile
+			// StardustMissileTile.MapEntry: Stardust Missile Tile
+			// SuperMissileTile.MapEntry: Super Missile Tile
 		}
 
 		Buffs: {
@@ -3737,6 +3743,11 @@ Mods: {
 				// DisplayName: Shader Test Item
 				// Tooltip: ""
 			}
+
+			IceSuperAddon: {
+				// DisplayName: Ice Super Addon
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4132,6 +4143,12 @@ Mods: {
 			// StardustComboProjectile.DisplayName: Stardust Combo Projectile
 			// VortexComboProjectile.DisplayName: Vortex Combo Projectile
 			// WavebusterProjectile.DisplayName: Wavebuster Projectile
+			// HyperBeamExtraShot.DisplayName: Hyper Beam Extra Shot
+			// DiffusionMissileProjectile.DisplayName: Diffusion Missile Projectile
+			// IceSuperProjectile.DisplayName: Ice Super Projectile
+			// NebulaMissileProjectile.DisplayName: Nebula Missile Projectile
+			// StardustMissileProjectile.DisplayName: Stardust Missile Projectile
+			// SuperMissileProjectile.DisplayName: Super Missile Projectile
 		}
 
 		Configs: {
