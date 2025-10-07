@@ -367,7 +367,8 @@ Mods: {
 			// RidleyMusicBox.MapEntry: Music Box (Ridley?)
 			// RidleyTrophyTile.MapEntry: Ridley Trophy?
 			// ZeroHusk.MapEntry: Zero Husk
-			// MetroidDeepnestEntrance.MapEntry: Deepnest Entrance
+			// MetroidHuskGamma.MapEntry: Metroid Husk Gamma
+			// MetroidHuskLarva.MapEntry: Metroid Husk Larva
 		}
 
 		Buffs: {
@@ -3954,6 +3955,21 @@ Mods: {
 			PipsiParadoxxDevItemWaist: {
 				// Tooltip: ""
 				// DisplayName: Pipsi Paradoxx Dev Item Waist
+			}
+
+			MetroidHive: {
+				// DisplayName: Metroid Hive
+				// Tooltip: ""
+			}
+
+			HuskGamma: {
+				// DisplayName: Gamma Metroid Husk
+				// Tooltip: ""
+			}
+
+			HuskLarva: {
+				// DisplayName: Metroid Husk
+				// Tooltip: ""
 			}
 		}
 
