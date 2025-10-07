@@ -1,6 +1,7 @@
 using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Armors
@@ -8,11 +9,14 @@ namespace MetroidMod.Content.Items.Armors
 	[AutoloadEquip(EquipType.Body)]
 	public class ChoziteBreastplate : ModItem
 	{
+		public static LocalizedText SetBonus;
+		
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Chozite Breastplate");
 
 			Item.ResearchUnlockCount = 1;
+			SetBonus = this.GetLocalization("SetBonus").WithFormatArgs(2);
 		}
 		public override void SetDefaults()
 		{
@@ -25,8 +29,8 @@ namespace MetroidMod.Content.Items.Armors
 		public override bool IsArmorSet(Item head, Item body, Item legs) => head.type == ModContent.ItemType<ChoziteHelmet>() && body.type == ModContent.ItemType<ChoziteBreastplate>() && legs.type == ModContent.ItemType<ChoziteGreaves>();
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "+2 defense" + "\n"
-				+ "Allows somersaulting & wall jumping";
+			player.setBonus = SetBonus.Value; // "+2 defense" + "\n"
+				// + "Allows somersaulting & wall jumping";
 			player.statDefense += 2;
 			if (Common.Configs.MConfigItems.Instance.enableWallJumpChoziteArmor)
 			{
