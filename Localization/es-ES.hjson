@@ -376,6 +376,7 @@ Mods: {
 			// MetroidHuskGamma.MapEntry: Metroid Husk Gamma
 			// MetroidHuskLarva.MapEntry: Metroid Husk Larva
 			// MetroidDeepnestEntrance.MapEntry: Metroid Deepnest Entrance
+			// MetroidDeepnestExit.MapEntry: Metroid Deepnest Exit
 		}
 
 		Buffs: {
