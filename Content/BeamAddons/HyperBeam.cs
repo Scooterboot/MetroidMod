@@ -120,7 +120,28 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override string SetStaticCombos(Item[] addons)
 		{
-			return base.SetStaticCombos(addons);
+			ModBeamAddon[] beamAddons = addons
+				.Select(BeamAddonLoader.GetAddon)
+				.ToArray();
+			bool hasPlasma = false;
+
+
+			if (beamAddons[BeamAddonSlotID.Secondary] == BeamAddonLoader.GetAddon<PlasmaBeam>())
+			{
+				hasPlasma = true;
+			}
+
+			if (hasPlasma)
+			{
+				//Choose something unique that describes the particular combination to make things easier on yourself.
+				//For instance, this keyword is "Fuck" because  F U C K .
+				return "Plasma";
+			}
+			else
+			{
+				//Return blank if it doesn't get anything, keeps things clean.
+				return "";
+			}
 		}
 
 		public override void VIBShoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1)
@@ -142,7 +163,7 @@ namespace MetroidMod.Content.BeamAddons
 				.Select(i => BeamAddonLoader.GetAddon(i))
 				.Select(i => i?.Clone())
 				.ToArray();
-
+			tasteTheRainbow.fileMod = SetStaticCombos(wepon.BeamAddonAccess);
 			tasteTheRainbow.OnInitialized(source);
 
 			if (theShootsingAmount > 0)
@@ -163,6 +184,7 @@ namespace MetroidMod.Content.BeamAddons
 			}
 
 			//I think also this is where the, uh, rainbow-y code goes?? for making you go all rainbow?
+			mp.hyperColors = 60;
 		}
 
 
@@ -203,7 +225,6 @@ namespace MetroidMod.Content.BeamAddons
 		float scale = 0f;
 		public void OnInitialized(IEntitySource source)
 		{
-			MetroidMod.Instance.Logger.Info("BWEEEW");
 			//Gather data from installed addons.
 
 			//First, call method to calculate tileinteract total.
@@ -303,7 +324,7 @@ namespace MetroidMod.Content.BeamAddons
 			base.SetDefaults();
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.scale = 2f;
+			Projectile.scale = 1f;
 		}
 
 		#region Projectile AI
@@ -311,6 +332,8 @@ namespace MetroidMod.Content.BeamAddons
 		public void OnInitialized(IEntitySource source)
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+
+			mProjectile.corePosition = mother.corePosition;
 
 			//First, call method to calculate tileinteract total.
 			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, 2f);

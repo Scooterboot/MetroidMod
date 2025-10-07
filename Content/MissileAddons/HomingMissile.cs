@@ -37,6 +37,7 @@ namespace MetroidMod.Content.MissileAddons
 		}
 		public override void AI(MProjectile mpshot)
 		{
+			//MetroidMod.Instance.Logger.Info("Locking onto target");
 			mpshot.HomingBehavior(mpshot.Projectile);
 		}
 		public override void SetItemDefaults(Item item) //TO DO SOMETHING WITH THIS

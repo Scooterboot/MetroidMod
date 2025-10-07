@@ -147,7 +147,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public int activeMissileArray = 0;
 
 		public SoundStyle beamSound = Sounds.Items.Weapons.PowerBeamSound;
-		public SoundStyle missileSound = Sounds.Items.Weapons.MissileSound;
+		public SoundStyle missileSound = Sounds.Items.Weapons.MissileShoot;
 		#endregion
 
 		#region stats
@@ -615,6 +615,8 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					MetroidMod.Instance.Logger.Info("TASTE THE RAINBOW MOTHERFUCKER");
 					BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).VIBShoot(Item, player, source, position, velocity, type, damage, knockback);
+					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
+					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
 				}
 				else if (ac.SuppressingFire) {return false;}
 				else

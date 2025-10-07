@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Elevators
 	internal class ElevatorPlayerRendering : ModSystem
 	{
 		private readonly List<Player> _elevatingPlayersDrawBehindBlocks = [];
-
+		/*
 		public override void Load()
 		{
 			IL_Main.DoDraw += il =>
@@ -51,7 +51,7 @@ namespace MetroidMod.Content.Elevators
 				});
 			};
 		}
-
+		*/
 		private void MovePlayersToElevatingList(List<Player> players)
 		{
 			_elevatingPlayersDrawBehindBlocks.AddRange(players.RemoveWhere(player => player.GetModPlayer<ElevatorPlayer>().InElevator));

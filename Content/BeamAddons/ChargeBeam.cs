@@ -193,7 +193,7 @@ namespace MetroidMod.Content.BeamAddons
 					if (chargeDelay > item.useTime) { chargeDelay = item.useTime; }
 				} //not allowed to charge just yet
 			}//Check if the player is currently trying to charge with a compatible weapon
-			else if (canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null) && mp.statCharge > 5f)
+			else if (canCharge && (ac.isBeam || !wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir) && mp.statCharge > 5f)
 			{
 				MetroidMod.Instance.Logger.Info("jobs done");
 				if (mp.statCharge >= 100f)
@@ -206,8 +206,8 @@ namespace MetroidMod.Content.BeamAddons
 					}
 					else //if (!the charge missile is a holdfire)
 					{
-						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
-						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, item.damage, item.knockBack, true);
+						MetroidMod.Instance.Logger.Info(player.name + " launched the nukes!!!");
+						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, item.shoot, item.damage, item.knockBack, true);
 					}
 					//alternatively shoot that missile combo if it's not a held
 				}
