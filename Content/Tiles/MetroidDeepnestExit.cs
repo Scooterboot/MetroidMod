@@ -19,6 +19,8 @@ namespace MetroidMod.Content.Tiles
 	{
 		readonly float rightclickRange = 50.0f;
 
+		public static LocalizedText HoverText;
+
 		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
@@ -34,6 +36,8 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(232, 170, 57), name);
+
+			HoverText = this.GetLocalization("HoverText");
 		}
 
 		public override bool Slope(int i, int j) { return false; }
@@ -52,8 +56,9 @@ namespace MetroidMod.Content.Tiles
 			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
 			{
 				Main.LocalPlayer.noThrow = 2;
-				// Main.LocalPlayer.cursorItemIconEnabled = true;
-				// Main.LocalPlayer.cursorItemIconID = ItemType<Items.Tiles.EnergyStation>();
+				Main.LocalPlayer.cursorItemIconEnabled = true;
+				Main.LocalPlayer.cursorItemIconID = ItemType<Items.Tiles.MetroidDeepnestExit>();
+				Main.LocalPlayer.cursorItemIconText = HoverText.Value;
 			}
 		}
 

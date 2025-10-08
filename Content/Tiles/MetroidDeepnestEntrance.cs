@@ -11,13 +11,14 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 
 //using MetroidMod.Buffs;
-using static Terraria.ModLoader.ModContent;
 
 namespace MetroidMod.Content.Tiles
 {
 	public class MetroidDeepnestEntrance : ModTile
 	{
 		readonly float rightclickRange = 50.0f;
+
+		public static LocalizedText HoverText;
 
 		public override void SetStaticDefaults()
 		{
@@ -34,6 +35,8 @@ namespace MetroidMod.Content.Tiles
 			TileObjectData.addTile(Type);
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(232, 170, 57), name);
+
+			HoverText = this.GetLocalization("HoverText");
 		}
 
 		public override bool Slope(int i, int j) { return false; }
@@ -52,8 +55,9 @@ namespace MetroidMod.Content.Tiles
 			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange)
 			{
 				Main.LocalPlayer.noThrow = 2;
-				// Main.LocalPlayer.cursorItemIconEnabled = true;
-				// Main.LocalPlayer.cursorItemIconID = ItemType<Items.Tiles.EnergyStation>();
+				Main.LocalPlayer.cursorItemIconEnabled = true;
+				Main.LocalPlayer.cursorItemIconID = ModContent.ItemType<Items.Tiles.MetroidDeepnestEntrance>();
+				Main.LocalPlayer.cursorItemIconText = HoverText.Value;
 			}
 		}
 

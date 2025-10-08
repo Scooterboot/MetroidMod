@@ -375,8 +375,16 @@ Mods: {
 			// ZeroHusk.MapEntry: Zero Husk
 			// MetroidHuskGamma.MapEntry: Metroid Husk Gamma
 			// MetroidHuskLarva.MapEntry: Metroid Husk Larva
-			// MetroidDeepnestEntrance.MapEntry: Metroid Deepnest Entrance
-			// MetroidDeepnestExit.MapEntry: Metroid Deepnest Exit
+
+			MetroidDeepnestEntrance: {
+				// MapEntry: Metroid Deepnest Entrance
+				// HoverText: Go Deeper
+			}
+
+			MetroidDeepnestExit: {
+				// MapEntry: Metroid Deepnest Exit
+				// HoverText: Return to the Outernest
+			}
 		}
 
 		Buffs: {
@@ -3988,6 +3996,16 @@ Mods: {
 			MetroidHiveWallNatural: {
 				// DisplayName: Metroid Hive Wall Natural
 				// Tooltip: ""
+			}
+
+			MetroidDeepnestExit: {
+				// DisplayName: Metroid Deepnest Exit
+				// Tooltip: Debug Item
+			}
+
+			MetroidDeepnestEntrance: {
+				// DisplayName: Metroid Deepnest Entrance
+				// Tooltip: Debug Item
 			}
 		}
 
