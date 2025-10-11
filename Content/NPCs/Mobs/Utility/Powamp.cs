@@ -48,9 +48,9 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 		{
 			NPC.TargetClosest(false);
 			if (Vector2.Distance(NPC.Center, Main.player[NPC.target].Center) <= 240)
-				NPC.ai[0] += (NPC.ai[0] < 46 ? 1 : 0);
+				NPC.ai[0] += NPC.ai[0] < 46 ? 1 : 0;
 			else
-				NPC.ai[0] -= (NPC.ai[0] > 0 ? 1 : 0);
+				NPC.ai[0] -= NPC.ai[0] > 0 ? 1 : 0;
 
 			NPC.ai[1] += .06F;
 			NPC.velocity.X = (float)Math.Cos(NPC.ai[1]) * .4F;

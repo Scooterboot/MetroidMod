@@ -1,9 +1,9 @@
 ﻿using MetroidMod.Common.GlobalItems;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Content.Items.Miscellaneous
 {
@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 			// DisplayName.SetDefault("UA Pickup");
 			ItemID.Sets.ItemNoGravity[Type] = true;
 			Main.RegisterItemAnimation(Type, new DrawAnimationVertical(6, 6));
-			ItemID.Sets.AnimatesAsSoul[Item.type] = true;	
+			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 			ItemID.Sets.IgnoresEncumberingStone[Type] = true;
 		}
 		public override void SetDefaults()

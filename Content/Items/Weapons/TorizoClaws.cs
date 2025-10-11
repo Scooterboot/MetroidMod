@@ -1,6 +1,4 @@
-using MetroidMod.Content.NPCs.Torizo;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Weapons

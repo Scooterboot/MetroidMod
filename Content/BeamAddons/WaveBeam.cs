@@ -50,7 +50,7 @@ namespace MetroidMod.Content.BeamAddons
 			#endregion
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 		}
-		
+
 		public override void SetItemDefaults(Item item)
 		{
 			item.rare = ItemRarityID.Green;
@@ -122,7 +122,7 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override void OnSpawn(MProjectile mpshot, IEntitySource source)
 		{
-			if ((source is EntitySource_Parent parent && parent.Entity is Player player && player.whoAmI == Main.myPlayer) && (!mpshot.symmetry))
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.whoAmI == Main.myPlayer && (!mpshot.symmetry))
 			{
 				MGlobalItem ac = player.HeldItem.GetGlobalItem<MGlobalItem>();
 				//if (ac.inverter != 1 && ac.inverter != -1) { ac.inverter = 1; } //Potential failsafe to guard against bad values, revisit after making spazed waves
@@ -153,8 +153,8 @@ namespace MetroidMod.Content.BeamAddons
 			//This code handles the Wave Beam's ability to pass through terrain.
 
 			//Get the tile currently overlapping with the shot
-			int i = (int)MathHelper.Clamp((mpshot.Projectile.Center.X) / 16f, 0, Main.maxTilesX - 1);
-			int j = (int)MathHelper.Clamp((mpshot.Projectile.Center.Y) / 16f, 0, Main.maxTilesY - 1);
+			int i = (int)MathHelper.Clamp(mpshot.Projectile.Center.X / 16f, 0, Main.maxTilesX - 1);
+			int j = (int)MathHelper.Clamp(mpshot.Projectile.Center.Y / 16f, 0, Main.maxTilesY - 1);
 
 			if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
 			{
@@ -187,7 +187,7 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			//This'll probably look really intimidating if you don't know too much about sinewaves but there's not all that much going on.
 			//MetroidMod.Instance.Logger.Info("proj is " + p);
-			float increment = (MathHelper.TwoPi / 60);
+			float increment = MathHelper.TwoPi / 60;
 			float sineDelay = mpshot.Projectile.height / mpshot.Projectile.velocity.Length();
 
 			//Consider making the following values external in the future?
@@ -206,8 +206,8 @@ namespace MetroidMod.Content.BeamAddons
 					//However it may be best to use half-steps on even amounts so the overal amount of space is consistent
 					float midpoint = (((float)mpshot.groupSize - 1) / 2) + 1; //This equation should do that automatically. Emphasis on "should".
 
-					ampMultiplier = (mpshot.groupID + 1) - midpoint; //Subtract by the midpoint to create an offset. Must add 1 to ID so values line up properly.
-					//If odd, the middle projectile will have a multiplier of 0.
+					ampMultiplier = mpshot.groupID + 1 - midpoint; //Subtract by the midpoint to create an offset. Must add 1 to ID so values line up properly.
+																   //If odd, the middle projectile will have a multiplier of 0.
 
 				}
 				else
@@ -224,13 +224,13 @@ namespace MetroidMod.Content.BeamAddons
 			//If sineDir is *= to p.direction, firing left causes the shot to rapidly go back and forth between opposite wave and normal wave, making it look like two shots.
 			//Consider employing if dynamic multishot does not work out.
 			//sineDir = p.Projectile.direction;
-			
+
 			//Set the projectile's offset from the sineless center
 			float shift = amplitude * (float)Math.Sin(sineRad) * ampMultiplier;
-			float rot = (float)Math.Atan2((mpshot.Projectile.velocity.Y), (mpshot.Projectile.velocity.X));
+			float rot = (float)Math.Atan2(mpshot.Projectile.velocity.Y, mpshot.Projectile.velocity.X);
 			//Update projectile's position.
-			mpshot.Projectile.position.X = mpshot.corePosition.X + (float)Math.Cos(rot + (MathHelper.PiOver2)) * shift;
-			mpshot.Projectile.position.Y = mpshot.corePosition.Y + (float)Math.Sin(rot + (MathHelper.PiOver2)) * shift;
+			mpshot.Projectile.position.X = mpshot.corePosition.X + ((float)Math.Cos(rot + MathHelper.PiOver2) * shift);
+			mpshot.Projectile.position.Y = mpshot.corePosition.Y + ((float)Math.Sin(rot + MathHelper.PiOver2) * shift);
 			//MetroidMod.Instance.Logger.Info("One full wavebeh completed");
 		}
 		#endregion

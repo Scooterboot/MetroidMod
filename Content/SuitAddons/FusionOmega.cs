@@ -1,9 +1,5 @@
-﻿using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
-using MetroidMod.Common.Systems;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

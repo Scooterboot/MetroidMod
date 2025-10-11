@@ -29,7 +29,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				return 0f;
 			}
-			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + SpawnCondition.Underworld.Chance * 0.15f;
+			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + (SpawnCondition.Underworld.Chance * 0.15f);
 		}
 
 		public override void SetDefaults()

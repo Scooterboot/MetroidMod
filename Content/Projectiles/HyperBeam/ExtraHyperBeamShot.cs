@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles.HyperBeam
 			Projectile P = Projectile;
 			MPlayer mp = Main.player[P.owner].GetModPlayer<MPlayer>();
 
-			bool isWave = (shot.Contains("wave") || shot.Contains("nebula")),
+			bool isWave = shot.Contains("wave") || shot.Contains("nebula"),
 				isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
 				isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"),
 				isNebula = shot.Contains("nebula");
@@ -65,7 +65,7 @@ namespace MetroidMod.Content.Projectiles.HyperBeam
 			{
 				Projectile.tileCollide = false;
 			}
-			Lighting.AddLight(P.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
+			Lighting.AddLight(P.Center, mp.r / 255f, mp.g / 255f, mp.b / 255f);
 
 			Vector2 velocity = Projectile.position - Projectile.oldPos[0];
 			if (Vector2.Distance(Projectile.position, Projectile.position + velocity) < Vector2.Distance(Projectile.position, Projectile.position + Projectile.velocity))

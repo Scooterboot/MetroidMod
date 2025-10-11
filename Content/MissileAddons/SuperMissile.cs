@@ -1,13 +1,7 @@
-using System;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Projectiles;
-using MetroidMod.Default;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons
 {
@@ -15,7 +9,7 @@ namespace MetroidMod.Content.MissileAddons
 	{
 		public override bool AddOnlyAddonItem => false;
 
-		
+
 		public override Color PrimaryColor => MetroidMod.iceColor;
 
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;

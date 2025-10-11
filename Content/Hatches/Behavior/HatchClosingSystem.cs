@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Hatches.Behavior
 				{
 					int tileType = hatch.ModHatch.GetTileType(wantsToOpen, hatch.Tile.Vertical);
 
-					if(wantsToOpen || CanClose(hatch.Position))
+					if (wantsToOpen || CanClose(hatch.Position))
 					{
 						Vector2 center = (hatch.Position + new Point16(2, 2)).ToWorldCoordinates(0, 0);
 						DebugAssist.NewTextMP($"Hatch physically {(wantsToOpen ? "opened" : "closed")}");

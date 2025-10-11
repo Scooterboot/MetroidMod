@@ -69,9 +69,9 @@ namespace MetroidMod.Content.Tiles
 			if (Main.LocalPlayer.Distance(TileCenter(i, j)) < rightclickRange && !MUtils.AnyBossesActive() && !mp.PrimeHunter)
 			{
 				Main.LocalPlayer.AddBuff(BuffType<Buffs.EnergyRecharge>(), 2);
-				return (true);
+				return true;
 			}
-			return (false);
+			return false;
 		}
 
 		static Vector2 TileCenter(int x, int y)

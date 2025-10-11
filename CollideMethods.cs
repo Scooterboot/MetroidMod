@@ -10,9 +10,9 @@ namespace MetroidMod
 		public static bool CheckCollide(Vector2 Position, int Width, int Height)
 		{
 			int num = (int)(Position.X / 16f) - 1;
-			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int num2 = (int)((Position.X + Width) / 16f) + 2;
 			int num3 = (int)(Position.Y / 16f) - 1;
-			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			int num4 = (int)((Position.Y + Height) / 16f) + 2;
 			num = Utils.Clamp<int>(num, 0, Main.maxTilesX - 1);
 			num2 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
 			num3 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
@@ -21,39 +21,39 @@ namespace MetroidMod
 			{
 				for (int j = num3; j < num4; j++)
 				{
-					if (Main.tile[i, j] != null && !Main.tile[i, j].IsActuated && Main.tile[i, j].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tileSolidTop[(int)Main.tile[i, j].TileType])
+					if (Main.tile[i, j] != null && !Main.tile[i, j].IsActuated && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
 					{
 						Vector2 vector;
-						vector.X = (float)(i * 16);
-						vector.Y = (float)(j * 16);
+						vector.X = i * 16;
+						vector.Y = j * 16;
 						int num5 = 16;
 						if (Main.tile[i, j].IsHalfBlock)
 						{
 							vector.Y += 8f;
 							num5 -= 8;
 						}
-						if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num5)
+						if (Position.X + Width > vector.X && Position.X < vector.X + 16f && Position.Y + Height > vector.Y && Position.Y < vector.Y + num5)
 						{
 							if (Main.tile[i, j].Slope > SlopeType.Solid)
 							{
 								if (Main.tile[i, j].Slope > SlopeType.SlopeDownRight)
 								{
-									if (Main.tile[i, j].Slope == SlopeType.SlopeUpLeft && Position.Y < vector.Y + (float)num5 - Math.Max(Position.X - vector.X, 0f))
+									if (Main.tile[i, j].Slope == SlopeType.SlopeUpLeft && Position.Y < vector.Y + num5 - Math.Max(Position.X - vector.X, 0f))
 									{
 										return true;
 									}
-									if (Main.tile[i, j].Slope == SlopeType.SlopeUpRight && Position.Y < vector.Y + (float)num5 - Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
+									if (Main.tile[i, j].Slope == SlopeType.SlopeUpRight && Position.Y < vector.Y + num5 - Math.Max(vector.X + 16f - (Position.X + Width), 0f))
 									{
 										return true;
 									}
 								}
 								else
 								{
-									if (Main.tile[i, j].Slope == SlopeType.SlopeDownLeft && Position.Y + (float)Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
+									if (Main.tile[i, j].Slope == SlopeType.SlopeDownLeft && Position.Y + Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
 									{
 										return true;
 									}
-									if (Main.tile[i, j].Slope == SlopeType.SlopeDownRight && Position.Y + (float)Height > vector.Y + Math.Max((vector.X + 16f) - (Position.X + (float)Width), 0f))
+									if (Main.tile[i, j].Slope == SlopeType.SlopeDownRight && Position.Y + Height > vector.Y + Math.Max(vector.X + 16f - (Position.X + Width), 0f))
 									{
 										return true;
 									}
@@ -85,9 +85,9 @@ namespace MetroidMod
 		{
 			Vector2 Position = pos + vel;
 			int num = (int)(Position.X / 16f) - 1;
-			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int num2 = (int)((Position.X + Width) / 16f) + 2;
 			int num3 = (int)(Position.Y / 16f) - 1;
-			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			int num4 = (int)((Position.Y + Height) / 16f) + 2;
 			num = Utils.Clamp<int>(num, 0, Main.maxTilesX - 1);
 			num2 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
 			num3 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
@@ -96,20 +96,20 @@ namespace MetroidMod
 			{
 				for (int j = num3; j < num4; j++)
 				{
-					if (Main.tile[i, j] != null && !Main.tile[i, j].IsActuated && Main.tile[i, j].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && (!Main.tileSolidTop[(int)Main.tile[i, j].TileType] || checkPlatforms))
+					if (Main.tile[i, j] != null && !Main.tile[i, j].IsActuated && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && (!Main.tileSolidTop[Main.tile[i, j].TileType] || checkPlatforms))
 					{
 						Vector2 vector;
-						vector.X = (float)(i * 16);
-						vector.Y = (float)(j * 16);
+						vector.X = i * 16;
+						vector.Y = j * 16;
 						int num5 = 16;
 						if (Main.tile[i, j].IsHalfBlock)
 						{
 							vector.Y += 8f;
 							num5 -= 8;
 						}
-						if (!checkPlatforms || !Main.tileSolidTop[(int)Main.tile[i, j].TileType] || pos.Y + (float)Height <= vector.Y)
+						if (!checkPlatforms || !Main.tileSolidTop[Main.tile[i, j].TileType] || pos.Y + Height <= vector.Y)
 						{
-							if (Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && Position.Y < vector.Y + (float)num5)
+							if (Position.X + Width > vector.X && Position.X < vector.X + 16f && Position.Y + Height > vector.Y && Position.Y < vector.Y + num5)
 							{
 								return true;
 							}

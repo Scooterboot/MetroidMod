@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Dusts
@@ -43,7 +42,7 @@ namespace MetroidMod.Content.Dusts
 		public override bool PreDraw(Dust dust)
 		{
 			Texture2D tex = (Texture2D)ModContent.Request<Texture2D>($"{Texture}");
-			Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, (tex.Height * 0.5f) / 2);
+			Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, tex.Height * 0.5f / 2);
 			Color color = new Color((dust.color.R + 255) / 2, (dust.color.G + 255) / 2, (dust.color.B + 255) / 2);
 			color *= (255 - dust.alpha) / 255f;
 			Main.EntitySpriteDraw(tex, dust.position - Main.screenPosition, new Rectangle?(dust.frame), color, dust.rotation, drawOrigin, dust.scale, SpriteEffects.None, 0);

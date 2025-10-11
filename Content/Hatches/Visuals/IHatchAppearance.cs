@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ModLoader;
-
-namespace MetroidMod.Content.Hatches.Visuals
+﻿namespace MetroidMod.Content.Hatches.Visuals
 {
 	public interface IHatchAppearance
 	{

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Localization;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
 using Terraria;
-using MetroidMod.Content.SuitAddons;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Default
 {
@@ -60,7 +54,7 @@ namespace MetroidMod.Default
 		}
 
 		public override void RightClick(Player player) => modBeamAddon.RightClick(player);
-		
+
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale) => modBeamAddon.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) => modBeamAddon.PostDrawInWorld(Item, spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);

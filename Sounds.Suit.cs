@@ -54,9 +54,9 @@ namespace MetroidMod
 
 			};
 
-			public static readonly SoundStyle MissilePickup = new($"{nameof(MetroidMod)}/Assets/Sounds/MissilePickupSound") 
+			public static readonly SoundStyle MissilePickup = new($"{nameof(MetroidMod)}/Assets/Sounds/MissilePickupSound")
 			{
-					
+
 			};
 
 			public static readonly SoundStyle UAPickup = new($"{nameof(MetroidMod)}/Assets/Sounds/UAPickup")

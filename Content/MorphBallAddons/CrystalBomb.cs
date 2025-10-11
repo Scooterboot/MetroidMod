@@ -47,7 +47,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			for (int i = 0; i < max; i++)
 			{
 				//Vector2 vel = Main.rand.NextVector2CircularEdge(5f, 5f);
-				float rot = (float)Angle.ConvertToRadians(angle + ((360f / max) * i));
+				float rot = (float)Angle.ConvertToRadians(angle + (360f / max * i));
 				Vector2 vel = rot.ToRotationVector2() * 10f;
 				Projectile.NewProjectile(P.GetSource_FromThis(), P.Center, vel, ProjectileID.CrystalShard, P.damage / 2, 1, P.owner);
 			}

@@ -257,20 +257,20 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 					direction = -dir;
 					NPC.direction = direction;
-					NPC.Center = new Vector2(Main.player[NPC.target].Center.X + 120 * dir, Main.player[NPC.target].Center.Y + 500);
+					NPC.Center = new Vector2(Main.player[NPC.target].Center.X + (120 * dir), Main.player[NPC.target].Center.Y + 500);
 
-					_body = NPC.NewNPC(entitySource, (int)(NPC.Center.X - 44 * NPC.direction), (int)(NPC.Center.Y - 5), ModContent.NPCType<Nightmare_Body>(), NPC.whoAmI, NPC.whoAmI);
+					_body = NPC.NewNPC(entitySource, (int)(NPC.Center.X - (44 * NPC.direction)), (int)(NPC.Center.Y - 5), ModContent.NPCType<Nightmare_Body>(), NPC.whoAmI, NPC.whoAmI);
 					Body.position += new Vector2(0, (float)Body.height / 2);
 					Body.realLife = NPC.whoAmI;
 					Body.netUpdate = true;
 
-					_tail = NPC.NewNPC(entitySource, (int)(NPC.Center.X - 76 * NPC.direction), (int)(NPC.Center.Y + 88), ModContent.NPCType<Nightmare_Tail>(), NPC.whoAmI, NPC.whoAmI);
+					_tail = NPC.NewNPC(entitySource, (int)(NPC.Center.X - (76 * NPC.direction)), (int)(NPC.Center.Y + 88), ModContent.NPCType<Nightmare_Tail>(), NPC.whoAmI, NPC.whoAmI);
 					Tail.position += new Vector2(0, (float)Tail.height / 2);
 					Tail.netUpdate = true;
 
 					for (int i = 0; i < 5; i++)
 					{
-						_armFront[i] = NPC.NewNPC(entitySource, (int)(NPC.Center.X - armFrontPos1[i].X * NPC.direction), (int)(NPC.Center.Y + armFrontPos1[i].Y), ModContent.NPCType<Nightmare_ArmFront>(), NPC.whoAmI,
+						_armFront[i] = NPC.NewNPC(entitySource, (int)(NPC.Center.X - (armFrontPos1[i].X * NPC.direction)), (int)(NPC.Center.Y + armFrontPos1[i].Y), ModContent.NPCType<Nightmare_ArmFront>(), NPC.whoAmI,
 							NPC.whoAmI, i);
 						Main.npc[_armFront[i]].position += new Vector2(0, (float)Main.npc[_armFront[i]].height / 2);
 						Main.npc[_armFront[i]].realLife = NPC.whoAmI;
@@ -279,7 +279,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 					for (int i = 0; i < 3; i++)
 					{
-						_armBack[i] = NPC.NewNPC(entitySource, (int)(NPC.Center.X - armBackPos1[i].X * NPC.direction), (int)(NPC.Center.Y + armBackPos1[i].Y), ModContent.NPCType<Nightmare_ArmBack>(), NPC.whoAmI,
+						_armBack[i] = NPC.NewNPC(entitySource, (int)(NPC.Center.X - (armBackPos1[i].X * NPC.direction)), (int)(NPC.Center.Y + armBackPos1[i].Y), ModContent.NPCType<Nightmare_ArmBack>(), NPC.whoAmI,
 							NPC.whoAmI, i);
 						Main.npc[_armBack[i]].position += new Vector2(0, (float)Main.npc[_armBack[i]].height / 2);
 						Main.npc[_armBack[i]].realLife = NPC.whoAmI;
@@ -396,7 +396,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 						SoundEngine.PlaySound(Sounds.NPCs.NightmareMove_1, NPC.Center);
 					}
 
-					float num2 = ((num + 1f) / 60f);
+					float num2 = (num + 1f) / 60f;
 					float num3 = 0.275f;
 					if (num2 < 0.5f)
 					{
@@ -408,7 +408,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					}
 					if (NPC.ai[0]++ > 600)
 					{
-						num3 = 0.275f + 1.65f * 2 * Math.Min(num2, 0.5f);
+						num3 = 0.275f + (1.65f * 2 * Math.Min(num2, 0.5f));
 					}
 					NPC.velocity.Y = -num3;
 
@@ -438,7 +438,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 								// Fire small lasers
 								GetArmLaser(i).ai[2] = 1;
 								GetArmLaser(i).netUpdate = true;
-								armLaserCounter[i] = 3 * i + laserCounterMax;
+								armLaserCounter[i] = (3 * i) + laserCounterMax;
 								if (i == 0)
 								{
 									randomize1 = false;
@@ -971,7 +971,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			{
 				armAnimSpeed = 0.01f;
 			}
-			armAnim = MathHelper.Clamp(armAnim + armAnimSpeed * armNum, 0f, 1f);
+			armAnim = MathHelper.Clamp(armAnim + (armAnimSpeed * armNum), 0f, 1f);
 			if (armNum == 1 && armAnim >= 1f)
 			{
 				armNum = -1;
@@ -1065,7 +1065,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				if (Main.npc[_armFront[i]] != null && Main.npc[_armFront[i]].active)
 				{
 					Vector2 armFPos = Vector2.Lerp(armFrontPos1[i], armFrontPos2[i], armAnim);
-					Main.npc[_armFront[i]].Center = new Vector2(NPC.Center.X - armFPos.X * NPC.direction, NPC.Center.Y + armFPos.Y);
+					Main.npc[_armFront[i]].Center = new Vector2(NPC.Center.X - (armFPos.X * NPC.direction), NPC.Center.Y + armFPos.Y);
 				}
 			}
 
@@ -1074,7 +1074,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				if (Main.npc[_armBack[i]] != null && Main.npc[_armBack[i]].active)
 				{
 					Vector2 armBPos = Vector2.Lerp(armBackPos1[i], armBackPos2[i], armAnim);
-					Main.npc[_armBack[i]].Center = new Vector2(NPC.Center.X - armBPos.X * NPC.direction, NPC.Center.Y + armBPos.Y);
+					Main.npc[_armBack[i]].Center = new Vector2(NPC.Center.X - (armBPos.X * NPC.direction), NPC.Center.Y + armBPos.Y);
 				}
 			}
 
@@ -1206,9 +1206,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				Color color = NPC.GetAlpha(Lighting.GetColor((int)NPC.Center.X / 16, (int)NPC.Center.Y / 16));
 				Texture2D texCore = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/NightmareX_Core").Value,
 						texShell = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Nightmare/NightmareX_Shell").Value;
-				int coreHeight = (int)(texCore.Height / 8);
+				int coreHeight = texCore.Height / 8;
 				sb.Draw(texCore, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, (int)(coreHeight * xFrame.X), texCore.Width, coreHeight)), color, 0f, new Vector2(texCore.Width / 2, coreHeight / 2), 1f, effects, 0f);
-				int shellHeight = (int)(texShell.Height / 4);
+				int shellHeight = texShell.Height / 4;
 				sb.Draw(texShell, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, (int)(shellHeight * xFrame.Y), texShell.Width, shellHeight)), color, 0f, new Vector2(texShell.Width / 2, shellHeight / 2), 1f, effects, 0f);
 			}
 
@@ -1223,8 +1223,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					{
 						effects2 = SpriteEffects.FlipHorizontally;
 					}
-					int height = (int)(tex.Height / Main.npcFrameCount[orb.type]);
-					sb.Draw(tex, orb.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height * orb.frame.Y, tex.Width, height)), orb.GetAlpha(Color.White), orb.rotation, new Vector2((float)tex.Width / 2f, (float)height / 2f), orb.scale, effects2, 0f);
+					int height = tex.Height / Main.npcFrameCount[orb.type];
+					sb.Draw(tex, orb.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height * orb.frame.Y, tex.Width, height)), orb.GetAlpha(Color.White), orb.rotation, new Vector2(tex.Width / 2f, height / 2f), orb.scale, effects2, 0f);
 				}
 			}
 

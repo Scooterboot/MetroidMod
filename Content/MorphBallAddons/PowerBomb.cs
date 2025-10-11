@@ -1,9 +1,6 @@
 ﻿using System;
-using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
-using MetroidMod.Content.Switches;
-using MetroidMod.Content.Switches.Variants;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,10 +72,10 @@ namespace MetroidMod.Content.MorphBallAddons
 				int num = (int)(50f * ExplosionProjectile.scale);
 				for (int i = 0; i < num; i++)
 				{
-					float angle = (float)((Math.PI * 2) / num) * i;
+					float angle = (float)(Math.PI * 2 / num) * i;
 					Vector2 position = ExplosionProjectile.Center - new Vector2(10, 10);
-					position.X += (float)Math.Cos(angle) * ((float)ExplosionProjectile.width / 2f);
-					position.Y += (float)Math.Sin(angle) * ((float)ExplosionProjectile.height / 2f);
+					position.X += (float)Math.Cos(angle) * (ExplosionProjectile.width / 2f);
+					position.Y += (float)Math.Sin(angle) * (ExplosionProjectile.height / 2f);
 					int num20 = Dust.NewDust(position, 20, 20, 57, 0f, 0f, 100, default(Color), 3f);
 					Dust dust = Main.dust[num20];
 					dust.velocity += Vector2.Normalize(ExplosionProjectile.Center - dust.position) * 5f * ExplosionProjectile.scale;
@@ -97,7 +94,7 @@ namespace MetroidMod.Content.MorphBallAddons
 					Item I = Main.item[i];
 					if (ExplosionProjectile.Hitbox.Intersects(I.Hitbox))
 					{
-						Vector2 center = new Vector2(ExplosionProjectile.Center.X, ExplosionProjectile.Center.Y - ((float)I.height / 2f));
+						Vector2 center = new Vector2(ExplosionProjectile.Center.X, ExplosionProjectile.Center.Y - (I.height / 2f));
 						Vector2 velocity = Vector2.Normalize(center - I.Center) * Math.Min(20f, Vector2.Distance(center, I.Center));
 						if (Vector2.Distance(center, I.Center) > 1f)
 						{
@@ -121,7 +118,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 			if (ExplosionProjectile.frameCounter == maxDistance)
 			{
-				Rectangle tileRect = new Rectangle((int)(ExplosionProjectile.position.X / 16), (int)(ExplosionProjectile.position.Y / 16), (ExplosionProjectile.width / 16), (ExplosionProjectile.height / 16));
+				Rectangle tileRect = new Rectangle((int)(ExplosionProjectile.position.X / 16), (int)(ExplosionProjectile.position.Y / 16), ExplosionProjectile.width / 16, ExplosionProjectile.height / 16);
 				for (int x = tileRect.X; x < tileRect.X + tileRect.Width; x++)
 				{
 					for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)

@@ -1,20 +1,19 @@
-﻿using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using MetroidMod.ID;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
+﻿using System;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
-using System;
-using Terraria.Audio;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
-using static MetroidMod.Sounds;
 using Terraria.Graphics.Shaders;
-using MetroidMod.Common.Systems;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -45,7 +44,7 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override void SetStaticDefaults()
 		{
-			
+
 			AddonSlot = BeamAddonSlotID.Primary;
 			//these values determine how the addon will interact with the dynamic visual system
 			ShapePriority = 0;
@@ -121,7 +120,7 @@ namespace MetroidMod.Content.BeamAddons
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			float MY = Main.mouseY + Main.screenPosition.Y;
 			float MX = Main.mouseX + Main.screenPosition.X;
-			if (player.gravDir == -1f) { MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY; }
+			if (player.gravDir == -1f) { MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY; }
 			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 
@@ -129,7 +128,7 @@ namespace MetroidMod.Content.BeamAddons
 			bool canCharge = !player.noItems && !mp.ballstate && !mp.shineActive && !player.dead && !player.CCed && (player.whoAmI == Main.myPlayer);
 			float currentMultiplier = 0f;
 
-			
+
 
 			//here's the part where all the charging happens
 			if (player.controlUseItem && canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null))
@@ -309,13 +308,13 @@ namespace MetroidMod.Content.BeamAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			MGlobalItem ac = sourceItem.GetGlobalItem<MGlobalItem>();
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			Vector2 ballPos = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - (float)(Math.PI / 2) * player.direction);
+			Vector2 ballPos = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - ((float)(Math.PI / 2) * player.direction));
 
 			bool isCharging = player.controlUseItem && !player.noItems && !player.dead && !mp.ballstate && !mp.shineActive && !player.CCed;
-			
+
 			//This sucker needs to exist so the sound effects can properly cut each other off
 			ReLogic.Utilities.SlotId soundInstance;
-			
+
 			//maybe put the thing in OnSpawn? 
 			//To have the thing change dynamically I'm gonna have to do a touch of finangling
 			//May need to include a few extra properties and variables?
@@ -349,7 +348,7 @@ namespace MetroidMod.Content.BeamAddons
 				else if (isCharging && mp.pseudoScrewActive && ac.isBeam && mp.statCharge > 75f)
 				{
 					Projectile.hide = true;
-					Projectile.damage = (int)((sourceItem.damage) * ((mp.statCharge == 100) ? (sourceAddon.chargeMultiplier) : ((mp.statCharge - 25) / 100 + 1)));
+					Projectile.damage = (int)(sourceItem.damage * ((mp.statCharge == 100) ? sourceAddon.chargeMultiplier : (((mp.statCharge - 25) / 100) + 1)));
 					Projectile.friendly = true;
 					Projectile.Center = oPos;
 					player.itemTime = 2;
@@ -395,7 +394,7 @@ namespace MetroidMod.Content.BeamAddons
 		private void BarrelGlue(Player player, Vector2 playerHandPos)
 		{
 			//A lot of this is pretty much outta the ExampleMod last prism clone. Unsurprisingly I suppose.
-			Projectile.position = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - (float)(Math.PI / 2) * player.direction) - Projectile.Size / 2f;
+			Projectile.position = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - ((float)(Math.PI / 2) * player.direction)) - (Projectile.Size / 2f);
 			Projectile.spriteDirection = Projectile.direction;
 
 			player.ChangeDir(Projectile.direction);
@@ -444,9 +443,9 @@ namespace MetroidMod.Content.BeamAddons
 			shaderData.UseColor(ballColor); //Primary color is the bright colors
 			shaderData.UseSecondaryColor(ballColor2); //Secondary is the dark colors
 			shaderData.UseOpacity(coreBrightness); //Affects brightness of the 'core' (the white of the texture)
-									   //Defaulting to 1f to keep the core bright
+												   //Defaulting to 1f to keep the core bright
 			shaderData.UseSaturation(coreSaturation); //Affects saturation of the 'core'
-										  //0 to keep the core white instead of being the primary color
+													  //0 to keep the core white instead of being the primary color
 			shaderData.UseImage0(TextureAssets.Projectile[Projectile.type]);
 
 			shaderData.Apply(data);

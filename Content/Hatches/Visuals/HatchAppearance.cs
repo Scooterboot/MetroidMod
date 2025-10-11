@@ -1,5 +1,4 @@
-﻿using MetroidMod.Content.Hatches.Behavior;
-using MetroidMod.Content.Hatches.Variants;
+﻿using MetroidMod.Content.Hatches.Variants;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Hatches.Visuals

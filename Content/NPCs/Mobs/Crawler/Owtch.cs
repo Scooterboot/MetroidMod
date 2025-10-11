@@ -24,7 +24,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				return 0f;
 			}
-			return SpawnCondition.Ocean.Chance * 0.2f + SpawnCondition.DesertCave.Chance * 0.2f;
+			return (SpawnCondition.Ocean.Chance * 0.2f) + (SpawnCondition.DesertCave.Chance * 0.2f);
 		}
 
 		private float speed = 0.5f;

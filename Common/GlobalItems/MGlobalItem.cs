@@ -14,7 +14,7 @@ namespace MetroidMod.Common.GlobalItems
 		public AddonType AddonType = AddonType.None;
 
 
-		
+
 		/// <summary>
 		/// If <b>true</b>, display the Charge Bar.
 		/// <br/><br/>Defaults to <b>false</b>.
@@ -124,7 +124,7 @@ namespace MetroidMod.Common.GlobalItems
 		public override void DrawArmorColor(EquipType type, int slot, Player P, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
 		{
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			bool pseudoScrew = (mp.statCharge >= MPlayer.maxCharge && mp.somersault);
+			bool pseudoScrew = mp.statCharge >= MPlayer.maxCharge && mp.somersault;
 			if (mp.hyperColors > 0 || mp.speedBoosting || mp.shineActive || (pseudoScrew && mp.pseudoScrewFlash >= 3) || (mp.shineCharge > 0 && mp.shineChargeFlash >= 4))
 			{
 				if (mp.hyperColors > 0)

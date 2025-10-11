@@ -1,5 +1,4 @@
-﻿using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;
@@ -42,7 +41,7 @@ namespace MetroidMod.Content.SuitAddons
 		public static float speedUp = 10f; //%Increased movement speed
 		public static float extraBreath = 55f; //%Increased breath meter
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap,  overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
 
 		public override void SetStaticDefaults()
 		{

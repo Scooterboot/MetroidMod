@@ -82,7 +82,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 				frameNum = 1;
 			}
 
-			mNPC.crawlSpeed = speeds[(int)NPC.frame.Y];
+			mNPC.crawlSpeed = speeds[NPC.frame.Y];
 			mNPC.CrawlerAI(NPC, mNPC.crawlSpeed, 0, true, true);
 
 			return false;

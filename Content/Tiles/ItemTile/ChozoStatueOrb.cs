@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using MetroidMod.Common.Systems;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles.ItemTile
@@ -68,7 +66,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		{
 			if (Main.netMode != NetmodeID.SinglePlayer/*&& !Main.tile[i, j].HasTile*/)
 			{
-				if(!Main.tile[i, j].HasTile)
+				if (!Main.tile[i, j].HasTile)
 				{
 					fail = false;
 					noItem = false;
@@ -83,7 +81,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 				Main.tile[i, j].TileType = (ushort)MSystem.OrbItem(); //(ushort)MSystem.OORBItem1();
 			}
 		}
-	}	
+	}
 	public class ChozoStatueOrb2 : ChozoStatueOrb
 	{
 		public override void SetStaticDefaults()
@@ -130,7 +128,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 				Main.tile[i, j].TileType = (ushort)MSystem.OrbItem(); //oorbitem2
 			}
 		}
-	}	
+	}
 	public class ChozoStatueOrb3 : ChozoStatueOrb
 	{
 		public override void SetStaticDefaults()

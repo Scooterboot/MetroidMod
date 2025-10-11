@@ -1,5 +1,4 @@
 ﻿using MetroidMod.Common.Configs;
-using MetroidMod.Content.NPCs.Mobs.Crawler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -45,7 +44,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			{
 				return 0f;
 			}
-			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
+			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + (SpawnCondition.Underworld.Chance * 0.1f);
 		}
 
 		public override void SetDefaults()
@@ -68,22 +67,22 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 
 			/* NPC scale networking fix. */
 			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)
-				newScale = (Main.rand.Next(9, 12) * 0.1f);
+				newScale = Main.rand.Next(9, 12) * 0.1f;
 		}
 		private void SetStats()
 		{
 			NPC.scale = newScale;
-			NPC.position.X += (float)(NPC.width / 2);
-			NPC.position.Y += (float)(NPC.height);
-			NPC.width = (int)((float)NPC.width * NPC.scale);
-			NPC.height = (int)((float)NPC.height * NPC.scale);
-			NPC.position.X -= (float)(NPC.width / 2);
-			NPC.position.Y -= (float)(NPC.height);
-			NPC.defense = (int)((float)NPC.defense * NPC.scale);
-			NPC.damage = (int)((float)NPC.damage * NPC.scale);
-			NPC.life = (int)((float)NPC.life * NPC.scale);
+			NPC.position.X += NPC.width / 2;
+			NPC.position.Y += NPC.height;
+			NPC.width = (int)(NPC.width * NPC.scale);
+			NPC.height = (int)(NPC.height * NPC.scale);
+			NPC.position.X -= NPC.width / 2;
+			NPC.position.Y -= NPC.height;
+			NPC.defense = (int)(NPC.defense * NPC.scale);
+			NPC.damage = (int)(NPC.damage * NPC.scale);
+			NPC.life = (int)(NPC.life * NPC.scale);
 			NPC.lifeMax = NPC.life;
-			NPC.value = (float)((int)(NPC.value * NPC.scale));
+			NPC.value = (int)(NPC.value * NPC.scale);
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 		}
@@ -165,7 +164,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 		{
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value); //this and above line hides the entity from the bestiary
-			// DisplayName.SetDefault("Large Dessgeega");
+																   // DisplayName.SetDefault("Large Dessgeega");
 			Main.npcFrameCount[NPC.type] = 3;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
 
@@ -181,7 +180,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Hopper
 			}
 			if (Main.hardMode)
 			{
-				return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + SpawnCondition.Underworld.Chance * 0.1f;
+				return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.05f : 0) + (SpawnCondition.Underworld.Chance * 0.1f);
 			}
 			return 0f;
 		}

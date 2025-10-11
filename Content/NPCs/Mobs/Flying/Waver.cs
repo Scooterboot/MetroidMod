@@ -63,7 +63,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			NPC.velocity.X = NPC.direction * xSpeed;
 			NPC.velocity.Y = NPC.directionY * ySpeed;
 
-			return (false);
+			return false;
 		}
 
 		public override void FindFrame(int frameHeight)

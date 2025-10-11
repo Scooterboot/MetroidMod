@@ -1,16 +1,16 @@
 using System;
-using Microsoft.Xna.Framework;
+using MetroidMod.Common.Configs;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 using Terraria.Graphics.CameraModifiers;
-using MetroidMod.Common.Configs;
-using MetroidMod.Content.Projectiles;
+using Terraria.ModLoader;
 
-namespace MetroidMod.Common{
+namespace MetroidMod.Common
+{
 	// CI: Why does this class exist?
 	//public class MScreenshakeGlobalItem : GlobalItem {}
-	public class MScreenshakeGlobalProjectile : GlobalProjectile {
+	public class MScreenshakeGlobalProjectile : GlobalProjectile
+	{
 		//	[Antinous]: Jopojelly said screenshake properties might be better suited as a dedicated function, and I think he's right.
 		//	GabeHasWon also said I can write it as static, which makes it accessible by other classes. I'll need to do this at some point.
 		//	NOTE: Remember to add screenshake for Power Bombs and Metroid Prime: Hunters weapons.
@@ -22,12 +22,12 @@ namespace MetroidMod.Common{
 			PunchCameraModifier ShakeStrong = new PunchCameraModifier(projectile.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 10f, 6f, 20, 250f, FullName);
 			PunchCameraModifier ShakeVeryStrong = new PunchCameraModifier(projectile.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 15f, 6f, 20, 500f, FullName);
 			PunchCameraModifier ShakeDefault = new PunchCameraModifier(projectile.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, FullName);
-			if(intensity == 1){Main.instance.CameraModifiers.Add(ShakeVeryWeak);}
-			if(intensity == 2){Main.instance.CameraModifiers.Add(ShakeWeak);}
-			if(intensity == 3){Main.instance.CameraModifiers.Add(ShakeNormal);}
-			if(intensity == 4){Main.instance.CameraModifiers.Add(ShakeStrong);}
-			if(intensity == 5){Main.instance.CameraModifiers.Add(ShakeVeryStrong);}
-			if(intensity == 6){Main.instance.CameraModifiers.Add(ShakeDefault);}
+			if (intensity == 1) { Main.instance.CameraModifiers.Add(ShakeVeryWeak); }
+			if (intensity == 2) { Main.instance.CameraModifiers.Add(ShakeWeak); }
+			if (intensity == 3) { Main.instance.CameraModifiers.Add(ShakeNormal); }
+			if (intensity == 4) { Main.instance.CameraModifiers.Add(ShakeStrong); }
+			if (intensity == 5) { Main.instance.CameraModifiers.Add(ShakeVeryStrong); }
+			if (intensity == 6) { Main.instance.CameraModifiers.Add(ShakeDefault); }
 		}
 		//	[Antinous]: This function may be necessary to avoid copy-pasting the boolean list.
 		public void AddScreenshake(Projectile projectile, int behavior)
@@ -87,16 +87,20 @@ namespace MetroidMod.Common{
 			if (isOmegaCannon)
 			{
 				if (behavior == 1 && configFire) { DoScreenshake(projectile, 3); }
-				if (behavior == 3 && configCollide) { DoScreenshake(projectile, projectile.ai[1] == 0 ? 6 : 5);
+				if (behavior == 3 && configCollide)
+				{
+					DoScreenshake(projectile, projectile.ai[1] == 0 ? 6 : 5);
 				}
 			}
 		}
-		public override void OnSpawn(Projectile projectile, IEntitySource source){
-			AddScreenshake(projectile,1);
+		public override void OnSpawn(Projectile projectile, IEntitySource source)
+		{
+			AddScreenshake(projectile, 1);
 		}
-		public override void AI(Projectile projectile){}
-		public override void OnKill(Projectile projectile, int timeLeft){
-			AddScreenshake(projectile,3);
+		public override void AI(Projectile projectile) { }
+		public override void OnKill(Projectile projectile, int timeLeft)
+		{
+			AddScreenshake(projectile, 3);
 		}
 	}
 	// CI: Don't load this if we're not using it for anything!

@@ -83,7 +83,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				{
 					charge++;
 				}
-				chargeFrame = (int)(3f * ((float)charge / (float)chargeMax));
+				chargeFrame = (int)(3f * (charge / (float)chargeMax));
 				if (Projectile.localAI[0] == 1)
 				{
 					if (Projectile.timeLeft > 60)
@@ -98,13 +98,13 @@ namespace MetroidMod.Content.Projectiles.Boss
 					chargeFrame = 5;
 					for (int i = 0; i < 20; i++)
 					{
-						Vector2 pos = Projectile.Center + Projectile.velocity * Main.rand.Next((int)Projectile.localAI[1]);
+						Vector2 pos = Projectile.Center + (Projectile.velocity * Main.rand.Next((int)Projectile.localAI[1]));
 						int num71 = Dust.NewDust(new Vector2(pos.X - 7, pos.Y - 7), 14, 14, 57, 0f, 0f, 100, default(Color), 3f);
 						Main.dust[num71].noGravity = true;
 					}
 				}
 				DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
-				Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], Projectile.width, DelegateMethods.CastLight);
+				Utils.PlotTileLine(Projectile.Center, Projectile.Center + (Projectile.velocity * Projectile.localAI[1]), Projectile.width, DelegateMethods.CastLight);
 			}
 			else
 				Projectile.Kill();
@@ -112,11 +112,11 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			Color color45 = Color.White * ((float)charge / (float)chargeMax);
+			Color color45 = Color.White * (charge / (float)chargeMax);
 			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/Boss/NightmareLaserCharge").Value;
 			int num108 = tex.Height / 7;
 			int y4 = num108 * chargeFrame;
-			Main.spriteBatch.Draw(tex, laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), color45, rot, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(tex, laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), color45, rot, new Vector2(tex.Width / 2f, num108 / 2f), Projectile.scale, SpriteEffects.None, 0f);
 
 			if (Projectile.velocity == Vector2.Zero)
 			{
@@ -138,13 +138,13 @@ namespace MetroidMod.Content.Projectiles.Boss
 				float num231 = 0f;
 				while (num231 + 1f < num230)
 				{
-					if (num230 - num231 < (float)rectangle8.Height)
+					if (num230 - num231 < rectangle8.Height)
 					{
 						rectangle8.Height = (int)(num230 - num231);
 					}
-					Main.spriteBatch.Draw(texture2D22, value22 - Main.screenPosition, new Rectangle?(rectangle8), color45, Projectile.rotation, new Vector2((float)(rectangle8.Width / 2), 0f), Projectile.scale, SpriteEffects.None, 0f);
-					num231 += (float)rectangle8.Height * Projectile.scale;
-					value22 += Projectile.velocity * (float)rectangle8.Height * Projectile.scale;
+					Main.spriteBatch.Draw(texture2D22, value22 - Main.screenPosition, new Rectangle?(rectangle8), color45, Projectile.rotation, new Vector2(rectangle8.Width / 2, 0f), Projectile.scale, SpriteEffects.None, 0f);
+					num231 += rectangle8.Height * Projectile.scale;
+					value22 += Projectile.velocity * rectangle8.Height * Projectile.scale;
 				}
 			}
 
@@ -161,7 +161,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 		public override void CutTiles()
 		{
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-			Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
+			Utils.PlotTileLine(Projectile.Center, Projectile.Center + (Projectile.velocity * Projectile.localAI[1]), (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -169,7 +169,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			if (Projectile.localAI[0] == 1)
 			{
 				float point = 0f;
-				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], Projectile.width, ref point);
+				return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + (Projectile.velocity * Projectile.localAI[1]), Projectile.width, ref point);
 			}
 			return false;
 		}

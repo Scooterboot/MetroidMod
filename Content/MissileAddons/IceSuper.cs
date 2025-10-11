@@ -1,13 +1,8 @@
-using System;
-using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Items.Accessories;
-using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons
 {

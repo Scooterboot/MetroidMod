@@ -1,5 +1,4 @@
-﻿using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -25,7 +24,7 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon) && NPC.downedMechBossAny;
+		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || (MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon) && NPC.downedMechBossAny);
 
 		public override double GenerationChance() => 4;
 

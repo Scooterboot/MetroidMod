@@ -1,14 +1,10 @@
-﻿using System;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Projectiles;
-using MetroidMod.ID;
+﻿using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace MetroidMod.Content.MissileAddons
-	{
+{
 	internal class IceMissile : ModMissileAddon
 	{
 		public override bool AddOnlyAddonItem => false;

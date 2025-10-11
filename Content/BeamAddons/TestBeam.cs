@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using MetroidMod.ID;
-using Terraria;
-using Terraria.ID;
+﻿using System.Linq;
 using MetroidMod.Content.Projectiles;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -155,8 +151,8 @@ namespace MetroidMod.Content.BeamAddons
 			{
 				case "Charged":
 					return [2, -1];
-					//First value is how many frames the shot texture will have.
-					//Second value is dust ID for this specific combo. Use -1 if you don't want to think about it, or -2 if you don't want any of the stock dust
+				//First value is how many frames the shot texture will have.
+				//Second value is dust ID for this specific combo. Use -1 if you don't want to think about it, or -2 if you don't want any of the stock dust
 
 				case "Fuck":
 					return [2, DustID.JungleSpore];

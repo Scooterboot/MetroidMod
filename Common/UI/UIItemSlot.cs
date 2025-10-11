@@ -120,8 +120,8 @@ namespace MetroidMod.Common.UI
 					drawScale = availableWidth / (width > height ? width : height);
 				}
 				drawScale *= scale;
-				Vector2 itemPosition = position + backgroundTexture.Size() * scale / 2f - textureFrame.Size() * drawScale / 2f;
-				Vector2 itemOrigin = textureFrame.Size() * (pulseScale / 2f - 0.5f);
+				Vector2 itemPosition = position + (backgroundTexture.Size() * scale / 2f) - (textureFrame.Size() * drawScale / 2f);
+				Vector2 itemOrigin = textureFrame.Size() * ((pulseScale / 2f) - 0.5f);
 				if (ItemLoader.PreDrawInInventory(ItemRead, spriteBatch, itemPosition, textureFrame, ItemRead.GetAlpha(newColor),
 					ItemRead.GetColor(Color.White), itemOrigin, drawScale * pulseScale))
 				{
@@ -135,12 +135,12 @@ namespace MetroidMod.Common.UI
 					ItemRead.GetColor(Color.White), itemOrigin, drawScale * pulseScale);
 				if (ItemID.Sets.TrapSigned[ItemRead.type])
 				{
-					spriteBatch.Draw(TextureAssets.Wire.Value, position + new Vector2(40f) * scale, new Rectangle(4, 58, 8, 8), Color.White, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
+					spriteBatch.Draw(TextureAssets.Wire.Value, position + (new Vector2(40f) * scale), new Rectangle(4, 58, 8, 8), Color.White, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
 				}
 
 				if (ItemRead.stack > 1)
 				{
-					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, ItemRead.stack.ToString(), position + new Vector2(10f, 26f) * scale, Color.White, 0f, Vector2.Zero, new Vector2(scale), -1f, scale);
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, ItemRead.stack.ToString(), position + (new Vector2(10f, 26f) * scale), Color.White, 0f, Vector2.Zero, new Vector2(scale), -1f, scale);
 				}
 
 				if (IsMouseHovering)

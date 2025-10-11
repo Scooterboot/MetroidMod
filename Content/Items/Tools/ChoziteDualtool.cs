@@ -1,11 +1,6 @@
-﻿
-using MetroidMod.Common.Systems;
-using MetroidMod.Content.Hatches;
+﻿using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items.Tiles.Destroyable;
-using MetroidMod.ID;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -30,7 +25,7 @@ namespace MetroidMod.Content.Items.Tools
 
 				(int i, int j) = (Player.tileTargetX, Player.tileTargetY);
 
-				if(ChoziteDualtoolSettings.IsPlacing)
+				if (ChoziteDualtoolSettings.IsPlacing)
 				{
 					Tile tile = Main.tile[i, j];
 					bool isValidTile = ModContent.GetModTile(tile.TileType) is HatchTile;
@@ -56,10 +51,10 @@ namespace MetroidMod.Content.Items.Tools
 						}
 					}
 
-					if(FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen))
+					if (FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen))
 					{
 						didSomething = true;
-					}	
+					}
 				}
 				else
 				{
@@ -88,7 +83,7 @@ namespace MetroidMod.Content.Items.Tools
 			}
 
 			bool usingItem = player.ItemAnimationActive || Main.mouseLeft;
-			if(!usingItem)
+			if (!usingItem)
 			{
 				currentPlaceType = -1;
 			}
@@ -96,11 +91,11 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override bool? CanChooseAmmo(Item ammo, Player player)
 		{
-			if(currentPlaceType != -1)
+			if (currentPlaceType != -1)
 			{
-				if(ammo.ModItem is FakeBlock fakeBlock)
+				if (ammo.ModItem is FakeBlock fakeBlock)
 				{
-					if(fakeBlock.PlaceType != currentPlaceType)
+					if (fakeBlock.PlaceType != currentPlaceType)
 					{
 						return false;
 					}

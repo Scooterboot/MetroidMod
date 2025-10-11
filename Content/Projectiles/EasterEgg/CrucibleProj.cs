@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Projectiles.EasterEgg
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 0.785f;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 0.785f;
 			Color color = Color.Red;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
@@ -72,8 +72,8 @@ namespace MetroidMod.Content.Projectiles.EasterEgg
 			int num535;
 			for (int num802 = 4; num802 < 31; num802 = num535 + 1)
 			{
-				float num803 = P.oldVelocity.X * (30f / (float)num802);
-				float num804 = P.oldVelocity.Y * (30f / (float)num802);
+				float num803 = P.oldVelocity.X * (30f / num802);
+				float num804 = P.oldVelocity.Y * (30f / num802);
 				int num805 = Dust.NewDust(new Vector2(P.oldPosition.X - num803, P.oldPosition.Y - num804), 8, 8, 183, P.oldVelocity.X, P.oldVelocity.Y, 255, default(Color), 1.8f);
 				Main.dust[num805].noGravity = true;
 				Dust dust = Main.dust[num805];
@@ -109,8 +109,8 @@ namespace MetroidMod.Content.Projectiles.EasterEgg
 				effects = SpriteEffects.FlipHorizontally;
 			}
 
-			Color color25 = Lighting.GetColor((int)((double)P.position.X + (double)P.width * 0.5) / 16, (int)(((double)P.position.Y + (double)P.height * 0.5) / 16.0));
-			Main.spriteBatch.Draw(TextureAssets.Projectile[P.type].Value, new Vector2(P.position.X - Main.screenPosition.X + (float)(P.width / 2), P.position.Y - Main.screenPosition.Y + (float)(P.height / 2)), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Projectile[P.type].Width(), TextureAssets.Projectile[P.type].Height())), P.GetAlpha(color25), P.rotation, new Vector2((float)TextureAssets.Projectile[P.type].Width(), 0f), P.scale, effects, 0f);
+			Color color25 = Lighting.GetColor((int)(P.position.X + (P.width * 0.5)) / 16, (int)((P.position.Y + (P.height * 0.5)) / 16.0));
+			Main.spriteBatch.Draw(TextureAssets.Projectile[P.type].Value, new Vector2(P.position.X - Main.screenPosition.X + (P.width / 2), P.position.Y - Main.screenPosition.Y + (P.height / 2)), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Projectile[P.type].Width(), TextureAssets.Projectile[P.type].Height())), P.GetAlpha(color25), P.rotation, new Vector2(TextureAssets.Projectile[P.type].Width(), 0f), P.scale, effects, 0f);
 			return false;
 		}
 	}

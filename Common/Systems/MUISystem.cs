@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.UI.ResourceSets;
 using Terraria.ID;
 using Terraria.Map;
 using Terraria.ModLoader;
@@ -191,8 +190,8 @@ namespace MetroidMod.Common.Systems
 			{
 				mbUserInterface.Update(gameTime);
 			}
-			if (acUserInterface != null && UI.ArmCannonUI.Visible) 
-			{ 
+			if (acUserInterface != null && UI.ArmCannonUI.Visible)
+			{
 				acUserInterface.Update(gameTime);
 			}
 		}
@@ -246,7 +245,7 @@ namespace MetroidMod.Common.Systems
 						for (int j = 0; j < Main.maxTilesY; j++)
 						{
 							if (!Main.tile[i, j].HasTile) { continue; }
-							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]) || Main.tile[i,j].TileType == ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>() /*|| Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>()*/)
+							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]) || Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>() /*|| Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>()*/)
 							{
 								itemCoords.Add(new Vector2(i, j));
 							}
@@ -260,16 +259,16 @@ namespace MetroidMod.Common.Systems
 					if (tile != null && tile.HasTile)
 					{
 						Texture2D tex = Terraria.GameContent.TextureAssets.Tile[tile.TileType].Value;
-						Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight) / 2;
+						Vector2 screenCenter = Main.screenPosition + (new Vector2(Main.screenWidth, Main.screenHeight) / 2);
 
 						Vector2 pos = itemCoords[i] * 16f;
 						float rot = (float)Math.Atan2(pos.Y - screenCenter.Y, pos.X - screenCenter.X);
-						float dist = Math.Min(Vector2.Distance(pos, screenCenter), Main.screenHeight / 2 - 32);
+						float dist = Math.Min(Vector2.Distance(pos, screenCenter), (Main.screenHeight / 2) - 32);
 
-						Vector2 drawPos = screenCenter + rot.ToRotationVector2() * dist - Main.screenPosition;
-						if (tex == Terraria.GameContent.TextureAssets.Tile[ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>()].Value|| tex == Terraria.GameContent.TextureAssets.Tile[ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb2>()].Value || tex == Terraria.GameContent.TextureAssets.Tile[ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb3>()].Value)
+						Vector2 drawPos = screenCenter + (rot.ToRotationVector2() * dist) - Main.screenPosition;
+						if (tex == Terraria.GameContent.TextureAssets.Tile[ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>()].Value || tex == Terraria.GameContent.TextureAssets.Tile[ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb2>()].Value || tex == Terraria.GameContent.TextureAssets.Tile[ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb3>()].Value)
 						{
-							sb.Draw(tex, drawPos, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height/4)), Color.White, 0, new Vector2(tex.Width / 2, tex.Height / 8), 1f, SpriteEffects.None, 0f);
+							sb.Draw(tex, drawPos, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height / 4)), Color.White, 0, new Vector2(tex.Width / 2, tex.Height / 8), 1f, SpriteEffects.None, 0f);
 						}
 						else
 						{
@@ -383,9 +382,12 @@ namespace MetroidMod.Common.Systems
 					delegate {
 						if (UI.ArmCannonUI.Visible)
 						{
-							if (Main.hasFocus) { acUserInterface.Recalculate();
+							if (Main.hasFocus)
+							{
+								acUserInterface.Recalculate();
 								acUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
-							};
+							}
+							;
 						}
 
 						return true;
@@ -491,8 +493,7 @@ namespace MetroidMod.Common.Systems
 
 			AddLayerUI(layers, "Vanilla: Wire Selection", 1, new LegacyGameInterfaceLayer(
 				"MetroidMod: Chozite Dualtool",
-				delegate
-				{
+				delegate {
 					choziteDualtoolUI.Update();
 					choziteDualtoolUI.Draw(Main.spriteBatch);
 					return true;
@@ -565,7 +566,7 @@ namespace MetroidMod.Common.Systems
 								Vector2 pos = Vector2.Transform(npc.Center - Main.screenPosition, Main.GameViewMatrix.ZoomMatrix);
 								pos /= Main.UIScale;
 
-								sb.Draw(tTex, pos, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2((float)tTex.Width / 2f, (float)height / 2f), npc.scale * 1.5f * (1f + tScale[i]), SpriteEffects.None, 0f);
+								sb.Draw(tTex, pos, new Rectangle?(new Rectangle(0, yFrame, tTex.Width, height)), color, tRot, new Vector2(tTex.Width / 2f, height / 2f), npc.scale * 1.5f * (1f + tScale[i]), SpriteEffects.None, 0f);
 							}
 						}
 						else
@@ -603,7 +604,7 @@ namespace MetroidMod.Common.Systems
 							Vector2 pos = Vector2.Transform(npc.Center - Main.screenPosition, Main.GameViewMatrix.ZoomMatrix);
 							pos /= Main.UIScale;
 
-							sb.Draw(tTex, pos, new Rectangle?(new Rectangle(0, 0, tTex.Width, tTex.Height)), color, tRot, new Vector2((float)tTex.Width / 2f, (float)tTex.Height / 2f), npc.scale * 1.5f, SpriteEffects.None, 0f);
+							sb.Draw(tTex, pos, new Rectangle?(new Rectangle(0, 0, tTex.Width, tTex.Height)), color, tRot, new Vector2(tTex.Width / 2f, tTex.Height / 2f), npc.scale * 1.5f, SpriteEffects.None, 0f);
 						}
 					}
 				}
@@ -640,20 +641,20 @@ namespace MetroidMod.Common.Systems
 					int w2 = (int)(Math.Floor(texBar.Width / 2f * pbpercent) * 2);
 
 					//Color c = chpercent < 1f ? new Color(chR,chG,chB) : Color.Gold;
-					Color c = chpercent < 1f ? MColor.HsvColor(300.0 - chpercent * 240, 0.5, 1.0) : Color.Gold;
+					Color c = chpercent < 1f ? MColor.HsvColor(300.0 - (chpercent * 240), 0.5, 1.0) : Color.Gold;
 					Color h = hppercent > 0f ? Color.Turquoise : Color.Gray;
 					Color p = pbpercent < 1f ? Color.Crimson : Color.Gray;
 					chStyle = chpercent <= 0f ? 0 : (chpercent <= .5f ? 1 : (chpercent <= .75f ? 2 : (chpercent <= .99f ? 3 : 0)));
 					float offsetX = 2, offsetY = 2;
 					sb.Draw(texBarBorder2, new Vector2(x, y), new Rectangle(0, 0, texBarBorder2.Width, texBarBorder2.Height), Color.White);
-					if(hp > 0)
+					if (hp > 0)
 					{
 						for (int i = 0; i < times; i++)
 						{
 							int ww = w0 - (i * 2);
 							if (ww > 0)
 							{
-								sb.Draw(texBar, new Vector2(x + offsetX, y + offsetY + i * 2), new Rectangle(0, i * 2, ww, 2), h);
+								sb.Draw(texBar, new Vector2(x + offsetX, y + offsetY + (i * 2)), new Rectangle(0, i * 2, ww, 2), h);
 							}
 						}
 					}
@@ -664,7 +665,7 @@ namespace MetroidMod.Common.Systems
 							int ww = w2 - (i * 2);
 							if (ww > 0)
 							{
-								sb.Draw(texBar, new Vector2(x + offsetX, y + offsetY + i * 2), new Rectangle(0, i * 2, ww, 2), p);
+								sb.Draw(texBar, new Vector2(x + offsetX, y + offsetY + (i * 2)), new Rectangle(0, i * 2, ww, 2), p);
 							}
 						}
 					}
@@ -675,7 +676,7 @@ namespace MetroidMod.Common.Systems
 							int ww = w - (i * 2);
 							if (ww > 0)
 							{
-								sb.Draw(texBar, new Vector2(x + offsetX, y + offsetY + i * 2), new Rectangle(0, i * 2, ww, 2), c);
+								sb.Draw(texBar, new Vector2(x + offsetX, y + offsetY + (i * 2)), new Rectangle(0, i * 2, ww, 2), c);
 							}
 						}
 					}
@@ -691,7 +692,7 @@ namespace MetroidMod.Common.Systems
 						int num = Math.Min(mi.statMissiles, mi.maxMissiles);
 						string text = num.ToString("000");
 						Vector2 vect = Terraria.GameContent.FontAssets.MouseText.Value.MeasureString(text);
-						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
+						Color color = new Color((byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor);
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
 					if (item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem gz) && gz.isBeam)
@@ -705,11 +706,11 @@ namespace MetroidMod.Common.Systems
 							text = num.ToString("000");
 						}*/
 						Vector2 vect = Terraria.GameContent.FontAssets.MouseText.Value.MeasureString(text);
-						Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
+						Color color = new Color((byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor);
 						sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x + 38 - (vect.X / 2), y), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
 					}
 				}
-				if (item.type == ModContent.ItemType<ArmCannon>() || item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb1) && pb1.isBeam || mp.shineDirection != 0 || mp.shineActive)
+				if (item.type == ModContent.ItemType<ArmCannon>() || (item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb1) && pb1.isBeam) || mp.shineDirection != 0 || mp.shineActive)
 				{
 					Texture2D overheatBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBar").Value,
 					overheatBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/OverheatBorder").Value;
@@ -717,8 +718,8 @@ namespace MetroidMod.Common.Systems
 					float x2 = 22, y2 = 120 + z;
 					int times2 = (int)Math.Ceiling(overheatBar.Height / 2f);
 					float ovhpercent = ovhMax == 0 ? 0f : 1f * ovh / ovhMax;
-					int wo = (int)(Math.Floor(overheatBar.Width * ovhpercent));
-					Color colorheat = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor * 0.25f)), (int)((byte)((float)Main.mouseTextColor * 0.1f)), (int)((byte)((float)Main.mouseTextColor)));
+					int wo = (int)Math.Floor(overheatBar.Width * ovhpercent);
+					Color colorheat = new Color((byte)(float)Main.mouseTextColor, (byte)(Main.mouseTextColor * 0.25f), (byte)(Main.mouseTextColor * 0.1f), (byte)(float)Main.mouseTextColor);
 					Color o = ovhpercent < 1f ? Color.Gold : colorheat;
 					sb.Draw(overheatBorder, new Vector2(x2, y2), new Rectangle(0, 0, overheatBorder.Width, overheatBorder.Height), Color.White);
 					if (ovh > 0)
@@ -728,13 +729,13 @@ namespace MetroidMod.Common.Systems
 							int ww = wo - (i * 2);
 							if (ww > 0 && ovh <= ovhMax)
 							{
-								sb.Draw(overheatBar, new Vector2(x2 + 6, y2 + 2 + i * 2), new Rectangle(0, i * 2, ww, 2), o);
+								sb.Draw(overheatBar, new Vector2(x2 + 6, y2 + 2 + (i * 2)), new Rectangle(0, i * 2, ww, 2), o);
 							}
 						}
 					}
-					string text = (int)Math.Round((double)mp.statOverheat) + "/" + ovhMax;
+					string text = (int)Math.Round(mp.statOverheat) + "/" + ovhMax;
 					Vector2 vect = Terraria.GameContent.FontAssets.MouseText.Value.MeasureString(text);
-					Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
+					Color color = new Color((byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor);
 					sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x2 + 2, y2 + overheatBorder.Height + 2), color, 0f, default(Vector2), 0.75f, SpriteEffects.None, 0f);
 				}
 				if (item.type == ModContent.ItemType<CopperParalyzer>() || item.type == ModContent.ItemType<Paralyzer>())
@@ -745,7 +746,7 @@ namespace MetroidMod.Common.Systems
 					float x2 = 22, y2 = 78 + z;
 					int times2 = (int)Math.Ceiling(overheatBar.Height / 2f);
 					float ovhpercent = ovhMax == 0 ? 0f : 1f * ovh / ovhMax;
-					int wo = (int)(Math.Floor(overheatBar.Width * ovhpercent));
+					int wo = (int)Math.Floor(overheatBar.Width * ovhpercent);
 					Color o = ovhpercent < 1f ? Color.HotPink : Main.DiscoColor;
 					sb.Draw(overheatBorder, new Vector2(x2, y2), new Rectangle(0, 0, overheatBorder.Width, overheatBorder.Height), Color.White);
 					if (ovh > 0)
@@ -755,13 +756,13 @@ namespace MetroidMod.Common.Systems
 							int ww = wo - (i * 2);
 							if (ww > 0 && ovh <= ovhMax)
 							{
-								sb.Draw(overheatBar, new Vector2(x2 + 6, y2 + 2 + i * 2), new Rectangle(0, i * 2, ww, 2), o);
+								sb.Draw(overheatBar, new Vector2(x2 + 6, y2 + 2 + (i * 2)), new Rectangle(0, i * 2, ww, 2), o);
 							}
 						}
 					}
-					string text = (int)Math.Round((double)mp.statParalyzerCharge) + "/" + ovhMax;
+					string text = (int)Math.Round(mp.statParalyzerCharge) + "/" + ovhMax;
 					Vector2 vect = Terraria.GameContent.FontAssets.MouseText.Value.MeasureString(text);
-					Color color = new Color((int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)), (int)((byte)((float)Main.mouseTextColor)));
+					Color color = new Color((byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor, (byte)(float)Main.mouseTextColor);
 					sb.DrawString(Terraria.GameContent.FontAssets.MouseText.Value, text, new Vector2(x2 + 2, y2 + overheatBorder.Height + 2), color, 0f, default(Vector2), 0.75f, SpriteEffects.None, 0f);
 				}
 				int num4 = (int)((float)30 % 255);
@@ -852,21 +853,21 @@ namespace MetroidMod.Common.Systems
 			{
 				// number
 				int num0 = (int)Math.Floor(mp.Energy / 10f);
-				int num1 = num0 - (int)Math.Floor(num0 / 10f) * 10;
+				int num1 = num0 - ((int)Math.Floor(num0 / 10f) * 10);
 				int num2 = mp.Energy - (num0 * 10);
 				Texture2D tex1 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num1}").Value;
 				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num2}").Value;
 				Vector2 center = new(Main.screenWidth / 2, tex1.Height);
 				center += new Vector2(0, 20);
-				sb.Draw(tex1, center + new Vector2(-100 - tex1.Width * 2 - 16, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex1.Width, tex1.Height)), mp.HUDColor, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 2f, SpriteEffects.None, 0f);
-				sb.Draw(tex2, center + new Vector2(-100 - tex1.Width - 4, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), mp.HUDColor, 0f, new Vector2((float)(tex2.Width / 2), (float)(tex2.Height / 2)), 2f, SpriteEffects.None, 0f);
+				sb.Draw(tex1, center + new Vector2(-100 - (tex1.Width * 2) - 16, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex1.Width, tex1.Height)), mp.HUDColor, 0f, new Vector2(tex1.Width / 2, tex1.Height / 2), 2f, SpriteEffects.None, 0f);
+				sb.Draw(tex2, center + new Vector2(-100 - tex1.Width - 4, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), mp.HUDColor, 0f, new Vector2(tex2.Width / 2, tex2.Height / 2), 2f, SpriteEffects.None, 0f);
 
 				// bar
 				Texture2D value = Terraria.GameContent.TextureAssets.MagicPixel.Value;
 				Rectangle rectangle = Utils.CenteredRectangle(center, new Vector2(200f, 10f));
 				Rectangle destinationRectangle = rectangle;
 				Rectangle destinationRectangle2 = rectangle;
-				destinationRectangle2.Width = (int)((float)destinationRectangle2.Width * ((mp.Energy - (Math.Floor(mp.Energy / 100f) * 100f)) / 99f));
+				destinationRectangle2.Width = (int)(destinationRectangle2.Width * ((mp.Energy - (Math.Floor(mp.Energy / 100f) * 100f)) / 99f));
 				Rectangle value2 = new Rectangle(0, 0, 1, 1);
 				sb.Draw(value, destinationRectangle, value2, Color.White * 0.6f);
 				sb.Draw(value, rectangle, value2, Color.Black * 0.6f);
@@ -878,7 +879,7 @@ namespace MetroidMod.Common.Systems
 				Texture2D boxTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/Box2").Value;
 				for (int i = 0; i < totalBoxes; i++)
 				{
-					sb.Draw(boxTex, center + new Vector2(-100 + (tex1.Width * i) + 8 + (4 * i), -boxTex.Height / 2), new Rectangle?(new Rectangle(0, 0, boxTex.Width / 2, boxTex.Height / 2)), i < boxCount ? mp.HUDColor : Color.DarkSlateGray, 0f, new Vector2((float)(tex1.Width / 2), (float)(tex1.Height / 2)), 1.5f, SpriteEffects.None, 0f);
+					sb.Draw(boxTex, center + new Vector2(-100 + (tex1.Width * i) + 8 + (4 * i), -boxTex.Height / 2), new Rectangle?(new Rectangle(0, 0, boxTex.Width / 2, boxTex.Height / 2)), i < boxCount ? mp.HUDColor : Color.DarkSlateGray, 0f, new Vector2(tex1.Width / 2, tex1.Height / 2), 1.5f, SpriteEffects.None, 0f);
 				}
 			}
 		}

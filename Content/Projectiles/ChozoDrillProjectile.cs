@@ -1,6 +1,4 @@
-﻿
-using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -10,13 +8,15 @@ namespace MetroidMod.Content.Projectiles
 {
 	public class ChozoDrillProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			// Prevents jitter when stepping up and down blocks and half blocks
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
 			Main.projFrames[Type] = 3;
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			Projectile.width = 40;
 			Projectile.height = 22;
 			Projectile.friendly = true;
@@ -27,10 +27,12 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.aiStyle = -1;
 			Projectile.hide = true;
 		}
-		public override void AI() {
+		public override void AI()
+		{
 			Player player = Main.player[Projectile.owner];
 			Projectile.timeLeft = 60;
-			if (Projectile.soundDelay <= 0) {
+			if (Projectile.soundDelay <= 0)
+			{
 				SoundEngine.PlaySound(SoundID.Item22, Projectile.Center);
 				Projectile.soundDelay = 20;
 			}
@@ -47,24 +49,30 @@ namespace MetroidMod.Content.Projectiles
 			}
 
 			Vector2 playerCenter = player.RotatedRelativePoint(player.MountedCenter);
-			if (Main.myPlayer == Projectile.owner) {
-				if (player.channel) {
+			if (Main.myPlayer == Projectile.owner)
+			{
+				if (player.channel)
+				{
 					float holdoutDistance = player.HeldItem.shootSpeed * Projectile.scale;
 					Vector2 holdoutOffset = holdoutDistance * Vector2.Normalize(Main.MouseWorld - playerCenter);
-					if (holdoutOffset.X != Projectile.velocity.X || holdoutOffset.Y != Projectile.velocity.Y) {
+					if (holdoutOffset.X != Projectile.velocity.X || holdoutOffset.Y != Projectile.velocity.Y)
+					{
 						Projectile.netUpdate = true;
 					}
 					Projectile.velocity = holdoutOffset;
 				}
-				else {
+				else
+				{
 					Projectile.Kill();
 				}
 			}
 
-			if (Projectile.velocity.X > 0f) {
+			if (Projectile.velocity.X > 0f)
+			{
 				player.ChangeDir(1);
 			}
-			else if (Projectile.velocity.X < 0f) {
+			else if (Projectile.velocity.X < 0f)
+			{
 				player.ChangeDir(-1);
 			}
 
@@ -75,9 +83,10 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.Center = playerCenter;
 			Projectile.rotation = Projectile.velocity.ToRotation() + (player.direction == -1 ? MathHelper.Pi : 0f);
 			player.itemRotation = (Projectile.velocity * Projectile.direction).ToRotation();
-			Projectile.velocity.X *= 1f + Main.rand.Next(-3, 4) * 0.01f;
-			if (Main.rand.NextBool(10)) {
-				Dust dust = Dust.NewDustDirect(Projectile.position + Projectile.velocity * Main.rand.Next(6, 10) * 0.15f, Projectile.width, Projectile.height, 0, 0f, 0f, 80, Color.White, 1f);
+			Projectile.velocity.X *= 1f + (Main.rand.Next(-3, 4) * 0.01f);
+			if (Main.rand.NextBool(10))
+			{
+				Dust dust = Dust.NewDustDirect(Projectile.position + (Projectile.velocity * Main.rand.Next(6, 10) * 0.15f), Projectile.width, Projectile.height, 0, 0f, 0f, 80, Color.White, 1f);
 				dust.position.X -= 4f;
 				dust.noGravity = true;
 				dust.velocity.X *= 0.5f;

@@ -36,7 +36,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 
 			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				newScale = (Main.rand.Next(13, 21) * 0.1f);
+				newScale = Main.rand.Next(13, 21) * 0.1f;
 				newXFrame = Main.rand.Next(0, 3) * 30;
 			}
 		}
@@ -103,7 +103,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 
 			if (NPC.velocity.Y == 0)
 			{
-				NPC.frame.Y = (int)((Math.Round(NPC.ai[0] / 10) % 3) * frameHeight);
+				NPC.frame.Y = (int)(Math.Round(NPC.ai[0] / 10) % 3 * frameHeight);
 
 				NPC.frameCounter = 0;
 			}
@@ -124,10 +124,10 @@ namespace MetroidMod.Content.NPCs.Mobs
 			Texture2D texture = Terraria.GameContent.TextureAssets.Npc[Type].Value;
 			SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-			Vector2 origin = new Vector2((texture.Width / 3) / 2, (texture.Height / Main.npcFrameCount[NPC.type]) / 2);
+			Vector2 origin = new Vector2(texture.Width / 3 / 2, texture.Height / Main.npcFrameCount[NPC.type] / 2);
 
 			Vector2 drawPos = NPC.Center - Main.screenPosition;
-			drawPos -= new Vector2(texture.Width, (texture.Height / Main.npcFrameCount[NPC.type])) * NPC.scale / 2;
+			drawPos -= new Vector2(texture.Width, texture.Height / Main.npcFrameCount[NPC.type]) * NPC.scale / 2;
 			drawPos += origin * NPC.scale;
 
 			spriteBatch.Draw(texture, drawPos, NPC.frame, NPC.GetAlpha(drawColor), NPC.rotation, origin, NPC.scale, effects, 0);
@@ -138,7 +138,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			position.X -= 45;
-			return (true);
+			return true;
 		}
 
 		private void SetStats()
@@ -148,7 +148,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 			NPC.damage = (int)(NPC.damage * NPC.scale);
 			NPC.life = (int)(NPC.life * NPC.scale);
 			NPC.lifeMax = NPC.life;
-			NPC.value = ((int)(NPC.value * NPC.scale));
+			NPC.value = (int)(NPC.value * NPC.scale);
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 

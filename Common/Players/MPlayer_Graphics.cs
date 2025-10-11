@@ -1,5 +1,4 @@
 using System;
-using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Aeion;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -99,7 +98,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 
-			bool trail = (!Player.dead && !Player.mount.Active && Player.grapCount == 0 && shineDirection == 0 && !shineActive && !ballstate);
+			bool trail = !Player.dead && !Player.mount.Active && Player.grapCount == 0 && shineDirection == 0 && !shineActive && !ballstate;
 			if (trail && ((Player.controlJump && Player.jump > 0 && (isPowerSuit || isLegacySuit)) || (grapplingBeam >= 0 && (Math.Abs(Player.velocity.X) >= 8.5f || Math.Abs(Player.velocity.Y) >= 8.5f)) || (spaceJump && somersault) || SMoveEffect > 0))
 			{
 				tweak++;
@@ -136,7 +135,7 @@ namespace MetroidMod.Common.Players
 						Vector2 pos = oldPos[i - 1] - oldPos[i];
 						float len = pos.Length();
 
-						len = (len - (float)width) / len;
+						len = (len - width) / len;
 						pos.X *= len;
 						pos.Y *= len;
 						oldPos[i] += pos;
@@ -144,7 +143,7 @@ namespace MetroidMod.Common.Players
 				}
 			}
 
-			bool pseudoScrew = (statCharge >= maxCharge && somersault);
+			bool pseudoScrew = statCharge >= maxCharge && somersault;
 			if (pseudoScrew)
 			{
 				if (drawInfo.shadow == 0f)
@@ -945,7 +944,7 @@ namespace MetroidMod.Common.Players
 			{
 				currentFrame = 2;
 			}
-			else if (jetFrameCounter < frame * 4 - 1)
+			else if (jetFrameCounter < (frame * 4) - 1)
 			{
 				currentFrame = 1;
 			}
@@ -955,7 +954,7 @@ namespace MetroidMod.Common.Players
 				jetFrameCounter = 0;
 			}
 			float yfloat = 4f;
-			drawInfo.DrawDataCache.Add(new DrawData(tex, new Vector2((float)((int)(drawInfo.Position.X - Main.screenPosition.X - (float)(jetFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)jetFrame.Height + yfloat))) + drawPos + drawInfo.bodyVect, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyVect, 1f, effects, 0));
+			drawInfo.DrawDataCache.Add(new DrawData(tex, new Vector2((int)(drawInfo.Position.X - Main.screenPosition.X - (jetFrame.Width / 2) + (drawPlayer.width / 2)), (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - jetFrame.Height + yfloat)) + drawPos + drawInfo.bodyVect, new Rectangle?(jetFrame), Color.White, rot, drawInfo.bodyVect, 1f, effects, 0));
 		}
 		public static void DrawTexture(ref PlayerDrawSet drawInfo, Texture2D tex, Player drawPlayer, Rectangle frame, float rot, Vector2 drawPos, Vector2 origin, Color color, int shader)
 		{
@@ -968,7 +967,7 @@ namespace MetroidMod.Common.Players
 			{
 				effects |= SpriteEffects.FlipVertically;
 			}
-			DrawData item = new(tex, new Vector2((float)((int)(drawInfo.Position.X - Main.screenPosition.X - (float)(frame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)frame.Height + 4f))) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
+			DrawData item = new(tex, new Vector2((int)(drawInfo.Position.X - Main.screenPosition.X - (frame.Width / 2) + (drawPlayer.width / 2)), (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - frame.Height + 4f)) + drawPos + origin, new Rectangle?(frame), color, rot, origin, 1f, effects, 0);
 			item.shader = shader;
 			drawInfo.DrawDataCache.Add(item);
 		}

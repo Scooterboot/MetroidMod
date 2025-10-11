@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using MetroidMod.ID;
-using MetroidMod.Content.Buffs;
-using Terraria.ID;
-using Terraria;
+﻿using MetroidMod.Content.Buffs;
 using MetroidMod.Content.Projectiles;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -65,7 +60,7 @@ namespace MetroidMod.Content.BeamAddons
 			if (bananasRotatE)
 			{
 				//MetroidMod.Instance.Logger.Info("go..... g    O..........");
-				mpshot.Projectile.rotation += 0.6f * (float)mpshot.Projectile.direction;
+				mpshot.Projectile.rotation += 0.6f * mpshot.Projectile.direction;
 			}
 		}
 

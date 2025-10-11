@@ -1,5 +1,5 @@
-﻿using Terraria;
 ﻿using MetroidMod.Content.Items.Walls;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 

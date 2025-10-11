@@ -1,4 +1,3 @@
-using MetroidMod.Content.Items.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,7 +42,7 @@ namespace MetroidMod.Content.Items.Tiles
 			base.SetDefaults();
 			Item.createTile = ModContent.TileType<Content.Tiles.ChozoStatueArm>();
 		}
-	}	
+	}
 	public class ChozoStatueArm2 : ChozoStatueArmBuilder
 	{
 		public override void SetDefaults()
@@ -51,7 +50,7 @@ namespace MetroidMod.Content.Items.Tiles
 			base.SetDefaults();
 			Item.createTile = ModContent.TileType<Content.Tiles.ChozoStatueArm2>();
 		}
-	}	
+	}
 	public class ChozoStatueArm3 : ChozoStatueArmBuilder
 	{
 		public override void SetDefaults()

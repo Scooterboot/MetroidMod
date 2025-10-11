@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace MetroidMod.Default
 {
 	[Autoload(false)]
-	
+
 	internal class MissileAddonProjectile(ModMissileAddon modMissileAddon) : MProjectile
 	{
 		public ModMissileAddon modMissileAddon = modMissileAddon;
@@ -28,7 +28,7 @@ namespace MetroidMod.Default
 		#region behavior
 		public override void OnSpawn(IEntitySource source)
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			modMissileAddon.OnSpawn(mProjectile, source);
 		}
 
@@ -36,8 +36,8 @@ namespace MetroidMod.Default
 		{
 			if (Override != null)
 			{
-				return (modMissileAddon.PreAI(mProjectile) 
-					&& Override.PreAI(mProjectile));
+				return modMissileAddon.PreAI(mProjectile)
+					&& Override.PreAI(mProjectile);
 			}
 			else
 			{
@@ -59,20 +59,20 @@ namespace MetroidMod.Default
 		{
 			if (Override != null)
 			{
-				return (modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac) 
-					&& Override.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac));
+				return modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac)
+					&& Override.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 			}
-			else 
-			{ 
-				return modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac); 
+			else
+			{
+				return modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 			}
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (Override != null)
 			{
-				return (modMissileAddon.OnTileCollide(mProjectile, oldVelocity)
-					&& Override.OnTileCollide(mProjectile, oldVelocity));
+				return modMissileAddon.OnTileCollide(mProjectile, oldVelocity)
+					&& Override.OnTileCollide(mProjectile, oldVelocity);
 			}
 			else
 			{

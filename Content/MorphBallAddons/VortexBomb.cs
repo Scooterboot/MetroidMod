@@ -1,9 +1,6 @@
 ﻿using System;
-using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
-using MetroidMod.Content.Switches;
-using MetroidMod.Content.Switches.Variants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -102,7 +99,7 @@ namespace MetroidMod.Content.MorphBallAddons
 					Item I = Main.item[i];
 					if (P.Hitbox.Intersects(I.Hitbox))
 					{
-						Vector2 center = new Vector2(P.Center.X, P.Center.Y - ((float)I.height / 2f));
+						Vector2 center = new Vector2(P.Center.X, P.Center.Y - (I.height / 2f));
 						Vector2 velocity = Vector2.Normalize(center - I.Center) * Math.Min(itemVacSpeed, Vector2.Distance(center, I.Center));
 						if (Vector2.Distance(center, I.Center) > 1f)
 						{
@@ -119,7 +116,7 @@ namespace MetroidMod.Content.MorphBallAddons
 					{
 						if (P.Hitbox.Intersects(npc.Hitbox))
 						{
-							Vector2 center = new Vector2(P.Center.X, P.Center.Y - ((float)npc.height / 2f));
+							Vector2 center = new Vector2(P.Center.X, P.Center.Y - (npc.height / 2f));
 							Vector2 velocity = Vector2.Normalize(center - npc.Center) * Math.Min(npcVacSpeed * npc.knockBackResist, Vector2.Distance(center, npc.Center));
 							if (Vector2.Distance(center, npc.Center) > 1f)
 							{
@@ -146,11 +143,11 @@ namespace MetroidMod.Content.MorphBallAddons
 			int num = 6;
 			for (int i = 0; i < num; i++)
 			{
-				float angle = (float)((Math.PI * 2) / num) * i;
-				angle += ((float)Math.PI / 20f) * P.ai[0];
+				float angle = (float)(Math.PI * 2 / num) * i;
+				angle += (float)Math.PI / 20f * P.ai[0];
 				Vector2 position = P.Center;
-				position.X += (float)Math.Cos(angle) * ((float)P.width / 2f);
-				position.Y += (float)Math.Sin(angle) * ((float)P.height / 2f);
+				position.X += (float)Math.Cos(angle) * (P.width / 2f);
+				position.Y += (float)Math.Sin(angle) * (P.height / 2f);
 				int num20 = Dust.NewDust(position, 1, 1, 229, 0f, 0f, 100, default(Color), MathHelper.Clamp(P.scale, 1f, 3f) * ((i % 2 == 0) ? 1.33f : 1));
 				Dust dust = Main.dust[num20];
 				dust.position = position;
@@ -168,7 +165,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 			if ((int)P.ai[0] == maxDist && P.numUpdates == 0)
 			{
-				Rectangle tileRect = new Rectangle((int)(P.position.X / 16), (int)(P.position.Y / 16), (P.width / 16), (P.height / 16));
+				Rectangle tileRect = new Rectangle((int)(P.position.X / 16), (int)(P.position.Y / 16), P.width / 16, P.height / 16);
 				for (int x = tileRect.X; x < tileRect.X + tileRect.Width; x++)
 				{
 					for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)

@@ -45,7 +45,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			float angle = Main.rand.Next(360 / max);
 			for (int i = 0; i < max; i++)
 			{
-				float rot = (float)Angle.ConvertToRadians(angle + ((360f / max) * i));
+				float rot = (float)Angle.ConvertToRadians(angle + (360f / max * i));
 				Vector2 vel = rot.ToRotationVector2() * 5f;
 				Projectile proj = Main.projectile[Projectile.NewProjectile(P.GetSource_FromThis(), P.Center, vel, ProjectileID.JackOLantern, P.damage / max, P.knockBack + 3, P.owner)];
 				proj.timeLeft = 60;

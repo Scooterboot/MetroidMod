@@ -1,5 +1,4 @@
-﻿using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -89,7 +88,7 @@ namespace MetroidMod.Content.SuitAddons
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
 			mp.tankCapacity += energyCap;
 			mp.maxOverheat += overheatCap;
-			mp.overheatCost -= overheatCost /100;
+			mp.overheatCost -= overheatCost / 100;
 			mp.missileCost -= comboCost / 100;
 			mp.EnergyDefenseEfficiency += energyEff / 100;
 			mp.EnergyExpenseEfficiency += energyRes / 100;

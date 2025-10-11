@@ -1,18 +1,14 @@
 ﻿using System;
-using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -26,7 +22,7 @@ namespace MetroidMod.Content.Projectiles
 		/// <summary>
 		/// The beam addons this shot is affected by.
 		/// </summary>
-		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count]; 
+		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count];
 		public float beamScale = 0.75f;
 		public int beamDust = DustID.YellowTorch;
 		/// <summary>
@@ -90,7 +86,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public void OnInitialized(IEntitySource source)
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			//MetroidMod.Instance.Logger.Info("put something here later");
 
 
@@ -153,7 +149,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			else { dustTimer--; }
 
-				BeamAddonLoader.AddonAI(beamAddons, mProjectile);
+			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
 		}
 		public override void PostAI()
 		{
@@ -173,7 +169,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
 			}
-			
+
 			return BeamAddonLoader.AddonOnTileCollide(beamAddons, mProjectile, oldVelocity);
 		}
 
@@ -196,7 +192,7 @@ namespace MetroidMod.Content.Projectiles
 		public override void OnKill(int timeLeft)
 		{
 			Vector2 pos = Projectile.position;
-			
+
 			//Copied from MProjectile.DustyDeath()
 			int freq = 20;
 			bool noGravity = true;
@@ -214,7 +210,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			if (VisualWinners[0] == -1 || VisualWinners[1] == -1 || beamAddons == null){ return true; }
+			if (VisualWinners[0] == -1 || VisualWinners[1] == -1 || beamAddons == null) { return true; }
 			ModBeamAddon beamShape = beamAddons[VisualWinners[0]];
 			ModBeamAddon beamColor = beamAddons[VisualWinners[1]];
 			color = beamColor.PrimaryColor;
@@ -263,7 +259,7 @@ namespace MetroidMod.Content.Projectiles
 				Main.EntitySpriteDraw(ModTexture.Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, ModTexture.Width(), ModTexture.Height()), beamColor.PrimaryColor, Projectile.rotation,
 								  new Vector2(ModTexture.Width() / 2, ModTexture.Height() / 2), beamScale, SpriteEffects.None);
 			}
-			
+
 
 			//TODO: Shaders instead of flat coloration
 			return false;

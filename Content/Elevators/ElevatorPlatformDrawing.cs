@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Intrinsics.X86;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -25,12 +24,12 @@ namespace MetroidMod.Content.Elevators
 			HashSet<Elevator> visibleElevators = [];
 			TileUtils.IterateVisibleTiles((x, y) =>
 			{
-				if(Elevator.Find(new(x, y)) is Elevator elevator)
+				if (Elevator.Find(new(x, y)) is Elevator elevator)
 				{
 					visibleElevators.Add(elevator);
 				}
 			});
-			foreach(Elevator elevator in visibleElevators)
+			foreach (Elevator elevator in visibleElevators)
 			{
 				if (!elevator.IsInUse)
 				{
@@ -50,9 +49,9 @@ namespace MetroidMod.Content.Elevators
 			Texture2D texture = ModContent.Request<Texture2D>($"{nameof(MetroidMod)}/Content/Elevators/ElevatorPlatform", AssetRequestMode.ImmediateLoad).Value;
 			Point tile = position.ToTileCoordinates();
 			Color color = Lighting.GetColor(tile);
-			
+
 			int frameAmount = 4;
-			int frameHeight = (texture.Height / frameAmount);
+			int frameHeight = texture.Height / frameAmount;
 			int frame = (int)(Main.GameUpdateCount / 10 % frameAmount);
 
 			Rectangle source = new(0, frame * frameHeight, texture.Width, frameHeight);

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -81,7 +80,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];
-			bool despawn = (Head.ai[3] > 1);
+			bool despawn = Head.ai[3] > 1;
 			if (!Head.active)
 			{
 				NPC.life = 0;
@@ -181,7 +180,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 					NPC.frameCounter = 0;
 				}
 			}
-			NPC.rotation = -(((float)Math.PI / 4) * (Math.Max((swipeVec.X + swipeVec.Y) * -1, 0) / 192));
+			NPC.rotation = -((float)Math.PI / 4 * (Math.Max((swipeVec.X + swipeVec.Y) * -1, 0) / 192));
 
 			if (NPC.frame.Y >= 4)
 			{
@@ -191,7 +190,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				num = 1;
 			}
-			anim = (1f / 4) * NPC.frame.Y + ((float)NPC.frameCounter / 40) * num;
+			anim = (1f / 4 * NPC.frame.Y) + ((float)NPC.frameCounter / 40 * num);
 			anim = MathHelper.Clamp(anim, 0f, 1f);
 
 			Vector2 vec = Vector2.Lerp(Vector2.Zero, new Vector2(animVec.X * Head.direction, animVec.Y), anim);

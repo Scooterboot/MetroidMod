@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using MetroidMod.Content.SuitAddons;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Default
 {
 	[Autoload(false)]
-	
+
 	internal class MissileAddonItem(ModMissileAddon modMissileAddon) : ModItem
 	{
 		public ModMissileAddon modMissileAddon = modMissileAddon;

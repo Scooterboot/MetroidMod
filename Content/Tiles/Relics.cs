@@ -1,7 +1,7 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -31,12 +31,14 @@ namespace MetroidMod.Content.Tiles
 		// All relics use the same pedestal texture, this one is copied from vanilla
 		public override string Texture => "MetroidMod/Content/Tiles/RelicPedestal";
 
-		public override void Load() {
+		public override void Load()
+		{
 			// Cache the extra texture displayed on the pedestal
 			RelicTexture = ModContent.Request<Texture2D>(RelicTextureName);
 		}
 
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			Main.tileShine[Type] = 400; // Responsible for golden particles
 			Main.tileFrameImportant[Type] = true; // Any multitile requires this
 			TileID.Sets.InteractibleByNPCs[Type] = true; // Town NPCs will palm their hand at this tile
@@ -66,36 +68,43 @@ namespace MetroidMod.Content.Tiles
 			AddMapEntry(new Color(233, 207, 94), Language.GetText("MapObject.Relic"));
 		}
 
-		public override bool CreateDust(int i, int j, ref int type) {
+		public override bool CreateDust(int i, int j, ref int type)
+		{
 			return false;
 		}
 
-		public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY) {
+		public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+		{
 			// This forces the tile to draw the pedestal even if the placeStyle differs. 
 			tileFrameX %= FrameWidth; // Clamps the frameX
 			tileFrameY %= FrameHeight * 2; // Clamps the frameY (two horizontally aligned place styles, hence * 2)
 		}
 
-		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData) {
+		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
+		{
 			// Since this tile does not have the hovering part on its sheet, we have to animate it ourselves
 			// Therefore we register the top-left of the tile as a "special point"
 			// This allows us to draw things in SpecialDraw
-			if (drawData.tileFrameX % FrameWidth == 0 && drawData.tileFrameY % FrameHeight == 0) {
+			if (drawData.tileFrameX % FrameWidth == 0 && drawData.tileFrameY % FrameHeight == 0)
+			{
 				Main.instance.TilesRenderer.AddSpecialLegacyPoint(i, j);
 			}
 		}
 
-		public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch) {
+		public override void SpecialDraw(int i, int j, SpriteBatch spriteBatch)
+		{
 			// This is lighting-mode specific, always include this if you draw tiles manually
 			Vector2 offScreen = new Vector2(Main.offScreenRange);
-			if (Main.drawToScreen) {
+			if (Main.drawToScreen)
+			{
 				offScreen = Vector2.Zero;
 			}
 
 			// Take the tile, check if it actually exists
 			Point p = new Point(i, j);
 			Tile tile = Main.tile[p.X, p.Y];
-			if (tile == null || !tile.HasTile) {
+			if (tile == null || !tile.HasTile)
+			{
 				return;
 			}
 
@@ -122,12 +131,13 @@ namespace MetroidMod.Content.Tiles
 			spriteBatch.Draw(texture, drawPos, frame, color, 0f, origin, 1f, effects, 0f);
 
 			// Draw the periodic glow effect
-			float scale = (float)Math.Sin(Main.GlobalTimeWrappedHourly * TwoPi / 2f) * 0.3f + 0.7f;
+			float scale = ((float)Math.Sin(Main.GlobalTimeWrappedHourly * TwoPi / 2f) * 0.3f) + 0.7f;
 			Color effectColor = color;
 			effectColor.A = 0;
 			effectColor = effectColor * 0.1f * scale;
-			for (float num5 = 0f; num5 < 1f; num5 += 355f / (678f * (float)Math.PI)) {
-				spriteBatch.Draw(texture, drawPos + (TwoPi * num5).ToRotationVector2() * (6f + offset * 2f), frame, effectColor, 0f, origin, 1f, effects, 0f);
+			for (float num5 = 0f; num5 < 1f; num5 += 355f / (678f * (float)Math.PI))
+			{
+				spriteBatch.Draw(texture, drawPos + ((TwoPi * num5).ToRotationVector2() * (6f + (offset * 2f))), frame, effectColor, 0f, origin, 1f, effects, 0f);
 			}
 		}
 	}
@@ -139,7 +149,8 @@ namespace MetroidMod.Content.Tiles
 	{
 		public override string RelicTextureName => "MetroidMod/Content/Tiles/TorizoRelic";
 
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			base.SetStaticDefaults();
 		}
 	}

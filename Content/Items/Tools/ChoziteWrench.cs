@@ -2,7 +2,6 @@
 
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Hatches;
-using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -42,7 +41,7 @@ namespace MetroidMod.Content.Items.Tools
 					return true;
 				}
 
-				if(ModContent.GetInstance<ChoziteWrenchAssistSystem>().HitTile(Player.tileTargetX, Player.tileTargetY))
+				if (ModContent.GetInstance<ChoziteWrenchAssistSystem>().HitTile(Player.tileTargetX, Player.tileTargetY))
 				{
 					return true;
 				}
@@ -51,7 +50,7 @@ namespace MetroidMod.Content.Items.Tools
 			return false;
 		}
 
-		public static bool  InteractWithHatchLocal()
+		public static bool InteractWithHatchLocal()
 		{
 			// Presumably tileTargetX and Y are only for the LocalPlayer, so this code should only run for them.
 			// This does mean the visual effect won't actually show for others. That is acceptable for now?
@@ -59,7 +58,7 @@ namespace MetroidMod.Content.Items.Tools
 			{
 				return false;
 			}
-			
+
 			DebugAssist.NewTextMP("Hit with Chozo Wrench");
 
 			tileEntity.State.ToggleBlueConversion();

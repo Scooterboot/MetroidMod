@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -8,8 +6,8 @@ using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
-    class UIDraggableBase : UIPanel
-    {
+	class UIDraggableBase : UIPanel
+	{
 		// Stores the offset from the top left of the UIPanel while dragging
 		private Vector2 offset;
 		// A flag that checks if the panel is currently being dragged

@@ -2,7 +2,6 @@
 using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Torizo;
 using Microsoft.Xna.Framework;
-using MonoMod.Core.Platforms;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -54,20 +53,20 @@ namespace MetroidMod.Common.Systems
 			npc.direction = Direction;
 			npc.spriteDirection = npc.direction;
 
-			npc.position.X = SpawnLocation.X - npc.width / 2;
+			npc.position.X = SpawnLocation.X - (npc.width / 2);
 			npc.position.Y = SpawnLocation.Y - npc.height;
 
 		}
 
 		public override void PostUpdateEverything()
 		{
-			if(!CanSpawn())
+			if (!CanSpawn())
 			{
 				spawnCounter = 300;
 				return;
 			}
 
-			if(spawnCounter > 0)
+			if (spawnCounter > 0)
 			{
 				spawnCounter -= 1;
 				return;

@@ -84,7 +84,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/Boss/NightmareLaserCharge").Value;
 				int num108 = tex.Height / 7;
 				int y4 = num108 * (int)(Projectile.localAI[0] / 4f);
-				Main.spriteBatch.Draw(tex, laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), 0f, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(tex, laserPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), 0f, new Vector2(tex.Width / 2f, num108 / 2f), Projectile.scale, SpriteEffects.None, 0f);
 			}
 			if (Projectile.localAI[0] >= 24)
 			{
@@ -92,10 +92,10 @@ namespace MetroidMod.Content.Projectiles.Boss
 				int num108 = tex.Height / Main.projFrames[Projectile.type];
 				int y4 = num108 * Projectile.frame;
 
-				float h = ((float)num108 * Projectile.scale);
+				float h = num108 * Projectile.scale;
 
-				float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, laserPos) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
-				int height = (int)((float)num108 * dist);
+				float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, laserPos) + (Projectile.height / 2f)) / h, 0f, 1f);
+				int height = (int)(num108 * dist);
 				if (dist >= 1f)
 				{
 					drawFlag = true;
@@ -104,7 +104,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				{
 					height = num108;
 				}
-				Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)num108 / 3f), Projectile.scale, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width / 2f, num108 / 3f), Projectile.scale, SpriteEffects.None, 0f);
 			}
 			return false;
 		}

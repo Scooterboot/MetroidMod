@@ -1,12 +1,9 @@
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons.BeamCombos
 {
@@ -36,7 +33,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					{
 
 						Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-						int k = i - 5 / 2;
+						int k = i - (5 / 2);
 						Vector2 shotGunVel = Vector2.Normalize(p.velocity * 4f);
 						double rot = Angle.ConvertToRadians(4.0 * k);
 						shotGunVel = shotGunVel.RotatedBy(rot, default(Vector2));

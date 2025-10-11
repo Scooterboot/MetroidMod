@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Tiles
 		{
 			new EntitySource_TileBreak(i, j); //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 48, ModContent.ItemType<Items.Tiles.ChozoStatue>());
 		}
-	}	
+	}
 	public class ChozoStatue2 : ChozoStatue
 	{
 

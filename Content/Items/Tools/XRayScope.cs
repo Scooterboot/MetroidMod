@@ -64,14 +64,14 @@ namespace MetroidMod.Content.Items.Tools
 			float MX = Main.mouseX + Main.screenPosition.X;
 			if (player.gravDir == -1f)
 			{
-				MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+				MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
 			}
-			float targetrotation = (float)Math.Atan2((MY - player.Center.Y), (MX - player.Center.X));
+			float targetrotation = (float)Math.Atan2(MY - player.Center.Y, MX - player.Center.X);
 			if (player.velocity.Y == 0 && player.velocity.X == 0)
 			{
 				for (int i = 0; i < 20; i++)
 				{
-					Vector2 lightPos = new Vector2(player.Center.X + (float)Math.Cos(targetrotation) * range * (2 + (2 * i)), player.position.Y + (float)Math.Sin(targetrotation) * range * (2 + (2 * i)) + 8);
+					Vector2 lightPos = new Vector2(player.Center.X + ((float)Math.Cos(targetrotation) * range * (2 + (2 * i))), player.position.Y + ((float)Math.Sin(targetrotation) * range * (2 + (2 * i))) + 8);
 					if (!player.dead && !mp.ballstate && player.velocity.Y == 0 && player.velocity.X == 0)
 					{
 						if ((Main.mouseX + Main.screenPosition.X) > player.position.X)
@@ -87,7 +87,7 @@ namespace MetroidMod.Content.Items.Tools
 						{
 							lightMult = 0.1f;
 						}
-						Lighting.AddLight((int)((float)lightPos.X / 16f), (int)((float)lightPos.Y / 16f), 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult);
+						Lighting.AddLight((int)(lightPos.X / 16f), (int)(lightPos.Y / 16f), 0.75f + (0.25f * i * lightMult), 0.75f + (0.25f * i * lightMult), 0.75f + (0.25f * i * lightMult));
 						Vector2 tilePos = lightPos / 16f;
 						MSystem.hit[(int)tilePos.X, (int)tilePos.Y] = true;
 						MSystem.hit[(int)tilePos.X - 1, (int)tilePos.Y] = true;

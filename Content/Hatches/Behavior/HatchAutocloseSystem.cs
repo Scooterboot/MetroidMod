@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using MetroidMod.Common.Configs;
 using Terraria.ModLoader;
 
@@ -26,21 +22,21 @@ namespace MetroidMod.Content.Hatches.Behavior
 
 		public override void PreUpdateWorld()
 		{
-			if(!AutocloseEnabled)
+			if (!AutocloseEnabled)
 			{
 				return;
 			}
 
-			foreach(HatchTileEntity hatch in HatchTileEntity.GetAll())
+			foreach (HatchTileEntity hatch in HatchTileEntity.GetAll())
 			{
-				if(!hatch.IsPhysicallyOpen || hatch.State.DesiredState == HatchDesiredState.Closed)
+				if (!hatch.IsPhysicallyOpen || hatch.State.DesiredState == HatchDesiredState.Closed)
 				{
 					autocloseTimers.Remove(hatch);
 					continue;
 				}
 
 				int closeTimeInTicks = AutocloseTime * 60;
-				if(autocloseTimers.TryAdd(hatch, closeTimeInTicks))
+				if (autocloseTimers.TryAdd(hatch, closeTimeInTicks))
 				{
 					DebugAssist.NewTextMP("Hatch begins to autoclose");
 				}

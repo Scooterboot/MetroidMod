@@ -12,8 +12,8 @@ namespace MetroidMod.Common.Players
 		public static bool IsEnabled(Player player)
 		{
 			bool properName = player.name.ToLower() == "narpas sword";
-			
-			if(properName)
+
+			if (properName)
 			{
 				return true;
 			}

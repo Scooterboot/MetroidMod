@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -59,7 +58,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				oldLife = NPC.life;
 				initialized = true;
 			}
-			return (true);
+			return true;
 		}
 
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
@@ -79,7 +78,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];
-			bool flag = (Head.alpha < 255);
+			bool flag = Head.alpha < 255;
 			if (!Head.active)
 			{
 				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound, NPC.Center);
@@ -104,7 +103,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 					// Spawn gravity field projectile
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						Vector2 spawnPos = new Vector2(NPC.Center.X + 26 * Head.direction, NPC.Center.Y + 14);
+						Vector2 spawnPos = new Vector2(NPC.Center.X + (26 * Head.direction), NPC.Center.Y + 14);
 						_gravityField = Projectile.NewProjectile(NPC.GetSource_FromAI(), spawnPos, Vector2.Zero, ModContent.ProjectileType<Projectiles.Boss.NightmareGravityField>(), 0, 0f, Main.myPlayer, Head.whoAmI, NPC.whoAmI);
 					}
 
@@ -177,7 +176,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			return (false);
+			return false;
 		}
 	}
 }

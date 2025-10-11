@@ -1,14 +1,12 @@
-﻿using Terraria.ID;
+﻿using MetroidMod.Common.Players;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria.Enums;
-using MetroidMod.Common.Players;
-using System;
 
 namespace MetroidMod.Content.Hatches
 {
@@ -25,7 +23,7 @@ namespace MetroidMod.Content.Hatches
 
 		public override string Name =>
 			$"{Hatch.Name}{(Open ? "Open" : string.Empty)}{(Vertical ? "Vertical" : string.Empty)}";
-		public override string Texture => 
+		public override string Texture =>
 			$"{nameof(MetroidMod)}/Content/Hatches/HatchBase{(Vertical ? "Vertical" : string.Empty)}";
 
 		public Color MapColor => Hatch.PrimaryColor;
@@ -91,8 +89,8 @@ namespace MetroidMod.Content.Hatches
 		public override bool RightClick(int i, int j)
 		{
 			bool withKeycard = false;
-			
-			if(Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
+
+			if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
 			{
 				if (Hatch is Variants.RedHatch && mp.RedKeycard) withKeycard = true;
 				if (Hatch is Variants.GreenHatch && mp.GreenKeycard) withKeycard = true;
@@ -129,7 +127,7 @@ namespace MetroidMod.Content.Hatches
 		{
 			HatchTileEntity hatch = TileEntity(i, j);
 			var origin = hatch.Position;
-			
+
 			var trigger = GetHatchWireTriggerAt(i - origin.X, j - origin.Y);
 			DebugAssist.NewTextMP($"Hatch wire trigger: {trigger}");
 			switch (trigger)
@@ -152,7 +150,7 @@ namespace MetroidMod.Content.Hatches
 				for (int sx = 0; sx < 4; sx++)
 				{
 					var iterTrigger = GetHatchWireTriggerAt(sx, sy);
-					if(trigger == iterTrigger)
+					if (trigger == iterTrigger)
 					{
 						Wiring.SkipWire(origin.X + sx, origin.Y + sy);
 					}
@@ -162,14 +160,14 @@ namespace MetroidMod.Content.Hatches
 
 		private HatchWireTrigger GetHatchWireTriggerAt(int i, int j)
 		{
-			if(Vertical)
+			if (Vertical)
 			{
 				// Do all calculations assuming a horizontal hatch for simplicity
 				(i, j) = (j, i);
 			}
 
 			bool isOuterPart = i == 0 || i == 3;
-			
+
 			if (isOuterPart)
 			{
 				return HatchWireTrigger.ToggleDoor;

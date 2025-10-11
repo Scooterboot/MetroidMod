@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -82,7 +81,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];
-			bool despawn = (Head.ai[3] > 1);
+			bool despawn = Head.ai[3] > 1;
 			if (!Head.active)
 			{
 				NPC.life = 0;
@@ -139,7 +138,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				num2 = 220;
 				num2 -= 30 * state;
 			}
-			NPC.rotation = -(((float)Math.PI / 4) * (Math.Max((swipeVec.X + swipeVec.Y) * -1, 0) / 194));
+			NPC.rotation = -((float)Math.PI / 4 * (Math.Max((swipeVec.X + swipeVec.Y) * -1, 0) / 194));
 
 			if (swipeFrame == 6f)
 			{
@@ -156,8 +155,8 @@ namespace MetroidMod.Content.NPCs.Kraid
 					{
 						int spread = 15;
 						float spreadMult = 0.05f;
-						float vX = clawVel.X + Main.rand.Next(-spread, spread + 1) * spreadMult;
-						float vY = clawVel.Y + Main.rand.Next(-spread, spread + 1) * spreadMult;
+						float vX = clawVel.X + (Main.rand.Next(-spread, spread + 1) * spreadMult);
+						float vY = clawVel.Y + (Main.rand.Next(-spread, spread + 1) * spreadMult);
 
 						int c = NPC.NewNPC(entitySource, (int)clawPos.X, (int)clawPos.Y, ModContent.NPCType<KraidClaw>(), NPC.whoAmI);
 						Main.npc[c].position.Y += (float)Main.npc[c].height / 2;
@@ -187,7 +186,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				num = 1;
 			}
-			anim = (1f / 4) * NPC.frame.Y + ((float)NPC.frameCounter / 40) * num;
+			anim = (1f / 4 * NPC.frame.Y) + ((float)NPC.frameCounter / 40 * num);
 			anim = MathHelper.Clamp(anim, 0f, 1f);
 
 			Vector2 vec = Vector2.Lerp(Vector2.Zero, new Vector2(animVec.X * Head.direction, animVec.Y), anim);
@@ -248,7 +247,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 						firstValue = value2[i - 1];
 					}
 					float amt = amount - i;
-					result = firstValue + (secondValue - firstValue) * amt;
+					result = firstValue + ((secondValue - firstValue) * amt);
 					break;
 				}
 			}

@@ -89,10 +89,10 @@ namespace MetroidMod.Content.Items.Tools
 			{
 				tex = mi.itemTexture;
 			}
-			float num5 = (float)(Item.height - tex.Height);
-			float num6 = (float)(Item.width / 2 - tex.Width / 2);
-			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num5 + 2f),
-			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), scale, SpriteEffects.None, 0f);
+			float num5 = Item.height - tex.Height;
+			float num6 = (Item.width / 2) - (tex.Width / 2);
+			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (tex.Height / 2) + num5 + 2f),
+			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2(tex.Width / 2, tex.Height / 2), scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override bool PreDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color ItemColor, Vector2 origin, float scale)
@@ -118,7 +118,7 @@ namespace MetroidMod.Content.Items.Tools
 		public override void HoldItem(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			bool flag13 = player.position.X / 16f - (float)Player.tileRangeX - (float)Item.tileBoost <= (float)Player.tileTargetX && (player.position.X + (float)player.width) / 16f + (float)Player.tileRangeX + (float)Item.tileBoost - 1f >= (float)Player.tileTargetX && player.position.Y / 16f - (float)Player.tileRangeY - (float)Item.tileBoost <= (float)Player.tileTargetY && (player.position.Y + (float)player.height) / 16f + (float)Player.tileRangeY + (float)Item.tileBoost - 2f >= (float)Player.tileTargetY;
+			bool flag13 = (player.position.X / 16f) - Player.tileRangeX - Item.tileBoost <= Player.tileTargetX && ((player.position.X + player.width) / 16f) + Player.tileRangeX + Item.tileBoost - 1f >= Player.tileTargetX && (player.position.Y / 16f) - Player.tileRangeY - Item.tileBoost <= Player.tileTargetY && ((player.position.Y + player.height) / 16f) + Player.tileRangeY + Item.tileBoost - 2f >= Player.tileTargetY;
 			if (player.noBuilding)
 			{
 				flag13 = false;

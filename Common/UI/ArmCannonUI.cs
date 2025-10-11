@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
@@ -88,7 +87,7 @@ namespace MetroidMod.Common.UI
 			beamArrayPanel.SetPadding(0);
 
 			beamArrayPanel.Top.Pixels = 6;
-			beamArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
+			beamArrayPanel.Left.Pixels = beamPanelOpen ? 310 : 144;
 
 			beamArrayPanel.isBeam = true;
 
@@ -101,7 +100,7 @@ namespace MetroidMod.Common.UI
 			missileArrayPanel.SetPadding(0);
 			missileArrayPanel.isBeam = false;
 			missileArrayPanel.Top.Pixels = 6 + beamArrayPanel.Height.Pixels;
-			missileArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
+			missileArrayPanel.Left.Pixels = beamPanelOpen ? 310 : 144;
 
 			missileArrayPanel.Initialize();
 			baseBoard.Append(missileArrayPanel);
@@ -131,12 +130,12 @@ namespace MetroidMod.Common.UI
 			missileArrayToggle.OnLeftClick += new MouseEvent(MissileButtonClicked);
 			buttonTab.Append(missileArrayToggle);
 
-			pseudoScrewToggle = new UIImageButton((mp.pseudoScrewActive)? psButtonOn : psButtonOff);
+			pseudoScrewToggle = new UIImageButton(mp.pseudoScrewActive ? psButtonOn : psButtonOff);
 			pseudoScrewToggle.Left.Pixels = 8;
 			pseudoScrewToggle.Top.Pixels = 110;
 			pseudoScrewToggle.Width.Pixels = pseudoScrewToggle.Height.Pixels = 44;
 			pseudoScrewToggle.SetVisibility(1f, 1f);
-			pseudoScrewToggle.SetHoverImage((mp.pseudoScrewActive) ? psButtonOnHover : psButtonOffHover);
+			pseudoScrewToggle.SetHoverImage(mp.pseudoScrewActive ? psButtonOnHover : psButtonOffHover);
 			pseudoScrewToggle.OnLeftClick += new MouseEvent(PSAButtonClicked);
 			baseBoard.Append(pseudoScrewToggle);
 			#endregion
@@ -145,7 +144,7 @@ namespace MetroidMod.Common.UI
 
 			debugInfo = new UIText("Initializing.\nWait until Update(), numbnuts", 0.75f);
 			debugInfo.VAlign = baseBoard.VAlign * 2f;
-			debugInfo.MarginLeft = baseBoard.MarginLeft + armCannonPanel.Width.Pixels + buttonTab.Width.Pixels / 2;
+			debugInfo.MarginLeft = baseBoard.MarginLeft + armCannonPanel.Width.Pixels + (buttonTab.Width.Pixels / 2);
 			Append(debugInfo);
 
 			testPanel = new UIPanelTileBackground(bgTex, barTex, 10, 10);
@@ -187,20 +186,20 @@ namespace MetroidMod.Common.UI
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
 			SoundEngine.PlaySound(SoundID.MenuTick);
 			mp.pseudoScrewActive = !mp.pseudoScrewActive;
-			pseudoScrewToggle.SetImage((mp.pseudoScrewActive) ? psButtonOn : psButtonOff);
-			pseudoScrewToggle.SetHoverImage((mp.pseudoScrewActive) ? psButtonOnHover : psButtonOffHover);
+			pseudoScrewToggle.SetImage(mp.pseudoScrewActive ? psButtonOn : psButtonOff);
+			pseudoScrewToggle.SetHoverImage(mp.pseudoScrewActive ? psButtonOnHover : psButtonOffHover);
 			pseudoScrewToggle.Width.Pixels = pseudoScrewToggle.Height.Pixels = 44;
 		}
 		private void BeamButtonClicked(UIMouseEvent evt, UIElement listingElement)
 		{
 			beamPanelOpen = !beamPanelOpen;
-			beamArrayPanel.Left.Pixels = (beamPanelOpen) ? 310 : 144;
+			beamArrayPanel.Left.Pixels = beamPanelOpen ? 310 : 144;
 			SoundEngine.PlaySound(SoundID.MenuTick);
 		}
 		private void MissileButtonClicked(UIMouseEvent evt, UIElement listingElement)
 		{
 			missilePanelOpen = !missilePanelOpen;
-			missileArrayPanel.Left.Pixels = (missilePanelOpen) ? 310 : 144;
+			missileArrayPanel.Left.Pixels = missilePanelOpen ? 310 : 144;
 			SoundEngine.PlaySound(SoundID.MenuTick);
 		}
 	}
@@ -248,7 +247,7 @@ namespace MetroidMod.Common.UI
 			new(146, 276) //[8]Tank
 		};
 
-		public ArmCannonPanel(Asset<Texture2D> panel, Asset<Texture2D> border, int cornerSize = 12, int barSize = 4) : base(panel, border, cornerSize, barSize) {}
+		public ArmCannonPanel(Asset<Texture2D> panel, Asset<Texture2D> border, int cornerSize = 12, int barSize = 4) : base(panel, border, cornerSize, barSize) { }
 
 		public override void OnInitialize()
 		{
@@ -297,7 +296,7 @@ namespace MetroidMod.Common.UI
 				else
 				{
 					addonSlots[i].isBeam = false;
-					addonSlots[i].slotType = (i - BeamAddonSlotID.Count);
+					addonSlots[i].slotType = i - BeamAddonSlotID.Count;
 					if (i != 8)
 					{
 						slotLabels[i] = new SlotLabel(labelTexture, labelColor, MissileAddonSlotID.GetSlotName(i - BeamAddonSlotID.Count).ToUpper(), 0.75f, Color.Black);
@@ -366,7 +365,7 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
-			MGlobalItem ac = (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem]).GetGlobalItem<MGlobalItem>();
+			MGlobalItem ac = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].GetGlobalItem<MGlobalItem>();
 			for (int i = 0; i < addonSlots.Length; ++i)
 			{
 				if (i < BeamAddonSlotID.Count)
@@ -423,7 +422,7 @@ namespace MetroidMod.Common.UI
 		//I suppose only time will tell which I end up going with.
 
 		private ArmCannon target;
-		
+
 		/// <summary>
 		/// Is it the beam array or is it the missile array?
 		/// <br/>This bool is the deciding factor, but only for <b>ArrayPanels</b>.
@@ -447,7 +446,7 @@ namespace MetroidMod.Common.UI
 			new(32, 58), //Left
 			new(32, 10) //Top-left
 		};
-		public ArrayPanel(Asset<Texture2D> panel, Asset<Texture2D> border, int cornerSize = 12, int barSize = 4) : base(panel, border, cornerSize, barSize) {}
+		public ArrayPanel(Asset<Texture2D> panel, Asset<Texture2D> border, int cornerSize = 12, int barSize = 4) : base(panel, border, cornerSize, barSize) { }
 
 
 		public override void OnInitialize()
@@ -471,8 +470,8 @@ namespace MetroidMod.Common.UI
 				Append(arraySlots[i]);
 			}
 
-			ArrayFrame = new UIImage(isBeam? beamFrameTex : missileFrameTex);
-			ArrayFrame.Width.Pixels = isBeam? 28 : 20;
+			ArrayFrame = new UIImage(isBeam ? beamFrameTex : missileFrameTex);
+			ArrayFrame.Width.Pixels = isBeam ? 28 : 20;
 			ArrayFrame.Height.Pixels = isBeam ? 28 : 36;
 			ArrayFrame.Left.Pixels = 12;
 			ArrayFrame.HAlign = 0.5f;
@@ -488,10 +487,10 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
-			MGlobalItem ac = (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem]).GetGlobalItem<MGlobalItem>();
+			MGlobalItem ac = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].GetGlobalItem<MGlobalItem>();
 			for (int i = 0; i < arraySlots.Length; ++i)
 			{
-				arraySlots[i].ItemRead = (isBeam) ? target.ChargeQuickSwapAccess[i] : target.ComboQuickChangeAccess[i];
+				arraySlots[i].ItemRead = isBeam ? target.ChargeQuickSwapAccess[i] : target.ComboQuickChangeAccess[i];
 				if ((target.activeBeamArraySlot == arraySlots[i].slotNumber && arraySlots[i].isBeam) || (target.activeMissileArray == arraySlots[i].slotNumber && !arraySlots[i].isBeam))
 				{
 					arraySlots[i].slotColor = new Color(252, 195, 0);
@@ -554,8 +553,8 @@ namespace MetroidMod.Common.UI
 			Player player = Main.LocalPlayer;
 			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem; //failsafe
 			bool isDupe = false; //To make sure you can't get more than one of the same nonstacking addon in an arm cannon.
-			//This part does the calculation for if you clicking an item slot has an effect on its contents
-			//this is gonna be real long and nesty, brace yourself
+								 //This part does the calculation for if you clicking an item slot has an effect on its contents
+								 //this is gonna be real long and nesty, brace yourself
 			MetroidMod.Instance.Logger.Info("Begin the clickening");
 			if (!Main.mouseItem.IsAir)
 			{
@@ -651,7 +650,7 @@ namespace MetroidMod.Common.UI
 		public override void DarkMagic(Item ItemWrite, bool StackAttack)
 		{
 			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem; //failsafe
-			//Takes the action attempted through SlotMagic and applies the effect to the addon array.
+																												   //Takes the action attempted through SlotMagic and applies the effect to the addon array.
 			if (StackAttack) //Player tried to stack stuff
 			{
 				if (ItemWrite == null) //Player removed a thing from the array

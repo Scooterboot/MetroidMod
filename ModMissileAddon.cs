@@ -1,15 +1,14 @@
 ﻿using System;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Localization;
-using Terraria;
-using MetroidMod.ID;
-using MetroidMod.Default;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.DataStructures;
 using MetroidMod.Content.Projectiles;
+using MetroidMod.Default;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 //Left some notes in "type-definer variables"		-Z
 namespace MetroidMod
@@ -380,7 +379,7 @@ namespace MetroidMod
 		///<inheritdoc cref="ModProjectile.TileCollideStyle(ref int, ref int, ref bool, ref Vector2)"/>
 		public virtual bool TileCollideStyle(MProjectile mProjectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
 		///<inheritdoc cref="ModProjectile.OnTileCollide(Vector2)"/>
-		public virtual bool OnTileCollide (MProjectile mProjectile, Vector2 oldVelocity) { return true; }
+		public virtual bool OnTileCollide(MProjectile mProjectile, Vector2 oldVelocity) { return true; }
 
 		/// <inheritdoc cref="ModProjectile.OnHitNPC(NPC, NPC.HitInfo, int)"/>
 		public virtual void OnHitNPC(MProjectile mProjectile, NPC target, NPC.HitInfo hit, int damageDone) { }

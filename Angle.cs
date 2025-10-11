@@ -91,7 +91,7 @@ namespace MetroidMod
 						firstValue = value2[i - 1];
 					}
 					float amt = amount - i;
-					result = firstValue + (secondValue - firstValue) * amt;
+					result = firstValue + ((secondValue - firstValue) * amt);
 					break;
 				}
 			}
@@ -100,7 +100,7 @@ namespace MetroidMod
 
 		public static double ConvertToRadians(double angle)
 		{
-			return (Math.PI / 180) * angle;
+			return Math.PI / 180 * angle;
 		}
 		public static double ConvertToDegrees(double angle)
 		{

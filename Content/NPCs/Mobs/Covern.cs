@@ -106,11 +106,11 @@ namespace MetroidMod.Content.NPCs.Mobs
 		{
 			Texture2D texture = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Mobs/Covern_Glowmask").Value;
 			Vector2 drawPos = NPC.position - Main.screenPosition;
-			Vector2 origin = new Vector2(texture.Width / 2, ((texture.Height / (Main.npcFrameCount[NPC.type] - 1)) / 2));
-			drawPos += origin * NPC.scale + new Vector2(0, 2 * NPC.scale);
+			Vector2 origin = new Vector2(texture.Width / 2, texture.Height / (Main.npcFrameCount[NPC.type] - 1) / 2);
+			drawPos += (origin * NPC.scale) + new Vector2(0, 2 * NPC.scale);
 
 			if (NPC.ai[1] < 1)
-				spriteBatch.Draw(texture, drawPos, NPC.frame, NPC.GetAlpha(Color.White) * (float)NPC.ai[1], NPC.rotation, origin, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+				spriteBatch.Draw(texture, drawPos, NPC.frame, NPC.GetAlpha(Color.White) * NPC.ai[1], NPC.rotation, origin, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 		}
 	}
 }

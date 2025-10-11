@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
 using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -199,7 +196,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>()))
 				{
-					Vector2 tPos = new Vector2(NPC.Center.X - 26 * NPC.direction, NPC.position.Y + NPC.height - 117);
+					Vector2 tPos = new Vector2(NPC.Center.X - (26 * NPC.direction), NPC.position.Y + NPC.height - 117);
 					//NPC.NewNPC((int)tPos.X,(int)tPos.Y,mod.NPCType("GoldenTorizo"),NPC.whoAmI, 0,1,0,0, NPC.target);
 					NPC.SpawnOnPlayer(NPC.target, ModContent.NPCType<GoldenTorizo>());
 				}
@@ -221,7 +218,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			{
 				Texture2D sTex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/GoldenTorizo/IdleGoldenTorizo_SAttack").Value;
 				Vector2 sPos = NPC.Center + new Vector2(sAttackPos.X * NPC.direction, sAttackPos.Y);
-				int texH = (sTex.Height / 3);
+				int texH = sTex.Height / 3;
 				sb.Draw(sTex, sPos - Main.screenPosition, new Rectangle?(new Rectangle(0, sAttackFrame * texH, sTex.Width, texH)), NPC.GetAlpha(drawColor), 0f, new Vector2(sTex.Width / 2, texH / 2), 1f, SpriteEffects.None, 0f);
 			}
 

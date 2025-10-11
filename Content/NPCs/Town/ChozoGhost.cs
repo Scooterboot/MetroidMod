@@ -214,7 +214,7 @@ namespace MetroidMod.Content.NPCs.Town
 			Condition Phazon = new Condition("Conditions.spawnedPhazon", () => MSystem.PhazonSpawn != true);
 			npcShop.Add<ArmCannon>(Condition.Hardmode);
 			//npcShop.Add<MissileExpansion>(Condition.Hardmode, Condition.BloodMoon);
-			npcShop.Add(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType,Condition.Hardmode, Condition.BloodMoon);
+			npcShop.Add(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, Condition.Hardmode, Condition.BloodMoon);
 			//npcShop.Add<UAExpansion>(Condition.Hardmode, Condition.BloodMoon);
 			npcShop.Add<PowerSuitHelmet>(Condition.Hardmode);
 			npcShop.Add<PowerSuitBreastplate>(Condition.Hardmode);

@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -18,17 +17,21 @@ namespace MetroidMod.Content.Projectiles.Minions
 
 	public class MiniTorizoBuff : ModBuff
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			Main.buffNoSave[Type] = true; // This buff won't save when you exit the world
 			Main.buffNoTimeDisplay[Type] = true; // The time remaining won't display on this buff
 		}
 
-		public override void Update(Player player, ref int buffIndex) {
+		public override void Update(Player player, ref int buffIndex)
+		{
 			// If the minions exist reset the buff time, otherwise remove the buff from the player
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<MiniTorizo>()] > 0) {
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<MiniTorizo>()] > 0)
+			{
 				player.buffTime[buffIndex] = 18000;
 			}
-			else {
+			else
+			{
 				player.DelBuff(buffIndex);
 				buffIndex--;
 			}
@@ -37,14 +40,16 @@ namespace MetroidMod.Content.Projectiles.Minions
 
 	public class ChozoStaff : ModItem
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
 			ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
 
 			ItemID.Sets.StaffMinionSlotsRequired[Type] = 1f; // The default value is 1, but other values are supported. See the docs for more guidance. 
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			Item.damage = 30;
 			Item.knockBack = 3f;
 			Item.mana = 10; // mana cost
@@ -65,12 +70,14 @@ namespace MetroidMod.Content.Projectiles.Minions
 			Item.shoot = ModContent.ProjectileType<MiniTorizo>(); // This item creates the minion projectile
 		}
 
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
 			// Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position
 			position = Main.MouseWorld;
 		}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
 			// This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
 			player.AddBuff(Item.buffType, 2);
 
@@ -90,7 +97,8 @@ namespace MetroidMod.Content.Projectiles.Minions
 	// If it isn't attacking, it will float near the player with minimal movement
 	public class MiniTorizo : ModProjectile
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			// Sets the amount of frames this minion has on its spritesheet
 			Main.projFrames[Projectile.type] = 15;
 			// This is necessary for right-click targeting
@@ -102,7 +110,8 @@ namespace MetroidMod.Content.Projectiles.Minions
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
 		}
 
-		public sealed override void SetDefaults() {
+		public sealed override void SetDefaults()
+		{
 			Projectile.CloneDefaults(ProjectileID.PirateCaptain);
 			Projectile.width = 32;
 			Projectile.height = 28;
@@ -117,12 +126,14 @@ namespace MetroidMod.Content.Projectiles.Minions
 		}
 
 		// Here you can decide if your minion breaks things like grass or pots
-		public override bool? CanCutTiles() {
+		public override bool? CanCutTiles()
+		{
 			return false;
 		}
 
 		// This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
-		public override bool MinionContactDamage() {
+		public override bool MinionContactDamage()
+		{
 			return true;
 		}
 

@@ -3,7 +3,6 @@ using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -44,7 +43,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			for (float i = 0f; i < (float)(Math.PI * 2); i += (float)(Math.PI / 16))
 			{
-				Vector2 position = Projectile.Center + i.ToRotationVector2() * 24;
+				Vector2 position = Projectile.Center + (i.ToRotationVector2() * 24);
 				int num20 = Dust.NewDust(position, 1, 1, dustType, 0f, 0f, 100, default(Color), 2f);
 				Main.dust[num20].position = position;
 				Main.dust[num20].velocity -= P.velocity;
@@ -62,8 +61,8 @@ namespace MetroidMod.Content.Projectiles
 			//Projectile.penetrateImmuneTime = 7;
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
+			Projectile.position.X = P.Center.X - (Projectile.width / 2);
+			Projectile.position.Y = P.Center.Y - (Projectile.height / 2);
 			Projectile.direction = P.direction;
 			Projectile.spriteDirection = P.direction;
 			//Projectile.rotation += mp.rotation;
@@ -162,7 +161,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			for (float i = 0f; i < (float)(Math.PI * 2); i += (float)(Math.PI / 16))
 			{
-				Vector2 position = Projectile.Center + i.ToRotationVector2() * 24;
+				Vector2 position = Projectile.Center + (i.ToRotationVector2() * 24);
 				int num20 = Dust.NewDust(position, 1, 1, dustType, 0f, 0f, 100, default(Color), 2f);
 				Main.dust[num20].position = position;
 				Main.dust[num20].velocity += lastVel;

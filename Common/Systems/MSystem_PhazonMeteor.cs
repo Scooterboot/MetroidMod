@@ -125,7 +125,7 @@ namespace MetroidMod.Common.Systems
 					Rectangle playerRectangle = new(
 						(int)(Main.player[i].position.X + (Main.player[i].width / 2) - (NPC.sWidth / 2) - NPC.safeRangeX),
 						(int)(Main.player[i].position.Y + (Main.player[i].height / 2) - (NPC.sHeight / 2) - NPC.safeRangeY),
-						NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2
+						NPC.sWidth + (NPC.safeRangeX * 2), NPC.sHeight + (NPC.safeRangeY * 2)
 					);
 
 					if (rectangle.Intersects(playerRectangle))
@@ -165,7 +165,7 @@ namespace MetroidMod.Common.Systems
 				if (y > genY + Main.rand.Next(-2, 3) - 5)
 				{
 					float distance = new Vector2(genX - x, genY - y).Length();
-					if (distance < margin * 0.9f + Main.rand.Next(-4, 5))
+					if (distance < (margin * 0.9f) + Main.rand.Next(-4, 5))
 					{
 						if (!Main.tileSolid[Main.tile[x, y].TileType])
 						{
@@ -182,7 +182,7 @@ namespace MetroidMod.Common.Systems
 				if (y > genY + Main.rand.Next(-2, 3) - 4)
 				{
 					float distance = new Vector2(genX - x, genY - y).Length();
-					if (distance < margin * 0.8f + Main.rand.Next(-3, 4))
+					if (distance < (margin * 0.8f) + Main.rand.Next(-3, 4))
 					{
 						Main.tile[x, y].ClearTile();
 					}
@@ -192,7 +192,7 @@ namespace MetroidMod.Common.Systems
 			// Placement of Phazon Core tiles.
 			GeneratePhazonChunkAt(genX, genY + 4, WorldGen.genRand.Next(4, 6), (x, y, margin) =>
 			{
-				if (y > genY + Main.rand.Next(-2, 3) - 5 && (Math.Abs(genX - x) + Math.Abs(genY - y)) < margin * 1.5 + Main.rand.Next(-5, 5))
+				if (y > genY + Main.rand.Next(-2, 3) - 5 && (Math.Abs(genX - x) + Math.Abs(genY - y)) < (margin * 1.5) + Main.rand.Next(-5, 5))
 				{
 					if (!Main.tileSolid[Main.tile[x, y].TileType])
 					{
@@ -280,7 +280,7 @@ namespace MetroidMod.Common.Systems
 			// Since we are not able to get here if we're in a multiplayer client session, removed the check.
 			NetMessage.SendTileSquare(-1, genX, genY, 40, TileChangeType.None);
 
-			return (true);
+			return true;
 		}
 
 		/// <summary>

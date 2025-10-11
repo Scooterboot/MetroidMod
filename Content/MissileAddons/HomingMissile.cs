@@ -1,11 +1,7 @@
-﻿using System;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Projectiles;
+﻿using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace MetroidMod.Content.MissileAddons

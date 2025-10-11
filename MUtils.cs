@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.GlobalNPCs;
 using MetroidMod.Common.GlobalProjectiles;
@@ -8,7 +9,6 @@ using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Torizo;
 using Terraria;
 using Terraria.ModLoader;
-using System.Linq;
 
 namespace MetroidMod
 {

@@ -1,16 +1,14 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using MetroidMod;
-using Terraria.GameContent.UI.Elements;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using Terraria;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
-    class UIToggleButton : UIImageButton
-    {
+	class UIToggleButton : UIImageButton
+	{
 		/// <summary>
 		/// Stores the various possible textures of the button.
 		/// </summary>

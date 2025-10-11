@@ -47,7 +47,7 @@ namespace MetroidMod.Content.Elevators
 				c.EmitDelegate((Player player) => player.GetModPlayer<ElevatorPlayer>().InElevator);
 				c.EmitBrtrue(skipLavaCollisionLabel);
 
-				
+
 				c = new(il);
 				c.GotoNext(MoveType.After, i => i.MatchCall(typeof(Collision).GetMethod("WetCollision", BindingFlags.Static | BindingFlags.Public)));
 

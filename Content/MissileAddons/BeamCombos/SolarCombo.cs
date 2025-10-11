@@ -1,8 +1,6 @@
-using MetroidMod.Common.GlobalItems;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons.BeamCombos
 {

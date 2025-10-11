@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -98,19 +96,19 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
-			Color color25 = Lighting.GetColor((int)((double)NPC.position.X + (double)NPC.width * 0.5) / 16, (int)(((double)NPC.position.Y + (double)NPC.height * 0.5) / 16.0));
+			Color color25 = Lighting.GetColor((int)(NPC.position.X + (NPC.width * 0.5)) / 16, (int)((NPC.position.Y + (NPC.height * 0.5)) / 16.0));
 
 			Vector2 vector60 = NPC.Center - Main.screenPosition;
 			Color alpha4 = NPC.GetAlpha(color25);
-			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
+			Vector2 origin8 = new Vector2(tex.Width, tex.Height) / 2f;
 
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;
 			Color color58 = Color.Lerp(alpha4, Color.Black, 0.5f);
 			color58.A = alpha4.A;
-			float num279 = 0.95f + (NPC.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
+			float num279 = 0.95f + ((NPC.rotation * 0.75f).ToRotationVector2().Y * 0.1f);
 			color58 *= num279;
-			float scale13 = 0.6f + NPC.scale * 0.6f * num279;
+			float scale13 = 0.6f + (NPC.scale * 0.6f * num279);
 			sb.Draw(tex2, vector60, null, color58, -NPC.rotation * 2, origin8, NPC.scale, spriteEffects, 0f);
 			sb.Draw(Terraria.GameContent.TextureAssets.Extra[50].Value, vector60, null, color58, -NPC.rotation + 0.35f, origin8, scale13, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(Terraria.GameContent.TextureAssets.Extra[50].Value, vector60, null, alpha4, -NPC.rotation, origin8, NPC.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -57,7 +56,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];
-			bool despawn = (Head.ai[3] > 1);
+			bool despawn = Head.ai[3] > 1;
 			if (!Head.active)
 			{
 				NPC.life = 0;

@@ -40,15 +40,15 @@ namespace MetroidMod.Common.Configs
 
 		[DefaultValue(false)]
 		public bool energyLowFade;
-		
+
 		[BackgroundColor(255, 255, 255)]
 		[DefaultValue(true)]
 		public bool WeaponFireScreenshake;
-		
+
 		[BackgroundColor(255, 255, 255)]
 		[DefaultValue(true)]
 		public bool WeaponCollideScreenshake;
-		
+
 		[Header("DraggableUIPanels")]
 		//[Label("Power Beam")]
 		public DragablePanelPage ArmCannon = new();

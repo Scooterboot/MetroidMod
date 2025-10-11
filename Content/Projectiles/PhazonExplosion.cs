@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -27,7 +26,7 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
+			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
 			P.tileCollide = false;
 			P.alpha = 255;
 			P.localAI[0] += 1f;
@@ -35,8 +34,8 @@ namespace MetroidMod.Content.Projectiles
 			{
 				for (int l = 0; l < 4; l++)
 				{
-					float x = (P.position.X - P.velocity.X * ((float)l * 0.25f) + (P.width / 2));
-					float y = (P.position.Y - P.velocity.Y * ((float)l * 0.25f) + (P.height / 2));
+					float x = P.position.X - (P.velocity.X * (l * 0.25f)) + (P.width / 2);
+					float y = P.position.Y - (P.velocity.Y * (l * 0.25f)) + (P.height / 2);
 					int num20 = Dust.NewDust(new Vector2(x, y), 1, 1, 68, 0f, 0f, 100, default(Color), Main.rand.Next(3, 6));
 					Main.dust[num20].position.X = x;
 					Main.dust[num20].position.Y = y;
@@ -46,8 +45,8 @@ namespace MetroidMod.Content.Projectiles
 			}
 			if (P.localAI[0] < 60f)
 			{
-				P.velocity.X += (float)Main.rand.Next(-50, 51) * 0.075f;
-				P.velocity.Y += (float)Main.rand.Next(-50, 51) * 0.075f;
+				P.velocity.X += Main.rand.Next(-50, 51) * 0.075f;
+				P.velocity.Y += Main.rand.Next(-50, 51) * 0.075f;
 			}
 			else if (P.velocity.Length() < 16)
 			{

@@ -51,7 +51,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 				initialized = true;
 			}
-			return (true);
+			return true;
 		}
 
 		public override void AI()
@@ -84,13 +84,13 @@ namespace MetroidMod.Content.Projectiles.Boss
 				if (Vector2.Distance(Projectile.Center, player.Center) < fieldRadius * Projectile.scale)
 					player.AddBuff(ModContent.BuffType<Buffs.GravityDebuff>(), 1);
 
-				Projectile.Center = new Vector2(Tail.Center.X + 26 * Head.direction, Tail.Center.Y + 14);
+				Projectile.Center = new Vector2(Tail.Center.X + (26 * Head.direction), Tail.Center.Y + 14);
 				Projectile.spriteDirection = Head.direction;
 			}
 
 			Projectile.position.X += Projectile.width / 2f;
 			Projectile.position.Y += Projectile.height / 2f;
-			Projectile.scale = MathHelper.Clamp(Projectile.scale + 0.025f * num, 0f, 1f);
+			Projectile.scale = MathHelper.Clamp(Projectile.scale + (0.025f * num), 0f, 1f);
 			Projectile.width = (int)(20 * Projectile.scale);
 			Projectile.height = (int)(20 * Projectile.scale);
 			Projectile.position.X -= Projectile.width / 2f;
@@ -107,20 +107,20 @@ namespace MetroidMod.Content.Projectiles.Boss
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
-			Color color25 = Lighting.GetColor((int)((double)Projectile.position.X + (double)Projectile.width * 0.5) / 16, (int)(((double)Projectile.position.Y + (double)Projectile.height * 0.5) / 16.0));
+			Color color25 = Lighting.GetColor((int)(Projectile.position.X + (Projectile.width * 0.5)) / 16, (int)((Projectile.position.Y + (Projectile.height * 0.5)) / 16.0));
 
-			Vector2 vector60 = Projectile.position + new Vector2((float)Projectile.width, (float)Projectile.height) / 2f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
+			Vector2 vector60 = Projectile.position + (new Vector2(Projectile.width, Projectile.height) / 2f) + (Vector2.UnitY * Projectile.gfxOffY) - Main.screenPosition;
 			Texture2D texture2D31 = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			Color alpha4 = Projectile.GetAlpha(color25);
-			Vector2 origin8 = new Vector2((float)texture2D31.Width, (float)texture2D31.Height) / 2f;
+			Vector2 origin8 = new Vector2(texture2D31.Width, texture2D31.Height) / 2f;
 
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;
 			Color color58 = Color.Lerp(alpha4, Color.Black, 0.5f);
 			color58.A = alpha4.A;
-			float num279 = 0.95f + (Projectile.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
+			float num279 = 0.95f + ((Projectile.rotation * 0.75f).ToRotationVector2().Y * 0.1f);
 			color58 *= num279;
-			float scale13 = 0.6f + Projectile.scale * 0.6f * num279;
+			float scale13 = 0.6f + (Projectile.scale * 0.6f * num279);
 			Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.Extra[50].Value, vector60, null, color58, -Projectile.rotation + 0.35f, origin8, scale13, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.Extra[50].Value, vector60, null, alpha4, -Projectile.rotation, origin8, Projectile.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			Main.spriteBatch.Draw(texture2D31, vector60, null, color57, -Projectile.rotation * 0.7f, origin8, Projectile.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);

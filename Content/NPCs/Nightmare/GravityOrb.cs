@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -134,8 +132,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				{
 					effects = SpriteEffects.FlipHorizontally;
 				}
-				int height = (int)(tex.Height / Main.npcFrameCount[NPC.type]);
-				sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height * NPC.frame.Y, tex.Width, height)), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2((float)tex.Width / 2f, (float)height / 2f), NPC.scale, effects, 0f);
+				int height = tex.Height / Main.npcFrameCount[NPC.type];
+				sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height * NPC.frame.Y, tex.Width, height)), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2(tex.Width / 2f, height / 2f), NPC.scale, effects, 0f);
 			}
 			return false;
 		}

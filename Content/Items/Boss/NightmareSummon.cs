@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Items.Boss
 
 		public override bool ConsumeItem(Player player)
 		{
-				return Common.Configs.MConfigMain.Instance.enableBossSummonConsumption;
+			return Common.Configs.MConfigMain.Instance.enableBossSummonConsumption;
 		}
 
 		public override bool CanUseItem(Player player)

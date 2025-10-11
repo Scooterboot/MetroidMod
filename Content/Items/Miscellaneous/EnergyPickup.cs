@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Items.Miscellaneous
 		public override bool OnPickup(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			if(!mp.PrimeHunter)
+			if (!mp.PrimeHunter)
 			{
 				mp.Energy += Item.stack;
 			}

@@ -3,14 +3,11 @@ using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.DamageClasses;
-using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -376,8 +373,8 @@ namespace MetroidMod.Content.Projectiles
 		int d = 0;
 		public void PhaseCollide(Projectile P, int depth)
 		{
-			int i = (int)MathHelper.Clamp((P.Center.X) / 16f, 0, Main.maxTilesX - 1);
-			int j = (int)MathHelper.Clamp((P.Center.Y) / 16f, 0, Main.maxTilesY - 1);
+			int i = (int)MathHelper.Clamp(P.Center.X / 16f, 0, Main.maxTilesX - 1);
+			int j = (int)MathHelper.Clamp(P.Center.Y / 16f, 0, Main.maxTilesY - 1);
 
 			if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
 			{
@@ -413,9 +410,9 @@ namespace MetroidMod.Content.Projectiles
 					//if (Main.npc[i].CanBeChasedBy(P, false) && !npcPrevHit[i]  && (!flag3.HasValue || flag3.Value))
 					if (npc.CanBeChasedBy(P, false) && !npcPrevHit[who.whoAmI])
 					{
-						float centerX = npc.position.X + (float)(npc.width / 2);
-						float centerY = npc.position.Y + (float)(npc.height / 2);
-						float val = Math.Abs(P.position.X + (float)(P.width / 2) - centerX) + Math.Abs(P.position.Y + (float)(P.height / 2) - centerY);
+						float centerX = npc.position.X + (npc.width / 2);
+						float centerY = npc.position.Y + (npc.height / 2);
+						float val = Math.Abs(P.position.X + (P.width / 2) - centerX) + Math.Abs(P.position.Y + (P.height / 2) - centerY);
 						if (val < dist && Collision.CanHit(P.position, P.width, P.height, npc.position, npc.width, npc.height))
 						{
 							dist = val;
@@ -428,19 +425,19 @@ namespace MetroidMod.Content.Projectiles
 			}
 			if (!flag)
 			{
-				homeX = P.position.X + (float)(P.width / 2) + P.velocity.X * 100f;
-				homeY = P.position.Y + (float)(P.height / 2) + P.velocity.Y * 100f;
+				homeX = P.position.X + (P.width / 2) + (P.velocity.X * 100f);
+				homeY = P.position.Y + (P.height / 2) + (P.velocity.Y * 100f);
 			}
 			float homeSpeed = speed;
-			Vector2 projCenter = new Vector2(P.position.X + (float)P.width * 0.5f, P.position.Y + (float)P.height * 0.5f);
+			Vector2 projCenter = new Vector2(P.position.X + (P.width * 0.5f), P.position.Y + (P.height * 0.5f));
 			float xDist = homeX - projCenter.X;
 			float yDist = homeY - projCenter.Y;
-			float combinedDist = (float)Math.Sqrt((double)(xDist * xDist + yDist * yDist));
+			float combinedDist = (float)Math.Sqrt((double)((xDist * xDist) + (yDist * yDist)));
 			combinedDist = homeSpeed / combinedDist;
 			xDist *= combinedDist;
 			yDist *= combinedDist;
-			P.velocity.X = (P.velocity.X * accuracy + xDist) / (accuracy + 1f);
-			P.velocity.Y = (P.velocity.Y * accuracy + yDist) / (accuracy + 1f);
+			P.velocity.X = ((P.velocity.X * accuracy) + xDist) / (accuracy + 1f);
+			P.velocity.Y = ((P.velocity.Y * accuracy) + yDist) / (accuracy + 1f);
 		}
 
 		int dustDelayCounter = 0;
@@ -449,11 +446,11 @@ namespace MetroidMod.Content.Projectiles
 			dustDelayCounter++;
 			if (dustDelayCounter >= dustDelay)
 			{
-				int num = Math.Max((int)Math.Ceiling((float)freq * Main.gfxQuality), 1);
+				int num = Math.Max((int)Math.Ceiling(freq * Main.gfxQuality), 1);
 				for (int l = 0; l < num; l++)
 				{
-					float x = (Position.X - Velocity.X / (float)num * (float)l);
-					float y = (Position.Y - Velocity.Y / (float)num * (float)l);
+					float x = Position.X - (Velocity.X / num * l);
+					float y = Position.Y - (Velocity.Y / num * l);
 					int num20 = Dust.NewDust(new Vector2(x, y), 1, 1, dustType, 0f, 0f, 100, color, scale);
 					Main.dust[num20].position.X = x;
 					Main.dust[num20].position.Y = y;
@@ -507,7 +504,7 @@ namespace MetroidMod.Content.Projectiles
 					int DiffuseID = ModContent.ProjectileType<DiffusionBeam>();
 					vel = new Vector2((Main.rand.Next(50) - 25) * 0.1f, (Main.rand.Next(50) - 25) * 0.1f);
 					Projectile p = Main.projectile[Projectile.NewProjectile(entitySource, Projectile.Center, vel, DiffuseID, (int)(Projectile.damage / 3f),
-						0.1f, Projectile.owner, dustType, (color.R << 16 | color.G << 8 | color.B))];
+						0.1f, Projectile.owner, dustType, (color.R << 16) | (color.G << 8) | color.B)];
 					p.tileCollide = Projectile.tileCollide;
 					p.Name = Projectile.Name;
 					p.netUpdate = true;
@@ -535,7 +532,7 @@ namespace MetroidMod.Content.Projectiles
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
 			int num108 = tex.Height / Main.projFrames[Projectile.type];
 			int y4 = num108 * Projectile.frame;
-			sb.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, effects, 0f);
+			sb.Draw(tex, new Vector2((int)(Projectile.Center.X - Main.screenPosition.X), (int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY)), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width / 2f, num108 / 2f), Projectile.scale, effects, 0f);
 		}
 
 		public void DrawCenteredTrail(Projectile Projectile, SpriteBatch sb, int amount = 10, float scaleDrop = 0.5f)
@@ -554,11 +551,11 @@ namespace MetroidMod.Content.Projectiles
 			{
 				Color color23 = Color.White;
 				color23 = Projectile.GetAlpha(color23);
-				color23 *= (float)(amt - i) / ((float)amt);
+				color23 *= (amt - i) / ((float)amt);
 				float scale = MathHelper.Lerp(Projectile.scale, Projectile.scale * scaleDrop, (float)i / amt);
-				sb.Draw(tex, (Projectile.oldPos[i] + new Vector2((float)Projectile.width / 2, (float)Projectile.height / 2)) - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), color23, Projectile.oldRot[i], new Vector2((float)tex.Width / 2f, (float)num108 / 2f), scale, effects, 0f);
+				sb.Draw(tex, Projectile.oldPos[i] + new Vector2((float)Projectile.width / 2, (float)Projectile.height / 2) - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), color23, Projectile.oldRot[i], new Vector2(tex.Width / 2f, num108 / 2f), scale, effects, 0f);
 			}
-			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, effects, 0f);
+			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width / 2f, num108 / 2f), Projectile.scale, effects, 0f);
 		}
 
 		bool drawFlag = false;
@@ -573,10 +570,10 @@ namespace MetroidMod.Content.Projectiles
 			int num108 = tex.Height / Main.projFrames[Projectile.type];
 			int y4 = num108 * Projectile.frame;
 
-			float h = ((float)num108 * Projectile.scale);
+			float h = num108 * Projectile.scale;
 
-			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
-			int height = (int)((float)num108 * dist);
+			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + (Projectile.height / 2f)) / h, 0f, 1f);
+			int height = (int)(num108 * dist);
 			if (dist >= 1f)
 			{
 				drawFlag = true;
@@ -585,7 +582,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				height = num108;
 			}
-			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
+			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
 		public void PlasmaDrawTrail(Projectile Projectile, Player player, SpriteBatch sb, int amount = 10, float scaleDrop = 0.5f, Color color = default(Color))
 		{
@@ -603,10 +600,10 @@ namespace MetroidMod.Content.Projectiles
 			int num108 = tex.Height / Main.projFrames[Projectile.type];
 			int y4 = num108 * Projectile.frame;
 
-			float h = ((float)num108 * Projectile.scale);
+			float h = num108 * Projectile.scale;
 
-			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
-			int height = (int)((float)num108 * dist);
+			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + (Projectile.height / 2f)) / h, 0f, 1f);
+			int height = (int)(num108 * dist);
 			if (dist >= 1f)
 			{
 				drawFlag = true;
@@ -630,16 +627,16 @@ namespace MetroidMod.Content.Projectiles
 			for (int i = amt - 1; i > -1; i--)
 			{
 				Vector2 center = Projectile.oldPos[i] + new Vector2((float)Projectile.width / 2, (float)Projectile.height / 2);
-				float oldDist = MathHelper.Clamp((Vector2.Distance(center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
-				int oldHeight = (int)((float)num108 * oldDist);
+				float oldDist = MathHelper.Clamp((Vector2.Distance(center, player.Center) + (Projectile.height / 2f)) / h, 0f, 1f);
+				int oldHeight = (int)(num108 * oldDist);
 
 				Color color23 = color2;
 				color23 = Projectile.GetAlpha(color23);
-				color23 *= (float)(amt - i) / ((float)amt);
+				color23 *= (amt - i) / ((float)amt);
 				float scale = MathHelper.Lerp(Projectile.scale, Projectile.scale * scaleDrop, (float)i / amt);
-				sb.Draw(tex, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, oldHeight)), color23, Projectile.oldRot[i], new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), scale, effects, 0f);
+				sb.Draw(tex, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, oldHeight)), color23, Projectile.oldRot[i], new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), scale, effects, 0f);
 			}
-			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
+			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
 		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size and damage multiplied by float </summary>
 		public void Explode(int increase, float scale = 1f)//TODO humorously, works the exact same as the missiles-through-wall exploit as SM

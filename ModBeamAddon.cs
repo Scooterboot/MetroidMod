@@ -1,16 +1,15 @@
 ﻿using System;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Localization;
-using Terraria;
-using MetroidMod.ID;
-using MetroidMod.Default;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.DataStructures;
-using MetroidMod.Content.Projectiles;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using MetroidMod.Content.Projectiles;
+using MetroidMod.Default;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 //gonna document as much of the code as I can to make it easy to follow
 namespace MetroidMod
@@ -139,7 +138,7 @@ namespace MetroidMod
 		/// In the case of a tie, color is decided by slot priority.<br />
 		/// Slot color priority highest to lowest: Ability(1), Secondary(4), Ion(2), Spread(3), Primary(0)
 		/// </summary>
-		public virtual int ColorPriority { get; set; } =  0;
+		public virtual int ColorPriority { get; set; } = 0;
 		/// <summary>
 		/// Sets to true when this addon has color priority.
 		/// <br/><br/>Defaults to <b>false</b>.
@@ -265,7 +264,7 @@ namespace MetroidMod
 		/// <br/>Useful if you don't want your addon to be able to be charged. Leave it off if your addon has a holdfire itself.
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
-		public virtual bool SuppressHoldFire { get; set;} = false;
+		public virtual bool SuppressHoldFire { get; set; } = false;
 		/// <summary>
 		/// If true, this addon will not apply its properties to the Arm Cannon.
 		/// <br/>Used to create incompatibilites between addons.
@@ -366,7 +365,7 @@ namespace MetroidMod
 		public virtual void PostDrawInWorld(Item item, SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) { }
 
 		///<inheritdoc cref="ModItem.RightClick(Player)"/>
-		public virtual void RightClick(Player player) {	}
+		public virtual void RightClick(Player player) { }
 		/// <inheritdoc cref="ModItem.AddRecipes"/>
 		public virtual void AddRecipes() { }
 		public Recipe CreateRecipe(int amount = 1) => ModItem.CreateRecipe(amount);

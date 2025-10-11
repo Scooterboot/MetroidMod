@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override void HoldItem(Player player)
 		{
-			if(MUtils.CanReachWiring(player, Item))
+			if (MUtils.CanReachWiring(player, Item))
 			{
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = Type;

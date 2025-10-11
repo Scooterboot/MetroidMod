@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using MetroidMod.Content.Projectiles;
+using MetroidMod.ID;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader.IO;
-using MetroidMod.ID;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Common.Players;
-using MetroidMod.Common.GlobalItems;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
-using Microsoft.Xna.Framework.Audio;
-using System.Numerics;
-using MetroidMod.Content.Projectiles;
 using Terraria.DataStructures;
-using MetroidMod.Common.UI.SuitAddons;
-using MetroidMod.Content.MorphBallAddons;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace MetroidMod
 {
@@ -27,7 +17,7 @@ namespace MetroidMod
 	/// Manages ModBeamAddons, stacks effects of addons installed into arm cannons, and provides helpful methods to retrieve beam addon information.
 	/// <br/>And, of course, loads them.
 	/// </summary>
-	public static class BeamAddonLoader 
+	public static class BeamAddonLoader
 	{
 		#region Accessor methods
 		//I'll be honest I dunno what half this shit does, it's mostly copied from the modsuitaddon equivalent   -Z
@@ -96,7 +86,7 @@ namespace MetroidMod
 		/// <param name="item"></param>
 		/// <returns></returns>
 		public static ModBeamAddon GetAddon<T>() where T : ModBeamAddon =>
-			addons.TryGetValue(i => i is T, out ModBeamAddon beam) ?beam : null;
+			addons.TryGetValue(i => i is T, out ModBeamAddon beam) ? beam : null;
 
 		public static bool IsABeamTile(Tile tile)
 		{
@@ -134,11 +124,11 @@ namespace MetroidMod
 			int[] shapeOfPew = new int[addons.Length]; //store all the ShapePriority check results (I couldn't come up with a secondary joke (mostly because I didn't feel like trying))
 			int[] fuckYouIceBeam = new int[addons.Length]; //store all the ColorPriority check results here at Big Zek Hell's Arrays
 			int[] winners; //Will contain all of the results
-			//In order:
-			//[0] = The slot containing the highest ShapePriority (0-4)
-			//[1] = The slot containing the highest ColorPriority (0-4)
-			//[2] = 0 if the VIBe check failed, 1 if it passed, 2 if it has its own projectile
-			//[3] = 0 if ColorPriority doesn't have SoundOverride, 1 if it does
+						   //In order:
+						   //[0] = The slot containing the highest ShapePriority (0-4)
+						   //[1] = The slot containing the highest ColorPriority (0-4)
+						   //[2] = 0 if the VIBe check failed, 1 if it passed, 2 if it has its own projectile
+						   //[3] = 0 if ColorPriority doesn't have SoundOverride, 1 if it does
 
 			MetroidMod.Instance.Logger.Info("Starting VIBe check");
 			for (int i = 0; i < addons.Length - 1; ++i) //Check all addon slots for if VIB is true
@@ -147,7 +137,7 @@ namespace MetroidMod
 				if (addons[i] == null || addons[i].VIB == false) { continue; }
 				if (addons[i].VIB == true)
 				{
-					winners = [i, i, (addons[i].vibOverride != -1)? 2 : 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check");
+					winners = [i, i, (addons[i].vibOverride != -1) ? 2 : 1, 0]; MetroidMod.Instance.Logger.Info("Slot " + i + " passed the VIBe Check");
 					return winners;
 				}
 			} //Iterate through the slots looking for a VIB addon
@@ -202,7 +192,7 @@ namespace MetroidMod
 			MetroidMod.Instance.Logger.Info("Result: Slot " + highestShapePriorityIndex);
 
 			winners = [highestShapePriorityIndex, highestColorPriorityIndex, 0, willItOverride]; //If there are no winners it should turn up -1, -1, 0, 0
-			MetroidMod.Instance.Logger.Info("winners value: [" + winners[0] + ", " + winners[1] + ", " + winners[2] + ", " + winners[3] +"]");
+			MetroidMod.Instance.Logger.Info("winners value: [" + winners[0] + ", " + winners[1] + ", " + winners[2] + ", " + winners[3] + "]");
 
 			//Delete this later if plan b doesn't work
 			//	for (int i = 0; i < addons.Length - 1; i++)
@@ -403,7 +393,7 @@ namespace MetroidMod
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
-				total += (concreteMatter) ? addons[i].TileInteract : addons[i].EntityInteract;
+				total += concreteMatter ? addons[i].TileInteract : addons[i].EntityInteract;
 			}//iterate through array and add all interact values.
 			MetroidMod.Instance.Logger.Info("Subtotal: " + total + "  ||  Applying multiplier...");
 			//Apply charge modifier as well.
@@ -459,7 +449,7 @@ namespace MetroidMod
 		}
 
 
-		
+
 		//Compat checker here
 
 		//two types of no-gos that need to be accounted for:
@@ -473,7 +463,7 @@ namespace MetroidMod
 		//Locks: addon prevents beam from firing until certain conditions are met
 		//Suitlocking only? makes the process more automatic and makes the unknown item bit easier
 		//Store something in MPlayer?
-		
+
 		/// <summary>
 		/// Checks if a ModBeamAddon is a duplicate of an addon currently stored in an array.
 		/// <br/>If it is, return <b>true</b>. Otherwise, return <b>false</b>/
@@ -534,7 +524,7 @@ namespace MetroidMod
 		public static void AddonAI(ModBeamAddon[] addons, MProjectile shot)
 		{
 			//MetroidMod.Instance.Logger.Info(addons.Length);
-			for(int i = 0; i < addons.Length - 1; ++i)
+			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
 				addons[i].AI(shot);

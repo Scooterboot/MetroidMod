@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Buffs
 					flag = true;
 					if (mi.statMissiles < mi.maxMissiles || mi.statUA < mi.maxUA)
 					{
-						if(mi.statMissiles < mi.maxMissiles)
+						if (mi.statMissiles < mi.maxMissiles)
 						{
 							mi.statMissiles++;
 							num++;
@@ -44,7 +44,7 @@ namespace MetroidMod.Content.Buffs
 								num2 -= 50;
 							}
 						}
-						if(mi.statUA < mi.maxUA)
+						if (mi.statUA < mi.maxUA)
 						{
 							mi.statUA++;
 							num3++;
@@ -64,7 +64,7 @@ namespace MetroidMod.Content.Buffs
 					}
 				}
 			}
-			if (!flag && !flag2 || player.controlJump || player.controlUseItem)
+			if ((!flag && !flag2) || player.controlJump || player.controlUseItem)
 			{
 				if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{

@@ -48,7 +48,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 
 			/* NPC scale networking fix. */
 			if (Main.rand != null && Main.netMode != NetmodeID.MultiplayerClient)
-				newScale = (Main.rand.Next(5, 10) * 0.1f);
+				newScale = Main.rand.Next(5, 10) * 0.1f;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -79,7 +79,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					chance1 = 0.5f;
 					chance2 = 0.75f;
 				}
-				return (SpawnCondition.Corruption.Chance + SpawnCondition.Crimson.Chance) * chance1 + SpawnCondition.DungeonNormal.Chance * chance2;
+				return ((SpawnCondition.Corruption.Chance + SpawnCondition.Crimson.Chance) * chance1) + (SpawnCondition.DungeonNormal.Chance * chance2);
 			}
 			return SpawnCondition.DungeonNormal.Chance * 0.5f;
 		}
@@ -174,7 +174,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				if (NPC.velocity.Y == 0f)
 				{
 					NPC.velocity.X = NPC.velocity.X * 0.98f;
-					if ((double)NPC.velocity.X > -0.01 && (double)NPC.velocity.X < 0.01)
+					if (NPC.velocity.X > -0.01 && NPC.velocity.X < 0.01)
 					{
 						NPC.velocity.X = 0f;
 					}
@@ -253,7 +253,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			NPC.defense = NPC.defDefense = (int)(NPC.defense * NPC.scale);
 			NPC.damage = NPC.defDamage = (int)(NPC.damage * NPC.scale);
 			NPC.life = NPC.lifeMax = (int)(NPC.life * NPC.scale);
-			NPC.value = ((int)(NPC.value * NPC.scale));
+			NPC.value = (int)(NPC.value * NPC.scale);
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 		}

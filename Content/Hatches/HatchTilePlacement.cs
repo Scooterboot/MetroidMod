@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Hatches
@@ -28,7 +22,7 @@ namespace MetroidMod.Content.Hatches
 		public static void PlaceHatchAt(int tileType, int x, int y)
 		{
 
-			if(TileUtils.TryGetTileEntityAs(x, y, out HatchTileEntity tileEntity))
+			if (TileUtils.TryGetTileEntityAs(x, y, out HatchTileEntity tileEntity))
 			{
 				// If we are replacing an existing hatch, make sure we remove the old tile entity
 				// this way we can create a new one with fresh state.

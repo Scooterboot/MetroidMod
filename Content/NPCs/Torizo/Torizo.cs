@@ -271,42 +271,42 @@ namespace MetroidMod.Content.NPCs.Torizo
 			}
 
 			BodyPos[0] = NPC.Center + (CurrentBodyPos[0] + BodyOffset);
-			BodyPos[1] = BodyPos[0] + Angle.AngleFlip(BodyOffsetRot + BodyRot, NPC.direction).ToRotationVector2() * BodyDist * fullScale;
+			BodyPos[1] = BodyPos[0] + (Angle.AngleFlip(BodyOffsetRot + BodyRot, NPC.direction).ToRotationVector2() * BodyDist * fullScale);
 
-			RArmPos[0] = BodyPos[0] + Angle.AngleFlip(RArmOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * RArmDist[0] * fullScale;
-			RArmPos[1] = RArmPos[0] + Angle.AngleFlip(RArmOffsetRot[1] + RArmRot[0], NPC.direction).ToRotationVector2() * RArmDist[1] * fullScale;
-			RArmPos[2] = RArmPos[1] + Angle.AngleFlip(RArmOffsetRot[2] + RArmRot[1], NPC.direction).ToRotationVector2() * RArmDist[2] * fullScale;
-			RArmPos[3] = RArmPos[0] + Angle.AngleFlip(RArmOffsetRot[3] + RArmRot[0], NPC.direction).ToRotationVector2() * RArmDist[3] * fullScale;
-			RArmPos[4] = RArmPos[1] + Angle.AngleFlip(RArmOffsetRot[4] + RArmRot[1], NPC.direction).ToRotationVector2() * RArmDist[4] * fullScale;
+			RArmPos[0] = BodyPos[0] + (Angle.AngleFlip(RArmOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * RArmDist[0] * fullScale);
+			RArmPos[1] = RArmPos[0] + (Angle.AngleFlip(RArmOffsetRot[1] + RArmRot[0], NPC.direction).ToRotationVector2() * RArmDist[1] * fullScale);
+			RArmPos[2] = RArmPos[1] + (Angle.AngleFlip(RArmOffsetRot[2] + RArmRot[1], NPC.direction).ToRotationVector2() * RArmDist[2] * fullScale);
+			RArmPos[3] = RArmPos[0] + (Angle.AngleFlip(RArmOffsetRot[3] + RArmRot[0], NPC.direction).ToRotationVector2() * RArmDist[3] * fullScale);
+			RArmPos[4] = RArmPos[1] + (Angle.AngleFlip(RArmOffsetRot[4] + RArmRot[1], NPC.direction).ToRotationVector2() * RArmDist[4] * fullScale);
 
-			RHandPos[0] = RArmPos[2] + Angle.AngleFlip(RHandOffsetRot[0] + RArmRot[2] + (float)Angle.ConvertToRadians(60), NPC.direction).ToRotationVector2() * RHandDist[0] * fullScale;
-			RHandPos[1] = RArmPos[2] + Angle.AngleFlip(RHandOffsetRot[1] + RArmRot[2] + (float)Angle.ConvertToRadians(30), NPC.direction).ToRotationVector2() * RHandDist[1] * fullScale;
-			RHandPos[2] = RArmPos[2] + Angle.AngleFlip(RHandOffsetRot[2] + RArmRot[2], NPC.direction).ToRotationVector2() * RHandDist[2] * fullScale;
+			RHandPos[0] = RArmPos[2] + (Angle.AngleFlip(RHandOffsetRot[0] + RArmRot[2] + (float)Angle.ConvertToRadians(60), NPC.direction).ToRotationVector2() * RHandDist[0] * fullScale);
+			RHandPos[1] = RArmPos[2] + (Angle.AngleFlip(RHandOffsetRot[1] + RArmRot[2] + (float)Angle.ConvertToRadians(30), NPC.direction).ToRotationVector2() * RHandDist[1] * fullScale);
+			RHandPos[2] = RArmPos[2] + (Angle.AngleFlip(RHandOffsetRot[2] + RArmRot[2], NPC.direction).ToRotationVector2() * RHandDist[2] * fullScale);
 
-			LArmPos[0] = BodyPos[0] + Angle.AngleFlip(LArmOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * LArmDist[0] * fullScale;
-			LArmPos[1] = LArmPos[0] + Angle.AngleFlip(LArmOffsetRot[1] + LArmRot[0], NPC.direction).ToRotationVector2() * LArmDist[1] * fullScale;
-			LArmPos[2] = LArmPos[1] + Angle.AngleFlip(LArmOffsetRot[2] + LArmRot[1], NPC.direction).ToRotationVector2() * LArmDist[2] * fullScale;
-			LArmPos[3] = LArmPos[0] + Angle.AngleFlip(LArmOffsetRot[3] + LArmRot[0], NPC.direction).ToRotationVector2() * LArmDist[3] * fullScale;
-			LArmPos[4] = LArmPos[1] + Angle.AngleFlip(LArmOffsetRot[4] + LArmRot[1], NPC.direction).ToRotationVector2() * LArmDist[4] * fullScale;
+			LArmPos[0] = BodyPos[0] + (Angle.AngleFlip(LArmOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * LArmDist[0] * fullScale);
+			LArmPos[1] = LArmPos[0] + (Angle.AngleFlip(LArmOffsetRot[1] + LArmRot[0], NPC.direction).ToRotationVector2() * LArmDist[1] * fullScale);
+			LArmPos[2] = LArmPos[1] + (Angle.AngleFlip(LArmOffsetRot[2] + LArmRot[1], NPC.direction).ToRotationVector2() * LArmDist[2] * fullScale);
+			LArmPos[3] = LArmPos[0] + (Angle.AngleFlip(LArmOffsetRot[3] + LArmRot[0], NPC.direction).ToRotationVector2() * LArmDist[3] * fullScale);
+			LArmPos[4] = LArmPos[1] + (Angle.AngleFlip(LArmOffsetRot[4] + LArmRot[1], NPC.direction).ToRotationVector2() * LArmDist[4] * fullScale);
 
-			LHandPos[0] = LArmPos[2] + Angle.AngleFlip(LHandOffsetRot[0] + LArmRot[2] + (float)Angle.ConvertToRadians(60), NPC.direction).ToRotationVector2() * LHandDist[0] * fullScale;
-			LHandPos[1] = LArmPos[2] + Angle.AngleFlip(LHandOffsetRot[1] + LArmRot[2] + (float)Angle.ConvertToRadians(30), NPC.direction).ToRotationVector2() * LHandDist[1] * fullScale;
-			LHandPos[2] = LArmPos[2] + Angle.AngleFlip(LHandOffsetRot[2] + LArmRot[2], NPC.direction).ToRotationVector2() * LHandDist[2] * fullScale;
+			LHandPos[0] = LArmPos[2] + (Angle.AngleFlip(LHandOffsetRot[0] + LArmRot[2] + (float)Angle.ConvertToRadians(60), NPC.direction).ToRotationVector2() * LHandDist[0] * fullScale);
+			LHandPos[1] = LArmPos[2] + (Angle.AngleFlip(LHandOffsetRot[1] + LArmRot[2] + (float)Angle.ConvertToRadians(30), NPC.direction).ToRotationVector2() * LHandDist[1] * fullScale);
+			LHandPos[2] = LArmPos[2] + (Angle.AngleFlip(LHandOffsetRot[2] + LArmRot[2], NPC.direction).ToRotationVector2() * LHandDist[2] * fullScale);
 
-			RLegPos[0] = BodyPos[0] + Angle.AngleFlip(RLegOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * RLegDist[0] * fullScale;
-			RLegPos[1] = RLegPos[0] + Angle.AngleFlip(RLegOffsetRot[1] + RLegRot[0], NPC.direction).ToRotationVector2() * RLegDist[1] * fullScale;
-			RLegPos[2] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[2] * fullScale;
-			RLegPos[3] = RLegPos[0] + Angle.AngleFlip(RLegOffsetRot[3] + RLegRot[0], NPC.direction).ToRotationVector2() * RLegDist[3] * fullScale;
-			RLegPos[4] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[4] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[4] * fullScale;
+			RLegPos[0] = BodyPos[0] + (Angle.AngleFlip(RLegOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * RLegDist[0] * fullScale);
+			RLegPos[1] = RLegPos[0] + (Angle.AngleFlip(RLegOffsetRot[1] + RLegRot[0], NPC.direction).ToRotationVector2() * RLegDist[1] * fullScale);
+			RLegPos[2] = RLegPos[1] + (Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[2] * fullScale);
+			RLegPos[3] = RLegPos[0] + (Angle.AngleFlip(RLegOffsetRot[3] + RLegRot[0], NPC.direction).ToRotationVector2() * RLegDist[3] * fullScale);
+			RLegPos[4] = RLegPos[1] + (Angle.AngleFlip(RLegOffsetRot[4] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[4] * fullScale);
 
-			LLegPos[0] = BodyPos[0] + Angle.AngleFlip(LLegOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * LLegDist[0] * fullScale;
-			LLegPos[1] = LLegPos[0] + Angle.AngleFlip(LLegOffsetRot[1] + LLegRot[0], NPC.direction).ToRotationVector2() * LLegDist[1] * fullScale;
-			LLegPos[2] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], NPC.direction).ToRotationVector2() * LLegDist[2] * fullScale;
-			LLegPos[3] = LLegPos[0] + Angle.AngleFlip(LLegOffsetRot[3] + LLegRot[0], NPC.direction).ToRotationVector2() * LLegDist[3] * fullScale;
-			LLegPos[4] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[4] + LLegRot[1], NPC.direction).ToRotationVector2() * LLegDist[4] * fullScale;
+			LLegPos[0] = BodyPos[0] + (Angle.AngleFlip(LLegOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * LLegDist[0] * fullScale);
+			LLegPos[1] = LLegPos[0] + (Angle.AngleFlip(LLegOffsetRot[1] + LLegRot[0], NPC.direction).ToRotationVector2() * LLegDist[1] * fullScale);
+			LLegPos[2] = LLegPos[1] + (Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], NPC.direction).ToRotationVector2() * LLegDist[2] * fullScale);
+			LLegPos[3] = LLegPos[0] + (Angle.AngleFlip(LLegOffsetRot[3] + LLegRot[0], NPC.direction).ToRotationVector2() * LLegDist[3] * fullScale);
+			LLegPos[4] = LLegPos[1] + (Angle.AngleFlip(LLegOffsetRot[4] + LLegRot[1], NPC.direction).ToRotationVector2() * LLegDist[4] * fullScale);
 
-			HeadPos[0] = BodyPos[0] + Angle.AngleFlip(HeadOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * HeadDist[0] * fullScale;
-			HeadPos[1] = HeadPos[0] + Angle.AngleFlip(HeadOffsetRot[1] + HeadRot, NPC.direction).ToRotationVector2() * HeadDist[1] * fullScale;
+			HeadPos[0] = BodyPos[0] + (Angle.AngleFlip(HeadOffsetRot[0] + BodyRot, NPC.direction).ToRotationVector2() * HeadDist[0] * fullScale);
+			HeadPos[1] = HeadPos[0] + (Angle.AngleFlip(HeadOffsetRot[1] + HeadRot, NPC.direction).ToRotationVector2() * HeadDist[1] * fullScale);
 		}
 
 		bool initialized = false;
@@ -329,7 +329,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 					NPC.velocity.X = 0f;
 					NPC.velocity.Y = 0.1f;
-					NPC.Center = new Vector2(player.Center.X - 150 * NPC.direction, player.Center.Y - 1500);
+					NPC.Center = new Vector2(player.Center.X - (150 * NPC.direction), player.Center.Y - 1500);
 				}
 				else
 				{
@@ -581,15 +581,15 @@ namespace MetroidMod.Content.NPCs.Torizo
 		void SetBodyOffset(float hOffset = 0f)
 		{
 			BodyPos[0] = NPC.Center + (CurrentBodyPos[0] + BodyOffset);
-			RLegPos[2] = RLegPos[1] + Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[2] * fullScale;
-			LLegPos[2] = LLegPos[1] + Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], NPC.direction).ToRotationVector2() * LLegDist[2] * fullScale;
+			RLegPos[2] = RLegPos[1] + (Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[2] * fullScale);
+			LLegPos[2] = LLegPos[1] + (Angle.AngleFlip(LLegOffsetRot[2] + LLegRot[1], NPC.direction).ToRotationVector2() * LLegDist[2] * fullScale);
 			if (RLegPos[2].Y >= LLegPos[2].Y)
 			{
-				BodyOffset.Y = 117f - ((RLegPos[2].Y + (13f * fullScale.Y)) - BodyPos[0].Y) + hOffset;
+				BodyOffset.Y = 117f - (RLegPos[2].Y + (13f * fullScale.Y) - BodyPos[0].Y) + hOffset;
 			}
 			else
 			{
-				BodyOffset.Y = 117f - ((LLegPos[2].Y + (13f * fullScale.Y)) - BodyPos[0].Y) + hOffset;
+				BodyOffset.Y = 117f - (LLegPos[2].Y + (13f * fullScale.Y) - BodyPos[0].Y) + hOffset;
 			}
 		}
 
@@ -747,7 +747,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 				{
 					Player player = Main.player[NPC.target];
 
-					float speed = !legend?(expert? 0.20f : master? 0.25f : 0.15f) : 0.30f; //Dr zoooom
+					float speed = !legend ? (expert ? 0.20f : master ? 0.25f : 0.15f) : 0.30f; //Dr zoooom
 					if (Head == null || !Head.active)
 					{
 						NPC.defense = 10;
@@ -755,12 +755,12 @@ namespace MetroidMod.Content.NPCs.Torizo
 					}
 					else
 					{
-						NPC.defense = !legend?( expert ? 17 : master ? 19 : 15) : 21; //DR killing head lowers defense but goes faster
+						NPC.defense = !legend ? (expert ? 17 : master ? 19 : 15) : 21; //DR killing head lowers defense but goes faster
 					}
 
-					bool walkFlagR = (anim_Walk > 6f - speed && anim_Walk <= 6f);
-					bool walkFlagL = (anim_Walk > 11f - speed && (anim_Walk <= 11f || anim_Walk <= 1f));
-					bool walkFlag = (walkFlagR || walkFlagL);
+					bool walkFlagR = anim_Walk > 6f - speed && anim_Walk <= 6f;
+					bool walkFlagL = anim_Walk > 11f - speed && (anim_Walk <= 11f || anim_Walk <= 1f);
+					bool walkFlag = walkFlagR || walkFlagL;
 					if (NPC.ai[1] == 0 || NPC.ai[1] > 15 || !walkFlag)
 					{
 						anim_Walk += speed;
@@ -874,7 +874,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 										clawPos += Angle.AngleFlip(LArmRot[0] + MathHelper.PiOver2, NPC.direction).ToRotationVector2() * dist;
 									}
 									var entitySource = NPC.GetSource_FromAI();
-									int slash = Projectile.NewProjectile(entitySource, clawPos.X, clawPos.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Boss.TorizoSwipe>(), (int)((float)clawDamage / 2f), 8f);
+									int slash = Projectile.NewProjectile(entitySource, clawPos.X, clawPos.Y, 0f, 0f, ModContent.ProjectileType<Projectiles.Boss.TorizoSwipe>(), (int)(clawDamage / 2f), 8f);
 									if (soundCounter <= 0)
 									{
 										SoundEngine.PlaySound(Sounds.NPCs.TorizoSwipe, clawPos);
@@ -918,7 +918,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					else
 					{
 						NPC.ai[3]++;
-						if (!legend ? NPC.ai[3] >  300 : NPC.ai[3] >100)
+						if (!legend ? NPC.ai[3] > 300 : NPC.ai[3] > 100)
 						{
 							NPC.netUpdate = true;
 
@@ -1018,7 +1018,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 							NPC.velocity.X = 0f;
 						}
 
-						anim_JumpTransition += !legend? 0.075f : 0.25f;
+						anim_JumpTransition += !legend ? 0.075f : 0.25f;
 						if (anim_JumpTransition >= 1f)
 						{
 							anim_JumpTransition = 1f;
@@ -1037,24 +1037,24 @@ namespace MetroidMod.Content.NPCs.Torizo
 							else //jump up
 							{
 								NPC.velocity.X = MathHelper.Clamp((player.Center.X - NPC.Center.X) * 0.015f, -7, 7);
-								NPC.velocity.Y = !legend?( expert ? -17f : master ? -18f : -16f): -20f;
+								NPC.velocity.Y = !legend ? (expert ? -17f : master ? -18f : -16f) : -20f;
 							}
 							NPC.ai[2] = 2;
 						}
 
 						if (anim_Jump < 2f)
 						{
-							anim_Jump = Math.Min(anim_Jump += !legend? 0.25f : 0.75f, 2f);
+							anim_Jump = Math.Min(anim_Jump += !legend ? 0.25f : 0.75f, 2f);
 						}
 						else
 						{
 							if (NPC.velocity.Y < 0f)
 							{
-								anim_Jump = Math.Min(anim_Jump += !legend? 0.15f :0.45f, 3f);
+								anim_Jump = Math.Min(anim_Jump += !legend ? 0.15f : 0.45f, 3f);
 							}
 							else
 							{
-								anim_Jump = Math.Max(anim_Jump -= !legend? 0.05f : .15f, 2f);
+								anim_Jump = Math.Max(anim_Jump -= !legend ? 0.05f : .15f, 2f);
 								anim_JumpTransition = Math.Max(anim_JumpTransition - 0.025f, 0.5f);
 							}
 						}
@@ -1119,9 +1119,9 @@ namespace MetroidMod.Content.NPCs.Torizo
 					{
 						if (anim_BombTransition < 1f)
 						{
-							anim_BombTransition += !legend? 0.075f : 0.250f;
+							anim_BombTransition += !legend ? 0.075f : 0.250f;
 							HeadFrame = 4;
-							if(anim_BombTransition >= 0.5f)
+							if (anim_BombTransition >= 0.5f)
 							{
 								HeadFrame = 5;
 							}
@@ -1133,10 +1133,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 							if (HeadFrame < 8)
 							{
-								HeadFrameCounter+= !legend? 1 : 2;
+								HeadFrameCounter += !legend ? 1 : 2;
 								if (HeadFrameCounter > 14)
 								{
-									HeadFrame += !legend? 1 : 2;
+									HeadFrame += !legend ? 1 : 2;
 									HeadFrameCounter = 0;
 								}
 							}
@@ -1145,7 +1145,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 								HeadFrame = 8;
 								HeadFrameCounter = 0;
 
-								NPC.ai[2] += !legend ? 1f :2.5f ;
+								NPC.ai[2] += !legend ? 1f : 2.5f;
 								if (NPC.ai[2] > 5)
 								{
 									NPC.ai[1] = 1;
@@ -1156,7 +1156,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 					}
 					if (NPC.ai[1] == 1)
 					{
-						bool headFlag = (Head != null && Head.active);
+						bool headFlag = Head != null && Head.active;
 						if ((NPC.ai[2] == 10 || NPC.ai[2] == 20 || NPC.ai[2] == 30) && headFlag)
 						{
 							var entitySource = NPC.GetSource_FromAI();
@@ -1179,7 +1179,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						}
 
 						NPC.ai[2]++;
-						if (!legend ? NPC.ai[2] > 60 : NPC.ai[2]> 20 || !headFlag)
+						if (!legend ? NPC.ai[2] > 60 : NPC.ai[2] > 20 || !headFlag)
 						{
 							NPC.ai[1] = 2;
 							NPC.ai[2] = 0;
@@ -1191,7 +1191,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						anim_Bomb = Math.Max(anim_Bomb -= !legend ? 0.075f : 0.250f, 1f);
 						if (HeadFrame > 4)
 						{
-							HeadFrameCounter+= !legend ? 1 : 3 ;
+							HeadFrameCounter += !legend ? 1 : 3;
 							if (HeadFrameCounter > 14)
 							{
 								HeadFrame--;
@@ -1247,7 +1247,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						{
 							anim_ClawTransition = 1f;
 
-							anim_Claw += !legend? 0.05f : 0.15f;
+							anim_Claw += !legend ? 0.05f : 0.15f;
 							if ((anim_Claw >= 3f && anim_Claw < 4f) || (anim_Claw >= 7f && anim_Claw < 8f))
 							{
 								anim_Claw += !legend ? 0.05f : 0.15f;
@@ -1273,12 +1273,12 @@ namespace MetroidMod.Content.NPCs.Torizo
 									Vector2 clawPos = BodyPos[0] + new Vector2(32 * NPC.direction, -10);
 									if (NPC.ai[3] == 1)
 									{
-										clawPos.X = BodyPos[0].X + 26 * NPC.direction;
+										clawPos.X = BodyPos[0].X + (26 * NPC.direction);
 										clawPos.Y = BodyPos[0].Y + 70;
 									}
 									Vector2 clawVel = new Vector2(8f * NPC.direction, 0f);
 									var entitySource = NPC.GetSource_FromAI();
-									int slash = Projectile.NewProjectile(entitySource, clawPos.X, clawPos.Y, clawVel.X, clawVel.Y, ModContent.ProjectileType<Projectiles.Boss.TorizoClawBeam>(), (int)((float)clawDamage / 2f), 8f);
+									int slash = Projectile.NewProjectile(entitySource, clawPos.X, clawPos.Y, clawVel.X, clawVel.Y, ModContent.ProjectileType<Projectiles.Boss.TorizoClawBeam>(), (int)(clawDamage / 2f), 8f);
 									Main.projectile[slash].netUpdate = true;
 									SoundEngine.PlaySound(Sounds.NPCs.TorizoWave, clawPos);
 									NPC.ai[3] = 0;
@@ -1601,8 +1601,8 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 			float handRotF = RArmRot[2],
 				handRotB = LArmRot[2];
-			handRotF -= -(float)Angle.ConvertToRadians(60 - 30 * fHandFrame);
-			handRotB -= -(float)Angle.ConvertToRadians(60 - 30 * bHandFrame);
+			handRotF -= -(float)Angle.ConvertToRadians(60 - (30 * fHandFrame));
+			handRotB -= -(float)Angle.ConvertToRadians(60 - (30 * bHandFrame));
 
 			float headRot = HeadRot;
 			if (HeadFrame >= 4)
@@ -1648,13 +1648,13 @@ namespace MetroidMod.Content.NPCs.Torizo
 			// head
 			if (Head != null && Head.active)
 			{
-				Vector2 headOrig = new Vector2(34,48); // 32,38
+				Vector2 headOrig = new Vector2(34, 48); // 32,38
 				DrawLimbTexture(NPC, sb, texHead, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, headColor, headColor, fullScale, effects, HeadFrame, 9);
 				DrawLimbTexture(NPC, sb, texHead_Glow, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, glowColor, glowColor, fullScale, effects, HeadFrame, 9);
 				DrawLimbTexture(NPC, sb, texHead_Glow2, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, eyeGlowColor, eyeGlowColor, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texSpawnHead, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, headColor*spawnAlpha, headColor*spawnAlpha, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texSpawnHead_Glow, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, glowColor*spawnAlpha, glowColor*spawnAlpha, fullScale, effects, HeadFrame, 9);
-				DrawLimbTexture(NPC, sb, texSpawnHead_Glow2, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, eyeGlowColor*spawnAlpha, eyeGlowColor*spawnAlpha, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texSpawnHead, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, headColor * spawnAlpha, headColor * spawnAlpha, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texSpawnHead_Glow, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, glowColor * spawnAlpha, glowColor * spawnAlpha, fullScale, effects, HeadFrame, 9);
+				DrawLimbTexture(NPC, sb, texSpawnHead_Glow2, HeadPos[0], HeadPos[0], headRot, headRot, headOrig, eyeGlowColor * spawnAlpha, eyeGlowColor * spawnAlpha, fullScale, effects, HeadFrame, 9);
 			}
 
 			// front calf

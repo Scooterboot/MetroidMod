@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria.GameContent;
-using Terraria;
-using Terraria.ModLoader;
-using MetroidMod;
+﻿using System.Collections.Generic;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
-using MetroidMod.Common.ItemDropRules.Conditions;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.ResourceSets;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Systems //There's probably a way to do all of this inside of DrawReserveHearts but this should work too. I hope.
 {
@@ -49,23 +42,23 @@ namespace MetroidMod.Common.Systems //There's probably a way to do all of this i
 						float num5 = 1f;
 						bool flag = false;
 						int num6;
-						if ((float)Main.player[Main.myPlayer].statLife >= (float)i * hp.LifePerSegment)
+						if (Main.player[Main.myPlayer].statLife >= i * hp.LifePerSegment)
 						{
 							num6 = 255;
-							if ((float)Main.player[Main.myPlayer].statLife == (float)i * hp.LifePerSegment)
+							if (Main.player[Main.myPlayer].statLife == i * hp.LifePerSegment)
 							{
 								flag = true;
 							}
 						}
 						else
 						{
-							float num7 = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * hp.LifePerSegment) / hp.LifePerSegment;
-							num6 = (int)(30f + 225f * num7);
+							float num7 = (Main.player[Main.myPlayer].statLife - ((i - 1) * hp.LifePerSegment)) / hp.LifePerSegment;
+							num6 = (int)(30f + (225f * num7));
 							if (num6 < 30)
 							{
 								num6 = 30;
 							}
-							num5 = num7 / 4f + 0.75f;
+							num5 = (num7 / 4f) + 0.75f;
 							if ((double)num5 < 0.75)
 							{
 								num5 = 0.75f;
@@ -143,9 +136,9 @@ namespace MetroidMod.Common.Systems //There's probably a way to do all of this i
 			// If you want to draw directly on top of the vanilla hearts, just replace the texture and have the context draw the new texture
 			context.position += new Vector2(-2, -2);
 			context.texture = heartTexture ??= ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/UI/LifeReserve/ResClassic");
-			if (MkV == true){ context.color = Color.LimeGreen;}
+			if (MkV == true) { context.color = Color.LimeGreen; }
 
-			else { context.color = Color.DarkViolet;}
+			else { context.color = Color.DarkViolet; }
 			context.Draw();
 		}
 

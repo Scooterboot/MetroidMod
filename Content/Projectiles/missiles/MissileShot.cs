@@ -2,16 +2,12 @@ using System;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -98,7 +94,7 @@ namespace MetroidMod.Content.Projectiles
 		{
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			#region Animation code
 			//If this shot has more than 1 frame, run animation code
@@ -123,10 +119,10 @@ namespace MetroidMod.Content.Projectiles
 
 
 			//Put the dustline shit here later
-			
+
 			if (!dustSuppress)
 			{
-				if(dustTimer < 1)
+				if (dustTimer < 1)
 				{
 					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, missileDust, 0, 0, 100, default(Color), Projectile.scale);
 					Main.dust[dust].noGravity = true;

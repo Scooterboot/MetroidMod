@@ -12,7 +12,7 @@ namespace MetroidMod.Content.Walls
 
 			DustType = 87;
 
-			AddMapEntry(new Color(67, 46,200));
+			AddMapEntry(new Color(67, 46, 200));
 		}
 	}
 }

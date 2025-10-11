@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Hatches;
@@ -307,7 +306,7 @@ namespace MetroidMod
 						hatch.State.DesiredState = state.DesiredState;
 						hatch.State.LockStatus = state.LockStatus;
 						hatch.State.BlueConversion = state.BlueConversion;
-						
+
 						if (Main.netMode == NetmodeID.Server)
 						{
 							ModPacket packet = hatch.GetSyncPacket();

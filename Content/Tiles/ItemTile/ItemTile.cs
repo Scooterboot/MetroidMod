@@ -19,7 +19,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			AnchorType anchors = AnchorType.EmptyTile | AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide;
 			TileObjectData.newTile.AnchorBottom = new AnchorData(anchors, TileObjectData.newTile.Width, 0);
 			//but y tho? its not unusual for pickups to be floating in metroid -- DR
-			
+
 			TileObjectData.addTile(Type);
 			TileID.Sets.DisableSmartCursor[Type] = true;
 			Main.tileLavaDeath[Type] = false;
@@ -41,9 +41,9 @@ namespace MetroidMod.Content.Tiles.ItemTile
 			WorldGen.KillTile(i, j, false, false, false);
 			if (Main.netMode != NetmodeID.SinglePlayer && !Main.tile[i, j].HasTile)
 			{
-				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, (float)i, (float)j, 0f, 0, 0, 0);
+				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
 			}
-			return (true);
+			return true;
 		}
 	}
 }

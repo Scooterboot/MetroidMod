@@ -1,5 +1,4 @@
-﻿using MetroidMod.Common.GlobalItems;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
 using Terraria;

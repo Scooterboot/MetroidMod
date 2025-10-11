@@ -61,14 +61,14 @@ namespace MetroidMod.Common.GlobalProjectiles
 							float num2 = vec.Length();
 							num2 = projSpeed / num2;
 							vec *= num2;
-							projectile.velocity.X = (projectile.velocity.X * accuracy + vec.X) / (accuracy + 1f);
-							projectile.velocity.Y = (projectile.velocity.Y * accuracy + vec.Y) / (accuracy + 1f);
+							projectile.velocity.X = ((projectile.velocity.X * accuracy) + vec.X) / (accuracy + 1f);
+							projectile.velocity.Y = ((projectile.velocity.Y * accuracy) + vec.Y) / (accuracy + 1f);
 
 							if (Vector2.Distance(npc.Center, projectile.Center + projectile.velocity) < 55f)
 							{
 								projectile.penetrate = 0;
 								npc.ai[1] = 1.5f;
-								npc.ai[2] += (int)((float)projectile.damage / 10f);
+								npc.ai[2] += (int)(projectile.damage / 10f);
 							}
 						}
 						else
@@ -82,7 +82,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 		public override void OnKill(Projectile projectile, int timeLeft)
 		{
 			// Prevent wiring from opening hatches
-			if(projectile.type == ProjectileID.WireKite)
+			if (projectile.type == ProjectileID.WireKite)
 			{
 				return;
 			}

@@ -99,7 +99,7 @@ namespace MetroidMod.Content.Projectiles
 		public override bool PreAI()
 		{
 			owner = Main.player[Projectile.owner];
-			increment = ((float)Math.PI * 2) / 60f;
+			increment = (float)Math.PI * 2 / 60f;
 			return false;
 		}
 		public override void PostAI()
@@ -118,7 +118,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 
 			Player.CompositeArmStretchAmount stretch = Player.CompositeArmStretchAmount.ThreeQuarters;
-			float rot = owner.DirectionTo(Projectile.Center).ToRotation() - MathHelper.PiOver2 * owner.gravDir;
+			float rot = owner.DirectionTo(Projectile.Center).ToRotation() - (MathHelper.PiOver2 * owner.gravDir);
 			if (isHooked)
 			{
 				if (owner.controlUp)
@@ -139,9 +139,9 @@ namespace MetroidMod.Content.Projectiles
 				if (P.ai[1] <= 0)
 				{
 					int num124 = (int)(P.position.X / 16f) - 1;
-					int num125 = (int)((P.position.X + (float)P.width) / 16f) + 2;
+					int num125 = (int)((P.position.X + P.width) / 16f) + 2;
 					int num126 = (int)(P.position.Y / 16f) - 1;
-					int num127 = (int)((P.position.Y + (float)P.height) / 16f) + 2;
+					int num127 = (int)((P.position.Y + P.height) / 16f) + 2;
 					if (num124 < 0)
 					{
 						num124 = 0;
@@ -174,7 +174,7 @@ namespace MetroidMod.Content.Projectiles
 							Vector2 vector9;
 							vector9.X = x * 16;
 							vector9.Y = y * 16;
-							if (P.position.X + (float)(P.width / 2) > vector9.X && P.position.X + (float)(P.width / 2) < vector9.X + 16f && P.position.Y + (float)(P.height / 2) > vector9.Y && P.position.Y + (float)(P.height / 2) < vector9.Y + 16f && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || tile.TileType == 314))
+							if (P.position.X + (P.width / 2) > vector9.X && P.position.X + (P.width / 2) < vector9.X + 16f && P.position.Y + (P.height / 2) > vector9.Y && P.position.Y + (P.height / 2) < vector9.Y + 16f && tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || tile.TileType == 314))
 							{
 								flag3 = false;
 							}
@@ -211,9 +211,9 @@ namespace MetroidMod.Content.Projectiles
 
 				// Tile check.
 				int num111 = (int)(P.position.X / 16f) - 1;
-				int num112 = (int)((P.position.X + (float)P.width) / 16f) + 2;
+				int num112 = (int)((P.position.X + P.width) / 16f) + 2;
 				int num113 = (int)(P.position.Y / 16f) - 1;
-				int num114 = (int)((P.position.Y + (float)P.height) / 16f) + 2;
+				int num114 = (int)((P.position.Y + P.height) / 16f) + 2;
 				if (num111 < 0)
 				{
 					num111 = 0;
@@ -264,8 +264,8 @@ namespace MetroidMod.Content.Projectiles
 
 							P.velocity *= 0;
 							isHooked = true;
-							P.position.X = (float)(x * 16 + 8 - P.width / 2);
-							P.position.Y = (float)(y * 16 + 8 - P.height / 2);
+							P.position.X = (x * 16) + 8 - (P.width / 2);
+							P.position.Y = (y * 16) + 8 - (P.height / 2);
 							P.damage = 0;
 							P.netUpdate = true;
 
@@ -382,7 +382,7 @@ namespace MetroidMod.Content.Projectiles
 			int numlinks = (int)Math.Ceiling(dist / linklength);
 			Vector2[] pos = new Vector2[numlinks];
 
-			float amplitude = 3 + 6f * (1f - dist / maxDist);
+			float amplitude = 3 + (6f * (1f - (dist / maxDist)));
 
 			for (int j = 0; j < 3; j++)
 			{
@@ -390,7 +390,7 @@ namespace MetroidMod.Content.Projectiles
 				{
 					for (int i = 0; i < numlinks; i++)
 					{
-						pos[i] = owner.Center + chain / numlinks * i;
+						pos[i] = owner.Center + (chain / numlinks * i);
 
 						int k = 1;
 						if (j > 0)
@@ -407,7 +407,7 @@ namespace MetroidMod.Content.Projectiles
 
 						float shift = amplitude * (float)Math.Sin(t + time) * k;
 
-						float rot = (float)Math.Atan2(chain.Y, chain.X) + (float)Math.PI / 2;
+						float rot = (float)Math.Atan2(chain.Y, chain.X) + ((float)Math.PI / 2);
 						pos[i].X += (float)Math.Cos(rot) * shift;
 						pos[i].Y += (float)Math.Sin(rot) * shift;
 
@@ -451,7 +451,7 @@ namespace MetroidMod.Content.Projectiles
 
 			for (int i = 0; i < numlinks; i++)
 			{
-				links[i] = start + chain / numlinks * i;
+				links[i] = start + (chain / numlinks * i);
 				Vector2 LR = links[i] + Main.screenPosition;
 
 				Color color = Lighting.GetColor((int)((links[i].X + Main.screenPosition.X) / 16), (int)((links[i].Y + Main.screenPosition.Y) / 16));

@@ -1,8 +1,6 @@
-using MetroidMod.Common.GlobalItems;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons.BeamCombos
 {
@@ -29,7 +27,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				.AddIngredient(ItemID.SoulofMight, 5)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
-			
+
 			CreateRecipe()
 				.AddIngredient(ItemID.HallowedBar, 10)
 				.AddIngredient(ItemID.CursedFlame, 10)

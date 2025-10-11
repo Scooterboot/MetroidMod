@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.Enums;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using MetroidMod.Content.SuitAddons;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ObjectData;
-using Terraria.Enums;
-using Terraria;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetroidMod.Default
 {
@@ -74,7 +67,7 @@ namespace MetroidMod.Default
 			WorldGen.KillTile(i, j, false, false, false);
 			if (Main.netMode == NetmodeID.MultiplayerClient && !Main.tile[i, j].HasTile)
 			{
-				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, (float)i, (float)j, 0f, 0, 0, 0);
+				NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, i, j, 0f, 0, 0, 0);
 			}
 			return true;
 		}

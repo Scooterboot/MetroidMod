@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -61,7 +60,7 @@ namespace MetroidMod.Content.Items.Weapons
 				if (chargeQuickSwap == null)
 				{
 					chargeQuickSwap = new Item[MetroidMod.beamChangeSlotAmount];
-					for(int i = 0; i < chargeQuickSwap.Length; ++i)
+					for (int i = 0; i < chargeQuickSwap.Length; ++i)
 					{
 						chargeQuickSwap[i] = new Item();
 						chargeQuickSwap[i].TurnToAir();
@@ -84,7 +83,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public Item[] MissileAddonAccess
 		{
 			get {
-				if(missileAddons == null) //see BeamAddonAccess above
+				if (missileAddons == null) //see BeamAddonAccess above
 				{
 					missileAddons = new Item[MissileAddonSlotID.Count];
 					for (int i = 0; i < missileAddons.Length; ++i)
@@ -107,11 +106,11 @@ namespace MetroidMod.Content.Items.Weapons
 		/// </summary>
 		public Item[] ComboQuickChangeAccess
 		{
-			get { 
-				if(comboQuickChange == null) //See BeamArrayAccess above
+			get {
+				if (comboQuickChange == null) //See BeamArrayAccess above
 				{
 					comboQuickChange = new Item[MetroidMod.missileChangeSlotAmount];
-					for (int i = 0;i < comboQuickChange.Length; ++i)
+					for (int i = 0; i < comboQuickChange.Length; ++i)
 					{
 						comboQuickChange[i] = new Item();
 						comboQuickChange[i].TurnToAir();
@@ -122,7 +121,7 @@ namespace MetroidMod.Content.Items.Weapons
 			set { comboQuickChange = value; }
 		}
 		#endregion
-		
+
 
 		#region Data pointers
 		/// <summary>
@@ -292,7 +291,7 @@ namespace MetroidMod.Content.Items.Weapons
 			ac.statUA = 40;
 			ac.barrelOffset = 20f;
 
-			if (ac.isBeam) 
+			if (ac.isBeam)
 			{
 				Item.damage = BeamBaseDamage;
 				Item.useTime = BeamBaseSpeed;
@@ -303,7 +302,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.crit = BeamBaseCrit;
 				Item.autoReuse = true;
 			}//Power Beam default stat assignment
-			else 
+			else
 			{
 				Item.damage = MissileBaseDamage;
 				Item.useTime = MissileBaseSpeed;
@@ -318,15 +317,15 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void UseStyle(Player player, Rectangle heldItemFrame) //makes the player's arm rotate with the arm cannon
 		{
 			Item.TryGetGlobalItem(out MGlobalItem mi);
-			float armRot = player.itemRotation - (float)(Math.PI / 2) * player.direction;
+			float armRot = player.itemRotation - ((float)(Math.PI / 2) * player.direction);
 			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.gravDir < 0 ? MathHelper.Pi - armRot : armRot);
 			Vector2 origin = SetCannonPos(player, armRot);
 			origin.Y -= heldItemFrame.Height / 2f;
-			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * -20 * player.direction;
+			player.itemLocation = origin + (player.itemRotation.ToRotationVector2() * -20 * player.direction);
 		}
 		private Vector2 SetCannonPos(Player player, float rotation)
 		{
-			float num = rotation + MathHelper.PiOver2; 
+			float num = rotation + MathHelper.PiOver2;
 			Vector2 vector = new Vector2((float)Math.Cos((double)num), (float)Math.Sin((double)num));
 			vector *= 10f;
 
@@ -367,9 +366,9 @@ namespace MetroidMod.Content.Items.Weapons
 				tex = ac.itemTexture;
 			}
 			float num5 = Item.height - tex.Height;
-			float num6 = Item.width / 2 - tex.Width / 2;
+			float num6 = (Item.width / 2) - (tex.Width / 2);
 			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (tex.Height / 2) + num5 + 2f),
-			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2(tex.Width / 2, (tex.Height / 2)), scale, SpriteEffects.None, 0f);
+			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2(tex.Width / 2, tex.Height / 2), scale, SpriteEffects.None, 0f);
 			return false;
 		}
 
@@ -392,14 +391,14 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void UpdateInventory(Player p)
 		{   //MPlayer mp = player.GetModPlayer<MPlayer>();//finds the current player's MPlayer data for later modification
 			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac) || ac == null || !p.TryGetModPlayer(out MPlayer mp)) { return; }
-			
-			Item.autoReuse = (ac.isBeam && HoldFireSlot == -1);
+
+			Item.autoReuse = ac.isBeam && HoldFireSlot == -1;
 			//apply the numbers to the weapon
 			if (ac.isBeam) //apply to power beam
 			{
 				Item.damage = (int)((int)(BeamBaseDamage + AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100) + 1)); //Formula for power beam base damage calc. Has to convert to int to work
 				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360 / ((BeamBaseSpeed + AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100) + 1))), 2); //Usetime calc. Can't let the usetime drop below a certain point
-				Item.shootSpeed =  (BeamBaseVelocity + AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100f) + 1f); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
+				Item.shootSpeed = (BeamBaseVelocity + AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100f) + 1f); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
 				Item.crit = (int)(BeamBaseCrit + AdditionalBeamStats[6] + AdditionalPrimaryStats[3]);
 				Overheat = (int)((BaseOverheat + AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100) + 1));
 				Item.UseSound = beamSound;
@@ -412,9 +411,9 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.shootSpeed = MissileBaseVelocity;
 				Item.crit = MissileBaseCrit;
 				Item.UseSound = missileSound;
-				Item.shoot = (missileAddons[MissileAddonSlotID.Primary].IsAir) 
+				Item.shoot = missileAddons[MissileAddonSlotID.Primary].IsAir
 					? ModContent.ProjectileType<MissileShot>() //fallback if no missile addon (may consider revoking?	-Z)
-					: (MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).mProjectile.Projectile.type);
+					: MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).mProjectile.Projectile.type;
 			}
 		}
 		/// <summary>
@@ -520,7 +519,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}//Get the active holdfire
 					if (HoldFireSlot == -1) { MetroidMod.Instance.Logger.Info("No holdfires found"); }
 				}
-				
+
 				#endregion
 
 				//Check if the shapepriority has any special visuals for this addon combination.
@@ -616,9 +615,9 @@ namespace MetroidMod.Content.Items.Weapons
 					MetroidMod.Instance.Logger.Info("TASTE THE RAINBOW MOTHERFUCKER");
 					BeamAddonLoader.GetAddon(beamAddons[VisualDinners[0]]).VIBShoot(Item, player, source, position, velocity, type, damage, knockback);
 					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
-					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
+					mp.overheatDelay = Math.Max(Item.useTime - 10, 2);
 				}
-				else if (ac.SuppressingFire) {return false;}
+				else if (ac.SuppressingFire) { return false; }
 				else
 				{
 					SpawnBeam(player, source, position, velocity, type, damage, knockback);
@@ -676,7 +675,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				for (int i = 0; i < theShootsingAmount; i++) //Assign i's value to projectile & include shootsingamount in there too
 				{
-					BeamShot beam = (Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile) as BeamShot;
+					BeamShot beam = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI).ModProjectile as BeamShot;
 					MetroidMod.Instance.Logger.Info("beam spawn || " + (i + 1) + " " + theShootsingAmount + " || " + source);
 					beam.VisualWinners = VisualDinners;
 					if (VisualDinners[0] != -1)
@@ -706,17 +705,17 @@ namespace MetroidMod.Content.Items.Weapons
 
 					beam.groupSize = theShootsingAmount;
 					beam.groupID = i;
-					
-					beam.fileMod += (ac.assetModifier + bonusFileMod);
+
+					beam.fileMod += ac.assetModifier + bonusFileMod;
 
 					beam.beamAddons = beamAddons
 						.Select(i => BeamAddonLoader.GetAddon(i))
 						.Select(i => i?.Clone())
 						.ToArray();
-					
+
 					beam.OnInitialized(source);
 					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
-					mp.overheatDelay = (int)Math.Max(Item.useTime - 10, 2);
+					mp.overheatDelay = Math.Max(Item.useTime - 10, 2);
 				}
 			}
 		}
@@ -785,13 +784,13 @@ namespace MetroidMod.Content.Items.Weapons
 				chargeQuickSwap[i].TurnToAir();
 			}
 			missileAddons = new Item[MissileAddonSlotID.Count];
-			for(int i = 0;i < missileAddons.Length; ++i)
+			for (int i = 0; i < missileAddons.Length; ++i)
 			{
 				missileAddons[i] = new Item();
 				missileAddons[i].TurnToAir();
 			}
 			comboQuickChange = new Item[8];
-			for (int i = 0;i < 8; ++i)
+			for (int i = 0; i < 8; ++i)
 			{
 				comboQuickChange[i] = new Item();
 				comboQuickChange[i].TurnToAir();
@@ -818,15 +817,15 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			#endregion
 			#region Charge Quick-Swap cloning
-				for (int i = 0; i < (8); ++i)
+			for (int i = 0; i < 8; ++i)
+			{
+				if (chargeQuickSwap == null || chargeQuickSwap[i] == null)
 				{
-					if (chargeQuickSwap == null || chargeQuickSwap[i] == null)
-					{
-						clone.chargeQuickSwap[i] = new Item();
-						clone.chargeQuickSwap[i].TurnToAir();
-					}
-					else { clone.chargeQuickSwap[i] = chargeQuickSwap[i]; }
+					clone.chargeQuickSwap[i] = new Item();
+					clone.chargeQuickSwap[i].TurnToAir();
 				}
+				else { clone.chargeQuickSwap[i] = chargeQuickSwap[i]; }
+			}
 			clone.activeBeamArraySlot = activeBeamArraySlot;
 			#endregion
 			#region Missile Addon cloning
@@ -841,15 +840,15 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			#endregion
 			#region Charge Combo Quick-Swap cloning
-				for (int i = 0; (i < 8); ++i)
+			for (int i = 0; i < 8; ++i)
+			{
+				if (comboQuickChange == null || comboQuickChange[i] == null)
 				{
-					if (comboQuickChange == null || comboQuickChange[i] == null)
-					{
-						clone.comboQuickChange[i] = new Item();
-						clone.comboQuickChange[i].TurnToAir();
-					}
-					else { clone.comboQuickChange[i] = comboQuickChange[i]; }
+					clone.comboQuickChange[i] = new Item();
+					clone.comboQuickChange[i].TurnToAir();
 				}
+				else { clone.comboQuickChange[i] = comboQuickChange[i]; }
+			}
 			clone.activeMissileArray = activeMissileArray;
 			#endregion
 			return clone;

@@ -43,10 +43,10 @@ namespace MetroidMod.Content.Items
 				if (item.type == ModContent.ItemType<MorphBall>() ||
 					item.type == ModContent.ItemType<ArmCannon>())
 				{
-					return (false);
+					return false;
 				}
 
-				return (stackCheck);
+				return stackCheck;
 			});
 		}
 		/*private static void PickItemMovementAction_NoSuitAddons(ILContext il)

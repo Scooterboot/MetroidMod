@@ -1,11 +1,3 @@
-using System;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.DamageClasses;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ModLoader;
-
 namespace MetroidMod.Content.Projectiles.OmegaCannon
 {
 	/*

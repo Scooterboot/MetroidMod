@@ -33,8 +33,8 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Player P = Main.player[Projectile.owner];
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
+			Projectile.position.X = P.Center.X - (Projectile.width / 2);
+			Projectile.position.Y = P.Center.Y - (Projectile.height / 2);
 
 			if (!MConfigItems.Instance.muteSpeedBooster)
 			{
@@ -79,7 +79,7 @@ namespace MetroidMod.Content.Projectiles
 						return;
 					}
 				}
-			Lighting.AddLight((int)((float)Projectile.Center.X / 16f), (int)((float)(Projectile.Center.Y) / 16f), 0, 0.75f, 1f);
+			Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 0, 0.75f, 1f);
 
 			if (activeSound != null)
 			{

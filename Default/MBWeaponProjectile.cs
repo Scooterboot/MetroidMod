@@ -1,7 +1,6 @@
 ﻿using System;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
-using MetroidMod.Content.MorphBallAddons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -125,7 +124,7 @@ namespace MetroidMod.Default
 					direction.Normalize();
 					if (distance < BombRadius && !npc.dontTakeDamage)
 					{
-					 //who.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>(), Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
+						//who.SimpleStrikeNPC(Projectile.damage, Projectile.direction, Main.rand.NextFloat() <= Main.player[Projectile.owner].GetCritChance<HunterDamageClass>(), Projectile.knockBack, ModContent.GetInstance<HunterDamageClass>(), true, Main.player[Projectile.owner].luck);
 						//
 						if (!who.boss)
 						{
@@ -154,7 +153,7 @@ namespace MetroidMod.Default
 					direction.Normalize();
 					if (distance < BombRadius)
 					{
-						direction *= (BombRadius - distance);
+						direction *= BombRadius - distance;
 						if (player.whoAmI == Projectile.owner)
 						{
 							if (Math.Abs(player.Center.X - Projectile.Center.X) <= 2f)

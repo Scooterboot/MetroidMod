@@ -154,11 +154,11 @@ namespace MetroidMod.Common.Systems
 			{
 				if (quick)
 				{
-					quickRegenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime / 5, pos));
+					quickRegenTimers.Enqueue(new Tuple<int, Vector2>(Timer + (regenTime / 5), pos));
 				}
 				else
 				{
-					regenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime, pos));
+					regenTimers.Enqueue(new Tuple<int, Vector2>(Timer + regenTime, pos));
 				}
 			}
 			if (Main.tile[(int)pos.X, (int)pos.Y].HasTile)
@@ -179,22 +179,22 @@ namespace MetroidMod.Common.Systems
 				if (left == 12 && Main.tile[x - 1, y].HasTile && !Main.tile[x - 1, y].IsActuated)
 				{
 					hit[x - 1, y] = true;
-					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x - 1, y)));
+					nextTick.Enqueue(new Tuple<int, Vector2>(Timer + 1, new Vector2(x - 1, y)));
 				}
 				if (right == 12 && Main.tile[x + 1, y].HasTile && !Main.tile[x + 1, y].IsActuated)
 				{
 					hit[x + 1, y] = true;
-					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x + 1, y)));
+					nextTick.Enqueue(new Tuple<int, Vector2>(Timer + 1, new Vector2(x + 1, y)));
 				}
 				if (up == 12 && Main.tile[x, y - 1].HasTile && !Main.tile[x, y - 1].IsActuated)
 				{
 					hit[x, y - 1] = true;
-					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x, y - 1)));
+					nextTick.Enqueue(new Tuple<int, Vector2>(Timer + 1, new Vector2(x, y - 1)));
 				}
 				if (down == 12 && Main.tile[x, y + 1].HasTile && !Main.tile[x, y + 1].IsActuated)
 				{
 					hit[x, y + 1] = true;
-					nextTick.Enqueue(new Tuple<int, Vector2>((int)(Timer) + 1, new Vector2(x, y + 1)));
+					nextTick.Enqueue(new Tuple<int, Vector2>(Timer + 1, new Vector2(x, y + 1)));
 				}
 			}
 		}
@@ -249,7 +249,7 @@ namespace MetroidMod.Common.Systems
 					Vector2 pos = timer.Item2;
 					if (!Collision.EmptyTile((int)pos.X, (int)pos.Y, true))
 					{
-						quickRegenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime / 5, pos));
+						quickRegenTimers.Enqueue(new Tuple<int, Vector2>(Timer + (regenTime / 5), pos));
 					}
 					else
 					{
@@ -267,7 +267,7 @@ namespace MetroidMod.Common.Systems
 					Vector2 pos = timer.Item2;
 					if (!Collision.EmptyTile((int)pos.X, (int)pos.Y, true))
 					{
-						quickRegenTimers.Enqueue(new Tuple<int, Vector2>((int)(Timer) + regenTime / 5, pos));
+						quickRegenTimers.Enqueue(new Tuple<int, Vector2>(Timer + (regenTime / 5), pos));
 					}
 					else
 					{
@@ -380,7 +380,7 @@ namespace MetroidMod.Common.Systems
 				int x = (int)reader.ReadSingle();
 				int y = (int)reader.ReadSingle();
 				mBlockType[x, y] = (ushort)reader.ReadInt16();
-				dontRegen[x, y] = (bool)reader.ReadBoolean();
+				dontRegen[x, y] = reader.ReadBoolean();
 			}
 		}
 
@@ -392,10 +392,10 @@ namespace MetroidMod.Common.Systems
 			{
 				zero = Vector2.Zero;
 			}
-			int x1 = (int)((Main.screenPosition.X) / 16f - 1f);
-			int x2 = (int)((Main.screenPosition.X + (float)Main.screenWidth) / 16f) + 2;
-			int y1 = (int)((Main.screenPosition.Y) / 16f - 1f);
-			int y2 = (int)((Main.screenPosition.Y + (float)Main.screenHeight) / 16f) + 5;
+			int x1 = (int)((Main.screenPosition.X / 16f) - 1f);
+			int x2 = (int)((Main.screenPosition.X + Main.screenWidth) / 16f) + 2;
+			int y1 = (int)((Main.screenPosition.Y / 16f) - 1f);
+			int y2 = (int)((Main.screenPosition.Y + Main.screenHeight) / 16f) + 5;
 			if (x1 < 0)
 			{
 				x1 = 0;
@@ -420,7 +420,7 @@ namespace MetroidMod.Common.Systems
 					Color color = Lighting.GetColor(i, j); //TODO this is overly costly
 					if (!Main.tile[i, j].HasTile || Main.tile[i, j].IsActuated || !Main.tileSolid[Main.tile[i, j].TileType])
 					{
-						 color *= 0.5f;
+						color *= 0.5f;
 					}
 					bool draw = false;
 					if (Main.myPlayer < 256 && Main.myPlayer >= 0)
@@ -431,9 +431,9 @@ namespace MetroidMod.Common.Systems
 					Vector2 screenPos = Main.screenPosition;
 					int xOff = -12 * 16;
 					int yOff = -12 * 16;
-					Vector2 drawPos = new Vector2((float)(i * 16 + xOff - (int)screenPos.X), (float)(j * 16 + yOff - (int)screenPos.Y)) + zero;
+					Vector2 drawPos = new Vector2((i * 16) + xOff - (int)screenPos.X, (j * 16) + yOff - (int)screenPos.Y) + zero;
 
-					bool revealed = (hit[i, j] && (Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated));
+					bool revealed = hit[i, j] && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated;
 					if (draw || revealed)
 					{
 						if (dontRegen[i, j] && draw)
@@ -539,9 +539,9 @@ namespace MetroidMod.Common.Systems
 				tasks.Insert(ShiniesIndex + 1, new PassLegacy("Chozite Ore", delegate (GenerationProgress progress, GameConfiguration configuration) {
 					progress.Message = "Generating Chozite Ore";
 
-					for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 9E-05); k++)
+					for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 9E-05); k++)
 					{
-						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY), (double)WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), ModContent.TileType<Content.Tiles.ChoziteOreTile>(), false, 0f, 0f, false, true);
+						WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY), WorldGen.genRand.Next(4, 7), WorldGen.genRand.Next(4, 7), ModContent.TileType<Content.Tiles.ChoziteOreTile>(), false, 0f, 0f, false, true);
 					}
 				}));
 			}
@@ -549,9 +549,9 @@ namespace MetroidMod.Common.Systems
 			{
 				tasks.Insert(PotsIndex - 3, new PassLegacy("Chozo Statues", delegate (GenerationProgress progress, GameConfiguration configuration) {
 					progress.Message = "Placing Chozo Statues";
-					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05); i++)
+					for (int i = 0; i < (int)(Main.maxTilesX * Main.maxTilesY * 1E-05); i++)
 					{
-						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 1E-05));
+						float num2 = (float)(i / (Main.maxTilesX * Main.maxTilesY * 1E-05));
 						bool flag = false;
 						int num3 = 0;
 						while (!flag)
@@ -574,9 +574,9 @@ namespace MetroidMod.Common.Systems
 				}));
 				tasks.Insert(PotsIndex - 2, new PassLegacy("Missile Expansions and Energy Tanks", delegate (GenerationProgress progress, GameConfiguration configuration) {
 					progress.Message = "Placing Missile Expansions and EnergyTanks";
-					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06); i++)
+					for (int i = 0; i < (int)(Main.maxTilesX * Main.maxTilesY * 15E-06); i++)
 					{
-						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
+						float num2 = (float)(i / (Main.maxTilesX * Main.maxTilesY * 15E-06));
 						bool flag = false;
 						int num3 = 0;
 						while (!flag)
@@ -626,7 +626,7 @@ namespace MetroidMod.Common.Systems
 			//list[index++] = new WeightedChance(() => { item = ModContent.TileType<HomingMissile>(); }, 4);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpaceJumpBootsTile>(); }, 4);
 			list[index++] = new WeightedChance(() => { item = ModContent.TileType<SpinBoostTile>(); }, 4);
-			if(Main.LocalPlayer.ZoneUnderworldHeight)
+			if (Main.LocalPlayer.ZoneUnderworldHeight)
 			{
 				//list[index++] = new WeightedChance(() => { item = ModContent.TileType<PlasmaBeamRedTile>(); }, 6);
 			}
@@ -759,7 +759,7 @@ namespace MetroidMod.Common.Systems
 			if (NPC.downedPlantBoss || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				//list[index++] = new WeightedChance(() => { item = ModContent.ItemType<NovaBeamAddon>(); }, 4);
-			}			
+			}
 			if (NPC.downedGolemBoss || Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues)
 			{
 				//list[index++] = new WeightedChance(() => { item = ModContent.ItemType<IceBeamV2Addon>(); }, 4);
@@ -1226,7 +1226,7 @@ namespace MetroidMod.Common.Systems
 		{
 			//Mod mod = MetroidMod.Instance;
 
-			bool dungeon = Main.wallDungeon[(int)Main.tile[i, j].WallType];
+			bool dungeon = Main.wallDungeon[Main.tile[i, j].WallType];
 			bool jungle = ((i >= GenVars.jungleOriginX && i <= GenVars.JungleX) || i == GenVars.JungleX) && j < Main.UnderworldLayer;
 			/*if (GenVars.dEnteranceX < Main.maxTilesX / 2)
 			{
@@ -1373,7 +1373,7 @@ namespace MetroidMod.Common.Systems
 				ushort type = TileID.Stone;
 				for (int l = 0; l < 3; l++)
 				{
-					if (Main.tile[i + l, k].HasTile && Main.tileSolid[(int)Main.tile[i + l, k].TileType])
+					if (Main.tile[i + l, k].HasTile && Main.tileSolid[Main.tile[i + l, k].TileType])
 					{
 						num2++;
 						type = Main.tile[i + l, k].TileType;
@@ -1414,7 +1414,7 @@ namespace MetroidMod.Common.Systems
 						0 => (ushort)ModContent.TileType<ChozoStatueOrb3>(),
 						_ => (ushort)ModContent.TileType<ChozoStatueOrb>(),
 					};
-					if (Main.wallDungeon[(int)Main.tile[i, num].WallType])
+					if (Main.wallDungeon[Main.tile[i, num].WallType])
 					{
 						rand = 0;
 					}
@@ -1542,7 +1542,7 @@ namespace MetroidMod.Common.Systems
 			int k = j;
 			while (k < Main.maxTilesY)
 			{
-				if (Main.tile[i, k].HasTile && Main.tileSolid[(int)Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile && Main.tile[i, j].TileType != TileID.Cobweb)
+				if (Main.tile[i, k].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tile[i, k - 1].HasTile && Main.tile[i, j].TileType != TileID.Cobweb)
 				{
 					int num = k - 1;
 					if (Main.tile[i, num].LiquidType == LiquidID.Lava || Main.tile[i, num - 1].LiquidType == LiquidID.Lava || Main.tile[i, num].LiquidType == LiquidID.Shimmer || Main.tile[i, num - 1].LiquidType == LiquidID.Shimmer)
@@ -1604,7 +1604,7 @@ namespace MetroidMod.Common.Systems
 
 			int dir = 1;
 
-			int center = (int)(uDesert.X + uDesert.Width / 2);
+			int center = uDesert.X + (uDesert.Width / 2);
 
 			if (Main.maxTilesX / 2 < center)
 			{
@@ -1626,13 +1626,13 @@ namespace MetroidMod.Common.Systems
 			}*/
 			//------
 
-			int surface = uDesert.Y + uDesert.Height / 2;
+			int surface = uDesert.Y + (uDesert.Height / 2);
 
 			if (dir == 1)
 			{
 				//ruinsX = uDesert.X+uDesert.Width-ruinsWidth - (int)uDesert.Width/8;
-				int numX = uDesert.X + uDesert.Width - ruinsWidth - (int)uDesert.Width / 8;
-				while (numX > uDesert.X + uDesert.Width / 2 + 30)
+				int numX = uDesert.X + uDesert.Width - ruinsWidth - (uDesert.Width / 8);
+				while (numX > uDesert.X + (uDesert.Width / 2) + 30)
 				{
 					int numY2 = 0;
 					while (numY2 < surface)
@@ -1654,8 +1654,8 @@ namespace MetroidMod.Common.Systems
 			else
 			{
 				//ruinsX = uDesert.X + (int)uDesert.Width/8;
-				int numX = uDesert.X + ruinsWidth + (int)uDesert.Width / 8;
-				while (numX < uDesert.X + uDesert.Width / 2 - 30)
+				int numX = uDesert.X + ruinsWidth + (uDesert.Width / 8);
+				while (numX < uDesert.X + (uDesert.Width / 2) - 30)
 				{
 					int numY2 = 0;
 					while (numY2 < surface)
@@ -1758,11 +1758,11 @@ namespace MetroidMod.Common.Systems
 		{
 			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0);
 
-			VerticalHatch(x + width / 2 - 2, y);
+			VerticalHatch(x + (width / 2) - 2, y);
 
 			for (int i = -3; i < 3; i++)
 			{
-				WorldGen.PlaceTile(x + width / 2 + i, y + 6, 19, false, false, -1, 17);
+				WorldGen.PlaceTile(x + (width / 2) + i, y + 6, 19, false, false, -1, 17);
 			}
 			for (int j = 11; j < height - 5; j += 5)
 			{
@@ -1780,7 +1780,7 @@ namespace MetroidMod.Common.Systems
 			int chestRoomX = x + width - 4;
 			int chestRoomY = y + height - chestRoomHeight - WorldGen.genRand.Next(height / 2);
 			int doorX = chestRoomX;
-			int doorY = chestRoomY + chestRoomHeight / 2 - 2;
+			int doorY = chestRoomY + (chestRoomHeight / 2) - 2;
 
 			int numX = doorX - 2;
 			if (dir == -1)
@@ -1838,7 +1838,7 @@ namespace MetroidMod.Common.Systems
 			}
 
 			ChozoRuins_Hall(hallX, hallY, hallWidth, hallHeight, dir);
-			VerticalHatch(x + width / 2 - 2, y + height - 4);
+			VerticalHatch(x + (width / 2) - 2, y + height - 4);
 		}
 		private static void ChozoRuins_MorphHall(int x, int y, int width, int height, int dir)
 		{
@@ -1918,11 +1918,11 @@ namespace MetroidMod.Common.Systems
 				{
 					if (j < 2)
 					{
-						WorldGen.PlaceTile(x + width / 2 - 10 + i, y + height - 6 + j, ModContent.TileType<ChozoBrickNatural>());
+						WorldGen.PlaceTile(x + (width / 2) - 10 + i, y + height - 6 + j, ModContent.TileType<ChozoBrickNatural>());
 					}
 					if (i > 1 && i < 18)
 					{
-						WorldGen.PlaceTile(x + width / 2 - 10 + i, y + 4 + j, ModContent.TileType<ChozoBrickNatural>());
+						WorldGen.PlaceTile(x + (width / 2) - 10 + i, y + 4 + j, ModContent.TileType<ChozoBrickNatural>());
 					}
 				}
 			}
@@ -1932,28 +1932,28 @@ namespace MetroidMod.Common.Systems
 				{
 					if (i <= 0 || j <= 0 || i >= 9 || j >= 3)
 					{
-						WorldGen.KillTile(x + width / 2 - 5 + i, y + 4 + j);
+						WorldGen.KillTile(x + (width / 2) - 5 + i, y + 4 + j);
 					}
 					if (i < 2 && j <= 0)
 					{
-						WorldGen.KillTile(x + width / 2 - 1 + i, y + 8);
+						WorldGen.KillTile(x + (width / 2) - 1 + i, y + 8);
 					}
 				}
 			}
 			//WorldGen.PlaceObject(x + width / 2, y + 4, ModContent.TileType<MissileExpansionTile>());
-			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
-			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().IsHalfBlock = false;
-			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().HasTile = true;
+			Main.tile[x + (width / 2), y + 4].Get<TileWallWireStateData>().Slope = SlopeType.Solid;
+			Main.tile[x + (width / 2), y + 4].Get<TileWallWireStateData>().IsHalfBlock = false;
+			Main.tile[x + (width / 2), y + 4].Get<TileWallWireStateData>().HasTile = true;
 			//Main.tile[x + width / 2, y + 4].Get<TileTypeData>().Type = (ushort)ModContent.TileType<MissileExpansionTile>();
-			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().TileFrameX = 0;
-			Main.tile[x + width / 2, y + 4].Get<TileWallWireStateData>().TileFrameY = 0;
+			Main.tile[x + (width / 2), y + 4].Get<TileWallWireStateData>().TileFrameX = 0;
+			Main.tile[x + (width / 2), y + 4].Get<TileWallWireStateData>().TileFrameY = 0;
 
 			int shaftWidth = 24;
 			int shaftHeight = WorldGen.genRand.Next(70, 80);
 			int shaftX = x - shaftWidth + 4;
 			int shaftY = y;
 			int doorX = shaftX + shaftWidth - 4;
-			int doorY = y + height / 2 - 2;
+			int doorY = y + (height / 2) - 2;
 			int numX = doorX - 2;
 			if (dir == -1)
 			{
@@ -1993,7 +1993,7 @@ namespace MetroidMod.Common.Systems
 			int chestRoomX = x - chestRoomWidth + 4;
 			int chestRoomY = y + WorldGen.genRand.Next(height / 3);
 			int doorX = x;
-			int doorY = chestRoomY + chestRoomHeight / 2 - 2;
+			int doorY = chestRoomY + (chestRoomHeight / 2) - 2;
 
 			int numX = doorX + 4;
 			if (dir == -1)
@@ -2019,7 +2019,7 @@ namespace MetroidMod.Common.Systems
 			int saveRoomX = x + width - 4;
 			int saveRoomY = y + height - saveRoomHeight;
 			doorX = saveRoomX;
-			doorY = saveRoomY + saveRoomHeight / 2 - 2;
+			doorY = saveRoomY + (saveRoomHeight / 2) - 2;
 			numX = doorX - 2;
 			if (dir == -1)
 			{
@@ -2079,21 +2079,21 @@ namespace MetroidMod.Common.Systems
 			{
 				for (int j = 0; j < height - 9; j++)
 				{
-					WorldGen.PlaceTile(x + width / 2 - 2 + i, y + 4 + j, ModContent.TileType<ChozoBrickNatural>());
+					WorldGen.PlaceTile(x + (width / 2) - 2 + i, y + 4 + j, ModContent.TileType<ChozoBrickNatural>());
 				}
-				int xx = x + width / 2 + 2 + i;
+				int xx = x + (width / 2) + 2 + i;
 				if (dir == -1)
 				{
-					xx = x + width / 2 - 6 + i;
+					xx = x + (width / 2) - 6 + i;
 				}
 				WorldGen.PlaceTile(xx, y + height - 6, ModContent.TileType<ChozoBrickNatural>());
 			}
 
-			int statueX = x + width / 2 + 3;
+			int statueX = x + (width / 2) + 3;
 			int statueX2 = statueX + 1;
 			if (dir == -1)
 			{
-				statueX = x + width / 2 - 3;
+				statueX = x + (width / 2) - 3;
 				statueX2 = statueX - 2;
 			}
 			int statueY = y + height - 7;
@@ -2136,7 +2136,7 @@ namespace MetroidMod.Common.Systems
 		}
 		private static void ChozoRuins_BossRoom(int x, int y, int width, int height, int dir)
 		{
-			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(),0);
+			BasicStructure(x, y, width, height, 4, ModContent.TileType<ChozoBrickNatural>(), ModContent.WallType<ChozoBrickWallNatural>(), 0);
 
 			int stepsX = x + 4;
 			if (dir == -1)
@@ -2147,7 +2147,7 @@ namespace MetroidMod.Common.Systems
 			WorldGen.PlaceTile(stepsX, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
 			WorldGen.PlaceTile(stepsX + dir, y + height - 5, ModContent.TileType<ChozoBrickNatural>());
 
-			NPC.NewNPC(NPC.GetSource_NaturalSpawn(), 8 + (x + width - 6) * 16, (y + height - 4) * 16, ModContent.NPCType<IdleTorizo>());
+			NPC.NewNPC(NPC.GetSource_NaturalSpawn(), 8 + ((x + width - 6) * 16), (y + height - 4) * 16, ModContent.NPCType<IdleTorizo>());
 			Point location = new(x, y);
 			ModContent.GetInstance<TorizoSpawningSystem>().SetLocationFromLegacy(location);
 			ModContent.GetInstance<GoldenTorizoSpawningSystem>().SetLocationFromLegacy(location);
@@ -2170,7 +2170,7 @@ namespace MetroidMod.Common.Systems
 				}
 			}
 
-			int numX = x + width / 2 - 2;
+			int numX = x + (width / 2) - 2;
 			WorldGen.KillTile(numX, y + height - 6);
 			WorldGen.KillTile(numX + 1, y + height - 6);
 			WorldGen.KillTile(numX + 2, y + height - 6);
@@ -2201,13 +2201,13 @@ namespace MetroidMod.Common.Systems
 			{
 				for (int i = -j; i < 4 + j; i++)
 				{
-					int numX = x + width / 2 - 2;
+					int numX = x + (width / 2) - 2;
 					WorldGen.KillTile(numX + i, y + height - 6 + j);
 					WorldGen.PlaceTile(numX + i, y + height - 6 + j, ModContent.TileType<ChozoBrickNatural>());
 				}
 			}
 			Mod mod = MetroidMod.Instance;
-			int xx = x + width / 2;
+			int xx = x + (width / 2);
 			int yy = y + height - 7;
 			WorldGen.AddBuriedChest(xx, yy, itemType, false, 1);
 			for (int l = xx - 1; l < xx + 1; l++)
@@ -2219,8 +2219,8 @@ namespace MetroidMod.Common.Systems
 					Tile tile = Main.tile[l, m];
 					tile.HasTile = true;
 					tile.TileType = (ushort)ModContent.TileType<ChozoChest>();
-					tile.TileFrameX = (short)((tile.TileFrameX / 18 % 2) * 18);
-					tile.TileFrameY = (short)((tile.TileFrameY / 18 % 2) * 18);
+					tile.TileFrameX = (short)(tile.TileFrameX / 18 % 2 * 18);
+					tile.TileFrameY = (short)(tile.TileFrameY / 18 % 2 * 18);
 				}
 			}
 		}

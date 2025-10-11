@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -16,7 +15,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		{
 			// DisplayName.SetDefault("Omega Pirate");
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(){Hide = true}; //hides the entity from the bestiary
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true }; //hides the entity from the bestiary
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 
 			NPCID.Sets.SpecificDebuffImmunity[Type][20] = true;
@@ -73,7 +72,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		public override void AI()
 		{
 			NPC Base = Main.npc[(int)NPC.ai[0]];
-			bool flag = (Base.alpha < 255);
+			bool flag = Base.alpha < 255;
 			if (!Base.active)
 			{
 				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound, NPC.Center);
@@ -121,7 +120,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			{
 				modifiers.FinalDamage *= 0.5f;
 				modifiers.DisableCrit();
-			}	
+			}
 		}
 	}
 }

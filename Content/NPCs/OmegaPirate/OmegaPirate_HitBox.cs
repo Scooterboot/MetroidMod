@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -128,7 +127,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		}
 		public override void AI()
 		{
-			bool visible = (Base.alpha < 255);
+			bool visible = Base.alpha < 255;
 			if (!Base.active)
 			{
 				Terraria.Audio.SoundEngine.PlaySound((Terraria.Audio.SoundStyle)NPC.DeathSound, NPC.Center);
@@ -156,7 +155,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			{
 				if (Base != null && Base.active && Base.ai[0] == 2 && Base.ai[1] == 2 && NPC.ai[1] == 0f)
 				{
-					Base.ai[3] += (oldLife - NPC.life);
+					Base.ai[3] += oldLife - NPC.life;
 					oldLife = NPC.life;
 					Base.netUpdate2 = true;
 				}

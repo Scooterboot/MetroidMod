@@ -52,7 +52,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 											   Main.player[NPC.target].position.Y + (Main.player[NPC.target].height / 2));
 			targetVelocity.X -= npcCenter.X;
 			targetVelocity.Y -= npcCenter.Y;
-			float magnitude = (float)Math.Sqrt(targetVelocity.X * targetVelocity.X + targetVelocity.Y * targetVelocity.Y);
+			float magnitude = (float)Math.Sqrt((targetVelocity.X * targetVelocity.X) + (targetVelocity.Y * targetVelocity.Y));
 			magnitude = speedMultiplier / magnitude;
 
 			targetVelocity.X *= magnitude;

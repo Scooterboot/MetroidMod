@@ -31,7 +31,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 		bool stoptracking = false;
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			Player player = Main.player[(int)Projectile.ai[1]];
 			if (Projectile.numUpdates <= 0)
@@ -49,14 +49,14 @@ namespace MetroidMod.Content.Projectiles.Boss
 				}
 				if (!flag5)
 				{
-					vector = Projectile.Center + Projectile.velocity * 100f;
+					vector = Projectile.Center + (Projectile.velocity * 100f);
 				}
 				float num243 = 4f;
 				Vector2 vector2 = vector - Projectile.Center;
-				float num246 = (float)Math.Sqrt((double)(vector2.X * vector2.X + vector2.Y * vector2.Y));
+				float num246 = (float)Math.Sqrt((double)((vector2.X * vector2.X) + (vector2.Y * vector2.Y)));
 				num246 = num243 / num246;
 				vector2 *= num246;
-				Projectile.velocity = (Projectile.velocity * 31f + vector2) / 32f;
+				Projectile.velocity = ((Projectile.velocity * 31f) + vector2) / 32f;
 
 				if (Vector2.Distance(player.position, Projectile.position) <= Projectile.localAI[0] * 3)
 				{
@@ -81,7 +81,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 				Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 				int num108 = tex.Height / Main.projFrames[Projectile.type];
 				int y4 = num108 * Projectile.frame;
-				Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)Projectile.height / 2f), Projectile.scale, effects, 0f);
+				Main.spriteBatch.Draw(tex, new Vector2((int)(Projectile.Center.X - Main.screenPosition.X), (int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY)), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width / 2f, Projectile.height / 2f), Projectile.scale, effects, 0f);
 			}
 			return false;
 		}

@@ -29,8 +29,7 @@ namespace MetroidMod.Content.Elevators
 		/// </summary>
 		public bool IsValid
 		{
-			get
-			{
+			get {
 				if (!IsElevatorTile(Origin)) return false;
 
 				bool correctFrame = TileUtils.GetTopLeftTileInMultitile(Origin.X, Origin.Y).ToPoint() == Origin;
@@ -45,11 +44,10 @@ namespace MetroidMod.Content.Elevators
 		/// </summary>
 		public bool IsInUse
 		{
-			get
-			{
-				foreach(Player player in Main.ActivePlayers)
+			get {
+				foreach (Player player in Main.ActivePlayers)
 				{
-					if(player.GetModPlayer<ElevatorPlayer>().IsUsingElevator(this))
+					if (player.GetModPlayer<ElevatorPlayer>().IsUsingElevator(this))
 					{
 						return true;
 					}

@@ -76,9 +76,9 @@ namespace MetroidMod.Content.NPCs
 			float maxFallSpeed = 10f;
 			float gravity = 0.3f;
 
-			float num = (float)(Main.maxTilesX / 4200);
+			float num = Main.maxTilesX / 4200;
 			num *= num;
-			float num2 = (float)((double)(n.position.Y / 16f - (60f + 10f * num)) / (Main.worldSurface / 6.0));
+			float num2 = (float)((double)((n.position.Y / 16f) - (60f + (10f * num))) / (Main.worldSurface / 6.0));
 			if ((double)num2 < 0.25)
 			{
 				num2 = 0.25f;
@@ -219,14 +219,14 @@ namespace MetroidMod.Content.NPCs
 				n.ai[0] = 1f;
 				if (n.velocity.Y > speed && useRotation)
 				{
-					rotation += (float)n.direction * 0.1f;
+					rotation += n.direction * 0.1f;
 				}
 				else
 				{
 					rotation = 0f;
 				}
 				n.spriteDirection = n.direction;
-				n.velocity.X = speed * (float)n.direction;
+				n.velocity.X = speed * n.direction;
 
 				if (gravityType == 0)
 				{
@@ -487,8 +487,8 @@ namespace MetroidMod.Content.NPCs
 			{
 				speed2 = (float)Math.Cos(Math.PI / 4) * speed;
 			}
-			n.velocity.X = speed2 * (float)n.direction;
-			n.velocity.Y = speed2 * (float)directionY;
+			n.velocity.X = speed2 * n.direction;
+			n.velocity.Y = speed2 * directionY;
 			if (flag2)
 			{
 				n.position += n.velocity;
@@ -507,7 +507,7 @@ namespace MetroidMod.Content.NPCs
 				effects = SpriteEffects.FlipHorizontally;
 			}
 
-			sb.Draw(tex, n.Center - screenPos, new Rectangle?(new Rectangle(0, n.frame.Y * height, tex.Width, height)), color, rotation, new Vector2(tex.Width / 2, height / 2 - yOffset), n.scale, effects, 0f);
+			sb.Draw(tex, n.Center - screenPos, new Rectangle?(new Rectangle(0, n.frame.Y * height, tex.Width, height)), color, rotation, new Vector2(tex.Width / 2, (height / 2) - yOffset), n.scale, effects, 0f);
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)

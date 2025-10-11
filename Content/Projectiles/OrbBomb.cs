@@ -1,10 +1,7 @@
-using System;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Miscellaneous;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +15,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.width = 20;
 			Projectile.height = 20;
 			Projectile.aiStyle = 1;
-			
+
 			//MProjectile default is Hunter, don't forget to set it to be not hunter
 			Projectile.DamageType = DamageClass.Magic;
 			//hunter = false;
@@ -37,7 +34,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			if (Main.rand.NextBool(100))
 			{
-				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ModContent.ItemType< MissilePickup>());
+				Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Hitbox, ModContent.ItemType<MissilePickup>());
 			}
 			if (Main.rand.NextBool(100))
 			{

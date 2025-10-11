@@ -1,9 +1,6 @@
 ﻿using System;
-using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
-using MetroidMod.Content.Switches;
-using MetroidMod.Content.Switches.Variants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -86,9 +83,9 @@ namespace MetroidMod.Content.MorphBallAddons
 				if (vacAlpha < 1f)
 				{
 					float vacScale = 6f * (1f - vacAlpha);
-					int vacW = (int)((float)width * vacScale);
-					int vacH = (int)((float)height * vacScale);
-					Rectangle vacRect = new Rectangle((int)(P.Center.X - vacW / 2), (int)(P.Center.Y - vacH / 2), vacW, vacH);
+					int vacW = (int)(width * vacScale);
+					int vacH = (int)(height * vacScale);
+					Rectangle vacRect = new Rectangle((int)(P.Center.X - (vacW / 2)), (int)(P.Center.Y - (vacH / 2)), vacW, vacH);
 					for (int i = 0; i < Main.item.Length; i++)
 					{
 						if (!Main.item[i].active) continue;
@@ -96,7 +93,7 @@ namespace MetroidMod.Content.MorphBallAddons
 						Item I = Main.item[i];
 						if (vacRect.Intersects(I.Hitbox))
 						{
-							Vector2 center = new Vector2(P.Center.X, P.Center.Y - ((float)I.height / 2f));
+							Vector2 center = new Vector2(P.Center.X, P.Center.Y - (I.height / 2f));
 							Vector2 velocity = Vector2.Normalize(center - I.Center) * Math.Min(20f, Vector2.Distance(center, I.Center));
 							if (Vector2.Distance(center, I.Center) > 1f)
 							{
@@ -115,7 +112,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			}
 			else
 			{
-				float dScale = Math.Min(10f * (1f - P.ai[0] / maxDist), 4f);
+				float dScale = Math.Min(10f * (1f - (P.ai[0] / maxDist)), 4f);
 				int num = (int)(100f * dScale);
 				for (int i = 0; i < num; i++)
 				{
@@ -126,10 +123,10 @@ namespace MetroidMod.Content.MorphBallAddons
 						158
 					});
 
-					float angle = (float)((Math.PI * 2) / num) * i;
+					float angle = (float)(Math.PI * 2 / num) * i;
 					Vector2 position = P.Center - new Vector2(20, 20);
-					position.X += (float)Math.Cos(angle) * ((float)P.width / 2f - 16f * P.scale);
-					position.Y += (float)Math.Sin(angle) * ((float)P.height / 2f - 16f * P.scale);
+					position.X += (float)Math.Cos(angle) * ((P.width / 2f) - (16f * P.scale));
+					position.Y += (float)Math.Sin(angle) * ((P.height / 2f) - (16f * P.scale));
 					int num20 = Dust.NewDust(position, 40, 40, dType, 0f, 0f, 100, default(Color), 1f);
 					Dust dust = Main.dust[num20];
 					dust.velocity += Vector2.Normalize(P.Center - dust.position) * 2f;// * 5f * P.scale;
@@ -151,7 +148,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 			if (P.ai[0] == maxDist)
 			{
-				Rectangle tileRect = new Rectangle((int)(P.position.X / 16), (int)(P.position.Y / 16), (P.width / 16), (P.height / 16));
+				Rectangle tileRect = new Rectangle((int)(P.position.X / 16), (int)(P.position.Y / 16), P.width / 16, P.height / 16);
 				for (int x = tileRect.X; x < tileRect.X + tileRect.Width; x++)
 				{
 					for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)
@@ -209,7 +206,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			{
 				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombVacuum").Value;
 				float vacScale = 6f * (1f - vacAlpha);
-				Color color = Color.White * (1f - vacAlpha * 0.5f);
+				Color color = Color.White * (1f - (vacAlpha * 0.5f));
 				color.A = (byte)(255f * vacAlpha);
 
 				Main.spriteBatch.Draw(tex2, P.Center - Main.screenPosition,

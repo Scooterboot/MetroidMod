@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetroidMod.Content.Projectiles;
+﻿using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat.Commands;
 using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace MetroidMod.Content.BeamAddons
 {
-    class PlasmaBeam : ModBeamAddon
-    {
+	class PlasmaBeam : ModBeamAddon
+	{
 		public override bool AddOnlyAddonItem => false;
 
 		public override int ShotDust => DustID.KryptonMoss;
@@ -48,7 +42,7 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override int[] ComboVisualsGet(string modifier)
 		{
-			switch(modifier)
+			switch (modifier)
 			{
 				case "Charged":
 					return [2, -1];
