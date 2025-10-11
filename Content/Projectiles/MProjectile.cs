@@ -584,7 +584,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
-		public void PlasmaDrawTrail(Projectile Projectile, Player player, SpriteBatch sb, int amount = 10, float scaleDrop = 0.5f, Color color = default(Color))
+		public void PlasmaDrawTrail(Projectile Projectile, Player player, SpriteBatch sb, string altTexPath = null, int amount = 10, float scaleDrop = 0.5f, Color color = default(Color))
 		{
 			Color color2 = Color.White;
 			if (color != default(Color))
@@ -596,14 +596,19 @@ namespace MetroidMod.Content.Projectiles
 			{
 				effects = SpriteEffects.FlipHorizontally;
 			}
+			
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-			int num108 = tex.Height / Main.projFrames[Projectile.type];
-			int y4 = num108 * Projectile.frame;
+			if (altTexPath != null)
+			{
+				tex = ModContent.Request<Texture2D>(altTexPath).Value;
+			}
+			int frameHeight = tex.Height / Main.projFrames[Projectile.type];
+			int currentFrame = frameHeight * Projectile.frame;
 
-			float h = num108 * Projectile.scale;
+			float h = ((float)frameHeight * Projectile.scale);
 
-			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + (Projectile.height / 2f)) / h, 0f, 1f);
-			int height = (int)(num108 * dist);
+			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
+			int height = (int)((float)frameHeight * dist);
 			if (dist >= 1f)
 			{
 				drawFlag = true;
@@ -621,22 +626,22 @@ namespace MetroidMod.Content.Projectiles
 			}
 			if (drawFlag)
 			{
-				height = num108;
+				height = frameHeight;
 			}
 			int amt = Math.Min(amount, 10);
 			for (int i = amt - 1; i > -1; i--)
 			{
 				Vector2 center = Projectile.oldPos[i] + new Vector2((float)Projectile.width / 2, (float)Projectile.height / 2);
-				float oldDist = MathHelper.Clamp((Vector2.Distance(center, player.Center) + (Projectile.height / 2f)) / h, 0f, 1f);
-				int oldHeight = (int)(num108 * oldDist);
+				float oldDist = MathHelper.Clamp((Vector2.Distance(center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
+				int oldHeight = (int)((float)frameHeight * oldDist);
 
 				Color color23 = color2;
 				color23 = Projectile.GetAlpha(color23);
 				color23 *= (amt - i) / ((float)amt);
 				float scale = MathHelper.Lerp(Projectile.scale, Projectile.scale * scaleDrop, (float)i / amt);
-				sb.Draw(tex, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, oldHeight)), color23, Projectile.oldRot[i], new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), scale, effects, 0f);
+				sb.Draw(tex, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, currentFrame, tex.Width, oldHeight)), color23, Projectile.oldRot[i], new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), scale, effects, 0f);
 			}
-			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
+			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, currentFrame, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
 		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size and damage multiplied by float </summary>
 		public void Explode(int increase, float scale = 1f)//TODO humorously, works the exact same as the missiles-through-wall exploit as SM

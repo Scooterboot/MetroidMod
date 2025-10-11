@@ -7,6 +7,7 @@ using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -117,6 +118,8 @@ namespace MetroidMod.Content.BeamAddons
 
 		#region The juicy stuff
 
+		//If you use a custom projectile, you're gonna have to do more legwork to get static combos to work
+		//See HyperBeamShot for a better idea
 		public override string SetStaticCombos(Item[] addons)
 		{
 			ModBeamAddon[] beamAddons = addons
@@ -132,13 +135,10 @@ namespace MetroidMod.Content.BeamAddons
 
 			if (hasPlasma)
 			{
-				//Choose something unique that describes the particular combination to make things easier on yourself.
-				//For instance, this keyword is "Fuck" because  F U C K .
 				return "Plasma";
 			}
 			else
 			{
-				//Return blank if it doesn't get anything, keeps things clean.
 				return "";
 			}
 		}
@@ -154,10 +154,15 @@ namespace MetroidMod.Content.BeamAddons
 
 			ArmCannon wepon = (ArmCannon)item.ModItem;
 
-			float[] edgeCaseStuff = [0, 0, 0, 0, 0];
-			int theShootsingAmount = (int)wepon.AdditionalBeamStats[9];
+			string fileMod = SetStaticCombos(wepon.BeamAddonAccess);
+			float[] edgeCaseStuff = BeamAddonLoader.EdgeCaseStacker(wepon.BeamAddonAccess, wepon.AdditionalBeamStats, fileMod);
+			int theShootsingAmount = (int)wepon.AdditionalBeamStats[9] + (int)edgeCaseStuff[4]; //The arm cannon adds an extra one to account for the base shot. Hyper don't need that.
 
-			HyperBeamShot tasteTheRainbow = Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamShot>(), damage, knockback).ModProjectile as HyperBeamShot;
+			//for what's mostly just copy-pasting stuff that's already been written this was surprisingly annoying to implement
+
+			//Generate the "mother" projectile first.
+			//This one's bigger and stronger than the babies.
+			HyperBeamShot tasteTheRainbow = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamShot>(), damage, knockback).ModProjectile) as HyperBeamShot;
 			tasteTheRainbow.beamAddons = wepon.BeamAddonAccess
 				.Select(i => BeamAddonLoader.GetAddon(i))
 				.Select(i => i?.Clone())
@@ -167,9 +172,12 @@ namespace MetroidMod.Content.BeamAddons
 
 			if (theShootsingAmount > 0)
 			{
+				//Now we create the "baby" projectiles.
+				//Yeah yeah obvious joke is obvious this horse has been dead for ages
 				for (int i = 0; i < theShootsingAmount; i++)
 				{
-					HyperBeamExtraShot stray = Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile as HyperBeamExtraShot;
+					MetroidMod.Instance.Logger.Info("Non-canon! " + (i + 1) + "/" + theShootsingAmount);
+					HyperBeamExtraShot stray = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile) as HyperBeamExtraShot;
 					stray.mother = tasteTheRainbow;
 					stray.beamAddons = wepon.BeamAddonAccess
 						.Select(i => BeamAddonLoader.GetAddon(i))
@@ -182,8 +190,8 @@ namespace MetroidMod.Content.BeamAddons
 				}
 			}
 
-			//I think also this is where the, uh, rainbow-y code goes?? for making you go all rainbow?
-			mp.hyperColors = 60;
+			//Setting this value above 0 will make you go rainbowy for that many frames upon firing.
+			mp.hyperColors = 80;
 		}
 
 
@@ -193,10 +201,10 @@ namespace MetroidMod.Content.BeamAddons
 	//if I did it with charge lead I'm obligated by rule of consistency to do it here
 	//My apologies for my crimes against good coding practices
 
+	//Anyway here's the custom projectile for the Hyper Beam
+	//It does a handful of things that are useful to know about if you want to make a custom VIB projectile
 	public class HyperBeamShot : MProjectile
 	{
-		//todo: this is dumb
-		//rewrite like most of this
 		public override string Texture => $"{Mod.Name}/Assets/Textures/BeamAddons/HyperBeam/Shot";
 
 		public ModBeamAddon[] beamAddons = new ModBeamAddon[BeamAddonSlotID.Count - 1]; //Hyper Beam doesn't need the ammo slot (doesn't use ammo)
@@ -255,6 +263,8 @@ namespace MetroidMod.Content.BeamAddons
 			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
 		}
 
+		//No PostAI because we don't want the main shot to do movement patterns
+
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			return BeamAddonLoader.AddonTileCollideStyle(beamAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
@@ -265,14 +275,14 @@ namespace MetroidMod.Content.BeamAddons
 			return BeamAddonLoader.AddonOnTileCollide(beamAddons, mProjectile, oldVelocity);
 		}
 
-		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		//{
-		//	BeamAddonLoader.AddonOnHitNPC(beamAddons, mProjectile, target, hit, damageDone);
-		//}
-		//public override void OnHitPlayer(Player target, Player.HurtInfo info)
-		//{
-		//	BeamAddonLoader.AddonOnHitPlayer(beamAddons, mProjectile, target, info);
-		//}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			BeamAddonLoader.AddonOnHitNPC(beamAddons, mProjectile, target, hit, damageDone);
+		}
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
+		{
+			BeamAddonLoader.AddonOnHitPlayer(beamAddons, mProjectile, target, info);
+		}
 
 		public override void OnKill(int timeLeft)
 		{
@@ -288,13 +298,8 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			float scale = 0.65f;
-			if (fileMod.Contains("Plasma"))
-			{
-				scale = 1f;
-			}
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
-			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 10, scale * Projectile.localAI[0] * Projectile.localAI[1], new Color(mp.r, mp.g, mp.b, 128));
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, Texture + fileMod, 10, scale * Projectile.localAI[0] * Projectile.localAI[1], new Color(mp.r, mp.g, mp.b, 128));
 			return false;
 		}
 
@@ -370,6 +375,7 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override void OnKill(int timeLeft)
 		{
+			MetroidMod.Instance.Logger.Info("AAAAAAUUUUUUUGGGHHH 2");
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
 			mProjectile.DustyDeath(Projectile, 66, true, 1f, new Color(mp.r, mp.g, mp.b, 255));
 		}
@@ -378,7 +384,8 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool PreDraw(ref Color lightColor)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
-			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, 10, Projectile.scale * Projectile.localAI[0] * Projectile.localAI[1], new Color(mp.r, mp.g, mp.b, 128));
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, default, 10, Projectile.scale, new Color(mp.r, mp.g, mp.b, 128));
+
 			return false;
 		}
 	}

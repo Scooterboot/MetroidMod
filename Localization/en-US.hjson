@@ -259,6 +259,7 @@ Mods: {
 			YellowHatchOpen.MapEntry: Yellow Hatch (Open)
 			YellowHatchOpenVertical.MapEntry: Yellow Hatch (Vertical, Open)
 			YellowHatchVertical.MapEntry: Yellow Hatch (Vertical)
+			# Beam Addons
 			ChargeBeamTile.MapEntry: Charge Beam
 			ChargeBeamV2Tile.MapEntry: Diffusion Beam
 			BattleHammerTile.MapEntry: BattleHammer
@@ -286,24 +287,24 @@ Mods: {
 			WideBeamTile.MapEntry: Wide Beam
 			GrappleBeamPlusTile.MapEntry: Grapple Beam
 			GrappleBeamTile.MapEntry: Grapple Beam
-			DiffusionMissile.MapEntry: Diffusion Missile
-			Flamethrower.MapEntry: Flamethrower
-			HomingMissile.MapEntry: Homing Missile
-			IceMissile.MapEntry: Ice Missile
-			IceSpreader.MapEntry: Ice Spreader
-			IceSuperMissile.MapEntry: Ice Super Missile
-			NebulaCombo.MapEntry: Nebula Singlarity
-			NebulaMissile.MapEntry: Nebula Missile
-			NovaCombo.MapEntry: Nova Laser
-			PlasmaMachinegun.MapEntry: Plasma Machinegun
-			SeekerMissile.MapEntry: Seeker Missile
-			SolarCombo.MapEntry: Solar Flare
-			SpazerCombo.MapEntry: Missile Array
-			StardustCombo.MapEntry: Stardust Blizzard
-			StardustMissile.MapEntry: Stardust Missile
-			SuperMissile.MapEntry: Super Missile
-			VortexCombo.MapEntry: Vortex Storm
-			Wavebuster.MapEntry: Wavebuster
+			DiffusionMissileTile.MapEntry: Diffusion Missile
+			FlamethrowerTile.MapEntry: Flamethrower
+			HomingMissileTile.MapEntry: Homing Missile
+			IceMissileTile.MapEntry: Ice Missile
+			IceSpreaderTile.MapEntry: Ice Spreader
+			IceSuperTile.MapEntry: Ice Super Missile
+			NebulaComboTile.MapEntry: Nebula Singlarity
+			NebulaMissileTile.MapEntry: Nebula Missile
+			NovaComboTile.MapEntry: Nova Laser
+			PlasmaMachinegunTile.MapEntry: Plasma Machinegun
+			SeekerMissileTile.MapEntry: Seeker Missile
+			SolarComboTile.MapEntry: Solar Flare
+			SpazerComboTile.MapEntry: Missile Array
+			StardustComboTile.MapEntry: Stardust Blizzard
+			StardustMissileTile.MapEntry: Stardust Missile
+			SuperMissileTile.MapEntry: Super Missile
+			VortexComboTile.MapEntry: Vortex Storm
+			WavebusterTile.MapEntry: Wavebuster
 			MissileExpansionTile.MapEntry: Missile Expansion
 			MorphBallTile.MapEntry: Morph Ball
 			KraidPhantoonMusicBox.MapEntry: Kraid Phantoon Music Box
@@ -361,24 +362,6 @@ Mods: {
 			FusionOmegaAddonTile.MapEntry: Fusion Omega
 			ElevatorStationTile.MapEntry: Elevator
 			TopElevatorStationTile.MapEntry: Elevator
-			IceMissileTile.MapEntry: Ice Missile Tile
-			HomingMissileTile.MapEntry: Homing Missile Tile
-			SpazerComboTile.MapEntry: Spazer Combo Tile
-			FlamethrowerTile.MapEntry: Flamethrower Tile
-			IceSpreaderTile.MapEntry: Ice Spreader Tile
-			NebulaComboTile.MapEntry: Nebula Combo Tile
-			NovaComboTile.MapEntry: Nova Combo Tile
-			PlasmaMachinegunTile.MapEntry: Plasma Machinegun Tile
-			SolarComboTile.MapEntry: Solar Combo Tile
-			StardustComboTile.MapEntry: Stardust Combo Tile
-			VortexComboTile.MapEntry: Vortex Combo Tile
-			WavebusterTile.MapEntry: Wavebuster Tile
-			DiffusionMissileTile.MapEntry: Diffusion Missile Tile
-			IceSuperTile.MapEntry: Ice Super Tile
-			NebulaMissileTile.MapEntry: Nebula Missile Tile
-			SeekerMissileTile.MapEntry: Seeker Missile Tile
-			StardustMissileTile.MapEntry: Stardust Missile Tile
-			SuperMissileTile.MapEntry: Super Missile Tile
 		}
 
 		Buffs: {
@@ -444,7 +427,7 @@ Mods: {
 
 			MiniTorizoBuff: {
 				Description: Mods.MetroidMod.Buffs.MiniTorizoBuff.Description
-				DisplayName: Mini Torizo Buff
+				DisplayName: Mini Torizo
 			}
 		}
 
@@ -452,6 +435,7 @@ Mods: {
 			################################
 			# -----[[Core Equipment]]----- #
 			################################
+			
 			
 			PowerSuitHelmet: {
 				DisplayName: Power Suit Helmet
@@ -4017,16 +4001,18 @@ Mods: {
 			# Power Beam
 			BeamShot.DisplayName: Power Beam
 			ChargeLead.DisplayName: Charged Beam Energy
+			HyperBeamShot.DisplayName: Hyper Beam
+			HyperBeamExtraShot.DisplayName: Hyper Beam
 			# Missile Launcher
 			MissileShot.DisplayName: Missile
-			IceMissileShot.DisplayName: Ice Missile
-			SuperMissileShot.DisplayName: Super Missile
-			IceSuperMissileShot.DisplayName: Ice Super Missile
-			NebulaMissileShot.DisplayName: Nebula Missile
+			IceMissileProjectile.DisplayName: Ice Missile
+			SuperMissileProjectile.DisplayName: Super Missile
+			IceSupereProjectile.DisplayName: Ice Super Missile
+			NebulaMissileProjectile.DisplayName: Nebula Missile
 			NebulaMissileImpact.DisplayName: Nebula Missile
-			StardustMissileShot.DisplayName: Stardust Missile
+			StardustMissileProjectile.DisplayName: Stardust Missile
 			# Diffusion Missile
-			DiffusionMissileShot.DisplayName: Diffusion Missile
+			DiffusionMissileProjectile.DisplayName: Diffusion Missile
 			DiffusionShot.DisplayName: Diffusion
 			IceDiffusionMissileShot.DisplayName: Ice Diffusion Missile
 			IceDiffusionShot.DisplayName: Ice Diffusion
@@ -4127,28 +4113,17 @@ Mods: {
 			DiffusionBeam.DisplayName: Diffusion Beam
 			MiniTorizo.DisplayName: Mini Torizo
 			ShaderTestProj.DisplayName: Shader Test Proj
-			ExtraHyperBeamShot.DisplayName: Extra Hyper Beam Shot
-			HyperBeamShot.DisplayName: Hyper Beam Shot
-			PlasmaHyperBeamShot.DisplayName: Plasma Hyper Beam Shot
-			MissileShotReal.DisplayName: Missile Shot Real
-			HomingMissileProjectile.DisplayName: Homing Missile Projectile
-			IceMissileProjectile.DisplayName: Ice Missile Projectile
-			SpazerComboProjectile.DisplayName: Spazer Combo Projectile
 			FlamethrowerProjectile.DisplayName: Flamethrower Projectile
 			IceSpreaderProjectile.DisplayName: Ice Spreader Projectile
 			NebulaComboProjectile.DisplayName: Nebula Combo Projectile
 			NovaComboProjectile.DisplayName: Nova Combo Projectile
 			PlasmaMachinegunProjectile.DisplayName: Plasma Machinegun Projectile
 			SolarComboProjectile.DisplayName: Solar Combo Projectile
+			SpazerComboProjectile.DisplayName: Spazer Combo Projectile
 			StardustComboProjectile.DisplayName: Stardust Combo Projectile
 			VortexComboProjectile.DisplayName: Vortex Combo Projectile
 			WavebusterProjectile.DisplayName: Wavebuster Projectile
-			HyperBeamExtraShot.DisplayName: Hyper Beam Extra Shot
-			DiffusionMissileProjectile.DisplayName: Diffusion Missile Projectile
 			IceSuperProjectile.DisplayName: Ice Super Projectile
-			NebulaMissileProjectile.DisplayName: Nebula Missile Projectile
-			StardustMissileProjectile.DisplayName: Stardust Missile Projectile
-			SuperMissileProjectile.DisplayName: Super Missile Projectile
 		}
 
 		Configs: {

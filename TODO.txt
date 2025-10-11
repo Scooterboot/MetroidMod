@@ -100,6 +100,8 @@
 
 -Increase ice beam standalone shot rotation speed, add particle effects
 
+-Globals for beam/missile addons?
+
 -------- POWER SUIT SYSTEM UPGRADES --------
 
 -Port new Power Suit UI into branch
@@ -131,15 +133,15 @@
 
 -Various beam presentation shit from the new system that needs fixing
 	-Charging sounds don't cut each other off properly
+	-Charge Lead offsets when on a slope in a minecart
 	-No charged shot sound effects
-	-Pseudo-Screw does not correctly color the player
 	-Dust trail does not function
 	-Random visual jank
 	-Impact sound on no-addons is broke
 		-Frankly I feel like there's a good chance that a lot of things are wrong with no-addon shots so keep an eye there
 
 -It Just Works
-	* Normal shot goes off immediately after a charged shot for no apparent reason
+	* Normal shot goes off immediately after a charged shot after somersaulting
 
 -Fix all the systems I broke
 	* Worldgen

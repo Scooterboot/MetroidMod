@@ -216,7 +216,7 @@ namespace MetroidMod.Content.BeamAddons
 					wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (1.5f * (mp.statCharge / 100f)), item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
 					MetroidMod.Instance.Logger.Info(player.name + " released the... uh... slightly-less-charged beam!!!");
 				}
-				else
+				else if (mp.statCharge > 1)
 				{
 					//spawn that normal-ass beam my man
 					if (ac.isBeam)

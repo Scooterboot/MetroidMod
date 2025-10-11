@@ -6,6 +6,7 @@ using MetroidMod.Common.Systems;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -413,7 +414,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.UseSound = missileSound;
 				Item.shoot = missileAddons[MissileAddonSlotID.Primary].IsAir
 					? ModContent.ProjectileType<MissileShot>() //fallback if no missile addon (may consider revoking?	-Z)
-					: MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).mProjectile.Projectile.type;
+					: missileShot;
 			}
 		}
 		/// <summary>
@@ -558,7 +559,10 @@ namespace MetroidMod.Content.Items.Weapons
 			#endregion
 
 			#region Missile Launcher
-			//
+			if (!missileAddons[MissileAddonSlotID.Primary].IsAir)
+			{
+				missileShot = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ProjectileType;
+			}
 			#endregion
 
 			//TODO: Netsync thing here

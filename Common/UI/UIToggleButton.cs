@@ -46,6 +46,10 @@ namespace MetroidMod.Common.UI
 		{
 			//If left mouse is not down:
 			//switch texture to hover
+			if (!Main.mouseLeft)
+			{
+				
+			}
 			base.MouseOver(evt);
 		}
 
