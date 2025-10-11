@@ -747,10 +747,11 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
 					miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
+					MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
 				}
 				else if (isCharged)
 				{
-					Projectile.NewProjectileDirect(source, position, velocity, MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).Projectile.type, damage, knockback);
+					Projectile.NewProjectileDirect(source, position, velocity, MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).mProjectile.Projectile.type, damage, knockback);
 				}
 				else
 				{

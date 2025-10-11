@@ -22,79 +22,82 @@ namespace MetroidMod.Default
 		{
 			Projectile.friendly = true;
 			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
-			modMissileAddon.SetProjectileDefaults(mProjectile);
+			modMissileAddon.SetProjectileDefaults(this);
 		}
 
 		#region behavior
 		public override void OnSpawn(IEntitySource source)
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
-			modMissileAddon.OnSpawn(mProjectile, source);
+			base.OnSpawn(source);
+			MetroidMod.Instance.Logger.Info(this + " VS " + mProjectile + "\nARE THEY THE SAME???? " + (this == mProjectile));
+			modMissileAddon.OnSpawn(this, source);
 		}
 
 		public override bool PreAI()
 		{
 			if (Override != null)
 			{
-				return modMissileAddon.PreAI(mProjectile)
-					&& Override.PreAI(mProjectile);
+				return modMissileAddon.PreAI(this)
+					&& Override.PreAI(this);
 			}
 			else
 			{
-				return modMissileAddon.PreAI(mProjectile);
+				return modMissileAddon.PreAI(this);
 			}
 		}
 		public override void AI()
 		{
-			modMissileAddon.AI(mProjectile);
-			if (Override != null) { Override.AI(mProjectile); }
+			modMissileAddon.AI(this);
+			if (Override != null) { Override.AI(this); }
 		}
 		public override void PostAI()
 		{
-			modMissileAddon.PostAI(mProjectile);
-			if (Override != null) { Override.PostAI(mProjectile); }
+			base.PostAI();
+			modMissileAddon.PostAI(this);
+			if (Override != null) { Override.PostAI(this); }
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			if (Override != null)
 			{
-				return modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac)
-					&& Override.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+				return modMissileAddon.TileCollideStyle(this, ref width, ref height, ref fallThrough, ref hitboxCenterFrac)
+					&& Override.TileCollideStyle(this, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 			}
 			else
 			{
-				return modMissileAddon.TileCollideStyle(mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+				return modMissileAddon.TileCollideStyle(this, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 			}
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (Override != null)
 			{
-				return modMissileAddon.OnTileCollide(mProjectile, oldVelocity)
-					&& Override.OnTileCollide(mProjectile, oldVelocity);
+				return modMissileAddon.OnTileCollide(this, oldVelocity)
+					&& Override.OnTileCollide(this, oldVelocity);
 			}
 			else
 			{
-				return modMissileAddon.OnTileCollide(mProjectile, oldVelocity);
+				return modMissileAddon.OnTileCollide(this, oldVelocity);
 			}
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			modMissileAddon.OnHitNPC(mProjectile, target, hit, damageDone);
-			if (Override != null) { Override.OnHitNPC(mProjectile, target, hit, damageDone); }
+			modMissileAddon.OnHitNPC(this, target, hit, damageDone);
+			if (Override != null) { Override.OnHitNPC(this, target, hit, damageDone); }
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
-			modMissileAddon.OnHitPlayer(mProjectile, target, info);
-			if (Override != null) { Override.OnHitPlayer(mProjectile, target, info); }
+			modMissileAddon.OnHitPlayer(this, target, info);
+			if (Override != null) { Override.OnHitPlayer(this, target, info); }
 		}
 
 		public override void OnKill(int timeLeft)
 		{
-			modMissileAddon.OnKill(mProjectile, timeLeft);
-			if (Override != null) { Override.OnKill(mProjectile, timeLeft); }
+			modMissileAddon.OnKill(this, timeLeft);
+			if (Override != null) { Override.OnKill(this, timeLeft); }
 		}
 
 		#endregion

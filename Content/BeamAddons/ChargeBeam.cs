@@ -333,7 +333,7 @@ namespace MetroidMod.Content.BeamAddons
 					//Projectile.scale = Math.Max(mp.statCharge / 100, 0.5f);
 					Projectile.scale = Math.Max(MathHelper.Lerp(0f, 1f, mp.statCharge / 100), 0.5f); //Idrk what the difference is but I've heard lerps are useful so I'm trying em out			-Z
 
-					if (!mp.pseudoScrewActive || (mp.pseudoScrewActive && mp.statCharge < 75))
+					if (!mp.pseudoScrewActive || (mp.pseudoScrewActive && mp.statCharge < 75) || !ac.isBeam)
 					{
 						mp.disableSomersault = true;
 					}

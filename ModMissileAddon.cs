@@ -58,10 +58,6 @@ namespace MetroidMod
 		public MProjectile mProjectile;
 
 		/// <summary>
-		/// The <see cref="Projectile"/> this addon controls.
-		/// </summary>
-		public Projectile Projectile => mProjectile.Projectile;
-		/// <summary>
 		/// References the ModItem previously generated
 		/// </summary>
 		public int ItemType { get; internal set; }
@@ -260,7 +256,7 @@ namespace MetroidMod
 			//Assigns a new M.A.I., M.A.T., and (usually) M.A.P. instance to the current M.M.A.
 			ModItem = new MissileAddonItem(this);
 			ModTile = new MissileAddonTile(this);
-			if (!IgnoreProjectile) { mProjectile = new MissileAddonProjectile(this); }
+			if (!IgnoreProjectile){ mProjectile = new MissileAddonProjectile(this); }
 			if (ModItem == null) { throw new Exception("WTF happened here? MissileAddonItem is null!"); }
 			if (ModTile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
 			//Adds the content to the game.
