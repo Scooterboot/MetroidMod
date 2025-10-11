@@ -123,13 +123,17 @@ namespace MetroidMod.Content.Projectiles
 
 
 			//Put the dustline shit here later
-
-			if (dustTimer < 1 && !dustSuppress)
+			
+			if (!dustSuppress)
 			{
+				if(dustTimer < 1)
+				{
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, missileDust, 0, 0, 100, default(Color), Projectile.scale);
+					Main.dust[dust].noGravity = true;
+					dustTimer = 5;
+				}
 				//MetroidMod.Instance.Logger.Info("Oh hey this actually updates lmao");
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, missileDust, 0, 0, 100, default(Color), Projectile.scale);
-				Main.dust[dust].noGravity = true;
-				dustTimer = 5;
+				mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, missileDust, 2f);
 			}
 			else { dustTimer--; }
 
