@@ -745,9 +745,20 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				if (isCharged && MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).IgnoreProjectile)
 				{
-					MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
-					miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
-					MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
+					if (type == ModContent.ProjectileType<MissileShot>())
+					{
+						MissileShot missl = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile as MissileShot;
+						missl.missileAddons = [.. missileAddons
+						.Select(MissileAddonLoader.GetAddon)
+						.Select(i => i?.Clone())];
+						missl.OnInitialized(source);
+					}
+					else
+					{
+						MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
+						miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
+						MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
+					}
 				}
 				else if (isCharged)
 				{
