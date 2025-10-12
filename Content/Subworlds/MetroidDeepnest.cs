@@ -15,11 +15,12 @@ namespace MetroidMod.Content.Subworlds
 {
 	public class MetroidDeepnest : Subworld
 	{
-		public override int Width => Main.maxTilesX;
+		public override int Width => Main.maxTilesX / 2;
 
 		public override int Height => Main.maxTilesY;
 
 		// set to false for a "temporary" generation
+		// temporarily set to false for worldgen-dev purposes, TODO set to true
 		public override bool ShouldSave => false;
 
 		// set to true to revert any changes to the player inventory and whatnot when exiting the subworld
@@ -54,23 +55,50 @@ namespace MetroidMod.Content.Subworlds
 
 		public override List<GenPass> Tasks => new()
 		{
-			new BasicPass()
+			new ResetPass(),
+			new FillInPass(),
+			new LabPass(),
+			new FinishPass()
 		};
 
-		// Very basic GenPass. Because why have a void when you can suffocate in dirt? - Armipotent
-		internal class BasicPass : GenPass
+		internal class ResetPass : GenPass
 		{
-			public BasicPass() : base("Metroid Deepnest: Basic Pass", 1) { }
+			public ResetPass() : base("Metroid Deepnest: Reset Generation Variables", 1) { }
 
 			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
 			{
 				// do worldgen business here
 				WorldGen.generatingWorld = true;
 				Main.worldSurface = Main.maxTilesY / 7;
+				Main.rockLayer = Main.maxTilesY * 2 / 7;
+			}
+		}
+
+		internal class FillInPass : GenPass
+		{
+			public FillInPass() : base("Metroid Deepnest: Fill-In Pass", 1) { }
+
+			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+			{
+				// do worldgen business here
 				progress.Message = "Generating terrain";
 				for (int x = 0; x < Main.maxTilesX; x++)
 				{
-					for (int y = Main.maxTilesY / 8; y < Main.maxTilesY; y++)
+					for (int y = Main.maxTilesY / 8; y < (int)Main.worldSurface; y++)
+					{
+						progress.Set((y + x * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY));
+						Tile tile = Main.tile[x, y];
+						tile.HasTile = true;
+						tile.TileType = TileID.Dirt;
+					}
+					for (int y = (int)Main.worldSurface; y < Main.rockLayer; y++)
+					{
+						progress.Set((y + x * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY));
+						Tile tile = Main.tile[x, y];
+						tile.HasTile = true;
+						tile.TileType = TileID.Stone;
+					}
+					for (int y = (int)Main.rockLayer; y < Main.maxTilesY; y++)
 					{
 						progress.Set((y + x * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY));
 						Tile tile = Main.tile[x, y];

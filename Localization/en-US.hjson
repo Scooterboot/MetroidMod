@@ -4007,6 +4007,26 @@ Mods: {
 				DisplayName: Metroid Deepnest Entrance
 				Tooltip: Debug Item
 			}
+
+			MetroidAlphaDNA: {
+				DisplayName: Metroid Alpha Sample
+				Tooltip: ""
+			}
+
+			MetroidGammaDNA: {
+				DisplayName: Metroid Gamma Sample
+				Tooltip: ""
+			}
+
+			MetroidOmegaDNA: {
+				DisplayName: Metroid Omega Sample
+				Tooltip: ""
+			}
+
+			MetroidZetaDNA: {
+				DisplayName: Metroid Zeta Sample
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

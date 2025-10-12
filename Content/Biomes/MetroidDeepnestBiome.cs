@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Biomes
 
 		public override bool IsBiomeActive(Player player)
 		{
-			return SubworldLibrary.SubworldSystem.IsActive<Subworlds.MetroidDeepnest>();
+			return SubworldLibrary.SubworldSystem.IsActive<Subworlds.MetroidDeepnest>() && player.ZoneRockLayerHeight;
 		}
 	}
 
