@@ -122,6 +122,12 @@ namespace MetroidMod.Common.Players
 		}
 		public override void OnRespawn()
 		{
+			// TODO: teleport the player out on kill or on respawn? 2/2
+			if (SubworldLibrary.SubworldSystem.Current.FullName == $"{nameof(MetroidMod)}/{nameof(Content.Subworlds.MetroidDeepnest)}" && Player.SpawnX == -1 && Player.SpawnY == -1)
+			{
+				SubworldLibrary.SubworldSystem.Exit();
+			}
+			
 			if (Player.TryMetroidPlayer(out MPlayer mp))
 			{
 				mp.reserveHearts = mp.reserveTanks;

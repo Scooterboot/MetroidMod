@@ -86,7 +86,9 @@ namespace MetroidMod.Content.Tiles
 				Main.MouseWorld.Distance(TileEntrancePos(i, j)) < RightClickRange && 
 				!MUtils.AnyBossesActive() && !SubworldSystem.AnyActive())
 			{
-				Main.LocalPlayer.MetroidPlayer().posInRealWorld = Main.LocalPlayer.position;
+				Vector2 pos = Main.LocalPlayer.position;
+				pos.X /= 2;
+				Main.LocalPlayer.MetroidPlayer().posTransferXD = pos;
 				SubworldSystem.Enter<Subworlds.MetroidDeepnest>();
 				return (true);
 			}

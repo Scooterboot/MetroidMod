@@ -107,6 +107,39 @@ namespace MetroidMod.Content.Subworlds
 						tile.WallType = (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>();
 					}
 				}
+			}
+		}
+		
+		internal class CavesPass : GenPass
+		{
+			public CavesPass() : base("Metroid Deepnest: Caving", 1) { }
+
+			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+			{
+				progress.Message = "Generating Caves";
+
+				// Replicate positioning of the caves from the overworld and build
+			}
+		}
+
+		internal class LabPass : GenPass
+		{
+			public LabPass() : base("Metroid Deepnest: The Laboratory", 1) { }
+
+			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+			{
+				progress.Message = "Generating The Laboratory";
+
+				// LABS CODE HERE
+			}
+		}
+
+		internal class FinishPass : GenPass
+		{
+			public FinishPass() : base("Metroid Deepnest: Finish", 1) { }
+
+			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+			{
 				WorldGen.generatingWorld = false;
 			}
 		}
