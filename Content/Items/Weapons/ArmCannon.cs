@@ -740,8 +740,47 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
-			float[] edgeCaseStuff;
-			if (ac != null && !ac.isBeam)
+			int theShootsingAmount; //back at it again with theShootsingAmount
+			int[] edgeCaseStuff;
+			if (ac != null && !ac.isBeam && !missileAddons[MissileAddonSlotID.Primary].IsAir)
+			{
+				if (isCharged && MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).IgnoreProjectile)
+				{
+					edgeCaseStuff = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).OverrideData();
+					//TODO: store charge shot stats separately (do it in ArrayUpdate())
+					theShootsingAmount = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotCount + edgeCaseStuff[4];
+
+					for (int i = 0; i < theShootsingAmount; i++)
+					{
+						MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
+						miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
+						miss.groupSize = theShootsingAmount;
+						miss.groupID = i;
+						MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
+					}
+				}
+				else if (isCharged)
+				{
+					theShootsingAmount = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).ShotCount;
+					for (int i = 0; i < theShootsingAmount; i++)
+					{
+						MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).mProjectile.Projectile.type, damage, knockback).ModProjectile;
+						miss.groupSize = theShootsingAmount;
+						miss.groupID = i;
+					}
+				}
+				else
+				{
+					theShootsingAmount = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotCount;
+					for (int i = 0; i < theShootsingAmount; i++)
+					{
+						MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
+						miss.groupSize = theShootsingAmount;
+						miss.groupID = i;
+					}
+				}
+			}
+			else if (ac != null && !ac.isBeam)
 			{
 				if (isCharged && MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).IgnoreProjectile)
 				{
@@ -753,16 +792,6 @@ namespace MetroidMod.Content.Items.Weapons
 						.Select(i => i?.Clone())];
 						missl.OnInitialized(source);
 					}
-					else
-					{
-						MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
-						miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
-						MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
-					}
-				}
-				else if (isCharged)
-				{
-					Projectile.NewProjectileDirect(source, position, velocity, MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).mProjectile.Projectile.type, damage, knockback);
 				}
 				else
 				{

@@ -165,9 +165,15 @@ namespace MetroidMod
 		/// </summary>
 		public virtual float SpeedMult { get; set; } = 0f;
 		/// <summary>
-		/// The amount of extra projectiles this addon will make the player fire.
+		/// The amount of projectiles this addon will make the player fire.
+		/// <br/>Defaults to <b>1</b>.
 		/// </summary>
-		public virtual int AddShots { get; set; } = 0;
+		public virtual int ShotCount { get; set; } = 1;
+		/// <summary>
+		/// How much missile ammo using this addon costs.
+		/// <br/>Defaults to <b>1</b>.
+		/// </summary>
+		public virtual int AmmoCost { get; set; } = 1;
 		#endregion
 
 		#region Shot Behavior/Compatibility Variables
@@ -336,7 +342,11 @@ namespace MetroidMod
 		#endregion
 
 		#region Advanced addon properties
-
+		/// <summary>
+		/// Allows IgnoreProjectile-enabled charge addons to edit certain edge-case stats
+		/// </summary>
+		/// <returns></returns>
+		public virtual int[] OverrideData() { return [0, 0, 0, 0, 0]; }
 
 		#endregion
 

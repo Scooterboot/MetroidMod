@@ -242,7 +242,7 @@ namespace MetroidMod
 				totals[1] += addons[i].DamageMult;
 				totals[2] += addons[i].BaseSpeed;
 				totals[3] += addons[i].SpeedMult;
-				totals[4] += addons[i].AddShots;
+				totals[4] += addons[i].ShotCount;
 			}
 			MetroidMod.Instance.Logger.Info("Missile stats stacked!");
 			return totals;
