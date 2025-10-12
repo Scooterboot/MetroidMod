@@ -39,10 +39,6 @@ namespace MetroidMod.Content.MissileAddons
 			MetroidMod.Instance.Logger.Info(dude.position);
 			dude.noGravity = true;
 			mpshot.HomingBehavior(mpshot.Projectile);
-			if(mpshot is MissileShot oof)
-			{
-				oof.AI();
-			}
 		}
 		public override void SetItemDefaults(Item item) //TO DO SOMETHING WITH THIS
 		{
