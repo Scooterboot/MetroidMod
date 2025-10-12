@@ -87,7 +87,7 @@ namespace MetroidMod.Content.Tiles
 				!MUtils.AnyBossesActive() && !SubworldSystem.AnyActive())
 			{
 				Main.LocalPlayer.MetroidPlayer().posInRealWorld = Main.LocalPlayer.position;
-				SubworldSystem.MovePlayerToSubworld<Subworlds.MetroidDeepnest>(Main.LocalPlayer.whoAmI);
+				SubworldSystem.Enter<Subworlds.MetroidDeepnest>();
 				return (true);
 			}
 			return (false);
