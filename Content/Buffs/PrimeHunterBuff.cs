@@ -3,7 +3,6 @@ using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Armors;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +16,13 @@ namespace MetroidMod.Content.Buffs
 		{
 			Main.persistentBuff[Type] = false;
 			Main.buffNoSave[Type] = true;
-			Main.buffNoTimeDisplay[Type] = true;
+		}
+		public override bool ReApply(Player player, int time, int buffIndex)
+		{
+			// toy with this later???? dunno - Armipotent
+			//player.buffTime[buffIndex] += (int)Utils.Lerp(time, 30, 0.5);
+			player.buffTime[buffIndex] = System.Math.Min(player.buffTime[buffIndex] + time, 3600);
+			return true;
 		}
 		public override void Update(Player player, ref int buffIndec)
 		{
@@ -25,26 +30,18 @@ namespace MetroidMod.Content.Buffs
 			Stinger++;
 			player.statDefense /= 2;
 			bool wearingSuit = mp.ShouldShowArmorUI || player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>();
-			if (mp.PrimeHunter && wearingSuit)
-			{
-				player.buffTime[buffIndec] = 2;
-			}
 			if (!wearingSuit)
 			{
 				player.KillMe(PlayerDeathReason.ByCustomReason($"{player.name} did not find an exploit"), 0, 0);
-			}
-			else
-			{
-				player.buffTime[buffIndec] = 0;
 			}
 			DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
 			player.GetDamage(damageClass) += 0.30f;
 			player.GetCritChance(damageClass) += 15;
 			player.GetArmorPenetration(damageClass) += 20;
 			player.statDefense *= 0; // /=2
-			//player.statLifeMax2 -= player.statLifeMax2 / 10;
+									 //player.statLifeMax2 -= player.statLifeMax2 / 10;
 			player.endurance = 0f; //-.025f
-			//mp.PrimeHunter = true;
+			mp.PrimeHunter = true;
 			player.aggro += 1000;
 			player.jumpSpeedBoost += 2.4f;
 			player.maxFallSpeed += 5f;
@@ -52,7 +49,7 @@ namespace MetroidMod.Content.Buffs
 			player.runSlowdown *= 5f;
 			player.accRunSpeed *= 5f;
 			mp.EnergyExpenseEfficiency = 1f;
-			if(player.mount.Active && mp.morphBall)
+			if (player.mount.Active && mp.morphBall)
 			{
 				player.thorns *= 3f;
 			}
@@ -60,7 +57,7 @@ namespace MetroidMod.Content.Buffs
 			{
 				player.lifeRegen = 0;
 			}*/
-			if(Stinger >= 15)
+			if (Stinger >= 15)
 			{
 				mp.Energy -= 5;
 				Stinger = 0;

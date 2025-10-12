@@ -231,6 +231,8 @@ namespace MetroidMod.Common.GlobalNPCs
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.ReserveHearts(), ItemID.Heart, 13));
 			}
 
+			// TODO: + Config Value or Accessory to allow for it to drop?
+			npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.PrimeHunterEssence>(), 80));
 
 			if (npc.type == NPCID.WallofFlesh)
 			{

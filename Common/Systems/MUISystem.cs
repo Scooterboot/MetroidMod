@@ -674,7 +674,7 @@ namespace MetroidMod.Common.Systems
 				Texture2D texBar = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBar").Value,
 					texBarBorder = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder").Value,
 					texBarBorder2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ChargeBarBorder2").Value;
-				if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() || mp.ballstate || mp.PrimeHunter)
+				if (item.type == ModContent.ItemType<PowerBeam>() || item.type == ModContent.ItemType<MissileLauncher>() || item.type == ModContent.ItemType<ArmCannon>() || mp.ballstate)
 				{
 					int hp = (int)mp.hyperCharge, hpMax = (int)MPlayer.maxHyper;
 					int ch = (int)mp.statCharge, chMax = (int)MPlayer.maxCharge;

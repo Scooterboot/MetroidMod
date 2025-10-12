@@ -107,7 +107,7 @@ namespace MetroidMod.Common.Players
 
 			senseMove = false;
 
-			//PrimeHunter = false;
+			PrimeHunter = false;
 			phazonImmune = false;
 			accessPhazonBeam = false;
 			accessHyperBeam = false;
@@ -463,27 +463,29 @@ namespace MetroidMod.Common.Players
 			{
 				if (MSystem.HyperMode.Current && statPBCh <= 0f && statCharge <= 0f && canHyper)
 				{
-					if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>() || Player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
-					{
-						if (!soundPlayed)
-						{
-							soundInstancePH = SoundEngine.PlaySound(Sounds.Suit.PrimeHunterCharge, Player.position);
-							soundPlayed = true;
-						}
-						hyperCharge += .6f;
-					}
-					if (hyperCharge >= maxHyper)
-					{
-						PrimeHunter = true;
+					// disabled because really powerful i guess - Armipotent
+					// if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>() || Player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
+					// {
+					// 	if (!soundPlayed)
+					// 	{
+					// 		soundInstancePH = SoundEngine.PlaySound(Sounds.Suit.PrimeHunterCharge, Player.position);
+					// 		soundPlayed = true;
+					// 	}
+					// 	hyperCharge += .6f;
+					// }
+					// if (hyperCharge >= maxHyper)
+					// {
+					// 	PrimeHunter = true;
 
-						SoundEngine.PlaySound(Sounds.Suit.PrimeHunterActivate, Player.position);
-						soundPlayed = true;
-					}
+					// 	SoundEngine.PlaySound(Sounds.Suit.PrimeHunterActivate, Player.position);
+					// 	soundPlayed = true;
+					// }
 					if (hyperCharge <= 0f && PrimeHunter)
 					{
 						soundPlayed = false;
 						SoundEngine.PlaySound(Sounds.Suit.PrimeHunterDeactivate, Player.position);
 						PrimeHunter = !PrimeHunter;
+						Player.ClearBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>());
 					}
 				}
 				else if (SoundEngine.TryGetActiveSound(soundInstancePH, out ActiveSound result) && hyperCharge > 0f)
@@ -491,34 +493,20 @@ namespace MetroidMod.Common.Players
 					soundPlayed = false;
 					result.Stop();
 				}
-				if (Player.dead || !PrimeHunter /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
-				{
-					if (Player.dead)
-					{
-						hyperCharge = 0f;
-					}
-					PrimeHunter = false;
-					Player.ClearBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>());
-				}
-				if (PrimeHunter)
-				{
-					Player.AddBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>(), 2);
-				}
-				if (hyperCharge > 0f && PrimeHunter)
-				{
-					hyperCharge -= .2f;
-				}
-				if (hyperCharge >= maxHyper)
-				{
-					hyperCharge = maxHyper;
-				}
-				if (hyperCharge < 0f || !MSystem.HyperMode.Current && !PrimeHunter)
+				// if (Player.dead || !Player.HasBuff(ModContent.BuffType<Content.Buffs.PrimeHunterBuff>()) /*|| !Player.HasBuff<Content.Buffs.PrimeHunterBuff>()/* && hyperCharge <= 0f && statPBCh <= 0f && statCharge <= 0f*/)
+				// {
+				// 	if (Player.dead)
+				// 	{
+				// 		// hyperCharge = 0f;
+				// 	}
+				// 	PrimeHunter = false;
+				// }
+				if (!MSystem.HyperMode.Current && !PrimeHunter)
 				{
 					if (SoundEngine.TryGetActiveSound(soundInstancePH, out ActiveSound result))
 					{
 						result.Stop();
 					}
-					hyperCharge = 0f;
 					soundPlayed = false;
 				}
 			}
@@ -856,7 +844,11 @@ namespace MetroidMod.Common.Players
 			if (PrimeHunter && target.life <= 0 && Energy < MaxEnergy && Main.myPlayer == Player.whoAmI)
 			{
 				int heal = Math.Max(target.lifeMax / 20, 1);
-				Energy += Math.Min(heal, MaxEnergy -Energy);
+				Energy += Math.Min(heal, MaxEnergy - Energy);
+				if (!target.friendly && !target.CountsAsACritter)
+				{
+					Player.AddBuff(ModContent.BuffType<PrimeHunterBuff>(), 2 * 60);
+				}
 			}
 		}
 		public bool psuedoScrewActive = false;
