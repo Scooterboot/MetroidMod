@@ -13,7 +13,8 @@ namespace MetroidMod.Content.MissileAddons
 
 		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
 		public override int ShotDust => DustID.IceTorch;
-
+		public override string ShotSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/SuperMissile/Shot";
+		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/IceMissile/Impact";
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Primary;

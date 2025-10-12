@@ -1,3 +1,4 @@
+using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -24,9 +25,23 @@ namespace MetroidMod.Content.MissileAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.value = 30000;
+			item.value = 50000;
 			item.rare = ItemRarityID.LightRed;
 			base.SetItemDefaults(item);
+		}
+		public override void AI(MProjectile mProjectile)
+		{
+			int dustType = 6;
+			float scale = 2f;
+			Projectile Projectile = mProjectile.Projectile;
+			mProjectile.DustLine(Projectile.Center - Projectile.velocity * 0.5f, Projectile.velocity, Projectile.rotation, 5, 3, dustType, scale);
+
+			Projectile.ai[0] += 1f;
+			if (Projectile.ai[0] > (5f + Projectile.extraUpdates) && Projectile.extraUpdates < 10)
+			{
+				Projectile.extraUpdates++;
+				Projectile.ai[0] = 0f;
+			}
 		}
 		public override void AddRecipes()
 		{
