@@ -263,7 +263,11 @@ namespace MetroidMod.Content.BeamAddons
 			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
 		}
 
-		//No PostAI because we don't want the main shot to do movement patterns
+		//No PostAI injection because we don't want the main shot to do movement patterns
+		public override void PostAI()
+		{
+			corePosition += Projectile.velocity;
+		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
@@ -328,7 +332,7 @@ namespace MetroidMod.Content.BeamAddons
 			base.SetDefaults();
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.scale = 1f;
+			Projectile.scale = 0.6f;
 		}
 
 		#region Projectile AI
@@ -337,8 +341,8 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
-			mProjectile.corePosition = mother.corePosition;
-
+			corePosition = mother.corePosition;
+			MetroidMod.Instance.Logger.Info("WHY THIS NOT SPAWNING: mother? " + (mother));
 			//First, call method to calculate tileinteract total.
 			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, 2f);
 			//Then, call method to calculate entityinteract total.
@@ -360,6 +364,7 @@ namespace MetroidMod.Content.BeamAddons
 
 		public override void PostAI()
 		{
+			corePosition += mother.Projectile.velocity;
 			BeamAddonLoader.AddonPostAI(beamAddons, mProjectile);
 		}
 
@@ -384,7 +389,7 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool PreDraw(ref Color lightColor)
 		{
 			MPlayer mp = Main.player[Projectile.owner].GetModPlayer<MPlayer>();
-			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, default, 10, Projectile.scale, new Color(mp.r, mp.g, mp.b, 128));
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, null, 10, Projectile.scale, new Color(mp.r, mp.g, mp.b, 128));
 
 			return false;
 		}

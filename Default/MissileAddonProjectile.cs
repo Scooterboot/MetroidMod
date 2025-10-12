@@ -105,12 +105,12 @@ namespace MetroidMod.Default
 		#region drawing
 		public override bool PreDraw(ref Color lightColor)
 		{
-			return modMissileAddon.PreDrawProjectile(mProjectile, ref lightColor);
+			return modMissileAddon.PreDrawProjectile(this, ref lightColor);
 		}
 
 		public override void PostDraw(Color lightColor)
 		{
-			modMissileAddon.PostDrawProjectile(mProjectile, lightColor);
+			modMissileAddon.PostDrawProjectile(this, lightColor);
 		}
 		#endregion
 
