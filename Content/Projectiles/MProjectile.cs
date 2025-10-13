@@ -605,10 +605,10 @@ namespace MetroidMod.Content.Projectiles
 			int frameHeight = tex.Height / Main.projFrames[Projectile.type];
 			int currentFrame = frameHeight * Projectile.frame;
 
-			float h = ((float)frameHeight * Projectile.scale);
+			float h = frameHeight * Projectile.scale;
 
 			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
-			int height = (int)((float)frameHeight * dist);
+			int height = (int)(frameHeight * dist);
 			if (dist >= 1f)
 			{
 				drawFlag = true;
@@ -632,8 +632,8 @@ namespace MetroidMod.Content.Projectiles
 			for (int i = amt - 1; i > -1; i--)
 			{
 				Vector2 center = Projectile.oldPos[i] + new Vector2((float)Projectile.width / 2, (float)Projectile.height / 2);
-				float oldDist = MathHelper.Clamp((Vector2.Distance(center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
-				int oldHeight = (int)((float)frameHeight * oldDist);
+				float oldDist = MathHelper.Clamp((Vector2.Distance(center, player.Center) + (Projectile.height / 2f)) / h, 0f, 1f);
+				int oldHeight = (int)(frameHeight * oldDist);
 
 				Color color23 = color2;
 				color23 = Projectile.GetAlpha(color23);

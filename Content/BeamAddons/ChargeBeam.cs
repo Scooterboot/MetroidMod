@@ -412,6 +412,7 @@ namespace MetroidMod.Content.BeamAddons
 		/// <param name="speed"></param>
 		private void BarrelAim(Player p, Vector2 source, float speed)
 		{
+			//TODO: this makes the ball rotate in reverse???
 			Vector2 aim = Vector2.Normalize(p.RotatedRelativePoint(Main.MouseWorld, true) - source);
 			if (aim.HasNaNs())
 			{

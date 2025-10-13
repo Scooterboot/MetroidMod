@@ -172,17 +172,18 @@ namespace MetroidMod.Content.BeamAddons
 
 			if (theShootsingAmount > 0)
 			{
+				//tasteTheRainbow.groupSize = theShootsingAmount + 1;
 				//Now we create the "baby" projectiles.
 				//Yeah yeah obvious joke is obvious this horse has been dead for ages
 				for (int i = 0; i < theShootsingAmount; i++)
 				{
 					MetroidMod.Instance.Logger.Info("Non-canon! " + (i + 1) + "/" + theShootsingAmount);
 					HyperBeamExtraShot stray = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile) as HyperBeamExtraShot;
-					stray.mother = tasteTheRainbow;
 					stray.beamAddons = wepon.BeamAddonAccess
 						.Select(i => BeamAddonLoader.GetAddon(i))
 						.Select(i => i?.Clone())
 						.ToArray();
+					stray.mother = tasteTheRainbow;
 					stray.groupSize = theShootsingAmount;
 					stray.groupID = i;
 
@@ -244,6 +245,7 @@ namespace MetroidMod.Content.BeamAddons
 		}
 		public override void OnSpawn(IEntitySource source)
 		{
+			base.OnSpawn(source);
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			scale = Projectile.scale;
 		}
@@ -266,7 +268,7 @@ namespace MetroidMod.Content.BeamAddons
 		//No PostAI injection because we don't want the main shot to do movement patterns
 		public override void PostAI()
 		{
-			corePosition += Projectile.velocity;
+			base.PostAI();
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -323,7 +325,7 @@ namespace MetroidMod.Content.BeamAddons
 		/// <summary>
 		/// The extra-shot's parent (or "mother") projectile.
 		/// </summary>
-		public MProjectile mother;
+		public HyperBeamShot mother;
 
 
 
@@ -332,7 +334,7 @@ namespace MetroidMod.Content.BeamAddons
 			base.SetDefaults();
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.scale = 0.6f;
+			Projectile.scale = 1f;
 		}
 
 		#region Projectile AI
@@ -342,7 +344,7 @@ namespace MetroidMod.Content.BeamAddons
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			corePosition = mother.corePosition;
-			MetroidMod.Instance.Logger.Info("WHY THIS NOT SPAWNING: mother? " + (mother));
+			MetroidMod.Instance.Logger.Info("WHY THIS NOT SPAWNING: corePos? " + (corePosition));
 			//First, call method to calculate tileinteract total.
 			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, 2f);
 			//Then, call method to calculate entityinteract total.
@@ -358,13 +360,28 @@ namespace MetroidMod.Content.BeamAddons
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			Lighting.AddLight(Projectile.Center, mp.r / 255f, mp.g / 255f, mp.b / 255f);
-
 			BeamAddonLoader.AddonAI(beamAddons, mProjectile);
 		}
 
 		public override void PostAI()
 		{
+			//need to make an altered copy of the base PostAI so the corePos updates off of the mother
+
+			for (int i = Projectile.oldPos.Length - 1; i > 0; i--)
+			{
+				Projectile.oldPos[i] = Projectile.oldPos[i - 1];
+			}
+			Projectile.oldPos[0] = Projectile.position;
+
+
+			for (int i = Projectile.oldRot.Length - 1; i > 0; i--)
+			{
+				Projectile.oldRot[i] = Projectile.oldRot[i - 1];
+			}
+			Projectile.oldRot[0] = Projectile.rotation;
+
 			corePosition += mother.Projectile.velocity;
+
 			BeamAddonLoader.AddonPostAI(beamAddons, mProjectile);
 		}
 

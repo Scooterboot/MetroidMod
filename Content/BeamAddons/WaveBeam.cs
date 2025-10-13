@@ -189,6 +189,7 @@ namespace MetroidMod.Content.BeamAddons
 			//MetroidMod.Instance.Logger.Info("proj is " + p);
 			float increment = MathHelper.TwoPi / 60;
 			float sineDelay = mpshot.Projectile.height / mpshot.Projectile.velocity.Length();
+			float sineDelay2 = MathHelper.Lerp(mpshot.Projectile.height, mpshot.Projectile.velocity.Length(), 2f);
 
 			//Consider making the following values external in the future?
 			float amplitude = mpshot.Projectile.width * mpshot.Projectile.scale * 4;
