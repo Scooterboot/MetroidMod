@@ -4124,6 +4124,11 @@ Mods: {
 			VortexComboProjectile.DisplayName: Vortex Combo Projectile
 			WavebusterProjectile.DisplayName: Wavebuster Projectile
 			IceSuperProjectile.DisplayName: Ice Super Projectile
+			Diffuse.DisplayName: Diffuse
+			IceDiffuse.DisplayName: Ice Diffuse
+			NebulaDiffuse.DisplayName: Nebula Diffuse
+			NebulaImpact.DisplayName: Nebula Impact
+			StardustDiffuse.DisplayName: Stardust Diffuse
 		}
 
 		Configs: {

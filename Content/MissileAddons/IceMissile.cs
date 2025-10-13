@@ -1,7 +1,9 @@
-﻿using MetroidMod.ID;
+﻿using MetroidMod.Content.Buffs;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons
 {
@@ -17,7 +19,7 @@ namespace MetroidMod.Content.MissileAddons
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Primary;
-
+			InflictsBuff = ModContent.BuffType<InstantFreeze>();
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 			base.SetStaticDefaults();
 		}

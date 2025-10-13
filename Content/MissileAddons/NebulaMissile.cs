@@ -14,11 +14,9 @@ namespace MetroidMod.Content.MissileAddons
 	internal class NebulaMissile : ModMissileAddon
 	{
 		public override bool AddOnlyAddonItem => false;
-
-		public override Color PrimaryColor => MetroidMod.iceColor;
-
-		public override Color SecondaryColor => MetroidMod.iceSecondaryColor;
-		public override int ShotDust => DustID.IceTorch;
+		public override Color PrimaryColor => MetroidMod.waveColor;
+		public override Color SecondaryColor => MetroidMod.waveSecondaryColor;
+		public override int ShotDust => 240;
 		public override string ShotSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/SuperMissile/Shot";
 		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/SuperMissile/Impact";
 		public override void SetStaticDefaults()
@@ -30,7 +28,7 @@ namespace MetroidMod.Content.MissileAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.value = 50000;
+			item.value = 70000;
 			item.rare = ItemRarityID.LightRed;
 			base.SetItemDefaults(item);
 		}
@@ -41,7 +39,7 @@ namespace MetroidMod.Content.MissileAddons
 		public override void OnKill(MProjectile mProjectile, int timeLeft)
 		{
 			Projectile P = mProjectile.Projectile;
-			Projectile.NewProjectile(P.GetSource_Death(), P.Center.X, P.Center.Y, 0f, 0f, ModContent.ProjectileType<NebulaMissileImpact>(), P.damage, P.knockBack, P.owner);
+			Projectile.NewProjectile(P.GetSource_Death(), P.Center.X, P.Center.Y, 0f, 0f, ModContent.ProjectileType<NebulaImpact>(), P.damage, P.knockBack, P.owner);
 		}
 		public override void AddRecipes()
 		{
@@ -51,8 +49,10 @@ namespace MetroidMod.Content.MissileAddons
 				.Register();
 		}
 	}
-	public class NebulaMissileImpact : ModProjectile
+
+	public class NebulaImpact : ModProjectile
 	{
+		public override string Texture => $"{Mod.Name}/Assets/Textures/MissileAddons/NebulaMissile/Impact";
 		public override void SetDefaults()
 		{
 			Projectile.width = 32;
@@ -125,9 +125,6 @@ namespace MetroidMod.Content.MissileAddons
 				return;
 			}
 		}
-
-
-
 		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
@@ -188,13 +185,11 @@ namespace MetroidMod.Content.MissileAddons
 				gore18.velocity.Y = gore18.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
 			}
 		}
-
 		public override Color? GetAlpha(Color lightColor)
 		{
 			Projectile P = Projectile;
 			return new Color(255 - P.alpha, 255 - P.alpha, 255 - P.alpha, 255 - P.alpha);
 		}
-
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteBatch sb = Main.spriteBatch;
@@ -207,8 +202,8 @@ namespace MetroidMod.Content.MissileAddons
 			}
 			Color color25 = Lighting.GetColor((int)P.Center.X / 16, (int)P.Center.Y / 16);
 			Vector2 pos = P.Center + Vector2.UnitY * P.gfxOffY - Main.screenPosition;
-			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Assets/Textures/MissileAddons/NebulaMissile/Impact").Value;
-			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Assets/Textures/MissileAddons/NebulaMissile/Impact2").Value;
+			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MissileAddons/NebulaMissile/Impact").Value;
+			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MissileAddons/NebulaMissile/Impact2").Value;
 			Color alpha4 = P.GetAlpha(color25);
 			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
 
