@@ -50,7 +50,7 @@ namespace MetroidMod.Common.Systems
 
 		public static class MetroidGenVars
 		{
-			public static List<Vector2> metroidHiveLocations;
+			public static List<Point> metroidHiveLocations;
 		}
 
 		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
@@ -341,7 +341,7 @@ namespace MetroidMod.Common.Systems
 
 			int downed = tag.GetAsInt("downed");
 			bossesDown = (MetroidBossDown)downed;
-			MetroidGenVars.metroidHiveLocations = (List<Vector2>)tag.GetList<Vector2>("metroidHiveLocations");
+			MetroidGenVars.metroidHiveLocations = (List<Point>)tag.GetList<Point>("metroidHiveLocations");
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
 			IList<Vector2> positions = tag.GetList<Vector2>("BlockTypePositions");
 			IList<ushort> types = tag.GetList<ushort>("BlockTypes");
