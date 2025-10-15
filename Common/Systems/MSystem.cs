@@ -2430,9 +2430,9 @@ namespace MetroidMod.Common.Systems
         /// <param name="exit">If set to true, do a <see cref="MetroidDeepnestExit"/> instead of a <see cref="MetroidDeepnestEntrance"/>.</param>
 		internal static void MetroidHiveEntranceExitTile(int posX, int posY, bool exit = false)
 		{
-			for (int y = 0; y < 15; y++)
+			for (int y = 0; y < (exit ? 14 : 15); y++)
 			{
-				for (int x = 0; x < 13; x++)
+				for (int x = 0; x < (exit ? 11 : 13); x++)
 				{
 					Tile tile = Main.tile[posX + x, posY + y];
 					tile.HasTile = true;

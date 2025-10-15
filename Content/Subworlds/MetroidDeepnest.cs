@@ -31,6 +31,23 @@ namespace MetroidMod.Content.Subworlds
 			public static int thisIsATemplateName = 50;
 		}
 
+		public override void CopyMainWorldData()
+		{
+			SubworldSystem.CopyWorldData("!" + nameof(MSystem.MetroidGenVars.metroidHiveLocations), MSystem.MetroidGenVars.metroidHiveLocations);
+		}
+
+		public override void ReadCopiedMainWorldData()
+		{
+			MSystem.MetroidGenVars.metroidHiveLocations = SubworldSystem.ReadCopiedWorldData<List<Point>>("!" + nameof(MSystem.MetroidGenVars.metroidHiveLocations));
+
+			foreach (Point p in MSystem.MetroidGenVars.metroidHiveLocations)
+			{
+				MetroidMod.Instance.Logger.Info($"Received tile data: {p}");
+			}
+		}
+
+
+
 		public override void Update()
 		{
 			SubworldSystem.hideUnderworld = true;
@@ -57,6 +74,7 @@ namespace MetroidMod.Content.Subworlds
 		{
 			new ResetPass(),
 			new FillInPass(),
+			new CavesPass(),
 			new LabPass(),
 			new FinishPass()
 		};
@@ -119,6 +137,11 @@ namespace MetroidMod.Content.Subworlds
 				progress.Message = "Generating Caves";
 
 				// Replicate positioning of the caves from the overworld and build
+				foreach (Point pos in MSystem.MetroidGenVars.metroidHiveLocations)
+				{
+					// offset by 1 because the exit tile is slightly differently sized :(
+					MSystem.MetroidHiveEntranceExitTile(pos.X / 2 - 1, pos.Y + 1, true);
+				}
 			}
 		}
 
