@@ -48,6 +48,11 @@ namespace MetroidMod.Common.Systems
 	{
 		public static MetroidBossDown bossesDown;
 
+		public static class MetroidGenVars
+		{
+			public static List<Vector2> metroidHiveLocations;
+		}
+
 		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 
 		public static bool[,] hit = new bool[Main.maxTilesX, Main.maxTilesY];
@@ -132,6 +137,7 @@ namespace MetroidMod.Common.Systems
 				ModContent.ItemType<Content.Items.Tools.ChoziteDualtool>(),
 			};
 			bossesDown = MetroidBossDown.downedNone;
+			MetroidGenVars.metroidHiveLocations = [];
 			mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 			hit = new bool[Main.maxTilesX, Main.maxTilesY];
 			timers = new Queue<Tuple<int, Vector2>>();
@@ -311,6 +317,7 @@ namespace MetroidMod.Common.Systems
 				}
 			}
 			tag["downed"] = (int)bossesDown;
+			tag["metroidHiveLocations"] = MetroidGenVars.metroidHiveLocations;
 			tag["spawnedPhazonMeteor"] = spawnedPhazonMeteor;
 			tag["BlockTypePositions"] = positions;
 			tag["BlockTypes"] = types;
@@ -334,6 +341,7 @@ namespace MetroidMod.Common.Systems
 
 			int downed = tag.GetAsInt("downed");
 			bossesDown = (MetroidBossDown)downed;
+			MetroidGenVars.metroidHiveLocations = (List<Vector2>)tag.GetList<Vector2>("metroidHiveLocations");
 			spawnedPhazonMeteor = tag.Get<bool>("spawnedPhazonMeteor");
 			IList<Vector2> positions = tag.GetList<Vector2>("BlockTypePositions");
 			IList<ushort> types = tag.GetList<ushort>("BlockTypes");
@@ -524,6 +532,7 @@ namespace MetroidMod.Common.Systems
 		{
 			int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
 			int PotsIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Pots"));
+			int WaterPlantsIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Water Plants"));
 			if (ShiniesIndex != -1)
 			{
 				tasks.Insert(ShiniesIndex + 1, new PassLegacy("Chozite Ore", delegate (GenerationProgress progress, GameConfiguration configuration) {
@@ -569,7 +578,7 @@ namespace MetroidMod.Common.Systems
 					//Number of tanks is based on world size
 					//The equation is multiplying the total area to decide the amount
 					//90 on small, 207 on Medium, 362 on Large
-					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 18E-06); i++) 
+					for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 18E-06); i++)
 					{
 						float num2 = (float)((double)i / ((double)(Main.maxTilesX * Main.maxTilesY) * 15E-06));
 						bool flag = false;
@@ -596,6 +605,10 @@ namespace MetroidMod.Common.Systems
 				}));
 
 				tasks.Insert(PotsIndex - 1, new PassLegacy("Chozo Ruins", ChozoRuins));
+			}
+			if (WaterPlantsIndex != -1)
+			{
+				tasks.Insert(WaterPlantsIndex + 1, new PassLegacy("Metroid Hives", MetroidHivesTask));
 			}
 		}
 		public static int OrbItem()
@@ -2287,6 +2300,149 @@ namespace MetroidMod.Common.Systems
 				Chest.DestroyChestDirect(x, y, id);
 			}
 		}
+
+		/// <summary>
+		/// WorldGen task that places Metroid Hive entrances at random points underground, spread (almost) equally between the 
+		/// left and right halves of the world.
+		/// </summary>
+		private static void MetroidHivesTask(GenerationProgress progress, GameConfiguration configuration)
+		{
+			progress.Message = "Metroid Hive Entrances"; // Engineering bioweapons...
+
+			MetroidGenVars.metroidHiveLocations = [];
+
+			// stolen magic number from WorldGen (Floating Islands). should equate to
+			// 3 in small, 5 in medium, 6 in large.
+			int count = (int)((double)Main.maxTilesX * 0.0008);
+
+			for (int i = 0; i < count; i++)
+			{
+				progress.Set((float)i / count);
+
+				int side = (i + 1f) / count >= 0.5f ? 1 : -1;
+				int posX = 0;
+				int posY = 0;
+				bool done = false;
+				int width = 40 + WorldGen.genRand.Next(40);
+				int height = 25 + WorldGen.genRand.Next(20);
+				while (!done)
+				{
+					posX = WorldGen.genRand.Next(Main.maxTilesX / 3) + width + 25;
+					if (side == 1)
+					{
+						posX += (int)(Main.maxTilesX * 2f / 3f) - (width + 25);
+					}
+					posY = WorldGen.genRand.Next(Main.UnderworldLayer - (int)Main.rockLayer) + (int)Main.rockLayer;
+
+					bool able = true;
+					for (int x = -width / 2; x <= width / 2; x += 1)
+					{
+						for (int y = -height / 2; y <= height / 2; y += 1)
+						{
+							int type = Main.tile[posX + x, posY + y].TileType;
+							if (Main.tileDungeon[type] || type == ModContent.TileType<ChozoBrickNatural>() || type == TileID.SnowBlock || type == TileID.IceBlock)
+							{
+								able = false;
+								break;
+							}
+						}
+					}
+					if (able)
+					{
+						MetroidHiveEntranceBall(posX, posY, width, height, 5);
+						done = true;
+					}
+				}
+
+				MetroidGenVars.metroidHiveLocations.Add(new(posX, posY));
+			}
+		}
+
+		/// <summary>
+		/// Creates an ellipse and Hive Entrance centered on the given position
+		/// </summary>
+		/// <param name="posX"></param>
+		/// <param name="posY"></param>
+		/// <param name="sizeX"></param>
+		/// <param name="sizeY"></param>
+		/// <param name="thickness"></param>
+		internal static void MetroidHiveEntranceBall(int posX, int posY, int sizeX = 50, int sizeY = 50, int thickness = 1)
+		{
+			if (sizeX < 1 || sizeY < 1)
+			{
+				MetroidMod.Instance.Logger.Error($"Size is less than 1 (currently {sizeX}, {sizeY}) Don't do that!");
+				return;
+			}
+			if (thickness < 1)
+			{
+				MetroidMod.Instance.Logger.Error($"Thickness is less than 1 (currently {thickness}) Don't do that!");
+			}
+
+			int centerX = posX + 6;
+			int centerY = posY + 7;
+
+			for (int x = -sizeX / 2; x <= sizeX / 2; x += 1)
+			{
+				for (int y = -sizeY / 2; y <= sizeY / 2; y += 1)
+				{
+					// MATHS! Ellipse detection.
+
+					double outerCircle = Math.Pow(x, 2f) / Math.Pow((sizeX / 2f), 2f) + Math.Pow(y, 2f) / Math.Pow((sizeY / 2f), 2f);
+					double wallerCircle = Math.Pow(x, 2f) / Math.Pow((sizeX / 2f) - 1, 2f) + Math.Pow(y, 2f) / Math.Pow((sizeY / 2f) - 1, 2f);
+					double innerCircle = Math.Pow(x, 2f) / Math.Pow((sizeX / 2f) - thickness, 2f) + Math.Pow(y, 2f) / Math.Pow((sizeY / 2f) - thickness, 2f);
+
+					// Tile placement
+					if (innerCircle >= 1 && outerCircle <= 1)
+					{
+						WorldGen.KillTile(centerX + x, centerY + y, noItem: true);
+						WorldGen.PlaceTile(centerX + x, centerY + y, ModContent.TileType<MetroidHive>(), forced: true);
+					}
+					if (innerCircle < 1)
+					{
+						WorldGen.KillTile(centerX + x, centerY + y, noItem: true);
+					}
+
+					// Wall placement
+					if (wallerCircle <= 1)
+					{
+						Main.tile[centerX + x, centerY + y].WallType = (ushort)ModContent.WallType<MetroidHiveWall>();
+						WorldGen.EmptyLiquid(centerX + x, centerY + y);
+					}
+				}
+			}
+
+			for (int y = 15; y < 18; y++)
+			{
+				for (int x = 0; x < 13; x++)
+				{
+					WorldGen.PlaceTile(posX + x, posY + y, ModContent.TileType<MetroidHive>(), forced: true);
+				}
+			}
+
+			MetroidHiveEntranceExitTile(posX, posY);
+		}
+
+		/// <summary>
+        /// Place a Metroid Hive Entrance/Exit Tile on [<paramref name="posX"/>, <paramref name="posY"/>]
+        /// </summary>
+        /// <param name="posX">X Position, in world coordinates</param>
+        /// <param name="posY">Y Position, in world coordinates</param>
+        /// <param name="exit">If set to true, do a <see cref="MetroidDeepnestExit"/> instead of a <see cref="MetroidDeepnestEntrance"/>.</param>
+		internal static void MetroidHiveEntranceExitTile(int posX, int posY, bool exit = false)
+		{
+			for (int y = 0; y < 15; y++)
+			{
+				for (int x = 0; x < 13; x++)
+				{
+					Tile tile = Main.tile[posX + x, posY + y];
+					tile.HasTile = true;
+					tile.TileType = exit ? (ushort)ModContent.TileType<MetroidDeepnestExit>() : (ushort)ModContent.TileType<MetroidDeepnestEntrance>();
+					tile.TileFrameX = (short)(x * 18);
+					tile.TileFrameY = (short)(y * 18);
+				}
+			}
+		}
+		
 
 		int meteorSpawnAttempt = 0;
 		int spawnCounter = 0;
