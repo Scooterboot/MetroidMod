@@ -2332,7 +2332,7 @@ namespace MetroidMod.Common.Systems
 					{
 						posX += (int)(Main.maxTilesX * 2f / 3f) - (width + 25);
 					}
-					posY = WorldGen.genRand.Next(Main.UnderworldLayer - (int)Main.rockLayer) + (int)Main.rockLayer;
+					posY = WorldGen.genRand.Next(Main.UnderworldLayer - height - (int)Main.rockLayer) + (int)Main.rockLayer;
 
 					bool able = true;
 					for (int x = -width / 2; x <= width / 2; x += 1)
