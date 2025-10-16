@@ -20,6 +20,9 @@ namespace MetroidMod.Content.Subworlds
 
 		public override int Height => Main.maxTilesY;
 
+		public override WorldGenConfiguration Config => WorldGenConfiguration.FromEmbeddedPath("Terraria.GameContent.WorldBuilding.Configuration.json");
+
+
 		// set to false for a "temporary" generation
 		// temporarily set to false for worldgen-dev purposes, TODO set to true
 		public override bool ShouldSave => false;
@@ -74,9 +77,68 @@ namespace MetroidMod.Content.Subworlds
 		public override List<GenPass> Tasks => new()
 		{
 			new ResetPass(),
-			new FillInPass(),
+			WorldGen.VanillaGenPasses["Reset"],
+			new TerrainPass(),
+			WorldGen.VanillaGenPasses["Dunes"],
+			WorldGen.VanillaGenPasses["Sand Patches"],
+			WorldGen.VanillaGenPasses["Tunnels"],
+			WorldGen.VanillaGenPasses["Mount Caves"],
+			WorldGen.VanillaGenPasses["Dirt Wall Backgrounds"],
+			WorldGen.VanillaGenPasses["Rocks In Dirt"],
+			WorldGen.VanillaGenPasses["Dirt In Rocks"],
+			WorldGen.VanillaGenPasses["Clay"],
+			WorldGen.VanillaGenPasses["Small Holes"],
+			WorldGen.VanillaGenPasses["Dirt Layer Caves"],
+			WorldGen.VanillaGenPasses["Rock Layer Caves"],
+			WorldGen.VanillaGenPasses["Surface Caves"],
+			WorldGen.VanillaGenPasses["Wavy Caves"],
+			WorldGen.VanillaGenPasses["Grass"],
+			WorldGen.VanillaGenPasses["Dirt To Mud"],
+			WorldGen.VanillaGenPasses["Silt"],
+			WorldGen.VanillaGenPasses["Shinies"],
+			WorldGen.VanillaGenPasses["Webs"],
+			WorldGen.VanillaGenPasses["Underworld"],
+			WorldGen.VanillaGenPasses["Lakes"],
+			WorldGen.VanillaGenPasses["Mountain Caves"],
+			WorldGen.VanillaGenPasses["Gems"],
+			WorldGen.VanillaGenPasses["Gravitating Sand"],
+			WorldGen.VanillaGenPasses["Shimmer"],
+			WorldGen.VanillaGenPasses["Dirt Rock Wall Runner"],
+			WorldGen.VanillaGenPasses["Altars"],
+			WorldGen.VanillaGenPasses["Settle Liquids"],
+			WorldGen.VanillaGenPasses["Remove Water From Sand"],
+			WorldGen.VanillaGenPasses["Smooth World"],
+			WorldGen.VanillaGenPasses["Waterfalls"],
+			WorldGen.VanillaGenPasses["Wall Variety"],
+			WorldGen.VanillaGenPasses["Life Crystals"],
+			WorldGen.VanillaGenPasses["Statues"],
+			//WorldGen.VanillaGenPasses["Buried Chests"], // Breaks because we have no desert. TODO: Fix
+			WorldGen.VanillaGenPasses["Surface Chests"],
+			WorldGen.VanillaGenPasses["Gem Caves"],
+			WorldGen.VanillaGenPasses["Cave Walls"],
+			WorldGen.VanillaGenPasses["Quick Cleanup"],
+			WorldGen.VanillaGenPasses["Pots"],
+			WorldGen.VanillaGenPasses["Spreading Grass"],
+			WorldGen.VanillaGenPasses["Traps"],
+			WorldGen.VanillaGenPasses["Piles"],
+			WorldGen.VanillaGenPasses["Spawn Point"],
+			WorldGen.VanillaGenPasses["Grass Wall"],
+			WorldGen.VanillaGenPasses["Sunflowers"],
+			WorldGen.VanillaGenPasses["Planting Trees"],
+			WorldGen.VanillaGenPasses["Herbs"],
+			WorldGen.VanillaGenPasses["Dye Plants"],
+			WorldGen.VanillaGenPasses["Weeds"],
+			WorldGen.VanillaGenPasses["Vines"],
+			WorldGen.VanillaGenPasses["Flowers"],
+			WorldGen.VanillaGenPasses["Mushrooms"],
+			WorldGen.VanillaGenPasses["Random Gems"],
+			WorldGen.VanillaGenPasses["Settle Liquids Again"],
+			WorldGen.VanillaGenPasses["Tile Cleanup"],
+			WorldGen.VanillaGenPasses["Stalac"],
+			WorldGen.VanillaGenPasses["Remove Broken Traps"],
 			new CavesPass(),
 			new LabPass(),
+			WorldGen.VanillaGenPasses["Final Cleanup"],
 			new FinishPass()
 		};
 
@@ -88,44 +150,68 @@ namespace MetroidMod.Content.Subworlds
 			{
 				// do worldgen business here
 				WorldGen.generatingWorld = true;
-				Main.worldSurface = Main.maxTilesY / 7;
-				Main.rockLayer = Main.maxTilesY * 2 / 7;
-			}
-		}
+				GenVars.configuration = ModContent.GetInstance<MetroidDeepnest>().Config;
+				GenVars.structures = new StructureMap();
 
-		internal class FillInPass : GenPass
-		{
-			public FillInPass() : base("Metroid Deepnest: Fill-In Pass", 1) { }
+				// TODO: Some of this is unnecessary. Comb.
+				GenVars.desertHiveHigh = Main.maxTilesY;
+				GenVars.desertHiveLow = 0;
+				GenVars.desertHiveLeft = Main.maxTilesX;
+				GenVars.desertHiveRight = 0;
+				GenVars.worldSurfaceLow = 0.0;
+				GenVars.worldSurface = 0.0;
+				GenVars.worldSurfaceHigh = 0.0;
+				GenVars.rockLayerLow = 0.0;
+				GenVars.rockLayer = 0.0;
+				GenVars.rockLayerHigh = 0.0;
+				GenVars.copper = 7;
+				GenVars.iron = 6;
+				GenVars.silver = 9;
+				GenVars.gold = 8;
+				GenVars.dungeonSide = 0;
+				GenVars.jungleHut = (ushort)WorldGen.genRand.Next(5);
+				GenVars.shellStartXLeft = 0;
+				GenVars.shellStartYLeft = 0;
+				GenVars.shellStartXRight = 0;
+				GenVars.shellStartYRight = 0;
+				GenVars.PyrX = null;
+				GenVars.PyrY = null;
+				GenVars.numPyr = 0;
+				GenVars.jungleMinX = -1;
+				GenVars.jungleMaxX = -1;
+				GenVars.snowMinX = new int[Main.maxTilesY];
+				GenVars.snowMaxX = new int[Main.maxTilesY];
+				GenVars.snowTop = 0;
+				GenVars.snowBottom = 0;
+				GenVars.skyLakes = 1;
+				if (Main.maxTilesX > 8000)
+					GenVars.skyLakes++;
 
-			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
-			{
-				// do worldgen business here
-				progress.Message = "Generating terrain";
-				for (int x = 0; x < Main.maxTilesX; x++)
-				{
-					for (int y = Main.maxTilesY / 8; y < (int)Main.worldSurface; y++)
-					{
-						progress.Set((y + x * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY));
-						Tile tile = Main.tile[x, y];
-						tile.HasTile = true;
-						tile.TileType = TileID.Dirt;
-					}
-					for (int y = (int)Main.worldSurface; y < Main.rockLayer; y++)
-					{
-						progress.Set((y + x * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY));
-						Tile tile = Main.tile[x, y];
-						tile.HasTile = true;
-						tile.TileType = TileID.Stone;
-					}
-					for (int y = (int)Main.rockLayer; y < Main.maxTilesY; y++)
-					{
-						progress.Set((y + x * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY));
-						Tile tile = Main.tile[x, y];
-						tile.HasTile = true;
-						tile.TileType = (ushort)ModContent.TileType<Tiles.MetroidHive>();
-						tile.WallType = (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>();
-					}
-				}
+				if (Main.maxTilesX > 6000)
+					GenVars.skyLakes++;
+
+				GenVars.beachBordersWidth = 275;
+				GenVars.beachSandRandomCenter = GenVars.beachBordersWidth + 5 + 40;
+				GenVars.beachSandRandomWidthRange = 20;
+				GenVars.beachSandDungeonExtraWidth = 40;
+				GenVars.beachSandJungleExtraWidth = 20;
+				GenVars.oceanWaterStartRandomMin = 220;
+				GenVars.oceanWaterStartRandomMax = GenVars.oceanWaterStartRandomMin + 40;
+				GenVars.oceanWaterForcedJungleLength = 275;
+				GenVars.leftBeachEnd = 0;
+				GenVars.rightBeachStart = 0;
+				GenVars.evilBiomeBeachAvoidance = GenVars.beachSandRandomCenter + 60;
+				GenVars.evilBiomeAvoidanceMidFixer = 50;
+				GenVars.lakesBeachAvoidance = GenVars.beachSandRandomCenter + 20;
+				GenVars.smallHolesBeachAvoidance = GenVars.beachSandRandomCenter + 20;
+				GenVars.surfaceCavesBeachAvoidance = GenVars.beachSandRandomCenter + 20;
+				GenVars.surfaceCavesBeachAvoidance2 = GenVars.beachSandRandomCenter + 20;
+				GenVars.jungleOriginX = 0;
+				GenVars.snowOriginLeft = 0;
+				GenVars.snowOriginRight = 0;
+				GenVars.logX = -1;
+				GenVars.logY = -1;
+				GenVars.dungeonLocation = 0;
 			}
 		}
 		
