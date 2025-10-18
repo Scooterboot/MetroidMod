@@ -94,7 +94,8 @@ namespace MetroidMod.Content.BeamAddons
 					return;*/
 		}
 
-
+		int chInt = -1;
+		public Projectile chProj;
 		//"This is where the fun begins" -Anakin Skywalker
 		public override void HoldFireBehavior(Player player)
 		{
@@ -129,7 +130,6 @@ namespace MetroidMod.Content.BeamAddons
 			float currentMultiplier = 0f;
 
 
-
 			//here's the part where all the charging happens
 			if (player.controlUseItem && canCharge && (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge] != null))
 			{
@@ -149,6 +149,8 @@ namespace MetroidMod.Content.BeamAddons
 							chargio.ballColor2 = chargioColor2;
 							chargio.coreBrightness = chargioBrightness;
 							chargio.coreSaturation = chargioSaturation;
+							chInt = (int)chargio.Projectile.ai[0];
+							chProj = chargio.Projectile;
 							MetroidMod.Instance.Logger.Info(item);
 							//play charge noise
 							break;

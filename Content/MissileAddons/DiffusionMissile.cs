@@ -57,7 +57,7 @@ namespace MetroidMod.Content.MissileAddons
 				Main.dust[num72].noGravity = true;
 			}
 			P.Damage();
-
+			//TODO THIS IS OLDGE REPLACE
 			int difType = ModContent.ProjectileType<Diffuse>();
 			int num = 4;
 			if (P.Name.Contains("Ice"))

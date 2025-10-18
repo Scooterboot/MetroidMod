@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.Default;
 using MetroidMod.ID;
@@ -382,6 +383,17 @@ namespace MetroidMod
 		///<inheritdoc cref="ModProjectile.PostAI()"/>
 		public virtual void PostAI(MProjectile mProjectile) { }
 
+		///<inheritdoc cref="ModProjectile.CutTiles()"/>
+		public virtual bool ShouldUpdatePosition() {  return true; }
+
+		///<inheritdoc cref="ModProjectile.SendExtraAI(BinaryWriter)()"/>
+		public virtual void SendExtraAI(BinaryWriter writer) { }
+		///<inheritdoc cref="ModProjectile.ReceiveExtraAI(BinaryReader)()"/>
+		public virtual void ReceiveExtraAI(BinaryReader writer) { }
+
+		///<inheritdoc cref="ModProjectile.CutTiles()"/>
+		public virtual void CutTiles(MProjectile mProjectile) { }
+
 		///<inheritdoc cref="ModProjectile.TileCollideStyle(ref int, ref int, ref bool, ref Vector2)"/>
 		public virtual bool TileCollideStyle(MProjectile mProjectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) { return true; }
 		///<inheritdoc cref="ModProjectile.OnTileCollide(Vector2)"/>
@@ -395,6 +407,8 @@ namespace MetroidMod
 		///<inheritdoc cref="ModProjectile.OnKill(int)"/>
 		public virtual void OnKill(MProjectile mProjectile, int timeLeft) { }
 
+		///<inheritdoc cref="ModProjectile.Colliding(Rectangle, Rectangle)"/>
+		public virtual bool? Colliding(MProjectile projectile, Rectangle projHitbox, Rectangle targetHitbox) {  return null; }
 
 		///<inheritdoc cref="ModProjectile.PreDraw(ref Color)"/>
 		public virtual bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor) { return true; }

@@ -362,6 +362,7 @@ Mods: {
 			FusionOmegaAddonTile.MapEntry: Fusion Omega
 			ElevatorStationTile.MapEntry: Elevator
 			TopElevatorStationTile.MapEntry: Elevator
+			NovaLaserTile.MapEntry: Nova Laser Tile
 		}
 
 		Buffs: {
@@ -3730,6 +3731,11 @@ Mods: {
 
 			IceSuperAddon: {
 				DisplayName: Ice Super Addon
+				Tooltip: ""
+			}
+
+			NovaLaserAddon: {
+				DisplayName: Nova Laser Addon
 				Tooltip: ""
 			}
 		}
