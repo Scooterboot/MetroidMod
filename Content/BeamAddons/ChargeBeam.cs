@@ -3,7 +3,6 @@ using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.MissileAddons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -161,16 +160,31 @@ namespace MetroidMod.Content.BeamAddons
 							//play charge noise
 							break;
 						case 99f:
-							//Charging is done. Play charge complete sound effect.
-							SoundEngine.PlaySound(new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ChargeMax"));
+							//Charging is done. Play charge complete sound effect if applicable.
 							MetroidMod.Instance.Logger.Info(player.name + " is charging beam shot! 100%");
-							//If it's missiles and there's a held combo selected whip that sucker out now
+
+							//If there's a holdfire in the Charge Slot and we're in missile mode, don't play the charge max sound effect.
+							if (!ac.isBeam && !wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir
+								&& (MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge])).HoldFire)
+							{
+								break;
+							}
+
+							SoundEngine.PlaySound(new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ChargeMax"));
 							break;
 
 						case >= 100f:
-							//int proj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, MissileAddonLoader.GetAddon<NovaLaser>().ProjectileType, 0, 0, player.whoAmI);
-							wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, MissileAddonLoader.GetAddon<NovaLaser>().ProjectileType, item.damage, item.knockBack, true);
-							//Main.projectile[proj].ai[1] = chInt;
+							//AFAIK there's nothing the Power Beam would need to constantly do at max charge so
+							//Check if the cannon's anything but ready to fire a missile holdfire
+							if (ac.isBeam
+								|| wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir
+								|| !(MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge])).HoldFire)
+							{
+								break;
+							}
+
+							//Let the missile holdfire do its thing
+							MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chInt);
 							break;
 						default:
 							if ((mp.statCharge > 75) && ac.isBeam)

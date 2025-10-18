@@ -222,7 +222,7 @@ namespace MetroidMod
 		/// Lets you make the Arm Cannon do things while Fire is held down.
 		/// <br/>To be used with <see cref="HoldFire"/>.
 		/// </summary>
-		public virtual void HoldFireBehavior(Player player) { }
+		public virtual void HoldFireBehavior(Player player, int guideProj = -1) { }
 
 
 		//Compatibility-related variables
