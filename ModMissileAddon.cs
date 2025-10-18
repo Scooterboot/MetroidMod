@@ -16,7 +16,7 @@ namespace MetroidMod
 {
 	/// <summary>
 	/// The base type for all Missile Launcher addons.<br/><br/>
-	/// ModMissileAddons automatically generate a <see cref="Terraria.ModLoader.ModItem"/> and a <see cref="Terraria.ModLoader.ModTile"/> to access the addon in-game.<br/>
+	/// ModMissileAddons automatically generate a <see cref="Terraria.ModLoader.ModItem"/> and a <see cref="Terraria.ModLoader.ModTile"/> to access the addon in-game, as well as an <see cref="MProjectile"/> that will be fired.<br/>
 	/// Textures are grabbed automatically at this filepath:<br/>
 	/// <u>(name of mod)<b>/Assets/Textures/MissileAddons/</b>(name of addon file)<b>/</b>(Item for item sprite, Tile for tile sprite, Shot for shot sprite, etc.)</u><br/>
 	/// but can be overriden to point to any filepath. Sounds are also stored this way, just swap Textures for Sounds.<br/><br/>
