@@ -25,8 +25,6 @@ namespace MetroidMod.Content.MissileAddons
 		public override Color SecondaryColor => MetroidMod.novSecondaryColor;
 		public override int ShotDust => DustID.GreenTorch;
 
-		public override bool IgnoreProjectile => true;
-
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Charge;
@@ -54,12 +52,12 @@ namespace MetroidMod.Content.MissileAddons
 			Projectile P = mpshot.Projectile;
 			Player O = Main.player[P.owner];
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
-			if (O.HeldItem.GetGlobalItem<MGlobalItem>().statMissiles <= 0)
-			{
-				P.Kill();
-			}
+			//if (O.HeldItem.GetGlobalItem<MGlobalItem>().statMissiles <= 0)
+			//{
+			//	P.Kill();
+			//}
 			Lead = Main.projectile[(int)P.ai[0]];
-			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>() || !O.controlUseItem || O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam)
+			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>() || !O.controlUseItem || O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam || O.dead)
 			{
 				P.Kill();
 				return;
@@ -174,14 +172,14 @@ namespace MetroidMod.Content.MissileAddons
 
 		public override bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor)
 		{
-			SpriteBatch sb = Main.spriteBatch;
 			if (Lead != null && Lead.active)
 			{
+				SpriteBatch sb = Main.spriteBatch;
 				Projectile P = mProjectile.Projectile;
 				Player O = Main.player[P.owner];
 				Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-				Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
+				Texture2D tex  = ModContent.Request<Texture2D>(ShotTexture).Value;
 
 				int tHeight = tex.Height / Main.projFrames[P.type];
 

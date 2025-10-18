@@ -4135,6 +4135,7 @@ Mods: {
 			// NebulaDiffuse.DisplayName: Nebula Diffuse
 			// NebulaImpact.DisplayName: Nebula Impact
 			// StardustDiffuse.DisplayName: Stardust Diffuse
+			// NovaLaserProjectile.DisplayName: Nova Laser Projectile
 		}
 
 		Configs: {

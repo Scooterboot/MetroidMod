@@ -3,10 +3,12 @@ using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.MissileAddons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -14,6 +16,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -140,8 +143,10 @@ namespace MetroidMod.Content.BeamAddons
 					{
 						case 0.0f:
 							//spawn the chargelead
-							ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * ac.barrelOffset, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
-							MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
+							//ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * ac.barrelOffset, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
+							//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
+							int ch = Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
+							ChargeLead chargio = (ChargeLead)Main.projectile[ch].ModProjectile;
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;
 							chargio.sourceAddon = this;
@@ -149,8 +154,9 @@ namespace MetroidMod.Content.BeamAddons
 							chargio.ballColor2 = chargioColor2;
 							chargio.coreBrightness = chargioBrightness;
 							chargio.coreSaturation = chargioSaturation;
-							chInt = (int)chargio.Projectile.ai[0];
-							chProj = chargio.Projectile;
+							chInt = ch;
+							Main.projectile[ch].ai[1] = chInt;
+							//chProj = chargio.Projectile;
 							MetroidMod.Instance.Logger.Info(item);
 							//play charge noise
 							break;
@@ -159,6 +165,12 @@ namespace MetroidMod.Content.BeamAddons
 							SoundEngine.PlaySound(new SoundStyle($"{Mod.Name}/Assets/Sounds/ArmCannon/ChargeMax"));
 							MetroidMod.Instance.Logger.Info(player.name + " is charging beam shot! 100%");
 							//If it's missiles and there's a held combo selected whip that sucker out now
+							break;
+
+						case >= 100f:
+							//int proj = Projectile.NewProjectile(player.GetSource_ItemUse(Item), oPos.X, oPos.Y, velocity.X, velocity.Y, MissileAddonLoader.GetAddon<NovaLaser>().ProjectileType, 0, 0, player.whoAmI);
+							wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, MissileAddonLoader.GetAddon<NovaLaser>().ProjectileType, item.damage, item.knockBack, true);
+							//Main.projectile[proj].ai[1] = chInt;
 							break;
 						default:
 							if ((mp.statCharge > 75) && ac.isBeam)
