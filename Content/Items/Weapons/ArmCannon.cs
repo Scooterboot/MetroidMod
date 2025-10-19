@@ -9,6 +9,7 @@ using MetroidMod.ID;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -562,11 +563,16 @@ namespace MetroidMod.Content.Items.Weapons
 			if (!missileAddons[MissileAddonSlotID.Primary].IsAir)
 			{
 				missileShot = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ProjectileType;
+				missileSound = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotSound, MetroidMod.MissileShotFallbackSFX);
 			}
-			#endregion
+			else
+			{
+				missileSound = MetroidMod.MissileShotFallbackSFX;
+			}
+				#endregion
 
-			//TODO: Netsync thing here
-			Item.NetStateChanged();
+				//TODO: Netsync thing here
+				Item.NetStateChanged();
 
 			ac.barrelOffset = 20f;
 		}

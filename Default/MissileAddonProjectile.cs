@@ -3,6 +3,7 @@ using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -96,6 +97,7 @@ namespace MetroidMod.Default
 
 		public override void OnKill(int timeLeft)
 		{
+			SoundEngine.PlaySound(MissileAddonLoader.ShotSoundGrabber(modMissileAddon.ImpactSound, MetroidMod.MissileImpactFallbackSFX), this.corePosition);
 			modMissileAddon.OnKill(this, timeLeft);
 			if (Override != null) { Override.OnKill(this, timeLeft); }
 		}
