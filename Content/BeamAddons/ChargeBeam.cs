@@ -154,7 +154,7 @@ namespace MetroidMod.Content.BeamAddons
 							chargio.coreBrightness = chargioBrightness;
 							chargio.coreSaturation = chargioSaturation;
 							chInt = ch;
-							Main.projectile[ch].ai[1] = chInt;
+							Main.projectile[ch].ai[0] = chInt;
 							//chProj = chargio.Projectile;
 							MetroidMod.Instance.Logger.Info(item);
 							//play charge noise

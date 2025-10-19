@@ -13,6 +13,7 @@ using Terraria.Audio;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static MetroidMod.Sounds;
 
 namespace MetroidMod.Content.MissileAddons
 {
@@ -24,6 +25,7 @@ namespace MetroidMod.Content.MissileAddons
 
 		public override Color SecondaryColor => MetroidMod.novSecondaryColor;
 		public override int ShotDust => DustID.GreenTorch;
+		public override bool HoldFire => true;
 
 		public override void SetStaticDefaults()
 		{
@@ -37,16 +39,27 @@ namespace MetroidMod.Content.MissileAddons
 			get => mProjectile.Projectile.localAI[1];
 			set => mProjectile.Projectile.localAI[1] = value;
 		}
-		const float Max_Range = 2200f;
-		float maxRange = 0f;
+		private const float Max_Range = 2200f;
+		private float maxRange = 0f;
 
-		float scaleUp = 0f;
+		private float scaleUp = 0f;
 
 		private Projectile Lead;
 
 		private SoundEffectInstance soundInstance;
 
-		bool initialize = false;
+		private bool initialize = false;
+		public override void HoldFireBehavior(Player player, int guideProj = -1)
+		{
+			Lead = Main.projectile[guideProj];
+			Item item = player.HeldItem;
+			if (!initialize && Lead.active)
+			{
+				Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), Lead.position, Lead.velocity, ProjectileType, item.damage, item.knockBack, player.whoAmI);
+				initialize = true;
+			}
+
+		}
 		public override void AI(MProjectile mpshot)
 		{
 			Projectile P = mpshot.Projectile;
@@ -56,9 +69,9 @@ namespace MetroidMod.Content.MissileAddons
 			//{
 			//	P.Kill();
 			//}
-			Lead = Main.projectile[(int)P.ai[0]];
 			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>() || !O.controlUseItem || O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam || O.dead)
 			{
+				initialize = false;
 				P.Kill();
 				return;
 			}
@@ -129,8 +142,8 @@ namespace MetroidMod.Content.MissileAddons
 						P.frame = 0;
 					}
 				}
-				ChargeLead chLead = (ChargeLead)Lead.ModProjectile;
-				chLead.Projectile.scale = 0.75f * scaleUp;
+				//ChargeLead chLead = (ChargeLead)Lead.ModProjectile;
+				Lead.scale = 0.75f * scaleUp;
 			}
 			P.netUpdate = true;
 		}
@@ -172,14 +185,16 @@ namespace MetroidMod.Content.MissileAddons
 
 		public override bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor)
 		{
-			if (Lead != null && Lead.active)
+			if (initialize)
 			{
 				SpriteBatch sb = Main.spriteBatch;
 				Projectile P = mProjectile.Projectile;
 				Player O = Main.player[P.owner];
 				Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-				Texture2D tex  = ModContent.Request<Texture2D>(ShotTexture).Value;
+				//Texture2D tex  = ModContent.Request<Texture2D>(ShotTexture).Value;
+
+				Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 
 				int tHeight = tex.Height / Main.projFrames[P.type];
 
