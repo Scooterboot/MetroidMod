@@ -1369,7 +1369,7 @@ namespace MetroidMod.Common.Systems
 				}*/
 			}
 			//return (ushort)ModContent.TileType<ChozoStatueOrb>();
-		}*/
+		}
 		public static bool AddChozoStatue(int i, int j)
 		{
 			//Mod mod = MetroidMod.Instance;
