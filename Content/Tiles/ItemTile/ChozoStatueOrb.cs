@@ -149,7 +149,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				Main.tile[i, j].TileType = (ushort)MSystem.OORBItem3();//3
+				Main.tile[i, j].TileType = (ushort)MSystem.OrbItem();//3
 			}
 			else if (Main.netMode != NetmodeID.SinglePlayer)
 			{
