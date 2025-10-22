@@ -11,8 +11,30 @@ namespace MetroidMod.Content.Elevators
 	{
 		private readonly List<Player> _elevatingPlayersDrawBehindBlocks = [];
 
+		public override void PostDrawTiles()
+		{
+			// In the meantime since we can't call this in the proper place
+			// we call it here, TODO please remove this workaround
+			// and re-enable the code below once (/IF) MonoMod is fixed!
+
+			Main.spriteBatch.Begin();
+			ElevatorPlatformDrawing epd = ModContent.GetInstance<ElevatorPlatformDrawing>();
+			epd.DrawIdlePlatforms();
+			foreach(Player player in Main.ActivePlayers)
+			{
+				if (player.GetModPlayer<ElevatorPlayer>().InElevator)
+				{
+					epd.DrawPlayerPlatform(player);
+				}
+			}
+			Main.spriteBatch.End();
+		}
+
 		public override void Load()
 		{
+			// Fuck it we ball :D
+			return; // Maybe remove all this once they fix MonoMod?
+
 			//jopojelly said in a thread this SHOULD help prevent the cellref crash, but it doesn't 100% prevent it :(
 			//It seems more stable but the fact that it's inconsistent drives me insane
 			//Likely gonna have to wait until they fix MonoMod itself
