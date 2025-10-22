@@ -188,6 +188,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			// Item drawing.
 			if (Main.LocalPlayer.armor[0].IsAir) { return; }
 			PowerSuitHelmet helmet = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
+			if (helmet is null) return;
 
 			Color itemColor = helmet.SuitAddons[addonSlotType - 4].GetAlpha(Color.White);
 			Texture2D itemTexture = TextureAssets.Item[helmet.SuitAddons[addonSlotType - 4].type].Value;
