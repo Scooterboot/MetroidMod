@@ -234,7 +234,7 @@ namespace MetroidMod.Content.Subworlds
 				foreach (Point hivePoint in MSystem.MetroidGenVars.metroidHiveLocations)
 				{
 					centerPos.X /= 2;
-					MSystem.Line(centerPos, new(hivePoint.X / 2, hivePoint.Y), WorldGen.genRand.Next(15, 25), (ushort)ModContent.TileType<Tiles.MetroidHive>(), (ushort)ModContent.WallType<Walls.MetroidHiveWall>());
+					MSystem.Line(centerPos, new(hivePoint.X / 2, hivePoint.Y), WorldGen.genRand.Next(15, 25), (ushort)ModContent.TileType<Tiles.MetroidHive>(), (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>());
 				}
 
 				// TODO: Go up with a line after 
