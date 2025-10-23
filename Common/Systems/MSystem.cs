@@ -51,6 +51,7 @@ namespace MetroidMod.Common.Systems
 		public static class MetroidGenVars
 		{
 			public static List<Point> metroidHiveLocations;
+			public static Point labsPosition;
 		}
 
 		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
@@ -2442,7 +2443,61 @@ namespace MetroidMod.Common.Systems
 				}
 			}
 		}
-		
+
+		/// <summary>
+		/// Creates a line of a certain <paramref name="thickness"/> between point <paramref name="A"/> and point <paramref name="B"/> in the world.
+		/// </summary>
+		internal static void Line(Point A, Point B, double thickness, ushort TileType, ushort WallType)
+		{
+			// determine line
+			int distance = (int)Math.Sqrt(Math.Pow(B.X - A.X, 2) + Math.Pow(B.Y - A.Y, 2));
+			double angle = Math.Atan2((B.Y - A.Y), (B.X - A.X));
+			// iterate over line
+			for (int i = 0; i < distance; i++)
+			{
+				Point pos = new((int)(A.X + (i * Math.Cos(angle))), (int)(A.Y + (i * Math.Sin(angle))));
+				Ball(pos, thickness, TileType, WallType);
+			}
+		}
+
+		/// <summary>
+		/// Creates a ball of a given <paramref name="thickness"/> at <paramref name="pos"/> in the world.
+		/// </summary>
+		internal static void Ball(Point pos, double thickness, ushort TileType, ushort WallType)
+		{
+			for (int x = (int)(pos.X - thickness / 2.0); (double)x < pos.X + thickness / 2.0; x++)
+			{
+				for (int y = (int)(pos.Y - thickness / 2.0); (double)y < pos.Y + thickness / 2.0; y++)
+				{
+					double funnyX = Math.Abs((double)x - pos.X);
+					double funnyY = Math.Abs((double)y - pos.Y);
+					double distFromCenter = Math.Sqrt(funnyX * funnyX + funnyY * funnyY);
+					Tile tile = Main.tile[x, y];
+					if (distFromCenter < thickness * 0.2)
+					{
+						tile.HasTile = false;
+						tile.WallType = WallType;
+						if (tile.LiquidAmount > 0)
+						{
+							tile.LiquidAmount = 0;
+						}
+					}
+					else if (distFromCenter < thickness * 0.5 && tile.WallType != WallType)
+					{
+						tile.HasTile = true;
+						tile.TileType = TileType;
+						if (distFromCenter < thickness * 0.4)
+						{
+							tile.WallType = WallType;
+						}
+						if (tile.LiquidAmount > 0)
+						{
+							tile.LiquidAmount = 0;
+						}
+					}
+				}
+			}
+		}
 
 		int meteorSpawnAttempt = 0;
 		int spawnCounter = 0;

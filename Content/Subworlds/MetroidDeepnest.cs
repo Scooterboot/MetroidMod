@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
@@ -29,11 +30,6 @@ namespace MetroidMod.Content.Subworlds
 
 		// set to true to revert any changes to the player inventory and whatnot when exiting the subworld
 		public override bool NoPlayerSaving => false;
-
-		public static class CustomGenVars
-		{
-			public static int thisIsATemplateName = 50;
-		}
 
 		public override void CopyMainWorldData()
 		{
@@ -132,12 +128,17 @@ namespace MetroidMod.Content.Subworlds
 			WorldGen.VanillaGenPasses["Flowers"],
 			WorldGen.VanillaGenPasses["Mushrooms"],
 			WorldGen.VanillaGenPasses["Random Gems"],
-			WorldGen.VanillaGenPasses["Settle Liquids Again"],
 			WorldGen.VanillaGenPasses["Tile Cleanup"],
 			WorldGen.VanillaGenPasses["Stalac"],
 			WorldGen.VanillaGenPasses["Remove Broken Traps"],
-			new CavesPass(),
+
+			// This is the order because we don't want the
+			// passages to generate over the Lab
+			// nor over the Hives themselves -Armi
+			new HivePassagesPass(),
+			new HivesPass(),
 			new LabPass(),
+			WorldGen.VanillaGenPasses["Settle Liquids Again"],
 			WorldGen.VanillaGenPasses["Final Cleanup"],
 			new FinishPass()
 		};
@@ -215,13 +216,39 @@ namespace MetroidMod.Content.Subworlds
 			}
 		}
 		
-		internal class CavesPass : GenPass
+		internal class HivePassagesPass : GenPass
 		{
-			public CavesPass() : base("Metroid Deepnest: Caving", 1) { }
+			public HivePassagesPass() : base("Metroid Deepnest: Hiving 1", 1) { }
 
 			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
 			{
-				progress.Message = "Generating Caves";
+				progress.Message = "Generating Hive Tunnels";
+
+				// Should this step be moved into its own GenPass? maybe into ResetPass? god -Armi
+				// So first, we need to find the midpoint of all the hives.
+				Point centerPos = MSystem.MetroidGenVars.metroidHiveLocations.CenterOfPoints();
+				// Go up a little. We need a bit of room.
+				centerPos.Y -= 30;
+				MSystem.MetroidGenVars.labsPosition = centerPos;
+
+				foreach (Point hivePoint in MSystem.MetroidGenVars.metroidHiveLocations)
+				{
+					centerPos.X /= 2;
+					MSystem.Line(centerPos, new(hivePoint.X / 2, hivePoint.Y), WorldGen.genRand.Next(15, 25), (ushort)ModContent.TileType<Tiles.MetroidHive>(), (ushort)ModContent.WallType<Walls.MetroidHiveWall>());
+				}
+
+				// TODO: Go up with a line after 
+			}
+		}
+		
+		internal class HivesPass : GenPass
+		{
+			public HivesPass() : base("Metroid Deepnest: Hiving 2", 1) { }
+
+			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+			{
+				progress.Message = "Generating Hives";
+				// TODO: Shape the hives.
 
 				// Replicate positioning of the caves from the overworld and build
 				foreach (Point pos in MSystem.MetroidGenVars.metroidHiveLocations)

@@ -49,6 +49,25 @@ namespace MetroidMod
 			return reaches;
 		}
 
+		// Determines the center of a list of points.
+		public static Microsoft.Xna.Framework.Point CenterOfPoints(this System.Collections.Generic.List<Microsoft.Xna.Framework.Point> points)
+		{
+			int x = 0;
+			int y = 0;
+			int count = 0;
+
+			foreach (Microsoft.Xna.Framework.Point pos in points)
+			{
+				x += pos.X;
+				y += pos.Y;
+				count += 1;
+			}
+			
+			x /= count;
+			y /= count;
+			return new(x, y);
+		}
+
 		public static bool CalamityActive() => ModLoader.TryGetMod("CalamityMod", out _);
 		public static bool CalamityMod(out Mod calamityMod) => ModLoader.TryGetMod("CalamityMod", out calamityMod);
 		public static bool FargoSoulsActive() => ModLoader.TryGetMod("FargowiltasSouls", out _);
