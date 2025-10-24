@@ -74,7 +74,7 @@ namespace MetroidMod.Content.MissileAddons
 					MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
 				}
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
-				Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
+				Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 				Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
 				//Main.projectile[oof].ai[0] = guideProj;
 				//Lead = Main.projectile[(int)mProjectile.Projectile.ai[0]];
