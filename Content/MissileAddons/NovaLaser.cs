@@ -22,7 +22,7 @@ namespace MetroidMod.Content.MissileAddons
 		public override bool AddOnlyAddonItem => false;
 
 		public override Color PrimaryColor => MetroidMod.novColor;
-
+		public override int ShotFrames => 2;
 		public override Color SecondaryColor => MetroidMod.novSecondaryColor;
 		public override int ShotDust => DustID.GreenTorch;
 		public override bool HoldFire => true;
@@ -49,13 +49,23 @@ namespace MetroidMod.Content.MissileAddons
 		private SoundEffectInstance soundInstance;
 
 		private bool initialize = false;
-		public override void HoldFireBehavior(Player player, int guideProj = -1)
+		public override void HoldFireBehavior(Player player, int guideProj)
 		{
-			Lead = Main.projectile[guideProj];
 			Item item = player.HeldItem;
-			if (!initialize && Lead.active)
+			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+			if (!initialize)
 			{
-				Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), Lead.position, Lead.velocity, ProjectileType, item.damage, item.knockBack, player.whoAmI);
+				float MY = Main.mouseY + Main.screenPosition.Y;
+				float MX = Main.mouseX + Main.screenPosition.X;
+				if (player.gravDir == -1f)
+				{
+					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+				}
+				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
+				Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
+				int oof = Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
+				Main.projectile[oof].ai[0] = guideProj;
+				Lead = Main.projectile[(int)mProjectile.Projectile.ai[0]];
 				initialize = true;
 			}
 
@@ -142,8 +152,6 @@ namespace MetroidMod.Content.MissileAddons
 						P.frame = 0;
 					}
 				}
-				//ChargeLead chLead = (ChargeLead)Lead.ModProjectile;
-				Lead.scale = 0.75f * scaleUp;
 			}
 			P.netUpdate = true;
 		}
@@ -177,22 +185,17 @@ namespace MetroidMod.Content.MissileAddons
 
 		public override void OnKill(MProjectile mProjectile, int timeLeft)
 		{
-			if (soundInstance != null)
-			{
-				soundInstance.Stop(true);
-			}
+			soundInstance?.Stop(true);
 		}
 
 		public override bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor)
 		{
+			SpriteBatch sb = Main.spriteBatch;
 			if (initialize)
 			{
-				SpriteBatch sb = Main.spriteBatch;
 				Projectile P = mProjectile.Projectile;
 				Player O = Main.player[P.owner];
 				Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
-
-				//Texture2D tex  = ModContent.Request<Texture2D>(ShotTexture).Value;
 
 				Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 
@@ -219,9 +222,9 @@ namespace MetroidMod.Content.MissileAddons
 					if (height > 0)
 					{
 						sb.Draw(tex, pos - Main.screenPosition,
-						new Rectangle?(new Rectangle(0, tailHeight + 2 + tHeight * P.frame + bodyFrameCount * frame, tex.Width, height)),
+						new Rectangle?(new Rectangle(0, tailHeight + 2 + (tHeight * P.frame) + (bodyFrameCount * frame), tex.Width, height)),
 						P.GetAlpha(Color.White), P.rotation,
-						new Vector2(tex.Width / 2f, 0f),
+						new Vector2((float)tex.Width / 2f, 0f),
 						scale, SpriteEffects.None, 0f);
 					}
 				}
@@ -230,14 +233,14 @@ namespace MetroidMod.Content.MissileAddons
 				{
 					Vector2 pos2 = P.Center + P.velocity * P.ai[1];
 					sb.Draw(tex, pos2 - Main.screenPosition,
-					new Rectangle?(new Rectangle(0, tailHeight + 2 + bodyHeight * bodyFrameCount + 2 + tHeight * P.frame, tex.Width, headHeight)),
+					new Rectangle?(new Rectangle(0, tailHeight + 2 + (bodyHeight * bodyFrameCount) + 2 + (tHeight * P.frame), tex.Width, headHeight)),
 					P.GetAlpha(Color.White), P.rotation,
-					new Vector2(tex.Width / 2f, headHeight - 3),
+					new Vector2((float)tex.Width / 2f, headHeight - 3),
 					scale, SpriteEffects.None, 0f);
 				}
 			}
 
-			return false;
+			return false;// base.PreDrawProjectile(mProjectile, ref lightColor);
 		}
 		public override void SetItemDefaults(Item item)
 		{

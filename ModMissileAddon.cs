@@ -383,7 +383,7 @@ namespace MetroidMod
 		///<inheritdoc cref="ModProjectile.PostAI()"/>
 		public virtual void PostAI(MProjectile mProjectile) { }
 
-		///<inheritdoc cref="ModProjectile.CutTiles()"/>
+		///<inheritdoc cref="ModProjectile.ShouldUpdatePosition()"/>
 		public virtual bool ShouldUpdatePosition() {  return true; }
 
 		///<inheritdoc cref="ModProjectile.SendExtraAI(BinaryWriter)()"/>

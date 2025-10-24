@@ -96,7 +96,7 @@ namespace MetroidMod.Content.BeamAddons
 					return;*/
 		}
 
-		int chInt = -1;
+		private int chInt = -1;
 		public Projectile chProj;
 		//"This is where the fun begins" -Anakin Skywalker
 		public override void HoldFireBehavior(Player player)
@@ -178,7 +178,7 @@ namespace MetroidMod.Content.BeamAddons
 							//Check if the cannon's anything but ready to fire a missile holdfire
 							if (ac.isBeam
 								|| wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir
-								|| !(MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge])).HoldFire)
+								|| !MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFire)
 							{
 								break;
 							}
