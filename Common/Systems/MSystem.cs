@@ -2490,8 +2490,8 @@ namespace MetroidMod.Common.Systems
 					else if (distFromCenter < thickness * 0.5 && tile.WallType != WallType)
 					{
 						if (!takeShape)
-					{
-						tile.HasTile = true;
+						{
+							tile.HasTile = true;
 						}
 						tile.TileType = TileType;
 						if (distFromCenter < thickness * 0.4)
