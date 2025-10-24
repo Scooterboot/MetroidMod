@@ -23,9 +23,9 @@ namespace MetroidMod.Content.NPCs.Kraid
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
 		}
 
-		Vector2 swipeVec = Vector2.Zero;
-		Vector2[] swipeDestVec = new Vector2[9];
-		float swipeFrame = 0f;
+		private Vector2 swipeVec = Vector2.Zero;
+		private readonly Vector2[] swipeDestVec = new Vector2[9];
+		private float swipeFrame = 0f;
 
 		public override void SetDefaults()
 		{
@@ -70,13 +70,13 @@ namespace MetroidMod.Content.NPCs.Kraid
 			});*/
 		}
 
-		int bArmAnim = 1;
-		int num = 1;
-		float anim = 0;
-		Vector2 animVec = new Vector2(-14f, 8f);
+		private int bArmAnim = 1;
+		private int num = 1;
+		private float anim = 0;
+		private Vector2 animVec = new Vector2(-14f, 8f);
 
-		int state = 0;
-		int num2 = 100;
+		private int state = 0;
+		private int num2 = 100;
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];

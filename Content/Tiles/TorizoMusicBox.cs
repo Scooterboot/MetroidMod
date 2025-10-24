@@ -7,7 +7,7 @@ using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles
 {
-	class TorizoMusicBox : ModTile
+	internal class TorizoMusicBox : ModTile
 	{
 		public override void SetStaticDefaults()
 		{

@@ -65,7 +65,7 @@ namespace MetroidMod.Content.Projectiles
 			set => Projectile.ai[1] = value;
 		}
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/BeamAddons/PowerBeam/Shot";
-		Color color = MetroidMod.powColor; //todo: learn shaders        -Z
+		private Color color = MetroidMod.powColor; //todo: learn shaders        -Z
 		public override void SetDefaults()
 		{
 			Projectile.width = 8;
@@ -107,7 +107,7 @@ namespace MetroidMod.Content.Projectiles
 		{
 			return BeamAddonLoader.AddonPreAI(beamAddons, mProjectile);
 		}
-		int dustTimer = 5;
+		private int dustTimer = 5;
 		public override void AI() //TODO: make a whole-ass thing         -Z
 		{
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);

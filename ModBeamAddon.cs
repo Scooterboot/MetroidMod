@@ -323,7 +323,7 @@ namespace MetroidMod
 			base.Unload();
 		}
 
-		protected sealed override void Register()
+		protected override sealed void Register()
 		{
 			if (!AddOnlyAddonItem && BeamAddonLoader.AddonCount <= 127)
 			{

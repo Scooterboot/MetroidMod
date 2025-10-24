@@ -16,10 +16,10 @@ namespace MetroidMod.Content.Buffs
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}
-		ReLogic.Utilities.SlotId soundInstance;
-		bool soundPlayed = false;
-		int num = 0;
-		int num3 = 0;
+		private ReLogic.Utilities.SlotId soundInstance;
+		private bool soundPlayed = false;
+		private int num = 0;
+		private int num3 = 0;
 		public override void Update(Player player, ref int buffIndex)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();

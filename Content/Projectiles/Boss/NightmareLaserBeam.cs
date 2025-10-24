@@ -28,15 +28,15 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.scale = 1f;
 		}
 
-		int delay = 0;
-		int charge = 0;
-		const int chargeMax = 180;
-		int drawWidth = 6;
-		float rot = 0f;
-		int chargeFrame = 0;
+		private int delay = 0;
+		private int charge = 0;
+		private const int chargeMax = 180;
+		private int drawWidth = 6;
+		private float rot = 0f;
+		private int chargeFrame = 0;
 
-		float distance = 3000f;
-		Vector2 laserPos = Vector2.Zero;
+		private readonly float distance = 3000f;
+		private Vector2 laserPos = Vector2.Zero;
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)Projectile.ai[0]];

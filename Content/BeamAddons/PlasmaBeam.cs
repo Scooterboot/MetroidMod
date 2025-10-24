@@ -7,7 +7,7 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.BeamAddons
 {
-	class PlasmaBeam : ModBeamAddon
+	internal class PlasmaBeam : ModBeamAddon
 	{
 		public override bool AddOnlyAddonItem => false;
 
@@ -16,9 +16,9 @@ namespace MetroidMod.Content.BeamAddons
 		public override Color SecondaryColor => MetroidMod.plaGreenSecondaryColor;
 
 
-		float die = 100f;
-		float hot = 50f;
-		int pierce = 255;
+		private readonly float die = 100f;
+		private readonly float hot = 50f;
+		private readonly int pierce = 255;
 
 		public override void SetStaticDefaults()
 		{

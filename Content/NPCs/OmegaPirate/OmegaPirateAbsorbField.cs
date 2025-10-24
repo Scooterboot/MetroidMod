@@ -45,14 +45,14 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			});
 		}*/
 
-		NPC Base
+		private NPC Base
 		{
 			get { return Main.npc[(int)NPC.ai[0]]; }
 		}
 
-		int maxDamage = 200;
-		int soundCounter = 0;
-		bool soundPlayed = false;
+		private readonly int maxDamage = 200;
+		private int soundCounter = 0;
+		private bool soundPlayed = false;
 		public override void AI()
 		{
 			if (Base == null || !Base.active)

@@ -198,7 +198,7 @@ namespace MetroidMod.Common.Systems
 
 		private static int z = 0;
 		private bool coordcheck = false;
-		private List<Vector2> itemCoords = new();
+		private readonly List<Vector2> itemCoords = new();
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
 			Mod mod = Mod;
@@ -516,8 +516,8 @@ namespace MetroidMod.Common.Systems
 			ModContent.GetInstance<IdleTorizoMapLayer>().Visible = visible;
 			ModContent.GetInstance<IdleGoldenTorizoMapLayer>().Visible = visible;
 		}
-		float tRot = 0f;
-		float[] tScale = { 1f, 1f, 1f, 1f, 1f };
+		private float tRot = 0f;
+		private readonly float[] tScale = { 1f, 1f, 1f, 1f, 1f };
 		public void DrawSeekerTargets(SpriteBatch sb)
 		{
 			Mod mod = Mod;

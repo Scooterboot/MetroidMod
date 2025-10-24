@@ -6,10 +6,8 @@ using MetroidMod.Common.Systems;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using rail;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -569,10 +567,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				missileSound = MetroidMod.MissileShotFallbackSFX;
 			}
-				#endregion
+			#endregion
 
-				//TODO: Netsync thing here
-				Item.NetStateChanged();
+			//TODO: Netsync thing here
+			Item.NetStateChanged();
 
 			ac.barrelOffset = 20f;
 		}

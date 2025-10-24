@@ -28,7 +28,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Main.projFrames[Projectile.type] = 4;
 		}
 
-		bool stoptracking = false;
+		private bool stoptracking = false;
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;

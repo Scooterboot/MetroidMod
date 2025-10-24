@@ -41,7 +41,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			NPC.noGravity = true;
 		}
 
-		int damage = 120;//30;//60;
+		private int damage = 120;//30;//60;
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			damage *= 2;

@@ -20,8 +20,8 @@ namespace MetroidMod.Content.Projectiles.Paralyzer
 			Projectile.scale = 2f;
 		}
 
-		int dustType = 64;
-		Color color = MetroidMod.powColor;
+		private readonly int dustType = 64;
+		private Color color = MetroidMod.powColor;
 		public override void AI()
 		{
 			base.AI();

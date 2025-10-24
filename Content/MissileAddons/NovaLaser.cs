@@ -3,7 +3,6 @@ using System.IO;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.Projectiles;
-using MetroidMod.Default;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -13,7 +12,6 @@ using Terraria.Audio;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static MetroidMod.Sounds;
 
 namespace MetroidMod.Content.MissileAddons
 {
@@ -73,7 +71,7 @@ namespace MetroidMod.Content.MissileAddons
 				float MX = Main.mouseX + Main.screenPosition.X;
 				if (player.gravDir == -1f)
 				{
-					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+					MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
 				}
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 				Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
@@ -238,7 +236,7 @@ namespace MetroidMod.Content.MissileAddons
 						sb.Draw(tex, pos - Main.screenPosition,
 						new Rectangle?(new Rectangle(0, tailHeight + 2 + (tHeight * P.frame) + (bodyFrameCount * frame), tex.Width, height)),
 						P.GetAlpha(Color.White), P.rotation,
-						new Vector2((float)tex.Width / 2f, 0f),
+						new Vector2(tex.Width / 2f, 0f),
 						scale, SpriteEffects.None, 0f);
 					}
 				}
@@ -249,7 +247,7 @@ namespace MetroidMod.Content.MissileAddons
 					sb.Draw(tex, pos2 - Main.screenPosition,
 					new Rectangle?(new Rectangle(0, tailHeight + 2 + (bodyHeight * bodyFrameCount) + 2 + (tHeight * P.frame), tex.Width, headHeight)),
 					P.GetAlpha(Color.White), P.rotation,
-					new Vector2((float)tex.Width / 2f, headHeight - 3),
+					new Vector2(tex.Width / 2f, headHeight - 3),
 					scale, SpriteEffects.None, 0f);
 				}
 			}

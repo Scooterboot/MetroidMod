@@ -17,11 +17,13 @@ namespace MetroidMod.Common.Systems //There's probably a way to do all of this i
 		   So now this is here to pick the right textures and draw them. Most of this is from
 		   ExampleMod so. Yeah.*/
 		// This field is used to cache vanilla assets used in the CompareAssets helper method further down in this file
-		private Dictionary<string, Asset<Texture2D>> vanillaAssetCache = new();
+		private readonly Dictionary<string, Asset<Texture2D>> vanillaAssetCache = new();
 
 		// These fields are used to cache the result of ModContent.Request<Texture2D>()
-		private Asset<Texture2D> heartTexture, fancyPanelTexture, barsPanelTexture, barsCapTexture;
-
+		private Asset<Texture2D> heartTexture;
+		private Asset<Texture2D> fancyPanelTexture;
+		private Asset<Texture2D> barsPanelTexture;
+		private readonly Asset<Texture2D> barsCapTexture;
 		private bool MkV = false; //lets me hot-swap which textures the code goes for. Defaults to standard heart.
 
 		public override void PostDrawResource(ResourceOverlayDrawContext context)

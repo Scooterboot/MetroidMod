@@ -13,7 +13,7 @@ namespace MetroidMod.Content.Tiles
 {
 	public class MissileStation : ModTile
 	{
-		readonly float rightclickRange = 50.0f;
+		private readonly float rightclickRange = 50.0f;
 
 		public override void SetStaticDefaults()
 		{
@@ -70,7 +70,7 @@ namespace MetroidMod.Content.Tiles
 			new EntitySource_TileBreak(i, j); //Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Tiles.MissileStation>());
 		}
 
-		static Vector2 TileCenter(int x, int y)
+		private static Vector2 TileCenter(int x, int y)
 		{
 			Vector2 center = new Vector2(x * 16, y * 16);
 

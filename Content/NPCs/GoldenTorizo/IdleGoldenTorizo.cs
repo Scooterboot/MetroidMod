@@ -56,13 +56,13 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			return false;
 		}
 
-		Vector2 sAttackPos = new Vector2(32, -31);
-		int sAttackFrame = 0;
-		int sAttackFrameCounter = 0;
-		int sAttackNum = 1;
-		bool drawSAttack = true;
+		private Vector2 sAttackPos = new Vector2(32, -31);
+		private int sAttackFrame = 0;
+		private int sAttackFrameCounter = 0;
+		private int sAttackNum = 1;
+		private bool drawSAttack = true;
 
-		Vector2[] gorePos = {new Vector2(-11,-33),
+		private readonly Vector2[] gorePos = {new Vector2(-11,-33),
 		new Vector2(1,-13),new Vector2(-13,-1),new Vector2(18,8),
 		new Vector2(32,-8),new Vector2(-35,-23),new Vector2(-29,14),
 		new Vector2(-19,29),new Vector2(15,27),new Vector2(27,39)};

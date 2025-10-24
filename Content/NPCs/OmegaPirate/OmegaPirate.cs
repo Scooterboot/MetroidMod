@@ -164,16 +164,16 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 
 		//int damage = 70;
 
-		int _body,
+		private int _body,
 			_rArmArmor, _lArmArmor,
 			_rLegArmor, _lLegArmor,
 			_rCannon, _lCannon;
-		NPC Body => Main.npc[_body];
+		private NPC Body => Main.npc[_body];
 		//NPC RArmArmor => Main.npc[_rArmArmor];
 		//NPC LArmArmor => Main.npc[_lArmArmor];
 		//NPC RLegArmor => Main.npc[_rLegArmor];
 		//NPC LLegArmor => Main.npc[_lLegArmor];
-		NPC RArmArmor
+		private NPC RArmArmor
 		{
 			get {
 				if (Main.npc[_rArmArmor].type == ModContent.NPCType<OmegaPirate_WeakPoint>())
@@ -183,7 +183,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				return null;
 			}
 		}
-		NPC LArmArmor
+		private NPC LArmArmor
 		{
 			get {
 				if (Main.npc[_lArmArmor].type == ModContent.NPCType<OmegaPirate_WeakPoint>())
@@ -193,7 +193,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				return null;
 			}
 		}
-		NPC RLegArmor
+		private NPC RLegArmor
 		{
 			get {
 				if (Main.npc[_rLegArmor].type == ModContent.NPCType<OmegaPirate_WeakPoint>())
@@ -203,7 +203,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				return null;
 			}
 		}
-		NPC LLegArmor
+		private NPC LLegArmor
 		{
 			get {
 				if (Main.npc[_lLegArmor].type == ModContent.NPCType<OmegaPirate_WeakPoint>())
@@ -213,21 +213,21 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				return null;
 			}
 		}
-		NPC RCannon => Main.npc[_rCannon];
-		NPC LCannon => Main.npc[_lCannon];
+		private NPC RCannon => Main.npc[_rCannon];
+		private NPC LCannon => Main.npc[_lCannon];
 
-		int[] _rArm = new int[3],
+		private readonly int[] _rArm = new int[3],
 			_lArm = new int[3],
 			_rLeg = new int[3],
 			_lLeg = new int[3];
 
-		NPC GetArm(bool left, int i)
+		private NPC GetArm(bool left, int i)
 		{
 			if (left)
 				return Main.npc[_lArm[i]];
 			return Main.npc[_rArm[i]];
 		}
-		NPC GetLeg(bool left, int i)
+		private NPC GetLeg(bool left, int i)
 		{
 			if (left)
 				return Main.npc[_lLeg[i]];
@@ -258,8 +258,8 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			}
 		}
 
-		Vector2 BodyOffset;
-		Vector2[] BodyPos = new Vector2[2],
+		private Vector2 BodyOffset;
+		private readonly Vector2[] BodyPos = new Vector2[2],
 		RArmPos = new Vector2[5],
 		LArmPos = new Vector2[5],
 		RLegPos = new Vector2[6],
@@ -268,20 +268,20 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		LCannonPos = new Vector2[3],
 		HeadPos = new Vector2[2];
 
-		float BodyRot, PelvisRot;
-		float[] RArmRot = new float[2],
-		LArmRot = new float[2],
-		RLegRot = new float[3],
-		LLegRot = new float[3],
-		HeadRot = new float[2],
-		RCannonRot = new float[2],
-		LCannonRot = new float[2];
+		private float BodyRot;
+		private readonly float PelvisRot;
+		private float[] RArmRot = new float[2];
+		private float[] LArmRot = new float[2];
+		private float[] RLegRot = new float[3];
+		private float[] LLegRot = new float[3];
+		private readonly float[] HeadRot = new float[2];
+		private readonly float[] RCannonRot = new float[2];
+		private readonly float[] LCannonRot = new float[2];
+		private float PelvisOffset;
+		private Vector2 RArmOffset, LArmOffset;
 
-		float PelvisOffset;
-		Vector2 RArmOffset, LArmOffset;
-
-		float BodyOffsetRot;
-		float[] RArmOffsetRot = new float[5],
+		private float BodyOffsetRot;
+		private readonly float[] RArmOffsetRot = new float[5],
 		LArmOffsetRot = new float[5],
 		RLegOffsetRot = new float[6],
 		LLegOffsetRot = new float[6],
@@ -289,8 +289,8 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		LCannonOffsetRot = new float[3],
 		HeadOffsetRot = new float[2];
 
-		float BodyDist;
-		float[] RArmDist = new float[5],
+		private float BodyDist;
+		private readonly float[] RArmDist = new float[5],
 		LArmDist = new float[5],
 		RLegDist = new float[6],
 		LLegDist = new float[6],
@@ -298,7 +298,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		LCannonDist = new float[3],
 		HeadDist = new float[2];
 
-		static Vector2[] DefaultBodyPos = { new Vector2(-5, 73), new Vector2(11, -61) },
+		private static readonly Vector2[] DefaultBodyPos = { new Vector2(-5, 73), new Vector2(11, -61) },
 		DefaultRightArmPos = { new Vector2(-26, -74), new Vector2(-16, 26), new Vector2(-3, -5), new Vector2(-3, 13), new Vector2(28, 58) },
 		DefaultLeftArmPos = { new Vector2(36, -74), new Vector2(-16, 26), new Vector2(-3, -5), new Vector2(-3, 13), new Vector2(28, 58) },
 		DefaultRightLegPos = { new Vector2(-16, 2), new Vector2(10, 30), new Vector2(-8, 40), new Vector2(4, 18), new Vector2(-1, 19), new Vector2(2, 8) },
@@ -307,7 +307,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		DefaultLeftCannonPos = { new Vector2(24, -100), new Vector2(2, -20), new Vector2(10, 0) },
 		DefaultHeadPos = { new Vector2(28, -86), new Vector2(-14, 4) };
 
-		Vector2[] CurrentBodyPos = new Vector2[2],
+		private readonly Vector2[] CurrentBodyPos = new Vector2[2],
 		CurrentRightArmPos = new Vector2[5],
 		CurrentLeftArmPos = new Vector2[5],
 		CurrentRightLegPos = new Vector2[6],
@@ -316,9 +316,9 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		CurrentLeftCannonPos = new Vector2[3],
 		CurrentHeadPos = new Vector2[2];
 
-		Vector2 fullScale = new Vector2(1f, 1f);
+		private Vector2 fullScale = new Vector2(1f, 1f);
 
-		void SetPositions()
+		private void SetPositions()
 		{
 			for (int i = 0; i < 6; i++)
 			{
@@ -447,10 +447,10 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			HeadPos[1] = HeadPos[0] + (Angle.AngleFlip(HeadOffsetRot[1] + HeadRot[0], NPC.direction).ToRotationVector2() * HeadDist[1] * fullScale);
 		}
 
-		Vector2 cannonTargetPos;
-		float cannonTargetTransition = 0f;
+		private Vector2 cannonTargetPos;
+		private float cannonTargetTransition = 0f;
 
-		bool initialized = false;
+		private bool initialized = false;
 		public override bool PreAI()
 		{
 			NPC.noTileCollide = true;
@@ -498,283 +498,283 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		}
 
 		//Spawn animation
-		float[] HeadAnim_Spawn = { 0, -20, 0 };
-		float head_SpawnTransition = 0f;
-		float[] BodyAnim_Spawn = { 0, -10, -5 };
+		private readonly float[] HeadAnim_Spawn = { 0, -20, 0 };
+		private float head_SpawnTransition = 0f;
+		private readonly float[] BodyAnim_Spawn = { 0, -10, -5 };
 
-		float[][] RArmAnim_Spawn = new float[][]{
+		private readonly float[][] RArmAnim_Spawn = new float[][]{
 		new float[] {15,10,20},
 		new float[] {-5,10,20}};
 
-		float[][] LArmAnim_Spawn = new float[][]{
+		private readonly float[][] LArmAnim_Spawn = new float[][]{
 		new float[] {10, -10,-20},
 		new float[] {-10,-10,-20}};
 
-		float[][] RLegAnim_Spawn = new float[][]{
+		private readonly float[][] RLegAnim_Spawn = new float[][]{
 		new float[] {0,-10,-20},
 		new float[] {0,-90,-24},
 		new float[] {0,-70, 15}};
 
-		float[][] LLegAnim_Spawn = new float[][]{
+		private readonly float[][] LLegAnim_Spawn = new float[][]{
 		new float[] {0, 95,20},
 		new float[] {0,-15, 0},
 		new float[] {0, 15,15}};
 
-		float[] BodyOffset_Spawn = { 0, 50, 5 };
-		float anim_Spawn = 1f;
+		private readonly float[] BodyOffset_Spawn = { 0, 50, 5 };
+		private float anim_Spawn = 1f;
 
 		//Walk animation
-		float[] BodyAnim_Walk = { -5, -2f, 0, -2f, -5, -2f, 0, -2f, -5 };
-		float[] RArmAnim_Walk = { 20, 12, 0, -12, -20, -12, 0, 12, 20 };
-		float[] LArmAnim_Walk = { -20, -12, 0, 12, 20, 12, 0, -12, -20 };
-		float[] LShAnim_Walk_Absorb = { 30, 35, 40, 45, 50, 45, 40, 35, 30 };
-		float LArmAnim_Walk_Absorb = 40;
-		float anim_Walk_AbsorbTransition = 0f;
+		private readonly float[] BodyAnim_Walk = { -5, -2f, 0, -2f, -5, -2f, 0, -2f, -5 };
+		private readonly float[] RArmAnim_Walk = { 20, 12, 0, -12, -20, -12, 0, 12, 20 };
+		private readonly float[] LArmAnim_Walk = { -20, -12, 0, 12, 20, 12, 0, -12, -20 };
+		private readonly float[] LShAnim_Walk_Absorb = { 30, 35, 40, 45, 50, 45, 40, 35, 30 };
+		private readonly float LArmAnim_Walk_Absorb = 40;
+		private float anim_Walk_AbsorbTransition = 0f;
 
-		float[][] RLegAnim_Walk = new float[][]{
+		private readonly float[][] RLegAnim_Walk = new float[][]{
 		new float[] {-20, 20, 50,40,  20,0,-20,-20,  -20},
 		new float[] {-24,-40,-20,10,  0, 0, 0, -12,  -24},
 		new float[] { 15,-5,  5, 30,  15,15,15, 15,   15f}};
 
-		float[][] LLegAnim_Walk = new float[][]{
+		private readonly float[][] LLegAnim_Walk = new float[][]{
 		new float[] {20,0,-20,-20,  -20, 20, 50,40,  20},
 		new float[] {0, 0, 0, -12,  -24,-40,-20,10,  0},
 		new float[] {15,15,15, 15,   15,-5,  5, 30,  15}};
 
-		float[] legAnim_Walk_Speed = { 15, 16, 8, 7, 15, 16, 8, 7 };
-		float anim_Walk = 1f;
+		private readonly float[] legAnim_Walk_Speed = { 15, 16, 8, 7, 15, 16, 8, 7 };
+		private float anim_Walk = 1f;
 
 		//Jump animation
-		float[] BodyAnim_Jump = { -6, 0f, -5f, -15f };
+		private readonly float[] BodyAnim_Jump = { -6, 0f, -5f, -15f };
 
-		float[][] RArmAnim_Jump = new float[][]{
+		private readonly float[][] RArmAnim_Jump = new float[][]{
 		new float[] {30f,-20f,10f,15f},
 		new float[] {40f,-25f,15f,25f}};
 
-		float[][] LArmAnim_Jump = new float[][]{
+		private readonly float[][] LArmAnim_Jump = new float[][]{
 		new float[] {-20f,60f,10f,-10f},
 		new float[] {-10f,85f,15f,-10f}};
 
-		float[][] LArmAnim_Jump_Absorb = new float[][]{
+		private readonly float[][] LArmAnim_Jump_Absorb = new float[][]{
 		new float[] {20f,50f,20f,10f},
 		new float[] {40f,40f,40f,40f}};
 
-		float[][] RLegAnim_Jump = new float[][]{
+		private readonly float[][] RLegAnim_Jump = new float[][]{
 		new float[] {  0f, 45f,-15f,  0f},
 		new float[] {-50f,-20f, -5f,-65f},
 		new float[] { 15f,-20f, -5f,  0f}};
 
-		float[][] LLegAnim_Jump = new float[][]{
+		private readonly float[][] LLegAnim_Jump = new float[][]{
 		new float[] { 50f,-20f,10f, 60f},
 		new float[] {-10f,-10f, 0f,-24f},
 		new float[] { 15f,-10f, 0f, 15f}};
 
-		float anim_Jump = 1f;
-		float anim_JumpTransition = 0f;
+		private float anim_Jump = 1f;
+		private float anim_JumpTransition = 0f;
 
 		//Shockwave attack animation
-		float[] BodyAnim_Shockwave = { -2.5f, -1f, 0f, -30, -60 };
-		float[] HeadAnim_Shockwave = { 0, 0, 0, -30, -60 };
+		private readonly float[] BodyAnim_Shockwave = { -2.5f, -1f, 0f, -30, -60 };
+		private readonly float[] HeadAnim_Shockwave = { 0, 0, 0, -30, -60 };
 
-		float[][] RArmAnim_Shockwave = new float[][]{
+		private readonly float[][] RArmAnim_Shockwave = new float[][]{
 		new float[] {50f,145f,155f,87.5f,20f},
 		new float[] {50f,125f,135f,70.5f,0f}};
 
-		float[][] LArmAnim_Shockwave = new float[][]{
+		private readonly float[][] LArmAnim_Shockwave = new float[][]{
 		new float[] {50f,145f,155f,77.5f, 0f},
 		new float[] {50f,145f,175f, 105f,35f}};
 
-		float[][] RLegAnim_Shockwave = new float[][]{
+		private readonly float[][] RLegAnim_Shockwave = new float[][]{
 		new float[] {-20f,-20f,-20f,  -10f,  0f},
 		new float[] {-22f,-18f,-18f,-41.5f,-65f},
 		new float[] { 15f, 15f, 15f,  7.5f,  0f}};
 
-		float[][] LLegAnim_Shockwave = new float[][]{
+		private readonly float[][] LLegAnim_Shockwave = new float[][]{
 		new float[] {15f,12f,12f,33.5f, 55f},
 		new float[] { 0f, 0f, 0f, -15f,-30f},
 		new float[] {15f,15f,15f,  15f, 15f}};
 
-		float anim_Shockwave = 1f;
-		float anim_ShockwaveTransition = 0f;
-		float anim_ShockwaveTransition_Head = 0f;
+		private float anim_Shockwave = 1f;
+		private float anim_ShockwaveTransition = 0f;
+		private float anim_ShockwaveTransition_Head = 0f;
 
 		//Giant leap attack animation
-		float[] BodyAnim_Leap = { -10f, -3.5f, -1f, 0f, -60f };
-		float[] HeadAnim_Leap = { 0f, 0f, 0f, 0f, -60f };
+		private readonly float[] BodyAnim_Leap = { -10f, -3.5f, -1f, 0f, -60f };
+		private readonly float[] HeadAnim_Leap = { 0f, 0f, 0f, 0f, -60f };
 
-		float[][] RArmAnim_Leap = new float[][]{
+		private readonly float[][] RArmAnim_Leap = new float[][]{
 		new float[] {30f,50f,145f,155f,20f},
 		new float[] {40f,50f,125f,135f,0f}};
 
-		float[][] LArmAnim_Leap = new float[][]{
+		private readonly float[][] LArmAnim_Leap = new float[][]{
 		new float[] {-30f,50f,145f,155f,0f},
 		new float[] {-20f,50f,145f,175f,35f}};
 
-		float[][] RLegAnim_Leap = new float[][]{
+		private readonly float[][] RLegAnim_Leap = new float[][]{
 		new float[] {  0f, 45f, 45f,-15f,  0f},
 		new float[] {-65f,-20f,-20f, -5f,-65f},
 		new float[] {  0f,-20f,-20f, -5f,  0f}};
 
-		float[][] LLegAnim_Leap = new float[][]{
+		private readonly float[][] LLegAnim_Leap = new float[][]{
 		new float[] { 62f,-20f,-20f,10f, 55f},
 		new float[] {-20f,-10f,-10f, 0f,-30f},
 		new float[] { 15f,-10f,-10f, 0f, 15f}};
 
-		float anim_Leap = 1f;
-		float anim_LeapTransition = 0f;
-		float anim_LeapTransition_Head = 0f;
+		private float anim_Leap = 1f;
+		private float anim_LeapTransition = 0f;
+		private float anim_LeapTransition_Head = 0f;
 
 		//Claw attack animation
-		float[][] ArmAnim_Claw = new float[][]{
+		private readonly float[][] ArmAnim_Claw = new float[][]{
 		new float[] {  0,  0,60, 80},
 		new float[] {-10,-20,60,100}};
 
-		float anim_Claw = 1f;
-		float anim_ClawTransition = 0f;
+		private float anim_Claw = 1f;
+		private float anim_ClawTransition = 0f;
 
 		//Cannon attack animation
-		float[] BodyAnim_CannonFire = { 0f, 5f };
+		private readonly float[] BodyAnim_CannonFire = { 0f, 5f };
 
-		float[][] RArmAnim_CannonFire = new float[][]{
+		private readonly float[][] RArmAnim_CannonFire = new float[][]{
 		new float[] {0f,8f},
 		new float[] {10f,15f}};
 
-		float[][] LArmAnim_CannonFire = new float[][]{
+		private readonly float[][] LArmAnim_CannonFire = new float[][]{
 		new float[] {-10f,-2f},
 		new float[] {10f,15f}};
 
-		float[][] RLegAnim_CannonFire = new float[][]{
+		private readonly float[][] RLegAnim_CannonFire = new float[][]{
 		new float[] {-20f,-20f},
 		new float[] {-24f,-24f},
 		new float[] {15f,15f}};
 
-		float[][] LLegAnim_CannonFire = new float[][]{
+		private readonly float[][] LLegAnim_CannonFire = new float[][]{
 		new float[] {20f,20f},
 		new float[] {0f,0f},
 		new float[] {15f,15f}};
 
-		float[] RCannonAnim_CannonFire = { 0f, 30f };
-		float[] LCannonAnim_CannonFire = { 0f, 30f };
+		private readonly float[] RCannonAnim_CannonFire = { 0f, 30f };
+		private readonly float[] LCannonAnim_CannonFire = { 0f, 30f };
 
-		float anim_CannonFire = 1f;
-		float anim_CannonFireTransition = 0f;
+		private float anim_CannonFire = 1f;
+		private float anim_CannonFireTransition = 0f;
 
-		float bodyCannonTargetRot = 0f;
-		float rightCannonTRot = 0f;
-		float leftCannonTRot = 0f;
+		private float bodyCannonTargetRot = 0f;
+		private float rightCannonTRot = 0f;
+		private float leftCannonTRot = 0f;
 
-		bool rCannonRecoil = false;
-		float rCannonRecoilAnim = 0f;
-		bool lCannonRecoil = false;
-		float lCannonRecoilAnim = 0f;
+		private bool rCannonRecoil = false;
+		private float rCannonRecoilAnim = 0f;
+		private bool lCannonRecoil = false;
+		private float lCannonRecoilAnim = 0f;
 
-		bool laserAnim = false;
-		float rLaserAngle = 0f;
-		float lLaserAngle = 0f;
-		float laserAlpha = 0f;
-		float laserFrame = 0f;
+		private bool laserAnim = false;
+		private float rLaserAngle = 0f;
+		private float lLaserAngle = 0f;
+		private float laserAlpha = 0f;
+		private float laserFrame = 0f;
 
-		bool armGlowAnim = false;
-		float armGlowAlpha = 0f;
+		private bool armGlowAnim = false;
+		private float armGlowAlpha = 0f;
 
-		float bodyAlpha = 1f;
-		float fullAlpha = 0f;
+		private float bodyAlpha = 1f;
+		private float fullAlpha = 0f;
 
 
 		//Phazon regen phase start animation
-		float[] BodyAnim_PhazonStart = { 10f, -10f, -5f, -15f, -5f, 0f };
-		float[] HeadAnim_PhazonStart = { 10f, -20f, 10f, -10f, 0f, 0f };
+		private readonly float[] BodyAnim_PhazonStart = { 10f, -10f, -5f, -15f, -5f, 0f };
+		private readonly float[] HeadAnim_PhazonStart = { 10f, -20f, 10f, -10f, 0f, 0f };
 
-		float[][] RArmAnim_PhazonStart = new float[][]{
+		private readonly float[][] RArmAnim_PhazonStart = new float[][]{
 		new float[] {-10f,10f,-10f, 10f,40f,0f},
 		new float[] {-10f,10f,-20f,-10f,50f,0f}};
 
-		float[][] LArmAnim_PhazonStart = new float[][]{
+		private readonly float[][] LArmAnim_PhazonStart = new float[][]{
 		new float[] {0f,-10f,60f,20f,70, 0f},
 		new float[] {0f,-10f,80f, 0f,60f,0f}};
 
-		float[][] RLegAnim_PhazonStart = new float[][]{
+		private readonly float[][] RLegAnim_PhazonStart = new float[][]{
 		new float[] {-15f,-20f,-15f,-10f,-10f,-20f},
 		new float[] {-23f,-90f,-90f,-90f,-33f,-24f},
 		new float[] { 15f,-60f,-70f,-70f, 15f,15f}};
 
-		float[][] LLegAnim_PhazonStart = new float[][]{
+		private readonly float[][] LLegAnim_PhazonStart = new float[][]{
 		new float[] {15f, 95f, 95f, 95f,30f,20f},
 		new float[] {30f,-12f,-18f,-25f,-5f, 0f},
 		new float[] {15f, 15f, 15f, 15f,15f,15f}};
 
-		float anim_PhazonStart = 1f;
-		float anim_PhazonStartTransition = 0f;
+		private float anim_PhazonStart = 1f;
+		private float anim_PhazonStartTransition = 0f;
 
 		//Phazon armor regeneration animation
-		float[] BodyAnim_PhazonRegen = { 0f, 5f, 4f, 7f, -10f, 0f };
+		private readonly float[] BodyAnim_PhazonRegen = { 0f, 5f, 4f, 7f, -10f, 0f };
 
-		float[][] RArmAnim_PhazonRegen = new float[][]{
+		private readonly float[][] RArmAnim_PhazonRegen = new float[][]{
 		new float[] {0f,170f,175f, 70f,60f,0f},
 		new float[] {0f,160f,170f,100f,90f,0f}};
 
-		float[][] LArmAnim_PhazonRegen = new float[][]{
+		private readonly float[][] LArmAnim_PhazonRegen = new float[][]{
 		new float[] {0f,120f,125f, 70f, 60f,0f},
 		new float[] {0f,130f,125f,160f,150f,0f}};
 
-		float[][] RLegAnim_PhazonRegen = new float[][]{
+		private readonly float[][] RLegAnim_PhazonRegen = new float[][]{
 		new float[] {-20f,-20f,-20f,-15f,-20f,-20f},
 		new float[] {-24f,-24f,-24f,-23f,-90f,-24f},
 		new float[] { 15f, 15f, 15f, 15f,-60f, 15f}};
 
-		float[][] LLegAnim_PhazonRegen = new float[][]{
+		private readonly float[][] LLegAnim_PhazonRegen = new float[][]{
 		new float[] {20f,20f,20f,15f, 95f,20f},
 		new float[] { 0f, 0f, 0f,30f,-12f, 0f},
 		new float[] {15f,15f,15f,15f, 15f,15f}};
 
-		float anim_PhazonRegen = 1f;
-		float anim_PhazonRegenTransition = 0f;
+		private float anim_PhazonRegen = 1f;
+		private float anim_PhazonRegenTransition = 0f;
 
 		//Death animation
-		float[] BodyAnim_Death = { 5f, 15f, -5f, -2.5f, -10f, -60f };
-		float[] HeadAnim_Death = { 5f, 5f, -15f, -12.5f, -20f, -70f };
+		private readonly float[] BodyAnim_Death = { 5f, 15f, -5f, -2.5f, -10f, -60f };
+		private readonly float[] HeadAnim_Death = { 5f, 5f, -15f, -12.5f, -20f, -70f };
 
-		float[][] RArmAnim_Death = new float[][]{
+		private readonly float[][] RArmAnim_Death = new float[][]{
 		new float[] {170f,155f,  5f,  5f, 10f,40f},
 		new float[] {160f,145f,-15f,-15f,-10f,30f}};
 
-		float[][] LArmAnim_Death = new float[][]{
+		private readonly float[][] LArmAnim_Death = new float[][]{
 		new float[] {120f,105f,  5f,  5f, 10f,80f},
 		new float[] {130f,115f,-15f,-15f,-10f,60f}};
 
-		float[][] RLegAnim_Death = new float[][]{
+		private readonly float[][] RLegAnim_Death = new float[][]{
 		new float[] {-20f,-20f,-20f,-30f,-55f, -90f},
 		new float[] {-24f,-24f,-24f,-26f,-55f, -90f},
 		new float[] { 15f, 15f, 15f, 15f,-65f,-100f}};
 
-		float[][] LLegAnim_Death = new float[][]{
+		private readonly float[][] LLegAnim_Death = new float[][]{
 		new float[] {20f,20f,20f, -7.5f,-35f, -90f},
 		new float[] { 0f, 0f, 0f,-27.5f,-55f, -90f},
 		new float[] {15f,15f,15f,   15f,-65f,-100f}};
 
-		float anim_Death = 1f;
-		float anim_DeathTransition = 0f;
+		private float anim_Death = 1f;
+		private float anim_DeathTransition = 0f;
 
-		float[] anim_Death_Speed = { 0f, 0f, 0f, 31f, 27f, 28f };
+		private readonly float[] anim_Death_Speed = { 0f, 0f, 0f, 31f, 27f, 28f };
 
-		float[] anim_Death_HeightOffset = { 0f, 0f, 0f, 0f, 8f, 10f };
-
-
-		float DefaultMouthAnim = 5f;
-
-		int mouthAnim = 0; //1 = shockwave, 2 = cannon, 3 = leap, 4 = hurt0, 5 = hurt1, 6 = hurt2, 7 = damaged
-
-		float[] MouthAnim_Shockwave = { 5f, -5f, 0f, -10f, -5f, 0f, 5f };
-		float anim_MouthShockwave = 1f;
-
-		float[] MouthAnim_Hurt = { 5f, -15f, -11f, -7f, -3f, 1f, 5f };
-		float anim_MouthHurt = 1f;
-
-		float[] MouthAnim_Damaged = { 5f, -10f, 5f, -15f, -8f, -2f, 5f };
-		float anim_MouthDamaged = 1f;
+		private readonly float[] anim_Death_HeightOffset = { 0f, 0f, 0f, 0f, 8f, 10f };
 
 
-		void SetAnimation(string type, float anim, float transition = 1f)
+		private readonly float DefaultMouthAnim = 5f;
+
+		private int mouthAnim = 0; //1 = shockwave, 2 = cannon, 3 = leap, 4 = hurt0, 5 = hurt1, 6 = hurt2, 7 = damaged
+
+		private readonly float[] MouthAnim_Shockwave = { 5f, -5f, 0f, -10f, -5f, 0f, 5f };
+		private float anim_MouthShockwave = 1f;
+
+		private readonly float[] MouthAnim_Hurt = { 5f, -15f, -11f, -7f, -3f, 1f, 5f };
+		private float anim_MouthHurt = 1f;
+
+		private readonly float[] MouthAnim_Damaged = { 5f, -10f, 5f, -15f, -8f, -2f, 5f };
+		private float anim_MouthDamaged = 1f;
+
+
+		private void SetAnimation(string type, float anim, float transition = 1f)
 		{
 			if (type == "walk")
 			{
@@ -1240,7 +1240,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				HeadRot[0] = MathHelper.Lerp(HeadRot[0], -(float)Angle.ConvertToRadians((double)Angle.LerpArray(0f, HeadAnim_Death, anim)), transition);
 			}
 		}
-		void SetBodyOffset(float hOffset = 0f)
+		private void SetBodyOffset(float hOffset = 0f)
 		{
 			BodyPos[0] = NPC.Center + ((CurrentBodyPos[0] + BodyOffset) * fullScale);
 			RLegPos[2] = RLegPos[1] + (Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[2] * fullScale);
@@ -1256,37 +1256,37 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 		}
 
 
-		float[] PhazonArmorRegenAlpha = new float[4];
+		private readonly float[] PhazonArmorRegenAlpha = new float[4];
 
-		Vector2 PhazonAppearPosition,
+		private Vector2 PhazonAppearPosition,
 				PhazonDisappearPosition;
-		ReLogic.Utilities.SlotId PhazonAppearSound;
+		private ReLogic.Utilities.SlotId PhazonAppearSound;
 
-		NPC[] DarkPortal = new NPC[4];
+		private readonly NPC[] DarkPortal = new NPC[4];
 
 
-		float clawGlowAlpha = 0f;
-		int glowNum = 1;
-		float lClawGlowAlpha = 0f;
-		int lGlowNum = -1;
-		float rClawGlowAlpha = 0f;
-		int rGlowNum = -1;
+		private float clawGlowAlpha = 0f;
+		private int glowNum = 1;
+		private float lClawGlowAlpha = 0f;
+		private int lGlowNum = -1;
+		private float rClawGlowAlpha = 0f;
+		private int rGlowNum = -1;
 
-		NPC AbsorbProj;
+		private NPC AbsorbProj;
 
-		int addedAbsorbDamage = 0;
-		int absorbDamageMax = 200;
+		private int addedAbsorbDamage = 0;
+		private readonly int absorbDamageMax = 200;
 
-		int grounded = 0;
-		bool eyeFlame = false;
+		private int grounded = 0;
+		private bool eyeFlame = false;
 
-		int clawDamage = 80;
-		int shockwaveDamage = 120;
-		int laserDamage = 100;
-		int grenadeDamage = 60;
-		float grenadeSpeed = 18f;
-		float grenadeGravity = 0.35f;
-		int grenadeTimeBeforeGravity = 20;
+		private readonly int clawDamage = 80;
+		private readonly int shockwaveDamage = 120;
+		private readonly int laserDamage = 100;
+		private readonly int grenadeDamage = 60;
+		private readonly float grenadeSpeed = 18f;
+		private readonly float grenadeGravity = 0.35f;
+		private readonly int grenadeTimeBeforeGravity = 20;
 
 		public static Color minGlowColor = new Color(96, 200, 255, 10);
 		public static Color maxGlowColor = new Color(255, 220, 0, 10);
@@ -3305,7 +3305,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 				LLegArmor.Center = LLegPos[3];
 		}
 
-		void ChangeDir(int dir)
+		private void ChangeDir(int dir)
 		{
 			if (NPC.direction == dir)
 			{
@@ -3318,7 +3318,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			}
 		}
 
-		static Vector2 TrajectoryVelocity(Vector2 source, Vector2 destination, float speed, float gravity, int timeBeforeGravity = 0)
+		private static Vector2 TrajectoryVelocity(Vector2 source, Vector2 destination, float speed, float gravity, int timeBeforeGravity = 0)
 		{
 			float tbg = timeBeforeGravity * speed;
 			float x = destination.X - source.X;
@@ -3643,7 +3643,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 
 			return false;
 		}
-		static void DrawLimbTexture(NPC npc, SpriteBatch sb, Texture2D tex, Vector2 Pos1, Vector2 Pos2, float Rot1, float Rot2, Vector2 Origin, Color color1, Color color2, Vector2 scale, SpriteEffects effects, int frame = 0, int frameCount = 1)
+		private static void DrawLimbTexture(NPC npc, SpriteBatch sb, Texture2D tex, Vector2 Pos1, Vector2 Pos2, float Rot1, float Rot2, Vector2 Origin, Color color1, Color color2, Vector2 scale, SpriteEffects effects, int frame = 0, int frameCount = 1)
 		{
 			float LimbRot = Rot1;
 			Vector2 LimbDrawPos = Pos1;

@@ -4,7 +4,6 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -95,10 +94,10 @@ namespace MetroidMod.Content.MissileAddons
 	}
 	public class Diffuse : MProjectile
 	{
-		bool initialised = false;
+		private bool initialised = false;
 		public float radius = 0.0f;
 		public float spin = 0.0f;
-		float SpinIncrease = 0.05f;
+		private float SpinIncrease = 0.05f;
 		public Vector2 basePosition = new Vector2(0f, 0f);
 		public override string Texture => $"{Mod.Name}/Assets/Textures/MissileAddons/DiffusionMissile/Diffuse";
 
@@ -272,7 +271,7 @@ namespace MetroidMod.Content.MissileAddons
 					Vector2 vector141 = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi);
 					Dust dust124 = Main.dust[Dust.NewDust(P.Center - vector141 * 30f, 0, 0, 86, 0f, 0f, 0, default(Color), 1f)];
 					dust124.noGravity = true;
-					dust124.position = P.Center - vector141 * (float)Main.rand.Next(10, 21);
+					dust124.position = P.Center - vector141 * Main.rand.Next(10, 21);
 					dust124.velocity = vector141.RotatedBy(MathHelper.PiOver2, default(Vector2)) * 6f;
 					dust124.scale = 0.9f + Main.rand.NextFloat();
 					dust124.fadeIn = 0.5f;
@@ -280,7 +279,7 @@ namespace MetroidMod.Content.MissileAddons
 					vector141 = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi);
 					dust124 = Main.dust[Dust.NewDust(P.Center - vector141 * 30f, 0, 0, 90, 0f, 0f, 0, default(Color), 1f)];
 					dust124.noGravity = true;
-					dust124.position = P.Center - vector141 * (float)Main.rand.Next(10, 21);
+					dust124.position = P.Center - vector141 * Main.rand.Next(10, 21);
 					dust124.velocity = vector141.RotatedBy(MathHelper.PiOver2, default(Vector2)) * 6f;
 					dust124.scale = 0.9f + Main.rand.NextFloat();
 					dust124.fadeIn = 0.5f;
@@ -292,7 +291,7 @@ namespace MetroidMod.Content.MissileAddons
 					Vector2 vector142 = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi);
 					Dust dust125 = Main.dust[Dust.NewDust(P.Center - vector142 * 30f, 0, 0, 240, 0f, 0f, 0, default(Color), 1f)];
 					dust125.noGravity = true;
-					dust125.position = P.Center - vector142 * (float)Main.rand.Next(20, 31);
+					dust125.position = P.Center - vector142 * Main.rand.Next(20, 31);
 					dust125.velocity = vector142.RotatedBy(-MathHelper.PiOver2, default(Vector2)) * 5f;
 					dust125.scale = 0.9f + Main.rand.NextFloat();
 					dust125.fadeIn = 0.5f;
@@ -324,17 +323,17 @@ namespace MetroidMod.Content.MissileAddons
 			for (int num93 = 0; num93 < 4; num93++)
 			{
 				int num94 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 240, 0f, 0f, 100, default(Color), 1.5f);
-				Main.dust[num94].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				Main.dust[num94].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f;
 			}
 			for (int num95 = 0; num95 < 30; num95++)
 			{
 				int num96 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 62, 0f, 0f, 200, default(Color), 3.7f);
-				Main.dust[num96].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				Main.dust[num96].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f;
 				Main.dust[num96].noGravity = true;
 				Dust dust = Main.dust[num96];
 				dust.velocity *= 3f;
 				num96 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 90, 0f, 0f, 100, default(Color), 1.5f);
-				Main.dust[num96].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				Main.dust[num96].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f;
 				dust = Main.dust[num96];
 				dust.velocity *= 2f;
 				Main.dust[num96].noGravity = true;
@@ -344,7 +343,7 @@ namespace MetroidMod.Content.MissileAddons
 			for (int num97 = 0; num97 < 10; num97++)
 			{
 				int num98 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 62, 0f, 0f, 0, default(Color), 2.7f);
-				Main.dust[num98].position = P.Center + Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * (float)P.width / 2f;
+				Main.dust[num98].position = P.Center + Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * P.width / 2f;
 				Main.dust[num98].noGravity = true;
 				Dust dust = Main.dust[num98];
 				dust.velocity *= 3f;
@@ -352,7 +351,7 @@ namespace MetroidMod.Content.MissileAddons
 			for (int num99 = 0; num99 < 10; num99++)
 			{
 				int num100 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 240, 0f, 0f, 0, default(Color), 1.5f);
-				Main.dust[num100].position = P.Center + Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * (float)P.width / 2f;
+				Main.dust[num100].position = P.Center + Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * P.width / 2f;
 				Main.dust[num100].noGravity = true;
 				Dust dust = Main.dust[num100];
 				dust.velocity *= 3f;
@@ -360,14 +359,14 @@ namespace MetroidMod.Content.MissileAddons
 			var entitySource = P.GetSource_Death();
 			for (int num101 = 0; num101 < 2; num101++)
 			{
-				int num102 = Gore.NewGore(entitySource, P.position + new Vector2((float)(P.width * Main.rand.Next(100)) / 100f, (float)(P.height * Main.rand.Next(100)) / 100f) - Vector2.One * 10f, default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[num102].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				int num102 = Gore.NewGore(entitySource, P.position + new Vector2(P.width * Main.rand.Next(100) / 100f, P.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, default(Vector2), Main.rand.Next(61, 64), 1f);
+				Main.gore[num102].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f;
 				Gore gore = Main.gore[num102];
 				gore.velocity *= 0.3f;
 				Gore gore17 = Main.gore[num102];
-				gore17.velocity.X = gore17.velocity.X + (float)Main.rand.Next(-10, 11) * 0.05f;
+				gore17.velocity.X = gore17.velocity.X + Main.rand.Next(-10, 11) * 0.05f;
 				Gore gore18 = Main.gore[num102];
-				gore18.velocity.Y = gore18.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
+				gore18.velocity.Y = gore18.velocity.Y + Main.rand.Next(-10, 11) * 0.05f;
 			}
 
 			for (int i = 0; i < Projectile.oldPos.Length; i++)
@@ -400,7 +399,7 @@ namespace MetroidMod.Content.MissileAddons
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/missiles/NebulaMissileImpact2").Value;
 			Color alpha4 = P.GetAlpha(color25);
-			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
+			Vector2 origin8 = new Vector2(tex.Width, tex.Height) / 2f;
 
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;

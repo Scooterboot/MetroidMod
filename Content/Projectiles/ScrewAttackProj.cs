@@ -52,9 +52,9 @@ namespace MetroidMod.Content.Projectiles
 			}
 			Initialized = true;
 		}
-		int DelayTime = 0;
-		bool initialSoundPlayed = false;
-		Vector2 lastVel = Vector2.Zero;
+		private int DelayTime = 0;
+		private bool initialSoundPlayed = false;
+		private Vector2 lastVel = Vector2.Zero;
 		public override void AI()
 		{
 			Projectile.scale = 0.9f;

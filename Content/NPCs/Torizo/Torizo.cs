@@ -16,10 +16,10 @@ namespace MetroidMod.Content.NPCs.Torizo
 	[AutoloadBossHead]
 	public class Torizo : ModNPC
 	{
-		private bool expert = Main.expertMode;
-		private bool master = Main.masterMode;
-		private bool legend = Main.getGoodWorld;
-		private bool classic = !Main.expertMode && !Main.masterMode && !Main.getGoodWorld;
+		private readonly bool expert = Main.expertMode;
+		private readonly bool master = Main.masterMode;
+		private readonly bool legend = Main.getGoodWorld;
+		private readonly bool classic = !Main.expertMode && !Main.masterMode && !Main.getGoodWorld;
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_Head_Boss";
 		public override string Texture => Mod.Name + "/Content/NPCs/Torizo/TorizoBody";
 		public string BestTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_BossLog";
@@ -107,7 +107,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		public override bool? CanBeHitByItem(Player player, Item item) => false;
 		public override bool? CanBeHitByProjectile(Projectile projectile) => false;
 
-		ReLogic.Utilities.SlotId soundInstance;
+		private ReLogic.Utilities.SlotId soundInstance;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Head != null && Head.active && (!SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result) || !result.IsPlaying) && Main.netMode != NetmodeID.Server)
@@ -132,12 +132,12 @@ namespace MetroidMod.Content.NPCs.Torizo
 			index = NPCHeadLoader.GetBossHeadSlot(MetroidMod.TorizoHead);
 		}*/
 
-		int _body, _head, _rHand, _lHand;
-		NPC Body => Main.npc[_body];
-		NPC RHand => Main.npc[_rHand];
-		NPC LHand => Main.npc[_lHand];
+		private int _body, _head, _rHand, _lHand;
+		private NPC Body => Main.npc[_body];
+		private NPC RHand => Main.npc[_rHand];
+		private NPC LHand => Main.npc[_lHand];
 
-		NPC Head
+		private NPC Head
 		{
 			get {
 				if (Main.npc[_head].type == ModContent.NPCType<Torizo_HitBox>() && Main.npc[_head].ai[1] == 0f)
@@ -148,26 +148,26 @@ namespace MetroidMod.Content.NPCs.Torizo
 			}
 		}
 
-		int[] _rArm = new int[2],
+		private readonly int[] _rArm = new int[2],
 			_lArm = new int[2],
 			_rLeg = new int[2],
 			_lLeg = new int[2];
 
-		NPC GetArm(bool left, int i)
+		private NPC GetArm(bool left, int i)
 		{
 			if (left)
 				return Main.npc[_lArm[i]];
 			return Main.npc[_rArm[i]];
 		}
-		NPC GetLeg(bool left, int i)
+		private NPC GetLeg(bool left, int i)
 		{
 			if (left)
 				return Main.npc[_lLeg[i]];
 			return Main.npc[_rLeg[i]];
 		}
 
-		Vector2 BodyOffset;
-		Vector2[] BodyPos = new Vector2[2],
+		private Vector2 BodyOffset;
+		private readonly Vector2[] BodyPos = new Vector2[2],
 		HeadPos = new Vector2[2],
 		RArmPos = new Vector2[5],
 		LArmPos = new Vector2[5],
@@ -176,14 +176,14 @@ namespace MetroidMod.Content.NPCs.Torizo
 		RLegPos = new Vector2[5],
 		LLegPos = new Vector2[5];
 
-		float BodyRot, HeadRot;
-		float[] RArmRot = new float[3],
+		private float BodyRot, HeadRot;
+		private readonly float[] RArmRot = new float[3],
 		LArmRot = new float[3],
 		RLegRot = new float[3],
 		LLegRot = new float[3];
 
-		float BodyOffsetRot;
-		float[] HeadOffsetRot = new float[2],
+		private float BodyOffsetRot;
+		private readonly float[] HeadOffsetRot = new float[2],
 		RArmOffsetRot = new float[5],
 		LArmOffsetRot = new float[5],
 		RHandOffsetRot = new float[3],
@@ -191,8 +191,8 @@ namespace MetroidMod.Content.NPCs.Torizo
 		RLegOffsetRot = new float[5],
 		LLegOffsetRot = new float[5];
 
-		float BodyDist;
-		float[] HeadDist = new float[2],
+		private float BodyDist;
+		private readonly float[] HeadDist = new float[2],
 		RArmDist = new float[5],
 		LArmDist = new float[5],
 		RHandDist = new float[3],
@@ -200,7 +200,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		RLegDist = new float[5],
 		LLegDist = new float[5];
 
-		static Vector2[] DefaultBodyPos = { new Vector2(0, 0), new Vector2(0, 0) },
+		private static readonly Vector2[] DefaultBodyPos = { new Vector2(0, 0), new Vector2(0, 0) },
 		DefaultHeadPos = { new Vector2(10, -19), new Vector2(2, -5) },
 		DefaultRightArmPos = { new Vector2(1, -20), new Vector2(0, 38), new Vector2(0, 32), new Vector2(0, 28), new Vector2(0, 16) },
 		DefaultLeftArmPos = { new Vector2(1, -20), new Vector2(0, 38), new Vector2(0, 32), new Vector2(0, 28), new Vector2(0, 16) },
@@ -209,7 +209,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		DefaultRightLegPos = { new Vector2(-11, 38), new Vector2(0, 32), new Vector2(0, 34), new Vector2(0, 10), new Vector2(-2, 8) },
 		DefaultLeftLegPos = { new Vector2(-11, 38), new Vector2(0, 32), new Vector2(0, 34), new Vector2(0, 10), new Vector2(-2, 8) };
 
-		Vector2[] CurrentBodyPos = new Vector2[2],
+		private readonly Vector2[] CurrentBodyPos = new Vector2[2],
 		CurrentHeadPos = new Vector2[2],
 		CurrentRightArmPos = new Vector2[5],
 		CurrentLeftArmPos = new Vector2[5],
@@ -218,9 +218,9 @@ namespace MetroidMod.Content.NPCs.Torizo
 		CurrentRightLegPos = new Vector2[5],
 		CurrentLeftLegPos = new Vector2[5];
 
-		Vector2 fullScale = new Vector2(1f, 1f);
+		private Vector2 fullScale = new Vector2(1f, 1f);
 
-		void SetPositions()
+		private void SetPositions()
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -309,7 +309,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			HeadPos[1] = HeadPos[0] + (Angle.AngleFlip(HeadOffsetRot[1] + HeadRot, NPC.direction).ToRotationVector2() * HeadDist[1] * fullScale);
 		}
 
-		bool initialized = false;
+		private bool initialized = false;
 		public override bool PreAI()
 		{
 			NPC.noTileCollide = true;
@@ -364,129 +364,129 @@ namespace MetroidMod.Content.NPCs.Torizo
 		}
 
 		// Spawn Animation
-		float[][] RArmAnim_Spawn = new float[][]{
+		private readonly float[][] RArmAnim_Spawn = new float[][]{
 		new float[] { 33f, 0f, 0f, 0f, 0f,10f,22.5f},
 		new float[] {114f,90f,45f,45f,45f,55f,67.5f},
 		new float[] { 60f,30f, 0f, 0f, 0f,10f,22.5f}};
 
-		float[][] LArmAnim_Spawn = new float[][]{
+		private readonly float[][] LArmAnim_Spawn = new float[][]{
 		new float[] { 33f, 0f, 0f, 0f,-22f,-45f,-67.5f},
 		new float[] {114f,90f,45f,45f, 23f, 12f,    0f},
 		new float[] { 60f,30f, 0f, 0f,  0f,-15f,  -45f}};
 
-		float[][] RLegAnim_Spawn = new float[][]{
+		private readonly float[][] RLegAnim_Spawn = new float[][]{
 		new float[] {135f,125f, 90f, 45f,0f,-20f,-20f},
 		new float[] { 60f,  0f,-22f,-22f,0f,-20f,-41f},
 		new float[] {  0f,  0f,  0f,  0f,0f,  0f,  0f}};
 
-		float[][] LLegAnim_Spawn = new float[][]{
+		private readonly float[][] LLegAnim_Spawn = new float[][]{
 		new float[] {135f,125f, 90f, 45f,22.5f, 70f,43f},
 		new float[] { 60f,  0f,-22f,-22f, -45f,-30f,19f},
 		new float[] {  0f,  0f,  0f,  0f, -45f,-20f, 0f}};
 
-		int[] HandFrame_Spawn = { 0, 1, 2, 2, 2, 2, 2 };
-		int[] LFootFrame_Spawn = { 0, 0, 0, 0, 1, 1, 0 };
+		private readonly int[] HandFrame_Spawn = { 0, 1, 2, 2, 2, 2, 2 };
+		private readonly int[] LFootFrame_Spawn = { 0, 0, 0, 0, 1, 1, 0 };
 
-		float[] speed_Spawn = { 25f, 8f, 9f, 10f, 23f, 10f, 0f };
+		private readonly float[] speed_Spawn = { 25f, 8f, 9f, 10f, 23f, 10f, 0f };
 
-		float anim_Spawn = 1f;
+		private float anim_Spawn = 1f;
 
 		// Walk Animation
-		float[][] RArmAnim_Walk = new float[][]{
+		private readonly float[][] RArmAnim_Walk = new float[][]{
 		new float[] {22.5f, 0f,-22.5f,-45f,-56.75f, -67.5f,-45f,-22.5f, 0f,11.75f, 22.5f},
 		new float[] {67.5f,45f, 22.5f, 20f,    10f,     0f, 10f, 22.5f,45f,56.75f, 67.5f},
 		new float[] {22.5f, 0f,-22.5f,-25f,   -35f,   -45f,-35f,-22.5f, 0f,11.75f, 22.5f}};
 
-		float[][] LArmAnim_Walk = new float[][]{
+		private readonly float[][] LArmAnim_Walk = new float[][]{
 		new float[] {-67.5f,-45f,-22.5f, 0f,11.75f, 22.5f, 0f,-22.5f,-45f,-56.75f, -67.5f},
 		new float[] {    0f, 10f, 22.5f,45f,56.75f, 67.5f,45f, 22.5f, 20f,    10f,     0f},
 		new float[] {  -45f,-35f,-22.5f, 0f,11.75f, 22.5f, 0f,-22.5f,-25f,   -35f,   -45f}};
 
-		float[][] RLegAnim_Walk = new float[][]{
+		private readonly float[][] RLegAnim_Walk = new float[][]{
 		new float[] {-20f,-25f,  0f, 35f, 70f, 43f,23f,11f,0f,-15f, -20f},
 		new float[] {-41f,-45f,-60f,-50f,-20f, 19f,22f,11f,0f,-15f, -41f},
 		new float[] {  0f,-60f,-65f,-30f,-20f,  0f, 0f, 0f,0f,  0f,   0f}};
 
-		float[][] LLegAnim_Walk = new float[][]{
+		private readonly float[][] LLegAnim_Walk = new float[][]{
 		new float[] {43f,23f,11f,0f,-15f, -20f,-25f,  0f, 35f, 70f, 45f},
 		new float[] {19f,22f,11f,0f,-15f, -41f,-45f,-60f,-50f,-20f, 22f},
 		new float[] { 0f, 0f, 0f,0f,  0f,   0f,-60f,-65f,-30f,-20f,  0f}};
 
-		int[] RFootFrame_Walk = { 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 };
-		int[] LFootFrame_Walk = { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 };
+		private readonly int[] RFootFrame_Walk = { 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 };
+		private readonly int[] LFootFrame_Walk = { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 };
 
-		float[] speed_Walk = { 8f, 12f, 13f, 17f, 16f, 8f, 12f, 13f, 17f, 16f };
+		private readonly float[] speed_Walk = { 8f, 12f, 13f, 17f, 16f, 8f, 12f, 13f, 17f, 16f };
 
-		float anim_Walk = 1f;
+		private float anim_Walk = 1f;
 
 		// Jump Animation
-		float[][] RArmAnim_Jump = new float[][]{
+		private readonly float[][] RArmAnim_Jump = new float[][]{
 		new float[] {-22.5f,-45f,-67.5f},
 		new float[] { 22.5f, 20f,    0f},
 		new float[] {    0f,  0f,  -45f}};
 
-		float[][] LArmAnim_Jump = new float[][]{
+		private readonly float[][] LArmAnim_Jump = new float[][]{
 		new float[] {-22.5f,-45f,-67.5f},
 		new float[] { 22.5f, 20f,    0f},
 		new float[] {    0f,  0f,  -45f}};
 
-		float[][] RLegAnim_Jump = new float[][]{
+		private readonly float[][] RLegAnim_Jump = new float[][]{
 		new float[] { 35f, 22f,    0f},
 		new float[] {-53f,-22f,  -20f},
 		new float[] {  0f,-45f,-22.5f}};
 
-		float[][] LLegAnim_Jump = new float[][]{
+		private readonly float[][] LLegAnim_Jump = new float[][]{
 		new float[] { 45f, 22f,    0f},
 		new float[] {-45f,-22f,  -20f},
 		new float[] {  0f,-45f,-22.5f}};
 
-		int[] FootFrame_Jump = { 0, 1, 1 };
+		private readonly int[] FootFrame_Jump = { 0, 1, 1 };
 
-		float anim_Jump = 1f;
-		float anim_JumpTransition = 0f;
+		private float anim_Jump = 1f;
+		private float anim_JumpTransition = 0f;
 
 		// Mouth Bombs Animation
-		float[][] RArmAnim_Bomb = new float[][]{
+		private readonly float[][] RArmAnim_Bomb = new float[][]{
 		new float[] { 0f,22.5f,32.5f, 45f},
 		new float[] {45f,  70f,  90f,135f},
 		new float[] { 0f,  30f,  45f, 90f}};
 
-		float[][] LArmAnim_Bomb = new float[][]{
+		private readonly float[][] LArmAnim_Bomb = new float[][]{
 		new float[] { 0f,  20f,32.5f, 45f},
 		new float[] {24f,67.5f,  90f,135f},
 		new float[] { 0f,27.5f,  45f, 90f}};
 
-		float anim_Bomb = 1f;
-		float anim_BombTransition = 0f;
+		private float anim_Bomb = 1f;
+		private float anim_BombTransition = 0f;
 
 		// Claw Attack Animation
-		float[][] RArmAnim_Claw = new float[][]{
+		private readonly float[][] RArmAnim_Claw = new float[][]{
 		new float[] {-22.5f,45f, 90f,-45f,-22.5f,-22.5f,-22.5f,-22.5f, -22.5f},
 		new float[] { 22.5f,90f,180f,  0f, 22.5f, 22.5f, 22.5f, 22.5f,  22.5f},
 		new float[] {    0f,45f,135f,-45f,    0f,    0f,    0f,    0f,     0f}};
 
-		float[][] LArmAnim_Claw = new float[][]{
+		private readonly float[][] LArmAnim_Claw = new float[][]{
 		new float[] {-22.5f,-22.5f,-22.5f,-22.5f,-22.5f,45f, 90f,-45f, -22.5f},
 		new float[] { 22.5f, 22.5f, 22.5f, 22.5f, 22.5f,90f,180f,  0f,  22.5f},
 		new float[] {    0f,    0f,    0f,    0f,    0f,45f,135f,-45f,     0f}};
 
-		float[][] RArmAnim_Claw_Low = new float[][]{
+		private readonly float[][] RArmAnim_Claw_Low = new float[][]{
 		new float[] {-22.5f,45f, 60f,-45f,-22.5f,-22.5f,-22.5f,-22.5f, -22.5f},
 		new float[] { 22.5f,90f,120f,  0f, 22.5f, 22.5f, 22.5f, 22.5f,  22.5f},
 		new float[] {    0f,45f, 90f,-45f,    0f,    0f,    0f,    0f,     0f}};
 
-		float[][] LArmAnim_Claw_Low = new float[][]{
+		private readonly float[][] LArmAnim_Claw_Low = new float[][]{
 		new float[] {-22.5f,-22.5f,-22.5f,-22.5f,-22.5f,45f, 60f,-45f, -22.5f},
 		new float[] { 22.5f, 22.5f, 22.5f, 22.5f, 22.5f,90f,120f,  0f,  22.5f},
 		new float[] {    0f,    0f,    0f,    0f,    0f,45f, 90f,-45f,     0f}};
 
-		float anim_Claw = 1f;
-		float anim_ClawTransition = 0f;
+		private float anim_Claw = 1f;
+		private float anim_ClawTransition = 0f;
 
 		// Ranged Claw Animation
 
 
-		void SetAnimation(string type, float anim, float transition = 1f)
+		private void SetAnimation(string type, float anim, float transition = 1f)
 		{
 			if (type == "spawn")
 			{
@@ -578,7 +578,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 				}
 			}
 		}
-		void SetBodyOffset(float hOffset = 0f)
+		private void SetBodyOffset(float hOffset = 0f)
 		{
 			BodyPos[0] = NPC.Center + (CurrentBodyPos[0] + BodyOffset);
 			RLegPos[2] = RLegPos[1] + (Angle.AngleFlip(RLegOffsetRot[2] + RLegRot[1], NPC.direction).ToRotationVector2() * RLegDist[2] * fullScale);
@@ -593,26 +593,26 @@ namespace MetroidMod.Content.NPCs.Torizo
 			}
 		}
 
-		int clawDamage = 30;
+		private readonly int clawDamage = 30;
 
-		bool stepSoundPlayed = false;
-		int soundCounter = 0;
+		private bool stepSoundPlayed = false;
+		private int soundCounter = 0;
 
-		bool chestExplosion = false;
-		int dustCounter = 0;
+		private bool chestExplosion = false;
+		private int dustCounter = 0;
 
-		int RHandFrame = 0;
-		int LHandFrame = 0;
-		int RFootFrame = 0;
-		int LFootFrame = 0;
-		int BodyFrame = 0;
-		int HeadFrame = 0;
-		int HeadFrameCounter = 0;
+		private int RHandFrame = 0;
+		private int LHandFrame = 0;
+		private int RFootFrame = 0;
+		private int LFootFrame = 0;
+		private int BodyFrame = 0;
+		private int HeadFrame = 0;
+		private int HeadFrameCounter = 0;
 
-		float glowAlpha = 1f;
-		int glowNum = 1;
+		private float glowAlpha = 1f;
+		private int glowNum = 1;
 
-		float spawnAlpha = 1f;
+		private float spawnAlpha = 1f;
 
 		public override void AI()
 		{
@@ -1510,7 +1510,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			}
 		}
 
-		void ChangeDir(int dir)
+		private void ChangeDir(int dir)
 		{
 			if (NPC.direction == dir)
 			{
@@ -1683,7 +1683,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 			return false;
 		}
-		static void DrawLimbTexture(NPC npc, SpriteBatch sb, Texture2D tex, Vector2 Pos1, Vector2 Pos2, float Rot1, float Rot2, Vector2 Origin, Color color1, Color color2, Vector2 scale, SpriteEffects effects, int frame = 0, int frameCount = 1)
+		private static void DrawLimbTexture(NPC npc, SpriteBatch sb, Texture2D tex, Vector2 Pos1, Vector2 Pos2, float Rot1, float Rot2, Vector2 Origin, Color color1, Color color2, Vector2 scale, SpriteEffects effects, int frame = 0, int frameCount = 1)
 		{
 			float LimbRot = Rot1;
 			Vector2 LimbDrawPos = Pos1;

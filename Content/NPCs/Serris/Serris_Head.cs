@@ -49,9 +49,9 @@ namespace MetroidMod.Content.NPCs.Serris
 			set { NPC.ai[1] = value; }
 		}
 
-		int damage = 24;//20
-		int speedDamage = 72;//60;//35
-		int coreDamage = 30;//30
+		private readonly int damage = 24;//20
+		private readonly int speedDamage = 72;//60;//35
+		private readonly int coreDamage = 30;//30
 
 		public override void SetStaticDefaults()
 		{
@@ -124,19 +124,19 @@ namespace MetroidMod.Content.NPCs.Serris
 			return NPC.NewNPC(NPC.GetSource_FromAI(), ((int)MathHelper.Clamp(tileX, num11, num12) * 16) + 8, (int)MathHelper.Clamp(tileY, num13, num14) * 16, Type);
 		}
 
-		bool initialBoost = false;
+		private bool initialBoost = false;
 		//SoundEffectInstance soundInstance;
-		int soundCounter = 0;
-		int numUpdates = 0;
-		int maxUpdates = 0;
+		private int soundCounter = 0;
+		private int numUpdates = 0;
+		private int maxUpdates = 0;
 		public int state = 1;
 		public float mouthFrame = 0f;
-		int mouthNum = 1;
-		int glowFrame = 0;
-		int glowNum = 1;
-		int glowFrameCounter = 0;
-		float oldRot = 0f;
-		int resets = 9;
+		private int mouthNum = 1;
+		private int glowFrame = 0;
+		private int glowNum = 1;
+		private int glowFrameCounter = 0;
+		private float oldRot = 0f;
+		private int resets = 9;
 
 		public override void AI()
 		{
@@ -540,11 +540,11 @@ namespace MetroidMod.Content.NPCs.Serris
 		}
 
 		public int sbFrame = 0;
-		int sbFrameCounter = 0;
-		int coreFrame = 0;
-		int coreFrameCounter = 0;
-		int flashFrame = 0;
-		int flashFrameCounter = 0;
+		private int sbFrameCounter = 0;
+		private int coreFrame = 0;
+		private int coreFrameCounter = 0;
+		private int flashFrame = 0;
+		private int flashFrameCounter = 0;
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
 			if (ai_state <= SerrisState.Transforming)

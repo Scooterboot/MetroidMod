@@ -7,7 +7,6 @@ using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -18,15 +17,15 @@ namespace MetroidMod.Content.BeamAddons
 	/// <summary>
 	/// the baby
 	/// </summary>
-	class HyperBeam : ModBeamAddon
+	internal class HyperBeam : ModBeamAddon
 	{
 		//As this is the first VIB addon, it will serve as an example.
 
 		#region Stat values
-		int bd = 200;
-		float dm = 0;
-		int bs = 0;
-		float sm = 0;
+		private readonly int bd = 200;
+		private readonly float dm = 0;
+		private readonly int bs = 0;
+		private readonly float sm = 0;
 		#endregion
 
 		public override Color PrimaryColor => Color.White;
@@ -230,7 +229,7 @@ namespace MetroidMod.Content.BeamAddons
 		}
 
 		#region Projectile AI
-		float scale = 0f;
+		private float scale = 0f;
 		public void OnInitialized(IEntitySource source)
 		{
 			//Gather data from installed addons.

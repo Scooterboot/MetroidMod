@@ -265,7 +265,7 @@ namespace MetroidMod
 			//Assigns a new M.A.I., M.A.T., and (usually) M.A.P. instance to the current M.M.A.
 			ModItem = new MissileAddonItem(this);
 			ModTile = new MissileAddonTile(this);
-			if (!IgnoreProjectile){ mProjectile = new MissileAddonProjectile(this); }
+			if (!IgnoreProjectile) { mProjectile = new MissileAddonProjectile(this); }
 			if (ModItem == null) { throw new Exception("WTF happened here? MissileAddonItem is null!"); }
 			if (ModTile == null) { throw new Exception("WTF happened here? MissileAddonTile is null!"); }
 			//Adds the content to the game.
@@ -291,7 +291,7 @@ namespace MetroidMod
 			base.Unload();
 		}
 
-		protected sealed override void Register()
+		protected override sealed void Register()
 		{
 			if (!AddOnlyAddonItem && MissileAddonLoader.AddonCount <= 127)
 			{
@@ -386,7 +386,7 @@ namespace MetroidMod
 		public virtual void PostAI(MProjectile mProjectile) { }
 
 		///<inheritdoc cref="ModProjectile.ShouldUpdatePosition()"/>
-		public virtual bool ShouldUpdatePosition() {  return true; }
+		public virtual bool ShouldUpdatePosition() { return true; }
 
 		///<inheritdoc cref="ModProjectile.SendExtraAI(BinaryWriter)()"/>
 		public virtual void SendExtraAI(BinaryWriter writer) { }
@@ -410,7 +410,7 @@ namespace MetroidMod
 		public virtual void OnKill(MProjectile mProjectile, int timeLeft) { }
 
 		///<inheritdoc cref="ModProjectile.Colliding(Rectangle, Rectangle)"/>
-		public virtual bool? Colliding(MProjectile projectile, Rectangle projHitbox, Rectangle targetHitbox) {  return null; }
+		public virtual bool? Colliding(MProjectile projectile, Rectangle projHitbox, Rectangle targetHitbox) { return null; }
 
 		///<inheritdoc cref="ModProjectile.PreDraw(ref Color)"/>
 		public virtual bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor) { return true; }

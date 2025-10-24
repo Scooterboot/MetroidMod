@@ -57,7 +57,7 @@ namespace MetroidMod.Content.Projectiles
 			set => Projectile.ai[1] = value;
 		}
 		public override string Texture => $"{nameof(MetroidMod)}/Assets/Textures/MissileAddons/Expansion/Shot";
-		Color color = MetroidMod.powColor; //todo: learn shaders        -Z
+		private Color color = MetroidMod.powColor; //todo: learn shaders        -Z
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -89,7 +89,7 @@ namespace MetroidMod.Content.Projectiles
 		{
 			return MissileAddonLoader.AddonPreAI(missileAddons, mProjectile);
 		}
-		int dustTimer = 5;
+		private int dustTimer = 5;
 		public override void AI() //TODO: make a whole-ass thing         -Z
 		{
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);

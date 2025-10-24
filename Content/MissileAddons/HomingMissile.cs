@@ -2,7 +2,6 @@
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 
 namespace MetroidMod.Content.MissileAddons

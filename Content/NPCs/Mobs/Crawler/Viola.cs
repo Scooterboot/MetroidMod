@@ -62,7 +62,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Viola")
 			});
 		}
-		int frameNum = 1;
+		private int frameNum = 1;
 		public override bool PreAI()
 		{
 			mNPC.CrawlerAI(NPC, mNPC.crawlSpeed * NPC.scale, 1, false);

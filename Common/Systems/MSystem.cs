@@ -2280,9 +2280,9 @@ namespace MetroidMod.Common.Systems
 			}
 		}
 
-		int meteorSpawnAttempt = 0;
-		int spawnCounter = 0;
-		int spawnCounter2 = 0;
+		private int meteorSpawnAttempt = 0;
+		private readonly int spawnCounter = 0;
+		private readonly int spawnCounter2 = 0;
 		public override void PostUpdateEverything()
 		{
 			if (/*Main.hardMode && */NPC.downedPlantBoss && !spawnedPhazonMeteor/* && meteorSpawnAttempt <= 0*/)

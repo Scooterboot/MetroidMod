@@ -29,11 +29,11 @@ namespace MetroidMod.Content.Projectiles
 			ProjectileID.Sets.SingleGrappleHook[Type] = true;
 			Main.projFrames[Type] = 2;
 		}
-		int chainFrame = 0;
-		int chainFrame2 = 0;
-		bool cantGrab = false;
-		float time = 0f;
-		float increment = 0f;
+		private int chainFrame = 0;
+		private int chainFrame2 = 0;
+		private bool cantGrab = false;
+		private float time = 0f;
+		private float increment = 0f;
 		public override void SetDefaults()
 		{
 			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst);

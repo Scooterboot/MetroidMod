@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Items.EasterEgg
 			}
 		}*/
 		public override bool CanShoot(Player player) => player.ItemAnimationJustStarted;
-		int lastSound = -1;
+		private int lastSound = -1;
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			if (!player.ItemAnimationJustStarted) { return false; }

@@ -44,7 +44,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			});*/
 		//}
 
-		float rotation = 0f;
+		private float rotation = 0f;
 		public override void AI()
 		{
 			rotation += 0.25f * NPC.direction;

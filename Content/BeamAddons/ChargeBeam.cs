@@ -1,13 +1,11 @@
 ﻿using System;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -15,7 +13,6 @@ using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -145,7 +142,7 @@ namespace MetroidMod.Content.BeamAddons
 							//spawn the chargelead
 							//ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * ac.barrelOffset, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
 							//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
-							chInt= Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
+							chInt = Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
 							chargio = (ChargeLead)Main.projectile[chInt].ModProjectile;
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;

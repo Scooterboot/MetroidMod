@@ -541,7 +541,7 @@ namespace MetroidMod.Common.UI
 		/// </summary>
 		public int slotNumber;
 
-		ArmCannon target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+		private ArmCannon target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
 
 		public ArmCannonAddonSlot(Asset<Texture2D> slotTexture = null)
 		{

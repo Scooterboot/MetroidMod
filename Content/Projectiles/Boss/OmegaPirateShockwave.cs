@@ -30,11 +30,11 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.scale = 1f;
 		}
 
-		int lightningFrame = 0;
+		private int lightningFrame = 0;
 
-		float scaleY = 0f;
+		private float scaleY = 0f;
 
-		float alpha = 0.25f;
+		private readonly float alpha = 0.25f;
 		public override void AI()
 		{
 			Projectile.frame++;

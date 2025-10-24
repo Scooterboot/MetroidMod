@@ -134,7 +134,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 		}
 
-		bool[] npcPrevHit = new bool[Main.maxNPCs];
+		private readonly bool[] npcPrevHit = new bool[Main.maxNPCs];
 		/*public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (!Projectile.Name.Contains("Hyper")&& (!Projectile.Name.Contains("Phazon")))
@@ -225,11 +225,11 @@ namespace MetroidMod.Content.Projectiles
 		public float wavesPerSecond = 0f;
 		public float amplitude = 0f;
 		public int waveDepth = 4;
-		float t = 0f;
-		float t2 = 0f;
-		Vector2 pos = new Vector2(0, 0);
-		bool initialized = false;
-		void initialize(Projectile P)
+		private readonly float t = 0f;
+		private readonly float t2 = 0f;
+		private Vector2 pos = new Vector2(0, 0);
+		private bool initialized = false;
+		private void initialize(Projectile P)
 		{
 			pos = P.position;
 			initialized = true;
@@ -370,7 +370,7 @@ namespace MetroidMod.Content.Projectiles
 			}
 		}*/
 
-		int d = 0;
+		private int d = 0;
 		public void PhaseCollide(Projectile P, int depth)
 		{
 			int i = (int)MathHelper.Clamp(P.Center.X / 16f, 0, Main.maxTilesX - 1);
@@ -440,7 +440,7 @@ namespace MetroidMod.Content.Projectiles
 			P.velocity.Y = ((P.velocity.Y * accuracy) + yDist) / (accuracy + 1f);
 		}
 
-		int dustDelayCounter = 0;
+		private int dustDelayCounter = 0;
 		public void DustLine(Vector2 Position, Vector2 Velocity, float rotation, int dustDelay, int freq, int dustType, float scale, Color color = default(Color))
 		{
 			dustDelayCounter++;
@@ -558,7 +558,7 @@ namespace MetroidMod.Content.Projectiles
 			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width / 2f, num108 / 2f), Projectile.scale, effects, 0f);
 		}
 
-		bool drawFlag = false;
+		private bool drawFlag = false;
 		public void PlasmaDraw(Projectile Projectile, Player player, SpriteBatch sb)
 		{
 			SpriteEffects effects = SpriteEffects.None;
@@ -596,7 +596,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				effects = SpriteEffects.FlipHorizontally;
 			}
-			
+
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
 			if (altTexPath != null)
 			{
@@ -607,7 +607,7 @@ namespace MetroidMod.Content.Projectiles
 
 			float h = frameHeight * Projectile.scale;
 
-			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + ((float)Projectile.height / 2f)) / h, 0f, 1f);
+			float dist = MathHelper.Clamp((Vector2.Distance(Projectile.Center, player.Center) + (Projectile.height / 2f)) / h, 0f, 1f);
 			int height = (int)(frameHeight * dist);
 			if (dist >= 1f)
 			{
@@ -639,9 +639,9 @@ namespace MetroidMod.Content.Projectiles
 				color23 = Projectile.GetAlpha(color23);
 				color23 *= (amt - i) / ((float)amt);
 				float scale = MathHelper.Lerp(Projectile.scale, Projectile.scale * scaleDrop, (float)i / amt);
-				sb.Draw(tex, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, currentFrame, tex.Width, oldHeight)), color23, Projectile.oldRot[i], new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), scale, effects, 0f);
+				sb.Draw(tex, center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, currentFrame, tex.Width, oldHeight)), color23, Projectile.oldRot[i], new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), scale, effects, 0f);
 			}
-			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, currentFrame, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
+			sb.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, currentFrame, tex.Width, height)), Projectile.GetAlpha(color2), Projectile.rotation, new Vector2(tex.Width / 2f, Projectile.height / Projectile.scale / 2f), Projectile.scale, effects, 0f);
 		}
 		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size and damage multiplied by float </summary>
 		public void Explode(int increase, float scale = 1f)//TODO humorously, works the exact same as the missiles-through-wall exploit as SM

@@ -32,10 +32,10 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.tileCollide = false;
 		}
 
-		int num = 1;
-		readonly float fieldRadius = 3000f;
+		private int num = 1;
+		private readonly float fieldRadius = 3000f;
 
-		bool initialized = false;
+		private bool initialized = false;
 
 		public override bool PreAI()
 		{

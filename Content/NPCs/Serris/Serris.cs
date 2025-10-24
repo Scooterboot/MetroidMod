@@ -9,7 +9,7 @@ namespace MetroidMod.Content.NPCs.Serris
 {
 	public abstract class Serris : ModNPC
 	{
-		int bodyLength = 10;
+		private readonly int bodyLength = 10;
 
 		protected float defSpeed = 8f;
 		protected float defTurnSpeed = .07f;

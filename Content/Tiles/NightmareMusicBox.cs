@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles
 {
-	class NightmareMusicBox : ModTile
+	internal class NightmareMusicBox : ModTile
 	{
 		public override void SetStaticDefaults()
 		{

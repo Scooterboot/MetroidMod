@@ -56,7 +56,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			});*/
 		}
 
-		NPC Base
+		private NPC Base
 		{
 			get { return Main.npc[(int)NPC.ai[0]]; }
 		}

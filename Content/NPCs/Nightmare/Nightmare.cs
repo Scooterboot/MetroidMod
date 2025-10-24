@@ -156,30 +156,30 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				spriteEffects = SpriteEffects.FlipHorizontally;
 		}
 
-		int direction = 1;
+		private int direction = 1;
 
-		int _body, _tail;
-		NPC Body
+		private int _body, _tail;
+		private NPC Body
 		{
 			get { return Main.npc[_body]; }
 		}
-		NPC Tail
+		private NPC Tail
 		{
 			get { return Main.npc[_tail]; }
 		}
 
-		int[] _armFront = new int[5];
-		int[] _armBack = new int[3];
+		private readonly int[] _armFront = new int[5];
+		private readonly int[] _armBack = new int[3];
 
-		Vector2[] armFrontPos1 = new Vector2[5];
-		Vector2[] armFrontPos2 = new Vector2[5];
-		Vector2[] armBackPos1 = new Vector2[3];
-		Vector2[] armBackPos2 = new Vector2[3];
+		private readonly Vector2[] armFrontPos1 = new Vector2[5];
+		private readonly Vector2[] armFrontPos2 = new Vector2[5];
+		private readonly Vector2[] armBackPos1 = new Vector2[3];
+		private readonly Vector2[] armBackPos2 = new Vector2[3];
 
-		float armAnim = 0f;
-		int armNum = 1;
+		private float armAnim = 0f;
+		private int armNum = 1;
 
-		NPC GetArmLaser(int i)
+		private NPC GetArmLaser(int i)
 		{
 			switch (i)
 			{
@@ -198,31 +198,31 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			}
 		}
 
-		Vector2 faceFrame = Vector2.Zero;
-		Vector2 faceFrameCounter = Vector2.Zero;
-		int faceFrameIndex = 0;
-		int[] faceMouthSequence = { 2, 1, 0, 1, 2, 1, 0, 1, 0, 1 };
+		private Vector2 faceFrame = Vector2.Zero;
+		private Vector2 faceFrameCounter = Vector2.Zero;
+		private int faceFrameIndex = 0;
+		private readonly int[] faceMouthSequence = { 2, 1, 0, 1, 2, 1, 0, 1, 0, 1 };
 
-		Vector2 tailFrame = Vector2.Zero;
+		private Vector2 tailFrame = Vector2.Zero;
 
-		int tailFrameNum = 1;
-		bool tailSpin = false;
-		int tailSpinCounter = 0;
-		int tailFrameCounter = 0;
-		float tailSpinCounterMax = 10f;
-		bool tailSpinSoundPlayed = false;
+		private int tailFrameNum = 1;
+		private bool tailSpin = false;
+		private int tailSpinCounter = 0;
+		private int tailFrameCounter = 0;
+		private float tailSpinCounterMax = 10f;
+		private bool tailSpinSoundPlayed = false;
 
 
-		bool isX = false;
-		int xCounter = 0;
-		int hitDelay = 0;
-		bool TimeLock = false;
-		bool immuneFlash = false;
+		private bool isX = false;
+		private int xCounter = 0;
+		private int hitDelay = 0;
+		private bool TimeLock = false;
+		private bool immuneFlash = false;
 
-		Vector2 xFrame = Vector2.Zero;
-		Vector2 xFrameCounter = Vector2.Zero;
+		private Vector2 xFrame = Vector2.Zero;
+		private Vector2 xFrameCounter = Vector2.Zero;
 
-		bool initialized = false;
+		private bool initialized = false;
 		public override bool PreAI()
 		{
 			if (!initialized)
@@ -292,19 +292,19 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			return true;
 		}
 
-		int[] armLaserCounter = new int[6];
-		int[] armOrbCounter = new int[6];
+		private readonly int[] armLaserCounter = new int[6];
+		private readonly int[] armOrbCounter = new int[6];
 
-		int laserCounterMax = 0;
-		int orbCounterMax = 0;
-		bool randomize1 = true;
-		bool randomize2 = true;
+		private int laserCounterMax = 0;
+		private int orbCounterMax = 0;
+		private bool randomize1 = true;
+		private bool randomize2 = true;
 
-		int[] lasersFired = new int[6];
+		private readonly int[] lasersFired = new int[6];
 
-		int state = 0;
-		int currentState = 0;
-		int resets = 4;
+		private int state = 0;
+		private int currentState = 0;
+		private int resets = 4;
 		public override void AI()
 		{
 			bool despawn = false;
@@ -1111,7 +1111,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			}
 		}
 
-		void ChangeDir(int d)
+		private void ChangeDir(int d)
 		{
 			if (direction == -d)
 			{

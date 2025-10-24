@@ -74,9 +74,9 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			return base.CanHitPlayer(target, ref cooldownSlot);
 		}
 
-		Vector2 startPos;
+		private Vector2 startPos;
 
-		bool initialized = false;
+		private bool initialized = false;
 		public override bool PreAI()
 		{
 			if (!initialized)
@@ -90,12 +90,12 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			return true;
 		}
 
-		float dist = 0;//120;
-		bool bounced = false;
-		int bounceCounter = 0;
-		int frameSet = 0;
-		int currentFrame = 0;
-		int timeLeft = 300;
+		private float dist = 0;//120;
+		private bool bounced = false;
+		private int bounceCounter = 0;
+		private int frameSet = 0;
+		private int currentFrame = 0;
+		private int timeLeft = 300;
 		public override void AI()
 		{
 			NPC creator = Main.npc[(int)NPC.ai[0]];

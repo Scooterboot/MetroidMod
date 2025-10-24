@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.scale = 1f;
 		}
 
-		Vector2 laserPos = Vector2.Zero;
+		private Vector2 laserPos = Vector2.Zero;
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)Projectile.ai[0]];
@@ -76,7 +76,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			}
 		}
 
-		bool drawFlag = false;
+		private bool drawFlag = false;
 		public override bool PreDraw(ref Color lightColor)
 		{
 			if (Projectile.localAI[0] <= 28)

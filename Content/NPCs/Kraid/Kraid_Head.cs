@@ -110,24 +110,24 @@ namespace MetroidMod.Content.NPCs.Kraid
 		}
 
 
-		int state = 0;
-		bool mouthOpen = false;
-		int moveCounter = 0;
-		int headAnim = 1;
-		float roarFrame = 0f;
-		int roarAnim = 1;
-		int direction = 1;
+		private int state = 0;
+		private bool mouthOpen = false;
+		private int moveCounter = 0;
+		private int headAnim = 1;
+		private float roarFrame = 0f;
+		private int roarAnim = 1;
+		private int direction = 1;
 
 		private int _body, _armFront, _armBack;
-		NPC Body
+		private NPC Body
 		{
 			get { return Main.npc[_body]; }
 		}
-		NPC ArmFront
+		private NPC ArmFront
 		{
 			get { return Main.npc[_armFront]; }
 		}
-		NPC ArmBack
+		private NPC ArmBack
 		{
 			get { return Main.npc[_armBack]; }
 		}
@@ -492,9 +492,9 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 		}
 
-		Vector2 headOffset = Vector2.Zero;
-		int roarCounter = 0;
-		void Roar(bool roaring)
+		private Vector2 headOffset = Vector2.Zero;
+		private int roarCounter = 0;
+		private void Roar(bool roaring)
 		{
 			if (roaring)
 			{
@@ -542,17 +542,17 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 		}
 
-		int moveDir = 0;
-		int stepCounter = 0;
+		private int moveDir = 0;
+		private int stepCounter = 0;
 
-		Vector2 bLegPos = new Vector2(8f, 0f);
-		Vector2 fLegPos = new Vector2(-8f, 0f);
-		int currentLeg = 1;
+		private Vector2 bLegPos = new Vector2(8f, 0f);
+		private Vector2 fLegPos = new Vector2(-8f, 0f);
+		private int currentLeg = 1;
 
-		Vector2 bLegPrevPos = new Vector2(8f, 0f);
-		Vector2 fLegPrevPos = new Vector2(-8f, 0f);
+		private Vector2 bLegPrevPos = new Vector2(8f, 0f);
+		private Vector2 fLegPrevPos = new Vector2(-8f, 0f);
 
-		void Move(int direction)
+		private void Move(int direction)
 		{
 			Vector2 actualBLegPos = Body.Center + new Vector2(138 * NPC.direction, 174) + bLegPos;
 			Vector2 actualFLegPos = Body.Center + new Vector2(-68 * NPC.direction, 174) + fLegPos;
@@ -684,7 +684,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				}
 			}
 		}
-		void stomp(Vector2 pos)
+		private void stomp(Vector2 pos)
 		{
 			for (int num70 = 0; num70 < 25; num70++)
 			{
@@ -697,13 +697,13 @@ namespace MetroidMod.Content.NPCs.Kraid
 			fullOffset.Y = 2f;
 		}
 
-		Vector2[] gorePosition = new Vector2[12];
+		private readonly Vector2[] gorePosition = new Vector2[12];
 
-		Vector2 fullOffset = Vector2.Zero;
+		private Vector2 fullOffset = Vector2.Zero;
 
-		int fullAnim = 0;
+		private int fullAnim = 0;
 
-		float headRot = 0f;
+		private float headRot = 0f;
 
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{

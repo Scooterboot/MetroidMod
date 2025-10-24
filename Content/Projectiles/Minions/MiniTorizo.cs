@@ -110,7 +110,7 @@ namespace MetroidMod.Content.Projectiles.Minions
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
 		}
 
-		public sealed override void SetDefaults()
+		public override sealed void SetDefaults()
 		{
 			Projectile.CloneDefaults(ProjectileID.PirateCaptain);
 			Projectile.width = 32;

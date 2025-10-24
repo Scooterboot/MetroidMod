@@ -45,9 +45,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.ai[0] = -1;
 		}
 
-		int timeLeft = 300;
-		float rotation = 0f;
-		bool initialized = false;
+		private int timeLeft = 300;
+		private float rotation = 0f;
+		private bool initialized = false;
 		public override void AI()
 		{
 			// Nothing needs to be set, just ported over the visual and audial effects.

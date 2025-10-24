@@ -6,7 +6,7 @@ using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
-	class UIDraggableBase : UIPanel
+	internal class UIDraggableBase : UIPanel
 	{
 		// Stores the offset from the top left of the UIPanel while dragging
 		private Vector2 offset;

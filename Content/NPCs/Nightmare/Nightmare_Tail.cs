@@ -42,14 +42,14 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
 		}
 
-		int _gravityField = 0;
-		Projectile GravityField
+		private int _gravityField = 0;
+		private Projectile GravityField
 		{
 			get { return Main.projectile[_gravityField]; }
 		}
 
-		int oldLife = 0;
-		bool initialized = false;
+		private int oldLife = 0;
+		private bool initialized = false;
 
 		public override bool PreAI()
 		{

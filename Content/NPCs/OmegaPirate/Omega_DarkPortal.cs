@@ -43,7 +43,7 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			});
 		}*/
 
-		NPC Base
+		private NPC Base
 		{
 			get { return Main.npc[(int)NPC.ai[3]]; }
 		}

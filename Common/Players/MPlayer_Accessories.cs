@@ -26,7 +26,7 @@ namespace MetroidMod.Common.Players
 		public bool allowVerticalFlashShift = false;
 		public bool flashShiftGlow = false;
 		public int flashShiftTime = 0;
-		static int FLASH_SHIFT_WINDOW = 20; //Do not set to < 5
+		private static readonly int FLASH_SHIFT_WINDOW = 20; //Do not set to < 5
 		public int flashShiftLength = FLASH_SHIFT_WINDOW + 12;
 		public Color flashShiftColor = new Color(0, 1f, 1f);
 		private Vector2 flashDir = Vector2.Zero;

@@ -153,7 +153,7 @@ namespace MetroidMod.Content.NPCs.Town
 				shop = ShopName; // Opens the shop
 			}
 		}
-		string QuestChat(NPC npc)
+		private string QuestChat(NPC npc)
 		{
 			Player player = Main.player[Main.myPlayer];
 

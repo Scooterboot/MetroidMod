@@ -18,17 +18,17 @@ namespace MetroidMod.Content.BeamAddons
 		//Highly recommend doing this as the system is already designed around it and it means you only have to do the tooltips once
 		//and then it just automatically updates every time you alter a value
 		#region Beam stat values
-		int bd = 50; //base damage
-		int bs = -5; //base speed
-		float bv = 0f; //base velocity
-		int bo = 0; //base overheat
-		float dm = 0f; //damage multiplier
-		float sm = 0f; //speed multiplier
-		float vm = 0f; //velocity multiplier
-		float om = -95f; //overheat multiplier
-		int cc = 0; //crit chance
+		private readonly int bd = 50; //base damage
+		private readonly int bs = -5; //base speed
+		private readonly float bv = 0f; //base velocity
+		private readonly int bo = 0; //base overheat
+		private readonly float dm = 0f; //damage multiplier
+		private readonly float sm = 0f; //speed multiplier
+		private readonly float vm = 0f; //velocity multiplier
+		private readonly float om = -95f; //overheat multiplier
+		private readonly int cc = 0; //crit chance
 
-		int sa = 3; //shots added
+		private readonly int sa = 3; //shots added
 		#endregion
 
 		#region Asset Grabbing

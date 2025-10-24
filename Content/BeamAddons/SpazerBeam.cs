@@ -8,11 +8,11 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.BeamAddons
 {
-	class SpazerBeam : ModBeamAddon
+	internal class SpazerBeam : ModBeamAddon
 	{
-		int bd = 50;
+		private readonly int bd = 50;
 
-		int extraShots = 2;
+		private readonly int extraShots = 2;
 		public override bool AddOnlyAddonItem => false;
 		public override Color PrimaryColor => MetroidMod.powColor;
 
@@ -21,9 +21,9 @@ namespace MetroidMod.Content.BeamAddons
 		public override int ShotDust => DustID.YellowTorch;
 
 
-		bool spazed = false;
-		float spazeRad = 0f;
-		float spazeTimer = 0;
+		private bool spazed = false;
+		private float spazeRad = 0f;
+		private float spazeTimer = 0;
 
 		public override void SetStaticDefaults()
 		{

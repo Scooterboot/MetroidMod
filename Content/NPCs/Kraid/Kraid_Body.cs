@@ -52,7 +52,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				new FlavorTextBestiaryInfoElement("Kraid's Body.")
 			});*/
 		}
-		int state = 0;
+		private int state = 0;
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];

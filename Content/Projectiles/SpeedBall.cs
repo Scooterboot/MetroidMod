@@ -9,7 +9,7 @@ namespace MetroidMod.Content.Projectiles
 {
 	public class SpeedBall : ModProjectile
 	{
-		int SpeedSound = 0;
+		private int SpeedSound = 0;
 		public ActiveSound activeSound;
 		public SoundEffectInstance soundInstance;
 		public override void SetStaticDefaults()

@@ -55,13 +55,13 @@ namespace MetroidMod.Content.NPCs.OmegaPirate
 			});*/
 		}
 
-		NPC Base
+		private NPC Base
 		{
 			get { return Main.npc[(int)NPC.ai[0]]; }
 		}
 
-		int oldLife = 0;
-		bool initialized = false;
+		private int oldLife = 0;
+		private bool initialized = false;
 
 		public override bool PreAI()
 		{

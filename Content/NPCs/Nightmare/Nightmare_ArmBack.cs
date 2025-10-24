@@ -42,8 +42,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
 		}
 
-		int _laserBeam = 0;
-		Projectile LaserBeam
+		private int _laserBeam = 0;
+		private Projectile LaserBeam
 		{
 			get { return Main.projectile[_laserBeam]; }
 		}

@@ -28,7 +28,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Main.projFrames[Projectile.type] = 3;
 		}
 
-		float alpha = 1f;
+		private float alpha = 1f;
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;

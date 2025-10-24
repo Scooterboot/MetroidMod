@@ -57,12 +57,12 @@ namespace MetroidMod.Content.NPCs.Torizo
 			return false;
 		}
 
-		Vector2 eTankPos = new Vector2(32, -32);
-		int eTankFrame = 0;
-		int eTankFrameCounter = 0;
-		bool drawETank = true;
+		private Vector2 eTankPos = new Vector2(32, -32);
+		private int eTankFrame = 0;
+		private int eTankFrameCounter = 0;
+		private bool drawETank = true;
 
-		Vector2[] gorePos = {new Vector2(-11,-33),
+		private readonly Vector2[] gorePos = {new Vector2(-11,-33),
 		new Vector2(1,-13),new Vector2(-13,-1),new Vector2(18,8),
 		new Vector2(32,-8),new Vector2(-35,-23),new Vector2(-29,14),
 		new Vector2(-19,29),new Vector2(15,27),new Vector2(27,39)};

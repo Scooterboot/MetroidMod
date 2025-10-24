@@ -72,7 +72,7 @@ namespace MetroidMod.Content.Items.Tools
 			recipe.AddRecipe();*/
 		}
 
-		string altTexture => Texture + "_Alt";
+		private string altTexture => Texture + "_Alt";
 		public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
 		{
 			MGlobalItem mi = Item.GetGlobalItem<MGlobalItem>();

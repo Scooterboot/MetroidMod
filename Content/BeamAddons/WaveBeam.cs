@@ -28,7 +28,7 @@ namespace MetroidMod.Content.BeamAddons
 		/// <summary>
 		/// If true, add an extra shot when charged.
 		/// </summary>
-		private bool doubleUp = false;
+		private readonly bool doubleUp = false;
 
 		#region Item properties
 		public override void SetStaticDefaults()

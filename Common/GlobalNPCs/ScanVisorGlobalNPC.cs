@@ -11,7 +11,7 @@ namespace MetroidMod.Common.GlobalNPCs
 	{
 		public override bool InstancePerEntity => true;
 
-		int timer = 0;
+		private int timer = 0;
 		internal static bool soundIsPlaying = false;
 		internal static bool soundShouldPlay = false;
 		internal static ActiveSound sound;

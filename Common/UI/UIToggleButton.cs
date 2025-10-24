@@ -7,17 +7,23 @@ using Terraria.UI;
 
 namespace MetroidMod.Common.UI
 {
-	class UIToggleButton : UIImageButton
+	internal class UIToggleButton : UIImageButton
 	{
 		/// <summary>
 		/// Stores the various possible textures of the button.
 		/// </summary>
-		private Asset<Texture2D> offTex, offTexHover, offTexClick, onTex, onTexHover, onTexClick;
+		private readonly Asset<Texture2D> offTex;
+		private Asset<Texture2D> offTexHover;
+		private Asset<Texture2D> offTexClick;
+		private Asset<Texture2D> onTex;
+		private readonly Asset<Texture2D> onTexHover;
+		private readonly Asset<Texture2D> onTexClick;
+
 		/// <summary>
 		/// The base filepath off of which all iterations of the button's texture are grabbed.
 		/// <br/>Should be the filepath for the default texture.
 		/// </summary>
-		private string texPath;
+		private readonly string texPath;
 		/// <summary>
 		/// Determines whether the button is "on" or "off".
 		/// </summary>
@@ -48,7 +54,7 @@ namespace MetroidMod.Common.UI
 			//switch texture to hover
 			if (!Main.mouseLeft)
 			{
-				
+
 			}
 			base.MouseOver(evt);
 		}

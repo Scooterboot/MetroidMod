@@ -37,7 +37,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.PhazonDebuff>()] = true;
 		}
 		//int damage = 130;//65;
-		int oldLife = 0;
+		private int oldLife = 0;
 		public override void SetDefaults()
 		{
 			NPC.width = 92;
@@ -131,7 +131,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			}
 		}
 
-		bool initialized = false;
+		private bool initialized = false;
 		public override bool PreAI()
 		{
 			if (!initialized)
@@ -145,15 +145,15 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			return true;
 		}
 
-		int frameNum = 1;
+		private int frameNum = 1;
 
-		int eyeOpen = 0;
-		int eyeFrame = 0;
-		int eyeFrameCounter = 0;
+		private int eyeOpen = 0;
+		private int eyeFrame = 0;
+		private int eyeFrameCounter = 0;
 
-		int state = 0;
+		private int state = 0;
 
-		bool initialTeleport = false;
+		private bool initialTeleport = false;
 
 		public override void AI()
 		{
@@ -612,7 +612,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			}
 		}
 
-		int spawnFireBall(float posX, float posY, bool playSound = true, float ai1 = 0, float ai2 = 0, float ai3 = 0)
+		private int spawnFireBall(float posX, float posY, bool playSound = true, float ai1 = 0, float ai2 = 0, float ai3 = 0)
 		{
 			return NPC.NewNPC(NPC.GetSource_FromAI(), (int)posX, (int)posY, ModContent.NPCType<PhantoonFireBall>(), NPC.whoAmI, NPC.whoAmI, ai1, ai2, ai3, NPC.target);
 		}

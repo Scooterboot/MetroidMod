@@ -10,8 +10,8 @@ namespace MetroidMod.Common.GlobalProjectiles
 	public class MGlobalProjectile : GlobalProjectile
 	{
 		public override bool InstancePerEntity => true;
-		bool init = false;
-		float projSpeed = 1f;
+		private bool init = false;
+		private float projSpeed = 1f;
 
 		public override bool PreAI(Projectile projectile)
 		{
@@ -38,7 +38,7 @@ namespace MetroidMod.Common.GlobalProjectiles
 			}
 			return base.PreAI(projectile);
 		}
-		int counter = 0;
+		private int counter = 0;
 		public override void AI(Projectile projectile)
 		{
 			float accuracy = 3f;

@@ -24,9 +24,9 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.scale = 0f;
 			Projectile.alpha = 255;
 		}
-		float acc = 5f;//3f;
-		float projSpeed = 12f;
-		Vector2 vel;
+		private readonly float acc = 5f;//3f;
+		private readonly float projSpeed = 12f;
+		private Vector2 vel;
 		public override void AI()
 		{
 			Projectile P = Projectile;
