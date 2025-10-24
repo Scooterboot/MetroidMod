@@ -207,7 +207,7 @@ namespace MetroidMod.Common.GlobalNPCs
 			{
 				spawnRate = (int)(spawnRate * 0.75); //it's truly bizarre how this has to be an inverse ~Dr
 			}
-			if (ModContent.GetInstance<MetroidDeepnestBiome>().IsBiomeActive(spawnInfo.Player))
+			if (ModContent.GetInstance<MetroidDeepnestBiome>().IsBiomeActive(player))
 			{
 				maxSpawns /= 2;
 			}
