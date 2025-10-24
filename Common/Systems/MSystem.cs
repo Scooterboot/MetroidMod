@@ -2447,7 +2447,7 @@ namespace MetroidMod.Common.Systems
 		/// <summary>
 		/// Creates a line of a certain <paramref name="thickness"/> between point <paramref name="A"/> and point <paramref name="B"/> in the world.
 		/// </summary>
-		internal static void Line(Point A, Point B, double thickness, ushort TileType, ushort WallType)
+		internal static void Line(Point A, Point B, double thickness, ushort TileType, ushort WallType, bool takeShape, bool guaranteedFloor)
 		{
 			// determine line
 			int distance = (int)Math.Sqrt(Math.Pow(B.X - A.X, 2) + Math.Pow(B.Y - A.Y, 2));
@@ -2456,14 +2456,19 @@ namespace MetroidMod.Common.Systems
 			for (int i = 0; i < distance; i++)
 			{
 				Point pos = new((int)(A.X + (i * Math.Cos(angle))), (int)(A.Y + (i * Math.Sin(angle))));
-				Ball(pos, thickness, TileType, WallType);
+				Ball(pos, thickness, TileType, WallType, takeShape);
+				if (guaranteedFloor)
+				{
+					Tile tile = Main.tile[pos.X, (int)(pos.Y + (thickness * 0.4))];
+					tile.HasTile = true;
+				}
 			}
 		}
 
 		/// <summary>
 		/// Creates a ball of a given <paramref name="thickness"/> at <paramref name="pos"/> in the world.
 		/// </summary>
-		internal static void Ball(Point pos, double thickness, ushort TileType, ushort WallType)
+		internal static void Ball(Point pos, double thickness, ushort TileType, ushort WallType, bool takeShape)
 		{
 			for (int x = (int)(pos.X - thickness / 2.0); (double)x < pos.X + thickness / 2.0; x++)
 			{
@@ -2484,7 +2489,10 @@ namespace MetroidMod.Common.Systems
 					}
 					else if (distFromCenter < thickness * 0.5 && tile.WallType != WallType)
 					{
+						if (!takeShape)
+					{
 						tile.HasTile = true;
+						}
 						tile.TileType = TileType;
 						if (distFromCenter < thickness * 0.4)
 						{

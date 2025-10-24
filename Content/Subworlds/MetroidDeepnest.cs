@@ -227,14 +227,14 @@ namespace MetroidMod.Content.Subworlds
 				// Should this step be moved into its own GenPass? maybe into ResetPass? god -Armi
 				// So first, we need to find the midpoint of all the hives.
 				Point centerPos = MSystem.MetroidGenVars.metroidHiveLocations.CenterOfPoints();
-				// Go up a little. We need a bit of room.
+				// Go up a little. We'll need a bit of room later on.
 				centerPos.Y -= 30;
 				MSystem.MetroidGenVars.labsPosition = centerPos;
 
 				foreach (Point hivePoint in MSystem.MetroidGenVars.metroidHiveLocations)
 				{
-					centerPos.X /= 2;
-					MSystem.Line(centerPos, new(hivePoint.X / 2, hivePoint.Y), WorldGen.genRand.Next(15, 25), (ushort)ModContent.TileType<Tiles.MetroidHive>(), (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>());
+					//centerPos.X /= 2;
+					MSystem.Line(new(centerPos.X / 2, centerPos.Y), new(hivePoint.X / 2, hivePoint.Y), WorldGen.genRand.Next(35, 50), (ushort)ModContent.TileType<Tiles.MetroidHive>(), (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>(), true, true);
 				}
 
 				// TODO: Go up with a line after 
