@@ -178,13 +178,24 @@ namespace MetroidMod.Common.GlobalNPCs
 		{
 			if (ModContent.GetInstance<MetroidDeepnestBiome>().IsBiomeActive(spawnInfo.Player))
 			{
-				foreach (KeyValuePair<int, float> pair in pool)
+				// If not in whitelist, annihilate the npc's spawnability.
+				SpawnPoolAnnihilator(pool, MetroidDeepnestBiome.AllowedNPCs, 0.2f);
+			}
+			
+			// Only allow metroids and whatnot in the Laboratory
+			// if (ModContent.GetInstance<TheLaboratoryBiome>().IsBiomeActive(spawnInfo.Player))
+			// {
+			// 	SpawnPoolAnnihilator(pool, TheLaboratoryBiome.AllowedNPCs, 0f);
+			// }
+		}
+		
+		internal static void SpawnPoolAnnihilator(IDictionary<int, float> pool, List<int> allowedList, float value)
+		{
+			foreach (KeyValuePair<int, float> pair in pool)
+			{
+				if (!allowedList.Contains(pair.Key))
 				{
-					// If not in whitelist, annihilate the npc's spawnability.
-					if (!MetroidDeepnestBiome.AllowedNPCs.Contains(pair.Key))
-					{
-						pool[pair.Key] = 0f;
-					}
+					pool[pair.Key] *= value;
 				}
 			}
 		}
@@ -196,9 +207,9 @@ namespace MetroidMod.Common.GlobalNPCs
 			{
 				spawnRate = (int)(spawnRate * 0.75); //it's truly bizarre how this has to be an inverse ~Dr
 			}
-			if (SubworldLibrary.SubworldSystem.IsActive<Content.Subworlds.MetroidDeepnest>())
+			if (ModContent.GetInstance<MetroidDeepnestBiome>().IsBiomeActive(spawnInfo.Player))
 			{
-				maxSpawns = 60;
+				maxSpawns /= 2;
 			}
 			//base.EditSpawnRate(player, ref spawnRate, ref maxSpawns);
 		}
