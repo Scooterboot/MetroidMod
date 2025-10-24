@@ -98,6 +98,7 @@ namespace MetroidMod.Content.BeamAddons
 
 		private int chInt = -1;
 		public Projectile chProj;
+		public ChargeLead chargio;
 		//"This is where the fun begins" -Anakin Skywalker
 		public override void HoldFireBehavior(Player player)
 		{
@@ -144,8 +145,8 @@ namespace MetroidMod.Content.BeamAddons
 							//spawn the chargelead
 							//ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * ac.barrelOffset, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
 							//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
-							int ch = Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
-							ChargeLead chargio = (ChargeLead)Main.projectile[ch].ModProjectile;
+							chInt= Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
+							chargio = (ChargeLead)Main.projectile[chInt].ModProjectile;
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;
 							chargio.sourceAddon = this;
@@ -153,9 +154,7 @@ namespace MetroidMod.Content.BeamAddons
 							chargio.ballColor2 = chargioColor2;
 							chargio.coreBrightness = chargioBrightness;
 							chargio.coreSaturation = chargioSaturation;
-							chInt = ch;
-							Main.projectile[ch].ai[0] = chInt;
-							//chProj = chargio.Projectile;
+							Main.projectile[chInt].ai[0] = chInt;
 							MetroidMod.Instance.Logger.Info(item);
 							//play charge noise
 							break;
@@ -184,7 +183,7 @@ namespace MetroidMod.Content.BeamAddons
 							}
 
 							//Let the missile holdfire do its thing
-							MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chInt);
+							MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chargio);
 							break;
 						default:
 							if ((mp.statCharge > 75) && ac.isBeam)
@@ -206,7 +205,7 @@ namespace MetroidMod.Content.BeamAddons
 							}
 							break;
 					}
-					if (mp.statCharge < 100)
+					if (mp.statCharge < 100f)
 					{
 						mp.statCharge += 1f;
 					}
@@ -255,7 +254,7 @@ namespace MetroidMod.Content.BeamAddons
 					//alternatively shoot that normal-ass missile
 					else
 					{
-						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, item.damage, item.knockBack);
+						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, item.shoot, item.damage, item.knockBack);
 					}
 				}
 				player.itemTime = 20;
@@ -336,7 +335,7 @@ namespace MetroidMod.Content.BeamAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			MGlobalItem ac = sourceItem.GetGlobalItem<MGlobalItem>();
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			Vector2 ballPos = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - ((float)(Math.PI / 2) * player.direction));
+			Vector2 ballPos = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, player.itemRotation - ((float)(Math.PI / 2f) * player.direction));
 
 			bool isCharging = player.controlUseItem && !player.noItems && !player.dead && !mp.ballstate && !mp.shineActive && !player.CCed;
 
@@ -359,9 +358,9 @@ namespace MetroidMod.Content.BeamAddons
 
 					Projectile.rotation += 0.5f;
 					//Projectile.scale = Math.Max(mp.statCharge / 100, 0.5f);
-					Projectile.scale = Math.Max(MathHelper.Lerp(0f, 1f, mp.statCharge / 100), 0.5f); //Idrk what the difference is but I've heard lerps are useful so I'm trying em out			-Z
+					Projectile.scale = Math.Max(MathHelper.Lerp(0f, 1f, mp.statCharge / 100f), 0.5f); //Idrk what the difference is but I've heard lerps are useful so I'm trying em out			-Z
 
-					if (!mp.pseudoScrewActive || (mp.pseudoScrewActive && mp.statCharge < 75) || !ac.isBeam)
+					if (!mp.pseudoScrewActive || (mp.pseudoScrewActive && mp.statCharge < 75f) || !ac.isBeam)
 					{
 						mp.disableSomersault = true;
 					}
@@ -376,7 +375,7 @@ namespace MetroidMod.Content.BeamAddons
 				else if (isCharging && mp.pseudoScrewActive && ac.isBeam && mp.statCharge > 75f)
 				{
 					Projectile.hide = true;
-					Projectile.damage = (int)(sourceItem.damage * ((mp.statCharge == 100) ? sourceAddon.chargeMultiplier : (((mp.statCharge - 25) / 100) + 1)));
+					Projectile.damage = (int)(sourceItem.damage * ((mp.statCharge == 100f) ? sourceAddon.chargeMultiplier : (((mp.statCharge - 25f) / 100f) + 1f)));
 					Projectile.friendly = true;
 					Projectile.Center = oPos;
 					player.itemTime = 2;
@@ -388,12 +387,11 @@ namespace MetroidMod.Content.BeamAddons
 					mp.disableSomersault = false;
 					Projectile.Kill();
 				}
-				if (MSystem.ACSwitch.JustPressed)
-				{
-					mp.disableSomersault = false;
-					Projectile.Kill();
-
-				}
+				//if (MSystem.ACSwitch.JustPressed)
+				//{
+				//	mp.disableSomersault = false;
+				//	Projectile.Kill();
+				//}
 			}
 			//make sure the projectile doesn't expire naturally
 			Projectile.timeLeft = 2;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.Default;
 using MetroidMod.ID;
@@ -223,6 +224,7 @@ namespace MetroidMod
 		/// <br/>To be used with <see cref="HoldFire"/>.
 		/// </summary>
 		public virtual void HoldFireBehavior(Player player, int guideProj = -1) { }
+		public virtual void HoldFireBehavior(Player player, ChargeLead lead) { }
 
 
 		//Compatibility-related variables

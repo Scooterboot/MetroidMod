@@ -34,6 +34,18 @@ namespace MetroidMod.Content.MissileAddons
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 			base.SetStaticDefaults();
 		}
+		public override void SetProjectileDefaults(MProjectile mProjectile)
+		{
+			base.SetProjectileDefaults(mProjectile);
+			mProjectile.Projectile.width = 26;
+			mProjectile.Projectile.height = 26;
+			mProjectile.Projectile.scale = 1f;
+			mProjectile.Projectile.tileCollide = false;
+			mProjectile.Projectile.penetrate = -1;
+			mProjectile.Projectile.extraUpdates = 5;
+			mProjectile.Projectile.usesLocalNPCImmunity = true;
+			mProjectile.Projectile.localNPCHitCooldown = 8;
+		}
 		private float BeamLength
 		{
 			get => mProjectile.Projectile.localAI[1];
@@ -49,10 +61,12 @@ namespace MetroidMod.Content.MissileAddons
 		private SoundEffectInstance soundInstance;
 
 		private bool initialize = false;
-		public override void HoldFireBehavior(Player player, int guideProj)
+		public override void HoldFireBehavior(Player player, ChargeLead lead)
 		{
 			Item item = player.HeldItem;
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
+
+			Lead = lead.Projectile;
 			if (!initialize)
 			{
 				float MY = Main.mouseY + Main.screenPosition.Y;
@@ -63,9 +77,9 @@ namespace MetroidMod.Content.MissileAddons
 				}
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 				Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
-				int oof = Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
-				Main.projectile[oof].ai[0] = guideProj;
-				Lead = Main.projectile[(int)mProjectile.Projectile.ai[0]];
+				Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
+				//Main.projectile[oof].ai[0] = guideProj;
+				//Lead = Main.projectile[(int)mProjectile.Projectile.ai[0]];
 				initialize = true;
 			}
 
@@ -191,13 +205,13 @@ namespace MetroidMod.Content.MissileAddons
 		public override bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor)
 		{
 			SpriteBatch sb = Main.spriteBatch;
-			if (initialize)
+			if (Lead.active && Lead != null)
 			{
 				Projectile P = mProjectile.Projectile;
 				Player O = Main.player[P.owner];
 				Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-				Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
+				Texture2D tex = ModContent.Request<Texture2D>(ShotTexture).Value;
 
 				int tHeight = tex.Height / Main.projFrames[P.type];
 
@@ -244,7 +258,7 @@ namespace MetroidMod.Content.MissileAddons
 		}
 		public override void SetItemDefaults(Item item)
 		{
-			item.value = 30000;
+			item.value = 70000;
 			item.rare = ItemRarityID.LightRed;
 			base.SetItemDefaults(item);
 		}
