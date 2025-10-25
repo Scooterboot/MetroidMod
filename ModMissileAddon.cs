@@ -421,6 +421,8 @@ namespace MetroidMod
 
 		///<inheritdoc cref="ModProjectile.Colliding(Rectangle, Rectangle)"/>
 		public virtual bool? Colliding(MProjectile projectile, Rectangle projHitbox, Rectangle targetHitbox) { return null; }
+		///<inheritdoc cref="ModProjectile.CanHitNPC(NPC)"/>
+		public virtual bool? CanHitNPC(MProjectile projectile, NPC target) { return null; }
 
 		///<inheritdoc cref="ModProjectile.PreDraw(ref Color)"/>
 		public virtual bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor) { return true; }

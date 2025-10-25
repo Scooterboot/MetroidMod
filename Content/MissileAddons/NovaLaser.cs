@@ -92,7 +92,6 @@ namespace MetroidMod.Content.MissileAddons
 			{
 				if (!Initialized)
 				{
-
 					Initialized = true;
 				}
 
