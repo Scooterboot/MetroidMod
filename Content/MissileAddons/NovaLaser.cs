@@ -24,12 +24,11 @@ namespace MetroidMod.Content.MissileAddons
 		public override Color SecondaryColor => MetroidMod.novSecondaryColor;
 		public override int ShotDust => DustID.GreenTorch;
 		public override bool HoldFire => true;
+		public override string ShotSound => $"{Mod.Name}/Assets/Sounds/MissileAddons/{Name}/Loop";
 
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Charge;
-
-			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 			base.SetStaticDefaults();
 		}
 		public override void SetProjectileDefaults(MProjectile mProjectile)
@@ -60,7 +59,7 @@ namespace MetroidMod.Content.MissileAddons
 			Item item = player.HeldItem;
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			Lead = lead.Projectile;
-			if (Initialized && Lead.active)
+			if (!Initialized && Lead.active)
 			{
 				float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
@@ -71,8 +70,6 @@ namespace MetroidMod.Content.MissileAddons
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 				Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 				Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
-				//Main.projectile[oof].ai[0] = guideProj;
-				//Lead = Main.projectile[(int)mProjectile.Projectile.ai[0]];
 				Initialized = true;
 			}
 		}
@@ -103,7 +100,7 @@ namespace MetroidMod.Content.MissileAddons
 				{
 					if (soundInstance == null || soundInstance.State != SoundState.Playing)
 					{
-						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.NovaLaserLoop, O.position), out ActiveSound result);
+						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(new(ShotSound), O.position), out ActiveSound result);
 						soundInstance = result.Sound;
 						soundInstance.Volume = Main.soundVolume;
 					}

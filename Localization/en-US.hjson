@@ -363,6 +363,7 @@ Mods: {
 			ElevatorStationTile.MapEntry: Elevator
 			TopElevatorStationTile.MapEntry: Elevator
 			NovaLaserTile.MapEntry: Nova Laser Tile
+			SolarFlareTile.MapEntry: Solar Flare Tile
 		}
 
 		Buffs: {
@@ -3738,6 +3739,11 @@ Mods: {
 				DisplayName: Nova Laser Addon
 				Tooltip: ""
 			}
+
+			SolarFlareAddon: {
+				DisplayName: Solar Flare Addon
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4136,6 +4142,7 @@ Mods: {
 			NebulaImpact.DisplayName: Nebula Impact
 			StardustDiffuse.DisplayName: Stardust Diffuse
 			NovaLaserProjectile.DisplayName: Nova Laser Projectile
+			SolarFlareProjectile.DisplayName: Solar Flare Projectile
 		}
 
 		Configs: {

@@ -16,7 +16,7 @@ namespace MetroidMod.Content.Tiles
 {
 	public class EnergyStation : ModTile
 	{
-		readonly float rightclickRange = 50.0f;
+		private readonly float rightclickRange = 50.0f;
 
 		public override void SetStaticDefaults()
 		{
@@ -74,7 +74,7 @@ namespace MetroidMod.Content.Tiles
 			return false;
 		}
 
-		static Vector2 TileCenter(int x, int y)
+		private static Vector2 TileCenter(int x, int y)
 		{
 			Vector2 center = new(x * 16, y * 16);
 

@@ -5,11 +5,9 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using MonoMod.Core.Utils;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MetroidMod.Content.MissileAddons.BeamCombos
 {
@@ -26,7 +24,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		private int comboTime = 6;
 		private SoundEffectInstance soundInstance;
 		private int waveDir = -1;
-		private int miniGunAmt = 1;
+		private readonly int miniGunAmt = 1;
 		private float scalePlus = 0f;
 		public override void SetStaticDefaults()
 		{
@@ -184,7 +182,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					{
 						Color color23 = color2;
 						color23 = P.GetAlpha(color23);
-						color23 *= (float)(amt - i) / ((float)amt);
+						color23 *= (amt - i) / ((float)amt);
 						//color23.A = (byte)((float)color23.A * ((float)(amt - i) / (float)amt));
 						float scale = MathHelper.Lerp(P.scale, P.scale * scaleDrop, (float)i / amt);
 
@@ -198,12 +196,12 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 								//color4.A = (byte)((float)color4.A * ((float)(vel2 - j) / (float)vel2));
 								Vector2 oldPos = P.oldPos[i] + P.Size / 2f - Vector2.Normalize(P.velocity) * j;
 								sb.Draw(tex, oldPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-								color23, P.oldRot[i], new Vector2((float)tex.Width / 2f, (float)P.height / 2f), scale, effects, 0f);
+								color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
 							}
 						}
 
 						sb.Draw(tex, P.oldPos[i] + P.Size / 2f - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-						color23, P.oldRot[i], new Vector2((float)tex.Width / 2f, (float)P.height / 2f), scale, effects, 0f);
+						color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
 					}
 				}
 				if (vel > 0)
@@ -215,11 +213,11 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						//color3.A = (byte)((float)color3.A * ((float)(vel - j) / (float)vel));
 						Vector2 pos = P.Center - Vector2.Normalize(P.velocity) * j;
 						sb.Draw(tex, pos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-						P.GetAlpha(color2), P.rotation, new Vector2((float)tex.Width / 2f, (float)P.height / 2f), P.scale, effects, 0f);
+						P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
 					}
 				}
 				sb.Draw(tex, P.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-				P.GetAlpha(color2), P.rotation, new Vector2((float)tex.Width / 2f, (float)P.height / 2f), P.scale, effects, 0f);
+				P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
 			}
 
 			return false;
