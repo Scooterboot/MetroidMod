@@ -223,26 +223,15 @@ namespace MetroidMod.Content.MissileAddons
 	}
 	public class IceDiffuse : Diffuse
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Ice Diffusion Shot");
-		}
+		public override string Texture => $"{Mod.Name}/Assets/Textures/MissileAddons/DiffusionMissile/DiffuseIce";
 	}
 	public class StardustDiffuse : Diffuse
 	{
 		public override string Texture => $"{Mod.Name}/Assets/Textures/MissileAddons/DiffusionMissile/DiffuseIce";
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Stardust Diffusion Shot");
-		}
 	}
 	public class NebulaDiffuse : Diffuse
 	{
 		public override string Texture => $"{Mod.Name}/Assets/Textures/MissileAddons/NebulaMissile/Impact";
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Nebula Diffusion Shot");
-		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

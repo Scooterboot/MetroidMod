@@ -60,6 +60,11 @@ namespace MetroidMod
 		public MProjectile mProjectile;
 
 		/// <summary>
+		/// The <see cref="ChargeLead"/> this addon is using.
+		/// </summary>
+		public Projectile Lead;
+
+		/// <summary>
 		/// References the ModItem previously generated
 		/// </summary>
 		public int ItemType { get; internal set; }
@@ -240,6 +245,11 @@ namespace MetroidMod
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public virtual bool Locked => false;
+		/// <summary>
+		/// If true, this addon has been activated, used for triggering holdfires.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public virtual bool Initialized { get; set; } = false;
 		#endregion
 
 		#region Data-handling methods

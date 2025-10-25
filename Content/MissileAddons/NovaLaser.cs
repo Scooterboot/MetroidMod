@@ -54,18 +54,13 @@ namespace MetroidMod.Content.MissileAddons
 
 		private float scaleUp = 0f;
 
-		private Projectile Lead;
-
 		private SoundEffectInstance soundInstance;
-
-		private bool initialize = false;
 		public override void HoldFireBehavior(Player player, ChargeLead lead)
 		{
 			Item item = player.HeldItem;
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-
 			Lead = lead.Projectile;
-			if (!initialize)
+			if (Initialized && Lead.active)
 			{
 				float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
@@ -78,9 +73,8 @@ namespace MetroidMod.Content.MissileAddons
 				Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
 				//Main.projectile[oof].ai[0] = guideProj;
 				//Lead = Main.projectile[(int)mProjectile.Projectile.ai[0]];
-				initialize = true;
+				Initialized = true;
 			}
-
 		}
 		public override void AI(MProjectile mpshot)
 		{
@@ -93,16 +87,16 @@ namespace MetroidMod.Content.MissileAddons
 			//}
 			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>() || !O.controlUseItem || O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam || O.dead)
 			{
-				initialize = false;
+				Initialized = false;
 				P.Kill();
 				return;
 			}
 			else
 			{
-				if (!initialize)
+				if (!Initialized)
 				{
 
-					initialize = true;
+					Initialized = true;
 				}
 
 				if (P.owner == Main.myPlayer)
