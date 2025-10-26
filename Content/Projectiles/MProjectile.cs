@@ -650,13 +650,8 @@ namespace MetroidMod.Content.Projectiles
 		/// <summary> Causes the projectile to hit any enemies not behind tiles, the blast radius increases by int from the original projectile size and damage multiplied by float </summary>
 		public void Explode(int increase, float scale = 1f)//TODO humorously, works the exact same as the missiles-through-wall exploit as SM
 		{
-			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
-			Projectile.width += increase;
-			Projectile.height += increase;
+			Projectile.Resize(Projectile.width + increase, Projectile.height + increase);
 			Projectile.scale *= scale;
-			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 			Projectile.Damage();
 			/*foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
 			{
