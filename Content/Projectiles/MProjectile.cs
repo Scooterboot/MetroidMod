@@ -559,7 +559,7 @@ namespace MetroidMod.Content.Projectiles
 		}
 
 		private bool drawFlag = false;
-		public void PlasmaDraw(Projectile Projectile, Player player, SpriteBatch sb)
+		public void PlasmaDraw(Projectile Projectile, Player player, SpriteBatch sb, string altTexPath = null)
 		{
 			SpriteEffects effects = SpriteEffects.None;
 			if (Projectile.spriteDirection == -1)
@@ -567,6 +567,10 @@ namespace MetroidMod.Content.Projectiles
 				effects = SpriteEffects.FlipHorizontally;
 			}
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+			if (altTexPath != null)
+			{
+				tex = ModContent.Request<Texture2D>(altTexPath).Value;
+			}
 			int num108 = tex.Height / Main.projFrames[Projectile.type];
 			int y4 = num108 * Projectile.frame;
 

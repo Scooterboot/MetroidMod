@@ -427,7 +427,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch);
+			mProjectile.PlasmaDrawTrail(Projectile, Main.player[Projectile.owner], Main.spriteBatch, $"{Mod.Name}/Assets/Textures/MissileAddons/SolarFlare/Flare");
 			return false;
 		}
 	}
@@ -435,7 +435,6 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 	{
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Supernova Flame Trail");
 			Main.projFrames[Projectile.type] = 9;
 		}
 		private readonly int maxTimeLeft = 60;
@@ -529,7 +528,6 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			//target.immune[Projectile.owner] = 4;
 			target.AddBuff(24, 600, true);
 		}
 
@@ -549,7 +547,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				{
 					effects = SpriteEffects.FlipHorizontally;
 				}
-				Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
+				Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MissileAddons/SolarFlare/Trail").Value;
 				int num108 = tex.Height / Main.projFrames[P.type];
 				int frame = P.frame;
 				float scale = P.scale;
