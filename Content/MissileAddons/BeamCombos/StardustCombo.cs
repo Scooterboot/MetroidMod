@@ -49,12 +49,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		{
 			Projectile P = mProjectile.Projectile;
 
-			P.position.X = P.position.X + (float)(P.width / 2);
-			P.position.Y = P.position.Y + (float)(P.height / 2);
-			P.width += 48;
-			P.height += 48;
-			P.position.X = P.position.X - (float)(P.width / 2);
-			P.position.Y = P.position.Y - (float)(P.height / 2);
+			mProjectile.Explode(48);
 
 			for (int i = 0; i < 25; i++)
 			{
@@ -89,7 +84,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 			int x = (int)MathHelper.Clamp(P.Center.X / 16, 0, Main.maxTilesX - 2);
 			int y = (int)MathHelper.Clamp(P.Center.Y / 16, 0, Main.maxTilesY - 2);
-			Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+			Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
 			int ft = Projectile.NewProjectile(P.GetSource_Death(), pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<StardustFrozenTerrain>(), P.damage, P.knockBack, P.owner);
 			Main.projectile[ft].ai[0] = k + 1;
 
@@ -114,11 +109,11 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			// DisplayName.SetDefault("Stardust Dragon");
 		}
 
-		bool initialised = false;
-		float radius = 5f;//0.0f;
+		private bool initialised = false;
+		private float radius = 5f;//0.0f;
 		public float spin = 0.0f;
-		float SpinIncrease = 0.05f;
-		Vector2 basePosition = new Vector2(0f, 0f);
+		private float SpinIncrease = 0.05f;
+		private Vector2 basePosition = new Vector2(0f, 0f);
 
 		public override void SetDefaults()
 		{
@@ -132,9 +127,9 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Projectile.penetrate = -1;
 		}
 
-		const int SegLength = 6;
-		Vector2[] segmentPos = new Vector2[SegLength];
-		float[] segmentRot = new float[SegLength];
+		private const int SegLength = 6;
+		private readonly Vector2[] segmentPos = new Vector2[SegLength];
+		private readonly float[] segmentRot = new float[SegLength];
 
 		public void initialise()
 		{
@@ -177,7 +172,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				float len = pos.Length();
 				int width = P.width / 2;
 
-				len = (len - (float)width) / len;
+				len = (len - width) / len;
 				pos.X *= len;
 				pos.Y *= len;
 				segmentPos[i] += pos;
@@ -254,7 +249,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)),
 				color,
 				segmentRot[i],
-				new Vector2((float)tex.Width / 2f, (float)tex.Height / 2),
+				new Vector2(tex.Width / 2f, (float)tex.Height / 2),
 				1f,
 				SpriteEffects.None,
 				0f);
@@ -269,7 +264,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			// DisplayName.SetDefault("Stardust Terrain");
 		}
 
-		int size = 42;
+		private readonly int size = 42;
 		public override void SetDefaults()
 		{
 			Projectile.width = size;
@@ -285,18 +280,18 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Projectile.extraUpdates = 0;
 		}
 
-		const int MaxRange = 424;//528;
-		int range = 0;
-		float[,] rotation = new float[MaxRange * 2 / 16, MaxRange * 2 / 16];
-		float[,] alpha = new float[MaxRange * 2 / 16, MaxRange * 2 / 16];
-		Vector2[,] addedPos = new Vector2[MaxRange * 2 / 16, MaxRange * 2 / 16];
+		private const int MaxRange = 424;//528;
+		private int range = 0;
+		private readonly float[,] rotation = new float[MaxRange * 2 / 16, MaxRange * 2 / 16];
+		private readonly float[,] alpha = new float[MaxRange * 2 / 16, MaxRange * 2 / 16];
+		private readonly Vector2[,] addedPos = new Vector2[MaxRange * 2 / 16, MaxRange * 2 / 16];
 
-		int[] freezeDelay = new int[Main.maxNPCs];
+		private readonly int[] freezeDelay = new int[Main.maxNPCs];
 
-		bool guardSpawned = false;
-		int damage = 0;
+		private bool guardSpawned = false;
+		private int damage = 0;
 
-		bool init = false;
+		private bool init = false;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -306,15 +301,15 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				{
 					for (int y = 0; y < rotation.GetLength(1); y++)
 					{
-						rotation[x, y] = (float)Main.rand.Next(360) * ((float)Math.PI / 180);
+						rotation[x, y] = Main.rand.Next(360) * ((float)Math.PI / 180);
 					}
 				}
 				for (int x = 0; x < addedPos.GetLength(0); x++)
 				{
 					for (int y = 0; y < addedPos.GetLength(1); y++)
 					{
-						addedPos[x, y].X = (float)Main.rand.Next(-40, 41) * 0.1f;
-						addedPos[x, y].Y = (float)Main.rand.Next(-40, 41) * 0.1f;
+						addedPos[x, y].X = Main.rand.Next(-40, 41) * 0.1f;
+						addedPos[x, y].Y = Main.rand.Next(-40, 41) * 0.1f;
 					}
 				}
 				P.spriteDirection = 1;
@@ -344,12 +339,12 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			{
 				for (int y = ymin; y < ymax; y++)
 				{
-					Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+					Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
 					if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 					{
 						if (Vector2.Distance(pos, P.Center) <= range)
 						{
-							int fSize = (int)((float)size * P.scale * MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f));
+							int fSize = (int)(size * P.scale * MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f));
 							if (fSize > 0)
 							{
 								Rectangle projRect = new Rectangle((int)pos.X - fSize / 2, (int)pos.Y - fSize / 2, fSize, fSize);
@@ -431,14 +426,14 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			}
 		}
 
-		bool checkOtherProj(Projectile P, Projectile otherProj)
+		private bool checkOtherProj(Projectile P, Projectile otherProj)
 		{
 			return (otherProj.active && otherProj.timeLeft > 30 && otherProj.type == P.type && otherProj.owner == P.owner);
 		}
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 50);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 50);
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -468,10 +463,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						Color color = P.GetAlpha(tileColor);
 						float alphaScale = MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f);
 
-						Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+						Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
 
 						int num = 50;
-						Rectangle screenRect = new Rectangle((int)(Main.screenPosition.X - (float)num), (int)(Main.screenPosition.Y - (float)num), Main.screenWidth + num * 2, Main.screenHeight + num * 2);
+						Rectangle screenRect = new Rectangle((int)(Main.screenPosition.X - num), (int)(Main.screenPosition.Y - num), Main.screenWidth + num * 2, Main.screenHeight + num * 2);
 						Rectangle rect = new Rectangle((int)pos.X - 23, (int)pos.Y - 23, 56, 56);
 						if (screenRect.Intersects(rect))
 						{
@@ -479,10 +474,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 							{
 								Vector2 pos2 = pos + addedPos[x - xmin, y - ymin];
 
-								sb.Draw(tex, new Vector2((float)((int)(pos2.X - Main.screenPosition.X)), (float)((int)(pos2.Y - Main.screenPosition.Y))),
+								sb.Draw(tex, new Vector2((int)(pos2.X - Main.screenPosition.X), (int)(pos2.Y - Main.screenPosition.Y)),
 								new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)),
 								color * alphaScale, rotation[x - xmin, y - ymin],
-								new Vector2((float)tex.Width / 2f, (float)tex.Height / 2f),
+								new Vector2(tex.Width / 2f, tex.Height / 2f),
 								P.scale * alphaScale, effects, 0f);
 							}
 							else if (Vector2.Distance(pos, P.Center) <= range + 16)
@@ -493,10 +488,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 								Color color3 = color2 * 0.5f;
 								color3.A = color2.A;
 
-								sb.Draw(tex, new Vector2((float)((int)(pos2.X - Main.screenPosition.X)), (float)((int)(pos2.Y - Main.screenPosition.Y))),
+								sb.Draw(tex, new Vector2((int)(pos2.X - Main.screenPosition.X), (int)(pos2.Y - Main.screenPosition.Y)),
 								new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)),
 								color3, rotation[x - xmin, y - ymin],
-								new Vector2((float)tex.Width / 2f, (float)tex.Height / 2f),
+								new Vector2(tex.Width / 2f, tex.Height / 2f),
 								P.scale * alphaScale, effects, 0f);
 							}
 						}
@@ -532,7 +527,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Projectile.alpha = 255;
 		}
 
-		int damage = 0;
+		private int damage = 0;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -592,10 +587,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					P.direction = (P.spriteDirection = (npc.Center.X > P.Center.X).ToDirectionInt());
 					float xDiff = Math.Abs(npc.Center.X - P.Center.X);
 					float yDiff = Math.Abs(npc.Center.Y - P.Bottom.Y);
-					float yDir = (float)(npc.Center.Y > P.Bottom.Y).ToDirectionInt();
+					float yDir = (npc.Center.Y > P.Bottom.Y).ToDirectionInt();
 					if (xDiff > 20f)
 					{
-						P.velocity.X = P.velocity.X + 0.1f * (float)P.direction;
+						P.velocity.X = P.velocity.X + 0.1f * P.direction;
 					}
 					else
 					{

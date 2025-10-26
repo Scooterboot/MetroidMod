@@ -6,7 +6,6 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using MonoMod.Core.Utils;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -279,7 +278,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Color color25 = Lighting.GetColor((int)P.Center.X / 16, (int)P.Center.Y / 16);
 			Color alpha4 = P.GetAlpha(color25);
 
-			Vector2 origin = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
+			Vector2 origin = new Vector2(tex.Width, tex.Height) / 2f;
 
 			Color color55 = alpha4 * 0.8f;
 			color55.A /= 2;
@@ -324,7 +323,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
+			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
 			Color color = MetroidMod.lumColor;
 			Lighting.AddLight(P.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
@@ -341,7 +340,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 200);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 200);
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -368,10 +367,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Projectile.penetrate = -1;
 			Projectile.friendly = false;
 		}
-		Projectile Lead;
-		SoundEffectInstance soundInstance;
-		bool soundPlayed = false;
-		int soundDelay = 0;
+		private Projectile Lead;
+		private SoundEffectInstance soundInstance;
+		private readonly bool soundPlayed = false;
+		private readonly int soundDelay = 0;
 		public override void AI()
 		{
 			Projectile P = Projectile;

@@ -61,7 +61,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 			int x = (int)MathHelper.Clamp(P.Center.X / 16, 0, Main.maxTilesX - 2);
 			int y = (int)MathHelper.Clamp(P.Center.Y / 16, 0, Main.maxTilesY - 2);
-			Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+			Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
 			int ft = Projectile.NewProjectile(entitySource, pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<IceSpreaderFrozenTerrain>(), 0, 0f, P.owner);
 
 			//Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.IceSpreaderImpactSound, P.Center);
@@ -69,13 +69,13 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 	}
 	public class IceSpreaderDiffusionShot : MProjectile
 	{
-		bool initialised = false;
-		float radius = 0.0f;
+		private bool initialised = false;
+		private float radius = 0.0f;
 		public float spin = 0.0f;
-		Vector2 basePosition = new Vector2(0f, 0f);
-		Vector2 prevPosition = new Vector2(0f, 0f);
+		private Vector2 basePosition = new Vector2(0f, 0f);
+		private Vector2 prevPosition = new Vector2(0f, 0f);
 
-		float alpha = 1f;
+		private float alpha = 1f;
 
 		public override void SetDefaults()
 		{
@@ -108,7 +108,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			P.rotation = 0f;
 			P.position = (basePosition - new Vector2(P.width / 2, P.height / 2)) + spin.ToRotationVector2() * radius;
 
-			int dust = Dust.NewDust(P.position, P.width, P.height, 135, 0, 0, 100, default(Color), 3f + 3f * ((float)P.timeLeft / 40f));
+			int dust = Dust.NewDust(P.position, P.width, P.height, 135, 0, 0, 100, default(Color), 3f + 3f * (P.timeLeft / 40f));
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].velocity = new Vector2((Main.rand.Next(50) - 25) * 0.1f, (Main.rand.Next(50) - 25) * 0.1f);
 
@@ -139,7 +139,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 	}
 	public class IceSpreaderFrozenTerrain : MProjectile
 	{
-		int size = 42;
+		private readonly int size = 42;
 		public override void SetDefaults()
 		{
 			Projectile.width = size;
@@ -155,14 +155,14 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Projectile.extraUpdates = 0;
 		}
 
-		static int range = 320;
-		float[,] rotation = new float[range * 2 / 16, range * 2 / 16];
-		float[,] alpha = new float[range * 2 / 16, range * 2 / 16];
-		Vector2[,] addedPos = new Vector2[range * 2 / 16, range * 2 / 16];
+		private static readonly int range = 320;
+		private readonly float[,] rotation = new float[range * 2 / 16, range * 2 / 16];
+		private readonly float[,] alpha = new float[range * 2 / 16, range * 2 / 16];
+		private readonly Vector2[,] addedPos = new Vector2[range * 2 / 16, range * 2 / 16];
 
-		int[] freezeDelay = new int[Main.maxNPCs];
+		private readonly int[] freezeDelay = new int[Main.maxNPCs];
 
-		bool init = false;
+		private bool init = false;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -172,15 +172,15 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				{
 					for (int y = 0; y < rotation.GetLength(1); y++)
 					{
-						rotation[x, y] = (float)Main.rand.Next(360) * ((float)Math.PI / 180);
+						rotation[x, y] = Main.rand.Next(360) * ((float)Math.PI / 180);
 					}
 				}
 				for (int x = 0; x < addedPos.GetLength(0); x++)
 				{
 					for (int y = 0; y < addedPos.GetLength(1); y++)
 					{
-						addedPos[x, y].X = (float)Main.rand.Next(-40, 41) * 0.1f;
-						addedPos[x, y].Y = (float)Main.rand.Next(-40, 41) * 0.1f;
+						addedPos[x, y].X = Main.rand.Next(-40, 41) * 0.1f;
+						addedPos[x, y].Y = Main.rand.Next(-40, 41) * 0.1f;
 					}
 				}
 				P.spriteDirection = 1;
@@ -199,12 +199,12 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			{
 				for (int y = ymin; y < ymax; y++)
 				{
-					Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+					Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
 					if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 					{
 						if (Vector2.Distance(pos, P.Center) <= range)
 						{
-							int fSize = (int)((float)size * P.scale * MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f));
+							int fSize = (int)(size * P.scale * MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f));
 							if (fSize > 0)
 							{
 								Rectangle projRect = new Rectangle((int)pos.X - fSize / 2, (int)pos.Y - fSize / 2, fSize, fSize);
@@ -256,7 +256,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 50);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 50);
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -286,16 +286,16 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						Color color = P.GetAlpha(tileColor);
 						float alphaScale = MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f);
 
-						Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+						Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
 
 						if (Vector2.Distance(pos, P.Center) <= range)
 						{
 							Vector2 pos2 = pos + addedPos[x - xmin, y - ymin];
 
-							sb.Draw(tex, new Vector2((float)((int)(pos2.X - Main.screenPosition.X)), (float)((int)(pos2.Y - Main.screenPosition.Y))),
+							sb.Draw(tex, new Vector2((int)(pos2.X - Main.screenPosition.X), (int)(pos2.Y - Main.screenPosition.Y)),
 							new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)),
 							color * alphaScale, rotation[x - xmin, y - ymin],
-							new Vector2((float)tex.Width / 2f, (float)tex.Height / 2f),
+							new Vector2(tex.Width / 2f, tex.Height / 2f),
 							P.scale * alphaScale, effects, 0f);
 						}
 						else if (Vector2.Distance(pos, P.Center) <= range + 16)
@@ -306,10 +306,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 							Color color3 = color2 * 0.5f;
 							color3.A = color2.A;
 
-							sb.Draw(tex, new Vector2((float)((int)(pos2.X - Main.screenPosition.X)), (float)((int)(pos2.Y - Main.screenPosition.Y))),
+							sb.Draw(tex, new Vector2((int)(pos2.X - Main.screenPosition.X), (int)(pos2.Y - Main.screenPosition.Y)),
 							new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)),
 							color3, rotation[x - xmin, y - ymin],
-							new Vector2((float)tex.Width / 2f, (float)tex.Height / 2f),
+							new Vector2(tex.Width / 2f, tex.Height / 2f),
 							P.scale * alphaScale, effects, 0f);
 						}
 					}
