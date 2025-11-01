@@ -9,16 +9,7 @@ namespace MetroidMod.Content.MissileAddons
 	internal class HomingMissile : ModMissileAddon
 	{
 		public override bool AddOnlyAddonItem => false;
-		public override float DamageMult
-		{
-			get {
-				return 2f;
-			}
-
-			set {
-				base.DamageMult = value;
-			}
-		}
+		public override float DamageMult => 2f;
 		public override Color PrimaryColor => MetroidMod.powColor;
 		public override Color SecondaryColor => MetroidMod.powSecondaryColor;
 		public override int ShotDust => DustID.YellowTorch;

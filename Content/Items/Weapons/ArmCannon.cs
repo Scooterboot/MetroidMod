@@ -261,8 +261,6 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			//Below is how display text worked before localization hjsons
 			//Their introduction made these obsolete but I'm keeping this here for posterity :)        -Z
-			/* DisplayName.SetDefault("Power Beam");
-			   Tooltip.SetDefault("Select this item in your hotbar and open your inventory to open the Beam Addon UI");*/
 			Item.ResearchUnlockCount = 1;
 		}
 
@@ -396,11 +394,11 @@ namespace MetroidMod.Content.Items.Weapons
 			//apply the numbers to the weapon
 			if (ac.isBeam) //apply to power beam
 			{
-				Item.damage = (int)((int)(BeamBaseDamage + AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100) + 1)); //Formula for power beam base damage calc. Has to convert to int to work
-				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360 / ((BeamBaseSpeed + AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100) + 1))), 2); //Usetime calc. Can't let the usetime drop below a certain point
+				Item.damage = (int)((int)(BeamBaseDamage + AdditionalBeamStats[0] + AdditionalPrimaryStats[0]) * ((AdditionalBeamStats[1] / 100f) + 1)); //Formula for power beam base damage calc. Has to convert to int to work
+				Item.useAnimation = Item.useTime = (int)Math.Max(Math.Round(360 / ((BeamBaseSpeed + AdditionalBeamStats[2] + AdditionalPrimaryStats[1]) * ((AdditionalBeamStats[3] / 100f) + 1f))), 2f); //Usetime calc. Can't let the usetime drop below a certain point
 				Item.shootSpeed = (BeamBaseVelocity + AdditionalBeamStats[4] /*+ AdditionalPrimaryStats[2]*/) * ((AdditionalBeamStats[5] / 100f) + 1f); //Velocity calc. It adds 1 and divides by 100 so the values can be easy to read
 				Item.crit = (int)(BeamBaseCrit + AdditionalBeamStats[6] + AdditionalPrimaryStats[3]);
-				Overheat = (int)((BaseOverheat + AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100) + 1));
+				Overheat = (int)((BaseOverheat + AdditionalBeamStats[7] + AdditionalPrimaryStats[4]) * ((AdditionalBeamStats[8] / 100f) + 1));
 				Item.UseSound = beamSound;
 				Item.shoot = ModContent.ProjectileType<BeamShot>();
 			}
