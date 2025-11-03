@@ -61,7 +61,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 			int x = (int)MathHelper.Clamp(P.Center.X / 16, 0, Main.maxTilesX - 2);
 			int y = (int)MathHelper.Clamp(P.Center.Y / 16, 0, Main.maxTilesY - 2);
-			Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
+			Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 			int ft = Projectile.NewProjectile(entitySource, pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<IceSpreaderFrozenTerrain>(), 0, 0f, P.owner);
 
 			//Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.IceSpreaderImpactSound, P.Center);
@@ -106,9 +106,9 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			radius = Math.Min(radius + 8f, 320f);
 			spin += (float)(Math.PI / 32);
 			P.rotation = 0f;
-			P.position = (basePosition - new Vector2(P.width / 2, P.height / 2)) + spin.ToRotationVector2() * radius;
+			P.position = basePosition - new Vector2(P.width / 2, P.height / 2) + (spin.ToRotationVector2() * radius);
 
-			int dust = Dust.NewDust(P.position, P.width, P.height, 135, 0, 0, 100, default(Color), 3f + 3f * (P.timeLeft / 40f));
+			int dust = Dust.NewDust(P.position, P.width, P.height, 135, 0, 0, 100, default(Color), 3f + (3f * (P.timeLeft / 40f)));
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].velocity = new Vector2((Main.rand.Next(50) - 25) * 0.1f, (Main.rand.Next(50) - 25) * 0.1f);
 
@@ -199,7 +199,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			{
 				for (int y = ymin; y < ymax; y++)
 				{
-					Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
+					Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 					if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 					{
 						if (Vector2.Distance(pos, P.Center) <= range)
@@ -207,7 +207,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 							int fSize = (int)(size * P.scale * MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f));
 							if (fSize > 0)
 							{
-								Rectangle projRect = new Rectangle((int)pos.X - fSize / 2, (int)pos.Y - fSize / 2, fSize, fSize);
+								Rectangle projRect = new Rectangle((int)pos.X - (fSize / 2), (int)pos.Y - (fSize / 2), fSize, fSize);
 								foreach (NPC who in Main.ActiveNPCs)
 								{
 									NPC npc = Main.npc[who.whoAmI];
@@ -286,7 +286,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						Color color = P.GetAlpha(tileColor);
 						float alphaScale = MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f);
 
-						Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
+						Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 
 						if (Vector2.Distance(pos, P.Center) <= range)
 						{
@@ -300,8 +300,8 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						}
 						else if (Vector2.Distance(pos, P.Center) <= range + 16)
 						{
-							float trot = (float)Math.Atan2((pos.Y - P.Center.Y), (pos.X - P.Center.X));
-							Vector2 pos2 = P.Center + addedPos[x - xmin, y - ymin] + trot.ToRotationVector2() * range;
+							float trot = (float)Math.Atan2(pos.Y - P.Center.Y, pos.X - P.Center.X);
+							Vector2 pos2 = P.Center + addedPos[x - xmin, y - ymin] + (trot.ToRotationVector2() * range);
 							Color color2 = color * alphaScale;
 							Color color3 = color2 * 0.5f;
 							color3.A = color2.A;

@@ -31,7 +31,7 @@ namespace MetroidMod.Content.MissileAddons
 		{
 			float scale = 2f;
 			Projectile Projectile = mProjectile.Projectile;
-			mProjectile.DustLine(Projectile.Center - Projectile.velocity * 0.5f, Projectile.velocity, Projectile.rotation, 5, 3, ShotDust, scale);
+			mProjectile.DustLine(Projectile.Center - (Projectile.velocity * 0.5f), Projectile.velocity, Projectile.rotation, 5, 3, ShotDust, scale);
 
 			Projectile.ai[0] += 1f;
 			if (Projectile.ai[0] > (5f + Projectile.extraUpdates) && Projectile.extraUpdates < 10)

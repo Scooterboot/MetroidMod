@@ -113,7 +113,7 @@ namespace MetroidMod.Content.MissileAddons
 
 				for (P.ai[1] = 0f; P.ai[1] <= maxRange; P.ai[1] += 4f)
 				{
-					Vector2 end = oPos + P.velocity * P.ai[1];
+					Vector2 end = oPos + (P.velocity * P.ai[1]);
 					if (CollideMethods.CheckCollide(end, 0, 0))
 					{
 						P.ai[1] -= 4f;
@@ -127,14 +127,14 @@ namespace MetroidMod.Content.MissileAddons
 					if (Main.rand.NextBool(25))
 					{
 						float k = Math.Min(i, P.ai[1]);
-						Vector2 dPos = oPos - P.Size / 2 + P.velocity * k;
+						Vector2 dPos = oPos - (P.Size / 2) + (P.velocity * k);
 						Main.dust[Dust.NewDust(dPos, P.width, P.width, 75, 0, 0, 100, default(Color), 2f)].noGravity = true;
 					}
 				}
 
-				Vector2 dustPos = oPos + P.velocity * P.ai[1];
-				float num1 = P.velocity.ToRotation() + (Main.rand.NextBool(2) ? 1.0f : -1.0f) * MathHelper.PiOver2;
-				float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
+				Vector2 dustPos = oPos + (P.velocity * P.ai[1]);
+				float num1 = P.velocity.ToRotation() + ((Main.rand.NextBool(2) ? 1.0f : -1.0f) * MathHelper.PiOver2);
+				float num2 = (float)((Main.rand.NextDouble() * 0.8f) + 1.0f);
 				Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
 				Dust dust = Main.dust[Dust.NewDust(dustPos, 0, 0, 75, dustVel.X, dustVel.Y, 100, default(Color), 2f)];
 				dust.noGravity = true;
@@ -143,7 +143,7 @@ namespace MetroidMod.Content.MissileAddons
 
 				Color color = MetroidMod.novColor;
 				DelegateMethods.v3_1 = new Vector3(color.R / 255f, color.G / 255f, color.B / 255f);
-				Utils.PlotTileLine(P.Center, P.Center + P.velocity * P.ai[1], 26, DelegateMethods.CastLight);
+				Utils.PlotTileLine(P.Center, P.Center + (P.velocity * P.ai[1]), 26, DelegateMethods.CastLight);
 
 				if (P.numUpdates == 0)
 				{
@@ -168,7 +168,7 @@ namespace MetroidMod.Content.MissileAddons
 		{
 			Projectile P = m.Projectile;
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-			Utils.PlotTileLine(P.Center, P.Center + P.velocity * (P.ai[1] + 4f), (P.width + 16) * P.scale, DelegateMethods.CutTiles);
+			Utils.PlotTileLine(P.Center, P.Center + (P.velocity * (P.ai[1] + 4f)), (P.width + 16) * P.scale, DelegateMethods.CutTiles);
 		}
 
 		public override void OnHitNPC(MProjectile mProjectile, NPC target, NPC.HitInfo hit, int damageDone)
@@ -182,7 +182,7 @@ namespace MetroidMod.Content.MissileAddons
 			Projectile P = mp.Projectile;
 			float point = 0f;
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center,
-				P.Center + P.velocity * P.ai[1], P.width, ref point);
+				P.Center + (P.velocity * P.ai[1]), P.width, ref point);
 		}
 
 		public override void OnKill(MProjectile mProjectile, int timeLeft)
@@ -215,9 +215,9 @@ namespace MetroidMod.Content.MissileAddons
 
 				for (float i = leadDist; i <= P.ai[1]; i += bodyHeight)
 				{
-					Vector2 pos = P.Center + P.velocity * i;
+					Vector2 pos = P.Center + (P.velocity * i);
 
-					int height = Math.Min(bodyHeight, (int)(P.ai[1] - i - headHeight / 2));
+					int height = Math.Min(bodyHeight, (int)(P.ai[1] - i - (headHeight / 2)));
 
 					int frame = Main.rand.Next(bodyFrameCount);
 
@@ -231,9 +231,9 @@ namespace MetroidMod.Content.MissileAddons
 					}
 				}
 
-				if (P.ai[1] > leadDist + headHeight / 2)
+				if (P.ai[1] > leadDist + (headHeight / 2))
 				{
-					Vector2 pos2 = P.Center + P.velocity * P.ai[1];
+					Vector2 pos2 = P.Center + (P.velocity * P.ai[1]);
 					sb.Draw(tex, pos2 - Main.screenPosition,
 					new Rectangle?(new Rectangle(0, tailHeight + 2 + (bodyHeight * bodyFrameCount) + 2 + (tHeight * P.frame), tex.Width, headHeight)),
 					P.GetAlpha(Color.White), P.rotation,

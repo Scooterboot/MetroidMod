@@ -120,7 +120,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					{
 						NPC npc = Main.npc[i];
 
-						bool flag = (npc.Distance(point) < 500 && Collision.CanHit(P.position, P.width, P.height, npc.position, npc.width, npc.height));
+						bool flag = npc.Distance(point) < 500 && Collision.CanHit(P.position, P.width, P.height, npc.position, npc.width, npc.height);
 
 						int numTarget = 0;
 						if (flag)
@@ -238,7 +238,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			for (int i = 0; i < 30; i++)
 			{
 				int dust = Dust.NewDust(P.Center - new Vector2(18, 18), 36, 36, 229, 0, 0, 100, default(Color), 2f);
-				Main.dust[dust].velocity = new Vector2((Main.rand.Next(30) - 15), (Main.rand.Next(30) - 15)) * 0.125f;
+				Main.dust[dust].velocity = new Vector2(Main.rand.Next(30) - 15, Main.rand.Next(30) - 15) * 0.125f;
 				Main.dust[dust].noGravity = true;
 			}
 		}
@@ -284,9 +284,9 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			color55.A /= 2;
 			Color color56 = Color.Lerp(alpha4, Color.Black, 0.5f);
 			color56.A = alpha4.A;
-			float num273 = 0.95f + (P.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
+			float num273 = 0.95f + ((P.rotation * 0.75f).ToRotationVector2().Y * 0.1f);
 			color56 *= num273;
-			float scale12 = 0.6f + P.scale * 0.6f * num273;
+			float scale12 = 0.6f + (P.scale * 0.6f * num273);
 
 			sb.Draw(tex2, pos, null, color56, -P.rotation + 0.35f, origin, scale12, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex2, pos, null, alpha4, -P.rotation, origin, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
@@ -400,7 +400,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					}
 					else if (Main.soundVolume > 0f)
 					{
-						soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f * Main.soundVolume, 1f * Main.soundVolume);
+						soundInstance.Volume = Math.Min(soundInstance.Volume + (0.05f * Main.soundVolume), 1f * Main.soundVolume);
 					}
 				}
 				P.timeLeft = 2;

@@ -64,7 +64,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			var entitySource = P.GetSource_Death();
 			for (int i = 0; i < 8; i++)
 			{
-				float angle = ((float)Math.PI / 4) * i;
+				float angle = (float)Math.PI / 4 * i;
 				int num54 = Projectile.NewProjectile(entitySource, P.Center.X, P.Center.Y, 0f, 0f, ModContent.ProjectileType<StardustComboDiffusionShot>(), P.damage, P.knockBack, P.owner);
 				StardustComboDiffusionShot difShot = (StardustComboDiffusionShot)Main.projectile[num54].ModProjectile;
 				difShot.spin = angle;
@@ -84,7 +84,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 			int x = (int)MathHelper.Clamp(P.Center.X / 16, 0, Main.maxTilesX - 2);
 			int y = (int)MathHelper.Clamp(P.Center.Y / 16, 0, Main.maxTilesY - 2);
-			Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
+			Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 			int ft = Projectile.NewProjectile(P.GetSource_Death(), pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<StardustFrozenTerrain>(), P.damage, P.knockBack, P.owner);
 			Main.projectile[ft].ai[0] = k + 1;
 
@@ -150,7 +150,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			SpinIncrease += 0.0005f;
 			radius += 3.0f;
 			spin += SpinIncrease;
-			P.position = (basePosition - new Vector2(P.width / 2, P.height / 2)) + spin.ToRotationVector2() * radius;
+			P.position = basePosition - new Vector2(P.width / 2, P.height / 2) + (spin.ToRotationVector2() * radius);
 
 			Vector2 vel = P.position - P.oldPos[0];
 			if (vel != Vector2.Zero)
@@ -339,7 +339,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			{
 				for (int y = ymin; y < ymax; y++)
 				{
-					Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
+					Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 					if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 					{
 						if (Vector2.Distance(pos, P.Center) <= range)
@@ -347,7 +347,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 							int fSize = (int)(size * P.scale * MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f));
 							if (fSize > 0)
 							{
-								Rectangle projRect = new Rectangle((int)pos.X - fSize / 2, (int)pos.Y - fSize / 2, fSize, fSize);
+								Rectangle projRect = new Rectangle((int)pos.X - (fSize / 2), (int)pos.Y - (fSize / 2), fSize, fSize);
 								foreach (NPC who in Main.ActiveNPCs) //this is laggy and inneficient, probably
 								{
 									NPC npc = Main.npc[who.whoAmI];
@@ -377,7 +377,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						float rate = 0.1f;
 						if (P.timeLeft > 30)
 						{
-							alpha[x - xmin, y - ymin] = Math.Min(alpha[x - xmin, y - ymin] + rate, 1f + 2f * (Vector2.Distance(pos, P.Center) / MaxRange));
+							alpha[x - xmin, y - ymin] = Math.Min(alpha[x - xmin, y - ymin] + rate, 1f + (2f * (Vector2.Distance(pos, P.Center) / MaxRange)));
 						}
 						else
 						{
@@ -428,7 +428,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 		private bool checkOtherProj(Projectile P, Projectile otherProj)
 		{
-			return (otherProj.active && otherProj.timeLeft > 30 && otherProj.type == P.type && otherProj.owner == P.owner);
+			return otherProj.active && otherProj.timeLeft > 30 && otherProj.type == P.type && otherProj.owner == P.owner;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -463,10 +463,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						Color color = P.GetAlpha(tileColor);
 						float alphaScale = MathHelper.Clamp(alpha[x - xmin, y - ymin], 0f, 1f);
 
-						Vector2 pos = new Vector2(x * 16f + 8f, y * 16f + 8f);
+						Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 
 						int num = 50;
-						Rectangle screenRect = new Rectangle((int)(Main.screenPosition.X - num), (int)(Main.screenPosition.Y - num), Main.screenWidth + num * 2, Main.screenHeight + num * 2);
+						Rectangle screenRect = new Rectangle((int)(Main.screenPosition.X - num), (int)(Main.screenPosition.Y - num), Main.screenWidth + (num * 2), Main.screenHeight + (num * 2));
 						Rectangle rect = new Rectangle((int)pos.X - 23, (int)pos.Y - 23, 56, 56);
 						if (screenRect.Intersects(rect))
 						{
@@ -482,8 +482,8 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 							}
 							else if (Vector2.Distance(pos, P.Center) <= range + 16)
 							{
-								float trot = (float)Math.Atan2((pos.Y - P.Center.Y), (pos.X - P.Center.X));
-								Vector2 pos2 = P.Center + addedPos[x - xmin, y - ymin] + trot.ToRotationVector2() * range;
+								float trot = (float)Math.Atan2(pos.Y - P.Center.Y, pos.X - P.Center.X);
+								Vector2 pos2 = P.Center + addedPos[x - xmin, y - ymin] + (trot.ToRotationVector2() * range);
 								Color color2 = color * alphaScale;
 								Color color3 = color2 * 0.5f;
 								color3.A = color2.A;
@@ -584,13 +584,13 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				if (target != -1)
 				{
 					NPC npc = Main.npc[target];
-					P.direction = (P.spriteDirection = (npc.Center.X > P.Center.X).ToDirectionInt());
+					P.direction = P.spriteDirection = (npc.Center.X > P.Center.X).ToDirectionInt();
 					float xDiff = Math.Abs(npc.Center.X - P.Center.X);
 					float yDiff = Math.Abs(npc.Center.Y - P.Bottom.Y);
 					float yDir = (npc.Center.Y > P.Bottom.Y).ToDirectionInt();
 					if (xDiff > 20f)
 					{
-						P.velocity.X = P.velocity.X + 0.1f * P.direction;
+						P.velocity.X = P.velocity.X + (0.1f * P.direction);
 					}
 					else
 					{
@@ -598,7 +598,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					}
 					if (yDiff > 10f)
 					{
-						P.velocity.Y = P.velocity.Y + 0.1f * yDir;
+						P.velocity.Y = P.velocity.Y + (0.1f * yDir);
 					}
 					else
 					{
@@ -694,7 +694,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 			Color color = Lighting.GetColor((int)P.Center.X / 16, (int)P.Center.Y / 16);
 
-			Vector2 pos = P.Center + Vector2.UnitY * P.gfxOffY - Main.screenPosition;
+			Vector2 pos = P.Center + (Vector2.UnitY * P.gfxOffY) - Main.screenPosition;
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 			Rectangle rectangle = tex.Frame(1, Main.projFrames[P.type], 0, P.frame);
 			Color alpha = P.GetAlpha(color);

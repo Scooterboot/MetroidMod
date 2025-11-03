@@ -56,7 +56,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					soundInstance = result.Sound;
 					if (soundInstance != null)
 					{
-						soundInstance.Volume *= 1f - 0.25f * (scalePlus / 20f);
+						soundInstance.Volume *= 1f - (0.25f * (scalePlus / 20f));
 					}
 
 					float spray = 1f * (scalePlus / 20f);
@@ -66,10 +66,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					var entitySource = player.GetSource_ItemUse(item);
 					for (int i = 0; i < miniGunAmt; i++)
 					{
-						float rot = Lead.velocity.ToRotation() + (float)Angle.ConvertToRadians(Main.rand.Next(18) * 10) - (float)Math.PI / 2f;
-						Vector2 vector3 = Lead.Center + rot.ToRotationVector2() * 7f * spray;
+						float rot = Lead.velocity.ToRotation() + (float)Angle.ConvertToRadians(Main.rand.Next(18) * 10) - ((float)Math.PI / 2f);
+						Vector2 vector3 = Lead.Center + (rot.ToRotationVector2() * 7f * spray);
 						Vector2 vector5 = Vector2.Normalize(Lead.velocity) * scaleFactor2;
-						vector5 = vector5.RotatedBy((Main.rand.NextDouble() * 0.12 - 0.06) * spray, default(Vector2));
+						vector5 = vector5.RotatedBy(((Main.rand.NextDouble() * 0.12) - 0.06) * spray, default(Vector2));
 						if (float.IsNaN(vector5.X) || float.IsNaN(vector5.Y))
 						{
 							vector5 = -Vector2.UnitY; //this can turn the shots into a cursed flame candle with fargos hypermode and or/enough speed
@@ -178,7 +178,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				int amt = 10;
 				for (int i = amt - 1; i > -1; i--)
 				{
-					if (Vector2.Distance(oPos, P.oldPos[i] + P.Size / 2f) >= dist)
+					if (Vector2.Distance(oPos, P.oldPos[i] + (P.Size / 2f)) >= dist)
 					{
 						Color color23 = color2;
 						color23 = P.GetAlpha(color23);
@@ -186,7 +186,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						//color23.A = (byte)((float)color23.A * ((float)(amt - i) / (float)amt));
 						float scale = MathHelper.Lerp(P.scale, P.scale * scaleDrop, (float)i / amt);
 
-						float vel2 = Math.Min(Vector2.Distance(P.oldPos[i] + P.Size / 2f, startPos), P.velocity.Length());
+						float vel2 = Math.Min(Vector2.Distance(P.oldPos[i] + (P.Size / 2f), startPos), P.velocity.Length());
 						if (vel2 > 0)
 						{
 							for (float j = vel2; j > 0; j--)
@@ -194,13 +194,13 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 								//Color color4 = color23;
 								//color4 *= (float)(vel2 - j) / ((float)vel2);
 								//color4.A = (byte)((float)color4.A * ((float)(vel2 - j) / (float)vel2));
-								Vector2 oldPos = P.oldPos[i] + P.Size / 2f - Vector2.Normalize(P.velocity) * j;
+								Vector2 oldPos = P.oldPos[i] + (P.Size / 2f) - (Vector2.Normalize(P.velocity) * j);
 								sb.Draw(tex, oldPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
 								color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
 							}
 						}
 
-						sb.Draw(tex, P.oldPos[i] + P.Size / 2f - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
+						sb.Draw(tex, P.oldPos[i] + (P.Size / 2f) - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
 						color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
 					}
 				}
@@ -211,7 +211,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						//Color color3 = P.GetAlpha(color2);
 						//color3 *= (float)(vel - j) / ((float)vel);
 						//color3.A = (byte)((float)color3.A * ((float)(vel - j) / (float)vel));
-						Vector2 pos = P.Center - Vector2.Normalize(P.velocity) * j;
+						Vector2 pos = P.Center - (Vector2.Normalize(P.velocity) * j);
 						sb.Draw(tex, pos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
 						P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
 					}

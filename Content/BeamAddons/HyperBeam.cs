@@ -161,7 +161,7 @@ namespace MetroidMod.Content.BeamAddons
 
 			//Generate the "mother" projectile first.
 			//This one's bigger and stronger than the babies.
-			HyperBeamShot tasteTheRainbow = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamShot>(), damage, knockback).ModProjectile) as HyperBeamShot;
+			HyperBeamShot tasteTheRainbow = Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamShot>(), damage, knockback).ModProjectile as HyperBeamShot;
 			tasteTheRainbow.beamAddons = wepon.BeamAddonAccess
 				.Select(i => BeamAddonLoader.GetAddon(i))
 				.Select(i => i?.Clone())
@@ -177,7 +177,7 @@ namespace MetroidMod.Content.BeamAddons
 				for (int i = 0; i < theShootsingAmount; i++)
 				{
 					MetroidMod.Instance.Logger.Info("Non-canon! " + (i + 1) + "/" + theShootsingAmount);
-					HyperBeamExtraShot stray = (Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile) as HyperBeamExtraShot;
+					HyperBeamExtraShot stray = Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<HyperBeamExtraShot>(), damage, knockback).ModProjectile as HyperBeamExtraShot;
 					stray.beamAddons = wepon.BeamAddonAccess
 						.Select(i => BeamAddonLoader.GetAddon(i))
 						.Select(i => i?.Clone())
@@ -343,7 +343,7 @@ namespace MetroidMod.Content.BeamAddons
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			corePosition = mother.corePosition;
-			MetroidMod.Instance.Logger.Info("WHY THIS NOT SPAWNING: corePos? " + (corePosition));
+			MetroidMod.Instance.Logger.Info("WHY THIS NOT SPAWNING: corePos? " + corePosition);
 			//First, call method to calculate tileinteract total.
 			TileInteract = BeamAddonLoader.InteractStacker(beamAddons, true, 2f);
 			//Then, call method to calculate entityinteract total.
