@@ -521,9 +521,9 @@ namespace MetroidMod.Common.Systems
 		public void DrawSeekerTargets(SpriteBatch sb)
 		{
 			Mod mod = Mod;
-			Player P = Main.player[Main.myPlayer];
+			Player P = Main.LocalPlayer;
 			MPlayer mp = P.GetModPlayer<MPlayer>();
-			Item item = P.inventory[P.selectedItem];
+			Item item = P.HeldItem;
 
 			if (item.type == ModContent.ItemType<ArmCannon>() && item.TryGetGlobalItem(out MGlobalItem pb) && !pb.isBeam)
 			{

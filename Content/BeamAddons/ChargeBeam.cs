@@ -130,7 +130,7 @@ namespace MetroidMod.Content.BeamAddons
 
 				//important control variables
 				bool canCharge = !player.noItems && !mp.ballstate && !mp.shineActive && !player.dead && !player.CCed && (player.whoAmI == Main.myPlayer);
-				bool dontCharge = !ac.isBeam && MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]) != null && !MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).NeedsCharging;
+				//bool dontCharge = !ac.isBeam && MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]) != null && !MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).NeedsCharging;
 				float currentMultiplier = 0f;
 
 
