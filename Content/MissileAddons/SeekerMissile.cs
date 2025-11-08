@@ -52,7 +52,7 @@ namespace MetroidMod.Content.MissileAddons
 			var entitySource = player.GetSource_ItemUse(item);
 			if (!Initialized)
 			{
-				Projectile.NewProjectile(entitySource, Lead.position.X, Lead.position.Y, Lead.velocity.X, Lead.velocity.Y, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, Item.knockBack, player.whoAmI);
+				//Projectile oof = Projectile.NewProjectileDirect(entitySource, Lead.position, Lead.velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
 				Initialized = true;
 			}
 			
@@ -153,10 +153,11 @@ namespace MetroidMod.Content.MissileAddons
 						{
 							if (pb.seekerTarget[i] > -1)
 							{
-								int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, Item.knockBack, player.whoAmI);
+								int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
 								MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 								mProj.seekTarget = pb.seekerTarget[i];
 								mProj.seeking = true;
+								mProj.HomingBehavior(mProj.Projectile);
 								mProj.Projectile.netUpdate2 = true;
 								//MissileAddonLoader.GetAddon<SuperMissile>().AI(mProj);
 								//pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
@@ -165,16 +166,16 @@ namespace MetroidMod.Content.MissileAddons
 
 						SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
 					}
-					else if (pb.seekerCharge > 0)
-					{
-						Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, Item.knockBack, player.whoAmI);
-						//SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
-
-						//pb.statMissiles -= 1;
-					}
+					//else if (pb.seekerCharge > 0)
+					//{
+					//	Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
+					//	//SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
+					//	//pb.statMissiles -= 1;
+					//}
 					if (!Lead.active)
 					{
 						pb.seekerCharge = 0;
+						Initialized = false;
 					}
 					pb.numSeekerTargets = 0;
 					for (int k = 0; k < pb.seekerTarget.Length; k++)
@@ -197,44 +198,44 @@ namespace MetroidMod.Content.MissileAddons
 				targetNum = 0;
 				targetingDelay = 0;
 			}
-			//Projectile Projectile = mProjectile.Projectile;
-			//if (mProjectile.seeking && mProjectile.seekTarget > -1)
-			//{
-			//	float num236 = Projectile.position.X;
-			//	float num237 = Projectile.position.Y;
-			//	bool flag5 = false;
-			//	Projectile.ai[0] += 1f;
-			//	if (Projectile.ai[0] > 5f && Projectile.numUpdates <= 0)
-			//	{
-			//		Projectile.ai[0] = 5f;
-			//		int num239 = mProjectile.seekTarget;
-			//		if (Main.npc[num239].active)
-			//		{
-			//			num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
-			//			num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
-			//			flag5 = true;
-			//		}
-			//		else
-			//		{
-			//			mProjectile.seekTarget = -1;
-			//		}
-			//	}
-			//	if (!flag5)
-			//	{
-			//		num236 = Projectile.position.X + (Projectile.width / 2) + (Projectile.velocity.X * 100f);
-			//		num237 = Projectile.position.Y + (Projectile.height / 2) + (Projectile.velocity.Y * 100f);
-			//	}
-			//	float num243 = 8f;
-			//	Vector2 vector22 = new Vector2(Projectile.position.X + (Projectile.width * 0.5f), Projectile.position.Y + (Projectile.height * 0.5f));
-			//	float num244 = num236 - vector22.X;
-			//	float num245 = num237 - vector22.Y;
-			//	float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
-			//	num246 = num243 / num246;
-			//	num244 *= num246;
-			//	num245 *= num246;
-			//	Projectile.velocity.X = ((Projectile.velocity.X * 11f) + num244) / 12f;
-			//	Projectile.velocity.Y = ((Projectile.velocity.Y * 11f) + num245) / 12f;
-			//}
+			Projectile P = mProjectile.Projectile;
+			if (mProjectile.seeking && mProjectile.seekTarget > -1)
+			{
+				float num236 = P.position.X;
+				float num237 = P.position.Y;
+				bool flag5 = false;
+				P.ai[0] += 1f;
+				if (P.ai[0] > 5f && P.numUpdates <= 0)
+				{
+					P.ai[0] = 5f;
+					int num239 = mProjectile.seekTarget;
+					if (Main.npc[num239].active)
+					{
+						num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
+						num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
+						flag5 = true;
+					}
+					else
+					{
+						mProjectile.seekTarget = -1;
+					}
+				}
+				if (!flag5)
+				{
+					num236 = P.position.X + (P.width / 2) + (P.velocity.X * 100f);
+					num237 = P.position.Y + (P.height / 2) + (P.velocity.Y * 100f);
+				}
+				float num243 = 8f;
+				Vector2 vector22 = new Vector2(P.position.X + (P.width * 0.5f), P.position.Y + (P.height * 0.5f));
+				float num244 = num236 - vector22.X;
+				float num245 = num237 - vector22.Y;
+				float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
+				num246 = num243 / num246;
+				num244 *= num246;
+				num245 *= num246;
+				P.velocity.X = ((P.velocity.X * 11f) + num244) / 12f;
+				P.velocity.Y = ((P.velocity.Y * 11f) + num245) / 12f;
+			}
 		}
 		public override void SetItemDefaults(Item item)
 		{
