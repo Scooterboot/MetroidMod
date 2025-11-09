@@ -83,11 +83,11 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			dmg = mProjectile.Projectile.damage;
 			base.OnSpawn(mProjectile, source);
 		}
-		public override void HoldFireBehavior(Player player, ChargeLead lead)
+		public override void HoldFireBehavior(Player player, Projectile lead)
 		{
 			Item item = player.HeldItem;
 			Vector2 mPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			Lead = lead.Projectile;
+			Lead = lead;
 			if (!Initialized && Lead.active)
 			{
 				float MY = Main.mouseY + Main.screenPosition.Y;

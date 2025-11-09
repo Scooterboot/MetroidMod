@@ -2,7 +2,6 @@
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.MissileAddons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -132,8 +131,6 @@ namespace MetroidMod.Content.BeamAddons
 			bool canCharge = !player.noItems && !mp.ballstate && !mp.shineActive && !player.dead && !player.CCed && (player.whoAmI == Main.myPlayer);
 			float currentMultiplier = 0f;
 
-			//if (dontCharge)
-			//	MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player);
 			//here's the part where all the charging happens
 			if (player.controlUseItem && canCharge && (ac.isBeam || MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]) != null))
 			{
@@ -146,8 +143,10 @@ namespace MetroidMod.Content.BeamAddons
 							//spawn the chargelead
 							//ChargeLead chargio = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, targetrotation.ToRotationVector2() * ac.barrelOffset, ModContent.ProjectileType<ChargeLead>(), item.damage, 0, player.whoAmI).ModProjectile as ChargeLead;
 							//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead");
-							chInt = Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
-							chargio = (ChargeLead)Main.projectile[chInt].ModProjectile;
+							//chInt = Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
+							chProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
+							chargio = (ChargeLead)chProj.ModProjectile;
+							chInt = chProj.whoAmI;
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;
 							chargio.sourceAddon = this;
@@ -157,6 +156,11 @@ namespace MetroidMod.Content.BeamAddons
 							chargio.coreSaturation = chargioSaturation;
 							Main.projectile[chInt].ai[0] = chInt;
 							MetroidMod.Instance.Logger.Info(item);
+							if (dontCharge && player.controlUseItem)
+							{
+								MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chProj);
+								break;
+							}
 							//play charge noise
 							break;
 						case 99f:
@@ -176,15 +180,13 @@ namespace MetroidMod.Content.BeamAddons
 						case >= 100f:
 							//AFAIK there's nothing the Power Beam would need to constantly do at max charge so
 							//Check if the cannon's anything but ready to fire a missile holdfire
-							if (ac.isBeam
-								|| wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir
-								|| !MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFire)
+							if (ac.isBeam || wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir || !MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFire || dontCharge)
 							{
 								break;
 							}
 
 							//Let the missile holdfire do its thing
-							MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chargio);
+							MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chProj);
 							break;
 						default:
 							if ((mp.statCharge > 75f) && ac.isBeam)
@@ -262,12 +264,16 @@ namespace MetroidMod.Content.BeamAddons
 				player.itemAnimation = 20;
 				mp.statCharge = 0f;
 				chargeDelay = 0f;
+				//ac.seekerCharge = 0;
+				//ac.numSeekerTargets = 0;
 			}//Check if there's any charge to release
 			else
 			{
 				//MetroidMod.Instance.Logger.Info("jobs never startd");
 				mp.statCharge = 0;
 				chargeDelay = 0;
+				//ac.seekerCharge = 0;
+				//ac.numSeekerTargets = 0;
 			}//Cancel out any leftover charge
 		}
 		public override void AddRecipes()

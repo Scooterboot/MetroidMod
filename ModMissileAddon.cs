@@ -229,7 +229,7 @@ namespace MetroidMod
 		/// <br/>To be used with <see cref="HoldFire"/>.
 		/// </summary>
 		public virtual void HoldFireBehavior(Player player, int guideProj = -1) { }
-		public virtual void HoldFireBehavior(Player player, ChargeLead lead) { }
+		public virtual void HoldFireBehavior(Player player, Projectile lead) { }
 
 
 		//Compatibility-related variables

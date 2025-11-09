@@ -1,5 +1,4 @@
 using System;
-using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -44,10 +43,10 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			mProjectile.wavesPerSecond = 2f;
 			mProjectile.delay = 1;
 		}
-		public override void HoldFireBehavior(Player player, ChargeLead lead)
+		public override void HoldFireBehavior(Player player, Projectile lead)
 		{
 			Item item = player.HeldItem;
-			Lead = lead.Projectile;
+			Lead = lead;
 			if (Lead.active)
 			{
 				if (comboTime <= 0)

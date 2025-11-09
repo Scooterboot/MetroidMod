@@ -46,11 +46,11 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Item.rare = ItemRarityID.LightRed;
 			base.SetItemDefaults(item);
 		}
-		public override void HoldFireBehavior(Player player, ChargeLead lead)
+		public override void HoldFireBehavior(Player player, Projectile lead)
 		{
 			Item item = player.HeldItem;
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			Lead = lead.Projectile;
+			Lead = lead;
 			if (!Initialized && Lead.active)
 			{
 				float MY = Main.mouseY + Main.screenPosition.Y;

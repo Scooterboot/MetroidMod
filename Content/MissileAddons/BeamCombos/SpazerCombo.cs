@@ -1,3 +1,4 @@
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -15,6 +16,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 		public override bool AddOnlyAddonItem => false;
 		public override bool IgnoreProjectile => true;
+		public override int ShotCount => 5;
 
 		public override void SetStaticDefaults()
 		{
@@ -26,9 +28,9 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		public override void OnSpawn(MProjectile mProjectile, IEntitySource source)
 		{
 			Projectile p = mProjectile.Projectile;
-			if (source is EntitySource_Parent parent && parent.Entity is Player player)
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && player.HeldItem.ModItem is ArmCannon armi)
 			{
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < ShotCount; i++)
 				{
 					Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 					int k = i - (5 / 2);
@@ -39,7 +41,8 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					{
 						shotGunVel -= Vector2.UnitY;
 					}
-					Projectile.NewProjectileDirect(source, oPos, shotGunVel, player.HeldItem.shoot, p.damage, p.knockBack, player.whoAmI);
+					armi.Launch(player, source, oPos, shotGunVel * player.HeldItem.shootSpeed, player.HeldItem.shoot, p.damage, p.knockBack, false);
+					//Projectile.NewProjectileDirect(source, oPos, shotGunVel, player.HeldItem.shoot, p.damage, p.knockBack, player.whoAmI);
 				}
 			}
 		}

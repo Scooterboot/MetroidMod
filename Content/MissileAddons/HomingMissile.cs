@@ -24,10 +24,6 @@ namespace MetroidMod.Content.MissileAddons
 		}
 		public override void AI(MProjectile mpshot)
 		{
-			//MetroidMod.Instance.Logger.Info("Locking onto target");
-			Dust dude = Dust.NewDustPerfect(mpshot.corePosition, DustID.GreenTorch);
-			MetroidMod.Instance.Logger.Info(dude.position);
-			dude.noGravity = true;
 			mpshot.HomingBehavior(mpshot.Projectile);
 		}
 		public override void SetItemDefaults(Item item) //TO DO SOMETHING WITH THIS

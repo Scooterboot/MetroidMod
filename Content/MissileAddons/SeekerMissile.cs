@@ -1,18 +1,12 @@
 using System;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
-using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
-using static MetroidMod.Sounds;
 
 namespace MetroidMod.Content.MissileAddons
 {
@@ -37,10 +31,10 @@ namespace MetroidMod.Content.MissileAddons
 			//All the stats are set outside of here up in Stat Values, lets me do fancy schmancy tooltip stuff
 			base.SetStaticDefaults();
 		}
-		public override void HoldFireBehavior(Player player, ChargeLead lead)
+		public override void HoldFireBehavior(Player player, Projectile lead)
 		{
 			Item item = player.HeldItem;
-			Lead = lead.Projectile;
+			Lead = lead;
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			MGlobalItem pb = item.GetGlobalItem<MGlobalItem>();
 			float MY = Main.mouseY + Main.screenPosition.Y;
@@ -50,12 +44,18 @@ namespace MetroidMod.Content.MissileAddons
 			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 			var entitySource = player.GetSource_ItemUse(item);
-			if (!Initialized)
+			if (player.controlUseItem && lead.active)
 			{
-				//Projectile oof = Projectile.NewProjectileDirect(entitySource, Lead.position, Lead.velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
 				Initialized = true;
 			}
-			
+			else
+				Initialized = false;
+			//if (!Initialized)
+			//{
+			//	//Projectile oof = Projectile.NewProjectileDirect(entitySource, Lead.position, Lead.velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
+			//	Initialized = true;
+			//}
+
 		}
 		public override void AI(MProjectile mProjectile)
 		{
@@ -156,8 +156,8 @@ namespace MetroidMod.Content.MissileAddons
 								int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
 								MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 								mProj.seekTarget = pb.seekerTarget[i];
-								mProj.seeking = true;
-								mProj.HomingBehavior(mProj.Projectile);
+								//mProj.seeking = true;
+								Seeking(mProj, mProj.seekTarget);
 								mProj.Projectile.netUpdate2 = true;
 								//MissileAddonLoader.GetAddon<SuperMissile>().AI(mProj);
 								//pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
@@ -198,44 +198,82 @@ namespace MetroidMod.Content.MissileAddons
 				targetNum = 0;
 				targetingDelay = 0;
 			}
+			//Projectile P = mProjectile.Projectile;
+			//if (mProjectile.seeking && mProjectile.seekTarget > -1)
+			//{
+			//	float num236 = P.position.X;
+			//	float num237 = P.position.Y;
+			//	bool flag5 = false;
+			//	P.ai[0] += 1f;
+			//	if (P.ai[0] > 5f && P.numUpdates <= 0)
+			//	{
+			//		P.ai[0] = 5f;
+			//		int num239 = mProjectile.seekTarget;
+			//		if (Main.npc[num239].active)
+			//		{
+			//			num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
+			//			num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
+			//			flag5 = true;
+			//		}
+			//		else
+			//		{
+			//			mProjectile.seekTarget = -1;
+			//		}
+			//	}
+			//	if (!flag5)
+			//	{
+			//		num236 = P.position.X + (P.width / 2) + (P.velocity.X * 100f);
+			//		num237 = P.position.Y + (P.height / 2) + (P.velocity.Y * 100f);
+			//	}
+			//	float num243 = 8f;
+			//	Vector2 vector22 = new Vector2(P.position.X + (P.width * 0.5f), P.position.Y + (P.height * 0.5f));
+			//	float num244 = num236 - vector22.X;
+			//	float num245 = num237 - vector22.Y;
+			//	float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
+			//	num246 = num243 / num246;
+			//	num244 *= num246;
+			//	num245 *= num246;
+			//	P.velocity.X = ((P.velocity.X * 11f) + num244) / 12f;
+			//	P.velocity.Y = ((P.velocity.Y * 11f) + num245) / 12f;
+			//}
+		}
+		private static void Seeking(MProjectile mProjectile, int seekTarget)
+		{
 			Projectile P = mProjectile.Projectile;
-			if (mProjectile.seeking && mProjectile.seekTarget > -1)
+			float num236 = P.position.X;
+			float num237 = P.position.Y;
+			bool flag5 = false;
+			P.ai[0] += 1f;
+			if (P.ai[0] > 5f && P.numUpdates <= 0)
 			{
-				float num236 = P.position.X;
-				float num237 = P.position.Y;
-				bool flag5 = false;
-				P.ai[0] += 1f;
-				if (P.ai[0] > 5f && P.numUpdates <= 0)
+				P.ai[0] = 5f;
+				int num239 = seekTarget;
+				if (Main.npc[num239].active)
 				{
-					P.ai[0] = 5f;
-					int num239 = mProjectile.seekTarget;
-					if (Main.npc[num239].active)
-					{
-						num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
-						num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
-						flag5 = true;
-					}
-					else
-					{
-						mProjectile.seekTarget = -1;
-					}
+					num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
+					num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
+					flag5 = true;
 				}
-				if (!flag5)
-				{
-					num236 = P.position.X + (P.width / 2) + (P.velocity.X * 100f);
-					num237 = P.position.Y + (P.height / 2) + (P.velocity.Y * 100f);
-				}
-				float num243 = 8f;
-				Vector2 vector22 = new Vector2(P.position.X + (P.width * 0.5f), P.position.Y + (P.height * 0.5f));
-				float num244 = num236 - vector22.X;
-				float num245 = num237 - vector22.Y;
-				float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
-				num246 = num243 / num246;
-				num244 *= num246;
-				num245 *= num246;
-				P.velocity.X = ((P.velocity.X * 11f) + num244) / 12f;
-				P.velocity.Y = ((P.velocity.Y * 11f) + num245) / 12f;
+				//else
+				//{
+				//	seekTarget = -1;
+				//}
 			}
+			if (!flag5)
+			{
+				num236 = P.position.X + (P.width / 2) + (P.velocity.X * 100f);
+				num237 = P.position.Y + (P.height / 2) + (P.velocity.Y * 100f);
+			}
+			float num243 = 8f;
+			Vector2 vector22 = new Vector2(P.position.X + (P.width * 0.5f), P.position.Y + (P.height * 0.5f));
+			float num244 = num236 - vector22.X;
+			float num245 = num237 - vector22.Y;
+			float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
+			num246 = num243 / num246;
+			num244 *= num246;
+			num245 *= num246;
+			P.velocity.X = ((P.velocity.X * 11f) + num244) / 12f;
+			P.velocity.Y = ((P.velocity.Y * 11f) + num245) / 12f;
 		}
 		public override void SetItemDefaults(Item item)
 		{
@@ -253,141 +291,141 @@ namespace MetroidMod.Content.MissileAddons
 				.Register();
 		}
 	}
-	public class SeekerMissileLead : MProjectile
-	{
-		public override void SetDefaults()
-		{
-			Projectile.width = 16;
-			Projectile.height = 16;
-			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 8800;
-			Projectile.ownerHitCheck = true;
-			Projectile.friendly = false;
-			Projectile.hostile = false;
-			Projectile.tileCollide = false;
-			Projectile.penetrate = 1;
-			Projectile.ignoreWater = true;
-			//Projectile.ranged = true;
-		}
+	//public class SeekerMissileLead : MProjectile
+	//{
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 16;
+	//		Projectile.height = 16;
+	//		Projectile.aiStyle = -1;
+	//		Projectile.timeLeft = 8800;
+	//		Projectile.ownerHitCheck = true;
+	//		Projectile.friendly = false;
+	//		Projectile.hostile = false;
+	//		Projectile.tileCollide = false;
+	//		Projectile.penetrate = 1;
+	//		Projectile.ignoreWater = true;
+	//		//Projectile.ranged = true;
+	//	}
 
-		private Color LightColor = Color.Cyan;//MetroidMod.powColor;
-		private bool soundPlayed = false;
-		private readonly SoundEffectInstance soundInstance;
-		private int dustDelay = 0;
-		private int negateUseTime = 0;
-		public override void AI()
-		{
-			Projectile P = Projectile;
-			Player O = Main.player[P.owner];
+	//	private Color LightColor = Color.Cyan;//MetroidMod.powColor;
+	//	private bool soundPlayed = false;
+	//	private readonly SoundEffectInstance soundInstance;
+	//	private int dustDelay = 0;
+	//	private int negateUseTime = 0;
+	//	public override void AI()
+	//	{
+	//		Projectile P = Projectile;
+	//		Player O = Main.player[P.owner];
 
-			Item I = O.HeldItem;
+	//		Item I = O.HeldItem;
 
-			MPlayer mp = O.GetModPlayer<MPlayer>();
-			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
+	//		MPlayer mp = O.GetModPlayer<MPlayer>();
+	//		MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
 
-			float MY = Main.mouseY + Main.screenPosition.Y;
-			float MX = Main.mouseX + Main.screenPosition.X;
-			if (O.gravDir == -1f)
-			{
-				MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-			}
-			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
+	//		float MY = Main.mouseY + Main.screenPosition.Y;
+	//		float MX = Main.mouseX + Main.screenPosition.X;
+	//		if (O.gravDir == -1f)
+	//		{
+	//			MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
+	//		}
+	//		Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-			P.scale = mi.seekerCharge / (float)MGlobalItem.seekerMaxCharge * (0.25f + (0.75f * ((mi.numSeekerTargets + 1) / 6f)));
-			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
-			P.rotation += 0.5f * P.direction;
-			O.itemTime = 2;
-			O.itemAnimation = 2;
+	//		P.scale = mi.seekerCharge / (float)MGlobalItem.seekerMaxCharge * (0.25f + (0.75f * ((mi.numSeekerTargets + 1) / 6f)));
+	//		float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
+	//		P.rotation += 0.5f * P.direction;
+	//		O.itemTime = 2;
+	//		O.itemAnimation = 2;
 
-			int range = I.width + 4;
-			int width = (I.width / 2) - (P.width / 2);
-			int height = (I.height / 2) - (P.height / 2);
+	//		int range = I.width + 4;
+	//		int width = (I.width / 2) - (P.width / 2);
+	//		int height = (I.height / 2) - (P.height / 2);
 
-			if (negateUseTime < I.useTime)
-			{
-				negateUseTime++;
-			}
+	//		if (negateUseTime < I.useTime)
+	//		{
+	//			negateUseTime++;
+	//		}
 
-			Vector2 iPos = O.itemLocation;
+	//		Vector2 iPos = O.itemLocation;
 
-			P.friendly = false;
-			P.damage = 0;
-			P.position = new Vector2(iPos.X + ((float)Math.Cos(targetrotation) * range) + width, iPos.Y + ((float)Math.Sin(targetrotation) * range) + height);
-			P.alpha = 0;
-			if (P.velocity.X < 0)
-			{
-				P.direction = -1;
-			}
-			else
-			{
-				P.direction = 1;
-			}
-			P.spriteDirection = P.direction;
-			O.direction = P.direction;
+	//		P.friendly = false;
+	//		P.damage = 0;
+	//		P.position = new Vector2(iPos.X + ((float)Math.Cos(targetrotation) * range) + width, iPos.Y + ((float)Math.Sin(targetrotation) * range) + height);
+	//		P.alpha = 0;
+	//		if (P.velocity.X < 0)
+	//		{
+	//			P.direction = -1;
+	//		}
+	//		else
+	//		{
+	//			P.direction = 1;
+	//		}
+	//		P.spriteDirection = P.direction;
+	//		O.direction = P.direction;
 
-			O.heldProj = P.whoAmI;
-			O.itemRotation = (float)Math.Atan2((MY - oPos.Y) * O.direction, (MX - oPos.X) * O.direction) - O.fullRotation;
+	//		O.heldProj = P.whoAmI;
+	//		O.itemRotation = (float)Math.Atan2((MY - oPos.Y) * O.direction, (MX - oPos.X) * O.direction) - O.fullRotation;
 
-			P.position -= P.velocity;
-			P.timeLeft = 60;
-			if (O.whoAmI == Main.myPlayer)
-			{
-				//if (mi.seekerCharge == 10 && SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeStartup_Seeker, oPos), out ActiveSound result))
-				//{
-				//	soundInstance = result.Sound;
-				//}
-			}
-			if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge)
-			{
-				if (dustDelay <= mi.numSeekerTargets)
-				{
-					int dust = Dust.NewDust(P.position + P.velocity, P.width, P.height, 63, 0, 0, 100, Color.Cyan, 2.0f);
-					Main.dust[dust].noGravity = true;
-					dustDelay = 5;
-				}
-			}
-			dustDelay = Math.Max(dustDelay - 1, 0);
-			Lighting.AddLight(P.Center, LightColor.R / 255f * P.scale, LightColor.G / 255f * P.scale, LightColor.B / 255f * P.scale);
-			if (O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
-			{
-				if (P.owner == Main.myPlayer)
-				{
-					P.velocity = targetrotation.ToRotationVector2() * O.HeldItem.shootSpeed;
-				}
-			}
-			else
-			{
-				if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge)
-				{
-					O.itemTime = I.useTime;
-					O.itemAnimation = I.useAnimation;
-				}
-				else
-				{
-					O.itemTime = I.useTime - negateUseTime;
-					O.itemAnimation = I.useAnimation - negateUseTime;
-				}
-				if (O.whoAmI == Main.myPlayer)
-				{
-					if (soundInstance != null)
-					{
-						soundInstance.Stop(true);
-					}
-					soundPlayed = false;
-				}
-				P.Kill();
-			}
-		}
-		public override void OnKill(int timeLeft)
-		{
-			Player O = Main.player[Projectile.owner];
-			MGlobalItem mi = O.HeldItem.GetGlobalItem<MGlobalItem>();
-			mi.seekerCharge = 0;
-		}
-		public override bool PreDraw(ref Color lightColor)
-		{
-			mProjectile.DrawCentered(Projectile, Main.spriteBatch);
-			return false;
-		}
-	}
+	//		P.position -= P.velocity;
+	//		P.timeLeft = 60;
+	//		if (O.whoAmI == Main.myPlayer)
+	//		{
+	//			//if (mi.seekerCharge == 10 && SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeStartup_Seeker, oPos), out ActiveSound result))
+	//			//{
+	//			//	soundInstance = result.Sound;
+	//			//}
+	//		}
+	//		if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge)
+	//		{
+	//			if (dustDelay <= mi.numSeekerTargets)
+	//			{
+	//				int dust = Dust.NewDust(P.position + P.velocity, P.width, P.height, 63, 0, 0, 100, Color.Cyan, 2.0f);
+	//				Main.dust[dust].noGravity = true;
+	//				dustDelay = 5;
+	//			}
+	//		}
+	//		dustDelay = Math.Max(dustDelay - 1, 0);
+	//		Lighting.AddLight(P.Center, LightColor.R / 255f * P.scale, LightColor.G / 255f * P.scale, LightColor.B / 255f * P.scale);
+	//		if (O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
+	//		{
+	//			if (P.owner == Main.myPlayer)
+	//			{
+	//				P.velocity = targetrotation.ToRotationVector2() * O.HeldItem.shootSpeed;
+	//			}
+	//		}
+	//		else
+	//		{
+	//			if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge)
+	//			{
+	//				O.itemTime = I.useTime;
+	//				O.itemAnimation = I.useAnimation;
+	//			}
+	//			else
+	//			{
+	//				O.itemTime = I.useTime - negateUseTime;
+	//				O.itemAnimation = I.useAnimation - negateUseTime;
+	//			}
+	//			if (O.whoAmI == Main.myPlayer)
+	//			{
+	//				if (soundInstance != null)
+	//				{
+	//					soundInstance.Stop(true);
+	//				}
+	//				soundPlayed = false;
+	//			}
+	//			P.Kill();
+	//		}
+	//	}
+	//	public override void OnKill(int timeLeft)
+	//	{
+	//		Player O = Main.player[Projectile.owner];
+	//		MGlobalItem mi = O.HeldItem.GetGlobalItem<MGlobalItem>();
+	//		mi.seekerCharge = 0;
+	//	}
+	//	public override bool PreDraw(ref Color lightColor)
+	//	{
+	//		mProjectile.DrawCentered(Projectile, Main.spriteBatch);
+	//		return false;
+	//	}
+	//}
 }
