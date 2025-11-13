@@ -98,7 +98,6 @@ namespace MetroidMod.Content.Subworlds
 			WorldGen.VanillaGenPasses["Mountain Caves"],
 			WorldGen.VanillaGenPasses["Gems"],
 			WorldGen.VanillaGenPasses["Gravitating Sand"],
-			WorldGen.VanillaGenPasses["Shimmer"],
 			WorldGen.VanillaGenPasses["Dirt Rock Wall Runner"],
 			WorldGen.VanillaGenPasses["Altars"],
 			WorldGen.VanillaGenPasses["Settle Liquids"],
@@ -213,6 +212,9 @@ namespace MetroidMod.Content.Subworlds
 				GenVars.logX = -1;
 				GenVars.logY = -1;
 				GenVars.dungeonLocation = 0;
+
+				// Code so vanilla worldgen code doesn't crash out
+				GenVars.shimmerPosition = new Relogic.Utilities.Vector2D(Main.maxTilesX / 2, Main.maxTilesY / 2);
 			}
 		}
 		
