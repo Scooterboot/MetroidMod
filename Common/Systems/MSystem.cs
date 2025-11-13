@@ -2301,7 +2301,8 @@ namespace MetroidMod.Common.Systems
 				Chest.DestroyChestDirect(x, y, id);
 			}
 		}
-
+		
+		private static int metroidHivesHorizontalPaddingCheck = 50;
 		/// <summary>
 		/// WorldGen task that places Metroid Hive entrances at random points underground, spread (almost) equally between the 
 		/// left and right halves of the world.
@@ -2328,10 +2329,10 @@ namespace MetroidMod.Common.Systems
 				int height = 25 + WorldGen.genRand.Next(20);
 				while (!done)
 				{
-					posX = WorldGen.genRand.Next(Main.maxTilesX / 3) + width + 25;
+					posX = WorldGen.genRand.Next(Main.maxTilesX / 3) + width + metroidHivesHorizontalPaddingCheck;
 					if (side == 1)
 					{
-						posX += (int)(Main.maxTilesX * 2f / 3f) - (width + 25);
+						posX += (int)(Main.maxTilesX * 2f / 3f) - (width + metroidHivesHorizontalPaddingCheck);
 					}
 					posY = WorldGen.genRand.Next(Main.UnderworldLayer - height - (int)Main.rockLayer) + (int)Main.rockLayer;
 
