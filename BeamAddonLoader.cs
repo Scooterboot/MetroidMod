@@ -108,6 +108,7 @@ namespace MetroidMod
 		/// Method checks for VIB, then ShapePriority, then ColorPriority.<br/>
 		/// Unique combination graphics should be checked for within the beam with the highest ShapePriority in the combination<br/>
 		/// <i>(i.e. Fusion's DNA-esque Plasma+Wave would be stored and checked for in Plasma)</i>
+		/// <i>THIS IS WHERE THE POORY-NAMED "VISUAL WINNERS" IS ACTUALLY DECIDED BECAUSE FUCK BEING ABLE TO FIND THIS EASILY --DR</i>
 		/// </summary>
 		/// <param name="slot1"></param>
 		/// <param name="slot2"></param>
