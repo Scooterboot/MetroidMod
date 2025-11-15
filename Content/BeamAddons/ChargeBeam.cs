@@ -233,10 +233,12 @@ namespace MetroidMod.Content.BeamAddons
 						MetroidMod.Instance.Logger.Info(player.name + " released the kraken!!!");
 						wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (chargeMultiplier / 2.5f), item.shoot, (int)(item.damage * chargeMultiplier), item.knockBack, "Charged");
 					}
-					else //if (!the charge missile is a holdfire)
+					else if (!wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir && !MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFire)
 					{
-						MetroidMod.Instance.Logger.Info(player.name + " launched the nukes!!!");
+						//MetroidMod.Instance.Logger.Info(player.name + " launched the nukes!!!");
 						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, item.shoot, item.damage, item.knockBack, true);
+						//MProjectile aagh = (MProjectile)Main.projectile[item.shoot].ModProjectile;
+						//MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).OnSpawn(aagh, player.GetSource_ItemUse(item));
 					}
 					//alternatively shoot that missile combo if it's not a held
 				}

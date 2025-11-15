@@ -27,11 +27,20 @@ namespace MetroidMod.Content.MissileAddons
 			item.rare = ItemRarityID.LightRed;
 			base.SetItemDefaults(item);
 		}
+		public override void SetProjectileDefaults(MProjectile mProjectile)
+		{
+			base.SetProjectileDefaults(mProjectile);
+			Projectile Projectile = mProjectile.Projectile;
+			Projectile.width = 12;
+			Projectile.height = 12;
+			Projectile.extraUpdates = 0;
+			Projectile.timeLeft = 2000;
+		}
 		public override void AI(MProjectile mProjectile)
 		{
 			float scale = 2f;
 			Projectile Projectile = mProjectile.Projectile;
-			mProjectile.DustLine(Projectile.Center - (Projectile.velocity * 0.5f), Projectile.velocity, Projectile.rotation, 5, 3, ShotDust, scale);
+			//mProjectile.DustLine(Projectile.Center - (Projectile.velocity * 0.5f), Projectile.velocity, Projectile.rotation, 5, 3, ShotDust, scale);
 
 			Projectile.ai[0] += 1f;
 			if (Projectile.ai[0] > (5f + Projectile.extraUpdates) && Projectile.extraUpdates < 10)

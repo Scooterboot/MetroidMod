@@ -24,7 +24,8 @@ namespace MetroidMod.Content.MissileAddons
 		}
 		public override void AI(MProjectile mpshot)
 		{
-			mpshot.HomingBehavior(mpshot.Projectile);
+			Projectile Projectile = mpshot.Projectile;
+			mpshot.HomingBehavior(Projectile);
 		}
 		public override void SetItemDefaults(Item item) //TO DO SOMETHING WITH THIS
 		{

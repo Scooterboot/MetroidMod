@@ -35,6 +35,11 @@ namespace MetroidMod.Content.Projectiles
 		/// <br/><br/>Defaults to <b>false</b>.
 		/// </summary>
 		public bool dustSuppress = false;
+		/// <summary>
+		/// Check if shot is charged to not override basic shots.
+		/// <br/><br/>Defaults to <b>false</b>.
+		/// </summary>
+		public bool Charged = false;
 
 		/// <summary>
 		/// This missile shot's impact sound effect.
@@ -80,14 +85,15 @@ namespace MetroidMod.Content.Projectiles
 			//Bit worried commenting this out may cause issues in the future, but it seems to be fine for now so maybe it won't		-Z
 		}
 
-		public void OnInitialized(IEntitySource source)
+		public void OnInitialized(IEntitySource source, bool isCharged = false)
 		{
-			MissileAddonLoader.AddonOnInitialized(missileAddons, mProjectile, source);
+			Charged = isCharged;
+			MissileAddonLoader.AddonOnInitialized(missileAddons, mProjectile, source, isCharged);
 		}
 
 		public override bool PreAI()
 		{
-			return MissileAddonLoader.AddonPreAI(missileAddons, mProjectile);
+			return MissileAddonLoader.AddonPreAI(missileAddons, mProjectile, Charged);
 		}
 		private int dustTimer = 5;
 		public override void AI() //TODO: make a whole-ass thing         -Z
@@ -133,16 +139,16 @@ namespace MetroidMod.Content.Projectiles
 			}
 			else { dustTimer--; }
 
-			MissileAddonLoader.AddonAI(missileAddons, mProjectile);
+			MissileAddonLoader.AddonAI(missileAddons, mProjectile, Charged);
 		}
 		public override void PostAI()
 		{
-			MissileAddonLoader.AddonPostAI(missileAddons, mProjectile);
+			MissileAddonLoader.AddonPostAI(missileAddons, mProjectile, Charged);
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			return MissileAddonLoader.AddonTileCollideStyle(missileAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+			return MissileAddonLoader.AddonTileCollideStyle(missileAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac, Charged);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -153,18 +159,18 @@ namespace MetroidMod.Content.Projectiles
 				Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
 			}
 
-			return MissileAddonLoader.AddonOnTileCollide(missileAddons, mProjectile, oldVelocity);
+			return MissileAddonLoader.AddonOnTileCollide(missileAddons, mProjectile, oldVelocity, Charged);
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//inject onhitnpc code here
-			MissileAddonLoader.AddonOnHitNPC(missileAddons, mProjectile, target, hit, damageDone);
+			MissileAddonLoader.AddonOnHitNPC(missileAddons, mProjectile, target, hit, damageDone, Charged);
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Could do some cool shit here.
-			MissileAddonLoader.AddonOnHitPlayer(missileAddons, mProjectile, target, info);
+			MissileAddonLoader.AddonOnHitPlayer(missileAddons, mProjectile, target, info, Charged);
 		}
 
 
@@ -181,7 +187,7 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
 				Main.dust[dust].noGravity = noGravity;
 			}
-			MissileAddonLoader.AddonOnKill(missileAddons, mProjectile, timeLeft);
+			MissileAddonLoader.AddonOnKill(missileAddons, mProjectile, timeLeft, Charged);
 			SoundEngine.PlaySound(Impact, Projectile.position);
 		}
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MetroidMod.Content.Projectiles;
+using MetroidMod.ID;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -79,13 +80,14 @@ namespace MetroidMod
 			addons.TryGetValue(i => i is T, out ModMissileAddon missile) ? missile : null;
 
 		//wtf is this		-Z
-		public static bool AddonPreAI(ModMissileAddon[] addons, MProjectile shot)
+		public static bool AddonPreAI(ModMissileAddon[] addons, MProjectile shot, bool isCharged = false)
 		{
 			bool endValue = true;
 
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				endValue = addons[i].PreAI(shot);
 				if (!endValue) { break; }
 			}
@@ -140,11 +142,12 @@ namespace MetroidMod
 		/// <param name="addons"></param>
 		/// <param name="shot"></param>
 		/// <param name="source"></param>
-		public static void AddonOnInitialized(ModMissileAddon[] addons, MProjectile shot, IEntitySource source)
+		public static void AddonOnInitialized(ModMissileAddon[] addons, MProjectile shot, IEntitySource source, bool isCharged = false)
 		{
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				addons[i].OnSpawn(shot, source);
 			}
 		}
@@ -153,12 +156,13 @@ namespace MetroidMod
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <param name="shot"></param>
-		public static void AddonAI(ModMissileAddon[] addons, MProjectile shot)
+		public static void AddonAI(ModMissileAddon[] addons, MProjectile shot, bool isCharged = false)
 		{
 			//MetroidMod.Instance.Logger.Info(addons.Length);
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				addons[i].AI(shot);
 			}
 		}
@@ -167,11 +171,12 @@ namespace MetroidMod
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <param name="shot"></param>
-		public static void AddonPostAI(ModMissileAddon[] addons, MProjectile shot)
+		public static void AddonPostAI(ModMissileAddon[] addons, MProjectile shot, bool isCharged = false)
 		{
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				addons[i].PostAI(shot);
 			}
 		}
@@ -253,55 +258,61 @@ namespace MetroidMod
 		/// </summary>
 		/// <param name="addons"></param>
 		/// <param name="shot"></param>
-		public static void AddonOnHitNPC(ModMissileAddon[] addons, MProjectile shot, NPC target, NPC.HitInfo hit, int damageDone)
+		public static void AddonOnHitNPC(ModMissileAddon[] addons, MProjectile shot, NPC target, NPC.HitInfo hit, int damageDone, bool isCharged = false)
 		{
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				addons[i].OnHitNPC(shot, target, hit, damageDone);
 			}
 		}
 
-		public static void AddonOnHitPlayer(ModMissileAddon[] addons, MProjectile shot, Player target, Player.HurtInfo info)
+		public static void AddonOnHitPlayer(ModMissileAddon[] addons, MProjectile shot, Player target, Player.HurtInfo info, bool isCharged = false)
 		{
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				addons[i].OnHitPlayer(shot, target, info);
 			}
 		}
 
-		public static bool AddonTileCollideStyle(ModMissileAddon[] addons, MProjectile shot, ref int width, ref int height, ref bool fallThrough, ref Microsoft.Xna.Framework.Vector2 hitboxCenterFrac)
+		public static bool AddonTileCollideStyle(ModMissileAddon[] addons, MProjectile shot, ref int width, ref int height, ref bool fallThrough, ref Microsoft.Xna.Framework.Vector2 hitboxCenterFrac, bool isCharged = false)
 		{
 			bool endValue = true;
 
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				endValue = addons[i].TileCollideStyle(shot, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 				if (!endValue) { break; }
 			}
 			return endValue;
 		}
 
-		public static bool AddonOnTileCollide(ModMissileAddon[] addons, MProjectile shot, Microsoft.Xna.Framework.Vector2 oldVelocity)
+		public static bool AddonOnTileCollide(ModMissileAddon[] addons, MProjectile shot, Microsoft.Xna.Framework.Vector2 oldVelocity, bool isCharged = false)
 		{
 			bool endValue = true;
 
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				addons[i].OnTileCollide(shot, oldVelocity);
 				if (!endValue) { break; }
 			}
 			return endValue;
 		}
 
-		public static void AddonOnKill(ModMissileAddon[] addons, MProjectile shot, int timeLeft)
+		public static void AddonOnKill(ModMissileAddon[] addons, MProjectile shot, int timeLeft, bool isCharged = false)
 		{
 			for (int i = 0; i < addons.Length - 1; ++i)
 			{
 				if (addons[i] == null) { continue; }
+				if (addons[i].AddonSlot == MissileAddonSlotID.Charge && !isCharged) { continue; }
 				addons[i].OnKill(shot, timeLeft);
 			}
 		}

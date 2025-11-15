@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -409,9 +410,7 @@ namespace MetroidMod.Content.Items.Weapons
 				Item.shootSpeed = MissileBaseVelocity;
 				Item.crit = MissileBaseCrit;
 				Item.UseSound = missileSound;
-				Item.shoot = missileAddons[MissileAddonSlotID.Primary].IsAir
-					? ModContent.ProjectileType<MissileShot>() //fallback if no missile addon (may consider revoking?	-Z)
-					: missileShot;
+				Item.shoot = ModContent.ProjectileType<MissileShot>();
 			}
 		}
 		/// <summary>
@@ -545,14 +544,6 @@ namespace MetroidMod.Content.Items.Weapons
 				HoldFireSlot = -1;
 			}
 
-			if (missileAddons != null && !missileAddons[MissileAddonSlotID.Primary].IsAir) //Missiles don't need a VPS because only one slot changes your base projectile
-			{
-				missileSound = new SoundStyle(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotSound);
-			}
-			else
-			{
-				missileSound = Sounds.Items.Weapons.MissileSound;
-			}
 			#endregion
 
 			#region Missile Launcher
@@ -560,6 +551,14 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				missileShot = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ProjectileType;
 				missileSound = MissileAddonLoader.ShotSoundGrabber(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotSound, MetroidMod.MissileShotFallbackSFX);
+				if (missileAddons != null) //Missiles don't need a VPS because only one slot changes your base projectile
+				{
+					missileSound = new SoundStyle(MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]).ShotSound);
+				}
+				else
+				{
+					missileSound = Sounds.Items.Weapons.MissileSound;
+				}
 			}
 			else
 			{
@@ -716,10 +715,9 @@ namespace MetroidMod.Content.Items.Weapons
 
 					beam.fileMod += ac.assetModifier + bonusFileMod;
 
-					beam.beamAddons = beamAddons
-						.Select(i => BeamAddonLoader.GetAddon(i))
-						.Select(i => i?.Clone())
-						.ToArray();
+					beam.beamAddons = [.. beamAddons
+						.Select(BeamAddonLoader.GetAddon)
+						.Select(i => i?.Clone())];
 
 					beam.OnInitialized(source);
 					mp.statOverheat += MGlobalItem.AmmoUsage(player, Overheat * mp.overheatCost);
@@ -740,35 +738,41 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <param name="bonusFileMod">Appended to the shot's filemod for on-the-fly modifications.
 		/// <br/>Things like charge shots take advantage of this.</param>
 		/// <param name="multiplier">Allows for on-the-fly modifying of the Interact values.</param>
-		public void Launch(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool isCharged = false) //TODO can be really cleand up. --DR
+		public void Launch(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool Charged = false) //TODO can be really cleand up. --DR
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
 			int theShootsingAmount = 1; //back at it again with theShootsingAmount
 			int[] edgeCaseStuff = [0, 0, 0, 0, 0];
-			MProjectile miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile;
-			if (isCharged)
-			{
-				edgeCaseStuff = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).OverrideData();
-				//miss = (MProjectile)Projectile.NewProjectileDirect(source, position, velocity, MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).mProjectile.Projectile.type, damage, knockback).ModProjectile;
-				miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
-				theShootsingAmount = edgeCaseStuff[4] + MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).ShotCount;
-				if (miss is MissileShot missl)
-				{
-					missl.missileAddons = [.. missileAddons
-						.Select(MissileAddonLoader.GetAddon)
-						.Select(i => i?.Clone())];
-					missl.OnInitialized(source);
-				}
-			}
+			bool primus = !missileAddons[MissileAddonSlotID.Primary].IsAir && missileAddons[MissileAddonSlotID.Primary] != null;
+			MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile as MissileShot;
 			//TODO: store charge shot stats separately (do it in ArrayUpdate())
-
-			for (int i = 0; i < theShootsingAmount; i++)
+			//if (isCharged)
+			//{
+			//	miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
+			//	edgeCaseStuff = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).OverrideData();
+			//	theShootsingAmount = edgeCaseStuff[4] + MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).ShotCount;
+			//	for (int i = 0; i < theShootsingAmount; i++)
+			//	{
+			//		miss.groupSize = theShootsingAmount;
+			//		miss.groupID = i;
+			//		//MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
+			//	}
+			//	//miss.missileAddons = [.. missileAddons
+			//	//.Select(MissileAddonLoader.GetAddon)
+			//	//.Select(i => i?.Clone())];
+			//}
+			if (primus)
 			{
-				miss.groupSize = theShootsingAmount;
-				miss.groupID = i;
-				//MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
+				ModMissileAddon preemus = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]);
+				miss.ModTexture = MissileAddonLoader.ShotTextureGrabber(preemus.ShotTexture);
+				miss.missileDust = preemus.ShotDust;
+				miss.Impact = MissileAddonLoader.ShotSoundGrabber(preemus.ImpactSound, MetroidMod.MissileImpactFallbackSFX);
 			}
+			miss.missileAddons = [.. missileAddons
+				.Select(MissileAddonLoader.GetAddon)
+				.Select(i => i?.Clone())];
+			miss.OnInitialized(source, Charged);
 		}
 		#endregion
 		public override void AddRecipes()
