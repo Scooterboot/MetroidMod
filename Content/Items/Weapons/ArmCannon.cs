@@ -632,6 +632,7 @@ namespace MetroidMod.Content.Items.Weapons
 			} //Power Beam firing procedure
 			else
 			{
+				//bool dontCharge = !ac.isBeam && MissileAddonLoader.GetAddon(MissileAddonAccess[MissileAddonSlotID.Charge]) != null && !MissileAddonLoader.GetAddon(MissileAddonAccess[MissileAddonSlotID.Charge]).NeedsCharging;
 				Launch(player, source, position, velocity, type, damage, knockback);
 			} //Missile Launcher firing procedure
 			return false;

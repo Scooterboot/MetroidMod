@@ -156,9 +156,11 @@ namespace MetroidMod.Content.BeamAddons
 							chargio.coreSaturation = chargioSaturation;
 							Main.projectile[chInt].ai[0] = chInt;
 							MetroidMod.Instance.Logger.Info(item);
-							if (dontCharge && player.controlUseItem)
+							if (dontCharge && player.controlUseItem)//somehow, seeks shouldnt holdfire. ok then.
 							{
-								MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chProj);
+								wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, item.shoot, item.damage, item.knockBack, true);
+								//MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chProj);
+								//mp.statCharge++;
 								break;
 							}
 							//play charge noise
@@ -210,8 +212,8 @@ namespace MetroidMod.Content.BeamAddons
 					}
 					if (mp.statCharge < 100f)
 					{
-						mp.statCharge += 1f;
-					}
+							mp.statCharge += 1f;
+						}
 					mp.chargeColor = chargioColor;
 
 				} //the delay has ended, charging can begin
@@ -237,8 +239,6 @@ namespace MetroidMod.Content.BeamAddons
 					{
 						//MetroidMod.Instance.Logger.Info(player.name + " launched the nukes!!!");
 						wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, item.shoot, item.damage, item.knockBack, true);
-						//MProjectile aagh = (MProjectile)Main.projectile[item.shoot].ModProjectile;
-						//MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).OnSpawn(aagh, player.GetSource_ItemUse(item));
 					}
 					//alternatively shoot that missile combo if it's not a held
 				}

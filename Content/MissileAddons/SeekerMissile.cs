@@ -1,12 +1,15 @@
 using System;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons
 {
@@ -21,7 +24,7 @@ namespace MetroidMod.Content.MissileAddons
 
 		public override bool IgnoreProjectile => true;
 		public override bool NeedsCharging => false;
-		public override bool HoldFire => true;
+		//public override bool HoldFire => true;
 		private int targetNum = 0;
 		private int targetingDelay = 0;
 		public override void SetStaticDefaults()
@@ -44,18 +47,13 @@ namespace MetroidMod.Content.MissileAddons
 			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 			var entitySource = player.GetSource_ItemUse(item);
-			if (player.controlUseItem && lead.active)
+			if (player.controlUseItem)
 			{
+				//Projectile oof = Projectile.NewProjectileDirect(entitySource, Lead.position, Lead.velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
 				Initialized = true;
 			}
 			else
 				Initialized = false;
-			//if (!Initialized)
-			//{
-			//	//Projectile oof = Projectile.NewProjectileDirect(entitySource, Lead.position, Lead.velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
-			//	Initialized = true;
-			//}
-
 		}
 		public override void AI(MProjectile mProjectile)
 		{
@@ -70,10 +68,17 @@ namespace MetroidMod.Content.MissileAddons
 			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 			var entitySource = player.GetSource_ItemUse(item);
+			if (player.controlUseItem)
+			{
+				//Projectile oof = Projectile.NewProjectileDirect(entitySource, Lead.position, Lead.velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
+				Initialized = true;
+			}
+			else
+				Initialized = false;
 			if (!mp.ballstate && !mp.shineActive && !player.dead && !player.noItems)
 			{
 				//if (player.controlUseItem && chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == mod.ProjectileType("SeekerMissileLead"))
-				if (player.controlUseItem && Lead.active)
+				if (player.controlUseItem && Initialized)
 				{
 
 					if (pb.seekerCharge < MGlobalItem.seekerMaxCharge)
@@ -143,7 +148,7 @@ namespace MetroidMod.Content.MissileAddons
 				}
 				else
 				{
-					if (pb.seekerCharge <= 0 && Lead.active)
+					if (pb.seekerCharge <= 0 && Initialized)
 					{
 						pb.seekerCharge++;
 					}
@@ -151,10 +156,11 @@ namespace MetroidMod.Content.MissileAddons
 					{
 						for (int i = 0; i < pb.seekerTarget.Length; i++)
 						{
-							if (pb.seekerTarget[i] > -1)
+							if (pb.seekerTarget[i] > -1 && player.HeldItem.ModItem is ArmCannon armi)
 							{
 								int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
 								MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+								armi.Launch(player, entitySource, oPos, velocity, item.shoot, item.damage, item.knockBack);
 								mProj.seekTarget = pb.seekerTarget[i];
 								//mProj.seeking = true;
 								Seeking(mProj, mProj.seekTarget);
@@ -172,10 +178,10 @@ namespace MetroidMod.Content.MissileAddons
 					//	//SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
 					//	//pb.statMissiles -= 1;
 					//}
-					if (!Lead.active)
+					if (!Initialized)
 					{
 						pb.seekerCharge = 0;
-						Initialized = false;
+						//Initialized = false;
 					}
 					pb.numSeekerTargets = 0;
 					for (int k = 0; k < pb.seekerTarget.Length; k++)
