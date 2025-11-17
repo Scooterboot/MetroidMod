@@ -8,7 +8,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using MetroidMod.Content.Tiles2.Butter.Item;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {
@@ -103,7 +102,7 @@ namespace MetroidMod.Content.Tiles2.Butter
 				}
 				else
 				{
-					NetMessage.SendData(MessageID.RequestChestOpen, -1, -1, null, left, (float)top, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(MessageID.RequestChestOpen, -1, -1, null, left, top, 0f, 0f, 0, 0, 0);
 					Main.stackSplit = 600;
 				}
 			}

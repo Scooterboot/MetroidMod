@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
 {
-	class ChargeLead : MProjectile
+	internal class ChargeLead : MProjectile
 	{
 		public override string Texture => $"{Mod.Name}/Assets/Textures/ChargeLead/ChargeLead";
 		public override void SetStaticDefaults()
@@ -49,10 +49,10 @@ namespace MetroidMod.Content.Projectiles
 		public float extraScale = 0f;
 		public float aimSpeed = 0f;
 
-		bool soundPlayed = false;
-		bool sound2Played = false;
-		ReLogic.Utilities.SlotId soundInstance;
-		int negateUseTime = 0;
+		private bool soundPlayed = false;
+		private bool sound2Played = false;
+		private ReLogic.Utilities.SlotId soundInstance;
+		private int negateUseTime = 0;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -70,7 +70,7 @@ namespace MetroidMod.Content.Projectiles
 				negateUseTime++;
 			}
 
-			float dmgMult = (1f + ((float)mp.statCharge * 0.04f));
+			float dmgMult = 1f + (mp.statCharge * 0.04f);
 			//int damage = (int)((float)I.damage*O.rangedDamage*O.allDamage);
 			int damage = O.GetWeaponDamage(I);
 
@@ -152,7 +152,7 @@ namespace MetroidMod.Content.Projectiles
 						diff = Vector2.Normalize(Vector2.Lerp(diff, Vector2.Normalize(P.velocity), aimSpeed));
 					}
 
-					Vector2 newVelocity = diff * ((22f + 8f * P.scale - 24f * I.scale) + I.scale * I.width * 0.5f);
+					Vector2 newVelocity = diff * (22f + (8f * P.scale) - (24f * I.scale) + (I.scale * I.width * 0.5f));
 
 					if (newVelocity.X != P.velocity.X || newVelocity.Y != P.velocity.Y)
 					{
@@ -201,7 +201,7 @@ namespace MetroidMod.Content.Projectiles
 			else
 			{
 				//P.position = O.RotatedRelativePoint(O.MountedCenter) - P.Size / 2f;
-				P.position = O.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, O.itemRotation - (float)(Math.PI / 2) * O.direction) - P.Size / 2f;
+				P.position = O.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, O.itemRotation - ((float)(Math.PI / 2) * O.direction)) - (P.Size / 2f);
 				P.alpha = 0;
 				if (P.velocity.X < 0)
 				{
@@ -216,12 +216,12 @@ namespace MetroidMod.Content.Projectiles
 				P.position += Vector2.Normalize(P.velocity) * 8f * extraScale;
 			}
 			P.position.Y += O.gfxOffY;
-			P.position.X += (float)(P.width / 2);
-			P.position.Y += (float)(P.height / 2);
+			P.position.X += P.width / 2;
+			P.position.Y += P.height / 2;
 			P.width = mp.somersault ? 64 : 16;
 			P.height = mp.somersault ? 64 : 16;
-			P.position.X -= (float)(P.width / 2);
-			P.position.Y -= (float)(P.height / 2);
+			P.position.X -= P.width / 2;
+			P.position.Y -= P.height / 2;
 
 			P.rotation += 0.5f * P.direction;
 			P.spriteDirection = P.direction;
@@ -234,7 +234,7 @@ namespace MetroidMod.Content.Projectiles
 				int dust = Dust.NewDust(P.position + P.velocity, P.width, P.height, DustType, 0, 0, 100, DustColor, 2.0f);
 				Main.dust[dust].noGravity = true;
 			}
-			Lighting.AddLight(P.Center, (LightColor.R / 255f) * P.scale, (LightColor.G / 255f) * P.scale, (LightColor.B / 255f) * P.scale);
+			Lighting.AddLight(P.Center, LightColor.R / 255f * P.scale, LightColor.G / 255f * P.scale, LightColor.B / 255f * P.scale);
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{

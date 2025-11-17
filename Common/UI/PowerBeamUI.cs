@@ -25,7 +25,7 @@ namespace MetroidMod.Common.UI
 	 */
 	public class PowerBeamUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<PowerBeam>() || Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam);
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<PowerBeam>() || (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam));
 
 		private PowerBeamPanel powerBeamPanel;
 		private PowerBeamScrewAttackButton pbsaButton;
@@ -184,7 +184,7 @@ namespace MetroidMod.Common.UI
 		{
 			//TODO No failsafe. Should maybe be implemented?
 			// How do I get BeamChange[beamSlotType] to not always equal 0 so it isnt this disguting trainwreck? --Dr
-			if(Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<PowerBeam>())
+			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<PowerBeam>())
 			{
 				PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as PowerBeam;
 				if (powerBeamTarget == null || powerBeamTarget.BeamMods == null) { return; }
@@ -247,7 +247,7 @@ namespace MetroidMod.Common.UI
 						powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
 						//powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
 					}
-					else if (condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
+					else if (condition == null || (condition != null && condition(Main.mouseItem) && addonSlotType != 0))
 					{
 						SoundEngine.PlaySound(SoundID.Grab);
 						if (Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
@@ -347,7 +347,7 @@ namespace MetroidMod.Common.UI
 					}
 				}
 			}
-			else if(Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
+			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
 				if (powerBeamTarget == null || powerBeamTarget.BeamMods == null) { return; }
@@ -410,7 +410,7 @@ namespace MetroidMod.Common.UI
 						powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
 						//powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
 					}
-					else if (condition == null || (condition != null && condition(Main.mouseItem)) && addonSlotType != 0)
+					else if (condition == null || (condition != null && condition(Main.mouseItem) && addonSlotType != 0))
 					{
 						SoundEngine.PlaySound(SoundID.Grab);
 						if (Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
@@ -510,7 +510,7 @@ namespace MetroidMod.Common.UI
 					}
 				}
 			}
-			
+
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -562,8 +562,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
@@ -588,7 +588,7 @@ namespace MetroidMod.Common.UI
 						unreflectedScale * 0.8f);
 				}
 			}
-			else if(target.type == ModContent.ItemType<ArmCannon>())
+			else if (target.type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
@@ -630,8 +630,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
@@ -800,8 +800,12 @@ namespace MetroidMod.Common.UI
 	}
 	public class PowerBeamChangeButton : DragableUIPanel
 	{
-		private Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
-		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
+		private Texture2D buttonTex;
+		private Texture2D buttonTex_Hover;
+		private readonly Texture2D buttonTex_Click;
+		private Texture2D buttonTexEnabled;
+		private Texture2D buttonTexEnabled_Hover;
+		private readonly Texture2D buttonTexEnabled_Click;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 

@@ -56,12 +56,12 @@ namespace MetroidMod.Common.Systems
 				}
 			}
 		}
-		
+
 		private class BossHatchGlobalNPC : GlobalNPC
 		{
 			public override void AI(NPC npc)
 			{
-				if(npc.boss)
+				if (npc.boss)
 				{
 					ModContent.GetInstance<HatchSpecialBossSystem>().anyBossAlive = true;
 				}

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Enums;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -41,11 +40,11 @@ namespace MetroidMod.Content.Projectiles
 			}
 			player.heldProj = Projectile.whoAmI;
 			Vector2 playerCenter = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: false, addGfxOffY: false);
-			Projectile.Center = playerCenter + Projectile.velocity * (Timer + 20f);
+			Projectile.Center = playerCenter + (Projectile.velocity * (Timer + 20f));
 
 			Projectile.spriteDirection = (Vector2.Dot(Projectile.velocity, Vector2.UnitX) >= 0f).ToDirectionInt();
 
-			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - (MathHelper.PiOver4 * Projectile.spriteDirection);
 
 			const int HalfSpriteWidth = 32 / 2;
 			const int HalfSpriteHeight = 32 / 2;
@@ -67,14 +66,14 @@ namespace MetroidMod.Content.Projectiles
 		{
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
 			Vector2 start = Projectile.Center;
-			Vector2 end = start + Projectile.velocity.SafeNormalize(-Vector2.UnitY) * 10f;
+			Vector2 end = start + (Projectile.velocity.SafeNormalize(-Vector2.UnitY) * 10f);
 			Utils.PlotTileLine(start, end, CollisionWidth, DelegateMethods.CutTiles);
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			Vector2 start = Projectile.Center;
-			Vector2 end = start + Projectile.velocity * 6f;
+			Vector2 end = start + (Projectile.velocity * 6f);
 			float collisionPoint = 0f;
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, CollisionWidth, ref collisionPoint);
 		}

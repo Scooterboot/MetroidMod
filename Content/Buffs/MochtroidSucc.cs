@@ -1,6 +1,4 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Buffs
@@ -23,6 +21,6 @@ namespace MetroidMod.Content.Buffs
 			player.dazed = true;
 			//player.velocity *= 0.96f;
 		}
-		
+
 	}
 }

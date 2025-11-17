@@ -1,7 +1,6 @@
 using MetroidMod.Common.Systems;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -43,7 +42,7 @@ namespace MetroidMod.Content.Items.Tiles
 		public override void RightClick(Player player)
 		{
 			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB()); //T1
-			//Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
+																				//Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
 			base.RightClick(player);
 		}
 	}
@@ -57,8 +56,8 @@ namespace MetroidMod.Content.Items.Tiles
 		public override void RightClick(Player player)
 		{
 			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB());//T2
-			//Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
-			//RightClick(player);
+																			   //Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
+																			   //RightClick(player);
 		}
 	}
 	public class ChozoStatueOrb3 : ChozoStatueOrbBuilder
@@ -73,8 +72,8 @@ namespace MetroidMod.Content.Items.Tiles
 		public override void RightClick(Player player)
 		{
 			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB());//T3
-			//Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
-			//base.RightClick(player);
+																			   //Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
+																			   //base.RightClick(player);
 		}
 	}
 }

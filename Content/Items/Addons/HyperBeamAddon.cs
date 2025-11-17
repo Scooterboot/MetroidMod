@@ -90,9 +90,9 @@ namespace MetroidMod.Content.Items.Addons
 			Texture2D tex = ModContent.Request<Texture2D>("MetroidMod/Content/Items/Addons/HyperBeamAddonColors").Value;
 			float rotation = Item.velocity.X * 0.2f;
 			float num3 = 1f;
-			float num4 = (float)(Item.height - tex.Height);
-			float num5 = (float)(Item.width / 2 - tex.Width / 2);
-			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num5, Item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num4 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), num3, SpriteEffects.None, 0f);
+			float num4 = Item.height - tex.Height;
+			float num5 = (Item.width / 2) - (tex.Width / 2);
+			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (tex.Width / 2) + num5, Item.position.Y - Main.screenPosition.Y + (tex.Height / 2) + num4 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), rotation, new Vector2(tex.Width / 2, tex.Height / 2), num3, SpriteEffects.None, 0f);
 		}
 	}
 }

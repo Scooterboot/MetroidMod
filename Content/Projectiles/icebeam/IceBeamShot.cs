@@ -15,7 +15,7 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		}
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() ||player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() || player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
 				if (player.HeldItem.ModItem is PowerBeam hold)
 				{
@@ -86,8 +86,8 @@ namespace MetroidMod.Content.Projectiles.icebeam
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Projectile.penetrate = (int)reader.ReadInt32();
-			Projectile.maxPenetrate = (int)reader.ReadInt32();
+			Projectile.penetrate = reader.ReadInt32();
+			Projectile.maxPenetrate = reader.ReadInt32();
 		}
 	}
 }

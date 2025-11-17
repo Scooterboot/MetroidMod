@@ -10,8 +10,10 @@ namespace MetroidMod
 		public static Color HsvColor(double h, double S, double V)
 		{
 			double H = h;
-			while (H < 0) { H += 360; };
-			while (H >= 360) { H -= 360; };
+			while (H < 0) { H += 360; }
+			;
+			while (H >= 360) { H -= 360; }
+			;
 			double R, G, B;
 			if (V <= 0)
 			{
@@ -27,8 +29,8 @@ namespace MetroidMod
 				int i = (int)Math.Floor(hf);
 				double f = hf - i;
 				double pv = V * (1 - S);
-				double qv = V * (1 - S * f);
-				double tv = V * (1 - S * (1 - f));
+				double qv = V * (1 - (S * f));
+				double tv = V * (1 - (S * (1 - f)));
 				switch (i)
 				{
 					// Red is the dominant color

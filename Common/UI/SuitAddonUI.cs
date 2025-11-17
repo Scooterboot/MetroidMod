@@ -3,7 +3,6 @@ using MetroidMod.Common.Configs;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
@@ -16,7 +15,7 @@ namespace MetroidMod.Common.UI
 	{
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().ShouldShowArmorUI && Main.EquipPage == 0;
 
-		SuitAddonPanel suitAddonPanel;
+		private SuitAddonPanel suitAddonPanel;
 
 		public override void OnInitialize()
 		{
@@ -29,7 +28,7 @@ namespace MetroidMod.Common.UI
 
 	public class SuitAddonPanel : DragableUIPanel
 	{
-		Texture2D buttonTex, buttonTex_Hover, buttonTex_Click;
+		private Texture2D buttonTex, buttonTex_Hover, buttonTex_Click;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 

@@ -56,7 +56,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			});
 		}
 
-		int frameNum = 1;
+		private int frameNum = 1;
 		public override bool PreAI()
 		{
 			NPC.frameCounter++;
@@ -82,7 +82,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 				frameNum = 1;
 			}
 
-			mNPC.crawlSpeed = speeds[(int)NPC.frame.Y];
+			mNPC.crawlSpeed = speeds[NPC.frame.Y];
 			mNPC.CrawlerAI(NPC, mNPC.crawlSpeed, 0, true, true);
 
 			return false;
@@ -93,7 +93,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			return false;
 		}
 
-		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
+		private Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)

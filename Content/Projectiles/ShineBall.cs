@@ -31,8 +31,8 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Player P = Main.player[Projectile.owner];
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
+			Projectile.position.X = P.Center.X - (Projectile.width / 2);
+			Projectile.position.Y = P.Center.Y - (Projectile.height / 2);
 			ShineSoundStart++;
 			if (ShineSoundStart > 3 && ShineSoundStart < 5)
 			{
@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				Projectile.Kill();
 			}
-			Lighting.AddLight((int)((float)Projectile.Center.X / 16f), (int)((float)(Projectile.Center.Y) / 16f), 1f, 0.85f, 0);
+			Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 1f, 0.85f, 0);
 
 			if (activeSound != null)
 			{

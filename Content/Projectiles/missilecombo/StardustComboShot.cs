@@ -25,7 +25,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, 87, 1f);
 
@@ -36,12 +36,12 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		{
 			Projectile P = Projectile;
 
-			P.position.X = P.position.X + (float)(P.width / 2);
-			P.position.Y = P.position.Y + (float)(P.height / 2);
+			P.position.X = P.position.X + (P.width / 2);
+			P.position.Y = P.position.Y + (P.height / 2);
 			P.width += 48;
 			P.height += 48;
-			P.position.X = P.position.X - (float)(P.width / 2);
-			P.position.Y = P.position.Y - (float)(P.height / 2);
+			P.position.X = P.position.X - (P.width / 2);
+			P.position.Y = P.position.Y - (P.height / 2);
 
 			for (int i = 0; i < 25; i++)
 			{
@@ -56,7 +56,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			var entitySource = Projectile.GetSource_Death();
 			for (int i = 0; i < 8; i++)
 			{
-				float angle = ((float)Math.PI / 4) * i;
+				float angle = (float)Math.PI / 4 * i;
 				int num54 = Projectile.NewProjectile(entitySource, P.Center.X, P.Center.Y, 0f, 0f, ModContent.ProjectileType<StardustComboDiffusionShot>(), P.damage, P.knockBack, P.owner);
 				StardustComboDiffusionShot difShot = (StardustComboDiffusionShot)Main.projectile[num54].ModProjectile;
 				difShot.spin = angle;
@@ -76,7 +76,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 			int x = (int)MathHelper.Clamp(P.Center.X / 16, 0, Main.maxTilesX - 2);
 			int y = (int)MathHelper.Clamp(P.Center.Y / 16, 0, Main.maxTilesY - 2);
-			Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+			Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 			int ft = Projectile.NewProjectile(Projectile.GetSource_Death(), pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<StardustFrozenTerrain>(), P.damage, P.knockBack, P.owner);
 			Main.projectile[ft].ai[0] = k + 1;
 

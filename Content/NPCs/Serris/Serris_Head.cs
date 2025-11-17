@@ -40,7 +40,7 @@ namespace MetroidMod.Content.NPCs.Serris
 
 		internal SerrisState ai_state
 		{
-			get { return (SerrisState)((int)NPC.ai[0]); }
+			get { return (SerrisState)(int)NPC.ai[0]; }
 			set { NPC.ai[0] = (int)value; }
 		}
 		internal float extra_state
@@ -49,9 +49,9 @@ namespace MetroidMod.Content.NPCs.Serris
 			set { NPC.ai[1] = value; }
 		}
 
-		int damage = 24;//20
-		int speedDamage = 72;//60;//35
-		int coreDamage = 30;//30
+		private readonly int damage = 24;//20
+		private readonly int speedDamage = 72;//60;//35
+		private readonly int coreDamage = 30;//30
 
 		public override void SetStaticDefaults()
 		{
@@ -114,29 +114,29 @@ namespace MetroidMod.Content.NPCs.Serris
 
 		public override int SpawnNPC(int tileX, int tileY)
 		{
-			int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
-			int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+			int spawnRangeX = (int)(NPC.sWidth / 16 * 0.7);
+			int spawnRangeY = (int)(NPC.sHeight / 16 * 0.7);
 			int num11 = (int)(Main.player[NPC.target].position.X / 16f) - spawnRangeX;
 			int num12 = (int)(Main.player[NPC.target].position.X / 16f) + spawnRangeX;
 			int num13 = (int)(Main.player[NPC.target].position.Y / 16f) - spawnRangeY;
 			int num14 = (int)(Main.player[NPC.target].position.Y / 16f) + spawnRangeY;
 
-			return NPC.NewNPC(NPC.GetSource_FromAI(), (int)MathHelper.Clamp(tileX, num11, num12) * 16 + 8, (int)MathHelper.Clamp(tileY, num13, num14) * 16, Type);
+			return NPC.NewNPC(NPC.GetSource_FromAI(), ((int)MathHelper.Clamp(tileX, num11, num12) * 16) + 8, (int)MathHelper.Clamp(tileY, num13, num14) * 16, Type);
 		}
 
-		bool initialBoost = false;
+		private bool initialBoost = false;
 		//SoundEffectInstance soundInstance;
-		int soundCounter = 0;
-		int numUpdates = 0;
-		int maxUpdates = 0;
+		private int soundCounter = 0;
+		private int numUpdates = 0;
+		private int maxUpdates = 0;
 		public int state = 1;
 		public float mouthFrame = 0f;
-		int mouthNum = 1;
-		int glowFrame = 0;
-		int glowNum = 1;
-		int glowFrameCounter = 0;
-		float oldRot = 0f;
-		int resets = 9;
+		private int mouthNum = 1;
+		private int glowFrame = 0;
+		private int glowNum = 1;
+		private int glowFrameCounter = 0;
+		private float oldRot = 0f;
+		private int resets = 9;
 
 		public override void AI()
 		{
@@ -371,12 +371,12 @@ namespace MetroidMod.Content.NPCs.Serris
 						}
 					}
 
-					NPC.position.X += (NPC.width / 2);
-					NPC.position.Y += (NPC.height / 2);
+					NPC.position.X += NPC.width / 2;
+					NPC.position.Y += NPC.height / 2;
 					NPC.width = 70;
 					NPC.height = 70;
-					NPC.position.X -= (NPC.width / 2);
-					NPC.position.Y -= (NPC.height / 2);
+					NPC.position.X -= NPC.width / 2;
+					NPC.position.Y -= NPC.height / 2;
 
 					extra_state = 0;
 					NPC.localAI[1] = 0;
@@ -540,11 +540,11 @@ namespace MetroidMod.Content.NPCs.Serris
 		}
 
 		public int sbFrame = 0;
-		int sbFrameCounter = 0;
-		int coreFrame = 0;
-		int coreFrameCounter = 0;
-		int flashFrame = 0;
-		int flashFrameCounter = 0;
+		private int sbFrameCounter = 0;
+		private int coreFrame = 0;
+		private int coreFrameCounter = 0;
+		private int flashFrame = 0;
+		private int flashFrameCounter = 0;
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
 			if (ai_state <= SerrisState.Transforming)
@@ -587,7 +587,7 @@ namespace MetroidMod.Content.NPCs.Serris
 				sb.Draw(texJaw, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, jawFrame, texJaw.Width, jawHeight)),
 				headColor, headRot, jawOrig, 1f, effects, 0f);
 
-				int headFrame = frame * (headHeight * 3);
+				int headFrame = frame * headHeight * 3;
 				headFrame += headHeight * glowFrame;
 				sb.Draw(texHead, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, headFrame, texHead.Width, headHeight)),
 				headColor, headRot, headOrig, 1f, effects, 0f);

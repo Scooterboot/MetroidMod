@@ -24,7 +24,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				return 0f;
 			}
-			return SpawnCondition.Ocean.Chance * 0.1f + SpawnCondition.DesertCave.Chance * 0.1f;
+			return (SpawnCondition.Ocean.Chance * 0.1f) + (SpawnCondition.DesertCave.Chance * 0.1f);
 		}
 
 		public override void SetDefaults()
@@ -80,7 +80,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			return false;
 		}
 
-		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
+		private Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)

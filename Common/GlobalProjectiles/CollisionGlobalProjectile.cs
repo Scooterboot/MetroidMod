@@ -5,9 +5,7 @@ using MetroidMod.Content.Switches;
 using MetroidMod.Content.Switches.Variants;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.GlobalProjectiles
@@ -62,14 +60,14 @@ namespace MetroidMod.Common.GlobalProjectiles
 				TriggerSwitch<GreenSwitch>(i, j);
 			}
 
-			if(isPowerBomb)
+			if (isPowerBomb)
 			{
 				OpenHatch<YellowHatch>(i, j);
 				TriggerSwitch<YellowSwitch>(i, j);
-			}	
+			}
 		}
 
-		private void OpenHatch<T>(int i, int j) where T: ModHatch
+		private void OpenHatch<T>(int i, int j) where T : ModHatch
 		{
 			if (TileUtils.TryGetTileEntityAs(i, j, out HatchTileEntity tileEntity))
 			{

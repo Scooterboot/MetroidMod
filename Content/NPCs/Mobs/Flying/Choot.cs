@@ -48,12 +48,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 		{
 			if (!spawn)
 			{
-				NPC.scale = (Main.rand.Next(13, 21) * 0.1f);
-				NPC.defense = (int)((float)NPC.defense * NPC.scale);
-				NPC.damage = (int)((float)NPC.damage * NPC.scale);
-				NPC.life = (int)((float)NPC.life * NPC.scale);
+				NPC.scale = Main.rand.Next(13, 21) * 0.1f;
+				NPC.defense = (int)(NPC.defense * NPC.scale);
+				NPC.damage = (int)(NPC.damage * NPC.scale);
+				NPC.life = (int)(NPC.life * NPC.scale);
 				NPC.lifeMax = NPC.life;
-				NPC.value = (float)((int)(NPC.value * NPC.scale));
+				NPC.value = (int)(NPC.value * NPC.scale);
 				NPC.npcSlots *= NPC.scale;
 				NPC.knockBackResist *= 2f - NPC.scale;
 				spawn = true;

@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		private float hitRange = 0;
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() ||player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() || player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
 				if (player.HeldItem.ModItem is PowerBeam hold)
 				{
@@ -85,7 +85,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		private float beamLength = 0f;
 		private float scaleUp = 0f;
 		private int timer = 0;
-		private int[] nearestTargets = Enumerable.Repeat(-1, 12).ToArray();
+		private readonly int[] nearestTargets = Enumerable.Repeat(-1, 12).ToArray();
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -105,8 +105,8 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 
 			for (P.ai[1] = 0f; P.ai[1] <= beamLength; P.ai[1] += 4f)
 			{
-				Vector2 end = P.Center + P.velocity * P.ai[1];
-				Vector2 trueEnd = end + P.velocity * depth * P.ai[1] * 8f;
+				Vector2 end = P.Center + (P.velocity * P.ai[1]);
+				Vector2 trueEnd = end + (P.velocity * depth * P.ai[1] * 8f);
 				if (CollideMethods.CheckCollide(trueEnd, 0, 0) && hitRange == 0)
 				{
 					Projectile.ai[1] -= 4f;
@@ -159,7 +159,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 				timer++;
 				float maxTime = 80f;
 				float fade = 20f;
-				scaleUp = ((float)Math.Log10(timer) * (maxTime - timer)) / (maxTime - fade);
+				scaleUp = (float)Math.Log10(timer) * (maxTime - timer) / (maxTime - fade);
 				if (timer >= maxTime)
 				{
 					P.Kill();
@@ -205,8 +205,8 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		{
 			Projectile P = Projectile;
 			float visualBeamLength = beamLength - 14.5f;
-			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
-			Vector2 endPosition = centerFloored + P.velocity * visualBeamLength;
+			Vector2 centerFloored = P.Center.Floor() + (P.velocity * 16f);
+			Vector2 endPosition = centerFloored + (P.velocity * visualBeamLength);
 			float _ = float.NaN;
 			if (projHitbox.Intersects(targetHitbox))
 			{
@@ -253,13 +253,13 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			}
 			Texture2D texture = TextureAssets.Projectile[P.type].Value;
 			float visualBeamLength = beamLength - 14.5f;
-			Vector2 centerFloored = P.Center.Floor() + P.velocity * 16f;
+			Vector2 centerFloored = P.Center.Floor() + (P.velocity * 16f);
 			Vector2 drawScale = new(scaleUp, 1f);
 			DelegateMethods.f_1 = 1f;
 			Vector2 startPosition = centerFloored - Main.screenPosition;
-			Vector2 endPosition = startPosition + P.velocity * visualBeamLength;
+			Vector2 endPosition = startPosition + (P.velocity * visualBeamLength);
 
-			
+
 			drawScale *= 0.25f;
 			DrawBeam(Main.spriteBatch, texture, startPosition, endPosition, drawScale, P.GetAlpha(new Color(240, 120, 100)));
 			return false;
@@ -297,16 +297,16 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			data.Draw(spriteBatch);
 
 			num -= num3 * drawScale.Y;
-			Vector2 vector3 = startPosition + vector * ((float)rectangle.Height - vector2.Y) * drawScale.Y;
+			Vector2 vector3 = startPosition + (vector * (rectangle.Height - vector2.Y) * drawScale.Y);
 			if (num > 0f)
 			{
 				float num4 = 0f;
 				while (num4 + 1f < num)
 				{
 					lineFraming(1, vector3, num - num4, rectangle, out num3, out rectangle, out vector2, out color);
-					if (num - num4 < (float)rectangle.Height)
+					if (num - num4 < rectangle.Height)
 					{
-						num3 *= (num - num4) / (float)rectangle.Height;
+						num3 *= (num - num4) / rectangle.Height;
 						rectangle.Height = (int)(num - num4) + 1; //[Joost] Added a +1 to fix some minor empty space artifacting
 					}
 					DrawData data2 = new DrawData(texture, vector3, new Rectangle?(rectangle), color, num2, vector2, drawScale, 0, 0f);
@@ -331,9 +331,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
 			Utils.TileActionAttempt cut = new(DelegateMethods.CutTiles);
 			float visualBeamLength = beamLength - 14.5f;
-			Vector2 centerFloored = Projectile.Center.Floor() + Projectile.velocity * 16f;
+			Vector2 centerFloored = Projectile.Center.Floor() + (Projectile.velocity * 16f);
 			//Vector2 beamStartPos = centerFloored - Main.screenPosition;
-			Vector2 beamEndPos = centerFloored + Projectile.velocity * visualBeamLength;
+			Vector2 beamEndPos = centerFloored + (Projectile.velocity * visualBeamLength);
 
 			// PlotTileLine is a function which performs the specified action to all tiles along a drawn line, with a specified width.
 			// In this case, it is cutting all tiles which can be destroyed by Projectiles, for example grass or pots.

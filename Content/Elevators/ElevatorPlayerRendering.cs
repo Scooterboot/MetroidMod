@@ -20,7 +20,7 @@ namespace MetroidMod.Content.Elevators
 			Main.spriteBatch.Begin();
 			ElevatorPlatformDrawing epd = ModContent.GetInstance<ElevatorPlatformDrawing>();
 			epd.DrawIdlePlatforms();
-			foreach(Player player in Main.ActivePlayers)
+			foreach (Player player in Main.ActivePlayers)
 			{
 				if (player.GetModPlayer<ElevatorPlayer>().InElevator)
 				{
@@ -38,7 +38,7 @@ namespace MetroidMod.Content.Elevators
 			//jopojelly said in a thread this SHOULD help prevent the cellref crash, but it doesn't 100% prevent it :(
 			//It seems more stable but the fact that it's inconsistent drives me insane
 			//Likely gonna have to wait until they fix MonoMod itself
-			
+
 			Main.QueueMainThreadAction(() =>
 			{
 				IL_Main.DoDraw += il =>

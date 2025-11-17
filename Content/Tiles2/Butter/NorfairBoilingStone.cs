@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {

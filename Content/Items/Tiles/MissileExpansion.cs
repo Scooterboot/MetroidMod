@@ -1,5 +1,4 @@
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Tiles.ItemTile;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

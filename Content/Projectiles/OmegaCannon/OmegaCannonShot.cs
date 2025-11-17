@@ -1,9 +1,7 @@
 using System;
-using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.OmegaCannon
@@ -45,7 +43,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.rotation = 0;
 			Color color = MetroidMod.powColor;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-			
+
 			if (Projectile.ai[1] == 0)
 			{
 				Projectile.scale = 1.5f;
@@ -61,7 +59,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 				}
 				if (Projectile.timeLeft % 7 == 0)
 				{
-					Dust.NewDust(Projectile.position + Projectile.Size / 4, Projectile.width / 2, Projectile.height / 2, ModContent.DustType<OmegaCannonTrail>(), 0, 0, 255, Color.White, Projectile.scale);
+					Dust.NewDust(Projectile.position + (Projectile.Size / 4), Projectile.width / 2, Projectile.height / 2, ModContent.DustType<OmegaCannonTrail>(), 0, 0, 255, Color.White, Projectile.scale);
 				}
 			}
 			if (Projectile.frame > 1)
@@ -96,7 +94,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			double deltaAngle = spread / shootNum;
 			for (int i = 0; i < shootNum; i++)
 			{
-				double offsetAngle = startAngle + deltaAngle * i;
+				double offsetAngle = startAngle + (deltaAngle * i);
 				Vector2 vel = new Vector2(baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle));
 				Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, vel, ModContent.ProjectileType<OmegaCannonFrag>(), damage, knockBack, Projectile.owner, lifeTime, scale);
 			}

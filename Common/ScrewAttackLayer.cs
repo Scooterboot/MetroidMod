@@ -34,16 +34,16 @@ namespace MetroidMod.Common
 						{
 							effects |= SpriteEffects.FlipVertically;
 						}
-						Color alpha = Lighting.GetColor((int)((double)projectile.position.X + (double)projectile.width * 0.5) / 16, (int)(((double)projectile.position.Y + (double)projectile.height * 0.5) / 16.0));
+						Color alpha = Lighting.GetColor((int)(projectile.position.X + (projectile.width * 0.5)) / 16, (int)((projectile.position.Y + (projectile.height * 0.5)) / 16.0));
 						int num121 = tex.Height / Main.projFrames[projectile.type];
 						int y9 = num121 * projectile.frame;
-						drawInfo.DrawDataCache.Add(new DrawData(tex, drawInfo.Position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2((float)(tex.Width / 2), (float)(num121 / 2)), projectile.scale, effects, 0));
+						drawInfo.DrawDataCache.Add(new DrawData(tex, drawInfo.Position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex.Width, num121 - 1)), alpha, -mPlayer.rotation, new Vector2(tex.Width / 2, num121 / 2), projectile.scale, effects, 0));
 						if (mPlayer.screwAttackSpeedEffect > 0)
 						{
-							Color color21 = alpha * ((float)Math.Min(mPlayer.screwAttackSpeedEffect, 30) / 30f);
-							drawInfo.DrawDataCache.Add(new DrawData(tex2, drawInfo.Position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2((float)(tex2.Width / 2), (float)(num121 / 2)), projectile.scale, effects, 0));
+							Color color21 = alpha * (Math.Min(mPlayer.screwAttackSpeedEffect, 30) / 30f);
+							drawInfo.DrawDataCache.Add(new DrawData(tex2, drawInfo.Position + P.fullRotationOrigin - Main.screenPosition, new Rectangle?(new Rectangle(0, y9, tex2.Width, num121 - 1)), color21, -mPlayer.rotation, new Vector2(tex2.Width / 2, num121 / 2), projectile.scale, effects, 0));
 							Texture2D tex3 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/ScrewAttack_YellowPlayerGlow").Value;
-							drawInfo.DrawDataCache.Add(new DrawData(tex3, drawInfo.Position + (P.Center - P.position) - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2((float)(tex3.Width / 2), (float)(tex3.Height / 2)), projectile.scale, effects, 0));
+							drawInfo.DrawDataCache.Add(new DrawData(tex3, drawInfo.Position + (P.Center - P.position) - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex3.Width, tex3.Height)), color21, 0f, new Vector2(tex3.Width / 2, tex3.Height / 2), projectile.scale, effects, 0));
 						}
 					}
 				}

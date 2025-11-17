@@ -21,7 +21,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		public override void AI()
 		{
 			Projectile P = Projectile;
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
+			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
 			Color color = MetroidMod.lumColor;
 			Lighting.AddLight(P.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
@@ -38,7 +38,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 200);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 200);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

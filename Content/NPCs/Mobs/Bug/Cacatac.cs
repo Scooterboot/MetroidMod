@@ -49,12 +49,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 		{
 			if (!spawn)
 			{
-				NPC.scale = (Main.rand.Next(13, 21) * 0.1f);
-				NPC.defense = (int)((float)NPC.defense * NPC.scale);
-				NPC.damage = (int)((float)NPC.damage * NPC.scale);
-				NPC.life = (int)((float)NPC.life * NPC.scale);
+				NPC.scale = Main.rand.Next(13, 21) * 0.1f;
+				NPC.defense = (int)(NPC.defense * NPC.scale);
+				NPC.damage = (int)(NPC.damage * NPC.scale);
+				NPC.life = (int)(NPC.life * NPC.scale);
 				NPC.lifeMax = NPC.life;
-				NPC.value = (float)((int)(NPC.value * NPC.scale));
+				NPC.value = (int)(NPC.value * NPC.scale);
 				NPC.npcSlots *= NPC.scale;
 				NPC.knockBackResist *= 2f - NPC.scale;
 				spawn = true;
@@ -90,7 +90,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 					// Fire projectiles.
 					for (int i = 0; i < 5; ++i)
 					{
-						float value = (float)(Math.PI - ((Math.PI / 4) * i));
+						float value = (float)(Math.PI - (Math.PI / 4 * i));
 						Vector2 v2 = new Vector2((float)Math.Cos(value), -(float)Math.Sin(value));
 						Projectile.NewProjectile(entitySource, NPC.Center, v2 * 6, ModContent.ProjectileType<Projectiles.Mobs.CacatacSpike>(), NPC.damage, 0, Main.myPlayer);
 					}
@@ -112,8 +112,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			{
 				NPC.frameCounter += Math.Abs(NPC.velocity.X) / 3.5F;
 
-				NPC.frameCounter %= (Main.npcFrameCount[NPC.type] - 4); // If the frameCounter exceeds the amount of frames available, reset it to 0.
-				int frame = (int)(NPC.frameCounter);
+				NPC.frameCounter %= Main.npcFrameCount[NPC.type] - 4; // If the frameCounter exceeds the amount of frames available, reset it to 0.
+				int frame = (int)NPC.frameCounter;
 				NPC.frame.Y = frame * frameHeight;
 			}
 			else if (NPC.ai[0] == 1)

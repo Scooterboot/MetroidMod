@@ -1,7 +1,5 @@
-﻿using System;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Tiles;
-using MetroidMod.Content.Tiles.ItemTile;
 using MetroidMod.ID;
 using Terraria;
 using Terraria.ID;

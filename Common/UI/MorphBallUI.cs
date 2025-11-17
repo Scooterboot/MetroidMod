@@ -61,7 +61,7 @@ namespace MetroidMod.Common.UI
 			Append(new MorphBallFrame());
 			Append(new MorphBallLines());
 
-			ballSlots = new MorphBallItemBox[ 5/*MetroidMod.beamSlotAmount*/];
+			ballSlots = new MorphBallItemBox[5/*MetroidMod.beamSlotAmount*/];
 			/*
 			textSlots = new UIText[MetroidMod.beamSlotAmount];
 			for (int i = 0; i < MetroidMod.beamSlotAmount; ++i)
@@ -143,9 +143,9 @@ namespace MetroidMod.Common.UI
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
 					if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.MorphBall || !MBAddonLoader.TryGetAddon(addonItem, out ModMBAddon mbAddon)) { return false; }
-					return (addonItem.type <= 0 || mbAddon.AddonSlot == morphBallSlotType);
+					return addonItem.type <= 0 || mbAddon.AddonSlot == morphBallSlotType;
 				}
-				return (addonItem.type <= 0);// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance));
+				return addonItem.type <= 0;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance));
 			};
 		}
 
@@ -215,12 +215,12 @@ namespace MetroidMod.Common.UI
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
-			if ((float)frame.Width > innerDimensions.Width || (float)frame.Height > innerDimensions.Width)
+			if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
 			{
 				if (frame.Width > frame.Height)
-					drawScale = innerDimensions.Width / (float)frame.Width;
+					drawScale = innerDimensions.Width / frame.Width;
 				else
-					drawScale = innerDimensions.Width / (float)frame.Height;
+					drawScale = innerDimensions.Width / frame.Height;
 			}
 
 			var unreflectedScale = drawScale;
@@ -230,8 +230,8 @@ namespace MetroidMod.Common.UI
 
 			Vector2 drawPosition = new Vector2(innerDimensions.X, innerDimensions.Y);
 
-			drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-			drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+			drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+			drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);

@@ -29,7 +29,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			{
 				return 0f;
 			}
-			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + SpawnCondition.Underworld.Chance * 0.15f;
+			return (spawnInfo.SpawnTileY > GenVars.lavaLine ? SpawnCondition.Cavern.Chance * 0.1f : 0) + (SpawnCondition.Underworld.Chance * 0.15f);
 		}
 
 		public override void SetDefaults()
@@ -62,7 +62,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 				new FlavorTextBestiaryInfoElement("Mods.MetroidMod.Bestiary.Viola")
 			});
 		}
-		int frameNum = 1;
+		private int frameNum = 1;
 		public override bool PreAI()
 		{
 			mNPC.CrawlerAI(NPC, mNPC.crawlSpeed * NPC.scale, 1, false);

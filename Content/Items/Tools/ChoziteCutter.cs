@@ -2,7 +2,6 @@
 
 using MetroidMod.Common.Systems;
 using MetroidMod.ID;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -51,7 +50,7 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override void HoldItem(Player player)
 		{
-			if(MUtils.CanReachWiring(player, Item))
+			if (MUtils.CanReachWiring(player, Item))
 			{
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = Type;
@@ -66,7 +65,7 @@ namespace MetroidMod.Content.Items.Tools
 			}
 
 			IEntitySource source = new EntitySource_Parent(player);
-			 if (player == Main.LocalPlayer)
+			if (player == Main.LocalPlayer)
 			{
 				switch (MSystem.mBlockType[i, j])
 				{
@@ -123,7 +122,7 @@ namespace MetroidMod.Content.Items.Tools
 						break;
 				}
 			}
-			
+
 
 			MSystem.mBlockType[i, j] = BreakableTileID.None;
 			MSystem.dontRegen[i, j] = false;
@@ -138,7 +137,7 @@ namespace MetroidMod.Content.Items.Tools
 				removeBreakableBlock.Write(true);
 				removeBreakableBlock.Send(-1, player.whoAmI);
 			}
-			
+
 			return true;
 		}
 

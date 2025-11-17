@@ -24,9 +24,9 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.scale = 0f;
 			Projectile.alpha = 255;
 		}
-		float acc = 5f;//3f;
-		float projSpeed = 12f;
-		Vector2 vel;
+		private readonly float acc = 5f;//3f;
+		private readonly float projSpeed = 12f;
+		private Vector2 vel;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -58,8 +58,8 @@ namespace MetroidMod.Content.Projectiles.Boss
 				float num2 = vec.Length();
 				num2 = projSpeed / num2;
 				vec *= num2;
-				P.velocity.X = (vel.X * acc + vec.X) / (acc + 1f);
-				P.velocity.Y = (vel.Y * acc + vec.Y) / (acc + 1f);
+				P.velocity.X = ((vel.X * acc) + vec.X) / (acc + 1f);
+				P.velocity.Y = ((vel.Y * acc) + vec.Y) / (acc + 1f);
 
 				if (Vector2.Distance(dest, P.Center + P.velocity) < projSpeed)
 				{
@@ -69,7 +69,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 			if (rotFlag)
 			{
-				P.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+				P.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			}
 			else
 			{

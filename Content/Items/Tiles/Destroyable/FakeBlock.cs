@@ -1,6 +1,5 @@
 #region Using directives
 
-using System.IO;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Tiles.ItemTile;
 using MetroidMod.ID;
@@ -9,7 +8,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 #endregion
 

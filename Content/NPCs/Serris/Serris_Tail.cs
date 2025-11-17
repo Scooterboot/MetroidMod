@@ -84,10 +84,10 @@ namespace MetroidMod.Content.NPCs.Serris
 			if (serris_head.state == 4)
 				frame = serris_head.sbFrame + 3;
 
-			int yFrame = frame * (tailHeight * 3) + (tailHeight * tailType);
+			int yFrame = (frame * tailHeight * 3) + (tailHeight * tailType);
 			sb.Draw(texTail, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, yFrame, texTail.Width, tailHeight)),
 			bodyColor, bRot, tailOrig, 1f, effects, 0f);
-			return (false);
+			return false;
 		}
 	}
 }

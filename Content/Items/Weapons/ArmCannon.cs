@@ -18,16 +18,12 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Utilities;
-using Steamworks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.UI.Chat;
-using Terraria.Utilities;
 
 namespace MetroidMod.Content.Items.Weapons
 {
@@ -121,7 +117,7 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void SetDefaults()
 		{
 			MGlobalItem pb = Item.GetGlobalItem<MGlobalItem>();
-			if (pb.isBeam) 
+			if (pb.isBeam)
 			{
 				Item.damage = MConfigItems.Instance.damagePowerBeam;
 				Item.DamageType = ModContent.GetInstance<HunterDamageClass>();
@@ -179,15 +175,15 @@ namespace MetroidMod.Content.Items.Weapons
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
 			Item.TryGetGlobalItem(out MGlobalItem mi);
-			float armRot = player.itemRotation - (float)(Math.PI / 2) * player.direction;
+			float armRot = player.itemRotation - ((float)(Math.PI / 2) * player.direction);
 			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, player.gravDir < 0 ? MathHelper.Pi - armRot : armRot);
 			Vector2 origin = SetCannonPos(player, armRot);
 			origin.Y -= heldItemFrame.Height / 2f;
-			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * (mi.isBeam ? -16 : -14) * player.direction;
+			player.itemLocation = origin + (player.itemRotation.ToRotationVector2() * (mi.isBeam ? -16 : -14) * player.direction);
 		}
 		private Vector2 SetCannonPos(Player player, float rotation)
 		{
-			float num = rotation + MathHelper.PiOver2; 
+			float num = rotation + MathHelper.PiOver2;
 			Vector2 vector = new Vector2((float)Math.Cos((double)num), (float)Math.Sin((double)num));
 			vector *= 10f;
 
@@ -219,7 +215,7 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				return player.whoAmI == Main.myPlayer && Math.Floor(ac.statUA) > 0 && mp.statOverheat < mp.maxOverheat /*&& pb.statUA > BeamMods[0].GetGlobalItem<MGlobalItem>().addonUACost*/;
 			}
-			return Item.TryGetGlobalItem(out MGlobalItem mi) && (mi.isBeam? (player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat) : (player.whoAmI == Main.myPlayer && mi.statMissiles > 0));// && BeamLoader.CanShoot(player, BeamMods);
+			return Item.TryGetGlobalItem(out MGlobalItem mi) && (mi.isBeam ? (player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat) : (player.whoAmI == Main.myPlayer && mi.statMissiles > 0));// && BeamLoader.CanShoot(player, BeamMods);
 		}
 
 		/*public override int ChoosePrefix(UnifiedRandom rand)
@@ -451,7 +447,7 @@ namespace MetroidMod.Content.Items.Weapons
 		//Mod modBeamTextureMod = null;
 		public override void UpdateInventory(Player P)
 		{
-			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac) || ac==null || !P.TryGetModPlayer(out MPlayer mp)) { return; }
+			if (Item == null || !Item.TryGetGlobalItem(out MGlobalItem ac) || ac == null || !P.TryGetModPlayer(out MPlayer mp)) { return; }
 			Item.Prefix(Item.prefix);
 			//MPlayer mp = P.GetModPlayer<MPlayer>();
 			if (ac.isBeam)
@@ -491,7 +487,7 @@ namespace MetroidMod.Content.Items.Weapons
 				bool hasDiffusionBeam = !BeamChange[10].IsAir;
 				bool hasLuminiteBeam = !BeamChange[11].IsAir;
 
-				LuminiteActive = hasLuminiteBeam || hasDiffusionBeam && mp.PrimeHunter;
+				LuminiteActive = hasLuminiteBeam || (hasDiffusionBeam && mp.PrimeHunter);
 				DiffusionActive = (hasDiffusionBeam || mp.PrimeHunter) && !hasLuminiteBeam;
 
 				ShotSound = null;
@@ -502,10 +498,10 @@ namespace MetroidMod.Content.Items.Weapons
 				isShock = false;
 				Stealth = false;
 				isJud = !LuminiteActive && !DiffusionActive && (slot1.type == jd) && !mp.PrimeHunter;
-				isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
-				isHyper = (slot1.type == hy);
-				isOmega = (slot1.type == oc);
-				isPhazon = (slot1.type == ph);
+				isCharge = slot1.type == ch || slot1.type == ch2 || slot1.type == ch3;
+				isHyper = slot1.type == hy;
+				isOmega = slot1.type == oc;
+				isPhazon = slot1.type == ph;
 				isHunter = (slot1.type == oc) || (slot1.type == sc) || (slot1.type == imp) || (slot1.type == mm) || (slot1.type == bh) || (slot1.type == jd) || (slot1.type == vd);
 				usesUA = isHunter && slot1.type != oc;
 
@@ -622,7 +618,7 @@ namespace MetroidMod.Content.Items.Weapons
 						chargeShotAmt = 3;
 					}
 				}
-				
+
 				// Default Combos
 				if (!isHyper && !isPhazon && !isHunter)
 				{
@@ -1340,20 +1336,20 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					MGlobalItem mItem = slot1.GetGlobalItem<MGlobalItem>();
 					chargeDmgMult = mItem.addonChargeDmg;
-					chargeCost = !usesUA? mItem.addonChargeHeat : GetCharge();
+					chargeCost = !usesUA ? mItem.addonChargeHeat : GetCharge();
 					hunterDmg = mItem.addonDmg;
 					hunterHeat = mItem.addonHeat;
 					UAcost = mItem.addonUACost;
 				}
 
 				finalDmg = (int)Math.Round((double)(damage * (1f + iceDmg + waveDmg + spazDmg + plasDmg + hunterDmg)));
-				overheat = (isHunter && slot1.type != oc)? 0 : (int)Math.Max(Math.Round((double)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 0);
+				overheat = (isHunter && slot1.type != oc) ? 0 : (int)Math.Max(Math.Round((double)(overheat * (1 + iceHeat + waveHeat + spazHeat + plasHeat + hunterHeat))), 0);
 
 				double shotsPerSecond = 60 / useTime * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
 
 				useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
 
-				float oof = Stealth? Math.Max(impStealth / 126f, 1f) : 1f;
+				float oof = Stealth ? Math.Max(impStealth / 126f, 1f) : 1f;
 
 				Item.damage = (int)(finalDmg * oof);
 				Item.useTime = (int)useTime;
@@ -1679,7 +1675,7 @@ namespace MetroidMod.Content.Items.Weapons
 					chargeCostMi = mItem.addonMissileCost;
 					comboDrain = mItem.addonMissileDrain;
 				}
-				comboCostUseTime = (int)Math.Round(60.0 / (double)comboDrain);
+				comboCostUseTime = (int)Math.Round(60.0 / comboDrain);
 
 				float addonDmg = 0f;
 				float addonSpeed = 0f;
@@ -1723,9 +1719,9 @@ namespace MetroidMod.Content.Items.Weapons
 				tex = mi.itemTexture;
 			}
 			float num5 = Item.height - tex.Height;
-			float num6 = Item.width / 2 - tex.Width / 2;
+			float num6 = (Item.width / 2) - (tex.Width / 2);
 			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (tex.Height / 2) + num5 + 2f),
-			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2(tex.Width / 2, (tex.Height / 2)), scale, SpriteEffects.None, 0f);
+			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2(tex.Width / 2, tex.Height / 2), scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override bool PreDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -1839,8 +1835,8 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				if (tooltips[k].Name == "PrefixDamage")
 				{
-					double num19 = (Item.damage - finalDmg);
-					num19 = num19 / (double)((float)finalDmg) * 100.0;
+					double num19 = Item.damage - finalDmg;
+					num19 = num19 / (double)(float)finalDmg * 100.0;
 					num19 = Math.Round(num19);
 					if (num19 > 0.0)
 					{
@@ -1935,7 +1931,7 @@ namespace MetroidMod.Content.Items.Weapons
 			return clone2;
 		}
 
-		int chargeLead = -1;
+		private int chargeLead = -1;
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
@@ -2107,7 +2103,7 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 		private bool LeadActive(Player player, int type)
 		{
-			return (chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == type);
+			return chargeLead != -1 && Main.projectile[chargeLead].active && Main.projectile[chargeLead].owner == player.whoAmI && Main.projectile[chargeLead].type == type;
 		}
 		private bool initialShot = false;
 		private int comboTime = 0;
@@ -2140,7 +2136,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				if (!resetStealth)
 				{
-					impStealth = Math.Min(impStealth + (LuminiteActive? 3f : DiffusionActive? 1.5f : 1f), 693f); //126f
+					impStealth = Math.Min(impStealth + (LuminiteActive ? 3f : DiffusionActive ? 1.5f : 1f), 693f); //126f
 					if (stealthEnabled)
 					{
 						player.shroomiteStealth = true;
@@ -2149,7 +2145,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 
 					DamageClass damageClass = ModContent.GetInstance<HunterDamageClass>();
-					player.GetCritChance(damageClass) += (int)(impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f)/5.5f);
+					player.GetCritChance(damageClass) += (int)(impStealth / (LuminiteActive ? 3f : DiffusionActive ? 5f : 10f) / 5.5f);
 				}
 				else
 				{
@@ -2165,13 +2161,13 @@ namespace MetroidMod.Content.Items.Weapons
 				float MX = Main.mouseX + Main.screenPosition.X;
 				if (player.gravDir == -1f)
 				{
-					MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+					MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
 				}
 				Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 				int damage = player.GetWeaponDamage(Item);
 				Vector2 velocity = targetrotation.ToRotationVector2() * Item.shootSpeed;
-				if (pb.isBeam) 
+				if (pb.isBeam)
 				{
 					shotEffect = "";
 					Item.UseSound = ShotSound;
@@ -2278,7 +2274,7 @@ namespace MetroidMod.Content.Items.Weapons
 							else
 							{
 
-								float dmgMult = 1f + (chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge;
+								float dmgMult = 1f + ((chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge);
 								double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
 								if ((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !isHunter) || (mp.statCharge >= MPlayer.maxCharge && isHunter))
@@ -2352,7 +2348,7 @@ namespace MetroidMod.Content.Items.Weapons
 							cooldown = (int)useTime;
 						}
 					}
-					
+
 					if (isHunter && pb.statUA <= 0f && player.controlUseItem && BeamMods[0].type != ModContent.ItemType<Addons.Hunters.OmegaCannonAddon>())
 					{
 						if (!BeamChange[11].IsAir)
@@ -2411,7 +2407,7 @@ namespace MetroidMod.Content.Items.Weapons
 						}
 					}
 
-					int chCost = (int)Math.Max(chargeCostMi * (mp.missileCost + 0.001f),1);
+					int chCost = (int)Math.Max(chargeCostMi * (mp.missileCost + 0.001f), 1);
 					comboCostUseTime = (int)Math.Round(60.0 / (double)(comboDrain * mp.missileCost));
 					isCharge &= pb.statMissiles >= chCost || (isHeldCombo > 0 && initialShot);
 
@@ -2438,7 +2434,7 @@ namespace MetroidMod.Content.Items.Weapons
 										{
 											if (isMiniGun)
 											{
-												this.MiniGunShoot(player, Item, Main.projectile[chargeLead], Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), comboKnockBack, chargeShotSound);
+												this.MiniGunShoot(player, Item, Main.projectile[chargeLead], Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), comboKnockBack, chargeShotSound);
 											}
 											else
 											{
@@ -2447,7 +2443,7 @@ namespace MetroidMod.Content.Items.Weapons
 													var entitySource = player.GetSource_ItemUse(Item);
 													for (int i = 0; i < comboShotAmt; i++)
 													{
-														int proj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), comboKnockBack, player.whoAmI);
+														int proj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), comboKnockBack, player.whoAmI);
 														Main.projectile[proj].ai[0] = chargeLead;
 													}
 													comboTime = comboUseTime;
@@ -2519,7 +2515,7 @@ namespace MetroidMod.Content.Items.Weapons
 												{
 													shotGunVel = -Vector2.UnitY;
 												}
-												int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, shotGunVel.X, shotGunVel.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
+												int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, shotGunVel.X, shotGunVel.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI);
 											}
 										}
 										if (isHoming)
@@ -2532,7 +2528,7 @@ namespace MetroidMod.Content.Items.Weapons
 										}
 										else if (!isShotgun) //dont know why this needs to be this way but it do
 										{
-											int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)((float)damage * dmgMult), Item.knockBack, player.whoAmI);
+											int chargeProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, Mod.Find<ModProjectile>(chargeShot).Type, (int)(damage * dmgMult), Item.knockBack, player.whoAmI);
 										}
 										pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, chCost));
 									}
@@ -2605,7 +2601,7 @@ namespace MetroidMod.Content.Items.Weapons
 										Vector2 delta = new Vector2(MX, MY);
 										delta.X -= MathHelper.Clamp(MX, npcRect.X, npcRect.X + npcRect.Width);
 										delta.Y -= MathHelper.Clamp(MY, npcRect.Y, npcRect.Y + npcRect.Height);
-										bool colFlag = (delta.Length() < 50);
+										bool colFlag = delta.Length() < 50;
 										if (colFlag && pb.seekerTarget[targetNum] <= -1 && ((targetingDelay <= 0 && mouse.Intersects(npcRect)) || !flag) && pb.statMissiles > pb.numSeekerTargets)
 										{
 											pb.seekerTarget[targetNum] = npc.whoAmI;
@@ -2706,7 +2702,7 @@ namespace MetroidMod.Content.Items.Weapons
 					bool ranOutOfMissiles = pb.statMissiles <= 0;
 					if (ranOutOfMissiles || pb.isBeam)
 					{
-						if(LeadActive(player, chargeLead))
+						if (LeadActive(player, chargeLead))
 						{
 							Main.projectile[chargeLead].Kill();
 						}
@@ -2721,7 +2717,7 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 			}
 		}
-		SoundEffectInstance soundInstance;
+		private SoundEffectInstance soundInstance;
 		public void MiniGunShoot(Player player, Item item, Projectile Lead, int projType, int damage, float knockBack, string sound)
 		{
 			if (comboTime <= 0)
@@ -2730,7 +2726,7 @@ namespace MetroidMod.Content.Items.Weapons
 				soundInstance = result.Sound;
 				if (soundInstance != null)
 				{
-					soundInstance.Volume *= 1f - 0.25f * (scalePlus / 20f);
+					soundInstance.Volume *= 1f - (0.25f * (scalePlus / 20f));
 				}
 
 				float spray = 1f * (scalePlus / 20f);
@@ -2740,10 +2736,10 @@ namespace MetroidMod.Content.Items.Weapons
 				var entitySource = Lead.GetSource_FromAI();
 				for (int i = 0; i < miniGunAmt; i++)
 				{
-					float rot = Lead.velocity.ToRotation() + (float)Angle.ConvertToRadians(Main.rand.Next(18) * 10) - (float)Math.PI / 2f;
-					Vector2 vector3 = Lead.Center + rot.ToRotationVector2() * 7f * spray;
+					float rot = Lead.velocity.ToRotation() + (float)Angle.ConvertToRadians(Main.rand.Next(18) * 10) - ((float)Math.PI / 2f);
+					Vector2 vector3 = Lead.Center + (rot.ToRotationVector2() * 7f * spray);
 					Vector2 vector5 = Vector2.Normalize(Lead.velocity) * scaleFactor2;
-					vector5 = vector5.RotatedBy((Main.rand.NextDouble() * 0.12 - 0.06) * spray, default(Vector2));
+					vector5 = vector5.RotatedBy(((Main.rand.NextDouble() * 0.12) - 0.06) * spray, default(Vector2));
 					if (float.IsNaN(vector5.X) || float.IsNaN(vector5.Y))
 					{
 						vector5 = -Vector2.UnitY; //this can turn the shots into a cursed flame candle with fargos hypermode and or/enough speed
@@ -2890,22 +2886,22 @@ namespace MetroidMod.Content.Items.Weapons
 			for (int i = 0; i < BeamMods.Length; ++i)
 			{
 				//if (BeamMods[i] != null)
-					ItemIO.Send(BeamMods[i], writer,true);
+				ItemIO.Send(BeamMods[i], writer, true);
 			}
 			for (int i = 0; i < BeamChange.Length; ++i)
 			{
 				//if (BeamChange[i] != null)
-					ItemIO.Send(BeamChange[i], writer);
+				ItemIO.Send(BeamChange[i], writer);
 			}
 			for (int i = 0; i < MissileMods.Length; ++i)
 			{
 				//if (MissileMods[i] != null)
-					ItemIO.Send(MissileMods[i], writer, true);
+				ItemIO.Send(MissileMods[i], writer, true);
 			}
 			for (int i = 0; i < MissileChange.Length; ++i)
 			{
 				//if (MissileChange[i] != null)
-					ItemIO.Send(MissileChange[i], writer);
+				ItemIO.Send(MissileChange[i], writer);
 			}
 			writer.Write(chargeLead);
 			//base.NetSend(writer);
@@ -2920,17 +2916,17 @@ namespace MetroidMod.Content.Items.Weapons
 			for (int i = 0; i < BeamChange.Length; ++i)
 			{
 				//if (BeamChange[i] != null)
-					BeamChange[i] = ItemIO.Receive(reader);
+				BeamChange[i] = ItemIO.Receive(reader);
 			}
 			for (int i = 0; i < MissileMods.Length; ++i)
 			{
 				//if (MissileMods[i] != null)
-					MissileMods[i] = ItemIO.Receive(reader, true);
+				MissileMods[i] = ItemIO.Receive(reader, true);
 			}
 			for (int i = 0; i < MissileChange.Length; ++i)
 			{
 				//if (MissileChange[i] != null)
-					MissileChange[i] = ItemIO.Receive(reader);
+				MissileChange[i] = ItemIO.Receive(reader);
 			}
 			chargeLead = reader.ReadInt32();
 			//base.NetReceive(reader);

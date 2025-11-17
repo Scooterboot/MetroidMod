@@ -13,11 +13,11 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			// DisplayName.SetDefault("Stardust Dragon");
 		}
 
-		bool initialised = false;
-		float radius = 5f;//0.0f;
+		private bool initialised = false;
+		private float radius = 5f;//0.0f;
 		public float spin = 0.0f;
-		float SpinIncrease = 0.05f;
-		Vector2 basePosition = new Vector2(0f, 0f);
+		private float SpinIncrease = 0.05f;
+		private Vector2 basePosition = new Vector2(0f, 0f);
 
 		public override void SetDefaults()
 		{
@@ -31,9 +31,9 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 		}
 
-		const int SegLength = 6;
-		Vector2[] segmentPos = new Vector2[SegLength];
-		float[] segmentRot = new float[SegLength];
+		private const int SegLength = 6;
+		private readonly Vector2[] segmentPos = new Vector2[SegLength];
+		private readonly float[] segmentRot = new float[SegLength];
 
 		public void initialise()
 		{
@@ -54,7 +54,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			SpinIncrease += 0.0005f;
 			radius += 3.0f;
 			spin += SpinIncrease;
-			P.position = (basePosition - new Vector2(P.width / 2, P.height / 2)) + spin.ToRotationVector2() * radius;
+			P.position = basePosition - new Vector2(P.width / 2, P.height / 2) + (spin.ToRotationVector2() * radius);
 
 			Vector2 vel = P.position - P.oldPos[0];
 			if (vel != Vector2.Zero)
@@ -76,7 +76,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				float len = pos.Length();
 				int width = P.width / 2;
 
-				len = (len - (float)width) / len;
+				len = (len - width) / len;
 				pos.X *= len;
 				pos.Y *= len;
 				segmentPos[i] += pos;
@@ -153,7 +153,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)),
 				color,
 				segmentRot[i],
-				new Vector2((float)tex.Width / 2f, (float)tex.Height / 2),
+				new Vector2(tex.Width / 2f, (float)tex.Height / 2),
 				1f,
 				SpriteEffects.None,
 				0f);

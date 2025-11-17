@@ -39,7 +39,7 @@
 
 		public void Interact()
 		{
-			if(IsLocked)
+			if (IsLocked)
 			{
 				return;
 			}
@@ -49,7 +49,7 @@
 
 		public void Toggle()
 		{
-			if(LockStatus == HatchLockStatus.UnlockedAndBlinking)
+			if (LockStatus == HatchLockStatus.UnlockedAndBlinking)
 			{
 				LockStatus = HatchLockStatus.Unlocked;
 			}
@@ -77,7 +77,7 @@
 
 		public void ToggleBlueConversion()
 		{
-			if(BlueConversion == HatchBlueConversionStatus.Disabled)
+			if (BlueConversion == HatchBlueConversionStatus.Disabled)
 			{
 				BlueConversion = HatchBlueConversionStatus.EnabledAndRegular;
 			}

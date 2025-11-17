@@ -25,10 +25,10 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.friendly = false;
 		}
-		Projectile Lead;
-		SoundEffectInstance soundInstance;
-		bool soundPlayed = false;
-		int soundDelay = 0;
+		private Projectile Lead;
+		private SoundEffectInstance soundInstance;
+		private readonly bool soundPlayed = false;
+		private readonly int soundDelay = 0;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -58,7 +58,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 					}
 					else if (Main.soundVolume > 0f)
 					{
-						soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f * Main.soundVolume, 1f * Main.soundVolume);
+						soundInstance.Volume = Math.Min(soundInstance.Volume + (0.05f * Main.soundVolume), 1f * Main.soundVolume);
 					}
 				}
 				P.timeLeft = 2;

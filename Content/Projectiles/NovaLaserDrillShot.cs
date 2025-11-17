@@ -48,7 +48,7 @@ namespace MetroidMod.Content.Projectiles
 				}
 				Vector3 value4 = new Vector3(0f, 1f, 0.7f);
 				Vector3 value5 = new Vector3(0f, 0.7f, 1f);
-				Vector3 value6 = Vector3.Lerp(value4, value5, 1f - num9 * 2f) * 0.5f;
+				Vector3 value6 = Vector3.Lerp(value4, value5, 1f - (num9 * 2f)) * 0.5f;
 				if (Vector2.Distance(vector, P.Center) >= 30f)
 				{
 					Vector2 value7 = P.Center - vector;
@@ -75,11 +75,11 @@ namespace MetroidMod.Content.Projectiles
 					Vector2 vector2 = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - value8;
 					if (player.gravDir == -1f)
 					{
-						vector2.Y = (float)(Main.screenHeight - Main.mouseY) + Main.screenPosition.Y - value8.Y;
+						vector2.Y = Main.screenHeight - Main.mouseY + Main.screenPosition.Y - value8.Y;
 					}
 					if (Main.tile[Player.tileTargetX, Player.tileTargetY].HasTile)
 					{
-						vector2 = new Vector2(Player.tileTargetX, Player.tileTargetY) * 16f + Vector2.One * 8f - value8;
+						vector2 = (new Vector2(Player.tileTargetX, Player.tileTargetY) * 16f) + (Vector2.One * 8f) - value8;
 						P.localAI[1] = 2f;
 					}
 					vector2 = Vector2.Lerp(vector2, P.velocity, 0.7f);
@@ -99,19 +99,19 @@ namespace MetroidMod.Content.Projectiles
 					int num14 = Player.tileRangeY + tileBoost - 1;
 					int num15 = 12;
 					bool flag2 = false;
-					if (vector2.X < (float)(num11 * 16 - num15))
+					if (vector2.X < (num11 * 16) - num15)
 					{
 						flag2 = true;
 					}
-					if (vector2.Y < (float)(num13 * 16 - num15))
+					if (vector2.Y < (num13 * 16) - num15)
 					{
 						flag2 = true;
 					}
-					if (vector2.X > (float)(num12 * 16 + num15))
+					if (vector2.X > (num12 * 16) + num15)
 					{
 						flag2 = true;
 					}
-					if (vector2.Y > (float)(num14 * 16 + num15))
+					if (vector2.Y > (num14 * 16) + num15)
 					{
 						flag2 = true;
 					}
@@ -119,21 +119,21 @@ namespace MetroidMod.Content.Projectiles
 					{
 						Vector2 value9 = Vector2.Normalize(vector2);
 						float num16 = -1f;
-						if (value9.X < 0f && ((float)(num11 * 16 - num15) / value9.X < num16 || num16 == -1f))
+						if (value9.X < 0f && (((num11 * 16) - num15) / value9.X < num16 || num16 == -1f))
 						{
-							num16 = (float)(num11 * 16 - num15) / value9.X;
+							num16 = ((num11 * 16) - num15) / value9.X;
 						}
-						if (value9.X > 0f && ((float)(num12 * 16 + num15) / value9.X < num16 || num16 == -1f))
+						if (value9.X > 0f && (((num12 * 16) + num15) / value9.X < num16 || num16 == -1f))
 						{
-							num16 = (float)(num12 * 16 + num15) / value9.X;
+							num16 = ((num12 * 16) + num15) / value9.X;
 						}
-						if (value9.Y < 0f && ((float)(num13 * 16 - num15) / value9.Y < num16 || num16 == -1f))
+						if (value9.Y < 0f && (((num13 * 16) - num15) / value9.Y < num16 || num16 == -1f))
 						{
-							num16 = (float)(num13 * 16 - num15) / value9.Y;
+							num16 = ((num13 * 16) - num15) / value9.Y;
 						}
-						if (value9.Y > 0f && ((float)(num14 * 16 + num15) / value9.Y < num16 || num16 == -1f))
+						if (value9.Y > 0f && (((num14 * 16) + num15) / value9.Y < num16 || num16 == -1f))
 						{
-							num16 = (float)(num14 * 16 + num15) / value9.Y;
+							num16 = ((num14 * 16) + num15) / value9.Y;
 						}
 						vector2 = value9 * num16;
 					}
@@ -145,7 +145,7 @@ namespace MetroidMod.Content.Projectiles
 				}
 			}
 
-			P.position = player.RotatedRelativePoint(player.MountedCenter) - P.Size / 2f;
+			P.position = player.RotatedRelativePoint(player.MountedCenter) - (P.Size / 2f);
 			P.rotation = P.velocity.ToRotation() + num;
 			P.spriteDirection = P.direction;
 			P.timeLeft = 2;
@@ -153,7 +153,7 @@ namespace MetroidMod.Content.Projectiles
 			player.heldProj = P.whoAmI;
 			player.itemTime = 2;
 			player.itemAnimation = 2;
-			player.itemRotation = (float)Math.Atan2(P.velocity.Y * (float)P.direction, P.velocity.X * (float)P.direction);
+			player.itemRotation = (float)Math.Atan2(P.velocity.Y * P.direction, P.velocity.X * P.direction);
 			if (player.controlUseItem)
 			{
 				player.HeldItem.useTime = Math.Max((int)(4 * player.pickSpeed), 1);
@@ -187,7 +187,7 @@ namespace MetroidMod.Content.Projectiles
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color(255, 255, 255, 128) * (1f - (float)Projectile.alpha / 255f);
+			return new Color(255, 255, 255, 128) * (1f - (Projectile.alpha / 255f));
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -195,25 +195,25 @@ namespace MetroidMod.Content.Projectiles
 			Projectile P = Projectile;
 			Player player = Main.player[P.owner];
 			Vector2 mountedCenter = player.MountedCenter;
-			Color color25 = Lighting.GetColor((int)((double)P.position.X + (double)P.width * 0.5) / 16, (int)(((double)P.position.Y + (double)P.height * 0.5) / 16.0));
+			Color color25 = Lighting.GetColor((int)(P.position.X + (P.width * 0.5)) / 16, (int)((P.position.Y + (P.height * 0.5)) / 16.0));
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (Projectile.spriteDirection == -1)
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
 
-			Vector2 vector42 = P.position + new Vector2(P.width, P.height) / 2f + Vector2.UnitY * P.gfxOffY - Main.screenPosition;
+			Vector2 vector42 = P.position + (new Vector2(P.width, P.height) / 2f) + (Vector2.UnitY * P.gfxOffY) - Main.screenPosition;
 			Texture2D texture2D36 = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;//Main.projectileTexture[P.type];
 			Color alpha7 = P.GetAlpha(color25);
-			Vector2 vector43 = player.RotatedRelativePoint(mountedCenter) + Vector2.UnitY * player.gfxOffY;
+			Vector2 vector43 = player.RotatedRelativePoint(mountedCenter) + (Vector2.UnitY * player.gfxOffY);
 			Vector2 vector44 = vector42 + Main.screenPosition - vector43;
 			Vector2 value49 = Vector2.Normalize(vector44);
 			float num274 = vector44.Length();
-			float num275 = vector44.ToRotation() + (float)Math.PI / 2f;
+			float num275 = vector44.ToRotation() + ((float)Math.PI / 2f);
 			float num276 = -5f;
 			float num277 = num276 + 30f;
 			new Vector2(2f, num274 - num277);
-			Vector2 value50 = Vector2.Lerp(vector42 + Main.screenPosition, vector43 + value49 * num277, 0.5f);
+			Vector2 value50 = Vector2.Lerp(vector42 + Main.screenPosition, vector43 + (value49 * num277), 0.5f);
 			Vector2 vector45 = -Vector2.UnitY.RotatedBy(P.localAI[0] / 60f * (float)Math.PI);
 			Vector2[] array7 = new Vector2[4]
 			{
@@ -230,14 +230,14 @@ namespace MetroidMod.Content.Projectiles
 					white3.A = 128;
 					//white3 *= 0.5f;
 
-					float mult = Math.Min(num274 / 24f + 4f, 10f);
+					float mult = Math.Min((num274 / 24f) + 4f, 10f);
 					Vector2 value51 = new Vector2(array7[num278].X, 0f).RotatedBy(num275) * mult;//4f;
-					Vector2 start = vector43 + value49 * num277;
-					Vector2 midpos = start + value51 + value49 * num274 / 8f;
+					Vector2 start = vector43 + (value49 * num277);
+					Vector2 midpos = start + value51 + (value49 * num274 / 8f);
 					Vector2 end = vector42 + Main.screenPosition;
-					float rot = (start - end).ToRotation() - (float)Math.PI / 2f;
-					float rot2 = (start - midpos).ToRotation() + (float)Math.PI / 2f;
-					float rot3 = (midpos - end).ToRotation() + (float)Math.PI / 2f;
+					float rot = (start - end).ToRotation() - ((float)Math.PI / 2f);
+					float rot2 = (start - midpos).ToRotation() + ((float)Math.PI / 2f);
+					float rot3 = (midpos - end).ToRotation() + ((float)Math.PI / 2f);
 
 					if (num278 == 2)
 					{
@@ -248,17 +248,17 @@ namespace MetroidMod.Content.Projectiles
 					Vector2[] pos = new Vector2[dist];
 					for (int i = 0; i < dist - 1; i++)
 					{
-						float t = (float)Math.PI / 2 * (float)i / dist;
+						float t = (float)Math.PI / 2 * i / dist;
 						float shift = mult * (float)Math.Sin(t);
 
-						pos[i] = start + value49 * i;
+						pos[i] = start + (value49 * i);
 						pos[i].X += (float)Math.Cos(rot) * shift * array7[num278].X;
 						pos[i].Y += (float)Math.Sin(rot) * shift * array7[num278].X;
 
-						rot2 = (start - pos[i]).ToRotation() - (float)Math.PI / 2f;
+						rot2 = (start - pos[i]).ToRotation() - ((float)Math.PI / 2f);
 						if (i > 0)
 						{
-							rot2 = (pos[i - 1] - pos[i]).ToRotation() - (float)Math.PI / 2f;
+							rot2 = (pos[i - 1] - pos[i]).ToRotation() - ((float)Math.PI / 2f);
 						}
 
 						Main.spriteBatch.Draw(Terraria.GameContent.TextureAssets.MagicPixel.Value, pos[i] - Main.screenPosition, new Rectangle(0, 0, 1, 1), white3, rot2, Vector2.One / 2f, new Vector2(2f, 2f), spriteEffects, 0);
@@ -271,7 +271,7 @@ namespace MetroidMod.Content.Projectiles
 			float num280 = P.localAI[0] / 60f;
 
 			Texture2D texture2D37 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/NovaLaserDrill_Lead").Value;
-			Main.spriteBatch.Draw(texture2D37, vector43 - Main.screenPosition + value49 * 30f, null, alpha7, num280 * (float)Math.PI * 2, new Vector2((float)texture2D37.Width / 2f, (float)texture2D37.Height / 2f), 1.5f, spriteEffects, 0f);
+			Main.spriteBatch.Draw(texture2D37, vector43 - Main.screenPosition + (value49 * 30f), null, alpha7, num280 * (float)Math.PI * 2, new Vector2(texture2D37.Width / 2f, texture2D37.Height / 2f), 1.5f, spriteEffects, 0f);
 
 			Item item = player.inventory[player.selectedItem];
 			MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
@@ -281,7 +281,7 @@ namespace MetroidMod.Content.Projectiles
 				texture2D38 = mi.itemTexture;
 			}
 			Color color61 = Lighting.GetColor((int)vector43.X / 16, (int)vector43.Y / 16);
-			Main.spriteBatch.Draw(texture2D38, vector43 - Main.screenPosition + value49 * 20f, null, color61, P.rotation + (float)Math.PI / 2f + ((spriteEffects == SpriteEffects.None) ? ((float)Math.PI) : 0f), new Vector2((float)texture2D38.Width / 2f, (float)texture2D38.Height / 2f), player.inventory[player.selectedItem].scale, spriteEffects, 0f);
+			Main.spriteBatch.Draw(texture2D38, vector43 - Main.screenPosition + (value49 * 20f), null, color61, P.rotation + ((float)Math.PI / 2f) + ((spriteEffects == SpriteEffects.None) ? ((float)Math.PI) : 0f), new Vector2(texture2D38.Width / 2f, texture2D38.Height / 2f), player.inventory[player.selectedItem].scale, spriteEffects, 0f);
 			return false;
 		}
 	}

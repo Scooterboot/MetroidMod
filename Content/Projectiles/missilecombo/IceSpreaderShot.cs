@@ -22,7 +22,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			mProjectile.DustLine(Projectile.Center, Projectile.velocity, Projectile.rotation, 5, 3, 135, 2f);
 		}
@@ -48,7 +48,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 			int x = (int)MathHelper.Clamp(P.Center.X / 16, 0, Main.maxTilesX - 2);
 			int y = (int)MathHelper.Clamp(P.Center.Y / 16, 0, Main.maxTilesY - 2);
-			Vector2 pos = new Vector2((float)x * 16f + 8f, (float)y * 16f + 8f);
+			Vector2 pos = new Vector2((x * 16f) + 8f, (y * 16f) + 8f);
 			int ft = Projectile.NewProjectile(entitySource, pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<IceSpreaderFrozenTerrain>(), 0, 0f, P.owner);
 
 			Terraria.Audio.SoundEngine.PlaySound(Sounds.Items.Weapons.IceSpreaderImpactSound, P.Center);

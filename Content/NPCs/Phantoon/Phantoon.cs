@@ -37,7 +37,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<Buffs.PhazonDebuff>()] = true;
 		}
 		//int damage = 130;//65;
-		int oldLife = 0;
+		private int oldLife = 0;
 		public override void SetDefaults()
 		{
 			NPC.width = 92;
@@ -131,7 +131,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			}
 		}
 
-		bool initialized = false;
+		private bool initialized = false;
 		public override bool PreAI()
 		{
 			if (!initialized)
@@ -145,15 +145,15 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			return true;
 		}
 
-		int frameNum = 1;
+		private int frameNum = 1;
 
-		int eyeOpen = 0;
-		int eyeFrame = 0;
-		int eyeFrameCounter = 0;
+		private int eyeOpen = 0;
+		private int eyeFrame = 0;
+		private int eyeFrameCounter = 0;
 
-		int state = 0;
+		private int state = 0;
 
-		bool initialTeleport = false;
+		private bool initialTeleport = false;
 
 		public override void AI()
 		{
@@ -239,7 +239,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					{
 						int index = (int)(NPC.ai[0] - 60) / 30;
 						float dist = 120;
-						float rot = -((float)Math.PI / 2) + (((float)Math.PI / 4) * index);
+						float rot = -((float)Math.PI / 2) + ((float)Math.PI / 4 * index);
 						Vector2 pos = NPC.Center + new Vector2((float)Math.Cos(rot) * dist, (float)Math.Sin(rot) * dist);
 
 						spawnFireBall(pos.X, pos.Y, true, -1, rot);
@@ -264,7 +264,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 						int rand = Main.rand.Next(100);
 
 						// Spawn only super and targeting fireballs when too far from the player
-						if (Vector2.Distance(NPC.Center, Main.player[NPC.target].Center) >= (600 - 100 * state))
+						if (Vector2.Distance(NPC.Center, Main.player[NPC.target].Center) >= (600 - (100 * state)))
 						{
 							if (rand < fireBallRand[0, 1])
 							{
@@ -274,9 +274,9 @@ namespace MetroidMod.Content.NPCs.Phantoon
 							else if (rand < fireBallRand[1, 1])
 							{
 								// Spawn targeting fireballs
-								for (int i = 0; i < 2 + 2 * state; i++)
+								for (int i = 0; i < 2 + (2 * state); i++)
 								{
-									spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 1, -((float)Math.PI / 2) + (((float)Math.PI / 4) * Main.rand.Next(8)));
+									spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 1, -((float)Math.PI / 2) + ((float)Math.PI / 4 * Main.rand.Next(8)));
 								}
 							}
 						}
@@ -300,7 +300,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 								// Spawn targeting fireballs
 								for (int i = 0; i < 2 + state; i++)
 								{
-									spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 1, -((float)Math.PI / 2) + (((float)Math.PI / 4) * Main.rand.Next(8)));
+									spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 1, -((float)Math.PI / 2) + ((float)Math.PI / 4 * Main.rand.Next(8)));
 								}
 							}
 							else if (rand < fireBallRand[3, 0])
@@ -316,7 +316,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 
 					if (NPC.ai[1] >= 360f && Main.netMode != NetmodeID.MultiplayerClient) // open eye
 					{
-						NPC.ai[1] = Main.rand.Next(241) + 20 * state;
+						NPC.ai[1] = Main.rand.Next(241) + (20 * state);
 						NPC.ai[2] = 1f;
 						NPC.ai[3] = 2f;
 						NPC.netUpdate = true;
@@ -324,7 +324,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 
 						for (int i = 0; i < 8; i++)
 						{
-							int fire = spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 4, -((float)Math.PI / 2) + (((float)Math.PI / 4) * i));
+							int fire = spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 4, -((float)Math.PI / 2) + ((float)Math.PI / 4 * i));
 						}
 					}
 
@@ -387,13 +387,13 @@ namespace MetroidMod.Content.NPCs.Phantoon
 						{
 							if (Main.netMode != NetmodeID.MultiplayerClient)
 							{
-								NPC.Center = new Vector2(Main.player[NPC.target].Center.X + (100 + Main.rand.Next(101)) * ((Main.rand.NextBool(2)) ? 1 : -1), Main.player[NPC.target].Center.Y - 100 - Main.rand.Next(201));
+								NPC.Center = new Vector2(Main.player[NPC.target].Center.X + ((100 + Main.rand.Next(101)) * (Main.rand.NextBool(2) ? 1 : -1)), Main.player[NPC.target].Center.Y - 100 - Main.rand.Next(201));
 
 								if (Main.rand.Next(100) < fireBallRand[2, 1])
 								{
 									for (int i = 0; i < 8; i++)
 									{
-										spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 1, -((float)Math.PI / 2) + (((float)Math.PI / 4) * i));
+										spawnFireBall(NPC.Center.X, NPC.Center.Y, true, 1, -((float)Math.PI / 2) + ((float)Math.PI / 4 * i));
 									}
 								}
 								else
@@ -402,8 +402,8 @@ namespace MetroidMod.Content.NPCs.Phantoon
 
 									for (int i = 0; i < 8; i++)
 									{
-										float xpos = 64 + 36 * i;
-										spawnFireBall(NPC.Center.X + xpos * num, NPC.Center.Y - 40f, true, 0, 1 + 5 * i);
+										float xpos = 64 + (36 * i);
+										spawnFireBall(NPC.Center.X + (xpos * num), NPC.Center.Y - 40f, true, 0, 1 + (5 * i));
 									}
 								}
 								NPC.netUpdate = true;
@@ -475,7 +475,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					NPC.ai[3]++;
 
 					// Change back to main phase after enough damage is recieved
-					if (NPC.ai[3] >= (1000 - 75 * state))
+					if (NPC.ai[3] >= (1000 - (75 * state)))
 					{
 						eyeOpen = 0;
 						NPC.alpha = Math.Min(NPC.alpha + 10, 255);
@@ -499,7 +499,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 						NPC.alpha = Math.Max(NPC.alpha - 25, 0);
 
 						// movement
-						float speed = 0.2f + 0.05f * state;
+						float speed = 0.2f + (0.05f * state);
 						if (NPC.Center.X > Main.player[NPC.target].Center.X)
 						{
 							NPC.velocity.X -= speed;
@@ -516,7 +516,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 						{
 							NPC.velocity.Y += speed;
 						}
-						float speedmax = 8f + 2f * state;
+						float speedmax = 8f + (2f * state);
 						if (NPC.velocity.X < -speedmax)
 						{
 							NPC.velocity.X = -speedmax;
@@ -612,7 +612,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			}
 		}
 
-		int spawnFireBall(float posX, float posY, bool playSound = true, float ai1 = 0, float ai2 = 0, float ai3 = 0)
+		private int spawnFireBall(float posX, float posY, bool playSound = true, float ai1 = 0, float ai2 = 0, float ai3 = 0)
 		{
 			return NPC.NewNPC(NPC.GetSource_FromAI(), (int)posX, (int)posY, ModContent.NPCType<PhantoonFireBall>(), NPC.whoAmI, NPC.whoAmI, ai1, ai2, ai3, NPC.target);
 		}
@@ -650,11 +650,11 @@ namespace MetroidMod.Content.NPCs.Phantoon
 					texBottom = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Phantoon/Phantoon_Bottom").Value;
 
 			// draw base
-			int texH = (texMain.Height / 11);
+			int texH = texMain.Height / 11;
 			sb.Draw(texMain, new Vector2((int)(NPC.Center.X - Main.screenPosition.X), (int)(NPC.Center.Y - Main.screenPosition.Y)), new Rectangle?(new Rectangle(0, texH * NPC.frame.Y, texMain.Width, texH)), color, NPC.rotation, new Vector2(texMain.Width / 2, 96), 1f, effects, 0f);
 
 			// draw bottom
-			int texBH = (texBottom.Height / 3);
+			int texBH = texBottom.Height / 3;
 			sb.Draw(texBottom, new Vector2((int)(NPC.Center.X - Main.screenPosition.X), (int)(NPC.Center.Y - Main.screenPosition.Y)), new Rectangle?(new Rectangle(0, texBH * NPC.frame.X, texBottom.Width, texBH)), color, NPC.rotation, new Vector2(texBottom.Width / 2, -54), 1f, effects, 0f);
 
 			return false;

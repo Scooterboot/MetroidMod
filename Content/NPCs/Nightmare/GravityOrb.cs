@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -51,9 +49,9 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
 		}
 
-		int timeLeft = 300;
-		float rotation = 0f;
-		bool initialized = false;
+		private int timeLeft = 300;
+		private float rotation = 0f;
+		private bool initialized = false;
 		public override void AI()
 		{
 			// Nothing needs to be set, just ported over the visual and audial effects.
@@ -138,8 +136,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 				{
 					effects = SpriteEffects.FlipHorizontally;
 				}
-				int height = (int)(tex.Height / Main.npcFrameCount[NPC.type]);
-				sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height * NPC.frame.Y, tex.Width, height)), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2((float)tex.Width / 2f, (float)height / 2f), NPC.scale, effects, 0f);
+				int height = tex.Height / Main.npcFrameCount[NPC.type];
+				sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, height * NPC.frame.Y, tex.Width, height)), NPC.GetAlpha(Color.White), NPC.rotation, new Vector2(tex.Width / 2f, height / 2f), NPC.scale, effects, 0f);
 			}
 			return false;
 		}

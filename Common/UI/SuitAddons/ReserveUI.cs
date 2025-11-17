@@ -180,7 +180,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			int bars = Math.Min(mp.SuitReserveTanks, 4);
 
 			// bar drawing
-			Rectangle bRectFrame = new Rectangle(0, 0, 16 + (bars - 1) * 14, 12);
+			Rectangle bRectFrame = new Rectangle(0, 0, 16 + ((bars - 1) * 14), 12);
 
 			Rectangle bRectFill = BarRect;
 			bRectFill.X += 1;

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using static MetroidMod.Sounds;
 
 namespace MetroidMod.Common
 {
@@ -28,7 +27,7 @@ namespace MetroidMod.Common
 				return;
 			}
 
-			if (I.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>()|| I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() || I.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>())
+			if (I.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() || I.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>())
 			{
 				Texture2D tex = Terraria.GameContent.TextureAssets.Item[I.type].Value;
 				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
@@ -36,7 +35,7 @@ namespace MetroidMod.Common
 				{
 					tex = mi.itemTexture;
 				}
-				Color currentColor = Lighting.GetColor((int)((double)drawInfo.Position.X + (double)P.width * 0.5) / 16, (int)(((double)drawInfo.Position.Y + (double)P.height * 0.5) / 16.0));
+				Color currentColor = Lighting.GetColor((int)(drawInfo.Position.X + (P.width * 0.5)) / 16, (int)((drawInfo.Position.Y + (P.height * 0.5)) / 16.0));
 
 				int num80 = 10;
 				Vector2 vector7 = new(tex.Width / 2, tex.Height / 2);
@@ -68,8 +67,8 @@ namespace MetroidMod.Common
 			Player P = drawInfo.drawPlayer;
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			Item I = P.inventory[P.selectedItem];
-			int frame = (P.bodyFrame.Y / P.bodyFrame.Height);
-			if ((I.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>()|| I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() || I.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>()) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
+			int frame = P.bodyFrame.Y / P.bodyFrame.Height;
+			if ((I.type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() || I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() || I.type == ModContent.ItemType<Content.Items.Weapons.MissileLauncher>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>()) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
 				Texture2D tex = Terraria.GameContent.TextureAssets.Item[I.type].Value;//Main.itemTexture[I.type];
 				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
@@ -136,8 +135,8 @@ namespace MetroidMod.Common
 
 					}
 					rot = rotate * P.direction * P.gravDir;
-					pos.X += ((float)P.bodyFrame.Width * 0.5f) + posX * P.direction;
-					pos.Y += ((float)P.bodyFrame.Height * 0.5f) + 4f + posY * P.gravDir;
+					pos.X += (P.bodyFrame.Width * 0.5f) + (posX * P.direction);
+					pos.Y += (P.bodyFrame.Height * 0.5f) + 4f + (posY * P.gravDir);
 
 					SpriteEffects effects = SpriteEffects.None;
 					if (P.direction == -1)
@@ -149,9 +148,9 @@ namespace MetroidMod.Common
 						effects |= SpriteEffects.FlipVertically;
 						pos.Y -= 2;
 					}
-					Color color = Lighting.GetColor((int)((double)drawInfo.Position.X + (double)P.width * 0.5) / 16, (int)((double)drawInfo.Position.Y + (double)P.height * 0.5) / 16);
+					Color color = Lighting.GetColor((int)(drawInfo.Position.X + (P.width * 0.5)) / 16, (int)(drawInfo.Position.Y + (P.height * 0.5)) / 16);
 
-					DrawData item = new(tex, new Vector2((float)((int)(drawInfo.Position.X - Main.screenPosition.X - (float)(P.bodyFrame.Width / 2) + (float)(P.width / 2))), (float)((int)(drawInfo.Position.Y - Main.screenPosition.Y + (float)P.height - (float)P.bodyFrame.Height + 4f))) + new Vector2((float)((int)pos.X), (float)((int)pos.Y)), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), drawInfo.colorArmorBody, rot, origin, I.scale, effects, 0);
+					DrawData item = new(tex, new Vector2((int)(drawInfo.Position.X - Main.screenPosition.X - (P.bodyFrame.Width / 2) + (P.width / 2)), (int)(drawInfo.Position.Y - Main.screenPosition.Y + P.height - P.bodyFrame.Height + 4f)) + new Vector2((int)pos.X, (int)pos.Y), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), drawInfo.colorArmorBody, rot, origin, I.scale, effects, 0);
 					item.shader = drawInfo.cBody;
 					drawInfo.DrawDataCache.Add(item);
 				}

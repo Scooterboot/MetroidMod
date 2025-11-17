@@ -2,7 +2,6 @@ using System;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.hyperbeam
@@ -22,8 +21,8 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 			Projectile.scale = 2f;
 		}
 
-		bool spawned = false;
-		float scale = 0f;
+		private bool spawned = false;
+		private float scale = 0f;
 		public override bool PreAI()
 		{
 			bool isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar");
@@ -47,11 +46,11 @@ namespace MetroidMod.Content.Projectiles.hyperbeam
 
 			bool isWave = shot.Contains("wave") || shot.Contains("nebula"),
 			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex");
-			
 
-			P.rotation = (float)Math.Atan2((double)P.velocity.Y, (double)P.velocity.X) + MathHelper.PiOver2;
 
-			Lighting.AddLight(P.Center, (float)mp.r / 255f, (float)mp.g / 255f, (float)mp.b / 255f);
+			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
+
+			Lighting.AddLight(P.Center, mp.r / 255f, mp.g / 255f, mp.b / 255f);
 
 			P.localAI[0] = Math.Min(P.localAI[0] + 0.075f, 1f);
 			P.localAI[1] = Math.Min(P.localAI[1] + 0.025f, 1f);

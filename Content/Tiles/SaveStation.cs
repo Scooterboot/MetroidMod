@@ -57,7 +57,7 @@ namespace MetroidMod.Content.Tiles
 		{
 			Player player = Main.LocalPlayer;
 			Tile tile = Main.tile[i, j];
-			int spawnX = i - tile.TileFrameX / 18;
+			int spawnX = i - (tile.TileFrameX / 18);
 			int spawnY = j + 2;
 			spawnX += tile.TileFrameX >= 36 ? 1 : 0;
 			if (tile.TileFrameY % 56 != 0)
@@ -75,7 +75,7 @@ namespace MetroidMod.Content.Tiles
 				player.ChangeSpawn(spawnX, spawnY);
 				Main.NewText(Language.GetTextValue("Game.SpawnPointSet"), 255, 240, 20);
 			}
-			return (true);
+			return true;
 		}
 	}
 }

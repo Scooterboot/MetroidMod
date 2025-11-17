@@ -62,7 +62,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 				bool moving = false;
 
 				// If NPC is grounded and moving.
-				if (NPC.velocity.Y == 0 && (NPC.velocity.X > 0 && NPC.direction < 0) || (NPC.velocity.X < 0 && NPC.direction > 0))
+				if ((NPC.velocity.Y == 0 && NPC.velocity.X > 0 && NPC.direction < 0) || (NPC.velocity.X < 0 && NPC.direction > 0))
 					moving = true;
 
 				NPC.TargetClosest(true);
@@ -113,7 +113,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 					float posX = NPC.position.X + NPC.velocity.X;
 					float posY = NPC.position.Y;
 
-					int tileX = (int)(posX + (NPC.width / 2) + (NPC.width / 2 + 1) * dir) / 16;
+					int tileX = (int)(posX + (NPC.width / 2) + (((NPC.width / 2) + 1) * dir)) / 16;
 					int tileY = (int)(posY + NPC.height - 1) / 16;
 
 					// Tile null check failsafe.
@@ -123,12 +123,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 						Main.tile[tileX - dir, tileY - 3] = new Tile();*/
 
 					// Gruesome if statement incomming, please refactor if you can, it drives me nuts.
-					if ((tileX * 16) < posX + NPC.width && (tileX * 16 + 16) > posX && (Main.tile[tileX, tileY].IsActuated && !Main.tile[tileX, tileY].TopSlope && (!Main.tile[tileX, tileY - 1].TopSlope && Main.tileSolid[(int)Main.tile[tileX, tileY].TileType]) && !Main.tileSolidTop[(int)Main.tile[tileX, tileY].TileType] || Main.tile[tileX, tileY - 1].IsHalfBlock && Main.tile[tileX, tileY - 1].IsActuated) && (!Main.tile[tileX, tileY - 1].IsActuated || !Main.tileSolid[(int)Main.tile[tileX, tileY - 1].TileType] || Main.tileSolidTop[(int)Main.tile[tileX, tileY - 1].TileType] || Main.tile[tileX, tileY - 1].IsHalfBlock && (!Main.tile[tileX, tileY - 4].IsActuated || !Main.tileSolid[(int)Main.tile[tileX, tileY - 4].TileType] || Main.tileSolidTop[(int)Main.tile[tileX, tileY - 4].TileType])) && ((!Main.tile[tileX, tileY - 2].IsActuated || !Main.tileSolid[(int)Main.tile[tileX, tileY - 2].TileType] || Main.tileSolidTop[(int)Main.tile[tileX, tileY - 2].TileType]) &&
+					if ((tileX * 16) < posX + NPC.width && ((tileX * 16) + 16) > posX && ((Main.tile[tileX, tileY].IsActuated && !Main.tile[tileX, tileY].TopSlope && !Main.tile[tileX, tileY - 1].TopSlope && Main.tileSolid[Main.tile[tileX, tileY].TileType] && !Main.tileSolidTop[Main.tile[tileX, tileY].TileType]) || (Main.tile[tileX, tileY - 1].IsHalfBlock && Main.tile[tileX, tileY - 1].IsActuated)) && (!Main.tile[tileX, tileY - 1].IsActuated || !Main.tileSolid[Main.tile[tileX, tileY - 1].TileType] || Main.tileSolidTop[Main.tile[tileX, tileY - 1].TileType] || (Main.tile[tileX, tileY - 1].IsHalfBlock && (!Main.tile[tileX, tileY - 4].IsActuated || !Main.tileSolid[Main.tile[tileX, tileY - 4].TileType] || Main.tileSolidTop[Main.tile[tileX, tileY - 4].TileType]))) && (!Main.tile[tileX, tileY - 2].IsActuated || !Main.tileSolid[Main.tile[tileX, tileY - 2].TileType] || Main.tileSolidTop[Main.tile[tileX, tileY - 2].TileType]) &&
 						(!Main.tile[tileX, tileY - 3].IsActuated ||
-						!Main.tileSolid[(int)Main.tile[tileX, tileY - 3].TileType] ||
-						Main.tileSolidTop[(int)Main.tile[tileX, tileY - 3].TileType]) &&
+						!Main.tileSolid[Main.tile[tileX, tileY - 3].TileType] ||
+						Main.tileSolidTop[Main.tile[tileX, tileY - 3].TileType]) &&
 						(!Main.tile[tileX - dir, tileY - 3].IsActuated ||
-						!Main.tileSolid[(int)Main.tile[tileX - dir, tileY - 3].TileType])))
+						!Main.tileSolid[Main.tile[tileX - dir, tileY - 3].TileType]))
 					{
 						float y = tileY * 16;
 						if (Main.tile[tileX, tileY].IsHalfBlock)
@@ -157,7 +157,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 							if (Main.tile[x, y] == null)
 								Main.tile[x, y] = new Tile();*/
 
-					if (NPC.velocity.X < 0 && NPC.direction == -1 || NPC.velocity.X > 0 && NPC.direction == 1)
+					if ((NPC.velocity.X < 0 && NPC.direction == -1) || (NPC.velocity.X > 0 && NPC.direction == 1))
 					{
 						// Jump required, determine jump height.
 						if (NPC.height >= 32 && Main.tile[tileX, tileY - 2].IsActuated && Main.tileSolid[Main.tile[tileX, tileY - 2].TileType])
@@ -174,12 +174,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 							NPC.velocity.Y = -6;
 							NPC.netUpdate = true;
 						}
-						else if (NPC.position.Y + NPC.height - (tileY * 16) > 20 && Main.tile[tileX, tileY].IsActuated && (!Main.tile[tileX, tileY].TopSlope && Main.tileSolid[(int)Main.tile[tileX, tileY].TileType]))
+						else if (NPC.position.Y + NPC.height - (tileY * 16) > 20 && Main.tile[tileX, tileY].IsActuated && !Main.tile[tileX, tileY].TopSlope && Main.tileSolid[Main.tile[tileX, tileY].TileType])
 						{
 							NPC.velocity.Y = -5;
 							NPC.netUpdate = true;
 						}
-						else if (NPC.directionY < 0 && (!Main.tile[tileX, tileY + 1].IsActuated || !Main.tileSolid[(int)Main.tile[tileX, tileY + 1].TileType]) && (!Main.tile[tileX + NPC.direction, tileY + 1].IsActuated || !Main.tileSolid[(int)Main.tile[tileX + NPC.direction, tileY + 1].TileType]))
+						else if (NPC.directionY < 0 && (!Main.tile[tileX, tileY + 1].IsActuated || !Main.tileSolid[Main.tile[tileX, tileY + 1].TileType]) && (!Main.tile[tileX + NPC.direction, tileY + 1].IsActuated || !Main.tileSolid[Main.tile[tileX + NPC.direction, tileY + 1].TileType]))
 						{
 							NPC.velocity.Y = -8;
 							NPC.velocity.X = NPC.velocity.X * 1.5F;
@@ -352,7 +352,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Pirate
 			for (int i = 0; i < 5; ++i)
 			{
 				Vector2 drawPos = NPC.oldPos[i] + new Vector2(NPC.width / 2, NPC.height / 2) - Main.screenPosition;
-				spriteBatch.Draw(Terraria.GameContent.TextureAssets.Npc[Type].Value, drawPos, NPC.frame, Color.White * (.9F - .1F * i));
+				spriteBatch.Draw(Terraria.GameContent.TextureAssets.Npc[Type].Value, drawPos, NPC.frame, Color.White * (.9F - (.1F * i)));
 			}
 			return true;
 		}

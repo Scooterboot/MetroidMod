@@ -154,7 +154,7 @@ namespace MetroidMod.Content.NPCs.Town
 				shop = ShopName; // Opens the shop
 			}
 		}
-		string QuestChat(NPC npc)
+		private string QuestChat(NPC npc)
 		{
 			Player player = Main.player[Main.myPlayer];
 
@@ -220,7 +220,7 @@ namespace MetroidMod.Content.NPCs.Town
 			npcShop.Add<ArmCannon>(Condition.Hardmode);
 			//npcShop.Add<MissileLauncher>(Condition.Hardmode);
 			npcShop.Add<MissileExpansion>(Condition.Hardmode, Condition.BloodMoon);
-			npcShop.Add(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType,Condition.Hardmode, Condition.BloodMoon);
+			npcShop.Add(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, Condition.Hardmode, Condition.BloodMoon);
 			npcShop.Add<UAExpansion>(Condition.Hardmode, Condition.BloodMoon);
 			npcShop.Add<PowerSuitHelmet>(Condition.Hardmode);
 			npcShop.Add<PowerSuitBreastplate>(Condition.Hardmode);

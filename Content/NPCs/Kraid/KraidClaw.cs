@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -46,7 +44,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			});*/
 		//}
 
-		float rotation = 0f;
+		private float rotation = 0f;
 		public override void AI()
 		{
 			rotation += 0.25f * NPC.direction;
@@ -78,7 +76,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				effects = SpriteEffects.FlipHorizontally;
 			}
-			sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), NPC.GetAlpha(Color.White), rotation, new Vector2((float)tex.Width / 2f, (float)tex.Height / 2f), NPC.scale, effects, 0f);
+			sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), NPC.GetAlpha(Color.White), rotation, new Vector2(tex.Width / 2f, tex.Height / 2f), NPC.scale, effects, 0f);
 			return false;
 		}
 	}

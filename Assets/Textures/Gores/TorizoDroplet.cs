@@ -31,7 +31,7 @@ namespace MetroidMod.Assets.Textures.Gores
 				{
 					gore.velocity.Y = 12f;
 				}
-				if ((int)gore.frameCounter >= frameDuration)
+				if (gore.frameCounter >= frameDuration)
 				{
 					gore.frameCounter = 0;
 					gore.frame += 1;
@@ -44,7 +44,7 @@ namespace MetroidMod.Assets.Textures.Gores
 			else
 			{
 				gore.velocity.Y += 0.1f;
-				if ((int)gore.frameCounter >= frameDuration)
+				if (gore.frameCounter >= frameDuration)
 				{
 					gore.frameCounter = 0;
 					gore.frame += 1;
@@ -80,7 +80,7 @@ namespace MetroidMod.Assets.Textures.Gores
 				if (Main.tile[tileX, tileY] != null && Main.tile[tileX, tileY].LiquidType > 0)
 				{
 					gore.velocity *= 0f;
-					gore.position.Y = tileY * 16 - (int)(Main.tile[tileX, tileY].LiquidAmount / 16);
+					gore.position.Y = (tileY * 16) - (Main.tile[tileX, tileY].LiquidAmount / 16);
 				}
 			}
 

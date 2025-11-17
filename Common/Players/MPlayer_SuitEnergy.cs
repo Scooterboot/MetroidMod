@@ -3,7 +3,6 @@ using MetroidMod.Common.GlobalItems;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-using static MetroidMod.Sounds;
 
 namespace MetroidMod.Common.Players
 {
@@ -30,7 +29,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The maximum possible energy the player can have.
 		/// </summary>
-		public int MaxEnergy => Math.Min(EnergyTanks * 100 + 99 + AdditionalMaxEnergy, tankCapacity * 100 + 99 + AdditionalMaxEnergy);
+		public int MaxEnergy => Math.Min((EnergyTanks * 100) + 99 + AdditionalMaxEnergy, (tankCapacity * 100) + 99 + AdditionalMaxEnergy);
 		public int AdditionalMaxEnergy = 0;
 		/// <summary>
 		/// The amount of filled energy tanks the player has.
@@ -52,7 +51,7 @@ namespace MetroidMod.Common.Players
 		/// <summary>
 		/// The maximum possible reserve energy the player can have.
 		/// </summary>
-		public int MaxSuitReserves => SuitReserveTanks * Configs.MConfigItems.Instance.reserveTankStoreCount + AdditionalMaxReserves;
+		public int MaxSuitReserves => (SuitReserveTanks * Configs.MConfigItems.Instance.reserveTankStoreCount) + AdditionalMaxReserves;
 		public int AdditionalMaxReserves = 0;
 		/// <summary>
 		/// The amount of energy the player has in reserves.
@@ -105,7 +104,8 @@ namespace MetroidMod.Common.Players
 				}
 			};
 			*/
-			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; };
+			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; }
+			;
 			float hit = 1f - EnergyDefenseEfficiency;
 			modifiers.FinalDamage *= hit;
 			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
@@ -116,7 +116,8 @@ namespace MetroidMod.Common.Players
 		}
 		public void PostHurt_SuitEnergy(Player.HurtInfo info)
 		{
-			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; };
+			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; }
+			;
 			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
 			Energy = Math.Max(0, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
 		}
@@ -131,9 +132,9 @@ namespace MetroidMod.Common.Players
 				{
 					mp.PrimeHunter = !mp.PrimeHunter;
 				}
-				if(mp.ShouldShowArmorUI)
+				if (mp.ShouldShowArmorUI)
 				{
-					SoundEngine.PlaySound(Sounds.Suit.SpawnIn, new(Player.SpawnX,Player.SpawnY));
+					SoundEngine.PlaySound(Sounds.Suit.SpawnIn, new(Player.SpawnX, Player.SpawnY));
 				}
 			}
 			for (int i = 0; i < Player.inventory.Length; i++)

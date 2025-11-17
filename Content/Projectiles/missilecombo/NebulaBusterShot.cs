@@ -26,22 +26,22 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.localNPCHitCooldown = 2 * (1 + Projectile.extraUpdates);
 		}
 
-		Vector2 targetPos;
-		bool initialize = false;
+		private Vector2 targetPos;
+		private bool initialize = false;
 
-		Projectile Lead;
+		private Projectile Lead;
 
-		NPC target;
+		private NPC target;
 
-		const float Max_Range = 300f;
-		float range = Max_Range;
-		const float Max_Distance = 60f;
-		float distance = Max_Distance;
-		float accuracy = 11f;
-		Vector2 oPos;
-		Vector2 mousePos;
+		private const float Max_Range = 300f;
+		private float range = Max_Range;
+		private const float Max_Distance = 60f;
+		private float distance = Max_Distance;
+		private readonly float accuracy = 11f;
+		private Vector2 oPos;
+		private Vector2 mousePos;
 
-		bool soundPlayed = false;
+		private bool soundPlayed = false;
 
 		public override void AI()
 		{
@@ -52,7 +52,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
 			Lead = Main.projectile[(int)P.ai[0]];
-			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<NebulaComboShot>()|| O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam)
+			if (!Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<NebulaComboShot>() || O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam)
 			{
 				P.Kill();
 				return;
@@ -73,7 +73,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				P.netUpdate = true;
 
 				float rot = ((float)Math.PI / 2f * P.ai[1]) + (Lead.rotation / 2f);
-				Vector2 rotPoint = Lead.Center + rot.ToRotationVector2() * distance * Lead.scale;
+				Vector2 rotPoint = Lead.Center + (rot.ToRotationVector2() * distance * Lead.scale);
 
 				target = null;
 				foreach (NPC who in Main.ActiveNPCs)
@@ -126,7 +126,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				}
 
 				float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.025f);
-				float targetAngle = (float)Math.Atan2((targetPos.Y - P.Center.Y), (targetPos.X - P.Center.X));
+				float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
 				P.velocity = targetAngle.ToRotationVector2() * speed;
 			}
 

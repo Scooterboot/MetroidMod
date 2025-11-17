@@ -29,7 +29,7 @@ namespace MetroidMod.Content.Elevators
 		public override void PreUpdate()
 		{
 			TryLeaveInvalidElevator();
-			if(InElevator)
+			if (InElevator)
 			{
 				Color color = Color.Yellow;
 				Lighting.AddLight(Player.Center, color.ToVector3());
@@ -122,7 +122,7 @@ namespace MetroidMod.Content.Elevators
 			float direction = Math.Sign(displacement);
 			displacement = Math.Abs(displacement);
 			displacement = Math.Min(displacement, speed);
-			return current + displacement * direction;
+			return current + (displacement * direction);
 		}
 
 		private Elevator? GetElevatorUnderPlayer()
@@ -139,7 +139,7 @@ namespace MetroidMod.Content.Elevators
 				current.Y += yDirection;
 
 				if (!WorldGen.InWorld(current.X, current.Y)) break;
-				if(Elevator.Find(current) is not Elevator elevator) continue;
+				if (Elevator.Find(current) is not Elevator elevator) continue;
 				if (elevator == startElevator) continue;
 				if (elevator.Origin.X != startElevator.Origin.X) continue;
 

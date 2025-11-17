@@ -4,12 +4,8 @@ using MetroidMod.Common.Players;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.NPCs.Mobs.Metroid;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using rail;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,7 +37,7 @@ namespace MetroidMod.Common.GlobalNPCs
 		{
 			if (!checkedForFreezability)
 			{
-				bool isSkeletronArm = (npc.aiStyle == 12 || (npc.aiStyle >= 33 && npc.aiStyle <= 36));
+				bool isSkeletronArm = npc.aiStyle == 12 || (npc.aiStyle >= 33 && npc.aiStyle <= 36);
 				bool canFreeze = !npc.dontTakeDamage && !npc.boss && npc.lifeMax < 3000 && !isSkeletronArm && npc.type != NPCID.SnowmanGangsta && npc.type != NPCID.MisterStabby && npc.type != NPCID.SnowBalla && npc.type != NPCID.None3 && npc.aiStyle != 6 && !npc.buffImmune[44];
 
 				if (!canFreeze)
@@ -116,7 +112,7 @@ namespace MetroidMod.Common.GlobalNPCs
 				int timeLeft = Math.Max(iceIndex != -1 ? npc.buffTime[iceIndex] : -1, instantIndex != -1 ? npc.buffTime[instantIndex] : -1);
 				if (timeLeft > 0)
 				{
-					int dustRate = (int)Math.Max(timeLeft / 40, 1);
+					int dustRate = Math.Max(timeLeft / 40, 1);
 					if (timeLeft < 120 && Main.rand.NextBool(dustRate))
 					{
 						Dust.NewDust(npc.position, npc.width, npc.height, DustID.Ice, 0, 0, 100, default, 1 - speedDecrease);
@@ -159,7 +155,7 @@ namespace MetroidMod.Common.GlobalNPCs
 		public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
 		{
 			target.TryGetModPlayer(out MPlayer mp);
-			
+
 			if ((mp.screwAttack && mp.somersault) || mp.speedBoosting)
 			{
 				if (modifiers.CooldownCounter > 0) // Check if incoming damage is a boss
@@ -212,14 +208,14 @@ namespace MetroidMod.Common.GlobalNPCs
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 1));
 				if (npc.boss)
 				{
-					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, (int)Math.Min(5f * (float)npc.lifeMax / 10f, 255f), (int)Math.Min(25f * (float)npc.lifeMax / 10f, 255f)));
+					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, (int)Math.Min(5f * npc.lifeMax / 10f, 255f), (int)Math.Min(25f * npc.lifeMax / 10f, 255f)));
 				}
 				else
 				{
 					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 5, 5, 25));
 				}
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.UniversalAmmoCondition(), ModContent.ItemType<Content.Items.Miscellaneous.UAPickup>(), 5, 5, 40));
-					//.OnFailedRoll(ItemDropRule.ByCondition(new ItemDropRules.Conditions.UniversalAmmoCondition(), ModContent.ItemType<Content.Items.Miscellaneous.UAPickup>(), 5, 10, 10), true);
+				//.OnFailedRoll(ItemDropRule.ByCondition(new ItemDropRules.Conditions.UniversalAmmoCondition(), ModContent.ItemType<Content.Items.Miscellaneous.UAPickup>(), 5, 10, 10), true);
 			}
 			/*if (mp.reserveTanks > 0 && mp.reserveHearts < mp.reserveTanks && player.statLife >= player.statLifeMax2)
 			{

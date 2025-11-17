@@ -41,12 +41,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 		{
 			if (!spawn)
 			{
-				NPC.scale = (Main.rand.Next(15, 21) * 0.1f);
-				NPC.defense = (int)((float)NPC.defense * NPC.scale);
-				NPC.damage = (int)((float)NPC.damage * NPC.scale);
-				NPC.life = (int)((float)NPC.life * NPC.scale);
+				NPC.scale = Main.rand.Next(15, 21) * 0.1f;
+				NPC.defense = (int)(NPC.defense * NPC.scale);
+				NPC.damage = (int)(NPC.damage * NPC.scale);
+				NPC.life = (int)(NPC.life * NPC.scale);
 				NPC.lifeMax = NPC.life;
-				NPC.value = (float)((int)(NPC.value * NPC.scale));
+				NPC.value = (int)(NPC.value * NPC.scale);
 				NPC.npcSlots *= NPC.scale;
 				NPC.knockBackResist *= 2f - NPC.scale;
 				NPC.ai[1] = Main.rand.Next(20, 61);
@@ -61,7 +61,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 			{
 				NPC.velocity = Vector2.Zero;
 				if (NPC.collideY && NPC.oldVelocity.Y != 0f && Collision.SolidCollision(NPC.position, NPC.width, NPC.height))
-					NPC.position.X -= NPC.velocity.X + (float)NPC.direction;
+					NPC.position.X -= NPC.velocity.X + NPC.direction;
 
 				NPC.ai[0]++;
 				if (NPC.ai[0] >= NPC.ai[1])

@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles
 {
-	class OmegaPirateMusicBox : ModTile
+	internal class OmegaPirateMusicBox : ModTile
 	{
 		public override void SetStaticDefaults()
 		{

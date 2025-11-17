@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetroidMod.Common.Configs;
-using MetroidMod.Content.SuitAddons;
+﻿using MetroidMod.Common.Configs;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.Players
@@ -15,12 +9,12 @@ namespace MetroidMod.Common.Players
 
 		public bool CanUseHyperBeam()
 		{
-			if(NarpasSwordPlayer.IsEnabled(Player))
+			if (NarpasSwordPlayer.IsEnabled(Player))
 			{
 				return true;
 			}
 
-			if(SuitLockEnabled)
+			if (SuitLockEnabled)
 			{
 				return Player.GetModPlayer<MPlayer>().accessHyperBeam; //Makes it easier for external mods to add suits with Hyper Beam usage
 			}

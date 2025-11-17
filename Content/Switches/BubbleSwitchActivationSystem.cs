@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -14,11 +9,11 @@ namespace MetroidMod.Content.Switches
 	{
 		private int CooldownPerHit => 1;
 		private readonly Dictionary<Point16, int> cooldowns = [];
-		
+
 		public void HitSwitchAt(int i, int j)
 		{
 			Point16 key = new(i, j);
-			if(!cooldowns.ContainsKey(key))
+			if (!cooldowns.ContainsKey(key))
 			{
 				Wiring.TripWire(i, j, 1, 1);
 			}

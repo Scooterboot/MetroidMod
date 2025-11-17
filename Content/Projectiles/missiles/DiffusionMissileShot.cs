@@ -23,7 +23,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			int dustType = 6;
 			float scale = 2f;
@@ -45,10 +45,10 @@ namespace MetroidMod.Content.Projectiles.missiles
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType2, 0, 0, 100, default(Color), 2f);
 				Main.dust[dust].noGravity = true;
 			}
-			mProjectile.DustLine(Projectile.Center - Projectile.velocity * 0.5f, Projectile.velocity, Projectile.rotation, 5, 3, dustType, scale);
+			mProjectile.DustLine(Projectile.Center - (Projectile.velocity * 0.5f), Projectile.velocity, Projectile.rotation, 5, 3, dustType, scale);
 
 			Projectile.ai[0] += 1f;
-			if (Projectile.ai[0] > (5f + (float)Projectile.extraUpdates) && Projectile.extraUpdates < 5)
+			if (Projectile.ai[0] > (5f + Projectile.extraUpdates) && Projectile.extraUpdates < 5)
 			{
 				Projectile.extraUpdates++;
 				Projectile.ai[0] = 0f;
@@ -57,12 +57,12 @@ namespace MetroidMod.Content.Projectiles.missiles
 		public override void OnKill(int timeLeft)
 		{
 			Projectile P = Projectile;
-			P.position.X = P.position.X + (float)(P.width / 2);
-			P.position.Y = P.position.Y + (float)(P.height / 2);
+			P.position.X = P.position.X + (P.width / 2);
+			P.position.Y = P.position.Y + (P.height / 2);
 			P.width += 32;
 			P.height += 32;
-			P.position.X = P.position.X - (float)(P.width / 2);
-			P.position.Y = P.position.Y - (float)(P.height / 2);
+			P.position.X = P.position.X - (P.width / 2);
+			P.position.Y = P.position.Y - (P.height / 2);
 
 			//SoundEngine.PlaySound(SoundID.Item14,P.position);
 
@@ -120,7 +120,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			var entitySource = Projectile.GetSource_FromAI();
 			for (int i = 0; i < num; i++)
 			{
-				float angle = ((float)(Math.PI * 2) / num) * i;
+				float angle = (float)(Math.PI * 2) / num * i;
 				int proj = Projectile.NewProjectile(entitySource, P.Center.X, P.Center.Y, 0f, 0f, difType, P.damage, P.knockBack, P.owner);
 				DiffusionShot difShot = (DiffusionShot)Main.projectile[proj].ModProjectile;
 				difShot.spin = angle;

@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
-using tModPorter;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -37,8 +36,8 @@ namespace MetroidMod.Content.Projectiles
 		{
 
 			Player P = Main.player[Projectile.owner];
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
+			Projectile.position.X = P.Center.X - (Projectile.width / 2);
+			Projectile.position.Y = P.Center.Y - (Projectile.height / 2);
 
 			if (!MConfigItems.Instance.muteSpeedBooster)
 			{
@@ -83,11 +82,11 @@ namespace MetroidMod.Content.Projectiles
 						return;
 					}
 				}
-			Lighting.AddLight((int)((float)Projectile.Center.X / 16f), (int)((float)(Projectile.Center.Y) / 16f), 0, 0.75f, 1f);
+			Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 0, 0.75f, 1f);
 			float rotation = (float)Math.Atan2(P.position.Y - P.shadowPos[0].Y, P.position.X - P.shadowPos[0].X);
 			float rotation1 = rotation + ((float)Math.PI / 2);
 			float rotation2 = rotation - ((float)Math.PI / 2);
-			Vector2 vect = P.Center - new Vector2(4, 4) + rotation.ToRotationVector2() * 24f;
+			Vector2 vect = P.Center - new Vector2(4, 4) + (rotation.ToRotationVector2() * 24f);
 			Vector2 vel = P.position - mp.oldPosition;
 			Vector2 vel1 = rotation1.ToRotationVector2() * Math.Abs(P.velocity.X);
 			Vector2 vel2 = rotation2.ToRotationVector2() * Math.Abs(P.velocity.X);

@@ -73,7 +73,7 @@ namespace MetroidMod.Content.Projectiles.VoltDriver
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if(target.active && !target.buffImmune[31] && (Luminite || DiffBeam))
+			if (target.active && !target.buffImmune[31] && (Luminite || DiffBeam))
 			{
 				SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverDaze, Projectile.position);
 				target.AddBuff(31, 180);

@@ -12,7 +12,6 @@ using MetroidMod.Content.Projectiles.VoltDriver;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -112,11 +111,11 @@ namespace MetroidMod.Content.Items.Weapons
 		}*/
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
-			float armRot = player.itemRotation - (float)(Math.PI / 2) * player.direction;
+			float armRot = player.itemRotation - ((float)(Math.PI / 2) * player.direction);
 			player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, armRot);
 			Vector2 origin = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, armRot);
 			origin.Y -= heldItemFrame.Height / 2f;
-			player.itemLocation = origin + player.itemRotation.ToRotationVector2() * -16 * player.direction;
+			player.itemLocation = origin + (player.itemRotation.ToRotationVector2() * -16 * player.direction);
 		}
 
 		public override bool CanUseItem(Player player)
@@ -291,7 +290,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private bool Stealth = false;
 
 		public bool comboError1, comboError2, comboError3, comboError4;
-		bool noSomersault = false;
+		private bool noSomersault = false;
 
 		private string altTexture => texture + "_alt";
 		private string texture = "";
@@ -373,9 +372,9 @@ namespace MetroidMod.Content.Items.Weapons
 			isShock = false;
 			Stealth = false;
 			isJud = !Lum && !Diff && (slot1.type == jd) && !mp.PrimeHunter;
-			isCharge = (slot1.type == ch || slot1.type == ch2 || slot1.type == ch3);
-			isHyper = (slot1.type == hy);
-			isPhazon = (slot1.type == ph);
+			isCharge = slot1.type == ch || slot1.type == ch2 || slot1.type == ch3;
+			isHyper = slot1.type == hy;
+			isPhazon = slot1.type == ph;
 			isHunter = (slot1.type == oc) || (slot1.type == sc) || (slot1.type == imp) || (slot1.type == mm) || (slot1.type == bh) || (slot1.type == jd) || (slot1.type == vd);
 
 			comboError1 = false;
@@ -383,20 +382,20 @@ namespace MetroidMod.Content.Items.Weapons
 			comboError3 = false;
 			comboError4 = false;
 
-			bool chargeV1 = (slot1.type == ch),
-				chargeV2 = (slot1.type == ch2),
-				chargeV3 = (slot1.type == ch3);
+			bool chargeV1 = slot1.type == ch,
+				chargeV2 = slot1.type == ch2,
+				chargeV3 = slot1.type == ch3;
 
-			bool addonsV1 = (slot2.type == ic || slot3.type == wa || slot4.type == sp || ((slot5.type == plG || slot5.type == plR) && !chargeV2 && !chargeV3));
-			bool addonsV2 = (slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv);
-			addonsV2 |= ((slot5.type == plG || slot5.type == plR) && (chargeV2 || chargeV3) && !addonsV1);
-			bool addonsV3 = (slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl);
+			bool addonsV1 = slot2.type == ic || slot3.type == wa || slot4.type == sp || ((slot5.type == plG || slot5.type == plR) && !chargeV2 && !chargeV3);
+			bool addonsV2 = slot2.type == ic2 || slot3.type == wa2 || slot4.type == wi || slot5.type == nv;
+			addonsV2 |= (slot5.type == plG || slot5.type == plR) && (chargeV2 || chargeV3) && !addonsV1;
+			bool addonsV3 = slot2.type == sd || slot3.type == nb || slot4.type == vt || slot5.type == sl;
 			pb.maxUA = (int)MConfigItems.Instance.ammoPowerBeam + (MConfigItems.Instance.ammoUA * Math.Min(UA.stack, 12));
 			if (pb.statUA > pb.maxUA)
 			{
 				pb.statUA = pb.maxUA;
 			}
-			if(pb.statUA <= 0f)
+			if (pb.statUA <= 0f)
 			{
 				pb.statUA = 0f;
 			}
@@ -1348,7 +1347,7 @@ namespace MetroidMod.Content.Items.Weapons
 			double shotsPerSecond = 60 / useTime * (1f + iceSpeed + waveSpeed + spazSpeed + plasSpeed);
 
 			useTime = (int)Math.Max(Math.Round(60.0 / (double)shotsPerSecond), 2);
-			
+
 			float oof = 1f + (impStealth / 126f);
 
 			Item.damage = (int)(finalDmg * oof);
@@ -1401,10 +1400,10 @@ namespace MetroidMod.Content.Items.Weapons
 			{
 				tex = mi.itemTexture;
 			}
-			float num5 = (float)(Item.height - tex.Height);
-			float num6 = (float)(Item.width / 2 - tex.Width / 2);
-			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num5 + 2f),
-			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), scale, SpriteEffects.None, 0f);
+			float num5 = Item.height - tex.Height;
+			float num6 = (Item.width / 2) - (tex.Width / 2);
+			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (tex.Height / 2) + num5 + 2f),
+			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), alphaColor, rotation, new Vector2(tex.Width / 2, tex.Height / 2), scale, SpriteEffects.None, 0f);
 			return false;
 		}
 		public override bool PreDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -1462,12 +1461,12 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 
 			int dmg = player.GetWeaponDamage(Item);
-			int chDmg = (int)((float)dmg * chargeDmgMult);
+			int chDmg = (int)(dmg * chargeDmgMult);
 			TooltipLine chDmgLine = new(Mod, "ChargeDamage", chDmg + " Charge Shot damage");
 
-			int oh = (int)((float)overheat * mp.overheatCost);
+			int oh = (int)(overheat * mp.overheatCost);
 			TooltipLine ohLine = new(Mod, "Overheat", "Overheats by " + oh + " points per use");
-			int chOh = (int)((float)oh * chargeCost);
+			int chOh = (int)(oh * chargeCost);
 			TooltipLine chOhLine = new(Mod, "ChargeOverheat", "Overheats by " + chOh + " points on Charge Shot");
 
 			for (int k = 0; k < tooltips.Count; k++)
@@ -1486,8 +1485,8 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				if (tooltips[k].Name == "PrefixDamage")
 				{
-					double num19 = (double)((float)Item.damage - (float)finalDmg);
-					num19 = num19 / (double)((float)finalDmg) * 100.0;
+					double num19 = (double)(Item.damage - (float)finalDmg);
+					num19 = num19 / (double)(float)finalDmg * 100.0;
 					num19 = Math.Round(num19);
 					if (num19 > 0.0)
 					{
@@ -1500,8 +1499,8 @@ namespace MetroidMod.Content.Items.Weapons
 				}
 				if (tooltips[k].Name == "PrefixSpeed")
 				{
-					double num20 = (double)((float)Item.useAnimation - (float)useTime);
-					num20 = num20 / (double)((float)useTime) * 100.0;
+					double num20 = (double)(Item.useAnimation - (float)useTime);
+					num20 = num20 / (double)(float)useTime * 100.0;
 					num20 = Math.Round(num20);
 					num20 *= -1.0;
 					if (num20 > 0.0)
@@ -1555,7 +1554,7 @@ namespace MetroidMod.Content.Items.Weapons
 			return clone;
 		}
 
-		int chargeLead = -1;
+		private int chargeLead = -1;
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
@@ -1693,30 +1692,30 @@ namespace MetroidMod.Content.Items.Weapons
 				float oHeat = overheat * mp.overheatCost;
 				if (comboError3 != true)
 				{
-					if(slot4.type == vt)
+					if (slot4.type == vt)
 					{
 						shotEffect += "vortex";
 					}
-					if(slot4.type == sp)
+					if (slot4.type == sp)
 					{
 						shotEffect += "spazer";
 					}
-					if(slot4.type == wi)
+					if (slot4.type == wi)
 					{
 						shotEffect += "wide";
 					}
 				}
 				if (comboError2 != true || chargeShot == "JudicatorChargeShot")
 				{
-					if(slot3.type == wa)
+					if (slot3.type == wa)
 					{
 						shotEffect += "wave";
 					}
-					if(slot3.type == wa2)
+					if (slot3.type == wa2)
 					{
 						shotEffect += "waveV2";
 					}
-					if(slot3.type == nb)
+					if (slot3.type == nb)
 					{
 						shotEffect += "nebula";
 					}
@@ -1724,7 +1723,7 @@ namespace MetroidMod.Content.Items.Weapons
 
 				if (comboError4 != true)
 				{
-					if(slot5.type == plR)
+					if (slot5.type == plR)
 					{
 						shotEffect += "plasmared";
 					}
@@ -1787,10 +1786,10 @@ namespace MetroidMod.Content.Items.Weapons
 						else
 						{
 
-							float dmgMult = 1f + (chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge;
+							float dmgMult = 1f + ((chargeDmgMult - 1f) / MPlayer.maxCharge * mp.statCharge);
 							double sideangle = Math.Atan2(velocity.Y, velocity.X) + (Math.PI / 2);
 
-							if ((mp.statCharge >= (MPlayer.maxCharge * 0.5)&& !isHunter) || (mp.statCharge >= MPlayer.maxCharge && isHunter))
+							if ((mp.statCharge >= (MPlayer.maxCharge * 0.5) && !isHunter) || (mp.statCharge >= MPlayer.maxCharge && isHunter))
 							{
 								for (int i = 0; i < chargeShotAmt; i++)
 								{
@@ -2003,7 +2002,7 @@ namespace MetroidMod.Content.Items.Weapons
 		{
 			for (int i = 0; i < BeamMods.Length; ++i)
 			{
-				ItemIO.Send(BeamMods[i], writer,true);
+				ItemIO.Send(BeamMods[i], writer, true);
 			}
 			for (int i = 0; i < BeamChange.Length; ++i)
 			{

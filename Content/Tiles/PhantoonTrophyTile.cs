@@ -1,5 +1,3 @@
-using System;
-using MetroidMod.Content.NPCs.Mobs.Crawler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -51,37 +49,37 @@ namespace MetroidMod.Content.Tiles
 			if (!TileDrawing.IsVisible(Main.tile[i, j])) { return; } //Don't do any of this if the tile's invisible (i.e. echo paint)
 
 			Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
-				if (Main.drawToScreen)
-				{
-					zero = Vector2.Zero;
-				}
-				Vector2 eyeDistance = new Vector2(Main.LocalPlayer.Center.X - i * 16, Main.LocalPlayer.Center.Y - j * 16);
-				Vector2 eyeAim = Vector2.Zero;
+			if (Main.drawToScreen)
+			{
+				zero = Vector2.Zero;
+			}
+			Vector2 eyeDistance = new Vector2(Main.LocalPlayer.Center.X - (i * 16), Main.LocalPlayer.Center.Y - (j * 16));
+			Vector2 eyeAim = Vector2.Zero;
 
-				if (eyeDistance.Length() > 450)
+			if (eyeDistance.Length() > 450)
+			{
+				int c = 50;
+				if (eyeDistance.X < -c)
 				{
-					int c = 50;
-					if (eyeDistance.X < -c)
-					{
-						eyeAim.X = -2;
-					}
-					if (eyeDistance.X > c)
-					{
-						eyeAim.X = 2;
-					}
-					if (eyeDistance.Y < -c)
-					{
-						eyeAim.Y = -2;
-					}
-					if (eyeDistance.Y > c)
-					{
-						eyeAim.Y = 2;
-					}
+					eyeAim.X = -2;
 				}
-				Rectangle pupilRectangle = pupilTexture.Frame();
-				Vector2 offset = new Vector2(2, -4) + eyeAim;
-				spriteBatch.Draw(pupilTexture.Value, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero + offset, pupilRectangle, Color.White);
-			
+				if (eyeDistance.X > c)
+				{
+					eyeAim.X = 2;
+				}
+				if (eyeDistance.Y < -c)
+				{
+					eyeAim.Y = -2;
+				}
+				if (eyeDistance.Y > c)
+				{
+					eyeAim.Y = 2;
+				}
+			}
+			Rectangle pupilRectangle = pupilTexture.Frame();
+			Vector2 offset = new Vector2(2, -4) + eyeAim;
+			spriteBatch.Draw(pupilTexture.Value, new Vector2((i * 16) - (int)Main.screenPosition.X, (j * 16) - (int)Main.screenPosition.Y) + zero + offset, pupilRectangle, Color.White);
+
 		}
 
 		//public override void AnimateTile(ref int frame, ref int frameCounter)

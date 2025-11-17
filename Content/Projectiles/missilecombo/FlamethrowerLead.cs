@@ -25,11 +25,11 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.penetrate = -1;
 			Projectile.friendly = false;
 		}
-		Projectile Lead;
+		private Projectile Lead;
 		//int useTime = 0;
-		SoundEffectInstance soundInstance;
-		bool soundPlayed = false;
-		int soundDelay = 0;
+		private SoundEffectInstance soundInstance;
+		private bool soundPlayed = false;
+		private int soundDelay = 0;
 		public override void AI()
 		{
 			Projectile P = Projectile;

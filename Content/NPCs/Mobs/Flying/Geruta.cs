@@ -172,7 +172,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Flying
 			{
 				for (int j = 0; j < 5; ++j)
 				{
-					int newDust = Dust.NewDust(NPC.position + dustSides[i] * NPC.scale, (int)(6 * NPC.scale), (int)(6 * NPC.scale), DustID.Torch, 0, -NPC.velocity.Y * .3F);
+					int newDust = Dust.NewDust(NPC.position + (dustSides[i] * NPC.scale), (int)(6 * NPC.scale), (int)(6 * NPC.scale), DustID.Torch, 0, -NPC.velocity.Y * .3F);
 					Main.dust[newDust].noGravity = true;
 				}
 			}

@@ -24,9 +24,9 @@ namespace MetroidMod.Content.Projectiles.widebeam
 			mProjectile.delay = 4;
 		}
 
-		int dustType = 63;
-		Color color = MetroidMod.wideColor;
-		Color color2 = MetroidMod.wideColor;
+		private int dustType = 63;
+		private Color color = MetroidMod.wideColor;
+		private Color color2 = MetroidMod.wideColor;
 		public override void AI()
 		{
 
@@ -43,7 +43,7 @@ namespace MetroidMod.Content.Projectiles.widebeam
 				color = MetroidMod.waveColor2;
 				color2 = default(Color);
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Projectile.numUpdates == 0)
 			{

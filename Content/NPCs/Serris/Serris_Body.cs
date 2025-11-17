@@ -111,12 +111,12 @@ namespace MetroidMod.Content.NPCs.Serris
 				frame = serris_head.sbFrame + 3;
 
 			// If it's the last body part before the head, draw the fins.
-			int yFrame = frame * (bodyHeight * 2);
+			int yFrame = frame * bodyHeight * 2;
 			if ((int)NPC.ai[1] == head.whoAmI)
 			{
 				for (int j = 0; j < 3; j++)
 				{
-					int finFrame = finsHeight * j + frame * (finsHeight * 3);
+					int finFrame = (finsHeight * j) + (frame * finsHeight * 3);
 					Vector2 finPos = new Vector2(4, -16);
 					float bodyRot2 = bodyRot - (headRot - bodyRot);
 					Vector2 finRotPos = bodyRot.ToRotationVector2();
@@ -139,9 +139,9 @@ namespace MetroidMod.Content.NPCs.Serris
 						finPos.Y *= -1;
 					}
 					float finRot = finRotPos.ToRotation();
-					finRot += (((float)Math.PI / 16) - ((float)Math.PI / 8) * (1f - serris_head.mouthFrame)) * 0.5f * head.spriteDirection;
+					finRot += (((float)Math.PI / 16) - ((float)Math.PI / 8 * (1f - serris_head.mouthFrame))) * 0.5f * head.spriteDirection;
 					float finPosRot = finPos.ToRotation() + bodyRot;
-					Vector2 finalFinPos = NPC.Center + finPosRot.ToRotationVector2() * finPos.Length();
+					Vector2 finalFinPos = NPC.Center + (finPosRot.ToRotationVector2() * finPos.Length());
 					sb.Draw(texFins, finalFinPos - Main.screenPosition, new Rectangle?(new Rectangle(0, finFrame, texFins.Width, finsHeight)),
 					bodyColor, finRot, finsOrig, 1f, effects, 0f);
 				}
@@ -152,7 +152,7 @@ namespace MetroidMod.Content.NPCs.Serris
 			sb.Draw(texBody, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, yFrame, texBody.Width, bodyHeight)),
 			bodyColor, bodyRot, bodyOrig, 1f, effects, 0f);
 
-			return (false);
+			return false;
 		}
 	}
 }

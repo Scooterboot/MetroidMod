@@ -1,7 +1,5 @@
 using MetroidMod.Common.Players;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Buffs

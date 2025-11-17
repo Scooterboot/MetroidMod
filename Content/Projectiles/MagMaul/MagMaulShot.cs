@@ -37,7 +37,7 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 			SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulExplode, Projectile.position);
 			//if(timeLeft <=0) [Joost] Let's be real, waiting for the timeout just for the explosion is never happening
 			//{
-				mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 40, 1.6f);
+			mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 40, 1.6f);
 			//}
 			mProjectile.Diffuse(Projectile, 286);
 		}

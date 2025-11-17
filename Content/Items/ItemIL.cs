@@ -45,10 +45,10 @@ namespace MetroidMod.Content.Items
 					item.type == ModContent.ItemType<ArmCannon>() ||
 					item.type == ModContent.ItemType<MissileLauncher>())
 				{
-					return (false);
+					return false;
 				}
 
-				return (stackCheck);
+				return stackCheck;
 			});
 		}
 		/*private static void PickItemMovementAction_NoSuitAddons(ILContext il)

@@ -32,7 +32,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.alpha = 255;
 		}
 
-		int damage = 0;
+		private int damage = 0;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -89,13 +89,13 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				if (target != -1)
 				{
 					NPC npc = Main.npc[target];
-					P.direction = (P.spriteDirection = (npc.Center.X > P.Center.X).ToDirectionInt());
+					P.direction = P.spriteDirection = (npc.Center.X > P.Center.X).ToDirectionInt();
 					float xDiff = Math.Abs(npc.Center.X - P.Center.X);
 					float yDiff = Math.Abs(npc.Center.Y - P.Bottom.Y);
-					float yDir = (float)(npc.Center.Y > P.Bottom.Y).ToDirectionInt();
+					float yDir = (npc.Center.Y > P.Bottom.Y).ToDirectionInt();
 					if (xDiff > 20f)
 					{
-						P.velocity.X = P.velocity.X + 0.1f * (float)P.direction;
+						P.velocity.X = P.velocity.X + (0.1f * P.direction);
 					}
 					else
 					{
@@ -103,7 +103,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 					}
 					if (yDiff > 10f)
 					{
-						P.velocity.Y = P.velocity.Y + 0.1f * yDir;
+						P.velocity.Y = P.velocity.Y + (0.1f * yDir);
 					}
 					else
 					{
@@ -199,7 +199,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 			Color color = Lighting.GetColor((int)P.Center.X / 16, (int)P.Center.Y / 16);
 
-			Vector2 pos = P.Center + Vector2.UnitY * P.gfxOffY - Main.screenPosition;
+			Vector2 pos = P.Center + (Vector2.UnitY * P.gfxOffY) - Main.screenPosition;
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 			Rectangle rectangle = tex.Frame(1, Main.projFrames[P.type], 0, P.frame);
 			Color alpha = P.GetAlpha(color);

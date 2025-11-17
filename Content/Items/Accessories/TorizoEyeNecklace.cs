@@ -1,5 +1,4 @@
 using MetroidMod.Common.Players;
-using MetroidMod.Content.SuitAddons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

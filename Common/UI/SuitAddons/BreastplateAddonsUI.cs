@@ -260,8 +260,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
-			drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-			drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+			drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+			drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);

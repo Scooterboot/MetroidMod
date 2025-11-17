@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 {
 	public class ShockCoilChargeShot : MProjectile
 	{
-		private int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
+		private readonly int overheat = Common.Configs.MConfigItems.Instance.overheatPowerBeam;
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("ShockCoil Charge Shot");
@@ -29,28 +29,28 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			//Projectile.timeLeft = 120;
 		}
 
-		Vector2 targetPos;
-		bool setTargetPos = false;
+		private Vector2 targetPos;
+		private bool setTargetPos = false;
 
-		Projectile Lead;
+		private Projectile Lead;
 
-		NPC target;
+		private NPC target;
 
-		const float Max_Range = 300f;
-		float range = Max_Range;
-		const float Max_Distance = 300f;
-		float distance = Max_Distance;
+		private const float Max_Range = 300f;
+		private float range = Max_Range;
+		private const float Max_Distance = 300f;
+		private float distance = Max_Distance;
 
-		Vector2 oPos;
-		Vector2 mousePos;
+		private Vector2 oPos;
+		private Vector2 mousePos;
 
-		SoundEffectInstance soundInstance;
-		bool soundPlayed = false;
-		int soundDelay = 30;
+		private SoundEffectInstance soundInstance;
+		private bool soundPlayed = false;
+		private int soundDelay = 30;
 
-		int ampSyncCooldown = 20;
-		float[] amp = new float[3];
-		float[] ampDest = new float[3];
+		private int ampSyncCooldown = 20;
+		private readonly float[] amp = new float[3];
+		private readonly float[] ampDest = new float[3];
 
 		public override void AI()
 		{
@@ -79,8 +79,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			{
 				for (int k = 0; k < range; k++)
 				{
-					float targetrot = (float)Math.Atan2((P.Center.Y - O.Center.Y), (P.Center.X - O.Center.X));
-					Vector2 tilePos = O.Center + targetrot.ToRotationVector2() * k;
+					float targetrot = (float)Math.Atan2(P.Center.Y - O.Center.Y, P.Center.X - O.Center.X);
+					Vector2 tilePos = O.Center + (targetrot.ToRotationVector2() * k);
 					int i = (int)MathHelper.Clamp(tilePos.X / 16, 0, Main.maxTilesX - 2);
 					int j = (int)MathHelper.Clamp(tilePos.Y / 16, 0, Main.maxTilesY - 2);
 
@@ -104,7 +104,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				Vector2 diff = Main.MouseWorld - oPos;
 				diff.Normalize();
 
-				mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
+				mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
 
 				target = null;
 				for (int i = 0; i < Main.maxNPCs; i++)
@@ -119,10 +119,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
 						{
 							range = Vector2.Distance(oPos, npc.Center);
-							mousePos = oPos + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
+							mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
 						}
 
-						bool flag = (Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance);
+						bool flag = Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
 
 						if (Main.npc[i].CanBeChasedBy(P, false))
 						{
@@ -164,9 +164,9 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					if (P.numUpdates == 0)
 					{
 						//targetPos = new Vector2(mousePos.X + Main.rand.Next(-30, 31), mousePos.Y + Main.rand.Next(-30, 31));
-						targetPos = oPos + diff * range;
-						targetPos.X += (float)Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
-						targetPos.Y += (float)Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
+						targetPos = oPos + (diff * range);
+						targetPos.X += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
+						targetPos.Y += Main.rand.Next(-15, 16) * (Vector2.Distance(oPos, P.Center) / Max_Range);
 					}
 				}
 
@@ -217,7 +217,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 
 			float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
-			float targetAngle = (float)Math.Atan2((targetPos.Y - P.Center.Y), (targetPos.X - P.Center.X));
+			float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
 			P.velocity = targetAngle.ToRotationVector2() * speed;
 
 			if (O.controlUseItem)
@@ -273,10 +273,10 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			if (Lead != null && Lead.active && Lead.owner == P.owner)
 			{
-				float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
+				float targetrot = (float)Math.Atan2(P.Center.Y - Lead.Center.Y, P.Center.X - Lead.Center.X);
 				float dist = Math.Max(Vector2.Distance(Lead.Center, P.Center), 1);
 
-				double trot = targetrot + Math.PI / 2;
+				double trot = targetrot + (Math.PI / 2);
 
 				float shift = 0;
 				int num = (int)Math.Max(Math.Ceiling(dist / 8), 1);
@@ -294,38 +294,38 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					{
 						if (i < num4)
 						{
-							shift = MathHelper.Lerp(0, amp[0], (i / num4));
+							shift = MathHelper.Lerp(0, amp[0], i / num4);
 						}
 						else if (i < num / 2)
 						{
-							shift = MathHelper.Lerp(amp[0], amp[1], ((i - num4) / num4));
+							shift = MathHelper.Lerp(amp[0], amp[1], (i - num4) / num4);
 						}
 						else if (i < num4 * 3)
 						{
-							shift = MathHelper.Lerp(amp[1], amp[2], ((i - num / 2) / num4));
+							shift = MathHelper.Lerp(amp[1], amp[2], (i - (num / 2)) / num4);
 						}
 						else
 						{
-							shift = MathHelper.Lerp(amp[2], 0, ((i - num4 * 3) / num4));
-							scale *= (num4 - (i - num4 * 3) * 0.5f) / num4;
+							shift = MathHelper.Lerp(amp[2], 0, (i - (num4 * 3)) / num4);
+							scale *= (num4 - ((i - (num4 * 3)) * 0.5f)) / num4;
 						}
 					}
 
-					pos[i] = Lead.Center + targetrot.ToRotationVector2() * (dist / num) * i;
+					pos[i] = Lead.Center + (targetrot.ToRotationVector2() * (dist / num) * i);
 					pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
 					pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(oPos, P.Center) / Max_Range);
 
-					float rot = (float)Math.Atan2((pos[i].Y - Lead.Center.Y), (pos[i].X - Lead.Center.X)) + (float)Math.PI / 2;
+					float rot = (float)Math.Atan2(pos[i].Y - Lead.Center.Y, pos[i].X - Lead.Center.X) + ((float)Math.PI / 2);
 					if (i > 0)
 					{
-						rot = (float)Math.Atan2((pos[i].Y - pos[i - 1].Y), (pos[i].X - pos[i - 1].X)) + (float)Math.PI / 2;
+						rot = (float)Math.Atan2(pos[i].Y - pos[i - 1].Y, pos[i].X - pos[i - 1].X) + ((float)Math.PI / 2);
 					}
 					sb.Draw(tex,
 					pos[i] - Main.screenPosition,
 					new Rectangle?(new Rectangle(0, y4, tex.Width, num108)),
 					P.GetAlpha(Color.White),
 					rot,
-					new Vector2((float)tex.Width / 2f, (float)num108 / 2),
+					new Vector2(tex.Width / 2f, (float)num108 / 2),
 					new Vector2(scale, 1f),
 					SpriteEffects.None,
 					0f);
@@ -357,7 +357,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			Player p = Main.player[Projectile.owner];
 			MPlayer mp = p.GetModPlayer<MPlayer>();
-			mp.statOverheat += ((int)((float)overheat * mp.overheatCost));
+			mp.statOverheat += (int)(overheat * mp.overheatCost);
 			mp.overheatDelay = 10;
 			if (mp.statCharge < MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
@@ -366,7 +366,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (mp.statCharge == MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
 			{
 				mp.statOverheat = 0;
-				mp.statOverheat += ((int)((float)overheat * mp.overheatCost) * 2);
+				mp.statOverheat += (int)(overheat * mp.overheatCost) * 2;
 				mp.overheatDelay = 10;
 				int healingAmount = damageDone / 15;
 				p.statLife += healingAmount;

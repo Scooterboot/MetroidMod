@@ -1,4 +1,3 @@
-using MetroidMod.Content.NPCs.Torizo;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

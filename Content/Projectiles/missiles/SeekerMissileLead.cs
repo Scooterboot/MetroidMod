@@ -29,11 +29,11 @@ namespace MetroidMod.Content.Projectiles.missiles
 			//Projectile.ranged = true;
 		}
 
-		Color LightColor = Color.Cyan;//MetroidMod.powColor;
-		bool soundPlayed = false;
-		SoundEffectInstance soundInstance;
-		int dustDelay = 0;
-		int negateUseTime = 0;
+		private Color LightColor = Color.Cyan;//MetroidMod.powColor;
+		private bool soundPlayed = false;
+		private SoundEffectInstance soundInstance;
+		private int dustDelay = 0;
+		private int negateUseTime = 0;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -48,12 +48,12 @@ namespace MetroidMod.Content.Projectiles.missiles
 			float MX = Main.mouseX + Main.screenPosition.X;
 			if (O.gravDir == -1f)
 			{
-				MY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+				MY = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
 			}
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-			P.scale = ((float)mi.seekerCharge / (float)MGlobalItem.seekerMaxCharge) * (0.25f + (0.75f * ((float)(mi.numSeekerTargets + 1) / 6f)));
-			float targetrotation = (float)Math.Atan2((MY - oPos.Y), (MX - oPos.X));
+			P.scale = mi.seekerCharge / (float)MGlobalItem.seekerMaxCharge * (0.25f + (0.75f * ((mi.numSeekerTargets + 1) / 6f)));
+			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			P.rotation += 0.5f * P.direction;
 			O.itemTime = 2;
 			O.itemAnimation = 2;
@@ -71,7 +71,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 			P.friendly = false;
 			P.damage = 0;
-			P.position = new Vector2(iPos.X + (float)Math.Cos(targetrotation) * range + width, iPos.Y + (float)Math.Sin(targetrotation) * range + height);
+			P.position = new Vector2(iPos.X + ((float)Math.Cos(targetrotation) * range) + width, iPos.Y + ((float)Math.Sin(targetrotation) * range) + height);
 			P.alpha = 0;
 			if (P.velocity.X < 0)
 			{
@@ -106,7 +106,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 				}
 			}
 			dustDelay = Math.Max(dustDelay - 1, 0);
-			Lighting.AddLight(P.Center, (LightColor.R / 255f) * P.scale, (LightColor.G / 255f) * P.scale, (LightColor.B / 255f) * P.scale);
+			Lighting.AddLight(P.Center, LightColor.R / 255f * P.scale, LightColor.G / 255f * P.scale, LightColor.B / 255f * P.scale);
 			if (O.controlUseItem && !mp.ballstate && !mp.shineActive && !O.dead && !O.noItems)
 			{
 				if (P.owner == Main.myPlayer)

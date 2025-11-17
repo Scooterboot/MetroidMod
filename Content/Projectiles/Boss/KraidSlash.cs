@@ -28,10 +28,10 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Main.projFrames[Projectile.type] = 3;
 		}
 
-		float alpha = 1f;
+		private float alpha = 1f;
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			Projectile.frame++;
 			if (Projectile.frame >= 3)
@@ -52,7 +52,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 25);
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -65,7 +65,7 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			int num108 = tex.Height / Main.projFrames[Projectile.type];
 			int y4 = num108 * Projectile.frame;
-			Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, new Vector2((float)tex.Width / 2f, (float)num108 / 2f), Projectile.scale, effects, 0f);
+			Main.spriteBatch.Draw(tex, new Vector2((int)(Projectile.Center.X - Main.screenPosition.X), (int)(Projectile.Center.Y - Main.screenPosition.Y + Projectile.gfxOffY)), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, new Vector2(tex.Width / 2f, num108 / 2f), Projectile.scale, effects, 0f);
 			return false;
 		}
 	}

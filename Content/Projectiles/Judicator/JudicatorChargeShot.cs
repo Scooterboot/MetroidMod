@@ -26,7 +26,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		public override void OnSpawn(IEntitySource source)
 		{
 			base.OnSpawn(source);
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() ||player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() || player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
 				if (player.HeldItem.ModItem is PowerBeam hold)
 				{
@@ -81,7 +81,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-			
+
 			if (Projectile.timeLeft == (Luminite ? 60 : 40)) //shadowfreeze
 			{
 				Projectile.penetrate = -1;
@@ -95,8 +95,8 @@ namespace MetroidMod.Content.Projectiles.Judicator
 				//Projectile.width += (int)Math.Abs((Projectile.velocity.Y * GetDepth(meep)) * Projectile.width);
 				//Projectile.height += (int)Math.Abs((Projectile.velocity.X * GetDepth(meep)) * Projectile.height);
 				//Projectile.Center = Main.player[Projectile.owner].Center;
-				LineStart = new (Projectile.position.X + (Projectile.velocity.Y * GetDepth(mProjectile)), Projectile.position.Y + (Projectile.velocity.X * GetDepth(mProjectile) * 16f));
-				LineEnd = new (Projectile.position.X - (Projectile.velocity.Y * GetDepth(mProjectile)), Projectile.position.Y - (Projectile.velocity.X * GetDepth(mProjectile) * 16f));
+				LineStart = new(Projectile.position.X + (Projectile.velocity.Y * GetDepth(mProjectile)), Projectile.position.Y + (Projectile.velocity.X * GetDepth(mProjectile) * 16f));
+				LineEnd = new(Projectile.position.X - (Projectile.velocity.Y * GetDepth(mProjectile)), Projectile.position.Y - (Projectile.velocity.X * GetDepth(mProjectile) * 16f));
 			}
 			else
 			{
@@ -134,7 +134,7 @@ namespace MetroidMod.Content.Projectiles.Judicator
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Projectile.penetrate =	reader.ReadInt32();
+			Projectile.penetrate = reader.ReadInt32();
 			Projectile.maxPenetrate = reader.ReadInt32();
 			base.ReceiveExtraAI(reader);
 		}

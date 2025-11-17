@@ -2,10 +2,8 @@
 using MetroidMod.Content.Items.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using ReLogic.Content;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Common.UI
@@ -36,7 +34,7 @@ namespace MetroidMod.Common.UI
 			if (!uiActive) return;
 
 			bool inInterface = false;
-			foreach(Button button in Buttons)
+			foreach (Button button in Buttons)
 			{
 				Vector2 center = ButtonCenter(button);
 				button.Hovered = Vector2.Distance(Main.MouseScreen, center) <= ButtonDetectionRadius;
@@ -46,18 +44,18 @@ namespace MetroidMod.Common.UI
 					inInterface = true;
 
 					bool leftClicked = Main.mouseLeft && Main.mouseLeftRelease;
-					if(leftClicked) button.Toggle();
+					if (leftClicked) button.Toggle();
 				}
 			}
 
-			if(inInterface) Main.LocalPlayer.mouseInterface = true;
+			if (inInterface) Main.LocalPlayer.mouseInterface = true;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			if (!uiActive) return;
 
-			foreach(Button button in Buttons)
+			foreach (Button button in Buttons)
 			{
 				DrawButton(spriteBatch, button);
 			}
@@ -75,7 +73,7 @@ namespace MetroidMod.Common.UI
 
 			Color color = Color.White;
 			Color backgroundColor = ChoziteDualtoolSettings.IsPlacing ? Color.SlateBlue : Color.MediumVioletRed;
-			
+
 			if (!button.Enabled && button.DarkWhenDisabled)
 			{
 				color = color.MultiplyRGB(Color.Gray);
@@ -89,7 +87,7 @@ namespace MetroidMod.Common.UI
 
 		private Vector2 ButtonCenter(Button button)
 		{
-			return uiCenterPosition + button.CenterOffset * ElementSpacing;
+			return uiCenterPosition + (button.CenterOffset * ElementSpacing);
 		}
 
 		private readonly Button[] Buttons = [

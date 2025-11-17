@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles
 {
-	class KraidPhantoonMusicBox : ModTile
+	internal class KraidPhantoonMusicBox : ModTile
 	{
 		public override void SetStaticDefaults()
 		{

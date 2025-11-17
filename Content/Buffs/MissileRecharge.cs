@@ -16,10 +16,10 @@ namespace MetroidMod.Content.Buffs
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}
-		ReLogic.Utilities.SlotId soundInstance;
-		bool soundPlayed = false;
-		int num = 0;
-		int num3 = 0;
+		private ReLogic.Utilities.SlotId soundInstance;
+		private bool soundPlayed = false;
+		private int num = 0;
+		private int num3 = 0;
 		public override void Update(Player player, ref int buffIndex)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
@@ -27,13 +27,13 @@ namespace MetroidMod.Content.Buffs
 			bool flag2 = false;
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>() || player.inventory[i].type == ModContent.ItemType<Items.Weapons.PowerBeam>()||player.inventory[i].type == ModContent.ItemType<Items.Weapons.ArmCannon>())
+				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.MissileLauncher>() || player.inventory[i].type == ModContent.ItemType<Items.Weapons.PowerBeam>() || player.inventory[i].type == ModContent.ItemType<Items.Weapons.ArmCannon>())
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					flag = true;
 					if (mi.statMissiles < mi.maxMissiles || mi.statUA < mi.maxUA)
 					{
-						if(mi.statMissiles < mi.maxMissiles)
+						if (mi.statMissiles < mi.maxMissiles)
 						{
 							mi.statMissiles++;
 							num++;
@@ -44,7 +44,7 @@ namespace MetroidMod.Content.Buffs
 								num2 -= 50;
 							}
 						}
-						if(mi.statUA < mi.maxUA)
+						if (mi.statUA < mi.maxUA)
 						{
 							mi.statUA++;
 							num3++;
@@ -64,7 +64,7 @@ namespace MetroidMod.Content.Buffs
 					}
 				}
 			}
-			if (!flag && !flag2 || player.controlJump || player.controlUseItem)
+			if ((!flag && !flag2) || player.controlJump || player.controlUseItem)
 			{
 				if (SoundEngine.TryGetActiveSound(soundInstance, out ActiveSound result))
 				{

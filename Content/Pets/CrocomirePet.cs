@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Build.Construction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -12,7 +11,8 @@ namespace MetroidMod.Content.Pets
 {
 	public class CrocomirePet : ModProjectile
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			Main.projFrames[Projectile.type] = 24;
 			Main.projPet[Projectile.type] = true;
 
@@ -28,10 +28,11 @@ namespace MetroidMod.Content.Pets
 				.WithCode(DelegateMethods.CharacterPreview.Float);
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			Projectile.CloneDefaults(ProjectileID.BabyDino); // Copy the stats of the Zephyr Fish
 			Projectile.height = 32;
-			
+
 			//AIType = ProjectileID.BerniePet; // Mimic as the Zephyr Fish during AI.
 		}
 		public override bool PreDraw(ref Color lightColor)
@@ -42,14 +43,14 @@ namespace MetroidMod.Content.Pets
 			{
 				effects = SpriteEffects.FlipHorizontally;
 			}
-			Vector2 drawOrigin = new Vector2(tex.Width / 4 * 0.5f, (tex.Height / Main.projFrames[Projectile.type]) * 0.5f);
+			Vector2 drawOrigin = new Vector2(tex.Width / 4 * 0.5f, tex.Height / Main.projFrames[Projectile.type] * 0.5f);
 			Color color = lightColor * (1 - (Projectile.alpha / 255f));
 			Rectangle rect = new Rectangle(0, Projectile.frame * tex.Height / Main.projFrames[Projectile.type], tex.Width / 4, tex.Height / Main.projFrames[Projectile.type]);
 
 			if (Projectile.ai[1] > 0 && rect.Y >= 20 * tex.Height / Main.projFrames[Projectile.type])
 			{
 				Vector2 vibe = new Vector2(0, 0);
-				if (Projectile.ai[1] > 70 && Projectile.ai[1] < 130) 
+				if (Projectile.ai[1] > 70 && Projectile.ai[1] < 130)
 				{
 					vibe.X = (float)Math.Sin(Projectile.ai[1] % 13) * 2;
 				}
@@ -86,7 +87,7 @@ namespace MetroidMod.Content.Pets
 				if (Projectile.localAI[0] < 12)
 					frameX = Math.Min((int)Projectile.localAI[0], 5);
 				else if (Projectile.localAI[0] < 18)
-					frameX = (17 - (int)Projectile.localAI[0]);
+					frameX = 17 - (int)Projectile.localAI[0];
 				if (Projectile.frame == 11)
 					frameY = 1;
 				if (Projectile.frame > 11)
@@ -97,7 +98,7 @@ namespace MetroidMod.Content.Pets
 			return false;
 		}
 
-		public override bool PreAI() 
+		public override bool PreAI()
 		{
 			Player player = Main.player[Projectile.owner];
 
@@ -129,7 +130,7 @@ namespace MetroidMod.Content.Pets
 						Dust expr_44AC_cp_0_cp_0 = Main.dust[num66];
 						expr_44AC_cp_0_cp_0.velocity.X = expr_44AC_cp_0_cp_0.velocity.X + (Main.rand.NextFloat() - 0.5f);
 						Dust expr_44D2_cp_0_cp_0 = Main.dust[num66];
-						expr_44D2_cp_0_cp_0.velocity.Y = expr_44D2_cp_0_cp_0.velocity.Y + (Main.rand.NextFloat() + 0.5f) * -1f;
+						expr_44D2_cp_0_cp_0.velocity.Y = expr_44D2_cp_0_cp_0.velocity.Y + ((Main.rand.NextFloat() + 0.5f) * -1f);
 						if (Main.rand.Next(3) != 0)
 						{
 							Main.dust[num66].noGravity = true;
@@ -155,7 +156,7 @@ namespace MetroidMod.Content.Pets
 					Dust expr_9391_cp_0_cp_0 = Main.dust[num147];
 					expr_9391_cp_0_cp_0.velocity.X = expr_9391_cp_0_cp_0.velocity.X + (Main.rand.NextFloat() - 0.5f);
 					Dust expr_93B7_cp_0_cp_0 = Main.dust[num147];
-					expr_93B7_cp_0_cp_0.velocity.Y = expr_93B7_cp_0_cp_0.velocity.Y + (Main.rand.NextFloat() + 0.5f) * -1f;
+					expr_93B7_cp_0_cp_0.velocity.Y = expr_93B7_cp_0_cp_0.velocity.Y + ((Main.rand.NextFloat() + 0.5f) * -1f);
 					if (Main.rand.Next(3) != 0)
 					{
 						Main.dust[num147].noGravity = true;
@@ -207,11 +208,13 @@ namespace MetroidMod.Content.Pets
 			return true;
 		}
 
-		public override void AI() {
+		public override void AI()
+		{
 			Player player = Main.player[Projectile.owner];
 			Projectile.spriteDirection = Projectile.direction;
 			// Keep the projectile from disappearing as long as the player isn't dead and has the pet buff.
-			if (!player.dead && player.HasBuff(ModContent.BuffType<CrocomirePetBuff>())) {
+			if (!player.dead && player.HasBuff(ModContent.BuffType<CrocomirePetBuff>()))
+			{
 				Projectile.timeLeft = 2;
 			}
 			Projectile.localAI[0]++;

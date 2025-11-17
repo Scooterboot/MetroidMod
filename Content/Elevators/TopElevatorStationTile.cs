@@ -1,7 +1,8 @@
 ﻿
 using Terraria.DataStructures;
 
-namespace MetroidMod.Content.Elevators{
+namespace MetroidMod.Content.Elevators
+{
 	internal class TopElevatorStationTile : ElevatorStationTile
 	{
 		public override bool Animated => false;

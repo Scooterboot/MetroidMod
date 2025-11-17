@@ -2,7 +2,6 @@
 using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Torizo;
 using Microsoft.Xna.Framework;
-using MonoMod.Core.Platforms;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -29,7 +28,7 @@ namespace MetroidMod.Common.Systems
 			bool torizoDowned = MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
 			bool torizoAlive = NPC.AnyNPCs(ModContent.NPCType<Torizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<IdleGoldenTorizo>()) || NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>());
 			bool legend = WorldGen.everythingWorldGen || WorldGen.getGoodWorldGen || Main.getGoodWorld;
-			return Initialized && !torizoDowned && !torizoAlive &&!legend;
+			return Initialized && !torizoDowned && !torizoAlive && !legend;
 		}
 
 		public void SetLocationFromLegacy(Point location)
@@ -55,20 +54,20 @@ namespace MetroidMod.Common.Systems
 			npc.direction = Direction;
 			npc.spriteDirection = npc.direction;
 
-			npc.position.X = SpawnLocation.X - npc.width / 2;
+			npc.position.X = SpawnLocation.X - (npc.width / 2);
 			npc.position.Y = SpawnLocation.Y - npc.height;
 
 		}
 
 		public override void PostUpdateEverything()
 		{
-			if(!CanSpawn())
+			if (!CanSpawn())
 			{
 				spawnCounter = 300;
 				return;
 			}
 
-			if(spawnCounter > 0)
+			if (spawnCounter > 0)
 			{
 				spawnCounter -= 1;
 				return;

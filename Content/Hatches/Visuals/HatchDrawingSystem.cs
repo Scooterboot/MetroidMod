@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.Cil;
 using ReLogic.Content;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Hatches.Visuals
@@ -69,7 +62,7 @@ namespace MetroidMod.Content.Hatches.Visuals
 			if (!isInvisible)
 			{
 				string bubbleTexture = animation.GetAppearance(tileEntity).GetTexturePath(hatchTile.Vertical);
-				Rectangle bubbleSource = new(tile.TileFrameX, tile.TileFrameY + animationFrame * 18 * 4, 16, 16);
+				Rectangle bubbleSource = new(tile.TileFrameX, tile.TileFrameY + (animationFrame * 18 * 4), 16, 16);
 				DrawAt(spriteBatch, i, j, bubbleSource, bubbleTexture, new(i, j));
 			}
 		}

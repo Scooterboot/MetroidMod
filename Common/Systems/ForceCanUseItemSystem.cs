@@ -23,8 +23,8 @@ namespace MetroidMod.Common.Systems
 			{
 				// The item uses ammo, sure, but it can still do stuff without it...
 				// Ideally we would avoid IL editing, but rn it's the quickest approach I could find
-				
-				if(item.type == ModContent.ItemType<ChoziteDualtool>())
+
+				if (item.type == ModContent.ItemType<ChoziteDualtool>())
 				{
 					return true;
 				}

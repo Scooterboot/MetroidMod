@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
 using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -59,13 +56,13 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			return false;
 		}
 
-		Vector2 sAttackPos = new Vector2(32, -31);
-		int sAttackFrame = 0;
-		int sAttackFrameCounter = 0;
-		int sAttackNum = 1;
-		bool drawSAttack = true;
+		private Vector2 sAttackPos = new Vector2(32, -31);
+		private int sAttackFrame = 0;
+		private int sAttackFrameCounter = 0;
+		private int sAttackNum = 1;
+		private bool drawSAttack = true;
 
-		Vector2[] gorePos = {new Vector2(-11,-33),
+		private readonly Vector2[] gorePos = {new Vector2(-11,-33),
 		new Vector2(1,-13),new Vector2(-13,-1),new Vector2(18,8),
 		new Vector2(32,-8),new Vector2(-35,-23),new Vector2(-29,14),
 		new Vector2(-19,29),new Vector2(15,27),new Vector2(27,39)};
@@ -199,7 +196,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<GoldenTorizo>()))
 				{
-					Vector2 tPos = new Vector2(NPC.Center.X - 26 * NPC.direction, NPC.position.Y + NPC.height - 117);
+					Vector2 tPos = new Vector2(NPC.Center.X - (26 * NPC.direction), NPC.position.Y + NPC.height - 117);
 					//NPC.NewNPC((int)tPos.X,(int)tPos.Y,mod.NPCType("GoldenTorizo"),NPC.whoAmI, 0,1,0,0, NPC.target);
 					NPC.SpawnOnPlayer(NPC.target, ModContent.NPCType<GoldenTorizo>());
 				}
@@ -221,7 +218,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 			{
 				Texture2D sTex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/GoldenTorizo/IdleGoldenTorizo_SAttack").Value;
 				Vector2 sPos = NPC.Center + new Vector2(sAttackPos.X * NPC.direction, sAttackPos.Y);
-				int texH = (sTex.Height / 3);
+				int texH = sTex.Height / 3;
 				sb.Draw(sTex, sPos - Main.screenPosition, new Rectangle?(new Rectangle(0, sAttackFrame * texH, sTex.Width, texH)), NPC.GetAlpha(drawColor), 0f, new Vector2(sTex.Width / 2, texH / 2), 1f, SpriteEffects.None, 0f);
 			}
 

@@ -32,8 +32,8 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			Player P = Main.player[Projectile.owner];
-			Projectile.position.X = P.Center.X - Projectile.width / 2;
-			Projectile.position.Y = P.Center.Y - Projectile.height / 2;
+			Projectile.position.X = P.Center.X - (Projectile.width / 2);
+			Projectile.position.Y = P.Center.Y - (Projectile.height / 2);
 			ShineSoundStart++;
 			if (ShineSoundStart > 3 && ShineSoundStart < 5)
 			{
@@ -51,11 +51,11 @@ namespace MetroidMod.Content.Projectiles
 			{
 				Projectile.Kill();
 			}
-			Lighting.AddLight((int)((float)Projectile.Center.X / 16f), (int)((float)(Projectile.Center.Y) / 16f), 1f, 0.85f, 0);
+			Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 1f, 0.85f, 0);
 			float rotation = (float)Math.Atan2(P.position.Y - P.shadowPos[0].Y, P.position.X - P.shadowPos[0].X);
 			float rotation1 = rotation + ((float)Math.PI / 2);
 			float rotation2 = rotation - ((float)Math.PI / 2);
-			Vector2 vect = P.Center - new Vector2(4, 4) + rotation.ToRotationVector2() * 24f;
+			Vector2 vect = P.Center - new Vector2(4, 4) + (rotation.ToRotationVector2() * 24f);
 			Vector2 vel = P.position - mp.oldPosition;
 			Vector2 vel1 = rotation1.ToRotationVector2() * 16f;
 			Vector2 vel2 = rotation2.ToRotationVector2() * 16f;

@@ -62,7 +62,7 @@ namespace MetroidMod.Content.NPCs.Mobs
 		{
 			if (NPC.ai[0] == 0)
 			{
-				NPC.velocity = (Main.rand.NextFloat((float)Math.PI * 2).ToRotationVector2()) * speed;
+				NPC.velocity = Main.rand.NextFloat((float)Math.PI * 2).ToRotationVector2() * speed;
 				NPC.ai[0] = 1;
 			}
 

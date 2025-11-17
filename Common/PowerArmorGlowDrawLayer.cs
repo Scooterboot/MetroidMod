@@ -26,7 +26,7 @@ namespace MetroidMod.Common
 		{
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = drawPlayer.headPosition + drawInfo.headVect + new Vector2(
-				(int)(drawInfo.Position.X + drawPlayer.width / 2f - drawPlayer.bodyFrame.Width / 2f - Main.screenPosition.X),
+				(int)(drawInfo.Position.X + (drawPlayer.width / 2f) - (drawPlayer.bodyFrame.Width / 2f) - Main.screenPosition.X),
 				(int)(drawInfo.Position.Y + drawPlayer.height - drawPlayer.bodyFrame.Height + 4f - Main.screenPosition.Y)
 			);
 
@@ -45,12 +45,12 @@ namespace MetroidMod.Common
 			Player drawPlayer = drawInfo.drawPlayer;
 			Rectangle frame = drawInfo.compTorsoFrame;
 			Vector2 pos = drawPlayer.bodyPosition + drawInfo.bodyVect + new Vector2(
-				 (int)(drawInfo.Position.X - Main.screenPosition.X - frame.Width / 2f + drawPlayer.width / 2f),
+				 (int)(drawInfo.Position.X - Main.screenPosition.X - (frame.Width / 2f) + (drawPlayer.width / 2f)),
 				 (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - frame.Height + 4f)
 			);
 			Vector2 offset = Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height];
 			offset.Y -= 2f;
-			pos += offset * (float)(-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
+			pos += offset * (float)-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt();
 
 			return new DrawDataInfo
 			{
@@ -71,12 +71,12 @@ namespace MetroidMod.Common
 			float rot = drawPlayer.bodyRotation;
 			if (back)
 			{
-				Vector2 compositeOffset_BackArm = new Vector2((float)(6 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1)), (float)(2 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1)));
+				Vector2 compositeOffset_BackArm = new Vector2(6 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), 2 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1));
 				origin += compositeOffset_BackArm;
 			}
 			else
 			{
-				Vector2 compositeOffset_FrontArm = new Vector2((float)(-5 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1)), 0f);
+				Vector2 compositeOffset_FrontArm = new Vector2(-5 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), 0f);
 				origin += compositeOffset_FrontArm;
 			}
 			if (shoulder)
@@ -89,17 +89,17 @@ namespace MetroidMod.Common
 				rot += back ? drawInfo.compositeBackArmRotation : drawInfo.compositeFrontArmRotation;
 				if (!back && drawInfo.compFrontArmFrame.X / drawInfo.compFrontArmFrame.Width >= 7)
 				{
-					pos += new Vector2((float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), (float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1));
+					pos += new Vector2((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1, (!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1);
 				}
 			}
 			Vector2 offset = Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height];
 			offset.Y -= 2f;
-			pos += offset * (float)(-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
+			pos += offset * (float)-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt();
 			pos += origin + new Vector2(
-				 (int)(drawInfo.Position.X - Main.screenPosition.X - frame.Width / 2f + drawPlayer.width / 2f),
+				 (int)(drawInfo.Position.X - Main.screenPosition.X - (frame.Width / 2f) + (drawPlayer.width / 2f)),
 				 (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - frame.Height + 4f)
 			);
-			
+
 
 			return new DrawDataInfo
 			{
@@ -131,7 +131,7 @@ namespace MetroidMod.Common
 		{
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = drawPlayer.legPosition + drawInfo.legVect + new Vector2(
-				(int)(drawInfo.Position.X - Main.screenPosition.X - drawPlayer.legFrame.Width / 2f + drawPlayer.width / 2f),
+				(int)(drawInfo.Position.X - Main.screenPosition.X - (drawPlayer.legFrame.Width / 2f) + (drawPlayer.width / 2f)),
 				(int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.legFrame.Height + 4f)
 			);
 

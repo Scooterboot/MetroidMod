@@ -1,5 +1,4 @@
-﻿using MetroidMod.Common.Configs;
-using MetroidMod.Common.GlobalItems;
+﻿using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.ID;
@@ -17,7 +16,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>()|| (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam));
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>() || (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam));
 
 		public MissileChangePanel panel;
 		public override void OnInitialize()
@@ -169,7 +168,7 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<MissileLauncher>()) 
+			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<MissileLauncher>())
 			{
 				MissileLauncher missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as MissileLauncher;
 				if (missileTarget == null || missileTarget.MissileChange == null) { return; }
@@ -208,7 +207,7 @@ namespace MetroidMod.Common.UI
 					}
 				}
 			}
-			else if(Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
+			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
 				if (missileTarget == null || missileTarget.MissileChange == null) { return; }
@@ -297,8 +296,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
@@ -309,7 +308,7 @@ namespace MetroidMod.Common.UI
 																		   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 				}
 			}
-			else if(target.type == ModContent.ItemType<ArmCannon>())
+			else if (target.type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
@@ -351,8 +350,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 					Vector2.Zero, drawScale, SpriteEffects.None, 0f);

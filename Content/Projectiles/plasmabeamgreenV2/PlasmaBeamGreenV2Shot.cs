@@ -26,8 +26,8 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 			mProjectile.delay = 6;
 		}
 
-		int dustType = 61;
-		Color color = MetroidMod.plaGreenColor;
+		private int dustType = 61;
+		private Color color = MetroidMod.plaGreenColor;
 		public override void AI()
 		{
 
@@ -42,7 +42,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 				dustType = 15;
 				color = MetroidMod.plaGreenColor2;
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Main.projFrames[Projectile.type] > 1)
 			{
@@ -59,7 +59,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamgreenV2
 			{
 				Projectile.tileCollide = false;
 			}
-			if (shot.Contains("wide") || (shot.Contains("wave")))
+			if (shot.Contains("wide") || shot.Contains("wave"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}

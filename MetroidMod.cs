@@ -219,7 +219,7 @@ namespace MetroidMod
 						hatch.State.DesiredState = state.DesiredState;
 						hatch.State.LockStatus = state.LockStatus;
 						hatch.State.BlueConversion = state.BlueConversion;
-						
+
 						if (Main.netMode == NetmodeID.Server)
 						{
 							ModPacket packet = hatch.GetSyncPacket();
@@ -258,7 +258,7 @@ namespace MetroidMod
 						}
 						syncer.Send(ignoreClient: whoAmI);
 					}
-						break;
+					break;
 			}
 		}
 	}

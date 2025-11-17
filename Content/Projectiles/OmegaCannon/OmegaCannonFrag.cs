@@ -1,9 +1,7 @@
 using System;
-using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles.OmegaCannon
@@ -17,7 +15,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 			Projectile.friendly = true;
 			Projectile.ignoreWater = true;
 			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
-			
+
 			Projectile.width = 80;
 			Projectile.height = 80;
 			Projectile.scale = 1f;
@@ -30,7 +28,7 @@ namespace MetroidMod.Content.Projectiles.OmegaCannon
 		}
 		public override void ModifyDamageHitbox(ref Rectangle hitbox)
 		{
-			hitbox = new Rectangle((int)(Projectile.Center.X - 40 * Projectile.scale), (int)(Projectile.Center.Y - 40 * Projectile.scale), 
+			hitbox = new Rectangle((int)(Projectile.Center.X - (40 * Projectile.scale)), (int)(Projectile.Center.Y - (40 * Projectile.scale)),
 				(int)(80 * Projectile.scale), (int)(80 * Projectile.scale));
 
 		}

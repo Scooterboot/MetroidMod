@@ -10,7 +10,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 		{
 			// DisplayName.SetDefault("Spazer Shot");
 		}
-		Color color = MetroidMod.powColor;
+		private Color color = MetroidMod.powColor;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -23,7 +23,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 			mProjectile.delay = 4;
 		}
 
-		int dustType = 64;
+		private int dustType = 64;
 		public override void AI()
 		{
 			if (shot.Contains("ice") || Projectile.Name.Contains("Ice"))
@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 				dustType = 62;
 				color = MetroidMod.waveColor;
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));

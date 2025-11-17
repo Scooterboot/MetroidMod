@@ -59,12 +59,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 		}
 		private void SetStats()
 		{
-			NPC.width = (int)((float)NPC.width * NPC.scale);
-			NPC.height = (int)((float)NPC.height * NPC.scale);
-			NPC.defense = (int)((float)NPC.defense * NPC.scale);
-			NPC.damage = (int)((float)NPC.damage * NPC.scale);
-			NPC.lifeMax = (int)((float)NPC.lifeMax * NPC.scale);
-			NPC.value = (float)((int)(NPC.value * NPC.scale));
+			NPC.width = (int)(NPC.width * NPC.scale);
+			NPC.height = (int)(NPC.height * NPC.scale);
+			NPC.defense = (int)(NPC.defense * NPC.scale);
+			NPC.damage = (int)(NPC.damage * NPC.scale);
+			NPC.lifeMax = (int)(NPC.lifeMax * NPC.scale);
+			NPC.value = (int)(NPC.value * NPC.scale);
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 		}
@@ -97,7 +97,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Crawler
 			return false;
 		}
 
-		Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
+		private Vector2 RandomVel => new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f) * .4f;
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0 && Main.netMode != NetmodeID.Server)

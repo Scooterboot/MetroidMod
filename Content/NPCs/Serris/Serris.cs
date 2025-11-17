@@ -9,13 +9,13 @@ namespace MetroidMod.Content.NPCs.Serris
 {
 	public abstract class Serris : ModNPC
 	{
-		int bodyLength = 10;
+		private readonly int bodyLength = 10;
 
 		protected float defSpeed = 8f;
 		protected float defTurnSpeed = .07f;
 
 		// Main.tile[x, y] != null && (Main.tile[x, y].HasUnactuatedTile && (Main.tileSolid[Main.tile[x, y].TileType] || Main.tileSolidTop[Main.tile[x, y].TileType] && Main.tile[x, y].TileFrameY == 0) || Main.tile[x, y].LiquidAmount > 64);
-		private bool isTileGround(int x, int y) => Main.tile[x, y] != null && (Main.tile[x, y].HasUnactuatedTile && (Main.tileSolid[(int)Main.tile[x, y].TileType] || Main.tileSolidTop[(int)Main.tile[x, y].TileType] && Main.tile[x, y].TileFrameY == 0) || Main.tile[x, y].LiquidAmount > 64);
+		private bool isTileGround(int x, int y) => Main.tile[x, y] != null && ((Main.tile[x, y].HasUnactuatedTile && (Main.tileSolid[Main.tile[x, y].TileType] || (Main.tileSolidTop[Main.tile[x, y].TileType] && Main.tile[x, y].TileFrameY == 0))) || Main.tile[x, y].LiquidAmount > 64);
 
 		protected void Update_Worm(bool head = false)
 		{
@@ -77,14 +77,14 @@ namespace MetroidMod.Content.NPCs.Serris
 			// num180
 			int tileXMin = (int)MathHelper.Clamp((NPC.position.X / 16f) - 1, 0, Main.maxTilesX - 1);
 			// num181
-			int tileXMax = (int)MathHelper.Clamp(((NPC.position.X + (float)NPC.width) / 16f) + 2, 0, Main.maxTilesX - 1);
+			int tileXMax = (int)MathHelper.Clamp(((NPC.position.X + NPC.width) / 16f) + 2, 0, Main.maxTilesX - 1);
 			// num182
 			int tileYMin = (int)MathHelper.Clamp((NPC.position.Y / 16f) - 1, 0, Main.maxTilesY - 1);
 			// num183
-			int tileYMax = (int)MathHelper.Clamp(((NPC.position.Y + (float)NPC.height) / 16f) + 2, 0, Main.maxTilesY - 1);
+			int tileYMax = (int)MathHelper.Clamp(((NPC.position.Y + NPC.height) / 16f) + 2, 0, Main.maxTilesY - 1);
 
 			Vector2 worldBounds = new Vector2(Main.maxTilesX * 16, Main.maxTilesY * 16);
-			bool outOfBounds = (NPC.position.X + NPC.width < 0 || NPC.position.X > worldBounds.X + 16 || NPC.position.Y + NPC.height < 0 || NPC.position.Y > worldBounds.Y + 16);
+			bool outOfBounds = NPC.position.X + NPC.width < 0 || NPC.position.X > worldBounds.X + 16 || NPC.position.Y + NPC.height < 0 || NPC.position.Y > worldBounds.Y + 16;
 
 			// Grounded check to see if the NPC is 'flying' or not.
 			// flag18 = flies, which is set to false;
@@ -100,7 +100,7 @@ namespace MetroidMod.Content.NPCs.Serris
 						{
 							Vector2 worldPos = new Vector2(x * 16, y * 16);
 							// no float and f on the 16s
-							if (NPC.position.X + (float)NPC.width > worldPos.X && NPC.position.X < worldPos.X + 16f && NPC.position.Y + (float)NPC.height > worldPos.Y && NPC.position.Y < worldPos.Y + 16f)
+							if (NPC.position.X + NPC.width > worldPos.X && NPC.position.X < worldPos.X + 16f && NPC.position.Y + NPC.height > worldPos.Y && NPC.position.Y < worldPos.Y + 16f)
 							{
 								inGround = true;
 								// 1% chance to generate a dust effect on a tile.
@@ -123,12 +123,12 @@ namespace MetroidMod.Content.NPCs.Serris
 			// num189
 			float turnSpeed = defTurnSpeed;
 			// vector 18, no float
-			Vector2 npcCenter = new Vector2(NPC.position.X + (float)NPC.width * .5f, NPC.position.Y + (float)NPC.height * .5f);
+			Vector2 npcCenter = new Vector2(NPC.position.X + (NPC.width * .5f), NPC.position.Y + (NPC.height * .5f));
 			// nums 191 and 192 together, in other words, 191 is X component, and 192 is Y component
-			Vector2 targetDir = new Vector2(Main.player[NPC.target].position.X + Main.player[NPC.target].width * .5f, Main.player[NPC.target].position.Y + Main.player[NPC.target].height * .5f);
+			Vector2 targetDir = new Vector2(Main.player[NPC.target].position.X + (Main.player[NPC.target].width * .5f), Main.player[NPC.target].position.Y + (Main.player[NPC.target].height * .5f));
 
 			// Round values down correctly to tile coordinates in worldspace and substract the current npc's position to get a directional vector.
-			targetDir = ((targetDir / 16f) * 16) - ((npcCenter / 16f) * 16);
+			targetDir = (targetDir / 16f * 16) - (npcCenter / 16f * 16);
 
 			// num193
 			float length = targetDir.Length();
@@ -206,7 +206,7 @@ namespace MetroidMod.Content.NPCs.Serris
 					*/
 
 					// Actual target movement calculation.
-					if (NPC.velocity.X > 0f && targetDir.X > 0f || NPC.velocity.X < 0f && targetDir.X < 0f || NPC.velocity.Y > 0f && targetDir.Y > 0f || NPC.velocity.Y < 0f && targetDir.Y < 0f)
+					if ((NPC.velocity.X > 0f && targetDir.X > 0f) || (NPC.velocity.X < 0f && targetDir.X < 0f) || (NPC.velocity.Y > 0f && targetDir.Y > 0f) || (NPC.velocity.Y < 0f && targetDir.Y < 0f))
 					{
 						if (NPC.velocity.X < targetDir.X)
 						{
@@ -225,7 +225,7 @@ namespace MetroidMod.Content.NPCs.Serris
 							NPC.velocity.Y -= turnSpeed;
 						}
 
-						if (Math.Abs(targetDir.Y) < speed * .2f && (NPC.velocity.X > 0f && targetDir.X < 0 || NPC.velocity.X < 0f && targetDir.X > 0f))
+						if (Math.Abs(targetDir.Y) < speed * .2f && ((NPC.velocity.X > 0f && targetDir.X < 0) || (NPC.velocity.X < 0f && targetDir.X > 0f)))
 						{
 							if (NPC.velocity.Y > 0f)
 							{
@@ -237,7 +237,7 @@ namespace MetroidMod.Content.NPCs.Serris
 							}
 						}
 						// no (double)System, .2f instead of 0.2
-						if ((double)System.Math.Abs(targetDir.X) < (double)speed * 0.2 && (NPC.velocity.Y > 0f && targetDir.Y < 0f || NPC.velocity.Y < 0f && targetDir.Y > 0f))
+						if ((double)System.Math.Abs(targetDir.X) < (double)speed * 0.2 && ((NPC.velocity.Y > 0f && targetDir.Y < 0f) || (NPC.velocity.Y < 0f && targetDir.Y > 0f)))
 						{
 							if (NPC.velocity.X > 0f)
 							{
@@ -299,7 +299,7 @@ namespace MetroidMod.Content.NPCs.Serris
 						}
 					}
 				}
-				NPC.rotation = (float)System.Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + MathHelper.PiOver2;
+				NPC.rotation = (float)System.Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + MathHelper.PiOver2;
 
 				// Lastly, check if we need to netUpdate the NPC.
 				if (head)
@@ -321,7 +321,7 @@ namespace MetroidMod.Content.NPCs.Serris
 						NPC.localAI[0] = 0f;
 					}
 
-					if (!NPC.justHit && (NPC.velocity.X > 0f && NPC.oldVelocity.X < 0f || NPC.velocity.X < 0f && NPC.oldVelocity.X > 0f || NPC.velocity.Y > 0f && NPC.oldVelocity.Y < 0f || NPC.velocity.Y < 0f && NPC.oldVelocity.Y > 0f))
+					if (!NPC.justHit && ((NPC.velocity.X > 0f && NPC.oldVelocity.X < 0f) || (NPC.velocity.X < 0f && NPC.oldVelocity.X > 0f) || (NPC.velocity.Y > 0f && NPC.oldVelocity.Y < 0f) || (NPC.velocity.Y < 0f && NPC.oldVelocity.Y > 0f)))
 					{
 						NPC.netUpdate = true;
 						return;
@@ -330,7 +330,7 @@ namespace MetroidMod.Content.NPCs.Serris
 				//previous location
 			}
 			// no f, (float)
-			else if (NPC.ai[1] > 0f && NPC.ai[1] < (float)Main.npc.Length)
+			else if (NPC.ai[1] > 0f && NPC.ai[1] < Main.npc.Length)
 			{
 				if (NPC.ai[3] > 0f)
 				{
@@ -343,7 +343,7 @@ namespace MetroidMod.Content.NPCs.Serris
 				targetDir = new Vector2(targetNPC.position.X + (targetNPC.width / 2) - npcCenter.X, targetNPC.position.Y + (targetNPC.height / 2) - npcCenter.Y);
 
 				// no System, double
-				NPC.rotation = (float)System.Math.Atan2((double)targetDir.Y, (double)targetDir.X) + MathHelper.PiOver2;
+				NPC.rotation = (float)System.Math.Atan2(targetDir.Y, targetDir.X) + MathHelper.PiOver2;
 				// num193
 				length = (float)targetDir.Length();
 
@@ -351,7 +351,7 @@ namespace MetroidMod.Content.NPCs.Serris
 				int width = NPC.width;
 
 				// no (float)
-				length = (length - (float)width) / length;
+				length = (length - width) / length;
 				targetDir *= length;
 				NPC.velocity = Vector2.Zero;
 				NPC.position += targetDir;

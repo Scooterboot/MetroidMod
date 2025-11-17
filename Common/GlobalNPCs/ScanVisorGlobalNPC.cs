@@ -11,7 +11,7 @@ namespace MetroidMod.Common.GlobalNPCs
 	{
 		public override bool InstancePerEntity => true;
 
-		int timer = 0;
+		private int timer = 0;
 		internal static bool soundIsPlaying = false;
 		internal static bool soundShouldPlay = false;
 		internal static ActiveSound sound;
@@ -29,11 +29,11 @@ namespace MetroidMod.Common.GlobalNPCs
 				return;
 			}
 
-			float MX = Main.screenPosition.X + (Main.mouseX + (Main.mouseX - Main.screenWidth * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.X) - 1f)) * Main.UIScale;
-			float MY = Main.screenPosition.Y + (Main.mouseY + (Main.mouseY - Main.screenHeight * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f)) * Main.UIScale;
+			float MX = Main.screenPosition.X + ((Main.mouseX + ((Main.mouseX - (Main.screenWidth * 0.5f)) * ((1 / Main.GameViewMatrix.Zoom.X) - 1f))) * Main.UIScale);
+			float MY = Main.screenPosition.Y + ((Main.mouseY + ((Main.mouseY - (Main.screenHeight * 0.5f)) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f))) * Main.UIScale);
 			if (Main.LocalPlayer.gravDir == -1f)
 			{
-				MY = Main.screenPosition.Y + ((float)Main.screenHeight - (Main.mouseY + (Main.mouseY - Main.screenHeight * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f))) * Main.UIScale;
+				MY = Main.screenPosition.Y + ((Main.screenHeight - (Main.mouseY + ((Main.mouseY - (Main.screenHeight * 0.5f)) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f)))) * Main.UIScale);
 			}
 
 			boundingBox.X -= 25;

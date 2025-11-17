@@ -25,8 +25,8 @@ namespace MetroidMod.Content.Projectiles.novabeam
 			mProjectile.delay = 4;
 		}
 
-		int dustType = 75;
-		Color color = MetroidMod.novColor;
+		private int dustType = 75;
+		private Color color = MetroidMod.novColor;
 		public override void AI()
 		{
 
@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Projectiles.novabeam
 			{
 				Projectile.tileCollide = false;
 			}
-			if (shot.Contains("wide") || (shot.Contains("wave")))
+			if (shot.Contains("wide") || shot.Contains("wave"))
 			{
 				mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Wave"));
 			}
@@ -88,7 +88,7 @@ namespace MetroidMod.Content.Projectiles.novabeam
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 25);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

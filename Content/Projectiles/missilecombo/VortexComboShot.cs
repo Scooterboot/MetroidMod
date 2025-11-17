@@ -27,11 +27,11 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.alpha = 255;
 		}
 
-		bool initialized = false;
-		bool checkbreak = false;
-		int damage = 0;
-		Vector2 velocity = Vector2.Zero;
-		Projectile Lead;
+		private bool initialized = false;
+		private bool checkbreak = false;
+		private int damage = 0;
+		private Vector2 velocity = Vector2.Zero;
+		private Projectile Lead;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 			float speed = 10f;//14f;
 
-			if (Lead == null || !Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>() || !O.controlUseItem|| O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam)
+			if (Lead == null || !Lead.active || Lead.owner != P.owner || Lead.type != ModContent.ProjectileType<ChargeLead>() || !O.controlUseItem || O.HeldItem.GetGlobalItem<MGlobalItem>().isBeam)
 			{
 				P.Kill();
 				return;
@@ -87,7 +87,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 					{
 						NPC npc = Main.npc[i];
 
-						bool flag = (npc.Distance(point) < 500 && Collision.CanHit(P.position, P.width, P.height, npc.position, npc.width, npc.height));
+						bool flag = npc.Distance(point) < 500 && Collision.CanHit(P.position, P.width, P.height, npc.position, npc.width, npc.height);
 
 						int numTarget = 0;
 						if (flag)
@@ -191,12 +191,12 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			P.rotation -= 0.104719758f * 2f;
 			//}
 
-			P.position.X += (float)P.width / 2f;
-			P.position.Y += (float)P.height / 2f;
+			P.position.X += P.width / 2f;
+			P.position.Y += P.height / 2f;
 			P.width = (int)(8f * P.scale);
 			P.height = (int)(8f * P.scale);
-			P.position.X -= (float)P.width / 2f;
-			P.position.Y -= (float)P.height / 2f;
+			P.position.X -= P.width / 2f;
+			P.position.Y -= P.height / 2f;
 		}
 		public override void OnKill(int timeLeft)
 		{
@@ -210,7 +210,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			for (int i = 0; i < 30; i++)
 			{
 				int dust = Dust.NewDust(P.Center - new Vector2(18, 18), 36, 36, 229, 0, 0, 100, default(Color), 2f);
-				Main.dust[dust].velocity = new Vector2((Main.rand.Next(30) - 15), (Main.rand.Next(30) - 15)) * 0.125f;
+				Main.dust[dust].velocity = new Vector2(Main.rand.Next(30) - 15, Main.rand.Next(30) - 15) * 0.125f;
 				Main.dust[dust].noGravity = true;
 			}
 		}
@@ -253,15 +253,15 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Color color25 = Lighting.GetColor((int)P.Center.X / 16, (int)P.Center.Y / 16);
 			Color alpha4 = P.GetAlpha(color25);
 
-			Vector2 origin = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
+			Vector2 origin = new Vector2(tex.Width, tex.Height) / 2f;
 
 			Color color55 = alpha4 * 0.8f;
 			color55.A /= 2;
 			Color color56 = Color.Lerp(alpha4, Color.Black, 0.5f);
 			color56.A = alpha4.A;
-			float num273 = 0.95f + (P.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
+			float num273 = 0.95f + ((P.rotation * 0.75f).ToRotationVector2().Y * 0.1f);
 			color56 *= num273;
-			float scale12 = 0.6f + P.scale * 0.6f * num273;
+			float scale12 = 0.6f + (P.scale * 0.6f * num273);
 
 			sb.Draw(tex2, pos, null, color56, -P.rotation + 0.35f, origin, scale12, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);
 			sb.Draw(tex2, pos, null, alpha4, -P.rotation, origin, P.scale, spriteEffects ^ SpriteEffects.FlipHorizontally, 0f);

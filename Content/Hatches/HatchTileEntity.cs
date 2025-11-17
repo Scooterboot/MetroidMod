@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using MetroidMod.Content.Hatches.Behavior;
-using MetroidMod.Content.Hatches.Variants;
-using MetroidMod.Content.NPCs.Mobs.Bug;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -93,7 +87,7 @@ namespace MetroidMod.Content.Hatches
 		/// <returns></returns>
 		public static IEnumerable<HatchTileEntity> GetAll()
 		{
-			foreach(int id in ByID.Keys)
+			foreach (int id in ByID.Keys)
 			{
 				if (ByID[id] is HatchTileEntity hatch)
 				{

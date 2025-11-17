@@ -28,8 +28,8 @@ namespace MetroidMod.Common.Systems
 		public override void PostUpdateEverything()
 		{
 			bool stoppedUsingWrench = !Main.LocalPlayer.ItemAnimationActive;
-			
-			if(stoppedUsingWrench)
+
+			if (stoppedUsingWrench)
 			{
 				hitLocations.Clear();
 			}

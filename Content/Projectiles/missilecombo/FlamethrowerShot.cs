@@ -11,9 +11,9 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			// DisplayName.SetDefault("Flamethrower Shot");
 			Main.projFrames[Projectile.type] = 9;
 		}
-		int maxTimeLeft = 60;
-		static int width = 24;
-		static int height = 36;
+		private readonly int maxTimeLeft = 60;
+		private static readonly int width = 24;
+		private static readonly int height = 36;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -27,8 +27,8 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.extraUpdates = 1;
 		}
 
-		bool collideFlag = false;
-		bool initialize = false;
+		private bool collideFlag = false;
+		private bool initialize = false;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -47,7 +47,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			P.ai[0] += 1f;
 			if (P.ai[0] > 3f)
 			{
-				float num297 = 0.7f + 0.3f * (P.scale - 1f);
+				float num297 = 0.7f + (0.3f * (P.scale - 1f));
 				int num3;
 				for (int num299 = 0; num299 < 1; num299 = num3 + 1)
 				{
@@ -88,12 +88,12 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				P.scale = 0.5f;
 			}
 
-			P.position.X += (float)P.width / 2f;
-			P.position.Y += (float)P.height;
-			P.width = (int)((float)width * P.scale);
-			P.height = (int)((float)height * P.scale);
-			P.position.X -= (float)P.width / 2f;
-			P.position.Y -= (float)P.height;
+			P.position.X += P.width / 2f;
+			P.position.Y += P.height;
+			P.width = (int)(width * P.scale);
+			P.height = (int)(height * P.scale);
+			P.position.X -= P.width / 2f;
+			P.position.Y -= P.height;
 
 			if (P.numUpdates <= 0)
 			{
@@ -165,7 +165,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 100);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 100);
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -195,10 +195,10 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				}
 				int y4 = num108 * frame;
 
-				sb.Draw(tex, new Vector2((float)((int)(P.Center.X - Main.screenPosition.X)), (float)((int)(P.position.Y + P.height - Main.screenPosition.Y))),
+				sb.Draw(tex, new Vector2((int)(P.Center.X - Main.screenPosition.X), (int)(P.position.Y + P.height - Main.screenPosition.Y)),
 				new Rectangle?(new Rectangle(0, y4, tex.Width, num108)),
 				P.GetAlpha(Color.White), 0f,
-				new Vector2((float)tex.Width / 2f, (float)num108 - 2),
+				new Vector2(tex.Width / 2f, (float)num108 - 2),
 				scale, effects, 0f);
 			}
 			return false;

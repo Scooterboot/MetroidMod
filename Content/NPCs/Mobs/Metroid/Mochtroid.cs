@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MetroidMod.Common.Configs;
 using MetroidMod.Content.Buffs;
 using Microsoft.Xna.Framework;
@@ -134,12 +133,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		private void SetStats()
 		{
-			NPC.scale = 0.5f + Main.rand.NextFloat() * 0.5f;
+			NPC.scale = 0.5f + (Main.rand.NextFloat() * 0.5f);
 			NPC.Size *= NPC.scale;
 			NPC.defense = NPC.defDefense = (int)(NPC.defense * NPC.scale);
 			NPC.damage = NPC.defDamage = (int)(NPC.damage * NPC.scale);
 			NPC.life = NPC.lifeMax = (int)(NPC.life * NPC.scale);
-			NPC.value = ((int)(NPC.value * NPC.scale));
+			NPC.value = (int)(NPC.value * NPC.scale);
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 			NPC.DeathSound = Sounds.NPCs.Mochtroid.WithVolumeScale(NPC.scale * 0.75f).WithPitchOffset(1f - NPC.scale);
@@ -193,7 +192,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					if (AI_Counter > 130)
 					{
 						AI_Counter = 0;
-						NPC.targetRect = new Rectangle((int)NPC.Center.X + 150 * NPC.direction, (int)NPC.Center.Y - 40 * NPC.directionY, 1, 1);
+						NPC.targetRect = new Rectangle((int)NPC.Center.X + (150 * NPC.direction), (int)NPC.Center.Y - (40 * NPC.directionY), 1, 1);
 					}
 					else
 					{
@@ -207,7 +206,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 						{
 							NPC.directionY *= -1;
 							NPC.velocity.Y = NPC.directionY;
-							NPC.targetRect = new Rectangle((int)NPC.Center.X + 150 * NPC.direction, (int)NPC.Center.Y + 40 * NPC.directionY, 1, 1);
+							NPC.targetRect = new Rectangle((int)NPC.Center.X + (150 * NPC.direction), (int)NPC.Center.Y + (40 * NPC.directionY), 1, 1);
 						}
 						NPC.direction = NPC.velocity.X > 0 ? 1 : -1;
 						NPC.directionY = NPC.velocity.Y > 0 ? 1 : -1;
@@ -242,8 +241,8 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					}
 					if (NPC.soundDelay <= 0)
 					{
-						NPC.soundDelay = 75; 
-						SoundEngine.PlaySound(Sounds.NPCs.Mochtroid.WithPitchOffset(Main.rand.NextFloat() * 0.25f + (1f - NPC.scale)).WithVolumeScale(NPC.scale * 0.5f), NPC.Center);
+						NPC.soundDelay = 75;
+						SoundEngine.PlaySound(Sounds.NPCs.Mochtroid.WithPitchOffset((Main.rand.NextFloat() * 0.25f) + (1f - NPC.scale)).WithVolumeScale(NPC.scale * 0.5f), NPC.Center);
 
 					}
 				}
@@ -335,7 +334,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			{
 				drawColor = Lighting.GetColor(NPC.Center.ToTileCoordinates());
 			}
-			DrawData data = new DrawData(tex, new Vector2(NPC.position.X - Main.screenPosition.X + NPC.width / 2 - tex.Width * 0.5f + origin.X, NPC.position.Y - Main.screenPosition.Y + NPC.height + (origin.Y - frameHeight + 8) * NPC.scale), new Rectangle?(rect), drawColor, NPC.rotation, origin, NPC.scale, effects, 0f);
+			DrawData data = new DrawData(tex, new Vector2(NPC.position.X - Main.screenPosition.X + (NPC.width / 2) - (tex.Width * 0.5f) + origin.X, NPC.position.Y - Main.screenPosition.Y + NPC.height + ((origin.Y - frameHeight + 8) * NPC.scale)), new Rectangle?(rect), drawColor, NPC.rotation, origin, NPC.scale, effects, 0f);
 			if (STATE == (int)StateID.Frozen)
 			{
 				spriteBatch.End();
@@ -350,7 +349,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 
 				shaderData.Apply(data);
 			}
-			data.Draw(spriteBatch); 
+			data.Draw(spriteBatch);
 			if (STATE == (int)StateID.Frozen)
 			{
 				spriteBatch.End();

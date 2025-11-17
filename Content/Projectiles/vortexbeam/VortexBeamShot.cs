@@ -22,9 +22,9 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 			mProjectile.delay = 4;
 		}
 
-		int dustType = 229;
-		Color color = MetroidMod.lumColor;
-		float scale = 1f;
+		private int dustType = 229;
+		private Color color = MetroidMod.lumColor;
+		private float scale = 1f;
 		public override void AI()
 		{
 
@@ -40,7 +40,7 @@ namespace MetroidMod.Content.Projectiles.vortexbeam
 				dustType = 255;
 				color = MetroidMod.waveColor;
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 			mProjectile.WaveBehavior(Projectile, !Projectile.Name.Contains("Nebula"));

@@ -4,7 +4,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using MetroidMod.Content.Tiles2.Butter.Item;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {

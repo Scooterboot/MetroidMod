@@ -49,7 +49,7 @@ namespace MetroidMod.Content.Tiles
 	public class ChozoStatueNatural2 : ChozoStatueNatural
 	{
 
-	}	
+	}
 	public class ChozoStatueNatural3 : ChozoStatueNatural
 	{
 

@@ -27,10 +27,10 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			mProjectile.delay = 1;
 		}
 
-		bool initialized = false;
-		Vector2 start = Vector2.Zero;
-		Vector2 startPos = Vector2.Zero;
-		Projectile Lead;
+		private bool initialized = false;
+		private Vector2 start = Vector2.Zero;
+		private Vector2 startPos = Vector2.Zero;
+		private Projectile Lead;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -91,7 +91,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 100);
 		}*/
 
-		bool drawFlag = false;
+		private readonly bool drawFlag = false;
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteBatch sb = Main.spriteBatch;
@@ -129,15 +129,15 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				int amt = 10;
 				for (int i = amt - 1; i > -1; i--)
 				{
-					if (Vector2.Distance(oPos, P.oldPos[i] + P.Size / 2f) >= dist)
+					if (Vector2.Distance(oPos, P.oldPos[i] + (P.Size / 2f)) >= dist)
 					{
 						Color color23 = color2;
 						color23 = P.GetAlpha(color23);
-						color23 *= (float)(amt - i) / ((float)amt);
+						color23 *= (amt - i) / ((float)amt);
 						//color23.A = (byte)((float)color23.A * ((float)(amt - i) / (float)amt));
 						float scale = MathHelper.Lerp(P.scale, P.scale * scaleDrop, (float)i / amt);
 
-						float vel2 = Math.Min(Vector2.Distance(P.oldPos[i] + P.Size / 2f, startPos), P.velocity.Length());
+						float vel2 = Math.Min(Vector2.Distance(P.oldPos[i] + (P.Size / 2f), startPos), P.velocity.Length());
 						if (vel2 > 0)
 						{
 							for (float j = vel2; j > 0; j--)
@@ -145,14 +145,14 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 								//Color color4 = color23;
 								//color4 *= (float)(vel2 - j) / ((float)vel2);
 								//color4.A = (byte)((float)color4.A * ((float)(vel2 - j) / (float)vel2));
-								Vector2 oldPos = P.oldPos[i] + P.Size / 2f - Vector2.Normalize(P.velocity) * j;
+								Vector2 oldPos = P.oldPos[i] + (P.Size / 2f) - (Vector2.Normalize(P.velocity) * j);
 								sb.Draw(tex, oldPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-								color23, P.oldRot[i], new Vector2((float)tex.Width / 2f, (float)P.height / 2f), scale, effects, 0f);
+								color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
 							}
 						}
 
-						sb.Draw(tex, P.oldPos[i] + P.Size / 2f - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-						color23, P.oldRot[i], new Vector2((float)tex.Width / 2f, (float)P.height / 2f), scale, effects, 0f);
+						sb.Draw(tex, P.oldPos[i] + (P.Size / 2f) - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
+						color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
 					}
 				}
 				if (vel > 0)
@@ -162,13 +162,13 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 						//Color color3 = P.GetAlpha(color2);
 						//color3 *= (float)(vel - j) / ((float)vel);
 						//color3.A = (byte)((float)color3.A * ((float)(vel - j) / (float)vel));
-						Vector2 pos = P.Center - Vector2.Normalize(P.velocity) * j;
+						Vector2 pos = P.Center - (Vector2.Normalize(P.velocity) * j);
 						sb.Draw(tex, pos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-						P.GetAlpha(color2), P.rotation, new Vector2((float)tex.Width / 2f, (float)P.height / 2f), P.scale, effects, 0f);
+						P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
 					}
 				}
 				sb.Draw(tex, P.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-				P.GetAlpha(color2), P.rotation, new Vector2((float)tex.Width / 2f, (float)P.height / 2f), P.scale, effects, 0f);
+				P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
 			}
 
 			return false;

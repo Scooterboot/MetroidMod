@@ -15,7 +15,7 @@ namespace MetroidMod.Common.UI
 	{
 		public static bool Visible => Main.playerInventory && Main.LocalPlayer.GetModPlayer<MPlayer>().senseMove && Main.EquipPage == 0;
 
-		SenseMovePanel senseMovePanel;
+		private SenseMovePanel senseMovePanel;
 
 		public override void OnInitialize()
 		{
@@ -28,7 +28,7 @@ namespace MetroidMod.Common.UI
 
 	public class SenseMovePanel : DragableUIPanel
 	{
-		Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
+		private Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
 		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
@@ -74,7 +74,7 @@ namespace MetroidMod.Common.UI
 			base.Update(gameTime);
 		}
 
-		bool clicked = false;
+		private bool clicked = false;
 		private void SMButtonClick(UIMouseEvent evt, UIElement e)
 		{
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();

@@ -38,8 +38,8 @@ namespace MetroidMod.Content.Tiles
 
 		public override void ModifyLight(int x, int y, ref float r, ref float g, ref float b)
 		{
-			r = (255f / 255f);
-			g = (105f / 255f);
+			r = 255f / 255f;
+			g = 105f / 255f;
 			b = 0f;
 		}
 

@@ -76,7 +76,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			{
 				if (NPC.velocity.X < speed / 3)
 					NPC.frame.Y = 0;
-				else if (NPC.velocity.X < (speed / 3) * 2)
+				else if (NPC.velocity.X < speed / 3 * 2)
 					NPC.frame.Y = frameHeight;
 				else
 				{
@@ -88,7 +88,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Utility
 			{
 				if (NPC.velocity.X > -speed / 3)
 					NPC.frame.Y = 0;
-				else if (NPC.velocity.X > (-speed / 3) * 2)
+				else if (NPC.velocity.X > -speed / 3 * 2)
 					NPC.frame.Y = frameHeight;
 				else
 				{

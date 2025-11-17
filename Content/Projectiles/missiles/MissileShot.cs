@@ -25,7 +25,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 
 			int dustType = 6;
 			if (Projectile.Name.Contains("Ice"))
@@ -46,8 +46,8 @@ namespace MetroidMod.Content.Projectiles.missiles
 					int num239 = mProjectile.seekTarget;
 					if (Main.npc[num239].active)
 					{
-						num236 = Main.npc[num239].position.X + (float)(Main.npc[num239].width / 2);
-						num237 = Main.npc[num239].position.Y + (float)(Main.npc[num239].height / 2);
+						num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
+						num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
 						flag5 = true;
 					}
 					else
@@ -57,19 +57,19 @@ namespace MetroidMod.Content.Projectiles.missiles
 				}
 				if (!flag5)
 				{
-					num236 = Projectile.position.X + (float)(Projectile.width / 2) + Projectile.velocity.X * 100f;
-					num237 = Projectile.position.Y + (float)(Projectile.height / 2) + Projectile.velocity.Y * 100f;
+					num236 = Projectile.position.X + (Projectile.width / 2) + (Projectile.velocity.X * 100f);
+					num237 = Projectile.position.Y + (Projectile.height / 2) + (Projectile.velocity.Y * 100f);
 				}
 				float num243 = 8f;
-				Vector2 vector22 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
+				Vector2 vector22 = new Vector2(Projectile.position.X + (Projectile.width * 0.5f), Projectile.position.Y + (Projectile.height * 0.5f));
 				float num244 = num236 - vector22.X;
 				float num245 = num237 - vector22.Y;
-				float num246 = (float)Math.Sqrt((double)(num244 * num244 + num245 * num245));
+				float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
 				num246 = num243 / num246;
 				num244 *= num246;
 				num245 *= num246;
-				Projectile.velocity.X = (Projectile.velocity.X * 11f + num244) / 12f;
-				Projectile.velocity.Y = (Projectile.velocity.Y * 11f + num245) / 12f;
+				Projectile.velocity.X = ((Projectile.velocity.X * 11f) + num244) / 12f;
+				Projectile.velocity.Y = ((Projectile.velocity.Y * 11f) + num245) / 12f;
 			}
 			if (mProjectile.homing)
 			{

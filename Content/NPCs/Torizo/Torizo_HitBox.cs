@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -106,7 +105,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 		}
 		public override void AI()
 		{
-			bool flag = (Base.alpha < 255);
+			bool flag = Base.alpha < 255;
 			if (!Base.active)
 			{
 				NPC.life = 0;

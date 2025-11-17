@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Items.Boss
 		}
 		public override bool? UseItem(Player player)
 		{
-			if(player.whoAmI == Main.myPlayer)
+			if (player.whoAmI == Main.myPlayer)
 			{
 				SoundEngine.PlaySound(SoundID.Roar, player.position);
 				if (Main.netMode != NetmodeID.MultiplayerClient)

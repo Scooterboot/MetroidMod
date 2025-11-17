@@ -48,9 +48,9 @@ namespace MetroidMod.Content.Projectiles.MagMaul
 		{
 			if (Luminite || DiffBeam)
 			{
-				target.AddBuff(24, Luminite? 800: 600);
+				target.AddBuff(24, Luminite ? 800 : 600);
 			}
-			base.OnHitNPC(target,hit,damageDone);
+			base.OnHitNPC(target, hit, damageDone);
 		}
 	}
 }

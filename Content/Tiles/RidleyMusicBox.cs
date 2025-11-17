@@ -7,7 +7,7 @@ using Terraria.ObjectData;
 
 namespace MetroidMod.Content.Tiles
 {
-	class RidleyMusicBox : ModTile
+	internal class RidleyMusicBox : ModTile
 	{
 		public override void SetStaticDefaults()
 		{

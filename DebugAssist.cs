@@ -24,8 +24,8 @@ namespace MetroidMod
 			};
 
 			string text = $"[{label}] {message}";
-			
-			if(Main.netMode == NetmodeID.Server)
+
+			if (Main.netMode == NetmodeID.Server)
 			{
 				ChatHelper.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral(text), Color.White);
 			}

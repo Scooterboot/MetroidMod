@@ -1,5 +1,4 @@
 ﻿using MetroidMod.Common.Systems;
-using MetroidMod.Content.Items.Accessories;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -30,7 +29,7 @@ namespace MetroidMod.Content.Walls
 			}
 			base.KillWall(i, j, ref fail);
 		}
-		
+
 		public override bool Drop(int i, int j, ref int type)
 		{
 			type = ModContent.ItemType<Items.Walls.ChozoBrickWall>();

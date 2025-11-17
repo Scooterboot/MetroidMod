@@ -23,8 +23,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 			mProjectile.delay = 4;
 		}
 
-		int dustType = 62;
-		Color color = MetroidMod.waveColor;
+		private int dustType = 62;
+		private Color color = MetroidMod.waveColor;
 		public override void AI()
 		{
 			if (shot.Contains("ice"))

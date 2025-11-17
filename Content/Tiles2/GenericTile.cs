@@ -1,8 +1,8 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles2
 {

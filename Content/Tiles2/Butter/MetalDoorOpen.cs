@@ -1,3 +1,4 @@
+using MetroidMod.Content.Tiles2.Butter.Item;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -7,13 +8,12 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using MetroidMod.Content.Tiles2.Butter.Item;
 
 namespace MetroidMod.Content.Tiles2.Butter
 {
 	public class MetalDoorOpen : ModTile
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
 			// Properties
 			Main.tileFrameImportant[Type] = true;
@@ -81,15 +81,18 @@ namespace MetroidMod.Content.Tiles2.Butter
 			TileObjectData.addTile(Type);
 		}
 
-		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) {
+		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
+		{
 			return true;
 		}
 
-		public override void NumDust(int i, int j, bool fail, ref int num) {
+		public override void NumDust(int i, int j, bool fail, ref int num)
+		{
 			num = 1;
 		}
 
-		public override void MouseOver(int i, int j) {
+		public override void MouseOver(int i, int j)
+		{
 			Player player = Main.LocalPlayer;
 			player.noThrow = 2;
 			player.cursorItemIconEnabled = true;

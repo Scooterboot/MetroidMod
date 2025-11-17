@@ -20,12 +20,12 @@ namespace MetroidMod.Content.Projectiles.Paralyzer
 			Projectile.scale = 2f;
 		}
 
-		int dustType = 64;
-		Color color = MetroidMod.powColor;
+		private readonly int dustType = 64;
+		private Color color = MetroidMod.powColor;
 		public override void AI()
 		{
 			base.AI();
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 			if (Projectile.numUpdates == 0)

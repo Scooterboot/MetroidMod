@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using FullSerializer;
 using MetroidMod.Common.Configs;
 using MetroidMod.Content.Buffs;
 using Microsoft.Xna.Framework;
@@ -276,12 +274,12 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				{
 					NPC.directionY *= -1;
 					NPC.velocity.Y = NPC.directionY;
-					NPC.targetRect = new Rectangle((int)NPC.Center.X + 250 * NPC.direction, (int)NPC.Center.Y + 120 * NPC.directionY, 1, 1);
+					NPC.targetRect = new Rectangle((int)NPC.Center.X + (250 * NPC.direction), (int)NPC.Center.Y + (120 * NPC.directionY), 1, 1);
 				}
 				if (AI_Counter > 120)
 				{
 					AI_Counter = 0;
-					NPC.targetRect = new Rectangle((int)NPC.Center.X + 250 * NPC.direction, (int)NPC.Center.Y - 120 * NPC.directionY, 1, 1);
+					NPC.targetRect = new Rectangle((int)NPC.Center.X + (250 * NPC.direction), (int)NPC.Center.Y - (120 * NPC.directionY), 1, 1);
 				}
 				else
 				{
@@ -295,11 +293,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				float speed = 4;
 				Vector2 move = NPC.DirectionTo(targetPos) * speed;
 				float home = 48f;
-				NPC.velocity = ((home - 1f) * NPC.velocity + move) / home;
+				NPC.velocity = (((home - 1f) * NPC.velocity) + move) / home;
 
-				NPCUtils.TargetSearchResults results = NPCUtils.SearchForTarget(NPC, NPCUtils.TargetSearchFlag.All, 
+				NPCUtils.TargetSearchResults results = NPCUtils.SearchForTarget(NPC, NPCUtils.TargetSearchFlag.All,
 					(Player p) => p.Distance(NPC.Center) < 600 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, p.position, p.width, p.height) && p.active && !p.dead && !p.immune
-					&& ! p.buffImmune[ModContent.BuffType<MetroidSucc>()] && !p.HasBuff<MetroidSucc>() && !p.HasBuff(BuffID.Frozen), 
+					&& !p.buffImmune[ModContent.BuffType<MetroidSucc>()] && !p.HasBuff<MetroidSucc>() && !p.HasBuff(BuffID.Frozen),
 					(NPC n) => !n.TypeName.Contains("Metroid") && !n.dontTakeDamage && !n.immortal && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, n.position, n.width, n.height) &&
 					!n.buffImmune[ModContent.BuffType<MetroidSucc>()] && !n.HasBuff<MetroidSucc>() && !n.HasBuff<IceFreeze>() && !n.HasBuff<InstantFreeze>() && !n.coldDamage);
 				if (results.FoundTarget)
@@ -386,7 +384,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					}
 					Vector2 move = NPC.DirectionTo(targetPos) * speed;
 					float home = 32f;
-					NPC.velocity = ((home - 1f) * NPC.velocity + move) / home;
+					NPC.velocity = (((home - 1f) * NPC.velocity) + move) / home;
 				}
 			}
 			if (STATE == (int)StateID.Sucking)
@@ -483,7 +481,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 						}
 						else if (speed > 0)
 						{
-							NPC.velocity = ((home - 1f) * NPC.velocity + move) / home;
+							NPC.velocity = (((home - 1f) * NPC.velocity) + move) / home;
 						}
 						if (NPC.life < NPC.lifeMax)
 						{
@@ -521,7 +519,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				NPC.noGravity = true;
 			}
 			Point tilePos = NPC.position.ToTileCoordinates();
-			if (ColdZoneCheck(tilePos.X - 8, tilePos.X + NPC.width / 16 + 8, tilePos.Y - 8, tilePos.Y + NPC.height / 16 + 8) > 50)
+			if (ColdZoneCheck(tilePos.X - 8, tilePos.X + (NPC.width / 16) + 8, tilePos.Y - 8, tilePos.Y + (NPC.height / 16) + 8) > 50)
 			{
 				NPC.AddBuff(BuffID.Frostburn, 300);
 			}
@@ -693,11 +691,11 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				drawColor = Lighting.GetColor(NPC.Center.ToTileCoordinates());
 			}
 			Vector2 teethOffset = new Vector2(0, 16).RotatedBy(NPC.rotation);
-			DrawData teethData = new DrawData(texTeeth, new Vector2(NPC.position.X - Main.screenPosition.X + NPC.width / 2 - texTeeth.Width * 0.5f + originTeeth.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightTeeth + originTeeth.Y) + teethOffset, new Rectangle?(rectTeeth), drawColor, NPC.rotation, originTeeth, shellScale * NPC.scale, effects, 0f);
-			DrawData innerData = new DrawData(texInner, new Vector2(NPC.position.X - Main.screenPosition.X + NPC.width / 2 - texInner.Width / 3 * 0.5f + originInner.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightInner + originInner.Y), new Rectangle?(rectInner), drawColor, NPC.rotation, originInner, NPC.scale, effects, 0f);
-			DrawData glowData = new DrawData(texGlow, new Vector2(NPC.position.X - Main.screenPosition.X + NPC.width / 2 - texInner.Width / 3 * 0.5f + originInner.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightInner + originInner.Y), new Rectangle?(rectInner), Color.White * 0.25f, NPC.rotation, originInner, NPC.scale, effects, 0f);
-			DrawData elecData = new DrawData(texElec, new Vector2(NPC.position.X - Main.screenPosition.X + NPC.width / 2 - texElec.Width * 0.5f + originElec.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightElec + originElec.Y), new Rectangle?(rectElec), Color.White, NPC.rotation, originElec, NPC.scale, effects, 0f);
-			DrawData outerData = new DrawData(texOuter, new Vector2(NPC.position.X - Main.screenPosition.X + NPC.width / 2 - texOuter.Width * 0.5f + originOuter.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightOuter + originOuter.Y), new Rectangle?(rectOuter), drawColor * 0.6f, NPC.rotation, originOuter, shellScale * NPC.scale, effects, 0f);
+			DrawData teethData = new DrawData(texTeeth, new Vector2(NPC.position.X - Main.screenPosition.X + (NPC.width / 2) - (texTeeth.Width * 0.5f) + originTeeth.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightTeeth + originTeeth.Y) + teethOffset, new Rectangle?(rectTeeth), drawColor, NPC.rotation, originTeeth, shellScale * NPC.scale, effects, 0f);
+			DrawData innerData = new DrawData(texInner, new Vector2(NPC.position.X - Main.screenPosition.X + (NPC.width / 2) - (texInner.Width / 3 * 0.5f) + originInner.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightInner + originInner.Y), new Rectangle?(rectInner), drawColor, NPC.rotation, originInner, NPC.scale, effects, 0f);
+			DrawData glowData = new DrawData(texGlow, new Vector2(NPC.position.X - Main.screenPosition.X + (NPC.width / 2) - (texInner.Width / 3 * 0.5f) + originInner.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightInner + originInner.Y), new Rectangle?(rectInner), Color.White * 0.25f, NPC.rotation, originInner, NPC.scale, effects, 0f);
+			DrawData elecData = new DrawData(texElec, new Vector2(NPC.position.X - Main.screenPosition.X + (NPC.width / 2) - (texElec.Width * 0.5f) + originElec.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightElec + originElec.Y), new Rectangle?(rectElec), Color.White, NPC.rotation, originElec, NPC.scale, effects, 0f);
+			DrawData outerData = new DrawData(texOuter, new Vector2(NPC.position.X - Main.screenPosition.X + (NPC.width / 2) - (texOuter.Width * 0.5f) + originOuter.X, NPC.position.Y - Main.screenPosition.Y + NPC.height - frameHeightOuter + originOuter.Y), new Rectangle?(rectOuter), drawColor * 0.6f, NPC.rotation, originOuter, shellScale * NPC.scale, effects, 0f);
 
 
 			if (STATE == (int)StateID.Frozen)

@@ -12,7 +12,6 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -251,7 +250,7 @@ namespace MetroidMod.Common.UI
 					}
 				}
 			}
-			else if(Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
+			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
 				if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
@@ -336,8 +335,8 @@ namespace MetroidMod.Common.UI
 		{
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
-			if (target == null || target.type != ModContent.ItemType<PowerBeam>() && target.type != ModContent.ItemType<ArmCannon>()) { return; }
-			if(target.type == ModContent.ItemType<PowerBeam>())
+			if (target == null || (target.type != ModContent.ItemType<PowerBeam>() && target.type != ModContent.ItemType<ArmCannon>())) { return; }
+			if (target.type == ModContent.ItemType<PowerBeam>())
 			{
 				PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
 
@@ -380,8 +379,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += innerDimensions.Width * 1f / 2f - frame.Width * drawScale / 2f;
-				drawPosition.Y += innerDimensions.Height * 1f / 2f - frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
@@ -392,7 +391,7 @@ namespace MetroidMod.Common.UI
 																		   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 				}
 			}
-			else if(target.type == ModContent.ItemType<ArmCannon>())
+			else if (target.type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon powerBeamTarget = (ArmCannon)target.ModItem;
 
@@ -435,8 +434,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += innerDimensions.Width * 1f / 2f - frame.Width * drawScale / 2f;
-				drawPosition.Y += innerDimensions.Height * 1f / 2f - frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 					Vector2.Zero, drawScale, SpriteEffects.None, 0f);

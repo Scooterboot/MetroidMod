@@ -1,13 +1,7 @@
-using System;
-using MetroidMod.Common.Players;
-using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
 {
@@ -26,7 +20,7 @@ namespace MetroidMod.Content.Projectiles
 		public override void AI()
 		{
 			if (Projectile.direction == -1)
-				Projectile.spriteDirection= -1;
+				Projectile.spriteDirection = -1;
 
 			float ballrotoffset = 0f;
 			if (Projectile.velocity.Y != Vector2.Zero.Y)

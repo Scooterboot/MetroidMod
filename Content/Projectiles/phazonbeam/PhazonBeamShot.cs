@@ -14,7 +14,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		{
 			// DisplayName.SetDefault("Phazon Beam Shot");
 		}
-		int maxTime = 60;
+		private readonly int maxTime = 60;
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -29,9 +29,9 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 			//Projectile.localNPCHitCooldown = 4;
 		}
 
-		bool initialize = false;
-		Vector2 vel = Vector2.Zero;
-		float speed = 15f;
+		private bool initialize = false;
+		private Vector2 vel = Vector2.Zero;
+		private readonly float speed = 15f;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 
 			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
 
-			bool isWave = (shot.Contains("wave") || shot.Contains("nebula")),
+			bool isWave = shot.Contains("wave") || shot.Contains("nebula"),
 			isSpazer = shot.Contains("spazer") || shot.Contains("wide") || shot.Contains("vortex"),
 			isPlasma = shot.Contains("plasmagreen") || shot.Contains("nova") || shot.Contains("solar"),
 			isNebula = shot.Contains("nebula");
@@ -60,8 +60,8 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 
 				if (isSpazer && !isWave)
 				{
-					P.velocity.X += (float)Main.rand.Next(-50, 51) * 0.05f;
-					P.velocity.Y += (float)Main.rand.Next(-50, 51) * 0.05f;
+					P.velocity.X += Main.rand.Next(-50, 51) * 0.05f;
+					P.velocity.Y += Main.rand.Next(-50, 51) * 0.05f;
 				}
 
 				initialize = true;
@@ -84,8 +84,8 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 					mult = 0.025f;
 				}
 			}
-			P.velocity.X += (float)Main.rand.Next(-50, 51) * mult;
-			P.velocity.Y += (float)Main.rand.Next(-50, 51) * mult;
+			P.velocity.X += Main.rand.Next(-50, 51) * mult;
+			P.velocity.Y += Main.rand.Next(-50, 51) * mult;
 
 			if (isNebula)
 			{
@@ -142,7 +142,7 @@ namespace MetroidMod.Content.Projectiles.phazonbeam
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 25);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

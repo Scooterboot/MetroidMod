@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Hatches
 		/// The main color of the hatch, used primarily as the tile color on the minimap.
 		/// </summary>
 		public abstract Color PrimaryColor { get; }
-		
+
 		/// <summary>
 		/// Whether the hatch can be initially opened via right-click.
 		/// </summary>
@@ -44,8 +44,8 @@ namespace MetroidMod.Content.Hatches
 			hatchTiles[1] = new(this, true, false);
 			hatchTiles[2] = new(this, false, true);
 			hatchTiles[3] = new(this, true, true);
-			
-			foreach(HatchTile hatchTile in hatchTiles)
+
+			foreach (HatchTile hatchTile in hatchTiles)
 			{
 				Mod.AddContent(hatchTile);
 			}
@@ -54,7 +54,7 @@ namespace MetroidMod.Content.Hatches
 
 		public int GetTileType(bool open = false, bool vertical = false)
 		{
-			return hatchTiles[open.ToInt() + vertical.ToInt() * 2].Type;
+			return hatchTiles[open.ToInt() + (vertical.ToInt() * 2)].Type;
 		}
 	}
 }

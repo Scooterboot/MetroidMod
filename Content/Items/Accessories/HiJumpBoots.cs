@@ -9,7 +9,7 @@ namespace MetroidMod.Content.Items.Accessories
 	[AutoloadEquip(EquipType.Shoes)]
 	public class HiJumpBoots : ModItem
 	{
-		AutoloadEquip AutoloadEquip;
+		private readonly AutoloadEquip AutoloadEquip;
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Hi-Jump Boots");

@@ -23,8 +23,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 			mProjectile.delay = 3;
 		}
 
-		int dustType = 62;
-		Color color = MetroidMod.waveColor;
+		private int dustType = 62;
+		private Color color = MetroidMod.waveColor;
 		public override void AI()
 		{
 			if (shot.Contains("ice"))
@@ -58,8 +58,8 @@ namespace MetroidMod.Content.Projectiles.wavebeam
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Projectile.penetrate = (int)reader.ReadInt32();
-			Projectile.maxPenetrate = (int)reader.ReadInt32();
+			Projectile.penetrate = reader.ReadInt32();
+			Projectile.maxPenetrate = reader.ReadInt32();
 		}
 		public override void OnKill(int timeLeft)
 		{

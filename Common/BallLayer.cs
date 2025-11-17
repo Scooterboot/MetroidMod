@@ -75,7 +75,7 @@ namespace MetroidMod.Common
 					mp.morphColor = Color.White;
 					tex = tex3;
 				}
-				Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.Position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.Position.Y + (double)drawPlayer.height * 0.5) / 16, mp.morphColor), 0f);
+				Color mColor = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)(drawInfo.Position.X + (drawPlayer.width * 0.5)) / 16, (int)(drawInfo.Position.Y + (drawPlayer.height * 0.5)) / 16, mp.morphColor), 0f);
 				float scale = 0.57f;
 				int offset = 4;
 				if (mp.ballstate && !drawPlayer.dead)
@@ -95,11 +95,11 @@ namespace MetroidMod.Common
 						if (mp.boostEffect > 0)
 						{
 							Color gold = new Color(255, 255, 0, 255);
-							color23 = Color.Lerp(color23, gold, (float)mp.boostEffect / 60f);
+							color23 = Color.Lerp(color23, gold, mp.boostEffect / 60f);
 						}
-						color23 *= (mp.oldPos.Length - (i)) / 15f;
+						color23 *= (mp.oldPos.Length - i) / 15f;
 
-						Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2((int)(drawPlayer.width / 2), (int)(drawPlayer.height / 2));
+						Vector2 drawPos = mp.oldPos[i] - Main.screenPosition + new Vector2(drawPlayer.width / 2, drawPlayer.height / 2);
 
 						if (drawPos != thispos)
 						{

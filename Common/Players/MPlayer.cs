@@ -1,11 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
-using MetroidMod.Content.Items;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Biomes;
+using MetroidMod.Content.Buffs;
+using MetroidMod.Content.Items.Armors;
 using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.Tiles.ItemTile;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -14,13 +18,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using MetroidMod.Content.Items.Armors;
-using static MetroidMod.Sounds;
-using Terraria.GameContent.ItemDropRules;
-using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Tiles.ItemTile;
-using System.IO;
-using MetroidMod.Content.Buffs;
 
 namespace MetroidMod.Common.Players
 {
@@ -236,16 +233,16 @@ namespace MetroidMod.Common.Players
 			{
 				Time = 0;
 			}
-			
+
 			oldPosition = P.position;
 
 			if (visorGlow && !ballstate)
 			{
-				Lighting.AddLight((int)((float)Player.Center.X / 16f), (int)((float)(Player.position.Y + 8f) / 16f), ((float)visorGlowColor.R / 255) * 0.375f, ((float)visorGlowColor.G / 255) * 0.375f, ((float)visorGlowColor.B / 255) * 0.375f);
+				Lighting.AddLight((int)(Player.Center.X / 16f), (int)((float)(Player.position.Y + 8f) / 16f), (float)visorGlowColor.R / 255 * 0.375f, (float)visorGlowColor.G / 255 * 0.375f, (float)visorGlowColor.B / 255 * 0.375f);
 			}
 			if (jet)
 			{
-				Lighting.AddLight((int)((float)Player.Center.X / 16f), (int)((float)Player.Center.Y / 16f), 0.6f, 0.38f, 0.24f);
+				Lighting.AddLight((int)(Player.Center.X / 16f), (int)(Player.Center.Y / 16f), 0.6f, 0.38f, 0.24f);
 			}
 
 			if (!phazonImmune)
@@ -297,22 +294,22 @@ namespace MetroidMod.Common.Players
 					}
 					if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
 					{
-						MSystem.nextTick.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 1, new Vector2(i, j)));
+						MSystem.nextTick.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 1, new Vector2(i, j)));
 					}
 					if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSlow) //CrumbleSlow
 					{
 						MSystem.hit[i, j] = true;
-						MSystem.timers.Enqueue(new Tuple<int, Vector2>((int)(MSystem.Timer) + 60, new Vector2(i, j)));
+						MSystem.timers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60, new Vector2(i, j)));
 					}
 				}
 			}
 			#region speedBoost & screwAttack
 			int blockCheckWidth = 32;
 			int blockCheckHeight = 48;
-			x1 = (int)MathHelper.Clamp((Player.Center.X - blockCheckWidth / 2 + Math.Min(Player.velocity.X, 0)) / 16, 0, Main.maxTilesX - 1);
-			x2 = (int)MathHelper.Clamp((Player.Center.X + blockCheckWidth / 2 + Math.Max(Player.velocity.X, 0)) / 16, 0, Main.maxTilesX - 1);
-			int y1 = (int)MathHelper.Clamp((Player.Center.Y - blockCheckHeight / 2 + Math.Min(Player.velocity.Y, 0)) / 16, 0, Main.maxTilesY - 1);
-			int y2 = (int)MathHelper.Clamp((Player.Center.Y + blockCheckHeight / 2 + Math.Max(Player.velocity.Y, 0)) / 16, 0, Main.maxTilesY - 1);
+			x1 = (int)MathHelper.Clamp((Player.Center.X - (blockCheckWidth / 2) + Math.Min(Player.velocity.X, 0)) / 16, 0, Main.maxTilesX - 1);
+			x2 = (int)MathHelper.Clamp((Player.Center.X + (blockCheckWidth / 2) + Math.Max(Player.velocity.X, 0)) / 16, 0, Main.maxTilesX - 1);
+			int y1 = (int)MathHelper.Clamp((Player.Center.Y - (blockCheckHeight / 2) + Math.Min(Player.velocity.Y, 0)) / 16, 0, Main.maxTilesY - 1);
+			int y2 = (int)MathHelper.Clamp((Player.Center.Y + (blockCheckHeight / 2) + Math.Max(Player.velocity.Y, 0)) / 16, 0, Main.maxTilesY - 1);
 
 			bool canBreakAddons = speedBoosting || shineActive || (somersault && screwAttack);
 
@@ -320,11 +317,11 @@ namespace MetroidMod.Common.Players
 			{
 				for (int k = y1; k <= y2; k++)
 				{
-					if(canBreakAddons)
+					if (canBreakAddons)
 					{
 						Tile tile = Main.tile[i, k];
 						bool isAddon = tile.HasTile && ModContent.GetModTile(tile.TileType) is ItemTile;
-						
+
 						if (isAddon)
 						{
 							WorldGen.KillTile(i, k);
@@ -391,9 +388,9 @@ namespace MetroidMod.Common.Players
 		{
 			Vector2 vector = Position;
 			int num = (int)MathHelper.Clamp((Position.X / 16f) - 1, 0, Main.maxTilesX - 1);
-			int num2 = (int)MathHelper.Clamp(((Position.X + (float)Width) / 16f) + 2, 0, Main.maxTilesX - 1);
+			int num2 = (int)MathHelper.Clamp(((Position.X + Width) / 16f) + 2, 0, Main.maxTilesX - 1);
 			int num3 = (int)MathHelper.Clamp((Position.Y / 16f) - 1, 0, Main.maxTilesY - 1);
-			int num4 = (int)MathHelper.Clamp(((Position.Y + (float)Height) / 16f) + 2, 0, Main.maxTilesY - 1);
+			int num4 = (int)MathHelper.Clamp(((Position.Y + Height) / 16f) + 2, 0, Main.maxTilesY - 1);
 			for (int i = num; i < num2; i++)
 			{
 				for (int j = num3; j < num4; j++)
@@ -401,15 +398,15 @@ namespace MetroidMod.Common.Players
 					if (Main.tile[i, j] != null && Main.tile[i, j].Slope == SlopeType.Solid && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && Main.tile[i, j].TileType == tileType)
 					{
 						Vector2 vector2;
-						vector2.X = (float)(i * 16);
-						vector2.Y = (float)(j * 16);
+						vector2.X = i * 16;
+						vector2.Y = j * 16;
 						int num6 = 16;
 						if (Main.tile[i, j].IsHalfBlock)
 						{
 							vector2.Y += 8f;
 							num6 -= 8;
 						}
-						if (vector.X + (float)Width >= vector2.X && vector.X <= vector2.X + 16f && vector.Y + (float)Height >= vector2.Y && (double)vector.Y <= (double)(vector2.Y + (float)num6) + 0.01)
+						if (vector.X + Width >= vector2.X && vector.X <= vector2.X + 16f && vector.Y + Height >= vector2.Y && vector.Y <= (double)(vector2.Y + num6) + 0.01)
 						{
 							return true;
 						}
@@ -426,7 +423,7 @@ namespace MetroidMod.Common.Players
 			foreach (NPC who in Main.ActiveNPCs)
 			{
 				NPC npc = Main.npc[who.whoAmI];
-				if (npc.active && ((MetroidMod.Instance).FrozenStandOnNPCs.Contains(npc.type) || npc.type == ModContent.NPCType<Content.NPCs.Mobs.Utility.Tripper>()))
+				if (npc.active && (MetroidMod.Instance.FrozenStandOnNPCs.Contains(npc.type) || npc.type == ModContent.NPCType<Content.NPCs.Mobs.Utility.Tripper>()))
 				{
 					MGlobalNPC mnpc = npc.GetGlobalNPC<MGlobalNPC>();
 					if (!mnpc.froze && npc.type != ModContent.NPCType<Content.NPCs.Mobs.Utility.Tripper>()) { continue; }
@@ -463,7 +460,7 @@ namespace MetroidMod.Common.Players
 			{
 				if (MSystem.HyperMode.Current && statPBCh <= 0f && statCharge <= 0f && canHyper)
 				{
-					if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>() || Player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>()) && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
+					if (!PrimeHunter && (Player.HeldItem.type == ModContent.ItemType<PowerBeam>() || Player.HeldItem.type == ModContent.ItemType<MissileLauncher>() || Player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && Player.armor[0].type == ModContent.ItemType<PowerSuitHelmet>() && Player.armor[1].type == ModContent.ItemType<PowerSuitBreastplate>() && Player.armor[2].type == ModContent.ItemType<PowerSuitGreaves>())
 					{
 						if (!soundPlayed)
 						{
@@ -512,7 +509,7 @@ namespace MetroidMod.Common.Players
 				{
 					hyperCharge = maxHyper;
 				}
-				if (hyperCharge < 0f || !MSystem.HyperMode.Current && !PrimeHunter)
+				if (hyperCharge < 0f || (!MSystem.HyperMode.Current && !PrimeHunter))
 				{
 					if (SoundEngine.TryGetActiveSound(soundInstancePH, out ActiveSound result))
 					{
@@ -662,9 +659,9 @@ namespace MetroidMod.Common.Players
 			}
 			if (flag2)
 			{
-				P.velocity.X = 14.5f * (float)num20;
-				Point point3 = (P.Center + new Vector2(num20 * P.width / 2 + 2, P.gravDir * (float)(-P.height) / 2f + P.gravDir * 2f)).ToTileCoordinates();
-				Point point4 = (P.Center + new Vector2(num20 * P.width / 2 + 2, 0f)).ToTileCoordinates();
+				P.velocity.X = 14.5f * num20;
+				Point point3 = (P.Center + new Vector2((num20 * P.width / 2) + 2, (P.gravDir * -P.height / 2f) + (P.gravDir * 2f))).ToTileCoordinates();
+				Point point4 = (P.Center + new Vector2((num20 * P.width / 2) + 2, 0f)).ToTileCoordinates();
 				if (WorldGen.SolidOrSlopedTile(point3.X, point3.Y) || WorldGen.SolidOrSlopedTile(point4.X, point4.Y))
 				{
 					P.velocity.X /= 2f;
@@ -691,7 +688,7 @@ namespace MetroidMod.Common.Players
 				Projectile projectile = Main.projectile[grapplingBeam];
 				if ((projectile.type == ModContent.ProjectileType<Content.Projectiles.GrappleBeamShot>() || projectile.type == ModContent.ProjectileType<Content.Projectiles.GrappleBeamPlusShot>()) && projectile.owner == Player.whoAmI && projectile.active)
 				{
-					float targetrotation = (float)Math.Atan2(((projectile.Center.Y - Player.Center.Y) * Player.direction), ((projectile.Center.X - Player.Center.X) * Player.direction));
+					float targetrotation = (float)Math.Atan2((projectile.Center.Y - Player.Center.Y) * Player.direction, (projectile.Center.X - Player.Center.X) * Player.direction);
 					grappleRotation = targetrotation;
 
 					if (Main.myPlayer == Player.whoAmI && Player.mount.Active)
@@ -705,7 +702,7 @@ namespace MetroidMod.Common.Players
 					Player.canCarpet = true;
 					Player.carpetFrame = -1;
 					Player.wingFrame = 1;
-					if (Player.velocity.Y == 0f || (Player.wet && (double)Player.velocity.Y > -0.02 && (double)Player.velocity.Y < 0.02))
+					if (Player.velocity.Y == 0f || (Player.wet && Player.velocity.Y > -0.02 && Player.velocity.Y < 0.02))
 					{
 						Player.wingFrame = 0;
 					}
@@ -717,7 +714,7 @@ namespace MetroidMod.Common.Players
 					{
 						Player.wingFrame = 0;
 					}
-					Player.wingTime = (float)Player.wingTimeMax;
+					Player.wingTime = Player.wingTimeMax;
 					Player.rocketTime = Player.rocketTimeMax;
 					Player.rocketDelay = 0;
 					Player.rocketFrame = false;
@@ -731,9 +728,9 @@ namespace MetroidMod.Common.Players
 					float maxMaxDist = 400f;
 					Vector2 v = Player.Center - projectile.Center;
 					float dist = Vector2.Distance(Player.Center, projectile.Center);
-					bool up = (Player.controlUp && maxDist > 3);
-					bool down = (Player.controlDown && maxDist < maxMaxDist);
-					float reelSpeed = Math.Max((4f * projectile.extraUpdates)-1f,11f);// 11f; reel speed can be dynamic
+					bool up = Player.controlUp && maxDist > 3;
+					bool down = Player.controlDown && maxDist < maxMaxDist;
+					float reelSpeed = Math.Max((4f * projectile.extraUpdates) - 1f, 11f);// 11f; reel speed can be dynamic
 					if (Player.honeyWet && !Player.ignoreWater)
 					{
 						reelSpeed *= 0.25f;
@@ -766,8 +763,8 @@ namespace MetroidMod.Common.Players
 						float ddist = ndist - dist;
 						v /= dist;
 						Player.velocity -= v * ddist;
-						v *= (maxDist + reel);
-						vel = (projectile.Center + v) - Player.Center;
+						v *= maxDist + reel;
+						vel = projectile.Center + v - Player.Center;
 						vel = Collision.TileCollision(Player.position, vel, Player.width, Player.height, Player.controlDown, false);
 						Player.position += vel;
 					}
@@ -856,7 +853,7 @@ namespace MetroidMod.Common.Players
 			if (PrimeHunter && target.life <= 0 && Energy < MaxEnergy && Main.myPlayer == Player.whoAmI)
 			{
 				int heal = Math.Max(target.lifeMax / 20, 1);
-				Energy += Math.Min(heal, MaxEnergy -Energy);
+				Energy += Math.Min(heal, MaxEnergy - Energy);
 			}
 		}
 		public bool psuedoScrewActive = false;

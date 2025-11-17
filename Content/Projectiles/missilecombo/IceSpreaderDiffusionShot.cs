@@ -8,13 +8,13 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 {
 	public class IceSpreaderDiffusionShot : MProjectile
 	{
-		bool initialised = false;
-		float radius = 0.0f;
+		private bool initialised = false;
+		private float radius = 0.0f;
 		public float spin = 0.0f;
-		Vector2 basePosition = new Vector2(0f, 0f);
-		Vector2 prevPosition = new Vector2(0f, 0f);
+		private Vector2 basePosition = new Vector2(0f, 0f);
+		private Vector2 prevPosition = new Vector2(0f, 0f);
 
-		float alpha = 1f;
+		private float alpha = 1f;
 
 		public override void SetDefaults()
 		{
@@ -45,9 +45,9 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			radius = Math.Min(radius + 8f, 320f);
 			spin += (float)(Math.PI / 32);
 			P.rotation = 0f;
-			P.position = (basePosition - new Vector2(P.width / 2, P.height / 2)) + spin.ToRotationVector2() * radius;
+			P.position = basePosition - new Vector2(P.width / 2, P.height / 2) + (spin.ToRotationVector2() * radius);
 
-			int dust = Dust.NewDust(P.position, P.width, P.height, 135, 0, 0, 100, default(Color), 3f + 3f * ((float)P.timeLeft / 40f));
+			int dust = Dust.NewDust(P.position, P.width, P.height, 135, 0, 0, 100, default(Color), 3f + (3f * (P.timeLeft / 40f)));
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].velocity = new Vector2((Main.rand.Next(50) - 25) * 0.1f, (Main.rand.Next(50) - 25) * 0.1f);
 

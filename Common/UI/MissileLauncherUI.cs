@@ -20,9 +20,9 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileLauncherUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>() || Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam);
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<MissileLauncher>() || (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam));
 
-		MissileLauncherPanel missileLauncherPanel;
+		private MissileLauncherPanel missileLauncherPanel;
 		private MissileChangeButton mcButton;
 
 		public override void OnInitialize()
@@ -508,12 +508,12 @@ namespace MetroidMod.Common.UI
 							: itemTexture.Frame(1, 1, 0, 0);
 
 				float drawScale = 1f;
-				if ((float)frame.Width > innerDimensions.Width || (float)frame.Height > innerDimensions.Width)
+				if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
 				{
 					if (frame.Width > frame.Height)
-						drawScale = innerDimensions.Width / (float)frame.Width;
+						drawScale = innerDimensions.Width / frame.Width;
 					else
-						drawScale = innerDimensions.Width / (float)frame.Height;
+						drawScale = innerDimensions.Width / frame.Height;
 				}
 
 				var unreflectedScale = drawScale;
@@ -523,8 +523,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new Vector2(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
@@ -562,15 +562,15 @@ namespace MetroidMod.Common.UI
 					Main.HoverItem = missileLauncherTarget.MissileMods[missileSlotType].Clone();
 				}
 
-				var frame = Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type] != null? Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type].GetFrame(itemTexture): itemTexture.Frame(1, 1, 0, 0);
+				var frame = Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type] != null ? Main.itemAnimations[missileLauncherTarget.MissileMods[missileSlotType].type].GetFrame(itemTexture) : itemTexture.Frame(1, 1, 0, 0);
 
 				float drawScale = 1f;
-				if ((float)frame.Width > innerDimensions.Width || (float)frame.Height > innerDimensions.Width)
+				if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
 				{
 					if (frame.Width > frame.Height)
-						drawScale = innerDimensions.Width / (float)frame.Width;
+						drawScale = innerDimensions.Width / frame.Width;
 					else
-						drawScale = innerDimensions.Width / (float)frame.Height;
+						drawScale = innerDimensions.Width / frame.Height;
 				}
 
 				var unreflectedScale = drawScale;
@@ -580,8 +580,8 @@ namespace MetroidMod.Common.UI
 
 				Vector2 drawPosition = new Vector2(innerDimensions.X, innerDimensions.Y);
 
-				drawPosition.X += (float)innerDimensions.Width * 1f / 2f - (float)frame.Width * drawScale / 2f;
-				drawPosition.Y += (float)innerDimensions.Height * 1f / 2f - (float)frame.Height * drawScale / 2f;
+				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
+				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
 
 				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f, Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
@@ -659,8 +659,12 @@ namespace MetroidMod.Common.UI
 	}
 	public class MissileChangeButton : DragableUIPanel
 	{
-		private Texture2D buttonTex, buttonTex_Hover, buttonTex_Click,
-		buttonTexEnabled, buttonTexEnabled_Hover, buttonTexEnabled_Click;
+		private Texture2D buttonTex;
+		private Texture2D buttonTex_Hover;
+		private readonly Texture2D buttonTex_Click;
+		private Texture2D buttonTexEnabled;
+		private Texture2D buttonTexEnabled_Hover;
+		private readonly Texture2D buttonTexEnabled_Click;
 
 		public Rectangle DrawRectangle => new((int)(Parent.Left.Pixels + Left.Pixels), (int)(Parent.Top.Pixels + Top.Pixels), (int)Width.Pixels, (int)Height.Pixels);
 

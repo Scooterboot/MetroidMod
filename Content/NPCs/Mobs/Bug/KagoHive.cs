@@ -52,7 +52,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Bug
 				NPC.ai[0] = NPC.life;
 			}
 
-			return (true);
+			return true;
 		}
 
 		public override void FindFrame(int frameHeight)

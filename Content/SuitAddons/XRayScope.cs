@@ -107,14 +107,14 @@ namespace MetroidMod.Content.SuitAddons
 			float MX = Main.MouseWorld.X;
 			float MY = Main.MouseWorld.Y;
 			//Dust.NewDustPerfect(new Vector2(MX, MY), DustID.WhiteTorch);
-			float targetrotation = (float)Math.Atan2((MY - player.Center.Y), (MX - player.Center.X));
+			float targetrotation = (float)Math.Atan2(MY - player.Center.Y, MX - player.Center.X);
 
 			float scale = 1 - (player.velocity.Length() * 0.1f);
 			if (scale > 0)
 			{
 				for (int i = 0; i < 20 * scale; i++)
 				{
-					Vector2 lightPos = new Vector2(player.Center.X + (float)Math.Cos(targetrotation) * range * (2 + (2 * i)), player.position.Y + (float)Math.Sin(targetrotation) * range * (2 + (2 * i)) + 8);
+					Vector2 lightPos = new Vector2(player.Center.X + ((float)Math.Cos(targetrotation) * range * (2 + (2 * i))), player.position.Y + ((float)Math.Sin(targetrotation) * range * (2 + (2 * i))) + 8);
 					if (!player.dead && !mp.ballstate)
 					{
 						if ((Main.mouseX + Main.screenPosition.X) > player.position.X)
@@ -130,7 +130,7 @@ namespace MetroidMod.Content.SuitAddons
 						{
 							lightMult = 0.1f;
 						}
-						Lighting.AddLight((int)((float)lightPos.X / 16f), (int)((float)lightPos.Y / 16f), 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult);
+						Lighting.AddLight((int)(lightPos.X / 16f), (int)(lightPos.Y / 16f), 0.75f + (0.25f * i * lightMult), 0.75f + (0.25f * i * lightMult), 0.75f + (0.25f * i * lightMult));
 						Vector2 tilePos = lightPos / 16f;
 						MSystem.hit[(int)tilePos.X, (int)tilePos.Y] = true;
 						MSystem.hit[(int)tilePos.X - 1, (int)tilePos.Y] = true;
@@ -159,21 +159,21 @@ namespace MetroidMod.Content.SuitAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			//mp.xrayequipped = true;
 			int range = 16;
-			float MX = Main.screenPosition.X + (Main.mouseX + (Main.mouseX - Main.screenWidth * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.X) - 1f)) * Main.UIScale;
-			float MY = Main.screenPosition.Y + (Main.mouseY + (Main.mouseY - Main.screenHeight * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f)) * Main.UIScale;
+			float MX = Main.screenPosition.X + ((Main.mouseX + ((Main.mouseX - (Main.screenWidth * 0.5f)) * ((1 / Main.GameViewMatrix.Zoom.X) - 1f))) * Main.UIScale);
+			float MY = Main.screenPosition.Y + ((Main.mouseY + ((Main.mouseY - (Main.screenHeight * 0.5f)) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f))) * Main.UIScale);
 			if (player.gravDir == -1f)
 			{
-				MY = Main.screenPosition.Y + ((float)Main.screenHeight - (Main.mouseY + (Main.mouseY - Main.screenHeight * 0.5f) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f))) * Main.UIScale;
+				MY = Main.screenPosition.Y + ((Main.screenHeight - (Main.mouseY + ((Main.mouseY - (Main.screenHeight * 0.5f)) * ((1 / Main.GameViewMatrix.Zoom.Y) - 1f)))) * Main.UIScale);
 			}
 			//Dust.NewDustPerfect(new Vector2(MX, MY), DustID.WhiteTorch);
-			float targetrotation = (float)Math.Atan2((MY - player.Center.Y), (MX - player.Center.X));
+			float targetrotation = (float)Math.Atan2(MY - player.Center.Y, MX - player.Center.X);
 
-			float scale = Math.Min(1 - player.velocity.Length() * 0.1f, visorScale);
+			float scale = Math.Min(1 - (player.velocity.Length() * 0.1f), visorScale);
 			if (scale > 0)
 			{
 				for (int i = 0; i < 20 * scale; i++)
 				{
-					Vector2 lightPos = new Vector2(player.Center.X + (float)Math.Cos(targetrotation) * range * (2 + (2 * i)), player.position.Y + (float)Math.Sin(targetrotation) * range * (2 + (2 * i)) + 8);
+					Vector2 lightPos = new Vector2(player.Center.X + ((float)Math.Cos(targetrotation) * range * (2 + (2 * i))), player.position.Y + ((float)Math.Sin(targetrotation) * range * (2 + (2 * i))) + 8);
 					if (!player.dead && !mp.ballstate)
 					{
 						if ((Main.mouseX + Main.screenPosition.X) > player.position.X)
@@ -189,7 +189,7 @@ namespace MetroidMod.Content.SuitAddons
 						{
 							lightMult = 0.1f;
 						}
-						Lighting.AddLight((int)((float)lightPos.X / 16f), (int)((float)lightPos.Y / 16f), 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult, 0.75f + (0.25f * i) * lightMult);
+						Lighting.AddLight((int)(lightPos.X / 16f), (int)(lightPos.Y / 16f), 0.75f + (0.25f * i * lightMult), 0.75f + (0.25f * i * lightMult), 0.75f + (0.25f * i * lightMult));
 						Vector2 tilePos = lightPos / 16f;
 						MSystem.hit[(int)tilePos.X, (int)tilePos.Y] = true;
 						MSystem.hit[(int)tilePos.X - 1, (int)tilePos.Y] = true;

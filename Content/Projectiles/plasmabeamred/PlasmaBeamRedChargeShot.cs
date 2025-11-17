@@ -25,8 +25,8 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 			mProjectile.delay = 12;
 		}
 
-		int dustType = 6;
-		Color color = MetroidMod.plaRedColor;
+		private int dustType = 6;
+		private Color color = MetroidMod.plaRedColor;
 		public override void AI()
 		{
 			Projectile.usesLocalNPCImmunity = true;
@@ -37,7 +37,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 				dustType = 135;
 				color = MetroidMod.iceColor;
 			}
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + MathHelper.PiOver2;
+			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			if (Projectile.numUpdates == 0)
 			{
@@ -79,7 +79,7 @@ namespace MetroidMod.Content.Projectiles.plasmabeamred
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 25);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 25);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Items.EasterEgg
 			}
 		}*/
 		public override bool CanShoot(Player player) => player.ItemAnimationJustStarted;
-		int lastSound = -1;
+		private int lastSound = -1;
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			if (!player.ItemAnimationJustStarted) { return false; }
@@ -77,9 +77,9 @@ namespace MetroidMod.Content.Items.EasterEgg
 			Texture2D tex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Items/EasterEgg/Crucible_Glow").Value;
 			float num4 = Item.velocity.X * 0.2f;
 			float scale2 = 1f;
-			float num5 = (float)(Item.height - tex.Height);
-			float num6 = (float)(Item.width / 2 - tex.Width / 2);
-			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (float)(tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (float)(tex.Height / 2) + num5 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), new Color(250, 250, 250, Item.alpha), num4, new Vector2((float)(tex.Width / 2), (float)(tex.Height / 2)), scale2, SpriteEffects.None, 0f);
+			float num5 = Item.height - tex.Height;
+			float num6 = (Item.width / 2) - (tex.Width / 2);
+			sb.Draw(tex, new Vector2(Item.position.X - Main.screenPosition.X + (tex.Width / 2) + num6, Item.position.Y - Main.screenPosition.Y + (tex.Height / 2) + num5 + 2f), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), new Color(250, 250, 250, Item.alpha), num4, new Vector2(tex.Width / 2, tex.Height / 2), scale2, SpriteEffects.None, 0f);
 		}
 	}
 }

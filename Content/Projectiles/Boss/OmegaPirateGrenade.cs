@@ -46,12 +46,12 @@ namespace MetroidMod.Content.Projectiles.Boss
 		}
 		public override void OnKill(int timeLeft)
 		{
-			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+			Projectile.position.X = Projectile.position.X + (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y + (Projectile.height / 2);
 			Projectile.width += 48;
 			Projectile.height += 48;
-			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
+			Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
 
 			//Main.PlaySound(2,(int)Projectile.position.X,(int)Projectile.position.Y,14);
 			SoundEngine.PlaySound(Sounds.NPCs.ElitePirate_GrenadeExplodeSound, Projectile.position);

@@ -110,24 +110,24 @@ namespace MetroidMod.Content.NPCs.Kraid
 		}
 
 
-		int state = 0;
-		bool mouthOpen = false;
-		int moveCounter = 0;
-		int headAnim = 1;
-		float roarFrame = 0f;
-		int roarAnim = 1;
-		int direction = 1;
+		private int state = 0;
+		private bool mouthOpen = false;
+		private int moveCounter = 0;
+		private int headAnim = 1;
+		private float roarFrame = 0f;
+		private int roarAnim = 1;
+		private int direction = 1;
 
 		private int _body, _armFront, _armBack;
-		NPC Body
+		private NPC Body
 		{
 			get { return Main.npc[_body]; }
 		}
-		NPC ArmFront
+		private NPC ArmFront
 		{
 			get { return Main.npc[_armFront]; }
 		}
-		NPC ArmBack
+		private NPC ArmBack
 		{
 			get { return Main.npc[_armBack]; }
 		}
@@ -137,14 +137,14 @@ namespace MetroidMod.Content.NPCs.Kraid
 			NPC.direction = 1;
 			NPC.spriteDirection = 1;
 
-			int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
-			int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+			int spawnRangeX = (int)(NPC.sWidth / 16 * 0.7);
+			int spawnRangeY = (int)(NPC.sHeight / 16 * 0.7);
 			int num11 = (int)(Main.player[NPC.target].position.X / 16f) - spawnRangeX;
 			int num12 = (int)(Main.player[NPC.target].position.X / 16f) + spawnRangeX;
 			int num13 = (int)(Main.player[NPC.target].position.Y / 16f) - spawnRangeY;
 			int num14 = (int)(Main.player[NPC.target].position.Y / 16f) + spawnRangeY;
 			Main.NewText("Spawning Kraid!");
-			return NPC.NewNPC(null, (int)MathHelper.Clamp(tileX, num11, num12) * 16 + 8, (int)MathHelper.Clamp(tileY, num13, num14) * 16, NPC.type);
+			return NPC.NewNPC(null, ((int)MathHelper.Clamp(tileX, num11, num12) * 16) + 8, (int)MathHelper.Clamp(tileY, num13, num14) * 16, NPC.type);
 		}
 
 		public override void AI()
@@ -190,18 +190,18 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				if (NPC.ai[3] == 0)
 				{
-					_body = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + 29 * NPC.direction), (int)(NPC.position.Y + 223), ModContent.NPCType<Kraid_Body>(), NPC.whoAmI);
+					_body = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + (29 * NPC.direction)), (int)(NPC.position.Y + 223), ModContent.NPCType<Kraid_Body>(), NPC.whoAmI);
 					Body.position += new Vector2(0, (float)Body.height / 2);
 					Body.realLife = NPC.whoAmI;
 					Body.ai[0] = NPC.whoAmI;
 
-					_armFront = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + 42 * NPC.direction), (int)(NPC.position.Y + 131), ModContent.NPCType<Kraid_ArmFront>(), NPC.whoAmI);
+					_armFront = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + (42 * NPC.direction)), (int)(NPC.position.Y + 131), ModContent.NPCType<Kraid_ArmFront>(), NPC.whoAmI);
 					ArmFront.position += new Vector2(0, (float)ArmFront.height / 2);
 					ArmFront.realLife = NPC.whoAmI;
 					ArmFront.ai[0] = NPC.whoAmI;
 
-					_armBack = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + 234 * NPC.direction), (int)(NPC.position.Y + 79), ModContent.NPCType<Kraid_ArmBack>(), NPC.whoAmI);
-					ArmBack.position += new Vector2((float)ArmBack.width / 2, (float)ArmBack.height);
+					_armBack = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + (234 * NPC.direction)), (int)(NPC.position.Y + 79), ModContent.NPCType<Kraid_ArmBack>(), NPC.whoAmI);
+					ArmBack.position += new Vector2((float)ArmBack.width / 2, ArmBack.height);
 					ArmBack.realLife = NPC.whoAmI;
 					ArmBack.ai[0] = NPC.whoAmI;
 
@@ -392,7 +392,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				int numTiles = 0;
 				for (int i = 0; i < 20; i++)
 				{
-					Vector2 position4 = new Vector2(Body.position.X + ((Body.width / 20) * i), position3.Y);
+					Vector2 position4 = new Vector2(Body.position.X + (Body.width / 20 * i), position3.Y);
 					if (Collision.SolidCollision(position4, Body.width / 20, heightOffset))
 					{
 						numTiles++;
@@ -492,9 +492,9 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 		}
 
-		Vector2 headOffset = Vector2.Zero;
-		int roarCounter = 0;
-		void Roar(bool roaring)
+		private Vector2 headOffset = Vector2.Zero;
+		private int roarCounter = 0;
+		private void Roar(bool roaring)
 		{
 			if (roaring)
 			{
@@ -542,17 +542,17 @@ namespace MetroidMod.Content.NPCs.Kraid
 			}
 		}
 
-		int moveDir = 0;
-		int stepCounter = 0;
+		private int moveDir = 0;
+		private int stepCounter = 0;
 
-		Vector2 bLegPos = new Vector2(8f, 0f);
-		Vector2 fLegPos = new Vector2(-8f, 0f);
-		int currentLeg = 1;
+		private Vector2 bLegPos = new Vector2(8f, 0f);
+		private Vector2 fLegPos = new Vector2(-8f, 0f);
+		private int currentLeg = 1;
 
-		Vector2 bLegPrevPos = new Vector2(8f, 0f);
-		Vector2 fLegPrevPos = new Vector2(-8f, 0f);
+		private Vector2 bLegPrevPos = new Vector2(8f, 0f);
+		private Vector2 fLegPrevPos = new Vector2(-8f, 0f);
 
-		void Move(int direction)
+		private void Move(int direction)
 		{
 			Vector2 actualBLegPos = Body.Center + new Vector2(138 * NPC.direction, 174) + bLegPos;
 			Vector2 actualFLegPos = Body.Center + new Vector2(-68 * NPC.direction, 174) + fLegPos;
@@ -684,7 +684,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				}
 			}
 		}
-		void stomp(Vector2 pos)
+		private void stomp(Vector2 pos)
 		{
 			for (int num70 = 0; num70 < 25; num70++)
 			{
@@ -697,13 +697,13 @@ namespace MetroidMod.Content.NPCs.Kraid
 			fullOffset.Y = 2f;
 		}
 
-		Vector2[] gorePosition = new Vector2[12];
+		private readonly Vector2[] gorePosition = new Vector2[12];
 
-		Vector2 fullOffset = Vector2.Zero;
+		private Vector2 fullOffset = Vector2.Zero;
 
-		int fullAnim = 0;
+		private int fullAnim = 0;
 
-		float headRot = 0f;
+		private float headRot = 0f;
 
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
@@ -762,9 +762,9 @@ namespace MetroidMod.Content.NPCs.Kraid
 
 
 			if (Body == null || ArmBack == null || ArmFront == null)
-				return (false);
+				return false;
 
-			Vector2 backArm1Pos = NPC.Center + new Vector2(37 * NPC.direction, 40) + (ArmBack.Center - (NPC.Center + new Vector2(234 * NPC.direction, 79))) * 0.25f;
+			Vector2 backArm1Pos = NPC.Center + new Vector2(37 * NPC.direction, 40) + ((ArmBack.Center - (NPC.Center + new Vector2(234 * NPC.direction, 79))) * 0.25f);
 			sb.Draw(texArm1, backArm1Pos + fullOffset - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texArm1.Width, texArm1.Height)), alpha2, 0f, new Vector2(texArm1.Width / 2, texArm1.Height / 2), 1f, effects, 0f);
 			gorePosition[0] = backArm1Pos;
 
@@ -775,21 +775,21 @@ namespace MetroidMod.Content.NPCs.Kraid
 			Vector2 bArm2Pos1 = backArm1Pos + new Vector2(0f, 30f),
 					bArm2Pos2 = ArmBack.Center + new Vector2(bvec2.X * NPC.direction, bvec2.Y);
 			Vector2 backArm2Pos = Vector2.Lerp(bArm2Pos1, bArm2Pos2, 0.5f);
-			float bArmRot = (float)Math.Atan2((bArm2Pos2.Y - bArm2Pos1.Y) * NPC.direction, (bArm2Pos2.X - bArm2Pos1.X) * NPC.direction) - ((float)Math.PI * 0.375f) * NPC.direction;
+			float bArmRot = (float)Math.Atan2((bArm2Pos2.Y - bArm2Pos1.Y) * NPC.direction, (bArm2Pos2.X - bArm2Pos1.X) * NPC.direction) - ((float)Math.PI * 0.375f * NPC.direction);
 			sb.Draw(texArm2, backArm2Pos + fullOffset - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texArm2.Width, texArm2.Height)), alpha2, bArmRot, new Vector2(texArm2.Width / 2, texArm2.Height / 2), 1f, effects, 0f);
 			gorePosition[1] = backArm2Pos;
 
 			Vector2 bOrigin = new Vector2(109, 80);
 			if (NPC.direction == -1)
 			{
-				bOrigin.X = (float)texArmBack.Width - bOrigin.X;
+				bOrigin.X = texArmBack.Width - bOrigin.X;
 			}
-			Vector2 armBackPos = fullOffset + ArmBack.Center + new Vector2(-(float)(ArmBack.width / 2) * NPC.direction, (float)ArmBack.height / 2 - 14f);
-			sb.Draw(texArmBack, armBackPos - Main.screenPosition, new Rectangle?(new Rectangle(0, (texArmBack.Height / 6) * ArmBack.frame.Y, texArmBack.Width, texArmBack.Height / 6)), alpha2, ArmBack.rotation * NPC.direction, bOrigin, 1f, effects, 0f);
+			Vector2 armBackPos = fullOffset + ArmBack.Center + new Vector2(-(float)(ArmBack.width / 2) * NPC.direction, ((float)ArmBack.height / 2) - 14f);
+			sb.Draw(texArmBack, armBackPos - Main.screenPosition, new Rectangle?(new Rectangle(0, texArmBack.Height / 6 * ArmBack.frame.Y, texArmBack.Width, texArmBack.Height / 6)), alpha2, ArmBack.rotation * NPC.direction, bOrigin, 1f, effects, 0f);
 			gorePosition[2] = armBackPos;
 
 
-			Vector2 backLegPos = Body.Center + new Vector2((62 + texLegs.Width / 4) * NPC.direction, 2) + bLegPos;
+			Vector2 backLegPos = Body.Center + new Vector2((62 + (texLegs.Width / 4)) * NPC.direction, 2) + bLegPos;
 			sb.Draw(texLegs, backLegPos - Main.screenPosition, new Rectangle?(new Rectangle(texLegs.Width / 2, 0, texLegs.Width / 2, texLegs.Height)), alpha2, 0f, new Vector2(texLegs.Width / 4, 0), 1f, effects, 0f);
 			gorePosition[3] = backLegPos;
 
@@ -810,14 +810,14 @@ namespace MetroidMod.Content.NPCs.Kraid
 					Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[projectile.type].Value;
 					int num108 = tex.Height / Main.projFrames[projectile.type];
 					int y4 = num108 * projectile.frame;
-					sb.Draw(tex, new Vector2((float)((int)(projectile.Center.X - Main.screenPosition.X)), (float)((int)(projectile.Center.Y - Main.screenPosition.Y + projectile.gfxOffY))), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2((float)tex.Width / 2f, (float)projectile.height / 2f), projectile.scale, effects2, 0f);
+					sb.Draw(tex, new Vector2((int)(projectile.Center.X - Main.screenPosition.X), (int)(projectile.Center.Y - Main.screenPosition.Y + projectile.gfxOffY)), new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(tex.Width / 2f, projectile.height / 2f), projectile.scale, effects2, 0f);
 				}
 			}
 
 			Vector2 bodyOvPos = fullOffset + Body.Center + new Vector2(85 * NPC.direction, -7);
 			sb.Draw(texBodyOverlay, bodyOvPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texBodyOverlay.Width, texBodyOverlay.Height)), alpha2, 0f, new Vector2(texBodyOverlay.Width / 2, texBodyOverlay.Height / 2), 1f, effects, 0f);
 
-			Vector2 frontLegPos = Body.Center + new Vector2((-144 + texLegs.Width / 4) * NPC.direction, 2) + fLegPos;
+			Vector2 frontLegPos = Body.Center + new Vector2((-144 + (texLegs.Width / 4)) * NPC.direction, 2) + fLegPos;
 			sb.Draw(texLegs, frontLegPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texLegs.Width / 2, texLegs.Height)), alpha2, 0f, new Vector2(texLegs.Width / 4, 0), 1f, effects, 0f);
 			gorePosition[5] = frontLegPos;
 
@@ -849,7 +849,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 
 			Vector2 hOffset = new Vector2(headOffset.X * NPC.direction, headOffset.Y);
 
-			Vector2 headPos = fullOffset + NPC.Center + new Vector2((29 - texNeck.Width / 2) * NPC.direction, -9) + new Vector2((float)Math.Max(Math.Ceiling(headOffset.X * 0.5f), 0f) * NPC.direction, (float)Math.Floor(headOffset.Y * 0.5f));
+			Vector2 headPos = fullOffset + NPC.Center + new Vector2((29 - (texNeck.Width / 2)) * NPC.direction, -9) + new Vector2((float)Math.Max(Math.Ceiling(headOffset.X * 0.5f), 0f) * NPC.direction, (float)Math.Floor(headOffset.Y * 0.5f));
 			if (mouthOpen)
 			{
 				headPos.X += roarFrame * NPC.direction;
@@ -870,11 +870,11 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				hpos2 += new Vector2(roarFrame * NPC.direction, -roarFrame);
 			}
-			sb.Draw(texHead, hpos2 - Main.screenPosition, new Rectangle?(new Rectangle(0, (texHead.Height / 6) * NPC.frame.Y + (texHead.Height / 2) * NPC.frame.X, texHead.Width, texHead.Height / 6)), alpha2, headRot, new Vector2(texHead.Width / 2, texHead.Height / 12), 1f, effects, 0f);
+			sb.Draw(texHead, hpos2 - Main.screenPosition, new Rectangle?(new Rectangle(0, (texHead.Height / 6 * NPC.frame.Y) + (texHead.Height / 2 * NPC.frame.X), texHead.Width, texHead.Height / 6)), alpha2, headRot, new Vector2(texHead.Width / 2, texHead.Height / 12), 1f, effects, 0f);
 			gorePosition[8] = hpos2;
 
 
-			Vector2 frontArm1Pos = NPC.Center + new Vector2(-65 * NPC.direction, 78) + (ArmFront.Center - (NPC.Center + new Vector2(42 * NPC.direction, 131))) * 0.25f;
+			Vector2 frontArm1Pos = NPC.Center + new Vector2(-65 * NPC.direction, 78) + ((ArmFront.Center - (NPC.Center + new Vector2(42 * NPC.direction, 131))) * 0.25f);
 			sb.Draw(texArm1, frontArm1Pos + fullOffset - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texArm1.Width, texArm1.Height)), alpha2, 0f, new Vector2(texArm1.Width / 2, texArm1.Height / 2), 1f, effects, 0f);
 			gorePosition[9] = frontArm1Pos;
 
@@ -884,7 +884,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			Vector2 vec2 = new Vector2((float)Math.Cos(vecrot) * veclength, (float)Math.Sin(vecrot) * veclength);
 			Vector2 fArm2Pos1 = frontArm1Pos,
 					fArm2Pos2 = ArmFront.Center + new Vector2(vec2.X * NPC.direction, vec2.Y);
-			float fArmRot = (float)Math.Atan2((fArm2Pos2.Y - fArm2Pos1.Y) * NPC.direction, (fArm2Pos2.X - fArm2Pos1.X) * NPC.direction) - ((float)Math.PI / 2) * NPC.direction;
+			float fArmRot = (float)Math.Atan2((fArm2Pos2.Y - fArm2Pos1.Y) * NPC.direction, (fArm2Pos2.X - fArm2Pos1.X) * NPC.direction) - ((float)Math.PI / 2 * NPC.direction);
 			Vector2 frontArm2Pos = Vector2.Lerp(fArm2Pos1, fArm2Pos2, 0.5f);
 			sb.Draw(texArm2, frontArm2Pos + fullOffset - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texArm2.Width, texArm2.Height)), alpha2, fArmRot, new Vector2(texArm2.Width / 2, texArm2.Height / 2), 1f, effects, 0f);
 			gorePosition[10] = frontArm2Pos;
@@ -892,10 +892,10 @@ namespace MetroidMod.Content.NPCs.Kraid
 			Vector2 fOrigin = new Vector2(106, 63);
 			if (NPC.direction == -1)
 			{
-				fOrigin.X = (float)texArmFront.Width - fOrigin.X;
+				fOrigin.X = texArmFront.Width - fOrigin.X;
 			}
 			Vector2 armFrontPos = fullOffset + ArmFront.Center;
-			sb.Draw(texArmFront, armFrontPos - Main.screenPosition, new Rectangle?(new Rectangle(0, (texArmFront.Height / 5) * ArmFront.frame.Y, texArmFront.Width, texArmFront.Height / 5)), alpha2, ArmFront.rotation * NPC.direction, fOrigin, 1f, effects, 0f);
+			sb.Draw(texArmFront, armFrontPos - Main.screenPosition, new Rectangle?(new Rectangle(0, texArmFront.Height / 5 * ArmFront.frame.Y, texArmFront.Width, texArmFront.Height / 5)), alpha2, ArmFront.rotation * NPC.direction, fOrigin, 1f, effects, 0f);
 			gorePosition[11] = armFrontPos;
 
 			if (fullAnim <= 0)
@@ -907,9 +907,9 @@ namespace MetroidMod.Content.NPCs.Kraid
 			Texture2D rect = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel").Value;
 
 			int num44 = (int)((Body.position.X - 240f) / 16f);
-			int num45 = (int)((Body.position.X + (float)Body.width + 240f) / 16f);
+			int num45 = (int)((Body.position.X + Body.width + 240f) / 16f);
 			int num46 = (int)((NPC.position.Y - 32f) / 16f);
-			int num47 = (int)((Body.position.Y + (float)Body.height + 16f) / 16f);
+			int num47 = (int)((Body.position.Y + Body.height + 16f) / 16f);
 			for (int m = num44; m <= num45; m++)
 			{
 				for (int n = num46; n <= num47; n++)
@@ -923,17 +923,17 @@ namespace MetroidMod.Content.NPCs.Kraid
 						tile7 = Main.tile[m + 1, n],
 						tile8 = Main.tile[m + 1, n - 1],
 						tile9 = Main.tile[m + 1, n + 1];
-					if (tile1 != null && tile1.HasTile && Main.tileSolid[(int)tile1.TileType] && !Main.tileSolidTop[(int)tile1.TileType] &&
-						tile2 != null && tile2.HasTile && Main.tileSolid[(int)tile2.TileType] && !Main.tileSolidTop[(int)tile2.TileType] &&
-						tile3 != null && tile3.HasTile && Main.tileSolid[(int)tile3.TileType] && !Main.tileSolidTop[(int)tile3.TileType] &&
-						tile4 != null && tile4.HasTile && Main.tileSolid[(int)tile4.TileType] && !Main.tileSolidTop[(int)tile4.TileType] &&
-						tile5 != null && tile5.HasTile && Main.tileSolid[(int)tile5.TileType] && !Main.tileSolidTop[(int)tile5.TileType] &&
-						tile6 != null && tile6.HasTile && Main.tileSolid[(int)tile6.TileType] && !Main.tileSolidTop[(int)tile6.TileType] &&
-						tile7 != null && tile7.HasTile && Main.tileSolid[(int)tile7.TileType] && !Main.tileSolidTop[(int)tile7.TileType] &&
-						tile8 != null && tile8.HasTile && Main.tileSolid[(int)tile8.TileType] && !Main.tileSolidTop[(int)tile8.TileType] &&
-						tile9 != null && tile9.HasTile && Main.tileSolid[(int)tile9.TileType] && !Main.tileSolidTop[(int)tile9.TileType])
+					if (tile1 != null && tile1.HasTile && Main.tileSolid[tile1.TileType] && !Main.tileSolidTop[tile1.TileType] &&
+						tile2 != null && tile2.HasTile && Main.tileSolid[tile2.TileType] && !Main.tileSolidTop[tile2.TileType] &&
+						tile3 != null && tile3.HasTile && Main.tileSolid[tile3.TileType] && !Main.tileSolidTop[tile3.TileType] &&
+						tile4 != null && tile4.HasTile && Main.tileSolid[tile4.TileType] && !Main.tileSolidTop[tile4.TileType] &&
+						tile5 != null && tile5.HasTile && Main.tileSolid[tile5.TileType] && !Main.tileSolidTop[tile5.TileType] &&
+						tile6 != null && tile6.HasTile && Main.tileSolid[tile6.TileType] && !Main.tileSolidTop[tile6.TileType] &&
+						tile7 != null && tile7.HasTile && Main.tileSolid[tile7.TileType] && !Main.tileSolidTop[tile7.TileType] &&
+						tile8 != null && tile8.HasTile && Main.tileSolid[tile8.TileType] && !Main.tileSolidTop[tile8.TileType] &&
+						tile9 != null && tile9.HasTile && Main.tileSolid[tile9.TileType] && !Main.tileSolidTop[tile9.TileType])
 					{
-						sb.Draw(rect, new Rectangle(m * 16 - (int)Main.screenPosition.X, n * 16 - (int)Main.screenPosition.Y, 16, 16), Color.Black);
+						sb.Draw(rect, new Rectangle((m * 16) - (int)Main.screenPosition.X, (n * 16) - (int)Main.screenPosition.Y, 16, 16), Color.Black);
 					}
 
 					float num = Lighting.Brightness(m, n);
@@ -942,7 +942,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 					{
 						Color color = Color.Black;
 						color *= 1f - num;
-						sb.Draw(rect, new Rectangle(m * 16 - (int)Main.screenPosition.X, n * 16 - (int)Main.screenPosition.Y, 16, 16), color);
+						sb.Draw(rect, new Rectangle((m * 16) - (int)Main.screenPosition.X, (n * 16) - (int)Main.screenPosition.Y, 16, 16), color);
 					}
 				}
 			}

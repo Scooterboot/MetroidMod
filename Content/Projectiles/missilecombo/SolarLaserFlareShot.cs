@@ -24,10 +24,10 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile.idStaticNPCHitCooldown = 4;
 		}
 
-		int dir = 1;
-		float num = 0f;
-		float amplitude = 40f;
-		bool initialize = false;
+		private int dir = 1;
+		private float num = 0f;
+		private float amplitude = 40f;
+		private bool initialize = false;
 		public override void AI()
 		{
 			if (!initialize)
@@ -37,7 +37,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				{
 					dir = -1;
 				}
-				amplitude = 20f + (float)Main.rand.Next(40);
+				amplitude = 20f + Main.rand.Next(40);
 				initialize = true;
 			}
 			Projectile P = Projectile;
@@ -63,19 +63,19 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 				for (int i = 0; i < P.oldPos.Length; i++)
 				{
-					float oldnum = Math.Max(num - 0.0375f * (i + 1), 0f);
+					float oldnum = Math.Max(num - (0.0375f * (i + 1)), 0f);
 
 					float oldt = (float)Math.PI * oldnum;
 
 					float oldshift = amplitude * (float)Math.Sin(oldt) * dir;
 
-					float oldlength = P.localAI[0] + P.localAI[1] * oldnum;
+					float oldlength = P.localAI[0] + (P.localAI[1] * oldnum);
 
-					Vector2 oldpos = oPos + Beam.velocity * oldlength;
+					Vector2 oldpos = oPos + (Beam.velocity * oldlength);
 
-					float oldrot = (float)Math.Atan2((P.velocity.Y), (P.velocity.X));
-					P.oldPos[i].X = oldpos.X + (float)Math.Cos(oldrot + ((float)Math.PI / 2)) * oldshift;
-					P.oldPos[i].Y = oldpos.Y + (float)Math.Sin(oldrot + ((float)Math.PI / 2)) * oldshift;
+					float oldrot = (float)Math.Atan2(P.velocity.Y, P.velocity.X);
+					P.oldPos[i].X = oldpos.X + ((float)Math.Cos(oldrot + ((float)Math.PI / 2)) * oldshift);
+					P.oldPos[i].Y = oldpos.Y + ((float)Math.Sin(oldrot + ((float)Math.PI / 2)) * oldshift);
 					P.oldPos[i] -= P.Size / 2f;
 				}
 
@@ -83,13 +83,13 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 				float shift = amplitude * (float)Math.Sin(t) * dir;
 
-				float length = P.localAI[0] + P.localAI[1] * num;
+				float length = P.localAI[0] + (P.localAI[1] * num);
 
-				Vector2 pos = oPos + Beam.velocity * length;
+				Vector2 pos = oPos + (Beam.velocity * length);
 
-				float rot = (float)Math.Atan2((P.velocity.Y), (P.velocity.X));
-				P.position.X = pos.X + (float)Math.Cos(rot + ((float)Math.PI / 2)) * shift;
-				P.position.Y = pos.Y + (float)Math.Sin(rot + ((float)Math.PI / 2)) * shift;
+				float rot = (float)Math.Atan2(P.velocity.Y, P.velocity.X);
+				P.position.X = pos.X + ((float)Math.Cos(rot + ((float)Math.PI / 2)) * shift);
+				P.position.Y = pos.Y + ((float)Math.Sin(rot + ((float)Math.PI / 2)) * shift);
 				P.position -= P.Size / 2f;
 
 				num = Math.Min(num + 0.0375f, 1f);
@@ -136,7 +136,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 50);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 50);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

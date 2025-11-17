@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.ID;
 using Terraria;

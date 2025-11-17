@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -80,9 +78,9 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			return base.CanHitPlayer(target, ref cooldownSlot);
 		}
 
-		Vector2 startPos;
+		private Vector2 startPos;
 
-		bool initialized = false;
+		private bool initialized = false;
 		public override bool PreAI()
 		{
 			if (!initialized)
@@ -96,12 +94,12 @@ namespace MetroidMod.Content.NPCs.Phantoon
 			return true;
 		}
 
-		float dist = 0;//120;
-		bool bounced = false;
-		int bounceCounter = 0;
-		int frameSet = 0;
-		int currentFrame = 0;
-		int timeLeft = 300;
+		private float dist = 0;//120;
+		private bool bounced = false;
+		private int bounceCounter = 0;
+		private int frameSet = 0;
+		private int currentFrame = 0;
+		private int timeLeft = 300;
 		public override void AI()
 		{
 			NPC creator = Main.npc[(int)NPC.ai[0]];
@@ -400,7 +398,7 @@ namespace MetroidMod.Content.NPCs.Phantoon
 		public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
 		{
 			Texture2D tex = Terraria.GameContent.TextureAssets.Npc[Type].Value;
-			int texH = (tex.Height / 7);
+			int texH = tex.Height / 7;
 			sb.Draw(tex, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, texH * NPC.frame.Y, tex.Width, texH)), NPC.GetAlpha(Color.White), 0f, new Vector2(tex.Width / 2, texH - (NPC.height / 2) - 1), 1f, SpriteEffects.None, 0f);
 			return false;
 		}

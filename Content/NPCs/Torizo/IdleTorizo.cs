@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -59,12 +57,12 @@ namespace MetroidMod.Content.NPCs.Torizo
 			return false;
 		}
 
-		Vector2 eTankPos = new Vector2(32, -32);
-		int eTankFrame = 0;
-		int eTankFrameCounter = 0;
-		bool drawETank = true;
+		private Vector2 eTankPos = new Vector2(32, -32);
+		private int eTankFrame = 0;
+		private int eTankFrameCounter = 0;
+		private bool drawETank = true;
 
-		Vector2[] gorePos = {new Vector2(-11,-33),
+		private readonly Vector2[] gorePos = {new Vector2(-11,-33),
 		new Vector2(1,-13),new Vector2(-13,-1),new Vector2(18,8),
 		new Vector2(32,-8),new Vector2(-35,-23),new Vector2(-29,14),
 		new Vector2(-19,29),new Vector2(15,27),new Vector2(27,39)};
@@ -145,7 +143,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 						Vector2 velocity = new Vector2(Main.rand.Next(12) * NPC.direction, -Main.rand.Next(12));
 						if (velocity.Length() < 6f)
 						{
-							velocity *= (6f / velocity.Length());
+							velocity *= 6f / velocity.Length();
 						}
 						int part = Projectile.NewProjectile(entitySource, ePos, velocity, ModContent.ProjectileType<Projectiles.Boss.Torizo_EnergyParticle>(), 0, 0f, 255, NPC.Center.X, NPC.Center.Y);
 						Main.projectile[part].ai[0] = NPC.Center.X;
@@ -204,7 +202,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 
 				if (!NPC.AnyNPCs(ModContent.NPCType<Torizo>()))
 				{
-					Vector2 tPos = new Vector2(NPC.Center.X - 26 * NPC.direction, NPC.position.Y + NPC.height - 117);
+					Vector2 tPos = new Vector2(NPC.Center.X - (26 * NPC.direction), NPC.position.Y + NPC.height - 117);
 					NPC.NewNPC(NPC.GetSource_FromAI(), (int)tPos.X, (int)tPos.Y, ModContent.NPCType<Torizo>(), NPC.whoAmI, 0, 1, 0, 0, NPC.target);
 				}
 				if (Main.netMode == NetmodeID.SinglePlayer)
@@ -225,7 +223,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 			{
 				Texture2D eTex = ModContent.Request<Texture2D>($"{Mod.Name}/Content/NPCs/Torizo/IdleTorizo_ETank").Value;
 				Vector2 ePos = NPC.Center + new Vector2(eTankPos.X * NPC.direction, eTankPos.Y);
-				int texH = (eTex.Height / 2);
+				int texH = eTex.Height / 2;
 				sb.Draw(eTex, ePos - Main.screenPosition, new Rectangle?(new Rectangle(0, eTankFrame * texH, eTex.Width, texH)), NPC.GetAlpha(drawColor), 0f, new Vector2(eTex.Width / 2, texH / 2), 1f, SpriteEffects.None, 0f);
 			}
 

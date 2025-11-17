@@ -1,7 +1,5 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace MetroidMod.Content.Tiles2.Butter.Item
 {

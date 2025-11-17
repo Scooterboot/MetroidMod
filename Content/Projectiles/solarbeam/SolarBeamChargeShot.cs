@@ -27,8 +27,8 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 			mProjectile.delay = 4;
 		}
 
-		int dustType = 6;
-		Color color = MetroidMod.novColor;
+		private int dustType = 6;
+		private Color color = MetroidMod.novColor;
 		public override void AI()
 		{
 
@@ -95,7 +95,7 @@ namespace MetroidMod.Content.Projectiles.solarbeam
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return new Color((int)lightColor.R, (int)lightColor.G, (int)lightColor.B, 50);
+			return new Color(lightColor.R, lightColor.G, lightColor.B, 50);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

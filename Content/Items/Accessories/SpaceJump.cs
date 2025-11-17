@@ -44,7 +44,7 @@ namespace MetroidMod.Content.Items.Accessories
 				.AddRecipeGroup(MetroidMod.T2HMBarRecipeGroupID, 10)
 				.AddIngredient(ItemID.SoulofFlight, 10)
 				.AddTile(TileID.MythrilAnvil)
-				.Register();	
+				.Register();
 			CreateRecipe(1)
 				.AddIngredient<SpinBoost>(1)
 				.AddRecipeGroup(MetroidMod.T2HMBarRecipeGroupID, 10)

@@ -35,19 +35,19 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			get => Projectile.localAI[1];
 			set => Projectile.localAI[1] = value;
 		}
-		const float Max_Range = 2200f;
-		float maxRange = 0f;
+		private const float Max_Range = 2200f;
+		private float maxRange = 0f;
 
-		int num = 0;
+		private int num = 0;
 
-		float scaleUp = 0f;
+		private float scaleUp = 0f;
 
-		Projectile Lead;
+		private Projectile Lead;
 
-		SoundEffectInstance soundInstance;
-		SoundEffectInstance soundInstance2;
+		private SoundEffectInstance soundInstance;
+		private SoundEffectInstance soundInstance2;
 
-		bool initialize = false;
+		private bool initialize = false;
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
 			Lead = Main.projectile[(int)P.ai[0]];
-			if(O.HeldItem.GetGlobalItem<MGlobalItem>().statMissiles <= 0)
+			if (O.HeldItem.GetGlobalItem<MGlobalItem>().statMissiles <= 0)
 			{
 				P.Kill();
 			}
@@ -88,8 +88,8 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 					}
 					else if (P.numUpdates == 0 && Main.soundVolume > 0f)
 					{
-						soundInstance.Volume = Math.Min(soundInstance.Volume + 0.05f * Main.soundVolume, 0.75f * Main.soundVolume);
-						soundInstance2.Volume = Math.Min(soundInstance2.Volume + 0.05f * Main.soundVolume, 0.75f * Main.soundVolume);
+						soundInstance.Volume = Math.Min(soundInstance.Volume + (0.05f * Main.soundVolume), 0.75f * Main.soundVolume);
+						soundInstance2.Volume = Math.Min(soundInstance2.Volume + (0.05f * Main.soundVolume), 0.75f * Main.soundVolume);
 					}
 				}
 				P.velocity = Vector2.Normalize(Lead.velocity);
@@ -102,13 +102,13 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				var entitySource = Projectile.GetSource_FromAI();
 				for (P.ai[1] = 0f; P.ai[1] <= maxRange; P.ai[1] += 4f)
 				{
-					Vector2 end = oPos + P.velocity * P.ai[1];
+					Vector2 end = oPos + (P.velocity * P.ai[1]);
 					if (CollideMethods.CheckCollide(end, 0, 0))
 					{
 						P.ai[1] -= 4f;
 						if (num <= 0)
 						{
-							end = oPos + P.velocity * P.ai[1];
+							end = oPos + (P.velocity * P.ai[1]);
 							int proj = Projectile.NewProjectile(entitySource, end.X, end.Y, 0f, 0f, ModContent.ProjectileType<SolarLaserFlameTrail>(), P.damage, P.knockBack, P.owner);
 							num = 4;
 						}
@@ -123,7 +123,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 				float leadDist = Vector2.Distance(oPos, Lead.Center);
 				for (float i = leadDist; i < P.ai[1]; i += P.width)
 				{
-					Vector2 sPos = oPos + P.velocity * i;
+					Vector2 sPos = oPos + (P.velocity * i);
 					if (sPos.X > Main.screenPosition.X - 100f && sPos.X < Main.screenPosition.X + Main.screenWidth + 100f &&
 						sPos.Y > Main.screenPosition.Y - 100f && sPos.Y < Main.screenPosition.Y + Main.screenHeight + 100f)
 					{
@@ -146,16 +146,16 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 						if (Main.rand.NextBool(10))
 						{
 							float k = Math.Min(i, P.ai[1]);
-							Vector2 dPos = (oPos - (P.Size / 2f) * scaleUp) + P.velocity * k;
-							Main.dust[Dust.NewDust(dPos, (int)((float)P.width * scaleUp), (int)((float)P.width * scaleUp), 6, 0, 0, 100, default(Color), 3f)].noGravity = true;
+							Vector2 dPos = oPos - (P.Size / 2f * scaleUp) + (P.velocity * k);
+							Main.dust[Dust.NewDust(dPos, (int)(P.width * scaleUp), (int)(P.width * scaleUp), 6, 0, 0, 100, default(Color), 3f)].noGravity = true;
 						}
 					}
 				}
 
-				Vector2 dustPos = oPos - (P.Size / 2f) * scaleUp + P.velocity * P.ai[1];
-				int size = (int)((float)P.width * scaleUp);
-				float num1 = P.velocity.ToRotation() + (Main.rand.NextBool(2) ? -1.0f : 1.0f) * MathHelper.PiOver2;
-				float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
+				Vector2 dustPos = oPos - (P.Size / 2f * scaleUp) + (P.velocity * P.ai[1]);
+				int size = (int)(P.width * scaleUp);
+				float num1 = P.velocity.ToRotation() + ((Main.rand.NextBool(2) ? -1.0f : 1.0f) * MathHelper.PiOver2);
+				float num2 = (float)((Main.rand.NextDouble() * 0.8f) + 1.0f);
 				Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
 				Dust dust = Main.dust[Dust.NewDust(dustPos, size, size, 6, dustVel.X, dustVel.Y, 100, default(Color), 4f)];
 				dust.noGravity = true;
@@ -163,7 +163,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 				Color color = MetroidMod.novColor;
 				DelegateMethods.v3_1 = new Vector3(color.R / 255f, color.G / 255f, color.B / 255f);
-				Utils.PlotTileLine(P.Center, P.Center + P.velocity * P.ai[1], 26, DelegateMethods.CastLight);
+				Utils.PlotTileLine(P.Center, P.Center + (P.velocity * P.ai[1]), 26, DelegateMethods.CastLight);
 
 				if (P.numUpdates == 0)
 				{
@@ -190,7 +190,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 		{
 			Projectile P = Projectile;
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-			Utils.PlotTileLine(P.Center, P.Center + P.velocity * (P.ai[1] + 4f), ((float)P.width + 16f) * scaleUp, DelegateMethods.CutTiles);
+			Utils.PlotTileLine(P.Center, P.Center + (P.velocity * (P.ai[1] + 4f)), (P.width + 16f) * scaleUp, DelegateMethods.CutTiles);
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -206,7 +206,7 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 			Projectile P = Projectile;
 			float point = 0f;
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), P.Center,
-				P.Center + P.velocity * P.ai[1], (float)P.width * scaleUp, ref point);
+				P.Center + (P.velocity * P.ai[1]), P.width * scaleUp, ref point);
 		}
 
 		public override void OnKill(int timeLeft)
@@ -246,9 +246,9 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 
 				for (float i = leadDist; i <= P.ai[1]; i += bodyHeight)
 				{
-					Vector2 pos = P.Center + P.velocity * i;
+					Vector2 pos = P.Center + (P.velocity * i);
 
-					int height = Math.Min(bodyHeight, (int)(P.ai[1] - i - headHeight / 2));
+					int height = Math.Min(bodyHeight, (int)(P.ai[1] - i - (headHeight / 2)));
 
 					int frame = Main.rand.Next(bodyFrameCount);
 
@@ -257,18 +257,18 @@ namespace MetroidMod.Content.Projectiles.missilecombo
 						sb.Draw(tex, pos - Main.screenPosition,
 						new Rectangle?(new Rectangle(0, tailHeight + 2 + (tHeight * P.frame) + (bodyFrameCount * frame), tex.Width, height)),
 						P.GetAlpha(Color.White), P.rotation,
-						new Vector2((float)tex.Width / 2f, 0f),
+						new Vector2(tex.Width / 2f, 0f),
 						scale, SpriteEffects.None, 0f);
 					}
 				}
 
-				if (P.ai[1] > leadDist + headHeight / 2)
+				if (P.ai[1] > leadDist + (headHeight / 2))
 				{
-					Vector2 pos2 = P.Center + P.velocity * P.ai[1];
+					Vector2 pos2 = P.Center + (P.velocity * P.ai[1]);
 					sb.Draw(tex, pos2 - Main.screenPosition,
 					new Rectangle?(new Rectangle(0, tailHeight + 2 + (bodyHeight * bodyFrameCount) + 2 + (tHeight * P.frame), tex.Width, headHeight)),
 					P.GetAlpha(Color.White), P.rotation,
-					new Vector2((float)tex.Width / 2f, headHeight - 3),
+					new Vector2(tex.Width / 2f, headHeight - 3),
 					scale, SpriteEffects.None, 0f);
 				}
 			}

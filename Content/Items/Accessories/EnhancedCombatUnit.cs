@@ -1,9 +1,8 @@
+using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using MetroidMod.Content.Items.Addons;
-using MetroidMod.Common.Players;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -37,7 +36,7 @@ namespace MetroidMod.Content.Items.Accessories
 		}
 		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
 		{
-			if (incomingItem.type == ModContent.ItemType<SupercooledEmblem>()|| incomingItem.type == ModContent.ItemType<HunterEmblem>() || incomingItem.type == ModContent.ItemType<FrozenCore>()) 
+			if (incomingItem.type == ModContent.ItemType<SupercooledEmblem>() || incomingItem.type == ModContent.ItemType<HunterEmblem>() || incomingItem.type == ModContent.ItemType<FrozenCore>())
 			{
 				return false;
 			}

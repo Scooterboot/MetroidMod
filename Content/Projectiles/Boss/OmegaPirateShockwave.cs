@@ -30,11 +30,11 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Projectile.scale = 1f;
 		}
 
-		int lightningFrame = 0;
+		private int lightningFrame = 0;
 
-		float scaleY = 0f;
+		private float scaleY = 0f;
 
-		float alpha = 0.25f;
+		private readonly float alpha = 0.25f;
 		public override void AI()
 		{
 			Projectile.frame++;
@@ -123,17 +123,17 @@ namespace MetroidMod.Content.Projectiles.Boss
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
 			int num108 = tex.Width / Main.projFrames[Projectile.type];
 			int x4 = num108 * Projectile.frame;
-			Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(x4, 0, num108, tex.Height)), Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, new Vector2((float)num108 / 2f, (float)tex.Height), new Vector2(1f, scaleY) * Projectile.scale, effects, 0f);
+			Main.spriteBatch.Draw(tex, new Vector2((int)(Projectile.Center.X - Main.screenPosition.X), (int)(Projectile.Center.Y - Main.screenPosition.Y)), new Rectangle?(new Rectangle(x4, 0, num108, tex.Height)), Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, new Vector2(num108 / 2f, tex.Height), new Vector2(1f, scaleY) * Projectile.scale, effects, 0f);
 
 			Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Content/Projectiles/Boss/OmegaPirateShockwaveLightning").Value;
 			int num2 = tex2.Width / 8;
 			int x2 = num2 * lightningFrame;
-			int height = (int)((float)Math.Min(tex2.Height * scaleY, tex2.Height));
-			Main.spriteBatch.Draw(tex2, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(x2, 0, num2, height)), color, Projectile.rotation, new Vector2((float)num2 / 2f, (float)height), 0.5f * Math.Max(scaleY, 1f) * Projectile.scale, effects, 0f);
+			int height = (int)(float)Math.Min(tex2.Height * scaleY, tex2.Height);
+			Main.spriteBatch.Draw(tex2, new Vector2((int)(Projectile.Center.X - Main.screenPosition.X), (int)(Projectile.Center.Y - Main.screenPosition.Y)), new Rectangle?(new Rectangle(x2, 0, num2, height)), color, Projectile.rotation, new Vector2(num2 / 2f, height), 0.5f * Math.Max(scaleY, 1f) * Projectile.scale, effects, 0f);
 
 			effects |= SpriteEffects.FlipVertically;
-			Main.spriteBatch.Draw(tex, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(x4, 0, num108, tex.Height)), Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, new Vector2((float)num108 / 2f, 0f), new Vector2(1f, scaleY) * Projectile.scale, effects, 0f);
-			Main.spriteBatch.Draw(tex2, new Vector2((float)((int)(Projectile.Center.X - Main.screenPosition.X)), (float)((int)(Projectile.Center.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(x2, 0, num2, height)), color, Projectile.rotation, new Vector2((float)num2 / 2f, 0f), 0.5f * Math.Max(scaleY, 1f) * Projectile.scale, effects, 0f);
+			Main.spriteBatch.Draw(tex, new Vector2((int)(Projectile.Center.X - Main.screenPosition.X), (int)(Projectile.Center.Y - Main.screenPosition.Y)), new Rectangle?(new Rectangle(x4, 0, num108, tex.Height)), Projectile.GetAlpha(Color.White) * alpha, Projectile.rotation, new Vector2(num108 / 2f, 0f), new Vector2(1f, scaleY) * Projectile.scale, effects, 0f);
+			Main.spriteBatch.Draw(tex2, new Vector2((int)(Projectile.Center.X - Main.screenPosition.X), (int)(Projectile.Center.Y - Main.screenPosition.Y)), new Rectangle?(new Rectangle(x2, 0, num2, height)), color, Projectile.rotation, new Vector2(num2 / 2f, 0f), 0.5f * Math.Max(scaleY, 1f) * Projectile.scale, effects, 0f);
 			return false;
 		}
 

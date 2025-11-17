@@ -1,5 +1,4 @@
-﻿using System;
-using MetroidMod.Common.Players;
+﻿using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -84,7 +83,7 @@ namespace MetroidMod.Common
 						Vector2 pos = drawPlayer.bodyPosition;
 						Vector2 offset = Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height];
 						offset.Y -= 2f;
-						pos += offset * (float)(-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
+						pos += offset * (float)-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt();
 						MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawInfo.compTorsoFrame, drawPlayer.bodyRotation, pos, drawInfo.bodyVect, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);
 					}
 				}
@@ -160,17 +159,17 @@ namespace MetroidMod.Common
 					float rot = drawPlayer.bodyRotation;
 					rot += drawInfo.compositeBackArmRotation;
 
-					Vector2 compositeOffset_BackArm = new Vector2((float)(6 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1)), (float)(2 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1)));
+					Vector2 compositeOffset_BackArm = new Vector2(6 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), 2 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1));
 					origin += compositeOffset_BackArm;
 
 					Vector2 offset = Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height];
 					offset.Y -= 2f;
-					pos += offset * (float)(-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
+					pos += offset * (float)-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt();
 					Vector2 shoulderPos = pos + drawInfo.backShoulderOffset;
 
 					if (drawInfo.compBackArmFrame.X / drawInfo.compBackArmFrame.Width >= 7)
 					{
-						pos += new Vector2((float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), (float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1));
+						pos += new Vector2((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1, (!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1);
 					}
 
 					if (!drawInfo.hideCompositeShoulders)
@@ -220,16 +219,16 @@ namespace MetroidMod.Common
 					Vector2 pos = drawPlayer.bodyPosition;
 					float rot = drawPlayer.bodyRotation;
 					rot += drawInfo.compositeFrontArmRotation;
-					Vector2 compositeOffset_FrontArm = new Vector2((float)(-5 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1)), 0f);
+					Vector2 compositeOffset_FrontArm = new Vector2(-5 * ((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), 0f);
 					origin += compositeOffset_FrontArm;
 					Vector2 offset = Main.OffsetsPlayerHeadgear[drawInfo.drawPlayer.bodyFrame.Y / drawInfo.drawPlayer.bodyFrame.Height];
 					offset.Y -= 2f;
-					pos += offset * (float)(-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
+					pos += offset * (float)-(float)drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt();
 					Vector2 shoulderPos = pos + drawInfo.frontShoulderOffset;
 
 					if (drawInfo.compFrontArmFrame.X / drawInfo.compFrontArmFrame.Width >= 7)
 					{
-						pos += new Vector2((float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1), (float)((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1));
+						pos += new Vector2((!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally)) ? 1 : -1, (!drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically)) ? 1 : -1);
 					}
 
 					bool holdingCannon = drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.PowerBeam>() ||

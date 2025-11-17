@@ -3,7 +3,6 @@ using MetroidMod.Common.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 
 namespace MetroidMod.Content.Items.Accessories
 {
@@ -32,7 +31,7 @@ namespace MetroidMod.Content.Items.Accessories
 			Item.value = 40000;
 			Item.rare = ItemRarityID.LightRed;
 			Item.accessory = true;
-			
+
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
@@ -62,15 +61,15 @@ namespace MetroidMod.Content.Items.Accessories
 		public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
 		{
 			return
-				(incomingItem.type != ItemID.HermesBoots)     ||
-				(incomingItem.type != ItemID.FlurryBoots)     ||
-				(incomingItem.type != ItemID.SailfishBoots)   ||
-				(incomingItem.type != ItemID.SandBoots)       ||
-				(incomingItem.type != ItemID.SpectreBoots)    ||
-				(incomingItem.type != ItemID.FairyBoots)      ||
-				(incomingItem.type != ItemID.AmphibianBoots)  ||
-				(incomingItem.type != ItemID.HellfireTreads)  ||
-				(incomingItem.type != ItemID.LightningBoots)  ||
+				(incomingItem.type != ItemID.HermesBoots) ||
+				(incomingItem.type != ItemID.FlurryBoots) ||
+				(incomingItem.type != ItemID.SailfishBoots) ||
+				(incomingItem.type != ItemID.SandBoots) ||
+				(incomingItem.type != ItemID.SpectreBoots) ||
+				(incomingItem.type != ItemID.FairyBoots) ||
+				(incomingItem.type != ItemID.AmphibianBoots) ||
+				(incomingItem.type != ItemID.HellfireTreads) ||
+				(incomingItem.type != ItemID.LightningBoots) ||
 				(incomingItem.type != ItemID.FrostsparkBoots) ||
 				(incomingItem.type != ItemID.TerrasparkBoots);
 

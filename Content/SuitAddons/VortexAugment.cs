@@ -3,8 +3,8 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
@@ -65,7 +65,7 @@ namespace MetroidMod.Content.SuitAddons
 			}
 
 			// Ignore shimmer slowdown ability
-			if(player.TryGetModPlayer(out IgnoreShimmerModPlayer shimmerMp))
+			if (player.TryGetModPlayer(out IgnoreShimmerModPlayer shimmerMp))
 			{
 				shimmerMp.ignoreShimmer = true;
 			}

@@ -100,7 +100,7 @@ namespace MetroidMod.Common.Players
 				unMorphDir = 0;
 				if (CheckCollide(Player.position - new Vector2((20 - morphSize) / 2, 42 - morphSize), 20, 42))
 				{
-					if (!CheckCollide(Player.position - new Vector2((20 - morphSize), 42 - morphSize), 20, 42))
+					if (!CheckCollide(Player.position - new Vector2(20 - morphSize, 42 - morphSize), 20, 42))
 					{
 						unMorphDir = -1;
 					}
@@ -141,7 +141,7 @@ namespace MetroidMod.Common.Players
 					for (int i = 0; i < 25; i++)
 					{
 						int num = Dust.NewDust(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, DustID.WhiteTorch, 0f, 0f, 100, morphColor, 2f);
-						Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
+						Main.dust[num].scale += Main.rand.Next(-10, 21) * 0.01f;
 						Main.dust[num].scale *= 1.3f;
 						Main.dust[num].noGravity = true;
 						Main.dust[num].velocity += Player.velocity * 0.8f;
@@ -150,7 +150,7 @@ namespace MetroidMod.Common.Players
 					for (int j = 0; j < 15; j++)
 					{
 						int num = Dust.NewDust(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, DustID.WhiteTorch, 0f, 0f, 100, morphColorLights, 1f);
-						Main.dust[num].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
+						Main.dust[num].scale += Main.rand.Next(-10, 21) * 0.01f;
 						Main.dust[num].scale *= 1.3f;
 						Main.dust[num].noGravity = true;
 						Main.dust[num].velocity += Player.velocity * 0.8f;
@@ -159,8 +159,8 @@ namespace MetroidMod.Common.Players
 					int oldWidth = Player.width;
 					Player.width = ballstate ? morphSize : 20;
 					int newWidth = Player.width;
-					float widthDiff = (float)(oldWidth - newWidth) * 0.5f;
-					Player.position.X += widthDiff - widthDiff * unMorphDir;
+					float widthDiff = (oldWidth - newWidth) * 0.5f;
+					Player.position.X += widthDiff - (widthDiff * unMorphDir);
 
 					rotation = 0f;
 					Player.fullRotation = 0f;
@@ -322,7 +322,7 @@ namespace MetroidMod.Common.Players
 			int shinyblock = 700;
 			int timez = (int)(Time % 60) / 10;
 			Color brightColor = morphColorLights;
-			Lighting.AddLight((int)((Player.Center.X) / 16f), (int)((Player.Center.Y) / 16f), (float)(brightColor.R / (shinyblock / (1 + 0.1 * timez))), (float)(brightColor.G / (shinyblock / (1 + 0.1 * timez))), (float)(brightColor.B / (shinyblock / (1 + 0.1 * timez))));
+			Lighting.AddLight((int)(Player.Center.X / 16f), (int)(Player.Center.Y / 16f), (float)(brightColor.R / (shinyblock / (1 + (0.1 * timez)))), (float)(brightColor.G / (shinyblock / (1 + (0.1 * timez)))), (float)(brightColor.B / (shinyblock / (1 + (0.1 * timez)))));
 
 			if (!spiderball)
 			{
@@ -330,35 +330,35 @@ namespace MetroidMod.Common.Players
 				if (Player.velocity.Y == 0)
 				{
 					int num2 = (int)MathHelper.Clamp((Player.position.X / 16f) - 1, 0, Main.maxTilesX - 1);
-					int num3 = (int)MathHelper.Clamp(((Player.position.X + (float)Player.width) / 16f) + 2, 0, Main.maxTilesX - 1);
+					int num3 = (int)MathHelper.Clamp(((Player.position.X + Player.width) / 16f) + 2, 0, Main.maxTilesX - 1);
 					int num4 = (int)MathHelper.Clamp((Player.position.Y / 16f) - 1, 0, Main.maxTilesY - 1);
-					int num5 = (int)MathHelper.Clamp(((Player.position.Y + (float)Player.height) / 16f) + 2, 0, Main.maxTilesY - 1);
+					int num5 = (int)MathHelper.Clamp(((Player.position.Y + Player.height) / 16f) + 2, 0, Main.maxTilesY - 1);
 					for (int i = num2; i < num3; i++)
 					{
 						for (int j = num4; j < num5; j++)
 						{
-							if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && (Main.tileSolid[(int)Main.tile[i, j].TileType] || (Main.tileSolidTop[(int)Main.tile[i, j].TileType] && Main.tile[i, j].TileFrameY == 0)))
+							if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated && (Main.tileSolid[Main.tile[i, j].TileType] || (Main.tileSolidTop[Main.tile[i, j].TileType] && Main.tile[i, j].TileFrameY == 0)))
 							{
 								Vector2 vector4;
-								vector4.X = (float)(i * 16);
-								vector4.Y = (float)(j * 16);
+								vector4.X = i * 16;
+								vector4.Y = j * 16;
 								int num6 = 16;
 								if (Main.tile[i, j].IsHalfBlock)
 								{
 									vector4.Y += 8f;
 									num6 -= 8;
 								}
-								if (Player.position.X + (float)Player.width >= vector4.X && Player.position.X <= vector4.X + 16f && Player.position.Y + (float)Player.height >= vector4.Y && Player.position.Y <= vector4.Y + (float)num6)
+								if (Player.position.X + Player.width >= vector4.X && Player.position.X <= vector4.X + 16f && Player.position.Y + Player.height >= vector4.Y && Player.position.Y <= vector4.Y + num6)
 								{
 									if (Main.tile[i, j].Slope > SlopeType.Solid)
 									{
-										if (Main.tile[i, j].Slope == SlopeType.SlopeDownLeft && (!Main.tile[i + 1, j].HasTile || !Main.tileSolid[(int)Main.tile[i + 1, j].TileType]))
+										if (Main.tile[i, j].Slope == SlopeType.SlopeDownLeft && (!Main.tile[i + 1, j].HasTile || !Main.tileSolid[Main.tile[i + 1, j].TileType]))
 										{
 											Player.velocity.X += velY;
 											velY = 0f;
 											Ibounce = false;
 										}
-										else if (Main.tile[i, j].Slope == SlopeType.SlopeDownRight && (!Main.tile[i - 1, j].HasTile || !Main.tileSolid[(int)Main.tile[i - 1, j].TileType]))
+										else if (Main.tile[i, j].Slope == SlopeType.SlopeDownRight && (!Main.tile[i - 1, j].HasTile || !Main.tileSolid[Main.tile[i - 1, j].TileType]))
 										{
 											Player.velocity.X -= velY;
 											velY = 0f;
@@ -480,7 +480,7 @@ namespace MetroidMod.Common.Players
 			Item drills = p.GetBestPickaxe();
 			bool noBuildFlag = false;
 			int drill;
-			if (Main.mouseLeft && !Player.mouseInterface && morphBall && drills != null && p.whoAmI==Main.myPlayer)
+			if (Main.mouseLeft && !Player.mouseInterface && morphBall && drills != null && p.whoAmI == Main.myPlayer)
 			{
 				drill = drills.pick;
 				//p.controlUseItem = true;
@@ -500,7 +500,7 @@ namespace MetroidMod.Common.Players
 				return;
 			}
 
-			if (!Player.mouseInterface && drill > 0 && p.position.X / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetX && (p.position.X + (float)p.width) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetX && p.position.Y / 16f - Player.tileRangeX - 3f <= (float)Player.tileTargetY && (p.position.Y + (float)p.height) / 16f + Player.tileRangeX + 2f >= (float)Player.tileTargetY)
+			if (!Player.mouseInterface && drill > 0 && (p.position.X / 16f) - Player.tileRangeX - 3f <= Player.tileTargetX && ((p.position.X + p.width) / 16f) + Player.tileRangeX + 2f >= Player.tileTargetX && (p.position.Y / 16f) - Player.tileRangeX - 3f <= Player.tileTargetY && ((p.position.Y + p.height) / 16f) + Player.tileRangeX + 2f >= Player.tileTargetY)
 			{
 				if (Main.mouseLeft)
 				{
@@ -511,15 +511,15 @@ namespace MetroidMod.Common.Players
 					}
 					if (Main.rand.NextBool(6))
 					{
-						int num123 = Dust.NewDust(p.position + p.velocity * (float)Main.rand.Next(6, 10) * 0.1f, p.width, p.height, DustID.Smoke, 0f, 0f, 80, default(Color), 1.5f);
+						int num123 = Dust.NewDust(p.position + (p.velocity * Main.rand.Next(6, 10) * 0.1f), p.width, p.height, DustID.Smoke, 0f, 0f, 80, default(Color), 1.5f);
 						Dust expr_5B99_cp_0 = Main.dust[num123];
 						expr_5B99_cp_0.position.X -= 4f;
 						Main.dust[num123].noGravity = true;
 						Main.dust[num123].velocity *= 0.2f;
-						Main.dust[num123].velocity.Y = (float)(-(float)Main.rand.Next(7, 13)) * 0.15f;
+						Main.dust[num123].velocity.Y = (float)-(float)Main.rand.Next(7, 13) * 0.15f;
 					}
 				}
-				if (cooldownbomb == 0 && Main.mouseLeft && (!Main.tile[Player.tileTargetX, Player.tileTargetY].HasTile || (!Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].TileType] && !Main.tileSolid[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].TileType] && Main.tile[Player.tileTargetX, Player.tileTargetY].TileType != 314)))
+				if (cooldownbomb == 0 && Main.mouseLeft && (!Main.tile[Player.tileTargetX, Player.tileTargetY].HasTile || (!Main.tileHammer[Main.tile[Player.tileTargetX, Player.tileTargetY].TileType] && !Main.tileSolid[Main.tile[Player.tileTargetX, Player.tileTargetY].TileType] && Main.tile[Player.tileTargetX, Player.tileTargetY].TileType != 314)))
 				{
 					p.poundRelease = false;
 				}
@@ -531,7 +531,7 @@ namespace MetroidMod.Common.Players
 						{
 							p.PickTile(Player.tileTargetX, Player.tileTargetY, drill);
 						}
-						cooldownbomb = Math.Max((int)(drills.useTime * p.pickSpeed),1);
+						cooldownbomb = Math.Max((int)(drills.useTime * p.pickSpeed), 1);
 					}
 				}
 			}
@@ -577,7 +577,7 @@ namespace MetroidMod.Common.Players
 				{
 					SoundEngine.PlaySound(Sounds.Suit.BoostBallSound, Player.position);
 
-					float mult = Math.Max((float)boostCharge / 30f, 1.25f);
+					float mult = Math.Max(boostCharge / 30f, 1.25f);
 
 					if (spiderball && CurEdge != Edge.None)
 					{
@@ -605,7 +605,7 @@ namespace MetroidMod.Common.Players
 					{
 						if (Player.velocity.X == 0 && Player.velocity.Y == 0)
 						{
-							float maxSpeed = Player.maxRunSpeed + Player.accRunSpeed + 4f * mult;
+							float maxSpeed = Player.maxRunSpeed + Player.accRunSpeed + (4f * mult);
 							float speedCap = Math.Max(maxSpeed - Math.Abs(Player.velocity.X), 0f);
 							Player.velocity.X += MathHelper.Clamp(4f * mult * Player.direction, -speedCap, speedCap);
 						}
@@ -640,7 +640,7 @@ namespace MetroidMod.Common.Players
 
 				if (!BoostRam)
 				{
-					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + Player.width / 2, Player.position.Y + Player.height / 2, 0, 0, ModContent.ProjectileType<Content.Projectiles.RamBall>(), mp.PrimeHunter ? mp.boostEffect * 5 : mp.boostEffect, mp.PrimeHunter ? mp.boostEffect : mp.boostEffect / 3, Player.whoAmI);
+					Projectile.NewProjectile(Player.GetSource_FromAI(), Player.position.X + (Player.width / 2), Player.position.Y + (Player.height / 2), 0, 0, ModContent.ProjectileType<Content.Projectiles.RamBall>(), mp.PrimeHunter ? mp.boostEffect * 5 : mp.boostEffect, mp.PrimeHunter ? mp.boostEffect : mp.boostEffect / 3, Player.whoAmI);
 				}
 				Player.armorEffectDrawShadow = true;
 				boostEffect--;

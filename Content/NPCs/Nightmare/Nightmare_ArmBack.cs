@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -43,8 +42,8 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[associatedNPCType], quickUnlock: true);
 		}
 
-		int _laserBeam = 0;
-		Projectile LaserBeam
+		private int _laserBeam = 0;
+		private Projectile LaserBeam
 		{
 			get { return Main.projectile[_laserBeam]; }
 		}
@@ -61,7 +60,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		public override void AI()
 		{
 			NPC Head = Main.npc[(int)NPC.ai[0]];
-			bool flag = (Head.alpha < 255);
+			bool flag = Head.alpha < 255;
 			if (!Head.active)
 			{
 				SoundEngine.PlaySound((SoundStyle)NPC.DeathSound, NPC.Center);
