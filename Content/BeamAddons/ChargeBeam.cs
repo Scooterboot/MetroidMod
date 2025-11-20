@@ -154,16 +154,17 @@ namespace MetroidMod.Content.BeamAddons
 							chargio.ballColor2 = chargioColor2;
 							chargio.coreBrightness = chargioBrightness;
 							chargio.coreSaturation = chargioSaturation;
+							chargio.dontCharge = dontCharge;
 							Main.projectile[chInt].ai[0] = chInt;
 							MetroidMod.Instance.Logger.Info(item);
-							if (dontCharge && player.controlUseItem)//somehow, seeks shouldnt holdfire. ok then.
+							//play charge noise
+							break;
+						case 1.0f:
+							if (dontCharge) //thanks seekers doesnt work at 0 charge for now
 							{
-								wepon.Launch(player, player.GetSource_ItemUse(item), oPos, velocity, item.shoot, item.damage, item.knockBack, true);
-								//MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chProj);
-								//mp.statCharge++;
+								MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).HoldFireBehavior(player, chProj);
 								break;
 							}
-							//play charge noise
 							break;
 						case 99f:
 							//Charging is done. Play charge complete sound effect if applicable.
@@ -206,14 +207,14 @@ namespace MetroidMod.Content.BeamAddons
 							}
 							if ((mp.statCharge % 25f == 0f) && (mp.statCharge != 100f))
 							{
-								MetroidMod.Instance.Logger.Info(player.name + " is charging beam shot! " + mp.statCharge + "%");
+								//MetroidMod.Instance.Logger.Info(player.name + " is charging beam shot! " + mp.statCharge + "%");
 							}
 							break;
 					}
-					if (mp.statCharge < 100f)
+					if ((mp.statCharge < 100f && !dontCharge) || (dontCharge && mp.statCharge < 1.0f))
 					{
-							mp.statCharge += 1f;
-						}
+						mp.statCharge += 1f;
+					}
 					mp.chargeColor = chargioColor;
 
 				} //the delay has ended, charging can begin
@@ -224,7 +225,7 @@ namespace MetroidMod.Content.BeamAddons
 					if (chargeDelay > item.useTime) { chargeDelay = item.useTime; }
 				} //not allowed to charge just yet
 			}//Check if the player is currently trying to charge with a compatible weapon
-			else if (canCharge && (ac.isBeam || !wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir) && mp.statCharge > 5f)
+			else if (!dontCharge && canCharge && (ac.isBeam || !wepon.MissileAddonAccess[MissileAddonSlotID.Charge].IsAir) && mp.statCharge > 5f)
 			{
 				MetroidMod.Instance.Logger.Info("jobs done");
 				if (mp.statCharge >= 100f)
@@ -248,7 +249,7 @@ namespace MetroidMod.Content.BeamAddons
 					wepon.SpawnBeam(player, player.GetSource_ItemUse(item), oPos, velocity * (1.5f * (mp.statCharge / 100f)), item.shoot, (int)(item.damage * (1f + currentMultiplier)), item.knockBack, "Charged");
 					MetroidMod.Instance.Logger.Info(player.name + " released the... uh... slightly-less-charged beam!!!");
 				}
-				else if (mp.statCharge > 1)
+				else if (mp.statCharge > 5f)
 				{
 					//spawn that normal-ass beam my man
 					if (ac.isBeam)
@@ -266,16 +267,12 @@ namespace MetroidMod.Content.BeamAddons
 				player.itemAnimation = 20;
 				mp.statCharge = 0f;
 				chargeDelay = 0f;
-				//ac.seekerCharge = 0;
-				//ac.numSeekerTargets = 0;
 			}//Check if there's any charge to release
 			else
 			{
 				//MetroidMod.Instance.Logger.Info("jobs never startd");
 				mp.statCharge = 0;
 				chargeDelay = 0;
-				//ac.seekerCharge = 0;
-				//ac.numSeekerTargets = 0;
 			}//Cancel out any leftover charge
 		}
 		public override void AddRecipes()
@@ -310,6 +307,8 @@ namespace MetroidMod.Content.BeamAddons
 		public Item sourceItem;
 
 		public ChargeBeam sourceAddon;
+
+		public bool dontCharge = false;
 
 		public override void SetDefaults()
 		{
@@ -359,7 +358,7 @@ namespace MetroidMod.Content.BeamAddons
 			//MetroidMod.Instance.Logger.Info(player.name + " spawned charge lead!!!");
 			if (Projectile.owner == Main.myPlayer)
 			{
-				if (isCharging && ((!mp.somersault && mp.pseudoScrewActive) || (!mp.pseudoScrewActive) || (mp.pseudoScrewActive && mp.statCharge < 75)))
+				if (isCharging && ((!mp.somersault && mp.pseudoScrewActive) || (!mp.pseudoScrewActive) || (mp.pseudoScrewActive && mp.statCharge < 75) || dontCharge))
 				{
 					BarrelGlue(player, ballPos);
 					BarrelAim(player, ballPos, ac.barrelOffset);
