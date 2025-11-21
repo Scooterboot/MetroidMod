@@ -392,7 +392,7 @@ namespace MetroidMod.Content.Projectiles
 				P.Kill();
 			}
 		}
-		
+
 		public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f) //TODO make this more dynamic -DR
 		{
 			float homeX = P.position.X;
