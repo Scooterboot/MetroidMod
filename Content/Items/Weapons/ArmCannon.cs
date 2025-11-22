@@ -586,7 +586,12 @@ namespace MetroidMod.Content.Items.Weapons
 			} //Swap between beam and missiles when the keybind is pressed
 
 			//the charge beam will have to bring a method in here in order for charging to work
-			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (ac.isBeam || (!ac.isBeam && missileAddons[MissileAddonSlotID.Charge] != null)))
+			//This also allows for other addons to have special "holdfire"
+			if (CanUseItem(player) && missileAddons[MissileAddonSlotID.Charge] != null && (!ac.isBeam && !MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).NeedsCharging))
+			{
+				MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).HoldFireBehavior(player);
+			}
+			else if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (ac.isBeam || (!ac.isBeam && missileAddons[MissileAddonSlotID.Charge] != null)))
 			{
 
 				//bool dontCharge = !ac.isBeam && missileAddons[MissileAddonSlotID.Charge] != null && !MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).NeedsCharging;
