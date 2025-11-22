@@ -52,18 +52,14 @@ namespace MetroidMod.Content.MissileAddons
 			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
 			var entitySource = player.GetSource_ItemUse(item);
-			if (item.ModItem is ArmCannon armi && Lead.active)
+			if (item.ModItem is ArmCannon armi && Lead.active && !Initialized)
 			{
 				//armi.Launch(player, entitySource, oPos, velocity, item.shoot, item.damage, item.knockBack, true);
 				//int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
 				//MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 				//MissileAddonLoader.GetAddon(armi.MissileAddonAccess[MissileAddonSlotID.Charge]).PreAI(mProj);
-				Projectile.NewProjectileDirect(entitySource, Lead.position, velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
+				Projectile.NewProjectileDirect(entitySource, lead.position, velocity, ModContent.ProjectileType<SeekerMissileLead>(), item.damage, item.knockBack, player.whoAmI);
 				Initialized = true;
-			}
-			else
-			{
-				Initialized = false;
 			}
 		}
 		public override void AI(MProjectile mProjectile)
@@ -286,7 +282,7 @@ namespace MetroidMod.Content.MissileAddons
 						foreach (NPC who in Main.ActiveNPCs)
 						{
 							NPC npc = Main.npc[who.whoAmI];
-							if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly)// && !npc.immortal)
+							if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5)// && !npc.immortal)
 							{
 								Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 								bool flag = false;
@@ -342,52 +338,7 @@ namespace MetroidMod.Content.MissileAddons
 						}
 					}
 				}
-				else
-				{
-					if (mi.seekerCharge <= 0 && P.active)
-					{
-						mi.seekerCharge++;
-					}
-					if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
-					{
-						for (int i = 0; i < mi.seekerTarget.Length; i++)
-						{
-							if (mi.seekerTarget[i] > -1 && O.HeldItem.ModItem is ArmCannon armi)
-							{
-								int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, I.shoot, I.damage, I.knockBack, O.whoAmI);
-								MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-								//armi.Launch(player, entitySource, oPos, velocity, item.shoot, item.damage, item.knockBack, true);
-								mProj.seekTarget = mi.seekerTarget[i];
-								mProj.seeking = true;
-								//Seeking(mProj, mProj.seekTarget);
-								mProj.Projectile.netUpdate2 = true;
-								//MissileAddonLoader.GetAddon<SuperMissile>().AI(mProj);
-								//pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
-							}
-						}
-
-						SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
-					}
-					//else if (pb.seekerCharge > 0)
-					//{
-					//	Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
-					//	//SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
-					//	//pb.statMissiles -= 1;
-					//}
-					if (!P.active)
-					{
-						mi.seekerCharge = 0;
-						//Initialized = false;
-					}
-					mi.numSeekerTargets = 0;
-					for (int k = 0; k < mi.seekerTarget.Length; k++)
-					{
-						mi.seekerTarget[k] = -1;
-					}
-					targetNum = 0;
-					targetingDelay = 0;
-					//Initialized = false;
-				}
+			
 			}
 			else
 			{
@@ -409,12 +360,12 @@ namespace MetroidMod.Content.MissileAddons
 					}
 					soundPlayed = false;
 				}
-				mi.seekerCharge = 0;
-				mi.numSeekerTargets = 0;
-				for (int k = 0; k < mi.seekerTarget.Length; k++)
-				{
-					mi.seekerTarget[k] = -1;
-				}
+				//mi.seekerCharge = 0;
+				//mi.numSeekerTargets = 0;
+				//for (int k = 0; k < mi.seekerTarget.Length; k++)
+				//{
+				//	mi.seekerTarget[k] = -1;
+				//}
 				targetNum = 0;
 				targetingDelay = 0;
 				P.Kill();
@@ -431,11 +382,59 @@ namespace MetroidMod.Content.MissileAddons
 			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			Vector2 velocity = targetrotation.ToRotationVector2() * I.shootSpeed;
 			var entitySource = O.GetSource_ItemUse(I);
+			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
 			if (I.ModItem is ArmCannon armi)
 			{
-				armi.Launch(O, entitySource, oPos, velocity, I.shoot, I.damage, I.knockBack, true);		
+				if (mi.seekerCharge <= 0 && P.active)
+				{
+					mi.seekerCharge++;
+				}
+				if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
+				{
+					for (int i = 0; i < mi.seekerTarget.Length; i++)
+					{
+						if (mi.seekerTarget[i] > -1)
+						{
+							int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, I.shoot, I.damage, I.knockBack, O.whoAmI);
+							MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
+							//armi.Launch(player, entitySource, oPos, velocity, item.shoot, item.damage, item.knockBack, true);
+							armi.Launch(O, entitySource, oPos, velocity, I.shoot, I.damage, I.knockBack, true);
+							if(mProj is MissileShot miss)
+							{
+								miss.groupSize = i;
+							}
+							mProj.seekTarget = mi.seekerTarget[i];
+							mProj.seeking = true;
+							//Seeking(mProj, mProj.seekTarget);
+							mProj.Projectile.netUpdate2 = true;
+							//MissileAddonLoader.GetAddon<SuperMissile>().AI(mProj);
+							//pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
+						}
+					}
+
+					SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
+				}
+				//else if (pb.seekerCharge > 0)
+				//{
+				//	Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
+				//	//SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
+				//	//pb.statMissiles -= 1;
+				//}
+				//if (!P.active)
+				//{
+				//	mi.seekerCharge = 0;
+				//	//Initialized = false;
+				//}
+				//mi.numSeekerTargets = 0;
+				for (int k = 0; k < mi.seekerTarget.Length; k++)
+				{
+					mi.seekerTarget[k] = -1;
+				}
+				//targetNum = 0;
+				//targetingDelay = 0;
+				//Initialized = false;
+				//armi.Launch(O, entitySource, oPos, velocity, I.shoot, I.damage, I.knockBack, true);		
 			}
-			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
 			mi.seekerCharge = 0;
 		}
 		public override bool PreDraw(ref Color lightColor)

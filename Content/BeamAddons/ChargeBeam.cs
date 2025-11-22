@@ -273,6 +273,7 @@ namespace MetroidMod.Content.BeamAddons
 				//MetroidMod.Instance.Logger.Info("jobs never startd");
 				mp.statCharge = 0;
 				chargeDelay = 0;
+				MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).Initialized = false;
 			}//Cancel out any leftover charge
 		}
 		public override void AddRecipes()
