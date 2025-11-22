@@ -267,14 +267,12 @@ namespace MetroidMod.Content.BeamAddons
 				player.itemAnimation = 20;
 				mp.statCharge = 0f;
 				chargeDelay = 0f;
-				MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).Initialized = false;
 			}//Check if there's any charge to release
 			else
 			{
 				//MetroidMod.Instance.Logger.Info("jobs never startd");
 				mp.statCharge = 0;
 				chargeDelay = 0;
-				MissileAddonLoader.GetAddon(wepon.MissileAddonAccess[MissileAddonSlotID.Charge]).Initialized = false;
 			}//Cancel out any leftover charge
 		}
 		public override void AddRecipes()
