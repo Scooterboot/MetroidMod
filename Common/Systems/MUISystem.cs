@@ -531,17 +531,17 @@ namespace MetroidMod.Common.Systems
 				MGlobalItem mi = item.GetGlobalItem<MGlobalItem>();
 				if (mi.numSeekerTargets > 0)
 				{
-					for (int i = 0; i < mi.seekerTarget.Length; i++)
+					for (int i = 0; i < mi.seekerTargetList.Length; i++)
 					{
-						if (mi.seekerTarget[i] > -1)
+						if (mi.seekerTargetList[i] > -1)
 						{
 							int frame = 0;
 							bool flag = true;
-							for (int j = 0; j < mi.seekerTarget.Length; j++)
+							for (int j = 0; j < mi.seekerTargetList.Length; j++)
 							{
 								if (i != j)
 								{
-									if (mi.seekerTarget[i] == mi.seekerTarget[j])
+									if (mi.seekerTargetList[i] == mi.seekerTargetList[j])
 									{
 										flag = false;
 										frame += 1;
@@ -556,7 +556,7 @@ namespace MetroidMod.Common.Systems
 							if (flag)
 							{
 								tScale[i] = Math.Max(tScale[i] - 0.1f, 0f);
-								NPC npc = Main.npc[mi.seekerTarget[i]];
+								NPC npc = Main.npc[mi.seekerTargetList[i]];
 								Texture2D tTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Targeting_retical").Value;
 								Color color = new Color(255, 255, 255, 50);
 								color *= (1f - tScale[i]) * 0.9f;

@@ -62,51 +62,6 @@ namespace MetroidMod.Content.MissileAddons
 				Initialized = true;
 			}
 		}
-		public override void AI(MProjectile mProjectile)
-		{
-			Player player = Main.player[mProjectile.Projectile.owner];
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			Item item = player.HeldItem;
-			MGlobalItem pb = item.GetGlobalItem<MGlobalItem>();
-			//pb.seekerCharge = 0;
-			//mProj.seeking = true;
-			Seeking(mProjectile);
-			//Projectile P = mProjectile.Projectile;
-			//float num236 = P.position.X;
-			//float num237 = P.position.Y;
-			//bool flag5 = false;
-			//P.ai[0] += 1f;
-			//if (P.ai[0] > 5f && P.numUpdates <= 0)
-			//{
-			//	P.ai[0] = 5f;
-			//	int num239 = mProjectile.seekTarget;
-			//	if (Main.npc[num239].active)
-			//	{
-			//		num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
-			//		num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
-			//		flag5 = true;
-			//	}
-			//	//else
-			//	//{
-			//	//	seekTarget = -1;
-			//	//}
-			//}
-			//if (!flag5)
-			//{
-			//	num236 = P.position.X + (P.width / 2) + (P.velocity.X * 100f);
-			//	num237 = P.position.Y + (P.height / 2) + (P.velocity.Y * 100f);
-			//}
-			//float num243 = 8f;
-			//Vector2 vector22 = new Vector2(P.position.X + (P.width * 0.5f), P.position.Y + (P.height * 0.5f));
-			//float num244 = num236 - vector22.X;
-			//float num245 = num237 - vector22.Y;
-			//float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
-			//num246 = num243 / num246;
-			//num244 *= num246;
-			//num245 *= num246;
-			//P.velocity.X = ((P.velocity.X * 11f) + num244) / 12f;
-			//P.velocity.Y = ((P.velocity.Y * 11f) + num245) / 12f;
-		}
 		public override void OnSpawn(MProjectile mProjectile, IEntitySource source)
 		{
 			Projectile P = mProjectile.Projectile;
@@ -121,52 +76,70 @@ namespace MetroidMod.Content.MissileAddons
 				Vector2 velocity = targetrotation.ToRotationVector2() * I.shootSpeed;
 				var entitySource = player.GetSource_ItemUse(I);
 				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
-				if (mi.seekerCharge <= 0)
-				{
-					mi.seekerCharge++;
-				}
 				if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
 				{
-					for (int i = 0; i < mi.seekerTarget.Length; i++)
+					for (int i = 0; i < mi.seekerTargetList.Length; i++)
 					{
-						if (mi.seekerTarget[i] > -1)
+						if (mi.seekerTargetList[i] > -1)
 						{
+							mProjectile.seekTarget = mi.seekerTargetList[i];
+							mProjectile.seeking = true;
 							//int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, I.shoot, I.damage, I.knockBack, player.whoAmI);
 							//MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-							armi.Launch(player, source, oPos, velocity, player.HeldItem.shoot, player.HeldItem.damage, player.HeldItem.knockBack);
+							//armi.Launch(player, source, oPos, velocity, I.shoot, I.damage, I.knockBack);
 							ShotCount = i;
-							//if (mProj is MissileShot miss)
-							//{
-							//	miss.groupSize = i;
-							//}
-							//mProj.seekTarget = mi.seekerTarget[i];
-							//mProj.seeking = true;
-							//Seeking(mProj, mProj.seekTarget);
-							//mProj.Projectile.netUpdate2 = true;
+							if (mProjectile is MissileShot miss)
+							{
+								miss.groupSize = i;
+								miss.groupID = mProjectile.seekTarget;
+							}
+							mProjectile.Projectile.netUpdate2 = true;
 							//pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
-							mi.seekerCharge = 0;
-							//mi.seekerTarget[i] = -1;
-							//for (int k = 0; k < mi.seekerTarget.Length; k++)
-							//{
-							//	mi.seekerTarget[k] = -1;
-							//}
 						}
 					}
 					SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
 				}
+				//else
+				//{
+				//	armi.Launch(player, source, oPos, velocity, I.shoot, I.damage, I.knockBack);
+				//}
+				//mi.seekerCharge = 0;
 			}
 		}
-		private void Seeking(MProjectile mProjectile)
+		public override void AI(MProjectile mProjectile)
+		{
+			Player player = Main.player[mProjectile.Projectile.owner];
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			Item item = player.HeldItem;
+			MGlobalItem pb = item.GetGlobalItem<MGlobalItem>();
+			//pb.seekerCharge = 0;
+			//mProj.seeking = true;
+			Projectile P = mProjectile.Projectile;
+			Player merp = Main.player[P.owner];
+			Item I = merp.HeldItem;
+			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
+			//for (int i = 0; i < mi.seekerTargetList.Length; i++)
+			//{
+			//	mProjectile.seekTarget = mi.seekerTargetList[i];
+			//}
+			if (mProjectile.seekTarget > -1 && mProjectile.seeking == true)
+			{
+				//mProjectile.seeking = true;
+				Seeking(mProjectile, mProjectile.seekTarget);
+			}
+			else
+				base.AI(mProjectile);
+		}
+		private void Seeking(MProjectile mProjectile, int seekTarget)
 		{
 			Projectile P = mProjectile.Projectile;
 			Player merp = Main.player[P.owner];
 			Item I = merp.HeldItem;
 			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
-			int seekTarget = -1;
-			for (int i = 0; i < mi.seekerTarget.Length; i++)
-			{
-				seekTarget = mi.seekerTarget[i];
-			}
+			//for (int i = 0; i < mi.seekerTargetList.Length; i++)
+			//{
+			//	seekTarget = mi.seekerTargetList[i];
+			//}
 			float num236 = P.position.X;
 			float num237 = P.position.Y;
 			bool flag5 = false;
@@ -180,10 +153,10 @@ namespace MetroidMod.Content.MissileAddons
 					num237 = Main.npc[seekTarget].position.Y + (Main.npc[seekTarget].height / 2);
 					flag5 = true;
 				}
-				//else
-				//{
-				//	seekTarget = -1;
-				//}
+				else
+				{
+					mProjectile.seekTarget = -1;
+				}
 			}
 			if (!flag5)
 			{
@@ -206,9 +179,9 @@ namespace MetroidMod.Content.MissileAddons
 			Player merp = Main.player[mProjectile.Projectile.owner];
 			Item I = merp.HeldItem;
 			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
-			for (int k = 0; k < mi.seekerTarget.Length; k++)
+			for (int k = 0; k < mi.seekerTargetList.Length; k++)
 			{
-				mi.seekerTarget[k] = -1;
+				mi.seekerTargetList[k] = -1;
 			}
 			base.OnKill(mProjectile, timeLeft);
 		}
@@ -350,9 +323,9 @@ namespace MetroidMod.Content.MissileAddons
 							{
 								Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 								bool flag = false;
-								for (int j = 0; j < mi.seekerTarget.Length; j++)
+								for (int j = 0; j < mi.seekerTargetList.Length; j++)
 								{
-									if (mi.seekerTarget[j] == npc.whoAmI)
+									if (mi.seekerTargetList[j] == npc.whoAmI)
 									{
 										flag = true;
 									}
@@ -362,9 +335,9 @@ namespace MetroidMod.Content.MissileAddons
 								delta.X -= MathHelper.Clamp(MX, npcRect.X, npcRect.X + npcRect.Width);
 								delta.Y -= MathHelper.Clamp(MY, npcRect.Y, npcRect.Y + npcRect.Height);
 								bool colFlag = delta.Length() < 50;
-								if (colFlag && mi.seekerTarget[targetNum] <= -1 && ((targetingDelay <= 0 && mouse.Intersects(npcRect)) || !flag) /*&& pb.statMissiles > pb.numSeekerTargets*/)
+								if (colFlag && mi.seekerTargetList[targetNum] <= -1 && ((targetingDelay <= 0 && mouse.Intersects(npcRect)) || !flag) /*&& pb.statMissiles > pb.numSeekerTargets*/)
 								{
-									mi.seekerTarget[targetNum] = npc.whoAmI;
+									mi.seekerTargetList[targetNum] = npc.whoAmI;
 									targetNum++;
 									if (targetNum > 4)
 									{
@@ -377,7 +350,7 @@ namespace MetroidMod.Content.MissileAddons
 						}
 
 						int num = 10;
-						while (mi.seekerTarget[targetNum] > -1 && num > 0)
+						while (mi.seekerTargetList[targetNum] > -1 && num > 0)
 						{
 							targetNum++;
 							if (targetNum > 4)
@@ -388,15 +361,15 @@ namespace MetroidMod.Content.MissileAddons
 						}
 
 						mi.numSeekerTargets = 0;
-						for (int i = 0; i < mi.seekerTarget.Length; i++)
+						for (int i = 0; i < mi.seekerTargetList.Length; i++)
 						{
-							if (mi.seekerTarget[i] > -1)
+							if (mi.seekerTargetList[i] > -1)
 							{
 								mi.numSeekerTargets++;
 
-								if (!Main.npc[mi.seekerTarget[i]].active)
+								if (!Main.npc[mi.seekerTargetList[i]].active)
 								{
-									mi.seekerTarget[i] = -1;
+									mi.seekerTargetList[i] = -1;
 								}
 							}
 						}
@@ -430,9 +403,10 @@ namespace MetroidMod.Content.MissileAddons
 				//{
 				//	mi.seekerTarget[k] = -1;
 				//}
+
+				P.Kill();
 				targetNum = 0;
 				targetingDelay = 0;
-				P.Kill();
 			}
 		}
 		public override void OnKill(int timeLeft)
@@ -445,59 +419,24 @@ namespace MetroidMod.Content.MissileAddons
 			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 			Vector2 velocity = targetrotation.ToRotationVector2() * I.shootSpeed;
-			var entitySource = O.GetSource_ItemUse(I);
+			var source = O.GetSource_ItemUse(I);
 			MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
+			if (mi.seekerCharge <= MGlobalItem.seekerMaxCharge)
+			{
+				mi.seekerCharge++;
+			}
 			if (I.ModItem is ArmCannon armi)
 			{
-				armi.Launch(O, entitySource, oPos, velocity, I.shoot, I.damage, I.knockBack, true);
-				//if (mi.seekerCharge <= 0 && P.active)
-				//{
-				//	mi.seekerCharge++;
-				//}
-				//if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
-				//{
-				//	for (int i = 0; i < mi.seekerTarget.Length; i++)
-				//	{
-				//		if (mi.seekerTarget[i] > -1)
-				//		{
-				//			int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, I.shoot, I.damage, I.knockBack, O.whoAmI);
-				//			MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-				//			//armi.Launch(player, entitySource, oPos, velocity, item.shoot, item.damage, item.knockBack, true);
-							
-				//			if(mProj is MissileShot miss)
-				//			{
-				//				miss.groupSize = i;
-				//			}
-				//			mProj.seekTarget = mi.seekerTarget[i];
-				//			mProj.seeking = true;
-				//			//Seeking(mProj, mProj.seekTarget);
-				//			mProj.Projectile.netUpdate2 = true;
-				//			//MissileAddonLoader.GetAddon<SuperMissile>().AI(mProj);
-				//			//pb.statMissiles = Math.Max(pb.statMissiles -= (int)Math.Round(MGlobalItem.AmmoUsage(player, 1)), 0);
-				//		}
-				//	}
-				//	SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
-				//}
-				//else if (pb.seekerCharge > 0)
-				//{
-				//	Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, item.shoot, item.damage, item.knockBack, player.whoAmI);
-				//	//SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/{shotSound}"), oPos);
-				//	//pb.statMissiles -= 1;
-				//}
-				//if (!P.active)
-				//{
-				//	mi.seekerCharge = 0;
-				//	//Initialized = false;
-				//}
-				//mi.numSeekerTargets = 0;
-				//for (int k = 0; k < mi.seekerTarget.Length; k++)
-				//{
-				//	mi.seekerTarget[k] = -1;
-				//}
-				//targetNum = 0;
-				//targetingDelay = 0;
+				if (mi.seekerCharge >= MGlobalItem.seekerMaxCharge && mi.numSeekerTargets > 0)
+				{
+					for (int i = 0; i < mi.seekerTargetList.Length; i++)
+					{
+						armi.Launch(O, source, oPos, velocity, I.shoot, I.damage, I.knockBack, true);
+					}
+					SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
+				}
 			}
-			//mi.seekerCharge = 0;
+			mi.seekerCharge = 0;
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{

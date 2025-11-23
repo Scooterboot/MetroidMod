@@ -57,7 +57,7 @@ namespace MetroidMod.Common.GlobalItems
 		public int inverter = 1;
 
 		public int numSeekerTargets = 0;
-		public int[] seekerTarget = new int[5];
+		public int[] seekerTargetList = new int[5];
 		public int seekerCharge = 0;
 		public static int seekerMaxCharge = 25;
 
