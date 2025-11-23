@@ -82,7 +82,7 @@ namespace MetroidMod.Content.MissileAddons
 					{
 						if (mi.seekerTargetList[i] > -1)
 						{
-							mProjectile.seekTarget = mi.seekerTargetList[i];
+							//mProjectile.seekTarget = mi.seekerTargetList[i];
 							mProjectile.seeking = true;
 							//int shotProj = Projectile.NewProjectile(entitySource, oPos.X, oPos.Y, velocity.X, velocity.Y, I.shoot, I.damage, I.knockBack, player.whoAmI);
 							//MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
@@ -122,7 +122,7 @@ namespace MetroidMod.Content.MissileAddons
 			//{
 			//	mProjectile.seekTarget = mi.seekerTargetList[i];
 			//}
-			if (mProjectile.seekTarget > -1 && mProjectile.seeking == true)
+			if (mProjectile.seekTarget > -1 && mProjectile.seeking)
 			{
 				//mProjectile.seeking = true;
 				Seeking(mProjectile, mProjectile.seekTarget);
@@ -153,10 +153,10 @@ namespace MetroidMod.Content.MissileAddons
 					num237 = Main.npc[seekTarget].position.Y + (Main.npc[seekTarget].height / 2);
 					flag5 = true;
 				}
-				else
-				{
-					mProjectile.seekTarget = -1;
-				}
+				//else
+				//{
+				//	mProjectile.seekTarget = -1;
+				//}
 			}
 			if (!flag5)
 			{
@@ -431,7 +431,7 @@ namespace MetroidMod.Content.MissileAddons
 				{
 					for (int i = 0; i < mi.seekerTargetList.Length; i++)
 					{
-						armi.Launch(O, source, oPos, velocity, I.shoot, I.damage, I.knockBack, true);
+						armi.Launch(O, source, oPos, velocity, I.shoot, I.damage, I.knockBack, true, mi.seekerTargetList[i]);
 					}
 					SoundEngine.PlaySound(Sounds.Items.Weapons.SeekerMissileSound, oPos);
 				}

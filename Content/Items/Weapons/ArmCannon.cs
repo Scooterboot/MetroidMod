@@ -747,7 +747,7 @@ namespace MetroidMod.Content.Items.Weapons
 		/// <param name="bonusFileMod">Appended to the shot's filemod for on-the-fly modifications.
 		/// <br/>Things like charge shots take advantage of this.</param>
 		/// <param name="multiplier">Allows for on-the-fly modifying of the Interact values.</param>
-		public void Launch(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool Charged = false) //TODO can be really cleand up. --DR
+		public void Launch(Player player, IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool Charged = false, int target = -1) //TODO can be really cleand up. --DR
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //finds the current player's MPlayer data for later modification
 			MGlobalItem ac = Item.GetGlobalItem<MGlobalItem>();
@@ -756,21 +756,22 @@ namespace MetroidMod.Content.Items.Weapons
 			bool primus = !missileAddons[MissileAddonSlotID.Primary].IsAir && missileAddons[MissileAddonSlotID.Primary] != null;
 			MissileShot miss = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback).ModProjectile as MissileShot;
 			//TODO: store charge shot stats separately (do it in ArrayUpdate())
-			//if (isCharged)
-			//{
-			//	miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
-			//	edgeCaseStuff = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).OverrideData();
-			//	theShootsingAmount = edgeCaseStuff[4] + MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).ShotCount;
-			//	for (int i = 0; i < theShootsingAmount; i++)
-			//	{
-			//		miss.groupSize = theShootsingAmount;
-			//		miss.groupID = i;
-			//		//MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
-			//	}
-			//	//miss.missileAddons = [.. missileAddons
-			//	//.Select(MissileAddonLoader.GetAddon)
-			//	//.Select(i => i?.Clone())];
-			//}
+			if (Charged)
+			{
+				miss.Override = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]);
+				edgeCaseStuff = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).OverrideData();
+				theShootsingAmount = edgeCaseStuff[4] + MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).ShotCount;
+				for (int i = 0; i < theShootsingAmount; i++)
+				{
+					miss.groupSize = theShootsingAmount;
+					miss.groupID = i;
+					miss.seekTarget = target;
+					//MetroidMod.Instance.Logger.Info("Assigned override! " + miss.Override);
+				}
+				//miss.missileAddons = [.. missileAddons
+				//.Select(MissileAddonLoader.GetAddon)
+				//.Select(i => i?.Clone())];
+			}
 			if (primus)
 			{
 				ModMissileAddon preemus = MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Primary]);
