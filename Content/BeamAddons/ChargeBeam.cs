@@ -147,6 +147,7 @@ namespace MetroidMod.Content.BeamAddons
 							chProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), oPos, velocity, ModContent.ProjectileType<ChargeLead>(), item.damage, item.knockBack, player.whoAmI);
 							chargio = (ChargeLead)chProj.ModProjectile;
 							chInt = chProj.whoAmI;
+							player.heldProj = chInt;
 							mp.disableSomersault = true;
 							chargio.sourceItem = item;
 							chargio.sourceAddon = this;
