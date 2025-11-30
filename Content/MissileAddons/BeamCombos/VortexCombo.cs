@@ -1,6 +1,8 @@
 using System;
+using System.Threading;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.BeamAddons;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -8,21 +10,25 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons.BeamCombos
 {
-	public class VortexCombo : ModMissileAddon
+	public class VortexCombo : ModMissileAddon //TODO MAKE SHOTS RANDOM DIRECT ISH
 	{
 		public override bool AddOnlyAddonItem => false;
 		public override Color PrimaryColor => MetroidMod.powColor;
 		public override Color SecondaryColor => MetroidMod.powSecondaryColor;
 		public override int ShotDust => DustID.YellowTorch;
+		public override int ShotCount => 6;
 		public override bool HoldFire => true;
 		private Vector2 velocity = Vector2.Zero;
 		private bool checkbreak = false;
 		private int damage = 0;
+		private int counter = 0;
+		private int timer = 0;
 		public override void SetProjectileDefaults(MProjectile mProjectile)
 		{
 			base.SetProjectileDefaults(mProjectile);
@@ -51,7 +57,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Item item = player.HeldItem;
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
 			Lead = lead;
-			if (!Initialized && Lead.active)
+			if (Lead.active && counter < ShotCount && timer == 0 && item.ModItem is ArmCannon armi)
 			{
 				float MY = Main.mouseY + Main.screenPosition.Y;
 				float MX = Main.mouseX + Main.screenPosition.X;
@@ -61,9 +67,14 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				}
 				float targetrotation = (float)Math.Atan2(MY - oPos.Y, MX - oPos.X);
 				Vector2 velocity = targetrotation.ToRotationVector2() * item.shootSpeed;
-				Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
-				Initialized = true;
+				for (int i = 0; i < ShotCount; i++)
+				{
+					//armi.Launch(player, player.GetSource_ItemUse(item), Lead.position, velocity, ProjectileType, 0, 0, true);
+					Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
+				}
+				timer = 10;
 			}
+			timer--;
 		}
 		public override void AI(MProjectile mProjectile)
 		{
@@ -241,6 +252,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				Main.dust[dust].velocity = new Vector2(Main.rand.Next(30) - 15, Main.rand.Next(30) - 15) * 0.125f;
 				Main.dust[dust].noGravity = true;
 			}
+			counter--;
 		}
 		public override bool OnTileCollide(MProjectile mProjectile, Vector2 oldVelocity)
 		{
@@ -308,10 +320,6 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 	}
 	public class VortexComboShot2 : MProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Vortex Combo Shot");
-		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -351,10 +359,6 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 	}
 	public class VortexComboLead : MProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Vortex Combo Lead");
-		}
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
