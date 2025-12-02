@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace MetroidMod.Content.MissileAddons.BeamCombos
@@ -88,8 +89,22 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					comboTime--;
 				}
 				scalePlus = Math.Min(scalePlus + (2f / comboUseTime), 20f);
-				Initialized = true;
+				//Initialized = true;
 			}
+		}
+		public override void OnSpawn(MProjectile mProjectile, IEntitySource source)
+		{
+			Projectile P = mProjectile.Projectile;
+			P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
+			for (int i = 0; i < P.oldPos.Length; i++)
+			{
+				P.oldPos[i] = P.position;
+			}
+			for (int i = 0; i < P.oldRot.Length; i++)
+			{
+				P.oldRot[i] = P.rotation;
+			}
+			start = P.Center - Lead.Center;
 		}
 		public override void AI(MProjectile mProjectile)
 		{
@@ -113,111 +128,90 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				}
 			}
 
-			if (Initialized)
+			Vector2 velocity = P.position - P.oldPos[0];
+			if (Vector2.Distance(P.position, P.position + velocity) < Vector2.Distance(P.position, P.position + P.velocity))
 			{
-				P.rotation = (float)Math.Atan2(P.velocity.Y, P.velocity.X) + MathHelper.PiOver2;
-				for (int i = 0; i < P.oldPos.Length; i++)
-				{
-					P.oldPos[i] = P.position;
-				}
-				for (int i = 0; i < P.oldRot.Length; i++)
-				{
-					P.oldRot[i] = P.rotation;
-				}
-				start = P.Center - Lead.Center;
-				Initialized = true;
-				return;
+				velocity = P.velocity;
 			}
-			else
-			{
-				Vector2 velocity = P.position - P.oldPos[0];
-				if (Vector2.Distance(P.position, P.position + velocity) < Vector2.Distance(P.position, P.position + P.velocity))
-				{
-					velocity = P.velocity;
-				}
-				P.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + MathHelper.PiOver2;
+			P.rotation = (float)Math.Atan2(velocity.Y, velocity.X) + MathHelper.PiOver2;
 
-				startPos = Lead.Center + O.velocity + start;
-			}
+			startPos = Lead.Center + O.velocity + start;
 		}
 		public override bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor)
 		{
 			SpriteBatch sb = Main.spriteBatch;
-			if (Initialized)
+			Projectile P = mProjectile.Projectile;
+			Player O = Main.player[P.owner];
+			Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
+
+			float scaleDrop = 0.5f;
+			Color color = default(Color);
+
+			Color color2 = Color.White;
+			if (color != default(Color))
 			{
-				Projectile P = mProjectile.Projectile;
-				Player O = Main.player[P.owner];
-				Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
-
-				float scaleDrop = 0.5f;
-				Color color = default(Color);
-
-				Color color2 = Color.White;
-				if (color != default(Color))
-				{
-					color2 = color;
-				}
-				SpriteEffects effects = SpriteEffects.None;
-				if (P.spriteDirection == -1)
-				{
-					effects = SpriteEffects.FlipHorizontally;
-				}
-				Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
-				int height = tex.Height / Main.projFrames[P.type];
-				int y4 = height * P.frame;
-
-				float dist = 0f;
-				if (Lead != null && Lead.active)
-				{
-					dist = Vector2.Distance(oPos, Lead.Center);
-				}
-
-				float vel = Math.Min(Vector2.Distance(P.Center, startPos), P.velocity.Length());
-
-				int amt = 10;
-				for (int i = amt - 1; i > -1; i--)
-				{
-					if (Vector2.Distance(oPos, P.oldPos[i] + (P.Size / 2f)) >= dist)
-					{
-						Color color23 = color2;
-						color23 = P.GetAlpha(color23);
-						color23 *= (amt - i) / ((float)amt);
-						//color23.A = (byte)((float)color23.A * ((float)(amt - i) / (float)amt));
-						float scale = MathHelper.Lerp(P.scale, P.scale * scaleDrop, (float)i / amt);
-
-						float vel2 = Math.Min(Vector2.Distance(P.oldPos[i] + (P.Size / 2f), startPos), P.velocity.Length());
-						if (vel2 > 0)
-						{
-							for (float j = vel2; j > 0; j--)
-							{
-								//Color color4 = color23;
-								//color4 *= (float)(vel2 - j) / ((float)vel2);
-								//color4.A = (byte)((float)color4.A * ((float)(vel2 - j) / (float)vel2));
-								Vector2 oldPos = P.oldPos[i] + (P.Size / 2f) - (Vector2.Normalize(P.velocity) * j);
-								sb.Draw(tex, oldPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-								color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
-							}
-						}
-
-						sb.Draw(tex, P.oldPos[i] + (P.Size / 2f) - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-						color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
-					}
-				}
-				if (vel > 0)
-				{
-					for (float j = vel; j > 0; j--)
-					{
-						//Color color3 = P.GetAlpha(color2);
-						//color3 *= (float)(vel - j) / ((float)vel);
-						//color3.A = (byte)((float)color3.A * ((float)(vel - j) / (float)vel));
-						Vector2 pos = P.Center - (Vector2.Normalize(P.velocity) * j);
-						sb.Draw(tex, pos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-						P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
-					}
-				}
-				sb.Draw(tex, P.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
-				P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
+				color2 = color;
 			}
+			SpriteEffects effects = SpriteEffects.None;
+			if (P.spriteDirection == -1)
+			{
+				effects = SpriteEffects.FlipHorizontally;
+			}
+			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
+			int height = tex.Height / Main.projFrames[P.type];
+			int y4 = height * P.frame;
+
+			float dist = 0f;
+			if (Lead != null && Lead.active)
+			{
+				dist = Vector2.Distance(oPos, Lead.Center);
+			}
+
+			float vel = Math.Min(Vector2.Distance(P.Center, startPos), P.velocity.Length());
+
+			int amt = 10;
+			for (int i = amt - 1; i > -1; i--)
+			{
+				if (Vector2.Distance(oPos, P.oldPos[i] + (P.Size / 2f)) >= dist)
+				{
+					Color color23 = color2;
+					color23 = P.GetAlpha(color23);
+					color23 *= (amt - i) / ((float)amt);
+					//color23.A = (byte)((float)color23.A * ((float)(amt - i) / (float)amt));
+					float scale = MathHelper.Lerp(P.scale, P.scale * scaleDrop, (float)i / amt);
+
+					float vel2 = Math.Min(Vector2.Distance(P.oldPos[i] + (P.Size / 2f), startPos), P.velocity.Length());
+					if (vel2 > 0)
+					{
+						for (float j = vel2; j > 0; j--)
+						{
+							//Color color4 = color23;
+							//color4 *= (float)(vel2 - j) / ((float)vel2);
+							//color4.A = (byte)((float)color4.A * ((float)(vel2 - j) / (float)vel2));
+							Vector2 oldPos = P.oldPos[i] + (P.Size / 2f) - (Vector2.Normalize(P.velocity) * j);
+							sb.Draw(tex, oldPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
+							color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
+						}
+					}
+
+					sb.Draw(tex, P.oldPos[i] + (P.Size / 2f) - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
+					color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
+				}
+			}
+			if (vel > 0)
+			{
+				for (float j = vel; j > 0; j--)
+				{
+					//Color color3 = P.GetAlpha(color2);
+					//color3 *= (float)(vel - j) / ((float)vel);
+					//color3.A = (byte)((float)color3.A * ((float)(vel - j) / (float)vel));
+					Vector2 pos = P.Center - (Vector2.Normalize(P.velocity) * j);
+					sb.Draw(tex, pos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
+					P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
+				}
+			}
+			sb.Draw(tex, P.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
+			P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
 
 			return false;
 		}

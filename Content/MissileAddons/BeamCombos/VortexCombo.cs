@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -56,7 +57,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		{
 			Item item = player.HeldItem;
 			Vector2 oPos = player.RotatedRelativePoint(player.MountedCenter, true);
-			Lead = lead;
+			Lead = Main.projectile[(int)lead.ai[0]];
 			if (Lead.active && counter < ShotCount && timer == 0 && item.ModItem is ArmCannon armi)
 			{
 				float MY = Main.mouseY + Main.screenPosition.Y;
@@ -76,6 +77,22 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			}
 			timer--;
 		}
+		public override void OnSpawn(MProjectile mProjectile, IEntitySource source)
+		{
+			Projectile P = mProjectile.Projectile;
+			P.rotation = (float)Angle.ConvertToRadians(Main.rand.Next(36) * 10);
+			P.scale = 0f;
+			damage = P.damage;
+			P.damage = 0;
+
+			Vector2 vel = P.velocity;
+			vel = vel.RotatedBy(P.rotation, default(Vector2));
+			P.velocity = Vector2.Normalize(vel) * (4f + Main.rand.Next(4));
+
+			//P.timeLeft = 60+Main.rand.Next(61);
+
+			P.ai[1] = -1;
+		}
 		public override void AI(MProjectile mProjectile)
 		{
 			Projectile P = mProjectile.Projectile;
@@ -94,28 +111,28 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				velocity = Vector2.Normalize(Lead.velocity) * speed;
 			}
 
-			if (!Initialized)
-			{
-				/*if (P.owner == Main.myPlayer)
-				{
-					Main.PlaySound(2,(int)P.Center.X,(int)P.Center.Y,8);//43);
-				}*/
-				P.rotation = (float)Angle.ConvertToRadians(Main.rand.Next(36) * 10);
-				P.scale = 0f;
-				damage = P.damage;
-				P.damage = 0;
+			//if (!Initialized)
+			//{
+			//	/*if (P.owner == Main.myPlayer)
+			//	{
+			//		Main.PlaySound(2,(int)P.Center.X,(int)P.Center.Y,8);//43);
+			//	}*/
+			//	P.rotation = (float)Angle.ConvertToRadians(Main.rand.Next(36) * 10);
+			//	P.scale = 0f;
+			//	damage = P.damage;
+			//	P.damage = 0;
 
-				Vector2 vel = P.velocity;
-				vel = vel.RotatedBy(P.rotation, default(Vector2));
-				P.velocity = Vector2.Normalize(vel) * (4f + Main.rand.Next(4));
+			//	Vector2 vel = P.velocity;
+			//	vel = vel.RotatedBy(P.rotation, default(Vector2));
+			//	P.velocity = Vector2.Normalize(vel) * (4f + Main.rand.Next(4));
 
-				//P.timeLeft = 60+Main.rand.Next(61);
+			//	//P.timeLeft = 60+Main.rand.Next(61);
 
-				P.ai[1] = -1;
+			//	P.ai[1] = -1;
 
-				Initialized = true;
-				return;
-			}
+			//	Initialized = true;
+			//	return;
+			//}
 
 			if (P.owner == Main.myPlayer)
 			{
