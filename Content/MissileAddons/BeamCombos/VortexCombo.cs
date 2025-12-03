@@ -337,6 +337,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 	}
 	public class VortexComboShot2 : MProjectile
 	{
+		public override string Texture => $"{Mod.Name}/Assets/Textures/MissileAddons/VortexCombo/Shot2";
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -370,7 +371,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch, $"{Mod.Name}/Assets/Textures/MissileAddons/VortexCombo/Shot2");
+			mProjectile.PlasmaDraw(Projectile, Main.player[Projectile.owner], Main.spriteBatch, Texture);
 			return false;
 		}
 	}

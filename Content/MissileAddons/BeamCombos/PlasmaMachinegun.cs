@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -17,6 +18,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		public override Color PrimaryColor => MetroidMod.plaGreenColor;
 		public override Color SecondaryColor => MetroidMod.plaGreenColor2;
 		public override int ShotDust => DustID.GreenTorch;
+		public override int ShotFrames => 2;
 		public override bool HoldFire => true;
 		private Vector2 start = Vector2.Zero;
 		private Vector2 startPos = Vector2.Zero;
@@ -48,7 +50,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		{
 			Item item = player.HeldItem;
 			Lead = lead;
-			if (Lead.active)
+			if (Lead.active && item.ModItem is ArmCannon armi)
 			{
 				if (comboTime <= 0)
 				{
@@ -74,6 +76,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						{
 							vector5 = -Vector2.UnitY; //this can turn the shots into a cursed flame candle with fargos hypermode and or/enough speed
 						}
+						//armi.Launch(player, player.GetSource_ItemUse(item), vector3, vector5, ProjectileType, 0, 0, true);
 						int proj = Projectile.NewProjectile(entitySource, vector3.X, vector3.Y, vector5.X, vector5.Y, ProjectileType, item.damage, item.knockBack, player.whoAmI, 0f, 0f);
 						Main.projectile[proj].ai[0] = Lead.whoAmI;
 						MProjectile mProj = (MProjectile)Main.projectile[proj].ModProjectile;
@@ -122,7 +125,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				Main.dust[dust].noGravity = true;
 
 				P.frame++;
-				if (P.frame >= Main.projFrames[ProjectileType])
+				if (P.frame >= ShotFrames)
 				{
 					P.frame = 0;
 				}
@@ -177,7 +180,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					Color color23 = color2;
 					color23 = P.GetAlpha(color23);
 					color23 *= (amt - i) / ((float)amt);
-					//color23.A = (byte)((float)color23.A * ((float)(amt - i) / (float)amt));
+					color23.A = (byte)((float)color23.A * ((float)(amt - i) / (float)amt));
 					float scale = MathHelper.Lerp(P.scale, P.scale * scaleDrop, (float)i / amt);
 
 					float vel2 = Math.Min(Vector2.Distance(P.oldPos[i] + (P.Size / 2f), startPos), P.velocity.Length());
@@ -185,9 +188,9 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					{
 						for (float j = vel2; j > 0; j--)
 						{
-							//Color color4 = color23;
-							//color4 *= (float)(vel2 - j) / ((float)vel2);
-							//color4.A = (byte)((float)color4.A * ((float)(vel2 - j) / (float)vel2));
+							Color color4 = color23;
+							color4 *= (float)(vel2 - j) / ((float)vel2);
+							color4.A = (byte)((float)color4.A * ((float)(vel2 - j) / (float)vel2));
 							Vector2 oldPos = P.oldPos[i] + (P.Size / 2f) - (Vector2.Normalize(P.velocity) * j);
 							sb.Draw(tex, oldPos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
 							color23, P.oldRot[i], new Vector2(tex.Width / 2f, P.height / 2f), scale, effects, 0f);
@@ -202,9 +205,9 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			{
 				for (float j = vel; j > 0; j--)
 				{
-					//Color color3 = P.GetAlpha(color2);
-					//color3 *= (float)(vel - j) / ((float)vel);
-					//color3.A = (byte)((float)color3.A * ((float)(vel - j) / (float)vel));
+					Color color3 = P.GetAlpha(color2);
+					color3 *= (float)(vel - j) / ((float)vel);
+					color3.A = (byte)((float)color3.A * ((float)(vel - j) / (float)vel));
 					Vector2 pos = P.Center - (Vector2.Normalize(P.velocity) * j);
 					sb.Draw(tex, pos - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, height)),
 					P.GetAlpha(color2), P.rotation, new Vector2(tex.Width / 2f, P.height / 2f), P.scale, effects, 0f);
