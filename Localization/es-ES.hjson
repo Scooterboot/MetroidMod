@@ -4143,6 +4143,7 @@ Mods: {
 			// StardustDiffuse.DisplayName: Stardust Diffuse
 			// NovaLaserProjectile.DisplayName: Nova Laser Projectile
 			// SolarFlareProjectile.DisplayName: Solar Flare Projectile
+			// BattleHammerShot.DisplayName: Battle Hammer Shot
 		}
 
 		Configs: {

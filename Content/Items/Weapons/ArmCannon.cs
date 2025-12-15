@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -594,7 +593,8 @@ namespace MetroidMod.Content.Items.Weapons
 					MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).HoldFireBehavior(player);
 				}
 			}
-			else*/ if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (ac.isBeam || (!ac.isBeam && missileAddons[MissileAddonSlotID.Charge] != null)))
+			else*/
+			if (CanUseItem(player) && (HoldFireSlot != -1) && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()) && (ac.isBeam || (!ac.isBeam && missileAddons[MissileAddonSlotID.Charge] != null)))
 			{
 
 				//bool dontCharge = !ac.isBeam && missileAddons[MissileAddonSlotID.Charge] != null && !MissileAddonLoader.GetAddon(missileAddons[MissileAddonSlotID.Charge]).NeedsCharging;

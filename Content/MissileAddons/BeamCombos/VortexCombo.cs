@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.Items.Weapons;
@@ -11,13 +10,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MissileAddons.BeamCombos
 {
-	public class VortexCombo : ModMissileAddon //TODO MAKE SHOTS RANDOM DIRECT ISH
+	public class VortexCombo : ModMissileAddon
 	{
 		public override bool AddOnlyAddonItem => false;
 		public override Color PrimaryColor => MetroidMod.powColor;
@@ -72,6 +70,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				{
 					//armi.Launch(player, player.GetSource_ItemUse(item), Lead.position, velocity, ProjectileType, 0, 0, true);
 					Projectile.NewProjectile(player.GetSource_ItemUse(item), oPos.X, oPos.Y, velocity.X, velocity.Y, ProjectileType, 0, 0, player.whoAmI);
+					damage = item.damage;
 				}
 				timer = 10;
 			}
@@ -82,8 +81,8 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Projectile P = mProjectile.Projectile;
 			P.rotation = (float)Angle.ConvertToRadians(Main.rand.Next(36) * 10);
 			P.scale = 0f;
-			damage = P.damage;
-			P.damage = 0;
+			//damage = P.damage;
+			//P.damage = 0;
 
 			Vector2 vel = P.velocity;
 			vel = vel.RotatedBy(P.rotation, default(Vector2));
@@ -111,28 +110,6 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				velocity = Vector2.Normalize(Lead.velocity) * speed;
 			}
 
-			//if (!Initialized)
-			//{
-			//	/*if (P.owner == Main.myPlayer)
-			//	{
-			//		Main.PlaySound(2,(int)P.Center.X,(int)P.Center.Y,8);//43);
-			//	}*/
-			//	P.rotation = (float)Angle.ConvertToRadians(Main.rand.Next(36) * 10);
-			//	P.scale = 0f;
-			//	damage = P.damage;
-			//	P.damage = 0;
-
-			//	Vector2 vel = P.velocity;
-			//	vel = vel.RotatedBy(P.rotation, default(Vector2));
-			//	P.velocity = Vector2.Normalize(vel) * (4f + Main.rand.Next(4));
-
-			//	//P.timeLeft = 60+Main.rand.Next(61);
-
-			//	P.ai[1] = -1;
-
-			//	Initialized = true;
-			//	return;
-			//}
 
 			if (P.owner == Main.myPlayer)
 			{

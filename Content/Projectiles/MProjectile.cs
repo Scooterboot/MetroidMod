@@ -392,7 +392,7 @@ namespace MetroidMod.Content.Projectiles
 				P.Kill();
 			}
 		}
-		
+
 		public void HomingBehavior(Projectile P, float speed = 8f, float accuracy = 11f, float distance = 600f) //TODO make this more dynamic -DR
 		{
 			float homeX = P.position.X;
@@ -437,44 +437,6 @@ namespace MetroidMod.Content.Projectiles
 			yDist *= combinedDist;
 			P.velocity.X = ((P.velocity.X * accuracy) + xDist) / (accuracy + 1f);
 			P.velocity.Y = ((P.velocity.Y * accuracy) + yDist) / (accuracy + 1f);
-			//Projectile P = mProjectile.Projectile;
-			//if (mProjectile.seeking && mProjectile.seekTarget > -1)
-			//{
-			//	float num236 = P.position.X;
-			//	float num237 = P.position.Y;
-			//	bool flag5 = false;
-			//	P.ai[0] += 1f;
-			//	if (P.ai[0] > 5f && P.numUpdates <= 0)
-			//	{
-			//		P.ai[0] = 5f;
-			//		int num239 = mProjectile.seekTarget;
-			//		if (Main.npc[num239].active)
-			//		{
-			//			num236 = Main.npc[num239].position.X + (Main.npc[num239].width / 2);
-			//			num237 = Main.npc[num239].position.Y + (Main.npc[num239].height / 2);
-			//			flag5 = true;
-			//		}
-			//		else
-			//		{
-			//			mProjectile.seekTarget = -1;
-			//		}
-			//	}
-			//	if (!flag5)
-			//	{
-			//		num236 = P.position.X + (P.width / 2) + (P.velocity.X * 100f);
-			//		num237 = P.position.Y + (P.height / 2) + (P.velocity.Y * 100f);
-			//	}
-			//	float num243 = 8f;
-			//	Vector2 vector22 = new Vector2(P.position.X + (P.width * 0.5f), P.position.Y + (P.height * 0.5f));
-			//	float num244 = num236 - vector22.X;
-			//	float num245 = num237 - vector22.Y;
-			//	float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
-			//	num246 = num243 / num246;
-			//	num244 *= num246;
-			//	num245 *= num246;
-			//	P.velocity.X = ((P.velocity.X * 11f) + num244) / 12f;
-			//	P.velocity.Y = ((P.velocity.Y * 11f) + num245) / 12f;
-			//}
 		}
 
 		private int dustDelayCounter = 0;
@@ -514,12 +476,12 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].velocity = new Vector2((Main.rand.Next(freq) - (freq / 2)) * 0.125f, (Main.rand.Next(freq) - (freq / 2)) * 0.125f);
 				Main.dust[dust].noGravity = noGravity;
 			}
-			SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/ArmCannon/BeamImpactSound");
-			if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
-			{
-				sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
-			}
-			SoundEngine.PlaySound(sound, Projectile.Center);
+			//SoundStyle sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/ArmCannon/BeamImpactSound");
+			//if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
+			//{
+			//	sound = new($"{MetroidMod.Instance.Name}/Assets/Sounds/IceImpactSound");
+			//}
+			//SoundEngine.PlaySound(sound, Projectile.Center);
 		}
 
 		public bool canDiffuse = false;

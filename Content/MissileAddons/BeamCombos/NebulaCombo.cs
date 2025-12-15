@@ -1,15 +1,12 @@
 using System;
 using System.IO;
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using MonoMod.Core.Utils;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
@@ -24,15 +21,15 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 		public override Color SecondaryColor => MetroidMod.waveColor2;
 		public override bool HoldFire => true;
 		public override int ShotDust => DustID.YellowTorch;
-		const float Max_Range = 300f;
-		float range = Max_Range;
-		const float Max_Distance = 300f;
-		float distance = Max_Distance;
-		float accuracy = 11f;
-		Vector2 oPos;
-		Vector2 mousePos;
-		SoundEffectInstance soundInstance;
-		Projectile[] buster = new Projectile[4];
+		private const float Max_Range = 300f;
+		private float range = Max_Range;
+		private const float Max_Distance = 300f;
+		private float distance = Max_Distance;
+		private readonly float accuracy = 11f;
+		private Vector2 oPos;
+		private Vector2 mousePos;
+		private readonly SoundEffectInstance soundInstance;
+		private readonly Projectile[] buster = new Projectile[4];
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Charge;
@@ -120,16 +117,16 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 					diff = -Vector2.UnitY;
 				}
 
-				Vector2 targetPos = oPos + O.velocity + diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range);
+				Vector2 targetPos = oPos + O.velocity + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
 
-				float speed = Math.Max(2f, Vector2.Distance(targetPos, P.Center) * 0.025f) * (0.5f + 0.5f * P.scale);
+				float speed = Math.Max(2f, Vector2.Distance(targetPos, P.Center) * 0.025f) * (0.5f + (0.5f * P.scale));
 				float num244 = targetPos.X - P.Center.X;
 				float num245 = targetPos.Y - P.Center.Y;
-				float num246 = (float)Math.Sqrt((double)(num244 * num244 + num245 * num245));
+				float num246 = (float)Math.Sqrt((double)((num244 * num244) + (num245 * num245)));
 				num246 = speed / num246;
 				num244 *= num246;
 				num245 *= num246;
-				Vector2 vel = new Vector2((P.velocity.X * accuracy + num244) / (accuracy + 1f), (P.velocity.Y * accuracy + num245) / (accuracy + 1f));
+				Vector2 vel = new Vector2(((P.velocity.X * accuracy) + num244) / (accuracy + 1f), ((P.velocity.Y * accuracy) + num245) / (accuracy + 1f));
 				if (float.IsNaN(vel.X) || float.IsNaN(vel.Y))
 				{
 					vel = -Vector2.UnitY;
@@ -191,15 +188,15 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 				for (float i = 0f; i < dist; i += 30f)
 				{
-					Vector2 pos1 = Lead.Center + diff3 * i;
-					Vector2 pos2 = Lead.Center + diff2 * i;
+					Vector2 pos1 = Lead.Center + (diff3 * i);
+					Vector2 pos2 = Lead.Center + (diff2 * i);
 
 					float scale = MathHelper.Lerp(0.1f, P.scale, i / dist);
 
 					int dWidth = (int)(100f * scale);
 					int dHeight = (int)(100f * scale);
 
-					Vector2 dustPos = Vector2.Lerp(pos1, pos2, i / dist) - new Vector2(dWidth, dHeight) / 2f;
+					Vector2 dustPos = Vector2.Lerp(pos1, pos2, i / dist) - (new Vector2(dWidth, dHeight) / 2f);
 					int num891 = Dust.NewDust(dustPos, dWidth, dHeight, 255, 0f, 0f, 100, default(Color), 2f);
 					Main.dust[num891].noGravity = true;
 				}
@@ -223,17 +220,17 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			for (int num93 = 0; num93 < 4; num93++)
 			{
 				int num94 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 240, 0f, 0f, 100, default(Color), 1.5f);
-				Main.dust[num94].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				Main.dust[num94].position = P.Center + (Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f);
 			}
 			for (int num95 = 0; num95 < 30; num95++)
 			{
 				int num96 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 62, 0f, 0f, 200, default(Color), 3.7f);
-				Main.dust[num96].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				Main.dust[num96].position = P.Center + (Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f);
 				Main.dust[num96].noGravity = true;
 				Dust dust = Main.dust[num96];
 				dust.velocity *= 3f;
 				num96 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 90, 0f, 0f, 100, default(Color), 1.5f);
-				Main.dust[num96].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				Main.dust[num96].position = P.Center + (Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f);
 				dust = Main.dust[num96];
 				dust.velocity *= 2f;
 				Main.dust[num96].noGravity = true;
@@ -243,7 +240,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			for (int num97 = 0; num97 < 10; num97++)
 			{
 				int num98 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 62, 0f, 0f, 0, default(Color), 2.7f);
-				Main.dust[num98].position = P.Center + Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * (float)P.width / 2f;
+				Main.dust[num98].position = P.Center + (Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * P.width / 2f);
 				Main.dust[num98].noGravity = true;
 				Dust dust = Main.dust[num98];
 				dust.velocity *= 3f;
@@ -251,7 +248,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			for (int num99 = 0; num99 < 10; num99++)
 			{
 				int num100 = Dust.NewDust(new Vector2(P.position.X, P.position.Y), P.width, P.height, 240, 0f, 0f, 0, default(Color), 1.5f);
-				Main.dust[num100].position = P.Center + Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * (float)P.width / 2f;
+				Main.dust[num100].position = P.Center + (Vector2.UnitX.RotatedByRandom(MathHelper.Pi).RotatedBy((double)P.velocity.ToRotation(), default(Vector2)) * P.width / 2f);
 				Main.dust[num100].noGravity = true;
 				Dust dust = Main.dust[num100];
 				dust.velocity *= 3f;
@@ -259,14 +256,14 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			var entitySource = P.GetSource_FromAI();
 			for (int num101 = 0; num101 < 2; num101++)
 			{
-				int num102 = Gore.NewGore(entitySource, P.position + new Vector2((float)(P.width * Main.rand.Next(100)) / 100f, (float)(P.height * Main.rand.Next(100)) / 100f) - Vector2.One * 10f, default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[num102].position = P.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * (float)P.width / 2f;
+				int num102 = Gore.NewGore(entitySource, P.position + new Vector2(P.width * Main.rand.Next(100) / 100f, P.height * Main.rand.Next(100) / 100f) - (Vector2.One * 10f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				Main.gore[num102].position = P.Center + (Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * (float)Main.rand.NextDouble() * P.width / 2f);
 				Gore gore = Main.gore[num102];
 				gore.velocity *= 0.3f;
 				Gore gore17 = Main.gore[num102];
-				gore17.velocity.X = gore17.velocity.X + (float)Main.rand.Next(-10, 11) * 0.05f;
+				gore17.velocity.X = gore17.velocity.X + (Main.rand.Next(-10, 11) * 0.05f);
 				Gore gore18 = Main.gore[num102];
-				gore18.velocity.Y = gore18.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
+				gore18.velocity.Y = gore18.velocity.Y + (Main.rand.Next(-10, 11) * 0.05f);
 			}
 		}
 		public override bool PreDrawProjectile(MProjectile mProjectile, ref Color lightColor)
@@ -282,19 +279,19 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
-			Color color25 = Lighting.GetColor((int)((double)P.position.X + (double)P.width * 0.5) / 16, (int)(((double)P.position.Y + (double)P.height * 0.5) / 16.0));
+			Color color25 = Lighting.GetColor((int)(P.position.X + (P.width * 0.5)) / 16, (int)((P.position.Y + (P.height * 0.5)) / 16.0));
 
 			Vector2 vector53 = P.Center - Main.screenPosition;
 			Color alpha4 = P.GetAlpha(color25);
-			Vector2 origin8 = new Vector2((float)tex.Width, (float)tex.Height) / 2f;
+			Vector2 origin8 = new Vector2(tex.Width, tex.Height) / 2f;
 
 			Color color57 = alpha4 * 0.8f;
 			color57.A /= 2;
 			Color color58 = Color.Lerp(alpha4, Color.Black, 0.5f);
 			color58.A = alpha4.A;
-			float num274 = 0.95f + (P.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
+			float num274 = 0.95f + ((P.rotation * 0.75f).ToRotationVector2().Y * 0.1f);
 			color58 *= num274;
-			float scale13 = 0.6f + P.scale * 0.6f * num274;
+			float scale13 = 0.6f + (P.scale * 0.6f * num274);
 
 			if (Lead != null && Lead.active)
 			{
@@ -314,13 +311,13 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						se = SpriteEffects.FlipHorizontally;
 					}
 
-					Vector2 pos1 = Lead.Center + Vector2.Normalize(Lead.velocity) * i;
-					Vector2 pos2 = Lead.Center + diff2 * i;
+					Vector2 pos1 = Lead.Center + (Vector2.Normalize(Lead.velocity) * i);
+					Vector2 pos2 = Lead.Center + (diff2 * i);
 
 					Vector2 fPos = Vector2.Lerp(pos1, pos2, i / dist) - Main.screenPosition;
 
-					float rot = ((float)Math.PI * 2f / dist) * i;
-					sb.Draw(tex2, fPos, null, alpha4, rot + P.rotation * k, origin8, MathHelper.Lerp(0.1f, P.scale, (i / dist)), se, 0f);
+					float rot = (float)Math.PI * 2f / dist * i;
+					sb.Draw(tex2, fPos, null, alpha4, rot + (P.rotation * k), origin8, MathHelper.Lerp(0.1f, P.scale, i / dist), se, 0f);
 					k *= -1;
 				}
 
@@ -340,7 +337,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 				int num = (int)Math.Max(Math.Ceiling(dist / 8), 1);
 				Vector2[] pos = new Vector2[num];
 
-				diff2 = Vector2.Normalize((P.Center + new Vector2(Main.rand.Next(-30, 31), Main.rand.Next(-30, 31))) - Lead.Center);
+				diff2 = Vector2.Normalize(P.Center + new Vector2(Main.rand.Next(-30, 31), Main.rand.Next(-30, 31)) - Lead.Center);
 				if (float.IsNaN(diff2.X) || float.IsNaN(diff2.Y))
 				{
 					diff2 = -Vector2.UnitY;
@@ -353,22 +350,22 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 				for (int i = 0; i < num; i++)
 				{
-					float dScale = ((float)i / num);
-					Vector2 pos1 = Lead.Center + diff3 * dist * dScale;
-					Vector2 pos2 = Lead.Center + diff2 * dist * dScale;
+					float dScale = (float)i / num;
+					Vector2 pos1 = Lead.Center + (diff3 * dist * dScale);
+					Vector2 pos2 = Lead.Center + (diff2 * dist * dScale);
 
 					pos[i] = Vector2.Lerp(pos1, pos2, dScale);
 
 					if (i > 0)
 					{
-						float rot = (float)Math.Atan2((pos[i].Y - pos[i - 1].Y), (pos[i].X - pos[i - 1].X)) + (float)Math.PI / 2;
+						float rot = (float)Math.Atan2(pos[i].Y - pos[i - 1].Y, pos[i].X - pos[i - 1].X) + ((float)Math.PI / 2);
 
 						sb.Draw(tex3,
 						pos[i] - Main.screenPosition,
 						new Rectangle?(new Rectangle(0, y4, tex3.Width, num108)),
 						P.GetAlpha(Color.White),
 						rot,
-						new Vector2((float)tex3.Width / 2f, (float)num108 / 2),
+						new Vector2(tex3.Width / 2f, (float)num108 / 2),
 						new Vector2(scale, 1f),
 						SpriteEffects.None,
 						0f);
@@ -388,7 +385,7 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 						pos = new Vector2[num];
 
 						float bRot = ((float)Math.PI / 2f * buster[j].ai[1]) + (P.rotation / 2f);
-						Vector2 rotPoint = P.Center + bRot.ToRotationVector2() * distance * P.scale;
+						Vector2 rotPoint = P.Center + (bRot.ToRotationVector2() * distance * P.scale);
 
 						diff2 = Vector2.Normalize(rotPoint - P.Center);
 						if (float.IsNaN(diff2.X) || float.IsNaN(diff2.Y))
@@ -403,22 +400,22 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 						for (int i = 0; i < num; i++)
 						{
-							float dScale = ((float)i / num);
-							Vector2 pos1 = P.Center + diff2 * dist * dScale;
-							Vector2 pos2 = P.Center + diff3 * dist * dScale;
+							float dScale = (float)i / num;
+							Vector2 pos1 = P.Center + (diff2 * dist * dScale);
+							Vector2 pos2 = P.Center + (diff3 * dist * dScale);
 
 							pos[i] = Vector2.Lerp(pos1, pos2, dScale);
 
 							if (i > 0)
 							{
-								float rot = (float)Math.Atan2((pos[i].Y - pos[i - 1].Y), (pos[i].X - pos[i - 1].X)) + (float)Math.PI / 2;
+								float rot = (float)Math.Atan2(pos[i].Y - pos[i - 1].Y, pos[i].X - pos[i - 1].X) + ((float)Math.PI / 2);
 
 								sb.Draw(tex4,
 								pos[i] - Main.screenPosition,
 								new Rectangle?(new Rectangle(0, 0, tex4.Width, tex4.Height)),
 								color58,
 								rot,
-								new Vector2((float)tex4.Width / 2f, (float)tex4.Height / 2),
+								new Vector2(tex4.Width / 2f, (float)tex4.Height / 2),
 								new Vector2(MathHelper.Lerp(1f, 0.25f, dScale), 1f),
 								SpriteEffects.None,
 								0f);
@@ -427,28 +424,28 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 
 						for (int i = 0; i < num; i++)
 						{
-							float dScale = ((float)i / num);
-							Vector2 pos1 = P.Center + diff2 * dist * dScale;
-							Vector2 pos2 = P.Center + diff3 * dist * dScale;
+							float dScale = (float)i / num;
+							Vector2 pos1 = P.Center + (diff2 * dist * dScale);
+							Vector2 pos2 = P.Center + (diff3 * dist * dScale);
 
 							pos[i] = Vector2.Lerp(pos1, pos2, dScale);
 
 							if (i > 0)
 							{
-								float rot = (float)Math.Atan2((pos[i].Y - pos[i - 1].Y), (pos[i].X - pos[i - 1].X)) + (float)Math.PI / 2;
+								float rot = (float)Math.Atan2(pos[i].Y - pos[i - 1].Y, pos[i].X - pos[i - 1].X) + ((float)Math.PI / 2);
 
 								sb.Draw(tex3,
 								pos[i] - Main.screenPosition,
 								new Rectangle?(new Rectangle(0, y4, tex3.Width, num108)),
 								P.GetAlpha(Color.White),
 								rot,
-								new Vector2((float)tex3.Width / 2f, (float)num108 / 2),
+								new Vector2(tex3.Width / 2f, (float)num108 / 2),
 								new Vector2(MathHelper.Lerp(1f, 0.625f, dScale) * scale, 1f),
 								SpriteEffects.None,
 								0f);
 							}
 
-							Lighting.AddLight(pos[i], (MetroidMod.waveColor2.R / 255f) * P.scale, (MetroidMod.waveColor2.G / 255f) * P.scale, (MetroidMod.waveColor2.B / 255f) * P.scale);
+							Lighting.AddLight(pos[i], MetroidMod.waveColor2.R / 255f * P.scale, MetroidMod.waveColor2.G / 255f * P.scale, MetroidMod.waveColor2.B / 255f * P.scale);
 
 							if (Main.rand.NextBool(25))
 							{
@@ -507,26 +504,26 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			Projectile.localNPCHitCooldown = 2 * (1 + Projectile.extraUpdates);
 		}
 
-		Vector2 targetPos;
-		bool initialize = false;
+		private Vector2 targetPos;
+		private bool initialize = false;
 
-		Projectile Lead;
+		private Projectile Lead;
 
-		NPC target;
+		private NPC target;
 
 		//const float Max_Range = 300f;
-		float range = Max_Range;
+		private float range = Max_Range;
 		//const float Max_Distance = 300f;
-		float distance = Max_Distance;
-		const float Max_Range = 300f;
+		private float distance = Max_Distance;
+		private const float Max_Range = 300f;
 
-		const float Max_Distance = 60f;
+		private const float Max_Distance = 60f;
 
-		float accuracy = 11f;
-		Vector2 oPos;
-		Vector2 mousePos;
+		private readonly float accuracy = 11f;
+		private Vector2 oPos;
+		private Vector2 mousePos;
 
-		bool soundPlayed = false;
+		private readonly bool soundPlayed = false;
 
 		public override void AI()
 		{
@@ -557,8 +554,8 @@ namespace MetroidMod.Content.MissileAddons.BeamCombos
 			{
 				P.netUpdate = true;
 
-				float rot = (float)Math.PI / 2f * P.ai[1] + Lead.rotation / 2f;
-				Vector2 rotPoint = Lead.Center + rot.ToRotationVector2() * distance * Lead.scale;
+				float rot = ((float)Math.PI / 2f * P.ai[1]) + (Lead.rotation / 2f);
+				Vector2 rotPoint = Lead.Center + (rot.ToRotationVector2() * distance * Lead.scale);
 
 				target = null;
 				foreach (NPC who in Main.ActiveNPCs)

@@ -1,20 +1,16 @@
 using System;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
-using MetroidMod.Content.BeamAddons;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.Projectiles;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Mono.Cecil;
-using MonoMod.Core.Utils;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static MetroidMod.Sounds;
 
 namespace MetroidMod.Content.MissileAddons
 {
@@ -30,8 +26,8 @@ namespace MetroidMod.Content.MissileAddons
 		public override bool IgnoreProjectile => true;
 		public override bool NeedsCharging => false;
 		public override bool HoldFire => true;
-		private int targetNum = 0;
-		private int targetingDelay = 0;
+		private readonly int targetNum = 0;
+		private readonly int targetingDelay = 0;
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = MissileAddonSlotID.Charge;
@@ -375,7 +371,7 @@ namespace MetroidMod.Content.MissileAddons
 						}
 					}
 				}
-			
+
 			}
 			else
 			{
