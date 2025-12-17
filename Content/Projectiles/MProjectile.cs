@@ -663,11 +663,15 @@ namespace MetroidMod.Content.Projectiles
 		}
 		public override void SendExtraAI(BinaryWriter writer)
 		{
+			writer.Write(Projectile.penetrate);
+			writer.Write(Projectile.maxPenetrate);
 			writer.Write(canDiffuse);
 			writer.Write(shot);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
+			Projectile.penetrate = reader.ReadInt32();
+			Projectile.maxPenetrate = reader.ReadInt32();
 			canDiffuse = reader.ReadBoolean();
 			shot = reader.ReadString();
 		}

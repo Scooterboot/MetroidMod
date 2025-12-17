@@ -11,6 +11,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace MetroidMod.Content.BeamAddons
 {
@@ -19,13 +20,14 @@ namespace MetroidMod.Content.BeamAddons
 		public override bool AddOnlyAddonItem => false;
 		public override int ShotDust => 110;
 		public override Color PrimaryColor => MetroidMod.plaGreenColor;
+		public override string ImpactSound => $"{Mod.Name}/Assets/Sounds/BeamAddons/BattleHammer/Impact";
 		public override void SetStaticDefaults()
 		{
 			AddonSlot = BeamAddonSlotID.Primary;
 			VIB = true;
 			vibOverride = ModContent.ProjectileType<BattleHammerShot>();
 			ArrayPassive = false;
-			//ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<VoltDriverAddon>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = BeamAddonLoader.GetAddon<VoltDriver>().ItemType;
 			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetItemDefaults(Item item)
@@ -64,28 +66,6 @@ namespace MetroidMod.Content.BeamAddons
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
-		public override string SetStaticCombos(Item[] addons)
-		{
-			ModBeamAddon[] beamAddons = addons
-				.Select(BeamAddonLoader.GetAddon)
-				.ToArray();
-			bool hasPlasma = false;
-
-
-			if (beamAddons[BeamAddonSlotID.Secondary] == BeamAddonLoader.GetAddon<PlasmaBeam>())
-			{
-				hasPlasma = true;
-			}
-
-			if (hasPlasma)
-			{
-				return "Plasma";
-			}
-			else
-			{
-				return "";
-			}
-		}
 
 		public override void VIBShoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, string bonusFileMod = "", float multiplier = 1)
 		{
@@ -107,10 +87,9 @@ namespace MetroidMod.Content.BeamAddons
 			//Generate the "mother" projectile first.
 			//This one's bigger and stronger than the babies.
 			BattleHammerShot tasteTheRainbow = Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<BattleHammerShot>(), damage, knockback).ModProjectile as BattleHammerShot;
-			tasteTheRainbow.beamAddons = wepon.BeamAddonAccess
-				.Select(i => BeamAddonLoader.GetAddon(i))
-				.Select(i => i?.Clone())
-				.ToArray();
+			tasteTheRainbow.beamAddons = [.. wepon.BeamAddonAccess
+				.Select(BeamAddonLoader.GetAddon)
+				.Select(i => i?.Clone())];
 			tasteTheRainbow.fileMod = SetStaticCombos(wepon.BeamAddonAccess);
 			tasteTheRainbow.OnInitialized(source);
 
@@ -134,9 +113,6 @@ namespace MetroidMod.Content.BeamAddons
 			//		stray.OnInitialized(source);
 			//	}
 			//}
-
-			//Setting this value above 0 will make you go rainbowy for that many frames upon firing.
-			mp.hyperColors = 80;
 		}
 	}
 	public class BattleHammerShot : MProjectile
@@ -150,7 +126,7 @@ namespace MetroidMod.Content.BeamAddons
 			Projectile.width = 20;
 			Projectile.height = 20;
 			Projectile.scale = .75f;
-			Projectile.aiStyle = 1;
+			Projectile.aiStyle = ProjAIStyleID.Arrow;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 1;
 		}
@@ -167,36 +143,17 @@ namespace MetroidMod.Content.BeamAddons
 
 			BeamAddonLoader.AddonOnInitialized(beamAddons, mProjectile, source);
 		}
-		public override void OnSpawn(IEntitySource source)
-		{
-			base.OnSpawn(source);
-			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
-			//scale = Projectile.scale;
-		}
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + MathHelper.PiOver2;
 			Color color = MetroidMod.powColor;
-			Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			Lighting.AddLight(Projectile.Center, color.R / 50f, color.G / 255f, color.B / 50f);
 
 			if (Projectile.numUpdates == 0)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 110, 0, 0, 100, default(Color), Projectile.scale);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PureSpray, 0, 0, 100, default(Color), Projectile.scale);
 				Main.dust[dust].noGravity = true;
 			}
-		}
-		public override void PostAI()
-		{
-			base.PostAI();
-		}
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-			//if (oof)
-			//{
-			//	modifiers.ArmorPenetration += Luminite ? 15 : DiffBeam ? 10 : 5;
-			//}
-
-			base.ModifyHitNPC(target, ref modifiers);
 		}
 		public override void OnKill(int timeLeft)
 		{
@@ -215,7 +172,15 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			return BeamAddonLoader.AddonTileCollideStyle(beamAddons, mProjectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (oof)
+			{
+				modifiers.ArmorPenetration += 15;// Luminite ? 15 : DiffBeam ? 10 : 5;
+			}
 
+			base.ModifyHitNPC(target, ref modifiers);
+		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			BeamAddonLoader.AddonOnHitNPC(beamAddons, mProjectile, target, hit, damageDone);

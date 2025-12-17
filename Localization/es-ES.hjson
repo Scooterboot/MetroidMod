@@ -4144,6 +4144,8 @@ Mods: {
 			// NovaLaserProjectile.DisplayName: Nova Laser Projectile
 			// SolarFlareProjectile.DisplayName: Solar Flare Projectile
 			// BattleHammerShot.DisplayName: Battle Hammer Shot
+			// VoltDriverChargeShot.DisplayName: Volt Driver Charge Shot
+			// VoltDriverShot.DisplayName: Volt Driver Shot
 		}
 
 		Configs: {
