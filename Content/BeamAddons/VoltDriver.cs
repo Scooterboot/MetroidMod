@@ -17,6 +17,7 @@ namespace MetroidMod.Content.BeamAddons
 {
 	public class VoltDriver : ModBeamAddon
 	{
+		public override int ShotFrames => 4;
 		public override bool AddOnlyAddonItem => false;
 		public override int ShotDust => 269;
 		public override Color PrimaryColor => MetroidMod.powColor;
@@ -25,7 +26,7 @@ namespace MetroidMod.Content.BeamAddons
 		{
 			AddonSlot = BeamAddonSlotID.Primary;
 			VIB = true;
-			//vibOverride = ModContent.ProjectileType<VoltDriverShot>();
+			vibOverride = ModContent.ProjectileType<VoltDriverShot>();
 			ArrayPassive = false;
 			//ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<MagMaulAddon>();
 			Item.ResearchUnlockCount = 1;
@@ -162,7 +163,7 @@ namespace MetroidMod.Content.BeamAddons
 		public override void OnKill(int timeLeft)
 		{
 			mProjectile.DustyDeath(Projectile, 269);
-			SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverImpactSound, Projectile.position);
+			SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/BeamAddons/VoltDriver/Impact"), Projectile.position);
 		}
 
 		public override bool PreDraw(ref Color lightColor)

@@ -157,7 +157,7 @@ namespace MetroidMod.Content.BeamAddons
 		}
 		public override void OnKill(int timeLeft)
 		{
-			//SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerImpactSound, Projectile.position);
+			SoundEngine.PlaySound(new($"{Mod.Name}/Assets/Sounds/BeamAddons/BattleHammer/Impact"), Projectile.position);
 			//mProjectile.Explode(Luminite ? 80 : DiffBeam ? 60 : 20, 3);
 			mProjectile.Explode(60, 3);
 			mProjectile.Diffuse(Projectile, 110);

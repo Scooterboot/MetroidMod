@@ -4146,6 +4146,7 @@ Mods: {
 			// BattleHammerShot.DisplayName: Battle Hammer Shot
 			// VoltDriverChargeShot.DisplayName: Volt Driver Charge Shot
 			// VoltDriverShot.DisplayName: Volt Driver Shot
+			// ImperialistShot.DisplayName: Imperialist Shot
 		}
 
 		Configs: {
