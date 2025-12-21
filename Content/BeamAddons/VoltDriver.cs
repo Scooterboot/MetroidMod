@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;

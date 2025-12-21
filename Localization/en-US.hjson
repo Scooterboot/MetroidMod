@@ -4147,6 +4147,13 @@ Mods: {
 			VoltDriverChargeShot.DisplayName: Volt Driver Charge Shot
 			VoltDriverShot.DisplayName: Volt Driver Shot
 			ImperialistShot.DisplayName: Imperialist Shot
+			JudicatorChargeShot.DisplayName: Judicator Charge Shot
+			JudicatorShot.DisplayName: Judicator Shot
+			MagMaulShot.DisplayName: Mag Maul Shot
+			MagMaulChargeShot.DisplayName: Mag Maul Charge Shot
+			OmegaCannonFrag.DisplayName: Omega Cannon Frag
+			OmegaCannonShot.DisplayName: Omega Cannon Shot
+			ShockCoilShot.DisplayName: Shock Coil Shot
 		}
 
 		Configs: {
