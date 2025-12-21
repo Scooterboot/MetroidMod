@@ -364,6 +364,12 @@ Mods: {
 			// TopElevatorStationTile.MapEntry: Elevator
 			// NovaLaserTile.MapEntry: Nova Laser Tile
 			// SolarFlareTile.MapEntry: Solar Flare Tile
+			// SunburstTile.MapEntry: Sunburst Tile
+			// SonicBoomTile.MapEntry: Sonic Boom Tile
+			// DarkburstTile.MapEntry: Darkburst Tile
+			// LightBeamTile.MapEntry: Light Beam Tile
+			// DarkBeamTile.MapEntry: Dark Beam Tile
+			// AnnihilatorTile.MapEntry: Annihilator Tile
 		}
 
 		Buffs: {
@@ -3744,6 +3750,36 @@ Mods: {
 				// DisplayName: Solar Flare Addon
 				// Tooltip: ""
 			}
+
+			AnnihilatorAddon: {
+				// DisplayName: Annihilator Addon
+				// Tooltip: ""
+			}
+
+			DarkBeamAddon: {
+				// DisplayName: Dark Beam Addon
+				// Tooltip: ""
+			}
+
+			LightBeamAddon: {
+				// DisplayName: Light Beam Addon
+				// Tooltip: ""
+			}
+
+			DarkburstAddon: {
+				// DisplayName: Darkburst Addon
+				// Tooltip: ""
+			}
+
+			SonicBoomAddon: {
+				// DisplayName: Sonic Boom Addon
+				// Tooltip: ""
+			}
+
+			SunburstAddon: {
+				// DisplayName: Sunburst Addon
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4154,6 +4190,12 @@ Mods: {
 			// OmegaCannonFrag.DisplayName: Omega Cannon Frag
 			// OmegaCannonShot.DisplayName: Omega Cannon Shot
 			// ShockCoilShot.DisplayName: Shock Coil Shot
+			// AnnihilatorChargeShot.DisplayName: Annihilator Charge Shot
+			// AnnihilatorShot.DisplayName: Annihilator Shot
+			// DarkBeamChargeShot.DisplayName: Dark Beam Charge Shot
+			// DarkBeamShot.DisplayName: Dark Beam Shot
+			// LightBeamChargeShot.DisplayName: Light Beam Charge Shot
+			// LightBeamShot.DisplayName: Light Beam Shot
 		}
 
 		Configs: {
