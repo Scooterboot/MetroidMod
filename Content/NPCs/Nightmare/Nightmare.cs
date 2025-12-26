@@ -354,26 +354,25 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			Player player = Main.player[NPC.target];
 
 			//main states
-			state = 0;
-			if (NPC.life <= (int)(NPC.lifeMax * 0.6f))
+			if (NPC.life <= (int)(NPC.lifeMax * 0.6f) && NPC.life > (int)(NPC.lifeMax * 0.4f))
 			{
 				state = 1;
 			}
-			if (NPC.life <= (int)(NPC.lifeMax * 0.4f))
+			if (NPC.life <= (int)(NPC.lifeMax * 0.4f) && NPC.life > (int)(NPC.lifeMax * 0.2f))
 			{
 				state = 2;
 			}
-			if (NPC.life <= (int)(NPC.lifeMax * 0.2f))
+			if (NPC.life <= (int)(NPC.lifeMax * 0.2f) && NPC.life > (int)(NPC.lifeMax * 0.1f))
 			{
 				state = 3;
 			}
 
 			//core x states
-			if (NPC.life <= (int)(NPC.lifeMax * 0.1f))
+			if (NPC.life <= (int)(NPC.lifeMax * 0.1f) && NPC.life > (int)(NPC.lifeMax * 0.06f))
 			{
 				state = 4;
 			}
-			if (NPC.life <= (int)(NPC.lifeMax * 0.06f))
+			if (NPC.life <= (int)(NPC.lifeMax * 0.06f) && NPC.life > (int)(NPC.lifeMax * 0.03f))
 			{
 				state = 5;
 			}
@@ -381,7 +380,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			{
 				state = 6;
 			}
-
+			state = 0;
 			if (state < 4)
 			{
 				if (state > 0)
