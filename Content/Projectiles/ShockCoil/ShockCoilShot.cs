@@ -449,7 +449,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 																		//mp.statOverheat += mp.overheatCost; // /shots;
-			mp.statCharge = Math.Min(mp.statCharge + (1.5f / shots), MPlayer.maxCharge);
+			mp.statCharge = Math.Min(mp.statCharge + (2.0f / shots), MPlayer.maxCharge);
 			if (mp.Energy < mp.MaxEnergy && !mp.PrimeHunter && (Luminite || DiffBeam))
 			{
 				if (heal > mp.MaxEnergy - mp.Energy)

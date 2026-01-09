@@ -833,7 +833,7 @@ namespace MetroidMod.Common.UI
 				Main.LocalPlayer.mouseInterface = true;
 			}
 
-			enabled = Configs.MConfigClient.Instance.PowerBeam.enabled;
+			enabled = MConfigClient.Instance.PowerBeam.enabled;
 			if (!enabled)
 			{
 				Left.Pixels = 112; //112

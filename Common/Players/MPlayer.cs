@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
 using MetroidMod.Common.Systems;
+using MetroidMod.Common.UI;
 using MetroidMod.Content.Biomes;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.Items.Armors;
@@ -176,11 +178,14 @@ namespace MetroidMod.Common.Players
 			screwSpeedDelay = 0;
 			spaceJumpsRegenDelay = 0;
 			insigniaActive = true;
+			SuitReserves = MaxSuitReserves;
+			reserveHearts = reserveTanks;
 
 			// Infinite missiles
 			if (Player.HeldItem.TryGetGlobalItem(out MGlobalItem heldItem))
 			{
 				heldItem.statMissiles = heldItem.maxMissiles;
+				heldItem.statUA = heldItem.maxUA;
 			}
 		}
 

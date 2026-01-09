@@ -1,10 +1,12 @@
 ﻿#region using directives
 
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using static MetroidMod.Common.Configs.MConfigClient;
 
 #endregion
 
@@ -16,24 +18,23 @@ namespace MetroidMod.Common.UI
 		private Vector2 offset;
 		public bool dragging;
 		public bool enabled;
-
 		public override void RightMouseDown(UIMouseEvent evt)
 		{
 			base.RightMouseDown(evt);
-			if (enabled && base.Elements.All((UIElement x) => !x.IsMouseHovering))
+			if (enabled)
 			{
 				DragStart(evt);
 			}
 		}
 
-		public override void RightMouseUp(UIMouseEvent evt)
-		{
-			base.LeftMouseUp(evt);
-			if (enabled)
-			{
-				DragEnd(evt);
-			}
-		}
+		//public override void RightMouseUp(UIMouseEvent evt)
+		//{
+		//	base.RightMouseUp(evt);
+		//	if (enabled)
+		//	{
+		//		DragEnd(evt);
+		//	}
+		//}
 
 		private void DragStart(UIMouseEvent evt)
 		{
@@ -41,14 +42,13 @@ namespace MetroidMod.Common.UI
 			dragging = true;
 		}
 
-		private void DragEnd(UIMouseEvent evt)
+		private void DragEnd(Vector2 evt)
 		{
-			Vector2 end = evt.MousePosition;
+			Vector2 end = evt;
 			dragging = false;
 
 			Left.Set(end.X - offset.X, 0f);
 			Top.Set(end.Y - offset.Y, 0f);
-
 			Recalculate();
 		}
 
@@ -60,7 +60,11 @@ namespace MetroidMod.Common.UI
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-
+				
+			if (dragging && !Main.mouseRight)
+			{
+				DragEnd(Main.MouseScreen);
+			}
 			if (dragging && enabled)
 			{
 				Left.Set(Main.mouseX - offset.X, 0f);
@@ -69,14 +73,12 @@ namespace MetroidMod.Common.UI
 			}
 
 			Rectangle parentSpace = Parent.GetDimensions().ToRectangle();
-			Rectangle mouseRect = new(Main.mouseX, Main.mouseY, 0, 0);
-			if (!GetDimensions().ToRectangle().Intersects(parentSpace) && mouseRect.Intersects(parentSpace))
+			if (!GetDimensions().ToRectangle().Intersects(parentSpace))
 			{
-				return;
+				Left.Pixels = Utils.Clamp(Left.Pixels, 0, parentSpace.Right - Width.Pixels);
+				Top.Pixels = Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
+				Recalculate();
 			}
-			Left.Pixels = Utils.Clamp(Left.Pixels, 0, parentSpace.Right - Width.Pixels);
-			Top.Pixels = Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
-			Recalculate();
 		}
 	}
 }

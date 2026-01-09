@@ -670,7 +670,7 @@ namespace MetroidMod.Common.Configs
 		[Range(1f, 5f)]
 		[Increment(0.5f)]
 		[Slider]
-		[DefaultValue(3.0f)]
+		[DefaultValue(2.0f)]
 		public float maxSpeedShockCoil;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Use Time")]
