@@ -84,16 +84,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			dmg = Projectile.damage;
 			base.OnSpawn(source);
 		}
-		private float BeamLength
-		{
-			get {
-				return Projectile.localAI[1];
-			}
-
-			set {
-				Projectile.localAI[1] = value;
-			}
-		}
 		public override bool ShouldUpdatePosition()
 		{
 			return false;
@@ -135,27 +125,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
-			if (Lead != null && Lead.active/* && Lead.type == ModContent.ProjectileType<ChargeLead>() && Lead.owner == Main.myPlayer*/)
-			{
-				/*for (int k = 0; k < range; k++)
-				{
-					float targetrot = (float)Math.Atan2((P.Center.Y - Lead.Center.Y), (P.Center.X - Lead.Center.X));
-					Vector2 tilePos = Lead.Center + targetrot.ToRotationVector2() * k;
-					int i = (int)MathHelper.Clamp(tilePos.X / 16, 0, Main.maxTilesX - 2);
-					int j = (int)MathHelper.Clamp(tilePos.Y / 16, 0, Main.maxTilesY - 2);
-
-					if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
-					{
-						range = Math.Max(range - 1, 1);
-						distance = Math.Max(distance - 1, 1);
-					}
-					/*else
-					{
-						range = Math.Min(range + 1, Max_Range);
-						distance = Math.Min(distance + 1, Max_Distance);
-					}
-				}*/
-			}
 			if (P.owner == Main.myPlayer && !O.dead)
 			{
 				P.netUpdate = true;
@@ -356,7 +325,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			int y4 = num108 * P.frame;
 			oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			P.scale = .8f;
-			range = (GetDepth(meep) * 16) + 48f;
 			if (O.controlUseItem && !O.dead)
 			{
 
