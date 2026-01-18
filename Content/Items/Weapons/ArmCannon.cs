@@ -12,7 +12,9 @@ using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Projectiles.hyperbeam;
 using MetroidMod.Content.Projectiles.missilecombo;
 using MetroidMod.Content.Projectiles.missiles;
+using MetroidMod.Content.Projectiles.Paralyzer;
 using MetroidMod.Content.Projectiles.powerbeam;
+using MetroidMod.Content.Projectiles.ShockCoil;
 using MetroidMod.Content.Projectiles.VoltDriver;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -218,29 +220,6 @@ namespace MetroidMod.Content.Items.Weapons
 			return Item.TryGetGlobalItem(out MGlobalItem mi) && (mi.isBeam ? (player.whoAmI == Main.myPlayer && mp.statOverheat < mp.maxOverheat) : (player.whoAmI == Main.myPlayer && mi.statMissiles > 0));// && BeamLoader.CanShoot(player, BeamMods);
 		}
 
-		/*public override int ChoosePrefix(UnifiedRandom rand)
-		{
-			int output = Item.prefix;
-			switch (rand.Next(14))
-			{
-				case 0: output = 36; break;
-				case 1: output = 37; break;
-				case 2: output = 38; break;
-				case 3: output = 53; break;
-				case 4: output = 54; break;
-				case 5: output = 55; break;
-				case 6: output = 39; break;
-				case 7: output = 40; break;
-				case 8: output = 56; break;
-				case 9: output = 41; break;
-				case 10: output = 57; break;
-				case 11: output = 59; break;
-				case 12: output = 60; break;
-				case 13: output = 61; break;
-			}
-			//PrefixLoader.Roll(Item, ref output, 14, rand, new PrefixCategory[] { PrefixCategory.AnyWeapon, PrefixCategory.Custom });
-			return output;
-		}*/
 
 		public override void OnResearched(bool fullyResearched)
 		{
@@ -269,50 +248,9 @@ namespace MetroidMod.Content.Items.Weapons
 				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
 			}
 		}
-		/*public override bool AltFunctionUse(Player player)
-		{
-			Item.TryGetGlobalItem(out MGlobalItem mi);
-			if (!Stealth || Stealth && player.velocity != Vector2.Zero)
-			{
-				mi.isBeam = !mi.isBeam;
-			}
-			return false;
-		}*/
 
 		public override bool CanReforge()
 		{
-			/*foreach (Item item in BeamChange)
-			{
-				if (item == null || item.IsAir || item.type == BeamMods[0].type) { continue; }
-				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
-				item.TurnToAir();
-			}
-			//BeamChange = new Item[BeamChangeSlotID.Count];
-			foreach (Item item in BeamMods)
-			{
-				if (item == null || item.IsAir) { continue; }
-				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
-				item.TurnToAir();
-			}
-			//BeamMods = new Item[BeamAddonSlotID.Count];
-			foreach (Item item in MissileChange)
-			{
-				if (item == null || item.IsAir || item.type == MissileMods[0].type) { continue; }
-				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
-				item.TurnToAir();
-			}
-			//MissileChange = new Item[MissileChangeSlotID.Count];
-			foreach (Item item in MissileMods)
-			{
-				if (item == null || item.IsAir) { continue; }
-				IEntitySource itemSource_OpenItem = Main.LocalPlayer.GetSource_OpenItem(Type);
-				Main.LocalPlayer.QuickSpawnItem(itemSource_OpenItem, item, item.stack);
-				item.TurnToAir();
-			}*/
-			//MissileMods = new Item[MissileAddonSlotID.Count]; //it dont matter, noneathis matters. DR
 			return base.CanReforge();
 		}
 		public override bool RangedPrefix()
@@ -376,6 +314,8 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private bool isShotgun = false;
 		private int shotgunAmt = 5;
+		private int[] coils;
+		List<int> listCoils = new List<int>();
 
 		private bool isMiniGun = false;
 		private int miniRateIncr = 2;
@@ -1865,11 +1805,6 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
-		/*public override void GetWeaponDamage(Player P, ref int dmg)
-		{
-			dmg = (int)((float)dmg*baseDmg * (1f + iceDmg + waveDmg + spazDmg + plasDmg));
-		}*/
-
 		public override ModItem Clone(Item item)
 		{
 			ModItem clone = base.Clone(item);
@@ -2021,6 +1956,8 @@ namespace MetroidMod.Content.Items.Weapons
 						mProj.waveDir = waveDir;
 						mProj.shot = shotEffect.ToString();
 						Main.projectile[shotProj].netUpdate = true;
+						listCoils.Add(shotProj);
+						coils=listCoils.ToArray();
 						if (isSpray && shotAmt > 1)
 						{
 							Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
@@ -2336,6 +2273,60 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					if (isShock && player.controlUseItem && mp.statOverheat < mp.maxOverheat)
 					{
+						for (int i = 0; i < listCoils.Count; i++)
+						{
+							if (Main.projectile[coils[i]].ModProjectile is ShockCoilShot shoof)
+							{
+								Vector2 diff = Main.MouseWorld - oPos;
+								shoof.target = null;
+								foreach (var who in Main.ActiveNPCs)
+								{
+									NPC npc = Main.npc[who.whoAmI];
+									NPC next = shoof.Projectile.FindTargetWithinRange(shoof.range);
+									bool[] locked = new bool[Main.npc.Length];
+									if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
+									{
+										Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+
+										float point = 0f;
+										if (Vector2.Distance(oPos, npc.Center) < shoof.range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, shoof.Projectile.Center, shoof.Projectile.width, ref point))
+										{
+											shoof.range = Vector2.Distance(oPos, npc.Center);
+											shoof.mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), shoof.range));
+										}
+
+										bool flag = Vector2.Distance(oPos, npc.Center) <= shoof.range + shoof.distance && Vector2.Distance(npc.Center, shoof.mousePos) <= shoof.distance;
+
+										if (npc.CanBeChasedBy(shoof.Projectile, false))
+										{
+											if (shoof.target == null || !shoof.target.active)
+											{
+												if (flag && !locked[who.whoAmI])
+												{
+													shoof.target = npc;
+													locked[who.whoAmI] = true;
+												}
+											}
+											else
+											{
+												if (npc != shoof.target && flag && Vector2.Distance(npc.Center, shoof.mousePos) < Vector2.Distance(shoof.target.Center, shoof.mousePos)&&!locked[who.whoAmI])
+												{
+													shoof.target = next;
+													locked[next.whoAmI] = true;
+													//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
+												}
+
+												if (Vector2.Distance(oPos, shoof.target.Center) > shoof.range +	shoof.distance || Vector2.Distance(shoof.target.Center, shoof.mousePos) > shoof.distance)
+												{
+													shoof.target = null;
+													//locked[who.whoAmI] = false;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
 						cooldown--;
 						mp.overheatDelay = (int)cooldown / 3;
 						if (cooldown <= 0)

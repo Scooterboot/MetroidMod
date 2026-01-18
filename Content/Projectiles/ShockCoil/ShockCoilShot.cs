@@ -39,7 +39,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 		private Projectile Lead;
 
-		private NPC target;
+		public NPC target;
 
 		/*const float Max_Range = 250f;
         float range = Max_Range;
@@ -47,7 +47,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
         float distance = Max_Distance;*/
 
 		private Vector2 oPos;
-		private Vector2 mousePos;
+		public Vector2 mousePos;
 
 		private SoundEffectInstance soundInstance;
 		private bool soundPlayed = false;
@@ -60,8 +60,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 		private readonly float[] amp = new float[3];
 		private readonly float[] ampDest = new float[3];
-		private float range;
-		private float distance;
+		public float range;
+		public float distance;
 
 		private int GetDepth(MProjectile mp)
 		{
@@ -133,48 +133,48 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 				mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
 
-				target = null;
-				foreach (var who in Main.ActiveNPCs)
-				{
-					NPC npc = Main.npc[who.whoAmI];
-					if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
-					{
-						Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+				//target = null;
+				//foreach (var who in Main.ActiveNPCs)
+				//{
+				//	NPC npc = Main.npc[who.whoAmI];
+				//	if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
+				//	{
+				//		Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 
-						float point = 0f;
-						if (Vector2.Distance(oPos, npc.Center) < range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
-						{
-							range = Vector2.Distance(oPos, npc.Center);
-							mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
-						}
+				//		float point = 0f;
+				//		if (Vector2.Distance(oPos, npc.Center) < range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
+				//		{
+				//			range = Vector2.Distance(oPos, npc.Center);
+				//			mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
+				//		}
 
-						bool flag = Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
+				//		bool flag = Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
 
-						if (npc.CanBeChasedBy(P, false))
-						{
-							if (target == null || !target.active)
-							{
-								if (flag)
-								{
-									target = npc;
-								}
-							}
-							else
-							{
-								if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
-								{
-									target = npc;
-									//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
-								}
+				//		if (npc.CanBeChasedBy(P, false))
+				//		{
+				//			if (target == null || !target.active)
+				//			{
+				//				if (flag)
+				//				{
+				//					target = npc;
+				//				}
+				//			}
+				//			else
+				//			{
+				//				if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
+				//				{
+				//					target = npc;
+				//					//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
+				//				}
 
-								if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
-								{
-									target = null;
-								}
-							}
-						}
-					}
-				}
+				//				if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
+				//				{
+				//					target = null;
+				//				}
+				//			}
+				//		}
+				//	}
+				//}
 				if (target == null || !target.active)
 				{
 					targetPos = Lead.Center;
