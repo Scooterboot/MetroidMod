@@ -2279,10 +2279,11 @@ namespace MetroidMod.Content.Items.Weapons
 							{
 								Vector2 diff = Main.MouseWorld - oPos;
 								shoof.target = null;
-								foreach (var who in Main.ActiveNPCs)
+								for (int j = 0; j < Main.npc.Length; j++)
 								{
-									NPC npc = Main.npc[who.whoAmI];
-									NPC next = shoof.Projectile.FindTargetWithinRange(shoof.range);
+									NPC npc = Main.npc[j];
+									//ShockCoilShot primus = (ShockCoilShot)Main.projectile[coils[0]].ModProjectile;
+									NPC next = shoof.Projectile.FindTargetWithinRange(shoof.distance);
 									bool[] locked = new bool[Main.npc.Length];
 									if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
 									{
@@ -2294,32 +2295,29 @@ namespace MetroidMod.Content.Items.Weapons
 											shoof.range = Vector2.Distance(oPos, npc.Center);
 											shoof.mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), shoof.range));
 										}
-
 										bool flag = Vector2.Distance(oPos, npc.Center) <= shoof.range + shoof.distance && Vector2.Distance(npc.Center, shoof.mousePos) <= shoof.distance;
 
 										if (npc.CanBeChasedBy(shoof.Projectile, false))
 										{
 											if (shoof.target == null || !shoof.target.active)
 											{
-												if (flag && !locked[who.whoAmI])
+												if (flag)
 												{
-													shoof.target = npc;
-													locked[who.whoAmI] = true;
+													shoof.target = next;
 												}
 											}
 											else
 											{
-												if (npc != shoof.target && flag && Vector2.Distance(npc.Center, shoof.mousePos) < Vector2.Distance(shoof.target.Center, shoof.mousePos)&&!locked[who.whoAmI])
+												if (npc != shoof.target && flag && Vector2.Distance(npc.Center, shoof.mousePos) < Vector2.Distance(shoof.target.Center, shoof.mousePos))
 												{
 													shoof.target = next;
-													locked[next.whoAmI] = true;
-													//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
+													//locked[next.whoAmI] = true;
 												}
 
 												if (Vector2.Distance(oPos, shoof.target.Center) > shoof.range +	shoof.distance || Vector2.Distance(shoof.target.Center, shoof.mousePos) > shoof.distance)
 												{
 													shoof.target = null;
-													//locked[who.whoAmI] = false;
+													//locked[j] = false;
 												}
 											}
 										}

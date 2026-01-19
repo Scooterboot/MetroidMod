@@ -214,7 +214,7 @@ namespace MetroidMod.Common.Systems
 		public override void PostDrawInterface(SpriteBatch sb)
 		{
 			Mod mod = Mod;
-			Player P = Main.player[Main.myPlayer];
+			Player P = Main.LocalPlayer;
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			Item item = P.inventory[P.selectedItem];
 

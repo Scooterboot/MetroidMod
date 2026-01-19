@@ -53,7 +53,10 @@ namespace MetroidMod.Default
 				player.cursorItemIconEnabled = true;
 				player.cursorItemIconID = Type;
 			}
-			modSuitAddon.HoldItem(player);
+			if (player == Main.LocalPlayer)
+			{
+				modSuitAddon.HoldItem(player);
+			}
 		}
 		public override bool IsVanitySet(int head, int body, int legs) => true;
 
