@@ -1956,8 +1956,11 @@ namespace MetroidMod.Content.Items.Weapons
 						mProj.waveDir = waveDir;
 						mProj.shot = shotEffect.ToString();
 						Main.projectile[shotProj].netUpdate = true;
-						listCoils.Add(shotProj);
-						coils=listCoils.ToArray();
+						if (isShock)
+						{
+							listCoils.Add(shotProj);
+							coils = listCoils.ToArray();
+						}
 						if (isSpray && shotAmt > 1)
 						{
 							Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
@@ -2113,7 +2116,7 @@ namespace MetroidMod.Content.Items.Weapons
 					Item slot3 = BeamMods[2];
 					Item slot4 = BeamMods[3];
 					Item slot5 = BeamMods[4];
-					if (MSystem.SwitchKey.JustPressed)
+					if (MSystem.SwitchKey.JustPressed && !Main.drawingPlayerChat)
 					{
 						mp.beamChangeActive = !mp.beamChangeActive;
 						if (mp.beamChangeActive)
@@ -2382,7 +2385,7 @@ namespace MetroidMod.Content.Items.Weapons
 				else
 				{
 					shotEffect = "";
-					if (MSystem.SwitchKey.JustPressed)
+					if (MSystem.SwitchKey.JustPressed && !Main.drawingPlayerChat)
 					{
 						mp.missileChangeActive = !mp.missileChangeActive;
 						//SoundEngine.PlaySound(Sounds.Items.Weapons.BeamSelectFail);

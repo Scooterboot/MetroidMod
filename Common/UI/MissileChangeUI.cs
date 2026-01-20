@@ -16,7 +16,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.missileChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>() || (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam));
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.missileChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<MissileLauncher>() || (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam));
 
 		public MissileChangePanel panel;
 		public override void OnInitialize()

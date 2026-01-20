@@ -20,7 +20,7 @@ namespace MetroidMod.Common.UI
 {
 	public class BeamChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.beamChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<PowerBeam>() || (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam));
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.beamChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<PowerBeam>() || (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam));
 
 		public BeamChangePanel panel;
 		public override void OnInitialize()
