@@ -1,5 +1,6 @@
 using System;
 using MetroidMod.Content.Items.Aeion;
+using MetroidMod.Content.Items.Vanity.Contributor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -42,6 +43,14 @@ namespace MetroidMod.Common.Players
 		private int jetFrameCounter = 1;
 		private int currentFrame = 0;
 
+		public string wingsGlowmaskTex = null;
+
+		public int largeTailDye = 0;
+
+		public string largeTailTex = null;
+
+		public string largeTailGlowmaskTex = null;
+
 		public void ResetEffects_Graphics()
 		{
 			chargeColor = Color.White;
@@ -51,6 +60,10 @@ namespace MetroidMod.Common.Players
 
 			visorGlow = false;
 			visorGlowColor = new Color(255, 255, 255);
+
+			wingsGlowmaskTex = null;
+			largeTailTex = null;
+			largeTailGlowmaskTex = null;
 		}
 		public void PreUpdate_Graphics()
 		{
@@ -307,6 +320,23 @@ namespace MetroidMod.Common.Players
 				}
 			}
 			ModifyDrawInfo_GetArmors(ref drawInfo);
+
+			for (int e = 3; e < 8 + Player.extraAccessorySlots; e++)
+			{
+				if (Player.armor[e].type == ModContent.ItemType<ZDevTail>())
+				{
+					largeTailDye = Player.dye[e].dye;
+					break;
+				}
+			}
+			for (int v = 13; v < 18 + Player.extraAccessorySlots; v++)
+			{
+				if (Player.armor[v].type == ModContent.ItemType<ZDevTail>())
+				{
+					largeTailDye = Player.dye[v - 10].dye;
+					break;
+				}
+			}
 		}
 		public override void DrawEffects(PlayerDrawSet drawInfo, ref float red, ref float green, ref float blue, ref float alpha, ref bool fullBright)
 		{

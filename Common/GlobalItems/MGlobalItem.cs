@@ -154,40 +154,57 @@ namespace MetroidMod.Common.GlobalItems
 				DarkHunterSet.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.DarkSamusGreaves>(), 1));
 				/*var EzloHat = */
 				expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.EzloHat>(), 288));
+				
 				IItemDropRule DreadSuit = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityDreadSuitHelmet>(), 288));
 				DreadSuit.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityDreadSuitBreastplate>(), 1));
 				DreadSuit.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityDreadSuitGreaves>(), 1));
+				
 				IItemDropRule DreadVaria = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityVariaDreadSuitHelmet>(), 288));
 				DreadVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityVariaDreadSuitBreastplate>(), 1));
 				DreadVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityVariaDreadSuitGreaves>(), 1));
+				
 				IItemDropRule DreadGravity = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitHelmet>(), 288));
 				DreadGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitBreastplate>(), 1));
 				DreadGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityGravityDreadSuitGreaves>(), 1));
+				
 				IItemDropRule Fusion = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionSuitHelmet>(), 288));
 				Fusion.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionSuitBreastplate>(), 1));
 				Fusion.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionSuitGreaves>(), 1));
+				
 				IItemDropRule FusionVaria = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionVariaSuitHelmet>(), 288));
 				FusionVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionVariaSuitBreastplate>(), 1));
 				FusionVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionVariaSuitGreaves>(), 1));
+				
 				IItemDropRule FusionGravity = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionGravitySuitHelmet>(), 288));
 				FusionGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionGravitySuitBreastplate>(), 1));
 				FusionGravity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionGravitySuitGreaves>(), 1));
+				
 				IItemDropRule Omega = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionOmegaSuitHelmet>(), 288));
 				Omega.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionOmegaSuitBreastplate>(), 1));
 				Omega.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.VanityFusionOmegaSuitGreaves>(), 1));
+				
 				IItemDropRule Retro = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitHelmet>(), 288));
 				Retro.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitBreastplate>(), 1));
 				Retro.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroSuitGreaves>(), 1));
+				
 				IItemDropRule RetroVaria = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroVariaSuitHelmet>(), 288));
 				RetroVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroVariaSuitBreastplate>(), 1));
 				RetroVaria.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.RetroVariaSuitGreaves>(), 1));
+				
 				IItemDropRule Lokidev = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.LokiDevItemHead>(), 288));
 				Lokidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.LokiDevItemBody>(), 1));
 				Lokidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.LokiDevItemLegs>(), 1));
+				
 				IItemDropRule Pipsidev = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemHead>(), 288));
 				Pipsidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemBody>(), 1));
-				//Pipsidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemTail>(), 1)); TODO Y U NO EQUIP
+				Pipsidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemTail>(), 1)); 
 				Pipsidev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.PipsiParadoxxDevItemLegs>(), 1));
+				
+				IItemDropRule Zetadev = expertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.ZDevHead>(), 288));
+				Zetadev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.ZDevArmour>(), 1));
+				Zetadev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.ZDevLegs>(), 1));
+				Zetadev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.ZDevTail>(), 1));
+				Zetadev.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Content.Items.Vanity.Contributor.ZDevWings>(), 1));
 
 				itemLoot.Add(expertRule);
 			}

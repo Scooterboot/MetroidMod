@@ -3821,17 +3821,17 @@ Mods: {
 			}
 
 			LokiDevItemBody: {
-				DisplayName: Loki Dev Item Body
+				DisplayName: LokiDev's Coat
 				Tooltip: ""
 			}
 
 			LokiDevItemHead: {
-				DisplayName: Loki Dev Item Head
+				DisplayName: LokiDev's Glasses
 				Tooltip: ""
 			}
 
 			LokiDevItemLegs: {
-				DisplayName: Loki Dev Item Legs
+				DisplayName: LokiDev's Pants
 				Tooltip: ""
 			}
 
@@ -3931,28 +3931,53 @@ Mods: {
 			}
 
 			PipsiParadoxxDevItemBody: {
-				DisplayName: Pipsi Paradoxx Dev Item Body
+				DisplayName: Pipsi Paradoxx's Coat
 				Tooltip: ""
 			}
 
 			PipsiParadoxxDevItemHead: {
-				DisplayName: Pipsi Paradoxx Dev Item Head
+				DisplayName: Pipsi Paradoxx's Ears
 				Tooltip: ""
 			}
 
 			PipsiParadoxxDevItemLegs: {
-				DisplayName: Pipsi Paradoxx Dev Item Legs
+				DisplayName: Pipsi Paradoxx's Pants
 				Tooltip: ""
 			}
 
 			PipsiParadoxxDevItemTail: {
-				DisplayName: Pipsi Paradoxx Dev Item Tail
+				DisplayName: Pipsi Paradoxx's Tail
 				Tooltip: ""
 			}
 
 			PipsiParadoxxDevItemWaist: {
 				Tooltip: ""
 				DisplayName: Pipsi Paradoxx Dev Item Waist
+			}
+
+			ZDevWings: {
+				Tooltip: ""
+				DisplayName: The Zeta Girl's Wings
+			}
+
+			ZDevTail: {
+				Tooltip: ""
+				DisplayName: The Zeta Girl's Tail
+			}
+
+			ZDevLegs: {
+				Tooltip: ""
+				DisplayName: The Zeta Girl's Legs
+			}
+
+			ZDevHead: {
+				Tooltip: ""
+				DisplayName: The Zeta Girl's Head
+			}
+
+			ZDevArmour: {
+				Tooltip: ""
+				DisplayName: The Zeta Girl's Armour
 			}
 		}
 

@@ -13,15 +13,9 @@ namespace MetroidMod.Content.Items.Vanity.Contributor
 			Item.width = 18;
 			Item.height = 18;
 			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(25);
+			Item.value = Item.buyPrice(0, 25);
 			Item.vanity = true;
-		}
-
-		public override bool CanRightClick() => true;
-
-		public override void ModifyItemLoot(ItemLoot itemLoot)
-		{
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<PipsiParadoxxDevItemTail>()));
+			Item.accessory = true;
 		}
 	}
 }

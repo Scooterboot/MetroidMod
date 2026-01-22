@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ModLoader;
+using static MetroidMod.Sounds;
 
 namespace MetroidMod.Common
 {
@@ -253,6 +255,60 @@ namespace MetroidMod.Common
 				//	Texture2D tex = asset.Value;
 				//	MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawPlayer.bodyFrame, drawPlayer.bodyRotation, drawPlayer.bodyPosition, drawInfo.bodyVect, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);
 				//}
+			}
+		}
+	}
+	internal class VanityGlowTextureLayer_Wings : PlayerDrawLayer
+	{
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Wings);
+
+		protected override void Draw(ref PlayerDrawSet drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
+
+			int shader = drawInfo.cWings;
+
+			if (mPlayer.wingsGlowmaskTex != null)
+			{
+				string name = mPlayer.wingsGlowmaskTex;
+				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidMod"))
+				{
+					Texture2D tex = asset.Value;
+					Rectangle drawRect = new Rectangle(0, TextureAssets.Wings[drawPlayer.wings].Height() / 4 * drawPlayer.wingFrame, TextureAssets.Wings[drawPlayer.wings].Width(), TextureAssets.Wings[drawPlayer.wings].Height() / 4);
+					Vector2 drawOrigin = new Vector2((float)(TextureAssets.Wings[drawPlayer.wings].Width() / 2), (float)(TextureAssets.Wings[drawPlayer.wings].Height() / 8));
+					Vector2 drawPos = drawPlayer.bodyPosition + new Vector2(0, drawOrigin.Y) + new Vector2(drawPlayer.Directions.X * -9, drawPlayer.Directions.Y * -23);
+					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawRect, drawPlayer.bodyRotation, drawPos, drawOrigin, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);
+				}
+			}
+		}
+	}
+	internal class VanityGlowTextureLayer_LargeTail : PlayerDrawLayer
+	{
+		public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.WaistAcc);
+
+		protected override void Draw(ref PlayerDrawSet drawInfo)
+		{
+			Mod mod = MetroidMod.Instance;
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			Player drawPlayer = drawInfo.drawPlayer;
+			MPlayer mPlayer = drawPlayer.GetModPlayer<MPlayer>();
+
+			int shader = mPlayer.largeTailDye;
+
+			if (mPlayer.largeTailGlowmaskTex != null)
+			{
+				string name = mPlayer.largeTailGlowmaskTex;
+				if (ModContent.RequestIfExists(name, out Asset<Texture2D> asset) && name.Contains("MetroidMod"))
+				{
+					Texture2D tex = asset.Value;
+					Rectangle drawRect = new Rectangle(drawPlayer.legFrame.X, drawPlayer.legFrame.Y, tex.Width, tex.Height / 20);
+					Vector2 drawOrigin = new Vector2(tex.Width / 2, tex.Height / 40);
+					Vector2 drawPos = drawPlayer.bodyPosition;
+					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawRect, drawPlayer.bodyRotation, drawPos, drawOrigin, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);
+				}
 			}
 		}
 	}

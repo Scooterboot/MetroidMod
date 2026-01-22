@@ -3954,6 +3954,31 @@ Mods: {
 				// Tooltip: ""
 				// DisplayName: Pipsi Paradoxx Dev Item Waist
 			}
+
+			ZDevWings: {
+				// Tooltip: ""
+				// DisplayName: The Zeta Girl's Wings
+			}
+
+			ZDevTail: {
+				// Tooltip: ""
+				// DisplayName: The Zeta Girl's Tail
+			}
+
+			ZDevLegs: {
+				// Tooltip: ""
+				// DisplayName: The Zeta Girl's Legs
+			}
+
+			ZDevHead: {
+				// Tooltip: ""
+				// DisplayName: The Zeta Girl's Head
+			}
+
+			ZDevArmour: {
+				// Tooltip: ""
+				// DisplayName: The Zeta Girl's Armour
+			}
 		}
 
 		NPCs: {
