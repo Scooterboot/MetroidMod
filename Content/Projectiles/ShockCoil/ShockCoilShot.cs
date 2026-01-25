@@ -133,48 +133,48 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 
 				mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
 
-				//target = null;
-				//foreach (var who in Main.ActiveNPCs)
-				//{
-				//	NPC npc = Main.npc[who.whoAmI];
-				//	if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
-				//	{
-				//		Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+				target = null;
+				foreach (var who in Main.ActiveNPCs)
+				{
+					NPC npc = Main.npc[who.whoAmI];
+					if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
+					{
+						Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 
-				//		float point = 0f;
-				//		if (Vector2.Distance(oPos, npc.Center) < range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
-				//		{
-				//			range = Vector2.Distance(oPos, npc.Center);
-				//			mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
-				//		}
+						float point = 0f;
+						if (Vector2.Distance(oPos, npc.Center) < range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, P.Center, P.width, ref point))
+						{
+							range = Vector2.Distance(oPos, npc.Center);
+							mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
+						}
 
-				//		bool flag = Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
+						bool flag = Vector2.Distance(oPos, npc.Center) <= range + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
 
-				//		if (npc.CanBeChasedBy(P, false))
-				//		{
-				//			if (target == null || !target.active)
-				//			{
-				//				if (flag)
-				//				{
-				//					target = npc;
-				//				}
-				//			}
-				//			else
-				//			{
-				//				if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
-				//				{
-				//					target = npc;
-				//					//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
-				//				}
+						if (npc.CanBeChasedBy(P, false))
+						{
+							if (target == null || !target.active)
+							{
+								if (flag)
+								{
+									target = npc;
+								}
+							}
+							else
+							{
+								if (npc != target && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(target.Center, mousePos))
+								{
+									target = npc;
+									//mp.statCharge = 0;//reset when changing targets. makes this stupid useless in crowds
+								}
 
-				//				if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
-				//				{
-				//					target = null;
-				//				}
-				//			}
-				//		}
-				//	}
-				//}
+								if (Vector2.Distance(oPos, target.Center) > range + distance || Vector2.Distance(target.Center, mousePos) > distance)
+								{
+									target = null;
+								}
+							}
+						}
+					}
+				}
 				if (target == null || !target.active)
 				{
 					targetPos = Lead.Center;
@@ -246,7 +246,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				float speed = Math.Max(8f, Vector2.Distance(targetPos, P.Center) * 0.25f);
 				float targetAngle = (float)Math.Atan2(targetPos.Y - P.Center.Y, targetPos.X - P.Center.X);
 				P.velocity = targetAngle.ToRotationVector2() * speed;
-				Projectile.netUpdate = true;
+				P.netUpdate = true;
 			}
 			if (O.controlUseItem)
 			{
@@ -319,7 +319,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			Projectile P = Projectile;
 			MProjectile meep = mProjectile;
 			Color color = MetroidMod.powColor;
-			Player O = Main.player[Projectile.owner];
+			Player O = Main.player[P.owner];
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 			int num108 = tex.Height / Main.projFrames[P.type];
 			int y4 = num108 * P.frame;
@@ -378,7 +378,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					sb.Draw(tex, pos[i] - Main.screenPosition, new Rectangle?(new Rectangle(0, y4, tex.Width, num108)), P.GetAlpha(Color.White), rot, new Vector2(tex.Width / 2f, (float)num108 / 2), new Vector2(scale, 1f), SpriteEffects.None, 0f);
 
 
-					Lighting.AddLight(Projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+					Lighting.AddLight(P.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 
 				}
 			}

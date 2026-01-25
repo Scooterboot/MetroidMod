@@ -314,8 +314,6 @@ namespace MetroidMod.Content.Items.Weapons
 
 		private bool isShotgun = false;
 		private int shotgunAmt = 5;
-		private int[] coils;
-		List<int> listCoils = new List<int>();
 
 		private bool isMiniGun = false;
 		private int miniRateIncr = 2;
@@ -1956,11 +1954,6 @@ namespace MetroidMod.Content.Items.Weapons
 						mProj.waveDir = waveDir;
 						mProj.shot = shotEffect.ToString();
 						Main.projectile[shotProj].netUpdate = true;
-						if (isShock)
-						{
-							listCoils.Add(shotProj);
-							coils = listCoils.ToArray();
-						}
 						if (isSpray && shotAmt > 1)
 						{
 							Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
@@ -2276,58 +2269,6 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					if (isShock && player.controlUseItem && mp.statOverheat < mp.maxOverheat)
 					{
-						for (int i = 0; i < listCoils.Count; i++)
-						{
-							if (Main.projectile[coils[i]].ModProjectile is ShockCoilShot shoof)
-							{
-								Vector2 diff = Main.MouseWorld - oPos;
-								shoof.target = null;
-								for (int j = 0; j < Main.npc.Length; j++)
-								{
-									NPC npc = Main.npc[j];
-									//ShockCoilShot primus = (ShockCoilShot)Main.projectile[coils[0]].ModProjectile;
-									NPC next = shoof.Projectile.FindTargetWithinRange(shoof.distance);
-									bool[] locked = new bool[Main.npc.Length];
-									if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
-									{
-										Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
-
-										float point = 0f;
-										if (Vector2.Distance(oPos, npc.Center) < shoof.range && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), oPos, shoof.Projectile.Center, shoof.Projectile.width, ref point))
-										{
-											shoof.range = Vector2.Distance(oPos, npc.Center);
-											shoof.mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), shoof.range));
-										}
-										bool flag = Vector2.Distance(oPos, npc.Center) <= shoof.range + shoof.distance && Vector2.Distance(npc.Center, shoof.mousePos) <= shoof.distance;
-
-										if (npc.CanBeChasedBy(shoof.Projectile, false))
-										{
-											if (shoof.target == null || !shoof.target.active)
-											{
-												if (flag)
-												{
-													shoof.target = next;
-												}
-											}
-											else
-											{
-												if (npc != shoof.target && flag && Vector2.Distance(npc.Center, shoof.mousePos) < Vector2.Distance(shoof.target.Center, shoof.mousePos))
-												{
-													shoof.target = next;
-													//locked[next.whoAmI] = true;
-												}
-
-												if (Vector2.Distance(oPos, shoof.target.Center) > shoof.range +	shoof.distance || Vector2.Distance(shoof.target.Center, shoof.mousePos) > shoof.distance)
-												{
-													shoof.target = null;
-													//locked[j] = false;
-												}
-											}
-										}
-									}
-								}
-							}
-						}
 						cooldown--;
 						mp.overheatDelay = (int)cooldown / 3;
 						if (cooldown <= 0)
