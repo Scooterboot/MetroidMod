@@ -214,7 +214,7 @@ namespace MetroidMod.Content.Subworlds
 				GenVars.dungeonLocation = 0;
 
 				// Code so vanilla worldgen code doesn't crash out
-				GenVars.shimmerPosition = new Relogic.Utilities.Vector2D(Main.maxTilesX / 2, Main.maxTilesY / 2);
+				GenVars.shimmerPosition = new ReLogic.Utilities.Vector2D(Main.maxTilesX / 2, Main.maxTilesY / 2);
 			}
 		}
 		

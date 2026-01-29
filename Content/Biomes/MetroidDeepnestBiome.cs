@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using MetroidMod.Common.Systems;
-using MetroidMod.Content.NPCs.Mobs.Metroid;
+using MetroidMod.Content.NPCs.Metroids.Larva;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Biomes
 
 		public override bool IsBiomeActive(Player player)
 		{
-			return SubworldLibrary.SubworldSystem.IsActive<Subworlds.MetroidDeepnest>() && ModContent.GetInstance<MBiomesSystem>().deepnestBlockCount >= 200 && player.ZoneRockLayerHeight;
+			return SubworldLibrary.SubworldSystem.IsActive<Subworlds.MetroidDeepnest>();
 		}
 	}
 

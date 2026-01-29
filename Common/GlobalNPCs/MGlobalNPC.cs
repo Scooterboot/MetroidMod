@@ -4,7 +4,8 @@ using System.Linq;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Biomes;
 using MetroidMod.Content.Buffs;
-using MetroidMod.Content.NPCs.Mobs.Metroid;
+using MetroidMod.Content.NPCs.Metroids.Larva;
+using MetroidMod.Content.NPCs.Mobs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using rail;
@@ -178,24 +179,13 @@ namespace MetroidMod.Common.GlobalNPCs
 		{
 			if (ModContent.GetInstance<MetroidDeepnestBiome>().IsBiomeActive(spawnInfo.Player))
 			{
-				// If not in whitelist, annihilate the npc's spawnability.
-				SpawnPoolAnnihilator(pool, MetroidDeepnestBiome.AllowedNPCs, 0.2f);
-			}
-			
-			// Only allow metroids and whatnot in the Laboratory
-			// if (ModContent.GetInstance<TheLaboratoryBiome>().IsBiomeActive(spawnInfo.Player))
-			// {
-			// 	SpawnPoolAnnihilator(pool, TheLaboratoryBiome.AllowedNPCs, 0f);
-			// }
-		}
-		
-		internal static void SpawnPoolAnnihilator(IDictionary<int, float> pool, List<int> allowedList, float value)
-		{
-			foreach (KeyValuePair<int, float> pair in pool)
-			{
-				if (!allowedList.Contains(pair.Key))
+				foreach (KeyValuePair<int, float> pair in pool)
 				{
-					pool[pair.Key] *= value;
+					// If not in whitelist, annihilate the npc's spawnability.
+					if (!MetroidDeepnestBiome.AllowedNPCs.Contains(pair.Key))
+					{
+						pool[pair.Key] = 0f;
+					}
 				}
 			}
 		}
@@ -207,9 +197,9 @@ namespace MetroidMod.Common.GlobalNPCs
 			{
 				spawnRate = (int)(spawnRate * 0.75); //it's truly bizarre how this has to be an inverse ~Dr
 			}
-			if (ModContent.GetInstance<MetroidDeepnestBiome>().IsBiomeActive(player))
+			if (SubworldLibrary.SubworldSystem.IsActive<Content.Subworlds.MetroidDeepnest>())
 			{
-				maxSpawns /= 2;
+				maxSpawns = 60;
 			}
 			//base.EditSpawnRate(player, ref spawnRate, ref maxSpawns);
 		}

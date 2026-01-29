@@ -15,7 +15,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using Terraria.Utilities;
 
-namespace MetroidMod.Content.NPCs.Mobs.Metroid
+namespace MetroidMod.Content.NPCs.Mobs
 {
 	public class Mochtroid : MNPC
 	{
@@ -98,7 +98,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (STATE == (int)StateID.Frozen || (projectile.Name.Contains("Missile") && projectile.Name.Contains("Stardust")))
+			if (STATE == (int)StateID.Frozen || projectile.Name.Contains("Missile") && projectile.Name.Contains("Stardust"))
 			{
 				modifiers.ScalingArmorPenetration += 1f;
 				modifiers.Knockback *= 0.5f;
@@ -139,7 +139,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			NPC.defense = NPC.defDefense = (int)(NPC.defense * NPC.scale);
 			NPC.damage = NPC.defDamage = (int)(NPC.damage * NPC.scale);
 			NPC.life = NPC.lifeMax = (int)(NPC.life * NPC.scale);
-			NPC.value = ((int)(NPC.value * NPC.scale));
+			NPC.value = (int)(NPC.value * NPC.scale);
 			NPC.npcSlots *= NPC.scale;
 			NPC.knockBackResist *= 2f - NPC.scale;
 			NPC.DeathSound = Sounds.NPCs.Mochtroid.WithVolumeScale(NPC.scale * 0.75f).WithPitchOffset(1f - NPC.scale);
@@ -173,7 +173,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			{
 				NPC.noGravity = true;
 				NPCUtils.TargetSearchResults results = NPCUtils.SearchForTarget(NPC, NPCUtils.TargetSearchFlag.Players,
-					(Player p) => p.Distance(NPC.Center) < 600 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, p.position, p.width, p.height), null);
+					(p) => p.Distance(NPC.Center) < 600 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, p.position, p.width, p.height), null);
 				if (results.FoundTarget)
 				{
 					NPC.targetRect = results.NearestTargetHitbox;
@@ -242,7 +242,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					}
 					if (NPC.soundDelay <= 0)
 					{
-						NPC.soundDelay = 75; 
+						NPC.soundDelay = 75;
 						SoundEngine.PlaySound(Sounds.NPCs.Mochtroid.WithPitchOffset(Main.rand.NextFloat() * 0.25f + (1f - NPC.scale)).WithVolumeScale(NPC.scale * 0.5f), NPC.Center);
 
 					}
@@ -286,7 +286,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					NPC.velocity.Y = NPC.oldVelocity.Y * -.7F;
 				}
 
-				if (((NPC.velocity.X > 0 && NPC.oldVelocity.X < 0) || (NPC.velocity.X < 0 && NPC.oldVelocity.X > 0) || (NPC.velocity.Y > 0 && NPC.oldVelocity.Y < 0) || (NPC.velocity.Y < 0 && NPC.oldVelocity.Y > 0)) && !NPC.justHit)
+				if ((NPC.velocity.X > 0 && NPC.oldVelocity.X < 0 || NPC.velocity.X < 0 && NPC.oldVelocity.X > 0 || NPC.velocity.Y > 0 && NPC.oldVelocity.Y < 0 || NPC.velocity.Y < 0 && NPC.oldVelocity.Y > 0) && !NPC.justHit)
 					NPC.netUpdate = true;
 
 			}
@@ -350,7 +350,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 
 				shaderData.Apply(data);
 			}
-			data.Draw(spriteBatch); 
+			data.Draw(spriteBatch);
 			if (STATE == (int)StateID.Frozen)
 			{
 				spriteBatch.End();

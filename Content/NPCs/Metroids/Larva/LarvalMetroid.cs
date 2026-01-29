@@ -16,7 +16,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 using Terraria.Utilities;
 
-namespace MetroidMod.Content.NPCs.Mobs.Metroid
+namespace MetroidMod.Content.NPCs.Metroids.Larva
 {
 	public class LarvalMetroid : MNPC
 	{
@@ -30,7 +30,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()  //Alright so this here method thingy lets you tweak the bestiary display
 			{
-				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/Mobs/Metroid/LarvalMetroid",
+				CustomTexturePath = $"{nameof(MetroidMod)}/Content/NPCs/Metroids/Larva/LarvalMetroid",
 				Position = new Vector2(0f, 0f), // these two variables ONLY APPLY TO THE LIST TILES
 				Scale = 1f,
 				PortraitPositionXOverride = 0f,
@@ -190,7 +190,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 		}
 		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (STATE == (int)StateID.Frozen || (projectile.Name.Contains("Missile") && projectile.Name.Contains("Stardust")))
+			if (STATE == (int)StateID.Frozen || projectile.Name.Contains("Missile") && projectile.Name.Contains("Stardust"))
 			{
 				modifiers.Knockback *= 0.3f;
 				modifiers.ScalingArmorPenetration += 1f;
@@ -302,10 +302,10 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 				float home = 48f;
 				NPC.velocity = ((home - 1f) * NPC.velocity + move) / home;
 
-				NPCUtils.TargetSearchResults results = NPCUtils.SearchForTarget(NPC, NPCUtils.TargetSearchFlag.All, 
-					(Player p) => p.Distance(NPC.Center) < 600 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, p.position, p.width, p.height) && p.active && !p.dead && !p.immune
-					&& ! p.buffImmune[ModContent.BuffType<MetroidSucc>()] && !p.HasBuff<MetroidSucc>() && !p.HasBuff(BuffID.Frozen), 
-					(NPC n) => !n.TypeName.Contains("Metroid") && !n.dontTakeDamage && !n.immortal && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, n.position, n.width, n.height) &&
+				NPCUtils.TargetSearchResults results = NPCUtils.SearchForTarget(NPC, NPCUtils.TargetSearchFlag.All,
+					(p) => p.Distance(NPC.Center) < 600 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, p.position, p.width, p.height) && p.active && !p.dead && !p.immune
+					&& !p.buffImmune[ModContent.BuffType<MetroidSucc>()] && !p.HasBuff<MetroidSucc>() && !p.HasBuff(BuffID.Frozen),
+					(n) => !n.TypeName.Contains("Metroid") && !n.dontTakeDamage && !n.immortal && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, n.position, n.width, n.height) &&
 					!n.buffImmune[ModContent.BuffType<MetroidSucc>()] && !n.HasBuff<MetroidSucc>() && !n.HasBuff<IceFreeze>() && !n.HasBuff<InstantFreeze>() && !n.coldDamage);
 				if (results.FoundTarget)
 				{
@@ -691,7 +691,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 			Vector2 originElec = new Vector2(texElec.Width * 0.5f, frameHeightElec * 0.5f);
 			Vector2 originOuter = new Vector2(texOuter.Width * 0.5f, frameHeightOuter * 0.5f);
 
-			Vector2 shellScale = new Vector2(1f + (shellAnimCounter * 0.003f), 1f - (shellAnimCounter * 0.002f));
+			Vector2 shellScale = new Vector2(1f + shellAnimCounter * 0.003f, 1f - shellAnimCounter * 0.002f);
 
 			if (STATE == (int)StateID.Frozen)
 			{

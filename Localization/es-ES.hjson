@@ -4234,6 +4234,8 @@ Mods: {
 
 				// Census.SpawnCondition: Defeat Torizo, an ancient guardian found in the [c/ffff00:Chozo Ruins]
 			}
+
+			// AlphaMetroid.DisplayName: Alpha Metroid
 		}
 
 		Bestiary: {
