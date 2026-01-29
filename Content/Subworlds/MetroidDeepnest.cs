@@ -138,7 +138,7 @@ namespace MetroidMod.Content.Subworlds
 			new HivesPass(),
 			new LabPass(),
 			WorldGen.VanillaGenPasses["Settle Liquids Again"],
-			WorldGen.VanillaGenPasses["Final Cleanup"],
+			//WorldGen.VanillaGenPasses["Final Cleanup"], // this broke, not sure why. - Armi
 			new FinishPass()
 		};
 
@@ -148,6 +148,8 @@ namespace MetroidMod.Content.Subworlds
 
 			protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
 			{
+				MSystem.MetroidGenVars.metroidHiveThicknessValues = new();
+
 				// do worldgen business here
 				WorldGen.generatingWorld = true;
 				GenVars.configuration = ModContent.GetInstance<MetroidDeepnest>().Config;
@@ -228,18 +230,17 @@ namespace MetroidMod.Content.Subworlds
 
 				// Should this step be moved into its own GenPass? maybe into ResetPass? god -Armi
 				// So first, we need to find the midpoint of all the hives.
-				Point centerPos = MSystem.MetroidGenVars.metroidHiveLocations.CenterOfPoints();
-				// Go up a little. We'll need a bit of room later on.
-				centerPos.Y -= 30;
-				MSystem.MetroidGenVars.labsPosition = centerPos;
+				Point centerPos = MSystem.MetroidGenVars.labsPosition = MSystem.MetroidGenVars.metroidHiveLocations.CenterOfPoints();
+				// Go down a little. We'll need a bit of room later on.
+				centerPos.Y += 30;
 
-				foreach (Point hivePoint in MSystem.MetroidGenVars.metroidHiveLocations)
+				for (int i = 0; i < MSystem.MetroidGenVars.metroidHiveLocations.Count; i++)
 				{
-					//centerPos.X /= 2;
-					MSystem.Line(new(centerPos.X / 2, centerPos.Y), new(hivePoint.X / 2, hivePoint.Y), WorldGen.genRand.Next(35, 50), (ushort)ModContent.TileType<Tiles.MetroidHive>(), (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>(), true, true);
+					Point hivePoint = MSystem.MetroidGenVars.metroidHiveLocations[i];
+					MSystem.MetroidGenVars.metroidHiveThicknessValues.Add(WorldGen.genRand.Next(35, 50));
+					int thickness = MSystem.MetroidGenVars.metroidHiveThicknessValues[i];
+					MSystem.Line(new(centerPos.X / 2, centerPos.Y), new(hivePoint.X / 2, hivePoint.Y), thickness, (ushort)ModContent.TileType<Tiles.MetroidHive>(), (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>(), true, false, true);
 				}
-
-				// TODO: Go up with a line after 
 			}
 		}
 		
@@ -269,7 +270,83 @@ namespace MetroidMod.Content.Subworlds
 			{
 				progress.Message = "Generating The Laboratory";
 
-				// LABS CODE HERE
+				Point centerPos = MSystem.MetroidGenVars.labsPosition;
+				centerPos.X /= 2;
+
+				// Half-Pipe Shape
+				int thickness = 200;
+				for (int x = (int)(centerPos.X - thickness / 2.0); (double)x < centerPos.X + thickness / 2.0; x++)
+				{
+					for (int y = (int)(centerPos.Y - thickness / 2.0); (double)y < centerPos.Y + thickness / 2.0; y++)
+					{
+						double funnyX = Math.Abs((double)x - centerPos.X);
+						Tile tile = Main.tile[x, y];
+						tile.LiquidAmount = 0;
+						if (y < centerPos.Y)
+						{
+							if (funnyX > thickness * 0.4)
+							{
+								tile.HasTile = true;
+								tile.TileType = (ushort)ModContent.TileType<Tiles.MetroidHive>();
+							} 
+							else
+							{
+								tile.HasTile = false;
+							}
+							if (funnyX < thickness * 0.5)
+							{
+								tile.WallType = WallID.None;
+							}
+						}
+						else
+						{
+							double funnyY = Math.Abs((double)y - centerPos.Y);
+							double distFromCenter = Math.Sqrt(funnyX * funnyX + funnyY * funnyY);
+							if (distFromCenter < thickness * 0.4)
+							{
+								tile.HasTile = false;
+								tile.WallType = WallID.None;
+								if (tile.LiquidAmount > 0)
+								{
+									tile.LiquidAmount = 0;
+								}
+							}
+							else if (distFromCenter < thickness * 0.5)
+							{
+								tile.HasTile = true;
+								tile.TileType = (ushort)ModContent.TileType<Tiles.MetroidHive>();
+								if (distFromCenter > thickness * 0.6)
+								{
+									tile.WallType = (ushort)ModContent.WallType<Walls.MetroidHiveWallNatural>();
+								}
+								if (tile.LiquidAmount > 0)
+								{
+									tile.LiquidAmount = 0;
+								}
+							}
+						}
+					}
+				}
+
+				// Ok, now we make the holes so the area can be accessed.
+				centerPos.Y += 30;
+
+				for (int i = 0; i < MSystem.MetroidGenVars.metroidHiveLocations.Count; i++)
+				{
+					Point hivePoint = MSystem.MetroidGenVars.metroidHiveLocations[i];
+					double angle = Math.Atan2((hivePoint.Y - centerPos.Y), (hivePoint.X / 2 - centerPos.X));
+
+					double soonX = thickness * Math.Cos(angle) * 4 / 10;
+					double soonY = thickness * Math.Sin(angle) * 4 / 10;
+					if (centerPos.Y + soonY < centerPos.Y - 30)
+					{
+						soonX *= 1.3;
+						soonY *= 1.3;
+					}
+					Point hivePointFromFunny = new((int)(centerPos.X + soonX), (int)(centerPos.Y + soonY));
+					int thickness2 = MSystem.MetroidGenVars.metroidHiveThicknessValues[i];
+					MSystem.Line(new(centerPos.X, centerPos.Y), hivePointFromFunny, thickness2, TileID.Dirt, WallID.None, true, true, false);
+				}
 			}
 		}
 

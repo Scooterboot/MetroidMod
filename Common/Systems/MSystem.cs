@@ -51,6 +51,7 @@ namespace MetroidMod.Common.Systems
 		public static class MetroidGenVars
 		{
 			public static List<Point> metroidHiveLocations;
+			public static List<int> metroidHiveThicknessValues;
 			public static Point labsPosition;
 		}
 
@@ -2448,7 +2449,7 @@ namespace MetroidMod.Common.Systems
 		/// <summary>
 		/// Creates a line of a certain <paramref name="thickness"/> between point <paramref name="A"/> and point <paramref name="B"/> in the world.
 		/// </summary>
-		internal static void Line(Point A, Point B, double thickness, ushort TileType, ushort WallType, bool takeShape, bool guaranteedFloor)
+		internal static void Line(Point A, Point B, double thickness, ushort TileType, ushort WallType, bool takeShape, bool noWalls, bool guaranteedFloor)
 		{
 			// determine line
 			int distance = (int)Math.Sqrt(Math.Pow(B.X - A.X, 2) + Math.Pow(B.Y - A.Y, 2));
@@ -2457,7 +2458,7 @@ namespace MetroidMod.Common.Systems
 			for (int i = 0; i < distance; i++)
 			{
 				Point pos = new((int)(A.X + (i * Math.Cos(angle))), (int)(A.Y + (i * Math.Sin(angle))));
-				Ball(pos, thickness, TileType, WallType, takeShape);
+				Ball(pos, thickness, TileType, WallType, takeShape, noWalls);
 				if (guaranteedFloor)
 				{
 					Tile tile = Main.tile[pos.X, (int)(pos.Y + (thickness * 0.4))];
@@ -2469,7 +2470,7 @@ namespace MetroidMod.Common.Systems
 		/// <summary>
 		/// Creates a ball of a given <paramref name="thickness"/> at <paramref name="pos"/> in the world.
 		/// </summary>
-		internal static void Ball(Point pos, double thickness, ushort TileType, ushort WallType, bool takeShape)
+		internal static void Ball(Point pos, double thickness, ushort TileType, ushort WallType, bool takeShape, bool noWalls)
 		{
 			for (int x = (int)(pos.X - thickness / 2.0); (double)x < pos.X + thickness / 2.0; x++)
 			{
@@ -2494,7 +2495,8 @@ namespace MetroidMod.Common.Systems
 						{
 							tile.HasTile = true;
 						}
-						tile.TileType = TileType;
+						// because i'm stubborn and dont want to make another ball function
+						if (!noWalls) { tile.TileType = TileType; } else { tile.HasTile = false; }
 						if (distFromCenter < thickness * 0.4)
 						{
 							tile.WallType = WallType;
