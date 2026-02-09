@@ -1918,17 +1918,20 @@ namespace MetroidMod.Content.Items.Weapons
 								MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
 								mProj.waveDir = waveDir;
 								mProj.shot = shotEffect.ToString();
+								mProj.assign = extraProj;
 								Main.projectile[extraProj].netUpdate = true;
 							}
 						}
 					}
 					mp.hyperColors = 23;
 				}
-				else if (isOmega)
+				else if (isOmega || isShock)
 				{
 					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, 0);
+					MProjectile mProj1 = (MProjectile)Main.projectile[shotProj].ModProjectile;
+					mProj1.assign = shotProj;
 
-					if (shotAmt > 1)
+					if (shotAmt > 1 && !isShock)
 					{
 						for (int i = 1; i < shotAmt; i++)
 						{
@@ -1936,6 +1939,7 @@ namespace MetroidMod.Content.Items.Weapons
 							MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
 							mProj.waveDir = waveDir;
 							mProj.shot = shotEffect.ToString();
+							mProj.assign = extraProj;
 							Main.projectile[extraProj].netUpdate = true;
 							if (isSpray && shotAmt > 1)
 							{
@@ -1953,6 +1957,7 @@ namespace MetroidMod.Content.Items.Weapons
 						MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 						mProj.waveDir = waveDir;
 						mProj.shot = shotEffect.ToString();
+						mProj.assign = shotProj;
 						Main.projectile[shotProj].netUpdate = true;
 						if (isSpray && shotAmt > 1)
 						{
