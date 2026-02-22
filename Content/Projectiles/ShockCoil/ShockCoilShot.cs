@@ -198,7 +198,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 											shocky.dmg = dmg;
 											//shocky.assign = mProj.assign;
 											shocky.shotCounter =main.shots;
-											//Main.projectile[shotProj].netUpdate = true;
+											Main.projectile[shotProj].netUpdate = true;
 										}
 									}
 								}
@@ -232,7 +232,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 											shocky.dmg = dmg;
 											//shocky.assign = mProj.assign;
 											shocky.shotCounter = main.shots;
-											//Main.projectile[shotProj].netUpdate = true;
+											Main.projectile[shotProj].netUpdate = true;
 										}
 									}
 								}
@@ -241,8 +241,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 								{
 									target = null;
 									hasLink = false;
-									main.shotCounter = 1;
-									//if (isaLink )
+									//main.shotCounter = 1;
+									//if (isaLink)
 									//{
 									//	P.Kill();
 									//	//parent?.Kill();
@@ -513,7 +513,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 																		//mp.statOverheat += mp.overheatCost; // /shots;
-			mp.statCharge = Math.Min(mp.statCharge + (2.0f / shots), MPlayer.maxCharge);
+			if(!isaLink) 
+				mp.statCharge = Math.Min(mp.statCharge + (2.0f / shots), MPlayer.maxCharge);
 			if (mp.Energy < mp.MaxEnergy && !mp.PrimeHunter && (Luminite || DiffBeam))
 			{
 				if (heal > mp.MaxEnergy - mp.Energy)
