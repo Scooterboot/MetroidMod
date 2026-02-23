@@ -18,10 +18,10 @@ namespace MetroidMod.Content.DamageClasses
 		}
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{
-			//if (damageClass == Generic || MUtils.FargoSoulsActive())
-			//{
-			//	return StatInheritanceData.Full;
-			//}
+			if (damageClass == Generic /* || MUtils.FargoSoulsActive()*/)
+			{
+				return StatInheritanceData.Full;
+			}
 			return new StatInheritanceData(
 				damageInheritance: 0f,
 				critChanceInheritance: 0f,
