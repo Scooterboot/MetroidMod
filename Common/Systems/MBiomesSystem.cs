@@ -8,6 +8,7 @@ namespace MetroidMod.Common.Systems
 		public int nesCrateriaBlockCount;
 		public int nesBrinstarBlockCount;
 		public int chozoBlockCount;
+		public int phazonBlockCount;
 
 		public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
 		{

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -55,7 +56,7 @@ namespace MetroidMod.Content.Projectiles
 			//Convert((int)(Projectile.position.X + (Projectile.width * 0.5f)) / 16, (int)(Projectile.position.Y + (Projectile.height * 0.5f)) / 16, 2);
 		}
 		//
-		/*private static void Convert(int i, int j, int size = 4)
+		private static void Convert(int i, int j, int size = 4)
 		{
 			for (int k = i - size; k <= i + size; k++)
 			{
@@ -82,7 +83,7 @@ namespace MetroidMod.Content.Projectiles
 							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
-						if (TileID.Sets.Conversion.MushroomGrass[type]|| TileID.Sets.Conversion.Grass[type])
+						if (TileID.Sets.Conversion.MushroomGrass[type] || TileID.Sets.Conversion.Grass[type] || TileID.Sets.Conversion.JungleGrass[type])
 						{
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<Tiles.PhazonGrass>();
 							WorldGen.SquareTileFrame(k, l);
@@ -94,7 +95,7 @@ namespace MetroidMod.Content.Projectiles
 							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
-						/*else if (type == TileID.Plants || type == TileID.Plants2)
+						else if (type == TileID.Plants || type == TileID.Plants2)
 						{
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<Tiles.PhazonTreeTile>();
 							WorldGen.SquareTileFrame(k, l);
@@ -109,6 +110,6 @@ namespace MetroidMod.Content.Projectiles
 					}
 				}
 			}
-		}*/
+		}
 	}
 }

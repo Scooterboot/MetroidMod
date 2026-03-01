@@ -95,7 +95,7 @@ namespace MetroidMod.Content.Tiles
 				{
 					if (MSystem.PhazonSpawn != true)
 					{
-						Common.Systems.MSystem.AddPhazon();
+						MSystem.AddPhazon();
 					}
 				}
 				MSystem.PhazonSpawn = true;

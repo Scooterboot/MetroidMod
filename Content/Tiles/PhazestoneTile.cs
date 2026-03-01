@@ -12,12 +12,12 @@ namespace MetroidMod.Content.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			Main.tileDungeon[Type] = true;
+			//Main.tileDungeon[Type] = true;
 			//Main.tileMerge[Type][TileID.Sand] = true;
 			//Main.tileMerge[TileID.Sand][Type] = true;
 
-			DustType = 87;
-			MinPick = 65;
+			DustType = DustID.Electric;
+			MinPick = 0;
 			HitSound = SoundID.Tink;
 
 			AddMapEntry(new Color(50, 160, 115));
