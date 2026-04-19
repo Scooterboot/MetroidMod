@@ -83,7 +83,7 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 		}
 		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
-			NPC.lifeMax = MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) ?(int)(NPC.lifeMax * 0.7f * balance) : (int)(2000 * balance) ;
+			NPC.lifeMax = MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo)|| NPC.downedGolemBoss ?(int)(NPC.lifeMax * 0.7f * balance) : (int)(2000 * balance);
 			NPC.damage = (int)(NPC.damage * 0.7f);
 		}
 		public override void BossLoot(ref string name, ref int potionType)
