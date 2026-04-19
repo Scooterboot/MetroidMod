@@ -57,6 +57,7 @@ namespace MetroidMod.Content.Items.Tools
 
 		public override bool? UseItem(Player player)
 		{
+			if(player.whoAmI != Main.myPlayer) { return false; }
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			//mp.xrayequipped = true;
 			int range = 16;
