@@ -95,7 +95,7 @@ namespace MetroidMod.Content.Projectiles
 							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
 						}
-						else if (type == TileID.Plants || type == TileID.Plants2)
+/*						else if (type == TileID.Plants || type == TileID.Plants2)
 						{
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<Tiles.PhazonTreeTile>();
 							WorldGen.SquareTileFrame(k, l);
@@ -106,7 +106,7 @@ namespace MetroidMod.Content.Projectiles
 							Main.tile[k, l].TileType = (ushort)ModContent.TileType<Tiles.PhazonTreeTile>();
 							WorldGen.SquareTileFrame(k, l);
 							NetMessage.SendTileSquare(-1, k, l, 1);
-						}
+						}*/
 					}
 				}
 			}

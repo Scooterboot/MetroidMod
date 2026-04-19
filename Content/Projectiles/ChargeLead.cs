@@ -53,6 +53,7 @@ namespace MetroidMod.Content.Projectiles
 		private bool sound2Played = false;
 		private ReLogic.Utilities.SlotId soundInstance;
 		private int negateUseTime = 0;
+		public int links = 1;
 		public override void AI()
 		{
 			Projectile P = Projectile;

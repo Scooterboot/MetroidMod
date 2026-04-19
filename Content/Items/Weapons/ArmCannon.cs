@@ -1864,7 +1864,7 @@ namespace MetroidMod.Content.Items.Weapons
 			return clone2;
 		}
 
-		private int chargeLead = -1;
+		public int chargeLead = -1;
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
@@ -1918,7 +1918,6 @@ namespace MetroidMod.Content.Items.Weapons
 								MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
 								mProj.waveDir = waveDir;
 								mProj.shot = shotEffect.ToString();
-								mProj.assign = extraProj;
 								Main.projectile[extraProj].netUpdate = true;
 							}
 						}
@@ -1929,7 +1928,6 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, 0);
 					MProjectile mProj1 = (MProjectile)Main.projectile[shotProj].ModProjectile;
-					mProj1.assign = shotProj;
 
 					if (shotAmt > 1 && !isShock)
 					{
@@ -1939,7 +1937,6 @@ namespace MetroidMod.Content.Items.Weapons
 							MProjectile mProj = (MProjectile)Main.projectile[extraProj].ModProjectile;
 							mProj.waveDir = waveDir;
 							mProj.shot = shotEffect.ToString();
-							mProj.assign = extraProj;
 							Main.projectile[extraProj].netUpdate = true;
 							if (isSpray && shotAmt > 1)
 							{
@@ -1957,7 +1954,6 @@ namespace MetroidMod.Content.Items.Weapons
 						MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
 						mProj.waveDir = waveDir;
 						mProj.shot = shotEffect.ToString();
-						mProj.assign = shotProj;
 						Main.projectile[shotProj].netUpdate = true;
 						if (isSpray && shotAmt > 1)
 						{

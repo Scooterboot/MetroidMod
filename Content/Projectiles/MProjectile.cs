@@ -33,10 +33,6 @@ namespace MetroidMod.Content.Projectiles
 		public string shot = "";
 		public bool Luminite = false;
 		public bool DiffBeam = false;
-		/// <summary>
-		/// because Projectile.whoamI doesnt sync in multi
-		/// </summary>
-		public int assign = -1;
 
 		public override void OnSpawn(IEntitySource source)
 		{

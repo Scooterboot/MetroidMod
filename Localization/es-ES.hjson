@@ -221,6 +221,11 @@ Mods: {
 				// DisplayName: NES Crateria Surface
 				// TownNPCDialogueName: the NES Crateria Surface Biome
 			}
+
+			PhazonBiome: {
+				// TownNPCDialogueName: the Phazon Biome
+				// DisplayName: Phazon Biome
+			}
 		}
 
 		Tiles: {

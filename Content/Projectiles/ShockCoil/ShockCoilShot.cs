@@ -45,6 +45,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		private Projectile Lead;
 		public Projectile parent = null;
 		public Projectile child = null;
+		private ChargeLead main = null;
 
 		public NPC target;
 
@@ -87,6 +88,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				{
 					shot = hold2.shotEffect.ToString();
 					shots = hold2.shotAmt;
+					main = (ChargeLead)Main.projectile[hold2.chargeLead].ModProjectile;
 				}
 			}
 			dmg = Projectile.damage;
@@ -102,12 +104,11 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			MProjectile meep = mProjectile;
 			Player O = Main.player[P.owner];
 			MPlayer mp = O.GetModPlayer<MPlayer>();
-			ShockCoilShot main = (ShockCoilShot)Main.projectile[assign].ModProjectile;
 			Vector2 V = P.velocity;
 			P.knockBack = 0;
 
-			Lead = !isaLink ? Main.projectile[O.heldProj] : parent;
-			//if ((!parent.active||parent == null) && isaLink)
+			Lead = !isaLink ? main.Projectile : parent;
+			//if ((!parent.active || parent == null) && isaLink)
 			//{
 			//	P.Kill();
 			//}
@@ -131,7 +132,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			mProjectile.WaveBehavior(P);
 
 			range = (GetDepth(meep) * 16) + 32f;
-			if (!isaLink)
+			//if (!isaLink)
 			{
 				distance = (GetDepth(meep) * 16) + 32f;
 			}
@@ -162,7 +163,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 							if (!isaLink)
 							{
 								range = Vector2.Distance(oPos, npc.Center);
-								mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
 							}
 							else if (npc != target)
 							{
@@ -179,25 +179,25 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 								if (flag)
 								{
 									target = npc;
-									if (!hasLink && (child == null) &&(!isaLink && main.shotCounter < shots))
+									if (!hasLink && (child == null) &&(!isaLink && main.links < shots))
 									{
-										main.shotCounter++;
+										main.links++;
 										hasLink = true;
 										int shotProj = Projectile.NewProjectile(P.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<ShockCoilChargeShot>(), 0, 0, O.whoAmI);
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-										mProj.assign = shotProj;
 										mProj.shot = shot;
 										child = Main.projectile[shotProj];
 										if (mProj is ShockCoilChargeShot shocky)
 										{
 											//shocky.link = target.whoAmI;
 											shocky.target = target;
-											shocky.Lead = Main.projectile[assign];
-											shocky.distance = distance - range;
+											shocky.Lead = Main.projectile[shotProj];
+											//shocky.distance = distance - range;
 											//mProj.waveDir = waveDir;
 											shocky.dmg = dmg;
 											//shocky.assign = mProj.assign;
-											shocky.shotCounter =main.shots;
+											shocky.shotCounter =main.links;
+											shocky.Projectile.Center = target.Center;
 											Main.projectile[shotProj].netUpdate = true;
 										}
 									}
@@ -213,25 +213,25 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 									//	//parent?.Kill();
 									//}
 									target = npc;
-									if (!hasLink&& child == null && (!isaLink && main.shotCounter < shots))
+									if (!hasLink&& child == null && (!isaLink && main.links < shots))
 									{
-										main.shotCounter++;
+										main.links++;
 										hasLink = true;
 										int shotProj = Projectile.NewProjectile(P.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<ShockCoilChargeShot>(), 0, 0, O.whoAmI);
 										MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-										mProj.assign = shotProj;
 										mProj.shot = shot;
 										child = Main.projectile[shotProj];
 										if (mProj is ShockCoilChargeShot shocky)
 										{
 											//shocky.link = target.whoAmI;
 											shocky.target = target;
-											shocky.Lead = Main.projectile[assign];
-											shocky.distance = distance - range;
+											shocky.Lead = Main.projectile[shotProj];
+											//shocky.distance = distance - range;
 											//mProj.waveDir = waveDir;
 											shocky.dmg = dmg;
 											//shocky.assign = mProj.assign;
-											shocky.shotCounter = main.shots;
+											shocky.shotCounter = main.links;
+											shocky.Projectile.Center = target.Center;
 											Main.projectile[shotProj].netUpdate = true;
 										}
 									}
@@ -241,13 +241,13 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 								{
 									target = null;
 									hasLink = false;
-									//main.shotCounter = 1;
-									//if (isaLink)
-									//{
-									//	P.Kill();
-									//	//parent?.Kill();
-									//}
-									//child?.Kill();
+									main.links = 1;
+									if (isaLink)
+									{
+										P.Kill();
+										//parent?.Kill();
+									}
+									child?.Kill();
 									child = null;
 								}
 							}
@@ -260,7 +260,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				}
 				if ((child == null || !child.active)&& !isaLink)
 				{
-					main.shotCounter = 1;
+					main.links = 1;
 					hasLink = false;
 				}
 				if (target == null || !target.active)
@@ -420,7 +420,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			int num108 = tex.Height / Main.projFrames[P.type];
 			int y4 = num108 * P.frame;
 			P.scale = .8f;
-			Lead = !isaLink ? Main.projectile[O.heldProj] : parent;
+			Lead = !isaLink ? main.Projectile : parent;
 			if (O.controlUseItem && !O.dead)
 			{
 
@@ -513,7 +513,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			//float bonusShots = (mp.statCharge * (shots - 1) / MPlayer.maxCharge) + 1f;
 			int immunity = (int)(O.HeldItem.useTime / (double)damaage); //(int)(O.HeldItem.useTime / bonusShots / (double)damaage);
 																		//mp.statOverheat += mp.overheatCost; // /shots;
-			if(!isaLink) 
+			//if(!isaLink) 
 				mp.statCharge = Math.Min(mp.statCharge + (2.0f / shots), MPlayer.maxCharge);
 			if (mp.Energy < mp.MaxEnergy && !mp.PrimeHunter && (Luminite || DiffBeam))
 			{
@@ -583,6 +583,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			Projectile P = Projectile;
 			Player O = Main.player[P.owner];
+			MProjectile meep = (MProjectile)Lead.ModProjectile;
 			//Vector2 oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 
 			//Lead = Main.projectile[(int)P.ai[0]];
@@ -603,14 +604,13 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				{
 					int shotProj = Projectile.NewProjectile(P.GetSource_FromAI(), target.Center, Vector2.Zero, ModContent.ProjectileType<ShockCoilShot>(), dmg, 0, O.whoAmI);
 					MProjectile mProj = (MProjectile)Main.projectile[shotProj].ModProjectile;
-					mProj.assign = shotProj;
 					mProj.shot = shot;
 					child = Main.projectile[shotProj];
 					if (mProj is ShockCoilShot shocky)
 					{
 						shocky.distance = ((mProjectile.waveDepth * 16f) + 32f) - distance;
 						shocky.isaLink = true;
-						shocky.parent = Main.projectile[assign];
+						shocky.parent = Main.projectile[shotProj];
 						//shocky.mProjectile.shot = shot;
 						shocky.shotCounter = shotCounter;
 						Main.projectile[shotProj].netUpdate = true;
