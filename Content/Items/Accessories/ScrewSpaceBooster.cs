@@ -43,11 +43,11 @@ namespace MetroidMod.Content.Items.Accessories
 		}
 		public override void AddRecipes()
 		{
-			CreateRecipe(1)
-				.AddIngredient<ScrewAttack>(1)
-				.AddIngredient<SpaceBooster>(1)
-				.AddTile(TileID.TinkerersWorkbench)
-				.Register();
+			//CreateRecipe(1)
+			//	.AddIngredient<ScrewAttack>(1)
+			//	.AddIngredient<SpaceBooster>(1)
+			//	.AddTile(TileID.TinkerersWorkbench)
+			//	.Register();
 			CreateRecipe(1)
 				.AddIngredient<ScrewAttack>(1)
 				.AddIngredient<SpeedBooster>(1)
