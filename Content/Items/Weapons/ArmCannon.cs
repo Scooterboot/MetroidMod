@@ -1924,11 +1924,11 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					mp.hyperColors = 23;
 				}
-				else if (isOmega)
+				else if (isOmega || isShock)
 				{
 					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, 0);
 
-					if (shotAmt > 1)
+					if (shotAmt > 1 && !isShock)
 					{
 						for (int i = 1; i < shotAmt; i++)
 						{
