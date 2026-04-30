@@ -101,10 +101,6 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (P.numUpdates == 0)
 			{
 				P.frame++;
-				for (int i = 0; i < 3; i++)
-				{
-					ampDest[i] = Main.rand.Next(-15, 16);
-				}
 			}
 			if (P.frame >= 12)
 			{
@@ -135,19 +131,15 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					chainoPos = new Vector2[shots];
 					//oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 					chainoPos[0] = Lead.Center;
-					if (chainTarget[i] == null || !chainTarget[i].active)
-					{
-						chaintargetPos[i] = Lead.Center;
-					}
 					if (i > 0)
 					{
 						chainoPos[i] = chaintargetPos[i - 1];
 					}
 					P.netUpdate = true;
-					Vector2 diff = Main.MouseWorld - O.RotatedRelativePoint(O.MountedCenter, true);
+					Vector2 diff = Main.MouseWorld - chainoPos[i];
 					diff.Normalize();
 
-					mousePos = O.RotatedRelativePoint(O.MountedCenter, true) + (diff * Math.Min(Vector2.Distance(O.RotatedRelativePoint(O.MountedCenter, true), Main.MouseWorld), chainrange[0]));
+					mousePos = chainoPos[i] + (diff * Math.Min(Vector2.Distance(chainoPos[i], Main.MouseWorld), chainrange[i]));
 
 					//target = null;
 					foreach (var npc in Main.ActiveNPCs)
@@ -158,14 +150,16 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 							Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 
 							float point = 0f;
-							if (Vector2.Distance(chainoPos[i], npc.Center) < distance && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), chainoPos[i], P.Center, P.width, ref point))
+							if (Vector2.Distance(chainoPos[i], npc.Center) < distance && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), chainoPos[i], chaintargetPos[i], P.width, ref point))
 							{
 								//if (npc != chainTarget[i])
 								//{
 								//	chainrange[i] = Vector2.Distance(chainoPos[i], npc.Center);
 								//}
 								chainrange[i] = Vector2.Distance(chainoPos[i], npc.Center);
-								//mousePos = oPos + (diff * Math.Min(Vector2.Distance(oPos, Main.MouseWorld), range));
+								mousePos = chainoPos[i] + (diff * Math.Min(Vector2.Distance(chainoPos[i], Main.MouseWorld), chainrange[i]));
+								//mousePos = Lead.Center + (diff * Math.Min(Vector2.Distance(Lead.Center, Main.MouseWorld), chainrange[0]));
+
 							}
 
 							bool flag = Vector2.Distance(chainoPos[i], npc.Center) <= chainrange[i] + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
@@ -194,9 +188,13 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 							}
 						}
 					}
-					if (!chainsetTargetPos[i])
+					if (chainTarget[i] == null || !chainTarget[i].active)
 					{
 						chaintargetPos[i] = Lead.Center;
+					}
+					if (!chainsetTargetPos[i])
+					{
+						chaintargetPos[i] = chainoPos[i];
 						chainsetTargetPos[i] = true;
 						return;
 					}
@@ -209,7 +207,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						if (P.numUpdates == 0)
 						{
 							mp.statCharge = 0;
-							chaintargetPos[0] = chainoPos[0] + (diff * chainrange[0]);
+							chaintargetPos[i] = chainoPos[i] + (diff * chainrange[i]);
 						}
 					}
 
@@ -293,10 +291,15 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		{
 			for (int i = 0; i < shots; i++)
 			{
-				if (chainTarget[i] != target3 || (!shot.Contains("wave") && !shot.Contains("nebula") && !Collision.CanHitLine(Lead.Center, Projectile.width, Projectile.height, chaintargetPos[i], Projectile.width, Projectile.height)) || immuneTime > 0)
+				if (chainTarget[i] != null)
 				{
-					return false;
+					return true;
 				}
+				//return target3 == chainTarget[i];
+				//if((bool)!Colliding(new Rectangle((int)(chaintargetPos[i].X - (Projectile.width / 2)), (int)(chaintargetPos[i].Y - Projectile.height / 2), Projectile.width, Projectile.height), target3.Hitbox))// (chainTarget[i] != target3 || (!shot.Contains("wave") && !shot.Contains("nebula") && !Collision.CanHitLine(Lead.Center, Projectile.width, Projectile.height, chaintargetPos[i], Projectile.width, Projectile.height)) || immuneTime > 0)
+				//{
+				//	return false;
+				//}
 			}
 			return base.CanHitNPC(target3);
 		}
@@ -349,7 +352,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 					{
 						chainoPos[j] = chaintargetPos[j - 1];
 					}
-					float targetrot = (float)Math.Atan2(P.Center.Y - chainoPos[j].Y, P.Center.X - chainoPos[j].X);
+					float targetrot = (float)Math.Atan2(chaintargetPos[j].Y - chainoPos[j].Y, chaintargetPos[j].X - chainoPos[j].X);
 					float dist = Math.Max(Vector2.Distance(chainoPos[j], chaintargetPos[j]), 1);
 
 					double trot = targetrot + (Math.PI / 2);
@@ -388,7 +391,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 						}
 
 						pos[i] = chainoPos[j] + (targetrot.ToRotationVector2() * (dist / num) * i);
-						pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(chainoPos[j], chaintargetPos[j]) / chainrange[j]);
+						pos[i].X += (float)Math.Cos(trot) * shift * (Vector2.Distance(chainoPos[j], chaintargetPos[j]) / chainrange[j]);//make sum
 						pos[i].Y += (float)Math.Sin(trot) * shift * (Vector2.Distance(chainoPos[j], chaintargetPos[j]) / chainrange[j]);
 
 						float rot = (float)Math.Atan2(pos[i].Y - chainoPos[j].Y, pos[i].X - chainoPos[j].X + ((float)Math.PI / 2));
@@ -447,7 +450,8 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			if (damageDone > 0)
 			{
 				immuneTime = 4 * immunity;
-				Projectile.localNPCHitCooldown = immunity;
+				//Projectile.localNPCHitCooldown = immunity;
+				target2.immune[O.whoAmI] = immunity;
 				/*foreach (NPC G in Main.npc)
 				{
 					//G.immune[O.whoAmI] = (int)(O.HeldItem.useTime / bonusShots / (double)damaage);
