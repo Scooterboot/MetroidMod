@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.Cil;
 using Terraria;
@@ -17,7 +18,14 @@ namespace MetroidMod.Content.Elevators
 			// we call it here, TODO please remove this workaround
 			// and re-enable the code below once (/IF) MonoMod is fixed!
 
-			Main.spriteBatch.Begin();
+			Main.spriteBatch.Begin(
+				SpriteSortMode.Deferred,
+				BlendState.AlphaBlend,
+				SamplerState.LinearWrap,
+				DepthStencilState.None,
+				RasterizerState.CullNone,
+				null,
+				Matrix.Identity);
 			ElevatorPlatformDrawing epd = ModContent.GetInstance<ElevatorPlatformDrawing>();
 			epd.DrawIdlePlatforms();
 			foreach (Player player in Main.ActivePlayers)
