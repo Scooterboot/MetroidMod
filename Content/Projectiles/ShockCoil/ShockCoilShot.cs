@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.Configs;
@@ -44,26 +45,27 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 		private Projectile Lead;
 
 		//public NPC target;
-		public NPC[] chainTarget;
+		private NPC[] chainTarget;
+		//private bool[] targeted;
 
 		//private Vector2 oPos;
 		private Vector2[] chainoPos;
-		public Vector2 mousePos;
+		private Vector2 mousePos;
 
 		private SoundEffectInstance soundInstance;
 		private bool soundPlayed = false;
 		private int soundDelay = 30;
 
 		private int ampSyncCooldown = 20;
-		private int shots = 1;
+		private int shots;
 		private int immuneTime = 0;
 		private int dmg = 0;
 
 		private readonly float[] amp = new float[3];
 		private readonly float[] ampDest = new float[3];
 		//public float range;
-		public float[] chainrange;
-		public float distance;
+		private float[] chainrange;
+		private float distance;
 
 		private int GetDepth(MProjectile mp)
 		{
@@ -75,10 +77,14 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			{
 				shot = hold2.shotEffect.ToString();
 				shots = hold2.shotAmt;
-				chainLength = new int[shots].ToArray();
-				chainrange = new float[shots].ToArray();
-				chaintargetPos = new Vector2[shots].ToArray();
-				chainsetTargetPos = [.. Enumerable.Repeat(false, shots)];
+				chainLength = new int[hold2.shotAmt].ToArray();
+				chainrange = new float[hold2.shotAmt].ToArray();
+				chaintargetPos = new Vector2[hold2.shotAmt].ToArray();
+				chainsetTargetPos = [.. Enumerable.Repeat(false, hold2.shotAmt)];
+				//targeted = [.. Enumerable.Repeat(false, Main.maxNPCs)];
+				chainTarget = new NPC[Main.maxNPCs].ToArray();
+				chainoPos = new Vector2[hold2.shotAmt].ToArray();
+				Lead = Main.projectile[hold2.chargeLead];
 			}
 			dmg = Projectile.damage;
 			base.OnSpawn(source);
@@ -97,10 +103,150 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			//Vector2 V = P.velocity;
 			P.knockBack = 0;
 
-			Lead = Main.projectile[O.heldProj];
+			//Lead = Main.projectile[O.heldProj];
 			if (P.numUpdates == 0)
 			{
 				P.frame++;
+				if (P.owner == Main.myPlayer && !O.dead)
+				{
+					for (int i = 0; i < shots; i++)
+					{
+
+						//range = (GetDepth(meep) * 16) + 32f;
+						chainrange[i] = (GetDepth(meep) * 16) + 32f;
+						distance = (GetDepth(meep) * 16) + 32f;
+
+						//oPos = O.RotatedRelativePoint(O.MountedCenter, true);
+
+						P.netUpdate = true;
+						Vector2 diff = Main.MouseWorld - Lead.Center;
+						diff.Normalize();
+						chainoPos[0] = Lead.Center;
+						if (i > 0)
+						{
+							chainoPos[i] = chaintargetPos[i - 1];
+						}
+						mousePos = chainoPos[i] + (diff * Math.Min(Vector2.Distance(chainoPos[i], Main.MouseWorld), chainrange[i]));
+						//chainTarget[i] = null;
+						//target = null;
+						foreach (var npc in Main.ActiveNPCs)
+						{
+							//chainoPos[0] = Lead.Center;
+							//if (i > 0)
+							//{
+							//	chainoPos[i] = chaintargetPos[i - 1];
+							//}
+
+							//NPC npc = Main.npc[who.whoAmI];
+							//targeted[npc.whoAmI] = false;
+							if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
+							{
+								Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+
+								float point = 0f;
+								if (Vector2.Distance(chainoPos[i], npc.Center) < distance && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), chainoPos[i], chaintargetPos[i], P.width, ref point))
+								{
+
+									//if (npc != chainTarget[i])
+									//{
+									//	chainrange[i] = Vector2.Distance(chainoPos[i], npc.Center);
+									//}
+									chainrange[i] = Vector2.Distance(chainoPos[i], npc.Center);
+									mousePos = chainoPos[i] + (diff * Math.Min(Vector2.Distance(chainoPos[i], Main.MouseWorld), chainrange[i]));
+									//mousePos = Lead.Center + (diff * Math.Min(Vector2.Distance(Lead.Center, Main.MouseWorld), chainrange[0]));
+
+								}
+								bool flag = Vector2.Distance(chainoPos[i], npc.Center) <= chainrange[i] + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
+
+								if (npc.CanBeChasedBy(P, false))
+								{
+									if (chainTarget[i] == null || !chainTarget[i].active)
+									{
+										if (flag)
+										{
+											chainTarget[i] = npc;
+										}
+									}
+									else
+									{
+										if (npc != chainTarget[i] && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(chainTarget[i].Center, mousePos))
+										{
+											chainTarget[i] = npc;
+										}
+
+										else if (Vector2.Distance(chainoPos[i], chainTarget[i].Center) > chainrange[i] + distance || Vector2.Distance(chainTarget[i].Center, mousePos) > distance)
+										{
+											chainTarget[i] = null;
+										}
+									}
+								}
+							}
+						}
+						if (chainTarget[i] == null || !chainTarget[i].active)
+						{
+							chaintargetPos[i] = Lead.Center;
+						}
+						if (!chainsetTargetPos[i])
+						{
+							chaintargetPos[i] = chainoPos[i];
+							chainsetTargetPos[i] = true;
+							return;
+						}
+						else if (chainTarget[i] != null && chainTarget[i].active)
+						{
+							chaintargetPos[i] = chainTarget[i].Center;
+						}
+						else
+						{
+							mp.statCharge = 0;
+							chaintargetPos[i] = chainoPos[i]; // Lead.Center + (diff * chainrange[0]);
+						}
+
+						if (soundDelay <= 0)
+						{
+							if (!soundPlayed)
+							{
+								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
+								soundInstance = result.Sound;
+								soundPlayed = true;
+								soundDelay = 50 * shots;
+							}
+							if (mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
+							{
+								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity2, O.position), out ActiveSound result);
+								soundInstance = result.Sound;
+								soundDelay = 40 * shots;
+							}
+
+							else
+							{
+								soundInstance?.Stop(true);
+								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
+								soundInstance = result.Sound;
+								soundDelay = 40 * shots;
+							}
+						}
+						else
+						{
+							soundDelay--;
+						}
+						for (int j = 0; j < 3; j++)
+						{
+							ampDest[j] = Main.rand.Next(-15, 16);
+						}
+
+						if (ampSyncCooldown-- <= 0)
+						{
+							ampSyncCooldown = 20;
+						}
+						//TODO: THIS IS THE CULPRIT IN MULTI
+						float speed = Math.Max(8f, Vector2.Distance(chaintargetPos[0], P.Center) * 0.25f);
+						float targetAngle = (float)Math.Atan2(chaintargetPos[0].Y - P.Center.Y, chaintargetPos[0].X - P.Center.X);
+						P.velocity = targetAngle.ToRotationVector2() * speed;
+						P.netUpdate = true;
+					}
+
+				}
 			}
 			if (P.frame >= 12)
 			{
@@ -120,145 +266,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			mProjectile.WaveBehavior(P);
 
 
-			if (P.owner == Main.myPlayer && !O.dead)
-			{
-				for (int i = 0; i< shots; ++i)
-				{
-					chainTarget = new NPC[shots];
-					//range = (GetDepth(meep) * 16) + 32f;
-					chainrange[i] = (GetDepth(meep) * 16) + 32f;
-					distance = (GetDepth(meep) * 16) + 32f;
-					chainoPos = new Vector2[shots];
-					//oPos = O.RotatedRelativePoint(O.MountedCenter, true);
-					chainoPos[0] = Lead.Center;
-					if (i > 0)
-					{
-						chainoPos[i] = chaintargetPos[i - 1];
-					}
-					P.netUpdate = true;
-					Vector2 diff = Main.MouseWorld - chainoPos[i];
-					diff.Normalize();
-
-					mousePos = chainoPos[i] + (diff * Math.Min(Vector2.Distance(chainoPos[i], Main.MouseWorld), chainrange[i]));
-
-					//target = null;
-					foreach (var npc in Main.ActiveNPCs)
-					{
-						//NPC npc = Main.npc[who.whoAmI];
-						if (npc.lifeMax > 5 && !npc.dontTakeDamage && !npc.friendly)
-						{
-							Rectangle npcRect = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
-
-							float point = 0f;
-							if (Vector2.Distance(chainoPos[i], npc.Center) < distance && Collision.CheckAABBvLineCollision(npcRect.TopLeft(), npcRect.Size(), chainoPos[i], chaintargetPos[i], P.width, ref point))
-							{
-								//if (npc != chainTarget[i])
-								//{
-								//	chainrange[i] = Vector2.Distance(chainoPos[i], npc.Center);
-								//}
-								chainrange[i] = Vector2.Distance(chainoPos[i], npc.Center);
-								mousePos = chainoPos[i] + (diff * Math.Min(Vector2.Distance(chainoPos[i], Main.MouseWorld), chainrange[i]));
-								//mousePos = Lead.Center + (diff * Math.Min(Vector2.Distance(Lead.Center, Main.MouseWorld), chainrange[0]));
-
-							}
-
-							bool flag = Vector2.Distance(chainoPos[i], npc.Center) <= chainrange[i] + distance && Vector2.Distance(npc.Center, mousePos) <= distance;
-
-							if (npc.CanBeChasedBy(P, false))
-							{
-								if (chainTarget[i] == null || !chainTarget[i].active)
-								{
-									if (flag)
-									{
-										chainTarget[i] = npc;
-									}
-								}
-								else
-								{
-									if (npc != chainTarget[i] && flag && Vector2.Distance(npc.Center, mousePos) < Vector2.Distance(chainTarget[i].Center, mousePos))
-									{
-										chainTarget[i] = npc;
-									}
-
-									if (Vector2.Distance(chainoPos[i], chainTarget[i].Center) > chainrange[i] + distance || Vector2.Distance(chainTarget[i].Center, mousePos) > distance)
-									{
-										chainTarget[i] = null;
-									}
-								}
-							}
-						}
-					}
-					if (chainTarget[i] == null || !chainTarget[i].active)
-					{
-						chaintargetPos[i] = Lead.Center;
-					}
-					if (!chainsetTargetPos[i])
-					{
-						chaintargetPos[i] = chainoPos[i];
-						chainsetTargetPos[i] = true;
-						return;
-					}
-					else if (chainTarget[i] != null && chainTarget[i].active)
-					{
-						chaintargetPos[i] = chainTarget[i].Center;
-					}
-					else
-					{
-						if (P.numUpdates == 0)
-						{
-							mp.statCharge = 0;
-							chaintargetPos[i] = chainoPos[i] + (diff * chainrange[i]);
-						}
-					}
-
-					if (P.numUpdates == 0)
-					{
-						if (soundDelay <= 0)
-						{
-							if (!soundPlayed)
-							{
-								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
-								soundInstance = result.Sound;
-								soundPlayed = true;
-								soundDelay = 50*shots;
-							}
-							if (mp.statCharge >= MPlayer.maxCharge && mp.statOverheat < mp.maxOverheat)
-							{
-								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity2, O.position), out ActiveSound result);
-								soundInstance = result.Sound;
-								soundDelay = 40*shots;
-							}
-
-							else
-							{
-								soundInstance?.Stop(true);
-								SoundEngine.TryGetActiveSound(SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilSound, O.position), out ActiveSound result);
-								soundInstance = result.Sound;
-								soundDelay = 40 * shots;
-							}
-						}
-						else
-						{
-							soundDelay--;
-						}
-						for (int j = 0; j < 3; j++)
-						{
-							ampDest[j] = Main.rand.Next(-15, 16);
-						}
-					}
-
-					if (ampSyncCooldown-- <= 0)
-					{
-						ampSyncCooldown = 20;
-					}
-					//TODO: THIS IS THE CULPRIT IN MULTI
-					float speed = Math.Max(8f, Vector2.Distance(chaintargetPos[0], P.Center) * 0.25f);
-					float targetAngle = (float)Math.Atan2(chaintargetPos[0].Y - P.Center.Y, chaintargetPos[0].X - P.Center.X);
-					P.velocity = targetAngle.ToRotationVector2() * speed;
-					P.netUpdate = true;
-				}
-				
-			}
+			
 			if (O.controlUseItem)
 			{
 				P.timeLeft = 5;
@@ -287,42 +295,43 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 				SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilReload, O.position);
 			}
 		}
-		public override bool? CanHitNPC(NPC target3)
+		public override bool? CanHitNPC(NPC target)
 		{
 			for (int i = 0; i < shots; i++)
 			{
-				if (chainTarget[i] != null)
+				if (chainTarget[i] == target)
 				{
+					if ((!shot.Contains("wave") && !shot.Contains("nebula") && !Collision.CanHitLine(chainoPos[i], Projectile.width, Projectile.height, chaintargetPos[i], Projectile.width, Projectile.height)))
+					{
+						return false;
+					}
 					return true;
 				}
-				//return target3 == chainTarget[i];
-				//if((bool)!Colliding(new Rectangle((int)(chaintargetPos[i].X - (Projectile.width / 2)), (int)(chaintargetPos[i].Y - Projectile.height / 2), Projectile.width, Projectile.height), target3.Hitbox))// (chainTarget[i] != target3 || (!shot.Contains("wave") && !shot.Contains("nebula") && !Collision.CanHitLine(Lead.Center, Projectile.width, Projectile.height, chaintargetPos[i], Projectile.width, Projectile.height)) || immuneTime > 0)
-				//{
-				//	return false;
-				//}
 			}
-			return base.CanHitNPC(target3);
+			return false;
 		}
 		public override void CutTiles()
 		{
 			Player p = Main.player[Projectile.owner];
 			if (p.controlUseItem)
 			{
-				DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-				Utils.PlotTileLine(p.Center, Projectile.Center, (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
+				for (int i = 0; i < shots; i++)
+				{
+					DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
+					Utils.PlotTileLine(chainoPos[i], chaintargetPos[i], Projectile.width, DelegateMethods.CutTiles);
+				}
 			}
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			Player p = Main.player[Projectile.owner];
-			for (int i = 0; i <shots; ++i)
+			for (int i = 0; i < shots; i++)
 			{
-				if (p.controlUseItem)
+				float point = 0f;
+				if((projHitbox.Intersects(targetHitbox) ||Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), chainoPos[i], chaintargetPos[i], Projectile.width, ref point))&&p.controlUseItem)
 				{
-					float point = 0f;
-					return projHitbox.Intersects(targetHitbox) ||
-						Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), chainoPos[i], chaintargetPos[i], Projectile.width, ref point);
+					return true;
 				}
 			}
 			return false;
@@ -339,19 +348,20 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			int num108 = tex.Height / Main.projFrames[P.type];
 			int y4 = num108 * P.frame;
 			//oPos = O.RotatedRelativePoint(O.MountedCenter, true);
+			//Lead = Main.projectile[O.heldProj];
 			P.scale = .8f;
 			if (O.controlUseItem && !O.dead)
 			{
 				for (int j = 0; j < shots; j++)
 				{
-					if (j == 0)
-					{
-						chainoPos[0] = Lead.Center;
-					}
-					else
-					{
-						chainoPos[j] = chaintargetPos[j - 1];
-					}
+					//if (j == 0)
+					//{
+					//	chainoPos[0] = Lead.Center;
+					//}
+					//else
+					//{
+					//	chainoPos[j] = chaintargetPos[j - 1];
+					//}
 					float targetrot = (float)Math.Atan2(chaintargetPos[j].Y - chainoPos[j].Y, chaintargetPos[j].X - chainoPos[j].X);
 					float dist = Math.Max(Vector2.Distance(chainoPos[j], chaintargetPos[j]), 1);
 
