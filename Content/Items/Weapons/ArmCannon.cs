@@ -1166,10 +1166,6 @@ namespace MetroidMod.Content.Items.Weapons
 						chargeTex = "ChargeLead_Stardust";
 						useTime = MConfigItems.Instance.useTimeShockCoil;
 						//shotAmt = 1;
-						if (slot5.type == plG)
-						{
-							comboError4 = true;
-						}
 					}
 					if (slot1.type == oc)
 					{
@@ -1928,7 +1924,7 @@ namespace MetroidMod.Content.Items.Weapons
 				{
 					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, 0);
 
-					if (shotAmt > 1 && !isShock)
+					if (shotAmt > 1)
 					{
 						for (int i = 1; i < shotAmt; i++)
 						{
