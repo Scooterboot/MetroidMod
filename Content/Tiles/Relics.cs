@@ -154,6 +154,15 @@ namespace MetroidMod.Content.Tiles
 			base.SetStaticDefaults();
 		}
 	}
+	public class NightmareRelic : Relics
+	{
+		public override string RelicTextureName => "MetroidMod/Content/Tiles/NightmareRelic";
+
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+		}
+	}
 
 	// Your item code would then just use the MyBossRelic tile type, and keep placeStyle on 0
 	// The textures for MyBossRelic item/tile have to be supplied separately

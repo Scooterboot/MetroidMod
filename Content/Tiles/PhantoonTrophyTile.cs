@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -82,17 +83,17 @@ namespace MetroidMod.Content.Tiles
 
 		}
 
-		//public override void AnimateTile(ref int frame, ref int frameCounter)
-		//{
-		//	float targetRot = (float)Math.Atan2(Main.LocalPlayer.Center.Y - (Main.tile.Y + 22), Main.Main.LocalPlayer.Center.X - tile.X);
-		//	if (targetRot >= (float)(Math.PI * 2))
-		//	{
-		//		targetRot -= (float)(Math.PI * 2);
-		//	}
-		//	if (targetRot < 0)
-		//	{
-		//		targetRot += (float)(Math.PI * 2);
-		//	}
-		//}
+		public override void AnimateTile(ref int frame, ref int frameCounter)
+		{
+			float targetRot = (float)Math.Atan2(Main.LocalPlayer.Center.Y - (Main.maxTilesY + 22), Main.LocalPlayer.Center.X - Main.maxTilesX);
+			if (targetRot >= (float)(Math.PI * 2))
+			{
+				targetRot -= (float)(Math.PI * 2);
+			}
+			if (targetRot < 0)
+			{
+				targetRot += (float)(Math.PI * 2);
+			}
+		}
 	}
 }

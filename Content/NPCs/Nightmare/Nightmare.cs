@@ -96,6 +96,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 		{
 			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.Boss.NightmareBag>()));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tiles.NightmareTrophy>(), 11));
+			npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<Items.Tiles.NightmareRelic>()));
 
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Miscellaneous.NightmareCoreX>(), 1));

@@ -595,7 +595,7 @@ namespace MetroidMod.Common.Players
 			if (Eyed)
 			{
 				info.Knockback *= oof;
-				//Player.immuneTime /= 2; rounding is dumb
+				Player.immuneTime = (int)(Player.immuneTime/2f);// rounding is dumb
 			}
 			PostHurt_SuitEnergy(info);
 		}
