@@ -271,7 +271,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			}
 			if (P.frame >= 12)
 			{
-				mp.statCharge = Math.Min(mp.statCharge + shots/ GetCharge(), MPlayer.maxCharge);
+				mp.statCharge = Math.Min(mp.statCharge + (GetCharge()/shots), MPlayer.maxCharge);
 				P.frame = 0;
 			}
 			//range = Math.Min(GetDepth(meep), Max_Range);
@@ -476,7 +476,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, target2.Center);
 			if (damageDone > 0)
 			{
-				immuneTime = shots * immunity;
+				immuneTime = 4* immunity;
 				//Projectile.localNPCHitCooldown = immunity;
 				target2.immune[O.whoAmI] = immunity;
 				/*foreach (NPC G in Main.npc)
