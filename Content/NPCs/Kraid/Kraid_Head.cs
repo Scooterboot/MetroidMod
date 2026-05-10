@@ -857,13 +857,13 @@ namespace MetroidMod.Content.NPCs.Kraid
 			sb.Draw(texNeck, headPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texNeck.Width, texNeck.Height)), alpha2, 0f, new Vector2(texNeck.Width / 2, 46), 1f, effects, 0f);
 			gorePosition[6] = headPos;
 
-			headPos = fullOffset + NPC.Center + new Vector2(29 * NPC.direction, -9) + hOffset;
+			headPos = fullOffset + NPC.Center + new Vector2(29 * NPC.direction, 27) + hOffset;
 			Vector2 hpos1 = headPos;
 			if (mouthOpen)
 			{
 				hpos1 += new Vector2(roarFrame * NPC.direction, roarFrame);
 			}
-			sb.Draw(texJaw, hpos1 - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texJaw.Width, texJaw.Height)), alpha2, headRot, new Vector2(texJaw.Width / 2, texJaw.Height / 2), 1f, effects, 0f);
+			sb.Draw(texJaw, hpos1 - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texJaw.Width, texJaw.Height)), alpha2, headRot, new Vector2((texJaw.Width / 2)-25, (texJaw.Height / 2)-30), 1f, effects, 0f);
 			gorePosition[7] = hpos1;
 			Vector2 hpos2 = headPos;
 			if (mouthOpen)

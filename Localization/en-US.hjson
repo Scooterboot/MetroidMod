@@ -1837,6 +1837,8 @@ Mods: {
 					'''
 					Randomly reduces damage taken, up to half.
 					Randomly increases knockback taken, up to double.
+					Halves immunity time.
+					"Get juggled, idiot"
 					'''
 			}
 
@@ -1876,7 +1878,12 @@ Mods: {
 
 			NovaLaserDrill: {
 				DisplayName: Nova Laser Drill
-				Tooltip: Able to mine Phazon
+				Tooltip:
+					'''
+					Able to mine phazon
+					Cannot mine phazon while morphed
+					Right click to swap between hammer and drill
+					'''
 			}
 
 			ChoziteWrench: {
