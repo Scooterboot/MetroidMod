@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using MetroidMod.Common.Configs;
 using MetroidMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -53,6 +54,10 @@ namespace MetroidMod.Content.Projectiles
 		private bool sound2Played = false;
 		private ReLogic.Utilities.SlotId soundInstance;
 		private int negateUseTime = 0;
+		private float GetCharge()
+		{
+			return Luminite ? MConfigItems.Instance.damageLuminiteBeam : DiffBeam ? MConfigItems.Instance.damageChargeBeamV2 : MConfigItems.Instance.damageChargeBeam;
+		}
 		public override void AI()
 		{
 			Projectile P = Projectile;
@@ -82,7 +87,7 @@ namespace MetroidMod.Content.Projectiles
 				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = damage * 5 * ChargeShotAmt;
+					P.damage =(int)(damage * GetCharge() * ChargeShotAmt);
 					//mp.overheatDelay = (I.useTime*2);
 				}
 			}
@@ -185,7 +190,7 @@ namespace MetroidMod.Content.Projectiles
 				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = damage * 5 * ChargeShotAmt;
+					P.damage = (int)(damage * GetCharge() * ChargeShotAmt);
 				}
 				P.Center = O.Center;
 				P.velocity = Vector2.Zero;
