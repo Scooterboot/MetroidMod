@@ -814,7 +814,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				}
 			}
 
-			Vector2 bodyOvPos = fullOffset + Body.Center + new Vector2(85 * NPC.direction, -7);
+			Vector2 bodyOvPos = fullOffset + Body.Center + new Vector2(88 * NPC.direction, 4);
 			sb.Draw(texBodyOverlay, bodyOvPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texBodyOverlay.Width, texBodyOverlay.Height)), alpha2, 0f, new Vector2(texBodyOverlay.Width / 2, texBodyOverlay.Height / 2), 1f, effects, 0f);
 
 			Vector2 frontLegPos = Body.Center + new Vector2((-144 + (texLegs.Width / 4)) * NPC.direction, 2) + fLegPos;
