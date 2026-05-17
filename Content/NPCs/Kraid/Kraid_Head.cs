@@ -814,7 +814,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 				}
 			}
 
-			Vector2 bodyOvPos = fullOffset + Body.Center + new Vector2(85 * NPC.direction, -7);
+			Vector2 bodyOvPos = fullOffset + Body.Center + new Vector2(88 * NPC.direction, 4);
 			sb.Draw(texBodyOverlay, bodyOvPos - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texBodyOverlay.Width, texBodyOverlay.Height)), alpha2, 0f, new Vector2(texBodyOverlay.Width / 2, texBodyOverlay.Height / 2), 1f, effects, 0f);
 
 			Vector2 frontLegPos = Body.Center + new Vector2((-144 + (texLegs.Width / 4)) * NPC.direction, 2) + fLegPos;
@@ -863,7 +863,7 @@ namespace MetroidMod.Content.NPCs.Kraid
 			{
 				hpos1 += new Vector2(roarFrame * NPC.direction, roarFrame);
 			}
-			sb.Draw(texJaw, hpos1 - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texJaw.Width, texJaw.Height)), alpha2, headRot, new Vector2((texJaw.Width / 2)-(25*NPC.direction), (texJaw.Height / 2)-30), 1f, effects, 0f);
+			sb.Draw(texJaw, hpos1 - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texJaw.Width, texJaw.Height)), alpha2, headRot, new Vector2((texJaw.Width / 2) - (25 * NPC.direction), (texJaw.Height / 2) - 30), 1f, effects, 0f);
 			gorePosition[7] = hpos1;
 			Vector2 hpos2 = headPos;
 			if (mouthOpen)

@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Projectiles.missiles
 			}
 			mProjectile.DustLine(Projectile.Center - (Projectile.velocity * 0.5f), Projectile.velocity, Projectile.rotation, 5, 3, dustType, scale);
 
-			if(Projectile.extraUpdates < 10)
+			if (Projectile.extraUpdates < 10)
 			{
 				Projectile.ai[0] += 1f;
 				if (Projectile.ai[0] > (5f + Projectile.extraUpdates))

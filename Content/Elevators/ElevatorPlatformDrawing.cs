@@ -57,8 +57,8 @@ namespace MetroidMod.Content.Elevators
 			Rectangle source = new(0, frame * frameHeight, texture.Width, frameHeight);
 			Vector2 zoom = Main.GameViewMatrix.Zoom;
 			Vector2 screenCenter = new Vector2(Main.screenWidth, Main.screenHeight) * 0.5f;
-			Vector2 drawPos = screenCenter + (position - Main.screenPosition- screenCenter)*zoom;
-			sb.Draw(texture, drawPos, source, color, 0f, new Vector2 (texture.Width / 2f,0f), zoom, SpriteEffects.None, 0f);
+			Vector2 drawPos = screenCenter + ((position - Main.screenPosition - screenCenter) * zoom);
+			sb.Draw(texture, drawPos, source, color, 0f, new Vector2(texture.Width / 2f, 0f), zoom, SpriteEffects.None, 0f);
 		}
 	}
 }

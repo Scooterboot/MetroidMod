@@ -19,7 +19,7 @@ namespace MetroidMod.Content.NPCs.Torizo
 	{
 		private readonly bool expert = Main.expertMode;
 		private readonly bool master = Main.masterMode;
-		private readonly bool legend = Main.getGoodWorld||Main.zenithWorld;
+		private readonly bool legend = Main.getGoodWorld || Main.zenithWorld;
 		public override string BossHeadTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_Head_Boss";
 		public override string Texture => Mod.Name + "/Content/NPCs/Torizo/TorizoBody";
 		public string BestTexture => Mod.Name + "/Content/NPCs/Torizo/Torizo_BossLog";

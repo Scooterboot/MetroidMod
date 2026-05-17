@@ -1,12 +1,9 @@
 ﻿#region using directives
 
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using static MetroidMod.Common.Configs.MConfigClient;
 
 #endregion
 
@@ -60,7 +57,7 @@ namespace MetroidMod.Common.UI
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-				
+
 			if (dragging && !Main.mouseRight)
 			{
 				DragEnd(Main.MouseScreen);
