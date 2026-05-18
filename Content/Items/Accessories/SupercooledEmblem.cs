@@ -54,7 +54,7 @@ namespace MetroidMod.Content.Items.Accessories
 		{
 			CreateRecipe()
 				.AddIngredient<FrozenCore>(1)
-				.AddIngredient(ItemID.DestroyerEmblem, 1)
+				.AddIngredient(ItemID.AvengerEmblem, 1)
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}
