@@ -659,19 +659,19 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(0f)]
 		public float damageShockCoil;
 
-		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
-		[Range(.1f, 1f)]
-		[Increment(0.1f)]
-		[Slider]
-		[DefaultValue(0.5f)]
-		public float minSpeedShockCoil;
+		////[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
+		//[Range(.1f, 1f)]
+		//[Increment(0.1f)]
+		//[Slider]
+		//[DefaultValue(0.5f)]
+		//public float minSpeedShockCoil;
 
-		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
-		[Range(1f, 5f)]
-		[Increment(0.5f)]
-		[Slider]
-		[DefaultValue(2.0f)]
-		public float maxSpeedShockCoil;
+		////[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Damage Modifier")]
+		//[Range(1f, 5f)]
+		//[Increment(0.5f)]
+		//[Slider]
+		//[DefaultValue(2.0f)]
+		//public float maxSpeedShockCoil;
 
 		//[Label("[i:MetroidMod/ShockCoilAddon] ShockCoil Use Time")]
 		[Range(1f, 60f)]
