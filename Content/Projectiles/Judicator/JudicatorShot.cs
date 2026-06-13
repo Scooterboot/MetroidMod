@@ -13,13 +13,9 @@ namespace MetroidMod.Content.Projectiles.Judicator
 	{
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() || player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
-				if (player.HeldItem.ModItem is PowerBeam hold)
-				{
-					shot = hold.shotEffect.ToString();
-				}
-				else if (player.HeldItem.ModItem is ArmCannon hold2)
+if (player.HeldItem.ModItem is ArmCannon hold2)
 				{
 					shot = hold2.shotEffect.ToString();
 				}

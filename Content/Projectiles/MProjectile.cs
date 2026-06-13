@@ -36,21 +36,9 @@ namespace MetroidMod.Content.Projectiles
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() || player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
-				if (player.HeldItem.ModItem is PowerBeam hold)
-				{
-					MPlayer mp = player.GetModPlayer<MPlayer>();
-					shot = hold.shotEffect.ToString();
-					if (hold.Lum || (hold.Diff && mp.PrimeHunter))
-					{
-						Luminite = true;
-					}
-					if ((hold.Diff || mp.PrimeHunter) && !hold.Lum)
-					{
-						DiffBeam = true;
-					}
-				}
+
 				if (player.HeldItem.ModItem is ArmCannon hold2)
 				{
 					MPlayer mp = player.GetModPlayer<MPlayer>();

@@ -26,16 +26,9 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		private float hitRange = 0;
 		public override void OnSpawn(IEntitySource source)
 		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<PowerBeam>() || player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
+			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
-				if (player.HeldItem.ModItem is PowerBeam hold)
-				{
-					shot = hold.shotEffect.ToString();
-					if (hold.shotAmt > 1)
-					{
-						spaze = true;
-					}
-				}
+
 				if (player.HeldItem.ModItem is ArmCannon hold2)
 				{
 					shot = hold2.shotEffect.ToString();

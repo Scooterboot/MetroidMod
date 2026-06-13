@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.IO;
 using MetroidMod.Common.GlobalItems;
@@ -93,14 +93,14 @@ namespace MetroidMod.Content.Items.Weapons
 			mi.statMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher;
 			mi.maxMissiles = Common.Configs.MConfigItems.Instance.ammoMissileLauncher;
 		}
-		/*public override void AddRecipes()
+		*//*public override void AddRecipes()
 		{
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(10)
 				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}*/
+		}*//*
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
@@ -112,7 +112,7 @@ namespace MetroidMod.Content.Items.Weapons
 			//player.itemLocation.X = player.MountedCenter.X - (float)Item.width * 0.5f;
 			//player.itemLocation.Y = player.MountedCenter.Y - (float)Item.height * 0.5f;
 		}
-		/*public override bool AltFunctionUse(Player player)
+		*//*public override bool AltFunctionUse(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>(); //really shitty way to do this but whatever
 			mp.missileLauncher = this;
@@ -130,7 +130,7 @@ namespace MetroidMod.Content.Items.Weapons
 			Item.CopyNetStateTo(mp.missileLauncher.Item);
 			Item.CopyNetStateTo(mp.powerBeam.Item);
 			return false;
-		}*/
+		}*//*
 		public override bool CanUseItem(Player player)
 		{
 			if (!Item.TryGetGlobalItem(out MGlobalItem mi) || (player.whoAmI == Main.myPlayer && Item.type == Main.mouseItem.type))
@@ -180,7 +180,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 		}
 
-		/*public override bool CanReforge()// tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. 
+		*//*public override bool CanReforge()// tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. 
 		{
 			foreach (Item item in MissileMods)
 			{
@@ -197,7 +197,7 @@ namespace MetroidMod.Content.Items.Weapons
 			}
 			MissileChange = new Item[5];
 			return base.CanReforge();
-		}*/
+		}*//*
 
 		private int finalDmg = 0;
 
@@ -1245,3 +1245,4 @@ namespace MetroidMod.Content.Items.Weapons
 		}
 	}
 }
+*/

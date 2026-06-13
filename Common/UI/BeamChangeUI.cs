@@ -20,7 +20,7 @@ namespace MetroidMod.Common.UI
 {
 	public class BeamChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.beamChangeActive == true && (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<PowerBeam>() || (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam));
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.beamChangeActive == true && ((Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam));
 
 		public BeamChangePanel panel;
 		public override void OnInitialize()
@@ -171,86 +171,7 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<PowerBeam>())
-			{
-				PowerBeam powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as PowerBeam;
-				if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
-
-				if (powerBeamTarget.BeamChange[beamSlotType] != null && !powerBeamTarget.BeamChange[beamSlotType].IsAir)
-				{
-					//pickup
-					if (Main.mouseItem.IsAir && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
-					{
-						SoundEngine.PlaySound(SoundID.Grab);
-						Main.mouseItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
-
-						powerBeamTarget.BeamChange[beamSlotType].TurnToAir();
-						if (Main.mouseItem.type == powerBeamTarget.BeamMods[addonSlotType].type)
-						{
-							powerBeamTarget.BeamMods[addonSlotType].TurnToAir();
-						}
-					}
-					//activate
-					if (Main.mouseItem.IsAir && !Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift)) //this can be cleaner
-					{
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<OmegaCannonAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.OmegaCannonLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<BattleHammerAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.BattleHammerLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<MagMaulAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.MagMaulLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ImperialistAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.ImperialistLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<JudicatorAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.JudicatorLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ShockCoilAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<VoltDriverAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.VoltDriverLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<ChargeBeamV2Addon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<LuminiteBeamAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.ChargeBeamLoad);
-						}
-						if (powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<HyperBeamAddon>() || powerBeamTarget.BeamChange[beamSlotType].type == ModContent.ItemType<PhazonBeamAddon>())
-						{
-							SoundEngine.PlaySound(Sounds.Items.Weapons.BeamAquired);
-						}
-						powerBeamTarget.BeamMods[addonSlotType] = powerBeamTarget.BeamChange[beamSlotType].Clone();
-						if (Main.LocalPlayer.TryGetModPlayer(out MPlayer mp))
-						{
-							mp.beamChangeActive = false;
-						}
-					}
-				}
-				else if (!Main.mouseItem.IsAir || condition == null || (condition != null && condition(Main.mouseItem)))
-				{
-					if (condition == null || (condition != null && condition(Main.mouseItem)))
-					{
-						//SoundEngine.PlaySound(SoundID.Grab);
-						powerBeamTarget.BeamChange[beamSlotType] = Main.mouseItem.Clone();
-						Main.mouseItem.TurnToAir();
-					}
-				}
-			}
-			else if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
+if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
 				if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
@@ -335,63 +256,8 @@ namespace MetroidMod.Common.UI
 		{
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
-			if (target == null || (target.type != ModContent.ItemType<PowerBeam>() && target.type != ModContent.ItemType<ArmCannon>())) { return; }
-			if (target.type == ModContent.ItemType<PowerBeam>())
-			{
-				PowerBeam powerBeamTarget = (PowerBeam)target.ModItem;
-
-				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
-
-				// Item drawing.
-				if (powerBeamTarget == null || powerBeamTarget.BeamChange == null || powerBeamTarget.BeamChange[beamSlotType].IsAir) { return; }
-
-				Color itemColor = powerBeamTarget.BeamChange[beamSlotType].GetAlpha(Color.White);
-				Texture2D itemTexture = Terraria.GameContent.TextureAssets.Item[powerBeamTarget.BeamChange[beamSlotType].type].Value;
-				CalculatedStyle innerDimensions = GetDimensions();
-
-				if (IsMouseHovering)
-				{
-					Main.hoverItemName = powerBeamTarget.BeamChange[beamSlotType].Name;
-					Main.HoverItem = powerBeamTarget.BeamChange[beamSlotType].Clone();
-				}
-
-				Rectangle frame = Main.itemAnimations[powerBeamTarget.BeamChange[beamSlotType].type] != null
-							? Main.itemAnimations[powerBeamTarget.BeamChange[beamSlotType].type].GetFrame(itemTexture)
-							: itemTexture.Frame(1, 1, 0, 0);
-
-				float drawScale = 1f;
-				if (frame.Width > innerDimensions.Width || frame.Height > innerDimensions.Width)
-				{
-					if (frame.Width > frame.Height)
-					{
-						drawScale = innerDimensions.Width / frame.Width;
-					}
-					else
-					{
-						drawScale = innerDimensions.Width / frame.Height;
-					}
-				}
-
-				//float unreflectedScale = drawScale;
-				Color tmpcolor = Color.White;
-
-				ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, powerBeamTarget.BeamChange[beamSlotType].type);
-
-				Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
-
-				drawPosition.X += (innerDimensions.Width * 1f / 2f) - (frame.Width * drawScale / 2f);
-				drawPosition.Y += (innerDimensions.Height * 1f / 2f) - (frame.Height * drawScale / 2f);
-
-				spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
-					Vector2.Zero, drawScale, SpriteEffects.None, 0f);
-
-				if (powerBeamTarget.BeamChange[beamSlotType].color != default(Color))
-				{
-					spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
-																		   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);
-				}
-			}
-			else if (target.type == ModContent.ItemType<ArmCannon>())
+			if (target == null || ( target.type != ModContent.ItemType<ArmCannon>())) { return; }
+			if (target.type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon powerBeamTarget = (ArmCannon)target.ModItem;
 
