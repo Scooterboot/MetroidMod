@@ -25,7 +25,7 @@ namespace MetroidMod.Common.UI
 	 */
 	public class PowerBeamUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && !Main.CreativeMenu.Enabled && Main.LocalPlayer.chest == -1 && ( (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam));
+		public static bool Visible => Main.playerInventory && !Main.CreativeMenu.Enabled && Main.LocalPlayer.chest == -1 && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam;
 
 		private PowerBeamPanel powerBeamPanel;
 		private PowerBeamScrewAttackButton pbsaButton;
@@ -357,7 +357,7 @@ namespace MetroidMod.Common.UI
 			if (target == null || (target.type != ModContent.ItemType<ArmCannon>())) { return; }
 
 
-if (target.type == ModContent.ItemType<ArmCannon>())
+			if (target.type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));
@@ -711,8 +711,9 @@ if (target.type == ModContent.ItemType<ArmCannon>())
 		}
 
 		protected override void DrawSelf(SpriteBatch sb)
-		{			ArmCannon cannonTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
- if (cannonTarget != null && (cannonTarget.comboError1 || cannonTarget.comboError2 || cannonTarget.comboError3 || cannonTarget.comboError4))
+		{
+			ArmCannon cannonTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
+			if (cannonTarget != null && (cannonTarget.comboError1 || cannonTarget.comboError2 || cannonTarget.comboError3 || cannonTarget.comboError4))
 			{
 				if (IsMouseHovering)
 				{

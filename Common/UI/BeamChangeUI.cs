@@ -20,7 +20,7 @@ namespace MetroidMod.Common.UI
 {
 	public class BeamChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.beamChangeActive == true && ((Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam));
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.beamChangeActive == true && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && ac.isBeam;
 
 		public BeamChangePanel panel;
 		public override void OnInitialize()
@@ -171,7 +171,7 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
+			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon powerBeamTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
 				if (powerBeamTarget == null || powerBeamTarget.BeamChange == null) { return; }
@@ -256,7 +256,7 @@ if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].Mo
 		{
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
-			if (target == null || ( target.type != ModContent.ItemType<ArmCannon>())) { return; }
+			if (target == null || (target.type != ModContent.ItemType<ArmCannon>())) { return; }
 			if (target.type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon powerBeamTarget = (ArmCannon)target.ModItem;

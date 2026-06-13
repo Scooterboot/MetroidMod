@@ -25,7 +25,7 @@ namespace MetroidMod.Common
 				return;
 			}
 
-			if ( I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() ||  I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>())
+			if (I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>())
 			{
 				Texture2D tex = Terraria.GameContent.TextureAssets.Item[I.type].Value;
 				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();
@@ -64,7 +64,7 @@ namespace MetroidMod.Common
 			MPlayer mPlayer = P.GetModPlayer<MPlayer>();
 			Item I = P.inventory[P.selectedItem];
 			int frame = P.bodyFrame.Y / P.bodyFrame.Height;
-			if (( I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() ||  I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>()) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
+			if ((I.type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>() || I.type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>()) && ((P.itemAnimation == 0 && (frame < 1 || frame > 4)) || (mPlayer.statCharge > 0 && mPlayer.somersault)) && !P.dead)
 			{
 				Texture2D tex = Terraria.GameContent.TextureAssets.Item[I.type].Value;//Main.itemTexture[I.type];
 				MGlobalItem mi = I.GetGlobalItem<MGlobalItem>();

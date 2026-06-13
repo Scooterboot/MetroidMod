@@ -16,7 +16,7 @@ namespace MetroidMod.Common.UI
 {
 	public class MissileChangeUI : UIState
 	{
-		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.missileChangeActive == true && ( (Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam));
+		public static bool Visible => Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && !Main.CreativeMenu.Enabled && mp.missileChangeActive == true && Main.LocalPlayer.inventory[mp.selectedItem].type == ModContent.ItemType<ArmCannon>() && Main.LocalPlayer.inventory[mp.selectedItem].TryGetGlobalItem(out MGlobalItem ac) && !ac.isBeam;
 
 		public MissileChangePanel panel;
 		public override void OnInitialize()
@@ -168,7 +168,7 @@ namespace MetroidMod.Common.UI
 		private void ItemBoxClick(UIMouseEvent evt, UIElement e)
 		{
 			//TODO No failsafe. Should maybe be implemented?
-if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
+			if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem.Type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon missileTarget = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem as ArmCannon;
 				if (missileTarget == null || missileTarget.MissileChange == null) { return; }
@@ -213,9 +213,9 @@ if (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].Mo
 		{
 			//base.DrawSelf(spriteBatch);
 			Item target = Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem];
-			if (target == null || ( target.type != ModContent.ItemType<ArmCannon>())) { return; }
+			if (target == null || (target.type != ModContent.ItemType<ArmCannon>())) { return; }
 
-if (target.type == ModContent.ItemType<ArmCannon>())
+			if (target.type == ModContent.ItemType<ArmCannon>())
 			{
 				ArmCannon cannonTarget = (ArmCannon)target.ModItem;
 				spriteBatch.Draw(itemBoxTexture, DrawRectangle, new Color(255, 255, 255));

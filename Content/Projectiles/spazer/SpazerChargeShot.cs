@@ -18,7 +18,7 @@ namespace MetroidMod.Content.Projectiles.spazer
 		{
 			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
 			{
-if (player.HeldItem.ModItem is ArmCannon hold2)
+				if (player.HeldItem.ModItem is ArmCannon hold2)
 				{
 					shot = hold2.shotEffect.ToString();
 				}
