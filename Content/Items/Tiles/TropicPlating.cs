@@ -13,16 +13,9 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void SetDefaults()
 		{
+			Item.DefaultToPlaceableTile(ModContent.TileType<Content.Tiles.TropicPlating1>());
 			Item.width = 16;
 			Item.height = 16;
-			Item.maxStack = 9999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.TropicPlating1>();
 		}
 		public override void AddRecipes()
 		{
@@ -47,16 +40,9 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void SetDefaults()
 		{
+			Item.DefaultToPlaceableTile(ModContent.TileType<Content.Tiles.TropicPlating2>());
 			Item.width = 16;
 			Item.height = 16;
-			Item.maxStack = 9999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.TropicPlating2>();
 		}
 	}
 	public class TropicPlating3 : ModItem
@@ -68,16 +54,9 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void SetDefaults()
 		{
+			Item.DefaultToPlaceableTile(ModContent.TileType<Content.Tiles.TropicPlating3>());
 			Item.width = 16;
 			Item.height = 16;
-			Item.maxStack = 9999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.TropicPlating3>();
 		}
 	}
 	public class TropicPlating4 : ModItem
@@ -89,16 +68,9 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void SetDefaults()
 		{
+			Item.DefaultToPlaceableTile(ModContent.TileType<Content.Tiles.TropicPlating4>());
 			Item.width = 16;
 			Item.height = 16;
-			Item.maxStack = 9999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.TropicPlating4>();
 		}
 	}
 	public class TropicPlating5 : ModItem
@@ -110,16 +82,9 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void SetDefaults()
 		{
+			Item.DefaultToPlaceableTile(ModContent.TileType<Content.Tiles.TropicPlating5>());
 			Item.width = 16;
 			Item.height = 16;
-			Item.maxStack = 9999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.TropicPlating5>();
 		}
 	}
 }

@@ -15,17 +15,10 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void SetDefaults()
 		{
+			Item.DefaultToPlaceableTile(ModContent.TileType<Content.Tiles.PhazonCore>());
 			Item.width = 16;
 			Item.height = 16;
 			Item.maxStack = 1;
-			Item.uniqueStack = true;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Content.Tiles.PhazonCore>();
 		}
 	}
 }
