@@ -36,7 +36,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.velocity = P.velocity;
 			Projectile.velocity.Normalize();
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-			Projectile.alpha = 100;
+			Projectile.alpha = (int)(((255f * (mp.boostEffect / 60f)) - 255f) * -1f);
 			Projectile.direction = P.direction;
 			//Projectile.knockBack = mp.boostEffect;
 

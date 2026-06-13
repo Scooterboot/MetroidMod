@@ -569,10 +569,7 @@ namespace MetroidMod.Common.Players
 			}
 			else if (Player.whoAmI == Main.myPlayer)
 			{
-				if (soundInstance != null)
-				{
-					soundInstance.Stop(true);
-				}
+				soundInstance?.Stop(true);
 				if (boostCharge > 20)
 				{
 					SoundEngine.PlaySound(Sounds.Suit.BoostBallSound, Player.position);

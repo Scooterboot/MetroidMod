@@ -12,9 +12,7 @@ using MetroidMod.Content.Projectiles;
 using MetroidMod.Content.Projectiles.hyperbeam;
 using MetroidMod.Content.Projectiles.missilecombo;
 using MetroidMod.Content.Projectiles.missiles;
-using MetroidMod.Content.Projectiles.Paralyzer;
 using MetroidMod.Content.Projectiles.powerbeam;
-using MetroidMod.Content.Projectiles.ShockCoil;
 using MetroidMod.Content.Projectiles.VoltDriver;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -1166,10 +1164,6 @@ namespace MetroidMod.Content.Items.Weapons
 						chargeTex = "ChargeLead_Stardust";
 						useTime = MConfigItems.Instance.useTimeShockCoil;
 						//shotAmt = 1;
-						if (slot5.type == plG)
-						{
-							comboError4 = true;
-						}
 					}
 					if (slot1.type == oc)
 					{
@@ -1864,7 +1858,7 @@ namespace MetroidMod.Content.Items.Weapons
 			return clone2;
 		}
 
-		private int chargeLead = -1;
+		public int chargeLead = -1;
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
@@ -1924,7 +1918,7 @@ namespace MetroidMod.Content.Items.Weapons
 					}
 					mp.hyperColors = 23;
 				}
-				else if (isOmega)
+				else if (isOmega || isShock)
 				{
 					int shotProj = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockback, player.whoAmI, 0, 0);
 

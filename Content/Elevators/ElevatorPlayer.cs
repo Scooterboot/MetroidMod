@@ -102,7 +102,7 @@ namespace MetroidMod.Content.Elevators
 
 			float current = Player.Bottom.Y;
 			float target = ride.End.ArrivalPosition.Y;
-			float speed = Math.Max( Math.Abs((current - target)/200f), 3f);
+			float speed = Math.Max(Math.Abs((current - target) / 200f), 3f);
 
 			float displacement = Approach(current, target, speed) - current;
 			if (displacement == 0)

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.GlobalNPCs;
 //using MetroidMod.Content.NPCs;
 using MetroidMod.Common.Systems;
-using MetroidMod.Common.UI;
 using MetroidMod.Content.Biomes;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.Items.Armors;
@@ -166,7 +164,7 @@ namespace MetroidMod.Common.Players
 			statPBCh = 0f;
 			bomb = 0;
 			cooldownbomb = 0;
-			boostCharge = 100;
+			//boostCharge = 100;
 			statParalyzerCharge = maxParalyzerCharge;
 			missileCost = 0;
 			UACost = 0;
@@ -595,7 +593,7 @@ namespace MetroidMod.Common.Players
 			if (Eyed)
 			{
 				info.Knockback *= oof;
-				Player.immuneTime = (int)(Player.immuneTime/2f);// rounding is dumb
+				Player.immuneTime = (int)(Player.immuneTime / 2f);// rounding is dumb
 			}
 			PostHurt_SuitEnergy(info);
 		}

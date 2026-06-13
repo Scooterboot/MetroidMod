@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using static MetroidMod.Sounds;
 
 namespace MetroidMod.Common
 {
@@ -278,7 +277,7 @@ namespace MetroidMod.Common
 				{
 					Texture2D tex = asset.Value;
 					Rectangle drawRect = new Rectangle(0, TextureAssets.Wings[drawPlayer.wings].Height() / 4 * drawPlayer.wingFrame, TextureAssets.Wings[drawPlayer.wings].Width(), TextureAssets.Wings[drawPlayer.wings].Height() / 4);
-					Vector2 drawOrigin = new Vector2((float)(TextureAssets.Wings[drawPlayer.wings].Width() / 2), (float)(TextureAssets.Wings[drawPlayer.wings].Height() / 8));
+					Vector2 drawOrigin = new Vector2(TextureAssets.Wings[drawPlayer.wings].Width() / 2, TextureAssets.Wings[drawPlayer.wings].Height() / 8);
 					Vector2 drawPos = drawPlayer.bodyPosition + new Vector2(0, drawOrigin.Y) + new Vector2(drawPlayer.Directions.X * -9, drawPlayer.Directions.Y * -23);
 					MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, drawRect, drawPlayer.bodyRotation, drawPos, drawOrigin, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);
 				}

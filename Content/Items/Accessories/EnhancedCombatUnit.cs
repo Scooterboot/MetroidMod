@@ -59,6 +59,7 @@ namespace MetroidMod.Content.Items.Accessories
 			CreateRecipe()
 				.AddIngredient<SupercooledEmblem>(1)
 				.AddIngredient<ReserveTank5>(1)
+				.AddIngredient(ItemID.DestroyerEmblem, 1)
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}

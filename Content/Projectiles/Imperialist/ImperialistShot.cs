@@ -85,7 +85,7 @@ namespace MetroidMod.Content.Projectiles.Imperialist
 		private float beamLength = 0f;
 		private float scaleUp = 0f;
 		private int timer = 0;
-		private readonly int[] nearestTargets = Enumerable.Repeat(-1, 12).ToArray();
+		private readonly int[] nearestTargets = [.. Enumerable.Repeat(-1, 12)];
 		public override void AI()
 		{
 			Projectile P = Projectile;
