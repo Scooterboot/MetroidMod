@@ -87,7 +87,7 @@ namespace MetroidMod.Content.Projectiles
 				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = (int)(damage * GetCharge() * ChargeShotAmt);
+					P.damage = (int)(damage * GetCharge() /* ChargeShotAmt*/);
 					//mp.overheatDelay = (I.useTime*2);
 				}
 			}
@@ -190,7 +190,7 @@ namespace MetroidMod.Content.Projectiles
 				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = (int)(damage * GetCharge() * ChargeShotAmt);
+					P.damage = (int)(damage * GetCharge() /* ChargeShotAmt*/);
 				}
 				P.Center = O.Center;
 				P.velocity = Vector2.Zero;
