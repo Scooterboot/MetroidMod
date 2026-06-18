@@ -309,7 +309,7 @@ namespace MetroidMod.Content.NPCs.Mobs.Metroid
 					NPC.rotation += NPC.velocity.X * 0.03f;
 				}
 			}
-			if (NPC.frameCounter >= 6)
+			if (NPC.frameCounter >= 7)
 			{
 				NPC.frame.Y = NPC.frame.Y + (int)(frameHeight * NPC.localAI[0]);
 

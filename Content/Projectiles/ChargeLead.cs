@@ -58,10 +58,11 @@ namespace MetroidMod.Content.Projectiles
 		private bool sound2Played = false;
 		private ReLogic.Utilities.SlotId soundInstance;
 		private int negateUseTime = 0;
-		private float GetCharge()
+
+		/*private float GetCharge() //Obsolete Function
 		{
 			return Luminite ? MConfigItems.Instance.damageLuminiteBeam : DiffBeam ? MConfigItems.Instance.damageChargeBeamV2 : MConfigItems.Instance.damageChargeBeam;
-		}
+		}*/
 		public override void AI()
 		{
 			Projectile P = Projectile;
