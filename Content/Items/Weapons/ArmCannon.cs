@@ -278,6 +278,7 @@ namespace MetroidMod.Content.Items.Weapons
 		private int finalDmg = MConfigItems.Instance.damagePowerBeam;
 
 		private float chargeDmgMult = 3f;
+
 		private float chargeCost = 2f;
 
 		private int overheat = MConfigItems.Instance.overheatPowerBeam;
@@ -1881,6 +1882,7 @@ namespace MetroidMod.Content.Items.Weapons
 					cl.ChargeTex = chargeTex;
 					cl.ChargeTexMod = chargeTexMod;
 					cl.ChargeShotAmt = chargeShotAmt;
+					cl.ChargeDamageMultiplier = chargeDmgMult;
 					cl.DustType = dustType;
 					cl.DustColor = dustColor;
 					cl.LightColor = lightColor;

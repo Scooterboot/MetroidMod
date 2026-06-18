@@ -2,10 +2,13 @@ using System;
 using System.IO;
 using MetroidMod.Common.Configs;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Projectiles
@@ -24,7 +27,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.aiStyle = -1;
 			Projectile.timeLeft = 8800;
 			Projectile.ownerHitCheck = true;
-			Projectile.friendly = false;
+			Projectile.friendly = true;
 			Projectile.hostile = false;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = 1;
@@ -41,6 +44,7 @@ namespace MetroidMod.Content.Projectiles
 				ChargeShotSoundMod = MetroidMod.Instance;
 		public int ChargeShotAmt = 1,
 				DustType = 64;
+		public float ChargeDamageMultiplier = 3f;
 		public Color DustColor = default(Color),
 				LightColor = MetroidMod.powColor;
 		public bool canPsuedoScrew = false;
@@ -75,7 +79,8 @@ namespace MetroidMod.Content.Projectiles
 				negateUseTime++;
 			}
 
-			float dmgMult = 1f + (mp.statCharge * 0.04f);
+			//Old code, I commented it out as it is now obsolete -Joost
+			/*float dmgMult = 1f + (mp.statCharge * 0.04f);
 			//int damage = (int)((float)I.damage*O.rangedDamage*O.allDamage);
 			int damage = O.GetWeaponDamage(I);
 
@@ -87,14 +92,16 @@ namespace MetroidMod.Content.Projectiles
 				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = (int)(damage * GetCharge() /* ChargeShotAmt*/);
+					P.damage = (int)(damage * GetCharge() * ChargeShotAmt);
+
+					//Main.NewText(damage + " dmg * " + GetCharge() + " charge * " + ChargeShotAmt + " amount = " + P.damage);
 					//mp.overheatDelay = (I.useTime*2);
 				}
 			}
 			else
 			{
 				P.alpha = 0;
-			}
+			}*/
 
 			if (mp.statCharge >= 5f)
 			{
@@ -182,16 +189,16 @@ namespace MetroidMod.Content.Projectiles
 				P.Kill();
 			}
 
-			P.friendly = false;
-			P.damage = 0;
+			//P.friendly = false;
+			//P.damage = 0;
 			if (mp.somersault)
 			{
 				P.alpha = 255;
-				if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
+				/*if (canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
 				{
 					P.friendly = true;
-					P.damage = (int)(damage * GetCharge() /* ChargeShotAmt*/);
-				}
+					P.damage = (int)(damage * GetCharge() * ChargeShotAmt);
+				}*/
 				P.Center = O.Center;
 				P.velocity = Vector2.Zero;
 				if (O.controlLeft)
@@ -240,6 +247,24 @@ namespace MetroidMod.Content.Projectiles
 				Main.dust[dust].noGravity = true;
 			}
 			Lighting.AddLight(P.Center, LightColor.R / 255f * P.scale, LightColor.G / 255f * P.scale, LightColor.B / 255f * P.scale);
+		}
+		public override bool? CanDamage()
+		{
+			Player O = Main.player[Projectile.owner];
+			MPlayer mp = O.GetModPlayer<MPlayer>();
+			if (mp.somersault && canPsuedoScrew && mp.statCharge >= MPlayer.maxCharge)
+			{
+				return base.CanDamage();
+			}
+			return false;
+		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.SourceDamage *= ChargeDamageMultiplier * ChargeShotAmt;
+		}
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			modifiers.SourceDamage *= ChargeDamageMultiplier * ChargeShotAmt;
 		}
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
