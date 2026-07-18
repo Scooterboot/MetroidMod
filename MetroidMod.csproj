@@ -1,4 +1,4 @@
-
+﻿
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\tModLoader.targets" />
   <PropertyGroup>
@@ -37,5 +37,8 @@
     <AdditionalFiles Remove="Assets\Effects\ProjectileShaders.fx" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="StructureHelper">
+      <HintPath>StructureHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
