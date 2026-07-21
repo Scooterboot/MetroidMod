@@ -3,6 +3,7 @@ version = 2.1.3.7
 displayName = Metroid Mod
 homepage = https://forums.terraria.org/index.php?threads/metroid-mod.101768/
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, ExampleMetroidAddonMod\*, .git\*
+modReferences = StructureHelper
 noCompile=false
 hideCode=false
 hideResources=false

@@ -1,5 +1,5 @@
 ﻿#region Using directives
-
+using StructureHelper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +34,7 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
+using StructureHelper.Models;
 
 
 #endregion
@@ -1707,7 +1708,10 @@ namespace MetroidMod.Common.Systems
 
 			progress.Message = "Chozo Ruins...Building Temple";
 
-			ChozoRuins_Temple(ruinsX, ruinsY - ruinsHeight + 2 + WorldGen.genRand.Next(3), ruinsWidth, ruinsHeight, dir);
+			StructureHelper.API.Generator.GenerateStructure("Common/Systems/ChozoTemple", new(ruinsX, ruinsY - ruinsHeight + 2 + WorldGen.genRand.Next(3)), Mod);
+			//StructureHelper.Generator.GenerateStructure("Common/Systems/ChozoTemple", new(ruinsX, ruinsY - ruinsHeight + 2 + WorldGen.genRand.Next(3)), Mod);
+			//else
+			//ChozoRuins_Temple(ruinsX, ruinsY - ruinsHeight + 2 + WorldGen.genRand.Next(3), ruinsWidth, ruinsHeight, dir);
 		}
 		private static void ChozoRuins_Temple(int x, int y, int width, int height, int dir)
 		{
