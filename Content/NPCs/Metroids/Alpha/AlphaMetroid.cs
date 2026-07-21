@@ -1,6 +1,7 @@
 ﻿using System;
 using MetroidMod.Common.GlobalItems;
 using MetroidMod.Content.Items.Tiles;
+using MetroidMod.Content.Projectiles.Metroids;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -221,9 +222,9 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 				}
 				if (Wiggle > 0)
 				{
-					Wiggle--;
+					Wiggle--; //Wiggle
 				}
-				if (AI_Counter >= 300)
+				if (AI_Counter >= 300) //5 Seconds
 				{
 					AI_Counter = 0;
 					STATE = (int)StateID.JustHatched;
@@ -278,7 +279,10 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					Vector2 accel = new Vector2(0.2f, 0.15f);
 					Vector2 speed = new Vector2(7.5f, 5f);
 
+					//Try to move above the player
 					Vector2 targetPos = new Vector2(NPC.targetRect.Center.X, NPC.targetRect.Center.Y - 120) + targetVelocity * 20;
+
+					//Move towards the side closest to the Metroid
 					if (NPC.Center.X > NPC.targetRect.Center.X)
 					{
 						targetPos.X += 160;
@@ -289,13 +293,16 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					}
 					NPC.direction = Math.Sign(NPC.DirectionTo(targetPos).X);
 					NPC.directionY = Math.Sign(NPC.DirectionTo(targetPos).Y);
+
+					//Speed up when about to charge
 					if (AI_Counter > 150)
 					{
 						speed *= Math.Min(1.5f, AI_Counter / 150);
 						accel *= Math.Min(1.5f, AI_Counter / 150);
 					}
 
-					if (NPC.Distance(targetPos) < 40)
+					//Charge attack when in position
+					if (NPC.Distance(targetPos) < 60)
 					{
 						AI_Counter = 0;
 						AI_Substate = (int)Aggro_Substate.Charge;
@@ -303,7 +310,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					else 
 					{
 						//Main.NewText(Math.Abs(NPC.Distance(targetPos)));
-						if (NPC.Distance(targetPos) < 60)
+						if (NPC.Distance(targetPos) < 80)
 						{
 							speed.Y *= NPC.Distance(targetPos) / 60;
 						}
@@ -317,6 +324,8 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					{
 						NPC.velocity.X = speed.X * NPC.direction;
 					}
+
+					//Only flip sprite if moving in that direction
 					if (NPC.direction * Math.Sign(NPC.velocity.X) > 0)
 					{
 						NPC.spriteDirection = NPC.direction;
@@ -331,9 +340,9 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 						NPC.velocity.Y = speed.Y * NPC.directionY;
 					}
 
-					if (AI_Counter >= 250)
+					/*if (AI_Counter >= 250)
 					{
-					}
+					}*/
 				}
 
 				if (AI_Substate == (int)Aggro_Substate.Charge)
@@ -345,23 +354,24 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 						NPC.spriteDirection = NPC.direction;
 					}
 					float speed = 16.5f;
+					//Set direction in normal mode
 					float rot = NPC.direction < 0 ? MathHelper.ToRadians(110) : MathHelper.ToRadians(70);
 					Vector2 targetPos = new Vector2(NPC.targetRect.Center.X, NPC.targetRect.Center.Y);
-					if (Main.expertMode)
+					if (Main.expertMode) //Tracking in expert mode
 					{
 						Vector2 trajectory = NPC.DirectionTo(targetPos);
 						rot = trajectory.ToRotation() + MathHelper.ToRadians(35f) * NPC.direction;
 					}
 					if (AI_Counter < 60)
 					{
-						if (AI_Counter < 25)
+						if (AI_Counter < 25) //Reel back
 						{
 							NPC.velocity.X = -1.25f * NPC.direction;
 							NPC.velocity.Y = -1.25f;
 							//NPC.rotation += MathHelper.ToRadians(3f) * NPC.direction;
 							NPC.rotation = (NPC.direction < 0 ? rot - MathHelper.Pi : rot) * (AI_Counter / 25);
 						}
-						else
+						else //Dramatic wiggle
 						{
 							NPC.rotation = (NPC.direction < 0 ? rot - MathHelper.Pi : rot);
 							NPC.velocity *= 0.92f;
@@ -374,18 +384,24 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 								Wiggle = 16;
 							}
 						}
+						if (AI_Counter == 45) //Spark
+						{
+							SoundEngine.PlaySound(SoundID.MaxMana.WithPitchOffset(-0.15f));
+							Dust.NewDustDirect(NPC.Center, 0, 0, DustID.TreasureSparkle, 0, 0, 0, default, 3f).noGravity = true; ;
+						}
 					}
-					if (AI_Counter == 60)
+					if (AI_Counter == 60) //The charge itself
 					{
 						//NPC.velocity.Y = 16;
 						//NPC.velocity.X = 4 * NPC.direction;
 						//NPC.velocity = trajectory.RotatedBy(MathHelper.ToRadians(35f) * NPC.direction);
-						NPC.velocity = rot.ToRotationVector2() * speed;
 
+						NPC.velocity = rot.ToRotationVector2() * speed;
 						NPC.rotation = NPC.velocity.ToRotation() + (NPC.direction < 0 ? MathHelper.Pi : 0);
 					}
+
 					bool passedTarget = NPC.DirectionTo(targetPos).X * NPC.velocity.X < 0;
-					if (AI_Counter > 60 && AI_Counter <= 84)
+					if (AI_Counter > 60 && AI_Counter <= 84) //Steer up when passed the target
 					{
 						//NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(-4.5f) * NPC.direction);
 						Vector2 projection = NPC.Center + (NPC.Distance(targetPos) / speed) * NPC.velocity;
@@ -395,7 +411,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 						}
 						NPC.velocity = NPC.rotation.ToRotationVector2() * NPC.direction * speed;
 					}
-					if (AI_Counter >= 85)
+					if (AI_Counter >= 85) //Decelerate
 					{
 						if (passedTarget || AI_Counter >= 100)
 						{
@@ -408,13 +424,85 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					}
 					if (AI_Counter >= 125)
 					{
-						AI_Substate = (int)Aggro_Substate.Neutral;
-						AI_Counter = 0;
+						if (Main.rand.NextBool(2))
+						{
+							AI_Substate = (int)Aggro_Substate.Sparks;
+							AI_Counter = 0;
+						}
+						else
+						{
+							AI_Substate = (int)Aggro_Substate.Neutral;
+							AI_Counter = Main.rand.NextBool(2) ? 0 : 150; //Either reset to neutral or charge again
+						}
+						NPC.netUpdate = true;
+						
 						NPC.rotation = 0f;
 					}
 				}
 
-				if (AI_Substate == (int)Aggro_Substate.Stun)
+				if (AI_Substate == (int)Aggro_Substate.Sparks)
+				{
+					AI_Counter++;
+					//Try to move above the player
+					Vector2 targetPos = new Vector2(NPC.targetRect.Center.X, NPC.targetRect.Center.Y - 120) + targetVelocity * 20;
+
+					Vector2 accel = new Vector2(0.2f, 0.15f);
+					Vector2 speed = new Vector2(5.5f, 1.5f);
+
+					//Turn around when hitting an obstacle
+					if (NPC.velocity.X == 0) 
+					{
+						NPC.direction *= -1;
+					}
+
+					//Turn around if more than 20 tiles from player
+					if (NPC.Center.X > NPC.targetRect.Center.X + 320 || NPC.Center.X < NPC.targetRect.Center.X - 320)
+					{
+						NPC.direction = Math.Sign(NPC.DirectionTo(targetPos).X);
+					}
+					NPC.directionY = Math.Sign(NPC.DirectionTo(targetPos).Y);
+
+					if (NPC.velocity.X * NPC.direction < speed.X)
+					{
+						NPC.velocity.X += NPC.direction * accel.X;
+					}
+					else
+					{
+						NPC.velocity.X = speed.X * NPC.direction;
+					}
+
+					//Only flip sprite if moving in that direction
+					if (NPC.direction * Math.Sign(NPC.velocity.X) > 0)
+					{
+						NPC.spriteDirection = NPC.direction;
+					}
+
+					if (NPC.velocity.Y * NPC.directionY < speed.Y)
+					{
+						NPC.velocity.Y += NPC.directionY * accel.Y;
+					}
+					else
+					{
+						NPC.velocity.Y = speed.Y * NPC.directionY;
+					}
+					if (AI_Counter % 3 == 0)
+					{
+						Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Electric, 0, 0, 20, default, 0.75f);
+					}
+					if (AI_Counter % 40 == 0) //TODO: Numbered patterns of 1, 2, or 3 balls
+					{
+						Vector2 ballVel = Vector2.Zero;
+						int damage = 30; //30 journey, 60 normal, 120 expert, 180 master
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ballVel, ModContent.ProjectileType<ElectricBall>(), damage, 3f);
+					}
+					if (AI_Counter > 200)
+					{
+						AI_Counter = 0;
+						AI_Substate = (int)Aggro_Substate.Neutral;
+					}
+				}
+
+				if (AI_Substate == (int)Aggro_Substate.Stun) //Stun from being melee attacked during the charge
 				{
 					AI_Counter--;
 					if (AI_Counter > 45)
@@ -434,6 +522,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 						NPC.rotation = 0;
 					}
 				}
+
 			}
 		}
 		public override void FindFrame(int frameHeight)

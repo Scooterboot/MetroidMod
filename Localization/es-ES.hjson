@@ -4537,6 +4537,7 @@ Mods: {
 			// PhazonExplosion.DisplayName: Phazon Explosion
 			// CrucibleProj.DisplayName: Wraithfire Energy
 			// ShaderTestProj.DisplayName: Shader Test Proj
+			// ElectricBall.DisplayName: Electric Ball
 		}
 
 		Configs: {
