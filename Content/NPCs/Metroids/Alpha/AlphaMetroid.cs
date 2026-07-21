@@ -38,9 +38,26 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 			NPC.DeathSound = Sounds.NPCs.Metroid;
 			NPC.noGravity = true;
 			NPC.value = Item.buyPrice(0, 1, 99, 1);
-			NPC.knockBackResist = 0.5f;
+			NPC.knockBackResist = 0.25f;
 			NPC.aiStyle = -1;
 			NPC.npcSlots = 2;
+		}
+		int effectiveDefense = 40;
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+		{
+			// Charging damage mult
+			if (AI_Substate == (int)Aggro_Substate.Charge && AI_Counter > 60 && AI_Counter <= 84)
+			{
+				modifiers.SourceDamage *= 2;
+			}
+		}
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			// Charging damage mult
+			if (AI_Substate == (int)Aggro_Substate.Charge && AI_Counter > 60 && AI_Counter <= 84)
+			{
+				modifiers.SourceDamage *= 2;
+			}
 		}
 		public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
@@ -96,7 +113,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 				if (AI_Counter > 60 && AI_Counter <= 85)
 				{
 					modifiers.SetCrit();
-					modifiers.ArmorPenetration += 370;
+					modifiers.ArmorPenetration += (400 - effectiveDefense); 
 					modifiers.Knockback += 5;
 					SoundEngine.PlaySound(SoundID.NPCHit18, NPC.Center);
 					return;
@@ -115,7 +132,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 			{
 				if (player.Distance(WeakpointHurtbox().Center()) < player.Distance(NPC.Center))
 				{
-					modifiers.ArmorPenetration += 370;
+					modifiers.ArmorPenetration += (400 - effectiveDefense);
 					SoundEngine.PlaySound(SoundID.NPCHit1, NPC.Center);
 				}
 				else
@@ -132,7 +149,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 				if (Main.player[projectile.owner].heldProj == projectile.whoAmI && AI_Counter > 60 && AI_Counter <= 85)
 				{
 					modifiers.SetCrit();
-					modifiers.ArmorPenetration += 370;
+					modifiers.ArmorPenetration += (400 - effectiveDefense);
 					SoundEngine.PlaySound(SoundID.NPCHit18, NPC.Center);
 					return;
 				}
@@ -150,7 +167,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 			{
 				if (projectile.Colliding(projectile.Hitbox, WeakpointHurtbox()))
 				{
-					modifiers.ArmorPenetration += 370;
+					modifiers.ArmorPenetration += (400 - effectiveDefense);
 					SoundEngine.PlaySound(SoundID.NPCHit1, NPC.Center);
 				}
 				else
@@ -340,9 +357,11 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 						NPC.velocity.Y = speed.Y * NPC.directionY;
 					}
 
-					/*if (AI_Counter >= 250)
+					if (AI_Counter >= 350)
 					{
-					}*/
+						AI_Substate = (int)Aggro_Substate.Sparks;
+						AI_Counter = 0;
+					}
 				}
 
 				if (AI_Substate == (int)Aggro_Substate.Charge)
@@ -445,9 +464,10 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					AI_Counter++;
 					//Try to move above the player
 					Vector2 targetPos = new Vector2(NPC.targetRect.Center.X, NPC.targetRect.Center.Y - 120) + targetVelocity * 20;
+					bool playerAbove = NPC.targetRect.Center.Y < NPC.Center.Y;
 
-					Vector2 accel = new Vector2(0.2f, 0.15f);
-					Vector2 speed = new Vector2(5.5f, 1.5f);
+					Vector2 accel = new Vector2(0.2f, playerAbove ? 0.3f : 0.15f);
+					Vector2 speed = new Vector2(5.5f, playerAbove ? 5.5f : targetPos.Y < NPC.Center.Y ? 3f : 1.5f);
 
 					//Turn around when hitting an obstacle
 					if (NPC.velocity.X == 0) 
@@ -489,13 +509,19 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					{
 						Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Electric, 0, 0, 20, default, 0.75f);
 					}
-					if (AI_Counter % 40 == 0) //TODO: Numbered patterns of 1, 2, or 3 balls
+					if (AI_Counter == 40 || //Single
+						AI_Counter == 80 || AI_Counter == 90 || //Double
+						(AI_Counter >= 130 && AI_Counter % 10 == 0 && (AI_Counter + 10) % 70 < 30)) //Triple
 					{
 						Vector2 ballVel = Vector2.Zero;
+						if (playerAbove)
+						{
+							ballVel = new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-15, -9));
+						}
 						int damage = 30; //30 journey, 60 normal, 120 expert, 180 master
 						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, ballVel, ModContent.ProjectileType<ElectricBall>(), damage, 3f);
 					}
-					if (AI_Counter > 200)
+					if (AI_Counter > 300)
 					{
 						AI_Counter = 0;
 						AI_Substate = (int)Aggro_Substate.Neutral;
@@ -518,7 +544,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 					}
 					if (AI_Counter <= 0)
 					{
-						AI_Substate = (int)Aggro_Substate.Neutral;
+						AI_Substate = (int)Aggro_Substate.Sparks;
 						NPC.rotation = 0;
 					}
 				}
@@ -612,7 +638,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 			{
 				coccoonData.Draw(spriteBatch);
 			}
-			else
+			/*else
 			{
 				Texture2D texDebug = (Texture2D)ModContent.Request<Texture2D>($"{Texture}_DebugHurtbox");
 				Rectangle debugRect = Rectangle.Intersect(WeakpointHurtbox(), NPC.Hitbox);
@@ -621,7 +647,7 @@ namespace MetroidMod.Content.NPCs.Metroids.Alpha
 
 				DrawData debugData = new DrawData(texDebug, debugPos, new Rectangle?(debugRect), drawColor * 0.5f, 0f, Vector2.Zero, 1f, SpriteEffects.None);
 				debugData.Draw(spriteBatch);
-			}
+			}*/
 
 			return false;
 		}
