@@ -1,5 +1,4 @@
 ﻿#region Using directives
-using StructureHelper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +14,7 @@ using MetroidMod.Content.Items.Addons.V3;
 using MetroidMod.Content.Items.Miscellaneous;
 using MetroidMod.Content.Items.MissileAddons;
 using MetroidMod.Content.Items.MissileAddons.BeamCombos;
+using MetroidMod.Content.Items.Tiles.Destroyable;
 using MetroidMod.Content.MorphBallAddons;
 using MetroidMod.Content.NPCs.Torizo;
 using MetroidMod.Content.SuitAddons;
@@ -26,6 +26,8 @@ using MetroidMod.Content.Tiles.ItemTile.Missile;
 using MetroidMod.Content.Walls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StructureHelper;
+using StructureHelper.Models;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Generation;
@@ -34,7 +36,7 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
-using StructureHelper.Models;
+
 
 
 #endregion
@@ -1707,9 +1709,7 @@ namespace MetroidMod.Common.Systems
 			}
 
 			progress.Message = "Chozo Ruins...Building Temple";
-
 			StructureHelper.API.Generator.GenerateStructure("Common/Systems/ChozoTemple", new(ruinsX, ruinsY - ruinsHeight + 2 + WorldGen.genRand.Next(3)), Mod);
-			//StructureHelper.Generator.GenerateStructure("Common/Systems/ChozoTemple", new(ruinsX, ruinsY - ruinsHeight + 2 + WorldGen.genRand.Next(3)), Mod);
 			//else
 			//ChozoRuins_Temple(ruinsX, ruinsY - ruinsHeight + 2 + WorldGen.genRand.Next(3), ruinsWidth, ruinsHeight, dir);
 		}

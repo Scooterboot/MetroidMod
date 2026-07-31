@@ -1,4 +1,5 @@
-﻿using MetroidMod.Content.Hatches;
+﻿using MetroidMod.Common.Systems;
+using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items.Tiles.Destroyable;
 using Terraria;
 using Terraria.ID;
@@ -36,7 +37,7 @@ namespace MetroidMod.Content.Items.Tools
 					if (hasAmmo && !isValidTile)
 					{
 						ushort placeType = (ammoItem.ModItem as FakeBlock).PlaceType;
-						bool neededTypeIsThere = FakeBlock.ExistsAt(i, j, placeType);
+						bool neededTypeIsThere = Main.tile[i, j].Get<FakeBlockSystem>().ExistsAt;
 
 						bool onSolidTile = tile.HasTile && Main.tileSolid[tile.TileType];
 						bool solidCondition = ChoziteDualtoolSettings.AllowPlaceOnEmpty || onSolidTile;
@@ -45,13 +46,13 @@ namespace MetroidMod.Content.Items.Tools
 						{
 							ammoItem.stack -= 1;
 							ChoziteCutter.RemoveBlockAt(player, i, j);
-							FakeBlock.Place(player, i, j, placeType);
+							Main.tile[i, j].Get<FakeBlockSystem>().Place = true;
 							currentPlaceType = placeType;
 							didSomething = true;
 						}
 					}
 
-					if (FakeBlock.SetRegen(i, j, ChoziteDualtoolSettings.ApplyRegen))
+					if (Main.tile[i, j].Get<FakeBlockSystem>().SetRegen)//(i, j, ChoziteDualtoolSettings.ApplyRegen))
 					{
 						didSomething = true;
 					}

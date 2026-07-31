@@ -4,6 +4,7 @@ using MetroidMod.Common.Systems;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Boss;
 using MetroidMod.Content.Items.Tiles;
+using MetroidMod.Content.Items.Tiles.Destroyable;
 using MetroidMod.Content.Items.Vanity;
 using MetroidMod.Content.Items.Weapons;
 using MetroidMod.Content.NPCs.GoldenTorizo;
@@ -30,6 +31,7 @@ namespace MetroidMod
 			DoRecipeBrowserSupport();
 			DoHEROsModSupport();
 			DoMusicDisplaySupport();
+			DoStructureHelperSupport();
 		}
 
 		private Action<SpriteBatch, Rectangle, Color> BossChecklistRect(string tex, float mult = 1f) => (SpriteBatch sb, Rectangle rect, Color color) =>
@@ -253,6 +255,13 @@ namespace MetroidMod
 				Language.GetText("Mods.MetroidMod.BGMInfo.Torizo.Author"),
 				Language.GetText("Mods.MetroidMod.ModName")
 				);
+		}
+		private void DoStructureHelperSupport()
+		{
+			if (ModLoader.TryGetMod("StructureHelper", out Mod sh))
+			{
+				sh.Call("RegisterCustomData", typeof(FakeBlockSystem), Mod);
+			}
 		}
 	}
 }

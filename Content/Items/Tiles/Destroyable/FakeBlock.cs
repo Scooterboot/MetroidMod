@@ -43,68 +43,13 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 		{
 			if (player.itemTime == 0 && player.itemAnimation > 0 && player.controlUseItem && player.whoAmI == Main.myPlayer)
 			{
-				return Place(player, Player.tileTargetX, Player.tileTargetY, PlaceType);
+				return Main.tile[Player.tileTargetX, Player.tileTargetY].Get<FakeBlockSystem>().ExistsAt;// (player, Player.tileTargetX, Player.tileTargetY, PlaceType);
 			}
 
 			return false;
 		}
 
-		/// <summary>
-		/// Checks and returns if a breakable tile is present at the given coodinates.
-		/// </summary>
-		/// <param name="i"></param>
-		/// <param name="j"></param>
-		/// <returns></returns>
-		public static bool ExistsAt(int i, int j)
-		{
-			return MSystem.mBlockType[i, j] != BreakableTileID.None;
-		}
-		/// <summary>
-		/// Checks and returns if a breakable tile at the given coordinates is the given ID.
-		/// </summary>
-		/// <param name="i"></param>
-		/// <param name="j"></param>
-		/// <param name="placeType"></param>
-		/// <returns></returns>
-		public static bool ExistsAt(int i, int j, ushort placeType)
-		{
-			return MSystem.mBlockType[i, j] == placeType;
-		}
 
-		public static bool SetRegen(int i, int j, bool regen)
-		{
-			bool old = MSystem.dontRegen[i, j];
-			MSystem.dontRegen[i, j] = !regen;
-			return old != regen;
-		}
-
-		public static bool Regens(int i, int j)
-		{
-			return !MSystem.dontRegen[i, j];
-		}
-
-		//why does this have a player overload
-		public static bool Place(Player player, int i, int j, ushort placeType)
-		{
-			if (ExistsAt(i, j)) return false;
-
-			Vector2 position = new Vector2(i, j).ToWorldCoordinates(); //idk if this'll come up again but don't send this value around, it's adjusted for world coordinates. just use the vars		-Z
-			MSystem.mBlockType[i, j] = placeType;
-			SoundEngine.PlaySound(SoundID.Dig, position);
-			if (Main.netMode != NetmodeID.SinglePlayer)
-			{
-				//Packet to tell the server a breakable's been placed
-				ModPacket placeBreakableBlock = ModContent.GetInstance<MetroidMod>().GetPacket();
-				placeBreakableBlock.Write((byte)MetroidMessageType.BreakableBlockUpdate);
-				placeBreakableBlock.Write7BitEncodedInt(i);
-				placeBreakableBlock.Write7BitEncodedInt(j);
-				placeBreakableBlock.Write(false); //Are we removing the tile? No? False then
-				placeBreakableBlock.Write7BitEncodedInt(placeType); //why is the breakable type an unsigned short? can't send those in a packet
-				placeBreakableBlock.Send(-1, player.whoAmI);
-			}
-
-			return true;
-		}
 
 	}
 	public class FakeBlockHint : FakeBlock
