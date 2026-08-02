@@ -244,7 +244,7 @@ namespace MetroidMod
 						placeType = BreakableTileID.None;
 					}
 
-					MSystem.mBlockType[posX, posY] = (ushort)placeType;
+					Main.tile[posX, posY].Get<FakeBlockSystem>().Type = (ushort)placeType;
 
 					if (Main.netMode == NetmodeID.Server)
 					{

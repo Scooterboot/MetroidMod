@@ -427,7 +427,7 @@ namespace MetroidMod.Content.Projectiles
 			int i = (int)MathHelper.Clamp(P.Center.X / 16f, 0, Main.maxTilesX - 1);
 			int j = (int)MathHelper.Clamp(P.Center.Y / 16f, 0, Main.maxTilesY - 1);
 
-			if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType] && MSystem.mBlockType[i, j] != BreakableTileID.Fake)
+			if (Main.tile[i, j] != null && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType] && Main.tile[i, j].Get<FakeBlockSystem>().Type != BreakableTileID.Fake)
 			{
 				if (P.numUpdates == 0)
 				{

@@ -59,7 +59,7 @@ namespace MetroidMod.Content.Items.Tools
 
 		public static bool RemoveBlockAt(Player player, int i, int j)
 		{
-			if (MSystem.mBlockType[i, j] == BreakableTileID.None)
+			if (Main.tile[i, j].Get<FakeBlockSystem>().Type == BreakableTileID.None)
 			{
 				return false;
 			}
@@ -67,7 +67,7 @@ namespace MetroidMod.Content.Items.Tools
 			IEntitySource source = new EntitySource_Parent(player);
 			if (player == Main.LocalPlayer)
 			{
-				switch (MSystem.mBlockType[i, j])
+				switch (Main.tile[i, j].Get<FakeBlockSystem>().Type)
 				{
 					case BreakableTileID.CrumbleInstant:
 						player.QuickSpawnItem(source, ModContent.ItemType<Tiles.Destroyable.CrumbleBlock>());
@@ -118,13 +118,13 @@ namespace MetroidMod.Content.Items.Tools
 						break;
 
 					default:
-						MetroidMod.Instance.Logger.Info("Rolled a non-value. " + MSystem.mBlockType[i, j]);
+						MetroidMod.Instance.Logger.Info("Rolled a non-value. " + Main.tile[i, j].Get<FakeBlockSystem>().Type);
 						break;
 				}
 			}
 
 
-			MSystem.mBlockType[i, j] = BreakableTileID.None;
+			Main.tile[i, j].Get<FakeBlockSystem>().Type = BreakableTileID.None;
 			MSystem.dontRegen[i, j] = false;
 			MSystem.hit[i, j] = false;
 			SoundEngine.PlaySound(SoundID.Dig, Main.MouseWorld);

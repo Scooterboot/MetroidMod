@@ -14,7 +14,7 @@ namespace MetroidMod.Common.Systems
 	{
 		private byte Data;
 		public ushort Type;
-		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+		//public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 		/// <summary>
 		/// Checks and returns if a breakable tile is present at the given coodinates.
 		/// </summary>
@@ -29,7 +29,7 @@ namespace MetroidMod.Common.Systems
 		}
 		//public static bool ExistsAt(int i, int j)
 		//{
-		//	return MSystem.mBlockType[i, j] != BreakableTileID.None;
+		//	return FakeBlockSystem.mBlockType[i, j] != BreakableTileID.None;
 		//}
 		///// <summary>
 		///// Checks and returns if a breakable tile at the given coordinates is the given ID.
@@ -40,7 +40,7 @@ namespace MetroidMod.Common.Systems
 		///// <returns></returns>
 		//public static bool ExistsAt(int i, int j, ushort placeType)
 		//{
-		//	return MSystem.mBlockType[i, j] == placeType;
+		//	return FakeBlockSystem.mBlockType[i, j] == placeType;
 		//}
 
 		public bool SetRegen
@@ -63,7 +63,7 @@ namespace MetroidMod.Common.Systems
 		//	if (Main.tile[i, j].Get<FakeBlockSystem>().ExistsAt) return false;
 
 		//	Vector2 position = new Vector2(i, j).ToWorldCoordinates(); //idk if this'll come up again but don't send this value around, it's adjusted for world coordinates. just use the vars		-Z
-		//	MSystem.mBlockType[i, j] = placeType;
+		//	FakeBlockSystem.mBlockType[i, j] = placeType;
 		//	SoundEngine.PlaySound(SoundID.Dig, position);
 		//	if (Main.netMode != NetmodeID.SinglePlayer)
 		//	{

@@ -511,10 +511,10 @@ namespace MetroidMod.Common.Players
 				{
 					flag = true;
 				}
-				bool crumble = MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleInstant || MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleSpeed || MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleSlow;
+				bool crumble = Main.tile[(int)num, (int)num2].Get<FakeBlockSystem>().Type== BreakableTileID.CrumbleInstant || Main.tile[(int)num, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSpeed || Main.tile[(int)num, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSlow;
 				if (crumble && Math.Sign(Player.velocity.Y) == Player.gravDir && Main.tile[(int)num, (int)num2].HasTile && !Main.tile[(int)num, (int)num2].IsActuated)
 				{
-					if (MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleInstant) //CrumbleInstant
+					if (Main.tile[(int)num, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleInstant) //CrumbleInstant
 					{
 						MSystem.AddRegenBlock((int)num, (int)num2, true);
 						// Enforce SpeedBooster
@@ -525,12 +525,12 @@ namespace MetroidMod.Common.Players
 						}
 						flag = false;
 					}
-					if (MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
+					if (Main.tile[(int)num, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
 					{
 						MSystem.nextTick.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 1, new Vector2((int)num, (int)num2)));
 						flag = false;
 					}
-					if (MSystem.mBlockType[(int)num, (int)num2] == BreakableTileID.CrumbleSlow) //CrumbleSlow
+					if (Main.tile[(int)num, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSlow) //CrumbleSlow
 					{
 						MSystem.hit[(int)num, (int)num2] = true;
 						MSystem.timers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60, new Vector2((int)num, (int)num2)));
@@ -547,10 +547,10 @@ namespace MetroidMod.Common.Players
 					flag = true;
 				}
 
-				crumble = MSystem.mBlockType[(int)num3, (int)num2] == BreakableTileID.CrumbleInstant || MSystem.mBlockType[(int)num3, (int)num2] == BreakableTileID.CrumbleSpeed || MSystem.mBlockType[(int)num3, (int)num2] == 11;
+				crumble = Main.tile[(int)num3, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleInstant || Main.tile[(int)num3, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSpeed || Main.tile[(int)num3, (int)num2].Get<FakeBlockSystem>().Type == 11;
 				if (crumble && Math.Sign(Player.velocity.Y) == Player.gravDir && Main.tile[(int)num3, (int)num2].HasTile && !Main.tile[(int)num3, (int)num2].IsActuated)
 				{
-					if (MSystem.mBlockType[(int)num3, (int)num2] == BreakableTileID.CrumbleInstant) //CrumbleInstant
+					if (Main.tile[(int)num3, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleInstant) //CrumbleInstant
 					{
 						MSystem.AddRegenBlock((int)num3, (int)num2, true);
 						// Enforce SpeedBooster
@@ -561,12 +561,12 @@ namespace MetroidMod.Common.Players
 						}
 						flag = false;
 					}
-					if (MSystem.mBlockType[(int)num3, (int)num2] == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
+					if (Main.tile[(int)num3, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
 					{
 						MSystem.nextTick.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 1, new Vector2((int)num3, (int)num2)));
 						flag = false;
 					}
-					if (MSystem.mBlockType[(int)num3, (int)num2] == BreakableTileID.CrumbleSlow) //CrumbleSlow
+					if (Main.tile[(int)num3, (int)num2].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSlow) //CrumbleSlow
 					{
 						MSystem.hit[(int)num3, (int)num2] = true;
 						MSystem.timers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60, new Vector2((int)num3, (int)num2)));
@@ -674,7 +674,7 @@ namespace MetroidMod.Common.Players
 					isGripping = false;
 					reGripTimer = 10;
 				}
-				bool gripledge = MSystem.mBlockType[(int)num, (int)num2] == ModContent.TileType<GripLedge>();
+				bool gripledge = Main.tile[(int)num, (int)num2].Get<FakeBlockSystem>().Type == ModContent.TileType<GripLedge>();
 				if (isGripping && Player.controlRight && gripDir >= 1 && Player.releaseRight && !Player.mount.Active && Player.miscEquips[3].type == ModContent.ItemType<MorphBall>() && !gripledge && Main.keyState.IsKeyDown(Keys.LeftShift))
 				{
 					var ball = ModContent.MountType<MorphBallMount>();

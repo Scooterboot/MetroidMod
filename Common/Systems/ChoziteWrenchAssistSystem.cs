@@ -15,7 +15,7 @@ namespace MetroidMod.Common.Systems
 		{
 			if (hitLocations.Add(new(i, j)))
 			{
-				if (MSystem.mBlockType[i, j] != BreakableTileID.None)
+				if (Main.tile[i, j].Get<FakeBlockSystem>().Type != BreakableTileID.None)
 				{
 					Main.tile[i, j].Get<FakeBlockSystem>().SetRegen = !Main.tile[i, j].Get<FakeBlockSystem>().SetRegen;
 					return true;

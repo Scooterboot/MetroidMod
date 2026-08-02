@@ -285,7 +285,7 @@ namespace MetroidMod.Common.Players
 			{
 				if (Main.tile[i, j].HasTile && !Main.tile[i, j].IsActuated)
 				{
-					if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleInstant) //CrumbleInstant
+					if (Main.tile[i, j].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleInstant) //CrumbleInstant
 					{
 						MSystem.AddRegenBlock(i, j, true);
 						// Enforce SpeedBooster
@@ -295,11 +295,11 @@ namespace MetroidMod.Common.Players
 							Player.oldVelocity.X = 0;
 						}
 					}
-					if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
+					if (Main.tile[i, j].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSpeed) //CrumbleSpeed
 					{
 						MSystem.nextTick.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 1, new Vector2(i, j)));
 					}
-					if (MSystem.mBlockType[i, j] == BreakableTileID.CrumbleSlow) //CrumbleSlow
+					if (Main.tile[i, j].Get<FakeBlockSystem>().Type == BreakableTileID.CrumbleSlow) //CrumbleSlow
 					{
 						MSystem.hit[i, j] = true;
 						MSystem.timers.Enqueue(new Tuple<int, Vector2>(MSystem.Timer + 60, new Vector2(i, j)));
@@ -335,19 +335,19 @@ namespace MetroidMod.Common.Players
 					{
 						if (Main.tile[i, k].HasTile && !Main.tile[i, k].IsActuated)
 						{
-							if (MSystem.mBlockType[i, k] == BreakableTileID.Bomb) //BombBlock
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.Bomb) //BombBlock
 							{
 								MSystem.AddRegenBlock(i, k);
 							}
-							if (MSystem.mBlockType[i, k] == BreakableTileID.Fake) //FakeBlock
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.Fake) //FakeBlock
 							{
 								MSystem.AddRegenBlock(i, k);
 							}
-							if (MSystem.mBlockType[i, k] == BreakableTileID.Boost) //BoostBlock
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.Boost) //BoostBlock
 							{
 								MSystem.AddRegenBlock(i, k);
 							}
-							if (MSystem.mBlockType[i, k] == BreakableTileID.FakeHint) //FakeBlockHint
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.FakeHint) //FakeBlockHint
 							{
 								MSystem.AddRegenBlock(i, k);
 							}
@@ -357,19 +357,19 @@ namespace MetroidMod.Common.Players
 					{
 						if (Main.tile[i, k].HasTile && !Main.tile[i, k].IsActuated)
 						{
-							if (MSystem.mBlockType[i, k] == BreakableTileID.Bomb) //BombBlock
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.Bomb) //BombBlock
 							{
 								MSystem.AddRegenBlock(i, k);
 							}
-							if (MSystem.mBlockType[i, k] == BreakableTileID.Fake) //FakeBlock
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.Fake) //FakeBlock
 							{
 								MSystem.AddRegenBlock(i, k);
 							}
-							if (MSystem.mBlockType[i, k] == BreakableTileID.ScrewAttack) //ScrewAttackBlock
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.ScrewAttack) //ScrewAttackBlock
 							{
 								MSystem.AddRegenBlock(i, k);
 							}
-							if (MSystem.mBlockType[i, k] == BreakableTileID.FakeHint) //FakeBlockHint
+							if (Main.tile[i, k].Get<FakeBlockSystem>().Type == BreakableTileID.FakeHint) //FakeBlockHint
 							{
 								MSystem.AddRegenBlock(i, k);
 							}

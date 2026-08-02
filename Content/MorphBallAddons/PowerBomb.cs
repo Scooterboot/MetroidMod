@@ -123,23 +123,23 @@ namespace MetroidMod.Content.MorphBallAddons
 				{
 					for (int y = tileRect.Y; y < tileRect.Y + tileRect.Height; y++)
 					{
-						if (MSystem.mBlockType[x, y] != BreakableTileID.None)
+						if (Main.tile[x, y].Get<FakeBlockSystem>().Type != BreakableTileID.None)
 						{
 							MSystem.hit[x, y] = true;
 						}
-						if (MSystem.mBlockType[x, y] == BreakableTileID.Bomb)
+						if (Main.tile[x, y].Get<FakeBlockSystem>().Type == BreakableTileID.Bomb)
 						{
 							MSystem.AddRegenBlock(x, y);
 						}
-						if (MSystem.mBlockType[x, y] == BreakableTileID.Fake)
+						if (Main.tile[x, y].Get<FakeBlockSystem>().Type == BreakableTileID.Fake)
 						{
 							MSystem.AddRegenBlock(x, y);
 						}
-						if (MSystem.mBlockType[x, y] == BreakableTileID.PowerBomb)
+						if (Main.tile[x, y].Get<FakeBlockSystem>().Type == BreakableTileID.PowerBomb)
 						{
 							MSystem.AddRegenBlock(x, y);
 						}
-						if (MSystem.mBlockType[x, y] == BreakableTileID.FakeHint)
+						if (Main.tile[x, y].Get<FakeBlockSystem>().Type == BreakableTileID.FakeHint)
 						{
 							MSystem.AddRegenBlock(x, y);
 						}

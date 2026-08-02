@@ -48,7 +48,7 @@ namespace MetroidMod.Common.Systems
 	{
 		public static MetroidBossDown bossesDown;
 
-		public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+		//public static ushort[,] mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
 
 		public static bool[,] hit = new bool[Main.maxTilesX, Main.maxTilesY];
 		public static bool[,] dontRegen = new bool[Main.maxTilesX, Main.maxTilesY];
@@ -132,7 +132,7 @@ namespace MetroidMod.Common.Systems
 				ModContent.ItemType<Content.Items.Tools.ChoziteDualtool>(),
 			};
 			bossesDown = MetroidBossDown.downedNone;
-			mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+			Main.tile[Main.maxTilesX, Main.maxTilesY].Get<FakeBlockSystem>().Type = new ushort();
 			hit = new bool[Main.maxTilesX, Main.maxTilesY];
 			timers = new Queue<Tuple<int, Vector2>>();
 			nextTick = new Queue<Tuple<int, Vector2>>();
@@ -183,12 +183,12 @@ namespace MetroidMod.Common.Systems
 			}
 			Wiring.DeActive(x, y);
 			NetMessage.SendTileSquare(Main.myPlayer, x, y);
-			if (mBlockType[x, y] == 12)
+			if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 12)
 			{
-				int left = mBlockType[x - 1, y];
-				int right = mBlockType[x + 1, y];
-				int up = mBlockType[x, y - 1];
-				int down = mBlockType[x, y + 1];
+				int left = Main.tile[x - 1, y].Get<FakeBlockSystem>().Type;
+				int right = Main.tile[x + 1, y].Get<FakeBlockSystem>().Type;
+				int up = Main.tile[x, y - 1].Get<FakeBlockSystem>().Type;
+				int down = Main.tile[x, y + 1].Get<FakeBlockSystem>().Type;
 				if (left == 12 && Main.tile[x - 1, y].HasTile && !Main.tile[x - 1, y].IsActuated)
 				{
 					hit[x - 1, y] = true;
@@ -220,7 +220,7 @@ namespace MetroidMod.Common.Systems
 				if (timer.Item1 <= Timer)
 				{
 					Vector2 pos = timer.Item2;
-					AddRegenBlock((int)pos.X, (int)pos.Y, MSystem.mBlockType[(int)pos.X, (int)pos.Y] != 12);
+					AddRegenBlock((int)pos.X, (int)pos.Y, Main.tile[Main.maxTilesX, Main.maxTilesY].Get<FakeBlockSystem>().Type != 12);
 					Player player = Main.player[Main.myPlayer];
 					MPlayer mp = player.GetModPlayer<MPlayer>();
 					if (mp.falling)
@@ -302,10 +302,10 @@ namespace MetroidMod.Common.Systems
 			{
 				for (int column = 0; column < Main.maxTilesY; column++)
 				{
-					if (mBlockType[row, column] > 0)
+					if (Main.tile[row, column].Get<FakeBlockSystem>().Type > 0)
 					{
 						positions.Add(new Vector2(row, column));
-						types.Add(mBlockType[row, column]);
+						types.Add(Main.tile[row, column].Get<FakeBlockSystem>().Type);
 						regens.Add(dontRegen[row, column]);
 					}
 				}
@@ -343,7 +343,7 @@ namespace MetroidMod.Common.Systems
 				Vector2 pos = positions[i];
 				if (i < types.Count)
 				{
-					mBlockType[(int)pos.X, (int)pos.Y] = types[i];
+					Main.tile[(int)pos.X, (int)pos.Y].Get<FakeBlockSystem>().Type = types[i];
 					if (i < regens.Count)
 					{
 						dontRegen[(int)pos.X, (int)pos.Y] = regens[i];
@@ -370,10 +370,10 @@ namespace MetroidMod.Common.Systems
 			{
 				for (int column = 0; column < Main.maxTilesY; column++)
 				{
-					if (mBlockType[row, column] > 0)
+					if (Main.tile[row, column].Get<FakeBlockSystem>().Type > 0)
 					{
 						positions.Add(new Vector2(row, column));
-						types.Add(mBlockType[row, column]);
+						types.Add(Main.tile[row, column].Get<FakeBlockSystem>().Type);
 						regens.Add(dontRegen[row, column]);
 					}
 				}
@@ -392,14 +392,14 @@ namespace MetroidMod.Common.Systems
 		{
 			bossesDown = (MetroidBossDown)reader.ReadInt32();
 			spawnedPhazonMeteor = reader.ReadBoolean();
-			mBlockType = new ushort[Main.maxTilesX, Main.maxTilesY];
+			Main.tile[Main.maxTilesX, Main.maxTilesY].Get<FakeBlockSystem>().Type = new ushort();
 			dontRegen = new bool[Main.maxTilesX, Main.maxTilesY];
 			int count = reader.ReadInt32();
 			for (int i = 0; i < count; i++)
 			{
 				int x = (int)reader.ReadSingle();
 				int y = (int)reader.ReadSingle();
-				mBlockType[x, y] = (ushort)reader.ReadInt16();
+				Main.tile[x, y].Get<FakeBlockSystem>().Type = (ushort)reader.ReadInt16();
 				dontRegen[x, y] = reader.ReadBoolean();
 			}
 		}
@@ -465,7 +465,7 @@ namespace MetroidMod.Common.Systems
 							color.G /= 2;
 							spriteBatch.End();
 						}
-						switch (mBlockType[i, j])
+						switch (Main.tile[i, j].Get<FakeBlockSystem>().Type)
 						{
 							case 1 or 2 or 11:
 								breakableTexPath = $"{Mod.Name}/Assets/Textures/Breakable/CrumbleBlock";
@@ -508,7 +508,7 @@ namespace MetroidMod.Common.Systems
 					}
 					if (!revealed)
 					{
-						if (mBlockType[i, j] == 10)
+						if (Main.tile[i, j].Get<FakeBlockSystem>().Type == 10)
 						{
 							color = new Color(color.R, color.G, color.B, 64);
 							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, null, null, null, Main.GameViewMatrix.ZoomMatrix);

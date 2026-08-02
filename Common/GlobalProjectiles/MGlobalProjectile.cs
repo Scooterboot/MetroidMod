@@ -21,11 +21,11 @@ namespace MetroidMod.Common.GlobalProjectiles
 				int y = (int)MathHelper.Clamp(projectile.Center.Y / 16, 0, Main.maxTilesY - 2);
 				if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 				{
-					if (MSystem.mBlockType[x, y] == 5)
+					if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 5)
 					{
 						MSystem.AddRegenBlock(x, y);
 					}
-					if (MSystem.mBlockType[x, y] == 10)
+					if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 10)
 					{
 						MSystem.AddRegenBlock(x, y);
 					}
@@ -115,51 +115,51 @@ namespace MetroidMod.Common.GlobalProjectiles
 					{
 						if (projectile.Name.Contains("Screw Attack"))
 						{
-							if (MSystem.mBlockType[x, y] == 3)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 3)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
-							if (MSystem.mBlockType[x, y] == 5)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 5)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
-							if (MSystem.mBlockType[x, y] == 10)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 10)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
-							if (MSystem.mBlockType[x, y] == 9)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 9)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
 						}
 						else if (!projectile.Name.Contains("Charge Attack"))
 						{
-							if (MSystem.mBlockType[x, y] != 0)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type != 0)
 							{
 								MSystem.hit[x, y] = true;
 							}
-							if (MSystem.mBlockType[x, y] == 5)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 5)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
-							if (MSystem.mBlockType[x, y] == 10)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 10)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
 							if (projectile.Name.Contains("Bomb"))
 							{
-								if (MSystem.mBlockType[x, y] == 3)
+								if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 3)
 								{
 									MSystem.AddRegenBlock(x, y);
 								}
-								if (MSystem.mBlockType[x, y] == 12)
+								if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 12)
 								{
 									MSystem.AddRegenBlock(x, y);
 								}
 							}
 							if (projectile.type == ModContent.ProjectileType<ParalyzerShot>())
 							{
-								if (MSystem.mBlockType[x, y] == 3 || MSystem.mBlockType[x, y] == 12)
+								if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 3 || Main.tile[x, y].Get<FakeBlockSystem>().Type == 12)
 								{
 									MSystem.AddRegenBlock(x, y);
 								}
@@ -167,13 +167,13 @@ namespace MetroidMod.Common.GlobalProjectiles
 						}
 						if (projectile.Name.Contains("Missile"))
 						{
-							if (MSystem.mBlockType[x, y] == 4)
+							if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 4)
 							{
 								MSystem.AddRegenBlock(x, y);
 							}
 							if (projectile.Name.Contains("Super") || projectile.Name.Contains("Nebula") || projectile.Name.Contains("Stardust"))
 							{
-								if (MSystem.mBlockType[x, y] == 8)
+								if (Main.tile[x, y].Get<FakeBlockSystem>().Type == 8)
 								{
 									MSystem.AddRegenBlock(x, y);
 								}

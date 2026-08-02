@@ -47,6 +47,7 @@ namespace MetroidMod.Content.Items.Tools
 							ammoItem.stack -= 1;
 							ChoziteCutter.RemoveBlockAt(player, i, j);
 							Main.tile[i, j].Get<FakeBlockSystem>().Place = true;
+							Main.tile[i, j].Get<FakeBlockSystem>().Type = placeType;
 							currentPlaceType = placeType;
 							didSomething = true;
 						}
