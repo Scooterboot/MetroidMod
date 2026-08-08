@@ -373,7 +373,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 			//oPos = O.RotatedRelativePoint(O.MountedCenter, true);
 			Lead = Main.projectile[O.heldProj];
 			P.scale = .8f;
-			if (O.controlUseItem && !O.dead)
+			if (!O.dead)
 			{
 				for (int j = 0; j < shots; j++)
 				{

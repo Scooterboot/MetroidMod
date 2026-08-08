@@ -14,7 +14,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue() => NPC.downedBoss2 || Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues;
+		public override bool CanGenerateOnChozoStatue() => NPC.downedBoss2 || Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || Main.LocalPlayer.ZoneUnderworldHeight;
 
 		public override double GenerationChance() => 1;
 

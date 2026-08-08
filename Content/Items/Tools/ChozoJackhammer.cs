@@ -1,3 +1,4 @@
+using MetroidMod.Common.Systems;
 using MetroidMod.Content.Items.Miscellaneous;
 using Terraria;
 using Terraria.DataStructures;
@@ -44,6 +45,7 @@ namespace MetroidMod.Content.Items.Tools
 				.AddIngredient<ChoziteBar>(10)
 				.AddIngredient(ItemID.HellstoneBar, 15)
 				.AddIngredient<EnergyShard>(3)
+				.AddDecraftCondition(new Condition("ded birb", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo)))
 				.AddTile(TileID.Hellforge)
 				.Register();
 			/*CreateRecipe()

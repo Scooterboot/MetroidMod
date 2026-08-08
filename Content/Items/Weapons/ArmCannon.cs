@@ -169,6 +169,7 @@ namespace MetroidMod.Content.Items.Weapons
 				.AddIngredient<Miscellaneous.ChoziteBar>(8)
 				.AddIngredient<Tiles.MissileExpansion>(1)
 				.AddIngredient<Miscellaneous.EnergyShard>(3)
+				.AddDecraftCondition(new Condition("ded birb", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo)))
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

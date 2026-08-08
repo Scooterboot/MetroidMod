@@ -1,3 +1,4 @@
+using MetroidMod.Common.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,8 +40,9 @@ namespace MetroidMod.Content.Items.Accessories
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.ChoziteBar>(10)
 				.AddIngredient<Miscellaneous.EnergyShard>(3)
-				.AddIngredient(ItemID.Topaz, 1)
-				.AddIngredient(ItemID.Emerald, 1)
+				.AddIngredient(ItemID.Topaz, 5)
+				.AddIngredient(ItemID.Emerald, 5)
+				.AddDecraftCondition(new Condition("ded birb", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo)))
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

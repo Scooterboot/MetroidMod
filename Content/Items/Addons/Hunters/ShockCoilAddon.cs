@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Items.Addons.Hunters
 				.AddIngredient<Miscellaneous.EnergyShard>(2)
 				.AddIngredient(ItemID.Wire, 30)
 				.AddIngredient(ItemID.Sapphire, 1)
-				.AddIngredient(ItemID.Buggy, 1)
+				.AddIngredient(ItemID.Buggy, 1) //absolutely obligatory --Dr
 				//.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 8)
 				.AddTile(TileID.Hellforge)
 				.Register();

@@ -381,7 +381,7 @@ namespace MetroidMod.Content.NPCs.Nightmare
 			{
 				state = 6;
 			}
-			state = 0;
+			//state = 0;
 			if (state < 4)
 			{
 				if (state > 0)

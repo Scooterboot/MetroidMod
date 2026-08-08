@@ -1,4 +1,5 @@
 using System;
+using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -96,6 +97,7 @@ namespace MetroidMod.Content.Items.Weapons
 			CreateRecipe(1)
 				.AddIngredient<Miscellaneous.EnergyShard>(8)
 				.AddIngredient<ChoziteShortsword>()
+				.AddDecraftCondition(new Condition("ded birb", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo)))
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

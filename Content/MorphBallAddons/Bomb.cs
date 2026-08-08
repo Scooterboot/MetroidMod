@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using MetroidMod.Common.Systems;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,6 +38,8 @@ namespace MetroidMod.Content.MorphBallAddons
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(2)
 				.AddIngredient<Items.Miscellaneous.EnergyShard>(3)
 				.AddIngredient(ItemID.Bomb, 15)
+				.AddIngredient(ItemID.ManaCrystal, 1)
+				.AddDecraftCondition(new Condition("ded birb", () => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo)))
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
