@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
-//using MetroidMod.Backgrounds;
 
 namespace MetroidMod.Content
 {
@@ -32,18 +31,32 @@ namespace MetroidMod.Content
 		}
 
 
+		// current tick of waiting before updating backgroundFrame
 		private int backgroundFrameUpdateTick = 0;
+		// how many ticks to wait before updating backgroundFrame
 		private static readonly int backgroundFrameUpdateInterval = 8;
+		// index of currently drawn frame of the background
 		private int backgroundFrame = 0;
+		// frame count of background
 		private static readonly int backgroundFrameCount = 4;
 
+		// current tick of waiting before updating gtheBabyFrame
 		private int theBabyFrameUpdateTick = 0;
+		// how many ticks to wait before updating theBabyFrame
 		private static readonly int theBabyFrameUpdateInterval = 8;
+		// index of currenly drawn frame of the baby
 		private int theBabyFrame = 0;
+		// frame count of the baby
 		private static readonly int theBabyFrameCount = 4;
+		// spasm tick of the baby, ticked up every time we change the baby's frame.
+		// above theBabyFrameSpasmThreshold, decreases the update interval by a factor of theBabyFrameSpasmSpeed
 		private int theBabyFrameSpasm = 0;
+		// threshold at which frames speed up
 		private static readonly int theBabyFrameSpasmThreshold = 3;
+		// maximum number of spasm ticks
 		private static readonly int theBabyFrameSpasmCount = 5;
+		// multiplier of the speed of ticking
+		private static readonly int theBabyFrameSpasmSpeed = 2;
 
 		public override void Update(bool isOnTitleScreen)
 		{
@@ -55,7 +68,7 @@ namespace MetroidMod.Content
 					backgroundFrame = 0;
 				}
 			}
-			if (++theBabyFrameUpdateTick >= theBabyFrameUpdateInterval / (theBabyFrameSpasm >= theBabyFrameSpasmThreshold ? 2 : 1))
+			if (++theBabyFrameUpdateTick >= theBabyFrameUpdateInterval / (theBabyFrameSpasm >= theBabyFrameSpasmThreshold ? theBabyFrameSpasmSpeed : 1))
 			{
 				theBabyFrameUpdateTick = 0;
 				if (++theBabyFrame >= theBabyFrameCount)
@@ -69,10 +82,13 @@ namespace MetroidMod.Content
 			}
 		}
 
-		private float theBabySpriteSize = 0.6f;
+		// da bebeh's size because just keeping it normal size was too big
+		private readonly float theBabySpriteSize = 0.6f;
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
 		{
+			// draw to the full screen
 			spriteBatch.Draw(Background.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Rectangle(0, Background.Height() * backgroundFrame / 4, Background.Width(), Background.Height() / 4), Color.White);
+			// draw to a spot in the center of the screen, but 63.5% of the y height of the screen
 			spriteBatch.Draw(TheBaby.Value, new Rectangle(Main.screenWidth / 2 - (int)(TheBaby.Width() * theBabySpriteSize) / 2, (int)(Main.screenHeight * 0.635 - (int)(TheBaby.Height() * theBabySpriteSize) / 8), (int)(TheBaby.Width() * theBabySpriteSize), (int)(TheBaby.Height() * theBabySpriteSize) / 4), new Rectangle(0, TheBaby.Height() * theBabyFrame / 4, TheBaby.Width(), TheBaby.Height() / 4), Color.White);
 
 			logoRotation = 0f;
