@@ -31,9 +31,9 @@ namespace MetroidMod.Content.Tiles
 			yield return new Item(ModContent.ItemType<Items.Tiles.ChozoBrick>());
 		}
 
-		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo);
+		public override bool CanExplode(int i, int j) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld || ModContent.GetInstance<MSystem>().canGenFake;
 
-		//public override bool CanKillTile(int i, int j, ref bool blockDamaged) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld;
-		//public override bool CanReplace(int i, int j, int tileTypeBeingPlaced) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld;
+		public override bool CanKillTile(int i, int j, ref bool blockDamaged) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld || ModContent.GetInstance<MSystem>().canGenFake;
+		public override bool CanReplace(int i, int j, int tileTypeBeingPlaced) => MSystem.bossesDown.HasFlag(MetroidBossDown.downedTorizo) || WorldGen.generatingWorld || ModContent.GetInstance<MSystem>().canGenFake;
 	}
 }
