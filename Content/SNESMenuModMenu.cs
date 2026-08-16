@@ -10,8 +10,8 @@ namespace MetroidMod.Content
 	{
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Menu/SNESTitle");
 		public override int Music => MusicLoader.GetMusicSlot($"{Mod.Name}/Assets/Music/Title");
-		public override string DisplayName => "Laboratory";
-		
+		public override string DisplayName => Mod.GetLocalization("Menus.SNES", PrettyPrintName).Value;
+
 		private Asset<Texture2D> background;
 		public Asset<Texture2D> Background
 		{
@@ -60,26 +60,49 @@ namespace MetroidMod.Content
 
 		public override void Update(bool isOnTitleScreen)
 		{
-			if (++backgroundFrameUpdateTick >= backgroundFrameUpdateInterval)
+			UpdateBackgroundSprite();
+			UpdateTheBabySprite();
+		}
+		
+		private void UpdateBackgroundSprite()
+		{
+			if (++backgroundFrameUpdateTick < backgroundFrameUpdateInterval)
 			{
-				backgroundFrameUpdateTick = 0;
-				if (++backgroundFrame >= backgroundFrameCount)
-				{
-					backgroundFrame = 0;
-				}
+				return;
 			}
-			if (++theBabyFrameUpdateTick >= theBabyFrameUpdateInterval / (theBabyFrameSpasm >= theBabyFrameSpasmThreshold ? theBabyFrameSpasmSpeed : 1))
+
+			backgroundFrameUpdateTick = 0;
+			
+			if (++backgroundFrame < backgroundFrameCount)
 			{
-				theBabyFrameUpdateTick = 0;
-				if (++theBabyFrame >= theBabyFrameCount)
-				{
-					theBabyFrame = 0;
-					if (++theBabyFrameSpasm >= theBabyFrameSpasmCount)
-					{
-						theBabyFrameSpasm = 0;
-					}
-				}
+				return;
 			}
+
+			backgroundFrame = 0;
+		}
+
+		private void UpdateTheBabySprite()
+		{
+			if (++theBabyFrameUpdateTick < theBabyFrameUpdateInterval / (theBabyFrameSpasm >= theBabyFrameSpasmThreshold ? theBabyFrameSpasmSpeed : 1))
+			{
+				return;
+			}
+			
+			theBabyFrameUpdateTick = 0;
+			
+			if (++theBabyFrame < theBabyFrameCount)
+			{
+				return;
+			}
+
+			theBabyFrame = 0;
+
+			if (++theBabyFrameSpasm < theBabyFrameSpasmCount)
+			{
+				return;
+			}
+
+			theBabyFrameSpasm = 0;
 		}
 
 		// da bebeh's size because just keeping it normal size was too big

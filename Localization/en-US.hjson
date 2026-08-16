@@ -7,6 +7,10 @@ Mods: {
 			PhazonCorruption: "{0} has been corrupted with Phazon!"
 		}
 
+		Menus: {
+			SNES: Laboratory
+		}
+
 		BiomeName.ChozoRuinsBiome: Chozo Ruins
 		DamageClasses.HunterDamageClass.DisplayName: Hunter Damage
 
