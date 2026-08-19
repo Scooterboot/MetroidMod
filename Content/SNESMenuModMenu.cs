@@ -9,7 +9,7 @@ namespace MetroidMod.Content
 	public class SNESMenuModMenu : ModMenu
 	{
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Menu/SNESTitle");
-		public override int Music => MusicLoader.GetMusicSlot($"{Mod.Name}/Assets/Music/Title");
+		public override int Music => MusicLoader.GetMusicSlot($"{Mod.Name}/Assets/Music/SuperMetroidAdjacentMenu");
 		public override string DisplayName => Mod.GetLocalization("Menus.SNES", PrettyPrintName).Value;
 
 		private Asset<Texture2D> background;
