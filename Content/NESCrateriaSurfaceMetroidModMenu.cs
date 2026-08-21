@@ -12,10 +12,19 @@ namespace MetroidMod.Content
 	{
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Menu/NESTitle");
 		public override int Music => MusicLoader.GetMusicSlot($"{Mod.Name}/Assets/Music/Title");
-		public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<Biomes.NESCrateriaSurfaceBackgroundStyle>();
 		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel");
 		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Pixel");
 		public Asset<Texture2D> LogoGlint => ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Menu/NESTitleGlint");
+
+
+		private Asset<Texture2D> background;
+		public Asset<Texture2D> Background
+		{
+			get {
+				background ??= ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/Menu/NESTitleBack");
+				return background;
+			}
+		}
 
 		public override string DisplayName => Mod.GetLocalization("Menus.NES", PrettyPrintName).Value;
 
@@ -51,6 +60,8 @@ namespace MetroidMod.Content
 		internal static readonly float constLogoScale = 0.8f;
 		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
 		{
+			spriteBatch.Draw(Background.Value, new Rectangle(0,0,Main.screenWidth,Main.screenHeight), Color.White);
+
 			logoRotation = 0f;
 			logoScale = constLogoScale;
 			drawColor = new(255, 255, 255);
