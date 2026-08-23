@@ -1,3 +1,4 @@
+using System;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
@@ -24,7 +25,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.penetrate = -1;
 			Projectile.timeLeft = 9000;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 7;
+			Projectile.localNPCHitCooldown = 20;
 		}
 		public override void AI()
 		{
@@ -41,7 +42,7 @@ namespace MetroidMod.Content.Projectiles
 			//Projectile.knockBack = mp.boostEffect;
 
 
-			if (!mp.ballstate || mp.boostEffect <= 20 || P.velocity == Vector2.Zero || P.dead)
+			if (!mp.ballstate || (mp.boostEffect <= 0 && mp.SMoveEffect <= 0) || P.velocity == Vector2.Zero || P.dead)
 			{
 				Projectile.Kill();
 			}
@@ -56,7 +57,7 @@ namespace MetroidMod.Content.Projectiles
 			Player P = Main.player[Projectile.owner];
 			MPlayer mp = P.GetModPlayer<MPlayer>();
 			P.velocity -= P.velocity;
-			P.GiveImmuneTimeForCollisionAttack(mp.boostEffect);
+			P.GiveImmuneTimeForCollisionAttack(Math.Max( mp.boostEffect,20));
 			mp.boostEffect = 0;
 		}
 	}

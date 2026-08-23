@@ -31,6 +31,10 @@ namespace MetroidMod
 			{
 
 			};
+			public static readonly SoundStyle BoostballDash = new($"{nameof(MetroidMod)}/Assets/Sounds/BoostballDash")
+			{
+
+			};
 			public static readonly SoundStyle Sting = new($"{nameof(MetroidMod)}/Assets/Sounds/Sting")
 			{
 

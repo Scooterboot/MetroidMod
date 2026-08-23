@@ -150,6 +150,7 @@ namespace MetroidMod.Common.Players
 		{
 			Player.statLife = Player.statLifeMax2;
 			Player.statMana = Player.statManaMax;
+			Energy = MaxEnergy;
 			canSomersault = true;
 			canWallJump = true;
 			powerGrip = true;
@@ -609,7 +610,7 @@ namespace MetroidMod.Common.Players
 		public void SenseMove(Player P)
 		{
 
-			if (P.mount.Active || ballstate || Player.HasBuff<MetroidSucc>())
+			if (P.mount.Active || (ballstate&&(spiderball||boostCharge>0||boostEffect>0)) || P.HasBuff<MetroidSucc>())
 			{
 				return;
 			}
@@ -669,13 +670,14 @@ namespace MetroidMod.Common.Players
 				{
 					P.velocity.X /= 2f;
 				}
-				P.velocity.Y -= 4.5f * P.gravDir;
+				P.velocity.Y -= ballstate? 0 : 4.5f * P.gravDir;
 				SMoveEffect = 20;
 				senseMoveCooldown = 60;
+				if(ballstate) {boostEffect = 20;}
 
 				if (!senseSound)
 				{
-					SoundEngine.PlaySound(Sounds.Suit.SenseMove, P.position);
+					SoundEngine.PlaySound(!ballstate? Sounds.Suit.SenseMove:Sounds.Suit.BoostballDash, P.position);
 					senseSound = true;
 				}
 			}
@@ -836,7 +838,7 @@ namespace MetroidMod.Common.Players
 							Player.grapCount = 0;
 							for (int k = 0; k < 1000; k++)
 							{
-								if (Main.projectile[k].active && Main.projectile[k].owner == Player.whoAmI && Main.projectile[k].aiStyle == NPCAIStyleID.Passive)//type == projectile.type)
+								if (Main.projectile[k].active && Main.projectile[k].owner == Player.whoAmI && Main.projectile[k].aiStyle == ProjAIStyleID.Hook)//type == projectile.type)
 								{
 									Main.projectile[k].Kill();
 								}

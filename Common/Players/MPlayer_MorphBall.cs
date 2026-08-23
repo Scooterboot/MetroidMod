@@ -547,7 +547,7 @@ namespace MetroidMod.Common.Players
 		public void BoostBall(Player Player)
 		{
 			MPlayer mp = Player.GetModPlayer<MPlayer>();
-			if (Systems.MSystem.BoostBallKey.Current && Player.whoAmI == Main.myPlayer)
+			if (Systems.MSystem.BoostBallKey.Current && Player.whoAmI == Main.myPlayer && mp.senseMoveCooldown <= 0)
 			{
 				if (boostCharge <= 60)
 				{
@@ -809,8 +809,8 @@ namespace MetroidMod.Common.Players
 			Player.velocity.X = 0f;
 			Player.velocity.Y = 1E-05f;
 
-			Player.position.X = (float)Math.Round(Player.position.X, 2);
-			Player.position.Y = (float)Math.Round(Player.position.Y, 2);
+			//Player.position.X = (float)Math.Round(Player.position.X, 2);
+			//Player.position.Y = (float)Math.Round(Player.position.Y, 2);
 
 			if (Player.controlLeft)
 			{
