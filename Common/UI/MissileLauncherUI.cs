@@ -227,7 +227,7 @@ namespace MetroidMod.Common.UI
 
 						missileLauncherTarget.MissileMods[missileSlotType].TurnToAir();
 					}
-					else if (condition == null || (condition != null && condition(Main.mouseItem)))
+					else if (condition == null || (condition != null && condition(Main.mouseItem) && missileSlotType != 0))
 					{
 						SoundEngine.PlaySound(SoundID.Grab);
 
