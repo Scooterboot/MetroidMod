@@ -20,6 +20,8 @@ namespace MetroidMod.Content.Tiles
 		
 		bool TileCanKillTile(GeneratedModTile generatedModTile, int i, int j, ref bool blockDamaged) { return true; }
 
+		void TileKillTile(GeneratedModTile generatedModTile, int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) { }
+
 		void TileMouseOver(GeneratedModTile generatedModTile, int i, int j) { }
 
 		void TileNumDust(GeneratedModTile generatedModTile, int i, int j, bool fail, ref int num) { }
@@ -59,6 +61,11 @@ namespace MetroidMod.Content.Tiles
 		public override bool CanKillTile(int i, int j, ref bool blockDamaged)
 		{
 			return producer.TileCanKillTile(this, i, j, ref blockDamaged);
+		}
+
+		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+		{
+			producer.TileKillTile(this, i, j, ref fail, ref effectOnly, ref noItem);
 		}
 
 		public override void MouseOver(int i, int j)
